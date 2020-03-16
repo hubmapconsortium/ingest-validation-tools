@@ -16,3 +16,11 @@ items:
         type:
           enum:
             - directory
+contains:
+  properties:
+    type:
+      enum:
+        - file
+    name:
+      enum:
+        - metadata.csv
