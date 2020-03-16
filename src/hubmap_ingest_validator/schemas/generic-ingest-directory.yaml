@@ -3,24 +3,23 @@
 
 items:
   oneOf:
-    -
-      properties:
-        type:
-          enum:
-            - file
-        name:
-          enum:
-            - metadata.csv
-    -
-      properties:
+    - $ref:
+        '#/definitions/metadata_csv'
+    - properties:
         type:
           enum:
             - directory
+
 contains:
-  properties:
-    type:
-      enum:
-        - file
-    name:
-      enum:
-        - metadata.csv
+  $ref:
+    '#/definitions/metadata_csv'
+
+definitions:
+  metadata_csv:
+    properties:
+      type:
+        enum:
+          - file
+      name:
+        enum:
+          - metadata.csv
