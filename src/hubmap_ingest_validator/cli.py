@@ -22,10 +22,17 @@ def main():
     parser.add_argument(
         'type', metavar='TYPE', type=str,
         help='Ingest data type')
+    parser.add_argument(
+        '-v', action='store_true',
+        help='Verbose')
     args = parser.parse_args()
     try:
         validate(args.dir, args.type)
+        if (args.v):
+            print('PASS')
     except Exception as e:
+        if (args.v):
+            print('FAIL')
         print(e)
         return 1
 
