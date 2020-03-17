@@ -8,3 +8,16 @@ and translate it into JSON Schema,
 - such that [cidc-schemas](https://github.com/CIMAC-CIDC/cidc-schemas) can generate templates from it.
 - *and*: We also want to validate directory structure: try our own [directory-schema](https://github.com/hubmapconsortium/directory-schema/).
 - *and*: We also want integrity checks, like the linked sample ID matches sample ID in CSV, for example.
+
+----
+
+I'm not sure what kind of interface will be most useful,
+so for now I'm ignoring questions of packaging.
+There is an executable `cli.py`... but I don't know if that will stay.
+
+For now, checkout the project, cd, venv, and then:
+```
+pip install -r requirements.txt
+pip install -r requirements-dev.txt
+./test.sh
+```

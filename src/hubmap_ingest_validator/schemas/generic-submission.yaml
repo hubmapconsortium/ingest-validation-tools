@@ -1,0 +1,25 @@
+# A generic description of what ingest directories should look like.
+# The other schemas will apply to dataset subdirectories down a level.
+
+items:
+  oneOf:
+    - $ref:
+        '#/definitions/metadata_csv'
+    - properties:
+        type:
+          enum:
+            - directory
+
+contains:
+  $ref:
+    '#/definitions/metadata_csv'
+
+definitions:
+  metadata_csv:
+    properties:
+      type:
+        enum:
+          - file
+      name:
+        enum:
+          - metadata.csv
