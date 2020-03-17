@@ -7,7 +7,7 @@ import logging
 
 from directory_schema.errors import DirectoryValidationErrors
 
-from validator import validate
+from hubmap_ingest_validator.validator import validate
 
 
 def dir_path(string):
@@ -31,9 +31,14 @@ def main():
         default='WARN')
     args = parser.parse_args()
     logging.basicConfig(level=args.logging)
+    return print_message(args.dir, args.type)
+
+
+def print_message(dir, type):
     try:
-        validate(args.dir, args.type)
+        validate(dir, type)
         logging.info('PASS')
+        return 0
     except DirectoryValidationErrors as e:
         print(e)
         logging.warning('FAIL')
