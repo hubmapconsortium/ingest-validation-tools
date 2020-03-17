@@ -5,6 +5,8 @@ import sys
 import os
 import logging
 
+from directory_schema.errors import DirectoryValidationErrors
+
 from validator import validate
 
 
@@ -28,13 +30,13 @@ def main():
         choices=['DEBUG', 'INFO', 'WARN'],
         default='WARN')
     args = parser.parse_args()
+    logging.basicConfig(level=args.logging)
     try:
-        logging.basicConfig(level=args.logging)
         validate(args.dir, args.type)
         logging.info('PASS')
-    except Exception as e:
-        logging.warning('FAIL')
+    except DirectoryValidationErrors as e:
         print(e)
+        logging.warning('FAIL')
         return 1
 
 
