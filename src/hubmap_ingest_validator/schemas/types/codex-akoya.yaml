@@ -36,5 +36,9 @@ definitions:
         enum:
           - directory
       name:
-        pattern: 'cyc\d+_reg\d+_\d+_\d+'
-      # TODO: Content!
+        pattern: '^cyc\d+_reg\d+_\d+_\d+$'
+      contents:
+        items:
+          properties:
+            name:
+              pattern: '^\d+_\d+_Z\d+_CH\d+$'
