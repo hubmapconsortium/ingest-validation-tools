@@ -3,6 +3,7 @@
 import argparse
 import sys
 import os
+import re
 import logging
 
 from directory_schema.errors import DirectoryValidationErrors
@@ -40,7 +41,9 @@ def print_message(dir, type):
         logging.info('PASS')
         return 0
     except DirectoryValidationErrors as e:
-        print(e)
+        # Regex is to make the doctests more readable,
+        # so we don't need tons of <BLANKLINE>s.
+        print(re.sub(r'\n(\s*\n)*', '\n', str(e)))
         logging.warning('FAIL')
         return 1
 
