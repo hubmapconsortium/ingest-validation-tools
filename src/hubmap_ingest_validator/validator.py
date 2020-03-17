@@ -1,5 +1,4 @@
 from pathlib import Path
-import os
 import logging
 
 from yaml import safe_load as load_yaml
@@ -11,6 +10,7 @@ def validate(path, type):
     _validate_generic_submission(path_obj)
     _validate_dataset_directories(path_obj, type)
 
+
 def _validate_generic_submission(path):
     '''
     Validate the directory at path.
@@ -19,6 +19,7 @@ def _validate_generic_submission(path):
     schema_path = Path(__file__).parent / 'schemas' / 'generic-submission.yaml'
     schema = load_yaml(open(schema_path).read())
     directory_schema.validate_dir(path, schema)
+
 
 def _validate_dataset_directories(path, type):
     '''
