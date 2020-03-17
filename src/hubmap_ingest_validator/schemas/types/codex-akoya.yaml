@@ -12,7 +12,7 @@ items:
         name:
           enum:
             - experiment.json
-            - exposure_time.txt
+            - exposure_times.txt
             - channelNames.txt
 
 contains:
@@ -23,7 +23,7 @@ contains:
   properties:
       name:
         enum:
-          - exposure_time.txt
+          - exposure_times.txt
   properties:
       name:
         enum:

@@ -33,7 +33,7 @@ def main():
         validate(args.dir, args.type)
         logging.info('PASS')
     except Exception as e:
-        logging.warn('FAIL')
+        logging.warning('FAIL')
         print(e)
         return 1
 
