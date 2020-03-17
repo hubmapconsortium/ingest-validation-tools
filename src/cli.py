@@ -3,9 +3,12 @@
 import argparse
 import sys
 import os
+import re
 import logging
 
-from validator import validate
+from directory_schema.errors import DirectoryValidationErrors
+
+from hubmap_ingest_validator.validator import validate
 
 
 def dir_path(string):
@@ -28,13 +31,20 @@ def main():
         choices=['DEBUG', 'INFO', 'WARN'],
         default='WARN')
     args = parser.parse_args()
+    logging.basicConfig(level=args.logging)
+    return print_message(args.dir, args.type)
+
+
+def print_message(dir, type):
     try:
-        logging.basicConfig(level=args.logging)
-        validate(args.dir, args.type)
+        validate(dir, type)
         logging.info('PASS')
-    except Exception as e:
+        return 0
+    except DirectoryValidationErrors as e:
+        # Regex is to make the doctests more readable,
+        # so we don't need tons of <BLANKLINE>s.
+        print(re.sub(r'\n(\s*\n)*', '\n', str(e)))
         logging.warning('FAIL')
-        print(e)
         return 1
 
 
