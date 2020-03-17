@@ -3,6 +3,7 @@
 import argparse
 import sys
 import os
+import logging
 
 from validator import validate
 
@@ -23,16 +24,16 @@ def main():
         'type', metavar='TYPE', type=str,
         help='Ingest data type')
     parser.add_argument(
-        '-v', action='store_true',
-        help='Verbose')
+        '--logging', metavar='LOG_LEVEL', type=str,
+        choices=['DEBUG', 'INFO', 'WARN'],
+        default='WARN')
     args = parser.parse_args()
     try:
+        logging.basicConfig(level=args.logging)
         validate(args.dir, args.type)
-        if (args.v):
-            print('PASS')
+        logging.info('PASS')
     except Exception as e:
-        if (args.v):
-            print('FAIL')
+        logging.warn('FAIL')
         print(e)
         return 1
 
