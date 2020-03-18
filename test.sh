@@ -33,11 +33,10 @@ end doctests
 
 start generate
 for TYPE in $(ls docs); do
-  for TARGET_EXT in template.tsv schema.yaml; do
-    echo "Testing $TYPE $TARGET_EXT generation..."
-    TARGET=${TARGET_EXT%.*}
+  for TARGET in template.tsv schema.yaml; do
+    echo "Testing $TYPE $TARGET generation..."
     CMD="src/generate.py $TYPE $TARGET"
-    DEST="docs/$TYPE/$TARGET_EXT"
+    DEST="docs/$TYPE/$TARGET"
     diff "$DEST" <($CMD) \
       || die "Update needed: $CMD > $DEST"
   done

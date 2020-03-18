@@ -6,13 +6,12 @@ import sys
 
 from yaml import safe_load as load_yaml, dump as dump_yaml
 
-_schemas_path = (
-    Path(__file__).parent / 'hubmap_ingest_validator' / 'table-schemas'
-)
-
 
 def main():
-    valid_types = [p.stem for p in _schemas_path.iterdir()]
+    schemas_path = (
+        Path(__file__).parent / 'hubmap_ingest_validator' / 'table-schemas'
+    )
+    valid_types = [p.stem for p in schemas_path.iterdir()]
 
     parser = argparse.ArgumentParser()
     parser.add_argument(
@@ -21,25 +20,27 @@ def main():
         help='What type to generate for')
     parser.add_argument(
         'target',
-        choices=['template', 'schema'],
+        choices=['template.tsv', 'schema.yaml'],
         help='What kind of thing to generate')
     args = parser.parse_args()
-    if args.target == 'template':
-        print(_generate_csv_template(args.type))
-    elif args.target == 'schema':
-        print(_generate_json_schema(args.type))
 
-
-def _generate_csv_template(type):
-    schema_path = _schemas_path / f'{type}.yaml'
+    schema_path = schemas_path / f'{args.type}.yaml'
     table_schema = load_yaml(open(schema_path).read())
+
+    if args.target == 'template.tsv':
+        print(_generate_template_tsv(table_schema))
+    elif args.target == 'schema.yaml':
+        print(_generate_schema_yaml(table_schema))
+    elif args.target == 'README.md':
+        print(_generate_readme_md(table_schema))
+
+
+def _generate_template_tsv(table_schema):
     names = [field['name'] for field in table_schema['fields']]
     return '\t'.join(names) + '\n'
 
 
-def _generate_json_schema(type):
-    schema_path = _schemas_path / f'{type}.yaml'
-    table_schema = load_yaml(open(schema_path).read())
+def _generate_schema_yaml(table_schema):
     json_schema = {
         'properties': {
             field['name']: {
@@ -49,6 +50,10 @@ def _generate_json_schema(type):
         }
     }
     return dump_yaml(json_schema)
+
+
+def _generate_readme_md(table_schema):
+    pass
 
 
 if __name__ == "__main__":
