@@ -13,6 +13,9 @@ end flake8
 # pytest -vv
 # end pytest
 
+echo 'Shell?'
+echo $SHELL
+
 start fixtures
 for TYPE in $(ls src/hubmap_ingest_validator/directory-schemas/datasets); do
   TYPE=$(echo $TYPE | sed -e 's/.yaml//')
