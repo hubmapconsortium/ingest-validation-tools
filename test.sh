@@ -1,20 +1,20 @@
 #!/usr/bin/env bash
 set -o errexit
 
-start() { echo travis_fold':'start:$1; echo $1; }
-end() { echo travis_fold':'end:$1; }
-die() { set +v; echo "$*" 1>&2 ; sleep 1; exit 1; }
+red=`tput setaf 1`
+green=`tput setaf 2`
+reset=`tput sgr0`
+start() { [[ -z $CI ]] || echo travis_fold':'start:$1; echo $green$1$reset; }
+end() { [[ -z $CI ]] || echo travis_fold':'end:$1; }
+die() { set +v; echo "$red$*$reset" 1>&2 ; exit 1; }
 
 start flake8
-flake8 || die 'Try "autopep8 --in-place --aggressive -r ."'
+flake8 || die 'Try: autopep8 --in-place --aggressive -r .'
 end flake8
 
 # start pytest
 # pytest -vv
 # end pytest
-
-echo 'Shell?'
-echo $SHELL
 
 start fixtures
 for TYPE in $(ls src/hubmap_ingest_validator/directory-schemas/datasets); do
@@ -33,13 +33,16 @@ end doctests
 
 start generate
 for TYPE in $(ls docs); do
-  TYPE=$(echo $TYPE | sed -e 's/.tsv//')
-  echo "Testing '$TYPE' template generation..."
-  diff docs/$TYPE.tsv <(src/generate.py $TYPE) \
-    || die "Update docs/$TYPE.tsv"
-  ((++TEMPLATE_COUNT))
+  for TARGET in template.tsv schema.yaml README.md; do
+    echo "Testing $TYPE $TARGET generation..."
+    CMD="src/generate.py $TYPE $TARGET"
+    DEST="docs/$TYPE/$TARGET"
+    diff "$DEST" <($CMD) \
+      || die "Update needed: $CMD > $DEST"
+  done
+  ((++GENERATE_COUNT))
 done
-[[ $TEMPLATE_COUNT -gt 0 ]] || die "No templates generated"
+[[ $GENERATE_COUNT -gt 0 ]] || die "No files generated"
 end generate
 
 start changelog
