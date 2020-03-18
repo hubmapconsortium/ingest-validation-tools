@@ -17,10 +17,13 @@ start fixtures
 for TYPE in $(ls src/hubmap_ingest_validator/directory-schemas/datasets); do
   TYPE=$(echo $TYPE | sed -e 's/.yaml//')
   echo "Testing '$TYPE' fixture..."
-  src/validate.py tests/fixtures/$TYPE $TYPE
+  src/validate.py --logging INFO tests/fixtures/$TYPE $TYPE
+  echo "Validated..."
   ((FIXTURES_COUNT++))
 done
+echo "Done looping..."
 [[ $FIXTURES_COUNT -gt 0 ]] || die "No fixtures tested"
+echo "Everything is good..."
 end fixtures
 
 start doctests
