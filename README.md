@@ -2,6 +2,10 @@
 Testbed for ingest validation tools: Eventually, the code here will be used by the ingest pipeline,
 but how that will be done is undetermined.
 
+## Data Submitter Documentation
+
+Documentation, metadata TSV templates, JSON schemas are [here](docs).
+
 ## Roadmap
 
 - Take the CSV structure described for [CODEX](https://docs.google.com/document/d/1CYYSXPQjwdbvmvZaEcsi_2udvDfGEZrMyh4yFnm4p3M/edit#)
@@ -23,6 +27,6 @@ pip install -r requirements-dev.txt
 ./test.sh
 ```
 
-# Examples
+## Examples
 
 The [examples here](src) show the kind of feedback the user gets when the structure is wrong.
