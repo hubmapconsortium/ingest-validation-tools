@@ -5,13 +5,14 @@ import sys
 import os
 import re
 import logging
+from pathlib import Path
 
 from directory_schema.errors import DirectoryValidationErrors
 
 from hubmap_ingest_validator.validator import validate
 
 
-def dir_path(string):
+def _dir_path(string):
     if os.path.isdir(string):
         return string
     else:
@@ -19,12 +20,19 @@ def dir_path(string):
 
 
 def main():
+    valid_types = [
+        p.stem for p in
+        (Path(__file__).parent / 'hubmap_ingest_validator'
+         / 'directory-schemas' / 'datasets').iterdir()
+    ]
+
     parser = argparse.ArgumentParser()
     parser.add_argument(
-        'dir', metavar='DIRECTORY', type=dir_path,
+        'dir', metavar='DIRECTORY', type=_dir_path,
         help='Directory to validate')
     parser.add_argument(
         'type', metavar='TYPE', type=str,
+        choices=valid_types,
         help='Ingest data type')
     parser.add_argument(
         '--logging', metavar='LOG_LEVEL', type=str,
@@ -32,10 +40,10 @@ def main():
         default='WARN')
     args = parser.parse_args()
     logging.basicConfig(level=args.logging)
-    return print_message(args.dir, args.type)
+    return _print_message(args.dir, args.type)
 
 
-def print_message(dir, type):
+def _print_message(dir, type):
     try:
         validate(dir, type)
         logging.info('PASS')

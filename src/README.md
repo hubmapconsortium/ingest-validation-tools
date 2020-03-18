@@ -10,14 +10,14 @@ Both the CLI and the python interface take two arguments:
 If the directory has the correct structure, you get a success, ie 0, status from the CLI:
 ```
 >>> import validate
->>> validate.print_message('../tests/fixtures/codex-akoya/', 'codex-akoya')
+>>> validate._print_message('../tests/fixtures/codex-akoya/', 'codex-akoya')
 0
 
 ```
 
 If the directory doesn't have the right structure, you'll get an error message:
 ```
->>> validate.print_message('../tests/fixtures/almost-empty/', 'codex-akoya')
+>>> validate._print_message('../tests/fixtures/almost-empty/', 'codex-akoya')
 This item:
     place-holder.txt
 fails this "oneOf" check:
