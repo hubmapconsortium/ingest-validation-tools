@@ -13,12 +13,16 @@ end flake8
 # pytest -vv
 # end pytest
 
+echo 'Shell?'
+echo $SHELL
+
 start fixtures
 for TYPE in $(ls src/hubmap_ingest_validator/directory-schemas/datasets); do
   TYPE=$(echo $TYPE | sed -e 's/.yaml//')
-  echo "Testing '$TYPE' fixture..."
-  src/validate.py tests/fixtures/$TYPE $TYPE
+  src/validate.py --logging INFO tests/fixtures/$TYPE $TYPE
+  ((++FIXTURES_COUNT))
 done
+[[ $FIXTURES_COUNT -gt 0 ]] || die "No fixtures tested"
 end fixtures
 
 start doctests
@@ -33,7 +37,9 @@ for TYPE in $(ls docs); do
   echo "Testing '$TYPE' template generation..."
   diff docs/$TYPE.tsv <(src/generate.py $TYPE) \
     || die "Update docs/$TYPE.tsv"
+  ((++TEMPLATE_COUNT))
 done
+[[ $TEMPLATE_COUNT -gt 0 ]] || die "No templates generated"
 end generate
 
 start changelog
