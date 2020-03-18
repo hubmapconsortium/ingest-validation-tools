@@ -33,7 +33,7 @@ end doctests
 
 start generate
 for TYPE in $(ls docs); do
-  for TARGET in template.tsv schema.yaml; do
+  for TARGET in template.tsv schema.yaml README.md; do
     echo "Testing $TYPE $TARGET generation..."
     CMD="src/generate.py $TYPE $TARGET"
     DEST="docs/$TYPE/$TARGET"

@@ -20,7 +20,7 @@ def main():
         help='What type to generate for')
     parser.add_argument(
         'target',
-        choices=['template.tsv', 'schema.yaml'],
+        choices=['template.tsv', 'schema.yaml', 'README.md'],
         help='What kind of thing to generate')
     args = parser.parse_args()
 
@@ -32,7 +32,7 @@ def main():
     elif args.target == 'schema.yaml':
         print(_generate_schema_yaml(table_schema))
     elif args.target == 'README.md':
-        print(_generate_readme_md(table_schema))
+        print(_generate_readme_md(table_schema, args.type))
 
 
 def _generate_template_tsv(table_schema):
@@ -52,8 +52,20 @@ def _generate_schema_yaml(table_schema):
     return dump_yaml(json_schema)
 
 
-def _generate_readme_md(table_schema):
-    pass
+def _generate_readme_md(table_schema, type):
+    fields_md = '\n\n'.join([
+        f"## `{field['name']}`\n{field['description']}"
+        for field in table_schema['fields']
+    ])
+
+    return f'''# {type}
+
+Related files:
+- [JSON Schema](schema.yaml)
+- [TSV Template](template.tsv)
+
+{fields_md}
+'''
 
 
 if __name__ == "__main__":
