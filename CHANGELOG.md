@@ -4,3 +4,4 @@
 ### Added
 - Validate structure of Akoya CODEX submissions.
 - Generate submission template.
+- Check that fixture-based tests actually ran.
