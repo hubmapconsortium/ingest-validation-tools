@@ -32,7 +32,7 @@ for TYPE in $(ls docs); do
   TYPE=$(echo $TYPE | sed -e 's/.tsv//')
   echo "Testing '$TYPE' template generation..."
   diff docs/$TYPE.tsv <(src/generate.py $TYPE) \
-    || die 'Update docs/$TYPE.tsv'
+    || die "Update docs/$TYPE.tsv"
 done
 end generate
 
