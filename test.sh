@@ -14,10 +14,10 @@ end flake8
 # end pytest
 
 start fixtures
-for TYPE in $(ls src/hubmap_ingest_validator/schemas/types); do
+for TYPE in $(ls src/hubmap_ingest_validator/directory-schemas/datasets); do
   TYPE=$(echo $TYPE | sed -e 's/.yaml//')
   echo "Testing '$TYPE' fixture..."
-  src/cli.py tests/fixtures/$TYPE $TYPE
+  src/validate.py tests/fixtures/$TYPE $TYPE
 done
 end fixtures
 
@@ -27,9 +27,18 @@ python -m doctest -v README.md
 cd -
 end doctests
 
-# start changelog
-# if [ "$TRAVIS_BRANCH" != 'master' ]; then
-#   diff CHANGELOG.md <(curl https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/master/CHANGELOG.md) \
-#     && die 'Update CHANGELOG.md'
-# fi
-# end changelog
+start generate
+for TYPE in $(ls docs); do
+  TYPE=$(echo $TYPE | sed -e 's/.tsv//')
+  echo "Testing '$TYPE' template generation..."
+  diff docs/$TYPE.tsv <(src/generate.py $TYPE) \
+    || die 'Update docs/$TYPE.tsv'
+done
+end generate
+
+start changelog
+if [ "$TRAVIS_BRANCH" != 'master' ]; then
+  diff CHANGELOG.md <(curl -s https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/master/CHANGELOG.md) \
+    && die 'Update CHANGELOG.md'
+fi
+end changelog
