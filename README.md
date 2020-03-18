@@ -14,7 +14,7 @@ and translate it into JSON Schema,
 
 I'm not sure what kind of interface will be most useful,
 so for now I'm ignoring questions of packaging.
-There is an executable `cli.py`... but I don't know if that will stay.
+There is an executable `validate.py`... but I don't know if that will stay.
 
 For now, checkout the project, cd, venv, and then:
 ```
