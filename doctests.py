@@ -3,12 +3,16 @@
 from doctest import testfile
 from pathlib import Path
 import sys
+import logging
 
 sys.path.append('src')
 import validate # noqa E402
 
 
 def main():
+    # TODO: argparse
+    logging.basicConfig(level=logging.INFO)
+
     doctests = [
         str(p) for p in
         (Path('tests') / 'fixtures').iterdir()
@@ -19,8 +23,9 @@ def main():
     total_test_count = 0
 
     for doctest in doctests:
+        logging.info(f'doctest {doctest}...')
         (failure_count, test_count) = \
-            testfile(doctest, globs={'validate': validate}, verbose=True)
+            testfile(doctest, globs={'validate': validate})
         total_failure_count += failure_count
         total_test_count += test_count
 

@@ -9,7 +9,7 @@ from pathlib import Path
 
 from directory_schema.errors import DirectoryValidationErrors
 
-from hubmap_ingest_validator.validator import validate
+from hubmap_ingest_validator.validator import validate, TableValidationErrors
 
 
 def _dir_path(string):
@@ -64,6 +64,10 @@ def _print_message(dir, type):
         print(message)
         logging.warning('FAIL')
         return 1
+    except TableValidationErrors as e:
+        print(e)
+        logging.warning('FAIL')
+        return 2
 
 
 if __name__ == "__main__":
