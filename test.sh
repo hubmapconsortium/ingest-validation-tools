@@ -32,7 +32,7 @@ cd -
 end doctests
 
 start generate
-for TYPE in $(ls docs); do
+for TYPE in $(ls docs | grep -v README.md); do # Ignore README and just get subdirectories
   for TARGET in template.tsv schema.yaml README.md; do
     echo "Testing $TYPE $TARGET generation..."
     CMD="src/generate.py $TYPE $TARGET"
