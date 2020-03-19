@@ -22,18 +22,18 @@ This item:
 .
     place-holder.txt
 .
-fails this "oneOf" check:
+should be one of these:
 .
-    - $ref: '#/definitions/metadata_tsv'
-    - $ref: '#/definitions/directory'
+    - metadata_tsv
+    - directory
 .
 This directory:
 .
     place-holder.txt
 .
-fails this "contains" check:
+should contain:
 .
-    $ref: '#/definitions/metadata_tsv'
+    metadata_tsv
 .
 1
 
