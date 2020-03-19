@@ -49,9 +49,9 @@ def _print_message(dir, type):
         logging.info('PASS')
         return 0
     except DirectoryValidationErrors as e:
-        # Regex is to make the doctests more readable,
-        # so we don't need tons of <BLANKLINE>s.
-        print(re.sub(r'\n(\s*\n)*', '\n', str(e)))
+        # Doctests choke on blank lines, so just replacing with "." for now.
+        clean_message = re.sub(r'\n(\s*\n)+', '\n.\n', str(e)).strip()
+        print(clean_message)
         logging.warning('FAIL')
         return 1
 

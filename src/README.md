@@ -19,18 +19,22 @@ If the directory doesn't have the right structure, you'll get an error message:
 ```
 >>> validate._print_message('../tests/fixtures/almost-empty/', 'codex-akoya')
 This item:
+.
     place-holder.txt
+.
 fails this "oneOf" check:
+.
     - $ref: '#/definitions/metadata_tsv'
-    - properties:
-        type:
-          enum:
-          - directory
+    - $ref: '#/definitions/directory'
+.
 This directory:
+.
     place-holder.txt
+.
 fails this "contains" check:
+.
     $ref: '#/definitions/metadata_tsv'
-<BLANKLINE>
+.
 1
 
 ```

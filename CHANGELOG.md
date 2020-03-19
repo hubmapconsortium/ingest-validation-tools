@@ -9,3 +9,4 @@
 - Generate JSON Schema from simpler Table Schema.
 ### Changed
 - CSV -> TSV
+- Make the schema validation errors more readable
