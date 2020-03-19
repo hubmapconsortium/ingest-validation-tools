@@ -5,16 +5,19 @@ items:
   oneOf:
     - $ref:
         '#/definitions/metadata_tsv'
-    - properties:
-        type:
-          enum:
-            - directory
+    - $ref:
+        '#/definitions/directory'
 
 contains:
   $ref:
     '#/definitions/metadata_tsv'
 
 definitions:
+  directory:
+    properties:
+      type:
+        enum:
+          - directory
   metadata_tsv:
     properties:
       type:

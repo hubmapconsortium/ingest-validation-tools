@@ -49,9 +49,19 @@ def _print_message(dir, type):
         logging.info('PASS')
         return 0
     except DirectoryValidationErrors as e:
-        # Regex is to make the doctests more readable,
-        # so we don't need tons of <BLANKLINE>s.
-        print(re.sub(r'\n(\s*\n)*', '\n', str(e)))
+        # Doctests choke on blank lines, so just replacing with "." for now.
+        message = re.sub(r'\n(\s*\n)+', '\n.\n', str(e)).strip()
+        # End user just wants a name, and doesn't care about refs.
+        message = re.sub(r"\$ref: '#/definitions/(\w+)'", r'\1', message)
+        # Ad hoc rewrites: Perhaps move these up to the library?
+        message = message.replace(
+            'fails this "oneOf" check',
+            'should be one of these')
+        message = message.replace(
+            'fails this "contains" check',
+            'should contain')
+
+        print(message)
         logging.warning('FAIL')
         return 1
 
