@@ -26,7 +26,7 @@ done
 end fixtures
 
 start doctests
-./tests/doctests.py
+./doctests.py
 end doctests
 
 start generate

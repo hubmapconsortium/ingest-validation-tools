@@ -1,4 +1,4 @@
->>> validate._print_message('../tests/fixtures/almost-empty/', 'codex-akoya')
+>>> validate._print_message('tests/fixtures/almost-empty/', 'codex-akoya')
 This item:
 .
     place-holder.txt

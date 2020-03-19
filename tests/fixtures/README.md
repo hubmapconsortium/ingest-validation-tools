@@ -10,6 +10,7 @@ Both the CLI and the python interface take two arguments:
 
 Each `.doctest` file in this directory validates the corresponding directory.
 The periods sitting alone will not be there in the final release.
-The number at the very end the exit code:
+The number at the very end is the exit code:
 "0" means the directory is valid;
-anything else means the directory is invalid.
+anything else means the directory is invalid,
+which might be the result we want for a test.
