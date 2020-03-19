@@ -1,3 +1,0 @@
->>> import validate
->>> validate._print_message('tests/fixtures/codex-akoya/', 'codex-akoya')
-0

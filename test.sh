@@ -16,16 +16,8 @@ end flake8
 # pytest -vv
 # end pytest
 
-start fixtures
-for TYPE in $(ls src/hubmap_ingest_validator/directory-schemas/datasets); do
-  TYPE=$(echo $TYPE | sed -e 's/.yaml//')
-  src/validate.py --logging INFO tests/fixtures/$TYPE $TYPE
-  ((++FIXTURES_COUNT))
-done
-[[ $FIXTURES_COUNT -gt 0 ]] || die "No fixtures tested"
-end fixtures
-
 start doctests
+echo 'NOTE: There will be warnings below, generated from fixtures which should cause warnings!'
 ./doctests.py
 end doctests
 

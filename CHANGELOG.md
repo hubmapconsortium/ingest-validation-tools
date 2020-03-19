@@ -7,6 +7,7 @@
 - Check that fixture-based tests actually ran.
 - Check types early, rather than waiting for file-not-found.
 - Generate JSON Schema from simpler Table Schema.
+- Use schema to check that submission headers are correct.
 ### Changed
 - CSV -> TSV
 - Make the schema validation errors more readable
