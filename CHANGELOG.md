@@ -10,3 +10,4 @@
 ### Changed
 - CSV -> TSV
 - Make the schema validation errors more readable
+- Doctests are scanned from directory, rather than read from single file.

@@ -29,4 +29,4 @@ pip install -r requirements-dev.txt
 
 ## Examples
 
-The [examples here](src) show the kind of feedback the user gets when the structure is wrong.
+The [examples here](tests/fixtures) show the kind of feedback the user gets when the structure is wrong.

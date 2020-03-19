@@ -26,9 +26,7 @@ done
 end fixtures
 
 start doctests
-cd src
-python -m doctest -v README.md
-cd -
+./doctests.py
 end doctests
 
 start generate

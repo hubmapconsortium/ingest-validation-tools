@@ -1,0 +1,19 @@
+>>> validate._print_message('tests/fixtures/almost-empty/', 'codex-akoya')
+This item:
+.
+    place-holder.txt
+.
+should be one of these:
+.
+    - metadata_tsv
+    - directory
+.
+This directory:
+.
+    place-holder.txt
+.
+should contain:
+.
+    metadata_tsv
+.
+1
