@@ -21,7 +21,7 @@ If the directory doesn't have the right structure, you'll get an error message:
 This item:
     place-holder.txt
 fails this "oneOf" check:
-    - $ref: '#/definitions/metadata_csv'
+    - $ref: '#/definitions/metadata_tsv'
     - properties:
         type:
           enum:
@@ -29,7 +29,7 @@ fails this "oneOf" check:
 This directory:
     place-holder.txt
 fails this "contains" check:
-    $ref: '#/definitions/metadata_csv'
+    $ref: '#/definitions/metadata_tsv'
 <BLANKLINE>
 1
 

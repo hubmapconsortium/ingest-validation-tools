@@ -4,7 +4,7 @@
 items:
   oneOf:
     - $ref:
-        '#/definitions/metadata_csv'
+        '#/definitions/metadata_tsv'
     - properties:
         type:
           enum:
@@ -12,14 +12,14 @@ items:
 
 contains:
   $ref:
-    '#/definitions/metadata_csv'
+    '#/definitions/metadata_tsv'
 
 definitions:
-  metadata_csv:
+  metadata_tsv:
     properties:
       type:
         enum:
           - file
       name:
         enum:
-          - metadata.csv
+          - metadata.tsv
