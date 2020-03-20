@@ -1,0 +1,49 @@
+# A description of Stanford CODEX dataset directories.
+# Based on the description at https://docs.google.com/document/d/1CYYSXPQjwdbvmvZaEcsi_2udvDfGEZrMyh4yFnm4p3M/edit#heading=h.h6zxv8ghthzp
+
+items:
+  oneOf:
+    - $ref:
+        '#/definitions/subdirectory'
+    - properties:
+        type:
+          enum:
+            - file
+        name:
+          enum:
+            - channelNames.txt
+            - Experiment.json
+            - exposure_times.txt
+            - processingOptions.json
+
+contains:
+  properties:
+      name:
+        enum:
+          - channelNames.txt
+  properties:
+      name:
+        enum:
+          - Experiment.json
+  properties:
+      name:
+        enum:
+          - exposure_times.txt
+  properties:
+      name:
+        enum:
+          - processingOptions.json
+
+definitions:
+  subdirectory:
+    properties:
+      type:
+        enum:
+          - directory
+      name:
+        pattern: '^Cyc\d+_reg\d+$'
+      contents:
+        items:
+          properties:
+            name:
+              pattern: '^HE_\d+_Z\d+_CH\d+$'
