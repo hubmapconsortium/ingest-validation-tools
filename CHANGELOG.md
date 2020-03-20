@@ -8,6 +8,7 @@
 - Check types early, rather than waiting for file-not-found.
 - Generate JSON Schema from simpler Table Schema.
 - Use schema to check that submission headers are correct.
+- Filling in details for CODEX Schema.
 ### Changed
 - CSV -> TSV
 - Make the schema validation errors more readable

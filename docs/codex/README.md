@@ -11,7 +11,7 @@ HuBMAP ID of the donor of the assayed tissue.
 HuBMAP ID of the assayed tissue.
 
 ## `execution_datetime`
-Start date and time of assay. YYYY-MM-DD hh:mm ZZZ”, where YYYY is the year, MM is the month with leading 0s, and DD is the day with leading 0s, hh is the hour with leading zeros, mm are the minutes with leading zeros, and ZZZ is the three letter timezone abbreviation.
+Start date and time of assay. YYYY-MM-DD hh:mm ZZZ, where YYYY is the year, MM is the month with leading 0s, and DD is the day with leading 0s, hh is the hour with leading zeros, mm are the minutes with leading zeros, and ZZZ is the three letter timezone abbreviation.
 
 ## `protocols_io_doi`
 DOI for protocols.io referring to the protocol for this assay.

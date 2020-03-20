@@ -7,7 +7,7 @@ fields:
     description: HuBMAP ID of the assayed tissue.
   -
     name: execution_datetime
-    description: Start date and time of assay. YYYY-MM-DD hh:mm ZZZ”, where YYYY is the year, MM is the month with leading 0s, and DD is the day with leading 0s, hh is the hour with leading zeros, mm are the minutes with leading zeros, and ZZZ is the three letter timezone abbreviation.
+    description: Start date and time of assay. YYYY-MM-DD hh:mm ZZZ, where YYYY is the year, MM is the month with leading 0s, and DD is the day with leading 0s, hh is the hour with leading zeros, mm are the minutes with leading zeros, and ZZZ is the three letter timezone abbreviation.
   -
     name: protocols_io_doi
     description: DOI for protocols.io referring to the protocol for this assay.
@@ -17,12 +17,14 @@ fields:
   -
     name: operator_email
     description: Email address for the operator.
+    format: email
   -
     name: pi
     description: Name of the principal investigator responsible for the data.
   -
     name: pi_email
     description: Email address for the principal investigator.
+    format: email
   -
     name: assay_category
     description: 'Each assay is placed into one of the following 3 general categories: generation of images of microscopic entities, identification & quantitation of molecules by mass spectrometry, and determination of nucleotide sequence.'
