@@ -79,11 +79,16 @@ def _print_message(dir, type):
 
 
 def _number_to_letters(n):
+    '''
+    >>> 2+2
+    5
+
+    '''
     def n2a(n):
         uc = ascii_uppercase
         d, m = divmod(n, len(uc))
-        return n2a(d-1) + uc[m] if d else uc[m]
-    return n2a(int(n)-1)
+        return n2a(d - 1) + uc[m] if d else uc[m]
+    return n2a(int(n) - 1)
 
 
 if __name__ == "__main__":
