@@ -65,10 +65,20 @@ def _print_message(dir, type):
         logging.warning('FAIL')
         return 1
     except TableValidationErrors as e:
+        # No blank lines, for doctest:
         message = re.sub(r'\n(\s*\n)+', '\n.\n', str(e)).strip()
+        message = re.sub(
+            r'and column (\d+)',
+            lambda m: f'and column {_number_to_letters(m[1])}',
+            message
+        )
         print(message)
         logging.warning('FAIL')
         return 2
+
+
+def _number_to_letters(n):
+    return f'<<{n}>>'
 
 
 if __name__ == "__main__":

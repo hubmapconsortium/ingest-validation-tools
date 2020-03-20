@@ -10,6 +10,7 @@
 - Use schema to check that submission headers are correct.
 - Filling in details for CODEX Schema.
 - Stanford directory schema.
+- Convert column numbers to spreadsheet-style letters.
 ### Changed
 - CSV -> TSV
 - Make the schema validation errors more readable
