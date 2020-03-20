@@ -65,7 +65,8 @@ def _print_message(dir, type):
         logging.warning('FAIL')
         return 1
     except TableValidationErrors as e:
-        print(e)
+        message = re.sub(r'\n(\s*\n)+', '\n.\n', str(e)).strip()
+        print(message)
         logging.warning('FAIL')
         return 2
 

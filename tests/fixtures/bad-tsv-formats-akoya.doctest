@@ -1,0 +1,27 @@
+>>> validate._print_message('tests/fixtures/bad-tsv-formats-codex/', 'codex-akoya')
+The value "not-uuid" in row 2 and column 1 is not type "string" and format "uuid"
+.
+The value "not-uuid" in row 2 and column 2 is not type "string" and format "uuid"
+.
+The value "not-time" in row 2 and column 3 is not type "datetime" and format "%Y-%m-%d %H:%M"
+.
+The value "operator_emailATexample.com" in row 2 and column 6 is not type "string" and format "email"
+.
+The value "pi_emailATexample.com" in row 2 and column 8 is not type "string" and format "email"
+.
+The value "is_targeted" in row 2 and column 12 is not type "boolean" and format "default"
+.
+The value "forty-two" in row 2 and column 15 is not type "number" and format "default"
+.
+The value "forty-two" in row 2 and column 17 is not type "number" and format "default"
+.
+The value "forty-two" in row 2 and column 19 is not type "number" and format "default"
+.
+The value "0.5" in row 2 and column 23 is not type "integer" and format "default"
+.
+The value "0.5" in row 2 and column 24 is not type "integer" and format "default"
+.
+The value "not-doi" in row 2 and column 25 is not type "string" and format "uri"
+.
+The value "not-doi" in row 2 and column 26 is not type "string" and format "uri"
+2

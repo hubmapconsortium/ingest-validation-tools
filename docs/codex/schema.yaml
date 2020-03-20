@@ -29,10 +29,10 @@ properties:
     description: HuBMAP ID of the donor of the assayed tissue.
     type: string
   execution_datetime:
-    description: "Start date and time of assay. YYYY-MM-DD hh:mm ZZZ\u201D, where\
-      \ YYYY is the year, MM is the month with leading 0s, and DD is the day with\
-      \ leading 0s, hh is the hour with leading zeros, mm are the minutes with leading\
-      \ zeros, and ZZZ is the three letter timezone abbreviation."
+    description: Start date and time of assay. YYYY-MM-DD hh:mm ZZZ, where YYYY is
+      the year, MM is the month with leading 0s, and DD is the day with leading 0s,
+      hh is the hour with leading zeros, mm are the minutes with leading zeros, and
+      ZZZ is the three letter timezone abbreviation.
     type: string
   is_targeted:
     description: Specifies whether or not a specific molecule(s) is/are targeted for
