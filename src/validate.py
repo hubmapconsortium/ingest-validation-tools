@@ -6,6 +6,7 @@ import os
 import re
 import logging
 from pathlib import Path
+from string import ascii_uppercase
 
 from directory_schema.errors import DirectoryValidationErrors
 
@@ -78,7 +79,11 @@ def _print_message(dir, type):
 
 
 def _number_to_letters(n):
-    return f'<<{n}>>'
+    def n2a(n):
+        uc = ascii_uppercase
+        d, m = divmod(n, len(uc))
+        return n2a(d-1) + uc[m] if d else uc[m]
+    return n2a(int(n)-1)
 
 
 if __name__ == "__main__":
