@@ -80,8 +80,14 @@ def _print_message(dir, type):
 
 def _number_to_letters(n):
     '''
-    >>> 2+2
-    5
+    >>> _number_to_letters(1)
+    'A'
+    >>> _number_to_letters(26)
+    'Z'
+    >>> _number_to_letters(27)
+    'AA'
+    >>> _number_to_letters(52)
+    'AZ'
 
     '''
     def n2a(n):
