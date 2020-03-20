@@ -16,10 +16,10 @@ end flake8
 # pytest -vv
 # end pytest
 
-start doctests
+start fixtures
 echo 'NOTE: There will be warnings below, generated from fixtures which should cause warnings!'
-./doctests.py
-end doctests
+./test-fixtures.py
+end fixtures
 
 start generate
 for TYPE in $(ls docs | grep -v README.md); do # Ignore README and just get subdirectories
