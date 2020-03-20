@@ -3,7 +3,7 @@ The value "not-uuid" in row 2 and column 1 is not type "string" and format "uuid
 .
 The value "not-uuid" in row 2 and column 2 is not type "string" and format "uuid"
 .
-The value "not-time" in row 2 and column 3 is not type "datetime" and format "%Y-%m-%d %H:%M %Z"
+The value "not-time" in row 2 and column 3 is not type "datetime" and format "%Y-%m-%d %H:%M"
 .
 The value "operator_emailATexample.com" in row 2 and column 6 is not type "string" and format "email"
 .

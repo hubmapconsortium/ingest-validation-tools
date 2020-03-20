@@ -11,7 +11,7 @@ fields:
     name: execution_datetime
     description: Start date and time of assay. YYYY-MM-DD hh:mm ZZZ, where YYYY is the year, MM is the month with leading 0s, and DD is the day with leading 0s, hh is the hour with leading zeros, mm are the minutes with leading zeros, and ZZZ is the three letter timezone abbreviation.
     type: datetime
-    format: "%Y-%m-%d %H:%M %Z"
+    format: "%Y-%m-%d %H:%M" # TODO: Add "%Z" back... Failed on travis?
   -
     name: protocols_io_doi
     description: DOI for protocols.io referring to the protocol for this assay.
