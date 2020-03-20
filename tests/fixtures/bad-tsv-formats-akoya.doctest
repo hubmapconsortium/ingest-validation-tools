@@ -1,0 +1,5 @@
+>>> validate._print_message('tests/fixtures/bad-tsv-formats-codex/', 'codex-akoya')
+The value "operator_emailATexample.com" in row 2 and column 6 is not type "string" and format "email"
+.
+The value "pi_emailATexample.com" in row 2 and column 8 is not type "string" and format "email"
+2
