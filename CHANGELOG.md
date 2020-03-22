@@ -11,6 +11,7 @@
 - Filling in details for CODEX Schema.
 - Stanford directory schema.
 - Convert column numbers to spreadsheet-style letters.
+- Table of contents in generated doc.
 ### Changed
 - CSV -> TSV
 - Make the schema validation errors more readable

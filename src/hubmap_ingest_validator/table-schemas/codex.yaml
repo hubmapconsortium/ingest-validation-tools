@@ -1,5 +1,6 @@
 fields:
   -
+    heading: Provenance
     name: donor_id
     description: HuBMAP ID of the donor of the assayed tissue.
     format: uuid
@@ -8,6 +9,7 @@ fields:
     description: HuBMAP ID of the assayed tissue.
     format: uuid
   -
+    heading: Level 1
     name: execution_datetime
     description: Start date and time of assay. YYYY-MM-DD hh:mm ZZZ, where YYYY is the year, MM is the month with leading 0s, and DD is the day with leading 0s, hh is the hour with leading zeros, mm are the minutes with leading zeros, and ZZZ is the three letter timezone abbreviation.
     type: datetime
@@ -48,6 +50,7 @@ fields:
     type: boolean
     # TODO: More strict?
   -
+    heading: Level 2
     name: acquisition_instrument_vendor
     description: An acquisition_instrument is the device that contains the signal detection hardware and signal processing software. Assays generate signals such as light of various intensities or color or signals representing molecular mass.
   -
@@ -78,6 +81,7 @@ fields:
     description: The unit of incremental distance between image slices.(um)
     enum: ['mm', 'um', 'nm']
   -
+    heading: Level 3
     name: preparation_instrument_vendor
     description: The manufacturer of the instrument used to prepare the sample for the assay.
   -
