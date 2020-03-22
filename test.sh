@@ -12,14 +12,18 @@ start flake8
 flake8 || die 'Try: autopep8 --in-place --aggressive -r .'
 end flake8
 
+start src-doctests
+find src | grep '\.py$' | xargs python -m doctest
+end src-doctests
+
 # start pytest
 # pytest -vv
 # end pytest
 
-start doctests
+start fixtures
 echo 'NOTE: There will be warnings below, generated from fixtures which should cause warnings!'
-./doctests.py
-end doctests
+./test-fixtures.py
+end fixtures
 
 start generate
 for TYPE in $(ls docs | grep -v README.md); do # Ignore README and just get subdirectories

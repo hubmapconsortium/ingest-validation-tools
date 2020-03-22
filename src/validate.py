@@ -6,6 +6,7 @@ import os
 import re
 import logging
 from pathlib import Path
+from string import ascii_uppercase
 
 from directory_schema.errors import DirectoryValidationErrors
 
@@ -65,10 +66,35 @@ def _print_message(dir, type):
         logging.warning('FAIL')
         return 1
     except TableValidationErrors as e:
+        # No blank lines, for doctest:
         message = re.sub(r'\n(\s*\n)+', '\n.\n', str(e)).strip()
+        message = re.sub(
+            r'and column (\d+)',
+            lambda m: f'and column {m[1]} ("{_number_to_letters(m[1])}")',
+            message
+        )
         print(message)
         logging.warning('FAIL')
         return 2
+
+
+def _number_to_letters(n):
+    '''
+    >>> _number_to_letters(1)
+    'A'
+    >>> _number_to_letters(26)
+    'Z'
+    >>> _number_to_letters(27)
+    'AA'
+    >>> _number_to_letters(52)
+    'AZ'
+
+    '''
+    def n2a(n):
+        uc = ascii_uppercase
+        d, m = divmod(n, len(uc))
+        return n2a(d - 1) + uc[m] if d else uc[m]
+    return n2a(int(n) - 1)
 
 
 if __name__ == "__main__":

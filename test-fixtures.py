@@ -6,7 +6,7 @@ import sys
 import logging
 
 sys.path.append('src')
-import validate # noqa E402
+import validate  # noqa E402
 
 
 def main():
