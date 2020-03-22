@@ -1,27 +1,27 @@
 >>> validate._print_message('tests/fixtures/bad-tsv-formats-codex/', 'codex-akoya')
-The value "not-uuid" in row 2 and column A is not type "string" and format "uuid"
+The value "not-uuid" in row 2 and column 1 ("A") is not type "string" and format "uuid"
 .
-The value "not-uuid" in row 2 and column B is not type "string" and format "uuid"
+The value "not-uuid" in row 2 and column 2 ("B") is not type "string" and format "uuid"
 .
-The value "not-time" in row 2 and column C is not type "datetime" and format "%Y-%m-%d %H:%M"
+The value "not-time" in row 2 and column 3 ("C") is not type "datetime" and format "%Y-%m-%d %H:%M"
 .
-The value "operator_emailATexample.com" in row 2 and column F is not type "string" and format "email"
+The value "operator_emailATexample.com" in row 2 and column 6 ("F") is not type "string" and format "email"
 .
-The value "pi_emailATexample.com" in row 2 and column H is not type "string" and format "email"
+The value "pi_emailATexample.com" in row 2 and column 8 ("H") is not type "string" and format "email"
 .
-The value "is_targeted" in row 2 and column L is not type "boolean" and format "default"
+The value "is_targeted" in row 2 and column 12 ("L") is not type "boolean" and format "default"
 .
-The value "forty-two" in row 2 and column O is not type "number" and format "default"
+The value "forty-two" in row 2 and column 15 ("O") is not type "number" and format "default"
 .
-The value "forty-two" in row 2 and column Q is not type "number" and format "default"
+The value "forty-two" in row 2 and column 17 ("Q") is not type "number" and format "default"
 .
-The value "forty-two" in row 2 and column S is not type "number" and format "default"
+The value "forty-two" in row 2 and column 19 ("S") is not type "number" and format "default"
 .
-The value "0.5" in row 2 and column W is not type "integer" and format "default"
+The value "0.5" in row 2 and column 23 ("W") is not type "integer" and format "default"
 .
-The value "0.5" in row 2 and column X is not type "integer" and format "default"
+The value "0.5" in row 2 and column 24 ("X") is not type "integer" and format "default"
 .
-The value "not-doi" in row 2 and column Y is not type "string" and format "uri"
+The value "not-doi" in row 2 and column 25 ("Y") is not type "string" and format "uri"
 .
-The value "not-doi" in row 2 and column Z is not type "string" and format "uri"
+The value "not-doi" in row 2 and column 26 ("Z") is not type "string" and format "uri"
 2
