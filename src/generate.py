@@ -3,6 +3,7 @@
 import argparse
 from pathlib import Path
 import sys
+import re
 
 from yaml import safe_load as load_yaml, dump as dump_yaml
 
@@ -53,10 +54,16 @@ def _generate_schema_yaml(table_schema):
 
 
 def _generate_readme_md(table_schema, type):
-    fields_md = '\n\n'.join([
-        f"## `{field['name']}`\n{field['description']}"
-        for field in table_schema['fields']
-    ])
+    fields_md_list = []
+    for field in table_schema['fields']:
+        if 'heading' in field:
+            fields_md_list.append(f"## {field['heading']}")
+        fields_md_list.append(
+            f"### `{field['name']}`\n{field['description']}"
+        )
+
+    fields_md = '\n\n'.join(fields_md_list)
+    toc_md = _make_toc(fields_md)
 
     return f'''# {type}
 
@@ -64,8 +71,26 @@ Related files:
 - [JSON Schema](schema.yaml)
 - [TSV Template](template.tsv)
 
+{toc_md}
+
 {fields_md}
 '''
+
+
+def _make_toc(md):
+    # Github should do this for us, but it doesn't.
+    # Existing solutions expect a file, not a string,
+    # or aren't Python at all, etc. Argh.
+    # This is not good.
+    lines = md.split('\n')
+    headers = [
+        re.sub(r'^#+\s+', '', l)
+        for l in lines if len(l) and l[0] == '#'
+    ]
+    return '\n'.join([
+        f"- [{h}](#{h.lower().replace(' ', '-').replace('`', '')})"
+        for h in headers
+    ])
 
 
 if __name__ == "__main__":
