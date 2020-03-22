@@ -4,38 +4,39 @@ Related files:
 - [JSON Schema](schema.yaml)
 - [TSV Template](template.tsv)
 
-- [Provenance](#provenance)
-- [`donor_id`](#donor_id)
-- [`parent_id`](#parent_id)
-- [Level 1](#level-1)
-- [`execution_datetime`](#execution_datetime)
-- [`protocols_io_doi`](#protocols_io_doi)
-- [`operator`](#operator)
-- [`operator_email`](#operator_email)
-- [`pi`](#pi)
-- [`pi_email`](#pi_email)
-- [`assay_category`](#assay_category)
-- [`assay_type`](#assay_type)
-- [`analyte_class`](#analyte_class)
-- [`is_targeted`](#is_targeted)
-- [Level 2](#level-2)
-- [`acquisition_instrument_vendor`](#acquisition_instrument_vendor)
-- [`acquisition_instrument_model`](#acquisition_instrument_model)
-- [`resolution_x_value`](#resolution_x_value)
-- [`resolution_x_unit`](#resolution_x_unit)
-- [`resolution_y_value`](#resolution_y_value)
-- [`resolution_y_unit`](#resolution_y_unit)
-- [`resolution_z_value`](#resolution_z_value)
-- [`resolution_z_unit`](#resolution_z_unit)
-- [Level 3](#level-3)
-- [`preparation_instrument_vendor`](#preparation_instrument_vendor)
-- [`preparation_instrument_model`](#preparation_instrument_model)
-- [`number_of_antibodies`](#number_of_antibodies)
-- [`number_of_cycles`](#number_of_cycles)
-- [`section_prep_protocols_io_doi`](#section_prep_protocols_io_doi)
-- [`reagent_prep_protocols_io_doi`](#reagent_prep_protocols_io_doi)
-- [`metadata_path`](#metadata_path)
-- [`data_path`](#data_path)
+## Table of contents
+[Provenance](#provenance)<br>
+[`donor_id`](#donor_id)<br>
+[`parent_id`](#parent_id)<br>
+[Level 1](#level-1)<br>
+[`execution_datetime`](#execution_datetime)<br>
+[`protocols_io_doi`](#protocols_io_doi)<br>
+[`operator`](#operator)<br>
+[`operator_email`](#operator_email)<br>
+[`pi`](#pi)<br>
+[`pi_email`](#pi_email)<br>
+[`assay_category`](#assay_category)<br>
+[`assay_type`](#assay_type)<br>
+[`analyte_class`](#analyte_class)<br>
+[`is_targeted`](#is_targeted)<br>
+[Level 2](#level-2)<br>
+[`acquisition_instrument_vendor`](#acquisition_instrument_vendor)<br>
+[`acquisition_instrument_model`](#acquisition_instrument_model)<br>
+[`resolution_x_value`](#resolution_x_value)<br>
+[`resolution_x_unit`](#resolution_x_unit)<br>
+[`resolution_y_value`](#resolution_y_value)<br>
+[`resolution_y_unit`](#resolution_y_unit)<br>
+[`resolution_z_value`](#resolution_z_value)<br>
+[`resolution_z_unit`](#resolution_z_unit)<br>
+[Level 3](#level-3)<br>
+[`preparation_instrument_vendor`](#preparation_instrument_vendor)<br>
+[`preparation_instrument_model`](#preparation_instrument_model)<br>
+[`number_of_antibodies`](#number_of_antibodies)<br>
+[`number_of_cycles`](#number_of_cycles)<br>
+[`section_prep_protocols_io_doi`](#section_prep_protocols_io_doi)<br>
+[`reagent_prep_protocols_io_doi`](#reagent_prep_protocols_io_doi)<br>
+[`metadata_path`](#metadata_path)<br>
+[`data_path`](#data_path)<br>
 
 ## Provenance
 

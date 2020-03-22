@@ -71,6 +71,7 @@ Related files:
 - [JSON Schema](schema.yaml)
 - [TSV Template](template.tsv)
 
+## Table of contents
 {toc_md}
 
 {fields_md}
@@ -88,7 +89,7 @@ def _make_toc(md):
         for l in lines if len(l) and l[0] == '#'
     ]
     return '\n'.join([
-        f"- [{h}](#{h.lower().replace(' ', '-').replace('`', '')})"
+        f"[{h}](#{h.lower().replace(' ', '-').replace('`', '')})<br>"
         for h in headers
     ])
 
