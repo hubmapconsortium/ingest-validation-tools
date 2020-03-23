@@ -92,6 +92,10 @@ fields:
     description: Number of antibodies
     type: integer
   -
+    name: number_of_channels
+    description: Number of fluorescent channels imaged during each cycle.
+    type: integer
+  -
     name: number_of_cycles
     description: Number of cycles of 1. oligo application, 2. fluor application, 3. washes
     type: integer
