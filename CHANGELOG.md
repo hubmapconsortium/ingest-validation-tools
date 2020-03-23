@@ -14,6 +14,7 @@
 - Table of contents in generated doc.
 - Added number_of_channels
 - Added constraints to generated docs.
+- Support timezone offset (rather than abbreviation).
 ### Changed
 - CSV -> TSV
 - Make the schema validation errors more readable
