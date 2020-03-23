@@ -58,8 +58,16 @@ def _generate_readme_md(table_schema, type):
     for field in table_schema['fields']:
         if 'heading' in field:
             fields_md_list.append(f"## {field['heading']}")
+        table_md_rows = ['| constraint | value |', '| --- | --- |']
+        for key, value in field.items():
+            if key not in ['heading', 'name', 'description']:
+                table_md_rows.append(f'| {key} | `{value}` |')
+        if len(table_md_rows) < 3:
+            # Empty it, if there is no data.
+            table_md_rows = []
+        table_md = '\n'.join(table_md_rows)
         fields_md_list.append(
-            f"### `{field['name']}`\n{field['description']}"
+            f"### `{field['name']}`\n{field['description']}\n\n{table_md}"
         )
 
     fields_md = '\n\n'.join(fields_md_list)
