@@ -32,6 +32,7 @@ Related files:
 [`preparation_instrument_vendor`](#preparation_instrument_vendor)<br>
 [`preparation_instrument_model`](#preparation_instrument_model)<br>
 [`number_of_antibodies`](#number_of_antibodies)<br>
+[`number_of_channels`](#number_of_channels)<br>
 [`number_of_cycles`](#number_of_cycles)<br>
 [`section_prep_protocols_io_doi`](#section_prep_protocols_io_doi)<br>
 [`reagent_prep_protocols_io_doi`](#reagent_prep_protocols_io_doi)<br>
@@ -114,6 +115,9 @@ The model number/name of the instrument used to prepare the sample for the assay
 
 ### `number_of_antibodies`
 Number of antibodies
+
+### `number_of_channels`
+Number of fluorescent channels imaged during each cycle.
 
 ### `number_of_cycles`
 Number of cycles of 1. oligo application, 2. fluor application, 3. washes

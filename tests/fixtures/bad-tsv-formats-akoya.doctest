@@ -21,7 +21,9 @@ The value "0.5" in row 2 and column 23 ("W") is not type "integer" and format "d
 .
 The value "0.5" in row 2 and column 24 ("X") is not type "integer" and format "default"
 .
-The value "not-doi" in row 2 and column 25 ("Y") is not type "string" and format "uri"
+The value "0.5" in row 2 and column 25 ("Y") is not type "integer" and format "default"
 .
 The value "not-doi" in row 2 and column 26 ("Z") is not type "string" and format "uri"
+.
+The value "not-doi" in row 2 and column 27 ("AA") is not type "string" and format "uri"
 2

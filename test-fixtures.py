@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 
-from doctest import testfile
+from doctest import testfile, REPORT_NDIFF
+
 from pathlib import Path
 import sys
 import logging
@@ -25,7 +26,10 @@ def main():
     for doctest in doctests:
         logging.info(f'doctest {doctest}...')
         (failure_count, test_count) = \
-            testfile(doctest, globs={'validate': validate})
+            testfile(
+                doctest,
+                globs={'validate': validate},
+                optionflags=REPORT_NDIFF)
         total_failure_count += failure_count
         total_test_count += test_count
 
