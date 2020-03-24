@@ -103,7 +103,7 @@ fields:
     description: The source of the Tn5 transposase and transposon used for capturing accessible chromatin. TODO- Is this an enum, or just examples?
     enum:
       - 10X snATAC
-      - In-house produced (Protocol Reference)
+      - In-house
       - Nextera
   -
     name: transposition_kit_number
