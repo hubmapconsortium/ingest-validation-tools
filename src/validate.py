@@ -69,8 +69,8 @@ def _print_message(dir, type):
         # No blank lines, for doctest:
         message = re.sub(r'\n(\s*\n)+', '\n.\n', str(e)).strip()
         message = re.sub(
-            r'and column (\d+)',
-            lambda m: f'and column {m[1]} ("{_number_to_letters(m[1])}")',
+            r'column (\d+)',
+            lambda m: f'column {m[1]} ("{_number_to_letters(m[1])}")',
             message
         )
         print(message)
