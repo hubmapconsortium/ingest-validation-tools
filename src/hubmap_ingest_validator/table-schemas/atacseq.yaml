@@ -119,7 +119,7 @@ fields:
     name: library_construction_protocols_io_doi
     description: DOI for protocols.io referring to the protocol for this assay
   -
-    name: Library_layout
+    name: library_layout
     description:
     enum:
       - single-end
@@ -169,6 +169,6 @@ fields:
     description: '[0-1]; TODO- This is not a percentage. Change the name or change the value?'
     type: number
   -
-    name: sequencing_phiX_percent
+    name: sequencing_phix_percent
     description: '[0-1]; TODO- This is not a percentage.'
     type: number

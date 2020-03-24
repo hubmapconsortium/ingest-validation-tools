@@ -1,7 +1,4 @@
 properties:
-  Library_layout:
-    description: null
-    type: string
   Transposition_input:
     description: null
     type: string
@@ -56,6 +53,9 @@ properties:
   library_final_yield:
     description: Numeric value in ng.
     type: string
+  library_layout:
+    description: null
+    type: string
   library_pcr_cycles:
     description: null
     type: string
@@ -104,7 +104,7 @@ properties:
     description: Examples are "proteolysis", "mesh passage", "fine needle trituration",
       dounce
     type: string
-  sequencing_phiX_percent:
+  sequencing_phix_percent:
     description: '[0-1]; TODO- This is not a percentage.'
     type: string
   sequencing_protocols_io_doi:
