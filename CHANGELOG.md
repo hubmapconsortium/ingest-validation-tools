@@ -15,7 +15,7 @@
 - Added number_of_channels
 - Added constraints to generated docs.
 - Support timezone offset (rather than abbreviation).
-- Add ATAC-seq; fixed caps.
+- Add ATAC-seq; fixed caps; Added descriptions.
 ### Changed
 - CSV -> TSV
 - Make the schema validation errors more readable

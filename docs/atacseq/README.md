@@ -31,8 +31,8 @@ Related files:
 [`sc_isolation_enrichment`](#sc_isolation_enrichment)<br>
 [`sc_isolation_quality_metric`](#sc_isolation_quality_metric)<br>
 [`sc_isolation_cell_number`](#sc_isolation_cell_number)<br>
-[`Transposition_input`](#transposition_input)<br>
-[`Transposition_method`](#transposition_method)<br>
+[`transposition_input`](#transposition_input)<br>
+[`transposition_method`](#transposition_method)<br>
 [`transposition_transposase_source`](#transposition_transposase_source)<br>
 [`transposition_kit_number`](#transposition_kit_number)<br>
 [`library_construction_protocols_io_doi`](#library_construction_protocols_io_doi)<br>
@@ -77,51 +77,51 @@ Start date and time of assay. YYYY-MM-DD hh:mm +/-hh:mm, where YYYY is the year,
 | format | `%Y-%m-%d %H:%M %z` |
 
 ### `sequencing_protocols_io_doi`
-None
+DOI for protocols.io referring to the protocol for this assay.
 
 
 
 ### `operator`
-None
+Name of the person responsible for executing the assay.
 
 
 
 ### `operator_email`
-None
+Email address for the operator.
 
 | constraint | value |
 | --- | --- |
 | format | `email` |
 
 ### `pi`
-None
+Name of the principal investigator responsible for the data.
 
 
 
 ### `pi_email`
-None
+Email address for the principal investigator.
 
 | constraint | value |
 | --- | --- |
 | format | `email` |
 
 ### `assay_category`
-None
+Each assay is placed into one of the following 3 general categories: generation of images of microscopic entities, identification & quantitation of molecules by mass spectrometry, and determination of nucleotide sequence. TODO: Should this be an enumeration? What exact values?
 
 
 
 ### `assay_type`
-None
+The specific type of assay being executed.
 
 
 
 ### `analyte_class`
-None
+Analytes are the target molecules being measured with the assay.
 
 
 
 ### `is_targeted`
-None
+This is a boolean value that specifies whether or not a specific molecule(s) is/are targeted for detection/measurement by the assay. The CODEX analyte is protein. TODO: Should this be updated? Seems like copy and paste from CODEX.
 
 | constraint | value |
 | --- | --- |
@@ -130,17 +130,17 @@ None
 ## Level 2
 
 ### `acquisition_instrument_vendor`
-None
+An acquisition_instrument is the device that contains the signal detection hardware and signal processing software. Assays can generate signals such as light of various intensities or color or signals representing molecular mass.
 
 
 
 ### `acquisition_instrument_model`
-None
+Manufacturers of an acquisition instrument may offer various versions (models) of that instrument with different features or sensitivities. Differences in features or sensitivities may be relevant to processing or interpretation of the data.
 
 
 
 ### `subspecimen_assay_input_number`
-Numeric value in mg; TODO- Field name does't seem right?
+Amount of tissue that went into single cell isolation protocol, in mg.
 
 | constraint | value |
 | --- | --- |
@@ -159,152 +159,152 @@ A library ID, unique within a TMC, which allows corresponding RNA and chromatin 
 
 
 ### `sc_isolation_protocols_io_doi`
-DOI for protocols.io referring to the protocol for this assay
+Link to a protocols document answering the question: How were single cells separated into a single-cell suspension?
 
 
 
 ### `sc_isolation_entity`
-None
+The type of single cell entity derived from isolation protocol.
 
 | constraint | value |
 | --- | --- |
 | enum | `['whole cell', 'nucleus', 'cell-cell multimer', 'spatially encoded cell barcoding']` |
 
 ### `sc_isolation_tissue_dissociation`
-Examples are "proteolysis", "mesh passage", "fine needle trituration", dounce
+The method by which tissues are dissociated into single cells in suspension.
 
 
 
 ### `sc_isolation_enrichment`
-None
+The method by which specific cell populations are sorted or enriched.
 
 | constraint | value |
 | --- | --- |
 | enum | `['none', 'FACS']` |
 
 ### `sc_isolation_quality_metric`
-"OK" or "not OK", or with more specificity such as "debris", "clump", "low clump".
+A quality metric by visual inspection prior to cell lysis or defined by known parameters such as wells with several cells or no cells. This can be captured at a high level. "OK" or "not OK", or with more specificity such as "debris", "clump", "low clump".
 
 
 
 ### `sc_isolation_cell_number`
-None
+Total number of cell/nuclei yielded post dissociation and enrichment.
 
 | constraint | value |
 | --- | --- |
 | type | `number` |
 
-### `Transposition_input`
-None
+### `transposition_input`
+Number of cell/nuclei input to the assay.
 
 | constraint | value |
 | --- | --- |
 | type | `number` |
 
-### `Transposition_method`
-None
+### `transposition_method`
+Modality of capturing accessible chromatin molecules.
 
 | constraint | value |
 | --- | --- |
 | enum | `['SNARE-Seq2-AC', 'scATACseq', 'BulkATACseq', 'snATACseq', 'sciATACseq']` |
 
 ### `transposition_transposase_source`
-TODO- Is this an enum, or just examples?
+The source of the Tn5 transposase and transposon used for capturing accessible chromatin. TODO- Is this an enum, or just examples?
 
 | constraint | value |
 | --- | --- |
 | enum | `['10X snATAC', 'In-house produced (Protocol Reference)', 'Nextera']` |
 
 ### `transposition_kit_number`
-None
+If Tn5 came from a kit, provide the catalog number.
 
 
 
 ### `library_construction_protocols_io_doi`
-DOI for protocols.io referring to the protocol for this assay
+A link to the protocol document containing the library construction method (including version) that was used, e.g. "Smart-Seq2", "Drop-Seq", "10X v3". DOI for protocols.io referring to the protocol for this assay
 
 
 
 ### `library_layout`
-None
+Whether the library was generated for single-end or paired end sequencing.
 
 | constraint | value |
 | --- | --- |
 | enum | `['single-end', 'paired-end']` |
 
 ### `library_adapter_sequence`
-None
+Adapter sequence to be used for adapter trimming.
 
 
 
 ### `cell_barcode_read`
-None
+Which read file contains the cell barcode.
 
 | constraint | value |
 | --- | --- |
 | enum | `['R1', 'R2', 'R3']` |
 
 ### `cell_barcode_offset`
-Numeric value in bp
+Position in the read at which the cell barcode starts (if a single position). Does not apply to SNARE-seq and BulkATAC. Numeric value in bp.
 
 | constraint | value |
 | --- | --- |
 | type | `number` |
 
 ### `cell_barcode_size`
-Numeric value in bp
+Length of the cell barcode in base pairs. Does not apply to SNARE-seq and BulkATAC. Numeric value in bp
 
 | constraint | value |
 | --- | --- |
 | type | `number` |
 
 ### `library_pcr_cycles`
-None
+Number of PCR cycles to enrich for accessible chromatin fragments.
 
 | constraint | value |
 | --- | --- |
 | type | `number` |
 
 ### `library_pcr_cycles_for_sample_index`
-None
+Number of PCR cycles performed for library generation (figure in Descriptions section)
 
 | constraint | value |
 | --- | --- |
 | type | `number` |
 
 ### `library_final_yield`
-Numeric value in ng.
+Total ng of library after final pcr amplification step. Numeric value in ng.
 
 | constraint | value |
 | --- | --- |
 | type | `number` |
 
 ### `library_average_fragment_size`
-Numeric value in bp.
+Average size of sequencing library fragments estimated via gel electrophoresis or bioanalyzer/tapestation. Numeric value in bp.
 
 | constraint | value |
 | --- | --- |
 | type | `number` |
 
 ### `sequencing_reagent_kit`
-NovaSeq6000 for example
+Reagent kit used for sequencing. NovaSeq6000 for example
 
 
 
 ### `sequencing_read_format`
-Eg: for 10X snATAC-seq: 50+8+16+50 (R1,Index,R2,R3). For SNARE-seq2: 75+94+8+75
+Number of sequencing cycles in Read1, i7 index, i5 index, and Read2. Eg: for 10X snATAC-seq: 50+8+16+50 (R1,Index,R2,R3). For SNARE-seq2: 75+94+8+75
 
 
 
 ### `sequencing_read_percent_q30`
-[0-1]; TODO- This is not a percentage. Change the name or change the value?
+Percent of bases with Quality scores above Q30.
 
 | constraint | value |
 | --- | --- |
 | type | `number` |
 
 ### `sequencing_phix_percent`
-[0-1]; TODO- This is not a percentage.
+Percent PhiX loaded to the run.
 
 | constraint | value |
 | --- | --- |

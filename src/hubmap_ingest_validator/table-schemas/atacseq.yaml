@@ -33,7 +33,7 @@ fields:
     format: email
   -
     name: assay_category
-    description: Each assay is placed into one of the following 3 general categories: generation of images of microscopic entities, identification & quantitation of molecules by mass spectrometry, and determination of nucleotide sequence. TODO: Should this be an enumeration? What exact values?
+    description: 'Each assay is placed into one of the following 3 general categories: generation of images of microscopic entities, identification & quantitation of molecules by mass spectrometry, and determination of nucleotide sequence. TODO: Should this be an enumeration? What exact values?'
   -
     name: assay_type
     description: The specific type of assay being executed.
@@ -42,7 +42,7 @@ fields:
     description: Analytes are the target molecules being measured with the assay.
   -
     name: is_targeted
-    description: This is a boolean value that specifies whether or not a specific molecule(s) is/are targeted for detection/measurement by the assay. The CODEX analyte is protein. TODO: Should this be updated? Seems like copy and paste from CODEX.
+    description: 'This is a boolean value that specifies whether or not a specific molecule(s) is/are targeted for detection/measurement by the assay. The CODEX analyte is protein. TODO: Should this be updated? Seems like copy and paste from CODEX.'
     type: boolean
   -
     heading: Level 2
@@ -64,7 +64,7 @@ fields:
     description: A library ID, unique within a TMC, which allows corresponding RNA and chromatin accessibility datasets to be linked.
   -
     name: sc_isolation_protocols_io_doi
-    description: Link to a protocols document answering the question: How were single cells separated into a single-cell suspension?
+    description: 'Link to a protocols document answering the question: How were single cells separated into a single-cell suspension?'
   -
     name: sc_isolation_entity
     description: The type of single cell entity derived from isolation protocol.
@@ -76,7 +76,7 @@ fields:
   -
     name: sc_isolation_tissue_dissociation
     description: The method by which tissues are dissociated into single cells in suspension.
--
+  -
     name: sc_isolation_enrichment
     description: The method by which specific cell populations are sorted or enriched.
     enum:
