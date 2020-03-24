@@ -58,12 +58,12 @@ HuBMAP ID of the assayed tissue.
 ## Level 1
 
 ### `execution_datetime`
-Start date and time of assay. YYYY-MM-DD hh:mm ZZZ, where YYYY is the year, MM is the month with leading 0s, and DD is the day with leading 0s, hh is the hour with leading zeros, mm are the minutes with leading zeros, and ZZZ is the three letter timezone abbreviation.
+Start date and time of assay. YYYY-MM-DD hh:mm +/-hh:mm, where YYYY is the year, MM is the month with leading 0s, and DD is the day with leading 0s, hh is the hour with leading zeros, mm are the minutes with leading zeros, followed by the offset from GMT.
 
 | constraint | value |
 | --- | --- |
 | type | `datetime` |
-| format | `%Y-%m-%d %H:%M` |
+| format | `%Y-%m-%d %H:%M %z` |
 
 ### `protocols_io_doi`
 DOI for protocols.io referring to the protocol for this assay.
