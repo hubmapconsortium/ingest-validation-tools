@@ -1,0 +1,174 @@
+fields:
+  -
+    heading: Provenance
+    name: donor_id
+    description: HuBMAP ID of the donor of the assayed tissue.
+    format: uuid
+  -
+    name: parent_id
+    description: HuBMAP ID of the assayed tissue.
+    format: uuid
+  -
+    heading: Level 1
+    name: execution_datetime
+    description: Start date and time of assay. YYYY-MM-DD hh:mm +/-hh:mm, where YYYY is the year, MM is the month with leading 0s, and DD is the day with leading 0s, hh is the hour with leading zeros, mm are the minutes with leading zeros, followed by the offset from GMT.
+    type: datetime
+    format: "%Y-%m-%d %H:%M %z"
+  -
+    name: sequencing_protocols_io_doi
+    description:
+  -
+    name: operator
+    description:
+  -
+    name: operator_email
+    description:
+    format: email
+  -
+    name: pi
+    description:
+  -
+    name: pi_email
+    description:
+    format: email
+  -
+    name: assay_category
+    description:
+  -
+    name: assay_type
+    description:
+  -
+    name: analyte_class
+    description:
+  -
+    name: is_targeted
+    description:
+    type: boolean
+  -
+    heading: Level 2
+    name: acquisition_instrument_vendor
+    description:
+  -
+    name: acquisition_instrument_model
+    description:
+  -
+    name: subspecimen_assay_input_number
+    description: Numeric value in mg; TODO- Field name does't seem right?
+    type: number
+  -
+    name: replicate_group_type
+    description: If present, indicates that this is a replicate of the dataset sharing the same replicate_group_id, but with no replicate_group_type.
+    enum:
+      - biological
+      - technical
+      - multimodal
+  -
+    name: replicate_group_id
+    description: an alpha-numeric group name
+  -
+    name: sc_isolation_protocols_io_doi
+    description: DOI for protocols.io referring to the protocol for this assay
+  -
+    name: sc_isolation_entity
+    description:
+    enum:
+      - whole cell
+      - nucleus
+      - cell-cell multimer
+      - spatially encoded cell barcoding
+  -
+    name: sc_isolation_tissue_dissociation
+    description: Examples are "proteolysis", "mesh passage", "fine needle trituration", dounce
+  -
+    name: sc_isolation_enrichment
+    description:
+    enum:
+      - none
+      - FACS
+  -
+    name: sc_isolation_quality_metric
+    description: '"OK" or "not OK", or with more specificity such as "debris", "clump", "low clump".'
+  -
+    name: sc_isolation_cell_number
+    description:
+    type: number
+  -
+    name: Transposition_input
+    description:
+    type: number
+  -
+    name: Transposition_method
+    description:
+    enum:
+      - SNARE-Seq2-AC
+      - scATACseq
+      - BulkATACseq
+      - snATACseq
+      - sciATACseq
+  -
+    name: transposition_transposase_source
+    description: TODO- Is this an enum, or just examples?
+    enum:
+      - 10X snATAC
+      - In-house produced (Protocol Reference)
+      - Nextera
+  -
+    name: transposition_kit_number
+    description:
+  -
+    name: library_construction_protocols_io_doi
+    description: DOI for protocols.io referring to the protocol for this assay
+  -
+    name: Library_layout
+    description:
+    enum:
+      - single-end
+      - paired-end
+  -
+    name: library_adapter_sequence
+    description:
+  -
+    name: cell_barcode_read
+    description:
+    enum:
+      - R1
+      - R2
+      - R3
+  -
+    name: cell_barcode_offset
+    description: Numeric value in bp
+    type: number
+  -
+    name: cell_barcode_size
+    description: Numeric value in bp
+    type: number
+  -
+    name: library_pcr_cycles
+    description:
+    type: number
+  -
+    name: library_pcr_cycles_for_sample_index
+    description:
+    type: number
+  -
+    name: library_final_yield
+    description: Numeric value in ng.
+    type: number
+  -
+    name: library_average_fragment_size
+    description: Numeric value in bp.
+    type: number
+  -
+    name: sequencing_reagent_kit
+    description: NovaSeq6000 for example
+  -
+    name: sequencing_read_format
+    description: 'Eg: for 10X snATAC-seq: 50+8+16+50 (R1,Index,R2,R3). For SNARE-seq2: 75+94+8+75'
+  -
+    name: sequencing_read_percent_q30
+    description: '[0-1]; TODO- This is not a percentage. Change the name or change the value?'
+    type: number
+  -
+    name: sequencing_phiX_percent
+    description: '[0-1]; TODO- This is not a percentage.'
+    type: number

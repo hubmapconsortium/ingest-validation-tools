@@ -1,0 +1,133 @@
+properties:
+  Library_layout:
+    description: null
+    type: string
+  Transposition_input:
+    description: null
+    type: string
+  Transposition_method:
+    description: null
+    type: string
+  acquisition_instrument_model:
+    description: null
+    type: string
+  acquisition_instrument_vendor:
+    description: null
+    type: string
+  analyte_class:
+    description: null
+    type: string
+  assay_category:
+    description: null
+    type: string
+  assay_type:
+    description: null
+    type: string
+  cell_barcode_offset:
+    description: Numeric value in bp
+    type: string
+  cell_barcode_read:
+    description: null
+    type: string
+  cell_barcode_size:
+    description: Numeric value in bp
+    type: string
+  donor_id:
+    description: HuBMAP ID of the donor of the assayed tissue.
+    type: string
+  execution_datetime:
+    description: Start date and time of assay. YYYY-MM-DD hh:mm +/-hh:mm, where YYYY
+      is the year, MM is the month with leading 0s, and DD is the day with leading
+      0s, hh is the hour with leading zeros, mm are the minutes with leading zeros,
+      followed by the offset from GMT.
+    type: string
+  is_targeted:
+    description: null
+    type: string
+  library_adapter_sequence:
+    description: null
+    type: string
+  library_average_fragment_size:
+    description: Numeric value in bp.
+    type: string
+  library_construction_protocols_io_doi:
+    description: DOI for protocols.io referring to the protocol for this assay
+    type: string
+  library_final_yield:
+    description: Numeric value in ng.
+    type: string
+  library_pcr_cycles:
+    description: null
+    type: string
+  library_pcr_cycles_for_sample_index:
+    description: null
+    type: string
+  operator:
+    description: null
+    type: string
+  operator_email:
+    description: null
+    type: string
+  parent_id:
+    description: HuBMAP ID of the assayed tissue.
+    type: string
+  pi:
+    description: null
+    type: string
+  pi_email:
+    description: null
+    type: string
+  replicate_group_id:
+    description: an alpha-numeric group name
+    type: string
+  replicate_group_type:
+    description: If present, indicates that this is a replicate of the dataset sharing
+      the same replicate_group_id, but with no replicate_group_type.
+    type: string
+  sc_isolation_cell_number:
+    description: null
+    type: string
+  sc_isolation_enrichment:
+    description: null
+    type: string
+  sc_isolation_entity:
+    description: null
+    type: string
+  sc_isolation_protocols_io_doi:
+    description: DOI for protocols.io referring to the protocol for this assay
+    type: string
+  sc_isolation_quality_metric:
+    description: '"OK" or "not OK", or with more specificity such as "debris", "clump",
+      "low clump".'
+    type: string
+  sc_isolation_tissue_dissociation:
+    description: Examples are "proteolysis", "mesh passage", "fine needle trituration",
+      dounce
+    type: string
+  sequencing_phiX_percent:
+    description: '[0-1]; TODO- This is not a percentage.'
+    type: string
+  sequencing_protocols_io_doi:
+    description: null
+    type: string
+  sequencing_read_format:
+    description: 'Eg: for 10X snATAC-seq: 50+8+16+50 (R1,Index,R2,R3). For SNARE-seq2:
+      75+94+8+75'
+    type: string
+  sequencing_read_percent_q30:
+    description: '[0-1]; TODO- This is not a percentage. Change the name or change
+      the value?'
+    type: string
+  sequencing_reagent_kit:
+    description: NovaSeq6000 for example
+    type: string
+  subspecimen_assay_input_number:
+    description: Numeric value in mg; TODO- Field name does't seem right?
+    type: string
+  transposition_kit_number:
+    description: null
+    type: string
+  transposition_transposase_source:
+    description: TODO- Is this an enum, or just examples?
+    type: string
+
