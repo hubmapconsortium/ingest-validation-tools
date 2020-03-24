@@ -22,7 +22,6 @@ Related files:
 [Level 2](#level-2)<br>
 [`acquisition_instrument_vendor`](#acquisition_instrument_vendor)<br>
 [`acquisition_instrument_model`](#acquisition_instrument_model)<br>
-[`subspecimen_assay_input_number`](#subspecimen_assay_input_number)<br>
 [`is_technical_replicate`](#is_technical_replicate)<br>
 [`library_id`](#library_id)<br>
 [`sc_isolation_protocols_io_doi`](#sc_isolation_protocols_io_doi)<br>
@@ -139,13 +138,6 @@ Manufacturers of an acquisition instrument may offer various versions (models) o
 
 
 
-### `subspecimen_assay_input_number`
-Amount of tissue that went into single cell isolation protocol, in mg.
-
-| constraint | value |
-| --- | --- |
-| type | `number` |
-
 ### `is_technical_replicate`
 If TRUE, fastq files in dataset need to be merged.
 
@@ -213,7 +205,7 @@ The source of the Tn5 transposase and transposon used for capturing accessible c
 
 | constraint | value |
 | --- | --- |
-| enum | `['10X snATAC', 'In-house produced (Protocol Reference)', 'Nextera']` |
+| enum | `['10X snATAC', 'In-house', 'Nextera']` |
 
 ### `transposition_kit_number`
 If Tn5 came from a kit, provide the catalog number.

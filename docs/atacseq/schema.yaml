@@ -136,10 +136,6 @@ properties:
   sequencing_reagent_kit:
     description: Reagent kit used for sequencing. NovaSeq6000 for example
     type: string
-  subspecimen_assay_input_number:
-    description: Amount of tissue that went into single cell isolation protocol, in
-      mg.
-    type: string
   transposition_input:
     description: Number of cell/nuclei input to the assay.
     type: string
