@@ -23,8 +23,8 @@ Related files:
 [`acquisition_instrument_vendor`](#acquisition_instrument_vendor)<br>
 [`acquisition_instrument_model`](#acquisition_instrument_model)<br>
 [`subspecimen_assay_input_number`](#subspecimen_assay_input_number)<br>
-[`replicate_group_type`](#replicate_group_type)<br>
-[`replicate_group_id`](#replicate_group_id)<br>
+[`is_technical_replicate`](#is_technical_replicate)<br>
+[`library_id`](#library_id)<br>
 [`sc_isolation_protocols_io_doi`](#sc_isolation_protocols_io_doi)<br>
 [`sc_isolation_entity`](#sc_isolation_entity)<br>
 [`sc_isolation_tissue_dissociation`](#sc_isolation_tissue_dissociation)<br>
@@ -146,15 +146,15 @@ Numeric value in mg; TODO- Field name does't seem right?
 | --- | --- |
 | type | `number` |
 
-### `replicate_group_type`
-If present, indicates that this is a replicate of the dataset sharing the same replicate_group_id, but with no replicate_group_type.
+### `is_technical_replicate`
+If TRUE, fastq files in dataset need to be merged.
 
 | constraint | value |
 | --- | --- |
-| enum | `['biological', 'technical', 'multimodal']` |
+| type | `boolean` |
 
-### `replicate_group_id`
-an alpha-numeric group name
+### `library_id`
+A library ID, unique within a TMC, which allows corresponding RNA and chromatin accessibility datasets to be linked.
 
 
 

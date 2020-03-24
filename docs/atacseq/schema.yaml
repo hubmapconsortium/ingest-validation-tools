@@ -41,6 +41,9 @@ properties:
   is_targeted:
     description: null
     type: string
+  is_technical_replicate:
+    description: If TRUE, fastq files in dataset need to be merged.
+    type: string
   library_adapter_sequence:
     description: null
     type: string
@@ -52,6 +55,10 @@ properties:
     type: string
   library_final_yield:
     description: Numeric value in ng.
+    type: string
+  library_id:
+    description: A library ID, unique within a TMC, which allows corresponding RNA
+      and chromatin accessibility datasets to be linked.
     type: string
   library_layout:
     description: null
@@ -76,13 +83,6 @@ properties:
     type: string
   pi_email:
     description: null
-    type: string
-  replicate_group_id:
-    description: an alpha-numeric group name
-    type: string
-  replicate_group_type:
-    description: If present, indicates that this is a replicate of the dataset sharing
-      the same replicate_group_id, but with no replicate_group_type.
     type: string
   sc_isolation_cell_number:
     description: null
