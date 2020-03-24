@@ -7,7 +7,7 @@
 - Check that fixture-based tests actually ran.
 - Check types early, rather than waiting for file-not-found.
 - Generate JSON Schema from simpler Table Schema.
-- Use schema to check that submission headers are correct.
+- Use schema to check that submission headers are correct, and reference by letter if not.
 - Filling in details for CODEX Schema.
 - Stanford directory schema.
 - Convert column numbers to spreadsheet-style letters.
