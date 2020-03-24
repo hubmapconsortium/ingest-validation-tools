@@ -36,7 +36,7 @@ Related files:
 [`transposition_transposase_source`](#transposition_transposase_source)<br>
 [`transposition_kit_number`](#transposition_kit_number)<br>
 [`library_construction_protocols_io_doi`](#library_construction_protocols_io_doi)<br>
-[`Library_layout`](#library_layout)<br>
+[`library_layout`](#library_layout)<br>
 [`library_adapter_sequence`](#library_adapter_sequence)<br>
 [`cell_barcode_read`](#cell_barcode_read)<br>
 [`cell_barcode_offset`](#cell_barcode_offset)<br>
@@ -48,7 +48,7 @@ Related files:
 [`sequencing_reagent_kit`](#sequencing_reagent_kit)<br>
 [`sequencing_read_format`](#sequencing_read_format)<br>
 [`sequencing_read_percent_q30`](#sequencing_read_percent_q30)<br>
-[`sequencing_phiX_percent`](#sequencing_phix_percent)<br>
+[`sequencing_phix_percent`](#sequencing_phix_percent)<br>
 
 ## Provenance
 
@@ -225,7 +225,7 @@ DOI for protocols.io referring to the protocol for this assay
 
 
 
-### `Library_layout`
+### `library_layout`
 None
 
 | constraint | value |
@@ -303,7 +303,7 @@ Eg: for 10X snATAC-seq: 50+8+16+50 (R1,Index,R2,R3). For SNARE-seq2: 75+94+8+75
 | --- | --- |
 | type | `number` |
 
-### `sequencing_phiX_percent`
+### `sequencing_phix_percent`
 [0-1]; TODO- This is not a percentage.
 
 | constraint | value |
