@@ -16,44 +16,44 @@ fields:
     format: "%Y-%m-%d %H:%M %z"
   -
     name: sequencing_protocols_io_doi
-    description:
+    description: DOI for protocols.io referring to the protocol for this assay.
   -
     name: operator
-    description:
+    description: Name of the person responsible for executing the assay.
   -
     name: operator_email
-    description:
+    description: Email address for the operator.
     format: email
   -
     name: pi
-    description:
+    description: Name of the principal investigator responsible for the data.
   -
     name: pi_email
-    description:
+    description: Email address for the principal investigator.
     format: email
   -
     name: assay_category
-    description:
+    description: Each assay is placed into one of the following 3 general categories: generation of images of microscopic entities, identification & quantitation of molecules by mass spectrometry, and determination of nucleotide sequence. TODO: Should this be an enumeration? What exact values?
   -
     name: assay_type
-    description:
+    description: The specific type of assay being executed.
   -
     name: analyte_class
-    description:
+    description: Analytes are the target molecules being measured with the assay.
   -
     name: is_targeted
-    description:
+    description: This is a boolean value that specifies whether or not a specific molecule(s) is/are targeted for detection/measurement by the assay. The CODEX analyte is protein. TODO: Should this be updated? Seems like copy and paste from CODEX.
     type: boolean
   -
     heading: Level 2
     name: acquisition_instrument_vendor
-    description:
+    description: An acquisition_instrument is the device that contains the signal detection hardware and signal processing software. Assays can generate signals such as light of various intensities or color or signals representing molecular mass.
   -
     name: acquisition_instrument_model
-    description:
+    description: Manufacturers of an acquisition instrument may offer various versions (models) of that instrument with different features or sensitivities. Differences in features or sensitivities may be relevant to processing or interpretation of the data.
   -
     name: subspecimen_assay_input_number
-    description: Numeric value in mg; TODO- Field name does't seem right?
+    description: Amount of tissue that went into single cell isolation protocol, in mg.
     type: number
   -
     name: is_technical_replicate
@@ -64,10 +64,10 @@ fields:
     description: A library ID, unique within a TMC, which allows corresponding RNA and chromatin accessibility datasets to be linked.
   -
     name: sc_isolation_protocols_io_doi
-    description: DOI for protocols.io referring to the protocol for this assay
+    description: Link to a protocols document answering the question: How were single cells separated into a single-cell suspension?
   -
     name: sc_isolation_entity
-    description:
+    description: The type of single cell entity derived from isolation protocol.
     enum:
       - whole cell
       - nucleus
@@ -75,27 +75,27 @@ fields:
       - spatially encoded cell barcoding
   -
     name: sc_isolation_tissue_dissociation
-    description: Examples are "proteolysis", "mesh passage", "fine needle trituration", dounce
-  -
+    description: The method by which tissues are dissociated into single cells in suspension.
+-
     name: sc_isolation_enrichment
-    description:
+    description: The method by which specific cell populations are sorted or enriched.
     enum:
       - none
       - FACS
   -
     name: sc_isolation_quality_metric
-    description: '"OK" or "not OK", or with more specificity such as "debris", "clump", "low clump".'
+    description: 'A quality metric by visual inspection prior to cell lysis or defined by known parameters such as wells with several cells or no cells. This can be captured at a high level. "OK" or "not OK", or with more specificity such as "debris", "clump", "low clump".'
   -
     name: sc_isolation_cell_number
-    description:
+    description: Total number of cell/nuclei yielded post dissociation and enrichment.
     type: number
   -
-    name: Transposition_input
-    description:
+    name: transposition_input
+    description: Number of cell/nuclei input to the assay.
     type: number
   -
-    name: Transposition_method
-    description:
+    name: transposition_method
+    description: Modality of capturing accessible chromatin molecules.
     enum:
       - SNARE-Seq2-AC
       - scATACseq
@@ -104,68 +104,68 @@ fields:
       - sciATACseq
   -
     name: transposition_transposase_source
-    description: TODO- Is this an enum, or just examples?
+    description: The source of the Tn5 transposase and transposon used for capturing accessible chromatin. TODO- Is this an enum, or just examples?
     enum:
       - 10X snATAC
       - In-house produced (Protocol Reference)
       - Nextera
   -
     name: transposition_kit_number
-    description:
+    description: If Tn5 came from a kit, provide the catalog number.
   -
     name: library_construction_protocols_io_doi
-    description: DOI for protocols.io referring to the protocol for this assay
+    description: A link to the protocol document containing the library construction method (including version) that was used, e.g. "Smart-Seq2", "Drop-Seq", "10X v3". DOI for protocols.io referring to the protocol for this assay
   -
     name: library_layout
-    description:
+    description: Whether the library was generated for single-end or paired end sequencing.
     enum:
       - single-end
       - paired-end
   -
     name: library_adapter_sequence
-    description:
+    description: Adapter sequence to be used for adapter trimming.
   -
     name: cell_barcode_read
-    description:
+    description: Which read file contains the cell barcode.
     enum:
       - R1
       - R2
       - R3
   -
     name: cell_barcode_offset
-    description: Numeric value in bp
+    description: Position in the read at which the cell barcode starts (if a single position). Does not apply to SNARE-seq and BulkATAC. Numeric value in bp.
     type: number
   -
     name: cell_barcode_size
-    description: Numeric value in bp
+    description: Length of the cell barcode in base pairs. Does not apply to SNARE-seq and BulkATAC. Numeric value in bp
     type: number
   -
     name: library_pcr_cycles
-    description:
+    description: Number of PCR cycles to enrich for accessible chromatin fragments.
     type: number
   -
     name: library_pcr_cycles_for_sample_index
-    description:
+    description: Number of PCR cycles performed for library generation (figure in Descriptions section)
     type: number
   -
     name: library_final_yield
-    description: Numeric value in ng.
+    description: Total ng of library after final pcr amplification step. Numeric value in ng.
     type: number
   -
     name: library_average_fragment_size
-    description: Numeric value in bp.
+    description: Average size of sequencing library fragments estimated via gel electrophoresis or bioanalyzer/tapestation. Numeric value in bp.
     type: number
   -
     name: sequencing_reagent_kit
-    description: NovaSeq6000 for example
+    description: Reagent kit used for sequencing. NovaSeq6000 for example
   -
     name: sequencing_read_format
-    description: 'Eg: for 10X snATAC-seq: 50+8+16+50 (R1,Index,R2,R3). For SNARE-seq2: 75+94+8+75'
+    description: 'Number of sequencing cycles in Read1, i7 index, i5 index, and Read2. Eg: for 10X snATAC-seq: 50+8+16+50 (R1,Index,R2,R3). For SNARE-seq2: 75+94+8+75'
   -
     name: sequencing_read_percent_q30
-    description: '[0-1]; TODO- This is not a percentage. Change the name or change the value?'
+    description: 'Percent of bases with Quality scores above Q30.'
     type: number
   -
     name: sequencing_phix_percent
-    description: '[0-1]; TODO- This is not a percentage.'
+    description: 'Percent PhiX loaded to the run.'
     type: number
