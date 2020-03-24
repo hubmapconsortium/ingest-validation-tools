@@ -52,10 +52,6 @@ fields:
     name: acquisition_instrument_model
     description: Manufacturers of an acquisition instrument may offer various versions (models) of that instrument with different features or sensitivities. Differences in features or sensitivities may be relevant to processing or interpretation of the data.
   -
-    name: subspecimen_assay_input_number
-    description: Amount of tissue that went into single cell isolation protocol, in mg.
-    type: number
-  -
     name: is_technical_replicate
     description: If TRUE, fastq files in dataset need to be merged.
     type: boolean
