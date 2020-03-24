@@ -20,3 +20,4 @@
 - CSV -> TSV
 - Make the schema validation errors more readable
 - Doctests are scanned from directory, rather than read from single file.
+- Change the modeling of replicate groups.
