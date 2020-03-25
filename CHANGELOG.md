@@ -25,3 +25,4 @@
 - Change the modeling of replicate groups.
 - `parent_id` to `tissue_id`
 - Link to raw TSV.
+- No more UUIDs.

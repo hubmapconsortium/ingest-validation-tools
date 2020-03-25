@@ -43,14 +43,18 @@ Related files:
 ## Provenance
 
 ### `donor_id`
-HuBMAP ID of the donor of the assayed tissue.
+HuBMAP Display ID of the donor of the assayed tissue.
 
-
+| constraint | value |
+| --- | --- |
+| pattern | `[A-Z]+[0-9]+` |
 
 ### `tissue_id`
-HuBMAP ID of the assayed tissue.
+HuBMAP Display ID of the assayed tissue.
 
-
+| constraint | value |
+| --- | --- |
+| pattern | `[A-Z]+[0-9]+(-[A-Z0-9]+)+` |
 
 ## Level 1
 
@@ -67,7 +71,7 @@ DOI for protocols.io referring to the protocol for this assay.
 
 | constraint | value |
 | --- | --- |
-| pattern | `^10\.17504/.*` |
+| pattern | `10\.17504/.*` |
 
 ### `operator`
 Name of the person responsible for executing the assay.
@@ -207,14 +211,14 @@ DOI for protocols.io referring to the protocol for preparing tissue sections for
 
 | constraint | value |
 | --- | --- |
-| pattern | `^10\.17504/.*` |
+| pattern | `10\.17504/.*` |
 
 ### `reagent_prep_protocols_io_doi`
 DOI for protocols.io referring to the protocol for preparing reagents for the assay.
 
 | constraint | value |
 | --- | --- |
-| pattern | `^10\.17504/.*` |
+| pattern | `10\.17504/.*` |
 
 ## Paths
 
