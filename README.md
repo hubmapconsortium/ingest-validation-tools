@@ -6,14 +6,6 @@ but how that will be done is undetermined.
 
 Documentation, metadata TSV templates, JSON schemas are [here](docs).
 
-## Roadmap
-
-- Take the TSV structure described for [CODEX](https://docs.google.com/document/d/1CYYSXPQjwdbvmvZaEcsi_2udvDfGEZrMyh4yFnm4p3M/edit#)
-and translate it into JSON Schema,
-- such that [cidc-schemas](https://github.com/CIMAC-CIDC/cidc-schemas) can generate templates from it.
-- *and*: We also want to validate directory structure: try our own [directory-schema](https://github.com/hubmapconsortium/directory-schema/).
-- *and*: We also want integrity checks, like the linked sample ID matches sample ID in TSV, for example.
-
 ## Development
 
 I'm not sure what kind of interface will be most useful,
