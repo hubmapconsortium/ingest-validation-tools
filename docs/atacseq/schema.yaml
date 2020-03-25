@@ -147,6 +147,5 @@ properties:
     type: string
   transposition_transposase_source:
     description: The source of the Tn5 transposase and transposon used for capturing
-      accessible chromatin. TODO- Is this an enum, or just examples?
+      accessible chromatin.
     type: string
-
