@@ -108,6 +108,7 @@ fields:
     constraints:
       pattern: '^10\.17504/.*'
   -
+    heading: Paths
     name: metadata_path
     description: Relative path to file or directory with free-form or instrument/lab specific metadata. Optional.
   -

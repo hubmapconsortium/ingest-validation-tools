@@ -33,6 +33,10 @@ properties:
     description: Length of the cell barcode in base pairs. Does not apply to SNARE-seq
       and BulkATAC. Numeric value in bp
     type: string
+  data_path:
+    description: Relative path to file or directory with instrument data. Downstream
+      processing will depend on filename extension conventions. Required.
+    type: string
   donor_id:
     description: HuBMAP Display ID of the donor of the assayed tissue.
     type: string
@@ -79,6 +83,10 @@ properties:
   library_pcr_cycles_for_sample_index:
     description: Number of PCR cycles performed for library generation (figure in
       Descriptions section)
+    type: string
+  metadata_path:
+    description: Relative path to file or directory with free-form or instrument/lab
+      specific metadata. Optional.
     type: string
   operator:
     description: Name of the person responsible for executing the assay.
