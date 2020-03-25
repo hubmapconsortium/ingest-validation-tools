@@ -15,7 +15,8 @@ fields:
   -
     name: protocols_io_doi
     description: DOI for protocols.io referring to the protocol for this assay.
-    pattern: '^10.17504/'
+    constraints:
+      pattern: '^10\.17504/.*'
   -
     name: operator
     description: Name of the person responsible for executing the assay.
@@ -32,21 +33,17 @@ fields:
     format: email
   -
     name: assay_category
-    description: 'Each assay is placed into one of the following 3 general categories: generation of images of microscopic entities, identification & quantitation of molecules by mass spectrometry, and determination of nucleotide sequence.'
-    # TODO: What are the exact strings to expect?
+    description: 'Each assay is placed into one of the following 3 general categories: generation of images of microscopic entities, identification & quantitation of molecules by mass spectrometry, and determination of nucleotide sequence. TODO: What are the exact strings to expect?'
   -
     name: assay_type
-    description: The specific type of assay being executed.
-    # TODO: What are the exact strings to expect?
+    description: 'The specific type of assay being executed. TODO: What are the exact strings to expect?'
   -
     name: analyte_class
-    description: Analytes are the target molecules being measured with the assay.
-    # TODO: What are the exact strings to expect?
+    description: Analytes are the target molecules being measured with the assay. TODO - What are the exact strings to expect?
   -
     name: is_targeted
     description: Specifies whether or not a specific molecule(s) is/are targeted for detection/measurement by the assay .The CODEX analyte is protein.
     type: boolean
-    # TODO: More strict?
   -
     heading: Level 2
     name: acquisition_instrument_vendor
@@ -61,7 +58,8 @@ fields:
   -
     name: resolution_x_unit
     description: The unit of measurement of width of a pixel.(nm)
-    enum: ['mm', 'um', 'nm']
+    constraints:
+      enum: ['mm', 'um', 'nm']
   -
     name: resolution_y_value
     description: The height of a pixel. (Akoya pixel is 377nm square)
@@ -69,7 +67,8 @@ fields:
   -
     name: resolution_y_unit
     description: The unit of measurement of height of a pixel. (nm)
-    enum: ['mm', 'um', 'nm']
+    constraints:
+      enum: ['mm', 'um', 'nm']
   -
     name: resolution_z_value
     description: 'Optional if assay does not have multiple z-levels. Note that this is resolution within a given sample: z-pitch (resolution_z_value) is the increment distance between image slices (for Akoya, z-pitch=1.5um) ie. the microscope stage is moved up or down in increments of 1.5um to capture images of several focal planes. The best one will be used & the rest discarded. The thickness of the sample itself is sample metadata.'
@@ -77,7 +76,8 @@ fields:
   -
     name: resolution_z_unit
     description: The unit of incremental distance between image slices.(um)
-    enum: ['mm', 'um', 'nm']
+    constraints:
+      enum: ['mm', 'um', 'nm']
   -
     heading: Level 3
     name: preparation_instrument_vendor
@@ -100,11 +100,13 @@ fields:
   -
     name: section_prep_protocols_io_doi
     description: DOI for protocols.io referring to the protocol for preparing tissue sections for the assay.
-    pattern: '^10.17504/'
+    constraints:
+      pattern: '^10\.17504/.*'
   -
     name: reagent_prep_protocols_io_doi
     description: DOI for protocols.io referring to the protocol for preparing reagents for the assay.
-    pattern: '^10.17504/'
+    constraints:
+      pattern: '^10\.17504/.*'
   -
     name: metadata_path
     description: Relative path to file or directory with free-form or instrument/lab specific metadata. Optional.

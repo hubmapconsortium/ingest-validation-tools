@@ -78,7 +78,9 @@ Start date and time of assay. YYYY-MM-DD hh:mm +/-hh:mm, where YYYY is the year,
 ### `sequencing_protocols_io_doi`
 DOI for protocols.io referring to the protocol for this assay.
 
-
+| constraint | value |
+| --- | --- |
+| pattern | `^10\.17504/.*` |
 
 ### `operator`
 Name of the person responsible for executing the assay.
@@ -153,7 +155,9 @@ A library ID, unique within a TMC, which allows corresponding RNA and chromatin 
 ### `sc_isolation_protocols_io_doi`
 Link to a protocols document answering the question: How were single cells separated into a single-cell suspension?
 
-
+| constraint | value |
+| --- | --- |
+| pattern | `^10\.17504/.*` |
 
 ### `sc_isolation_entity`
 The type of single cell entity derived from isolation protocol.
@@ -213,9 +217,11 @@ If Tn5 came from a kit, provide the catalog number.
 
 
 ### `library_construction_protocols_io_doi`
-A link to the protocol document containing the library construction method (including version) that was used, e.g. "Smart-Seq2", "Drop-Seq", "10X v3". DOI for protocols.io referring to the protocol for this assay
+A link to the protocol document containing the library construction method (including version) that was used, e.g. "Smart-Seq2", "Drop-Seq", "10X v3". DOI for protocols.io referring to the protocol for this assay.
 
-
+| constraint | value |
+| --- | --- |
+| pattern | `^10\.17504/.*` |
 
 ### `library_layout`
 Whether the library was generated for single-end or paired end sequencing.
