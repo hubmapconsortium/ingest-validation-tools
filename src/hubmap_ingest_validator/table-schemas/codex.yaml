@@ -2,10 +2,14 @@ fields:
   -
     heading: Provenance
     name: donor_id
-    description: HuBMAP ID of the donor of the assayed tissue.
+    description: HuBMAP Display ID of the donor of the assayed tissue.
+    constraints:
+      pattern: '[A-Z]+[0-9]+'
   -
     name: tissue_id
-    description: HuBMAP ID of the assayed tissue.
+    description: HuBMAP Display ID of the assayed tissue.
+    constraints:
+      pattern: '[A-Z]+[0-9]+(-[A-Z0-9]+)+'
   -
     heading: Level 1
     name: execution_datetime
@@ -16,7 +20,7 @@ fields:
     name: protocols_io_doi
     description: DOI for protocols.io referring to the protocol for this assay.
     constraints:
-      pattern: '^10\.17504/.*'
+      pattern: '10\.17504/.*'
   -
     name: operator
     description: Name of the person responsible for executing the assay.
@@ -101,12 +105,12 @@ fields:
     name: section_prep_protocols_io_doi
     description: DOI for protocols.io referring to the protocol for preparing tissue sections for the assay.
     constraints:
-      pattern: '^10\.17504/.*'
+      pattern: '10\.17504/.*'
   -
     name: reagent_prep_protocols_io_doi
     description: DOI for protocols.io referring to the protocol for preparing reagents for the assay.
     constraints:
-      pattern: '^10\.17504/.*'
+      pattern: '10\.17504/.*'
   -
     heading: Paths
     name: metadata_path

@@ -3,11 +3,13 @@ fields:
     heading: Provenance
     name: donor_id
     description: HuBMAP Display ID of the donor of the assayed tissue.
-    format: uuid
+    constraints:
+      pattern: '[A-Z]+[0-9]+'
   -
     name: tissue_id
     description: HuBMAP Display ID of the assayed tissue.
-    format: uuid
+    constraints:
+      pattern: '[A-Z]+[0-9]+(-[A-Z0-9]+)+'
   -
     heading: Level 1
     name: execution_datetime
@@ -18,7 +20,7 @@ fields:
     name: sequencing_protocols_io_doi
     description: DOI for protocols.io referring to the protocol for this assay.
     constraints:
-      pattern: '^10\.17504/.*'
+      pattern: '10\.17504/.*'
   -
     name: operator
     description: Name of the person responsible for executing the assay.
@@ -69,7 +71,7 @@ fields:
     name: sc_isolation_protocols_io_doi
     description: 'Link to a protocols document answering the question: How were single cells separated into a single-cell suspension?'
     constraints:
-      pattern: '^10\.17504/.*'
+      pattern: '10\.17504/.*'
   -
     name: sc_isolation_entity
     description: The type of single cell entity derived from isolation protocol.
@@ -125,7 +127,7 @@ fields:
     name: library_construction_protocols_io_doi
     description: A link to the protocol document containing the library construction method (including version) that was used, e.g. "Smart-Seq2", "Drop-Seq", "10X v3". DOI for protocols.io referring to the protocol for this assay.
     constraints:
-      pattern: '^10\.17504/.*'
+      pattern: '10\.17504/.*'
   -
     name: library_layout
     description: Whether the library was generated for single-end or paired end sequencing.

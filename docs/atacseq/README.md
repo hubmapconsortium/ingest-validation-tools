@@ -59,14 +59,14 @@ HuBMAP Display ID of the donor of the assayed tissue.
 
 | constraint | value |
 | --- | --- |
-| format | `uuid` |
+| pattern | `[A-Z]+[0-9]+` |
 
 ### `tissue_id`
 HuBMAP Display ID of the assayed tissue.
 
 | constraint | value |
 | --- | --- |
-| format | `uuid` |
+| pattern | `[A-Z]+[0-9]+(-[A-Z0-9]+)+` |
 
 ## Level 1
 
@@ -83,7 +83,7 @@ DOI for protocols.io referring to the protocol for this assay.
 
 | constraint | value |
 | --- | --- |
-| pattern | `^10\.17504/.*` |
+| pattern | `10\.17504/.*` |
 
 ### `operator`
 Name of the person responsible for executing the assay.
@@ -162,7 +162,7 @@ Link to a protocols document answering the question: How were single cells separ
 
 | constraint | value |
 | --- | --- |
-| pattern | `^10\.17504/.*` |
+| pattern | `10\.17504/.*` |
 
 ### `sc_isolation_entity`
 The type of single cell entity derived from isolation protocol.
@@ -226,7 +226,7 @@ A link to the protocol document containing the library construction method (incl
 
 | constraint | value |
 | --- | --- |
-| pattern | `^10\.17504/.*` |
+| pattern | `10\.17504/.*` |
 
 ### `library_layout`
 Whether the library was generated for single-end or paired end sequencing.

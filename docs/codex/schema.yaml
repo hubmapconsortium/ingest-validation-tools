@@ -29,7 +29,7 @@ properties:
       processing will depend on filename extension conventions. Required.
     type: string
   donor_id:
-    description: HuBMAP ID of the donor of the assayed tissue.
+    description: HuBMAP Display ID of the donor of the assayed tissue.
     type: string
   execution_datetime:
     description: Start date and time of assay. YYYY-MM-DD hh:mm +/-hh:mm, where YYYY
@@ -110,6 +110,6 @@ properties:
       sections for the assay.
     type: string
   tissue_id:
-    description: HuBMAP ID of the assayed tissue.
+    description: HuBMAP Display ID of the assayed tissue.
     type: string
 
