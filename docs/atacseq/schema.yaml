@@ -17,8 +17,7 @@ properties:
   assay_category:
     description: 'Each assay is placed into one of the following 3 general categories:
       generation of images of microscopic entities, identification & quantitation
-      of molecules by mass spectrometry, and determination of nucleotide sequence.
-      TODO: Should this be an enumeration? What exact values?'
+      of molecules by mass spectrometry, and determination of nucleotide sequence.'
     type: string
   assay_type:
     description: The specific type of assay being executed.

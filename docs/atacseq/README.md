@@ -107,7 +107,7 @@ Email address for the principal investigator.
 | format | `email` |
 
 ### `assay_category`
-Each assay is placed into one of the following 3 general categories: generation of images of microscopic entities, identification & quantitation of molecules by mass spectrometry, and determination of nucleotide sequence. TODO: Should this be an enumeration? What exact values?
+Each assay is placed into one of the following 3 general categories: generation of images of microscopic entities, identification & quantitation of molecules by mass spectrometry, and determination of nucleotide sequence.
 
 | constraint | value |
 | --- | --- |
