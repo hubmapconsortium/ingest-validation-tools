@@ -87,9 +87,6 @@ properties:
   operator_email:
     description: Email address for the operator.
     type: string
-  parent_id:
-    description: HuBMAP Display ID of the assayed tissue.
-    type: string
   pi:
     description: Name of the principal investigator responsible for the data.
     type: string
@@ -134,6 +131,9 @@ properties:
     type: string
   sequencing_reagent_kit:
     description: Reagent kit used for sequencing. NovaSeq6000 for example
+    type: string
+  tissue_id:
+    description: HuBMAP Display ID of the assayed tissue.
     type: string
   transposition_input:
     description: Number of cell/nuclei input to the assay.

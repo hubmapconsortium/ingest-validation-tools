@@ -7,7 +7,7 @@ Related files:
 ## Table of contents
 [Provenance](#provenance)<br>
 [`donor_id`](#donor_id)<br>
-[`parent_id`](#parent_id)<br>
+[`tissue_id`](#tissue_id)<br>
 [Level 1](#level-1)<br>
 [`execution_datetime`](#execution_datetime)<br>
 [`protocols_io_doi`](#protocols_io_doi)<br>
@@ -46,7 +46,7 @@ HuBMAP ID of the donor of the assayed tissue.
 
 
 
-### `parent_id`
+### `tissue_id`
 HuBMAP ID of the assayed tissue.
 
 
