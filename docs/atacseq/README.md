@@ -111,7 +111,7 @@ Each assay is placed into one of the following 3 general categories: generation 
 
 | constraint | value |
 | --- | --- |
-| constraint | `{'enum': ['microscopy', 'mass spec', 'sequence']}` |
+| enum | `['microscopy', 'mass spec', 'sequence']` |
 
 ### `assay_type`
 The specific type of assay being executed.

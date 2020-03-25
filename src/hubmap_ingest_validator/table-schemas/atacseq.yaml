@@ -36,7 +36,7 @@ fields:
   -
     name: assay_category
     description: 'Each assay is placed into one of the following 3 general categories: generation of images of microscopic entities, identification & quantitation of molecules by mass spectrometry, and determination of nucleotide sequence.'
-    constraint:
+    constraints:
       enum:
         - microscopy
         - mass spec
@@ -113,10 +113,11 @@ fields:
   -
     name: transposition_transposase_source
     description: The source of the Tn5 transposase and transposon used for capturing accessible chromatin.
-    enum:
-      - 10X snATAC
-      - In-house
-      - Nextera
+    constraints:
+      enum:
+        - 10X snATAC
+        - In-house
+        - Nextera
   -
     name: transposition_kit_number
     description: If Tn5 came from a kit, provide the catalog number.
