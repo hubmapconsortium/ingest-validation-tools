@@ -60,7 +60,10 @@ def _generate_readme_md(table_schema, type):
             fields_md_list.append(f"## {field['heading']}")
         table_md_rows = ['| constraint | value |', '| --- | --- |']
         for key, value in field.items():
-            if key not in ['heading', 'name', 'description']:
+            if key not in ['heading', 'name', 'description', 'constraints']:
+                table_md_rows.append(f'| {key} | `{value}` |')
+        if 'constraints' in field:
+            for key, value in field['constraints'].items():
                 table_md_rows.append(f'| {key} | `{value}` |')
         if len(table_md_rows) < 3:
             # Empty it, if there is no data.

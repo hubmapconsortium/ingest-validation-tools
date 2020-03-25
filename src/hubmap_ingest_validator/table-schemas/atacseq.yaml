@@ -17,7 +17,7 @@ fields:
   -
     name: sequencing_protocols_io_doi
     description: DOI for protocols.io referring to the protocol for this assay.
-    pattern: '^10\.17504/.*XX'
+    pattern: '^10\.17504/.*'
   -
     name: operator
     description: Name of the person responsible for executing the assay.
