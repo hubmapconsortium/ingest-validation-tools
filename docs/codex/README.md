@@ -44,16 +44,12 @@ Related files:
 ### `donor_id`
 HuBMAP ID of the donor of the assayed tissue.
 
-| constraint | value |
-| --- | --- |
-| format | `uuid` |
+
 
 ### `parent_id`
 HuBMAP ID of the assayed tissue.
 
-| constraint | value |
-| --- | --- |
-| format | `uuid` |
+
 
 ## Level 1
 
@@ -70,7 +66,7 @@ DOI for protocols.io referring to the protocol for this assay.
 
 | constraint | value |
 | --- | --- |
-| format | `uri` |
+| pattern | `^10\.17504/.*` |
 
 ### `operator`
 Name of the person responsible for executing the assay.
@@ -97,17 +93,17 @@ Email address for the principal investigator.
 | format | `email` |
 
 ### `assay_category`
-Each assay is placed into one of the following 3 general categories: generation of images of microscopic entities, identification & quantitation of molecules by mass spectrometry, and determination of nucleotide sequence.
+Each assay is placed into one of the following 3 general categories: generation of images of microscopic entities, identification & quantitation of molecules by mass spectrometry, and determination of nucleotide sequence. TODO: What are the exact strings to expect?
 
 
 
 ### `assay_type`
-The specific type of assay being executed.
+The specific type of assay being executed. TODO: What are the exact strings to expect?
 
 
 
 ### `analyte_class`
-Analytes are the target molecules being measured with the assay.
+Analytes are the target molecules being measured with the assay. TODO - What are the exact strings to expect?
 
 
 
@@ -210,14 +206,14 @@ DOI for protocols.io referring to the protocol for preparing tissue sections for
 
 | constraint | value |
 | --- | --- |
-| format | `uri` |
+| pattern | `^10\.17504/.*` |
 
 ### `reagent_prep_protocols_io_doi`
 DOI for protocols.io referring to the protocol for preparing reagents for the assay.
 
 | constraint | value |
 | --- | --- |
-| format | `uri` |
+| pattern | `^10\.17504/.*` |
 
 ### `metadata_path`
 Relative path to file or directory with free-form or instrument/lab specific metadata. Optional.

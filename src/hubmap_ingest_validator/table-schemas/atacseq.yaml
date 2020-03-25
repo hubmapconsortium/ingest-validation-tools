@@ -2,11 +2,11 @@ fields:
   -
     heading: Provenance
     name: donor_id
-    description: HuBMAP ID of the donor of the assayed tissue.
+    description: HuBMAP Display ID of the donor of the assayed tissue.
     format: uuid
   -
     name: parent_id
-    description: HuBMAP ID of the assayed tissue.
+    description: HuBMAP Display ID of the assayed tissue.
     format: uuid
   -
     heading: Level 1
@@ -17,6 +17,8 @@ fields:
   -
     name: sequencing_protocols_io_doi
     description: DOI for protocols.io referring to the protocol for this assay.
+    constraints:
+      pattern: '^10\.17504/.*'
   -
     name: operator
     description: Name of the person responsible for executing the assay.
@@ -61,23 +63,27 @@ fields:
   -
     name: sc_isolation_protocols_io_doi
     description: 'Link to a protocols document answering the question: How were single cells separated into a single-cell suspension?'
+    constraints:
+      pattern: '^10\.17504/.*'
   -
     name: sc_isolation_entity
     description: The type of single cell entity derived from isolation protocol.
-    enum:
-      - whole cell
-      - nucleus
-      - cell-cell multimer
-      - spatially encoded cell barcoding
+    constraints:
+       enum:
+          - whole cell
+          - nucleus
+          - cell-cell multimer
+          - spatially encoded cell barcoding
   -
     name: sc_isolation_tissue_dissociation
     description: The method by which tissues are dissociated into single cells in suspension.
   -
     name: sc_isolation_enrichment
     description: The method by which specific cell populations are sorted or enriched.
-    enum:
-      - none
-      - FACS
+    constraints:
+      enum:
+        - none
+        - FACS
   -
     name: sc_isolation_quality_metric
     description: 'A quality metric by visual inspection prior to cell lysis or defined by known parameters such as wells with several cells or no cells. This can be captured at a high level. "OK" or "not OK", or with more specificity such as "debris", "clump", "low clump".'
@@ -92,12 +98,13 @@ fields:
   -
     name: transposition_method
     description: Modality of capturing accessible chromatin molecules.
-    enum:
-      - SNARE-Seq2-AC
-      - scATACseq
-      - BulkATACseq
-      - snATACseq
-      - sciATACseq
+    constraints:
+      enum:
+        - SNARE-Seq2-AC
+        - scATACseq
+        - BulkATACseq
+        - snATACseq
+        - sciATACseq
   -
     name: transposition_transposase_source
     description: The source of the Tn5 transposase and transposon used for capturing accessible chromatin. TODO- Is this an enum, or just examples?
@@ -110,13 +117,16 @@ fields:
     description: If Tn5 came from a kit, provide the catalog number.
   -
     name: library_construction_protocols_io_doi
-    description: A link to the protocol document containing the library construction method (including version) that was used, e.g. "Smart-Seq2", "Drop-Seq", "10X v3". DOI for protocols.io referring to the protocol for this assay
+    description: A link to the protocol document containing the library construction method (including version) that was used, e.g. "Smart-Seq2", "Drop-Seq", "10X v3". DOI for protocols.io referring to the protocol for this assay.
+    constraints:
+      pattern: '^10\.17504/.*'
   -
     name: library_layout
     description: Whether the library was generated for single-end or paired end sequencing.
-    enum:
-      - single-end
-      - paired-end
+    constraints:
+      enum:
+        - single-end
+        - paired-end
   -
     name: library_adapter_sequence
     description: Adapter sequence to be used for adapter trimming.

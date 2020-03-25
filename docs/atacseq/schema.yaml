@@ -35,7 +35,7 @@ properties:
       and BulkATAC. Numeric value in bp
     type: string
   donor_id:
-    description: HuBMAP ID of the donor of the assayed tissue.
+    description: HuBMAP Display ID of the donor of the assayed tissue.
     type: string
   execution_datetime:
     description: Start date and time of assay. YYYY-MM-DD hh:mm +/-hh:mm, where YYYY
@@ -62,7 +62,7 @@ properties:
   library_construction_protocols_io_doi:
     description: A link to the protocol document containing the library construction
       method (including version) that was used, e.g. "Smart-Seq2", "Drop-Seq", "10X
-      v3". DOI for protocols.io referring to the protocol for this assay
+      v3". DOI for protocols.io referring to the protocol for this assay.
     type: string
   library_final_yield:
     description: Total ng of library after final pcr amplification step. Numeric value
@@ -89,7 +89,7 @@ properties:
     description: Email address for the operator.
     type: string
   parent_id:
-    description: HuBMAP ID of the assayed tissue.
+    description: HuBMAP Display ID of the assayed tissue.
     type: string
   pi:
     description: Name of the principal investigator responsible for the data.
