@@ -46,12 +46,11 @@ properties:
   is_targeted:
     description: 'This is a boolean value that specifies whether or not a specific
       molecule(s) is/are targeted for detection/measurement by the assay. The CODEX
-      analyte is protein. TODO: Should this be updated? Seems like copy and paste
-      from CODEX.'
+      analyte is protein.'
     type: string
   is_technical_replicate:
     description: If TRUE, fastq files in dataset need to be merged.
-    type: string
+    type: boolean
   library_adapter_sequence:
     description: Adapter sequence to be used for adapter trimming.
     type: string
