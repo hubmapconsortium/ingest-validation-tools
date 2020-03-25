@@ -182,3 +182,10 @@ fields:
     name: sequencing_phix_percent
     description: 'Percent PhiX loaded to the run.'
     type: number
+  -
+    heading: Paths
+    name: metadata_path
+    description: Relative path to file or directory with free-form or instrument/lab specific metadata. Optional.
+  -
+    name: data_path
+    description: Relative path to file or directory with instrument data. Downstream processing will depend on filename extension conventions. Required.

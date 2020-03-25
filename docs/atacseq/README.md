@@ -48,6 +48,9 @@ Related files:
 [`sequencing_read_format`](#sequencing_read_format)<br>
 [`sequencing_read_percent_q30`](#sequencing_read_percent_q30)<br>
 [`sequencing_phix_percent`](#sequencing_phix_percent)<br>
+[Paths](#paths)<br>
+[`metadata_path`](#metadata_path)<br>
+[`data_path`](#data_path)<br>
 
 ## Provenance
 
@@ -309,4 +312,16 @@ Percent PhiX loaded to the run.
 | constraint | value |
 | --- | --- |
 | type | `number` |
+
+## Paths
+
+### `metadata_path`
+Relative path to file or directory with free-form or instrument/lab specific metadata. Optional.
+
+
+
+### `data_path`
+Relative path to file or directory with instrument data. Downstream processing will depend on filename extension conventions. Required.
+
+
 

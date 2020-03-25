@@ -36,6 +36,7 @@ Related files:
 [`number_of_cycles`](#number_of_cycles)<br>
 [`section_prep_protocols_io_doi`](#section_prep_protocols_io_doi)<br>
 [`reagent_prep_protocols_io_doi`](#reagent_prep_protocols_io_doi)<br>
+[Paths](#paths)<br>
 [`metadata_path`](#metadata_path)<br>
 [`data_path`](#data_path)<br>
 
@@ -214,6 +215,8 @@ DOI for protocols.io referring to the protocol for preparing reagents for the as
 | constraint | value |
 | --- | --- |
 | pattern | `^10\.17504/.*` |
+
+## Paths
 
 ### `metadata_path`
 Relative path to file or directory with free-form or instrument/lab specific metadata. Optional.
