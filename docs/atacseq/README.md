@@ -7,7 +7,7 @@ Related files:
 ## Table of contents
 [Provenance](#provenance)<br>
 [`donor_id`](#donor_id)<br>
-[`parent_id`](#parent_id)<br>
+[`tissue_id`](#tissue_id)<br>
 [Level 1](#level-1)<br>
 [`execution_datetime`](#execution_datetime)<br>
 [`sequencing_protocols_io_doi`](#sequencing_protocols_io_doi)<br>
@@ -58,7 +58,7 @@ HuBMAP Display ID of the donor of the assayed tissue.
 | --- | --- |
 | format | `uuid` |
 
-### `parent_id`
+### `tissue_id`
 HuBMAP Display ID of the assayed tissue.
 
 | constraint | value |

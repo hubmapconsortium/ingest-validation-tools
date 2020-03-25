@@ -4,7 +4,7 @@ fields:
     name: donor_id
     description: HuBMAP ID of the donor of the assayed tissue.
   -
-    name: parent_id
+    name: tissue_id
     description: HuBMAP ID of the assayed tissue.
   -
     heading: Level 1

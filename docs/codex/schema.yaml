@@ -61,9 +61,6 @@ properties:
   operator_email:
     description: Email address for the operator.
     type: string
-  parent_id:
-    description: HuBMAP ID of the assayed tissue.
-    type: string
   pi:
     description: Name of the principal investigator responsible for the data.
     type: string
@@ -111,5 +108,8 @@ properties:
   section_prep_protocols_io_doi:
     description: DOI for protocols.io referring to the protocol for preparing tissue
       sections for the assay.
+    type: string
+  tissue_id:
+    description: HuBMAP ID of the assayed tissue.
     type: string
 
