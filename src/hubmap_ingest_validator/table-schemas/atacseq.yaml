@@ -36,6 +36,11 @@ fields:
   -
     name: assay_category
     description: 'Each assay is placed into one of the following 3 general categories: generation of images of microscopic entities, identification & quantitation of molecules by mass spectrometry, and determination of nucleotide sequence. TODO: Should this be an enumeration? What exact values?'
+    constraint:
+      enum:
+        - microscopy
+        - mass spec
+        - sequence
   -
     name: assay_type
     description: The specific type of assay being executed.
@@ -44,7 +49,7 @@ fields:
     description: Analytes are the target molecules being measured with the assay.
   -
     name: is_targeted
-    description: 'This is a boolean value that specifies whether or not a specific molecule(s) is/are targeted for detection/measurement by the assay. The CODEX analyte is protein. TODO: Should this be updated? Seems like copy and paste from CODEX.'
+    description: 'This is a boolean value that specifies whether or not a specific molecule(s) is/are targeted for detection/measurement by the assay. The CODEX analyte is protein.'
     type: boolean
   -
     heading: Level 2
@@ -107,7 +112,7 @@ fields:
         - sciATACseq
   -
     name: transposition_transposase_source
-    description: The source of the Tn5 transposase and transposon used for capturing accessible chromatin. TODO- Is this an enum, or just examples?
+    description: The source of the Tn5 transposase and transposon used for capturing accessible chromatin.
     enum:
       - 10X snATAC
       - In-house

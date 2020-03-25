@@ -44,10 +44,9 @@ properties:
       followed by the offset from GMT.
     type: string
   is_targeted:
-    description: 'This is a boolean value that specifies whether or not a specific
+    description: This is a boolean value that specifies whether or not a specific
       molecule(s) is/are targeted for detection/measurement by the assay. The CODEX
-      analyte is protein. TODO: Should this be updated? Seems like copy and paste
-      from CODEX.'
+      analyte is protein.
     type: string
   is_technical_replicate:
     description: If TRUE, fastq files in dataset need to be merged.
@@ -147,6 +146,6 @@ properties:
     type: string
   transposition_transposase_source:
     description: The source of the Tn5 transposase and transposon used for capturing
-      accessible chromatin. TODO- Is this an enum, or just examples?
+      accessible chromatin.
     type: string
 

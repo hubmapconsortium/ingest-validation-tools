@@ -109,7 +109,9 @@ Email address for the principal investigator.
 ### `assay_category`
 Each assay is placed into one of the following 3 general categories: generation of images of microscopic entities, identification & quantitation of molecules by mass spectrometry, and determination of nucleotide sequence. TODO: Should this be an enumeration? What exact values?
 
-
+| constraint | value |
+| --- | --- |
+| constraint | `{'enum': ['microscopy', 'mass spec', 'sequence']}` |
 
 ### `assay_type`
 The specific type of assay being executed.
@@ -122,7 +124,7 @@ Analytes are the target molecules being measured with the assay.
 
 
 ### `is_targeted`
-This is a boolean value that specifies whether or not a specific molecule(s) is/are targeted for detection/measurement by the assay. The CODEX analyte is protein. TODO: Should this be updated? Seems like copy and paste from CODEX.
+This is a boolean value that specifies whether or not a specific molecule(s) is/are targeted for detection/measurement by the assay. The CODEX analyte is protein.
 
 | constraint | value |
 | --- | --- |
@@ -205,7 +207,7 @@ Modality of capturing accessible chromatin molecules.
 | enum | `['SNARE-Seq2-AC', 'scATACseq', 'BulkATACseq', 'snATACseq', 'sciATACseq']` |
 
 ### `transposition_transposase_source`
-The source of the Tn5 transposase and transposon used for capturing accessible chromatin. TODO- Is this an enum, or just examples?
+The source of the Tn5 transposase and transposon used for capturing accessible chromatin.
 
 | constraint | value |
 | --- | --- |

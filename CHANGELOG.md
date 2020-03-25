@@ -16,7 +16,7 @@
 - Added constraints to generated docs.
 - Support timezone offset (rather than abbreviation).
 - Add ATAC-seq; fixed caps; Added descriptions.
-- Validate DOIs for protocols.io.
+- Validate DOIs for protocols.io
 ### Changed
 - CSV -> TSV
 - Make the schema validation errors more readable
