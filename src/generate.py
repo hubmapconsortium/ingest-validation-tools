@@ -75,12 +75,14 @@ def _generate_readme_md(table_schema, type):
 
     fields_md = '\n\n'.join(fields_md_list)
     toc_md = _make_toc(fields_md)
+    raw_url = 'https://raw.githubusercontent.com/hubmapconsortium' + \
+        f'/ingest-validation-tools/master/docs/{type}/template.tsv'
 
     return f'''# {type}
 
 Related files:
 - [JSON Schema](schema.yaml)
-- [TSV Template](template.tsv)
+- [TSV Template]({raw_url})
 
 ## Table of contents
 {toc_md}
