@@ -35,7 +35,7 @@ properties:
       and BulkATAC. Numeric value in bp
     type: string
   donor_id:
-    description: HuBMAP ID of the donor of the assayed tissue.
+    description: HuBMAP Display ID of the donor of the assayed tissue.
     type: string
   execution_datetime:
     description: Start date and time of assay. YYYY-MM-DD hh:mm +/-hh:mm, where YYYY
@@ -89,7 +89,7 @@ properties:
     description: Email address for the operator.
     type: string
   parent_id:
-    description: HuBMAP ID of the assayed tissue.
+    description: HuBMAP Display ID of the assayed tissue.
     type: string
   pi:
     description: Name of the principal investigator responsible for the data.

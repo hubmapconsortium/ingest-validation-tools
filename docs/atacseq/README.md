@@ -52,14 +52,14 @@ Related files:
 ## Provenance
 
 ### `donor_id`
-HuBMAP ID of the donor of the assayed tissue.
+HuBMAP Display ID of the donor of the assayed tissue.
 
 | constraint | value |
 | --- | --- |
 | format | `uuid` |
 
 ### `parent_id`
-HuBMAP ID of the assayed tissue.
+HuBMAP Display ID of the assayed tissue.
 
 | constraint | value |
 | --- | --- |
