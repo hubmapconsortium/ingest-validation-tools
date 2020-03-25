@@ -35,8 +35,8 @@ fields:
     format: email
   -
     name: assay_category
-    description: 'Each assay is placed into one of the following 3 general categories: generation of images of microscopic entities, identification & quantitation of molecules by mass spectrometry, and determination of nucleotide sequence. TODO: Should this be an enumeration? What exact values?'
-    constraint:
+    description: 'Each assay is placed into one of the following 3 general categories: generation of images of microscopic entities, identification & quantitation of molecules by mass spectrometry, and determination of nucleotide sequence.'
+    constraints:
       enum:
         - microscopy
         - mass spec
@@ -113,10 +113,11 @@ fields:
   -
     name: transposition_transposase_source
     description: The source of the Tn5 transposase and transposon used for capturing accessible chromatin.
-    enum:
-      - 10X snATAC
-      - In-house
-      - Nextera
+    constraints:
+      enum:
+        - 10X snATAC
+        - In-house
+        - Nextera
   -
     name: transposition_kit_number
     description: If Tn5 came from a kit, provide the catalog number.
@@ -138,10 +139,11 @@ fields:
   -
     name: cell_barcode_read
     description: Which read file contains the cell barcode.
-    enum:
-      - R1
-      - R2
-      - R3
+    constraints:
+      enum:
+        - R1
+        - R2
+        - R3
   -
     name: cell_barcode_offset
     description: Position in the read at which the cell barcode starts (if a single position). Does not apply to SNARE-seq and BulkATAC. Numeric value in bp.
