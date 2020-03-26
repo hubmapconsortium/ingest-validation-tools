@@ -52,7 +52,8 @@ def _validate_metadata_tsv(metadata_path, type):
     schema_path = (Path(__file__).parent
                    / 'table-schemas' / f'{type}.yaml')
     schema = load_yaml(open(schema_path).read())
-    report = validate_table(metadata_path, schema=schema)
+    report = validate_table(metadata_path, schema=schema,
+                            skip_checks=['blank-row'])
 
     error_messages = report['warnings']
     if 'tables' in report:

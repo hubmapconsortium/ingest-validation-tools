@@ -26,3 +26,4 @@
 - `parent_id` to `tissue_id`
 - Link to raw TSV.
 - No more UUIDs.
+- Ignore blank lines in TSV.
