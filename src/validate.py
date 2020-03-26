@@ -44,14 +44,16 @@ def main():
     return _print_message(args.dir, args.type)
 
 
-def _print_message(dir, type):
+def _print_message(dir, type, periods=False):
+    # Doctests choke on blank lines: periods=True replaces with "." for now.
     try:
         validate(dir, type)
         logging.info('PASS')
         return 0
     except DirectoryValidationErrors as e:
-        # Doctests choke on blank lines, so just replacing with "." for now.
-        message = re.sub(r'\n(\s*\n)+', '\n.\n', str(e)).strip()
+        message = str(e)
+        if periods:
+            message = re.sub(r'\n(\s*\n)+', '\n.\n', message).strip()
         # End user just wants a name, and doesn't care about refs.
         message = re.sub(r"\$ref: '#/definitions/(\w+)'", r'\1', message)
         # Ad hoc rewrites: Perhaps move these up to the library?
@@ -66,8 +68,9 @@ def _print_message(dir, type):
         logging.warning('FAIL')
         return 1
     except TableValidationErrors as e:
-        # No blank lines, for doctest:
-        message = re.sub(r'\n(\s*\n)+', '\n.\n', str(e)).strip()
+        message = str(e)
+        if periods:
+            message = re.sub(r'\n(\s*\n)+', '\n.\n', message).strip()
         message = re.sub(
             r'column (\d+)',
             lambda m: f'column {m[1]} ("{_number_to_letters(m[1])}")',
