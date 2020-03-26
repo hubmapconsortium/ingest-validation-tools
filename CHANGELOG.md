@@ -19,6 +19,7 @@
 - Validate DOIs for protocols.io.
 - Added "Paths" section to both.
 - Make periods in blank lines optional.
+- Make fields required.
 ### Changed
 - CSV -> TSV
 - Make the schema validation errors more readable
