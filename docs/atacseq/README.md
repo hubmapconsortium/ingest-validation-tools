@@ -59,6 +59,7 @@ HuBMAP Display ID of the donor of the assayed tissue.
 
 | constraint | value |
 | --- | --- |
+| required | `True` |
 | pattern | `[A-Z]+[0-9]+` |
 
 ### `tissue_id`
@@ -66,6 +67,7 @@ HuBMAP Display ID of the assayed tissue.
 
 | constraint | value |
 | --- | --- |
+| required | `True` |
 | pattern | `[A-Z]+[0-9]+(-[A-Z0-9]+)+` |
 
 ## Level 1
@@ -77,18 +79,22 @@ Start date and time of assay. YYYY-MM-DD hh:mm +/-hh:mm, where YYYY is the year,
 | --- | --- |
 | type | `datetime` |
 | format | `%Y-%m-%d %H:%M %z` |
+| required | `True` |
 
 ### `sequencing_protocols_io_doi`
 DOI for protocols.io referring to the protocol for this assay.
 
 | constraint | value |
 | --- | --- |
+| required | `True` |
 | pattern | `10\.17504/.*` |
 
 ### `operator`
 Name of the person responsible for executing the assay.
 
-
+| constraint | value |
+| --- | --- |
+| required | `True` |
 
 ### `operator_email`
 Email address for the operator.
@@ -96,11 +102,14 @@ Email address for the operator.
 | constraint | value |
 | --- | --- |
 | format | `email` |
+| required | `True` |
 
 ### `pi`
 Name of the principal investigator responsible for the data.
 
-
+| constraint | value |
+| --- | --- |
+| required | `True` |
 
 ### `pi_email`
 Email address for the principal investigator.
@@ -108,23 +117,29 @@ Email address for the principal investigator.
 | constraint | value |
 | --- | --- |
 | format | `email` |
+| required | `True` |
 
 ### `assay_category`
 Each assay is placed into one of the following 3 general categories: generation of images of microscopic entities, identification & quantitation of molecules by mass spectrometry, and determination of nucleotide sequence.
 
 | constraint | value |
 | --- | --- |
+| required | `True` |
 | enum | `['microscopy', 'mass spec', 'sequence']` |
 
 ### `assay_type`
 The specific type of assay being executed.
 
-
+| constraint | value |
+| --- | --- |
+| required | `True` |
 
 ### `analyte_class`
 Analytes are the target molecules being measured with the assay.
 
-
+| constraint | value |
+| --- | --- |
+| required | `True` |
 
 ### `is_targeted`
 This is a boolean value that specifies whether or not a specific molecule(s) is/are targeted for detection/measurement by the assay. The CODEX analyte is protein.
@@ -132,18 +147,23 @@ This is a boolean value that specifies whether or not a specific molecule(s) is/
 | constraint | value |
 | --- | --- |
 | type | `boolean` |
+| required | `True` |
 
 ## Level 2
 
 ### `acquisition_instrument_vendor`
 An acquisition_instrument is the device that contains the signal detection hardware and signal processing software. Assays can generate signals such as light of various intensities or color or signals representing molecular mass.
 
-
+| constraint | value |
+| --- | --- |
+| required | `True` |
 
 ### `acquisition_instrument_model`
 Manufacturers of an acquisition instrument may offer various versions (models) of that instrument with different features or sensitivities. Differences in features or sensitivities may be relevant to processing or interpretation of the data.
 
-
+| constraint | value |
+| --- | --- |
+| required | `True` |
 
 ### `is_technical_replicate`
 If TRUE, fastq files in dataset need to be merged.
@@ -151,17 +171,21 @@ If TRUE, fastq files in dataset need to be merged.
 | constraint | value |
 | --- | --- |
 | type | `boolean` |
+| required | `True` |
 
 ### `library_id`
 A library ID, unique within a TMC, which allows corresponding RNA and chromatin accessibility datasets to be linked.
 
-
+| constraint | value |
+| --- | --- |
+| required | `True` |
 
 ### `sc_isolation_protocols_io_doi`
 Link to a protocols document answering the question: How were single cells separated into a single-cell suspension?
 
 | constraint | value |
 | --- | --- |
+| required | `True` |
 | pattern | `10\.17504/.*` |
 
 ### `sc_isolation_entity`
@@ -169,24 +193,30 @@ The type of single cell entity derived from isolation protocol.
 
 | constraint | value |
 | --- | --- |
+| required | `True` |
 | enum | `['whole cell', 'nucleus', 'cell-cell multimer', 'spatially encoded cell barcoding']` |
 
 ### `sc_isolation_tissue_dissociation`
 The method by which tissues are dissociated into single cells in suspension.
 
-
+| constraint | value |
+| --- | --- |
+| required | `True` |
 
 ### `sc_isolation_enrichment`
 The method by which specific cell populations are sorted or enriched.
 
 | constraint | value |
 | --- | --- |
+| required | `True` |
 | enum | `['none', 'FACS']` |
 
 ### `sc_isolation_quality_metric`
 A quality metric by visual inspection prior to cell lysis or defined by known parameters such as wells with several cells or no cells. This can be captured at a high level. "OK" or "not OK", or with more specificity such as "debris", "clump", "low clump".
 
-
+| constraint | value |
+| --- | --- |
+| required | `True` |
 
 ### `sc_isolation_cell_number`
 Total number of cell/nuclei yielded post dissociation and enrichment.
@@ -194,6 +224,7 @@ Total number of cell/nuclei yielded post dissociation and enrichment.
 | constraint | value |
 | --- | --- |
 | type | `number` |
+| required | `True` |
 
 ### `transposition_input`
 Number of cell/nuclei input to the assay.
@@ -201,12 +232,14 @@ Number of cell/nuclei input to the assay.
 | constraint | value |
 | --- | --- |
 | type | `number` |
+| required | `True` |
 
 ### `transposition_method`
 Modality of capturing accessible chromatin molecules.
 
 | constraint | value |
 | --- | --- |
+| required | `True` |
 | enum | `['SNARE-Seq2-AC', 'scATACseq', 'BulkATACseq', 'snATACseq', 'sciATACseq']` |
 
 ### `transposition_transposase_source`
@@ -214,18 +247,22 @@ The source of the Tn5 transposase and transposon used for capturing accessible c
 
 | constraint | value |
 | --- | --- |
+| required | `True` |
 | enum | `['10X snATAC', 'In-house', 'Nextera']` |
 
 ### `transposition_kit_number`
 If Tn5 came from a kit, provide the catalog number.
 
-
+| constraint | value |
+| --- | --- |
+| required | `True` |
 
 ### `library_construction_protocols_io_doi`
 A link to the protocol document containing the library construction method (including version) that was used, e.g. "Smart-Seq2", "Drop-Seq", "10X v3". DOI for protocols.io referring to the protocol for this assay.
 
 | constraint | value |
 | --- | --- |
+| required | `True` |
 | pattern | `10\.17504/.*` |
 
 ### `library_layout`
@@ -233,18 +270,22 @@ Whether the library was generated for single-end or paired end sequencing.
 
 | constraint | value |
 | --- | --- |
+| required | `True` |
 | enum | `['single-end', 'paired-end']` |
 
 ### `library_adapter_sequence`
 Adapter sequence to be used for adapter trimming.
 
-
+| constraint | value |
+| --- | --- |
+| required | `True` |
 
 ### `cell_barcode_read`
 Which read file contains the cell barcode.
 
 | constraint | value |
 | --- | --- |
+| required | `True` |
 | enum | `['R1', 'R2', 'R3']` |
 
 ### `cell_barcode_offset`
@@ -253,6 +294,7 @@ Position in the read at which the cell barcode starts (if a single position). Do
 | constraint | value |
 | --- | --- |
 | type | `number` |
+| required | `True` |
 
 ### `cell_barcode_size`
 Length of the cell barcode in base pairs. Does not apply to SNARE-seq and BulkATAC. Numeric value in bp
@@ -260,6 +302,7 @@ Length of the cell barcode in base pairs. Does not apply to SNARE-seq and BulkAT
 | constraint | value |
 | --- | --- |
 | type | `number` |
+| required | `True` |
 
 ### `library_pcr_cycles`
 Number of PCR cycles to enrich for accessible chromatin fragments.
@@ -267,6 +310,7 @@ Number of PCR cycles to enrich for accessible chromatin fragments.
 | constraint | value |
 | --- | --- |
 | type | `number` |
+| required | `True` |
 
 ### `library_pcr_cycles_for_sample_index`
 Number of PCR cycles performed for library generation (figure in Descriptions section)
@@ -274,6 +318,7 @@ Number of PCR cycles performed for library generation (figure in Descriptions se
 | constraint | value |
 | --- | --- |
 | type | `number` |
+| required | `True` |
 
 ### `library_final_yield`
 Total ng of library after final pcr amplification step. Numeric value in ng.
@@ -281,6 +326,7 @@ Total ng of library after final pcr amplification step. Numeric value in ng.
 | constraint | value |
 | --- | --- |
 | type | `number` |
+| required | `True` |
 
 ### `library_average_fragment_size`
 Average size of sequencing library fragments estimated via gel electrophoresis or bioanalyzer/tapestation. Numeric value in bp.
@@ -288,16 +334,21 @@ Average size of sequencing library fragments estimated via gel electrophoresis o
 | constraint | value |
 | --- | --- |
 | type | `number` |
+| required | `True` |
 
 ### `sequencing_reagent_kit`
 Reagent kit used for sequencing. NovaSeq6000 for example
 
-
+| constraint | value |
+| --- | --- |
+| required | `True` |
 
 ### `sequencing_read_format`
 Number of sequencing cycles in Read1, i7 index, i5 index, and Read2. Eg: for 10X snATAC-seq: 50+8+16+50 (R1,Index,R2,R3). For SNARE-seq2: 75+94+8+75
 
-
+| constraint | value |
+| --- | --- |
+| required | `True` |
 
 ### `sequencing_read_percent_q30`
 Percent of bases with Quality scores above Q30.
@@ -305,6 +356,7 @@ Percent of bases with Quality scores above Q30.
 | constraint | value |
 | --- | --- |
 | type | `number` |
+| required | `True` |
 
 ### `sequencing_phix_percent`
 Percent PhiX loaded to the run.
@@ -312,16 +364,21 @@ Percent PhiX loaded to the run.
 | constraint | value |
 | --- | --- |
 | type | `number` |
+| required | `True` |
 
 ## Paths
 
 ### `metadata_path`
 Relative path to file or directory with free-form or instrument/lab specific metadata. Optional.
 
-
+| constraint | value |
+| --- | --- |
+| required | `False` |
 
 ### `data_path`
 Relative path to file or directory with instrument data. Downstream processing will depend on filename extension conventions. Required.
 
-
+| constraint | value |
+| --- | --- |
+| required | `True` |
 
