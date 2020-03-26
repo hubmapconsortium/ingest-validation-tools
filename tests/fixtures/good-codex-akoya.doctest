@@ -1,2 +1,2 @@
->>> validate._print_message('tests/fixtures/good-codex-akoya/', 'codex-akoya')
+>>> validate._print_message('tests/fixtures/good-codex-akoya/', 'codex-akoya', periods=True)
 0

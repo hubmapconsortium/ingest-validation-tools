@@ -1,2 +1,2 @@
->>> validate._print_message('tests/fixtures/good-codex-stanford/', 'codex-stanford')
+>>> validate._print_message('tests/fixtures/good-codex-stanford/', 'codex-stanford', periods=True)
 0

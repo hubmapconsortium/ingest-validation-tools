@@ -18,6 +18,7 @@
 - Add ATAC-seq; fixed caps; Added descriptions.
 - Validate DOIs for protocols.io.
 - Added "Paths" section to both.
+- Make periods in blank lines optional.
 ### Changed
 - CSV -> TSV
 - Make the schema validation errors more readable
