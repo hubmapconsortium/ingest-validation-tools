@@ -72,9 +72,10 @@ def _print_message(dir, type, periods=False):
         if periods:
             message = re.sub(r'\n(\s*\n)+', '\n.\n', message).strip()
         message = re.sub(
-            r'column (\d+)',
-            lambda m: f'column {m[1]} ("{_number_to_letters(m[1])}")',
-            message
+            r'(column) (\d+)',
+            lambda m: f'{m[1]} {m[2]} ("{_number_to_letters(m[2])}")',
+            message,
+            flags=re.I
         )
         print(message)
         logging.warning('FAIL')

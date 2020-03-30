@@ -1,3 +1,3 @@
 >>> validate._print_message('tests/fixtures/bad-codex-missing-value/', 'codex-stanford', periods=True)
-Column 3 is a required field, but row 2 has no value
+Column 3 ("C") is a required field, but row 2 has no value
 2

@@ -1,3 +1,7 @@
-# Just a placeholder for now... TODO
-
-items: {}
+items:
+  properties:
+    type:
+      enum:
+        - file
+    name:
+      pattern: '\.fastq(\.gz)?$'

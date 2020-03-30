@@ -1,0 +1,2 @@
+>>> validate._print_message('tests/fixtures/good-atacseq/', 'atacseq-default', periods=True)
+0
