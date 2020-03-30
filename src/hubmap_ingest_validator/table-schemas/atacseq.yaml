@@ -246,6 +246,8 @@ fields:
     type: number
     constraints:
       required: True
+      minimum: 0
+      maximum: 100
   -
     name: sequencing_phix_percent
     description: 'Percent PhiX loaded to the run.'
