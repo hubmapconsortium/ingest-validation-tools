@@ -132,7 +132,7 @@ fields:
   -
     name: sc_isolation_cell_number
     description: Total number of cell/nuclei yielded post dissociation and enrichment.
-    type: number
+    type: integer
     constraints:
       required: True
   -
@@ -209,13 +209,13 @@ fields:
   -
     name: library_pcr_cycles
     description: Number of PCR cycles to enrich for accessible chromatin fragments.
-    type: number
+    type: integer
     constraints:
       required: True
   -
     name: library_pcr_cycles_for_sample_index
     description: Number of PCR cycles performed for library generation (figure in Descriptions section)
-    type: number
+    type: integer
     constraints:
       required: True
   -
