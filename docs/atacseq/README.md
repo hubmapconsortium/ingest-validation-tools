@@ -223,7 +223,7 @@ Total number of cell/nuclei yielded post dissociation and enrichment.
 
 | constraint | value |
 | --- | --- |
-| type | `number` |
+| type | `integer` |
 | required | `True` |
 
 ### `transposition_input`
@@ -309,7 +309,7 @@ Number of PCR cycles to enrich for accessible chromatin fragments.
 
 | constraint | value |
 | --- | --- |
-| type | `number` |
+| type | `integer` |
 | required | `True` |
 
 ### `library_pcr_cycles_for_sample_index`
@@ -317,7 +317,7 @@ Number of PCR cycles performed for library generation (figure in Descriptions se
 
 | constraint | value |
 | --- | --- |
-| type | `number` |
+| type | `integer` |
 | required | `True` |
 
 ### `library_final_yield_in_ng`
@@ -357,6 +357,8 @@ Percent of bases with Quality scores above Q30.
 | --- | --- |
 | type | `number` |
 | required | `True` |
+| minimum | `0` |
+| maximum | `100` |
 
 ### `sequencing_phix_percent`
 Percent PhiX loaded to the run.

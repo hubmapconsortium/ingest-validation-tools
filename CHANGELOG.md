@@ -29,3 +29,4 @@
 - Link to raw TSV.
 - No more UUIDs.
 - Ignore blank lines in TSV.
+- Tighter numeric constraints on ATAC-seq.
