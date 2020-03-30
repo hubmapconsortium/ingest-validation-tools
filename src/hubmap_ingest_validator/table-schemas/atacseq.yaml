@@ -165,7 +165,7 @@ fields:
     name: transposition_kit_number
     description: If Tn5 came from a kit, provide the catalog number.
     constraints:
-      required: True
+      required: False
   -
     name: library_construction_protocols_io_doi
     description: A link to the protocol document containing the library construction method (including version) that was used, e.g. "Smart-Seq2", "Drop-Seq", "10X v3". DOI for protocols.io referring to the protocol for this assay.
@@ -197,15 +197,15 @@ fields:
   -
     name: cell_barcode_offset
     description: Position in the read at which the cell barcode starts (if a single position). Does not apply to SNARE-seq and BulkATAC. Numeric value in bp.
-    type: number
     constraints:
       required: True
+      pattern: '\d+,\d+,\d+'
   -
     name: cell_barcode_size
     description: Length of the cell barcode in base pairs. Does not apply to SNARE-seq and BulkATAC. Numeric value in bp
-    type: number
     constraints:
       required: True
+      pattern: '\d+,\d+,\d+'
   -
     name: library_pcr_cycles
     description: Number of PCR cycles to enrich for accessible chromatin fragments.
