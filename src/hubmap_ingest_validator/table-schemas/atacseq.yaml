@@ -219,7 +219,7 @@ fields:
     constraints:
       required: True
   -
-    name: library_final_yield
+    name: library_final_yield_in_ng
     description: Total ng of library after final pcr amplification step. Numeric value in ng.
     type: number
     constraints:

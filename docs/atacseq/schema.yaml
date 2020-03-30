@@ -69,7 +69,7 @@ properties:
       method (including version) that was used, e.g. "Smart-Seq2", "Drop-Seq", "10X
       v3". DOI for protocols.io referring to the protocol for this assay.
     type: string
-  library_final_yield:
+  library_final_yield_in_ng:
     description: Total ng of library after final pcr amplification step. Numeric value
       in ng.
     type: string
