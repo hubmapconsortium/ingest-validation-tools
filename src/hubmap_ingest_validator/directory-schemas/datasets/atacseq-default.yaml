@@ -1,0 +1,7 @@
+items:
+  properties:
+    type:
+      enum:
+        - file
+    name:
+      pattern: '\.fastq(\.gz)?$'

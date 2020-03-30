@@ -24,7 +24,7 @@ fields:
     name: sequencing_protocols_io_doi
     description: DOI for protocols.io referring to the protocol for this assay.
     constraints:
-      required: True
+      required: False
       pattern: '10\.17504/.*'
   -
     name: operator
@@ -99,7 +99,7 @@ fields:
     name: sc_isolation_protocols_io_doi
     description: 'Link to a protocols document answering the question: How were single cells separated into a single-cell suspension?'
     constraints:
-      required: True
+      required: False
       pattern: '10\.17504/.*'
   -
     name: sc_isolation_entity
@@ -165,12 +165,12 @@ fields:
     name: transposition_kit_number
     description: If Tn5 came from a kit, provide the catalog number.
     constraints:
-      required: True
+      required: False
   -
     name: library_construction_protocols_io_doi
     description: A link to the protocol document containing the library construction method (including version) that was used, e.g. "Smart-Seq2", "Drop-Seq", "10X v3". DOI for protocols.io referring to the protocol for this assay.
     constraints:
-      required: True
+      required: False
       pattern: '10\.17504/.*'
   -
     name: library_layout
@@ -196,16 +196,16 @@ fields:
         - R3
   -
     name: cell_barcode_offset
-    description: Position in the read at which the cell barcode starts (if a single position). Does not apply to SNARE-seq and BulkATAC. Numeric value in bp.
-    type: number
+    description: Positions in the read at which the cell barcodes start. Cell barcodes are 3 x 8 bp sequences that are spaced by constant sequences (the offsets). First barcode at position 0, then 38, then 76. (Does not apply to SNARE-seq and BulkATAC.)
     constraints:
       required: True
+      pattern: '\d+,\d+,\d+'
   -
     name: cell_barcode_size
-    description: Length of the cell barcode in base pairs. Does not apply to SNARE-seq and BulkATAC. Numeric value in bp
-    type: number
+    description: Length of the cell barcode in base pairs. Cell barcodes are, for example, 3 x 8 bp sequences that are spaced by constant sequences, the offsets. (Does not apply to SNARE-seq and BulkATAC.)
     constraints:
       required: True
+      pattern: '\d+,\d+,\d+'
   -
     name: library_pcr_cycles
     description: Number of PCR cycles to enrich for accessible chromatin fragments.
@@ -219,7 +219,7 @@ fields:
     constraints:
       required: True
   -
-    name: library_final_yield
+    name: library_final_yield_in_ng
     description: Total ng of library after final pcr amplification step. Numeric value in ng.
     type: number
     constraints:

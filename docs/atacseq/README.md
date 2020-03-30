@@ -42,7 +42,7 @@ Related files:
 [`cell_barcode_size`](#cell_barcode_size)<br>
 [`library_pcr_cycles`](#library_pcr_cycles)<br>
 [`library_pcr_cycles_for_sample_index`](#library_pcr_cycles_for_sample_index)<br>
-[`library_final_yield`](#library_final_yield)<br>
+[`library_final_yield_in_ng`](#library_final_yield_in_ng)<br>
 [`library_average_fragment_size`](#library_average_fragment_size)<br>
 [`sequencing_reagent_kit`](#sequencing_reagent_kit)<br>
 [`sequencing_read_format`](#sequencing_read_format)<br>
@@ -86,7 +86,7 @@ DOI for protocols.io referring to the protocol for this assay.
 
 | constraint | value |
 | --- | --- |
-| required | `True` |
+| required | `False` |
 | pattern | `10\.17504/.*` |
 
 ### `operator`
@@ -185,7 +185,7 @@ Link to a protocols document answering the question: How were single cells separ
 
 | constraint | value |
 | --- | --- |
-| required | `True` |
+| required | `False` |
 | pattern | `10\.17504/.*` |
 
 ### `sc_isolation_entity`
@@ -255,14 +255,14 @@ If Tn5 came from a kit, provide the catalog number.
 
 | constraint | value |
 | --- | --- |
-| required | `True` |
+| required | `False` |
 
 ### `library_construction_protocols_io_doi`
 A link to the protocol document containing the library construction method (including version) that was used, e.g. "Smart-Seq2", "Drop-Seq", "10X v3". DOI for protocols.io referring to the protocol for this assay.
 
 | constraint | value |
 | --- | --- |
-| required | `True` |
+| required | `False` |
 | pattern | `10\.17504/.*` |
 
 ### `library_layout`
@@ -289,20 +289,20 @@ Which read file contains the cell barcode.
 | enum | `['R1', 'R2', 'R3']` |
 
 ### `cell_barcode_offset`
-Position in the read at which the cell barcode starts (if a single position). Does not apply to SNARE-seq and BulkATAC. Numeric value in bp.
+Positions in the read at which the cell barcodes start. Cell barcodes are 3 x 8 bp sequences that are spaced by constant sequences (the offsets). First barcode at position 0, then 38, then 76. (Does not apply to SNARE-seq and BulkATAC.)
 
 | constraint | value |
 | --- | --- |
-| type | `number` |
 | required | `True` |
+| pattern | `\d+,\d+,\d+` |
 
 ### `cell_barcode_size`
-Length of the cell barcode in base pairs. Does not apply to SNARE-seq and BulkATAC. Numeric value in bp
+Length of the cell barcode in base pairs. Cell barcodes are, for example, 3 x 8 bp sequences that are spaced by constant sequences, the offsets. (Does not apply to SNARE-seq and BulkATAC.)
 
 | constraint | value |
 | --- | --- |
-| type | `number` |
 | required | `True` |
+| pattern | `\d+,\d+,\d+` |
 
 ### `library_pcr_cycles`
 Number of PCR cycles to enrich for accessible chromatin fragments.
@@ -320,7 +320,7 @@ Number of PCR cycles performed for library generation (figure in Descriptions se
 | type | `number` |
 | required | `True` |
 
-### `library_final_yield`
+### `library_final_yield_in_ng`
 Total ng of library after final pcr amplification step. Numeric value in ng.
 
 | constraint | value |
