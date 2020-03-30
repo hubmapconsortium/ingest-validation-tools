@@ -86,7 +86,7 @@ DOI for protocols.io referring to the protocol for this assay.
 
 | constraint | value |
 | --- | --- |
-| required | `True` |
+| required | `False` |
 | pattern | `10\.17504/.*` |
 
 ### `operator`
@@ -185,7 +185,7 @@ Link to a protocols document answering the question: How were single cells separ
 
 | constraint | value |
 | --- | --- |
-| required | `True` |
+| required | `False` |
 | pattern | `10\.17504/.*` |
 
 ### `sc_isolation_entity`
@@ -255,14 +255,14 @@ If Tn5 came from a kit, provide the catalog number.
 
 | constraint | value |
 | --- | --- |
-| required | `True` |
+| required | `False` |
 
 ### `library_construction_protocols_io_doi`
 A link to the protocol document containing the library construction method (including version) that was used, e.g. "Smart-Seq2", "Drop-Seq", "10X v3". DOI for protocols.io referring to the protocol for this assay.
 
 | constraint | value |
 | --- | --- |
-| required | `True` |
+| required | `False` |
 | pattern | `10\.17504/.*` |
 
 ### `library_layout`
@@ -293,16 +293,16 @@ Position in the read at which the cell barcode starts (if a single position). Do
 
 | constraint | value |
 | --- | --- |
-| type | `number` |
 | required | `True` |
+| pattern | `\d+,\d+,\d+` |
 
 ### `cell_barcode_size`
 Length of the cell barcode in base pairs. Does not apply to SNARE-seq and BulkATAC. Numeric value in bp
 
 | constraint | value |
 | --- | --- |
-| type | `number` |
 | required | `True` |
+| pattern | `\d+,\d+,\d+` |
 
 ### `library_pcr_cycles`
 Number of PCR cycles to enrich for accessible chromatin fragments.
