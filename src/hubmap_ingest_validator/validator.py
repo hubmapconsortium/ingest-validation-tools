@@ -66,6 +66,7 @@ def _validate_metadata_tsv(metadata_path, type):
 
 
 def _validate_references_up(metadata_path, donor_id, tissue_id):
+    logging.info(f'Validating donor_id and tissue_id...')
     with open(metadata_path) as tsv:
         reader = csv.DictReader(tsv, delimiter='\t')
         error_messages = []
