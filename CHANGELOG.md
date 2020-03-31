@@ -20,6 +20,7 @@
 - Added "Paths" section to both.
 - Make periods in blank lines optional.
 - Make fields required.
+- Validate donor and sample IDs.
 ### Changed
 - CSV -> TSV
 - Make the schema validation errors more readable

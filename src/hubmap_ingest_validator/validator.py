@@ -15,6 +15,7 @@ def validate(path, type, donor_id, tissue_id):
     _validate_generic_submission(path_obj)
     _validate_dataset_directories(path_obj, type)
     _validate_metadata_tsv(path_obj / 'metadata.tsv', type.split('-')[0])
+    _validate_references_up(path_obj / 'metadata.tsv', donor_id, tissue_id)
 
 
 def _validate_generic_submission(dir_path):
@@ -61,3 +62,7 @@ def _validate_metadata_tsv(metadata_path, type):
             error_messages += [e['message'] for e in table['errors']]
     if error_messages:
         raise TableValidationErrors('\n\n'.join(error_messages))
+
+
+def _validate_references_up(metadata_path, donor_id, tissue_id):
+    pass

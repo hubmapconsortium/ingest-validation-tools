@@ -1,2 +1,2 @@
->>> validate._print_message('tests/fixtures/good-atacseq/', 'atacseq-default', periods=True)
+>>> validate._print_message('tests/fixtures/good-atacseq/', 'atacseq-default', 'bad-donor', 'bad-sample', periods=True)
 0
