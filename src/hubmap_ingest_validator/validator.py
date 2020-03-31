@@ -1,5 +1,6 @@
 from pathlib import Path
 import logging
+import csv
 
 from yaml import safe_load as load_yaml
 from directory_schema import directory_schema
@@ -65,4 +66,13 @@ def _validate_metadata_tsv(metadata_path, type):
 
 
 def _validate_references_up(metadata_path, donor_id, tissue_id):
-    pass
+    with open(metadata_path) as tsv:
+        reader = csv.DictReader(tsv, delimiter='\t')
+        error_messages = []
+        for i, row in enumerate(reader):
+            if donor_id != row['donor_id']:
+                error_messages.append(f'On row {i+1}, donor_id is "{row["donor_id"]}"')
+            if tissue_id != row['tissue_id']:
+                error_messages.append(f'On row {i+1}, tissue_id is "{row["tissue_id"]}"')
+    if error_messages:
+        raise TableValidationErrors('\n'.join(error_messages))
