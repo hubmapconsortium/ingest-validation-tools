@@ -29,25 +29,34 @@ def main():
 
     parser = argparse.ArgumentParser()
     parser.add_argument(
-        'dir', metavar='DIRECTORY', type=_dir_path,
+        '--dir', type=_dir_path, required=True,
         help='Directory to validate')
     parser.add_argument(
-        'type', metavar='TYPE', type=str,
+        '--type', type=str, required=True,
         choices=valid_types,
         help='Ingest data type')
+    parser.add_argument(
+        '--donor_id', type=str, metavar='ID', required=True,
+        help='HuBMAP Display ID of Donor')
+    parser.add_argument(
+        '--tissue_id', type=str, metavar='ID', required=True,
+        help='HuBMAP Display ID of Tissue')
     parser.add_argument(
         '--logging', metavar='LOG_LEVEL', type=str,
         choices=['DEBUG', 'INFO', 'WARN'],
         default='WARN')
     args = parser.parse_args()
     logging.basicConfig(level=args.logging)
-    return _print_message(args.dir, args.type)
+    return _print_message(
+        args.dir, args.type,
+        args.donor_id, args.tissue_id
+    )
 
 
-def _print_message(dir, type, periods=False):
+def _print_message(dir, type, donor_id, tissue_id, periods=False):
     # Doctests choke on blank lines: periods=True replaces with "." for now.
     try:
-        validate(dir, type)
+        validate(dir, type, donor_id, tissue_id)
         logging.info('PASS')
         return 0
     except DirectoryValidationErrors as e:

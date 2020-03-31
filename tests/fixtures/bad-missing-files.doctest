@@ -1,4 +1,4 @@
->>> validate._print_message('tests/fixtures/missing-files/', 'codex-akoya', periods=True)
+>>> validate._print_message('tests/fixtures/missing-files/', 'codex-akoya', 'bad-donor', 'bad-sample', periods=True)
 This item:
 .
     place-holder.txt
