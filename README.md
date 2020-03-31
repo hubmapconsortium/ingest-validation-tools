@@ -39,13 +39,12 @@ optional arguments:
 
   ```
   $ src/generate.py -h
-usage: generate.py [-h] {atacseq,codex} {template.tsv,schema.yaml,README.md}
+usage: generate.py [-h] {atacseq,codex} target
 
 positional arguments:
-  {atacseq,codex}       What type to generate for
-  {template.tsv,schema.yaml,README.md}
-                        What kind of thing to generate
+  {atacseq,codex}  What type to generate
+  target           Directory to write output to
 
 optional arguments:
-  -h, --help            show this help message and exit
+  -h, --help       show this help message and exit
   ```
