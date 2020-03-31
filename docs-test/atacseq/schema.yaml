@@ -1,0 +1,161 @@
+properties:
+  acquisition_instrument_model:
+    description: Manufacturers of an acquisition instrument may offer various versions
+      (models) of that instrument with different features or sensitivities. Differences
+      in features or sensitivities may be relevant to processing or interpretation
+      of the data.
+    type: string
+  acquisition_instrument_vendor:
+    description: An acquisition_instrument is the device that contains the signal
+      detection hardware and signal processing software. Assays can generate signals
+      such as light of various intensities or color or signals representing molecular
+      mass.
+    type: string
+  analyte_class:
+    description: Analytes are the target molecules being measured with the assay.
+    type: string
+  assay_category:
+    description: 'Each assay is placed into one of the following 3 general categories:
+      generation of images of microscopic entities, identification & quantitation
+      of molecules by mass spectrometry, and determination of nucleotide sequence.'
+    type: string
+  assay_type:
+    description: The specific type of assay being executed.
+    type: string
+  cell_barcode_offset:
+    description: Positions in the read at which the cell barcodes start. Cell barcodes
+      are 3 x 8 bp sequences that are spaced by constant sequences (the offsets).
+      First barcode at position 0, then 38, then 76. (Does not apply to SNARE-seq
+      and BulkATAC.)
+    type: string
+  cell_barcode_read:
+    description: Which read file contains the cell barcode.
+    type: string
+  cell_barcode_size:
+    description: Length of the cell barcode in base pairs. Cell barcodes are, for
+      example, 3 x 8 bp sequences that are spaced by constant sequences, the offsets.
+      (Does not apply to SNARE-seq and BulkATAC.)
+    type: string
+  data_path:
+    description: Relative path to file or directory with instrument data. Downstream
+      processing will depend on filename extension conventions. Required.
+    type: string
+  donor_id:
+    description: HuBMAP Display ID of the donor of the assayed tissue.
+    type: string
+  execution_datetime:
+    description: Start date and time of assay. YYYY-MM-DD hh:mm +/-hh:mm, where YYYY
+      is the year, MM is the month with leading 0s, and DD is the day with leading
+      0s, hh is the hour with leading zeros, mm are the minutes with leading zeros,
+      followed by the offset from GMT.
+    type: string
+  is_targeted:
+    description: Specifies whether or not a specific molecule(s) is/are targeted for
+      detection/measurement by the assay .The CODEX analyte is protein.
+    type: string
+  is_technical_replicate:
+    description: If TRUE, fastq files in dataset need to be merged.
+    type: string
+  library_adapter_sequence:
+    description: Adapter sequence to be used for adapter trimming.
+    type: string
+  library_average_fragment_size:
+    description: Average size of sequencing library fragments estimated via gel electrophoresis
+      or bioanalyzer/tapestation. Numeric value in bp.
+    type: string
+  library_construction_protocols_io_doi:
+    description: A link to the protocol document containing the library construction
+      method (including version) that was used, e.g. "Smart-Seq2", "Drop-Seq", "10X
+      v3". DOI for protocols.io referring to the protocol for this assay.
+    type: string
+  library_final_yield:
+    description: Total ng of library after final pcr amplification step.
+    type: string
+  library_final_yield_unit:
+    description: Units for library_final_yield
+    type: string
+  library_id:
+    description: A library ID, unique within a TMC, which allows corresponding RNA
+      and chromatin accessibility datasets to be linked.
+    type: string
+  library_layout:
+    description: Whether the library was generated for single-end or paired end sequencing.
+    type: string
+  library_pcr_cycles:
+    description: Number of PCR cycles to enrich for accessible chromatin fragments.
+    type: string
+  library_pcr_cycles_for_sample_index:
+    description: Number of PCR cycles performed for library generation (figure in
+      Descriptions section)
+    type: string
+  metadata_path:
+    description: Relative path to file or directory with free-form or instrument/lab
+      specific metadata. Optional.
+    type: string
+  operator:
+    description: Name of the person responsible for executing the assay.
+    type: string
+  operator_email:
+    description: Email address for the operator.
+    type: string
+  pi:
+    description: Name of the principal investigator responsible for the data.
+    type: string
+  pi_email:
+    description: Email address for the principal investigator.
+    type: string
+  protocols_io_doi:
+    description: DOI for protocols.io referring to the protocol for this assay.
+    type: string
+  sc_isolation_cell_number:
+    description: Total number of cell/nuclei yielded post dissociation and enrichment.
+    type: string
+  sc_isolation_enrichment:
+    description: The method by which specific cell populations are sorted or enriched.
+    type: string
+  sc_isolation_entity:
+    description: The type of single cell entity derived from isolation protocol.
+    type: string
+  sc_isolation_protocols_io_doi:
+    description: 'Link to a protocols document answering the question: How were single
+      cells separated into a single-cell suspension?'
+    type: string
+  sc_isolation_quality_metric:
+    description: A quality metric by visual inspection prior to cell lysis or defined
+      by known parameters such as wells with several cells or no cells. This can be
+      captured at a high level. "OK" or "not OK", or with more specificity such as
+      "debris", "clump", "low clump".
+    type: string
+  sc_isolation_tissue_dissociation:
+    description: The method by which tissues are dissociated into single cells in
+      suspension.
+    type: string
+  sequencing_phix_percent:
+    description: Percent PhiX loaded to the run.
+    type: string
+  sequencing_read_format:
+    description: 'Number of sequencing cycles in Read1, i7 index, i5 index, and Read2.
+      Eg: for 10X snATAC-seq: 50+8+16+50 (R1,Index,R2,R3). For SNARE-seq2: 75+94+8+75'
+    type: string
+  sequencing_read_percent_q30:
+    description: Percent of bases with Quality scores above Q30.
+    type: string
+  sequencing_reagent_kit:
+    description: Reagent kit used for sequencing. NovaSeq6000 for example
+    type: string
+  tissue_id:
+    description: HuBMAP Display ID of the assayed tissue.
+    type: string
+  transposition_input:
+    description: Number of cell/nuclei input to the assay.
+    type: string
+  transposition_kit_number:
+    description: If Tn5 came from a kit, provide the catalog number.
+    type: string
+  transposition_method:
+    description: Modality of capturing accessible chromatin molecules.
+    type: string
+  transposition_transposase_source:
+    description: The source of the Tn5 transposase and transposon used for capturing
+      accessible chromatin.
+    type: string

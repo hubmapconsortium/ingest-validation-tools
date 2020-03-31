@@ -79,7 +79,7 @@ fields:
         - sci-ATAC-seq
         - sci-RNA-seq
         - seqFISH
-        - SNARE-SEQ2
+        - SNARE-seq2
         - snATAC
         - snRNA
         - SPLiT-Seq
