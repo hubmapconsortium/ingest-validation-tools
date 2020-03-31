@@ -69,9 +69,11 @@ properties:
       method (including version) that was used, e.g. "Smart-Seq2", "Drop-Seq", "10X
       v3". DOI for protocols.io referring to the protocol for this assay.
     type: string
-  library_final_yield_in_ng:
-    description: Total ng of library after final pcr amplification step. Numeric value
-      in ng.
+  library_final_yield:
+    description: Total ng of library after final pcr amplification step.
+    type: string
+  library_final_yield_unit:
+    description: Units for library_final_yield
     type: string
   library_id:
     description: A library ID, unique within a TMC, which allows corresponding RNA
@@ -158,4 +160,3 @@ properties:
     description: The source of the Tn5 transposase and transposon used for capturing
       accessible chromatin.
     type: string
-

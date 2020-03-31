@@ -4,8 +4,16 @@ import argparse
 from pathlib import Path
 import sys
 import re
+import os
 
 from yaml import safe_load as load_yaml, dump as dump_yaml
+
+
+def _dir_path(string):
+    if os.path.isdir(string):
+        return string
+    else:
+        raise Exception(f'"{string}" is not a directory')
 
 
 def main():
@@ -18,22 +26,22 @@ def main():
     parser.add_argument(
         'type',
         choices=valid_types,
-        help='What type to generate for')
+        help='What type to generate')
     parser.add_argument(
         'target',
-        choices=['template.tsv', 'schema.yaml', 'README.md'],
-        help='What kind of thing to generate')
+        type=_dir_path,
+        help='Directory to write output to')
     args = parser.parse_args()
 
     schema_path = schemas_path / f'{args.type}.yaml'
     table_schema = load_yaml(open(schema_path).read())
 
-    if args.target == 'template.tsv':
-        print(_generate_template_tsv(table_schema))
-    elif args.target == 'schema.yaml':
-        print(_generate_schema_yaml(table_schema))
-    elif args.target == 'README.md':
-        print(_generate_readme_md(table_schema, args.type))
+    with open(Path(args.target) / 'template.tsv', 'w') as f:
+        f.write(_generate_template_tsv(table_schema))
+    with open(Path(args.target) / 'schema.yaml', 'w') as f:
+        f.write(_generate_schema_yaml(table_schema))
+    with open(Path(args.target) / 'README.md', 'w') as f:
+        f.write(_generate_readme_md(table_schema, args.type))
 
 
 def _generate_template_tsv(table_schema):

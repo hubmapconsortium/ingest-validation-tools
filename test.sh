@@ -27,13 +27,19 @@ end fixtures
 
 start generate
 for TYPE in $(ls docs | grep -v README.md); do # Ignore README and just get subdirectories
-  for TARGET in template.tsv schema.yaml README.md; do
-    echo "Testing $TYPE $TARGET generation..."
-    CMD="src/generate.py $TYPE $TARGET"
-    DEST="docs/$TYPE/$TARGET"
-    diff "$DEST" <($CMD) \
-      || die "Update needed: $CMD > $DEST"
-  done
+  echo "Testing $TYPE generation..."
+
+  REAL_DEST="docs/$TYPE"
+  TEST_DEST="docs-test/$TYPE"
+
+  REAL_CMD="src/generate.py $TYPE $REAL_DEST"
+  TEST_CMD="src/generate.py $TYPE $TEST_DEST"
+
+  mkdir -p $TEST_DEST || echo "$TEST_DEST already exists"
+  $TEST_CMD
+  diff -r $REAL_DEST $TEST_DEST \
+    || die "Update needed: $REAL_CMD"
+  rm -rf $TEST_DEST
   ((++GENERATE_COUNT))
 done
 [[ $GENERATE_COUNT -gt 0 ]] || die "No files generated"

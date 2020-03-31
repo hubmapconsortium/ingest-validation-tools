@@ -42,7 +42,8 @@ Related files:
 [`cell_barcode_size`](#cell_barcode_size)<br>
 [`library_pcr_cycles`](#library_pcr_cycles)<br>
 [`library_pcr_cycles_for_sample_index`](#library_pcr_cycles_for_sample_index)<br>
-[`library_final_yield_in_ng`](#library_final_yield_in_ng)<br>
+[`library_final_yield`](#library_final_yield)<br>
+[`library_final_yield_unit`](#library_final_yield_unit)<br>
 [`library_average_fragment_size`](#library_average_fragment_size)<br>
 [`sequencing_reagent_kit`](#sequencing_reagent_kit)<br>
 [`sequencing_read_format`](#sequencing_read_format)<br>
@@ -320,13 +321,21 @@ Number of PCR cycles performed for library generation (figure in Descriptions se
 | type | `integer` |
 | required | `True` |
 
-### `library_final_yield_in_ng`
-Total ng of library after final pcr amplification step. Numeric value in ng.
+### `library_final_yield`
+Total ng of library after final pcr amplification step.
 
 | constraint | value |
 | --- | --- |
 | type | `number` |
 | required | `True` |
+
+### `library_final_yield_unit`
+Units for library_final_yield
+
+| constraint | value |
+| --- | --- |
+| required | `True` |
+| enum | `['ng']` |
 
 ### `library_average_fragment_size`
 Average size of sequencing library fragments estimated via gel electrophoresis or bioanalyzer/tapestation. Numeric value in bp.
@@ -383,4 +392,3 @@ Relative path to file or directory with instrument data. Downstream processing w
 | constraint | value |
 | --- | --- |
 | required | `True` |
-

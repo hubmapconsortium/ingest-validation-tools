@@ -30,3 +30,4 @@
 - No more UUIDs.
 - Ignore blank lines in TSV.
 - Tighter numeric constraints on ATAC-seq.
+- Generate all docs at once.

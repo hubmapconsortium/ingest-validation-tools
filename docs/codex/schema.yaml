@@ -112,4 +112,3 @@ properties:
   tissue_id:
     description: HuBMAP Display ID of the assayed tissue.
     type: string
-
