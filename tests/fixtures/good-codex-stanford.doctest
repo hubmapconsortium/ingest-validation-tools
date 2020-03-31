@@ -1,2 +1,6 @@
->>> validate._print_message('tests/fixtures/good-codex-stanford/', 'codex-stanford', 'bad-donor', 'bad-sample', periods=True)
+>>> validate._print_message(
+...   'tests/fixtures/good-codex-stanford/',
+...   'codex-stanford',
+...   'ABC123', 'ABC123-1-1-TADA',
+...   periods=True)
 0
