@@ -113,6 +113,7 @@ Each assay is placed into one of the following 3 general categories: generation 
 | constraint | value |
 | --- | --- |
 | required | `True` |
+| enum | `['imaging', 'mass_spectrometry', 'sequence_data']` |
 
 ### `assay_type`
 The specific type of assay being executed. TODO: What are the exact strings to expect?
@@ -120,9 +121,10 @@ The specific type of assay being executed. TODO: What are the exact strings to e
 | constraint | value |
 | --- | --- |
 | required | `True` |
+| enum | `['scRNA-Seq (10xGenomics)', 'AF', 'bulk RNA', 'bulk ATAC', 'CODEX', 'Imaging Mass Cytometry', 'LC-MS (metabolomics)', 'LC-MS/MS (label-free proteomics)', 'MxIF', 'IMS positive', 'IMS negative', 'MS (shotgun lipidomics)', 'PAS microscopy', 'sci-ATAC-seq', 'sci-RNA-seq', 'seqFISH', 'SNARE-SEQ2', 'snATAC', 'snRNA', 'SPLiT-Seq', 'TMT (proteomics)', 'WGS']` |
 
 ### `analyte_class`
-Analytes are the target molecules being measured with the assay. TODO - What are the exact strings to expect?
+Analytes are the target molecules being measured with the assay.
 
 | constraint | value |
 | --- | --- |
