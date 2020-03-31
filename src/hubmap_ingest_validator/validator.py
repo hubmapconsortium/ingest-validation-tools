@@ -10,7 +10,7 @@ class TableValidationErrors(Exception):
     pass
 
 
-def validate(path, type):
+def validate(path, type, donor_id, tissue_id):
     path_obj = Path(path)
     _validate_generic_submission(path_obj)
     _validate_dataset_directories(path_obj, type)

@@ -23,17 +23,20 @@ Eventually, this should be available on PyPI, but for now, it is run from source
 Two scripts are available:
 ```
 $ src/validate.py -h
-usage: validate.py [-h] [--logging LOG_LEVEL] DIRECTORY TYPE
-
-positional arguments:
-  DIRECTORY            Directory to validate
-  TYPE                 Ingest data type
+usage: validate.py [-h] --dir DIR --type
+                   {atacseq-default,codex-stanford,codex-akoya} --donor_id ID
+                   --tissue_id ID [--logging LOG_LEVEL]
 
 optional arguments:
-  -h, --help           show this help message and exit
+  -h, --help            show this help message and exit
+  --dir DIR             Directory to validate
+  --type {atacseq-default,codex-stanford,codex-akoya}
+                        Ingest data type
+  --donor_id ID         HuBMAP Display ID of Donor
+  --tissue_id ID        HuBMAP Display ID of Tissue
   --logging LOG_LEVEL
   ```
-  
+
   ```
   $ src/generate.py -h
 usage: generate.py [-h] {atacseq,codex} {template.tsv,schema.yaml,README.md}
@@ -46,4 +49,3 @@ positional arguments:
 optional arguments:
   -h, --help            show this help message and exit
   ```
-
