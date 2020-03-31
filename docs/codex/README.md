@@ -271,4 +271,3 @@ Relative path to file or directory with instrument data. Downstream processing w
 | constraint | value |
 | --- | --- |
 | required | `True` |
-
