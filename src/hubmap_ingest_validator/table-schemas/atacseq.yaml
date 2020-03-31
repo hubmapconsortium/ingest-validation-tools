@@ -21,10 +21,10 @@ fields:
     constraints:
       required: True
   -
-    name: sequencing_protocols_io_doi
+    name: protocols_io_doi
     description: DOI for protocols.io referring to the protocol for this assay.
     constraints:
-      required: False
+      required: True
       pattern: '10\.17504/.*'
   -
     name: operator
@@ -54,14 +54,37 @@ fields:
     constraints:
       required: True
       enum:
-        - microscopy
-        - mass spec
-        - sequence
+        - imaging
+        - mass_spectrometry
+        - sequence_data
   -
     name: assay_type
-    description: The specific type of assay being executed.
+    description: 'The specific type of assay being executed.'
     constraints:
       required: True
+      enum:
+        - scRNA-Seq (10xGenomics)
+        - AF
+        - bulk RNA
+        - bulk ATAC
+        - CODEX
+        - Imaging Mass Cytometry
+        - LC-MS (metabolomics)
+        - LC-MS/MS (label-free proteomics)
+        - MxIF
+        - IMS positive
+        - IMS negative
+        - MS (shotgun lipidomics)
+        - PAS microscopy
+        - sci-ATAC-seq
+        - sci-RNA-seq
+        - seqFISH
+        - SNARE-SEQ2
+        - snATAC
+        - snRNA
+        - SPLiT-Seq
+        - TMT (proteomics)
+        - WGS
   -
     name: analyte_class
     description: Analytes are the target molecules being measured with the assay.
@@ -69,7 +92,7 @@ fields:
       required: True
   -
     name: is_targeted
-    description: 'This is a boolean value that specifies whether or not a specific molecule(s) is/are targeted for detection/measurement by the assay. The CODEX analyte is protein.'
+    description: Specifies whether or not a specific molecule(s) is/are targeted for detection/measurement by the assay .The CODEX analyte is protein.
     type: boolean
     constraints:
       required: True
