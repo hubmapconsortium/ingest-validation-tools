@@ -12,7 +12,6 @@ properties:
     type: string
   analyte_class:
     description: Analytes are the target molecules being measured with the assay.
-      TODO - What are the exact strings to expect?
     type: string
   assay_category:
     description: 'Each assay is placed into one of the following 3 general categories:
