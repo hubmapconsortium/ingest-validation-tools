@@ -16,12 +16,10 @@ properties:
   assay_category:
     description: 'Each assay is placed into one of the following 3 general categories:
       generation of images of microscopic entities, identification & quantitation
-      of molecules by mass spectrometry, and determination of nucleotide sequence.
-      TODO: What are the exact strings to expect?'
+      of molecules by mass spectrometry, and determination of nucleotide sequence.'
     type: string
   assay_type:
-    description: 'The specific type of assay being executed. TODO: What are the exact
-      strings to expect?'
+    description: The specific type of assay being executed.
     type: string
   data_path:
     description: Relative path to file or directory with instrument data. Downstream

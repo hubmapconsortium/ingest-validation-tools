@@ -33,3 +33,4 @@
 - Tighter numeric constraints on ATAC-seq.
 - Generate all docs at once.
 - Add more enums.
+- Unify Level 1 metadata definitions.

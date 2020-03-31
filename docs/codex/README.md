@@ -108,7 +108,7 @@ Email address for the principal investigator.
 | required | `True` |
 
 ### `assay_category`
-Each assay is placed into one of the following 3 general categories: generation of images of microscopic entities, identification & quantitation of molecules by mass spectrometry, and determination of nucleotide sequence. TODO: What are the exact strings to expect?
+Each assay is placed into one of the following 3 general categories: generation of images of microscopic entities, identification & quantitation of molecules by mass spectrometry, and determination of nucleotide sequence.
 
 | constraint | value |
 | --- | --- |
@@ -116,7 +116,7 @@ Each assay is placed into one of the following 3 general categories: generation 
 | enum | `['imaging', 'mass_spectrometry', 'sequence_data']` |
 
 ### `assay_type`
-The specific type of assay being executed. TODO: What are the exact strings to expect?
+The specific type of assay being executed.
 
 | constraint | value |
 | --- | --- |

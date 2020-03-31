@@ -10,7 +10,7 @@ Related files:
 [`tissue_id`](#tissue_id)<br>
 [Level 1](#level-1)<br>
 [`execution_datetime`](#execution_datetime)<br>
-[`sequencing_protocols_io_doi`](#sequencing_protocols_io_doi)<br>
+[`protocols_io_doi`](#protocols_io_doi)<br>
 [`operator`](#operator)<br>
 [`operator_email`](#operator_email)<br>
 [`pi`](#pi)<br>
@@ -82,12 +82,12 @@ Start date and time of assay. YYYY-MM-DD hh:mm +/-hh:mm, where YYYY is the year,
 | format | `%Y-%m-%d %H:%M %z` |
 | required | `True` |
 
-### `sequencing_protocols_io_doi`
+### `protocols_io_doi`
 DOI for protocols.io referring to the protocol for this assay.
 
 | constraint | value |
 | --- | --- |
-| required | `False` |
+| required | `True` |
 | pattern | `10\.17504/.*` |
 
 ### `operator`
@@ -126,7 +126,7 @@ Each assay is placed into one of the following 3 general categories: generation 
 | constraint | value |
 | --- | --- |
 | required | `True` |
-| enum | `['microscopy', 'mass spec', 'sequence']` |
+| enum | `['imaging', 'mass_spectrometry', 'sequence_data']` |
 
 ### `assay_type`
 The specific type of assay being executed.
@@ -134,6 +134,7 @@ The specific type of assay being executed.
 | constraint | value |
 | --- | --- |
 | required | `True` |
+| enum | `['scRNA-Seq (10xGenomics)', 'AF', 'bulk RNA', 'bulk ATAC', 'CODEX', 'Imaging Mass Cytometry', 'LC-MS (metabolomics)', 'LC-MS/MS (label-free proteomics)', 'MxIF', 'IMS positive', 'IMS negative', 'MS (shotgun lipidomics)', 'PAS microscopy', 'sci-ATAC-seq', 'sci-RNA-seq', 'seqFISH', 'SNARE-seq2', 'snATAC', 'snRNA', 'SPLiT-Seq', 'TMT (proteomics)', 'WGS']` |
 
 ### `analyte_class`
 Analytes are the target molecules being measured with the assay.
@@ -143,7 +144,7 @@ Analytes are the target molecules being measured with the assay.
 | required | `True` |
 
 ### `is_targeted`
-This is a boolean value that specifies whether or not a specific molecule(s) is/are targeted for detection/measurement by the assay. The CODEX analyte is protein.
+Specifies whether or not a specific molecule(s) is/are targeted for detection/measurement by the assay .The CODEX analyte is protein.
 
 | constraint | value |
 | --- | --- |
