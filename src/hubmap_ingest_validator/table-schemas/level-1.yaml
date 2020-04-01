@@ -23,7 +23,7 @@
   name: protocols_io_doi
   description: DOI for protocols.io referring to the protocol for this assay.
   constraints:
-    required: True
+    required: False
     pattern: '10\.17504/.*'
 -
   name: operator
@@ -55,7 +55,7 @@
     enum:
       - imaging
       - mass_spectrometry
-      - sequence_data
+      - sequence
 -
   name: assay_type
   description: 'The specific type of assay being executed.'
