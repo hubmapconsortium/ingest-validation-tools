@@ -6,6 +6,8 @@ from yaml import safe_load as load_yaml
 from directory_schema import directory_schema
 from goodtables import validate as validate_table
 
+from hubmap_ingest_validator.table_schemas import get_schema
+
 
 class TableValidationErrors(Exception):
     pass
@@ -51,9 +53,7 @@ def _validate_metadata_tsv(metadata_path, type):
     Validate the metadata.tsv.
     '''
     logging.info(f'Validating {type} metadata.tsv...')
-    schema_path = (Path(__file__).parent
-                   / 'table-schemas' / f'{type}.yaml')
-    schema = load_yaml(open(schema_path).read())
+    schema = get_schema(type)
     report = validate_table(metadata_path, schema=schema,
                             skip_checks=['blank-row'])
 

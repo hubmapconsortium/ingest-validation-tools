@@ -6,7 +6,9 @@ import sys
 import re
 import os
 
-from yaml import safe_load as load_yaml, dump as dump_yaml
+from yaml import dump as dump_yaml
+
+from hubmap_ingest_validator.table_schemas import list_types, get_schema
 
 
 def _dir_path(string):
@@ -17,15 +19,10 @@ def _dir_path(string):
 
 
 def main():
-    schemas_path = (
-        Path(__file__).parent / 'hubmap_ingest_validator' / 'table-schemas'
-    )
-    valid_types = [p.stem for p in schemas_path.iterdir()]
-
     parser = argparse.ArgumentParser()
     parser.add_argument(
         'type',
-        choices=valid_types,
+        choices=list_types(),
         help='What type to generate')
     parser.add_argument(
         'target',
@@ -33,8 +30,7 @@ def main():
         help='Directory to write output to')
     args = parser.parse_args()
 
-    schema_path = schemas_path / f'{args.type}.yaml'
-    table_schema = load_yaml(open(schema_path).read())
+    table_schema = get_schema(args.type)
 
     with open(Path(args.target) / 'template.tsv', 'w') as f:
         f.write(_generate_template_tsv(table_schema))
