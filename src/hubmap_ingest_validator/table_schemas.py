@@ -12,10 +12,9 @@ def list_types():
 
 
 def get_schema(type):
-    schema_path = _schemas_path / f'{type}.yaml'
-    specific_schema = load_yaml(open(schema_path).read())
-
     level_1_fields = load_yaml(open(_schemas_path / 'level-1.yaml').read())
+    type_fields = load_yaml(open(_schemas_path / f'{type}.yaml').read())
 
-    specific_schema['fields'] = level_1_fields + specific_schema['fields']
-    return specific_schema
+    return {
+        'fields': level_1_fields + type_fields
+    }
