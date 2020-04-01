@@ -68,7 +68,7 @@ def _validate_metadata_tsv(metadata_path, type):
 
 
 def _validate_references_up(metadata_path, donor_id, tissue_id):
-    logging.info(f'Validating donor_id and tissue_id...')
+    logging.info('Validating donor_id and tissue_id...')
     with open(metadata_path) as tsv:
         reader = csv.DictReader(tsv, delimiter='\t')
         error_messages = []
@@ -84,4 +84,15 @@ def _validate_references_up(metadata_path, donor_id, tissue_id):
 
 
 def _validate_references_down(dir_path):
-    pass
+    logging.info(f'Validating data_path...')
+    with open(dir_path / 'metadata.tsv') as tsv:
+        reader = csv.DictReader(tsv, delimiter='\t')
+        error_messages = []
+        for i, row in enumerate(reader):
+            data_path = row['data_path']
+            if not (dir_path / data_path).is_dir():
+                error_messages.append(
+                    f'On row {i+1}, data_path "{data_path}" not a directory')
+    # TODO: and also check for unused directories.
+    if error_messages:
+        raise TableValidationErrors('\n'.join(error_messages))
