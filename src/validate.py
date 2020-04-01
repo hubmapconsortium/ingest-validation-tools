@@ -21,11 +21,11 @@ def _dir_path(string):
 
 
 def main():
-    valid_types = [
+    valid_types = sorted([
         p.stem for p in
         (Path(__file__).parent / 'hubmap_ingest_validator'
          / 'directory-schemas' / 'datasets').iterdir()
-    ]
+    ])
 
     parser = argparse.ArgumentParser()
     parser.add_argument(

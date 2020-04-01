@@ -1,7 +1,7 @@
 >>> validate._print_message('tests/fixtures/bad-codex-missing-value/', 'codex-stanford', 'bad-donor', 'bad-sample', periods=True)
 Column 3 ("C") is a required field, but row 2 has no value
 .
-The value "assay_category" in row 2 and column 9 ("I") does not conform to the given enumeration: "['imaging', 'mass_spectrometry', 'sequence_data']"
+The value "assay_category" in row 2 and column 9 ("I") does not conform to the given enumeration: "['imaging', 'mass_spectrometry', 'sequence']"
 .
 The value "assay_type" in row 2 and column 10 ("J") does not conform to the given enumeration: "['scRNA-Seq (10xGenomics)', 'AF', 'bulk RNA', 'bulk ATAC', 'CODEX', 'Imaging Mass Cytometry', 'LC-MS (metabolomics)', 'LC-MS/MS (label-free proteomics)', 'MxIF', 'IMS positive', 'IMS negative', 'MS (shotgun lipidomics)', 'PAS microscopy', 'sci-ATAC-seq', 'sci-RNA-seq', 'seqFISH', 'SNARE-seq2', 'snATAC', 'snRNA', 'SPLiT-Seq', 'TMT (proteomics)', 'WGS']"
 2

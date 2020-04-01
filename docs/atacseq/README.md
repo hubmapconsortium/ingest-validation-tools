@@ -87,8 +87,8 @@ DOI for protocols.io referring to the protocol for this assay.
 
 | constraint | value |
 | --- | --- |
-| required | `True` |
-| pattern | `10\.17504/.*` |
+| required | `False` |
+| pattern | `dx\.doi\.org/10\.17504/.*` |
 
 ### `operator`
 Name of the person responsible for executing the assay.
@@ -126,7 +126,7 @@ Each assay is placed into one of the following 3 general categories: generation 
 | constraint | value |
 | --- | --- |
 | required | `True` |
-| enum | `['imaging', 'mass_spectrometry', 'sequence_data']` |
+| enum | `['imaging', 'mass_spectrometry', 'sequence']` |
 
 ### `assay_type`
 The specific type of assay being executed.
@@ -188,7 +188,7 @@ Link to a protocols document answering the question: How were single cells separ
 | constraint | value |
 | --- | --- |
 | required | `False` |
-| pattern | `10\.17504/.*` |
+| pattern | `dx\.doi\.org/10\.17504/.*` |
 
 ### `sc_isolation_entity`
 The type of single cell entity derived from isolation protocol.
@@ -265,7 +265,7 @@ A link to the protocol document containing the library construction method (incl
 | constraint | value |
 | --- | --- |
 | required | `False` |
-| pattern | `10\.17504/.*` |
+| pattern | `dx\.doi\.org/10\.17504/.*` |
 
 ### `library_layout`
 Whether the library was generated for single-end or paired end sequencing.

@@ -45,6 +45,16 @@ done
 [[ $GENERATE_COUNT -gt 0 ]] || die "No files generated"
 end generate
 
+start cli-docs
+for TOOL in validate.py generate.py; do
+  echo "Testing $TOOL docs..."
+  diff \
+        <(perl -ne 'print if /usage: '$TOOL'/../```/ and ! /```/' README.md) \
+        <(src/$TOOL -h) \
+      || die "Update README.md: src/$TOOL -h"
+done
+end cli-docs
+
 start changelog
 if [ "$TRAVIS_BRANCH" != 'master' ]; then
   diff CHANGELOG.md <(curl -s https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/master/CHANGELOG.md) \

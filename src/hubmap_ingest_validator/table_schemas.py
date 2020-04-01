@@ -8,7 +8,7 @@ _schemas_path = Path(__file__).parent / 'table-schemas'
 
 def list_types():
     schemas = {p.stem for p in _schemas_path.iterdir()}
-    return schemas - {'level-1'}
+    return sorted(schemas - {'level-1'})
 
 
 def get_schema(type):

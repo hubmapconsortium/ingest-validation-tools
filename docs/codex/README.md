@@ -74,8 +74,8 @@ DOI for protocols.io referring to the protocol for this assay.
 
 | constraint | value |
 | --- | --- |
-| required | `True` |
-| pattern | `10\.17504/.*` |
+| required | `False` |
+| pattern | `dx\.doi\.org/10\.17504/.*` |
 
 ### `operator`
 Name of the person responsible for executing the assay.
@@ -113,7 +113,7 @@ Each assay is placed into one of the following 3 general categories: generation 
 | constraint | value |
 | --- | --- |
 | required | `True` |
-| enum | `['imaging', 'mass_spectrometry', 'sequence_data']` |
+| enum | `['imaging', 'mass_spectrometry', 'sequence']` |
 
 ### `assay_type`
 The specific type of assay being executed.
@@ -248,7 +248,7 @@ DOI for protocols.io referring to the protocol for preparing tissue sections for
 | constraint | value |
 | --- | --- |
 | required | `True` |
-| pattern | `10\.17504/.*` |
+| pattern | `dx\.doi\.org/10\.17504/.*` |
 
 ### `reagent_prep_protocols_io_doi`
 DOI for protocols.io referring to the protocol for preparing reagents for the assay.
@@ -256,7 +256,7 @@ DOI for protocols.io referring to the protocol for preparing reagents for the as
 | constraint | value |
 | --- | --- |
 | required | `True` |
-| pattern | `10\.17504/.*` |
+| pattern | `dx\.doi\.org/10\.17504/.*` |
 
 ## Paths
 
