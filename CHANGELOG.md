@@ -22,6 +22,7 @@
 - Make fields required.
 - Validate donor and sample IDs.
 - Check that CLI docs are up to date.
+- Validate the data_path.
 ### Changed
 - CSV -> TSV
 - Make the schema validation errors more readable
