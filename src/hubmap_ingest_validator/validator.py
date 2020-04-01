@@ -13,12 +13,14 @@ class TableValidationErrors(Exception):
     pass
 
 
-def validate(path, type, donor_id, tissue_id):
+def validate(path, type, donor_id, tissue_id, skip_data_path=False):
     path_obj = Path(path)
     _validate_generic_submission(path_obj)
     _validate_dataset_directories(path_obj, type)
     _validate_metadata_tsv(path_obj / 'metadata.tsv', type.split('-')[0])
     _validate_references_up(path_obj / 'metadata.tsv', donor_id, tissue_id)
+    if not skip_data_path:
+        _validate_references_down(path_obj)
 
 
 def _validate_generic_submission(dir_path):
@@ -66,7 +68,7 @@ def _validate_metadata_tsv(metadata_path, type):
 
 
 def _validate_references_up(metadata_path, donor_id, tissue_id):
-    logging.info(f'Validating donor_id and tissue_id...')
+    logging.info('Validating donor_id and tissue_id...')
     with open(metadata_path) as tsv:
         reader = csv.DictReader(tsv, delimiter='\t')
         error_messages = []
@@ -77,5 +79,20 @@ def _validate_references_up(metadata_path, donor_id, tissue_id):
             if tissue_id != row['tissue_id']:
                 error_messages.append(
                     f'On row {i+1}, tissue_id is "{row["tissue_id"]}"')
+    if error_messages:
+        raise TableValidationErrors('\n'.join(error_messages))
+
+
+def _validate_references_down(dir_path):
+    logging.info(f'Validating data_path...')
+    with open(dir_path / 'metadata.tsv') as tsv:
+        reader = csv.DictReader(tsv, delimiter='\t')
+        error_messages = []
+        for i, row in enumerate(reader):
+            data_path = row['data_path']
+            if not (dir_path / data_path).is_dir():
+                error_messages.append(
+                    f'On row {i+1}, data_path "{data_path}" not a directory')
+    # TODO: and also check for unused directories.
     if error_messages:
         raise TableValidationErrors('\n'.join(error_messages))

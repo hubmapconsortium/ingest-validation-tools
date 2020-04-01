@@ -25,7 +25,7 @@ Two scripts are available:
 $ src/validate.py -h
 usage: validate.py [-h] --dir DIR --type
                    {atacseq-default,codex-akoya,codex-stanford} --donor_id ID
-                   --tissue_id ID [--logging LOG_LEVEL]
+                   --tissue_id ID [--skip_data_path] [--logging LOG_LEVEL]
 
 optional arguments:
   -h, --help            show this help message and exit
@@ -34,6 +34,7 @@ optional arguments:
                         Ingest data type
   --donor_id ID         HuBMAP Display ID of Donor
   --tissue_id ID        HuBMAP Display ID of Tissue
+  --skip_data_path      If present, the data_path will not be validated
   --logging LOG_LEVEL
   ```
 
