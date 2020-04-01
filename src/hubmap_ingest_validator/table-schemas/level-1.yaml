@@ -24,7 +24,7 @@
   description: DOI for protocols.io referring to the protocol for this assay.
   constraints:
     required: False
-    pattern: 'dx\.doi\.org/10\.17504/.*'
+    pattern: '10\.17504/.*'
 -
   name: operator
   description: Name of the person responsible for executing the assay.

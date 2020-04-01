@@ -36,3 +36,4 @@
 - Generate all docs at once.
 - Add more enums.
 - Unify Level 1 metadata definitions.
+- Revert DOI format.

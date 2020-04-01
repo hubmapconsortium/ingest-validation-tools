@@ -25,7 +25,7 @@
   description: 'Link to a protocols document answering the question: How were single cells separated into a single-cell suspension?'
   constraints:
     required: False
-    pattern: 'dx\.doi\.org/10\.17504/.*'
+    pattern: '10\.17504/.*'
 -
   name: sc_isolation_entity
   description: The type of single cell entity derived from isolation protocol.
@@ -96,7 +96,7 @@
   description: A link to the protocol document containing the library construction method (including version) that was used, e.g. "Smart-Seq2", "Drop-Seq", "10X v3". DOI for protocols.io referring to the protocol for this assay.
   constraints:
     required: False
-    pattern: 'dx\.doi\.org/10\.17504/.*'
+    pattern: '10\.17504/.*'
 -
   name: library_layout
   description: Whether the library was generated for single-end or paired end sequencing.
