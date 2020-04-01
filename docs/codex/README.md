@@ -74,7 +74,7 @@ DOI for protocols.io referring to the protocol for this assay.
 
 | constraint | value |
 | --- | --- |
-| required | `True` |
+| required | `False` |
 | pattern | `10\.17504/.*` |
 
 ### `operator`
@@ -113,7 +113,7 @@ Each assay is placed into one of the following 3 general categories: generation 
 | constraint | value |
 | --- | --- |
 | required | `True` |
-| enum | `['imaging', 'mass_spectrometry', 'sequence_data']` |
+| enum | `['imaging', 'mass_spectrometry', 'sequence']` |
 
 ### `assay_type`
 The specific type of assay being executed.
