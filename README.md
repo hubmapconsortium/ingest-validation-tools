@@ -24,13 +24,13 @@ Two scripts are available:
 ```
 $ src/validate.py -h
 usage: validate.py [-h] --dir DIR --type
-                   {atacseq-default,codex-stanford,codex-akoya} --donor_id ID
+                   {atacseq-default,codex-akoya,codex-stanford} --donor_id ID
                    --tissue_id ID [--logging LOG_LEVEL]
 
 optional arguments:
   -h, --help            show this help message and exit
   --dir DIR             Directory to validate
-  --type {atacseq-default,codex-stanford,codex-akoya}
+  --type {atacseq-default,codex-akoya,codex-stanford}
                         Ingest data type
   --donor_id ID         HuBMAP Display ID of Donor
   --tissue_id ID        HuBMAP Display ID of Tissue
