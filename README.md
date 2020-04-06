@@ -1,26 +1,20 @@
 # ingest-validation-tools
 HuBMAP data submission guidelines,
-and tools to confirm that submissions adhere to the guidelines
+and tools which check that submissions adhere to those guidelines.
 
-## Data Submitter Documentation
+## HuBMAP submission structure:
+
+Submissions are based on Globus directories containing:
+- one or more `<type>-metadata.tsv` files.
+- top-level subdirectories, or single files, in a 1-to-1 relationship with the rows of the TSVs.
+
+## For data submitters:
 
 Documentation, metadata TSV templates, JSON schemas are [here](docs).
 
-## Development
+## For curators:
 
-Checkout the project, cd, venv, and then:
-```
-pip install -r requirements.txt
-pip install -r requirements-dev.txt
-./test.sh
-```
-
-## Usage
-
-The [examples here](tests/fixtures) show the kind of feedback the user gets when the structure is wrong.
-
-Eventually, this should be available on PyPI, but for now, it is run from source.
-Two scripts are available:
+You can run validation locally before the same checks are run automatically during ingest:
 ```
 $ src/validate.py -h
 usage: validate.py [-h] --dir DIR --type
@@ -38,8 +32,19 @@ optional arguments:
   --logging LOG_LEVEL
   ```
 
-  ```
-  $ src/generate.py -h
+## For developers:
+
+Checkout the project, cd, venv, and then:
+```
+pip install -r requirements.txt
+pip install -r requirements-dev.txt
+./test.sh
+```
+
+After making tweaks to the schema, you can regenerate the docs:
+
+```
+$ src/generate.py -h
 usage: generate.py [-h] {atacseq,codex} target
 
 positional arguments:
@@ -48,4 +53,4 @@ positional arguments:
 
 optional arguments:
   -h, --help       show this help message and exit
-  ```
+```
