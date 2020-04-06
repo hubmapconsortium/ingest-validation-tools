@@ -7,6 +7,7 @@ import re
 import logging
 from pathlib import Path
 from string import ascii_uppercase
+import subprocess
 
 from directory_schema.errors import DirectoryValidationErrors
 
@@ -21,19 +22,45 @@ def _dir_path(s):
 
 
 def _origin_directory_pair(s):
+    if not re.match(r'[0-9a-f-]{36}:.+', s):
+        raise argparse.ArgumentTypeError('Orgin directory format wrong')
+
+    try:
+        subprocess.run(['globus', 'whoami'], check=True)
+    except subprocess.CalledProcessError:
+        raise argparse.ArgumentTypeError('Run "globus login"')
+
+    try:
+        subprocess.run(['globus', 'ls', s], check=True, capture_output=True)
+    except subprocess.CalledProcessError as e:
+        raise argparse.ArgumentTypeError(e.stderr.decode('utf-8'))
+
+    # The recursive listing might also generate errors,
+    # but it is much slower, so we won't do it here.
     return s
 
 
 def _type_metadata_pair(s):
+    try:
+        type, path = s.split(':')
+    except:
+        raise argparse.ArgumentTypeError(f'Expected colon-delimited pair, not "{s}"')
+    if type not in _valid_types:
+        raise argparse.ArgumentTypeError(f'Expected one of {_valid_types}, not "{type}"')
+    if not Path(path).is_file():
+        raise argparse.ArgumentTypeError(f'"{path}" is not a file')
     return s
 
 
+_valid_types = sorted([
+    p.stem for p in
+    (Path(__file__).parent / 'hubmap_ingest_validator'
+     / 'directory-schemas' / 'datasets').iterdir()
+])
+
+
 def main():
-    valid_types = sorted([
-        p.stem for p in
-        (Path(__file__).parent / 'hubmap_ingest_validator'
-         / 'directory-schemas' / 'datasets').iterdir()
-    ])
+
 
     parser = argparse.ArgumentParser()
     mutex_group = parser.add_mutually_exclusive_group()
@@ -46,7 +73,7 @@ def main():
 
     parser.add_argument(
         '--type_metadata', type=_type_metadata_pair, nargs='+', metavar='TYPE_PATH',
-        help=f'A string of the form "<{"|".join(valid_types)}>:<local_path_to_tsv>"')
+        help=f'A string of the form "<{"|".join(_valid_types)}>:<local_path_to_tsv>"')
 
     parser.add_argument(
         '--logging', metavar='LOG_LEVEL', type=str,
