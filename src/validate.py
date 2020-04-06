@@ -13,11 +13,19 @@ from directory_schema.errors import DirectoryValidationErrors
 from hubmap_ingest_validator.validator import validate, TableValidationErrors
 
 
-def _dir_path(string):
-    if os.path.isdir(string):
-        return string
+def _dir_path(s):
+    if os.path.isdir(s):
+        return s
     else:
-        raise Exception(f'"{string}" is not a directory')
+        raise Exception(f'"{s}" is not a directory')
+
+
+def _origin_directory_pair(s):
+    return s
+
+
+def _type_metadata_pair(s):
+    return s
 
 
 def main():
@@ -28,28 +36,26 @@ def main():
     ])
 
     parser = argparse.ArgumentParser()
+    mutex_group = parser.add_mutually_exclusive_group()
+    mutex_group.add_argument(
+        '--local_directory', type=_dir_path, metavar='PATH',
+        help='Local directory to validate')
+    mutex_group.add_argument(
+        '--globus_origin_directory', type=_origin_directory_pair, metavar='ORIGIN_PATH',
+        help='A string of the form "<globus_origin_id>:<globus_path>')
+
     parser.add_argument(
-        '--dir', type=_dir_path, required=True,
-        help='Directory to validate')
-    parser.add_argument(
-        '--type', type=str, required=True,
-        choices=valid_types,
-        help='Ingest data type')
-    parser.add_argument(
-        '--donor_id', type=str, metavar='ID', required=True,
-        help='HuBMAP Display ID of Donor')
-    parser.add_argument(
-        '--tissue_id', type=str, metavar='ID', required=True,
-        help='HuBMAP Display ID of Tissue')
-    parser.add_argument(
-        '--skip_data_path', action='store_true',
-        help='If present, the data_path will not be validated')
+        '--type_metadata', type=_type_metadata_pair, nargs='+', metavar='TYPE_PATH',
+        help=f'A string of the form "<{"|".join(valid_types)}>:<local_path_to_tsv>"')
+
     parser.add_argument(
         '--logging', metavar='LOG_LEVEL', type=str,
         choices=['DEBUG', 'INFO', 'WARN'],
         default='WARN')
+
     args = parser.parse_args()
     logging.basicConfig(level=args.logging)
+    return args
     return _print_message(
         args.dir, args.type,
         args.donor_id, args.tissue_id,
