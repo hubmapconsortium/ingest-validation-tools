@@ -1,3 +1,4 @@
 directory-schema==0.0.2
 tableschema==1.15.0
 goodtables==2.4.9
+globus-cli==1.12.0

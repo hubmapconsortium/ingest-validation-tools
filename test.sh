@@ -32,8 +32,8 @@ for TYPE in $(ls docs | grep -v README.md); do # Ignore README and just get subd
   REAL_DEST="docs/$TYPE"
   TEST_DEST="docs-test/$TYPE"
 
-  REAL_CMD="src/generate.py $TYPE $REAL_DEST"
-  TEST_CMD="src/generate.py $TYPE $TEST_DEST"
+  REAL_CMD="src/generate_docs.py $TYPE $REAL_DEST"
+  TEST_CMD="src/generate_docs.py $TYPE $TEST_DEST"
 
   mkdir -p $TEST_DEST || echo "$TEST_DEST already exists"
   $TEST_CMD
@@ -46,7 +46,7 @@ done
 end generate
 
 start cli-docs
-for TOOL in validate_submission.py generate.py; do
+for TOOL in validate_submission.py generate_docs.py; do
   echo "Testing $TOOL docs..."
   [ -e src/$TOOL ] || die "src/$TOOL does not exist."
   diff \

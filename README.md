@@ -60,8 +60,8 @@ pip install -r requirements-dev.txt
 After making tweaks to the schema, you can regenerate the docs:
 
 ```
-$ src/generate.py -h
-usage: generate.py [-h] {atacseq,codex} target
+$ src/generate_docs.py -h
+usage: generate_docs.py [-h] {atacseq,codex} target
 
 positional arguments:
   {atacseq,codex}  What type to generate
