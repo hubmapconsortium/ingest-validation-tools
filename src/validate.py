@@ -22,22 +22,33 @@ def _dir_path(s):
 
 
 def _origin_directory_pair(s):
-    if not re.match(r'[0-9a-f-]{36}:.+', s):
-        raise argparse.ArgumentTypeError('Orgin directory format wrong')
+    try:
+        origin, path = s.split(':')
+    except ValueError:
+        raise argparse.ArgumentTypeError(
+            f'Expected colon-delimited pair, not "{s}"')
+
+    if not re.match(r'[0-9a-f-]{36}', origin):
+        raise argparse.ArgumentTypeError('Orgin format wrong')
 
     try:
-        subprocess.run(['globus', 'whoami'], check=True)
+        subprocess.run(
+            ['globus', 'whoami'], check=True,
+            stdout=subprocess.DEVNULL)
     except subprocess.CalledProcessError:
         raise argparse.ArgumentTypeError('Run "globus login"')
 
     try:
-        subprocess.run(['globus', 'ls', s], check=True, capture_output=True)
+        subprocess.run(
+            ['globus', 'ls', s], check=True,
+            stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
     except subprocess.CalledProcessError as e:
-        raise argparse.ArgumentTypeError(e.stderr.decode('utf-8'))
+        raise argparse.ArgumentTypeError(e.stdout.decode('utf-8'))
 
-    # The recursive listing might also generate errors,
-    # but it is much slower, so we won't do it here.
-    return s
+    return {
+        'origin': origin,
+        'path': path
+    }
 
 
 def _type_metadata_pair(s):
@@ -46,12 +57,18 @@ def _type_metadata_pair(s):
     except ValueError:
         raise argparse.ArgumentTypeError(
             f'Expected colon-delimited pair, not "{s}"')
+
     if type not in _valid_types:
         raise argparse.ArgumentTypeError(
             f'Expected one of {_valid_types}, not "{type}"')
+
     if not Path(path).is_file():
         raise argparse.ArgumentTypeError(f'"{path}" is not a file')
-    return s
+
+    return {
+        'type': type,
+        'path': path
+    }
 
 
 _valid_types = sorted([
@@ -62,7 +79,6 @@ _valid_types = sorted([
 
 
 def main():
-
     parser = argparse.ArgumentParser()
     mutex_group = parser.add_mutually_exclusive_group()
     mutex_group.add_argument(
