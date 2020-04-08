@@ -90,6 +90,12 @@
   description: Analytes are the target molecules being measured with the assay.
   constraints:
     required: True
+    enum:
+      - DNA
+      - RNA
+      - protein
+      - lipids
+      - metabolites
 -
   name: is_targeted
   description: Specifies whether or not a specific molecule(s) is/are targeted for detection/measurement by the assay .The CODEX analyte is protein.
