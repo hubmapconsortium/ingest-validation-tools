@@ -17,7 +17,7 @@ def validate(path, type, donor_id, tissue_id, skip_data_path=False):
     path_obj = Path(path)
     _validate_generic_submission(path_obj)
     _validate_dataset_directories(path_obj, type)
-    _validate_metadata_tsv(path_obj / 'metadata.tsv', type.split('-')[0])
+    validate_metadata_tsv(path_obj / 'metadata.tsv', type.split('-')[0])
     _validate_references_up(path_obj / 'metadata.tsv', donor_id, tissue_id)
     if not skip_data_path:
         _validate_references_down(path_obj)
@@ -50,7 +50,7 @@ def _validate_dataset_directories(dir_path, type):
         directory_schema.validate_dir(sub_directory, schema)
 
 
-def _validate_metadata_tsv(metadata_path, type):
+def validate_metadata_tsv(metadata_path, type):
     '''
     Validate the metadata.tsv.
     '''
