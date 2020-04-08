@@ -134,7 +134,7 @@ The specific type of assay being executed.
 | constraint | value |
 | --- | --- |
 | required | `True` |
-| enum | `['scRNA-Seq (10xGenomics)', 'AF', 'bulk RNA', 'bulk ATAC', 'CODEX', 'Imaging Mass Cytometry', 'LC-MS (metabolomics)', 'LC-MS/MS (label-free proteomics)', 'MxIF', 'IMS positive', 'IMS negative', 'MS (shotgun lipidomics)', 'PAS microscopy', 'sci-ATAC-seq', 'sci-RNA-seq', 'seqFISH', 'SNARE-seq2', 'snATAC', 'snRNA', 'SPLiT-Seq', 'TMT (proteomics)', 'WGS']` |
+| enum | `['scRNA-Seq (10xGenomics)', 'AF', 'bulk RNA', 'bulkATACseq', 'CODEX', 'Imaging Mass Cytometry', 'LC-MS (metabolomics)', 'LC-MS/MS (label-free proteomics)', 'MxIF', 'IMS positive', 'IMS negative', 'MS (shotgun lipidomics)', 'PAS microscopy', 'scATACseq', 'sciATACseq', 'sciRNAseq', 'seqFISH', 'SNARE-seq2', 'snATACseq', 'snRNA', 'SPLiT-Seq', 'TMT (proteomics)', 'WGS']` |
 
 ### `analyte_class`
 Analytes are the target molecules being measured with the assay.
@@ -142,6 +142,7 @@ Analytes are the target molecules being measured with the assay.
 | constraint | value |
 | --- | --- |
 | required | `True` |
+| enum | `['DNA', 'RNA', 'protein', 'lipids', 'metabolites']` |
 
 ### `is_targeted`
 Specifies whether or not a specific molecule(s) is/are targeted for detection/measurement by the assay .The CODEX analyte is protein.
@@ -242,7 +243,7 @@ Modality of capturing accessible chromatin molecules.
 | constraint | value |
 | --- | --- |
 | required | `True` |
-| enum | `['SNARE-Seq2-AC', 'scATACseq', 'BulkATACseq', 'snATACseq', 'sciATACseq']` |
+| enum | `['SNARE-Seq2-AC', 'scATACseq', 'bulkATACseq', 'snATACseq', 'sciATACseq']` |
 
 ### `transposition_transposase_source`
 The source of the Tn5 transposase and transposon used for capturing accessible chromatin.
@@ -281,6 +282,7 @@ Adapter sequence to be used for adapter trimming.
 | constraint | value |
 | --- | --- |
 | required | `True` |
+| pattern | `[ATCG]+(\+[ATCG]+)?` |
 
 ### `cell_barcode_read`
 Which read file contains the cell barcode.

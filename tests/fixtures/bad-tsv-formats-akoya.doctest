@@ -9,6 +9,8 @@ The value "operator_emailATexample.com" in row 2 and column 6 ("F") is not type 
 .
 The value "pi_emailATexample.com" in row 2 and column 8 ("H") is not type "string" and format "email"
 .
+The value "analyte_class" in row 2 and column 11 ("K") does not conform to the given enumeration: "['DNA', 'RNA', 'protein', 'lipids', 'metabolites']"
+.
 The value "is_targeted" in row 2 and column 12 ("L") is not type "boolean" and format "default"
 .
 The value "forty-two" in row 2 and column 15 ("O") is not type "number" and format "default"

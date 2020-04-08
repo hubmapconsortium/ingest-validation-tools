@@ -65,7 +65,7 @@
       - scRNA-Seq (10xGenomics)
       - AF
       - bulk RNA
-      - bulk ATAC
+      - bulkATACseq
       - CODEX
       - Imaging Mass Cytometry
       - LC-MS (metabolomics)
@@ -75,11 +75,12 @@
       - IMS negative
       - MS (shotgun lipidomics)
       - PAS microscopy
-      - sci-ATAC-seq
-      - sci-RNA-seq
+      - scATACseq
+      - sciATACseq
+      - sciRNAseq
       - seqFISH
       - SNARE-seq2
-      - snATAC
+      - snATACseq
       - snRNA
       - SPLiT-Seq
       - TMT (proteomics)
@@ -89,6 +90,12 @@
   description: Analytes are the target molecules being measured with the assay.
   constraints:
     required: True
+    enum:
+      - DNA
+      - RNA
+      - protein
+      - lipids
+      - metabolites
 -
   name: is_targeted
   description: Specifies whether or not a specific molecule(s) is/are targeted for detection/measurement by the assay .The CODEX analyte is protein.

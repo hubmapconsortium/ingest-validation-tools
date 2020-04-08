@@ -74,7 +74,7 @@
     enum:
       - SNARE-Seq2-AC
       - scATACseq
-      - BulkATACseq
+      - bulkATACseq
       - snATACseq
       - sciATACseq
 -
@@ -110,6 +110,7 @@
   description: Adapter sequence to be used for adapter trimming.
   constraints:
     required: True
+    pattern: '[ATCG]+(\+[ATCG]+)?'
 -
   name: cell_barcode_read
   description: Which read file contains the cell barcode.

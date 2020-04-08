@@ -25,6 +25,7 @@ def main():
 
     for doctest in doctests:
         logging.info(f'doctest {doctest}...')
+        # import pdb; pdb.set_trace()
         (failure_count, test_count) = \
             testfile(
                 doctest,
