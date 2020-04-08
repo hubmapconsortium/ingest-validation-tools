@@ -11,7 +11,7 @@ import subprocess
 
 from directory_schema.errors import DirectoryValidationErrors
 
-from hubmap_ingest_validator.validator import validate, TableValidationErrors
+from hubmap_ingest_validator.validator import validate_metadata_tsv, TableValidationErrors
 
 
 def _dir_path(s):
@@ -71,11 +71,11 @@ def _type_metadata_pair(s):
     }
 
 
-_valid_types = sorted([
-    p.stem for p in
+_valid_types = sorted({
+    p.stem.split('-')[0] for p in
     (Path(__file__).parent / 'hubmap_ingest_validator'
      / 'directory-schemas' / 'datasets').iterdir()
-])
+})
 
 
 def main():
@@ -119,25 +119,37 @@ Typical usecases:
         default='WARN')
 
     args = parser.parse_args()
+    if not args.local_directory \
+        and not args.globus_origin_directory \
+        and not args.type_metadata:
+        raise Exception('At least one argument is required')
+
     logging.basicConfig(level=args.logging)
 
     if args.globus_origin_directory:
         raise Exception('TODO: Globus not yet supported')
         # TODO: mirror directory to local cache.
 
-    return _print_message(
-        args.dir, args.type,
-        args.donor_id, args.tissue_id,
-        skip_data_path=args.skip_data_path
-    )
+    if args.local_directory:
+        raise Exception('TODO: Local dir not yet supported')
+
+    if args.type_metadata:
+        exit_status = 0
+        for type_path in args.type_metadata:
+            logging.info(f'Validating {type_path}')
+            exit_status |= _print_message(
+                type=type_path['type'],
+                metadata_path=type_path['path']
+            )
+
+    return exit_status
 
 
 def _print_message(
-        dir, type, donor_id, tissue_id,
-        periods=False, skip_data_path=False):
+        type, metadata_path, periods=False):
     # Doctests choke on blank lines: periods=True replaces with "." for now.
     try:
-        validate(dir, type, donor_id, tissue_id, skip_data_path=skip_data_path)
+        validate_metadata_tsv(type=type, metadata_path=metadata_path)
         logging.info('PASS')
         return 0
     except DirectoryValidationErrors as e:
