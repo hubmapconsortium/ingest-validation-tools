@@ -122,7 +122,7 @@
       - R3
 -
   name: cell_barcode_offset
-  description: Positions in the read at which the cell barcodes start. Cell barcodes are 3 x 8 bp sequences that are spaced by constant sequences (the offsets). First barcode at position 0, then 38, then 76. (Does not apply to SNARE-seq and BulkATAC.)
+  description: Positions in the read at which the cell barcodes start. Cell barcodes are, for example, 3 x 8 bp sequences that are spaced by constant sequences (the offsets). First barcode at position 0, then 38, then 76. (Does not apply to SNARE-seq and BulkATAC.)
   constraints:
     required: True
     pattern: '\d+,\d+,\d+'
