@@ -12,7 +12,7 @@ import subprocess
 from directory_schema.errors import DirectoryValidationErrors
 
 from hubmap_ingest_validator.validator \
-    import validate_metadata_tsv, TableValidationErrors
+    import validate, validate_metadata_tsv, TableValidationErrors
 
 
 def _dir_path(s):
@@ -146,6 +146,8 @@ Typical usecases:
     return exit_status
 
 
+# TODO: This is a copy-and-paste that does only what we need,
+# but _print_message needs to be upgraded.
 def _print_validate_metadata_tsv_message(
         type, metadata_path, periods=False):
     # Doctests choke on blank lines: periods=True replaces with "." for now.
@@ -169,10 +171,11 @@ def _print_validate_metadata_tsv_message(
 
 
 def _print_message(
-        type, metadata_path, periods=False):
+        dir, type, donor_id, tissue_id,
+        periods=False, skip_data_path=False):
     # Doctests choke on blank lines: periods=True replaces with "." for now.
     try:
-        validate_metadata_tsv(type=type, metadata_path=metadata_path)
+        validate(dir, type, donor_id, tissue_id, skip_data_path=skip_data_path)
         logging.info('PASS')
         return 0
     except DirectoryValidationErrors as e:

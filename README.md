@@ -32,8 +32,8 @@ optional arguments:
                         A string of the form
                         "<globus_origin_id>:<globus_path>"
   --type_metadata TYPE_PATH [TYPE_PATH ...]
-                        A string of the form "<atacseq-default|codex-
-                        akoya|codex-stanford>:<local_path_to_tsv>"
+                        A string of the form
+                        "<atacseq|codex>:<local_path_to_tsv>"
   --logging LOG_LEVEL
 
 Typical usecases:
