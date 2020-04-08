@@ -65,7 +65,7 @@
       - scRNA-Seq (10xGenomics)
       - AF
       - bulk RNA
-      - bulk ATAC
+      - bulkATACseq
       - CODEX
       - Imaging Mass Cytometry
       - LC-MS (metabolomics)
@@ -75,11 +75,12 @@
       - IMS negative
       - MS (shotgun lipidomics)
       - PAS microscopy
-      - sci-ATAC-seq
-      - sci-RNA-seq
+      - scATACseq
+      - sciATACseq
+      - sciRNAseq
       - seqFISH
       - SNARE-seq2
-      - snATAC
+      - snATACseq
       - snRNA
       - SPLiT-Seq
       - TMT (proteomics)
