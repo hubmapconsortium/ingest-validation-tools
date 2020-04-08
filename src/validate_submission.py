@@ -79,7 +79,22 @@ _valid_types = sorted([
 
 
 def main():
-    parser = argparse.ArgumentParser()
+    parser = argparse.ArgumentParser(
+        formatter_class=argparse.RawDescriptionHelpFormatter,
+        description='Validate HuBMAP submission, '
+        'both the metadata TSVs, and the datasets',
+        epilog='''
+Typical usecases:
+
+  --type_metadata + --globus_origin_directory: Validate one or more
+  local metadata.tsv files against a submission directory already on Globus.
+
+  --globus_origin_directory: Validate a submission directory on Globus,
+  with <type>-metadata.tsv files in place.
+
+   --local_directory: Used in development against test fixtures, and in
+   the ingest-pipeline, where Globus is the local filesystem.
+''')
     mutex_group = parser.add_mutually_exclusive_group()
     mutex_group.add_argument(
         '--local_directory', type=_dir_path,
@@ -105,7 +120,11 @@ def main():
 
     args = parser.parse_args()
     logging.basicConfig(level=args.logging)
-    return args
+
+    if args.globus_origin_directory:
+        raise Exception('TODO: Globus not yet supported')
+        # TODO: mirror directory to local cache.
+
     return _print_message(
         args.dir, args.type,
         args.donor_id, args.tissue_id,

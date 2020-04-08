@@ -46,8 +46,9 @@ done
 end generate
 
 start cli-docs
-for TOOL in validate.py generate.py; do
+for TOOL in validate_submission.py generate.py; do
   echo "Testing $TOOL docs..."
+  [ -e src/$TOOL ] || die "src/$TOOL does not exist."
   diff \
         <(perl -ne 'print if /usage: '$TOOL'/../```/ and ! /```/' README.md) \
         <(src/$TOOL -h) \

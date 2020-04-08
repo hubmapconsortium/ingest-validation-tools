@@ -16,11 +16,13 @@ Documentation, metadata TSV templates, JSON schemas are [here](docs).
 
 You can run validation locally before the same checks are run automatically during ingest:
 ```
-$ src/validate.py -h
-usage: validate.py [-h]
-                   [--local_directory PATH | --globus_origin_directory ORIGIN_PATH]
-                   [--type_metadata TYPE_PATH [TYPE_PATH ...]]
-                   [--logging LOG_LEVEL]
+$ src/validate_submission.py -h
+usage: validate_submission.py [-h]
+                              [--local_directory PATH | --globus_origin_directory ORIGIN_PATH]
+                              [--type_metadata TYPE_PATH [TYPE_PATH ...]]
+                              [--logging LOG_LEVEL]
+
+Validate HuBMAP submission, both the metadata TSVs, and the datasets
 
 optional arguments:
   -h, --help            show this help message and exit
@@ -33,6 +35,17 @@ optional arguments:
                         A string of the form "<atacseq-default|codex-
                         akoya|codex-stanford>:<local_path_to_tsv>"
   --logging LOG_LEVEL
+
+Typical usecases:
+
+  --type_metadata + --globus_origin_directory: Validate one or more
+  local metadata.tsv files against a submission directory already on Globus.
+
+  --globus_origin_directory: Validate a submission directory on Globus,
+  with <type>-metadata.tsv files in place.
+
+   --local_directory: Used in development against test fixtures, and in
+   the ingest-pipeline, where Globus is the local filesystem.
   ```
 
 ## For developers:
