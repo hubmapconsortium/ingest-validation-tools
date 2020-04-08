@@ -11,7 +11,8 @@ import subprocess
 
 from directory_schema.errors import DirectoryValidationErrors
 
-from hubmap_ingest_validator.validator import validate_metadata_tsv, TableValidationErrors
+from hubmap_ingest_validator.validator \
+    import validate_metadata_tsv, TableValidationErrors
 
 
 def _dir_path(s):
@@ -120,8 +121,8 @@ Typical usecases:
 
     args = parser.parse_args()
     if not args.local_directory \
-        and not args.globus_origin_directory \
-        and not args.type_metadata:
+            and not args.globus_origin_directory \
+            and not args.type_metadata:
         raise Exception('At least one argument is required')
 
     logging.basicConfig(level=args.logging)
@@ -137,12 +138,34 @@ Typical usecases:
         exit_status = 0
         for type_path in args.type_metadata:
             logging.info(f'Validating {type_path}')
-            exit_status |= _print_message(
+            exit_status |= _print_validate_metadata_tsv_message(
                 type=type_path['type'],
                 metadata_path=type_path['path']
             )
 
     return exit_status
+
+
+def _print_validate_metadata_tsv_message(
+        type, metadata_path, periods=False):
+    # Doctests choke on blank lines: periods=True replaces with "." for now.
+    try:
+        validate_metadata_tsv(type=type, metadata_path=metadata_path)
+        logging.info('PASS')
+        return 0
+    except TableValidationErrors as e:
+        message = str(e)
+        if periods:
+            message = re.sub(r'\n(\s*\n)+', '\n.\n', message).strip()
+        message = re.sub(
+            r'(column) (\d+)',
+            lambda m: f'{m[1]} {m[2]} ("{_number_to_letters(m[2])}")',
+            message,
+            flags=re.I
+        )
+        print(message)
+        logging.warning('FAIL')
+        return 2
 
 
 def _print_message(
