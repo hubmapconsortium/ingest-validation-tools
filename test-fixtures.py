@@ -7,7 +7,7 @@ import sys
 import logging
 
 sys.path.append('src')
-import validate  # noqa E402
+import validate_submission  # noqa E402
 
 
 def main():
@@ -29,7 +29,8 @@ def main():
         (failure_count, test_count) = \
             testfile(
                 doctest,
-                globs={'validate': validate},
+                globs={'validate': validate_submission},
+                # After installing globus-cli, there was a namespace conflict.
                 optionflags=REPORT_NDIFF)
         total_failure_count += failure_count
         total_test_count += test_count
