@@ -1,4 +1,4 @@
->>> validate._print_message('tests/fixtures/bad-codex-missing-value/', 'codex-stanford', 'bad-donor', 'bad-sample', periods=True)
+>>> validate._print_message('tests/fixtures/bad-codex-missing-value/', 'codex-stanford', periods=True)
 Column 3 ("C") is a required field, but row 2 has no value
 .
 The value "assay_category" in row 2 and column 9 ("I") does not conform to the given enumeration: "['imaging', 'mass_spectrometry', 'sequence']"

@@ -1,7 +1,6 @@
 >>> validate._print_message(
 ...   'tests/fixtures/good-atacseq/',
 ...   'atacseq-default',
-...   'bad-donor', 'bad-tissue',
 ...   periods=True)
 On row 1, donor_id is "UCSD0002"
 On row 1, tissue_id is "UCSD0002-RK-1-1-1"

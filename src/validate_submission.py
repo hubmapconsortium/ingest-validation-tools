@@ -171,7 +171,7 @@ def _print_validate_metadata_tsv_message(
 
 
 def _print_message(
-        dir, type, donor_id, tissue_id,
+        dir, type,
         periods=False, skip_data_path=False):
     # Doctests choke on blank lines: periods=True replaces with "." for now.
     try:
