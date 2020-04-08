@@ -1,6 +1,5 @@
 >>> validate._print_message(
 ...   'tests/fixtures/good-codex-akoya/',
 ...   'codex-akoya',
-...   'ABC123', 'ABC123-1-1-TADA',
 ...   periods=True)
 0
