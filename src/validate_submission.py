@@ -175,7 +175,7 @@ def _print_message(
         periods=False, skip_data_path=False):
     # Doctests choke on blank lines: periods=True replaces with "." for now.
     try:
-        validate(dir, type, donor_id, tissue_id, skip_data_path=skip_data_path)
+        validate(dir, type, skip_data_path=skip_data_path)
         logging.info('PASS')
         return 0
     except DirectoryValidationErrors as e:
