@@ -293,7 +293,7 @@ Which read file contains the cell barcode.
 | enum | `['R1', 'R2', 'R3']` |
 
 ### `cell_barcode_offset`
-Positions in the read at which the cell barcodes start. Cell barcodes are 3 x 8 bp sequences that are spaced by constant sequences (the offsets). First barcode at position 0, then 38, then 76. (Does not apply to SNARE-seq and BulkATAC.)
+Positions in the read at which the cell barcodes start. Cell barcodes are, for example, 3 x 8 bp sequences that are spaced by constant sequences (the offsets). First barcode at position 0, then 38, then 76. (Does not apply to SNARE-seq and BulkATAC.)
 
 | constraint | value |
 | --- | --- |
