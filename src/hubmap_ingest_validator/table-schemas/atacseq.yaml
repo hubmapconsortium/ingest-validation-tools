@@ -68,7 +68,7 @@
     required: True
 -
   name: transposition_method
-  description: Modality of capturing accessible chromatin molecules.
+  description: Modality of capturing accessible chromatin molecules .
   constraints:
     required: True
     enum:
