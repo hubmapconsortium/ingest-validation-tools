@@ -4,11 +4,13 @@
   description: An acquisition_instrument is the device that contains the signal detection hardware and signal processing software. Assays generate signals such as light of various intensities or color or signals representing molecular mass.
   constraints:
     required: True
+    enum: ['Keyence','Zeiss']
 -
   name: acquisition_instrument_model
   description: Manufacturers of an acquisition instrument may offer various versions (models) of that instrument with different features or sensitivities. Differences in features or sensitivities may be relevant to processing or interpretation of the data.
   constraints:
     required: True
+    enum: ['BZ-X800','BZ-X710','Axio Observer Z1']
 -
   name: resolution_x_value
   description: The width of a pixel. (Akoya pixel is 377nm square)
@@ -51,11 +53,13 @@
   description: The manufacturer of the instrument used to prepare the sample for the assay.
   constraints:
     required: True
+    enum: ['CODEX']
 -
   name: preparation_instrument_model
   description: The model number/name of the instrument used to prepare the sample for the assay
   constraints:
     required: True
+     enum: ['version 1 robot','prototype robot - Stanford/Nolan Lab']
 -
   name: number_of_antibodies
   description: Number of antibodies
