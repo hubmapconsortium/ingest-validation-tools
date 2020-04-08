@@ -43,10 +43,12 @@ def _origin_directory_pair(s):
 def _type_metadata_pair(s):
     try:
         type, path = s.split(':')
-    except:
-        raise argparse.ArgumentTypeError(f'Expected colon-delimited pair, not "{s}"')
+    except ValueError:
+        raise argparse.ArgumentTypeError(
+            f'Expected colon-delimited pair, not "{s}"')
     if type not in _valid_types:
-        raise argparse.ArgumentTypeError(f'Expected one of {_valid_types}, not "{type}"')
+        raise argparse.ArgumentTypeError(
+            f'Expected one of {_valid_types}, not "{type}"')
     if not Path(path).is_file():
         raise argparse.ArgumentTypeError(f'"{path}" is not a file')
     return s
@@ -61,22 +63,27 @@ _valid_types = sorted([
 
 def main():
 
-
     parser = argparse.ArgumentParser()
     mutex_group = parser.add_mutually_exclusive_group()
     mutex_group.add_argument(
-        '--local_directory', type=_dir_path, metavar='PATH',
+        '--local_directory', type=_dir_path,
+        metavar='PATH',
         help='Local directory to validate')
     mutex_group.add_argument(
-        '--globus_origin_directory', type=_origin_directory_pair, metavar='ORIGIN_PATH',
-        help='A string of the form "<globus_origin_id>:<globus_path>')
+        '--globus_origin_directory', type=_origin_directory_pair,
+        metavar='ORIGIN_PATH',
+        help='A string of the form "<globus_origin_id>:<globus_path>"')
+
+    expected_type_metadata_form = \
+        f'<{"|".join(_valid_types)}>:<local_path_to_tsv>'
+    parser.add_argument(
+        '--type_metadata', type=_type_metadata_pair, nargs='+',
+        metavar='TYPE_PATH',
+        help=f'A string of the form "{expected_type_metadata_form}"')
 
     parser.add_argument(
-        '--type_metadata', type=_type_metadata_pair, nargs='+', metavar='TYPE_PATH',
-        help=f'A string of the form "<{"|".join(_valid_types)}>:<local_path_to_tsv>"')
-
-    parser.add_argument(
-        '--logging', metavar='LOG_LEVEL', type=str,
+        '--logging', type=str,
+        metavar='LOG_LEVEL',
         choices=['DEBUG', 'INFO', 'WARN'],
         default='WARN')
 
