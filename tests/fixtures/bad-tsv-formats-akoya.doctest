@@ -13,6 +13,10 @@ The value "analyte_class" in row 2 and column 11 ("K") does not conform to the g
 .
 The value "is_targeted" in row 2 and column 12 ("L") is not type "boolean" and format "default"
 .
+The value "acquisition_instrument_vendor" in row 2 and column 13 ("M") does not conform to the given enumeration: "['Keyence', 'Zeiss']"
+.
+The value "acquisition_instrument_model" in row 2 and column 14 ("N") does not conform to the given enumeration: "['BZ-X800', 'BZ-X710', 'Axio Observer Z1']"
+.
 The value "forty-two" in row 2 and column 15 ("O") is not type "number" and format "default"
 .
 The value "inches" in row 2 and column 16 ("P") does not conform to the given enumeration: "['mm', 'um', 'nm']"
@@ -24,6 +28,10 @@ The value "inches" in row 2 and column 18 ("R") does not conform to the given en
 The value "forty-two" in row 2 and column 19 ("S") is not type "number" and format "default"
 .
 The value "inches" in row 2 and column 20 ("T") does not conform to the given enumeration: "['mm', 'um', 'nm']"
+.
+The value "preparation_instrument_vendor" in row 2 and column 21 ("U") does not conform to the given enumeration: "['CODEX']"
+.
+The value "preparation_instrument_model" in row 2 and column 22 ("V") does not conform to the given enumeration: "['version 1 robot', 'prototype robot - Stanford/Nolan Lab']"
 .
 The value "0.5" in row 2 and column 23 ("W") is not type "integer" and format "default"
 .

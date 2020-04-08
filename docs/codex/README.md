@@ -147,6 +147,7 @@ An acquisition_instrument is the device that contains the signal detection hardw
 | constraint | value |
 | --- | --- |
 | required | `True` |
+| enum | `['Keyence', 'Zeiss']` |
 
 ### `acquisition_instrument_model`
 Manufacturers of an acquisition instrument may offer various versions (models) of that instrument with different features or sensitivities. Differences in features or sensitivities may be relevant to processing or interpretation of the data.
@@ -154,6 +155,7 @@ Manufacturers of an acquisition instrument may offer various versions (models) o
 | constraint | value |
 | --- | --- |
 | required | `True` |
+| enum | `['BZ-X800', 'BZ-X710', 'Axio Observer Z1']` |
 
 ### `resolution_x_value`
 The width of a pixel. (Akoya pixel is 377nm square)
@@ -211,6 +213,7 @@ The manufacturer of the instrument used to prepare the sample for the assay.
 | constraint | value |
 | --- | --- |
 | required | `True` |
+| enum | `['CODEX']` |
 
 ### `preparation_instrument_model`
 The model number/name of the instrument used to prepare the sample for the assay
@@ -218,6 +221,7 @@ The model number/name of the instrument used to prepare the sample for the assay
 | constraint | value |
 | --- | --- |
 | required | `True` |
+| enum | `['version 1 robot', 'prototype robot - Stanford/Nolan Lab']` |
 
 ### `number_of_antibodies`
 Number of antibodies

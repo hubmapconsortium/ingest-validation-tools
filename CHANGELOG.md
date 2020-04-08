@@ -24,7 +24,7 @@
 - Check that CLI docs are up to date.
 - Validate the data_path.
 - Allow multiple metadata.tsvs.
-- Validate against globus.
+- Validate against globus
 ### Changed
 - CSV -> TSV
 - Make the schema validation errors more readable

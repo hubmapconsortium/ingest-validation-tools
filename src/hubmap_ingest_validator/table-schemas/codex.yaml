@@ -59,7 +59,7 @@
   description: The model number/name of the instrument used to prepare the sample for the assay
   constraints:
     required: True
-     enum: ['version 1 robot','prototype robot - Stanford/Nolan Lab']
+    enum: ['version 1 robot','prototype robot - Stanford/Nolan Lab']
 -
   name: number_of_antibodies
   description: Number of antibodies
