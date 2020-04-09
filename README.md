@@ -10,7 +10,7 @@ Submissions are based on Globus directories containing:
 
 ## For data submitters:
 
-Documentation, metadata TSV templates, JSON schemas are [here](docs).
+Documentation and metadata TSV templates are [here](docs).
 
 ## For curators:
 
@@ -71,3 +71,9 @@ positional arguments:
 optional arguments:
   -h, --help       show this help message and exit
 ```
+
+## Big picture:
+
+Our goal is to be able to run the same quick validations locally, and as part of the ingest-pipeline.
+
+[![Flow diagram](https://docs.google.com/drawings/d/e/2PACX-1vQ7_q4K-JmAjGSMyA4Q5-3094B26fD4opW3s3jzbLHvXp4IsoEpt7fwXHYvW7ZQhQKSSTPF7zc5VoEI/pub?w=775&h=704)](https://docs.google.com/drawings/d/1A5irNDqfnyH8zzDiB6Vs0_WwUWByl7XJyjd2x82DlXk/edit)
