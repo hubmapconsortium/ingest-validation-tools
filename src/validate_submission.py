@@ -179,7 +179,7 @@ def _validate_data_path_messages(type, data_path):
 
 
 def _validate_submission_directory_messages(submission_directory):
-    metadata_glob = f'{submission_directory}/*-metadata.tsv'
+    metadata_glob = submission_directory + '*-metadata.tsv'
     metadata_tsvs = glob(metadata_glob)
     if not metadata_tsvs:
         raise ValidationException(f'Nothing matched {metadata_glob}')
