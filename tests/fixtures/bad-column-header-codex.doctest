@@ -1,4 +1,0 @@
->>> print_messages('tests/fixtures/bad-column-header-codex/')
-Traceback (most recent call last):
-...
-validate_submission.ValidationException: tests/fixtures/bad-column-header-codex/codex-akoya-metadata.tsv is empty

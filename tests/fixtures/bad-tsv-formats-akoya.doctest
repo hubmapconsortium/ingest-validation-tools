@@ -1,4 +1,0 @@
->>> print_messages('tests/fixtures/bad-tsv-formats-codex/')
-Traceback (most recent call last):
-...
-FileNotFoundError: [Errno 2] No such file or directory: 'tests/fixtures/bad-tsv-formats-codex/data_path'

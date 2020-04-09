@@ -1,4 +1,4 @@
->>> print_messages('tests/fixtures/bad-codex-missing-value/')
+>>> print_messages('tests/fixtures/bad-missing-data/')
 Traceback (most recent call last):
 ...
-FileNotFoundError: [Errno 2] No such file or directory: 'tests/fixtures/bad-codex-missing-value/data_path'
+FileNotFoundError: [Errno 2] No such file or directory: 'tests/fixtures/bad-missing-data/dataset-1'

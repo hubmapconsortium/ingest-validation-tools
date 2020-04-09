@@ -1,0 +1,4 @@
+>>> print_messages('tests/fixtures/bad-empty-tsv/')
+Traceback (most recent call last):
+...
+validate_submission.ValidationException: tests/fixtures/bad-empty-tsv/codex-akoya-metadata.tsv is empty
