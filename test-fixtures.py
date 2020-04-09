@@ -7,8 +7,6 @@ import sys
 import logging
 import re
 from glob import glob
-from contextlib import contextmanager
-import os
 
 sys.path.append('src')
 from validate_submission import _validate_submission_directory_messages  # noqa E402
