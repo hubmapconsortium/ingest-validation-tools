@@ -16,6 +16,7 @@ from hubmap_ingest_validator.validator import (
     validate, validate_metadata_tsv, validate_data_path, TableValidationErrors
 )
 
+
 def _dir_path(s):
     if os.path.isdir(s):
         return s
@@ -140,7 +141,8 @@ Typical usecases:
 
     if args.local_directory:
         logging.info(f'Validating {args.local_directory}')
-        messages = _validate_submission_directory_messages(args.local_directory)
+        messages = _validate_submission_directory_messages(
+            args.local_directory)
 
     if args.type_metadata:
         messages = []
@@ -193,9 +195,11 @@ def _validate_submission_directory_messages(submission_directory):
                 raise ValidationException(f'{tsv_path} is empty')
             for row in rows:
                 full_data_path = Path(submission_directory) / row['data_path']
-                messages += _validate_data_path_messages(dir_type, full_data_path)
+                messages += _validate_data_path_messages(
+                    dir_type, full_data_path)
 
     return messages
+
 
 class ValidationException(Exception):
     # Throw this when there it a problem with the validation process
