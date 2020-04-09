@@ -61,8 +61,8 @@ def validate_metadata_tsv(metadata_path, type):
 
 def _column_number_to_letters(message):
     '''
-    >>> _column_number_to_letters('I think Column 141493 is funny.')
-    'I think Column 141493 ("HAHA") is funny.'
+    >>> _column_number_to_letters('Column 209 and column 141493 are funny.')
+    'Column 209 ("HA") and column 141493 ("HAHA") are funny.'
 
     '''
     return re.sub(
