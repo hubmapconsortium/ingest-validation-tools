@@ -12,9 +12,9 @@ import csv
 
 from directory_schema.errors import DirectoryValidationErrors
 
-from hubmap_ingest_validator.validator \
-    import validate, validate_metadata_tsv, TableValidationErrors
-
+from hubmap_ingest_validator.validator import (
+    validate, validate_metadata_tsv, validate_data_path, TableValidationErrors
+)
 
 def _dir_path(s):
     if os.path.isdir(s):
@@ -118,10 +118,12 @@ Typical usecases:
         help='A list of type / metadata.tsv pairs '
         f'of the form "{expected_type_metadata_form}".')
 
+    log_levels = ['DEBUG', 'INFO', 'WARN']
     parser.add_argument(
         '--logging', type=str,
         metavar='LOG_LEVEL',
-        choices=['DEBUG', 'INFO', 'WARN'],
+        help=f'Logging level: One of {log_levels}',
+        choices=log_levels,
         default='WARN')
 
     args = parser.parse_args()
@@ -165,8 +167,13 @@ def _validate_metadata_tsv_messages(type, metadata_path):
 
 def _validate_data_path_messages(type, data_path):
     logging.info(f'Validating {type} {data_path}')
-    # TODO
-    return []
+    try:
+        validate_data_path(type=type, data_path=data_path)
+        logging.info('PASS')
+        return []
+    except DirectoryValidationErrors as e:
+        logging.warning('FAIL')
+        return [str(e)]
 
 
 def _validate_submission_directory_messages(submission_directory):
@@ -180,8 +187,12 @@ def _validate_submission_directory_messages(submission_directory):
         messages += _validate_metadata_tsv_messages(type, tsv_path)
 
         with open(tsv_path) as f:
-            for row in csv.DictReader(f, dialect='excel-tab'):
-                messages += _validate_data_path_messages(type, row['data_path'])
+            rows = list(csv.DictReader(f, dialect='excel-tab'))
+            if not rows:
+                raise ValidationException(f'{tsv_path} is empty')
+            for row in rows:
+                full_data_path = Path(submission_directory) / row['data_path']
+                messages += _validate_data_path_messages(type, full_data_path)
 
     return messages
 
