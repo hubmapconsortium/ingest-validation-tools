@@ -34,8 +34,12 @@ def main():
 
     with open(Path(args.target) / 'template.tsv', 'w') as f:
         f.write(_generate_template_tsv(table_schema))
-    with open(Path(args.target) / 'schema.yaml', 'w') as f:
-        f.write(_generate_schema_yaml(table_schema))
+    # The generated JSON Schema is easy to confuse with
+    # the source Table Schema. Until we know it's definitely
+    # needed, stop producing it.
+    #
+    # with open(Path(args.target) / 'schema.yaml', 'w') as f:
+    #     f.write(_generate_schema_yaml(table_schema))
     with open(Path(args.target) / 'README.md', 'w') as f:
         f.write(_generate_readme_md(table_schema, args.type))
 
@@ -62,17 +66,7 @@ def _generate_readme_md(table_schema, type):
     for field in table_schema['fields']:
         if 'heading' in field:
             fields_md_list.append(f"## {field['heading']}")
-        table_md_rows = ['| constraint | value |', '| --- | --- |']
-        for key, value in field.items():
-            if key in ['type', 'format']:
-                table_md_rows.append(f'| {key} | `{value}` |')
-        if 'constraints' in field:
-            for key, value in field['constraints'].items():
-                table_md_rows.append(f'| {key} | `{value}` |')
-        if len(table_md_rows) < 3:
-            # Empty it, if there is no data.
-            table_md_rows = []
-        table_md = '\n'.join(table_md_rows)
+        table_md = _make_constraints_table(field)
         fields_md_list.append(
             f"### `{field['name']}`\n{field['description']}\n\n{table_md}"
         )
@@ -81,18 +75,35 @@ def _generate_readme_md(table_schema, type):
     toc_md = _make_toc(fields_md)
     raw_url = 'https://raw.githubusercontent.com/hubmapconsortium' + \
         f'/ingest-validation-tools/master/docs/{type}/template.tsv'
+    source_url = 'https://github.com/hubmapconsortium' + \
+        '/ingest-validation-tools/edit/master' + \
+        f'/src/hubmap_ingest_validator/table-schemas/{type}.yaml'
 
     return f'''# {type}
 
 Related files:
-- [JSON Schema](schema.yaml)
-- [TSV Template]({raw_url})
+- [TSV Template]({raw_url}): Use this to submit metadata.
+- [Source code]({source_url}): Make a PR if this doc should be updated.
 
 ## Table of contents
 {toc_md}
 
 {fields_md}
 '''
+
+
+def _make_constraints_table(field):
+    table_md_rows = ['| constraint | value |', '| --- | --- |']
+    for key, value in field.items():
+        if key in ['type', 'format']:
+            table_md_rows.append(f'| {key} | `{value}` |')
+    if 'constraints' in field:
+        for key, value in field['constraints'].items():
+            table_md_rows.append(f'| {key} | `{value}` |')
+    if len(table_md_rows) < 3:
+        # Empty it, if there is no data.
+        table_md_rows = []
+    return '\n'.join(table_md_rows)
 
 
 def _make_toc(md):

@@ -1,8 +1,8 @@
 # codex
 
 Related files:
-- [JSON Schema](schema.yaml)
-- [TSV Template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/master/docs/codex/template.tsv)
+- [TSV Template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/master/docs/codex/template.tsv): Use this to submit metadata.
+- [Source code](https://github.com/hubmapconsortium/ingest-validation-tools/edit/master/src/hubmap_ingest_validator/table-schemas/codex.yaml): Make a PR if this doc should be updated.
 
 ## Table of contents
 [Provenance](#provenance)<br>

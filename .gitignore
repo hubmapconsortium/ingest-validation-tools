@@ -1,3 +1,6 @@
+# Generated and deleted during successful tests.
+docs-test/
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
