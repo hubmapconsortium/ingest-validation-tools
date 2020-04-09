@@ -6,38 +6,39 @@ from pathlib import Path
 import sys
 import logging
 import re
+from glob import glob
+from contextlib import contextmanager
+import os
 
 sys.path.append('src')
-import validate_submission  # noqa E402
+from validate_submission import _validate_submission_directory_messages  # noqa E402
 
 
-def print_messages(submission_directory):
-    messages = validate_submission._validate_submission_directory_messages(
-        submission_directory)
-    cleaned = re.sub(r'\n(\s*\n)+', '\n.\n', '\n'.join(messages)).strip()
-    print(cleaned or 'Validation passed!')
+def make_validator(path):
+    def print_messages():
+        messages = _validate_submission_directory_messages(str(path))
+        cleaned = re.sub(r'\n(\s*\n)+', '\n.\n', '\n'.join(messages)).strip()
+        print(cleaned or 'Validation passed!')
+    return print_messages
 
 
 def main():
     # TODO: argparse
     logging.basicConfig(level=logging.INFO)
 
-    doctests = [
-        str(p) for p in
-        (Path('tests') / 'fixtures').iterdir()
-        if p.suffix == '.doctest'
-    ]
-
     total_failure_count = 0
     total_test_count = 0
 
-    for doctest in doctests:
+    for doctest in (glob('tests/fixtures/**/*.doctest', recursive=True)):
         logging.info(f'doctest {doctest}...')
+        print_messages = make_validator(Path(doctest).parent / 'submission')
+
         (failure_count, test_count) = \
             testfile(
                 doctest,
                 globs={'print_messages': print_messages},
                 optionflags=REPORT_NDIFF)
+
         total_failure_count += failure_count
         total_test_count += test_count
 

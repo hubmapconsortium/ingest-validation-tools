@@ -1,2 +1,0 @@
->>> print_messages('tests/fixtures/good-codex-stanford/')
-Validation passed!
