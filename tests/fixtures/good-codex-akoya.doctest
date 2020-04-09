@@ -1,2 +1,2 @@
 >>> print_messages('tests/fixtures/good-codex-akoya/')
-<BLANKLINE>
+Validation passed!

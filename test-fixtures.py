@@ -15,7 +15,7 @@ def print_messages(submission_directory):
     messages = validate_submission._validate_submission_directory_messages(
         submission_directory)
     cleaned = re.sub(r'\n(\s*\n)+', '\n.\n', '\n'.join(messages)).strip()
-    print(cleaned)
+    print(cleaned or 'Validation passed!')
 
 
 def main():
