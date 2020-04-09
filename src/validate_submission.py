@@ -6,7 +6,6 @@ import os
 import re
 import logging
 from pathlib import Path
-from string import ascii_uppercase
 import subprocess
 
 from directory_schema.errors import DirectoryValidationErrors
@@ -157,16 +156,10 @@ def _validate_metadata_tsv(
         logging.info('PASS')
         return []
     except TableValidationErrors as e:
+        logging.warning('FAIL')
         message = str(e)
         if periods:
             message = re.sub(r'\n(\s*\n)+', '\n.\n', message).strip()
-        message = re.sub(
-            r'(column) (\d+)',
-            lambda m: f'{m[1]} {m[2]} ("{_number_to_letters(m[2])}")',
-            message,
-            flags=re.I
-        )
-        logging.warning('FAIL')
         return [message]
 
 
@@ -199,34 +192,9 @@ def _print_message(
         message = str(e)
         if periods:
             message = re.sub(r'\n(\s*\n)+', '\n.\n', message).strip()
-        message = re.sub(
-            r'(column) (\d+)',
-            lambda m: f'{m[1]} {m[2]} ("{_number_to_letters(m[2])}")',
-            message,
-            flags=re.I
-        )
         print(message)
         logging.warning('FAIL')
         return 2
-
-
-def _number_to_letters(n):
-    '''
-    >>> _number_to_letters(1)
-    'A'
-    >>> _number_to_letters(26)
-    'Z'
-    >>> _number_to_letters(27)
-    'AA'
-    >>> _number_to_letters(52)
-    'AZ'
-
-    '''
-    def n2a(n):
-        uc = ascii_uppercase
-        d, m = divmod(n, len(uc))
-        return n2a(d - 1) + uc[m] if d else uc[m]
-    return n2a(int(n) - 1)
 
 
 if __name__ == "__main__":

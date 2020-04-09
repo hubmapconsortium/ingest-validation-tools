@@ -1,6 +1,8 @@
 from pathlib import Path
 import logging
 import csv
+import re
+from string import ascii_uppercase
 
 from yaml import safe_load as load_yaml
 from directory_schema import directory_schema
@@ -61,9 +63,40 @@ def validate_metadata_tsv(metadata_path, type):
     error_messages = report['warnings']
     if 'tables' in report:
         for table in report['tables']:
-            error_messages += [e['message'] for e in table['errors']]
+            error_messages += [
+                _column_number_to_letters(e['message'])
+                for e in table['errors']
+            ]
     if error_messages:
         raise TableValidationErrors('\n\n'.join(error_messages))
+
+
+def _column_number_to_letters(message):
+    return re.sub(
+        r'(column) (\d+)',
+        lambda m: f'{m[1]} {m[2]} ("{_number_to_letters(m[2])}")',
+        message,
+        flags=re.I
+    )
+
+
+def _number_to_letters(n):
+    '''
+    >>> _number_to_letters(1)
+    'A'
+    >>> _number_to_letters(26)
+    'Z'
+    >>> _number_to_letters(27)
+    'AA'
+    >>> _number_to_letters(52)
+    'AZ'
+
+    '''
+    def n2a(n):
+        uc = ascii_uppercase
+        d, m = divmod(n, len(uc))
+        return n2a(d - 1) + uc[m] if d else uc[m]
+    return n2a(int(n) - 1)
 
 
 def _validate_references_down(dir_path):
