@@ -40,3 +40,4 @@
 - Unify Level 1 metadata definitions.
 - Revert DOI format.
 - No longer checking consistency of donor and sample.
+- Remove generic schema.

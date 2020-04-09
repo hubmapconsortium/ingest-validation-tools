@@ -6,7 +6,6 @@ import os
 import re
 import logging
 from pathlib import Path
-from string import ascii_uppercase
 import subprocess
 
 from directory_schema.errors import DirectoryValidationErrors
@@ -81,9 +80,9 @@ _valid_types = sorted({
 
 def main():
     parser = argparse.ArgumentParser(
-        formatter_class=argparse.RawDescriptionHelpFormatter,
-        description='Validate HuBMAP submission, '
-        'both the metadata TSVs, and the datasets',
+        description='''
+Validate a HuBMAP submission, both the metadata TSVs, and the datasets,
+either local or remote, or a combination of the two.''',
         epilog='''
 Typical usecases:
 
@@ -93,25 +92,29 @@ Typical usecases:
   --globus_origin_directory: Validate a submission directory on Globus,
   with <type>-metadata.tsv files in place.
 
-   --local_directory: Used in development against test fixtures, and in
-   the ingest-pipeline, where Globus is the local filesystem.
-''')
+  --local_directory: Used in development against test fixtures, and in
+  the ingest-pipeline, where Globus is the local filesystem.
+''',
+        formatter_class=argparse.RawDescriptionHelpFormatter)
     mutex_group = parser.add_mutually_exclusive_group()
     mutex_group.add_argument(
         '--local_directory', type=_dir_path,
         metavar='PATH',
         help='Local directory to validate')
+    # TODO: Parse globus URL.
     mutex_group.add_argument(
         '--globus_origin_directory', type=_origin_directory_pair,
         metavar='ORIGIN_PATH',
-        help='A string of the form "<globus_origin_id>:<globus_path>"')
+        help='A Globus submission directory to validate; '
+        'Should have the form "<globus_origin_id>:<globus_path>".')
 
     expected_type_metadata_form = \
         f'<{"|".join(_valid_types)}>:<local_path_to_tsv>'
     parser.add_argument(
         '--type_metadata', type=_type_metadata_pair, nargs='+',
         metavar='TYPE_PATH',
-        help=f'A string of the form "{expected_type_metadata_form}"')
+        help='A list of type / metadata.tsv pairs '
+        f'of the form "{expected_type_metadata_form}".')
 
     parser.add_argument(
         '--logging', type=str,
@@ -135,39 +138,33 @@ Typical usecases:
         raise Exception('TODO: Local dir not yet supported')
 
     if args.type_metadata:
-        exit_status = 0
+        messages = []
         for type_path in args.type_metadata:
             logging.info(f'Validating {type_path}')
-            exit_status |= _print_validate_metadata_tsv_message(
+            messages += _validate_metadata_tsv_messages(
                 type=type_path['type'],
                 metadata_path=type_path['path']
             )
+    print('\n'.join(messages))
 
-    return exit_status
+    return 1 if messages else 0
 
 
 # TODO: This is a copy-and-paste that does only what we need,
 # but _print_message needs to be upgraded.
-def _print_validate_metadata_tsv_message(
+def _validate_metadata_tsv_messages(
         type, metadata_path, periods=False):
     # Doctests choke on blank lines: periods=True replaces with "." for now.
     try:
         validate_metadata_tsv(type=type, metadata_path=metadata_path)
         logging.info('PASS')
-        return 0
+        return []
     except TableValidationErrors as e:
+        logging.warning('FAIL')
         message = str(e)
         if periods:
             message = re.sub(r'\n(\s*\n)+', '\n.\n', message).strip()
-        message = re.sub(
-            r'(column) (\d+)',
-            lambda m: f'{m[1]} {m[2]} ("{_number_to_letters(m[2])}")',
-            message,
-            flags=re.I
-        )
-        print(message)
-        logging.warning('FAIL')
-        return 2
+        return [message]
 
 
 def _print_message(
@@ -199,34 +196,9 @@ def _print_message(
         message = str(e)
         if periods:
             message = re.sub(r'\n(\s*\n)+', '\n.\n', message).strip()
-        message = re.sub(
-            r'(column) (\d+)',
-            lambda m: f'{m[1]} {m[2]} ("{_number_to_letters(m[2])}")',
-            message,
-            flags=re.I
-        )
         print(message)
         logging.warning('FAIL')
         return 2
-
-
-def _number_to_letters(n):
-    '''
-    >>> _number_to_letters(1)
-    'A'
-    >>> _number_to_letters(26)
-    'Z'
-    >>> _number_to_letters(27)
-    'AA'
-    >>> _number_to_letters(52)
-    'AZ'
-
-    '''
-    def n2a(n):
-        uc = ascii_uppercase
-        d, m = divmod(n, len(uc))
-        return n2a(d - 1) + uc[m] if d else uc[m]
-    return n2a(int(n) - 1)
 
 
 if __name__ == "__main__":
