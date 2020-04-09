@@ -111,6 +111,14 @@ def _make_toc(md):
     # Existing solutions expect a file, not a string,
     # or aren't Python at all, etc. Argh.
     # This is not good.
+    '''
+    >>> md = '# Section A\\n## `Item 1`'
+
+    >>> print(_make_toc(md))
+    [Section A](#section-a)<br>
+    [`Item 1`](#item-1)<br>
+
+    '''
     lines = md.split('\n')
     headers = [
         re.sub(r'^#+\s+', '', l)
