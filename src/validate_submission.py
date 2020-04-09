@@ -80,8 +80,9 @@ _valid_types = sorted({
 
 def main():
     parser = argparse.ArgumentParser(
-        description='Validate HuBMAP submission, '
-        'both the metadata TSVs, and the datasets',
+        description='''
+Validate a HuBMAP submission, both the metadata TSVs, and the datasets,
+either local or remote, or a combination of the two.''',
         epilog='''
 Typical usecases:
 
@@ -100,17 +101,20 @@ Typical usecases:
         '--local_directory', type=_dir_path,
         metavar='PATH',
         help='Local directory to validate')
+    # TODO: Parse globus URL.
     mutex_group.add_argument(
         '--globus_origin_directory', type=_origin_directory_pair,
         metavar='ORIGIN_PATH',
-        help='A string of the form "<globus_origin_id>:<globus_path>"')
+        help='A Globus submission directory to validate; '
+        'Should have the form "<globus_origin_id>:<globus_path>".')
 
     expected_type_metadata_form = \
         f'<{"|".join(_valid_types)}>:<local_path_to_tsv>'
     parser.add_argument(
         '--type_metadata', type=_type_metadata_pair, nargs='+',
         metavar='TYPE_PATH',
-        help=f'A string of the form "{expected_type_metadata_form}"')
+        help='A list of type / metadata.tsv pairs '
+        f'of the form "{expected_type_metadata_form}".')
 
     parser.add_argument(
         '--logging', type=str,

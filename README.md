@@ -22,18 +22,19 @@ usage: validate_submission.py [-h]
                               [--type_metadata TYPE_PATH [TYPE_PATH ...]]
                               [--logging LOG_LEVEL]
 
-Validate HuBMAP submission, both the metadata TSVs, and the datasets
+Validate a HuBMAP submission, both the metadata TSVs, and the datasets,
+either local or remote, or a combination of the two.
 
 optional arguments:
   -h, --help            show this help message and exit
   --local_directory PATH
                         Local directory to validate
   --globus_origin_directory ORIGIN_PATH
-                        A string of the form
-                        "<globus_origin_id>:<globus_path>"
+                        A Globus submission directory to validate; Should have
+                        the form "<globus_origin_id>:<globus_path>".
   --type_metadata TYPE_PATH [TYPE_PATH ...]
-                        A string of the form
-                        "<atacseq|codex>:<local_path_to_tsv>"
+                        A list of type / metadata.tsv pairs of the form
+                        "<atacseq|codex>:<local_path_to_tsv>".
   --logging LOG_LEVEL
 
 Typical usecases:
@@ -44,9 +45,9 @@ Typical usecases:
   --globus_origin_directory: Validate a submission directory on Globus,
   with <type>-metadata.tsv files in place.
 
-   --local_directory: Used in development against test fixtures, and in
-   the ingest-pipeline, where Globus is the local filesystem.
-  ```
+  --local_directory: Used in development against test fixtures, and in
+  the ingest-pipeline, where Globus is the local filesystem.
+```
 
 ## For developers:
 
