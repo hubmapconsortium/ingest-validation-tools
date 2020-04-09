@@ -183,8 +183,9 @@ def _validate_submission_directory_messages(submission_directory):
         raise ValidationException(f'Nothing matched {metadata_glob}')
     messages = []
     for tsv_path in metadata_tsvs:
-        type = re.match(r'(.+)-metadata\.tsv$', Path(tsv_path).name)[1]
-        messages += _validate_metadata_tsv_messages(type, tsv_path)
+        dir_type = re.match(r'(.+)-metadata\.tsv$', Path(tsv_path).name)[1]
+        table_type = dir_type.split('-')[0]
+        messages += _validate_metadata_tsv_messages(table_type, tsv_path)
 
         with open(tsv_path) as f:
             rows = list(csv.DictReader(f, dialect='excel-tab'))
@@ -192,7 +193,7 @@ def _validate_submission_directory_messages(submission_directory):
                 raise ValidationException(f'{tsv_path} is empty')
             for row in rows:
                 full_data_path = Path(submission_directory) / row['data_path']
-                messages += _validate_data_path_messages(type, full_data_path)
+                messages += _validate_data_path_messages(dir_type, full_data_path)
 
     return messages
 
