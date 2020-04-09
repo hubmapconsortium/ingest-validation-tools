@@ -60,6 +60,11 @@ def validate_metadata_tsv(metadata_path, type):
 
 
 def _column_number_to_letters(message):
+    '''
+    >>> _column_number_to_letters('I think Column 141493 is funny.')
+    'I think Column 141493 ("HAHA") is funny.'
+
+    '''
     return re.sub(
         r'(column) (\d+)',
         lambda m: f'{m[1]} {m[2]} ("{_number_to_letters(m[2])}")',
