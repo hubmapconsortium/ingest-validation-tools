@@ -1,3 +1,0 @@
->>> validate._print_message('tests/fixtures/bad-column-header-codex/', 'codex-akoya', periods=True)
-Header in column 1 ("A") doesn't match field name "donor_id" in the schema
-2

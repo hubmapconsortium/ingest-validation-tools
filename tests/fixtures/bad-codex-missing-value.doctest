@@ -1,17 +1,4 @@
->>> validate._print_message('tests/fixtures/bad-codex-missing-value/', 'codex-stanford', periods=True)
-Column 3 ("C") is a required field, but row 2 has no value
-.
-The value "assay_category" in row 2 and column 9 ("I") does not conform to the given enumeration: "['imaging', 'mass_spectrometry', 'sequence']"
-.
-The value "assay_type" in row 2 and column 10 ("J") does not conform to the given enumeration: "['scRNA-Seq (10xGenomics)', 'AF', 'bulk RNA', 'bulkATACseq', 'CODEX', 'Imaging Mass Cytometry', 'LC-MS (metabolomics)', 'LC-MS/MS (label-free proteomics)', 'MxIF', 'IMS positive', 'IMS negative', 'MS (shotgun lipidomics)', 'PAS microscopy', 'scATACseq', 'sciATACseq', 'sciRNAseq', 'seqFISH', 'SNARE-seq2', 'snATACseq', 'snRNA', 'SPLiT-Seq', 'TMT (proteomics)', 'WGS']"
-.
-The value "analyte_class" in row 2 and column 11 ("K") does not conform to the given enumeration: "['DNA', 'RNA', 'protein', 'lipids', 'metabolites']"
-.
-The value "acquisition_instrument_vendor" in row 2 and column 13 ("M") does not conform to the given enumeration: "['Keyence', 'Zeiss']"
-.
-The value "acquisition_instrument_model" in row 2 and column 14 ("N") does not conform to the given enumeration: "['BZ-X800', 'BZ-X710', 'Axio Observer Z1']"
-.
-The value "preparation_instrument_vendor" in row 2 and column 21 ("U") does not conform to the given enumeration: "['CODEX']"
-.
-The value "preparation_instrument_model" in row 2 and column 22 ("V") does not conform to the given enumeration: "['version 1 robot', 'prototype robot - Stanford/Nolan Lab']"
-2
+>>> print_messages('tests/fixtures/bad-missing-data/')
+Traceback (most recent call last):
+...
+FileNotFoundError: [Errno 2] No such file or directory: 'tests/fixtures/bad-missing-data/dataset-1'

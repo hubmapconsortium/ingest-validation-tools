@@ -5,9 +5,17 @@ from doctest import testfile, REPORT_NDIFF
 from pathlib import Path
 import sys
 import logging
+import re
 
 sys.path.append('src')
 import validate_submission  # noqa E402
+
+
+def print_messages(submission_directory):
+    messages = validate_submission._validate_submission_directory_messages(
+        submission_directory)
+    cleaned = re.sub(r'\n(\s*\n)+', '\n.\n', '\n'.join(messages)).strip()
+    print(cleaned or 'Validation passed!')
 
 
 def main():
@@ -25,12 +33,10 @@ def main():
 
     for doctest in doctests:
         logging.info(f'doctest {doctest}...')
-        # import pdb; pdb.set_trace()
         (failure_count, test_count) = \
             testfile(
                 doctest,
-                globs={'validate': validate_submission},
-                # After installing globus-cli, there was a namespace conflict.
+                globs={'print_messages': print_messages},
                 optionflags=REPORT_NDIFF)
         total_failure_count += failure_count
         total_test_count += test_count

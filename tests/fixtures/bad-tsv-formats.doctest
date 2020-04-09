@@ -1,4 +1,4 @@
->>> validate._print_message('tests/fixtures/bad-tsv-formats-codex/', 'codex-akoya', periods=True)
+>>> print_messages('tests/fixtures/bad-tsv-formats/')
 The value "not-uuid" in row 2 and column 1 ("A") does not conform to the pattern constraint of "[A-Z]+[0-9]+"
 .
 The value "not-uuid" in row 2 and column 2 ("B") does not conform to the pattern constraint of "[A-Z]+[0-9]+(-[A-Z0-9]+)+"
@@ -42,4 +42,3 @@ The value "0.5" in row 2 and column 25 ("Y") is not type "integer" and format "d
 The value "not-doi" in row 2 and column 26 ("Z") does not conform to the pattern constraint of "10\.17504/.*"
 .
 The value "not-doi" in row 2 and column 27 ("AA") does not conform to the pattern constraint of "10\.17504/.*"
-2

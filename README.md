@@ -35,7 +35,7 @@ optional arguments:
   --type_metadata TYPE_PATH [TYPE_PATH ...]
                         A list of type / metadata.tsv pairs of the form
                         "<atacseq|codex>:<local_path_to_tsv>".
-  --logging LOG_LEVEL
+  --logging LOG_LEVEL   Logging level: One of ['DEBUG', 'INFO', 'WARN']
 
 Typical usecases:
 

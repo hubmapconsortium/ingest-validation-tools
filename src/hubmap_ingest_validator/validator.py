@@ -39,6 +39,16 @@ def _validate_dataset_directories(dir_path, type):
         directory_schema.validate_dir(sub_directory, schema)
 
 
+def validate_data_path(data_path, type):
+    '''
+    Validate a single data_path.
+    '''
+    schema_path = (Path(__file__).parent
+                   / 'directory-schemas' / 'datasets' / f'{type}.yaml')
+    schema = load_yaml(open(schema_path).read())
+    directory_schema.validate_dir(data_path, schema)
+
+
 def validate_metadata_tsv(metadata_path, type):
     '''
     Validate the metadata.tsv.

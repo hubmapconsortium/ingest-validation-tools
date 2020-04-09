@@ -7,11 +7,14 @@ import re
 import logging
 from pathlib import Path
 import subprocess
+from glob import glob
+import csv
 
 from directory_schema.errors import DirectoryValidationErrors
 
-from hubmap_ingest_validator.validator \
-    import validate, validate_metadata_tsv, TableValidationErrors
+from hubmap_ingest_validator.validator import (
+    validate, validate_metadata_tsv, validate_data_path, TableValidationErrors
+)
 
 
 def _dir_path(s):
@@ -116,26 +119,30 @@ Typical usecases:
         help='A list of type / metadata.tsv pairs '
         f'of the form "{expected_type_metadata_form}".')
 
+    log_levels = ['DEBUG', 'INFO', 'WARN']
     parser.add_argument(
         '--logging', type=str,
         metavar='LOG_LEVEL',
-        choices=['DEBUG', 'INFO', 'WARN'],
+        help=f'Logging level: One of {log_levels}',
+        choices=log_levels,
         default='WARN')
 
     args = parser.parse_args()
     if not args.local_directory \
             and not args.globus_origin_directory \
             and not args.type_metadata:
-        raise Exception('At least one argument is required')
+        raise ValidationException('At least one argument is required')
 
     logging.basicConfig(level=args.logging)
 
     if args.globus_origin_directory:
-        raise Exception('TODO: Globus not yet supported')
+        raise ValidationException('TODO: Globus not yet supported')
         # TODO: mirror directory to local cache.
 
     if args.local_directory:
-        raise Exception('TODO: Local dir not yet supported')
+        logging.info(f'Validating {args.local_directory}')
+        messages = _validate_submission_directory_messages(
+            args.local_directory)
 
     if args.type_metadata:
         messages = []
@@ -150,21 +157,54 @@ Typical usecases:
     return 1 if messages else 0
 
 
-# TODO: This is a copy-and-paste that does only what we need,
-# but _print_message needs to be upgraded.
-def _validate_metadata_tsv_messages(
-        type, metadata_path, periods=False):
-    # Doctests choke on blank lines: periods=True replaces with "." for now.
+def _validate_metadata_tsv_messages(type, metadata_path):
     try:
         validate_metadata_tsv(type=type, metadata_path=metadata_path)
         logging.info('PASS')
         return []
     except TableValidationErrors as e:
         logging.warning('FAIL')
-        message = str(e)
-        if periods:
-            message = re.sub(r'\n(\s*\n)+', '\n.\n', message).strip()
-        return [message]
+        return [str(e)]
+
+
+def _validate_data_path_messages(type, data_path):
+    logging.info(f'Validating {type} {data_path}')
+    try:
+        validate_data_path(type=type, data_path=data_path)
+        logging.info('PASS')
+        return []
+    except DirectoryValidationErrors as e:
+        logging.warning('FAIL')
+        return [str(e)]
+
+
+def _validate_submission_directory_messages(submission_directory):
+    metadata_glob = submission_directory + '*-metadata.tsv'
+    metadata_tsvs = glob(metadata_glob)
+    if not metadata_tsvs:
+        raise ValidationException(f'Nothing matched {metadata_glob}')
+    messages = []
+    for tsv_path in metadata_tsvs:
+        dir_type = re.match(r'(.+)-metadata\.tsv$', Path(tsv_path).name)[1]
+        table_type = dir_type.split('-')[0]
+        messages += _validate_metadata_tsv_messages(table_type, tsv_path)
+
+        with open(tsv_path) as f:
+            rows = list(csv.DictReader(f, dialect='excel-tab'))
+            if not rows:
+                raise ValidationException(f'{tsv_path} is empty')
+            for row in rows:
+                full_data_path = Path(submission_directory) / row['data_path']
+                messages += _validate_data_path_messages(
+                    dir_type, full_data_path)
+
+    return messages
+
+
+class ValidationException(Exception):
+    # Throw this when there it a problem with the validation process
+    # (not just that validation failed) an you don't want a stack trace.
+    pass
 
 
 def _print_message(
@@ -202,4 +242,9 @@ def _print_message(
 
 
 if __name__ == "__main__":
-    sys.exit(main())  # pragma: no cover
+    try:
+        exit_status = main()
+    except ValidationException as e:
+        print(e, file=sys.stderr)
+        sys.exit(2)
+    sys.exit(exit_status)
