@@ -8,6 +8,7 @@ import logging
 from pathlib import Path
 import subprocess
 from glob import glob
+import csv
 
 from directory_schema.errors import DirectoryValidationErrors
 
@@ -137,7 +138,7 @@ Typical usecases:
 
     if args.local_directory:
         logging.info(f'Validating {args.local_directory}')
-        messages = _validate_directory_messages(args.local_directory)
+        messages = _validate_submission_directory_messages(args.local_directory)
 
     if args.type_metadata:
         messages = []
@@ -152,25 +153,24 @@ Typical usecases:
     return 1 if messages else 0
 
 
-# TODO: This is a copy-and-paste that does only what we need,
-# but _print_message needs to be upgraded.
-def _validate_metadata_tsv_messages(
-        type, metadata_path, periods=False):
-    # Doctests choke on blank lines: periods=True replaces with "." for now.
+def _validate_metadata_tsv_messages(type, metadata_path):
     try:
         validate_metadata_tsv(type=type, metadata_path=metadata_path)
         logging.info('PASS')
         return []
     except TableValidationErrors as e:
         logging.warning('FAIL')
-        message = str(e)
-        if periods:
-            message = re.sub(r'\n(\s*\n)+', '\n.\n', message).strip()
-        return [message]
+        return [str(e)]
 
 
-def _validate_directory_messages(directory, periods=False):
-    metadata_glob = f'{directory}/*-metadata.tsv'
+def _validate_data_path_messages(type, data_path):
+    logging.info(f'Validating {type} {data_path}')
+    # TODO
+    return []
+
+
+def _validate_submission_directory_messages(submission_directory):
+    metadata_glob = f'{submission_directory}/*-metadata.tsv'
     metadata_tsvs = glob(metadata_glob)
     if not metadata_tsvs:
         raise ValidationException(f'Nothing matched {metadata_glob}')
@@ -178,10 +178,16 @@ def _validate_directory_messages(directory, periods=False):
     for tsv_path in metadata_tsvs:
         type = re.match(r'(.+)-metadata\.tsv$', Path(tsv_path).name)[1]
         messages += _validate_metadata_tsv_messages(type, tsv_path)
+
+        with open(tsv_path) as f:
+            for row in csv.DictReader(f, dialect='excel-tab'):
+                messages += _validate_data_path_messages(type, row['data_path'])
+
     return messages
 
-
 class ValidationException(Exception):
+    # Throw this when there it a problem with the validation process
+    # (not just that validation failed) an you don't want a stack trace.
     pass
 
 
