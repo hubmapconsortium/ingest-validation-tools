@@ -25,7 +25,7 @@
 - Validate the data_path.
 - Allow multiple metadata.tsvs.
 - Validate against Globus.
-- Support multiple TSVs.
+- Support multiple TSVs
 ### Changed
 - CSV -> TSV
 - Make the schema validation errors more readable
