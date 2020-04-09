@@ -1,4 +1,4 @@
->>> print_messages('tests/fixtures/bad-tsv-formats/')
+>>> print_messages()
 The value "not-uuid" in row 2 and column 1 ("A") does not conform to the pattern constraint of "[A-Z]+[0-9]+"
 .
 The value "not-uuid" in row 2 and column 2 ("B") does not conform to the pattern constraint of "[A-Z]+[0-9]+(-[A-Z0-9]+)+"

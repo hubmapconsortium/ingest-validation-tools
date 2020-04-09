@@ -1,4 +1,4 @@
->>> print_messages('tests/fixtures/bad-no-such-type/')
+>>> print_messages()
 Traceback (most recent call last):
 ...
 FileNotFoundError: [Errno 2] No such file or directory: 'src/hubmap_ingest_validator/table-schemas/fake.yaml'

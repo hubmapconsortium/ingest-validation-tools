@@ -43,3 +43,4 @@
 - No longer checking consistency of donor and sample.
 - Remove generic schema.
 - python3 in hash-bang.
+- Reorganize fixtures.

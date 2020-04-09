@@ -1,4 +1,0 @@
->>> print_messages('tests/fixtures/bad-no-metadata/')
-Traceback (most recent call last):
-...
-validate_submission.ValidationException: Nothing matched tests/fixtures/bad-no-metadata/*-metadata.tsv
