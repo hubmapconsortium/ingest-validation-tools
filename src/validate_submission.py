@@ -135,26 +135,27 @@ Typical usecases:
         raise Exception('TODO: Local dir not yet supported')
 
     if args.type_metadata:
-        exit_status = 0
+        messages = []
         for type_path in args.type_metadata:
             logging.info(f'Validating {type_path}')
-            exit_status |= _print_validate_metadata_tsv_message(
+            messages += _validate_metadata_tsv(
                 type=type_path['type'],
                 metadata_path=type_path['path']
             )
+    print('\n'.join(messages))
 
-    return exit_status
+    return 1 if messages else 0
 
 
 # TODO: This is a copy-and-paste that does only what we need,
 # but _print_message needs to be upgraded.
-def _print_validate_metadata_tsv_message(
+def _validate_metadata_tsv(
         type, metadata_path, periods=False):
     # Doctests choke on blank lines: periods=True replaces with "." for now.
     try:
         validate_metadata_tsv(type=type, metadata_path=metadata_path)
         logging.info('PASS')
-        return 0
+        return []
     except TableValidationErrors as e:
         message = str(e)
         if periods:
@@ -165,9 +166,8 @@ def _print_validate_metadata_tsv_message(
             message,
             flags=re.I
         )
-        print(message)
         logging.warning('FAIL')
-        return 2
+        return [message]
 
 
 def _print_message(
