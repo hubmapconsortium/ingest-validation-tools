@@ -1,7 +1,6 @@
 # atacseq
 
 Related files:
-- [JSON Schema](schema.yaml)
 - [TSV Template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/master/docs/atacseq/template.tsv)
 
 ## Table of contents

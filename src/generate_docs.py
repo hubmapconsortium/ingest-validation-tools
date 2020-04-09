@@ -34,8 +34,12 @@ def main():
 
     with open(Path(args.target) / 'template.tsv', 'w') as f:
         f.write(_generate_template_tsv(table_schema))
-    with open(Path(args.target) / 'schema.yaml', 'w') as f:
-        f.write(_generate_schema_yaml(table_schema))
+    # The generated JSON Schema is easy to confuse with
+    # the source Table Schema. Until we know it's definitely
+    # needed, stop producing it.
+    #
+    # with open(Path(args.target) / 'schema.yaml', 'w') as f:
+    #     f.write(_generate_schema_yaml(table_schema))
     with open(Path(args.target) / 'README.md', 'w') as f:
         f.write(_generate_readme_md(table_schema, args.type))
 
@@ -85,7 +89,6 @@ def _generate_readme_md(table_schema, type):
     return f'''# {type}
 
 Related files:
-- [JSON Schema](schema.yaml)
 - [TSV Template]({raw_url})
 
 ## Table of contents

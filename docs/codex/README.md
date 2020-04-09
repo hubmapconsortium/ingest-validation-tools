@@ -1,7 +1,6 @@
 # codex
 
 Related files:
-- [JSON Schema](schema.yaml)
 - [TSV Template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/master/docs/codex/template.tsv)
 
 ## Table of contents
