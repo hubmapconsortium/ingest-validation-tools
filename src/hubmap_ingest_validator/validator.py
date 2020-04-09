@@ -17,22 +17,10 @@ class TableValidationErrors(Exception):
 
 def validate(path, type, skip_data_path=False):
     path_obj = Path(path)
-    _validate_generic_submission(path_obj)
     _validate_dataset_directories(path_obj, type)
     validate_metadata_tsv(path_obj / 'metadata.tsv', type.split('-')[0])
     if not skip_data_path:
         _validate_references_down(path_obj)
-
-
-def _validate_generic_submission(dir_path):
-    '''
-    Validate the directory at path.
-    '''
-    logging.info('Validating generic submission...')
-    schema_path = (Path(__file__).parent
-                   / 'directory-schemas' / 'submission.yaml')
-    schema = load_yaml(open(schema_path).read())
-    directory_schema.validate_dir(dir_path, schema)
 
 
 def _validate_dataset_directories(dir_path, type):

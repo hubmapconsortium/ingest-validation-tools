@@ -80,7 +80,6 @@ _valid_types = sorted({
 
 def main():
     parser = argparse.ArgumentParser(
-        formatter_class=argparse.RawDescriptionHelpFormatter,
         description='Validate HuBMAP submission, '
         'both the metadata TSVs, and the datasets',
         epilog='''
@@ -92,9 +91,10 @@ Typical usecases:
   --globus_origin_directory: Validate a submission directory on Globus,
   with <type>-metadata.tsv files in place.
 
-   --local_directory: Used in development against test fixtures, and in
-   the ingest-pipeline, where Globus is the local filesystem.
-''')
+  --local_directory: Used in development against test fixtures, and in
+  the ingest-pipeline, where Globus is the local filesystem.
+''',
+        formatter_class=argparse.RawDescriptionHelpFormatter)
     mutex_group = parser.add_mutually_exclusive_group()
     mutex_group.add_argument(
         '--local_directory', type=_dir_path,
@@ -137,7 +137,7 @@ Typical usecases:
         messages = []
         for type_path in args.type_metadata:
             logging.info(f'Validating {type_path}')
-            messages += _validate_metadata_tsv(
+            messages += _validate_metadata_tsv_messages(
                 type=type_path['type'],
                 metadata_path=type_path['path']
             )
@@ -148,7 +148,7 @@ Typical usecases:
 
 # TODO: This is a copy-and-paste that does only what we need,
 # but _print_message needs to be upgraded.
-def _validate_metadata_tsv(
+def _validate_metadata_tsv_messages(
         type, metadata_path, periods=False):
     # Doctests choke on blank lines: periods=True replaces with "." for now.
     try:
