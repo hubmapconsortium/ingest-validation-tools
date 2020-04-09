@@ -7,6 +7,7 @@ import re
 import logging
 from pathlib import Path
 import subprocess
+from glob import glob
 
 from directory_schema.errors import DirectoryValidationErrors
 
@@ -126,16 +127,17 @@ Typical usecases:
     if not args.local_directory \
             and not args.globus_origin_directory \
             and not args.type_metadata:
-        raise Exception('At least one argument is required')
+        raise ValidationException('At least one argument is required')
 
     logging.basicConfig(level=args.logging)
 
     if args.globus_origin_directory:
-        raise Exception('TODO: Globus not yet supported')
+        raise ValidationException('TODO: Globus not yet supported')
         # TODO: mirror directory to local cache.
 
     if args.local_directory:
-        raise Exception('TODO: Local dir not yet supported')
+        logging.info(f'Validating {args.local_directory}')
+        messages = _validate_directory_messages(args.local_directory)
 
     if args.type_metadata:
         messages = []
@@ -165,6 +167,22 @@ def _validate_metadata_tsv_messages(
         if periods:
             message = re.sub(r'\n(\s*\n)+', '\n.\n', message).strip()
         return [message]
+
+
+def _validate_directory_messages(directory, periods=False):
+    metadata_glob = f'{directory}/*-metadata.tsv'
+    metadata_tsvs = glob(metadata_glob)
+    if not metadata_tsvs:
+        raise ValidationException(f'Nothing matched {metadata_glob}')
+    messages = []
+    for tsv_path in metadata_tsvs:
+        type = re.match(r'(.+)-metadata\.tsv$', Path(tsv_path).name)[1]
+        messages += _validate_metadata_tsv_messages(type, tsv_path)
+    return messages
+
+
+class ValidationException(Exception):
+    pass
 
 
 def _print_message(
@@ -202,4 +220,9 @@ def _print_message(
 
 
 if __name__ == "__main__":
-    sys.exit(main())  # pragma: no cover
+    try:
+        exit_status = main()
+    except ValidationException as e:
+        print(e, file=sys.stderr)
+        sys.exit(2)
+    sys.exit(exit_status)
