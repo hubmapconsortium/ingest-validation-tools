@@ -36,7 +36,7 @@ optional arguments:
                         the form "<globus_origin_id>:<globus_path>".
   --type_metadata TYPE_PATH [TYPE_PATH ...]
                         A list of type / metadata.tsv pairs of the form
-                        "<atacseq|codex>:<local_path_to_tsv>".
+                        "<atacseq|codex|seqfish>:<local_path_to_tsv>".
   --logging LOG_LEVEL   Logging level: One of ['DEBUG', 'INFO', 'WARN']
 
 Typical usecases:
@@ -64,14 +64,15 @@ After making tweaks to the schema, you can regenerate the docs:
 
 ```
 $ src/generate_docs.py -h
-usage: generate_docs.py [-h] {atacseq,codex} target
+usage: generate_docs.py [-h] {atacseq,codex,seqfish} target
 
 positional arguments:
-  {atacseq,codex}  What type to generate
-  target           Directory to write output to
+  {atacseq,codex,seqfish}
+                        What type to generate
+  target                Directory to write output to
 
 optional arguments:
-  -h, --help       show this help message and exit
+  -h, --help            show this help message and exit
 ```
 
 ## Big picture:
