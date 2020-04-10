@@ -18,7 +18,7 @@ You can run validation locally before the same checks are run automatically duri
 ```
 $ src/validate_submission.py -h
 usage: validate_submission.py [-h]
-                              [--local_directory PATH | --globus_origin_directory ORIGIN_PATH]
+                              [--local_directory PATH | --globus_url URL | --globus_origin_directory ORIGIN_PATH]
                               [--type_metadata TYPE_PATH [TYPE_PATH ...]]
                               [--logging LOG_LEVEL]
 
@@ -29,6 +29,8 @@ optional arguments:
   -h, --help            show this help message and exit
   --local_directory PATH
                         Local directory to validate
+  --globus_url URL      The Globus File Manager URL of a directory to
+                        validate.
   --globus_origin_directory ORIGIN_PATH
                         A Globus submission directory to validate; Should have
                         the form "<globus_origin_id>:<globus_path>".
@@ -39,10 +41,10 @@ optional arguments:
 
 Typical usecases:
 
-  --type_metadata + --globus_origin_directory: Validate one or more
+  --type_metadata + --globus_url: Validate one or more
   local metadata.tsv files against a submission directory already on Globus.
 
-  --globus_origin_directory: Validate a submission directory on Globus,
+  --globus_url: Validate a submission directory on Globus,
   with <type>-metadata.tsv files in place.
 
   --local_directory: Used in development against test fixtures, and in

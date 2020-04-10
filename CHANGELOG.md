@@ -28,6 +28,7 @@
 - Support multiple TSVs.
 - Use <details> in ToC.
 - Link to Google doc spec.
+- Allow Globus File Browser URL to be used directly.
 ### Changed
 - CSV -> TSV
 - Make the schema validation errors more readable

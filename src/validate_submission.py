@@ -9,6 +9,7 @@ from pathlib import Path
 import subprocess
 from glob import glob
 import csv
+import urllib
 
 from directory_schema.errors import DirectoryValidationErrors
 
@@ -31,26 +32,49 @@ def _origin_directory_pair(s):
         raise argparse.ArgumentTypeError(
             f'Expected colon-delimited pair, not "{s}"')
 
-    if not re.match(r'[0-9a-f-]{36}', origin):
-        raise argparse.ArgumentTypeError('Orgin format wrong')
-
-    try:
-        subprocess.run(
-            ['globus', 'whoami'], check=True,
-            stdout=subprocess.DEVNULL)
-    except subprocess.CalledProcessError:
-        raise argparse.ArgumentTypeError('Run "globus login"')
-
-    try:
-        subprocess.run(
-            ['globus', 'ls', s], check=True,
-            stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
-    except subprocess.CalledProcessError as e:
-        raise argparse.ArgumentTypeError(e.stdout.decode('utf-8'))
+    expected_format = r'[0-9a-f-]{36}'
+    if not re.match(expected_format, origin):
+        raise argparse.ArgumentTypeError(
+            f'Origin format wrong; expected {expected_format}')
 
     return {
         'origin': origin,
         'path': path
+    }
+
+
+def _globus_url(s):
+    '''
+    >>> _globus_url('http://example.com/')
+    Traceback (most recent call last):
+    ...
+    argparse.ArgumentTypeError: Expected a URL starting with https://app.globus.org/file-manager?
+
+    >>> _globus_url('https://app.globus.org/file-manager?a=1')
+    Traceback (most recent call last):
+    ...
+    argparse.ArgumentTypeError: Expected query keys to be ['origin_id', 'origin_path'], not ['a']
+
+    >>> _globus_url('https://app.globus.org/file-manager?origin_id=32-hex-digits&origin_path=%2Fpath%2F')
+    {'origin': '32-hex-digits', 'path': '/path/'}
+
+    '''  # noqa E501
+    expected_base = 'https://app.globus.org/file-manager?'
+    if not s.startswith(expected_base):
+        raise argparse.ArgumentTypeError(
+            f'Expected a URL starting with {expected_base}')
+
+    parsed = urllib.parse.urlparse(s)
+    query = urllib.parse.parse_qs(parsed.query)
+    expected_keys = ['origin_id', 'origin_path']
+    actual_keys = sorted(query.keys())
+    if actual_keys != expected_keys:
+        raise argparse.ArgumentTypeError(
+            f'Expected query keys to be {expected_keys}, not {actual_keys}')
+
+    return {
+        'origin': query['origin_id'][0],
+        'path': query['origin_path'][0]
     }
 
 
@@ -89,10 +113,10 @@ either local or remote, or a combination of the two.''',
         epilog='''
 Typical usecases:
 
-  --type_metadata + --globus_origin_directory: Validate one or more
+  --type_metadata + --globus_url: Validate one or more
   local metadata.tsv files against a submission directory already on Globus.
 
-  --globus_origin_directory: Validate a submission directory on Globus,
+  --globus_url: Validate a submission directory on Globus,
   with <type>-metadata.tsv files in place.
 
   --local_directory: Used in development against test fixtures, and in
@@ -104,7 +128,10 @@ Typical usecases:
         '--local_directory', type=_dir_path,
         metavar='PATH',
         help='Local directory to validate')
-    # TODO: Parse globus URL.
+    mutex_group.add_argument(
+        '--globus_url', type=_globus_url,
+        metavar='URL',
+        help='The Globus File Manager URL of a directory to validate.')
     mutex_group.add_argument(
         '--globus_origin_directory', type=_origin_directory_pair,
         metavar='ORIGIN_PATH',
@@ -128,14 +155,22 @@ Typical usecases:
         default='WARN')
 
     args = parser.parse_args()
-    if not args.local_directory \
-            and not args.globus_origin_directory \
-            and not args.type_metadata:
+    if not any([
+        args.local_directory,
+        args.globus_url,
+        args.globus_origin_directory,
+        args.type_metadata
+    ]):
         raise ValidationException('At least one argument is required')
 
     logging.basicConfig(level=args.logging)
 
-    if args.globus_origin_directory:
+    if args.globus_origin_directory or args.globus_url:
+        origin_directory = args.globus_url if args.globus_url \
+            else args.globus_origin_directory
+        _check_globus_connection(origin_directory['origin'])
+
+    if origin_directory:
         raise ValidationException('TODO: Globus not yet supported')
         # TODO: mirror directory to local cache.
 
@@ -155,6 +190,22 @@ Typical usecases:
     print('\n'.join(messages))
 
     return 1 if messages else 0
+
+
+def _check_globus_connection(origin):
+    try:
+        subprocess.run(
+            ['globus', 'whoami'], check=True,
+            stdout=subprocess.DEVNULL)
+    except subprocess.CalledProcessError:
+        raise ValidationException('Run "globus login"')
+
+    try:
+        subprocess.run(
+            ['globus', 'ls', origin], check=True,
+            stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+    except subprocess.CalledProcessError as e:
+        raise ValidationException(e.stdout.decode('utf-8'))
 
 
 def _validate_metadata_tsv_messages(type, metadata_path):
