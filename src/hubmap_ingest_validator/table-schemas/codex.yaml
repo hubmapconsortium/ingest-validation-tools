@@ -17,8 +17,6 @@ fields:
     name: resolution_x_value
     description: The width of a pixel. (Akoya pixel is 377nm square)
     type: number
-    constraints:
-      required: True
   -
     name: resolution_x_unit
     description: The unit of measurement of width of a pixel.(nm)
@@ -29,8 +27,6 @@ fields:
     name: resolution_y_value
     description: The height of a pixel. (Akoya pixel is 377nm square)
     type: number
-    constraints:
-      required: True
   -
     name: resolution_y_unit
     description: The unit of measurement of height of a pixel. (nm)
@@ -66,20 +62,14 @@ fields:
     name: number_of_antibodies
     description: Number of antibodies
     type: integer
-    constraints:
-      required: True
   -
     name: number_of_channels
     description: Number of fluorescent channels imaged during each cycle.
     type: integer
-    constraints:
-      required: True
   -
     name: number_of_cycles
     description: Number of cycles of 1. oligo application, 2. fluor application, 3. washes
     type: integer
-    constraints:
-      required: True
   -
     name: section_prep_protocols_io_doi
     description: DOI for protocols.io referring to the protocol for preparing tissue sections for the assay.

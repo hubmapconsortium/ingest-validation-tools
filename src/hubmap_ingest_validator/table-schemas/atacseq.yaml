@@ -4,24 +4,16 @@ fields:
     heading: Level 2
     name: acquisition_instrument_vendor
     description: An acquisition_instrument is the device that contains the signal detection hardware and signal processing software. Assays can generate signals such as light of various intensities or color or signals representing molecular mass.
-    constraints:
-      required: True
   -
     name: acquisition_instrument_model
     description: Manufacturers of an acquisition instrument may offer various versions (models) of that instrument with different features or sensitivities. Differences in features or sensitivities may be relevant to processing or interpretation of the data.
-    constraints:
-      required: True
   -
     name: is_technical_replicate
     description: If TRUE, fastq files in dataset need to be merged.
     type: boolean
-    constraints:
-      required: True
   -
     name: library_id
     description: A library ID, unique within a TMC, which allows corresponding RNA and chromatin accessibility datasets to be linked.
-    constraints:
-      required: True
   -
     name: sc_isolation_protocols_io_doi
     description: 'Link to a protocols document answering the question: How were single cells separated into a single-cell suspension?'
@@ -41,8 +33,6 @@ fields:
   -
     name: sc_isolation_tissue_dissociation
     description: The method by which tissues are dissociated into single cells in suspension.
-    constraints:
-      required: True
   -
     name: sc_isolation_enrichment
     description: The method by which specific cell populations are sorted or enriched.
@@ -54,20 +44,14 @@ fields:
   -
     name: sc_isolation_quality_metric
     description: 'A quality metric by visual inspection prior to cell lysis or defined by known parameters such as wells with several cells or no cells. This can be captured at a high level. "OK" or "not OK", or with more specificity such as "debris", "clump", "low clump".'
-    constraints:
-      required: True
   -
     name: sc_isolation_cell_number
     description: Total number of cell/nuclei yielded post dissociation and enrichment.
     type: integer
-    constraints:
-      required: True
   -
     name: transposition_input
     description: Number of cell/nuclei input to the assay.
     type: number
-    constraints:
-      required: True
   -
     name: transposition_method
     description: Modality of capturing accessible chromatin molecules.
@@ -138,20 +122,14 @@ fields:
     name: library_pcr_cycles
     description: Number of PCR cycles to enrich for accessible chromatin fragments.
     type: integer
-    constraints:
-      required: True
   -
     name: library_pcr_cycles_for_sample_index
     description: Number of PCR cycles performed for library generation (figure in Descriptions section)
     type: integer
-    constraints:
-      required: True
   -
     name: library_final_yield
     description: Total ng of library after final pcr amplification step.
     type: number
-    constraints:
-      required: True
   -
     name: library_final_yield_unit
     description: Units for library_final_yield
@@ -163,18 +141,12 @@ fields:
     name: library_average_fragment_size
     description: Average size of sequencing library fragments estimated via gel electrophoresis or bioanalyzer/tapestation. Numeric value in bp.
     type: number
-    constraints:
-      required: True
   -
     name: sequencing_reagent_kit
     description: Reagent kit used for sequencing. NovaSeq6000 for example
-    constraints:
-      required: True
   -
     name: sequencing_read_format
     description: 'Number of sequencing cycles in Read1, i7 index, i5 index, and Read2. Eg: for 10X snATAC-seq: 50+8+16+50 (R1,Index,R2,R3). For SNARE-seq2: 75+94+8+75'
-    constraints:
-      required: True
   -
     name: sequencing_read_percent_q30
     description: 'Percent of bases with Quality scores above Q30.'
@@ -187,5 +159,3 @@ fields:
     name: sequencing_phix_percent
     description: 'Percent PhiX loaded to the run.'
     type: number
-    constraints:
-      required: True

@@ -7,6 +7,4 @@ fields:
       required: False
   -
     name: data_path
-    description: Relative path to file or directory with instrument data. Downstream processing will depend on filename extension conventions. Required.
-    constraints:
-      required: True
+    description: Relative path to file or directory with instrument data. Downstream processing will depend on filename extension conventions.

@@ -287,7 +287,7 @@ Relative path to file or directory with free-form or instrument/lab specific met
 | required | `False` |
 
 ### `data_path`
-Relative path to file or directory with instrument data. Downstream processing will depend on filename extension conventions. Required.
+Relative path to file or directory with instrument data. Downstream processing will depend on filename extension conventions.
 
 | constraint | value |
 | --- | --- |
