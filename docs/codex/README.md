@@ -5,10 +5,14 @@ Related files:
 - [Source code](https://github.com/hubmapconsortium/ingest-validation-tools/edit/master/src/hubmap_ingest_validator/table-schemas/codex.yaml): Make a PR if this doc should be updated.
 
 ## Table of contents
-[Provenance](#provenance)<br>
+<details><summary>Provenance</summary>
+
 [`donor_id`](#donor_id)<br>
 [`tissue_id`](#tissue_id)<br>
-[Level 1](#level-1)<br>
+</details>
+
+<details><summary>Level 1</summary>
+
 [`execution_datetime`](#execution_datetime)<br>
 [`protocols_io_doi`](#protocols_io_doi)<br>
 [`operator`](#operator)<br>
@@ -19,7 +23,10 @@ Related files:
 [`assay_type`](#assay_type)<br>
 [`analyte_class`](#analyte_class)<br>
 [`is_targeted`](#is_targeted)<br>
-[Level 2](#level-2)<br>
+</details>
+
+<details><summary>Level 2</summary>
+
 [`acquisition_instrument_vendor`](#acquisition_instrument_vendor)<br>
 [`acquisition_instrument_model`](#acquisition_instrument_model)<br>
 [`resolution_x_value`](#resolution_x_value)<br>
@@ -28,7 +35,10 @@ Related files:
 [`resolution_y_unit`](#resolution_y_unit)<br>
 [`resolution_z_value`](#resolution_z_value)<br>
 [`resolution_z_unit`](#resolution_z_unit)<br>
-[Level 3](#level-3)<br>
+</details>
+
+<details><summary>Level 3</summary>
+
 [`preparation_instrument_vendor`](#preparation_instrument_vendor)<br>
 [`preparation_instrument_model`](#preparation_instrument_model)<br>
 [`number_of_antibodies`](#number_of_antibodies)<br>
@@ -36,9 +46,12 @@ Related files:
 [`number_of_cycles`](#number_of_cycles)<br>
 [`section_prep_protocols_io_doi`](#section_prep_protocols_io_doi)<br>
 [`reagent_prep_protocols_io_doi`](#reagent_prep_protocols_io_doi)<br>
-[Paths](#paths)<br>
+</details>
+
+<details><summary>Paths</summary>
+
 [`metadata_path`](#metadata_path)<br>
-[`data_path`](#data_path)<br>
+[`data_path`](#data_path)<br></details>
 
 ## Provenance
 

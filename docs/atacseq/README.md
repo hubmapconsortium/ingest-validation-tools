@@ -5,10 +5,14 @@ Related files:
 - [Source code](https://github.com/hubmapconsortium/ingest-validation-tools/edit/master/src/hubmap_ingest_validator/table-schemas/atacseq.yaml): Make a PR if this doc should be updated.
 
 ## Table of contents
-[Provenance](#provenance)<br>
+<details><summary>Provenance</summary>
+
 [`donor_id`](#donor_id)<br>
 [`tissue_id`](#tissue_id)<br>
-[Level 1](#level-1)<br>
+</details>
+
+<details><summary>Level 1</summary>
+
 [`execution_datetime`](#execution_datetime)<br>
 [`protocols_io_doi`](#protocols_io_doi)<br>
 [`operator`](#operator)<br>
@@ -19,7 +23,10 @@ Related files:
 [`assay_type`](#assay_type)<br>
 [`analyte_class`](#analyte_class)<br>
 [`is_targeted`](#is_targeted)<br>
-[Level 2](#level-2)<br>
+</details>
+
+<details><summary>Level 2</summary>
+
 [`acquisition_instrument_vendor`](#acquisition_instrument_vendor)<br>
 [`acquisition_instrument_model`](#acquisition_instrument_model)<br>
 [`is_technical_replicate`](#is_technical_replicate)<br>
@@ -49,9 +56,12 @@ Related files:
 [`sequencing_read_format`](#sequencing_read_format)<br>
 [`sequencing_read_percent_q30`](#sequencing_read_percent_q30)<br>
 [`sequencing_phix_percent`](#sequencing_phix_percent)<br>
-[Paths](#paths)<br>
+</details>
+
+<details><summary>Paths</summary>
+
 [`metadata_path`](#metadata_path)<br>
-[`data_path`](#data_path)<br>
+[`data_path`](#data_path)<br></details>
 
 ## Provenance
 

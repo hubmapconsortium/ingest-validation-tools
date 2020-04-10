@@ -112,11 +112,16 @@ def _make_toc(md):
     # or aren't Python at all, etc. Argh.
     # This is not good.
     '''
-    >>> md = '# Section A\\n## `Item 1`'
+    >>> md = '# Section A\\n## `Item 1`\\n# Section B'
 
     >>> print(_make_toc(md))
-    [Section A](#section-a)<br>
+    <details><summary>Section A</summary>
+    <BLANKLINE>
     [`Item 1`](#item-1)<br>
+    </details>
+    <BLANKLINE>
+    <details><summary>Section B</summary>
+    </details>
 
     '''
     lines = md.split('\n')
@@ -125,9 +130,15 @@ def _make_toc(md):
         for l in lines if len(l) and l[0] == '#'
     ]
     return '\n'.join([
-        f"[{h}](#{h.lower().replace(' ', '-').replace('`', '')})<br>"
+        (
+            # Assume section headers do not contain backticks...
+            f'</details>\n\n<details><summary>{h}</summary>\n'
+            if '`' not in h else
+            # Otherwise, make a link to the field:
+            f"[{h}](#{h.lower().replace(' ', '-').replace('`', '')})<br>"
+        )
         for h in headers
-    ])
+    ]).replace('</details>\n\n', '', 1) + '</details>'
 
 
 if __name__ == "__main__":
