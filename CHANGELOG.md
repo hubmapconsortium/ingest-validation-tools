@@ -27,6 +27,7 @@
 - Validate against Globus.
 - Support multiple TSVs.
 - Use <details> in ToC.
+- Link to Google doc spec.
 ### Changed
 - CSV -> TSV
 - Make the schema validation errors more readable

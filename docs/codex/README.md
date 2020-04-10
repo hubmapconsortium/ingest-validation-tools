@@ -1,6 +1,7 @@
 # codex
 
 Related files:
+- [Background doc](https://docs.google.com/document/d/1CYYSXPQjwdbvmvZaEcsi_2udvDfGEZrMyh4yFnm4p3M/edit): More details about this type.
 - [TSV Template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/master/docs/codex/template.tsv): Use this to submit metadata.
 - [Source code](https://github.com/hubmapconsortium/ingest-validation-tools/edit/master/src/hubmap_ingest_validator/table-schemas/codex.yaml): Make a PR if this doc should be updated.
 
