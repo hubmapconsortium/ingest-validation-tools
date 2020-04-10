@@ -379,6 +379,7 @@ Percent of bases with Quality scores above Q30.
 | constraint | value |
 | --- | --- |
 | type | `number` |
+| required | `True` |
 | minimum | `0` |
 | maximum | `100` |
 
@@ -388,6 +389,7 @@ Percent PhiX loaded to the run.
 | constraint | value |
 | --- | --- |
 | type | `number` |
+| required | `True` |
 | minimum | `0` |
 | maximum | `100` |
 

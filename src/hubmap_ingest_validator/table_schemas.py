@@ -25,10 +25,10 @@ def get_schema(type):
             field['constraints']['required'] = True
         if 'percent' in field['name']:
             field['type'] = 'number'
-            field['constraints'] = {
-                'minimum': 0,
-                'maximum': 100
-            }
+            field['constraints']['minimum'] = 0
+            field['constraints']['maximum'] = 100
+        if 'protocols_io_doi' in field['name']:
+            field['constraints']['pattern'] = r'10\.17504/.*'
 
     return {
         'doc_url': type_schema['doc_url'],
