@@ -51,3 +51,4 @@
 - Reorganize fixtures.
 - Stop generating JSON Schema, for now.
 - Define path fields only in one place.
+- Remove timezone offset.
