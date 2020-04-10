@@ -8,7 +8,7 @@ _schemas_path = Path(__file__).parent / 'table-schemas'
 
 def list_types():
     schemas = {p.stem for p in _schemas_path.iterdir()}
-    return sorted(schemas - {'level-1'})
+    return sorted(schemas - {'level-1', 'paths'})
 
 
 def get_schema(type):
@@ -16,8 +16,10 @@ def get_schema(type):
     level_1_fields = level_1_schema['fields']
     type_schema = load_yaml(open(_schemas_path / f'{type}.yaml').read())
     type_fields = type_schema['fields']
+    paths_schema = load_yaml(open(_schemas_path / 'paths.yaml').read())
+    paths_fields = paths_schema['fields']
 
     return {
         'doc_url': type_schema['doc_url'],
-        'fields': level_1_fields + type_fields
+        'fields': level_1_fields + type_fields + paths_fields
     }
