@@ -4,13 +4,11 @@ fields:
     name: donor_id
     description: HuBMAP Display ID of the donor of the assayed tissue.
     constraints:
-      required: True
       pattern: '[A-Z]+[0-9]+'
   -
     name: tissue_id
     description: HuBMAP Display ID of the assayed tissue.
     constraints:
-      required: True
       pattern: '[A-Z]+[0-9]+(-[A-Z0-9]+)+'
   -
     heading: Level 1
@@ -42,7 +40,6 @@ fields:
     name: assay_category
     description: 'Each assay is placed into one of the following 3 general categories: generation of images of microscopic entities, identification & quantitation of molecules by mass spectrometry, and determination of nucleotide sequence.'
     constraints:
-      required: True
       enum:
         - imaging
         - mass_spectrometry
@@ -51,7 +48,6 @@ fields:
     name: assay_type
     description: 'The specific type of assay being executed.'
     constraints:
-      required: True
       enum:
         - scRNA-Seq (10xGenomics)
         - AF
@@ -80,7 +76,6 @@ fields:
     name: analyte_class
     description: Analytes are the target molecules being measured with the assay.
     constraints:
-      required: True
       enum:
         - DNA
         - RNA

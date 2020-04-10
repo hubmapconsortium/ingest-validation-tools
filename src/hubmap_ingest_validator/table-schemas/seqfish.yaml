@@ -64,11 +64,9 @@ fields:
     name: section_prep_protocols_io_doi
     description: DOI for protocols.io referring to the protocol for preparing tissue sections for the assay.
     constraints:
-      required: True
       pattern: '10\.17504/.*'
   -
     name: reagent_prep_protocols_io_doi
     description: DOI for protocols.io referring to the protocol for preparing reagents for the assay.
     constraints:
-      required: True
       pattern: '10\.17504/.*'

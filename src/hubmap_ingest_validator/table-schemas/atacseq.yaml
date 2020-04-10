@@ -24,7 +24,6 @@ fields:
     name: sc_isolation_entity
     description: The type of single cell entity derived from isolation protocol.
     constraints:
-      required: True
       enum:
         - whole cell
         - nucleus
@@ -37,7 +36,6 @@ fields:
     name: sc_isolation_enrichment
     description: The method by which specific cell populations are sorted or enriched.
     constraints:
-      required: True
       enum:
         - none
         - FACS
@@ -56,7 +54,6 @@ fields:
     name: transposition_method
     description: Modality of capturing accessible chromatin molecules.
     constraints:
-      required: True
       enum:
         - SNARE-Seq2-AC
         - scATACseq
@@ -67,7 +64,6 @@ fields:
     name: transposition_transposase_source
     description: The source of the Tn5 transposase and transposon used for capturing accessible chromatin.
     constraints:
-      required: True
       enum:
         - 10X snATAC
         - In-house
@@ -87,7 +83,6 @@ fields:
     name: library_layout
     description: Whether the library was generated for single-end or paired end sequencing.
     constraints:
-      required: True
       enum:
         - single-end
         - paired-end
@@ -95,13 +90,11 @@ fields:
     name: library_adapter_sequence
     description: Adapter sequence to be used for adapter trimming.
     constraints:
-      required: True
       pattern: '[ATCG]+(\+[ATCG]+)?'
   -
     name: cell_barcode_read
     description: Which read file contains the cell barcode.
     constraints:
-      required: True
       enum:
         - R1
         - R2
@@ -110,13 +103,11 @@ fields:
     name: cell_barcode_offset
     description: Positions in the read at which the cell barcodes start. Cell barcodes are, for example, 3 x 8 bp sequences that are spaced by constant sequences (the offsets). First barcode at position 0, then 38, then 76. (Does not apply to SNARE-seq and BulkATAC.)
     constraints:
-      required: True
       pattern: '\d+,\d+,\d+'
   -
     name: cell_barcode_size
     description: Length of the cell barcode in base pairs. Cell barcodes are, for example, 3 x 8 bp sequences that are spaced by constant sequences, the offsets. (Does not apply to SNARE-seq and BulkATAC.)
     constraints:
-      required: True
       pattern: '\d+,\d+,\d+'
   -
     name: library_pcr_cycles
@@ -134,7 +125,6 @@ fields:
     name: library_final_yield_unit
     description: Units for library_final_yield
     constraints:
-      required: True
       enum:
         - ng
   -
@@ -152,7 +142,6 @@ fields:
     description: 'Percent of bases with Quality scores above Q30.'
     type: number
     constraints:
-      required: True
       minimum: 0
       maximum: 100
   -
