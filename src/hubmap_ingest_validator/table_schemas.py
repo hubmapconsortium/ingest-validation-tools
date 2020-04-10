@@ -23,6 +23,12 @@ def get_schema(type):
             field['constraints'] = {}
         if 'required' not in field['constraints']:
             field['constraints']['required'] = True
+        if 'percent' in field['name']:
+            field['type'] = 'number'
+            field['constraints'] = {
+                'minimum': 0,
+                'maximum': 100
+            }
 
     return {
         'doc_url': type_schema['doc_url'],

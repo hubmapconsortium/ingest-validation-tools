@@ -61,16 +61,16 @@ HuBMAP Display ID of the donor of the assayed tissue.
 
 | constraint | value |
 | --- | --- |
-| required | `True` |
 | pattern | `[A-Z]+[0-9]+` |
+| required | `True` |
 
 ### `tissue_id`
 HuBMAP Display ID of the assayed tissue.
 
 | constraint | value |
 | --- | --- |
-| required | `True` |
 | pattern | `[A-Z]+[0-9]+(-[A-Z0-9]+)+` |
+| required | `True` |
 
 ## Level 1
 
@@ -126,24 +126,24 @@ Each assay is placed into one of the following 3 general categories: generation 
 
 | constraint | value |
 | --- | --- |
-| required | `True` |
 | enum | `['imaging', 'mass_spectrometry', 'sequence']` |
+| required | `True` |
 
 ### `assay_type`
 The specific type of assay being executed.
 
 | constraint | value |
 | --- | --- |
-| required | `True` |
 | enum | `['scRNA-Seq (10xGenomics)', 'AF', 'bulk RNA', 'bulkATACseq', 'CODEX', 'Imaging Mass Cytometry', 'LC-MS (metabolomics)', 'LC-MS/MS (label-free proteomics)', 'MxIF', 'IMS positive', 'IMS negative', 'MS (shotgun lipidomics)', 'PAS microscopy', 'scATACseq', 'sciATACseq', 'sciRNAseq', 'seqFISH', 'SNARE-seq2', 'snATACseq', 'snRNA', 'SPLiT-Seq', 'TMT (proteomics)', 'WGS']` |
+| required | `True` |
 
 ### `analyte_class`
 Analytes are the target molecules being measured with the assay.
 
 | constraint | value |
 | --- | --- |
-| required | `True` |
 | enum | `['DNA', 'RNA', 'protein', 'lipids', 'metabolites']` |
+| required | `True` |
 
 ### `is_targeted`
 Specifies whether or not a specific molecule(s) is/are targeted for detection/measurement by the assay .The CODEX analyte is protein.
@@ -160,16 +160,16 @@ An acquisition_instrument is the device that contains the signal detection hardw
 
 | constraint | value |
 | --- | --- |
-| required | `True` |
 | enum | `['Keyence', 'Zeiss']` |
+| required | `True` |
 
 ### `acquisition_instrument_model`
 Manufacturers of an acquisition instrument may offer various versions (models) of that instrument with different features or sensitivities. Differences in features or sensitivities may be relevant to processing or interpretation of the data.
 
 | constraint | value |
 | --- | --- |
-| required | `True` |
 | enum | `['BZ-X800', 'BZ-X710', 'Axio Observer Z1']` |
+| required | `True` |
 
 ### `resolution_x_value`
 The width of a pixel. (Akoya pixel is 377nm square)
@@ -184,8 +184,8 @@ The unit of measurement of width of a pixel.(nm)
 
 | constraint | value |
 | --- | --- |
-| required | `True` |
 | enum | `['mm', 'um', 'nm']` |
+| required | `True` |
 
 ### `resolution_y_value`
 The height of a pixel. (Akoya pixel is 377nm square)
@@ -200,8 +200,8 @@ The unit of measurement of height of a pixel. (nm)
 
 | constraint | value |
 | --- | --- |
-| required | `True` |
 | enum | `['mm', 'um', 'nm']` |
+| required | `True` |
 
 ### `resolution_z_value`
 Optional if assay does not have multiple z-levels. Note that this is resolution within a given sample: z-pitch (resolution_z_value) is the increment distance between image slices (for Akoya, z-pitch=1.5um) ie. the microscope stage is moved up or down in increments of 1.5um to capture images of several focal planes. The best one will be used & the rest discarded. The thickness of the sample itself is sample metadata.
@@ -216,8 +216,8 @@ The unit of incremental distance between image slices.(um)
 
 | constraint | value |
 | --- | --- |
-| required | `True` |
 | enum | `['mm', 'um', 'nm']` |
+| required | `True` |
 
 ## Level 3
 
@@ -226,16 +226,16 @@ The manufacturer of the instrument used to prepare the sample for the assay.
 
 | constraint | value |
 | --- | --- |
-| required | `True` |
 | enum | `['CODEX']` |
+| required | `True` |
 
 ### `preparation_instrument_model`
 The model number/name of the instrument used to prepare the sample for the assay
 
 | constraint | value |
 | --- | --- |
-| required | `True` |
 | enum | `['version 1 robot', 'prototype robot - Stanford/Nolan Lab']` |
+| required | `True` |
 
 ### `number_of_antibodies`
 Number of antibodies
@@ -266,16 +266,16 @@ DOI for protocols.io referring to the protocol for preparing tissue sections for
 
 | constraint | value |
 | --- | --- |
-| required | `True` |
 | pattern | `10\.17504/.*` |
+| required | `True` |
 
 ### `reagent_prep_protocols_io_doi`
 DOI for protocols.io referring to the protocol for preparing reagents for the assay.
 
 | constraint | value |
 | --- | --- |
-| required | `True` |
 | pattern | `10\.17504/.*` |
+| required | `True` |
 
 ## Paths
 

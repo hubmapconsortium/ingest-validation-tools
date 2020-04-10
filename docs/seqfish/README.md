@@ -60,16 +60,16 @@ HuBMAP Display ID of the donor of the assayed tissue.
 
 | constraint | value |
 | --- | --- |
-| required | `True` |
 | pattern | `[A-Z]+[0-9]+` |
+| required | `True` |
 
 ### `tissue_id`
 HuBMAP Display ID of the assayed tissue.
 
 | constraint | value |
 | --- | --- |
-| required | `True` |
 | pattern | `[A-Z]+[0-9]+(-[A-Z0-9]+)+` |
+| required | `True` |
 
 ## Level 1
 
@@ -125,24 +125,24 @@ Each assay is placed into one of the following 3 general categories: generation 
 
 | constraint | value |
 | --- | --- |
-| required | `True` |
 | enum | `['imaging', 'mass_spectrometry', 'sequence']` |
+| required | `True` |
 
 ### `assay_type`
 The specific type of assay being executed.
 
 | constraint | value |
 | --- | --- |
-| required | `True` |
 | enum | `['scRNA-Seq (10xGenomics)', 'AF', 'bulk RNA', 'bulkATACseq', 'CODEX', 'Imaging Mass Cytometry', 'LC-MS (metabolomics)', 'LC-MS/MS (label-free proteomics)', 'MxIF', 'IMS positive', 'IMS negative', 'MS (shotgun lipidomics)', 'PAS microscopy', 'scATACseq', 'sciATACseq', 'sciRNAseq', 'seqFISH', 'SNARE-seq2', 'snATACseq', 'snRNA', 'SPLiT-Seq', 'TMT (proteomics)', 'WGS']` |
+| required | `True` |
 
 ### `analyte_class`
 Analytes are the target molecules being measured with the assay.
 
 | constraint | value |
 | --- | --- |
-| required | `True` |
 | enum | `['DNA', 'RNA', 'protein', 'lipids', 'metabolites']` |
+| required | `True` |
 
 ### `is_targeted`
 Specifies whether or not a specific molecule(s) is/are targeted for detection/measurement by the assay .The CODEX analyte is protein.
@@ -280,16 +280,16 @@ DOI for protocols.io referring to the protocol for preparing tissue sections for
 
 | constraint | value |
 | --- | --- |
-| required | `True` |
 | pattern | `10\.17504/.*` |
+| required | `True` |
 
 ### `reagent_prep_protocols_io_doi`
 DOI for protocols.io referring to the protocol for preparing reagents for the assay.
 
 | constraint | value |
 | --- | --- |
-| required | `True` |
 | pattern | `10\.17504/.*` |
+| required | `True` |
 
 ## Paths
 
