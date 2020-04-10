@@ -82,9 +82,9 @@ def _generate_readme_md(table_schema, type):
     return f'''# {type}
 
 Related files:
-- [Background doc]({table_schema['doc_url']}): More details about this type.
-- [TSV Template]({raw_url}): Use this to submit metadata.
-- [Source code]({source_url}): Make a PR if this doc should be updated.
+- [🔬 Background doc]({table_schema['doc_url']}): More details about this type.
+- [📝 TSV template]({raw_url}): Use this to submit metadata.
+- [💻 Source code]({source_url}): Make a PR if this doc should be updated.
 
 ## Table of contents
 {toc_md}
