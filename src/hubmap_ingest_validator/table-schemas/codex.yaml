@@ -1,103 +1,105 @@
--
-  heading: Level 2
-  name: acquisition_instrument_vendor
-  description: An acquisition_instrument is the device that contains the signal detection hardware and signal processing software. Assays generate signals such as light of various intensities or color or signals representing molecular mass.
-  constraints:
-    required: True
-    enum: ['Keyence','Zeiss']
--
-  name: acquisition_instrument_model
-  description: Manufacturers of an acquisition instrument may offer various versions (models) of that instrument with different features or sensitivities. Differences in features or sensitivities may be relevant to processing or interpretation of the data.
-  constraints:
-    required: True
-    enum: ['BZ-X800','BZ-X710','Axio Observer Z1']
--
-  name: resolution_x_value
-  description: The width of a pixel. (Akoya pixel is 377nm square)
-  type: number
-  constraints:
-    required: True
--
-  name: resolution_x_unit
-  description: The unit of measurement of width of a pixel.(nm)
-  constraints:
-    required: True
-    enum: ['mm', 'um', 'nm']
--
-  name: resolution_y_value
-  description: The height of a pixel. (Akoya pixel is 377nm square)
-  type: number
-  constraints:
-    required: True
--
-  name: resolution_y_unit
-  description: The unit of measurement of height of a pixel. (nm)
-  constraints:
-    required: True
-    enum: ['mm', 'um', 'nm']
--
-  name: resolution_z_value
-  description: 'Optional if assay does not have multiple z-levels. Note that this is resolution within a given sample: z-pitch (resolution_z_value) is the increment distance between image slices (for Akoya, z-pitch=1.5um) ie. the microscope stage is moved up or down in increments of 1.5um to capture images of several focal planes. The best one will be used & the rest discarded. The thickness of the sample itself is sample metadata.'
-  type: number
-  constraints:
-    required: False
--
-  name: resolution_z_unit
-  description: The unit of incremental distance between image slices.(um)
-  constraints:
-    required: True
-    enum: ['mm', 'um', 'nm']
--
-  heading: Level 3
-  name: preparation_instrument_vendor
-  description: The manufacturer of the instrument used to prepare the sample for the assay.
-  constraints:
-    required: True
-    enum: ['CODEX']
--
-  name: preparation_instrument_model
-  description: The model number/name of the instrument used to prepare the sample for the assay
-  constraints:
-    required: True
-    enum: ['version 1 robot','prototype robot - Stanford/Nolan Lab']
--
-  name: number_of_antibodies
-  description: Number of antibodies
-  type: integer
-  constraints:
-    required: True
--
-  name: number_of_channels
-  description: Number of fluorescent channels imaged during each cycle.
-  type: integer
-  constraints:
-    required: True
--
-  name: number_of_cycles
-  description: Number of cycles of 1. oligo application, 2. fluor application, 3. washes
-  type: integer
-  constraints:
-    required: True
--
-  name: section_prep_protocols_io_doi
-  description: DOI for protocols.io referring to the protocol for preparing tissue sections for the assay.
-  constraints:
-    required: True
-    pattern: '10\.17504/.*'
--
-  name: reagent_prep_protocols_io_doi
-  description: DOI for protocols.io referring to the protocol for preparing reagents for the assay.
-  constraints:
-    required: True
-    pattern: '10\.17504/.*'
--
-  heading: Paths
-  name: metadata_path
-  description: Relative path to file or directory with free-form or instrument/lab specific metadata. Optional.
-  constraints:
-    required: False
--
-  name: data_path
-  description: Relative path to file or directory with instrument data. Downstream processing will depend on filename extension conventions. Required.
-  constraints:
-    required: True
+doc_url: https://docs.google.com/document/d/1CYYSXPQjwdbvmvZaEcsi_2udvDfGEZrMyh4yFnm4p3M/edit
+fields:
+  -
+    heading: Level 2
+    name: acquisition_instrument_vendor
+    description: An acquisition_instrument is the device that contains the signal detection hardware and signal processing software. Assays generate signals such as light of various intensities or color or signals representing molecular mass.
+    constraints:
+      required: True
+      enum: ['Keyence','Zeiss']
+  -
+    name: acquisition_instrument_model
+    description: Manufacturers of an acquisition instrument may offer various versions (models) of that instrument with different features or sensitivities. Differences in features or sensitivities may be relevant to processing or interpretation of the data.
+    constraints:
+      required: True
+      enum: ['BZ-X800','BZ-X710','Axio Observer Z1']
+  -
+    name: resolution_x_value
+    description: The width of a pixel. (Akoya pixel is 377nm square)
+    type: number
+    constraints:
+      required: True
+  -
+    name: resolution_x_unit
+    description: The unit of measurement of width of a pixel.(nm)
+    constraints:
+      required: True
+      enum: ['mm', 'um', 'nm']
+  -
+    name: resolution_y_value
+    description: The height of a pixel. (Akoya pixel is 377nm square)
+    type: number
+    constraints:
+      required: True
+  -
+    name: resolution_y_unit
+    description: The unit of measurement of height of a pixel. (nm)
+    constraints:
+      required: True
+      enum: ['mm', 'um', 'nm']
+  -
+    name: resolution_z_value
+    description: 'Optional if assay does not have multiple z-levels. Note that this is resolution within a given sample: z-pitch (resolution_z_value) is the increment distance between image slices (for Akoya, z-pitch=1.5um) ie. the microscope stage is moved up or down in increments of 1.5um to capture images of several focal planes. The best one will be used & the rest discarded. The thickness of the sample itself is sample metadata.'
+    type: number
+    constraints:
+      required: False
+  -
+    name: resolution_z_unit
+    description: The unit of incremental distance between image slices.(um)
+    constraints:
+      required: True
+      enum: ['mm', 'um', 'nm']
+  -
+    heading: Level 3
+    name: preparation_instrument_vendor
+    description: The manufacturer of the instrument used to prepare the sample for the assay.
+    constraints:
+      required: True
+      enum: ['CODEX']
+  -
+    name: preparation_instrument_model
+    description: The model number/name of the instrument used to prepare the sample for the assay
+    constraints:
+      required: True
+      enum: ['version 1 robot','prototype robot - Stanford/Nolan Lab']
+  -
+    name: number_of_antibodies
+    description: Number of antibodies
+    type: integer
+    constraints:
+      required: True
+  -
+    name: number_of_channels
+    description: Number of fluorescent channels imaged during each cycle.
+    type: integer
+    constraints:
+      required: True
+  -
+    name: number_of_cycles
+    description: Number of cycles of 1. oligo application, 2. fluor application, 3. washes
+    type: integer
+    constraints:
+      required: True
+  -
+    name: section_prep_protocols_io_doi
+    description: DOI for protocols.io referring to the protocol for preparing tissue sections for the assay.
+    constraints:
+      required: True
+      pattern: '10\.17504/.*'
+  -
+    name: reagent_prep_protocols_io_doi
+    description: DOI for protocols.io referring to the protocol for preparing reagents for the assay.
+    constraints:
+      required: True
+      pattern: '10\.17504/.*'
+  -
+    heading: Paths
+    name: metadata_path
+    description: Relative path to file or directory with free-form or instrument/lab specific metadata. Optional.
+    constraints:
+      required: False
+  -
+    name: data_path
+    description: Relative path to file or directory with instrument data. Downstream processing will depend on filename extension conventions. Required.
+    constraints:
+      required: True
