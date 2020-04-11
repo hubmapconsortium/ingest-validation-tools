@@ -13,7 +13,7 @@ import urllib
 
 from directory_schema.errors import DirectoryValidationErrors
 
-from hubmap_ingest_validator.validator import (
+from ingest_validation_tools.validator import (
     validate, validate_metadata_tsv, validate_data_path, TableValidationErrors
 )
 
@@ -101,7 +101,7 @@ def _type_metadata_pair(s):
 _valid_types = sorted({
     p.stem.split('-')[0] for p in
     (Path(__file__).parent /
-     'hubmap_ingest_validator' /
+     'ingest_validation_tools' /
      'directory-schemas').iterdir()
 })
 

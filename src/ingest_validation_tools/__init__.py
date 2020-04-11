@@ -1,4 +1,4 @@
-"""Top-level package for hubmap_ingest_validator."""
+"""Top-level package for ingest_validation_tools."""
 
 __author__ = """C McCallum"""
 __email__ = 'mccallucc@gmail.com'
