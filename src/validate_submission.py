@@ -17,7 +17,7 @@ from ingest_validation_tools.validator import (
 from ingest_validation_tools import argparse_types
 
 
-def main():
+def parse_args():
     parser = argparse.ArgumentParser(
         description='''
 Validate a HuBMAP submission, both the metadata TSVs, and the datasets,
@@ -83,6 +83,12 @@ Typical usecases:
         raise ValidationException(
             parser.format_usage() +
             'At least one argument is required')
+
+    return args
+
+
+def main():
+    args = parse_args()
 
     logging.basicConfig(level=args.logging)
 
