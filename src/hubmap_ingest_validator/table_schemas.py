@@ -29,6 +29,8 @@ def get_schema(type):
             field['constraints']['maximum'] = 100
         if 'protocols_io_doi' in field['name']:
             field['constraints']['pattern'] = r'10\.17504/.*'
+        if '_email' in field['name']:
+            field['format'] = 'email'
 
     return {
         'doc_url': type_schema['doc_url'],

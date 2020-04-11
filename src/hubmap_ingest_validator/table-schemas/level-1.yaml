@@ -27,14 +27,12 @@ fields:
   -
     name: operator_email
     description: Email address for the operator.
-    format: email
   -
     name: pi
     description: Name of the principal investigator responsible for the data.
   -
     name: pi_email
     description: Email address for the principal investigator.
-    format: email
   -
     name: assay_category
     description: 'Each assay is placed into one of the following 3 general categories: generation of images of microscopic entities, identification & quantitation of molecules by mass spectrometry, and determination of nucleotide sequence.'
