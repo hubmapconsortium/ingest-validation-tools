@@ -8,7 +8,7 @@ import os
 
 from yaml import dump as dump_yaml
 
-from ingest_validation_tools.table_schemas import list_types, get_schema
+from ingest_validation_tools.table_schema_loader import list_types, get_schema
 
 
 def _dir_path(string):

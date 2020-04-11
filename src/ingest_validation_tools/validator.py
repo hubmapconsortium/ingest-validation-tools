@@ -1,6 +1,5 @@
 from pathlib import Path
 import logging
-import csv
 import re
 from string import ascii_uppercase
 
@@ -8,19 +7,17 @@ from yaml import safe_load as load_yaml
 from directory_schema import directory_schema
 from goodtables import validate as validate_table
 
-from ingest_validation_tools.table_schemas import get_schema
+from ingest_validation_tools.table_schema_loader import get_schema
 
 
 class TableValidationErrors(Exception):
     pass
 
 
-def validate(path, type, skip_data_path=False):
+def validate(path, type):
     path_obj = Path(path)
     _validate_dataset_directories(path_obj, type)
     validate_metadata_tsv(path_obj / 'metadata.tsv', type.split('-')[0])
-    if not skip_data_path:
-        _validate_references_down(path_obj)
 
 
 def _validate_dataset_directories(dir_path, type):
@@ -104,18 +101,3 @@ def _number_to_letters(n):
         d, m = divmod(n, len(uc))
         return n2a(d - 1) + uc[m] if d else uc[m]
     return n2a(int(n) - 1)
-
-
-def _validate_references_down(dir_path):
-    logging.info(f'Validating data_path...')
-    with open(dir_path / 'metadata.tsv') as tsv:
-        reader = csv.DictReader(tsv, delimiter='\t')
-        error_messages = []
-        for i, row in enumerate(reader):
-            data_path = row['data_path']
-            if not (dir_path / data_path).is_dir():
-                error_messages.append(
-                    f'On row {i+1}, data_path "{data_path}" not a directory')
-    # TODO: and also check for unused directories.
-    if error_messages:
-        raise TableValidationErrors('\n'.join(error_messages))
