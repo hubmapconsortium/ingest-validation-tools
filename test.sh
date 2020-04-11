@@ -56,6 +56,10 @@ for TOOL in validate_submission.py generate_docs.py; do
 done
 end cli-docs
 
+start test-cli
+./test-cli.py
+end test-cli
+
 start changelog
 if [ "$TRAVIS_BRANCH" != 'master' ]; then
   diff CHANGELOG.md <(curl -s https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/master/CHANGELOG.md) \

@@ -1,6 +1,5 @@
 from pathlib import Path
 import logging
-import csv
 import re
 from string import ascii_uppercase
 
@@ -15,12 +14,10 @@ class TableValidationErrors(Exception):
     pass
 
 
-def validate(path, type, skip_data_path=False):
+def validate(path, type):
     path_obj = Path(path)
     _validate_dataset_directories(path_obj, type)
     validate_metadata_tsv(path_obj / 'metadata.tsv', type.split('-')[0])
-    if not skip_data_path:
-        _validate_references_down(path_obj)
 
 
 def _validate_dataset_directories(dir_path, type):
