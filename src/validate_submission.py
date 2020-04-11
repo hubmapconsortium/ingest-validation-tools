@@ -10,10 +10,11 @@ import csv
 from ingest_validation_tools.error_report import ErrorReport
 from ingest_validation_tools.submission import Submission
 from ingest_validation_tools import argparse_types
+from ingest_validation_tools.argparse_types import ShowUsageException
 from ingest_validation_tools.globus_utils import get_globus_connection_error
 
 
-def parse_args():
+def make_parser():
     parser = argparse.ArgumentParser(
         description='''
 Validate a HuBMAP submission, both the metadata TSVs, and the datasets,
@@ -58,7 +59,16 @@ Typical usecases:
         metavar='TYPE_PATH',
         help='A list of type / metadata.tsv pairs '
         f'of the form "{expected_type_metadata_form}".')
+    return parser
 
+
+# We want the error handling inside the __name__ == '__main__' section
+# to be able to show the usage string if it catches a ShowUsageException.
+# Defining this at the top level makes that possible.
+parser = make_parser()
+
+
+def parse_args():
     args = parser.parse_args()
     if not any([
         args.local_directory,
@@ -66,9 +76,7 @@ Typical usecases:
         args.globus_origin_directory,
         args.type_metadata
     ]):
-        raise ShowUsageException(
-            parser.format_usage() +
-            'At least one argument is required')
+        raise ShowUsageException('At least one argument is required')
 
     return args
 
@@ -97,9 +105,6 @@ def main():
     report = ErrorReport(submission.get_errors())
     print(report.as_text())
     return 1 if errors else 0
-
-class ShowUsageException(Exception):
-    pass
 
 #
 # def _validate_metadata_tsv_messages(type, metadata_path):
@@ -190,6 +195,7 @@ if __name__ == "__main__":
     try:
         exit_status = main()
     except ShowUsageException as e:
+        print(parser.format_usage(), file=sys.stderr)
         print(e, file=sys.stderr)
         exit_status = 2
     sys.exit(exit_status)

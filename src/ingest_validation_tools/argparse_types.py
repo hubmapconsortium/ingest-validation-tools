@@ -5,11 +5,15 @@ from pathlib import Path
 import urllib
 
 
+class ShowUsageException(Exception):
+    pass
+
+
 def dir_path(s):
     if os.path.isdir(s):
         return s
     else:
-        raise Exception(f'"{s}" is not a directory')
+        raise ShowUsageException(f'"{s}" is not a directory')
 
 
 def origin_directory_pair(s):

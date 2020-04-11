@@ -1,4 +1,0 @@
->>> print_messages()
-Traceback (most recent call last):
-...
-validate_submission.ShowUsageException: Nothing matched tests/fixtures/bad-no-metadata/submission/*-metadata.tsv
