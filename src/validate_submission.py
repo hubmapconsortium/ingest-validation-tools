@@ -2,108 +2,19 @@
 
 import argparse
 import sys
-import os
 import re
 import logging
 from pathlib import Path
 import subprocess
 from glob import glob
 import csv
-import urllib
 
 from directory_schema.errors import DirectoryValidationErrors
 
 from ingest_validation_tools.validator import (
     validate, validate_metadata_tsv, validate_data_path, TableValidationErrors
 )
-
-
-def _dir_path(s):
-    if os.path.isdir(s):
-        return s
-    else:
-        raise Exception(f'"{s}" is not a directory')
-
-
-def _origin_directory_pair(s):
-    try:
-        origin, path = s.split(':')
-    except ValueError:
-        raise argparse.ArgumentTypeError(
-            f'Expected colon-delimited pair, not "{s}"')
-
-    expected_format = r'[0-9a-f-]{36}'
-    if not re.match(expected_format, origin):
-        raise argparse.ArgumentTypeError(
-            f'Origin format wrong; expected {expected_format}')
-
-    return {
-        'origin': origin,
-        'path': path
-    }
-
-
-def _globus_url(s):
-    '''
-    >>> _globus_url('http://example.com/')
-    Traceback (most recent call last):
-    ...
-    argparse.ArgumentTypeError: Expected a URL starting with https://app.globus.org/file-manager?
-
-    >>> _globus_url('https://app.globus.org/file-manager?a=1')
-    Traceback (most recent call last):
-    ...
-    argparse.ArgumentTypeError: Expected query keys to be ['origin_id', 'origin_path'], not ['a']
-
-    >>> _globus_url('https://app.globus.org/file-manager?origin_id=32-hex-digits&origin_path=%2Fpath%2F')
-    {'origin': '32-hex-digits', 'path': '/path/'}
-
-    '''  # noqa E501
-    expected_base = 'https://app.globus.org/file-manager?'
-    if not s.startswith(expected_base):
-        raise argparse.ArgumentTypeError(
-            f'Expected a URL starting with {expected_base}')
-
-    parsed = urllib.parse.urlparse(s)
-    query = urllib.parse.parse_qs(parsed.query)
-    expected_keys = ['origin_id', 'origin_path']
-    actual_keys = sorted(query.keys())
-    if actual_keys != expected_keys:
-        raise argparse.ArgumentTypeError(
-            f'Expected query keys to be {expected_keys}, not {actual_keys}')
-
-    return {
-        'origin': query['origin_id'][0],
-        'path': query['origin_path'][0]
-    }
-
-
-def _type_metadata_pair(s):
-    try:
-        type, path = s.split(':')
-    except ValueError:
-        raise argparse.ArgumentTypeError(
-            f'Expected colon-delimited pair, not "{s}"')
-
-    if type not in _valid_types:
-        raise argparse.ArgumentTypeError(
-            f'Expected one of {_valid_types}, not "{type}"')
-
-    if not Path(path).is_file():
-        raise argparse.ArgumentTypeError(f'"{path}" is not a file')
-
-    return {
-        'type': type,
-        'path': path
-    }
-
-
-_valid_types = sorted({
-    p.stem.split('-')[0] for p in
-    (Path(__file__).parent /
-     'ingest_validation_tools' /
-     'directory-schemas').iterdir()
-} - {'README'})
+from ingest_validation_tools import argparse_types
 
 
 def main():
@@ -124,28 +35,35 @@ Typical usecases:
   the ingest-pipeline, where Globus is the local filesystem.
 ''',
         formatter_class=argparse.RawDescriptionHelpFormatter)
+
+    # Is there a submission directory to validate?
+
     mutex_group = parser.add_mutually_exclusive_group()
     mutex_group.add_argument(
-        '--local_directory', type=_dir_path,
+        '--local_directory', type=argparse_types.dir_path,
         metavar='PATH',
         help='Local directory to validate')
     mutex_group.add_argument(
-        '--globus_url', type=_globus_url,
+        '--globus_url', type=argparse_types.globus_url,
         metavar='URL',
         help='The Globus File Manager URL of a directory to validate.')
     mutex_group.add_argument(
-        '--globus_origin_directory', type=_origin_directory_pair,
+        '--globus_origin_directory', type=argparse_types.origin_directory_pair,
         metavar='ORIGIN_PATH',
         help='A Globus submission directory to validate; '
         'Should have the form "<globus_origin_id>:<globus_path>".')
 
+    # Is there metadata to validate?
+
     expected_type_metadata_form = \
-        f'<{"|".join(_valid_types)}>:<local_path_to_tsv>'
+        f'<{"|".join(argparse_types.directory_schemas)}>:<local_path_to_tsv>'
     parser.add_argument(
-        '--type_metadata', type=_type_metadata_pair, nargs='+',
+        '--type_metadata', type=argparse_types.type_metadata_pair, nargs='+',
         metavar='TYPE_PATH',
         help='A list of type / metadata.tsv pairs '
         f'of the form "{expected_type_metadata_form}".')
+
+    # Should there be logging?
 
     log_levels = ['DEBUG', 'INFO', 'WARN']
     parser.add_argument(
@@ -162,7 +80,9 @@ Typical usecases:
         args.globus_origin_directory,
         args.type_metadata
     ]):
-        raise ValidationException('At least one argument is required')
+        raise ValidationException(
+            parser.format_usage() +
+            'At least one argument is required')
 
     logging.basicConfig(level=args.logging)
 
@@ -170,6 +90,8 @@ Typical usecases:
         origin_directory = args.globus_url if args.globus_url \
             else args.globus_origin_directory
         _check_globus_connection(origin_directory['origin'])
+    else:
+        origin_directory = None
 
     if origin_directory:
         raise ValidationException('TODO: Globus not yet supported')
