@@ -100,8 +100,9 @@ def _type_metadata_pair(s):
 
 _valid_types = sorted({
     p.stem.split('-')[0] for p in
-    (Path(__file__).parent / 'hubmap_ingest_validator'
-     / 'directory-schemas' / 'datasets').iterdir()
+    (Path(__file__).parent /
+     'hubmap_ingest_validator' /
+     'directory-schemas').iterdir()
 })
 
 
