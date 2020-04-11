@@ -71,16 +71,16 @@ HuBMAP Display ID of the donor of the assayed tissue.
 
 | constraint | value |
 | --- | --- |
-| required | `True` |
 | pattern | `[A-Z]+[0-9]+` |
+| required | `True` |
 
 ### `tissue_id`
 HuBMAP Display ID of the assayed tissue.
 
 | constraint | value |
 | --- | --- |
-| required | `True` |
 | pattern | `[A-Z]+[0-9]+(-[A-Z0-9]+)+` |
+| required | `True` |
 
 ## Level 1
 
@@ -136,27 +136,27 @@ Each assay is placed into one of the following 3 general categories: generation 
 
 | constraint | value |
 | --- | --- |
-| required | `True` |
 | enum | `['imaging', 'mass_spectrometry', 'sequence']` |
+| required | `True` |
 
 ### `assay_type`
 The specific type of assay being executed.
 
 | constraint | value |
 | --- | --- |
-| required | `True` |
 | enum | `['scRNA-Seq (10xGenomics)', 'AF', 'bulk RNA', 'bulkATACseq', 'CODEX', 'Imaging Mass Cytometry', 'LC-MS (metabolomics)', 'LC-MS/MS (label-free proteomics)', 'MxIF', 'IMS positive', 'IMS negative', 'MS (shotgun lipidomics)', 'PAS microscopy', 'scATACseq', 'sciATACseq', 'sciRNAseq', 'seqFISH', 'SNARE-seq2', 'snATACseq', 'snRNA', 'SPLiT-Seq', 'TMT (proteomics)', 'WGS']` |
+| required | `True` |
 
 ### `analyte_class`
 Analytes are the target molecules being measured with the assay.
 
 | constraint | value |
 | --- | --- |
-| required | `True` |
 | enum | `['DNA', 'RNA', 'protein', 'lipids', 'metabolites']` |
+| required | `True` |
 
 ### `is_targeted`
-Specifies whether or not a specific molecule(s) is/are targeted for detection/measurement by the assay .The CODEX analyte is protein.
+Specifies whether or not a specific molecule(s) is/are targeted for detection/measurement by the assay. The CODEX analyte is protein.
 
 | constraint | value |
 | --- | --- |
@@ -207,8 +207,8 @@ The type of single cell entity derived from isolation protocol.
 
 | constraint | value |
 | --- | --- |
-| required | `True` |
 | enum | `['whole cell', 'nucleus', 'cell-cell multimer', 'spatially encoded cell barcoding']` |
+| required | `True` |
 
 ### `sc_isolation_tissue_dissociation`
 The method by which tissues are dissociated into single cells in suspension.
@@ -222,8 +222,8 @@ The method by which specific cell populations are sorted or enriched.
 
 | constraint | value |
 | --- | --- |
-| required | `True` |
 | enum | `['none', 'FACS']` |
+| required | `True` |
 
 ### `sc_isolation_quality_metric`
 A quality metric by visual inspection prior to cell lysis or defined by known parameters such as wells with several cells or no cells. This can be captured at a high level. "OK" or "not OK", or with more specificity such as "debris", "clump", "low clump".
@@ -253,16 +253,16 @@ Modality of capturing accessible chromatin molecules.
 
 | constraint | value |
 | --- | --- |
-| required | `True` |
 | enum | `['SNARE-Seq2-AC', 'scATACseq', 'bulkATACseq', 'snATACseq', 'sciATACseq']` |
+| required | `True` |
 
 ### `transposition_transposase_source`
 The source of the Tn5 transposase and transposon used for capturing accessible chromatin.
 
 | constraint | value |
 | --- | --- |
-| required | `True` |
 | enum | `['10X snATAC', 'In-house', 'Nextera']` |
+| required | `True` |
 
 ### `transposition_kit_number`
 If Tn5 came from a kit, provide the catalog number.
@@ -284,40 +284,40 @@ Whether the library was generated for single-end or paired end sequencing.
 
 | constraint | value |
 | --- | --- |
-| required | `True` |
 | enum | `['single-end', 'paired-end']` |
+| required | `True` |
 
 ### `library_adapter_sequence`
 Adapter sequence to be used for adapter trimming.
 
 | constraint | value |
 | --- | --- |
-| required | `True` |
 | pattern | `[ATCG]+(\+[ATCG]+)?` |
+| required | `True` |
 
 ### `cell_barcode_read`
 Which read file contains the cell barcode.
 
 | constraint | value |
 | --- | --- |
-| required | `True` |
 | enum | `['R1', 'R2', 'R3']` |
+| required | `True` |
 
 ### `cell_barcode_offset`
 Positions in the read at which the cell barcodes start. Cell barcodes are, for example, 3 x 8 bp sequences that are spaced by constant sequences (the offsets). First barcode at position 0, then 38, then 76. (Does not apply to SNARE-seq and BulkATAC.)
 
 | constraint | value |
 | --- | --- |
-| required | `True` |
 | pattern | `\d+,\d+,\d+` |
+| required | `True` |
 
 ### `cell_barcode_size`
 Length of the cell barcode in base pairs. Cell barcodes are, for example, 3 x 8 bp sequences that are spaced by constant sequences, the offsets. (Does not apply to SNARE-seq and BulkATAC.)
 
 | constraint | value |
 | --- | --- |
-| required | `True` |
 | pattern | `\d+,\d+,\d+` |
+| required | `True` |
 
 ### `library_pcr_cycles`
 Number of PCR cycles to enrich for accessible chromatin fragments.
@@ -348,8 +348,8 @@ Units for library_final_yield
 
 | constraint | value |
 | --- | --- |
-| required | `True` |
 | enum | `['ng']` |
+| required | `True` |
 
 ### `library_average_fragment_size`
 Average size of sequencing library fragments estimated via gel electrophoresis or bioanalyzer/tapestation. Numeric value in bp.
@@ -390,6 +390,8 @@ Percent PhiX loaded to the run.
 | --- | --- |
 | type | `number` |
 | required | `True` |
+| minimum | `0` |
+| maximum | `100` |
 
 ## Paths
 
@@ -401,7 +403,7 @@ Relative path to file or directory with free-form or instrument/lab specific met
 | required | `False` |
 
 ### `data_path`
-Relative path to file or directory with instrument data. Downstream processing will depend on filename extension conventions. Required.
+Relative path to file or directory with instrument data. Downstream processing will depend on filename extension conventions.
 
 | constraint | value |
 | --- | --- |

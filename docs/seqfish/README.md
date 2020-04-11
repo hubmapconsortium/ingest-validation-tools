@@ -60,16 +60,16 @@ HuBMAP Display ID of the donor of the assayed tissue.
 
 | constraint | value |
 | --- | --- |
-| required | `True` |
 | pattern | `[A-Z]+[0-9]+` |
+| required | `True` |
 
 ### `tissue_id`
 HuBMAP Display ID of the assayed tissue.
 
 | constraint | value |
 | --- | --- |
-| required | `True` |
 | pattern | `[A-Z]+[0-9]+(-[A-Z0-9]+)+` |
+| required | `True` |
 
 ## Level 1
 
@@ -125,27 +125,27 @@ Each assay is placed into one of the following 3 general categories: generation 
 
 | constraint | value |
 | --- | --- |
-| required | `True` |
 | enum | `['imaging', 'mass_spectrometry', 'sequence']` |
+| required | `True` |
 
 ### `assay_type`
 The specific type of assay being executed.
 
 | constraint | value |
 | --- | --- |
-| required | `True` |
 | enum | `['scRNA-Seq (10xGenomics)', 'AF', 'bulk RNA', 'bulkATACseq', 'CODEX', 'Imaging Mass Cytometry', 'LC-MS (metabolomics)', 'LC-MS/MS (label-free proteomics)', 'MxIF', 'IMS positive', 'IMS negative', 'MS (shotgun lipidomics)', 'PAS microscopy', 'scATACseq', 'sciATACseq', 'sciRNAseq', 'seqFISH', 'SNARE-seq2', 'snATACseq', 'snRNA', 'SPLiT-Seq', 'TMT (proteomics)', 'WGS']` |
+| required | `True` |
 
 ### `analyte_class`
 Analytes are the target molecules being measured with the assay.
 
 | constraint | value |
 | --- | --- |
-| required | `True` |
 | enum | `['DNA', 'RNA', 'protein', 'lipids', 'metabolites']` |
+| required | `True` |
 
 ### `is_targeted`
-Specifies whether or not a specific molecule(s) is/are targeted for detection/measurement by the assay .The CODEX analyte is protein.
+Specifies whether or not a specific molecule(s) is/are targeted for detection/measurement by the assay. The CODEX analyte is protein.
 
 | constraint | value |
 | --- | --- |
@@ -232,7 +232,7 @@ Number of barcode probes targeting mRNAs (eg. 24,000 barcode probes = 24,000 mRN
 
 | constraint | value |
 | --- | --- |
-| type | `number` |
+| type | `integer` |
 | required | `True` |
 
 ### `number_of_barcode_regions_per_barcode_probe`
@@ -240,7 +240,7 @@ Number of barcode regions on each mRNA barcode probe (the paper describes mRNA p
 
 | constraint | value |
 | --- | --- |
-| type | `number` |
+| type | `integer` |
 | required | `True` |
 
 ### `number_of_readout_probes_per_channel`
@@ -248,7 +248,7 @@ Number of readout probes that can be interrogated per channel per cycle (the pap
 
 | constraint | value |
 | --- | --- |
-| type | `number` |
+| type | `integer` |
 | required | `True` |
 
 ### `number_of_pseudocolors_per_channel`
@@ -256,7 +256,7 @@ Number of pseudocolors that can be assigned to each fluorescent channel (the pap
 
 | constraint | value |
 | --- | --- |
-| type | `number` |
+| type | `integer` |
 | required | `True` |
 
 ### `number_of_channels`
@@ -264,7 +264,7 @@ Number of fluorescent channels (the paper describes 3 channels - for 3 fluoresce
 
 | constraint | value |
 | --- | --- |
-| type | `number` |
+| type | `integer` |
 | required | `True` |
 
 ### `number_of_cycles`
@@ -272,7 +272,7 @@ For each barcode region being interrogated, the number of cycles of 1. Hybridiza
 
 | constraint | value |
 | --- | --- |
-| type | `number` |
+| type | `integer` |
 | required | `True` |
 
 ### `section_prep_protocols_io_doi`
@@ -301,7 +301,7 @@ Relative path to file or directory with free-form or instrument/lab specific met
 | required | `False` |
 
 ### `data_path`
-Relative path to file or directory with instrument data. Downstream processing will depend on filename extension conventions. Required.
+Relative path to file or directory with instrument data. Downstream processing will depend on filename extension conventions.
 
 | constraint | value |
 | --- | --- |
