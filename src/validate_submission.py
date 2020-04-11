@@ -5,7 +5,6 @@ import sys
 import re
 import logging
 from pathlib import Path
-import subprocess
 from glob import glob
 import csv
 
@@ -15,6 +14,7 @@ from ingest_validation_tools.validator import (
     validate, validate_metadata_tsv, validate_data_path, TableValidationErrors
 )
 from ingest_validation_tools import argparse_types
+from ingest_validation_tools.globus_utils import get_globus_connection_error
 
 
 def parse_args():
@@ -89,17 +89,14 @@ Typical usecases:
 
 def main():
     args = parse_args()
-
     logging.basicConfig(level=args.logging)
 
-    if args.globus_origin_directory or args.globus_url:
-        origin_directory = args.globus_url if args.globus_url \
-            else args.globus_origin_directory
-        _check_globus_connection(origin_directory['origin'])
-    else:
-        origin_directory = None
-
+    origin_directory = args.globus_url or args.globus_origin_directory
     if origin_directory:
+        error_message = get_globus_connection_error(origin_directory['origin'])
+        if error_message:
+            raise ValidationException(error_message)
+
         raise ValidationException('TODO: Globus not yet supported')
         # TODO: mirror directory to local cache.
 
@@ -119,22 +116,6 @@ def main():
     print('\n'.join(messages))
 
     return 1 if messages else 0
-
-
-def _check_globus_connection(origin):
-    try:
-        subprocess.run(
-            ['globus', 'whoami'], check=True,
-            stdout=subprocess.DEVNULL)
-    except subprocess.CalledProcessError:
-        raise ValidationException('Run "globus login"')
-
-    try:
-        subprocess.run(
-            ['globus', 'ls', origin], check=True,
-            stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
-    except subprocess.CalledProcessError as e:
-        raise ValidationException(e.stdout.decode('utf-8'))
 
 
 def _validate_metadata_tsv_messages(type, metadata_path):
