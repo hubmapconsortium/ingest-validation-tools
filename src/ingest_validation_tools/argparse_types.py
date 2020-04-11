@@ -81,7 +81,7 @@ def type_metadata_pair(s):
 
     return {
         'type': type,
-        'path': path
+        'path': Path(path)
     }
 
 
