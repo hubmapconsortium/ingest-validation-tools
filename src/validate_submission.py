@@ -103,7 +103,7 @@ _valid_types = sorted({
     (Path(__file__).parent /
      'ingest_validation_tools' /
      'directory-schemas').iterdir()
-})
+} - {'README'})
 
 
 def main():
