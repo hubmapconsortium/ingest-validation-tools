@@ -8,7 +8,7 @@ import os
 
 from yaml import dump as dump_yaml
 
-from hubmap_ingest_validator.table_schemas import list_types, get_schema
+from ingest_validation_tools.table_schemas import list_types, get_schema
 
 
 def _dir_path(string):
@@ -77,7 +77,7 @@ def _generate_readme_md(table_schema, type):
         f'/ingest-validation-tools/master/docs/{type}/template.tsv'
     source_url = 'https://github.com/hubmapconsortium' + \
         '/ingest-validation-tools/edit/master' + \
-        f'/src/hubmap_ingest_validator/table-schemas/{type}.yaml'
+        f'/src/ingest_validation_tools/table-schemas/{type}.yaml'
 
     return f'''# {type}
 

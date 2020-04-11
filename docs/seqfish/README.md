@@ -3,7 +3,7 @@
 Related files:
 - [🔬 Background doc](https://docs.google.com/document/d/1H_z5QQvXP-5GKwiKRF2GhcpmqEUDWYnoOIS---Uepas/edit): More details about this type.
 - [📝 TSV template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/master/docs/seqfish/template.tsv): Use this to submit metadata.
-- [💻 Source code](https://github.com/hubmapconsortium/ingest-validation-tools/edit/master/src/hubmap_ingest_validator/table-schemas/seqfish.yaml): Make a PR if this doc should be updated.
+- [💻 Source code](https://github.com/hubmapconsortium/ingest-validation-tools/edit/master/src/ingest_validation_tools/table-schemas/seqfish.yaml): Make a PR if this doc should be updated.
 
 ## Table of contents
 <details><summary>Provenance</summary>
