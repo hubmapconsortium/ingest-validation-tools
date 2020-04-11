@@ -31,6 +31,8 @@ def get_schema(type):
             field['constraints']['pattern'] = r'10\.17504/.*'
         if '_email' in field['name']:
             field['format'] = 'email'
+        if field['name'].startswith('is_'):
+            field['type'] = 'boolean'
 
     return {
         'doc_url': type_schema['doc_url'],

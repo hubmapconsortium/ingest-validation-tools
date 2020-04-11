@@ -10,7 +10,6 @@ fields:
   -
     name: is_technical_replicate
     description: If TRUE, fastq files in dataset need to be merged.
-    type: boolean
   -
     name: library_id
     description: A library ID, unique within a TMC, which allows corresponding RNA and chromatin accessibility datasets to be linked.

@@ -156,7 +156,7 @@ Analytes are the target molecules being measured with the assay.
 | required | `True` |
 
 ### `is_targeted`
-Specifies whether or not a specific molecule(s) is/are targeted for detection/measurement by the assay .The CODEX analyte is protein.
+Specifies whether or not a specific molecule(s) is/are targeted for detection/measurement by the assay. The CODEX analyte is protein.
 
 | constraint | value |
 | --- | --- |
