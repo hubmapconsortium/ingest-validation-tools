@@ -3,8 +3,7 @@ from pathlib import Path
 from datetime import datetime
 
 from .validator import (
-    TableValidationErrors,
-    validate_metadata_tsv
+    get_metadata_tsv_errors
 )
 
 
@@ -39,7 +38,7 @@ class Submission:
             errors['Notes'] = {
                 'Time': datetime.now(),
                 'Directory': str(self.directory_path),
-                'Effective TSV': {
+                'Effective TSVs': {
                     type: str(path) for type, path
                     in self.effective_tsv_paths.items()
                 }
@@ -59,17 +58,11 @@ class Submission:
             if single_tsv_external_errors:
                 single_tsv_errors['External'] = single_tsv_external_errors
             if single_tsv_errors:
-                errors[path.name] = single_tsv_errors
+                errors[f'{path} (as {type})'] = single_tsv_errors
         return errors
 
     def _get_single_tsv_internal_errors(self, type, path):
-        errors = {}
-        try:
-            validate_metadata_tsv(type=type, metadata_path=path)
-        except TableValidationErrors as e:
-            # TODO: Capture more structure
-            errors['Table Validation'] = str(e)
-        return errors
+        return get_metadata_tsv_errors(type=type, metadata_path=path)
 
     def _get_single_tsv_external_errors(self, type, path):
         errors = {}

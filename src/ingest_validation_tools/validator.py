@@ -50,7 +50,7 @@ def validate_data_path(data_path, type):
     directory_schema.validate_dir(data_path, schema)
 
 
-def validate_metadata_tsv(metadata_path, type):
+def get_metadata_tsv_errors(metadata_path, type):
     '''
     Validate the metadata.tsv.
     '''
@@ -66,8 +66,7 @@ def validate_metadata_tsv(metadata_path, type):
                 _column_number_to_letters(e['message'])
                 for e in table['errors']
             ]
-    if error_messages:
-        raise TableValidationErrors('\n\n'.join(error_messages))
+    return error_messages
 
 
 def _column_number_to_letters(message):
