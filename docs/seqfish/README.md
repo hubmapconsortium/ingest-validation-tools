@@ -232,7 +232,7 @@ Number of barcode probes targeting mRNAs (eg. 24,000 barcode probes = 24,000 mRN
 
 | constraint | value |
 | --- | --- |
-| type | `number` |
+| type | `integer` |
 | required | `True` |
 
 ### `number_of_barcode_regions_per_barcode_probe`
@@ -240,7 +240,7 @@ Number of barcode regions on each mRNA barcode probe (the paper describes mRNA p
 
 | constraint | value |
 | --- | --- |
-| type | `number` |
+| type | `integer` |
 | required | `True` |
 
 ### `number_of_readout_probes_per_channel`
@@ -248,7 +248,7 @@ Number of readout probes that can be interrogated per channel per cycle (the pap
 
 | constraint | value |
 | --- | --- |
-| type | `number` |
+| type | `integer` |
 | required | `True` |
 
 ### `number_of_pseudocolors_per_channel`
@@ -256,7 +256,7 @@ Number of pseudocolors that can be assigned to each fluorescent channel (the pap
 
 | constraint | value |
 | --- | --- |
-| type | `number` |
+| type | `integer` |
 | required | `True` |
 
 ### `number_of_channels`
@@ -264,7 +264,7 @@ Number of fluorescent channels (the paper describes 3 channels - for 3 fluoresce
 
 | constraint | value |
 | --- | --- |
-| type | `number` |
+| type | `integer` |
 | required | `True` |
 
 ### `number_of_cycles`
@@ -272,7 +272,7 @@ For each barcode region being interrogated, the number of cycles of 1. Hybridiza
 
 | constraint | value |
 | --- | --- |
-| type | `number` |
+| type | `integer` |
 | required | `True` |
 
 ### `section_prep_protocols_io_doi`

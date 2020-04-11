@@ -29,10 +29,14 @@ def get_schema(type):
             field['constraints']['maximum'] = 100
         if 'protocols_io_doi' in field['name']:
             field['constraints']['pattern'] = r'10\.17504/.*'
-        if '_email' in field['name']:
+        if field['name'].endswith('_email'):
             field['format'] = 'email'
         if field['name'].startswith('is_'):
             field['type'] = 'boolean'
+        if field['name'].endswith('_value'):
+            field['type'] = 'number'
+        if field['name'].startswith('number_of_'):
+            field['type'] = 'integer'
 
     return {
         'doc_url': type_schema['doc_url'],
