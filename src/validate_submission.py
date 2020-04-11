@@ -85,12 +85,14 @@ def main():
         raise ShowUsageException('TODO: Globus not yet supported')
         # TODO: mirror directory to local cache.
 
-    submission = Submission(
-        directory_path=Path(args.local_directory),
-        override_tsv_paths={
+    submission_args = {}
+    if args.local_directory:
+        submission_args['directory_path'] = Path(args.local_directory)
+    if args.type_metadata:
+        submission_args['override_tsv_paths'] = {
             pair['type']: pair['path'] for pair in args.type_metadata
         }
-    )
+    submission = Submission(**submission_args)
     errors = submission.get_errors()
     report = ErrorReport(submission.get_errors())
     print(report.as_text())

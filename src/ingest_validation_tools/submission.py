@@ -13,10 +13,7 @@ class Submission:
             }
         )
 
-    def get_error_report(self):
-        return ErrorReport(self._get_errors())
-
-    def _get_errors(self):
+    def get_errors(self):
         # This creates a deeply nested dict.
         # Keys are present only if there is actually an error to report.
         errors = {}
