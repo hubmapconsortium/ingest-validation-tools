@@ -8,7 +8,7 @@ from yaml import safe_load as load_yaml
 from directory_schema import directory_schema
 from goodtables import validate as validate_table
 
-from ingest_validation_tools.table_schemas import get_schema
+from ingest_validation_tools.table_schema_loader import get_schema
 
 
 class TableValidationErrors(Exception):
