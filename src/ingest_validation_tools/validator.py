@@ -38,7 +38,7 @@ def _validate_dataset_directories(dir_path, type):
         directory_schema.validate_dir(sub_directory, schema)
 
 
-def validate_data_path(data_path, type):
+def get_data_dir_errors(type, data_path):
     '''
     Validate a single data_path.
     '''
@@ -47,7 +47,15 @@ def validate_data_path(data_path, type):
         'directory-schemas' /
         f'{type}.yaml')
     schema = load_yaml(open(schema_path).read())
-    directory_schema.validate_dir(data_path, schema)
+    try:
+        directory_schema.validate_dir(data_path, schema)
+    except directory_schema.DirectoryValidationErrors as e:
+        return str(e)
+    except OSError as e:
+        return {
+            e.strerror:
+                e.filename
+        }
 
 
 def get_metadata_tsv_errors(metadata_path, type):
@@ -55,10 +63,15 @@ def get_metadata_tsv_errors(metadata_path, type):
     Validate the metadata.tsv.
     '''
     logging.info(f'Validating {type} metadata.tsv...')
-    schema = get_schema(type)
+    try:
+        schema = get_schema(type)
+    except OSError as e:
+        return {
+            e.strerror:
+                e.filename
+        }
     report = validate_table(metadata_path, schema=schema,
                             skip_checks=['blank-row'])
-
     error_messages = report['warnings']
     if 'tables' in report:
         for table in report['tables']:

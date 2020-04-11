@@ -1,14 +1,16 @@
 import csv
 from pathlib import Path
 from datetime import datetime
+import re
 
 from .validator import (
-    get_metadata_tsv_errors
+    get_metadata_tsv_errors,
+    get_data_dir_errors
 )
 
 
-def _get_type_from_path(path):
-    return re.match(r'(.+)-metadata\.tsv$', Path(tsv_path).name)[1]
+def _get_directory_type_from_path(path):
+    return re.match(r'(.*)-metadata\.tsv$', Path(path).name)[1]
 
 
 class Submission:
@@ -18,7 +20,7 @@ class Submission:
         self.effective_tsv_paths = (
             override_tsv_paths if override_tsv_paths
             else {
-                _get_type_from_path(path): path
+                _get_directory_type_from_path(path): path
                 for path in directory_path.glob('*-metadata.tsv')
             }
         )
@@ -47,7 +49,10 @@ class Submission:
 
     def _get_tsv_errors(self):
         errors = {}
-        for type, path in self.effective_tsv_paths.items():
+        types_paths = self.effective_tsv_paths.items()
+        if not types_paths:
+            errors['Missing'] = 'There are no effective TSVs.'
+        for type, path in types_paths:
             single_tsv_internal_errors = \
                 self._get_single_tsv_internal_errors(type, path)
             single_tsv_external_errors = \
@@ -69,7 +74,7 @@ class Submission:
         with open(path) as f:
             rows = list(csv.DictReader(f, dialect='excel-tab'))
             if not rows:
-                errors[path.name] = f'{path} is empty'
+                errors['Warning'] = f'File has no data rows.'
             if self.directory_path:
                 for i, row in enumerate(rows):
                     full_data_path = self.directory_path / row['data_path']
@@ -80,7 +85,7 @@ class Submission:
         return errors
 
     def _get_data_dir_errors(self, type, path):
-        return 'TODO'
+        return get_data_dir_errors(type, path)
 
     def _get_reference_errors(self):
         errors = {}

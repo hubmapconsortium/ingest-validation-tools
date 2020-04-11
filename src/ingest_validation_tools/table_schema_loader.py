@@ -12,9 +12,11 @@ def list_types():
 
 
 def get_schema(type):
+    table_type = type.split('-')[0]
+
     level_1_fields = _get_sub_schema('level-1')['fields']
     paths_fields = _get_sub_schema('paths')['fields']
-    type_schema = _get_sub_schema(type)
+    type_schema = _get_sub_schema(table_type)
     type_fields = type_schema['fields']
 
     fields = level_1_fields + type_fields + paths_fields
