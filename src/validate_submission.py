@@ -91,9 +91,9 @@ def main():
     args = parse_args()
     logging.basicConfig(level=args.logging)
 
-    origin_directory = args.globus_url or args.globus_origin_directory
-    if origin_directory:
-        error_message = get_globus_connection_error(origin_directory['origin'])
+    globus = args.globus_url or args.globus_origin_directory
+    if globus:
+        error_message = get_globus_connection_error(globus['origin'])
         if error_message:
             raise ValidationException(error_message)
 

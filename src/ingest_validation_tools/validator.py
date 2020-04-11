@@ -104,18 +104,3 @@ def _number_to_letters(n):
         d, m = divmod(n, len(uc))
         return n2a(d - 1) + uc[m] if d else uc[m]
     return n2a(int(n) - 1)
-
-
-def _validate_references_down(dir_path):
-    logging.info(f'Validating data_path...')
-    with open(dir_path / 'metadata.tsv') as tsv:
-        reader = csv.DictReader(tsv, delimiter='\t')
-        error_messages = []
-        for i, row in enumerate(reader):
-            data_path = row['data_path']
-            if not (dir_path / data_path).is_dir():
-                error_messages.append(
-                    f'On row {i+1}, data_path "{data_path}" not a directory')
-    # TODO: and also check for unused directories.
-    if error_messages:
-        raise TableValidationErrors('\n'.join(error_messages))
