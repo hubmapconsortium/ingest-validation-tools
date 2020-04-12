@@ -6,7 +6,7 @@ import subprocess
 # Fixtures or doctests should be used for the details:
 # They run faster, and tell us more when there is a failure.
 good_args = [
-    '--local_directory tests/fixtures/good-atacseq/submission/'
+    '--local_directory examples/good-atacseq/submission/'
 ]
 bad_args = [
     '--bad',

@@ -10,7 +10,7 @@ class ErrorReport:
 
     def as_text(self):
         if not self.errors:
-            return 'No errors!'
+            return 'No errors!\n'
         else:
             return self.as_yaml()
 
