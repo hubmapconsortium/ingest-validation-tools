@@ -17,13 +17,17 @@ class Submission:
     def __init__(self, directory_path=None, override_tsv_paths={},
                  add_notes=True):
         self.directory_path = directory_path
-        self.effective_tsv_paths = (
+        unsorted_effective_tsv_paths = (
             override_tsv_paths if override_tsv_paths
             else {
                 _get_directory_type_from_path(path): path
                 for path in directory_path.glob('*-metadata.tsv')
             }
         )
+        self.effective_tsv_paths = {
+            k: unsorted_effective_tsv_paths[k]
+            for k in sorted(unsorted_effective_tsv_paths.keys())
+        }
         self.add_notes = add_notes
 
     def get_errors(self):
