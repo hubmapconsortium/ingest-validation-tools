@@ -3,7 +3,7 @@ from pathlib import Path
 from datetime import datetime
 import re
 
-from .validator import (
+from ingest_validation_tools.validator import (
     get_metadata_tsv_errors,
     get_data_dir_errors
 )
@@ -15,7 +15,7 @@ def _get_directory_type_from_path(path):
 
 class Submission:
     def __init__(self, directory_path=None, override_tsv_paths={},
-            add_notes=True):
+                 add_notes=True):
         self.directory_path = directory_path
         self.effective_tsv_paths = (
             override_tsv_paths if override_tsv_paths

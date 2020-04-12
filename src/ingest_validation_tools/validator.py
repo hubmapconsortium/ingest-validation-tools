@@ -8,18 +8,14 @@ from directory_schema import directory_schema
 from goodtables import validate as validate_table
 
 from ingest_validation_tools.table_schema_loader import get_schema
-from ingest_validation_tools.directory_validator.validator import validate as validate_directory
-from ingest_validation_tools.directory_validator.errors import DirectoryValidationErrors
+from ingest_validation_tools.directory_validator.validator import \
+    validate as validate_directory
+from ingest_validation_tools.directory_validator.errors import \
+    DirectoryValidationErrors
 
 
 class TableValidationErrors(Exception):
     pass
-
-
-def validate(path, type):
-    path_obj = Path(path)
-    _validate_dataset_directories(path_obj, type)
-    validate_metadata_tsv(path_obj / 'metadata.tsv', type.split('-')[0])
 
 
 def _validate_dataset_directories(dir_path, type):

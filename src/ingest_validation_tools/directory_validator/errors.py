@@ -1,6 +1,3 @@
-from yaml import dump as dump_yaml
-
-
 class DirectoryValidationErrors(Exception):
     def __init__(self, errors):
         self.json_validation_errors = errors
@@ -40,6 +37,8 @@ def _validation_error_to_object(error):
         validator_description = "doesn't match exactly one of these"
     elif error.validator == 'allOf':
         validator_description = "doesn't match all of these"
+    elif error.validator == 'contains':
+        validator_description = "should contain"
     else:
         validator_description = f'fails this "{error.validator}" check'
     validator_details = error.schema[error.validator]

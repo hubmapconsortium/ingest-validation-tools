@@ -12,12 +12,14 @@ bad_args = [
     '--bad',
 ]
 
+
 def validate(args):
     cmd = ['src/validate_submission.py'] + args.split(' ')
     subprocess.run(
         cmd, check=True,
         stdout=subprocess.DEVNULL,
         stderr=subprocess.DEVNULL)
+
 
 for args in good_args:
     validate(args)

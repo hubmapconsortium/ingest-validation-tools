@@ -1,4 +1,0 @@
->>> print_messages()
-Traceback (most recent call last):
-...
-FileNotFoundError: [Errno 2] No such file or directory: 'src/ingest_validation_tools/table-schemas/fake.yaml'
