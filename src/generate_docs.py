@@ -39,7 +39,7 @@ def main():
     # needed, stop producing it.
     #
     # with open(Path(args.target) / 'schema.yaml', 'w') as f:
-    #     f.write(_generate_schema_yaml(table_schema))
+    #     f.write(_generate_json_schema_yaml(table_schema))
     with open(Path(args.target) / 'README.md', 'w') as f:
         f.write(_generate_readme_md(table_schema, args.type))
 
@@ -49,7 +49,7 @@ def _generate_template_tsv(table_schema):
     return '\t'.join(names) + '\n'
 
 
-def _generate_schema_yaml(table_schema):
+def _generate_json_schema_yaml(table_schema):
     json_schema = {
         'properties': {
             field['name']: {
