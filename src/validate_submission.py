@@ -112,7 +112,6 @@ def main():
             pair['type']: pair['path'] for pair in args.type_metadata
         }
     submission = Submission(**submission_args)
-    errors = submission.get_errors()
     report = ErrorReport(submission.get_errors())
     print(getattr(report, args.output)())
     return 1 if errors else 0
