@@ -8,6 +8,8 @@ from directory_schema import directory_schema
 from goodtables import validate as validate_table
 
 from ingest_validation_tools.table_schema_loader import get_schema
+from ingest_validation_tools.directory_validator.validator import validate as validate_directory
+from ingest_validation_tools.directory_validator.errors import DirectoryValidationErrors
 
 
 class TableValidationErrors(Exception):
@@ -35,7 +37,7 @@ def _validate_dataset_directories(dir_path, type):
         logging.warn(f'No datasets in {dir_path}')
     for sub_directory in datasets:
         logging.info(f'  Validating {sub_directory}...')
-        directory_schema.validate_dir(sub_directory, schema)
+        directory_schema.validate_directory(sub_directory, schema)
 
 
 def get_data_dir_errors(type, data_path):
@@ -48,9 +50,9 @@ def get_data_dir_errors(type, data_path):
         f'{type}.yaml')
     schema = load_yaml(open(schema_path).read())
     try:
-        directory_schema.validate_dir(data_path, schema)
-    except directory_schema.DirectoryValidationErrors as e:
-        return str(e)
+        validate_directory(data_path, schema)
+    except DirectoryValidationErrors as e:
+        return e.object_errors
     except OSError as e:
         return {
             e.strerror:
