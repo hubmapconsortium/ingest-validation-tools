@@ -25,11 +25,23 @@ def _validation_error_to_object(error):
     elif instance_type == list:
         instance_description = 'This directory'
         instance_details = _to_names([error.instance])
+    elif instance_type == dict:
+        instance_description = f'This {error.instance["type"]}'
+        instance_details = error.instance['name']
     else:
         instance_description = 'This item'
         instance_details = _to_names(error.instance)
 
-    validator_description = f'fails this "{error.validator}" check'
+    if error.validator == 'pattern':
+        validator_description = "doesn't match this pattern"
+    elif error.validator == 'enum':
+        validator_description = "is not one of the expected enum values"
+    elif error.validator == 'oneOf':
+        validator_description = "doesn't match exactly one of these"
+    elif error.validator == 'allOf':
+        validator_description = "doesn't match all of these"
+    else:
+        validator_description = f'fails this "{error.validator}" check'
     validator_details = error.schema[error.validator]
     return {
         instance_description: instance_details,
