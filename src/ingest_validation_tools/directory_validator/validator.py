@@ -2,7 +2,8 @@ import os
 
 from jsonschema import Draft7Validator
 
-from .errors import DirectoryValidationErrors
+from ingest_validation_tools.directory_validator.errors import \
+    DirectoryValidationErrors
 
 
 def validate(path, schema_dict):

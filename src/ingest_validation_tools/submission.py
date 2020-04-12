@@ -3,7 +3,7 @@ from pathlib import Path
 from datetime import datetime
 import re
 
-from ingest_validation_tools.validator import (
+from ingest_validation_tools.validation_utils import (
     get_metadata_tsv_errors,
     get_data_dir_errors
 )

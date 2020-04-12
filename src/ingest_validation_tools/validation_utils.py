@@ -4,7 +4,6 @@ import re
 from string import ascii_uppercase
 
 from yaml import safe_load as load_yaml
-from directory_schema import directory_schema
 from goodtables import validate as validate_table
 
 from ingest_validation_tools.table_schema_loader import get_schema
@@ -16,24 +15,6 @@ from ingest_validation_tools.directory_validator.errors import \
 
 class TableValidationErrors(Exception):
     pass
-
-
-def _validate_dataset_directories(dir_path, type):
-    '''
-    Validate the subdirectories under path as type.
-    '''
-    logging.info(f'Validating {type} submission...')
-    schema_path = (
-        Path(__file__).parent /
-        'directory-schemas' /
-        f'{type}.yaml')
-    schema = load_yaml(open(schema_path).read())
-    datasets = [sd for sd in dir_path.iterdir() if sd.is_dir()]
-    if not datasets:
-        logging.warn(f'No datasets in {dir_path}')
-    for sub_directory in datasets:
-        logging.info(f'  Validating {sub_directory}...')
-        directory_schema.validate_directory(sub_directory, schema)
 
 
 def get_data_dir_errors(type, data_path):
