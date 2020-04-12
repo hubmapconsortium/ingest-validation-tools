@@ -14,6 +14,8 @@ Documentation and metadata TSV templates are [here](docs).
 
 ## For curators:
 
+Example submissions and validation reports are [here](examples).
+
 You can run validation locally before the same checks are run automatically during ingest:
 ```
 $ src/validate_submission.py -h

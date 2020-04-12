@@ -98,7 +98,11 @@ class Submission:
         return errors
 
     def _get_no_ref_errors(self):
-        return 'TODO'
+        errors = {}
+        # TODO
+        return errors
 
     def _get_multi_ref_errors(self):
-        return 'TODO'
+        errors = {}
+        # TODO
+        return errors
