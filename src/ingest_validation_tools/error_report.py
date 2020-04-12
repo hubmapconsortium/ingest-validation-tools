@@ -15,7 +15,7 @@ class ErrorReport:
             return self.as_yaml()
 
     def as_html_fragment(self):
-        return f'<pre>\n{self.as_text()}\n</pre>'
+        return f'<pre>\n{self.as_text()}</pre>'
 
     def as_html_document(self):
         return f'<html><body>{self.as_html_fragment()}</body></html>'
