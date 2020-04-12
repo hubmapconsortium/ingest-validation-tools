@@ -47,7 +47,7 @@ def get_metadata_tsv_errors(metadata_path, type):
     except OSError as e:
         return {
             e.strerror:
-                e.filename
+                Path(e.filename).name
         }
     report = validate_table(metadata_path, schema=schema,
                             skip_checks=['blank-row'])
