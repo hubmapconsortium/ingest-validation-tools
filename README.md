@@ -14,13 +14,16 @@ Documentation and metadata TSV templates are [here](docs).
 
 ## For curators:
 
+Example submissions and validation reports are [here](examples).
+
 You can run validation locally before the same checks are run automatically during ingest:
 ```
 $ src/validate_submission.py -h
 usage: validate_submission.py [-h]
                               [--local_directory PATH | --globus_url URL | --globus_origin_directory ORIGIN_PATH]
                               [--type_metadata TYPE_PATH [TYPE_PATH ...]]
-                              [--logging LOG_LEVEL]
+                              [--output {as_html_document,as_html_fragment,as_text,as_yaml}]
+                              [--add_notes]
 
 Validate a HuBMAP submission, both the metadata TSVs, and the datasets,
 either local or remote, or a combination of the two.
@@ -37,7 +40,8 @@ optional arguments:
   --type_metadata TYPE_PATH [TYPE_PATH ...]
                         A list of type / metadata.tsv pairs of the form
                         "<atacseq|codex|seqfish>:<local_path_to_tsv>".
-  --logging LOG_LEVEL   Logging level: One of ['DEBUG', 'INFO', 'WARN']
+  --output {as_html_document,as_html_fragment,as_text,as_yaml}
+  --add_notes           Append a context note to error reports.
 
 Typical usecases:
 

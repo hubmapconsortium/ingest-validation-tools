@@ -31,6 +31,7 @@
 - Allow Globus File Browser URL to be used directly.
 - Gratuitous Emojis!
 - seqfish
+- Deeply structured YAML error reports.
 ### Changed
 - CSV -> TSV
 - Make the schema validation errors more readable

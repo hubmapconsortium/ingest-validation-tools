@@ -2,6 +2,16 @@
 
 import subprocess
 
+# NOTE: Starting subprocesses is slow, so these lists should be kept short.
+# Fixtures or doctests should be used for the details:
+# They run faster, and tell us more when there is a failure.
+good_args = [
+    '--local_directory examples/good-atacseq/submission/'
+]
+bad_args = [
+    '--bad',
+]
+
 
 def validate(args):
     cmd = ['src/validate_submission.py'] + args.split(' ')
@@ -11,25 +21,8 @@ def validate(args):
         stderr=subprocess.DEVNULL)
 
 
-good_args = [
-    '--help',
-    '--type_metadata '
-    'atacseq:tests/fixtures/good-atacseq/submission/atacseq-metadata.tsv',
-    '--local_directory tests/fixtures/good-atacseq/submission/'
-]
-
 for args in good_args:
     validate(args)
-
-
-bad_args = [
-    '',
-    '--bad',
-    '--type_metadata '
-    'codex:tests/fixtures/good-atacseq/submission/atacseq-metadata.tsv',
-    '--local_directory tests/fixtures/bad-mixed/submission/'
-]
-
 for args in bad_args:
     try:
         validate(args)
