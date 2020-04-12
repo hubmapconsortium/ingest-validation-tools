@@ -12,6 +12,16 @@ Submissions are based on Globus directories containing:
 
 Documentation and metadata TSV templates are [here](docs).
 
+## For API users:
+
+Right now, this isn't actually being packaged, but if that would be useful, please file an issue.
+A good example is `validate-submission.py`, but in a nutshell you'll do something like:
+```python
+submission = Submission(directory_path=path)
+report = ErrorReport(submission.get_errors())
+print(report.as_text())
+```
+
 ## For curators:
 
 Example submissions and validation reports are [here](examples).
