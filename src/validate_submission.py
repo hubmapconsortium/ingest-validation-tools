@@ -3,6 +3,7 @@
 import argparse
 import sys
 from pathlib import Path
+import inspect
 
 from ingest_validation_tools.error_report import ErrorReport
 from ingest_validation_tools.submission import Submission
@@ -56,6 +57,15 @@ Typical usecases:
         metavar='TYPE_PATH',
         help='A list of type / metadata.tsv pairs '
         f'of the form "{expected_type_metadata_form}".')
+
+    # How should output be formatted?
+
+    error_report_methods = [
+        name for (name, type) in inspect.getmembers(ErrorReport)
+        if name.startswith('as_')
+    ]
+    parser.add_argument('--output', choices=error_report_methods,
+        default='as_text')
 
     parser.add_argument('--add_notes', action='store_true',
         help='Append a note about the run context if it fails.')
