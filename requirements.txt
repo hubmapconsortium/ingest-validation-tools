@@ -1,4 +1,5 @@
-jsonschema
+jsonschema==3.1.0
+pyyaml==5.3.1
 tableschema==1.15.0
 goodtables==2.4.9
 globus-cli==1.12.0
