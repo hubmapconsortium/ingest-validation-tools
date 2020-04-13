@@ -9,7 +9,8 @@ from ingest_validation_tools.error_report import ErrorReport
 from ingest_validation_tools.submission import Submission
 from ingest_validation_tools import argparse_types
 from ingest_validation_tools.argparse_types import ShowUsageException
-from ingest_validation_tools.globus_utils import get_globus_connection_error
+from ingest_validation_tools.globus_utils import (
+    get_globus_connection_error, get_globus_cache_path)
 
 
 def make_parser():
@@ -41,14 +42,12 @@ Typical usecases:
     mutex_group.add_argument(
         '--globus_url', type=argparse_types.globus_url,
         metavar='URL',
-        help='The Globus File Manager URL of a directory to validate. '
-        'TODO: Not yet implemented.')
+        help='The Globus File Manager URL of a directory to validate.')
     mutex_group.add_argument(
         '--globus_origin_directory', type=argparse_types.origin_directory_pair,
         metavar='ORIGIN_PATH',
         help='A Globus submission directory to validate; '
-        'Should have the form "<globus_origin_id>:<globus_path>". '
-        'TODO: Not yet implemented.')
+        'Should have the form "<globus_origin_id>:<globus_path>".')
 
     # Is there metadata to validate?
 
@@ -96,19 +95,18 @@ def parse_args():
 
 def main():
     args = parse_args()
+    submission_args = {'add_notes': args.add_notes}
 
     globus = args.globus_url or args.globus_origin_directory
     if globus:
         error_message = get_globus_connection_error(globus['origin'])
         if error_message:
             raise ShowUsageException(error_message)
-
-        raise ShowUsageException('TODO: Globus not yet supported')
-        # TODO: mirror directory to local cache.
-
-    submission_args = {'add_notes': args.add_notes}
-    if args.local_directory:
+        submission_args['directory_path'] = get_globus_cache_path(
+            globus['origin'], globus['path'])
+    elif args.local_directory:
         submission_args['directory_path'] = Path(args.local_directory)
+
     if args.type_metadata:
         submission_args['override_tsv_paths'] = {
             pair['type']: pair['path'] for pair in args.type_metadata
