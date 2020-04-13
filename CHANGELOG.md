@@ -1,6 +1,9 @@
 # Changelog
 
 ## v0.0.2 - in progress
+### Added
+- Mirror Globus directory to local cache
+
 
 ## [v0.0.1](https://github.com/hubmapconsortium/ingest-validation-tools/tree/v0.0.1) - 2020-04-13
 ### Added

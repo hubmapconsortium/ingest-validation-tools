@@ -42,8 +42,6 @@ def _cache_globus_origin_path(origin, path):
             # Download *-metadata.tsv.
 
 
-
-
 def _get_cache_target(origin, path):
     if path[0] == '/':
         path = path[1:]

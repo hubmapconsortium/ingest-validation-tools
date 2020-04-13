@@ -28,7 +28,6 @@ Example submissions and validation reports are [here](examples).
 
 You can run validation locally before the same checks are run automatically during ingest:
 ```
-$ src/validate_submission.py -h
 usage: validate_submission.py [-h]
                               [--local_directory PATH | --globus_url URL | --globus_origin_directory ORIGIN_PATH]
                               [--type_metadata TYPE_PATH [TYPE_PATH ...]]
@@ -43,11 +42,10 @@ optional arguments:
   --local_directory PATH
                         Local directory to validate
   --globus_url URL      The Globus File Manager URL of a directory to
-                        validate. TODO: Not yet implemented.
+                        validate.
   --globus_origin_directory ORIGIN_PATH
                         A Globus submission directory to validate; Should have
-                        the form "<globus_origin_id>:<globus_path>". TODO: Not
-                        yet implemented.
+                        the form "<globus_origin_id>:<globus_path>".
   --type_metadata TYPE_PATH [TYPE_PATH ...]
                         A list of type / metadata.tsv pairs of the form
                         "<atacseq|codex|seqfish>:<local_path_to_tsv>".
