@@ -1,6 +1,8 @@
 # Changelog
 
-## v0.0.1 - In progress
+## v0.0.2 - in progress
+
+## [v0.0.1](https://github.com/hubmapconsortium/ingest-validation-tools/tree/v0.0.1) - 2020-04-13
 ### Added
 - Validate structure of Akoya CODEX submissions.
 - Generate submission template.

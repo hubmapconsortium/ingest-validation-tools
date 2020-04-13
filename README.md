@@ -43,10 +43,11 @@ optional arguments:
   --local_directory PATH
                         Local directory to validate
   --globus_url URL      The Globus File Manager URL of a directory to
-                        validate.
+                        validate. TODO: Not yet implemented.
   --globus_origin_directory ORIGIN_PATH
                         A Globus submission directory to validate; Should have
-                        the form "<globus_origin_id>:<globus_path>".
+                        the form "<globus_origin_id>:<globus_path>". TODO: Not
+                        yet implemented.
   --type_metadata TYPE_PATH [TYPE_PATH ...]
                         A list of type / metadata.tsv pairs of the form
                         "<atacseq|codex|seqfish>:<local_path_to_tsv>".
@@ -88,6 +89,14 @@ positional arguments:
 optional arguments:
   -h, --help            show this help message and exit
 ```
+
+For releases we're just using git tags:
+```
+$ git tag v0.0.x
+$ git push origin v0.0.x
+```
+
+... and update the CHANGELOG.md.
 
 ## Big picture:
 
