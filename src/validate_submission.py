@@ -41,12 +41,14 @@ Typical usecases:
     mutex_group.add_argument(
         '--globus_url', type=argparse_types.globus_url,
         metavar='URL',
-        help='The Globus File Manager URL of a directory to validate.')
+        help='The Globus File Manager URL of a directory to validate. '
+        'TODO: Not yet implemented.')
     mutex_group.add_argument(
         '--globus_origin_directory', type=argparse_types.origin_directory_pair,
         metavar='ORIGIN_PATH',
         help='A Globus submission directory to validate; '
-        'Should have the form "<globus_origin_id>:<globus_path>".')
+        'Should have the form "<globus_origin_id>:<globus_path>". '
+        'TODO: Not yet implemented.')
 
     # Is there metadata to validate?
 
