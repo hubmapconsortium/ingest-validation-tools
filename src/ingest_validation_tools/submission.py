@@ -1,7 +1,8 @@
-import csv
+from csv import DictReader
 from pathlib import Path
 from datetime import datetime
 import re
+from collections import defaultdict
 
 from ingest_validation_tools.validation_utils import (
     get_metadata_tsv_errors,
@@ -76,7 +77,7 @@ class Submission:
     def _get_single_tsv_external_errors(self, type, path):
         errors = {}
         with open(path) as f:
-            rows = list(csv.DictReader(f, dialect='excel-tab'))
+            rows = list(DictReader(f, dialect='excel-tab'))
             if not rows:
                 errors['Warning'] = f'File has no data rows.'
             if self.directory_path:
@@ -103,10 +104,20 @@ class Submission:
 
     def _get_no_ref_errors(self):
         errors = {}
+        self.directory_path
+        self.effective_tsv_paths
         # TODO
         return errors
 
     def _get_multi_ref_errors(self):
         errors = {}
-        # TODO
+        data_references = defaultdict(list)
+        for tsv_path in self.effective_tsv_paths.values():
+            with open(tsv_path) as f:
+                for i, row in enumerate(DictReader(f, dialect='excel-tab')):
+                    reference = f'{tsv_path} (row {i})'
+                    data_references[row['data_path']].append(reference)
+        for path, references in data_references.items():
+            if len(references) > 1:
+                errors[path] = references
         return errors
