@@ -21,7 +21,7 @@ def _validation_error_to_object(error):
         instance_details = error.instance
     elif instance_type == list:
         instance_description = 'This directory'
-        instance_details = _to_names([error.instance])
+        instance_details = _to_names(error.instance)
     elif instance_type == dict:
         instance_description = f'This {error.instance["type"]}'
         instance_details = error.instance['name']

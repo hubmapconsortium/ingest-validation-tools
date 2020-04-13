@@ -86,7 +86,7 @@ class Submission:
                     data_dir_errors = self._get_data_dir_errors(
                         type, full_data_path)
                     if data_dir_errors:
-                        errors[f'{path.name} (row {i+1})'] = data_dir_errors
+                        errors[f'{path.name} (row {i+2})'] = data_dir_errors
         return errors
 
     def _get_data_dir_errors(self, type, path):
@@ -115,7 +115,7 @@ class Submission:
         for tsv_path in self.effective_tsv_paths.values():
             with open(tsv_path) as f:
                 for i, row in enumerate(DictReader(f, dialect='excel-tab')):
-                    reference = f'{tsv_path} (row {i})'
+                    reference = f'{tsv_path} (row {i+2})'
                     data_references[row['data_path']].append(reference)
         for path, references in data_references.items():
             if len(references) > 1:
