@@ -103,21 +103,28 @@ class Submission:
         return errors
 
     def _get_no_ref_errors(self):
-        errors = {}
-        self.directory_path
-        self.effective_tsv_paths
-        # TODO
-        return errors
+        referenced_data_paths = set(self._get_data_references().keys())
+        non_metadata_paths = {
+            path.name for path in self.directory_path.iterdir()
+            if not path.name.endswith('-metadata.tsv')
+        }
+        unreferenced_paths = non_metadata_paths - referenced_data_paths
+        return [str(path) for path in unreferenced_paths]
 
     def _get_multi_ref_errors(self):
         errors = {}
+        data_references = self._get_data_references()
+        for path, references in data_references.items():
+            if len(references) > 1:
+                errors[path] = references
+        return errors
+
+    def _get_data_references(self):
+        # TODO: Move this to __init__
         data_references = defaultdict(list)
         for tsv_path in self.effective_tsv_paths.values():
             with open(tsv_path) as f:
                 for i, row in enumerate(DictReader(f, dialect='excel-tab')):
                     reference = f'{tsv_path} (row {i+2})'
                     data_references[row['data_path']].append(reference)
-        for path, references in data_references.items():
-            if len(references) > 1:
-                errors[path] = references
-        return errors
+        return data_references
