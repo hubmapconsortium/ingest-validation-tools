@@ -32,6 +32,7 @@
 - Gratuitous Emojis!
 - seqfish
 - Deeply structured YAML error reports.
+- Check for multiply referenced, or unreferenced paths.
 ### Changed
 - CSV -> TSV
 - Make the schema validation errors more readable

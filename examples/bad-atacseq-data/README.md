@@ -2,7 +2,7 @@
 Metadata TSV Errors:
   examples/bad-atacseq-data/submission/atacseq-metadata.tsv (as atacseq):
     External:
-      atacseq-metadata.tsv (row 1):
+      atacseq-metadata.tsv (row 2):
       - This string: not-the-file-you-are-looking-for.txt
         doesn't match this pattern: \.fastq(\.gz)?$
       - This string: directory

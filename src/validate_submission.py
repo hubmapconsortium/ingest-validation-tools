@@ -113,7 +113,7 @@ def main():
         }
     submission = Submission(**submission_args)
     errors = submission.get_errors()
-    report = ErrorReport(submission.get_errors())
+    report = ErrorReport(errors)
     print(getattr(report, args.output)())
     return 1 if errors else 0
 
