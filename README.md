@@ -8,6 +8,8 @@ Submissions are based on Globus directories containing:
 - one or more `<type>-metadata.tsv` files.
 - top-level subdirectories, or single files, in a 1-to-1 relationship with the rows of the TSVs.
 
+The `data_path` and `metadata_path` in the TSV are relative to the location of the TSV.
+
 ## For data submitters:
 
 Documentation and metadata TSV templates are [here](docs).
