@@ -103,6 +103,8 @@ class Submission:
         return errors
 
     def _get_no_ref_errors(self):
+        if not self.directory_path:
+            return {}
         referenced_data_paths = set(self._get_data_references().keys())
         non_metadata_paths = {
             path.name for path in self.directory_path.iterdir()
