@@ -6,7 +6,9 @@ import subprocess
 # Fixtures or doctests should be used for the details:
 # They run faster, and tell us more when there is a failure.
 good_args = [
-    '--local_directory examples/good-atacseq/submission/'
+    '--local_directory examples/good-atacseq/submission/',
+    '--type_metadata atacseq:examples/good-atacseq/'
+    'submission/atacseq-metadata.tsv'
 ]
 bad_args = [
     '--bad',
@@ -16,9 +18,7 @@ bad_args = [
 def validate(args):
     cmd = ['src/validate_submission.py'] + args.split(' ')
     subprocess.run(
-        cmd, check=True,
-        stdout=subprocess.DEVNULL,
-        stderr=subprocess.DEVNULL)
+        cmd, check=True)
 
 
 for args in good_args:
