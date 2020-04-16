@@ -100,11 +100,25 @@ def _make_constraints_table(field):
             table_md_rows.append(f'| {key} | `{value}` |')
     if 'constraints' in field:
         for key, value in field['constraints'].items():
-            table_md_rows.append(f'| {key} | `{value}` |')
+            if key == 'enum':
+                md_value = _make_enum_md(value)
+            else:
+                md_value = f'`{value}`'
+            table_md_rows.append(f'| {key} | {md_value} |')
     if len(table_md_rows) < 3:
         # Empty it, if there is no data.
         table_md_rows = []
     return '\n'.join(table_md_rows)
+
+
+def _make_enum_md(enum):
+    '''
+    >>> md = _make_enum_md(['A', 'B', 'C'])
+    >>> print(md)
+    `A` or `B` or `C`
+
+    '''
+    return ' or '.join([f'`{s}`' for s in enum])
 
 
 def _make_toc(md):
