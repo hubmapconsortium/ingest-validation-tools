@@ -2,8 +2,10 @@
 
 ## v0.0.2 - in progress
 ### Added
-- Mirror Globus directory to local cache
+- Mirror Globus directory to local cache.
 - Fix `--type_metadata` so it still works without a submission directory.
+### Changed
+- Make the ATACseq validation more flexible.
 
 ## [v0.0.1](https://github.com/hubmapconsortium/ingest-validation-tools/tree/v0.0.1) - 2020-04-13
 ### Added
