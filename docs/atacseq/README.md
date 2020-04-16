@@ -300,7 +300,7 @@ Which read file contains the cell barcode.
 
 | constraint | value |
 | --- | --- |
-| enum | `['R1', 'R2', 'R3']` |
+| pattern | `[A-Z]\d+(,[A-Z]\d+)*` |
 | required | `True` |
 
 ### `cell_barcode_offset`
@@ -308,7 +308,7 @@ Positions in the read at which the cell barcodes start. Cell barcodes are, for e
 
 | constraint | value |
 | --- | --- |
-| pattern | `\d+,\d+,\d+` |
+| pattern | `\d+(,\d+)*` |
 | required | `True` |
 
 ### `cell_barcode_size`
@@ -316,7 +316,7 @@ Length of the cell barcode in base pairs. Cell barcodes are, for example, 3 x 8 
 
 | constraint | value |
 | --- | --- |
-| pattern | `\d+,\d+,\d+` |
+| pattern | `\d+(,\d+)*` |
 | required | `True` |
 
 ### `library_pcr_cycles`
