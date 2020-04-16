@@ -18,7 +18,7 @@ class Submission:
     def __init__(self, directory_path=None, override_tsv_paths={},
                  optional_fields=[], add_notes=True):
         self.directory_path = directory_path
-        self.optional_fields = []
+        self.optional_fields = optional_fields
         unsorted_effective_tsv_paths = (
             override_tsv_paths if override_tsv_paths
             else {
