@@ -33,6 +33,7 @@ You can run validation locally before the same checks are run automatically duri
 usage: validate_submission.py [-h]
                               [--local_directory PATH | --globus_url URL | --globus_origin_directory ORIGIN_PATH]
                               [--type_metadata TYPE_PATH [TYPE_PATH ...]]
+                              [--optional_fields FIELD [FIELD ...]]
                               [--output {as_html_document,as_html_fragment,as_text,as_yaml}]
                               [--add_notes]
 
@@ -51,6 +52,9 @@ optional arguments:
   --type_metadata TYPE_PATH [TYPE_PATH ...]
                         A list of type / metadata.tsv pairs of the form
                         "<atacseq|codex|seqfish>:<local_path_to_tsv>".
+  --optional_fields FIELD [FIELD ...]
+                        The listed fields will be treated as optional. (But if
+                        they are supplied in the TSV, they will be validated.)
   --output {as_html_document,as_html_fragment,as_text,as_yaml}
   --add_notes           Append a context note to error reports.
 
