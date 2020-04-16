@@ -4,6 +4,7 @@
 ### Added
 - Mirror Globus directory to local cache.
 - Fix `--type_metadata` so it still works without a submission directory.
+- Add `--optional_fields` to temporarily ignore the given fields.
 ### Changed
 - Make the ATACseq validation more flexible.
 
