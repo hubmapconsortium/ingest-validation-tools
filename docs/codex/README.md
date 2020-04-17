@@ -126,7 +126,7 @@ Each assay is placed into one of the following 3 general categories: generation 
 
 | constraint | value |
 | --- | --- |
-| enum | `['imaging', 'mass_spectrometry', 'sequence']` |
+| enum | `imaging`, `mass_spectrometry`, or `sequence` |
 | required | `True` |
 
 ### `assay_type`
@@ -134,7 +134,7 @@ The specific type of assay being executed.
 
 | constraint | value |
 | --- | --- |
-| enum | `['scRNA-Seq (10xGenomics)', 'AF', 'bulk RNA', 'bulkATACseq', 'CODEX', 'Imaging Mass Cytometry', 'LC-MS (metabolomics)', 'LC-MS/MS (label-free proteomics)', 'MxIF', 'IMS positive', 'IMS negative', 'MS (shotgun lipidomics)', 'PAS microscopy', 'scATACseq', 'sciATACseq', 'sciRNAseq', 'seqFISH', 'SNARE-seq2', 'snATACseq', 'snRNA', 'SPLiT-Seq', 'TMT (proteomics)', 'WGS']` |
+| enum | `scRNA-Seq (10xGenomics)`, `AF`, `bulk RNA`, `bulkATACseq`, `CODEX`, `Imaging Mass Cytometry`, `LC-MS (metabolomics)`, `LC-MS/MS (label-free proteomics)`, `MxIF`, `IMS positive`, `IMS negative`, `MS (shotgun lipidomics)`, `PAS microscopy`, `scATACseq`, `sciATACseq`, `sciRNAseq`, `seqFISH`, `SNARE-seq2`, `snATACseq`, `snRNA`, `SPLiT-Seq`, `TMT (proteomics)`, or `WGS` |
 | required | `True` |
 
 ### `analyte_class`
@@ -142,7 +142,7 @@ Analytes are the target molecules being measured with the assay.
 
 | constraint | value |
 | --- | --- |
-| enum | `['DNA', 'RNA', 'protein', 'lipids', 'metabolites']` |
+| enum | `DNA`, `RNA`, `protein`, `lipids`, or `metabolites` |
 | required | `True` |
 
 ### `is_targeted`
@@ -160,7 +160,7 @@ An acquisition_instrument is the device that contains the signal detection hardw
 
 | constraint | value |
 | --- | --- |
-| enum | `['Keyence', 'Zeiss']` |
+| enum | `Keyence` or `Zeiss` |
 | required | `True` |
 
 ### `acquisition_instrument_model`
@@ -168,7 +168,7 @@ Manufacturers of an acquisition instrument may offer various versions (models) o
 
 | constraint | value |
 | --- | --- |
-| enum | `['BZ-X800', 'BZ-X710', 'Axio Observer Z1']` |
+| enum | `BZ-X800`, `BZ-X710`, or `Axio Observer Z1` |
 | required | `True` |
 
 ### `resolution_x_value`
@@ -184,7 +184,7 @@ The unit of measurement of width of a pixel.(nm)
 
 | constraint | value |
 | --- | --- |
-| enum | `['mm', 'um', 'nm']` |
+| enum | `mm`, `um`, or `nm` |
 | required | `True` |
 
 ### `resolution_y_value`
@@ -200,7 +200,7 @@ The unit of measurement of height of a pixel. (nm)
 
 | constraint | value |
 | --- | --- |
-| enum | `['mm', 'um', 'nm']` |
+| enum | `mm`, `um`, or `nm` |
 | required | `True` |
 
 ### `resolution_z_value`
@@ -216,7 +216,7 @@ The unit of incremental distance between image slices.(um)
 
 | constraint | value |
 | --- | --- |
-| enum | `['mm', 'um', 'nm']` |
+| enum | `mm`, `um`, or `nm` |
 | required | `True` |
 
 ## Level 3
@@ -226,7 +226,7 @@ The manufacturer of the instrument used to prepare the sample for the assay.
 
 | constraint | value |
 | --- | --- |
-| enum | `['CODEX']` |
+| enum | `CODEX` |
 | required | `True` |
 
 ### `preparation_instrument_model`
@@ -234,7 +234,7 @@ The model number/name of the instrument used to prepare the sample for the assay
 
 | constraint | value |
 | --- | --- |
-| enum | `['version 1 robot', 'prototype robot - Stanford/Nolan Lab']` |
+| enum | `version 1 robot` or `prototype robot - Stanford/Nolan Lab` |
 | required | `True` |
 
 ### `number_of_antibodies`
