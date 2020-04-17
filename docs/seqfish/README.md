@@ -125,7 +125,7 @@ Each assay is placed into one of the following 3 general categories: generation 
 
 | constraint | value |
 | --- | --- |
-| enum | `imaging` or `mass_spectrometry` or `sequence` |
+| enum | `imaging`, `mass_spectrometry`, or `sequence` |
 | required | `True` |
 
 ### `assay_type`
@@ -133,7 +133,7 @@ The specific type of assay being executed.
 
 | constraint | value |
 | --- | --- |
-| enum | `scRNA-Seq (10xGenomics)` or `AF` or `bulk RNA` or `bulkATACseq` or `CODEX` or `Imaging Mass Cytometry` or `LC-MS (metabolomics)` or `LC-MS/MS (label-free proteomics)` or `MxIF` or `IMS positive` or `IMS negative` or `MS (shotgun lipidomics)` or `PAS microscopy` or `scATACseq` or `sciATACseq` or `sciRNAseq` or `seqFISH` or `SNARE-seq2` or `snATACseq` or `snRNA` or `SPLiT-Seq` or `TMT (proteomics)` or `WGS` |
+| enum | `scRNA-Seq (10xGenomics)`, `AF`, `bulk RNA`, `bulkATACseq`, `CODEX`, `Imaging Mass Cytometry`, `LC-MS (metabolomics)`, `LC-MS/MS (label-free proteomics)`, `MxIF`, `IMS positive`, `IMS negative`, `MS (shotgun lipidomics)`, `PAS microscopy`, `scATACseq`, `sciATACseq`, `sciRNAseq`, `seqFISH`, `SNARE-seq2`, `snATACseq`, `snRNA`, `SPLiT-Seq`, `TMT (proteomics)`, or `WGS` |
 | required | `True` |
 
 ### `analyte_class`
@@ -141,7 +141,7 @@ Analytes are the target molecules being measured with the assay.
 
 | constraint | value |
 | --- | --- |
-| enum | `DNA` or `RNA` or `protein` or `lipids` or `metabolites` |
+| enum | `DNA`, `RNA`, `protein`, `lipids`, or `metabolites` |
 | required | `True` |
 
 ### `is_targeted`

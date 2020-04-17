@@ -113,12 +113,23 @@ def _make_constraints_table(field):
 
 def _make_enum_md(enum):
     '''
-    >>> md = _make_enum_md(['A', 'B', 'C'])
-    >>> print(md)
-    `A` or `B` or `C`
+    >>> print(_make_enum_md(['A']))
+    `A`
 
+    >>> print(_make_enum_md(['A', 'B']))
+    `A` or `B`
+
+    >>> print(_make_enum_md(['A', 'B', 'C']))
+    `A`, `B`, or `C`
+
+    >>> print(_make_enum_md(['A', 'B', 'C', 'D']))
+    `A`, `B`, `C`, or `D`
     '''
-    return ' or '.join([f'`{s}`' for s in enum])
+    backtick_list = [f'`{s}`' for s in enum]
+    if len(enum) < 3:
+        return ' or '.join(backtick_list)
+    backtick_list[-1] = f'or {backtick_list[-1]}'
+    return ', '.join(backtick_list)
 
 
 def _make_toc(md):
