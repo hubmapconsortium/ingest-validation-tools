@@ -11,7 +11,7 @@ def list_types():
     return sorted(schemas - {'level-1', 'paths', 'README'})
 
 
-def get_schema(type):
+def get_schema(type, optional_fields=[]):
     table_type = type.split('-')[0]
 
     level_1_fields = _get_sub_schema('level-1')['fields']
@@ -23,22 +23,30 @@ def get_schema(type):
     for field in fields:
         if 'constraints' not in field:
             field['constraints'] = {}
+
+        # Guess constraints:
         if 'required' not in field['constraints']:
             field['constraints']['required'] = True
-        if 'percent' in field['name']:
-            field['type'] = 'number'
-            field['constraints']['minimum'] = 0
-            field['constraints']['maximum'] = 100
         if 'protocols_io_doi' in field['name']:
             field['constraints']['pattern'] = r'10\.17504/.*'
         if field['name'].endswith('_email'):
             field['format'] = 'email'
+
+        # Guess types:
         if field['name'].startswith('is_'):
             field['type'] = 'boolean'
         if field['name'].endswith('_value'):
             field['type'] = 'number'
         if field['name'].startswith('number_of_'):
             field['type'] = 'integer'
+        if 'percent' in field['name']:
+            field['type'] = 'number'
+            field['constraints']['minimum'] = 0
+            field['constraints']['maximum'] = 100
+
+        # Override:
+        if field['name'] in optional_fields:
+            field['constraints']['required'] = False
 
     return {
         'doc_url': type_schema['doc_url'],

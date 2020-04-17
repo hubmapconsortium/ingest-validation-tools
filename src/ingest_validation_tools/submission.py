@@ -16,8 +16,9 @@ def _get_directory_type_from_path(path):
 
 class Submission:
     def __init__(self, directory_path=None, override_tsv_paths={},
-                 add_notes=True):
+                 optional_fields=[], add_notes=True):
         self.directory_path = directory_path
+        self.optional_fields = optional_fields
         unsorted_effective_tsv_paths = (
             override_tsv_paths if override_tsv_paths
             else {
@@ -72,7 +73,9 @@ class Submission:
         return errors
 
     def _get_single_tsv_internal_errors(self, type, path):
-        return get_metadata_tsv_errors(type=type, metadata_path=path)
+        return get_metadata_tsv_errors(
+            type=type, metadata_path=path,
+            optional_fields=self.optional_fields)
 
     def _get_single_tsv_external_errors(self, type, path):
         errors = {}

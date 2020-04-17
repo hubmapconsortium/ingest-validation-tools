@@ -59,6 +59,13 @@ Typical usecases:
         help='A list of type / metadata.tsv pairs '
         f'of the form "{expected_type_metadata_form}".')
 
+    parser.add_argument(
+        '--optional_fields', nargs='+',
+        metavar='FIELD',
+        help='The listed fields will be treated as optional. '
+        '(But if they are supplied in the TSV, they will be validated.)'
+    )
+
     # How should output be formatted?
 
     error_report_methods = [
@@ -95,7 +102,10 @@ def parse_args():
 
 def main():
     args = parse_args()
-    submission_args = {'add_notes': args.add_notes}
+    submission_args = {
+        'add_notes': args.add_notes,
+        'optional_fields': args.optional_fields or []
+    }
 
     globus = args.globus_url or args.globus_origin_directory
     if globus:

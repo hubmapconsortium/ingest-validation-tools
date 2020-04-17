@@ -37,13 +37,13 @@ def get_data_dir_errors(type, data_path):
         }
 
 
-def get_metadata_tsv_errors(metadata_path, type):
+def get_metadata_tsv_errors(metadata_path, type, optional_fields=[]):
     '''
     Validate the metadata.tsv.
     '''
     logging.info(f'Validating {type} metadata.tsv...')
     try:
-        schema = get_schema(type)
+        schema = get_schema(type, optional_fields=optional_fields)
     except OSError as e:
         return {
             e.strerror:
