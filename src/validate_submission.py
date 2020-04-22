@@ -66,6 +66,16 @@ Typical usecases:
         '(But if they are supplied in the TSV, they will be validated.)'
     )
 
+    # Dot-files are ignored by default.
+    # This lets other files also be ignored.
+
+    parser.add_argument(
+        '--ignore_files', nargs='+',
+        metavar='FILE',
+        help='Files with these names at the top level of the submission '
+        'will be ignored.'
+    )
+
     # How should output be formatted?
 
     error_report_methods = [

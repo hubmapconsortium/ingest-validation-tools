@@ -7,7 +7,10 @@ die() { set +v; echo "$red$*$reset" 1>&2 ; exit 1; }
 
 for EXAMPLE in examples/*; do
   echo "Testing $EXAMPLE ..."
-  CMD="src/validate_submission.py --local_directory $EXAMPLE/submission --output as_html_fragment"
+  CMD="src/validate_submission.py \
+--local_directory $EXAMPLE/submission \
+--ignore_files ignore-me.tsv \
+--output as_html_fragment"
   README="$EXAMPLE/README.md"
   diff $README <( $CMD ) \
     || die "Update example: $CMD > $README"
