@@ -5,6 +5,7 @@
 - Mirror Globus directory to local cache.
 - Fix `--type_metadata` so it still works without a submission directory.
 - Add `--optional_fields` to temporarily ignore the given fields.
+- Add `--ignore_files` to ignore particular top-level files.
 ### Changed
 - Make the ATACseq validation more flexible.
 - Less confusing representation of enums in docs.

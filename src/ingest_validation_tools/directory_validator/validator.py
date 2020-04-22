@@ -6,7 +6,7 @@ from ingest_validation_tools.directory_validator.errors import \
     DirectoryValidationErrors
 
 
-def validate(path, schema_dict):
+def validate(path, schema_dict, ignore_files=[]):
     '''
     Given a directory path, and a JSON schema as a dict,
     validate the directory structure against the schema.
@@ -14,7 +14,10 @@ def validate(path, schema_dict):
     Draft7Validator.check_schema(schema_dict)
 
     validator = Draft7Validator(schema_dict)
-    as_list = _dir_to_list(path)
+    as_list = [
+        entry for entry in _dir_to_list(path)
+        if entry['name'] not in ignore_files
+    ]
     errors = list(validator.iter_errors(as_list))
 
     if errors:

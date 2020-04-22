@@ -6,7 +6,9 @@ import subprocess
 # Fixtures or doctests should be used for the details:
 # They run faster, and tell us more when there is a failure.
 good_args = [
-    '--local_directory examples/good-atacseq/submission/',
+    '--local_directory examples/good-atacseq/submission/ '
+    '--ignore_files ignore-me.tsv',
+
     '--type_metadata atacseq:examples/good-atacseq/'
     'submission/atacseq-metadata.tsv'
 ]
