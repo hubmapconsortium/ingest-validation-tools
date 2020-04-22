@@ -21,7 +21,7 @@ def validate(path, schema_dict):
         raise DirectoryValidationErrors(errors)
 
 
-def _dir_to_list(path):
+def _dir_to_list(path, ignore_dot_files=True):
     '''
     Walk the directory at `path`, and return a dict like that from `tree -J`:
 
