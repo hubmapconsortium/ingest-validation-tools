@@ -87,7 +87,7 @@ DOI for protocols.io referring to the protocol for this assay.
 
 | constraint | value |
 | --- | --- |
-| required | `False` |
+| required | `True` |
 | pattern | `10\.17504/.*` |
 
 ### `operator`

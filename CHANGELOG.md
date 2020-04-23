@@ -6,9 +6,11 @@
 - Fix `--type_metadata` so it still works without a submission directory.
 - Add `--optional_fields` to temporarily ignore the given fields.
 - Add `--ignore_files` to ignore particular top-level files.
+- Ignore dot-files. No command-line option to enable stricter validation, for now.
 ### Changed
 - Make the ATACseq validation more flexible.
 - Less confusing representation of enums in docs.
+- Make DOIs required again: Fields to consider optional can be set on commandline.
 
 ## [v0.0.1](https://github.com/hubmapconsortium/ingest-validation-tools/tree/v0.0.1) - 2020-04-13
 ### Added

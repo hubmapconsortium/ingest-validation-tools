@@ -24,7 +24,7 @@ def validate(path, schema_dict, ignore_files=[]):
         raise DirectoryValidationErrors(errors)
 
 
-def _dir_to_list(path):
+def _dir_to_list(path, ignore_dot_files=True):
     '''
     Walk the directory at `path`, and return a dict like that from `tree -J`:
 
@@ -42,6 +42,8 @@ def _dir_to_list(path):
     items_to_return = []
     with os.scandir(path) as scan:
         for entry in sorted(scan, key=lambda entry: entry.name):
+            if ignore_dot_files and entry.name[0] == '.':
+                continue
             is_dir = entry.is_dir()
             item = {
                 'type': 'directory' if is_dir else 'file',
