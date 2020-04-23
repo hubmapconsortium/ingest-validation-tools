@@ -45,6 +45,18 @@ def _apply_overrides(high_fields, low_fields):
     and add the defintions from low_fields to high_fields,
     and return the new modified high_fields, and low_fields,
     without the fields which were there just to override.
+
+    >>> a, b = _apply_overrides(
+    ...  [{'name': 'A'}],
+    ...  [{'name': 'A', 'type': '???'}, {'name': 'B', 'type': '!!!'}]
+    ... )
+
+    >>> a
+    [{'name': 'A', 'type': '???'}]
+
+    >>> b
+    [{'name': 'B', 'type': '!!!'}]
+
     '''
     high_field_names = {field['name'] for field in high_fields}
     low_field_names = {field['name'] for field in low_fields}
@@ -58,6 +70,7 @@ def _apply_overrides(high_fields, low_fields):
 
     high_fields_plus_overrides = [
         (
+            # TODO: Python 3.9 will add "|" for dict merging.
             {**field, **override_fields[field['name']]}
             if field['name'] in override_field_names
             else field
