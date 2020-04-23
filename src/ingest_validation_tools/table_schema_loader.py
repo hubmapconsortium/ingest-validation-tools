@@ -47,15 +47,15 @@ def _apply_overrides(high_fields, low_fields):
     without the fields which were there just to override.
 
     >>> a, b = _apply_overrides(
-    ...  [{'name': 'A'}],
-    ...  [{'name': 'A', 'type': '???'}, {'name': 'B', 'type': '!!!'}]
+    ...  [{'name': 'A', 'type': '???'}],
+    ...  [{'name': 'A', 'type': '!!!'}, {'name': 'B'}]
     ... )
 
     >>> a
-    [{'name': 'A', 'type': '???'}]
+    [{'name': 'A', 'type': '!!!'}]
 
     >>> b
-    [{'name': 'B', 'type': '!!!'}]
+    [{'name': 'B'}]
 
     '''
     high_field_names = {field['name'] for field in high_fields}
