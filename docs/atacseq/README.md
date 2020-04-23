@@ -98,7 +98,7 @@ DOI for protocols.io referring to the protocol for this assay.
 
 | constraint | value |
 | --- | --- |
-| required | `False` |
+| required | `True` |
 | pattern | `10\.17504/.*` |
 
 ### `operator`
@@ -199,7 +199,7 @@ Link to a protocols document answering the question: How were single cells separ
 
 | constraint | value |
 | --- | --- |
-| required | `False` |
+| required | `True` |
 | pattern | `10\.17504/.*` |
 
 ### `sc_isolation_entity`
@@ -276,7 +276,7 @@ A link to the protocol document containing the library construction method (incl
 
 | constraint | value |
 | --- | --- |
-| required | `False` |
+| required | `True` |
 | pattern | `10\.17504/.*` |
 
 ### `library_layout`
