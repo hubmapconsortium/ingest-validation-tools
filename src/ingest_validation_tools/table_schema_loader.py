@@ -19,20 +19,8 @@ def get_schema(type, optional_fields=[]):
     type_schema = _get_sub_schema(table_type)
     type_fields = type_schema['fields']
 
-    level_1_field_names = {field['name'] for field in level_1_fields}
-    type_field_names = {field['name'] for field in type_fields}
-    override_field_names = set.intersection(
-        level_1_field_names, type_field_names)
-
-    level_1_fields_plus_overrides = [
-        # TODO: Actually override!
-        (field if field['name'] in override_field_names else field)
-        for field in level_1_fields
-    ]
-    type_fields_minus_overrides = [
-        field for field in type_fields
-        if field['name'] not in override_field_names
-    ]
+    (level_1_fields_plus_overrides, type_fields_minus_overrides) = \
+        _apply_overrides(level_1_fields, type_fields)
 
     fields = (
         level_1_fields_plus_overrides
@@ -49,6 +37,38 @@ def get_schema(type, optional_fields=[]):
 
 def _get_sub_schema(type):
     return load_yaml(open(_schemas_path / f'{type}.yaml').read())
+
+
+def _apply_overrides(high_fields, low_fields):
+    '''
+    Given two lists of fields, find fields with the same names in both,
+    and add the defintions from low_fields to high_fields,
+    and return the new modified high_fields, and low_fields,
+    without the fields which were there just to override.
+    '''
+    high_field_names = {field['name'] for field in high_fields}
+    low_field_names = {field['name'] for field in low_fields}
+    override_field_names = set.intersection(
+        high_field_names, low_field_names)
+
+    override_fields = {
+        name: [f for f in low_fields if f['name'] == name][0]
+        for name in override_field_names
+    }
+
+    high_fields_plus_overrides = [
+        (
+            {**field, **override_fields[field['name']]}
+            if field['name'] in override_field_names
+            else field
+        )
+        for field in high_fields
+    ]
+    low_fields_minus_overrides = [
+        field for field in low_fields
+        if field['name'] not in override_field_names
+    ]
+    return high_fields_plus_overrides, low_fields_minus_overrides
 
 
 def _add_constraints(field, optional_fields):
