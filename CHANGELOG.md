@@ -8,6 +8,7 @@
 ### Changed
 - Make the ATACseq validation more flexible.
 - Less confusing representation of enums in docs.
+- Make DOIs required again: Fields to consider optional can be set on commandline.
 
 ## [v0.0.1](https://github.com/hubmapconsortium/ingest-validation-tools/tree/v0.0.1) - 2020-04-13
 ### Added

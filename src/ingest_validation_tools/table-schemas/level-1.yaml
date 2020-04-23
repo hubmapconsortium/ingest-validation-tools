@@ -19,8 +19,6 @@ fields:
   -
     name: protocols_io_doi
     description: DOI for protocols.io referring to the protocol for this assay.
-    constraints:
-      required: False
   -
     name: operator
     description: Name of the person responsible for executing the assay.
