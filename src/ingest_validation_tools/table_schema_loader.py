@@ -19,7 +19,26 @@ def get_schema(type, optional_fields=[]):
     type_schema = _get_sub_schema(table_type)
     type_fields = type_schema['fields']
 
-    fields = level_1_fields + type_fields + paths_fields
+    level_1_field_names = {field['name'] for field in level_1_fields}
+    type_field_names = {field['name'] for field in type_fields}
+    override_field_names = set.intersection(
+        level_1_field_names, type_field_names)
+
+    level_1_fields_plus_overrides = [
+        # TODO: Actually override!
+        (field if field['name'] in override_field_names else field)
+        for field in level_1_fields
+    ]
+    type_fields_minus_overrides = [
+        field for field in type_fields
+        if field['name'] not in override_field_names
+    ]
+
+    fields = (
+        level_1_fields_plus_overrides
+        + type_fields_minus_overrides
+        + paths_fields
+    )
     for field in fields:
         _add_constraints(field, optional_fields)
     return {
@@ -34,7 +53,8 @@ def _get_sub_schema(type):
 
 def _add_constraints(field, optional_fields):
     '''
-    Modifies field in-place
+    Modifies field in-place, adding implicit constraints
+    based on the field name.
 
     >>> from pprint import pprint
     >>> field = {'name': 'abc_percent'}
