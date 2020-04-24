@@ -34,6 +34,7 @@ usage: validate_submission.py [-h]
                               [--local_directory PATH | --globus_url URL | --globus_origin_directory ORIGIN_PATH]
                               [--type_metadata TYPE_PATH [TYPE_PATH ...]]
                               [--optional_fields FIELD [FIELD ...]]
+                              [--ignore_files FILE [FILE ...]]
                               [--output {as_html_document,as_html_fragment,as_text,as_yaml}]
                               [--add_notes]
 
@@ -55,6 +56,9 @@ optional arguments:
   --optional_fields FIELD [FIELD ...]
                         The listed fields will be treated as optional. (But if
                         they are supplied in the TSV, they will be validated.)
+  --ignore_files FILE [FILE ...]
+                        Files with these names at the top level of the
+                        submission will be ignored.
   --output {as_html_document,as_html_fragment,as_text,as_yaml}
   --add_notes           Append a context note to error reports.
 

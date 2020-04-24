@@ -66,6 +66,16 @@ Typical usecases:
         '(But if they are supplied in the TSV, they will be validated.)'
     )
 
+    # Dot-files are ignored by default.
+    # This lets other files also be ignored.
+
+    parser.add_argument(
+        '--ignore_files', nargs='+',
+        metavar='FILE',
+        help='Files with these names at the top level of the submission '
+        'will be ignored.'
+    )
+
     # How should output be formatted?
 
     error_report_methods = [
@@ -90,12 +100,13 @@ parser = make_parser()
 def parse_args():
     args = parser.parse_args()
     if not any([
+        args.type_metadata,
         args.local_directory,
         args.globus_url,
-        args.globus_origin_directory,
-        args.type_metadata
+        args.globus_origin_directory
     ]):
-        raise ShowUsageException('At least one argument is required')
+        raise ShowUsageException(
+            'Either local file, local directory, or Globus is required')
 
     return args
 
@@ -121,6 +132,10 @@ def main():
         submission_args['override_tsv_paths'] = {
             pair['type']: pair['path'] for pair in args.type_metadata
         }
+
+    if args.ignore_files:
+        submission_args['ignore_files'] = args.ignore_files
+
     submission = Submission(**submission_args)
     errors = submission.get_errors()
     report = ErrorReport(errors)
