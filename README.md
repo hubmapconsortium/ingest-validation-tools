@@ -51,8 +51,8 @@ optional arguments:
                         A Globus submission directory to validate; Should have
                         the form "<globus_origin_id>:<globus_path>".
   --type_metadata TYPE_PATH [TYPE_PATH ...]
-                        A list of type / metadata.tsv pairs of the form
-                        "<atacseq|codex|seqfish>:<local_path_to_tsv>".
+                        A list of type / metadata.tsv pairs of the form "<atac
+                        seq|codex|scrnaseq|seqfish>:<local_path_to_tsv>".
   --optional_fields FIELD [FIELD ...]
                         The listed fields will be treated as optional. (But if
                         they are supplied in the TSV, they will be validated.)
@@ -87,10 +87,10 @@ After making tweaks to the schema, you can regenerate the docs:
 
 ```
 $ src/generate_docs.py -h
-usage: generate_docs.py [-h] {atacseq,codex,seqfish} target
+usage: generate_docs.py [-h] {atacseq,codex,scrnaseq,seqfish} target
 
 positional arguments:
-  {atacseq,codex,seqfish}
+  {atacseq,codex,scrnaseq,seqfish}
                         What type to generate
   target                Directory to write output to
 

@@ -1,0 +1,93 @@
+doc_url: TODO
+fields:
+  # Overrides of Level 1 fields:
+  -
+    name: assay_category
+    constraints:
+      enum:
+        - sequence
+  -
+    name: assay_type
+    constraints:
+      enum:
+        - scRNA-Seq (10xGenomics)
+  -
+    name: analyte_class
+    constraints:
+      enum:
+        - RNA
+
+  # Level 2 fields:
+  -
+    heading: Level 2
+    name: acquisition_instrument_vendor
+    description: An acquisition_instrument is the device that contains the signal detection hardware and signal processing software. Assays can generate signals such as light of various intensities or color or signals representing molecular mass.
+  -
+    name: acquisition_instrument_model
+    description: Manufacturers of an acquisition instrument may offer various versions (models) of that instrument with different features or sensitivities. Differences in features or sensitivities may be relevant to processing or interpretation of the data.
+  -
+    name: sc_isolation_protocols_io_doi
+    description: "Link to a protocols document answering the question: How were single cells separated into a single-cell suspension?"
+  -
+    name: sc_isolation_entity
+    description: The type of single cell entity derived from isolation protocol
+  -
+    name: sc_isolation_tissue_dissociation
+    description: The method by which tissues are dissociated into single cells in suspension.
+  -
+    name: sc_isolation_enrichment
+    description: The method by which specific cell populations are sorted or enriched.
+  -
+    name: sc_isolation_quality_metric
+    description: A quality metric by visual inspection prior to cell lysis or defined by known parameters such as wells with several cells or no cells. This can be captured at a high level.
+  -
+    name: sc_isolation_cell_number
+    description: Total number of cell/nuclei yielded post dissociation and enrichment
+  -
+    name: rnaseq_assay_input
+    description: Number of cell/nuclei input to the assay
+  -
+    name: rnaseq_assay_method
+    description: TODO
+  -
+    name: library_construction_protocols_io_doi
+    description: A link to the protocol document containing the library construction method (including version) that was used, e.g. "Smart-Seq2", "Drop-Seq", "10X v3".
+  -
+    name: library_layout
+    description: Whether the library was generated for single-end or paired end sequencing
+  -
+    name: library_adapter_sequence
+    description: Adapter sequence to be used for adapter trimming
+  -
+    name: cell_barcode_read
+    description: Which read file contains the cell barcode
+  -
+    name: cell_barcode_offset
+    description: Position(s) in the read at which the cell barcode starts.
+  -
+    name: cell_barcode_size
+    description: Length of the cell barcode in base pairs
+  -
+    name: library_pcr_cycles
+    description: Number of PCR cycles to amplify cDNA
+  -
+    name: library_pcr_cycles_for_sample_index
+    description: Number of PCR cycles performed for library indexing
+  -
+    name: library_final_yield
+    description: Total number of ng of library after final pcr amplification step
+  -
+    name: library_average_fragment_size
+    description: Average size of sequencing library fragments estimated via gel electrophoresis or bioanalyzer/tapestation.
+  -
+    name: sequencing_reagent_kit
+    description: Reagent kit used for sequencing
+  -
+    name: sequencing_read_format
+    description: Number of sequencing cycles in Read1, i7 index, i5 index, and Read2
+  -
+    name: sequencing_read_percent_q30
+    description: Percent of bases with Quality scores above Q30
+  -
+    name: sequencing_phix_percent
+    description: Percent PhiX loaded to the ru
