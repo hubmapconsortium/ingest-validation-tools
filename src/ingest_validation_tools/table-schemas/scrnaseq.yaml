@@ -21,11 +21,13 @@ fields:
   -
     heading: Level 2
     name: acquisition_instrument_vendor
+    description: An acquisition_instrument is the device that contains the signal detection hardware and signal processing software. Assays can generate signals such as light of various intensities or color or signals representing molecular mass.
   -
     name: acquisition_instrument_model
+    description: Manufacturers of an acquisition instrument may offer various versions (models) of that instrument with different features or sensitivities. Differences in features or sensitivities may be relevant to processing or interpretation of the data.
   -
     name: sc_isolation_protocols_io_doi
-    description: Link to a protocols document answering the question: How were single cells separated into a single-cell suspension
+    description: "Link to a protocols document answering the question: How were single cells separated into a single-cell suspension?"
   -
     name: sc_isolation_entity
     description: The type of single cell entity derived from isolation protocol
@@ -46,6 +48,7 @@ fields:
     description: Number of cell/nuclei input to the assay
   -
     name: rnaseq_assay_method
+    description: TODO
   -
     name: library_construction_protocols_io_doi
     description: A link to the protocol document containing the library construction method (including version) that was used, e.g. "Smart-Seq2", "Drop-Seq", "10X v3".
