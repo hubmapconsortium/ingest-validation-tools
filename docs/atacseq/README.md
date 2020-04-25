@@ -144,7 +144,7 @@ The specific type of assay being executed.
 
 | constraint | value |
 | --- | --- |
-| enum | `SNARE-seq2`,'scATACseq','sciATACseq' or 'snATACseq'|
+| enum | `SNARE-seq2`, `scATACseq`, `sciATACseq`, or `snATACseq` |
 | required | `True` |
 
 ### `analyte_class`
