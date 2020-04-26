@@ -35,7 +35,7 @@ usage: validate_submission.py [-h]
                               [--type_metadata TYPE_PATH [TYPE_PATH ...]]
                               [--optional_fields FIELD [FIELD ...]]
                               [--ignore_files FILE [FILE ...]]
-                              [--output {as_browser,as_html_document,as_md,as_text,as_yaml}]
+                              [--output {as_browser,as_html,as_md,as_text,as_yaml}]
                               [--add_notes]
 
 Validate a HuBMAP submission, both the metadata TSVs, and the datasets,
@@ -59,7 +59,7 @@ optional arguments:
   --ignore_files FILE [FILE ...]
                         Files with these names at the top level of the
                         submission will be ignored.
-  --output {as_browser,as_html_document,as_md,as_text,as_yaml}
+  --output {as_browser,as_html,as_md,as_text,as_yaml}
   --add_notes           Append a context note to error reports.
 
 Typical usecases:
