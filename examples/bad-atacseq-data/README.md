@@ -1,4 +1,4 @@
-<pre>
+```
 Metadata TSV Errors:
   examples/bad-atacseq-data/submission/atacseq-metadata.tsv (as atacseq):
     Internal:
@@ -13,4 +13,4 @@ Metadata TSV Errors:
         - file
       - This string: unexpected-directory
         doesn't match this pattern: \.fastq(\.gz)?$
-</pre>
+```

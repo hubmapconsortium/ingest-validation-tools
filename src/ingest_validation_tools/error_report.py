@@ -24,7 +24,7 @@ class ErrorReport:
             return self.as_yaml()
 
     def as_md(self):
-        return f'<pre>\n{self.as_text()}</pre>'
+        return f'```\n{self.as_text()}```'
 
     def as_html(self):
         escaped = escape(self.as_text())
