@@ -1,4 +1,4 @@
-<pre>
+```
 Metadata TSV Errors:
   examples/bad-codex-data/submission/codex-akoya-metadata.tsv (as codex-akoya):
     External:
@@ -16,4 +16,4 @@ Metadata TSV Errors:
               - exposure_times.txt
               - channelnames.txt
               - segmentation.json
-</pre>
+```

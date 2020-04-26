@@ -1,3 +1,3 @@
-<pre>
+```
 No errors!
-</pre>
+```

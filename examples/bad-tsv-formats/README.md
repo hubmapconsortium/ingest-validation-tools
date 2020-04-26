@@ -1,4 +1,4 @@
-<pre>
+```
 Metadata TSV Errors:
   examples/bad-tsv-formats/submission/codex-akoya-metadata.tsv (as codex-akoya):
     Internal:
@@ -48,4 +48,4 @@ Metadata TSV Errors:
       constraint of "10\.17504/.*"
     - The value "not-doi" in row 2 and column 27 ("AA") does not conform to the pattern
       constraint of "10\.17504/.*"
-</pre>
+```

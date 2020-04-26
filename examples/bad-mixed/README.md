@@ -1,4 +1,4 @@
-<pre>
+```
 Metadata TSV Errors:
   examples/bad-mixed/submission/atacseq-metadata.tsv (as atacseq):
     Internal:
@@ -41,4 +41,4 @@ Reference Errors:
     bad-shared-dataset:
     - examples/bad-mixed/submission/atacseq-metadata.tsv (row 2)
     - examples/bad-mixed/submission/codex-akoya-metadata.tsv (row 2)
-</pre>
+```
