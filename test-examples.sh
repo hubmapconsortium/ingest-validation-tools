@@ -10,7 +10,7 @@ for EXAMPLE in examples/*; do
   CMD="src/validate_submission.py \
 --local_directory $EXAMPLE/submission \
 --ignore_files ignore-me.tsv \
---output as_html_fragment"
+--output as_md"
   README="$EXAMPLE/README.md"
   diff $README <( $CMD ) \
     || die "Update example: $CMD > $README"

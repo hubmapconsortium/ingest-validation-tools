@@ -23,19 +23,20 @@ class ErrorReport:
         else:
             return self.as_yaml()
 
-    def as_html_fragment(self):
-        return f'<pre>\n{escape(self.as_text())}</pre>'
+    def as_md(self):
+        return f'<pre>\n{self.as_text()}</pre>'
 
-    def as_html_document(self):
-        return f'<html><body>{self.as_html_fragment()}</body></html>'
+    def as_html(self):
+        escaped = escape(self.as_text())
+        return f'<html><body><pre>{escaped}</pre></body></html>'
 
     def as_browser(self):
         if not self.errors:
             return self.as_text()
-        html = self.as_html_document()
+        html = self.as_html()
         filename = f"{str(datetime.now()).replace(' ', '_')}.html"
         path = Path(__file__).parent / 'error-reports' / filename
-        path.write_text(html);
+        path.write_text(html)
         url = f'file://{path.resolve()}'
         open_new_tab(url)
         return f'See {url}'
