@@ -8,6 +8,7 @@
 - Add `--ignore_files` to ignore particular top-level files.
 - Ignore dot-files. No command-line option to enable stricter validation, for now.
 - Add scrnaseq.
+- Open error report in browser.
 ### Changed
 - Make the ATACseq validation more flexible.
 - Less confusing representation of enums in docs.

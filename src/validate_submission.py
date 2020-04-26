@@ -83,7 +83,7 @@ Typical usecases:
         if name.startswith('as_')
     ]
     parser.add_argument('--output', choices=error_report_methods,
-                        default='as_text')
+                        default='as_browser')
 
     parser.add_argument('--add_notes', action='store_true',
                         help='Append a context note to error reports.')

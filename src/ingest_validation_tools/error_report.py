@@ -1,4 +1,8 @@
+from datetime import datetime
 from yaml import Dumper, dump
+from webbrowser import open_new_tab
+from pathlib import Path
+
 
 # Force dump not to use alias syntax.
 # https://stackoverflow.com/questions/13518819/avoid-references-in-pyyaml
@@ -23,3 +27,14 @@ class ErrorReport:
 
     def as_html_document(self):
         return f'<html><body>{self.as_html_fragment()}</body></html>'
+
+    def as_browser(self):
+        if not self.errors:
+            return self.as_text()
+        html = self.as_html_document()
+        filename = f"{str(datetime.now()).replace(' ', '_')}.html"
+        path = Path(__file__).parent / 'error-reports' / filename
+        path.write_text(html);
+        url = f'file://{path.resolve()}'
+        open_new_tab(url)
+        return f'See {url}'
