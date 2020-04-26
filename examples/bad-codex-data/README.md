@@ -14,5 +14,6 @@ Metadata TSV Errors:
               enum:
               - experiment.json
               - exposure_times.txt
-              - channelNames.txt
+              - channelnames.txt
+              - segmentation.json
 </pre>

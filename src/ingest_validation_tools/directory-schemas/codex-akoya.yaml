@@ -13,7 +13,8 @@ items:
           enum:
             - experiment.json
             - exposure_times.txt
-            - channelNames.txt
+            - channelnames.txt
+            - segmentation.json
 
 contains:
   properties:
@@ -28,6 +29,10 @@ contains:
       name:
         enum:
           - channelNames.txt
+  properties:
+      name:
+        enum:
+          - segmentation.json
 
 definitions:
   subdirectory:
@@ -41,4 +46,4 @@ definitions:
         items:
           properties:
             name:
-              pattern: '^\d+_\d+_Z\d+_CH\d+$'
+              pattern: '^\d+_\d+_Z\d+_CH\d+\.tif|\d+\.gci$'

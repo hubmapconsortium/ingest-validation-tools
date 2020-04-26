@@ -14,6 +14,7 @@
 - Allow lower level schemas to override aspects of the Level 1 schema.
 - Make DOIs required again: Fields to consider optional can be set on commandline.
 - Add more options to atacseq enum.
+- Update CODEX directory schema to match what is actually delivered.
 
 ## [v0.0.1](https://github.com/hubmapconsortium/ingest-validation-tools/tree/v0.0.1) - 2020-04-13
 ### Added
