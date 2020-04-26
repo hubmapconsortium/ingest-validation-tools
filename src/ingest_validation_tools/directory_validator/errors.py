@@ -49,7 +49,7 @@ def _validation_error_to_object(error):
 
 
 def _to_names(dir_as_list):
-    return {
-        item['name']: (item['contents'] if 'contents' in item else [])
+    return [
+        item['name']
         for item in dir_as_list
-    }
+    ]

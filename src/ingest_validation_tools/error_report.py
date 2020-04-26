@@ -1,4 +1,8 @@
-from yaml import dump
+from yaml import Dumper, dump
+
+# Force dump not to use alias syntax.
+# https://stackoverflow.com/questions/13518819/avoid-references-in-pyyaml
+Dumper.ignore_aliases = lambda *args: True
 
 
 class ErrorReport:

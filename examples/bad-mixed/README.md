@@ -27,14 +27,15 @@ Metadata TSV Errors:
               enum:
               - experiment.json
               - exposure_times.txt
-              - channelNames.txt
+              - channelnames.txt
+              - segmentation.json
       - This directory:
-          not-good-for-either-type.txt: []
+        - not-good-for-either-type.txt
         should contain:
           properties:
             name:
               enum:
-              - channelNames.txt
+              - segmentation.json
 Reference Errors:
   Multiple References:
     bad-shared-dataset:
