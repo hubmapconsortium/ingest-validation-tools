@@ -2,6 +2,7 @@ from datetime import datetime
 from yaml import Dumper, dump
 from webbrowser import open_new_tab
 from pathlib import Path
+from html import escape
 
 
 # Force dump not to use alias syntax.
@@ -23,7 +24,7 @@ class ErrorReport:
             return self.as_yaml()
 
     def as_html_fragment(self):
-        return f'<pre>\n{self.as_text()}</pre>'
+        return f'<pre>\n{escape(self.as_text())}</pre>'
 
     def as_html_document(self):
         return f'<html><body>{self.as_html_fragment()}</body></html>'
