@@ -139,7 +139,7 @@ The specific type of assay being executed.
 
 | constraint | value |
 | --- | --- |
-| enum | `scRNA-Seq (10xGenomics)` |
+| enum | `scRNA-Seq (10xGenomics)`.'scRNAseq','SNARE-seq2',OR 'sciRNAseq'|
 | required | `True` |
 
 ### `analyte_class`
