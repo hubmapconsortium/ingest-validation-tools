@@ -25,14 +25,7 @@ start generate
 end generate
 
 start cli-docs
-for TOOL in validate_submission.py generate_docs.py; do
-  echo "Testing $TOOL docs..."
-  [ -e src/$TOOL ] || die "src/$TOOL does not exist."
-  diff \
-        <(perl -ne 'print if /usage: '$TOOL'/../```/ and ! /```/' README.md) \
-        <(src/$TOOL -h) \
-      || die "Update README.md: src/$TOOL -h"
-done
+./test-cli-docs.sh
 end cli-docs
 
 start test-cli

@@ -1,9 +1,9 @@
-# scrnaseq
+# lcms
 
 Related files:
 - [🔬 Background doc](TODO): More details about this type.
-- [📝 TSV template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/master/docs/scrnaseq/template.tsv): Use this to submit metadata.
-- [💻 Source code](https://github.com/hubmapconsortium/ingest-validation-tools/edit/master/src/ingest_validation_tools/table-schemas/scrnaseq.yaml): Make a PR if this doc should be updated.
+- [📝 TSV template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/master/docs/lcms/template.tsv): Use this to submit metadata.
+- [💻 Source code](https://github.com/hubmapconsortium/ingest-validation-tools/edit/master/src/ingest_validation_tools/table-schemas/lcms.yaml): Make a PR if this doc should be updated.
 
 ## Table of contents
 <details><summary>Provenance</summary>
@@ -24,36 +24,29 @@ Related files:
 [`assay_type`](#assay_type)<br>
 [`analyte_class`](#analyte_class)<br>
 [`is_targeted`](#is_targeted)<br>
-</details>
-
-<details><summary>Level 2</summary>
-
 [`acquisition_instrument_vendor`](#acquisition_instrument_vendor)<br>
 [`acquisition_instrument_model`](#acquisition_instrument_model)<br>
-[`sc_isolation_protocols_io_doi`](#sc_isolation_protocols_io_doi)<br>
-[`sc_isolation_entity`](#sc_isolation_entity)<br>
-[`sc_isolation_tissue_dissociation`](#sc_isolation_tissue_dissociation)<br>
-[`sc_isolation_enrichment`](#sc_isolation_enrichment)<br>
-[`sc_isolation_quality_metric`](#sc_isolation_quality_metric)<br>
-[`sc_isolation_cell_number`](#sc_isolation_cell_number)<br>
-[`rnaseq_assay_input`](#rnaseq_assay_input)<br>
-[`rnaseq_assay_method`](#rnaseq_assay_method)<br>
-[`library_construction_protocols_io_doi`](#library_construction_protocols_io_doi)<br>
-[`library_layout`](#library_layout)<br>
-[`library_adapter_sequence`](#library_adapter_sequence)<br>
-[`library_id`](#library_id)<br>
-[`is_technical_replicate`](#is_technical_replicate)<br>
-[`cell_barcode_read`](#cell_barcode_read)<br>
-[`cell_barcode_offset`](#cell_barcode_offset)<br>
-[`cell_barcode_size`](#cell_barcode_size)<br>
-[`library_pcr_cycles`](#library_pcr_cycles)<br>
-[`library_pcr_cycles_for_sample_index`](#library_pcr_cycles_for_sample_index)<br>
-[`library_final_yield`](#library_final_yield)<br>
-[`library_average_fragment_size`](#library_average_fragment_size)<br>
-[`sequencing_reagent_kit`](#sequencing_reagent_kit)<br>
-[`sequencing_read_format`](#sequencing_read_format)<br>
-[`sequencing_read_percent_q30`](#sequencing_read_percent_q30)<br>
-[`sequencing_phix_percent`](#sequencing_phix_percent)<br>
+[`ms_source`](#ms_source)<br>
+[`polarity`](#polarity)<br>
+[`mass_range_low_value`](#mass_range_low_value)<br>
+[`mass_range_high_value`](#mass_range_high_value)<br>
+[`mass_range_unit`](#mass_range_unit)<br>
+[`data_collection_mode`](#data_collection_mode)<br>
+[`ms_scan_mode`](#ms_scan_mode)<br>
+[`labeling`](#labeling)<br>
+[`section_prep_protocols_io_doi`](#section_prep_protocols_io_doi)<br>
+[`lc_instrument_vendor`](#lc_instrument_vendor)<br>
+[`lc_instrument_model`](#lc_instrument_model)<br>
+[`lc_column_vendor`](#lc_column_vendor)<br>
+[`lc_column_model`](#lc_column_model)<br>
+[`lc_resin`](#lc_resin)<br>
+[`lc_length_value`](#lc_length_value)<br>
+[`lc_length_unit`](#lc_length_unit)<br>
+[`lc_temp_value`](#lc_temp_value)<br>
+[`lc_temp_unit`](#lc_temp_unit)<br>
+[`lc_id_value`](#lc_id_value)<br>
+[`lc_id_unit`](#lc_id_unit)<br>
+[`lc_flow_rate`](#lc_flow_rate)<br>
 </details>
 
 <details><summary>Paths</summary>
@@ -133,7 +126,7 @@ Each assay is placed into one of the following 3 general categories: generation 
 
 | constraint | value |
 | --- | --- |
-| enum | `sequence` |
+| enum | `imaging`, `mass_spectrometry`, or `sequence` |
 | required | `True` |
 
 ### `assay_type`
@@ -141,7 +134,7 @@ The specific type of assay being executed.
 
 | constraint | value |
 | --- | --- |
-| enum | `scRNA-Seq (10xGenomics)`, `scRNAseq`, `sciRNAseq`, `snRNAseq`, or `SNARE2-RNAseq` |
+| enum | `scRNA-Seq (10xGenomics)`, `AF`, `bulk RNA`, `bulkATACseq`, `CODEX`, `Imaging Mass Cytometry`, `LC-MS (metabolomics)`, `LC-MS/MS (label-free proteomics)`, `MxIF`, `IMS positive`, `IMS negative`, `MS (shotgun lipidomics)`, `PAS microscopy`, `scATACseq`, `sciATACseq`, `sciRNAseq`, `seqFISH`, `SNARE-seq2`, `snATACseq`, `snRNA`, `SPLiT-Seq`, `TMT (proteomics)`, or `WGS` |
 | required | `True` |
 
 ### `analyte_class`
@@ -149,7 +142,7 @@ Analytes are the target molecules being measured with the assay.
 
 | constraint | value |
 | --- | --- |
-| enum | `RNA` |
+| enum | `DNA`, `RNA`, `protein`, `lipids`, or `metabolites` |
 | required | `True` |
 
 ### `is_targeted`
@@ -160,198 +153,172 @@ Specifies whether or not a specific molecule(s) is/are targeted for detection/me
 | type | `boolean` |
 | required | `True` |
 
-## Level 2
-
 ### `acquisition_instrument_vendor`
-An acquisition_instrument is the device that contains the signal detection hardware and signal processing software. Assays can generate signals such as light of various intensities or color or signals representing molecular mass.
+An acquisition instrument is the device that contains the signal detection hardware and signal processing software. Assays generate signals such as light of various intensities or color or signals representing the molecular mass.
 
 | constraint | value |
 | --- | --- |
 | required | `True` |
 
 ### `acquisition_instrument_model`
-Manufacturers of an acquisition instrument may offer various versions (models) of that instrument with different features or sensitivities. Differences in features or sensitivities may be relevant to processing or interpretation of the data.
+(version) Manufacturers of an acquisition instrument may offer various versions (models) of that instrument with different features or sensitivities. Differences in features of sensitivities may be relevant to processing or interpretation of the data.
 
 | constraint | value |
 | --- | --- |
 | required | `True` |
 
-### `sc_isolation_protocols_io_doi`
-Link to a protocols document answering the question: How were single cells separated into a single-cell suspension?
+### `ms_source`
+The ion source type used for surface sampling (MALDI, MALDI-2, DESI, or SIMS) or LC-MS/MS data acquisition (nESI)
+
+| constraint | value |
+| --- | --- |
+| required | `True` |
+
+### `polarity`
+The polarity of the mass analysis (positive or negative ion modes)
+
+| constraint | value |
+| --- | --- |
+| required | `True` |
+
+### `mass_range_low_value`
+The low value of the scanned mass range for MS1.
+
+| constraint | value |
+| --- | --- |
+| type | `number` |
+| required | `True` |
+
+### `mass_range_high_value`
+The high value of the scanned mass range for MS1.
+
+| constraint | value |
+| --- | --- |
+| type | `number` |
+| required | `True` |
+
+### `mass_range_unit`
+The measurement unit of the scanned mass range.
+
+| constraint | value |
+| --- | --- |
+| required | `True` |
+
+### `data_collection_mode`
+Mode of data collection in tandem MS assays. Either DDA (Data-dependent acquisition) or DIA (Data-indemendent acquisition.
+
+| constraint | value |
+| --- | --- |
+| required | `True` |
+
+### `ms_scan_mode`
+Indicates whether experiment is MS, MS/MS, or other (possibly MS3 for TMT)
+
+| constraint | value |
+| --- | --- |
+| required | `True` |
+
+### `labeling`
+Indicates whether samples were labeled prior to MS analysis (e.g., TMT)
+
+| constraint | value |
+| --- | --- |
+| required | `True` |
+
+### `section_prep_protocols_io_doi`
+Sample preparation methods.
 
 | constraint | value |
 | --- | --- |
 | required | `True` |
 | pattern | `10\.17504/.*` |
 
-### `sc_isolation_entity`
-The type of single cell entity derived from isolation protocol
+### `lc_instrument_vendor`
+The manufacturer of the instrument used for LC
 
 | constraint | value |
 | --- | --- |
 | required | `True` |
 
-### `sc_isolation_tissue_dissociation`
-The method by which tissues are dissociated into single cells in suspension.
+### `lc_instrument_model`
+The model number/name of the instrument used for LC
 
 | constraint | value |
 | --- | --- |
 | required | `True` |
 
-### `sc_isolation_enrichment`
-The method by which specific cell populations are sorted or enriched.
+### `lc_column_vendor`
+OPTIONAL: The manufacturer of the LC Column unless self-packed, pulled tip capilary is used
 
 | constraint | value |
 | --- | --- |
 | required | `True` |
 
-### `sc_isolation_quality_metric`
-A quality metric by visual inspection prior to cell lysis or defined by known parameters such as wells with several cells or no cells. This can be captured at a high level.
+### `lc_column_model`
+The model number/name of the LC Column - IF custom self-packed, pulled tip calillary is used enter "Pulled tip capilary"
 
 | constraint | value |
 | --- | --- |
 | required | `True` |
 
-### `sc_isolation_cell_number`
-Total number of cell/nuclei yielded post dissociation and enrichment
+### `lc_resin`
+Details of the resin used for lc, including vendor, particle size, pore size
 
 | constraint | value |
 | --- | --- |
 | required | `True` |
 
-### `rnaseq_assay_input`
-Number of cell/nuclei input to the assay
-
-| constraint | value |
-| --- | --- |
-| required | `True` |
-
-### `rnaseq_assay_method`
-TODO
-
-| constraint | value |
-| --- | --- |
-| required | `True` |
-
-### `library_construction_protocols_io_doi`
-A link to the protocol document containing the library construction method (including version) that was used, e.g. "Smart-Seq2", "Drop-Seq", "10X v3".
-
-| constraint | value |
-| --- | --- |
-| required | `True` |
-| pattern | `10\.17504/.*` |
-
-### `library_layout`
-Whether the library was generated for single-end or paired end sequencing
-
-| constraint | value |
-| --- | --- |
-| required | `True` |
-
-### `library_adapter_sequence`
-Adapter sequence to be used for adapter trimming
-
-| constraint | value |
-| --- | --- |
-| required | `True` |
-
-### `library_id`
-TODO
-
-| constraint | value |
-| --- | --- |
-| required | `True` |
-
-### `is_technical_replicate`
-TODO
-
-| constraint | value |
-| --- | --- |
-| type | `boolean` |
-| required | `True` |
-
-### `cell_barcode_read`
-Which read file contains the cell barcode
-
-| constraint | value |
-| --- | --- |
-| required | `True` |
-
-### `cell_barcode_offset`
-Position(s) in the read at which the cell barcode starts.
-
-| constraint | value |
-| --- | --- |
-| required | `True` |
-
-### `cell_barcode_size`
-Length of the cell barcode in base pairs
-
-| constraint | value |
-| --- | --- |
-| required | `True` |
-
-### `library_pcr_cycles`
-Number of PCR cycles to amplify cDNA
-
-| constraint | value |
-| --- | --- |
-| required | `True` |
-
-### `library_pcr_cycles_for_sample_index`
-Number of PCR cycles performed for library indexing
-
-| constraint | value |
-| --- | --- |
-| required | `True` |
-
-### `library_final_yield`
-Total number of ng of library after final pcr amplification step
-
-| constraint | value |
-| --- | --- |
-| required | `True` |
-
-### `library_average_fragment_size`
-Average size of sequencing library fragments estimated via gel electrophoresis or bioanalyzer/tapestation.
-
-| constraint | value |
-| --- | --- |
-| required | `True` |
-
-### `sequencing_reagent_kit`
-Reagent kit used for sequencing
-
-| constraint | value |
-| --- | --- |
-| required | `True` |
-
-### `sequencing_read_format`
-Number of sequencing cycles in Read1, i7 index, i5 index, and Read2
-
-| constraint | value |
-| --- | --- |
-| required | `True` |
-
-### `sequencing_read_percent_q30`
-Percent of bases with Quality scores above Q30
+### `lc_length_value`
+LC column length
 
 | constraint | value |
 | --- | --- |
 | type | `number` |
 | required | `True` |
-| minimum | `0` |
-| maximum | `100` |
 
-### `sequencing_phix_percent`
-Percent PhiX loaded to the ru
+### `lc_length_unit`
+units for LC column length (typically cm)
+
+| constraint | value |
+| --- | --- |
+| required | `True` |
+
+### `lc_temp_value`
+LC temperature
 
 | constraint | value |
 | --- | --- |
 | type | `number` |
 | required | `True` |
-| minimum | `0` |
-| maximum | `100` |
+
+### `lc_temp_unit`
+units for LC temperature
+
+| constraint | value |
+| --- | --- |
+| required | `True` |
+
+### `lc_id_value`
+LC column inner diameter (microns)
+
+| constraint | value |
+| --- | --- |
+| type | `number` |
+| required | `True` |
+
+### `lc_id_unit`
+units of LC column inner diameter (typically microns)
+
+| constraint | value |
+| --- | --- |
+| required | `True` |
+
+### `lc_flow_rate`
+LC flow rate
+
+| constraint | value |
+| --- | --- |
+| required | `True` |
 
 ## Paths
 

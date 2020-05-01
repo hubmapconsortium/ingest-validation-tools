@@ -1,0 +1,37 @@
+doc_url: TODO
+fields:
+  # Overrides of Level 1 fields:
+
+  # TODO
+
+  # Level 2 fields:
+  -
+    name: acquisition_instrument_vendor
+    description: TODO
+  -
+    name: acquisition_instrument_model
+    description: TODO
+  -
+    name: resolution_x_value
+    description: TODO
+  -
+    name: resolution_x_unit
+    description: TODO
+  -
+    name: resolution_y_value
+    description: TODO
+  -
+    name: resolution_y_unit
+    description: TODO
+  -
+    name: resolution_z_value
+    description: TODO
+  -
+    name: resolution_z_unit
+    description: TODO
+  -
+    name: number_of_channels
+    description: TODO
+  -
+    name: overall_protocols_io_doi
+    description: TODO
