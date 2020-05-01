@@ -15,7 +15,7 @@ def _get_directory_type_from_path(path):
 
 
 def _get_tsv_rows(path):
-    with open(path, encoding='ascii') as f:
+    with open(path, encoding='latin-1') as f:
         rows = list(DictReader(f, dialect='excel-tab'))
     return rows
 
