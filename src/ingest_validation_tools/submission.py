@@ -14,6 +14,12 @@ def _get_directory_type_from_path(path):
     return re.match(r'(.*)-metadata\.tsv$', Path(path).name)[1]
 
 
+def _get_tsv_rows(path):
+    with open(path, encoding='ascii') as f:
+        rows = list(DictReader(f, dialect='excel-tab'))
+    return rows
+
+
 class Submission:
     def __init__(self, directory_path=None, override_tsv_paths={},
                  optional_fields=[], add_notes=True, ignore_files=[]):
@@ -80,17 +86,16 @@ class Submission:
 
     def _get_single_tsv_external_errors(self, type, path):
         errors = {}
-        with open(path) as f:
-            rows = list(DictReader(f, dialect='excel-tab'))
-            if not rows:
-                errors['Warning'] = f'File has no data rows.'
-            if self.directory_path:
-                for i, row in enumerate(rows):
-                    full_data_path = self.directory_path / row['data_path']
-                    data_dir_errors = self._get_data_dir_errors(
-                        type, full_data_path)
-                    if data_dir_errors:
-                        errors[f'{path.name} (row {i+2})'] = data_dir_errors
+        rows = _get_tsv_rows(path)
+        if not rows:
+            errors['Warning'] = f'File has no data rows.'
+        if self.directory_path:
+            for i, row in enumerate(rows):
+                full_data_path = self.directory_path / row['data_path']
+                data_dir_errors = self._get_data_dir_errors(
+                    type, full_data_path)
+                if data_dir_errors:
+                    errors[f'{path.name} (row {i+2})'] = data_dir_errors
         return errors
 
     def _get_data_dir_errors(self, type, path):
@@ -129,8 +134,7 @@ class Submission:
         # TODO: Move this to __init__
         data_references = defaultdict(list)
         for tsv_path in self.effective_tsv_paths.values():
-            with open(tsv_path) as f:
-                for i, row in enumerate(DictReader(f, dialect='excel-tab')):
-                    reference = f'{tsv_path} (row {i+2})'
-                    data_references[row['data_path']].append(reference)
+            for i, row in enumerate(_get_tsv_rows(tsv_path)):
+                reference = f'{tsv_path} (row {i+2})'
+                data_references[row['data_path']].append(reference)
         return data_references
