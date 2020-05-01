@@ -29,9 +29,9 @@ for TOOL in validate_submission.py generate_docs.py; do
   echo "Testing $TOOL docs..."
   [ -e src/$TOOL ] || die "src/$TOOL does not exist."
   diff \
-        <(perl -ne 'print if /usage: '$TOOL'/../```/ and ! /```/' README.md) \
+        <(perl -ne 'print if /usage: '$TOOL'/../```/ and ! /```/' README-$TOOL.md) \
         <(src/$TOOL -h) \
-      || die "Update README.md: src/$TOOL -h"
+      || die 'Update: (echo '"'"'```'"'"'; src/'$TOOL' -h; echo '"'"'```'"'"') >' README-$TOOL.md
 done
 end cli-docs
 
