@@ -21,8 +21,8 @@ optional arguments:
                         the form "<globus_origin_id>:<globus_path>".
   --type_metadata TYPE_PATH [TYPE_PATH ...]
                         A list of type / metadata.tsv pairs of the form "<af|a
-                        tacseq|codex|maldiims|scrnaseq|seqfish>:<local_path_to
-                        _tsv>".
+                        tacseq|codex|maldiims|scrnaseq|seqfish|stained>:<local
+                        _path_to_tsv>".
   --optional_fields FIELD [FIELD ...]
                         The listed fields will be treated as optional. (But if
                         they are supplied in the TSV, they will be validated.)
