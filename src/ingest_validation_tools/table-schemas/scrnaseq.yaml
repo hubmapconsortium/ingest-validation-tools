@@ -10,7 +10,11 @@ fields:
     name: assay_type
     constraints:
       enum:
-        - scRNA-Seq (10xGenomics), scRNAseq, sciRNAseq, snRNAseq, SNARE2-RNAseq
+        - scRNA-Seq (10xGenomics)
+        - scRNAseq
+        - sciRNAseq
+        - snRNAseq
+        - SNARE2-RNAseq
   -
     name: analyte_class
     constraints:
