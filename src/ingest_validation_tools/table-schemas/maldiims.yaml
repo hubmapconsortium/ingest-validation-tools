@@ -12,7 +12,10 @@ fields:
     name: acquisition_instrument_model
     description: TODO
   -
-    name: ms_source	polarity
+    name: ms_source
+    description: TODO
+  -
+    name: polarity
     description: TODO
   -
     name: mass_range_low_value
