@@ -41,6 +41,8 @@ Related files:
 [`library_construction_protocols_io_doi`](#library_construction_protocols_io_doi)<br>
 [`library_layout`](#library_layout)<br>
 [`library_adapter_sequence`](#library_adapter_sequence)<br>
+[`library_id`](#library_id)<br>
+[`is_technical_replicate`](#is_technical_replicate)<br>
 [`cell_barcode_read`](#cell_barcode_read)<br>
 [`cell_barcode_offset`](#cell_barcode_offset)<br>
 [`cell_barcode_size`](#cell_barcode_size)<br>
@@ -251,6 +253,21 @@ Adapter sequence to be used for adapter trimming
 
 | constraint | value |
 | --- | --- |
+| required | `True` |
+
+### `library_id`
+TODO
+
+| constraint | value |
+| --- | --- |
+| required | `True` |
+
+### `is_technical_replicate`
+TODO
+
+| constraint | value |
+| --- | --- |
+| type | `boolean` |
 | required | `True` |
 
 ### `cell_barcode_read`

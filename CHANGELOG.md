@@ -2,7 +2,7 @@
 
 ## v0.0.3 - in progress
 ### Added
-- Additional scrnaseq types.
+- Additional scrnaseq types and columns.
 
 ## [v0.0.2](https://github.com/hubmapconsortium/ingest-validation-tools/tree/v0.0.2) - 2020-04-25
 ### Added

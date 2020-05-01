@@ -63,6 +63,12 @@ fields:
     name: library_adapter_sequence
     description: Adapter sequence to be used for adapter trimming
   -
+    name: library_id
+    description: TODO
+  -
+    name: is_technical_replicate
+    description: TODO
+  -
     name: cell_barcode_read
     description: Which read file contains the cell barcode
   -
