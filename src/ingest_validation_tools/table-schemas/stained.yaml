@@ -24,12 +24,6 @@ fields:
     name: resolution_y_unit
     description: TODO
   -
-    name: resolution_z_value
-    description: TODO
-  -
-    name: resolution_z_unit
-    description: TODO
-  -
     name: stain
     description: TODO
   -
