@@ -71,14 +71,16 @@ Typical usecases:
         '(But if they are supplied in the TSV, they will be validated.)'
     )
 
-    # Dot-files are ignored by default.
-    # This lets other files also be ignored.
-
     parser.add_argument(
-        '--ignore_files', nargs='+',
-        metavar='FILE',
-        help='Files with these names at the top level of the submission '
-        'will be ignored.'
+        '--dataset_ignore_globs', nargs='+',
+        metavar='GLOB',
+        help='Matching files in each dataset directory will be ignored. '
+        '(Files with names that begin with a period are always ignored.)'
+    )
+    parser.add_argument(
+        '--submission_ignore_globs', nargs='+',
+        metavar='GLOB',
+        help='Matching sub-directories in the submission will be ignored.'
     )
 
     # How should output be formatted?
@@ -148,8 +150,12 @@ def main():
                 raise ShowUsageException(f'"{path}" is not a file')
             submission_args['override_tsv_paths'][type] = path
 
-    if args.ignore_files:
-        submission_args['ignore_files'] = args.ignore_files
+    if args.dataset_ignore_globs:
+        submission_args['dataset_ignore_globs'] = \
+            args.dataset_ignore_globs
+    if args.submission_ignore_globs:
+        submission_args['submission_ignore_globs'] = \
+            args.submission_ignore_globs
 
     submission = Submission(**submission_args)
     errors = submission.get_errors()
