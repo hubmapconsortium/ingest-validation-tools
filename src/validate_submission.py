@@ -137,8 +137,8 @@ def main():
         if 0 != len(args.type_metadata) % 2:
             raise ShowUsageException(
                 'type_metadata should be a list with an even length')
-        submission_args['override_tsv_paths'] = []
-        for i in range(len(args.type_metadata) / 2):
+        submission_args['override_tsv_paths'] = {}
+        for i in range(len(args.type_metadata) // 2):
             type = args.type_metadata[2 * i]
             path = args.type_metadata[2 * i + 1]
             if type not in directory_schemas:
@@ -146,9 +146,7 @@ def main():
                     f'Expected one of {directory_schemas}, not "{type}"')
             if not Path(path).is_file():
                 raise ShowUsageException(f'"{path}" is not a file')
-            submission_args['override_tsv_paths'].append({
-                type: path
-            })
+            submission_args['override_tsv_paths'][type] = path
 
     if args.ignore_files:
         submission_args['ignore_files'] = args.ignore_files
