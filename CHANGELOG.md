@@ -1,6 +1,8 @@
 # Changelog
 
-## v0.0.3 - in progress
+## v0.0.4 - In progress
+
+## [v0.0.3](https://github.com/hubmapconsortium/ingest-validation-tools/tree/v0.0.3) - 2020-05-04
 ### Added
 - Additional scrnaseq types and columns.
 - Add a number of Assay types for Vanderbilt.
