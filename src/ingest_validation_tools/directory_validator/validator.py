@@ -1,4 +1,5 @@
 import os
+from fnmatch import fnmatch
 
 from jsonschema import Draft7Validator
 
@@ -6,7 +7,7 @@ from ingest_validation_tools.directory_validator.errors import \
     DirectoryValidationErrors
 
 
-def validate(path, schema_dict, ignore_files=[]):
+def validate(path, schema_dict, dataset_ignore_globs=[]):
     '''
     Given a directory path, and a JSON schema as a dict,
     validate the directory structure against the schema.
@@ -15,8 +16,8 @@ def validate(path, schema_dict, ignore_files=[]):
 
     validator = Draft7Validator(schema_dict)
     as_list = [
-        entry for entry in _dir_to_list(path)
-        if entry['name'] not in ignore_files
+        entry for entry in _dir_to_list(path, dataset_ignore_globs)
+        if entry['name'] not in dataset_ignore_globs
     ]
     errors = list(validator.iter_errors(as_list))
 
@@ -24,7 +25,7 @@ def validate(path, schema_dict, ignore_files=[]):
         raise DirectoryValidationErrors(errors)
 
 
-def _dir_to_list(path, ignore_dot_files=True):
+def _dir_to_list(path, dataset_ignore_globs):
     '''
     Walk the directory at `path`, and return a dict like that from `tree -J`:
 
@@ -42,7 +43,9 @@ def _dir_to_list(path, ignore_dot_files=True):
     items_to_return = []
     with os.scandir(path) as scan:
         for entry in sorted(scan, key=lambda entry: entry.name):
-            if ignore_dot_files and entry.name[0] == '.':
+            if any([
+                fnmatch(entry.name, glob) for glob in dataset_ignore_globs
+            ]):
                 continue
             is_dir = entry.is_dir()
             item = {
@@ -50,6 +53,8 @@ def _dir_to_list(path, ignore_dot_files=True):
                 'name': entry.name
             }
             if is_dir:
-                item['contents'] = _dir_to_list(os.path.join(path, entry.name))
+                item['contents'] = _dir_to_list(
+                    os.path.join(path, entry.name),
+                    dataset_ignore_globs)
             items_to_return.append(item)
     return items_to_return

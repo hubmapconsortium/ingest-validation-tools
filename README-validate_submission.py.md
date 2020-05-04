@@ -29,8 +29,7 @@ optional arguments:
                         they are supplied in the TSV, they will be validated.)
   --dataset_ignore_globs GLOB [GLOB ...]
                         Matching files in each dataset directory will be
-                        ignored. (Files with names that begin with a period
-                        are always ignored.)
+                        ignored.
   --submission_ignore_globs GLOB [GLOB ...]
                         Matching sub-directories in the submission will be
                         ignored.

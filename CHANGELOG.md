@@ -6,6 +6,8 @@
 - Add a number of Assay types for Vanderbilt.
 - Friendlier error if data_path is missing.
 - Add polysaccharides as analyte_class.
+- Ignore glob patterns and not just fixed files;
+If dot-files should be ignored, that much now be explicit.
 ### Changed
 - Remove parenthesis from assay type.
 - Assume Latin-1 encoding for TSVs rather than UTF-8.

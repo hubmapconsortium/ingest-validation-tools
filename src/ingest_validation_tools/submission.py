@@ -22,10 +22,10 @@ def _get_tsv_rows(path):
 
 class Submission:
     def __init__(self, directory_path=None, override_tsv_paths={},
-                 optional_fields=[], add_notes=True, ignore_files=[]):
+                 optional_fields=[], add_notes=True, dataset_ignore_globs=[]):
         self.directory_path = directory_path
         self.optional_fields = optional_fields
-        self.ignore_files = ignore_files
+        self.dataset_ignore_globs = dataset_ignore_globs
         unsorted_effective_tsv_paths = (
             override_tsv_paths if override_tsv_paths
             else {
@@ -99,7 +99,8 @@ class Submission:
         return errors
 
     def _get_data_dir_errors(self, type, path):
-        return get_data_dir_errors(type, path, ignore_files=self.ignore_files)
+        return get_data_dir_errors(
+            type, path, dataset_ignore_globs=self.dataset_ignore_globs)
 
     def _get_reference_errors(self):
         errors = {}

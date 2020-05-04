@@ -74,8 +74,8 @@ Typical usecases:
     parser.add_argument(
         '--dataset_ignore_globs', nargs='+',
         metavar='GLOB',
-        help='Matching files in each dataset directory will be ignored. '
-        '(Files with names that begin with a period are always ignored.)'
+        default=['.*'],
+        help='Matching files in each dataset directory will be ignored.'
     )
     parser.add_argument(
         '--submission_ignore_globs', nargs='+',
