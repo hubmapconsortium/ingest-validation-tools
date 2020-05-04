@@ -72,5 +72,15 @@ fields:
     name: lc_id_unit
     description: units of LC column inner diameter (typically microns)
   -
-    name: lc_flow_rate
-    description: LC flow rate
+    name: lc_gradient
+    description: LC gradient
+  -
+    name: lc_mobile_phase_A
+    description: Composition of mobile phase A
+  -
+    name: lc_mobile_phase_B
+    description: Composition of mobile phase B
+  -
+    name: processing_search
+    description: Software for analyzing and searching LC-MS/MS omics data
+    

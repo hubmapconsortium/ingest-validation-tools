@@ -46,7 +46,10 @@ Related files:
 [`lc_temp_unit`](#lc_temp_unit)<br>
 [`lc_id_value`](#lc_id_value)<br>
 [`lc_id_unit`](#lc_id_unit)<br>
-[`lc_flow_rate`](#lc_flow_rate)<br>
+[`lc_gradient`](#lc_gradient)<br>
+[`lc_mobile_phase_A`](#lc_mobile_phase_a)<br>
+[`lc_mobile_phase_B`](#lc_mobile_phase_b)<br>
+[`processing_search`](#processing_search)<br>
 </details>
 
 <details><summary>Paths</summary>
@@ -313,8 +316,29 @@ units of LC column inner diameter (typically microns)
 | --- | --- |
 | required | `True` |
 
-### `lc_flow_rate`
-LC flow rate
+### `lc_gradient`
+LC gradient
+
+| constraint | value |
+| --- | --- |
+| required | `True` |
+
+### `lc_mobile_phase_A`
+Composition of mobile phase A
+
+| constraint | value |
+| --- | --- |
+| required | `True` |
+
+### `lc_mobile_phase_B`
+Composition of mobile phase B
+
+| constraint | value |
+| --- | --- |
+| required | `True` |
+
+### `processing_search`
+Software for analyzing and searching LC-MS/MS omics data
 
 | constraint | value |
 | --- | --- |
