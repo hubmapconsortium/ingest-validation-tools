@@ -69,26 +69,6 @@ def globus_url(s):
     }
 
 
-def type_metadata_pair(s):
-    try:
-        type, path = s.split(':')
-    except ValueError:
-        raise argparse.ArgumentTypeError(
-            f'Expected colon-delimited pair, not "{s}"')
-
-    if type not in directory_schemas:
-        raise argparse.ArgumentTypeError(
-            f'Expected one of {directory_schemas}, not "{type}"')
-
-    if not Path(path).is_file():
-        raise argparse.ArgumentTypeError(f'"{path}" is not a file')
-
-    return {
-        'type': type,
-        'path': Path(path)
-    }
-
-
 directory_schemas = sorted({
     p.stem.split('-')[0] for p in
     (Path(__file__).parent /

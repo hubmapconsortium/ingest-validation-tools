@@ -52,7 +52,7 @@ Typical usecases:
     # Is there metadata to validate?
 
     parser.add_argument(
-        '--type_metadata', type=argparse_types.type_metadata_pair, nargs='+',
+        '--type_metadata', nargs='+',
         metavar='TYPE PATH',
         help='A list of type / metadata.tsv pairs. '
         f'Type should be one of: {argparse_types.directory_schemas}')
