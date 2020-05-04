@@ -145,8 +145,7 @@ Analytes are the target molecules being measured with the assay.
 
 | constraint | value |
 | --- | --- |
-| enum | `DNA`, `RNA`, `protein`, `lipids`, `metabolites`, or `polysaccharides` |
-| required | `True` |
+| required | `False` |
 
 ### `is_targeted`
 Specifies whether or not a specific molecule(s) is/are targeted for detection/measurement by the assay. The CODEX analyte is protein.
