@@ -1,7 +1,6 @@
 import argparse
 import os
 import re
-from pathlib import Path
 import urllib
 
 
@@ -67,10 +66,3 @@ def globus_url(s):
         'origin': query['origin_id'][0],
         'path': query['origin_path'][0]
     }
-
-
-directory_schemas = sorted({
-    p.stem.split('-')[0] for p in
-    (Path(__file__).parent /
-     'directory-schemas').iterdir()
-} - {'README'})

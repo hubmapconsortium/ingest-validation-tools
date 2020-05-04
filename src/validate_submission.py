@@ -13,6 +13,13 @@ from ingest_validation_tools.globus_utils import (
     get_globus_connection_error, get_globus_cache_path)
 
 
+directory_schemas = sorted({
+    p.stem.split('-')[0] for p in
+    (Path(__file__).parent / 'ingest_validation_tools' /
+     'directory-schemas').glob('*.yaml')
+})
+
+
 def make_parser():
     parser = argparse.ArgumentParser(
         description='''
@@ -55,7 +62,7 @@ Typical usecases:
         '--type_metadata', nargs='+',
         metavar='TYPE PATH',
         help='A list of type / metadata.tsv pairs. '
-        f'Type should be one of: {argparse_types.directory_schemas}')
+        f'Type should be one of: {directory_schemas}')
 
     parser.add_argument(
         '--optional_fields', nargs='+',
@@ -127,9 +134,21 @@ def main():
         submission_args['directory_path'] = Path(args.local_directory)
 
     if args.type_metadata:
-        submission_args['override_tsv_paths'] = {
-            pair['type']: pair['path'] for pair in args.type_metadata
-        }
+        if 0 != len(args.type_metadata) % 2:
+            raise ShowUsageException(
+                'type_metadata should be a list with an even length')
+        submission_args['override_tsv_paths'] = []
+        for i in range(len(args.type_metadata) / 2):
+            type = args.type_metadata[2 * i]
+            path = args.type_metadata[2 * i + 1]
+            if type not in directory_schemas:
+                raise ShowUsageException(
+                    f'Expected one of {directory_schemas}, not "{type}"')
+            if not Path(path).is_file():
+                raise ShowUsageException(f'"{path}" is not a file')
+            submission_args['override_tsv_paths'].append({
+                type: path
+            })
 
     if args.ignore_files:
         submission_args['ignore_files'] = args.ignore_files
