@@ -7,7 +7,7 @@ import subprocess
 # They run faster, and tell us more when there is a failure.
 good_args = [
     '--local_directory examples/good-atacseq/submission/ '
-    '--ignore_files ignore-me.tsv',
+    '--dataset_ignore_globs ignore-me.tsv',
 
     '--type_metadata atacseq '
     'examples/good-atacseq/submission/atacseq-metadata.tsv'
