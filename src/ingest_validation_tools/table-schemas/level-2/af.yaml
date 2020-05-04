@@ -1,6 +1,10 @@
 doc_url: TODO
 fields:
   # Overrides of Level 1 fields:
+  -
+    name: analyte_class
+    constraints:
+      required: False
 
   # TODO
 
