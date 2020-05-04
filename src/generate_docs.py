@@ -77,7 +77,7 @@ def _generate_readme_md(table_schema, type):
         f'/ingest-validation-tools/master/docs/{type}/template.tsv'
     source_url = 'https://github.com/hubmapconsortium' + \
         '/ingest-validation-tools/edit/master' + \
-        f'/src/ingest_validation_tools/table-schemas/{type}.yaml'
+        f'/src/ingest_validation_tools/table-schemas/level-2/{type}.yaml'
 
     return f'''# {type}
 
