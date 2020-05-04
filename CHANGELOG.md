@@ -6,6 +6,7 @@
 - Add a number of Assay types for Vanderbilt.
 ### Changed
 - Remove parenthesis from assay type.
+- Assume Latin-1 encoding for TSVs rather than UTF-8.
 
 ## [v0.0.2](https://github.com/hubmapconsortium/ingest-validation-tools/tree/v0.0.2) - 2020-04-25
 ### Added
