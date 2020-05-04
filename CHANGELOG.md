@@ -4,6 +4,7 @@
 ### Added
 - Additional scrnaseq types and columns.
 - Add a number of Assay types for Vanderbilt.
+- Friendlier error if data_path is missing.
 ### Changed
 - Remove parenthesis from assay type.
 - Assume Latin-1 encoding for TSVs rather than UTF-8.
