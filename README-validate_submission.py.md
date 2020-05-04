@@ -1,7 +1,7 @@
 ```
 usage: validate_submission.py [-h]
                               [--local_directory PATH | --globus_url URL | --globus_origin_directory ORIGIN_PATH]
-                              [--type_metadata TYPE_PATH [TYPE_PATH ...]]
+                              [--type_metadata TYPE PATH [TYPE PATH ...]]
                               [--optional_fields FIELD [FIELD ...]]
                               [--ignore_files FILE [FILE ...]]
                               [--output {as_browser,as_html,as_md,as_text,as_yaml}]
@@ -19,10 +19,10 @@ optional arguments:
   --globus_origin_directory ORIGIN_PATH
                         A Globus submission directory to validate; Should have
                         the form "<globus_origin_id>:<globus_path>".
-  --type_metadata TYPE_PATH [TYPE_PATH ...]
-                        A list of type / metadata.tsv pairs of the form "<af|a
-                        tacseq|codex|lcms|maldiims|mixif|scrnaseq|seqfish|stai
-                        ned>:<local_path_to_tsv>".
+  --type_metadata TYPE PATH [TYPE PATH ...]
+                        A list of type / metadata.tsv pairs. Type should be
+                        one of: ['af', 'atacseq', 'codex', 'lcms', 'maldiims',
+                        'mixif', 'scrnaseq', 'seqfish', 'stained']
   --optional_fields FIELD [FIELD ...]
                         The listed fields will be treated as optional. (But if
                         they are supplied in the TSV, they will be validated.)

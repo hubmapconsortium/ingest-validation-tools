@@ -51,13 +51,11 @@ Typical usecases:
 
     # Is there metadata to validate?
 
-    expected_type_metadata_form = \
-        f'<{"|".join(argparse_types.directory_schemas)}>:<local_path_to_tsv>'
     parser.add_argument(
         '--type_metadata', type=argparse_types.type_metadata_pair, nargs='+',
-        metavar='TYPE_PATH',
-        help='A list of type / metadata.tsv pairs '
-        f'of the form "{expected_type_metadata_form}".')
+        metavar='TYPE PATH',
+        help='A list of type / metadata.tsv pairs. '
+        f'Type should be one of: {argparse_types.directory_schemas}')
 
     parser.add_argument(
         '--optional_fields', nargs='+',
