@@ -7,16 +7,19 @@ _schemas_path = Path(__file__).parent / 'table-schemas'
 
 
 def list_types():
-    schemas = {p.stem for p in _schemas_path.iterdir()}
-    return sorted(schemas - {'level-1', 'paths', 'README'})
+    schemas = {
+        p.stem for p in
+        (_schemas_path / 'level-2').iterdir()
+    }
+    return sorted(schemas)
 
 
 def get_schema(type, optional_fields=[]):
     table_type = type.split('-')[0]
 
-    level_1_fields = _get_sub_schema('level-1')['fields']
-    paths_fields = _get_sub_schema('paths')['fields']
-    type_schema = _get_sub_schema(table_type)
+    level_1_fields = _get_level_1_schema('level-1')['fields']
+    paths_fields = _get_level_1_schema('paths')['fields']
+    type_schema = _get_level_2_schema(table_type)
     type_fields = type_schema['fields']
 
     (level_1_fields_plus_overrides, type_fields_minus_overrides) = \
@@ -35,8 +38,12 @@ def get_schema(type, optional_fields=[]):
     }
 
 
-def _get_sub_schema(type):
+def _get_level_1_schema(type):
     return load_yaml(open(_schemas_path / f'{type}.yaml').read())
+
+
+def _get_level_2_schema(type):
+    return load_yaml(open(_schemas_path / 'level-2' / f'{type}.yaml').read())
 
 
 def _apply_overrides(high_fields, low_fields):
