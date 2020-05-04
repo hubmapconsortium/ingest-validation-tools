@@ -17,7 +17,7 @@ class TableValidationErrors(Exception):
     pass
 
 
-def get_data_dir_errors(type, data_path, ignore_files=[]):
+def get_data_dir_errors(type, data_path, dataset_ignore_globs=[]):
     '''
     Validate a single data_path.
     '''
@@ -27,7 +27,8 @@ def get_data_dir_errors(type, data_path, ignore_files=[]):
         f'{type}.yaml')
     schema = load_yaml(open(schema_path).read())
     try:
-        validate_directory(data_path, schema, ignore_files=ignore_files)
+        validate_directory(
+            data_path, schema, dataset_ignore_globs=dataset_ignore_globs)
     except DirectoryValidationErrors as e:
         return e.object_errors
     except OSError as e:

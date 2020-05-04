@@ -9,10 +9,11 @@ for EXAMPLE in examples/*; do
   echo "Testing $EXAMPLE ..."
   CMD="src/validate_submission.py \
 --local_directory $EXAMPLE/submission \
---ignore_files ignore-me.tsv \
+--dataset_ignore_globs 'ignore-*.tsv' '.*' \
+--submission_ignore_globs 'drv_ignore_*' \
 --output as_md"
   README="$EXAMPLE/README.md"
-  diff $README <( $CMD ) \
+  diff $README <( eval "$CMD" ) \
     || die "Update example: $CMD > $README"
 done
 

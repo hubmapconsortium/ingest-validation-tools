@@ -3,7 +3,8 @@ usage: validate_submission.py [-h]
                               [--local_directory PATH | --globus_url URL | --globus_origin_directory ORIGIN_PATH]
                               [--type_metadata TYPE PATH [TYPE PATH ...]]
                               [--optional_fields FIELD [FIELD ...]]
-                              [--ignore_files FILE [FILE ...]]
+                              [--dataset_ignore_globs GLOB [GLOB ...]]
+                              [--submission_ignore_globs GLOB [GLOB ...]]
                               [--output {as_browser,as_html,as_md,as_text,as_yaml}]
                               [--add_notes]
 
@@ -26,9 +27,12 @@ optional arguments:
   --optional_fields FIELD [FIELD ...]
                         The listed fields will be treated as optional. (But if
                         they are supplied in the TSV, they will be validated.)
-  --ignore_files FILE [FILE ...]
-                        Files with these names at the top level of the
-                        submission will be ignored.
+  --dataset_ignore_globs GLOB [GLOB ...]
+                        Matching files in each dataset directory will be
+                        ignored.
+  --submission_ignore_globs GLOB [GLOB ...]
+                        Matching sub-directories in the submission will be
+                        ignored.
   --output {as_browser,as_html,as_md,as_text,as_yaml}
   --add_notes           Append a context note to error reports.
 

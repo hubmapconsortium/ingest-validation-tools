@@ -3,6 +3,7 @@ from pathlib import Path
 from datetime import datetime
 import re
 from collections import defaultdict
+from fnmatch import fnmatch
 
 from ingest_validation_tools.validation_utils import (
     get_metadata_tsv_errors,
@@ -22,10 +23,12 @@ def _get_tsv_rows(path):
 
 class Submission:
     def __init__(self, directory_path=None, override_tsv_paths={},
-                 optional_fields=[], add_notes=True, ignore_files=[]):
+                 optional_fields=[], add_notes=True,
+                 dataset_ignore_globs=[], submission_ignore_globs=[]):
         self.directory_path = directory_path
         self.optional_fields = optional_fields
-        self.ignore_files = ignore_files
+        self.dataset_ignore_globs = dataset_ignore_globs
+        self.submission_ignore_globs = submission_ignore_globs
         unsorted_effective_tsv_paths = (
             override_tsv_paths if override_tsv_paths
             else {
@@ -99,7 +102,8 @@ class Submission:
         return errors
 
     def _get_data_dir_errors(self, type, path):
-        return get_data_dir_errors(type, path, ignore_files=self.ignore_files)
+        return get_data_dir_errors(
+            type, path, dataset_ignore_globs=self.dataset_ignore_globs)
 
     def _get_reference_errors(self):
         errors = {}
@@ -118,6 +122,10 @@ class Submission:
         non_metadata_paths = {
             path.name for path in self.directory_path.iterdir()
             if not path.name.endswith('-metadata.tsv')
+            and not any([
+                fnmatch(path.name, glob)
+                for glob in self.submission_ignore_globs
+            ])
         }
         unreferenced_paths = non_metadata_paths - referenced_data_paths
         return [str(path) for path in unreferenced_paths]
