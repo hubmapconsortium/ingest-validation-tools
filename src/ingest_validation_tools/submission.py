@@ -135,6 +135,7 @@ class Submission:
         data_references = defaultdict(list)
         for tsv_path in self.effective_tsv_paths.values():
             for i, row in enumerate(_get_tsv_rows(tsv_path)):
-                reference = f'{tsv_path} (row {i+2})'
-                data_references[row['data_path']].append(reference)
+                if 'data_path' in row:
+                    reference = f'{tsv_path} (row {i+2})'
+                    data_references[row['data_path']].append(reference)
         return data_references
