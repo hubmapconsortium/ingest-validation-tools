@@ -85,5 +85,20 @@ fields:
     name: lc_mobile_phase_B
     description: Composition of mobile phase B
   -
+    name: lc_flow_rate_unit
+    description: units of flow rate. TODO: Should there be "lc_flow_rate"?
+    constraints:
+      required: False
+  -
     name: processing_search
     description: Software for analyzing and searching LC-MS/MS omics data
+  -
+    name: processing_protocols_io_doi
+    description: TODO
+    constraints:
+      required: False
+  -
+    name: overall_protocols_io_doi
+    description: TODO
+    constraints:
+      required: False
