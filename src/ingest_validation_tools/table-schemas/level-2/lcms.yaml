@@ -86,7 +86,7 @@ fields:
     description: Composition of mobile phase B
   -
     name: lc_flow_rate_unit
-    description: units of flow rate. TODO: Should there be "lc_flow_rate"?
+    description: 'units of flow rate. TODO: Should there be "lc_flow_rate"?'
     constraints:
       required: False
   -

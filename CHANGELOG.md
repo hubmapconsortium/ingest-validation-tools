@@ -15,6 +15,7 @@ If other patterns are given, dot-files must be explicitly ignored.
 - Separate level-2 schemas in source.
 - Separate type and TSV path with space instead of ":" in CLI.
 - Make analyte_class optional for some assays.
+- Tweak LCMS fields.
 
 ## [v0.0.2](https://github.com/hubmapconsortium/ingest-validation-tools/tree/v0.0.2) - 2020-04-25
 ### Added
