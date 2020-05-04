@@ -10,6 +10,7 @@ for EXAMPLE in examples/*; do
   CMD="src/validate_submission.py \
 --local_directory $EXAMPLE/submission \
 --dataset_ignore_globs 'ignore-*.tsv' '.*' \
+--submission_ignore_globs 'drv_ignore_*' \
 --output as_md"
   README="$EXAMPLE/README.md"
   diff $README <( eval "$CMD" ) \

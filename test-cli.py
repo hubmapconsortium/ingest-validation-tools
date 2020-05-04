@@ -7,7 +7,10 @@ import subprocess
 # They run faster, and tell us more when there is a failure.
 good_args = [
     '--local_directory examples/good-atacseq/submission/ '
-    '--dataset_ignore_globs ignore-*.tsv .*',
+    '--dataset_ignore_globs ignore-*.tsv .* '
+    '--submission_ignore_globs drv_ignore_*',
+    # NOTE: When called from the shell,
+    # remember to quote '*' arguments to prevent expansion.
 
     '--type_metadata atacseq '
     'examples/good-atacseq/submission/atacseq-metadata.tsv'
@@ -18,7 +21,9 @@ bad_args = [
 
 
 def validate(args):
-    cmd = ['src/validate_submission.py'] + args.split(' ')
+    cmd = [
+        'src/validate_submission.py', '--output', 'as_text'
+    ] + args.split(' ')
     subprocess.run(
         cmd, check=True)
 
