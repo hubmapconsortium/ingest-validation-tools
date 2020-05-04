@@ -9,8 +9,8 @@ good_args = [
     '--local_directory examples/good-atacseq/submission/ '
     '--ignore_files ignore-me.tsv',
 
-    '--type_metadata atacseq:examples/good-atacseq/'
-    'submission/atacseq-metadata.tsv'
+    '--type_metadata atacseq '
+    'examples/good-atacseq/submission/atacseq-metadata.tsv'
 ]
 bad_args = [
     '--bad',
