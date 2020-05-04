@@ -1,6 +1,8 @@
 # Changelog
 
-## v0.0.3 - in progress
+## v0.0.4 - In progress
+
+## [v0.0.3](https://github.com/hubmapconsortium/ingest-validation-tools/tree/v0.0.3) - 2020-05-04
 ### Added
 - Additional scrnaseq types and columns.
 - Add a number of Assay types for Vanderbilt.
@@ -15,6 +17,7 @@ If other patterns are given, dot-files must be explicitly ignored.
 - Separate level-2 schemas in source.
 - Separate type and TSV path with space instead of ":" in CLI.
 - Make analyte_class optional for some assays.
+- Tweak LCMS fields.
 
 ## [v0.0.2](https://github.com/hubmapconsortium/ingest-validation-tools/tree/v0.0.2) - 2020-04-25
 ### Added

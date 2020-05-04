@@ -49,7 +49,10 @@ Related files:
 [`lc_gradient`](#lc_gradient)<br>
 [`lc_mobile_phase_A`](#lc_mobile_phase_a)<br>
 [`lc_mobile_phase_B`](#lc_mobile_phase_b)<br>
+[`lc_flow_rate_unit`](#lc_flow_rate_unit)<br>
 [`processing_search`](#processing_search)<br>
+[`processing_protocols_io_doi`](#processing_protocols_io_doi)<br>
+[`overall_protocols_io_doi`](#overall_protocols_io_doi)<br>
 </details>
 
 <details><summary>Paths</summary>
@@ -336,12 +339,35 @@ Composition of mobile phase B
 | --- | --- |
 | required | `True` |
 
+### `lc_flow_rate_unit`
+units of flow rate. TODO: Should there be "lc_flow_rate"?
+
+| constraint | value |
+| --- | --- |
+| required | `False` |
+
 ### `processing_search`
 Software for analyzing and searching LC-MS/MS omics data
 
 | constraint | value |
 | --- | --- |
 | required | `True` |
+
+### `processing_protocols_io_doi`
+TODO
+
+| constraint | value |
+| --- | --- |
+| required | `False` |
+| pattern | `10\.17504/.*` |
+
+### `overall_protocols_io_doi`
+TODO
+
+| constraint | value |
+| --- | --- |
+| required | `False` |
+| pattern | `10\.17504/.*` |
 
 ## Paths
 
