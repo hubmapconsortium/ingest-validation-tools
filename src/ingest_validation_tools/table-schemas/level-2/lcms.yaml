@@ -76,6 +76,16 @@ fields:
     name: lc_id_unit
     description: units of LC column inner diameter (typically microns)
   -
+    name: lc_flow_rate_value
+    description: 'Value of flow rate.
+    constraints:
+      required: False
+  -
+    name: lc_flow_rate_unit
+    description: 'units of flow rate.
+    constraints:
+      required: False
+  -
     name: lc_gradient
     description: LC gradient
   -
@@ -84,11 +94,6 @@ fields:
   -
     name: lc_mobile_phase_B
     description: Composition of mobile phase B
-  -
-    name: lc_flow_rate_unit
-    description: 'units of flow rate. TODO: Should there be "lc_flow_rate"?'
-    constraints:
-      required: False
   -
     name: processing_search
     description: Software for analyzing and searching LC-MS/MS omics data
