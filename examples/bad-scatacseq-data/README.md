@@ -1,11 +1,11 @@
 ```
 Metadata TSV Errors:
-  examples/bad-atacseq-data/submission/atacseq-metadata.tsv (as atacseq):
+  examples/bad-scatacseq-data/submission/scatacseq-metadata.tsv (as scatacseq):
     Internal:
     - Column 17 ("Q") is a required field, but row 2 has no value
     - Column 27 ("AA") is a required field, but row 2 has no value
     External:
-      atacseq-metadata.tsv (row 2):
+      scatacseq-metadata.tsv (row 2):
       - This string: not-the-file-you-are-looking-for.txt
         doesn't match this pattern: \.fastq(\.gz)?$
       - This string: directory
