@@ -9,6 +9,7 @@
 - Reorder LCMS fields.
 - `atacseq` to `scatacseq`.
 - Autogenerate "Leave blank if not applicable".
+- Make sc_isolation_enrichment in scrnaseq optional.
 
 ## [v0.0.3](https://github.com/hubmapconsortium/ingest-validation-tools/tree/v0.0.3) - 2020-05-04
 ### Added
