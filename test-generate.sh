@@ -17,7 +17,8 @@ for TYPE in $(ls docs | grep -v README.md); do # Ignore README and just get subd
   mkdir -p $TEST_DEST || echo "$TEST_DEST already exists"
   $TEST_CMD
   diff -r $REAL_DEST $TEST_DEST \
-    || die "Update needed: $REAL_CMD"
+    || die "Update needed: $REAL_CMD
+Or:" 'for D in `ls -d docs/*/`; do src/generate_docs.py `basename $D` $D; done'
   rm -rf $TEST_DEST
   ((++GENERATE_COUNT))
 done

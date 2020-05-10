@@ -265,7 +265,7 @@ The source of the Tn5 transposase and transposon used for capturing accessible c
 | required | `True` |
 
 ### `transposition_kit_number`
-If Tn5 came from a kit, provide the catalog number.
+If Tn5 came from a kit, provide the catalog number. Leave blank if not applicable.
 
 | constraint | value |
 | --- | --- |
@@ -396,7 +396,7 @@ Percent PhiX loaded to the run.
 ## Paths
 
 ### `metadata_path`
-Relative path to file or directory with free-form or instrument/lab specific metadata. Optional.
+Relative path to file or directory with free-form or instrument/lab specific metadata. Optional. Leave blank if not applicable.
 
 | constraint | value |
 | --- | --- |
