@@ -300,7 +300,6 @@ Which read file contains the cell barcode.
 
 | constraint | value |
 | --- | --- |
-| pattern | `[A-Z]\d+(,[A-Z]\d+)*` |
 | required | `True` |
 
 ### `cell_barcode_offset`
