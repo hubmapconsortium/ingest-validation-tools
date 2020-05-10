@@ -4,6 +4,7 @@
 ### Changed
 - Reorder LCMS fields.
 - `atacseq` to `scatacseq`.
+- Autogenerate "Leave blank if not applicable".
 
 ## [v0.0.3](https://github.com/hubmapconsortium/ingest-validation-tools/tree/v0.0.3) - 2020-05-04
 ### Added

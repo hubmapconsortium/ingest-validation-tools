@@ -145,7 +145,7 @@ The specific type of assay being executed.
 | required | `True` |
 
 ### `analyte_class`
-Analytes are the target molecules being measured with the assay.
+Analytes are the target molecules being measured with the assay. Leave blank if not applicable.
 
 | constraint | value |
 | --- | --- |
@@ -320,7 +320,7 @@ units of LC column inner diameter (typically microns)
 | required | `True` |
 
 ### `lc_flow_rate_value`
-Value of flow rate.
+Value of flow rate. Leave blank if not applicable.
 
 | constraint | value |
 | --- | --- |
@@ -328,7 +328,7 @@ Value of flow rate.
 | required | `False` |
 
 ### `lc_flow_rate_unit`
-Units of flow rate.
+Units of flow rate. Leave blank if not applicable.
 
 | constraint | value |
 | --- | --- |
@@ -363,7 +363,7 @@ Software for analyzing and searching LC-MS/MS omics data
 | required | `True` |
 
 ### `processing_protocols_io_doi`
-TODO
+TODO. Leave blank if not applicable.
 
 | constraint | value |
 | --- | --- |
@@ -371,7 +371,7 @@ TODO
 | pattern | `10\.17504/.*` |
 
 ### `overall_protocols_io_doi`
-TODO
+TODO. Leave blank if not applicable.
 
 | constraint | value |
 | --- | --- |
@@ -381,7 +381,7 @@ TODO
 ## Paths
 
 ### `metadata_path`
-Relative path to file or directory with free-form or instrument/lab specific metadata. Optional.
+Relative path to file or directory with free-form or instrument/lab specific metadata. Optional. Leave blank if not applicable.
 
 | constraint | value |
 | --- | --- |

@@ -61,15 +61,32 @@ def _generate_json_schema_yaml(table_schema):
     return dump_yaml(json_schema)
 
 
+def _enrich_description(field):
+    '''
+    >>> field = {
+    ...   'description': 'something',
+    ...   'constraints': {'required': False}
+    ... }
+    >>> _enrich_description(field)
+    'something. Leave blank if not applicable.'
+
+    '''
+    if not field['constraints']['required']:
+        stripped = re.sub(r'\W+\s*$', '', field['description'])
+        return stripped + '. Leave blank if not applicable.'
+    return field['description']
+
+
 def _generate_readme_md(table_schema, type):
     fields_md_list = []
     for field in table_schema['fields']:
         if 'heading' in field:
             fields_md_list.append(f"## {field['heading']}")
         table_md = _make_constraints_table(field)
-        fields_md_list.append(
-            f"### `{field['name']}`\n{field['description']}\n\n{table_md}"
-        )
+        fields_md_list.append(f"""### `{field['name']}`
+{_enrich_description(field)}
+
+{table_md}""")
 
     fields_md = '\n\n'.join(fields_md_list)
     toc_md = _make_toc(fields_md)
