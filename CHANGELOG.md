@@ -4,6 +4,7 @@
 ### Added
 - Autogenerate "Leave blank if not applicable".
 - Add bulkrnaseq.
+- Add WGS.
 
 ### Changed
 - Reorder LCMS fields.
