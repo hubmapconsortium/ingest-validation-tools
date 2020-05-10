@@ -46,10 +46,11 @@ Related files:
 [`lc_temp_unit`](#lc_temp_unit)<br>
 [`lc_id_value`](#lc_id_value)<br>
 [`lc_id_unit`](#lc_id_unit)<br>
+[`lc_flow_rate_value`](#lc_flow_rate_value)<br>
+[`lc_flow_rate_unit`](#lc_flow_rate_unit)<br>
 [`lc_gradient`](#lc_gradient)<br>
 [`lc_mobile_phase_A`](#lc_mobile_phase_a)<br>
 [`lc_mobile_phase_B`](#lc_mobile_phase_b)<br>
-[`lc_flow_rate_unit`](#lc_flow_rate_unit)<br>
 [`processing_search`](#processing_search)<br>
 [`processing_protocols_io_doi`](#processing_protocols_io_doi)<br>
 [`overall_protocols_io_doi`](#overall_protocols_io_doi)<br>
@@ -318,6 +319,21 @@ units of LC column inner diameter (typically microns)
 | --- | --- |
 | required | `True` |
 
+### `lc_flow_rate_value`
+Value of flow rate.
+
+| constraint | value |
+| --- | --- |
+| type | `number` |
+| required | `False` |
+
+### `lc_flow_rate_unit`
+Units of flow rate.
+
+| constraint | value |
+| --- | --- |
+| required | `False` |
+
 ### `lc_gradient`
 LC gradient
 
@@ -338,13 +354,6 @@ Composition of mobile phase B
 | constraint | value |
 | --- | --- |
 | required | `True` |
-
-### `lc_flow_rate_unit`
-units of flow rate. TODO: Should there be "lc_flow_rate"?
-
-| constraint | value |
-| --- | --- |
-| required | `False` |
 
 ### `processing_search`
 Software for analyzing and searching LC-MS/MS omics data

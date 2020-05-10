@@ -1,6 +1,8 @@
 # Changelog
 
 ## v0.0.4 - In progress
+### Changed
+- Reorder LCMS fields.
 
 ## [v0.0.3](https://github.com/hubmapconsortium/ingest-validation-tools/tree/v0.0.3) - 2020-05-04
 ### Added

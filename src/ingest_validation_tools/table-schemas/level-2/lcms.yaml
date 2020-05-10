@@ -77,12 +77,12 @@ fields:
     description: units of LC column inner diameter (typically microns)
   -
     name: lc_flow_rate_value
-    description: 'Value of flow rate.
+    description: Value of flow rate.
     constraints:
       required: False
   -
     name: lc_flow_rate_unit
-    description: 'units of flow rate.
+    description: Units of flow rate.
     constraints:
       required: False
   -
