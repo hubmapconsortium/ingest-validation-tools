@@ -1,6 +1,10 @@
 # Changelog
 
 ## v0.0.4 - In progress
+### Added
+- Autogenerate "Leave blank if not applicable".
+- Add bulkrnaseq.
+
 ### Changed
 - Reorder LCMS fields.
 - `atacseq` to `scatacseq`.
