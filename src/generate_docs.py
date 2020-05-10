@@ -62,6 +62,18 @@ def _generate_json_schema_yaml(table_schema):
 
 
 def _enrich_description(field):
+    '''
+    >>> field = {
+    ...   'description': 'something',
+    ...   'constraints': {'required': False}
+    ... }
+    >>> _enrich_description(field)
+    'something. Leave blank if not applicable.'
+
+    '''
+    if not field['constraints']['required']:
+        stripped = re.sub(r'\W+\s*$', '', field['description'])
+        return stripped + '. Leave blank if not applicable.'
     return field['description']
 
 
