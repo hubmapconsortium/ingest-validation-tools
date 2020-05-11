@@ -1,10 +1,10 @@
 ```
 usage: generate_docs.py [-h]
-                        {af,atacseq,codex,lcms,maldiims,mixif,scrnaseq,seqfish,stained}
+                        {af,bulkrnaseq,codex,lcms,maldiims,mixif,scatacseq,scrnaseq,seqfish,stained,wgs}
                         target
 
 positional arguments:
-  {af,atacseq,codex,lcms,maldiims,mixif,scrnaseq,seqfish,stained}
+  {af,bulkrnaseq,codex,lcms,maldiims,mixif,scatacseq,scrnaseq,seqfish,stained,wgs}
                         What type to generate
   target                Directory to write output to
 

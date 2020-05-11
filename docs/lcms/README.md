@@ -46,10 +46,11 @@ Related files:
 [`lc_temp_unit`](#lc_temp_unit)<br>
 [`lc_id_value`](#lc_id_value)<br>
 [`lc_id_unit`](#lc_id_unit)<br>
+[`lc_flow_rate_value`](#lc_flow_rate_value)<br>
+[`lc_flow_rate_unit`](#lc_flow_rate_unit)<br>
 [`lc_gradient`](#lc_gradient)<br>
 [`lc_mobile_phase_A`](#lc_mobile_phase_a)<br>
 [`lc_mobile_phase_B`](#lc_mobile_phase_b)<br>
-[`lc_flow_rate_unit`](#lc_flow_rate_unit)<br>
 [`processing_search`](#processing_search)<br>
 [`processing_protocols_io_doi`](#processing_protocols_io_doi)<br>
 [`overall_protocols_io_doi`](#overall_protocols_io_doi)<br>
@@ -75,7 +76,7 @@ HuBMAP Display ID of the assayed tissue.
 
 | constraint | value |
 | --- | --- |
-| pattern | `[A-Z]+[0-9]+(-[A-Z0-9]+)+` |
+| pattern | `([A-Z]+[0-9]+)-(BL|BR|LB|RB|HT|LK|RK|LI|LV|LL|RL|LY\d\d|SI|SP|TH|TR|UR|OT)(-\d+)+(_\d+)?` |
 | required | `True` |
 
 ## Level 1
@@ -144,7 +145,7 @@ The specific type of assay being executed.
 | required | `True` |
 
 ### `analyte_class`
-Analytes are the target molecules being measured with the assay.
+Analytes are the target molecules being measured with the assay. Leave blank if not applicable.
 
 | constraint | value |
 | --- | --- |
@@ -318,6 +319,21 @@ units of LC column inner diameter (typically microns)
 | --- | --- |
 | required | `True` |
 
+### `lc_flow_rate_value`
+Value of flow rate. Leave blank if not applicable.
+
+| constraint | value |
+| --- | --- |
+| type | `number` |
+| required | `False` |
+
+### `lc_flow_rate_unit`
+Units of flow rate. Leave blank if not applicable.
+
+| constraint | value |
+| --- | --- |
+| required | `False` |
+
 ### `lc_gradient`
 LC gradient
 
@@ -339,13 +355,6 @@ Composition of mobile phase B
 | --- | --- |
 | required | `True` |
 
-### `lc_flow_rate_unit`
-units of flow rate. TODO: Should there be "lc_flow_rate"?
-
-| constraint | value |
-| --- | --- |
-| required | `False` |
-
 ### `processing_search`
 Software for analyzing and searching LC-MS/MS omics data
 
@@ -354,7 +363,7 @@ Software for analyzing and searching LC-MS/MS omics data
 | required | `True` |
 
 ### `processing_protocols_io_doi`
-TODO
+TODO. Leave blank if not applicable.
 
 | constraint | value |
 | --- | --- |
@@ -362,7 +371,7 @@ TODO
 | pattern | `10\.17504/.*` |
 
 ### `overall_protocols_io_doi`
-TODO
+TODO. Leave blank if not applicable.
 
 | constraint | value |
 | --- | --- |
@@ -372,7 +381,7 @@ TODO
 ## Paths
 
 ### `metadata_path`
-Relative path to file or directory with free-form or instrument/lab specific metadata. Optional.
+Relative path to file or directory with free-form or instrument/lab specific metadata. Optional. Leave blank if not applicable.
 
 | constraint | value |
 | --- | --- |

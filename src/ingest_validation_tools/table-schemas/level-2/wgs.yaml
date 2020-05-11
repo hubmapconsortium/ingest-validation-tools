@@ -1,0 +1,40 @@
+doc_url: TODO
+fields:
+- heading: Level 2
+  name: gdna_fragmentation_quality_assurance
+  description: Is the gDNA integrity good enough for WGS? This is usually checked
+    through running a gel. TODO - Is this a boolean?
+- name: dna_assay_input
+  description: Amount of DNA input into library preparation
+  type: number
+- name: dna_assay_input_unit
+  description: Units of DNA input into library preparation
+- name: library_construction_method
+  description: Describes DNA library preparation kit. Modality of isolating gDNA,
+    Fragmentation and generating sequencing libraries. TODO - enum?
+- name: library_construction_protocols_io_doi
+  description: A link to the protocol document containing the library construction
+    method (including version) that was used.
+- name: library_layout
+  description: State whether the library was generated for single-end or paired end
+    sequencing. TODO - enum
+- name: library_adapter_sequence
+  description: Adapter sequence to be used for adapter trimming. TODO - pattern
+- name: library_final_yield
+  description: Total amount of library after final pcr amplification step
+  type: number
+- name: library_final_yield_unit
+  description: Total units of library after final pcr amplification step
+- name: library_average_fragment_size
+  description: Average size of sequencing library fragments estimated via gel electrophoresis
+    or bioanalyzer/tapestation.
+  type: number
+- name: sequencing_reagent_kit
+  description: Reagent kit used for sequencing
+- name: sequencing_read_format
+  description: Number of sequencing cycles in Read1, i7 index, i5 index, and Read2
+    (R1/i7/i5/R2). TODO - pattern constraint.
+- name: sequencing_read_percent_q30
+  description: Percent of bases with Quality scores above Q30
+- name: sequencing_phix_percent
+  description: Percent PhiX loaded to the run

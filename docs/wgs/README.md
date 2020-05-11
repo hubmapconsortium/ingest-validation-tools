@@ -1,9 +1,9 @@
-# maldiims
+# wgs
 
 Related files:
 - [🔬 Background doc](TODO): More details about this type.
-- [📝 TSV template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/master/docs/maldiims/template.tsv): Use this to submit metadata.
-- [💻 Source code](https://github.com/hubmapconsortium/ingest-validation-tools/edit/master/src/ingest_validation_tools/table-schemas/level-2/maldiims.yaml): Make a PR if this doc should be updated.
+- [📝 TSV template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/master/docs/wgs/template.tsv): Use this to submit metadata.
+- [💻 Source code](https://github.com/hubmapconsortium/ingest-validation-tools/edit/master/src/ingest_validation_tools/table-schemas/level-2/wgs.yaml): Make a PR if this doc should be updated.
 
 ## Table of contents
 <details><summary>Provenance</summary>
@@ -24,23 +24,24 @@ Related files:
 [`assay_type`](#assay_type)<br>
 [`analyte_class`](#analyte_class)<br>
 [`is_targeted`](#is_targeted)<br>
-[`acquisition_instrument_vendor`](#acquisition_instrument_vendor)<br>
-[`acquisition_instrument_model`](#acquisition_instrument_model)<br>
-[`ms_source`](#ms_source)<br>
-[`polarity`](#polarity)<br>
-[`mass_range_low_value`](#mass_range_low_value)<br>
-[`mass_range_high_value`](#mass_range_high_value)<br>
-[`mass_range_unit`](#mass_range_unit)<br>
-[`resolution_x_value`](#resolution_x_value)<br>
-[`resolution_x_unit`](#resolution_x_unit)<br>
-[`resolution_y_value`](#resolution_y_value)<br>
-[`resolution_y_unit`](#resolution_y_unit)<br>
-[`preparation_type`](#preparation_type)<br>
-[`preparation_instrument_vendor`](#preparation_instrument_vendor)<br>
-[`preparation_instrument_model`](#preparation_instrument_model)<br>
-[`preparation_maldi_matrix`](#preparation_maldi_matrix)<br>
-[`section_prep_protocols_io_doi`](#section_prep_protocols_io_doi)<br>
-[`overall_protocols_io_doi`](#overall_protocols_io_doi)<br>
+</details>
+
+<details><summary>Level 2</summary>
+
+[`gdna_fragmentation_quality_assurance`](#gdna_fragmentation_quality_assurance)<br>
+[`dna_assay_input`](#dna_assay_input)<br>
+[`dna_assay_input_unit`](#dna_assay_input_unit)<br>
+[`library_construction_method`](#library_construction_method)<br>
+[`library_construction_protocols_io_doi`](#library_construction_protocols_io_doi)<br>
+[`library_layout`](#library_layout)<br>
+[`library_adapter_sequence`](#library_adapter_sequence)<br>
+[`library_final_yield`](#library_final_yield)<br>
+[`library_final_yield_unit`](#library_final_yield_unit)<br>
+[`library_average_fragment_size`](#library_average_fragment_size)<br>
+[`sequencing_reagent_kit`](#sequencing_reagent_kit)<br>
+[`sequencing_read_format`](#sequencing_read_format)<br>
+[`sequencing_read_percent_q30`](#sequencing_read_percent_q30)<br>
+[`sequencing_phix_percent`](#sequencing_phix_percent)<br>
 </details>
 
 <details><summary>Paths</summary>
@@ -147,130 +148,115 @@ Specifies whether or not a specific molecule(s) is/are targeted for detection/me
 | type | `boolean` |
 | required | `True` |
 
-### `acquisition_instrument_vendor`
-TODO
+## Level 2
+
+### `gdna_fragmentation_quality_assurance`
+Is the gDNA integrity good enough for WGS? This is usually checked through running a gel. TODO - Is this a boolean?
 
 | constraint | value |
 | --- | --- |
 | required | `True` |
 
-### `acquisition_instrument_model`
-TODO
-
-| constraint | value |
-| --- | --- |
-| required | `True` |
-
-### `ms_source`
-TODO
-
-| constraint | value |
-| --- | --- |
-| required | `True` |
-
-### `polarity`
-TODO
-
-| constraint | value |
-| --- | --- |
-| required | `True` |
-
-### `mass_range_low_value`
-TODO
+### `dna_assay_input`
+Amount of DNA input into library preparation
 
 | constraint | value |
 | --- | --- |
 | type | `number` |
 | required | `True` |
 
-### `mass_range_high_value`
-TODO
-
-| constraint | value |
-| --- | --- |
-| type | `number` |
-| required | `True` |
-
-### `mass_range_unit`
-TODO
+### `dna_assay_input_unit`
+Units of DNA input into library preparation
 
 | constraint | value |
 | --- | --- |
 | required | `True` |
 
-### `resolution_x_value`
-TODO
-
-| constraint | value |
-| --- | --- |
-| type | `number` |
-| required | `True` |
-
-### `resolution_x_unit`
-TODO
+### `library_construction_method`
+Describes DNA library preparation kit. Modality of isolating gDNA, Fragmentation and generating sequencing libraries. TODO - enum?
 
 | constraint | value |
 | --- | --- |
 | required | `True` |
 
-### `resolution_y_value`
-TODO
-
-| constraint | value |
-| --- | --- |
-| type | `number` |
-| required | `True` |
-
-### `resolution_y_unit`
-TODO
-
-| constraint | value |
-| --- | --- |
-| required | `True` |
-
-### `preparation_type`
-TODO
-
-| constraint | value |
-| --- | --- |
-| required | `True` |
-
-### `preparation_instrument_vendor`
-TODO
-
-| constraint | value |
-| --- | --- |
-| required | `True` |
-
-### `preparation_instrument_model`
-TODO
-
-| constraint | value |
-| --- | --- |
-| required | `True` |
-
-### `preparation_maldi_matrix`
-TODO
-
-| constraint | value |
-| --- | --- |
-| required | `True` |
-
-### `section_prep_protocols_io_doi`
-TODO
+### `library_construction_protocols_io_doi`
+A link to the protocol document containing the library construction method (including version) that was used.
 
 | constraint | value |
 | --- | --- |
 | required | `True` |
 | pattern | `10\.17504/.*` |
 
-### `overall_protocols_io_doi`
-TODO
+### `library_layout`
+State whether the library was generated for single-end or paired end sequencing. TODO - enum
 
 | constraint | value |
 | --- | --- |
 | required | `True` |
-| pattern | `10\.17504/.*` |
+
+### `library_adapter_sequence`
+Adapter sequence to be used for adapter trimming. TODO - pattern
+
+| constraint | value |
+| --- | --- |
+| required | `True` |
+
+### `library_final_yield`
+Total amount of library after final pcr amplification step
+
+| constraint | value |
+| --- | --- |
+| type | `number` |
+| required | `True` |
+
+### `library_final_yield_unit`
+Total units of library after final pcr amplification step
+
+| constraint | value |
+| --- | --- |
+| required | `True` |
+
+### `library_average_fragment_size`
+Average size of sequencing library fragments estimated via gel electrophoresis or bioanalyzer/tapestation.
+
+| constraint | value |
+| --- | --- |
+| type | `number` |
+| required | `True` |
+
+### `sequencing_reagent_kit`
+Reagent kit used for sequencing
+
+| constraint | value |
+| --- | --- |
+| required | `True` |
+
+### `sequencing_read_format`
+Number of sequencing cycles in Read1, i7 index, i5 index, and Read2 (R1/i7/i5/R2). TODO - pattern constraint.
+
+| constraint | value |
+| --- | --- |
+| required | `True` |
+
+### `sequencing_read_percent_q30`
+Percent of bases with Quality scores above Q30
+
+| constraint | value |
+| --- | --- |
+| type | `number` |
+| required | `True` |
+| minimum | `0` |
+| maximum | `100` |
+
+### `sequencing_phix_percent`
+Percent PhiX loaded to the run
+
+| constraint | value |
+| --- | --- |
+| type | `number` |
+| required | `True` |
+| minimum | `0` |
+| maximum | `100` |
 
 ## Paths
 

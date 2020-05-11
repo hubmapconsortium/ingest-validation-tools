@@ -57,7 +57,7 @@ HuBMAP Display ID of the assayed tissue.
 
 | constraint | value |
 | --- | --- |
-| pattern | `[A-Z]+[0-9]+(-[A-Z0-9]+)+` |
+| pattern | `([A-Z]+[0-9]+)-(BL|BR|LB|RB|HT|LK|RK|LI|LV|LL|RL|LY\d\d|SI|SP|TH|TR|UR|OT)(-\d+)+(_\d+)?` |
 | required | `True` |
 
 ## Level 1
@@ -126,7 +126,7 @@ The specific type of assay being executed.
 | required | `True` |
 
 ### `analyte_class`
-Analytes are the target molecules being measured with the assay.
+Analytes are the target molecules being measured with the assay. Leave blank if not applicable.
 
 | constraint | value |
 | --- | --- |
@@ -225,7 +225,7 @@ TODO
 ## Paths
 
 ### `metadata_path`
-Relative path to file or directory with free-form or instrument/lab specific metadata. Optional.
+Relative path to file or directory with free-form or instrument/lab specific metadata. Optional. Leave blank if not applicable.
 
 | constraint | value |
 | --- | --- |

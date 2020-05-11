@@ -76,7 +76,7 @@ HuBMAP Display ID of the assayed tissue.
 
 | constraint | value |
 | --- | --- |
-| pattern | `[A-Z]+[0-9]+(-[A-Z0-9]+)+` |
+| pattern | `([A-Z]+[0-9]+)-(BL|BR|LB|RB|HT|LK|RK|LI|LV|LL|RL|LY\d\d|SI|SP|TH|TR|UR|OT)(-\d+)+(_\d+)?` |
 | required | `True` |
 
 ## Level 1
@@ -199,11 +199,11 @@ The method by which tissues are dissociated into single cells in suspension.
 | required | `True` |
 
 ### `sc_isolation_enrichment`
-The method by which specific cell populations are sorted or enriched.
+The method by which specific cell populations are sorted or enriched. Leave blank if not applicable.
 
 | constraint | value |
 | --- | --- |
-| required | `True` |
+| required | `False` |
 
 ### `sc_isolation_quality_metric`
 A quality metric by visual inspection prior to cell lysis or defined by known parameters such as wells with several cells or no cells. This can be captured at a high level.
@@ -356,7 +356,7 @@ Percent PhiX loaded to the ru
 ## Paths
 
 ### `metadata_path`
-Relative path to file or directory with free-form or instrument/lab specific metadata. Optional.
+Relative path to file or directory with free-form or instrument/lab specific metadata. Optional. Leave blank if not applicable.
 
 | constraint | value |
 | --- | --- |
