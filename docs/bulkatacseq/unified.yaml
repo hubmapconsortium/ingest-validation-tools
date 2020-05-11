@@ -141,6 +141,8 @@ fields:
   name: library_concentration_value
   type: number
 - constraints:
+    enum:
+    - nM
     required: true
   description: Unit of library_concentration_value
   name: library_concentration_unit
@@ -164,8 +166,10 @@ fields:
   name: library_final_yield_value
   type: number
 - constraints:
+    enum:
+    - ng
     required: true
-  description: Units of library final yield (eg. ng)
+  description: Units of library final yield
   name: library_final_yield_unit
 - constraints:
     required: true

@@ -29,7 +29,7 @@ fields:
     description: The high value of the scanned mass range for MS1.
   -
     name: mass_range_unit
-    description: The measurement unit of the scanned mass range. TODO: m/z is not a unit.
+    description: The measurement unit of the scanned mass range. TODO - m/z is not a unit.
     constraints:
       enum:
         - m/z

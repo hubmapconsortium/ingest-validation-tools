@@ -175,6 +175,7 @@ RNA amount per Tissue input amount. Valid values should be weight/weight (ng/mg)
 
 | constraint | value |
 | --- | --- |
+| enum | `ng/mg` |
 | required | `True` |
 
 ### `bulk_rna_isolation_quality_metric_value`
@@ -250,6 +251,7 @@ units of library final yield
 
 | constraint | value |
 | --- | --- |
+| enum | `ng` |
 | required | `True` |
 
 ### `library_average_fragment_size`

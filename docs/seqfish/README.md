@@ -181,6 +181,7 @@ The unit of measurement of width of a pixel.(µm)
 
 | constraint | value |
 | --- | --- |
+| enum | `nm` or `um` |
 | required | `True` |
 
 ### `resolution_y_value`
@@ -196,6 +197,7 @@ The unit of measurement of height of a pixel. (µm)
 
 | constraint | value |
 | --- | --- |
+| enum | `nm` or `um` |
 | required | `True` |
 
 ### `resolution_z_value`
@@ -211,6 +213,7 @@ The unit of incremental distance between image slices.(um)
 
 | constraint | value |
 | --- | --- |
+| enum | `nm` or `um` |
 | required | `True` |
 
 ### `preparation_instrument_vendor`

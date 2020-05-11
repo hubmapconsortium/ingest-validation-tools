@@ -25,7 +25,7 @@ fields:
     description: TODO
   -
     name: mass_range_unit
-    description: TODO: m/z is not a unit.
+    description: TODO - m/z is not a unit.
     constraints:
       enum:
         - m/z

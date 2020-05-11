@@ -108,6 +108,9 @@ fields:
   name: resolution_x_value
   type: number
 - constraints:
+    enum:
+    - nm
+    - um
     required: true
   description: TODO
   name: resolution_x_unit
@@ -117,6 +120,9 @@ fields:
   name: resolution_y_value
   type: number
 - constraints:
+    enum:
+    - nm
+    - um
     required: true
   description: TODO
   name: resolution_y_unit
@@ -126,6 +132,9 @@ fields:
   name: resolution_z_value
   type: number
 - constraints:
+    enum:
+    - nm
+    - um
     required: true
   description: TODO
   name: resolution_z_unit

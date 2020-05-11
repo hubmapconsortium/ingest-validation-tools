@@ -48,7 +48,8 @@ Related files:
 [`cell_barcode_size`](#cell_barcode_size)<br>
 [`library_pcr_cycles`](#library_pcr_cycles)<br>
 [`library_pcr_cycles_for_sample_index`](#library_pcr_cycles_for_sample_index)<br>
-[`library_final_yield`](#library_final_yield)<br>
+[`library_final_yield_value`](#library_final_yield_value)<br>
+[`library_final_yield_unit`](#library_final_yield_unit)<br>
 [`library_average_fragment_size`](#library_average_fragment_size)<br>
 [`sequencing_reagent_kit`](#sequencing_reagent_kit)<br>
 [`sequencing_read_format`](#sequencing_read_format)<br>
@@ -305,11 +306,20 @@ Number of PCR cycles performed for library indexing
 | --- | --- |
 | required | `True` |
 
-### `library_final_yield`
+### `library_final_yield_value`
 Total number of ng of library after final pcr amplification step
 
 | constraint | value |
 | --- | --- |
+| type | `number` |
+| required | `True` |
+
+### `library_final_yield_unit`
+TODO
+
+| constraint | value |
+| --- | --- |
+| enum | `ng` |
 | required | `True` |
 
 ### `library_average_fragment_size`

@@ -121,6 +121,9 @@ fields:
   name: resolution_x_value
   type: number
 - constraints:
+    enum:
+    - nm
+    - um
     required: true
   description: "The unit of measurement of width of a pixel.(\xB5m)"
   name: resolution_x_unit
@@ -130,6 +133,9 @@ fields:
   name: resolution_y_value
   type: number
 - constraints:
+    enum:
+    - nm
+    - um
     required: true
   description: "The unit of measurement of height of a pixel. (\xB5m)"
   name: resolution_y_unit
@@ -144,6 +150,9 @@ fields:
   name: resolution_z_value
   type: number
 - constraints:
+    enum:
+    - nm
+    - um
     required: true
   description: The unit of incremental distance between image slices.(um)
   name: resolution_z_unit

@@ -217,6 +217,7 @@ Unit of library_concentration_value
 
 | constraint | value |
 | --- | --- |
+| enum | `nM` |
 | required | `True` |
 
 ### `library_construction_protocols_io_doi`
@@ -243,10 +244,11 @@ Total amount (eg. nanograms) of library after the clean-up step of final pcr amp
 | required | `True` |
 
 ### `library_final_yield_unit`
-Units of library final yield (eg. ng)
+Units of library final yield
 
 | constraint | value |
 | --- | --- |
+| enum | `ng` |
 | required | `True` |
 
 ### `library_id`

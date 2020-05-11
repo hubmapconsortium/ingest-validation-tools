@@ -192,10 +192,11 @@ TODO
 | required | `True` |
 
 ### `mass_range_unit`
-TODO
+TODO - m/z is not a unit.
 
 | constraint | value |
 | --- | --- |
+| enum | `m/z` |
 | required | `True` |
 
 ### `resolution_x_value`
@@ -211,6 +212,7 @@ TODO
 
 | constraint | value |
 | --- | --- |
+| enum | `nm` or `um` |
 | required | `True` |
 
 ### `resolution_y_value`
@@ -226,6 +228,7 @@ TODO
 
 | constraint | value |
 | --- | --- |
+| enum | `nm` or `um` |
 | required | `True` |
 
 ### `preparation_type`
