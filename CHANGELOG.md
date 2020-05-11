@@ -7,6 +7,7 @@
 - Add WGS.
 ### Changed
 - More accurate sample ID regex.
+- Add bulkrnaseq field.
 
 ### Changed
 - Reorder LCMS fields.
