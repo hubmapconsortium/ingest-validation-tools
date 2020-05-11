@@ -10,7 +10,7 @@ Submissions are based on Globus directories containing:
 
 The `data_path` and `metadata_path` in the TSV are relative to the location of the TSV.
 
-<img src="https://docs.google.com/drawings/d/e/2PACX-1vSQtvCCHf_t0SwpmlCINcwanq-dimJrkP93sm5E584bcL5iVy0t95W-HQz-dPGvbd46yRrnBVH8AAKF/pub?w=359&amp;h=383">
+[![Submission diagram](https://docs.google.com/drawings/d/e/2PACX-1vSQtvCCHf_t0SwpmlCINcwanq-dimJrkP93sm5E584bcL5iVy0t95W-HQz-dPGvbd46yRrnBVH8AAKF/pub?w=359&amp;h=383)](https://docs.google.com/drawings/d/1J6sGrJcnm7W7E1MJczPiGeFGAlHob7RKJOwgKKrBrc8/edit)
 
 ## For data submitters:
 
