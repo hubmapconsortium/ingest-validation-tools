@@ -113,6 +113,8 @@ fields:
   name: dna_assay_input
   type: number
 - constraints:
+    enum:
+    - TODO
     required: true
   description: Units of DNA input into library preparation
   name: dna_assay_input_unit
@@ -142,6 +144,8 @@ fields:
   name: library_final_yield
   type: number
 - constraints:
+    enum:
+    - ng
     required: true
   description: Total units of library after final pcr amplification step
   name: library_final_yield_unit

@@ -199,6 +199,7 @@ Units of RNA input amount to the assay
 
 | constraint | value |
 | --- | --- |
+| enum | `TODO` |
 | required | `True` |
 
 ### `rnaseq_assay_method`

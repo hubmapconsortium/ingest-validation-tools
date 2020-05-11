@@ -170,6 +170,7 @@ Units of DNA input into library preparation
 
 | constraint | value |
 | --- | --- |
+| enum | `TODO` |
 | required | `True` |
 
 ### `library_construction_method`
@@ -214,6 +215,7 @@ Total units of library after final pcr amplification step
 
 | constraint | value |
 | --- | --- |
+| enum | `ng` |
 | required | `True` |
 
 ### `library_average_fragment_size`
