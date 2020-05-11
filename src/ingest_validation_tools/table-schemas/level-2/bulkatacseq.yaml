@@ -33,7 +33,7 @@ fields:
   description: 'Total amount (eg. nanograms) of library after the clean-up step of
     final pcr amplification step. Answer the question: What is the Qubit measured
     concentration (ng/ul) times the elution volume (ul) after the final clean-up step?'
-- name: library_final_yield_units
+- name: library_final_yield_unit
   description: Units of library final yield (eg. ng)
 - name: library_id
   description: 'TODO'
