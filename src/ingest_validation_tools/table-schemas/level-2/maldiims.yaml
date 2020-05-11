@@ -25,19 +25,30 @@ fields:
     description: TODO
   -
     name: mass_range_unit
-    description: TODO
+    description: TODO - m/z is not a unit.
+    constraints:
+      enum:
+        - m/z
   -
     name: resolution_x_value
     description: TODO
   -
     name: resolution_x_unit
     description: TODO
+    constraints:
+      enum:
+        - nm
+        - um
   -
     name: resolution_y_value
     description: TODO
   -
     name: resolution_y_unit
     description: TODO
+    constraints:
+      enum:
+        - nm
+        - um
   -
     name: preparation_type
     description: TODO

@@ -127,8 +127,11 @@ fields:
   name: mass_range_high_value
   type: number
 - constraints:
+    enum:
+    - m/z
     required: true
-  description: The measurement unit of the scanned mass range.
+  description: The measurement unit of the scanned mass range. TODO - m/z is not a
+    unit.
   name: mass_range_unit
 - constraints:
     required: true
@@ -179,6 +182,8 @@ fields:
   name: lc_length_value
   type: number
 - constraints:
+    enum:
+    - cm
     required: true
   description: units for LC column length (typically cm)
   name: lc_length_unit
@@ -188,6 +193,8 @@ fields:
   name: lc_temp_value
   type: number
 - constraints:
+    enum:
+    - C
     required: true
   description: units for LC temperature
   name: lc_temp_unit
@@ -197,6 +204,8 @@ fields:
   name: lc_id_value
   type: number
 - constraints:
+    enum:
+    - um
     required: true
   description: units of LC column inner diameter (typically microns)
   name: lc_id_unit
@@ -206,6 +215,8 @@ fields:
   name: lc_flow_rate_value
   type: number
 - constraints:
+    enum:
+    - nL/min
     required: false
   description: Units of flow rate.
   name: lc_flow_rate_unit

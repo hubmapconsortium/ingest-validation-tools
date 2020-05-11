@@ -117,6 +117,8 @@ fields:
   name: bulk_rna_yield_value
   type: number
 - constraints:
+    enum:
+    - ng/mg
     required: true
   description: RNA amount per Tissue input amount. Valid values should be weight/weight
     (ng/mg).
@@ -135,6 +137,8 @@ fields:
   name: rnaseq_assay_input_value
   type: number
 - constraints:
+    enum:
+    - TODO
     required: true
   description: Units of RNA input amount to the assay
   name: rnaseq_assay_input_unit
@@ -170,6 +174,8 @@ fields:
   name: library_final_yield_value
   type: number
 - constraints:
+    enum:
+    - ng
     required: true
   description: units of library final yield
   name: library_final_yield_unit

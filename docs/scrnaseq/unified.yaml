@@ -173,7 +173,14 @@ fields:
 - constraints:
     required: true
   description: Total number of ng of library after final pcr amplification step
-  name: library_final_yield
+  name: library_final_yield_value
+  type: number
+- constraints:
+    enum:
+    - ng
+    required: true
+  description: TODO
+  name: library_final_yield_unit
 - constraints:
     required: true
   description: Average size of sequencing library fragments estimated via gel electrophoresis

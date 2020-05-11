@@ -204,10 +204,11 @@ The high value of the scanned mass range for MS1.
 | required | `True` |
 
 ### `mass_range_unit`
-The measurement unit of the scanned mass range.
+The measurement unit of the scanned mass range. TODO - m/z is not a unit.
 
 | constraint | value |
 | --- | --- |
+| enum | `m/z` |
 | required | `True` |
 
 ### `data_collection_mode`
@@ -287,6 +288,7 @@ units for LC column length (typically cm)
 
 | constraint | value |
 | --- | --- |
+| enum | `cm` |
 | required | `True` |
 
 ### `lc_temp_value`
@@ -302,6 +304,7 @@ units for LC temperature
 
 | constraint | value |
 | --- | --- |
+| enum | `C` |
 | required | `True` |
 
 ### `lc_id_value`
@@ -317,6 +320,7 @@ units of LC column inner diameter (typically microns)
 
 | constraint | value |
 | --- | --- |
+| enum | `um` |
 | required | `True` |
 
 ### `lc_flow_rate_value`
@@ -333,6 +337,7 @@ Units of flow rate. Leave blank if not applicable.
 | constraint | value |
 | --- | --- |
 | required | `False` |
+| enum | `nL/min` |
 
 ### `lc_gradient`
 LC gradient

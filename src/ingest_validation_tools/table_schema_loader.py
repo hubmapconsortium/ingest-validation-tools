@@ -32,10 +32,17 @@ def get_schema(type, optional_fields=[]):
     )
     for field in fields:
         _add_constraints(field, optional_fields)
+    for field in fields:
+        _validate_field(field)
     return {
         'doc_url': type_schema['doc_url'],
         'fields': fields
     }
+
+
+def _validate_field(field):
+    if field['name'].endswith('_unit') and 'enum' not in field['constraints']:
+        raise Exception('"_unit" fields must have enum constraints', field)
 
 
 def _get_level_1_schema(type):
