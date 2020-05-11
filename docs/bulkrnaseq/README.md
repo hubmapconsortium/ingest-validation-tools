@@ -34,6 +34,7 @@ Related files:
 [`bulk_rna_isolation_quality_metric_value`](#bulk_rna_isolation_quality_metric_value)<br>
 [`rnaseq_assay_input_value`](#rnaseq_assay_input_value)<br>
 [`rnaseq_assay_input_unit`](#rnaseq_assay_input_unit)<br>
+[`rnaseq_assay_method`](#rnaseq_assay_method)<br>
 [`library_construction_protocols_io_doi`](#library_construction_protocols_io_doi)<br>
 [`library_layout`](#library_layout)<br>
 [`library_adapter_sequence`](#library_adapter_sequence)<br>
@@ -194,6 +195,13 @@ RNA input amount value to the assay
 
 ### `rnaseq_assay_input_unit`
 Units of RNA input amount to the assay
+
+| constraint | value |
+| --- | --- |
+| required | `True` |
+
+### `rnaseq_assay_method`
+rnaseq assay kit used.
 
 | constraint | value |
 | --- | --- |
