@@ -8,6 +8,7 @@
 - Dump unified yaml for each type. (This will be pulled on the portal side.)
 ### Changed
 - More accurate sample ID regex.
+- Add bulkrnaseq field.
 
 ### Changed
 - Reorder LCMS fields.
