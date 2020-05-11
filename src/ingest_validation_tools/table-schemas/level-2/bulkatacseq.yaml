@@ -2,7 +2,7 @@ doc_url: TODO
 fields:
 - heading: Level 2
   name: avg_insert_size
-  description: Size of the insert in bp. TODO: units.
+  description: Size of the insert in bp. TODO - units.
 - name: bulk_transposition_input_number_nuclei
   description: A number (no comma separators)
 - name: bulk_atac_cell_isolation_protocols_io_doi
@@ -19,7 +19,7 @@ fields:
   description: The concentration of the library which was submitted for sequencing.
     This field is different from the "library_final_yield" because the concentration
     field takes into account how the library was pooled with other libraries. The
-    "library_final_yield" should be greater than or equal to this column. - TODO: Is this correct? This is a concentration, the other is a yield, typically in ng, so they don't seem to have the same units, so an inequality makes no sense.
+    "library_final_yield" should be greater than or equal to this column. - TODO - Is this correct? This is a concentration, the other is a yield, typically in ng, so they don't seem to have the same units, so an inequality makes no sense.
 - name: library_concentration_unit
   description: Unit of library_concentration_value
 - name: library_construction_protocols_io_doi
@@ -29,6 +29,8 @@ fields:
 - name: library_creation_date
   description: date and time of library creation. YYYY-MM-DD, where YYYY is the year,
     MM is the month with leading 0s, and DD is the day with leading 0s - TODO - constraint
+  constraints:
+    required: false
 - name: library_final_yield_value
   description: 'Total amount (eg. nanograms) of library after the clean-up step of
     final pcr amplification step. Answer the question: What is the Qubit measured
@@ -63,6 +65,8 @@ fields:
   description: Reagent kit used for sequencing. NovaSeq6000 for example
 - name: transposition_kit_number
   description: If Tn5 came from a kit, provide the catalog number.
+  constraints:
+    required: false
 - name: transposition_method
   description: Modality of capturing accessible chromatin molecules. TODO - is this an enum?
 - name: transposition_transposase_source

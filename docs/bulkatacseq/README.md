@@ -29,17 +29,17 @@ Related files:
 <details><summary>Level 2</summary>
 
 [`avg_insert_size`](#avg_insert_size)<br>
-[`bulk_ transposition_input_number_nuclei`](#bulk_-transposition_input_number_nuclei)<br>
+[`bulk_transposition_input_number_nuclei`](#bulk_transposition_input_number_nuclei)<br>
 [`bulk_atac_cell_isolation_protocols_io_doi`](#bulk_atac_cell_isolation_protocols_io_doi)<br>
 [`is_technical_replicate`](#is_technical_replicate)<br>
 [`library_adapter_sequence`](#library_adapter_sequence)<br>
 [`library_average_fragment_size`](#library_average_fragment_size)<br>
-[`library_concentration_unit`](#library_concentration_unit)<br>
 [`library_concentration_value`](#library_concentration_value)<br>
+[`library_concentration_unit`](#library_concentration_unit)<br>
 [`library_construction_protocols_io_doi`](#library_construction_protocols_io_doi)<br>
 [`library_creation_date`](#library_creation_date)<br>
 [`library_final_yield_value`](#library_final_yield_value)<br>
-[`library_final_yield_units`](#library_final_yield_units)<br>
+[`library_final_yield_unit`](#library_final_yield_unit)<br>
 [`library_id`](#library_id)<br>
 [`library_layout`](#library_layout)<br>
 [`library_pcr_cycles`](#library_pcr_cycles)<br>
@@ -161,13 +161,13 @@ Specifies whether or not a specific molecule(s) is/are targeted for detection/me
 ## Level 2
 
 ### `avg_insert_size`
-Size of the insert in bp
+Size of the insert in bp. TODO - units.
 
 | constraint | value |
 | --- | --- |
 | required | `True` |
 
-### `bulk_ transposition_input_number_nuclei`
+### `bulk_transposition_input_number_nuclei`
 A number (no comma separators)
 
 | constraint | value |
@@ -198,25 +198,25 @@ Adapter sequence to be used for adapter trimming
 | required | `True` |
 
 ### `library_average_fragment_size`
-Average size in bp of sequencing library fragments estimated via gel electrophoresis or bioanalyzer/tapestation.
-
-| constraint | value |
-| --- | --- |
-| required | `True` |
-
-### `library_concentration_unit`
-Units of library_concentration_value
+Average size in bp of sequencing library fragments estimated via gel electrophoresis or bioanalyzer/tapestation. TODO - Unit field? Ask Nils.
 
 | constraint | value |
 | --- | --- |
 | required | `True` |
 
 ### `library_concentration_value`
-The concentration of the library which was submitted for sequencing. This field is different from the "library_final_yield" because the concentration field takes into account how the library was pooled with other libraries. The "library_final_yield" should be greater than or equal to this column.
+The concentration of the library which was submitted for sequencing. This field is different from the "library_final_yield" because the concentration field takes into account how the library was pooled with other libraries. The "library_final_yield" should be greater than or equal to this column. - TODO - Is this correct? This is a concentration, the other is a yield, typically in ng, so they don't seem to have the same units, so an inequality makes no sense.
 
 | constraint | value |
 | --- | --- |
 | type | `number` |
+| required | `True` |
+
+### `library_concentration_unit`
+Unit of library_concentration_value
+
+| constraint | value |
+| --- | --- |
 | required | `True` |
 
 ### `library_construction_protocols_io_doi`
@@ -228,11 +228,11 @@ A link to the protocol document containing the library construction method (incl
 | pattern | `10\.17504/.*` |
 
 ### `library_creation_date`
-date and time of library creation. YYYY-MM-DD, where YYYY is the year, MM is the month with leading 0s, and DD is the day with leading 0s
+date and time of library creation. YYYY-MM-DD, where YYYY is the year, MM is the month with leading 0s, and DD is the day with leading 0s - TODO - constraint. Leave blank if not applicable.
 
 | constraint | value |
 | --- | --- |
-| required | `True` |
+| required | `False` |
 
 ### `library_final_yield_value`
 Total amount (eg. nanograms) of library after the clean-up step of final pcr amplification step. Answer the question: What is the Qubit measured concentration (ng/ul) times the elution volume (ul) after the final clean-up step?
@@ -242,7 +242,7 @@ Total amount (eg. nanograms) of library after the clean-up step of final pcr amp
 | type | `number` |
 | required | `True` |
 
-### `library_final_yield_units`
+### `library_final_yield_unit`
 Units of library final yield (eg. ng)
 
 | constraint | value |
@@ -250,14 +250,14 @@ Units of library final yield (eg. ng)
 | required | `True` |
 
 ### `library_id`
-
+TODO
 
 | constraint | value |
 | --- | --- |
 | required | `True` |
 
 ### `library_layout`
-State whether the library was generated for single-end or paired end sequencing
+State whether the library was generated for single-end or paired end sequencing. TODO - enum
 
 | constraint | value |
 | --- | --- |
@@ -268,6 +268,7 @@ Number of PCR cycles performed in order to add adapters and amplify the library.
 
 | constraint | value |
 | --- | --- |
+| type | `integer` |
 | required | `True` |
 
 ### `library_preparation_kit`
@@ -295,7 +296,7 @@ Percent PhiX loaded to the run
 | maximum | `100` |
 
 ### `sequencing_read_format`
-Number of sequencing cycles in Read1, i7 index, i5 index, and Read2 (comma-delimnited with no required pattern)
+Number of sequencing cycles in Read1, i7 index, i5 index, and Read2 (comma-delimnited with no required pattern) - TODO - If we're saying it's comma delimited there IS a required pattern, and it should be validated.
 
 | constraint | value |
 | --- | --- |
@@ -319,14 +320,14 @@ Reagent kit used for sequencing. NovaSeq6000 for example
 | required | `True` |
 
 ### `transposition_kit_number`
-If Tn5 came from a kit, provide the catalog number.
+If Tn5 came from a kit, provide the catalog number. Leave blank if not applicable.
 
 | constraint | value |
 | --- | --- |
-| required | `True` |
+| required | `False` |
 
 ### `transposition_method`
-Modality of capturing accessible chromatin molecules.
+Modality of capturing accessible chromatin molecules. TODO - is this an enum?
 
 | constraint | value |
 | --- | --- |
