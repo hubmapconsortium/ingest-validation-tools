@@ -5,6 +5,8 @@
 - Autogenerate "Leave blank if not applicable".
 - Add bulkrnaseq.
 - Add WGS.
+### Changed
+- More accurate sample ID regex.
 
 ### Changed
 - Reorder LCMS fields.
