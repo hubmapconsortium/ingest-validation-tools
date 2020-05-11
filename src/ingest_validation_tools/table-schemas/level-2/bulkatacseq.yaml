@@ -22,6 +22,9 @@ fields:
     "library_final_yield" should be greater than or equal to this column. - TODO - Is this correct? This is a concentration, the other is a yield, typically in ng, so they don't seem to have the same units, so an inequality makes no sense.
 - name: library_concentration_unit
   description: Unit of library_concentration_value
+  constraints:
+    enum:
+      - nM
 - name: library_construction_protocols_io_doi
   description: A link to the protocol document containing the library construction
     method (including version) that was used, e.g. "Smart-Seq2", "Drop-Seq", "10X
@@ -36,7 +39,10 @@ fields:
     final pcr amplification step. Answer the question: What is the Qubit measured
     concentration (ng/ul) times the elution volume (ul) after the final clean-up step?'
 - name: library_final_yield_unit
-  description: Units of library final yield (eg. ng)
+  description: Units of library final yield
+  constraints:
+    enum:
+      - ng
 - name: library_id
   description: 'TODO'
 - name: library_layout

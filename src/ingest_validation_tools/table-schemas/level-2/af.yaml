@@ -21,18 +21,30 @@ fields:
   -
     name: resolution_x_unit
     description: TODO
+    constraints:
+      enum:
+        - nm
+        - um
   -
     name: resolution_y_value
     description: TODO
   -
     name: resolution_y_unit
     description: TODO
+    constraints:
+      enum:
+        - nm
+        - um
   -
     name: resolution_z_value
     description: TODO
   -
     name: resolution_z_unit
     description: TODO
+    constraints:
+      enum:
+        - nm
+        - um
   -
     name: number_of_channels
     description: TODO

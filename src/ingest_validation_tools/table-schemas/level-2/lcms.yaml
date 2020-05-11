@@ -29,7 +29,10 @@ fields:
     description: The high value of the scanned mass range for MS1.
   -
     name: mass_range_unit
-    description: The measurement unit of the scanned mass range.
+    description: The measurement unit of the scanned mass range. TODO: m/z is not a unit.
+    constraints:
+      enum:
+        - m/z
   -
     name: data_collection_mode
     description: Mode of data collection in tandem MS assays. Either DDA (Data-dependent acquisition) or DIA (Data-indemendent acquisition.
@@ -63,18 +66,27 @@ fields:
   -
     name: lc_length_unit
     description: units for LC column length (typically cm)
+    constraints:
+      enum:
+        - cm
   -
     name: lc_temp_value
     description: LC temperature
   -
     name: lc_temp_unit
     description: units for LC temperature
+    constraints:
+      enum:
+        - C
   -
     name: lc_id_value
     description: LC column inner diameter (microns)
   -
     name: lc_id_unit
     description: units of LC column inner diameter (typically microns)
+    constraints:
+      enum:
+        - um
   -
     name: lc_flow_rate_value
     description: Value of flow rate.
@@ -85,6 +97,8 @@ fields:
     description: Units of flow rate.
     constraints:
       required: False
+      enum:
+        - nL/min
   -
     name: lc_gradient
     description: LC gradient

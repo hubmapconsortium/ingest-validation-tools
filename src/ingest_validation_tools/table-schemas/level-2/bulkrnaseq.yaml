@@ -12,6 +12,9 @@ fields:
 - name: bulk_rna_yield_units_per_tissue_unit
   description: RNA amount per Tissue input amount. Valid values should be weight/weight
     (ng/mg).
+  constraints:
+    enum:
+      - ng/mg
 - name: bulk_rna_isolation_quality_metric_value
   description: "A quality metric by visual inspection. This should answer the question:\
     \ was the bulk RNA of high integrity? Was the RIN value high enough (>=6)? This\
@@ -39,6 +42,9 @@ fields:
   description: Total amount of library after final pcr amplification step
 - name: library_final_yield_unit
   description: units of library final yield
+  constraints:
+    enum:
+      - ng
 - name: library_average_fragment_size
   description: Average size of sequencing library fragments estimated via gel electrophoresis
     or bioanalyzer/tapestation. TODO - Does this need units? Is it base-pairs?
