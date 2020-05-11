@@ -1,9 +1,9 @@
-# maldiims
+# bulkrnaseq
 
 Related files:
 - [🔬 Background doc](TODO): More details about this type.
-- [📝 TSV template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/master/docs/maldiims/template.tsv): Use this to submit metadata.
-- [💻 Source code](https://github.com/hubmapconsortium/ingest-validation-tools/edit/master/src/ingest_validation_tools/table-schemas/level-2/maldiims.yaml): Make a PR if this doc should be updated.
+- [📝 TSV template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/master/docs/bulkrnaseq/template.tsv): Use this to submit metadata.
+- [💻 Source code](https://github.com/hubmapconsortium/ingest-validation-tools/edit/master/src/ingest_validation_tools/table-schemas/level-2/bulkrnaseq.yaml): Make a PR if this doc should be updated.
 
 ## Table of contents
 <details><summary>Provenance</summary>
@@ -24,23 +24,28 @@ Related files:
 [`assay_type`](#assay_type)<br>
 [`analyte_class`](#analyte_class)<br>
 [`is_targeted`](#is_targeted)<br>
-[`acquisition_instrument_vendor`](#acquisition_instrument_vendor)<br>
-[`acquisition_instrument_model`](#acquisition_instrument_model)<br>
-[`ms_source`](#ms_source)<br>
-[`polarity`](#polarity)<br>
-[`mass_range_low_value`](#mass_range_low_value)<br>
-[`mass_range_high_value`](#mass_range_high_value)<br>
-[`mass_range_unit`](#mass_range_unit)<br>
-[`resolution_x_value`](#resolution_x_value)<br>
-[`resolution_x_unit`](#resolution_x_unit)<br>
-[`resolution_y_value`](#resolution_y_value)<br>
-[`resolution_y_unit`](#resolution_y_unit)<br>
-[`preparation_type`](#preparation_type)<br>
-[`preparation_instrument_vendor`](#preparation_instrument_vendor)<br>
-[`preparation_instrument_model`](#preparation_instrument_model)<br>
-[`preparation_maldi_matrix`](#preparation_maldi_matrix)<br>
-[`section_prep_protocols_io_doi`](#section_prep_protocols_io_doi)<br>
-[`overall_protocols_io_doi`](#overall_protocols_io_doi)<br>
+</details>
+
+<details><summary>Level 2</summary>
+
+[`bulk_rna_isolation_protocols_io_doi`](#bulk_rna_isolation_protocols_io_doi)<br>
+[`bulk_rna_yield_value`](#bulk_rna_yield_value)<br>
+[`bulk_rna_yield_units_per_tissue_unit`](#bulk_rna_yield_units_per_tissue_unit)<br>
+[`bulk_rna_isolation_quality_metric_value`](#bulk_rna_isolation_quality_metric_value)<br>
+[`rnaseq_assay_input_value`](#rnaseq_assay_input_value)<br>
+[`rnaseq_assay_input_unit`](#rnaseq_assay_input_unit)<br>
+[`rnaseq_assay_method`](#rnaseq_assay_method)<br>
+[`library_construction_protocols_io_doi`](#library_construction_protocols_io_doi)<br>
+[`library_layout`](#library_layout)<br>
+[`library_adapter_sequence`](#library_adapter_sequence)<br>
+[`library_pcr_cycles_for_sample_index`](#library_pcr_cycles_for_sample_index)<br>
+[`library_final_yield_value`](#library_final_yield_value)<br>
+[`library_final_yield_unit`](#library_final_yield_unit)<br>
+[`library_average_fragment_size`](#library_average_fragment_size)<br>
+[`sequencing_reagent_kit`](#sequencing_reagent_kit)<br>
+[`sequencing_read_format`](#sequencing_read_format)<br>
+[`sequencing_read_percent_q30`](#sequencing_read_percent_q30)<br>
+[`sequencing_phix_percent`](#sequencing_phix_percent)<br>
 </details>
 
 <details><summary>Paths</summary>
@@ -147,130 +152,147 @@ Specifies whether or not a specific molecule(s) is/are targeted for detection/me
 | type | `boolean` |
 | required | `True` |
 
-### `acquisition_instrument_vendor`
-TODO
+## Level 2
 
-| constraint | value |
-| --- | --- |
-| required | `True` |
-
-### `acquisition_instrument_model`
-TODO
-
-| constraint | value |
-| --- | --- |
-| required | `True` |
-
-### `ms_source`
-TODO
-
-| constraint | value |
-| --- | --- |
-| required | `True` |
-
-### `polarity`
-TODO
-
-| constraint | value |
-| --- | --- |
-| required | `True` |
-
-### `mass_range_low_value`
-TODO
-
-| constraint | value |
-| --- | --- |
-| type | `number` |
-| required | `True` |
-
-### `mass_range_high_value`
-TODO
-
-| constraint | value |
-| --- | --- |
-| type | `number` |
-| required | `True` |
-
-### `mass_range_unit`
-TODO
-
-| constraint | value |
-| --- | --- |
-| required | `True` |
-
-### `resolution_x_value`
-TODO
-
-| constraint | value |
-| --- | --- |
-| type | `number` |
-| required | `True` |
-
-### `resolution_x_unit`
-TODO
-
-| constraint | value |
-| --- | --- |
-| required | `True` |
-
-### `resolution_y_value`
-TODO
-
-| constraint | value |
-| --- | --- |
-| type | `number` |
-| required | `True` |
-
-### `resolution_y_unit`
-TODO
-
-| constraint | value |
-| --- | --- |
-| required | `True` |
-
-### `preparation_type`
-TODO
-
-| constraint | value |
-| --- | --- |
-| required | `True` |
-
-### `preparation_instrument_vendor`
-TODO
-
-| constraint | value |
-| --- | --- |
-| required | `True` |
-
-### `preparation_instrument_model`
-TODO
-
-| constraint | value |
-| --- | --- |
-| required | `True` |
-
-### `preparation_maldi_matrix`
-TODO
-
-| constraint | value |
-| --- | --- |
-| required | `True` |
-
-### `section_prep_protocols_io_doi`
-TODO
+### `bulk_rna_isolation_protocols_io_doi`
+Link to a protocols document answering the question: How was tissue stored and processed for RNA isolation RNA_isolation_protocols_io_doi
 
 | constraint | value |
 | --- | --- |
 | required | `True` |
 | pattern | `10\.17504/.*` |
 
-### `overall_protocols_io_doi`
-TODO
+### `bulk_rna_yield_value`
+RNA (ng) per Weight of Tissue (mg). Answer the question: How much RNA in ng was isolated? How much tissue in mg was initially used for isolating RNA? Calculate the yield by dividing total RNA isolated by amount of tissue used to isolate RNA from (ng/mg).
+
+| constraint | value |
+| --- | --- |
+| type | `number` |
+| required | `True` |
+
+### `bulk_rna_yield_units_per_tissue_unit`
+RNA amount per Tissue input amount. Valid values should be weight/weight (ng/mg).
+
+| constraint | value |
+| --- | --- |
+| required | `True` |
+
+### `bulk_rna_isolation_quality_metric_value`
+A quality metric by visual inspection. This should answer the question: was the bulk RNA of high integrity? Was the RIN value high enough (>=6)? This can be captured at a high level, “OK” or “not OK”. Cyou may include RIN Value (Optional): eg. "OK - RIN>6"
+
+| constraint | value |
+| --- | --- |
+| type | `number` |
+| required | `True` |
+
+### `rnaseq_assay_input_value`
+RNA input amount value to the assay
+
+| constraint | value |
+| --- | --- |
+| type | `number` |
+| required | `True` |
+
+### `rnaseq_assay_input_unit`
+Units of RNA input amount to the assay
+
+| constraint | value |
+| --- | --- |
+| required | `True` |
+
+### `rnaseq_assay_method`
+rnaseq assay kit used.
+
+| constraint | value |
+| --- | --- |
+| required | `True` |
+
+### `library_construction_protocols_io_doi`
+A link to the protocol document containing the library construction method (including version) that was used, e.g. "Smart-Seq2", "Drop-Seq", "10X v3".
 
 | constraint | value |
 | --- | --- |
 | required | `True` |
 | pattern | `10\.17504/.*` |
+
+### `library_layout`
+State whether the library was generated for single-end or paired end sequencing. TODO -- Give enum constraint.
+
+| constraint | value |
+| --- | --- |
+| required | `True` |
+
+### `library_adapter_sequence`
+Adapter sequence to be used for adapter trimming. TODO -- Give pattern constraint.
+
+| constraint | value |
+| --- | --- |
+| required | `True` |
+
+### `library_pcr_cycles_for_sample_index`
+Number of PCR cycles performed for library indexing
+
+| constraint | value |
+| --- | --- |
+| type | `integer` |
+| required | `True` |
+
+### `library_final_yield_value`
+Total amount of library after final pcr amplification step
+
+| constraint | value |
+| --- | --- |
+| type | `number` |
+| required | `True` |
+
+### `library_final_yield_unit`
+units of library final yield
+
+| constraint | value |
+| --- | --- |
+| required | `True` |
+
+### `library_average_fragment_size`
+Average size of sequencing library fragments estimated via gel electrophoresis or bioanalyzer/tapestation. TODO - Does this need units? Is it base-pairs?
+
+| constraint | value |
+| --- | --- |
+| type | `integer` |
+| required | `True` |
+
+### `sequencing_reagent_kit`
+Reagent kit used for sequencing
+
+| constraint | value |
+| --- | --- |
+| required | `True` |
+
+### `sequencing_read_format`
+Number of sequencing cycles in Read1, i7 index, i5 index, and Read2 (no required pattern) TODO - Why no required pattern?
+
+| constraint | value |
+| --- | --- |
+| required | `True` |
+
+### `sequencing_read_percent_q30`
+Percent of bases with Quality scores above Q30
+
+| constraint | value |
+| --- | --- |
+| type | `number` |
+| required | `True` |
+| minimum | `0` |
+| maximum | `100` |
+
+### `sequencing_phix_percent`
+Percent PhiX loaded to the run
+
+| constraint | value |
+| --- | --- |
+| type | `number` |
+| required | `True` |
+| minimum | `0` |
+| maximum | `100` |
 
 ## Paths
 

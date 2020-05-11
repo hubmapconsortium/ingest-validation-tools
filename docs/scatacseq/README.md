@@ -1,9 +1,9 @@
-# atacseq
+# scatacseq
 
 Related files:
 - [🔬 Background doc](https://docs.google.com/document/d/1Lrzruebio9nUusaFSJQlZGANkRjS5lrJmk4W0sSj_xM/edit): More details about this type.
-- [📝 TSV template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/master/docs/atacseq/template.tsv): Use this to submit metadata.
-- [💻 Source code](https://github.com/hubmapconsortium/ingest-validation-tools/edit/master/src/ingest_validation_tools/table-schemas/level-2/atacseq.yaml): Make a PR if this doc should be updated.
+- [📝 TSV template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/master/docs/scatacseq/template.tsv): Use this to submit metadata.
+- [💻 Source code](https://github.com/hubmapconsortium/ingest-validation-tools/edit/master/src/ingest_validation_tools/table-schemas/level-2/scatacseq.yaml): Make a PR if this doc should be updated.
 
 ## Table of contents
 <details><summary>Provenance</summary>
@@ -79,7 +79,7 @@ HuBMAP Display ID of the assayed tissue.
 
 | constraint | value |
 | --- | --- |
-| pattern | `[A-Z]+[0-9]+(-[A-Z0-9]+)+` |
+| pattern | `([A-Z]+[0-9]+)-(BL|BR|LB|RB|HT|LK|RK|LI|LV|LL|RL|LY\d\d|SI|SP|TH|TR|UR|OT)(-\d+)+(_\d+)?` |
 | required | `True` |
 
 ## Level 1
@@ -265,7 +265,7 @@ The source of the Tn5 transposase and transposon used for capturing accessible c
 | required | `True` |
 
 ### `transposition_kit_number`
-If Tn5 came from a kit, provide the catalog number.
+If Tn5 came from a kit, provide the catalog number. Leave blank if not applicable.
 
 | constraint | value |
 | --- | --- |
@@ -300,7 +300,6 @@ Which read file contains the cell barcode.
 
 | constraint | value |
 | --- | --- |
-| pattern | `[A-Z]\d+(,[A-Z]\d+)*` |
 | required | `True` |
 
 ### `cell_barcode_offset`
@@ -396,7 +395,7 @@ Percent PhiX loaded to the run.
 ## Paths
 
 ### `metadata_path`
-Relative path to file or directory with free-form or instrument/lab specific metadata. Optional.
+Relative path to file or directory with free-form or instrument/lab specific metadata. Optional. Leave blank if not applicable.
 
 | constraint | value |
 | --- | --- |

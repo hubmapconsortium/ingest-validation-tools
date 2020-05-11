@@ -69,7 +69,7 @@ HuBMAP Display ID of the assayed tissue.
 
 | constraint | value |
 | --- | --- |
-| pattern | `[A-Z]+[0-9]+(-[A-Z0-9]+)+` |
+| pattern | `([A-Z]+[0-9]+)-(BL|BR|LB|RB|HT|LK|RK|LI|LV|LL|RL|LY\d\d|SI|SP|TH|TR|UR|OT)(-\d+)+(_\d+)?` |
 | required | `True` |
 
 ## Level 1
@@ -204,7 +204,7 @@ The unit of measurement of height of a pixel. (nm)
 | required | `True` |
 
 ### `resolution_z_value`
-Optional if assay does not have multiple z-levels. Note that this is resolution within a given sample: z-pitch (resolution_z_value) is the increment distance between image slices (for Akoya, z-pitch=1.5um) ie. the microscope stage is moved up or down in increments of 1.5um to capture images of several focal planes. The best one will be used & the rest discarded. The thickness of the sample itself is sample metadata.
+Optional if assay does not have multiple z-levels. Note that this is resolution within a given sample: z-pitch (resolution_z_value) is the increment distance between image slices (for Akoya, z-pitch=1.5um) ie. the microscope stage is moved up or down in increments of 1.5um to capture images of several focal planes. The best one will be used & the rest discarded. The thickness of the sample itself is sample metadata. Leave blank if not applicable.
 
 | constraint | value |
 | --- | --- |
@@ -280,7 +280,7 @@ DOI for protocols.io referring to the protocol for preparing reagents for the as
 ## Paths
 
 ### `metadata_path`
-Relative path to file or directory with free-form or instrument/lab specific metadata. Optional.
+Relative path to file or directory with free-form or instrument/lab specific metadata. Optional. Leave blank if not applicable.
 
 | constraint | value |
 | --- | --- |

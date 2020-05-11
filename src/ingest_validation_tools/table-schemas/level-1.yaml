@@ -9,7 +9,7 @@ fields:
     name: tissue_id
     description: HuBMAP Display ID of the assayed tissue.
     constraints:
-      pattern: '[A-Z]+[0-9]+(-[A-Z0-9]+)+'
+      pattern: '([A-Z]+[0-9]+)-(BL|BR|LB|RB|HT|LK|RK|LI|LV|LL|RL|LY\d\d|SI|SP|TH|TR|UR|OT)(-\d+)+(_\d+)?'
   -
     heading: Level 1
     name: execution_datetime

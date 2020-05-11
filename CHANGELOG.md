@@ -3,6 +3,17 @@
 ## v0.0.4 - In progress
 ### Added
 - Submission structure diagram.
+- Autogenerate "Leave blank if not applicable".
+- Add bulkrnaseq.
+- Add WGS.
+- Dump unified yaml for each type. (This will be pulled on the portal side.)
+### Changed
+- More accurate sample ID regex.
+- Add bulkrnaseq field.
+- Reorder LCMS fields.
+- `atacseq` to `scatacseq`.
+- Make sc_isolation_enrichment in scrnaseq optional.
+- Free-form cell_barcode_read.
 
 ## [v0.0.3](https://github.com/hubmapconsortium/ingest-validation-tools/tree/v0.0.3) - 2020-05-04
 ### Added
