@@ -139,6 +139,10 @@ fields:
   description: Units of RNA input amount to the assay
   name: rnaseq_assay_input_unit
 - constraints:
+    required: true
+  description: rnaseq assay kit used.
+  name: rnaseq_assay_method
+- constraints:
     pattern: 10\.17504/.*
     required: true
   description: A link to the protocol document containing the library construction
