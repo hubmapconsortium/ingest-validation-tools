@@ -3,10 +3,10 @@ fields:
 - heading: Level 2
   name: acquisition_instrument_vendor
   description: An acquisition_instrument is the device that contains the signal
-  detection hardware and signal processing software. Assays generate signals such as light of various intensities or color or signals representing molecular mass.
+   detection hardware and signal processing software. Assays generate signals such as light of various intensities or color or signals representing molecular mass.
 - name: acquisition_instrument_model
   description: Manufacturers of an acquisition instrument may offer various versions (models) of that instrument with different features or sensitivities.
-  Differences in features or sensitivities may be relevant to processing or interpretation of the data
+   Differences in features or sensitivities may be relevant to processing or interpretation of the data
 - name: avg_insert_size
   description: Size of the insert in bp. TODO - units.
 - name: bulk_transposition_input_number_nuclei

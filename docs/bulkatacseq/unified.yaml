@@ -103,8 +103,21 @@ fields:
   type: boolean
 - constraints:
     required: true
-  description: Size of the insert in bp. TODO - units.
+  description: An acquisition_instrument is the device that contains the signal detection
+    hardware and signal processing software. Assays generate signals such as light
+    of various intensities or color or signals representing molecular mass.
   heading: Level 2
+  name: acquisition_instrument_vendor
+- constraints:
+    required: true
+  description: Manufacturers of an acquisition instrument may offer various versions
+    (models) of that instrument with different features or sensitivities. Differences
+    in features or sensitivities may be relevant to processing or interpretation of
+    the data
+  name: acquisition_instrument_model
+- constraints:
+    required: true
+  description: Size of the insert in bp. TODO - units.
   name: avg_insert_size
 - constraints:
     required: true
