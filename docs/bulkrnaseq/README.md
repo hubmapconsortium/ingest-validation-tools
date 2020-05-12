@@ -28,6 +28,8 @@ Related files:
 
 <details><summary>Level 2</summary>
 
+[`acquisition_instrument_vendor`](#acquisition_instrument_vendor)<br>
+[`acquisition_instrument_model`](#acquisition_instrument_model)<br>
 [`bulk_rna_isolation_protocols_io_doi`](#bulk_rna_isolation_protocols_io_doi)<br>
 [`bulk_rna_yield_value`](#bulk_rna_yield_value)<br>
 [`bulk_rna_yield_units_per_tissue_unit`](#bulk_rna_yield_units_per_tissue_unit)<br>
@@ -153,6 +155,20 @@ Specifies whether or not a specific molecule(s) is/are targeted for detection/me
 | required | `True` |
 
 ## Level 2
+
+### `acquisition_instrument_vendor`
+An acquisition_instrument is the device that contains the signal detection hardware and signal processing software. Assays generate signals such as light of various intensities or color or signals representing molecular mass.
+
+| constraint | value |
+| --- | --- |
+| required | `True` |
+
+### `acquisition_instrument_model`
+An acquisition_instrument is the device that contains the signal detection hardware and signal processing software. Assays generate signals such as light of various intensities or color or signals representing molecular mass.
+
+| constraint | value |
+| --- | --- |
+| required | `True` |
 
 ### `bulk_rna_isolation_protocols_io_doi`
 Link to a protocols document answering the question: How was tissue stored and processed for RNA isolation RNA_isolation_protocols_io_doi
