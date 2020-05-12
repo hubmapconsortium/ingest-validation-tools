@@ -3,12 +3,12 @@ fields:
 - heading: Level 2
   name: acquisition_instrument_vendor
   description: An acquisition_instrument is the device that contains the signal detection
-  hardware and signal processing software. Assays generate signals such as light of
-  various intensities or color or signals representing molecular mass.
+    hardware and signal processing software. Assays generate signals such as light of
+    various intensities or color or signals representing molecular mass.
 - name: acquisition_instrument_model
   description:  An acquisition_instrument is the device that contains the signal detection
-  hardware and signal processing software. Assays generate signals such as light of various
-  intensities or color or signals representing molecular mass.
+    hardware and signal processing software. Assays generate signals such as light of various
+    intensities or color or signals representing molecular mass.
 - name: bulk_rna_isolation_protocols_io_doi
   description: 'Link to a protocols document answering the question: How was tissue
     stored and processed for RNA isolation RNA_isolation_protocols_io_doi'
