@@ -28,6 +28,8 @@ Related files:
 
 <details><summary>Level 2</summary>
 
+[`acquisition_instrument_vendor`](#acquisition_instrument_vendor)<br>
+[`acquisition_instrument_model`](#acquisition_instrument_model)<br>
 [`avg_insert_size`](#avg_insert_size)<br>
 [`bulk_transposition_input_number_nuclei`](#bulk_transposition_input_number_nuclei)<br>
 [`bulk_atac_cell_isolation_protocols_io_doi`](#bulk_atac_cell_isolation_protocols_io_doi)<br>
@@ -159,6 +161,20 @@ Specifies whether or not a specific molecule(s) is/are targeted for detection/me
 | required | `True` |
 
 ## Level 2
+
+### `acquisition_instrument_vendor`
+An acquisition_instrument is the device that contains the signal detection hardware and signal processing software. Assays generate signals such as light of various intensities or color or signals representing molecular mass.
+
+| constraint | value |
+| --- | --- |
+| required | `True` |
+
+### `acquisition_instrument_model`
+Manufacturers of an acquisition instrument may offer various versions (models) of that instrument with different features or sensitivities. Differences in features or sensitivities may be relevant to processing or interpretation of the data
+
+| constraint | value |
+| --- | --- |
+| required | `True` |
 
 ### `avg_insert_size`
 Size of the insert in bp. TODO - units.
