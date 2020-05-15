@@ -10,6 +10,11 @@ fields:
 
   # Level 2 fields:
   -
+    name: combined_tissue_sections
+    description: If a number of tissue sections were combined for this assay, provide a comma-delimited list of the tissue
+    slice ids or #:# for contiguous slices. These sections may be denoted as "#_#" appended to the tissue_id, indicating a
+    range of tissue slices. Leave BLANK if not applicable.
+  -
     name: acquisition_instrument_vendor
     description: An acquisition instrument is the device that contains the signal detection hardware and signal processing software. Assays generate signals such as light of various intensities or color or signals representing the molecular mass.
   -
