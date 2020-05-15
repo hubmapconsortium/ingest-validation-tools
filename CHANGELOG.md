@@ -2,6 +2,7 @@
 
 ## v0.0.4 - In progress
 ### Added
+- Submission structure diagram.
 - Autogenerate "Leave blank if not applicable".
 - Add bulkrnaseq and bulkatacseq.
 - Add WGS.
@@ -11,7 +12,6 @@
 - More accurate sample ID regex.
 - Reorder LCMS fields.
 - `atacseq` to `scatacseq`.
-- Autogenerate "Leave blank if not applicable".
 - Make sc_isolation_enrichment in scrnaseq optional.
 - Free-form cell_barcode_read.
 - Add bulkrnaseq, bulkatacseq, and wgs fields.
