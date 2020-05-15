@@ -1,7 +1,15 @@
 doc_url: TODO
 fields:
 - heading: Level 2
-  name: gdna_fragmentation_quality_assurance
+  name: acquisition_instrument_vendor
+  description: An acquisition_instrument is the device that contains the signal
+    detection hardware and signal processing software. Assays can generate signals
+    such as light of various intensities or color or signals representing molecular mass.
+- name: acquisition_instrument_model
+  description: Manufacturers of an acquisition instrument may offer various
+    versions (models) of that instrument with different features or sensitivities.
+    Differences in features or sensitivities may be relevant to processing or interpretation of the data.
+- name: gdna_fragmentation_quality_assurance
   description: Is the gDNA integrity good enough for WGS? This is usually checked
     through running a gel. TODO - Is this a boolean?
 - name: dna_assay_input
@@ -9,6 +17,9 @@ fields:
   type: number
 - name: dna_assay_input_unit
   description: Units of DNA input into library preparation
+  constraints:
+    enum:
+      - TODO
 - name: library_construction_method
   description: Describes DNA library preparation kit. Modality of isolating gDNA,
     Fragmentation and generating sequencing libraries. TODO - enum?
@@ -25,6 +36,9 @@ fields:
   type: number
 - name: library_final_yield_unit
   description: Total units of library after final pcr amplification step
+  constraints:
+    enum:
+      - ng
 - name: library_average_fragment_size
   description: Average size of sequencing library fragments estimated via gel electrophoresis
     or bioanalyzer/tapestation.

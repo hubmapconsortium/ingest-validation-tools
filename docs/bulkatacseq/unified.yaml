@@ -48,6 +48,8 @@ fields:
   name: pi_email
 - constraints:
     enum:
+    - imaging
+    - mass_spectrometry
     - sequence
     required: true
   description: 'Each assay is placed into one of the following 3 general categories:
@@ -56,17 +58,40 @@ fields:
   name: assay_category
 - constraints:
     enum:
-    - scRNAseq-10xGenomics
-    - scRNAseq
+    - scRNA-Seq (10xGenomics)
+    - AF
+    - bulk RNA
+    - bulkATACseq
+    - CODEX
+    - Imaging Mass Cytometry
+    - LC-MS (metabolomics)
+    - LC-MS/MS (label-free proteomics)
+    - MxIF
+    - IMS positive
+    - IMS negative
+    - MS (shotgun lipidomics)
+    - PAS microscopy
+    - scATACseq
+    - sciATACseq
     - sciRNAseq
-    - snRNAseq
-    - SNARE2-RNAseq
+    - seqFISH
+    - SNARE-seq2
+    - snATACseq
+    - snRNA
+    - SPLiT-Seq
+    - TMT (proteomics)
+    - WGS
     required: true
   description: The specific type of assay being executed.
   name: assay_type
 - constraints:
     enum:
+    - DNA
     - RNA
+    - protein
+    - lipids
+    - metabolites
+    - polysaccharides
     required: true
   description: Analytes are the target molecules being measured with the assay.
   name: analyte_class
@@ -79,7 +104,7 @@ fields:
 - constraints:
     required: true
   description: An acquisition_instrument is the device that contains the signal detection
-    hardware and signal processing software. Assays can generate signals such as light
+    hardware and signal processing software. Assays generate signals such as light
     of various intensities or color or signals representing molecular mass.
   heading: Level 2
   name: acquisition_instrument_vendor
@@ -88,44 +113,52 @@ fields:
   description: Manufacturers of an acquisition instrument may offer various versions
     (models) of that instrument with different features or sensitivities. Differences
     in features or sensitivities may be relevant to processing or interpretation of
-    the data.
+    the data
   name: acquisition_instrument_model
+- constraints:
+    required: true
+  description: Size of the insert in bp. TODO - units.
+  name: avg_insert_size
+- constraints:
+    required: true
+  description: A number (no comma separators)
+  name: bulk_transposition_input_number_nuclei
 - constraints:
     pattern: 10\.17504/.*
     required: true
-  description: 'Link to a protocols document answering the question: How were single
-    cells separated into a single-cell suspension?'
-  name: sc_isolation_protocols_io_doi
+  description: 'Link to a protocols document answering the question: How was tissue
+    stored and processed for cell/nuclei isolation'
+  name: bulk_atac_cell_isolation_protocols_io_doi
 - constraints:
     required: true
-  description: The type of single cell entity derived from isolation protocol
-  name: sc_isolation_entity
+  description: Is this a sequencing replicate?
+  name: is_technical_replicate
+  type: boolean
 - constraints:
     required: true
-  description: The method by which tissues are dissociated into single cells in suspension.
-  name: sc_isolation_tissue_dissociation
-- constraints:
-    required: false
-  description: The method by which specific cell populations are sorted or enriched.
-  name: sc_isolation_enrichment
+  description: Adapter sequence to be used for adapter trimming
+  name: library_adapter_sequence
 - constraints:
     required: true
-  description: A quality metric by visual inspection prior to cell lysis or defined
-    by known parameters such as wells with several cells or no cells. This can be
-    captured at a high level.
-  name: sc_isolation_quality_metric
+  description: Average size in bp of sequencing library fragments estimated via gel
+    electrophoresis or bioanalyzer/tapestation. TODO - Unit field? Ask Nils.
+  name: library_average_fragment_size
 - constraints:
     required: true
-  description: Total number of cell/nuclei yielded post dissociation and enrichment
-  name: sc_isolation_cell_number
+  description: The concentration of the library which was submitted for sequencing.
+    This field is different from the "library_final_yield" because the concentration
+    field takes into account how the library was pooled with other libraries. The
+    "library_final_yield" should be greater than or equal to this column. - TODO -
+    Is this correct? This is a concentration, the other is a yield, typically in ng,
+    so they don't seem to have the same units, so an inequality makes no sense.
+  name: library_concentration_value
+  type: number
 - constraints:
+    enum:
+    - nM
     required: true
-  description: Number of cell/nuclei input to the assay
-  name: rnaseq_assay_input
-- constraints:
-    required: true
-  description: TODO
-  name: rnaseq_assay_method
+  description: Unit of library_concentration_value
+  name: library_concentration_unit
 - constraints:
     pattern: 10\.17504/.*
     required: true
@@ -134,65 +167,62 @@ fields:
     v3".
   name: library_construction_protocols_io_doi
 - constraints:
-    required: true
-  description: Whether the library was generated for single-end or paired end sequencing
-  name: library_layout
+    required: false
+  description: date and time of library creation. YYYY-MM-DD, where YYYY is the year,
+    MM is the month with leading 0s, and DD is the day with leading 0s - TODO - constraint
+  name: library_creation_date
 - constraints:
     required: true
-  description: Adapter sequence to be used for adapter trimming
-  name: library_adapter_sequence
-- constraints:
-    required: true
-  description: TODO
-  name: library_id
-- constraints:
-    required: true
-  description: TODO
-  name: is_technical_replicate
-  type: boolean
-- constraints:
-    required: true
-  description: Which read file contains the cell barcode
-  name: cell_barcode_read
-- constraints:
-    required: true
-  description: Position(s) in the read at which the cell barcode starts.
-  name: cell_barcode_offset
-- constraints:
-    required: true
-  description: Length of the cell barcode in base pairs
-  name: cell_barcode_size
-- constraints:
-    required: true
-  description: Number of PCR cycles to amplify cDNA
-  name: library_pcr_cycles
-- constraints:
-    required: true
-  description: Number of PCR cycles performed for library indexing
-  name: library_pcr_cycles_for_sample_index
-- constraints:
-    required: true
-  description: Total number of ng of library after final pcr amplification step
+  description: 'Total amount (eg. nanograms) of library after the clean-up step of
+    final pcr amplification step. Answer the question: What is the Qubit measured
+    concentration (ng/ul) times the elution volume (ul) after the final clean-up step?'
   name: library_final_yield_value
   type: number
 - constraints:
     enum:
     - ng
     required: true
-  description: TODO
+  description: Units of library final yield
   name: library_final_yield_unit
 - constraints:
     required: true
-  description: Average size of sequencing library fragments estimated via gel electrophoresis
-    or bioanalyzer/tapestation.
-  name: library_average_fragment_size
+  description: TODO
+  name: library_id
 - constraints:
     required: true
-  description: Reagent kit used for sequencing
-  name: sequencing_reagent_kit
+  description: State whether the library was generated for single-end or paired end
+    sequencing. TODO - enum
+  name: library_layout
+- constraints:
+    required: true
+  description: Number of PCR cycles performed in order to add adapters and amplify
+    the library. Usually, this includes 5 pre-amplificationn cycles followed by 0-5
+    additional cycles determined by qPCR.
+  name: library_pcr_cycles
+  type: integer
+- constraints:
+    required: true
+  description: Reagent kit used for library preparation
+  name: library_preparation_kit
+- constraints:
+    required: true
+  description: "This is a quality metric by visual inspection. This should answer\
+    \ the question: Are the nuclei intact and are the nuclei free of significant amounts\
+    \ of debris? This can be captured at a high level, \u201COK\u201D or \u201Cnot\
+    \ OK\u201D."
+  name: sample_quality_metric
+- constraints:
+    maximum: 100
+    minimum: 0
+    required: true
+  description: Percent PhiX loaded to the run
+  name: sequencing_phix_percent
+  type: number
 - constraints:
     required: true
   description: Number of sequencing cycles in Read1, i7 index, i5 index, and Read2
+    (comma-delimnited with no required pattern) - TODO - If we're saying it's comma
+    delimited there IS a required pattern, and it should be validated.
   name: sequencing_read_format
 - constraints:
     maximum: 100
@@ -202,12 +232,23 @@ fields:
   name: sequencing_read_percent_q30
   type: number
 - constraints:
-    maximum: 100
-    minimum: 0
     required: true
-  description: Percent PhiX loaded to the ru
-  name: sequencing_phix_percent
-  type: number
+  description: Reagent kit used for sequencing. NovaSeq6000 for example
+  name: sequencing_reagent_kit
+- constraints:
+    required: false
+  description: If Tn5 came from a kit, provide the catalog number.
+  name: transposition_kit_number
+- constraints:
+    required: true
+  description: Modality of capturing accessible chromatin molecules. TODO - is this
+    an enum?
+  name: transposition_method
+- constraints:
+    required: true
+  description: The source of the Tn5 transposase and transposon used for capturing
+    accessible chromatin.
+  name: transposition_transposase_source
 - constraints:
     required: false
   description: Relative path to file or directory with free-form or instrument/lab

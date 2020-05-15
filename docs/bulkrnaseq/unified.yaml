@@ -102,11 +102,23 @@ fields:
   name: is_targeted
   type: boolean
 - constraints:
+    required: true
+  description: An acquisition_instrument is the device that contains the signal detection
+    hardware and signal processing software. Assays generate signals such as light
+    of various intensities or color or signals representing molecular mass.
+  heading: Level 2
+  name: acquisition_instrument_vendor
+- constraints:
+    required: true
+  description: An acquisition_instrument is the device that contains the signal detection
+    hardware and signal processing software. Assays generate signals such as light
+    of various intensities or color or signals representing molecular mass.
+  name: acquisition_instrument_model
+- constraints:
     pattern: 10\.17504/.*
     required: true
   description: 'Link to a protocols document answering the question: How was tissue
     stored and processed for RNA isolation RNA_isolation_protocols_io_doi'
-  heading: Level 2
   name: bulk_rna_isolation_protocols_io_doi
 - constraints:
     required: true
@@ -117,6 +129,8 @@ fields:
   name: bulk_rna_yield_value
   type: number
 - constraints:
+    enum:
+    - ng/mg
     required: true
   description: RNA amount per Tissue input amount. Valid values should be weight/weight
     (ng/mg).
@@ -135,6 +149,8 @@ fields:
   name: rnaseq_assay_input_value
   type: number
 - constraints:
+    enum:
+    - TODO
     required: true
   description: Units of RNA input amount to the assay
   name: rnaseq_assay_input_unit
@@ -170,6 +186,8 @@ fields:
   name: library_final_yield_value
   type: number
 - constraints:
+    enum:
+    - ng
     required: true
   description: units of library final yield
   name: library_final_yield_unit

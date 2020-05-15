@@ -1,0 +1,86 @@
+doc_url: TODO
+fields:
+- heading: Level 2
+  name: acquisition_instrument_vendor
+  description: An acquisition_instrument is the device that contains the signal
+   detection hardware and signal processing software. Assays generate signals such as light of various intensities or color or signals representing molecular mass.
+- name: acquisition_instrument_model
+  description: Manufacturers of an acquisition instrument may offer various versions (models) of that instrument with different features or sensitivities.
+   Differences in features or sensitivities may be relevant to processing or interpretation of the data
+- name: avg_insert_size
+  description: Size of the insert in bp. TODO - units.
+- name: bulk_transposition_input_number_nuclei
+  description: A number (no comma separators)
+- name: bulk_atac_cell_isolation_protocols_io_doi
+  description: 'Link to a protocols document answering the question: How was tissue
+    stored and processed for cell/nuclei isolation'
+- name: is_technical_replicate
+  description: Is this a sequencing replicate?
+- name: library_adapter_sequence
+  description: Adapter sequence to be used for adapter trimming
+- name: library_average_fragment_size
+  description: Average size in bp of sequencing library fragments estimated via gel
+    electrophoresis or bioanalyzer/tapestation. TODO - Unit field? Ask Nils.
+- name: library_concentration_value
+  description: The concentration of the library which was submitted for sequencing.
+    This field is different from the "library_final_yield" because the concentration
+    field takes into account how the library was pooled with other libraries. The
+    "library_final_yield" should be greater than or equal to this column. - TODO - Is this correct? This is a concentration, the other is a yield, typically in ng, so they don't seem to have the same units, so an inequality makes no sense.
+- name: library_concentration_unit
+  description: Unit of library_concentration_value
+  constraints:
+    enum:
+      - nM
+- name: library_construction_protocols_io_doi
+  description: A link to the protocol document containing the library construction
+    method (including version) that was used, e.g. "Smart-Seq2", "Drop-Seq", "10X
+    v3".
+- name: library_creation_date
+  description: date and time of library creation. YYYY-MM-DD, where YYYY is the year,
+    MM is the month with leading 0s, and DD is the day with leading 0s - TODO - constraint
+  constraints:
+    required: false
+- name: library_final_yield_value
+  description: 'Total amount (eg. nanograms) of library after the clean-up step of
+    final pcr amplification step. Answer the question: What is the Qubit measured
+    concentration (ng/ul) times the elution volume (ul) after the final clean-up step?'
+- name: library_final_yield_unit
+  description: Units of library final yield
+  constraints:
+    enum:
+      - ng
+- name: library_id
+  description: 'TODO'
+- name: library_layout
+  description: State whether the library was generated for single-end or paired end
+    sequencing. TODO - enum
+- name: library_pcr_cycles
+  description: Number of PCR cycles performed in order to add adapters and amplify
+    the library. Usually, this includes 5 pre-amplificationn cycles followed by 0-5
+    additional cycles determined by qPCR.
+  type: integer
+- name: library_preparation_kit
+  description: Reagent kit used for library preparation
+- name: sample_quality_metric
+  description: "This is a quality metric by visual inspection. This should answer\
+    \ the question: Are the nuclei intact and are the nuclei free of significant amounts\
+    \ of debris? This can be captured at a high level, \u201COK\u201D or \u201Cnot\
+    \ OK\u201D."
+- name: sequencing_phix_percent
+  description: Percent PhiX loaded to the run
+- name: sequencing_read_format
+  description: Number of sequencing cycles in Read1, i7 index, i5 index, and Read2
+    (comma-delimnited with no required pattern) - TODO - If we're saying it's comma delimited there IS a required pattern, and it should be validated.
+- name: sequencing_read_percent_q30
+  description: Percent of bases with Quality scores above Q30
+- name: sequencing_reagent_kit
+  description: Reagent kit used for sequencing. NovaSeq6000 for example
+- name: transposition_kit_number
+  description: If Tn5 came from a kit, provide the catalog number.
+  constraints:
+    required: false
+- name: transposition_method
+  description: Modality of capturing accessible chromatin molecules. TODO - is this an enum?
+- name: transposition_transposase_source
+  description: The source of the Tn5 transposase and transposon used for capturing
+    accessible chromatin.

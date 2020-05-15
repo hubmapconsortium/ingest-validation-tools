@@ -1,7 +1,15 @@
 doc_url: TODO
 fields:
 - heading: Level 2
-  name: bulk_rna_isolation_protocols_io_doi
+  name: acquisition_instrument_vendor
+  description: An acquisition_instrument is the device that contains the signal detection
+    hardware and signal processing software. Assays generate signals such as light of
+    various intensities or color or signals representing molecular mass.
+- name: acquisition_instrument_model
+  description:  An acquisition_instrument is the device that contains the signal detection
+    hardware and signal processing software. Assays generate signals such as light of various
+    intensities or color or signals representing molecular mass.
+- name: bulk_rna_isolation_protocols_io_doi
   description: 'Link to a protocols document answering the question: How was tissue
     stored and processed for RNA isolation RNA_isolation_protocols_io_doi'
 - name: bulk_rna_yield_value
@@ -12,6 +20,9 @@ fields:
 - name: bulk_rna_yield_units_per_tissue_unit
   description: RNA amount per Tissue input amount. Valid values should be weight/weight
     (ng/mg).
+  constraints:
+    enum:
+      - ng/mg
 - name: bulk_rna_isolation_quality_metric_value
   description: "A quality metric by visual inspection. This should answer the question:\
     \ was the bulk RNA of high integrity? Was the RIN value high enough (>=6)? This\
@@ -21,6 +32,9 @@ fields:
   description: RNA input amount value to the assay
 - name: rnaseq_assay_input_unit
   description: Units of RNA input amount to the assay
+  constraints:
+    enum:
+      - TODO
 - name: rnaseq_assay_method
   description: rnaseq assay kit used.
 - name: library_construction_protocols_io_doi
@@ -39,6 +53,9 @@ fields:
   description: Total amount of library after final pcr amplification step
 - name: library_final_yield_unit
   description: units of library final yield
+  constraints:
+    enum:
+      - ng
 - name: library_average_fragment_size
   description: Average size of sequencing library fragments estimated via gel electrophoresis
     or bioanalyzer/tapestation. TODO - Does this need units? Is it base-pairs?

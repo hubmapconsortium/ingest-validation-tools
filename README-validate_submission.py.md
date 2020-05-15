@@ -22,8 +22,8 @@ optional arguments:
                         the form "<globus_origin_id>:<globus_path>".
   --type_metadata TYPE PATH [TYPE PATH ...]
                         A list of type / metadata.tsv pairs. Type should be
-                        one of: ['af', 'bulkrnaseq', 'codex', 'lcms',
-                        'maldiims', 'mixif', 'scatacseq', 'scrnaseq',
+                        one of: ['af', 'bulkatacseq', 'bulkrnaseq', 'codex',
+                        'lcms', 'maldiims', 'mixif', 'scatacseq', 'scrnaseq',
                         'seqfish', 'stained']
   --optional_fields FIELD [FIELD ...]
                         The listed fields will be treated as optional. (But if

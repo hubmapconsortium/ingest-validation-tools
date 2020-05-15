@@ -167,6 +167,7 @@ TODO
 
 | constraint | value |
 | --- | --- |
+| enum | `nm` or `um` |
 | required | `True` |
 
 ### `resolution_y_value`
@@ -182,6 +183,7 @@ TODO
 
 | constraint | value |
 | --- | --- |
+| enum | `nm` or `um` |
 | required | `True` |
 
 ### `resolution_z_value`
@@ -197,6 +199,7 @@ TODO
 
 | constraint | value |
 | --- | --- |
+| enum | `nm` or `um` |
 | required | `True` |
 
 ### `stain`

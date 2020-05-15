@@ -1,9 +1,9 @@
-# bulkrnaseq
+# bulkatacseq
 
 Related files:
 - [🔬 Background doc](TODO): More details about this type.
-- [📝 TSV template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/master/docs/bulkrnaseq/template.tsv): Use this to submit metadata.
-- [💻 Source code](https://github.com/hubmapconsortium/ingest-validation-tools/edit/master/src/ingest_validation_tools/table-schemas/level-2/bulkrnaseq.yaml): Make a PR if this doc should be updated.
+- [📝 TSV template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/master/docs/bulkatacseq/template.tsv): Use this to submit metadata.
+- [💻 Source code](https://github.com/hubmapconsortium/ingest-validation-tools/edit/master/src/ingest_validation_tools/table-schemas/level-2/bulkatacseq.yaml): Make a PR if this doc should be updated.
 
 ## Table of contents
 <details><summary>Provenance</summary>
@@ -30,24 +30,30 @@ Related files:
 
 [`acquisition_instrument_vendor`](#acquisition_instrument_vendor)<br>
 [`acquisition_instrument_model`](#acquisition_instrument_model)<br>
-[`bulk_rna_isolation_protocols_io_doi`](#bulk_rna_isolation_protocols_io_doi)<br>
-[`bulk_rna_yield_value`](#bulk_rna_yield_value)<br>
-[`bulk_rna_yield_units_per_tissue_unit`](#bulk_rna_yield_units_per_tissue_unit)<br>
-[`bulk_rna_isolation_quality_metric_value`](#bulk_rna_isolation_quality_metric_value)<br>
-[`rnaseq_assay_input_value`](#rnaseq_assay_input_value)<br>
-[`rnaseq_assay_input_unit`](#rnaseq_assay_input_unit)<br>
-[`rnaseq_assay_method`](#rnaseq_assay_method)<br>
-[`library_construction_protocols_io_doi`](#library_construction_protocols_io_doi)<br>
-[`library_layout`](#library_layout)<br>
+[`avg_insert_size`](#avg_insert_size)<br>
+[`bulk_transposition_input_number_nuclei`](#bulk_transposition_input_number_nuclei)<br>
+[`bulk_atac_cell_isolation_protocols_io_doi`](#bulk_atac_cell_isolation_protocols_io_doi)<br>
+[`is_technical_replicate`](#is_technical_replicate)<br>
 [`library_adapter_sequence`](#library_adapter_sequence)<br>
-[`library_pcr_cycles_for_sample_index`](#library_pcr_cycles_for_sample_index)<br>
+[`library_average_fragment_size`](#library_average_fragment_size)<br>
+[`library_concentration_value`](#library_concentration_value)<br>
+[`library_concentration_unit`](#library_concentration_unit)<br>
+[`library_construction_protocols_io_doi`](#library_construction_protocols_io_doi)<br>
+[`library_creation_date`](#library_creation_date)<br>
 [`library_final_yield_value`](#library_final_yield_value)<br>
 [`library_final_yield_unit`](#library_final_yield_unit)<br>
-[`library_average_fragment_size`](#library_average_fragment_size)<br>
-[`sequencing_reagent_kit`](#sequencing_reagent_kit)<br>
+[`library_id`](#library_id)<br>
+[`library_layout`](#library_layout)<br>
+[`library_pcr_cycles`](#library_pcr_cycles)<br>
+[`library_preparation_kit`](#library_preparation_kit)<br>
+[`sample_quality_metric`](#sample_quality_metric)<br>
+[`sequencing_phix_percent`](#sequencing_phix_percent)<br>
 [`sequencing_read_format`](#sequencing_read_format)<br>
 [`sequencing_read_percent_q30`](#sequencing_read_percent_q30)<br>
-[`sequencing_phix_percent`](#sequencing_phix_percent)<br>
+[`sequencing_reagent_kit`](#sequencing_reagent_kit)<br>
+[`transposition_kit_number`](#transposition_kit_number)<br>
+[`transposition_method`](#transposition_method)<br>
+[`transposition_transposase_source`](#transposition_transposase_source)<br>
 </details>
 
 <details><summary>Paths</summary>
@@ -164,65 +170,70 @@ An acquisition_instrument is the device that contains the signal detection hardw
 | required | `True` |
 
 ### `acquisition_instrument_model`
-An acquisition_instrument is the device that contains the signal detection hardware and signal processing software. Assays generate signals such as light of various intensities or color or signals representing molecular mass.
+Manufacturers of an acquisition instrument may offer various versions (models) of that instrument with different features or sensitivities. Differences in features or sensitivities may be relevant to processing or interpretation of the data
 
 | constraint | value |
 | --- | --- |
 | required | `True` |
 
-### `bulk_rna_isolation_protocols_io_doi`
-Link to a protocols document answering the question: How was tissue stored and processed for RNA isolation RNA_isolation_protocols_io_doi
+### `avg_insert_size`
+Size of the insert in bp. TODO - units.
+
+| constraint | value |
+| --- | --- |
+| required | `True` |
+
+### `bulk_transposition_input_number_nuclei`
+A number (no comma separators)
+
+| constraint | value |
+| --- | --- |
+| required | `True` |
+
+### `bulk_atac_cell_isolation_protocols_io_doi`
+Link to a protocols document answering the question: How was tissue stored and processed for cell/nuclei isolation
 
 | constraint | value |
 | --- | --- |
 | required | `True` |
 | pattern | `10\.17504/.*` |
 
-### `bulk_rna_yield_value`
-RNA (ng) per Weight of Tissue (mg). Answer the question: How much RNA in ng was isolated? How much tissue in mg was initially used for isolating RNA? Calculate the yield by dividing total RNA isolated by amount of tissue used to isolate RNA from (ng/mg).
+### `is_technical_replicate`
+Is this a sequencing replicate?
+
+| constraint | value |
+| --- | --- |
+| type | `boolean` |
+| required | `True` |
+
+### `library_adapter_sequence`
+Adapter sequence to be used for adapter trimming
+
+| constraint | value |
+| --- | --- |
+| required | `True` |
+
+### `library_average_fragment_size`
+Average size in bp of sequencing library fragments estimated via gel electrophoresis or bioanalyzer/tapestation. TODO - Unit field? Ask Nils.
+
+| constraint | value |
+| --- | --- |
+| required | `True` |
+
+### `library_concentration_value`
+The concentration of the library which was submitted for sequencing. This field is different from the "library_final_yield" because the concentration field takes into account how the library was pooled with other libraries. The "library_final_yield" should be greater than or equal to this column. - TODO - Is this correct? This is a concentration, the other is a yield, typically in ng, so they don't seem to have the same units, so an inequality makes no sense.
 
 | constraint | value |
 | --- | --- |
 | type | `number` |
 | required | `True` |
 
-### `bulk_rna_yield_units_per_tissue_unit`
-RNA amount per Tissue input amount. Valid values should be weight/weight (ng/mg).
+### `library_concentration_unit`
+Unit of library_concentration_value
 
 | constraint | value |
 | --- | --- |
-| enum | `ng/mg` |
-| required | `True` |
-
-### `bulk_rna_isolation_quality_metric_value`
-A quality metric by visual inspection. This should answer the question: was the bulk RNA of high integrity? Was the RIN value high enough (>=6)? This can be captured at a high level, “OK” or “not OK”. Cyou may include RIN Value (Optional): eg. "OK - RIN>6"
-
-| constraint | value |
-| --- | --- |
-| type | `number` |
-| required | `True` |
-
-### `rnaseq_assay_input_value`
-RNA input amount value to the assay
-
-| constraint | value |
-| --- | --- |
-| type | `number` |
-| required | `True` |
-
-### `rnaseq_assay_input_unit`
-Units of RNA input amount to the assay
-
-| constraint | value |
-| --- | --- |
-| enum | `TODO` |
-| required | `True` |
-
-### `rnaseq_assay_method`
-rnaseq assay kit used.
-
-| constraint | value |
-| --- | --- |
+| enum | `nM` |
 | required | `True` |
 
 ### `library_construction_protocols_io_doi`
@@ -233,30 +244,15 @@ A link to the protocol document containing the library construction method (incl
 | required | `True` |
 | pattern | `10\.17504/.*` |
 
-### `library_layout`
-State whether the library was generated for single-end or paired end sequencing. TODO -- Give enum constraint.
+### `library_creation_date`
+date and time of library creation. YYYY-MM-DD, where YYYY is the year, MM is the month with leading 0s, and DD is the day with leading 0s - TODO - constraint. Leave blank if not applicable.
 
 | constraint | value |
 | --- | --- |
-| required | `True` |
-
-### `library_adapter_sequence`
-Adapter sequence to be used for adapter trimming. TODO -- Give pattern constraint.
-
-| constraint | value |
-| --- | --- |
-| required | `True` |
-
-### `library_pcr_cycles_for_sample_index`
-Number of PCR cycles performed for library indexing
-
-| constraint | value |
-| --- | --- |
-| type | `integer` |
-| required | `True` |
+| required | `False` |
 
 ### `library_final_yield_value`
-Total amount of library after final pcr amplification step
+Total amount (eg. nanograms) of library after the clean-up step of final pcr amplification step. Answer the question: What is the Qubit measured concentration (ng/ul) times the elution volume (ul) after the final clean-up step?
 
 | constraint | value |
 | --- | --- |
@@ -264,30 +260,61 @@ Total amount of library after final pcr amplification step
 | required | `True` |
 
 ### `library_final_yield_unit`
-units of library final yield
+Units of library final yield
 
 | constraint | value |
 | --- | --- |
 | enum | `ng` |
 | required | `True` |
 
-### `library_average_fragment_size`
-Average size of sequencing library fragments estimated via gel electrophoresis or bioanalyzer/tapestation. TODO - Does this need units? Is it base-pairs?
+### `library_id`
+TODO
+
+| constraint | value |
+| --- | --- |
+| required | `True` |
+
+### `library_layout`
+State whether the library was generated for single-end or paired end sequencing. TODO - enum
+
+| constraint | value |
+| --- | --- |
+| required | `True` |
+
+### `library_pcr_cycles`
+Number of PCR cycles performed in order to add adapters and amplify the library. Usually, this includes 5 pre-amplificationn cycles followed by 0-5 additional cycles determined by qPCR.
 
 | constraint | value |
 | --- | --- |
 | type | `integer` |
 | required | `True` |
 
-### `sequencing_reagent_kit`
-Reagent kit used for sequencing
+### `library_preparation_kit`
+Reagent kit used for library preparation
 
 | constraint | value |
 | --- | --- |
 | required | `True` |
 
+### `sample_quality_metric`
+This is a quality metric by visual inspection. This should answer the question: Are the nuclei intact and are the nuclei free of significant amounts of debris? This can be captured at a high level, “OK” or “not OK”.
+
+| constraint | value |
+| --- | --- |
+| required | `True` |
+
+### `sequencing_phix_percent`
+Percent PhiX loaded to the run
+
+| constraint | value |
+| --- | --- |
+| type | `number` |
+| required | `True` |
+| minimum | `0` |
+| maximum | `100` |
+
 ### `sequencing_read_format`
-Number of sequencing cycles in Read1, i7 index, i5 index, and Read2 (no required pattern) TODO - Why no required pattern?
+Number of sequencing cycles in Read1, i7 index, i5 index, and Read2 (comma-delimnited with no required pattern) - TODO - If we're saying it's comma delimited there IS a required pattern, and it should be validated.
 
 | constraint | value |
 | --- | --- |
@@ -303,15 +330,33 @@ Percent of bases with Quality scores above Q30
 | minimum | `0` |
 | maximum | `100` |
 
-### `sequencing_phix_percent`
-Percent PhiX loaded to the run
+### `sequencing_reagent_kit`
+Reagent kit used for sequencing. NovaSeq6000 for example
 
 | constraint | value |
 | --- | --- |
-| type | `number` |
 | required | `True` |
-| minimum | `0` |
-| maximum | `100` |
+
+### `transposition_kit_number`
+If Tn5 came from a kit, provide the catalog number. Leave blank if not applicable.
+
+| constraint | value |
+| --- | --- |
+| required | `False` |
+
+### `transposition_method`
+Modality of capturing accessible chromatin molecules. TODO - is this an enum?
+
+| constraint | value |
+| --- | --- |
+| required | `True` |
+
+### `transposition_transposase_source`
+The source of the Tn5 transposase and transposon used for capturing accessible chromatin.
+
+| constraint | value |
+| --- | --- |
+| required | `True` |
 
 ## Paths
 
