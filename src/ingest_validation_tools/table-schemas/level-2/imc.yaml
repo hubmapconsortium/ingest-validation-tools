@@ -30,6 +30,9 @@ fields:
   description: Frequency value of laser ablation (in Hz)
 - name: ablation_frequency_unit
   description: Frequency unit of laser ablation
+  constraints:
+    enum:
+      - Hz
 - name: roi_description
   description: A description of the region of interest (ROI)
 - name: roi_id
@@ -78,4 +81,3 @@ fields:
   description: Time stamp indicating start of ablation for ROI
 - name: data_precision_bytes
   description: Numerical data precision in bytes
-
