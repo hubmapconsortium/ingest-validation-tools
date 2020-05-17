@@ -8,6 +8,7 @@
 - Add WGS and IMC.
 - Dump unified yaml for each type. (This will be pulled on the portal side.)
 - Add enum constraints to unit fields, and replace TODOs.
+- Check that directory schemas exist.
 ### Changed
 - More accurate sample ID regex.
 - Reorder LCMS fields.

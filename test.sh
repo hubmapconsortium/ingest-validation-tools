@@ -16,6 +16,10 @@ start src-doctests
 find src | grep '\.py$' | xargs python -m doctest
 end src-doctests
 
+start schemas-exist
+./test-schemas-exist.sh
+end schemas-exist
+
 start examples
 ./test-examples.sh
 end examples
