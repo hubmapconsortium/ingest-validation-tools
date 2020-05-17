@@ -117,10 +117,6 @@ fields:
   name: acquisition_instrument_model
 - constraints:
     required: true
-  description: Size of the insert in bp. TODO - units.
-  name: avg_insert_size
-- constraints:
-    required: true
   description: A number (no comma separators)
   name: bulk_transposition_input_number_nuclei
 - constraints:
