@@ -150,7 +150,7 @@ fields:
   type: number
 - constraints:
     enum:
-    - TODO
+    - ug
     required: true
   description: Units of RNA input amount to the assay
   name: rnaseq_assay_input_unit
