@@ -45,39 +45,62 @@ fields:
 - name: after_ablation_image_start_offset
   description: The number of bytes from the beginning of the MCD file where the respective
     entity is stored as binary
+  type: number
 - name: before_ablation_image_end_offset
   description: The number of bytes from the beginning of the MCD file where the respective
     entity is stored as binary
+  type: number
 - name: before_ablation_image_start_offset
   description: The number of bytes from the beginning of the MCD file where the respective
     entity is stored as binary
+  type: number
 - name: data_end_offset
   description: The number of bytes from the beginning of the MCD file where the respective
     entity is stored as binary
+  type: number
 - name: data_start_offset
   description: The number of bytes from the beginning of the MCD file where the respective
     entity is stored as binary
+  type: number
 - name: dual_count_start
   description: Threshold for dual counting.
-- name: end_timestamp
+  type: number
+- name: end_datetime
   description: Time stamp indicating end of ablation for ROI
+  type: datetime
+  format: "%Y-%m-%d %H:%M"
 - name: maxx_um
   description: Image width of the ROI acquisition in um
+  type: number
 - name: maxy_um
   description: Image height of the ROI acquisition in um
+  type: number
 - name: roi_endx_pos_um
   description: Coordinates of the region of interest in um
+  type: number
 - name: roi_endy_pos_um
   description: Coordinates of the region of interest in um
+  type: number
 - name: roi_startx_pos_um
   description: Coordinates of the region of interest in um
+  type: number
 - name: roi_starty_pos_um
   description: Coordinates of the region of interest in um
+  type: number
 - name: segment_data_format
-  description: Numerical data type
+  description: Numerical data type. TODO - Not sure this is actually a number... Do they mean the format of the data, like "16-bit little endian"?
+  type: number
 - name: signal_type
   description: Type of signal measured per channel (usually dual counts)
-- name: start_timestamp
+  constraints:
+    enum:
+      - dual count
+      - pulse count
+      - intensity value
+- name: start_datetime
   description: Time stamp indicating start of ablation for ROI
+  type: datetime
+  format: "%Y-%m-%d %H:%M"
 - name: data_precision_bytes
   description: Numerical data precision in bytes
+  type: number
