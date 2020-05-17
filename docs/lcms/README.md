@@ -30,7 +30,6 @@ Related files:
 [`polarity`](#polarity)<br>
 [`mass_range_low_value`](#mass_range_low_value)<br>
 [`mass_range_high_value`](#mass_range_high_value)<br>
-[`mass_range_unit`](#mass_range_unit)<br>
 [`data_collection_mode`](#data_collection_mode)<br>
 [`ms_scan_mode`](#ms_scan_mode)<br>
 [`labeling`](#labeling)<br>
@@ -188,7 +187,7 @@ The polarity of the mass analysis (positive or negative ion modes)
 | required | `True` |
 
 ### `mass_range_low_value`
-The low value of the scanned mass range for MS1.
+The low value of the scanned mass range for MS1. (unitless)
 
 | constraint | value |
 | --- | --- |
@@ -196,19 +195,11 @@ The low value of the scanned mass range for MS1.
 | required | `True` |
 
 ### `mass_range_high_value`
-The high value of the scanned mass range for MS1.
+The high value of the scanned mass range for MS1. (unitless)
 
 | constraint | value |
 | --- | --- |
 | type | `number` |
-| required | `True` |
-
-### `mass_range_unit`
-The measurement unit of the scanned mass range. TODO - m/z is not a unit.
-
-| constraint | value |
-| --- | --- |
-| enum | `m/z` |
 | required | `True` |
 
 ### `data_collection_mode`

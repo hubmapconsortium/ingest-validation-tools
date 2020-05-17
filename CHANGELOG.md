@@ -15,6 +15,7 @@
 - Make sc_isolation_enrichment in scrnaseq optional.
 - Free-form cell_barcode_read.
 - Add bulkrnaseq, bulkatacseq, and wgs fields.
+- mass/charge is unitless in MS: Remove field.
 ### Removed
 - avg_insert_size from bulkatacseq.
 
