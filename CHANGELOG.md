@@ -15,6 +15,8 @@
 - Make sc_isolation_enrichment in scrnaseq optional.
 - Free-form cell_barcode_read.
 - Add bulkrnaseq, bulkatacseq, and wgs fields.
+### Removed
+- avg_insert_size from bulkatacseq.
 
 ## [v0.0.3](https://github.com/hubmapconsortium/ingest-validation-tools/tree/v0.0.3) - 2020-05-04
 ### Added
