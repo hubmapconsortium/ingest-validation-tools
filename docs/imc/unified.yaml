@@ -166,7 +166,9 @@ fields:
   name: roi_id
 - constraints:
     required: true
-  description: Date and tissue type of acquisition
+  description: Date and tissue type of acquisition. TODO - On our side, we strongly
+    believe that IDs should not encode semantics. If the two pieces of information
+    are useful, they should be recorded separately.
   name: acquisition_id
 - constraints:
     required: true
@@ -178,74 +180,97 @@ fields:
   description: The number of bytes from the beginning of the MCD file where the respective
     entity is stored as binary
   name: after_ablation_image_start_offset
+  type: number
 - constraints:
     required: true
   description: The number of bytes from the beginning of the MCD file where the respective
     entity is stored as binary
   name: before_ablation_image_end_offset
+  type: number
 - constraints:
     required: true
   description: The number of bytes from the beginning of the MCD file where the respective
     entity is stored as binary
   name: before_ablation_image_start_offset
+  type: number
 - constraints:
     required: true
   description: The number of bytes from the beginning of the MCD file where the respective
     entity is stored as binary
   name: data_end_offset
+  type: number
 - constraints:
     required: true
   description: The number of bytes from the beginning of the MCD file where the respective
     entity is stored as binary
   name: data_start_offset
+  type: number
 - constraints:
     required: true
   description: Threshold for dual counting.
   name: dual_count_start
+  type: number
 - constraints:
     required: true
   description: Time stamp indicating end of ablation for ROI
-  name: end_time_stamp
+  format: '%Y-%m-%d %H:%M'
+  name: end_datetime
+  type: datetime
 - constraints:
     required: true
   description: Image width of the ROI acquisition in um
   name: maxx_um
+  type: number
 - constraints:
     required: true
   description: Image height of the ROI acquisition in um
   name: maxy_um
+  type: number
 - constraints:
     required: true
   description: Coordinates of the region of interest in um
   name: roi_endx_pos_um
+  type: number
 - constraints:
     required: true
   description: Coordinates of the region of interest in um
   name: roi_endy_pos_um
+  type: number
 - constraints:
     required: true
   description: Coordinates of the region of interest in um
   name: roi_startx_pos_um
+  type: number
 - constraints:
     required: true
   description: Coordinates of the region of interest in um
   name: roi_starty_pos_um
+  type: number
 - constraints:
     required: true
-  description: Numerical data type
+  description: Numerical data type. TODO - Not sure this is actually a number... Do
+    they mean the format of the data, like "16-bit little endian"?
   name: segment_data_format
+  type: number
 - constraints:
+    enum:
+    - dual count
+    - pulse count
+    - intensity value
     required: true
   description: Type of signal measured per channel (usually dual counts)
   name: signal_type
 - constraints:
     required: true
   description: Time stamp indicating start of ablation for ROI
-  name: start_time_stamp
+  format: '%Y-%m-%d %H:%M'
+  name: start_datetime
+  type: datetime
 - constraints:
     required: true
   description: Numerical data precision in bytes
   name: data_precision_bytes
+  type: number
 - constraints:
     required: false
   description: Relative path to file or directory with free-form or instrument/lab

@@ -48,7 +48,7 @@ Related files:
 [`data_end_offset`](#data_end_offset)<br>
 [`data_start_offset`](#data_start_offset)<br>
 [`dual_count_start`](#dual_count_start)<br>
-[`end_time_stamp`](#end_time_stamp)<br>
+[`end_datetime`](#end_datetime)<br>
 [`maxx_um`](#maxx_um)<br>
 [`maxy_um`](#maxy_um)<br>
 [`roi_endx_pos_um`](#roi_endx_pos_um)<br>
@@ -57,7 +57,7 @@ Related files:
 [`roi_starty_pos_um`](#roi_starty_pos_um)<br>
 [`segment_data_format`](#segment_data_format)<br>
 [`signal_type`](#signal_type)<br>
-[`start_time_stamp`](#start_time_stamp)<br>
+[`start_datetime`](#start_datetime)<br>
 [`data_precision_bytes`](#data_precision_bytes)<br>
 </details>
 
@@ -256,7 +256,7 @@ Identifier for the ROI
 | required | `True` |
 
 ### `acquisition_id`
-Date and tissue type of acquisition
+Date and tissue type of acquisition. TODO - On our side, we strongly believe that IDs should not encode semantics. If the two pieces of information are useful, they should be recorded separately.
 
 | constraint | value |
 | --- | --- |
@@ -274,6 +274,7 @@ The number of bytes from the beginning of the MCD file where the respective enti
 
 | constraint | value |
 | --- | --- |
+| type | `number` |
 | required | `True` |
 
 ### `before_ablation_image_end_offset`
@@ -281,6 +282,7 @@ The number of bytes from the beginning of the MCD file where the respective enti
 
 | constraint | value |
 | --- | --- |
+| type | `number` |
 | required | `True` |
 
 ### `before_ablation_image_start_offset`
@@ -288,6 +290,7 @@ The number of bytes from the beginning of the MCD file where the respective enti
 
 | constraint | value |
 | --- | --- |
+| type | `number` |
 | required | `True` |
 
 ### `data_end_offset`
@@ -295,6 +298,7 @@ The number of bytes from the beginning of the MCD file where the respective enti
 
 | constraint | value |
 | --- | --- |
+| type | `number` |
 | required | `True` |
 
 ### `data_start_offset`
@@ -302,6 +306,7 @@ The number of bytes from the beginning of the MCD file where the respective enti
 
 | constraint | value |
 | --- | --- |
+| type | `number` |
 | required | `True` |
 
 ### `dual_count_start`
@@ -309,13 +314,16 @@ Threshold for dual counting.
 
 | constraint | value |
 | --- | --- |
+| type | `number` |
 | required | `True` |
 
-### `end_time_stamp`
+### `end_datetime`
 Time stamp indicating end of ablation for ROI
 
 | constraint | value |
 | --- | --- |
+| type | `datetime` |
+| format | `%Y-%m-%d %H:%M` |
 | required | `True` |
 
 ### `maxx_um`
@@ -323,6 +331,7 @@ Image width of the ROI acquisition in um
 
 | constraint | value |
 | --- | --- |
+| type | `number` |
 | required | `True` |
 
 ### `maxy_um`
@@ -330,6 +339,7 @@ Image height of the ROI acquisition in um
 
 | constraint | value |
 | --- | --- |
+| type | `number` |
 | required | `True` |
 
 ### `roi_endx_pos_um`
@@ -337,6 +347,7 @@ Coordinates of the region of interest in um
 
 | constraint | value |
 | --- | --- |
+| type | `number` |
 | required | `True` |
 
 ### `roi_endy_pos_um`
@@ -344,6 +355,7 @@ Coordinates of the region of interest in um
 
 | constraint | value |
 | --- | --- |
+| type | `number` |
 | required | `True` |
 
 ### `roi_startx_pos_um`
@@ -351,6 +363,7 @@ Coordinates of the region of interest in um
 
 | constraint | value |
 | --- | --- |
+| type | `number` |
 | required | `True` |
 
 ### `roi_starty_pos_um`
@@ -358,13 +371,15 @@ Coordinates of the region of interest in um
 
 | constraint | value |
 | --- | --- |
+| type | `number` |
 | required | `True` |
 
 ### `segment_data_format`
-Numerical data type
+Numerical data type. TODO - Not sure this is actually a number... Do they mean the format of the data, like "16-bit little endian"?
 
 | constraint | value |
 | --- | --- |
+| type | `number` |
 | required | `True` |
 
 ### `signal_type`
@@ -372,13 +387,16 @@ Type of signal measured per channel (usually dual counts)
 
 | constraint | value |
 | --- | --- |
+| enum | `dual count`, `pulse count`, or `intensity value` |
 | required | `True` |
 
-### `start_time_stamp`
+### `start_datetime`
 Time stamp indicating start of ablation for ROI
 
 | constraint | value |
 | --- | --- |
+| type | `datetime` |
+| format | `%Y-%m-%d %H:%M` |
 | required | `True` |
 
 ### `data_precision_bytes`
@@ -386,6 +404,7 @@ Numerical data precision in bytes
 
 | constraint | value |
 | --- | --- |
+| type | `number` |
 | required | `True` |
 
 ## Paths
