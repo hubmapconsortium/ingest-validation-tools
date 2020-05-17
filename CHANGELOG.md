@@ -5,7 +5,7 @@
 - Submission structure diagram.
 - Autogenerate "Leave blank if not applicable".
 - Add bulkrnaseq and bulkatacseq.
-- Add WGS.
+- Add WGS and IMC.
 - Dump unified yaml for each type. (This will be pulled on the portal side.)
 - Add enum constraints to unit fields, and replace TODOs.
 ### Changed

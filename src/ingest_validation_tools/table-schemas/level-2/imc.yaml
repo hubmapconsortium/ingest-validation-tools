@@ -1,0 +1,106 @@
+doc_url: TODO
+fields:
+- heading: Level 2
+  name: acquisition_instrument_vendor
+  description: An acquisition_instrument is the device that contains the signal detection
+    hardware and signal processing software. Assays generate signals such as light
+    of various intensities or color or signals representing molecular mass.
+- name: acquisition_instrument_model
+  description: Manufacturers of an acquisition instrument may offer various versions
+    (models) of that instrument with different features or sensitivities. Differences
+    in features or sensitivities may be relevant to processing or interpretation of
+    the data.
+- name: preparation_instrument_vendor
+  description: The manufacturer of the instrument used to prepare the sample for the
+    assay.
+- name: preparation_instrument_model
+  description: The model number/name of the instrument used to prepare the sample
+    for the assay
+- name: section_prep_protocols_io_doi
+  description: DOI for protocols.io referring to the protocol for preparing tissue
+    sections for the assay.
+- name: reagent_prep_protocols_io_doi
+  description: DOI for protocols.io referring to the protocol for preparing reagents
+    for the assay.
+- name: ablation_distance_between_shots_x
+  description: "Distance (\xB5m) between laser ablation shots in the X-dimension"
+- name: ablation_distance_between_shots_y
+  description: "Distance (\xB5m) between laser ablation shots in the Y-dimension"
+- name: ablation_frequency_value
+  description: Frequency value of laser ablation (in Hz)
+- name: ablation_frequency_unit
+  description: Frequency unit of laser ablation
+  constraints:
+    enum:
+      - Hz
+- name: roi_description
+  description: A description of the region of interest (ROI)
+- name: roi_id
+  description: Identifier for the ROI
+- name: acquisition_id
+  description: Date and tissue type of acquisition. TODO - On our side, we strongly believe that IDs should not encode semantics. If the two pieces of information are useful, they should be recorded separately.
+- name: after_ablation_image_end_offset
+  description: The number of bytes from the beginning of the MCD file where the respective
+    entity is stored as binary
+- name: after_ablation_image_start_offset
+  description: The number of bytes from the beginning of the MCD file where the respective
+    entity is stored as binary
+  type: number
+- name: before_ablation_image_end_offset
+  description: The number of bytes from the beginning of the MCD file where the respective
+    entity is stored as binary
+  type: number
+- name: before_ablation_image_start_offset
+  description: The number of bytes from the beginning of the MCD file where the respective
+    entity is stored as binary
+  type: number
+- name: data_end_offset
+  description: The number of bytes from the beginning of the MCD file where the respective
+    entity is stored as binary
+  type: number
+- name: data_start_offset
+  description: The number of bytes from the beginning of the MCD file where the respective
+    entity is stored as binary
+  type: number
+- name: dual_count_start
+  description: Threshold for dual counting.
+  type: number
+- name: end_datetime
+  description: Time stamp indicating end of ablation for ROI
+  type: datetime
+  format: "%Y-%m-%d %H:%M"
+- name: maxx_um
+  description: Image width of the ROI acquisition in um
+  type: number
+- name: maxy_um
+  description: Image height of the ROI acquisition in um
+  type: number
+- name: roi_endx_pos_um
+  description: Coordinates of the region of interest in um
+  type: number
+- name: roi_endy_pos_um
+  description: Coordinates of the region of interest in um
+  type: number
+- name: roi_startx_pos_um
+  description: Coordinates of the region of interest in um
+  type: number
+- name: roi_starty_pos_um
+  description: Coordinates of the region of interest in um
+  type: number
+- name: segment_data_format
+  description: Numerical data type. TODO - Not sure this is actually a number... Do they mean the format of the data, like "16-bit little endian"?
+  type: number
+- name: signal_type
+  description: Type of signal measured per channel (usually dual counts)
+  constraints:
+    enum:
+      - dual count
+      - pulse count
+      - intensity value
+- name: start_datetime
+  description: Time stamp indicating start of ablation for ROI
+  type: datetime
+  format: "%Y-%m-%d %H:%M"
+- name: data_precision_bytes
+  description: Numerical data precision in bytes
+  type: number
