@@ -38,7 +38,7 @@ fields:
 - name: roi_id
   description: Identifier for the ROI
 - name: acquisition_id
-  description: Date and tissue type of acquisition
+  description: Date and tissue type of acquisition. TODO - On our side, we strongly believe that IDs should not encode semantics. If the two pieces of information are useful, they should be recorded separately.
 - name: after_ablation_image_end_offset
   description: The number of bytes from the beginning of the MCD file where the respective
     entity is stored as binary
@@ -59,7 +59,7 @@ fields:
     entity is stored as binary
 - name: dual_count_start
   description: Threshold for dual counting.
-- name: end_time_stamp
+- name: end_timestamp
   description: Time stamp indicating end of ablation for ROI
 - name: maxx_um
   description: Image width of the ROI acquisition in um
@@ -77,7 +77,7 @@ fields:
   description: Numerical data type
 - name: signal_type
   description: Type of signal measured per channel (usually dual counts)
-- name: start_time_stamp
+- name: start_timestamp
   description: Time stamp indicating start of ablation for ROI
 - name: data_precision_bytes
   description: Numerical data precision in bytes
