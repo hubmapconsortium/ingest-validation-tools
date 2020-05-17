@@ -118,21 +118,14 @@ fields:
   name: polarity
 - constraints:
     required: true
-  description: The low value of the scanned mass range for MS1.
+  description: The low value of the scanned mass range for MS1. (unitless)
   name: mass_range_low_value
   type: number
 - constraints:
     required: true
-  description: The high value of the scanned mass range for MS1.
+  description: The high value of the scanned mass range for MS1. (unitless)
   name: mass_range_high_value
   type: number
-- constraints:
-    enum:
-    - m/z
-    required: true
-  description: The measurement unit of the scanned mass range. TODO - m/z is not a
-    unit.
-  name: mass_range_unit
 - constraints:
     required: true
   description: Mode of data collection in tandem MS assays. Either DDA (Data-dependent
