@@ -186,7 +186,7 @@ Units of DNA input into library preparation
 
 | constraint | value |
 | --- | --- |
-| enum | `TODO` |
+| enum | `nuclei` |
 | required | `True` |
 
 ### `library_construction_method`

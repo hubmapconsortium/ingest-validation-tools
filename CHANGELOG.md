@@ -7,7 +7,7 @@
 - Add bulkrnaseq and bulkatacseq.
 - Add WGS.
 - Dump unified yaml for each type. (This will be pulled on the portal side.)
-- Add enum constraints to unit fields.
+- Add enum constraints to unit fields, and replace TODOs.
 ### Changed
 - More accurate sample ID regex.
 - Reorder LCMS fields.
