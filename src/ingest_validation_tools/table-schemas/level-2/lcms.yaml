@@ -62,7 +62,8 @@ fields:
     description: units for LC column length (typically cm)
     constraints:
       enum:
-        - mm, cm
+        - mm
+        - cm
   -
     name: lc_temp_value
     description: LC temperature
@@ -92,7 +93,8 @@ fields:
     constraints:
       required: False
       enum:
-        - nL/min , ml/min
+        - nL/min
+        - ml/min
   -
     name: lc_gradient
     description: LC gradient
