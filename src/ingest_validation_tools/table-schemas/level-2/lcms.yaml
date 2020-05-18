@@ -28,6 +28,11 @@ fields:
     name: mass_range_high_value
     description: The high value of the scanned mass range for MS1. (unitless)
   -
+    name: mass_range_unit
+    description: mass range units for MS1.
+      enum: 
+      - m/z
+  -
     name: data_collection_mode
     description: Mode of data collection in tandem MS assays. Either DDA (Data-dependent acquisition) or DIA (Data-indemendent acquisition.
   -
@@ -97,10 +102,10 @@ fields:
     name: lc_gradient
     description: LC gradient
   -
-    name: lc_mobile_phase_A
+    name: lc_mobile_phase_a
     description: Composition of mobile phase A
   -
-    name: lc_mobile_phase_B
+    name: lc_mobile_phase_b
     description: Composition of mobile phase B
   -
     name: processing_search
