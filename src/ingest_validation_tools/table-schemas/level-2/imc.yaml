@@ -69,11 +69,11 @@ fields:
   description: Time stamp indicating end of ablation for ROI
   type: datetime
   format: "%Y-%m-%d %H:%M"
-- name: maxx_um
-  description: Image width of the ROI acquisition in um
+- name: maxx_pixels
+  description: Image width of the ROI acquisition in pixels
   type: number
-- name: maxy_um
-  description: Image height of the ROI acquisition in um
+- name: maxy_pixels
+  description: Image height of the ROI acquisition in pixels
   type: number
 - name: roi_endx_pos_um
   description: Coordinates of the region of interest in um
@@ -82,10 +82,14 @@ fields:
   description: Coordinates of the region of interest in um
   type: number
 - name: roi_startx_pos_um
-  description: Coordinates of the region of interest in um
+  description: Coordinates of the region of interest in um.
+  The attribute roi_startx_pos_um filled
+  from .mcd metadata must be divided by 1000 to correct for a bug in Fluidigm's software.
   type: number
 - name: roi_starty_pos_um
-  description: Coordinates of the region of interest in um
+  description: Coordinates of the region of interest in um.
+  The attribute roi_starty_pos_um filled
+  from .mcd metadata must be divided by 1000 to correct for a bug in Fluidigm's software.
   type: number
 - name: segment_data_format
   description: Numerical data type. TODO - Not sure this is actually a number... Do they mean the format of the data, like "16-bit little endian"?
