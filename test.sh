@@ -8,6 +8,10 @@ start() { [[ -z $CI ]] || echo travis_fold':'start:$1; echo $green$1$reset; }
 end() { [[ -z $CI ]] || echo travis_fold':'end:$1; }
 die() { set +v; echo "$red$*$reset" 1>&2 ; exit 1; }
 
+start generate
+./test-generate.sh
+end generate
+
 start flake8
 flake8 || die 'Try: autopep8 --in-place --aggressive -r .'
 end flake8
@@ -23,10 +27,6 @@ end schemas-exist
 start examples
 ./test-examples.sh
 end examples
-
-start generate
-./test-generate.sh
-end generate
 
 start cli-docs
 ./test-cli-docs.sh
