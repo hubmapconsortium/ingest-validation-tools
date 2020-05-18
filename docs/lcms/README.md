@@ -279,7 +279,7 @@ units for LC column length (typically cm)
 
 | constraint | value |
 | --- | --- |
-| enum | `cm` |
+| enum | `mm` or `cm` |
 | required | `True` |
 
 ### `lc_temp_value`
@@ -328,7 +328,7 @@ Units of flow rate. Leave blank if not applicable.
 | constraint | value |
 | --- | --- |
 | required | `False` |
-| enum | `nL/min` |
+| enum | `nL/min` or `ml/min` |
 
 ### `lc_gradient`
 LC gradient

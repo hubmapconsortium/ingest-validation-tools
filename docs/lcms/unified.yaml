@@ -176,6 +176,7 @@ fields:
   type: number
 - constraints:
     enum:
+    - mm
     - cm
     required: true
   description: units for LC column length (typically cm)
@@ -210,6 +211,7 @@ fields:
 - constraints:
     enum:
     - nL/min
+    - ml/min
     required: false
   description: Units of flow rate.
   name: lc_flow_rate_unit

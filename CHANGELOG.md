@@ -17,6 +17,7 @@
 - Free-form cell_barcode_read.
 - Add bulkrnaseq, bulkatacseq, and wgs fields.
 - mass/charge is unitless in MS: Remove field.
+- lcms units
 ### Removed
 - avg_insert_size from bulkatacseq.
 
