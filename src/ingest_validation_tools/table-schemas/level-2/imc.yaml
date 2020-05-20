@@ -62,7 +62,9 @@ fields:
   type: number
 - name: before_ablation_image_end_offset_units
   description: The units of the offset value.
-  enum: bytes
+  constraints:
+    enum:
+      - bytes
 - name: before_ablation_image_start_offset_value
   description: The number of bytes from the beginning of the MCD file where the respective
     entity is stored as binary
