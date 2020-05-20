@@ -112,7 +112,9 @@ fields:
   type: number
 - name: roi_endx_pos_units
   description: Units of the endx coordinate of the region of interest.
-  enum: pixel, um
+  constraints:
+    enum:
+      - um
 - name: roi_endy_pos_value
   description: endy coordinate of the region of interest.
   type: number
