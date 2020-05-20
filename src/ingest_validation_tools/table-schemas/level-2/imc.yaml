@@ -104,7 +104,9 @@ fields:
   type: number
 - name: maxx_width_unit
   description: Units of image width of the ROI acquisition
-  enum: pixels, um
+  constraints:
+    enum:
+      - um
 - name: maxy_height_value
   description: Image height value of the ROI acquisition
   type: number
