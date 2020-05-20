@@ -34,8 +34,10 @@ Related files:
 [`preparation_instrument_model`](#preparation_instrument_model)<br>
 [`section_prep_protocols_io_doi`](#section_prep_protocols_io_doi)<br>
 [`reagent_prep_protocols_io_doi`](#reagent_prep_protocols_io_doi)<br>
-[`ablation_distance_between_shots_x`](#ablation_distance_between_shots_x)<br>
-[`ablation_distance_between_shots_y`](#ablation_distance_between_shots_y)<br>
+[`ablation_distance_between_shots_x_value`](#ablation_distance_between_shots_x_value)<br>
+[`ablation_distance_between_shots_x_units`](#ablation_distance_between_shots_x_units)<br>
+[`ablation_distance_between_shots_y_value`](#ablation_distance_between_shots_y_value)<br>
+[`ablation_distance_between_shots_y_units`](#ablation_distance_between_shots_y_units)<br>
 [`ablation_frequency_value`](#ablation_frequency_value)<br>
 [`ablation_frequency_unit`](#ablation_frequency_unit)<br>
 [`roi_description`](#roi_description)<br>
@@ -211,18 +213,36 @@ DOI for protocols.io referring to the protocol for preparing reagents for the as
 | required | `True` |
 | pattern | `10\.17504/.*` |
 
-### `ablation_distance_between_shots_x`
-Distance (µm) between laser ablation shots in the X-dimension
+### `ablation_distance_between_shots_x_value`
+Distance (\xB5m) between laser ablation shots in the X-dimension.
 
 | constraint | value |
 | --- | --- |
+| type | `number` |
 | required | `True` |
 
-### `ablation_distance_between_shots_y`
-Distance (µm) between laser ablation shots in the Y-dimension
+### `ablation_distance_between_shots_x_units`
+Units of distance between laser ablation shots.
 
 | constraint | value |
 | --- | --- |
+| enum | `um` or `nm` |
+| required | `True` |
+
+### `ablation_distance_between_shots_y_value`
+Distance (\xB5m) between laser ablation shots in the Y-dimension.
+
+| constraint | value |
+| --- | --- |
+| type | `number` |
+| required | `True` |
+
+### `ablation_distance_between_shots_y_units`
+Units of distance between laser ablation shots.
+
+| constraint | value |
+| --- | --- |
+| enum | `um` or `nm` |
 | required | `True` |
 
 ### `ablation_frequency_value`
