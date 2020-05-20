@@ -108,7 +108,9 @@ fields:
   type: number
 - name: maxy_height_unit
   description: Units of image height of the ROI acquisition
-  enum: pixels, um
+  constraints:
+    enum:
+      - um
 - name: roi_endx_pos_value
   description: endx coordinate of the region of interest.
   type: number
