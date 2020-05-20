@@ -22,10 +22,22 @@ fields:
 - name: reagent_prep_protocols_io_doi
   description: DOI for protocols.io referring to the protocol for preparing reagents
     for the assay.
-- name: ablation_distance_between_shots_x
-  description: "Distance (\xB5m) between laser ablation shots in the X-dimension"
-- name: ablation_distance_between_shots_y
-  description: "Distance (\xB5m) between laser ablation shots in the Y-dimension"
+- name: ablation_distance_between_shots_x_value
+  description: Distance (\xB5m) between laser ablation shots in the X-dimension.
+- name: ablation_distance_between_shots_x_units
+  description: Units of distance between laser ablation shots.
+  constraints:
+    enum:
+      - um
+      - nm
+- name: ablation_distance_between_shots_y_value
+  description: Distance (\xB5m) between laser ablation shots in the Y-dimension.
+- name: ablation_distance_between_shots_y_units
+  description: Units of distance between laser ablation shots.
+  constraints:
+    enum:
+      - um
+      - nm
 - name: ablation_frequency_value
   description: Frequency value of laser ablation (in Hz)
 - name: ablation_frequency_unit

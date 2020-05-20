@@ -2,6 +2,7 @@
 
 ## v0.0.4 - In progress
 ### Added
+- Units on IMC.
 - Submission structure diagram.
 - Autogenerate "Leave blank if not applicable".
 - Add bulkrnaseq and bulkatacseq.
@@ -11,6 +12,8 @@
 - Check that directory schemas exist.
 ### Changed
 - Add bytes to IMC.
+- LCMS capitals.
+- Update wgs enum
 - More accurate sample ID regex.
 - Reorder LCMS fields.
 - `atacseq` to `scatacseq`.
