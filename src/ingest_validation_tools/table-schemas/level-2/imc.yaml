@@ -140,7 +140,9 @@ fields:
   type: number
 - name: roi_starty_pos_units
   description: Units of the starty-coordinates of the region of interest.
-  enum: pixels, um
+  constraints:
+    enum:
+      - um
 - name: segment_data_format
   description: Numerical data type. TODO - Not sure this is actually a number... Do they mean the format of the data, like "16-bit little endian"?
   type: number
