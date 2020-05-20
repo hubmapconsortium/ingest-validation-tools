@@ -89,7 +89,9 @@ fields:
   type: number
 - name: data_start_offset_units
   description: The units of the offset value.
-  enum: bytes
+  constraints:
+    enum:
+      - bytes
 - name: dual_count_start
   description: Threshold for dual counting.
   type: number
