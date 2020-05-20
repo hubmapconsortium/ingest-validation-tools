@@ -35,7 +35,7 @@ fields:
   description: Units of RNA input amount to the assay
   constraints:
     enum:
-      - TODO
+      - ug
 - name: rnaseq_assay_method
   description: rnaseq assay kit used.
 - name: library_construction_protocols_io_doi

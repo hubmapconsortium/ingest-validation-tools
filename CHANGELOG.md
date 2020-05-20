@@ -2,20 +2,28 @@
 
 ## v0.0.4 - In progress
 ### Added
+- Units on IMC.
+- Submission structure diagram.
 - Autogenerate "Leave blank if not applicable".
 - Add bulkrnaseq and bulkatacseq.
-- Add WGS.
+- Add WGS and IMC.
 - Dump unified yaml for each type. (This will be pulled on the portal side.)
-- Add enum constraints to unit fields.
+- Add enum constraints to unit fields, and replace TODOs.
+- Check that directory schemas exist.
 ### Changed
 - bulkrnaseq QA is just RIN.
+- Add bytes to IMC.
+- LCMS capitals.
+- Update wgs enum
 - More accurate sample ID regex.
 - Reorder LCMS fields.
 - `atacseq` to `scatacseq`.
-- Autogenerate "Leave blank if not applicable".
 - Make sc_isolation_enrichment in scrnaseq optional.
 - Free-form cell_barcode_read.
 - Add bulkrnaseq, bulkatacseq, and wgs fields.
+- mass/charge is unitless in MS: Remove field.
+### Removed
+- avg_insert_size from bulkatacseq.
 
 ## [v0.0.3](https://github.com/hubmapconsortium/ingest-validation-tools/tree/v0.0.3) - 2020-05-04
 ### Added

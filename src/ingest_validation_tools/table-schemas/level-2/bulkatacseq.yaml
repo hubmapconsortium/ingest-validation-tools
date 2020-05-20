@@ -7,8 +7,6 @@ fields:
 - name: acquisition_instrument_model
   description: Manufacturers of an acquisition instrument may offer various versions (models) of that instrument with different features or sensitivities.
    Differences in features or sensitivities may be relevant to processing or interpretation of the data
-- name: avg_insert_size
-  description: Size of the insert in bp. TODO - units.
 - name: bulk_transposition_input_number_nuclei
   description: A number (no comma separators)
 - name: bulk_atac_cell_isolation_protocols_io_doi

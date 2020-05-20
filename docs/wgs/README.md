@@ -31,7 +31,7 @@ Related files:
 [`acquisition_instrument_vendor`](#acquisition_instrument_vendor)<br>
 [`acquisition_instrument_model`](#acquisition_instrument_model)<br>
 [`gdna_fragmentation_quality_assurance`](#gdna_fragmentation_quality_assurance)<br>
-[`dna_assay_input`](#dna_assay_input)<br>
+[`dna_assay_input_value`](#dna_assay_input_value)<br>
 [`dna_assay_input_unit`](#dna_assay_input_unit)<br>
 [`library_construction_method`](#library_construction_method)<br>
 [`library_construction_protocols_io_doi`](#library_construction_protocols_io_doi)<br>
@@ -173,7 +173,7 @@ Is the gDNA integrity good enough for WGS? This is usually checked through runni
 | --- | --- |
 | required | `True` |
 
-### `dna_assay_input`
+### `dna_assay_input_value`
 Amount of DNA input into library preparation
 
 | constraint | value |
@@ -186,7 +186,7 @@ Units of DNA input into library preparation
 
 | constraint | value |
 | --- | --- |
-| enum | `TODO` |
+| enum | `ug` |
 | required | `True` |
 
 ### `library_construction_method`

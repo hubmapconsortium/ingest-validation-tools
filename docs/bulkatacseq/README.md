@@ -30,7 +30,6 @@ Related files:
 
 [`acquisition_instrument_vendor`](#acquisition_instrument_vendor)<br>
 [`acquisition_instrument_model`](#acquisition_instrument_model)<br>
-[`avg_insert_size`](#avg_insert_size)<br>
 [`bulk_transposition_input_number_nuclei`](#bulk_transposition_input_number_nuclei)<br>
 [`bulk_atac_cell_isolation_protocols_io_doi`](#bulk_atac_cell_isolation_protocols_io_doi)<br>
 [`is_technical_replicate`](#is_technical_replicate)<br>
@@ -171,13 +170,6 @@ An acquisition_instrument is the device that contains the signal detection hardw
 
 ### `acquisition_instrument_model`
 Manufacturers of an acquisition instrument may offer various versions (models) of that instrument with different features or sensitivities. Differences in features or sensitivities may be relevant to processing or interpretation of the data
-
-| constraint | value |
-| --- | --- |
-| required | `True` |
-
-### `avg_insert_size`
-Size of the insert in bp. TODO - units.
 
 | constraint | value |
 | --- | --- |

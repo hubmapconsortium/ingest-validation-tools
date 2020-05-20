@@ -123,11 +123,11 @@ fields:
 - constraints:
     required: true
   description: Amount of DNA input into library preparation
-  name: dna_assay_input
+  name: dna_assay_input_value
   type: number
 - constraints:
     enum:
-    - TODO
+    - ug
     required: true
   description: Units of DNA input into library preparation
   name: dna_assay_input_unit

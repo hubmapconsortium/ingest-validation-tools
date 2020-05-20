@@ -12,14 +12,14 @@ fields:
 - name: gdna_fragmentation_quality_assurance
   description: Is the gDNA integrity good enough for WGS? This is usually checked
     through running a gel. TODO - Is this a boolean?
-- name: dna_assay_input
+- name: dna_assay_input_value
   description: Amount of DNA input into library preparation
   type: number
 - name: dna_assay_input_unit
   description: Units of DNA input into library preparation
   constraints:
     enum:
-      - TODO
+      - ug
 - name: library_construction_method
   description: Describes DNA library preparation kit. Modality of isolating gDNA,
     Fragmentation and generating sequencing libraries. TODO - enum?
