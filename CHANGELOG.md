@@ -11,6 +11,7 @@
 - Add enum constraints to unit fields, and replace TODOs.
 - Check that directory schemas exist.
 ### Changed
+- Add bytes to IMC.
 - LCMS capitals.
 - Update wgs enum
 - More accurate sample ID regex.

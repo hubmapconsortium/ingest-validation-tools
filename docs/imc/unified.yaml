@@ -190,37 +190,74 @@ fields:
     required: true
   description: The number of bytes from the beginning of the MCD file where the respective
     entity is stored as binary
-  name: after_ablation_image_end_offset
+  name: after_ablation_image_end_offset_value
+  type: number
+- constraints:
+    enum:
+    - bytes
+    required: true
+  description: The units of the offset value.
+  name: after_ablation_image_end_offset_units
 - constraints:
     required: true
   description: The number of bytes from the beginning of the MCD file where the respective
     entity is stored as binary
-  name: after_ablation_image_start_offset
+  name: after_ablation_image_start_offset_value
   type: number
+- constraints:
+    enum:
+    - bytes
+    required: true
+  description: The units of the offset value.
+  name: after_ablation_image_start_offset_units
 - constraints:
     required: true
   description: The number of bytes from the beginning of the MCD file where the respective
     entity is stored as binary
-  name: before_ablation_image_end_offset
+  name: before_ablation_image_end_offset_value
   type: number
+- constraints:
+    enum:
+    - bytes
+    required: true
+  description: The units of the offset value.
+  name: before_ablation_image_end_offset_units
 - constraints:
     required: true
   description: The number of bytes from the beginning of the MCD file where the respective
     entity is stored as binary
-  name: before_ablation_image_start_offset
+  name: before_ablation_image_start_offset_value
   type: number
+- constraints:
+    enum:
+    - bytes
+    required: true
+  description: The units of the offset value.
+  name: before_ablation_image_start_offset_units
 - constraints:
     required: true
   description: The number of bytes from the beginning of the MCD file where the respective
     entity is stored as binary
-  name: data_end_offset
+  name: data_end_offset_value
   type: number
+- constraints:
+    enum:
+    - bytes
+    required: true
+  description: The units of the offset value.
+  name: data_end_offset_units
 - constraints:
     required: true
   description: The number of bytes from the beginning of the MCD file where the respective
     entity is stored as binary
-  name: data_start_offset
+  name: data_start_offset_value
   type: number
+- constraints:
+    enum:
+    - bytes
+    required: true
+  description: The units of the offset value.
+  name: data_start_offset_units
 - constraints:
     required: true
   description: Threshold for dual counting.
@@ -234,34 +271,74 @@ fields:
   type: datetime
 - constraints:
     required: true
-  description: Image width of the ROI acquisition in um
-  name: maxx_um
+  description: Image width value of the ROI acquisition
+  name: maxx_width_value
   type: number
 - constraints:
+    enum:
+    - um
     required: true
-  description: Image height of the ROI acquisition in um
-  name: maxy_um
-  type: number
+  description: Units of image width of the ROI acquisition
+  name: maxx_width_unit
 - constraints:
     required: true
-  description: Coordinates of the region of interest in um
-  name: roi_endx_pos_um
+  description: Image height value of the ROI acquisition
+  name: maxy_height_value
   type: number
 - constraints:
+    enum:
+    - um
     required: true
-  description: Coordinates of the region of interest in um
-  name: roi_endy_pos_um
-  type: number
+  description: Units of image height of the ROI acquisition
+  name: maxy_height_unit
 - constraints:
     required: true
-  description: Coordinates of the region of interest in um
-  name: roi_startx_pos_um
+  description: endx coordinate of the region of interest.
+  name: roi_endx_pos_value
   type: number
 - constraints:
+    enum:
+    - um
     required: true
-  description: Coordinates of the region of interest in um
-  name: roi_starty_pos_um
+  description: Units of the endx coordinate of the region of interest.
+  name: roi_endx_pos_units
+- constraints:
+    required: true
+  description: endy coordinate of the region of interest.
+  name: roi_endy_pos_value
   type: number
+- constraints:
+    enum:
+    - um
+    required: true
+  description: Units of the endy coordinate of the region of interest.
+  name: roi_endy_pos_units
+- constraints:
+    required: true
+  description: startx coordinate of the region of interest. The attributes roi_startx_pos_value
+    and roi_starty_pos_value filled from .mcd metadata must be divided by 1000 to
+    correct for a bug (missing decimal point) in Fluidigm's software.
+  name: roi_startx_pos_value
+  type: number
+- constraints:
+    enum:
+    - um
+    required: true
+  description: Units of the startx-coordinate of the region of interest.
+  name: roi_startx_pos_units
+- constraints:
+    required: true
+  description: starty coordinate of the region of interest. The attributes roi_startx_pos_value
+    and roi_starty_pos_value filled from .mcd metadata must be divided by 1000 to
+    correct for a bug (missing decimal point) in Fluidigm's software.
+  name: roi_starty_pos_value
+  type: number
+- constraints:
+    enum:
+    - um
+    required: true
+  description: Units of the starty-coordinates of the region of interest.
+  name: roi_starty_pos_units
 - constraints:
     required: true
   description: Numerical data type. TODO - Not sure this is actually a number... Do
