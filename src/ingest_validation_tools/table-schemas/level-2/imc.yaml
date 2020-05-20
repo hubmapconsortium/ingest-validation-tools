@@ -133,9 +133,9 @@ fields:
       - um
 - name: roi_startx_pos_value
   description: startx coordinate of the region of interest.
-  The attributes roi_startx_pos_value and roi_starty_pos_value
-  filled from .mcd metadata must be divided by 1000 to
-  correct for a bug (missing decimal point) in Fluidigm's software.
+    The attributes roi_startx_pos_value and roi_starty_pos_value
+    filled from .mcd metadata must be divided by 1000 to
+    correct for a bug (missing decimal point) in Fluidigm's software.
   type: number
 - name: roi_startx_pos_units
   description: Units of the startx-coordinate of the region of interest.
@@ -144,9 +144,9 @@ fields:
       - um
 - name: roi_starty_pos_value
   description: starty coordinate of the region of interest.
-  The attributes roi_startx_pos_value and roi_starty_pos_value
-  filled from .mcd metadata must be divided by 1000 to
-  correct for a bug (missing decimal point) in Fluidigm's software.
+    The attributes roi_startx_pos_value and roi_starty_pos_value
+    filled from .mcd metadata must be divided by 1000 to
+    correct for a bug (missing decimal point) in Fluidigm's software.
   type: number
 - name: roi_starty_pos_units
   description: Units of the starty-coordinates of the region of interest.

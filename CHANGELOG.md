@@ -10,6 +10,7 @@
 - Add enum constraints to unit fields, and replace TODOs.
 - Check that directory schemas exist.
 ### Changed
+- Add bytes to IMC.
 - More accurate sample ID regex.
 - Reorder LCMS fields.
 - `atacseq` to `scatacseq`.
