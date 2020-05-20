@@ -220,11 +220,11 @@ fields:
 - constraints:
     required: true
   description: Composition of mobile phase A
-  name: lc_mobile_phase_A
+  name: lc_mobile_phase_a
 - constraints:
     required: true
   description: Composition of mobile phase B
-  name: lc_mobile_phase_B
+  name: lc_mobile_phase_b
 - constraints:
     required: true
   description: Software for analyzing and searching LC-MS/MS omics data

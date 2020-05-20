@@ -97,10 +97,10 @@ fields:
     name: lc_gradient
     description: LC gradient
   -
-    name: lc_mobile_phase_A
+    name: lc_mobile_phase_a
     description: Composition of mobile phase A
   -
-    name: lc_mobile_phase_B
+    name: lc_mobile_phase_b
     description: Composition of mobile phase B
   -
     name: processing_search
