@@ -8,6 +8,7 @@
 - Dump unified yaml for each type. (This will be pulled on the portal side.)
 - Add enum constraints to unit fields.
 ### Changed
+- bulkrnaseq QA is just RIN.
 - More accurate sample ID regex.
 - Reorder LCMS fields.
 - `atacseq` to `scatacseq`.

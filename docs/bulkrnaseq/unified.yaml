@@ -136,11 +136,10 @@ fields:
     (ng/mg).
   name: bulk_rna_yield_units_per_tissue_unit
 - constraints:
+    maximum: 10
+    minimum: 1
     required: true
-  description: "A quality metric by visual inspection. This should answer the question:\
-    \ was the bulk RNA of high integrity? Was the RIN value high enough (>=6)? This\
-    \ can be captured at a high level, \u201COK\u201D or \u201Cnot OK\u201D. Cyou\
-    \ may include RIN Value (Optional): eg. \"OK - RIN>6\""
+  description: RIN value
   name: bulk_rna_isolation_quality_metric_value
   type: number
 - constraints:

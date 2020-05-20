@@ -195,11 +195,13 @@ RNA amount per Tissue input amount. Valid values should be weight/weight (ng/mg)
 | required | `True` |
 
 ### `bulk_rna_isolation_quality_metric_value`
-A quality metric by visual inspection. This should answer the question: was the bulk RNA of high integrity? Was the RIN value high enough (>=6)? This can be captured at a high level, “OK” or “not OK”. Cyou may include RIN Value (Optional): eg. "OK - RIN>6"
+RIN value
 
 | constraint | value |
 | --- | --- |
 | type | `number` |
+| minimum | `1` |
+| maximum | `10` |
 | required | `True` |
 
 ### `rnaseq_assay_input_value`
