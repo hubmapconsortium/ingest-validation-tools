@@ -48,8 +48,8 @@ Related files:
 [`lc_flow_rate_value`](#lc_flow_rate_value)<br>
 [`lc_flow_rate_unit`](#lc_flow_rate_unit)<br>
 [`lc_gradient`](#lc_gradient)<br>
-[`lc_mobile_phase_A`](#lc_mobile_phase_a)<br>
-[`lc_mobile_phase_B`](#lc_mobile_phase_b)<br>
+[`lc_mobile_phase_a`](#lc_mobile_phase_a)<br>
+[`lc_mobile_phase_b`](#lc_mobile_phase_b)<br>
 [`processing_search`](#processing_search)<br>
 [`processing_protocols_io_doi`](#processing_protocols_io_doi)<br>
 [`overall_protocols_io_doi`](#overall_protocols_io_doi)<br>
@@ -337,14 +337,14 @@ LC gradient
 | --- | --- |
 | required | `True` |
 
-### `lc_mobile_phase_A`
+### `lc_mobile_phase_a`
 Composition of mobile phase A
 
 | constraint | value |
 | --- | --- |
 | required | `True` |
 
-### `lc_mobile_phase_B`
+### `lc_mobile_phase_b`
 Composition of mobile phase B
 
 | constraint | value |
