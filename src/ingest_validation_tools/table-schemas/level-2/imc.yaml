@@ -124,7 +124,9 @@ fields:
   type: number
 - name: roi_endy_pos_units
   description: Units of the endy coordinate of the region of interest.
-  enum: pixel, um
+  constraints:
+    enum:
+      - um
 - name: roi_startx_pos_value
   description: startx coordinate of the region of interest.
   The attributes roi_startx_pos_value and roi_starty_pos_value
