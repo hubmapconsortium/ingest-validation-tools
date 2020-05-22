@@ -22,10 +22,10 @@ fields:
     name: polarity
     description: The polarity of the mass analysis (positive or negative ion modes)
   -
-    name: mass_range_low_value
+    name: mz_range_low_value
     description: The low value of the scanned mass range for MS1. (unitless)
   -
-    name: mass_range_high_value
+    name: mz_range_high_value
     description: The high value of the scanned mass range for MS1. (unitless)
   -
     name: data_collection_mode
@@ -62,7 +62,9 @@ fields:
     description: units for LC column length (typically cm)
     constraints:
       enum:
-        - cm
+        - um
+          mm
+          cm
   -
     name: lc_temp_value
     description: LC temperature
@@ -81,6 +83,8 @@ fields:
     constraints:
       enum:
         - um
+          mm
+          cm
   -
     name: lc_flow_rate_value
     description: Value of flow rate.
@@ -93,6 +97,7 @@ fields:
       required: False
       enum:
         - nL/min
+          mL/min
   -
     name: lc_gradient
     description: LC gradient
