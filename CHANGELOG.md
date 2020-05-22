@@ -11,6 +11,7 @@
 - Add enum constraints to unit fields, and replace TODOs.
 - Check that directory schemas exist.
 ### Changed
+- mass -> mz
 - bulkrnaseq QA is just RIN.
 - Add bytes to IMC.
 - LCMS capitals.
