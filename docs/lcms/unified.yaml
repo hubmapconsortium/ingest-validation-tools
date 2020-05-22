@@ -119,12 +119,12 @@ fields:
 - constraints:
     required: true
   description: The low value of the scanned mass range for MS1. (unitless)
-  name: mass_range_low_value
+  name: mz_range_low_value
   type: number
 - constraints:
     required: true
   description: The high value of the scanned mass range for MS1. (unitless)
-  name: mass_range_high_value
+  name: mz_range_high_value
   type: number
 - constraints:
     required: true
@@ -176,6 +176,8 @@ fields:
   type: number
 - constraints:
     enum:
+    - um
+    - mm
     - cm
     required: true
   description: units for LC column length (typically cm)
@@ -199,6 +201,8 @@ fields:
 - constraints:
     enum:
     - um
+    - mm
+    - cm
     required: true
   description: units of LC column inner diameter (typically microns)
   name: lc_id_unit
@@ -210,6 +214,7 @@ fields:
 - constraints:
     enum:
     - nL/min
+    - mL/min
     required: false
   description: Units of flow rate.
   name: lc_flow_rate_unit

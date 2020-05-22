@@ -28,8 +28,8 @@ Related files:
 [`acquisition_instrument_model`](#acquisition_instrument_model)<br>
 [`ms_source`](#ms_source)<br>
 [`polarity`](#polarity)<br>
-[`mass_range_low_value`](#mass_range_low_value)<br>
-[`mass_range_high_value`](#mass_range_high_value)<br>
+[`mz_range_low_value`](#mz_range_low_value)<br>
+[`mz_range_high_value`](#mz_range_high_value)<br>
 [`data_collection_mode`](#data_collection_mode)<br>
 [`ms_scan_mode`](#ms_scan_mode)<br>
 [`labeling`](#labeling)<br>
@@ -186,7 +186,7 @@ The polarity of the mass analysis (positive or negative ion modes)
 | --- | --- |
 | required | `True` |
 
-### `mass_range_low_value`
+### `mz_range_low_value`
 The low value of the scanned mass range for MS1. (unitless)
 
 | constraint | value |
@@ -194,7 +194,7 @@ The low value of the scanned mass range for MS1. (unitless)
 | type | `number` |
 | required | `True` |
 
-### `mass_range_high_value`
+### `mz_range_high_value`
 The high value of the scanned mass range for MS1. (unitless)
 
 | constraint | value |
@@ -279,7 +279,7 @@ units for LC column length (typically cm)
 
 | constraint | value |
 | --- | --- |
-| enum | `cm` |
+| enum | `um`, `mm`, or `cm` |
 | required | `True` |
 
 ### `lc_temp_value`
@@ -311,7 +311,7 @@ units of LC column inner diameter (typically microns)
 
 | constraint | value |
 | --- | --- |
-| enum | `um` |
+| enum | `um`, `mm`, or `cm` |
 | required | `True` |
 
 ### `lc_flow_rate_value`
@@ -328,7 +328,7 @@ Units of flow rate. Leave blank if not applicable.
 | constraint | value |
 | --- | --- |
 | required | `False` |
-| enum | `nL/min` |
+| enum | `nL/min` or `mL/min` |
 
 ### `lc_gradient`
 LC gradient
