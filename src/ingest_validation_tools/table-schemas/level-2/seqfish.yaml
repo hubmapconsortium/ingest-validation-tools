@@ -1,5 +1,23 @@
 doc_url: https://docs.google.com/document/d/1H_z5QQvXP-5GKwiKRF2GhcpmqEUDWYnoOIS---Uepas/edit
 fields:
+  # Overrides of Level 1 fields:
+  -
+    name: assay_category
+    constraints:
+      enum:
+        - sequence
+  -
+    name: assay_type
+    constraints:
+      enum:
+        - seqFISH
+  -
+    name: analyte_class
+    constraints:
+      enum:
+        - TODO
+
+  # Level 2:
   -
     heading: Level 2
     name: acquisition_instrument_vendor

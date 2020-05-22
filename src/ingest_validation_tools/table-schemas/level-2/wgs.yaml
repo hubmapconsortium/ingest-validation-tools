@@ -1,5 +1,23 @@
 doc_url: TODO
 fields:
+# Overrides of Level 1 fields:
+-
+  name: assay_category
+  constraints:
+    enum:
+      - sequencing
+-
+  name: assay_type
+  constraints:
+    enum:
+      - WGS
+-
+  name: analyte_class
+  constraints:
+    enum:
+      - DNA
+
+# Level 2:
 - heading: Level 2
   name: acquisition_instrument_vendor
   description: An acquisition_instrument is the device that contains the signal
