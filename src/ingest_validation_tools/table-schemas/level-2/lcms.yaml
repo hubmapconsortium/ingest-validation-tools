@@ -1,21 +1,12 @@
 doc_url: TODO
 fields:
-# Overrides of Level 1 fields:
-  -
-    name: assay_category
-    constraints:
-      enum:
-        - mass_spectrometry
-  -
-    name: assay_type
-    constraints:
-      enum:
-        - LC-MS (metabolomics)
-        - LC-MS/MS (label-free proteomics)
+  # Overrides of Level 1 fields:
   -
     name: analyte_class
     constraints:
       required: False
+
+  # TODO
 
   # Level 2 fields:
   -

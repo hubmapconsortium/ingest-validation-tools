@@ -2,16 +2,6 @@ doc_url: TODO
 fields:
   # Overrides of Level 1 fields:
   -
-    name: assay_category
-    constraints:
-      enum:
-        - imaging
-  -
-    name: assay_type
-    constraints:
-      enum:
-        - TODO
-  -
     name: analyte_class
     constraints:
       required: False
