@@ -5,17 +5,17 @@ fields:
   name: assay_category
   constraints:
     enum:
-      - TODO
+      - sequence
 -
   name: assay_type
   constraints:
     enum:
-      - TODO
+      - bulk RNA
 -
   name: analyte_class
   constraints:
     enum:
-      - TODO
+      - RNA
 
 # Level 2 fields:
 - heading: Level 2

@@ -5,12 +5,13 @@ fields:
     name: assay_category
     constraints:
       enum:
-        - TODO
+        - mass_spectrometry
   -
     name: assay_type
     constraints:
       enum:
-        - TODO
+        - LC-MS (metabolomics)
+        - LC-MS/MS (label-free proteomics)
   -
     name: analyte_class
     constraints:
