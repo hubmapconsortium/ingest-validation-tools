@@ -2,6 +2,7 @@
 
 ## v0.0.4 - In progress
 ### Added
+- Links to background docs.
 - Units on IMC.
 - Submission structure diagram.
 - Autogenerate "Leave blank if not applicable".
