@@ -1,7 +1,7 @@
 # lcms
 
 Related files:
-- [🔬 Background doc](TODO): More details about this type.
+- [🔬 Background doc](https://docs.google.com/document/d/1TQpBaIkkCGztGeEFTAjgXuOaPOPeDG-uOcoQ9oiIyfc/edit): More details about this type.
 - [📝 TSV template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/master/docs/lcms/template.tsv): Use this to submit metadata.
 - [💻 Source code](https://github.com/hubmapconsortium/ingest-validation-tools/edit/master/src/ingest_validation_tools/table-schemas/level-2/lcms.yaml): Make a PR if this doc should be updated.
 
