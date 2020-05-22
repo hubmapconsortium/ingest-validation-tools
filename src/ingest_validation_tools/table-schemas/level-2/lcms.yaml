@@ -63,8 +63,8 @@ fields:
     constraints:
       enum:
         - um
-          mm
-          cm
+        - mm
+        - cm
   -
     name: lc_temp_value
     description: LC temperature
