@@ -1,10 +1,23 @@
 doc_url: TODO
 fields:
   # Overrides of Level 1 fields:
+  -
+    name: assay_category
+    constraints:
+      enum:
+        - TODO
+  -
+    name: assay_type
+    constraints:
+      enum:
+        - TODO
+  -
+    name: analyte_class
+    constraints:
+      enum:
+        - TODO
 
-  # TODO
-
-  # Level 2 fields:
+  # Level 2:
   -
     name: acquisition_instrument_vendor
     description: TODO
