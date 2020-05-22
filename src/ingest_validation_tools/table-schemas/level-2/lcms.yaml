@@ -83,8 +83,8 @@ fields:
     constraints:
       enum:
         - um
-          mm
-          cm
+        - mm
+        - cm
   -
     name: lc_flow_rate_value
     description: Value of flow rate.
