@@ -97,7 +97,7 @@ fields:
       required: False
       enum:
         - nL/min
-          mL/min
+        - mL/min
   -
     name: lc_gradient
     description: LC gradient
