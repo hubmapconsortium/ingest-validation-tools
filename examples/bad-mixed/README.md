@@ -23,6 +23,8 @@ Metadata TSV Errors:
       scatacseq-metadata.tsv (row 2):
         Not allowed:
         - not-good-for-either-type.txt
+        Required but missing:
+        - '*.fastq.gz'
 Reference Errors:
   Multiple References:
     bad-shared-dataset:
