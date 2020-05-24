@@ -4,9 +4,7 @@ Metadata TSV Errors:
     External:
       codex-akoya-metadata.tsv (row 2):
         Not allowed:
-        - channelnames.txt
-        - segmentation.json
+        - cyc002_reg001_200216_112537/bad
         Required but missing:
-        - channelNames.txt
         - cyc*_reg*_*/*_*_Z*_CH*
 ```

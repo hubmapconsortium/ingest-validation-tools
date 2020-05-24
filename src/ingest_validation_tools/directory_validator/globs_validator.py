@@ -14,30 +14,36 @@ def validate(path, paths_dict, dataset_ignore_globs=[]):
     '''
     required_globs, allowed_globs = _get_required_allowed(paths_dict)
     required_missing_errors, not_allowed_errors = ([], [])
+    if not path.exists():
+        raise DirectoryValidationErrors({
+            'No such file or directory': str(path)
+        })
+    actual_paths = []
     for triple in walk(path):
         (dir_path, dir_names, file_names) = triple
-        prefix = dir_path.replace(str(path), '')
-        actual_paths = (
+        # [1:] removes leading '/', if any.
+        prefix = dir_path.replace(str(path), '')[1:]
+        actual_paths += (
             [f'{prefix}/{name}' for name in file_names]
             if prefix else file_names
         )
 
-        for actual in actual_paths:
-            if any(fnmatch(actual, glob) for glob in dataset_ignore_globs):
-                continue
-            if not any(fnmatch(actual, glob) for glob in allowed_globs):
-                not_allowed_errors.append(actual)
-        for glob in required_globs:
-            if not any(fnmatch(actual, glob) for actual in actual_paths):
-                required_missing_errors.append(glob)
+    for actual in actual_paths:
+        if any(fnmatch(actual, glob) for glob in dataset_ignore_globs):
+            continue
+        if not any(fnmatch(actual, glob) for glob in allowed_globs):
+            not_allowed_errors.append(actual)
+    for glob in required_globs:
+        if not any(fnmatch(actual, glob) for actual in actual_paths):
+            required_missing_errors.append(glob)
 
-        errors = {}
-        if not_allowed_errors:
-            errors['Not allowed'] = not_allowed_errors
-        if required_missing_errors:
-            errors['Required but missing'] = required_missing_errors
-        if errors:
-            raise DirectoryValidationErrors(errors)
+    errors = {}
+    if not_allowed_errors:
+        errors['Not allowed'] = not_allowed_errors
+    if required_missing_errors:
+        errors['Required but missing'] = required_missing_errors
+    if errors:
+        raise DirectoryValidationErrors(errors)
 
 
 def _get_required_allowed(nested):
