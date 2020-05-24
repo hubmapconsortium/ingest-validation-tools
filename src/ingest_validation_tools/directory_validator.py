@@ -7,7 +7,7 @@ class DirectoryValidationErrors(Exception):
         self.errors = errors
 
 
-def validate(path, paths_dict, dataset_ignore_globs=[]):
+def validate_directory(path, paths_dict, dataset_ignore_globs=[]):
     '''
     Given a directory path, and a dict representing valid path globs,
     raise DirectoryValidationErrors if there are errors.
