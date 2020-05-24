@@ -9,7 +9,7 @@ from goodtables import validate as validate_table
 from ingest_validation_tools.table_schema_loader import get_schema
 from ingest_validation_tools.directory_validator.validator import \
     validate as validate_directory
-from ingest_validation_tools.directory_validator.globs_validator import \
+from ingest_validation_tools.directory_validator.validator import \
     DirectoryValidationErrors
 
 
