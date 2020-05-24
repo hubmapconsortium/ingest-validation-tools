@@ -1,8 +1,13 @@
 from os import walk
 from fnmatch import fnmatch
 
-from ingest_validation_tools.directory_validator.errors import \
-    DirectoryValidationErrors
+
+class DirectoryValidationErrors(Exception):
+    def __init__(self, errors):
+        self.errors = errors
+
+    def __str__(self):
+        return '\n'.join(self.errors)
 
 
 def validate(path, paths_dict, dataset_ignore_globs=[]):
@@ -11,18 +16,25 @@ def validate(path, paths_dict, dataset_ignore_globs=[]):
     raise DirectoryValidationErrors if there are errors.
     '''
     required_globs, allowed_globs = _get_required_allowed(paths_dict)
-    (dir_path, dir_names, file_names) = walk(path)
     errors = []
-    for file_name in file_names:
-        if any(fnmatch(file_name, glob) for glob in dataset_ignore_globs):
-            continue
-        if not any(fnmatch(file_name, glob) for glob in allowed_globs):
-            errors.append(f'Not allowed: {file_name}')
-    for glob in required_globs:
-        if not any(fnmatch(file_name, glob) for file_name in file_names):
-            errors.append(f'Required but not found: {glob}')
-    if errors:
-        raise DirectoryValidationErrors(errors)
+    for triple in walk(path):
+        (dir_path, dir_names, file_names) = triple
+        prefix = dir_path.replace(str(path), '')
+        actual_paths = (
+            [f'{prefix}/{name}' for name in file_names]
+            if prefix else file_names
+        )
+        for actual in actual_paths:
+            if any(fnmatch(actual, glob) for glob in dataset_ignore_globs):
+                continue
+            if not any(fnmatch(actual, glob) for glob in allowed_globs):
+                errors.append(f'Not allowed: {actual}')
+        for glob in required_globs:
+            if not any(fnmatch(actual, glob) for actual in actual_paths):
+                errors.append(f'Required but not found: {glob}')
+        print(errors)
+        if errors:
+            raise DirectoryValidationErrors(errors)
 
 
 def _get_required_allowed(nested):
