@@ -15,6 +15,6 @@ VAN*-*K-*-*_*:
       VAN*-*K-*-*-AF_preIMS_transformations: 1
         transform_00_VAN*-*K-*-*-AF_preIMS_rigid.txt: 1
         transform_01_VAN*-*K-*-*-AF_preIMS_affine.txt: 1
-rawMicroscopy:
-  VAN*-*K-*-*-AF_preIMS_meta_unregistered.xml: 1
-  VAN*-*K-*-*-AF_preIMS_unregistered.czi: 1
+      rawMicroscopy:
+        VAN*-*K-*-*-AF_preIMS_meta_unregistered.xml: 1
+        VAN*-*K-*-*-AF_preIMS_unregistered.czi: 1

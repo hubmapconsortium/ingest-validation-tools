@@ -1,2 +1,22 @@
-'**': 0
-# TODO
+LC Data:
+  '*': 0 # TODO: What is expected here?
+metadata:
+  assay:
+    PAS.csv: 1
+templates:
+  '*': 0 # TODO: What is expected here?
+VAN*-*K-*-*_*:
+  CCF Metadata:
+    VAN*-*K-*-*_ccf_metadata: 1
+  VAN*-*K-*-*_*-PAS:
+    processedMicroscopy:
+      VAN*-*K-*-*-PAS_images:
+        VAN*-*K-*-*-PAS_registered.ome.tiff: 1
+      VAN*-*K-*-*-PAS_transformations:
+        transform_00_VAN000*-*K-*-*-PAS_initial.txt: 1
+        transform_00_VAN000*-*K-*-*-PAS_rigid.txt: 1
+        transform_00_VAN000*-*K-*-*-PAS_append_rigid.txt: 1
+        transform_01_VAN000*-*K-*-*-PAS_affine.txt: 1
+      rawMicroscopy:
+        VAN*-*K-*-*-PAS_meta_unregistered.xml: 1
+        VAN*-*K-*-*-PAS_unregistered.czi: 1

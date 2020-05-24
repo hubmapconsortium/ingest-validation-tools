@@ -1,2 +1,2 @@
-'*.fastq': 0
-'*.fastq.gz': 0
+*.fastq.gz: 1
+# TODO: Handle ancillary files... but clarify what we should accept.
