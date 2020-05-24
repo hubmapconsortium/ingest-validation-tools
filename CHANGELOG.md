@@ -2,6 +2,7 @@
 
 ## v0.0.4 - In progress
 ### Added
+- Pre-fill enums in TSVs
 - Generator will stub the Level-1 overrides.
 - Units on IMC.
 - Submission structure diagram.
