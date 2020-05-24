@@ -34,7 +34,7 @@ def _get_required_allowed(nested):
     ...   'a': 1,
     ...   'b': {'c': 0}
     ... }
-    >>> _get_required_optional(nested)
+    >>> _get_required_allowed(nested)
     (['a'], ['a', 'b/c'])
 
     '''
@@ -45,7 +45,7 @@ def _get_required_allowed(nested):
         allowed.append(k)
         if v:
             required.append(k)
-    return required, optional
+    return required, allowed
 
 
 def _flatten(nested, joiner='/'):
