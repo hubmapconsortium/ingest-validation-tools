@@ -44,7 +44,18 @@ def main():
 
 def _generate_template_tsv(table_schema):
     names = [field['name'] for field in table_schema['fields']]
-    return '\t'.join(names) + '\n'
+    header_row = '\t'.join(names)
+
+    enums = [
+        ' / '.join(field['constraints']['enum'])
+        if 'constraints' in field
+        and 'enum' in field['constraints']
+        else ''
+        for field in table_schema['fields']
+    ]
+    enums_row = '\t'.join(enums)
+
+    return '\n'.join([header_row, enums_row])
 
 
 def _enrich_description(field):

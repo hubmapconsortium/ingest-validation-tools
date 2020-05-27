@@ -1,7 +1,2 @@
-items:
-  properties:
-    type:
-      enum:
-        - file
-    name:
-      pattern: '\.fastq(\.gz)?$'
+'*.fastq.gz': 1
+# TODO: Handle ancillary files... but clarify what we should accept.
