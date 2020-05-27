@@ -1,7 +1,7 @@
 # wgs
 
 Related files:
-- [🔬 Background doc](TODO): More details about this type.
+- [🔬 Background doc](https://docs.google.com/document/d/117ytDDuez03mdcRqzenLv0l7PyQ-7GWh_1wHEOJZxiI/edit): More details about this type.
 - [📝 TSV template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/master/docs/wgs/template.tsv): Use this to submit metadata.
 - [💻 Source code](https://github.com/hubmapconsortium/ingest-validation-tools/edit/master/src/ingest_validation_tools/table-schemas/level-2/wgs.yaml): Make a PR if this doc should be updated.
 
