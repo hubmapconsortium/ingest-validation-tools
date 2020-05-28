@@ -8,7 +8,7 @@ Metadata TSV Errors:
       constraint of "([A-Z]+[0-9]+)-(BL|BR|LB|RB|HT|LK|RK|LI|LV|LL|RL|LY\d\d|SI|SP|TH|TR|UR|OT)(-\d+)+(_\d+)?"
     - The value "not-time" in row 2 and column 3 ("C") is not type "datetime" and
       format "%Y-%m-%d %H:%M"
-    - The value "10999\.17504/protocols.io.menc3de" in row 2 and column 4 ("D") does
+    - The value "10\.17504/protocols.io.menc3de" in row 2 and column 4 ("D") does
       not conform to the pattern constraint of "10\.17504/.*"
     - The value "operator_emailATexample.com" in row 2 and column 6 ("F") is not type
       "string" and format "email"
