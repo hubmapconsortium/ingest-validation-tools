@@ -50,6 +50,7 @@ def get_metadata_tsv_errors(metadata_path, type, optional_fields=[]):
                 Path(e.filename).name
         }
     report = validate_table(metadata_path, schema=schema,
+                            format='csv', delimiter='\t',
                             skip_checks=['blank-row'])
     error_messages = report['warnings']
     if 'tables' in report:
