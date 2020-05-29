@@ -28,6 +28,7 @@
 - Add bulkrnaseq, bulkatacseq, and wgs fields.
 - mass/charge is unitless in MS: Remove field.
 - TSV parsing conforms to excel-tsv: No longer ignoring backslashes.
+- More explicit label for patterns in MD.
 ### Removed
 - avg_insert_size from bulkatacseq.
 
