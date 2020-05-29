@@ -1,5 +1,23 @@
 doc_url: https://docs.google.com/document/d/1CYYSXPQjwdbvmvZaEcsi_2udvDfGEZrMyh4yFnm4p3M/edit
 fields:
+# Overrides of Level 1 fields:
+  -
+    name: assay_category
+    constraints:
+      enum:
+        - imaging
+  -
+    name: assay_type
+    constraints:
+      enum:
+        - CODEX
+  -
+    name: analyte_class
+    constraints:
+      enum:
+        - protein
+
+# Level 2 fields:
   -
     heading: Level 2
     name: acquisition_instrument_vendor

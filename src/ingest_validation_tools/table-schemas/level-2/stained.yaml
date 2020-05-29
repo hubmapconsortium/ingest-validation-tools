@@ -2,11 +2,19 @@ doc_url: https://docs.google.com/document/d/1Kp5nQPmD7C7Bamd_hBgVFrAT6qtiM_tOkDd
 fields:
   # Overrides of Level 1 fields:
   -
+    name: assay_category
+    constraints:
+      enum:
+        - imaging
+  -
+    name: assay_type
+    constraints:
+      enum:
+        - PAS microscopy
+  -
     name: analyte_class
     constraints:
       required: False
-
-  # TODO
 
   # Level 2 fields:
   -

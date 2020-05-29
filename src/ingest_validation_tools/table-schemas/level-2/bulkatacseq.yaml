@@ -1,5 +1,23 @@
 doc_url: https://docs.google.com/document/d/1Lrzruebio9nUusaFSJQlZGANkRjS5lrJmk4W0sSj_xM/edit
 fields:
+# Overrides of Level 1 fields:
+-
+  name: assay_category
+  constraints:
+    enum:
+      - sequence
+-
+  name: assay_type
+  constraints:
+    enum:
+      - bulkATACseq
+-
+  name: analyte_class
+  constraints:
+    enum:
+      - DNA
+
+# Level 2 fields:
 - heading: Level 2
   name: acquisition_instrument_vendor
   description: An acquisition_instrument is the device that contains the signal

@@ -2,6 +2,16 @@ doc_url: https://docs.google.com/document/d/1ParihsMo5fqhJEhTTBfwqHuaBpr-ZeveZJK
 fields:
   # Overrides of Level 1 fields:
   -
+    name: assay_category
+    constraints:
+      enum:
+        - imaging
+  -
+    name: assay_type
+    constraints:
+      enum:
+        - MxIF
+  -
     name: analyte_class
     constraints:
       required: False

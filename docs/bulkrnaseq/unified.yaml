@@ -48,8 +48,6 @@ fields:
   name: pi_email
 - constraints:
     enum:
-    - imaging
-    - mass_spectrometry
     - sequence
     required: true
   description: 'Each assay is placed into one of the following 3 general categories:
@@ -58,40 +56,13 @@ fields:
   name: assay_category
 - constraints:
     enum:
-    - scRNA-Seq (10xGenomics)
-    - AF
     - bulk RNA
-    - bulkATACseq
-    - CODEX
-    - Imaging Mass Cytometry
-    - LC-MS (metabolomics)
-    - LC-MS/MS (label-free proteomics)
-    - MxIF
-    - IMS positive
-    - IMS negative
-    - MS (shotgun lipidomics)
-    - PAS microscopy
-    - scATACseq
-    - sciATACseq
-    - sciRNAseq
-    - seqFISH
-    - SNARE-seq2
-    - snATACseq
-    - snRNA
-    - SPLiT-Seq
-    - TMT (proteomics)
-    - WGS
     required: true
   description: The specific type of assay being executed.
   name: assay_type
 - constraints:
     enum:
-    - DNA
     - RNA
-    - protein
-    - lipids
-    - metabolites
-    - polysaccharides
     required: true
   description: Analytes are the target molecules being measured with the assay.
   name: analyte_class
