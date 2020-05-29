@@ -29,6 +29,7 @@
 - mass/charge is unitless in MS: Remove field.
 - TSV parsing conforms to excel-tsv: No longer ignoring backslashes.
 - More explicit label for patterns in MD.
+- TSV filenames match what will be required downstream.
 ### Removed
 - avg_insert_size from bulkatacseq.
 
