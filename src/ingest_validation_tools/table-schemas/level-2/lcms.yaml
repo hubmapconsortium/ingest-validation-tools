@@ -12,9 +12,14 @@ fields:
       enum:
         - LC-MS (metabolomics)
         - LC-MS/MS (label-free proteomics)
-  # -
-  #   name: analyte_class
-  #   TODO: Are there any restrictions on analyte for LCMS?
+  -
+    name: analyte_class
+    constraints:
+      enum:
+          - proteins
+          - metabolites
+          - lipids
+      required: False
 
   # Level 2 fields:
   -
