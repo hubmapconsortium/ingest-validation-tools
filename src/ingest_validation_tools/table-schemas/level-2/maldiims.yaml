@@ -10,7 +10,8 @@ fields:
     name: assay_type
     constraints:
       enum:
-        - TODO
+        - MALDI-IMS positive
+        - MALDI-IMS negative
   -
     name: analyte_class
     constraints:
