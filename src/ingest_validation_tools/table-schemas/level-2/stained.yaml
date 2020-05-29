@@ -10,13 +10,11 @@ fields:
     name: assay_type
     constraints:
       enum:
-        - TODO
+        - PAS microscopy
   -
     name: analyte_class
     constraints:
       required: False
-
-  # TODO
 
   # Level 2 fields:
   -

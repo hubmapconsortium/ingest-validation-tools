@@ -5,7 +5,7 @@ fields:
     name: assay_category
     constraints:
       enum:
-        - sequence
+        - imaging
   -
     name: assay_type
     constraints:
@@ -15,7 +15,7 @@ fields:
     name: analyte_class
     constraints:
       enum:
-        - TODO
+        - RNA
 
   # Level 2:
   -
