@@ -116,7 +116,7 @@ Each assay is placed into one of the following 3 general categories: generation 
 
 | constraint | value |
 | --- | --- |
-| enum | `TODO` |
+| enum | `imaging` |
 | required | `True` |
 
 ### `assay_type`
@@ -124,7 +124,7 @@ The specific type of assay being executed.
 
 | constraint | value |
 | --- | --- |
-| enum | `TODO` |
+| enum | `MxIF` |
 | required | `True` |
 
 ### `analyte_class`
