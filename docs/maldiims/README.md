@@ -28,9 +28,8 @@ Related files:
 [`acquisition_instrument_model`](#acquisition_instrument_model)<br>
 [`ms_source`](#ms_source)<br>
 [`polarity`](#polarity)<br>
-[`mass_range_low_value`](#mass_range_low_value)<br>
-[`mass_range_high_value`](#mass_range_high_value)<br>
-[`mass_range_unit`](#mass_range_unit)<br>
+[`mz_range_low_value`](#mz_range_low_value)<br>
+[`mz_range_high_value`](#mz_range_high_value)<br>
 [`resolution_x_value`](#resolution_x_value)<br>
 [`resolution_x_unit`](#resolution_x_unit)<br>
 [`resolution_y_value`](#resolution_y_value)<br>
@@ -175,32 +174,24 @@ TODO
 | --- | --- |
 | required | `True` |
 
-### `mass_range_low_value`
-TODO
+### `mz_range_low_value`
+A number representing the mass:charge ratio
 
 | constraint | value |
 | --- | --- |
 | type | `number` |
 | required | `True` |
 
-### `mass_range_high_value`
-TODO
+### `mz_range_high_value`
+A number representing the mass:charge ratio
 
 | constraint | value |
 | --- | --- |
 | type | `number` |
-| required | `True` |
-
-### `mass_range_unit`
-TODO - m/z is not a unit.
-
-| constraint | value |
-| --- | --- |
-| enum | `m/z` |
 | required | `True` |
 
 ### `resolution_x_value`
-TODO
+The width of a pixel
 
 | constraint | value |
 | --- | --- |
@@ -216,7 +207,7 @@ TODO
 | required | `True` |
 
 ### `resolution_y_value`
-TODO
+The height of a pixel
 
 | constraint | value |
 | --- | --- |
