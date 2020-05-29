@@ -27,9 +27,18 @@ def main():
         'heading': 'Level 2',
         **field_list[0]
     }
+    level_1_overrides = [
+        {
+            'name': name,
+            'constraints': {
+                'enum': ['TODO']
+            }
+        }
+        for name in ['assay_category', 'assay_type', 'analyte_class']
+    ]
     print(dump_yaml({
         'doc_url': 'TODO',
-        'fields': field_list
+        'fields': level_1_overrides + field_list
     }, sort_keys=False))
 
     return 0

@@ -1,7 +1,7 @@
 # maldiims
 
 Related files:
-- [🔬 Background doc](TODO): More details about this type.
+- [🔬 Background doc](https://docs.google.com/document/d/1G6q_Z4aH1B8D9DulRmaGqNyqYzGf9rXWH23rOXXGeIU/edit): More details about this type.
 - [📝 TSV template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/master/docs/maldiims/template.tsv): Use this to submit metadata.
 - [💻 Source code](https://github.com/hubmapconsortium/ingest-validation-tools/edit/master/src/ingest_validation_tools/table-schemas/level-2/maldiims.yaml): Make a PR if this doc should be updated.
 
@@ -28,9 +28,8 @@ Related files:
 [`acquisition_instrument_model`](#acquisition_instrument_model)<br>
 [`ms_source`](#ms_source)<br>
 [`polarity`](#polarity)<br>
-[`mass_range_low_value`](#mass_range_low_value)<br>
-[`mass_range_high_value`](#mass_range_high_value)<br>
-[`mass_range_unit`](#mass_range_unit)<br>
+[`mz_range_low_value`](#mz_range_low_value)<br>
+[`mz_range_high_value`](#mz_range_high_value)<br>
 [`resolution_x_value`](#resolution_x_value)<br>
 [`resolution_x_unit`](#resolution_x_unit)<br>
 [`resolution_y_value`](#resolution_y_value)<br>
@@ -55,7 +54,7 @@ HuBMAP Display ID of the donor of the assayed tissue.
 
 | constraint | value |
 | --- | --- |
-| pattern | `[A-Z]+[0-9]+` |
+| pattern (regular expression) | `[A-Z]+[0-9]+` |
 | required | `True` |
 
 ### `tissue_id`
@@ -63,7 +62,7 @@ HuBMAP Display ID of the assayed tissue.
 
 | constraint | value |
 | --- | --- |
-| pattern | `([A-Z]+[0-9]+)-(BL|BR|LB|RB|HT|LK|RK|LI|LV|LL|RL|LY\d\d|SI|SP|TH|TR|UR|OT)(-\d+)+(_\d+)?` |
+| pattern (regular expression) | `([A-Z]+[0-9]+)-(BL|BR|LB|RB|HT|LK|RK|LI|LV|LL|RL|LY\d\d|SI|SP|TH|TR|UR|OT)(-\d+)+(_\d+)?` |
 | required | `True` |
 
 ## Level 1
@@ -83,7 +82,7 @@ DOI for protocols.io referring to the protocol for this assay.
 | constraint | value |
 | --- | --- |
 | required | `True` |
-| pattern | `10\.17504/.*` |
+| pattern (regular expression) | `10\.17504/.*` |
 
 ### `operator`
 Name of the person responsible for executing the assay.
@@ -175,32 +174,24 @@ TODO
 | --- | --- |
 | required | `True` |
 
-### `mass_range_low_value`
-TODO
+### `mz_range_low_value`
+A number representing the mass:charge ratio
 
 | constraint | value |
 | --- | --- |
 | type | `number` |
 | required | `True` |
 
-### `mass_range_high_value`
-TODO
+### `mz_range_high_value`
+A number representing the mass:charge ratio
 
 | constraint | value |
 | --- | --- |
 | type | `number` |
-| required | `True` |
-
-### `mass_range_unit`
-TODO - m/z is not a unit.
-
-| constraint | value |
-| --- | --- |
-| enum | `m/z` |
 | required | `True` |
 
 ### `resolution_x_value`
-TODO
+The width of a pixel
 
 | constraint | value |
 | --- | --- |
@@ -216,7 +207,7 @@ TODO
 | required | `True` |
 
 ### `resolution_y_value`
-TODO
+The height of a pixel
 
 | constraint | value |
 | --- | --- |
@@ -265,7 +256,7 @@ TODO
 | constraint | value |
 | --- | --- |
 | required | `True` |
-| pattern | `10\.17504/.*` |
+| pattern (regular expression) | `10\.17504/.*` |
 
 ### `overall_protocols_io_doi`
 TODO
@@ -273,7 +264,7 @@ TODO
 | constraint | value |
 | --- | --- |
 | required | `True` |
-| pattern | `10\.17504/.*` |
+| pattern (regular expression) | `10\.17504/.*` |
 
 ## Paths
 

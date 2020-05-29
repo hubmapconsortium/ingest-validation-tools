@@ -1,7 +1,7 @@
 # imc
 
 Related files:
-- [🔬 Background doc](TODO): More details about this type.
+- [🔬 Background doc](https://docs.google.com/document/d/1NvYmjxICLCU7D62Yd5C_4gUGuDwJ9g89BV6j5s8Atro/edit): More details about this type.
 - [📝 TSV template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/master/docs/imc/template.tsv): Use this to submit metadata.
 - [💻 Source code](https://github.com/hubmapconsortium/ingest-validation-tools/edit/master/src/ingest_validation_tools/table-schemas/level-2/imc.yaml): Make a PR if this doc should be updated.
 
@@ -87,7 +87,7 @@ HuBMAP Display ID of the donor of the assayed tissue.
 
 | constraint | value |
 | --- | --- |
-| pattern | `[A-Z]+[0-9]+` |
+| pattern (regular expression) | `[A-Z]+[0-9]+` |
 | required | `True` |
 
 ### `tissue_id`
@@ -95,7 +95,7 @@ HuBMAP Display ID of the assayed tissue.
 
 | constraint | value |
 | --- | --- |
-| pattern | `([A-Z]+[0-9]+)-(BL|BR|LB|RB|HT|LK|RK|LI|LV|LL|RL|LY\d\d|SI|SP|TH|TR|UR|OT)(-\d+)+(_\d+)?` |
+| pattern (regular expression) | `([A-Z]+[0-9]+)-(BL|BR|LB|RB|HT|LK|RK|LI|LV|LL|RL|LY\d\d|SI|SP|TH|TR|UR|OT)(-\d+)+(_\d+)?` |
 | required | `True` |
 
 ## Level 1
@@ -115,7 +115,7 @@ DOI for protocols.io referring to the protocol for this assay.
 | constraint | value |
 | --- | --- |
 | required | `True` |
-| pattern | `10\.17504/.*` |
+| pattern (regular expression) | `10\.17504/.*` |
 
 ### `operator`
 Name of the person responsible for executing the assay.
@@ -215,7 +215,7 @@ DOI for protocols.io referring to the protocol for preparing tissue sections for
 | constraint | value |
 | --- | --- |
 | required | `True` |
-| pattern | `10\.17504/.*` |
+| pattern (regular expression) | `10\.17504/.*` |
 
 ### `reagent_prep_protocols_io_doi`
 DOI for protocols.io referring to the protocol for preparing reagents for the assay.
@@ -223,7 +223,7 @@ DOI for protocols.io referring to the protocol for preparing reagents for the as
 | constraint | value |
 | --- | --- |
 | required | `True` |
-| pattern | `10\.17504/.*` |
+| pattern (regular expression) | `10\.17504/.*` |
 
 ### `ablation_distance_between_shots_x_value`
 Distance (\xB5m) between laser ablation shots in the X-dimension.

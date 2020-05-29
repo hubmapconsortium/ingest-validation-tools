@@ -7,10 +7,9 @@ from yaml import safe_load as load_yaml
 from goodtables import validate as validate_table
 
 from ingest_validation_tools.table_schema_loader import get_schema
-from ingest_validation_tools.directory_validator.validator import \
-    validate as validate_directory
-from ingest_validation_tools.directory_validator.errors import \
-    DirectoryValidationErrors
+from ingest_validation_tools.directory_validator import (
+    validate_directory, DirectoryValidationErrors
+)
 
 
 class TableValidationErrors(Exception):
@@ -30,7 +29,7 @@ def get_data_dir_errors(type, data_path, dataset_ignore_globs=[]):
         validate_directory(
             data_path, schema, dataset_ignore_globs=dataset_ignore_globs)
     except DirectoryValidationErrors as e:
-        return e.object_errors
+        return e.errors
     except OSError as e:
         return {
             e.strerror:
@@ -51,6 +50,7 @@ def get_metadata_tsv_errors(metadata_path, type, optional_fields=[]):
                 Path(e.filename).name
         }
     report = validate_table(metadata_path, schema=schema,
+                            format='csv', delimiter='\t',
                             skip_checks=['blank-row'])
     error_messages = report['warnings']
     if 'tables' in report:

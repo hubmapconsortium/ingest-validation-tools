@@ -1,7 +1,7 @@
 # wgs
 
 Related files:
-- [🔬 Background doc](TODO): More details about this type.
+- [🔬 Background doc](https://docs.google.com/document/d/117ytDDuez03mdcRqzenLv0l7PyQ-7GWh_1wHEOJZxiI/edit): More details about this type.
 - [📝 TSV template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/master/docs/wgs/template.tsv): Use this to submit metadata.
 - [💻 Source code](https://github.com/hubmapconsortium/ingest-validation-tools/edit/master/src/ingest_validation_tools/table-schemas/level-2/wgs.yaml): Make a PR if this doc should be updated.
 
@@ -58,7 +58,7 @@ HuBMAP Display ID of the donor of the assayed tissue.
 
 | constraint | value |
 | --- | --- |
-| pattern | `[A-Z]+[0-9]+` |
+| pattern (regular expression) | `[A-Z]+[0-9]+` |
 | required | `True` |
 
 ### `tissue_id`
@@ -66,7 +66,7 @@ HuBMAP Display ID of the assayed tissue.
 
 | constraint | value |
 | --- | --- |
-| pattern | `([A-Z]+[0-9]+)-(BL|BR|LB|RB|HT|LK|RK|LI|LV|LL|RL|LY\d\d|SI|SP|TH|TR|UR|OT)(-\d+)+(_\d+)?` |
+| pattern (regular expression) | `([A-Z]+[0-9]+)-(BL|BR|LB|RB|HT|LK|RK|LI|LV|LL|RL|LY\d\d|SI|SP|TH|TR|UR|OT)(-\d+)+(_\d+)?` |
 | required | `True` |
 
 ## Level 1
@@ -86,7 +86,7 @@ DOI for protocols.io referring to the protocol for this assay.
 | constraint | value |
 | --- | --- |
 | required | `True` |
-| pattern | `10\.17504/.*` |
+| pattern (regular expression) | `10\.17504/.*` |
 
 ### `operator`
 Name of the person responsible for executing the assay.
@@ -202,7 +202,7 @@ A link to the protocol document containing the library construction method (incl
 | constraint | value |
 | --- | --- |
 | required | `True` |
-| pattern | `10\.17504/.*` |
+| pattern (regular expression) | `10\.17504/.*` |
 
 ### `library_layout`
 State whether the library was generated for single-end or paired end sequencing. TODO - enum

@@ -1,49 +1,10 @@
 # A description of Akoya CODEX dataset directories.
 # Based on the description at https://docs.google.com/document/d/1CYYSXPQjwdbvmvZaEcsi_2udvDfGEZrMyh4yFnm4p3M/edit#heading=h.h6zxv8ghthzp
 
-items:
-  oneOf:
-    - $ref:
-        '#/definitions/subdirectory'
-    - properties:
-        type:
-          enum:
-            - file
-        name:
-          enum:
-            - experiment.json
-            - exposure_times.txt
-            - channelnames.txt
-            - segmentation.json
-
-contains:
-  properties:
-      name:
-        enum:
-          - experiment.json
-  properties:
-      name:
-        enum:
-          - exposure_times.txt
-  properties:
-      name:
-        enum:
-          - channelNames.txt
-  properties:
-      name:
-        enum:
-          - segmentation.json
-
-definitions:
-  subdirectory:
-    properties:
-      type:
-        enum:
-          - directory
-      name:
-        pattern: '^cyc\d+_reg\d+_\d+_\d+$'
-      contents:
-        items:
-          properties:
-            name:
-              pattern: '^\d+_\d+_Z\d+_CH\d+\.tif|\d+\.gci$'
+channelnames.txt: 1
+experiment.json: 1
+exposure_times.txt: 1
+segmentation.json: 0
+cyc*_reg*_*:
+  '*_*_Z*_CH*': 1
+  '*.gci': 0

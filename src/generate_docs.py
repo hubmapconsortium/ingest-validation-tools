@@ -44,7 +44,18 @@ def main():
 
 def _generate_template_tsv(table_schema):
     names = [field['name'] for field in table_schema['fields']]
-    return '\t'.join(names) + '\n'
+    header_row = '\t'.join(names)
+
+    enums = [
+        ' / '.join(field['constraints']['enum'])
+        if 'constraints' in field
+        and 'enum' in field['constraints']
+        else ''
+        for field in table_schema['fields']
+    ]
+    enums_row = '\t'.join(enums)
+
+    return '\n'.join([header_row, enums_row])
 
 
 def _enrich_description(field):
@@ -103,33 +114,46 @@ def _make_constraints_table(field):
             table_md_rows.append(f'| {key} | `{value}` |')
     if 'constraints' in field:
         for key, value in field['constraints'].items():
-            if key == 'enum':
-                md_value = _make_enum_md(value)
-            else:
-                md_value = f'`{value}`'
-            table_md_rows.append(f'| {key} | {md_value} |')
+            key_md = _make_key_md(key, value)
+            value_md = _make_value_md(key, value)
+            table_md_rows.append(f'| {key_md} | {value_md} |')
     if len(table_md_rows) < 3:
         # Empty it, if there is no data.
         table_md_rows = []
     return '\n'.join(table_md_rows)
 
 
-def _make_enum_md(enum):
+def _make_key_md(key, value):
     '''
-    >>> print(_make_enum_md(['A']))
+    >>> print(_make_key_md('pattern', 'some_reg_ex'))
+    pattern (regular expression)
+
+    >>> print(_make_key_md('other_keys', 'other_values'))
+    other_keys
+    '''
+    if key == 'pattern':
+        return 'pattern (regular expression)'
+    return key
+
+
+def _make_value_md(key, value):
+    '''
+    >>> print(_make_value_md('not_enum', 'abc'))
+    `abc`
+
+    >>> print(_make_value_md('enum', ['A']))
     `A`
 
-    >>> print(_make_enum_md(['A', 'B']))
+    >>> print(_make_value_md('enum', ['A', 'B']))
     `A` or `B`
 
-    >>> print(_make_enum_md(['A', 'B', 'C']))
+    >>> print(_make_value_md('enum', ['A', 'B', 'C']))
     `A`, `B`, or `C`
-
-    >>> print(_make_enum_md(['A', 'B', 'C', 'D']))
-    `A`, `B`, `C`, or `D`
     '''
-    backtick_list = [f'`{s}`' for s in enum]
-    if len(enum) < 3:
+    if key != 'enum':
+        return f'`{value}`'
+    backtick_list = [f'`{s}`' for s in value]
+    if len(value) < 3:
         return ' or '.join(backtick_list)
     backtick_list[-1] = f'or {backtick_list[-1]}'
     return ', '.join(backtick_list)

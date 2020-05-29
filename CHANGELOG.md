@@ -2,6 +2,9 @@
 
 ## v0.0.4 - In progress
 ### Added
+- Links to background docs.
+- Pre-fill enums in TSVs
+- Generator will stub the Level-1 overrides.
 - Units on IMC.
 - Submission structure diagram.
 - Autogenerate "Leave blank if not applicable".
@@ -11,6 +14,7 @@
 - Add enum constraints to unit fields, and replace TODOs.
 - Check that directory schemas exist.
 ### Changed
+- Simplified directory validation.
 - mass -> mz
 - bulkrnaseq QA is just RIN.
 - Add bytes to IMC.
@@ -23,6 +27,8 @@
 - Free-form cell_barcode_read.
 - Add bulkrnaseq, bulkatacseq, and wgs fields.
 - mass/charge is unitless in MS: Remove field.
+- TSV parsing conforms to excel-tsv: No longer ignoring backslashes.
+- More explicit label for patterns in MD.
 ### Removed
 - avg_insert_size from bulkatacseq.
 
