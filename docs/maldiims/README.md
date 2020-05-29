@@ -55,7 +55,7 @@ HuBMAP Display ID of the donor of the assayed tissue.
 
 | constraint | value |
 | --- | --- |
-| pattern | `[A-Z]+[0-9]+` |
+| pattern (regular expression) | `[A-Z]+[0-9]+` |
 | required | `True` |
 
 ### `tissue_id`
@@ -63,7 +63,7 @@ HuBMAP Display ID of the assayed tissue.
 
 | constraint | value |
 | --- | --- |
-| pattern | `([A-Z]+[0-9]+)-(BL|BR|LB|RB|HT|LK|RK|LI|LV|LL|RL|LY\d\d|SI|SP|TH|TR|UR|OT)(-\d+)+(_\d+)?` |
+| pattern (regular expression) | `([A-Z]+[0-9]+)-(BL|BR|LB|RB|HT|LK|RK|LI|LV|LL|RL|LY\d\d|SI|SP|TH|TR|UR|OT)(-\d+)+(_\d+)?` |
 | required | `True` |
 
 ## Level 1
@@ -83,7 +83,7 @@ DOI for protocols.io referring to the protocol for this assay.
 | constraint | value |
 | --- | --- |
 | required | `True` |
-| pattern | `10\.17504/.*` |
+| pattern (regular expression) | `10\.17504/.*` |
 
 ### `operator`
 Name of the person responsible for executing the assay.
@@ -265,7 +265,7 @@ TODO
 | constraint | value |
 | --- | --- |
 | required | `True` |
-| pattern | `10\.17504/.*` |
+| pattern (regular expression) | `10\.17504/.*` |
 
 ### `overall_protocols_io_doi`
 TODO
@@ -273,7 +273,7 @@ TODO
 | constraint | value |
 | --- | --- |
 | required | `True` |
-| pattern | `10\.17504/.*` |
+| pattern (regular expression) | `10\.17504/.*` |
 
 ## Paths
 

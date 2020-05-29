@@ -67,7 +67,7 @@ HuBMAP Display ID of the donor of the assayed tissue.
 
 | constraint | value |
 | --- | --- |
-| pattern | `[A-Z]+[0-9]+` |
+| pattern (regular expression) | `[A-Z]+[0-9]+` |
 | required | `True` |
 
 ### `tissue_id`
@@ -75,7 +75,7 @@ HuBMAP Display ID of the assayed tissue.
 
 | constraint | value |
 | --- | --- |
-| pattern | `([A-Z]+[0-9]+)-(BL|BR|LB|RB|HT|LK|RK|LI|LV|LL|RL|LY\d\d|SI|SP|TH|TR|UR|OT)(-\d+)+(_\d+)?` |
+| pattern (regular expression) | `([A-Z]+[0-9]+)-(BL|BR|LB|RB|HT|LK|RK|LI|LV|LL|RL|LY\d\d|SI|SP|TH|TR|UR|OT)(-\d+)+(_\d+)?` |
 | required | `True` |
 
 ## Level 1
@@ -95,7 +95,7 @@ DOI for protocols.io referring to the protocol for this assay.
 | constraint | value |
 | --- | --- |
 | required | `True` |
-| pattern | `10\.17504/.*` |
+| pattern (regular expression) | `10\.17504/.*` |
 
 ### `operator`
 Name of the person responsible for executing the assay.
@@ -188,7 +188,7 @@ Link to a protocols document answering the question: How was tissue stored and p
 | constraint | value |
 | --- | --- |
 | required | `True` |
-| pattern | `10\.17504/.*` |
+| pattern (regular expression) | `10\.17504/.*` |
 
 ### `is_technical_replicate`
 Is this a sequencing replicate?
@@ -234,7 +234,7 @@ A link to the protocol document containing the library construction method (incl
 | constraint | value |
 | --- | --- |
 | required | `True` |
-| pattern | `10\.17504/.*` |
+| pattern (regular expression) | `10\.17504/.*` |
 
 ### `library_creation_date`
 date and time of library creation. YYYY-MM-DD, where YYYY is the year, MM is the month with leading 0s, and DD is the day with leading 0s - TODO - constraint. Leave blank if not applicable.
