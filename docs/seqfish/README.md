@@ -125,7 +125,7 @@ Each assay is placed into one of the following 3 general categories: generation 
 
 | constraint | value |
 | --- | --- |
-| enum | `imaging`, `mass_spectrometry`, or `sequence` |
+| enum | `imaging` |
 | required | `True` |
 
 ### `assay_type`
@@ -133,7 +133,7 @@ The specific type of assay being executed.
 
 | constraint | value |
 | --- | --- |
-| enum | `scRNA-Seq (10xGenomics)`, `AF`, `bulk RNA`, `bulkATACseq`, `CODEX`, `Imaging Mass Cytometry`, `LC-MS (metabolomics)`, `LC-MS/MS (label-free proteomics)`, `MxIF`, `IMS positive`, `IMS negative`, `MS (shotgun lipidomics)`, `PAS microscopy`, `scATACseq`, `sciATACseq`, `sciRNAseq`, `seqFISH`, `SNARE-seq2`, `snATACseq`, `snRNA`, `SPLiT-Seq`, `TMT (proteomics)`, or `WGS` |
+| enum | `seqFISH` |
 | required | `True` |
 
 ### `analyte_class`
@@ -141,7 +141,7 @@ Analytes are the target molecules being measured with the assay.
 
 | constraint | value |
 | --- | --- |
-| enum | `DNA`, `RNA`, `protein`, `lipids`, `metabolites`, or `polysaccharides` |
+| enum | `RNA` |
 | required | `True` |
 
 ### `is_targeted`

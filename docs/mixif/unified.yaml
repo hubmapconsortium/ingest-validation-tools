@@ -48,9 +48,7 @@ fields:
   name: pi_email
 - constraints:
     enum:
-    - imaging
-    - mass_spectrometry
-    - sequence
+    - TODO
     required: true
   description: 'Each assay is placed into one of the following 3 general categories:
     generation of images of microscopic entities, identification & quantitation of
@@ -58,29 +56,7 @@ fields:
   name: assay_category
 - constraints:
     enum:
-    - scRNA-Seq (10xGenomics)
-    - AF
-    - bulk RNA
-    - bulkATACseq
-    - CODEX
-    - Imaging Mass Cytometry
-    - LC-MS (metabolomics)
-    - LC-MS/MS (label-free proteomics)
-    - MxIF
-    - IMS positive
-    - IMS negative
-    - MS (shotgun lipidomics)
-    - PAS microscopy
-    - scATACseq
-    - sciATACseq
-    - sciRNAseq
-    - seqFISH
-    - SNARE-seq2
-    - snATACseq
-    - snRNA
-    - SPLiT-Seq
-    - TMT (proteomics)
-    - WGS
+    - TODO
     required: true
   description: The specific type of assay being executed.
   name: assay_type
