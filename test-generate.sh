@@ -5,7 +5,23 @@ red=`tput setaf 1`
 reset=`tput sgr0`
 die() { set +v; echo "$red$*$reset" 1>&2 ; exit 1; }
 
-for TYPE in $(ls docs | grep -v README.md); do # Ignore README and just get subdirectories
+LOOP='for D in `ls -d docs/*/`; do src/generate_docs.py `basename $D` $D; done'
+# Test field-descriptions.yaml:
+
+REAL_DEST="docs/field-descriptions.yaml"
+TEST_DEST="docs-test/field-descriptions.yaml"
+
+REAL_CMD="src/generate_field_descriptions.py > $REAL_DEST"
+TEST_CMD="src/generate_field_descriptions.py > $TEST_DEST"
+
+eval $TEST_CMD
+diff -r $REAL_DEST $TEST_DEST \
+  || die "Update needed: $REAL_CMD; $LOOP"
+rm -rf $TEST_DEST
+
+# Test docs:
+
+for TYPE in $(ls -d docs/*/ | xargs basename); do # Just get subdirectories
   echo "Testing $TYPE generation..."
 
   REAL_DEST="docs/$TYPE"
