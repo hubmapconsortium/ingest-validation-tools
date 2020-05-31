@@ -14,10 +14,11 @@ TEST_DEST="docs-test/field-descriptions.yaml"
 REAL_CMD="src/generate_field_descriptions.py > $REAL_DEST"
 TEST_CMD="src/generate_field_descriptions.py > $TEST_DEST"
 
+mkdir docs-test || echo "Already exists"
 eval $TEST_CMD
 diff -r $REAL_DEST $TEST_DEST \
   || die "Update needed: $REAL_CMD; $LOOP"
-rm -rf $TEST_DEST
+rm -rf docs-test
 
 # Test docs:
 
@@ -31,7 +32,7 @@ for TYPE in $(ls -d docs/*/ | xargs basename); do # Just get subdirectories
   TEST_CMD="src/generate_docs.py $TYPE $TEST_DEST"
 
   mkdir -p $TEST_DEST || echo "$TEST_DEST already exists"
-  $TEST_CMD
+  eval $TEST_CMD
   diff -r $REAL_DEST $TEST_DEST \
     || die "Update needed: $REAL_CMD
 Or:" 'for D in `ls -d docs/*/`; do src/generate_docs.py `basename $D` $D; done'
