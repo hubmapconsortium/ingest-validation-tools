@@ -2,6 +2,7 @@
 
 ## v0.0.4 - In progress
 ### Added
+- Generate unified description list.
 - Links to background docs.
 - Pre-fill enums in TSVs
 - Generator will stub the Level-1 overrides.
