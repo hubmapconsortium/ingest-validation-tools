@@ -22,7 +22,8 @@ rm -rf docs-test
 
 # Test docs:
 
-for TYPE in $(ls -d docs/*/ | xargs basename); do # Just get subdirectories
+for TYPE in $(ls -d docs/*/); do # Just get subdirectories
+  TYPE=`basename $TYPE`
   echo "Testing $TYPE generation..."
 
   REAL_DEST="docs/$TYPE"
