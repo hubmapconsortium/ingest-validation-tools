@@ -36,17 +36,14 @@ fields:
   description: Adapter sequence to be used for adapter trimming
 - name: library_average_fragment_size
   description: Average size in bp of sequencing library fragments estimated via gel
-    electrophoresis or bioanalyzer/tapestation. TODO - Unit field? Ask Nils.
+    electrophoresis or Bioanalyzer/tapestation. Enter a number representing the average fragment size in bp.
 - name: library_concentration_value
-  description: The concentration of the library which was submitted for sequencing.
-    This field is different from the "library_final_yield" because the concentration
-    field takes into account how the library was pooled with other libraries. The
-    "library_final_yield" should be greater than or equal to this column. - TODO - Is this correct? This is a concentration, the other is a yield, typically in ng, so they don't seem to have the same units, so an inequality makes no sense.
+  description: The concentration value of the pooled library samples submitted for sequencing.
 - name: library_concentration_unit
   description: Unit of library_concentration_value
   constraints:
     enum:
-      - nM
+      - ng/ul
 - name: library_construction_protocols_io_doi
   description: A link to the protocol document containing the library construction
     method (including version) that was used, e.g. "Smart-Seq2", "Drop-Seq", "10X
@@ -66,10 +63,13 @@ fields:
     enum:
       - ng
 - name: library_id
-  description: 'TODO'
+  description: An id for the library consisting of text and/or numbers.
 - name: library_layout
   description: State whether the library was generated for single-end or paired end
-    sequencing. TODO - enum
+    sequencing. 
+    enum:
+      - single-end
+      - paired-end
 - name: library_pcr_cycles
   description: Number of PCR cycles performed in order to add adapters and amplify
     the library. Usually, this includes 5 pre-amplificationn cycles followed by 0-5
@@ -96,7 +96,7 @@ fields:
   constraints:
     required: false
 - name: transposition_method
-  description: Modality of capturing accessible chromatin molecules. TODO - is this an enum?
+  description: Modality of capturing accessible chromatin molecules. The kit used, for example.
 - name: transposition_transposase_source
   description: The source of the Tn5 transposase and transposon used for capturing
     accessible chromatin.
