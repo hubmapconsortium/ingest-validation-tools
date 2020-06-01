@@ -2,6 +2,7 @@
 
 ## v0.0.4 - In progress
 ### Added
+- Assay descriptions.
 - Generate unified description list.
 - Links to background docs.
 - Pre-fill enums in TSVs
