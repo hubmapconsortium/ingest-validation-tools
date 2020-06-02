@@ -124,7 +124,7 @@ fields:
   name: rnaseq_assay_input
 - constraints:
     required: true
-  description: TODO
+  description: The kit used for the RNA sequencing assay
   name: rnaseq_assay_method
 - constraints:
     pattern: 10\.17504/.*
@@ -143,11 +143,11 @@ fields:
   name: library_adapter_sequence
 - constraints:
     required: true
-  description: TODO
+  description: An id for the library. The id may be text and/or numbers
   name: library_id
 - constraints:
     required: true
-  description: TODO
+  description: Is the sequencing reaction run in repliucate, TRUE or FALSE
   name: is_technical_replicate
   type: boolean
 - constraints:
@@ -172,14 +172,15 @@ fields:
   name: library_pcr_cycles_for_sample_index
 - constraints:
     required: true
-  description: Total number of ng of library after final pcr amplification step
+  description: Total number of ng of library after final pcr amplification step. This
+    is the concentration (ng/ul) * volume (ul)
   name: library_final_yield_value
   type: number
 - constraints:
     enum:
     - ng
     required: true
-  description: TODO
+  description: The final library yield in ngs
   name: library_final_yield_unit
 - constraints:
     required: true
