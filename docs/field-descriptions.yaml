@@ -94,12 +94,8 @@ library_adapter_sequence: Adapter sequence to be used for adapter trimming
 library_average_fragment_size: Average size of sequencing library fragments estimated
   via gel electrophoresis or bioanalyzer/tapestation.
 library_concentration_unit: Unit of library_concentration_value
-library_concentration_value: The concentration of the library which was submitted
-  for sequencing. This field is different from the "library_final_yield" because the
-  concentration field takes into account how the library was pooled with other libraries.
-  The "library_final_yield" should be greater than or equal to this column. - TODO
-  - Is this correct? This is a concentration, the other is a yield, typically in ng,
-  so they don't seem to have the same units, so an inequality makes no sense.
+library_concentration_value: The concentration value of the pooled library samples
+  submitted for sequencing.
 library_construction_method: Describes DNA library preparation kit. Modality of isolating
   gDNA, Fragmentation and generating sequencing libraries. TODO - enum?
 library_construction_protocols_io_doi: A link to the protocol document containing
