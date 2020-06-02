@@ -228,7 +228,7 @@ Number of cell/nuclei input to the assay
 | required | `True` |
 
 ### `rnaseq_assay_method`
-TODO
+The kit used for the RNA sequencing assay
 
 | constraint | value |
 | --- | --- |
@@ -257,14 +257,14 @@ Adapter sequence to be used for adapter trimming
 | required | `True` |
 
 ### `library_id`
-TODO
+An id for the library. The id may be text and/or numbers
 
 | constraint | value |
 | --- | --- |
 | required | `True` |
 
 ### `is_technical_replicate`
-TODO
+Is the sequencing reaction run in repliucate, TRUE or FALSE
 
 | constraint | value |
 | --- | --- |
@@ -307,7 +307,7 @@ Number of PCR cycles performed for library indexing
 | required | `True` |
 
 ### `library_final_yield_value`
-Total number of ng of library after final pcr amplification step
+Total number of ng of library after final pcr amplification step. This is the concentration (ng/ul) * volume (ul)
 
 | constraint | value |
 | --- | --- |
@@ -315,7 +315,7 @@ Total number of ng of library after final pcr amplification step
 | required | `True` |
 
 ### `library_final_yield_unit`
-TODO
+The final library yield in ngs
 
 | constraint | value |
 | --- | --- |

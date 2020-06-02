@@ -70,11 +70,7 @@ fields:
   -
     name: is_technical_replicate
     description: Is the sequencing reaction run in repliucate, TRUE or FALSE
-       constraints:
-       type:
-         - boolean
-       required:
-         - True
+    type: boolean
   -
     name: cell_barcode_read
     description: Which read file contains the cell barcode
