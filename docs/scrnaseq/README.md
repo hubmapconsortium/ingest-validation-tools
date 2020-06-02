@@ -315,7 +315,7 @@ Total number of ng of library after final pcr amplification step. This is the co
 | required | `True` |
 
 ### `library_final_yield_unit`
-The final library yield in ngs
+Units of final library yield
 
 | constraint | value |
 | --- | --- |
@@ -337,7 +337,7 @@ Reagent kit used for sequencing
 | required | `True` |
 
 ### `sequencing_read_format`
-Number of sequencing cycles in Read1, i7 index, i5 index, and Read2
+Number of sequencing cycles in Read1, i7 index, i5 index, and Read2 - TODO https://github.com/hubmapconsortium/ingest-validation-tools/issues/303
 
 | constraint | value |
 | --- | --- |

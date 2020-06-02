@@ -180,7 +180,7 @@ fields:
     enum:
     - ng
     required: true
-  description: The final library yield in ngs
+  description: Units of final library yield
   name: library_final_yield_unit
 - constraints:
     required: true
@@ -194,6 +194,7 @@ fields:
 - constraints:
     required: true
   description: Number of sequencing cycles in Read1, i7 index, i5 index, and Read2
+    - TODO https://github.com/hubmapconsortium/ingest-validation-tools/issues/303
   name: sequencing_read_format
 - constraints:
     maximum: 100
