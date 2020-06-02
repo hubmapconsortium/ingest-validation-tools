@@ -218,12 +218,12 @@ fields:
 - constraints:
     pattern: 10\.17504/.*
     required: false
-  description: TODO
+  description: DOI for analysis protocols.io for this assay.
   name: processing_protocols_io_doi
 - constraints:
     pattern: 10\.17504/.*
     required: false
-  description: TODO
+  description: DOI for protocols.io for the overall process for this assay.
   name: overall_protocols_io_doi
 - constraints:
     required: false

@@ -145,7 +145,7 @@ preparation_instrument_model: TODO
 preparation_instrument_vendor: TODO
 preparation_maldi_matrix: TODO
 preparation_type: TODO
-processing_protocols_io_doi: TODO
+processing_protocols_io_doi: DOI for analysis protocols.io for this assay.
 processing_search: Software for analyzing and searching LC-MS/MS omics data
 protocols_io_doi: DOI for protocols.io referring to the protocol for this assay.
 reagent_prep_protocols_io_doi: TODO
@@ -198,7 +198,8 @@ sequencing_read_format: Number of sequencing cycles in Read1, i7 index, i5 index
 sequencing_read_percent_q30: Percent of bases with Quality scores above Q30
 sequencing_reagent_kit: Reagent kit used for sequencing
 signal_type: Type of signal measured per channel (usually dual counts)
-stain: TODO
+stain: Chemical stains (dyes) applied to histology samples to highlight important
+  features of the tissue as well as to enhance the tissue contrast.
 start_datetime: Time stamp indicating start of ablation for ROI
 tissue_id: HuBMAP Display ID of the assayed tissue.
 transposition_input: Number of cell/nuclei input to the assay.
