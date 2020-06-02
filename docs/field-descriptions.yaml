@@ -66,7 +66,7 @@ execution_datetime: Start date and time of assay, typically a date-time stamped 
   MM is the month with leading 0s, and DD is the day with leading 0s, hh is the hour
   with leading zeros, mm are the minutes with leading zeros.
 gdna_fragmentation_quality_assurance: Is the gDNA integrity good enough for WGS? This
-  is usually checked through running a gel. TODO - Is this a boolean?
+  is usually checked through running a gel.
 is_targeted: Specifies whether or not a specific molecule(s) is/are targeted for detection/measurement
   by the assay. The CODEX analyte is protein.
 is_technical_replicate: Is this a sequencing replicate?
@@ -97,7 +97,7 @@ library_concentration_unit: Unit of library_concentration_value
 library_concentration_value: The concentration value of the pooled library samples
   submitted for sequencing.
 library_construction_method: Describes DNA library preparation kit. Modality of isolating
-  gDNA, Fragmentation and generating sequencing libraries. TODO - enum?
+  gDNA, Fragmentation and generating sequencing libraries.
 library_construction_protocols_io_doi: A link to the protocol document containing
   the library construction method (including version) that was used.
 library_creation_date: date and time of library creation. YYYY-MM-DD, where YYYY is
