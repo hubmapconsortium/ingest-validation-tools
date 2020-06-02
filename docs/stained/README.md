@@ -141,21 +141,21 @@ Specifies whether or not a specific molecule(s) is/are targeted for detection/me
 | required | `True` |
 
 ### `acquisition_instrument_vendor`
-TODO
+An acquisition_instrument is the device that contains the signal detection hardware and signal processing software. Assays generate signals such as light of various intensities or color or signals representing molecular mass.
 
 | constraint | value |
 | --- | --- |
 | required | `True` |
 
 ### `acquisition_instrument_model`
-TODO
+Manufacturers of an acquisition instrument may offer various versions (models) of that instrument with different features or sensitivities. Differences in features or sensitivities may be relevant to processing or interpretation of the data.
 
 | constraint | value |
 | --- | --- |
 | required | `True` |
 
 ### `resolution_x_value`
-TODO
+The width of a pixel.
 
 | constraint | value |
 | --- | --- |
@@ -163,7 +163,7 @@ TODO
 | required | `True` |
 
 ### `resolution_x_unit`
-TODO
+The unit of measurement of width of a pixel
 
 | constraint | value |
 | --- | --- |
@@ -171,7 +171,7 @@ TODO
 | required | `True` |
 
 ### `resolution_y_value`
-TODO
+The height of a pixel.
 
 | constraint | value |
 | --- | --- |
@@ -179,7 +179,7 @@ TODO
 | required | `True` |
 
 ### `resolution_y_unit`
-TODO
+The unit of measurement of height of a pixel.
 
 | constraint | value |
 | --- | --- |
@@ -187,7 +187,7 @@ TODO
 | required | `True` |
 
 ### `resolution_z_value`
-TODO
+Optional if assay does not have multiple z-levels. Note that this is resolution within a given sample: z-pitch (resolution_z_value) is the increment distance between image slices ie. the microscope stage is moved up or down in increments to capture images of several focal planes. The best one will be used & the rest discarded. The thickness of the sample itself is sample metadata. Leave blank if not applicable.
 
 | constraint | value |
 | --- | --- |
@@ -195,7 +195,7 @@ TODO
 | required | `True` |
 
 ### `resolution_z_unit`
-TODO
+The unit of incremental distance between image slices.
 
 | constraint | value |
 | --- | --- |
@@ -203,14 +203,14 @@ TODO
 | required | `True` |
 
 ### `stain`
-TODO
+Chemical stains (dyes) applied to histology samples to highlight important features of the tissue as well as to enhance the tissue contrast.
 
 | constraint | value |
 | --- | --- |
 | required | `True` |
 
 ### `section_prep_protocols_io_doi`
-TODO
+Protocol for acquisition of a tissue section and preparation of the sample for analysis.
 
 | constraint | value |
 | --- | --- |
@@ -218,7 +218,7 @@ TODO
 | pattern (regular expression) | `10\.17504/.*` |
 
 ### `overall_protocols_io_doi`
-TODO
+Description of the overall methodology for conducting the assay.
 
 | constraint | value |
 | --- | --- |
