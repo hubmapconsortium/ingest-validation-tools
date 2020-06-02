@@ -108,21 +108,18 @@ fields:
 - constraints:
     required: true
   description: Average size in bp of sequencing library fragments estimated via gel
-    electrophoresis or bioanalyzer/tapestation. TODO - Unit field? Ask Nils.
+    electrophoresis or Bioanalyzer/tapestation. Enter a number representing the average
+    fragment size in bp.
   name: library_average_fragment_size
 - constraints:
     required: true
-  description: The concentration of the library which was submitted for sequencing.
-    This field is different from the "library_final_yield" because the concentration
-    field takes into account how the library was pooled with other libraries. The
-    "library_final_yield" should be greater than or equal to this column. - TODO -
-    Is this correct? This is a concentration, the other is a yield, typically in ng,
-    so they don't seem to have the same units, so an inequality makes no sense.
+  description: The concentration value of the pooled library samples submitted for
+    sequencing.
   name: library_concentration_value
   type: number
 - constraints:
     enum:
-    - nM
+    - ng/ul
     required: true
   description: Unit of library_concentration_value
   name: library_concentration_unit
@@ -153,12 +150,15 @@ fields:
   name: library_final_yield_unit
 - constraints:
     required: true
-  description: TODO
+  description: An id for the library consisting of text and/or numbers.
   name: library_id
 - constraints:
+    enum:
+    - single-end
+    - paired-end
     required: true
   description: State whether the library was generated for single-end or paired end
-    sequencing. TODO - enum
+    sequencing.
   name: library_layout
 - constraints:
     required: true
@@ -208,8 +208,8 @@ fields:
   name: transposition_kit_number
 - constraints:
     required: true
-  description: Modality of capturing accessible chromatin molecules. TODO - is this
-    an enum?
+  description: Modality of capturing accessible chromatin molecules. The kit used,
+    for example.
   name: transposition_method
 - constraints:
     required: true
