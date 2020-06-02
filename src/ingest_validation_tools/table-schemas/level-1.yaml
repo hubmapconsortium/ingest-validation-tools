@@ -53,8 +53,8 @@ fields:
         - LC-MS (metabolomics)
         - LC-MS/MS (label-free proteomics)
         - MxIF
-        - IMS positive
-        - IMS negative
+        - MALDI-IMS positive
+        - MALDI-IMS negative
         - MS (shotgun lipidomics)
         - PAS microscopy
         - scATACseq

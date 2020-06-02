@@ -3,6 +3,8 @@
 ## v0.0.4 - In progress
 ### Added
 - Fill in TODOs.
+- Assay descriptions.
+- Generate unified description list.
 - Links to background docs.
 - Pre-fill enums in TSVs
 - Generator will stub the Level-1 overrides.
@@ -31,6 +33,7 @@
 - TSV parsing conforms to excel-tsv: No longer ignoring backslashes.
 - More explicit label for patterns in MD.
 - TSV filenames match what will be required downstream.
+- IMS -> MALDI-IMS
 ### Removed
 - avg_insert_size from bulkatacseq.
 

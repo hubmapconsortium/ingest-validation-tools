@@ -5,7 +5,25 @@ red=`tput setaf 1`
 reset=`tput sgr0`
 die() { set +v; echo "$red$*$reset" 1>&2 ; exit 1; }
 
-for TYPE in $(ls docs | grep -v README.md); do # Ignore README and just get subdirectories
+LOOP='for D in `ls -d docs/*/`; do src/generate_docs.py `basename $D` $D; done'
+# Test field-descriptions.yaml:
+
+REAL_DEST="docs/field-descriptions.yaml"
+TEST_DEST="docs-test/field-descriptions.yaml"
+
+REAL_CMD="src/generate_field_descriptions.py > $REAL_DEST"
+TEST_CMD="src/generate_field_descriptions.py > $TEST_DEST"
+
+mkdir docs-test || echo "Already exists"
+eval $TEST_CMD
+diff -r $REAL_DEST $TEST_DEST \
+  || die "Update needed: $REAL_CMD; $LOOP"
+rm -rf docs-test
+
+# Test docs:
+
+for TYPE in $(ls -d docs/*/); do # Just get subdirectories
+  TYPE=`basename $TYPE`
   echo "Testing $TYPE generation..."
 
   REAL_DEST="docs/$TYPE"
@@ -15,7 +33,7 @@ for TYPE in $(ls docs | grep -v README.md); do # Ignore README and just get subd
   TEST_CMD="src/generate_docs.py $TYPE $TEST_DEST"
 
   mkdir -p $TEST_DEST || echo "$TEST_DEST already exists"
-  $TEST_CMD
+  eval $TEST_CMD
   diff -r $REAL_DEST $TEST_DEST \
     || die "Update needed: $REAL_CMD
 Or:" 'for D in `ls -d docs/*/`; do src/generate_docs.py `basename $D` $D; done'
