@@ -87,9 +87,12 @@ fields:
     the data.
   name: acquisition_instrument_model
 - constraints:
+    enum:
+    - Pass
+    - Fail
     required: true
   description: Is the gDNA integrity good enough for WGS? This is usually checked
-    through running a gel. TODO - Is this a boolean?
+    through running a gel.
   name: gdna_fragmentation_quality_assurance
 - constraints:
     required: true
@@ -105,7 +108,7 @@ fields:
 - constraints:
     required: true
   description: Describes DNA library preparation kit. Modality of isolating gDNA,
-    Fragmentation and generating sequencing libraries. TODO - enum?
+    Fragmentation and generating sequencing libraries.
   name: library_construction_method
 - constraints:
     pattern: 10\.17504/.*
@@ -114,9 +117,12 @@ fields:
     method (including version) that was used.
   name: library_construction_protocols_io_doi
 - constraints:
+    enum:
+    - single-end
+    - paired-end
     required: true
   description: State whether the library was generated for single-end or paired end
-    sequencing. TODO - enum
+    sequencing.
   name: library_layout
 - constraints:
     required: true
