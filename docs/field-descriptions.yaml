@@ -66,10 +66,10 @@ execution_datetime: Start date and time of assay, typically a date-time stamped 
   MM is the month with leading 0s, and DD is the day with leading 0s, hh is the hour
   with leading zeros, mm are the minutes with leading zeros.
 gdna_fragmentation_quality_assurance: Is the gDNA integrity good enough for WGS? This
-  is usually checked through running a gel. TODO - Is this a boolean?
+  is usually checked through running a gel.
 is_targeted: Specifies whether or not a specific molecule(s) is/are targeted for detection/measurement
   by the assay. The CODEX analyte is protein.
-is_technical_replicate: TODO
+is_technical_replicate: Is this a sequencing replicate?
 labeling: Indicates whether samples were labeled prior to MS analysis (e.g., TMT)
 lc_column_model: The model number/name of the LC Column - IF custom self-packed, pulled
   tip calillary is used enter "Pulled tip capilary"
@@ -97,16 +97,16 @@ library_concentration_unit: Unit of library_concentration_value
 library_concentration_value: The concentration value of the pooled library samples
   submitted for sequencing.
 library_construction_method: Describes DNA library preparation kit. Modality of isolating
-  gDNA, Fragmentation and generating sequencing libraries. TODO - enum?
+  gDNA, Fragmentation and generating sequencing libraries.
 library_construction_protocols_io_doi: A link to the protocol document containing
   the library construction method (including version) that was used.
 library_creation_date: date and time of library creation. YYYY-MM-DD, where YYYY is
   the year, MM is the month with leading 0s, and DD is the day with leading 0s - TODO
   - constraint
 library_final_yield: Total ng of library after final pcr amplification step.
-library_final_yield_unit: TODO
+library_final_yield_unit: units of library final yield
 library_final_yield_value: Total amount of library after final pcr amplification step
-library_id: TODO
+library_id: An id for the library. The id may be text and/or numbers
 library_layout: Whether the library was generated for single-end or paired end sequencing
 library_pcr_cycles: Number of PCR cycles to amplify cDNA
 library_pcr_cycles_for_sample_index: Number of PCR cycles performed for library indexing
@@ -128,7 +128,8 @@ number_of_barcode_probes: Number of barcode probes targeting mRNAs (eg. 24,000 b
 number_of_barcode_regions_per_barcode_probe: Number of barcode regions on each mRNA
   barcode probe (the paper describes mRNA probes with 4 barcoded regions)
 number_of_channels: TODO
-number_of_cycles: TODO
+number_of_cycles: Number of cycles of 1. oligo application, 2. fluor application,
+  3. washes
 number_of_pseudocolors_per_channel: Number of pseudocolors that can be assigned to
   each fluorescent channel (the paper describes 20 pseudocolors per channel (x 3 channels
   -> total = 60)
@@ -145,10 +146,11 @@ preparation_instrument_model: TODO
 preparation_instrument_vendor: TODO
 preparation_maldi_matrix: TODO
 preparation_type: TODO
-processing_protocols_io_doi: TODO
+processing_protocols_io_doi: DOI for analysis protocols.io for this assay.
 processing_search: Software for analyzing and searching LC-MS/MS omics data
 protocols_io_doi: DOI for protocols.io referring to the protocol for this assay.
-reagent_prep_protocols_io_doi: TODO
+reagent_prep_protocols_io_doi: DOI for protocols.io referring to the protocol for
+  preparing reagents for the assay.
 resolution_x_unit: TODO
 resolution_x_value: TODO
 resolution_y_unit: TODO
@@ -158,7 +160,7 @@ resolution_z_value: TODO
 rnaseq_assay_input: Number of cell/nuclei input to the assay
 rnaseq_assay_input_unit: Units of RNA input amount to the assay
 rnaseq_assay_input_value: RNA input amount value to the assay
-rnaseq_assay_method: TODO
+rnaseq_assay_method: rnaseq assay kit used.
 roi_description: A description of the region of interest (ROI)
 roi_endx_pos_units: Units of the endx coordinate of the region of interest.
 roi_endx_pos_value: endx coordinate of the region of interest.
@@ -198,7 +200,8 @@ sequencing_read_format: Number of sequencing cycles in Read1, i7 index, i5 index
 sequencing_read_percent_q30: Percent of bases with Quality scores above Q30
 sequencing_reagent_kit: Reagent kit used for sequencing
 signal_type: Type of signal measured per channel (usually dual counts)
-stain: TODO
+stain: Chemical stains (dyes) applied to histology samples to highlight important
+  features of the tissue as well as to enhance the tissue contrast.
 start_datetime: Time stamp indicating start of ablation for ROI
 tissue_id: HuBMAP Display ID of the assayed tissue.
 transposition_input: Number of cell/nuclei input to the assay.

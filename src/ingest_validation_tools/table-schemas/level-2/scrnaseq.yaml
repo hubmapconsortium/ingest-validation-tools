@@ -54,7 +54,7 @@ fields:
     description: Number of cell/nuclei input to the assay
   -
     name: rnaseq_assay_method
-    description: TODO
+    description: The kit used for the RNA sequencing assay
   -
     name: library_construction_protocols_io_doi
     description: A link to the protocol document containing the library construction method (including version) that was used, e.g. "Smart-Seq2", "Drop-Seq", "10X v3".
@@ -66,10 +66,11 @@ fields:
     description: Adapter sequence to be used for adapter trimming
   -
     name: library_id
-    description: TODO
+    description: An id for the library. The id may be text and/or numbers
   -
     name: is_technical_replicate
-    description: TODO
+    description: Is the sequencing reaction run in repliucate, TRUE or FALSE
+    type: boolean
   -
     name: cell_barcode_read
     description: Which read file contains the cell barcode
@@ -87,7 +88,7 @@ fields:
     description: Number of PCR cycles performed for library indexing
   -
     name: library_final_yield_value
-    description: Total number of ng of library after final pcr amplification step
+    description: Total number of ng of library after final pcr amplification step. This is the concentration (ng/ul) * volume (ul)
   -
     name: library_final_yield_unit
     description: Units of final library yield
