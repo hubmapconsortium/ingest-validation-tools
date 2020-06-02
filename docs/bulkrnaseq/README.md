@@ -236,17 +236,19 @@ A link to the protocol document containing the library construction method (incl
 | pattern (regular expression) | `10\.17504/.*` |
 
 ### `library_layout`
-State whether the library was generated for single-end or paired end sequencing. TODO -- Give enum constraint.
+State whether the library was generated for single-end or paired end sequencing.
 
 | constraint | value |
 | --- | --- |
+| enum | `single-end` or `paired-end` |
 | required | `True` |
 
 ### `library_adapter_sequence`
-Adapter sequence to be used for adapter trimming. TODO -- Give pattern constraint.
+Adapter sequence to be used for adapter trimming.
 
 | constraint | value |
 | --- | --- |
+| pattern (regular expression) | `5-[GATCU]+` |
 | required | `True` |
 
 ### `library_pcr_cycles_for_sample_index`
@@ -274,7 +276,7 @@ units of library final yield
 | required | `True` |
 
 ### `library_average_fragment_size`
-Average size of sequencing library fragments estimated via gel electrophoresis or bioanalyzer/tapestation. TODO - Does this need units? Is it base-pairs?
+Average size in base pairs (bp) of sequencing library fragments estimated via gel electrophoresis or Bioanalyzer/tapestation.
 
 | constraint | value |
 | --- | --- |
@@ -289,7 +291,7 @@ Reagent kit used for sequencing
 | required | `True` |
 
 ### `sequencing_read_format`
-Number of sequencing cycles in Read1, i7 index, i5 index, and Read2 (no required pattern) TODO - Why no required pattern?
+Number of sequencing cycles in Read1, i7 index, i5 index, and Read2. TODO - https://github.com/hubmapconsortium/ingest-validation-tools/issues/303
 
 | constraint | value |
 | --- | --- |

@@ -136,14 +136,17 @@ fields:
     v3".
   name: library_construction_protocols_io_doi
 - constraints:
+    enum:
+    - single-end
+    - paired-end
     required: true
   description: State whether the library was generated for single-end or paired end
-    sequencing. TODO -- Give enum constraint.
+    sequencing.
   name: library_layout
 - constraints:
+    pattern: 5-[GATCU]+
     required: true
-  description: Adapter sequence to be used for adapter trimming. TODO -- Give pattern
-    constraint.
+  description: Adapter sequence to be used for adapter trimming.
   name: library_adapter_sequence
 - constraints:
     required: true
@@ -163,8 +166,8 @@ fields:
   name: library_final_yield_unit
 - constraints:
     required: true
-  description: Average size of sequencing library fragments estimated via gel electrophoresis
-    or bioanalyzer/tapestation. TODO - Does this need units? Is it base-pairs?
+  description: Average size in base pairs (bp) of sequencing library fragments estimated
+    via gel electrophoresis or Bioanalyzer/tapestation.
   name: library_average_fragment_size
   type: integer
 - constraints:
@@ -173,8 +176,8 @@ fields:
   name: sequencing_reagent_kit
 - constraints:
     required: true
-  description: Number of sequencing cycles in Read1, i7 index, i5 index, and Read2
-    (no required pattern) TODO - Why no required pattern?
+  description: Number of sequencing cycles in Read1, i7 index, i5 index, and Read2.
+    TODO - https://github.com/hubmapconsortium/ingest-validation-tools/issues/303
   name: sequencing_read_format
 - constraints:
     maximum: 100
