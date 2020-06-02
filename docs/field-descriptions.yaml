@@ -146,7 +146,7 @@ preparation_instrument_model: TODO
 preparation_instrument_vendor: TODO
 preparation_maldi_matrix: TODO
 preparation_type: TODO
-processing_protocols_io_doi: TODO
+processing_protocols_io_doi: DOI for analysis protocols.io for this assay.
 processing_search: Software for analyzing and searching LC-MS/MS omics data
 protocols_io_doi: DOI for protocols.io referring to the protocol for this assay.
 reagent_prep_protocols_io_doi: DOI for protocols.io referring to the protocol for
