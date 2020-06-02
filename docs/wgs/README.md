@@ -167,10 +167,11 @@ Manufacturers of an acquisition instrument may offer various versions (models) o
 | required | `True` |
 
 ### `gdna_fragmentation_quality_assurance`
-Is the gDNA integrity good enough for WGS? This is usually checked through running a gel. TODO - Is this a boolean?
+Is the gDNA integrity good enough for WGS? This is usually checked through running a gel.
 
 | constraint | value |
 | --- | --- |
+| enum | `Pass` or `Fail` |
 | required | `True` |
 
 ### `dna_assay_input_value`
@@ -190,7 +191,7 @@ Units of DNA input into library preparation
 | required | `True` |
 
 ### `library_construction_method`
-Describes DNA library preparation kit. Modality of isolating gDNA, Fragmentation and generating sequencing libraries. TODO - enum?
+Describes DNA library preparation kit. Modality of isolating gDNA, Fragmentation and generating sequencing libraries.
 
 | constraint | value |
 | --- | --- |
@@ -205,10 +206,11 @@ A link to the protocol document containing the library construction method (incl
 | pattern (regular expression) | `10\.17504/.*` |
 
 ### `library_layout`
-State whether the library was generated for single-end or paired end sequencing. TODO - enum
+State whether the library was generated for single-end or paired end sequencing.
 
 | constraint | value |
 | --- | --- |
+| enum | `single-end` or `paired-end` |
 | required | `True` |
 
 ### `library_adapter_sequence`

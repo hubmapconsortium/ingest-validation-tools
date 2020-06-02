@@ -125,11 +125,11 @@ fields:
     description: Software for analyzing and searching LC-MS/MS omics data
   -
     name: processing_protocols_io_doi
-    description: TODO
+    description: DOI for analysis protocols.io for this assay.
     constraints:
       required: False
   -
     name: overall_protocols_io_doi
-    description: TODO
+    description: DOI for protocols.io for the overall process for this assay.
     constraints:
       required: False

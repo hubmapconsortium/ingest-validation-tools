@@ -38,15 +38,12 @@ fields:
   description: Average size in basepairs (bp) of sequencing library fragments estimated via gel
     electrophoresis or Bioanalyzer/tapestation.
 - name: library_concentration_value
-  description: The concentration of the library which was submitted for sequencing.
-    This field is different from the "library_final_yield" because the concentration
-    field takes into account how the library was pooled with other libraries. The
-    "library_final_yield" should be greater than or equal to this column. - TODO - Is this correct? This is a concentration, the other is a yield, typically in ng, so they don't seem to have the same units, so an inequality makes no sense.
+  description: The concentration value of the pooled library samples submitted for sequencing.
 - name: library_concentration_unit
   description: Unit of library_concentration_value
   constraints:
     enum:
-      - nM
+      - ng/ul
 - name: library_construction_protocols_io_doi
   description: A link to the protocol document containing the library construction
     method (including version) that was used, e.g. "Smart-Seq2", "Drop-Seq", "10X
@@ -103,7 +100,7 @@ fields:
   constraints:
     required: false
 - name: transposition_method
-  description: Modality of capturing accessible chromatin molecules. TODO - is this an enum?
+  description: Modality of capturing accessible chromatin molecules. The kit used, for example.
 - name: transposition_transposase_source
   description: The source of the Tn5 transposase and transposon used for capturing
     accessible chromatin.
