@@ -45,7 +45,7 @@ fields:
         - um
   -
     name: resolution_z_value
-    description: Optional if assay does not have multiple z-levels. Note that this is resolution within a given sample: z-pitch (resolution_z_value) is the increment distance between image slices ie. the microscope stage is moved up or down in increments to capture images of several focal planes. The best one will be used & the rest discarded. The thickness of the sample itself is sample metadata. Leave blank if not applicable.
+    description: 'Optional if assay does not have multiple z-levels. Note that this is resolution within a given sample: z-pitch (resolution_z_value) is the increment distance between image slices ie. the microscope stage is moved up or down in increments to capture images of several focal planes. The best one will be used & the rest discarded. The thickness of the sample itself is sample metadata. Leave blank if not applicable.'
   -
     name: resolution_z_unit
     description: The unit of incremental distance between image slices.
@@ -55,7 +55,7 @@ fields:
         - um
   -
     name: stain
-    description: Chemical stains (dyes) applied to histology samples to highlight important features of the tissue as well as to enhance the tissue contrast. 
+    description: Chemical stains (dyes) applied to histology samples to highlight important features of the tissue as well as to enhance the tissue contrast.
   -
     name: section_prep_protocols_io_doi
     description: Protocol for acquisition of a tissue section and preparation of the sample for analysis.

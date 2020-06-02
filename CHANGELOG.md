@@ -2,6 +2,7 @@
 
 ## v0.0.4 - In progress
 ### Added
+- Fill in TODOs.
 - Links to background docs.
 - Pre-fill enums in TSVs
 - Generator will stub the Level-1 overrides.
