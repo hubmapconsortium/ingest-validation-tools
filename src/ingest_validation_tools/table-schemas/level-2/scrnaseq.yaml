@@ -31,7 +31,7 @@ fields:
     description: Manufacturers of an acquisition instrument may offer various versions (models) of that instrument with different features or sensitivities. Differences in features or sensitivities may be relevant to processing or interpretation of the data.
   -
     name: sc_isolation_protocols_io_doi
-    description: Link to a protocols document answering the question: How were single cells separated into a single-cell suspension?
+    description: "Link to a protocols document answering the question: How were single cells separated into a single-cell suspension?"
   -
     name: sc_isolation_entity
     description: The type of single cell entity derived from isolation protocol
