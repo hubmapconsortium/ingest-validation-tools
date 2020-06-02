@@ -101,12 +101,11 @@ library_construction_method: Describes DNA library preparation kit. Modality of 
 library_construction_protocols_io_doi: A link to the protocol document containing
   the library construction method (including version) that was used.
 library_creation_date: date and time of library creation. YYYY-MM-DD, where YYYY is
-  the year, MM is the month with leading 0s, and DD is the day with leading 0s - TODO
-  - constraint
+  the year, MM is the month with leading 0s, and DD is the day with leading 0s.
 library_final_yield: Total ng of library after final pcr amplification step.
 library_final_yield_unit: units of library final yield
 library_final_yield_value: Total amount of library after final pcr amplification step
-library_id: An id for the library. The id may be text and/or numbers
+library_id: ID of the library sample.
 library_layout: Whether the library was generated for single-end or paired end sequencing
 library_pcr_cycles: Number of PCR cycles to amplify cDNA
 library_pcr_cycles_for_sample_index: Number of PCR cycles performed for library indexing

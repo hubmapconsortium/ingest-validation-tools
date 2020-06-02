@@ -206,7 +206,7 @@ Adapter sequence to be used for adapter trimming
 | required | `True` |
 
 ### `library_average_fragment_size`
-Average size in bp of sequencing library fragments estimated via gel electrophoresis or Bioanalyzer/tapestation. Enter a number representing the average fragment size in bp.
+Average size in basepairs (bp) of sequencing library fragments estimated via gel electrophoresis or Bioanalyzer/tapestation.
 
 | constraint | value |
 | --- | --- |
@@ -237,10 +237,12 @@ A link to the protocol document containing the library construction method (incl
 | pattern (regular expression) | `10\.17504/.*` |
 
 ### `library_creation_date`
-date and time of library creation. YYYY-MM-DD, where YYYY is the year, MM is the month with leading 0s, and DD is the day with leading 0s - TODO - constraint. Leave blank if not applicable.
+date and time of library creation. YYYY-MM-DD, where YYYY is the year, MM is the month with leading 0s, and DD is the day with leading 0s. Leave blank if not applicable.
 
 | constraint | value |
 | --- | --- |
+| type | `datetime` |
+| format | `%Y-%m-%d` |
 | required | `False` |
 
 ### `library_final_yield_value`
@@ -260,7 +262,7 @@ Units of library final yield
 | required | `True` |
 
 ### `library_id`
-An id for the library consisting of text and/or numbers.
+ID of the library sample.
 
 | constraint | value |
 | --- | --- |
@@ -307,7 +309,7 @@ Percent PhiX loaded to the run
 | maximum | `100` |
 
 ### `sequencing_read_format`
-Number of sequencing cycles in Read1, i7 index, i5 index, and Read2 (comma-delimnited with no required pattern) - TODO - If we're saying it's comma delimited there IS a required pattern, and it should be validated.
+Number of sequencing cycles in Read1, i7 index, i5 index, and Read2 - TODO https://github.com/hubmapconsortium/ingest-validation-tools/issues/303
 
 | constraint | value |
 | --- | --- |
