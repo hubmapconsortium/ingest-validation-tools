@@ -206,14 +206,14 @@ Adapter sequence to be used for adapter trimming
 | required | `True` |
 
 ### `library_average_fragment_size`
-Average size in bp of sequencing library fragments estimated via gel electrophoresis or bioanalyzer/tapestation. TODO - Unit field? Ask Nils.
+Average size in bp of sequencing library fragments estimated via gel electrophoresis or Bioanalyzer/tapestation. Enter a number representing the average fragment size in bp.
 
 | constraint | value |
 | --- | --- |
 | required | `True` |
 
 ### `library_concentration_value`
-The concentration of the library which was submitted for sequencing. This field is different from the "library_final_yield" because the concentration field takes into account how the library was pooled with other libraries. The "library_final_yield" should be greater than or equal to this column. - TODO - Is this correct? This is a concentration, the other is a yield, typically in ng, so they don't seem to have the same units, so an inequality makes no sense.
+The concentration value of the pooled library samples submitted for sequencing.
 
 | constraint | value |
 | --- | --- |
@@ -225,7 +225,7 @@ Unit of library_concentration_value
 
 | constraint | value |
 | --- | --- |
-| enum | `nM` |
+| enum | `ng/ul` |
 | required | `True` |
 
 ### `library_construction_protocols_io_doi`
@@ -260,17 +260,18 @@ Units of library final yield
 | required | `True` |
 
 ### `library_id`
-TODO
+An id for the library consisting of text and/or numbers.
 
 | constraint | value |
 | --- | --- |
 | required | `True` |
 
 ### `library_layout`
-State whether the library was generated for single-end or paired end sequencing. TODO - enum
+State whether the library was generated for single-end or paired end sequencing.
 
 | constraint | value |
 | --- | --- |
+| enum | `single-end` or `paired-end` |
 | required | `True` |
 
 ### `library_pcr_cycles`
@@ -337,7 +338,7 @@ If Tn5 came from a kit, provide the catalog number. Leave blank if not applicabl
 | required | `False` |
 
 ### `transposition_method`
-Modality of capturing accessible chromatin molecules. TODO - is this an enum?
+Modality of capturing accessible chromatin molecules. The kit used, for example.
 
 | constraint | value |
 | --- | --- |
