@@ -29,7 +29,11 @@ fields:
     Differences in features or sensitivities may be relevant to processing or interpretation of the data.
 - name: gdna_fragmentation_quality_assurance
   description: Is the gDNA integrity good enough for WGS? This is usually checked
-    through running a gel. TODO - Is this a boolean?
+  through running a gel.
+  constraints:
+    enum:
+      - Pass
+      - Fail
 - name: dna_assay_input_value
   description: Amount of DNA input into library preparation
   type: number
@@ -40,13 +44,17 @@ fields:
       - ug
 - name: library_construction_method
   description: Describes DNA library preparation kit. Modality of isolating gDNA,
-    Fragmentation and generating sequencing libraries. TODO - enum?
+    Fragmentation and generating sequencing libraries.
 - name: library_construction_protocols_io_doi
   description: A link to the protocol document containing the library construction
     method (including version) that was used.
 - name: library_layout
   description: State whether the library was generated for single-end or paired end
-    sequencing. TODO - enum
+    sequencing.
+  constraints:
+    enum:
+      - single-end
+      - paired-end
 - name: library_adapter_sequence
   description: Adapter sequence to be used for adapter trimming. TODO - pattern
 - name: library_final_yield
