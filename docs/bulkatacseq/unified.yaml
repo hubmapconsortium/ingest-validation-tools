@@ -107,9 +107,8 @@ fields:
   name: library_adapter_sequence
 - constraints:
     required: true
-  description: Average size in bp of sequencing library fragments estimated via gel
-    electrophoresis or Bioanalyzer/tapestation. Enter a number representing the average
-    fragment size in bp.
+  description: Average size in basepairs (bp) of sequencing library fragments estimated
+    via gel electrophoresis or Bioanalyzer/tapestation.
   name: library_average_fragment_size
 - constraints:
     required: true
@@ -131,9 +130,11 @@ fields:
     v3".
   name: library_construction_protocols_io_doi
 - constraints:
+    format: '%Y-%m-%d'
     required: false
+    type: datetime
   description: date and time of library creation. YYYY-MM-DD, where YYYY is the year,
-    MM is the month with leading 0s, and DD is the day with leading 0s - TODO - constraint
+    MM is the month with leading 0s, and DD is the day with leading 0s.
   name: library_creation_date
 - constraints:
     required: true
@@ -150,7 +151,7 @@ fields:
   name: library_final_yield_unit
 - constraints:
     required: true
-  description: An id for the library consisting of text and/or numbers.
+  description: ID of the library sample.
   name: library_id
 - constraints:
     enum:
@@ -188,8 +189,7 @@ fields:
 - constraints:
     required: true
   description: Number of sequencing cycles in Read1, i7 index, i5 index, and Read2
-    (comma-delimnited with no required pattern) - TODO - If we're saying it's comma
-    delimited there IS a required pattern, and it should be validated.
+    - TODO https://github.com/hubmapconsortium/ingest-validation-tools/issues/303
   name: sequencing_read_format
 - constraints:
     maximum: 100

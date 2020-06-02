@@ -30,8 +30,6 @@ Related files:
 [`resolution_x_unit`](#resolution_x_unit)<br>
 [`resolution_y_value`](#resolution_y_value)<br>
 [`resolution_y_unit`](#resolution_y_unit)<br>
-[`resolution_z_value`](#resolution_z_value)<br>
-[`resolution_z_unit`](#resolution_z_unit)<br>
 [`number_of_channels`](#number_of_channels)<br>
 [`number_of_cycles`](#number_of_cycles)<br>
 [`section_prep_protocols_io_doi`](#section_prep_protocols_io_doi)<br>
@@ -143,21 +141,21 @@ Specifies whether or not a specific molecule(s) is/are targeted for detection/me
 | required | `True` |
 
 ### `acquisition_instrument_vendor`
-TODO
+An acquisition_instrument is the device that contains the signal detection hardware and signal processing software. Assays generate signals such as light of various intensities or color or signals representing molecular mass.
 
 | constraint | value |
 | --- | --- |
 | required | `True` |
 
 ### `acquisition_instrument_model`
-TODO
+Manufacturers of an acquisition instrument may offer various versions (models) of that instrument with different features or sensitivities. Differences in features or sensitivities may be relevant to processing or interpretation of the data.
 
 | constraint | value |
 | --- | --- |
 | required | `True` |
 
 ### `resolution_x_value`
-TODO
+The width of a pixel.
 
 | constraint | value |
 | --- | --- |
@@ -165,7 +163,7 @@ TODO
 | required | `True` |
 
 ### `resolution_x_unit`
-TODO
+The unit of measurement of width of a pixel.(nm)
 
 | constraint | value |
 | --- | --- |
@@ -173,7 +171,7 @@ TODO
 | required | `True` |
 
 ### `resolution_y_value`
-TODO
+The height of a pixel.
 
 | constraint | value |
 | --- | --- |
@@ -181,23 +179,7 @@ TODO
 | required | `True` |
 
 ### `resolution_y_unit`
-TODO
-
-| constraint | value |
-| --- | --- |
-| enum | `nm` or `um` |
-| required | `True` |
-
-### `resolution_z_value`
-TODO
-
-| constraint | value |
-| --- | --- |
-| type | `number` |
-| required | `True` |
-
-### `resolution_z_unit`
-TODO
+The unit of measurement of height of a pixel.(nm)
 
 | constraint | value |
 | --- | --- |
@@ -205,7 +187,7 @@ TODO
 | required | `True` |
 
 ### `number_of_channels`
-TODO
+Number of fluorescent channels imaged during each cycle.
 
 | constraint | value |
 | --- | --- |
@@ -213,7 +195,7 @@ TODO
 | required | `True` |
 
 ### `number_of_cycles`
-TODO
+Number of cycles of 1. antibody application, 2. image capture, 3. antibody stripping.
 
 | constraint | value |
 | --- | --- |
@@ -221,7 +203,7 @@ TODO
 | required | `True` |
 
 ### `section_prep_protocols_io_doi`
-TODO
+DOI for protocols.io referring to the protocol for preparing tissue sections for the assay.
 
 | constraint | value |
 | --- | --- |
@@ -229,7 +211,7 @@ TODO
 | pattern (regular expression) | `10\.17504/.*` |
 
 ### `reagent_prep_protocols_io_doi`
-TODO
+DOI for protocols.io referring to the protocol for preparing reagents for the assay.
 
 | constraint | value |
 | --- | --- |
@@ -237,7 +219,7 @@ TODO
 | pattern (regular expression) | `10\.17504/.*` |
 
 ### `overall_protocols_io_doi`
-TODO
+DOI for protocols.io for the overall process.
 
 | constraint | value |
 | --- | --- |

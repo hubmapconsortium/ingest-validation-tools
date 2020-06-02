@@ -360,7 +360,7 @@ Software for analyzing and searching LC-MS/MS omics data
 | required | `True` |
 
 ### `processing_protocols_io_doi`
-TODO. Leave blank if not applicable.
+DOI for analysis protocols.io for this assay. Leave blank if not applicable.
 
 | constraint | value |
 | --- | --- |
@@ -368,7 +368,7 @@ TODO. Leave blank if not applicable.
 | pattern (regular expression) | `10\.17504/.*` |
 
 ### `overall_protocols_io_doi`
-TODO. Leave blank if not applicable.
+DOI for protocols.io for the overall process for this assay. Leave blank if not applicable.
 
 | constraint | value |
 | --- | --- |
