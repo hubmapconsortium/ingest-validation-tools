@@ -7,7 +7,11 @@ from ingest_validation_tools.table_schema_loader import list_types, get_schema
 def main():
     mapping = {}
     for assay_type in list_types():
-        schema = get_schema(assay_type)
+        try:
+            schema = get_schema(assay_type)
+        except Exception as e:
+            print(f'Processing: {assay_type}\n{e}', file=sys.stderr)
+            return 1
         for field in schema['fields']:
             name = field['name']
             description = field['description']
