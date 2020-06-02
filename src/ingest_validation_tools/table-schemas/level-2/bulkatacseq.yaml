@@ -35,8 +35,8 @@ fields:
 - name: library_adapter_sequence
   description: Adapter sequence to be used for adapter trimming
 - name: library_average_fragment_size
-  description: Average size in bp of sequencing library fragments estimated via gel
-    electrophoresis or bioanalyzer/tapestation. TODO - Unit field? Ask Nils.
+  description: Average size in basepairs (bp) of sequencing library fragments estimated via gel
+    electrophoresis or Bioanalyzer/tapestation.
 - name: library_concentration_value
   description: The concentration of the library which was submitted for sequencing.
     This field is different from the "library_final_yield" because the concentration
@@ -55,6 +55,8 @@ fields:
   description: date and time of library creation. YYYY-MM-DD, where YYYY is the year,
     MM is the month with leading 0s, and DD is the day with leading 0s - TODO - constraint
   constraints:
+    type: datetime
+    format: '%Y-%m-%d'
     required: false
 - name: library_final_yield_value
   description: 'Total amount (eg. nanograms) of library after the clean-up step of
@@ -66,10 +68,14 @@ fields:
     enum:
       - ng
 - name: library_id
-  description: 'TODO'
+  description: ID of the library sample.
 - name: library_layout
   description: State whether the library was generated for single-end or paired end
-    sequencing. TODO - enum
+    sequencing.
+  constraints:
+    enum:
+      - single-end
+      - paired-end
 - name: library_pcr_cycles
   description: Number of PCR cycles performed in order to add adapters and amplify
     the library. Usually, this includes 5 pre-amplificationn cycles followed by 0-5
@@ -86,7 +92,8 @@ fields:
   description: Percent PhiX loaded to the run
 - name: sequencing_read_format
   description: Number of sequencing cycles in Read1, i7 index, i5 index, and Read2
-    (comma-delimnited with no required pattern) - TODO - If we're saying it's comma delimited there IS a required pattern, and it should be validated.
+  constraints:
+   pattern: [Ri]?\d+(/[Ri]?\d+)+
 - name: sequencing_read_percent_q30
   description: Percent of bases with Quality scores above Q30
 - name: sequencing_reagent_kit
