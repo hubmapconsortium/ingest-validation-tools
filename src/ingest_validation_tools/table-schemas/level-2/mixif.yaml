@@ -21,52 +21,42 @@ fields:
   # Level 2 fields:
   -
     name: acquisition_instrument_vendor
-    description: TODO
+    description: An acquisition_instrument is the device that contains the signal detection hardware and signal processing software. Assays generate signals such as light of various intensities or color or signals representing molecular mass.
   -
     name: acquisition_instrument_model
-    description: TODO
+    description: Manufacturers of an acquisition instrument may offer various versions (models) of that instrument with different features or sensitivities. Differences in features or sensitivities may be relevant to processing or interpretation of the data.
   -
     name: resolution_x_value
-    description: TODO
+    description: The width of a pixel.
   -
     name: resolution_x_unit
-    description: TODO
+    description: The unit of measurement of width of a pixel.(nm)
     constraints:
       enum:
         - nm
         - um
   -
     name: resolution_y_value
-    description: TODO
+    description: The height of a pixel.
   -
     name: resolution_y_unit
-    description: TODO
-    constraints:
-      enum:
-        - nm
-        - um
-  -
-    name: resolution_z_value
-    description: TODO
-  -
-    name: resolution_z_unit
-    description: TODO
+    description: The unit of measurement of height of a pixel.(nm)
     constraints:
       enum:
         - nm
         - um
   -
     name: number_of_channels
-    description: TODO
+    description: Number of fluorescent channels imaged during each cycle.
   -
     name: number_of_cycles
-    description: TODO
+    description: Number of cycles of 1. antibody application, 2. image capture, 3. antibody stripping.
   -
     name: section_prep_protocols_io_doi
-    description: TODO
+    description: DOI for protocols.io referring to the protocol for preparing tissue sections for the assay.
   -
     name: reagent_prep_protocols_io_doi
-    description: TODO
+    description: DOI for protocols.io referring to the protocol for preparing reagents for the assay.
   -
     name: overall_protocols_io_doi
-    description: TODO
+    description: DOI for protocols.io for the overall process.
