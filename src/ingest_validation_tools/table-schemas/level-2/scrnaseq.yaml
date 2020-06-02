@@ -91,7 +91,7 @@ fields:
     description: Total number of ng of library after final pcr amplification step. This is the concentration (ng/ul) * volume (ul)
   -
     name: library_final_yield_unit
-    description: The final library yield in ngs
+    description: Units of final library yield
     constraints:
       enum:
         - ng
@@ -103,7 +103,7 @@ fields:
     description: Reagent kit used for sequencing
   -
     name: sequencing_read_format
-    description: Number of sequencing cycles in Read1, i7 index, i5 index, and Read2
+    description: 'Number of sequencing cycles in Read1, i7 index, i5 index, and Read2 - TODO https://github.com/hubmapconsortium/ingest-validation-tools/issues/303'
   -
     name: sequencing_read_percent_q30
     description: Percent of bases with Quality scores above Q30

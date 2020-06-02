@@ -103,7 +103,7 @@ library_construction_protocols_io_doi: A link to the protocol document containin
 library_creation_date: date and time of library creation. YYYY-MM-DD, where YYYY is
   the year, MM is the month with leading 0s, and DD is the day with leading 0s.
 library_final_yield: Total ng of library after final pcr amplification step.
-library_final_yield_unit: units of library final yield
+library_final_yield_unit: Units of final library yield
 library_final_yield_value: Total amount of library after final pcr amplification step
 library_id: ID of the library sample.
 library_layout: Whether the library was generated for single-end or paired end sequencing
@@ -195,7 +195,7 @@ segment_data_format: Numerical data type. TODO - Not sure this is actually a num
   Do they mean the format of the data, like "16-bit little endian"?
 sequencing_phix_percent: Percent PhiX loaded to the ru
 sequencing_read_format: Number of sequencing cycles in Read1, i7 index, i5 index,
-  and Read2
+  and Read2 (R1/i7/i5/R2). TODO - pattern constraint.
 sequencing_read_percent_q30: Percent of bases with Quality scores above Q30
 sequencing_reagent_kit: Reagent kit used for sequencing
 signal_type: Type of signal measured per channel (usually dual counts)
