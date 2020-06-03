@@ -40,18 +40,21 @@ fields:
 - name: reagent_prep_protocols_io_doi
   description: DOI for protocols.io referring to the protocol for preparing reagents
     for the assay.
+- name: number_of_channels
+  description: Number of antibodies imaged.
+  type: number
 - name: ablation_distance_between_shots_x_value
-  description: Distance (\xB5m) between laser ablation shots in the X-dimension.
+  description: x resolution. Distance (\xB5m) between laser ablation shots in the X-dimension.
 - name: ablation_distance_between_shots_x_units
-  description: Units of distance between laser ablation shots.
+  description: Units of x resolution distance between laser ablation shots.
   constraints:
     enum:
       - um
       - nm
 - name: ablation_distance_between_shots_y_value
-  description: Distance (\xB5m) between laser ablation shots in the Y-dimension.
+  description: y resolution. Distance (\xB5m) between laser ablation shots in the Y-dimension.
 - name: ablation_distance_between_shots_y_units
-  description: Units of distance between laser ablation shots.
+  description: Units of y resolution distance between laser ablation shots.
   constraints:
     enum:
       - um
@@ -64,64 +67,14 @@ fields:
     enum:
       - Hz
 - name: roi_description
-  description: A description of the region of interest (ROI)
+  description: A description of the region of interest (ROI) captured in the image.
 - name: roi_id
-  description: Identifier for the ROI
+  description: Multiple images (1-n) are acquired from regions of interest (ROI1, ROI2, ROI3, etc) on a slide. 
+  The roi_id is a number from 1-n representing the ROI captured on a slide.
+  type: number
 - name: acquisition_id
-  description: Date and tissue type of acquisition. TODO - On our side, we strongly believe that IDs should not encode semantics. If the two pieces of information are useful, they should be recorded separately.
-- name: after_ablation_image_end_offset_value
-  description: The number of bytes from the beginning of the MCD file where the respective
-    entity is stored as binary
-- name: after_ablation_image_end_offset_units
-  description: The units of the offset value.
-  constraints:
-    enum:
-      - bytes
-- name: after_ablation_image_start_offset_value
-  description: The number of bytes from the beginning of the MCD file where the respective
-    entity is stored as binary
-  type: number
-- name: after_ablation_image_start_offset_units
-  description: The units of the offset value.
-  constraints:
-    enum:
-      - bytes
-- name: before_ablation_image_end_offset_value
-  description: The number of bytes from the beginning of the MCD file where the respective
-    entity is stored as binary
-  type: number
-- name: before_ablation_image_end_offset_units
-  description: The units of the offset value.
-  constraints:
-    enum:
-      - bytes
-- name: before_ablation_image_start_offset_value
-  description: The number of bytes from the beginning of the MCD file where the respective
-    entity is stored as binary
-  type: number
-- name: before_ablation_image_start_offset_units
-  description: The units of the offset value.
-  constraints:
-    enum:
-      - bytes
-- name: data_end_offset_value
-  description: The number of bytes from the beginning of the MCD file where the respective
-    entity is stored as binary
-  type: number
-- name: data_end_offset_units
-  description: The units of the offset value.
-  constraints:
-    enum:
-      - bytes
-- name: data_start_offset_value
-  description: The number of bytes from the beginning of the MCD file where the respective
-    entity is stored as binary
-  type: number
-- name: data_start_offset_units
-  description: The units of the offset value.
-  constraints:
-    enum:
-      - bytes
+  description: The acquisition_id refers to the filename for a slide image. Together, the acquisition_id and the roi_id
+  indicate the slide-ROI represented in the image.
 - name: dual_count_start
   description: Threshold for dual counting.
   type: number
@@ -129,62 +82,24 @@ fields:
   description: Time stamp indicating end of ablation for ROI
   type: datetime
   format: "%Y-%m-%d %H:%M"
-- name: maxx_width_value
+- name: max_x_width_value
   description: Image width value of the ROI acquisition
   type: number
-- name: maxx_width_unit
+- name: max_x_width_unit
   description: Units of image width of the ROI acquisition
   constraints:
     enum:
       - um
-- name: maxy_height_value
+- name: max_y_height_value
   description: Image height value of the ROI acquisition
   type: number
-- name: maxy_height_unit
+- name: max_y_height_unit
   description: Units of image height of the ROI acquisition
   constraints:
     enum:
       - um
-- name: roi_endx_pos_value
-  description: endx coordinate of the region of interest.
-  type: number
-- name: roi_endx_pos_units
-  description: Units of the endx coordinate of the region of interest.
-  constraints:
-    enum:
-      - um
-- name: roi_endy_pos_value
-  description: endy coordinate of the region of interest.
-  type: number
-- name: roi_endy_pos_units
-  description: Units of the endy coordinate of the region of interest.
-  constraints:
-    enum:
-      - um
-- name: roi_startx_pos_value
-  description: startx coordinate of the region of interest.
-    The attributes roi_startx_pos_value and roi_starty_pos_value
-    filled from .mcd metadata must be divided by 1000 to
-    correct for a bug (missing decimal point) in Fluidigm's software.
-  type: number
-- name: roi_startx_pos_units
-  description: Units of the startx-coordinate of the region of interest.
-  constraints:
-    enum:
-      - um
-- name: roi_starty_pos_value
-  description: starty coordinate of the region of interest.
-    The attributes roi_startx_pos_value and roi_starty_pos_value
-    filled from .mcd metadata must be divided by 1000 to
-    correct for a bug (missing decimal point) in Fluidigm's software.
-  type: number
-- name: roi_starty_pos_units
-  description: Units of the starty-coordinates of the region of interest.
-  constraints:
-    enum:
-      - um
 - name: segment_data_format
-  description: Numerical data type. TODO - Not sure this is actually a number... Do they mean the format of the data, like "16-bit little endian"?
+  description: This refers to the data type, which is a float for the IMC counts.
   type: number
 - name: signal_type
   description: Type of signal measured per channel (usually dual counts)
