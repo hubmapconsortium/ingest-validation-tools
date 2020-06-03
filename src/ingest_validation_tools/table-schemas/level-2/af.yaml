@@ -19,36 +19,38 @@ fields:
   # Level 2 fields:
   -
     name: acquisition_instrument_vendor
-    description: TODO
+    description: An acquisition_instrument is the device that contains the signal detection hardware and signal processing software. 
+    Assays generate signals such as light of various intensities or color or signals representing molecular mass.
   -
     name: acquisition_instrument_model
-    description: TODO
+    description: Manufacturers of an acquisition instrument may offer various versions (models) of that instrument with different features or sensitivities. 
+    Differences in features or sensitivities may be relevant to processing or interpretation of the data.
   -
     name: resolution_x_value
-    description: TODO
+    description: The width of a pixel.
   -
     name: resolution_x_unit
-    description: TODO
+    description: The unit of measurement of width of a pixel.
     constraints:
       enum:
         - nm
         - um
   -
     name: resolution_y_value
-    description: TODO
+    description: The height of a pixel
   -
     name: resolution_y_unit
-    description: TODO
+    description: The unit of measurement of height of a pixel.
     constraints:
       enum:
         - nm
         - um
   -
     name: resolution_z_value
-    description: TODO
+    description: Optional if assay does not have multiple z-levels. Note that this is resolution within a given sample: z-pitch (resolution_z_value) is the increment distance between image slices, ie. the microscope stage is moved up or down in increments to capture images of several focal planes.
   -
     name: resolution_z_unit
-    description: TODO
+    description: The unit of incremental distance between image slices.(um)
     constraints:
       enum:
         - nm
@@ -58,4 +60,4 @@ fields:
     description: TODO
   -
     name: overall_protocols_io_doi
-    description: TODO
+    description: DOI for protocols.io referring to the overall protocol for the assay.
