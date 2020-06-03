@@ -55,7 +55,9 @@ fields:
       - single-end
       - paired-end
 - name: library_adapter_sequence
-  description: Adapter sequence to be used for adapter trimming. TODO - pattern
+  description: The adapter sequence to be used for adapter trimming starting with the 5' end. (eg. 5-ATCCTGAGAA)
+  constraints:
+    pattern: '5-[GATCU]+'
 - name: library_final_yield
   description: Total amount of library after final pcr amplification step
   type: number
@@ -71,8 +73,9 @@ fields:
 - name: sequencing_reagent_kit
   description: Reagent kit used for sequencing
 - name: sequencing_read_format
-  description: Number of sequencing cycles in Read1, i7 index, i5 index, and Read2
-    (R1/i7/i5/R2). TODO - pattern constraint.
+  description: Slash-delimited list of the number of sequencing cycles for, for example, Read1, i7 index, i5 index, and Read2.
+  constraints:
+    pattern: '\d+(/\d+)+'
 - name: sequencing_read_percent_q30
   description: Percent of bases with Quality scores above Q30
 - name: sequencing_phix_percent
