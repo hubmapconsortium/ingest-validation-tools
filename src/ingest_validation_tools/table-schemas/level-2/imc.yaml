@@ -73,7 +73,7 @@ fields:
   The roi_id is a number from 1-n representing the ROI captured on a slide.
   type: number
 - name: acquisition_id
-  description: The acquisition_id refers to the filename for a slide image. Together, the acquisition_id and the roi_id
+  description: The acquisition_id refers to the directory containing the ROI images for a slide. Together, the acquisition_id and the roi_id
   indicate the slide-ROI represented in the image.
 - name: dual_count_start
   description: Threshold for dual counting.
