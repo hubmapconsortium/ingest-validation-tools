@@ -24,11 +24,11 @@ fields:
   -
     name: acquisition_instrument_vendor
     description: An acquisition instrument is the device that contains the signal detection hardware and signal processing software. 
-    Assays generate signals such as light of various intensities or color or signals representing the molecular mass
+      Assays generate signals such as light of various intensities or color or signals representing the molecular mass
   -
     name: acquisition_instrument_model
     description: (version) Manufacturers of an acquisition instrument may offer various versions (models) of that instrument with different features or sensitivities. 
-    Differences in features of sensitivities may be relevant to processing or interpretation of the data.
+      Differences in features of sensitivities may be relevant to processing or interpretation of the data.
   -
     name: ms_source
     description: The ion source type used for surface sampling (MALDI, MALDI-2, DESI, or SIMS) or LC-MS/MS data acquisition (nESI)
@@ -73,7 +73,7 @@ fields:
   -
     name: preparation_maldi_matrix
     description: The matrix is a compound of crystallized molecules that acts like a buffer between the sample and the laser. 
-    It also helps ionize the sample, carrying it along the flight tube so it can be detected.
+      It also helps ionize the sample, carrying it along the flight tube so it can be detected.
   -
     name: section_prep_protocols_io_doi
     description: DOI for protocols.io referring to the protocol for preparing tissue sections for the assay.

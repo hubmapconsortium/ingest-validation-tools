@@ -3,7 +3,6 @@
 ## v0.0.4 - In progress
 ### Added
 - Fill in TODOs.
-- Assay descriptions.
 - Generate unified description list.
 - Links to background docs.
 - Pre-fill enums in TSVs

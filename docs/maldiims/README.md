@@ -119,7 +119,7 @@ Each assay is placed into one of the following 3 general categories: generation 
 
 | constraint | value |
 | --- | --- |
-| enum | `TODO` |
+| enum | `imaging` |
 | required | `True` |
 
 ### `assay_type`
@@ -135,7 +135,7 @@ Analytes are the target molecules being measured with the assay.
 
 | constraint | value |
 | --- | --- |
-| enum | `TODO` |
+| enum | `proteins`, `metabolites`, or `lipids` |
 | required | `True` |
 
 ### `is_targeted`
@@ -147,28 +147,28 @@ Specifies whether or not a specific molecule(s) is/are targeted for detection/me
 | required | `True` |
 
 ### `acquisition_instrument_vendor`
-TODO
+An acquisition instrument is the device that contains the signal detection hardware and signal processing software. Assays generate signals such as light of various intensities or color or signals representing the molecular mass
 
 | constraint | value |
 | --- | --- |
 | required | `True` |
 
 ### `acquisition_instrument_model`
-TODO
+(version) Manufacturers of an acquisition instrument may offer various versions (models) of that instrument with different features or sensitivities. Differences in features of sensitivities may be relevant to processing or interpretation of the data.
 
 | constraint | value |
 | --- | --- |
 | required | `True` |
 
 ### `ms_source`
-TODO
+The ion source type used for surface sampling (MALDI, MALDI-2, DESI, or SIMS) or LC-MS/MS data acquisition (nESI)
 
 | constraint | value |
 | --- | --- |
 | required | `True` |
 
 ### `polarity`
-TODO
+The polarity of the mass analysis (positive or negative ion modes)
 
 | constraint | value |
 | --- | --- |
@@ -199,7 +199,7 @@ The width of a pixel
 | required | `True` |
 
 ### `resolution_x_unit`
-TODO
+The unit of measurement of the width of a pixel
 
 | constraint | value |
 | --- | --- |
@@ -215,7 +215,7 @@ The height of a pixel
 | required | `True` |
 
 ### `resolution_y_unit`
-TODO
+The unit of measurement of the height of a pixel
 
 | constraint | value |
 | --- | --- |
@@ -230,28 +230,28 @@ TODO
 | required | `True` |
 
 ### `preparation_instrument_vendor`
-TODO
+The manufacturer of the instrument used to prepare the sample for the assay.
 
 | constraint | value |
 | --- | --- |
 | required | `True` |
 
 ### `preparation_instrument_model`
-TODO
+The model number/name of the instrument used to prepare the sample for the assay
 
 | constraint | value |
 | --- | --- |
 | required | `True` |
 
 ### `preparation_maldi_matrix`
-TODO
+The matrix is a compound of crystallized molecules that acts like a buffer between the sample and the laser. It also helps ionize the sample, carrying it along the flight tube so it can be detected.
 
 | constraint | value |
 | --- | --- |
 | required | `True` |
 
 ### `section_prep_protocols_io_doi`
-TODO
+DOI for protocols.io referring to the protocol for preparing tissue sections for the assay.
 
 | constraint | value |
 | --- | --- |
@@ -259,7 +259,7 @@ TODO
 | pattern (regular expression) | `10\.17504/.*` |
 
 ### `overall_protocols_io_doi`
-TODO
+DOI for protocols.io referring to the overall protocol for the assay.
 
 | constraint | value |
 | --- | --- |
