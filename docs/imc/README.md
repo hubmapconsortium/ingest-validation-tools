@@ -34,6 +34,7 @@ Related files:
 [`preparation_instrument_model`](#preparation_instrument_model)<br>
 [`section_prep_protocols_io_doi`](#section_prep_protocols_io_doi)<br>
 [`reagent_prep_protocols_io_doi`](#reagent_prep_protocols_io_doi)<br>
+[`number_of_channels`](#number_of_channels)<br>
 [`ablation_distance_between_shots_x_value`](#ablation_distance_between_shots_x_value)<br>
 [`ablation_distance_between_shots_x_units`](#ablation_distance_between_shots_x_units)<br>
 [`ablation_distance_between_shots_y_value`](#ablation_distance_between_shots_y_value)<br>
@@ -43,32 +44,12 @@ Related files:
 [`roi_description`](#roi_description)<br>
 [`roi_id`](#roi_id)<br>
 [`acquisition_id`](#acquisition_id)<br>
-[`after_ablation_image_end_offset_value`](#after_ablation_image_end_offset_value)<br>
-[`after_ablation_image_end_offset_units`](#after_ablation_image_end_offset_units)<br>
-[`after_ablation_image_start_offset_value`](#after_ablation_image_start_offset_value)<br>
-[`after_ablation_image_start_offset_units`](#after_ablation_image_start_offset_units)<br>
-[`before_ablation_image_end_offset_value`](#before_ablation_image_end_offset_value)<br>
-[`before_ablation_image_end_offset_units`](#before_ablation_image_end_offset_units)<br>
-[`before_ablation_image_start_offset_value`](#before_ablation_image_start_offset_value)<br>
-[`before_ablation_image_start_offset_units`](#before_ablation_image_start_offset_units)<br>
-[`data_end_offset_value`](#data_end_offset_value)<br>
-[`data_end_offset_units`](#data_end_offset_units)<br>
-[`data_start_offset_value`](#data_start_offset_value)<br>
-[`data_start_offset_units`](#data_start_offset_units)<br>
 [`dual_count_start`](#dual_count_start)<br>
 [`end_datetime`](#end_datetime)<br>
-[`maxx_width_value`](#maxx_width_value)<br>
-[`maxx_width_unit`](#maxx_width_unit)<br>
-[`maxy_height_value`](#maxy_height_value)<br>
-[`maxy_height_unit`](#maxy_height_unit)<br>
-[`roi_endx_pos_value`](#roi_endx_pos_value)<br>
-[`roi_endx_pos_units`](#roi_endx_pos_units)<br>
-[`roi_endy_pos_value`](#roi_endy_pos_value)<br>
-[`roi_endy_pos_units`](#roi_endy_pos_units)<br>
-[`roi_startx_pos_value`](#roi_startx_pos_value)<br>
-[`roi_startx_pos_units`](#roi_startx_pos_units)<br>
-[`roi_starty_pos_value`](#roi_starty_pos_value)<br>
-[`roi_starty_pos_units`](#roi_starty_pos_units)<br>
+[`max_x_width_value`](#max_x_width_value)<br>
+[`max_x_width_unit`](#max_x_width_unit)<br>
+[`max_y_height_value`](#max_y_height_value)<br>
+[`max_y_height_unit`](#max_y_height_unit)<br>
 [`segment_data_format`](#segment_data_format)<br>
 [`signal_type`](#signal_type)<br>
 [`start_datetime`](#start_datetime)<br>
@@ -225,8 +206,16 @@ DOI for protocols.io referring to the protocol for preparing reagents for the as
 | required | `True` |
 | pattern (regular expression) | `10\.17504/.*` |
 
+### `number_of_channels`
+Number of mass channels measured
+
+| constraint | value |
+| --- | --- |
+| type | `integer` |
+| required | `True` |
+
 ### `ablation_distance_between_shots_x_value`
-Distance (\xB5m) between laser ablation shots in the X-dimension.
+x resolution. Distance between laser ablation shots in the X-dimension.
 
 | constraint | value |
 | --- | --- |
@@ -234,7 +223,7 @@ Distance (\xB5m) between laser ablation shots in the X-dimension.
 | required | `True` |
 
 ### `ablation_distance_between_shots_x_units`
-Units of distance between laser ablation shots.
+Units of x resolution distance between laser ablation shots.
 
 | constraint | value |
 | --- | --- |
@@ -242,7 +231,7 @@ Units of distance between laser ablation shots.
 | required | `True` |
 
 ### `ablation_distance_between_shots_y_value`
-Distance (\xB5m) between laser ablation shots in the Y-dimension.
+y resolution. Distance between laser ablation shots in the Y-dimension.
 
 | constraint | value |
 | --- | --- |
@@ -250,7 +239,7 @@ Distance (\xB5m) between laser ablation shots in the Y-dimension.
 | required | `True` |
 
 ### `ablation_distance_between_shots_y_units`
-Units of distance between laser ablation shots.
+Units of y resolution distance between laser ablation shots.
 
 | constraint | value |
 | --- | --- |
@@ -274,120 +263,25 @@ Frequency unit of laser ablation
 | required | `True` |
 
 ### `roi_description`
-A description of the region of interest (ROI)
+A description of the region of interest (ROI) captured in the image.
 
 | constraint | value |
 | --- | --- |
 | required | `True` |
 
 ### `roi_id`
-Identifier for the ROI
+Multiple images (1-n) are acquired from regions of interest (ROI1, ROI2, ROI3, etc) on a slide. The roi_id is a number from 1-n representing the ROI captured on a slide.
 
 | constraint | value |
 | --- | --- |
+| type | `number` |
 | required | `True` |
 
 ### `acquisition_id`
-Date and tissue type of acquisition. TODO - On our side, we strongly believe that IDs should not encode semantics. If the two pieces of information are useful, they should be recorded separately.
+The acquisition_id refers to the directory containing the ROI images for a slide. Together, the acquisition_id and the roi_id indicate the slide-ROI represented in the image.
 
 | constraint | value |
 | --- | --- |
-| required | `True` |
-
-### `after_ablation_image_end_offset_value`
-The number of bytes from the beginning of the MCD file where the respective entity is stored as binary
-
-| constraint | value |
-| --- | --- |
-| type | `number` |
-| required | `True` |
-
-### `after_ablation_image_end_offset_units`
-The units of the offset value.
-
-| constraint | value |
-| --- | --- |
-| enum | `bytes` |
-| required | `True` |
-
-### `after_ablation_image_start_offset_value`
-The number of bytes from the beginning of the MCD file where the respective entity is stored as binary
-
-| constraint | value |
-| --- | --- |
-| type | `number` |
-| required | `True` |
-
-### `after_ablation_image_start_offset_units`
-The units of the offset value.
-
-| constraint | value |
-| --- | --- |
-| enum | `bytes` |
-| required | `True` |
-
-### `before_ablation_image_end_offset_value`
-The number of bytes from the beginning of the MCD file where the respective entity is stored as binary
-
-| constraint | value |
-| --- | --- |
-| type | `number` |
-| required | `True` |
-
-### `before_ablation_image_end_offset_units`
-The units of the offset value.
-
-| constraint | value |
-| --- | --- |
-| enum | `bytes` |
-| required | `True` |
-
-### `before_ablation_image_start_offset_value`
-The number of bytes from the beginning of the MCD file where the respective entity is stored as binary
-
-| constraint | value |
-| --- | --- |
-| type | `number` |
-| required | `True` |
-
-### `before_ablation_image_start_offset_units`
-The units of the offset value.
-
-| constraint | value |
-| --- | --- |
-| enum | `bytes` |
-| required | `True` |
-
-### `data_end_offset_value`
-The number of bytes from the beginning of the MCD file where the respective entity is stored as binary
-
-| constraint | value |
-| --- | --- |
-| type | `number` |
-| required | `True` |
-
-### `data_end_offset_units`
-The units of the offset value.
-
-| constraint | value |
-| --- | --- |
-| enum | `bytes` |
-| required | `True` |
-
-### `data_start_offset_value`
-The number of bytes from the beginning of the MCD file where the respective entity is stored as binary
-
-| constraint | value |
-| --- | --- |
-| type | `number` |
-| required | `True` |
-
-### `data_start_offset_units`
-The units of the offset value.
-
-| constraint | value |
-| --- | --- |
-| enum | `bytes` |
 | required | `True` |
 
 ### `dual_count_start`
@@ -407,7 +301,7 @@ Time stamp indicating end of ablation for ROI
 | format | `%Y-%m-%d %H:%M` |
 | required | `True` |
 
-### `maxx_width_value`
+### `max_x_width_value`
 Image width value of the ROI acquisition
 
 | constraint | value |
@@ -415,7 +309,7 @@ Image width value of the ROI acquisition
 | type | `number` |
 | required | `True` |
 
-### `maxx_width_unit`
+### `max_x_width_unit`
 Units of image width of the ROI acquisition
 
 | constraint | value |
@@ -423,7 +317,7 @@ Units of image width of the ROI acquisition
 | enum | `um` |
 | required | `True` |
 
-### `maxy_height_value`
+### `max_y_height_value`
 Image height value of the ROI acquisition
 
 | constraint | value |
@@ -431,7 +325,7 @@ Image height value of the ROI acquisition
 | type | `number` |
 | required | `True` |
 
-### `maxy_height_unit`
+### `max_y_height_unit`
 Units of image height of the ROI acquisition
 
 | constraint | value |
@@ -439,72 +333,8 @@ Units of image height of the ROI acquisition
 | enum | `um` |
 | required | `True` |
 
-### `roi_endx_pos_value`
-endx coordinate of the region of interest.
-
-| constraint | value |
-| --- | --- |
-| type | `number` |
-| required | `True` |
-
-### `roi_endx_pos_units`
-Units of the endx coordinate of the region of interest.
-
-| constraint | value |
-| --- | --- |
-| enum | `um` |
-| required | `True` |
-
-### `roi_endy_pos_value`
-endy coordinate of the region of interest.
-
-| constraint | value |
-| --- | --- |
-| type | `number` |
-| required | `True` |
-
-### `roi_endy_pos_units`
-Units of the endy coordinate of the region of interest.
-
-| constraint | value |
-| --- | --- |
-| enum | `um` |
-| required | `True` |
-
-### `roi_startx_pos_value`
-startx coordinate of the region of interest. The attributes roi_startx_pos_value and roi_starty_pos_value filled from .mcd metadata must be divided by 1000 to correct for a bug (missing decimal point) in Fluidigm's software.
-
-| constraint | value |
-| --- | --- |
-| type | `number` |
-| required | `True` |
-
-### `roi_startx_pos_units`
-Units of the startx-coordinate of the region of interest.
-
-| constraint | value |
-| --- | --- |
-| enum | `um` |
-| required | `True` |
-
-### `roi_starty_pos_value`
-starty coordinate of the region of interest. The attributes roi_startx_pos_value and roi_starty_pos_value filled from .mcd metadata must be divided by 1000 to correct for a bug (missing decimal point) in Fluidigm's software.
-
-| constraint | value |
-| --- | --- |
-| type | `number` |
-| required | `True` |
-
-### `roi_starty_pos_units`
-Units of the starty-coordinates of the region of interest.
-
-| constraint | value |
-| --- | --- |
-| enum | `um` |
-| required | `True` |
-
 ### `segment_data_format`
-Numerical data type. TODO - Not sure this is actually a number... Do they mean the format of the data, like "16-bit little endian"?
+This refers to the data type, which is a float for the IMC counts.
 
 | constraint | value |
 | --- | --- |
