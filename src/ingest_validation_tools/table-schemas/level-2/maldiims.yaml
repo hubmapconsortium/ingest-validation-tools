@@ -5,7 +5,7 @@ fields:
     name: assay_category
     constraints:
       enum:
-        - TODO
+        - imaging
   -
     name: assay_type
     constraints:
@@ -16,21 +16,25 @@ fields:
     name: analyte_class
     constraints:
       enum:
-        - TODO
+        - proteins
+        - metabolites
+        - lipids
 
   # Level 2:
   -
     name: acquisition_instrument_vendor
-    description: TODO
+    description: An acquisition instrument is the device that contains the signal detection hardware and signal processing software. 
+      Assays generate signals such as light of various intensities or color or signals representing the molecular mass
   -
     name: acquisition_instrument_model
-    description: TODO
+    description: (version) Manufacturers of an acquisition instrument may offer various versions (models) of that instrument with different features or sensitivities. 
+      Differences in features of sensitivities may be relevant to processing or interpretation of the data.
   -
     name: ms_source
-    description: TODO
+    description: The ion source type used for surface sampling (MALDI, MALDI-2, DESI, or SIMS) or LC-MS/MS data acquisition (nESI)
   -
     name: polarity
-    description: TODO
+    description: The polarity of the mass analysis (positive or negative ion modes)
   -
     name: mz_range_low_value
     description: A number representing the mass:charge ratio
@@ -42,7 +46,7 @@ fields:
     description: The width of a pixel
   -
     name: resolution_x_unit
-    description: TODO
+    description: The unit of measurement of the width of a pixel
     constraints:
       enum:
         - nm
@@ -52,7 +56,7 @@ fields:
     description: The height of a pixel
   -
     name: resolution_y_unit
-    description: TODO
+    description: The unit of measurement of the height of a pixel
     constraints:
       enum:
         - nm
@@ -62,16 +66,17 @@ fields:
     description: TODO
   -
     name: preparation_instrument_vendor
-    description: TODO
+    description: The manufacturer of the instrument used to prepare the sample for the assay.
   -
     name: preparation_instrument_model
-    description: TODO
+    description: The model number/name of the instrument used to prepare the sample for the assay
   -
     name: preparation_maldi_matrix
-    description: TODO
+    description: The matrix is a compound of crystallized molecules that acts like a buffer between the sample and the laser. 
+      It also helps ionize the sample, carrying it along the flight tube so it can be detected.
   -
     name: section_prep_protocols_io_doi
-    description: TODO
+    description: DOI for protocols.io referring to the protocol for preparing tissue sections for the assay.
   -
     name: overall_protocols_io_doi
-    description: TODO
+    description: DOI for protocols.io referring to the overall protocol for the assay.
