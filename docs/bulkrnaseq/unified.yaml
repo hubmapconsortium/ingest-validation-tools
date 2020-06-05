@@ -175,9 +175,10 @@ fields:
   description: Reagent kit used for sequencing
   name: sequencing_reagent_kit
 - constraints:
+    pattern: \d+(/\d+)+
     required: true
-  description: Number of sequencing cycles in Read1, i7 index, i5 index, and Read2.
-    TODO - https://github.com/hubmapconsortium/ingest-validation-tools/issues/303
+  description: Slash-delimited list of the number of sequencing cycles for, for example,
+    Read1, i7 index, i5 index, and Read2.
   name: sequencing_read_format
 - constraints:
     maximum: 100
