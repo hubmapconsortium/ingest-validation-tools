@@ -140,21 +140,21 @@ Specifies whether or not a specific molecule(s) is/are targeted for detection/me
 | required | `True` |
 
 ### `acquisition_instrument_vendor`
-TODO
+An acquisition_instrument is the device that contains the signal detection hardware and signal processing software. Assays generate signals such as light of various intensities or color or signals representing molecular mass.
 
 | constraint | value |
 | --- | --- |
 | required | `True` |
 
 ### `acquisition_instrument_model`
-TODO
+Manufacturers of an acquisition instrument may offer various versions (models) of that instrument with different features or sensitivities. Differences in features or sensitivities may be relevant to processing or interpretation of the data.
 
 | constraint | value |
 | --- | --- |
 | required | `True` |
 
 ### `resolution_x_value`
-TODO
+The width of a pixel.
 
 | constraint | value |
 | --- | --- |
@@ -162,7 +162,7 @@ TODO
 | required | `True` |
 
 ### `resolution_x_unit`
-TODO
+The unit of measurement of width of a pixel.
 
 | constraint | value |
 | --- | --- |
@@ -170,7 +170,7 @@ TODO
 | required | `True` |
 
 ### `resolution_y_value`
-TODO
+The height of a pixel
 
 | constraint | value |
 | --- | --- |
@@ -178,7 +178,7 @@ TODO
 | required | `True` |
 
 ### `resolution_y_unit`
-TODO
+The unit of measurement of height of a pixel.
 
 | constraint | value |
 | --- | --- |
@@ -186,7 +186,7 @@ TODO
 | required | `True` |
 
 ### `resolution_z_value`
-TODO
+Optional if assay does not have multiple z-levels. Note that this is resolution within a given sample: z-pitch (resolution_z_value) is the increment distance between image slices, ie. the microscope stage is moved up or down in increments to capture images of several focal planes.
 
 | constraint | value |
 | --- | --- |
@@ -194,7 +194,7 @@ TODO
 | required | `True` |
 
 ### `resolution_z_unit`
-TODO
+The unit of incremental distance between image slices.(um)
 
 | constraint | value |
 | --- | --- |
@@ -210,7 +210,7 @@ TODO
 | required | `True` |
 
 ### `overall_protocols_io_doi`
-TODO
+DOI for protocols.io referring to the overall protocol for the assay.
 
 | constraint | value |
 | --- | --- |
