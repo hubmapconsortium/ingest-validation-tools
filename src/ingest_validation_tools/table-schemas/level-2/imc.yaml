@@ -52,7 +52,7 @@ fields:
       - um
       - nm
 - name: ablation_distance_between_shots_y_value
-  description: y resolution. Distance (\xB5m) between laser ablation shots in the Y-dimension.
+  description: y resolution. Distance between laser ablation shots in the Y-dimension.
 - name: ablation_distance_between_shots_y_units
   description: Units of y resolution distance between laser ablation shots.
   constraints:
