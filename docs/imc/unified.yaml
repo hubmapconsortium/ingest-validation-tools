@@ -110,7 +110,12 @@ fields:
   name: reagent_prep_protocols_io_doi
 - constraints:
     required: true
-  description: Distance (\xB5m) between laser ablation shots in the X-dimension.
+  description: Number of mass channels measured
+  name: number_of_channels
+  type: integer
+- constraints:
+    required: true
+  description: x resolution. Distance between laser ablation shots in the X-dimension.
   name: ablation_distance_between_shots_x_value
   type: number
 - constraints:
@@ -118,11 +123,11 @@ fields:
     - um
     - nm
     required: true
-  description: Units of distance between laser ablation shots.
+  description: Units of x resolution distance between laser ablation shots.
   name: ablation_distance_between_shots_x_units
 - constraints:
     required: true
-  description: Distance (\xB5m) between laser ablation shots in the Y-dimension.
+  description: y resolution. Distance between laser ablation shots in the Y-dimension.
   name: ablation_distance_between_shots_y_value
   type: number
 - constraints:
@@ -130,7 +135,7 @@ fields:
     - um
     - nm
     required: true
-  description: Units of distance between laser ablation shots.
+  description: Units of y resolution distance between laser ablation shots.
   name: ablation_distance_between_shots_y_units
 - constraints:
     required: true
@@ -145,90 +150,21 @@ fields:
   name: ablation_frequency_unit
 - constraints:
     required: true
-  description: A description of the region of interest (ROI)
+  description: A description of the region of interest (ROI) captured in the image.
   name: roi_description
 - constraints:
     required: true
-  description: Identifier for the ROI
+  description: Multiple images (1-n) are acquired from regions of interest (ROI1,
+    ROI2, ROI3, etc) on a slide. The roi_id is a number from 1-n representing the
+    ROI captured on a slide.
   name: roi_id
+  type: number
 - constraints:
     required: true
-  description: Date and tissue type of acquisition. TODO - On our side, we strongly
-    believe that IDs should not encode semantics. If the two pieces of information
-    are useful, they should be recorded separately.
+  description: The acquisition_id refers to the directory containing the ROI images
+    for a slide. Together, the acquisition_id and the roi_id indicate the slide-ROI
+    represented in the image.
   name: acquisition_id
-- constraints:
-    required: true
-  description: The number of bytes from the beginning of the MCD file where the respective
-    entity is stored as binary
-  name: after_ablation_image_end_offset_value
-  type: number
-- constraints:
-    enum:
-    - bytes
-    required: true
-  description: The units of the offset value.
-  name: after_ablation_image_end_offset_units
-- constraints:
-    required: true
-  description: The number of bytes from the beginning of the MCD file where the respective
-    entity is stored as binary
-  name: after_ablation_image_start_offset_value
-  type: number
-- constraints:
-    enum:
-    - bytes
-    required: true
-  description: The units of the offset value.
-  name: after_ablation_image_start_offset_units
-- constraints:
-    required: true
-  description: The number of bytes from the beginning of the MCD file where the respective
-    entity is stored as binary
-  name: before_ablation_image_end_offset_value
-  type: number
-- constraints:
-    enum:
-    - bytes
-    required: true
-  description: The units of the offset value.
-  name: before_ablation_image_end_offset_units
-- constraints:
-    required: true
-  description: The number of bytes from the beginning of the MCD file where the respective
-    entity is stored as binary
-  name: before_ablation_image_start_offset_value
-  type: number
-- constraints:
-    enum:
-    - bytes
-    required: true
-  description: The units of the offset value.
-  name: before_ablation_image_start_offset_units
-- constraints:
-    required: true
-  description: The number of bytes from the beginning of the MCD file where the respective
-    entity is stored as binary
-  name: data_end_offset_value
-  type: number
-- constraints:
-    enum:
-    - bytes
-    required: true
-  description: The units of the offset value.
-  name: data_end_offset_units
-- constraints:
-    required: true
-  description: The number of bytes from the beginning of the MCD file where the respective
-    entity is stored as binary
-  name: data_start_offset_value
-  type: number
-- constraints:
-    enum:
-    - bytes
-    required: true
-  description: The units of the offset value.
-  name: data_start_offset_units
 - constraints:
     required: true
   description: Threshold for dual counting.
@@ -243,77 +179,28 @@ fields:
 - constraints:
     required: true
   description: Image width value of the ROI acquisition
-  name: maxx_width_value
+  name: max_x_width_value
   type: number
 - constraints:
     enum:
     - um
     required: true
   description: Units of image width of the ROI acquisition
-  name: maxx_width_unit
+  name: max_x_width_unit
 - constraints:
     required: true
   description: Image height value of the ROI acquisition
-  name: maxy_height_value
+  name: max_y_height_value
   type: number
 - constraints:
     enum:
     - um
     required: true
   description: Units of image height of the ROI acquisition
-  name: maxy_height_unit
+  name: max_y_height_unit
 - constraints:
     required: true
-  description: endx coordinate of the region of interest.
-  name: roi_endx_pos_value
-  type: number
-- constraints:
-    enum:
-    - um
-    required: true
-  description: Units of the endx coordinate of the region of interest.
-  name: roi_endx_pos_units
-- constraints:
-    required: true
-  description: endy coordinate of the region of interest.
-  name: roi_endy_pos_value
-  type: number
-- constraints:
-    enum:
-    - um
-    required: true
-  description: Units of the endy coordinate of the region of interest.
-  name: roi_endy_pos_units
-- constraints:
-    required: true
-  description: startx coordinate of the region of interest. The attributes roi_startx_pos_value
-    and roi_starty_pos_value filled from .mcd metadata must be divided by 1000 to
-    correct for a bug (missing decimal point) in Fluidigm's software.
-  name: roi_startx_pos_value
-  type: number
-- constraints:
-    enum:
-    - um
-    required: true
-  description: Units of the startx-coordinate of the region of interest.
-  name: roi_startx_pos_units
-- constraints:
-    required: true
-  description: starty coordinate of the region of interest. The attributes roi_startx_pos_value
-    and roi_starty_pos_value filled from .mcd metadata must be divided by 1000 to
-    correct for a bug (missing decimal point) in Fluidigm's software.
-  name: roi_starty_pos_value
-  type: number
-- constraints:
-    enum:
-    - um
-    required: true
-  description: Units of the starty-coordinates of the region of interest.
-  name: roi_starty_pos_units
-- constraints:
-    required: true
-  description: Numerical data type. TODO - Not sure this is actually a number... Do
-    they mean the format of the data, like "16-bit little endian"?
+  description: This refers to the data type, which is a float for the IMC counts.
   name: segment_data_format
   type: number
 - constraints:
