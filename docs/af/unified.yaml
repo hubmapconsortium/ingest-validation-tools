@@ -116,7 +116,8 @@ fields:
   name: resolution_z_unit
 - constraints:
     required: true
-  description: TODO
+  description: Number of channels capturing the emission spectrum from natural fluorophores
+    in the sample.
   name: number_of_channels
   type: integer
 - constraints:
