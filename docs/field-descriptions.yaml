@@ -1,35 +1,23 @@
-ablation_distance_between_shots_x_units: Units of distance between laser ablation
-  shots.
-ablation_distance_between_shots_x_value: Distance (\xB5m) between laser ablation shots
-  in the X-dimension.
-ablation_distance_between_shots_y_units: Units of distance between laser ablation
-  shots.
-ablation_distance_between_shots_y_value: Distance (\xB5m) between laser ablation shots
-  in the Y-dimension.
+ablation_distance_between_shots_x_units: Units of x resolution distance between laser
+  ablation shots.
+ablation_distance_between_shots_x_value: x resolution. Distance between laser ablation
+  shots in the X-dimension.
+ablation_distance_between_shots_y_units: Units of y resolution distance between laser
+  ablation shots.
+ablation_distance_between_shots_y_value: y resolution. Distance between laser ablation
+  shots in the Y-dimension.
 ablation_frequency_unit: Frequency unit of laser ablation
 ablation_frequency_value: Frequency value of laser ablation (in Hz)
-acquisition_id: Date and tissue type of acquisition. TODO - On our side, we strongly
-  believe that IDs should not encode semantics. If the two pieces of information are
-  useful, they should be recorded separately.
+acquisition_id: The acquisition_id refers to the directory containing the ROI images
+  for a slide. Together, the acquisition_id and the roi_id indicate the slide-ROI
+  represented in the image.
 acquisition_instrument_model: TODO
 acquisition_instrument_vendor: TODO
-after_ablation_image_end_offset_units: The units of the offset value.
-after_ablation_image_end_offset_value: The number of bytes from the beginning of the
-  MCD file where the respective entity is stored as binary
-after_ablation_image_start_offset_units: The units of the offset value.
-after_ablation_image_start_offset_value: The number of bytes from the beginning of
-  the MCD file where the respective entity is stored as binary
 analyte_class: Analytes are the target molecules being measured with the assay.
 assay_category: 'Each assay is placed into one of the following 3 general categories:
   generation of images of microscopic entities, identification & quantitation of molecules
   by mass spectrometry, and determination of nucleotide sequence.'
 assay_type: The specific type of assay being executed.
-before_ablation_image_end_offset_units: The units of the offset value.
-before_ablation_image_end_offset_value: The number of bytes from the beginning of
-  the MCD file where the respective entity is stored as binary
-before_ablation_image_start_offset_units: The units of the offset value.
-before_ablation_image_start_offset_value: The number of bytes from the beginning of
-  the MCD file where the respective entity is stored as binary
 bulk_atac_cell_isolation_protocols_io_doi: 'Link to a protocols document answering
   the question: How was tissue stored and processed for cell/nuclei isolation'
 bulk_rna_isolation_protocols_io_doi: 'Link to a protocols document answering the question:
@@ -47,15 +35,9 @@ cell_barcode_read: Which read file contains the cell barcode
 cell_barcode_size: Length of the cell barcode in base pairs
 data_collection_mode: Mode of data collection in tandem MS assays. Either DDA (Data-dependent
   acquisition) or DIA (Data-indemendent acquisition.
-data_end_offset_units: The units of the offset value.
-data_end_offset_value: The number of bytes from the beginning of the MCD file where
-  the respective entity is stored as binary
 data_path: Relative path to file or directory with instrument data. Downstream processing
   will depend on filename extension conventions.
 data_precision_bytes: Numerical data precision in bytes
-data_start_offset_units: The units of the offset value.
-data_start_offset_value: The number of bytes from the beginning of the MCD file where
-  the respective entity is stored as binary
 dna_assay_input_unit: Units of DNA input into library preparation
 dna_assay_input_value: Amount of DNA input into library preparation
 donor_id: HuBMAP Display ID of the donor of the assayed tissue.
@@ -110,10 +92,10 @@ library_layout: Whether the library was generated for single-end or paired end s
 library_pcr_cycles: Number of PCR cycles to amplify cDNA
 library_pcr_cycles_for_sample_index: Number of PCR cycles performed for library indexing
 library_preparation_kit: Reagent kit used for library preparation
-maxx_width_unit: Units of image width of the ROI acquisition
-maxx_width_value: Image width value of the ROI acquisition
-maxy_height_unit: Units of image height of the ROI acquisition
-maxy_height_value: Image height value of the ROI acquisition
+max_x_width_unit: Units of image width of the ROI acquisition
+max_x_width_value: Image width value of the ROI acquisition
+max_y_height_unit: Units of image height of the ROI acquisition
+max_y_height_value: Image height value of the ROI acquisition
 metadata_path: Relative path to file or directory with free-form or instrument/lab
   specific metadata. Optional.
 ms_scan_mode: Indicates whether experiment is MS, MS/MS, or other (possibly MS3 for
@@ -160,20 +142,10 @@ rnaseq_assay_input: Number of cell/nuclei input to the assay
 rnaseq_assay_input_unit: Units of RNA input amount to the assay
 rnaseq_assay_input_value: RNA input amount value to the assay
 rnaseq_assay_method: rnaseq assay kit used.
-roi_description: A description of the region of interest (ROI)
-roi_endx_pos_units: Units of the endx coordinate of the region of interest.
-roi_endx_pos_value: endx coordinate of the region of interest.
-roi_endy_pos_units: Units of the endy coordinate of the region of interest.
-roi_endy_pos_value: endy coordinate of the region of interest.
-roi_id: Identifier for the ROI
-roi_startx_pos_units: Units of the startx-coordinate of the region of interest.
-roi_startx_pos_value: startx coordinate of the region of interest. The attributes
-  roi_startx_pos_value and roi_starty_pos_value filled from .mcd metadata must be
-  divided by 1000 to correct for a bug (missing decimal point) in Fluidigm's software.
-roi_starty_pos_units: Units of the starty-coordinates of the region of interest.
-roi_starty_pos_value: starty coordinate of the region of interest. The attributes
-  roi_startx_pos_value and roi_starty_pos_value filled from .mcd metadata must be
-  divided by 1000 to correct for a bug (missing decimal point) in Fluidigm's software.
+roi_description: A description of the region of interest (ROI) captured in the image.
+roi_id: Multiple images (1-n) are acquired from regions of interest (ROI1, ROI2, ROI3,
+  etc) on a slide. The roi_id is a number from 1-n representing the ROI captured on
+  a slide.
 sample_quality_metric: "This is a quality metric by visual inspection. This should\
   \ answer the question: Are the nuclei intact and are the nuclei free of significant\
   \ amounts of debris? This can be captured at a high level, \u201COK\u201D or \u201C\
@@ -191,8 +163,7 @@ sc_isolation_quality_metric: A quality metric by visual inspection prior to cell
 sc_isolation_tissue_dissociation: The method by which tissues are dissociated into
   single cells in suspension.
 section_prep_protocols_io_doi: TODO
-segment_data_format: Numerical data type. TODO - Not sure this is actually a number...
-  Do they mean the format of the data, like "16-bit little endian"?
+segment_data_format: This refers to the data type, which is a float for the IMC counts.
 sequencing_phix_percent: Percent PhiX loaded to the ru
 sequencing_read_format: Number of sequencing cycles in Read1, i7 index, i5 index,
   and Read2 (R1/i7/i5/R2). TODO - pattern constraint.
