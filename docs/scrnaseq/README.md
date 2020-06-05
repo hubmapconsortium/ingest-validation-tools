@@ -337,10 +337,11 @@ Reagent kit used for sequencing
 | required | `True` |
 
 ### `sequencing_read_format`
-Number of sequencing cycles in Read1, i7 index, i5 index, and Read2 - TODO https://github.com/hubmapconsortium/ingest-validation-tools/issues/303
+Slash-delimited list of the number of sequencing cycles for, for example, Read1, i7 index, i5 index, and Read2.
 
 | constraint | value |
 | --- | --- |
+| pattern (regular expression) | `\d+(/\d+)+` |
 | required | `True` |
 
 ### `sequencing_read_percent_q30`
@@ -354,7 +355,7 @@ Percent of bases with Quality scores above Q30
 | maximum | `100` |
 
 ### `sequencing_phix_percent`
-Percent PhiX loaded to the ru
+Percent PhiX loaded to the run
 
 | constraint | value |
 | --- | --- |

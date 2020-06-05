@@ -164,7 +164,7 @@ sc_isolation_tissue_dissociation: The method by which tissues are dissociated in
   single cells in suspension.
 section_prep_protocols_io_doi: TODO
 segment_data_format: This refers to the data type, which is a float for the IMC counts.
-sequencing_phix_percent: Percent PhiX loaded to the ru
+sequencing_phix_percent: Percent PhiX loaded to the run
 sequencing_read_format: Slash-delimited list of the number of sequencing cycles for,
   for example, Read1, i7 index, i5 index, and Read2.
 sequencing_read_percent_q30: Percent of bases with Quality scores above Q30
