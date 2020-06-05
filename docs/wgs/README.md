@@ -214,10 +214,11 @@ State whether the library was generated for single-end or paired end sequencing.
 | required | `True` |
 
 ### `library_adapter_sequence`
-Adapter sequence to be used for adapter trimming. TODO - pattern
+The adapter sequence to be used for adapter trimming starting with the 5' end. (eg. 5-ATCCTGAGAA)
 
 | constraint | value |
 | --- | --- |
+| pattern (regular expression) | `5-[GATCU]+` |
 | required | `True` |
 
 ### `library_final_yield`
@@ -252,10 +253,11 @@ Reagent kit used for sequencing
 | required | `True` |
 
 ### `sequencing_read_format`
-Number of sequencing cycles in Read1, i7 index, i5 index, and Read2 (R1/i7/i5/R2). TODO - pattern constraint.
+Slash-delimited list of the number of sequencing cycles for, for example, Read1, i7 index, i5 index, and Read2.
 
 | constraint | value |
 | --- | --- |
+| pattern (regular expression) | `\d+(/\d+)+` |
 | required | `True` |
 
 ### `sequencing_read_percent_q30`
