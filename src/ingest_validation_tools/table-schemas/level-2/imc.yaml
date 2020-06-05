@@ -41,7 +41,7 @@ fields:
   description: DOI for protocols.io referring to the protocol for preparing reagents
     for the assay.
 - name: number_of_channels
-  description: Number of antibodies imaged.
+  description: Number of mass channels measured
   type: number
 - name: ablation_distance_between_shots_x_value
   description: x resolution. Distance between laser ablation shots in the X-dimension.
