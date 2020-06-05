@@ -15,7 +15,7 @@ fields:
   name: analyte_class
   constraints:
     enum:
-      - TODO
+      - imaging
 
 # Level 2 fields:
 - heading: Level 2
