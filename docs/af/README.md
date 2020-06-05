@@ -202,7 +202,7 @@ TODO
 | required | `True` |
 
 ### `number_of_channels`
-TODO
+Number of channels capturing the emission spectrum from natural fluorophores in the sample.
 
 | constraint | value |
 | --- | --- |

@@ -126,7 +126,7 @@ number_of_barcode_probes: Number of barcode probes targeting mRNAs (eg. 24,000 b
   probes = 24,000 mRNAs - 1 per mRNA of interest)
 number_of_barcode_regions_per_barcode_probe: Number of barcode regions on each mRNA
   barcode probe (the paper describes mRNA probes with 4 barcoded regions)
-number_of_channels: TODO
+number_of_channels: Number of fluorescent channels imaged during each cycle.
 number_of_cycles: Number of cycles of 1. oligo application, 2. fluor application,
   3. washes
 number_of_pseudocolors_per_channel: Number of pseudocolors that can be assigned to
