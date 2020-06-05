@@ -44,7 +44,7 @@ fields:
   description: Number of antibodies imaged.
   type: number
 - name: ablation_distance_between_shots_x_value
-  description: x resolution. Distance (\xB5m) between laser ablation shots in the X-dimension.
+  description: x resolution. Distance between laser ablation shots in the X-dimension.
 - name: ablation_distance_between_shots_x_units
   description: Units of x resolution distance between laser ablation shots.
   constraints:
