@@ -63,7 +63,7 @@ fields:
         - um
   -
     name: preparation_type
-    description: TODO
+    description: Common methods of depositing matrix for MALDI imaging include robotic spotting, electrospray deposition, and spray-coating with an airbrush.
   -
     name: preparation_instrument_vendor
     description: The manufacturer of the instrument used to prepare the sample for the assay.
