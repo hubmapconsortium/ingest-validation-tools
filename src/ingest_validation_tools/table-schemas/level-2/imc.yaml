@@ -99,8 +99,7 @@ fields:
     enum:
       - um
 - name: segment_data_format
-  description: This refers to the data type, which is a float for the IMC counts.
-  type: number
+  description: This refers to the data type, which is a "Float" for the IMC counts.
 - name: signal_type
   description: Type of signal measured per channel (usually dual counts)
   constraints:
