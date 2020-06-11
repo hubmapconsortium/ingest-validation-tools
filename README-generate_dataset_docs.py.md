@@ -1,7 +1,7 @@
 ```
-usage: generate_docs.py [-h]
-                        {af,bulkatacseq,bulkrnaseq,codex,imc,lcms,maldiims,mixif,scatacseq,scrnaseq,seqfish,stained,wgs}
-                        target
+usage: generate_dataset_docs.py [-h]
+                                {af,bulkatacseq,bulkrnaseq,codex,imc,lcms,maldiims,mixif,scatacseq,scrnaseq,seqfish,stained,wgs}
+                                target
 
 positional arguments:
   {af,bulkatacseq,bulkrnaseq,codex,imc,lcms,maldiims,mixif,scatacseq,scrnaseq,seqfish,stained,wgs}

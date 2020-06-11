@@ -13,28 +13,16 @@ flake8 || die 'Try: autopep8 --in-place --aggressive -r .'
 end flake8
 
 start src-doctests
-find src | grep '\.py$' | xargs python -m doctest
+cd src
+find . | grep '\.py$' | xargs python -m doctest
+cd -
 end src-doctests
 
-start schemas-exist
-./test-schemas-exist.sh
-end schemas-exist
-
-start examples
-./test-examples.sh
-end examples
-
-start generate
-./test-generate.sh
-end generate
-
-start cli-docs
-./test-cli-docs.sh
-end cli-docs
-
-start test-cli
-./test-cli.py
-end test-cli
+for TEST in test-*; do
+  start $TEST
+  eval ./$TEST
+  end $TEST
+done
 
 start changelog
 if [ "$TRAVIS_BRANCH" != 'master' ]; then

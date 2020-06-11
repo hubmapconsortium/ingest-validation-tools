@@ -1,0 +1,18 @@
+doc_url: TODO
+fields:
+  -
+    heading: IDs
+    name: some_id_field
+    description: TODO
+  -
+    heading: Donor
+    name: some_donor_field
+    description: TODO
+  -
+    heading: Organ
+    name: some_organ_field
+    description: TODO
+  -
+    heading: Specimen
+    name: some_specimen_field
+    description: TODO
