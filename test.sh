@@ -18,30 +18,11 @@ find . | grep '\.py$' | xargs python -m doctest
 cd -
 end src-doctests
 
-# TODO: Just loop over test files.
-start schemas-exist
-./test-schemas-exist.sh
-end schemas-exist
-
-start dataset-examples
-./test-dataset-examples.sh
-end dataset-examples
-
-start sample-examples
-./test-sample-examples.sh
-end sample-examples
-
-start generate
-./test-generate.sh
-end generate
-
-start cli-docs
-./test-cli-docs.sh
-end cli-docs
-
-start test-cli
-./test-cli.py
-end test-cli
+for TEST in test-*; do
+  start $TEST
+  eval ./$TEST
+  end $TEST
+done
 
 start changelog
 if [ "$TRAVIS_BRANCH" != 'master' ]; then
