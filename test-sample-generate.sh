@@ -11,7 +11,7 @@ TEST_DEST="docs-test/sample"
 REAL_CMD="src/generate_sample_docs.py $REAL_DEST"
 TEST_CMD="src/generate_sample_docs.py $TEST_DEST"
 
-mkdir docs-test/sample || echo "Already exists"
+mkdir -p docs-test/sample || echo "Already exists"
 eval $TEST_CMD
 diff -r $REAL_DEST $TEST_DEST \
   || die "Update needed: $REAL_CMD"
