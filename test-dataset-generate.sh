@@ -24,6 +24,7 @@ rm -rf docs-test
 
 for TYPE in $(ls -d docs/*/); do # Just get subdirectories
   TYPE=`basename $TYPE`
+  [ $TYPE = 'sample' ] && echo 'Skip!' && continue # Sample metadata handled separately!
   echo "Testing $TYPE generation..."
 
   REAL_DEST="docs/$TYPE"
