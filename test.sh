@@ -24,6 +24,10 @@ start dataset-examples
 ./test-dataset-examples.sh
 end dataset-examples
 
+start sample-examples
+./test-sample-examples.sh
+end sample-examples
+
 start generate
 ./test-generate.sh
 end generate

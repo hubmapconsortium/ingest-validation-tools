@@ -34,6 +34,6 @@ for args in bad_args:
     try:
         validate(args)
     except subprocess.CalledProcessError:
-        # Expected!
+        print('☝️  That was an expected error.')
         continue
     raise Exception(f'Passed, when it should have failed: {args}')
