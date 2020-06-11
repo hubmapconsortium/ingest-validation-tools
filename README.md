@@ -28,7 +28,7 @@ print(report.as_text())
 
 ## For curators:
 
-Example submissions and validation reports are [here](examples).
+Example submissions and validation reports are [here](dataset-examples).
 
 You can [run validation locally](README-validate_submission.md)
 before the same checks are run automatically during ingest.

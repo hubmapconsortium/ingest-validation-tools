@@ -13,7 +13,7 @@ def make_parser():
     parser = argparse.ArgumentParser(
         description='Validate a HuBMAP Sample metadata TSV.')
     parser.add_argument(
-        '--path',
+        '--path', required=True,
         help='Sample metadata.tsv path. ')
     error_report_methods = [
         name for (name, type) in inspect.getmembers(ErrorReport)

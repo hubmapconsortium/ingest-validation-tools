@@ -20,9 +20,9 @@ start schemas-exist
 ./test-schemas-exist.sh
 end schemas-exist
 
-start examples
-./test-examples.sh
-end examples
+start dataset-examples
+./test-dataset-examples.sh
+end dataset-examples
 
 start generate
 ./test-generate.sh
