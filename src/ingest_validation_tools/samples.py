@@ -24,7 +24,7 @@ class Samples:
     def _get_tsv_errors(self):
         schema = load_yaml(
             (Path(__file__).parent / 'table-schemas' /
-             'samples.yaml').read_text()
+             'sample.yaml').read_text()
         )
         report = validate_table(self.path, schema=schema,
                                 format='csv', delimiter='\t',
