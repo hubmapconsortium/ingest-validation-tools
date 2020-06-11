@@ -3,8 +3,6 @@
 import argparse
 from pathlib import Path
 import sys
-import re
-import os
 
 from yaml import dump as dump_yaml
 
@@ -12,13 +10,7 @@ from ingest_validation_tools.table_schema_loader import list_types, get_schema
 from ingest_validation_tools.docs_utils import (
     get_tsv_name, generate_template_tsv, generate_readme_md
 )
-
-
-def _dir_path(string):
-    if os.path.isdir(string):
-        return string
-    else:
-        raise Exception(f'"{string}" is not a directory')
+from ingest_validation_tools.argparse_types import dir_path
 
 
 def main():
@@ -29,7 +21,7 @@ def main():
         help='What type to generate')
     parser.add_argument(
         'target',
-        type=_dir_path,
+        type=dir_path,
         help='Directory to write output to')
     args = parser.parse_args()
 
