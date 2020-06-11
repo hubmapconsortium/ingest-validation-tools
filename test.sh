@@ -13,9 +13,12 @@ flake8 || die 'Try: autopep8 --in-place --aggressive -r .'
 end flake8
 
 start src-doctests
-find src | grep '\.py$' | xargs python -m doctest
+cd src
+find . | grep '\.py$' | xargs python -m doctest
+cd -
 end src-doctests
 
+# TODO: Just loop over test files.
 start schemas-exist
 ./test-schemas-exist.sh
 end schemas-exist
