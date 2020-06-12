@@ -9,7 +9,6 @@ Related files:
 [`donor.source.institution`](#donor.source.institution)<br>
 [`donor.vital_state`](#donor.vital_state)<br>
 [`donor.health_status`](#donor.health_status)<br>
-[`donor.imaging_body_level`](#donor.imaging_body_level)<br>
 [`medical_procedure.organ.condition`](#medical_procedure.organ.condition)<br>
 [`medical_procedure.organ.id`](#medical_procedure.organ.id)<br>
 [`medical_procedure.date_undertaken`](#medical_procedure.date_undertaken)<br>
@@ -18,8 +17,6 @@ Related files:
 [`medical_procedure.organ.qc.pathologist_report`](#medical_procedure.organ.qc.pathologist_report)<br>
 [`medical_procedure.organ.transport.warm_ischemia_time`](#medical_procedure.organ.transport.warm_ischemia_time)<br>
 [`medical_procedure.organ.transport.cold_ischemia_time`](#medical_procedure.organ.transport.cold_ischemia_time)<br>
-[`medical_procedure.organ.digital_photograph.files`](#medical_procedure.organ.digital_photograph.files)<br>
-[`medical_procedure.organ.imaging.files`](#medical_procedure.organ.imaging.files)<br>
 [`biospecimen_aliquot.mechanism_of_stabilization`](#biospecimen_aliquot.mechanism_of_stabilization)<br>
 [`biospecimen_aliquot.long_term_preservative.type`](#biospecimen_aliquot.long_term_preservative.type)<br>
 [`biospecimen_aliquot.temperature_in_preservation_solution`](#biospecimen_aliquot.temperature_in_preservation_solution)<br>
@@ -49,13 +46,6 @@ Patient's physical condition immediately preceding death. TODO - Confirm that yo
 | --- | --- |
 | required | `True` |
 | enum | `cancer`, `relatively healthy`, or `chronic illness` |
-
-### `donor.imaging_body_level`
-Images of the donor body-level - TODO - For other images you gave paths... are the files not available here? "Chest CT" is not one of the enumerated values, but it is given as an example - What is actually required?
-
-| constraint | value |
-| --- | --- |
-| required | `True` |
 
 ### `medical_procedure.organ.condition`
 TODO
@@ -116,20 +106,6 @@ min - TODO - Chuck really encourages either a separate units column or units in 
 | constraint | value |
 | --- | --- |
 | type | `number` |
-| required | `True` |
-
-### `medical_procedure.organ.digital_photograph.files`
-Any digital photos of organ. TODO - Chuck has asked bill if this belongs here.
-
-| constraint | value |
-| --- | --- |
-| required | `True` |
-
-### `medical_procedure.organ.imaging.files`
-Any MRI/CT (DICOM) images of the entire organ. TODO - Chuck has asked bill if this belongs here.
-
-| constraint | value |
-| --- | --- |
 | required | `True` |
 
 ### `biospecimen_aliquot.mechanism_of_stabilization`
