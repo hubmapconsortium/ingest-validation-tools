@@ -1,7 +1,5 @@
 ```
 Sample TSV Errors:
-- The value "ABC" in row 2 and column 1 ("A") does not conform to the pattern constraint
-  of "[A-Z]+[0-9]+"
 - Row 2 has a missing value in column 2 ("B")
 - Row 2 has a missing value in column 3 ("C")
 - Row 2 has a missing value in column 4 ("D")
@@ -19,4 +17,8 @@ Sample TSV Errors:
 - Row 2 has a missing value in column 16 ("P")
 - Row 2 has a missing value in column 17 ("Q")
 - Row 2 has a missing value in column 18 ("R")
+- Row 2 has a missing value in column 19 ("S")
+- Row 2 has a missing value in column 20 ("T")
+- Row 2 has a missing value in column 21 ("U")
+- Row 2 has a missing value in column 22 ("V")
 ```

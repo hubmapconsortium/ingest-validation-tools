@@ -1,6 +1,7 @@
 doc_url: TODO
 fields:
 -
+  heading: IDs
   name: donor_id
   description: TODO
   constraints:
@@ -13,7 +14,8 @@ fields:
     required: True 
     pattern: '([A-Z]+[0-9]+)-(BL|BR|LB|RB|HT|LK|RK|LI|LV|LL|RL|LY\d\d|SI|SP|TH|TR|UR|OT)(-\d+)+(_\d+)?' 
 -
-  name: donor.source.institution
+  heading: Donor
+  name: donor_source_institution
   constraints:
     required: True
     enum: 
@@ -28,7 +30,7 @@ fields:
   TODO_shin: this grid may be used for future project -- that's what Ajay said  
   TODO_sanjay:
 -
-  name: donor.vital_state 
+  name: donor_vital_state 
   constraints:
     required: True 
     enum:
@@ -42,7 +44,7 @@ fields:
   TODO_shin:   
   TODO_sanjay:
 -
-  name: donor.health_status 
+  name: donor_health_status 
   constraints:
     required: True 
     enum:
@@ -57,7 +59,8 @@ fields:
   TODO_shin:   
   TODO_sanjay:
 -
-  name: medical_procedure.organ.condition 
+  heading: Medical Procedure
+  name: medical_procedure_organ_condition 
   constraints:
     required: True 
     enum: 
@@ -71,7 +74,7 @@ fields:
   TODO_shin: this is condition, not procedure  
   TODO_sanjay:
 -
-  name: medical_procedure.organ.id  
+  name: medical_procedure_organ_id  
   constraints:
     required: True
   description:   TODO - format? description?
@@ -82,7 +85,7 @@ fields:
   TODO_shin:   
   TODO_sanjay:
 -
-  name: medical_procedure.date_undertaken 
+  name: medical_procedure_date_undertaken 
   constraints:
     required: False
   type: date
@@ -94,7 +97,7 @@ fields:
   TODO_shin:   
   TODO_sanjay:
 -
-  name: medical_procedure.protocols  
+  name: medical_procedure_protocols  
   constraints:
     required: True
   description: protocols.io link that specifies medical/surgical procedure to obtain organ from deceased donors or surgical excision - TODO - Require protocols.io DOI?
@@ -105,7 +108,7 @@ fields:
   TODO_shin:   
   TODO_sanjay:
 -
-  name: medical_procedure.organ_perfusion.solution_type  
+  name: medical_procedure_organ_perfusion_solution_type  
   constraints:
     required: True
     enum:
@@ -120,7 +123,7 @@ fields:
   TODO_shin: yes enumeration  
   TODO_sanjay:
 -
-  name: medical_procedure.organ.qc.pathologist_report  
+  name: medical_procedure_organ_qc_pathologist_report  
   constraints:
     required: True
   description: Further details on organ level QC checks - TODO - This is the actual text of the pathology report? Do new-lines need to be preserved?
@@ -131,22 +134,11 @@ fields:
   TODO_shin: free text  
   TODO_sanjay:
 -
-  name: medical_procedure.organ.transport.warm_ischemia_time  
-  constraints:
-    required: True
-  description: donor asystole or cross-clamp to ice; for surgical specimens, time from devascularization of tissue to ice. TODO- Units somewhere.
-
-  TODO_summation: yes  
-  TODO_nils: Need value and unit columns  
-  TODO_type: number + enum columns  
-  TODO_shin: should be minutes -> so just value  
-  TODO_sanjay:
--
-  name: medical_procedure.organ.transport.cold_ischemia_time  
+  name: medical_procedure_organ_transport_warm_ischemia_time_value 
   constraints:
     required: True
   type: number
-  description: min - TODO - Chuck really encourages either a separate units column or units in field name.
+  description: donor asystole or cross-clamp to ice; for surgical specimens, time from devascularization of tissue to ice.
 
   TODO_summation: yes  
   TODO_nils: Need value and unit columns  
@@ -154,7 +146,34 @@ fields:
   TODO_shin: should be minutes -> so just value  
   TODO_sanjay:
 -
-  name: biospecimen_aliquot.mechanism_of_stabilization  
+  name: medical_procedure_organ_transport_warm_ischemia_time_unit
+  description: Time unit
+  constraints:
+    required: True
+    enum:
+      - minutes
+-
+  name: medical_procedure_organ_transport_cold_ischemia_time_value
+  constraints:
+    required: True
+  type: number
+  description: TODO
+
+  TODO_summation: yes  
+  TODO_nils: Need value and unit columns  
+  TODO_type: number + enum columns  
+  TODO_shin: should be minutes -> so just value  
+  TODO_sanjay:
+-
+  name: medical_procedure_organ_transport_cold_ischemia_time_unit
+  description: Time unit
+  constraints:
+    required: True
+    enum:
+      - minutes
+-
+  heading: Biospecimen
+  name: biospecimen_aliquot_mechanism_of_stabilization  
   constraints:
     required: True
     enum:
@@ -177,7 +196,7 @@ fields:
   TODO_shin: or PDF  
   TODO_sanjay: drop down values; FFPE should be deleted from this and moved to long term. I added NBF "
 -
-  name: biospecimen_aliquot.long_term_preservative.type  
+  name: biospecimen_aliquot_long_term_preservative_type  
   constraints:
     required: True
     enum:
@@ -214,11 +233,11 @@ fields:
   TODO_shin: or PDF  
   TODO_sanjay: drop down values"
 -
-  name: biospecimen_aliquot.temperature_in_preservation_solution  
+  name: biospecimen_aliquot_temperature_in_preservation_solution_value 
   constraints:
     required: True
-  enum: celsius  
-  description: The temperature of the medium during the preservation process. TODO - Suggest unit in column name or separate column. - What does the protocol.io mean here? 
+  type: number  
+  description: The temperature of the medium during the preservation process. TODO - What does the protocol.io mean here? 
 
   TODO_summation: protocol.io  
   TODO_nils: Need value and unit columns  
@@ -226,7 +245,14 @@ fields:
   TODO_shin: just number (use celsuis)  
   TODO_sanjay:
 -
-  name: biospecimen_selection.qa_qc_measure_criteria.institution  
+  name: biospecimen_aliquot_temperature_in_preservation_solution_unit
+  constraints:
+    required: True
+    enum:
+      - Celsius
+  description: Temperature unit
+-
+  name: biospecimen_selection_qa_qc_measure_criteria_institution  
   constraints:
     required: False
   enum: {source_site,receiving_assay_site}  
@@ -238,14 +264,21 @@ fields:
   TODO_shin: "free text.  Could be 'RIN: 8.7'"  
   TODO_sanjay:
 -
-  name: biospecimen_selection.distance_from_tumor  
+  name: biospecimen_selection_distance_from_tumor_value 
   constraints:
     required: False
   type: number
-  description: If surgical sample, how far from the tumor was the sample obtained from. TODO - Suggest either including unit in name or as separate column.
+  description: If surgical sample, how far from the tumor was the sample obtained from.
 
   TODO_summation: optional  
   TODO_nils: Need value and unit columns  
   TODO_type: number + enum columns  
   TODO_shin: just value (use cm)  
   TODO_sanjay:
+-
+  name: biospecimen_selection_distance_from_tumor_unit
+  constraints:
+    required: False
+    enum:
+      - cm
+  description: Units for distance from tumor.
