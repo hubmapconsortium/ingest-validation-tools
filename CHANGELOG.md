@@ -5,6 +5,7 @@
 - Fix Regexes in MD.
 - Sample metadata validation
 - ... and fill in draft details.
+- ... and fill in headers and add unit columns.
 - Fill in TODOs.
 - Generate unified description list.
 - Links to background docs.
