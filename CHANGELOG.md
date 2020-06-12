@@ -2,7 +2,7 @@
 
 ## v0.0.4 - In progress
 ### Added
-- Sample metadata validation.
+- Sample metadata validation: Fill in draft details.
 - Fill in TODOs.
 - Generate unified description list.
 - Links to background docs.
