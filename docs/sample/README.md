@@ -39,7 +39,7 @@ TODO
 | constraint | value |
 | --- | --- |
 | required | `True` |
-| pattern (regular expression) | `([A-Z]+[0-9]+)-(BL|BR|LB|RB|HT|LK|RK|LI|LV|LL|RL|LY\d\d|SI|SP|TH|TR|UR|OT)(-\d+)+(_\d+)?` |
+| pattern (regular expression) | `([A-Z]+[0-9]+)-(BL\|BR\|LB\|RB\|HT\|LK\|RK\|LI\|LV\|LL\|RL\|LY\d\d\|SI\|SP\|TH\|TR\|UR\|OT)(-\d+)+(_\d+)?` |
 
 ### `donor.source.institution`
 Name of institution that sourced the donor (anonymized) - TODO - This could be trivially de-anonymized. Is this for this release, or something in the future?
