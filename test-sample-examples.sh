@@ -8,6 +8,7 @@ die() { set +v; echo "$red$*$reset" 1>&2 ; exit 1; }
 for EXAMPLE in sample-examples/*; do
   echo "Testing $EXAMPLE ..."
   CMD="src/validate_sample.py --path $EXAMPLE/sample.tsv --output as_md"
+  echo "( $CMD )"
   README="$EXAMPLE/README.md"
   diff $README <( eval "$CMD" ) \
     || die "Update example: $CMD > $README"
