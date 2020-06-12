@@ -45,18 +45,6 @@ fields:
   TODO_shin:   
   TODO_sanjay:
 -
-  name: donor.imaging_body_level
-  constraints:
-    required: True   
-  description: Images of the donor body-level - TODO - For other images you gave paths... are the files not available here? "Chest CT" is not one of the enumerated values, but it is given as an example - What is actually required? 
-
-  TODO_enum: {CT scan, MRI, etc, DICOM_IMAGE, NONE} 
-  TODO_summation: yes  
-  TODO_nils: Is this about availability or is this supposed to point to the images? Can there be more than one?  
-  TODO_type: enumeration of allowed values  
-  TODO_shin: e.g.  could be ""NONE"" or ""chest CT, echo""  
-  TODO_sanjay:
--
   name: medical_procedure.organ.condition 
   constraints:
     required: True 
@@ -152,28 +140,6 @@ fields:
   TODO_nils: Need value and unit columns  
   TODO_type: number + enum columns  
   TODO_shin: should be minutes -> so just value  
-  TODO_sanjay:
--
-  name: medical_procedure.organ.digital_photograph.files  
-  constraints:
-    required: True
-  description: Any digital photos of organ. TODO - Chuck has asked bill if this belongs here.
-  
-  TODO_summation: yes  
-  TODO_nils: Is this is a list of paths/URLs? Would they be submitted as a part of the submission?  
-  TODO_type:  
-  TODO_shin: location of ingest  
-  TODO_sanjay:
--
-  name: medical_procedure.organ.imaging.files  
-  constraints:
-    required: True
-  description: Any MRI/CT (DICOM) images of the entire organ. TODO - Chuck has asked bill if this belongs here.
-
-  TODO_summation: yes  
-  TODO_nils: Is this is a list of paths/URLs? Would they be submitted as a part of the submission?  
-  TODO_type: 
-  TODO_shin: location of ingest  
   TODO_sanjay:
 -
   name: biospecimen_aliquot.mechanism_of_stabilization  
