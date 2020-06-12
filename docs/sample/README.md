@@ -6,6 +6,8 @@ Related files:
 - [💻 Source code](https://github.com/hubmapconsortium/ingest-validation-tools/edit/master/src/ingest_validation_tools/table-schemas/level-2/sample.yaml): Make a PR if this doc should be updated.
 
 ## Table of contents
+[`donor_id`](#donor_id)<br>
+[`sample_id`](#sample_id)<br>
 [`donor.source.institution`](#donor.source.institution)<br>
 [`donor.vital_state`](#donor.vital_state)<br>
 [`donor.health_status`](#donor.health_status)<br>
@@ -23,6 +25,22 @@ Related files:
 [`biospecimen_selection.qa_qc_measure_criteria.institution`](#biospecimen_selection.qa_qc_measure_criteria.institution)<br>
 [`biospecimen_selection.distance_from_tumor`](#biospecimen_selection.distance_from_tumor)<br></details>
 
+### `donor_id`
+TODO
+
+| constraint | value |
+| --- | --- |
+| required | `True` |
+| pattern (regular expression) | `[A-Z]+[0-9]+` |
+
+### `sample_id`
+TODO
+
+| constraint | value |
+| --- | --- |
+| required | `True` |
+| pattern (regular expression) | `([A-Z]+[0-9]+)-(BL|BR|LB|RB|HT|LK|RK|LI|LV|LL|RL|LY\d\d|SI|SP|TH|TR|UR|OT)(-\d+)+(_\d+)?` |
+
 ### `donor.source.institution`
 Name of institution that sourced the donor (anonymized) - TODO - This could be trivially de-anonymized. Is this for this release, or something in the future?
 
@@ -37,7 +55,7 @@ identify the vital state of the donor
 | constraint | value |
 | --- | --- |
 | required | `True` |
-| enum | `Live` or `Deceased` |
+| enum | `living` or `deceased` |
 
 ### `donor.health_status`
 Patient's physical condition immediately preceding death. TODO - Confirm that you want precisely these three mutually exclusive values? I thought HuBMAP included only healthy tissue?

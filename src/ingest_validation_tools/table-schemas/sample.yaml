@@ -1,6 +1,18 @@
 doc_url: TODO
 fields:
 -
+  name: donor_id
+  description: TODO
+  constraints:
+    required: True
+    pattern: '[A-Z]+[0-9]+'
+-
+  name: sample_id
+  description: TODO
+  constraints:
+    required: True 
+    pattern: '([A-Z]+[0-9]+)-(BL|BR|LB|RB|HT|LK|RK|LI|LV|LL|RL|LY\d\d|SI|SP|TH|TR|UR|OT)(-\d+)+(_\d+)?' 
+-
   name: donor.source.institution
   constraints:
     required: True
