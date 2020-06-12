@@ -27,17 +27,21 @@ Related files:
 [`medical_procedure_protocols`](#medical_procedure_protocols)<br>
 [`medical_procedure_organ_perfusion_solution_type`](#medical_procedure_organ_perfusion_solution_type)<br>
 [`medical_procedure_organ_qc_pathologist_report`](#medical_procedure_organ_qc_pathologist_report)<br>
-[`medical_procedure_organ_transport_warm_ischemia_time`](#medical_procedure_organ_transport_warm_ischemia_time)<br>
-[`medical_procedure_organ_transport_cold_ischemia_time`](#medical_procedure_organ_transport_cold_ischemia_time)<br>
+[`medical_procedure_organ_transport_warm_ischemia_time_value`](#medical_procedure_organ_transport_warm_ischemia_time_value)<br>
+[`medical_procedure_organ_transport_warm_ischemia_time_unit`](#medical_procedure_organ_transport_warm_ischemia_time_unit)<br>
+[`medical_procedure_organ_transport_cold_ischemia_time_value`](#medical_procedure_organ_transport_cold_ischemia_time_value)<br>
+[`medical_procedure_organ_transport_cold_ischemia_time_unit`](#medical_procedure_organ_transport_cold_ischemia_time_unit)<br>
 </details>
 
 <details><summary>Biospecimen</summary>
 
 [`biospecimen_aliquot_mechanism_of_stabilization`](#biospecimen_aliquot_mechanism_of_stabilization)<br>
 [`biospecimen_aliquot_long_term_preservative_type`](#biospecimen_aliquot_long_term_preservative_type)<br>
-[`biospecimen_aliquot_temperature_in_preservation_solution`](#biospecimen_aliquot_temperature_in_preservation_solution)<br>
+[`biospecimen_aliquot_temperature_in_preservation_solution_value`](#biospecimen_aliquot_temperature_in_preservation_solution_value)<br>
+[`biospecimen_aliquot_temperature_in_preservation_solution_unit`](#biospecimen_aliquot_temperature_in_preservation_solution_unit)<br>
 [`biospecimen_selection_qa_qc_measure_criteria_institution`](#biospecimen_selection_qa_qc_measure_criteria_institution)<br>
-[`biospecimen_selection_distance_from_tumor`](#biospecimen_selection_distance_from_tumor)<br></details>
+[`biospecimen_selection_distance_from_tumor_value`](#biospecimen_selection_distance_from_tumor_value)<br>
+[`biospecimen_selection_distance_from_tumor_unit`](#biospecimen_selection_distance_from_tumor_unit)<br></details>
 
 ## IDs
 
@@ -131,20 +135,37 @@ Further details on organ level QC checks - TODO - This is the actual text of the
 | --- | --- |
 | required | `True` |
 
-### `medical_procedure_organ_transport_warm_ischemia_time`
-donor asystole or cross-clamp to ice; for surgical specimens, time from devascularization of tissue to ice. TODO- Units somewhere.
-
-| constraint | value |
-| --- | --- |
-| required | `True` |
-
-### `medical_procedure_organ_transport_cold_ischemia_time`
-min - TODO - Chuck really encourages either a separate units column or units in field name.
+### `medical_procedure_organ_transport_warm_ischemia_time_value`
+donor asystole or cross-clamp to ice; for surgical specimens, time from devascularization of tissue to ice.
 
 | constraint | value |
 | --- | --- |
 | type | `number` |
 | required | `True` |
+
+### `medical_procedure_organ_transport_warm_ischemia_time_unit`
+Time unit
+
+| constraint | value |
+| --- | --- |
+| required | `True` |
+| enum | `minutes` |
+
+### `medical_procedure_organ_transport_cold_ischemia_time_value`
+TODO
+
+| constraint | value |
+| --- | --- |
+| type | `number` |
+| required | `True` |
+
+### `medical_procedure_organ_transport_cold_ischemia_time_unit`
+Time unit
+
+| constraint | value |
+| --- | --- |
+| required | `True` |
+| enum | `minutes` |
 
 ## Biospecimen
 
@@ -164,12 +185,21 @@ The final medium in which sample is placed. TODO - Are these the precise values 
 | required | `True` |
 | enum | `Alcohol-based (ETH)`, `Aldehyde-based (ALD)`, `Allprotect tissue reagent (ALL)`, `Heat stabilization (HST)`, `Neutral buffered formalin (NBF)`, `Non-aldehyde based without acetic acid (NAA)`, `Non-aldehyde with acetic acid (ACA)`, `Non-buffered formalin (FOR)`, `Optimum cutting temperature medium (OCT)`, `Cryopreserved in sucrose-OCT`, `Other (ZZZ)`, `PAXgene tissue (PXT)`, `RNA Later (RNL)`, `Snap freezing (SNP)`, `CryoStor`, `10% serum-DMSO culture media`, `UW solution`, `4% PFA`, `MeOH`, `Liquid Nitrogen (LN)`, `CMC`, `dry ice-isopentane`, `Unknown (XXX)`, `FFPE`, or `none` |
 
-### `biospecimen_aliquot_temperature_in_preservation_solution`
-The temperature of the medium during the preservation process. TODO - Suggest unit in column name or separate column. - What does the protocol.io mean here?
+### `biospecimen_aliquot_temperature_in_preservation_solution_value`
+The temperature of the medium during the preservation process. TODO - What does the protocol.io mean here?
+
+| constraint | value |
+| --- | --- |
+| type | `number` |
+| required | `True` |
+
+### `biospecimen_aliquot_temperature_in_preservation_solution_unit`
+Temperature unit
 
 | constraint | value |
 | --- | --- |
 | required | `True` |
+| enum | `Celsius` |
 
 ### `biospecimen_selection_qa_qc_measure_criteria_institution`
 For example, RIN: 8.7. TODO - What is the source_site,receiving_assay_site? Two fields? Any format constraint possible. Leave blank if not applicable.
@@ -178,10 +208,18 @@ For example, RIN: 8.7. TODO - What is the source_site,receiving_assay_site? Two 
 | --- | --- |
 | required | `False` |
 
-### `biospecimen_selection_distance_from_tumor`
-If surgical sample, how far from the tumor was the sample obtained from. TODO - Suggest either including unit in name or as separate column. Leave blank if not applicable.
+### `biospecimen_selection_distance_from_tumor_value`
+If surgical sample, how far from the tumor was the sample obtained from. Leave blank if not applicable.
 
 | constraint | value |
 | --- | --- |
 | type | `number` |
 | required | `False` |
+
+### `biospecimen_selection_distance_from_tumor_unit`
+Units for distance from tumor. Leave blank if not applicable.
+
+| constraint | value |
+| --- | --- |
+| required | `False` |
+| enum | `cm` |

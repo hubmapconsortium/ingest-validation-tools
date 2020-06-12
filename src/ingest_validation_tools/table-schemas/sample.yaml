@@ -134,10 +134,11 @@ fields:
   TODO_shin: free text  
   TODO_sanjay:
 -
-  name: medical_procedure_organ_transport_warm_ischemia_time  
+  name: medical_procedure_organ_transport_warm_ischemia_time_value 
   constraints:
     required: True
-  description: donor asystole or cross-clamp to ice; for surgical specimens, time from devascularization of tissue to ice. TODO- Units somewhere.
+  type: number
+  description: donor asystole or cross-clamp to ice; for surgical specimens, time from devascularization of tissue to ice.
 
   TODO_summation: yes  
   TODO_nils: Need value and unit columns  
@@ -145,17 +146,31 @@ fields:
   TODO_shin: should be minutes -> so just value  
   TODO_sanjay:
 -
-  name: medical_procedure_organ_transport_cold_ischemia_time  
+  name: medical_procedure_organ_transport_warm_ischemia_time_unit
+  description: Time unit
+  constraints:
+    required: True
+    enum:
+      - minutes
+-
+  name: medical_procedure_organ_transport_cold_ischemia_time_value
   constraints:
     required: True
   type: number
-  description: min - TODO - Chuck really encourages either a separate units column or units in field name.
+  description: TODO
 
   TODO_summation: yes  
   TODO_nils: Need value and unit columns  
   TODO_type: number + enum columns  
   TODO_shin: should be minutes -> so just value  
   TODO_sanjay:
+-
+  name: medical_procedure_organ_transport_cold_ischemia_time_unit
+  description: Time unit
+  constraints:
+    required: True
+    enum:
+      - minutes
 -
   heading: Biospecimen
   name: biospecimen_aliquot_mechanism_of_stabilization  
@@ -218,17 +233,24 @@ fields:
   TODO_shin: or PDF  
   TODO_sanjay: drop down values"
 -
-  name: biospecimen_aliquot_temperature_in_preservation_solution  
+  name: biospecimen_aliquot_temperature_in_preservation_solution_value 
   constraints:
     required: True
-  enum: celsius  
-  description: The temperature of the medium during the preservation process. TODO - Suggest unit in column name or separate column. - What does the protocol.io mean here? 
+  type: number  
+  description: The temperature of the medium during the preservation process. TODO - What does the protocol.io mean here? 
 
   TODO_summation: protocol.io  
   TODO_nils: Need value and unit columns  
   TODO_type: number + enum columns  
   TODO_shin: just number (use celsuis)  
   TODO_sanjay:
+-
+  name: biospecimen_aliquot_temperature_in_preservation_solution_unit
+  constraints:
+    required: True
+    enum:
+      - Celsius
+  description: Temperature unit
 -
   name: biospecimen_selection_qa_qc_measure_criteria_institution  
   constraints:
@@ -242,14 +264,21 @@ fields:
   TODO_shin: "free text.  Could be 'RIN: 8.7'"  
   TODO_sanjay:
 -
-  name: biospecimen_selection_distance_from_tumor  
+  name: biospecimen_selection_distance_from_tumor_value 
   constraints:
     required: False
   type: number
-  description: If surgical sample, how far from the tumor was the sample obtained from. TODO - Suggest either including unit in name or as separate column.
+  description: If surgical sample, how far from the tumor was the sample obtained from.
 
   TODO_summation: optional  
   TODO_nils: Need value and unit columns  
   TODO_type: number + enum columns  
   TODO_shin: just value (use cm)  
   TODO_sanjay:
+-
+  name: biospecimen_selection_distance_from_tumor_unit
+  constraints:
+    required: False
+    enum:
+      - cm
+  description: Units for distance from tumor.
