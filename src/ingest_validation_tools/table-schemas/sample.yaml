@@ -20,8 +20,8 @@ fields:
   constraints:
     required: True 
     enum:
-      - Live
-      - Deceased  
+      - living
+      - deceased  
   description: identify the vital state of the donor  
 
   TODO_summation: yes  
