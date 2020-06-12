@@ -117,14 +117,19 @@ def _make_value_md(key, value):
 
     >>> print(_make_value_md('enum', ['A', 'B', 'C']))
     `A`, `B`, or `C`
+
+    >>> print(_make_value_md('pattern', '^some|reg_?ex\\.$'))
+    `^some\\|reg_?ex\\.$`
     '''
-    if key != 'enum':
-        return f'`{value}`'
-    backtick_list = [f'`{s}`' for s in value]
-    if len(value) < 3:
-        return ' or '.join(backtick_list)
-    backtick_list[-1] = f'or {backtick_list[-1]}'
-    return ', '.join(backtick_list)
+    if key == 'enum':
+        backtick_list = [f'`{s}`' for s in value]
+        if len(value) < 3:
+            return ' or '.join(backtick_list)
+        backtick_list[-1] = f'or {backtick_list[-1]}'
+        return ', '.join(backtick_list)
+    if key == 'pattern':
+        return '`' + re.sub(r'([|])', r'\\\1', value) + '`'
+    return f'`{value}`'
 
 
 def _make_toc(md):
