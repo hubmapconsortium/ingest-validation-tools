@@ -1,0 +1,251 @@
+doc_url: TODO
+fields:
+-
+  name: donor_id
+  description: TODO
+  constraints:
+    required: True
+    pattern: '[A-Z]+[0-9]+'
+-
+  name: sample_id
+  description: TODO
+  constraints:
+    required: True 
+    pattern: '([A-Z]+[0-9]+)-(BL|BR|LB|RB|HT|LK|RK|LI|LV|LL|RL|LY\d\d|SI|SP|TH|TR|UR|OT)(-\d+)+(_\d+)?' 
+-
+  name: donor.source.institution
+  constraints:
+    required: True
+    enum: 
+      - A # Washu OPO
+      - B # Rochester OPO
+      - C # Vanderbilt   
+  description: Name of institution that sourced the donor (anonymized) - TODO - This could be trivially de-anonymized. Is this for this release, or something in the future?
+
+  TODO_summation: yes  
+  TODO_nils: Should this really be part of the submission if the mapping is that simple?  
+  TODO_type: enum  
+  TODO_shin: this grid may be used for future project -- that's what Ajay said  
+  TODO_sanjay:
+-
+  name: donor.vital_state 
+  constraints:
+    required: True 
+    enum:
+      - living
+      - deceased  
+  description: identify the vital state of the donor  
+
+  TODO_summation: yes  
+  TODO_nils:   
+  TODO_type: enumeration of allowed values  
+  TODO_shin:   
+  TODO_sanjay:
+-
+  name: donor.health_status 
+  constraints:
+    required: True 
+    enum:
+      - cancer
+      - relatively healthy
+      - chronic illness  
+  description: Patient's physical condition immediately preceding death. TODO - Confirm that you want precisely these three mutually exclusive values? I thought HuBMAP included only healthy tissue?
+  
+  TODO_summation: yes  
+  TODO_nils:   
+  TODO_type: enumeration of allowed values  
+  TODO_shin:   
+  TODO_sanjay:
+-
+  name: medical_procedure.organ.condition 
+  constraints:
+    required: True 
+    enum: 
+      - healthy
+      - diseased  
+  description:  TODO
+
+  TODO_summation: yes  
+  TODO_nils: Can we name these procedure_xyz?  
+  TODO_type: enumeration of allowed values  
+  TODO_shin: this is condition, not procedure  
+  TODO_sanjay:
+-
+  name: medical_procedure.organ.id  
+  constraints:
+    required: True
+  description:   TODO - format? description?
+
+  TODO_summation: yes  
+  TODO_nils:   
+  TODO_type: enumeration of allowed values  
+  TODO_shin:   
+  TODO_sanjay:
+-
+  name: medical_procedure.date_undertaken 
+  constraints:
+    required: False
+  type: date
+  format: '%Y-%m-%d'
+  description: need to be filled out only if UNET data no available (e.g. live donor). Internal value, not public, optional only for donors without unet info  - TODO - What does "recentered" mean? We have no machinery for keeping some fields private... Should this not be included then?
+
+  TODO_nils:   
+  TODO_type: date string (optional)  
+  TODO_shin:   
+  TODO_sanjay:
+-
+  name: medical_procedure.protocols  
+  constraints:
+    required: True
+  description: protocols.io link that specifies medical/surgical procedure to obtain organ from deceased donors or surgical excision - TODO - Require protocols.io DOI?
+
+  TODO_summation: protocols.io  
+  TODO_nils:   
+  TODO_type: DOI (could be pdf too, UUID allows pdf upload)  
+  TODO_shin:   
+  TODO_sanjay:
+-
+  name: medical_procedure.organ_perfusion.solution_type  
+  constraints:
+    required: True
+    enum:
+      - UW solution
+      - Celsior
+      - HTK  
+  description: TODO
+
+  TODO_summation: yes  
+  TODO_nils:   
+  TODO_type: enumeration of allowed values?  
+  TODO_shin: yes enumeration  
+  TODO_sanjay:
+-
+  name: medical_procedure.organ.qc.pathologist_report  
+  constraints:
+    required: True
+  description: Further details on organ level QC checks - TODO - This is the actual text of the pathology report? Do new-lines need to be preserved?
+ 
+  TODO_summation: yes  
+  TODO_nils: Should this be a link to a URL rather than free text?  
+  TODO_type: string  
+  TODO_shin: free text  
+  TODO_sanjay:
+-
+  name: medical_procedure.organ.transport.warm_ischemia_time  
+  constraints:
+    required: True
+  description: donor asystole or cross-clamp to ice; for surgical specimens, time from devascularization of tissue to ice. TODO- Units somewhere.
+
+  TODO_summation: yes  
+  TODO_nils: Need value and unit columns  
+  TODO_type: number + enum columns  
+  TODO_shin: should be minutes -> so just value  
+  TODO_sanjay:
+-
+  name: medical_procedure.organ.transport.cold_ischemia_time  
+  constraints:
+    required: True
+  type: number
+  description: min - TODO - Chuck really encourages either a separate units column or units in field name.
+
+  TODO_summation: yes  
+  TODO_nils: Need value and unit columns  
+  TODO_type: number + enum columns  
+  TODO_shin: should be minutes -> so just value  
+  TODO_sanjay:
+-
+  name: biospecimen_aliquot.mechanism_of_stabilization  
+  constraints:
+    required: True
+    enum:
+      - snap freezing
+      - controlled-rate freezing
+      - dry ice freezing
+      - ethanol-dry ice freezing
+      - liquid nitrogen freezing
+      - dry ice isopentane freezing
+      - flash freezing
+      - neutral buffered formalin
+      - paraformaldehyde
+      - dry ice freezing in OCT
+      - none  
+  description: The process by which biospecimens were stabilized during collection. TODO - Does "none" mean unknown, or that there was no stabilization? Should protocols.io be referenced?
+
+  TODO_summation: protocol.io  
+  TODO_nils: Not sure if you want people to choose from list of allowed values or if you want them to link to protocols.io. In the assay metadata we don't use ""none"", we just leave the column blank. What do you prefer?  Do you want to spell out FFPE?  
+  TODO_type: DOI?  
+  TODO_shin: or PDF  
+  TODO_sanjay: drop down values; FFPE should be deleted from this and moved to long term. I added NBF "
+-
+  name: biospecimen_aliquot.long_term_preservative.type  
+  constraints:
+    required: True
+    enum:
+      - Alcohol-based (ETH)
+      - Aldehyde-based (ALD)
+      - Allprotect tissue reagent (ALL)
+      - Heat stabilization (HST)
+      - Neutral buffered formalin (NBF)
+      - Non-aldehyde based without acetic acid (NAA)
+      - Non-aldehyde with acetic acid (ACA)
+      - Non-buffered formalin (FOR)
+      - Optimum cutting temperature medium (OCT)
+      - Cryopreserved in sucrose-OCT
+      - Other (ZZZ)
+      - PAXgene tissue (PXT)
+      - RNA Later (RNL)
+      - Snap freezing (SNP)
+      - CryoStor
+      - 10% serum-DMSO culture media
+      - UW solution
+      - 4% PFA
+      - MeOH
+      - Liquid Nitrogen (LN)
+      - CMC
+      - dry ice-isopentane
+      - Unknown (XXX)
+      - FFPE
+      - none 
+  description: The final medium in which sample is placed. TODO - Are these the precise values you want? Do you also want to reference a protocol? Does "none" mean there is no long-term preservation? or that it's unknown? FFPE moved here as Sanjay requested. Confirm that this is correct?
+
+  TODO_summation: protocol.io  
+  TODO_nils: Not sure if you want people to choose from list of allowed values or if you want them to link to protocols.io. We need to be clear if we want the full name or abbreviation or a combination (as it is written right now). In the assay metadata we don't use ""none"", we just leave the column blank. What do you prefer?  
+  TODO_type: DOI?  
+  TODO_shin: or PDF  
+  TODO_sanjay: drop down values"
+-
+  name: biospecimen_aliquot.temperature_in_preservation_solution  
+  constraints:
+    required: True
+  enum: celsius  
+  description: The temperature of the medium during the preservation process. TODO - Suggest unit in column name or separate column. - What does the protocol.io mean here? 
+
+  TODO_summation: protocol.io  
+  TODO_nils: Need value and unit columns  
+  TODO_type: number + enum columns  
+  TODO_shin: just number (use celsuis)  
+  TODO_sanjay:
+-
+  name: biospecimen_selection.qa_qc_measure_criteria.institution  
+  constraints:
+    required: False
+  enum: {source_site,receiving_assay_site}  
+  description: "For example, RIN: 8.7. TODO - What is the source_site,receiving_assay_site? Two fields? Any format constraint possible?"
+
+  TODO_summation: optional  
+  TODO_nils: We don't know how this is supposed to be used. Should people provide either ""source_site"" or ""receiving_assay_site""?   
+  TODO_type:   
+  TODO_shin: "free text.  Could be 'RIN: 8.7'"  
+  TODO_sanjay:
+-
+  name: biospecimen_selection.distance_from_tumor  
+  constraints:
+    required: False
+  type: number
+  description: If surgical sample, how far from the tumor was the sample obtained from. TODO - Suggest either including unit in name or as separate column.
+
+  TODO_summation: optional  
+  TODO_nils: Need value and unit columns  
+  TODO_type: number + enum columns  
+  TODO_shin: just value (use cm)  
+  TODO_sanjay:

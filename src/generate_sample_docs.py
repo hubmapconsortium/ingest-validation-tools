@@ -24,7 +24,7 @@ def main():
 
     table_schema = load_yaml(
         (Path(__file__).parent / 'ingest_validation_tools' / 'table-schemas' /
-         'samples.yaml').read_text()
+         'sample.yaml').read_text()
     )
 
     with open(Path(args.target) / get_tsv_name(metadata_type), 'w') as f:
