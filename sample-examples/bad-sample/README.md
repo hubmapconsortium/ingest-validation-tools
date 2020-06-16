@@ -1,24 +1,9 @@
 ```
 Sample TSV Errors:
-- Row 2 has a missing value in column 2 ("B")
-- Row 2 has a missing value in column 3 ("C")
-- Row 2 has a missing value in column 4 ("D")
-- Row 2 has a missing value in column 5 ("E")
-- Row 2 has a missing value in column 6 ("F")
-- Row 2 has a missing value in column 7 ("G")
-- Row 2 has a missing value in column 8 ("H")
-- Row 2 has a missing value in column 9 ("I")
-- Row 2 has a missing value in column 10 ("J")
-- Row 2 has a missing value in column 11 ("K")
-- Row 2 has a missing value in column 12 ("L")
-- Row 2 has a missing value in column 13 ("M")
-- Row 2 has a missing value in column 14 ("N")
-- Row 2 has a missing value in column 15 ("O")
-- Row 2 has a missing value in column 16 ("P")
-- Row 2 has a missing value in column 17 ("Q")
-- Row 2 has a missing value in column 18 ("R")
-- Row 2 has a missing value in column 19 ("S")
-- Row 2 has a missing value in column 20 ("T")
-- Row 2 has a missing value in column 21 ("U")
-- Row 2 has a missing value in column 22 ("V")
+- Column 1 ("A") is a required field, but row 2 has no value
+- Column 5 ("E") is a required field, but row 2 has no value
+- Column 7 ("G") is a required field, but row 2 has no value
+- 'The value "-196 Celsius / -80 Celsius / -20 Celsius / Room Temperature" in row
+  2 and column 12 ("L") does not conform to the given enumeration: "[''Liquid Nitrogen
+  Vapor'', ''Freezer (-80 Celsius)'', ''Freezer (-20 Celsius)'', ''Room Temperature'']"'
 ```

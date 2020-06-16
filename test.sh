@@ -9,20 +9,6 @@ end() { [[ -z $CI ]] || echo travis_fold':'end:$1; }
 die() { set +v; echo "$red$*$reset" 1>&2 ; exit 1; }
 
 
-
-
-echo; echo 'cat tsv:'
-cat sample-examples/bad-sample/sample.tsv
-
-echo; echo 'cat readme:'
-cat sample-examples/bad-sample/README.md
-
-echo; echo 'validate:'
-src/validate_sample.py --path sample-examples/bad-sample/sample.tsv --output as_md || true
-
-
-
-
 start flake8
 flake8 || die 'Try: autopep8 --in-place --aggressive -r .'
 end flake8
