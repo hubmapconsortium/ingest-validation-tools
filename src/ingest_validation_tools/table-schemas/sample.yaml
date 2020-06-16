@@ -94,7 +94,7 @@ fields:
   constraints:
     required: True
     enum:
-      - -196 Celsius
+      - Liquid Nitrogen Vapor
       - Freezer (-80 Celsius)
       - Freezer (-20 Celsius)
       - Room Temperature
