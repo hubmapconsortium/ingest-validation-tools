@@ -2,6 +2,7 @@
 
 ## v0.0.4 - In progress
 ### Added
+- Revise sample metadata.
 - Fix Regexes in MD.
 - Sample metadata validation
 - ... and fill in draft details.
