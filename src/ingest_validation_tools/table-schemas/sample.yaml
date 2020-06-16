@@ -45,7 +45,7 @@ fields:
     required: True
   type: date
   format: '%Y-%m-%d'
-  description: TODO
+  description: Date of procedure to procure organ.
   notes: Originally, not required, but everyone filled it in. This note was present - need to be filled out only if UNET data no available (e.g. live donor). Internal value, not public, optional only for donors without unet info  - TODO - What does "recentered" mean? We have no machinery for keeping some fields private... Should this not be included then?
 -
   name: perfusion_solution  
