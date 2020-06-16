@@ -15,7 +15,6 @@ Related files:
 
 [`vital_state`](#vital_state)<br>
 [`health_status`](#health_status)<br>
-[`body_imaging`](#body_imaging)<br>
 </details>
 
 <details><summary>Medical Procedure</summary>
@@ -34,12 +33,13 @@ Related files:
 
 [`specimen_preservation_temperature`](#specimen_preservation_temperature)<br>
 [`specimen_quality_criteria`](#specimen_quality_criteria)<br>
-[`biospecimen_selection_distance_from_tumor_value`](#biospecimen_selection_distance_from_tumor_value)<br></details>
+[`specimen_tumor_distance_value`](#specimen_tumor_distance_value)<br>
+[`specimen_tumor_distance_unit`](#specimen_tumor_distance_unit)<br></details>
 
 ## IDs
 
 ### `sample_id`
-TODO
+(No description for this field was supplied.)
 
 | constraint | value |
 | --- | --- |
@@ -64,17 +64,10 @@ Patient's physical condition immediately preceding death.
 | required | `True` |
 | enum | `cancer`, `relatively healthy`, or `chronic illness` |
 
-### `body_imaging`
-TODO. Leave blank if not applicable.
-
-| constraint | value |
-| --- | --- |
-| required | `False` |
-
 ## Medical Procedure
 
 ### `organ_condition`
-TODO
+(No description for this field was supplied.)
 
 | constraint | value |
 | --- | --- |
@@ -82,7 +75,7 @@ TODO
 | enum | `healthy` or `diseased` |
 
 ### `procedure_date`
-TODO
+Date of procedure to procure organ.
 
 | constraint | value |
 | --- | --- |
@@ -91,7 +84,7 @@ TODO
 | required | `True` |
 
 ### `perfusion_solution`
-TODO
+Type of solution that was used to perfuse the organ.
 
 | constraint | value |
 | --- | --- |
@@ -122,7 +115,7 @@ Time unit
 | enum | `minutes` |
 
 ### `cold_ischemia_time_value`
-TODO. Leave blank if not applicable.
+(No description for this field was supplied. Leave blank if not applicable.
 
 | constraint | value |
 | --- | --- |
@@ -145,7 +138,7 @@ The temperature of the medium during the preservation process.
 | constraint | value |
 | --- | --- |
 | required | `True` |
-| enum | `-196 Celsius`, `-80 Celsius`, `-20 Celsius`, or `Room Temperature` |
+| enum | `Liquid Nitrogen Vapor`, `Freezer (-80 Celsius)`, `Freezer (-20 Celsius)`, or `Room Temperature` |
 
 ### `specimen_quality_criteria`
 For example, RIN: 8.7. Leave blank if not applicable.
@@ -154,10 +147,18 @@ For example, RIN: 8.7. Leave blank if not applicable.
 | --- | --- |
 | required | `False` |
 
-### `biospecimen_selection_distance_from_tumor_value`
-If surgical sample, how far from the tumor was the sample obtained from. Typically a number of centimeters, but Unknown is also accepted. Leave blank if not applicable. Leave blank if not applicable.
+### `specimen_tumor_distance_value`
+If surgical sample, how far from the tumor was the sample obtained from. Typically a number of centimeters. Leave blank if not applicable or unknown. Leave blank if not applicable.
+
+| constraint | value |
+| --- | --- |
+| type | `number` |
+| required | `False` |
+
+### `specimen_tumor_distance_unit`
+Distance unit. Leave blank if not applicable.
 
 | constraint | value |
 | --- | --- |
 | required | `False` |
-| pattern (regular expression) | `\d+(\.\d+)? cm\|Unknown` |
+| enum | `cm` |

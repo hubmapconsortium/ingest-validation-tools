@@ -1,9 +1,9 @@
 ```
 Sample TSV Errors:
 - Column 1 ("A") is a required field, but row 2 has no value
-- Column 6 ("F") is a required field, but row 2 has no value
-- Column 8 ("H") is a required field, but row 2 has no value
+- Column 5 ("E") is a required field, but row 2 has no value
+- Column 7 ("G") is a required field, but row 2 has no value
 - 'The value "-196 Celsius / -80 Celsius / -20 Celsius / Room Temperature" in row
-  2 and column 13 ("M") does not conform to the given enumeration: "[''-196 Celsius'',
-  ''-80 Celsius'', ''-20 Celsius'', ''Room Temperature'']"'
+  2 and column 12 ("L") does not conform to the given enumeration: "[''Liquid Nitrogen
+  Vapor'', ''Freezer (-80 Celsius)'', ''Freezer (-20 Celsius)'', ''Room Temperature'']"'
 ```
