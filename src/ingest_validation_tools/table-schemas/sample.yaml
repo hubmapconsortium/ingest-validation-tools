@@ -95,7 +95,7 @@ fields:
     required: True
     enum:
       - -196 Celsius
-      - -80 Celsius
+      - Freezer (-80 Celsius)
       - Freezer (-20 Celsius)
       - Room Temperature
   description: The temperature of the medium during the preservation process.
