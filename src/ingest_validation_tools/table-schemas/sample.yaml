@@ -56,7 +56,7 @@ fields:
       - HTK
       - Unknown
       - None  
-  description: TODO
+  description: Type of solution that was used to perfuse the organ.
 -
   name: pathologist_report  
   constraints:
