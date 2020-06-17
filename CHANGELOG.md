@@ -2,6 +2,7 @@
 
 ## v0.0.4 - In progress
 ### Added
+- Add liquid nitrogen
 - Revise sample metadata.
 - Fix Regexes in MD.
 - Sample metadata validation

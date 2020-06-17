@@ -138,7 +138,7 @@ The temperature of the medium during the preservation process.
 | constraint | value |
 | --- | --- |
 | required | `True` |
-| enum | `Liquid Nitrogen Vapor`, `Freezer (-80 Celsius)`, `Freezer (-20 Celsius)`, or `Room Temperature` |
+| enum | `Liquid Nitrogen`, `Liquid Nitrogen Vapor`, `Freezer (-80 Celsius)`, `Freezer (-20 Celsius)`, or `Room Temperature` |
 
 ### `specimen_quality_criteria`
 For example, RIN: 8.7. Leave blank if not applicable.
