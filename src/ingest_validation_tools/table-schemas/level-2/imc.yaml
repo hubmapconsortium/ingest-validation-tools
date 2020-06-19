@@ -6,6 +6,7 @@ fields:
   constraints:
     enum:
       - imaging
+
 -
   name: assay_type
   constraints:
@@ -15,7 +16,7 @@ fields:
   name: analyte_class
   constraints:
     enum:
-      - imaging
+      - proteins
 
 # Level 2 fields:
 - heading: Level 2
@@ -99,7 +100,12 @@ fields:
     enum:
       - um
 - name: segment_data_format
-  description: This refers to the data type, which is a "Float" for the IMC counts.
+  description: This refers to the data type, which is a "float" for the IMC counts.
+  constraints:
+    enum:
+      - float
+      - integer
+      - string
 - name: signal_type
   description: Type of signal measured per channel (usually dual counts)
   constraints:

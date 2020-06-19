@@ -62,7 +62,7 @@ fields:
   name: assay_type
 - constraints:
     enum:
-    - TODO
+    - proteins
     required: true
   description: Analytes are the target molecules being measured with the assay.
   name: analyte_class
@@ -199,10 +199,13 @@ fields:
   description: Units of image height of the ROI acquisition
   name: max_y_height_unit
 - constraints:
+    enum:
+    - float
+    - integer
+    - string
     required: true
-  description: This refers to the data type, which is a float for the IMC counts.
+  description: This refers to the data type, which is a "float" for the IMC counts.
   name: segment_data_format
-  type: number
 - constraints:
     enum:
     - dual count
