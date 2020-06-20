@@ -130,7 +130,7 @@ Analytes are the target molecules being measured with the assay.
 
 | constraint | value |
 | --- | --- |
-| enum | `proteins` |
+| enum | `protein` |
 | required | `True` |
 
 ### `is_targeted`

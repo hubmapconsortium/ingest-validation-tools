@@ -135,7 +135,7 @@ Analytes are the target molecules being measured with the assay.
 
 | constraint | value |
 | --- | --- |
-| enum | `proteins`, `metabolites`, or `lipids` |
+| enum | `protein`, `metabolites`, or `lipids` |
 | required | `True` |
 
 ### `is_targeted`

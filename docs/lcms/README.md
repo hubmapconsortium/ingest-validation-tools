@@ -148,7 +148,7 @@ Analytes are the target molecules being measured with the assay. Leave blank if 
 
 | constraint | value |
 | --- | --- |
-| enum | `proteins`, `metabolites`, or `lipids` |
+| enum | `protein`, `metabolites`, or `lipids` |
 | required | `False` |
 
 ### `is_targeted`
