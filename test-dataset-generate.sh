@@ -5,7 +5,7 @@ red=`tput setaf 1`
 reset=`tput sgr0`
 die() { set +v; echo "$red$*$reset" 1>&2 ; exit 1; }
 
-LOOP='for D in `ls -d docs/*/`; do src/generate_docs.py `basename $D` $D; done'
+LOOP='for D in `ls -d docs/*/`; do src/generate_dataset_docs.py `basename $D` $D; done'
 # Test field-descriptions.yaml:
 
 REAL_DEST="docs/field-descriptions.yaml"
@@ -24,19 +24,20 @@ rm -rf docs-test
 
 for TYPE in $(ls -d docs/*/); do # Just get subdirectories
   TYPE=`basename $TYPE`
+  [ $TYPE = 'sample' ] && echo 'Skip!' && continue # Sample metadata handled separately!
   echo "Testing $TYPE generation..."
 
   REAL_DEST="docs/$TYPE"
   TEST_DEST="docs-test/$TYPE"
 
-  REAL_CMD="src/generate_docs.py $TYPE $REAL_DEST"
-  TEST_CMD="src/generate_docs.py $TYPE $TEST_DEST"
+  REAL_CMD="src/generate_dataset_docs.py $TYPE $REAL_DEST"
+  TEST_CMD="src/generate_dataset_docs.py $TYPE $TEST_DEST"
 
   mkdir -p $TEST_DEST || echo "$TEST_DEST already exists"
   eval $TEST_CMD
   diff -r $REAL_DEST $TEST_DEST \
     || die "Update needed: $REAL_CMD
-Or:" 'for D in `ls -d docs/*/`; do src/generate_docs.py `basename $D` $D; done'
+Or:" 'for D in `ls -d docs/*/`; do src/generate_dataset_docs.py `basename $D` $D; done'
   rm -rf $TEST_DEST
   ((++GENERATE_COUNT))
 done

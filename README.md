@@ -28,7 +28,7 @@ print(report.as_text())
 
 ## For curators:
 
-Example submissions and validation reports are [here](examples).
+Example submissions and validation reports are [here](dataset-examples).
 
 You can [run validation locally](README-validate_submission.md)
 before the same checks are run automatically during ingest.
@@ -43,7 +43,7 @@ pip install -r requirements-dev.txt
 ```
 
 After making tweaks to the schema, you can
-[regenerate the docs](README-generate_docs.py.md).
+[regenerate the docs](README-generate_dataset_docs.py.md).
 
 For releases we're just using git tags:
 ```

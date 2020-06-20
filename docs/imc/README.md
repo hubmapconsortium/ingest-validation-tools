@@ -76,7 +76,7 @@ HuBMAP Display ID of the assayed tissue.
 
 | constraint | value |
 | --- | --- |
-| pattern (regular expression) | `([A-Z]+[0-9]+)-(BL|BR|LB|RB|HT|LK|RK|LI|LV|LL|RL|LY\d\d|SI|SP|TH|TR|UR|OT)(-\d+)+(_\d+)?` |
+| pattern (regular expression) | `([A-Z]+[0-9]+)-(BL\|BR\|LB\|RB\|HT\|LK\|RK\|LI\|LV\|LL\|RL\|LY\d\d\|SI\|SP\|TH\|TR\|UR\|OT)(-\d+)+(_\d+)?` |
 | required | `True` |
 
 ## Level 1
@@ -149,7 +149,7 @@ Analytes are the target molecules being measured with the assay.
 
 | constraint | value |
 | --- | --- |
-| enum | `TODO` |
+| enum | `proteins` |
 | required | `True` |
 
 ### `is_targeted`
@@ -334,11 +334,11 @@ Units of image height of the ROI acquisition
 | required | `True` |
 
 ### `segment_data_format`
-This refers to the data type, which is a float for the IMC counts.
+This refers to the data type, which is a "float" for the IMC counts.
 
 | constraint | value |
 | --- | --- |
-| type | `number` |
+| enum | `float`, `integer`, or `string` |
 | required | `True` |
 
 ### `signal_type`
