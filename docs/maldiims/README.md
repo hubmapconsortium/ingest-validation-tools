@@ -223,7 +223,7 @@ The unit of measurement of the height of a pixel
 | required | `True` |
 
 ### `preparation_type`
-TODO
+Common methods of depositing matrix for MALDI imaging include robotic spotting, electrospray deposition, and spray-coating with an airbrush.
 
 | constraint | value |
 | --- | --- |

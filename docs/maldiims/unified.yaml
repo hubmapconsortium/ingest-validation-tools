@@ -133,7 +133,8 @@ fields:
   name: resolution_y_unit
 - constraints:
     required: true
-  description: TODO
+  description: Common methods of depositing matrix for MALDI imaging include robotic
+    spotting, electrospray deposition, and spray-coating with an airbrush.
   name: preparation_type
 - constraints:
     required: true
