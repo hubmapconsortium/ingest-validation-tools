@@ -15,7 +15,7 @@ REAL_CMD="src/generate_field_descriptions.py > $REAL_DEST"
 TEST_CMD="src/generate_field_descriptions.py > $TEST_DEST"
 
 mkdir docs-test || echo "Already exists"
-eval $TEST_CMD
+eval $TEST_CMD || die "Command failed: $TEST_CMD"
 diff -r $REAL_DEST $TEST_DEST \
   || die "Update needed: $REAL_CMD; $LOOP"
 rm -rf docs-test

@@ -81,10 +81,23 @@ def _apply_overrides(high_fields, low_fields):
         name: [f for f in low_fields if f['name'] == name][0]
         for name in override_field_names
     }
-    for field_name, field_def in override_fields.items():
-        if 'constraints' in field_def and 'enum' in field_def['constraints']:
-            assert field_name == field_name
-            pass  # TODO
+
+    # Check for bad enums:
+    high_field_constraints = {
+        field['name']: field['constraints'] for field in high_fields
+        if 'constraints' in field
+    }
+    for field_name, override in override_fields.items():
+        if (
+            'constraints' in override
+            and 'enum' in override['constraints']
+        ):
+            override_enum = set(override['constraints']['enum'])
+            high_field_enum = set(high_field_constraints[field_name]['enum'])
+            if not (override_enum < high_field_enum):
+                surprise = override_enum - high_field_enum
+                raise Exception(f'In {field_name}, surprised by: {surprise}')
+    # Enums are good!
 
     high_fields_plus_overrides = [
         (
