@@ -15,7 +15,7 @@ Metadata TSV Errors:
     - The value "pi_emailATexample.com" in row 2 and column 8 ("H") is not type "string"
       and format "email"
     - 'The value "analyte_class" in row 2 and column 11 ("K") does not conform to
-      the given enumeration: "[''protein'']"'
+      the given enumeration: "[''proteins'']"'
     - The value "is_targeted" in row 2 and column 12 ("L") is not type "boolean" and
       format "default"
     - 'The value "acquisition_instrument_vendor" in row 2 and column 13 ("M") does

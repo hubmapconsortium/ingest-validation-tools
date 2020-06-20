@@ -4,6 +4,8 @@ Metadata TSV Errors:
     Internal:
     - The value "-INVALID-" in row 2 and column 1 ("A") does not conform to the pattern
       constraint of "[A-Z]+[0-9]+"
+    - 'The value "protein" in row 2 and column 11 ("K") does not conform to the given
+      enumeration: "[''proteins'']"'
     External:
       codex-akoya-metadata.tsv (row 2):
         Not allowed:

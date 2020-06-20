@@ -1,6 +1,9 @@
 ```
 Metadata TSV Errors:
   dataset-examples/bad-codex-data/submission/codex-akoya-metadata.tsv (as codex-akoya):
+    Internal:
+    - 'The value "protein" in row 2 and column 11 ("K") does not conform to the given
+      enumeration: "[''proteins'']"'
     External:
       codex-akoya-metadata.tsv (row 2):
         Not allowed:
