@@ -1,0 +1,2 @@
+sample_id	vital_state	health_status	organ_condition	procedure_date	perfusion_solution	pathologist_report	warm_ischemia_time_value	warm_ischemia_time_unit	cold_ischemia_time_value	cold_ischemia_time_unit	specimen_preservation_temperature	specimen_quality_criteria	specimen_tumor_distance_value	specimen_tumor_distance_unit
+ABC01-RK-1	living	relatively healthy	healthy	2020-01-01	UWS	okey-dokey	42	minutes	42	minutes	Room Temperature	whatever	3.5	cm

@@ -2,7 +2,13 @@
 
 ## v0.0.4 - In progress
 ### Added
-- Fill in TODOs...
+- Add liquid nitrogen
+- Revise sample metadata.
+- Fix Regexes in MD.
+- Sample metadata validation
+- ... and fill in draft details.
+- ... and fill in headers and add unit columns.
+- Fill in TODOs.
 - Generate unified description list.
 - Links to background docs.
 - Pre-fill enums in TSVs
