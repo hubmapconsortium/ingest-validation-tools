@@ -62,7 +62,7 @@ fields:
   name: assay_type
 - constraints:
     enum:
-    - protein
+    - proteins
     required: true
   description: Analytes are the target molecules being measured with the assay.
   name: analyte_class

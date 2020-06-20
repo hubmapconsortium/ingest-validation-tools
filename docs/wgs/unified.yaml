@@ -48,7 +48,7 @@ fields:
   name: pi_email
 - constraints:
     enum:
-    - sequencing
+    - sequence
     required: true
   description: 'Each assay is placed into one of the following 3 general categories:
     generation of images of microscopic entities, identification & quantitation of

@@ -123,7 +123,7 @@ Each assay is placed into one of the following 3 general categories: generation 
 
 | constraint | value |
 | --- | --- |
-| enum | `sequencing` |
+| enum | `sequence` |
 | required | `True` |
 
 ### `assay_type`
