@@ -14,7 +14,8 @@ fields:
   -
     name: analyte_class
     constraints:
-      required: proteins
+      enum:
+        - protein
 
   # TODO
 
