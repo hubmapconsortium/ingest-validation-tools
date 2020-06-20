@@ -81,6 +81,10 @@ def _apply_overrides(high_fields, low_fields):
         name: [f for f in low_fields if f['name'] == name][0]
         for name in override_field_names
     }
+    for field_name, field_def in override_fields.items():
+        if 'constraints' in field_def and 'enum' in field_def['constraints']:
+            assert field_name == field_name
+            pass  # TODO
 
     high_fields_plus_overrides = [
         (
