@@ -1,2 +1,2 @@
 donor_id	tissue_id	execution_datetime	protocols_io_doi	operator	operator_email	pi	pi_email	assay_category	assay_type	analyte_class	is_targeted	acquisition_instrument_vendor	acquisition_instrument_model	resolution_x_value	resolution_x_unit	resolution_y_value	resolution_y_unit	number_of_channels	number_of_cycles	section_prep_protocols_io_doi	reagent_prep_protocols_io_doi	overall_protocols_io_doi	metadata_path	data_path
-								imaging	MxIF						nm / um		nm / um							
+								imaging	MxIF	protein					nm / um		nm / um							

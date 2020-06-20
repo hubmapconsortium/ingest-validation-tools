@@ -57,7 +57,7 @@ HuBMAP Display ID of the assayed tissue.
 
 | constraint | value |
 | --- | --- |
-| pattern (regular expression) | `([A-Z]+[0-9]+)-(BL|BR|LB|RB|HT|LK|RK|LI|LV|LL|RL|LY\d\d|SI|SP|TH|TR|UR|OT)(-\d+)+(_\d+)?` |
+| pattern (regular expression) | `([A-Z]+[0-9]+)-(BL\|BR\|LB\|RB\|HT\|LK\|RK\|LI\|LV\|LL\|RL\|LY\d\d\|SI\|SP\|TH\|TR\|UR\|OT)(-\d+)+(_\d+)?` |
 | required | `True` |
 
 ## Level 1
@@ -126,11 +126,12 @@ The specific type of assay being executed.
 | required | `True` |
 
 ### `analyte_class`
-Analytes are the target molecules being measured with the assay. Leave blank if not applicable.
+Analytes are the target molecules being measured with the assay.
 
 | constraint | value |
 | --- | --- |
-| required | `False` |
+| enum | `protein` |
+| required | `True` |
 
 ### `is_targeted`
 Specifies whether or not a specific molecule(s) is/are targeted for detection/measurement by the assay. The CODEX analyte is protein.

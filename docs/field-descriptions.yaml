@@ -137,7 +137,8 @@ preparation_instrument_vendor: The manufacturer of the instrument used to prepar
 preparation_maldi_matrix: The matrix is a compound of crystallized molecules that
   acts like a buffer between the sample and the laser. It also helps ionize the sample,
   carrying it along the flight tube so it can be detected.
-preparation_type: TODO
+preparation_type: Common methods of depositing matrix for MALDI imaging include robotic
+  spotting, electrospray deposition, and spray-coating with an airbrush.
 processing_protocols_io_doi: DOI for analysis protocols.io for this assay.
 processing_search: Software for analyzing and searching LC-MS/MS omics data
 protocols_io_doi: DOI for protocols.io referring to the protocol for this assay.
@@ -177,7 +178,8 @@ sc_isolation_quality_metric: A quality metric by visual inspection prior to cell
 sc_isolation_tissue_dissociation: The method by which tissues are dissociated into
   single cells in suspension.
 section_prep_protocols_io_doi: Sample preparation methods.
-segment_data_format: This refers to the data type, which is a float for the IMC counts.
+segment_data_format: This refers to the data type, which is a "float" for the IMC
+  counts.
 sequencing_phix_percent: Percent PhiX loaded to the run
 sequencing_read_format: Slash-delimited list of the number of sequencing cycles for,
   for example, Read1, i7 index, i5 index, and Read2.
