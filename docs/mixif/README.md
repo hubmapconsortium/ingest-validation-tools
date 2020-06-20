@@ -126,11 +126,12 @@ The specific type of assay being executed.
 | required | `True` |
 
 ### `analyte_class`
-Analytes are the target molecules being measured with the assay. Leave blank if not applicable.
+Analytes are the target molecules being measured with the assay.
 
 | constraint | value |
 | --- | --- |
-| required | `False` |
+| enum | `protein` |
+| required | `True` |
 
 ### `is_targeted`
 Specifies whether or not a specific molecule(s) is/are targeted for detection/measurement by the assay. The CODEX analyte is protein.
