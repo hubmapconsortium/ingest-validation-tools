@@ -79,7 +79,7 @@ fields:
       enum:
         - DNA
         - RNA
-        - proteins
+        - protein
         - lipids
         - metabolites
         - polysaccharides
