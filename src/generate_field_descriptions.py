@@ -16,7 +16,7 @@ def main():
             name = field['name']
             description = field['description']
             if name in mapping and len(mapping[name]) < len(description):
-                # We want to keep the shortests description,
+                # We want to keep the shortest description,
                 # on the assumption that it is the most general.
                 # In the portal we are not currently passing through the type.
                 continue

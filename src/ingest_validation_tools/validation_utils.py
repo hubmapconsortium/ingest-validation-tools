@@ -56,15 +56,15 @@ def get_metadata_tsv_errors(metadata_path, type, optional_fields=[]):
     if 'tables' in report:
         for table in report['tables']:
             error_messages += [
-                _column_number_to_letters(e['message'])
+                column_number_to_letters(e['message'])
                 for e in table['errors']
             ]
     return error_messages
 
 
-def _column_number_to_letters(message):
+def column_number_to_letters(message):
     '''
-    >>> _column_number_to_letters('Column 209 and column 141493 are funny.')
+    >>> column_number_to_letters('Column 209 and column 141493 are funny.')
     'Column 209 ("HA") and column 141493 ("HAHA") are funny.'
 
     '''

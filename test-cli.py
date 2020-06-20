@@ -6,14 +6,14 @@ import subprocess
 # Fixtures or doctests should be used for the details:
 # They run faster, and tell us more when there is a failure.
 good_args = [
-    '--local_directory examples/good-scatacseq/submission/ '
+    '--local_directory dataset-examples/good-scatacseq/submission/ '
     '--dataset_ignore_globs ignore-*.tsv .* '
     '--submission_ignore_globs drv_ignore_*',
     # NOTE: When called from the shell,
     # remember to quote '*' arguments to prevent expansion.
 
     '--type_metadata scatacseq '
-    'examples/good-scatacseq/submission/scatacseq-metadata.tsv'
+    'dataset-examples/good-scatacseq/submission/scatacseq-metadata.tsv'
 ]
 bad_args = [
     '--bad',
@@ -34,6 +34,6 @@ for args in bad_args:
     try:
         validate(args)
     except subprocess.CalledProcessError:
-        # Expected!
+        print('☝️  That was an expected error.')
         continue
     raise Exception(f'Passed, when it should have failed: {args}')
