@@ -67,6 +67,11 @@ fields:
         - SPLiT-Seq
         - TMT (proteomics)
         - WGS
+        # TODO: confirm that these additions from scrnaseq are correct:
+        - SNARE2-RNAseq
+        - snRNAseq
+        - scRNAseq-10xGenomics
+        - scRNAseq
   -
     name: analyte_class
     description: Analytes are the target molecules being measured with the assay.

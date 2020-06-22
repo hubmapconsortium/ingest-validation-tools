@@ -16,7 +16,7 @@ fields:
   name: analyte_class
   constraints:
     enum:
-      - proteins
+      - protein
 
 # Level 2 fields:
 - heading: Level 2

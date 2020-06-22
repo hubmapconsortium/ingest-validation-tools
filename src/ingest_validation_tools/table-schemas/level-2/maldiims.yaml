@@ -16,7 +16,7 @@ fields:
     name: analyte_class
     constraints:
       enum:
-        - proteins
+        - protein
         - metabolites
         - lipids
 
