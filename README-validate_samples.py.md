@@ -1,6 +1,6 @@
 ```
-usage: validate_sample.py [-h] --path PATH
-                          [--output {as_browser,as_html,as_md,as_text,as_yaml}]
+usage: validate_samples.py [-h] --path PATH
+                           [--output {as_browser,as_html,as_md,as_text,as_yaml}]
 
 Validate a HuBMAP Sample metadata TSV.
 
