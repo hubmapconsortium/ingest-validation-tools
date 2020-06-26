@@ -1,6 +1,8 @@
 # Changelog
 
-## v0.0.4 - In progress
+## v0.0.5 - In progress
+
+## v0.0.4 - 2020-06-26
 ### Added
 - Add Sample field descriptions.
 - Change to "validate_samples".
