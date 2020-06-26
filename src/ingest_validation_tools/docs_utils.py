@@ -54,12 +54,12 @@ def generate_readme_md(table_schema, type, is_top_level=False):
 
     fields_md = '\n\n'.join(fields_md_list)
     toc_md = _make_toc(fields_md)
-    raw_url = 'https://raw.githubusercontent.com/hubmapconsortium' + \
-        '/ingest-validation-tools/master/docs' + \
+    raw_url = 'https://raw.githubusercontent.com/hubmapconsortium' \
+        '/ingest-validation-tools/master/docs' \
         f'/{type}/{get_tsv_name(type)}'
     end_of_path = f'{"" if is_top_level else "level-2/"}{type}.yaml'
-    source_url = 'https://github.com/hubmapconsortium' + \
-        '/ingest-validation-tools/edit/master' + \
+    source_url = 'https://github.com/hubmapconsortium' \
+        '/ingest-validation-tools/edit/master' \
         f'/src/ingest_validation_tools/table-schemas/{end_of_path}'
 
     return f'''# {type}
