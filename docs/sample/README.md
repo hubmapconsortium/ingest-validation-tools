@@ -57,7 +57,7 @@ Identify the vital state of the donor.
 | enum | `living` or `deceased` |
 
 ### `health_status`
-Patient's physical condition immediately preceding death.
+Patient's baseline physical condition prior to immediate event leading to organ/tissue acquisition. For example, if a relatively healthy patient suffers trauma, and as a result of reparative surgery, a tissue sample is collected, the subject will be deemed “relatively healthy”.   Likewise, a relatively healthy subject may have experienced trauma leading to brain death.  As a result of organ donation, a sample is collected.  In this scenario, the subject is deemed “relatively healthy.”
 
 | constraint | value |
 | --- | --- |
@@ -67,7 +67,7 @@ Patient's physical condition immediately preceding death.
 ## Medical Procedure
 
 ### `organ_condition`
-(No description for this field was supplied.)
+Health status of the organ at the time of sample recovery.
 
 | constraint | value |
 | --- | --- |
@@ -99,7 +99,7 @@ Further details on organ level QC checks.
 | required | `True` |
 
 ### `warm_ischemia_time_value`
-donor asystole or cross-clamp to ice; for surgical specimens, time from devascularization of tissue to ice. Leave blank if not applicable.
+Time interval between cessation of blood flow and cooling to 4C. Leave blank if not applicable. Leave blank if not applicable.
 
 | constraint | value |
 | --- | --- |
@@ -115,7 +115,7 @@ Time unit
 | enum | `minutes` |
 
 ### `cold_ischemia_time_value`
-(No description for this field was supplied. Leave blank if not applicable.
+Time interval on ice to the start of preservation protocol. Leave blank if not applicable.
 
 | constraint | value |
 | --- | --- |
