@@ -24,6 +24,10 @@ Related files:
 [`assay_type`](#assay_type)<br>
 [`analyte_class`](#analyte_class)<br>
 [`is_targeted`](#is_targeted)<br>
+</details>
+
+<details><summary>Level 2</summary>
+
 [`acquisition_instrument_vendor`](#acquisition_instrument_vendor)<br>
 [`acquisition_instrument_model`](#acquisition_instrument_model)<br>
 [`resolution_x_value`](#resolution_x_value)<br>
@@ -138,6 +142,8 @@ Specifies whether or not a specific molecule(s) is/are targeted for detection/me
 | --- | --- |
 | type | `boolean` |
 | required | `True` |
+
+## Level 2
 
 ### `acquisition_instrument_vendor`
 An acquisition_instrument is the device that contains the signal detection hardware and signal processing software. Assays generate signals such as light of various intensities or color or signals representing molecular mass.
