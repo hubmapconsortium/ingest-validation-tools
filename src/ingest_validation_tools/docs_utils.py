@@ -41,7 +41,7 @@ def _enrich_description(field):
     return field['description']
 
 
-def generate_readme_md(table_schema, type):
+def generate_readme_md(table_schema, type, is_top_level=False):
     fields_md_list = []
     for field in table_schema['fields']:
         if 'heading' in field:
@@ -57,9 +57,10 @@ def generate_readme_md(table_schema, type):
     raw_url = 'https://raw.githubusercontent.com/hubmapconsortium' + \
         '/ingest-validation-tools/master/docs' + \
         f'/{type}/{get_tsv_name(type)}'
+    end_of_path = f'{"" if is_top_level else "level-2/"}{type}.yaml'
     source_url = 'https://github.com/hubmapconsortium' + \
         '/ingest-validation-tools/edit/master' + \
-        f'/src/ingest_validation_tools/table-schemas/level-2/{type}.yaml'
+        f'/src/ingest_validation_tools/table-schemas/{end_of_path}'
 
     return f'''# {type}
 
