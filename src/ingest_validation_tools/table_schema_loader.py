@@ -77,32 +77,17 @@ def _apply_overrides(high_fields, low_fields):
     override_field_names = set.intersection(
         high_field_names, low_field_names)
 
-    override_fields = {
+    override_fields_dict = {
         name: [f for f in low_fields if f['name'] == name][0]
         for name in override_field_names
     }
 
-    # Check for bad enums:
-    high_field_constraints = {
-        field['name']: field['constraints'] for field in high_fields
-        if 'constraints' in field
-    }
-    for field_name, override in override_fields.items():
-        if (
-            'constraints' in override
-            and 'enum' in override['constraints']
-        ):
-            override_enum = set(override['constraints']['enum'])
-            high_field_enum = set(high_field_constraints[field_name]['enum'])
-            if not (override_enum < high_field_enum):
-                surprise = override_enum - high_field_enum
-                raise Exception(f'In {field_name}, surprised by: {surprise}')
-    # Enums are good!
+    _check_enum_consistency(high_fields, override_fields_dict)
 
     high_fields_plus_overrides = [
         (
             # TODO: Python 3.9 will add "|" for dict merging.
-            {**field, **override_fields[field['name']]}
+            {**field, **override_fields_dict[field['name']]}
             if field['name'] in override_field_names
             else field
         )
@@ -113,6 +98,38 @@ def _apply_overrides(high_fields, low_fields):
         if field['name'] not in override_field_names
     ]
     return high_fields_plus_overrides, low_fields_minus_overrides
+
+
+def _check_enum_consistency(high_fields, override_fields_dict):
+    '''
+    >>> high_fields = [{
+    ...    'name': 'vowels',
+    ...    'constraints': {'enum': ['a', 'e', 'i', 'o', 'u']}
+    ... }]
+    >>> override_fields_dict = {'vowels': {
+    ...    'constraints': {'enum': ['a', 'b', 'c']}
+    ... }}
+    >>> _check_enum_consistency(high_fields, override_fields_dict)
+    Traceback (most recent call last):
+    ...
+    Exception: In vowels, surprised by: ['b', 'c']
+
+    '''
+    high_field_constraints = {
+        field['name']: field['constraints'] for field in high_fields
+        if 'constraints' in field
+    }
+    for field_name, override in override_fields_dict.items():
+        if (
+            'constraints' in override
+            and 'enum' in override['constraints']
+        ):
+            override_enum = set(override['constraints']['enum'])
+            high_field_enum = set(high_field_constraints[field_name]['enum'])
+            if not (override_enum < high_field_enum):
+                surprise = override_enum - high_field_enum
+                raise Exception(
+                    f'In {field_name}, surprised by: {sorted(surprise)}')
 
 
 def _add_constraints(field, optional_fields):
