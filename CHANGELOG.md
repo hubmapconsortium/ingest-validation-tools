@@ -2,6 +2,7 @@
 
 ## v0.0.4 - In progress
 ### Added
+- Add Sample field descriptions.
 - Get enums in sync.
 - Add liquid nitrogen
 - Revise sample metadata.
