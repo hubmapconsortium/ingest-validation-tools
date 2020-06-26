@@ -30,7 +30,8 @@ def main():
     with open(Path(args.target) / get_tsv_name(metadata_type), 'w') as f:
         f.write(generate_template_tsv(table_schema))
     with open(Path(args.target) / 'README.md', 'w') as f:
-        f.write(generate_readme_md(table_schema, metadata_type))
+        f.write(generate_readme_md(
+            table_schema, metadata_type, is_top_level=True))
 
 
 if __name__ == "__main__":

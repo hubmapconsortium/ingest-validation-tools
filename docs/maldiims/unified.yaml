@@ -80,6 +80,7 @@ fields:
   description: An acquisition instrument is the device that contains the signal detection
     hardware and signal processing software. Assays generate signals such as light
     of various intensities or color or signals representing the molecular mass
+  heading: Level 2
   name: acquisition_instrument_vendor
 - constraints:
     required: true

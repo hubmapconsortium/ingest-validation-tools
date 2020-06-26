@@ -3,7 +3,8 @@
 ## v0.0.4 - In progress
 ### Added
 - Add Sample field descriptions.
-- Get enums in sync.
+- Change to "validate_samples".
+- Get enums in sync, and doctest the logic.
 - Add liquid nitrogen
 - Revise sample metadata.
 - Fix Regexes in MD.
