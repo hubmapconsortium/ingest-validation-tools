@@ -24,7 +24,11 @@ fields:
       - cancer
       - relatively healthy
       - chronic illness  
-  description: Patient's physical condition immediately preceding death.
+  description: Patient's baseline physical condition prior to immediate event leading to organ/tissue acquisition.  
+  For example, if a relatively healthy patient suffers trauma, and as a result of reparative surgery, a tissue sample 
+  is collected, the subject will be deemed “relatively healthy”.   Likewise, a relatively healthy subject may have 
+  experienced trauma leading to brain death.  As a result of organ donation, a sample is collected.  In this scenario,
+  the subject is deemed “relatively healthy.”
 -
   heading: Medical Procedure
   name: organ_condition 
@@ -33,7 +37,7 @@ fields:
     enum: 
       - healthy
       - diseased  
-  description:  (No description for this field was supplied.)
+  description:  Health status of the organ at the time of sample recovery.
 -
   name: procedure_date 
   constraints:
@@ -62,7 +66,8 @@ fields:
   constraints:
     required: False
   type: number
-  description: donor asystole or cross-clamp to ice; for surgical specimens, time from devascularization of tissue to ice.
+  description: Time interval between cessation of blood flow and cooling to 4C.
+  Leave blank if not applicable.
 -
   name: warm_ischemia_time_unit
   description: Time unit
@@ -75,7 +80,7 @@ fields:
   constraints:
     required: False
   type: number
-  description: (No description for this field was supplied.)
+  description: Time interval on ice to the start of preservation protocol.
 -
   name: cold_ischemia_time_unit
   description: Time unit
