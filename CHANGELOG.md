@@ -1,6 +1,7 @@
 # Changelog
 
 ## v0.0.5 - In progress
+- Change "mixif" to "mxif".
 
 ## v0.0.4 - 2020-06-26
 ### Added

@@ -1,10 +1,10 @@
 ```
 usage: generate_dataset_docs.py [-h]
-                                {af,bulkatacseq,bulkrnaseq,codex,imc,lcms,maldiims,mixif,scatacseq,scrnaseq,seqfish,stained,wgs}
+                                {af,bulkatacseq,bulkrnaseq,codex,imc,lcms,maldiims,mxif,scatacseq,scrnaseq,seqfish,stained,wgs}
                                 target
 
 positional arguments:
-  {af,bulkatacseq,bulkrnaseq,codex,imc,lcms,maldiims,mixif,scatacseq,scrnaseq,seqfish,stained,wgs}
+  {af,bulkatacseq,bulkrnaseq,codex,imc,lcms,maldiims,mxif,scatacseq,scrnaseq,seqfish,stained,wgs}
                         What type to generate
   target                Directory to write output to
 
