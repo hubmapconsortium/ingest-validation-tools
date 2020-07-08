@@ -99,7 +99,7 @@ Further details on organ level QC checks.
 | required | `True` |
 
 ### `warm_ischemia_time_value`
-Time interval between cessation of blood flow and cooling to 4C. Leave blank if not applicable. Leave blank if not applicable.
+Time interval between cessation of blood flow and cooling to 4C. Leave blank if not applicable.
 
 | constraint | value |
 | --- | --- |
