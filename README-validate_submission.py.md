@@ -23,7 +23,7 @@ optional arguments:
   --type_metadata TYPE PATH [TYPE PATH ...]
                         A list of type / metadata.tsv pairs. Type should be
                         one of: ['af', 'bulkatacseq', 'bulkrnaseq', 'codex',
-                        'imc', 'lcms', 'maldiims', 'mixif', 'scatacseq',
+                        'imc', 'lcms', 'maldiims', 'mxif', 'scatacseq',
                         'scrnaseq', 'seqfish', 'stained', 'wgs']
   --optional_fields FIELD [FIELD ...]
                         The listed fields will be treated as optional. (But if
