@@ -67,7 +67,6 @@ fields:
     required: False
   type: number
   description: Time interval between cessation of blood flow and cooling to 4C.
-    Leave blank if not applicable.
 -
   name: warm_ischemia_time_unit
   description: Time unit
