@@ -39,6 +39,8 @@ bulk_transposition_input_number_nuclei: A number (no comma separators)
 cell_barcode_offset: Position(s) in the read at which the cell barcode starts.
 cell_barcode_read: Which read file contains the cell barcode
 cell_barcode_size: Length of the cell barcode in base pairs
+cold_ischemia_time_unit: Time unit
+cold_ischemia_time_value: Time interval on ice to the start of preservation protocol.
 data_collection_mode: Mode of data collection in tandem MS assays. Either DDA (Data-dependent
   acquisition) or DIA (Data-indemendent acquisition.
 data_path: Relative path to file or directory with instrument data. Downstream processing
@@ -55,6 +57,13 @@ execution_datetime: Start date and time of assay, typically a date-time stamped 
   with leading zeros, mm are the minutes with leading zeros.
 gdna_fragmentation_quality_assurance: Is the gDNA integrity good enough for WGS? This
   is usually checked through running a gel.
+health_status: "Patient's baseline physical condition prior to immediate event leading\
+  \ to organ/tissue acquisition. For example, if a relatively healthy patient suffers\
+  \ trauma, and as a result of reparative surgery, a tissue sample is collected, the\
+  \ subject will be deemed \u201Crelatively healthy\u201D.   Likewise, a relatively\
+  \ healthy subject may have experienced trauma leading to brain death.  As a result\
+  \ of organ donation, a sample is collected.  In this scenario, the subject is deemed\
+  \ \u201Crelatively healthy.\u201D"
 is_targeted: Specifies whether or not a specific molecule(s) is/are targeted for detection/measurement
   by the assay. The CODEX analyte is protein.
 is_technical_replicate: Is this a sequencing replicate?
@@ -126,7 +135,10 @@ number_of_readout_probes_per_channel: Number of readout probes that can be inter
   -> total = 60))
 operator: Name of the person responsible for executing the assay.
 operator_email: Email address for the operator.
+organ_condition: Health status of the organ at the time of sample recovery.
 overall_protocols_io_doi: DOI for protocols.io for the overall process.
+pathologist_report: Further details on organ level QC checks.
+perfusion_solution: Type of solution that was used to perfuse the organ.
 pi: Name of the principal investigator responsible for the data.
 pi_email: Email address for the principal investigator.
 polarity: The polarity of the mass analysis (positive or negative ion modes)
@@ -139,6 +151,7 @@ preparation_maldi_matrix: The matrix is a compound of crystallized molecules tha
   carrying it along the flight tube so it can be detected.
 preparation_type: Common methods of depositing matrix for MALDI imaging include robotic
   spotting, electrospray deposition, and spray-coating with an airbrush.
+procedure_date: Date of procedure to procure organ.
 processing_protocols_io_doi: DOI for analysis protocols.io for this assay.
 processing_search: Software for analyzing and searching LC-MS/MS omics data
 protocols_io_doi: DOI for protocols.io referring to the protocol for this assay.
@@ -161,6 +174,7 @@ roi_description: A description of the region of interest (ROI) captured in the i
 roi_id: Multiple images (1-n) are acquired from regions of interest (ROI1, ROI2, ROI3,
   etc) on a slide. The roi_id is a number from 1-n representing the ROI captured on
   a slide.
+sample_id: (No description for this field was supplied.)
 sample_quality_metric: "This is a quality metric by visual inspection. This should\
   \ answer the question: Are the nuclei intact and are the nuclei free of significant\
   \ amounts of debris? This can be captured at a high level, \u201COK\u201D or \u201C\
@@ -186,6 +200,13 @@ sequencing_read_format: Slash-delimited list of the number of sequencing cycles 
 sequencing_read_percent_q30: Percent of bases with Quality scores above Q30
 sequencing_reagent_kit: Reagent kit used for sequencing
 signal_type: Type of signal measured per channel (usually dual counts)
+specimen_preservation_temperature: The temperature of the medium during the preservation
+  process.
+specimen_quality_criteria: 'For example, RIN: 8.7.'
+specimen_tumor_distance_unit: Distance unit
+specimen_tumor_distance_value: If surgical sample, how far from the tumor was the
+  sample obtained from. Typically a number of centimeters. Leave blank if not applicable
+  or unknown.
 stain: Chemical stains (dyes) applied to histology samples to highlight important
   features of the tissue as well as to enhance the tissue contrast.
 start_datetime: Time stamp indicating start of ablation for ROI
@@ -195,4 +216,8 @@ transposition_kit_number: If Tn5 came from a kit, provide the catalog number.
 transposition_method: Modality of capturing accessible chromatin molecules.
 transposition_transposase_source: The source of the Tn5 transposase and transposon
   used for capturing accessible chromatin.
+vital_state: Identify the vital state of the donor.
+warm_ischemia_time_unit: Time unit
+warm_ischemia_time_value: Time interval between cessation of blood flow and cooling
+  to 4C.
 
