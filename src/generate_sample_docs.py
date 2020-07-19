@@ -4,10 +4,11 @@ import argparse
 from pathlib import Path
 import sys
 
-from yaml import safe_load as load_yaml
-
 from ingest_validation_tools.docs_utils import (
     get_tsv_name, generate_template_tsv, generate_readme_md
+)
+from ingest_validation_tools.table_schema_loader import (
+    get_sample_schema
 )
 from ingest_validation_tools.argparse_types import dir_path
 
@@ -22,10 +23,7 @@ def main():
 
     metadata_type = 'sample'
 
-    table_schema = load_yaml(
-        (Path(__file__).parent / 'ingest_validation_tools' / 'table-schemas' /
-         'sample.yaml').read_text()
-    )
+    table_schema = get_sample_schema()
 
     (Path(args.target) / get_tsv_name(metadata_type)).write_text(
         generate_template_tsv(

@@ -14,6 +14,12 @@ def list_types():
     return sorted(schemas)
 
 
+def get_sample_schema():
+    return load_yaml(
+        (Path(__file__).parent / 'table-schemas' / 'sample.yaml').read_text()
+    )
+
+
 def get_schema(type, optional_fields=[]):
     table_type = type.split('-')[0]
 
