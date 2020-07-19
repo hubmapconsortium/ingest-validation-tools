@@ -1,7 +1,9 @@
 #!/usr/bin/env python3
 import sys
 from yaml import dump as dump_yaml
-from ingest_validation_tools.table_schema_loader import list_types, get_schema
+from ingest_validation_tools.table_schema_loader import (
+    list_types, get_schema, get_sample_schema
+)
 
 
 def main():
@@ -13,6 +15,8 @@ def main():
             print(f'Processing: {assay_type}\n{e}', file=sys.stderr)
             return 1
         _add_field_descriptions_to_mapping(schema['fields'], mapping)
+    sample_schema = get_sample_schema()
+    _add_field_descriptions_to_mapping(sample_schema['fields'], mapping)
     print(dump_yaml(mapping))
     return 0
 
