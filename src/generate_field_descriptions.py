@@ -12,17 +12,21 @@ def main():
         except Exception as e:
             print(f'Processing: {assay_type}\n{e}', file=sys.stderr)
             return 1
-        for field in schema['fields']:
-            name = field['name']
-            description = field['description']
-            if name in mapping and len(mapping[name]) < len(description):
-                # We want to keep the shortest description,
-                # on the assumption that it is the most general.
-                # In the portal we are not currently passing through the type.
-                continue
-            mapping[name] = description
+        _add_field_descriptions_to_mapping(schema['fields'], mapping)
     print(dump_yaml(mapping))
     return 0
+
+
+def _add_field_descriptions_to_mapping(fields, mapping):
+    for field in fields:
+        name = field['name']
+        description = field['description']
+        if name in mapping and len(mapping[name]) < len(description):
+            # We want to keep the shortest description,
+            # on the assumption that it is the most general.
+            # In the portal we are not currently passing through the type.
+            continue
+        mapping[name] = description
 
 
 if __name__ == "__main__":
