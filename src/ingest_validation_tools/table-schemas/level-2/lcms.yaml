@@ -12,6 +12,7 @@ fields:
       enum:
         - LC-MS (metabolomics)
         - LC-MS/MS (label-free proteomics)
+        - MS (shotgun lipidomics)
   -
     name: analyte_class
     constraints:

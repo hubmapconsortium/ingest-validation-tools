@@ -58,6 +58,7 @@ fields:
     enum:
     - LC-MS (metabolomics)
     - LC-MS/MS (label-free proteomics)
+    - MS (shotgun lipidomics)
     required: true
   description: The specific type of assay being executed.
   name: assay_type
