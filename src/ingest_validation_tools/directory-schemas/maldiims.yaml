@@ -1,33 +1,33 @@
 CCF Metadata:
-  VAN*-*K-*-*_ccf_metadata: 1
+  VAN*-*K-*-*_ccf_metadata: { description: "TODO" }
 VAN*-*K-*-*_*-IMS:
   VAN*-*K-*-*_*-IMS_NegMode:
     csv:
-      VAN*-*K-*-*_*-IMS_NegMode_columnar.csv: 1
+      VAN*-*K-*-*_*-IMS_NegMode_columnar.csv: { description: "TODO" }
     imzML:
-      VAN*-*K-*-*_*-IMS_NegMode.ibd: 1
-      VAN*-*K-*-*_*-IMS_NegMode.imzML: 1
+      VAN*-*K-*-*_*-IMS_NegMode.ibd: { description: "TODO" }
+      VAN*-*K-*-*_*-IMS_NegMode.imzML: { description: "TODO" }
     metadata:
-      VAN*-*K-*-*_*-IMS_NegMode_meta.json: 1
-      VAN*-*K-*-*_*-IMS_NegMode_tform_to_microscopy.txt: 1
-      VAN*-*K-*-*_*-IMS_NegMode_LipidAssignments.xlsx: 1
+      VAN*-*K-*-*_*-IMS_NegMode_meta.json: { description: "TODO" }
+      VAN*-*K-*-*_*-IMS_NegMode_tform_to_microscopy.txt: { description: "TODO" }
+      VAN*-*K-*-*_*-IMS_NegMode_LipidAssignments.xlsx: { description: "TODO" }
     ometiffs:
-      VAN*-*K-*-*_*-IMS_NegMode_multilayer.ome.tiff: 1
+      VAN*-*K-*-*_*-IMS_NegMode_multilayer.ome.tiff: { description: "TODO" }
       separate:
         # Individual ome.tiff files for each ion.
-        '*.ome.tiff': 1
+        '*.ome.tiff': { description: "TODO" }
   VAN*-*K-*-*_*-IMS_PosMode:
     csv:
-      VAN*-*K-*-*_*-IMS_PosMode_columnar.csv: 1
+      VAN*-*K-*-*_*-IMS_PosMode_columnar.csv: { description: "TODO" }
     imzML:
-      VAN*-*K-*-*_*-IMS_PosMode.ibd: 1
-      VAN*-*K-*-*_*-IMS_PosMode.imzML: 1
+      VAN*-*K-*-*_*-IMS_PosMode.ibd: { description: "TODO" }
+      VAN*-*K-*-*_*-IMS_PosMode.imzML: { description: "TODO" }
     metadata:
-      VAN*-*K-*-*_*-IMS_PosMode_meta.json: 1
-      VAN*-*K-*-*_*-IMS_PosMode_tform_to_microscopy.txt: 1
-      VAN*-*K-*-*_*-IMS_PosMode_LipidAssignments.xlsx: 1
+      VAN*-*K-*-*_*-IMS_PosMode_meta.json: { description: "TODO" }
+      VAN*-*K-*-*_*-IMS_PosMode_tform_to_microscopy.txt: { description: "TODO" }
+      VAN*-*K-*-*_*-IMS_PosMode_LipidAssignments.xlsx: { description: "TODO" }
     ometiffs:
-      VAN*-*K-*-*_*-IMS_PosMode_multilayer.ome.tiff: 1
+      VAN*-*K-*-*_*-IMS_PosMode_multilayer.ome.tiff: { description: "TODO" }
       separate:
         # Individual ome.tiff files for each ion.
-        '*.ome.tiff': 1
+        '*.ome.tiff': { description: "TODO" }

@@ -1,20 +1,20 @@
 LC Data:
-  '*': 0 # TODO: What is expected here?
+  '*': { required: False, description: "TODO" } # TODO: What is expected here?
 metadata:
   assay:
-    AF.csv: 1
+    AF.csv: { description: "TODO" }
 templates:
-  '*': 0 # TODO: What is expected here?
+  '*': { required: False, description: "TODO" } # TODO: What is expected here?
 VAN*-*K-*-*_*:
   CCF Metadata:
-    VAN*-*K-*-*_ccf_metadata: 1
+    VAN*-*K-*-*_ccf_metadata: { description: "TODO" }
   VAN*-*K-*-*_*-AF:
     processedMicroscopy:
       VAN*-*K-*-*-AF_preIMS_images:
-        VAN*-*K-*-*-AF_preIMS_registered.ome.tiff: 1
-      VAN*-*K-*-*-AF_preIMS_transformations: 1
-        transform_00_VAN*-*K-*-*-AF_preIMS_rigid.txt: 1
-        transform_01_VAN*-*K-*-*-AF_preIMS_affine.txt: 1
+        VAN*-*K-*-*-AF_preIMS_registered.ome.tiff: { description: "TODO" }
+      VAN*-*K-*-*-AF_preIMS_transformations: { description: "TODO" }
+        transform_00_VAN*-*K-*-*-AF_preIMS_rigid.txt: { description: "TODO" }
+        transform_01_VAN*-*K-*-*-AF_preIMS_affine.txt: { description: "TODO" }
       rawMicroscopy:
-        VAN*-*K-*-*-AF_preIMS_meta_unregistered.xml: 1
-        VAN*-*K-*-*-AF_preIMS_unregistered.czi: 1
+        VAN*-*K-*-*-AF_preIMS_meta_unregistered.xml: { description: "TODO" }
+        VAN*-*K-*-*-AF_preIMS_unregistered.czi: { description: "TODO" }

@@ -48,12 +48,12 @@ def validate_directory(path, paths_dict, dataset_ignore_globs=[]):
 
 def _get_required_allowed(nested):
     '''
-    Given a nested dict, flatten it and separate the keys with
-    falsy values from those with truthy values.
+    Given a nested dict, flatten it and separate the keys
+    which are required from those that are allowed.
 
     >>> nested = {
-    ...   'a': 1,
-    ...   'b': {'c': 0}
+    ...   'a': {'description': 'A'},
+    ...   'b': {'c': {'required': False, 'description': 'C'}}
     ... }
     >>> _get_required_allowed(nested)
     (['a'], ['a', 'b/c'])
@@ -64,31 +64,34 @@ def _get_required_allowed(nested):
     allowed = []
     for k, v in flat.items():
         allowed.append(k)
-        if v:
+        if 'required' not in v or v['required']:
             required.append(k)
     return required, allowed
 
 
 def _flatten(nested, joiner='/'):
     '''
-    Given a nested dict, flatten it to a single layer dict,
+    Given a nested dict, flatten it to a two layer dict,
     with keys constructed by chaining the keys of the original.
 
     >>> nested = {
-    ...   'x.txt': 1,
+    ...   'x.txt': {'description': 'X'},
     ...   'a': {
-    ...     'y.txt': 0,
+    ...     'y.txt': {'required': False, 'description': 'Y'},
     ...     'b': {
     ...       'c': {},
     ...       'd': {
-    ...         'z.txt': 1 }}}}
-    >>> _flatten(nested)
-    {'x.txt': 1, 'a/y.txt': 0, 'a/b/d/z.txt': 1}
+    ...         'z.txt': {'description': 'Z'} }}}}
+    >>> from pprint import pprint
+    >>> pprint(_flatten(nested))
+    {'a/b/d/z.txt': {'description': 'Z'},
+     'a/y.txt': {'description': 'Y', 'required': False},
+     'x.txt': {'description': 'X'}}
 
     '''
     flat = {}
     for key, value in nested.items():
-        if type(value) != dict:
+        if 'description' in value:
             flat[key] = value
         else:
             for k, v in _flatten(value).items():

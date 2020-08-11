@@ -1,2 +1,2 @@
-'*.fastq.gz': 1
+'*.fastq.gz': { description: "TODO" }
 # TODO: Handle ancillary files... but clarify what we should accept.

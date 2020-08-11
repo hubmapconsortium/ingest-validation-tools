@@ -4,6 +4,7 @@
 - Change "mixif" to "mxif".
 - Expose sample field descriptions for use in portal.
 - Add missing assay type to enum.
+- Dicts at the bottom of the directory schema, so we can have a description for each file.
 
 ## v0.0.4 - 2020-06-26
 ### Added
