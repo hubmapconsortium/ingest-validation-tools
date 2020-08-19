@@ -118,7 +118,7 @@ fields:
   type: number
 - constraints:
     enum:
-    - ng/ul
+    - nM
     required: true
   description: Unit of library_concentration_value
   name: library_concentration_unit
