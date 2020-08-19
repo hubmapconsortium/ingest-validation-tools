@@ -4,6 +4,7 @@
 - Change "mixif" to "mxif".
 - Expose sample field descriptions for use in portal.
 - Add missing assay type to enum.
+- ng/ul to nM.
 
 ## v0.0.4 - 2020-06-26
 ### Added

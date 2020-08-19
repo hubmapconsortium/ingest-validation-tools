@@ -225,7 +225,7 @@ Unit of library_concentration_value
 
 | constraint | value |
 | --- | --- |
-| enum | `ng/ul` |
+| enum | `nM` |
 | required | `True` |
 
 ### `library_construction_protocols_io_doi`
