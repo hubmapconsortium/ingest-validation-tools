@@ -43,7 +43,7 @@ fields:
   description: Unit of library_concentration_value
   constraints:
     enum:
-      - ng/ul
+      - nM
 - name: library_construction_protocols_io_doi
   description: A link to the protocol document containing the library construction
     method (including version) that was used, e.g. "Smart-Seq2", "Drop-Seq", "10X
