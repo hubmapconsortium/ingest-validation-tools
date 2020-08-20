@@ -5,11 +5,9 @@ from pathlib import Path
 import sys
 
 from ingest_validation_tools.docs_utils import (
-    get_tsv_name, generate_template_tsv, generate_readme_md
-)
-from ingest_validation_tools.table_schema_loader import (
-    get_sample_schema
-)
+    get_tsv_name, generate_template_tsv, generate_readme_md)
+from ingest_validation_tools.schema_loader import (
+    get_sample_schema)
 from ingest_validation_tools.argparse_types import dir_path
 
 

@@ -3,13 +3,14 @@ from pathlib import Path
 from yaml import safe_load as load_yaml
 
 
-_schemas_path = Path(__file__).parent / 'table-schemas'
+_table_schemas_path = Path(__file__).parent / 'table-schemas'
+_directory_schemas_path = Path(__file__).parent / 'directory-schemas'
 
 
 def list_types():
     schemas = {
         p.stem for p in
-        (_schemas_path / 'level-2').iterdir()
+        (_table_schemas_path / 'level-2').iterdir()
     }
     return sorted(schemas)
 
@@ -20,7 +21,14 @@ def get_sample_schema():
     )
 
 
-def get_schema(type, optional_fields=[]):
+def get_directory_schema(type):
+    directory_type = type.split('-')[0]
+    return load_yaml(open(
+        _directory_schemas_path / f'{directory_type}.yaml'
+    ).read())
+
+
+def get_table_schema(type, optional_fields=[]):
     table_type = type.split('-')[0]
 
     level_1_fields = _get_level_1_schema('level-1')['fields']
@@ -52,11 +60,13 @@ def _validate_field(field):
 
 
 def _get_level_1_schema(type):
-    return load_yaml(open(_schemas_path / f'{type}.yaml').read())
+    return load_yaml(open(_table_schemas_path / f'{type}.yaml').read())
 
 
 def _get_level_2_schema(type):
-    return load_yaml(open(_schemas_path / 'level-2' / f'{type}.yaml').read())
+    return load_yaml(open(
+        _table_schemas_path / 'level-2' / f'{type}.yaml'
+    ).read())
 
 
 def _apply_overrides(high_fields, low_fields):

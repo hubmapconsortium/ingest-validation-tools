@@ -6,10 +6,9 @@ from string import ascii_uppercase
 from yaml import safe_load as load_yaml
 from goodtables import validate as validate_table
 
-from ingest_validation_tools.table_schema_loader import get_schema
+from ingest_validation_tools.schema_loader import get_table_schema
 from ingest_validation_tools.directory_validator import (
-    validate_directory, DirectoryValidationErrors
-)
+    validate_directory, DirectoryValidationErrors)
 
 
 class TableValidationErrors(Exception):
@@ -43,7 +42,7 @@ def get_metadata_tsv_errors(metadata_path, type, optional_fields=[]):
     '''
     logging.info(f'Validating {type} metadata.tsv...')
     try:
-        schema = get_schema(type, optional_fields=optional_fields)
+        schema = get_table_schema(type, optional_fields=optional_fields)
     except OSError as e:
         return {
             e.strerror:

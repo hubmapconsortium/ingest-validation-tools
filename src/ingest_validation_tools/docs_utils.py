@@ -41,7 +41,8 @@ def _enrich_description(field):
     return field['description']
 
 
-def generate_readme_md(table_schema, type, is_top_level=False):
+def generate_readme_md(
+        table_schema, directory_schema, type, is_top_level=False):
     fields_md_list = []
     for field in table_schema['fields']:
         if 'heading' in field:
@@ -54,6 +55,7 @@ def generate_readme_md(table_schema, type, is_top_level=False):
 
     fields_md = '\n\n'.join(fields_md_list)
     toc_md = _make_toc(fields_md)
+    dir_description_md = _make_dir_description(directory_schema)
     raw_url = 'https://raw.githubusercontent.com/hubmapconsortium' \
         '/ingest-validation-tools/master/docs' \
         f'/{type}/{get_tsv_name(type)}'
@@ -71,6 +73,9 @@ Related files:
 
 ## Table of contents
 {toc_md}
+
+## Directory description
+{dir_description_md}
 
 {fields_md}
 '''
@@ -166,3 +171,11 @@ def _make_toc(md):
         )
         for h in headers
     ]).replace('</details>\n\n', '', 1) + '</details>'
+
+
+def _make_dir_description(dir_schema):
+    return f"""
+'''
+{dir_schema}
+'''
+"""

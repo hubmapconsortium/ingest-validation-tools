@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 import sys
 from yaml import dump as dump_yaml
-from ingest_validation_tools.table_schema_loader import (
-    list_types, get_schema, get_sample_schema
+from ingest_validation_tools.schema_loader import (
+    list_types, get_table_schema, get_sample_schema
 )
 
 
@@ -10,7 +10,7 @@ def main():
     mapping = {}
     for assay_type in list_types():
         try:
-            schema = get_schema(assay_type)
+            schema = get_table_schema(assay_type)
         except Exception as e:
             print(f'Processing: {assay_type}\n{e}', file=sys.stderr)
             return 1
