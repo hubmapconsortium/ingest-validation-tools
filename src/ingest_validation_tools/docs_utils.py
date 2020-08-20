@@ -42,7 +42,7 @@ def _enrich_description(field):
 
 
 def generate_readme_md(
-        table_schema, directory_schema, type, is_top_level=False):
+        table_schema, directory_schemas, type, is_top_level=False):
     fields_md_list = []
     for field in table_schema['fields']:
         if 'heading' in field:
@@ -55,7 +55,7 @@ def generate_readme_md(
 
     fields_md = '\n\n'.join(fields_md_list)
     toc_md = _make_toc(fields_md)
-    dir_description_md = _make_dir_description(directory_schema)
+    dir_description_md = _make_dir_description(directory_schemas)
     raw_url = 'https://raw.githubusercontent.com/hubmapconsortium' \
         '/ingest-validation-tools/master/docs' \
         f'/{type}/{get_tsv_name(type)}'
@@ -173,30 +173,33 @@ def _make_toc(md):
     ]).replace('</details>\n\n', '', 1) + '</details>'
 
 
-def _make_dir_description(dir_schema):
+def _make_dir_description(dir_schemas):
     '''
-    >>> dir_schema = [
-    ...   { 'pattern': 'required.txt', 'description': 'Required!' },
-    ...   { 'pattern': 'optional.txt', 'description': 'Optional!',
+    >>> dir_schema = {'name': [
+    ...   { 'pattern': 'required\\.txt', 'description': 'Required!' },
+    ...   { 'pattern': 'optional\\.txt', 'description': 'Optional!',
     ...     'required': False }
-    ... ]
+    ... ]}
     >>> print(_make_dir_description(dir_schema))
+    <BLANKLINE>
     | pattern (regular expression) | required? | description |
     | --- | --- | --- |
-    | required.txt | yes | Required! |
-    | optional.txt | no | Optional! |
+    | `required\\.txt` | yes | Required! |
+    | `optional\\.txt` | no | Optional! |
 
     '''
-    rows = [
-        ['pattern (regular expression)', 'required?', 'description'],
-        ['---', '---', '---']
-    ]
-    for line in dir_schema:
-        rows.append([
-            line['pattern'],
-            'no' if 'required' in line and not line['required'] else 'yes',
-            line['description']
-        ])
-    return '\n'.join(
-        '| ' + ' | '.join(item for item in row) + ' |'
-        for row in rows)
+    output = []
+    for name, dir_schema in dir_schemas.items():
+        if len(dir_schemas) > 1:
+            output.append(f'\n### {name}')
+        output.append(f'''
+| pattern (regular expression) | required? | description |
+| --- | --- | --- |''')
+        for line in dir_schema:
+            row = [
+                f'`{line["pattern"]}`',
+                'no' if 'required' in line and not line['required'] else 'yes',
+                line['description']
+            ]
+            output.append('| ' + ' | '.join(row) + ' |')
+    return '\n'.join(output)

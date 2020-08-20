@@ -65,9 +65,10 @@ Related files:
 [`data_path`](#data_path)<br></details>
 
 ## Directory description
+
 | pattern (regular expression) | required? | description |
 | --- | --- | --- |
-| .*\.fastq\.gz | yes | TODO |
+| `.*\.fastq\.gz` | yes | TODO |
 
 ## Provenance
 

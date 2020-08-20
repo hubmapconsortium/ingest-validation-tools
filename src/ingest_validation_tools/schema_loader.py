@@ -21,10 +21,16 @@ def get_sample_schema():
     )
 
 
-def get_directory_schema(type):
-    return load_yaml(open(
-        _directory_schemas_path / f'{type}.yaml'
-    ).read())
+def get_directory_schemas(type):
+    single_path = _directory_schemas_path / f'{type}.yaml'
+    all_paths = (
+        [single_path] if single_path.exists()
+        else _directory_schemas_path.glob(f'{type}-*.yaml')
+    )
+    return {
+        path.stem: load_yaml(open(path).read())
+        for path in all_paths
+    }
 
 
 def get_table_schema(type, optional_fields=[]):

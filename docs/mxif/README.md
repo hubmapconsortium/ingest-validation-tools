@@ -47,9 +47,10 @@ Related files:
 [`data_path`](#data_path)<br></details>
 
 ## Directory description
+
 | pattern (regular expression) | required? | description |
 | --- | --- | --- |
-| TODO\.txt | yes | TODO |
+| `TODO\.txt` | yes | TODO |
 
 ## Provenance
 
