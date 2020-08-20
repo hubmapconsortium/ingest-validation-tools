@@ -22,9 +22,8 @@ def get_sample_schema():
 
 
 def get_directory_schema(type):
-    directory_type = type.split('-')[0]
     return load_yaml(open(
-        _directory_schemas_path / f'{directory_type}.yaml'
+        _directory_schemas_path / f'{type}.yaml'
     ).read())
 
 

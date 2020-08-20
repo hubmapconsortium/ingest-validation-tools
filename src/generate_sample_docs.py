@@ -28,7 +28,7 @@ def main():
             table_schema))
     (Path(args.target) / 'README.md').write_text(
         generate_readme_md(
-            table_schema, metadata_type, is_top_level=True))
+            table_schema, [], metadata_type, is_top_level=True))
 
 
 if __name__ == "__main__":

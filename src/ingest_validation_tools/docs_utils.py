@@ -174,8 +174,29 @@ def _make_toc(md):
 
 
 def _make_dir_description(dir_schema):
-    return f"""
-'''
-{dir_schema}
-'''
-"""
+    '''
+    >>> dir_schema = [
+    ...   { 'pattern': 'required.txt', 'description': 'Required!' },
+    ...   { 'pattern': 'optional.txt', 'description': 'Optional!',
+    ...     'required': False }
+    ... ]
+    >>> print(_make_dir_description(dir_schema))
+    | pattern (regular expression) | required? | description |
+    | --- | --- | --- |
+    | required.txt | yes | Required! |
+    | optional.txt | no | Optional! |
+
+    '''
+    rows = [
+        ['pattern (regular expression)', 'required?', 'description'],
+        ['---', '---', '---']
+    ]
+    for line in dir_schema:
+        rows.append([
+            line['pattern'],
+            'no' if 'required' in line and not line['required'] else 'yes',
+            line['description']
+        ])
+    return '\n'.join(
+        '| ' + ' | '.join(item for item in row) + ' |'
+        for row in rows)
