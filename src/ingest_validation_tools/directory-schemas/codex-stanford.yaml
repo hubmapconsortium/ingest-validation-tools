@@ -1,9 +1,16 @@
-# A description of Stanford CODEX dataset directories.
-# Based on the description at https://docs.google.com/document/d/1CYYSXPQjwdbvmvZaEcsi_2udvDfGEZrMyh4yFnm4p3M/edit#heading=h.h6zxv8ghthzp
-
-channelNames.txt: 1
-Experiment.json: 1
-exposure_times.txt: 1
-processingOptions.json: 1
-Cyc*_reg*:
-  'HE_*_Z*_CH*': 1
+-
+  pattern: 'channelNames\.txt'
+  description: 'TODO'
+-
+  pattern: 'Experiment\.json'
+  description: 'TODO'
+-
+  pattern: 'processingOptions\.json'
+  description: 'TODO'
+-
+  pattern: 'exposure_times\.txt'
+  description: 'TODO'
+  required: False
+-
+  pattern: 'Cyc.*_reg.*/HE_.*_Z.*_CH.*'
+  description: 'TODO'

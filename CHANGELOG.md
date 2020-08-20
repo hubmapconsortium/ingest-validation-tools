@@ -5,6 +5,7 @@
 - Expose sample field descriptions for use in portal.
 - Add missing assay type to enum.
 - ng/ul to nM.
+- Change to flat directory schema structure.
 
 ## v0.0.4 - 2020-06-26
 ### Added

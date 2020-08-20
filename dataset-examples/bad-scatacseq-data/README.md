@@ -10,5 +10,5 @@ Metadata TSV Errors:
         - not-the-file-you-are-looking-for.txt
         - unexpected-directory/place-holder.txt
         Required but missing:
-        - '*.fastq.gz'
+        - .*\.fastq\.gz
 ```

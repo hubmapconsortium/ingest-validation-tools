@@ -1,22 +1,3 @@
-LC Data:
-  '*': 0 # TODO: What is expected here?
-metadata:
-  assay:
-    MxIF.csv: 1
-templates:
-  '*': 0 # TODO: What is expected here?
-VAN*-*K-*-*_*:
-  CCF Metadata:
-    VAN*-*K-*-*_ccf_metadata: 1
-  VAN*-*K-*-*_*-MxIF:
-    processedMicroscopy:
-      VAN*-*K-*-*-MxIF_cycl*_images:
-        # TODO: Is "cyc1" correct below?
-        VAN*-*K-*-*-MxIF_cyc1_registered.ome.tiff: 1
-      VAN*-*K-*-*-MxIF_cycl*_transformations: 1
-        transform_00_VAN*-*K-*-*-MxIF_cycl*_rigid.txt: 1
-        transform_01_VAN*-*K-*-*-MxIF_cycl*_affine.txt: 1
-      rawMicroscopy:
-        # NOTE: Original document has "cyc*" below.
-        VAN*-*K-*-*-MxIF_cycl*_meta_unregistered.xml: 1
-        VAN*-*K-*-*-MxIF_cycl*_unregistered.czi: 1
+-
+  pattern: 'TODO\.txt'
+  description: 'TODO'

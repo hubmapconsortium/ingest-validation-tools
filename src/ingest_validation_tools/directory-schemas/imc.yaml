@@ -1,4 +1,3 @@
-'**': 0
-# TODO: On https://docs.google.com/document/d/1NvYmjxICLCU7D62Yd5C_4gUGuDwJ9g89BV6j5s8Atro/edit#heading=h.ef5exhvrbw5z
-# text is grey - Does it apply?
-# Is IMC a kind of CODEX? The CODEX file organization diagram is used in the document above.
+-
+  pattern: 'TODO\.txt'
+  description: 'TODO'

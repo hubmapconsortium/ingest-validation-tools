@@ -1,2 +1,3 @@
-HybCycle_*:
-  MMStack_Pos*.ome.tif: 1
+-
+  pattern: 'TODO\.txt'
+  description: 'TODO'

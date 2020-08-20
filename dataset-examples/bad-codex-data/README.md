@@ -6,5 +6,5 @@ Metadata TSV Errors:
         Not allowed:
         - cyc002_reg001_200216_112537/bad
         Required but missing:
-        - cyc*_reg*_*/*_*_Z*_CH*
+        - cyc.*_reg.*_.*/.*_.*_Z.*_CH.*
 ```

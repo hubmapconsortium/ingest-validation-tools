@@ -1,2 +1,3 @@
-'*.fastq.gz': 1
-# TODO: Handle ancillary files... but clarify what we should accept.
+-
+  pattern: '.*\.fastq\.gz'
+  description: 'TODO'
