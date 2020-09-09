@@ -2,36 +2,47 @@
 HuBMAP data submission guidelines,
 and tools which check that submissions adhere to those guidelines.
 
-## HuBMAP submission structure:
+## For data submitters and curators:
 
-Submissions are based on Globus directories containing:
-- one or more `<type>-metadata.tsv` files.
-- top-level subdirectories, or single files, in a 1-to-1 relationship with the rows of the TSVs.
+Checkout the repo and install dependencies:
+```
+python --version  # Should be Python3.
+git clone https://github.com/hubmapconsortium/ingest-validation-tools.git
+cd ingest-validation-tools
+# Optionally, set up venv or conda, then:
+pip install -r requirements.txt
+src/validate_submission.py --help
+```
 
-The `data_path` and `metadata_path` in the TSV are relative to the location of the TSV.
+You should see [the documention for `validate_submission.py`](README-validate_submission.md)
 
-[![Submission diagram](https://docs.google.com/drawings/d/e/2PACX-1vSQtvCCHf_t0SwpmlCINcwanq-dimJrkP93sm5E584bcL5iVy0t95W-HQz-dPGvbd46yRrnBVH8AAKF/pub?w=359&amp;h=383)](https://docs.google.com/drawings/d/1J6sGrJcnm7W7E1MJczPiGeFGAlHob7RKJOwgKKrBrc8/edit)
+Now run it against one of the included examples, giving the type (`codex`) and the path to a TSV.
+```
+src/validate_submission.py --type_metadata codex \
+  dataset-examples/bad-tsv-formats/submission/codex-akoya-metadata.tsv
+```
 
-## For data submitters:
+You should now see [this (extensive) error message](dataset-examples/bad-tsv-formats/).
+This example TSV has been constructed with a mistake in every column, just to demonstrate the checks which are available. Hopefully, more often your experience will be like this:
+```
+src/validate_submission.py --type_metadata codex \
+  dataset-examples/good-codex-akoya/submission/codex-akoya-metadata.tsv
+```
+```
+No errors!
+```
 
-Documentation and metadata TSV templates are [here](docs).
+Documentation and metadata TSV templates for each assay type are [here](docs).
 
 ## For API users:
 
-Right now, this isn't actually being packaged, but if that would be useful, please file an issue.
-A good example is `validate-submission.py`, but in a nutshell you'll do something like:
+A good example is of usage is `validate-submission.py`; In a nutshell:
 ```python
 submission = Submission(directory_path=path)
 report = ErrorReport(submission.get_errors())
 print(report.as_text())
 ```
-
-## For curators:
-
-Example submissions and validation reports are [here](dataset-examples).
-
-You can [run validation locally](README-validate_submission.md)
-before the same checks are run automatically during ingest.
+(If it would be useful for this to be installable with `pip`, please file an issue.)
 
 ## For developers:
 
@@ -42,8 +53,8 @@ pip install -r requirements-dev.txt
 ./test.sh
 ```
 
-After making tweaks to the schema, you can
-[regenerate the docs](README-generate_dataset_docs.py.md).
+After making tweaks to the schema, you will need to regenerate the docs:
+The test error message will tell you what to do.
 
 For releases we're just using git tags:
 ```
@@ -51,10 +62,15 @@ $ git tag v0.0.x
 $ git push origin v0.0.x
 ```
 
-... and update the CHANGELOG.md.
+## Looking ahead: Submission directory validation
 
-## Big picture:
+This repo already has code to validate the directory structure of submissions,
+but we need to clarify what the directory structure actually is for each assay type.
 
-Our goal is to be able to run the same quick validations locally, and as part of the ingest-pipeline.
+Submissions are based on Globus directories containing:
+- one or more `<type>-metadata.tsv` files.
+- top-level subdirectories, or single files, in a 1-to-1 relationship with the rows of the TSVs.
 
-[![Flow diagram](https://docs.google.com/drawings/d/e/2PACX-1vQ7_q4K-JmAjGSMyA4Q5-3094B26fD4opW3s3jzbLHvXp4IsoEpt7fwXHYvW7ZQhQKSSTPF7zc5VoEI/pub?w=775&h=704)](https://docs.google.com/drawings/d/1A5irNDqfnyH8zzDiB6Vs0_WwUWByl7XJyjd2x82DlXk/edit)
+The `data_path` and `metadata_path` in the TSV are relative to the location of the TSV.
+
+[![Submission diagram](https://docs.google.com/drawings/d/e/2PACX-1vSQtvCCHf_t0SwpmlCINcwanq-dimJrkP93sm5E584bcL5iVy0t95W-HQz-dPGvbd46yRrnBVH8AAKF/pub?w=359&amp;h=383)](https://docs.google.com/drawings/d/1J6sGrJcnm7W7E1MJczPiGeFGAlHob7RKJOwgKKrBrc8/edit)
