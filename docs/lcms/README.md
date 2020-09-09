@@ -64,12 +64,6 @@ Related files:
 [`metadata_path`](#metadata_path)<br>
 [`data_path`](#data_path)<br></details>
 
-## Directory description
-
-| pattern (regular expression) | required? | description |
-| --- | --- | --- |
-| `TODO\.txt` | yes | TODO |
-
 ## Provenance
 
 ### `donor_id`

@@ -36,9 +36,6 @@ Related files:
 [`specimen_tumor_distance_value`](#specimen_tumor_distance_value)<br>
 [`specimen_tumor_distance_unit`](#specimen_tumor_distance_unit)<br></details>
 
-## Directory description
-
-
 ## IDs
 
 ### `sample_id`

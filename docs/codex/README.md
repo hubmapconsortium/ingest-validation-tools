@@ -54,29 +54,6 @@ Related files:
 [`metadata_path`](#metadata_path)<br>
 [`data_path`](#data_path)<br></details>
 
-## Directory description
-
-### codex-stanford
-
-| pattern (regular expression) | required? | description |
-| --- | --- | --- |
-| `channelNames\.txt` | yes | TODO |
-| `Experiment\.json` | yes | TODO |
-| `processingOptions\.json` | yes | TODO |
-| `exposure_times\.txt` | no | TODO |
-| `Cyc.*_reg.*/HE_.*_Z.*_CH.*` | yes | TODO |
-
-### codex-akoya
-
-| pattern (regular expression) | required? | description |
-| --- | --- | --- |
-| `channelnames\.txt` | yes | TODO |
-| `experiment\.json` | yes | TODO |
-| `exposure_times\.txt` | yes | TODO |
-| `segmentation\.json` | no | TODO |
-| `cyc.*_reg.*_.*/.*_.*_Z.*_CH.*` | yes | TODO |
-| `cyc.*_reg.*_.*/.*.gci` | no | TODO |
-
 ## Provenance
 
 ### `donor_id`

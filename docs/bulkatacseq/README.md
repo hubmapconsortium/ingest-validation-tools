@@ -60,12 +60,6 @@ Related files:
 [`metadata_path`](#metadata_path)<br>
 [`data_path`](#data_path)<br></details>
 
-## Directory description
-
-| pattern (regular expression) | required? | description |
-| --- | --- | --- |
-| `.*\.fastq\.gz` | yes | TODO |
-
 ## Provenance
 
 ### `donor_id`
