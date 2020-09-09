@@ -9,10 +9,10 @@ Metadata TSV Errors:
         Not allowed:
         - not-good-for-either-type.txt
         Required but missing:
-        - channelnames.txt
-        - experiment.json
-        - exposure_times.txt
-        - cyc*_reg*_*/*_*_Z*_CH*
+        - channelnames\.txt
+        - experiment\.json
+        - exposure_times\.txt
+        - cyc.*_reg.*_.*/.*_.*_Z.*_CH.*
   dataset-examples/bad-mixed/submission/scatacseq-metadata.tsv (as scatacseq):
     Internal:
     - The value "-INVALID-" in row 2 and column 1 ("A") does not conform to the pattern
@@ -24,7 +24,7 @@ Metadata TSV Errors:
         Not allowed:
         - not-good-for-either-type.txt
         Required but missing:
-        - '*.fastq.gz'
+        - .*\.fastq\.gz
 Reference Errors:
   Multiple References:
     bad-shared-dataset:

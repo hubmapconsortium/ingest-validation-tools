@@ -1,2 +1,3 @@
-'**': 0
-# TODO: No file structure obvious at https://docs.google.com/document/d/1gRPGWWO43nSY024NHuQ4RdONTRezhI0tPOcZyCsvHhI/edit
+-
+  pattern: 'TODO\.txt'
+  description: 'TODO'
