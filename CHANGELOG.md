@@ -6,6 +6,7 @@
 - Add missing assay type to enum.
 - ng/ul to nM.
 - Change to flat directory schema structure.
+- Update README.
 
 ## v0.0.4 - 2020-06-26
 ### Added
