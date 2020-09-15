@@ -44,30 +44,41 @@ fields:
     description: 'The specific type of assay being executed.'
     constraints:
       enum:
-        - scRNA-seq (10x Genomics) [Salmon]
         - Autofluorescence Microscopy
-        - Bulk RNA-seq
         - Bulk ATAC-seq
         - CODEX
-        - CODEX [Cytokit + SPRM]
         - Imaging Mass Cytometry
         - Untargeted LC-MS
-        - Multiplexed IF Microscopy
-        - MALDI IMS positive
+        - Lightsheet Microscopy
         - MALDI IMS negative
-        - Targeted Shotgun / Flow-injection LC-MS
+        - MALDI IMS positive
+        - Multiplexed IF Microscopy
         - PAS Stained Microscopy
-        - scATAC-seq (SNARE-seq) [Lab Processed]
+        - SNARE-seq
+        - TMT LC-MS
+        - Targeted Shotgun / Flow-injection LC-MS
+        - Whole Genome Sequencing
+        - Bulk RNA-seq
+        - CODEX [Cytokit + SPRM]
+        - Image Pyramid
+        - scRNA-seq (10x Genomics) [Salmon]
+        - Bulk RNA-seq [Salmon]
+        - sciRNA-seq [Salmon]
+        - scRNA-seq (SNARE-seq) [Salmon]
         - scATAC-seq (SNARE-seq) [SnapATAC]
+        - scRNA-seq (SNARE-seq) [Lab Processed]
+        - scATAC-seq (SNARE-seq) [Lab Processed]
+        - scRNA-seq (10x Genomics)
         - sciATAC-seq
+        - sciATAC-seq [SnapATAC]
         - sciRNA-seq
         - seqFISH
-        - SNARE-seq
+        - seqFISH [Lab Processed]
         - snATAC-seq
-        - scRNA-seq (10x Genomics)
-        - TMT LC-MS
-        - Whole Genome Sequencing
-        - SNARE-seq
+        - snRNA-seq
+        - Bulk ATAC-seq [BWA + MACS2]
+        - snATAC-seq [SnapATAC]
+        - snRNA-seq [Salmon]
   -
     name: analyte_class
     description: Analytes are the target molecules being measured with the assay.
