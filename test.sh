@@ -15,7 +15,7 @@ end flake8
 
 start src-doctests
 cd src
-find . | grep '\.py$' | xargs python -m doctest
+find . | grep -v search-api | grep '\.py$' | xargs python -m doctest
 cd -
 end src-doctests
 

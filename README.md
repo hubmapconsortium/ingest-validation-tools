@@ -13,7 +13,7 @@ cd ingest-validation-tools
 pip install -r requirements.txt
 ```
 
-This repo also references other repos via submodules.
+This repo also references other repos as submodules.
 To make sure the submodules stay up to date:
 ```
 git submodule init
