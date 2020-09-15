@@ -44,33 +44,30 @@ fields:
     description: 'The specific type of assay being executed.'
     constraints:
       enum:
-        - scRNA-Seq (10xGenomics)
-        - AF
-        - bulk RNA
-        - bulkATACseq
+        - scRNA-seq (10x Genomics) [Salmon]
+        - Autofluorescence Microscopy
+        - Bulk RNA-seq
+        - Bulk ATAC-seq
         - CODEX
+        - CODEX [Cytokit + SPRM]
         - Imaging Mass Cytometry
-        - LC-MS (metabolomics)
-        - LC-MS/MS (label-free proteomics)
-        - MxIF
-        - MALDI-IMS positive
-        - MALDI-IMS negative
-        - MS (shotgun lipidomics)
-        - PAS microscopy
-        - scATACseq
-        - sciATACseq
-        - sciRNAseq
+        - Untargeted LC-MS
+        - Multiplexed IF Microscopy
+        - MALDI IMS positive
+        - MALDI IMS negative
+        - Targeted Shotgun / Flow-injection LC-MS
+        - PAS Stained Microscopy
+        - scATAC-seq (SNARE-seq) [Lab Processed]
+        - scATAC-seq (SNARE-seq) [SnapATAC]
+        - sciATAC-seq
+        - sciRNA-seq
         - seqFISH
-        - SNARE-seq2
-        - snATACseq
-        - snRNA
-        - SPLiT-Seq
-        - TMT (proteomics)
-        - WGS
-        - SNARE2-RNAseq
-        - snRNAseq
-        - scRNAseq-10xGenomics
-        - scRNAseq
+        - SNARE-seq
+        - snATAC-seq
+        - scRNA-seq (10x Genomics)
+        - TMT LC-MS
+        - Whole Genome Sequencing
+        - SNARE-seq
   -
     name: analyte_class
     description: Analytes are the target molecules being measured with the assay.
