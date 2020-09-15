@@ -11,9 +11,21 @@ git clone https://github.com/hubmapconsortium/ingest-validation-tools.git
 cd ingest-validation-tools
 # Optionally, set up venv or conda, then:
 pip install -r requirements.txt
-src/validate_submission.py --help
 ```
 
+This repo also references other repos via submodules.
+To make sure the submodules stay up to date:
+```
+git submodule init
+git submodule update
+git config --global submodule.recurse true # Run this once...
+git pull                                   # Now pulls submodules every time!
+```
+
+Now you should be able to run the validation script:
+```
+src/validate_submission.py --help
+```
 You should see [the documention for `validate_submission.py`](README-validate_submission.py.md)
 
 Now run it against one of the included examples, giving the type (`codex`) and the path to a TSV.
