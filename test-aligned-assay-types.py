@@ -23,7 +23,8 @@ def get_level_1_assay_types():
         f for f in level_1_info['fields']
         if f['name'] == 'assay_type'
     ]
-    assert len(assay_type_matches) == 1
+    assert len(assay_type_matches) == 1, \
+        f'Expected one match, not {assay_type_matches}'
     return assay_type_matches[0]['constraints']['enum']
 
 
