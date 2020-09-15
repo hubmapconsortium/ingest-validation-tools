@@ -1,0 +1,3 @@
+[submodule "src/search-api"]
+	path = src/search-api
+	url = https://github.com/hubmapconsortium/search-api.git
