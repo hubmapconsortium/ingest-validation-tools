@@ -56,11 +56,12 @@ fields:
   name: assay_category
 - constraints:
     enum:
-    - scRNAseq-10xGenomics
-    - scRNAseq
-    - sciRNAseq
-    - snRNAseq
-    - SNARE2-RNAseq
+    - scATAC-seq (SNARE-seq) [Lab Processed]
+    - scATAC-seq (SNARE-seq) [SnapATAC]
+    - scRNA-seq (10x Genomics)
+    - scRNA-seq (10x Genomics) [Salmon]
+    - scRNA-seq (SNARE-seq) [Lab Processed]
+    - scRNA-seq (SNARE-seq) [Salmon]
     required: true
   description: The specific type of assay being executed.
   name: assay_type

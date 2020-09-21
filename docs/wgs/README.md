@@ -131,7 +131,7 @@ The specific type of assay being executed.
 
 | constraint | value |
 | --- | --- |
-| enum | `WGS` |
+| enum | `Whole Genome Sequencing` |
 | required | `True` |
 
 ### `analyte_class`

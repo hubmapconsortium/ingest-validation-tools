@@ -144,7 +144,7 @@ The specific type of assay being executed.
 
 | constraint | value |
 | --- | --- |
-| enum | `SNARE-seq2`, `scATACseq`, `sciATACseq`, or `snATACseq` |
+| enum | `scRNA-seq (SNARE-seq) [Salmon]`, `scATAC-seq (SNARE-seq) [SnapATAC]`, `scRNA-seq (SNARE-seq) [Lab Processed]`, `scATAC-seq (SNARE-seq) [Lab Processed]`, `sciATAC-seq`, `sciATAC-seq [SnapATAC]`, `snATAC-seq`, or `snATAC-seq [SnapATAC]` |
 | required | `True` |
 
 ### `analyte_class`
@@ -253,7 +253,7 @@ Modality of capturing accessible chromatin molecules.
 
 | constraint | value |
 | --- | --- |
-| enum | `SNARE-Seq2-AC`, `scATACseq`, `bulkATACseq`, `snATACseq`, or `sciATACseq` |
+| enum | `SNARE-Seq2-AC`, `scATACseq`, `Bulk ATAC-seq`, `snATACseq`, or `sciATACseq` |
 | required | `True` |
 
 ### `transposition_transposase_source`
