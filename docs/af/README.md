@@ -125,7 +125,7 @@ The specific type of assay being executed.
 
 | constraint | value |
 | --- | --- |
-| enum | `AF` |
+| enum | `Autofluorescence Microscopy` |
 | required | `True` |
 
 ### `analyte_class`

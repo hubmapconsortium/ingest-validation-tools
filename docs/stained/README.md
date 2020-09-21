@@ -126,7 +126,7 @@ The specific type of assay being executed.
 
 | constraint | value |
 | --- | --- |
-| enum | `PAS microscopy` |
+| enum | `PAS Stained Microscopy` |
 | required | `True` |
 
 ### `analyte_class`

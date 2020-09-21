@@ -10,7 +10,7 @@ fields:
     name: assay_type
     constraints:
       enum:
-        - PAS microscopy
+        - PAS Stained Microscopy
   -
     name: analyte_class
     constraints:

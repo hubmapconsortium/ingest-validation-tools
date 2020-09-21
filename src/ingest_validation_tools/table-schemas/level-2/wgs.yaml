@@ -10,7 +10,7 @@ fields:
   name: assay_type
   constraints:
     enum:
-      - WGS
+      - Whole Genome Sequencing
 -
   name: analyte_class
   constraints:
