@@ -10,7 +10,7 @@ fields:
   name: assay_type
   constraints:
     enum:
-      - bulk RNA
+      - Bulk RNA-seq
 -
   name: analyte_class
   constraints:

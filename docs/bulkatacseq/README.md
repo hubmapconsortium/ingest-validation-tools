@@ -140,7 +140,7 @@ The specific type of assay being executed.
 
 | constraint | value |
 | --- | --- |
-| enum | `bulkATACseq` |
+| enum | `Bulk ATAC-seq` |
 | required | `True` |
 
 ### `analyte_class`

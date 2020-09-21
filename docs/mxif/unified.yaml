@@ -56,7 +56,7 @@ fields:
   name: assay_category
 - constraints:
     enum:
-    - MxIF
+    - Multiplexed IF Microscopy
     required: true
   description: The specific type of assay being executed.
   name: assay_type

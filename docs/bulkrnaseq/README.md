@@ -135,7 +135,7 @@ The specific type of assay being executed.
 
 | constraint | value |
 | --- | --- |
-| enum | `bulk RNA` |
+| enum | `Bulk RNA-seq` |
 | required | `True` |
 
 ### `analyte_class`

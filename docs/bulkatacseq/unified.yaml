@@ -56,7 +56,7 @@ fields:
   name: assay_category
 - constraints:
     enum:
-    - bulkATACseq
+    - Bulk ATAC-seq
     required: true
   description: The specific type of assay being executed.
   name: assay_type

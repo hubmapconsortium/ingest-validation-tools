@@ -56,9 +56,9 @@ fields:
   name: assay_category
 - constraints:
     enum:
-    - LC-MS (metabolomics)
-    - LC-MS/MS (label-free proteomics)
-    - MS (shotgun lipidomics)
+    - TMT LC-MS
+    - Targeted Shotgun / Flow-injection LC-MS
+    - Untargeted LC-MS
     required: true
   description: The specific type of assay being executed.
   name: assay_type

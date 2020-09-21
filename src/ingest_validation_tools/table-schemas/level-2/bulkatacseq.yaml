@@ -10,7 +10,7 @@ fields:
   name: assay_type
   constraints:
     enum:
-      - bulkATACseq
+      - Bulk ATAC-seq
 -
   name: analyte_class
   constraints:

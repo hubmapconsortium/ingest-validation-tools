@@ -146,7 +146,7 @@ fields:
     enum:
     - SNARE-Seq2-AC
     - scATACseq
-    - bulkATACseq
+    - Bulk ATAC-seq
     - snATACseq
     - sciATACseq
     required: true

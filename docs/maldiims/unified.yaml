@@ -56,8 +56,8 @@ fields:
   name: assay_category
 - constraints:
     enum:
-    - MALDI-IMS positive
-    - MALDI-IMS negative
+    - MALDI IMS negative
+    - MALDI IMS positive
     required: true
   description: The specific type of assay being executed.
   name: assay_type

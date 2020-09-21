@@ -130,10 +130,14 @@ def _check_enum_consistency(high_fields, override_fields_dict):
     >>> override_fields_dict = {'vowels': {
     ...    'constraints': {'enum': ['a', 'b', 'c']}
     ... }}
-    >>> _check_enum_consistency(high_fields, override_fields_dict)
-    Traceback (most recent call last):
-    ...
-    Exception: In vowels, surprised by: ['b', 'c']
+    >>> try:
+    ...   _check_enum_consistency(high_fields, override_fields_dict)
+    ... except Exception as e:
+    ...   a = str(e).split('; ')
+    ...   print(a[0])
+    ...   print(a[1])
+    In vowels, surprised by: ['b', 'c']
+    Should be one of ['a', 'e', 'i', 'o', 'u']
 
     '''
     high_field_constraints = {
@@ -150,7 +154,8 @@ def _check_enum_consistency(high_fields, override_fields_dict):
             if not (override_enum < high_field_enum):
                 surprise = override_enum - high_field_enum
                 raise Exception(
-                    f'In {field_name}, surprised by: {sorted(surprise)}')
+                    f'In {field_name}, surprised by: {sorted(surprise)}; '
+                    f'Should be one of {sorted(high_field_enum)}')
 
 
 def _add_constraints(field, optional_fields):

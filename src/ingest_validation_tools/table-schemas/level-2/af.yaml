@@ -10,7 +10,7 @@ fields:
     name: assay_type
     constraints:
       enum:
-        - AF
+        - Autofluorescence Microscopy
   -
     name: analyte_class
     constraints:

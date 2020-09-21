@@ -126,7 +126,7 @@ The specific type of assay being executed.
 
 | constraint | value |
 | --- | --- |
-| enum | `MxIF` |
+| enum | `Multiplexed IF Microscopy` |
 | required | `True` |
 
 ### `analyte_class`
