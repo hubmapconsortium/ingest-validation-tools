@@ -62,8 +62,6 @@ fields:
     - scATAC-seq (SNARE-seq) [Lab Processed]
     - sciATAC-seq
     - sciATAC-seq [SnapATAC]
-    - snATAC-seq
-    - snATAC-seq [SnapATAC]
     required: true
   description: The specific type of assay being executed.
   name: assay_type

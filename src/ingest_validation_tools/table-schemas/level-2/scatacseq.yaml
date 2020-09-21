@@ -16,8 +16,6 @@ fields:
         - scATAC-seq (SNARE-seq) [Lab Processed]
         - sciATAC-seq
         - sciATAC-seq [SnapATAC]
-        - snATAC-seq
-        - snATAC-seq [SnapATAC]
   -
     name: analyte_class
     constraints:
