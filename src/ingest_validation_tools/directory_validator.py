@@ -1,6 +1,7 @@
 from os import walk
 import re
 from fnmatch import fnmatch
+from importlib import import_module
 
 
 class DirectoryValidationErrors(Exception):
@@ -8,7 +9,7 @@ class DirectoryValidationErrors(Exception):
         self.errors = errors
 
 
-def validate_directory(path, paths_dict, dataset_ignore_globs=[]):
+def validate_directory_structure(path, paths_dict, dataset_ignore_globs=[]):
     '''
     Given a directory path, and a dict representing valid path globs,
     raise DirectoryValidationErrors if there are errors.
@@ -68,3 +69,11 @@ def _get_required_allowed(dir_schema):
         item['pattern'] for item in dir_schema
         if 'required' not in item or item['required']]
     return required, allowed
+
+
+def validate_directory_content(assay_type, data_path):
+    validator = import_module(
+        f'ingest_validation_tools.content_validation.{assay_type}')
+    errors = validator.collect_errors(data_path)
+    if errors:
+        raise DirectoryValidationErrors(errors)

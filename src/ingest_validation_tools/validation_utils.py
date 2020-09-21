@@ -8,24 +8,26 @@ from goodtables import validate as validate_table
 
 from ingest_validation_tools.schema_loader import get_table_schema
 from ingest_validation_tools.directory_validator import (
-    validate_directory, DirectoryValidationErrors)
+    validate_directory_structure,
+    validate_directory_content,
+    DirectoryValidationErrors)
 
 
 class TableValidationErrors(Exception):
     pass
 
 
-def get_data_dir_errors(type, data_path, dataset_ignore_globs=[]):
+def get_data_dir_errors(assay_type, data_path, dataset_ignore_globs=[]):
     '''
     Validate a single data_path.
     '''
     schema_path = (
         Path(__file__).parent /
         'directory-schemas' /
-        f'{type}.yaml')
+        f'{assay_type}.yaml')
     schema = load_yaml(open(schema_path).read())
     try:
-        validate_directory(
+        validate_directory_structure(
             data_path, schema, dataset_ignore_globs=dataset_ignore_globs)
     except DirectoryValidationErrors as e:
         return e.errors
@@ -34,6 +36,10 @@ def get_data_dir_errors(type, data_path, dataset_ignore_globs=[]):
             e.strerror:
                 e.filename
         }
+    try:
+        validate_directory_content(assay_type, data_path)
+    except DirectoryValidationErrors as e:
+        return e.errors
 
 
 def get_metadata_tsv_errors(metadata_path, type, optional_fields=[]):
