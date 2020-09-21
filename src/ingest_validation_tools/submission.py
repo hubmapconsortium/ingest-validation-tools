@@ -48,10 +48,13 @@ class Submission:
         errors = {}
         tsv_errors = self._get_tsv_errors()
         reference_errors = self._get_reference_errors()
+        content_errors = self._get_content_errors()
         if tsv_errors:
             errors['Metadata TSV Errors'] = tsv_errors
         if reference_errors:
             errors['Reference Errors'] = reference_errors
+        if content_errors:
+            errors['Content Errors'] = content_errors
         if errors and self.add_notes:
             errors['Notes'] = {
                 'Time': datetime.now(),
@@ -147,3 +150,6 @@ class Submission:
                     reference = f'{tsv_path} (row {i+2})'
                     data_references[row['data_path']].append(reference)
         return data_references
+
+    def _get_content_errors(self):
+        return {}

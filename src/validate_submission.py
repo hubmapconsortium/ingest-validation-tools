@@ -64,13 +64,14 @@ Typical usecases:
         help='A list of type / metadata.tsv pairs. '
         f'Type should be one of: {directory_schemas}')
 
+    # Should metadata fields or submission files be ignored?
+
     parser.add_argument(
         '--optional_fields', nargs='+',
         metavar='FIELD',
         help='The listed fields will be treated as optional. '
         '(But if they are supplied in the TSV, they will be validated.)'
     )
-
     parser.add_argument(
         '--dataset_ignore_globs', nargs='+',
         metavar='GLOB',
