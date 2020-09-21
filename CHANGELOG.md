@@ -8,6 +8,7 @@
 - Change to flat directory schema structure.
 - Update README.
 - Update assay to match assay_types.yaml.
+- Validate content of submission.
 
 ## v0.0.4 - 2020-06-26
 ### Added
