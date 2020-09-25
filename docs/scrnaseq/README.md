@@ -142,7 +142,7 @@ The specific type of assay being executed.
 
 | constraint | value |
 | --- | --- |
-| enum | `scATAC-seq (SNARE-seq) [Lab Processed]`, `scATAC-seq (SNARE-seq) [SnapATAC]`, `scRNA-seq (10x Genomics)`, `scRNA-seq (10x Genomics) [Salmon]`, `scRNA-seq (SNARE-seq) [Lab Processed]`, or `snRNA-seq (SNARE-seq) [Lab Processed]` |
+| enum | `scATAC-seq (SNARE-seq) [Lab Processed]`, `scRNA-seq (10x Genomics)`, or `snRNA-seq (SNARE-seq) [Lab Processed]` |
 | required | `True` |
 
 ### `analyte_class`
