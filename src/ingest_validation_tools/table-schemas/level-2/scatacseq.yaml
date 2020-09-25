@@ -11,11 +11,8 @@ fields:
     constraints:
       enum:
         - snRNA-seq (SNARE-seq) [Lab Processed]
-        - scATAC-seq (SNARE-seq) [SnapATAC]
-        - scRNA-seq (SNARE-seq) [Lab Processed]
         - scATAC-seq (SNARE-seq) [Lab Processed]
         - sciATAC-seq
-        - sciATAC-seq [SnapATAC]
   -
     name: analyte_class
     constraints:

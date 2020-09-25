@@ -61,7 +61,6 @@ fields:
         - Bulk RNA-seq
         - Image Pyramid
         - snRNA-seq (SNARE-seq) [Lab Processed]
-        - scRNA-seq (SNARE-seq) [Lab Processed]
         - scATAC-seq (SNARE-seq) [Lab Processed]
         - scRNA-seq (10x Genomics)
         - sciATAC-seq
