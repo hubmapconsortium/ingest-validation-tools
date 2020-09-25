@@ -31,10 +31,8 @@ def get_level_1_assay_types():
 def main():
     search_api_assays = set(get_search_api_assay_types())
     level_1_assays = set(get_level_1_assay_types())
-    search_api_but_not_level_1 = search_api_assays - level_1_assays
     level_1_but_not_search_api = level_1_assays - search_api_assays
-    if search_api_but_not_level_1 or level_1_but_not_search_api:
-        print(f'search-api but not level-1: {search_api_but_not_level_1}')
+    if level_1_but_not_search_api:
         print(f'level-1 but not search-api: {level_1_but_not_search_api}')
         sys.exit(1)
 
