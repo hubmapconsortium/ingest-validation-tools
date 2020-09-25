@@ -59,26 +59,17 @@ fields:
         - Targeted Shotgun / Flow-injection LC-MS
         - Whole Genome Sequencing
         - Bulk RNA-seq
-        - CODEX [Cytokit + SPRM]
         - Image Pyramid
-        - scRNA-seq (10x Genomics) [Salmon]
-        - Bulk RNA-seq [Salmon]
-        - sciRNA-seq [Salmon]
         - snRNA-seq (SNARE-seq) [Lab Processed]
-        - scATAC-seq (SNARE-seq) [SnapATAC]
         - scRNA-seq (SNARE-seq) [Lab Processed]
         - scATAC-seq (SNARE-seq) [Lab Processed]
         - scRNA-seq (10x Genomics)
         - sciATAC-seq
-        - sciATAC-seq [SnapATAC]
         - sciRNA-seq
         - seqFISH
         - seqFISH [Lab Processed]
         - snATAC-seq
         - snRNA-seq
-        - Bulk ATAC-seq [BWA + MACS2]
-        - snATAC-seq [SnapATAC]
-        - snRNA-seq [Salmon]
   -
     name: analyte_class
     description: Analytes are the target molecules being measured with the assay.
