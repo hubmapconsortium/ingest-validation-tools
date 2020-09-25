@@ -10,7 +10,7 @@ fields:
     name: assay_type
     constraints:
       enum:
-        - scRNA-seq (SNARE-seq) [Salmon]
+        - snRNA-seq (SNARE-seq) [Lab Processed]
         - scATAC-seq (SNARE-seq) [SnapATAC]
         - scRNA-seq (SNARE-seq) [Lab Processed]
         - scATAC-seq (SNARE-seq) [Lab Processed]

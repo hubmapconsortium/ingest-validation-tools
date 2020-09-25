@@ -15,7 +15,7 @@ fields:
         - scRNA-seq (10x Genomics)
         - scRNA-seq (10x Genomics) [Salmon]
         - scRNA-seq (SNARE-seq) [Lab Processed]
-        - scRNA-seq (SNARE-seq) [Salmon]
+        - snRNA-seq (SNARE-seq) [Lab Processed]
   -
     name: analyte_class
     constraints:

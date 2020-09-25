@@ -61,7 +61,7 @@ fields:
     - scRNA-seq (10x Genomics)
     - scRNA-seq (10x Genomics) [Salmon]
     - scRNA-seq (SNARE-seq) [Lab Processed]
-    - scRNA-seq (SNARE-seq) [Salmon]
+    - snRNA-seq (SNARE-seq) [Lab Processed]
     required: true
   description: The specific type of assay being executed.
   name: assay_type

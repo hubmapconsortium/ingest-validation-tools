@@ -64,7 +64,7 @@ fields:
         - scRNA-seq (10x Genomics) [Salmon]
         - Bulk RNA-seq [Salmon]
         - sciRNA-seq [Salmon]
-        - scRNA-seq (SNARE-seq) [Salmon]
+        - snRNA-seq (SNARE-seq) [Lab Processed]
         - scATAC-seq (SNARE-seq) [SnapATAC]
         - scRNA-seq (SNARE-seq) [Lab Processed]
         - scATAC-seq (SNARE-seq) [Lab Processed]
