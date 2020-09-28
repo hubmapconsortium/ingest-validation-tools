@@ -1,3 +1,15 @@
 -
-  pattern: 'TODO\.txt'
+  pattern: 'processedMicroscopy/images/[^/]+\.ome\.tiff'
+  description: 'TODO'
+-
+  pattern: 'processedMicroscopy/transformations/transform_0+_[^/]+_initial.txt'
+  description: 'TODO'
+-
+  pattern: 'processedMicroscopy/transformations/transform_\d+_[^/]+.txt'
+  description: 'TODO: "rigid", "affine", "custom"...'
+-
+  pattern: 'rawMicroscopy/[^/]\.xml'
+  description: 'TODO'
+-
+  pattern: 'rawMicroscopy/[^/]\.czi'
   description: 'TODO'
