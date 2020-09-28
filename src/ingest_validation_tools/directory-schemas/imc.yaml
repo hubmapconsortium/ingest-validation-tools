@@ -1,3 +1,68 @@
+# My sense is that a lot of this is random junk that shouldn't be part of submissions going forward...
+# but I also think I shouldn't be the one to make the call.
 -
-  pattern: 'TODO\.txt'
+  pattern: '\d+_HubMAP_Panel.csv'
+  description: 'TODO'
+-
+  pattern: '[^/]+.json'
+  description: 'TODO'
+-
+  pattern: 'Mapping/[^/]+.json'
+  description: 'TODO'
+-
+  pattern: 'Mapping/[^/]+.png'
+  description: 'TODO'
+-
+  pattern: 'SingleCellData/[^/]+__masterfile.csv'
+  description: 'TODO'
+-
+  pattern: 'ometiff/[^/]+/[^/]+_AcquisitionChannel_meta.csv'
+  description: 'TODO'
+-
+  pattern: 'ometiff/[^/]+/[^/]+_AcquisitionROI_meta.csv'
+  description: 'TODO'
+-
+  pattern: 'ometiff/[^/]+/[^/]+_Acquisition_meta.csv'
+  description: 'TODO'
+-
+  pattern: 'ometiff/[^/]+/[^/]+_Panorama_meta.csv'
+  description: 'TODO'
+-
+  pattern: 'ometiff/[^/]+/[^/]+_ROIPoint_meta.csv'
+  description: 'TODO'
+-
+  pattern: 'ometiff/[^/]+/[^/]+_Slide_meta.csv'
+  description: 'TODO'
+-
+  pattern: 'ometiff/[^/]+/[^/]+_s\d+_p\d+_pano.png'
+  description: 'TODO'
+-
+  pattern: 'ometiff/[^/]+/[^/]+.ome.tiff'
+  description: 'TODO'
+-
+  pattern: 'ometiff/[^/]+/[^/]+_after.png'
+  description: 'TODO'
+-
+  pattern: 'ometiff/[^/]+/[^/]+_before.png'
+  description: 'TODO'
+-
+  pattern: 'ometiff/[^/]+/[^/]+_slide.png'
+  description: 'TODO'
+-
+  pattern: 'ometiff/[^/]+/[^/]+_schema.xml'
+  description: 'TODO'
+-
+  pattern: 'ometiff/[^/]+/channelnames_report.csv'
+  description: 'TODO'
+-
+  pattern: 'processed/[^/]__PhenoGraph_tsne_M.png'
+  description: 'TODO'
+-
+  pattern: 'processed/[^/]__core_cluster_type_freq.pdf'
+  description: 'TODO'
+-
+  pattern: 'processed/[^/]__heatmap.pdf'
+  description: 'TODO'
+-
+  pattern: 'processed/[^/]__histogram_sample.png'
   description: 'TODO'
