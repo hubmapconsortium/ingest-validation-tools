@@ -1,27 +1,27 @@
 -
-  description: "TODO"
-  pattern: "csv/[^/]+_columnar.csv"
+  description: 'TODO'
+  pattern: 'csv/[^/]+_columnar.csv'
 -
-  description: "TODO"
-  pattern: "imzML/[^/]+.ibd"
+  description: 'TODO'
+  pattern: 'imzML/[^/]+.ibd'
 -
-  description: "TODO"
-  pattern: "imzML/[^/]+.imzML"
+  description: 'TODO'
+  pattern: 'imzML/[^/]+.imzML'
 -
-  description: "TODO: Could we ask the lab to deliver this in a different format?"
-  pattern: "metadata/[^/]+_LipidAssignments.xlsx"
+  description: 'TODO: Could we ask the lab to deliver this in a different format?'
+  pattern: 'metadata/[^/]+_LipidAssignments.xlsx'
 -
-  description: "TODO"
-  pattern: "metadata/[^/]+_meta.json"
+  description: 'TODO'
+  pattern: 'metadata/[^/]+_meta.json'
 -
-  description: "TODO"
-  pattern: "metadata/[^/]+_tform_to_microscopy.txt"
+  description: 'TODO'
+  pattern: 'metadata/[^/]+_tform_to_microscopy.txt'
 -
-  description: "TODO"
-  pattern: "ometiffs/Thumbs.db"
+  description: 'TODO'
+  pattern: 'ometiffs/Thumbs.db'
 -
-  description: "TODO"
-  pattern: "ometiffs/[^/]+_multilayer.ome.tiff"
+  description: 'TODO'
+  pattern: 'ometiffs/[^/]+_multilayer.ome.tiff'
 -
-  description: "TODO"
-  pattern: "ometiffs/separate/[^/]+.ome.tiff"
+  description: 'TODO'
+  pattern: 'ometiffs/separate/[^/]+.ome.tiff'
