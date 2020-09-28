@@ -1,36 +1,36 @@
 -
-  description: "TODO"
-  pattern: "HybCycle_\d+/MMStack_Pos\d+\.ome\.tif"
+  description: 'TODO'
+  pattern: 'HybCycle_\d+/MMStack_Pos\d+\.ome\.tif'
 -
-  description: "TODO"
-  pattern: "central\.tif"
+  description: 'TODO'
+  pattern: 'central\.tif'
 -
-  description: "TODO"
-  pattern: "final_mRNA_background/MMStack_Pos\d+\.ome\.tif"
+  description: 'TODO'
+  pattern: 'final_mRNA_background/MMStack_Pos\d+\.ome\.tif'
 -
-  description: "TODO"
-  pattern: "gene-list-seqFISH-[^/]+\.csv"
+  description: 'TODO'
+  pattern: 'gene-list-seqFISH-[^/]+\.csv'
 -
-  description: "TODO"
-  pattern: "omexml/background/omexml_background_\d+\.xml"
+  description: 'TODO'
+  pattern: 'omexml/background/omexml_background_\d+\.xml'
 -
-  description: "TODO"
-  pattern: "omexml/background/omexml_background_complete\.xml"
+  description: 'TODO'
+  pattern: 'omexml/background/omexml_background_complete\.xml'
 -
-  description: "TODO"
-  pattern: "omexml/background/omexml_background_temp\.xml"
+  description: 'TODO'
+  pattern: 'omexml/background/omexml_background_temp\.xml'
 -
-  description: "TODO"
-  pattern: "omexml/cycle\d+/omexml_cycle\d+_\d+\.xml"
+  description: 'TODO'
+  pattern: 'omexml/cycle\d+/omexml_cycle\d+_\d+\.xml'
 -
-  description: "TODO"
-  pattern: "omexml/cycle\d+/omexml_cycle\d+_complete\.xml"
+  description: 'TODO'
+  pattern: 'omexml/cycle\d+/omexml_cycle\d+_complete\.xml'
 -
-  description: "TODO"
-  pattern: "omexml/cycle\d+/omexml_cycle\d+_temp\.xml"
+  description: 'TODO'
+  pattern: 'omexml/cycle\d+/omexml_cycle\d+_temp\.xml'
 -
-  description: "TODO"
-  pattern: "segmentation_mask/dapi-hyb\d+-pos\d+\.tif"
+  description: 'TODO'
+  pattern: 'segmentation_mask/dapi-hyb\d+-pos\d+\.tif'
 -
-  description: "TODO"
-  pattern: "segmentation_mask/segmentation_mask_fov\d+\.tif"
+  description: 'TODO'
+  pattern: 'segmentation_mask/segmentation_mask_fov\d+\.tif'
