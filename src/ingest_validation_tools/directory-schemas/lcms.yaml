@@ -1,3 +1,40 @@
+# Each type had a different directory structure... Maybe these need to be described separately, like we do for CODEX?
+
+# TMT:
 -
-  pattern: 'TODO\.txt'
+  pattern: 'SearchResults/.+_PeptideGroups\.txt'
+  description: 'TODO'
+-
+  pattern: 'SearchResults/.+_Proteins\.txt'
+  description: 'TODO'
+-
+  pattern: 'rawData/.+\.raw'
+  description: 'TODO'
+
+# Untargetted:
+-
+  pattern: '.*\.csv'
+  description: 'TODO'
+-
+  pattern: 'HILIC/pos/.*\.raw'
+  description: 'TODO'
+-
+  pattern: 'metadata_from_instrument.tsv'
+  description: 'TODO'
+
+# Targeted-Shotgun:
+-
+  pattern: '[^/]+\.csv'
+  description: 'TODO'
+-
+  pattern: '[^/]+\.csv'
+  description: 'TODO'
+-
+  pattern: 'Lipidomics_HUBMAP_MetadataRelease - Instrument.tsv'
+  description: 'TODO'
+-
+  pattern: 'raw/mode1/[^/]+\.mzML'
+  description: 'TODO'
+-
+  pattern: 'raw/mode2/[^/]+\.mzML'
   description: 'TODO'
