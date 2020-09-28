@@ -1,12 +1,12 @@
 -
-  description: "TODO"
-  pattern: "[^/]+.p2.obj.rds"
+  description: 'TODO'
+  pattern: '[^/]+.p2.obj.rds'
 -
-  description: "TODO"
-  pattern: "[^/]+.pmat.filtered.rds"
+  description: 'TODO'
+  pattern: '[^/]+.pmat.filtered.rds'
 -
-  description: "TODO"
-  pattern: "[^/]+.qc.txt"
+  description: 'TODO'
+  pattern: '[^/]+.qc.txt'
 -
-  description: "TODO"
-  pattern: "[^/]+.snap.rds"
+  description: 'TODO'
+  pattern: '[^/]+.snap.rds'
