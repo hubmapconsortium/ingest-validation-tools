@@ -3,6 +3,13 @@ import re
 from fnmatch import fnmatch
 from importlib import import_module
 
+def default_factory(base_path, assay_type):
+    """
+    default validator factory
+    """
+    return DefaultDirectoryContentValidator(base_path, assay_type)
+
+
 DIRECTORY_CONTENT_VALIDATOR_FACTORY = default_factory
 
 
@@ -27,13 +34,6 @@ class DefaultDirectoryContentValidator(DirectoryContentValidator):
         validator = import_module(
             f'ingest_validation_tools.content_validation.{self.assay_type}')
         return validator.collect_errors(self.base_path)
-
-
-def default_factory(base_path, assay_type):
-    """
-    default validator factory
-    """
-    return DefaultDirectoryContentValidator(base_path, assay_type)
 
 
 class DirectoryValidationErrors(Exception):
