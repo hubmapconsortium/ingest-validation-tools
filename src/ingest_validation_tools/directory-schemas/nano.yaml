@@ -1,0 +1,18 @@
+-
+  pattern: 'Slide\d+_Section\d+_Imaging region\d+_\d{8}/Experiment.docx'
+  description: 'TODO'
+-
+  pattern: 'Slide\d+_Section\d+_Imaging region\d+_\d{8}/Metadata.csv'
+  description: 'TODO'
+-
+  pattern: 'Slide\d+_Section\d+_Imaging region\d+_\d{8}/Sample info.pptx'
+  description: 'TODO'
+-
+  pattern: 'Slide\d+_Section\d+_Imaging region\d+_\d{8}/Raw data.imzml'
+  description: 'TODO'
+-
+  pattern: 'Slide\d+_Section\d+_Imaging region\d+_\d{8}/Peak assignment.csv'
+  description: 'TODO'
+-
+  pattern: 'Slide\d+_Section\d+_Imaging region\d+_\d{8}/\d+\.\d+.png'
+  description: 'TODO'

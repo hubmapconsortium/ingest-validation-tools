@@ -7,6 +7,7 @@
 - ng/ul to nM.
 - Change to flat directory schema structure.
 - Update README.
+- Directory Schema for nano protocols.
 
 ## v0.0.4 - 2020-06-26
 ### Added
