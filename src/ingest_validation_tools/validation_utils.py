@@ -32,7 +32,7 @@ def get_data_dir_errors(assay_type, data_path, dataset_ignore_globs=[]):
         validate_directory_structure(
             data_path, schema, dataset_ignore_globs=dataset_ignore_globs)
     except DirectoryStructureValidationErrors as e:
-        return e.errors
+        return {'Directory structure': e.errors}
     except OSError as e:
         return {
             e.strerror:
@@ -41,7 +41,7 @@ def get_data_dir_errors(assay_type, data_path, dataset_ignore_globs=[]):
     try:
         validate_directory_content(assay_type, data_path)
     except DirectoryContentValidationErrors as e:
-        return e.errors
+        return {'Directory content': e.errors}
 
 
 def get_metadata_tsv_errors(metadata_path, type, optional_fields=[]):
