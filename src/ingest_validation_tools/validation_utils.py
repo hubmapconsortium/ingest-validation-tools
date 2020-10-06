@@ -7,10 +7,12 @@ from yaml import safe_load as load_yaml
 from goodtables import validate as validate_table
 
 from ingest_validation_tools.schema_loader import get_table_schema
-from ingest_validation_tools.directory_validator import (
+from ingest_validation_tools.directory_structure_validator import (
     validate_directory_structure,
+    DirectoryStructureValidationErrors)
+from ingest_validation_tools.directory_content_validator import (
     validate_directory_content,
-    DirectoryValidationErrors)
+    DirectoryContentValidationErrors)
 
 
 class TableValidationErrors(Exception):
@@ -29,7 +31,7 @@ def get_data_dir_errors(assay_type, data_path, dataset_ignore_globs=[]):
     try:
         validate_directory_structure(
             data_path, schema, dataset_ignore_globs=dataset_ignore_globs)
-    except DirectoryValidationErrors as e:
+    except DirectoryStructureValidationErrors as e:
         return e.errors
     except OSError as e:
         return {
@@ -38,7 +40,7 @@ def get_data_dir_errors(assay_type, data_path, dataset_ignore_globs=[]):
         }
     try:
         validate_directory_content(assay_type, data_path)
-    except DirectoryValidationErrors as e:
+    except DirectoryContentValidationErrors as e:
         return e.errors
 
 
