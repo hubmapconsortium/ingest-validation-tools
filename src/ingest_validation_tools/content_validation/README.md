@@ -1,1 +1,0 @@
-Python code to validate the content of submissions can be placed here.

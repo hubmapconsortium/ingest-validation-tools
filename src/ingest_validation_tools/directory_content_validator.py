@@ -1,14 +1,7 @@
-from importlib import import_module
-
-
-def default_factory(base_path, assay_type):
-    """
-    default validator factory
-    """
-    return DefaultDirectoryContentValidator(base_path, assay_type)
-
-
-DIRECTORY_CONTENT_VALIDATOR_FACTORY = default_factory
+def _validator_factory(base_path, assay_type):
+    # TODO: Create other Validator subclasses, and return them instead,
+    # depending on assay_type.
+    return DirectoryContentValidator(base_path, assay_type)
 
 
 class DirectoryContentValidator(object):
@@ -18,21 +11,10 @@ class DirectoryContentValidator(object):
 
     def collect_errors(self):
         """
-        returns string or None.  Multiple errors are to be reported
-        via a single multi-line string.
+        Subclasses should return an array listing the errors,
+        or if more structure is desired, a dict.
         """
-        return None
-
-
-class DefaultDirectoryContentValidator(DirectoryContentValidator):
-    """
-    Implements backward compatible calls to content validation modules
-    """
-
-    def collect_errors(self):
-        validator = import_module(
-            f'ingest_validation_tools.content_validation.{self.assay_type}')
-        return validator.collect_errors(self.base_path)
+        return []
 
 
 class DirectoryContentValidationErrors(Exception):
@@ -41,7 +23,7 @@ class DirectoryContentValidationErrors(Exception):
 
 
 def validate_directory_content(assay_type, data_path):
-    validator = DIRECTORY_CONTENT_VALIDATOR_FACTORY(data_path, assay_type)
+    validator = _validator_factory(data_path, assay_type)
     errors = validator.collect_errors()
     if errors:
         raise DirectoryContentValidationErrors(errors)
