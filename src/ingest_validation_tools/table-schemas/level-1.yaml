@@ -66,8 +66,7 @@ fields:
         - seqFISH [Lab Processed]
         - snATAC-seq
         - snRNA-seq
-        - Label-free LC-MS
-        - Labeled LC-MS
+        - Label-free MS/MS
         - Label-free LC-MS/MS
         - Labeled LC-MS/MS
   -

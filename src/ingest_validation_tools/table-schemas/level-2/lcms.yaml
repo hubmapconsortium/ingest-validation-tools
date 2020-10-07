@@ -10,8 +10,7 @@ fields:
     name: assay_type
     constraints:
       enum:
-        - Label-free LC-MS
-        - Labeled LC-MS
+        - Label-free MS/MS
         - Label-free LC-MS/MS
         - Labeled LC-MS/MS
   -
