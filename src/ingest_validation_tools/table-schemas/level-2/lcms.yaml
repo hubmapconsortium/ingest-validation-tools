@@ -10,9 +10,10 @@ fields:
     name: assay_type
     constraints:
       enum:
-        - TMT LC-MS
-        - Targeted Shotgun / Flow-injection LC-MS
-        - Untargeted LC-MS
+        - Label-free LC-MS
+        - Labeled LC-MS
+        - Label-free LC-MS/MS
+        - Labeled LC-MS/MS
   -
     name: analyte_class
     constraints:

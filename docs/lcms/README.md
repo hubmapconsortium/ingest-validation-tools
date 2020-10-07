@@ -144,7 +144,7 @@ The specific type of assay being executed.
 
 | constraint | value |
 | --- | --- |
-| enum | `TMT LC-MS`, `Targeted Shotgun / Flow-injection LC-MS`, or `Untargeted LC-MS` |
+| enum | `Label-free LC-MS`, `Labeled LC-MS`, `Label-free LC-MS/MS`, or `Labeled LC-MS/MS` |
 | required | `True` |
 
 ### `analyte_class`

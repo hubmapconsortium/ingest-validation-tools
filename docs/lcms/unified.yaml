@@ -56,9 +56,10 @@ fields:
   name: assay_category
 - constraints:
     enum:
-    - TMT LC-MS
-    - Targeted Shotgun / Flow-injection LC-MS
-    - Untargeted LC-MS
+    - Label-free LC-MS
+    - Labeled LC-MS
+    - Label-free LC-MS/MS
+    - Labeled LC-MS/MS
     required: true
   description: The specific type of assay being executed.
   name: assay_type

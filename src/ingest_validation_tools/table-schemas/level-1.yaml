@@ -48,15 +48,12 @@ fields:
         - Bulk ATAC-seq
         - CODEX
         - Imaging Mass Cytometry
-        - Untargeted LC-MS
         - Lightsheet Microscopy
         - MALDI IMS negative
         - MALDI IMS positive
         - Multiplexed IF Microscopy
         - PAS Stained Microscopy
         - SNARE-seq
-        - TMT LC-MS
-        - Targeted Shotgun / Flow-injection LC-MS
         - Whole Genome Sequencing
         - Bulk RNA-seq
         - Image Pyramid
@@ -69,6 +66,10 @@ fields:
         - seqFISH [Lab Processed]
         - snATAC-seq
         - snRNA-seq
+        - Label-free LC-MS
+        - Labeled LC-MS
+        - Label-free LC-MS/MS
+        - Labeled LC-MS/MS
   -
     name: analyte_class
     description: Analytes are the target molecules being measured with the assay.
