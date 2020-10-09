@@ -48,7 +48,7 @@ Related files:
 
 <details><summary>Paths</summary>
 
-[`metadata_path`](#metadata_path)<br>
+[`contributors_path`](#contributors_path)<br>
 [`data_path`](#data_path)<br></details>
 
 ## Provenance
@@ -282,12 +282,12 @@ Percent PhiX loaded to the run
 
 ## Paths
 
-### `metadata_path`
-Relative path to file or directory with free-form or instrument/lab specific metadata. Optional. Leave blank if not applicable.
+### `contributors_path`
+Relative path to file with ORCID IDs for contributors for this dataset.
 
 | constraint | value |
 | --- | --- |
-| required | `False` |
+| required | `True` |
 
 ### `data_path`
 Relative path to file or directory with instrument data. Downstream processing will depend on filename extension conventions.
