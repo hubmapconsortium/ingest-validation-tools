@@ -53,6 +53,7 @@ class ErrorReport:
         </html>
         '''
         doc, tag, text, line = Doc().ttl()
+        for_each = "Array.from(document.getElementsByTagName('details')).forEach"
         with tag('html'):
             with tag('head'):
                 with tag('style', type='text/css'):
@@ -64,6 +65,12 @@ ul {
     margin: 0;
 }''')
             with tag('body'):
+                line(
+                    'button', 'Open all',
+                    onclick=f"{for_each}((node)=>{{node.setAttribute('open','')}})")
+                line(
+                    'button', 'Close all',
+                    onclick=f"{for_each}((node)=>{{node.removeAttribute('open')}})")
                 _build_doc(tag, line, self.errors)
         return '<!DOCTYPE html>\n' + indent(doc.getvalue())
 
