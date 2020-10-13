@@ -2,3 +2,7 @@
 -
   pattern: '.*\.fastq\.gz'
   description: 'TODO'
+-
+  pattern: 'extras/.*'
+  description: 'Free-form descriptive information supplied by the TMC'
+  required: False

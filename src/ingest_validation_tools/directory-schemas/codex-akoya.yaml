@@ -19,3 +19,7 @@
   pattern: 'cyc.*_reg.*_.*/.*.gci'
   description: 'TODO'
   required: False
+-
+  pattern: 'extras/.*'
+  description: 'Free-form descriptive information supplied by the TMC'
+  required: False
