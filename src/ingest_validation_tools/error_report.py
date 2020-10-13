@@ -40,18 +40,6 @@ class ErrorReport:
         return indent(doc.getvalue())
 
     def as_html_doc(self):
-        '''
-        >>> report = ErrorReport({'really': 'simple'})
-        >>> print(report.as_html_doc())
-        <html>
-          <body>
-            <dl>
-              <dt>really</dt>
-              <dd>simple</dd>
-            </dl>
-          </body>
-        </html>
-        '''
         doc, tag, text, line = Doc().ttl()
         for_each = "Array.from(document.getElementsByTagName('details')).forEach"
         with tag('html'):
