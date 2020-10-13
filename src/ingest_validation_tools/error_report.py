@@ -52,11 +52,20 @@ class ErrorReport:
           </body>
         </html>
         '''
-        doc, tag, _, line = Doc().ttl()
+        doc, tag, text, line = Doc().ttl()
         with tag('html'):
+            with tag('head'):
+                with tag('style', type='text/css'):
+                    text('''
+details {
+    padding-left: 1em;
+}
+ul {
+    margin: 0;
+}''')
             with tag('body'):
                 _build_doc(tag, line, self.errors)
-        return indent(doc.getvalue())
+        return '<!DOCTYPE html>\n' + indent(doc.getvalue())
 
     def as_browser(self):
         if not self.errors:
