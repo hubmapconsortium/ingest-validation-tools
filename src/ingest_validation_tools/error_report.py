@@ -3,6 +3,7 @@ from yaml import Dumper, dump
 from webbrowser import open_new_tab
 from pathlib import Path
 from html import escape
+from yattag import Doc, indent
 
 
 # Force dump not to use alias syntax.
@@ -26,17 +27,98 @@ class ErrorReport:
     def as_md(self):
         return f'```\n{self.as_text()}```'
 
-    def as_html(self):
-        escaped = escape(self.as_text())
-        return f'<html><body><pre>{escaped}</pre></body></html>'
+    def as_html_fragment(self):
+        '''
+        >>> report = ErrorReport({'really': 'simple'})
+        >>> print(report.as_html_fragment())
+        <dl>
+          <dt>really</dt>
+          <dd>simple</dd>
+        </dl>
+        '''
+        doc, tag, _, line = Doc().ttl()
+        _build_doc(tag, line, self.errors)
+        return indent(doc.getvalue())
+
+    def as_html_doc(self):
+        '''
+        >>> report = ErrorReport({'really': 'simple'})
+        >>> print(report.as_html_doc())
+        <html>
+          <body>
+            <dl>
+              <dt>really</dt>
+              <dd>simple</dd>
+            </dl>
+          </body>
+        </html>
+        '''
+        doc, tag, _, line = Doc().ttl()
+        with tag('html'):
+            with tag('body'):
+                _build_doc(tag, line, self.errors)
+        return indent(doc.getvalue())
 
     def as_browser(self):
         if not self.errors:
             return self.as_text()
-        html = self.as_html()
+        html = self.as_html_doc()
         filename = f"{str(datetime.now()).replace(' ', '_')}.html"
         path = Path(__file__).parent / 'error-reports' / filename
         path.write_text(html)
         url = f'file://{path.resolve()}'
         open_new_tab(url)
         return f'See {url}'
+
+
+def _build_doc(tag, line, anything):
+    '''
+    >>> doc, tag, text, line = Doc().ttl()
+    >>> _build_doc(tag, line, {
+    ...     'nested dict': {
+    ...         'like': 'this'
+    ...     },
+    ...     'nested array': [
+    ...         'like',
+    ...         'this'
+    ...     ]
+    ... })
+    >>> print(indent(doc.getvalue()))
+    <details>
+      <summary>nested dict</summary>
+      <dl>
+        <dt>like</dt>
+        <dd>this</dd>
+      </dl>
+    </details>
+    <details>
+      <summary>nested array</summary>
+      <ul>
+        <li>like</li>
+        <li>this</li>
+      </ul>
+    </details>
+
+    '''
+    if isinstance(anything, dict):
+        if all(isinstance(v, (float, int, str)) for v in anything.values()):
+            with tag('dl'):
+                for k, v in anything.items():
+                    line('dt', k)
+                    line('dd', v)
+        else:
+            for k, v in anything.items():
+                with tag('details'):
+                    line('summary', k)
+                    _build_doc(tag, line, v)
+    elif isinstance(anything, list):
+        if all(isinstance(v, (float, int, str)) for v in anything):
+            with tag('ul'):
+                for v in anything:
+                    line('li', v)
+        else:
+            for v in anything:
+                _build_doc(tag, line, v)
+    else:
+        line('div', anything)
+
