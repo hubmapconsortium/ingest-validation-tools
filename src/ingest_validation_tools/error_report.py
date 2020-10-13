@@ -2,7 +2,6 @@ from datetime import datetime
 from yaml import Dumper, dump
 from webbrowser import open_new_tab
 from pathlib import Path
-from html import escape
 from yattag import Doc, indent
 
 
@@ -121,4 +120,3 @@ def _build_doc(tag, line, anything):
                 _build_doc(tag, line, v)
     else:
         line('div', anything)
-
