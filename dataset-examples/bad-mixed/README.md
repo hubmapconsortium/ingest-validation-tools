@@ -5,7 +5,7 @@ Metadata TSV Errors:
     - The value "-INVALID-" in row 2 and column 1 ("A") does not conform to the pattern
       constraint of "[A-Z]+[0-9]+"
     External:
-      codex-akoya-metadata.tsv (row 2):
+      codex-akoya-metadata.tsv (row 2) data_path:
         Not allowed:
         - not-good-for-either-type.txt
         Required but missing:
@@ -20,7 +20,7 @@ Metadata TSV Errors:
     - Column 17 ("Q") is a required field, but row 2 has no value
     - Column 27 ("AA") is a required field, but row 2 has no value
     External:
-      scatacseq-metadata.tsv (row 2):
+      scatacseq-metadata.tsv (row 2) data_path:
         Not allowed:
         - not-good-for-either-type.txt
         Required but missing:

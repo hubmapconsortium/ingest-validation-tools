@@ -6,8 +6,9 @@ from collections import defaultdict
 from fnmatch import fnmatch
 
 from ingest_validation_tools.validation_utils import (
-    get_metadata_tsv_errors,
-    get_data_dir_errors
+    get_tsv_errors,
+    get_data_dir_errors,
+    get_contributors_errors
 )
 
 
@@ -83,8 +84,8 @@ class Submission:
         return errors
 
     def _get_single_tsv_internal_errors(self, type, path):
-        return get_metadata_tsv_errors(
-            type=type, metadata_path=path,
+        return get_tsv_errors(
+            type=type, tsv_path=path,
             optional_fields=self.optional_fields)
 
     def _get_single_tsv_external_errors(self, type, path):
@@ -94,16 +95,31 @@ class Submission:
             errors['Warning'] = f'File has no data rows.'
         if self.directory_path:
             for i, row in enumerate(rows):
-                full_data_path = self.directory_path / row['data_path']
+                file_row = f'{path.name} (row {i+2})'
+
+                data_path = self.directory_path / \
+                    row['data_path']
                 data_dir_errors = self._get_data_dir_errors(
-                    type, full_data_path)
+                    type, data_path)
                 if data_dir_errors:
-                    errors[f'{path.name} (row {i+2})'] = data_dir_errors
+                    errors[f'{file_row} data_path'] = \
+                        data_dir_errors
+
+                contributors_path = self.directory_path / \
+                    row['contributors_path']
+                contributors_errors = self._get_contributors_errors(
+                    contributors_path)
+                if contributors_errors:
+                    errors[f'{file_row} contributors_path'] = \
+                        contributors_errors
         return errors
 
-    def _get_data_dir_errors(self, type, path):
+    def _get_data_dir_errors(self, type, data_path):
         return get_data_dir_errors(
-            type, path, dataset_ignore_globs=self.dataset_ignore_globs)
+            type, data_path, dataset_ignore_globs=self.dataset_ignore_globs)
+
+    def _get_contributors_errors(self, contributors_path):
+        return get_contributors_errors(contributors_path)
 
     def _get_reference_errors(self):
         errors = {}
@@ -118,7 +134,8 @@ class Submission:
     def _get_no_ref_errors(self):
         if not self.directory_path:
             return {}
-        referenced_data_paths = set(self._get_data_references().keys())
+        referenced_data_paths = set(self._get_data_references().keys()) \
+            | set(self._get_contributors_references().keys())
         non_metadata_paths = {
             path.name for path in self.directory_path.iterdir()
             if not path.name.endswith('-metadata.tsv')
@@ -139,11 +156,16 @@ class Submission:
         return errors
 
     def _get_data_references(self):
-        # TODO: Move this to __init__
-        data_references = defaultdict(list)
+        return self._get_references('data_path')
+
+    def _get_contributors_references(self):
+        return self._get_references('contributors_path')
+
+    def _get_references(self, col_name):
+        references = defaultdict(list)
         for tsv_path in self.effective_tsv_paths.values():
             for i, row in enumerate(_get_tsv_rows(tsv_path)):
-                if 'data_path' in row:
+                if col_name in row:
                     reference = f'{tsv_path} (row {i+2})'
-                    data_references[row['data_path']].append(reference)
-        return data_references
+                    references[row[col_name]].append(reference)
+        return references
