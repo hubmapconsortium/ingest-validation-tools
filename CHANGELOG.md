@@ -7,6 +7,7 @@
 - ng/ul to nM.
 - Change to flat directory schema structure.
 - Update README, and diagram.
+- SLIDEseq dir schema.
 
 ## v0.0.4 - 2020-06-26
 ### Added
