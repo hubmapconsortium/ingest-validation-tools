@@ -24,7 +24,7 @@ optional arguments:
                         A list of type / metadata.tsv pairs. Type should be
                         one of: ['af', 'bulkatacseq', 'bulkrnaseq', 'codex',
                         'imc', 'lcms', 'maldiims', 'mxif', 'scatacseq',
-                        'scrnaseq', 'seqfish', 'stained', 'wgs']
+                        'scrnaseq', 'seqfish', 'slideseq', 'stained', 'wgs']
   --optional_fields FIELD [FIELD ...]
                         The listed fields will be treated as optional. (But if
                         they are supplied in the TSV, they will be validated.)
