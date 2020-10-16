@@ -28,6 +28,9 @@ class ErrorReport:
 
     def as_html_fragment(self):
         '''
+        >>> print(ErrorReport({}).as_html_fragment())
+        No errors!
+
         >>> report = ErrorReport({'really': 'simple'})
         >>> print(report.as_html_fragment())
         <dl>
@@ -35,6 +38,8 @@ class ErrorReport:
           <dd>simple</dd>
         </dl>
         '''
+        if not self.errors:
+            return 'No errors!'
         doc, tag, _, line = Doc().ttl()
         _build_doc(tag, line, self.errors)
         return indent(doc.getvalue())
