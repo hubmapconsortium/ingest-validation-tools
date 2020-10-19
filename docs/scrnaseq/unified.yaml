@@ -212,11 +212,10 @@ fields:
   name: sequencing_phix_percent
   type: number
 - constraints:
-    required: false
-  description: Relative path to file or directory with free-form or instrument/lab
-    specific metadata. Optional.
+    required: true
+  description: Relative path to file with ORCID IDs for contributors for this dataset.
   heading: Paths
-  name: metadata_path
+  name: contributors_path
 - constraints:
     required: true
   description: Relative path to file or directory with instrument data. Downstream
