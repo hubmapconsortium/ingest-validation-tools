@@ -7,6 +7,7 @@
 - ng/ul to nM.
 - Change to flat directory schema structure.
 - Update README, and diagram.
+- Prettier HTML output.
 - Add donor.yaml, where we can explain donor metadata fields, and hook it into field-descriptions.yaml.
 
 ## v0.0.4 - 2020-06-26
