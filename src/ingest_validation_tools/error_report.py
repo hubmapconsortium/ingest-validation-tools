@@ -14,6 +14,12 @@ class ErrorReport:
     def __init__(self, errors_dict):
         self.errors = errors_dict
 
+    def _as_list(self):
+        return _build_list(self.errors)
+
+    def as_text_list(self):
+        return '\n'.join(self._as_list())
+
     def as_yaml(self):
         return dump(self.errors, sort_keys=False)
 
@@ -77,6 +83,44 @@ ul {
         url = f'file://{path.resolve()}'
         open_new_tab(url)
         return f'See {url}'
+
+
+def _build_list(anything, path=None):
+    '''
+    >>> flat = _build_list({
+    ...     'nested dict': {
+    ...         'like': 'this'
+    ...     },
+    ...     'nested array': [
+    ...         'like',
+    ...         'this'
+    ...     ]
+    ... })
+    >>> print('\\n'.join(flat))
+    nested dict: like: this
+    nested array: like
+    nested array: this
+
+    '''
+    prefix = f'{path}: ' if path else ''
+    if isinstance(anything, dict):
+        if all(isinstance(v, (float, int, str)) for v in anything.values()):
+            return [f'{prefix}{k}: {v}' for k, v in anything.items()]
+        else:
+            to_return = []
+            for k, v in anything.items():
+                to_return += _build_list(v, path=f'{prefix}{k}')
+            return to_return
+    elif isinstance(anything, list):
+        if all(isinstance(v, (float, int, str)) for v in anything):
+            return [f'{prefix}{v}' for v in anything]
+        else:
+            to_return = []
+            for v in anything:
+                to_return += _build_list(v, path=path)
+            return to_return
+    else:
+        return [anything]
 
 
 def _build_doc(tag, line, anything):

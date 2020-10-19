@@ -9,6 +9,7 @@
 - Update README, and diagram.
 - Prettier HTML output.
 - Add donor.yaml, where we can explain donor metadata fields, and hook it into field-descriptions.yaml.
+- Add as_text_list option.
 
 ## v0.0.4 - 2020-06-26
 ### Added
