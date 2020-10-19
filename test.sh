@@ -10,7 +10,7 @@ die() { set +v; echo "$red$*$reset" 1>&2 ; exit 1; }
 
 
 start flake8
-flake8 || die 'Try: autopep8 --in-place --aggressive -r .'
+flake8 --exclude ingest-validation-tests || die 'Try: autopep8 --in-place --aggressive -r .'
 end flake8
 
 start src-doctests
