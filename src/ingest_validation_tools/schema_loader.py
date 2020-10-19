@@ -21,6 +21,12 @@ def get_sample_schema():
     )
 
 
+def get_donor_schema():
+    return load_yaml(
+        (Path(__file__).parent / 'table-schemas' / 'donor.yaml').read_text()
+    )
+
+
 def get_directory_schemas(type):
     single_path = _directory_schemas_path / f'{type}.yaml'
     all_paths = (
