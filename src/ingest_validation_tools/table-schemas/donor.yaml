@@ -1,3 +1,7 @@
+# This file is really only here to provide descriptions of fields in the UI.
+# The full description of Donor metadata is at
+# https://portal.hubmapconsortium.org/docs/donor
+
 # -
 #   name: age_unit
 #   description: TODO
@@ -28,6 +32,7 @@
 # -
 #   name: kidney_donor_profile_index_unit
 #   description: TODO
+
 -
   name: kidney_donor_profile_index_value
   description: >
@@ -42,6 +47,7 @@
     with a kidney recovered for the purpose of transplantation in the prior calendar year. 
     Lower KDPI values are associated with increased donor quality and expected longevity.
     https://optn.transplant.hrsa.gov/media/1512/guide_to_calculating_interpreting_kdpi.pdf
+
 # -
 #   name: mechanism_of_injury
 #   description: TODO
