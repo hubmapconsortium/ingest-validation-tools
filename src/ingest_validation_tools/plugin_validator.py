@@ -42,4 +42,4 @@ class Validator(object):
         If the assay_type is not one for which this validator is intended,
         just return an empty list.
         """
-        return []
+        throw NotImplementedError()
