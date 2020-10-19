@@ -1,0 +1,62 @@
+# -
+#   name: age_unit
+#   description: TODO
+# -
+#   name: age_value
+#   description: TODO
+# -
+#   name: blood_type
+#   description: TODO
+# -
+#   name: body_mass_index_unit
+#   description: TODO
+# -
+#   name: body_mass_index_value
+#   description: TODO
+# -
+#   name: cause_of_death
+#   description: TODO
+# -
+#   name: death_event
+#   description: TODO
+# -
+#   name: height_unit
+#   description: TODO
+# -
+#   name: height_value
+#   description: TODO
+# -
+#   name: kidney_donor_profile_index_unit
+#   description: TODO
+-
+  name: kidney_donor_profile_index_value
+  description: >
+    The Kidney Donor Profle Index (KDPI) is a numerical measure that combines ten donor factors,
+    including clinical parameters and demographics,
+    to summarize into a single number the quality of deceased donor kidneys relative to other recovered kidneys.
+    The KDPI is derived by frst calculating the Kidney Donor Risk Index (KDRI) for a deceased donor.
+    Kidneys from a donor with a KDPI of 90%, for example, have a KDRI (which indicates relative risk of graft failure)
+    greater than 90% of recovered kidneys.
+    The KDPI is simply a mapping of the KDRI from a relative risk scale to a cumulative percentage scale.
+    The reference population used for this mapping is all deceased donors in the United States 
+    with a kidney recovered for the purpose of transplantation in the prior calendar year. 
+    Lower KDPI values are associated with increased donor quality and expected longevity.
+    https://optn.transplant.hrsa.gov/media/1512/guide_to_calculating_interpreting_kdpi.pdf
+# -
+#   name: mechanism_of_injury
+#   description: TODO
+# -
+#   name: medical_history
+#   description: TODO
+# -
+#   name: race
+#   description: TODO
+# -
+#   name: sex
+#   description: TODO
+# -
+#   name: weight_unit
+#   description: TODO
+# -
+#   name: weight_value
+#   description: TODO
