@@ -38,6 +38,7 @@ fields:
       enum:
         - imaging
         - mass_spectrometry
+        - mass_spectrometry_imaging
         - sequence
   -
     name: assay_type
