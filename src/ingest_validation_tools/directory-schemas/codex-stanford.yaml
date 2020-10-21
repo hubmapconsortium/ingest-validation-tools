@@ -15,7 +15,4 @@
 -
   pattern: 'Cyc.*_reg.*/HE_.*_Z.*_CH.*'
   description: 'TODO'
--
-  pattern: 'extras/.*'
-  description: 'Free-form descriptive information supplied by the TMC'
-  required: False
+
