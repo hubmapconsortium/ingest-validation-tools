@@ -10,12 +10,12 @@ die() { set +v; echo "$red$*$reset" 1>&2 ; exit 1; }
 
 
 start flake8
-flake8 --exclude ingest-validation-tests || die 'Try: autopep8 --in-place --aggressive -r .'
+flake8 || die 'Try: autopep8 --in-place --aggressive -r .'
 end flake8
 
 start src-doctests
 cd src
-find . | grep '\.py$' | xargs python -m doctest
+find . | grep -v ingest-validation-tests | grep '\.py$' | xargs python -m doctest
 cd -
 end src-doctests
 
