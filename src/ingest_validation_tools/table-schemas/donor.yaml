@@ -2,6 +2,7 @@
 # The full description of Donor metadata is at
 # https://portal.hubmapconsortium.org/docs/donor
 
+fields:
 # -
 #   name: age_unit
 #   description: TODO

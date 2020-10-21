@@ -7,6 +7,7 @@
 - ng/ul to nM.
 - Change to flat directory schema structure.
 - Update README, and diagram
+- Prettier HTML output.
 - plugin_validator started.
 - Add donor.yaml, where we can explain donor metadata fields.
 
