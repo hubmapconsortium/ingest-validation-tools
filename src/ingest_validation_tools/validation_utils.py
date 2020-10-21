@@ -15,15 +15,25 @@ class TableValidationErrors(Exception):
     pass
 
 
-def get_data_dir_errors(type, data_path, dataset_ignore_globs=[]):
-    '''
-    Validate a single data_path.
-    '''
+def get_dir_schema(type):
     schema_path = (
         Path(__file__).parent /
         'directory-schemas' /
         f'{type}.yaml')
     schema = load_yaml(open(schema_path).read())
+    schema.append({
+        'pattern': 'extras/.*',
+        'description': 'Free-form descriptive information supplied by the TMC',
+        'required': False
+    })
+    return schema
+
+
+def get_data_dir_errors(type, data_path, dataset_ignore_globs=[]):
+    '''
+    Validate a single data_path.
+    '''
+    schema = get_dir_schema(type)
     try:
         validate_directory(
             data_path, schema, dataset_ignore_globs=dataset_ignore_globs)
