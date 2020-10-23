@@ -62,7 +62,7 @@ def run_plugin_validators_iter(metadata_path: PathOrStr,
     if metadata_path.is_file():
         try:
             with open(metadata_path, encoding='latin-1') as f:
-                rows = list(row for row in DictReader(f, dialect='excel-tab'))
+                rows = list(DictReader(f, dialect='excel-tab'))
         except Exception:
             raise ValidatorError(f'{metadata_path} could not be parsed as a .tsv file')
         if not rows:
@@ -72,19 +72,20 @@ def run_plugin_validators_iter(metadata_path: PathOrStr,
             if any(row['assay_type'] != assay_type for row in rows):
                 raise ValidatorError(f'{metadata_path} contains more than one assay type')
 
-            if all('data_path' in row for row in rows):
-                for row in rows:
-                    data_path = Path(row['data_path'])
-                    if not data_path.is_absolute():
-                        data_path = (metadata_path / data_path).resolve()
-                    for k, v in validation_error_iter(data_path, assay_type, plugin_dir):
-                        yield k, v
-            else:
-                raise ValidatorError(f'{metadata_path} has no "data_path" column')
         else:
             raise ValidatorError(f'{metadata_path} has no "assay_type" column')
     else:
         raise ValidatorError(f'{metadata_path} does not exist or is not a file')
+
+    if all('data_path' in row for row in rows):
+        for row in rows:
+            data_path = Path(row['data_path'])
+            if not data_path.is_absolute():
+                data_path = (metadata_path / data_path).resolve()
+            for k, v in validation_error_iter(data_path, assay_type, plugin_dir):
+                yield k, v
+    else:
+        raise ValidatorError(f'{metadata_path} has no "data_path" column')
 
 
 def validation_error_iter(base_dir: PathOrStr, assay_type: str,
