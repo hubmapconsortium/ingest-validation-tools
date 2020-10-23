@@ -4,6 +4,8 @@ from webbrowser import open_new_tab
 from pathlib import Path
 from yattag import Doc, indent
 
+from ingest_validation_tools.message_munger import munge
+
 
 # Force dump not to use alias syntax.
 # https://stackoverflow.com/questions/13518819/avoid-references-in-pyyaml
@@ -15,7 +17,7 @@ class ErrorReport:
         self.errors = errors_dict
 
     def _as_list(self):
-        return _build_list(self.errors)
+        return [munge(m) for m in _build_list(self.errors)]
 
     def as_text_list(self):
         return '\n'.join(self._as_list())
