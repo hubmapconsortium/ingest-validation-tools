@@ -9,8 +9,7 @@
 - Update README, and diagram.
 - Add extras directory.
 - Prettier HTML output.
-- plugin_validator started.
-- Add donor.yaml, where we can explain donor metadata fields.
+- Add donor.yaml, where we can explain donor metadata fields, and hook it into field-descriptions.yaml.
 
 ## v0.0.4 - 2020-06-26
 ### Added
