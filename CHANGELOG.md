@@ -11,6 +11,7 @@
 - Prettier HTML output.
 - plugin_validator started.
 - Add donor.yaml, where we can explain donor metadata fields.
+- Fix the build.
 
 ## v0.0.4 - 2020-06-26
 ### Added
