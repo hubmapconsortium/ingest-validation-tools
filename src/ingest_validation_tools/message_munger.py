@@ -19,7 +19,7 @@ def munge(message):
          r'In the dataset referenced by \1, the file "\3" is \2.'),
 
         (r' \(as \S+\): External: Warning: File has no data rows',
-        r', the file is just a header with no data rows'),
+         r', the file is just a header with no data rows'),
 
         (r'Reference Errors: Multiple References: (\S+): .*/(.*)',
          r'The dataset directory "\1" is referenced by \2, '
