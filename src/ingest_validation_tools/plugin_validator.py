@@ -3,8 +3,7 @@ import importlib
 import inspect
 from typing import List, Union, Tuple, Iterator, Dict
 from pathlib import Path
-
-import pandas as pd
+from csv import DictReader
 
 PathOrStr = Union[str, Path]
 
@@ -51,22 +50,20 @@ def run_plugin_validators_iter(metadata_path: PathOrStr,
     metadata_path = Path(metadata_path)
     if metadata_path.is_file():
         try:
-            df = pd.read_csv(metadata_path, sep='\t')
+            with open(metadata_path, encoding='latin-1') as f:
+                rows = list(row for row in DictReader(f, dialect='excel-tab'))
         except:
             raise ValidatorError(f'{metadata_path} could not be parsed as a .tsv file')
-        if 'assay_type' in df.columns:
+        if not rows:
+            raise ValidatorError(f'{metadata_path} has no data rows')
+        if all('assay_type' in row for row in rows):
+            assay_type = rows[0]['assay_type']
+            if any(row['assay_type'] != assay_type for row in rows):
+                raise ValidatorError(f'{metadata_path} contains more than one assay type')
 
-            a_t_u = df['assay_type'].unique()
-            if len(a_t_u) == 0:
-                raise ValidatorError(f'{metadata_path} has no data rows')
-            elif len(a_t_u) == 1:
-                assay_type = a_t_u[0]
-            else:
-                raise ValidatorError(f'{metadata_path} contains {len(a_t_u)} different assay_types')
-
-            if 'data_path' in df.columns:
-                for data_path in df['data_path']:
-                    data_path = Path(data_path)
+            if all('data_path' in row for row in rows):
+                for row in rows:
+                    data_path = Path(row['data_path'])
                     if not data_path.is_absolute():
                         data_path = (metadata_path / data_path).resolve()
                     for k, v in validation_error_iter(data_path, assay_type, plugin_dir):
@@ -75,7 +72,6 @@ def run_plugin_validators_iter(metadata_path: PathOrStr,
                 raise ValidatorError(f'{metadata_path} has no "data_path" column')
         else:
             raise ValidatorError(f'{metadata_path} has no "assay_type" column')
-        
     else:
         raise ValidatorError(f'{metadata_path} does not exist or is not a file')
 
