@@ -14,6 +14,7 @@
 - plugin_validator started.
 - Add donor.yaml, where we can explain donor metadata fields.
 - Fix the build.
+- Now that we have agreed on extras/, expose in docs.
 
 ## v0.0.4 - 2020-06-26
 ### Added

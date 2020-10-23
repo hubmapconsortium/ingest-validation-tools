@@ -56,6 +56,10 @@ def generate_readme_md(
     fields_md = '\n\n'.join(fields_md_list)
     toc_md = _make_toc(fields_md)
     dir_description_md = _make_dir_description(directory_schemas)
+    optional_dir_description_md = f'''
+## Dataset directory structure
+{dir_description_md}
+''' if dir_description_md else ''
     raw_url = 'https://raw.githubusercontent.com/hubmapconsortium' \
         '/ingest-validation-tools/master/docs' \
         f'/{type}/{get_tsv_name(type)}'
@@ -73,10 +77,7 @@ Related files:
 
 ## Table of contents
 {toc_md}
-
-## Dataset directory structure
-{dir_description_md}
-
+{optional_dir_description_md}
 {fields_md}
 '''
 
