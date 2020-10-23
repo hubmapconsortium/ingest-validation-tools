@@ -1,13 +1,14 @@
 import sys
 import importlib
 import inspect
-from typing import List, Union, Tuple, Iterator, Dict
+from typing import List, Union, Tuple, Iterator
 from pathlib import Path
 from csv import DictReader
 
 PathOrStr = Union[str, Path]
 
 KeyValuePair = Tuple[str, str]
+
 
 class ValidatorError(Exception):
     pass
@@ -62,7 +63,7 @@ def run_plugin_validators_iter(metadata_path: PathOrStr,
         try:
             with open(metadata_path, encoding='latin-1') as f:
                 rows = list(row for row in DictReader(f, dialect='excel-tab'))
-        except:
+        except Exception:
             raise ValidatorError(f'{metadata_path} could not be parsed as a .tsv file')
         if not rows:
             raise ValidatorError(f'{metadata_path} has no data rows')
@@ -86,16 +87,19 @@ def run_plugin_validators_iter(metadata_path: PathOrStr,
         raise ValidatorError(f'{metadata_path} does not exist or is not a file')
 
 
-def validation_error_iter(base_dir: PathOrStr, assay_type: str, plugin_dir: PathOrStr) -> Iterator[KeyValuePair]:
+def validation_error_iter(base_dir: PathOrStr, assay_type: str,
+                          plugin_dir: PathOrStr) -> Iterator[KeyValuePair]:
     """
-    Given a base directory pointing to a tree of submission data files and a path to a directory of Validator
-    plugins, iterate over the results of applying all the plugin validators to the directory tree.
+    Given a base directory pointing to a tree of submission data files and a
+    path to a directory of Validator plugins, iterate over the results of
+    applying all the plugin validators to the directory tree.
 
     base_dir: the root of a directory tree of submission data files
     assay_type: the assay type which produced the data in the directory tree
     plugin_dir: path to a directory containing classes derived from Validator
 
-    returns an iterator the values of which are key value pairs representing error messages
+    returns an iterator the values of which are key value pairs representing
+    error messages
     """
     base_dir = Path(base_dir)
     plugin_dir = Path(plugin_dir)

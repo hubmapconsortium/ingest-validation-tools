@@ -15,6 +15,7 @@ from ingest_validation_tools.plugin_validator import run_plugin_validators_iter
 # Relative path to the directory containing validation plugins
 PLUGIN_DIR_REL_PATH = "../../../ingest-validation-tests/src/ingest_validation_tests"
 
+
 def _get_directory_type_from_path(path):
     return re.match(r'(.*)-metadata\.tsv$', Path(path).name)[1]
 
@@ -76,7 +77,7 @@ class Submission:
         for metadata_path in self.effective_tsv_paths.values():
             for k, v in run_plugin_validators_iter(metadata_path, plugin_path):
                 errors[k].append(v)
-        return {k:v for k, v in errors.items()}  # get rid of defaultdict
+        return {k: v for k, v in errors.items()}  # get rid of defaultdict
 
     def _get_tsv_errors(self):
         errors = {}
@@ -106,7 +107,7 @@ class Submission:
         errors = {}
         rows = _get_tsv_rows(path)
         if not rows:
-            errors['Warning'] = f'File has no data rows.'
+            errors['Warning'] = f'File {Path(path).name} has no data rows.'
         if self.directory_path:
             for i, row in enumerate(rows):
                 full_data_path = self.directory_path / row['data_path']

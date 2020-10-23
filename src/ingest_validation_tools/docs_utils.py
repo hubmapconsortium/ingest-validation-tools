@@ -155,8 +155,8 @@ def _make_toc(md):
     '''
     lines = md.split('\n')
     headers = [
-        re.sub(r'^#+\s+', '', l)
-        for l in lines if len(l) and l[0] == '#'
+        re.sub(r'^#+\s+', '', ln)
+        for ln in lines if len(ln) and ln[0] == '#'
     ]
     return '\n'.join([
         (
@@ -189,7 +189,7 @@ def _make_dir_description(dir_schemas):
     for name, dir_schema in dir_schemas.items():
         if len(dir_schemas) > 1:
             output.append(f'\n### {name}')
-        output.append(f'''
+        output.append('''
 | pattern (regular expression) | required? | description |
 | --- | --- | --- |''')
         for line in dir_schema:
