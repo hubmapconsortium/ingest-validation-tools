@@ -6,7 +6,8 @@
 - Add missing assay type to enum.
 - ng/ul to nM.
 - Change to flat directory schema structure.
-- Update README, and diagram
+- Update README, and diagram.
+- Add extras directory.
 - Prettier HTML output.
 - plugin_validator started.
 - Add donor.yaml, where we can explain donor metadata fields.
