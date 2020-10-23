@@ -3,30 +3,15 @@ import logging
 import re
 from string import ascii_uppercase
 
-from yaml import safe_load as load_yaml
 from goodtables import validate as validate_table
 
-from ingest_validation_tools.schema_loader import get_table_schema
+from ingest_validation_tools.schema_loader import get_table_schema, get_dir_schema
 from ingest_validation_tools.directory_validator import (
     validate_directory, DirectoryValidationErrors)
 
 
 class TableValidationErrors(Exception):
     pass
-
-
-def get_dir_schema(type):
-    schema_path = (
-        Path(__file__).parent /
-        'directory-schemas' /
-        f'{type}.yaml')
-    schema = load_yaml(open(schema_path).read())
-    schema.append({
-        'pattern': 'extras/.*',
-        'description': 'Free-form descriptive information supplied by the TMC',
-        'required': False
-    })
-    return schema
 
 
 def get_data_dir_errors(type, data_path, dataset_ignore_globs=[]):
