@@ -9,6 +9,7 @@ PathOrStr = Union[str, Path]
 
 KeyValuePair = Tuple[str, str]
 
+
 class ValidatorError(Exception):
     pass
 
@@ -62,7 +63,7 @@ def run_plugin_validators_iter(metadata_path: PathOrStr,
         try:
             with open(metadata_path, encoding='latin-1') as f:
                 rows = list(row for row in DictReader(f, dialect='excel-tab'))
-        except:
+        except BaseException:
             raise ValidatorError(f'{metadata_path} could not be parsed as a .tsv file')
         if not rows:
             raise ValidatorError(f'{metadata_path} has no data rows')
@@ -86,7 +87,8 @@ def run_plugin_validators_iter(metadata_path: PathOrStr,
         raise ValidatorError(f'{metadata_path} does not exist or is not a file')
 
 
-def validation_error_iter(base_dir: PathOrStr, assay_type: str, plugin_dir: PathOrStr) -> Iterator[KeyValuePair]:
+def validation_error_iter(base_dir: PathOrStr, assay_type: str,
+                          plugin_dir: PathOrStr) -> Iterator[KeyValuePair]:
     """
     Given a base directory pointing to a tree of submission data files and a path to a directory of Validator
     plugins, iterate over the results of applying all the plugin validators to the directory tree.
