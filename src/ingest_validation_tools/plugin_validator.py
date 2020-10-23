@@ -112,10 +112,12 @@ def validation_error_iter(base_dir: PathOrStr, assay_type: str, plugin_dir: Path
             mod = importlib.util.module_from_spec(spec)
             sys.modules[mod_nm] = mod
             spec.loader.exec_module(mod)
+        sort_me = []
         for name, obj in inspect.getmembers(mod):
             if inspect.isclass(obj) and obj != Validator and issubclass(obj, Validator):
-                validator = obj(base_dir, assay_type)
-                for err in validator.collect_errors():
-                    yield obj.description, err
-        
-    
+                sort_me.append((obj.cost, obj.description, obj))
+        sort_me.sort()
+        for cost, description, cls in sort_me:
+            validator = cls(base_dir, assay_type)
+            for err in validator.collect_errors():
+                yield description, err
