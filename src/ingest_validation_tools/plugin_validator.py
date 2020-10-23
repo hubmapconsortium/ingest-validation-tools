@@ -47,6 +47,16 @@ class Validator(object):
 
 def run_plugin_validators_iter(metadata_path: PathOrStr,
                                plugin_dir: PathOrStr) -> Iterator[KeyValuePair]:
+    """
+    Given a metadata.tsv file and a path to a directory of Validator plugins, iterate through the
+    results of applying each plugin to each row of the metadata.tsv file.  The 'assay_type' field
+    of the metadata.tsv file is used to provide the assay, rather than the prefix of the filename.
+
+    metadata_path: path to a metadata.tsv file
+    plugin_dir: path to a directory containing classes derived from Validator
+
+    returns an iterator the values of which are key value pairs representing error messages.
+    """
     metadata_path = Path(metadata_path)
     if metadata_path.is_file():
         try:
@@ -77,6 +87,16 @@ def run_plugin_validators_iter(metadata_path: PathOrStr,
 
 
 def validation_error_iter(base_dir: PathOrStr, assay_type: str, plugin_dir: PathOrStr) -> Iterator[KeyValuePair]:
+    """
+    Given a base directory pointing to a tree of submission data files and a path to a directory of Validator
+    plugins, iterate over the results of applying all the plugin validators to the directory tree.
+
+    base_dir: the root of a directory tree of submission data files
+    assay_type: the assay type which produced the data in the directory tree
+    plugin_dir: path to a directory containing classes derived from Validator
+
+    returns an iterator the values of which are key value pairs representing error messages
+    """
     base_dir = Path(base_dir)
     plugin_dir = Path(plugin_dir)
     if not base_dir.is_dir():
