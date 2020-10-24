@@ -5,7 +5,7 @@ fields:
     name: assay_category
     constraints:
       enum:
-        - imaging
+        - mass_spectrometry_imaging
   -
     name: assay_type
     constraints:

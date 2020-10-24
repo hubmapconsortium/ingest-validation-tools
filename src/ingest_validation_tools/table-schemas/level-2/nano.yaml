@@ -6,7 +6,6 @@ fields:
     constraints:
       enum:
         - mass_spectrometry_imaging
-        # CHRIS: This is a new value. Is this correct?
   -
     name: assay_type
     constraints:
@@ -18,7 +17,6 @@ fields:
     constraints:
       enum:
         - metabolites_and_lipids
-        # CHRIS: We don't have a provision for multivalued fields. Should there be a new type?
 
   # Level 2:
   -
