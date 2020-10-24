@@ -17,7 +17,15 @@ def list_types():
 
 def get_sample_schema():
     return load_yaml(
-        (Path(__file__).parent / 'table-schemas' / 'sample.yaml').read_text()
+        (Path(__file__).parent / 'table-schemas' / 'sample.yaml')
+        .read_text()
+    )
+
+
+def get_contributors_schema():
+    return load_yaml(
+        (Path(__file__).parent / 'table-schemas' / 'contributors.yaml')
+        .read_text()
     )
 
 
