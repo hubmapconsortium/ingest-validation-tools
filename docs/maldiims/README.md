@@ -130,7 +130,7 @@ Each assay is placed into one of the following 3 general categories: generation 
 
 | constraint | value |
 | --- | --- |
-| enum | `imaging` |
+| enum | `mass_spectrometry_imaging` |
 | required | `True` |
 
 ### `assay_type`
