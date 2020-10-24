@@ -1,10 +1,17 @@
 fields:
   -
+    name: affiliation
+  -
+    name: first_name
+  -
+    name: last_name
+  -
+    name: middle_name_or_initial
+  -
+    name: name
+  -
     name: orcid_id
     description: ORCID ID of contributor
     constraints:
       pattern: '\d{4}-\d{4}-\d{4}-\d{4}'
       required: True
-  -
-    name: name
-    description: Optional contributor name.
