@@ -11,6 +11,11 @@ from ingest_validation_tools.validation_utils import (
     get_contributors_errors
 )
 
+from ingest_validation_tools.plugin_validator import run_plugin_validators_iter
+
+# Relative path to the directory containing validation plugins
+PLUGIN_DIR_REL_PATH = "../../../ingest-validation-tests/src/ingest_validation_tests"
+
 
 def _get_directory_type_from_path(path):
     return re.match(r'(.*)-metadata\.tsv$', Path(path).name)[1]
@@ -49,10 +54,15 @@ class Submission:
         errors = {}
         tsv_errors = self._get_tsv_errors()
         reference_errors = self._get_reference_errors()
+        # TODO
+        # plugin_errors = self._get_plugin_errors()
         if tsv_errors:
             errors['Metadata TSV Errors'] = tsv_errors
         if reference_errors:
             errors['Reference Errors'] = reference_errors
+        # TODO
+        # if plugin_errors:
+        #     errors['Plugin Errors'] = plugin_errors
         if errors and self.add_notes:
             errors['Notes'] = {
                 'Time': datetime.now(),
@@ -63,6 +73,14 @@ class Submission:
                 }
             }
         return errors
+
+    def _get_plugin_errors(self):
+        plugin_path = Path(__file__).parent / PLUGIN_DIR_REL_PATH
+        errors = defaultdict(list)
+        for metadata_path in self.effective_tsv_paths.values():
+            for k, v in run_plugin_validators_iter(metadata_path, plugin_path):
+                errors[k].append(v)
+        return {k: v for k, v in errors.items()}  # get rid of defaultdict
 
     def _get_tsv_errors(self):
         errors = {}
@@ -95,22 +113,21 @@ class Submission:
             errors['Warning'] = f'File has no data rows.'
         if self.directory_path:
             for i, row in enumerate(rows):
-                file_row = f'{path.name} (row {i+2})'
+                row_number = f'row {i+2}'
 
                 data_path = self.directory_path / \
                     row['data_path']
                 data_dir_errors = self._get_data_dir_errors(
                     type, data_path)
                 if data_dir_errors:
-                    errors[f'{file_row} data_path'] = \
-                        data_dir_errors
+                    errors[f'{row_number}, referencing {data_path}'] = data_dir_errors
 
                 contributors_path = self.directory_path / \
                     row['contributors_path']
                 contributors_errors = self._get_contributors_errors(
                     contributors_path)
                 if contributors_errors:
-                    errors[f'{file_row} contributors_path'] = \
+                    errors[f'{row_number}, contributors {contributors_path}'] = \
                         contributors_errors
         return errors
 
