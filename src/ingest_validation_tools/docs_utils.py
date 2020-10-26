@@ -155,8 +155,8 @@ def _make_toc(md):
     '''
     lines = md.split('\n')
     headers = [
-        re.sub(r'^#+\s+', '', ln)
-        for ln in lines if len(ln) and ln[0] == '#'
+        re.sub(r'^#+\s+', '', line)
+        for line in lines if len(line) and line[0] == '#'
     ]
     return '\n'.join([
         (
