@@ -51,6 +51,13 @@ Related files:
 [`contributors_path`](#contributors_path)<br>
 [`data_path`](#data_path)<br></details>
 
+## Dataset directory structure
+
+| pattern (regular expression) | required? | description |
+| --- | --- | --- |
+| `.+` | yes | TODO |
+| `extras/.*` | no | Free-form descriptive information supplied by the TMC |
+
 ## Provenance
 
 ### `donor_id`
@@ -123,7 +130,7 @@ Each assay is placed into one of the following 3 general categories: generation 
 
 | constraint | value |
 | --- | --- |
-| enum | `imaging` |
+| enum | `mass_spectrometry_imaging` |
 | required | `True` |
 
 ### `assay_type`

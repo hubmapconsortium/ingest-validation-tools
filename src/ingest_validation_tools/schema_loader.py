@@ -17,7 +17,15 @@ def list_types():
 
 def get_sample_schema():
     return load_yaml(
-        (Path(__file__).parent / 'table-schemas' / 'sample.yaml').read_text()
+        (Path(__file__).parent / 'table-schemas' / 'sample.yaml')
+        .read_text()
+    )
+
+
+def get_contributors_schema():
+    return load_yaml(
+        (Path(__file__).parent / 'table-schemas' / 'contributors.yaml')
+        .read_text()
     )
 
 
@@ -27,6 +35,20 @@ def get_donor_schema():
     )
 
 
+def get_dir_schema(type):
+    schema_path = (
+        Path(__file__).parent /
+        'directory-schemas' /
+        f'{type}.yaml')
+    schema = load_yaml(open(schema_path).read())
+    schema.append({
+        'pattern': 'extras/.*',
+        'description': 'Free-form descriptive information supplied by the TMC',
+        'required': False
+    })
+    return schema
+
+
 def get_directory_schemas(type):
     single_path = _directory_schemas_path / f'{type}.yaml'
     all_paths = (
@@ -34,7 +56,7 @@ def get_directory_schemas(type):
         else _directory_schemas_path.glob(f'{type}-*.yaml')
     )
     return {
-        path.stem: load_yaml(open(path).read())
+        path.stem: get_dir_schema(path.stem)
         for path in all_paths
     }
 

@@ -3,7 +3,7 @@ import importlib
 import inspect
 from typing import List, Union, Tuple, Iterator
 from pathlib import Path
-from csv import DictReader
+from csv import DictReader, Error as CsvError
 
 PathOrStr = Union[str, Path]
 
@@ -31,7 +31,7 @@ class Validator(object):
         """
         self.path = Path(base_path)
         if not self.path.is_dir():
-            raise ValidatorError(f'{self.base_path} is not a directory')
+            raise ValidatorError(f'{self.path} is not a directory')
         self.assay_type = assay_type
 
     def collect_errors(self) -> List[str]:
@@ -63,7 +63,7 @@ def run_plugin_validators_iter(metadata_path: PathOrStr,
         try:
             with open(metadata_path, encoding='latin-1') as f:
                 rows = list(DictReader(f, dialect='excel-tab'))
-        except Exception:
+        except (CsvError, IOError):
             raise ValidatorError(f'{metadata_path} could not be parsed as a .tsv file')
         if not rows:
             raise ValidatorError(f'{metadata_path} has no data rows')

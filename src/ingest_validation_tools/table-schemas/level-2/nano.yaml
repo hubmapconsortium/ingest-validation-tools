@@ -1,4 +1,4 @@
-doc_url: https://docs.google.com/document/d/1G6q_Z4aH1B8D9DulRmaGqNyqYzGf9rXWH23rOXXGeIU/edit
+doc_url: TODO
 fields:
   # Overrides of Level 1 fields:
   -
@@ -10,15 +10,13 @@ fields:
     name: assay_type
     constraints:
       enum:
-        - MALDI-IMS positive
-        - MALDI-IMS negative
+        - NanoDESI
+        - NanoPOTS
   -
     name: analyte_class
     constraints:
       enum:
-        - protein
-        - metabolites
-        - lipids
+        - metabolites_and_lipids
 
   # Level 2:
   -
@@ -63,20 +61,8 @@ fields:
         - nm
         - um
   -
-    name: preparation_type
-    description: Common methods of depositing matrix for MALDI imaging include robotic spotting, electrospray deposition, and spray-coating with an airbrush.
-  -
-    name: preparation_instrument_vendor
-    description: The manufacturer of the instrument used to prepare the sample for the assay.
-  -
-    name: preparation_instrument_model
-    description: The model number/name of the instrument used to prepare the sample for the assay
-  -
-    name: preparation_maldi_matrix
-    description: The matrix is a compound of crystallized molecules that acts like a buffer between the sample and the laser. 
-      It also helps ionize the sample, carrying it along the flight tube so it can be detected.
-  -
-    name: section_prep_protocols_io_doi
+    name: processing_protocols_io_doi
+    # CHRIS: This is the text from one of the MALDI fields. Edit if needed. 
     description: DOI for protocols.io referring to the protocol for preparing tissue sections for the assay.
   -
     name: overall_protocols_io_doi

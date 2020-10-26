@@ -46,6 +46,13 @@ Related files:
 [`contributors_path`](#contributors_path)<br>
 [`data_path`](#data_path)<br></details>
 
+## Dataset directory structure
+
+| pattern (regular expression) | required? | description |
+| --- | --- | --- |
+| `.+` | yes | TODO |
+| `extras/.*` | no | Free-form descriptive information supplied by the TMC |
+
 ## Provenance
 
 ### `donor_id`

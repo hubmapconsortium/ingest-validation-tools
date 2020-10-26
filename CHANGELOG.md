@@ -9,8 +9,14 @@
 - Update README, and diagram.
 - Add extras directory.
 - Prettier HTML output.
+- Add donor.yaml, where we can explain donor metadata fields, and hook it into field-descriptions.yaml.
+- nanodesi/pots table schema.
+- Add as_text_list option.
 - plugin_validator started.
 - Add donor.yaml, where we can explain donor metadata fields.
+- Fix the build.
+- Now that we have agreed on extras/, expose in docs.
+- Contributors table schema.
 
 ## v0.0.4 - 2020-06-26
 ### Added
