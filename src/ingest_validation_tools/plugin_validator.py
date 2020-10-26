@@ -81,7 +81,7 @@ def run_plugin_validators_iter(metadata_path: PathOrStr,
         for row in rows:
             data_path = Path(row['data_path'])
             if not data_path.is_absolute():
-                data_path = (metadata_path / data_path).resolve()
+                data_path = (metadata_path.parent / data_path).resolve()
             for k, v in validation_error_iter(data_path, assay_type, plugin_dir):
                 yield k, v
     else:
