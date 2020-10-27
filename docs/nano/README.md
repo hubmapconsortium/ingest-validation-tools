@@ -174,6 +174,7 @@ The ion source type used for surface sampling (MALDI, MALDI-2, DESI, or SIMS) or
 
 | constraint | value |
 | --- | --- |
+| enum | `MALDI`, `MALDI-2`, `DESI`, `SIMS`, or `nESI` |
 | required | `True` |
 
 ### `polarity`
@@ -181,6 +182,7 @@ The polarity of the mass analysis (positive or negative ion modes)
 
 | constraint | value |
 | --- | --- |
+| enum | `MALDI`, `MALDI-2`, `DESI`, `SIMS`, or `nESI` |
 | required | `True` |
 
 ### `mz_range_low_value`

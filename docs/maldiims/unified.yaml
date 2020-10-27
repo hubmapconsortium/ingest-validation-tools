@@ -90,15 +90,20 @@ fields:
     of the data.
   name: acquisition_instrument_model
 - constraints:
+    enum:
+    - MALDI
+    - MALDI-2
+    - DESI
+    - SIMS
+    - nESI
     required: true
   description: The ion source type used for surface sampling (MALDI, MALDI-2, DESI,
     or SIMS) or LC-MS/MS data acquisition (nESI)
   name: ms_source
 - constraints:
-    required: true
-  description: The polarity of the mass analysis (positive or negative ion modes)
-  name: polarity
-- constraints:
+    enum:
+    - negative ion mode
+    - positive ion mode
     required: true
   description: A number representing the mass:charge ratio
   name: mz_range_low_value
