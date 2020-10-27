@@ -110,7 +110,7 @@ class Submission:
         errors = {}
         rows = _get_tsv_rows(path)
         if not rows:
-            errors['Warning'] = f'File {Path(path).name} has no data rows.'
+            errors['Warning'] = 'File has no data rows.'
         if self.directory_path:
             for i, row in enumerate(rows):
                 row_number = f'row {i+2}'
