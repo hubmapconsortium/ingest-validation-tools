@@ -57,7 +57,7 @@ def get_directory_schemas(type):
     )
     return {
         path.stem: get_dir_schema(path.stem)
-        for path in all_paths
+        for path in sorted(all_paths)
     }
 
 
