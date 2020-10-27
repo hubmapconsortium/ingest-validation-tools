@@ -47,6 +47,7 @@ fields:
       enum:
         - negative ion mode
         - positive ion mode
+  -
     name: mz_range_low_value
     description: A number representing the mass:charge ratio
   -

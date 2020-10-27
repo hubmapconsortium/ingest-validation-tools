@@ -31,6 +31,7 @@ Related files:
 [`acquisition_instrument_vendor`](#acquisition_instrument_vendor)<br>
 [`acquisition_instrument_model`](#acquisition_instrument_model)<br>
 [`ms_source`](#ms_source)<br>
+[`polarity`](#polarity)<br>
 [`mz_range_low_value`](#mz_range_low_value)<br>
 [`mz_range_high_value`](#mz_range_high_value)<br>
 [`resolution_x_value`](#resolution_x_value)<br>
@@ -180,13 +181,20 @@ The ion source type used for surface sampling (MALDI, MALDI-2, DESI, or SIMS) or
 | enum | `MALDI`, `MALDI-2`, `DESI`, `SIMS`, or `nESI` |
 | required | `True` |
 
+### `polarity`
+The polarity of the mass analysis (positive or negative ion modes)
+
+| constraint | value |
+| --- | --- |
+| enum | `negative ion mode` or `positive ion mode` |
+| required | `True` |
+
 ### `mz_range_low_value`
 A number representing the mass:charge ratio
 
 | constraint | value |
 | --- | --- |
 | type | `number` |
-| enum | `negative ion mode` or `positive ion mode` |
 | required | `True` |
 
 ### `mz_range_high_value`

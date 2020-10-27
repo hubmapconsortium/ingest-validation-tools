@@ -105,6 +105,10 @@ fields:
     - negative ion mode
     - positive ion mode
     required: true
+  description: The polarity of the mass analysis (positive or negative ion modes)
+  name: polarity
+- constraints:
+    required: true
   description: A number representing the mass:charge ratio
   name: mz_range_low_value
   type: number
