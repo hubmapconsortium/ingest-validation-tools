@@ -138,7 +138,7 @@ The specific type of assay being executed.
 
 | constraint | value |
 | --- | --- |
-| enum | `MALDI-IMS positive` or `MALDI-IMS negative` |
+| enum | `MALDI-IMS` |
 | required | `True` |
 
 ### `analyte_class`
