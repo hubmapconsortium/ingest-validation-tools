@@ -54,8 +54,7 @@ fields:
         - LC-MS (metabolomics)
         - LC-MS/MS (label-free proteomics)
         - MxIF
-        - MALDI-IMS positive
-        - MALDI-IMS negative
+        - MALDI-IMS
         - MS (shotgun lipidomics)
         - NanoDESI
         - NanoPOTS

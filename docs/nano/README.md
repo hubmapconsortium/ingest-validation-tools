@@ -1,9 +1,9 @@
-# maldiims
+# nano
 
 Related files:
-- [🔬 Background doc](https://docs.google.com/document/d/1G6q_Z4aH1B8D9DulRmaGqNyqYzGf9rXWH23rOXXGeIU/edit): More details about this type.
-- [📝 TSV template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/master/docs/maldiims/maldiims-metadata.tsv): Use this to submit metadata.
-- [💻 Source code](https://github.com/hubmapconsortium/ingest-validation-tools/edit/master/src/ingest_validation_tools/table-schemas/level-2/maldiims.yaml): Make a PR if this doc should be updated.
+- [🔬 Background doc](TODO): More details about this type.
+- [📝 TSV template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/master/docs/nano/nano-metadata.tsv): Use this to submit metadata.
+- [💻 Source code](https://github.com/hubmapconsortium/ingest-validation-tools/edit/master/src/ingest_validation_tools/table-schemas/level-2/nano.yaml): Make a PR if this doc should be updated.
 
 ## Table of contents
 <details><summary>Provenance</summary>
@@ -38,11 +38,7 @@ Related files:
 [`resolution_x_unit`](#resolution_x_unit)<br>
 [`resolution_y_value`](#resolution_y_value)<br>
 [`resolution_y_unit`](#resolution_y_unit)<br>
-[`preparation_type`](#preparation_type)<br>
-[`preparation_instrument_vendor`](#preparation_instrument_vendor)<br>
-[`preparation_instrument_model`](#preparation_instrument_model)<br>
-[`preparation_maldi_matrix`](#preparation_maldi_matrix)<br>
-[`section_prep_protocols_io_doi`](#section_prep_protocols_io_doi)<br>
+[`processing_protocols_io_doi`](#processing_protocols_io_doi)<br>
 [`overall_protocols_io_doi`](#overall_protocols_io_doi)<br>
 </details>
 
@@ -138,7 +134,7 @@ The specific type of assay being executed.
 
 | constraint | value |
 | --- | --- |
-| enum | `MALDI-IMS` |
+| enum | `NanoDESI` or `NanoPOTS` |
 | required | `True` |
 
 ### `analyte_class`
@@ -146,7 +142,7 @@ Analytes are the target molecules being measured with the assay.
 
 | constraint | value |
 | --- | --- |
-| enum | `protein`, `metabolites`, or `lipids` |
+| enum | `metabolites_and_lipids` |
 | required | `True` |
 
 ### `is_targeted`
@@ -186,7 +182,7 @@ The polarity of the mass analysis (positive or negative ion modes)
 
 | constraint | value |
 | --- | --- |
-| enum | `negative ion mode` or `positive ion mode` |
+| enum | `MALDI`, `MALDI-2`, `DESI`, `SIMS`, or `nESI` |
 | required | `True` |
 
 ### `mz_range_low_value`
@@ -237,35 +233,7 @@ The unit of measurement of the height of a pixel
 | enum | `nm` or `um` |
 | required | `True` |
 
-### `preparation_type`
-Common methods of depositing matrix for MALDI imaging include robotic spotting, electrospray deposition, and spray-coating with an airbrush.
-
-| constraint | value |
-| --- | --- |
-| required | `True` |
-
-### `preparation_instrument_vendor`
-The manufacturer of the instrument used to prepare the sample for the assay.
-
-| constraint | value |
-| --- | --- |
-| required | `True` |
-
-### `preparation_instrument_model`
-The model number/name of the instrument used to prepare the sample for the assay
-
-| constraint | value |
-| --- | --- |
-| required | `True` |
-
-### `preparation_maldi_matrix`
-The matrix is a compound of crystallized molecules that acts like a buffer between the sample and the laser. It also helps ionize the sample, carrying it along the flight tube so it can be detected.
-
-| constraint | value |
-| --- | --- |
-| required | `True` |
-
-### `section_prep_protocols_io_doi`
+### `processing_protocols_io_doi`
 DOI for protocols.io referring to the protocol for preparing tissue sections for the assay.
 
 | constraint | value |

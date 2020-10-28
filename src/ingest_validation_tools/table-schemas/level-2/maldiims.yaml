@@ -10,8 +10,7 @@ fields:
     name: assay_type
     constraints:
       enum:
-        - MALDI-IMS positive
-        - MALDI-IMS negative
+        - MALDI-IMS
   -
     name: analyte_class
     constraints:
@@ -33,9 +32,20 @@ fields:
   -
     name: ms_source
     description: The ion source type used for surface sampling (MALDI, MALDI-2, DESI, or SIMS) or LC-MS/MS data acquisition (nESI)
+    constraints:
+      enum:
+        - MALDI
+        - MALDI-2
+        - DESI
+        - SIMS
+        - nESI
   -
     name: polarity
     description: The polarity of the mass analysis (positive or negative ion modes)
+    constraints:
+      enum:
+        - negative ion mode
+        - positive ion mode
   -
     name: mz_range_low_value
     description: A number representing the mass:charge ratio
