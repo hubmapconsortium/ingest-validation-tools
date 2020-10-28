@@ -54,15 +54,13 @@ class Submission:
         errors = {}
         tsv_errors = self._get_tsv_errors()
         reference_errors = self._get_reference_errors()
-        # TODO
-        # plugin_errors = self._get_plugin_errors()
+        plugin_errors = self._get_plugin_errors()
         if tsv_errors:
             errors['Metadata TSV Errors'] = tsv_errors
         if reference_errors:
             errors['Reference Errors'] = reference_errors
-        # TODO
-        # if plugin_errors:
-        #     errors['Plugin Errors'] = plugin_errors
+        if plugin_errors:
+            errors['Plugin Errors'] = plugin_errors
         if errors and self.add_notes:
             errors['Notes'] = {
                 'Time': datetime.now(),

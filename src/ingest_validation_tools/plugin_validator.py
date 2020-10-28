@@ -108,6 +108,7 @@ def validation_error_iter(base_dir: PathOrStr, assay_type: str,
         raise ValidatorError(f'{base_dir} should be the base directory of a dataset')
     if not plugin_dir.is_dir():
         raise ValidatorError(f'{plugin_dir} should be a directory of validation plug-ins')
+    sort_me = []
     for fpath in plugin_dir.glob('*.py'):
         mod_nm = fpath.stem
         if mod_nm in sys.modules:
@@ -117,12 +118,11 @@ def validation_error_iter(base_dir: PathOrStr, assay_type: str,
             mod = importlib.util.module_from_spec(spec)
             sys.modules[mod_nm] = mod
             spec.loader.exec_module(mod)
-        sort_me = []
         for name, obj in inspect.getmembers(mod):
             if inspect.isclass(obj) and obj != Validator and issubclass(obj, Validator):
                 sort_me.append((obj.cost, obj.description, obj))
-        sort_me.sort()
-        for cost, description, cls in sort_me:
-            validator = cls(base_dir, assay_type)
-            for err in validator.collect_errors():
-                yield description, err
+    sort_me.sort()
+    for cost, description, cls in sort_me:
+        validator = cls(base_dir, assay_type)
+        for err in validator.collect_errors():
+            yield description, err
