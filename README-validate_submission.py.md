@@ -5,7 +5,7 @@ usage: validate_submission.py [-h]
                               [--optional_fields FIELD [FIELD ...]]
                               [--dataset_ignore_globs GLOB [GLOB ...]]
                               [--submission_ignore_globs GLOB [GLOB ...]]
-                              [--output {as_browser,as_html_doc,as_html_fragment,as_md,as_text,as_yaml}]
+                              [--output {as_browser,as_html_doc,as_html_fragment,as_md,as_text,as_text_list,as_yaml}]
                               [--add_notes]
 
 Validate a HuBMAP submission, both the metadata TSVs, and the datasets,
@@ -23,8 +23,8 @@ optional arguments:
   --type_metadata TYPE PATH [TYPE PATH ...]
                         A list of type / metadata.tsv pairs. Type should be
                         one of: ['af', 'bulkatacseq', 'bulkrnaseq', 'codex',
-                        'imc', 'lcms', 'maldiims', 'mxif', 'scatacseq',
-                        'scrnaseq', 'seqfish', 'stained', 'wgs']
+                        'imc', 'lcms', 'maldiims', 'mxif', 'nano',
+                        'scatacseq', 'scrnaseq', 'seqfish', 'stained', 'wgs']
   --optional_fields FIELD [FIELD ...]
                         The listed fields will be treated as optional. (But if
                         they are supplied in the TSV, they will be validated.)
@@ -34,7 +34,7 @@ optional arguments:
   --submission_ignore_globs GLOB [GLOB ...]
                         Matching sub-directories in the submission will be
                         ignored.
-  --output {as_browser,as_html_doc,as_html_fragment,as_md,as_text,as_yaml}
+  --output {as_browser,as_html_doc,as_html_fragment,as_md,as_text,as_text_list,as_yaml}
   --add_notes           Append a context note to error reports.
 
 Typical usecases:

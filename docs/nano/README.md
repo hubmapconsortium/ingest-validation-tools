@@ -1,9 +1,9 @@
-# stained
+# nano
 
 Related files:
-- [🔬 Background doc](https://docs.google.com/document/d/1Kp5nQPmD7C7Bamd_hBgVFrAT6qtiM_tOkDdGKT0v80E/edit): More details about this type.
-- [📝 TSV template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/master/docs/stained/stained-metadata.tsv): Use this to submit metadata.
-- [💻 Source code](https://github.com/hubmapconsortium/ingest-validation-tools/edit/master/src/ingest_validation_tools/table-schemas/level-2/stained.yaml): Make a PR if this doc should be updated.
+- [🔬 Background doc](TODO): More details about this type.
+- [📝 TSV template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/master/docs/nano/nano-metadata.tsv): Use this to submit metadata.
+- [💻 Source code](https://github.com/hubmapconsortium/ingest-validation-tools/edit/master/src/ingest_validation_tools/table-schemas/level-2/nano.yaml): Make a PR if this doc should be updated.
 
 ## Table of contents
 <details><summary>Provenance</summary>
@@ -30,14 +30,15 @@ Related files:
 
 [`acquisition_instrument_vendor`](#acquisition_instrument_vendor)<br>
 [`acquisition_instrument_model`](#acquisition_instrument_model)<br>
+[`ms_source`](#ms_source)<br>
+[`polarity`](#polarity)<br>
+[`mz_range_low_value`](#mz_range_low_value)<br>
+[`mz_range_high_value`](#mz_range_high_value)<br>
 [`resolution_x_value`](#resolution_x_value)<br>
 [`resolution_x_unit`](#resolution_x_unit)<br>
 [`resolution_y_value`](#resolution_y_value)<br>
 [`resolution_y_unit`](#resolution_y_unit)<br>
-[`resolution_z_value`](#resolution_z_value)<br>
-[`resolution_z_unit`](#resolution_z_unit)<br>
-[`stain`](#stain)<br>
-[`section_prep_protocols_io_doi`](#section_prep_protocols_io_doi)<br>
+[`processing_protocols_io_doi`](#processing_protocols_io_doi)<br>
 [`overall_protocols_io_doi`](#overall_protocols_io_doi)<br>
 </details>
 
@@ -125,7 +126,7 @@ Each assay is placed into one of the following 3 general categories: generation 
 
 | constraint | value |
 | --- | --- |
-| enum | `imaging` |
+| enum | `mass_spectrometry_imaging` |
 | required | `True` |
 
 ### `assay_type`
@@ -133,15 +134,16 @@ The specific type of assay being executed.
 
 | constraint | value |
 | --- | --- |
-| enum | `PAS microscopy` |
+| enum | `NanoDESI` or `NanoPOTS` |
 | required | `True` |
 
 ### `analyte_class`
-Analytes are the target molecules being measured with the assay. Leave blank if not applicable.
+Analytes are the target molecules being measured with the assay.
 
 | constraint | value |
 | --- | --- |
-| required | `False` |
+| enum | `metabolites_and_lipids` |
+| required | `True` |
 
 ### `is_targeted`
 Specifies whether or not a specific molecule(s) is/are targeted for detection/measurement by the assay. The CODEX analyte is protein.
@@ -154,21 +156,53 @@ Specifies whether or not a specific molecule(s) is/are targeted for detection/me
 ## Level 2
 
 ### `acquisition_instrument_vendor`
-An acquisition_instrument is the device that contains the signal detection hardware and signal processing software. Assays generate signals such as light of various intensities or color or signals representing molecular mass.
+An acquisition instrument is the device that contains the signal detection hardware and signal processing software. Assays generate signals such as light of various intensities or color or signals representing the molecular mass
 
 | constraint | value |
 | --- | --- |
 | required | `True` |
 
 ### `acquisition_instrument_model`
-Manufacturers of an acquisition instrument may offer various versions (models) of that instrument with different features or sensitivities. Differences in features or sensitivities may be relevant to processing or interpretation of the data.
+(version) Manufacturers of an acquisition instrument may offer various versions (models) of that instrument with different features or sensitivities. Differences in features of sensitivities may be relevant to processing or interpretation of the data.
 
 | constraint | value |
 | --- | --- |
 | required | `True` |
 
+### `ms_source`
+The ion source type used for surface sampling (MALDI, MALDI-2, DESI, or SIMS) or LC-MS/MS data acquisition (nESI)
+
+| constraint | value |
+| --- | --- |
+| enum | `MALDI`, `MALDI-2`, `DESI`, `SIMS`, or `nESI` |
+| required | `True` |
+
+### `polarity`
+The polarity of the mass analysis (positive or negative ion modes)
+
+| constraint | value |
+| --- | --- |
+| enum | `MALDI`, `MALDI-2`, `DESI`, `SIMS`, or `nESI` |
+| required | `True` |
+
+### `mz_range_low_value`
+A number representing the mass:charge ratio
+
+| constraint | value |
+| --- | --- |
+| type | `number` |
+| required | `True` |
+
+### `mz_range_high_value`
+A number representing the mass:charge ratio
+
+| constraint | value |
+| --- | --- |
+| type | `number` |
+| required | `True` |
+
 ### `resolution_x_value`
-The width of a pixel.
+The width of a pixel
 
 | constraint | value |
 | --- | --- |
@@ -176,7 +210,7 @@ The width of a pixel.
 | required | `True` |
 
 ### `resolution_x_unit`
-The unit of measurement of width of a pixel
+The unit of measurement of the width of a pixel
 
 | constraint | value |
 | --- | --- |
@@ -184,7 +218,7 @@ The unit of measurement of width of a pixel
 | required | `True` |
 
 ### `resolution_y_value`
-The height of a pixel.
+The height of a pixel
 
 | constraint | value |
 | --- | --- |
@@ -192,38 +226,15 @@ The height of a pixel.
 | required | `True` |
 
 ### `resolution_y_unit`
-The unit of measurement of height of a pixel.
+The unit of measurement of the height of a pixel
 
 | constraint | value |
 | --- | --- |
 | enum | `nm` or `um` |
 | required | `True` |
 
-### `resolution_z_value`
-Optional if assay does not have multiple z-levels. Note that this is resolution within a given sample: z-pitch (resolution_z_value) is the increment distance between image slices ie. the microscope stage is moved up or down in increments to capture images of several focal planes. The best one will be used & the rest discarded. The thickness of the sample itself is sample metadata. Leave blank if not applicable.
-
-| constraint | value |
-| --- | --- |
-| type | `number` |
-| required | `True` |
-
-### `resolution_z_unit`
-The unit of incremental distance between image slices.
-
-| constraint | value |
-| --- | --- |
-| enum | `nm` or `um` |
-| required | `True` |
-
-### `stain`
-Chemical stains (dyes) applied to histology samples to highlight important features of the tissue as well as to enhance the tissue contrast.
-
-| constraint | value |
-| --- | --- |
-| required | `True` |
-
-### `section_prep_protocols_io_doi`
-Protocol for acquisition of a tissue section and preparation of the sample for analysis.
+### `processing_protocols_io_doi`
+DOI for protocols.io referring to the protocol for preparing tissue sections for the assay.
 
 | constraint | value |
 | --- | --- |
@@ -231,7 +242,7 @@ Protocol for acquisition of a tissue section and preparation of the sample for a
 | pattern (regular expression) | `10\.17504/.*` |
 
 ### `overall_protocols_io_doi`
-Description of the overall methodology for conducting the assay.
+DOI for protocols.io referring to the overall protocol for the assay.
 
 | constraint | value |
 | --- | --- |

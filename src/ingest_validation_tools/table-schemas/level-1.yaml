@@ -38,6 +38,7 @@ fields:
       enum:
         - imaging
         - mass_spectrometry
+        - mass_spectrometry_imaging
         - sequence
   -
     name: assay_type
@@ -53,9 +54,10 @@ fields:
         - LC-MS (metabolomics)
         - LC-MS/MS (label-free proteomics)
         - MxIF
-        - MALDI-IMS positive
-        - MALDI-IMS negative
+        - MALDI-IMS
         - MS (shotgun lipidomics)
+        - NanoDESI
+        - NanoPOTS
         - PAS microscopy
         - scATACseq
         - sciATACseq
@@ -82,6 +84,7 @@ fields:
         - lipids
         - metabolites
         - polysaccharides
+        - metabolites_and_lipids
   -
     name: is_targeted
     description: Specifies whether or not a specific molecule(s) is/are targeted for detection/measurement by the assay. The CODEX analyte is protein.
