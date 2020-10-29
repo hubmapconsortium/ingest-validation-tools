@@ -52,15 +52,21 @@ class Submission:
         # This creates a deeply nested dict.
         # Keys are present only if there is actually an error to report.
         errors = {}
+
         tsv_errors = self._get_tsv_errors()
-        reference_errors = self._get_reference_errors()
-        plugin_errors = self._get_plugin_errors()
         if tsv_errors:
             errors['Metadata TSV Errors'] = tsv_errors
+
+        reference_errors = self._get_reference_errors()
         if reference_errors:
             errors['Reference Errors'] = reference_errors
-        if plugin_errors:
-            errors['Plugin Errors'] = plugin_errors
+
+        if not tsv_errors and not reference_errors:
+            # TODO: Add an option to just check plugin errors?
+            plugin_errors = self._get_plugin_errors()
+            if plugin_errors:
+                errors['Plugin Errors'] = plugin_errors
+
         if errors and self.add_notes:
             errors['Notes'] = {
                 'Time': datetime.now(),
