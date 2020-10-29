@@ -14,7 +14,7 @@ from ingest_validation_tools.validation_utils import (
 from ingest_validation_tools.plugin_validator import run_plugin_validators_iter
 
 # Relative path to the directory containing validation plugins
-PLUGIN_DIR_REL_PATH = "../../../ingest-validation-tests/src/ingest_validation_tests"
+PLUGIN_DIR_REL_PATH = "ingest-validation-tests/src/ingest_validation_tests"
 
 
 def _get_directory_type_from_path(path):
