@@ -11,7 +11,10 @@ from ingest_validation_tools.validation_utils import (
     get_contributors_errors
 )
 
-from ingest_validation_tools.plugin_validator import run_plugin_validators_iter
+from ingest_validation_tools.plugin_validator import (
+    run_plugin_validators_iter,
+    ValidatorError as PluginValidatorError
+)
 
 
 def _get_directory_type_from_path(path):
@@ -82,9 +85,12 @@ class Submission:
         if plugin_path:
             errors = defaultdict(list)
             for metadata_path in self.effective_tsv_paths.values():
-                for k, v in run_plugin_validators_iter(metadata_path,
-                                                       plugin_path):
-                    errors[k].append(v)
+                try:
+                    for k, v in run_plugin_validators_iter(metadata_path,
+                                                           plugin_path):
+                        errors[k].append(v)
+                except PluginValidatorError as e:
+                    errors['Unexpected Plugin Error'] = str(e)
             return {k: v for k, v in errors.items()}  # get rid of defaultdict
         else:
             return {}
