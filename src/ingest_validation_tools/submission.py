@@ -13,9 +13,6 @@ from ingest_validation_tools.validation_utils import (
 
 from ingest_validation_tools.plugin_validator import run_plugin_validators_iter
 
-# Relative path to the directory containing validation plugins
-PLUGIN_DIR_REL_PATH = "ingest-validation-tests/src/ingest_validation_tests"
-
 
 def _get_directory_type_from_path(path):
     return re.match(r'(.*)-metadata\.tsv$', Path(path).name)[1]
@@ -30,11 +27,13 @@ def _get_tsv_rows(path):
 class Submission:
     def __init__(self, directory_path=None, override_tsv_paths={},
                  optional_fields=[], add_notes=True,
-                 dataset_ignore_globs=[], submission_ignore_globs=[]):
+                 dataset_ignore_globs=[], submission_ignore_globs=[],
+                 plugin_dir_abs_path=None):
         self.directory_path = directory_path
         self.optional_fields = optional_fields
         self.dataset_ignore_globs = dataset_ignore_globs
         self.submission_ignore_globs = submission_ignore_globs
+        self.plugin_dir_abs_path = plugin_dir_abs_path
         unsorted_effective_tsv_paths = (
             override_tsv_paths if override_tsv_paths
             else {
@@ -61,7 +60,7 @@ class Submission:
         if reference_errors:
             errors['Reference Errors'] = reference_errors
 
-        if not tsv_errors and not reference_errors:
+        if self.plugin_dir_abs_path:
             # TODO: Add an option to just check plugin errors?
             plugin_errors = self._get_plugin_errors()
             if plugin_errors:
@@ -79,12 +78,16 @@ class Submission:
         return errors
 
     def _get_plugin_errors(self):
-        plugin_path = Path(__file__).parent / PLUGIN_DIR_REL_PATH
-        errors = defaultdict(list)
-        for metadata_path in self.effective_tsv_paths.values():
-            for k, v in run_plugin_validators_iter(metadata_path, plugin_path):
-                errors[k].append(v)
-        return {k: v for k, v in errors.items()}  # get rid of defaultdict
+        plugin_path = self.plugin_dir_abs_path
+        if plugin_path:
+            errors = defaultdict(list)
+            for metadata_path in self.effective_tsv_paths.values():
+                for k, v in run_plugin_validators_iter(metadata_path,
+                                                       plugin_path):
+                    errors[k].append(v)
+            return {k: v for k, v in errors.items()}  # get rid of defaultdict
+        else:
+            return {}
 
     def _get_tsv_errors(self):
         errors = {}

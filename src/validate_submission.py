@@ -95,6 +95,10 @@ Typical usecases:
     parser.add_argument('--add_notes', action='store_true',
                         help='Append a context note to error reports.')
 
+    # Permit the user to set the location of the plugin directory
+    parser.add_argument('--plugin_dir_abs_path', action='store',
+                        help='Absolute path of a directory of plugin tests.')
+
     return parser
 
 
@@ -156,6 +160,11 @@ def main():
     if args.submission_ignore_globs:
         submission_args['submission_ignore_globs'] = \
             args.submission_ignore_globs
+
+
+    if args.plugin_dir_abs_path:
+        submission_args['plugin_dir_abs_path'] = \
+            args.plugin_dir_abs_path
 
     submission = Submission(**submission_args)
     errors = submission.get_errors()
