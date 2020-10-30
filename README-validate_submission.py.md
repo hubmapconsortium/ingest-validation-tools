@@ -7,6 +7,7 @@ usage: validate_submission.py [-h]
                               [--submission_ignore_globs GLOB [GLOB ...]]
                               [--output {as_browser,as_html_doc,as_html_fragment,as_md,as_text,as_text_list,as_yaml}]
                               [--add_notes]
+                              [--plugin_dir_abs_path PLUGIN_DIR_ABS_PATH]
 
 Validate a HuBMAP submission, both the metadata TSVs, and the datasets,
 either local or remote, or a combination of the two.
@@ -36,6 +37,8 @@ optional arguments:
                         ignored.
   --output {as_browser,as_html_doc,as_html_fragment,as_md,as_text,as_text_list,as_yaml}
   --add_notes           Append a context note to error reports.
+  --plugin_dir_abs_path PLUGIN_DIR_ABS_PATH
+                        Absolute path of a directory of plugin tests.
 
 Typical usecases:
 

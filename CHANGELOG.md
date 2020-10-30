@@ -20,6 +20,7 @@
 - Contributors table schema.
 - Add extra validation hooks.
 - Add nano docs.
+- Run plugin tests only from command line argument
 
 ## v0.0.4 - 2020-06-26
 ### Added
