@@ -62,8 +62,8 @@ def run_plugin_validators_iter(metadata_path: PathOrStr,
     if metadata_path.is_file():
         try:
             with open(metadata_path, encoding='latin-1') as f:
-                rows = list(row for row in DictReader(f, dialect='excel-tab'))
-        except CsvError:
+                rows = list(DictReader(f, dialect='excel-tab'))
+        except (CsvError, IOError):
             raise ValidatorError(f'{metadata_path} could not be parsed as a .tsv file')
         if not rows:
             raise ValidatorError(f'{metadata_path} has no data rows')
@@ -72,33 +72,35 @@ def run_plugin_validators_iter(metadata_path: PathOrStr,
             if any(row['assay_type'] != assay_type for row in rows):
                 raise ValidatorError(f'{metadata_path} contains more than one assay type')
 
-            if all('data_path' in row for row in rows):
-                for row in rows:
-                    data_path = Path(row['data_path'])
-                    if not data_path.is_absolute():
-                        data_path = (metadata_path / data_path).resolve()
-                    for k, v in validation_error_iter(data_path, assay_type, plugin_dir):
-                        yield k, v
-            else:
-                raise ValidatorError(f'{metadata_path} has no "data_path" column')
         else:
             raise ValidatorError(f'{metadata_path} has no "assay_type" column')
     else:
         raise ValidatorError(f'{metadata_path} does not exist or is not a file')
 
+    if all('data_path' in row for row in rows):
+        for row in rows:
+            data_path = Path(row['data_path'])
+            if not data_path.is_absolute():
+                data_path = (metadata_path.parent / data_path).resolve()
+            for k, v in validation_error_iter(data_path, assay_type, plugin_dir):
+                yield k, v
+    else:
+        raise ValidatorError(f'{metadata_path} has no "data_path" column')
+
 
 def validation_error_iter(base_dir: PathOrStr, assay_type: str,
                           plugin_dir: PathOrStr) -> Iterator[KeyValuePair]:
     """
-    Given a base directory pointing to a tree of submission data files
-    and a path to a directory of Validator plugins,
-    iterate over the results of applying all the plugin validators to the directory tree.
+    Given a base directory pointing to a tree of submission data files and a
+    path to a directory of Validator plugins, iterate over the results of
+    applying all the plugin validators to the directory tree.
 
     base_dir: the root of a directory tree of submission data files
     assay_type: the assay type which produced the data in the directory tree
     plugin_dir: path to a directory containing classes derived from Validator
 
-    returns an iterator the values of which are key value pairs representing error messages
+    returns an iterator the values of which are key value pairs representing
+    error messages
     """
     base_dir = Path(base_dir)
     plugin_dir = Path(plugin_dir)
@@ -106,6 +108,7 @@ def validation_error_iter(base_dir: PathOrStr, assay_type: str,
         raise ValidatorError(f'{base_dir} should be the base directory of a dataset')
     if not plugin_dir.is_dir():
         raise ValidatorError(f'{plugin_dir} should be a directory of validation plug-ins')
+    sort_me = []
     for fpath in plugin_dir.glob('*.py'):
         mod_nm = fpath.stem
         if mod_nm in sys.modules:
@@ -115,12 +118,11 @@ def validation_error_iter(base_dir: PathOrStr, assay_type: str,
             mod = importlib.util.module_from_spec(spec)
             sys.modules[mod_nm] = mod
             spec.loader.exec_module(mod)
-        sort_me = []
         for name, obj in inspect.getmembers(mod):
             if inspect.isclass(obj) and obj != Validator and issubclass(obj, Validator):
                 sort_me.append((obj.cost, obj.description, obj))
-        sort_me.sort()
-        for cost, description, cls in sort_me:
-            validator = cls(base_dir, assay_type)
-            for err in validator.collect_errors():
-                yield description, err
+    sort_me.sort()
+    for cost, description, cls in sort_me:
+        validator = cls(base_dir, assay_type)
+        for err in validator.collect_errors():
+            yield description, err

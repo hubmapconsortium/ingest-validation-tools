@@ -18,6 +18,7 @@
 - Fix the build.
 - Now that we have agreed on extras/, expose in docs.
 - Contributors table schema.
+- Add extra validation hooks.
 - Add nano docs.
 
 ## v0.0.4 - 2020-06-26

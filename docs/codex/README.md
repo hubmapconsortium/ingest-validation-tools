@@ -56,17 +56,6 @@ Related files:
 
 ## Dataset directory structure
 
-### codex-stanford
-
-| pattern (regular expression) | required? | description |
-| --- | --- | --- |
-| `channelNames\.txt` | yes | TODO |
-| `Experiment\.json` | yes | TODO |
-| `processingOptions\.json` | yes | TODO |
-| `exposure_times\.txt` | no | TODO |
-| `Cyc.*_reg.*/HE_.*_Z.*_CH.*` | yes | TODO |
-| `extras/.*` | no | Free-form descriptive information supplied by the TMC |
-
 ### codex-akoya
 
 | pattern (regular expression) | required? | description |
@@ -77,6 +66,17 @@ Related files:
 | `segmentation\.json` | no | TODO |
 | `cyc.*_reg.*_.*/.*_.*_Z.*_CH.*` | yes | TODO |
 | `cyc.*_reg.*_.*/.*.gci` | no | TODO |
+| `extras/.*` | no | Free-form descriptive information supplied by the TMC |
+
+### codex-stanford
+
+| pattern (regular expression) | required? | description |
+| --- | --- | --- |
+| `channelNames\.txt` | yes | TODO |
+| `Experiment\.json` | yes | TODO |
+| `processingOptions\.json` | yes | TODO |
+| `exposure_times\.txt` | no | TODO |
+| `Cyc.*_reg.*/HE_.*_Z.*_CH.*` | yes | TODO |
 | `extras/.*` | no | Free-form descriptive information supplied by the TMC |
 
 ## Provenance

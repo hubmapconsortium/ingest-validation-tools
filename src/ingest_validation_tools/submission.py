@@ -14,7 +14,7 @@ from ingest_validation_tools.validation_utils import (
 from ingest_validation_tools.plugin_validator import run_plugin_validators_iter
 
 # Relative path to the directory containing validation plugins
-PLUGIN_DIR_REL_PATH = "../../../ingest-validation-tests/src/ingest_validation_tests"
+PLUGIN_DIR_REL_PATH = "ingest-validation-tests/src/ingest_validation_tests"
 
 
 def _get_directory_type_from_path(path):
@@ -52,17 +52,21 @@ class Submission:
         # This creates a deeply nested dict.
         # Keys are present only if there is actually an error to report.
         errors = {}
+
         tsv_errors = self._get_tsv_errors()
-        reference_errors = self._get_reference_errors()
-        # TODO
-        # plugin_errors = self._get_plugin_errors()
         if tsv_errors:
             errors['Metadata TSV Errors'] = tsv_errors
+
+        reference_errors = self._get_reference_errors()
         if reference_errors:
             errors['Reference Errors'] = reference_errors
-        # TODO
-        # if plugin_errors:
-        #     errors['Plugin Errors'] = plugin_errors
+
+        if not tsv_errors and not reference_errors:
+            # TODO: Add an option to just check plugin errors?
+            plugin_errors = self._get_plugin_errors()
+            if plugin_errors:
+                errors['Plugin Errors'] = plugin_errors
+
         if errors and self.add_notes:
             errors['Notes'] = {
                 'Time': datetime.now(),
@@ -110,7 +114,7 @@ class Submission:
         errors = {}
         rows = _get_tsv_rows(path)
         if not rows:
-            errors['Warning'] = f'File has no data rows.'
+            errors['Warning'] = 'File has no data rows.'
         if self.directory_path:
             for i, row in enumerate(rows):
                 row_number = f'row {i+2}'
