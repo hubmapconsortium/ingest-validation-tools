@@ -48,8 +48,15 @@ Related files:
 
 <details><summary>Paths</summary>
 
-[`metadata_path`](#metadata_path)<br>
+[`contributors_path`](#contributors_path)<br>
 [`data_path`](#data_path)<br></details>
+
+## Dataset directory structure
+
+| pattern (regular expression) | required? | description |
+| --- | --- | --- |
+| `.+` | yes | TODO |
+| `extras/.*` | no | Free-form descriptive information supplied by the TMC |
 
 ## Provenance
 
@@ -123,7 +130,7 @@ Each assay is placed into one of the following 3 general categories: generation 
 
 | constraint | value |
 | --- | --- |
-| enum | `imaging` |
+| enum | `mass_spectrometry_imaging` |
 | required | `True` |
 
 ### `assay_type`
@@ -131,7 +138,7 @@ The specific type of assay being executed.
 
 | constraint | value |
 | --- | --- |
-| enum | `MALDI-IMS positive` or `MALDI-IMS negative` |
+| enum | `MALDI-IMS` |
 | required | `True` |
 
 ### `analyte_class`
@@ -171,6 +178,7 @@ The ion source type used for surface sampling (MALDI, MALDI-2, DESI, or SIMS) or
 
 | constraint | value |
 | --- | --- |
+| enum | `MALDI`, `MALDI-2`, `DESI`, `SIMS`, or `nESI` |
 | required | `True` |
 
 ### `polarity`
@@ -178,6 +186,7 @@ The polarity of the mass analysis (positive or negative ion modes)
 
 | constraint | value |
 | --- | --- |
+| enum | `negative ion mode` or `positive ion mode` |
 | required | `True` |
 
 ### `mz_range_low_value`
@@ -274,12 +283,12 @@ DOI for protocols.io referring to the overall protocol for the assay.
 
 ## Paths
 
-### `metadata_path`
-Relative path to file or directory with free-form or instrument/lab specific metadata. Optional. Leave blank if not applicable.
+### `contributors_path`
+Relative path to file with ORCID IDs for contributors for this dataset.
 
 | constraint | value |
 | --- | --- |
-| required | `False` |
+| required | `True` |
 
 ### `data_path`
 Relative path to file or directory with instrument data. Downstream processing will depend on filename extension conventions.

@@ -3,10 +3,10 @@ import logging
 import re
 from string import ascii_uppercase
 
-from yaml import safe_load as load_yaml
 from goodtables import validate as validate_table
 
-from ingest_validation_tools.schema_loader import get_table_schema
+from ingest_validation_tools.schema_loader import (
+    get_table_schema, get_contributors_schema, get_dir_schema)
 from ingest_validation_tools.directory_validator import (
     validate_directory, DirectoryValidationErrors)
 
@@ -19,11 +19,7 @@ def get_data_dir_errors(type, data_path, dataset_ignore_globs=[]):
     '''
     Validate a single data_path.
     '''
-    schema_path = (
-        Path(__file__).parent /
-        'directory-schemas' /
-        f'{type}.yaml')
-    schema = load_yaml(open(schema_path).read())
+    schema = get_dir_schema(type)
     try:
         validate_directory(
             data_path, schema, dataset_ignore_globs=dataset_ignore_globs)
@@ -36,19 +32,31 @@ def get_data_dir_errors(type, data_path, dataset_ignore_globs=[]):
         }
 
 
-def get_metadata_tsv_errors(metadata_path, type, optional_fields=[]):
+def get_contributors_errors(contributors_path):
     '''
-    Validate the metadata.tsv.
+    Validate a single contributors file.
     '''
-    logging.info(f'Validating {type} metadata.tsv...')
+    return get_tsv_errors(contributors_path, 'contributors')
+    # TODO: Hit the ORCID API to confirm that the IDs are good,
+    # and warn if the provided names don't match.
+
+
+def get_tsv_errors(tsv_path, type, optional_fields=[]):
+    '''
+    Validate the TSV.
+    '''
+    logging.info(f'Validating {type} TSV...')
     try:
-        schema = get_table_schema(type, optional_fields=optional_fields)
+        schema = (
+            get_contributors_schema() if type == 'contributors'
+            else get_table_schema(type, optional_fields=optional_fields)
+        )
     except OSError as e:
         return {
             e.strerror:
                 Path(e.filename).name
         }
-    report = validate_table(metadata_path, schema=schema,
+    report = validate_table(tsv_path, schema=schema,
                             format='csv', delimiter='\t',
                             skip_checks=['blank-row'])
     error_messages = report['warnings']

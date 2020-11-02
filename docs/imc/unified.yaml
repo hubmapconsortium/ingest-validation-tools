@@ -48,7 +48,7 @@ fields:
   name: pi_email
 - constraints:
     enum:
-    - imaging
+    - mass_spectrometry_imaging
     required: true
   description: 'Each assay is placed into one of the following 3 general categories:
     generation of images of microscopic entities, identification & quantitation of
@@ -226,11 +226,10 @@ fields:
   name: data_precision_bytes
   type: number
 - constraints:
-    required: false
-  description: Relative path to file or directory with free-form or instrument/lab
-    specific metadata. Optional.
+    required: true
+  description: Relative path to file with ORCID IDs for contributors for this dataset.
   heading: Paths
-  name: metadata_path
+  name: contributors_path
 - constraints:
     required: true
   description: Relative path to file or directory with instrument data. Downstream
