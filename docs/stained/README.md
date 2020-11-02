@@ -50,7 +50,10 @@ Related files:
 
 | pattern (regular expression) | required? | description |
 | --- | --- | --- |
-| `.+` | yes | TODO |
+| `processedMicroscopy/[^/]+_PAS_images/[^/]+ome\.tif` | yes | OME TIFF files (multichannel, multi-layered, image pyramids) produced by the PAS microscopy experiment |
+| `processedMicroscopy/[^/]+_PAS_transformations/[^/]+\.txt` | yes | Transformations to PAS (related) data |
+| `rawMicroscopy/[^/]+\.xml` | yes | XML metadata file from the autofluorescence microscopy experiments |
+| `rawMicroscopy/[^/]+\.scn` | yes | Raw microscope file for the experiment |
 | `extras/.*` | no | Free-form descriptive information supplied by the TMC |
 
 ## Provenance
