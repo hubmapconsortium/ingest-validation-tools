@@ -55,7 +55,14 @@ Related files:
 
 | pattern (regular expression) | required? | description |
 | --- | --- | --- |
-| `.+` | yes | TODO |
+| `csv/[^/]+\.csv` | yes | Intensities M/Z values with Pixel location |
+| `imzML/[^/]+\.ibd` | yes | Index to imzML file |
+| `imzML/[^/]+\.imzMl` | yes | Mass spec raw data file |
+| `metadata/[^/]+_LipidAssignments\.xlsx` | yes | Microsoft Excel file containing the m/z, assignment, lipid class, etc. |
+| `metadata/[^/]+_meta\.json` | yes | JSON file containing the machine parameters/settings |
+| `metadata/[^/]+_microscopy\.txt` | yes | Transformations/map back to autofluorescence microscopy (related) data |
+| `ometiffs/[^/]+_multilayer\.ome\.tiff` | yes | Aligned multilayer OME TIFF file of the IMS data |
+| `ometiffs/separate/[^/]+_mz[^/]+\.ome\.tiff` | yes | Each file is a different M/Z value. |
 | `extras/.*` | no | Free-form descriptive information supplied by the TMC |
 
 ## Provenance

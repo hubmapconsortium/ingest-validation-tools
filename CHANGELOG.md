@@ -6,6 +6,7 @@
 - Add missing assay type to enum.
 - ng/ul to nM.
 - Change to flat directory schema structure.
+- Dir Schema for MALDI-IMS.
 - AF dir schema.
 - Update README, and diagram.
 - Add extras directory.
