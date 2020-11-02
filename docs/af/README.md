@@ -49,7 +49,14 @@ Related files:
 
 | pattern (regular expression) | required? | description |
 | --- | --- | --- |
-| `.+` | yes | TODO |
+| `processedMicroscopy/[^/]+_preMxIF_images/[^/]+\.ome\.tif` | yes | OME TIFF files (multichannel, multi-layered, image pyramids) produced by the autofluorescence microscopy linked to MxIF experiment |
+| `processedMicroscopy/[^/]+_preMxIF_transformations/[^/]+\.txt` | yes | Transformations to MxIF (related) data |
+| `processedMicroscopy/[^/]+_preIMS_images/[^/]+\.ome\.tif` | yes | OME TIFF files (multichannel, multi-layered, image pyramids) produced by the autofluorescence microscopy linked to IMS experiment |
+| `processedMicroscopy/[^/]+_preIMS_transformations/[^/]+\.txt` | yes | Transformations to IMS (related) data |
+| `processedMicroscopy/[^/]+_preCODEX_images/[^/]+\.ome\.tif` | yes | OME TIFF files (multichannel, multi-layered, image pyramids) produced by the autofluorescence microscopy linked to CODEX experiment |
+| `processedMicroscopy/[^/]+_preCODEX_transformations/[^/]+\.txt` | yes | Transformations to CODEX (related) data |
+| `rawMicroscopy/[^/]+\.xml` | yes | XML metadata file from the autofluorescence microscopy experiments |
+| `rawMicroscopy/[^/]+\.czi` | yes | Raw microscope file for the experiment |
 | `extras/.*` | no | Free-form descriptive information supplied by the TMC |
 
 ## Provenance
