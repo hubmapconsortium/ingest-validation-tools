@@ -1,0 +1,83 @@
+doc_url: TODO
+fields:
+  # Overrides of Level 1 fields:
+  -
+    name: assay_category
+    constraints:
+      enum:
+        - mass_spectrometry_imaging
+  -
+    name: assay_type
+    constraints:
+      enum:
+        - NanoDESI
+        - NanoPOTS
+  -
+    name: analyte_class
+    constraints:
+      enum:
+        - metabolites_and_lipids
+
+  # Level 2:
+  -
+    heading: Level 2
+    name: acquisition_instrument_vendor
+    description: An acquisition instrument is the device that contains the signal detection hardware and signal processing software. 
+      Assays generate signals such as light of various intensities or color or signals representing the molecular mass
+  -
+    name: acquisition_instrument_model
+    description: (version) Manufacturers of an acquisition instrument may offer various versions (models) of that instrument with different features or sensitivities. 
+      Differences in features of sensitivities may be relevant to processing or interpretation of the data.
+  -
+    name: ms_source
+    description: The ion source type used for surface sampling (MALDI, MALDI-2, DESI, or SIMS) or LC-MS/MS data acquisition (nESI)
+    constraints:
+      enum:
+        - MALDI
+        - MALDI-2
+        - DESI
+        - SIMS
+        - nESI
+  -
+    name: polarity
+    description: The polarity of the mass analysis (positive or negative ion modes)
+    constraints:
+      enum:
+        - MALDI
+        - MALDI-2
+        - DESI
+        - SIMS
+        - nESI
+  -
+    name: mz_range_low_value
+    description: A number representing the mass:charge ratio
+  -
+    name: mz_range_high_value
+    description: A number representing the mass:charge ratio
+  -
+    name: resolution_x_value
+    description: The width of a pixel
+  -
+    name: resolution_x_unit
+    description: The unit of measurement of the width of a pixel
+    constraints:
+      enum:
+        - nm
+        - um
+  -
+    name: resolution_y_value
+    description: The height of a pixel
+  -
+    name: resolution_y_unit
+    description: The unit of measurement of the height of a pixel
+    constraints:
+      enum:
+        - nm
+        - um
+  -
+    name: processing_protocols_io_doi
+    # CHRIS: This is the text from one of the MALDI fields. Edit if needed. 
+    description: DOI for protocols.io referring to the protocol for preparing tissue sections for the assay.
+  -
+    name: overall_protocols_io_doi
+    description: DOI for protocols.io referring to the overall protocol for the assay.

@@ -48,7 +48,7 @@ fields:
   name: pi_email
 - constraints:
     enum:
-    - imaging
+    - mass_spectrometry_imaging
     required: true
   description: 'Each assay is placed into one of the following 3 general categories:
     generation of images of microscopic entities, identification & quantitation of
@@ -56,8 +56,7 @@ fields:
   name: assay_category
 - constraints:
     enum:
-    - MALDI-IMS positive
-    - MALDI-IMS negative
+    - MALDI-IMS
     required: true
   description: The specific type of assay being executed.
   name: assay_type
@@ -90,11 +89,20 @@ fields:
     of the data.
   name: acquisition_instrument_model
 - constraints:
+    enum:
+    - MALDI
+    - MALDI-2
+    - DESI
+    - SIMS
+    - nESI
     required: true
   description: The ion source type used for surface sampling (MALDI, MALDI-2, DESI,
     or SIMS) or LC-MS/MS data acquisition (nESI)
   name: ms_source
 - constraints:
+    enum:
+    - negative ion mode
+    - positive ion mode
     required: true
   description: The polarity of the mass analysis (positive or negative ion modes)
   name: polarity
@@ -165,11 +173,10 @@ fields:
   description: DOI for protocols.io referring to the overall protocol for the assay.
   name: overall_protocols_io_doi
 - constraints:
-    required: false
-  description: Relative path to file or directory with free-form or instrument/lab
-    specific metadata. Optional.
+    required: true
+  description: Relative path to file with ORCID IDs for contributors for this dataset.
   heading: Paths
-  name: metadata_path
+  name: contributors_path
 - constraints:
     required: true
   description: Relative path to file or directory with instrument data. Downstream

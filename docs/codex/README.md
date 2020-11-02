@@ -51,8 +51,33 @@ Related files:
 
 <details><summary>Paths</summary>
 
-[`metadata_path`](#metadata_path)<br>
+[`contributors_path`](#contributors_path)<br>
 [`data_path`](#data_path)<br></details>
+
+## Dataset directory structure
+
+### codex-akoya
+
+| pattern (regular expression) | required? | description |
+| --- | --- | --- |
+| `channelnames\.txt` | yes | TODO |
+| `experiment\.json` | yes | TODO |
+| `exposure_times\.txt` | yes | TODO |
+| `segmentation\.json` | no | TODO |
+| `cyc.*_reg.*_.*/.*_.*_Z.*_CH.*` | yes | TODO |
+| `cyc.*_reg.*_.*/.*.gci` | no | TODO |
+| `extras/.*` | no | Free-form descriptive information supplied by the TMC |
+
+### codex-stanford
+
+| pattern (regular expression) | required? | description |
+| --- | --- | --- |
+| `channelNames\.txt` | yes | TODO |
+| `Experiment\.json` | yes | TODO |
+| `processingOptions\.json` | yes | TODO |
+| `exposure_times\.txt` | no | TODO |
+| `Cyc.*_reg.*/HE_.*_Z.*_CH.*` | yes | TODO |
+| `extras/.*` | no | Free-form descriptive information supplied by the TMC |
 
 ## Provenance
 
@@ -279,12 +304,12 @@ DOI for protocols.io referring to the protocol for preparing reagents for the as
 
 ## Paths
 
-### `metadata_path`
-Relative path to file or directory with free-form or instrument/lab specific metadata. Optional. Leave blank if not applicable.
+### `contributors_path`
+Relative path to file with ORCID IDs for contributors for this dataset.
 
 | constraint | value |
 | --- | --- |
-| required | `False` |
+| required | `True` |
 
 ### `data_path`
 Relative path to file or directory with instrument data. Downstream processing will depend on filename extension conventions.
