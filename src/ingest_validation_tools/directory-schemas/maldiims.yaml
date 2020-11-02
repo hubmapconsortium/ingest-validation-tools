@@ -1,27 +1,28 @@
 -
-  description: 'TODO'
-  pattern: 'csv/[^/]+_columnar.csv'
+# - A dataset consists of a single MALDI IMS run and related files
+#   can be positive or negative. 
+#   
 -
-  description: 'TODO'
-  pattern: 'imzML/[^/]+.ibd'
+  pattern: 'csv/*.csv'
+  description: 'Intensities M/Z values with Pixel location'
 -
-  description: 'TODO'
-  pattern: 'imzML/[^/]+.imzML'
+  pattern: 'imzML/*.ibd'
+  description: 'Index to imzML file'
 -
-  description: 'TODO: Could we ask the lab to deliver this in a different format?'
-  pattern: 'metadata/[^/]+_LipidAssignments.xlsx'
+  pattern: 'imzML/*.imzMl'
+  description: 'Mass spec raw data file'
 -
-  description: 'TODO'
-  pattern: 'metadata/[^/]+_meta.json'
+  pattern: 'metadata/*_LipidAssignments.xlsx'
+  description: 'Microsoft excell file containing the m/z, assignment, lipid class, etc.'
 -
-  description: 'TODO'
-  pattern: 'metadata/[^/]+_tform_to_microscopy.txt'
+  pattern: 'metadata/*_meta.json'
+  description: 'Json file containing the machine parameters/settings'
 -
-  description: 'TODO'
-  pattern: 'ometiffs/Thumbs.db'
+  pattern: 'metadata/*_microscopy.txt'
+  description: 'Transformations/map back to autofluorescence microscopy (related) data'
 -
-  description: 'TODO'
-  pattern: 'ometiffs/[^/]+_multilayer.ome.tiff'
+  pattern: 'ometiffs/*_multilayer.ome.tiff'
+  description: 'Aligned multilayer OME TIFF file of the IMS data'
 -
-  description: 'TODO'
-  pattern: 'ometiffs/separate/[^/]+.ome.tiff'
+  pattern: 'ometiffs/separate/ *_mz*.ome.tiff'
+  description: 'Each file is a different M/Z value.'
