@@ -13,7 +13,7 @@ Metadata TSV Errors:
         - channelnames_report\.csv
         - experiment\.json
         - exposure_times\.txt
-        - '[^/]+\.pptx'
+        - '[^/]+\.pdf'
         - cyc.*_reg.*_.*/.*_.*_Z.*_CH.*\.tif
   dataset-examples/bad-mixed/submission/scatacseq-metadata.tsv (as scatacseq):
     Internal:

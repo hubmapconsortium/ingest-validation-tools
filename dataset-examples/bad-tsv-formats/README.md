@@ -54,5 +54,5 @@ Metadata TSV Errors:
       row 2, referencing dataset-examples/bad-tsv-formats/submission/dataset-1:
         Required but missing:
         - channelnames_report\.csv
-        - '[^/]+\.pptx'
+        - '[^/]+\.pdf'
 ```
