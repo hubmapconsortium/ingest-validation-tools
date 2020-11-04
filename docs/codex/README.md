@@ -64,7 +64,7 @@ Related files:
 | `channelnames_report\.csv` | yes | Comma separated text file containing a report of the markers used to map the tissue [e.g. Channel,Name/ID/Target,True/False] |
 | `experiment\.json` | yes | JSON file produced by the Akoya software which contains the metadata for the experiment, including the software version used, microscope parameters, channel names, pixel dimensions, etc. |
 | `exposure_times\.txt` | yes | Comma separated text file used for background subrtaction that contains valid exposure times for all cycles [e.g: Cycle,CH1,CH2,CH3,CH4]. |
-| `[^/]+\.pptx` | yes | Powerpoint slide deck containing the Image Analysis Report [QA/QC report] |
+| `[^/]+\.pdf` | yes | PDF export of Powerpoint slide deck containing the Image Analysis Report [QA/QC report] |
 | `NAV[^/]+\.tif` | no | Navigational Image showing Region of Interest (Keyance Microscope only) |
 | `segmentation\.json` | no | JSON file produced by the Akoya software which contains the parameters used for segmentation. |
 | `cyc.*_reg.*_.*/.*_.*_Z.*_CH.*\.tif` | yes | TIFF files produced by the experiment. General folder format: Cycle(n)_Region(n)_date; General file format: name_tileNumber(n)_zplaneNumber(n)_channelNumber(n) |
