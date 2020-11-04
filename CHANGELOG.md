@@ -24,6 +24,7 @@
 - Add nano docs.
 - Add stained imagery directory schema.
 - Update CODEX directory schema: Require PDF.
+- Get rid of unified.yaml.
 
 ## v0.0.4 - 2020-06-26
 ### Added
