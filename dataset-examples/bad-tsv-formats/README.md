@@ -50,4 +50,9 @@ Metadata TSV Errors:
       constraint of "10\.17504/.*"
     - The value "not-doi" in row 2 and column 27 ("AA") does not conform to the pattern
       constraint of "10\.17504/.*"
+    External:
+      row 2, referencing dataset-examples/bad-tsv-formats/submission/dataset-1:
+        Required but missing:
+        - channelnames_report\.csv
+        - '[^/]+\.pptx'
 ```
