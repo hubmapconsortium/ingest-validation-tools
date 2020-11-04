@@ -23,6 +23,7 @@
 - Add extra validation hooks.
 - Add nano docs.
 - Add stained imagery directory schema.
+- Update CODEX directory schema.
 
 ## v0.0.4 - 2020-06-26
 ### Added
