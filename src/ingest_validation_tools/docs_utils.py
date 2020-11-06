@@ -56,10 +56,12 @@ def generate_readme_md(
     fields_md = '\n\n'.join(fields_md_list)
     toc_md = _make_toc(fields_md)
     dir_description_md = _make_dir_description(directory_schemas)
+
     optional_dir_description_md = f'''
 ## Dataset directory structure
 {dir_description_md}
 ''' if dir_description_md else ''
+
     raw_url = 'https://raw.githubusercontent.com/hubmapconsortium' \
         '/ingest-validation-tools/master/docs' \
         f'/{type}/{get_tsv_name(type)}'
@@ -67,11 +69,15 @@ def generate_readme_md(
     source_url = 'https://github.com/hubmapconsortium' \
         '/ingest-validation-tools/edit/master' \
         f'/src/ingest_validation_tools/table-schemas/{end_of_path}'
+    optional_doc_link_md = (
+        f'- [🔬 Background doc]({table_schema["doc_url"]}): More details about this type.'
+        if 'doc_url' in table_schema else ''
+    )
 
     return f'''# {type}
 
 Related files:
-- [🔬 Background doc]({table_schema['doc_url']}): More details about this type.
+{optional_doc_link_md}
 - [📝 TSV template]({raw_url}): Use this to submit metadata.
 - [💻 Source code]({source_url}): Make a PR if this doc should be updated.
 

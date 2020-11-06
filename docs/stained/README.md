@@ -1,7 +1,7 @@
 # stained
 
 Related files:
-- [🔬 Background doc](https://docs.google.com/document/d/1Kp5nQPmD7C7Bamd_hBgVFrAT6qtiM_tOkDdGKT0v80E/edit): More details about this type.
+- [🔬 Background doc](https://portal.hubmapconsortium.org/docs/assays/pas): More details about this type.
 - [📝 TSV template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/master/docs/stained/stained-metadata.tsv): Use this to submit metadata.
 - [💻 Source code](https://github.com/hubmapconsortium/ingest-validation-tools/edit/master/src/ingest_validation_tools/table-schemas/level-2/stained.yaml): Make a PR if this doc should be updated.
 

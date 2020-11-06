@@ -81,10 +81,11 @@ def get_table_schema(type, optional_fields=[]):
         _add_constraints(field, optional_fields)
     for field in fields:
         _validate_field(field)
-    return {
-        'doc_url': type_schema['doc_url'],
-        'fields': fields
-    }
+
+    table_schema = {'fields': fields}
+    if 'doc_url' in type_schema:
+        table_schema['doc_url'] = type_schema['doc_url']
+    return table_schema
 
 
 def _validate_field(field):
