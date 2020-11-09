@@ -183,7 +183,8 @@ def _make_toc(md):
 def _make_dir_description(dir_schemas):
     '''
     >>> dir_schema = {'name': [
-    ...   { 'pattern': 'required\\.txt', 'description': 'Required!' },
+    ...   { 'pattern': 'required\\.txt', 'description': 'Required!',
+    ...     'is_qa_qc': True },
     ...   { 'pattern': 'optional\\.txt', 'description': 'Optional!',
     ...     'required': False }
     ... ]}
@@ -191,8 +192,8 @@ def _make_dir_description(dir_schemas):
     <BLANKLINE>
     | pattern (regular expression) | required? | description |
     | --- | --- | --- |
-    | `required\\.txt` | yes | Required! |
-    | `optional\\.txt` | no | Optional! |
+    | `required\\.txt` | ✓ | **[QA/QC]** Required! |
+    | `optional\\.txt` |  | Optional! |
 
     '''
     output = []
@@ -203,10 +204,12 @@ def _make_dir_description(dir_schemas):
 | pattern (regular expression) | required? | description |
 | --- | --- | --- |''')
         for line in dir_schema:
+            required = '' if 'required' in line and not line['required'] else '✓'
+            qa_qc = '**[QA/QC]** ' if 'is_qa_qc' in line and line['is_qa_qc'] else ''
             row = [
                 f'`{line["pattern"]}`',
-                'no' if 'required' in line and not line['required'] else 'yes',
-                line['description']
+                required,
+                qa_qc + line['description']
             ]
             output.append('| ' + ' | '.join(row) + ' |')
     return '\n'.join(output)

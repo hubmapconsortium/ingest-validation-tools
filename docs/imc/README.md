@@ -65,8 +65,8 @@ Related files:
 
 | pattern (regular expression) | required? | description |
 | --- | --- | --- |
-| `.+` | yes | TODO |
-| `extras/.*` | no | Free-form descriptive information supplied by the TMC |
+| `.+` | ✓ | TODO |
+| `extras/.*` |  | Free-form descriptive information supplied by the TMC |
 
 ## Provenance
 

@@ -60,27 +60,27 @@ Related files:
 
 | pattern (regular expression) | required? | description |
 | --- | --- | --- |
-| `channelnames\.txt` | yes | Text file produced by the Akoya software which contains the (linearized) channel number and the Name/ID/Target of the channel |
-| `channelnames_report\.csv` | yes | Comma separated text file containing a report of the markers used to map the tissue [e.g. Channel,Name/ID/Target,True/False] |
-| `experiment\.json` | yes | JSON file produced by the Akoya software which contains the metadata for the experiment, including the software version used, microscope parameters, channel names, pixel dimensions, etc. |
-| `exposure_times\.txt` | yes | Comma separated text file used for background subrtaction that contains valid exposure times for all cycles [e.g: Cycle,CH1,CH2,CH3,CH4]. |
-| `[^/]+\.pdf` | yes | PDF export of Powerpoint slide deck containing the Image Analysis Report [QA/QC report] |
-| `NAV[^/]+\.tif` | no | Navigational Image showing Region of Interest (Keyance Microscope only) |
-| `segmentation\.json` | no | JSON file produced by the Akoya software which contains the parameters used for segmentation. |
-| `cyc.*_reg.*_.*/.*_.*_Z.*_CH.*\.tif` | yes | TIFF files produced by the experiment. General folder format: Cycle(n)_Region(n)_date; General file format: name_tileNumber(n)_zplaneNumber(n)_channelNumber(n) |
-| `cyc.*_reg.*_.*/.*\.gci` | no | Group Capture Information File (Keyance Microscope only) |
-| `extras/.*` | no | Free-form descriptive information supplied by the TMC |
+| `channelnames\.txt` | ✓ | Text file produced by the Akoya software which contains the (linearized) channel number and the Name/ID/Target of the channel |
+| `channelnames_report\.csv` | ✓ | Comma separated text file containing a report of the markers used to map the tissue [e.g. Channel,Name/ID/Target,True/False] |
+| `experiment\.json` | ✓ | JSON file produced by the Akoya software which contains the metadata for the experiment, including the software version used, microscope parameters, channel names, pixel dimensions, etc. |
+| `exposure_times\.txt` | ✓ | Comma separated text file used for background subrtaction that contains valid exposure times for all cycles [e.g: Cycle,CH1,CH2,CH3,CH4]. |
+| `[^/]+\.pdf` | ✓ | **[QA/QC]** PDF export of Powerpoint slide deck containing the Image Analysis Report |
+| `NAV[^/]+\.tif` |  | Navigational Image showing Region of Interest (Keyance Microscope only) |
+| `segmentation\.json` |  | JSON file produced by the Akoya software which contains the parameters used for segmentation. |
+| `cyc.*_reg.*_.*/.*_.*_Z.*_CH.*\.tif` | ✓ | TIFF files produced by the experiment. General folder format: Cycle(n)_Region(n)_date; General file format: name_tileNumber(n)_zplaneNumber(n)_channelNumber(n) |
+| `cyc.*_reg.*_.*/.*\.gci` |  | Group Capture Information File (Keyance Microscope only) |
+| `extras/.*` |  | Free-form descriptive information supplied by the TMC |
 
 ### codex-stanford
 
 | pattern (regular expression) | required? | description |
 | --- | --- | --- |
-| `channelNames\.txt` | yes | TODO |
-| `Experiment\.json` | yes | TODO |
-| `processingOptions\.json` | yes | TODO |
-| `exposure_times\.txt` | no | TODO |
-| `Cyc.*_reg.*/HE_.*_Z.*_CH.*` | yes | TODO |
-| `extras/.*` | no | Free-form descriptive information supplied by the TMC |
+| `channelNames\.txt` | ✓ | TODO |
+| `Experiment\.json` | ✓ | TODO |
+| `processingOptions\.json` | ✓ | TODO |
+| `exposure_times\.txt` |  | TODO |
+| `Cyc.*_reg.*/HE_.*_Z.*_CH.*` | ✓ | TODO |
+| `extras/.*` |  | Free-form descriptive information supplied by the TMC |
 
 ## Provenance
 
