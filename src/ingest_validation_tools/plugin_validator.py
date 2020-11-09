@@ -106,8 +106,10 @@ def validation_error_iter(base_dir: PathOrStr, assay_type: str,
     plugin_dir = Path(plugin_dir)
     if not base_dir.is_dir():
         raise ValidatorError(f'{base_dir} should be the base directory of a dataset')
-    if not plugin_dir.is_dir():
-        raise ValidatorError(f'{plugin_dir} should be a directory of validation plug-ins')
+    plugins = list(plugin_dir.glob('*.py'))
+    if not plugins:
+        raise ValidatorError(f'{plugin_dir}/*.py does not match any validation plugins')
+
     sort_me = []
     for fpath in plugin_dir.glob('*.py'):
         mod_nm = fpath.stem

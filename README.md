@@ -48,7 +48,7 @@ pip install -r requirements.txt
 # Back to ingest-validation-tools...
 cd ../ingest-validation-tools
 src/validate_submission.py --local_directory dataset-examples/good-codex-akoya/submission \
-  --plugin_dir_abs_path ../ingest-validation-tests/
+  --plugin_dir_abs_path ../ingest-validation-tests/src/ingest_validation_tests/
 ```
 
 ## For developers:
