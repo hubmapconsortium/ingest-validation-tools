@@ -16,23 +16,40 @@ src/validate_submission.py --help
 
 You should see [the documention for `validate_submission.py`](README-validate_submission.py.md)
 
-Now run it against one of the included examples, giving the type (`codex`) and the path to a TSV.
+Now run it against one of the included examples, giving the path to a submission directory:
 ```
-src/validate_submission.py --type_metadata codex \
-  dataset-examples/bad-tsv-formats/submission/codex-akoya-metadata.tsv
+src/validate_submission.py --local_directory dataset-examples/bad-tsv-formats/submission
 ```
 
 You should now see [this (extensive) error message](dataset-examples/bad-tsv-formats/README.md).
 This example TSV has been constructed with a mistake in every column, just to demonstrate the checks which are available. Hopefully, more often your experience will be like this:
 ```
-src/validate_submission.py --type_metadata codex \
-  dataset-examples/good-codex-akoya/submission/codex-akoya-metadata.tsv
+src/validate_submission.py --local_directory dataset-examples/good-codex-akoya/submission
 ```
 ```
 No errors!
 ```
 
 Documentation and metadata TSV templates for each assay type are [here](docs).
+
+### Running plugin tests:
+
+Additional plugin tests can also be run.
+These additional tests confirm that the files themselves are valid, not just that the directory structures are correct.
+These additional tests are in a separate repo, and have their own dependencies.
+
+```
+# Starting from ingest-validation-tools...
+cd ..
+git clone https://github.com/hubmapconsortium/ingest-validation-tests.git
+cd ingest-validation-tests
+pip install -r requirements.txt
+
+# Back to ingest-validation-tools...
+cd ../ingest-validation-tools
+src/validate_submission.py --local_directory dataset-examples/good-codex-akoya/submission \
+  --plugin_dir_abs_path ../ingest-validation-tests/
+```
 
 ## For developers:
 
