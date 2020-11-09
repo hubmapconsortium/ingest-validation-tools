@@ -83,6 +83,11 @@ Typical usecases:
         help='Matching sub-directories in the submission will be ignored.'
     )
 
+    # Are there plugin validations?
+
+    parser.add_argument('--plugin_dir_abs_path', action='store',
+                        help='Absolute path of a directory of plugin tests.')
+
     # How should output be formatted?
 
     error_report_methods = [
@@ -94,10 +99,6 @@ Typical usecases:
 
     parser.add_argument('--add_notes', action='store_true',
                         help='Append a context note to error reports.')
-
-    # Permit the user to set the location of the plugin directory
-    parser.add_argument('--plugin_dir_abs_path', action='store',
-                        help='Absolute path of a directory of plugin tests.')
 
     return parser
 
