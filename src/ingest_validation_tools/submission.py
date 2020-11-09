@@ -31,12 +31,12 @@ class Submission:
     def __init__(self, directory_path=None, override_tsv_paths={},
                  optional_fields=[], add_notes=True,
                  dataset_ignore_globs=[], submission_ignore_globs=[],
-                 plugin_dir_abs_path=None):
+                 plugin_directory=None):
         self.directory_path = directory_path
         self.optional_fields = optional_fields
         self.dataset_ignore_globs = dataset_ignore_globs
         self.submission_ignore_globs = submission_ignore_globs
-        self.plugin_dir_abs_path = plugin_dir_abs_path
+        self.plugin_directory = plugin_directory
         unsorted_effective_tsv_paths = (
             override_tsv_paths if override_tsv_paths
             else {
@@ -79,7 +79,7 @@ class Submission:
         return errors
 
     def _get_plugin_errors(self):
-        plugin_path = self.plugin_dir_abs_path
+        plugin_path = self.plugin_directory
         if not plugin_path:
             return None
         errors = defaultdict(list)
