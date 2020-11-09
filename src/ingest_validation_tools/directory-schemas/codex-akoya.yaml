@@ -15,7 +15,8 @@
   description: 'Comma separated text file used for background subrtaction that contains valid exposure times for all cycles [e.g: Cycle,CH1,CH2,CH3,CH4].'
 -
   pattern: '[^/]+\.pdf'
-  description: 'PDF export of Powerpoint slide deck containing the Image Analysis Report [QA/QC report]'
+  description: 'PDF export of Powerpoint slide deck containing the Image Analysis Report'
+  is_qa_qc: True
 -
   pattern: 'NAV[^/]+\.tif'
   description: 'Navigational Image showing Region of Interest (Keyance Microscope only)'

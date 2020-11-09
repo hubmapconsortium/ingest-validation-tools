@@ -64,8 +64,8 @@ Related files:
 
 | pattern (regular expression) | required? | description |
 | --- | --- | --- |
-| `.*\.fastq\.gz` | yes | TODO |
-| `extras/.*` | no | Free-form descriptive information supplied by the TMC |
+| `.*\.fastq\.gz` | ✓ | TODO |
+| `extras/.*` |  | Free-form descriptive information supplied by the TMC |
 
 ## Provenance
 
