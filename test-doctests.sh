@@ -3,7 +3,7 @@ set -o errexit
 
 cd src
 
-DOCTESTS=`find . | grep -v ingest-validation-tests | grep '\.py$'`
+DOCTESTS=`find . | grep '\.py$'`
 for TEST in $DOCTESTS; do
   CMD="python -m doctest $TEST"
   # doctest by itself is silent on success.
