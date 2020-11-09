@@ -160,7 +160,6 @@ def main():
     if args.submission_ignore_globs:
         submission_args['submission_ignore_globs'] = \
             args.submission_ignore_globs
-
     if args.plugin_dir_abs_path:
         submission_args['plugin_dir_abs_path'] = \
             args.plugin_dir_abs_path
