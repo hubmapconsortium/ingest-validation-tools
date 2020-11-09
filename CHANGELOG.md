@@ -22,6 +22,7 @@
 - Contributors table schema.
 - Add extra validation hooks.
 - Add nano docs.
+- Run plugin tests only from command line argument
 - Add stained imagery directory schema.
 - Update CODEX directory schema: Require PDF.
 - Get rid of unified.yaml.

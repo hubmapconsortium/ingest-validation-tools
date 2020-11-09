@@ -83,6 +83,11 @@ Typical usecases:
         help='Matching sub-directories in the submission will be ignored.'
     )
 
+    # Are there plugin validations?
+
+    parser.add_argument('--plugin_directory', action='store',
+                        help='Directory of plugin tests.')
+
     # How should output be formatted?
 
     error_report_methods = [
@@ -156,6 +161,9 @@ def main():
     if args.submission_ignore_globs:
         submission_args['submission_ignore_globs'] = \
             args.submission_ignore_globs
+    if args.plugin_directory:
+        submission_args['plugin_directory'] = \
+            args.plugin_directory
 
     submission = Submission(**submission_args)
     errors = submission.get_errors()

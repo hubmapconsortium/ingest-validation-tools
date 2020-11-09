@@ -13,12 +13,6 @@ start flake8
 flake8 || die 'Try: autopep8 --in-place --aggressive -r .'
 end flake8
 
-start src-doctests
-cd src
-find . | grep -v ingest-validation-tests | grep '\.py$' | xargs python -m doctest
-cd -
-end src-doctests
-
 for TEST in test-*; do
   start $TEST
   eval ./$TEST

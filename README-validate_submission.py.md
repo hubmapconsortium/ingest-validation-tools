@@ -5,6 +5,7 @@ usage: validate_submission.py [-h]
                               [--optional_fields FIELD [FIELD ...]]
                               [--dataset_ignore_globs GLOB [GLOB ...]]
                               [--submission_ignore_globs GLOB [GLOB ...]]
+                              [--plugin_directory PLUGIN_DIRECTORY]
                               [--output {as_browser,as_html_doc,as_html_fragment,as_md,as_text,as_text_list,as_yaml}]
                               [--add_notes]
 
@@ -34,6 +35,8 @@ optional arguments:
   --submission_ignore_globs GLOB [GLOB ...]
                         Matching sub-directories in the submission will be
                         ignored.
+  --plugin_directory PLUGIN_DIRECTORY
+                        Directory of plugin tests.
   --output {as_browser,as_html_doc,as_html_fragment,as_md,as_text,as_text_list,as_yaml}
   --add_notes           Append a context note to error reports.
 

@@ -11,10 +11,10 @@ from ingest_validation_tools.validation_utils import (
     get_contributors_errors
 )
 
-from ingest_validation_tools.plugin_validator import run_plugin_validators_iter
-
-# Relative path to the directory containing validation plugins
-PLUGIN_DIR_REL_PATH = "ingest-validation-tests/src/ingest_validation_tests"
+from ingest_validation_tools.plugin_validator import (
+    run_plugin_validators_iter,
+    ValidatorError as PluginValidatorError
+)
 
 
 def _get_directory_type_from_path(path):
@@ -30,11 +30,13 @@ def _get_tsv_rows(path):
 class Submission:
     def __init__(self, directory_path=None, override_tsv_paths={},
                  optional_fields=[], add_notes=True,
-                 dataset_ignore_globs=[], submission_ignore_globs=[]):
+                 dataset_ignore_globs=[], submission_ignore_globs=[],
+                 plugin_directory=None):
         self.directory_path = directory_path
         self.optional_fields = optional_fields
         self.dataset_ignore_globs = dataset_ignore_globs
         self.submission_ignore_globs = submission_ignore_globs
+        self.plugin_directory = plugin_directory
         unsorted_effective_tsv_paths = (
             override_tsv_paths if override_tsv_paths
             else {
@@ -61,13 +63,11 @@ class Submission:
         if reference_errors:
             errors['Reference Errors'] = reference_errors
 
-        if not tsv_errors and not reference_errors:
-            # TODO: Add an option to just check plugin errors?
-            plugin_errors = self._get_plugin_errors()
-            if plugin_errors:
-                errors['Plugin Errors'] = plugin_errors
+        plugin_errors = self._get_plugin_errors()
+        if plugin_errors:
+            errors['Plugin Errors'] = plugin_errors
 
-        if errors and self.add_notes:
+        if self.add_notes:
             errors['Notes'] = {
                 'Time': datetime.now(),
                 'Directory': str(self.directory_path),
@@ -79,12 +79,19 @@ class Submission:
         return errors
 
     def _get_plugin_errors(self):
-        plugin_path = Path(__file__).parent / PLUGIN_DIR_REL_PATH
+        plugin_path = self.plugin_directory
+        if not plugin_path:
+            return None
         errors = defaultdict(list)
         for metadata_path in self.effective_tsv_paths.values():
-            for k, v in run_plugin_validators_iter(metadata_path, plugin_path):
-                errors[k].append(v)
-        return {k: v for k, v in errors.items()}  # get rid of defaultdict
+            try:
+                for k, v in run_plugin_validators_iter(metadata_path,
+                                                       plugin_path):
+                    errors[k].append(v)
+            except PluginValidatorError as e:
+                # We are ok with just returning a single error, rather than all.
+                errors['Unexpected Plugin Error'] = str(e)
+        return dict(errors)  # get rid of defaultdict
 
     def _get_tsv_errors(self):
         errors = {}
