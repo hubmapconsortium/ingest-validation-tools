@@ -67,7 +67,7 @@ class Submission:
         if plugin_errors:
             errors['Plugin Errors'] = plugin_errors
 
-        if errors and self.add_notes:
+        if self.add_notes:
             errors['Notes'] = {
                 'Time': datetime.now(),
                 'Directory': str(self.directory_path),
