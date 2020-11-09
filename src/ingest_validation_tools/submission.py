@@ -63,11 +63,9 @@ class Submission:
         if reference_errors:
             errors['Reference Errors'] = reference_errors
 
-        if self.plugin_dir_abs_path:
-            # TODO: Add an option to just check plugin errors?
-            plugin_errors = self._get_plugin_errors()
-            if plugin_errors:
-                errors['Plugin Errors'] = plugin_errors
+        plugin_errors = self._get_plugin_errors()
+        if plugin_errors:
+            errors['Plugin Errors'] = plugin_errors
 
         if errors and self.add_notes:
             errors['Notes'] = {
@@ -82,18 +80,17 @@ class Submission:
 
     def _get_plugin_errors(self):
         plugin_path = self.plugin_dir_abs_path
-        if plugin_path:
-            errors = defaultdict(list)
-            for metadata_path in self.effective_tsv_paths.values():
-                try:
-                    for k, v in run_plugin_validators_iter(metadata_path,
-                                                           plugin_path):
-                        errors[k].append(v)
-                except PluginValidatorError as e:
-                    errors['Unexpected Plugin Error'] = str(e)
-            return {k: v for k, v in errors.items()}  # get rid of defaultdict
-        else:
-            return {}
+        if not plugin_path:
+            return None
+        errors = defaultdict(list)
+        for metadata_path in self.effective_tsv_paths.values():
+            try:
+                for k, v in run_plugin_validators_iter(metadata_path,
+                                                       plugin_path):
+                    errors[k].append(v)
+            except PluginValidatorError as e:
+                errors['Unexpected Plugin Error'] = str(e)
+        return {k: v for k, v in errors.items()}  # get rid of defaultdict
 
     def _get_tsv_errors(self):
         errors = {}
