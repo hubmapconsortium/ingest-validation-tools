@@ -27,6 +27,7 @@
 - Update CODEX directory schema: Require PDF.
 - Get rid of unified.yaml.
 - Point at docs on portal.
+- Remove missing example.
 
 ## v0.0.4 - 2020-06-26
 ### Added
