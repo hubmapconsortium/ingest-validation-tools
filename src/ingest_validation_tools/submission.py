@@ -89,6 +89,7 @@ class Submission:
                                                        plugin_path):
                     errors[k].append(v)
             except PluginValidatorError as e:
+                # We are ok with just returning a single error, rather than all.
                 errors['Unexpected Plugin Error'] = str(e)
         return dict(errors)  # get rid of defaultdict
 
