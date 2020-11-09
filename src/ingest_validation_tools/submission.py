@@ -90,7 +90,7 @@ class Submission:
                     errors[k].append(v)
             except PluginValidatorError as e:
                 errors['Unexpected Plugin Error'] = str(e)
-        return {k: v for k, v in errors.items()}  # get rid of defaultdict
+        return dict(errors)  # get rid of defaultdict
 
     def _get_tsv_errors(self):
         errors = {}
