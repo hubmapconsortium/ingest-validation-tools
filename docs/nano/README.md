@@ -1,7 +1,7 @@
 # nano
 
 Related files:
-- [🔬 Background doc](TODO): More details about this type.
+
 - [📝 TSV template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/master/docs/nano/nano-metadata.tsv): Use this to submit metadata.
 - [💻 Source code](https://github.com/hubmapconsortium/ingest-validation-tools/edit/master/src/ingest_validation_tools/table-schemas/level-2/nano.yaml): Make a PR if this doc should be updated.
 

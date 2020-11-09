@@ -1,7 +1,7 @@
 # scrnaseq
 
 Related files:
-- [🔬 Background doc](https://docs.google.com/document/d/1gRPGWWO43nSY024NHuQ4RdONTRezhI0tPOcZyCsvHhI/edit): More details about this type.
+- [🔬 Background doc](https://portal.hubmapconsortium.org/docs/assays/rnaseq): More details about this type.
 - [📝 TSV template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/master/docs/scrnaseq/scrnaseq-metadata.tsv): Use this to submit metadata.
 - [💻 Source code](https://github.com/hubmapconsortium/ingest-validation-tools/edit/master/src/ingest_validation_tools/table-schemas/level-2/scrnaseq.yaml): Make a PR if this doc should be updated.
 

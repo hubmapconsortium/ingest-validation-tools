@@ -1,7 +1,7 @@
 # af
 
 Related files:
-- [🔬 Background doc](https://docs.google.com/document/d/1FroeFFgDqqrW59YraxihBCrVrwjnM10k-ivAKltUMRk/edit): More details about this type.
+- [🔬 Background doc](https://portal.hubmapconsortium.org/docs/assays/af): More details about this type.
 - [📝 TSV template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/master/docs/af/af-metadata.tsv): Use this to submit metadata.
 - [💻 Source code](https://github.com/hubmapconsortium/ingest-validation-tools/edit/master/src/ingest_validation_tools/table-schemas/level-2/af.yaml): Make a PR if this doc should be updated.
 
@@ -49,7 +49,14 @@ Related files:
 
 | pattern (regular expression) | required? | description |
 | --- | --- | --- |
-| `.+` | yes | TODO |
+| `processedMicroscopy/[^/]+_preMxIF_images/[^/]+\.ome\.tif` | yes | OME TIFF files (multichannel, multi-layered, image pyramids) produced by the autofluorescence microscopy linked to MxIF experiment |
+| `processedMicroscopy/[^/]+_preMxIF_transformations/[^/]+\.txt` | yes | Transformations to MxIF (related) data |
+| `processedMicroscopy/[^/]+_preIMS_images/[^/]+\.ome\.tif` | yes | OME TIFF files (multichannel, multi-layered, image pyramids) produced by the autofluorescence microscopy linked to IMS experiment |
+| `processedMicroscopy/[^/]+_preIMS_transformations/[^/]+\.txt` | yes | Transformations to IMS (related) data |
+| `processedMicroscopy/[^/]+_preCODEX_images/[^/]+\.ome\.tif` | yes | OME TIFF files (multichannel, multi-layered, image pyramids) produced by the autofluorescence microscopy linked to CODEX experiment |
+| `processedMicroscopy/[^/]+_preCODEX_transformations/[^/]+\.txt` | yes | Transformations to CODEX (related) data |
+| `rawMicroscopy/[^/]+\.xml` | yes | XML metadata file from the autofluorescence microscopy experiments |
+| `rawMicroscopy/[^/]+\.czi` | yes | Raw microscope file for the experiment |
 | `extras/.*` | no | Free-form descriptive information supplied by the TMC |
 
 ## Provenance

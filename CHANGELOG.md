@@ -6,6 +6,8 @@
 - Add missing assay type to enum.
 - ng/ul to nM.
 - Change to flat directory schema structure.
+- Dir Schema for MALDI-IMS.
+- AF dir schema.
 - Update README, and diagram.
 - Add extras directory.
 - Prettier HTML output.
@@ -21,6 +23,10 @@
 - Add extra validation hooks.
 - Add nano docs.
 - Run plugin tests only from command line argument
+- Add stained imagery directory schema.
+- Update CODEX directory schema: Require PDF.
+- Get rid of unified.yaml.
+- Point at docs on portal.
 
 ## v0.0.4 - 2020-06-26
 ### Added

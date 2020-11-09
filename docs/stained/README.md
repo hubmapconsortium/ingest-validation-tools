@@ -1,7 +1,7 @@
 # stained
 
 Related files:
-- [🔬 Background doc](https://docs.google.com/document/d/1Kp5nQPmD7C7Bamd_hBgVFrAT6qtiM_tOkDdGKT0v80E/edit): More details about this type.
+- [🔬 Background doc](https://portal.hubmapconsortium.org/docs/assays/pas): More details about this type.
 - [📝 TSV template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/master/docs/stained/stained-metadata.tsv): Use this to submit metadata.
 - [💻 Source code](https://github.com/hubmapconsortium/ingest-validation-tools/edit/master/src/ingest_validation_tools/table-schemas/level-2/stained.yaml): Make a PR if this doc should be updated.
 
@@ -50,7 +50,10 @@ Related files:
 
 | pattern (regular expression) | required? | description |
 | --- | --- | --- |
-| `.+` | yes | TODO |
+| `processedMicroscopy/[^/]+_PAS_images/[^/]+ome\.tif` | yes | OME TIFF files (multichannel, multi-layered, image pyramids) produced by the PAS microscopy experiment |
+| `processedMicroscopy/[^/]+_PAS_transformations/[^/]+\.txt` | yes | Transformations to PAS (related) data |
+| `rawMicroscopy/[^/]+\.xml` | yes | XML metadata file from the autofluorescence microscopy experiments |
+| `rawMicroscopy/[^/]+\.scn` | yes | Raw microscope file for the experiment |
 | `extras/.*` | no | Free-form descriptive information supplied by the TMC |
 
 ## Provenance

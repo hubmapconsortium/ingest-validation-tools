@@ -1,7 +1,7 @@
 # codex
 
 Related files:
-- [🔬 Background doc](https://docs.google.com/document/d/1CYYSXPQjwdbvmvZaEcsi_2udvDfGEZrMyh4yFnm4p3M/edit): More details about this type.
+- [🔬 Background doc](https://portal.hubmapconsortium.org/docs/assays/codex): More details about this type.
 - [📝 TSV template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/master/docs/codex/codex-metadata.tsv): Use this to submit metadata.
 - [💻 Source code](https://github.com/hubmapconsortium/ingest-validation-tools/edit/master/src/ingest_validation_tools/table-schemas/level-2/codex.yaml): Make a PR if this doc should be updated.
 
@@ -60,12 +60,15 @@ Related files:
 
 | pattern (regular expression) | required? | description |
 | --- | --- | --- |
-| `channelnames\.txt` | yes | TODO |
-| `experiment\.json` | yes | TODO |
-| `exposure_times\.txt` | yes | TODO |
-| `segmentation\.json` | no | TODO |
-| `cyc.*_reg.*_.*/.*_.*_Z.*_CH.*` | yes | TODO |
-| `cyc.*_reg.*_.*/.*.gci` | no | TODO |
+| `channelnames\.txt` | yes | Text file produced by the Akoya software which contains the (linearized) channel number and the Name/ID/Target of the channel |
+| `channelnames_report\.csv` | yes | Comma separated text file containing a report of the markers used to map the tissue [e.g. Channel,Name/ID/Target,True/False] |
+| `experiment\.json` | yes | JSON file produced by the Akoya software which contains the metadata for the experiment, including the software version used, microscope parameters, channel names, pixel dimensions, etc. |
+| `exposure_times\.txt` | yes | Comma separated text file used for background subrtaction that contains valid exposure times for all cycles [e.g: Cycle,CH1,CH2,CH3,CH4]. |
+| `[^/]+\.pdf` | yes | PDF export of Powerpoint slide deck containing the Image Analysis Report [QA/QC report] |
+| `NAV[^/]+\.tif` | no | Navigational Image showing Region of Interest (Keyance Microscope only) |
+| `segmentation\.json` | no | JSON file produced by the Akoya software which contains the parameters used for segmentation. |
+| `cyc.*_reg.*_.*/.*_.*_Z.*_CH.*\.tif` | yes | TIFF files produced by the experiment. General folder format: Cycle(n)_Region(n)_date; General file format: name_tileNumber(n)_zplaneNumber(n)_channelNumber(n) |
+| `cyc.*_reg.*_.*/.*\.gci` | no | Group Capture Information File (Keyance Microscope only) |
 | `extras/.*` | no | Free-form descriptive information supplied by the TMC |
 
 ### codex-stanford

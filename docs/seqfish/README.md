@@ -1,7 +1,7 @@
 # seqfish
 
 Related files:
-- [🔬 Background doc](https://docs.google.com/document/d/1H_z5QQvXP-5GKwiKRF2GhcpmqEUDWYnoOIS---Uepas/edit): More details about this type.
+- [🔬 Background doc](https://portal.hubmapconsortium.org/docs/assays/seqfish): More details about this type.
 - [📝 TSV template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/master/docs/seqfish/seqfish-metadata.tsv): Use this to submit metadata.
 - [💻 Source code](https://github.com/hubmapconsortium/ingest-validation-tools/edit/master/src/ingest_validation_tools/table-schemas/level-2/seqfish.yaml): Make a PR if this doc should be updated.
 
