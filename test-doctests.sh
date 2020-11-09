@@ -10,5 +10,3 @@ for TEST in $DOCTESTS; do
   echo 'cd src;' $CMD
   $CMD
 done
-
-cd -
