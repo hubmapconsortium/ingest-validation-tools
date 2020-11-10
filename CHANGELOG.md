@@ -1,6 +1,8 @@
 # Changelog
 
-## v0.0.5 - In progress
+## v0.0.6 - In progress
+
+## v0.0.5 - 2020-11-09
 - Change "mixif" to "mxif".
 - Expose sample field descriptions for use in portal.
 - Add missing assay type to enum.
