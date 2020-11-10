@@ -29,6 +29,7 @@
 - Point at docs on portal.
 - Remove missing example.
 - Add is_qa_qc to dir schema table.
+- Add passing contributors.tsv
 
 ## v0.0.4 - 2020-06-26
 ### Added
