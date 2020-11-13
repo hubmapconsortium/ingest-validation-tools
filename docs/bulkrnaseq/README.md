@@ -61,6 +61,7 @@ Related files:
 | --- | --- | --- |
 | `.+` | ✓ | TODO |
 | `extras/.*` |  | Free-form descriptive information supplied by the TMC |
+| `extras/thumbnail\.(png|jpg)` |  | Optional thumbnail image which may be shown in search interface |
 
 ## Provenance
 

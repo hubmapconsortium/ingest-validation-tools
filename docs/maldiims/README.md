@@ -64,6 +64,7 @@ Related files:
 | `ometiffs/[^/]+_multilayer\.ome\.tiff` | ✓ | Aligned multilayer OME TIFF file of the IMS data |
 | `ometiffs/separate/[^/]+_mz[^/]+\.ome\.tiff` | ✓ | Each file is a different M/Z value. |
 | `extras/.*` |  | Free-form descriptive information supplied by the TMC |
+| `extras/thumbnail\.(png|jpg)` |  | Optional thumbnail image which may be shown in search interface |
 
 ## Provenance
 
