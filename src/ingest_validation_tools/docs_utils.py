@@ -43,17 +43,7 @@ def _enrich_description(field):
 
 def generate_readme_md(
         table_schema, directory_schemas, type, is_top_level=False):
-    fields_md_list = []
-    for field in table_schema['fields']:
-        if 'heading' in field:
-            fields_md_list.append(f"## {field['heading']}")
-        table_md = _make_constraints_table(field)
-        fields_md_list.append(f"""### `{field['name']}`
-{_enrich_description(field)}
-
-{table_md}""")
-
-    fields_md = '\n\n'.join(fields_md_list)
+    fields_md = _make_fields_md(table_schema)
     toc_md = _make_toc(fields_md)
     dir_description_md = _make_dir_description(directory_schemas)
 
@@ -86,6 +76,19 @@ Related files:
 {optional_dir_description_md}
 {fields_md}
 '''
+
+
+def _make_fields_md(table_schema):
+    fields_md_list = []
+    for field in table_schema['fields']:
+        if 'heading' in field:
+            fields_md_list.append(f"## {field['heading']}")
+        table_md = _make_constraints_table(field)
+        fields_md_list.append(f"""### `{field['name']}`
+{_enrich_description(field)}
+
+{table_md}""")
+    return '\n\n'.join(fields_md_list)
 
 
 def _make_constraints_table(field):
