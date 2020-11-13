@@ -25,20 +25,24 @@ def _enrich_description(field):
     '''
     >>> field = {
     ...   'description': 'something',
-    ...   'constraints': {'required': False}
+    ...   'constraints': {'required': False, 'pattern': r'\\[A-Z]+\\d+'},
+    ...   'example': 'ABC123'
     ... }
     >>> _enrich_description(field)
-    'something. Leave blank if not applicable.'
+    'something. Leave blank if not applicable. example: `ABC123`.'
 
     '''
+    # Some descriptions end with periods; some don't.
+    description = re.sub(r'\.\s*$', '. ', field['description'])
     if (
         'constraints' in field
         and 'required' in field['constraints']
         and not field['constraints']['required']
     ):
-        stripped = re.sub(r'\W+\s*$', '', field['description'])
-        return stripped + '. Leave blank if not applicable.'
-    return field['description']
+        description += 'Leave blank if not applicable. '
+    if 'example' in field:
+        description += f'Example: `{field["example"]}`. '
+    return description.strip()
 
 
 def generate_readme_md(

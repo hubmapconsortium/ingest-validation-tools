@@ -72,7 +72,7 @@ Related files:
 ## Provenance
 
 ### `donor_id`
-HuBMAP Display ID of the donor of the assayed tissue.
+HuBMAP Display ID of the donor of the assayed tissue. Example: `ABC123`.
 
 | constraint | value |
 | --- | --- |
@@ -80,7 +80,7 @@ HuBMAP Display ID of the donor of the assayed tissue.
 | required | `True` |
 
 ### `tissue_id`
-HuBMAP Display ID of the assayed tissue.
+HuBMAP Display ID of the assayed tissue. Example: `ABC123-BL-1-2-3_456`.
 
 | constraint | value |
 | --- | --- |
