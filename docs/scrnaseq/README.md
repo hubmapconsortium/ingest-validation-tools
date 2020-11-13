@@ -193,7 +193,7 @@ Link to a protocols document answering the question: How were single cells separ
 | pattern (regular expression) | `10\.17504/.*` |
 
 ### `sc_isolation_entity`
-The type of single cell entity derived from isolation protocol
+The type of single cell entity derived from isolation protocol.
 
 | constraint | value |
 | --- | --- |
@@ -221,21 +221,21 @@ A quality metric by visual inspection prior to cell lysis or defined by known pa
 | required | `True` |
 
 ### `sc_isolation_cell_number`
-Total number of cell/nuclei yielded post dissociation and enrichment
+Total number of cell/nuclei yielded post dissociation and enrichment.
 
 | constraint | value |
 | --- | --- |
 | required | `True` |
 
 ### `rnaseq_assay_input`
-Number of cell/nuclei input to the assay
+Number of cell/nuclei input to the assay.
 
 | constraint | value |
 | --- | --- |
 | required | `True` |
 
 ### `rnaseq_assay_method`
-The kit used for the RNA sequencing assay
+The kit used for the RNA sequencing assay.
 
 | constraint | value |
 | --- | --- |
@@ -250,28 +250,28 @@ A link to the protocol document containing the library construction method (incl
 | pattern (regular expression) | `10\.17504/.*` |
 
 ### `library_layout`
-Whether the library was generated for single-end or paired end sequencing
+Whether the library was generated for single-end or paired end sequencing.
 
 | constraint | value |
 | --- | --- |
 | required | `True` |
 
 ### `library_adapter_sequence`
-Adapter sequence to be used for adapter trimming
+Adapter sequence to be used for adapter trimming.
 
 | constraint | value |
 | --- | --- |
 | required | `True` |
 
 ### `library_id`
-An id for the library. The id may be text and/or numbers
+An id for the library. The id may be text and/or numbers.
 
 | constraint | value |
 | --- | --- |
 | required | `True` |
 
 ### `is_technical_replicate`
-Is the sequencing reaction run in repliucate, TRUE or FALSE
+Is the sequencing reaction run in repliucate, TRUE or FALSE.
 
 | constraint | value |
 | --- | --- |
@@ -279,7 +279,7 @@ Is the sequencing reaction run in repliucate, TRUE or FALSE
 | required | `True` |
 
 ### `cell_barcode_read`
-Which read file contains the cell barcode
+Which read file contains the cell barcode.
 
 | constraint | value |
 | --- | --- |
@@ -293,21 +293,21 @@ Position(s) in the read at which the cell barcode starts.
 | required | `True` |
 
 ### `cell_barcode_size`
-Length of the cell barcode in base pairs
+Length of the cell barcode in base pairs.
 
 | constraint | value |
 | --- | --- |
 | required | `True` |
 
 ### `library_pcr_cycles`
-Number of PCR cycles to amplify cDNA
+Number of PCR cycles to amplify cDNA.
 
 | constraint | value |
 | --- | --- |
 | required | `True` |
 
 ### `library_pcr_cycles_for_sample_index`
-Number of PCR cycles performed for library indexing
+Number of PCR cycles performed for library indexing.
 
 | constraint | value |
 | --- | --- |
@@ -322,7 +322,7 @@ Total number of ng of library after final pcr amplification step. This is the co
 | required | `True` |
 
 ### `library_final_yield_unit`
-Units of final library yield
+Units of final library yield.
 
 | constraint | value |
 | --- | --- |
@@ -337,7 +337,7 @@ Average size of sequencing library fragments estimated via gel electrophoresis o
 | required | `True` |
 
 ### `sequencing_reagent_kit`
-Reagent kit used for sequencing
+Reagent kit used for sequencing.
 
 | constraint | value |
 | --- | --- |
@@ -352,7 +352,7 @@ Slash-delimited list of the number of sequencing cycles for, for example, Read1,
 | required | `True` |
 
 ### `sequencing_read_percent_q30`
-Percent of bases with Quality scores above Q30
+Percent of bases with Quality scores above Q30.
 
 | constraint | value |
 | --- | --- |
@@ -362,7 +362,7 @@ Percent of bases with Quality scores above Q30
 | maximum | `100` |
 
 ### `sequencing_phix_percent`
-Percent PhiX loaded to the run
+Percent PhiX loaded to the run.
 
 | constraint | value |
 | --- | --- |

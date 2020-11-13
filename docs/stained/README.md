@@ -179,7 +179,7 @@ The width of a pixel.
 | required | `True` |
 
 ### `resolution_x_unit`
-The unit of measurement of width of a pixel
+The unit of measurement of width of a pixel.
 
 | constraint | value |
 | --- | --- |

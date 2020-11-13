@@ -246,42 +246,42 @@ Sample preparation methods.
 | pattern (regular expression) | `10\.17504/.*` |
 
 ### `lc_instrument_vendor`
-The manufacturer of the instrument used for LC
+The manufacturer of the instrument used for LC.
 
 | constraint | value |
 | --- | --- |
 | required | `True` |
 
 ### `lc_instrument_model`
-The model number/name of the instrument used for LC
+The model number/name of the instrument used for LC.
 
 | constraint | value |
 | --- | --- |
 | required | `True` |
 
 ### `lc_column_vendor`
-OPTIONAL: The manufacturer of the LC Column unless self-packed, pulled tip capilary is used
+OPTIONAL: The manufacturer of the LC Column unless self-packed, pulled tip capilary is used.
 
 | constraint | value |
 | --- | --- |
 | required | `True` |
 
 ### `lc_column_model`
-The model number/name of the LC Column - IF custom self-packed, pulled tip calillary is used enter "Pulled tip capilary"
+The model number/name of the LC Column - IF custom self-packed, pulled tip calillary is used enter "Pulled tip capilary".
 
 | constraint | value |
 | --- | --- |
 | required | `True` |
 
 ### `lc_resin`
-Details of the resin used for lc, including vendor, particle size, pore size
+Details of the resin used for lc, including vendor, particle size, pore size.
 
 | constraint | value |
 | --- | --- |
 | required | `True` |
 
 ### `lc_length_value`
-LC column length
+LC column length.
 
 | constraint | value |
 | --- | --- |
@@ -297,7 +297,7 @@ units for LC column length (typically cm)
 | required | `True` |
 
 ### `lc_temp_value`
-LC temperature
+LC temperature.
 
 | constraint | value |
 | --- | --- |
@@ -305,7 +305,7 @@ LC temperature
 | required | `True` |
 
 ### `lc_temp_unit`
-units for LC temperature
+units for LC temperature.
 
 | constraint | value |
 | --- | --- |
@@ -345,28 +345,28 @@ Units of flow rate. Leave blank if not applicable.
 | enum | `nL/min` or `mL/min` |
 
 ### `lc_gradient`
-LC gradient
+LC gradient.
 
 | constraint | value |
 | --- | --- |
 | required | `True` |
 
 ### `lc_mobile_phase_a`
-Composition of mobile phase A
+Composition of mobile phase A.
 
 | constraint | value |
 | --- | --- |
 | required | `True` |
 
 ### `lc_mobile_phase_b`
-Composition of mobile phase B
+Composition of mobile phase B.
 
 | constraint | value |
 | --- | --- |
 | required | `True` |
 
 ### `processing_search`
-Software for analyzing and searching LC-MS/MS omics data
+Software for analyzing and searching LC-MS/MS omics data.
 
 | constraint | value |
 | --- | --- |

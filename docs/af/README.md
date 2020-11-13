@@ -190,7 +190,7 @@ The unit of measurement of width of a pixel.
 | required | `True` |
 
 ### `resolution_y_value`
-The height of a pixel
+The height of a pixel.
 
 | constraint | value |
 | --- | --- |

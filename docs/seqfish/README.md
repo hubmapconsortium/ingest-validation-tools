@@ -231,7 +231,7 @@ The manufacturer of the instrument used to prepare the sample for the assay. In 
 | required | `True` |
 
 ### `preparation_instrument_model`
-The model number/name of the instrument used to prepare the sample for the assay
+The model number/name of the instrument used to prepare the sample for the assay.
 
 | constraint | value |
 | --- | --- |

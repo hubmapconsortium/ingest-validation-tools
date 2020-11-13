@@ -41,24 +41,26 @@ def _enrich_description(field):
     >>> _enrich_description(bad_field)
     Traceback (most recent call last):
     ...
-    Exception: bad-example's example (123ABC) does not match pattern ([A-Z]+\d+)
+    Exception: bad-example's example (123ABC) does not match pattern ([A-Z]+\\d+)
 
     '''
-    # Some descriptions end with periods; some don't.
-    description = re.sub(r'\.?\s*$', '. ', field['description'])
+    description = field['description'].strip()
+    if description[-1] not in ['.', ')', '?']:
+        description += '.'
     if (
         'constraints' in field
         and 'required' in field['constraints']
         and not field['constraints']['required']
     ):
-        description += 'Leave blank if not applicable. '
+        description += ' Leave blank if not applicable.'
     if 'example' in field:
         if 'constraints' not in field or 'pattern' not in field['constraints']:
             raise Exception(f'{field["name"]} has example but no pattern')
         if not re.match(field['constraints']['pattern'], field['example']):
             raise Exception(
-                f"{field['name']}'s example ({field['example']}) does not match pattern ({field['constraints']['pattern']})")
-        description += f'Example: `{field["example"]}`. '
+                f"{field['name']}'s example ({field['example']}) "
+                f"does not match pattern ({field['constraints']['pattern']})")
+        description += f' Example: `{field["example"]}`.'
     return description.strip()
 
 
