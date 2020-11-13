@@ -23,17 +23,29 @@ def generate_template_tsv(table_schema):
 
 def _enrich_description(field):
     '''
-    >>> field = {
-    ...   'description': 'something',
-    ...   'constraints': {'required': False, 'pattern': r'\\[A-Z]+\\d+'},
+    >>> good_field = {
+    ...   'name': 'good-example',
+    ...   'description': 'blah blah',
+    ...   'constraints': {'required': False, 'pattern': r'[A-Z]+\\d+'},
     ...   'example': 'ABC123'
     ... }
-    >>> _enrich_description(field)
-    'something. Leave blank if not applicable. example: `ABC123`.'
+    >>> _enrich_description(good_field)
+    'blah blah. Leave blank if not applicable. Example: `ABC123`.'
+
+    >>> bad_field = {
+    ...   'name': 'bad-example',
+    ...   'description': 'blah blah',
+    ...   'constraints': {'pattern': r'[A-Z]+\\d+'},
+    ...   'example': '123ABC'
+    ... }
+    >>> _enrich_description(bad_field)
+    Traceback (most recent call last):
+    ...
+    Exception: bad-example's example (123ABC) does not match pattern ([A-Z]+\d+)
 
     '''
     # Some descriptions end with periods; some don't.
-    description = re.sub(r'\.\s*$', '. ', field['description'])
+    description = re.sub(r'\.?\s*$', '. ', field['description'])
     if (
         'constraints' in field
         and 'required' in field['constraints']
@@ -41,6 +53,11 @@ def _enrich_description(field):
     ):
         description += 'Leave blank if not applicable. '
     if 'example' in field:
+        if 'constraints' not in field or 'pattern' not in field['constraints']:
+            raise Exception(f'{field["name"]} has example but no pattern')
+        if not re.match(field['constraints']['pattern'], field['example']):
+            raise Exception(
+                f"{field['name']}'s example ({field['example']}) does not match pattern ({field['constraints']['pattern']})")
         description += f'Example: `{field["example"]}`. '
     return description.strip()
 
