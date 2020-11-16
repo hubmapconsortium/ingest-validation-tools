@@ -1,6 +1,7 @@
 # Changelog
 
 ## v0.0.6 - In progress
+- Add thumbnail to directory schema.
 - Add machinery to include regex examples in docs.
 
 ## v0.0.5 - 2020-11-09

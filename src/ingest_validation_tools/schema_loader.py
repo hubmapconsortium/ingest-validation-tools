@@ -41,11 +41,18 @@ def get_dir_schema(type):
         'directory-schemas' /
         f'{type}.yaml')
     schema = load_yaml(open(schema_path).read())
-    schema.append({
-        'pattern': 'extras/.*',
-        'description': 'Free-form descriptive information supplied by the TMC',
-        'required': False
-    })
+    schema += [
+        {
+            'pattern': r'extras/.*',
+            'description': 'Free-form descriptive information supplied by the TMC',
+            'required': False
+        },
+        {
+            'pattern': r'extras/thumbnail\.(png|jpg)',
+            'description': 'Optional thumbnail image which may be shown in search interface',
+            'required': False
+        }
+    ]
     return schema
 
 
