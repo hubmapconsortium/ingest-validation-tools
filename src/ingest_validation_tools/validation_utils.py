@@ -1,18 +1,26 @@
-from pathlib import Path
 import logging
 import re
 from string import ascii_uppercase
+from csv import DictReader
+from pathlib import Path
 
 from goodtables import validate as validate_table
 
 from ingest_validation_tools.schema_loader import (
-    get_table_schema, get_contributors_schema, get_dir_schema)
+    get_table_schema, get_contributors_schema,
+    get_dir_schema, get_sample_schema)
 from ingest_validation_tools.directory_validator import (
     validate_directory, DirectoryValidationErrors)
 
 
 class TableValidationErrors(Exception):
     pass
+
+
+def dict_reader_wrapper(path):
+    with open(path, encoding='latin-1') as f:
+        rows = list(DictReader(f, dialect='excel-tab'))
+    return rows
 
 
 def get_data_dir_errors(type, data_path, dataset_ignore_globs=[]):
@@ -47,15 +55,14 @@ def get_tsv_errors(tsv_path, type, optional_fields=[]):
     '''
     logging.info(f'Validating {type} TSV...')
     try:
-        schema = (
-            get_contributors_schema() if type == 'contributors'
-            else get_table_schema(type, optional_fields=optional_fields)
-        )
+        if type == 'contributors':
+            schema = get_contributors_schema()
+        elif type == 'sample':
+            schema = get_sample_schema()
+        else:
+            schema = get_table_schema(type, optional_fields=optional_fields)
     except OSError as e:
-        return {
-            e.strerror:
-                Path(e.filename).name
-        }
+        return {e.strerror: Path(e.filename).name}
     report = validate_table(tsv_path, schema=schema,
                             format='csv', delimiter='\t',
                             skip_checks=['blank-row'])

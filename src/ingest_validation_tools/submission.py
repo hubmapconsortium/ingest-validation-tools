@@ -1,4 +1,3 @@
-from csv import DictReader
 from pathlib import Path
 from datetime import datetime
 import re
@@ -8,7 +7,8 @@ from fnmatch import fnmatch
 from ingest_validation_tools.validation_utils import (
     get_tsv_errors,
     get_data_dir_errors,
-    get_contributors_errors
+    get_contributors_errors,
+    dict_reader_wrapper
 )
 
 from ingest_validation_tools.plugin_validator import (
@@ -19,12 +19,6 @@ from ingest_validation_tools.plugin_validator import (
 
 def _get_directory_type_from_path(path):
     return re.match(r'(.*)-metadata\.tsv$', Path(path).name)[1]
-
-
-def _get_tsv_rows(path):
-    with open(path, encoding='latin-1') as f:
-        rows = list(DictReader(f, dialect='excel-tab'))
-    return rows
 
 
 class Submission:
@@ -119,7 +113,7 @@ class Submission:
 
     def _get_single_tsv_external_errors(self, type, path):
         errors = {}
-        rows = _get_tsv_rows(path)
+        rows = dict_reader_wrapper(path)
         if not rows:
             errors['Warning'] = 'File has no data rows.'
         if self.directory_path:
@@ -192,7 +186,7 @@ class Submission:
     def _get_references(self, col_name):
         references = defaultdict(list)
         for tsv_path in self.effective_tsv_paths.values():
-            for i, row in enumerate(_get_tsv_rows(tsv_path)):
+            for i, row in enumerate(dict_reader_wrapper(tsv_path)):
                 if col_name in row:
                     reference = f'{tsv_path} (row {i+2})'
                     references[row[col_name]].append(reference)
