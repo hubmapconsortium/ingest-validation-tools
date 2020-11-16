@@ -2,6 +2,7 @@ from pathlib import Path
 import logging
 import re
 from string import ascii_uppercase
+from csv import DictReader
 
 from goodtables import validate as validate_table
 
@@ -13,6 +14,12 @@ from ingest_validation_tools.directory_validator import (
 
 class TableValidationErrors(Exception):
     pass
+
+
+def dict_reader_wrapper(path):
+    with open(path, encoding='latin-1') as f:
+        rows = list(DictReader(f, dialect='excel-tab'))
+    return rows
 
 
 def get_data_dir_errors(type, data_path, dataset_ignore_globs=[]):
