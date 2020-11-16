@@ -13,6 +13,10 @@ start flake8
 flake8 || die 'Try: autopep8 --in-place --aggressive -r .'
 end flake8
 
+start mypy
+mypy
+end mypy
+
 for TEST in test-*; do
   start $TEST
   eval ./$TEST

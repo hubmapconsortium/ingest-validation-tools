@@ -1,5 +1,5 @@
 import sys
-import importlib
+from importlib import util
 import inspect
 from typing import List, Union, Tuple, Iterator
 from pathlib import Path
@@ -116,10 +116,10 @@ def validation_error_iter(base_dir: PathOrStr, assay_type: str,
         if mod_nm in sys.modules:
             mod = sys.modules[mod_nm]
         else:
-            spec = importlib.util.spec_from_file_location(mod_nm, fpath)
-            mod = importlib.util.module_from_spec(spec)
+            spec = util.spec_from_file_location(mod_nm, fpath)
+            mod = util.module_from_spec(spec)
             sys.modules[mod_nm] = mod
-            spec.loader.exec_module(mod)
+            spec.loader.exec_module(mod)  # type: ignore
         for name, obj in inspect.getmembers(mod):
             if inspect.isclass(obj) and obj != Validator and issubclass(obj, Validator):
                 sort_me.append((obj.cost, obj.description, obj))
