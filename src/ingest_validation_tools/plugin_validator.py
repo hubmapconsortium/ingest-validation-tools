@@ -5,9 +5,7 @@ from typing import List, Union, Tuple, Iterator
 from pathlib import Path
 from csv import Error as CsvError
 
-from ingest_validation_tools.validation_utils import (
-    dict_reader_wrapper
-)
+from ingest_validation_tools.validation_utils import dict_reader_wrapper
 
 PathOrStr = Union[str, Path]
 
