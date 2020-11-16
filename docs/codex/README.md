@@ -85,7 +85,7 @@ Related files:
 ## Provenance
 
 ### `donor_id`
-HuBMAP Display ID of the donor of the assayed tissue.
+HuBMAP Display ID of the donor of the assayed tissue. Example: `ABC123`.
 
 | constraint | value |
 | --- | --- |
@@ -93,7 +93,7 @@ HuBMAP Display ID of the donor of the assayed tissue.
 | required | `True` |
 
 ### `tissue_id`
-HuBMAP Display ID of the assayed tissue.
+HuBMAP Display ID of the assayed tissue. Example: `ABC123-BL-1-2-3_456`.
 
 | constraint | value |
 | --- | --- |
@@ -258,7 +258,7 @@ The manufacturer of the instrument used to prepare the sample for the assay.
 | required | `True` |
 
 ### `preparation_instrument_model`
-The model number/name of the instrument used to prepare the sample for the assay
+The model number/name of the instrument used to prepare the sample for the assay.
 
 | constraint | value |
 | --- | --- |
@@ -266,7 +266,7 @@ The model number/name of the instrument used to prepare the sample for the assay
 | required | `True` |
 
 ### `number_of_antibodies`
-Number of antibodies
+Number of antibodies.
 
 | constraint | value |
 | --- | --- |
@@ -282,7 +282,7 @@ Number of fluorescent channels imaged during each cycle.
 | required | `True` |
 
 ### `number_of_cycles`
-Number of cycles of 1. oligo application, 2. fluor application, 3. washes
+Number of cycles of 1. oligo application, 2. fluor application, 3. washes.
 
 | constraint | value |
 | --- | --- |

@@ -61,7 +61,7 @@ Related files:
 ## Provenance
 
 ### `donor_id`
-HuBMAP Display ID of the donor of the assayed tissue.
+HuBMAP Display ID of the donor of the assayed tissue. Example: `ABC123`.
 
 | constraint | value |
 | --- | --- |
@@ -69,7 +69,7 @@ HuBMAP Display ID of the donor of the assayed tissue.
 | required | `True` |
 
 ### `tissue_id`
-HuBMAP Display ID of the assayed tissue.
+HuBMAP Display ID of the assayed tissue. Example: `ABC123-BL-1-2-3_456`.
 
 | constraint | value |
 | --- | --- |
@@ -182,7 +182,7 @@ Is the gDNA integrity good enough for WGS? This is usually checked through runni
 | required | `True` |
 
 ### `dna_assay_input_value`
-Amount of DNA input into library preparation
+Amount of DNA input into library preparation.
 
 | constraint | value |
 | --- | --- |
@@ -190,7 +190,7 @@ Amount of DNA input into library preparation
 | required | `True` |
 
 ### `dna_assay_input_unit`
-Units of DNA input into library preparation
+Units of DNA input into library preparation.
 
 | constraint | value |
 | --- | --- |
@@ -229,7 +229,7 @@ The adapter sequence to be used for adapter trimming starting with the 5' end. (
 | required | `True` |
 
 ### `library_final_yield`
-Total amount of library after final pcr amplification step
+Total amount of library after final pcr amplification step.
 
 | constraint | value |
 | --- | --- |
@@ -237,7 +237,7 @@ Total amount of library after final pcr amplification step
 | required | `True` |
 
 ### `library_final_yield_unit`
-Total units of library after final pcr amplification step
+Total units of library after final pcr amplification step.
 
 | constraint | value |
 | --- | --- |
@@ -253,7 +253,7 @@ Average size of sequencing library fragments estimated via gel electrophoresis o
 | required | `True` |
 
 ### `sequencing_reagent_kit`
-Reagent kit used for sequencing
+Reagent kit used for sequencing.
 
 | constraint | value |
 | --- | --- |
@@ -268,7 +268,7 @@ Slash-delimited list of the number of sequencing cycles for, for example, Read1,
 | required | `True` |
 
 ### `sequencing_read_percent_q30`
-Percent of bases with Quality scores above Q30
+Percent of bases with Quality scores above Q30.
 
 | constraint | value |
 | --- | --- |
@@ -278,7 +278,7 @@ Percent of bases with Quality scores above Q30
 | maximum | `100` |
 
 ### `sequencing_phix_percent`
-Percent PhiX loaded to the run
+Percent PhiX loaded to the run.
 
 | constraint | value |
 | --- | --- |

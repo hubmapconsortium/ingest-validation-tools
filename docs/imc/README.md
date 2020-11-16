@@ -71,7 +71,7 @@ Related files:
 ## Provenance
 
 ### `donor_id`
-HuBMAP Display ID of the donor of the assayed tissue.
+HuBMAP Display ID of the donor of the assayed tissue. Example: `ABC123`.
 
 | constraint | value |
 | --- | --- |
@@ -79,7 +79,7 @@ HuBMAP Display ID of the donor of the assayed tissue.
 | required | `True` |
 
 ### `tissue_id`
-HuBMAP Display ID of the assayed tissue.
+HuBMAP Display ID of the assayed tissue. Example: `ABC123-BL-1-2-3_456`.
 
 | constraint | value |
 | --- | --- |
@@ -191,7 +191,7 @@ The manufacturer of the instrument used to prepare the sample for the assay.
 | required | `True` |
 
 ### `preparation_instrument_model`
-The model number/name of the instrument used to prepare the sample for the assay
+The model number/name of the instrument used to prepare the sample for the assay.
 
 | constraint | value |
 | --- | --- |
@@ -214,7 +214,7 @@ DOI for protocols.io referring to the protocol for preparing reagents for the as
 | pattern (regular expression) | `10\.17504/.*` |
 
 ### `number_of_channels`
-Number of mass channels measured
+Number of mass channels measured.
 
 | constraint | value |
 | --- | --- |
@@ -262,7 +262,7 @@ Frequency value of laser ablation (in Hz)
 | required | `True` |
 
 ### `ablation_frequency_unit`
-Frequency unit of laser ablation
+Frequency unit of laser ablation.
 
 | constraint | value |
 | --- | --- |
@@ -300,7 +300,7 @@ Threshold for dual counting.
 | required | `True` |
 
 ### `end_datetime`
-Time stamp indicating end of ablation for ROI
+Time stamp indicating end of ablation for ROI.
 
 | constraint | value |
 | --- | --- |
@@ -309,7 +309,7 @@ Time stamp indicating end of ablation for ROI
 | required | `True` |
 
 ### `max_x_width_value`
-Image width value of the ROI acquisition
+Image width value of the ROI acquisition.
 
 | constraint | value |
 | --- | --- |
@@ -317,7 +317,7 @@ Image width value of the ROI acquisition
 | required | `True` |
 
 ### `max_x_width_unit`
-Units of image width of the ROI acquisition
+Units of image width of the ROI acquisition.
 
 | constraint | value |
 | --- | --- |
@@ -325,7 +325,7 @@ Units of image width of the ROI acquisition
 | required | `True` |
 
 ### `max_y_height_value`
-Image height value of the ROI acquisition
+Image height value of the ROI acquisition.
 
 | constraint | value |
 | --- | --- |
@@ -333,7 +333,7 @@ Image height value of the ROI acquisition
 | required | `True` |
 
 ### `max_y_height_unit`
-Units of image height of the ROI acquisition
+Units of image height of the ROI acquisition.
 
 | constraint | value |
 | --- | --- |
@@ -357,7 +357,7 @@ Type of signal measured per channel (usually dual counts)
 | required | `True` |
 
 ### `start_datetime`
-Time stamp indicating start of ablation for ROI
+Time stamp indicating start of ablation for ROI.
 
 | constraint | value |
 | --- | --- |
@@ -366,7 +366,7 @@ Time stamp indicating start of ablation for ROI
 | required | `True` |
 
 ### `data_precision_bytes`
-Numerical data precision in bytes
+Numerical data precision in bytes.
 
 | constraint | value |
 | --- | --- |
