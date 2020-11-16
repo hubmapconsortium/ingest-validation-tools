@@ -58,7 +58,7 @@ Related files:
 ## Provenance
 
 ### `donor_id`
-HuBMAP Display ID of the donor of the assayed tissue.
+HuBMAP Display ID of the donor of the assayed tissue. Example: `ABC123`.
 
 | constraint | value |
 | --- | --- |
@@ -66,7 +66,7 @@ HuBMAP Display ID of the donor of the assayed tissue.
 | required | `True` |
 
 ### `tissue_id`
-HuBMAP Display ID of the assayed tissue.
+HuBMAP Display ID of the assayed tissue. Example: `ABC123-BL-1-2-3_456`.
 
 | constraint | value |
 | --- | --- |
@@ -157,7 +157,7 @@ Specifies whether or not a specific molecule(s) is/are targeted for detection/me
 ## Level 2
 
 ### `acquisition_instrument_vendor`
-An acquisition instrument is the device that contains the signal detection hardware and signal processing software. Assays generate signals such as light of various intensities or color or signals representing the molecular mass
+An acquisition instrument is the device that contains the signal detection hardware and signal processing software. Assays generate signals such as light of various intensities or color or signals representing the molecular mass.
 
 | constraint | value |
 | --- | --- |
@@ -187,7 +187,7 @@ The polarity of the mass analysis (positive or negative ion modes)
 | required | `True` |
 
 ### `mz_range_low_value`
-A number representing the mass:charge ratio
+A number representing the mass:charge ratio.
 
 | constraint | value |
 | --- | --- |
@@ -195,7 +195,7 @@ A number representing the mass:charge ratio
 | required | `True` |
 
 ### `mz_range_high_value`
-A number representing the mass:charge ratio
+A number representing the mass:charge ratio.
 
 | constraint | value |
 | --- | --- |
@@ -203,7 +203,7 @@ A number representing the mass:charge ratio
 | required | `True` |
 
 ### `resolution_x_value`
-The width of a pixel
+The width of a pixel.
 
 | constraint | value |
 | --- | --- |
@@ -211,7 +211,7 @@ The width of a pixel
 | required | `True` |
 
 ### `resolution_x_unit`
-The unit of measurement of the width of a pixel
+The unit of measurement of the width of a pixel.
 
 | constraint | value |
 | --- | --- |
@@ -219,7 +219,7 @@ The unit of measurement of the width of a pixel
 | required | `True` |
 
 ### `resolution_y_value`
-The height of a pixel
+The height of a pixel.
 
 | constraint | value |
 | --- | --- |
@@ -227,7 +227,7 @@ The height of a pixel
 | required | `True` |
 
 ### `resolution_y_unit`
-The unit of measurement of the height of a pixel
+The unit of measurement of the height of a pixel.
 
 | constraint | value |
 | --- | --- |

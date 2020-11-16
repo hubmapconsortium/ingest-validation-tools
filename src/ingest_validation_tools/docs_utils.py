@@ -23,37 +23,50 @@ def generate_template_tsv(table_schema):
 
 def _enrich_description(field):
     '''
-    >>> field = {
-    ...   'description': 'something',
-    ...   'constraints': {'required': False}
+    >>> good_field = {
+    ...   'name': 'good-example',
+    ...   'description': 'blah blah',
+    ...   'constraints': {'required': False, 'pattern': r'[A-Z]+\\d+'},
+    ...   'example': 'ABC123'
     ... }
-    >>> _enrich_description(field)
-    'something. Leave blank if not applicable.'
+    >>> _enrich_description(good_field)
+    'blah blah. Leave blank if not applicable. Example: `ABC123`.'
+
+    >>> bad_field = {
+    ...   'name': 'bad-example',
+    ...   'description': 'blah blah',
+    ...   'constraints': {'pattern': r'[A-Z]+\\d+'},
+    ...   'example': '123ABC'
+    ... }
+    >>> _enrich_description(bad_field)
+    Traceback (most recent call last):
+    ...
+    Exception: bad-example's example (123ABC) does not match pattern ([A-Z]+\\d+)
 
     '''
+    description = field['description'].strip()
+    if description[-1] not in ['.', ')', '?']:
+        description += '.'
     if (
         'constraints' in field
         and 'required' in field['constraints']
         and not field['constraints']['required']
     ):
-        stripped = re.sub(r'\W+\s*$', '', field['description'])
-        return stripped + '. Leave blank if not applicable.'
-    return field['description']
+        description += ' Leave blank if not applicable.'
+    if 'example' in field:
+        if 'constraints' not in field or 'pattern' not in field['constraints']:
+            raise Exception(f'{field["name"]} has example but no pattern')
+        if not re.match(field['constraints']['pattern'], field['example']):
+            raise Exception(
+                f"{field['name']}'s example ({field['example']}) "
+                f"does not match pattern ({field['constraints']['pattern']})")
+        description += f' Example: `{field["example"]}`.'
+    return description.strip()
 
 
 def generate_readme_md(
         table_schema, directory_schemas, type, is_top_level=False):
-    fields_md_list = []
-    for field in table_schema['fields']:
-        if 'heading' in field:
-            fields_md_list.append(f"## {field['heading']}")
-        table_md = _make_constraints_table(field)
-        fields_md_list.append(f"""### `{field['name']}`
-{_enrich_description(field)}
-
-{table_md}""")
-
-    fields_md = '\n\n'.join(fields_md_list)
+    fields_md = _make_fields_md(table_schema)
     toc_md = _make_toc(fields_md)
     dir_description_md = _make_dir_description(directory_schemas)
 
@@ -86,6 +99,19 @@ Related files:
 {optional_dir_description_md}
 {fields_md}
 '''
+
+
+def _make_fields_md(table_schema):
+    fields_md_list = []
+    for field in table_schema['fields']:
+        if 'heading' in field:
+            fields_md_list.append(f"## {field['heading']}")
+        table_md = _make_constraints_table(field)
+        fields_md_list.append(f"""### `{field['name']}`
+{_enrich_description(field)}
+
+{table_md}""")
+    return '\n\n'.join(fields_md_list)
 
 
 def _make_constraints_table(field):

@@ -60,7 +60,7 @@ Related files:
 ## Provenance
 
 ### `donor_id`
-HuBMAP Display ID of the donor of the assayed tissue.
+HuBMAP Display ID of the donor of the assayed tissue. Example: `ABC123`.
 
 | constraint | value |
 | --- | --- |
@@ -68,7 +68,7 @@ HuBMAP Display ID of the donor of the assayed tissue.
 | required | `True` |
 
 ### `tissue_id`
-HuBMAP Display ID of the assayed tissue.
+HuBMAP Display ID of the assayed tissue. Example: `ABC123-BL-1-2-3_456`.
 
 | constraint | value |
 | --- | --- |
@@ -180,7 +180,7 @@ The width of a pixel.
 | required | `True` |
 
 ### `resolution_x_unit`
-The unit of measurement of width of a pixel
+The unit of measurement of width of a pixel.
 
 | constraint | value |
 | --- | --- |

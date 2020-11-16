@@ -64,7 +64,7 @@ Related files:
 ## Provenance
 
 ### `donor_id`
-HuBMAP Display ID of the donor of the assayed tissue.
+HuBMAP Display ID of the donor of the assayed tissue. Example: `ABC123`.
 
 | constraint | value |
 | --- | --- |
@@ -72,7 +72,7 @@ HuBMAP Display ID of the donor of the assayed tissue.
 | required | `True` |
 
 ### `tissue_id`
-HuBMAP Display ID of the assayed tissue.
+HuBMAP Display ID of the assayed tissue. Example: `ABC123-BL-1-2-3_456`.
 
 | constraint | value |
 | --- | --- |
@@ -232,7 +232,7 @@ The manufacturer of the instrument used to prepare the sample for the assay. In 
 | required | `True` |
 
 ### `preparation_instrument_model`
-The model number/name of the instrument used to prepare the sample for the assay
+The model number/name of the instrument used to prepare the sample for the assay.
 
 | constraint | value |
 | --- | --- |
