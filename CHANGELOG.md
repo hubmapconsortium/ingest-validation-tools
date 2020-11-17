@@ -3,7 +3,7 @@
 ## v0.0.6 - In progress
 - Add thumbnail to directory schema.
 - Add machinery to include regex examples in docs.
-- Run mypy on the one file that has type annotations.
+- Run mypy, but only on the one file that has type annotations.
 - Consolidate TSV reading to avoid inconsistencies in character encoding.
 
 ## v0.0.5 - 2020-11-09
