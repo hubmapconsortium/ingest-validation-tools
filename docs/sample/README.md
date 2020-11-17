@@ -36,6 +36,11 @@ Related files:
 [`specimen_tumor_distance_value`](#specimen_tumor_distance_value)<br>
 [`specimen_tumor_distance_unit`](#specimen_tumor_distance_unit)<br></details>
 
+## Directory structure
+
+| pattern (regular expression) | required? | description |
+| --- | --- | --- |
+
 ## IDs
 
 ### `sample_id`

@@ -8,7 +8,7 @@ from goodtables import validate as validate_table
 
 from ingest_validation_tools.schema_loader import (
     get_table_schema, get_contributors_schema,
-    get_dir_schema, get_sample_schema)
+    get_directory_schema, get_sample_schema)
 from ingest_validation_tools.directory_validator import (
     validate_directory, DirectoryValidationErrors)
 
@@ -27,17 +27,14 @@ def get_data_dir_errors(type, data_path, dataset_ignore_globs=[]):
     '''
     Validate a single data_path.
     '''
-    schema = get_dir_schema(type)
+    schema = get_directory_schema(type)
     try:
         validate_directory(
             data_path, schema, dataset_ignore_globs=dataset_ignore_globs)
     except DirectoryValidationErrors as e:
         return e.errors
     except OSError as e:
-        return {
-            e.strerror:
-                e.filename
-        }
+        return {e.strerror: e.filename}
 
 
 def get_contributors_errors(contributors_path):

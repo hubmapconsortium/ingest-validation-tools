@@ -35,12 +35,10 @@ def get_donor_schema():
     )
 
 
-def get_dir_schema(type):
-    schema_path = (
-        Path(__file__).parent /
-        'directory-schemas' /
-        f'{type}.yaml')
-    schema = load_yaml(open(schema_path).read())
+def get_directory_schema(directory_type):
+    schema = load_yaml(open(
+        _directory_schemas_path / f'{directory_type}.yaml'
+    ).read())
     schema += [
         {
             'pattern': r'extras/.*',
@@ -56,21 +54,7 @@ def get_dir_schema(type):
     return schema
 
 
-def get_directory_schemas(type):
-    single_path = _directory_schemas_path / f'{type}.yaml'
-    all_paths = (
-        [single_path] if single_path.exists()
-        else _directory_schemas_path.glob(f'{type}-*.yaml')
-    )
-    return {
-        path.stem: get_dir_schema(path.stem)
-        for path in sorted(all_paths)
-    }
-
-
-def get_table_schema(type, optional_fields=[]):
-    table_type = type.split('-')[0]
-
+def get_table_schema(table_type, optional_fields=[]):
     level_1_fields = _get_level_1_schema('level-1')['fields']
     paths_fields = _get_level_1_schema('paths')['fields']
     type_schema = _get_level_2_schema(table_type)

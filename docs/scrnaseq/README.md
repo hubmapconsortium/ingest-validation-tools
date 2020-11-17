@@ -62,7 +62,7 @@ Related files:
 [`contributors_path`](#contributors_path)<br>
 [`data_path`](#data_path)<br></details>
 
-## Dataset directory structure
+## Directory structure
 
 | pattern (regular expression) | required? | description |
 | --- | --- | --- |
