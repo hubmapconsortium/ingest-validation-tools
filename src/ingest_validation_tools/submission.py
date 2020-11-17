@@ -42,7 +42,7 @@ TSV_SUFFIX = 'metadata.tsv'
 
 
 class Submission:
-    def __init__(self, directory_path=None, override_tsv_paths={},
+    def __init__(self, directory_path=None, tsv_paths=[],
                  optional_fields=[], add_notes=True,
                  dataset_ignore_globs=[], submission_ignore_globs=[],
                  plugin_directory=None):
@@ -51,13 +51,15 @@ class Submission:
         self.dataset_ignore_globs = dataset_ignore_globs
         self.submission_ignore_globs = submission_ignore_globs
         self.plugin_directory = plugin_directory
-        unsorted_effective_tsv_paths = (
-            override_tsv_paths if override_tsv_paths
-            else {
-                _get_type_from_first_line(path): path
-                for path in directory_path.glob(f'*{TSV_SUFFIX}')
-            }
-        )
+        unsorted_effective_tsv_paths = {
+            # NOTE: Dict structure means that if two metadata TSVs
+            # of the same type are supplied, one will be ignored.
+            _get_type_from_first_line(path): path
+            for path in (
+                tsv_paths if tsv_paths
+                else directory_path.glob(f'*{TSV_SUFFIX}')
+            )
+        }
         self.effective_tsv_paths = {
             k: unsorted_effective_tsv_paths[k]
             for k in sorted(unsorted_effective_tsv_paths.keys())
