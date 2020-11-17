@@ -2,6 +2,21 @@
 HuBMAP data submission guidelines,
 and tools which check that submissions adhere to those guidelines.
 
+## For assay type working groups:
+
+Before we can write code to validate a particular assay type, there are some prequisites:
+- A document describing the experimental techniques involved.
+- A list of the metadata fields for this type, along with descriptions and constraints.
+- A list of the files to be expected in each dataset directory, along with descriptions.
+  [Suggestions for describing directories](HOWTO-describe-directories.md).
+
+When all the parts are finalized,
+- The document will be translated into markdown, and added [here](https://github.com/hubmapconsortium/portal-docs/tree/master/assays).
+- The list of fields will be translated into a table schema, like those [here](src/ingest_validation_tools/table-schemas).
+- The list of files will be translated into a directory schema, like those [here](src/ingest_validation_tools/directory-schemas).
+
+When those parts are in place, the (docs)[docs/] are updated, and we're ready to validate submissions.
+
 ## For data submitters and curators:
 
 Checkout the repo and install dependencies:

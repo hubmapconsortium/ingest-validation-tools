@@ -7,6 +7,7 @@
 - Consolidate TSV reading to avoid inconsistencies in character encoding.
 - Remove option for directory schema "subtypes".
 - Remove vestigial line from flake8 config.
+- Instructions for working groups providing descriptions.
 
 ## v0.0.5 - 2020-11-09
 - Change "mixif" to "mxif".
