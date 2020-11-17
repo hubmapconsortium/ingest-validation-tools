@@ -15,7 +15,7 @@ When all the parts are finalized,
 - The list of fields will be translated into a table schema, like those [here](src/ingest_validation_tools/table-schemas).
 - The list of files will be translated into a directory schema, like those [here](src/ingest_validation_tools/directory-schemas).
 
-When those parts are in place, the (docs)[docs/] are updated, and we're ready to validate submissions.
+When those parts are in place, the [docs](docs/) are updated, and we're ready to validate submissions.
 
 ## For data submitters and curators:
 
