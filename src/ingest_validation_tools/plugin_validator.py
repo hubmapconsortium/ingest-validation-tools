@@ -3,7 +3,9 @@ from importlib import util
 import inspect
 from typing import List, Union, Tuple, Iterator
 from pathlib import Path
-from csv import DictReader, Error as CsvError
+from csv import Error as CsvError
+
+from ingest_validation_tools.validation_utils import dict_reader_wrapper
 
 PathOrStr = Union[str, Path]
 
@@ -61,8 +63,7 @@ def run_plugin_validators_iter(metadata_path: PathOrStr,
     metadata_path = Path(metadata_path)
     if metadata_path.is_file():
         try:
-            with open(metadata_path, encoding='latin-1') as f:
-                rows = list(DictReader(f, dialect='excel-tab'))
+            rows = dict_reader_wrapper(metadata_path)
         except (CsvError, IOError):
             raise ValidatorError(f'{metadata_path} could not be parsed as a .tsv file')
         if not rows:
