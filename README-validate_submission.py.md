@@ -1,7 +1,7 @@
 ```
 usage: validate_submission.py [-h]
                               [--local_directory PATH | --globus_url URL | --globus_origin_directory ORIGIN_PATH]
-                              [--type_metadata TYPE PATH [TYPE PATH ...]]
+                              [--tsv_paths PATH [PATH ...]]
                               [--optional_fields FIELD [FIELD ...]]
                               [--dataset_ignore_globs GLOB [GLOB ...]]
                               [--submission_ignore_globs GLOB [GLOB ...]]
@@ -21,11 +21,8 @@ optional arguments:
   --globus_origin_directory ORIGIN_PATH
                         A Globus submission directory to validate; Should have
                         the form "<globus_origin_id>:<globus_path>".
-  --type_metadata TYPE PATH [TYPE PATH ...]
-                        A list of type / metadata.tsv pairs. Type should be
-                        one of: ['af', 'bulkatacseq', 'bulkrnaseq', 'codex',
-                        'imc', 'lcms', 'maldiims', 'mxif', 'nano',
-                        'scatacseq', 'scrnaseq', 'seqfish', 'stained', 'wgs']
+  --tsv_paths PATH [PATH ...]
+                        Paths of metadata.tsv files.
   --optional_fields FIELD [FIELD ...]
                         The listed fields will be treated as optional. (But if
                         they are supplied in the TSV, they will be validated.)
@@ -42,11 +39,11 @@ optional arguments:
 
 Typical usecases:
 
-  --type_metadata + --globus_url: Validate one or more
+  --metadata + --globus_url: Validate one or more
   local metadata.tsv files against a submission directory already on Globus.
 
   --globus_url: Validate a submission directory on Globus,
-  with <type>-metadata.tsv files in place.
+  with metadata.tsv files in place.
 
   --local_directory: Used in development against test fixtures, and in
   the ingest-pipeline, where Globus is the local filesystem.
