@@ -1,6 +1,6 @@
 ```
 Metadata TSV Errors:
-  dataset-examples/bad-tsv-formats/submission/codex-akoya-metadata.tsv (as codex-akoya):
+  dataset-examples/bad-tsv-formats/submission/codex-metadata.tsv (as codex):
     Internal:
     - The value "not-uuid" in row 2 and column 1 ("A") does not conform to the pattern
       constraint of "[A-Z]+[0-9]+"

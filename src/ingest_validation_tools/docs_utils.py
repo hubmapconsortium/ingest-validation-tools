@@ -65,13 +65,13 @@ def _enrich_description(field):
 
 
 def generate_readme_md(
-        table_schema, directory_schemas, type, is_top_level=False):
+        table_schema, directory_schema, type, is_top_level=False):
     fields_md = _make_fields_md(table_schema)
     toc_md = _make_toc(fields_md)
-    dir_description_md = _make_dir_description(directory_schemas)
+    dir_description_md = _make_dir_description(directory_schema)
 
     optional_dir_description_md = f'''
-## Dataset directory structure
+## Directory structure
 {dir_description_md}
 ''' if dir_description_md else ''
 
@@ -206,14 +206,14 @@ def _make_toc(md):
     ]).replace('</details>\n\n', '', 1) + '</details>'
 
 
-def _make_dir_description(dir_schemas):
+def _make_dir_description(dir_schema):
     '''
-    >>> dir_schema = {'name': [
+    >>> dir_schema = [
     ...   { 'pattern': 'required\\.txt', 'description': 'Required!',
     ...     'is_qa_qc': True },
     ...   { 'pattern': 'optional\\.txt', 'description': 'Optional!',
     ...     'required': False }
-    ... ]}
+    ... ]
     >>> print(_make_dir_description(dir_schema))
     <BLANKLINE>
     | pattern (regular expression) | required? | description |
@@ -223,19 +223,16 @@ def _make_dir_description(dir_schemas):
 
     '''
     output = []
-    for name, dir_schema in dir_schemas.items():
-        if len(dir_schemas) > 1:
-            output.append(f'\n### {name}')
-        output.append('''
+    output.append('''
 | pattern (regular expression) | required? | description |
 | --- | --- | --- |''')
-        for line in dir_schema:
-            required = '' if 'required' in line and not line['required'] else '✓'
-            qa_qc = '**[QA/QC]** ' if 'is_qa_qc' in line and line['is_qa_qc'] else ''
-            row = [
-                f'`{line["pattern"]}`',
-                required,
-                qa_qc + line['description']
-            ]
-            output.append('| ' + ' | '.join(row) + ' |')
+    for line in dir_schema:
+        required = '' if 'required' in line and not line['required'] else '✓'
+        qa_qc = '**[QA/QC]** ' if 'is_qa_qc' in line and line['is_qa_qc'] else ''
+        row = [
+            f'`{line["pattern"]}`',
+            required,
+            qa_qc + line['description']
+        ]
+        output.append('| ' + ' | '.join(row) + ' |')
     return '\n'.join(output)

@@ -1,6 +1,6 @@
 ```
 Metadata TSV Errors:
-  dataset-examples/bad-mixed/submission/codex-akoya-metadata.tsv (as codex-akoya):
+  dataset-examples/bad-mixed/submission/codex-metadata.tsv (as codex):
     Internal:
     - The value "-INVALID-" in row 2 and column 1 ("A") does not conform to the pattern
       constraint of "[A-Z]+[0-9]+"
@@ -30,6 +30,6 @@ Metadata TSV Errors:
 Reference Errors:
   Multiple References:
     bad-shared-dataset:
-    - dataset-examples/bad-mixed/submission/codex-akoya-metadata.tsv (row 2)
+    - dataset-examples/bad-mixed/submission/codex-metadata.tsv (row 2)
     - dataset-examples/bad-mixed/submission/scatacseq-metadata.tsv (row 2)
 ```

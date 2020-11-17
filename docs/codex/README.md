@@ -54,9 +54,7 @@ Related files:
 [`contributors_path`](#contributors_path)<br>
 [`data_path`](#data_path)<br></details>
 
-## Dataset directory structure
-
-### codex-akoya
+## Directory structure
 
 | pattern (regular expression) | required? | description |
 | --- | --- | --- |
@@ -69,18 +67,6 @@ Related files:
 | `segmentation\.json` |  | JSON file produced by the Akoya software which contains the parameters used for segmentation. |
 | `cyc.*_reg.*_.*/.*_.*_Z.*_CH.*\.tif` | ✓ | TIFF files produced by the experiment. General folder format: Cycle(n)_Region(n)_date; General file format: name_tileNumber(n)_zplaneNumber(n)_channelNumber(n) |
 | `cyc.*_reg.*_.*/.*\.gci` |  | Group Capture Information File (Keyance Microscope only) |
-| `extras/.*` |  | Free-form descriptive information supplied by the TMC |
-| `extras/thumbnail\.(png|jpg)` |  | Optional thumbnail image which may be shown in search interface |
-
-### codex-stanford
-
-| pattern (regular expression) | required? | description |
-| --- | --- | --- |
-| `channelNames\.txt` | ✓ | TODO |
-| `Experiment\.json` | ✓ | TODO |
-| `processingOptions\.json` | ✓ | TODO |
-| `exposure_times\.txt` |  | TODO |
-| `Cyc.*_reg.*/HE_.*_Z.*_CH.*` | ✓ | TODO |
 | `extras/.*` |  | Free-form descriptive information supplied by the TMC |
 | `extras/thumbnail\.(png|jpg)` |  | Optional thumbnail image which may be shown in search interface |
 

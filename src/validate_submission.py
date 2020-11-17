@@ -14,7 +14,7 @@ from ingest_validation_tools.globus_utils import (
 
 
 directory_schemas = sorted({
-    p.stem.split('-')[0] for p in
+    p.stem for p in
     (Path(__file__).parent / 'ingest_validation_tools' /
      'directory-schemas').glob('*.yaml')
 })
