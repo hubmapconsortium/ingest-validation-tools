@@ -1,6 +1,6 @@
 ```
 Metadata TSV Errors:
-  dataset-examples/bad-codex-data/submission/codex-akoya-metadata.tsv (as codex-akoya):
+  dataset-examples/bad-codex-data/submission/codex-metadata.tsv (as codex):
     External:
       row 2, referencing dataset-examples/bad-codex-data/submission/dataset-1:
         Not allowed:
