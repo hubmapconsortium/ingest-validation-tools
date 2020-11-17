@@ -6,6 +6,7 @@
 - Run mypy, but only on the one file that has type annotations.
 - Consolidate TSV reading to avoid inconsistencies in character encoding.
 - Remove option for directory schema "subtypes".
+- Remove vestigial line from flake8 config.
 
 ## v0.0.5 - 2020-11-09
 - Change "mixif" to "mxif".
