@@ -38,6 +38,9 @@ def _get_type_from_first_line(path):
     return _assay_name_to_code(name)
 
 
+TSV_SUFFIX = 'metadata.tsv'
+
+
 class Submission:
     def __init__(self, directory_path=None, override_tsv_paths={},
                  optional_fields=[], add_notes=True,
@@ -52,7 +55,7 @@ class Submission:
             override_tsv_paths if override_tsv_paths
             else {
                 _get_type_from_first_line(path): path
-                for path in directory_path.glob('*metadata.tsv')
+                for path in directory_path.glob(f'*{TSV_SUFFIX}')
             }
         )
         self.effective_tsv_paths = {
@@ -181,7 +184,7 @@ class Submission:
             | set(self._get_contributors_references().keys())
         non_metadata_paths = {
             path.name for path in self.directory_path.iterdir()
-            if not path.name.endswith('-metadata.tsv')
+            if not path.name.endswith(TSV_SUFFIX)
             and not any([
                 fnmatch(path.name, glob)
                 for glob in self.submission_ignore_globs
