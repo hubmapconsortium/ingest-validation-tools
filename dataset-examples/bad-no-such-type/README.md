@@ -1,8 +1,4 @@
 ```
 Metadata TSV Errors:
-  dataset-examples/bad-no-such-type/submission/fake-metadata.tsv (as fake):
-    Internal:
-      No such file or directory: fake.yaml
-    External:
-      Warning: File has no data rows.
+  Bad assay_type: There is no matching schema for dataset-examples/bad-no-such-type/submission/fake-metadata.tsv
 ```
