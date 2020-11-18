@@ -10,6 +10,7 @@
 - Remove vestigial line from flake8 config.
 - Instructions for working groups providing descriptions.
 - Remove extraneous parts from Sample doc.
+- Document contributors.tsv
 
 ## v0.0.5 - 2020-11-09
 - Change "mixif" to "mxif".

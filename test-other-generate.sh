@@ -8,8 +8,8 @@ die() { set +v; echo "$red$*$reset" 1>&2 ; exit 1; }
 REAL_DEST="docs/sample"
 TEST_DEST="docs-test/sample"
 
-REAL_CMD="src/generate_sample_docs.py $REAL_DEST"
-TEST_CMD="src/generate_sample_docs.py $TEST_DEST"
+REAL_CMD="src/generate_other_docs.py $REAL_DEST"
+TEST_CMD="src/generate_other_docs.py $TEST_DEST"
 
 mkdir -p docs-test/sample || echo "Already exists"
 eval $TEST_CMD

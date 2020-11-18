@@ -1,5 +1,5 @@
 ```
-usage: generate_sample_docs.py [-h] target
+usage: generate_other_docs.py [-h] target
 
 positional arguments:
   target      Directory to write output to
