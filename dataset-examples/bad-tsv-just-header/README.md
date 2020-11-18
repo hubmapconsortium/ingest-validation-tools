@@ -1,4 +1,6 @@
 ```
 Metadata TSV Errors:
-  Bad assay_type: There is no matching schema for dataset-examples/bad-tsv-just-header/submission/codex-metadata.tsv
+  dataset-examples/bad-tsv-just-header/submission/codex-metadata.tsv (as None):
+    Internal: TSV has no assay_type.
+    External: File has no data rows.
 ```
