@@ -1,3 +1,2 @@
 [flake8]
-exclude = src/ingest_validation_tools/ingest-validation-tests
 max-line-length = 100
