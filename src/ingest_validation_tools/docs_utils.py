@@ -73,7 +73,7 @@ def generate_readme_md(
     optional_dir_description_md = f'''
 ## Directory structure
 {dir_description_md}
-''' if dir_description_md else ''
+''' if directory_schema else ''
 
     raw_url = 'https://raw.githubusercontent.com/hubmapconsortium' \
         '/ingest-validation-tools/master/docs' \

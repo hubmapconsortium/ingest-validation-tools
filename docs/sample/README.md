@@ -1,7 +1,7 @@
 # sample
 
 Related files:
-- [🔬 Background doc](TODO): More details about this type.
+
 - [📝 TSV template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/master/docs/sample/sample-metadata.tsv): Use this to submit metadata.
 - [💻 Source code](https://github.com/hubmapconsortium/ingest-validation-tools/edit/master/src/ingest_validation_tools/table-schemas/sample.yaml): Make a PR if this doc should be updated.
 
@@ -35,11 +35,6 @@ Related files:
 [`specimen_quality_criteria`](#specimen_quality_criteria)<br>
 [`specimen_tumor_distance_value`](#specimen_tumor_distance_value)<br>
 [`specimen_tumor_distance_unit`](#specimen_tumor_distance_unit)<br></details>
-
-## Directory structure
-
-| pattern (regular expression) | required? | description |
-| --- | --- | --- |
 
 ## IDs
 
