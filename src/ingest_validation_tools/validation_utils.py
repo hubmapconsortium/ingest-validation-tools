@@ -7,8 +7,8 @@ from pathlib import Path
 from goodtables import validate as validate_table
 
 from ingest_validation_tools.schema_loader import (
-    get_table_schema, get_contributors_schema,
-    get_directory_schema, get_sample_schema)
+    get_table_schema, get_other_schema,
+    get_directory_schema)
 from ingest_validation_tools.directory_validator import (
     validate_directory, DirectoryValidationErrors)
 
@@ -52,10 +52,8 @@ def get_tsv_errors(tsv_path, type, optional_fields=[]):
     '''
     logging.info(f'Validating {type} TSV...')
     try:
-        if type == 'contributors':
-            schema = get_contributors_schema()
-        elif type == 'sample':
-            schema = get_sample_schema()
+        if type in ['contributors', 'sample']:
+            schema = get_other_schema(type)
         else:
             schema = get_table_schema(type, optional_fields=optional_fields)
     except OSError as e:

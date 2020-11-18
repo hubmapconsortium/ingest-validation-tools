@@ -15,23 +15,10 @@ def list_types():
     return sorted(schemas)
 
 
-def get_sample_schema():
+def get_other_schema(other_type):
     return load_yaml(
-        (Path(__file__).parent / 'table-schemas' / 'sample.yaml')
+        (Path(__file__).parent / 'table-schemas' / f'{other_type}.yaml')
         .read_text()
-    )
-
-
-def get_contributors_schema():
-    return load_yaml(
-        (Path(__file__).parent / 'table-schemas' / 'contributors.yaml')
-        .read_text()
-    )
-
-
-def get_donor_schema():
-    return load_yaml(
-        (Path(__file__).parent / 'table-schemas' / 'donor.yaml').read_text()
     )
 
 

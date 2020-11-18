@@ -2,7 +2,7 @@
 import sys
 from yaml import dump as dump_yaml
 from ingest_validation_tools.schema_loader import (
-    list_types, get_table_schema, get_sample_schema, get_donor_schema
+    list_types, get_table_schema, get_other_schema
 )
 
 
@@ -16,10 +16,10 @@ def main():
             return 1
         _add_field_descriptions_to_mapping(schema['fields'], mapping)
 
-    sample_schema = get_sample_schema()
+    sample_schema = get_other_schema('sample')
     _add_field_descriptions_to_mapping(sample_schema['fields'], mapping)
 
-    donor_schema = get_donor_schema()
+    donor_schema = get_other_schema('donor')
     _add_field_descriptions_to_mapping(donor_schema['fields'], mapping)
 
     print(dump_yaml(mapping))
