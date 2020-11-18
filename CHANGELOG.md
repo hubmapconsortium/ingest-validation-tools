@@ -6,6 +6,7 @@
 - Run mypy, but only on the one file that has type annotations.
 - Consolidate TSV reading to avoid inconsistencies in character encoding.
 - Remove option for directory schema "subtypes".
+- Read type from first line of TSV, instead of from filename.
 - Remove vestigial line from flake8 config.
 - Instructions for working groups providing descriptions.
 

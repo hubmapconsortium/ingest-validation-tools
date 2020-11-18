@@ -28,11 +28,11 @@ either local or remote, or a combination of the two.''',
         epilog='''
 Typical usecases:
 
-  --type_metadata + --globus_url: Validate one or more
+  --metadata + --globus_url: Validate one or more
   local metadata.tsv files against a submission directory already on Globus.
 
   --globus_url: Validate a submission directory on Globus,
-  with <type>-metadata.tsv files in place.
+  with metadata.tsv files in place.
 
   --local_directory: Used in development against test fixtures, and in
   the ingest-pipeline, where Globus is the local filesystem.
@@ -59,10 +59,9 @@ Typical usecases:
     # Is there metadata to validate?
 
     parser.add_argument(
-        '--type_metadata', nargs='+',
-        metavar='TYPE PATH',
-        help='A list of type / metadata.tsv pairs. '
-        f'Type should be one of: {directory_schemas}')
+        '--tsv_paths', nargs='+',
+        metavar='PATH',
+        help='Paths of metadata.tsv files.')
 
     parser.add_argument(
         '--optional_fields', nargs='+',
@@ -112,7 +111,7 @@ parser = make_parser()
 def parse_args():
     args = parser.parse_args()
     if not any([
-        args.type_metadata,
+        args.tsv_paths,
         args.local_directory,
         args.globus_url,
         args.globus_origin_directory
@@ -140,20 +139,8 @@ def main():
     elif args.local_directory:
         submission_args['directory_path'] = Path(args.local_directory)
 
-    if args.type_metadata:
-        if 0 != len(args.type_metadata) % 2:
-            raise ShowUsageException(
-                'type_metadata should be a list with an even length')
-        submission_args['override_tsv_paths'] = {}
-        for i in range(len(args.type_metadata) // 2):
-            type = args.type_metadata[2 * i]
-            path = args.type_metadata[2 * i + 1]
-            if type not in directory_schemas:
-                raise ShowUsageException(
-                    f'Expected one of {directory_schemas}, not "{type}"')
-            if not Path(path).is_file():
-                raise ShowUsageException(f'"{path}" is not a file')
-            submission_args['override_tsv_paths'][type] = path
+    if args.tsv_paths:
+        submission_args['tsv_paths'] = args.tsv_paths
 
     if args.dataset_ignore_globs:
         submission_args['dataset_ignore_globs'] = \
