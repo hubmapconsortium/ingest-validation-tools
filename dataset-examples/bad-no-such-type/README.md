@@ -1,4 +1,6 @@
 ```
 Metadata TSV Errors:
-  Bad assay_type: There is no matching schema for dataset-examples/bad-no-such-type/submission/fake-metadata.tsv
+  dataset-examples/bad-no-such-type/submission/fake-metadata.tsv (as None):
+    Internal: TSV has no assay_type.
+    External: File is missing data_path or contributors_path.
 ```

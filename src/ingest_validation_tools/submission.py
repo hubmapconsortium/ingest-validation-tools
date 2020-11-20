@@ -2,6 +2,7 @@ from datetime import datetime
 from collections import defaultdict
 from fnmatch import fnmatch
 from pathlib import Path
+from collections import Counter
 
 from yaml import safe_load as load_yaml
 
@@ -52,9 +53,7 @@ class Submission:
         self.submission_ignore_globs = submission_ignore_globs
         self.plugin_directory = plugin_directory
         unsorted_effective_tsv_paths = {
-            # NOTE: Dict structure means that if two metadata TSVs
-            # of the same type are supplied, one will be ignored.
-            _get_type_from_first_line(path): path
+            str(path): _get_type_from_first_line(path)
             for path in (
                 tsv_paths if tsv_paths
                 else directory_path.glob(f'*{TSV_SUFFIX}')
@@ -87,10 +86,7 @@ class Submission:
             errors['Notes'] = {
                 'Time': datetime.now(),
                 'Directory': str(self.directory_path),
-                'Effective TSVs': {
-                    assay_type: str(path) for assay_type, path
-                    in self.effective_tsv_paths.items()
-                }
+                'Effective TSVs': self.effective_tsv_paths
             }
         return errors
 
@@ -99,7 +95,7 @@ class Submission:
         if not plugin_path:
             return None
         errors = defaultdict(list)
-        for metadata_path in self.effective_tsv_paths.values():
+        for metadata_path in self.effective_tsv_paths.keys():
             try:
                 for k, v in run_plugin_validators_iter(metadata_path,
                                                        plugin_path):
@@ -110,15 +106,20 @@ class Submission:
         return dict(errors)  # get rid of defaultdict
 
     def _get_tsv_errors(self):
-        assay_types = self.effective_tsv_paths.keys()
-        if not assay_types:
+        if not self.effective_tsv_paths:
             return {'Missing': 'There are no effective TSVs.'}
-        if None in assay_types:
-            path_with_bad_type = self.effective_tsv_paths[None]
-            return {'Bad assay_type': f'There is no matching schema for {path_with_bad_type}'}
+
+        types_counter = Counter(self.effective_tsv_paths.values())
+        repeated = [
+            assay_type
+            for assay_type, count in types_counter.items()
+            if count > 1
+        ]
+        if repeated:
+            return f'There is more than one TSV for this type: {", ".join(repeated)}'
 
         errors = {}
-        for assay_type, path in self.effective_tsv_paths.items():
+        for path, assay_type in self.effective_tsv_paths.items():
             single_tsv_internal_errors = \
                 self._get_single_tsv_internal_errors(assay_type, path)
             single_tsv_external_errors = \
@@ -138,28 +139,32 @@ class Submission:
             optional_fields=self.optional_fields)
 
     def _get_single_tsv_external_errors(self, assay_type, path):
-        errors = {}
         rows = dict_reader_wrapper(path)
+        if not rows:
+            return 'File has no data rows.'
         if 'data_path' not in rows[0] or 'contributors_path' not in rows[0]:
-            errors['Warning'] = 'File is missing data_path or contributors_path.'
-        elif self.directory_path:
-            for i, row in enumerate(rows):
-                row_number = f'row {i+2}'
+            return 'File is missing data_path or contributors_path.'
+        if not self.directory_path:
+            return None
 
-                data_path = self.directory_path / \
-                    row['data_path']
-                data_dir_errors = self._get_data_dir_errors(
-                    assay_type, data_path)
-                if data_dir_errors:
-                    errors[f'{row_number}, referencing {data_path}'] = data_dir_errors
+        errors = {}
+        for i, row in enumerate(rows):
+            row_number = f'row {i+2}'
 
-                contributors_path = self.directory_path / \
-                    row['contributors_path']
-                contributors_errors = self._get_contributors_errors(
-                    contributors_path)
-                if contributors_errors:
-                    errors[f'{row_number}, contributors {contributors_path}'] = \
-                        contributors_errors
+            data_path = self.directory_path / \
+                row['data_path']
+            data_dir_errors = self._get_data_dir_errors(
+                assay_type, data_path)
+            if data_dir_errors:
+                errors[f'{row_number}, referencing {data_path}'] = data_dir_errors
+
+            contributors_path = self.directory_path / \
+                row['contributors_path']
+            contributors_errors = self._get_contributors_errors(
+                contributors_path)
+            if contributors_errors:
+                errors[f'{row_number}, contributors {contributors_path}'] = \
+                    contributors_errors
         return errors
 
     def _get_data_dir_errors(self, assay_type, data_path):
@@ -211,7 +216,7 @@ class Submission:
 
     def _get_references(self, col_name):
         references = defaultdict(list)
-        for tsv_path in self.effective_tsv_paths.values():
+        for tsv_path in self.effective_tsv_paths.keys():
             for i, row in enumerate(dict_reader_wrapper(tsv_path)):
                 if col_name in row:
                     reference = f'{tsv_path} (row {i+2})'

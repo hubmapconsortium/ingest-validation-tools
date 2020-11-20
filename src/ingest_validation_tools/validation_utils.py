@@ -51,6 +51,8 @@ def get_tsv_errors(tsv_path, type, optional_fields=[]):
     Validate the TSV.
     '''
     logging.info(f'Validating {type} TSV...')
+    if type is None:
+        return f'TSV has no assay_type.'
     try:
         if type in ['contributors', 'sample']:
             schema = get_other_schema(type)
