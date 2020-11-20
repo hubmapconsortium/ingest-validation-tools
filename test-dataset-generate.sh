@@ -5,7 +5,6 @@ red=`tput setaf 1`
 reset=`tput sgr0`
 die() { set +v; echo "$red$*$reset" 1>&2 ; exit 1; }
 
-LOOP='for D in `ls -d docs/*/ | grep -v sample`; do src/generate_dataset_docs.py `basename $D` $D; done'
 # Test field-descriptions.yaml:
 
 REAL_DEST="docs/field-descriptions.yaml"
@@ -22,7 +21,7 @@ rm -rf docs-test
 
 # Test docs:
 
-for TYPE in $(ls -d docs/*/ | grep -v sample); do # Just get subdirectories
+for TYPE in $(ls -d docs/*/ | grep -v 'sample\|contributors'); do # Just get subdirectories
   TYPE=`basename $TYPE`
   [ $TYPE = 'sample' ] && echo 'Skip!' && continue # Sample metadata handled separately!
   echo "Testing $TYPE generation..."
