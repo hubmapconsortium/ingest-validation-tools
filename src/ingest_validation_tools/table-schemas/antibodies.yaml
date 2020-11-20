@@ -1,0 +1,33 @@
+fields:
+  # NOTE: Example had "dataset_uuid": Won't work. Not known at submission time.
+  -
+    name: antibody_name
+    description: TODO
+  -
+    name: rrr_id
+    description: TODO
+    # TODO: pattern constraint
+  -
+    name: uniprot_accession_number
+    description: TODO	
+    # TODO: pattern constraint
+  -
+    name: lot_number
+    description: TODO	
+  -
+    name: validation_report_location
+    description: TODO
+    # Is this part of the submission? Or a URL? If a URL, put that in the field name.
+  -
+    name: assay	
+    description: TODO
+  -
+    name: dilution
+    description: TODO
+    # TODO: pattern constraint?
+  -
+    name: conjugated_cat_number	
+    description: TODO
+  -
+    name: conjugated_tag
+    description: TODO

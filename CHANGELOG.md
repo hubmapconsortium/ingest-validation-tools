@@ -12,6 +12,7 @@
 - Remove extraneous parts from Sample doc.
 - Document contributors.tsv
 - Warn if two TSVs are for the same assay type.
+- Add antibodies.tsv.
 
 ## v0.0.5 - 2020-11-09
 - Change "mixif" to "mxif".
