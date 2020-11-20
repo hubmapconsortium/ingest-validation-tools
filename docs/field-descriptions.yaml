@@ -168,6 +168,7 @@ procedure_date: Date of procedure to procure organ.
 processing_protocols_io_doi: DOI for analysis protocols.io for this assay.
 processing_search: Software for analyzing and searching LC-MS/MS omics data
 protocols_io_doi: DOI for protocols.io referring to the protocol for this assay.
+puck_id: TODO
 reagent_prep_protocols_io_doi: DOI for protocols.io referring to the protocol for
   preparing reagents for the assay.
 resolution_x_unit: The unit of measurement of width of a pixel
