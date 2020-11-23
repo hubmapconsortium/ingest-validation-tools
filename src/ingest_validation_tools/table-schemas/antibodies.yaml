@@ -23,7 +23,7 @@ fields:
     description: TODO
   -
     name: dilution
-    description: TODO
+    description: Antibody solutions may be diluted according to the experimental protocol.
     # TODO: pattern constraint?
   -
     name: conjugated_cat_number
