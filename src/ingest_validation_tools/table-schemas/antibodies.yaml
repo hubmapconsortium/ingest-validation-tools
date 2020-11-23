@@ -13,7 +13,7 @@ fields:
     # TODO: pattern constraint
   -
     name: lot_number
-    description: TODO
+    description: The lot# is specific to the vendor. (eg: Abcam lot# GR3238979-1)
   -
     name: validation_report_location
     description: TODO
