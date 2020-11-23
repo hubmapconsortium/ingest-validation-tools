@@ -5,7 +5,7 @@ fields:
     description: TODO
   -
     name: rrr_id
-    description: TODO
+    description: The rrr_id is a unique antibody identifier (eg: AB_#######) that comes from the Antibody Registry (https://antibodyregistry.org).
     # TODO: pattern constraint
   -
     name: uniprot_accession_number
