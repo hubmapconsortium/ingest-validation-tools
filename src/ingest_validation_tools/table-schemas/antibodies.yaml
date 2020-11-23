@@ -27,7 +27,7 @@ fields:
     # TODO: pattern constraint?
   -
     name: conjugated_cat_number
-    description: TODO
+    description: The catalog number for conjugated antibody. (optional) 
   -
     name: conjugated_tag
     description: TODO
