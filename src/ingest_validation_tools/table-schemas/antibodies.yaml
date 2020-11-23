@@ -2,7 +2,7 @@ fields:
   # NOTE: Example had "dataset_uuid": Won't work. Not known at submission time.
   -
     name: antibody_name
-    description: TODO
+    description: Anti-(target name) antibody.
   -
     name: rrr_id
     description: The rrr_id is a unique antibody identifier (eg: AB_#######) that comes from the Antibody Registry (https://antibodyregistry.org).
