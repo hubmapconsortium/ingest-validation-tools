@@ -17,22 +17,22 @@ Related files:
 [`conjugated_tag`](#conjugated_tag)<br></details>
 
 ### `antibody_name`
-TODO.
+Anti-(target name) antibody.
 
 
 
 ### `rrr_id`
-TODO.
+The rrr_id is a unique antibody identifier (eg: AB_#######) that comes from the Antibody Registry (https://antibodyregistry.org).
 
 
 
 ### `uniprot_accession_number`
-TODO.
+The uniprot_accession_number is a unique identifier (eg: P#####) for proteins in the UniProt database (https://www.uniprot.org).
 
 
 
 ### `lot_number`
-TODO.
+The lot# is specific to the vendor. (eg: Abcam lot# GR3238979-1)
 
 
 
@@ -47,12 +47,12 @@ TODO.
 
 
 ### `dilution`
-TODO.
+Antibody solutions may be diluted according to the experimental protocol.
 
 
 
 ### `conjugated_cat_number`
-TODO.
+The catalog number for conjugated antibody. (optional)
 
 
 
