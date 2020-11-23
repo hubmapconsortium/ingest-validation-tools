@@ -5,15 +5,15 @@ fields:
     description: Anti-(target name) antibody.
   -
     name: rrr_id
-    description: The rrr_id is a unique antibody identifier (eg: AB_#######) that comes from the Antibody Registry (https://antibodyregistry.org).
+    description: 'The rrr_id is a unique antibody identifier (eg: AB_#######) that comes from the Antibody Registry (https://antibodyregistry.org).'
     # TODO: pattern constraint
   -
     name: uniprot_accession_number
-    description: The uniprot_accession_number is a unique identifier (eg: P#####) for proteins in the UniProt database (https://www.uniprot.org).
+    description: 'The uniprot_accession_number is a unique identifier (eg: P#####) for proteins in the UniProt database (https://www.uniprot.org).'
     # TODO: pattern constraint
   -
     name: lot_number
-    description: The lot# is specific to the vendor. (eg: Abcam lot# GR3238979-1)
+    description: 'The lot# is specific to the vendor. (eg: Abcam lot# GR3238979-1)'
   -
     name: validation_report_location
     description: TODO
