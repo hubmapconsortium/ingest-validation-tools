@@ -9,7 +9,7 @@ fields:
     # TODO: pattern constraint
   -
     name: uniprot_accession_number
-    description: TODO
+    description: The uniprot_accession_number is a unique identifier (eg: P#####) for proteins in the UniProt database (https://www.uniprot.org).
     # TODO: pattern constraint
   -
     name: lot_number
