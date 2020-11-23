@@ -216,7 +216,7 @@ Adapter sequence to be used for adapter trimming.
 | required | `True` |
 
 ### `puck_id`
-TODO.
+Slide-seq captures RNA sequence data on spatially barcoded arrays of beads. Beads are fixed to a slide in a region shaped like a round puck. Each puck has a unique puck_id.
 
 | constraint | value |
 | --- | --- |
