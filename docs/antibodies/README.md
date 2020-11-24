@@ -22,14 +22,18 @@ Anti-(target name) antibody.
 
 
 ### `rrr_id`
-The rrr_id is a unique antibody identifier (eg: AB_#######) that comes from the Antibody Registry (https://antibodyregistry.org).
+The rrr_id is a unique antibody identifier that comes from the Antibody Registry (https://antibodyregistry.org). Example: `AB_10002075`.
 
-
+| constraint | value |
+| --- | --- |
+| pattern (regular expression) | `AB_\d+` |
 
 ### `uniprot_accession_number`
-The uniprot_accession_number is a unique identifier (eg: P#####) for proteins in the UniProt database (https://www.uniprot.org).
+The uniprot_accession_number is a unique identifier for proteins in the UniProt database (https://www.uniprot.org). Example: `P0DTC1`.
 
-
+| constraint | value |
+| --- | --- |
+| pattern (regular expression) | `P[0-9A-Z]+` |
 
 ### `lot_number`
 The lot# is specific to the vendor. (eg: Abcam lot# GR3238979-1)
@@ -47,12 +51,14 @@ TODO.
 
 
 ### `dilution`
-Antibody solutions may be diluted according to the experimental protocol.
+Antibody solutions may be diluted according to the experimental protocol. Example: `1/200`.
 
-
+| constraint | value |
+| --- | --- |
+| pattern (regular expression) | `1/\d+` |
 
 ### `conjugated_cat_number`
-The catalog number for conjugated antibody. (optional)
+The catalog number for conjugated antibody.
 
 
 

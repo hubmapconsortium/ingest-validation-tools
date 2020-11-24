@@ -5,12 +5,16 @@ fields:
     description: Anti-(target name) antibody.
   -
     name: rrr_id
-    description: 'The rrr_id is a unique antibody identifier (eg: AB_#######) that comes from the Antibody Registry (https://antibodyregistry.org).'
-    # TODO: pattern constraint
+    description: 'The rrr_id is a unique antibody identifier that comes from the Antibody Registry (https://antibodyregistry.org).'
+    constraints:
+      pattern: 'AB_\d+'
+    example: AB_10002075
   -
     name: uniprot_accession_number
-    description: 'The uniprot_accession_number is a unique identifier (eg: P#####) for proteins in the UniProt database (https://www.uniprot.org).'
-    # TODO: pattern constraint
+    description: 'The uniprot_accession_number is a unique identifier for proteins in the UniProt database (https://www.uniprot.org).'
+    constraints:
+      pattern: 'P[0-9A-Z]+'
+    example: P0DTC1
   -
     name: lot_number
     description: 'The lot# is specific to the vendor. (eg: Abcam lot# GR3238979-1)'
@@ -24,10 +28,13 @@ fields:
   -
     name: dilution
     description: Antibody solutions may be diluted according to the experimental protocol.
-    # TODO: pattern constraint?
+    constraints:
+      pattern: '1/\d+'
+    example: 1/200
   -
     name: conjugated_cat_number
-    description: The catalog number for conjugated antibody. (optional) 
+    description: The catalog number for conjugated antibody.
+    required: False
   -
     name: conjugated_tag
     description: TODO
