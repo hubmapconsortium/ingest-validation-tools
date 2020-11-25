@@ -39,7 +39,7 @@ Related files:
 [`is_technical_replicate`](#is_technical_replicate)<br>
 [`bead_barcode_read`](#cell_barcode_read)<br>
 [`bead_barcode_offset`](#cell_barcode_offset)<br>
-[`cell_barcode_size`](#cell_barcode_size)<br>
+[`bead_barcode_size`](#cell_barcode_size)<br>
 [`library_pcr_cycles`](#library_pcr_cycles)<br>
 [`library_pcr_cycles_for_sample_index`](#library_pcr_cycles_for_sample_index)<br>
 [`library_final_yield_value`](#library_final_yield_value)<br>
