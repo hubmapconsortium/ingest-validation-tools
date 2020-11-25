@@ -230,7 +230,7 @@ Is the sequencing reaction run in repliucate, TRUE or FALSE.
 | type | `boolean` |
 | required | `True` |
 
-### `cell_barcode_read`
+### `bead_barcode_read`
 Which read file contains the cell barcode.
 
 | constraint | value |
