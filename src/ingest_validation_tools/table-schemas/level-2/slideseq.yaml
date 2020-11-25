@@ -9,7 +9,8 @@ fields:
   -
     name: assay_type
     constraints:
-      enum: [] # TODO
+      enum:
+        - Slide-seq
   -
     name: analyte_class
     constraints:
