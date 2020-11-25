@@ -39,10 +39,6 @@ Related files:
 [`stain`](#stain)<br>
 [`section_prep_protocols_io_doi`](#section_prep_protocols_io_doi)<br>
 [`overall_protocols_io_doi`](#overall_protocols_io_doi)<br>
-</details>
-
-<details><summary>Paths</summary>
-
 [`contributors_path`](#contributors_path)<br>
 [`data_path`](#data_path)<br></details>
 
@@ -241,8 +237,6 @@ Description of the overall methodology for conducting the assay.
 | --- | --- |
 | required | `True` |
 | pattern (regular expression) | `10\.17504/.*` |
-
-## Paths
 
 ### `contributors_path`
 Relative path to file with ORCID IDs for contributors for this dataset.

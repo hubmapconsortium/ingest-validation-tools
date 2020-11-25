@@ -44,10 +44,6 @@ Related files:
 [`preparation_maldi_matrix`](#preparation_maldi_matrix)<br>
 [`section_prep_protocols_io_doi`](#section_prep_protocols_io_doi)<br>
 [`overall_protocols_io_doi`](#overall_protocols_io_doi)<br>
-</details>
-
-<details><summary>Paths</summary>
-
 [`contributors_path`](#contributors_path)<br>
 [`data_path`](#data_path)<br></details>
 
@@ -288,8 +284,6 @@ DOI for protocols.io referring to the overall protocol for the assay.
 | --- | --- |
 | required | `True` |
 | pattern (regular expression) | `10\.17504/.*` |
-
-## Paths
 
 ### `contributors_path`
 Relative path to file with ORCID IDs for contributors for this dataset.

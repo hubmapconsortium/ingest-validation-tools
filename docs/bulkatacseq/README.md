@@ -53,10 +53,6 @@ Related files:
 [`transposition_kit_number`](#transposition_kit_number)<br>
 [`transposition_method`](#transposition_method)<br>
 [`transposition_transposase_source`](#transposition_transposase_source)<br>
-</details>
-
-<details><summary>Paths</summary>
-
 [`contributors_path`](#contributors_path)<br>
 [`data_path`](#data_path)<br></details>
 
@@ -361,8 +357,6 @@ The source of the Tn5 transposase and transposon used for capturing accessible c
 | constraint | value |
 | --- | --- |
 | required | `True` |
-
-## Paths
 
 ### `contributors_path`
 Relative path to file with ORCID IDs for contributors for this dataset.

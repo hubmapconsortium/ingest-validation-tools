@@ -54,10 +54,6 @@ Related files:
 [`signal_type`](#signal_type)<br>
 [`start_datetime`](#start_datetime)<br>
 [`data_precision_bytes`](#data_precision_bytes)<br>
-</details>
-
-<details><summary>Paths</summary>
-
 [`contributors_path`](#contributors_path)<br>
 [`data_path`](#data_path)<br></details>
 
@@ -373,8 +369,6 @@ Numerical data precision in bytes.
 | --- | --- |
 | type | `number` |
 | required | `True` |
-
-## Paths
 
 ### `contributors_path`
 Relative path to file with ORCID IDs for contributors for this dataset.
