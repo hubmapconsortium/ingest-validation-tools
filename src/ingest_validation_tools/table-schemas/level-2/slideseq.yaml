@@ -25,9 +25,6 @@ fields:
     name: acquisition_instrument_model
     description: Manufacturers of an acquisition instrument may offer various versions (models) of that instrument with different features or sensitivities. Differences in features or sensitivities may be relevant to processing or interpretation of the data.
   -
-    name: rnaseq_assay_input
-    description: Number of cell/nuclei input to the assay
-  -
     name: rnaseq_assay_method
     description: The kit used for the RNA sequencing assay
   -
