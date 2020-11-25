@@ -47,7 +47,7 @@ fields:
     description: Is the sequencing reaction run in repliucate, TRUE or FALSE
     type: boolean
   -
-    name: cell_barcode_read
+    name: bead_barcode_read
     description: Which read file contains the cell barcode
   -
     name: bead_barcode_offset
