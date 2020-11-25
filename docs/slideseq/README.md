@@ -30,16 +30,15 @@ Related files:
 
 [`acquisition_instrument_vendor`](#acquisition_instrument_vendor)<br>
 [`acquisition_instrument_model`](#acquisition_instrument_model)<br>
-[`rnaseq_assay_input`](#rnaseq_assay_input)<br>
 [`rnaseq_assay_method`](#rnaseq_assay_method)<br>
 [`library_construction_protocols_io_doi`](#library_construction_protocols_io_doi)<br>
 [`library_layout`](#library_layout)<br>
 [`library_adapter_sequence`](#library_adapter_sequence)<br>
 [`puck_id`](#puck_id)<br>
 [`is_technical_replicate`](#is_technical_replicate)<br>
-[`bead_barcode_read`](#cell_barcode_read)<br>
-[`bead_barcode_offset`](#cell_barcode_offset)<br>
-[`bead_barcode_size`](#cell_barcode_size)<br>
+[`bead_barcode_read`](#bead_barcode_read)<br>
+[`bead_barcode_offset`](#bead_barcode_offset)<br>
+[`bead_barcode_size`](#bead_barcode_size)<br>
 [`library_pcr_cycles`](#library_pcr_cycles)<br>
 [`library_pcr_cycles_for_sample_index`](#library_pcr_cycles_for_sample_index)<br>
 [`library_final_yield_value`](#library_final_yield_value)<br>
@@ -179,13 +178,6 @@ Manufacturers of an acquisition instrument may offer various versions (models) o
 | --- | --- |
 | required | `True` |
 
-### `rnaseq_assay_input`
-Number of cell/nuclei input to the assay.
-
-| constraint | value |
-| --- | --- |
-| required | `True` |
-
 ### `rnaseq_assay_method`
 The kit used for the RNA sequencing assay.
 
@@ -231,21 +223,21 @@ Is the sequencing reaction run in repliucate, TRUE or FALSE.
 | required | `True` |
 
 ### `bead_barcode_read`
-Which read file contains the cell barcode.
+Which read file contains the bead barcode.
 
 | constraint | value |
 | --- | --- |
 | required | `True` |
 
 ### `bead_barcode_offset`
-Position(s) in the read at which the cell barcode starts.
+Position(s) in the read at which the bead barcode starts.
 
 | constraint | value |
 | --- | --- |
 | required | `True` |
 
 ### `bead_barcode_size`
-Length of the cell barcode in base pairs.
+Length of the bead barcode in base pairs.
 
 | constraint | value |
 | --- | --- |
