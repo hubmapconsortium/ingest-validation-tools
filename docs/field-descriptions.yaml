@@ -20,6 +20,7 @@ acquisition_instrument_vendor: An acquisition_instrument is the device that cont
   such as light of various intensities or color or signals representing molecular
   mass.
 analyte_class: Analytes are the target molecules being measured with the assay.
+antibodies_path: Relative path to file with antibody information for this dataset.
 assay_category: 'Each assay is placed into one of the following 3 general categories:
   generation of images of microscopic entities, identification & quantitation of molecules
   by mass spectrometry, and determination of nucleotide sequence.'

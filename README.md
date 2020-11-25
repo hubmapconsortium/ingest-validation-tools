@@ -100,8 +100,12 @@ Submissions are based on directories containing at a minimum:
 - one or more `*-metadata.tsv` files.
 - top-level dataset directories in a 1-to-1 relationship with the rows of the TSVs.
 
-The `data_path` and `contributors_path` in the TSV are relative to the location of the TSV.
+The type of a metadata TSV is determined by reading the first row.
+
+The `antibodies_path` (for applicable types), `contributors_path`, and `data_path` are relative to the location of the TSV.
+The antibodies and contributors TSV will typically be at the top level of the submission,
+but if they are applicable to only a single dataset, they can be placed within that dataset's `extras/` directory.
 
 You can validate your submission directory locally, then upload it to Globus, and the same validation will be run there.
 
-[![Submission diagram](https://docs.google.com/drawings/d/e/2PACX-1vSNLsaSxW_VSaRT9LK1uPevxwKotT0utC5tOhYTx8lnI-L0PIuD1bnOtxFvYymBTC3oGQgR6ENDP1xe/pub?w=500)](https://docs.google.com/drawings/d/13EYFmY5xuXoWKQeiUzbKTKoJNqkkpmlyfDFYx8zQSag/edit)
+[![Submission diagram](https://docs.google.com/drawings/d/e/2PACX-1vS8F78bk0zHSRygMIyTLruAMxjL4c5EY_q_Mp3gN2TbdZLtalax5AxyvwBWyqWwAJH941ziqJPqBDTW/pub?w=500)](https://docs.google.com/drawings/d/1nhrRWBgcZh6GE2MCKysIq4KzsRL6SZm0jYtvadF83Kk/edit)
