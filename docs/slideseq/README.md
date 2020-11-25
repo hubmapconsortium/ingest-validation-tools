@@ -237,7 +237,7 @@ Which read file contains the cell barcode.
 | --- | --- |
 | required | `True` |
 
-### `cell_barcode_offset`
+### `bead_barcode_offset`
 Position(s) in the read at which the cell barcode starts.
 
 | constraint | value |
