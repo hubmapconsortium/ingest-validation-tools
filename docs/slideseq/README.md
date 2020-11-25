@@ -37,7 +37,7 @@ Related files:
 [`library_adapter_sequence`](#library_adapter_sequence)<br>
 [`puck_id`](#puck_id)<br>
 [`is_technical_replicate`](#is_technical_replicate)<br>
-[`cell_barcode_read`](#cell_barcode_read)<br>
+[`bead_barcode_read`](#cell_barcode_read)<br>
 [`cell_barcode_offset`](#cell_barcode_offset)<br>
 [`cell_barcode_size`](#cell_barcode_size)<br>
 [`library_pcr_cycles`](#library_pcr_cycles)<br>
