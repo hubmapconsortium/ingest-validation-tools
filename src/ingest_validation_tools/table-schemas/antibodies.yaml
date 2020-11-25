@@ -19,10 +19,6 @@ fields:
     name: lot_number
     description: 'The lot# is specific to the vendor. (eg: Abcam lot# GR3238979-1)'
   -
-    name: validation_report_location
-    description: TODO
-    # Is this part of the submission? Or a URL? If a URL, put that in the field name.
-  -
     name: assay
     description: TODO
   -
