@@ -53,7 +53,7 @@ fields:
     name: bead_barcode_offset
     description: Position(s) in the read at which the bead barcode starts.
   -
-    name: cell_barcode_size
+    name: bead_barcode_size
     description: Length of the cell barcode in base pairs
   -
     name: library_pcr_cycles
