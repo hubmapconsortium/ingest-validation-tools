@@ -33,4 +33,5 @@ fields:
     required: False
   -
     name: conjugated_tag
-    description: TODO
+    description: The name of the entity conjugated to the antibody.
+    required: False

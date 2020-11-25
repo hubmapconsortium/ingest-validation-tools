@@ -10,7 +10,6 @@ Related files:
 [`rrr_id`](#rrr_id)<br>
 [`uniprot_accession_number`](#uniprot_accession_number)<br>
 [`lot_number`](#lot_number)<br>
-[`validation_report_location`](#validation_report_location)<br>
 [`assay`](#assay)<br>
 [`dilution`](#dilution)<br>
 [`conjugated_cat_number`](#conjugated_cat_number)<br>
@@ -40,11 +39,6 @@ The lot# is specific to the vendor. (eg: Abcam lot# GR3238979-1)
 
 
 
-### `validation_report_location`
-TODO.
-
-
-
 ### `assay`
 TODO.
 
@@ -63,6 +57,6 @@ The catalog number for conjugated antibody.
 
 
 ### `conjugated_tag`
-TODO.
+The name of the entity conjugated to the antibody.
 
 
