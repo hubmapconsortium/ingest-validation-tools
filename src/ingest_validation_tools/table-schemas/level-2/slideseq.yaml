@@ -54,7 +54,7 @@ fields:
     description: Position(s) in the read at which the bead barcode starts.
   -
     name: bead_barcode_size
-    description: Length of the cell barcode in base pairs
+    description: Length of the bead barcode in base pairs
   -
     name: library_pcr_cycles
     description: Number of PCR cycles to amplify cDNA
