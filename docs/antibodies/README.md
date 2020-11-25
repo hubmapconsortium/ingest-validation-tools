@@ -6,17 +6,24 @@ Related files:
 - [💻 Source code](https://github.com/hubmapconsortium/ingest-validation-tools/edit/master/src/ingest_validation_tools/table-schemas/antibodies.yaml): Make a PR if this doc should be updated.
 
 ## Table of contents
+[`channel_id`](#channel_id)<br>
 [`antibody_name`](#antibody_name)<br>
 [`rrr_id`](#rrr_id)<br>
 [`uniprot_accession_number`](#uniprot_accession_number)<br>
 [`lot_number`](#lot_number)<br>
-[`assay`](#assay)<br>
 [`dilution`](#dilution)<br>
 [`conjugated_cat_number`](#conjugated_cat_number)<br>
 [`conjugated_tag`](#conjugated_tag)<br></details>
 
+### `channel_id`
+The cycle/channel in which the protein was assessed with this antibody.
+
+| constraint | value |
+| --- | --- |
+| type | `integer` |
+
 ### `antibody_name`
-Anti-(target name) antibody.
+Anti-(target name) antibody. Not validated or used down-stream.
 
 
 
@@ -36,11 +43,6 @@ The uniprot_accession_number is a unique identifier for proteins in the UniProt 
 
 ### `lot_number`
 The lot# is specific to the vendor. (eg: Abcam lot# GR3238979-1)
-
-
-
-### `assay`
-TODO.
 
 
 
