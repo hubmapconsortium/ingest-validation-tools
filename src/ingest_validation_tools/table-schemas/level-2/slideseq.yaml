@@ -51,7 +51,7 @@ fields:
     description: Which read file contains the cell barcode
   -
     name: cell_barcode_offset
-    description: Position(s) in the read at which the cell barcode starts.
+    description: Position(s) in the read at which the bead barcode starts.
   -
     name: cell_barcode_size
     description: Length of the cell barcode in base pairs
