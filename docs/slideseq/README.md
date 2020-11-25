@@ -244,7 +244,7 @@ Position(s) in the read at which the cell barcode starts.
 | --- | --- |
 | required | `True` |
 
-### `cell_barcode_size`
+### `bead_barcode_size`
 Length of the cell barcode in base pairs.
 
 | constraint | value |
