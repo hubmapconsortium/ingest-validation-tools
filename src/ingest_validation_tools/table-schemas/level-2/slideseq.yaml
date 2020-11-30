@@ -49,7 +49,7 @@ fields:
     description: Which read file contains the bead barcode
   -
     name: bead_barcode_offset
-    description: Position(s) in the read at which the bead barcode starts.
+    description: Position(s) in the read at which the bead barcode starts
   -
     name: bead_barcode_size
     description: Length of the bead barcode in base pairs
