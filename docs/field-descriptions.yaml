@@ -25,6 +25,9 @@ assay_category: 'Each assay is placed into one of the following 3 general catego
   generation of images of microscopic entities, identification & quantitation of molecules
   by mass spectrometry, and determination of nucleotide sequence.'
 assay_type: The specific type of assay being executed.
+bead_barcode_offset: Position(s) in the read at which the bead barcode starts
+bead_barcode_read: Which read file contains the bead barcode
+bead_barcode_size: Length of the bead barcode in base pairs
 bulk_atac_cell_isolation_protocols_io_doi: 'Link to a protocols document answering
   the question: How was tissue stored and processed for cell/nuclei isolation'
 bulk_rna_isolation_protocols_io_doi: 'Link to a protocols document answering the question:
@@ -169,6 +172,9 @@ procedure_date: Date of procedure to procure organ.
 processing_protocols_io_doi: DOI for analysis protocols.io for this assay.
 processing_search: Software for analyzing and searching LC-MS/MS omics data
 protocols_io_doi: DOI for protocols.io referring to the protocol for this assay.
+puck_id: Slide-seq captures RNA sequence data on spatially barcoded arrays of beads.
+  Beads are fixed to a slide in a region shaped like a round puck. Each puck has a
+  unique puck_id.
 reagent_prep_protocols_io_doi: DOI for protocols.io referring to the protocol for
   preparing reagents for the assay.
 resolution_x_unit: The unit of measurement of width of a pixel

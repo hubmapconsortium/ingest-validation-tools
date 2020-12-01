@@ -75,6 +75,7 @@ fields:
         - snRNAseq
         - scRNAseq-10xGenomics
         - scRNAseq
+        - Slide-seq
   -
     name: analyte_class
     description: Analytes are the target molecules being measured with the assay.
