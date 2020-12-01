@@ -47,10 +47,7 @@ Related files:
 [`number_of_cycles`](#number_of_cycles)<br>
 [`section_prep_protocols_io_doi`](#section_prep_protocols_io_doi)<br>
 [`reagent_prep_protocols_io_doi`](#reagent_prep_protocols_io_doi)<br>
-</details>
-
-<details><summary>Paths</summary>
-
+[`antibodies_path`](#antibodies_path)<br>
 [`contributors_path`](#contributors_path)<br>
 [`data_path`](#data_path)<br></details>
 
@@ -293,7 +290,12 @@ DOI for protocols.io referring to the protocol for preparing reagents for the as
 | required | `True` |
 | pattern (regular expression) | `10\.17504/.*` |
 
-## Paths
+### `antibodies_path`
+Relative path to file with antibody information for this dataset.
+
+| constraint | value |
+| --- | --- |
+| required | `True` |
 
 ### `contributors_path`
 Relative path to file with ORCID IDs for contributors for this dataset.

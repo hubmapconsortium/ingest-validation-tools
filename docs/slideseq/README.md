@@ -1,9 +1,9 @@
-# mxif
+# slideseq
 
 Related files:
-- [🔬 Background doc](https://portal.hubmapconsortium.org/docs/assays/mxif): More details about this type.
-- [📝 TSV template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/master/docs/mxif/mxif-metadata.tsv): Use this to submit metadata.
-- [💻 Source code](https://github.com/hubmapconsortium/ingest-validation-tools/edit/master/src/ingest_validation_tools/table-schemas/level-2/mxif.yaml): Make a PR if this doc should be updated.
+
+- [📝 TSV template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/master/docs/slideseq/slideseq-metadata.tsv): Use this to submit metadata.
+- [💻 Source code](https://github.com/hubmapconsortium/ingest-validation-tools/edit/master/src/ingest_validation_tools/table-schemas/level-2/slideseq.yaml): Make a PR if this doc should be updated.
 
 ## Table of contents
 <details><summary>Provenance</summary>
@@ -30,16 +30,24 @@ Related files:
 
 [`acquisition_instrument_vendor`](#acquisition_instrument_vendor)<br>
 [`acquisition_instrument_model`](#acquisition_instrument_model)<br>
-[`resolution_x_value`](#resolution_x_value)<br>
-[`resolution_x_unit`](#resolution_x_unit)<br>
-[`resolution_y_value`](#resolution_y_value)<br>
-[`resolution_y_unit`](#resolution_y_unit)<br>
-[`number_of_channels`](#number_of_channels)<br>
-[`number_of_cycles`](#number_of_cycles)<br>
-[`section_prep_protocols_io_doi`](#section_prep_protocols_io_doi)<br>
-[`reagent_prep_protocols_io_doi`](#reagent_prep_protocols_io_doi)<br>
-[`overall_protocols_io_doi`](#overall_protocols_io_doi)<br>
-[`antibodies_path`](#antibodies_path)<br>
+[`rnaseq_assay_method`](#rnaseq_assay_method)<br>
+[`library_construction_protocols_io_doi`](#library_construction_protocols_io_doi)<br>
+[`library_layout`](#library_layout)<br>
+[`library_adapter_sequence`](#library_adapter_sequence)<br>
+[`puck_id`](#puck_id)<br>
+[`is_technical_replicate`](#is_technical_replicate)<br>
+[`bead_barcode_read`](#bead_barcode_read)<br>
+[`bead_barcode_offset`](#bead_barcode_offset)<br>
+[`bead_barcode_size`](#bead_barcode_size)<br>
+[`library_pcr_cycles`](#library_pcr_cycles)<br>
+[`library_pcr_cycles_for_sample_index`](#library_pcr_cycles_for_sample_index)<br>
+[`library_final_yield_value`](#library_final_yield_value)<br>
+[`library_final_yield_unit`](#library_final_yield_unit)<br>
+[`library_average_fragment_size`](#library_average_fragment_size)<br>
+[`sequencing_reagent_kit`](#sequencing_reagent_kit)<br>
+[`sequencing_read_format`](#sequencing_read_format)<br>
+[`sequencing_read_percent_q30`](#sequencing_read_percent_q30)<br>
+[`sequencing_phix_percent`](#sequencing_phix_percent)<br>
 [`contributors_path`](#contributors_path)<br>
 [`data_path`](#data_path)<br></details>
 
@@ -123,7 +131,7 @@ Each assay is placed into one of the following 3 general categories: generation 
 
 | constraint | value |
 | --- | --- |
-| enum | `imaging` |
+| enum | `sequence` |
 | required | `True` |
 
 ### `assay_type`
@@ -131,7 +139,7 @@ The specific type of assay being executed.
 
 | constraint | value |
 | --- | --- |
-| enum | `MxIF` |
+| enum | `Slide-seq` |
 | required | `True` |
 
 ### `analyte_class`
@@ -139,7 +147,7 @@ Analytes are the target molecules being measured with the assay.
 
 | constraint | value |
 | --- | --- |
-| enum | `protein` |
+| enum | `RNA` |
 | required | `True` |
 
 ### `is_targeted`
@@ -153,7 +161,7 @@ Specifies whether or not a specific molecule(s) is/are targeted for detection/me
 ## Level 2
 
 ### `acquisition_instrument_vendor`
-An acquisition_instrument is the device that contains the signal detection hardware and signal processing software. Assays generate signals such as light of various intensities or color or signals representing molecular mass.
+An acquisition_instrument is the device that contains the signal detection hardware and signal processing software. Assays can generate signals such as light of various intensities or color or signals representing molecular mass.
 
 | constraint | value |
 | --- | --- |
@@ -166,84 +174,142 @@ Manufacturers of an acquisition instrument may offer various versions (models) o
 | --- | --- |
 | required | `True` |
 
-### `resolution_x_value`
-The width of a pixel.
+### `rnaseq_assay_method`
+The kit used for the RNA sequencing assay.
+
+| constraint | value |
+| --- | --- |
+| required | `True` |
+
+### `library_construction_protocols_io_doi`
+A link to the protocol document containing the library construction method (including version) that was used, e.g. "Smart-Seq2", "Drop-Seq", "10X v3".
+
+| constraint | value |
+| --- | --- |
+| required | `True` |
+| pattern (regular expression) | `10\.17504/.*` |
+
+### `library_layout`
+Whether the library was generated for single-end or paired end sequencing.
+
+| constraint | value |
+| --- | --- |
+| required | `True` |
+
+### `library_adapter_sequence`
+Adapter sequence to be used for adapter trimming.
+
+| constraint | value |
+| --- | --- |
+| required | `True` |
+
+### `puck_id`
+Slide-seq captures RNA sequence data on spatially barcoded arrays of beads. Beads are fixed to a slide in a region shaped like a round puck. Each puck has a unique puck_id.
+
+| constraint | value |
+| --- | --- |
+| required | `True` |
+
+### `is_technical_replicate`
+Is the sequencing reaction run in repliucate, TRUE or FALSE.
+
+| constraint | value |
+| --- | --- |
+| type | `boolean` |
+| required | `True` |
+
+### `bead_barcode_read`
+Which read file contains the bead barcode.
+
+| constraint | value |
+| --- | --- |
+| required | `True` |
+
+### `bead_barcode_offset`
+Position(s) in the read at which the bead barcode starts.
+
+| constraint | value |
+| --- | --- |
+| required | `True` |
+
+### `bead_barcode_size`
+Length of the bead barcode in base pairs.
+
+| constraint | value |
+| --- | --- |
+| required | `True` |
+
+### `library_pcr_cycles`
+Number of PCR cycles to amplify cDNA.
+
+| constraint | value |
+| --- | --- |
+| required | `True` |
+
+### `library_pcr_cycles_for_sample_index`
+Number of PCR cycles performed for library indexing.
+
+| constraint | value |
+| --- | --- |
+| required | `True` |
+
+### `library_final_yield_value`
+Total number of ng of library after final pcr amplification step. This is the concentration (ng/ul) * volume (ul)
 
 | constraint | value |
 | --- | --- |
 | type | `number` |
 | required | `True` |
 
-### `resolution_x_unit`
-The unit of measurement of width of a pixel.(nm)
+### `library_final_yield_unit`
+Units of final library yield.
 
 | constraint | value |
 | --- | --- |
-| enum | `nm` or `um` |
+| enum | `ng` |
 | required | `True` |
 
-### `resolution_y_value`
-The height of a pixel.
+### `library_average_fragment_size`
+Average size of sequencing library fragments estimated via gel electrophoresis or bioanalyzer/tapestation.
+
+| constraint | value |
+| --- | --- |
+| required | `True` |
+
+### `sequencing_reagent_kit`
+Reagent kit used for sequencing.
+
+| constraint | value |
+| --- | --- |
+| required | `True` |
+
+### `sequencing_read_format`
+Slash-delimited list of the number of sequencing cycles for, for example, Read1, i7 index, i5 index, and Read2.
+
+| constraint | value |
+| --- | --- |
+| pattern (regular expression) | `\d+(/\d+)+` |
+| required | `True` |
+
+### `sequencing_read_percent_q30`
+Percent of bases with Quality scores above Q30.
 
 | constraint | value |
 | --- | --- |
 | type | `number` |
 | required | `True` |
+| minimum | `0` |
+| maximum | `100` |
 
-### `resolution_y_unit`
-The unit of measurement of height of a pixel.(nm)
-
-| constraint | value |
-| --- | --- |
-| enum | `nm` or `um` |
-| required | `True` |
-
-### `number_of_channels`
-Number of fluorescent channels imaged during each cycle.
+### `sequencing_phix_percent`
+Percent PhiX loaded to the run.
 
 | constraint | value |
 | --- | --- |
-| type | `integer` |
+| type | `number` |
 | required | `True` |
-
-### `number_of_cycles`
-Number of cycles of 1. antibody application, 2. image capture, 3. antibody stripping.
-
-| constraint | value |
-| --- | --- |
-| type | `integer` |
-| required | `True` |
-
-### `section_prep_protocols_io_doi`
-DOI for protocols.io referring to the protocol for preparing tissue sections for the assay.
-
-| constraint | value |
-| --- | --- |
-| required | `True` |
-| pattern (regular expression) | `10\.17504/.*` |
-
-### `reagent_prep_protocols_io_doi`
-DOI for protocols.io referring to the protocol for preparing reagents for the assay.
-
-| constraint | value |
-| --- | --- |
-| required | `True` |
-| pattern (regular expression) | `10\.17504/.*` |
-
-### `overall_protocols_io_doi`
-DOI for protocols.io for the overall process.
-
-| constraint | value |
-| --- | --- |
-| required | `True` |
-| pattern (regular expression) | `10\.17504/.*` |
-
-### `antibodies_path`
-Relative path to file with antibody information for this dataset.
-
-| constraint | value |
-| --- | --- |
-| required | `True` |
+| minimum | `0` |
+| maximum | `100` |
 
 ### `contributors_path`
 Relative path to file with ORCID IDs for contributors for this dataset.

@@ -5,7 +5,7 @@ red=`tput setaf 1`
 reset=`tput sgr0`
 die() { set +v; echo "$red$*$reset" 1>&2 ; exit 1; }
 
-for TARGET in 'sample' 'contributors'; do
+for TARGET in 'sample' 'contributors' 'antibodies'; do
   REAL_DEST="docs/$TARGET"
   TEST_DEST="docs-test/$TARGET"
 
