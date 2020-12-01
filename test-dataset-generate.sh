@@ -34,7 +34,9 @@ for TYPE in $(ls -d docs/*/ | grep -v 'sample\|contributors\|antibodies'); do # 
 
   mkdir -p $TEST_DEST || echo "$TEST_DEST already exists"
   eval $TEST_CMD
-  diff -r $REAL_DEST $TEST_DEST \
+  # TODO: Excel files contain a timestamp internally, in docProps/core.xml.
+  # So, for now, there can be a mismatch that does not cause a failure.
+  diff -r $REAL_DEST $TEST_DEST --exclude='*.xlsx' \
     || die "Update needed: $REAL_CMD
 Or:" 'for D in `ls -d docs/*/  | grep -v sample`; do src/generate_dataset_docs.py `basename $D` $D; done'
   rm -rf $TEST_DEST

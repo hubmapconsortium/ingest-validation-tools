@@ -5,6 +5,10 @@ def get_tsv_name(type):
     return f'{type}-metadata.tsv'
 
 
+def get_xlsx_name(type):
+    return f'{type}-metadata.xlsx'
+
+
 def generate_template_tsv(table_schema):
     names = [field['name'] for field in table_schema['fields']]
     header_row = '\t'.join(names)
@@ -75,9 +79,10 @@ def generate_readme_md(
 {dir_description_md}
 ''' if directory_schema else ''
 
-    raw_url = 'https://raw.githubusercontent.com/hubmapconsortium' \
-        '/ingest-validation-tools/master/docs' \
-        f'/{type}/{get_tsv_name(type)}'
+    raw_base_url = 'https://raw.githubusercontent.com/' \
+        'hubmapconsortium/ingest-validation-tools/master/docs'
+    tsv_url = f'{raw_base_url}/{type}/{get_tsv_name(type)}'
+    xlsx_url = f'{raw_base_url}/{type}/{get_xlsx_name(type)}'
     end_of_path = f'{"" if is_top_level else "level-2/"}{type}.yaml'
     source_url = 'https://github.com/hubmapconsortium' \
         '/ingest-validation-tools/edit/master' \
@@ -91,8 +96,9 @@ def generate_readme_md(
 
 Related files:
 {optional_doc_link_md}
-- [📝 TSV template]({raw_url}): Use this to submit metadata.
-- [💻 Source code]({source_url}): Make a PR if this doc should be updated.
+- [📝 Excel template]({xlsx_url}): For metadata entry.
+- [📝 TSV template]({tsv_url}): Alternative for metadata entry.
+- [💻 Source code]({source_url}): Make a PR to update this doc.
 
 ## Table of contents
 {toc_md}

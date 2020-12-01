@@ -2,8 +2,9 @@
 
 Related files:
 
-- [📝 TSV template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/master/docs/contributors/contributors-metadata.tsv): Use this to submit metadata.
-- [💻 Source code](https://github.com/hubmapconsortium/ingest-validation-tools/edit/master/src/ingest_validation_tools/table-schemas/contributors.yaml): Make a PR if this doc should be updated.
+- [📝 Excel template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/master/docs/contributors/contributors-metadata.xlsx): For metadata entry.
+- [📝 TSV template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/master/docs/contributors/contributors-metadata.tsv): Alternative for metadata entry.
+- [💻 Source code](https://github.com/hubmapconsortium/ingest-validation-tools/edit/master/src/ingest_validation_tools/table-schemas/contributors.yaml): Make a PR to update this doc.
 
 ## Table of contents
 [`affiliation`](#affiliation)<br>
