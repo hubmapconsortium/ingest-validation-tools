@@ -2,8 +2,9 @@
 
 Related files:
 - [🔬 Background doc](https://portal.hubmapconsortium.org/docs/assays/maldi-ims): More details about this type.
-- [📝 TSV template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/master/docs/maldiims/maldiims-metadata.tsv): Use this to submit metadata.
-- [💻 Source code](https://github.com/hubmapconsortium/ingest-validation-tools/edit/master/src/ingest_validation_tools/table-schemas/level-2/maldiims.yaml): Make a PR if this doc should be updated.
+- [📝 Excel template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/master/docs/maldiims/maldiims-metadata.xlsx): For metadata entry.
+- [📝 TSV template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/master/docs/maldiims/maldiims-metadata.tsv): Alternative for metadata entry.
+- [💻 Source code](https://github.com/hubmapconsortium/ingest-validation-tools/edit/master/src/ingest_validation_tools/table-schemas/level-2/maldiims.yaml): Make a PR to update this doc.
 
 ## Table of contents
 <details><summary>Provenance</summary>
