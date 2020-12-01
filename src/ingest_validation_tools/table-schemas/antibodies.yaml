@@ -7,8 +7,8 @@ fields:
     name: antibody_name
     description: Anti-(target name) antibody. Not validated or used down-stream.
   -
-    name: rrr_id
-    description: 'The rrr_id is a unique antibody identifier that comes from the Antibody Registry (https://antibodyregistry.org).'
+    name: rr_id
+    description: 'The rr_id is a unique antibody identifier that comes from the Antibody Registry (https://antibodyregistry.org).'
     constraints:
       pattern: 'AB_\d+'
     example: AB_10002075

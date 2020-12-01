@@ -8,7 +8,7 @@ Related files:
 ## Table of contents
 [`channel_id`](#channel_id)<br>
 [`antibody_name`](#antibody_name)<br>
-[`rrr_id`](#rrr_id)<br>
+[`rr_id`](#rr_id)<br>
 [`uniprot_accession_number`](#uniprot_accession_number)<br>
 [`lot_number`](#lot_number)<br>
 [`dilution`](#dilution)<br>
@@ -16,7 +16,7 @@ Related files:
 [`conjugated_tag`](#conjugated_tag)<br></details>
 
 ### `channel_id`
-The cycle/channel in which the protein was assessed with this antibody.
+The cycle/channel in which the protein was assessed with this antibody. For example, an experiment that involves 3 hybridization cycles & 4 signal detection channels would have **channel_id**s numbered 1-12. Antibodies detected with channel 1 would have **channel_id** 1,5 & 9. Antibodies detected with channel 2 would have **channel_id** 2,6 & 10 and so on for the remaining antibodies.
 
 | constraint | value |
 | --- | --- |
@@ -27,7 +27,7 @@ Anti-(target name) antibody. Not validated or used down-stream.
 
 
 
-### `rrr_id`
+### `rr_id`
 The rr_id is a unique antibody identifier that comes from the Antibody Registry (https://antibodyregistry.org). Example: `AB_10002075`.
 
 | constraint | value |
@@ -54,10 +54,11 @@ Antibody solutions may be diluted according to the experimental protocol. Exampl
 | pattern (regular expression) | `1/\d+` |
 
 ### `conjugated_cat_number`
-The catalog number for conjugated antibody.
+An antibody may be conjugated to a fluorescent tag or a metal tag for detection. Conjugated antibodies may be purchased from commercial providers.
 
 
 
 ### `conjugated_tag`
 The name of the entity conjugated to the antibody.
+
 
