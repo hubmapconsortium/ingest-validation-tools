@@ -21,7 +21,7 @@ rm -rf docs-test
 
 # Test docs:
 
-for TYPE in $(ls -d docs/*/ | grep -v 'sample\|contributors'); do # Just get subdirectories
+for TYPE in $(ls -d docs/*/ | grep -v 'sample\|contributors\|antibodies'); do # Just get subdirectories
   TYPE=`basename $TYPE`
   [ $TYPE = 'sample' ] && echo 'Skip!' && continue # Sample metadata handled separately!
   echo "Testing $TYPE generation..."

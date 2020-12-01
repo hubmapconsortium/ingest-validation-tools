@@ -57,10 +57,6 @@ Related files:
 [`processing_search`](#processing_search)<br>
 [`processing_protocols_io_doi`](#processing_protocols_io_doi)<br>
 [`overall_protocols_io_doi`](#overall_protocols_io_doi)<br>
-</details>
-
-<details><summary>Paths</summary>
-
 [`contributors_path`](#contributors_path)<br>
 [`data_path`](#data_path)<br></details>
 
@@ -388,8 +384,6 @@ DOI for protocols.io for the overall process for this assay. Leave blank if not 
 | --- | --- |
 | required | `False` |
 | pattern (regular expression) | `10\.17504/.*` |
-
-## Paths
 
 ### `contributors_path`
 Relative path to file with ORCID IDs for contributors for this dataset.
