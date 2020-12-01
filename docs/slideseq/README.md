@@ -48,10 +48,6 @@ Related files:
 [`sequencing_read_format`](#sequencing_read_format)<br>
 [`sequencing_read_percent_q30`](#sequencing_read_percent_q30)<br>
 [`sequencing_phix_percent`](#sequencing_phix_percent)<br>
-</details>
-
-<details><summary>Paths</summary>
-
 [`contributors_path`](#contributors_path)<br>
 [`data_path`](#data_path)<br></details>
 
@@ -314,8 +310,6 @@ Percent PhiX loaded to the run.
 | required | `True` |
 | minimum | `0` |
 | maximum | `100` |
-
-## Paths
 
 ### `contributors_path`
 Relative path to file with ORCID IDs for contributors for this dataset.
