@@ -28,7 +28,7 @@ Anti-(target name) antibody. Not validated or used down-stream.
 
 
 ### `rrr_id`
-The rrr_id is a unique antibody identifier that comes from the Antibody Registry (https://antibodyregistry.org). Example: `AB_10002075`.
+The rr_id is a unique antibody identifier that comes from the Antibody Registry (https://antibodyregistry.org). Example: `AB_10002075`.
 
 | constraint | value |
 | --- | --- |
@@ -60,5 +60,4 @@ The catalog number for conjugated antibody.
 
 ### `conjugated_tag`
 The name of the entity conjugated to the antibody.
-
 
