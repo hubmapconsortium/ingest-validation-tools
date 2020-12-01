@@ -38,10 +38,6 @@ Related files:
 [`resolution_z_unit`](#resolution_z_unit)<br>
 [`number_of_channels`](#number_of_channels)<br>
 [`overall_protocols_io_doi`](#overall_protocols_io_doi)<br>
-</details>
-
-<details><summary>Paths</summary>
-
 [`contributors_path`](#contributors_path)<br>
 [`data_path`](#data_path)<br></details>
 
@@ -237,8 +233,6 @@ DOI for protocols.io referring to the overall protocol for the assay.
 | --- | --- |
 | required | `True` |
 | pattern (regular expression) | `10\.17504/.*` |
-
-## Paths
 
 ### `contributors_path`
 Relative path to file with ORCID IDs for contributors for this dataset.

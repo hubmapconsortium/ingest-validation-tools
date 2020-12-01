@@ -60,3 +60,6 @@ fields:
   -
     name: overall_protocols_io_doi
     description: DOI for protocols.io for the overall process.
+  -
+    name: antibodies_path
+    description: Relative path to file with antibody information for this dataset.
