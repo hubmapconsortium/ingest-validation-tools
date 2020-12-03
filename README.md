@@ -47,6 +47,16 @@ No errors!
 
 Documentation and metadata TSV templates for each assay type are [here](docs).
 
+### Validating single TSVs:
+
+If you don't have an entire submission directory at hand, the same command can validate individual metadata TSVs:
+```
+src/validate_submission.py --tsv_paths dataset-examples/good-scatacseq/submission/metadata.tsv
+```
+```
+No errors!
+```
+
 ### Running plugin tests:
 
 Additional plugin tests can also be run.

@@ -12,7 +12,8 @@
 - Remove extraneous parts from Sample doc.
 - Document contributors.tsv
 - Warn if two TSVs are for the same assay type.
-- Add SLIDEseq
+- Give example of single TSV validation.
+- Add SLIDEseq.
 - Add antibodies.tsv.
 - Generate Excel files.
 - Fix a commandline hint when tests fail.
