@@ -52,7 +52,7 @@ Related files:
 | `rawMicroscopy/[^/]+\.xml` | ✓ | XML metadata file from the autofluorescence microscopy experiments |
 | `rawMicroscopy/[^/]+\.scn` | ✓ | Raw microscope file for the experiment |
 | `extras/.*` |  | Free-form descriptive information supplied by the TMC |
-| `extras/thumbnail\.(png|jpg)` |  | Optional thumbnail image which may be shown in search interface |
+| `extras/thumbnail\.(png\|jpg)` |  | Optional thumbnail image which may be shown in search interface |
 
 ## Provenance
 

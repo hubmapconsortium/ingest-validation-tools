@@ -66,7 +66,7 @@ Related files:
 | `cyc.*_reg.*_.*/.*_.*_Z.*_CH.*\.tif` | ✓ | TIFF files produced by the experiment. General folder format: Cycle(n)_Region(n)_date; General file format: name_tileNumber(n)_zplaneNumber(n)_channelNumber(n) |
 | `cyc.*_reg.*_.*/.*\.gci` |  | Group Capture Information File (Keyance Microscope only) |
 | `extras/.*` |  | Free-form descriptive information supplied by the TMC |
-| `extras/thumbnail\.(png|jpg)` |  | Optional thumbnail image which may be shown in search interface |
+| `extras/thumbnail\.(png\|jpg)` |  | Optional thumbnail image which may be shown in search interface |
 
 ## Provenance
 

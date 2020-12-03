@@ -173,8 +173,16 @@ def _make_value_md(key, value):
         backtick_list[-1] = f'or {backtick_list[-1]}'
         return ', '.join(backtick_list)
     if key == 'pattern':
-        return '`' + re.sub(r'([|])', r'\\\1', value) + '`'
+        return f'`{_md_escape_re(value)}`'
     return f'`{value}`'
+
+
+def _md_escape_re(re_string):
+    '''
+    >>> print(_md_escape_re('a|b'))
+    a\\|b
+    '''
+    return re.sub(r'([|])', r'\\\1', re_string)
 
 
 def _make_toc(md):
@@ -236,7 +244,7 @@ def _make_dir_description(dir_schema):
         required = '' if 'required' in line and not line['required'] else '✓'
         qa_qc = '**[QA/QC]** ' if 'is_qa_qc' in line and line['is_qa_qc'] else ''
         row = [
-            f'`{line["pattern"]}`',
+            f'`{_md_escape_re(line["pattern"])}`',
             required,
             qa_qc + line['description']
         ]
