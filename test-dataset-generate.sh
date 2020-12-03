@@ -38,7 +38,7 @@ for TYPE in $(ls -d docs/*/ | grep -v 'sample\|contributors\|antibodies'); do # 
   # So, for now, there can be a mismatch that does not cause a failure.
   diff -r $REAL_DEST $TEST_DEST --exclude='*.xlsx' \
     || die "Update needed: $REAL_CMD
-Or:" 'for D in `ls -d docs/*/  | grep -v sample`; do src/generate_dataset_docs.py `basename $D` $D; done'
+Or:" 'for D in `ls -d docs/*/  | grep -v "sample\|contributors\|antibodies"`; do src/generate_dataset_docs.py `basename $D` $D; done'
   rm -rf $TEST_DEST
   ((++GENERATE_COUNT))
 done
