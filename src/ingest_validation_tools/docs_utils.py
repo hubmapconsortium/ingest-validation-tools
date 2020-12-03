@@ -1,12 +1,12 @@
 import re
 
 
-def get_tsv_name(type):
-    return f'{type}-metadata.tsv'
+def get_tsv_name(type, is_assay=True):
+    return f'{type}{"-metadata" if is_assay else ""}.tsv'
 
 
-def get_xlsx_name(type):
-    return f'{type}-metadata.xlsx'
+def get_xlsx_name(type, is_assay=True):
+    return f'{type}{"-metadata" if is_assay else ""}.xlsx'
 
 
 def generate_template_tsv(table_schema):

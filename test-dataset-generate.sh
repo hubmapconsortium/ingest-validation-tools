@@ -29,8 +29,8 @@ for TYPE in $(ls -d docs/*/ | grep -v 'sample\|contributors\|antibodies'); do # 
   REAL_DEST="docs/$TYPE"
   TEST_DEST="docs-test/$TYPE"
 
-  REAL_CMD="src/generate_dataset_docs.py $TYPE $REAL_DEST"
-  TEST_CMD="src/generate_dataset_docs.py $TYPE $TEST_DEST"
+  REAL_CMD="src/generate_docs.py $TYPE $REAL_DEST"
+  TEST_CMD="src/generate_docs.py $TYPE $TEST_DEST"
 
   mkdir -p $TEST_DEST || echo "$TEST_DEST already exists"
   eval $TEST_CMD
@@ -38,7 +38,7 @@ for TYPE in $(ls -d docs/*/ | grep -v 'sample\|contributors\|antibodies'); do # 
   # So, for now, there can be a mismatch that does not cause a failure.
   diff -r $REAL_DEST $TEST_DEST --exclude='*.xlsx' \
     || die "Update needed: $REAL_CMD
-Or:" 'for D in `ls -d docs/*/  | grep -v "sample\|contributors\|antibodies"`; do src/generate_dataset_docs.py `basename $D` $D; done'
+Or:" 'for D in `ls -d docs/*/  | grep -v "sample\|contributors\|antibodies"`; do src/generate_docs.py `basename $D` $D; done'
   rm -rf $TEST_DEST
   ((++GENERATE_COUNT))
 done
