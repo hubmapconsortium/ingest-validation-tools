@@ -48,18 +48,23 @@ The lot# is specific to the vendor. (eg: Abcam lot# GR3238979-1)
 
 
 ### `dilution`
-Antibody solutions may be diluted according to the experimental protocol. Example: `1/200`.
+Antibody solutions may be diluted according to the experimental protocol. Leave blank if not applicable. Example: `1/200`.
 
 | constraint | value |
 | --- | --- |
+| required | `False` |
 | pattern (regular expression) | `1/\d+` |
 
 ### `conjugated_cat_number`
-An antibody may be conjugated to a fluorescent tag or a metal tag for detection. Conjugated antibodies may be purchased from commercial providers.
+An antibody may be conjugated to a fluorescent tag or a metal tag for detection. Conjugated antibodies may be purchased from commercial providers. Leave blank if not applicable.
 
-
+| constraint | value |
+| --- | --- |
+| required | `False` |
 
 ### `conjugated_tag`
-The name of the entity conjugated to the antibody.
+The name of the entity conjugated to the antibody. Leave blank if not applicable.
 
-
+| constraint | value |
+| --- | --- |
+| required | `False` |

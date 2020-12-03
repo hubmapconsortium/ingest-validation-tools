@@ -51,6 +51,8 @@ def _enrich_description(field):
     description = field['description'].strip()
     if description[-1] not in ['.', ')', '?']:
         description += '.'
+    if 'required' in field:
+        raise Exception('"required" should be in "constraints", not at top level')
     if (
         'constraints' in field
         and 'required' in field['constraints']
