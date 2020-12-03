@@ -1,8 +1,8 @@
 ```
-usage: generate_other_docs.py [-h] type target
+usage: generate_docs.py [-h] type target
 
 positional arguments:
-  type        Type to generate
+  type        What type to generate
   target      Directory to write output to
 
 optional arguments:

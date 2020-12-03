@@ -45,4 +45,3 @@ ORCID ID of contributor.
 | constraint | value |
 | --- | --- |
 | pattern (regular expression) | `\d{4}-\d{4}-\d{4}-\d{4}` |
-| required | `True` |

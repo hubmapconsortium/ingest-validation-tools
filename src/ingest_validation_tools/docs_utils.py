@@ -1,12 +1,12 @@
 import re
 
 
-def get_tsv_name(type):
-    return f'{type}-metadata.tsv'
+def get_tsv_name(type, is_assay=True):
+    return f'{type}{"-metadata" if is_assay else ""}.tsv'
 
 
-def get_xlsx_name(type):
-    return f'{type}-metadata.xlsx'
+def get_xlsx_name(type, is_assay=True):
+    return f'{type}{"-metadata" if is_assay else ""}.xlsx'
 
 
 def generate_template_tsv(table_schema):
@@ -51,6 +51,8 @@ def _enrich_description(field):
     description = field['description'].strip()
     if description[-1] not in ['.', ')', '?']:
         description += '.'
+    if 'required' in field:
+        raise Exception('"required" should be in "constraints", not at top level')
     if (
         'constraints' in field
         and 'required' in field['constraints']

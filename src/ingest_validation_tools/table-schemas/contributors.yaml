@@ -19,4 +19,3 @@ fields:
     description: ORCID ID of contributor
     constraints:
       pattern: '\d{4}-\d{4}-\d{4}-\d{4}'
-      required: True
