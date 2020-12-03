@@ -16,6 +16,7 @@
 - Add antibodies.tsv.
 - Generate Excel files.
 - Fix a commandline hint when tests fail.
+- Escape RE in directory schema.
 
 ## v0.0.5 - 2020-11-09
 - Change "mixif" to "mxif".
