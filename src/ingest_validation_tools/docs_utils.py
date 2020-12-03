@@ -180,7 +180,7 @@ def _make_value_md(key, value):
 def _md_escape_re(re_string):
     '''
     >>> print(_md_escape_re('a|b'))
-    a\\b
+    a\\|b
     '''
     return re.sub(r'([|])', r'\\\1', re_string)
 
