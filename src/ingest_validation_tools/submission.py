@@ -166,7 +166,7 @@ class Submission:
             if contributors_errors:
                 errors[f'{row_number}, contributors {contributors_path}'] = \
                     contributors_errors
-            
+
             if 'antibodies_path' in row:
                 antibodies_path = self.directory_path / \
                     row['antibodies_path']
