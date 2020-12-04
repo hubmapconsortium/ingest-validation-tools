@@ -17,11 +17,9 @@ Related files:
 [`conjugated_tag`](#conjugated_tag)<br></details>
 
 ### `channel_id`
-The cycle/channel in which the protein was assessed with this antibody. For example, an experiment that involves 3 hybridization cycles & 4 signal detection channels would have **channel_id**s numbered 1-12. Antibodies detected with channel 1 would have **channel_id** 1,5 & 9. Antibodies detected with channel 2 would have **channel_id** 2,6 & 10 and so on for the remaining antibodies.
+Structure of channel_id depends on assay type.
 
-| constraint | value |
-| --- | --- |
-| type | `integer` |
+
 
 ### `antibody_name`
 Anti-(target name) antibody. Not validated or used down-stream.
