@@ -17,27 +17,37 @@ Related files:
 ### `affiliation`
 Institutional affiliation.
 
-
+| constraint | value |
+| --- | --- |
+| required | `True` |
 
 ### `first_name`
 First name.
 
-
+| constraint | value |
+| --- | --- |
+| required | `True` |
 
 ### `last_name`
 Last name.
 
-
+| constraint | value |
+| --- | --- |
+| required | `True` |
 
 ### `middle_name_or_initial`
 Middle name or initial.
 
-
+| constraint | value |
+| --- | --- |
+| required | `True` |
 
 ### `name`
 Name for display.
 
-
+| constraint | value |
+| --- | --- |
+| required | `True` |
 
 ### `orcid_id`
 ORCID ID of contributor.
@@ -45,3 +55,4 @@ ORCID ID of contributor.
 | constraint | value |
 | --- | --- |
 | pattern (regular expression) | `\d{4}-\d{4}-\d{4}-\d{4}` |
+| required | `True` |
