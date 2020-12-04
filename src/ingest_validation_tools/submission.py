@@ -10,6 +10,7 @@ from ingest_validation_tools.validation_utils import (
     get_tsv_errors,
     get_data_dir_errors,
     get_contributors_errors,
+    get_antibodies_errors,
     dict_reader_wrapper
 )
 
@@ -165,6 +166,15 @@ class Submission:
             if contributors_errors:
                 errors[f'{row_number}, contributors {contributors_path}'] = \
                     contributors_errors
+
+            if 'antibodies_path' in row:
+                antibodies_path = self.directory_path / \
+                    row['antibodies_path']
+                antibodies_errors = self._get_antibodies_errors(
+                    antibodies_path)
+                if antibodies_errors:
+                    errors[f'{row_number}, antibodies {antibodies_path}'] = \
+                        antibodies_errors
         return errors
 
     def _get_data_dir_errors(self, assay_type, data_path):
@@ -173,6 +183,9 @@ class Submission:
 
     def _get_contributors_errors(self, contributors_path):
         return get_contributors_errors(contributors_path)
+
+    def _get_antibodies_errors(self, antibodies_path):
+        return get_antibodies_errors(antibodies_path)
 
     def _get_reference_errors(self):
         errors = {}
@@ -188,7 +201,8 @@ class Submission:
         if not self.directory_path:
             return {}
         referenced_data_paths = set(self._get_data_references().keys()) \
-            | set(self._get_contributors_references().keys())
+            | set(self._get_contributors_references().keys()) \
+            | set(self._get_antibodies_references().keys())
         non_metadata_paths = {
             path.name for path in self.directory_path.iterdir()
             if not path.name.endswith(TSV_SUFFIX)
@@ -210,6 +224,9 @@ class Submission:
 
     def _get_data_references(self):
         return self._get_references('data_path')
+
+    def _get_antibodies_references(self):
+        return self._get_references('antibodies_path')
 
     def _get_contributors_references(self):
         return self._get_references('contributors_path')

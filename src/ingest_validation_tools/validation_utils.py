@@ -42,8 +42,13 @@ def get_contributors_errors(contributors_path):
     Validate a single contributors file.
     '''
     return get_tsv_errors(contributors_path, 'contributors')
-    # TODO: Hit the ORCID API to confirm that the IDs are good,
-    # and warn if the provided names don't match.
+
+
+def get_antibodies_errors(antibodies_path):
+    '''
+    Validate a single antibodies file.
+    '''
+    return get_tsv_errors(antibodies_path, 'antibodies')
 
 
 def get_tsv_errors(tsv_path, type, optional_fields=[]):
@@ -54,7 +59,7 @@ def get_tsv_errors(tsv_path, type, optional_fields=[]):
     if type is None:
         return f'TSV has no assay_type.'
     try:
-        if type in ['contributors', 'sample']:
+        if type in ['contributors', 'antibodies', 'sample']:
             schema = get_other_schema(type)
         else:
             schema = get_table_schema(type, optional_fields=optional_fields)
