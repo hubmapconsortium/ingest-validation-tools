@@ -11,19 +11,19 @@
 
 # alignment/
 -
-  pattern: '[^/]+/alignment/Puck_\w+\.bam'
+  pattern: '[^/]+/alignment/Puck_[^/]+\.bam'
   description: 'aligned sequencing data from Slide-seq experiments, 4G~20G'
 -
-  pattern: '[^/]+/alignment/Puck_\w+_mapping_rate\.txt'
+  pattern: '[^/]+/alignment/Puck_[^/]+_mapping_rate\.txt'
   description: 'mapping rate summary, ~1K'
 -
-  pattern: '[^/]+/alignment/Puck_\w+_alignment_quality\.pdf'
+  pattern: '[^/]+/alignment/Puck_[^/]+_alignment_quality\.pdf'
   description: 'mapping quality plots, ~50K'
 -
-  pattern: '[^/]+/alignment/Puck_\w+\.digital_expression\.txt\.gz'
+  pattern: '[^/]+/alignment/Puck_[^/]+\.digital_expression\.txt\.gz'
   description: 'bead x gene expression matrix, ~25M'
 -
-  pattern: '[^/]+/alignment/Puck_\w+\.exonic\+intronic\.pdf'
+  pattern: '[^/]+/alignment/Puck_[^/]+\.exonic\+intronic\.pdf'
   description: 'plots of sequencing data, alignment and barcode matching, ~3M'
 
 # barcode_matching/
@@ -34,11 +34,11 @@
   pattern: '[^/]+/barcode_matching/BeadLocations\.txt'
   description: 'spatial coordinates of all sequenced beads, ~3M'
 -
-  pattern: '[^/]+/barcode_matching/Puck_\w+_unique_matched_illumina_barcodes\.txt'
+  pattern: '[^/]+/barcode_matching/Puck_[^/]+_unique_matched_illumina_barcodes\.txt'
   description: 'matched Illumina barcodes, ~2M'
 -
-  pattern: '[^/]+/barcode_matching/Puck_\w+_matched_bead_barcodes\.txt'
+  pattern: '[^/]+/barcode_matching/Puck_[^/]+_matched_bead_barcodes\.txt'
   description: 'matched bead barcodes, ~1M'
 -
-  pattern: '[^/]+/barcode_matching/Puck_\w+_matched_bead_locations\.txt'
+  pattern: '[^/]+/barcode_matching/Puck_[^/]+_matched_bead_locations\.txt'
   description: 'matched bead coordinates, ~1M'
