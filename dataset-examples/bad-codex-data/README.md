@@ -13,5 +13,12 @@ Metadata TSV Errors:
       - The value "bad-id" in row 2 and column 6 ("F") does not conform to the pattern
         constraint of "\d{4}-\d{4}-\d{4}-\d{4}"
       row 2, antibodies dataset-examples/bad-codex-data/submission/antibodies.tsv:
-      - 'No such file or directory: ''dataset-examples/bad-codex-data/submission/antibodies.tsv'''
+      - Column 1 ("A") is a required field, but row 2 has no value
+      - Column 2 ("B") is a required field, but row 2 has no value
+      - The value "bad-value" in row 2 and column 3 ("C") does not conform to the
+        pattern constraint of "AB_\d+"
+      - Column 4 ("D") is a required field, but row 2 has no value
+      - Column 5 ("E") is a required field, but row 2 has no value
+      - The value "invalid" in row 2 and column 6 ("F") does not conform to the pattern
+        constraint of "1/\d+"
 ```
