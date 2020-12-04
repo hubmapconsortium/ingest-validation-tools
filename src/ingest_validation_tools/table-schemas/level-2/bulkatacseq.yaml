@@ -1,4 +1,4 @@
-doc_url: https://docs.google.com/document/d/1Lrzruebio9nUusaFSJQlZGANkRjS5lrJmk4W0sSj_xM/edit
+doc_url: https://portal.hubmapconsortium.org/docs/assays/atacseq
 fields:
 # Overrides of Level 1 fields:
 -
@@ -54,7 +54,7 @@ fields:
   constraints:
     type: datetime
     format: '%Y-%m-%d'
-    required: false
+    required: False
 - name: library_final_yield_value
   description: 'Total amount (eg. nanograms) of library after the clean-up step of
     final pcr amplification step. Answer the question: What is the Qubit measured
@@ -98,7 +98,7 @@ fields:
 - name: transposition_kit_number
   description: If Tn5 came from a kit, provide the catalog number.
   constraints:
-    required: false
+    required: False
 - name: transposition_method
   description: Modality of capturing accessible chromatin molecules. The kit used, for example.
 - name: transposition_transposase_source

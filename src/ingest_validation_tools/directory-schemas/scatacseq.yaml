@@ -2,3 +2,4 @@
 -
   pattern: '.*\.fastq\.gz'
   description: 'TODO'
+

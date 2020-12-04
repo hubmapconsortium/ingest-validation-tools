@@ -1,8 +1,12 @@
 import re
 
 
-def get_tsv_name(type):
-    return f'{type}-metadata.tsv'
+def get_tsv_name(type, is_assay=True):
+    return f'{type}{"-metadata" if is_assay else ""}.tsv'
+
+
+def get_xlsx_name(type, is_assay=True):
+    return f'{type}{"-metadata" if is_assay else ""}.xlsx'
 
 
 def generate_template_tsv(table_schema):
@@ -23,26 +27,89 @@ def generate_template_tsv(table_schema):
 
 def _enrich_description(field):
     '''
-    >>> field = {
-    ...   'description': 'something',
-    ...   'constraints': {'required': False}
+    >>> good_field = {
+    ...   'name': 'good-example',
+    ...   'description': 'blah blah',
+    ...   'constraints': {'required': False, 'pattern': r'[A-Z]+\\d+'},
+    ...   'example': 'ABC123'
     ... }
-    >>> _enrich_description(field)
-    'something. Leave blank if not applicable.'
+    >>> _enrich_description(good_field)
+    'blah blah. Leave blank if not applicable. Example: `ABC123`.'
+
+    >>> bad_field = {
+    ...   'name': 'bad-example',
+    ...   'description': 'blah blah',
+    ...   'constraints': {'pattern': r'[A-Z]+\\d+'},
+    ...   'example': '123ABC'
+    ... }
+    >>> _enrich_description(bad_field)
+    Traceback (most recent call last):
+    ...
+    Exception: bad-example's example (123ABC) does not match pattern ([A-Z]+\\d+)
 
     '''
+    description = field['description'].strip()
+    if description[-1] not in ['.', ')', '?']:
+        description += '.'
+    if 'required' in field:
+        raise Exception('"required" should be in "constraints", not at top level')
     if (
         'constraints' in field
         and 'required' in field['constraints']
         and not field['constraints']['required']
     ):
-        stripped = re.sub(r'\W+\s*$', '', field['description'])
-        return stripped + '. Leave blank if not applicable.'
-    return field['description']
+        description += ' Leave blank if not applicable.'
+    if 'example' in field:
+        if 'constraints' not in field or 'pattern' not in field['constraints']:
+            raise Exception(f'{field["name"]} has example but no pattern')
+        if not re.match(field['constraints']['pattern'], field['example']):
+            raise Exception(
+                f"{field['name']}'s example ({field['example']}) "
+                f"does not match pattern ({field['constraints']['pattern']})")
+        description += f' Example: `{field["example"]}`.'
+    return description.strip()
 
 
 def generate_readme_md(
-        table_schema, directory_schemas, type, is_top_level=False):
+        table_schema, directory_schema, type, is_assay=True):
+    fields_md = _make_fields_md(table_schema)
+    toc_md = _make_toc(fields_md)
+    dir_description_md = _make_dir_description(directory_schema)
+
+    optional_dir_description_md = f'''
+## Directory structure
+{dir_description_md}
+''' if directory_schema else ''
+
+    raw_base_url = 'https://raw.githubusercontent.com/' \
+        'hubmapconsortium/ingest-validation-tools/master/docs'
+    tsv_url = f'{raw_base_url}/{type}/{get_tsv_name(type, is_assay=is_assay)}'
+    xlsx_url = f'{raw_base_url}/{type}/{get_xlsx_name(type, is_assay=is_assay)}'
+    end_of_path = f'{"level-2/" if is_assay else ""}{type}.yaml'
+    source_url = 'https://github.com/hubmapconsortium' \
+        '/ingest-validation-tools/edit/master' \
+        f'/src/ingest_validation_tools/table-schemas/{end_of_path}'
+    optional_doc_link_md = (
+        f'- [🔬 Background doc]({table_schema["doc_url"]}): More details about this type.'
+        if 'doc_url' in table_schema else ''
+    )
+
+    return f'''# {type}
+
+Related files:
+{optional_doc_link_md}
+- [📝 Excel template]({xlsx_url}): For metadata entry.
+- [📝 TSV template]({tsv_url}): Alternative for metadata entry.
+- [💻 Source code]({source_url}): Make a PR to update this doc.
+
+## Table of contents
+{toc_md}
+{optional_dir_description_md}
+{fields_md}
+'''
+
+
+def _make_fields_md(table_schema):
     fields_md_list = []
     for field in table_schema['fields']:
         if 'heading' in field:
@@ -52,30 +119,7 @@ def generate_readme_md(
 {_enrich_description(field)}
 
 {table_md}""")
-
-    fields_md = '\n\n'.join(fields_md_list)
-    toc_md = _make_toc(fields_md)
-    # dir_description_md = _make_dir_description(directory_schemas)
-    raw_url = 'https://raw.githubusercontent.com/hubmapconsortium' \
-        '/ingest-validation-tools/master/docs' \
-        f'/{type}/{get_tsv_name(type)}'
-    end_of_path = f'{"" if is_top_level else "level-2/"}{type}.yaml'
-    source_url = 'https://github.com/hubmapconsortium' \
-        '/ingest-validation-tools/edit/master' \
-        f'/src/ingest_validation_tools/table-schemas/{end_of_path}'
-
-    return f'''# {type}
-
-Related files:
-- [🔬 Background doc]({table_schema['doc_url']}): More details about this type.
-- [📝 TSV template]({raw_url}): Use this to submit metadata.
-- [💻 Source code]({source_url}): Make a PR if this doc should be updated.
-
-## Table of contents
-{toc_md}
-
-{fields_md}
-'''
+    return '\n\n'.join(fields_md_list)
 
 
 def _make_constraints_table(field):
@@ -131,8 +175,16 @@ def _make_value_md(key, value):
         backtick_list[-1] = f'or {backtick_list[-1]}'
         return ', '.join(backtick_list)
     if key == 'pattern':
-        return '`' + re.sub(r'([|])', r'\\\1', value) + '`'
+        return f'`{_md_escape_re(value)}`'
     return f'`{value}`'
+
+
+def _md_escape_re(re_string):
+    '''
+    >>> print(_md_escape_re('a|b'))
+    a\\|b
+    '''
+    return re.sub(r'([|])', r'\\\1', re_string)
 
 
 def _make_toc(md):
@@ -155,8 +207,8 @@ def _make_toc(md):
     '''
     lines = md.split('\n')
     headers = [
-        re.sub(r'^#+\s+', '', l)
-        for l in lines if len(l) and l[0] == '#'
+        re.sub(r'^#+\s+', '', line)
+        for line in lines if len(line) and line[0] == '#'
     ]
     return '\n'.join([
         (
@@ -170,33 +222,33 @@ def _make_toc(md):
     ]).replace('</details>\n\n', '', 1) + '</details>'
 
 
-def _make_dir_description(dir_schemas):
+def _make_dir_description(dir_schema):
     '''
-    >>> dir_schema = {'name': [
-    ...   { 'pattern': 'required\\.txt', 'description': 'Required!' },
+    >>> dir_schema = [
+    ...   { 'pattern': 'required\\.txt', 'description': 'Required!',
+    ...     'is_qa_qc': True },
     ...   { 'pattern': 'optional\\.txt', 'description': 'Optional!',
     ...     'required': False }
-    ... ]}
+    ... ]
     >>> print(_make_dir_description(dir_schema))
     <BLANKLINE>
     | pattern (regular expression) | required? | description |
     | --- | --- | --- |
-    | `required\\.txt` | yes | Required! |
-    | `optional\\.txt` | no | Optional! |
+    | `required\\.txt` | ✓ | **[QA/QC]** Required! |
+    | `optional\\.txt` |  | Optional! |
 
     '''
     output = []
-    for name, dir_schema in dir_schemas.items():
-        if len(dir_schemas) > 1:
-            output.append(f'\n### {name}')
-        output.append(f'''
+    output.append('''
 | pattern (regular expression) | required? | description |
 | --- | --- | --- |''')
-        for line in dir_schema:
-            row = [
-                f'`{line["pattern"]}`',
-                'no' if 'required' in line and not line['required'] else 'yes',
-                line['description']
-            ]
-            output.append('| ' + ' | '.join(row) + ' |')
+    for line in dir_schema:
+        required = '' if 'required' in line and not line['required'] else '✓'
+        qa_qc = '**[QA/QC]** ' if 'is_qa_qc' in line and line['is_qa_qc'] else ''
+        row = [
+            f'`{_md_escape_re(line["pattern"])}`',
+            required,
+            qa_qc + line['description']
+        ]
+        output.append('| ' + ' | '.join(row) + ' |')
     return '\n'.join(output)

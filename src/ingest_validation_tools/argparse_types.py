@@ -1,7 +1,7 @@
 import argparse
 import os
 import re
-import urllib
+from urllib.parse import urlparse, parse_qs
 
 
 class ShowUsageException(Exception):
@@ -54,8 +54,8 @@ def globus_url(s):
         raise argparse.ArgumentTypeError(
             f'Expected a URL starting with {expected_base}')
 
-    parsed = urllib.parse.urlparse(s)
-    query = urllib.parse.parse_qs(parsed.query)
+    parsed = urlparse(s)
+    query = parse_qs(parsed.query)
     expected_keys = ['origin_id', 'origin_path']
     actual_keys = sorted(query.keys())
     if actual_keys != expected_keys:

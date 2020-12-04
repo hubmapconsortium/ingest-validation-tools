@@ -15,27 +15,33 @@ def list_types():
     return sorted(schemas)
 
 
-def get_sample_schema():
+def get_other_schema(other_type):
     return load_yaml(
-        (Path(__file__).parent / 'table-schemas' / 'sample.yaml').read_text()
+        (Path(__file__).parent / 'table-schemas' / f'{other_type}.yaml')
+        .read_text()
     )
 
 
-def get_directory_schemas(type):
-    single_path = _directory_schemas_path / f'{type}.yaml'
-    all_paths = (
-        [single_path] if single_path.exists()
-        else _directory_schemas_path.glob(f'{type}-*.yaml')
-    )
-    return {
-        path.stem: load_yaml(open(path).read())
-        for path in all_paths
-    }
+def get_directory_schema(directory_type):
+    schema = load_yaml(open(
+        _directory_schemas_path / f'{directory_type}.yaml'
+    ).read())
+    schema += [
+        {
+            'pattern': r'extras/.*',
+            'description': 'Free-form descriptive information supplied by the TMC',
+            'required': False
+        },
+        {
+            'pattern': r'extras/thumbnail\.(png|jpg)',
+            'description': 'Optional thumbnail image which may be shown in search interface',
+            'required': False
+        }
+    ]
+    return schema
 
 
-def get_table_schema(type, optional_fields=[]):
-    table_type = type.split('-')[0]
-
+def get_table_schema(table_type, optional_fields=[]):
     level_1_fields = _get_level_1_schema('level-1')['fields']
     paths_fields = _get_level_1_schema('paths')['fields']
     type_schema = _get_level_2_schema(table_type)
@@ -53,10 +59,11 @@ def get_table_schema(type, optional_fields=[]):
         _add_constraints(field, optional_fields)
     for field in fields:
         _validate_field(field)
-    return {
-        'doc_url': type_schema['doc_url'],
-        'fields': fields
-    }
+
+    table_schema = {'fields': fields}
+    if 'doc_url' in type_schema:
+        table_schema['doc_url'] = type_schema['doc_url']
+    return table_schema
 
 
 def _validate_field(field):

@@ -1,9 +1,10 @@
 # stained
 
 Related files:
-- [🔬 Background doc](https://docs.google.com/document/d/1Kp5nQPmD7C7Bamd_hBgVFrAT6qtiM_tOkDdGKT0v80E/edit): More details about this type.
-- [📝 TSV template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/master/docs/stained/stained-metadata.tsv): Use this to submit metadata.
-- [💻 Source code](https://github.com/hubmapconsortium/ingest-validation-tools/edit/master/src/ingest_validation_tools/table-schemas/level-2/stained.yaml): Make a PR if this doc should be updated.
+- [🔬 Background doc](https://portal.hubmapconsortium.org/docs/assays/pas): More details about this type.
+- [📝 Excel template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/master/docs/stained/stained-metadata.xlsx): For metadata entry.
+- [📝 TSV template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/master/docs/stained/stained-metadata.tsv): Alternative for metadata entry.
+- [💻 Source code](https://github.com/hubmapconsortium/ingest-validation-tools/edit/master/src/ingest_validation_tools/table-schemas/level-2/stained.yaml): Make a PR to update this doc.
 
 ## Table of contents
 <details><summary>Provenance</summary>
@@ -39,17 +40,24 @@ Related files:
 [`stain`](#stain)<br>
 [`section_prep_protocols_io_doi`](#section_prep_protocols_io_doi)<br>
 [`overall_protocols_io_doi`](#overall_protocols_io_doi)<br>
-</details>
-
-<details><summary>Paths</summary>
-
-[`metadata_path`](#metadata_path)<br>
+[`contributors_path`](#contributors_path)<br>
 [`data_path`](#data_path)<br></details>
+
+## Directory structure
+
+| pattern (regular expression) | required? | description |
+| --- | --- | --- |
+| `processedMicroscopy/[^/]+_PAS_images/[^/]+ome\.tif` | ✓ | OME TIFF files (multichannel, multi-layered, image pyramids) produced by the PAS microscopy experiment |
+| `processedMicroscopy/[^/]+_PAS_transformations/[^/]+\.txt` | ✓ | Transformations to PAS (related) data |
+| `rawMicroscopy/[^/]+\.xml` | ✓ | XML metadata file from the autofluorescence microscopy experiments |
+| `rawMicroscopy/[^/]+\.scn` | ✓ | Raw microscope file for the experiment |
+| `extras/.*` |  | Free-form descriptive information supplied by the TMC |
+| `extras/thumbnail\.(png\|jpg)` |  | Optional thumbnail image which may be shown in search interface |
 
 ## Provenance
 
 ### `donor_id`
-HuBMAP Display ID of the donor of the assayed tissue.
+HuBMAP Display ID of the donor of the assayed tissue. Example: `ABC123`.
 
 | constraint | value |
 | --- | --- |
@@ -57,7 +65,7 @@ HuBMAP Display ID of the donor of the assayed tissue.
 | required | `True` |
 
 ### `tissue_id`
-HuBMAP Display ID of the assayed tissue.
+HuBMAP Display ID of the assayed tissue. Example: `ABC123-BL-1-2-3_456`.
 
 | constraint | value |
 | --- | --- |
@@ -169,7 +177,7 @@ The width of a pixel.
 | required | `True` |
 
 ### `resolution_x_unit`
-The unit of measurement of width of a pixel
+The unit of measurement of width of a pixel.
 
 | constraint | value |
 | --- | --- |
@@ -231,14 +239,12 @@ Description of the overall methodology for conducting the assay.
 | required | `True` |
 | pattern (regular expression) | `10\.17504/.*` |
 
-## Paths
-
-### `metadata_path`
-Relative path to file or directory with free-form or instrument/lab specific metadata. Optional. Leave blank if not applicable.
+### `contributors_path`
+Relative path to file with ORCID IDs for contributors for this dataset.
 
 | constraint | value |
 | --- | --- |
-| required | `False` |
+| required | `True` |
 
 ### `data_path`
 Relative path to file or directory with instrument data. Downstream processing will depend on filename extension conventions.

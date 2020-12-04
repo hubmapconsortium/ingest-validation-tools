@@ -1,15 +1,3 @@
-# Based on https://docs.google.com/document/d/1k3Q48rkL_ueA4_8NTaTLtBfNCG0fa8LwsXqP9O5gILo/edit
-#
-# Questions for reviewers:
-# - A dataset consists of multiple libraries? Or just a single one?
-#   (ie, multiple "alignment"/"barcode_matching" pairs, or just one?)
-# - The example has structure in the filenames that we aren't validating.
-#   Ok, or should we be more strict?
-# - While it's certainly legal to mix upper and lower case letters in filenames,
-#   there are differences between OSs, and it can be a headache. Can we nudge
-#   for the names to be all lower-case?
-
-
 #
 # subdirectory alignment
 #

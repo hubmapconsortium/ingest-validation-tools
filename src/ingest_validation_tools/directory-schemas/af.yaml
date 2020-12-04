@@ -1,3 +1,30 @@
+# A dataset consists of a single autofluorescence microscopy run, and  
+# a set of transformation files that are useful for other
+# related datasets. (Vanderbilt)
+
 -
-  pattern: 'TODO\.txt'
-  description: 'TODO'
+  pattern: 'processedMicroscopy/[^/]+_preMxIF_images/[^/]+\.ome\.tif'
+  description: 'OME TIFF files (multichannel, multi-layered, image pyramids) produced by the autofluorescence microscopy linked to MxIF experiment'
+-
+  pattern: 'processedMicroscopy/[^/]+_preMxIF_transformations/[^/]+\.txt'
+  description: 'Transformations to MxIF (related) data'
+-
+  pattern: 'processedMicroscopy/[^/]+_preIMS_images/[^/]+\.ome\.tif'
+  description: 'OME TIFF files (multichannel, multi-layered, image pyramids) produced by the autofluorescence microscopy linked to IMS experiment'
+-
+  pattern: 'processedMicroscopy/[^/]+_preIMS_transformations/[^/]+\.txt'
+  description: 'Transformations to IMS (related) data'
+-
+  pattern: 'processedMicroscopy/[^/]+_preCODEX_images/[^/]+\.ome\.tif'
+  description: 'OME TIFF files (multichannel, multi-layered, image pyramids) produced by the autofluorescence microscopy linked to CODEX experiment'
+-
+  pattern: 'processedMicroscopy/[^/]+_preCODEX_transformations/[^/]+\.txt'
+  description: 'Transformations to CODEX (related) data'
+-
+  pattern: 'rawMicroscopy/[^/]+\.xml'
+  description: 'XML metadata file from the autofluorescence microscopy experiments'
+-
+# Note: extension might change depending on the microscope used. This is just for Zeiss
+# which is the only type that we are currently receiving.
+  pattern: 'rawMicroscopy/[^/]+\.czi'
+  description: 'Raw microscope file for the experiment'

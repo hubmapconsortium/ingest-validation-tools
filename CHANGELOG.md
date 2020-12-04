@@ -1,13 +1,58 @@
 # Changelog
 
-## v0.0.5 - In progress
+## v0.0.6 - In progress
+- Add thumbnail to directory schema.
+- Add machinery to include regex examples in docs.
+- Run mypy, but only on the one file that has type annotations.
+- Consolidate TSV reading to avoid inconsistencies in character encoding.
+- Remove option for directory schema "subtypes".
+- Read type from first line of TSV, instead of from filename.
+- Remove vestigial line from flake8 config.
+- Instructions for working groups providing descriptions.
+- Remove extraneous parts from Sample doc.
+- Document contributors.tsv
+- Warn if two TSVs are for the same assay type.
+- Give example of single TSV validation.
+- Add SLIDEseq.
+- Add antibodies.tsv.
+- Generate Excel files.
+- Fix a commandline hint when tests fail.
+- Escape RE in directory schema.
+- Unify generation of assay and other docs.
+- Supply XLSX for non-assays.
+- Fix links.
+- SLIDEseq dir schema.
+
+## v0.0.5 - 2020-11-09
 - Change "mixif" to "mxif".
 - Expose sample field descriptions for use in portal.
 - Add missing assay type to enum.
 - ng/ul to nM.
 - Change to flat directory schema structure.
+- Dir Schema for MALDI-IMS.
+- AF dir schema.
 - Update README, and diagram.
-- SLIDEseq dir schema.
+- Add extras directory.
+- Prettier HTML output.
+- Add donor.yaml, where we can explain donor metadata fields, and hook it into field-descriptions.yaml.
+- Add ingest-validation-tests submodule.
+- nanodesi/pots table schema.
+- Add as_text_list option.
+- plugin_validator started.
+- Add donor.yaml, where we can explain donor metadata fields.
+- Fix the build.
+- Now that we have agreed on extras/, expose in docs.
+- Contributors table schema.
+- Add extra validation hooks.
+- Add nano docs.
+- Run plugin tests only from command line argument
+- Add stained imagery directory schema.
+- Update CODEX directory schema: Require PDF.
+- Get rid of unified.yaml.
+- Point at docs on portal.
+- Remove missing example.
+- Add is_qa_qc to dir schema table.
+- Add passing contributors.tsv
 
 ## v0.0.4 - 2020-06-26
 ### Added

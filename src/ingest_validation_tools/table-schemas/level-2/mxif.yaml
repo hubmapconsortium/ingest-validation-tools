@@ -1,4 +1,4 @@
-doc_url: https://docs.google.com/document/d/1ParihsMo5fqhJEhTTBfwqHuaBpr-ZeveZJKLgrZiQCo/edit
+doc_url: https://portal.hubmapconsortium.org/docs/assays/mxif
 fields:
   # Overrides of Level 1 fields:
   -
@@ -60,3 +60,6 @@ fields:
   -
     name: overall_protocols_io_doi
     description: DOI for protocols.io for the overall process.
+  -
+    name: antibodies_path
+    description: Relative path to file with antibody information for this dataset.
