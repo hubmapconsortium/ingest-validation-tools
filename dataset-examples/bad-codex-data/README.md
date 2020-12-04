@@ -12,4 +12,6 @@ Metadata TSV Errors:
       row 2, contributors dataset-examples/bad-codex-data/submission/contributors.tsv:
       - The value "bad-id" in row 2 and column 6 ("F") does not conform to the pattern
         constraint of "\d{4}-\d{4}-\d{4}-\d{4}"
+      row 2, antibodies dataset-examples/bad-codex-data/submission/antibodies.tsv:
+      - 'No such file or directory: ''dataset-examples/bad-codex-data/submission/antibodies.tsv'''
 ```

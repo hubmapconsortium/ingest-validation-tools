@@ -55,4 +55,6 @@ Metadata TSV Errors:
         Required but missing:
         - channelnames_report\.csv
         - '[^/]+\.pdf'
+      row 2, antibodies dataset-examples/bad-tsv-formats/submission/antibodies.tsv:
+      - 'No such file or directory: ''dataset-examples/bad-tsv-formats/submission/antibodies.tsv'''
 ```

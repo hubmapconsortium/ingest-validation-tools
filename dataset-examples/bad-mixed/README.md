@@ -15,6 +15,8 @@ Metadata TSV Errors:
         - exposure_times\.txt
         - '[^/]+\.pdf'
         - cyc.*_reg.*_.*/.*_.*_Z.*_CH.*\.tif
+      row 2, antibodies dataset-examples/bad-mixed/submission/antibodies.tsv:
+      - 'No such file or directory: ''dataset-examples/bad-mixed/submission/antibodies.tsv'''
   dataset-examples/bad-mixed/submission/scatacseq-metadata.tsv (as scatacseq):
     Internal:
     - The value "-INVALID-" in row 2 and column 1 ("A") does not conform to the pattern

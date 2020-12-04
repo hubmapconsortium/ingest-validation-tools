@@ -16,10 +16,13 @@ def list_types():
 
 
 def get_other_schema(other_type):
-    return load_yaml(
+    schema = load_yaml(
         (Path(__file__).parent / 'table-schemas' / f'{other_type}.yaml')
         .read_text()
     )
+    for field in schema['fields']:
+        _add_constraints(field, optional_fields=[])
+    return schema
 
 
 def get_directory_schema(directory_type):
