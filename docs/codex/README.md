@@ -1,9 +1,10 @@
 # codex
 
 Related files:
-- [🔬 Background doc](https://docs.google.com/document/d/1CYYSXPQjwdbvmvZaEcsi_2udvDfGEZrMyh4yFnm4p3M/edit): More details about this type.
-- [📝 TSV template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/master/docs/codex/codex-metadata.tsv): Use this to submit metadata.
-- [💻 Source code](https://github.com/hubmapconsortium/ingest-validation-tools/edit/master/src/ingest_validation_tools/table-schemas/level-2/codex.yaml): Make a PR if this doc should be updated.
+- [🔬 Background doc](https://portal.hubmapconsortium.org/docs/assays/codex): More details about this type.
+- [📝 Excel template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/master/docs/codex/codex-metadata.xlsx): For metadata entry.
+- [📝 TSV template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/master/docs/codex/codex-metadata.tsv): Alternative for metadata entry.
+- [💻 Source code](https://github.com/hubmapconsortium/ingest-validation-tools/edit/master/src/ingest_validation_tools/table-schemas/level-2/codex.yaml): Make a PR to update this doc.
 
 ## Table of contents
 <details><summary>Provenance</summary>
@@ -47,17 +48,30 @@ Related files:
 [`number_of_cycles`](#number_of_cycles)<br>
 [`section_prep_protocols_io_doi`](#section_prep_protocols_io_doi)<br>
 [`reagent_prep_protocols_io_doi`](#reagent_prep_protocols_io_doi)<br>
-</details>
-
-<details><summary>Paths</summary>
-
-[`metadata_path`](#metadata_path)<br>
+[`antibodies_path`](#antibodies_path)<br>
+[`contributors_path`](#contributors_path)<br>
 [`data_path`](#data_path)<br></details>
+
+## Directory structure
+
+| pattern (regular expression) | required? | description |
+| --- | --- | --- |
+| `channelnames\.txt` | ✓ | Text file produced by the Akoya software which contains the (linearized) channel number and the Name/ID/Target of the channel |
+| `channelnames_report\.csv` | ✓ | Comma separated text file containing a report of the markers used to map the tissue [e.g. Channel,Name/ID/Target,True/False] |
+| `experiment\.json` | ✓ | JSON file produced by the Akoya software which contains the metadata for the experiment, including the software version used, microscope parameters, channel names, pixel dimensions, etc. |
+| `exposure_times\.txt` | ✓ | Comma separated text file used for background subrtaction that contains valid exposure times for all cycles [e.g: Cycle,CH1,CH2,CH3,CH4]. |
+| `[^/]+\.pdf` | ✓ | **[QA/QC]** PDF export of Powerpoint slide deck containing the Image Analysis Report |
+| `NAV[^/]+\.tif` |  | Navigational Image showing Region of Interest (Keyance Microscope only) |
+| `segmentation\.json` |  | JSON file produced by the Akoya software which contains the parameters used for segmentation. |
+| `cyc.*_reg.*_.*/.*_.*_Z.*_CH.*\.tif` | ✓ | TIFF files produced by the experiment. General folder format: Cycle(n)_Region(n)_date; General file format: name_tileNumber(n)_zplaneNumber(n)_channelNumber(n) |
+| `cyc.*_reg.*_.*/.*\.gci` |  | Group Capture Information File (Keyance Microscope only) |
+| `extras/.*` |  | Free-form descriptive information supplied by the TMC |
+| `extras/thumbnail\.(png\|jpg)` |  | Optional thumbnail image which may be shown in search interface |
 
 ## Provenance
 
 ### `donor_id`
-HuBMAP Display ID of the donor of the assayed tissue.
+HuBMAP Display ID of the donor of the assayed tissue. Example: `ABC123`.
 
 | constraint | value |
 | --- | --- |
@@ -65,7 +79,7 @@ HuBMAP Display ID of the donor of the assayed tissue.
 | required | `True` |
 
 ### `tissue_id`
-HuBMAP Display ID of the assayed tissue.
+HuBMAP Display ID of the assayed tissue. Example: `ABC123-BL-1-2-3_456`.
 
 | constraint | value |
 | --- | --- |
@@ -230,7 +244,7 @@ The manufacturer of the instrument used to prepare the sample for the assay.
 | required | `True` |
 
 ### `preparation_instrument_model`
-The model number/name of the instrument used to prepare the sample for the assay
+The model number/name of the instrument used to prepare the sample for the assay.
 
 | constraint | value |
 | --- | --- |
@@ -238,7 +252,7 @@ The model number/name of the instrument used to prepare the sample for the assay
 | required | `True` |
 
 ### `number_of_antibodies`
-Number of antibodies
+Number of antibodies.
 
 | constraint | value |
 | --- | --- |
@@ -254,7 +268,7 @@ Number of fluorescent channels imaged during each cycle.
 | required | `True` |
 
 ### `number_of_cycles`
-Number of cycles of 1. oligo application, 2. fluor application, 3. washes
+Number of cycles of 1. oligo application, 2. fluor application, 3. washes.
 
 | constraint | value |
 | --- | --- |
@@ -277,14 +291,19 @@ DOI for protocols.io referring to the protocol for preparing reagents for the as
 | required | `True` |
 | pattern (regular expression) | `10\.17504/.*` |
 
-## Paths
-
-### `metadata_path`
-Relative path to file or directory with free-form or instrument/lab specific metadata. Optional. Leave blank if not applicable.
+### `antibodies_path`
+Relative path to file with antibody information for this dataset.
 
 | constraint | value |
 | --- | --- |
-| required | `False` |
+| required | `True` |
+
+### `contributors_path`
+Relative path to file with ORCID IDs for contributors for this dataset.
+
+| constraint | value |
+| --- | --- |
+| required | `True` |
 
 ### `data_path`
 Relative path to file or directory with instrument data. Downstream processing will depend on filename extension conventions.

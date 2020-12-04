@@ -1,0 +1,21 @@
+fields:
+  -
+    name: affiliation
+    description: Institutional affiliation
+  -
+    name: first_name
+    description: First name
+  -
+    name: last_name
+    description: Last name
+  -
+    name: middle_name_or_initial
+    description: Middle name or initial
+  -
+    name: name
+    description: Name for display
+  -
+    name: orcid_id
+    description: ORCID ID of contributor
+    constraints:
+      pattern: '\d{4}-\d{4}-\d{4}-\d{4}'

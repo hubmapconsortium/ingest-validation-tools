@@ -1,11 +1,11 @@
-doc_url: https://docs.google.com/document/d/1NvYmjxICLCU7D62Yd5C_4gUGuDwJ9g89BV6j5s8Atro/edit
+doc_url: https://portal.hubmapconsortium.org/docs/assays/imc
 fields:
 # Overrides of Level 1 fields:
 -
   name: assay_category
   constraints:
     enum:
-      - imaging
+      - mass_spectrometry_imaging
 
 -
   name: assay_type

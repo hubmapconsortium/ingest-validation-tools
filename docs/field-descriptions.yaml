@@ -20,10 +20,14 @@ acquisition_instrument_vendor: An acquisition_instrument is the device that cont
   such as light of various intensities or color or signals representing molecular
   mass.
 analyte_class: Analytes are the target molecules being measured with the assay.
+antibodies_path: Relative path to file with antibody information for this dataset.
 assay_category: 'Each assay is placed into one of the following 3 general categories:
   generation of images of microscopic entities, identification & quantitation of molecules
   by mass spectrometry, and determination of nucleotide sequence.'
 assay_type: The specific type of assay being executed.
+bead_barcode_offset: Position(s) in the read at which the bead barcode starts
+bead_barcode_read: Which read file contains the bead barcode
+bead_barcode_size: Length of the bead barcode in base pairs
 bulk_atac_cell_isolation_protocols_io_doi: 'Link to a protocols document answering
   the question: How was tissue stored and processed for cell/nuclei isolation'
 bulk_rna_isolation_protocols_io_doi: 'Link to a protocols document answering the question:
@@ -41,6 +45,8 @@ cell_barcode_read: Which read file contains the cell barcode
 cell_barcode_size: Length of the cell barcode in base pairs
 cold_ischemia_time_unit: Time unit
 cold_ischemia_time_value: Time interval on ice to the start of preservation protocol.
+contributors_path: Relative path to file with ORCID IDs for contributors for this
+  dataset.
 data_collection_mode: Mode of data collection in tandem MS assays. Either DDA (Data-dependent
   acquisition) or DIA (Data-indemendent acquisition.
 data_path: Relative path to file or directory with instrument data. Downstream processing
@@ -67,6 +73,19 @@ health_status: "Patient's baseline physical condition prior to immediate event l
 is_targeted: Specifies whether or not a specific molecule(s) is/are targeted for detection/measurement
   by the assay. The CODEX analyte is protein.
 is_technical_replicate: Is this a sequencing replicate?
+kidney_donor_profile_index_value: 'The Kidney Donor Profle Index (KDPI) is a numerical
+  measure that combines ten donor factors, including clinical parameters and demographics,
+  to summarize into a single number the quality of deceased donor kidneys relative
+  to other recovered kidneys. The KDPI is derived by frst calculating the Kidney Donor
+  Risk Index (KDRI) for a deceased donor. Kidneys from a donor with a KDPI of 90%,
+  for example, have a KDRI (which indicates relative risk of graft failure) greater
+  than 90% of recovered kidneys. The KDPI is simply a mapping of the KDRI from a relative
+  risk scale to a cumulative percentage scale. The reference population used for this
+  mapping is all deceased donors in the United States  with a kidney recovered for
+  the purpose of transplantation in the prior calendar year.  Lower KDPI values are
+  associated with increased donor quality and expected longevity. https://optn.transplant.hrsa.gov/media/1512/guide_to_calculating_interpreting_kdpi.pdf
+
+  '
 labeling: Indicates whether samples were labeled prior to MS analysis (e.g., TMT)
 lc_column_model: The model number/name of the LC Column - IF custom self-packed, pulled
   tip calillary is used enter "Pulled tip capilary"
@@ -111,8 +130,6 @@ max_x_width_unit: Units of image width of the ROI acquisition
 max_x_width_value: Image width value of the ROI acquisition
 max_y_height_unit: Units of image height of the ROI acquisition
 max_y_height_value: Image height value of the ROI acquisition
-metadata_path: Relative path to file or directory with free-form or instrument/lab
-  specific metadata. Optional.
 ms_scan_mode: Indicates whether experiment is MS, MS/MS, or other (possibly MS3 for
   TMT)
 ms_source: The ion source type used for surface sampling (MALDI, MALDI-2, DESI, or
@@ -155,6 +172,9 @@ procedure_date: Date of procedure to procure organ.
 processing_protocols_io_doi: DOI for analysis protocols.io for this assay.
 processing_search: Software for analyzing and searching LC-MS/MS omics data
 protocols_io_doi: DOI for protocols.io referring to the protocol for this assay.
+puck_id: Slide-seq captures RNA sequence data on spatially barcoded arrays of beads.
+  Beads are fixed to a slide in a region shaped like a round puck. Each puck has a
+  unique puck_id.
 reagent_prep_protocols_io_doi: DOI for protocols.io referring to the protocol for
   preparing reagents for the assay.
 resolution_x_unit: The unit of measurement of width of a pixel

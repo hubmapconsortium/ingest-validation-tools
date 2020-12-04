@@ -1,18 +1,20 @@
 ```
 Metadata TSV Errors:
-  dataset-examples/bad-mixed/submission/codex-akoya-metadata.tsv (as codex-akoya):
+  dataset-examples/bad-mixed/submission/codex-metadata.tsv (as codex):
     Internal:
     - The value "-INVALID-" in row 2 and column 1 ("A") does not conform to the pattern
       constraint of "[A-Z]+[0-9]+"
     External:
-      codex-akoya-metadata.tsv (row 2):
+      row 2, referencing dataset-examples/bad-mixed/submission/bad-shared-dataset:
         Not allowed:
         - not-good-for-either-type.txt
         Required but missing:
         - channelnames\.txt
+        - channelnames_report\.csv
         - experiment\.json
         - exposure_times\.txt
-        - cyc.*_reg.*_.*/.*_.*_Z.*_CH.*
+        - '[^/]+\.pdf'
+        - cyc.*_reg.*_.*/.*_.*_Z.*_CH.*\.tif
   dataset-examples/bad-mixed/submission/scatacseq-metadata.tsv (as scatacseq):
     Internal:
     - The value "-INVALID-" in row 2 and column 1 ("A") does not conform to the pattern
@@ -20,7 +22,7 @@ Metadata TSV Errors:
     - Column 17 ("Q") is a required field, but row 2 has no value
     - Column 27 ("AA") is a required field, but row 2 has no value
     External:
-      scatacseq-metadata.tsv (row 2):
+      row 2, referencing dataset-examples/bad-mixed/submission/bad-shared-dataset:
         Not allowed:
         - not-good-for-either-type.txt
         Required but missing:
@@ -28,6 +30,6 @@ Metadata TSV Errors:
 Reference Errors:
   Multiple References:
     bad-shared-dataset:
-    - dataset-examples/bad-mixed/submission/codex-akoya-metadata.tsv (row 2)
+    - dataset-examples/bad-mixed/submission/codex-metadata.tsv (row 2)
     - dataset-examples/bad-mixed/submission/scatacseq-metadata.tsv (row 2)
 ```

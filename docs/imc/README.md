@@ -1,9 +1,10 @@
 # imc
 
 Related files:
-- [🔬 Background doc](https://docs.google.com/document/d/1NvYmjxICLCU7D62Yd5C_4gUGuDwJ9g89BV6j5s8Atro/edit): More details about this type.
-- [📝 TSV template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/master/docs/imc/imc-metadata.tsv): Use this to submit metadata.
-- [💻 Source code](https://github.com/hubmapconsortium/ingest-validation-tools/edit/master/src/ingest_validation_tools/table-schemas/level-2/imc.yaml): Make a PR if this doc should be updated.
+- [🔬 Background doc](https://portal.hubmapconsortium.org/docs/assays/imc): More details about this type.
+- [📝 Excel template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/master/docs/imc/imc-metadata.xlsx): For metadata entry.
+- [📝 TSV template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/master/docs/imc/imc-metadata.tsv): Alternative for metadata entry.
+- [💻 Source code](https://github.com/hubmapconsortium/ingest-validation-tools/edit/master/src/ingest_validation_tools/table-schemas/level-2/imc.yaml): Make a PR to update this doc.
 
 ## Table of contents
 <details><summary>Provenance</summary>
@@ -54,17 +55,21 @@ Related files:
 [`signal_type`](#signal_type)<br>
 [`start_datetime`](#start_datetime)<br>
 [`data_precision_bytes`](#data_precision_bytes)<br>
-</details>
-
-<details><summary>Paths</summary>
-
-[`metadata_path`](#metadata_path)<br>
+[`contributors_path`](#contributors_path)<br>
 [`data_path`](#data_path)<br></details>
+
+## Directory structure
+
+| pattern (regular expression) | required? | description |
+| --- | --- | --- |
+| `.+` | ✓ | TODO |
+| `extras/.*` |  | Free-form descriptive information supplied by the TMC |
+| `extras/thumbnail\.(png\|jpg)` |  | Optional thumbnail image which may be shown in search interface |
 
 ## Provenance
 
 ### `donor_id`
-HuBMAP Display ID of the donor of the assayed tissue.
+HuBMAP Display ID of the donor of the assayed tissue. Example: `ABC123`.
 
 | constraint | value |
 | --- | --- |
@@ -72,7 +77,7 @@ HuBMAP Display ID of the donor of the assayed tissue.
 | required | `True` |
 
 ### `tissue_id`
-HuBMAP Display ID of the assayed tissue.
+HuBMAP Display ID of the assayed tissue. Example: `ABC123-BL-1-2-3_456`.
 
 | constraint | value |
 | --- | --- |
@@ -133,7 +138,7 @@ Each assay is placed into one of the following 3 general categories: generation 
 
 | constraint | value |
 | --- | --- |
-| enum | `imaging` |
+| enum | `mass_spectrometry_imaging` |
 | required | `True` |
 
 ### `assay_type`
@@ -184,7 +189,7 @@ The manufacturer of the instrument used to prepare the sample for the assay.
 | required | `True` |
 
 ### `preparation_instrument_model`
-The model number/name of the instrument used to prepare the sample for the assay
+The model number/name of the instrument used to prepare the sample for the assay.
 
 | constraint | value |
 | --- | --- |
@@ -207,7 +212,7 @@ DOI for protocols.io referring to the protocol for preparing reagents for the as
 | pattern (regular expression) | `10\.17504/.*` |
 
 ### `number_of_channels`
-Number of mass channels measured
+Number of mass channels measured.
 
 | constraint | value |
 | --- | --- |
@@ -255,7 +260,7 @@ Frequency value of laser ablation (in Hz)
 | required | `True` |
 
 ### `ablation_frequency_unit`
-Frequency unit of laser ablation
+Frequency unit of laser ablation.
 
 | constraint | value |
 | --- | --- |
@@ -293,7 +298,7 @@ Threshold for dual counting.
 | required | `True` |
 
 ### `end_datetime`
-Time stamp indicating end of ablation for ROI
+Time stamp indicating end of ablation for ROI.
 
 | constraint | value |
 | --- | --- |
@@ -302,7 +307,7 @@ Time stamp indicating end of ablation for ROI
 | required | `True` |
 
 ### `max_x_width_value`
-Image width value of the ROI acquisition
+Image width value of the ROI acquisition.
 
 | constraint | value |
 | --- | --- |
@@ -310,7 +315,7 @@ Image width value of the ROI acquisition
 | required | `True` |
 
 ### `max_x_width_unit`
-Units of image width of the ROI acquisition
+Units of image width of the ROI acquisition.
 
 | constraint | value |
 | --- | --- |
@@ -318,7 +323,7 @@ Units of image width of the ROI acquisition
 | required | `True` |
 
 ### `max_y_height_value`
-Image height value of the ROI acquisition
+Image height value of the ROI acquisition.
 
 | constraint | value |
 | --- | --- |
@@ -326,7 +331,7 @@ Image height value of the ROI acquisition
 | required | `True` |
 
 ### `max_y_height_unit`
-Units of image height of the ROI acquisition
+Units of image height of the ROI acquisition.
 
 | constraint | value |
 | --- | --- |
@@ -350,7 +355,7 @@ Type of signal measured per channel (usually dual counts)
 | required | `True` |
 
 ### `start_datetime`
-Time stamp indicating start of ablation for ROI
+Time stamp indicating start of ablation for ROI.
 
 | constraint | value |
 | --- | --- |
@@ -359,21 +364,19 @@ Time stamp indicating start of ablation for ROI
 | required | `True` |
 
 ### `data_precision_bytes`
-Numerical data precision in bytes
+Numerical data precision in bytes.
 
 | constraint | value |
 | --- | --- |
 | type | `number` |
 | required | `True` |
 
-## Paths
-
-### `metadata_path`
-Relative path to file or directory with free-form or instrument/lab specific metadata. Optional. Leave blank if not applicable.
+### `contributors_path`
+Relative path to file with ORCID IDs for contributors for this dataset.
 
 | constraint | value |
 | --- | --- |
-| required | `False` |
+| required | `True` |
 
 ### `data_path`
 Relative path to file or directory with instrument data. Downstream processing will depend on filename extension conventions.

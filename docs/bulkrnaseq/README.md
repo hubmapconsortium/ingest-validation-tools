@@ -1,9 +1,10 @@
 # bulkrnaseq
 
 Related files:
-- [🔬 Background doc](https://docs.google.com/document/d/1gRPGWWO43nSY024NHuQ4RdONTRezhI0tPOcZyCsvHhI/edit): More details about this type.
-- [📝 TSV template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/master/docs/bulkrnaseq/bulkrnaseq-metadata.tsv): Use this to submit metadata.
-- [💻 Source code](https://github.com/hubmapconsortium/ingest-validation-tools/edit/master/src/ingest_validation_tools/table-schemas/level-2/bulkrnaseq.yaml): Make a PR if this doc should be updated.
+- [🔬 Background doc](https://portal.hubmapconsortium.org/docs/assays/rnaseq): More details about this type.
+- [📝 Excel template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/master/docs/bulkrnaseq/bulkrnaseq-metadata.xlsx): For metadata entry.
+- [📝 TSV template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/master/docs/bulkrnaseq/bulkrnaseq-metadata.tsv): Alternative for metadata entry.
+- [💻 Source code](https://github.com/hubmapconsortium/ingest-validation-tools/edit/master/src/ingest_validation_tools/table-schemas/level-2/bulkrnaseq.yaml): Make a PR to update this doc.
 
 ## Table of contents
 <details><summary>Provenance</summary>
@@ -48,17 +49,21 @@ Related files:
 [`sequencing_read_format`](#sequencing_read_format)<br>
 [`sequencing_read_percent_q30`](#sequencing_read_percent_q30)<br>
 [`sequencing_phix_percent`](#sequencing_phix_percent)<br>
-</details>
-
-<details><summary>Paths</summary>
-
-[`metadata_path`](#metadata_path)<br>
+[`contributors_path`](#contributors_path)<br>
 [`data_path`](#data_path)<br></details>
+
+## Directory structure
+
+| pattern (regular expression) | required? | description |
+| --- | --- | --- |
+| `.+` | ✓ | TODO |
+| `extras/.*` |  | Free-form descriptive information supplied by the TMC |
+| `extras/thumbnail\.(png\|jpg)` |  | Optional thumbnail image which may be shown in search interface |
 
 ## Provenance
 
 ### `donor_id`
-HuBMAP Display ID of the donor of the assayed tissue.
+HuBMAP Display ID of the donor of the assayed tissue. Example: `ABC123`.
 
 | constraint | value |
 | --- | --- |
@@ -66,7 +71,7 @@ HuBMAP Display ID of the donor of the assayed tissue.
 | required | `True` |
 
 ### `tissue_id`
-HuBMAP Display ID of the assayed tissue.
+HuBMAP Display ID of the assayed tissue. Example: `ABC123-BL-1-2-3_456`.
 
 | constraint | value |
 | --- | --- |
@@ -171,7 +176,7 @@ An acquisition_instrument is the device that contains the signal detection hardw
 | required | `True` |
 
 ### `bulk_rna_isolation_protocols_io_doi`
-Link to a protocols document answering the question: How was tissue stored and processed for RNA isolation RNA_isolation_protocols_io_doi
+Link to a protocols document answering the question: How was tissue stored and processed for RNA isolation RNA_isolation_protocols_io_doi.
 
 | constraint | value |
 | --- | --- |
@@ -195,7 +200,7 @@ RNA amount per Tissue input amount. Valid values should be weight/weight (ng/mg)
 | required | `True` |
 
 ### `bulk_rna_isolation_quality_metric_value`
-RIN value
+RIN value.
 
 | constraint | value |
 | --- | --- |
@@ -205,7 +210,7 @@ RIN value
 | required | `True` |
 
 ### `rnaseq_assay_input_value`
-RNA input amount value to the assay
+RNA input amount value to the assay.
 
 | constraint | value |
 | --- | --- |
@@ -213,7 +218,7 @@ RNA input amount value to the assay
 | required | `True` |
 
 ### `rnaseq_assay_input_unit`
-Units of RNA input amount to the assay
+Units of RNA input amount to the assay.
 
 | constraint | value |
 | --- | --- |
@@ -252,7 +257,7 @@ Adapter sequence to be used for adapter trimming.
 | required | `True` |
 
 ### `library_pcr_cycles_for_sample_index`
-Number of PCR cycles performed for library indexing
+Number of PCR cycles performed for library indexing.
 
 | constraint | value |
 | --- | --- |
@@ -260,7 +265,7 @@ Number of PCR cycles performed for library indexing
 | required | `True` |
 
 ### `library_final_yield_value`
-Total amount of library after final pcr amplification step
+Total amount of library after final pcr amplification step.
 
 | constraint | value |
 | --- | --- |
@@ -268,7 +273,7 @@ Total amount of library after final pcr amplification step
 | required | `True` |
 
 ### `library_final_yield_unit`
-units of library final yield
+units of library final yield.
 
 | constraint | value |
 | --- | --- |
@@ -284,7 +289,7 @@ Average size in base pairs (bp) of sequencing library fragments estimated via ge
 | required | `True` |
 
 ### `sequencing_reagent_kit`
-Reagent kit used for sequencing
+Reagent kit used for sequencing.
 
 | constraint | value |
 | --- | --- |
@@ -299,7 +304,7 @@ Slash-delimited list of the number of sequencing cycles for, for example, Read1,
 | required | `True` |
 
 ### `sequencing_read_percent_q30`
-Percent of bases with Quality scores above Q30
+Percent of bases with Quality scores above Q30.
 
 | constraint | value |
 | --- | --- |
@@ -309,7 +314,7 @@ Percent of bases with Quality scores above Q30
 | maximum | `100` |
 
 ### `sequencing_phix_percent`
-Percent PhiX loaded to the run
+Percent PhiX loaded to the run.
 
 | constraint | value |
 | --- | --- |
@@ -318,14 +323,12 @@ Percent PhiX loaded to the run
 | minimum | `0` |
 | maximum | `100` |
 
-## Paths
-
-### `metadata_path`
-Relative path to file or directory with free-form or instrument/lab specific metadata. Optional. Leave blank if not applicable.
+### `contributors_path`
+Relative path to file with ORCID IDs for contributors for this dataset.
 
 | constraint | value |
 | --- | --- |
-| required | `False` |
+| required | `True` |
 
 ### `data_path`
 Relative path to file or directory with instrument data. Downstream processing will depend on filename extension conventions.

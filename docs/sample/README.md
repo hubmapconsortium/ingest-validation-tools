@@ -1,9 +1,10 @@
 # sample
 
 Related files:
-- [🔬 Background doc](TODO): More details about this type.
-- [📝 TSV template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/master/docs/sample/sample-metadata.tsv): Use this to submit metadata.
-- [💻 Source code](https://github.com/hubmapconsortium/ingest-validation-tools/edit/master/src/ingest_validation_tools/table-schemas/sample.yaml): Make a PR if this doc should be updated.
+
+- [📝 Excel template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/master/docs/sample/sample.xlsx): For metadata entry.
+- [📝 TSV template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/master/docs/sample/sample.tsv): Alternative for metadata entry.
+- [💻 Source code](https://github.com/hubmapconsortium/ingest-validation-tools/edit/master/src/ingest_validation_tools/table-schemas/sample.yaml): Make a PR to update this doc.
 
 ## Table of contents
 <details><summary>IDs</summary>
@@ -57,7 +58,7 @@ Identify the vital state of the donor.
 | enum | `living` or `deceased` |
 
 ### `health_status`
-Patient's baseline physical condition prior to immediate event leading to organ/tissue acquisition. For example, if a relatively healthy patient suffers trauma, and as a result of reparative surgery, a tissue sample is collected, the subject will be deemed “relatively healthy”.   Likewise, a relatively healthy subject may have experienced trauma leading to brain death.  As a result of organ donation, a sample is collected.  In this scenario, the subject is deemed “relatively healthy.”
+Patient's baseline physical condition prior to immediate event leading to organ/tissue acquisition. For example, if a relatively healthy patient suffers trauma, and as a result of reparative surgery, a tissue sample is collected, the subject will be deemed “relatively healthy”.   Likewise, a relatively healthy subject may have experienced trauma leading to brain death.  As a result of organ donation, a sample is collected.  In this scenario, the subject is deemed “relatively healthy.”.
 
 | constraint | value |
 | --- | --- |
@@ -107,7 +108,7 @@ Time interval between cessation of blood flow and cooling to 4C. Leave blank if 
 | required | `False` |
 
 ### `warm_ischemia_time_unit`
-Time unit
+Time unit.
 
 | constraint | value |
 | --- | --- |
@@ -123,7 +124,7 @@ Time interval on ice to the start of preservation protocol. Leave blank if not a
 | required | `False` |
 
 ### `cold_ischemia_time_unit`
-Time unit
+Time unit.
 
 | constraint | value |
 | --- | --- |

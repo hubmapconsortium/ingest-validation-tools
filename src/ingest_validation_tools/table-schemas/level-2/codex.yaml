@@ -1,4 +1,4 @@
-doc_url: https://docs.google.com/document/d/1CYYSXPQjwdbvmvZaEcsi_2udvDfGEZrMyh4yFnm4p3M/edit
+doc_url: https://portal.hubmapconsortium.org/docs/assays/codex
 fields:
 # Overrides of Level 1 fields:
   -
@@ -81,3 +81,6 @@ fields:
   -
     name: reagent_prep_protocols_io_doi
     description: DOI for protocols.io referring to the protocol for preparing reagents for the assay.
+  -
+    name: antibodies_path
+    description: Relative path to file with antibody information for this dataset.

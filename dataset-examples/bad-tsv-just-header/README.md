@@ -1,8 +1,6 @@
 ```
 Metadata TSV Errors:
-  dataset-examples/bad-tsv-just-header/submission/codex-akoya-metadata.tsv (as codex-akoya):
-    Internal:
-    - Header in column 1 ("A") doesn't match field name "donor_id" in the schema
-    External:
-      Warning: File has no data rows.
+  dataset-examples/bad-tsv-just-header/submission/codex-metadata.tsv (as None):
+    Internal: TSV has no assay_type.
+    External: File has no data rows.
 ```

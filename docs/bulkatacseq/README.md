@@ -1,9 +1,10 @@
 # bulkatacseq
 
 Related files:
-- [🔬 Background doc](https://docs.google.com/document/d/1Lrzruebio9nUusaFSJQlZGANkRjS5lrJmk4W0sSj_xM/edit): More details about this type.
-- [📝 TSV template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/master/docs/bulkatacseq/bulkatacseq-metadata.tsv): Use this to submit metadata.
-- [💻 Source code](https://github.com/hubmapconsortium/ingest-validation-tools/edit/master/src/ingest_validation_tools/table-schemas/level-2/bulkatacseq.yaml): Make a PR if this doc should be updated.
+- [🔬 Background doc](https://portal.hubmapconsortium.org/docs/assays/atacseq): More details about this type.
+- [📝 Excel template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/master/docs/bulkatacseq/bulkatacseq-metadata.xlsx): For metadata entry.
+- [📝 TSV template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/master/docs/bulkatacseq/bulkatacseq-metadata.tsv): Alternative for metadata entry.
+- [💻 Source code](https://github.com/hubmapconsortium/ingest-validation-tools/edit/master/src/ingest_validation_tools/table-schemas/level-2/bulkatacseq.yaml): Make a PR to update this doc.
 
 ## Table of contents
 <details><summary>Provenance</summary>
@@ -53,17 +54,21 @@ Related files:
 [`transposition_kit_number`](#transposition_kit_number)<br>
 [`transposition_method`](#transposition_method)<br>
 [`transposition_transposase_source`](#transposition_transposase_source)<br>
-</details>
-
-<details><summary>Paths</summary>
-
-[`metadata_path`](#metadata_path)<br>
+[`contributors_path`](#contributors_path)<br>
 [`data_path`](#data_path)<br></details>
+
+## Directory structure
+
+| pattern (regular expression) | required? | description |
+| --- | --- | --- |
+| `.*\.fastq\.gz` | ✓ | TODO |
+| `extras/.*` |  | Free-form descriptive information supplied by the TMC |
+| `extras/thumbnail\.(png\|jpg)` |  | Optional thumbnail image which may be shown in search interface |
 
 ## Provenance
 
 ### `donor_id`
-HuBMAP Display ID of the donor of the assayed tissue.
+HuBMAP Display ID of the donor of the assayed tissue. Example: `ABC123`.
 
 | constraint | value |
 | --- | --- |
@@ -71,7 +76,7 @@ HuBMAP Display ID of the donor of the assayed tissue.
 | required | `True` |
 
 ### `tissue_id`
-HuBMAP Display ID of the assayed tissue.
+HuBMAP Display ID of the assayed tissue. Example: `ABC123-BL-1-2-3_456`.
 
 | constraint | value |
 | --- | --- |
@@ -169,7 +174,7 @@ An acquisition_instrument is the device that contains the signal detection hardw
 | required | `True` |
 
 ### `acquisition_instrument_model`
-Manufacturers of an acquisition instrument may offer various versions (models) of that instrument with different features or sensitivities. Differences in features or sensitivities may be relevant to processing or interpretation of the data
+Manufacturers of an acquisition instrument may offer various versions (models) of that instrument with different features or sensitivities. Differences in features or sensitivities may be relevant to processing or interpretation of the data.
 
 | constraint | value |
 | --- | --- |
@@ -183,7 +188,7 @@ A number (no comma separators)
 | required | `True` |
 
 ### `bulk_atac_cell_isolation_protocols_io_doi`
-Link to a protocols document answering the question: How was tissue stored and processed for cell/nuclei isolation
+Link to a protocols document answering the question: How was tissue stored and processed for cell/nuclei isolation.
 
 | constraint | value |
 | --- | --- |
@@ -199,7 +204,7 @@ Is this a sequencing replicate?
 | required | `True` |
 
 ### `library_adapter_sequence`
-Adapter sequence to be used for adapter trimming
+Adapter sequence to be used for adapter trimming.
 
 | constraint | value |
 | --- | --- |
@@ -221,7 +226,7 @@ The concentration value of the pooled library samples submitted for sequencing.
 | required | `True` |
 
 ### `library_concentration_unit`
-Unit of library_concentration_value
+Unit of library_concentration_value.
 
 | constraint | value |
 | --- | --- |
@@ -254,7 +259,7 @@ Total amount (eg. nanograms) of library after the clean-up step of final pcr amp
 | required | `True` |
 
 ### `library_final_yield_unit`
-Units of library final yield
+Units of library final yield.
 
 | constraint | value |
 | --- | --- |
@@ -285,7 +290,7 @@ Number of PCR cycles performed in order to add adapters and amplify the library.
 | required | `True` |
 
 ### `library_preparation_kit`
-Reagent kit used for library preparation
+Reagent kit used for library preparation.
 
 | constraint | value |
 | --- | --- |
@@ -299,7 +304,7 @@ This is a quality metric by visual inspection. This should answer the question: 
 | required | `True` |
 
 ### `sequencing_phix_percent`
-Percent PhiX loaded to the run
+Percent PhiX loaded to the run.
 
 | constraint | value |
 | --- | --- |
@@ -317,7 +322,7 @@ Slash-delimited list of the number of sequencing cycles for, for example, Read1,
 | required | `True` |
 
 ### `sequencing_read_percent_q30`
-Percent of bases with Quality scores above Q30
+Percent of bases with Quality scores above Q30.
 
 | constraint | value |
 | --- | --- |
@@ -327,7 +332,7 @@ Percent of bases with Quality scores above Q30
 | maximum | `100` |
 
 ### `sequencing_reagent_kit`
-Reagent kit used for sequencing. NovaSeq6000 for example
+Reagent kit used for sequencing. NovaSeq6000 for example.
 
 | constraint | value |
 | --- | --- |
@@ -354,14 +359,12 @@ The source of the Tn5 transposase and transposon used for capturing accessible c
 | --- | --- |
 | required | `True` |
 
-## Paths
-
-### `metadata_path`
-Relative path to file or directory with free-form or instrument/lab specific metadata. Optional. Leave blank if not applicable.
+### `contributors_path`
+Relative path to file with ORCID IDs for contributors for this dataset.
 
 | constraint | value |
 | --- | --- |
-| required | `False` |
+| required | `True` |
 
 ### `data_path`
 Relative path to file or directory with instrument data. Downstream processing will depend on filename extension conventions.
