@@ -24,7 +24,7 @@
   description: 'mapping quality plots (has unique and multiple alignment ratio, alignment scores alignment mismatch)'
 -
   pattern: '[^/]+/alignment/Puck_[^/]+\.digital_expression\.txt\.gz'
-  description 'bead x gene expression matrix (csv file)'
+  description: 'bead x gene expression matrix (csv file)'
 -
   pattern: '[^/]+/alignment/Puck_[^/]+\.exonic\+intronic\.pdf'
   description: 'post alignment plots (qa/qc), plots of sequencing data, alignment and barcode matching'
