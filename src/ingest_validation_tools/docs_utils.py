@@ -83,8 +83,8 @@ def generate_readme_md(
 
     raw_base_url = 'https://raw.githubusercontent.com/' \
         'hubmapconsortium/ingest-validation-tools/master/docs'
-    tsv_url = f'{raw_base_url}/{type}/{get_tsv_name(type)}'
-    xlsx_url = f'{raw_base_url}/{type}/{get_xlsx_name(type)}'
+    tsv_url = f'{raw_base_url}/{type}/{get_tsv_name(type, is_assay=is_assay)}'
+    xlsx_url = f'{raw_base_url}/{type}/{get_xlsx_name(type, is_assay=is_assay)}'
     end_of_path = f'{"level-2/" if is_assay else ""}{type}.yaml'
     source_url = 'https://github.com/hubmapconsortium' \
         '/ingest-validation-tools/edit/master' \
