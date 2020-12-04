@@ -36,7 +36,7 @@ def main():
     # README:
     with open(Path(args.target) / 'README.md', 'w') as f:
         f.write(generate_readme_md(
-            table_schema, directory_schema, args.type, is_top_level=(not is_assay)
+            table_schema, directory_schema, args.type, is_assay=is_assay
         ))
         # TODO: Rename
 

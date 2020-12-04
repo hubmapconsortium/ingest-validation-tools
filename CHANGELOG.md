@@ -20,6 +20,7 @@
 - Escape RE in directory schema.
 - Unify generation of assay and other docs.
 - Supply XLSX for non-assays.
+- Fix links.
 
 ## v0.0.5 - 2020-11-09
 - Change "mixif" to "mxif".

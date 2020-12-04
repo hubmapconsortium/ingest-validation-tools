@@ -71,7 +71,7 @@ def _enrich_description(field):
 
 
 def generate_readme_md(
-        table_schema, directory_schema, type, is_top_level=False):
+        table_schema, directory_schema, type, is_assay=True):
     fields_md = _make_fields_md(table_schema)
     toc_md = _make_toc(fields_md)
     dir_description_md = _make_dir_description(directory_schema)
@@ -85,7 +85,7 @@ def generate_readme_md(
         'hubmapconsortium/ingest-validation-tools/master/docs'
     tsv_url = f'{raw_base_url}/{type}/{get_tsv_name(type)}'
     xlsx_url = f'{raw_base_url}/{type}/{get_xlsx_name(type)}'
-    end_of_path = f'{"" if is_top_level else "level-2/"}{type}.yaml'
+    end_of_path = f'{"level-2/" if is_assay else ""}{type}.yaml'
     source_url = 'https://github.com/hubmapconsortium' \
         '/ingest-validation-tools/edit/master' \
         f'/src/ingest_validation_tools/table-schemas/{end_of_path}'
