@@ -19,6 +19,7 @@ acquisition_instrument_vendor: An acquisition_instrument is the device that cont
   the signal detection hardware and signal processing software. Assays generate signals
   such as light of various intensities or color or signals representing molecular
   mass.
+age_value: The time elapsed since birth.
 analyte_class: Analytes are the target molecules being measured with the assay.
 antibodies_path: Relative path to file with antibody information for this dataset.
 assay_category: 'Each assay is placed into one of the following 3 general categories:
@@ -28,6 +29,15 @@ assay_type: The specific type of assay being executed.
 bead_barcode_offset: Position(s) in the read at which the bead barcode starts
 bead_barcode_read: Which read file contains the bead barcode
 bead_barcode_size: Length of the bead barcode in base pairs
+blood_type: 'The specific reaction pattern of erythrocytes of an individual to the
+  antisera of one blood group; e.g., the ABO blood group consists of four major blood
+  types: O, A, B, and AB. This classification depends on the presence or absence of
+  two major antigens: A or B. Type O occurs when neither is present and type AB when
+  both are present. The blood type is the genetic phenotype of the individual for
+  one blood group system and may be determined using different antisera available
+  for testing.'
+body_mass_index_value: An individual's weight in kilograms divided by the square of
+  the height in meters.
 bulk_atac_cell_isolation_protocols_io_doi: 'Link to a protocols document answering
   the question: How was tissue stored and processed for cell/nuclei isolation'
 bulk_rna_isolation_protocols_io_doi: 'Link to a protocols document answering the question:
@@ -40,6 +50,8 @@ bulk_rna_yield_value: 'RNA (ng) per Weight of Tissue (mg). Answer the question: 
   RNA? Calculate the yield by dividing total RNA isolated by amount of tissue used
   to isolate RNA from (ng/mg).'
 bulk_transposition_input_number_nuclei: A number (no comma separators)
+cause_of_death: The circumstance or condition that results in the death of a living
+  being.
 cell_barcode_offset: Position(s) in the read at which the cell barcode starts.
 cell_barcode_read: Which read file contains the cell barcode
 cell_barcode_size: Length of the cell barcode in base pairs
@@ -70,6 +82,8 @@ health_status: "Patient's baseline physical condition prior to immediate event l
   \ healthy subject may have experienced trauma leading to brain death.  As a result\
   \ of organ donation, a sample is collected.  In this scenario, the subject is deemed\
   \ \u201Crelatively healthy.\u201D"
+height_unit: The vertical measurement or distance from the base to the top of a subject
+  or participant.
 is_targeted: Specifies whether or not a specific molecule(s) is/are targeted for detection/measurement
   by the assay. The CODEX analyte is protein.
 is_technical_replicate: Is this a sequencing replicate?
@@ -130,6 +144,10 @@ max_x_width_unit: Units of image width of the ROI acquisition
 max_x_width_value: Image width value of the ROI acquisition
 max_y_height_unit: Units of image height of the ROI acquisition
 max_y_height_value: Image height value of the ROI acquisition
+mechanism_of_injury: How, with what force, and on which part of the body the patient
+  was injured.
+medical_history: A record of a patient's background regarding health and the occurrence
+  of disease events of the individual.
 ms_scan_mode: Indicates whether experiment is MS, MS/MS, or other (possibly MS3 for
   TMT)
 ms_source: The ion source type used for surface sampling (MALDI, MALDI-2, DESI, or
@@ -175,6 +193,8 @@ protocols_io_doi: DOI for protocols.io referring to the protocol for this assay.
 puck_id: Slide-seq captures RNA sequence data on spatially barcoded arrays of beads.
   Beads are fixed to a slide in a region shaped like a round puck. Each puck has a
   unique puck_id.
+race: A geographic ancestral origin category that is assigned to a population group
+  based mainly on physical characteristics that are thought to be distinct and inherent.
 reagent_prep_protocols_io_doi: DOI for protocols.io referring to the protocol for
   preparing reagents for the assay.
 resolution_x_unit: The unit of measurement of width of a pixel
@@ -219,6 +239,8 @@ sequencing_read_format: Slash-delimited list of the number of sequencing cycles 
   for example, Read1, i7 index, i5 index, and Read2.
 sequencing_read_percent_q30: Percent of bases with Quality scores above Q30
 sequencing_reagent_kit: Reagent kit used for sequencing
+sex: Phenotypic expression of chromosomal makeup that defines a study subject as male,
+  female, or other. Compare to gender.
 signal_type: Type of signal measured per channel (usually dual counts)
 specimen_preservation_temperature: The temperature of the medium during the preservation
   process.
@@ -240,4 +262,6 @@ vital_state: Identify the vital state of the donor.
 warm_ischemia_time_unit: Time unit
 warm_ischemia_time_value: Time interval between cessation of blood flow and cooling
   to 4C.
+weight_value: A measurement that describes the vertical force exerted by a mass of
+  the patient as a result of gravity.
 
