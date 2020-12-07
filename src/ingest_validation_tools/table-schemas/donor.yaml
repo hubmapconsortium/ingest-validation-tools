@@ -2,31 +2,34 @@
 # The full description of Donor metadata is at
 # https://portal.hubmapconsortium.org/docs/donor
 
+# Most definitions taken from:
+# https://ncit.nci.nih.gov/ncitbrowser/pages/home.jsf?version=20.11e
+
 fields:
 # -
 #   name: age_unit
 #   description: TODO
-# -
-#   name: age_value
-#   description: TODO
-# -
-#   name: blood_type
-#   description: TODO
+-
+  name: age_value
+  description:  The time elapsed since birth. 
+-
+  name: blood_type
+  description:  'The specific reaction pattern of erythrocytes of an individual to the antisera of one blood group; e.g., the ABO blood group consists of four major blood types: O, A, B, and AB. This classification depends on the presence or absence of two major antigens: A or B. Type O occurs when neither is present and type AB when both are present. The blood type is the genetic phenotype of the individual for one blood group system and may be determined using different antisera available for testing.' 
 # -
 #   name: body_mass_index_unit
 #   description: TODO
-# -
-#   name: body_mass_index_value
-#   description: TODO
-# -
-#   name: cause_of_death
-#   description: TODO
+-
+  name: body_mass_index_value
+  description: An individual's weight in kilograms divided by the square of the height in meters. 
+-
+  name: cause_of_death
+  description:  The circumstance or condition that results in the death of a living being.
 # -
 #   name: death_event
 #   description: TODO
-# -
-#   name: height_unit
-#   description: TODO
+-
+  name: height_unit
+  description:  The vertical measurement or distance from the base to the top of a subject or participant. 
 # -
 #   name: height_value
 #   description: TODO
@@ -49,21 +52,22 @@ fields:
     Lower KDPI values are associated with increased donor quality and expected longevity.
     https://optn.transplant.hrsa.gov/media/1512/guide_to_calculating_interpreting_kdpi.pdf
 
-# -
-#   name: mechanism_of_injury
-#   description: TODO
-# -
-#   name: medical_history
-#   description: TODO
-# -
-#   name: race
-#   description: TODO
-# -
-#   name: sex
-#   description: TODO
+-
+  name: mechanism_of_injury
+  # From https://iaedjournal.org/
+  description: How, with what force, and on which part of the body the patient was injured.
+-
+  name: medical_history
+  description:  A record of a patient's background regarding health and the occurrence of disease events of the individual.
+-
+  name: race
+  description:  A geographic ancestral origin category that is assigned to a population group based mainly on physical characteristics that are thought to be distinct and inherent. 
+-
+  name: sex
+  description:  Phenotypic expression of chromosomal makeup that defines a study subject as male, female, or other. Compare to gender. 
 # -
 #   name: weight_unit
 #   description: TODO
-# -
-#   name: weight_value
-#   description: TODO
+-
+  name: weight_value
+  description:  A measurement that describes the vertical force exerted by a mass of the patient as a result of gravity. 
