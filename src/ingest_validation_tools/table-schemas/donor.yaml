@@ -23,7 +23,8 @@ fields:
   description: An individual's weight in kilograms divided by the square of the height in meters. 
 -
   name: cause_of_death
-  description:  The circumstance or condition that results in the death of a living being.
+  description:  The circumstance or condition that caused death.
+
 # -
 #   name: death_event
 #   description: TODO
