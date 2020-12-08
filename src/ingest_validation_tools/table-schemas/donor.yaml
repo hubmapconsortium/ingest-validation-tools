@@ -56,7 +56,7 @@ fields:
 -
   name: mechanism_of_injury
   # From https://iaedjournal.org/
-  description: Mechanism of injury may be, for example: fall, impact (eg: auto accident), weapon (eg: firearm), etc. 
+  description: 'Mechanism of injury may be, for example: fall, impact (eg: auto accident), weapon (eg: firearm), etc.'
 
 -
   name: medical_history
@@ -67,7 +67,7 @@ fields:
 
 -
   name: sex
-  description:  Biological sex at birth: male or female or other.
+  description:  'Biological sex at birth: male or female or other.'
 
 # -
 #   name: weight_unit
