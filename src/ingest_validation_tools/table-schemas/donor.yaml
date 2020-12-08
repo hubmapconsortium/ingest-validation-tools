@@ -67,7 +67,8 @@ fields:
 
 -
   name: sex
-  description:  Phenotypic expression of chromosomal makeup that defines a study subject as male, female, or other. Compare to gender. 
+  description:  Biological sex at birth: male or female or other.
+
 # -
 #   name: weight_unit
 #   description: TODO
