@@ -50,8 +50,7 @@ bulk_rna_yield_value: 'RNA (ng) per Weight of Tissue (mg). Answer the question: 
   RNA? Calculate the yield by dividing total RNA isolated by amount of tissue used
   to isolate RNA from (ng/mg).'
 bulk_transposition_input_number_nuclei: A number (no comma separators)
-cause_of_death: The circumstance or condition that results in the death of a living
-  being.
+cause_of_death: The circumstance or condition that caused death.
 cell_barcode_offset: Position(s) in the read at which the cell barcode starts.
 cell_barcode_read: Which read file contains the cell barcode
 cell_barcode_size: Length of the cell barcode in base pairs
@@ -264,4 +263,3 @@ warm_ischemia_time_value: Time interval between cessation of blood flow and cool
   to 4C.
 weight_value: A measurement that describes the vertical force exerted by a mass of
   the patient as a result of gravity.
-
