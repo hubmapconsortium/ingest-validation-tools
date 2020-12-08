@@ -1,5 +1,8 @@
 # Changelog
 
+## v0.0.7 - In progress
+- Improved error messages in Excel.
+
 ## v0.0.6 - In progress
 - Add thumbnail to directory schema.
 - Add machinery to include regex examples in docs.
