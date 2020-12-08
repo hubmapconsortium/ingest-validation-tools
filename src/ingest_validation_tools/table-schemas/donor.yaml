@@ -14,7 +14,7 @@ fields:
   description:  The time elapsed since birth. 
 -
   name: blood_type
-  description:  'The specific reaction pattern of erythrocytes of an individual to the antisera of one blood group; e.g., the ABO blood group consists of four major blood types: O, A, B, and AB. This classification depends on the presence or absence of two major antigens: A or B. Type O occurs when neither is present and type AB when both are present. The blood type is the genetic phenotype of the individual for one blood group system and may be determined using different antisera available for testing.' 
+  description:  'ABO blood type or "serotype" refers to the presence/absence of the either/both A & B blood antigens.' 
 # -
 #   name: body_mass_index_unit
 #   description: TODO
