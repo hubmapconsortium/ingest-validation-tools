@@ -55,7 +55,8 @@ fields:
 -
   name: mechanism_of_injury
   # From https://iaedjournal.org/
-  description: How, with what force, and on which part of the body the patient was injured.
+  description: Mechanism of injury may be, for example: fall, impact (eg: auto accident), weapon (eg: firearm), etc. 
+
 -
   name: medical_history
   description:  A record of a patient's background regarding health and the occurrence of disease events of the individual.
