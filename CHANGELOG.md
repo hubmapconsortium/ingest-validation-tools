@@ -2,8 +2,9 @@
 
 ## v0.0.7 - In progress
 - Improved error messages in Excel.
+- Define donor terms.
 
-## v0.0.6 - In progress
+## v0.0.6 - 2020-12-07
 - Add thumbnail to directory schema.
 - Add machinery to include regex examples in docs.
 - Run mypy, but only on the one file that has type annotations.

@@ -2,31 +2,35 @@
 # The full description of Donor metadata is at
 # https://portal.hubmapconsortium.org/docs/donor
 
+# Most definitions taken from:
+# https://ncit.nci.nih.gov/ncitbrowser/pages/home.jsf?version=20.11e
+
 fields:
 # -
 #   name: age_unit
 #   description: TODO
-# -
-#   name: age_value
-#   description: TODO
-# -
-#   name: blood_type
-#   description: TODO
+-
+  name: age_value
+  description:  The time elapsed since birth. 
+-
+  name: blood_type
+  description:  'ABO blood type or "serotype" refers to the presence/absence of the either/both A & B blood antigens.' 
 # -
 #   name: body_mass_index_unit
 #   description: TODO
-# -
-#   name: body_mass_index_value
-#   description: TODO
-# -
-#   name: cause_of_death
-#   description: TODO
+-
+  name: body_mass_index_value
+  description: An individual's weight in kilograms divided by the square of the height in meters. 
+-
+  name: cause_of_death
+  description:  The circumstance or condition that caused death.
+
 # -
 #   name: death_event
 #   description: TODO
-# -
-#   name: height_unit
-#   description: TODO
+-
+  name: height_unit
+  description:  The vertical measurement or distance from the base to the top of a subject or participant. 
 # -
 #   name: height_value
 #   description: TODO
@@ -49,21 +53,25 @@ fields:
     Lower KDPI values are associated with increased donor quality and expected longevity.
     https://optn.transplant.hrsa.gov/media/1512/guide_to_calculating_interpreting_kdpi.pdf
 
-# -
-#   name: mechanism_of_injury
-#   description: TODO
-# -
-#   name: medical_history
-#   description: TODO
-# -
-#   name: race
-#   description: TODO
-# -
-#   name: sex
-#   description: TODO
+-
+  name: mechanism_of_injury
+  # From https://iaedjournal.org/
+  description: 'Mechanism of injury may be, for example: fall, impact (eg: auto accident), weapon (eg: firearm), etc.'
+
+-
+  name: medical_history
+  description:  A record of a patient's background regarding health and the occurrence of disease events of the individual.
+-
+  name: race
+  description:  A grouping of humans based on shared physical characteristics or social/ethnic identity generally viewed as distinct.
+
+-
+  name: sex
+  description:  'Biological sex at birth: male or female or other.'
+
 # -
 #   name: weight_unit
 #   description: TODO
-# -
-#   name: weight_value
-#   description: TODO
+-
+  name: weight_value
+  description:  A measurement that describes the vertical force exerted by a mass of the patient as a result of gravity. 
