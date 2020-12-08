@@ -61,7 +61,8 @@ fields:
   description:  A record of a patient's background regarding health and the occurrence of disease events of the individual.
 -
   name: race
-  description:  A geographic ancestral origin category that is assigned to a population group based mainly on physical characteristics that are thought to be distinct and inherent. 
+  description:  A grouping of humans based on shared physical characteristics or social/ethnic identity generally viewed as distinct.
+
 -
   name: sex
   description:  Phenotypic expression of chromosomal makeup that defines a study subject as male, female, or other. Compare to gender. 
