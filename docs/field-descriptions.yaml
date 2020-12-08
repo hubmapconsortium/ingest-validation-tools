@@ -143,8 +143,7 @@ max_x_width_value: Image width value of the ROI acquisition
 max_y_height_unit: Units of image height of the ROI acquisition
 max_y_height_value: Image height value of the ROI acquisition
 mechanism_of_injury: Mechanism of injury may be, for example: fall, impact (eg: auto accident), weapon (eg: firearm), etc. 
-medical_history: A record of a patient's background regarding health and the occurrence
-  of disease events of the individual.
+medical_history: A record of patient health & medical care.
 ms_scan_mode: Indicates whether experiment is MS, MS/MS, or other (possibly MS3 for
   TMT)
 ms_source: The ion source type used for surface sampling (MALDI, MALDI-2, DESI, or
