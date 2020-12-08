@@ -142,8 +142,7 @@ max_x_width_unit: Units of image width of the ROI acquisition
 max_x_width_value: Image width value of the ROI acquisition
 max_y_height_unit: Units of image height of the ROI acquisition
 max_y_height_value: Image height value of the ROI acquisition
-mechanism_of_injury: How, with what force, and on which part of the body the patient
-  was injured.
+mechanism_of_injury: Mechanism of injury may be, for example: fall, impact (eg: auto accident), weapon (eg: firearm), etc. 
 medical_history: A record of a patient's background regarding health and the occurrence
   of disease events of the individual.
 ms_scan_mode: Indicates whether experiment is MS, MS/MS, or other (possibly MS3 for
