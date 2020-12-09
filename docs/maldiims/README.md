@@ -195,7 +195,7 @@ The polarity of the mass analysis (positive or negative ion modes)
 | required | `True` |
 
 ### `mz_range_low_value`
-A number representing the mass:charge ratio.
+The low value of the scanned mass range for MS1. (unitless)
 
 | constraint | value |
 | --- | --- |
@@ -203,7 +203,7 @@ A number representing the mass:charge ratio.
 | required | `True` |
 
 ### `mz_range_high_value`
-A number representing the mass:charge ratio.
+The high value of the scanned mass range for MS1. (unitless)
 
 | constraint | value |
 | --- | --- |
