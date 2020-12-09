@@ -43,7 +43,11 @@ def main():
     # Data entry templates:
     with open(Path(args.target) / get_tsv_name(args.type, is_assay=is_assay), 'w') as f:
         f.write(generate_template_tsv(table_schema))
-    create_xlsx(table_schema, Path(args.target) / get_xlsx_name(args.type, is_assay=is_assay))
+    create_xlsx(
+        table_schema, Path(args.target) / get_xlsx_name(args.type, is_assay=is_assay),
+        idempotent=True,
+        sheet_name='Export as TSV'
+    )
 
 
 if __name__ == "__main__":

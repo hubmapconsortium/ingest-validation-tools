@@ -1,6 +1,7 @@
 # Changelog
 
 ## v0.0.7 - In progress
+- Improved error messages in Excel.
 - Define donor terms.
 - Update MALDI terms.
 
