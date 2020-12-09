@@ -3,6 +3,7 @@
 
 import os
 import json
+from pathlib import Path
 
 import yaml
 from typing import Any, IO
@@ -22,7 +23,7 @@ class _IncludeLoader(yaml.SafeLoader):
         super().__init__(stream)
 
 
-def _construct_include(loader: Loader, node: yaml.Node) -> Any:
+def _construct_include(loader: _IncludeLoader, node: yaml.Node) -> Any:
     """Include file referenced at node."""
 
     filename = os.path.abspath(os.path.join(loader._root, loader.construct_scalar(node)))
@@ -30,7 +31,7 @@ def _construct_include(loader: Loader, node: yaml.Node) -> Any:
 
     with open(filename, 'r') as f:
         if extension in ('yaml', 'yml'):
-            return yaml.load(f, Loader)
+            return yaml.load(f, _IncludeLoader)
         elif extension in ('json', ):
             return json.load(f)
         else:
@@ -39,5 +40,7 @@ def _construct_include(loader: Loader, node: yaml.Node) -> Any:
 
 yaml.add_constructor('!include', _construct_include, _IncludeLoader)
 
-def load_yaml(f):
-    return yaml.load(f, IncludeLoader)
+
+def load_yaml(path):
+    with Path(path).open() as f:
+        return yaml.load(f, _IncludeLoader)

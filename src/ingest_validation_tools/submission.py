@@ -4,7 +4,7 @@ from fnmatch import fnmatch
 from pathlib import Path
 from collections import Counter
 
-from yaml import safe_load as load_yaml
+from ingest_validation_tools.loader import load_yaml
 
 from ingest_validation_tools.validation_utils import (
     get_tsv_errors,
@@ -25,7 +25,7 @@ def _assay_name_to_code(name):
     Given an assay name, read all the schemas until one matches.
     '''
     for path in (Path(__file__).parent / 'table-schemas' / 'level-2').glob('*.yaml'):
-        schema = load_yaml(path.read_text())
+        schema = load_yaml(path)
         for field in schema['fields']:
             if field['name'] == 'assay_type' and name in field['constraints']['enum']:
                 return path.stem
