@@ -54,26 +54,9 @@ fields:
   -
     name: mz_range_high_value
     description: A number representing the mass:charge ratio
-  -
-    name: resolution_x_value
-    description: The width of a pixel
-  -
-    name: resolution_x_unit
-    description: The unit of measurement of the width of a pixel
-    constraints:
-      enum:
-        - nm
-        - um
-  -
-    name: resolution_y_value
-    description: The height of a pixel
-  -
-    name: resolution_y_unit
-    description: The unit of measurement of the height of a pixel
-    constraints:
-      enum:
-        - nm
-        - um
+  
+  # include: ../includes/x_y.yaml
+  
   -
     name: processing_protocols_io_doi
     # CHRIS: This is the text from one of the MALDI fields. Edit if needed. 

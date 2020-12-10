@@ -174,7 +174,7 @@ Manufacturers of an acquisition instrument may offer various versions (models) o
 | required | `True` |
 
 ### `resolution_x_value`
-The width of a pixel. (seqFISH pixel is about 0.110µm square)
+The width of a pixel.
 
 | constraint | value |
 | --- | --- |
@@ -182,7 +182,7 @@ The width of a pixel. (seqFISH pixel is about 0.110µm square)
 | required | `True` |
 
 ### `resolution_x_unit`
-The unit of measurement of width of a pixel.(µm)
+The unit of measurement of the width of a pixel.
 
 | constraint | value |
 | --- | --- |
@@ -190,7 +190,7 @@ The unit of measurement of width of a pixel.(µm)
 | required | `True` |
 
 ### `resolution_y_value`
-The height of a pixel. (seqFISH pixel is about 0.110µm square)
+The height of a pixel.
 
 | constraint | value |
 | --- | --- |
@@ -198,7 +198,7 @@ The height of a pixel. (seqFISH pixel is about 0.110µm square)
 | required | `True` |
 
 ### `resolution_y_unit`
-The unit of measurement of height of a pixel. (µm)
+The unit of measurement of the height of a pixel.
 
 | constraint | value |
 | --- | --- |
