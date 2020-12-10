@@ -20,7 +20,7 @@ class ErrorReport:
         return [munge(m) for m in _build_list(self.errors)]
 
     def as_text_list(self):
-        return '\n'.join(self._as_list())
+        return '\n'.join(self._as_list()) or 'No errors!\n'
 
     def as_yaml(self):
         return dump(self.errors, sort_keys=False)
