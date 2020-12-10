@@ -191,8 +191,8 @@ race: A grouping of humans based on shared physical characteristics or social/et
   identity generally viewed as distinct.
 reagent_prep_protocols_io_doi: DOI for protocols.io referring to the protocol for
   preparing reagents for the assay.
-resolution_x_unit: The unit of measurement of width of a pixel
-resolution_x_value: The width of a pixel
+resolution_x_unit: The unit of measurement of width of a pixel.
+resolution_x_value: The width of a pixel.
 resolution_y_unit: The unit of measurement of height of a pixel.
 resolution_y_value: The height of a pixel
 resolution_z_unit: The unit of incremental distance between image slices.

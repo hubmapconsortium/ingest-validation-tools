@@ -3,7 +3,7 @@
   description: The width of a pixel.
 -
   name: resolution_x_unit
-  description: The unit of measurement of width of a pixel.
+  description: The unit of measurement of the width of a pixel.
   constraints:
     enum:
       - nm
@@ -13,7 +13,7 @@
   description: The height of a pixel
 -
   name: resolution_y_unit
-  description: The unit of measurement of height of a pixel.
+  description: The unit of measurement of the height of a pixel.
   constraints:
     enum:
       - nm
