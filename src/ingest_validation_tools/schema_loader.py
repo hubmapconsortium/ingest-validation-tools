@@ -1,6 +1,6 @@
 from pathlib import Path
 
-from ingest_validation_tools.loader import load_yaml
+from ingest_validation_tools.yaml_include_loader import load_yaml
 
 
 _table_schemas_path = Path(__file__).parent / 'table-schemas'

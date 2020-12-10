@@ -4,7 +4,7 @@ from fnmatch import fnmatch
 from pathlib import Path
 from collections import Counter
 
-from ingest_validation_tools.loader import load_yaml
+from ingest_validation_tools.yaml_include_loader import load_yaml
 
 from ingest_validation_tools.validation_utils import (
     get_tsv_errors,
