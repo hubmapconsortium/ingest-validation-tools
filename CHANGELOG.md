@@ -4,6 +4,7 @@
 - Improved error messages in Excel.
 - Define donor terms.
 - Update MALDI terms.
+- Demonstrate that validation of one-line-tsv-in-directory will work.
 - Add an include mechanism to reduce duplication in the configs.
 
 ## v0.0.6 - 2020-12-07
