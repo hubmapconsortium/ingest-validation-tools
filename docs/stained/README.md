@@ -177,7 +177,7 @@ The width of a pixel.
 | required | `True` |
 
 ### `resolution_x_unit`
-The unit of measurement of width of a pixel.
+The unit of measurement of the width of a pixel.
 
 | constraint | value |
 | --- | --- |
@@ -193,7 +193,7 @@ The height of a pixel.
 | required | `True` |
 
 ### `resolution_y_unit`
-The unit of measurement of height of a pixel.
+The unit of measurement of the height of a pixel.
 
 | constraint | value |
 | --- | --- |

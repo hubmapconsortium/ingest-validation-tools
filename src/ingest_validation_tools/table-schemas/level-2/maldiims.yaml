@@ -52,26 +52,9 @@ fields:
   -
     name: mz_range_high_value
     description: The high value of the scanned mass range for MS1. (unitless)
-  -
-    name: resolution_x_value
-    description: The width of a pixel
-  -
-    name: resolution_x_unit
-    description: The unit of measurement of the width of a pixel
-    constraints:
-      enum:
-        - nm
-        - um
-  -
-    name: resolution_y_value
-    description: The height of a pixel
-  -
-    name: resolution_y_unit
-    description: The unit of measurement of the height of a pixel
-    constraints:
-      enum:
-        - nm
-        - um
+
+  # include: ../includes/x_y.yaml
+
   -
     name: preparation_type
     description: Common methods of depositing matrix for MALDI imaging include robotic spotting, electrospray deposition, and spray-coating with an airbrush.
