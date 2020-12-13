@@ -11,10 +11,10 @@ ablation_frequency_value: Frequency value of laser ablation (in Hz)
 acquisition_id: The acquisition_id refers to the directory containing the ROI images
   for a slide. Together, the acquisition_id and the roi_id indicate the slide-ROI
   represented in the image.
-acquisition_instrument_model: An acquisition_instrument is the device that contains
-  the signal detection hardware and signal processing software. Assays generate signals
-  such as light of various intensities or color or signals representing molecular
-  mass.
+acquisition_instrument_model: Manufacturers of an acquisition instrument may offer
+  various versions (models) of that instrument with different features or sensitivities.
+  Differences in features or sensitivities may be relevant to processing or interpretation
+  of the data.
 acquisition_instrument_vendor: An acquisition_instrument is the device that contains
   the signal detection hardware and signal processing software. Assays generate signals
   such as light of various intensities or color or signals representing molecular

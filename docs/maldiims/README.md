@@ -172,7 +172,7 @@ An acquisition instrument is the device that contains the signal detection hardw
 | required | `True` |
 
 ### `acquisition_instrument_model`
-(version) Manufacturers of an acquisition instrument may offer various versions (models) of that instrument with different features or sensitivities. Differences in features of sensitivities may be relevant to processing or interpretation of the data.
+Manufacturers of an acquisition instrument may offer various versions (models) of that instrument with different features or sensitivities. Differences in features or sensitivities may be relevant to processing or interpretation of the data.
 
 | constraint | value |
 | --- | --- |
