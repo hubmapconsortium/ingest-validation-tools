@@ -118,4 +118,4 @@ but if they are applicable to only a single dataset, they can be placed within t
 
 You can validate your submission directory locally, then upload it to Globus, and the same validation will be run there.
 
-[![Submission diagram](https://docs.google.com/drawings/d/e/2PACX-1vS8F78bk0zHSRygMIyTLruAMxjL4c5EY_q_Mp3gN2TbdZLtalax5AxyvwBWyqWwAJH941ziqJPqBDTW/pub?w=500)](https://docs.google.com/drawings/d/1nhrRWBgcZh6GE2MCKysIq4KzsRL6SZm0jYtvadF83Kk/edit)
+[![Submission/ingest diagram](https://docs.google.com/drawings/d/e/2PACX-1vTLue-4lzsfFkO4aIH-rUdrU9VMhI08FgC1XcqteqiRX_5KFg_iurqx7xQdfLAYnCt-2S5rDdj8x5UC/pub?h=500)](https://docs.google.com/drawings/d/1RUzM4KrglNO2dw89eXvAmm7zJFr2-6R2kOsyyZLWQwc/edit)
