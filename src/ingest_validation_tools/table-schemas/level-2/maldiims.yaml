@@ -20,6 +20,7 @@ fields:
         - lipids
 
   # Level 2:
+
   # include: ../includes/acquisition_instrument.yaml
   -
     name: ms_source
@@ -60,9 +61,5 @@ fields:
     name: preparation_maldi_matrix
     description: The matrix is a compound of crystallized molecules that acts like a buffer between the sample and the laser. 
       It also helps ionize the sample, carrying it along the flight tube so it can be detected.
-  -
-    name: section_prep_protocols_io_doi
-    description: DOI for protocols.io referring to the protocol for preparing tissue sections for the assay.
-  -
-    name: overall_protocols_io_doi
-    description: DOI for protocols.io referring to the overall protocol for the assay.
+  # include: ../includes/doi/section_prep.yaml
+  # include: ../includes/doi/overall.yaml

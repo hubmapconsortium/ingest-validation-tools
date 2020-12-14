@@ -45,9 +45,7 @@ fields:
   -
     name: labeling
     description: Indicates whether samples were labeled prior to MS analysis (e.g., TMT)
-  -
-    name: section_prep_protocols_io_doi
-    description: Sample preparation methods.
+  # include: ../includes/doi/section_prep.yaml
   -
     name: lc_instrument_vendor
     description: The manufacturer of the instrument used for LC

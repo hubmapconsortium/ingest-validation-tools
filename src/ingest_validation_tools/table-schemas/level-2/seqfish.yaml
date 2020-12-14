@@ -58,9 +58,5 @@ fields:
   -
     name: number_of_cycles
     description: For each barcode region being interrogated, the number of cycles of 1. Hybridization of readout probes, 2. imaging, 3. Washes (the paper describes 1 readout probe per hyb cycle -> 20 readout probes = 20 hyb cycles)
-  -
-    name: section_prep_protocols_io_doi
-    description: DOI for protocols.io referring to the protocol for preparing tissue sections for the assay.
-  -
-    name: reagent_prep_protocols_io_doi
-    description: DOI for protocols.io referring to the protocol for preparing reagents for the assay.
+  # include: ../includes/doi/section_prep.yaml
+  # include: ../includes/doi/reagent_prep.yaml

@@ -236,7 +236,7 @@ Indicates whether samples were labeled prior to MS analysis (e.g., TMT)
 | required | `True` |
 
 ### `section_prep_protocols_io_doi`
-Sample preparation methods.
+DOI for protocols.io referring to the protocol for preparing tissue sections for the assay.
 
 | constraint | value |
 | --- | --- |

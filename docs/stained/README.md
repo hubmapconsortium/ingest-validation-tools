@@ -224,7 +224,7 @@ Chemical stains (dyes) applied to histology samples to highlight important featu
 | required | `True` |
 
 ### `section_prep_protocols_io_doi`
-Protocol for acquisition of a tissue section and preparation of the sample for analysis.
+DOI for protocols.io referring to the protocol for preparing tissue sections for the assay.
 
 | constraint | value |
 | --- | --- |
@@ -232,7 +232,7 @@ Protocol for acquisition of a tissue section and preparation of the sample for a
 | pattern (regular expression) | `10\.17504/.*` |
 
 ### `overall_protocols_io_doi`
-Description of the overall methodology for conducting the assay.
+DOI for protocols.io for the overall process.
 
 | constraint | value |
 | --- | --- |

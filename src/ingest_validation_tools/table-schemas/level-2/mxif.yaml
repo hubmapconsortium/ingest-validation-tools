@@ -28,15 +28,11 @@ fields:
   -
     name: number_of_cycles
     description: Number of cycles of 1. antibody application, 2. image capture, 3. antibody stripping.
-  -
-    name: section_prep_protocols_io_doi
-    description: DOI for protocols.io referring to the protocol for preparing tissue sections for the assay.
-  -
-    name: reagent_prep_protocols_io_doi
-    description: DOI for protocols.io referring to the protocol for preparing reagents for the assay.
-  -
-    name: overall_protocols_io_doi
-    description: DOI for protocols.io for the overall process.
+  
+  # include: ../includes/doi/section_prep.yaml
+  # include: ../includes/doi/reagent_prep.yaml
+  # include: ../includes/doi/overall.yaml
+
   -
     name: antibodies_path
     description: Relative path to file with antibody information for this dataset.

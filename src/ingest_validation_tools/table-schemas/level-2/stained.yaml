@@ -34,9 +34,5 @@ fields:
   -
     name: stain
     description: Chemical stains (dyes) applied to histology samples to highlight important features of the tissue as well as to enhance the tissue contrast.
-  -
-    name: section_prep_protocols_io_doi
-    description: Protocol for acquisition of a tissue section and preparation of the sample for analysis.
-  -
-    name: overall_protocols_io_doi
-    description: Description of the overall methodology for conducting the assay.
+  # include: ../includes/doi/section_prep.yaml
+  # include: ../includes/doi/overall.yaml

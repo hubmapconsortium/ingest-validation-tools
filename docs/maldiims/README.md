@@ -279,7 +279,7 @@ DOI for protocols.io referring to the protocol for preparing tissue sections for
 | pattern (regular expression) | `10\.17504/.*` |
 
 ### `overall_protocols_io_doi`
-DOI for protocols.io referring to the overall protocol for the assay.
+DOI for protocols.io for the overall process.
 
 | constraint | value |
 | --- | --- |

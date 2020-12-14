@@ -225,7 +225,8 @@ sc_isolation_quality_metric: A quality metric by visual inspection prior to cell
   can be captured at a high level.
 sc_isolation_tissue_dissociation: The method by which tissues are dissociated into
   single cells in suspension.
-section_prep_protocols_io_doi: Sample preparation methods.
+section_prep_protocols_io_doi: DOI for protocols.io referring to the protocol for
+  preparing tissue sections for the assay.
 segment_data_format: This refers to the data type, which is a "float" for the IMC
   counts.
 sequencing_phix_percent: Percent PhiX loaded to the run

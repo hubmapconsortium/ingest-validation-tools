@@ -26,12 +26,8 @@ fields:
 - name: preparation_instrument_model
   description: The model number/name of the instrument used to prepare the sample
     for the assay
-- name: section_prep_protocols_io_doi
-  description: DOI for protocols.io referring to the protocol for preparing tissue
-    sections for the assay.
-- name: reagent_prep_protocols_io_doi
-  description: DOI for protocols.io referring to the protocol for preparing reagents
-    for the assay.
+# include: ../includes/doi/section_prep.yaml
+# include: ../includes/doi/reagent_prep.yaml
 - name: number_of_channels
   description: Number of mass channels measured
   type: number
