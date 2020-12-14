@@ -1,4 +1,17 @@
 fields:
+# doc_url: TODO
+fields:
+# Overrides of Level 1 fields:
+-
+  name: assay_category
+  constraints:
+    enum:
+      - imaging
+-
+  name: assay_type
+  constraints:
+    enum:
+      - Cell DIVE
 # include: ../includes/acquisition_instrument.yaml
 - name: number_of_antibodies
   description: Number of antibodies
