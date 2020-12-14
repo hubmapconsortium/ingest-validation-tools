@@ -65,17 +65,5 @@ fields:
   -
     name: library_average_fragment_size
     description: Average size of sequencing library fragments estimated via gel electrophoresis or bioanalyzer/tapestation.
-  -
-    name: sequencing_reagent_kit
-    description: Reagent kit used for sequencing
-  -
-    name: sequencing_read_format
-    description: Slash-delimited list of the number of sequencing cycles for, for example, Read1, i7 index, i5 index, and Read2.
-    constraints:
-      pattern: '\d+(/\d+)+'
-  -
-    name: sequencing_read_percent_q30
-    description: Percent of bases with Quality scores above Q30
-  -
-    name: sequencing_phix_percent
-    description: Percent PhiX loaded to the run
+
+  # include: ../includes/sequencing.yaml
