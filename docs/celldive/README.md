@@ -1,10 +1,10 @@
-# seqfish
+# celldive
 
 Related files:
-- [🔬 Background doc](https://portal.hubmapconsortium.org/docs/assays/seqfish): More details about this type.
-- [📝 Excel template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/master/docs/seqfish/seqfish-metadata.xlsx): For metadata entry.
-- [📝 TSV template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/master/docs/seqfish/seqfish-metadata.tsv): Alternative for metadata entry.
-- [💻 Source code](https://github.com/hubmapconsortium/ingest-validation-tools/edit/master/src/ingest_validation_tools/table-schemas/level-2/seqfish.yaml): Make a PR to update this doc.
+
+- [📝 Excel template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/master/docs/celldive/celldive-metadata.xlsx): For metadata entry.
+- [📝 TSV template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/master/docs/celldive/celldive-metadata.tsv): Alternative for metadata entry.
+- [💻 Source code](https://github.com/hubmapconsortium/ingest-validation-tools/edit/master/src/ingest_validation_tools/table-schemas/level-2/celldive.yaml): Make a PR to update this doc.
 
 ## Table of contents
 <details><summary>Provenance</summary>
@@ -31,22 +31,17 @@ Related files:
 
 [`acquisition_instrument_vendor`](#acquisition_instrument_vendor)<br>
 [`acquisition_instrument_model`](#acquisition_instrument_model)<br>
+[`number_of_antibodies`](#number_of_antibodies)<br>
+[`number_of_channels`](#number_of_channels)<br>
+[`number_of_cycles`](#number_of_cycles)<br>
+[`number_of_imaging_rounds`](#number_of_imaging_rounds)<br>
 [`resolution_x_value`](#resolution_x_value)<br>
 [`resolution_x_unit`](#resolution_x_unit)<br>
 [`resolution_y_value`](#resolution_y_value)<br>
 [`resolution_y_unit`](#resolution_y_unit)<br>
-[`resolution_z_value`](#resolution_z_value)<br>
-[`resolution_z_unit`](#resolution_z_unit)<br>
-[`preparation_instrument_vendor`](#preparation_instrument_vendor)<br>
-[`preparation_instrument_model`](#preparation_instrument_model)<br>
-[`number_of_barcode_probes`](#number_of_barcode_probes)<br>
-[`number_of_barcode_regions_per_barcode_probe`](#number_of_barcode_regions_per_barcode_probe)<br>
-[`number_of_readout_probes_per_channel`](#number_of_readout_probes_per_channel)<br>
-[`number_of_pseudocolors_per_channel`](#number_of_pseudocolors_per_channel)<br>
-[`number_of_channels`](#number_of_channels)<br>
-[`number_of_cycles`](#number_of_cycles)<br>
-[`section_prep_protocols_io_doi`](#section_prep_protocols_io_doi)<br>
-[`reagent_prep_protocols_io_doi`](#reagent_prep_protocols_io_doi)<br>
+[`processing_protocols_io_doi`](#processing_protocols_io_doi)<br>
+[`overall_protocols_io_doi`](#overall_protocols_io_doi)<br>
+[`antibodies_path`](#antibodies_path)<br>
 [`contributors_path`](#contributors_path)<br>
 [`data_path`](#data_path)<br></details>
 
@@ -54,7 +49,7 @@ Related files:
 
 | pattern (regular expression) | required? | description |
 | --- | --- | --- |
-| `.+` | ✓ | TODO |
+| `TODO` | ✓ | Directory structure not yet specified. |
 | `extras/.*` |  | Free-form descriptive information supplied by the TMC |
 | `extras/thumbnail\.(png\|jpg)` |  | Optional thumbnail image which may be shown in search interface |
 
@@ -138,7 +133,7 @@ The specific type of assay being executed.
 
 | constraint | value |
 | --- | --- |
-| enum | `seqFISH` |
+| enum | `Cell DIVE` |
 | required | `True` |
 
 ### `analyte_class`
@@ -146,7 +141,7 @@ Analytes are the target molecules being measured with the assay.
 
 | constraint | value |
 | --- | --- |
-| enum | `RNA` |
+| enum | `protein` |
 | required | `True` |
 
 ### `is_targeted`
@@ -171,6 +166,38 @@ Manufacturers of an acquisition instrument may offer various versions (models) o
 
 | constraint | value |
 | --- | --- |
+| required | `True` |
+
+### `number_of_antibodies`
+Number of antibodies.
+
+| constraint | value |
+| --- | --- |
+| type | `integer` |
+| required | `True` |
+
+### `number_of_channels`
+Number of fluorescent channels imaged during each cycle.
+
+| constraint | value |
+| --- | --- |
+| type | `integer` |
+| required | `True` |
+
+### `number_of_cycles`
+Number of cycles of 1. oligo application, 2. fluor application, 3. dye inactivation.
+
+| constraint | value |
+| --- | --- |
+| type | `integer` |
+| required | `True` |
+
+### `number_of_imaging_rounds`
+the total number of acquisitions performed on microscope to collect autofluorescence/background or stained signal.
+
+| constraint | value |
+| --- | --- |
+| type | `integer` |
 | required | `True` |
 
 ### `resolution_x_value`
@@ -205,99 +232,28 @@ The unit of measurement of the height of a pixel.
 | enum | `nm` or `um` |
 | required | `True` |
 
-### `resolution_z_value`
-Optional if assay does not have multiple z-levels. Note that this is resolution within a given sample: z-pitch (resolution_z_value) is the increment distance between image slices (for Akoya, z-pitch=1.5um) ie. the microscope stage is moved up or down in increments of 1.5um to capture images of several focal planes. The best one will be used & the rest discarded. The thickness of the sample itself is sample metadata. Leave blank if not applicable.
+### `processing_protocols_io_doi`
+DOI for analysis protocols.io for this assay. Leave blank if not applicable.
 
 | constraint | value |
 | --- | --- |
-| type | `number` |
 | required | `False` |
+| pattern (regular expression) | `10\.17504/.*` |
 
-### `resolution_z_unit`
-The unit of incremental distance between image slices.(um)
-
-| constraint | value |
-| --- | --- |
-| enum | `nm` or `um` |
-| required | `True` |
-
-### `preparation_instrument_vendor`
-The manufacturer of the instrument used to prepare the sample for the assay. In cases where a custom instrument was used, enter the DOI (in this format: 10.17504/protocols.io.xyz123) for the custom instrument you have registered in protocols.io.
-
-| constraint | value |
-| --- | --- |
-| required | `True` |
-
-### `preparation_instrument_model`
-The model number/name of the instrument used to prepare the sample for the assay.
-
-| constraint | value |
-| --- | --- |
-| required | `True` |
-
-### `number_of_barcode_probes`
-Number of barcode probes targeting mRNAs (eg. 24,000 barcode probes = 24,000 mRNAs - 1 per mRNA of interest)
-
-| constraint | value |
-| --- | --- |
-| type | `integer` |
-| required | `True` |
-
-### `number_of_barcode_regions_per_barcode_probe`
-Number of barcode regions on each mRNA barcode probe (the paper describes mRNA probes with 4 barcoded regions)
-
-| constraint | value |
-| --- | --- |
-| type | `integer` |
-| required | `True` |
-
-### `number_of_readout_probes_per_channel`
-Number of readout probes that can be interrogated per channel per cycle (the paper describes 20 readout probes per channel (x 3 channels -> total = 60))
-
-| constraint | value |
-| --- | --- |
-| type | `integer` |
-| required | `True` |
-
-### `number_of_pseudocolors_per_channel`
-Number of pseudocolors that can be assigned to each fluorescent channel (the paper describes 20 pseudocolors per channel (x 3 channels -> total = 60)
-
-| constraint | value |
-| --- | --- |
-| type | `integer` |
-| required | `True` |
-
-### `number_of_channels`
-Number of fluorescent channels (the paper describes 3 channels - for 3 fluorescent dyes)
-
-| constraint | value |
-| --- | --- |
-| type | `integer` |
-| required | `True` |
-
-### `number_of_cycles`
-For each barcode region being interrogated, the number of cycles of 1. Hybridization of readout probes, 2. imaging, 3. Washes (the paper describes 1 readout probe per hyb cycle -> 20 readout probes = 20 hyb cycles)
-
-| constraint | value |
-| --- | --- |
-| type | `integer` |
-| required | `True` |
-
-### `section_prep_protocols_io_doi`
-DOI for protocols.io referring to the protocol for preparing tissue sections for the assay.
+### `overall_protocols_io_doi`
+DOI for protocols.io for the overall process.
 
 | constraint | value |
 | --- | --- |
 | required | `True` |
 | pattern (regular expression) | `10\.17504/.*` |
 
-### `reagent_prep_protocols_io_doi`
-DOI for protocols.io referring to the protocol for preparing reagents for the assay.
+### `antibodies_path`
+Relative path to file with antibody information for this dataset.
 
 | constraint | value |
 | --- | --- |
 | required | `True` |
-| pattern (regular expression) | `10\.17504/.*` |
 
 ### `contributors_path`
 Relative path to file with ORCID IDs for contributors for this dataset.

@@ -18,13 +18,7 @@ fields:
         - RNA
 
   # Level 2 fields:
-  -
-    heading: Level 2
-    name: acquisition_instrument_vendor
-    description: An acquisition_instrument is the device that contains the signal detection hardware and signal processing software. Assays can generate signals such as light of various intensities or color or signals representing molecular mass.
-  -
-    name: acquisition_instrument_model
-    description: Manufacturers of an acquisition instrument may offer various versions (models) of that instrument with different features or sensitivities. Differences in features or sensitivities may be relevant to processing or interpretation of the data.
+  # include: ../includes/acquisition_instrument.yaml
   -
     name: rnaseq_assay_method
     description: The kit used for the RNA sequencing assay
@@ -71,17 +65,5 @@ fields:
   -
     name: library_average_fragment_size
     description: Average size of sequencing library fragments estimated via gel electrophoresis or bioanalyzer/tapestation.
-  -
-    name: sequencing_reagent_kit
-    description: Reagent kit used for sequencing
-  -
-    name: sequencing_read_format
-    description: Slash-delimited list of the number of sequencing cycles for, for example, Read1, i7 index, i5 index, and Read2.
-    constraints:
-      pattern: '\d+(/\d+)+'
-  -
-    name: sequencing_read_percent_q30
-    description: Percent of bases with Quality scores above Q30
-  -
-    name: sequencing_phix_percent
-    description: Percent PhiX loaded to the run
+
+  # include: ../includes/sequencing.yaml

@@ -25,7 +25,7 @@ def _load_includes(path, indent=0):
     if re.match(r'\s', text[0]):
         raise Exception(f'Unexpected padding in the first column: {path}')
     expanded_text = re.sub(
-        r'^([ \t]*)#\s*include:\s*(.+)',
+        r'^([ \t]*)#\s*include:\s*(\S+)',
         _expand_match_generator(path.parent),
         text,
         flags=re.MULTILINE

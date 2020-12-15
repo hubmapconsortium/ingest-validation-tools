@@ -155,7 +155,7 @@ Specifies whether or not a specific molecule(s) is/are targeted for detection/me
 ## Level 2
 
 ### `acquisition_instrument_vendor`
-An acquisition_instrument is the device that contains the signal detection hardware and signal processing software. Assays generate signals such as light of various intensities or color or signals representing molecular mass.
+An acquisition instrument is the device that contains the signal detection hardware and signal processing software. Assays generate signals such as light of various intensities or color or signals representing the molecular mass.
 
 | constraint | value |
 | --- | --- |
@@ -224,7 +224,7 @@ Chemical stains (dyes) applied to histology samples to highlight important featu
 | required | `True` |
 
 ### `section_prep_protocols_io_doi`
-Protocol for acquisition of a tissue section and preparation of the sample for analysis.
+DOI for protocols.io referring to the protocol for preparing tissue sections for the assay.
 
 | constraint | value |
 | --- | --- |
@@ -232,7 +232,7 @@ Protocol for acquisition of a tissue section and preparation of the sample for a
 | pattern (regular expression) | `10\.17504/.*` |
 
 ### `overall_protocols_io_doi`
-Description of the overall methodology for conducting the assay.
+DOI for protocols.io for the overall process.
 
 | constraint | value |
 | --- | --- |
