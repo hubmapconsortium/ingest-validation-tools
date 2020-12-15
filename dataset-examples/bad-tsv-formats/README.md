@@ -5,7 +5,7 @@ Metadata TSV Errors:
     - The value "not-uuid" in row 2 and column 1 ("A") does not conform to the pattern
       constraint of "[A-Z]+[0-9]+"
     - The value "not-uuid" in row 2 and column 2 ("B") does not conform to the pattern
-      constraint of "([A-Z]+[0-9]+)-(BL|BR|LB|RB|HT|LK|RK|LI|LV|LL|RL|LY\d\d|SI|SP|TH|TR|UR|OT)(-\d+)+(_\d+)?"
+      constraint of "([A-Z]+[0-9]+)-[A-Z]{2}(-\d+)+(_\d+)?"
     - The value "not-time" in row 2 and column 3 ("C") is not type "datetime" and
       format "%Y-%m-%d %H:%M"
     - The value "10\.17504/protocols.io.menc3de" in row 2 and column 4 ("D") does

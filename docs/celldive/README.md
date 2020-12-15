@@ -1,10 +1,10 @@
-# stained
+# celldive
 
 Related files:
-- [🔬 Background doc](https://portal.hubmapconsortium.org/docs/assays/pas): More details about this type.
-- [📝 Excel template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/master/docs/stained/stained-metadata.xlsx): For metadata entry.
-- [📝 TSV template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/master/docs/stained/stained-metadata.tsv): Alternative for metadata entry.
-- [💻 Source code](https://github.com/hubmapconsortium/ingest-validation-tools/edit/master/src/ingest_validation_tools/table-schemas/level-2/stained.yaml): Make a PR to update this doc.
+
+- [📝 Excel template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/master/docs/celldive/celldive-metadata.xlsx): For metadata entry.
+- [📝 TSV template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/master/docs/celldive/celldive-metadata.tsv): Alternative for metadata entry.
+- [💻 Source code](https://github.com/hubmapconsortium/ingest-validation-tools/edit/master/src/ingest_validation_tools/table-schemas/level-2/celldive.yaml): Make a PR to update this doc.
 
 ## Table of contents
 <details><summary>Provenance</summary>
@@ -31,15 +31,17 @@ Related files:
 
 [`acquisition_instrument_vendor`](#acquisition_instrument_vendor)<br>
 [`acquisition_instrument_model`](#acquisition_instrument_model)<br>
+[`number_of_antibodies`](#number_of_antibodies)<br>
+[`number_of_channels`](#number_of_channels)<br>
+[`number_of_cycles`](#number_of_cycles)<br>
+[`number_of_imaging_rounds`](#number_of_imaging_rounds)<br>
 [`resolution_x_value`](#resolution_x_value)<br>
 [`resolution_x_unit`](#resolution_x_unit)<br>
 [`resolution_y_value`](#resolution_y_value)<br>
 [`resolution_y_unit`](#resolution_y_unit)<br>
-[`resolution_z_value`](#resolution_z_value)<br>
-[`resolution_z_unit`](#resolution_z_unit)<br>
-[`stain`](#stain)<br>
-[`section_prep_protocols_io_doi`](#section_prep_protocols_io_doi)<br>
+[`processing_protocols_io_doi`](#processing_protocols_io_doi)<br>
 [`overall_protocols_io_doi`](#overall_protocols_io_doi)<br>
+[`antibodies_path`](#antibodies_path)<br>
 [`contributors_path`](#contributors_path)<br>
 [`data_path`](#data_path)<br></details>
 
@@ -47,10 +49,7 @@ Related files:
 
 | pattern (regular expression) | required? | description |
 | --- | --- | --- |
-| `processedMicroscopy/[^/]+_PAS_images/[^/]+ome\.tif` | ✓ | OME TIFF files (multichannel, multi-layered, image pyramids) produced by the PAS microscopy experiment |
-| `processedMicroscopy/[^/]+_PAS_transformations/[^/]+\.txt` | ✓ | Transformations to PAS (related) data |
-| `rawMicroscopy/[^/]+\.xml` | ✓ | XML metadata file from the autofluorescence microscopy experiments |
-| `rawMicroscopy/[^/]+\.scn` | ✓ | Raw microscope file for the experiment |
+| `TODO` | ✓ | Directory structure not yet specified. |
 | `extras/.*` |  | Free-form descriptive information supplied by the TMC |
 | `extras/thumbnail\.(png\|jpg)` |  | Optional thumbnail image which may be shown in search interface |
 
@@ -69,7 +68,7 @@ HuBMAP Display ID of the assayed tissue. Example: `ABC123-BL-1-2-3_456`.
 
 | constraint | value |
 | --- | --- |
-| pattern (regular expression) | `([A-Z]+[0-9]+)-[A-Z]{2}(-\d+)+(_\d+)?` |
+| pattern (regular expression) | `([A-Z]+[0-9]+)-(BL\|BR\|LB\|RB\|HT\|LK\|RK\|LI\|LV\|LL\|RL\|LY\d\d\|SI\|SP\|TH\|TR\|UR\|OT)(-\d+)+(_\d+)?` |
 | required | `True` |
 
 ## Level 1
@@ -134,15 +133,16 @@ The specific type of assay being executed.
 
 | constraint | value |
 | --- | --- |
-| enum | `PAS microscopy` |
+| enum | `Cell DIVE` |
 | required | `True` |
 
 ### `analyte_class`
-Analytes are the target molecules being measured with the assay. Leave blank if not applicable.
+Analytes are the target molecules being measured with the assay.
 
 | constraint | value |
 | --- | --- |
-| required | `False` |
+| enum | `protein` |
+| required | `True` |
 
 ### `is_targeted`
 Specifies whether or not a specific molecule(s) is/are targeted for detection/measurement by the assay. The CODEX analyte is protein.
@@ -166,6 +166,38 @@ Manufacturers of an acquisition instrument may offer various versions (models) o
 
 | constraint | value |
 | --- | --- |
+| required | `True` |
+
+### `number_of_antibodies`
+Number of antibodies.
+
+| constraint | value |
+| --- | --- |
+| type | `integer` |
+| required | `True` |
+
+### `number_of_channels`
+Number of fluorescent channels imaged during each cycle.
+
+| constraint | value |
+| --- | --- |
+| type | `integer` |
+| required | `True` |
+
+### `number_of_cycles`
+Number of cycles of 1. oligo application, 2. fluor application, 3. dye inactivation.
+
+| constraint | value |
+| --- | --- |
+| type | `integer` |
+| required | `True` |
+
+### `number_of_imaging_rounds`
+the total number of acquisitions performed on microscope to collect autofluorescence/background or stained signal.
+
+| constraint | value |
+| --- | --- |
+| type | `integer` |
 | required | `True` |
 
 ### `resolution_x_value`
@@ -200,35 +232,12 @@ The unit of measurement of the height of a pixel.
 | enum | `nm` or `um` |
 | required | `True` |
 
-### `resolution_z_value`
-Optional if assay does not have multiple z-levels. Note that this is resolution within a given sample: z-pitch (resolution_z_value) is the increment distance between image slices ie. the microscope stage is moved up or down in increments to capture images of several focal planes. The best one will be used & the rest discarded. The thickness of the sample itself is sample metadata. Leave blank if not applicable.
+### `processing_protocols_io_doi`
+DOI for analysis protocols.io for this assay. Leave blank if not applicable.
 
 | constraint | value |
 | --- | --- |
-| type | `number` |
-| required | `True` |
-
-### `resolution_z_unit`
-The unit of incremental distance between image slices.
-
-| constraint | value |
-| --- | --- |
-| enum | `nm` or `um` |
-| required | `True` |
-
-### `stain`
-Chemical stains (dyes) applied to histology samples to highlight important features of the tissue as well as to enhance the tissue contrast.
-
-| constraint | value |
-| --- | --- |
-| required | `True` |
-
-### `section_prep_protocols_io_doi`
-DOI for protocols.io referring to the protocol for preparing tissue sections for the assay.
-
-| constraint | value |
-| --- | --- |
-| required | `True` |
+| required | `False` |
 | pattern (regular expression) | `10\.17504/.*` |
 
 ### `overall_protocols_io_doi`
@@ -238,6 +247,13 @@ DOI for protocols.io for the overall process.
 | --- | --- |
 | required | `True` |
 | pattern (regular expression) | `10\.17504/.*` |
+
+### `antibodies_path`
+Relative path to file with antibody information for this dataset.
+
+| constraint | value |
+| --- | --- |
+| required | `True` |
 
 ### `contributors_path`
 Relative path to file with ORCID IDs for contributors for this dataset.
