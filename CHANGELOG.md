@@ -8,6 +8,7 @@
 - Add an include mechanism to reduce duplication in the configs, and use it.
 - Add Celldive.
 - Add an include mechanism to reduce duplication in the configs.
+- New organs will be coming in. Loosen regex.
 - Give test.sh an optional argument, to pick-up the test run in the middle.
 
 ## v0.0.6 - 2020-12-07
