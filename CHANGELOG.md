@@ -7,6 +7,7 @@
 - Demonstrate that validation of one-line-tsv-in-directory will work.
 - Add an include mechanism to reduce duplication in the configs.
 - New organs will be coming in. Loosen regex.
+- Give test.sh an optional argument, to pick-up the test run in the middle.
 
 ## v0.0.6 - 2020-12-07
 - Add thumbnail to directory schema.
