@@ -51,6 +51,7 @@ fields:
         - AF
         - bulk RNA
         - bulkATACseq
+        - Cell DIVE
         - CODEX
         - Imaging Mass Cytometry
         - LC-MS (metabolomics)

@@ -6,6 +6,7 @@
 - Update MALDI terms.
 - Demonstrate that validation of one-line-tsv-in-directory will work.
 - Add an include mechanism to reduce duplication in the configs, and use it.
+- Add Celldive.
 - Add an include mechanism to reduce duplication in the configs.
 - Give test.sh an optional argument, to pick-up the test run in the middle.
 
