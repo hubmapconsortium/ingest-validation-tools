@@ -8,7 +8,7 @@
 fields:
 # -
 #   name: age_unit
-#   description: TODO
+#   description: ...
 -
   name: age_value
   description:  The time elapsed since birth. 
@@ -17,7 +17,7 @@ fields:
   description:  'ABO blood type or "serotype" refers to the presence/absence of the either/both A & B blood antigens.' 
 # -
 #   name: body_mass_index_unit
-#   description: TODO
+#   description: ...
 -
   name: body_mass_index_value
   description: An individual's weight in kilograms divided by the square of the height in meters. 
@@ -27,16 +27,16 @@ fields:
 
 # -
 #   name: death_event
-#   description: TODO
+#   description: ...
 -
   name: height_unit
   description:  The vertical measurement or distance from the base to the top of a subject or participant. 
 # -
 #   name: height_value
-#   description: TODO
+#   description: ...
 # -
 #   name: kidney_donor_profile_index_unit
-#   description: TODO
+#   description: ...
 
 -
   name: kidney_donor_profile_index_value
@@ -71,7 +71,7 @@ fields:
 
 # -
 #   name: weight_unit
-#   description: TODO
+#   description: ...
 -
   name: weight_value
   description:  A measurement that describes the vertical force exerted by a mass of the patient as a result of gravity. 

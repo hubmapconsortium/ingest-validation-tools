@@ -1,5 +1,4 @@
-fields:
-# doc_url: TODO
+# doc_url: TODO https://github.com/hubmapconsortium/ingest-validation-tools/issues/480
 fields:
 # Overrides of Level 1 fields:
 -

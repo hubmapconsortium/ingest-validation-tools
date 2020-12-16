@@ -1,5 +1,4 @@
-# TODO: Confirm the details of this structure.
 -
   pattern: '.*\.fastq\.gz'
-  description: 'TODO'
+  description: 'TODO: https://github.com/hubmapconsortium/ingest-validation-tools/issues/445'
 
