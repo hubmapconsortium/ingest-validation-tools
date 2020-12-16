@@ -54,7 +54,7 @@ Related files:
 
 | pattern (regular expression) | required? | description |
 | --- | --- | --- |
-| `TODO` | ✓ | Directory structure not yet specified. |
+| `TODO` | ✓ | Directory structure not yet specified. https://github.com/hubmapconsortium/ingest-validation-tools/issues/453 |
 | `extras/.*` |  | Free-form descriptive information supplied by the TMC |
 | `extras/thumbnail\.(png\|jpg)` |  | Optional thumbnail image which may be shown in search interface |
 
