@@ -23,13 +23,7 @@ fields:
       required: False
 
   # Level 2 fields:
-  -
-    heading: Level 2
-    name: acquisition_instrument_vendor
-    description: An acquisition instrument is the device that contains the signal detection hardware and signal processing software. Assays generate signals such as light of various intensities or color or signals representing the molecular mass.
-  -
-    name: acquisition_instrument_model
-    description: (version) Manufacturers of an acquisition instrument may offer various versions (models) of that instrument with different features or sensitivities. Differences in features of sensitivities may be relevant to processing or interpretation of the data.
+  # include: ../includes/acquisition_instrument.yaml
   -
     name: ms_source
     description: The ion source type used for surface sampling (MALDI, MALDI-2, DESI, or SIMS) or LC-MS/MS data acquisition (nESI)
@@ -51,9 +45,7 @@ fields:
   -
     name: labeling
     description: Indicates whether samples were labeled prior to MS analysis (e.g., TMT)
-  -
-    name: section_prep_protocols_io_doi
-    description: Sample preparation methods.
+  # include: ../includes/doi/section_prep.yaml
   -
     name: lc_instrument_vendor
     description: The manufacturer of the instrument used for LC

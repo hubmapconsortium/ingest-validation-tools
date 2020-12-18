@@ -10,19 +10,19 @@
   pattern: 'HuBMAP_OME/region_[^/]+/S[^/]+\.ome\.tif'
   description: 'OME TIFF Files for the corresponding region (e.g. region_001) by slide (e.g S20030077)'
 -
-  pattern: 'HuBMAP_rounds/round_info_S[^/]\.dat'
+  pattern: 'HuBMAP_rounds/round_info_S[^/]*\.dat'
   description: 'metadata file for the capture by slide (e.g S20030077) item-value tab separated format'
 -
-  pattern: 'HuBMAP_Seg_and_quant/gray_scale_T_cells/region*/mask_T_cells_slideS[^/]+\.tif'
+  pattern: 'HuBMAP_Seg_and_quant/gray_scale_T_cells/region[^/]*/mask_T_cells_slideS[^/]+\.tif'
   description: 'grayscale T-cell masks'
 -
-  pattern: 'HuBMAP_Seg_and_quant/quantification/region*/quant_slideS[^/]+\.csv'
+  pattern: 'HuBMAP_Seg_and_quant/quantification/region[^/]*/quant_slideS[^/]+\.csv'
   description: 'Comma separated quantification files'
 -
-  pattern: 'HuBMAP_Seg_and_quant/rgb_T_cells/region*/mask_T_cells_slideS[^/]+\.tif'
+  pattern: 'HuBMAP_Seg_and_quant/rgb_T_cells/region[^/]*/mask_T_cells_slideS[^/]+\.tif'
   description: 'rgb T-cell masks'
 -
-  pattern: 'HuBMAP_Seg_and_quant/segmentation/region*/dapi_slide_slideS[^/]+\.tif'
+  pattern: 'HuBMAP_Seg_and_quant/segmentation/region[^/]*/dapi_slide_slideS[^/]+\.tif'
   description: 'segmentation (dapi slides)'
 -
   pattern: 'vHE/S[^/]+\.ome\.tif'
@@ -47,5 +47,3 @@
   pattern: 'HuBMAP_Seg_and_quant/*/make_folders.bat'
   description: 'creates directories'
   required: False
--
-

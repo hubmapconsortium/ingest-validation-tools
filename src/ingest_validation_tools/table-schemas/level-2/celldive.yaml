@@ -1,0 +1,35 @@
+# doc_url: TODO https://github.com/hubmapconsortium/ingest-validation-tools/issues/480
+fields:
+# Overrides of Level 1 fields:
+-
+  name: assay_category
+  constraints:
+    enum:
+      - imaging
+-
+  name: assay_type
+  constraints:
+    enum:
+      - Cell DIVE
+-
+  name: analyte_class
+  constraints:
+    enum:
+      - protein    
+# include: ../includes/acquisition_instrument.yaml
+- name: number_of_antibodies
+  description: Number of antibodies
+- name: number_of_channels
+  description: Number of fluorescent channels imaged during each cycle.
+- name: number_of_cycles
+  description: Number of cycles of 1. oligo application, 2. fluor application, 3. dye inactivation.
+- name: number_of_imaging_rounds
+  description: the total number of acquisitions performed on microscope to collect autofluorescence/background or stained signal.
+# include: ../includes/x_y.yaml
+- name: processing_protocols_io_doi
+  description: DOI for analysis protocols.io for this assay.
+  constraints:
+    required: False
+# include: ../includes/doi/overall.yaml
+- name: antibodies_path
+  description: Relative path to file with antibody information for this dataset.

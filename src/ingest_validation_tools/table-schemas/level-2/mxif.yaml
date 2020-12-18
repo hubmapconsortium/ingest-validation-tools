@@ -18,48 +18,21 @@ fields:
         - protein
 
   # Level 2 fields:
-  -
-    heading: Level 2
-    name: acquisition_instrument_vendor
-    description: An acquisition_instrument is the device that contains the signal detection hardware and signal processing software. Assays generate signals such as light of various intensities or color or signals representing molecular mass.
-  -
-    name: acquisition_instrument_model
-    description: Manufacturers of an acquisition instrument may offer various versions (models) of that instrument with different features or sensitivities. Differences in features or sensitivities may be relevant to processing or interpretation of the data.
-  -
-    name: resolution_x_value
-    description: The width of a pixel.
-  -
-    name: resolution_x_unit
-    description: The unit of measurement of width of a pixel.(nm)
-    constraints:
-      enum:
-        - nm
-        - um
-  -
-    name: resolution_y_value
-    description: The height of a pixel.
-  -
-    name: resolution_y_unit
-    description: The unit of measurement of height of a pixel.(nm)
-    constraints:
-      enum:
-        - nm
-        - um
+
+  # include: ../includes/acquisition_instrument.yaml
+  # include: ../includes/x_y.yaml
+  
   -
     name: number_of_channels
     description: Number of fluorescent channels imaged during each cycle.
   -
     name: number_of_cycles
     description: Number of cycles of 1. antibody application, 2. image capture, 3. antibody stripping.
-  -
-    name: section_prep_protocols_io_doi
-    description: DOI for protocols.io referring to the protocol for preparing tissue sections for the assay.
-  -
-    name: reagent_prep_protocols_io_doi
-    description: DOI for protocols.io referring to the protocol for preparing reagents for the assay.
-  -
-    name: overall_protocols_io_doi
-    description: DOI for protocols.io for the overall process.
+  
+  # include: ../includes/doi/section_prep.yaml
+  # include: ../includes/doi/reagent_prep.yaml
+  # include: ../includes/doi/overall.yaml
+
   -
     name: antibodies_path
     description: Relative path to file with antibody information for this dataset.

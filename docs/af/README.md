@@ -72,7 +72,7 @@ HuBMAP Display ID of the assayed tissue. Example: `ABC123-BL-1-2-3_456`.
 
 | constraint | value |
 | --- | --- |
-| pattern (regular expression) | `([A-Z]+[0-9]+)-(BL\|BR\|LB\|RB\|HT\|LK\|RK\|LI\|LV\|LL\|RL\|LY\d\d\|SI\|SP\|TH\|TR\|UR\|OT)(-\d+)+(_\d+)?` |
+| pattern (regular expression) | `([A-Z]+[0-9]+)-[A-Z]{2}(-\d+)+(_\d+)?` |
 | required | `True` |
 
 ## Level 1
@@ -158,7 +158,7 @@ Specifies whether or not a specific molecule(s) is/are targeted for detection/me
 ## Level 2
 
 ### `acquisition_instrument_vendor`
-An acquisition_instrument is the device that contains the signal detection hardware and signal processing software. Assays generate signals such as light of various intensities or color or signals representing molecular mass.
+An acquisition instrument is the device that contains the signal detection hardware and signal processing software. Assays generate signals such as light of various intensities or color or signals representing the molecular mass.
 
 | constraint | value |
 | --- | --- |
@@ -180,7 +180,7 @@ The width of a pixel.
 | required | `True` |
 
 ### `resolution_x_unit`
-The unit of measurement of width of a pixel.
+The unit of measurement of the width of a pixel.
 
 | constraint | value |
 | --- | --- |
@@ -196,7 +196,7 @@ The height of a pixel.
 | required | `True` |
 
 ### `resolution_y_unit`
-The unit of measurement of height of a pixel.
+The unit of measurement of the height of a pixel.
 
 | constraint | value |
 | --- | --- |

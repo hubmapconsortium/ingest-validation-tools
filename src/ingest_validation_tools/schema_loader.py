@@ -1,6 +1,6 @@
 from pathlib import Path
 
-from yaml import safe_load as load_yaml
+from ingest_validation_tools.yaml_include_loader import load_yaml
 
 
 _table_schemas_path = Path(__file__).parent / 'table-schemas'
@@ -16,19 +16,14 @@ def list_types():
 
 
 def get_other_schema(other_type):
-    schema = load_yaml(
-        (Path(__file__).parent / 'table-schemas' / f'{other_type}.yaml')
-        .read_text()
-    )
+    schema = load_yaml(Path(__file__).parent / 'table-schemas' / f'{other_type}.yaml')
     for field in schema['fields']:
         _add_constraints(field, optional_fields=[])
     return schema
 
 
 def get_directory_schema(directory_type):
-    schema = load_yaml(open(
-        _directory_schemas_path / f'{directory_type}.yaml'
-    ).read())
+    schema = load_yaml(_directory_schemas_path / f'{directory_type}.yaml')
     schema += [
         {
             'pattern': r'extras/.*',
@@ -75,13 +70,11 @@ def _validate_field(field):
 
 
 def _get_level_1_schema(type):
-    return load_yaml(open(_table_schemas_path / f'{type}.yaml').read())
+    return load_yaml(_table_schemas_path / f'{type}.yaml')
 
 
 def _get_level_2_schema(type):
-    return load_yaml(open(
-        _table_schemas_path / 'level-2' / f'{type}.yaml'
-    ).read())
+    return load_yaml(_table_schemas_path / 'level-2' / f'{type}.yaml')
 
 
 def _apply_overrides(high_fields, low_fields):

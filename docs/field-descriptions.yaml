@@ -11,10 +11,10 @@ ablation_frequency_value: Frequency value of laser ablation (in Hz)
 acquisition_id: The acquisition_id refers to the directory containing the ROI images
   for a slide. Together, the acquisition_id and the roi_id indicate the slide-ROI
   represented in the image.
-acquisition_instrument_model: An acquisition_instrument is the device that contains
-  the signal detection hardware and signal processing software. Assays generate signals
-  such as light of various intensities or color or signals representing molecular
-  mass.
+acquisition_instrument_model: Manufacturers of an acquisition instrument may offer
+  various versions (models) of that instrument with different features or sensitivities.
+  Differences in features or sensitivities may be relevant to processing or interpretation
+  of the data.
 acquisition_instrument_vendor: An acquisition_instrument is the device that contains
   the signal detection hardware and signal processing software. Assays generate signals
   such as light of various intensities or color or signals representing molecular
@@ -156,6 +156,8 @@ number_of_barcode_regions_per_barcode_probe: Number of barcode regions on each m
 number_of_channels: Number of mass channels measured
 number_of_cycles: Number of cycles of 1. oligo application, 2. fluor application,
   3. washes
+number_of_imaging_rounds: the total number of acquisitions performed on microscope
+  to collect autofluorescence/background or stained signal.
 number_of_pseudocolors_per_channel: Number of pseudocolors that can be assigned to
   each fluorescent channel (the paper describes 20 pseudocolors per channel (x 3 channels
   -> total = 60)
@@ -191,9 +193,9 @@ race: A grouping of humans based on shared physical characteristics or social/et
   identity generally viewed as distinct.
 reagent_prep_protocols_io_doi: DOI for protocols.io referring to the protocol for
   preparing reagents for the assay.
-resolution_x_unit: The unit of measurement of width of a pixel
-resolution_x_value: The width of a pixel
-resolution_y_unit: The unit of measurement of height of a pixel.
+resolution_x_unit: The unit of measurement of the width of a pixel.
+resolution_x_value: The width of a pixel.
+resolution_y_unit: The unit of measurement of the height of a pixel.
 resolution_y_value: The height of a pixel
 resolution_z_unit: The unit of incremental distance between image slices.
 resolution_z_value: 'Optional if assay does not have multiple z-levels. Note that
@@ -225,7 +227,8 @@ sc_isolation_quality_metric: A quality metric by visual inspection prior to cell
   can be captured at a high level.
 sc_isolation_tissue_dissociation: The method by which tissues are dissociated into
   single cells in suspension.
-section_prep_protocols_io_doi: Sample preparation methods.
+section_prep_protocols_io_doi: DOI for protocols.io referring to the protocol for
+  preparing tissue sections for the assay.
 segment_data_format: This refers to the data type, which is a "float" for the IMC
   counts.
 sequencing_phix_percent: Percent PhiX loaded to the run

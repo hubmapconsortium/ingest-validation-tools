@@ -17,33 +17,10 @@ fields:
       required: False
 
   # Level 2 fields:
-  -
-    heading: Level 2
-    name: acquisition_instrument_vendor
-    description: An acquisition_instrument is the device that contains the signal detection hardware and signal processing software. Assays generate signals such as light of various intensities or color or signals representing molecular mass.
-  -
-    name: acquisition_instrument_model
-    description: Manufacturers of an acquisition instrument may offer various versions (models) of that instrument with different features or sensitivities. Differences in features or sensitivities may be relevant to processing or interpretation of the data.
-  -
-    name: resolution_x_value
-    description: The width of a pixel.
-  -
-    name: resolution_x_unit
-    description: The unit of measurement of width of a pixel
-    constraints:
-      enum:
-        - nm
-        - um
-  -
-    name: resolution_y_value
-    description: The height of a pixel.
-  -
-    name: resolution_y_unit
-    description: The unit of measurement of height of a pixel.
-    constraints:
-      enum:
-        - nm
-        - um
+
+  # include: ../includes/acquisition_instrument.yaml
+  # include: ../includes/x_y.yaml
+  
   -
     name: resolution_z_value
     description: 'Optional if assay does not have multiple z-levels. Note that this is resolution within a given sample: z-pitch (resolution_z_value) is the increment distance between image slices ie. the microscope stage is moved up or down in increments to capture images of several focal planes. The best one will be used & the rest discarded. The thickness of the sample itself is sample metadata. Leave blank if not applicable.'
@@ -57,9 +34,5 @@ fields:
   -
     name: stain
     description: Chemical stains (dyes) applied to histology samples to highlight important features of the tissue as well as to enhance the tissue contrast.
-  -
-    name: section_prep_protocols_io_doi
-    description: Protocol for acquisition of a tissue section and preparation of the sample for analysis.
-  -
-    name: overall_protocols_io_doi
-    description: Description of the overall methodology for conducting the assay.
+  # include: ../includes/doi/section_prep.yaml
+  # include: ../includes/doi/overall.yaml
