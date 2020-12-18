@@ -10,7 +10,7 @@ Metadata TSV Errors:
         - exposure_times.txt
         - cyc002_reg001_200216_112537/bad
         Required but missing:
-        - '[^/]+\.pdf'
+        - .+\.pdf
         - drv_[^/]+/channelNames\.txt
         - drv_[^/]+/experiment\.json
         - drv_[^/]+/exposure_times\.txt

@@ -9,11 +9,14 @@ Metadata TSV Errors:
         Not allowed:
         - not-good-for-either-type.txt
         Required but missing:
-        - channelnames\.txt
-        - channelnames_report\.csv
-        - experiment\.json
-        - exposure_times\.txt
-        - '[^/]+\.pdf'
+        - .+\.pdf
+        - drv_[^/]+/channelNames\.txt
+        - drv_[^/]+/experiment\.json
+        - drv_[^/]+/exposure_times\.txt
+        - drv_[^/]+/segmentation\.json
+        - drv_[^/]+/processed_[^/]+/.*
+        - src_[^/]+/channelnames_report\.csv
+        - src_[^/]+/channelnames\.txt
         - cyc.*_reg.*_.*/.*_.*_Z.*_CH.*\.tif
       row 2, antibodies dataset-examples/bad-mixed/submission/antibodies.tsv:
       - 'No such file or directory: ''dataset-examples/bad-mixed/submission/antibodies.tsv'''
