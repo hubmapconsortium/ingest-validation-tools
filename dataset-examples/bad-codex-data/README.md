@@ -4,10 +4,20 @@ Metadata TSV Errors:
     External:
       row 2, referencing dataset-examples/bad-codex-data/submission/dataset-1:
         Not allowed:
+        - channelnames.txt
+        - segmentation.json
+        - experiment.json
+        - exposure_times.txt
         - cyc002_reg001_200216_112537/bad
         Required but missing:
-        - channelnames_report\.csv
         - '[^/]+\.pdf'
+        - drv_[^/]+/channelNames\.txt
+        - drv_[^/]+/experiment\.json
+        - drv_[^/]+/exposure_times\.txt
+        - drv_[^/]+/segmentation\.json
+        - drv_[^/]+/processed_[^/]+/.*
+        - src_[^/]+/channelnames_report\.csv
+        - src_[^/]+/channelnames\.txt
         - cyc.*_reg.*_.*/.*_.*_Z.*_CH.*\.tif
       row 2, contributors dataset-examples/bad-codex-data/submission/contributors.tsv:
       - The value "bad-id" in row 2 and column 6 ("F") does not conform to the pattern
