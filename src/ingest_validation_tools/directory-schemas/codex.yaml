@@ -12,7 +12,7 @@
   description: 'Navigational Image showing Region of Interest (Keyance Microscope only)'
   required: False
 -
-  pattern: '*\.pdf'
+  pattern: '[^/]+\.pdf'
   description: 'PDF export of Powerpoint slide deck containing the Image Analysis Report'
   is_qa_qc: True
 -
@@ -20,27 +20,27 @@
   description: 'Text file produced by the Akoya software which contains the (linearized) channel number and the Name/ID/Target of the channel (required for HuBMAP pipeline)'
   required: True
 -
-  pattern: 'drv_*/experiment\.json'
+  pattern: 'drv_[^/]+/experiment\.json'
   description: 'JSON file produced by the Akoya software which contains the metadata for the experiment, including the software version used, microscope parameters, channel names, pixel dimensions, etc. (required for HuBMAP pipeline)'
   required: True
 -
-  pattern: 'drv_*/exposure_times\.txt'
-  description: 'Comma separated text file used for background subrtaction that contains valid exposure times for all cycles [e.g: Cycle,CH1,CH2,CH3,CH4].'
+  pattern: 'drv_[^/]+/exposure_times\.txt'
+  description: 'Comma separated text file used for background subtraction that contains valid exposure times for all cycles [e.g: Cycle,CH1,CH2,CH3,CH4].'
   required: True
 -
-  pattern: 'drv_*/segmentation\.json'
+  pattern: 'drv_[^/]+/segmentation\.json'
   description: 'JSON file produced by the Akoya software which contains the parameters used for segmentation. (required for HuBMAP pipeline)'
   required: True
 -
-  pattern: 'drv_*/processed_[^/]+/*'
+  pattern: 'drv_[^/]+/processed_[^/]+/.*'
   description: 'processed files produced by the Akoya software, not used by the HIVE'
   ignore: True
 -
-  pattern: 'src_[^/]+\/channelnames_report\.csv'
+  pattern: 'src_[^/]+/channelnames_report\.csv'
   description: 'Comma separated text file containing a report of the markers used to map the tissue [e.g. Channel,Name/ID/Target,True/False](required for HuBMAP pipeline)'
   required: True 
 -
-  pattern: 'src_[^/]+\/channelnames\.txt'
+  pattern: 'src_[^/]+/channelnames\.txt'
   description: 'Text file produced by the Akoya software which contains the (linearized) channel number and the Name/ID/Target of the channel (required for HuBMAP pipeline)'
   required: True
 -
