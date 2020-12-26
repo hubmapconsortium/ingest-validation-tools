@@ -11,6 +11,8 @@
 - New organs will be coming in. Loosen regex.
 - Give test.sh an optional argument, to pick-up the test run in the middle.
 - Remove wildcards from dir schemas which have not been delivered.
+- Update Celldive and CODEX directory schemas.
+- Sort file errors for stability.
 
 ## v0.0.6 - 2020-12-07
 - Add thumbnail to directory schema.

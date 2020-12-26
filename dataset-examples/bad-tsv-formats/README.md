@@ -52,9 +52,20 @@ Metadata TSV Errors:
       constraint of "10\.17504/.*"
     External:
       row 2, referencing dataset-examples/bad-tsv-formats/submission/dataset-1:
+        Not allowed:
+        - channelnames.txt
+        - experiment.json
+        - exposure_times.txt
+        - segmentation.json
         Required but missing:
-        - channelnames_report\.csv
-        - '[^/]+\.pdf'
+        - .+\.pdf
+        - drv_[^/]+/channelNames\.txt
+        - drv_[^/]+/experiment\.json
+        - drv_[^/]+/exposure_times\.txt
+        - drv_[^/]+/processed_[^/]+/.*
+        - drv_[^/]+/segmentation\.json
+        - src_[^/]+/channelnames\.txt
+        - src_[^/]+/channelnames_report\.csv
       row 2, antibodies dataset-examples/bad-tsv-formats/submission/antibodies.tsv:
       - 'No such file or directory: ''dataset-examples/bad-tsv-formats/submission/antibodies.tsv'''
 ```

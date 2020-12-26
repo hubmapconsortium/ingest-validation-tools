@@ -9,12 +9,15 @@ Metadata TSV Errors:
         Not allowed:
         - not-good-for-either-type.txt
         Required but missing:
-        - channelnames\.txt
-        - channelnames_report\.csv
-        - experiment\.json
-        - exposure_times\.txt
-        - '[^/]+\.pdf'
+        - .+\.pdf
         - cyc.*_reg.*_.*/.*_.*_Z.*_CH.*\.tif
+        - drv_[^/]+/channelNames\.txt
+        - drv_[^/]+/experiment\.json
+        - drv_[^/]+/exposure_times\.txt
+        - drv_[^/]+/processed_[^/]+/.*
+        - drv_[^/]+/segmentation\.json
+        - src_[^/]+/channelnames\.txt
+        - src_[^/]+/channelnames_report\.csv
       row 2, antibodies dataset-examples/bad-mixed/submission/antibodies.tsv:
       - 'No such file or directory: ''dataset-examples/bad-mixed/submission/antibodies.tsv'''
   dataset-examples/bad-mixed/submission/scatacseq-metadata.tsv (as scatacseq):
