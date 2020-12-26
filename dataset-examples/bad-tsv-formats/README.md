@@ -54,18 +54,18 @@ Metadata TSV Errors:
       row 2, referencing dataset-examples/bad-tsv-formats/submission/dataset-1:
         Not allowed:
         - channelnames.txt
-        - segmentation.json
         - experiment.json
         - exposure_times.txt
+        - segmentation.json
         Required but missing:
         - .+\.pdf
         - drv_[^/]+/channelNames\.txt
         - drv_[^/]+/experiment\.json
         - drv_[^/]+/exposure_times\.txt
-        - drv_[^/]+/segmentation\.json
         - drv_[^/]+/processed_[^/]+/.*
-        - src_[^/]+/channelnames_report\.csv
+        - drv_[^/]+/segmentation\.json
         - src_[^/]+/channelnames\.txt
+        - src_[^/]+/channelnames_report\.csv
       row 2, antibodies dataset-examples/bad-tsv-formats/submission/antibodies.tsv:
       - 'No such file or directory: ''dataset-examples/bad-tsv-formats/submission/antibodies.tsv'''
 ```

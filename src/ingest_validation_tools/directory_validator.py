@@ -42,9 +42,9 @@ def validate_directory(path, paths_dict, dataset_ignore_globs=[]):
 
     errors = {}
     if not_allowed_errors:
-        errors['Not allowed'] = not_allowed_errors
+        errors['Not allowed'] = sorted(not_allowed_errors)
     if required_missing_errors:
-        errors['Required but missing'] = required_missing_errors
+        errors['Required but missing'] = sorted(required_missing_errors)
     if errors:
         raise DirectoryValidationErrors(errors)
 
