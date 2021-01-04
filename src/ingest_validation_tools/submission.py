@@ -4,6 +4,8 @@ from fnmatch import fnmatch
 from pathlib import Path
 from collections import Counter
 
+import requests
+
 from ingest_validation_tools.yaml_include_loader import load_yaml
 
 from ingest_validation_tools.validation_utils import (
@@ -149,6 +151,7 @@ class Submission:
             return None
 
         errors = {}
+        status_of_doi = {}
         for i, row in enumerate(rows):
             row_number = f'row {i+2}'
 
@@ -175,6 +178,17 @@ class Submission:
                 if antibodies_errors:
                     errors[f'{row_number}, antibodies {antibodies_path}'] = \
                         antibodies_errors
+
+            for k in row.keys():
+                if not k.endswith('protocols_io_doi'):
+                    continue
+                doi = row[k]
+                if doi not in status_of_doi:
+                    response = requests.get(f'https://dx.doi.org/{doi}')
+                    status_of_doi[doi] = response.status_code
+                if status_of_doi[doi] != requests.codes.ok:
+                    errors[f'{row_number}, {k} {doi}'] = str(status_of_doi[doi])
+
         return errors
 
     def _get_data_dir_errors(self, assay_type, data_path):

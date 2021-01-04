@@ -13,6 +13,7 @@
 - Remove wildcards from dir schemas which have not been delivered.
 - Update Celldive and CODEX directory schemas.
 - Sort file errors for stability.
+- Check protocols io DOIs.
 
 ## v0.0.6 - 2020-12-07
 - Add thumbnail to directory schema.

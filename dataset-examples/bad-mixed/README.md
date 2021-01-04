@@ -32,6 +32,7 @@ Metadata TSV Errors:
         - not-good-for-either-type.txt
         Required but missing:
         - .*\.fastq\.gz
+      row 2, protocols_io_doi 10.17504/fake: '404'
 Reference Errors:
   Multiple References:
     bad-shared-dataset:
