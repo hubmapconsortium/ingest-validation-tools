@@ -187,7 +187,7 @@ class Submission:
                     response = requests.get(f'https://dx.doi.org/{doi}')
                     status_of_doi[doi] = response.status_code
                 if status_of_doi[doi] != requests.codes.ok:
-                    errors[f'{row_number}, {k} {doi}'] = str(status_of_doi[doi])
+                    errors[f'{row_number}, {k} {doi}'] = status_of_doi[doi]
 
         return errors
 
