@@ -4,3 +4,4 @@ tableschema==1.15.0
 goodtables==2.4.9
 yattag==1.14.0
 tableschema-to-template==0.0.11
+requests==2.25.0

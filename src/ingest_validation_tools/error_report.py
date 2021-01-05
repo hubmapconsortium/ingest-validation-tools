@@ -96,12 +96,16 @@ def _build_list(anything, path=None):
     ...     'nested array': [
     ...         'like',
     ...         'this'
-    ...     ]
+    ...     ],
+    ...     'string': 'like this',
+    ...     'number': 42
     ... })
     >>> print('\\n'.join(flat))
     nested dict: like: this
     nested array: like
     nested array: this
+    string: like this
+    number: 42
 
     '''
     prefix = f'{path}: ' if path else ''
@@ -122,7 +126,7 @@ def _build_list(anything, path=None):
                 to_return += _build_list(v, path=path)
             return to_return
     else:
-        return [anything]
+        return [f'{prefix}{anything}']
 
 
 def _build_doc(tag, line, anything):
