@@ -1,7 +1,6 @@
 import argparse
 import os
 import re
-from urllib.parse import urlparse, parse_qs
 
 
 class ShowUsageException(Exception):
@@ -30,39 +29,4 @@ def origin_directory_pair(s):
     return {
         'origin': origin,
         'path': path
-    }
-
-
-def globus_url(s):
-    '''
-    >>> globus_url('http://example.com/')
-    Traceback (most recent call last):
-    ...
-    argparse.ArgumentTypeError: Expected a URL starting with https://app.globus.org/file-manager?
-
-    >>> globus_url('https://app.globus.org/file-manager?a=1')
-    Traceback (most recent call last):
-    ...
-    argparse.ArgumentTypeError: Expected query keys to be ['origin_id', 'origin_path'], not ['a']
-
-    >>> globus_url('https://app.globus.org/file-manager?origin_id=32-hex-digits&origin_path=%2Fpath%2F')
-    {'origin': '32-hex-digits', 'path': '/path/'}
-
-    '''  # noqa E501
-    expected_base = 'https://app.globus.org/file-manager?'
-    if not s.startswith(expected_base):
-        raise argparse.ArgumentTypeError(
-            f'Expected a URL starting with {expected_base}')
-
-    parsed = urlparse(s)
-    query = parse_qs(parsed.query)
-    expected_keys = ['origin_id', 'origin_path']
-    actual_keys = sorted(query.keys())
-    if actual_keys != expected_keys:
-        raise argparse.ArgumentTypeError(
-            f'Expected query keys to be {expected_keys}, not {actual_keys}')
-
-    return {
-        'origin': query['origin_id'][0],
-        'path': query['origin_path'][0]
     }
