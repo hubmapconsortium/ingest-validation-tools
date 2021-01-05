@@ -1,6 +1,5 @@
 ```
-usage: validate_submission.py [-h]
-                              [--local_directory PATH | --globus_url URL | --globus_origin_directory ORIGIN_PATH]
+usage: validate_submission.py [-h] [--local_directory PATH]
                               [--tsv_paths PATH [PATH ...]]
                               [--optional_fields FIELD [FIELD ...]]
                               [--dataset_ignore_globs GLOB [GLOB ...]]
@@ -16,11 +15,6 @@ optional arguments:
   -h, --help            show this help message and exit
   --local_directory PATH
                         Local directory to validate
-  --globus_url URL      The Globus File Manager URL of a directory to
-                        validate.
-  --globus_origin_directory ORIGIN_PATH
-                        A Globus submission directory to validate; Should have
-                        the form "<globus_origin_id>:<globus_path>".
   --tsv_paths PATH [PATH ...]
                         Paths of metadata.tsv files.
   --optional_fields FIELD [FIELD ...]
@@ -38,13 +32,12 @@ optional arguments:
   --add_notes           Append a context note to error reports.
 
 Typical usecases:
+  --tsv_paths: Used to validate TSVs in isolation, without checking references.
 
-  --metadata + --globus_url: Validate one or more
-  local metadata.tsv files against a submission directory already on Globus.
+  --local_directory: Used in development against test fixtures, and could be used
+  by labs before submission.
 
-  --globus_url: Validate a submission directory on Globus,
-  with metadata.tsv files in place.
-
-  --local_directory: Used in development against test fixtures, and in
-  the ingest-pipeline, where Globus is the local filesystem.
+  --local_directory + --dataset_ignore_globs + --submission_ignore_globs:
+  Currently, during ingest, the metadata TSVs are broken up, and one-line TSVs
+  are put in each dataset directory. This structure needs extra ignores.
 ```

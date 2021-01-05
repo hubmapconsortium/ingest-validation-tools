@@ -9,8 +9,6 @@ from ingest_validation_tools.error_report import ErrorReport
 from ingest_validation_tools.submission import Submission
 from ingest_validation_tools import argparse_types
 from ingest_validation_tools.argparse_types import ShowUsageException
-from ingest_validation_tools.globus_utils import (
-    get_globus_connection_error, get_globus_cache_path)
 
 
 directory_schemas = sorted({
@@ -27,15 +25,15 @@ Validate a HuBMAP submission, both the metadata TSVs, and the datasets,
 either local or remote, or a combination of the two.''',
         epilog='''
 Typical usecases:
+  --tsv_paths: Used to validate TSVs in isolation, without checking references.
 
-  --metadata + --globus_url: Validate one or more
-  local metadata.tsv files against a submission directory already on Globus.
+  --local_directory: Used in development against test fixtures, and could be used
+  by labs before submission.
 
-  --globus_url: Validate a submission directory on Globus,
-  with metadata.tsv files in place.
+  --local_directory + --dataset_ignore_globs + --submission_ignore_globs:
+  Currently, during ingest, the metadata TSVs are broken up, and one-line TSVs
+  are put in each dataset directory. This structure needs extra ignores.
 
-  --local_directory: Used in development against test fixtures, and in
-  the ingest-pipeline, where Globus is the local filesystem.
 ''',
         formatter_class=argparse.RawDescriptionHelpFormatter)
 
@@ -46,15 +44,6 @@ Typical usecases:
         '--local_directory', type=argparse_types.dir_path,
         metavar='PATH',
         help='Local directory to validate')
-    mutex_group.add_argument(
-        '--globus_url', type=argparse_types.globus_url,
-        metavar='URL',
-        help='The Globus File Manager URL of a directory to validate.')
-    mutex_group.add_argument(
-        '--globus_origin_directory', type=argparse_types.origin_directory_pair,
-        metavar='ORIGIN_PATH',
-        help='A Globus submission directory to validate; '
-        'Should have the form "<globus_origin_id>:<globus_path>".')
 
     # Is there metadata to validate?
 
@@ -110,14 +99,9 @@ parser = make_parser()
 
 def parse_args():
     args = parser.parse_args()
-    if not any([
-        args.tsv_paths,
-        args.local_directory,
-        args.globus_url,
-        args.globus_origin_directory
-    ]):
+    if not (args.tsv_paths or args.local_directory):
         raise ShowUsageException(
-            'Either local file, local directory, or Globus is required')
+            'Either local file or local directory is required')
 
     return args
 
@@ -129,14 +113,7 @@ def main():
         'optional_fields': args.optional_fields or []
     }
 
-    globus = args.globus_url or args.globus_origin_directory
-    if globus:
-        error_message = get_globus_connection_error(globus['origin'])
-        if error_message:
-            raise ShowUsageException(error_message)
-        submission_args['directory_path'] = get_globus_cache_path(
-            globus['origin'], globus['path'])
-    elif args.local_directory:
+    if args.local_directory:
         submission_args['directory_path'] = Path(args.local_directory)
 
     if args.tsv_paths:
