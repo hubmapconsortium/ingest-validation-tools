@@ -15,6 +15,7 @@
 - Sort file errors for stability.
 - Check protocols io DOIs.
 - Remove option to validate against directory structure in Globus.
+- Loosen ID regex to allow lymph nodes. (Chuck's mistake!)
 
 ## v0.0.6 - 2020-12-07
 - Add thumbnail to directory schema.
