@@ -10,7 +10,7 @@ fields:
     name: tissue_id
     description: HuBMAP Display ID of the assayed tissue.
     constraints:
-      pattern: '([A-Z]+[0-9]+)-[A-Z]{2}(-\d+)+(_\d+)?'
+      pattern: '([A-Z]+[0-9]+)-[A-Z]{2}\d*(-\d+)+(_\d+)?'
     example: 'ABC123-BL-1-2-3_456'
   -
     heading: Level 1
