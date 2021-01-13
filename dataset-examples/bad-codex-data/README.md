@@ -33,4 +33,6 @@ Metadata TSV Errors:
         - Column 5 ("E") is a required field, but row 2 has no value
         - The value "invalid" in row 2 and column 6 ("F") does not conform to the
           pattern constraint of "1/\d+"
+        External:
+          row 2, rr_id bad-value: 404
 ```

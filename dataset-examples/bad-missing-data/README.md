@@ -6,7 +6,6 @@ Metadata TSV Errors:
         No such file or directory: dataset-examples/bad-missing-data/submission/dataset-1
       row 2, contributors dataset-examples/bad-missing-data/submission/contributors-missing.tsv: File
         does not exist
-      row 2, antibodies dataset-examples/bad-missing-data/submission/antibodies-missing.tsv:
-        Internal:
-        - 'No such file or directory: ''dataset-examples/bad-missing-data/submission/antibodies-missing.tsv'''
+      row 2, antibodies dataset-examples/bad-missing-data/submission/antibodies-missing.tsv: File
+        does not exist
 ```

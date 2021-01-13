@@ -45,7 +45,7 @@ status_of_id: dict = {
 }
 
 
-def _get_in_ex_errors(path, type_name, field_url_pairs):
+def _get_in_ex_errors(path, type_name, field_url_tuples):
     if not path.exists():
         return 'File does not exist'
     rows = dict_reader_wrapper(path)
@@ -54,14 +54,21 @@ def _get_in_ex_errors(path, type_name, field_url_pairs):
 
     internal_errors = get_tsv_errors(path, type_name)
     external_errors = {}
-    for field, url_base in field_url_pairs:
+    for field, url_base, string_to_check in field_url_tuples:
         status_cache = status_of_id[field]
         for i, row in enumerate(rows):
             row_number = f'row {i+2}'
             id_to_check = row[field]
             if id_to_check not in status_cache:
                 response = requests.get(f'{url_base}{id_to_check}')
-                status_cache[id_to_check] = response.status_code
+                if string_to_check is None:
+                    status_cache[id_to_check] = response.status_code
+                else:
+                    status_cache[id_to_check] = (
+                        requests.codes.ok
+                        if string_to_check in response.text
+                        else requests.codes.not_found
+                    )
             if status_cache[id_to_check] != requests.codes.ok:
                 external_errors[f'{row_number}, {field} {id_to_check}'] = status_cache[id_to_check]
 
@@ -80,7 +87,7 @@ def get_contributors_errors(contributors_path):
     '''
     return _get_in_ex_errors(
         contributors_path, 'contributors', [
-            ('orcid_id', 'https://orcid.org/')
+            ('orcid_id', 'https://orcid.org/', None)
         ]
     )
 
@@ -89,12 +96,14 @@ def get_antibodies_errors(antibodies_path):
     '''
     Validate a single antibodies file.
     '''
-    errors = {}
-    internal_errors = get_tsv_errors(antibodies_path, 'antibodies')
-    if internal_errors:
-        errors['Internal'] = internal_errors
-    # TODO: External
-    return errors
+    return _get_in_ex_errors(
+        antibodies_path, 'antibodies', [
+            # They just have a search page: I don't see an interface to check for existence.
+            ('rr_id', 'https://antibodyregistry.org/search.php?q=',
+                'Showing 1 - 1 results out of 1'),
+            ('uniprot_accession_number', 'https://www.uniprot.org/uniprot/', None)
+        ]
+    )
 
 
 def get_tsv_errors(tsv_path, type, optional_fields=[]):

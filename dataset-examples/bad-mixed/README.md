@@ -20,9 +20,8 @@ Metadata TSV Errors:
         - src_[^/]+/channelnames_report\.csv
       row 2, contributors dataset-examples/bad-mixed/submission/contributors.tsv: File
         has no data rows.
-      row 2, antibodies dataset-examples/bad-mixed/submission/antibodies.tsv:
-        Internal:
-        - 'No such file or directory: ''dataset-examples/bad-mixed/submission/antibodies.tsv'''
+      row 2, antibodies dataset-examples/bad-mixed/submission/antibodies.tsv: File
+        does not exist
   dataset-examples/bad-mixed/submission/scatacseq-metadata.tsv (as scatacseq):
     Internal:
     - The value "-INVALID-" in row 2 and column 1 ("A") does not conform to the pattern
