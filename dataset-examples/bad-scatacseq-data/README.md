@@ -11,7 +11,8 @@ Metadata TSV Errors:
         - unexpected-directory/place-holder.txt
         Required but missing:
         - .*\.fastq\.gz
-      row 2, contributors dataset-examples/bad-scatacseq-data/submission/contributors.tsv: File
-        has no data rows.
+      row 2, contributors dataset-examples/bad-scatacseq-data/submission/contributors.tsv:
+        External:
+          row 2, orcid_id 0000-0000-0000-000X: 404
       row 2, protocols_io_doi 10.17504/fake: 404
 ```
