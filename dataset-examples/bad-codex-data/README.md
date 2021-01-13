@@ -21,7 +21,7 @@ Metadata TSV Errors:
         - src_[^/]+/channelnames_report\.csv
       row 2, contributors dataset-examples/bad-codex-data/submission/contributors.tsv:
       - The value "bad-id" in row 2 and column 6 ("F") does not conform to the pattern
-        constraint of "\d{4}-\d{4}-\d{4}-\d{4}"
+        constraint of "\d{4}-\d{4}-\d{4}-\d{3}[0-9X]"
       row 2, antibodies dataset-examples/bad-codex-data/submission/antibodies.tsv:
       - Column 1 ("A") is a required field, but row 2 has no value
       - Column 2 ("B") is a required field, but row 2 has no value

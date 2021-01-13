@@ -1,6 +1,7 @@
 # Changelog
 
 ## v0.0.8 - in progress
+- Allow "X" as final character of ORCID.
 
 ## v0.0.7 - 2021-01-13
 - Improved error messages in Excel.
