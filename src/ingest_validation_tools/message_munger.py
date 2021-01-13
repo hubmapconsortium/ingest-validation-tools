@@ -5,8 +5,12 @@ def munge(message):
     '''
     Make the error message less informative.
 
-    >>> munge("In md.tsv (as fake): External: row 2, referencing fake/ds: Not allowed: nope.txt")
-    'In the dataset referenced by row 2, referencing fake/ds, the file "nope.txt" is not allowed.'
+    >>> munge('In md.tsv (as fake): External: row 2, referencing fake/ds: Not allowed: nope.txt')
+    'In the dataset fake/ds referenced on row 2, the file "nope.txt" is not allowed.'
+
+    >>> munge('In md.tsv (as fake): External: row 2, contributors c.tsv: '
+    ...       'Internal: Blah blah.')
+    'In the contributors c.tsv referenced on row 2, blah blah.'
 
     '''
     pat_reps = [
@@ -19,8 +23,11 @@ def munge(message):
         (r' \(as \S+\): Internal:',
          ','),
 
-        (r'.*: External: ([^:]+): ([^:]+): (.+)',
-         r'In the dataset referenced by \1, the file "\3" is \2.'),
+        (r'.*: External: (row \d+), referencing ([^:]+): ([^:]+): (.+)',
+         r'In the dataset \2 referenced on \1, the file "\4" is \3.'),
+
+        (r'.*: External: (row \d+), contributors ([^:]+): ([^:]+): (.+)',
+         r'In the contributors \2 referenced on \1, \4'),
 
         (r' \(as \S+\): External: Warning: File has no data rows',
          r', the file is just a header with no data rows'),

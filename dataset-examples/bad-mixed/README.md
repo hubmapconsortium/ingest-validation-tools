@@ -19,7 +19,8 @@ Metadata TSV Errors:
         - src_[^/]+/channelnames\.txt
         - src_[^/]+/channelnames_report\.csv
       row 2, antibodies dataset-examples/bad-mixed/submission/antibodies.tsv:
-      - 'No such file or directory: ''dataset-examples/bad-mixed/submission/antibodies.tsv'''
+        Internal:
+        - 'No such file or directory: ''dataset-examples/bad-mixed/submission/antibodies.tsv'''
   dataset-examples/bad-mixed/submission/scatacseq-metadata.tsv (as scatacseq):
     Internal:
     - The value "-INVALID-" in row 2 and column 1 ("A") does not conform to the pattern

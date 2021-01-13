@@ -44,9 +44,9 @@ def get_contributors_errors(contributors_path):
     errors = {}
     internal_errors = get_tsv_errors(contributors_path, 'contributors')
     if internal_errors:
-        errors['Contributors internal'] = internal_errors
+        errors['Internal'] = internal_errors
     # TODO: External
-    return internal_errors
+    return errors
 
 
 def get_antibodies_errors(antibodies_path):
@@ -56,9 +56,9 @@ def get_antibodies_errors(antibodies_path):
     errors = {}
     internal_errors = get_tsv_errors(antibodies_path, 'antibodies')
     if internal_errors:
-        errors['Antibodies internal'] = internal_errors
+        errors['Internal'] = internal_errors
     # TODO: External
-    return internal_errors
+    return errors
 
 
 def get_tsv_errors(tsv_path, type, optional_fields=[]):
