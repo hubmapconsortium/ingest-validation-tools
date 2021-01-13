@@ -38,10 +38,14 @@ def get_data_dir_errors(type, data_path, dataset_ignore_globs=[]):
         return {e.strerror: e.filename}
 
 
-status_of_orcid = {}
+status_of_id: dict = {
+    'orcid_id': {},
+    'rr_id': {},
+    'uniprot_accession_number': {}
+}
 
 
-def _get_in_ex_errors(path, type_name, field, url_base):
+def _get_in_ex_errors(path, type_name, field_url_pairs):
     if not path.exists():
         return 'File does not exist'
     rows = dict_reader_wrapper(path)
@@ -50,14 +54,16 @@ def _get_in_ex_errors(path, type_name, field, url_base):
 
     internal_errors = get_tsv_errors(path, type_name)
     external_errors = {}
-    for i, row in enumerate(rows):
-        row_number = f'row {i+2}'
-        id_to_check = row[field]
-        if id_to_check not in status_of_orcid:
-            response = requests.get(f'{url_base}{id_to_check}')
-            status_of_orcid[id_to_check] = response.status_code
-        if status_of_orcid[id_to_check] != requests.codes.ok:
-            external_errors[f'{row_number}, {field} {id_to_check}'] = status_of_orcid[id_to_check]
+    for field, url_base in field_url_pairs:
+        status_cache = status_of_id[field]
+        for i, row in enumerate(rows):
+            row_number = f'row {i+2}'
+            id_to_check = row[field]
+            if id_to_check not in status_cache:
+                response = requests.get(f'{url_base}{id_to_check}')
+                status_cache[id_to_check] = response.status_code
+            if status_cache[id_to_check] != requests.codes.ok:
+                external_errors[f'{row_number}, {field} {id_to_check}'] = status_cache[id_to_check]
 
     errors = {}
     if internal_errors:
@@ -72,7 +78,11 @@ def get_contributors_errors(contributors_path):
     '''
     Validate a single contributors file.
     '''
-    return _get_in_ex_errors(contributors_path, 'contributors', 'orcid_id', 'https://orcid.org/')
+    return _get_in_ex_errors(
+        contributors_path, 'contributors', [
+            ('orcid_id', 'https://orcid.org/')
+        ]
+    )
 
 
 def get_antibodies_errors(antibodies_path):
