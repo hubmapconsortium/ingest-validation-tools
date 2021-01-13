@@ -41,35 +41,38 @@ def get_data_dir_errors(type, data_path, dataset_ignore_globs=[]):
 status_of_orcid = {}
 
 
-def get_contributors_errors(contributors_path):
-    '''
-    Validate a single contributors file.
-    '''
-    if not contributors_path.exists():
+def _get_in_ex_errors(path, type_name, field, url_base):
+    if not path.exists():
         return 'File does not exist'
-
-    errors = {}
-    internal_errors = get_tsv_errors(contributors_path, 'contributors')
-    if internal_errors:
-        errors['Internal'] = internal_errors
-
-    rows = dict_reader_wrapper(contributors_path)
+    rows = dict_reader_wrapper(path)
     if not rows:
         return 'File has no data rows.'
 
+    internal_errors = get_tsv_errors(path, type_name)
     external_errors = {}
     for i, row in enumerate(rows):
         row_number = f'row {i+2}'
-        orcid = row['orcid_id']
-        if orcid not in status_of_orcid:
-            response = requests.get(f'https://orcid.org/{orcid}')
-            status_of_orcid[orcid] = response.status_code
-        if status_of_orcid[orcid] != requests.codes.ok:
-            external_errors[f'{row_number}, orcid_id {orcid}'] = status_of_orcid[orcid]
+        id_to_check = row[field]
+        if id_to_check not in status_of_orcid:
+            response = requests.get(f'{url_base}{id_to_check}')
+            status_of_orcid[id_to_check] = response.status_code
+        if status_of_orcid[id_to_check] != requests.codes.ok:
+            external_errors[f'{row_number}, {field} {id_to_check}'] = status_of_orcid[id_to_check]
+
+    errors = {}
+    if internal_errors:
+        errors['Internal'] = internal_errors
     if external_errors:
         errors['External'] = external_errors
 
     return errors
+
+
+def get_contributors_errors(contributors_path):
+    '''
+    Validate a single contributors file.
+    '''
+    return _get_in_ex_errors(contributors_path, 'contributors', 'orcid_id', 'https://orcid.org/')
 
 
 def get_antibodies_errors(antibodies_path):
