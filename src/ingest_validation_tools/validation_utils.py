@@ -41,14 +41,24 @@ def get_contributors_errors(contributors_path):
     '''
     Validate a single contributors file.
     '''
-    return get_tsv_errors(contributors_path, 'contributors')
+    errors = {}
+    internal_errors = get_tsv_errors(contributors_path, 'contributors')
+    if internal_errors:
+        errors['Contributors internal'] = internal_errors
+    # TODO: External
+    return internal_errors
 
 
 def get_antibodies_errors(antibodies_path):
     '''
     Validate a single antibodies file.
     '''
-    return get_tsv_errors(antibodies_path, 'antibodies')
+    errors = {}
+    internal_errors = get_tsv_errors(antibodies_path, 'antibodies')
+    if internal_errors:
+        errors['Antibodies internal'] = internal_errors
+    # TODO: External
+    return internal_errors
 
 
 def get_tsv_errors(tsv_path, type, optional_fields=[]):

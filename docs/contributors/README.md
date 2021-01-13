@@ -50,7 +50,7 @@ Name for display.
 | required | `True` |
 
 ### `orcid_id`
-ORCID ID of contributor.
+ORCID ID of contributor. Example: `0000-0002-8928-741X`.
 
 | constraint | value |
 | --- | --- |

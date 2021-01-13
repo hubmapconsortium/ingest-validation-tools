@@ -4,6 +4,10 @@ from re import sub
 def munge(message):
     '''
     Make the error message less informative.
+
+    >>> munge("In md.tsv (as fake): External: row 2, referencing fake/ds: Not allowed: nope.txt")
+    'In the dataset referenced by row 2, referencing fake/ds, the file "nope.txt" is not allowed.'
+
     '''
     pat_reps = [
         (r'does not conform to the pattern constraint of .*',
