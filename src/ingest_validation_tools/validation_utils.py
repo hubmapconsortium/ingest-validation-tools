@@ -4,6 +4,7 @@ from string import ascii_uppercase
 from csv import DictReader
 from pathlib import Path
 
+import requests
 from goodtables import validate as validate_table
 
 from ingest_validation_tools.schema_loader import (
@@ -37,15 +38,37 @@ def get_data_dir_errors(type, data_path, dataset_ignore_globs=[]):
         return {e.strerror: e.filename}
 
 
+status_of_orcid = {}
+
+
 def get_contributors_errors(contributors_path):
     '''
     Validate a single contributors file.
     '''
+    if not contributors_path.exists():
+        return 'File does not exist'
+
     errors = {}
     internal_errors = get_tsv_errors(contributors_path, 'contributors')
     if internal_errors:
         errors['Internal'] = internal_errors
-    # TODO: External
+
+    rows = dict_reader_wrapper(contributors_path)
+    if not rows:
+        return 'File has no data rows.'
+
+    external_errors = {}
+    for i, row in enumerate(rows):
+        row_number = f'row {i+2}'
+        orcid = row['orcid_id']
+        if orcid not in status_of_orcid:
+            response = requests.get(f'https://orcid.org/{orcid}')
+            status_of_orcid[orcid] = response.status_code
+        if status_of_orcid[orcid] != requests.codes.ok:
+            external_errors[f'{row_number}, orcid_id {orcid}'] = status_of_orcid[orcid]
+    if external_errors:
+        errors['External'] = external_errors
+
     return errors
 
 

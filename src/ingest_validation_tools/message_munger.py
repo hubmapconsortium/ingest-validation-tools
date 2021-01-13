@@ -26,8 +26,8 @@ def munge(message):
         (r'.*: External: (row \d+), referencing ([^:]+): ([^:]+): (.+)',
          r'In the dataset \2 referenced on \1, the file "\4" is \3.'),
 
-        (r'.*: External: (row \d+), contributors ([^:]+): ([^:]+): (.+)',
-         r'In the contributors \2 referenced on \1, \4'),
+        (r'.*: External: (row \d+), ([^:]+): ([^:]+): (.+)',
+         r'In the \2 referenced on \1, \4'),
 
         (r' \(as \S+\): External: Warning: File has no data rows',
          r', the file is just a header with no data rows'),

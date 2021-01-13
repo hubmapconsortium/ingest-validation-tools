@@ -66,6 +66,8 @@ Metadata TSV Errors:
         - drv_[^/]+/segmentation\.json
         - src_[^/]+/channelnames\.txt
         - src_[^/]+/channelnames_report\.csv
+      row 2, contributors dataset-examples/bad-tsv-formats/submission/contributors.tsv: File
+        has no data rows.
       row 2, antibodies dataset-examples/bad-tsv-formats/submission/antibodies.tsv:
         Internal:
         - 'No such file or directory: ''dataset-examples/bad-tsv-formats/submission/antibodies.tsv'''
