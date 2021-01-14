@@ -13,7 +13,7 @@ for SUITE in dataset-iec-examples dataset-examples; do
       ;;
     dataset-examples)
       # To minimize dependence on outside resources, --offline used here,
-      # but ID lookup is exercized by iec-examples.
+      # but ID lookup is still exercised by iec-examples.
       OPTS="--dataset_ignore_globs 'ignore-*.tsv' '.*' --submission_ignore_globs 'drv_ignore_*' --offline --output as_md"
       ;;
     *)

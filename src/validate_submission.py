@@ -39,7 +39,7 @@ Typical usecases:
 
     # What should be validated?
 
-    mutex_group = parser.add_mutually_exclusive_group()
+    mutex_group = parser.add_mutually_exclusive_group(required=True)
     mutex_group.add_argument(
         '--local_directory', type=argparse_types.dir_path,
         metavar='PATH',

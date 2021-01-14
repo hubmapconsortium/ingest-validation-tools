@@ -1,6 +1,6 @@
 ```
 usage: validate_submission.py [-h]
-                              [--local_directory PATH | --tsv_paths PATH [PATH ...]]
+                              (--local_directory PATH | --tsv_paths PATH [PATH ...])
                               [--optional_fields FIELD [FIELD ...]]
                               [--offline]
                               [--dataset_ignore_globs GLOB [GLOB ...]]
