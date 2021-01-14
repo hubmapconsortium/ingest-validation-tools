@@ -63,7 +63,9 @@ def run_plugin_validators_iter(metadata_path: PathOrStr,
     metadata_path = Path(metadata_path)
     if metadata_path.is_file():
         try:
-            rows = dict_reader_wrapper(metadata_path)
+            rows = dict_reader_wrapper(metadata_path, 'ascii')
+            # TODO: Pass in encoding.
+            # https://github.com/hubmapconsortium/ingest-validation-tools/issues/494
         except (CsvError, IOError):
             raise ValidatorError(f'{metadata_path} could not be parsed as a .tsv file')
         if not rows:

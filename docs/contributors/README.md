@@ -50,9 +50,9 @@ Name for display.
 | required | `True` |
 
 ### `orcid_id`
-ORCID ID of contributor.
+ORCID ID of contributor. Example: `0000-0002-8928-741X`.
 
 | constraint | value |
 | --- | --- |
-| pattern (regular expression) | `\d{4}-\d{4}-\d{4}-\d{4}` |
+| pattern (regular expression) | `\d{4}-\d{4}-\d{4}-\d{3}[0-9X]` |
 | required | `True` |

@@ -68,8 +68,10 @@ Metadata TSV Errors:
         - src_[^/]+/experiment\.json
         - src_[^/]+/exposure_times\.txt
         - src_[^/]+/segmentation\.json
-      row 2, antibodies dataset-examples/bad-tsv-formats/submission/antibodies.tsv:
-      - 'No such file or directory: ''dataset-examples/bad-tsv-formats/submission/antibodies.tsv'''
+      row 2, contributors dataset-examples/bad-tsv-formats/submission/contributors.tsv: File
+        has no data rows.
+      row 2, antibodies dataset-examples/bad-tsv-formats/submission/antibodies.tsv: File
+        does not exist
       row 2, protocols_io_doi 10\.17504/protocols.io.menc3de: 404
       row 2, section_prep_protocols_io_doi not-doi: 404
       row 2, reagent_prep_protocols_io_doi not-doi: 404

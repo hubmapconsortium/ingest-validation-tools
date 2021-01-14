@@ -34,14 +34,6 @@ def _assay_name_to_code(name):
     return None
 
 
-def _get_type_from_first_line(path):
-    rows = dict_reader_wrapper(path)
-    if not rows:
-        return None
-    name = rows[0]['assay_type']
-    return _assay_name_to_code(name)
-
-
 TSV_SUFFIX = 'metadata.tsv'
 
 
@@ -49,14 +41,15 @@ class Submission:
     def __init__(self, directory_path=None, tsv_paths=[],
                  optional_fields=[], add_notes=True,
                  dataset_ignore_globs=[], submission_ignore_globs=[],
-                 plugin_directory=None):
+                 plugin_directory=None, encoding=None):
         self.directory_path = directory_path
         self.optional_fields = optional_fields
         self.dataset_ignore_globs = dataset_ignore_globs
         self.submission_ignore_globs = submission_ignore_globs
         self.plugin_directory = plugin_directory
+        self.encoding = encoding
         unsorted_effective_tsv_paths = {
-            str(path): _get_type_from_first_line(path)
+            str(path): self._get_type_from_first_line(path)
             for path in (
                 tsv_paths if tsv_paths
                 else directory_path.glob(f'*{TSV_SUFFIX}')
@@ -67,6 +60,13 @@ class Submission:
             for k in sorted(unsorted_effective_tsv_paths.keys())
         }
         self.add_notes = add_notes
+
+    def _get_type_from_first_line(self, path):
+        rows = dict_reader_wrapper(path, self.encoding)
+        if not rows:
+            return None
+        name = rows[0]['assay_type']
+        return _assay_name_to_code(name)
 
     def get_errors(self):
         # This creates a deeply nested dict.
@@ -142,7 +142,10 @@ class Submission:
             optional_fields=self.optional_fields)
 
     def _get_single_tsv_external_errors(self, assay_type, path):
-        rows = dict_reader_wrapper(path)
+        try:
+            rows = dict_reader_wrapper(path, self.encoding)
+        except UnicodeDecodeError as e:
+            return str(e)
         if not rows:
             return 'File has no data rows.'
         if 'data_path' not in rows[0] or 'contributors_path' not in rows[0]:
@@ -196,10 +199,10 @@ class Submission:
             assay_type, data_path, dataset_ignore_globs=self.dataset_ignore_globs)
 
     def _get_contributors_errors(self, contributors_path):
-        return get_contributors_errors(contributors_path)
+        return get_contributors_errors(contributors_path, self.encoding)
 
     def _get_antibodies_errors(self, antibodies_path):
-        return get_antibodies_errors(antibodies_path)
+        return get_antibodies_errors(antibodies_path, self.encoding)
 
     def _get_reference_errors(self):
         errors = {}
@@ -248,7 +251,7 @@ class Submission:
     def _get_references(self, col_name):
         references = defaultdict(list)
         for tsv_path in self.effective_tsv_paths.keys():
-            for i, row in enumerate(dict_reader_wrapper(tsv_path)):
+            for i, row in enumerate(dict_reader_wrapper(tsv_path, self.encoding)):
                 if col_name in row:
                     reference = f'{tsv_path} (row {i+2})'
                     references[row[col_name]].append(reference)
