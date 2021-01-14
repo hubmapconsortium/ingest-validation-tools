@@ -1,6 +1,9 @@
 # Changelog
 
 ## v0.0.8 - in progress
+- Allow "X" as final character of ORCID.
+- Ping the respective services to confirm the ORCIDs, RR IDs, and Uniprot IDs are actually good.
+- Add encoding as CLI param.
 
 ## v0.0.7 - 2021-01-13
 - Improved error messages in Excel.

@@ -18,8 +18,10 @@ Metadata TSV Errors:
         - drv_[^/]+/segmentation\.json
         - src_[^/]+/channelnames\.txt
         - src_[^/]+/channelnames_report\.csv
-      row 2, antibodies dataset-examples/bad-mixed/submission/antibodies.tsv:
-      - 'No such file or directory: ''dataset-examples/bad-mixed/submission/antibodies.tsv'''
+      row 2, contributors dataset-examples/bad-mixed/submission/contributors.tsv: File
+        has no data rows.
+      row 2, antibodies dataset-examples/bad-mixed/submission/antibodies.tsv: File
+        does not exist
   dataset-examples/bad-mixed/submission/scatacseq-metadata.tsv (as scatacseq):
     Internal:
     - The value "-INVALID-" in row 2 and column 1 ("A") does not conform to the pattern
@@ -32,6 +34,8 @@ Metadata TSV Errors:
         - not-good-for-either-type.txt
         Required but missing:
         - .*\.fastq\.gz
+      row 2, contributors dataset-examples/bad-mixed/submission/contributors.tsv: File
+        has no data rows.
       row 2, protocols_io_doi 10.17504/fake: 404
 Reference Errors:
   Multiple References:

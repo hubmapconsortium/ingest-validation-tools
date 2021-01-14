@@ -18,4 +18,5 @@ fields:
     name: orcid_id
     description: ORCID ID of contributor
     constraints:
-      pattern: '\d{4}-\d{4}-\d{4}-\d{4}'
+      pattern: '\d{4}-\d{4}-\d{4}-\d{3}[0-9X]'
+    example: 0000-0002-8928-741X
