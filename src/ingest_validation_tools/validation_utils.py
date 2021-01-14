@@ -18,8 +18,8 @@ class TableValidationErrors(Exception):
     pass
 
 
-def dict_reader_wrapper(path):
-    with open(path, encoding='latin-1') as f:
+def dict_reader_wrapper(path, encoding):
+    with open(path, encoding=encoding) as f:
         rows = list(DictReader(f, dialect='excel-tab'))
     return rows
 
@@ -45,10 +45,10 @@ status_of_id: dict = {
 }
 
 
-def _get_in_ex_errors(path, type_name, field_url_tuples):
+def _get_in_ex_errors(path, type_name, field_url_tuples, encoding):
     if not path.exists():
         return 'File does not exist'
-    rows = dict_reader_wrapper(path)
+    rows = dict_reader_wrapper(path, encoding)
     if not rows:
         return 'File has no data rows.'
 
@@ -81,18 +81,19 @@ def _get_in_ex_errors(path, type_name, field_url_tuples):
     return errors
 
 
-def get_contributors_errors(contributors_path):
+def get_contributors_errors(contributors_path, encoding):
     '''
     Validate a single contributors file.
     '''
     return _get_in_ex_errors(
         contributors_path, 'contributors', [
             ('orcid_id', 'https://orcid.org/', None)
-        ]
+        ],
+        encoding
     )
 
 
-def get_antibodies_errors(antibodies_path):
+def get_antibodies_errors(antibodies_path, encoding):
     '''
     Validate a single antibodies file.
     '''
@@ -102,7 +103,8 @@ def get_antibodies_errors(antibodies_path):
             ('rr_id', 'https://antibodyregistry.org/search.php?q=',
                 'Showing 1 - 1 results out of 1'),
             ('uniprot_accession_number', 'https://www.uniprot.org/uniprot/', None)
-        ]
+        ],
+        encoding
     )
 
 

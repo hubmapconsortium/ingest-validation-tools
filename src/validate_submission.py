@@ -59,16 +59,24 @@ Typical usecases:
         '(But if they are supplied in the TSV, they will be validated.)'
     )
 
+    default_ignore = '.*'
     parser.add_argument(
         '--dataset_ignore_globs', nargs='+',
         metavar='GLOB',
-        default=['.*'],
-        help='Matching files in each dataset directory will be ignored.'
+        default=[default_ignore],
+        help=f'Matching files in each dataset directory will be ignored. Default: {default_ignore}'
     )
     parser.add_argument(
         '--submission_ignore_globs', nargs='+',
         metavar='GLOB',
         help='Matching sub-directories in the submission will be ignored.'
+    )
+
+    default_encoding = 'ascii'
+    parser.add_argument(
+        '--encoding', default=default_encoding,
+        help=f'Character-encoding to use for parsing TSVs. Default: {default_encoding}. '
+        'Work-in-progress: https://github.com/hubmapconsortium/ingest-validation-tools/issues/494'
     )
 
     # Are there plugin validations?
@@ -110,6 +118,7 @@ def main():
     args = parse_args()
     submission_args = {
         'add_notes': args.add_notes,
+        'encoding': args.encoding,
         'optional_fields': args.optional_fields or []
     }
 

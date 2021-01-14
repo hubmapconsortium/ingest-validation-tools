@@ -4,6 +4,7 @@ usage: validate_submission.py [-h] [--local_directory PATH]
                               [--optional_fields FIELD [FIELD ...]]
                               [--dataset_ignore_globs GLOB [GLOB ...]]
                               [--submission_ignore_globs GLOB [GLOB ...]]
+                              [--encoding ENCODING]
                               [--plugin_directory PLUGIN_DIRECTORY]
                               [--output {as_browser,as_html_doc,as_html_fragment,as_md,as_text,as_text_list,as_yaml}]
                               [--add_notes]
@@ -22,10 +23,14 @@ optional arguments:
                         they are supplied in the TSV, they will be validated.)
   --dataset_ignore_globs GLOB [GLOB ...]
                         Matching files in each dataset directory will be
-                        ignored.
+                        ignored. Default: .*
   --submission_ignore_globs GLOB [GLOB ...]
                         Matching sub-directories in the submission will be
                         ignored.
+  --encoding ENCODING   Character-encoding to use for parsing TSVs. Default:
+                        ascii. Work-in-progress:
+                        https://github.com/hubmapconsortium/ingest-validation-
+                        tools/issues/494
   --plugin_directory PLUGIN_DIRECTORY
                         Directory of plugin tests.
   --output {as_browser,as_html_doc,as_html_fragment,as_md,as_text,as_text_list,as_yaml}
