@@ -70,7 +70,4 @@ Metadata TSV Errors:
         has no data rows.
       row 2, antibodies dataset-examples/bad-tsv-formats/submission/antibodies.tsv: File
         does not exist
-      row 2, protocols_io_doi 10\.17504/protocols.io.menc3de: 404
-      row 2, section_prep_protocols_io_doi not-doi: 404
-      row 2, reagent_prep_protocols_io_doi not-doi: 404
 ```

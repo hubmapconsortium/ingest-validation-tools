@@ -2,7 +2,7 @@
 usage: validate_submission.py [-h]
                               [--local_directory PATH | --tsv_paths PATH [PATH ...]]
                               [--optional_fields FIELD [FIELD ...]]
-                              [--offline OFFLINE]
+                              [--offline]
                               [--dataset_ignore_globs GLOB [GLOB ...]]
                               [--submission_ignore_globs GLOB [GLOB ...]]
                               [--encoding ENCODING]
@@ -22,7 +22,7 @@ optional arguments:
   --optional_fields FIELD [FIELD ...]
                         The listed fields will be treated as optional. (But if
                         they are supplied in the TSV, they will be validated.)
-  --offline OFFLINE     Skip checks that require network access.
+  --offline             Skip checks that require network access.
   --dataset_ignore_globs GLOB [GLOB ...]
                         Matching files in each dataset directory will be
                         ignored. Default: .*

@@ -58,7 +58,7 @@ Typical usecases:
         '(But if they are supplied in the TSV, they will be validated.)'
     )
     parser.add_argument(
-        '--offline', action='store',
+        '--offline', action='store_true',
         help='Skip checks that require network access.'
     )
 
