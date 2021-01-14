@@ -48,6 +48,10 @@ status_of_id: dict = {
 def _get_in_ex_errors(path, type_name, field_url_tuples, encoding):
     if not path.exists():
         return 'File does not exist'
+    try:
+        rows = dict_reader_wrapper(path, encoding)
+    except UnicodeDecodeError as e:
+        return str(e)
     rows = dict_reader_wrapper(path, encoding)
     if not rows:
         return 'File has no data rows.'

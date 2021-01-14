@@ -142,7 +142,10 @@ class Submission:
             optional_fields=self.optional_fields)
 
     def _get_single_tsv_external_errors(self, assay_type, path):
-        rows = dict_reader_wrapper(path, self.encoding)
+        try:
+            rows = dict_reader_wrapper(path, self.encoding)
+        except UnicodeDecodeError as e:
+            return str(e)
         if not rows:
             return 'File has no data rows.'
         if 'data_path' not in rows[0] or 'contributors_path' not in rows[0]:
