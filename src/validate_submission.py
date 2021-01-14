@@ -122,6 +122,7 @@ def main():
     submission_args = {
         'add_notes': args.add_notes,
         'encoding': args.encoding,
+        'offline': args.offline,
         'optional_fields': args.optional_fields or []
     }
 

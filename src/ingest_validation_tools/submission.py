@@ -41,13 +41,15 @@ class Submission:
     def __init__(self, directory_path=None, tsv_paths=[],
                  optional_fields=[], add_notes=True,
                  dataset_ignore_globs=[], submission_ignore_globs=[],
-                 plugin_directory=None, encoding=None):
+                 plugin_directory=None, encoding=None, offline=None):
         self.directory_path = directory_path
         self.optional_fields = optional_fields
         self.dataset_ignore_globs = dataset_ignore_globs
         self.submission_ignore_globs = submission_ignore_globs
         self.plugin_directory = plugin_directory
         self.encoding = encoding
+        self.offline = offline
+        self.add_notes = add_notes
         unsorted_effective_tsv_paths = {
             str(path): self._get_type_from_first_line(path)
             for path in (
@@ -59,7 +61,6 @@ class Submission:
             k: unsorted_effective_tsv_paths[k]
             for k in sorted(unsorted_effective_tsv_paths.keys())
         }
-        self.add_notes = add_notes
 
     def _get_type_from_first_line(self, path):
         rows = dict_reader_wrapper(path, self.encoding)
@@ -182,15 +183,16 @@ class Submission:
                     errors[f'{row_number}, antibodies {antibodies_path}'] = \
                         antibodies_errors
 
-            for k in row.keys():
-                if not k.endswith('protocols_io_doi'):
-                    continue
-                doi = row[k]
-                if doi not in status_of_doi:
-                    response = requests.get(f'https://dx.doi.org/{doi}')
-                    status_of_doi[doi] = response.status_code
-                if status_of_doi[doi] != requests.codes.ok:
-                    errors[f'{row_number}, {k} {doi}'] = status_of_doi[doi]
+            if not self.offline:
+                for k in row.keys():
+                    if not k.endswith('protocols_io_doi'):
+                        continue
+                    doi = row[k]
+                    if doi not in status_of_doi:
+                        response = requests.get(f'https://dx.doi.org/{doi}')
+                        status_of_doi[doi] = response.status_code
+                    if status_of_doi[doi] != requests.codes.ok:
+                        errors[f'{row_number}, {k} {doi}'] = status_of_doi[doi]
 
         return errors
 
@@ -199,10 +201,12 @@ class Submission:
             assay_type, data_path, dataset_ignore_globs=self.dataset_ignore_globs)
 
     def _get_contributors_errors(self, contributors_path):
-        return get_contributors_errors(contributors_path, self.encoding)
+        return get_contributors_errors(contributors_path,
+                                       encoding=self.encoding, offline=self.offline)
 
     def _get_antibodies_errors(self, antibodies_path):
-        return get_antibodies_errors(antibodies_path, self.encoding)
+        return get_antibodies_errors(antibodies_path,
+                                     encoding=self.encoding, offline=self.offline)
 
     def _get_reference_errors(self):
         errors = {}
