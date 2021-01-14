@@ -11,14 +11,14 @@ Metadata TSV Errors:
         - segmentation.json
         Required but missing:
         - .+\.pdf
-        - cyc.*_reg.*_.*/.*_.*_Z.*_CH.*\.tif
         - drv_[^/]+/channelNames\.txt
-        - drv_[^/]+/experiment\.json
-        - drv_[^/]+/exposure_times\.txt
         - drv_[^/]+/processed_[^/]+/.*
-        - drv_[^/]+/segmentation\.json
         - src_[^/]+/channelnames\.txt
         - src_[^/]+/channelnames_report\.csv
+        - src_[^/]+/cyc.*_reg.*_.*/.*_.*_Z.*_CH.*\.tif
+        - src_[^/]+/experiment\.json
+        - src_[^/]+/exposure_times\.txt
+        - src_[^/]+/segmentation\.json
       row 2, contributors dataset-examples/bad-codex-data/submission/contributors.tsv:
       - The value "bad-id" in row 2 and column 6 ("F") does not conform to the pattern
         constraint of "\d{4}-\d{4}-\d{4}-\d{4}"

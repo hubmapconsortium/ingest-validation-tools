@@ -1,5 +1,8 @@
 # Changelog
 
+## v0.0.8 - In progress
+- Update CODEX directory structure
+
 ## v0.0.7 - In progress
 - Improved error messages in Excel.
 - Define donor terms.
