@@ -45,7 +45,7 @@ status_of_id: dict = {
 }
 
 
-def _get_in_ex_errors(path, type_name, field_url_tuples, encoding):
+def _get_in_ex_errors(path, type_name, field_url_tuples, encoding=None, offline=None):
     if not path.exists():
         return 'File does not exist'
     try:
@@ -58,23 +58,25 @@ def _get_in_ex_errors(path, type_name, field_url_tuples, encoding):
 
     internal_errors = get_tsv_errors(path, type_name)
     external_errors = {}
-    for field, url_base, string_to_check in field_url_tuples:
-        status_cache = status_of_id[field]
-        for i, row in enumerate(rows):
-            row_number = f'row {i+2}'
-            id_to_check = row[field]
-            if id_to_check not in status_cache:
-                response = requests.get(f'{url_base}{id_to_check}')
-                if string_to_check is None:
-                    status_cache[id_to_check] = response.status_code
-                else:
-                    status_cache[id_to_check] = (
-                        requests.codes.ok
-                        if string_to_check in response.text
-                        else requests.codes.not_found
-                    )
-            if status_cache[id_to_check] != requests.codes.ok:
-                external_errors[f'{row_number}, {field} {id_to_check}'] = status_cache[id_to_check]
+    if not offline:
+        for field, url_base, string_to_check in field_url_tuples:
+            status_cache = status_of_id[field]
+            for i, row in enumerate(rows):
+                row_number = f'row {i+2}'
+                id_to_check = row[field]
+                if id_to_check not in status_cache:
+                    response = requests.get(f'{url_base}{id_to_check}')
+                    if string_to_check is None:
+                        status_cache[id_to_check] = response.status_code
+                    else:
+                        status_cache[id_to_check] = (
+                            requests.codes.ok
+                            if string_to_check in response.text
+                            else requests.codes.not_found
+                        )
+                if status_cache[id_to_check] != requests.codes.ok:
+                    label = f'{row_number}, {field} {id_to_check}'
+                    external_errors[label] = status_cache[id_to_check]
 
     errors = {}
     if internal_errors:
@@ -85,7 +87,7 @@ def _get_in_ex_errors(path, type_name, field_url_tuples, encoding):
     return errors
 
 
-def get_contributors_errors(contributors_path, encoding):
+def get_contributors_errors(contributors_path, encoding=None, offline=None):
     '''
     Validate a single contributors file.
     '''
@@ -93,11 +95,11 @@ def get_contributors_errors(contributors_path, encoding):
         contributors_path, 'contributors', [
             ('orcid_id', 'https://orcid.org/', None)
         ],
-        encoding
+        encoding=encoding
     )
 
 
-def get_antibodies_errors(antibodies_path, encoding):
+def get_antibodies_errors(antibodies_path, encoding=None, offline=None):
     '''
     Validate a single antibodies file.
     '''
@@ -108,7 +110,7 @@ def get_antibodies_errors(antibodies_path, encoding):
                 'Showing 1 - 1 results out of 1'),
             ('uniprot_accession_number', 'https://www.uniprot.org/uniprot/', None)
         ],
-        encoding
+        encoding=encoding
     )
 
 

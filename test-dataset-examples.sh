@@ -12,7 +12,9 @@ for SUITE in dataset-iec-examples dataset-examples; do
       OPTS="--dataset_ignore_globs 'metadata.tsv' --submission_ignore_globs '*' --output as_text_list"
       ;;
     dataset-examples)
-      OPTS="--dataset_ignore_globs 'ignore-*.tsv' '.*' --submission_ignore_globs 'drv_ignore_*' --output as_md"
+      # To minimize dependence on outside resources, --offline used here,
+      # but ID lookup is still exercised by iec-examples.
+      OPTS="--dataset_ignore_globs 'ignore-*.tsv' '.*' --submission_ignore_globs 'drv_ignore_*' --offline --output as_md"
       ;;
     *)
       die "Unexpected $SUITE"

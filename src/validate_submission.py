@@ -37,26 +37,29 @@ Typical usecases:
 ''',
         formatter_class=argparse.RawDescriptionHelpFormatter)
 
-    # Is there a submission directory to validate?
+    # What should be validated?
 
-    mutex_group = parser.add_mutually_exclusive_group()
+    mutex_group = parser.add_mutually_exclusive_group(required=True)
     mutex_group.add_argument(
         '--local_directory', type=argparse_types.dir_path,
         metavar='PATH',
         help='Local directory to validate')
-
-    # Is there metadata to validate?
-
-    parser.add_argument(
+    mutex_group.add_argument(
         '--tsv_paths', nargs='+',
         metavar='PATH',
         help='Paths of metadata.tsv files.')
+
+    # Should validation be loosened?
 
     parser.add_argument(
         '--optional_fields', nargs='+',
         metavar='FIELD',
         help='The listed fields will be treated as optional. '
         '(But if they are supplied in the TSV, they will be validated.)'
+    )
+    parser.add_argument(
+        '--offline', action='store_true',
+        help='Skip checks that require network access.'
     )
 
     default_ignore = '.*'
@@ -119,6 +122,7 @@ def main():
     submission_args = {
         'add_notes': args.add_notes,
         'encoding': args.encoding,
+        'offline': args.offline,
         'optional_fields': args.optional_fields or []
     }
 
