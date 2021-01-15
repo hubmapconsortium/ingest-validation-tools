@@ -36,7 +36,6 @@ Metadata TSV Errors:
         - .*\.fastq\.gz
       row 2, contributors dataset-examples/bad-mixed/submission/contributors.tsv: File
         has no data rows.
-      row 2, protocols_io_doi 10.17504/fake: 404
 Reference Errors:
   Multiple References:
     bad-shared-dataset:
