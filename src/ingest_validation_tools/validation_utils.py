@@ -95,7 +95,8 @@ def get_contributors_errors(contributors_path, encoding=None, offline=None):
         contributors_path, 'contributors', [
             ('orcid_id', 'https://orcid.org/', None)
         ],
-        encoding=encoding
+        encoding=encoding,
+        offline=offline
     )
 
 
@@ -110,7 +111,8 @@ def get_antibodies_errors(antibodies_path, encoding=None, offline=None):
                 'Showing 1 - 1 results out of 1'),
             ('uniprot_accession_number', 'https://www.uniprot.org/uniprot/', None)
         ],
-        encoding=encoding
+        encoding=encoding,
+        offline=offline
     )
 
 
