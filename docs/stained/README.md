@@ -45,7 +45,7 @@ Related files:
 
 ## Directory structure
 
-| pattern (regular expression) | required? | description |
+|  | required? | description |
 | --- | --- | --- |
 | `processedMicroscopy/[^/]+_PAS_images/[^/]+ome\.tif` | ✓ | OME TIFF files (multichannel, multi-layered, image pyramids) produced by the PAS microscopy experiment |
 | `processedMicroscopy/[^/]+_PAS_transformations/[^/]+\.txt` | ✓ | Transformations to PAS (related) data |

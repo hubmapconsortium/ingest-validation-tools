@@ -47,7 +47,7 @@ Related files:
 
 ## Directory structure
 
-| pattern (regular expression) | required? | description |
+|  | required? | description |
 | --- | --- | --- |
 | `channel_list\.txt` | ✓ | Information about the capture channels and tags (comma separated) |
 | `slide_list\.txt` | ✓ | Information about the slides used by the experiment- each line corresponds to a slide name (begins with S - e.g. S20030077) - used in filenames |

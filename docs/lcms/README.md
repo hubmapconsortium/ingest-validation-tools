@@ -63,7 +63,7 @@ Related files:
 
 ## Directory structure
 
-| pattern (regular expression) | required? | description |
+|  | required? | description |
 | --- | --- | --- |
 | `TODO` | ✓ | Directory structure not yet specified. https://github.com/hubmapconsortium/ingest-validation-tools/issues/448 |
 | `extras/.*` |  | Free-form descriptive information supplied by the TMC |

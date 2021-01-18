@@ -232,7 +232,7 @@ def _make_dir_description(dir_schema):
     ... ]
     >>> print(_make_dir_description(dir_schema))
     <BLANKLINE>
-    | pattern (regular expression) | required? | description |
+    |  | required? | description |
     | --- | --- | --- |
     | `required\\.txt` | ✓ | **[QA/QC]** Required! |
     | `optional\\.txt` |  | Optional! |
@@ -240,15 +240,28 @@ def _make_dir_description(dir_schema):
     '''
     output = []
     output.append('''
-| pattern (regular expression) | required? | description |
+|  | required? | description |
 | --- | --- | --- |''')
     for line in dir_schema:
+        pattern = line["pattern"]
+        if 'example' in line:
+            example = line['example']
+            if not re.fullmatch(pattern, example):
+                raise Exception(f'Example "{example}" does not match pattern "{pattern}"')
+            example_or_pattern = f'`{_md_escape_re(example)}`'
+            pattern_if_needed = f' `{_md_escape_re(pattern)}`'
+        else:
+            example_or_pattern = f'`{_md_escape_re(pattern)}`'
+            pattern_if_needed = ''
+
         required = '' if 'required' in line and not line['required'] else '✓'
         qa_qc = '**[QA/QC]** ' if 'is_qa_qc' in line and line['is_qa_qc'] else ''
+        description = qa_qc + line['description'] + pattern_if_needed
+
         row = [
-            f'`{_md_escape_re(line["pattern"])}`',
+            example_or_pattern,
             required,
-            qa_qc + line['description']
+            description
         ]
         output.append('| ' + ' | '.join(row) + ' |')
     return '\n'.join(output)

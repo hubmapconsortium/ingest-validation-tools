@@ -12,6 +12,7 @@
   description: 'Navigational Image showing Region of Interest (Keyance Microscope only)'
   required: False
 -
+  example: 'summary.pdf'
   pattern: '.+\.pdf'
   # TODO: Are we expecting to see this in a particular subdirectory, or at the top level?
   description: 'PDF export of Powerpoint slide deck containing the Image Analysis Report'
