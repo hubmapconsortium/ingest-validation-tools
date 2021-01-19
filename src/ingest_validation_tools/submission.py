@@ -13,7 +13,8 @@ from ingest_validation_tools.validation_utils import (
     get_data_dir_errors,
     get_contributors_errors,
     get_antibodies_errors,
-    dict_reader_wrapper
+    dict_reader_wrapper,
+    get_context_of_decode_error
 )
 
 from ingest_validation_tools.plugin_validator import (
@@ -146,7 +147,7 @@ class Submission:
         try:
             rows = dict_reader_wrapper(path, self.encoding)
         except UnicodeDecodeError as e:
-            return str(e)
+            return get_context_of_decode_error(e)
         if not rows:
             return 'File has no data rows.'
         if 'data_path' not in rows[0] or 'contributors_path' not in rows[0]:

@@ -23,6 +23,7 @@ Metadata TSV Errors:
         Internal:
         - The value "bad-id" in row 2 and column 6 ("F") does not conform to the pattern
           constraint of "\d{4}-\d{4}-\d{4}-\d{3}[0-9X]"
-      row 2, antibodies dataset-examples/bad-codex-data/submission/antibodies.tsv: '''ascii''
-        codec can''t decode byte 0xf0 in position 113: ordinal not in range(128)'
+      row 2, antibodies dataset-examples/bad-codex-data/submission/antibodies.tsv: "Invalid\
+        \ ascii because ordinal not in range(128): \"mber\tconjugated_tag\n [ \xF0\
+        \ ] \x9F\x98\x83\t\tbad-value\t\t\tinv\""
 ```
