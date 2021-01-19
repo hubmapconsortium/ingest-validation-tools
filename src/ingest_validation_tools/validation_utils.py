@@ -48,6 +48,12 @@ status_of_id: dict = {
 def get_context_of_decode_error(e):
     '''
     >>> try:
+    ...   b'\\xFF'.decode('ascii')
+    ... except UnicodeDecodeError as e:
+    ...   print(get_context_of_decode_error(e))
+    Invalid ascii because ordinal not in range(128): " [ ÿ ] "
+
+    >>> try:
     ...   b'01234\\xFF6789'.decode('ascii')
     ... except UnicodeDecodeError as e:
     ...   print(get_context_of_decode_error(e))
