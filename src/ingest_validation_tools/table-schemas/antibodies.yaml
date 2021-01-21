@@ -1,7 +1,7 @@
 fields:
   -
     name: channel_id
-    description: Structure of channel_id depends on assay type.
+    description: Structure of channel_id depends on assay type. For CODEX, the required channel_id format is "Cycle#_CH#"
   -
     name: antibody_name
     description: Anti-(target name) antibody. Not validated or used down-stream.
