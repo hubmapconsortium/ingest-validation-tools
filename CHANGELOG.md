@@ -8,6 +8,7 @@
 - Add `--offline` option, and use it internally.
 - Fix the CLI parameter parsing: Either `--local_directory` or `--tsv_paths` must be provided.
 - Allow examples of path rexes to be provided.
+- Use the SciCrunch resolver for RR IDs.
 - More helpful message if decoding error.
 
 ## v0.0.7 - 2021-01-13
