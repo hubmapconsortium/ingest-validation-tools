@@ -260,7 +260,7 @@ def _make_dir_description(dir_schema):
     >>> _make_dir_description(dir_schema)
     Traceback (most recent call last):
     ...
-    Exception: Example "ABC123" does not match pattern "[A-Z]\d"
+    Exception: Example "ABC123" does not match pattern "[A-Z]\\d"
 
     '''
     has_examples = any('example' in line for line in dir_schema)
