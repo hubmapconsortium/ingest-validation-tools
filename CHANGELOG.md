@@ -1,6 +1,7 @@
 # Changelog
 
-## v0.0.8 - in progress
+## v0.0.8 - In progress
+- Update CODEX directory structure
 - Allow "X" as final character of ORCID.
 - Ping the respective services to confirm the ORCIDs, RR IDs, and Uniprot IDs are actually good.
 - Add encoding as CLI param.
