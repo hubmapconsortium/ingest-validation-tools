@@ -224,6 +224,8 @@ def _make_toc(md):
 
 def _make_dir_description(dir_schema):
     '''
+    QA and Required flags are handled:
+
     >>> dir_schema = [
     ...   { 'pattern': 'required\\.txt', 'description': 'Required!',
     ...     'is_qa_qc': True },
@@ -232,23 +234,70 @@ def _make_dir_description(dir_schema):
     ... ]
     >>> print(_make_dir_description(dir_schema))
     <BLANKLINE>
-    | pattern (regular expression) | required? | description |
+    | pattern | required? | description |
     | --- | --- | --- |
     | `required\\.txt` | ✓ | **[QA/QC]** Required! |
     | `optional\\.txt` |  | Optional! |
 
+    Examples add an extra column:
+
+    >>> dir_schema = [
+    ...   { 'pattern': '[A-Z]+\\d+', 'description': 'letters numbers', 'example': 'ABC123'},
+    ...   { 'pattern': '[A-Z]', 'description': 'one letter, no example'},
+    ... ]
+    >>> print(_make_dir_description(dir_schema))
+    <BLANKLINE>
+    | pattern | example | required? | description |
+    | --- | --- | --- |
+    | `[A-Z]+\\d+` | `ABC123` | ✓ | letters numbers |
+    | `[A-Z]` |  | ✓ | one letter, no example |
+
+    Bad examples cause errors:
+
+    >>> dir_schema = [
+    ...   { 'pattern': '[A-Z]\\d', 'description': '1 letter 1 number', 'example': 'ABC123'},
+    ... ]
+    >>> _make_dir_description(dir_schema)
+    Traceback (most recent call last):
+    ...
+    Exception: Example "ABC123" does not match pattern "[A-Z]\\d"
+
     '''
+    has_examples = any('example' in line for line in dir_schema)
+
     output = []
-    output.append('''
-| pattern (regular expression) | required? | description |
+    if has_examples:
+        output.append('''
+| pattern | example | required? | description |
 | --- | --- | --- |''')
+    else:
+        output.append('''
+| pattern | required? | description |
+| --- | --- | --- |''')
+
     for line in dir_schema:
-        required = '' if 'required' in line and not line['required'] else '✓'
-        qa_qc = '**[QA/QC]** ' if 'is_qa_qc' in line and line['is_qa_qc'] else ''
-        row = [
-            f'`{_md_escape_re(line["pattern"])}`',
-            required,
-            qa_qc + line['description']
-        ]
+        row = []
+
+        pattern = line['pattern']
+        pattern_md = f'`{_md_escape_re(pattern)}`'
+        row.append(pattern_md)
+
+        if has_examples:
+            if 'example' not in line:
+                row.append('')
+            else:
+                example = line['example']
+                if not re.fullmatch(pattern, example):
+                    raise Exception(f'Example "{example}" does not match pattern "{pattern}"')
+                example_md = f'`{_md_escape_re(example)}`'
+                row.append(example_md)
+
+        required_md = '' if 'required' in line and not line['required'] else '✓'
+        row.append(required_md)
+
+        qa_qc_md = '**[QA/QC]** ' if 'is_qa_qc' in line and line['is_qa_qc'] else ''
+        description_md = qa_qc_md + line['description']
+        row.append(description_md)
+
         output.append('| ' + ' | '.join(row) + ' |')
     return '\n'.join(output)
