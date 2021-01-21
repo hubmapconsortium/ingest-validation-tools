@@ -55,7 +55,7 @@ Related files:
 ## Directory structure
 
 | pattern | example | required? | description |
-| --- | --- | --- |
+| --- | --- | --- | --- |
 | `[^/]+NAV[^/]*\.tif` |  |  | Navigational Image showing Region of Interest (Keyance Microscope only) |
 | `.+\.pdf` | `summary.pdf` | ✓ | **[QA/QC]** PDF export of Powerpoint slide deck containing the Image Analysis Report |
 | `drv_[^/]+/channelNames\.txt` |  | ✓ | Text file produced by the Akoya software which contains the (linearized) channel number and the Name/ID/Target of the channel (required for HuBMAP pipeline) |
