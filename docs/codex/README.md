@@ -54,21 +54,21 @@ Related files:
 
 ## Directory structure
 
-|  | required? | description |
+| pattern | example | required? | description |
 | --- | --- | --- |
-| `[^/]+NAV[^/]+\.tif` |  | Navigational Image showing Region of Interest (Keyance Microscope only) |
-| `summary.pdf` | ✓ | **[QA/QC]** PDF export of Powerpoint slide deck containing the Image Analysis Report `.+\.pdf` |
-| `drv_[^/]+/channelNames\.txt` | ✓ | Text file produced by the Akoya software which contains the (linearized) channel number and the Name/ID/Target of the channel (required for HuBMAP pipeline) |
-| `drv_[^/]+/experiment\.json` | ✓ | JSON file produced by the Akoya software which contains the metadata for the experiment, including the software version used, microscope parameters, channel names, pixel dimensions, etc. (required for HuBMAP pipeline) |
-| `drv_[^/]+/exposure_times\.txt` | ✓ | Comma separated text file used for background subtraction that contains valid exposure times for all cycles [e.g: Cycle,CH1,CH2,CH3,CH4]. |
-| `drv_[^/]+/segmentation\.json` | ✓ | JSON file produced by the Akoya software which contains the parameters used for segmentation. (required for HuBMAP pipeline) |
-| `drv_[^/]+/processed_[^/]+/.*` | ✓ | processed files produced by the Akoya software, not used by the HIVE |
-| `src_[^/]+/channelnames_report\.csv` | ✓ | Comma separated text file containing a report of the markers used to map the tissue [e.g. Channel,Name/ID/Target,True/False](required for HuBMAP pipeline) |
-| `src_[^/]+/channelnames\.txt` | ✓ | Text file produced by the Akoya software which contains the (linearized) channel number and the Name/ID/Target of the channel (required for HuBMAP pipeline) |
-| `cyc.*_reg.*_.*/.*_.*_Z.*_CH.*\.tif` | ✓ | TIFF files produced by the experiment. General folder format: Cycle(n)_Region(n)_date; General file format: name_tileNumber(n)_zplaneNumber(n)_channelNumber(n) |
-| `cyc.*_reg.*_.*/.*\.gci` |  | Group Capture Information File (Keyance Microscope only) |
-| `extras/.*` |  | Free-form descriptive information supplied by the TMC |
-| `extras/thumbnail\.(png\|jpg)` |  | Optional thumbnail image which may be shown in search interface |
+| `[^/]+NAV[^/]+\.tif` |  |  | Navigational Image showing Region of Interest (Keyance Microscope only) |
+| `.+\.pdf` | `summary.pdf` | ✓ | **[QA/QC]** PDF export of Powerpoint slide deck containing the Image Analysis Report |
+| `drv_[^/]+/channelNames\.txt` |  | ✓ | Text file produced by the Akoya software which contains the (linearized) channel number and the Name/ID/Target of the channel (required for HuBMAP pipeline) |
+| `drv_[^/]+/experiment\.json` |  | ✓ | JSON file produced by the Akoya software which contains the metadata for the experiment, including the software version used, microscope parameters, channel names, pixel dimensions, etc. (required for HuBMAP pipeline) |
+| `drv_[^/]+/exposure_times\.txt` |  | ✓ | Comma separated text file used for background subtraction that contains valid exposure times for all cycles [e.g: Cycle,CH1,CH2,CH3,CH4]. |
+| `drv_[^/]+/segmentation\.json` |  | ✓ | JSON file produced by the Akoya software which contains the parameters used for segmentation. (required for HuBMAP pipeline) |
+| `drv_[^/]+/processed_[^/]+/.*` |  | ✓ | processed files produced by the Akoya software, not used by the HIVE |
+| `src_[^/]+/channelnames_report\.csv` |  | ✓ | Comma separated text file containing a report of the markers used to map the tissue [e.g. Channel,Name/ID/Target,True/False](required for HuBMAP pipeline) |
+| `src_[^/]+/channelnames\.txt` |  | ✓ | Text file produced by the Akoya software which contains the (linearized) channel number and the Name/ID/Target of the channel (required for HuBMAP pipeline) |
+| `cyc.*_reg.*_.*/.*_.*_Z.*_CH.*\.tif` |  | ✓ | TIFF files produced by the experiment. General folder format: Cycle(n)_Region(n)_date; General file format: name_tileNumber(n)_zplaneNumber(n)_channelNumber(n) |
+| `cyc.*_reg.*_.*/.*\.gci` |  |  | Group Capture Information File (Keyance Microscope only) |
+| `extras/.*` |  |  | Free-form descriptive information supplied by the TMC |
+| `extras/thumbnail\.(png\|jpg)` |  |  | Optional thumbnail image which may be shown in search interface |
 
 ## Provenance
 

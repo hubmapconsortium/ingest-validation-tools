@@ -44,7 +44,7 @@ Related files:
 
 ## Directory structure
 
-|  | required? | description |
+| pattern | required? | description |
 | --- | --- | --- |
 | `processedMicroscopy/[^/]+_preMxIF_images/[^/]+\.ome\.tif` | ✓ | OME TIFF files (multichannel, multi-layered, image pyramids) produced by the autofluorescence microscopy linked to MxIF experiment |
 | `processedMicroscopy/[^/]+_preMxIF_transformations/[^/]+\.txt` | ✓ | Transformations to MxIF (related) data |

@@ -50,7 +50,7 @@ Related files:
 
 ## Directory structure
 
-|  | required? | description |
+| pattern | required? | description |
 | --- | --- | --- |
 | `csv/[^/]+\.csv` | ✓ | Intensities M/Z values with Pixel location |
 | `imzML/[^/]+\.ibd` | ✓ | Index to imzML file |

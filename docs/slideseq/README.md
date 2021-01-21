@@ -54,7 +54,7 @@ Related files:
 
 ## Directory structure
 
-|  | required? | description |
+| pattern | required? | description |
 | --- | --- | --- |
 | `[^/]+/alignment/Puck_[^/]+\.bam` | ✓ | aligned sequencing data from Slide-seq experiments against reference HG38 |
 | `[^/]+/alignment/Puck_[^/]+_mapping_rate\.txt` | ✓ | mapping rate summary (~ 10 number of mapping statistics per puck) |

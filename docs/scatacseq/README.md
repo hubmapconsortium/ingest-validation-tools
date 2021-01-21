@@ -63,7 +63,7 @@ Related files:
 
 ## Directory structure
 
-|  | required? | description |
+| pattern | required? | description |
 | --- | --- | --- |
 | `.*\.fastq\.gz` | ✓ | TODO: https://github.com/hubmapconsortium/ingest-validation-tools/issues/451 |
 | `extras/.*` |  | Free-form descriptive information supplied by the TMC |
