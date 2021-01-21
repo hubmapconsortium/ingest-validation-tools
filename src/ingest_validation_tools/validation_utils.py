@@ -76,7 +76,7 @@ def get_context_of_decode_error(e):
     return f'Invalid {e.encoding} because {e.reason}: "{in_context}"'
 
 
-def _get_in_ex_errors(path, type_name, field_url_tuples, encoding=None, offline=None):
+def _get_in_ex_errors(path, type_name, field_url_pairs, encoding=None, offline=None):
     if not path.exists():
         return 'File does not exist'
     try:
@@ -89,21 +89,14 @@ def _get_in_ex_errors(path, type_name, field_url_tuples, encoding=None, offline=
     internal_errors = get_tsv_errors(path, type_name)
     external_errors = {}
     if not offline:
-        for field, url_base, string_to_check in field_url_tuples:
+        for field, url_base in field_url_pairs:
             status_cache = status_of_id[field]
             for i, row in enumerate(rows):
                 row_number = f'row {i+2}'
                 id_to_check = row[field]
                 if id_to_check not in status_cache:
                     response = requests.get(f'{url_base}{id_to_check}')
-                    if string_to_check is None:
-                        status_cache[id_to_check] = response.status_code
-                    else:
-                        status_cache[id_to_check] = (
-                            requests.codes.ok
-                            if string_to_check in response.text
-                            else requests.codes.not_found
-                        )
+                    status_cache[id_to_check] = response.status_code
                 if status_cache[id_to_check] != requests.codes.ok:
                     label = f'{row_number}, {field} {id_to_check}'
                     external_errors[label] = status_cache[id_to_check]
@@ -123,7 +116,7 @@ def get_contributors_errors(contributors_path, encoding=None, offline=None):
     '''
     return _get_in_ex_errors(
         contributors_path, 'contributors', [
-            ('orcid_id', 'https://orcid.org/', None)
+            ('orcid_id', 'https://orcid.org/')
         ],
         encoding=encoding,
         offline=offline
@@ -136,10 +129,8 @@ def get_antibodies_errors(antibodies_path, encoding=None, offline=None):
     '''
     return _get_in_ex_errors(
         antibodies_path, 'antibodies', [
-            # They just have a search page: I don't see an interface to check for existence.
-            ('rr_id', 'https://antibodyregistry.org/search.php?q=',
-                'Showing 1 - 1 results out of 1'),
-            ('uniprot_accession_number', 'https://www.uniprot.org/uniprot/', None)
+            ('rr_id', 'https://scicrunch.org/resolver/RRID:'),
+            ('uniprot_accession_number', 'https://www.uniprot.org/uniprot/')
         ],
         encoding=encoding,
         offline=offline
