@@ -1,12 +1,14 @@
 # Changelog
 
-## v0.0.8 - in progress
+## v0.0.8 - In progress
+- Update CODEX directory structure
 - Allow "X" as final character of ORCID.
 - Ping the respective services to confirm the ORCIDs, RR IDs, and Uniprot IDs are actually good.
 - Add encoding as CLI param.
 - Add `--offline` option, and use it internally.
 - Fix the CLI parameter parsing: Either `--local_directory` or `--tsv_paths` must be provided.
 - Use the SciCrunch resolver for RR IDs.
+- More helpful message if decoding error.
 
 ## v0.0.7 - 2021-01-13
 - Improved error messages in Excel.

@@ -45,14 +45,44 @@ status_of_id: dict = {
 }
 
 
+def get_context_of_decode_error(e):
+    '''
+    >>> try:
+    ...   b'\\xFF'.decode('ascii')
+    ... except UnicodeDecodeError as e:
+    ...   print(get_context_of_decode_error(e))
+    Invalid ascii because ordinal not in range(128): " [ ÿ ] "
+
+    >>> try:
+    ...   b'01234\\xFF6789'.decode('ascii')
+    ... except UnicodeDecodeError as e:
+    ...   print(get_context_of_decode_error(e))
+    Invalid ascii because ordinal not in range(128): "01234 [ ÿ ] 6789"
+
+    >>> try:
+    ...   (b'a string longer than twenty characters\\xFFa string '
+    ...    b'longer than twenty characters').decode('utf-8')
+    ... except UnicodeDecodeError as e:
+    ...   print(get_context_of_decode_error(e))
+    Invalid utf-8 because invalid start byte: "an twenty characters [ ÿ ] a string longer than"
+
+    '''
+    buffer = 20
+    codec = 'latin-1'  # This is not the actual codec of the string!
+    before = e.object[max(e.start - buffer, 0):max(e.start, 0)].decode(codec)
+    problem = e.object[e.start:e.end].decode(codec)
+    after = e.object[e.end:min(e.end + buffer, len(e.object))].decode(codec)
+    in_context = f'{before} [ {problem} ] {after}'
+    return f'Invalid {e.encoding} because {e.reason}: "{in_context}"'
+
+
 def _get_in_ex_errors(path, type_name, field_url_pairs, encoding=None, offline=None):
     if not path.exists():
         return 'File does not exist'
     try:
         rows = dict_reader_wrapper(path, encoding)
     except UnicodeDecodeError as e:
-        return str(e)
-    rows = dict_reader_wrapper(path, encoding)
+        return get_context_of_decode_error(e)
     if not rows:
         return 'File has no data rows.'
 

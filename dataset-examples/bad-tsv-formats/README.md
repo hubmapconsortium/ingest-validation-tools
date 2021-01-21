@@ -54,18 +54,20 @@ Metadata TSV Errors:
       row 2, referencing dataset-examples/bad-tsv-formats/submission/dataset-1:
         Not allowed:
         - channelnames.txt
+        - cyc002_reg001_200216_112537/1_00001_Z001_CH1.tif
         - experiment.json
         - exposure_times.txt
         - segmentation.json
         Required but missing:
         - .+\.pdf
         - drv_[^/]+/channelNames\.txt
-        - drv_[^/]+/experiment\.json
-        - drv_[^/]+/exposure_times\.txt
         - drv_[^/]+/processed_[^/]+/.*
-        - drv_[^/]+/segmentation\.json
         - src_[^/]+/channelnames\.txt
         - src_[^/]+/channelnames_report\.csv
+        - src_[^/]+/cyc.*_reg.*_.*/.*_.*_Z.*_CH.*\.tif
+        - src_[^/]+/experiment\.json
+        - src_[^/]+/exposure_times\.txt
+        - src_[^/]+/segmentation\.json
       row 2, contributors dataset-examples/bad-tsv-formats/submission/contributors.tsv: File
         has no data rows.
       row 2, antibodies dataset-examples/bad-tsv-formats/submission/antibodies.tsv: File
