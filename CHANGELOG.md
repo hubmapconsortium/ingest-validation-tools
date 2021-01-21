@@ -7,7 +7,7 @@
 - Add encoding as CLI param.
 - Add `--offline` option, and use it internally.
 - Fix the CLI parameter parsing: Either `--local_directory` or `--tsv_paths` must be provided.
-- Allow examples of path rexes to be provided.
+- Allow examples of path rexes to be provided, and fix bug.
 - Use the SciCrunch resolver for RR IDs.
 - More helpful message if decoding error.
 

@@ -248,7 +248,7 @@ def _make_dir_description(dir_schema):
     >>> print(_make_dir_description(dir_schema))
     <BLANKLINE>
     | pattern | example | required? | description |
-    | --- | --- | --- |
+    | --- | --- | --- | --- |
     | `[A-Z]+\\d+` | `ABC123` | ✓ | letters numbers |
     | `[A-Z]` |  | ✓ | one letter, no example |
 
@@ -269,7 +269,7 @@ def _make_dir_description(dir_schema):
     if has_examples:
         output.append('''
 | pattern | example | required? | description |
-| --- | --- | --- |''')
+| --- | --- | --- | --- |''')
     else:
         output.append('''
 | pattern | required? | description |
