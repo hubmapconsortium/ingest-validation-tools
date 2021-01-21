@@ -13,7 +13,8 @@ from ingest_validation_tools.validation_utils import (
     get_data_dir_errors,
     get_contributors_errors,
     get_antibodies_errors,
-    dict_reader_wrapper
+    dict_reader_wrapper,
+    get_context_of_decode_error
 )
 
 from ingest_validation_tools.plugin_validator import (
@@ -63,7 +64,12 @@ class Submission:
         }
 
     def _get_type_from_first_line(self, path):
-        rows = dict_reader_wrapper(path, self.encoding)
+        try:
+            rows = dict_reader_wrapper(path, self.encoding)
+        except UnicodeDecodeError:
+            return None
+            # We are outside the error-reporting part of the code,
+            # so just pass through, and handle it on the next parse.
         if not rows:
             return None
         name = rows[0]['assay_type']
@@ -146,7 +152,7 @@ class Submission:
         try:
             rows = dict_reader_wrapper(path, self.encoding)
         except UnicodeDecodeError as e:
-            return str(e)
+            return get_context_of_decode_error(e)
         if not rows:
             return 'File has no data rows.'
         if 'data_path' not in rows[0] or 'contributors_path' not in rows[0]:
@@ -211,7 +217,10 @@ class Submission:
     def _get_reference_errors(self):
         errors = {}
         no_ref_errors = self._get_no_ref_errors()
-        multi_ref_errors = self._get_multi_ref_errors()
+        try:
+            multi_ref_errors = self._get_multi_ref_errors()
+        except UnicodeDecodeError as e:
+            return get_context_of_decode_error(e)
         if no_ref_errors:
             errors['No References'] = no_ref_errors
         if multi_ref_errors:
