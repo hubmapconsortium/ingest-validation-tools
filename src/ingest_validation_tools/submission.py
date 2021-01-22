@@ -4,8 +4,6 @@ from fnmatch import fnmatch
 from pathlib import Path
 from collections import Counter
 
-import requests
-
 from ingest_validation_tools.yaml_include_loader import load_yaml
 
 from ingest_validation_tools.validation_utils import (
@@ -14,7 +12,8 @@ from ingest_validation_tools.validation_utils import (
     get_contributors_errors,
     get_antibodies_errors,
     dict_reader_wrapper,
-    get_context_of_decode_error
+    get_context_of_decode_error,
+    collect_http_errors
 )
 
 from ingest_validation_tools.plugin_validator import (
@@ -161,7 +160,6 @@ class Submission:
             return None
 
         errors = {}
-        status_of_doi = {}
         for i, row in enumerate(rows):
             row_number = f'row {i+2}'
 
@@ -190,15 +188,9 @@ class Submission:
                         antibodies_errors
 
             if not self.offline:
-                for k in row.keys():
-                    if not k.endswith('protocols_io_doi'):
-                        continue
-                    doi = row[k]
-                    if doi not in status_of_doi:
-                        response = requests.get(f'https://dx.doi.org/{doi}')
-                        status_of_doi[doi] = response.status_code
-                    if status_of_doi[doi] != requests.codes.ok:
-                        errors[f'{row_number}, {k} {doi}'] = status_of_doi[doi]
+                protocols_fields = [k for k in row.keys() if k.endswith('protocols_io_doi')]
+                field_url_pairs = [(field, 'https://dx.doi.org/') for field in protocols_fields]
+                collect_http_errors(field_url_pairs, [row], errors)
 
         return errors
 

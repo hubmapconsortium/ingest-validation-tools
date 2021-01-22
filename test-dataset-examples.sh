@@ -23,6 +23,7 @@ for SUITE in dataset-iec-examples dataset-examples; do
   for EXAMPLE in $SUITE/*; do
     echo "Testing $EXAMPLE ..."
     CMD="src/validate_submission.py --local_directory $EXAMPLE/submission $OPTS "
+    echo "$CMD"
     README="$EXAMPLE/README.md"
     diff $README <( eval "$CMD" ) \
       || die "Update example: $CMD > $README"
