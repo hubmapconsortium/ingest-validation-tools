@@ -10,6 +10,7 @@
 - Allow examples of path rexes to be provided, and fix bug.
 - Use the SciCrunch resolver for RR IDs.
 - More helpful message if decoding error.
+- State stability policy.
 
 ## v0.0.7 - 2021-01-13
 - Improved error messages in Excel.
