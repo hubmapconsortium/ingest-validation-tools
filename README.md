@@ -17,6 +17,18 @@ When all the parts are finalized,
 
 When those parts are in place, the [docs](docs/) are updated, and we're ready to validate submissions.
 
+### Stability
+
+Once approved, both the list of metadata fields and the list of files is fixed.
+The metadata for a particular assay type needs to be consistent for all datasets,
+as does the set of files which comprise a dataset.
+Edits to descriptions are welcome, as are improved validations.
+
+For questions about the stability of metadata,
+contact Nils Gehlenborg, or add him as a reviewer on the PR.
+For the stability of directory structures,
+contact Phil Blood.
+
 ## For data submitters and curators:
 
 Checkout the repo and install dependencies:
