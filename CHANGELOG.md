@@ -10,6 +10,7 @@
 - Allow examples of path rexes to be provided, and fix bug.
 - Use the SciCrunch resolver for RR IDs.
 - More helpful message if decoding error.
+- Show the URL that produced the 404, and unify the code.
 - Warning if missing "assay_type".
 
 ## v0.0.7 - 2021-01-13

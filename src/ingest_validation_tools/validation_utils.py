@@ -38,13 +38,6 @@ def get_data_dir_errors(type, data_path, dataset_ignore_globs=[]):
         return {e.strerror: e.filename}
 
 
-status_of_id: dict = {
-    'orcid_id': {},
-    'rr_id': {},
-    'uniprot_accession_number': {}
-}
-
-
 def get_context_of_decode_error(e):
     '''
     >>> try:
@@ -76,6 +69,23 @@ def get_context_of_decode_error(e):
     return f'Invalid {e.encoding} because {e.reason}: "{in_context}"'
 
 
+status_cache = {}
+
+
+def collect_http_errors(field_url_pairs, rows, external_errors):
+    for field, url_base in field_url_pairs:
+        for i, row in enumerate(rows):
+            row_number = f'row {i+2}'
+            id = row[field]
+            url = f'{url_base}{id}'
+            if url not in status_cache:
+                response = requests.get(url)
+                status_cache[url] = response.status_code
+            if status_cache[url] != requests.codes.ok:
+                label = f'{row_number}, {field}'
+                external_errors[label] = f'{url} is {status_cache[url]}'
+
+
 def _get_in_ex_errors(path, type_name, field_url_pairs, encoding=None, offline=None):
     if not path.exists():
         return 'File does not exist'
@@ -89,17 +99,7 @@ def _get_in_ex_errors(path, type_name, field_url_pairs, encoding=None, offline=N
     internal_errors = get_tsv_errors(path, type_name)
     external_errors = {}
     if not offline:
-        for field, url_base in field_url_pairs:
-            status_cache = status_of_id[field]
-            for i, row in enumerate(rows):
-                row_number = f'row {i+2}'
-                id_to_check = row[field]
-                if id_to_check not in status_cache:
-                    response = requests.get(f'{url_base}{id_to_check}')
-                    status_cache[id_to_check] = response.status_code
-                if status_cache[id_to_check] != requests.codes.ok:
-                    label = f'{row_number}, {field} {id_to_check}'
-                    external_errors[label] = status_cache[id_to_check]
+        collect_http_errors(field_url_pairs, rows, external_errors)
 
     errors = {}
     if internal_errors:
