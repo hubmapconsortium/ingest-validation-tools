@@ -71,6 +71,8 @@ class Submission:
             # so just pass through, and handle it on the next parse.
         if not rows:
             return None
+        if 'assay_type' not in rows[0]:
+            return '[missing "assay_type"]'
         name = rows[0]['assay_type']
         return _assay_name_to_code(name)
 
