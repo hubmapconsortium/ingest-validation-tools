@@ -6,6 +6,9 @@ Related files:
 - [📝 TSV template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/master/docs/codex/codex-metadata.tsv): Alternative for metadata entry.
 - [💻 Source code](https://github.com/hubmapconsortium/ingest-validation-tools/edit/master/src/ingest_validation_tools/table-schemas/level-2/codex.yaml): Make a PR to update this doc.
 
+TODO: add a note here about antibodies ID, and how it is related to content of files!
+
+
 ## Table of contents
 <details><summary>Provenance</summary>
 

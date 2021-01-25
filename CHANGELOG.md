@@ -12,6 +12,7 @@
 - More helpful message if decoding error.
 - Show the URL that produced the 404, and unify the code.
 - Warning if missing "assay_type".
+- Add a slot for a free-text note.
 
 ## v0.0.7 - 2021-01-13
 - Improved error messages in Excel.

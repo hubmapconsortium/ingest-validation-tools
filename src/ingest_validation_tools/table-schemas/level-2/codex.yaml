@@ -1,4 +1,6 @@
 doc_url: https://portal.hubmapconsortium.org/docs/assays/codex
+description_md: |
+  TODO: add a note here about antibodies ID, and how it is related to content of files!
 fields:
 # Overrides of Level 1 fields:
   -

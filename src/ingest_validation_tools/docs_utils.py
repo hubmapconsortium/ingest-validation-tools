@@ -93,6 +93,9 @@ def generate_readme_md(
         f'- [🔬 Background doc]({table_schema["doc_url"]}): More details about this type.'
         if 'doc_url' in table_schema else ''
     )
+    optional_description_md = (
+        table_schema['description_md'] if 'description_md' in table_schema else ''
+    )
 
     return f'''# {type}
 
@@ -101,6 +104,8 @@ Related files:
 - [📝 Excel template]({xlsx_url}): For metadata entry.
 - [📝 TSV template]({tsv_url}): Alternative for metadata entry.
 - [💻 Source code]({source_url}): Make a PR to update this doc.
+
+{optional_description_md}
 
 ## Table of contents
 {toc_md}
