@@ -37,6 +37,10 @@ def _assay_name_to_code(name):
 TSV_SUFFIX = 'metadata.tsv'
 
 
+class PreflightError(Exception):
+    pass
+
+
 class Submission:
     def __init__(self, directory_path=None, tsv_paths=[],
                  optional_fields=[], add_notes=True,
@@ -50,17 +54,21 @@ class Submission:
         self.encoding = encoding
         self.offline = offline
         self.add_notes = add_notes
-        unsorted_effective_tsv_paths = {
-            str(path): self._get_type_from_first_line(path)
-            for path in (
-                tsv_paths if tsv_paths
-                else directory_path.glob(f'*{TSV_SUFFIX}')
-            )
-        }
-        self.effective_tsv_paths = {
-            k: unsorted_effective_tsv_paths[k]
-            for k in sorted(unsorted_effective_tsv_paths.keys())
-        }
+        self.errors = {}
+        try:
+            unsorted_effective_tsv_paths = {
+                str(path): self._get_type_from_first_line(path)
+                for path in (
+                    tsv_paths if tsv_paths
+                    else directory_path.glob(f'*{TSV_SUFFIX}')
+                )
+            }
+            self.effective_tsv_paths = {
+                k: unsorted_effective_tsv_paths[k]
+                for k in sorted(unsorted_effective_tsv_paths.keys())
+            }
+        except PreflightError as e:
+            self.errors['Preflight'] = str(e)
 
     def _get_type_from_first_line(self, path):
         try:
@@ -70,17 +78,26 @@ class Submission:
             # We are outside the error-reporting part of the code,
             # so just pass through, and handle it on the next parse.
         if not rows:
-            return None
+            raise PreflightError(f'{path} has no data rows.')
         if 'assay_type' not in rows[0]:
-            return '[missing "assay_type"]'
+            message = f'{path} does not contain "assay_type". '
+            if 'channel_id' in rows[0]:
+                message += 'Has "channel_id": Antibodies TSV found where metadata TSV expected.'
+            elif 'orcid_id' in rows[0]:
+                message += 'Has "orcid_id": Contributors TSV found where metadata TSV expected.'
+            else:
+                message += f'Column headers: {", ".join(rows[0].keys())}'
+            raise PreflightError(message)
         name = rows[0]['assay_type']
         return _assay_name_to_code(name)
 
     def get_errors(self):
         # This creates a deeply nested dict.
         # Keys are present only if there is actually an error to report.
-        errors = {}
+        if self.errors:
+            return self.errors
 
+        errors = {}
         tsv_errors = self._get_tsv_errors()
         if tsv_errors:
             errors['Metadata TSV Errors'] = tsv_errors
