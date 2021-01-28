@@ -41,11 +41,9 @@ fields:
   name: procedure_date 
   constraints:
     required: True
-  type: date
-  format: '%Y-%m-%d'
-  description: Date of procedure to procure organ.
-  # https://github.com/hubmapconsortium/ingest-validation-tools/issues/479
-  notes: Originally, not required, but everyone filled it in. This note was present - need to be filled out only if UNET data no available (e.g. live donor). Internal value, not public, optional only for donors without unet info  - TODO - We have no machinery for keeping some fields private... Should this not be included then?
+  type: datetime
+  format: "%Y-%m-%d %H:%M"
+  description: Date and time of procedure to procure organ.
 -
   name: perfusion_solution  
   constraints:
