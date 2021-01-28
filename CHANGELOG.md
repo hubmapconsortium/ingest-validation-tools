@@ -12,6 +12,7 @@
 - More helpful message if decoding error.
 - Show the URL that produced the 404, and unify the code.
 - Warning if missing "assay_type".
+- Friendlier error if trying to validate Antibodies or Contributors as metadata.
 
 ## v0.0.7 - 2021-01-13
 - Improved error messages in Excel.
