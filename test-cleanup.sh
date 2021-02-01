@@ -8,7 +8,7 @@ for FIXTURE in cleanup-examples/*; do
   echo "Testing $FIXTURE"
   STEM="${FIXTURE%.*}"
   CLEAN="$STEM.clean.tsv"
-  src/cleanup_whitespace.py $FIXTURE > $CLEAN
+  src/cleanup_whitespace.py --tsv_path $FIXTURE > $CLEAN
   PAIR="$CLEAN $STEM.clean.expected.tsv"
   diff $PAIR \
   || die "To silence error: cp $PAIR"

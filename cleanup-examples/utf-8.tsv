@@ -1,2 +1,2 @@
-col-a	col-b
-"   　quoted + padded "	    　padded 
+quoted	empty	padded
+"   　123   　"		   　123   　
