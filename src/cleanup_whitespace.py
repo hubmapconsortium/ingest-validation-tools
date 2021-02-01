@@ -10,7 +10,7 @@ from yaml import dump as dump_yaml
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument(
-        '--tsv_path',
+        'tsv_path',
         type=argparse.FileType('r', encoding='utf-8'),
         help='TSV to strip padding whitespace from')
     args = parser.parse_args()
