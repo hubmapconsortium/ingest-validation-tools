@@ -69,6 +69,7 @@ def print_clean_tsv(tsv_path):
     writer = csv.writer(sys.stdout, dialect=dialect)
 
     for encoding in ['utf-8', 'latin-1']:
+        warn(f'Trying to read {tsv_path} as {encoding}...')
         try:
             with tsv_path.open(encoding=encoding) as f:
                 # There could be whitespace inside the quoted value,
@@ -76,9 +77,16 @@ def print_clean_tsv(tsv_path):
                 # and can't just use a regex.
                 for row in csv.reader(f, dialect=dialect):
                     writer.writerow(val.strip() for val in row)
+            warn('Read succeeded')
             return
         except UnicodeDecodeError as e:
+            warn(f'Read failed: {e}')
             continue
+
+
+def warn(s):
+    print(s, file=sys.stderr)
+
 
 if __name__ == "__main__":
     sys.exit(main())
