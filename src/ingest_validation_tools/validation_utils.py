@@ -5,7 +5,7 @@ from csv import DictReader
 from pathlib import Path
 
 import requests
-from goodtables import validate as validate_table
+from frictionless import validate as validate_table
 
 from ingest_validation_tools.schema_loader import (
     get_table_schema, get_other_schema,
@@ -152,46 +152,35 @@ def get_tsv_errors(tsv_path, type, optional_fields=[]):
     except OSError as e:
         return {e.strerror: Path(e.filename).name}
     report = validate_table(tsv_path, schema=schema,
-                            format='csv', delimiter='\t',
-                            skip_checks=['blank-row'])
-    error_messages = report['warnings']
+                            format='csv')
+    error_messages = report['errors']
     if 'tables' in report:
         for table in report['tables']:
             error_messages += [
-                column_number_to_letters(e['message'])
-                for e in table['errors']
+                _get_message(error)
+                for error in table['errors']
             ]
     return error_messages
 
 
-def column_number_to_letters(message):
+def _get_message(error):
     '''
-    >>> column_number_to_letters('Column 209 and column 141493 are funny.')
-    'Column 209 ("HA") and column 141493 ("HAHA") are funny.'
-
+    >>> _get_message({
+    ...     'cell': 'bad-id',
+    ...     'fieldName': 'orcid_id',
+    ...     'fieldNumber': 6,
+    ...     'fieldPosition': 6,
+    ...     'rowNumber': 1,
+    ...     'rowPosition': 2,
+    ...     'note': 'constraint "pattern" is "\\d{4}-\\d{4}-\\d{4}-\\d{3}[0-9X]"',
+    ...     'message': 'The message from the library is a bit confusing!',
+    ...     'description': 'A field value does not conform to a constraint.'
+    ... })
+    'A field value does not conform to a constraint. On row 2, "orcid_id" column, "bad-id" fails because constraint "pattern" is "\\d{4}-\\d{4}-\\d{4}-\\d{3}[0-9X]"'
+    
     '''
-    return re.sub(
-        r'(column) (\d+)',
-        lambda m: f'{m[1]} {m[2]} ("{_number_to_letters(m[2])}")',
-        message,
-        flags=re.I
+    
+    return (
+        f'{error["description"]} On row {error["rowPosition"]}, column "{error["fieldName"]}", '
+        f'"{error["cell"]}" fails because {error["note"]}'
     )
-
-
-def _number_to_letters(n):
-    '''
-    >>> _number_to_letters(1)
-    'A'
-    >>> _number_to_letters(26)
-    'Z'
-    >>> _number_to_letters(27)
-    'AA'
-    >>> _number_to_letters(52)
-    'AZ'
-
-    '''
-    def n2a(n):
-        uc = ascii_uppercase
-        d, m = divmod(n, len(uc))
-        return n2a(d - 1) + uc[m] if d else uc[m]
-    return n2a(int(n) - 1)

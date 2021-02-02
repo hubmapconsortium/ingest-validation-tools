@@ -5,7 +5,7 @@ red=`tput setaf 1`
 reset=`tput sgr0`
 die() { set +v; echo "$red$*$reset" 1>&2 ; exit 1; }
 
-for SUITE in dataset-iec-examples dataset-examples; do
+for SUITE in dataset-examples dataset-iec-examples; do
 
   case $SUITE in
     dataset-iec-examples)
