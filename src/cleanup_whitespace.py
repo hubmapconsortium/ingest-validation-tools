@@ -3,6 +3,7 @@
 import csv
 import sys
 import argparse
+from pathlib import Path
 
 from yaml import dump as dump_yaml
 
@@ -12,7 +13,7 @@ def main():
     mutex = parser.add_mutually_exclusive_group(required=True)
     mutex.add_argument(
         '--tsv_path',
-        type=argparse.FileType('r', encoding='utf-8'),
+        type=Path,
         metavar='PATH',
         help='TSV to strip padding whitespace from')
     mutex.add_argument(
@@ -25,7 +26,7 @@ def main():
     if args.encoding_test:
         print_encoding_test(args.encoding_test)
     if args.tsv_path:
-        print_tsv(args.tsv_path)
+        print_clean_tsv(args.tsv_path)
     return 0
 
 
@@ -63,15 +64,21 @@ def print_encoding_test(encoding):
     )
 
 
-def print_tsv(tsv_path):
+def print_clean_tsv(tsv_path):
     dialect = 'excel-tab'
     writer = csv.writer(sys.stdout, dialect=dialect)
 
-    # There could be whitespace inside the quoted value,
-    # so we really do need to parse it as a tsv.
-    for row in csv.reader(tsv_path, dialect=dialect):
-        writer.writerow(val.strip() for val in row)
-
+    for encoding in ['utf-8', 'latin-1']:
+        try:
+            with tsv_path.open(encoding=encoding) as f:
+                # There could be whitespace inside the quoted value,
+                # so we really do need to parse it as a tsv,
+                # and can't just use a regex.
+                for row in csv.reader(f, dialect=dialect):
+                    writer.writerow(val.strip() for val in row)
+            return
+        except UnicodeDecodeError as e:
+            continue
 
 if __name__ == "__main__":
     sys.exit(main())
