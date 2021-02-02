@@ -1,6 +1,4 @@
 import logging
-import re
-from string import ascii_uppercase
 from csv import DictReader
 from pathlib import Path
 
@@ -165,21 +163,23 @@ def get_tsv_errors(tsv_path, type, optional_fields=[]):
 
 def _get_message(error):
     '''
-    >>> _get_message({
+    >>> m = _get_message({
     ...     'cell': 'bad-id',
     ...     'fieldName': 'orcid_id',
     ...     'fieldNumber': 6,
     ...     'fieldPosition': 6,
     ...     'rowNumber': 1,
     ...     'rowPosition': 2,
-    ...     'note': 'constraint "pattern" is "\\d{4}-\\d{4}-\\d{4}-\\d{3}[0-9X]"',
+    ...     'note': 'constraint "pattern" is "fake-re"',
     ...     'message': 'The message from the library is a bit confusing!',
     ...     'description': 'A field value does not conform to a constraint.'
-    ... })
-    'A field value does not conform to a constraint. On row 2, "orcid_id" column, "bad-id" fails because constraint "pattern" is "\\d{4}-\\d{4}-\\d{4}-\\d{3}[0-9X]"'
-    
+    ... }).split('.')
+    >>> print('\\n'.join(m))
+    A field value does not conform to a constraint
+     On row 2, column "orcid_id", "bad-id" fails because constraint "pattern" is "fake-re"
+
     '''
-    
+
     return (
         f'{error["description"]} On row {error["rowPosition"]}, column "{error["fieldName"]}", '
         f'"{error["cell"]}" fails because {error["note"]}'

@@ -183,7 +183,7 @@ def _add_constraints(field, optional_fields):
     >>> pprint(field, width=40)
     {'constraints': {'pattern': 'fake-regex',
                      'required': True},
-     'name': 'optional_value',
+     'name': 'whatever',
      'type': 'string'}
 
     '''
