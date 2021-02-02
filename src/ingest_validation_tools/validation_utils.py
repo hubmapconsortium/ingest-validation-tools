@@ -163,7 +163,7 @@ def get_tsv_errors(tsv_path, type, optional_fields=[]):
 
 def _get_message(error):
     '''
-    >>> m = _get_message({
+    >>> print(_get_message({
     ...     'cell': 'bad-id',
     ...     'fieldName': 'orcid_id',
     ...     'fieldNumber': 6,
@@ -173,14 +173,12 @@ def _get_message(error):
     ...     'note': 'constraint "pattern" is "fake-re"',
     ...     'message': 'The message from the library is a bit confusing!',
     ...     'description': 'A field value does not conform to a constraint.'
-    ... }).split('.')
-    >>> print('\\n'.join(m))
-    A field value does not conform to a constraint
-     On row 2, column "orcid_id", "bad-id" fails because constraint "pattern" is "fake-re"
+    ... }))
+    On row 2, column "orcid_id", value "bad-id" fails because constraint "pattern" is "fake-re"
 
     '''
 
     return (
-        f'{error["description"]} On row {error["rowPosition"]}, column "{error["fieldName"]}", '
-        f'"{error["cell"]}" fails because {error["note"]}'
+        f'On row {error["rowPosition"]}, column "{error["fieldName"]}", '
+        f'value "{error["cell"]}" fails because {error["note"]}'
     )

@@ -2,8 +2,8 @@
 Metadata TSV Errors:
   dataset-examples/bad-mixed/submission/codex-metadata.tsv (as codex):
     Internal:
-    - A field value does not conform to a constraint. On row 2, column "donor_id",
-      "-INVALID-" fails because constraint "pattern" is "[A-Z]+[0-9]+"
+    - On row 2, column "donor_id", value "-INVALID-" fails because constraint "pattern"
+      is "[A-Z]+[0-9]+"
     External:
       row 2, referencing dataset-examples/bad-mixed/submission/bad-shared-dataset:
         Not allowed:
@@ -24,12 +24,12 @@ Metadata TSV Errors:
         does not exist
   dataset-examples/bad-mixed/submission/scatacseq-metadata.tsv (as scatacseq):
     Internal:
-    - A field value does not conform to a constraint. On row 2, column "donor_id",
-      "-INVALID-" fails because constraint "pattern" is "[A-Z]+[0-9]+"
-    - A field value does not conform to a constraint. On row 2, column "sc_isolation_protocols_io_doi",
-      "" fails because constraint "required" is "True"
-    - A field value does not conform to a constraint. On row 2, column "library_construction_protocols_io_doi",
-      "" fails because constraint "required" is "True"
+    - On row 2, column "donor_id", value "-INVALID-" fails because constraint "pattern"
+      is "[A-Z]+[0-9]+"
+    - On row 2, column "sc_isolation_protocols_io_doi", value "" fails because constraint
+      "required" is "True"
+    - On row 2, column "library_construction_protocols_io_doi", value "" fails because
+      constraint "required" is "True"
     External:
       row 2, referencing dataset-examples/bad-mixed/submission/bad-shared-dataset:
         Not allowed:
