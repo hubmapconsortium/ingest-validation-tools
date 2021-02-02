@@ -7,7 +7,11 @@ from pathlib import Path
 
 
 def main():
-    parser = argparse.ArgumentParser()
+    parser = argparse.ArgumentParser(
+        description='''
+Data providers may use the "--tsv_path" option to strip invisible characters from TSVs.
+The cleaned TSV is printed to STDOUT: Use output redirection to save.'''
+    )
     mutex = parser.add_mutually_exclusive_group(required=True)
     mutex.add_argument(
         '--tsv_path',
