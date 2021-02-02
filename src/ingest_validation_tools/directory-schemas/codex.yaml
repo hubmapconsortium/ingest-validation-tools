@@ -51,7 +51,7 @@
   ignore: True
 -
   pattern: 'src_[^/]+/channelnames_report\.csv'
-  description: 'Comma separated text file containing a report of the markers used to map the tissue [e.g. Channel,Name/ID/Target,True/False]. "False" channels are excluded from processing. (required for HuBMAP pipeline)'
+  description: 'Two column CSV: The first column is a name or target; The second column is boolean: "FALSE" channels are excluded from processing. (required for HuBMAP pipeline)'
   required: True 
 -
   pattern: 'src_[^/]+/channelnames\.txt'
