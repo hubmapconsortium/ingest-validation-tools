@@ -26,10 +26,10 @@ The cleaned TSV is printed to STDOUT: Use output redirection to save.'''
     args = parser.parse_args()
 
     if args.encoding_test:
-        print_encoding_test(args.encoding_test)
+        r = print_encoding_test(args.encoding_test)
     if args.tsv_path:
-        print_clean_tsv(args.tsv_path)
-    return 0
+        r = print_clean_tsv(args.tsv_path)
+    return r
 
 
 def print_encoding_test(encoding):
@@ -63,6 +63,7 @@ def print_encoding_test(encoding):
         sep='\t',
         end=''
     )
+    return 0
 
 
 def print_clean_tsv(tsv_path):
@@ -79,10 +80,11 @@ def print_clean_tsv(tsv_path):
                 for row in csv.reader(f, dialect=dialect):
                     writer.writerow(val.strip() for val in row)
             warn('Read succeeded')
-            return
+            return 0
         except UnicodeDecodeError as e:
             warn(f'Read failed: {e}')
             continue
+    return 1
 
 
 def warn(s):
