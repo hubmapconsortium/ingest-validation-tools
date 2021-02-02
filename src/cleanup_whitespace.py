@@ -5,8 +5,6 @@ import sys
 import argparse
 from pathlib import Path
 
-from yaml import dump as dump_yaml
-
 
 def main():
     parser = argparse.ArgumentParser()
@@ -45,7 +43,6 @@ def print_encoding_test(encoding):
             '\u3000',  # idiographic space
         ]
     padding = ''.join(space_chars)
-    
     sys.stdout.reconfigure(encoding=encoding)
 
     # Header:
