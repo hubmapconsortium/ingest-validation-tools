@@ -14,6 +14,7 @@
 - Warning if missing "assay_type".
 - Friendlier error if trying to validate Antibodies or Contributors as metadata.
 - cleanup-whitespace.py
+- Issue templates to operationalize new process for handling post-release changes.
 
 ## v0.0.7 - 2021-01-13
 - Improved error messages in Excel.
