@@ -14,6 +14,7 @@
 - Warning if missing "assay_type".
 - Friendlier error if trying to validate Antibodies or Contributors as metadata.
 - Add flowchart documenting the consensus submission process.
+- cleanup-whitespace.py
 
 ## v0.0.7 - 2021-01-13
 - Improved error messages in Excel.
