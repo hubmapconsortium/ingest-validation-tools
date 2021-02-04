@@ -104,7 +104,15 @@ $ git tag v0.0.x
 $ git push origin v0.0.x
 ```
 
-## Submission directory model
+## Submission process and submission directory structure
+
+Data submission to HuBMAP is composed of discreet phases:
+- Submission preparation and validation
+- Upload and re-validation
+- Restructuring
+- Re-re-validation and pipeline runs
+
+[![Submission process](https://docs.google.com/drawings/d/e/2PACX-1vQeNhQsKQewUz1rHDIl2rQLn08gt_wbTnDvkBM3fCBA5BareGPuwYxSHTTXwY2Y0XGLGmX9UcqzDC5U/pub?w=1000)](https://docs.google.com/drawings/d/1Cicn-JUVU9QmfsP0CHtGPJkqCe08DlENlKR02leOiLg/edit)
 
 Submissions are based on directories containing at a minimum:
 - one or more `*-metadata.tsv` files.
