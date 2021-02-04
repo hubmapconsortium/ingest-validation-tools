@@ -4,8 +4,6 @@ from fnmatch import fnmatch
 from pathlib import Path
 from collections import Counter
 
-import requests
-
 from ingest_validation_tools.yaml_include_loader import load_yaml
 
 from ingest_validation_tools.validation_utils import (
@@ -14,7 +12,8 @@ from ingest_validation_tools.validation_utils import (
     get_contributors_errors,
     get_antibodies_errors,
     dict_reader_wrapper,
-    get_context_of_decode_error
+    get_context_of_decode_error,
+    collect_http_errors
 )
 
 from ingest_validation_tools.plugin_validator import (
@@ -38,6 +37,10 @@ def _assay_name_to_code(name):
 TSV_SUFFIX = 'metadata.tsv'
 
 
+class PreflightError(Exception):
+    pass
+
+
 class Submission:
     def __init__(self, directory_path=None, tsv_paths=[],
                  optional_fields=[], add_notes=True,
@@ -51,17 +54,21 @@ class Submission:
         self.encoding = encoding
         self.offline = offline
         self.add_notes = add_notes
-        unsorted_effective_tsv_paths = {
-            str(path): self._get_type_from_first_line(path)
-            for path in (
-                tsv_paths if tsv_paths
-                else directory_path.glob(f'*{TSV_SUFFIX}')
-            )
-        }
-        self.effective_tsv_paths = {
-            k: unsorted_effective_tsv_paths[k]
-            for k in sorted(unsorted_effective_tsv_paths.keys())
-        }
+        self.errors = {}
+        try:
+            unsorted_effective_tsv_paths = {
+                str(path): self._get_type_from_first_line(path)
+                for path in (
+                    tsv_paths if tsv_paths
+                    else directory_path.glob(f'*{TSV_SUFFIX}')
+                )
+            }
+            self.effective_tsv_paths = {
+                k: unsorted_effective_tsv_paths[k]
+                for k in sorted(unsorted_effective_tsv_paths.keys())
+            }
+        except PreflightError as e:
+            self.errors['Preflight'] = str(e)
 
     def _get_type_from_first_line(self, path):
         try:
@@ -71,15 +78,26 @@ class Submission:
             # We are outside the error-reporting part of the code,
             # so just pass through, and handle it on the next parse.
         if not rows:
-            return None
+            raise PreflightError(f'{path} has no data rows.')
+        if 'assay_type' not in rows[0]:
+            message = f'{path} does not contain "assay_type". '
+            if 'channel_id' in rows[0]:
+                message += 'Has "channel_id": Antibodies TSV found where metadata TSV expected.'
+            elif 'orcid_id' in rows[0]:
+                message += 'Has "orcid_id": Contributors TSV found where metadata TSV expected.'
+            else:
+                message += f'Column headers: {", ".join(rows[0].keys())}'
+            raise PreflightError(message)
         name = rows[0]['assay_type']
         return _assay_name_to_code(name)
 
     def get_errors(self):
         # This creates a deeply nested dict.
         # Keys are present only if there is actually an error to report.
-        errors = {}
+        if self.errors:
+            return self.errors
 
+        errors = {}
         tsv_errors = self._get_tsv_errors()
         if tsv_errors:
             errors['Metadata TSV Errors'] = tsv_errors
@@ -153,15 +171,12 @@ class Submission:
             rows = dict_reader_wrapper(path, self.encoding)
         except UnicodeDecodeError as e:
             return get_context_of_decode_error(e)
-        if not rows:
-            return 'File has no data rows.'
         if 'data_path' not in rows[0] or 'contributors_path' not in rows[0]:
             return 'File is missing data_path or contributors_path.'
         if not self.directory_path:
             return None
 
         errors = {}
-        status_of_doi = {}
         for i, row in enumerate(rows):
             row_number = f'row {i+2}'
 
@@ -190,15 +205,9 @@ class Submission:
                         antibodies_errors
 
             if not self.offline:
-                for k in row.keys():
-                    if not k.endswith('protocols_io_doi'):
-                        continue
-                    doi = row[k]
-                    if doi not in status_of_doi:
-                        response = requests.get(f'https://dx.doi.org/{doi}')
-                        status_of_doi[doi] = response.status_code
-                    if status_of_doi[doi] != requests.codes.ok:
-                        errors[f'{row_number}, {k} {doi}'] = status_of_doi[doi]
+                protocols_fields = [k for k in row.keys() if k.endswith('protocols_io_doi')]
+                field_url_pairs = [(field, 'https://dx.doi.org/') for field in protocols_fields]
+                collect_http_errors(field_url_pairs, [row], errors)
 
         return errors
 
