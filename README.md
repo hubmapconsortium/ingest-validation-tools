@@ -106,7 +106,7 @@ $ git push origin v0.0.x
 
 ## Submission process and submission directory structure
 
-Data submission to HuBMAP is composed of discreet phases:
+Data submission to HuBMAP is composed of discrete phases:
 - Submission preparation and validation
 - Upload and re-validation
 - Restructuring
