@@ -72,7 +72,7 @@ def _enrich_description(field):
 
 def generate_readme_md(
         table_schema, directory_schema, type, is_assay=True):
-    versions_md = _make_verions_md(table_schema)
+    versions_md = _make_verions_md(table_schema, type)
     fields_md = _make_fields_md(table_schema)
     toc_md = _make_toc(fields_md)
     dir_description_md = _make_dir_description(directory_schema)
@@ -110,7 +110,7 @@ Related files:
 '''
 
 
-def _make_verions_md(table_schema, name='TODO'):
+def _make_verions_md(table_schema, name):
     version_fields = [field for field in table_schema['fields'] if field['name'] == 'version']
     assert len(version_fields) <= 1
 
@@ -121,7 +121,7 @@ def _make_verions_md(table_schema, name='TODO'):
     assert len(enum) == 1
     version = int(enum[0])
     url_base = 'https://github.com/hubmapconsortium/ingest-validation-tools/tree'
-    versions = [f'- [v{i}]({url_base}/name-v{i}/docs/{name})' for i in range(version)]
+    versions = [f'- [v{i}]({url_base}/{name}-v{i}/docs/{name})' for i in range(version)]
     return '\nPrevious versions:\n\n' + '\n'.join(versions) + '\n'
 
 

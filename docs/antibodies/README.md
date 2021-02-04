@@ -8,7 +8,7 @@ Related files:
 
 Previous versions:
 
-- [v0](https://github.com/hubmapconsortium/ingest-validation-tools/tree/name-v0/docs/TODO)
+- [v0](https://github.com/hubmapconsortium/ingest-validation-tools/tree/antibodies-v0/docs/antibodies)
 
 ## Table of contents
 [`version`](#version)<br>
