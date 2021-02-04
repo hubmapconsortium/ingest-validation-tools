@@ -94,7 +94,7 @@ def generate_readme_md(
         if 'doc_url' in table_schema else ''
     )
     optional_description_md = (
-        table_schema['description_md'] if 'description_md' in table_schema else ''
+        '\n' + table_schema['description_md'] if 'description_md' in table_schema else ''
     )
 
     return f'''# {type}

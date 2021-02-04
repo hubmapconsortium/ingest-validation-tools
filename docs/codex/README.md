@@ -5,6 +5,7 @@ Related files:
 - [📝 Excel template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/master/docs/codex/codex-metadata.xlsx): For metadata entry.
 - [📝 TSV template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/master/docs/codex/codex-metadata.tsv): Alternative for metadata entry.
 - [💻 Source code](https://github.com/hubmapconsortium/ingest-validation-tools/edit/master/src/ingest_validation_tools/table-schemas/level-2/codex.yaml): Make a PR to update this doc.
+
 There are 4 main fields in the antibodies.tsv file that are relevant for identifying channels within CODEX.
 The `channel_id` is used for connecting the `antibody_name` to a given file.
 Every `channel_id` contains a identifier for the cycle and channel number within that cycle
