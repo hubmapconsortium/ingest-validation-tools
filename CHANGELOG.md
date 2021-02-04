@@ -17,6 +17,7 @@
 - Add flowchart documenting the consensus submission process.
 - cleanup-whitespace.py
 - Issue templates to operationalize new process for handling post-release changes.
+- Support versioning of metadata schemas.
 
 ## v0.0.7 - 2021-01-13
 - Improved error messages in Excel.
