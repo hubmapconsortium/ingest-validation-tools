@@ -72,6 +72,7 @@ def _enrich_description(field):
 
 def generate_readme_md(
         table_schema, directory_schema, type, is_assay=True):
+    versions_md = _make_verions_md(table_schema)
     fields_md = _make_fields_md(table_schema)
     toc_md = _make_toc(fields_md)
     dir_description_md = _make_dir_description(directory_schema)
@@ -101,12 +102,16 @@ Related files:
 - [📝 Excel template]({xlsx_url}): For metadata entry.
 - [📝 TSV template]({tsv_url}): Alternative for metadata entry.
 - [💻 Source code]({source_url}): Make a PR to update this doc.
-
+{versions_md}
 ## Table of contents
 {toc_md}
 {optional_dir_description_md}
 {fields_md}
 '''
+
+
+def _make_verions_md(table_schema):
+    return ''
 
 
 def _make_fields_md(table_schema):
