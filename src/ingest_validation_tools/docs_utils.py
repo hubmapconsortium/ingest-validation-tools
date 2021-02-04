@@ -110,8 +110,19 @@ Related files:
 '''
 
 
-def _make_verions_md(table_schema):
-    return ''
+def _make_verions_md(table_schema, name='TODO'):
+    version_fields = [field for field in table_schema['fields'] if field['name'] == 'version']
+    assert len(version_fields) <= 1
+
+    if not version_fields:
+        return ''
+
+    enum = version_fields[0]['constraints']['enum']
+    assert len(enum) == 1
+    version = int(enum[0])
+    url_base = 'https://github.com/hubmapconsortium/ingest-validation-tools/tree'
+    versions = [f'- [v{i}]({url_base}/name-v{i}/docs/{name})' for i in range(version)]
+    return '\nPrevious versions:\n\n' + '\n'.join(versions) + '\n'
 
 
 def _make_fields_md(table_schema):
