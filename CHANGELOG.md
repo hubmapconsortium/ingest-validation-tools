@@ -13,6 +13,7 @@
 - Show the URL that produced the 404, and unify the code.
 - Warning if missing "assay_type".
 - Friendlier error if trying to validate Antibodies or Contributors as metadata.
+- Clarify description of CODEX channelnames_report.csv.
 - Add flowchart documenting the consensus submission process.
 - cleanup-whitespace.py
 - Issue templates to operationalize new process for handling post-release changes.
