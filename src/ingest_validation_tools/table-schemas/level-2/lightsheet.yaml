@@ -1,16 +1,26 @@
 doc_url: https://portal.hubmapconsortium.org/docs/assays/lightsheet # TODO
 fields:
-  # TODO: Overrides of Level 1 fields
+  # Overrides of Level 1 fields:
+  -
+    name: assay_category
+    constraints:
+      enum:
+        - imaging
+  -
+    name: assay_type
+    constraints:
+      enum:
+        - Light Sheet
+  -
+    name: analyte_class
+    constraints:
+      enum:
+        - protein
 
   # Level 2 fields:
   # include: ../includes/acquisition_instrument.yaml
   # include: ../includes/x_y_z.yaml
-
-  # TODO: Confirm descriptions / confirm that switching order for consistency is ok.
-  - name: number_of_antibodies
-    description: Number of antibodies
-  - name: number_of_channels
-    description: Number of fluorescent channels imaged during each cycle.
+  # include: ../includes/antibodies_channels.yaml
 
   # TODO: I'm not sure number_of_z_stacks belongs:
   #   - Do you actually mean the number of layers in the stack, or are their multiple stacks?

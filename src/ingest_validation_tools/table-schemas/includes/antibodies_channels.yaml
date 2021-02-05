@@ -1,0 +1,4 @@
+- name: number_of_antibodies
+  description: Number of antibodies
+- name: number_of_channels
+  description: Number of fluorescent channels imaged during each cycle.

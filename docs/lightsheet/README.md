@@ -123,7 +123,7 @@ Each assay is placed into one of the following 3 general categories: generation 
 
 | constraint | value |
 | --- | --- |
-| enum | `imaging`, `mass_spectrometry`, `mass_spectrometry_imaging`, or `sequence` |
+| enum | `imaging` |
 | required | `True` |
 
 ### `assay_type`
@@ -131,7 +131,7 @@ The specific type of assay being executed.
 
 | constraint | value |
 | --- | --- |
-| enum | `scRNA-Seq (10xGenomics)`, `AF`, `bulk RNA`, `bulkATACseq`, `Cell DIVE`, `CODEX`, `Imaging Mass Cytometry`, `LC-MS (metabolomics)`, `LC-MS/MS (label-free proteomics)`, `MxIF`, `MALDI-IMS`, `MS (shotgun lipidomics)`, `NanoDESI`, `NanoPOTS`, `PAS microscopy`, `scATACseq`, `sciATACseq`, `sciRNAseq`, `seqFISH`, `SNARE-seq2`, `snATACseq`, `snRNA`, `SPLiT-Seq`, `TMT (proteomics)`, `WGS`, `SNARE2-RNAseq`, `snRNAseq`, `scRNAseq-10xGenomics`, `scRNAseq`, or `Slide-seq` |
+| enum | `Light Sheet` |
 | required | `True` |
 
 ### `analyte_class`
@@ -139,7 +139,7 @@ Analytes are the target molecules being measured with the assay.
 
 | constraint | value |
 | --- | --- |
-| enum | `DNA`, `RNA`, `protein`, `lipids`, `metabolites`, `polysaccharides`, or `metabolites_and_lipids` |
+| enum | `protein` |
 | required | `True` |
 
 ### `is_targeted`

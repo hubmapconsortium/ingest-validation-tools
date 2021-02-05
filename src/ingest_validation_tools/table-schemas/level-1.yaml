@@ -56,6 +56,7 @@ fields:
         - Imaging Mass Cytometry
         - LC-MS (metabolomics)
         - LC-MS/MS (label-free proteomics)
+        - Light Sheet
         - MxIF
         - MALDI-IMS
         - MS (shotgun lipidomics)
