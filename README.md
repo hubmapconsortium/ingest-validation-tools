@@ -24,10 +24,10 @@ The metadata for a particular assay type needs to be consistent for all datasets
 as does the set of files which comprise a dataset.
 Edits to descriptions are welcome, as are improved validations.
 
-For questions about the stability of metadata,
-contact Nils Gehlenborg, or add him as a reviewer on the PR.
+HuBMAP HIVE members: For questions about the stability of metadata,
+contact Nils Gehlenborg (@ngehlenborg), or add him as a reviewer on the PR.
 For the stability of directory structures,
-contact Phil Blood.
+contact Phil Blood (@pdblood).
 
 ## For data submitters and curators:
 
