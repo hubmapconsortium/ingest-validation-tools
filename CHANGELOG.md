@@ -10,9 +10,15 @@
 - Allow examples of path rexes to be provided, and fix bug.
 - Use the SciCrunch resolver for RR IDs.
 - More helpful message if decoding error.
+- State stability policy.
 - Show the URL that produced the 404, and unify the code.
 - Warning if missing "assay_type".
 - Add lightsheet.
+- Friendlier error if trying to validate Antibodies or Contributors as metadata.
+- Clarify description of CODEX channelnames_report.csv.
+- Add flowchart documenting the consensus submission process.
+- cleanup-whitespace.py
+- Issue templates to operationalize new process for handling post-release changes.
 
 ## v0.0.7 - 2021-01-13
 - Improved error messages in Excel.
