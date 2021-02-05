@@ -1,4 +1,4 @@
-doc_url: https://portal.hubmapconsortium.org/docs/assays/lightsheet # TODO
+doc_url: https://portal.hubmapconsortium.org/docs/assays/lightsheet
 fields:
   # Overrides of Level 1 fields:
   -
@@ -22,13 +22,6 @@ fields:
   # include: ../includes/x_y_z.yaml
   # include: ../includes/antibodies_channels.yaml
 
-  # TODO: I'm not sure number_of_z_stacks belongs:
-  #   - Do you actually mean the number of layers in the stack, or are their multiple stacks?
-  #   - Why is the z dimension different from the x or y? We don't want to duplicate what can be inferred from the data.
-
-  # TODO: For consistency, can it just be "protocols_io_doi", without "acquisition_"?
-  - name: protocols_io_doi
-    description: DOI for protocols.io referring to the protocol for this assay.
   - name: antibodies_path
     description: Relative path to file with antibody information for this dataset.
     
