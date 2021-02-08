@@ -6,6 +6,13 @@ Related files:
 - [📝 TSV template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/master/docs/celldive/celldive-metadata.tsv): Alternative for metadata entry.
 - [💻 Source code](https://github.com/hubmapconsortium/ingest-validation-tools/edit/master/src/ingest_validation_tools/table-schemas/level-2/celldive.yaml): Make a PR to update this doc.
 
+There are 4 main fields in the antibodies.tsv file that are relevant for identifying channels within Cell DIVE.
+The `channel_id` is used for connecting the `antibody_name` to a given file.
+Every `channel_id` contains a identifier for the cycle and channel number within that cycle
+(of the form `Cycle[0-9]_CH[0-9]`)
+while each tif file on Globus contains a single channel,
+identified and connected to the `channel_id` by its location in the submission directory.
+
 ## Table of contents
 <details><summary>Provenance</summary>
 
