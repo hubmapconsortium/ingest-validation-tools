@@ -6,6 +6,16 @@ Related files:
 - [📝 TSV template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/master/docs/imc/imc-metadata.tsv): Alternative for metadata entry.
 - [💻 Source code](https://github.com/hubmapconsortium/ingest-validation-tools/edit/master/src/ingest_validation_tools/table-schemas/level-2/imc.yaml): Make a PR to update this doc.
 
+IMC
+There are 4 main fields in the antibodies.tsv file that are relevant for identifying channels within IMC.
+The `channel_id` is used for connecting the `antibody_name` to a given file.
+Every `channel_id` contains the name of the metal tag on the antibody.
+
+The three other fields function the same way for all assays using antibodies:
+The `antibody_name` is human readable and will be used for display in the portal.
+The `rr_id` and `uniprot_id` fields are for standardized identifiers per channel
+from [The Antibody Registry](https://antibodyregistry.org/) and [UniProt](https://www.uniprot.org/) respectively.
+
 ## Table of contents
 <details><summary>Provenance</summary>
 
