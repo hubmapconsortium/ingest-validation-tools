@@ -5,7 +5,7 @@ fields:
   antibodies channel_id:
     CellDIVE dataset submissions require metadata on the antibodies used in the assay. Antibodies metadata is provided in an antibodies.tsv file.
     There are 4 main fields in the antibodies.tsv file required for matching image files to the antibody and target protein in a given cycle/channel combination.
-    The `channel_id` is represented as a cycle#/channel# combination to a given image file (of the form `Cycle[0-9]_CH[0-9]`). 
+    The `channel_id` is represented as a cycle#/channel# combination (of the form `Cycle[0-9]_CH[0-9]`) linked to a given image file in the directory. 
     
     The three other fields function the same way for all assays using antibodies.
     The `antibody_name` is human readable and will be used for display in the portal.
