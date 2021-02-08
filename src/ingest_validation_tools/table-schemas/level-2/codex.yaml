@@ -4,7 +4,7 @@ description_md: |
   The `channel_id` is used for connecting the `antibody_name` to a given file.
   Every `channel_id` contains a identifier for the cycle and channel number within that cycle
   (of the form `Cycle[0-9]_CH[0-9]`)
-  while each tif file on globus contains a single channel,
+  while each tif file on Globus contains a single channel,
   identified and connected to the `channel_id` by its location in the submission directory
   (of the form `src_*/cyc*_reg*_*/*_*_Z*_CH*.tif`).
 
