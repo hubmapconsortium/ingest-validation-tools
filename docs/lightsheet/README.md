@@ -199,7 +199,7 @@ The unit of measurement of the height of a pixel.
 | required | `True` |
 
 ### `resolution_z_value`
-The increment distance between image slices, ie. the microscope stage is moved up or down in increments to capture images of several focal planes.
+The distance at which two objects along the detection z-axis can be distinguished (resolved as 2 objects).
 
 | constraint | value |
 | --- | --- |
@@ -207,7 +207,7 @@ The increment distance between image slices, ie. the microscope stage is moved u
 | required | `True` |
 
 ### `resolution_z_unit`
-The unit of incremental distance between image slices.
+The unit of z resolution.
 
 | constraint | value |
 | --- | --- |
