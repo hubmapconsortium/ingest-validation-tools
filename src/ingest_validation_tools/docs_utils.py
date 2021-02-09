@@ -105,11 +105,7 @@ Related files:
 - [📝 Excel template]({xlsx_url}): For metadata entry.
 - [📝 TSV template]({tsv_url}): Alternative for metadata entry.
 - [💻 Source code]({source_url}): Make a PR to update this doc.
-<<<<<<< HEAD
-{versions_md}
-=======
-{optional_description_md}
->>>>>>> master
+{optional_description_md}{versions_md}
 ## Table of contents
 {toc_md}
 {optional_dir_description_md}
