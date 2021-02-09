@@ -61,6 +61,8 @@ def get_table_schema(table_type, optional_fields=[]):
     table_schema = {'fields': fields}
     if 'doc_url' in type_schema:
         table_schema['doc_url'] = type_schema['doc_url']
+    if 'description_md' in type_schema:
+        table_schema['description_md'] = type_schema['description_md']
     return table_schema
 
 
