@@ -138,7 +138,7 @@ def _check_enum_consistency(high_fields, override_fields_dict):
     >>> _check_enum_consistency(high_fields, override_fields_dict)
     Traceback (most recent call last):
     ...
-    Exception: In vowels, surprised by: ['b', 'c']
+    Exception: In vowels, surprised by: ['b', 'c']; Add to level-1.yaml?
 
     '''
     high_field_constraints = {
@@ -155,7 +155,7 @@ def _check_enum_consistency(high_fields, override_fields_dict):
             if not (override_enum < high_field_enum):
                 surprise = override_enum - high_field_enum
                 raise Exception(
-                    f'In {field_name}, surprised by: {sorted(surprise)}')
+                    f'In {field_name}, surprised by: {sorted(surprise)}; Add to level-1.yaml?')
 
 
 def _add_constraints(field, optional_fields):

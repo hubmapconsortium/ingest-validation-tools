@@ -25,10 +25,7 @@ fields:
     enum:
       - protein    
 # include: ../includes/acquisition_instrument.yaml
-- name: number_of_antibodies
-  description: Number of antibodies
-- name: number_of_channels
-  description: Number of fluorescent channels imaged during each cycle.
+# include: ../includes/antibodies_channels.yaml
 - name: number_of_cycles
   description: Number of cycles of 1. oligo application, 2. fluor application, 3. dye inactivation.
 - name: number_of_imaging_rounds
