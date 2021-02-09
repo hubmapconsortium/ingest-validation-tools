@@ -42,7 +42,7 @@ class PreflightError(Exception):
 
 
 class Submission:
-    def __init__(self, directory_path=None, tsv_paths=[],
+    def __init__(self, directory_path=None,
                  optional_fields=[], add_notes=True,
                  dataset_ignore_globs=[], submission_ignore_globs=[],
                  plugin_directory=None, encoding=None, offline=None):
@@ -58,10 +58,7 @@ class Submission:
         try:
             unsorted_effective_tsv_paths = {
                 str(path): self._get_type_from_first_line(path)
-                for path in (
-                    tsv_paths if tsv_paths
-                    else directory_path.glob(f'*{TSV_SUFFIX}')
-                )
+                for path in directory_path.glob(f'*{TSV_SUFFIX}')
             }
             self.effective_tsv_paths = {
                 k: unsorted_effective_tsv_paths[k]
