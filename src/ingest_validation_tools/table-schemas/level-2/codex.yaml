@@ -7,7 +7,7 @@ description_md: |
   (of the form `src_*/cyc*_reg*_*/*_*_Z*_CH*.tif`).
 
   The other fields function the same way for all assays using antibodies.
-  For more information, see the [Antibodies TSV documentation](antibodies).
+  For more information, see the [Antibodies TSV documentation](../antibodies).
 fields:
 # Overrides of Level 1 fields:
   -

@@ -13,7 +13,7 @@ identified and connected to the `channel_id` by its location in the submission d
 (of the form `src_*/cyc*_reg*_*/*_*_Z*_CH*.tif`).
 
 The other fields function the same way for all assays using antibodies.
-For more information, see the [Antibodies TSV documentation](antibodies).
+For more information, see the [Antibodies TSV documentation](../antibodies).
 
 ## Table of contents
 <details><summary>Provenance</summary>
