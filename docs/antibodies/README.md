@@ -6,6 +6,9 @@ Related files:
 - [📝 TSV template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/master/docs/antibodies/antibodies.tsv): Alternative for metadata entry.
 - [💻 Source code](https://github.com/hubmapconsortium/ingest-validation-tools/edit/master/src/ingest_validation_tools/table-schemas/antibodies.yaml): Make a PR to update this doc.
 
+Changes:
+- 1: Version number added.
+
 Previous versions:
 
 - [v0](https://github.com/hubmapconsortium/ingest-validation-tools/tree/antibodies-v0/docs/antibodies)
