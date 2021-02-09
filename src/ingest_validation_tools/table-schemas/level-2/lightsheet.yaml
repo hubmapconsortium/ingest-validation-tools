@@ -19,7 +19,20 @@ fields:
 
   # Level 2 fields:
   # include: ../includes/acquisition_instrument.yaml
-  # include: ../includes/x_y_z.yaml
+  # include: ../includes/x_y.yaml
+
+-
+  name: resolution_z_value
+  description: The distance at which two objects along the detection
+    z-axis can be distinguished (resolved as 2 objects).
+-
+  name: resolution_z_unit
+  description: The unit of z resolution.
+  constraints:
+    enum:
+      - nm
+      - um
+
   # include: ../includes/antibodies_channels.yaml
 
   - name: antibodies_path
