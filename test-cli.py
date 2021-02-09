@@ -8,11 +8,9 @@ import subprocess
 good_args = [
     '--local_directory dataset-examples/good-scatacseq/submission/ '
     '--dataset_ignore_globs ignore-*.tsv .* '
-    '--submission_ignore_globs drv_ignore_*',
+    '--submission_ignore_globs drv_ignore_*'
     # NOTE: When called from the shell,
     # remember to quote '*' arguments to prevent expansion.
-
-    '--tsv_paths dataset-examples/good-scatacseq/submission/metadata.tsv'
 ]
 bad_args = [
     '--bad',

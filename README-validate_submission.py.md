@@ -1,6 +1,5 @@
 ```
-usage: validate_submission.py [-h]
-                              (--local_directory PATH | --tsv_paths PATH [PATH ...])
+usage: validate_submission.py [-h] --local_directory PATH
                               [--optional_fields FIELD [FIELD ...]]
                               [--offline]
                               [--dataset_ignore_globs GLOB [GLOB ...]]
@@ -10,15 +9,12 @@ usage: validate_submission.py [-h]
                               [--output {as_browser,as_html_doc,as_html_fragment,as_md,as_text,as_text_list,as_yaml}]
                               [--add_notes]
 
-Validate a HuBMAP submission, both the metadata TSVs, and the datasets,
-either local or remote, or a combination of the two.
+Validates a HuBMAP submission, both the metadata TSVs and the datasets.
 
 optional arguments:
   -h, --help            show this help message and exit
   --local_directory PATH
                         Local directory to validate
-  --tsv_paths PATH [PATH ...]
-                        Paths of metadata.tsv files.
   --optional_fields FIELD [FIELD ...]
                         The listed fields will be treated as optional. (But if
                         they are supplied in the TSV, they will be validated.)
@@ -39,10 +35,8 @@ optional arguments:
   --add_notes           Append a context note to error reports.
 
 Typical usecases:
-  --tsv_paths: Used to validate TSVs in isolation, without checking references.
-
-  --local_directory: Used in development against test fixtures, and could be used
-  by labs before submission.
+  --local_directory: Used in development against test fixtures,
+  and by labs before submission.
 
   --local_directory + --dataset_ignore_globs + --submission_ignore_globs:
   Currently, during ingest, the metadata TSVs are broken up, and one-line TSVs

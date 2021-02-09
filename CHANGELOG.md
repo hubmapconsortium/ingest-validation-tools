@@ -19,6 +19,7 @@
 - Add flowchart documenting the consensus submission process.
 - cleanup-whitespace.py
 - Issue templates to operationalize new process for handling post-release changes.
+- Remove option to just validate TSVs.
 
 ## v0.0.7 - 2021-01-13
 - Improved error messages in Excel.

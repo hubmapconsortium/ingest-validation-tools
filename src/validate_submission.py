@@ -20,15 +20,11 @@ directory_schemas = sorted({
 
 def make_parser():
     parser = argparse.ArgumentParser(
-        description='''
-Validate a HuBMAP submission, both the metadata TSVs, and the datasets,
-either local or remote, or a combination of the two.''',
+        description='Validates a HuBMAP submission, both the metadata TSVs and the datasets.',
         epilog='''
 Typical usecases:
-  --tsv_paths: Used to validate TSVs in isolation, without checking references.
-
-  --local_directory: Used in development against test fixtures, and could be used
-  by labs before submission.
+  --local_directory: Used in development against test fixtures,
+  and by labs before submission.
 
   --local_directory + --dataset_ignore_globs + --submission_ignore_globs:
   Currently, during ingest, the metadata TSVs are broken up, and one-line TSVs
@@ -39,15 +35,10 @@ Typical usecases:
 
     # What should be validated?
 
-    mutex_group = parser.add_mutually_exclusive_group(required=True)
-    mutex_group.add_argument(
-        '--local_directory', type=argparse_types.dir_path,
+    parser.add_argument(
+        '--local_directory', type=argparse_types.dir_path, required=True,
         metavar='PATH',
         help='Local directory to validate')
-    mutex_group.add_argument(
-        '--tsv_paths', nargs='+',
-        metavar='PATH',
-        help='Paths of metadata.tsv files.')
 
     # Should validation be loosened?
 
@@ -108,17 +99,8 @@ Typical usecases:
 parser = make_parser()
 
 
-def parse_args():
-    args = parser.parse_args()
-    if not (args.tsv_paths or args.local_directory):
-        raise ShowUsageException(
-            'Either local file or local directory is required')
-
-    return args
-
-
 def main():
-    args = parse_args()
+    args = parser.parse_args()
     submission_args = {
         'add_notes': args.add_notes,
         'encoding': args.encoding,
@@ -128,10 +110,6 @@ def main():
 
     if args.local_directory:
         submission_args['directory_path'] = Path(args.local_directory)
-
-    if args.tsv_paths:
-        submission_args['tsv_paths'] = args.tsv_paths
-
     if args.dataset_ignore_globs:
         submission_args['dataset_ignore_globs'] = \
             args.dataset_ignore_globs
