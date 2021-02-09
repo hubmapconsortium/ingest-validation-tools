@@ -1,17 +1,13 @@
 doc_url: https://portal.hubmapconsortium.org/docs/assays/codex
 description_md: |
-  CODEX dataset submissions require metadata on the antibodies used in the assay. Antibodies metadata is provided in an antibodies.tsv file.
-  There are 4 main fields in the antibodies.tsv file required for matching image files to the antibody and target protein in a given cycle/channel combination.
-  The `channel_id` is represented as a cycle#/channel# combination linked to a given image file (of the form `Cycle[0-9]_CH[0-9]`). 
-  Each tif file in a CODEX dataset contains image data captured from a single channel in a single cycle,
+  CODEX submissions require metadata on the antibodies used in the assay to be provided in an Antibodies TSV.
+  For CODEX, in that TSV, the `channel_id` is a cycle#/channel# combination linked to a given image file (of the form `Cycle[0-9]_CH[0-9]`). 
+  Each TIF file in a CODEX dataset contains image data captured from a single channel in a single cycle,
   identified and connected to the `channel_id` by its location in the submission directory
   (of the form `src_*/cyc*_reg*_*/*_*_Z*_CH*.tif`).
 
-  The three other fields function the same way for all assays using antibodies:
-  The `antibody_name` is human readable and will be used for display in the portal.
-  The `rr_id` and `uniprot_id` fields are for standardized identifiers per channel
-  from [The Antibody Registry](https://antibodyregistry.org/)
-  and [UniProt](https://www.uniprot.org/) respectively.
+  The other fields function the same way for all assays using antibodies.
+  For more information, see the [Antibodies TSV documentation](antibodies).
 fields:
 # Overrides of Level 1 fields:
   -

@@ -6,19 +6,14 @@ Related files:
 - [📝 TSV template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/master/docs/codex/codex-metadata.tsv): Alternative for metadata entry.
 - [💻 Source code](https://github.com/hubmapconsortium/ingest-validation-tools/edit/master/src/ingest_validation_tools/table-schemas/level-2/codex.yaml): Make a PR to update this doc.
 
-There are 4 main fields in the antibodies.tsv file that are relevant for identifying channels within CODEX.
-The `channel_id` is used for connecting the `antibody_name` to a given file.
-Every `channel_id` contains a identifier for the cycle and channel number within that cycle
-(of the form `Cycle[0-9]_CH[0-9]`)
-while each tif file on globus contains a single channel,
+CODEX submissions require metadata on the antibodies used in the assay to be provided in an Antibodies TSV.
+For CODEX, in that TSV, the `channel_id` is a cycle#/channel# combination linked to a given image file (of the form `Cycle[0-9]_CH[0-9]`). 
+Each TIF file in a CODEX dataset contains image data captured from a single channel in a single cycle,
 identified and connected to the `channel_id` by its location in the submission directory
 (of the form `src_*/cyc*_reg*_*/*_*_Z*_CH*.tif`).
 
-The three other fields function the same way for all assays using antibodies:
-The `antibody_name` is human readable and will be used for display in the portal.
-The `rr_id` and `uniprot_id` fields are for standardized identifiers per channel
-from [The Antibody Registry](https://antibodyregistry.org/)
-and [UniProt](https://www.uniprot.org/) respectively.
+The other fields function the same way for all assays using antibodies.
+For more information, see the [Antibodies TSV documentation](antibodies).
 
 ## Table of contents
 <details><summary>Provenance</summary>
