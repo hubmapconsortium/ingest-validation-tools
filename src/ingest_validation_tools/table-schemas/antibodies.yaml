@@ -1,6 +1,6 @@
 description_md: |
   Changes:
-  - 1: Version number added.
+  - v1: Version number added.
 fields:
   -
     name: version
