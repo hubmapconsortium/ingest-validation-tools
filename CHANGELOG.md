@@ -16,6 +16,7 @@
 - Add lightsheet.
 - Add a slot for a free-text note.
 - Friendlier error if trying to validate Antibodies or Contributors as metadata.
+- Update directory description docs.
 - Upgrade to latest version of Frictionless. The content of error messages has changed.
 - Clarify description of CODEX channelnames_report.csv.
 - Add flowchart documenting the consensus submission process.
