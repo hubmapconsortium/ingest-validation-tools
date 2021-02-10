@@ -20,6 +20,7 @@
 - Add flowchart documenting the consensus submission process.
 - cleanup-whitespace.py
 - Issue templates to operationalize new process for handling post-release changes.
+- Support versioning of metadata schemas.
 - Add channel_id description to CellDIVE
 
 ## v0.0.7 - 2021-01-13
