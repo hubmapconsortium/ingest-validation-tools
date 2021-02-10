@@ -197,11 +197,9 @@ resolution_x_unit: The unit of measurement of the width of a pixel.
 resolution_x_value: The width of a pixel.
 resolution_y_unit: The unit of measurement of the height of a pixel.
 resolution_y_value: The height of a pixel
-resolution_z_unit: The unit of incremental distance between image slices.
-resolution_z_value: 'Optional if assay does not have multiple z-levels. Note that
-  this is resolution within a given sample: z-pitch (resolution_z_value) is the increment
-  distance between image slices, ie. the microscope stage is moved up or down in increments
-  to capture images of several focal planes.'
+resolution_z_unit: The unit of z resolution.
+resolution_z_value: The distance at which two objects along the detection z-axis can
+  be distinguished (resolved as 2 objects).
 rnaseq_assay_input: Number of cell/nuclei input to the assay
 rnaseq_assay_input_unit: Units of RNA input amount to the assay
 rnaseq_assay_input_value: RNA input amount value to the assay

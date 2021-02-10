@@ -6,6 +6,15 @@ Related files:
 - [📝 TSV template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/master/docs/codex/codex-metadata.tsv): Alternative for metadata entry.
 - [💻 Source code](https://github.com/hubmapconsortium/ingest-validation-tools/edit/master/src/ingest_validation_tools/table-schemas/level-2/codex.yaml): Make a PR to update this doc.
 
+CODEX submissions require metadata on the antibodies used in the assay to be provided in an Antibodies TSV.
+For CODEX, in that TSV, the `channel_id` is a cycle#/channel# combination linked to a given image file (of the form `Cycle[0-9]_CH[0-9]`). 
+Each TIF file in a CODEX dataset contains image data captured from a single channel in a single cycle,
+identified and connected to the `channel_id` by its location in the submission directory
+(of the form `src_*/cyc*_reg*_*/*_*_Z*_CH*.tif`).
+
+The other fields function the same way for all assays using antibodies.
+For more information, see the [Antibodies TSV documentation](../antibodies).
+
 ## Table of contents
 <details><summary>Provenance</summary>
 
@@ -66,7 +75,7 @@ Related files:
 | `src_[^/]+/segmentation\.json` |  | ✓ | JSON file produced by the Akoya software which contains the parameters used for segmentation. (required for HuBMAP pipeline) |
 | `drv_[^/]+/segmentation\.json` |  |  | JSON file produced by the Akoya software which contains the parameters used for segmentation. (required for HuBMAP pipeline) |
 | `drv_[^/]+/processed_[^/]+/.*` |  | ✓ | processed files produced by the Akoya software, not used by the HIVE |
-| `src_[^/]+/channelnames_report\.csv` |  | ✓ | Comma separated text file containing a report of the markers used to map the tissue [e.g. Channel,Name/ID/Target,True/False](required for HuBMAP pipeline) |
+| `src_[^/]+/channelnames_report\.csv` |  | ✓ | Two column CSV: The first column is a name or target; The second column is boolean: "FALSE" channels are excluded from processing. (required for HuBMAP pipeline) |
 | `src_[^/]+/channelnames\.txt` |  | ✓ | Text file produced by the Akoya software which contains the (linearized) channel number and the Name/ID/Target of the channel (required for HuBMAP pipeline) |
 | `src_[^/]+/cyc.*_reg.*_.*/.*_.*_Z.*_CH.*\.tif` |  | ✓ | TIFF files produced by the experiment. General folder format: Cycle(n)_Region(n)_date; General file format: name_tileNumber(n)_zplaneNumber(n)_channelNumber(n) |
 | `src_[^/]+/cyc.*_reg.*_.*/.*\.gci` |  |  | Group Capture Information File (Keyance Microscope only) |

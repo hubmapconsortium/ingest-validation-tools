@@ -23,6 +23,7 @@ def validate(args):
     cmd = [
         'src/validate_submission.py', '--output', 'as_text'
     ] + args.split(' ')
+    print('Running: ' + ' '.join(cmd))
     subprocess.run(
         cmd, check=True)
 

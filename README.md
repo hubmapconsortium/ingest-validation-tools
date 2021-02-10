@@ -17,6 +17,18 @@ When all the parts are finalized,
 
 When those parts are in place, the [docs](docs/) are updated, and we're ready to validate submissions.
 
+### Stability
+
+Once approved, both the list of metadata fields and the list of files is fixed.
+The metadata for a particular assay type needs to be consistent for all datasets,
+as does the set of files which comprise a dataset.
+Edits to descriptions are welcome, as are improved validations.
+
+HuBMAP HIVE members: For questions about the stability of metadata,
+contact Nils Gehlenborg (@ngehlenborg), or add him as a reviewer on the PR.
+For the stability of directory structures,
+contact Phil Blood (@pdblood).
+
 ## For data submitters and curators:
 
 Checkout the repo and install dependencies:
@@ -104,7 +116,15 @@ $ git tag v0.0.x
 $ git push origin v0.0.x
 ```
 
-## Submission directory model
+## Submission process and submission directory structure
+
+Data submission to HuBMAP is composed of discrete phases:
+- Submission preparation and validation
+- Upload and re-validation
+- Restructuring
+- Re-re-validation and pipeline runs
+
+[![Submission process](https://docs.google.com/drawings/d/e/2PACX-1vQeNhQsKQewUz1rHDIl2rQLn08gt_wbTnDvkBM3fCBA5BareGPuwYxSHTTXwY2Y0XGLGmX9UcqzDC5U/pub?w=1000)](https://docs.google.com/drawings/d/1Cicn-JUVU9QmfsP0CHtGPJkqCe08DlENlKR02leOiLg/edit)
 
 Submissions are based on directories containing at a minimum:
 - one or more `*-metadata.tsv` files.

@@ -6,7 +6,15 @@ Related files:
 - [📝 TSV template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/master/docs/antibodies/antibodies.tsv): Alternative for metadata entry.
 - [💻 Source code](https://github.com/hubmapconsortium/ingest-validation-tools/edit/master/src/ingest_validation_tools/table-schemas/antibodies.yaml): Make a PR to update this doc.
 
+Changes:
+- v1: Version number added.
+
+Previous versions:
+
+- [v0](https://github.com/hubmapconsortium/ingest-validation-tools/tree/antibodies-v0/docs/antibodies) / [diff](https://github.com/hubmapconsortium/ingest-validation-tools/compare/antibodies-v0...master)
+
 ## Table of contents
+[`version`](#version)<br>
 [`channel_id`](#channel_id)<br>
 [`antibody_name`](#antibody_name)<br>
 [`rr_id`](#rr_id)<br>
@@ -15,6 +23,14 @@ Related files:
 [`dilution`](#dilution)<br>
 [`conjugated_cat_number`](#conjugated_cat_number)<br>
 [`conjugated_tag`](#conjugated_tag)<br></details>
+
+### `version`
+Current version of metadata schema. Template provides the correct value.
+
+| constraint | value |
+| --- | --- |
+| enum | `1` |
+| required | `True` |
 
 ### `channel_id`
 Structure of channel_id depends on assay type.

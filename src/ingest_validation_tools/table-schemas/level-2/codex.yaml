@@ -1,4 +1,13 @@
 doc_url: https://portal.hubmapconsortium.org/docs/assays/codex
+description_md: |
+  CODEX submissions require metadata on the antibodies used in the assay to be provided in an Antibodies TSV.
+  For CODEX, in that TSV, the `channel_id` is a cycle#/channel# combination linked to a given image file (of the form `Cycle[0-9]_CH[0-9]`). 
+  Each TIF file in a CODEX dataset contains image data captured from a single channel in a single cycle,
+  identified and connected to the `channel_id` by its location in the submission directory
+  (of the form `src_*/cyc*_reg*_*/*_*_Z*_CH*.tif`).
+
+  The other fields function the same way for all assays using antibodies.
+  For more information, see the [Antibodies TSV documentation](../antibodies).
 fields:
 # Overrides of Level 1 fields:
   -
@@ -66,12 +75,8 @@ fields:
     description: The model number/name of the instrument used to prepare the sample for the assay
     constraints:
       enum: ['version 1 robot','prototype robot - Stanford/Nolan Lab']
-  -
-    name: number_of_antibodies
-    description: Number of antibodies
-  -
-    name: number_of_channels
-    description: Number of fluorescent channels imaged during each cycle.
+
+  # include: ../includes/antibodies_channels.yaml
   -
     name: number_of_cycles
     description: Number of cycles of 1. oligo application, 2. fluor application, 3. washes

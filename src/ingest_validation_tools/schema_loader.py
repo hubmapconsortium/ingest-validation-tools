@@ -61,6 +61,8 @@ def get_table_schema(table_type, optional_fields=[]):
     table_schema = {'fields': fields}
     if 'doc_url' in type_schema:
         table_schema['doc_url'] = type_schema['doc_url']
+    if 'description_md' in type_schema:
+        table_schema['description_md'] = type_schema['description_md']
     return table_schema
 
 
@@ -136,7 +138,7 @@ def _check_enum_consistency(high_fields, override_fields_dict):
     >>> _check_enum_consistency(high_fields, override_fields_dict)
     Traceback (most recent call last):
     ...
-    Exception: In vowels, surprised by: ['b', 'c']
+    Exception: In vowels, surprised by: ['b', 'c']; Add to level-1.yaml?
 
     '''
     high_field_constraints = {
@@ -153,7 +155,7 @@ def _check_enum_consistency(high_fields, override_fields_dict):
             if not (override_enum < high_field_enum):
                 surprise = override_enum - high_field_enum
                 raise Exception(
-                    f'In {field_name}, surprised by: {sorted(surprise)}')
+                    f'In {field_name}, surprised by: {sorted(surprise)}; Add to level-1.yaml?')
 
 
 def _add_constraints(field, optional_fields):
@@ -178,6 +180,14 @@ def _add_constraints(field, optional_fields):
      'name': 'optional_value',
      'type': 'number'}
 
+    >>> field = {'name': 'whatever', 'constraints': {'pattern': 'fake-regex'}}
+    >>> _add_constraints(field, [])
+    >>> pprint(field, width=40)
+    {'constraints': {'pattern': 'fake-regex',
+                     'required': True},
+     'name': 'whatever',
+     'type': 'string'}
+
     '''
     if 'constraints' not in field:
         field['constraints'] = {}
@@ -201,6 +211,8 @@ def _add_constraints(field, optional_fields):
         field['type'] = 'number'
         field['constraints']['minimum'] = 0
         field['constraints']['maximum'] = 100
+    if 'pattern' in field['constraints']:
+        field['type'] = 'string'
 
     # Override:
     if field['name'] in optional_fields:

@@ -1,4 +1,12 @@
 # doc_url: TODO https://github.com/hubmapconsortium/ingest-validation-tools/issues/480
+description_md: |
+  CellDIVE submissions require metadata on the antibodies used in the assay
+  to be provided in an Antibodies TSV
+  For CellDIVE, in that TSV, the `channel_id` is represented as a cycle#/channel# combination
+  (of the form `Cycle[0-9]_CH[0-9]`) linked to a given image file in the directory. 
+    
+  The other fields function the same way for all assays using antibodies.
+  For more information, see the [Antibodies TSV documentation](../antibodies).
 fields:
 # Overrides of Level 1 fields:
 -
@@ -17,10 +25,7 @@ fields:
     enum:
       - protein    
 # include: ../includes/acquisition_instrument.yaml
-- name: number_of_antibodies
-  description: Number of antibodies
-- name: number_of_channels
-  description: Number of fluorescent channels imaged during each cycle.
+# include: ../includes/antibodies_channels.yaml
 - name: number_of_cycles
   description: Number of cycles of 1. oligo application, 2. fluor application, 3. dye inactivation.
 - name: number_of_imaging_rounds

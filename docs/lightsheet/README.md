@@ -1,18 +1,10 @@
-# celldive
+# lightsheet
 
 Related files:
-
-- [📝 Excel template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/master/docs/celldive/celldive-metadata.xlsx): For metadata entry.
-- [📝 TSV template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/master/docs/celldive/celldive-metadata.tsv): Alternative for metadata entry.
-- [💻 Source code](https://github.com/hubmapconsortium/ingest-validation-tools/edit/master/src/ingest_validation_tools/table-schemas/level-2/celldive.yaml): Make a PR to update this doc.
-
-CellDIVE submissions require metadata on the antibodies used in the assay
-to be provided in an Antibodies TSV
-For CellDIVE, in that TSV, the `channel_id` is represented as a cycle#/channel# combination
-(of the form `Cycle[0-9]_CH[0-9]`) linked to a given image file in the directory. 
-  
-The other fields function the same way for all assays using antibodies.
-For more information, see the [Antibodies TSV documentation](../antibodies).
+- [🔬 Background doc](https://portal.hubmapconsortium.org/docs/assays/lightsheet): More details about this type.
+- [📝 Excel template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/master/docs/lightsheet/lightsheet-metadata.xlsx): For metadata entry.
+- [📝 TSV template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/master/docs/lightsheet/lightsheet-metadata.tsv): Alternative for metadata entry.
+- [💻 Source code](https://github.com/hubmapconsortium/ingest-validation-tools/edit/master/src/ingest_validation_tools/table-schemas/level-2/lightsheet.yaml): Make a PR to update this doc.
 
 ## Table of contents
 <details><summary>Provenance</summary>
@@ -39,16 +31,14 @@ For more information, see the [Antibodies TSV documentation](../antibodies).
 
 [`acquisition_instrument_vendor`](#acquisition_instrument_vendor)<br>
 [`acquisition_instrument_model`](#acquisition_instrument_model)<br>
-[`number_of_antibodies`](#number_of_antibodies)<br>
-[`number_of_channels`](#number_of_channels)<br>
-[`number_of_cycles`](#number_of_cycles)<br>
-[`number_of_imaging_rounds`](#number_of_imaging_rounds)<br>
 [`resolution_x_value`](#resolution_x_value)<br>
 [`resolution_x_unit`](#resolution_x_unit)<br>
 [`resolution_y_value`](#resolution_y_value)<br>
 [`resolution_y_unit`](#resolution_y_unit)<br>
-[`processing_protocols_io_doi`](#processing_protocols_io_doi)<br>
-[`overall_protocols_io_doi`](#overall_protocols_io_doi)<br>
+[`resolution_z_value`](#resolution_z_value)<br>
+[`resolution_z_unit`](#resolution_z_unit)<br>
+[`number_of_antibodies`](#number_of_antibodies)<br>
+[`number_of_channels`](#number_of_channels)<br>
 [`antibodies_path`](#antibodies_path)<br>
 [`contributors_path`](#contributors_path)<br>
 [`data_path`](#data_path)<br></details>
@@ -57,19 +47,7 @@ For more information, see the [Antibodies TSV documentation](../antibodies).
 
 | pattern | required? | description |
 | --- | --- | --- |
-| `channel_list\.txt` | ✓ | Information about the capture channels and tags (comma separated) |
-| `slide_list\.txt` | ✓ | Information about the slides used by the experiment- each line corresponds to a slide name (begins with S - e.g. S20030077) - used in filenames |
-| `HuBMAP_OME/region_[^/]+/S[^/]+\.ome\.tif` | ✓ | OME TIFF Files for the corresponding region (e.g. region_001) by slide (e.g S20030077) |
-| `HuBMAP_rounds/round_info_S[^/]*\.dat` | ✓ | metadata file for the capture by slide (e.g S20030077) item-value tab separated format |
-| `HuBMAP_Seg_and_quant/gray_scale_T_cells/region[^/]*/mask_T_cells_slideS[^/]+\.tif` | ✓ | grayscale T-cell masks |
-| `HuBMAP_Seg_and_quant/quantification/region[^/]*/quant_slideS[^/]+\.csv` | ✓ | Comma separated quantification files |
-| `HuBMAP_Seg_and_quant/rgb_T_cells/region[^/]*/mask_T_cells_slideS[^/]+\.tif` | ✓ | rgb T-cell masks |
-| `HuBMAP_Seg_and_quant/segmentation/region[^/]*/dapi_slide_slideS[^/]+\.tif` | ✓ | segmentation (dapi slides) |
-| `vHE/S[^/]+\.ome\.tif` | ✓ | vHE slides |
-| `HuBMAP_OME/move_images.bat` |  | moves files |
-| `HuBMAP_Seg_and_quant/*/move_images.bat` |  | moves files |
-| `HuBMAP_OME/make_folders.bat` |  | creates directories |
-| `HuBMAP_Seg_and_quant/*/make_folders.bat` |  | creates directories |
+| `TODO` | ✓ | Directory structure not yet specified. |
 | `extras/.*` |  | Free-form descriptive information supplied by the TMC |
 | `extras/thumbnail\.(png\|jpg)` |  | Optional thumbnail image which may be shown in search interface |
 
@@ -153,7 +131,7 @@ The specific type of assay being executed.
 
 | constraint | value |
 | --- | --- |
-| enum | `Cell DIVE` |
+| enum | `Light Sheet` |
 | required | `True` |
 
 ### `analyte_class`
@@ -188,38 +166,6 @@ Manufacturers of an acquisition instrument may offer various versions (models) o
 | --- | --- |
 | required | `True` |
 
-### `number_of_antibodies`
-Number of antibodies.
-
-| constraint | value |
-| --- | --- |
-| type | `integer` |
-| required | `True` |
-
-### `number_of_channels`
-Number of fluorescent channels imaged during each cycle.
-
-| constraint | value |
-| --- | --- |
-| type | `integer` |
-| required | `True` |
-
-### `number_of_cycles`
-Number of cycles of 1. oligo application, 2. fluor application, 3. dye inactivation.
-
-| constraint | value |
-| --- | --- |
-| type | `integer` |
-| required | `True` |
-
-### `number_of_imaging_rounds`
-the total number of acquisitions performed on microscope to collect autofluorescence/background or stained signal.
-
-| constraint | value |
-| --- | --- |
-| type | `integer` |
-| required | `True` |
-
 ### `resolution_x_value`
 The width of a pixel.
 
@@ -252,21 +198,37 @@ The unit of measurement of the height of a pixel.
 | enum | `nm` or `um` |
 | required | `True` |
 
-### `processing_protocols_io_doi`
-DOI for analysis protocols.io for this assay. Leave blank if not applicable.
+### `resolution_z_value`
+The distance at which two objects along the detection z-axis can be distinguished (resolved as 2 objects).
 
 | constraint | value |
 | --- | --- |
-| required | `False` |
-| pattern (regular expression) | `10\.17504/.*` |
-
-### `overall_protocols_io_doi`
-DOI for protocols.io for the overall process.
-
-| constraint | value |
-| --- | --- |
+| type | `number` |
 | required | `True` |
-| pattern (regular expression) | `10\.17504/.*` |
+
+### `resolution_z_unit`
+The unit of z resolution.
+
+| constraint | value |
+| --- | --- |
+| enum | `nm` or `um` |
+| required | `True` |
+
+### `number_of_antibodies`
+Number of antibodies.
+
+| constraint | value |
+| --- | --- |
+| type | `integer` |
+| required | `True` |
+
+### `number_of_channels`
+Number of fluorescent channels imaged during each cycle.
+
+| constraint | value |
+| --- | --- |
+| type | `integer` |
+| required | `True` |
 
 ### `antibodies_path`
 Relative path to file with antibody information for this dataset.
