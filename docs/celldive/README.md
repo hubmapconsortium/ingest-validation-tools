@@ -7,8 +7,8 @@ Related files:
 - [💻 Source code](https://github.com/hubmapconsortium/ingest-validation-tools/edit/master/src/ingest_validation_tools/table-schemas/level-2/celldive.yaml): Make a PR to update this doc.
 
 CellDIVE submissions require metadata on the antibodies used in the assay
-to be provided in an Antibodies TSV
-For CellDIVE, in that TSV, the `channel_id` is represented as a cycle#/channel# combination
+to be provided in an Antibodies TSV.
+For CellDIVE, the `channel_id` is represented as a cycle#/channel# combination
 (of the form `Cycle[0-9]_CH[0-9]`) linked to a given image file in the directory. 
   
 The other fields function the same way for all assays using antibodies.
