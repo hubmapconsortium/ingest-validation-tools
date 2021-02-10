@@ -180,6 +180,14 @@ def _add_constraints(field, optional_fields):
      'name': 'optional_value',
      'type': 'number'}
 
+    >>> field = {'name': 'whatever', 'constraints': {'pattern': 'fake-regex'}}
+    >>> _add_constraints(field, [])
+    >>> pprint(field, width=40)
+    {'constraints': {'pattern': 'fake-regex',
+                     'required': True},
+     'name': 'whatever',
+     'type': 'string'}
+
     '''
     if 'constraints' not in field:
         field['constraints'] = {}
@@ -203,6 +211,8 @@ def _add_constraints(field, optional_fields):
         field['type'] = 'number'
         field['constraints']['minimum'] = 0
         field['constraints']['maximum'] = 100
+    if 'pattern' in field['constraints']:
+        field['type'] = 'string'
 
     # Override:
     if field['name'] in optional_fields:

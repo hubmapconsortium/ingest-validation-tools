@@ -2,8 +2,10 @@
 Metadata TSV Errors:
   dataset-examples/bad-scatacseq-data/submission/scatacseq-metadata.tsv (as scatacseq):
     Internal:
-    - Column 17 ("Q") is a required field, but row 2 has no value
-    - Column 27 ("AA") is a required field, but row 2 has no value
+    - On row 2, column "sc_isolation_protocols_io_doi", value "" fails because constraint
+      "required" is "True"
+    - On row 2, column "library_construction_protocols_io_doi", value "" fails because
+      constraint "required" is "True"
     External:
       row 2, referencing dataset-examples/bad-scatacseq-data/submission/dataset-1:
         Not allowed:

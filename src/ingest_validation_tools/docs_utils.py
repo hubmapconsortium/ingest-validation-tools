@@ -163,6 +163,8 @@ def _make_constraints_table(field):
     table_md_rows = ['| constraint | value |', '| --- | --- |']
     for key, value in field.items():
         if key in ['type', 'format']:
+            if key == 'type' and value == 'string':
+                continue
             table_md_rows.append(f'| {key} | `{value}` |')
     if 'constraints' in field:
         for key, value in field['constraints'].items():
