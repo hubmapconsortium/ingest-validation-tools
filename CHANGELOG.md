@@ -1,6 +1,7 @@
 # Changelog
 
 ## v0.0.9 - in progress
+- Fix typo in CellDIVE.
 
 ## v0.0.8 - 2021-02-10
 - Update CODEX directory structure
