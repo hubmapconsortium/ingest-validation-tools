@@ -38,13 +38,14 @@ optional arguments:
   --output {as_browser,as_html_doc,as_html_fragment,as_md,as_text,as_text_list,as_yaml}
   --add_notes           Append a context note to error reports.
 
-Typical usecases:
-  --tsv_paths: Used to validate TSVs in isolation, without checking references.
+Typical usage:
+  --tsv_paths: Used to validate Sample metadata TSVs. (Because it does
+  not check references, should not be used to validate Dataset metadata TSVs.)
 
-  --local_directory: Used in development against test fixtures, and could be used
-  by labs before submission.
+  --local_directory: Used by lab before submission, and on Globus after upload.
 
   --local_directory + --dataset_ignore_globs + --submission_ignore_globs:
-  Currently, during ingest, the metadata TSVs are broken up, and one-line TSVs
-  are put in each dataset directory. This structure needs extra ignores.
+  After the initial validation on Globus, the metadata TSVs are broken up,
+  and one-line TSVs are put in each dataset directory. This structure needs
+  extra parameters.
 ```
