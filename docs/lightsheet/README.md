@@ -6,6 +6,9 @@ Related files:
 - [📝 TSV template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/master/docs/lightsheet/lightsheet-metadata.tsv): Alternative for metadata entry.
 - [💻 Source code](https://github.com/hubmapconsortium/ingest-validation-tools/edit/master/src/ingest_validation_tools/table-schemas/level-2/lightsheet.yaml): Make a PR to update this doc.
 
+Lightsheet submissions require metadata on the antibodies used in the assay. This is provided in an antibodies TSV.
+For each row in the antibodies TSV, populate the `channel_id` field with the name of the fluorophore tag on the corresponding antibody.
+
 ## Table of contents
 <details><summary>Provenance</summary>
 
