@@ -1,6 +1,7 @@
 description_md: |
   Changes:
   - v1: Version number added.
+  - v2: Add concentration fields.
 fields:
   -
     name: version
