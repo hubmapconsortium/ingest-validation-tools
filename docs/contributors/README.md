@@ -6,13 +6,29 @@ Related files:
 - [📝 TSV template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/master/docs/contributors/contributors.tsv): Alternative for metadata entry.
 - [💻 Source code](https://github.com/hubmapconsortium/ingest-validation-tools/edit/master/src/ingest_validation_tools/table-schemas/contributors.yaml): Make a PR to update this doc.
 
+Changes:
+- v1: Version number added.
+
+Previous versions:
+
+- [v0](https://github.com/hubmapconsortium/ingest-validation-tools/tree/contributors-v0/docs/contributors) / [diff](https://github.com/hubmapconsortium/ingest-validation-tools/compare/contributors-v0...master)
+
 ## Table of contents
+[`version`](#version)<br>
 [`affiliation`](#affiliation)<br>
 [`first_name`](#first_name)<br>
 [`last_name`](#last_name)<br>
 [`middle_name_or_initial`](#middle_name_or_initial)<br>
 [`name`](#name)<br>
 [`orcid_id`](#orcid_id)<br></details>
+
+### `version`
+Current version of metadata schema. Template provides the correct value.
+
+| constraint | value |
+| --- | --- |
+| enum | `1` |
+| required | `True` |
 
 ### `affiliation`
 Institutional affiliation.

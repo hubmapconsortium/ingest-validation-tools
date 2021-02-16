@@ -6,9 +6,22 @@ Related files:
 - [📝 TSV template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/master/docs/imc/imc-metadata.tsv): Alternative for metadata entry.
 - [💻 Source code](https://github.com/hubmapconsortium/ingest-validation-tools/edit/master/src/ingest_validation_tools/table-schemas/level-2/imc.yaml): Make a PR to update this doc.
 
-IMC submissions require metadata on the antibodies used in the assay to be provided in an Antibodies TSV. For IMC, the `channel_id` is the name of the metal tag on the corresponding antibody.
-The other fields function the same way for all assays using antibodies. For more information, see the [Antibodies TSV documentation](../antibodies).
+IMC submissions require metadata on the antibodies used in the assay to be
+provided in an Antibodies TSV. For IMC, the `channel_id` is the name of the
+metal tag on the corresponding antibody. 
+  
+The other fields function the same way for all assays using antibodies.
+For more information, see the [Antibodies TSV documentation](../antibodies).
+
+Changes:
+- v1: Version number added.
+
+Previous versions:
+
+- [v0](https://github.com/hubmapconsortium/ingest-validation-tools/tree/imc-v0/docs/imc) / [diff](https://github.com/hubmapconsortium/ingest-validation-tools/compare/imc-v0...master)
+
 ## Table of contents
+[`version`](#version)<br>
 <details><summary>Provenance</summary>
 
 [`donor_id`](#donor_id)<br>
@@ -67,6 +80,14 @@ The other fields function the same way for all assays using antibodies. For more
 | `TODO` | ✓ | Directory structure not yet specified. https://github.com/hubmapconsortium/ingest-validation-tools/issues/447 |
 | `extras/.*` |  | Free-form descriptive information supplied by the TMC |
 | `extras/thumbnail\.(png\|jpg)` |  | Optional thumbnail image which may be shown in search interface |
+
+### `version`
+Current version of metadata schema. Template provides the correct value.
+
+| constraint | value |
+| --- | --- |
+| enum | `1` |
+| required | `True` |
 
 ## Provenance
 

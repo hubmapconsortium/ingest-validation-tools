@@ -5,6 +5,7 @@
 - Update CLI usage to highlight sample validation.
 - Update lightsheet docs.
 - Update IMC docs.
+- Add version field everywhere.
 
 ## v0.0.8 - 2021-02-10
 - Update CODEX directory structure

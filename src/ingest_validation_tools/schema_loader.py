@@ -149,6 +149,7 @@ def _check_enum_consistency(high_fields, override_fields_dict):
         if (
             'constraints' in override
             and 'enum' in override['constraints']
+            and field_name != 'version'
         ):
             override_enum = set(override['constraints']['enum'])
             high_field_enum = set(high_field_constraints[field_name]['enum'])

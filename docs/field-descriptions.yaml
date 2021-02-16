@@ -252,6 +252,7 @@ transposition_kit_number: If Tn5 came from a kit, provide the catalog number.
 transposition_method: Modality of capturing accessible chromatin molecules.
 transposition_transposase_source: The source of the Tn5 transposase and transposon
   used for capturing accessible chromatin.
+version: Current version of metadata schema. Template provides the correct value.
 vital_state: Identify the vital state of the donor.
 warm_ischemia_time_unit: Time unit
 warm_ischemia_time_value: Time interval between cessation of blood flow and cooling

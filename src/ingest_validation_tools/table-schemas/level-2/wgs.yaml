@@ -1,5 +1,13 @@
 doc_url: https://portal.hubmapconsortium.org/docs/assays/wgs
+description_md: |
+  Changes:
+  - v1: Version number added.
 fields:
+-
+  name: version
+  description: Current version of metadata schema. Template provides the correct value.
+  constraints:
+    enum: ['1']
 # Overrides of Level 1 fields:
 -
   name: assay_category

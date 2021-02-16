@@ -6,7 +6,15 @@ description_md: |
     
   The other fields function the same way for all assays using antibodies.
   For more information, see the [Antibodies TSV documentation](../antibodies).
+  
+  Changes:
+  - v1: Version number added.
 fields:
+  -
+    name: version
+    description: Current version of metadata schema. Template provides the correct value.
+    constraints:
+      enum: ['1']
   # Overrides of Level 1 fields:
   -
     name: assay_category

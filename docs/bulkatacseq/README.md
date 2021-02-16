@@ -6,7 +6,15 @@ Related files:
 - [📝 TSV template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/master/docs/bulkatacseq/bulkatacseq-metadata.tsv): Alternative for metadata entry.
 - [💻 Source code](https://github.com/hubmapconsortium/ingest-validation-tools/edit/master/src/ingest_validation_tools/table-schemas/level-2/bulkatacseq.yaml): Make a PR to update this doc.
 
+Changes:
+- v1: Version number added.
+
+Previous versions:
+
+- [v0](https://github.com/hubmapconsortium/ingest-validation-tools/tree/bulkatacseq-v0/docs/bulkatacseq) / [diff](https://github.com/hubmapconsortium/ingest-validation-tools/compare/bulkatacseq-v0...master)
+
 ## Table of contents
+[`version`](#version)<br>
 <details><summary>Provenance</summary>
 
 [`donor_id`](#donor_id)<br>
@@ -64,6 +72,14 @@ Related files:
 | `.*\.fastq\.gz` | ✓ | TODO: https://github.com/hubmapconsortium/ingest-validation-tools/issues/445 |
 | `extras/.*` |  | Free-form descriptive information supplied by the TMC |
 | `extras/thumbnail\.(png\|jpg)` |  | Optional thumbnail image which may be shown in search interface |
+
+### `version`
+Current version of metadata schema. Template provides the correct value.
+
+| constraint | value |
+| --- | --- |
+| enum | `1` |
+| required | `True` |
 
 ## Provenance
 

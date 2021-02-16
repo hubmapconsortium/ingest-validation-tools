@@ -1,2 +1,2 @@
-affiliation	first_name	last_name	middle_name_or_initial	name	orcid_id
-Some Institution	John	Smith	X	John X. Smith	0000-0003-4039-9768
+version	affiliation	first_name	last_name	middle_name_or_initial	name	orcid_id
+1	Some Institution	John	Smith	X	John X. Smith	0000-0003-4039-9768

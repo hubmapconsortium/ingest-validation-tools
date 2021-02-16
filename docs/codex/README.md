@@ -15,7 +15,15 @@ identified and connected to the `channel_id` by its location in the submission d
 The other fields function the same way for all assays using antibodies.
 For more information, see the [Antibodies TSV documentation](../antibodies).
 
+Changes:
+- v1: Version number added.
+
+Previous versions:
+
+- [v0](https://github.com/hubmapconsortium/ingest-validation-tools/tree/codex-v0/docs/codex) / [diff](https://github.com/hubmapconsortium/ingest-validation-tools/compare/codex-v0...master)
+
 ## Table of contents
+[`version`](#version)<br>
 <details><summary>Provenance</summary>
 
 [`donor_id`](#donor_id)<br>
@@ -81,6 +89,14 @@ For more information, see the [Antibodies TSV documentation](../antibodies).
 | `src_[^/]+/cyc.*_reg.*_.*/.*\.gci` |  |  | Group Capture Information File (Keyance Microscope only) |
 | `extras/.*` |  |  | Free-form descriptive information supplied by the TMC |
 | `extras/thumbnail\.(png\|jpg)` |  |  | Optional thumbnail image which may be shown in search interface |
+
+### `version`
+Current version of metadata schema. Template provides the correct value.
+
+| constraint | value |
+| --- | --- |
+| enum | `1` |
+| required | `True` |
 
 ## Provenance
 

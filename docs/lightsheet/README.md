@@ -13,7 +13,15 @@ name of the fluorophore tag on the antibody.
 The other fields function the same way for all assays using antibodies.
 For more information, see the [Antibodies TSV documentation](../antibodies).
 
+Changes:
+- v1: Version number added.
+
+Previous versions:
+
+- [v0](https://github.com/hubmapconsortium/ingest-validation-tools/tree/lightsheet-v0/docs/lightsheet) / [diff](https://github.com/hubmapconsortium/ingest-validation-tools/compare/lightsheet-v0...master)
+
 ## Table of contents
+[`version`](#version)<br>
 <details><summary>Provenance</summary>
 
 [`donor_id`](#donor_id)<br>
@@ -57,6 +65,14 @@ For more information, see the [Antibodies TSV documentation](../antibodies).
 | `TODO` | ✓ | Directory structure not yet specified. |
 | `extras/.*` |  | Free-form descriptive information supplied by the TMC |
 | `extras/thumbnail\.(png\|jpg)` |  | Optional thumbnail image which may be shown in search interface |
+
+### `version`
+Current version of metadata schema. Template provides the correct value.
+
+| constraint | value |
+| --- | --- |
+| enum | `1` |
+| required | `True` |
 
 ## Provenance
 
