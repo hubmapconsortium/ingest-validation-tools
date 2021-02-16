@@ -151,13 +151,18 @@ def get_tsv_errors(tsv_path, type, optional_fields=[]):
         return {e.strerror: Path(e.filename).name}
     report = validate_table(tsv_path, schema=schema,
                             format='csv')
-    error_messages = report['errors']
+    error_messages = []
     if 'tables' in report:
         for table in report['tables']:
             error_messages += [
                 _get_message(error)
                 for error in table['errors']
             ]
+    elif 'errors' in report:
+        for error in report['errors']:
+            error_messages += [error['message']]
+    else:
+        error_messages += ['Other']
     return error_messages
 
 
@@ -176,9 +181,33 @@ def _get_message(error):
     ... }))
     On row 2, column "orcid_id", value "bad-id" fails because constraint "pattern" is "fake-re"
 
-    '''
+    >>> print(_get_message({
+    ...     'label': '',
+    ...     'fieldName': 'conjugated_tag',
+    ...     'fieldNumber': 9,
+    ...     'fieldPosition': 9,
+    ...     'labels': ['channel_id', 'etc'],
+    ...     'rowPositions': [1],
+    ...     'code': 'missing-label',
+    ...     'name': 'Missing Label',
+    ...     'tags': ['#header', '#structure'],
+    ...     'note': '',
+    ...     'message': '... missing label in field "conjugated_tag" at position "9"',
+    ...     'description': "... label is missing in the data's header."
+    ... }))
+    "version" field is missing
 
-    return (
-        f'On row {error["rowPosition"]}, column "{error["fieldName"]}", '
-        f'value "{error["cell"]}" fails because {error["note"]}'
-    )
+    '''
+    if 'rowPosition' in error:
+        return (
+            f'On row {error["rowPosition"]}, column "{error["fieldName"]}", '
+            f'value "{error["cell"]}" fails because {error["note"]}'
+        )
+    if error['code'] == 'missing-label':
+        if 'version' not in error['labels']:
+            return '"version" field is missing'
+        return (
+            f'In position {error["fieldPosition"]}, the field label is not '
+            f'the expected value.'
+        )
+    return error['description']
