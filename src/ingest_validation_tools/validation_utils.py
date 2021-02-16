@@ -178,7 +178,9 @@ def _get_message(error):
 
     '''
 
-    return (
-        f'On row {error["rowPosition"]}, column "{error["fieldName"]}", '
-        f'value "{error["cell"]}" fails because {error["note"]}'
-    )
+    if 'rowPosition' in error:
+        return (
+            f'On row {error["rowPosition"]}, column "{error["fieldName"]}", '
+            f'value "{error["cell"]}" fails because {error["note"]}'
+        )
+    return error['message']
