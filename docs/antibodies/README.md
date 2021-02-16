@@ -80,7 +80,7 @@ Antibody solutions may be diluted according to the experimental protocol. Leave 
 | pattern (regular expression) | `1/\d+` |
 
 ### `concentration_value`
-TODO. Leave blank if not applicable.
+TODO!. Leave blank if not applicable.
 
 | constraint | value |
 | --- | --- |
@@ -88,7 +88,7 @@ TODO. Leave blank if not applicable.
 | required | `False` |
 
 ### `concentration_unit`
-TODO.
+TODO!.
 
 | constraint | value |
 | --- | --- |

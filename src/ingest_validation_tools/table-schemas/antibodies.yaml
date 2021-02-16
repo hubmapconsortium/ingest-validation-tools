@@ -34,13 +34,13 @@ fields:
     example: 1/200
   -
     name: concentration_value
-    description: TODO
+    description: TODO!
     type: number
     constraints:
       required: False
   -
     name: concentration_unit
-    description: TODO
+    description: TODO!
     constraints:
       enum:
         - ug/ml
