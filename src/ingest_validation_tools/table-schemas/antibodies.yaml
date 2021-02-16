@@ -6,7 +6,7 @@ fields:
     name: version
     description: Current version of metadata schema. Template provides the correct value.
     constraints:
-      enum: ['2']
+      enum: ['1']
   -
     name: channel_id
     description: Structure of channel_id depends on assay type.
@@ -32,18 +32,6 @@ fields:
       required: False
       pattern: '1/\d+'
     example: 1/200
-  -
-    name: concentration_value
-    description: TODO
-    type: number
-    constraints:
-      required: False
-  -
-    name: concentration_unit
-    description: TODO
-    constraints:
-      enum:
-        - ug/ml
   -
     name: conjugated_cat_number
     description: An antibody may be conjugated to a fluorescent tag or a metal tag for detection. Conjugated antibodies may be purchased from commercial providers. 

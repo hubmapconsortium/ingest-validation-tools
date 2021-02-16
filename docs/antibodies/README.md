@@ -12,7 +12,6 @@ Changes:
 Previous versions:
 
 - [v0](https://github.com/hubmapconsortium/ingest-validation-tools/tree/antibodies-v0/docs/antibodies) / [diff](https://github.com/hubmapconsortium/ingest-validation-tools/compare/antibodies-v0...master)
-- [v1](https://github.com/hubmapconsortium/ingest-validation-tools/tree/antibodies-v1/docs/antibodies) / [diff](https://github.com/hubmapconsortium/ingest-validation-tools/compare/antibodies-v1...master)
 
 ## Table of contents
 [`version`](#version)<br>
@@ -22,8 +21,6 @@ Previous versions:
 [`uniprot_accession_number`](#uniprot_accession_number)<br>
 [`lot_number`](#lot_number)<br>
 [`dilution`](#dilution)<br>
-[`concentration_value`](#concentration_value)<br>
-[`concentration_unit`](#concentration_unit)<br>
 [`conjugated_cat_number`](#conjugated_cat_number)<br>
 [`conjugated_tag`](#conjugated_tag)<br></details>
 
@@ -32,7 +29,7 @@ Current version of metadata schema. Template provides the correct value.
 
 | constraint | value |
 | --- | --- |
-| enum | `2` |
+| enum | `1` |
 | required | `True` |
 
 ### `channel_id`
@@ -78,22 +75,6 @@ Antibody solutions may be diluted according to the experimental protocol. Leave 
 | --- | --- |
 | required | `False` |
 | pattern (regular expression) | `1/\d+` |
-
-### `concentration_value`
-TODO. Leave blank if not applicable.
-
-| constraint | value |
-| --- | --- |
-| type | `number` |
-| required | `False` |
-
-### `concentration_unit`
-TODO.
-
-| constraint | value |
-| --- | --- |
-| enum | `ug/ml` |
-| required | `True` |
 
 ### `conjugated_cat_number`
 An antibody may be conjugated to a fluorescent tag or a metal tag for detection. Conjugated antibodies may be purchased from commercial providers. Leave blank if not applicable.
