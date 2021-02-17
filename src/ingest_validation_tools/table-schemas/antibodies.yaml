@@ -35,13 +35,13 @@ fields:
     example: 1/200
   -
     name: concentration_value
-    description: TODO!
+    description: The concentration value of the antibody preparation.
     type: number
     constraints:
       required: False
   -
     name: concentration_unit
-    description: TODO!
+    description: The concentration units of the antibody preparation.
     constraints:
       enum:
         - ug/ml
