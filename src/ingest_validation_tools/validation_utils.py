@@ -3,13 +3,14 @@ from csv import DictReader
 from pathlib import Path
 
 import requests
-from frictionless import validate as validate_table
 
 from ingest_validation_tools.schema_loader import (
     get_table_schema, get_other_schema,
     get_directory_schema)
 from ingest_validation_tools.directory_validator import (
     validate_directory, DirectoryValidationErrors)
+from ingest_validation_tools.table_validator import (
+    get_table_errors)
 
 
 class TableValidationErrors(Exception):
@@ -149,36 +150,4 @@ def get_tsv_errors(tsv_path, type, optional_fields=[]):
             schema = get_table_schema(type, optional_fields=optional_fields)
     except OSError as e:
         return {e.strerror: Path(e.filename).name}
-    report = validate_table(tsv_path, schema=schema,
-                            format='csv')
-    error_messages = report['errors']
-    if 'tables' in report:
-        for table in report['tables']:
-            error_messages += [
-                _get_message(error)
-                for error in table['errors']
-            ]
-    return error_messages
-
-
-def _get_message(error):
-    '''
-    >>> print(_get_message({
-    ...     'cell': 'bad-id',
-    ...     'fieldName': 'orcid_id',
-    ...     'fieldNumber': 6,
-    ...     'fieldPosition': 6,
-    ...     'rowNumber': 1,
-    ...     'rowPosition': 2,
-    ...     'note': 'constraint "pattern" is "fake-re"',
-    ...     'message': 'The message from the library is a bit confusing!',
-    ...     'description': 'A field value does not conform to a constraint.'
-    ... }))
-    On row 2, column "orcid_id", value "bad-id" fails because constraint "pattern" is "fake-re"
-
-    '''
-
-    return (
-        f'On row {error["rowPosition"]}, column "{error["fieldName"]}", '
-        f'value "{error["cell"]}" fails because {error["note"]}'
-    )
+    return get_table_errors(tsv_path, schema)

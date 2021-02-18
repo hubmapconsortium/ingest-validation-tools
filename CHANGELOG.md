@@ -6,6 +6,7 @@
 - Update lightsheet docs.
 - Update IMC docs.
 - Add concentration to antibodies.
+- Factor out Frictionless to give us more control over table validation.
 
 ## v0.0.8 - 2021-02-10
 - Update CODEX directory structure
