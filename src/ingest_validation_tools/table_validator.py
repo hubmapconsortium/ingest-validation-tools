@@ -35,3 +35,16 @@ def _get_message(error):
         f'On row {error["rowPosition"]}, column "{error["fieldName"]}", '
         f'value "{error["cell"]}" fails because {error["note"]}'
     )
+
+
+if __name__ == "__main__":
+    import argparse
+    from pathlib import Path
+    from yaml import safe_load
+
+    parser = argparse.ArgumentParser('CLI just for testing')
+    parser.add_argument('--tsv_path', type=Path, required=True)
+    parser.add_argument('--schema_path', type=Path, required=True)
+    args = parser.parse_args()
+    errors = get_table_errors(args.tsv_path, safe_load(args.schema_path.read_text()))
+    print('\n'.join(errors))
