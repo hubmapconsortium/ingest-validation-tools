@@ -10,5 +10,5 @@ for FIXTURE in table-examples/*; do
   CMD="python src/ingest_validation_tools/table_validator.py --fixture $FIXTURE"
   echo "Running: $CMD"
   $CMD > $ACTUAL
-  diff $ACTUAL $EXPECTED || die "Mismatch: To fix: $CMD > $EXPECTED"
+  diff $EXPECTED $ACTUAL || die "To fix: $CMD > $EXPECTED"
 done

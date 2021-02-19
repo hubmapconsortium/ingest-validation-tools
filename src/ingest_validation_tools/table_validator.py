@@ -1,9 +1,11 @@
 import csv
+from pathlib import Path
 
 from frictionless import validate as validate_table
 
 
-def get_table_errors(tsv_path, schema):
+def get_table_errors(tsv, schema):
+    tsv_path = Path(tsv)
     pre_flight_errors = _get_pre_flight_errors(tsv_path, schema=schema)
     if pre_flight_errors:
         return pre_flight_errors
@@ -21,12 +23,15 @@ def get_table_errors(tsv_path, schema):
 
 
 def _get_pre_flight_errors(tsv_path, schema):
-    dialect = csv.Sniffer().sniff(tsv_path.read_text())
+    try:
+        dialect = csv.Sniffer().sniff(tsv_path.read_text())
+    except csv.Error as e:
+        return [str(e)]
     delimiter = dialect.delimiter
     expected_delimiter = '\t'
     if delimiter != expected_delimiter:
         return [f'Delimiter is {repr(delimiter)}, rather than expected {repr(expected_delimiter)}']
-    
+
     # Re-reading the file is ugly, but creating a stream seems gratuitous.
     with tsv_path.open() as tsv_handle:
         reader = csv.DictReader(tsv_handle, dialect=dialect)
@@ -37,19 +42,19 @@ def _get_pre_flight_errors(tsv_path, schema):
             fields_set = set(fields)
             expected_fields_set = set(expected_fields)
             extra_fields = fields_set - expected_fields_set
-            
+
             if extra_fields:
                 errors.append(f'Unexpected fields: {extra_fields}')
             missing_fields = expected_fields_set - fields_set
             if missing_fields:
                 errors.append(f'Missing fields: {missing_fields}')
-            
+
             for i_pair in enumerate(zip(fields, expected_fields)):
                 i, (actual, expected) = i_pair
                 if actual != expected:
-                    errors.append(f'In column {i+1}, saw "{actual}", expected "{expected}"')
+                    errors.append(f'In column {i+1}, found "{actual}", expected "{expected}"')
             return errors
-    
+
     return None
 
 
@@ -69,18 +74,18 @@ def _get_message(error):
     On row 2, column "orcid_id", value "bad-id" fails because constraint "pattern" is "fake-re"
 
     '''
-    if error['code'] == 'missing-label':
-        raise Exception(f"Should have been caught pre-flight: {error['code']}")
-
-    return (
-        f'On row {error["rowPosition"]}, column "{error["fieldName"]}", '
-        f'value "{error["cell"]}" fails because {error["note"]}'
-    )
+    if 'code' in error and error['code'] == 'missing-label':
+        return 'Bug: Should have been caught pre-flight. File an issue.'
+    if 'rowPosition' in error and 'fieldName' in error and 'cell' in error and 'note' in error:
+        return (
+            f'On row {error["rowPosition"]}, column "{error["fieldName"]}", '
+            f'value "{error["cell"]}" fails because {error["note"]}'
+        )
+    return error['message']
 
 
 if __name__ == "__main__":
     import argparse
-    from pathlib import Path
     from yaml import safe_load
 
     parser = argparse.ArgumentParser('CLI just for testing')
