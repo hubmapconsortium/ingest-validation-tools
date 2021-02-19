@@ -1,7 +1,7 @@
 import csv
 from pathlib import Path
 
-from frictionless import validate as validate_table
+import frictionless
 
 
 def get_table_errors(tsv, schema):
@@ -10,16 +10,25 @@ def get_table_errors(tsv, schema):
     if pre_flight_errors:
         return pre_flight_errors
 
-    report = validate_table(tsv_path, schema=schema,
-                            format='csv')
-    error_messages = [f"Bug: {e['message']}" for e in report['errors']]
-    if 'tables' in report:
-        for table in report['tables']:
-            error_messages += [
-                _get_message(error)
-                for error in table['errors']
-            ]
-    return error_messages
+    if frictionless.__version__ != '4.0.0':
+        return ['Please upgrade dependencies: "pip install -r requirements.txt"']
+    report = frictionless.validate(tsv_path, schema=schema, format='csv')
+
+    assert len(report['errors']) == 0, f'report has errors: {report}'
+    assert 'tasks' in report, f'"tasks" is missing: {report}'
+    tasks = report['tasks']
+    assert len(tasks) == 1, f'"tasks" not single: {report}'
+    task = tasks[0]
+    assert 'errors' in task, f'"tasks" missing "errors": {report}'
+
+    return [
+        _get_message(error)
+        for error in task['errors']
+    ]
+
+
+# def _custom_check(**kwargs):
+#     import pdb; pdb.set_trace()
 
 
 def _get_pre_flight_errors(tsv_path, schema):
