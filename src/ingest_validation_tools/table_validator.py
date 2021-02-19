@@ -10,8 +10,7 @@ def get_table_errors(tsv, schema):
     if pre_flight_errors:
         return pre_flight_errors
 
-    if frictionless.__version__ != '4.0.0':
-        return ['Please upgrade dependencies: "pip install -r requirements.txt"']
+    assert frictionless.__version__ == '4.0.0', 'Upgrade dependencies: "pip install -r requirements.txt"'
     report = frictionless.validate(tsv_path, schema=schema, format='csv')
 
     assert len(report['errors']) == 0, f'report has errors: {report}'
