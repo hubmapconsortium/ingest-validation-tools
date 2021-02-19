@@ -1,0 +1,8 @@
+fields:
+  -
+    name: a_string
+    type: 
+      - shoudn't be a list!
+  -
+    name: a_number
+    type: number

@@ -1,0 +1,1 @@
+Bug: The validation task has an error: 'list' object has no attribute 'capitalize'
