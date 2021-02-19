@@ -36,11 +36,11 @@ Last name.
 | required | `True` |
 
 ### `middle_name_or_initial`
-Middle name or initial.
+Middle name or initial. Leave blank if not applicable.
 
 | constraint | value |
 | --- | --- |
-| required | `True` |
+| required | `False` |
 
 ### `name`
 Name for display.
