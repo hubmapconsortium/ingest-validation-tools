@@ -12,7 +12,7 @@ def get_table_errors(tsv, schema):
 
     report = validate_table(tsv_path, schema=schema,
                             format='csv')
-    error_messages = report['errors']
+    error_messages = []
     if 'tables' in report:
         for table in report['tables']:
             error_messages += [
