@@ -11,6 +11,8 @@ fields:
   -
     name: middle_name_or_initial
     description: Middle name or initial
+    constraints:
+      required: False
   -
     name: name
     description: Name for display
