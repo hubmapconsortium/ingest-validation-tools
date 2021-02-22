@@ -66,7 +66,7 @@ def get_context_of_decode_error(e):
     return f'Invalid {e.encoding} because {e.reason}: "{in_context}"'
 
 
-def _get_in_ex_errors(path, type_name, encoding=None, offline=None):
+def get_internal_errors(path, type_name, encoding=None, offline=None):
     if not path.exists():
         return 'File does not exist'
     try:
@@ -75,36 +75,7 @@ def _get_in_ex_errors(path, type_name, encoding=None, offline=None):
         return get_context_of_decode_error(e)
     if not rows:
         return 'File has no data rows.'
-
-    internal_errors = get_tsv_errors(path, type_name, offline=offline)
-
-    errors = {}
-    if internal_errors:
-        errors['Internal'] = internal_errors
-
-    return errors
-
-
-def get_contributors_errors(contributors_path, encoding=None, offline=None):
-    '''
-    Validate a single contributors file.
-    '''
-    return _get_in_ex_errors(
-        contributors_path, 'contributors',
-        encoding=encoding,
-        offline=offline
-    )
-
-
-def get_antibodies_errors(antibodies_path, encoding=None, offline=None):
-    '''
-    Validate a single antibodies file.
-    '''
-    return _get_in_ex_errors(
-        antibodies_path, 'antibodies',
-        encoding=encoding,
-        offline=offline
-    )
+    return get_tsv_errors(path, type_name, offline=offline)
 
 
 def get_tsv_errors(tsv_path, type, optional_fields=[], offline=None):

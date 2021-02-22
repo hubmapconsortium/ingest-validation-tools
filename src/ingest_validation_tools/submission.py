@@ -9,8 +9,7 @@ from ingest_validation_tools.yaml_include_loader import load_yaml
 from ingest_validation_tools.validation_utils import (
     get_tsv_errors,
     get_data_dir_errors,
-    get_contributors_errors,
-    get_antibodies_errors,
+    get_internal_errors,
     dict_reader_wrapper,
     get_context_of_decode_error
 )
@@ -211,12 +210,12 @@ class Submission:
             assay_type, data_path, dataset_ignore_globs=self.dataset_ignore_globs)
 
     def _get_contributors_errors(self, contributors_path):
-        return get_contributors_errors(contributors_path,
-                                       encoding=self.encoding, offline=self.offline)
+        return get_internal_errors(contributors_path, 'contributors',
+                                   encoding=self.encoding, offline=self.offline)
 
     def _get_antibodies_errors(self, antibodies_path):
-        return get_antibodies_errors(antibodies_path,
-                                     encoding=self.encoding, offline=self.offline)
+        return get_internal_errors(antibodies_path, 'antibodies',
+                                   encoding=self.encoding, offline=self.offline)
 
     def _get_reference_errors(self):
         errors = {}
