@@ -163,7 +163,8 @@ class Submission:
     def _get_single_tsv_internal_errors(self, assay_type, path):
         return get_tsv_errors(
             type=assay_type, tsv_path=path,
-            optional_fields=self.optional_fields)
+            optional_fields=self.optional_fields,
+            offline=self.offline)
 
     def _get_single_tsv_external_errors(self, assay_type, path):
         try:

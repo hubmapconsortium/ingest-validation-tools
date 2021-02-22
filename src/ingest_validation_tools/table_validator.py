@@ -63,10 +63,6 @@ def _make_url_check(schema):
     return _url_check
 
 
-# def _custom_check(**kwargs):
-#     import pdb; pdb.set_trace()
-
-
 def _get_pre_flight_errors(tsv_path, schema):
     try:
         dialect = csv.Sniffer().sniff(tsv_path.read_text())

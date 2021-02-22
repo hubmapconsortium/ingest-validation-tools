@@ -76,7 +76,7 @@ def _get_in_ex_errors(path, type_name, encoding=None, offline=None):
     if not rows:
         return 'File has no data rows.'
 
-    internal_errors = get_tsv_errors(path, type_name)
+    internal_errors = get_tsv_errors(path, type_name, offline=offline)
 
     errors = {}
     if internal_errors:
@@ -107,7 +107,7 @@ def get_antibodies_errors(antibodies_path, encoding=None, offline=None):
     )
 
 
-def get_tsv_errors(tsv_path, type, optional_fields=[]):
+def get_tsv_errors(tsv_path, type, optional_fields=[], offline=None):
     '''
     Validate the TSV.
     '''
@@ -116,9 +116,9 @@ def get_tsv_errors(tsv_path, type, optional_fields=[]):
         return f'TSV has no assay_type.'
     try:
         if type in ['contributors', 'antibodies', 'sample']:
-            schema = get_other_schema(type)
+            schema = get_other_schema(type, offline=offline)
         else:
-            schema = get_table_schema(type, optional_fields=optional_fields)
+            schema = get_table_schema(type, optional_fields=optional_fields, offline=offline)
     except OSError as e:
         return {e.strerror: Path(e.filename).name}
     return get_table_errors(tsv_path, schema)
