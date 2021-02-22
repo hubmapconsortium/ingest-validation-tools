@@ -10,6 +10,7 @@
 - Check for CSV instead of TSV.
 - Better error message for missing and mis-ordered fields.
 - No longer require contributor middle names.
+- Make network checks a part of the schema.
 
 ## v0.0.8 - 2021-02-10
 - Update CODEX directory structure
