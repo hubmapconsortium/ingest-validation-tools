@@ -12,8 +12,7 @@ from ingest_validation_tools.validation_utils import (
     get_contributors_errors,
     get_antibodies_errors,
     dict_reader_wrapper,
-    get_context_of_decode_error,
-    collect_http_errors
+    get_context_of_decode_error
 )
 
 from ingest_validation_tools.plugin_validator import (
@@ -203,11 +202,6 @@ class Submission:
                 if antibodies_errors:
                     errors[f'{row_number}, antibodies {antibodies_path}'] = \
                         antibodies_errors
-
-            if not self.offline:
-                protocols_fields = [k for k in row.keys() if k.endswith('protocols_io_doi')]
-                field_url_pairs = [(field, 'https://dx.doi.org/') for field in protocols_fields]
-                collect_http_errors(field_url_pairs, [row], errors)
 
         return errors
 

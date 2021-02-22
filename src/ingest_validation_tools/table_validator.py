@@ -11,8 +11,9 @@ def get_table_errors(tsv, schema):
     if pre_flight_errors:
         return pre_flight_errors
 
-    assert frictionless.__version__ == '4.0.0', 'Upgrade dependencies: "pip install -r requirements.txt"'
-    
+    assert frictionless.__version__ == '4.0.0',\
+        'Upgrade dependencies: "pip install -r requirements.txt"'
+
     url_check = _make_url_check(schema)
     report = frictionless.validate(tsv_path, schema=schema, format='csv', checks=[url_check])
 
@@ -49,6 +50,7 @@ def _check_url_status_cache(url):
 
 def _make_url_check(schema):
     url_constrained_fields = _get_constrained_fields(schema, 'url')
+
     def _url_check(row, schema=schema):
         for k, v in row.items():
             if k in url_constrained_fields:
