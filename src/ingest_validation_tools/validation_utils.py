@@ -66,7 +66,7 @@ def get_context_of_decode_error(e):
     return f'Invalid {e.encoding} because {e.reason}: "{in_context}"'
 
 
-def _get_in_ex_errors(path, type_name, field_url_pairs, encoding=None, offline=None):
+def _get_in_ex_errors(path, type_name, encoding=None, offline=None):
     if not path.exists():
         return 'File does not exist'
     try:
@@ -90,9 +90,7 @@ def get_contributors_errors(contributors_path, encoding=None, offline=None):
     Validate a single contributors file.
     '''
     return _get_in_ex_errors(
-        contributors_path, 'contributors', [
-            ('orcid_id', 'https://orcid.org/')
-        ],
+        contributors_path, 'contributors',
         encoding=encoding,
         offline=offline
     )
@@ -103,10 +101,7 @@ def get_antibodies_errors(antibodies_path, encoding=None, offline=None):
     Validate a single antibodies file.
     '''
     return _get_in_ex_errors(
-        antibodies_path, 'antibodies', [
-            ('rr_id', 'https://scicrunch.org/resolver/RRID:'),
-            ('uniprot_accession_number', 'https://www.uniprot.org/uniprot/')
-        ],
+        antibodies_path, 'antibodies',
         encoding=encoding,
         offline=offline
     )

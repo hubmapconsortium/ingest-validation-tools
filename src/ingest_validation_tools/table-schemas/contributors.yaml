@@ -22,3 +22,5 @@ fields:
     constraints:
       pattern: '\d{4}-\d{4}-\d{4}-\d{3}[0-9X]'
     example: 0000-0002-8928-741X
+    custom_constraints:
+      prefix: https://orcid.org/
