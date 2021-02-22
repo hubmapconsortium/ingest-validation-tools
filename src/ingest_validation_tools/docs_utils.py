@@ -171,6 +171,11 @@ def _make_constraints_table(field):
             key_md = _make_key_md(key, value)
             value_md = _make_value_md(key, value)
             table_md_rows.append(f'| {key_md} | {value_md} |')
+    if 'custom_constraints' in field:
+        for key, value in field['custom_constraints'].items():
+            key_md = _make_key_md(key, value)
+            value_md = _make_value_md(key, value)
+            table_md_rows.append(f'| {key_md} | {value_md} |')
     if len(table_md_rows) < 3:
         # Empty it, if there is no data.
         table_md_rows = []
@@ -206,6 +211,10 @@ def _make_value_md(key, value):
 
     >>> print(_make_value_md('pattern', '^some|reg_?ex\\.$'))
     `^some\\|reg_?ex\\.$`
+
+    >>> print(_make_value_md('url', {'prefix': 'http://example.com/'}))
+    prefix: `http://example.com/`
+
     '''
     if key == 'enum':
         backtick_list = [f'`{s}`' for s in value]
@@ -215,6 +224,8 @@ def _make_value_md(key, value):
         return ', '.join(backtick_list)
     if key == 'pattern':
         return f'`{_md_escape_re(value)}`'
+    if key == 'url':
+        return f'prefix: `{_md_escape_re(value["prefix"])}`'
     return f'`{value}`'
 
 
