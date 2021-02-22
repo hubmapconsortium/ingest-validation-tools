@@ -94,6 +94,7 @@ DOI for protocols.io referring to the protocol for this assay.
 | --- | --- |
 | required | `True` |
 | pattern (regular expression) | `10\.17504/.*` |
+| url | prefix: `https://dx.doi.org/` |
 
 ### `operator`
 Name of the person responsible for executing the assay.

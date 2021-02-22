@@ -101,6 +101,7 @@ DOI for protocols.io referring to the protocol for this assay.
 | --- | --- |
 | required | `True` |
 | pattern (regular expression) | `10\.17504/.*` |
+| url | prefix: `https://dx.doi.org/` |
 
 ### `operator`
 Name of the person responsible for executing the assay.
@@ -194,6 +195,7 @@ Link to a protocols document answering the question: How was tissue stored and p
 | --- | --- |
 | required | `True` |
 | pattern (regular expression) | `10\.17504/.*` |
+| url | prefix: `https://dx.doi.org/` |
 
 ### `is_technical_replicate`
 Is this a sequencing replicate?
@@ -240,6 +242,7 @@ A link to the protocol document containing the library construction method (incl
 | --- | --- |
 | required | `True` |
 | pattern (regular expression) | `10\.17504/.*` |
+| url | prefix: `https://dx.doi.org/` |
 
 ### `library_creation_date`
 date and time of library creation. YYYY-MM-DD, where YYYY is the year, MM is the month with leading 0s, and DD is the day with leading 0s. Leave blank if not applicable.

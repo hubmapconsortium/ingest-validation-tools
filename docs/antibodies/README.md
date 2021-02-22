@@ -57,6 +57,7 @@ The rr_id is a unique antibody identifier that comes from the Antibody Registry 
 | --- | --- |
 | pattern (regular expression) | `AB_\d+` |
 | required | `True` |
+| url | prefix: `https://scicrunch.org/resolver/RRID:` |
 
 ### `uniprot_accession_number`
 The uniprot_accession_number is a unique identifier for proteins in the UniProt database (https://www.uniprot.org).
@@ -64,6 +65,7 @@ The uniprot_accession_number is a unique identifier for proteins in the UniProt 
 | constraint | value |
 | --- | --- |
 | required | `True` |
+| url | prefix: `https://www.uniprot.org/uniprot/` |
 
 ### `lot_number`
 The lot# is specific to the vendor. (eg: Abcam lot# GR3238979-1)
