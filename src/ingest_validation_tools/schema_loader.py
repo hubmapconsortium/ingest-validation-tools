@@ -198,7 +198,7 @@ def _add_constraints(field, optional_fields):
     if 'protocols_io_doi' in field['name']:
         field['constraints']['pattern'] = r'10\.17504/.*'
         field['custom_constraints'] = {
-            'url': {'prefix': 'https://dx.doi.org/10.17504/'}
+            'url': {'prefix': 'https://dx.doi.org/'}
         }
     if field['name'].endswith('_email'):
         field['format'] = 'email'
