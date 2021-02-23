@@ -1,4 +1,6 @@
--
-  pattern: 'TODO'
-  description: 'Directory structure not yet specified. https://github.com/hubmapconsortium/ingest-validation-tools/issues/452'
+#scRNA-Seq description
 
+-
+  pattern: '[^/]+/[^/]+\.fastq\.gz'
+  description: 'Compressed FastQ files'
+  required: True
