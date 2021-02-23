@@ -51,6 +51,7 @@ fields:
     constraints:
       enum:
         - ug/ml
+      required: False
     custom_constraints:
       units_for: concentration_value
   -

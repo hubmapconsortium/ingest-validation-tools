@@ -1,0 +1,6 @@
+a_value	a_unit	note
+40	rods/hogshead	unit required if value
+40		should error
+0	""	should still error!
+""	""	ok for both to be empty
+""	km/l	this is allowed... but could change, if desired
