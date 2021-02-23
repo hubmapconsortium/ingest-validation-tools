@@ -1,5 +1,6 @@
 import csv
 from pathlib import Path
+import re
 
 import frictionless
 import requests
@@ -15,7 +16,9 @@ def get_table_errors(tsv, schema):
         'Upgrade dependencies: "pip install -r requirements.txt"'
 
     url_check = _make_url_check(schema)
-    report = frictionless.validate(tsv_path, schema=schema, format='csv', checks=[url_check])
+    sequence_limit_check = _make_sequence_limit_check(schema)
+    report = frictionless.validate(tsv_path, schema=schema, format='csv', checks=[
+                                   url_check, sequence_limit_check])
 
     assert len(report['errors']) == 0, f'report has errors: {report}'
     assert 'tasks' in report, f'"tasks" is missing: {report}'
@@ -61,6 +64,47 @@ def _make_url_check(schema):
                     note = f'URL returned {status}: {url}'
                     yield frictionless.errors.CellError.from_row(row, note=note, field_name=k)
     return _url_check
+
+
+_prev_value_run_length = {}
+
+
+def _make_sequence_limit_check(schema):
+    sequence_limit_fields = _get_constrained_fields(schema, 'sequence_limit')
+
+    def sequence_limit_check(row, schema=schema):
+        prefix_number_re = r'(?P<prefix>.*?)(?P<number>\d+)$'
+        for k, v in row.items():
+            if k not in sequence_limit_fields or not v:
+                continue
+
+            match = re.search(prefix_number_re, v)
+            if not match:
+                del _prev_value_run_length[k]
+                continue
+
+            if k not in _prev_value_run_length:
+                _prev_value_run_length[k] = (v, 1)
+                continue
+
+            prev_value, run_length = _prev_value_run_length[k]
+            prev_match = re.search(prefix_number_re, prev_value)
+            if (
+                match.group('prefix') != prev_match.group('prefix') or
+                int(match.group('number')) != int(prev_match.group('number')) + 1
+            ):
+                _prev_value_run_length[k] = (v, 1)
+                continue
+
+            run_length += 1
+            _prev_value_run_length[k] = (v, run_length)
+
+            limit = sequence_limit_fields[k]
+            if run_length >= limit:
+                note = f'incremented {run_length} times; limit is {limit}'
+                yield frictionless.errors.CellError.from_row(row, note=note, field_name=k)
+
+    return sequence_limit_check
 
 
 def _get_pre_flight_errors(tsv_path, schema):
