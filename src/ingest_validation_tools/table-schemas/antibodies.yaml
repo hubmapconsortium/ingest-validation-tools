@@ -51,6 +51,8 @@ fields:
     constraints:
       enum:
         - ug/ml
+    custom_constraints:
+      units_for: concentration_value
   -
     name: conjugated_cat_number
     description: An antibody may be conjugated to a fluorescent tag or a metal tag for detection. Conjugated antibodies may be purchased from commercial providers. 
