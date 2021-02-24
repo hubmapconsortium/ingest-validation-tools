@@ -15,10 +15,10 @@ def list_types():
     return sorted(schemas)
 
 
-def get_other_schema(other_type):
+def get_other_schema(other_type, offline=None):
     schema = load_yaml(Path(__file__).parent / 'table-schemas' / f'{other_type}.yaml')
     for field in schema['fields']:
-        _add_constraints(field, optional_fields=[])
+        _add_constraints(field, optional_fields=[], offline=offline)
     return schema
 
 
@@ -39,7 +39,7 @@ def get_directory_schema(directory_type):
     return schema
 
 
-def get_table_schema(table_type, optional_fields=[]):
+def get_table_schema(table_type, optional_fields=[], offline=None):
     level_1_fields = _get_level_1_schema('level-1')['fields']
     paths_fields = _get_level_1_schema('paths')['fields']
     type_schema = _get_level_2_schema(table_type)
@@ -54,7 +54,7 @@ def get_table_schema(table_type, optional_fields=[]):
         + paths_fields
     )
     for field in fields:
-        _add_constraints(field, optional_fields)
+        _add_constraints(field, optional_fields, offline=offline)
     for field in fields:
         _validate_field(field)
 
@@ -158,7 +158,7 @@ def _check_enum_consistency(high_fields, override_fields_dict):
                     f'In {field_name}, surprised by: {sorted(surprise)}; Add to level-1.yaml?')
 
 
-def _add_constraints(field, optional_fields):
+def _add_constraints(field, optional_fields, offline=None):
     '''
     Modifies field in-place, adding implicit constraints
     based on the field name.
@@ -197,6 +197,9 @@ def _add_constraints(field, optional_fields):
         field['constraints']['required'] = True
     if 'protocols_io_doi' in field['name']:
         field['constraints']['pattern'] = r'10\.17504/.*'
+        field['custom_constraints'] = {
+            'url': {'prefix': 'https://dx.doi.org/'}
+        }
     if field['name'].endswith('_email'):
         field['format'] = 'email'
 
@@ -217,3 +220,9 @@ def _add_constraints(field, optional_fields):
     # Override:
     if field['name'] in optional_fields:
         field['constraints']['required'] = False
+
+    # Remove network checks if offline:
+    if offline:
+        c_c = 'custom_constraints'
+        if c_c in field and 'url' in field[c_c]:
+            del field[c_c]['url']

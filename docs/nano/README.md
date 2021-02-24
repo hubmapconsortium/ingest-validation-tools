@@ -88,6 +88,7 @@ DOI for protocols.io referring to the protocol for this assay.
 | --- | --- |
 | required | `True` |
 | pattern (regular expression) | `10\.17504/.*` |
+| url | prefix: `https://dx.doi.org/` |
 
 ### `operator`
 Name of the person responsible for executing the assay.
@@ -180,7 +181,7 @@ The polarity of the mass analysis (positive or negative ion modes)
 
 | constraint | value |
 | --- | --- |
-| enum | `MALDI`, `MALDI-2`, `DESI`, `SIMS`, or `nESI` |
+| enum | `Positive` or `Negative` |
 | required | `True` |
 
 ### `mz_range_low_value`
@@ -238,6 +239,7 @@ DOI for protocols.io referring to the protocol for preparing tissue sections for
 | --- | --- |
 | required | `True` |
 | pattern (regular expression) | `10\.17504/.*` |
+| url | prefix: `https://dx.doi.org/` |
 
 ### `overall_protocols_io_doi`
 DOI for protocols.io referring to the overall protocol for the assay.
@@ -246,6 +248,7 @@ DOI for protocols.io referring to the overall protocol for the assay.
 | --- | --- |
 | required | `True` |
 | pattern (regular expression) | `10\.17504/.*` |
+| url | prefix: `https://dx.doi.org/` |
 
 ### `contributors_path`
 Relative path to file with ORCID IDs for contributors for this dataset.

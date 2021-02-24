@@ -2,8 +2,6 @@ import logging
 from csv import DictReader
 from pathlib import Path
 
-import requests
-
 from ingest_validation_tools.schema_loader import (
     get_table_schema, get_other_schema,
     get_directory_schema)
@@ -68,24 +66,7 @@ def get_context_of_decode_error(e):
     return f'Invalid {e.encoding} because {e.reason}: "{in_context}"'
 
 
-status_cache = {}
-
-
-def collect_http_errors(field_url_pairs, rows, external_errors):
-    for field, url_base in field_url_pairs:
-        for i, row in enumerate(rows):
-            row_number = f'row {i+2}'
-            id = row[field]
-            url = f'{url_base}{id}'
-            if url not in status_cache:
-                response = requests.get(url)
-                status_cache[url] = response.status_code
-            if status_cache[url] != requests.codes.ok:
-                label = f'{row_number}, {field}'
-                external_errors[label] = f'{url} is {status_cache[url]}'
-
-
-def _get_in_ex_errors(path, type_name, field_url_pairs, encoding=None, offline=None):
+def get_internal_errors(path, type_name, encoding=None, offline=None):
     if not path.exists():
         return 'File does not exist'
     try:
@@ -94,49 +75,10 @@ def _get_in_ex_errors(path, type_name, field_url_pairs, encoding=None, offline=N
         return get_context_of_decode_error(e)
     if not rows:
         return 'File has no data rows.'
-
-    internal_errors = get_tsv_errors(path, type_name)
-    external_errors = {}
-    if not offline:
-        collect_http_errors(field_url_pairs, rows, external_errors)
-
-    errors = {}
-    if internal_errors:
-        errors['Internal'] = internal_errors
-    if external_errors:
-        errors['External'] = external_errors
-
-    return errors
+    return get_tsv_errors(path, type_name, offline=offline)
 
 
-def get_contributors_errors(contributors_path, encoding=None, offline=None):
-    '''
-    Validate a single contributors file.
-    '''
-    return _get_in_ex_errors(
-        contributors_path, 'contributors', [
-            ('orcid_id', 'https://orcid.org/')
-        ],
-        encoding=encoding,
-        offline=offline
-    )
-
-
-def get_antibodies_errors(antibodies_path, encoding=None, offline=None):
-    '''
-    Validate a single antibodies file.
-    '''
-    return _get_in_ex_errors(
-        antibodies_path, 'antibodies', [
-            ('rr_id', 'https://scicrunch.org/resolver/RRID:'),
-            ('uniprot_accession_number', 'https://www.uniprot.org/uniprot/')
-        ],
-        encoding=encoding,
-        offline=offline
-    )
-
-
-def get_tsv_errors(tsv_path, type, optional_fields=[]):
+def get_tsv_errors(tsv_path, type, optional_fields=[], offline=None):
     '''
     Validate the TSV.
     '''
@@ -145,9 +87,9 @@ def get_tsv_errors(tsv_path, type, optional_fields=[]):
         return f'TSV has no assay_type.'
     try:
         if type in ['contributors', 'antibodies', 'sample']:
-            schema = get_other_schema(type)
+            schema = get_other_schema(type, offline=offline)
         else:
-            schema = get_table_schema(type, optional_fields=optional_fields)
+            schema = get_table_schema(type, optional_fields=optional_fields, offline=offline)
     except OSError as e:
         return {e.strerror: Path(e.filename).name}
     return get_table_errors(tsv_path, schema)

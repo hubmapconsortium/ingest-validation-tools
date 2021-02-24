@@ -1,0 +1,11 @@
+fields:
+  -
+    name: a_full_url
+    custom_constraints:
+      url:
+        prefix: ''
+  -
+    name: a_dataset_uuid
+    custom_constraints:
+      url:
+        prefix: 'https://portal.hubmapconsortium.org/browse/dataset/'
