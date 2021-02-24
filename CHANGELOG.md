@@ -11,6 +11,7 @@
 - Better error message for missing and mis-ordered fields.
 - No longer require contributor middle names.
 - Make network checks a part of the schema.
+- Get rid of special-purpose logic for level-1
 
 ## v0.0.8 - 2021-02-10
 - Update CODEX directory structure
