@@ -18,6 +18,7 @@ fields:
         - protein
         - metabolites
         - lipids
+  # include: ../includes/is_targeted.yaml
 
   # Level 2:
 

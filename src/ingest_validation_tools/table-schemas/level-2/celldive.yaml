@@ -23,7 +23,9 @@ fields:
   name: analyte_class
   constraints:
     enum:
-      - protein    
+      - protein 
+# include: ../includes/is_targeted.yaml
+   
 # include: ../includes/acquisition_instrument.yaml
 # include: ../includes/antibodies_channels.yaml
 - name: number_of_cycles

@@ -16,6 +16,7 @@ fields:
   constraints:
     enum:
       - DNA
+# include: ../includes/is_targeted.yaml
 
 # Level 2:
 # include: ../includes/acquisition_instrument.yaml

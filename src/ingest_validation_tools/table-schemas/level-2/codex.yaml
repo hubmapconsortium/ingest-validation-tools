@@ -25,6 +25,7 @@ fields:
     constraints:
       enum:
         - protein
+  # include: ../includes/is_targeted.yaml
 
 # Level 2 fields:
   -

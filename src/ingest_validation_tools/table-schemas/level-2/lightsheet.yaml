@@ -23,6 +23,7 @@ fields:
     constraints:
       enum:
         - protein
+  # include: ../includes/is_targeted.yaml
 
   # Level 2 fields:
   # include: ../includes/acquisition_instrument.yaml

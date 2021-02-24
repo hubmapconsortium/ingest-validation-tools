@@ -15,6 +15,7 @@ fields:
     name: analyte_class
     constraints:
       required: False
+  # include: ../includes/is_targeted.yaml
 
   # Level 2 fields:
 

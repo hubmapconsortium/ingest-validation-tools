@@ -18,6 +18,7 @@ fields:
     constraints:
       enum:
         - metabolites_and_lipids
+  # include: ../includes/is_targeted.yaml
 
   # Level 2:
 

@@ -1,7 +1,7 @@
 doc_url: https://portal.hubmapconsortium.org/docs/assays/af
 fields:
   # include: ../includes/all_assays.yaml
-  
+
   -
     name: assay_category
     constraints:
@@ -16,6 +16,8 @@ fields:
     name: analyte_class
     constraints:
       required: False
+
+  # include: ../includes/is_targeted.yaml
 
   # Level 2 fields:
 
