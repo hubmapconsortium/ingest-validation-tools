@@ -4,3 +4,8 @@
   pattern: '[^/]+\.fastq\.gz'
   description: 'Compressed FastQ files'
   required: True
+
+-
+  pattern: '[^/]+/[^/]+\.fastq'
+  description: 'FastQ files'
+  required: False
