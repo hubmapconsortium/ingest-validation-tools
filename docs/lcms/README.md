@@ -105,6 +105,7 @@ DOI for protocols.io referring to the protocol for this assay.
 | --- | --- |
 | required | `True` |
 | pattern (regular expression) | `10\.17504/.*` |
+| url | prefix: `https://dx.doi.org/` |
 
 ### `operator`
 Name of the person responsible for executing the assay.
@@ -242,6 +243,7 @@ DOI for protocols.io referring to the protocol for preparing tissue sections for
 | --- | --- |
 | required | `True` |
 | pattern (regular expression) | `10\.17504/.*` |
+| url | prefix: `https://dx.doi.org/` |
 
 ### `lc_instrument_vendor`
 The manufacturer of the instrument used for LC.
@@ -377,6 +379,7 @@ DOI for analysis protocols.io for this assay. Leave blank if not applicable.
 | --- | --- |
 | required | `False` |
 | pattern (regular expression) | `10\.17504/.*` |
+| url | prefix: `https://dx.doi.org/` |
 
 ### `overall_protocols_io_doi`
 DOI for protocols.io for the overall process for this assay. Leave blank if not applicable.
@@ -385,6 +388,7 @@ DOI for protocols.io for the overall process for this assay. Leave blank if not 
 | --- | --- |
 | required | `False` |
 | pattern (regular expression) | `10\.17504/.*` |
+| url | prefix: `https://dx.doi.org/` |
 
 ### `contributors_path`
 Relative path to file with ORCID IDs for contributors for this dataset.

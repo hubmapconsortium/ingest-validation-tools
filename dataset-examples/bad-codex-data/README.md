@@ -20,9 +20,8 @@ Metadata TSV Errors:
         - src_[^/]+/exposure_times\.txt
         - src_[^/]+/segmentation\.json
       row 2, contributors dataset-examples/bad-codex-data/submission/contributors.tsv:
-        Internal:
-        - On row 2, column "orcid_id", value "bad-id" fails because constraint "pattern"
-          is "\d{4}-\d{4}-\d{4}-\d{3}[0-9X]"
+      - On row 2, column "orcid_id", value "bad-id" fails because constraint "pattern"
+        is "\d{4}-\d{4}-\d{4}-\d{3}[0-9X]"
       row 2, antibodies dataset-examples/bad-codex-data/submission/antibodies.tsv: "Invalid\
         \ ascii because ordinal not in range(128): \"mber\tconjugated_tag\n [ \xF0\
         \ ] \x9F\x98\x83\t\tbad-value\t\t\tinv\""

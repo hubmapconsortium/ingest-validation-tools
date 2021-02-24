@@ -8,10 +8,6 @@ def munge(message):
     >>> munge('In md.tsv (as fake): External: row 2, referencing fake/ds: Not allowed: nope.txt')
     'In the dataset fake/ds referenced on row 2, the file "nope.txt" is not allowed.'
 
-    >>> munge('In md.tsv (as fake): External: row 2, contributors c.tsv: '
-    ...       'Internal: Blah blah.')
-    'In the contributors c.tsv referenced on row 2, blah blah.'
-
     '''
     pat_reps = [
         (r'does not conform to the pattern constraint of .*',
@@ -20,14 +16,8 @@ def munge(message):
         (r'^Metadata TSV Errors: \S+/',
          'In '),
 
-        (r' \(as \S+\): Internal:',
-         ','),
-
         (r'.*: External: (row \d+), referencing ([^:]+): ([^:]+): (.+)',
          r'In the dataset \2 referenced on \1, the file "\4" is \3.'),
-
-        (r'.*: External: (row \d+), ([^:]+): ([^:]+): (.+)',
-         r'In the \2 referenced on \1, \4'),
 
         (r' \(as \S+\): External: Warning: File has no data rows',
          r', the file is just a header with no data rows'),

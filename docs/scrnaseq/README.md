@@ -103,6 +103,7 @@ DOI for protocols.io referring to the protocol for this assay.
 | --- | --- |
 | required | `True` |
 | pattern (regular expression) | `10\.17504/.*` |
+| url | prefix: `https://dx.doi.org/` |
 
 ### `operator`
 Name of the person responsible for executing the assay.
@@ -189,6 +190,7 @@ Link to a protocols document answering the question: How were single cells separ
 | --- | --- |
 | required | `True` |
 | pattern (regular expression) | `10\.17504/.*` |
+| url | prefix: `https://dx.doi.org/` |
 
 ### `sc_isolation_entity`
 The type of single cell entity derived from isolation protocol.
@@ -246,6 +248,7 @@ A link to the protocol document containing the library construction method (incl
 | --- | --- |
 | required | `True` |
 | pattern (regular expression) | `10\.17504/.*` |
+| url | prefix: `https://dx.doi.org/` |
 
 ### `library_layout`
 Whether the library was generated for single-end or paired end sequencing.

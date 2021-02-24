@@ -9,11 +9,9 @@ from ingest_validation_tools.yaml_include_loader import load_yaml
 from ingest_validation_tools.validation_utils import (
     get_tsv_errors,
     get_data_dir_errors,
-    get_contributors_errors,
-    get_antibodies_errors,
+    get_internal_errors,
     dict_reader_wrapper,
-    get_context_of_decode_error,
-    collect_http_errors
+    get_context_of_decode_error
 )
 
 from ingest_validation_tools.plugin_validator import (
@@ -164,7 +162,8 @@ class Submission:
     def _get_single_tsv_internal_errors(self, assay_type, path):
         return get_tsv_errors(
             type=assay_type, tsv_path=path,
-            optional_fields=self.optional_fields)
+            optional_fields=self.optional_fields,
+            offline=self.offline)
 
     def _get_single_tsv_external_errors(self, assay_type, path):
         try:
@@ -204,11 +203,6 @@ class Submission:
                     errors[f'{row_number}, antibodies {antibodies_path}'] = \
                         antibodies_errors
 
-            if not self.offline:
-                protocols_fields = [k for k in row.keys() if k.endswith('protocols_io_doi')]
-                field_url_pairs = [(field, 'https://dx.doi.org/') for field in protocols_fields]
-                collect_http_errors(field_url_pairs, [row], errors)
-
         return errors
 
     def _get_data_dir_errors(self, assay_type, data_path):
@@ -216,12 +210,12 @@ class Submission:
             assay_type, data_path, dataset_ignore_globs=self.dataset_ignore_globs)
 
     def _get_contributors_errors(self, contributors_path):
-        return get_contributors_errors(contributors_path,
-                                       encoding=self.encoding, offline=self.offline)
+        return get_internal_errors(contributors_path, 'contributors',
+                                   encoding=self.encoding, offline=self.offline)
 
     def _get_antibodies_errors(self, antibodies_path):
-        return get_antibodies_errors(antibodies_path,
-                                     encoding=self.encoding, offline=self.offline)
+        return get_internal_errors(antibodies_path, 'antibodies',
+                                   encoding=self.encoding, offline=self.offline)
 
     def _get_reference_errors(self):
         errors = {}

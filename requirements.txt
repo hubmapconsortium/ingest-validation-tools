@@ -1,6 +1,6 @@
 jsonschema==3.2.0
 pyyaml>=5.3.1
-frictionless==3.48.0
+frictionless==4.0.0
 yattag==1.14.0
 tableschema-to-template==0.0.11
 requests==2.25.0
