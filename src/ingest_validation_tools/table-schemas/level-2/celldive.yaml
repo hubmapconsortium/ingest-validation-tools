@@ -8,7 +8,7 @@ description_md: |
   The other fields function the same way for all assays using antibodies.
   For more information, see the [Antibodies TSV documentation](../antibodies).
 fields:
-# Overrides of Level 1 fields:
+# include: ../includes/all_assays.yaml
 -
   name: assay_category
   constraints:

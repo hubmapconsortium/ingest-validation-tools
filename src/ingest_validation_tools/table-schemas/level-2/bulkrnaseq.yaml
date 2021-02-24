@@ -1,6 +1,6 @@
 doc_url: https://portal.hubmapconsortium.org/docs/assays/rnaseq
 fields:
-# Overrides of Level 1 fields:
+# include: ../includes/all_assays.yaml
 -
   name: assay_category
   constraints:
