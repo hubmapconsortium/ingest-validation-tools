@@ -1,7 +1,9 @@
 #scRNA-Seq description
+# Expectations
+# 1 or more directories with compressed or uncompressed FastQ files
 
 -
-  pattern: '[^/]+\.fastq\.gz'
+  pattern: '[^/]+/[^/]+\.fastq\.gz'
   description: 'Compressed FastQ files'
   required: True
 
