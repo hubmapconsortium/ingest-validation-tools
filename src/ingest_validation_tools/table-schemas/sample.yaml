@@ -98,6 +98,7 @@ fields:
       - Freezer (-80 Celsius)
       - Freezer (-20 Celsius)
       - Room Temperature
+      - 4C
   description: The temperature of the medium during the preservation process.
 -
   name: specimen_quality_criteria  
