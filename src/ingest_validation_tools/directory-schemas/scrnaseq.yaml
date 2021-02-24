@@ -1,6 +1,6 @@
 #scRNA-Seq description
 
 -
-  pattern: '[^/]+/[^/]+\.fastq\.gz'
+  pattern: '[^/]+\.fastq\.gz'
   description: 'Compressed FastQ files'
   required: True
