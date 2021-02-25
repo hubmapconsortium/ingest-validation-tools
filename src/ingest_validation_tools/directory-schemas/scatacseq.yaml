@@ -1,4 +1,18 @@
--
-  pattern: '.*\.fastq\.gz'
-  description: 'TODO: https://github.com/hubmapconsortium/ingest-validation-tools/issues/451'
+# ATAC-seq description
+# https://portal.hubmapconsortium.org/docs/assays/atacseq
+#
+# This directory structure schema applies to these assay-types
+# - SNARE-seq2
+# - scATACseq
+# - sciATACseq
+# - snATACseq
 
+-
+  pattern: '[^/]+/[^/]+\.fastq\.gz'
+  description: 'Compressed FastQ files'
+  required: True
+
+-
+  pattern: '[^/]+/[^/]+\.fastq'
+  description: 'FastQ files'
+  required: False
