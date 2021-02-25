@@ -37,3 +37,5 @@ fields:
     description: Chemical stains (dyes) applied to histology samples to highlight important features of the tissue as well as to enhance the tissue contrast.
   # include: ../includes/doi/section_prep.yaml
   # include: ../includes/doi/overall.yaml
+
+  # include: ../includes/paths.yaml

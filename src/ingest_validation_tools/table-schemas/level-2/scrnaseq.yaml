@@ -95,3 +95,5 @@ fields:
     description: Average size of sequencing library fragments estimated via gel electrophoresis or bioanalyzer/tapestation.
 
   # include: ../includes/sequencing.yaml
+
+  # include: ../includes/paths.yaml

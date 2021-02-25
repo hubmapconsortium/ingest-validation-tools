@@ -99,3 +99,5 @@ fields:
 - name: transposition_transposase_source
   description: The source of the Tn5 transposase and transposon used for capturing
     accessible chromatin.
+
+# include: ../includes/paths.yaml

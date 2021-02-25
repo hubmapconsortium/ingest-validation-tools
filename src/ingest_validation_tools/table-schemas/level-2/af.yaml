@@ -40,3 +40,5 @@ fields:
   -
     name: overall_protocols_io_doi
     description: DOI for protocols.io referring to the overall protocol for the assay.
+
+  # include: ../includes/paths.yaml

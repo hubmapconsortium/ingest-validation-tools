@@ -115,3 +115,5 @@ fields:
 - name: data_precision_bytes
   description: Numerical data precision in bytes
   type: number
+
+# include: ../includes/paths.yaml

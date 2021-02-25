@@ -41,10 +41,8 @@ def get_directory_schema(directory_type):
 
 def get_table_schema(table_type, optional_fields=[], offline=None):
     type_schema = _get_level_2_schema(table_type)
-    type_fields = type_schema['fields']
-    paths_fields = _get_level_1_schema('paths')['fields']
+    fields = type_schema['fields']
 
-    fields = type_fields + paths_fields
     for field in fields:
         _add_level_1_description(field)
         _validate_level_1_enum(field)

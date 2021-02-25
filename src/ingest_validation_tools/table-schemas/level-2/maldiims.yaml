@@ -64,3 +64,5 @@ fields:
       It also helps ionize the sample, carrying it along the flight tube so it can be detected.
   # include: ../includes/doi/section_prep.yaml
   # include: ../includes/doi/overall.yaml
+
+  # include: ../includes/paths.yaml

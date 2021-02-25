@@ -81,3 +81,5 @@ fields:
   type: integer
 
 # include: ../includes/sequencing.yaml
+
+# include: ../includes/paths.yaml

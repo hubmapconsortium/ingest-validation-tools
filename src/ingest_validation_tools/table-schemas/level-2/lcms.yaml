@@ -128,3 +128,5 @@ fields:
     description: DOI for protocols.io for the overall process for this assay.
     constraints:
       required: False
+
+  # include: ../includes/paths.yaml
