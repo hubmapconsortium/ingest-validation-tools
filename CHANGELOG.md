@@ -12,6 +12,7 @@
 - No longer require contributor middle names.
 - Make network checks a part of the schema.
 - Fix typo in nano enum.
+- Downgrade dependency for compatibility with HuBMAP commons.
 
 ## v0.0.8 - 2021-02-10
 - Update CODEX directory structure
