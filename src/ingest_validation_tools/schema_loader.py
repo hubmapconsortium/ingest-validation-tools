@@ -40,22 +40,16 @@ def get_directory_schema(directory_type):
 
 
 def get_table_schema(table_type, optional_fields=[], offline=None):
-    type_schema = _get_level_2_schema(table_type)
-    fields = type_schema['fields']
+    type_schema = _get_raw_assay_schema(table_type)
 
-    for field in fields:
+    for field in type_schema['fields']:
         _add_level_1_description(field)
         _validate_level_1_enum(field)
 
         _add_constraints(field, optional_fields, offline=offline)
         _validate_field(field)
 
-    table_schema = {'fields': fields}
-    if 'doc_url' in type_schema:
-        table_schema['doc_url'] = type_schema['doc_url']
-    if 'description_md' in type_schema:
-        table_schema['description_md'] = type_schema['description_md']
-    return table_schema
+    return type_schema
 
 
 def _validate_field(field):
@@ -138,7 +132,7 @@ def _get_level_1_schema(type):
     return load_yaml(_table_schemas_path / f'{type}.yaml')
 
 
-def _get_level_2_schema(type):
+def _get_raw_assay_schema(type):
     return load_yaml(_table_schemas_path / 'level-2' / f'{type}.yaml')
 
 
