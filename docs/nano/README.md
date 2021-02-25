@@ -181,7 +181,7 @@ The polarity of the mass analysis (positive or negative ion modes)
 
 | constraint | value |
 | --- | --- |
-| enum | `MALDI`, `MALDI-2`, `DESI`, `SIMS`, or `nESI` |
+| enum | `Positive` or `Negative` |
 | required | `True` |
 
 ### `mz_range_low_value`

@@ -10,8 +10,11 @@
 - Check for CSV instead of TSV.
 - Better error message for missing and mis-ordered fields.
 - No longer require contributor middle names.
+- Ivan is primary contact for directory work.
 - Make network checks a part of the schema.
 - Get rid of special-purpose logic for level-1
+- Fix typo in nano enum.
+- Downgrade dependency for compatibility with HuBMAP commons.
 
 ## v0.0.8 - 2021-02-10
 - Update CODEX directory structure
