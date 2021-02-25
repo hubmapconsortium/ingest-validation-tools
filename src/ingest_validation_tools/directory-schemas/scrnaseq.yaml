@@ -1,7 +1,7 @@
 # RNA-Seq description
 # https://portal.hubmapconsortium.org/docs/assays/rnaseq
 #
-# This directory schema applies to these assay-types
+# This directory structure schema applies to these assay-types
 # - scRNAseq-10xGenomics
 # - scRNAseq
 # - sciRNAseq
