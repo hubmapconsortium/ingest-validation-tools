@@ -45,12 +45,12 @@ def get_table_schema(table_type, optional_fields=[], offline=None):
     paths_fields = _get_level_1_schema('paths')['fields']
 
     fields = type_fields + paths_fields
-
     for field in fields:
-        _add_description(field)
+        _add_level_1_description(field)
+        _validate_level_1_enum(field)
+
         _add_constraints(field, optional_fields, offline=offline)
         _validate_field(field)
-        # TODO: Check level-1 enums
 
     table_schema = {'fields': fields}
     if 'doc_url' in type_schema:
@@ -65,7 +65,7 @@ def _validate_field(field):
         raise Exception('"_unit" fields must have enum constraints', field)
 
 
-def _add_description(field):
+def _add_level_1_description(field):
     descriptions = {
         'assay_category': 'Each assay is placed into one of the following 3 general categories: '
         'generation of images of microscopic entities, identification & quantitation of molecules '
@@ -76,6 +76,64 @@ def _add_description(field):
     name = field['name']
     if name in descriptions:
         field['description'] = descriptions[name]
+
+
+def _validate_level_1_enum(field):
+    enums = {
+        'assay_category': [
+            'imaging',
+            'mass_spectrometry',
+            'mass_spectrometry_imaging',
+            'sequence'
+        ],
+        'assay_type': [
+            'scRNA-Seq(10xGenomics)',
+            'AF',
+            'bulk RNA',
+            'bulkATACseq',
+            'Cell DIVE',
+            'CODEX',
+            'Imaging Mass Cytometry',
+            'LC-MS (metabolomics)',
+            'LC-MS/MS (label-free proteomics)',
+            'Light Sheet',
+            'MxIF',
+            'MALDI-IMS',
+            'MS (shotgun lipidomics)',
+            'NanoDESI',
+            'NanoPOTS',
+            'PAS microscopy',
+            'scATACseq',
+            'sciATACseq',
+            'sciRNAseq',
+            'seqFISH',
+            'SNARE-seq2',
+            'snATACseq',
+            'snRNA',
+            'SPLiT-Seq',
+            'TMT (proteomics)',
+            'WGS',
+            'SNARE2-RNAseq',
+            'snRNAseq',
+            'scRNAseq-10xGenomics',
+            'scRNAseq',
+            'Slide-seq'
+        ],
+        'analyte_class': [
+            'DNA',
+            'RNA',
+            'protein',
+            'lipids',
+            'metabolites',
+            'polysaccharides',
+            'metabolites_and_lipids'
+        ]
+    }
+    name = field['name']
+    if name in enums:
+        actual = set(field['constraints']['enum']) if 'enum' in field['constraints'] else set()
+        allowed = set(enums[name])
+        assert actual <= allowed, f'Unexpected enums for {name}: {actual - allowed}'
 
 
 def _get_level_1_schema(type):
