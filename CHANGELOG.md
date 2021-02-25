@@ -10,6 +10,7 @@
 - Check for CSV instead of TSV.
 - Better error message for missing and mis-ordered fields.
 - No longer require contributor middle names.
+- Ivan is primary contact for directory work.
 - Make network checks a part of the schema.
 - Fix typo in nano enum.
 
