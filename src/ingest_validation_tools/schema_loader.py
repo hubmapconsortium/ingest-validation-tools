@@ -39,17 +39,17 @@ def get_directory_schema(directory_type):
     return schema
 
 
-def get_table_schema(table_type, optional_fields=[], offline=None):
-    type_schema = _get_raw_assay_schema(table_type)
+def get_table_schema(assay_type, optional_fields=[], offline=None):
+    schema = load_yaml(_table_schemas_path / 'level-2' / f'{assay_type}.yaml')
 
-    for field in type_schema['fields']:
+    for field in schema['fields']:
         _add_level_1_description(field)
         _validate_level_1_enum(field)
 
         _add_constraints(field, optional_fields, offline=offline)
         _validate_field(field)
 
-    return type_schema
+    return schema
 
 
 def _validate_field(field):
@@ -126,46 +126,6 @@ def _validate_level_1_enum(field):
         actual = set(field['constraints']['enum']) if 'enum' in field['constraints'] else set()
         allowed = set(enums[name])
         assert actual <= allowed, f'Unexpected enums for {name}: {actual - allowed}'
-
-
-def _get_level_1_schema(type):
-    return load_yaml(_table_schemas_path / f'{type}.yaml')
-
-
-def _get_raw_assay_schema(type):
-    return load_yaml(_table_schemas_path / 'level-2' / f'{type}.yaml')
-
-
-def _check_enum_consistency(high_fields, override_fields_dict):
-    '''
-    >>> high_fields = [{
-    ...    'name': 'vowels',
-    ...    'constraints': {'enum': ['a', 'e', 'i', 'o', 'u']}
-    ... }]
-    >>> override_fields_dict = {'vowels': {
-    ...    'constraints': {'enum': ['a', 'b', 'c']}
-    ... }}
-    >>> _check_enum_consistency(high_fields, override_fields_dict)
-    Traceback (most recent call last):
-    ...
-    Exception: In vowels, surprised by: ['b', 'c']; Add to level-1.yaml?
-
-    '''
-    high_field_constraints = {
-        field['name']: field['constraints'] for field in high_fields
-        if 'constraints' in field
-    }
-    for field_name, override in override_fields_dict.items():
-        if (
-            'constraints' in override
-            and 'enum' in override['constraints']
-        ):
-            override_enum = set(override['constraints']['enum'])
-            high_field_enum = set(high_field_constraints[field_name]['enum'])
-            if not (override_enum < high_field_enum):
-                surprise = override_enum - high_field_enum
-                raise Exception(
-                    f'In {field_name}, surprised by: {sorted(surprise)}; Add to level-1.yaml?')
 
 
 def _add_constraints(field, optional_fields, offline=None):
