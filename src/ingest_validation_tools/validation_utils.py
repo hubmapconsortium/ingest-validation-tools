@@ -83,8 +83,6 @@ def get_tsv_errors(tsv_path, type, optional_fields=[], offline=None):
     Validate the TSV.
     '''
     logging.info(f'Validating {type} TSV...')
-    if type is None:
-        return f'TSV has no assay_type.'
     try:
         if type in ['contributors', 'antibodies', 'sample']:
             schema = get_other_schema(type, offline=offline)

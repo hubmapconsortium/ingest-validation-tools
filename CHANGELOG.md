@@ -13,6 +13,7 @@
 - Ivan is primary contact for directory work.
 - Make network checks a part of the schema.
 - Fix typo in nano enum.
+- Clearer error when it can't find matching assay name.
 - Downgrade dependency for compatibility with HuBMAP commons.
 
 ## v0.0.8 - 2021-02-10

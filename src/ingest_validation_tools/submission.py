@@ -29,7 +29,7 @@ def _assay_name_to_code(name):
         for field in schema['fields']:
             if field['name'] == 'assay_type' and name in field['constraints']['enum']:
                 return path.stem
-    return None
+    raise PreflightError(f"Can't find schema where '{name}' is in the enum for assay_type")
 
 
 TSV_SUFFIX = 'metadata.tsv'
