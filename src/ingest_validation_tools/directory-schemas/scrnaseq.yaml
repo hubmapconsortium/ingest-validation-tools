@@ -1,6 +1,12 @@
-#scRNA-Seq description
-# Expectations
-# 1 or more directories with compressed or uncompressed FastQ files
+# RNA-Seq description
+# https://portal.hubmapconsortium.org/docs/assays/rnaseq
+#
+# This directory schema applies to these assay-types
+# - scRNAseq-10xGenomics
+# - scRNAseq
+# - sciRNAseq
+# - snRNAseq
+# - SNARE2-RNAseq
 
 -
   pattern: '[^/]+/[^/]+\.fastq\.gz'
