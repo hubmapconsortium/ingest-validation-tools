@@ -24,7 +24,7 @@ def _assay_name_to_code(name):
     '''
     Given an assay name, read all the schemas until one matches.
     '''
-    for path in (Path(__file__).parent / 'table-schemas' / 'level-2').glob('*.yaml'):
+    for path in (Path(__file__).parent / 'table-schemas' / 'assays').glob('*.yaml'):
         schema = load_yaml(path)
         for field in schema['fields']:
             if field['name'] == 'assay_type' and name in field['constraints']['enum']:

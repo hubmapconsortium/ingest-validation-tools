@@ -10,7 +10,7 @@ _directory_schemas_path = Path(__file__).parent / 'directory-schemas'
 def list_types():
     schemas = {
         p.stem for p in
-        (_table_schemas_path / 'level-2').iterdir()
+        (_table_schemas_path / 'assays').iterdir()
     }
     return sorted(schemas)
 
@@ -40,7 +40,7 @@ def get_directory_schema(directory_type):
 
 
 def get_table_schema(assay_type, optional_fields=[], offline=None):
-    schema = load_yaml(_table_schemas_path / 'level-2' / f'{assay_type}.yaml')
+    schema = load_yaml(_table_schemas_path / 'assays' / f'{assay_type}.yaml')
 
     for field in schema['fields']:
         _add_level_1_description(field)
