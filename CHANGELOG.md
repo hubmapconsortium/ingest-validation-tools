@@ -15,6 +15,7 @@
 - Fix typo in nano enum.
 - Clearer error when it can't find matching assay name.
 - Downgrade dependency for compatibility with HuBMAP commons.
+- Directory schema for scatacseq.
 
 ## v0.0.8 - 2021-02-10
 - Update CODEX directory structure
