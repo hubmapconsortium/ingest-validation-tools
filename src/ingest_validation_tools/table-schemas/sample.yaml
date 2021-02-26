@@ -97,6 +97,7 @@ fields:
       - Liquid Nitrogen Vapor
       - Freezer (-80 Celsius)
       - Freezer (-20 Celsius)
+      - Refrigerator (4 Celsius)
       - Room Temperature
   description: The temperature of the medium during the preservation process.
 -
