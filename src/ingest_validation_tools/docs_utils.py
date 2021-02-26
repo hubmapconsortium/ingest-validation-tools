@@ -188,11 +188,11 @@ def _make_key_md(key, value):
     pattern (regular expression)
 
     >>> print(_make_key_md('other_keys', 'other_values'))
-    other_keys
+    other keys
     '''
     if key == 'pattern':
         return 'pattern (regular expression)'
-    return key
+    return key.replace('_', ' ')
 
 
 def _make_value_md(key, value):
