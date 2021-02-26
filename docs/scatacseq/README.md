@@ -65,7 +65,8 @@ Related files:
 
 | pattern | required? | description |
 | --- | --- | --- |
-| `.*\.fastq\.gz` | ✓ | TODO: https://github.com/hubmapconsortium/ingest-validation-tools/issues/451 |
+| `[^/]+/[^/]+\.fastq\.gz` | ✓ | Compressed FastQ files |
+| `[^/]+/[^/]+\.fastq` |  | FastQ files |
 | `extras/.*` |  | Free-form descriptive information supplied by the TMC |
 | `extras/thumbnail\.(png\|jpg)` |  | Optional thumbnail image which may be shown in search interface |
 
