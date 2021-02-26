@@ -1,4 +1,8 @@
 -
-  pattern: '.*\.fastq\.gz'
-  description: 'TODO: https://github.com/hubmapconsortium/ingest-validation-tools/issues/451'
-
+  pattern: '[^/]+\.fastq\.gz'
+  description: 'Compressed FastQ file'
+  required: False
+-
+  pattern: '[^/]+\.fastq'
+  description: 'FastQ file'
+  required: False
