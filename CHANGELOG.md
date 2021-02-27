@@ -19,7 +19,7 @@
 - Fix typo in nano enum.
 - Clearer error when it can't find matching assay name.
 - Downgrade dependency for compatibility with HuBMAP commons.
-- Directory structure for scatacseq.
+- Directory structure for scatacseq and scrnaseq: They share a symlink.
 
 ## v0.0.8 - 2021-02-10
 - Update CODEX directory structure
