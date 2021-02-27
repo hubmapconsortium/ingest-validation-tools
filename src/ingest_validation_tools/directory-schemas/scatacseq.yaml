@@ -1,3 +1,12 @@
+# ATAC-seq description
+# https://portal.hubmapconsortium.org/docs/assays/atacseq
+#
+# This directory structure schema applies to these assay-types
+# - SNARE-seq2
+# - scATACseq
+# - sciATACseq
+# - snATACseq
+
 -
   pattern: '[^/]+\.fastq\.gz'
   description: 'Compressed FastQ file'
