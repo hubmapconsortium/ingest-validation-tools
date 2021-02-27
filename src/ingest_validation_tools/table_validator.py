@@ -17,8 +17,10 @@ def get_table_errors(tsv, schema):
 
     url_check = _make_url_check(schema)
     sequence_limit_check = _make_sequence_limit_check(schema)
+    units_check = _make_units_check(schema)
+
     report = frictionless.validate(tsv_path, schema=schema, format='csv', checks=[
-                                   url_check, sequence_limit_check])
+                                   url_check, sequence_limit_check, units_check])
 
     assert len(report['errors']) == 0, f'report has errors: {report}'
     assert 'tasks' in report, f'"tasks" is missing: {report}'
@@ -54,7 +56,7 @@ def _check_url_status_cache(url):
 def _make_url_check(schema):
     url_constrained_fields = _get_constrained_fields(schema, 'url')
 
-    def _url_check(row, schema=schema):
+    def url_check(row, schema=schema):
         for k, v in row.items():
             if k in url_constrained_fields:
                 prefix = url_constrained_fields[k]['prefix']
@@ -63,7 +65,7 @@ def _make_url_check(schema):
                 if status != 200:
                     note = f'URL returned {status}: {url}'
                     yield frictionless.errors.CellError.from_row(row, note=note, field_name=k)
-    return _url_check
+    return url_check
 
 
 _prev_value_run_length = {}
@@ -105,6 +107,19 @@ def _make_sequence_limit_check(schema):
                 yield frictionless.errors.CellError.from_row(row, note=note, field_name=k)
 
     return sequence_limit_check
+
+
+def _make_units_check(schema):
+    units_constrained_fields = _get_constrained_fields(schema, 'units_for')
+
+    def units_check(row, schema=schema):
+        for k, v in row.items():
+            if k in units_constrained_fields:
+                units_for = units_constrained_fields[k]
+                if (row[units_for] or row[units_for] == 0) and not row[k]:
+                    note = f'Required when {units_for} is filled'
+                    yield frictionless.errors.CellError.from_row(row, note=note, field_name=k)
+    return units_check
 
 
 def _get_pre_flight_errors(tsv_path, schema):

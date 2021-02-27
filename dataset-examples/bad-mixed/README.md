@@ -34,8 +34,6 @@ Metadata TSV Errors:
       row 2, referencing dataset-examples/bad-mixed/submission/bad-shared-dataset:
         Not allowed:
         - not-good-for-either-type.txt
-        Required but missing:
-        - .*\.fastq\.gz
       row 2, contributors dataset-examples/bad-mixed/submission/contributors.tsv: File
         has no data rows.
 Reference Errors:

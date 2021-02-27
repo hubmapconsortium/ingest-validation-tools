@@ -91,12 +91,13 @@ The concentration value of the antibody preparation. Leave blank if not applicab
 | required | `False` |
 
 ### `concentration_unit`
-The concentration units of the antibody preparation.
+The concentration units of the antibody preparation. Leave blank if not applicable.
 
 | constraint | value |
 | --- | --- |
 | enum | `ug/ml` |
-| required | `True` |
+| required | `False` |
+| units for | `concentration_value` |
 
 ### `conjugated_cat_number`
 An antibody may be conjugated to a fluorescent tag or a metal tag for detection. Conjugated antibodies may be purchased from commercial providers. Leave blank if not applicable.
