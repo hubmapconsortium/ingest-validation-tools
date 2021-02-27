@@ -11,6 +11,7 @@
 - Better error message for missing and mis-ordered fields.
 - No longer require contributor middle names.
 - Make network checks a part of the schema.
+- Check for values which Excel has "helpfully" auto-incremented.
 - Add 4C as a preservation temperature.
 - Add units_for, so unused units aren't needed in the spreadsheet.
 - Ivan is primary contact for directory work.
