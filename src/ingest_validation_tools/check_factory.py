@@ -26,7 +26,7 @@ class CheckFactory():
     def make_url_check(self):
         url_constrained_fields = self._get_constrained_fields('url')
 
-        def url_check(row, schema=self.schema):
+        def url_check(row):
             for k, v in row.items():
                 if v is None:
                     continue
@@ -42,7 +42,7 @@ class CheckFactory():
     def make_sequence_limit_check(self):
         sequence_limit_fields = self._get_constrained_fields('sequence_limit')
 
-        def sequence_limit_check(row, schema=self.schema):
+        def sequence_limit_check(row):
             prefix_number_re = r'(?P<prefix>.*?)(?P<number>\d+)$'
             for k, v in row.items():
                 if k not in sequence_limit_fields or not v:
@@ -79,7 +79,7 @@ class CheckFactory():
     def make_units_check(self):
         units_constrained_fields = self._get_constrained_fields('units_for')
 
-        def units_check(row, schema=self.schema):
+        def units_check(row):
             for k, v in row.items():
                 if k in units_constrained_fields:
                     units_for = units_constrained_fields[k]
