@@ -86,10 +86,11 @@ def generate_readme_md(
         'hubmapconsortium/ingest-validation-tools/master/docs'
     tsv_url = f'{raw_base_url}/{type}/{get_tsv_name(type, is_assay=is_assay)}'
     xlsx_url = f'{raw_base_url}/{type}/{get_xlsx_name(type, is_assay=is_assay)}'
-    end_of_path = f'{"level-2/" if is_assay else ""}{type}.yaml'
-    source_url = 'https://github.com/hubmapconsortium' \
-        '/ingest-validation-tools/edit/master' \
-        f'/src/ingest_validation_tools/table-schemas/{end_of_path}'
+    url_base = 'https://github.com/hubmapconsortium' \
+        '/ingest-validation-tools/edit/master/src/ingest_validation_tools'
+    metadata_source_url = f'{url_base}/table-schemas/' \
+        f'{"level-2/" if is_assay else ""}{type}.yaml'
+    directory_source_url = f'{url_base}/directory-schemas/{type}.yaml'
     optional_doc_link_md = (
         f'- [🔬 Background doc]({table_schema["doc_url"]}): More details about this type.'
         if 'doc_url' in table_schema else ''
@@ -104,7 +105,8 @@ Related files:
 {optional_doc_link_md}
 - [📝 Excel template]({xlsx_url}): For metadata entry.
 - [📝 TSV template]({tsv_url}): Alternative for metadata entry.
-- [💻 Source code]({source_url}): Make a PR to update this doc.
+- [💻 Metadata schema]({metadata_source_url}): To update metadata fields.
+- [💻 Directory schema]({directory_source_url}): To update directory structure.
 {optional_description_md}{versions_md}
 ## Table of contents
 {toc_md}
