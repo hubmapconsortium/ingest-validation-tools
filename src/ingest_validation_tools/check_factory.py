@@ -1,4 +1,5 @@
 import re
+from string import Template
 
 import frictionless
 import requests
@@ -23,7 +24,8 @@ class CheckFactory():
             self._url_status_cache[url] = response.status_code
         return self._url_status_cache[url]
 
-    def make_url_check(self):
+    def make_url_check(self, template=Template(
+            'URL returned $status: "$url"')):
         url_constrained_fields = self._get_constrained_fields('url')
 
         def url_check(row):
@@ -35,11 +37,12 @@ class CheckFactory():
                     url = f'{prefix}{v}'
                     status = self._check_url_status_cache(url)
                     if status != 200:
-                        note = f'URL returned {status}: {url}'
+                        note = template.substitute(status=status, url=url)
                         yield frictionless.errors.CellError.from_row(row, note=note, field_name=k)
         return url_check
 
-    def make_sequence_limit_check(self):
+    def make_sequence_limit_check(self, template=Template(
+            'incremented $run_length times; limit is $limit')):
         sequence_limit_fields = self._get_constrained_fields('sequence_limit')
 
         def sequence_limit_check(row):
@@ -71,12 +74,13 @@ class CheckFactory():
 
                 limit = sequence_limit_fields[k]
                 if run_length >= limit:
-                    note = f'incremented {run_length} times; limit is {limit}'
+                    note = template.substitute(run_length=run_length, limit=limit)
                     yield frictionless.errors.CellError.from_row(row, note=note, field_name=k)
 
         return sequence_limit_check
 
-    def make_units_check(self):
+    def make_units_check(self, template=Template(
+            'Required when $units_for is filled')):
         units_constrained_fields = self._get_constrained_fields('units_for')
 
         def units_check(row):
@@ -84,6 +88,6 @@ class CheckFactory():
                 if k in units_constrained_fields:
                     units_for = units_constrained_fields[k]
                     if (row[units_for] or row[units_for] == 0) and not row[k]:
-                        note = f'Required when {units_for} is filled'
+                        note = template.substitute(units_for=units_for)
                         yield frictionless.errors.CellError.from_row(row, note=note, field_name=k)
         return units_check
