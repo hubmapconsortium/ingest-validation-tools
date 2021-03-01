@@ -18,7 +18,7 @@ fields:
   name: assay_type
   constraints:
     enum:
-      - Imaging Mass Cytometry
+      - 3D Imaging Mass Cytometry
 -
   name: analyte_class
   constraints:
