@@ -36,29 +36,7 @@ fields:
 - name: number_of_sections
   description: Number of sections
   type: number
-- name: ablation_distance_between_shots_x_value
-  description: x resolution. Distance between laser ablation shots in the X-dimension.
-- name: ablation_distance_between_shots_x_units
-  description: Units of x resolution distance between laser ablation shots.
-  constraints:
-    enum:
-      - um
-      - nm
-- name: ablation_distance_between_shots_y_value
-  description: y resolution. Distance between laser ablation shots in the Y-dimension.
-- name: ablation_distance_between_shots_y_units
-  description: Units of y resolution distance between laser ablation shots.
-  constraints:
-    enum:
-      - um
-      - nm
-- name: ablation_frequency_value
-  description: Frequency value of laser ablation (in Hz)
-- name: ablation_frequency_unit
-  description: Frequency unit of laser ablation
-  constraints:
-    enum:
-      - Hz
+# include: ../includes/ablation.yaml
 - name: roi_description
   description: A description of the region of interest (ROI) captured in the image.
 - name: roi_id
