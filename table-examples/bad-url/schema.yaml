@@ -1,5 +1,7 @@
 fields:
   -
+    name: comment
+  -
     name: a_full_url
     custom_constraints:
       url:
