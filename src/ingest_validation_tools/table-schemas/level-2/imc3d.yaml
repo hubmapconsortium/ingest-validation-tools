@@ -1,7 +1,7 @@
 doc_url: https://portal.hubmapconsortium.org/docs/assays/imc
 description_md:
-  IMC submissions require metadata on the antibodies used in the assay to be
-  provided in an Antibodies TSV. For IMC, the `channel_id` is the name of the
+  3D IMC submissions require metadata on the antibodies used in the assay to be
+  provided in an Antibodies TSV. For 3D IMC, the `channel_id` is the name of the
   metal tag on the corresponding antibody. 
     
   The other fields function the same way for all assays using antibodies.
