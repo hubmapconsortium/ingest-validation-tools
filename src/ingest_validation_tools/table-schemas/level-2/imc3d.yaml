@@ -1,0 +1,116 @@
+doc_url: https://portal.hubmapconsortium.org/docs/assays/imc
+description_md:
+  IMC submissions require metadata on the antibodies used in the assay to be
+  provided in an Antibodies TSV. For IMC, the `channel_id` is the name of the
+  metal tag on the corresponding antibody. 
+    
+  The other fields function the same way for all assays using antibodies.
+  For more information, see the [Antibodies TSV documentation](../antibodies).
+fields:
+# Overrides of Level 1 fields:
+-
+  name: assay_category
+  constraints:
+    enum:
+      - mass_spectrometry_imaging
+
+-
+  name: assay_type
+  constraints:
+    enum:
+      - Imaging Mass Cytometry
+-
+  name: analyte_class
+  constraints:
+    enum:
+      - protein
+
+# Level 2 fields:
+# include: ../includes/acquisition_instrument.yaml
+- name: preparation_instrument_vendor
+  description: The manufacturer of the instrument used to prepare the sample for the
+    assay.
+- name: preparation_instrument_model
+  description: The model number/name of the instrument used to prepare the sample
+    for the assay
+# include: ../includes/doi/section_prep.yaml
+# include: ../includes/doi/reagent_prep.yaml
+- name: number_of_channels
+  description: Number of mass channels measured
+  type: number
+- name: ablation_distance_between_shots_x_value
+  description: x resolution. Distance between laser ablation shots in the X-dimension.
+- name: ablation_distance_between_shots_x_units
+  description: Units of x resolution distance between laser ablation shots.
+  constraints:
+    enum:
+      - um
+      - nm
+- name: ablation_distance_between_shots_y_value
+  description: y resolution. Distance between laser ablation shots in the Y-dimension.
+- name: ablation_distance_between_shots_y_units
+  description: Units of y resolution distance between laser ablation shots.
+  constraints:
+    enum:
+      - um
+      - nm
+- name: ablation_frequency_value
+  description: Frequency value of laser ablation (in Hz)
+- name: ablation_frequency_unit
+  description: Frequency unit of laser ablation
+  constraints:
+    enum:
+      - Hz
+- name: roi_description
+  description: A description of the region of interest (ROI) captured in the image.
+- name: roi_id
+  description: Multiple images (1-n) are acquired from regions of interest (ROI1, ROI2, ROI3, etc) on a slide. 
+    The roi_id is a number from 1-n representing the ROI captured on a slide.
+  type: number
+- name: acquisition_id
+  description: The acquisition_id refers to the directory containing the ROI images for a slide. Together, the acquisition_id and the roi_id
+    indicate the slide-ROI represented in the image.
+- name: dual_count_start
+  description: Threshold for dual counting.
+  type: number
+- name: end_datetime
+  description: Time stamp indicating end of ablation for ROI
+  type: datetime
+  format: "%Y-%m-%d %H:%M"
+- name: max_x_width_value
+  description: Image width value of the ROI acquisition
+  type: number
+- name: max_x_width_unit
+  description: Units of image width of the ROI acquisition
+  constraints:
+    enum:
+      - um
+- name: max_y_height_value
+  description: Image height value of the ROI acquisition
+  type: number
+- name: max_y_height_unit
+  description: Units of image height of the ROI acquisition
+  constraints:
+    enum:
+      - um
+- name: segment_data_format
+  description: This refers to the data type, which is a "float" for the IMC counts.
+  constraints:
+    enum:
+      - float
+      - integer
+      - string
+- name: signal_type
+  description: Type of signal measured per channel (usually dual counts)
+  constraints:
+    enum:
+      - dual count
+      - pulse count
+      - intensity value
+- name: start_datetime
+  description: Time stamp indicating start of ablation for ROI
+  type: datetime
+  format: "%Y-%m-%d %H:%M"
+- name: data_precision_bytes
+  description: Numerical data precision in bytes
+  type: number
