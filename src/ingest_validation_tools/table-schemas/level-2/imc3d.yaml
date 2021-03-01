@@ -38,6 +38,9 @@ fields:
 - name: number_of_channels
   description: Number of mass channels measured
   type: number
+- name: number_of_sections
+  description: Number of sections
+  type: number
 - name: ablation_distance_between_shots_x_value
   description: x resolution. Distance between laser ablation shots in the X-dimension.
 - name: ablation_distance_between_shots_x_units
@@ -70,13 +73,6 @@ fields:
 - name: acquisition_id
   description: The acquisition_id refers to the directory containing the ROI images for a slide. Together, the acquisition_id and the roi_id
     indicate the slide-ROI represented in the image.
-- name: dual_count_start
-  description: Threshold for dual counting.
-  type: number
-- name: end_datetime
-  description: Time stamp indicating end of ablation for ROI
-  type: datetime
-  format: "%Y-%m-%d %H:%M"
 - name: max_x_width_value
   description: Image width value of the ROI acquisition
   type: number
@@ -107,10 +103,3 @@ fields:
       - dual count
       - pulse count
       - intensity value
-- name: start_datetime
-  description: Time stamp indicating start of ablation for ROI
-  type: datetime
-  format: "%Y-%m-%d %H:%M"
-- name: data_precision_bytes
-  description: Numerical data precision in bytes
-  type: number
