@@ -58,6 +58,8 @@ def _make_url_check(schema):
 
     def url_check(row, schema=schema):
         for k, v in row.items():
+            if v is None:
+                continue
             if k in url_constrained_fields:
                 prefix = url_constrained_fields[k]['prefix']
                 url = f'{prefix}{v}'
