@@ -223,7 +223,7 @@ The unit of incremental distance between image slices.(um)
 | required | `True` |
 
 ### `preparation_instrument_vendor`
-The manufacturer of the instrument used to prepare the sample for the assay. In cases where a custom instrument was used, enter the DOI (in this format: 10.17504/protocols.io.xyz123) for the custom instrument you have registered in protocols.io.
+The manufacturer of the instrument used to prepare the sample for the assay.
 
 | constraint | value |
 | --- | --- |

@@ -27,12 +27,7 @@ fields:
 
 # Level 2 fields:
 # include: ../includes/acquisition_instrument.yaml
-- name: preparation_instrument_vendor
-  description: The manufacturer of the instrument used to prepare the sample for the
-    assay.
-- name: preparation_instrument_model
-  description: The model number/name of the instrument used to prepare the sample
-    for the assay
+# include: ../includes/prep_instrument.yaml
 # include: ../includes/doi/section_prep.yaml
 # include: ../includes/doi/reagent_prep.yaml
 - name: number_of_channels
