@@ -126,7 +126,8 @@ def _validate_level_1_enum(field):
     if name in enums:
         actual = set(field['constraints']['enum']) if 'enum' in field['constraints'] else set()
         allowed = set(enums[name])
-        assert actual <= allowed, f'Unexpected enums for {name}: {actual - allowed}\nAllowed: {sorted(allowed)}'
+        assert actual <= allowed, f'Unexpected enums for {name}: {actual - allowed}\n' \
+            'Allowed: {sorted(allowed)}'
 
 
 def _add_constraints(field, optional_fields, offline=None):
