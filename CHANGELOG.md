@@ -16,6 +16,7 @@
 - Add units_for, so unused units aren't needed in the spreadsheet.
 - Ivan is primary contact for directory work.
 - Make network checks a part of the schema.
+- Get rid of special-purpose logic for level-1
 - Fix typo in nano enum.
 - Clearer error when it can't find matching assay name.
 - Downgrade dependency for compatibility with HuBMAP commons.
