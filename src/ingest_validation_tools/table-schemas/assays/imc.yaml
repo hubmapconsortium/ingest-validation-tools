@@ -1,13 +1,13 @@
 doc_url: https://portal.hubmapconsortium.org/docs/assays/imc
 description_md:
-  3D IMC submissions require metadata on the antibodies used in the assay to be
-  provided in an Antibodies TSV. For 3D IMC, the `channel_id` is the name of the
+  IMC submissions require metadata on the antibodies used in the assay to be
+  provided in an Antibodies TSV. For IMC, the `channel_id` is the name of the
   metal tag on the corresponding antibody. 
     
   The other fields function the same way for all assays using antibodies.
   For more information, see the [Antibodies TSV documentation](../antibodies).
 fields:
-# Overrides of Level 1 fields:
+# include: ../includes/all_assays.yaml
 -
   name: assay_category
   constraints:
@@ -18,12 +18,13 @@ fields:
   name: assay_type
   constraints:
     enum:
-      - 3D Imaging Mass Cytometry
+      - Imaging Mass Cytometry
 -
   name: analyte_class
   constraints:
     enum:
       - protein
+# include: ../includes/is_targeted.yaml
 
 # Level 2 fields:
 # include: ../includes/acquisition_instrument.yaml
@@ -33,11 +34,15 @@ fields:
 - name: number_of_channels
   description: Number of mass channels measured
   type: number
-- name: number_of_sections
-  description: Number of sections
-  type: number
 # include: ../includes/ablation.yaml
 # include: ../includes/imc_roi_id.yaml
+- name: dual_count_start
+  description: Threshold for dual counting.
+  type: number
+- name: end_datetime
+  description: Time stamp indicating end of ablation for ROI
+  type: datetime
+  format: "%Y-%m-%d %H:%M"
 # include: ../includes/imc_roi_dimensions.yaml
 - name: segment_data_format
   description: This refers to the data type, which is a "float" for the IMC counts.
@@ -53,5 +58,12 @@ fields:
       - dual count
       - pulse count
       - intensity value
-- name: antibodies_path
-  description: Relative path to file with antibody information for this dataset.
+- name: start_datetime
+  description: Time stamp indicating start of ablation for ROI
+  type: datetime
+  format: "%Y-%m-%d %H:%M"
+- name: data_precision_bytes
+  description: Numerical data precision in bytes
+  type: number
+
+# include: ../includes/paths.yaml

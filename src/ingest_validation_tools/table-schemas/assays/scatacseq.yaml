@@ -1,6 +1,6 @@
 doc_url: https://portal.hubmapconsortium.org/docs/assays/atacseq
 fields:
-  # Overrides of Level 1 fields:
+  # include: ../includes/all_assays.yaml
   -
     name: assay_category
     constraints:
@@ -19,6 +19,7 @@ fields:
     constraints:
       enum:
         - DNA
+  # include: ../includes/is_targeted.yaml
 
   # Level 2 fields:
   # include: ../includes/acquisition_instrument.yaml
@@ -146,3 +147,5 @@ fields:
   -
     name: sequencing_phix_percent
     description: 'Percent PhiX loaded to the run.'
+
+  # include: ../includes/paths.yaml

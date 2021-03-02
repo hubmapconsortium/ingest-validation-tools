@@ -4,7 +4,7 @@ Related files:
 - [🔬 Background doc](https://portal.hubmapconsortium.org/docs/assays/codex): More details about this type.
 - [📝 Excel template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/master/docs/codex/codex-metadata.xlsx): For metadata entry.
 - [📝 TSV template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/master/docs/codex/codex-metadata.tsv): Alternative for metadata entry.
-- [💻 Source code](https://github.com/hubmapconsortium/ingest-validation-tools/edit/master/src/ingest_validation_tools/table-schemas/level-2/codex.yaml): Make a PR to update this doc.
+- [💻 Source code](https://github.com/hubmapconsortium/ingest-validation-tools/edit/master/src/ingest_validation_tools/table-schemas/assays/codex.yaml): Make a PR to update this doc.
 
 CODEX submissions require metadata on the antibodies used in the assay to be provided in an Antibodies TSV.
 For CODEX, in that TSV, the `channel_id` is a cycle#/channel# combination linked to a given image file (of the form `Cycle[0-9]_CH[0-9]`). 
