@@ -21,6 +21,7 @@
 - Clearer error when it can't find matching assay name.
 - Downgrade dependency for compatibility with HuBMAP commons.
 - Directory structure for scatacseq.
+- Add help document.
 
 ## v0.0.8 - 2021-02-10
 - Update CODEX directory structure
