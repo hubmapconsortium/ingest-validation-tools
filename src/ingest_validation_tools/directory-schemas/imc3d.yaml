@@ -1,9 +1,5 @@
--
-  pattern: 'TODO'
-  description: 'Directory structure not yet specified. https://github.com/hubmapconsortium/ingest-validation-tools/issues/447'
-
 #mcd
--'[^/]+NAV[^/]*\.tif'
+-
   pattern: 'mcd/[^/]+_HuBMAP_[^/]+organ[^/]+_slide[^/]+\.zip'
   description: 'csv containing labels for sections as well as whether or not they were included in the 3D model'
   required: True
