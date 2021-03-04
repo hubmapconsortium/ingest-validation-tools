@@ -21,6 +21,7 @@
 - Clearer error when it can't find matching assay name.
 - Downgrade dependency for compatibility with HuBMAP commons.
 - Directory structure for scatacseq.
+- Add help document.
 - Factor out the checks, make OO, and make error messages configurable.
 - Script to generate CSV for fields and enums.
 
