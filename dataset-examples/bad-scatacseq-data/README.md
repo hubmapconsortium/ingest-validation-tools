@@ -11,4 +11,6 @@ Metadata TSV Errors:
         Not allowed:
         - not-the-file-you-are-looking-for.txt
         - unexpected-directory/place-holder.txt
+      row 2, contributors dataset-examples/bad-scatacseq-data/submission: Expected
+        a TSV, but found a directory
 ```
