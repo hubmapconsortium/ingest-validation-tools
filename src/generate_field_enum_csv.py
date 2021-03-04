@@ -19,7 +19,7 @@ def main():
         help=f'Fields to include in report. Default: {default_fields}')
     args = parser.parse_args()
 
-    writer = DictWriter(sys.stdout, fieldnames=args.fields)
+    writer = DictWriter(sys.stdout, fieldnames=args.fields, extrasaction='ignore')
     writer.writeheader()
     for assay_type in list_types():
         filename = f'{assay_type}.yaml'
