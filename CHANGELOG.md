@@ -22,6 +22,7 @@
 - Downgrade dependency for compatibility with HuBMAP commons.
 - Directory structure for scatacseq.
 - Factor out the checks, make OO, and make error messages configurable.
+- Script to generate CSV for fields and enums.
 
 ## v0.0.8 - 2021-02-10
 - Update CODEX directory structure
