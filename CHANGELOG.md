@@ -22,6 +22,7 @@
 - Downgrade dependency for compatibility with HuBMAP commons.
 - Directory structure for scatacseq.
 - Factor out the checks, make OO, and make error messages configurable.
+- Slightly better errors when a directory is found when a TSV is expected.
 
 ## v0.0.8 - 2021-02-10
 - Update CODEX directory structure
