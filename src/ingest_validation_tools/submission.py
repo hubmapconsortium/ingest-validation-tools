@@ -74,7 +74,7 @@ class Submission:
         except UnicodeDecodeError:
             return None
             # TODO: use get_context_of_decode_error
-        except IsADirectoryError as e:
+        except IsADirectoryError:
             raise PreflightError(f'Expected a TSV, found a directory at {path}.')
         if not rows:
             raise PreflightError(f'{path} has no data rows.')
@@ -171,7 +171,7 @@ class Submission:
             rows = dict_reader_wrapper(path, self.encoding)
         except UnicodeDecodeError as e:
             return get_context_of_decode_error(e)
-        except IsADirectoryError as e:
+        except IsADirectoryError:
             return f'Expected a TSV, found a directory at {path}.'
         if 'data_path' not in rows[0] or 'contributors_path' not in rows[0]:
             return 'File is missing data_path or contributors_path.'
