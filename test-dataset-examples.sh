@@ -9,7 +9,7 @@ for SUITE in dataset-examples dataset-iec-examples; do
 
   case $SUITE in
     dataset-iec-examples)
-      OPTS="--dataset_ignore_globs 'metadata.tsv' --submission_ignore_globs '*' --output as_text_list"
+      OPTS="--dataset_ignore_globs 'metadata.tsv' --submission_ignore_globs '*'"
       ;;
     dataset-examples)
       # To minimize dependence on outside resources, --offline used here,
