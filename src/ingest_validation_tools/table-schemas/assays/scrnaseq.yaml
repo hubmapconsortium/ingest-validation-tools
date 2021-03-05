@@ -1,0 +1,99 @@
+doc_url: https://portal.hubmapconsortium.org/docs/assays/rnaseq
+fields:
+  # include: ../includes/all_assays.yaml
+  -
+    name: assay_category
+    constraints:
+      enum:
+        - sequence
+  -
+    name: assay_type
+    constraints:
+      enum:
+        - scRNAseq-10xGenomics
+        - scRNAseq
+        - sciRNAseq
+        - snRNAseq
+        - SNARE2-RNAseq
+  -
+    name: analyte_class
+    constraints:
+      enum:
+        - RNA
+  # include: ../includes/is_targeted.yaml
+
+  # Level 2 fields:
+  # include: ../includes/acquisition_instrument.yaml
+  -
+    name: sc_isolation_protocols_io_doi
+    description: "Link to a protocols document answering the question: How were single cells separated into a single-cell suspension?"
+  -
+    name: sc_isolation_entity
+    description: The type of single cell entity derived from isolation protocol
+  -
+    name: sc_isolation_tissue_dissociation
+    description: The method by which tissues are dissociated into single cells in suspension.
+  -
+    name: sc_isolation_enrichment
+    description: The method by which specific cell populations are sorted or enriched.
+    constraints:
+      required: False
+  -
+    name: sc_isolation_quality_metric
+    description: A quality metric by visual inspection prior to cell lysis or defined by known parameters such as wells with several cells or no cells. This can be captured at a high level.
+  -
+    name: sc_isolation_cell_number
+    description: Total number of cell/nuclei yielded post dissociation and enrichment
+  -
+    name: rnaseq_assay_input
+    description: Number of cell/nuclei input to the assay
+  -
+    name: rnaseq_assay_method
+    description: The kit used for the RNA sequencing assay
+  -
+    name: library_construction_protocols_io_doi
+    description: A link to the protocol document containing the library construction method (including version) that was used, e.g. "Smart-Seq2", "Drop-Seq", "10X v3".
+  -
+    name: library_layout
+    description: Whether the library was generated for single-end or paired end sequencing
+  -
+    name: library_adapter_sequence
+    description: Adapter sequence to be used for adapter trimming
+  -
+    name: library_id
+    description: An id for the library. The id may be text and/or numbers
+  -
+    name: is_technical_replicate
+    description: Is the sequencing reaction run in repliucate, TRUE or FALSE
+    type: boolean
+  -
+    name: cell_barcode_read
+    description: Which read file contains the cell barcode
+  -
+    name: cell_barcode_offset
+    description: Position(s) in the read at which the cell barcode starts.
+  -
+    name: cell_barcode_size
+    description: Length of the cell barcode in base pairs
+  -
+    name: library_pcr_cycles
+    description: Number of PCR cycles to amplify cDNA
+  -
+    name: library_pcr_cycles_for_sample_index
+    description: Number of PCR cycles performed for library indexing
+  -
+    name: library_final_yield_value
+    description: Total number of ng of library after final pcr amplification step. This is the concentration (ng/ul) * volume (ul)
+  -
+    name: library_final_yield_unit
+    description: Units of final library yield
+    constraints:
+      enum:
+        - ng
+  -
+    name: library_average_fragment_size
+    description: Average size of sequencing library fragments estimated via gel electrophoresis or bioanalyzer/tapestation.
+
+  # include: ../includes/sequencing.yaml
+
+  # include: ../includes/paths.yaml
