@@ -20,7 +20,7 @@
 - Fix typo in nano enum.
 - Clearer error when it can't find matching assay name.
 - Downgrade dependency for compatibility with HuBMAP commons.
-- Directory structure for scatacseq.
+- Directory structure for scatacseq and scrnaseq: They share a symlink.
 - Add help document.
 - Factor out the checks, make OO, and make error messages configurable.
 - Script to generate CSV for fields and enums.
