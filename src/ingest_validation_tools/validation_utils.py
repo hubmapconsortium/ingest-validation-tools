@@ -84,7 +84,8 @@ def get_tsv_errors(tsv_path, type, optional_fields=[], offline=None):
     '''
     logging.info(f'Validating {type} TSV...')
     try:
-        if type in ['contributors', 'antibodies', 'sample']:
+        others = [p.stem for p in (Path(__file__).parent / 'table-schemas/others').iterdir()]
+        if type in others:
             schema = get_other_schema(type, offline=offline)
         else:
             schema = get_table_schema(type, optional_fields=optional_fields, offline=offline)
