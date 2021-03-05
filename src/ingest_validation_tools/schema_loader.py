@@ -16,9 +16,22 @@ def list_types():
 
 
 def get_other_schema(other_type, offline=None):
-    schema = load_yaml(Path(__file__).parent / 'table-schemas' / f'{other_type}.yaml')
+    schema = load_yaml(Path(__file__).parent / 'table-schemas/others' / f'{other_type}.yaml')
     for field in schema['fields']:
         _add_constraints(field, optional_fields=[], offline=offline)
+    return schema
+
+
+def get_table_schema(assay_type, optional_fields=[], offline=None):
+    schema = load_yaml(_table_schemas_path / 'assays' / f'{assay_type}.yaml')
+
+    for field in schema['fields']:
+        _add_level_1_description(field)
+        _validate_level_1_enum(field)
+
+        _add_constraints(field, optional_fields, offline=offline)
+        _validate_field(field)
+
     return schema
 
 
@@ -36,19 +49,6 @@ def get_directory_schema(directory_type):
             'required': False
         }
     ]
-    return schema
-
-
-def get_table_schema(assay_type, optional_fields=[], offline=None):
-    schema = load_yaml(_table_schemas_path / 'assays' / f'{assay_type}.yaml')
-
-    for field in schema['fields']:
-        _add_level_1_description(field)
-        _validate_level_1_enum(field)
-
-        _add_constraints(field, optional_fields, offline=offline)
-        _validate_field(field)
-
     return schema
 
 

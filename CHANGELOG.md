@@ -25,6 +25,7 @@
 - Add help document.
 - Factor out the checks, make OO, and make error messages configurable.
 - Script to generate CSV for fields and enums.
+- Add version number to schemas.
 
 ## v0.0.8 - 2021-02-10
 - Update CODEX directory structure
