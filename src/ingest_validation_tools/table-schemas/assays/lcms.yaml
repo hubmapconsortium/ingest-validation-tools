@@ -1,6 +1,6 @@
 doc_url: https://portal.hubmapconsortium.org/docs/assays/lcms
 fields:
-# Overrides of Level 1 fields:
+  # include: ../includes/all_assays.yaml
   -
     name: assay_category
     constraints:
@@ -21,6 +21,7 @@ fields:
           - metabolites
           - lipids
       required: False
+  # include: ../includes/is_targeted.yaml
 
   # Level 2 fields:
   # include: ../includes/acquisition_instrument.yaml
@@ -127,3 +128,5 @@ fields:
     description: DOI for protocols.io for the overall process for this assay.
     constraints:
       required: False
+
+  # include: ../includes/paths.yaml

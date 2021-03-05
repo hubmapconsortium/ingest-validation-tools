@@ -4,7 +4,7 @@ Related files:
 - [🔬 Background doc](https://portal.hubmapconsortium.org/docs/assays/lightsheet): More details about this type.
 - [📝 Excel template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/master/docs/lightsheet/lightsheet-metadata.xlsx): For metadata entry.
 - [📝 TSV template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/master/docs/lightsheet/lightsheet-metadata.tsv): Alternative for metadata entry.
-- [💻 Metadata schema](https://github.com/hubmapconsortium/ingest-validation-tools/edit/master/src/ingest_validation_tools/table-schemas/level-2/lightsheet.yaml): To update metadata fields.
+- [💻 Metadata schema](https://github.com/hubmapconsortium/ingest-validation-tools/edit/master/src/ingest_validation_tools/table-schemas/assays/lightsheet.yaml): To update metadata fields.
 - [💻 Directory schema](https://github.com/hubmapconsortium/ingest-validation-tools/edit/master/src/ingest_validation_tools/directory-schemas/lightsheet.yaml): To update directory structure.
 
 Lightsheet submissions require metadata on the antibodies used in the assay

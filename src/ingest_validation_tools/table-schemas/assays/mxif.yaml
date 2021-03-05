@@ -1,6 +1,6 @@
 doc_url: https://portal.hubmapconsortium.org/docs/assays/mxif
 fields:
-  # Overrides of Level 1 fields:
+  # include: ../includes/all_assays.yaml
   -
     name: assay_category
     constraints:
@@ -16,6 +16,7 @@ fields:
     constraints:
       enum:
         - protein
+  # include: ../includes/is_targeted.yaml
 
   # Level 2 fields:
 
@@ -36,3 +37,5 @@ fields:
   -
     name: antibodies_path
     description: Relative path to file with antibody information for this dataset.
+
+  # include: ../includes/paths.yaml

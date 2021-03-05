@@ -1,0 +1,3 @@
+-
+  name: is_targeted
+  description: Specifies whether or not a specific molecule(s) is/are targeted for detection/measurement by the assay. The CODEX analyte is protein.

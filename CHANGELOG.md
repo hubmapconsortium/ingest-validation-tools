@@ -16,11 +16,15 @@
 - Add units_for, so unused units aren't needed in the spreadsheet.
 - Ivan is primary contact for directory work.
 - Make network checks a part of the schema.
+- Get rid of special-purpose logic for level-1
 - Fix typo in nano enum.
 - Clearer error when it can't find matching assay name.
 - Downgrade dependency for compatibility with HuBMAP commons.
-- Directory structure for scatacseq.
 - Link to the yaml for both directory and metadata schemas.
+- Directory structure for scatacseq and scrnaseq: They share a symlink.
+- Add help document.
+- Factor out the checks, make OO, and make error messages configurable.
+- Script to generate CSV for fields and enums.
 
 ## v0.0.8 - 2021-02-10
 - Update CODEX directory structure
