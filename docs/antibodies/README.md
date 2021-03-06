@@ -25,7 +25,7 @@ Changes:
 [`conjugated_tag`](#conjugated_tag)<br></details>
 
 
-<details open="true"><summary>Version 0</summary>
+<details open="true"><summary>Version 2</summary>
 
 ### `version`
 Current version of metadata schema. Template provides the correct value.

@@ -83,9 +83,12 @@ def get_tsv_errors(tsv_path, type, version=None, optional_fields=[], offline=Non
         return 'File has no data rows.'
 
     try:
-        others = [p.stem for p in (Path(__file__).parent / 'table-schemas/others').iterdir()]
+        others = [
+            p.stem.split('-v')[0] for p in
+            (Path(__file__).parent / 'table-schemas/others').iterdir()
+        ]
         if type in others:
-            schema = get_other_schema(type,
+            schema = get_other_schema(type, version,
                                       offline=offline)
         else:
             schema = get_table_schema(type, version,

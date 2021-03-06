@@ -24,10 +24,9 @@ class SchemaVersion():
 
 
 def list_schema_versions():
-    stems = sorted(
-        p.stem for p in
-        (_table_schemas_path / 'assays').iterdir()
-    )
+    schema_paths = list((_table_schemas_path / 'assays').iterdir()) + \
+        list((_table_schemas_path / 'others').iterdir())
+    stems = sorted(p.stem for p in schema_paths)
     return [
         SchemaVersion(*stem.split('-v')) for stem in stems
     ]
@@ -40,8 +39,8 @@ def dict_schema_versions():
     return dict_of_sets
 
 
-def get_other_schema(other_type, offline=None):
-    schema = load_yaml(Path(__file__).parent / 'table-schemas/others' / f'{other_type}.yaml')
+def get_other_schema(schema_name, version, offline=None):
+    schema = load_yaml(_table_schemas_path / 'others' / f'{schema_name}-v{version}.yaml')
     for field in schema['fields']:
         _add_constraints(field, optional_fields=[], offline=offline)
     return schema

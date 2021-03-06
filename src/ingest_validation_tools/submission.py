@@ -174,14 +174,14 @@ class Submission:
         return get_data_dir_errors(
             assay_type, data_path, dataset_ignore_globs=self.dataset_ignore_globs)
 
-    def _get_contributors_errors(self, contributors_path):
+    def _get_contributors_errors(self, version, contributors_path):
         return get_tsv_errors(
-            type='contributors', tsv_path=contributors_path,
+            type='contributors', version=version, tsv_path=contributors_path,
             offline=self.offline, encoding=self.encoding)
 
-    def _get_antibodies_errors(self, antibodies_path):
+    def _get_antibodies_errors(self, version, antibodies_path):
         return get_tsv_errors(
-            type='antibodies', tsv_path=antibodies_path,
+            type='antibodies', version=version, tsv_path=antibodies_path,
             offline=self.offline, encoding=self.encoding)
 
     def _get_assay_internal_errors(self, assay_type, version, path):
@@ -211,8 +211,9 @@ class Submission:
 
             contributors_path = self.directory_path / \
                 row['contributors_path']
+            contributors_version = 0  # TODO: read from file
             contributors_errors = self._get_contributors_errors(
-                contributors_path)
+                contributors_version, contributors_path)
             if contributors_errors:
                 errors[f'{row_number}, contributors {contributors_path}'] = \
                     contributors_errors
@@ -220,8 +221,9 @@ class Submission:
             if 'antibodies_path' in row:
                 antibodies_path = self.directory_path / \
                     row['antibodies_path']
+                antibodies_version = 2  # TODO: read from file
                 antibodies_errors = self._get_antibodies_errors(
-                    antibodies_path)
+                    antibodies_version, antibodies_path)
                 if antibodies_errors:
                     errors[f'{row_number}, antibodies {antibodies_path}'] = \
                         antibodies_errors

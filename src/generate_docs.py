@@ -26,15 +26,17 @@ def main():
     args = parser.parse_args()
 
     schema_versions = dict_schema_versions()
-    is_assay = args.type in schema_versions
+    versions = sorted(schema_versions[args.type])
+    max_version = max(versions)
+
+    # TODO: read from directory:
+    is_assay = args.type not in ['donor', 'sample', 'antibodies', 'contributors']
+
     if is_assay:
-        versions = sorted(schema_versions[args.type])
-        max_version = max(versions)
         table_schemas = {v: get_table_schema(args.type, v) for v in versions}
         directory_schema = get_directory_schema(args.type)
     else:
-        max_version = 0
-        table_schemas = {0: get_other_schema(args.type)}  # TODO: Version the other schemas!
+        table_schemas = {v: get_other_schema(args.type, v) for v in versions}
         directory_schema = {}
 
     # README:
@@ -42,7 +44,6 @@ def main():
         f.write(generate_readme_md(
             table_schemas, directory_schema, args.type, is_assay=is_assay
         ))
-        # TODO: Rename
 
     # Data entry templates:
     with open(Path(args.target) / get_tsv_name(args.type, is_assay=is_assay), 'w') as f:
