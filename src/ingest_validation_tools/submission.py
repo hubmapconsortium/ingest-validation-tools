@@ -146,9 +146,9 @@ class Submission:
         errors = {}
         for path, assay_type in self.effective_tsv_paths.items():
             single_tsv_internal_errors = \
-                self._get_single_tsv_internal_errors(assay_type, path)
+                self._get_assay_internal_errors(assay_type, path)
             single_tsv_external_errors = \
-                self._get_single_tsv_external_errors(assay_type, path)
+                self._get_assay_reference_errors(assay_type, path)
             single_tsv_errors = {}
             if single_tsv_internal_errors:
                 single_tsv_errors['Internal'] = single_tsv_internal_errors
@@ -172,13 +172,13 @@ class Submission:
             type='antibodies', tsv_path=antibodies_path,
             offline=self.offline, encoding=self.encoding)
 
-    def _get_single_tsv_internal_errors(self, assay_type, path):
+    def _get_assay_internal_errors(self, assay_type, path):
         return get_tsv_errors(
             type=assay_type, tsv_path=path,
             optional_fields=self.optional_fields,
             offline=self.offline, encoding=self.encoding)
 
-    def _get_single_tsv_external_errors(self, assay_type, path):
+    def _get_assay_reference_errors(self, assay_type, path):
         try:
             rows = dict_reader_wrapper(path, self.encoding)
         except UnicodeDecodeError as e:
