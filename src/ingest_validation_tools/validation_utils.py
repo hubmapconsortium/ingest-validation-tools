@@ -66,7 +66,7 @@ def get_context_of_decode_error(e):
     return f'Invalid {e.encoding} because {e.reason}: "{in_context}"'
 
 
-def get_tsv_errors(tsv_path, type, optional_fields=[], offline=None):
+def get_tsv_errors(tsv_path, type, optional_fields=[], offline=None, encoding=None):
     '''
     Validate the TSV.
     '''
@@ -75,7 +75,7 @@ def get_tsv_errors(tsv_path, type, optional_fields=[], offline=None):
         return 'File does not exist'
 
     try:
-        rows = dict_reader_wrapper(tsv_path, 'ascii')
+        rows = dict_reader_wrapper(tsv_path, encoding=encoding)
     except UnicodeDecodeError as e:
         return get_context_of_decode_error(e)
 
