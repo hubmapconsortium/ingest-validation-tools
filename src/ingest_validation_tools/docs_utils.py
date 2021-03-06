@@ -95,12 +95,16 @@ def generate_readme_md(
     directory_source_url = f'{src_url_base}/directory-schemas/{type}.yaml'
 
     optional_doc_link_md = (
-        f'- [🔬 Background doc]({max_version_table_schema["doc_url"]}): More details about this type.'
+        f'- [🔬 Background doc]({max_version_table_schema["doc_url"]}): '
+        'More details about this type.'
         if 'doc_url' in max_version_table_schema else ''
     )
     optional_description_md = (
         '\n' +
-        max_version_table_schema['description_md'] if 'description_md' in max_version_table_schema else ''
+        (
+            max_version_table_schema['description_md']
+            if 'description_md' in max_version_table_schema else ''
+        )
     )
 
     return f'''# {type}
