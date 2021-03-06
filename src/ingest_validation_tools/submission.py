@@ -9,7 +9,6 @@ from ingest_validation_tools.yaml_include_loader import load_yaml
 from ingest_validation_tools.validation_utils import (
     get_tsv_errors,
     get_data_dir_errors,
-    get_internal_errors,
     dict_reader_wrapper,
     get_context_of_decode_error
 )
@@ -159,6 +158,20 @@ class Submission:
                 errors[f'{path} (as {assay_type})'] = single_tsv_errors
         return errors
 
+    def _get_data_dir_errors(self, assay_type, data_path):
+        return get_data_dir_errors(
+            assay_type, data_path, dataset_ignore_globs=self.dataset_ignore_globs)
+
+    def _get_contributors_errors(self, contributors_path):
+        return get_tsv_errors(
+            type='contributors', tsv_path=contributors_path,
+            offline=self.offline)
+
+    def _get_antibodies_errors(self, antibodies_path):
+        return get_tsv_errors(
+            type='antibodies', tsv_path=antibodies_path,
+            offline=self.offline)
+
     def _get_single_tsv_internal_errors(self, assay_type, path):
         return get_tsv_errors(
             type=assay_type, tsv_path=path,
@@ -204,18 +217,6 @@ class Submission:
                         antibodies_errors
 
         return errors
-
-    def _get_data_dir_errors(self, assay_type, data_path):
-        return get_data_dir_errors(
-            assay_type, data_path, dataset_ignore_globs=self.dataset_ignore_globs)
-
-    def _get_contributors_errors(self, contributors_path):
-        return get_internal_errors(contributors_path, 'contributors',
-                                   encoding=self.encoding, offline=self.offline)
-
-    def _get_antibodies_errors(self, antibodies_path):
-        return get_internal_errors(antibodies_path, 'antibodies',
-                                   encoding=self.encoding, offline=self.offline)
 
     def _get_reference_errors(self):
         errors = {}

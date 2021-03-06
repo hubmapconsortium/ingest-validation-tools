@@ -66,23 +66,22 @@ def get_context_of_decode_error(e):
     return f'Invalid {e.encoding} because {e.reason}: "{in_context}"'
 
 
-def get_internal_errors(path, type_name, encoding=None, offline=None):
-    if not path.exists():
-        return 'File does not exist'
-    try:
-        rows = dict_reader_wrapper(path, encoding)
-    except UnicodeDecodeError as e:
-        return get_context_of_decode_error(e)
-    if not rows:
-        return 'File has no data rows.'
-    return get_tsv_errors(path, type_name, offline=offline)
-
-
 def get_tsv_errors(tsv_path, type, optional_fields=[], offline=None):
     '''
     Validate the TSV.
     '''
     logging.info(f'Validating {type} TSV...')
+    if not Path(tsv_path).exists():
+        return 'File does not exist'
+
+    try:
+        rows = dict_reader_wrapper(tsv_path, 'ascii')
+    except UnicodeDecodeError as e:
+        return get_context_of_decode_error(e)
+
+    if not rows:
+        return 'File has no data rows.'
+
     try:
         others = [p.stem for p in (Path(__file__).parent / 'table-schemas/others').iterdir()]
         if type in others:
