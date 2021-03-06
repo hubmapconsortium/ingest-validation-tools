@@ -72,9 +72,10 @@ def _enrich_description(field):
 
 def generate_readme_md(
         table_schemas, directory_schema, type, is_assay=True):
-    table_schema = list(table_schemas.values())[0]  # TODO: document all
-    fields_md = _make_fields_md(table_schema)
-    toc_md = _make_toc(fields_md)
+    max_version = max(table_schemas.keys())
+    max_version_table_schema = table_schemas[max_version]
+    max_version_fields_md = _make_fields_md(max_version_table_schema)
+    toc_md = _make_toc(max_version_fields_md)
     dir_description_md = _make_dir_description(directory_schema)
 
     optional_dir_description_md = f'''
@@ -94,11 +95,12 @@ def generate_readme_md(
     directory_source_url = f'{src_url_base}/directory-schemas/{type}.yaml'
 
     optional_doc_link_md = (
-        f'- [🔬 Background doc]({table_schema["doc_url"]}): More details about this type.'
-        if 'doc_url' in table_schema else ''
+        f'- [🔬 Background doc]({max_version_table_schema["doc_url"]}): More details about this type.'
+        if 'doc_url' in max_version_table_schema else ''
     )
     optional_description_md = (
-        '\n' + table_schema['description_md'] if 'description_md' in table_schema else ''
+        '\n' +
+        max_version_table_schema['description_md'] if 'description_md' in max_version_table_schema else ''
     )
 
     return f'''# {type}
@@ -113,7 +115,7 @@ Related files:
 ## Table of contents
 {toc_md}
 {optional_dir_description_md}
-{fields_md}
+{max_version_fields_md}
 '''
 
 
