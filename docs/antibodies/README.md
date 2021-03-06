@@ -11,11 +11,6 @@ Changes:
 - v1: Version number added.
 - v2: Add concentration fields.
 
-Previous versions:
-
-- [v0](https://github.com/hubmapconsortium/ingest-validation-tools/tree/antibodies-v0/docs/antibodies) / [diff](https://github.com/hubmapconsortium/ingest-validation-tools/compare/antibodies-v0...master)
-- [v1](https://github.com/hubmapconsortium/ingest-validation-tools/tree/antibodies-v1/docs/antibodies) / [diff](https://github.com/hubmapconsortium/ingest-validation-tools/compare/antibodies-v1...master)
-
 ## Table of contents
 [`version`](#version)<br>
 [`channel_id`](#channel_id)<br>
