@@ -71,7 +71,8 @@ def _enrich_description(field):
 
 
 def generate_readme_md(
-        table_schema, directory_schema, type, is_assay=True):
+        table_schemas, directory_schema, type, is_assay=True):
+    table_schema = list(table_schemas.values())[0]  # TODO: document all
     versions_md = _make_versions_md(table_schema, type)
     fields_md = _make_fields_md(table_schema)
     toc_md = _make_toc(fields_md)

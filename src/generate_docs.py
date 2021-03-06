@@ -28,25 +28,28 @@ def main():
     schema_versions = dict_schema_versions()
     is_assay = args.type in schema_versions
     if is_assay:
-        version = max(schema_versions[args.type])
-        table_schema = get_table_schema(args.type, version)
+        versions = sorted(schema_versions[args.type])
+        max_version = max(versions)
+        table_schemas = {v: get_table_schema(args.type, v) for v in versions}
         directory_schema = get_directory_schema(args.type)
     else:
-        table_schema = get_other_schema(args.type)
+        max_version = 0
+        table_schemas = {0: get_other_schema(args.type)}  # TODO: Version the other schemas!
         directory_schema = {}
 
     # README:
     with open(Path(args.target) / 'README.md', 'w') as f:
         f.write(generate_readme_md(
-            table_schema, directory_schema, args.type, is_assay=is_assay
+            table_schemas, directory_schema, args.type, is_assay=is_assay
         ))
         # TODO: Rename
 
     # Data entry templates:
     with open(Path(args.target) / get_tsv_name(args.type, is_assay=is_assay), 'w') as f:
-        f.write(generate_template_tsv(table_schema))
+        max_schema = table_schemas[max_version]
+        f.write(generate_template_tsv(max_schema))
     create_xlsx(
-        table_schema, Path(args.target) / get_xlsx_name(args.type, is_assay=is_assay),
+        max_schema, Path(args.target) / get_xlsx_name(args.type, is_assay=is_assay),
         idempotent=True,
         sheet_name='Export as TSV'
     )
