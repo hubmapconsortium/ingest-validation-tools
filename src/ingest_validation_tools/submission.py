@@ -175,8 +175,8 @@ class Submission:
     def _get_assay_internal_errors(self, assay_type, path):
         return get_tsv_errors(
             type=assay_type, tsv_path=path,
-            optional_fields=self.optional_fields,
-            offline=self.offline, encoding=self.encoding)
+            offline=self.offline, encoding=self.encoding,
+            optional_fields=self.optional_fields)
 
     def _get_assay_reference_errors(self, assay_type, path):
         try:
