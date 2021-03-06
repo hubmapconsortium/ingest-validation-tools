@@ -183,8 +183,6 @@ class Submission:
             rows = dict_reader_wrapper(path, self.encoding)
         except UnicodeDecodeError as e:
             return get_context_of_decode_error(e)
-        if 'data_path' not in rows[0] or 'contributors_path' not in rows[0]:
-            return 'File is missing data_path or contributors_path.'
         if not self.directory_path:
             return None
 
