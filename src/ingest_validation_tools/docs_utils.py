@@ -139,6 +139,7 @@ def _make_fields_md(table_schema, title):
     joined_list = '\n\n'.join(fields_md_list)
     return f'''
 <details><summary>{title}</summary>
+
 {joined_list}
 </details>
 '''
