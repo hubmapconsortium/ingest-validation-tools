@@ -2,17 +2,17 @@
 import sys
 from yaml import dump as dump_yaml
 from ingest_validation_tools.schema_loader import (
-    list_types, get_table_schema, get_other_schema
+    list_schema_versions, get_table_schema, get_other_schema
 )
 
 
 def main():
     mapping = {}
-    for assay_type in list_types():
+    for schema_version in list_schema_versions():
         try:
-            schema = get_table_schema(assay_type)
+            schema = get_table_schema(schema_version.schema_name, schema_version.version)
         except Exception as e:
-            print(f'Processing: {assay_type}\n{e}', file=sys.stderr)
+            print(f'Processing: {schema_version}\n{e}', file=sys.stderr)
             return 1
         _add_field_descriptions_to_mapping(schema['fields'], mapping)
 

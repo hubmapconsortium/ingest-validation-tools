@@ -66,7 +66,7 @@ def get_context_of_decode_error(e):
     return f'Invalid {e.encoding} because {e.reason}: "{in_context}"'
 
 
-def get_tsv_errors(tsv_path, type, optional_fields=[], offline=None, encoding=None):
+def get_tsv_errors(tsv_path, type, version=None, optional_fields=[], offline=None, encoding=None):
     '''
     Validate the TSV.
     '''
@@ -85,9 +85,11 @@ def get_tsv_errors(tsv_path, type, optional_fields=[], offline=None, encoding=No
     try:
         others = [p.stem for p in (Path(__file__).parent / 'table-schemas/others').iterdir()]
         if type in others:
-            schema = get_other_schema(type, offline=offline)
+            schema = get_other_schema(type,
+                                      offline=offline)
         else:
-            schema = get_table_schema(type, optional_fields=optional_fields, offline=offline)
+            schema = get_table_schema(type, version,
+                                      offline=offline, optional_fields=optional_fields)
     except OSError as e:
         return {e.strerror: Path(e.filename).name}
     return get_table_errors(tsv_path, schema)

@@ -3,7 +3,6 @@ from collections import defaultdict
 from fnmatch import fnmatch
 from pathlib import Path
 from collections import Counter
-from dataclasses import dataclass
 
 from ingest_validation_tools.yaml_include_loader import load_yaml
 
@@ -19,16 +18,21 @@ from ingest_validation_tools.plugin_validator import (
     ValidatorError as PluginValidatorError
 )
 
+from ingest_validation_tools.schema_loader import (
+    SchemaVersion
+)
 
-def _assay_name_to_code(name):
+
+def _assay_to_schema_name(name):
     '''
     Given an assay name, read all the schemas until one matches.
+    Return the schema name, but not the version.
     '''
     for path in (Path(__file__).parent / 'table-schemas' / 'assays').glob('*.yaml'):
         schema = load_yaml(path)
         for field in schema['fields']:
             if field['name'] == 'assay_type' and name in field['constraints']['enum']:
-                return path.stem
+                return path.stem.split('-v')[0]
     raise PreflightError(f"Can't find schema where '{name}' is in the enum for assay_type")
 
 
@@ -37,12 +41,6 @@ TSV_SUFFIX = 'metadata.tsv'
 
 class PreflightError(Exception):
     pass
-
-
-@dataclass
-class SchemaVersion():
-    schema_name: str
-    version: int
 
 
 class Submission:
@@ -96,7 +94,7 @@ class Submission:
         name = rows[0]['assay_type']
         version = rows[0]['version'] if 'version' in rows[0] else 0
 
-        return SchemaVersion(_assay_name_to_code(name), version)
+        return SchemaVersion(_assay_to_schema_name(name), version)
 
     def get_errors(self):
         # This creates a deeply nested dict.
@@ -156,10 +154,13 @@ class Submission:
         errors = {}
         for path, schema_version in self.effective_tsv_paths.items():
             schema_name = schema_version.schema_name
+            version = schema_version.version
+
             single_tsv_internal_errors = \
-                self._get_assay_internal_errors(schema_name, path)
+                self._get_assay_internal_errors(schema_name, version, path)
             single_tsv_external_errors = \
                 self._get_assay_reference_errors(schema_name, path)
+
             single_tsv_errors = {}
             if single_tsv_internal_errors:
                 single_tsv_errors['Internal'] = single_tsv_internal_errors
@@ -183,9 +184,9 @@ class Submission:
             type='antibodies', tsv_path=antibodies_path,
             offline=self.offline, encoding=self.encoding)
 
-    def _get_assay_internal_errors(self, assay_type, path):
+    def _get_assay_internal_errors(self, assay_type, version, path):
         return get_tsv_errors(
-            type=assay_type, tsv_path=path,
+            type=assay_type, version=version, tsv_path=path,
             offline=self.offline, encoding=self.encoding,
             optional_fields=self.optional_fields)
 
