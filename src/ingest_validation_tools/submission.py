@@ -3,6 +3,7 @@ from collections import defaultdict
 from fnmatch import fnmatch
 from pathlib import Path
 from collections import Counter
+from dataclasses import dataclass
 
 from ingest_validation_tools.yaml_include_loader import load_yaml
 
@@ -38,6 +39,12 @@ class PreflightError(Exception):
     pass
 
 
+@dataclass
+class SchemaVersion():
+    schema_name: str
+    version: int
+
+
 class Submission:
     def __init__(self, directory_path=None, tsv_paths=[],
                  optional_fields=[], add_notes=True,
@@ -54,7 +61,7 @@ class Submission:
         self.errors = {}
         try:
             unsorted_effective_tsv_paths = {
-                str(path): self._get_type_from_first_line(path)
+                str(path): self._get_schema_version(path)
                 for path in (
                     tsv_paths if tsv_paths
                     else directory_path.glob(f'*{TSV_SUFFIX}')
@@ -67,7 +74,7 @@ class Submission:
         except PreflightError as e:
             self.errors['Preflight'] = str(e)
 
-    def _get_type_from_first_line(self, path):
+    def _get_schema_version(self, path):
         try:
             rows = dict_reader_wrapper(path, self.encoding)
         except UnicodeDecodeError:
@@ -85,8 +92,11 @@ class Submission:
             else:
                 message += f'Column headers: {", ".join(rows[0].keys())}'
             raise PreflightError(message)
+
         name = rows[0]['assay_type']
-        return _assay_name_to_code(name)
+        version = rows[0]['version'] if 'version' in rows[0] else 0
+
+        return SchemaVersion(_assay_name_to_code(name), version)
 
     def get_errors(self):
         # This creates a deeply nested dict.
@@ -134,7 +144,7 @@ class Submission:
         if not self.effective_tsv_paths:
             return {'Missing': 'There are no effective TSVs.'}
 
-        types_counter = Counter(self.effective_tsv_paths.values())
+        types_counter = Counter([v.schema_name for v in self.effective_tsv_paths.values()])
         repeated = [
             assay_type
             for assay_type, count in types_counter.items()
@@ -144,18 +154,19 @@ class Submission:
             return f'There is more than one TSV for this type: {", ".join(repeated)}'
 
         errors = {}
-        for path, assay_type in self.effective_tsv_paths.items():
+        for path, schema_version in self.effective_tsv_paths.items():
+            schema_name = schema_version.schema_name
             single_tsv_internal_errors = \
-                self._get_assay_internal_errors(assay_type, path)
+                self._get_assay_internal_errors(schema_name, path)
             single_tsv_external_errors = \
-                self._get_assay_reference_errors(assay_type, path)
+                self._get_assay_reference_errors(schema_name, path)
             single_tsv_errors = {}
             if single_tsv_internal_errors:
                 single_tsv_errors['Internal'] = single_tsv_internal_errors
             if single_tsv_external_errors:
                 single_tsv_errors['External'] = single_tsv_external_errors
             if single_tsv_errors:
-                errors[f'{path} (as {assay_type})'] = single_tsv_errors
+                errors[f'{path} (as {schema_name})'] = single_tsv_errors
         return errors
 
     def _get_data_dir_errors(self, assay_type, data_path):
