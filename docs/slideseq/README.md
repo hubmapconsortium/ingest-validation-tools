@@ -74,7 +74,8 @@ Related files:
 | `extras/thumbnail\.(png\|jpg)` |  | Optional thumbnail image which may be shown in search interface |
 
 
-<details><summary>Version 0</summary>
+<details open="true"><summary>Version 0</summary>
+
 ## Provenance
 
 ### `donor_id`
@@ -342,5 +343,6 @@ Relative path to file or directory with instrument data. Downstream processing w
 | constraint | value |
 | --- | --- |
 | required | `True` |
+
 </details>
 

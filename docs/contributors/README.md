@@ -17,7 +17,8 @@ Related files:
 [`orcid_id`](#orcid_id)<br></details>
 
 
-<details><summary>Version 0</summary>
+<details open="true"><summary>Version 0</summary>
+
 ### `affiliation`
 Institutional affiliation.
 
@@ -61,5 +62,6 @@ ORCID ID of contributor. Example: `0000-0002-8928-741X`.
 | pattern (regular expression) | `\d{4}-\d{4}-\d{4}-\d{3}[0-9X]` |
 | required | `True` |
 | url | prefix: `https://orcid.org/` |
+
 </details>
 

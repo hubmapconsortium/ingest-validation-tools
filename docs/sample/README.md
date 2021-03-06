@@ -40,7 +40,8 @@ Related files:
 [`specimen_tumor_distance_unit`](#specimen_tumor_distance_unit)<br></details>
 
 
-<details><summary>Version 0</summary>
+<details open="true"><summary>Version 0</summary>
+
 ## IDs
 
 ### `sample_id`
@@ -167,5 +168,6 @@ Distance unit. Leave blank if not applicable.
 | --- | --- |
 | required | `False` |
 | enum | `cm` |
+
 </details>
 
