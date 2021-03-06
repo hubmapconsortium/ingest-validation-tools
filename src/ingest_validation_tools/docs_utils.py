@@ -72,13 +72,17 @@ def _enrich_description(field):
 
 def generate_readme_md(
         table_schemas, directory_schema, type, is_assay=True):
-    fields_mds = {v: _make_fields_md(table_schemas[v], f'Version {v}') for v in table_schemas}
-
     max_version = max(table_schemas.keys())
+
+    fields_mds = {
+        v: _make_fields_md(table_schemas[v], f'Version {v}', is_open=(v == max_version))
+        for v in table_schemas
+    }
+
     max_version_table_schema = table_schemas[max_version]
     max_version_fields_md = fields_mds[max_version]
-
     toc_md = _make_toc(max_version_fields_md)
+
     dir_description_md = _make_dir_description(directory_schema)
 
     optional_dir_description_md = f'''
@@ -126,7 +130,7 @@ Related files:
 '''
 
 
-def _make_fields_md(table_schema, title):
+def _make_fields_md(table_schema, title, is_open):
     fields_md_list = []
     for field in table_schema['fields']:
         if 'heading' in field:
@@ -138,9 +142,10 @@ def _make_fields_md(table_schema, title):
 {table_md}""")
     joined_list = '\n\n'.join(fields_md_list)
     return f'''
-<details><summary>{title}</summary>
+<details {'open="true"' if is_open else ''}><summary>{title}</summary>
 
 {joined_list}
+
 </details>
 '''
 
