@@ -7,6 +7,7 @@ Related files:
 - [💻 Metadata schema](https://github.com/hubmapconsortium/ingest-validation-tools/edit/master/src/ingest_validation_tools/table-schemas/assays/slideseq.yaml): To update metadata fields.
 - [💻 Directory schema](https://github.com/hubmapconsortium/ingest-validation-tools/edit/master/src/ingest_validation_tools/directory-schemas/slideseq.yaml): To update directory structure.
 
+
 ## Table of contents
 <details><summary>Provenance</summary>
 
@@ -72,6 +73,8 @@ Related files:
 | `extras/.*` |  | Free-form descriptive information supplied by the TMC |
 | `extras/thumbnail\.(png\|jpg)` |  | Optional thumbnail image which may be shown in search interface |
 
+
+<details><summary>Version 0</summary>
 ## Provenance
 
 ### `donor_id`
@@ -339,3 +342,5 @@ Relative path to file or directory with instrument data. Downstream processing w
 | constraint | value |
 | --- | --- |
 | required | `True` |
+</details>
+

@@ -24,6 +24,8 @@ Changes:
 [`conjugated_cat_number`](#conjugated_cat_number)<br>
 [`conjugated_tag`](#conjugated_tag)<br></details>
 
+
+<details><summary>Version 0</summary>
 ### `version`
 Current version of metadata schema. Template provides the correct value.
 
@@ -108,3 +110,5 @@ The name of the entity conjugated to the antibody. Leave blank if not applicable
 | constraint | value |
 | --- | --- |
 | required | `False` |
+</details>
+

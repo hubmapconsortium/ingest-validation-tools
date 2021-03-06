@@ -7,6 +7,7 @@ Related files:
 - [💻 Metadata schema](https://github.com/hubmapconsortium/ingest-validation-tools/edit/master/src/ingest_validation_tools/table-schemas/contributors.yaml): To update metadata fields.
 - [💻 Directory schema](https://github.com/hubmapconsortium/ingest-validation-tools/edit/master/src/ingest_validation_tools/directory-schemas/contributors.yaml): To update directory structure.
 
+
 ## Table of contents
 [`affiliation`](#affiliation)<br>
 [`first_name`](#first_name)<br>
@@ -15,6 +16,8 @@ Related files:
 [`name`](#name)<br>
 [`orcid_id`](#orcid_id)<br></details>
 
+
+<details><summary>Version 0</summary>
 ### `affiliation`
 Institutional affiliation.
 
@@ -58,3 +61,5 @@ ORCID ID of contributor. Example: `0000-0002-8928-741X`.
 | pattern (regular expression) | `\d{4}-\d{4}-\d{4}-\d{3}[0-9X]` |
 | required | `True` |
 | url | prefix: `https://orcid.org/` |
+</details>
+

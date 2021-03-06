@@ -7,6 +7,7 @@ Related files:
 - [💻 Metadata schema](https://github.com/hubmapconsortium/ingest-validation-tools/edit/master/src/ingest_validation_tools/table-schemas/sample.yaml): To update metadata fields.
 - [💻 Directory schema](https://github.com/hubmapconsortium/ingest-validation-tools/edit/master/src/ingest_validation_tools/directory-schemas/sample.yaml): To update directory structure.
 
+
 ## Table of contents
 <details><summary>IDs</summary>
 
@@ -38,6 +39,8 @@ Related files:
 [`specimen_tumor_distance_value`](#specimen_tumor_distance_value)<br>
 [`specimen_tumor_distance_unit`](#specimen_tumor_distance_unit)<br></details>
 
+
+<details><summary>Version 0</summary>
 ## IDs
 
 ### `sample_id`
@@ -164,3 +167,5 @@ Distance unit. Leave blank if not applicable.
 | --- | --- |
 | required | `False` |
 | enum | `cm` |
+</details>
+
