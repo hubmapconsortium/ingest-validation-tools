@@ -7,7 +7,8 @@ import sys
 from tableschema_to_template.create_xlsx import create_xlsx
 
 from ingest_validation_tools.schema_loader import (
-    dict_schema_versions, get_table_schema, get_other_schema, get_directory_schema)
+    dict_schema_versions, get_table_schema, get_other_schema, get_directory_schema,
+    get_is_assay)
 from ingest_validation_tools.docs_utils import (
     get_tsv_name, get_xlsx_name,
     generate_template_tsv, generate_readme_md)
@@ -29,9 +30,7 @@ def main():
     versions = sorted(schema_versions[args.type])
     max_version = max(versions)
 
-    # TODO: read from directory:
-    is_assay = args.type not in ['donor', 'sample', 'antibodies', 'contributors']
-
+    is_assay = get_is_assay(args.type)
     if is_assay:
         table_schemas = {v: get_table_schema(args.type, v) for v in versions}
         directory_schema = get_directory_schema(args.type)

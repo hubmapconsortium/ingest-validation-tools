@@ -46,6 +46,11 @@ def get_other_schema(schema_name, version, offline=None):
     return schema
 
 
+def get_is_assay(schema_name):
+    # TODO: read from file system... but larger refactor may make it redundant.
+    return schema_name not in ['donor', 'sample', 'antibodies', 'contributors']
+
+
 def get_table_schema(schema_name, version, optional_fields=[], offline=None):
     schema = load_yaml(_table_schemas_path / 'assays' / f'{schema_name}-v{version}.yaml')
 
