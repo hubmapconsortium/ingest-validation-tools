@@ -80,8 +80,7 @@ def generate_readme_md(
     }
 
     max_version_table_schema = table_schemas[max_version]
-    max_version_fields_md = fields_mds[max_version]
-    toc_md = _make_toc(max_version_fields_md)
+    toc_md = _make_toc(fields_mds[max_version])
 
     dir_description_md = _make_dir_description(directory_schema)
 
@@ -126,7 +125,7 @@ Related files:
 ## Table of contents
 {toc_md}
 {optional_dir_description_md}
-{max_version_fields_md}
+{''.join(fields_mds.values())}
 '''
 
 
