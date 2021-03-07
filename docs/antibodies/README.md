@@ -27,14 +27,6 @@ Changes:
 
 <details ><summary>Version 0</summary>
 
-### `version`
-Current version of metadata schema. Template provides the correct value.
-
-| constraint | value |
-| --- | --- |
-| enum | `2` |
-| required | `True` |
-
 ### `channel_id`
 Structure of channel_id depends on assay type.
 
@@ -81,23 +73,6 @@ Antibody solutions may be diluted according to the experimental protocol. Leave 
 | required | `False` |
 | pattern (regular expression) | `1/\d+` |
 
-### `concentration_value`
-The concentration value of the antibody preparation. Leave blank if not applicable.
-
-| constraint | value |
-| --- | --- |
-| type | `number` |
-| required | `False` |
-
-### `concentration_unit`
-The concentration units of the antibody preparation. Leave blank if not applicable.
-
-| constraint | value |
-| --- | --- |
-| enum | `ug/ml` |
-| required | `False` |
-| units for | `concentration_value` |
-
 ### `conjugated_cat_number`
 An antibody may be conjugated to a fluorescent tag or a metal tag for detection. Conjugated antibodies may be purchased from commercial providers. Leave blank if not applicable.
 
@@ -121,7 +96,7 @@ Current version of metadata schema. Template provides the correct value.
 
 | constraint | value |
 | --- | --- |
-| enum | `2` |
+| enum | `1` |
 | required | `True` |
 
 ### `channel_id`
