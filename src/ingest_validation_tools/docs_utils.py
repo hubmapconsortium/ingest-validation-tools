@@ -14,7 +14,7 @@ def generate_template_tsv(table_schema):
     header_row = '\t'.join(names)
 
     enums = [
-        ' / '.join(field['constraints']['enum'])
+        ' / '.join(str(e) for e in field['constraints']['enum'])
         if 'constraints' in field
         and 'enum' in field['constraints']
         else ''
