@@ -119,7 +119,7 @@ class Submission:
             errors['Notes'] = {
                 'Time': datetime.now(),
                 'Directory': str(self.directory_path),
-                'Effective TSVs': self.effective_tsv_paths
+                'Effective TSVs': list(self.effective_tsv_paths.keys())
             }
         return errors
 
