@@ -11,8 +11,7 @@ class Samples:
         # This creates a deeply nested dict.
         # Keys are present only if there is actually an error to report.
         errors = {}
-        # TODO: read version from file.
-        tsv_errors = get_tsv_errors(self.path, type='sample', version=0)
+        tsv_errors = get_tsv_errors(self.path, type='sample')
         if tsv_errors:
             errors['Sample TSV Errors'] = tsv_errors
         return errors

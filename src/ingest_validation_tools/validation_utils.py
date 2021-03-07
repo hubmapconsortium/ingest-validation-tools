@@ -66,7 +66,7 @@ def get_context_of_decode_error(e):
     return f'Invalid {e.encoding} because {e.reason}: "{in_context}"'
 
 
-def get_tsv_errors(tsv_path, type, version=None, optional_fields=[], offline=None, encoding=None):
+def get_tsv_errors(tsv_path, type, optional_fields=[], offline=None, encoding=None):
     '''
     Validate the TSV.
     '''
@@ -82,6 +82,7 @@ def get_tsv_errors(tsv_path, type, version=None, optional_fields=[], offline=Non
     if not rows:
         return 'File has no data rows.'
 
+    version = rows[0]['version'] if 'version' in rows[0] else '0'
     try:
         others = [
             p.stem.split('-v')[0] for p in
