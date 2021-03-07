@@ -10,7 +10,6 @@ def main():
     mapping = {}
     for schema_version in list_schema_versions():
         schema_name = schema_version.schema_name
-        # TODO: move this check into get_table_schema()
         get_schema = get_table_schema if get_is_assay(schema_name) else get_other_schema
         schema = get_schema(schema_version.schema_name, schema_version.version)
         _add_field_descriptions_to_mapping(schema['fields'], mapping)
