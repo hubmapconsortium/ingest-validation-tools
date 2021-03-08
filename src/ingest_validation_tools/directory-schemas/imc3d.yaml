@@ -54,7 +54,7 @@
 -
   pattern: 'processed/CellTypeComposition_perTissue.pdf'
   description: 'Cell type composition bar graph per tissue'
-  required: Yes
+  required: False
   is_qa_qc: False
 
 -
