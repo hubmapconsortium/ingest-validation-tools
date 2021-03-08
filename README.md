@@ -58,6 +58,7 @@ No errors!
 ```
 
 Documentation and metadata TSV templates for each assay type are [here](docs).
+Addition help for certain common error messages is available [here](README-validate-submission-help.md)
 
 ### Validating single TSVs:
 
