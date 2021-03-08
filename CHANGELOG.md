@@ -25,6 +25,7 @@
 - Add help document.
 - Factor out the checks, make OO, and make error messages configurable.
 - Slightly better errors when a directory is found when a TSV is expected.
+- Make as_text_list the default output format.
 - Script to generate CSV for fields and enums.
 
 ## v0.0.8 - 2021-02-10
