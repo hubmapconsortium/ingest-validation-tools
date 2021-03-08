@@ -6,7 +6,7 @@
   is_qa_qc: False
 
 -
-  pattern: 'mcd/section_report.csv'
+  pattern: 'mcd/section_report\.csv'
   description: 'csv containing labels for sections as well as whether or not they were included in the 3D model'
   required: True
   is_qa_qc: True
