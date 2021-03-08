@@ -24,47 +24,47 @@
   is_qa_qc: False
 
 
-#SingleCellData
+# SingleCellData/:
 -
-  pattern: 'SingleCellData/cells.csv'
+  pattern: 'SingleCellData/cells\.csv'
   description: 'Contains one csv file per tissue with marker intensities (untransformed, range normalized to 99th percentile), phenograph cluster label and cell type label per single cell'
   required: True
   is_qa_qc: False
 
 -
-  pattern: 'SingleCellData/cellsinfo.txt'
+  pattern: 'SingleCellData/cellsinfo\.txt'
   description: 'Text file containing formatting information about cells*organ*.csv'
   required: False
   is_qa_qc: False
 
-#Mapping
+# mapping/:
 -
-  pattern: 'mapping/cluster_labels_image.tif'
-  description: 'Cell images labeled by cell type'
+  pattern: 'mapping/cluster_labels_image\.tif'
+  description: 'Cell image labeled by cell type'
   required: True
   is_qa_qc: False
 
-#processed
+# processed/:
 -
-  pattern: 'processed/umap_phenograph.pdf'
+  pattern: 'processed/umap_phenograph\.pdf'
   description: 'tSNE phenograph'
-  required: Yes
+  required: False
   is_qa_qc: False
 
 -
-  pattern: 'processed/CellTypeComposition_perTissue.pdf'
+  pattern: 'processed/CellTypeComposition_perTissue\.pdf'
   description: 'Cell type composition bar graph per tissue'
   required: False
   is_qa_qc: False
 
 -
-  pattern: 'processed/Densityplots_perMarker.pdf'
+  pattern: 'processed/Densityplots_perMarker\.pdf'
   description: 'Density plots of marker intensity, separated by marker'
   required: False
   is_qa_qc: True
 
 -
-  pattern: 'processed/celltypes.pdf'
+  pattern: 'processed/celltypes\.pdf'
   description: 'Heatmap of marker expression per cluster, annotated by assigned cell type'
   required: False
   is_qa_qc: False
