@@ -23,11 +23,6 @@
   required: True
   is_qa_qc: False
 
--
-  pattern: 'extras'
-  description: 'Folder containing optional metadata'
-  required: False
-  is_qa_qc: False
 
 #SingleCellData
 -
