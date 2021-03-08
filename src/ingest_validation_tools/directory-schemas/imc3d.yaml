@@ -66,5 +66,5 @@
 -
   pattern: 'processed/celltypes.pdf'
   description: 'Heatmap of marker expression per cluster, annotated by assigned cell type'
-  required: Yes
+  required: False
   is_qa_qc: False
