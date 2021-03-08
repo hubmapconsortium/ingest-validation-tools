@@ -12,7 +12,7 @@
   is_qa_qc: True
 
 -
-  pattern: 'mcd/channelnames_report.csv'
+  pattern: 'mcd/channelnames_report\.csv'
   description: 'CSV containing antibodies used and whether they were detected sufficiently or not'
   required: True
   is_qa_qc: True
