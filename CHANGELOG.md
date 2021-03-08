@@ -21,7 +21,7 @@
 - Clearer error when it can't find matching assay name.
 - Downgrade dependency for compatibility with HuBMAP commons.
 - Directory structure for scatacseq.
-- Add 3D IMC.
+- Add 3D IMC table and directory schemas.
 - Link to the yaml for both directory and metadata schemas.
 - Directory structure for scatacseq and scrnaseq: They share a symlink.
 - Add help document.
