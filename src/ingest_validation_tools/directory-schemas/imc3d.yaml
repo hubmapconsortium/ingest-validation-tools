@@ -60,7 +60,7 @@
 -
   pattern: 'processed/Densityplots_perMarker.pdf'
   description: 'Density plots of marker intensity, separated by marker'
-  required: Yes
+  required: False
   is_qa_qc: True
 
 -
