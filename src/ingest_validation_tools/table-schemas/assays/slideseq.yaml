@@ -1,0 +1,72 @@
+# doc_url: TODO https://github.com/hubmapconsortium/ingest-validation-tools/issues/482
+fields:
+  # include: ../includes/all_assays.yaml
+  -
+    name: assay_category
+    constraints:
+      enum:
+        - sequence
+  -
+    name: assay_type
+    constraints:
+      enum:
+        - Slide-seq
+  -
+    name: analyte_class
+    constraints:
+      enum:
+        - RNA
+  # include: ../includes/is_targeted.yaml
+
+  # Level 2 fields:
+  # include: ../includes/acquisition_instrument.yaml
+  -
+    name: rnaseq_assay_method
+    description: The kit used for the RNA sequencing assay
+  -
+    name: library_construction_protocols_io_doi
+    description: A link to the protocol document containing the library construction method (including version) that was used, e.g. "Smart-Seq2", "Drop-Seq", "10X v3".
+  -
+    name: library_layout
+    description: Whether the library was generated for single-end or paired end sequencing
+  -
+    name: library_adapter_sequence
+    description: Adapter sequence to be used for adapter trimming
+  -
+    name: puck_id
+    description: Slide-seq captures RNA sequence data on spatially barcoded arrays of beads. Beads are fixed to a slide in a region shaped like a round puck. Each puck has a unique puck_id.
+  -
+    name: is_technical_replicate
+    description: Is the sequencing reaction run in repliucate, TRUE or FALSE
+    type: boolean
+  -
+    name: bead_barcode_read
+    description: Which read file contains the bead barcode
+  -
+    name: bead_barcode_offset
+    description: Position(s) in the read at which the bead barcode starts
+  -
+    name: bead_barcode_size
+    description: Length of the bead barcode in base pairs
+  -
+    name: library_pcr_cycles
+    description: Number of PCR cycles to amplify cDNA
+  -
+    name: library_pcr_cycles_for_sample_index
+    description: Number of PCR cycles performed for library indexing
+  -
+    name: library_final_yield_value
+    description: Total number of ng of library after final pcr amplification step. This is the concentration (ng/ul) * volume (ul)
+  -
+    name: library_final_yield_unit
+    description: Units of final library yield
+    constraints:
+      enum:
+        - ng
+  -
+    name: library_average_fragment_size
+    description: Average size of sequencing library fragments estimated via gel electrophoresis or bioanalyzer/tapestation.
+
+  # include: ../includes/sequencing.yaml
+
+  # include: ../includes/paths.yaml

@@ -1,0 +1,16 @@
+- name: max_x_width_value
+  description: Image width value of the ROI acquisition
+  type: number
+- name: max_x_width_unit
+  description: Units of image width of the ROI acquisition
+  constraints:
+    enum:
+      - um
+- name: max_y_height_value
+  description: Image height value of the ROI acquisition
+  type: number
+- name: max_y_height_unit
+  description: Units of image height of the ROI acquisition
+  constraints:
+    enum:
+      - um

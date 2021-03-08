@@ -1,4 +1,1 @@
-# TODO: Confirm the details of this structure.
--
-  pattern: '.*\.fastq\.gz'
-  description: 'TODO'
+fastq.yaml

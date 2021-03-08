@@ -1,9 +1,20 @@
 # codex
 
 Related files:
-- [🔬 Background doc](https://docs.google.com/document/d/1CYYSXPQjwdbvmvZaEcsi_2udvDfGEZrMyh4yFnm4p3M/edit): More details about this type.
-- [📝 TSV template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/master/docs/codex/codex-metadata.tsv): Use this to submit metadata.
-- [💻 Source code](https://github.com/hubmapconsortium/ingest-validation-tools/edit/master/src/ingest_validation_tools/table-schemas/level-2/codex.yaml): Make a PR if this doc should be updated.
+- [🔬 Background doc](https://portal.hubmapconsortium.org/docs/assays/codex): More details about this type.
+- [📝 Excel template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/master/docs/codex/codex-metadata.xlsx): For metadata entry.
+- [📝 TSV template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/master/docs/codex/codex-metadata.tsv): Alternative for metadata entry.
+- [💻 Metadata schema](https://github.com/hubmapconsortium/ingest-validation-tools/edit/master/src/ingest_validation_tools/table-schemas/assays/codex.yaml): To update metadata fields.
+- [💻 Directory schema](https://github.com/hubmapconsortium/ingest-validation-tools/edit/master/src/ingest_validation_tools/directory-schemas/codex.yaml): To update directory structure.
+
+CODEX submissions require metadata on the antibodies used in the assay to be provided in an Antibodies TSV.
+For CODEX, in that TSV, the `channel_id` is a cycle#/channel# combination linked to a given image file (of the form `Cycle[0-9]_CH[0-9]`). 
+Each TIF file in a CODEX dataset contains image data captured from a single channel in a single cycle,
+identified and connected to the `channel_id` by its location in the submission directory
+(of the form `src_*/cyc*_reg*_*/*_*_Z*_CH*.tif`).
+
+The other fields function the same way for all assays using antibodies.
+For more information, see the [Antibodies TSV documentation](../antibodies).
 
 ## Table of contents
 <details><summary>Provenance</summary>
@@ -47,17 +58,35 @@ Related files:
 [`number_of_cycles`](#number_of_cycles)<br>
 [`section_prep_protocols_io_doi`](#section_prep_protocols_io_doi)<br>
 [`reagent_prep_protocols_io_doi`](#reagent_prep_protocols_io_doi)<br>
-</details>
-
-<details><summary>Paths</summary>
-
-[`metadata_path`](#metadata_path)<br>
+[`antibodies_path`](#antibodies_path)<br>
+[`contributors_path`](#contributors_path)<br>
 [`data_path`](#data_path)<br></details>
+
+## Directory structure
+
+| pattern | example | required? | description |
+| --- | --- | --- | --- |
+| `[^/]+NAV[^/]*\.tif` |  |  | Navigational Image showing Region of Interest (Keyance Microscope only) |
+| `.+\.pdf` | `summary.pdf` | ✓ | **[QA/QC]** PDF export of Powerpoint slide deck containing the Image Analysis Report |
+| `drv_[^/]+/channelNames\.txt` |  | ✓ | Text file produced by the Akoya software which contains the (linearized) channel number and the Name/ID/Target of the channel (required for HuBMAP pipeline) |
+| `src_[^/]+/experiment\.json` |  | ✓ | JSON file produced by the Akoya software which contains the metadata for the experiment, including the software version used, microscope parameters, channel names, pixel dimensions, etc. (required for HuBMAP pipeline) |
+| `drv_[^/]+/experiment\.json` |  |  | JSON file produced by the Akoya software which contains the metadata for the experiment, including the software version used, microscope parameters, channel names, pixel dimensions, etc. (required for HuBMAP pipeline) |
+| `src_[^/]+/exposure_times\.txt` |  | ✓ | Comma separated text file used for background subtraction that contains valid exposure times for all cycles [e.g: Cycle,CH1,CH2,CH3,CH4]. |
+| `drv_[^/]+/exposure_times\.txt` |  |  | Comma separated text file used for background subtraction that contains valid exposure times for all cycles [e.g: Cycle,CH1,CH2,CH3,CH4]. |
+| `src_[^/]+/segmentation\.json` |  | ✓ | JSON file produced by the Akoya software which contains the parameters used for segmentation. (required for HuBMAP pipeline) |
+| `drv_[^/]+/segmentation\.json` |  |  | JSON file produced by the Akoya software which contains the parameters used for segmentation. (required for HuBMAP pipeline) |
+| `drv_[^/]+/processed_[^/]+/.*` |  | ✓ | processed files produced by the Akoya software, not used by the HIVE |
+| `src_[^/]+/channelnames_report\.csv` |  | ✓ | Two column CSV: The first column is a name or target; The second column is boolean: "FALSE" channels are excluded from processing. (required for HuBMAP pipeline) |
+| `src_[^/]+/channelnames\.txt` |  | ✓ | Text file produced by the Akoya software which contains the (linearized) channel number and the Name/ID/Target of the channel (required for HuBMAP pipeline) |
+| `src_[^/]+/cyc.*_reg.*_.*/.*_.*_Z.*_CH.*\.tif` |  | ✓ | TIFF files produced by the experiment. General folder format: Cycle(n)_Region(n)_date; General file format: name_tileNumber(n)_zplaneNumber(n)_channelNumber(n) |
+| `src_[^/]+/cyc.*_reg.*_.*/.*\.gci` |  |  | Group Capture Information File (Keyance Microscope only) |
+| `extras/.*` |  |  | Free-form descriptive information supplied by the TMC |
+| `extras/thumbnail\.(png\|jpg)` |  |  | Optional thumbnail image which may be shown in search interface |
 
 ## Provenance
 
 ### `donor_id`
-HuBMAP Display ID of the donor of the assayed tissue.
+HuBMAP Display ID of the donor of the assayed tissue. Example: `ABC123`.
 
 | constraint | value |
 | --- | --- |
@@ -65,11 +94,11 @@ HuBMAP Display ID of the donor of the assayed tissue.
 | required | `True` |
 
 ### `tissue_id`
-HuBMAP Display ID of the assayed tissue.
+HuBMAP Display ID of the assayed tissue. Example: `ABC123-BL-1-2-3_456`.
 
 | constraint | value |
 | --- | --- |
-| pattern (regular expression) | `([A-Z]+[0-9]+)-(BL\|BR\|LB\|RB\|HT\|LK\|RK\|LI\|LV\|LL\|RL\|LY\d\d\|SI\|SP\|TH\|TR\|UR\|OT)(-\d+)+(_\d+)?` |
+| pattern (regular expression) | `([A-Z]+[0-9]+)-[A-Z]{2}\d*(-\d+)+(_\d+)?` |
 | required | `True` |
 
 ## Level 1
@@ -90,6 +119,7 @@ DOI for protocols.io referring to the protocol for this assay.
 | --- | --- |
 | required | `True` |
 | pattern (regular expression) | `10\.17504/.*` |
+| url | prefix: `https://dx.doi.org/` |
 
 ### `operator`
 Name of the person responsible for executing the assay.
@@ -230,7 +260,7 @@ The manufacturer of the instrument used to prepare the sample for the assay.
 | required | `True` |
 
 ### `preparation_instrument_model`
-The model number/name of the instrument used to prepare the sample for the assay
+The model number/name of the instrument used to prepare the sample for the assay.
 
 | constraint | value |
 | --- | --- |
@@ -238,7 +268,7 @@ The model number/name of the instrument used to prepare the sample for the assay
 | required | `True` |
 
 ### `number_of_antibodies`
-Number of antibodies
+Number of antibodies.
 
 | constraint | value |
 | --- | --- |
@@ -254,7 +284,7 @@ Number of fluorescent channels imaged during each cycle.
 | required | `True` |
 
 ### `number_of_cycles`
-Number of cycles of 1. oligo application, 2. fluor application, 3. washes
+Number of cycles of 1. oligo application, 2. fluor application, 3. washes.
 
 | constraint | value |
 | --- | --- |
@@ -268,6 +298,7 @@ DOI for protocols.io referring to the protocol for preparing tissue sections for
 | --- | --- |
 | required | `True` |
 | pattern (regular expression) | `10\.17504/.*` |
+| url | prefix: `https://dx.doi.org/` |
 
 ### `reagent_prep_protocols_io_doi`
 DOI for protocols.io referring to the protocol for preparing reagents for the assay.
@@ -276,15 +307,21 @@ DOI for protocols.io referring to the protocol for preparing reagents for the as
 | --- | --- |
 | required | `True` |
 | pattern (regular expression) | `10\.17504/.*` |
+| url | prefix: `https://dx.doi.org/` |
 
-## Paths
-
-### `metadata_path`
-Relative path to file or directory with free-form or instrument/lab specific metadata. Optional. Leave blank if not applicable.
+### `antibodies_path`
+Relative path to file with antibody information for this dataset.
 
 | constraint | value |
 | --- | --- |
-| required | `False` |
+| required | `True` |
+
+### `contributors_path`
+Relative path to file with ORCID IDs for contributors for this dataset.
+
+| constraint | value |
+| --- | --- |
+| required | `True` |
 
 ### `data_path`
 Relative path to file or directory with instrument data. Downstream processing will depend on filename extension conventions.

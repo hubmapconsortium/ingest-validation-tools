@@ -1,3 +1,19 @@
+#   A dataset consists of a single PAS stained microscopy run, and  
+#   a set of transformation files that are useful for other
+#   related datasets. (Vanderbilt)
 -
-  pattern: 'TODO\.txt'
-  description: 'TODO'
+  pattern: 'processedMicroscopy/[^/]+_PAS_images/[^/]+ome\.tif'
+  description: 'OME TIFF files (multichannel, multi-layered, image pyramids) produced by the PAS microscopy experiment'
+-
+  pattern: 'processedMicroscopy/[^/]+_PAS_transformations/[^/]+\.txt'
+  description: 'Transformations to PAS (related) data'
+-
+  pattern: 'rawMicroscopy/[^/]+\.xml'
+  description: 'XML metadata file from the autofluorescence microscopy experiments'
+
+# Note: extension might change depending on the microscope used. This is just for 
+# Leica .scn which is a container with tiled scan images (bigtiff)
+# which is the only type that we are currently receiving.
+-
+  pattern: 'rawMicroscopy/[^/]+\.scn'
+  description: 'Raw microscope file for the experiment'

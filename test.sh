@@ -8,21 +8,25 @@ start() { [[ -z $CI ]] || echo travis_fold':'start:$1; echo $green$1$reset; }
 end() { [[ -z $CI ]] || echo travis_fold':'end:$1; }
 die() { set +v; echo "$red$*$reset" 1>&2 ; exit 1; }
 
+CONTINUE_FROM="$1"
 
-start flake8
-flake8 || die 'Try: autopep8 --in-place --aggressive -r .'
-end flake8
+if [[ -z $CONTINUE_FROM ]]; then
+  start flake8
+  flake8 || die 'Try: autopep8 --in-place --aggressive -r .'
+  end flake8
 
-start src-doctests
-cd src
-find . | grep '\.py$' | xargs python -m doctest
-cd -
-end src-doctests
+  start mypy
+  mypy
+  end mypy
+fi
 
 for TEST in test-*; do
-  start $TEST
-  eval ./$TEST
-  end $TEST
+  if [[ -z $CONTINUE_FROM ]] || [[ $CONTINUE_FROM = $TEST ]]; then
+    CONTINUE_FROM=''
+    start $TEST
+    eval ./$TEST
+    end $TEST
+  fi
 done
 
 start changelog

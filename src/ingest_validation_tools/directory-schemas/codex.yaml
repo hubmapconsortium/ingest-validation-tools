@@ -1,0 +1,68 @@
+# A dataset consists of a single CODEX experimental run, and is 
+# collected by the Akoya software into a single directory. 
+#
+# directory beginning with drv_ contains analyzed files produced. 
+# There are a few files in this directory that are used for the HuBMAP 
+# data processing pipelines (channelNames.txt, experiment.json, segmentation.json)
+#
+# directory beginning with src_ contains the raw (unprocessed by Akoya) files.
+ 
+-
+  pattern: '[^/]+NAV[^/]*\.tif'
+  description: 'Navigational Image showing Region of Interest (Keyance Microscope only)'
+  required: False
+-
+  example: 'summary.pdf'
+  pattern: '.+\.pdf'
+  # TODO: Are we expecting to see this in a particular subdirectory, or at the top level?
+  description: 'PDF export of Powerpoint slide deck containing the Image Analysis Report'
+  is_qa_qc: True
+-
+  pattern: 'drv_[^/]+/channelNames\.txt'
+  description: 'Text file produced by the Akoya software which contains the (linearized) channel number and the Name/ID/Target of the channel (required for HuBMAP pipeline)'
+  required: True
+-
+  pattern: 'src_[^/]+/experiment\.json'
+  description: 'JSON file produced by the Akoya software which contains the metadata for the experiment, including the software version used, microscope parameters, channel names, pixel dimensions, etc. (required for HuBMAP pipeline)'
+  required: True
+-
+  pattern: 'drv_[^/]+/experiment\.json'
+  description: 'JSON file produced by the Akoya software which contains the metadata for the experiment, including the software version used, microscope parameters, channel names, pixel dimensions, etc. (required for HuBMAP pipeline)'
+  required: False
+-
+  pattern: 'src_[^/]+/exposure_times\.txt'
+  description: 'Comma separated text file used for background subtraction that contains valid exposure times for all cycles [e.g: Cycle,CH1,CH2,CH3,CH4].'
+  required: True
+-
+  pattern: 'drv_[^/]+/exposure_times\.txt'
+  description: 'Comma separated text file used for background subtraction that contains valid exposure times for all cycles [e.g: Cycle,CH1,CH2,CH3,CH4].'
+  required: False
+-
+  pattern: 'src_[^/]+/segmentation\.json'
+  description: 'JSON file produced by the Akoya software which contains the parameters used for segmentation. (required for HuBMAP pipeline)'
+  required: True
+-
+  pattern: 'drv_[^/]+/segmentation\.json'
+  description: 'JSON file produced by the Akoya software which contains the parameters used for segmentation. (required for HuBMAP pipeline)'
+  required: False
+-
+  pattern: 'drv_[^/]+/processed_[^/]+/.*'
+  description: 'processed files produced by the Akoya software, not used by the HIVE'
+  ignore: True
+-
+  pattern: 'src_[^/]+/channelnames_report\.csv'
+  description: 'Two column CSV: The first column is a name or target; The second column is boolean: "FALSE" channels are excluded from processing. (required for HuBMAP pipeline)'
+  required: True 
+-
+  pattern: 'src_[^/]+/channelnames\.txt'
+  description: 'Text file produced by the Akoya software which contains the (linearized) channel number and the Name/ID/Target of the channel (required for HuBMAP pipeline)'
+  required: True
+-
+  pattern: 'src_[^/]+/cyc.*_reg.*_.*/.*_.*_Z.*_CH.*\.tif'
+  description: 'TIFF files produced by the experiment. General folder format: Cycle(n)_Region(n)_date; General file format: name_tileNumber(n)_zplaneNumber(n)_channelNumber(n)'
+  required: True
+-
+  pattern: 'src_[^/]+/cyc.*_reg.*_.*/.*\.gci'
+  description: 'Group Capture Information File (Keyance Microscope only)'
+  required: False
+

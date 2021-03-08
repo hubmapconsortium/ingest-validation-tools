@@ -1,9 +1,11 @@
 # scrnaseq
 
 Related files:
-- [🔬 Background doc](https://docs.google.com/document/d/1gRPGWWO43nSY024NHuQ4RdONTRezhI0tPOcZyCsvHhI/edit): More details about this type.
-- [📝 TSV template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/master/docs/scrnaseq/scrnaseq-metadata.tsv): Use this to submit metadata.
-- [💻 Source code](https://github.com/hubmapconsortium/ingest-validation-tools/edit/master/src/ingest_validation_tools/table-schemas/level-2/scrnaseq.yaml): Make a PR if this doc should be updated.
+- [🔬 Background doc](https://portal.hubmapconsortium.org/docs/assays/rnaseq): More details about this type.
+- [📝 Excel template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/master/docs/scrnaseq/scrnaseq-metadata.xlsx): For metadata entry.
+- [📝 TSV template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/master/docs/scrnaseq/scrnaseq-metadata.tsv): Alternative for metadata entry.
+- [💻 Metadata schema](https://github.com/hubmapconsortium/ingest-validation-tools/edit/master/src/ingest_validation_tools/table-schemas/assays/scrnaseq.yaml): To update metadata fields.
+- [💻 Directory schema](https://github.com/hubmapconsortium/ingest-validation-tools/edit/master/src/ingest_validation_tools/directory-schemas/scrnaseq.yaml): To update directory structure.
 
 ## Table of contents
 <details><summary>Provenance</summary>
@@ -55,17 +57,21 @@ Related files:
 [`sequencing_read_format`](#sequencing_read_format)<br>
 [`sequencing_read_percent_q30`](#sequencing_read_percent_q30)<br>
 [`sequencing_phix_percent`](#sequencing_phix_percent)<br>
-</details>
-
-<details><summary>Paths</summary>
-
-[`metadata_path`](#metadata_path)<br>
+[`contributors_path`](#contributors_path)<br>
 [`data_path`](#data_path)<br></details>
+
+## Directory structure
+
+| pattern | required? | description |
+| --- | --- | --- |
+| `[^/]+\.fastq\.gz` | ✓ | Compressed FastQ file |
+| `extras/.*` |  | Free-form descriptive information supplied by the TMC |
+| `extras/thumbnail\.(png\|jpg)` |  | Optional thumbnail image which may be shown in search interface |
 
 ## Provenance
 
 ### `donor_id`
-HuBMAP Display ID of the donor of the assayed tissue.
+HuBMAP Display ID of the donor of the assayed tissue. Example: `ABC123`.
 
 | constraint | value |
 | --- | --- |
@@ -73,11 +79,11 @@ HuBMAP Display ID of the donor of the assayed tissue.
 | required | `True` |
 
 ### `tissue_id`
-HuBMAP Display ID of the assayed tissue.
+HuBMAP Display ID of the assayed tissue. Example: `ABC123-BL-1-2-3_456`.
 
 | constraint | value |
 | --- | --- |
-| pattern (regular expression) | `([A-Z]+[0-9]+)-(BL\|BR\|LB\|RB\|HT\|LK\|RK\|LI\|LV\|LL\|RL\|LY\d\d\|SI\|SP\|TH\|TR\|UR\|OT)(-\d+)+(_\d+)?` |
+| pattern (regular expression) | `([A-Z]+[0-9]+)-[A-Z]{2}\d*(-\d+)+(_\d+)?` |
 | required | `True` |
 
 ## Level 1
@@ -98,6 +104,7 @@ DOI for protocols.io referring to the protocol for this assay.
 | --- | --- |
 | required | `True` |
 | pattern (regular expression) | `10\.17504/.*` |
+| url | prefix: `https://dx.doi.org/` |
 
 ### `operator`
 Name of the person responsible for executing the assay.
@@ -164,7 +171,7 @@ Specifies whether or not a specific molecule(s) is/are targeted for detection/me
 ## Level 2
 
 ### `acquisition_instrument_vendor`
-An acquisition_instrument is the device that contains the signal detection hardware and signal processing software. Assays can generate signals such as light of various intensities or color or signals representing molecular mass.
+An acquisition instrument is the device that contains the signal detection hardware and signal processing software. Assays generate signals such as light of various intensities or color or signals representing the molecular mass.
 
 | constraint | value |
 | --- | --- |
@@ -184,9 +191,10 @@ Link to a protocols document answering the question: How were single cells separ
 | --- | --- |
 | required | `True` |
 | pattern (regular expression) | `10\.17504/.*` |
+| url | prefix: `https://dx.doi.org/` |
 
 ### `sc_isolation_entity`
-The type of single cell entity derived from isolation protocol
+The type of single cell entity derived from isolation protocol.
 
 | constraint | value |
 | --- | --- |
@@ -214,21 +222,21 @@ A quality metric by visual inspection prior to cell lysis or defined by known pa
 | required | `True` |
 
 ### `sc_isolation_cell_number`
-Total number of cell/nuclei yielded post dissociation and enrichment
+Total number of cell/nuclei yielded post dissociation and enrichment.
 
 | constraint | value |
 | --- | --- |
 | required | `True` |
 
 ### `rnaseq_assay_input`
-Number of cell/nuclei input to the assay
+Number of cell/nuclei input to the assay.
 
 | constraint | value |
 | --- | --- |
 | required | `True` |
 
 ### `rnaseq_assay_method`
-The kit used for the RNA sequencing assay
+The kit used for the RNA sequencing assay.
 
 | constraint | value |
 | --- | --- |
@@ -241,30 +249,31 @@ A link to the protocol document containing the library construction method (incl
 | --- | --- |
 | required | `True` |
 | pattern (regular expression) | `10\.17504/.*` |
+| url | prefix: `https://dx.doi.org/` |
 
 ### `library_layout`
-Whether the library was generated for single-end or paired end sequencing
+Whether the library was generated for single-end or paired end sequencing.
 
 | constraint | value |
 | --- | --- |
 | required | `True` |
 
 ### `library_adapter_sequence`
-Adapter sequence to be used for adapter trimming
+Adapter sequence to be used for adapter trimming.
 
 | constraint | value |
 | --- | --- |
 | required | `True` |
 
 ### `library_id`
-An id for the library. The id may be text and/or numbers
+An id for the library. The id may be text and/or numbers.
 
 | constraint | value |
 | --- | --- |
 | required | `True` |
 
 ### `is_technical_replicate`
-Is the sequencing reaction run in repliucate, TRUE or FALSE
+Is the sequencing reaction run in repliucate, TRUE or FALSE.
 
 | constraint | value |
 | --- | --- |
@@ -272,7 +281,7 @@ Is the sequencing reaction run in repliucate, TRUE or FALSE
 | required | `True` |
 
 ### `cell_barcode_read`
-Which read file contains the cell barcode
+Which read file contains the cell barcode.
 
 | constraint | value |
 | --- | --- |
@@ -286,21 +295,21 @@ Position(s) in the read at which the cell barcode starts.
 | required | `True` |
 
 ### `cell_barcode_size`
-Length of the cell barcode in base pairs
+Length of the cell barcode in base pairs.
 
 | constraint | value |
 | --- | --- |
 | required | `True` |
 
 ### `library_pcr_cycles`
-Number of PCR cycles to amplify cDNA
+Number of PCR cycles to amplify cDNA.
 
 | constraint | value |
 | --- | --- |
 | required | `True` |
 
 ### `library_pcr_cycles_for_sample_index`
-Number of PCR cycles performed for library indexing
+Number of PCR cycles performed for library indexing.
 
 | constraint | value |
 | --- | --- |
@@ -315,7 +324,7 @@ Total number of ng of library after final pcr amplification step. This is the co
 | required | `True` |
 
 ### `library_final_yield_unit`
-Units of final library yield
+Units of final library yield.
 
 | constraint | value |
 | --- | --- |
@@ -330,7 +339,7 @@ Average size of sequencing library fragments estimated via gel electrophoresis o
 | required | `True` |
 
 ### `sequencing_reagent_kit`
-Reagent kit used for sequencing
+Reagent kit used for sequencing.
 
 | constraint | value |
 | --- | --- |
@@ -345,7 +354,7 @@ Slash-delimited list of the number of sequencing cycles for, for example, Read1,
 | required | `True` |
 
 ### `sequencing_read_percent_q30`
-Percent of bases with Quality scores above Q30
+Percent of bases with Quality scores above Q30.
 
 | constraint | value |
 | --- | --- |
@@ -355,7 +364,7 @@ Percent of bases with Quality scores above Q30
 | maximum | `100` |
 
 ### `sequencing_phix_percent`
-Percent PhiX loaded to the run
+Percent PhiX loaded to the run.
 
 | constraint | value |
 | --- | --- |
@@ -364,14 +373,12 @@ Percent PhiX loaded to the run
 | minimum | `0` |
 | maximum | `100` |
 
-## Paths
-
-### `metadata_path`
-Relative path to file or directory with free-form or instrument/lab specific metadata. Optional. Leave blank if not applicable.
+### `contributors_path`
+Relative path to file with ORCID IDs for contributors for this dataset.
 
 | constraint | value |
 | --- | --- |
-| required | `False` |
+| required | `True` |
 
 ### `data_path`
 Relative path to file or directory with instrument data. Downstream processing will depend on filename extension conventions.

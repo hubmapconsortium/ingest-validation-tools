@@ -12,8 +12,7 @@ good_args = [
     # NOTE: When called from the shell,
     # remember to quote '*' arguments to prevent expansion.
 
-    '--type_metadata scatacseq '
-    'dataset-examples/good-scatacseq/submission/scatacseq-metadata.tsv'
+    '--tsv_paths dataset-examples/good-scatacseq/submission/metadata.tsv'
 ]
 bad_args = [
     '--bad',
@@ -24,6 +23,7 @@ def validate(args):
     cmd = [
         'src/validate_submission.py', '--output', 'as_text'
     ] + args.split(' ')
+    print('Running: ' + ' '.join(cmd))
     subprocess.run(
         cmd, check=True)
 

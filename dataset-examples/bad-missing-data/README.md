@@ -1,7 +1,11 @@
 ```
 Metadata TSV Errors:
-  dataset-examples/bad-missing-data/submission/codex-akoya-metadata.tsv (as codex-akoya):
+  dataset-examples/bad-missing-data/submission/codex-metadata.tsv (as codex):
     External:
-      codex-akoya-metadata.tsv (row 2):
+      row 2, referencing dataset-examples/bad-missing-data/submission/dataset-1:
         No such file or directory: dataset-examples/bad-missing-data/submission/dataset-1
+      row 2, contributors dataset-examples/bad-missing-data/submission/contributors-missing.tsv: File
+        does not exist
+      row 2, antibodies dataset-examples/bad-missing-data/submission/antibodies-missing.tsv: File
+        does not exist
 ```

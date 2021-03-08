@@ -1,9 +1,11 @@
 # scatacseq
 
 Related files:
-- [🔬 Background doc](https://docs.google.com/document/d/1Lrzruebio9nUusaFSJQlZGANkRjS5lrJmk4W0sSj_xM/edit): More details about this type.
-- [📝 TSV template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/master/docs/scatacseq/scatacseq-metadata.tsv): Use this to submit metadata.
-- [💻 Source code](https://github.com/hubmapconsortium/ingest-validation-tools/edit/master/src/ingest_validation_tools/table-schemas/level-2/scatacseq.yaml): Make a PR if this doc should be updated.
+- [🔬 Background doc](https://portal.hubmapconsortium.org/docs/assays/atacseq): More details about this type.
+- [📝 Excel template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/master/docs/scatacseq/scatacseq-metadata.xlsx): For metadata entry.
+- [📝 TSV template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/master/docs/scatacseq/scatacseq-metadata.tsv): Alternative for metadata entry.
+- [💻 Metadata schema](https://github.com/hubmapconsortium/ingest-validation-tools/edit/master/src/ingest_validation_tools/table-schemas/assays/scatacseq.yaml): To update metadata fields.
+- [💻 Directory schema](https://github.com/hubmapconsortium/ingest-validation-tools/edit/master/src/ingest_validation_tools/directory-schemas/scatacseq.yaml): To update directory structure.
 
 ## Table of contents
 <details><summary>Provenance</summary>
@@ -57,17 +59,21 @@ Related files:
 [`sequencing_read_format`](#sequencing_read_format)<br>
 [`sequencing_read_percent_q30`](#sequencing_read_percent_q30)<br>
 [`sequencing_phix_percent`](#sequencing_phix_percent)<br>
-</details>
-
-<details><summary>Paths</summary>
-
-[`metadata_path`](#metadata_path)<br>
+[`contributors_path`](#contributors_path)<br>
 [`data_path`](#data_path)<br></details>
+
+## Directory structure
+
+| pattern | required? | description |
+| --- | --- | --- |
+| `[^/]+\.fastq\.gz` | ✓ | Compressed FastQ file |
+| `extras/.*` |  | Free-form descriptive information supplied by the TMC |
+| `extras/thumbnail\.(png\|jpg)` |  | Optional thumbnail image which may be shown in search interface |
 
 ## Provenance
 
 ### `donor_id`
-HuBMAP Display ID of the donor of the assayed tissue.
+HuBMAP Display ID of the donor of the assayed tissue. Example: `ABC123`.
 
 | constraint | value |
 | --- | --- |
@@ -75,11 +81,11 @@ HuBMAP Display ID of the donor of the assayed tissue.
 | required | `True` |
 
 ### `tissue_id`
-HuBMAP Display ID of the assayed tissue.
+HuBMAP Display ID of the assayed tissue. Example: `ABC123-BL-1-2-3_456`.
 
 | constraint | value |
 | --- | --- |
-| pattern (regular expression) | `([A-Z]+[0-9]+)-(BL\|BR\|LB\|RB\|HT\|LK\|RK\|LI\|LV\|LL\|RL\|LY\d\d\|SI\|SP\|TH\|TR\|UR\|OT)(-\d+)+(_\d+)?` |
+| pattern (regular expression) | `([A-Z]+[0-9]+)-[A-Z]{2}\d*(-\d+)+(_\d+)?` |
 | required | `True` |
 
 ## Level 1
@@ -100,6 +106,7 @@ DOI for protocols.io referring to the protocol for this assay.
 | --- | --- |
 | required | `True` |
 | pattern (regular expression) | `10\.17504/.*` |
+| url | prefix: `https://dx.doi.org/` |
 
 ### `operator`
 Name of the person responsible for executing the assay.
@@ -166,7 +173,7 @@ Specifies whether or not a specific molecule(s) is/are targeted for detection/me
 ## Level 2
 
 ### `acquisition_instrument_vendor`
-An acquisition_instrument is the device that contains the signal detection hardware and signal processing software. Assays can generate signals such as light of various intensities or color or signals representing molecular mass.
+An acquisition instrument is the device that contains the signal detection hardware and signal processing software. Assays generate signals such as light of various intensities or color or signals representing the molecular mass.
 
 | constraint | value |
 | --- | --- |
@@ -201,6 +208,7 @@ Link to a protocols document answering the question: How were single cells separ
 | --- | --- |
 | required | `True` |
 | pattern (regular expression) | `10\.17504/.*` |
+| url | prefix: `https://dx.doi.org/` |
 
 ### `sc_isolation_entity`
 The type of single cell entity derived from isolation protocol.
@@ -278,6 +286,7 @@ A link to the protocol document containing the library construction method (incl
 | --- | --- |
 | required | `True` |
 | pattern (regular expression) | `10\.17504/.*` |
+| url | prefix: `https://dx.doi.org/` |
 
 ### `library_layout`
 Whether the library was generated for single-end or paired end sequencing.
@@ -343,7 +352,7 @@ Total ng of library after final pcr amplification step.
 | required | `True` |
 
 ### `library_final_yield_unit`
-Units for library_final_yield
+Units for library_final_yield.
 
 | constraint | value |
 | --- | --- |
@@ -359,14 +368,14 @@ Average size of sequencing library fragments estimated via gel electrophoresis o
 | required | `True` |
 
 ### `sequencing_reagent_kit`
-Reagent kit used for sequencing. NovaSeq6000 for example
+Reagent kit used for sequencing. NovaSeq6000 for example.
 
 | constraint | value |
 | --- | --- |
 | required | `True` |
 
 ### `sequencing_read_format`
-Number of sequencing cycles in Read1, i7 index, i5 index, and Read2. Eg: for 10X snATAC-seq: 50+8+16+50 (R1,Index,R2,R3). For SNARE-seq2: 75+94+8+75
+Number of sequencing cycles in Read1, i7 index, i5 index, and Read2. Eg: for 10X snATAC-seq: 50+8+16+50 (R1,Index,R2,R3). For SNARE-seq2: 75+94+8+75.
 
 | constraint | value |
 | --- | --- |
@@ -392,14 +401,12 @@ Percent PhiX loaded to the run.
 | minimum | `0` |
 | maximum | `100` |
 
-## Paths
-
-### `metadata_path`
-Relative path to file or directory with free-form or instrument/lab specific metadata. Optional. Leave blank if not applicable.
+### `contributors_path`
+Relative path to file with ORCID IDs for contributors for this dataset.
 
 | constraint | value |
 | --- | --- |
-| required | `False` |
+| required | `True` |
 
 ### `data_path`
 Relative path to file or directory with instrument data. Downstream processing will depend on filename extension conventions.

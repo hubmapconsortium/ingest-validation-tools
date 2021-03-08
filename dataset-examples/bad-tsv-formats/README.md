@@ -1,53 +1,66 @@
 ```
 Metadata TSV Errors:
-  dataset-examples/bad-tsv-formats/submission/codex-akoya-metadata.tsv (as codex-akoya):
+  dataset-examples/bad-tsv-formats/submission/codex-metadata.tsv (as codex):
     Internal:
-    - The value "not-uuid" in row 2 and column 1 ("A") does not conform to the pattern
-      constraint of "[A-Z]+[0-9]+"
-    - The value "not-uuid" in row 2 and column 2 ("B") does not conform to the pattern
-      constraint of "([A-Z]+[0-9]+)-(BL|BR|LB|RB|HT|LK|RK|LI|LV|LL|RL|LY\d\d|SI|SP|TH|TR|UR|OT)(-\d+)+(_\d+)?"
-    - The value "not-time" in row 2 and column 3 ("C") is not type "datetime" and
-      format "%Y-%m-%d %H:%M"
-    - The value "10\.17504/protocols.io.menc3de" in row 2 and column 4 ("D") does
-      not conform to the pattern constraint of "10\.17504/.*"
-    - The value "operator_emailATexample.com" in row 2 and column 6 ("F") is not type
-      "string" and format "email"
-    - The value "pi_emailATexample.com" in row 2 and column 8 ("H") is not type "string"
-      and format "email"
-    - 'The value "analyte_class" in row 2 and column 11 ("K") does not conform to
-      the given enumeration: "[''protein'']"'
-    - The value "is_targeted" in row 2 and column 12 ("L") is not type "boolean" and
-      format "default"
-    - 'The value "acquisition_instrument_vendor" in row 2 and column 13 ("M") does
-      not conform to the given enumeration: "[''Keyence'', ''Zeiss'']"'
-    - 'The value "acquisition_instrument_model" in row 2 and column 14 ("N") does
-      not conform to the given enumeration: "[''BZ-X800'', ''BZ-X710'', ''Axio Observer
-      Z1'']"'
-    - The value "forty-two" in row 2 and column 15 ("O") is not type "number" and
-      format "default"
-    - 'The value "inches" in row 2 and column 16 ("P") does not conform to the given
-      enumeration: "[''mm'', ''um'', ''nm'']"'
-    - The value "forty-two" in row 2 and column 17 ("Q") is not type "number" and
-      format "default"
-    - 'The value "inches" in row 2 and column 18 ("R") does not conform to the given
-      enumeration: "[''mm'', ''um'', ''nm'']"'
-    - The value "forty-two" in row 2 and column 19 ("S") is not type "number" and
-      format "default"
-    - 'The value "inches" in row 2 and column 20 ("T") does not conform to the given
-      enumeration: "[''mm'', ''um'', ''nm'']"'
-    - 'The value "preparation_instrument_vendor" in row 2 and column 21 ("U") does
-      not conform to the given enumeration: "[''CODEX'']"'
-    - 'The value "preparation_instrument_model" in row 2 and column 22 ("V") does
-      not conform to the given enumeration: "[''version 1 robot'', ''prototype robot
-      - Stanford/Nolan Lab'']"'
-    - The value "0.5" in row 2 and column 23 ("W") is not type "integer" and format
-      "default"
-    - The value "0.5" in row 2 and column 24 ("X") is not type "integer" and format
-      "default"
-    - The value "0.5" in row 2 and column 25 ("Y") is not type "integer" and format
-      "default"
-    - The value "not-doi" in row 2 and column 26 ("Z") does not conform to the pattern
-      constraint of "10\.17504/.*"
-    - The value "not-doi" in row 2 and column 27 ("AA") does not conform to the pattern
-      constraint of "10\.17504/.*"
+    - On row 2, column "donor_id", value "not-uuid" fails because constraint "pattern"
+      is "[A-Z]+[0-9]+"
+    - On row 2, column "tissue_id", value "not-uuid" fails because constraint "pattern"
+      is "([A-Z]+[0-9]+)-[A-Z]{2}\d*(-\d+)+(_\d+)?"
+    - On row 2, column "execution_datetime", value "not-time" fails because type is
+      "datetime/%Y-%m-%d %H:%M"
+    - On row 2, column "protocols_io_doi", value "10\.17504/protocols.io.menc3de"
+      fails because constraint "pattern" is "10\.17504/.*"
+    - On row 2, column "analyte_class", value "analyte_class" fails because constraint
+      "enum" is "['protein']"
+    - On row 2, column "is_targeted", value "is_targeted" fails because type is "boolean/default"
+    - On row 2, column "acquisition_instrument_vendor", value "acquisition_instrument_vendor"
+      fails because constraint "enum" is "['Keyence', 'Zeiss']"
+    - On row 2, column "acquisition_instrument_model", value "acquisition_instrument_model"
+      fails because constraint "enum" is "['BZ-X800', 'BZ-X710', 'Axio Observer Z1']"
+    - On row 2, column "resolution_x_value", value "forty-two" fails because type
+      is "number/default"
+    - On row 2, column "resolution_x_unit", value "inches" fails because constraint
+      "enum" is "['mm', 'um', 'nm']"
+    - On row 2, column "resolution_y_value", value "forty-two" fails because type
+      is "number/default"
+    - On row 2, column "resolution_y_unit", value "inches" fails because constraint
+      "enum" is "['mm', 'um', 'nm']"
+    - On row 2, column "resolution_z_value", value "forty-two" fails because type
+      is "number/default"
+    - On row 2, column "resolution_z_unit", value "inches" fails because constraint
+      "enum" is "['mm', 'um', 'nm']"
+    - On row 2, column "preparation_instrument_vendor", value "preparation_instrument_vendor"
+      fails because constraint "enum" is "['CODEX']"
+    - On row 2, column "preparation_instrument_model", value "preparation_instrument_model"
+      fails because constraint "enum" is "['version 1 robot', 'prototype robot - Stanford/Nolan
+      Lab']"
+    - On row 2, column "number_of_antibodies", value "0.5" fails because type is "integer/default"
+    - On row 2, column "number_of_channels", value "0.5" fails because type is "integer/default"
+    - On row 2, column "number_of_cycles", value "0.5" fails because type is "integer/default"
+    - On row 2, column "section_prep_protocols_io_doi", value "not-doi" fails because
+      constraint "pattern" is "10\.17504/.*"
+    - On row 2, column "reagent_prep_protocols_io_doi", value "not-doi" fails because
+      constraint "pattern" is "10\.17504/.*"
+    External:
+      row 2, referencing dataset-examples/bad-tsv-formats/submission/dataset-1:
+        Not allowed:
+        - channelnames.txt
+        - cyc002_reg001_200216_112537/1_00001_Z001_CH1.tif
+        - experiment.json
+        - exposure_times.txt
+        - segmentation.json
+        Required but missing:
+        - .+\.pdf
+        - drv_[^/]+/channelNames\.txt
+        - drv_[^/]+/processed_[^/]+/.*
+        - src_[^/]+/channelnames\.txt
+        - src_[^/]+/channelnames_report\.csv
+        - src_[^/]+/cyc.*_reg.*_.*/.*_.*_Z.*_CH.*\.tif
+        - src_[^/]+/experiment\.json
+        - src_[^/]+/exposure_times\.txt
+        - src_[^/]+/segmentation\.json
+      row 2, contributors dataset-examples/bad-tsv-formats/submission/contributors.tsv: File
+        has no data rows.
+      row 2, antibodies dataset-examples/bad-tsv-formats/submission/antibodies.tsv: File
+        does not exist
 ```

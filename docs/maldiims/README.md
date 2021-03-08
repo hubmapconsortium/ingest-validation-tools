@@ -1,9 +1,11 @@
 # maldiims
 
 Related files:
-- [🔬 Background doc](https://docs.google.com/document/d/1G6q_Z4aH1B8D9DulRmaGqNyqYzGf9rXWH23rOXXGeIU/edit): More details about this type.
-- [📝 TSV template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/master/docs/maldiims/maldiims-metadata.tsv): Use this to submit metadata.
-- [💻 Source code](https://github.com/hubmapconsortium/ingest-validation-tools/edit/master/src/ingest_validation_tools/table-schemas/level-2/maldiims.yaml): Make a PR if this doc should be updated.
+- [🔬 Background doc](https://portal.hubmapconsortium.org/docs/assays/maldi-ims): More details about this type.
+- [📝 Excel template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/master/docs/maldiims/maldiims-metadata.xlsx): For metadata entry.
+- [📝 TSV template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/master/docs/maldiims/maldiims-metadata.tsv): Alternative for metadata entry.
+- [💻 Metadata schema](https://github.com/hubmapconsortium/ingest-validation-tools/edit/master/src/ingest_validation_tools/table-schemas/assays/maldiims.yaml): To update metadata fields.
+- [💻 Directory schema](https://github.com/hubmapconsortium/ingest-validation-tools/edit/master/src/ingest_validation_tools/directory-schemas/maldiims.yaml): To update directory structure.
 
 ## Table of contents
 <details><summary>Provenance</summary>
@@ -44,17 +46,28 @@ Related files:
 [`preparation_maldi_matrix`](#preparation_maldi_matrix)<br>
 [`section_prep_protocols_io_doi`](#section_prep_protocols_io_doi)<br>
 [`overall_protocols_io_doi`](#overall_protocols_io_doi)<br>
-</details>
-
-<details><summary>Paths</summary>
-
-[`metadata_path`](#metadata_path)<br>
+[`contributors_path`](#contributors_path)<br>
 [`data_path`](#data_path)<br></details>
+
+## Directory structure
+
+| pattern | required? | description |
+| --- | --- | --- |
+| `csv/[^/]+\.csv` | ✓ | Intensities M/Z values with Pixel location |
+| `imzML/[^/]+\.ibd` | ✓ | Index to imzML file |
+| `imzML/[^/]+\.imzMl` | ✓ | Mass spec raw data file |
+| `metadata/[^/]+_LipidAssignments\.xlsx` | ✓ | Microsoft Excel file containing the m/z, assignment, lipid class, etc. |
+| `metadata/[^/]+_meta\.json` | ✓ | JSON file containing the machine parameters/settings |
+| `metadata/[^/]+_microscopy\.txt` | ✓ | Transformations/map back to autofluorescence microscopy (related) data |
+| `ometiffs/[^/]+_multilayer\.ome\.tiff` | ✓ | Aligned multilayer OME TIFF file of the IMS data |
+| `ometiffs/separate/[^/]+_mz[^/]+\.ome\.tiff` | ✓ | Each file is a different M/Z value. |
+| `extras/.*` |  | Free-form descriptive information supplied by the TMC |
+| `extras/thumbnail\.(png\|jpg)` |  | Optional thumbnail image which may be shown in search interface |
 
 ## Provenance
 
 ### `donor_id`
-HuBMAP Display ID of the donor of the assayed tissue.
+HuBMAP Display ID of the donor of the assayed tissue. Example: `ABC123`.
 
 | constraint | value |
 | --- | --- |
@@ -62,11 +75,11 @@ HuBMAP Display ID of the donor of the assayed tissue.
 | required | `True` |
 
 ### `tissue_id`
-HuBMAP Display ID of the assayed tissue.
+HuBMAP Display ID of the assayed tissue. Example: `ABC123-BL-1-2-3_456`.
 
 | constraint | value |
 | --- | --- |
-| pattern (regular expression) | `([A-Z]+[0-9]+)-(BL\|BR\|LB\|RB\|HT\|LK\|RK\|LI\|LV\|LL\|RL\|LY\d\d\|SI\|SP\|TH\|TR\|UR\|OT)(-\d+)+(_\d+)?` |
+| pattern (regular expression) | `([A-Z]+[0-9]+)-[A-Z]{2}\d*(-\d+)+(_\d+)?` |
 | required | `True` |
 
 ## Level 1
@@ -87,6 +100,7 @@ DOI for protocols.io referring to the protocol for this assay.
 | --- | --- |
 | required | `True` |
 | pattern (regular expression) | `10\.17504/.*` |
+| url | prefix: `https://dx.doi.org/` |
 
 ### `operator`
 Name of the person responsible for executing the assay.
@@ -123,7 +137,7 @@ Each assay is placed into one of the following 3 general categories: generation 
 
 | constraint | value |
 | --- | --- |
-| enum | `imaging` |
+| enum | `mass_spectrometry_imaging` |
 | required | `True` |
 
 ### `assay_type`
@@ -131,7 +145,7 @@ The specific type of assay being executed.
 
 | constraint | value |
 | --- | --- |
-| enum | `MALDI-IMS positive` or `MALDI-IMS negative` |
+| enum | `MALDI-IMS` |
 | required | `True` |
 
 ### `analyte_class`
@@ -153,14 +167,14 @@ Specifies whether or not a specific molecule(s) is/are targeted for detection/me
 ## Level 2
 
 ### `acquisition_instrument_vendor`
-An acquisition instrument is the device that contains the signal detection hardware and signal processing software. Assays generate signals such as light of various intensities or color or signals representing the molecular mass
+An acquisition instrument is the device that contains the signal detection hardware and signal processing software. Assays generate signals such as light of various intensities or color or signals representing the molecular mass.
 
 | constraint | value |
 | --- | --- |
 | required | `True` |
 
 ### `acquisition_instrument_model`
-(version) Manufacturers of an acquisition instrument may offer various versions (models) of that instrument with different features or sensitivities. Differences in features of sensitivities may be relevant to processing or interpretation of the data.
+Manufacturers of an acquisition instrument may offer various versions (models) of that instrument with different features or sensitivities. Differences in features or sensitivities may be relevant to processing or interpretation of the data.
 
 | constraint | value |
 | --- | --- |
@@ -171,6 +185,7 @@ The ion source type used for surface sampling (MALDI, MALDI-2, DESI, or SIMS) or
 
 | constraint | value |
 | --- | --- |
+| enum | `MALDI`, `MALDI-2`, `DESI`, `SIMS`, or `nESI` |
 | required | `True` |
 
 ### `polarity`
@@ -178,10 +193,11 @@ The polarity of the mass analysis (positive or negative ion modes)
 
 | constraint | value |
 | --- | --- |
+| enum | `negative ion mode` or `positive ion mode` |
 | required | `True` |
 
 ### `mz_range_low_value`
-A number representing the mass:charge ratio
+The low value of the scanned mass range for MS1. (unitless)
 
 | constraint | value |
 | --- | --- |
@@ -189,7 +205,7 @@ A number representing the mass:charge ratio
 | required | `True` |
 
 ### `mz_range_high_value`
-A number representing the mass:charge ratio
+The high value of the scanned mass range for MS1. (unitless)
 
 | constraint | value |
 | --- | --- |
@@ -197,7 +213,7 @@ A number representing the mass:charge ratio
 | required | `True` |
 
 ### `resolution_x_value`
-The width of a pixel
+The width of a pixel.
 
 | constraint | value |
 | --- | --- |
@@ -205,7 +221,7 @@ The width of a pixel
 | required | `True` |
 
 ### `resolution_x_unit`
-The unit of measurement of the width of a pixel
+The unit of measurement of the width of a pixel.
 
 | constraint | value |
 | --- | --- |
@@ -213,7 +229,7 @@ The unit of measurement of the width of a pixel
 | required | `True` |
 
 ### `resolution_y_value`
-The height of a pixel
+The height of a pixel.
 
 | constraint | value |
 | --- | --- |
@@ -221,7 +237,7 @@ The height of a pixel
 | required | `True` |
 
 ### `resolution_y_unit`
-The unit of measurement of the height of a pixel
+The unit of measurement of the height of a pixel.
 
 | constraint | value |
 | --- | --- |
@@ -243,7 +259,7 @@ The manufacturer of the instrument used to prepare the sample for the assay.
 | required | `True` |
 
 ### `preparation_instrument_model`
-The model number/name of the instrument used to prepare the sample for the assay
+The model number/name of the instrument used to prepare the sample for the assay.
 
 | constraint | value |
 | --- | --- |
@@ -263,23 +279,23 @@ DOI for protocols.io referring to the protocol for preparing tissue sections for
 | --- | --- |
 | required | `True` |
 | pattern (regular expression) | `10\.17504/.*` |
+| url | prefix: `https://dx.doi.org/` |
 
 ### `overall_protocols_io_doi`
-DOI for protocols.io referring to the overall protocol for the assay.
+DOI for protocols.io for the overall process.
 
 | constraint | value |
 | --- | --- |
 | required | `True` |
 | pattern (regular expression) | `10\.17504/.*` |
+| url | prefix: `https://dx.doi.org/` |
 
-## Paths
-
-### `metadata_path`
-Relative path to file or directory with free-form or instrument/lab specific metadata. Optional. Leave blank if not applicable.
+### `contributors_path`
+Relative path to file with ORCID IDs for contributors for this dataset.
 
 | constraint | value |
 | --- | --- |
-| required | `False` |
+| required | `True` |
 
 ### `data_path`
 Relative path to file or directory with instrument data. Downstream processing will depend on filename extension conventions.

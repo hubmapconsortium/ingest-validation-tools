@@ -1,9 +1,11 @@
 # wgs
 
 Related files:
-- [🔬 Background doc](https://docs.google.com/document/d/117ytDDuez03mdcRqzenLv0l7PyQ-7GWh_1wHEOJZxiI/edit): More details about this type.
-- [📝 TSV template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/master/docs/wgs/wgs-metadata.tsv): Use this to submit metadata.
-- [💻 Source code](https://github.com/hubmapconsortium/ingest-validation-tools/edit/master/src/ingest_validation_tools/table-schemas/level-2/wgs.yaml): Make a PR if this doc should be updated.
+- [🔬 Background doc](https://portal.hubmapconsortium.org/docs/assays/wgs): More details about this type.
+- [📝 Excel template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/master/docs/wgs/wgs-metadata.xlsx): For metadata entry.
+- [📝 TSV template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/master/docs/wgs/wgs-metadata.tsv): Alternative for metadata entry.
+- [💻 Metadata schema](https://github.com/hubmapconsortium/ingest-validation-tools/edit/master/src/ingest_validation_tools/table-schemas/assays/wgs.yaml): To update metadata fields.
+- [💻 Directory schema](https://github.com/hubmapconsortium/ingest-validation-tools/edit/master/src/ingest_validation_tools/directory-schemas/wgs.yaml): To update directory structure.
 
 ## Table of contents
 <details><summary>Provenance</summary>
@@ -44,17 +46,21 @@ Related files:
 [`sequencing_read_format`](#sequencing_read_format)<br>
 [`sequencing_read_percent_q30`](#sequencing_read_percent_q30)<br>
 [`sequencing_phix_percent`](#sequencing_phix_percent)<br>
-</details>
-
-<details><summary>Paths</summary>
-
-[`metadata_path`](#metadata_path)<br>
+[`contributors_path`](#contributors_path)<br>
 [`data_path`](#data_path)<br></details>
+
+## Directory structure
+
+| pattern | required? | description |
+| --- | --- | --- |
+| `TODO` | ✓ | Directory structure not yet specified. https://github.com/hubmapconsortium/ingest-validation-tools/issues/455 |
+| `extras/.*` |  | Free-form descriptive information supplied by the TMC |
+| `extras/thumbnail\.(png\|jpg)` |  | Optional thumbnail image which may be shown in search interface |
 
 ## Provenance
 
 ### `donor_id`
-HuBMAP Display ID of the donor of the assayed tissue.
+HuBMAP Display ID of the donor of the assayed tissue. Example: `ABC123`.
 
 | constraint | value |
 | --- | --- |
@@ -62,11 +68,11 @@ HuBMAP Display ID of the donor of the assayed tissue.
 | required | `True` |
 
 ### `tissue_id`
-HuBMAP Display ID of the assayed tissue.
+HuBMAP Display ID of the assayed tissue. Example: `ABC123-BL-1-2-3_456`.
 
 | constraint | value |
 | --- | --- |
-| pattern (regular expression) | `([A-Z]+[0-9]+)-(BL\|BR\|LB\|RB\|HT\|LK\|RK\|LI\|LV\|LL\|RL\|LY\d\d\|SI\|SP\|TH\|TR\|UR\|OT)(-\d+)+(_\d+)?` |
+| pattern (regular expression) | `([A-Z]+[0-9]+)-[A-Z]{2}\d*(-\d+)+(_\d+)?` |
 | required | `True` |
 
 ## Level 1
@@ -87,6 +93,7 @@ DOI for protocols.io referring to the protocol for this assay.
 | --- | --- |
 | required | `True` |
 | pattern (regular expression) | `10\.17504/.*` |
+| url | prefix: `https://dx.doi.org/` |
 
 ### `operator`
 Name of the person responsible for executing the assay.
@@ -153,7 +160,7 @@ Specifies whether or not a specific molecule(s) is/are targeted for detection/me
 ## Level 2
 
 ### `acquisition_instrument_vendor`
-An acquisition_instrument is the device that contains the signal detection hardware and signal processing software. Assays can generate signals such as light of various intensities or color or signals representing molecular mass.
+An acquisition instrument is the device that contains the signal detection hardware and signal processing software. Assays generate signals such as light of various intensities or color or signals representing the molecular mass.
 
 | constraint | value |
 | --- | --- |
@@ -175,7 +182,7 @@ Is the gDNA integrity good enough for WGS? This is usually checked through runni
 | required | `True` |
 
 ### `dna_assay_input_value`
-Amount of DNA input into library preparation
+Amount of DNA input into library preparation.
 
 | constraint | value |
 | --- | --- |
@@ -183,7 +190,7 @@ Amount of DNA input into library preparation
 | required | `True` |
 
 ### `dna_assay_input_unit`
-Units of DNA input into library preparation
+Units of DNA input into library preparation.
 
 | constraint | value |
 | --- | --- |
@@ -204,6 +211,7 @@ A link to the protocol document containing the library construction method (incl
 | --- | --- |
 | required | `True` |
 | pattern (regular expression) | `10\.17504/.*` |
+| url | prefix: `https://dx.doi.org/` |
 
 ### `library_layout`
 State whether the library was generated for single-end or paired end sequencing.
@@ -222,7 +230,7 @@ The adapter sequence to be used for adapter trimming starting with the 5' end. (
 | required | `True` |
 
 ### `library_final_yield`
-Total amount of library after final pcr amplification step
+Total amount of library after final pcr amplification step.
 
 | constraint | value |
 | --- | --- |
@@ -230,7 +238,7 @@ Total amount of library after final pcr amplification step
 | required | `True` |
 
 ### `library_final_yield_unit`
-Total units of library after final pcr amplification step
+Total units of library after final pcr amplification step.
 
 | constraint | value |
 | --- | --- |
@@ -246,7 +254,7 @@ Average size of sequencing library fragments estimated via gel electrophoresis o
 | required | `True` |
 
 ### `sequencing_reagent_kit`
-Reagent kit used for sequencing
+Reagent kit used for sequencing.
 
 | constraint | value |
 | --- | --- |
@@ -261,7 +269,7 @@ Slash-delimited list of the number of sequencing cycles for, for example, Read1,
 | required | `True` |
 
 ### `sequencing_read_percent_q30`
-Percent of bases with Quality scores above Q30
+Percent of bases with Quality scores above Q30.
 
 | constraint | value |
 | --- | --- |
@@ -271,7 +279,7 @@ Percent of bases with Quality scores above Q30
 | maximum | `100` |
 
 ### `sequencing_phix_percent`
-Percent PhiX loaded to the run
+Percent PhiX loaded to the run.
 
 | constraint | value |
 | --- | --- |
@@ -280,14 +288,12 @@ Percent PhiX loaded to the run
 | minimum | `0` |
 | maximum | `100` |
 
-## Paths
-
-### `metadata_path`
-Relative path to file or directory with free-form or instrument/lab specific metadata. Optional. Leave blank if not applicable.
+### `contributors_path`
+Relative path to file with ORCID IDs for contributors for this dataset.
 
 | constraint | value |
 | --- | --- |
-| required | `False` |
+| required | `True` |
 
 ### `data_path`
 Relative path to file or directory with instrument data. Downstream processing will depend on filename extension conventions.

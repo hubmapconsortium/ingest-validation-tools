@@ -5,11 +5,13 @@ fields:
     description: HuBMAP Display ID of the donor of the assayed tissue.
     constraints:
       pattern: '[A-Z]+[0-9]+'
+    example: 'ABC123'
   -
     name: tissue_id
     description: HuBMAP Display ID of the assayed tissue.
     constraints:
-      pattern: '([A-Z]+[0-9]+)-(BL|BR|LB|RB|HT|LK|RK|LI|LV|LL|RL|LY\d\d|SI|SP|TH|TR|UR|OT)(-\d+)+(_\d+)?'
+      pattern: '([A-Z]+[0-9]+)-[A-Z]{2}\d*(-\d+)+(_\d+)?'
+    example: 'ABC123-BL-1-2-3_456'
   -
     heading: Level 1
     name: execution_datetime
@@ -38,24 +40,29 @@ fields:
       enum:
         - imaging
         - mass_spectrometry
+        - mass_spectrometry_imaging
         - sequence
   -
     name: assay_type
     description: 'The specific type of assay being executed.'
     constraints:
       enum:
+        - 3D Imaging Mass Cytometry
         - scRNA-Seq (10xGenomics)
         - AF
         - bulk RNA
         - bulkATACseq
+        - Cell DIVE
         - CODEX
         - Imaging Mass Cytometry
         - LC-MS (metabolomics)
         - LC-MS/MS (label-free proteomics)
+        - Light Sheet
         - MxIF
-        - MALDI-IMS positive
-        - MALDI-IMS negative
+        - MALDI-IMS
         - MS (shotgun lipidomics)
+        - NanoDESI
+        - NanoPOTS
         - PAS microscopy
         - scATACseq
         - sciATACseq
@@ -71,6 +78,7 @@ fields:
         - snRNAseq
         - scRNAseq-10xGenomics
         - scRNAseq
+        - Slide-seq
   -
     name: analyte_class
     description: Analytes are the target molecules being measured with the assay.
@@ -82,6 +90,7 @@ fields:
         - lipids
         - metabolites
         - polysaccharides
+        - metabolites_and_lipids
   -
     name: is_targeted
     description: Specifies whether or not a specific molecule(s) is/are targeted for detection/measurement by the assay. The CODEX analyte is protein.

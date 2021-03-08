@@ -1,94 +1,95 @@
-from pathlib import Path
 import logging
-import re
-from string import ascii_uppercase
+from csv import DictReader
+from pathlib import Path
 
-from yaml import safe_load as load_yaml
-from goodtables import validate as validate_table
-
-from ingest_validation_tools.schema_loader import get_table_schema
+from ingest_validation_tools.schema_loader import (
+    get_table_schema, get_other_schema,
+    get_directory_schema)
 from ingest_validation_tools.directory_validator import (
     validate_directory, DirectoryValidationErrors)
+from ingest_validation_tools.table_validator import (
+    get_table_errors)
 
 
 class TableValidationErrors(Exception):
     pass
 
 
+def dict_reader_wrapper(path, encoding):
+    with open(path, encoding=encoding) as f:
+        rows = list(DictReader(f, dialect='excel-tab'))
+    return rows
+
+
 def get_data_dir_errors(type, data_path, dataset_ignore_globs=[]):
     '''
     Validate a single data_path.
     '''
-    schema_path = (
-        Path(__file__).parent /
-        'directory-schemas' /
-        f'{type}.yaml')
-    schema = load_yaml(open(schema_path).read())
+    schema = get_directory_schema(type)
     try:
         validate_directory(
             data_path, schema, dataset_ignore_globs=dataset_ignore_globs)
     except DirectoryValidationErrors as e:
         return e.errors
     except OSError as e:
-        return {
-            e.strerror:
-                e.filename
-        }
+        return {e.strerror: e.filename}
 
 
-def get_metadata_tsv_errors(metadata_path, type, optional_fields=[]):
+def get_context_of_decode_error(e):
     '''
-    Validate the metadata.tsv.
+    >>> try:
+    ...   b'\\xFF'.decode('ascii')
+    ... except UnicodeDecodeError as e:
+    ...   print(get_context_of_decode_error(e))
+    Invalid ascii because ordinal not in range(128): " [ ÿ ] "
+
+    >>> try:
+    ...   b'01234\\xFF6789'.decode('ascii')
+    ... except UnicodeDecodeError as e:
+    ...   print(get_context_of_decode_error(e))
+    Invalid ascii because ordinal not in range(128): "01234 [ ÿ ] 6789"
+
+    >>> try:
+    ...   (b'a string longer than twenty characters\\xFFa string '
+    ...    b'longer than twenty characters').decode('utf-8')
+    ... except UnicodeDecodeError as e:
+    ...   print(get_context_of_decode_error(e))
+    Invalid utf-8 because invalid start byte: "an twenty characters [ ÿ ] a string longer than"
+
     '''
-    logging.info(f'Validating {type} metadata.tsv...')
+    buffer = 20
+    codec = 'latin-1'  # This is not the actual codec of the string!
+    before = e.object[max(e.start - buffer, 0):max(e.start, 0)].decode(codec)
+    problem = e.object[e.start:e.end].decode(codec)
+    after = e.object[e.end:min(e.end + buffer, len(e.object))].decode(codec)
+    in_context = f'{before} [ {problem} ] {after}'
+    return f'Invalid {e.encoding} because {e.reason}: "{in_context}"'
+
+
+def get_internal_errors(path, type_name, encoding=None, offline=None):
+    if not path.exists():
+        return 'File does not exist'
     try:
-        schema = get_table_schema(type, optional_fields=optional_fields)
+        rows = dict_reader_wrapper(path, encoding)
+    except IsADirectoryError:
+        return 'Expected a TSV, but found a directory'
+    except UnicodeDecodeError as e:
+        return get_context_of_decode_error(e)
+    if not rows:
+        return 'File has no data rows.'
+    return get_tsv_errors(path, type_name, offline=offline)
+
+
+def get_tsv_errors(tsv_path, type, optional_fields=[], offline=None):
+    '''
+    Validate the TSV.
+    '''
+    logging.info(f'Validating {type} TSV...')
+    try:
+        if type in ['contributors', 'antibodies', 'sample']:
+            schema = get_other_schema(type, offline=offline)
+        else:
+            schema = get_table_schema(type, optional_fields=optional_fields, offline=offline)
     except OSError as e:
-        return {
-            e.strerror:
-                Path(e.filename).name
-        }
-    report = validate_table(metadata_path, schema=schema,
-                            format='csv', delimiter='\t',
-                            skip_checks=['blank-row'])
-    error_messages = report['warnings']
-    if 'tables' in report:
-        for table in report['tables']:
-            error_messages += [
-                column_number_to_letters(e['message'])
-                for e in table['errors']
-            ]
-    return error_messages
-
-
-def column_number_to_letters(message):
-    '''
-    >>> column_number_to_letters('Column 209 and column 141493 are funny.')
-    'Column 209 ("HA") and column 141493 ("HAHA") are funny.'
-
-    '''
-    return re.sub(
-        r'(column) (\d+)',
-        lambda m: f'{m[1]} {m[2]} ("{_number_to_letters(m[2])}")',
-        message,
-        flags=re.I
-    )
-
-
-def _number_to_letters(n):
-    '''
-    >>> _number_to_letters(1)
-    'A'
-    >>> _number_to_letters(26)
-    'Z'
-    >>> _number_to_letters(27)
-    'AA'
-    >>> _number_to_letters(52)
-    'AZ'
-
-    '''
-    def n2a(n):
-        uc = ascii_uppercase
-        d, m = divmod(n, len(uc))
-        return n2a(d - 1) + uc[m] if d else uc[m]
-    return n2a(int(n) - 1)
+        return {e.strerror: Path(e.filename).name}
+    return get_table_errors(tsv_path, schema)

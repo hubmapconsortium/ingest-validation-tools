@@ -1,6 +1,103 @@
 # Changelog
 
-## v0.0.5 - In progress
+## v0.0.9 - in progress
+- Fix typo in CellDIVE.
+- Update CLI usage to highlight sample validation.
+- Update lightsheet docs.
+- Update IMC docs.
+- Add concentration to antibodies.
+- Factor out Frictionless to give us more control over table validation.
+- Check for CSV instead of TSV.
+- Better error message for missing and mis-ordered fields.
+- No longer require contributor middle names.
+- Make network checks a part of the schema; Skip None values.
+- Check for values which Excel has "helpfully" auto-incremented.
+- Add 4C as a preservation temperature.
+- Add units_for, so unused units aren't needed in the spreadsheet.
+- Ivan is primary contact for directory work.
+- Make network checks a part of the schema.
+- Get rid of special-purpose logic for level-1
+- Fix typo in nano enum.
+- Clearer error when it can't find matching assay name.
+- Downgrade dependency for compatibility with HuBMAP commons.
+- Directory structure for scatacseq.
+- Add 3D IMC table and directory schemas.
+- Link to the yaml for both directory and metadata schemas.
+- Directory structure for scatacseq and scrnaseq: They share a symlink.
+- Add help document.
+- Factor out the checks, make OO, and make error messages configurable.
+- Slightly better errors when a directory is found when a TSV is expected.
+- Make as_text_list the default output format.
+- Script to generate CSV for fields and enums.
+
+## v0.0.8 - 2021-02-10
+- Update CODEX directory structure
+- Allow "X" as final character of ORCID.
+- Ping the respective services to confirm the ORCIDs, RR IDs, and Uniprot IDs are actually good.
+- Add encoding as CLI param.
+- Add `--offline` option, and use it internally.
+- Fix the CLI parameter parsing: Either `--local_directory` or `--tsv_paths` must be provided.
+- Allow examples of path rexes to be provided, and fix bug.
+- Use the SciCrunch resolver for RR IDs.
+- More helpful message if decoding error.
+- State stability policy.
+- Show the URL that produced the 404, and unify the code.
+- Warning if missing "assay_type".
+- Add lightsheet.
+- Add a slot for a free-text note.
+- Friendlier error if trying to validate Antibodies or Contributors as metadata.
+- Update directory description docs.
+- Upgrade to latest version of Frictionless. The content of error messages has changed.
+- Clarify description of CODEX channelnames_report.csv.
+- Add flowchart documenting the consensus submission process.
+- cleanup-whitespace.py
+- Issue templates to operationalize new process for handling post-release changes.
+- Support versioning of metadata schemas.
+- Add channel_id description to CellDIVE
+
+## v0.0.7 - 2021-01-13
+- Improved error messages in Excel.
+- Define donor terms.
+- Update MALDI terms.
+- Demonstrate that validation of one-line-tsv-in-directory will work.
+- Add an include mechanism to reduce duplication in the configs, and use it.
+- Add Celldive.
+- Add an include mechanism to reduce duplication in the configs.
+- New organs will be coming in. Loosen regex.
+- Give test.sh an optional argument, to pick-up the test run in the middle.
+- Remove wildcards from dir schemas which have not been delivered.
+- Update Celldive and CODEX directory schemas.
+- Sort file errors for stability.
+- Check protocols io DOIs.
+- Remove option to validate against directory structure in Globus.
+- Loosen ID regex to allow lymph nodes. (Chuck's mistake!)
+
+## v0.0.6 - 2020-12-07
+- Add thumbnail to directory schema.
+- Add machinery to include regex examples in docs.
+- Run mypy, but only on the one file that has type annotations.
+- Consolidate TSV reading to avoid inconsistencies in character encoding.
+- Remove option for directory schema "subtypes".
+- Read type from first line of TSV, instead of from filename.
+- Remove vestigial line from flake8 config.
+- Instructions for working groups providing descriptions.
+- Remove extraneous parts from Sample doc.
+- Document contributors.tsv
+- Warn if two TSVs are for the same assay type.
+- Give example of single TSV validation.
+- Add SLIDEseq.
+- Add antibodies.tsv.
+- Generate Excel files.
+- Fix a commandline hint when tests fail.
+- Escape RE in directory schema.
+- Unify generation of assay and other docs.
+- Supply XLSX for non-assays.
+- Fix links.
+- Unconstrain channel_id and uniprot.
+- SLIDEseq dir schema.
+- Test validation of antibodies.tsv
+
+## v0.0.5 - 2020-11-09
 - Change "mixif" to "mxif".
 - Expose sample field descriptions for use in portal.
 - Add missing assay type to enum.
@@ -8,6 +105,30 @@
 - Change to flat directory schema structure.
 - Update README.
 - IMC directory schema.
+- Dir Schema for MALDI-IMS.
+- AF dir schema.
+- Update README, and diagram.
+- Add extras directory.
+- Prettier HTML output.
+- Add donor.yaml, where we can explain donor metadata fields, and hook it into field-descriptions.yaml.
+- Add ingest-validation-tests submodule.
+- nanodesi/pots table schema.
+- Add as_text_list option.
+- plugin_validator started.
+- Add donor.yaml, where we can explain donor metadata fields.
+- Fix the build.
+- Now that we have agreed on extras/, expose in docs.
+- Contributors table schema.
+- Add extra validation hooks.
+- Add nano docs.
+- Run plugin tests only from command line argument
+- Add stained imagery directory schema.
+- Update CODEX directory schema: Require PDF.
+- Get rid of unified.yaml.
+- Point at docs on portal.
+- Remove missing example.
+- Add is_qa_qc to dir schema table.
+- Add passing contributors.tsv
 
 ## v0.0.4 - 2020-06-26
 ### Added

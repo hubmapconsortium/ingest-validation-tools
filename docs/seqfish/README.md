@@ -1,9 +1,11 @@
 # seqfish
 
 Related files:
-- [🔬 Background doc](https://docs.google.com/document/d/1H_z5QQvXP-5GKwiKRF2GhcpmqEUDWYnoOIS---Uepas/edit): More details about this type.
-- [📝 TSV template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/master/docs/seqfish/seqfish-metadata.tsv): Use this to submit metadata.
-- [💻 Source code](https://github.com/hubmapconsortium/ingest-validation-tools/edit/master/src/ingest_validation_tools/table-schemas/level-2/seqfish.yaml): Make a PR if this doc should be updated.
+- [🔬 Background doc](https://portal.hubmapconsortium.org/docs/assays/seqfish): More details about this type.
+- [📝 Excel template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/master/docs/seqfish/seqfish-metadata.xlsx): For metadata entry.
+- [📝 TSV template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/master/docs/seqfish/seqfish-metadata.tsv): Alternative for metadata entry.
+- [💻 Metadata schema](https://github.com/hubmapconsortium/ingest-validation-tools/edit/master/src/ingest_validation_tools/table-schemas/assays/seqfish.yaml): To update metadata fields.
+- [💻 Directory schema](https://github.com/hubmapconsortium/ingest-validation-tools/edit/master/src/ingest_validation_tools/directory-schemas/seqfish.yaml): To update directory structure.
 
 ## Table of contents
 <details><summary>Provenance</summary>
@@ -46,17 +48,21 @@ Related files:
 [`number_of_cycles`](#number_of_cycles)<br>
 [`section_prep_protocols_io_doi`](#section_prep_protocols_io_doi)<br>
 [`reagent_prep_protocols_io_doi`](#reagent_prep_protocols_io_doi)<br>
-</details>
-
-<details><summary>Paths</summary>
-
-[`metadata_path`](#metadata_path)<br>
+[`contributors_path`](#contributors_path)<br>
 [`data_path`](#data_path)<br></details>
+
+## Directory structure
+
+| pattern | required? | description |
+| --- | --- | --- |
+| `TODO` | ✓ | Directory structure not yet specified. https://github.com/hubmapconsortium/ingest-validation-tools/issues/453 |
+| `extras/.*` |  | Free-form descriptive information supplied by the TMC |
+| `extras/thumbnail\.(png\|jpg)` |  | Optional thumbnail image which may be shown in search interface |
 
 ## Provenance
 
 ### `donor_id`
-HuBMAP Display ID of the donor of the assayed tissue.
+HuBMAP Display ID of the donor of the assayed tissue. Example: `ABC123`.
 
 | constraint | value |
 | --- | --- |
@@ -64,11 +70,11 @@ HuBMAP Display ID of the donor of the assayed tissue.
 | required | `True` |
 
 ### `tissue_id`
-HuBMAP Display ID of the assayed tissue.
+HuBMAP Display ID of the assayed tissue. Example: `ABC123-BL-1-2-3_456`.
 
 | constraint | value |
 | --- | --- |
-| pattern (regular expression) | `([A-Z]+[0-9]+)-(BL\|BR\|LB\|RB\|HT\|LK\|RK\|LI\|LV\|LL\|RL\|LY\d\d\|SI\|SP\|TH\|TR\|UR\|OT)(-\d+)+(_\d+)?` |
+| pattern (regular expression) | `([A-Z]+[0-9]+)-[A-Z]{2}\d*(-\d+)+(_\d+)?` |
 | required | `True` |
 
 ## Level 1
@@ -89,6 +95,7 @@ DOI for protocols.io referring to the protocol for this assay.
 | --- | --- |
 | required | `True` |
 | pattern (regular expression) | `10\.17504/.*` |
+| url | prefix: `https://dx.doi.org/` |
 
 ### `operator`
 Name of the person responsible for executing the assay.
@@ -155,7 +162,7 @@ Specifies whether or not a specific molecule(s) is/are targeted for detection/me
 ## Level 2
 
 ### `acquisition_instrument_vendor`
-An acquisition_instrument is the device that contains the signal detection hardware and signal processing software. Assays generate signals such as light of various intensities or color or signals representing molecular mass.
+An acquisition instrument is the device that contains the signal detection hardware and signal processing software. Assays generate signals such as light of various intensities or color or signals representing the molecular mass.
 
 | constraint | value |
 | --- | --- |
@@ -169,7 +176,7 @@ Manufacturers of an acquisition instrument may offer various versions (models) o
 | required | `True` |
 
 ### `resolution_x_value`
-The width of a pixel. (seqFISH pixel is about 0.110µm square)
+The width of a pixel.
 
 | constraint | value |
 | --- | --- |
@@ -177,7 +184,7 @@ The width of a pixel. (seqFISH pixel is about 0.110µm square)
 | required | `True` |
 
 ### `resolution_x_unit`
-The unit of measurement of width of a pixel.(µm)
+The unit of measurement of the width of a pixel.
 
 | constraint | value |
 | --- | --- |
@@ -185,7 +192,7 @@ The unit of measurement of width of a pixel.(µm)
 | required | `True` |
 
 ### `resolution_y_value`
-The height of a pixel. (seqFISH pixel is about 0.110µm square)
+The height of a pixel.
 
 | constraint | value |
 | --- | --- |
@@ -193,7 +200,7 @@ The height of a pixel. (seqFISH pixel is about 0.110µm square)
 | required | `True` |
 
 ### `resolution_y_unit`
-The unit of measurement of height of a pixel. (µm)
+The unit of measurement of the height of a pixel.
 
 | constraint | value |
 | --- | --- |
@@ -217,14 +224,14 @@ The unit of incremental distance between image slices.(um)
 | required | `True` |
 
 ### `preparation_instrument_vendor`
-The manufacturer of the instrument used to prepare the sample for the assay. In cases where a custom instrument was used, enter the DOI (in this format: 10.17504/protocols.io.xyz123) for the custom instrument you have registered in protocols.io.
+The manufacturer of the instrument used to prepare the sample for the assay.
 
 | constraint | value |
 | --- | --- |
 | required | `True` |
 
 ### `preparation_instrument_model`
-The model number/name of the instrument used to prepare the sample for the assay
+The model number/name of the instrument used to prepare the sample for the assay.
 
 | constraint | value |
 | --- | --- |
@@ -285,6 +292,7 @@ DOI for protocols.io referring to the protocol for preparing tissue sections for
 | --- | --- |
 | required | `True` |
 | pattern (regular expression) | `10\.17504/.*` |
+| url | prefix: `https://dx.doi.org/` |
 
 ### `reagent_prep_protocols_io_doi`
 DOI for protocols.io referring to the protocol for preparing reagents for the assay.
@@ -293,15 +301,14 @@ DOI for protocols.io referring to the protocol for preparing reagents for the as
 | --- | --- |
 | required | `True` |
 | pattern (regular expression) | `10\.17504/.*` |
+| url | prefix: `https://dx.doi.org/` |
 
-## Paths
-
-### `metadata_path`
-Relative path to file or directory with free-form or instrument/lab specific metadata. Optional. Leave blank if not applicable.
+### `contributors_path`
+Relative path to file with ORCID IDs for contributors for this dataset.
 
 | constraint | value |
 | --- | --- |
-| required | `False` |
+| required | `True` |
 
 ### `data_path`
 Relative path to file or directory with instrument data. Downstream processing will depend on filename extension conventions.

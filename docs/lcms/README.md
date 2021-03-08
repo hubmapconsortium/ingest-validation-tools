@@ -1,9 +1,11 @@
 # lcms
 
 Related files:
-- [🔬 Background doc](https://docs.google.com/document/d/1TQpBaIkkCGztGeEFTAjgXuOaPOPeDG-uOcoQ9oiIyfc/edit): More details about this type.
-- [📝 TSV template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/master/docs/lcms/lcms-metadata.tsv): Use this to submit metadata.
-- [💻 Source code](https://github.com/hubmapconsortium/ingest-validation-tools/edit/master/src/ingest_validation_tools/table-schemas/level-2/lcms.yaml): Make a PR if this doc should be updated.
+- [🔬 Background doc](https://portal.hubmapconsortium.org/docs/assays/lcms): More details about this type.
+- [📝 Excel template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/master/docs/lcms/lcms-metadata.xlsx): For metadata entry.
+- [📝 TSV template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/master/docs/lcms/lcms-metadata.tsv): Alternative for metadata entry.
+- [💻 Metadata schema](https://github.com/hubmapconsortium/ingest-validation-tools/edit/master/src/ingest_validation_tools/table-schemas/assays/lcms.yaml): To update metadata fields.
+- [💻 Directory schema](https://github.com/hubmapconsortium/ingest-validation-tools/edit/master/src/ingest_validation_tools/directory-schemas/lcms.yaml): To update directory structure.
 
 ## Table of contents
 <details><summary>Provenance</summary>
@@ -57,17 +59,21 @@ Related files:
 [`processing_search`](#processing_search)<br>
 [`processing_protocols_io_doi`](#processing_protocols_io_doi)<br>
 [`overall_protocols_io_doi`](#overall_protocols_io_doi)<br>
-</details>
-
-<details><summary>Paths</summary>
-
-[`metadata_path`](#metadata_path)<br>
+[`contributors_path`](#contributors_path)<br>
 [`data_path`](#data_path)<br></details>
+
+## Directory structure
+
+| pattern | required? | description |
+| --- | --- | --- |
+| `TODO` | ✓ | Directory structure not yet specified. https://github.com/hubmapconsortium/ingest-validation-tools/issues/448 |
+| `extras/.*` |  | Free-form descriptive information supplied by the TMC |
+| `extras/thumbnail\.(png\|jpg)` |  | Optional thumbnail image which may be shown in search interface |
 
 ## Provenance
 
 ### `donor_id`
-HuBMAP Display ID of the donor of the assayed tissue.
+HuBMAP Display ID of the donor of the assayed tissue. Example: `ABC123`.
 
 | constraint | value |
 | --- | --- |
@@ -75,11 +81,11 @@ HuBMAP Display ID of the donor of the assayed tissue.
 | required | `True` |
 
 ### `tissue_id`
-HuBMAP Display ID of the assayed tissue.
+HuBMAP Display ID of the assayed tissue. Example: `ABC123-BL-1-2-3_456`.
 
 | constraint | value |
 | --- | --- |
-| pattern (regular expression) | `([A-Z]+[0-9]+)-(BL\|BR\|LB\|RB\|HT\|LK\|RK\|LI\|LV\|LL\|RL\|LY\d\d\|SI\|SP\|TH\|TR\|UR\|OT)(-\d+)+(_\d+)?` |
+| pattern (regular expression) | `([A-Z]+[0-9]+)-[A-Z]{2}\d*(-\d+)+(_\d+)?` |
 | required | `True` |
 
 ## Level 1
@@ -100,6 +106,7 @@ DOI for protocols.io referring to the protocol for this assay.
 | --- | --- |
 | required | `True` |
 | pattern (regular expression) | `10\.17504/.*` |
+| url | prefix: `https://dx.doi.org/` |
 
 ### `operator`
 Name of the person responsible for executing the assay.
@@ -173,7 +180,7 @@ An acquisition instrument is the device that contains the signal detection hardw
 | required | `True` |
 
 ### `acquisition_instrument_model`
-(version) Manufacturers of an acquisition instrument may offer various versions (models) of that instrument with different features or sensitivities. Differences in features of sensitivities may be relevant to processing or interpretation of the data.
+Manufacturers of an acquisition instrument may offer various versions (models) of that instrument with different features or sensitivities. Differences in features or sensitivities may be relevant to processing or interpretation of the data.
 
 | constraint | value |
 | --- | --- |
@@ -231,50 +238,51 @@ Indicates whether samples were labeled prior to MS analysis (e.g., TMT)
 | required | `True` |
 
 ### `section_prep_protocols_io_doi`
-Sample preparation methods.
+DOI for protocols.io referring to the protocol for preparing tissue sections for the assay.
 
 | constraint | value |
 | --- | --- |
 | required | `True` |
 | pattern (regular expression) | `10\.17504/.*` |
+| url | prefix: `https://dx.doi.org/` |
 
 ### `lc_instrument_vendor`
-The manufacturer of the instrument used for LC
+The manufacturer of the instrument used for LC.
 
 | constraint | value |
 | --- | --- |
 | required | `True` |
 
 ### `lc_instrument_model`
-The model number/name of the instrument used for LC
+The model number/name of the instrument used for LC.
 
 | constraint | value |
 | --- | --- |
 | required | `True` |
 
 ### `lc_column_vendor`
-OPTIONAL: The manufacturer of the LC Column unless self-packed, pulled tip capilary is used
+OPTIONAL: The manufacturer of the LC Column unless self-packed, pulled tip capilary is used.
 
 | constraint | value |
 | --- | --- |
 | required | `True` |
 
 ### `lc_column_model`
-The model number/name of the LC Column - IF custom self-packed, pulled tip calillary is used enter "Pulled tip capilary"
+The model number/name of the LC Column - IF custom self-packed, pulled tip calillary is used enter "Pulled tip capilary".
 
 | constraint | value |
 | --- | --- |
 | required | `True` |
 
 ### `lc_resin`
-Details of the resin used for lc, including vendor, particle size, pore size
+Details of the resin used for lc, including vendor, particle size, pore size.
 
 | constraint | value |
 | --- | --- |
 | required | `True` |
 
 ### `lc_length_value`
-LC column length
+LC column length.
 
 | constraint | value |
 | --- | --- |
@@ -290,7 +298,7 @@ units for LC column length (typically cm)
 | required | `True` |
 
 ### `lc_temp_value`
-LC temperature
+LC temperature.
 
 | constraint | value |
 | --- | --- |
@@ -298,7 +306,7 @@ LC temperature
 | required | `True` |
 
 ### `lc_temp_unit`
-units for LC temperature
+units for LC temperature.
 
 | constraint | value |
 | --- | --- |
@@ -338,28 +346,28 @@ Units of flow rate. Leave blank if not applicable.
 | enum | `nL/min` or `mL/min` |
 
 ### `lc_gradient`
-LC gradient
+LC gradient.
 
 | constraint | value |
 | --- | --- |
 | required | `True` |
 
 ### `lc_mobile_phase_a`
-Composition of mobile phase A
+Composition of mobile phase A.
 
 | constraint | value |
 | --- | --- |
 | required | `True` |
 
 ### `lc_mobile_phase_b`
-Composition of mobile phase B
+Composition of mobile phase B.
 
 | constraint | value |
 | --- | --- |
 | required | `True` |
 
 ### `processing_search`
-Software for analyzing and searching LC-MS/MS omics data
+Software for analyzing and searching LC-MS/MS omics data.
 
 | constraint | value |
 | --- | --- |
@@ -372,6 +380,7 @@ DOI for analysis protocols.io for this assay. Leave blank if not applicable.
 | --- | --- |
 | required | `False` |
 | pattern (regular expression) | `10\.17504/.*` |
+| url | prefix: `https://dx.doi.org/` |
 
 ### `overall_protocols_io_doi`
 DOI for protocols.io for the overall process for this assay. Leave blank if not applicable.
@@ -380,15 +389,14 @@ DOI for protocols.io for the overall process for this assay. Leave blank if not 
 | --- | --- |
 | required | `False` |
 | pattern (regular expression) | `10\.17504/.*` |
+| url | prefix: `https://dx.doi.org/` |
 
-## Paths
-
-### `metadata_path`
-Relative path to file or directory with free-form or instrument/lab specific metadata. Optional. Leave blank if not applicable.
+### `contributors_path`
+Relative path to file with ORCID IDs for contributors for this dataset.
 
 | constraint | value |
 | --- | --- |
-| required | `False` |
+| required | `True` |
 
 ### `data_path`
 Relative path to file or directory with instrument data. Downstream processing will depend on filename extension conventions.
