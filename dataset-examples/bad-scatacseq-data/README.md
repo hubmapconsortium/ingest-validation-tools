@@ -12,6 +12,8 @@ Metadata TSV Errors:
         Not allowed:
         - not-the-file-you-are-looking-for.txt
         - unexpected-directory/place-holder.txt
+        Required but missing:
+        - '[^/]+\.fastq\.gz'
       row 2, contributors dataset-examples/bad-scatacseq-data/submission: Expected
         a TSV, but found a directory
       row 3, referencing dataset-examples/bad-scatacseq-data/submission:

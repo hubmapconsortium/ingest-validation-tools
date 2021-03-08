@@ -4,7 +4,8 @@ Related files:
 - [🔬 Background doc](https://portal.hubmapconsortium.org/docs/assays/mxif): More details about this type.
 - [📝 Excel template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/master/docs/mxif/mxif-metadata.xlsx): For metadata entry.
 - [📝 TSV template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/master/docs/mxif/mxif-metadata.tsv): Alternative for metadata entry.
-- [💻 Source code](https://github.com/hubmapconsortium/ingest-validation-tools/edit/master/src/ingest_validation_tools/table-schemas/assays/mxif.yaml): Make a PR to update this doc.
+- [💻 Metadata schema](https://github.com/hubmapconsortium/ingest-validation-tools/edit/master/src/ingest_validation_tools/table-schemas/assays/mxif.yaml): To update metadata fields.
+- [💻 Directory schema](https://github.com/hubmapconsortium/ingest-validation-tools/edit/master/src/ingest_validation_tools/directory-schemas/mxif.yaml): To update directory structure.
 
 ## Table of contents
 <details><summary>Provenance</summary>
