@@ -1,0 +1,6 @@
+- name: preparation_instrument_vendor
+  description: The manufacturer of the instrument used to prepare the sample for the
+    assay.
+- name: preparation_instrument_model
+  description: The model number/name of the instrument used to prepare the sample
+    for the assay

@@ -10,14 +10,25 @@
 - Check for CSV instead of TSV.
 - Better error message for missing and mis-ordered fields.
 - No longer require contributor middle names.
-- Make network checks a part of the schema.
+- Make network checks a part of the schema; Skip None values.
+- Check for values which Excel has "helpfully" auto-incremented.
 - Add 4C as a preservation temperature.
 - Add units_for, so unused units aren't needed in the spreadsheet.
 - Ivan is primary contact for directory work.
 - Make network checks a part of the schema.
+- Get rid of special-purpose logic for level-1
 - Fix typo in nano enum.
 - Clearer error when it can't find matching assay name.
 - Downgrade dependency for compatibility with HuBMAP commons.
+- Directory structure for scatacseq.
+- Add 3D IMC.
+- Link to the yaml for both directory and metadata schemas.
+- Directory structure for scatacseq and scrnaseq: They share a symlink.
+- Add help document.
+- Factor out the checks, make OO, and make error messages configurable.
+- Slightly better errors when a directory is found when a TSV is expected.
+- Make as_text_list the default output format.
+- Script to generate CSV for fields and enums.
 
 ## v0.0.8 - 2021-02-10
 - Update CODEX directory structure

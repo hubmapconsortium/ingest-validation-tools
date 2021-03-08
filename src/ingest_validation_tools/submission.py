@@ -24,7 +24,7 @@ def _assay_name_to_code(name):
     '''
     Given an assay name, read all the schemas until one matches.
     '''
-    for path in (Path(__file__).parent / 'table-schemas' / 'level-2').glob('*.yaml'):
+    for path in (Path(__file__).parent / 'table-schemas' / 'assays').glob('*.yaml'):
         schema = load_yaml(path)
         for field in schema['fields']:
             if field['name'] == 'assay_type' and name in field['constraints']['enum']:
@@ -73,8 +73,9 @@ class Submission:
             rows = dict_reader_wrapper(path, self.encoding)
         except UnicodeDecodeError:
             return None
-            # We are outside the error-reporting part of the code,
-            # so just pass through, and handle it on the next parse.
+            # TODO: use get_context_of_decode_error
+        except IsADirectoryError:
+            raise PreflightError(f'Expected a TSV, found a directory at {path}.')
         if not rows:
             raise PreflightError(f'{path} has no data rows.')
         if 'assay_type' not in rows[0]:
@@ -170,6 +171,8 @@ class Submission:
             rows = dict_reader_wrapper(path, self.encoding)
         except UnicodeDecodeError as e:
             return get_context_of_decode_error(e)
+        except IsADirectoryError:
+            return f'Expected a TSV, found a directory at {path}.'
         if 'data_path' not in rows[0] or 'contributors_path' not in rows[0]:
             return 'File is missing data_path or contributors_path.'
         if not self.directory_path:

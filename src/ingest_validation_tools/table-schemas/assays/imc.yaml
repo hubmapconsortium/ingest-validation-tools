@@ -1,0 +1,69 @@
+doc_url: https://portal.hubmapconsortium.org/docs/assays/imc
+description_md:
+  IMC submissions require metadata on the antibodies used in the assay to be
+  provided in an Antibodies TSV. For IMC, the `channel_id` is the name of the
+  metal tag on the corresponding antibody. 
+    
+  The other fields function the same way for all assays using antibodies.
+  For more information, see the [Antibodies TSV documentation](../antibodies).
+fields:
+# include: ../includes/all_assays.yaml
+-
+  name: assay_category
+  constraints:
+    enum:
+      - mass_spectrometry_imaging
+
+-
+  name: assay_type
+  constraints:
+    enum:
+      - Imaging Mass Cytometry
+-
+  name: analyte_class
+  constraints:
+    enum:
+      - protein
+# include: ../includes/is_targeted.yaml
+
+# Level 2 fields:
+# include: ../includes/acquisition_instrument.yaml
+# include: ../includes/prep_instrument.yaml
+# include: ../includes/doi/section_prep.yaml
+# include: ../includes/doi/reagent_prep.yaml
+- name: number_of_channels
+  description: Number of mass channels measured
+  type: number
+# include: ../includes/ablation.yaml
+# include: ../includes/imc_roi_id.yaml
+- name: dual_count_start
+  description: Threshold for dual counting.
+  type: number
+- name: end_datetime
+  description: Time stamp indicating end of ablation for ROI
+  type: datetime
+  format: "%Y-%m-%d %H:%M"
+# include: ../includes/imc_roi_dimensions.yaml
+- name: segment_data_format
+  description: This refers to the data type, which is a "float" for the IMC counts.
+  constraints:
+    enum:
+      - float
+      - integer
+      - string
+- name: signal_type
+  description: Type of signal measured per channel (usually dual counts)
+  constraints:
+    enum:
+      - dual count
+      - pulse count
+      - intensity value
+- name: start_datetime
+  description: Time stamp indicating start of ablation for ROI
+  type: datetime
+  format: "%Y-%m-%d %H:%M"
+- name: data_precision_bytes
+  description: Numerical data precision in bytes
+  type: number
+
+# include: ../includes/paths.yaml

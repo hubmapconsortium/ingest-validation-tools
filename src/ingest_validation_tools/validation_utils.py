@@ -71,6 +71,8 @@ def get_internal_errors(path, type_name, encoding=None, offline=None):
         return 'File does not exist'
     try:
         rows = dict_reader_wrapper(path, encoding)
+    except IsADirectoryError:
+        return 'Expected a TSV, but found a directory'
     except UnicodeDecodeError as e:
         return get_context_of_decode_error(e)
     if not rows:

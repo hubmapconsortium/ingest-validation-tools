@@ -10,7 +10,7 @@ _directory_schemas_path = Path(__file__).parent / 'directory-schemas'
 def list_types():
     schemas = {
         p.stem for p in
-        (_table_schemas_path / 'level-2').iterdir()
+        (_table_schemas_path / 'assays').iterdir()
     }
     return sorted(schemas)
 
@@ -39,31 +39,17 @@ def get_directory_schema(directory_type):
     return schema
 
 
-def get_table_schema(table_type, optional_fields=[], offline=None):
-    level_1_fields = _get_level_1_schema('level-1')['fields']
-    paths_fields = _get_level_1_schema('paths')['fields']
-    type_schema = _get_level_2_schema(table_type)
-    type_fields = type_schema['fields']
+def get_table_schema(assay_type, optional_fields=[], offline=None):
+    schema = load_yaml(_table_schemas_path / 'assays' / f'{assay_type}.yaml')
 
-    (level_1_fields_plus_overrides, type_fields_minus_overrides) = \
-        _apply_overrides(level_1_fields, type_fields)
+    for field in schema['fields']:
+        _add_level_1_description(field)
+        _validate_level_1_enum(field)
 
-    fields = (
-        level_1_fields_plus_overrides
-        + type_fields_minus_overrides
-        + paths_fields
-    )
-    for field in fields:
         _add_constraints(field, optional_fields, offline=offline)
-    for field in fields:
         _validate_field(field)
 
-    table_schema = {'fields': fields}
-    if 'doc_url' in type_schema:
-        table_schema['doc_url'] = type_schema['doc_url']
-    if 'description_md' in type_schema:
-        table_schema['description_md'] = type_schema['description_md']
-    return table_schema
+    return schema
 
 
 def _validate_field(field):
@@ -71,91 +57,77 @@ def _validate_field(field):
         raise Exception('"_unit" fields must have enum constraints', field)
 
 
-def _get_level_1_schema(type):
-    return load_yaml(_table_schemas_path / f'{type}.yaml')
-
-
-def _get_level_2_schema(type):
-    return load_yaml(_table_schemas_path / 'level-2' / f'{type}.yaml')
-
-
-def _apply_overrides(high_fields, low_fields):
-    '''
-    Given two lists of fields, find fields with the same names in both,
-    and add the defintions from low_fields to high_fields,
-    and return the new modified high_fields, and low_fields,
-    without the fields which were there just to override.
-
-    >>> a, b = _apply_overrides(
-    ...  [{'name': 'A', 'type': '???'}],
-    ...  [{'name': 'A', 'type': '!!!'}, {'name': 'B'}]
-    ... )
-
-    >>> a
-    [{'name': 'A', 'type': '!!!'}]
-
-    >>> b
-    [{'name': 'B'}]
-
-    '''
-    high_field_names = {field['name'] for field in high_fields}
-    low_field_names = {field['name'] for field in low_fields}
-    override_field_names = set.intersection(
-        high_field_names, low_field_names)
-
-    override_fields_dict = {
-        name: [f for f in low_fields if f['name'] == name][0]
-        for name in override_field_names
+def _add_level_1_description(field):
+    descriptions = {
+        'assay_category': 'Each assay is placed into one of the following 3 general categories: '
+        'generation of images of microscopic entities, identification & quantitation of molecules '
+        'by mass spectrometry, and determination of nucleotide sequence.',
+        'assay_type': 'The specific type of assay being executed.',
+        'analyte_class': 'Analytes are the target molecules being measured with the assay.',
     }
-
-    _check_enum_consistency(high_fields, override_fields_dict)
-
-    high_fields_plus_overrides = [
-        (
-            # TODO: Python 3.9 will add "|" for dict merging.
-            {**field, **override_fields_dict[field['name']]}
-            if field['name'] in override_field_names
-            else field
-        )
-        for field in high_fields
-    ]
-    low_fields_minus_overrides = [
-        field for field in low_fields
-        if field['name'] not in override_field_names
-    ]
-    return high_fields_plus_overrides, low_fields_minus_overrides
+    name = field['name']
+    if name in descriptions:
+        field['description'] = descriptions[name]
 
 
-def _check_enum_consistency(high_fields, override_fields_dict):
-    '''
-    >>> high_fields = [{
-    ...    'name': 'vowels',
-    ...    'constraints': {'enum': ['a', 'e', 'i', 'o', 'u']}
-    ... }]
-    >>> override_fields_dict = {'vowels': {
-    ...    'constraints': {'enum': ['a', 'b', 'c']}
-    ... }}
-    >>> _check_enum_consistency(high_fields, override_fields_dict)
-    Traceback (most recent call last):
-    ...
-    Exception: In vowels, surprised by: ['b', 'c']; Add to level-1.yaml?
-
-    '''
-    high_field_constraints = {
-        field['name']: field['constraints'] for field in high_fields
-        if 'constraints' in field
+def _validate_level_1_enum(field):
+    enums = {
+        'assay_category': [
+            'imaging',
+            'mass_spectrometry',
+            'mass_spectrometry_imaging',
+            'sequence'
+        ],
+        'assay_type': [
+            '3D Imaging Mass Cytometry',
+            'scRNA-Seq(10xGenomics)',
+            'AF',
+            'bulk RNA',
+            'bulkATACseq',
+            'Cell DIVE',
+            'CODEX',
+            'Imaging Mass Cytometry',
+            'LC-MS (metabolomics)',
+            'LC-MS/MS (label-free proteomics)',
+            'Light Sheet',
+            'MxIF',
+            'MALDI-IMS',
+            'MS (shotgun lipidomics)',
+            'NanoDESI',
+            'NanoPOTS',
+            'PAS microscopy',
+            'scATACseq',
+            'sciATACseq',
+            'sciRNAseq',
+            'seqFISH',
+            'SNARE-seq2',
+            'snATACseq',
+            'snRNA',
+            'SPLiT-Seq',
+            'TMT (proteomics)',
+            'WGS',
+            'SNARE2-RNAseq',
+            'snRNAseq',
+            'scRNAseq-10xGenomics',
+            'scRNAseq',
+            'Slide-seq'
+        ],
+        'analyte_class': [
+            'DNA',
+            'RNA',
+            'protein',
+            'lipids',
+            'metabolites',
+            'polysaccharides',
+            'metabolites_and_lipids'
+        ]
     }
-    for field_name, override in override_fields_dict.items():
-        if (
-            'constraints' in override
-            and 'enum' in override['constraints']
-        ):
-            override_enum = set(override['constraints']['enum'])
-            high_field_enum = set(high_field_constraints[field_name]['enum'])
-            if not (override_enum < high_field_enum):
-                surprise = override_enum - high_field_enum
-                raise Exception(
-                    f'In {field_name}, surprised by: {sorted(surprise)}; Add to level-1.yaml?')
+    name = field['name']
+    if name in enums:
+        actual = set(field['constraints']['enum']) if 'enum' in field['constraints'] else set()
+        allowed = set(enums[name])
+        assert actual <= allowed, f'Unexpected enums for {name}: {actual - allowed}\n' \
+            'Allowed: {sorted(allowed)}'
 
 
 def _add_constraints(field, optional_fields, offline=None):

@@ -1,6 +1,7 @@
 # doc_url: TODO https://github.com/hubmapconsortium/ingest-validation-tools/issues/481
 fields:
-  # Overrides of Level 1 fields:
+  # include: ../includes/all_assays.yaml
+
   -
     name: assay_category
     constraints:
@@ -17,6 +18,7 @@ fields:
     constraints:
       enum:
         - metabolites_and_lipids
+  # include: ../includes/is_targeted.yaml
 
   # Level 2:
 
@@ -54,3 +56,5 @@ fields:
   -
     name: overall_protocols_io_doi
     description: DOI for protocols.io referring to the overall protocol for the assay.
+
+  # include: ../includes/paths.yaml

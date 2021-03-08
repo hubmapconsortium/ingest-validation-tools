@@ -47,6 +47,7 @@ fields:
     description: 'The specific type of assay being executed.'
     constraints:
       enum:
+        - 3D Imaging Mass Cytometry
         - scRNA-Seq (10xGenomics)
         - AF
         - bulk RNA

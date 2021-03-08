@@ -2,7 +2,9 @@ import csv
 from pathlib import Path
 
 import frictionless
-import requests
+
+
+from ingest_validation_tools.check_factory import CheckFactory
 
 
 def get_table_errors(tsv, schema):
@@ -14,10 +16,13 @@ def get_table_errors(tsv, schema):
     assert frictionless.__version__ == '4.0.0',\
         'Upgrade dependencies: "pip install -r requirements.txt"'
 
-    url_check = _make_url_check(schema)
-    units_check = _make_units_check(schema)
-    report = frictionless.validate(tsv_path, schema=schema,
-                                   format='csv', checks=[url_check, units_check])
+    check_factory = CheckFactory(schema)
+    url_check = check_factory.make_url_check()
+    sequence_limit_check = check_factory.make_sequence_limit_check()
+    units_check = check_factory.make_units_check()
+
+    report = frictionless.validate(tsv_path, schema=schema, format='csv', checks=[
+                                   url_check, sequence_limit_check, units_check])
 
     assert len(report['errors']) == 0, f'report has errors: {report}'
     assert 'tasks' in report, f'"tasks" is missing: {report}'
@@ -30,52 +35,6 @@ def get_table_errors(tsv, schema):
         _get_message(error)
         for error in task['errors']
     ]
-
-
-def _get_constrained_fields(schema, constraint):
-    c_c = 'custom_constraints'
-    return {
-        f['name']: f[c_c][constraint] for f in schema['fields']
-        if c_c in f and constraint in f[c_c]
-    }
-
-
-_url_status_cache = {}
-
-
-def _check_url_status_cache(url):
-    if url not in _url_status_cache:
-        response = requests.get(url)
-        _url_status_cache[url] = response.status_code
-    return _url_status_cache[url]
-
-
-def _make_url_check(schema):
-    url_constrained_fields = _get_constrained_fields(schema, 'url')
-
-    def url_check(row, schema=schema):
-        for k, v in row.items():
-            if k in url_constrained_fields:
-                prefix = url_constrained_fields[k]['prefix']
-                url = f'{prefix}{v}'
-                status = _check_url_status_cache(url)
-                if status != 200:
-                    note = f'URL returned {status}: {url}'
-                    yield frictionless.errors.CellError.from_row(row, note=note, field_name=k)
-    return url_check
-
-
-def _make_units_check(schema):
-    units_constrained_fields = _get_constrained_fields(schema, 'units_for')
-
-    def units_check(row, schema=schema):
-        for k, v in row.items():
-            if k in units_constrained_fields:
-                units_for = units_constrained_fields[k]
-                if (row[units_for] or row[units_for] == 0) and not row[k]:
-                    note = f'Required when {units_for} is filled'
-                    yield frictionless.errors.CellError.from_row(row, note=note, field_name=k)
-    return units_check
 
 
 def _get_pre_flight_errors(tsv_path, schema):

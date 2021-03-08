@@ -1,11 +1,14 @@
 # imc3d
 
 Related files:
-
+- [🔬 Background doc](https://portal.hubmapconsortium.org/docs/assays/imc): More details about this type.
 - [📝 Excel template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/master/docs/imc3d/imc3d-metadata.xlsx): For metadata entry.
 - [📝 TSV template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/master/docs/imc3d/imc3d-metadata.tsv): Alternative for metadata entry.
-- [💻 Source code](https://github.com/hubmapconsortium/ingest-validation-tools/edit/master/src/ingest_validation_tools/table-schemas/level-2/imc3d.yaml): Make a PR to update this doc.
+- [💻 Metadata schema](https://github.com/hubmapconsortium/ingest-validation-tools/edit/master/src/ingest_validation_tools/table-schemas/assays/imc3d.yaml): To update metadata fields.
+- [💻 Directory schema](https://github.com/hubmapconsortium/ingest-validation-tools/edit/master/src/ingest_validation_tools/directory-schemas/imc3d.yaml): To update directory structure.
 
+3D IMC submissions require metadata on the antibodies used in the assay to be provided in an Antibodies TSV. For 3D IMC, the `channel_id` is the name of the metal tag on the corresponding antibody.
+The other fields function the same way for all assays using antibodies. For more information, see the [Antibodies TSV documentation](../antibodies).
 ## Table of contents
 <details><summary>Provenance</summary>
 
@@ -25,6 +28,34 @@ Related files:
 [`assay_type`](#assay_type)<br>
 [`analyte_class`](#analyte_class)<br>
 [`is_targeted`](#is_targeted)<br>
+</details>
+
+<details><summary>Level 2</summary>
+
+[`acquisition_instrument_vendor`](#acquisition_instrument_vendor)<br>
+[`acquisition_instrument_model`](#acquisition_instrument_model)<br>
+[`preparation_instrument_vendor`](#preparation_instrument_vendor)<br>
+[`preparation_instrument_model`](#preparation_instrument_model)<br>
+[`section_prep_protocols_io_doi`](#section_prep_protocols_io_doi)<br>
+[`reagent_prep_protocols_io_doi`](#reagent_prep_protocols_io_doi)<br>
+[`number_of_channels`](#number_of_channels)<br>
+[`number_of_sections`](#number_of_sections)<br>
+[`ablation_distance_between_shots_x_value`](#ablation_distance_between_shots_x_value)<br>
+[`ablation_distance_between_shots_x_units`](#ablation_distance_between_shots_x_units)<br>
+[`ablation_distance_between_shots_y_value`](#ablation_distance_between_shots_y_value)<br>
+[`ablation_distance_between_shots_y_units`](#ablation_distance_between_shots_y_units)<br>
+[`ablation_frequency_value`](#ablation_frequency_value)<br>
+[`ablation_frequency_unit`](#ablation_frequency_unit)<br>
+[`roi_description`](#roi_description)<br>
+[`roi_id`](#roi_id)<br>
+[`acquisition_id`](#acquisition_id)<br>
+[`max_x_width_value`](#max_x_width_value)<br>
+[`max_x_width_unit`](#max_x_width_unit)<br>
+[`max_y_height_value`](#max_y_height_value)<br>
+[`max_y_height_unit`](#max_y_height_unit)<br>
+[`segment_data_format`](#segment_data_format)<br>
+[`signal_type`](#signal_type)<br>
+[`antibodies_path`](#antibodies_path)<br>
 [`contributors_path`](#contributors_path)<br>
 [`data_path`](#data_path)<br></details>
 
@@ -36,13 +67,13 @@ Related files:
 | `mcd/section_report\.csv` | ✓ | **[QA/QC]** csv containing labels for sections as well as whether or not they were included in the 3D model |
 | `mcd/channelnames_report\.csv` | ✓ | **[QA/QC]** CSV containing antibodies used and whether they were detected sufficiently or not |
 | `3D_image_stack\.ome\.tiff` | ✓ | OME.tiff file comprising all slices and channels |
-| `SingleCellData/cells.csv` | ✓ | Contains one csv file per tissue with marker intensities (untransformed, range normalized to 99th percentile), phenograph cluster label and cell type label per single cell |
-| `SingleCellData/cellsinfo.txt` |  | Text file containing formatting information about cells*organ*.csv |
-| `mapping/cluster_labels_image.tif` | ✓ | Cell images labeled by cell type |
-| `processed/umap_phenograph.pdf` | ✓ | tSNE phenograph |
-| `processed/CellTypeComposition_perTissue.pdf` |  | Cell type composition bar graph per tissue |
-| `processed/Densityplots_perMarker.pdf` |  | **[QA/QC]** Density plots of marker intensity, separated by marker |
-| `processed/celltypes.pdf` |  | Heatmap of marker expression per cluster, annotated by assigned cell type |
+| `SingleCellData/cells\.csv` | ✓ | Contains one csv file per tissue with marker intensities (untransformed, range normalized to 99th percentile), phenograph cluster label and cell type label per single cell |
+| `SingleCellData/cellsinfo\.txt` |  | Text file containing formatting information about cells*organ*.csv |
+| `mapping/cluster_labels_image\.tif` | ✓ | Cell image labeled by cell type |
+| `processed/umap_phenograph\.pdf` |  | tSNE phenograph |
+| `processed/CellTypeComposition_perTissue\.pdf` |  | Cell type composition bar graph per tissue |
+| `processed/Densityplots_perMarker\.pdf` |  | **[QA/QC]** Density plots of marker intensity, separated by marker |
+| `processed/celltypes\.pdf` |  | Heatmap of marker expression per cluster, annotated by assigned cell type |
 | `extras/.*` |  | Free-form descriptive information supplied by the TMC |
 | `extras/thumbnail\.(png\|jpg)` |  | Optional thumbnail image which may be shown in search interface |
 
@@ -119,7 +150,7 @@ Each assay is placed into one of the following 3 general categories: generation 
 
 | constraint | value |
 | --- | --- |
-| enum | `imaging`, `mass_spectrometry`, `mass_spectrometry_imaging`, or `sequence` |
+| enum | `mass_spectrometry_imaging` |
 | required | `True` |
 
 ### `assay_type`
@@ -127,7 +158,7 @@ The specific type of assay being executed.
 
 | constraint | value |
 | --- | --- |
-| enum | `scRNA-Seq (10xGenomics)`, `AF`, `bulk RNA`, `bulkATACseq`, `Cell DIVE`, `CODEX`, `Imaging Mass Cytometry`, `LC-MS (metabolomics)`, `LC-MS/MS (label-free proteomics)`, `Light Sheet`, `MxIF`, `MALDI-IMS`, `MS (shotgun lipidomics)`, `NanoDESI`, `NanoPOTS`, `PAS microscopy`, `scATACseq`, `sciATACseq`, `sciRNAseq`, `seqFISH`, `SNARE-seq2`, `snATACseq`, `snRNA`, `SPLiT-Seq`, `TMT (proteomics)`, `WGS`, `SNARE2-RNAseq`, `snRNAseq`, `scRNAseq-10xGenomics`, `scRNAseq`, or `Slide-seq` |
+| enum | `3D Imaging Mass Cytometry` |
 | required | `True` |
 
 ### `analyte_class`
@@ -135,7 +166,7 @@ Analytes are the target molecules being measured with the assay.
 
 | constraint | value |
 | --- | --- |
-| enum | `DNA`, `RNA`, `protein`, `lipids`, `metabolites`, `polysaccharides`, or `metabolites_and_lipids` |
+| enum | `protein` |
 | required | `True` |
 
 ### `is_targeted`
@@ -144,6 +175,195 @@ Specifies whether or not a specific molecule(s) is/are targeted for detection/me
 | constraint | value |
 | --- | --- |
 | type | `boolean` |
+| required | `True` |
+
+## Level 2
+
+### `acquisition_instrument_vendor`
+An acquisition instrument is the device that contains the signal detection hardware and signal processing software. Assays generate signals such as light of various intensities or color or signals representing the molecular mass.
+
+| constraint | value |
+| --- | --- |
+| required | `True` |
+
+### `acquisition_instrument_model`
+Manufacturers of an acquisition instrument may offer various versions (models) of that instrument with different features or sensitivities. Differences in features or sensitivities may be relevant to processing or interpretation of the data.
+
+| constraint | value |
+| --- | --- |
+| required | `True` |
+
+### `preparation_instrument_vendor`
+The manufacturer of the instrument used to prepare the sample for the assay.
+
+| constraint | value |
+| --- | --- |
+| required | `True` |
+
+### `preparation_instrument_model`
+The model number/name of the instrument used to prepare the sample for the assay.
+
+| constraint | value |
+| --- | --- |
+| required | `True` |
+
+### `section_prep_protocols_io_doi`
+DOI for protocols.io referring to the protocol for preparing tissue sections for the assay.
+
+| constraint | value |
+| --- | --- |
+| required | `True` |
+| pattern (regular expression) | `10\.17504/.*` |
+| url | prefix: `https://dx.doi.org/` |
+
+### `reagent_prep_protocols_io_doi`
+DOI for protocols.io referring to the protocol for preparing reagents for the assay.
+
+| constraint | value |
+| --- | --- |
+| required | `True` |
+| pattern (regular expression) | `10\.17504/.*` |
+| url | prefix: `https://dx.doi.org/` |
+
+### `number_of_channels`
+Number of mass channels measured.
+
+| constraint | value |
+| --- | --- |
+| type | `integer` |
+| required | `True` |
+
+### `number_of_sections`
+Number of sections.
+
+| constraint | value |
+| --- | --- |
+| type | `integer` |
+| required | `True` |
+
+### `ablation_distance_between_shots_x_value`
+x resolution. Distance between laser ablation shots in the X-dimension.
+
+| constraint | value |
+| --- | --- |
+| type | `number` |
+| required | `True` |
+
+### `ablation_distance_between_shots_x_units`
+Units of x resolution distance between laser ablation shots.
+
+| constraint | value |
+| --- | --- |
+| enum | `um` or `nm` |
+| required | `True` |
+
+### `ablation_distance_between_shots_y_value`
+y resolution. Distance between laser ablation shots in the Y-dimension.
+
+| constraint | value |
+| --- | --- |
+| type | `number` |
+| required | `True` |
+
+### `ablation_distance_between_shots_y_units`
+Units of y resolution distance between laser ablation shots.
+
+| constraint | value |
+| --- | --- |
+| enum | `um` or `nm` |
+| required | `True` |
+
+### `ablation_frequency_value`
+Frequency value of laser ablation (in Hz)
+
+| constraint | value |
+| --- | --- |
+| type | `number` |
+| required | `True` |
+
+### `ablation_frequency_unit`
+Frequency unit of laser ablation.
+
+| constraint | value |
+| --- | --- |
+| enum | `Hz` |
+| required | `True` |
+
+### `roi_description`
+A description of the region of interest (ROI) captured in the image.
+
+| constraint | value |
+| --- | --- |
+| required | `True` |
+
+### `roi_id`
+Multiple images (1-n) are acquired from regions of interest (ROI1, ROI2, ROI3, etc) on a slide. The roi_id is a number from 1-n representing the ROI captured on a slide.
+
+| constraint | value |
+| --- | --- |
+| type | `number` |
+| required | `True` |
+
+### `acquisition_id`
+The acquisition_id refers to the directory containing the ROI images for a slide. Together, the acquisition_id and the roi_id indicate the slide-ROI represented in the image.
+
+| constraint | value |
+| --- | --- |
+| required | `True` |
+
+### `max_x_width_value`
+Image width value of the ROI acquisition.
+
+| constraint | value |
+| --- | --- |
+| type | `number` |
+| required | `True` |
+
+### `max_x_width_unit`
+Units of image width of the ROI acquisition.
+
+| constraint | value |
+| --- | --- |
+| enum | `um` |
+| required | `True` |
+
+### `max_y_height_value`
+Image height value of the ROI acquisition.
+
+| constraint | value |
+| --- | --- |
+| type | `number` |
+| required | `True` |
+
+### `max_y_height_unit`
+Units of image height of the ROI acquisition.
+
+| constraint | value |
+| --- | --- |
+| enum | `um` |
+| required | `True` |
+
+### `segment_data_format`
+This refers to the data type, which is a "float" for the IMC counts.
+
+| constraint | value |
+| --- | --- |
+| enum | `float`, `integer`, or `string` |
+| required | `True` |
+
+### `signal_type`
+Type of signal measured per channel (usually dual counts)
+
+| constraint | value |
+| --- | --- |
+| enum | `dual count`, `pulse count`, or `intensity value` |
+| required | `True` |
+
+### `antibodies_path`
+Relative path to file with antibody information for this dataset.
+
+| constraint | value |
+| --- | --- |
 | required | `True` |
 
 ### `contributors_path`

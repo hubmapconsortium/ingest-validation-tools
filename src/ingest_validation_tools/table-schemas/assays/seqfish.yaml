@@ -1,6 +1,6 @@
 doc_url: https://portal.hubmapconsortium.org/docs/assays/seqfish
 fields:
-  # Overrides of Level 1 fields:
+  # include: ../includes/all_assays.yaml
   -
     name: assay_category
     constraints:
@@ -16,6 +16,7 @@ fields:
     constraints:
       enum:
         - RNA
+  # include: ../includes/is_targeted.yaml
 
   # Level 2:
 
@@ -34,12 +35,7 @@ fields:
       enum:
         - nm
         - um
-  -
-    name: preparation_instrument_vendor
-    description: 'The manufacturer of the instrument used to prepare the sample for the assay. In cases where a custom instrument was used, enter the DOI (in this format: 10.17504/protocols.io.xyz123) for the custom instrument you have registered in protocols.io.'
-  -
-    name: preparation_instrument_model
-    description: The model number/name of the instrument used to prepare the sample for the assay
+  # include: ../includes/prep_instrument.yaml
   -
     name: number_of_barcode_probes
     description: Number of barcode probes targeting mRNAs (eg. 24,000 barcode probes = 24,000 mRNAs - 1 per mRNA of interest)
@@ -60,3 +56,5 @@ fields:
     description: For each barcode region being interrogated, the number of cycles of 1. Hybridization of readout probes, 2. imaging, 3. Washes (the paper describes 1 readout probe per hyb cycle -> 20 readout probes = 20 hyb cycles)
   # include: ../includes/doi/section_prep.yaml
   # include: ../includes/doi/reagent_prep.yaml
+
+  # include: ../includes/paths.yaml
