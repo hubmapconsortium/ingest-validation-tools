@@ -26,6 +26,7 @@
 - Directory structure for scatacseq and scrnaseq: They share a symlink.
 - Add help document.
 - Factor out the checks, make OO, and make error messages configurable.
+- Slightly better errors when a directory is found when a TSV is expected.
 - Make as_text_list the default output format.
 - Script to generate CSV for fields and enums.
 
