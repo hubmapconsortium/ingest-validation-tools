@@ -164,6 +164,7 @@ number_of_pseudocolors_per_channel: Number of pseudocolors that can be assigned 
 number_of_readout_probes_per_channel: Number of readout probes that can be interrogated
   per channel per cycle (the paper describes 20 readout probes per channel (x 3 channels
   -> total = 60))
+number_of_sections: Number of sections
 operator: Name of the person responsible for executing the assay.
 operator_email: Email address for the operator.
 organ_condition: Health status of the organ at the time of sample recovery.

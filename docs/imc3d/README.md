@@ -1,12 +1,14 @@
-# seqfish
+# imc3d
 
 Related files:
-- [🔬 Background doc](https://portal.hubmapconsortium.org/docs/assays/seqfish): More details about this type.
-- [📝 Excel template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/master/docs/seqfish/seqfish-metadata.xlsx): For metadata entry.
-- [📝 TSV template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/master/docs/seqfish/seqfish-metadata.tsv): Alternative for metadata entry.
-- [💻 Metadata schema](https://github.com/hubmapconsortium/ingest-validation-tools/edit/master/src/ingest_validation_tools/table-schemas/assays/seqfish.yaml): To update metadata fields.
-- [💻 Directory schema](https://github.com/hubmapconsortium/ingest-validation-tools/edit/master/src/ingest_validation_tools/directory-schemas/seqfish.yaml): To update directory structure.
+- [🔬 Background doc](https://portal.hubmapconsortium.org/docs/assays/imc): More details about this type.
+- [📝 Excel template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/master/docs/imc3d/imc3d-metadata.xlsx): For metadata entry.
+- [📝 TSV template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/master/docs/imc3d/imc3d-metadata.tsv): Alternative for metadata entry.
+- [💻 Metadata schema](https://github.com/hubmapconsortium/ingest-validation-tools/edit/master/src/ingest_validation_tools/table-schemas/assays/imc3d.yaml): To update metadata fields.
+- [💻 Directory schema](https://github.com/hubmapconsortium/ingest-validation-tools/edit/master/src/ingest_validation_tools/directory-schemas/imc3d.yaml): To update directory structure.
 
+3D IMC submissions require metadata on the antibodies used in the assay to be provided in an Antibodies TSV. For 3D IMC, the `channel_id` is the name of the metal tag on the corresponding antibody.
+The other fields function the same way for all assays using antibodies. For more information, see the [Antibodies TSV documentation](../antibodies).
 ## Table of contents
 <details><summary>Provenance</summary>
 
@@ -32,22 +34,28 @@ Related files:
 
 [`acquisition_instrument_vendor`](#acquisition_instrument_vendor)<br>
 [`acquisition_instrument_model`](#acquisition_instrument_model)<br>
-[`resolution_x_value`](#resolution_x_value)<br>
-[`resolution_x_unit`](#resolution_x_unit)<br>
-[`resolution_y_value`](#resolution_y_value)<br>
-[`resolution_y_unit`](#resolution_y_unit)<br>
-[`resolution_z_value`](#resolution_z_value)<br>
-[`resolution_z_unit`](#resolution_z_unit)<br>
 [`preparation_instrument_vendor`](#preparation_instrument_vendor)<br>
 [`preparation_instrument_model`](#preparation_instrument_model)<br>
-[`number_of_barcode_probes`](#number_of_barcode_probes)<br>
-[`number_of_barcode_regions_per_barcode_probe`](#number_of_barcode_regions_per_barcode_probe)<br>
-[`number_of_readout_probes_per_channel`](#number_of_readout_probes_per_channel)<br>
-[`number_of_pseudocolors_per_channel`](#number_of_pseudocolors_per_channel)<br>
-[`number_of_channels`](#number_of_channels)<br>
-[`number_of_cycles`](#number_of_cycles)<br>
 [`section_prep_protocols_io_doi`](#section_prep_protocols_io_doi)<br>
 [`reagent_prep_protocols_io_doi`](#reagent_prep_protocols_io_doi)<br>
+[`number_of_channels`](#number_of_channels)<br>
+[`number_of_sections`](#number_of_sections)<br>
+[`ablation_distance_between_shots_x_value`](#ablation_distance_between_shots_x_value)<br>
+[`ablation_distance_between_shots_x_units`](#ablation_distance_between_shots_x_units)<br>
+[`ablation_distance_between_shots_y_value`](#ablation_distance_between_shots_y_value)<br>
+[`ablation_distance_between_shots_y_units`](#ablation_distance_between_shots_y_units)<br>
+[`ablation_frequency_value`](#ablation_frequency_value)<br>
+[`ablation_frequency_unit`](#ablation_frequency_unit)<br>
+[`roi_description`](#roi_description)<br>
+[`roi_id`](#roi_id)<br>
+[`acquisition_id`](#acquisition_id)<br>
+[`max_x_width_value`](#max_x_width_value)<br>
+[`max_x_width_unit`](#max_x_width_unit)<br>
+[`max_y_height_value`](#max_y_height_value)<br>
+[`max_y_height_unit`](#max_y_height_unit)<br>
+[`segment_data_format`](#segment_data_format)<br>
+[`signal_type`](#signal_type)<br>
+[`antibodies_path`](#antibodies_path)<br>
 [`contributors_path`](#contributors_path)<br>
 [`data_path`](#data_path)<br></details>
 
@@ -55,7 +63,7 @@ Related files:
 
 | pattern | required? | description |
 | --- | --- | --- |
-| `TODO` | ✓ | Directory structure not yet specified. https://github.com/hubmapconsortium/ingest-validation-tools/issues/453 |
+| `TODO` | ✓ | Directory structure not yet specified. |
 | `extras/.*` |  | Free-form descriptive information supplied by the TMC |
 | `extras/thumbnail\.(png\|jpg)` |  | Optional thumbnail image which may be shown in search interface |
 
@@ -132,7 +140,7 @@ Each assay is placed into one of the following 3 general categories: generation 
 
 | constraint | value |
 | --- | --- |
-| enum | `imaging` |
+| enum | `mass_spectrometry_imaging` |
 | required | `True` |
 
 ### `assay_type`
@@ -140,7 +148,7 @@ The specific type of assay being executed.
 
 | constraint | value |
 | --- | --- |
-| enum | `seqFISH` |
+| enum | `3D Imaging Mass Cytometry` |
 | required | `True` |
 
 ### `analyte_class`
@@ -148,7 +156,7 @@ Analytes are the target molecules being measured with the assay.
 
 | constraint | value |
 | --- | --- |
-| enum | `RNA` |
+| enum | `protein` |
 | required | `True` |
 
 ### `is_targeted`
@@ -175,54 +183,6 @@ Manufacturers of an acquisition instrument may offer various versions (models) o
 | --- | --- |
 | required | `True` |
 
-### `resolution_x_value`
-The width of a pixel.
-
-| constraint | value |
-| --- | --- |
-| type | `number` |
-| required | `True` |
-
-### `resolution_x_unit`
-The unit of measurement of the width of a pixel.
-
-| constraint | value |
-| --- | --- |
-| enum | `nm` or `um` |
-| required | `True` |
-
-### `resolution_y_value`
-The height of a pixel.
-
-| constraint | value |
-| --- | --- |
-| type | `number` |
-| required | `True` |
-
-### `resolution_y_unit`
-The unit of measurement of the height of a pixel.
-
-| constraint | value |
-| --- | --- |
-| enum | `nm` or `um` |
-| required | `True` |
-
-### `resolution_z_value`
-Optional if assay does not have multiple z-levels. Note that this is resolution within a given sample: z-pitch (resolution_z_value) is the increment distance between image slices (for Akoya, z-pitch=1.5um) ie. the microscope stage is moved up or down in increments of 1.5um to capture images of several focal planes. The best one will be used & the rest discarded. The thickness of the sample itself is sample metadata. Leave blank if not applicable.
-
-| constraint | value |
-| --- | --- |
-| type | `number` |
-| required | `False` |
-
-### `resolution_z_unit`
-The unit of incremental distance between image slices.(um)
-
-| constraint | value |
-| --- | --- |
-| enum | `nm` or `um` |
-| required | `True` |
-
 ### `preparation_instrument_vendor`
 The manufacturer of the instrument used to prepare the sample for the assay.
 
@@ -235,54 +195,6 @@ The model number/name of the instrument used to prepare the sample for the assay
 
 | constraint | value |
 | --- | --- |
-| required | `True` |
-
-### `number_of_barcode_probes`
-Number of barcode probes targeting mRNAs (eg. 24,000 barcode probes = 24,000 mRNAs - 1 per mRNA of interest)
-
-| constraint | value |
-| --- | --- |
-| type | `integer` |
-| required | `True` |
-
-### `number_of_barcode_regions_per_barcode_probe`
-Number of barcode regions on each mRNA barcode probe (the paper describes mRNA probes with 4 barcoded regions)
-
-| constraint | value |
-| --- | --- |
-| type | `integer` |
-| required | `True` |
-
-### `number_of_readout_probes_per_channel`
-Number of readout probes that can be interrogated per channel per cycle (the paper describes 20 readout probes per channel (x 3 channels -> total = 60))
-
-| constraint | value |
-| --- | --- |
-| type | `integer` |
-| required | `True` |
-
-### `number_of_pseudocolors_per_channel`
-Number of pseudocolors that can be assigned to each fluorescent channel (the paper describes 20 pseudocolors per channel (x 3 channels -> total = 60)
-
-| constraint | value |
-| --- | --- |
-| type | `integer` |
-| required | `True` |
-
-### `number_of_channels`
-Number of fluorescent channels (the paper describes 3 channels - for 3 fluorescent dyes)
-
-| constraint | value |
-| --- | --- |
-| type | `integer` |
-| required | `True` |
-
-### `number_of_cycles`
-For each barcode region being interrogated, the number of cycles of 1. Hybridization of readout probes, 2. imaging, 3. Washes (the paper describes 1 readout probe per hyb cycle -> 20 readout probes = 20 hyb cycles)
-
-| constraint | value |
-| --- | --- |
-| type | `integer` |
 | required | `True` |
 
 ### `section_prep_protocols_io_doi`
@@ -302,6 +214,147 @@ DOI for protocols.io referring to the protocol for preparing reagents for the as
 | required | `True` |
 | pattern (regular expression) | `10\.17504/.*` |
 | url | prefix: `https://dx.doi.org/` |
+
+### `number_of_channels`
+Number of mass channels measured.
+
+| constraint | value |
+| --- | --- |
+| type | `integer` |
+| required | `True` |
+
+### `number_of_sections`
+Number of sections.
+
+| constraint | value |
+| --- | --- |
+| type | `integer` |
+| required | `True` |
+
+### `ablation_distance_between_shots_x_value`
+x resolution. Distance between laser ablation shots in the X-dimension.
+
+| constraint | value |
+| --- | --- |
+| type | `number` |
+| required | `True` |
+
+### `ablation_distance_between_shots_x_units`
+Units of x resolution distance between laser ablation shots.
+
+| constraint | value |
+| --- | --- |
+| enum | `um` or `nm` |
+| required | `True` |
+
+### `ablation_distance_between_shots_y_value`
+y resolution. Distance between laser ablation shots in the Y-dimension.
+
+| constraint | value |
+| --- | --- |
+| type | `number` |
+| required | `True` |
+
+### `ablation_distance_between_shots_y_units`
+Units of y resolution distance between laser ablation shots.
+
+| constraint | value |
+| --- | --- |
+| enum | `um` or `nm` |
+| required | `True` |
+
+### `ablation_frequency_value`
+Frequency value of laser ablation (in Hz)
+
+| constraint | value |
+| --- | --- |
+| type | `number` |
+| required | `True` |
+
+### `ablation_frequency_unit`
+Frequency unit of laser ablation.
+
+| constraint | value |
+| --- | --- |
+| enum | `Hz` |
+| required | `True` |
+
+### `roi_description`
+A description of the region of interest (ROI) captured in the image.
+
+| constraint | value |
+| --- | --- |
+| required | `True` |
+
+### `roi_id`
+Multiple images (1-n) are acquired from regions of interest (ROI1, ROI2, ROI3, etc) on a slide. The roi_id is a number from 1-n representing the ROI captured on a slide.
+
+| constraint | value |
+| --- | --- |
+| type | `number` |
+| required | `True` |
+
+### `acquisition_id`
+The acquisition_id refers to the directory containing the ROI images for a slide. Together, the acquisition_id and the roi_id indicate the slide-ROI represented in the image.
+
+| constraint | value |
+| --- | --- |
+| required | `True` |
+
+### `max_x_width_value`
+Image width value of the ROI acquisition.
+
+| constraint | value |
+| --- | --- |
+| type | `number` |
+| required | `True` |
+
+### `max_x_width_unit`
+Units of image width of the ROI acquisition.
+
+| constraint | value |
+| --- | --- |
+| enum | `um` |
+| required | `True` |
+
+### `max_y_height_value`
+Image height value of the ROI acquisition.
+
+| constraint | value |
+| --- | --- |
+| type | `number` |
+| required | `True` |
+
+### `max_y_height_unit`
+Units of image height of the ROI acquisition.
+
+| constraint | value |
+| --- | --- |
+| enum | `um` |
+| required | `True` |
+
+### `segment_data_format`
+This refers to the data type, which is a "float" for the IMC counts.
+
+| constraint | value |
+| --- | --- |
+| enum | `float`, `integer`, or `string` |
+| required | `True` |
+
+### `signal_type`
+Type of signal measured per channel (usually dual counts)
+
+| constraint | value |
+| --- | --- |
+| enum | `dual count`, `pulse count`, or `intensity value` |
+| required | `True` |
+
+### `antibodies_path`
+Relative path to file with antibody information for this dataset.
+
+| constraint | value |
+| --- | --- |
+| required | `True` |
 
 ### `contributors_path`
 Relative path to file with ORCID IDs for contributors for this dataset.
