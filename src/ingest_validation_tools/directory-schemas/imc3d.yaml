@@ -41,7 +41,7 @@
 -
   pattern: 'mapping/cluster_labels_image.tif'
   description: 'Cell images labeled by cell type'
-  required: Yes
+  required: True
   is_qa_qc: False
 
 #processed
