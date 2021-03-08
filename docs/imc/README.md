@@ -4,7 +4,8 @@ Related files:
 - [🔬 Background doc](https://portal.hubmapconsortium.org/docs/assays/imc): More details about this type.
 - [📝 Excel template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/master/docs/imc/imc-metadata.xlsx): For metadata entry.
 - [📝 TSV template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/master/docs/imc/imc-metadata.tsv): Alternative for metadata entry.
-- [💻 Source code](https://github.com/hubmapconsortium/ingest-validation-tools/edit/master/src/ingest_validation_tools/table-schemas/assays/imc.yaml): Make a PR to update this doc.
+- [💻 Metadata schema](https://github.com/hubmapconsortium/ingest-validation-tools/edit/master/src/ingest_validation_tools/table-schemas/assays/imc.yaml): To update metadata fields.
+- [💻 Directory schema](https://github.com/hubmapconsortium/ingest-validation-tools/edit/master/src/ingest_validation_tools/directory-schemas/imc.yaml): To update directory structure.
 
 IMC submissions require metadata on the antibodies used in the assay to be provided in an Antibodies TSV. For IMC, the `channel_id` is the name of the metal tag on the corresponding antibody.
 The other fields function the same way for all assays using antibodies. For more information, see the [Antibodies TSV documentation](../antibodies).

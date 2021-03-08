@@ -22,6 +22,12 @@
 - Downgrade dependency for compatibility with HuBMAP commons.
 - Directory structure for scatacseq.
 - Add 3D IMC.
+- Link to the yaml for both directory and metadata schemas.
+- Directory structure for scatacseq and scrnaseq: They share a symlink.
+- Add help document.
+- Factor out the checks, make OO, and make error messages configurable.
+- Make as_text_list the default output format.
+- Script to generate CSV for fields and enums.
 
 ## v0.0.8 - 2021-02-10
 - Update CODEX directory structure
