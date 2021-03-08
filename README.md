@@ -45,7 +45,7 @@ You should see [the documention for `validate_submission.py`](README-validate_su
 
 Now run it against one of the included examples, giving the path to a submission directory:
 ```
-src/validate_submission.py --local_directory dataset-examples/bad-tsv-formats/submission
+src/validate_submission.py --local_directory dataset-examples/bad-tsv-formats/submission --as_text
 ```
 
 You should now see [this (extensive) error message](dataset-examples/bad-tsv-formats/README.md).
