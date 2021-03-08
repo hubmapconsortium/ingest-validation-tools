@@ -18,7 +18,7 @@
   is_qa_qc: True
 
 -
-  pattern: '3D_image_stack.ome.tiff'
+  pattern: '3D_image_stack\.ome\.tiff'
   description: 'OME.tiff file comprising all slices and channels'
   required: True
   is_qa_qc: False
