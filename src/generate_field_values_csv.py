@@ -17,6 +17,7 @@ def main():
     default_size = 20
     parser.add_argument(
         '--size',
+        type=int,
         default=default_size,
         help=f'Number of datasets to pull. Default: {default_size}')
 
