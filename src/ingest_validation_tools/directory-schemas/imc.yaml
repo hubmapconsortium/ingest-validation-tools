@@ -15,7 +15,7 @@
   description: 'TODO'
 -
   pattern: 'SingleCellData/[^/]+__masterfile.csv'
-  description: 'TODO'
+  description: 'CSV file containing all single cell measurements'
 -
   pattern: 'ometiff/[^/]+/[^/]+_AcquisitionChannel_meta.csv'
   description: 'TODO'
@@ -54,16 +54,16 @@
   description: 'TODO'
 -
   pattern: 'ometiff/[^/]+/channelnames_report.csv'
-  description: 'TODO'
+  description: 'CSV containing antibodies used and whether they were detected sufficiently or not'
 -
   pattern: 'processed/[^/]__PhenoGraph_tsne_M.png'
-  description: 'TODO'
+  description: 'tSNE plot'
 -
   pattern: 'processed/[^/]__core_cluster_type_freq.pdf'
   description: 'TODO'
 -
   pattern: 'processed/[^/]__heatmap.pdf'
-  description: 'TODO'
+  description: 'Heatmap of marker expression per cluster'
 -
   pattern: 'processed/[^/]__histogram_sample.png'
-  description: 'TODO'
+  description: 'Density plots of marker intensity'
