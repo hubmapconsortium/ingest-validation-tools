@@ -1,14 +1,14 @@
-# A dataset consists of a single CODEX experimental run, and is 
-# collected by the Akoya software into a single directory. 
+# A dataset consists of a single CODEX experimental run, and is
+# collected by the Akoya software into a single directory.
 #
-# directory beginning with drv_ contains analyzed files produced. 
-# There are a few files in this directory that are used for the HuBMAP 
+# directory beginning with drv_ contains analyzed files produced.
+# There are a few files in this directory that are used for the HuBMAP
 # data processing pipelines (channelNames.txt, experiment.json, segmentation.json)
 #
 # directory beginning with src_ contains the raw (unprocessed by Akoya) files.
- 
+
 -
-  pattern: '[^/]+NAV[^/]*\.tif'
+  pattern: '[^/]+NAV[^/]\.tif'
   description: 'Navigational Image showing Region of Interest (Keyance Microscope only)'
   required: False
 -
@@ -52,7 +52,7 @@
 -
   pattern: 'src_[^/]+/channelnames_report\.csv'
   description: 'Two column CSV: The first column is a name or target; The second column is boolean: "FALSE" channels are excluded from processing. (required for HuBMAP pipeline)'
-  required: True 
+  required: True
 -
   pattern: 'src_[^/]+/channelnames\.txt'
   description: 'Text file produced by the Akoya software which contains the (linearized) channel number and the Name/ID/Target of the channel (required for HuBMAP pipeline)'
@@ -65,4 +65,3 @@
   pattern: 'src_[^/]+/cyc.*_reg.*_.*/.*\.gci'
   description: 'Group Capture Information File (Keyance Microscope only)'
   required: False
-
