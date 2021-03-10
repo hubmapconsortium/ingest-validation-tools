@@ -8,7 +8,7 @@
 # directory beginning with src_ contains the raw (unprocessed by Akoya) files.
 
 -
-  pattern: '[^\]+NAV[^/]+\.tif'
+  pattern: 'NAV[^/]+\.tif'
   description: 'Navigational Image showing Region of Interest (Keyance Microscope only)'
   required: False
 -
