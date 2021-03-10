@@ -1,13 +1,13 @@
 # mcd/:
 -
-  pattern: 'mcd/[^/]+_HuBMAP_[^/]+organ[^/]+_slide[^/]+\.zip'
-  description: 'csv containing labels for sections as well as whether or not they were included in the 3D model'
+  pattern: 'mcd/[^/]+_HuBMAP_[^/]+_slide[^/]+\.zip'
+  description: 'CSV containing labels for sections as well as whether or not they were included in the 3D model'
   required: True
   is_qa_qc: False
 
 -
   pattern: 'mcd/section_report\.csv'
-  description: 'csv containing labels for sections as well as whether or not they were included in the 3D model'
+  description: 'CSV containing labels for sections as well as whether or not they were included in the 3D model'
   required: True
   is_qa_qc: True
 
@@ -37,9 +37,9 @@
   required: False
   is_qa_qc: False
 
-# mapping/:
+# Mapping/:
 -
-  pattern: 'mapping/cluster_labels_image\.tif'
+  pattern: 'Mapping/cluster_labels_image\.tif'
   description: 'Cell image labeled by cell type'
   required: True
   is_qa_qc: False
