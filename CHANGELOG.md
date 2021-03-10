@@ -29,6 +29,7 @@
 - Slightly better errors when a directory is found when a TSV is expected.
 - Make as_text_list the default output format.
 - Script to generate CSV for fields and enums.
+- Fix CODEX dir schema.
 
 ## v0.0.8 - 2021-02-10
 - Update CODEX directory structure
