@@ -18,6 +18,12 @@
   is_qa_qc: True
 
 -
+  pattern: 'mcd/panel\.csv'
+  description: 'CSV containing a list of channels and antibodies used for acquisition'
+  required: True
+  is_qa_qc: False
+
+-
   pattern: '3D_image_stack\.ome\.tiff'
   description: 'OME.tiff file comprising all slices and channels'
   required: True
