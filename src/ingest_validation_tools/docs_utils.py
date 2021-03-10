@@ -1,4 +1,6 @@
 import re
+from string import Template
+from pathlib import Path
 
 
 def get_tsv_name(type, is_assay=True):
@@ -78,6 +80,7 @@ def generate_readme_md(
         v: _make_fields_md(table_schemas[v], f'Version {v}', is_open=(v == max_version))
         for v in table_schemas
     }
+    concatenated_fields_md = ''.join(fields_mds)
 
     max_version_table_schema = table_schemas[max_version]
     toc_md = _make_toc(fields_mds[max_version])
@@ -113,20 +116,10 @@ def generate_readme_md(
         )
     )
 
-    return f'''# {type}
-
-Related files:
-{optional_doc_link_md}
-- [📝 Excel template]({xlsx_url}): For metadata entry.
-- [📝 TSV template]({tsv_url}): Alternative for metadata entry.
-- [💻 Metadata schema]({metadata_source_url}): To update metadata fields.
-- [💻 Directory schema]({directory_source_url}): To update directory structure.
-{optional_description_md}
-## Table of contents
-{toc_md}
-{optional_dir_description_md}
-{''.join(fields_mds.values())}
-'''
+    template = Template(
+        (Path(__file__).parent / 'docs.template').read_text()
+    )
+    return template.substitute(dir())
 
 
 def _make_fields_md(table_schema, title, is_open):
