@@ -73,7 +73,7 @@ def _enrich_description(field):
 
 
 def generate_readme_md(
-        table_schemas, directory_schema, type, is_assay=True):
+        table_schemas, directory_schema, schema_name, is_assay=True):
     max_version = max(table_schemas.keys())
 
     fields_mds = {
@@ -88,9 +88,9 @@ def generate_readme_md(
 
     src_url_base = 'https://github.com/hubmapconsortium' \
         '/ingest-validation-tools/edit/master/src/ingest_validation_tools'
-    end_of_path = f'{"assays/" if is_assay else ""}{type}.yaml'
+    end_of_path = f'{"assays/" if is_assay else ""}{schema_name}.yaml'
 
-    directory_source_url = f'{src_url_base}/directory-schemas/{type}.yaml'
+    directory_source_url = f'{src_url_base}/directory-schemas/{schema_name}.yaml'
     optional_dir_schema_link_md, optional_dir_description_md = (
         (
             f'- [💻 Directory schema]({directory_source_url}): To update directory structure.',
@@ -115,11 +115,11 @@ def generate_readme_md(
         (Path(__file__).parent / 'docs.template').read_text()
     )
     return template.substitute({
-        'schema_name': type,
+        'schema_name': schema_name,
         'max_version': max_version,
 
-        'tsv_url': f'{raw_base_url}/{type}/{get_tsv_name(type, is_assay=is_assay)}',
-        'xlsx_url': f'{raw_base_url}/{type}/{get_xlsx_name(type, is_assay=is_assay)}',
+        'tsv_url': f'{raw_base_url}/{schema_name}/{get_tsv_name(schema_name, is_assay=is_assay)}',
+        'xlsx_url': f'{raw_base_url}/{schema_name}/{get_xlsx_name(schema_name, is_assay=is_assay)}',
         'metadata_source_url': f'{src_url_base}/table-schemas/{end_of_path}',
 
         'current_toc_md': _make_toc(fields_mds[max_version]),
