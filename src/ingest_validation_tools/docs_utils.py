@@ -94,7 +94,7 @@ def generate_readme_md(
     optional_dir_schema_link_md, optional_dir_description_md = (
         (
             f'- [💻 Directory schema]({directory_source_url}): To update directory structure.',
-            f'## Directory structure\n{_make_dir_description(directory_schema)}'
+            f'## Directory schema\n{_make_dir_description(directory_schema)}'
         ) if directory_schema else
         ('', '')
     )
