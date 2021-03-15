@@ -14,7 +14,18 @@ name of the fluorophore tag on the antibody.
 The other fields function the same way for all assays using antibodies.
 For more information, see the [Antibodies TSV documentation](../antibodies).
 
-## Table of contents
+
+## Directory structure
+
+| pattern | required? | description |
+| --- | --- | --- |
+| `TODO` | ✓ | Directory structure not yet specified. |
+| `extras/.*` |  | Free-form descriptive information supplied by the TMC |
+| `extras/thumbnail\.(png\|jpg)` |  | Optional thumbnail image which may be shown in search interface |
+
+## Metadata schema
+### Version 0 (Current)
+
 <details><summary>Provenance</summary>
 
 [`donor_id`](#donor_id)<br>
@@ -50,15 +61,6 @@ For more information, see the [Antibodies TSV documentation](../antibodies).
 [`antibodies_path`](#antibodies_path)<br>
 [`contributors_path`](#contributors_path)<br>
 [`data_path`](#data_path)<br></details>
-
-## Directory structure
-
-| pattern | required? | description |
-| --- | --- | --- |
-| `TODO` | ✓ | Directory structure not yet specified. |
-| `extras/.*` |  | Free-form descriptive information supplied by the TMC |
-| `extras/thumbnail\.(png\|jpg)` |  | Optional thumbnail image which may be shown in search interface |
-
 
 <details open="true"><summary>Version 0</summary>
 
@@ -264,3 +266,8 @@ Relative path to file or directory with instrument data. Downstream processing w
 | required | `True` |
 
 </details>
+
+
+### Previous Versions
+
+TODO: previous_versions_md

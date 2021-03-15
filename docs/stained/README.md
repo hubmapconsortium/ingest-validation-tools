@@ -8,7 +8,21 @@ Related files:
 - [💻 Directory schema](https://github.com/hubmapconsortium/ingest-validation-tools/edit/master/src/ingest_validation_tools/directory-schemas/stained.yaml): To update directory structure.
 
 
-## Table of contents
+
+## Directory structure
+
+| pattern | required? | description |
+| --- | --- | --- |
+| `processedMicroscopy/[^/]+_PAS_images/[^/]+ome\.tif` | ✓ | OME TIFF files (multichannel, multi-layered, image pyramids) produced by the PAS microscopy experiment |
+| `processedMicroscopy/[^/]+_PAS_transformations/[^/]+\.txt` | ✓ | Transformations to PAS (related) data |
+| `rawMicroscopy/[^/]+\.xml` | ✓ | XML metadata file from the autofluorescence microscopy experiments |
+| `rawMicroscopy/[^/]+\.scn` | ✓ | Raw microscope file for the experiment |
+| `extras/.*` |  | Free-form descriptive information supplied by the TMC |
+| `extras/thumbnail\.(png\|jpg)` |  | Optional thumbnail image which may be shown in search interface |
+
+## Metadata schema
+### Version 0 (Current)
+
 <details><summary>Provenance</summary>
 
 [`donor_id`](#donor_id)<br>
@@ -44,18 +58,6 @@ Related files:
 [`overall_protocols_io_doi`](#overall_protocols_io_doi)<br>
 [`contributors_path`](#contributors_path)<br>
 [`data_path`](#data_path)<br></details>
-
-## Directory structure
-
-| pattern | required? | description |
-| --- | --- | --- |
-| `processedMicroscopy/[^/]+_PAS_images/[^/]+ome\.tif` | ✓ | OME TIFF files (multichannel, multi-layered, image pyramids) produced by the PAS microscopy experiment |
-| `processedMicroscopy/[^/]+_PAS_transformations/[^/]+\.txt` | ✓ | Transformations to PAS (related) data |
-| `rawMicroscopy/[^/]+\.xml` | ✓ | XML metadata file from the autofluorescence microscopy experiments |
-| `rawMicroscopy/[^/]+\.scn` | ✓ | Raw microscope file for the experiment |
-| `extras/.*` |  | Free-form descriptive information supplied by the TMC |
-| `extras/thumbnail\.(png\|jpg)` |  | Optional thumbnail image which may be shown in search interface |
-
 
 <details open="true"><summary>Version 0</summary>
 
@@ -262,3 +264,8 @@ Relative path to file or directory with instrument data. Downstream processing w
 | required | `True` |
 
 </details>
+
+
+### Previous Versions
+
+TODO: previous_versions_md

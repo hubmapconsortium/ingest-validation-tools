@@ -8,7 +8,18 @@ Related files:
 - [💻 Directory schema](https://github.com/hubmapconsortium/ingest-validation-tools/edit/master/src/ingest_validation_tools/directory-schemas/scatacseq.yaml): To update directory structure.
 
 
-## Table of contents
+
+## Directory structure
+
+| pattern | required? | description |
+| --- | --- | --- |
+| `[^/]+\.fastq\.gz` | ✓ | Compressed FastQ file |
+| `extras/.*` |  | Free-form descriptive information supplied by the TMC |
+| `extras/thumbnail\.(png\|jpg)` |  | Optional thumbnail image which may be shown in search interface |
+
+## Metadata schema
+### Version 1 (Current)
+
 [`version`](#version)<br>
 [`description`](#description)<br>
 <details><summary>Provenance</summary>
@@ -64,15 +75,6 @@ Related files:
 [`sequencing_phix_percent`](#sequencing_phix_percent)<br>
 [`contributors_path`](#contributors_path)<br>
 [`data_path`](#data_path)<br></details>
-
-## Directory structure
-
-| pattern | required? | description |
-| --- | --- | --- |
-| `[^/]+\.fastq\.gz` | ✓ | Compressed FastQ file |
-| `extras/.*` |  | Free-form descriptive information supplied by the TMC |
-| `extras/thumbnail\.(png\|jpg)` |  | Optional thumbnail image which may be shown in search interface |
-
 
 <details open="true"><summary>Version 1</summary>
 
@@ -437,3 +439,8 @@ Relative path to file or directory with instrument data. Downstream processing w
 | required | `True` |
 
 </details>
+
+
+### Previous Versions
+
+TODO: previous_versions_md

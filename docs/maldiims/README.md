@@ -8,7 +8,25 @@ Related files:
 - [💻 Directory schema](https://github.com/hubmapconsortium/ingest-validation-tools/edit/master/src/ingest_validation_tools/directory-schemas/maldiims.yaml): To update directory structure.
 
 
-## Table of contents
+
+## Directory structure
+
+| pattern | required? | description |
+| --- | --- | --- |
+| `csv/[^/]+\.csv` | ✓ | Intensities M/Z values with Pixel location |
+| `imzML/[^/]+\.ibd` | ✓ | Index to imzML file |
+| `imzML/[^/]+\.imzMl` | ✓ | Mass spec raw data file |
+| `metadata/[^/]+_LipidAssignments\.xlsx` | ✓ | Microsoft Excel file containing the m/z, assignment, lipid class, etc. |
+| `metadata/[^/]+_meta\.json` | ✓ | JSON file containing the machine parameters/settings |
+| `metadata/[^/]+_microscopy\.txt` | ✓ | Transformations/map back to autofluorescence microscopy (related) data |
+| `ometiffs/[^/]+_multilayer\.ome\.tiff` | ✓ | Aligned multilayer OME TIFF file of the IMS data |
+| `ometiffs/separate/[^/]+_mz[^/]+\.ome\.tiff` | ✓ | Each file is a different M/Z value. |
+| `extras/.*` |  | Free-form descriptive information supplied by the TMC |
+| `extras/thumbnail\.(png\|jpg)` |  | Optional thumbnail image which may be shown in search interface |
+
+## Metadata schema
+### Version 0 (Current)
+
 <details><summary>Provenance</summary>
 
 [`donor_id`](#donor_id)<br>
@@ -49,22 +67,6 @@ Related files:
 [`overall_protocols_io_doi`](#overall_protocols_io_doi)<br>
 [`contributors_path`](#contributors_path)<br>
 [`data_path`](#data_path)<br></details>
-
-## Directory structure
-
-| pattern | required? | description |
-| --- | --- | --- |
-| `csv/[^/]+\.csv` | ✓ | Intensities M/Z values with Pixel location |
-| `imzML/[^/]+\.ibd` | ✓ | Index to imzML file |
-| `imzML/[^/]+\.imzMl` | ✓ | Mass spec raw data file |
-| `metadata/[^/]+_LipidAssignments\.xlsx` | ✓ | Microsoft Excel file containing the m/z, assignment, lipid class, etc. |
-| `metadata/[^/]+_meta\.json` | ✓ | JSON file containing the machine parameters/settings |
-| `metadata/[^/]+_microscopy\.txt` | ✓ | Transformations/map back to autofluorescence microscopy (related) data |
-| `ometiffs/[^/]+_multilayer\.ome\.tiff` | ✓ | Aligned multilayer OME TIFF file of the IMS data |
-| `ometiffs/separate/[^/]+_mz[^/]+\.ome\.tiff` | ✓ | Each file is a different M/Z value. |
-| `extras/.*` |  | Free-form descriptive information supplied by the TMC |
-| `extras/thumbnail\.(png\|jpg)` |  | Optional thumbnail image which may be shown in search interface |
-
 
 <details open="true"><summary>Version 0</summary>
 
@@ -309,3 +311,8 @@ Relative path to file or directory with instrument data. Downstream processing w
 | required | `True` |
 
 </details>
+
+
+### Previous Versions
+
+TODO: previous_versions_md

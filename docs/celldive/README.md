@@ -15,7 +15,30 @@ For CellDIVE, the `channel_id` is represented as a cycle#/channel# combination
 The other fields function the same way for all assays using antibodies.
 For more information, see the [Antibodies TSV documentation](../antibodies).
 
-## Table of contents
+
+## Directory structure
+
+| pattern | required? | description |
+| --- | --- | --- |
+| `channel_list\.txt` | ✓ | Information about the capture channels and tags (comma separated) |
+| `slide_list\.txt` | ✓ | Information about the slides used by the experiment- each line corresponds to a slide name (begins with S - e.g. S20030077) - used in filenames |
+| `HuBMAP_OME/region_[^/]+/S[^/]+\.ome\.tif` | ✓ | OME TIFF Files for the corresponding region (e.g. region_001) by slide (e.g S20030077) |
+| `HuBMAP_rounds/round_info_S[^/]*\.dat` | ✓ | metadata file for the capture by slide (e.g S20030077) item-value tab separated format |
+| `HuBMAP_Seg_and_quant/gray_scale_T_cells/region[^/]*/mask_T_cells_slideS[^/]+\.tif` | ✓ | grayscale T-cell masks |
+| `HuBMAP_Seg_and_quant/quantification/region[^/]*/quant_slideS[^/]+\.csv` | ✓ | Comma separated quantification files |
+| `HuBMAP_Seg_and_quant/rgb_T_cells/region[^/]*/mask_T_cells_slideS[^/]+\.tif` | ✓ | rgb T-cell masks |
+| `HuBMAP_Seg_and_quant/segmentation/region[^/]*/dapi_slide_slideS[^/]+\.tif` | ✓ | segmentation (dapi slides) |
+| `vHE/S[^/]+\.ome\.tif` | ✓ | vHE slides |
+| `HuBMAP_OME/move_images.bat` |  | moves files |
+| `HuBMAP_Seg_and_quant/*/move_images.bat` |  | moves files |
+| `HuBMAP_OME/make_folders.bat` |  | creates directories |
+| `HuBMAP_Seg_and_quant/*/make_folders.bat` |  | creates directories |
+| `extras/.*` |  | Free-form descriptive information supplied by the TMC |
+| `extras/thumbnail\.(png\|jpg)` |  | Optional thumbnail image which may be shown in search interface |
+
+## Metadata schema
+### Version 0 (Current)
+
 <details><summary>Provenance</summary>
 
 [`donor_id`](#donor_id)<br>
@@ -53,27 +76,6 @@ For more information, see the [Antibodies TSV documentation](../antibodies).
 [`antibodies_path`](#antibodies_path)<br>
 [`contributors_path`](#contributors_path)<br>
 [`data_path`](#data_path)<br></details>
-
-## Directory structure
-
-| pattern | required? | description |
-| --- | --- | --- |
-| `channel_list\.txt` | ✓ | Information about the capture channels and tags (comma separated) |
-| `slide_list\.txt` | ✓ | Information about the slides used by the experiment- each line corresponds to a slide name (begins with S - e.g. S20030077) - used in filenames |
-| `HuBMAP_OME/region_[^/]+/S[^/]+\.ome\.tif` | ✓ | OME TIFF Files for the corresponding region (e.g. region_001) by slide (e.g S20030077) |
-| `HuBMAP_rounds/round_info_S[^/]*\.dat` | ✓ | metadata file for the capture by slide (e.g S20030077) item-value tab separated format |
-| `HuBMAP_Seg_and_quant/gray_scale_T_cells/region[^/]*/mask_T_cells_slideS[^/]+\.tif` | ✓ | grayscale T-cell masks |
-| `HuBMAP_Seg_and_quant/quantification/region[^/]*/quant_slideS[^/]+\.csv` | ✓ | Comma separated quantification files |
-| `HuBMAP_Seg_and_quant/rgb_T_cells/region[^/]*/mask_T_cells_slideS[^/]+\.tif` | ✓ | rgb T-cell masks |
-| `HuBMAP_Seg_and_quant/segmentation/region[^/]*/dapi_slide_slideS[^/]+\.tif` | ✓ | segmentation (dapi slides) |
-| `vHE/S[^/]+\.ome\.tif` | ✓ | vHE slides |
-| `HuBMAP_OME/move_images.bat` |  | moves files |
-| `HuBMAP_Seg_and_quant/*/move_images.bat` |  | moves files |
-| `HuBMAP_OME/make_folders.bat` |  | creates directories |
-| `HuBMAP_Seg_and_quant/*/make_folders.bat` |  | creates directories |
-| `extras/.*` |  | Free-form descriptive information supplied by the TMC |
-| `extras/thumbnail\.(png\|jpg)` |  | Optional thumbnail image which may be shown in search interface |
-
 
 <details open="true"><summary>Version 0</summary>
 
@@ -297,3 +299,8 @@ Relative path to file or directory with instrument data. Downstream processing w
 | required | `True` |
 
 </details>
+
+
+### Previous Versions
+
+TODO: previous_versions_md

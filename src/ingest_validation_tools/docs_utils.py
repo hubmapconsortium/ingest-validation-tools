@@ -83,11 +83,6 @@ def generate_readme_md(
 
     max_version_table_schema = table_schemas[max_version]
 
-    optional_dir_description_md = f'''
-## Directory structure
-{_make_dir_description(directory_schema)}
-''' if directory_schema else ''
-
     raw_base_url = 'https://raw.githubusercontent.com/' \
         'hubmapconsortium/ingest-validation-tools/master/docs'
 
@@ -95,31 +90,46 @@ def generate_readme_md(
         '/ingest-validation-tools/edit/master/src/ingest_validation_tools'
     end_of_path = f'{"assays/" if is_assay else ""}{type}.yaml'
 
+    directory_source_url = f'{src_url_base}/directory-schemas/{type}.yaml'
+    optional_dir_schema_link_md, optional_dir_description_md = (
+        (
+            f'- [💻 Directory schema]({directory_source_url}): To update directory structure.',
+            f'## Directory structure\n{_make_dir_description(directory_schema)}'
+        ) if directory_schema else
+        ('', '')
+    )
+
     optional_doc_link_md = (
         f'- [🔬 Background doc]({max_version_table_schema["doc_url"]}): '
         'More details about this type.'
         if 'doc_url' in max_version_table_schema else ''
     )
     optional_description_md = (
-        '\n' +
-        (
-            max_version_table_schema['description_md']
-            if 'description_md' in max_version_table_schema else ''
-        )
+        max_version_table_schema['description_md']
+        if 'description_md' in max_version_table_schema else ''
     )
+
+    previous_versions_md = 'TODO: previous_versions_md'
 
     template = Template(
         (Path(__file__).parent / 'docs.template').read_text()
     )
     return template.substitute({
         'schema_name': type,
-        'toc_md': _make_toc(fields_mds[max_version]),
-        'concatenated_fields_md': ''.join(fields_mds[max_version]),
+        'max_version': max_version,
+
         'tsv_url': f'{raw_base_url}/{type}/{get_tsv_name(type, is_assay=is_assay)}',
         'xlsx_url': f'{raw_base_url}/{type}/{get_xlsx_name(type, is_assay=is_assay)}',
         'metadata_source_url': f'{src_url_base}/table-schemas/{end_of_path}',
-        'directory_source_url': f'{src_url_base}/directory-schemas/{type}.yaml',
+
+        'current_toc_md': _make_toc(fields_mds[max_version]),
+        'current_concatenated_fields_md': ''.join(fields_mds[max_version]),
+
+        'previous_versions_md': previous_versions_md,
+
+        'optional_dir_schema_link_md': optional_dir_schema_link_md,
         'optional_dir_description_md': optional_dir_description_md,
+
         'optional_doc_link_md': optional_doc_link_md,
         'optional_description_md': optional_description_md
     })

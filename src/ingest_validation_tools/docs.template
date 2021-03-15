@@ -5,9 +5,18 @@ ${optional_doc_link_md}
 - [📝 Excel template](${xlsx_url}): For metadata entry.
 - [📝 TSV template](${tsv_url}): Alternative for metadata entry.
 - [💻 Metadata schema](${metadata_source_url}): To update metadata fields.
-- [💻 Directory schema](${directory_source_url}): To update directory structure.
+${optional_dir_schema_link_md}
+
 ${optional_description_md}
-## Table of contents
-${toc_md}
+
 ${optional_dir_description_md}
-${concatenated_fields_md}
+
+## Metadata schema
+### Version ${max_version} (Current)
+
+${current_toc_md}
+${current_concatenated_fields_md}
+
+### Previous Versions
+
+${previous_versions_md}

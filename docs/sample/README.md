@@ -5,10 +5,15 @@ Related files:
 - [📝 Excel template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/master/docs/sample/sample.xlsx): For metadata entry.
 - [📝 TSV template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/master/docs/sample/sample.tsv): Alternative for metadata entry.
 - [💻 Metadata schema](https://github.com/hubmapconsortium/ingest-validation-tools/edit/master/src/ingest_validation_tools/table-schemas/sample.yaml): To update metadata fields.
-- [💻 Directory schema](https://github.com/hubmapconsortium/ingest-validation-tools/edit/master/src/ingest_validation_tools/directory-schemas/sample.yaml): To update directory structure.
 
 
-## Table of contents
+
+
+
+
+## Metadata schema
+### Version 0 (Current)
+
 <details><summary>IDs</summary>
 
 [`sample_id`](#sample_id)<br>
@@ -38,7 +43,6 @@ Related files:
 [`specimen_quality_criteria`](#specimen_quality_criteria)<br>
 [`specimen_tumor_distance_value`](#specimen_tumor_distance_value)<br>
 [`specimen_tumor_distance_unit`](#specimen_tumor_distance_unit)<br></details>
-
 
 <details open="true"><summary>Version 0</summary>
 
@@ -170,3 +174,8 @@ Distance unit. Leave blank if not applicable.
 | enum | `cm` |
 
 </details>
+
+
+### Previous Versions
+
+TODO: previous_versions_md

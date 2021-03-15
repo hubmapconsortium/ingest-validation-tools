@@ -5,13 +5,18 @@ Related files:
 - [📝 Excel template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/master/docs/antibodies/antibodies.xlsx): For metadata entry.
 - [📝 TSV template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/master/docs/antibodies/antibodies.tsv): Alternative for metadata entry.
 - [💻 Metadata schema](https://github.com/hubmapconsortium/ingest-validation-tools/edit/master/src/ingest_validation_tools/table-schemas/antibodies.yaml): To update metadata fields.
-- [💻 Directory schema](https://github.com/hubmapconsortium/ingest-validation-tools/edit/master/src/ingest_validation_tools/directory-schemas/antibodies.yaml): To update directory structure.
+
 
 Changes:
 - v1: Version number added.
 - v2: Add concentration fields.
 
-## Table of contents
+
+
+
+## Metadata schema
+### Version 2 (Current)
+
 [`version`](#version)<br>
 [`channel_id`](#channel_id)<br>
 [`antibody_name`](#antibody_name)<br>
@@ -23,7 +28,6 @@ Changes:
 [`concentration_unit`](#concentration_unit)<br>
 [`conjugated_cat_number`](#conjugated_cat_number)<br>
 [`conjugated_tag`](#conjugated_tag)<br></details>
-
 
 <details open="true"><summary>Version 2</summary>
 
@@ -113,3 +117,8 @@ The name of the entity conjugated to the antibody. Leave blank if not applicable
 | required | `False` |
 
 </details>
+
+
+### Previous Versions
+
+TODO: previous_versions_md
