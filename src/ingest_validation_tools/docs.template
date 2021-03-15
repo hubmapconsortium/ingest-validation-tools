@@ -12,11 +12,6 @@ ${optional_description_md}
 ${optional_dir_description_md}
 
 ## Metadata schema
-### Version ${max_version} (Current)
 
-${current_toc_md}
-${current_concatenated_fields_md}
-
-### Previous Versions
-
+${current_version_md}
 ${previous_versions_md}

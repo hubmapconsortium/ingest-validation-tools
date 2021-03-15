@@ -75,12 +75,6 @@ def _enrich_description(field):
 def generate_readme_md(
         table_schemas, directory_schema, schema_name, is_assay=True):
     max_version = max(table_schemas.keys())
-
-    fields_mds = {
-        v: _make_fields_md(table_schemas[v], f'Version {v}', is_open=(v == max_version))
-        for v in table_schemas
-    }
-
     max_version_table_schema = table_schemas[max_version]
 
     raw_base_url = 'https://raw.githubusercontent.com/' \
@@ -109,8 +103,6 @@ def generate_readme_md(
         if 'description_md' in max_version_table_schema else ''
     )
 
-    previous_versions_md = 'TODO: previous_versions_md'
-
     template = Template(
         (Path(__file__).parent / 'docs.template').read_text()
     )
@@ -122,10 +114,17 @@ def generate_readme_md(
         'xlsx_url': f'{raw_base_url}/{schema_name}/{get_xlsx_name(schema_name, is_assay=is_assay)}',
         'metadata_source_url': f'{src_url_base}/table-schemas/{end_of_path}',
 
-        'current_toc_md': _make_toc(fields_mds[max_version]),
-        'current_concatenated_fields_md': ''.join(fields_mds[max_version]),
-
-        'previous_versions_md': previous_versions_md,
+        'current_version_md':
+            _make_fields_md(
+                table_schemas[max_version], f'Version {max_version} (current)', is_open=True
+            ),
+        'previous_versions_md':
+            '\n\n'.join([
+                _make_fields_md(
+                    table_schemas[str(v)], f'Version {v}'
+                )
+                for v in reversed(range(int(max_version)))
+            ]),
 
         'optional_dir_schema_link_md': optional_dir_schema_link_md,
         'optional_dir_description_md': optional_dir_description_md,
@@ -135,20 +134,22 @@ def generate_readme_md(
     })
 
 
-def _make_fields_md(table_schema, title, is_open):
+def _make_fields_md(table_schema, title, is_open=False):
     fields_md_list = []
     for field in table_schema['fields']:
         if 'heading' in field:
-            fields_md_list.append(f"## {field['heading']}")
+            fields_md_list.append(f"#### {field['heading']}")
         table_md = _make_constraints_table(field)
-        fields_md_list.append(f"""### `{field['name']}`
-{_enrich_description(field)}
-
-{table_md}""")
+        fields_md_list.append('\n'.join([
+            f"###### `{field['name']}`",
+            _enrich_description(field),
+            table_md
+        ]))
     joined_list = '\n\n'.join(fields_md_list)
     return f'''
-<details {'open="true"' if is_open else ''}><summary>{title}</summary>
+<details {'open="true"' if is_open else ''}><summary><h3>{title}</h3></summary>
 
+{_make_toc(joined_list) if is_open else ''}
 {joined_list}
 
 </details>
