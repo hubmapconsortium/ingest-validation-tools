@@ -64,4 +64,3 @@ ORCID ID of contributor. Example: `0000-0002-8928-741X`.
 | url | prefix: `https://orcid.org/` |
 
 </details>
-

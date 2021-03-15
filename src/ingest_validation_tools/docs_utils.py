@@ -80,28 +80,20 @@ def generate_readme_md(
         v: _make_fields_md(table_schemas[v], f'Version {v}', is_open=(v == max_version))
         for v in table_schemas
     }
-    concatenated_fields_md = ''.join(fields_mds)
 
     max_version_table_schema = table_schemas[max_version]
-    toc_md = _make_toc(fields_mds[max_version])
-
-    dir_description_md = _make_dir_description(directory_schema)
 
     optional_dir_description_md = f'''
 ## Directory structure
-{dir_description_md}
+{_make_dir_description(directory_schema)}
 ''' if directory_schema else ''
 
     raw_base_url = 'https://raw.githubusercontent.com/' \
         'hubmapconsortium/ingest-validation-tools/master/docs'
-    tsv_url = f'{raw_base_url}/{type}/{get_tsv_name(type, is_assay=is_assay)}'
-    xlsx_url = f'{raw_base_url}/{type}/{get_xlsx_name(type, is_assay=is_assay)}'
 
     src_url_base = 'https://github.com/hubmapconsortium' \
         '/ingest-validation-tools/edit/master/src/ingest_validation_tools'
     end_of_path = f'{"assays/" if is_assay else ""}{type}.yaml'
-    metadata_source_url = f'{src_url_base}/table-schemas/{end_of_path}'
-    directory_source_url = f'{src_url_base}/directory-schemas/{type}.yaml'
 
     optional_doc_link_md = (
         f'- [🔬 Background doc]({max_version_table_schema["doc_url"]}): '
@@ -119,7 +111,18 @@ def generate_readme_md(
     template = Template(
         (Path(__file__).parent / 'docs.template').read_text()
     )
-    return template.substitute(dir())
+    return template.substitute({
+        'schema_name': type,
+        'toc_md': _make_toc(fields_mds[max_version]),
+        'concatenated_fields_md': ''.join(fields_mds[max_version]),
+        'tsv_url': f'{raw_base_url}/{type}/{get_tsv_name(type, is_assay=is_assay)}',
+        'xlsx_url': f'{raw_base_url}/{type}/{get_xlsx_name(type, is_assay=is_assay)}',
+        'metadata_source_url': f'{src_url_base}/table-schemas/{end_of_path}',
+        'directory_source_url': f'{src_url_base}/directory-schemas/{type}.yaml',
+        'optional_dir_description_md': optional_dir_description_md,
+        'optional_doc_link_md': optional_doc_link_md,
+        'optional_description_md': optional_description_md
+    })
 
 
 def _make_fields_md(table_schema, title, is_open):

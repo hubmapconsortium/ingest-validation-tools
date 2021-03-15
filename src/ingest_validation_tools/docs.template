@@ -10,4 +10,4 @@ ${optional_description_md}
 ## Table of contents
 ${toc_md}
 ${optional_dir_description_md}
-${concatenated_fields_md)}
+${concatenated_fields_md}

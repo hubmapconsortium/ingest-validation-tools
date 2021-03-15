@@ -334,4 +334,3 @@ Relative path to file or directory with instrument data. Downstream processing w
 | required | `True` |
 
 </details>
-
