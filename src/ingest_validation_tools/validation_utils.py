@@ -76,6 +76,8 @@ def get_tsv_errors(tsv_path, type, optional_fields=[], offline=None, encoding=No
 
     try:
         rows = dict_reader_wrapper(tsv_path, encoding=encoding)
+    except IsADirectoryError:
+        return 'Expected a TSV, but found a directory'
     except UnicodeDecodeError as e:
         return get_context_of_decode_error(e)
 

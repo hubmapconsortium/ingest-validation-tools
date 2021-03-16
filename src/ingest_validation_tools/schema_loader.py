@@ -108,6 +108,7 @@ def _validate_level_1_enum(field):
             'sequence'
         ],
         'assay_type': [
+            '3D Imaging Mass Cytometry',
             'scRNA-Seq(10xGenomics)',
             'AF',
             'bulk RNA',
@@ -154,7 +155,8 @@ def _validate_level_1_enum(field):
     if name in enums:
         actual = set(field['constraints']['enum']) if 'enum' in field['constraints'] else set()
         allowed = set(enums[name])
-        assert actual <= allowed, f'Unexpected enums for {name}: {actual - allowed}'
+        assert actual <= allowed, f'Unexpected enums for {name}: {actual - allowed}\n' \
+            'Allowed: {sorted(allowed)}'
 
 
 def _add_constraints(field, optional_fields, offline=None):

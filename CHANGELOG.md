@@ -20,12 +20,17 @@
 - Fix typo in nano enum.
 - Clearer error when it can't find matching assay name.
 - Downgrade dependency for compatibility with HuBMAP commons.
+- Directory structure for scatacseq.
+- Add 3D IMC table and directory schemas.
 - Link to the yaml for both directory and metadata schemas.
 - Directory structure for scatacseq and scrnaseq: They share a symlink.
 - Add help document.
 - Factor out the checks, make OO, and make error messages configurable.
+- Slightly better errors when a directory is found when a TSV is expected.
+- Make as_text_list the default output format.
 - Script to generate CSV for fields and enums.
 - Add version number to schemas.
+- Clarify guidelines for direction schemas.
 
 ## v0.0.8 - 2021-02-10
 - Update CODEX directory structure
