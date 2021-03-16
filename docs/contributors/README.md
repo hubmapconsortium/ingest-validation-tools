@@ -14,7 +14,7 @@ Related files:
 ## Metadata schema
 
 
-<details open="true"><summary><h3>Version 0 (current)</h3></summary>
+<details open="true"><summary>Version 0 (current)</summary>
 
 [`affiliation`](#affiliation)<br>
 [`first_name`](#first_name)<br>
@@ -22,37 +22,37 @@ Related files:
 [`middle_name_or_initial`](#middle_name_or_initial)<br>
 [`name`](#name)<br>
 [`orcid_id`](#orcid_id)<br></details>
-###### `affiliation`
+##### `affiliation`
 Institutional affiliation.
 | constraint | value |
 | --- | --- |
 | required | `True` |
 
-###### `first_name`
+##### `first_name`
 First name.
 | constraint | value |
 | --- | --- |
 | required | `True` |
 
-###### `last_name`
+##### `last_name`
 Last name.
 | constraint | value |
 | --- | --- |
 | required | `True` |
 
-###### `middle_name_or_initial`
+##### `middle_name_or_initial`
 Middle name or initial. Leave blank if not applicable.
 | constraint | value |
 | --- | --- |
 | required | `False` |
 
-###### `name`
+##### `name`
 Name for display.
 | constraint | value |
 | --- | --- |
 | required | `True` |
 
-###### `orcid_id`
+##### `orcid_id`
 ORCID ID of contributor. Example: `0000-0002-8928-741X`.
 | constraint | value |
 | --- | --- |

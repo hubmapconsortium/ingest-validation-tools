@@ -138,16 +138,16 @@ def _make_fields_md(table_schema, title, is_open=False):
     fields_md_list = []
     for field in table_schema['fields']:
         if 'heading' in field:
-            fields_md_list.append(f"#### {field['heading']}")
+            fields_md_list.append(f"### {field['heading']}")
         table_md = _make_constraints_table(field)
         fields_md_list.append('\n'.join([
-            f"###### `{field['name']}`",
+            f"##### `{field['name']}`",
             _enrich_description(field),
             table_md
         ]))
     joined_list = '\n\n'.join(fields_md_list)
     return f'''
-<details {'open="true"' if is_open else ''}><summary><h3>{title}</h3></summary>
+<details {'open="true"' if is_open else ''}><summary>{title}</summary>
 
 {_make_toc(joined_list) if is_open else ''}
 {joined_list}
