@@ -243,13 +243,13 @@ def _make_toc(md):
     >>> md = '# Section A\\n## `Item 1`\\n# Section B'
 
     >>> print(_make_toc(md))
-    <details><summary>Section A</summary>
+    <blockquote><details><summary>Section A</summary>
     <BLANKLINE>
     [`Item 1`](#item-1)<br>
     </details>
     <BLANKLINE>
     <details><summary>Section B</summary>
-    </details>
+    </details></blockquote>
 
     '''
     lines = md.split('\n')
