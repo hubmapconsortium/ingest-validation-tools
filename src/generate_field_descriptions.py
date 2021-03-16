@@ -11,7 +11,7 @@ from ingest_validation_tools.schema_loader import (
 def main():
     parser = argparse.ArgumentParser(
         description='Outputs a YAML dict listing fields and their definitions.')
-    args = parser.parse_args()
+    parser.parse_args()
 
     mapping = {}
     for schema_version in list_schema_versions():

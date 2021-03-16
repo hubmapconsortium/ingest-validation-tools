@@ -270,7 +270,6 @@ def _make_toc(md):
     return f'<blockquote>{mds}</blockquote>'
 
 
-
 def _make_dir_description(dir_schema):
     '''
     QA and Required flags are handled:
