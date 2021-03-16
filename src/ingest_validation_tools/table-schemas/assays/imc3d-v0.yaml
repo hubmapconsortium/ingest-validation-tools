@@ -7,7 +7,7 @@ description_md:
   The other fields function the same way for all assays using antibodies.
   For more information, see the [Antibodies TSV documentation](../antibodies).
 fields:
-# include: ../includes/all_assays.yaml
+# include: ../includes/v0/all_assays.yaml
 -
   name: assay_category
   constraints:
@@ -24,22 +24,22 @@ fields:
   constraints:
     enum:
       - protein
-# include: ../includes/is_targeted.yaml
+# include: ../includes/v0/is_targeted.yaml
 
 # Level 2 fields:
-# include: ../includes/acquisition_instrument.yaml
-# include: ../includes/prep_instrument.yaml
-# include: ../includes/doi/section_prep.yaml
-# include: ../includes/doi/reagent_prep.yaml
+# include: ../includes/v0/acquisition_instrument.yaml
+# include: ../includes/v0/prep_instrument.yaml
+# include: ../includes/v0/doi/section_prep.yaml
+# include: ../includes/v0/doi/reagent_prep.yaml
 - name: number_of_channels
   description: Number of mass channels measured
   type: number
 - name: number_of_sections
   description: Number of sections
   type: number
-# include: ../includes/ablation.yaml
-# include: ../includes/imc_roi_id.yaml
-# include: ../includes/imc_roi_dimensions.yaml
+# include: ../includes/v0/ablation.yaml
+# include: ../includes/v0/imc_roi_id.yaml
+# include: ../includes/v0/imc_roi_dimensions.yaml
 - name: segment_data_format
   description: This refers to the data type, which is a "float" for the IMC counts.
   constraints:
@@ -57,4 +57,4 @@ fields:
 - name: antibodies_path
   description: Relative path to file with antibody information for this dataset.
 
-# include: ../includes/paths.yaml
+# include: ../includes/v0/paths.yaml

@@ -41,7 +41,7 @@ pip install -r requirements.txt
 src/validate_submission.py --help
 ```
 
-You should see [the documention for `validate_submission.py`](README-validate_submission.py.md)
+You should see [the documention for `validate_submission.py`](script-docs/README-validate_submission.py.md)
 
 Now run it against one of the included examples, giving the path to a submission directory:
 ```

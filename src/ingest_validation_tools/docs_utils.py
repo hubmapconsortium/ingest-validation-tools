@@ -243,13 +243,13 @@ def _make_toc(md):
     >>> md = '# Section A\\n## `Item 1`\\n# Section B'
 
     >>> print(_make_toc(md))
-    <details><summary>Section A</summary>
+    <blockquote><details><summary>Section A</summary>
     <BLANKLINE>
     [`Item 1`](#item-1)<br>
     </details>
     <BLANKLINE>
     <details><summary>Section B</summary>
-    </details>
+    </details></blockquote>
 
     '''
     lines = md.split('\n')
@@ -257,7 +257,7 @@ def _make_toc(md):
         re.sub(r'^#+\s+', '', line)
         for line in lines if len(line) and line[0] == '#'
     ]
-    return '\n'.join([
+    mds = '\n'.join([
         (
             # Assume section headers do not contain backticks...
             f'</details>\n\n<details><summary>{h}</summary>\n'
@@ -267,6 +267,7 @@ def _make_toc(md):
         )
         for h in headers
     ]).replace('</details>\n\n', '', 1) + '</details>'
+    return f'<blockquote>{mds}</blockquote>'
 
 
 def _make_dir_description(dir_schema):
