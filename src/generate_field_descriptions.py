@@ -1,12 +1,18 @@
 #!/usr/bin/env python3
 import sys
 from yaml import dump as dump_yaml
+import argparse
+
 from ingest_validation_tools.schema_loader import (
     list_schema_versions, get_table_schema, get_other_schema, get_is_assay
 )
 
 
 def main():
+    parser = argparse.ArgumentParser(
+        description='Outputs a YAML dict listing fields and their definitions.')
+    args = parser.parse_args()
+
     mapping = {}
     for schema_version in list_schema_versions():
         schema_name = schema_version.schema_name
