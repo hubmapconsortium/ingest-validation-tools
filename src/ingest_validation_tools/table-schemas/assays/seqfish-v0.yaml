@@ -1,6 +1,6 @@
 doc_url: https://portal.hubmapconsortium.org/docs/assays/seqfish
 fields:
-  # include: ../includes/all_assays.yaml
+  # include: ../includes/v0/all_assays.yaml
   -
     name: assay_category
     constraints:
@@ -16,12 +16,12 @@ fields:
     constraints:
       enum:
         - RNA
-  # include: ../includes/is_targeted.yaml
+  # include: ../includes/v0/is_targeted.yaml
 
   # Level 2:
 
-  # include: ../includes/acquisition_instrument.yaml  
-  # include: ../includes/x_y.yaml
+  # include: ../includes/v0/acquisition_instrument.yaml  
+  # include: ../includes/v0/x_y.yaml
   
   -
     name: resolution_z_value
@@ -35,7 +35,7 @@ fields:
       enum:
         - nm
         - um
-  # include: ../includes/prep_instrument.yaml
+  # include: ../includes/v0/prep_instrument.yaml
   -
     name: number_of_barcode_probes
     description: Number of barcode probes targeting mRNAs (eg. 24,000 barcode probes = 24,000 mRNAs - 1 per mRNA of interest)
@@ -54,7 +54,7 @@ fields:
   -
     name: number_of_cycles
     description: For each barcode region being interrogated, the number of cycles of 1. Hybridization of readout probes, 2. imaging, 3. Washes (the paper describes 1 readout probe per hyb cycle -> 20 readout probes = 20 hyb cycles)
-  # include: ../includes/doi/section_prep.yaml
-  # include: ../includes/doi/reagent_prep.yaml
+  # include: ../includes/v0/doi/section_prep.yaml
+  # include: ../includes/v0/doi/reagent_prep.yaml
 
-  # include: ../includes/paths.yaml
+  # include: ../includes/v0/paths.yaml

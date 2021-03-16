@@ -9,7 +9,7 @@ description_md: |
   The other fields function the same way for all assays using antibodies.
   For more information, see the [Antibodies TSV documentation](../antibodies).
 fields:
-  # include: ../includes/all_assays.yaml
+  # include: ../includes/v0/all_assays.yaml
   -
     name: assay_category
     constraints:
@@ -25,7 +25,7 @@ fields:
     constraints:
       enum:
         - protein
-  # include: ../includes/is_targeted.yaml
+  # include: ../includes/v0/is_targeted.yaml
 
 # Level 2 fields:
   -
@@ -77,14 +77,14 @@ fields:
     constraints:
       enum: ['version 1 robot','prototype robot - Stanford/Nolan Lab']
 
-  # include: ../includes/antibodies_channels.yaml
+  # include: ../includes/v0/antibodies_channels.yaml
   -
     name: number_of_cycles
     description: Number of cycles of 1. oligo application, 2. fluor application, 3. washes
-  # include: ../includes/doi/section_prep.yaml
-  # include: ../includes/doi/reagent_prep.yaml
+  # include: ../includes/v0/doi/section_prep.yaml
+  # include: ../includes/v0/doi/reagent_prep.yaml
   -
     name: antibodies_path
     description: Relative path to file with antibody information for this dataset.
 
-  # include: ../includes/paths.yaml
+  # include: ../includes/v0/paths.yaml

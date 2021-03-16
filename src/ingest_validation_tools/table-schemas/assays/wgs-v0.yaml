@@ -1,6 +1,6 @@
 doc_url: https://portal.hubmapconsortium.org/docs/assays/wgs
 fields:
-# include: ../includes/all_assays.yaml
+# include: ../includes/v0/all_assays.yaml
 -
   name: assay_category
   constraints:
@@ -16,10 +16,10 @@ fields:
   constraints:
     enum:
       - DNA
-# include: ../includes/is_targeted.yaml
+# include: ../includes/v0/is_targeted.yaml
 
 # Level 2:
-# include: ../includes/acquisition_instrument.yaml
+# include: ../includes/v0/acquisition_instrument.yaml
 - name: gdna_fragmentation_quality_assurance
   description: Is the gDNA integrity good enough for WGS? This is usually checked through running a gel.
   constraints:
@@ -64,6 +64,6 @@ fields:
     or bioanalyzer/tapestation.
   type: number
 
-# include: ../includes/sequencing.yaml
+# include: ../includes/v0/sequencing.yaml
 
-# include: ../includes/paths.yaml
+# include: ../includes/v0/paths.yaml
