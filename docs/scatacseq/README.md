@@ -22,7 +22,7 @@ Related files:
 
 <details open="true"><summary><b>Version 1 (current)</b></summary>
 
-[`version`](#version)<br>
+<blockquote>[`version`](#version)<br>
 [`description`](#description)<br>
 <details><summary>Shared by all types</summary>
 
@@ -72,7 +72,7 @@ Related files:
 [`sequencing_read_percent_q30`](#sequencing_read_percent_q30)<br>
 [`sequencing_phix_percent`](#sequencing_phix_percent)<br>
 [`contributors_path`](#contributors_path)<br>
-[`data_path`](#data_path)<br></details>
+[`data_path`](#data_path)<br></details></blockquote>
 ##### `version`
 Version of the schema to use when validating this metadata.
 | constraint | value |

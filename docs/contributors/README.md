@@ -16,12 +16,12 @@ Related files:
 
 <details open="true"><summary><b>Version 0 (current)</b></summary>
 
-[`affiliation`](#affiliation)<br>
+<blockquote>[`affiliation`](#affiliation)<br>
 [`first_name`](#first_name)<br>
 [`last_name`](#last_name)<br>
 [`middle_name_or_initial`](#middle_name_or_initial)<br>
 [`name`](#name)<br>
-[`orcid_id`](#orcid_id)<br></details>
+[`orcid_id`](#orcid_id)<br></details></blockquote>
 ##### `affiliation`
 Institutional affiliation.
 | constraint | value |

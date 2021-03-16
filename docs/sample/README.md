@@ -16,7 +16,7 @@ Related files:
 
 <details open="true"><summary><b>Version 0 (current)</b></summary>
 
-<details><summary>IDs</summary>
+<blockquote><details><summary>IDs</summary>
 
 [`sample_id`](#sample_id)<br>
 </details>
@@ -44,7 +44,7 @@ Related files:
 [`specimen_preservation_temperature`](#specimen_preservation_temperature)<br>
 [`specimen_quality_criteria`](#specimen_quality_criteria)<br>
 [`specimen_tumor_distance_value`](#specimen_tumor_distance_value)<br>
-[`specimen_tumor_distance_unit`](#specimen_tumor_distance_unit)<br></details>
+[`specimen_tumor_distance_unit`](#specimen_tumor_distance_unit)<br></details></blockquote>
 ### IDs
 
 ##### `sample_id`

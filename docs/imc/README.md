@@ -23,7 +23,7 @@ The other fields function the same way for all assays using antibodies. For more
 
 <details open="true"><summary><b>Version 0 (current)</b></summary>
 
-<details><summary>Shared by all types</summary>
+<blockquote><details><summary>Shared by all types</summary>
 
 [`donor_id`](#donor_id)<br>
 [`tissue_id`](#tissue_id)<br>
@@ -68,7 +68,7 @@ The other fields function the same way for all assays using antibodies. For more
 [`start_datetime`](#start_datetime)<br>
 [`data_precision_bytes`](#data_precision_bytes)<br>
 [`contributors_path`](#contributors_path)<br>
-[`data_path`](#data_path)<br></details>
+[`data_path`](#data_path)<br></details></blockquote>
 ### Shared by all types
 
 ##### `donor_id`

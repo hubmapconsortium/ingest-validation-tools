@@ -22,7 +22,7 @@ Related files:
 
 <details open="true"><summary><b>Version 0 (current)</b></summary>
 
-<details><summary>Shared by all types</summary>
+<blockquote><details><summary>Shared by all types</summary>
 
 [`donor_id`](#donor_id)<br>
 [`tissue_id`](#tissue_id)<br>
@@ -66,7 +66,7 @@ Related files:
 [`transposition_method`](#transposition_method)<br>
 [`transposition_transposase_source`](#transposition_transposase_source)<br>
 [`contributors_path`](#contributors_path)<br>
-[`data_path`](#data_path)<br></details>
+[`data_path`](#data_path)<br></details></blockquote>
 ### Shared by all types
 
 ##### `donor_id`
