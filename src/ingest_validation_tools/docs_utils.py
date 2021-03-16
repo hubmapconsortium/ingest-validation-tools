@@ -1,4 +1,6 @@
 import re
+from string import Template
+from pathlib import Path
 
 
 def get_tsv_name(type, is_assay=True):
@@ -14,7 +16,7 @@ def generate_template_tsv(table_schema):
     header_row = '\t'.join(names)
 
     enums = [
-        ' / '.join(field['constraints']['enum'])
+        ' / '.join(str(e) for e in field['constraints']['enum'])
         if 'constraints' in field
         and 'enum' in field['constraints']
         else ''
@@ -71,96 +73,87 @@ def _enrich_description(field):
 
 
 def generate_readme_md(
-        table_schema, directory_schema, type, is_assay=True):
-    versions_md = _make_versions_md(table_schema, type)
-    fields_md = _make_fields_md(table_schema)
-    toc_md = _make_toc(fields_md)
-    dir_description_md = _make_dir_description(directory_schema)
-
-    optional_dir_description_md = f'''
-## Directory structure
-{dir_description_md}
-''' if directory_schema else ''
+        table_schemas, directory_schema, schema_name, is_assay=True):
+    max_version = max(table_schemas.keys())
+    max_version_table_schema = table_schemas[max_version]
 
     raw_base_url = 'https://raw.githubusercontent.com/' \
         'hubmapconsortium/ingest-validation-tools/master/docs'
-    tsv_url = f'{raw_base_url}/{type}/{get_tsv_name(type, is_assay=is_assay)}'
-    xlsx_url = f'{raw_base_url}/{type}/{get_xlsx_name(type, is_assay=is_assay)}'
 
     src_url_base = 'https://github.com/hubmapconsortium' \
         '/ingest-validation-tools/edit/master/src/ingest_validation_tools'
-    end_of_path = f'{"assays/" if is_assay else ""}{type}.yaml'
-    metadata_source_url = f'{src_url_base}/table-schemas/{end_of_path}'
-    directory_source_url = f'{src_url_base}/directory-schemas/{type}.yaml'
+    end_of_path = f'{"assays/" if is_assay else ""}{schema_name}.yaml'
+
+    directory_source_url = f'{src_url_base}/directory-schemas/{schema_name}.yaml'
+    optional_dir_schema_link_md, optional_dir_description_md = (
+        (
+            f'- [💻 Directory schema]({directory_source_url}): To update directory structure.',
+            f'## Directory schema\n{_make_dir_description(directory_schema)}'
+        ) if directory_schema else
+        ('', '')
+    )
 
     optional_doc_link_md = (
-        f'- [🔬 Background doc]({table_schema["doc_url"]}): More details about this type.'
-        if 'doc_url' in table_schema else ''
+        f'- [🔬 Background doc]({max_version_table_schema["doc_url"]}): '
+        'More details about this type.'
+        if 'doc_url' in max_version_table_schema else ''
     )
     optional_description_md = (
-        '\n' + table_schema['description_md'] if 'description_md' in table_schema else ''
+        max_version_table_schema['description_md']
+        if 'description_md' in max_version_table_schema else ''
     )
 
-    return f'''# {type}
+    template = Template(
+        (Path(__file__).parent / 'docs.template').read_text()
+    )
+    return template.substitute({
+        'schema_name': schema_name,
+        'max_version': max_version,
 
-Related files:
-{optional_doc_link_md}
-- [📝 Excel template]({xlsx_url}): For metadata entry.
-- [📝 TSV template]({tsv_url}): Alternative for metadata entry.
-- [💻 Metadata schema]({metadata_source_url}): To update metadata fields.
-- [💻 Directory schema]({directory_source_url}): To update directory structure.
-{optional_description_md}{versions_md}
-## Table of contents
-{toc_md}
-{optional_dir_description_md}
-{fields_md}
-'''
+        'tsv_url': f'{raw_base_url}/{schema_name}/{get_tsv_name(schema_name, is_assay=is_assay)}',
+        'xlsx_url': f'{raw_base_url}/{schema_name}/{get_xlsx_name(schema_name, is_assay=is_assay)}',
+        'metadata_source_url': f'{src_url_base}/table-schemas/{end_of_path}',
 
+        'current_version_md':
+            _make_fields_md(
+                table_schemas[max_version], f'Version {max_version} (current)', is_open=True
+            ),
+        'previous_versions_md':
+            '\n\n'.join([
+                _make_fields_md(
+                    table_schemas[str(v)], f'Version {v}'
+                )
+                for v in reversed(range(int(max_version)))
+            ]),
 
-def _make_version_md(url_base, name, version_number):
-    '''
-    >>> mds = _make_version_md('http://example.com', 'antibodies', 0).split(' / ')
-    >>> mds[0]
-    '- [v0](http://example.com/tree/antibodies-v0/docs/antibodies)'
-    >>> mds[1]
-    '[diff](http://example.com/compare/antibodies-v0...master)'
+        'optional_dir_schema_link_md': optional_dir_schema_link_md,
+        'optional_dir_description_md': optional_dir_description_md,
 
-    '''
-    version_url_base = f'{url_base}/tree'
-    diff_url_base = f'{url_base}/compare'
-
-    tag = f'{name}-v{version_number}'
-    version_link = f'[v{version_number}]({version_url_base}/{tag}/docs/{name})'
-    diff_link = f'[diff]({diff_url_base}/{tag}...master)'
-    return f'- {version_link} / {diff_link}'
+        'optional_doc_link_md': optional_doc_link_md,
+        'optional_description_md': optional_description_md
+    })
 
 
-def _make_versions_md(table_schema, name):
-    version_fields = [field for field in table_schema['fields'] if field['name'] == 'version']
-    assert len(version_fields) <= 1
-
-    if not version_fields:
-        return ''
-
-    enum = version_fields[0]['constraints']['enum']
-    assert len(enum) == 1
-    version = int(enum[0])
-    url_base = 'https://github.com/hubmapconsortium/ingest-validation-tools'
-    version_mds = [_make_version_md(url_base, name, i) for i in range(version)]
-    return '\nPrevious versions:\n\n' + '\n'.join(version_mds) + '\n'
-
-
-def _make_fields_md(table_schema):
+def _make_fields_md(table_schema, title, is_open=False):
     fields_md_list = []
     for field in table_schema['fields']:
         if 'heading' in field:
-            fields_md_list.append(f"## {field['heading']}")
+            fields_md_list.append(f"### {field['heading']}")
         table_md = _make_constraints_table(field)
-        fields_md_list.append(f"""### `{field['name']}`
-{_enrich_description(field)}
+        fields_md_list.append('\n'.join([
+            f"##### `{field['name']}`",
+            _enrich_description(field),
+            table_md
+        ]))
+    joined_list = '\n\n'.join(fields_md_list)
+    return f'''
+<details {'open="true"' if is_open else ''}><summary><b>{title}</b></summary>
 
-{table_md}""")
-    return '\n\n'.join(fields_md_list)
+{_make_toc(joined_list) if is_open else ''}
+{joined_list}
+
+</details>
+'''
 
 
 def _make_constraints_table(field):

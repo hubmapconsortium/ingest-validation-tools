@@ -66,30 +66,36 @@ def get_context_of_decode_error(e):
     return f'Invalid {e.encoding} because {e.reason}: "{in_context}"'
 
 
-def get_internal_errors(path, type_name, encoding=None, offline=None):
-    if not path.exists():
-        return 'File does not exist'
-    try:
-        rows = dict_reader_wrapper(path, encoding)
-    except IsADirectoryError:
-        return 'Expected a TSV, but found a directory'
-    except UnicodeDecodeError as e:
-        return get_context_of_decode_error(e)
-    if not rows:
-        return 'File has no data rows.'
-    return get_tsv_errors(path, type_name, offline=offline)
-
-
-def get_tsv_errors(tsv_path, type, optional_fields=[], offline=None):
+def get_tsv_errors(tsv_path, type, optional_fields=[], offline=None, encoding=None):
     '''
     Validate the TSV.
     '''
     logging.info(f'Validating {type} TSV...')
+    if not Path(tsv_path).exists():
+        return 'File does not exist'
+
     try:
-        if type in ['contributors', 'antibodies', 'sample']:
-            schema = get_other_schema(type, offline=offline)
+        rows = dict_reader_wrapper(tsv_path, encoding=encoding)
+    except IsADirectoryError:
+        return 'Expected a TSV, but found a directory'
+    except UnicodeDecodeError as e:
+        return get_context_of_decode_error(e)
+
+    if not rows:
+        return 'File has no data rows.'
+
+    version = rows[0]['version'] if 'version' in rows[0] else '0'
+    try:
+        others = [
+            p.stem.split('-v')[0] for p in
+            (Path(__file__).parent / 'table-schemas/others').iterdir()
+        ]
+        if type in others:
+            schema = get_other_schema(type, version,
+                                      offline=offline)
         else:
-            schema = get_table_schema(type, optional_fields=optional_fields, offline=offline)
+            schema = get_table_schema(type, version,
+                                      offline=offline, optional_fields=optional_fields)
     except OSError as e:
         return {e.strerror: Path(e.filename).name}
     return get_table_errors(tsv_path, schema)

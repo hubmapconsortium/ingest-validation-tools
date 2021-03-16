@@ -1,4 +1,6 @@
 from pathlib import Path
+from dataclasses import dataclass
+from collections import defaultdict
 
 from ingest_validation_tools.yaml_include_loader import load_yaml
 
@@ -7,18 +9,58 @@ _table_schemas_path = Path(__file__).parent / 'table-schemas'
 _directory_schemas_path = Path(__file__).parent / 'directory-schemas'
 
 
-def list_types():
-    schemas = {
-        p.stem for p in
-        (_table_schemas_path / 'assays').iterdir()
-    }
-    return sorted(schemas)
+@dataclass
+class SchemaVersion():
+    '''
+    >>> str(SchemaVersion('fake', 3))
+    'fake-v3.yaml'
+
+    '''
+    schema_name: str
+    version: int
+
+    def __str__(self):
+        return f'{self.schema_name}-v{self.version}.yaml'
 
 
-def get_other_schema(other_type, offline=None):
-    schema = load_yaml(Path(__file__).parent / 'table-schemas' / f'{other_type}.yaml')
+def list_schema_versions():
+    schema_paths = list((_table_schemas_path / 'assays').iterdir()) + \
+        list((_table_schemas_path / 'others').iterdir())
+    stems = sorted(p.stem for p in schema_paths)
+    return [
+        SchemaVersion(*stem.split('-v')) for stem in stems
+    ]
+
+
+def dict_schema_versions():
+    dict_of_sets = defaultdict(set)
+    for sv in list_schema_versions():
+        dict_of_sets[sv.schema_name].add(sv.version)
+    return dict_of_sets
+
+
+def get_other_schema(schema_name, version, offline=None):
+    schema = load_yaml(_table_schemas_path / 'others' / f'{schema_name}-v{version}.yaml')
     for field in schema['fields']:
         _add_constraints(field, optional_fields=[], offline=offline)
+    return schema
+
+
+def get_is_assay(schema_name):
+    # TODO: read from file system... but larger refactor may make it redundant.
+    return schema_name not in ['donor', 'sample', 'antibodies', 'contributors']
+
+
+def get_table_schema(schema_name, version, optional_fields=[], offline=None):
+    schema = load_yaml(_table_schemas_path / 'assays' / f'{schema_name}-v{version}.yaml')
+
+    for field in schema['fields']:
+        _add_level_1_description(field)
+        _validate_level_1_enum(field)
+
+        _add_constraints(field, optional_fields, offline=offline)
+        _validate_field(field)
+
     return schema
 
 
@@ -36,19 +78,6 @@ def get_directory_schema(directory_type):
             'required': False
         }
     ]
-    return schema
-
-
-def get_table_schema(assay_type, optional_fields=[], offline=None):
-    schema = load_yaml(_table_schemas_path / 'assays' / f'{assay_type}.yaml')
-
-    for field in schema['fields']:
-        _add_level_1_description(field)
-        _validate_level_1_enum(field)
-
-        _add_constraints(field, optional_fields, offline=offline)
-        _validate_field(field)
-
     return schema
 
 
