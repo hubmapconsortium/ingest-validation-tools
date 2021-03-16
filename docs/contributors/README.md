@@ -14,7 +14,7 @@ Related files:
 ## Metadata schema
 
 
-<details open="true"><summary>Version 0 (current)</summary>
+<details open="true"><summary><b>Version 0 (current)</b></summary>
 
 [`affiliation`](#affiliation)<br>
 [`first_name`](#first_name)<br>

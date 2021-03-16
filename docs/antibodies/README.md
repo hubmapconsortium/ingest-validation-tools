@@ -17,7 +17,7 @@ Changes:
 ## Metadata schema
 
 
-<details open="true"><summary>Version 2 (current)</summary>
+<details open="true"><summary><b>Version 2 (current)</b></summary>
 
 [`version`](#version)<br>
 [`channel_id`](#channel_id)<br>
@@ -107,7 +107,7 @@ The name of the entity conjugated to the antibody. Leave blank if not applicable
 </details>
 
 
-<details ><summary>Version 1</summary>
+<details ><summary><b>Version 1</b></summary>
 
 
 ##### `version`
@@ -173,7 +173,7 @@ The name of the entity conjugated to the antibody. Leave blank if not applicable
 
 
 
-<details ><summary>Version 0</summary>
+<details ><summary><b>Version 0</b></summary>
 
 
 ##### `channel_id`

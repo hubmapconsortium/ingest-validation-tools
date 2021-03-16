@@ -147,7 +147,7 @@ def _make_fields_md(table_schema, title, is_open=False):
         ]))
     joined_list = '\n\n'.join(fields_md_list)
     return f'''
-<details {'open="true"' if is_open else ''}><summary>{title}</summary>
+<details {'open="true"' if is_open else ''}><summary><b>{title}</b></summary>
 
 {_make_toc(joined_list) if is_open else ''}
 {joined_list}
