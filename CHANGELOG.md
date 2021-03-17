@@ -4,6 +4,7 @@
 - Move script docs into subdirectory, and improve coverage.
 - Put TOC in blockquote: semantics are't right, but it indents.
 - Simplify sample ID regex.
+- Cache network responses to disk.
 
 ## v0.0.9 - 2021-03-16
 - Fix typo in CellDIVE.

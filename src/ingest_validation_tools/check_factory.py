@@ -1,5 +1,7 @@
 import re
 from string import Template
+import shelve
+from pathlib import Path
 
 import frictionless
 import requests
@@ -8,7 +10,6 @@ import requests
 class CheckFactory():
     def __init__(self, schema):
         self.schema = schema
-        self._url_status_cache = {}
         self._prev_value_run_length = {}
 
     def _get_constrained_fields(self, constraint):
@@ -19,10 +20,11 @@ class CheckFactory():
         }
 
     def _check_url_status_cache(self, url):
-        if url not in self._url_status_cache:
-            response = requests.get(url)
-            self._url_status_cache[url] = response.status_code
-        return self._url_status_cache[url]
+        with shelve.open(str(Path(__file__).parent / 'url-status-cache')) as url_status_cache:
+            if url not in url_status_cache:
+                response = requests.get(url)
+                url_status_cache[url] = response.status_code
+            return url_status_cache[url]
 
     def make_url_check(self, template=Template(
             'URL returned $status: "$url"')):
