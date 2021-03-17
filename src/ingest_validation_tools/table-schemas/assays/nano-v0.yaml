@@ -1,6 +1,6 @@
 # doc_url: TODO https://github.com/hubmapconsortium/ingest-validation-tools/issues/481
 fields:
-  # include: ../includes/all_assays.yaml
+  # include: ../includes/v0/all_assays.yaml
 
   -
     name: assay_category
@@ -18,11 +18,11 @@ fields:
     constraints:
       enum:
         - metabolites_and_lipids
-  # include: ../includes/is_targeted.yaml
+  # include: ../includes/v0/is_targeted.yaml
 
   # Level 2:
 
-  # include: ../includes/acquisition_instrument.yaml
+  # include: ../includes/v0/acquisition_instrument.yaml
   -
     name: ms_source
     description: The ion source type used for surface sampling (MALDI, MALDI-2, DESI, or SIMS) or LC-MS/MS data acquisition (nESI)
@@ -47,7 +47,7 @@ fields:
     name: mz_range_high_value
     description: A number representing the mass:charge ratio
   
-  # include: ../includes/x_y.yaml
+  # include: ../includes/v0/x_y.yaml
   
   -
     name: processing_protocols_io_doi
@@ -57,4 +57,4 @@ fields:
     name: overall_protocols_io_doi
     description: DOI for protocols.io referring to the overall protocol for the assay.
 
-  # include: ../includes/paths.yaml
+  # include: ../includes/v0/paths.yaml

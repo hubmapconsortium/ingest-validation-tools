@@ -9,7 +9,6 @@ from ingest_validation_tools.yaml_include_loader import load_yaml
 from ingest_validation_tools.validation_utils import (
     get_tsv_errors,
     get_data_dir_errors,
-    get_internal_errors,
     dict_reader_wrapper,
     get_context_of_decode_error
 )
@@ -19,16 +18,21 @@ from ingest_validation_tools.plugin_validator import (
     ValidatorError as PluginValidatorError
 )
 
+from ingest_validation_tools.schema_loader import (
+    SchemaVersion
+)
 
-def _assay_name_to_code(name):
+
+def _assay_to_schema_name(name):
     '''
     Given an assay name, read all the schemas until one matches.
+    Return the schema name, but not the version.
     '''
     for path in (Path(__file__).parent / 'table-schemas' / 'assays').glob('*.yaml'):
         schema = load_yaml(path)
         for field in schema['fields']:
             if field['name'] == 'assay_type' and name in field['constraints']['enum']:
-                return path.stem
+                return path.stem.split('-v')[0]
     raise PreflightError(f"Can't find schema where '{name}' is in the enum for assay_type")
 
 
@@ -55,7 +59,7 @@ class Submission:
         self.errors = {}
         try:
             unsorted_effective_tsv_paths = {
-                str(path): self._get_type_from_first_line(path)
+                str(path): self._get_schema_version(path)
                 for path in (
                     tsv_paths if tsv_paths
                     else directory_path.glob(f'*{TSV_SUFFIX}')
@@ -68,7 +72,7 @@ class Submission:
         except PreflightError as e:
             self.errors['Preflight'] = str(e)
 
-    def _get_type_from_first_line(self, path):
+    def _get_schema_version(self, path):
         try:
             rows = dict_reader_wrapper(path, self.encoding)
         except UnicodeDecodeError:
@@ -87,8 +91,11 @@ class Submission:
             else:
                 message += f'Column headers: {", ".join(rows[0].keys())}'
             raise PreflightError(message)
+
         name = rows[0]['assay_type']
-        return _assay_name_to_code(name)
+        version = rows[0]['version'] if 'version' in rows[0] else 0
+
+        return SchemaVersion(_assay_to_schema_name(name), version)
 
     def get_errors(self):
         # This creates a deeply nested dict.
@@ -113,7 +120,7 @@ class Submission:
             errors['Notes'] = {
                 'Time': datetime.now(),
                 'Directory': str(self.directory_path),
-                'Effective TSVs': self.effective_tsv_paths
+                'Effective TSVs': list(self.effective_tsv_paths.keys())
             }
         return errors
 
@@ -136,7 +143,7 @@ class Submission:
         if not self.effective_tsv_paths:
             return {'Missing': 'There are no effective TSVs.'}
 
-        types_counter = Counter(self.effective_tsv_paths.values())
+        types_counter = Counter([v.schema_name for v in self.effective_tsv_paths.values()])
         repeated = [
             assay_type
             for assay_type, count in types_counter.items()
@@ -146,27 +153,44 @@ class Submission:
             return f'There is more than one TSV for this type: {", ".join(repeated)}'
 
         errors = {}
-        for path, assay_type in self.effective_tsv_paths.items():
+        for path, schema_version in self.effective_tsv_paths.items():
+            schema_name = schema_version.schema_name
+
             single_tsv_internal_errors = \
-                self._get_single_tsv_internal_errors(assay_type, path)
+                self._get_assay_internal_errors(schema_name, path)
             single_tsv_external_errors = \
-                self._get_single_tsv_external_errors(assay_type, path)
+                self._get_assay_reference_errors(schema_name, path)
+
             single_tsv_errors = {}
             if single_tsv_internal_errors:
                 single_tsv_errors['Internal'] = single_tsv_internal_errors
             if single_tsv_external_errors:
                 single_tsv_errors['External'] = single_tsv_external_errors
             if single_tsv_errors:
-                errors[f'{path} (as {assay_type})'] = single_tsv_errors
+                errors[f'{path} (as {schema_name})'] = single_tsv_errors
         return errors
 
-    def _get_single_tsv_internal_errors(self, assay_type, path):
+    def _get_data_dir_errors(self, assay_type, data_path):
+        return get_data_dir_errors(
+            assay_type, data_path, dataset_ignore_globs=self.dataset_ignore_globs)
+
+    def _get_contributors_errors(self, contributors_path):
+        return get_tsv_errors(
+            type='contributors', tsv_path=contributors_path,
+            offline=self.offline, encoding=self.encoding)
+
+    def _get_antibodies_errors(self, antibodies_path):
+        return get_tsv_errors(
+            type='antibodies', tsv_path=antibodies_path,
+            offline=self.offline, encoding=self.encoding)
+
+    def _get_assay_internal_errors(self, assay_type, path):
         return get_tsv_errors(
             type=assay_type, tsv_path=path,
-            optional_fields=self.optional_fields,
-            offline=self.offline)
+            offline=self.offline, encoding=self.encoding,
+            optional_fields=self.optional_fields)
 
-    def _get_single_tsv_external_errors(self, assay_type, path):
+    def _get_assay_reference_errors(self, assay_type, path):
         try:
             rows = dict_reader_wrapper(path, self.encoding)
         except UnicodeDecodeError as e:
@@ -189,36 +213,20 @@ class Submission:
             if data_dir_errors:
                 errors[f'{row_number}, referencing {data_path}'] = data_dir_errors
 
-            contributors_path = self.directory_path / \
-                row['contributors_path']
-            contributors_errors = self._get_contributors_errors(
-                contributors_path)
+            contributors_path = self.directory_path / row['contributors_path']
+            contributors_errors = self._get_contributors_errors(contributors_path)
             if contributors_errors:
                 errors[f'{row_number}, contributors {contributors_path}'] = \
                     contributors_errors
 
             if 'antibodies_path' in row:
-                antibodies_path = self.directory_path / \
-                    row['antibodies_path']
-                antibodies_errors = self._get_antibodies_errors(
-                    antibodies_path)
+                antibodies_path = self.directory_path / row['antibodies_path']
+                antibodies_errors = self._get_antibodies_errors(antibodies_path)
                 if antibodies_errors:
                     errors[f'{row_number}, antibodies {antibodies_path}'] = \
                         antibodies_errors
 
         return errors
-
-    def _get_data_dir_errors(self, assay_type, data_path):
-        return get_data_dir_errors(
-            assay_type, data_path, dataset_ignore_globs=self.dataset_ignore_globs)
-
-    def _get_contributors_errors(self, contributors_path):
-        return get_internal_errors(contributors_path, 'contributors',
-                                   encoding=self.encoding, offline=self.offline)
-
-    def _get_antibodies_errors(self, antibodies_path):
-        return get_internal_errors(antibodies_path, 'antibodies',
-                                   encoding=self.encoding, offline=self.offline)
 
     def _get_reference_errors(self):
         errors = {}

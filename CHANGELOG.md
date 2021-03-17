@@ -1,6 +1,11 @@
 # Changelog
 
-## v0.0.9 - in progress
+## v0.0.10 - in progress
+- Move script docs into subdirectory, and improve coverage.
+- Put TOC in blockquote: semantics are't right, but it indents.
+- Simplify sample ID regex.
+
+## v0.0.9 - 2021-03-16
 - Fix typo in CellDIVE.
 - Update CLI usage to highlight sample validation.
 - Update lightsheet docs.
@@ -29,6 +34,8 @@
 - Slightly better errors when a directory is found when a TSV is expected.
 - Make as_text_list the default output format.
 - Script to generate CSV for fields and enums.
+- Add version number to schemas.
+- Clarify guidelines for direction schemas.
 
 ## v0.0.8 - 2021-02-10
 - Update CODEX directory structure

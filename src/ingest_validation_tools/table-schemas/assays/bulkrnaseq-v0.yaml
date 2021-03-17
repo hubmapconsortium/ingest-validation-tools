@@ -1,6 +1,6 @@
 doc_url: https://portal.hubmapconsortium.org/docs/assays/rnaseq
 fields:
-# include: ../includes/all_assays.yaml
+# include: ../includes/v0/all_assays.yaml
 -
   name: assay_category
   constraints:
@@ -16,11 +16,11 @@ fields:
   constraints:
     enum:
       - RNA
-# include: ../includes/is_targeted.yaml
+# include: ../includes/v0/is_targeted.yaml
 
 # Level 2 fields:
 
-# include: ../includes/acquisition_instrument.yaml
+# include: ../includes/v0/acquisition_instrument.yaml
 - name: bulk_rna_isolation_protocols_io_doi
   description: 'Link to a protocols document answering the question: How was tissue
     stored and processed for RNA isolation RNA_isolation_protocols_io_doi'
@@ -80,6 +80,6 @@ fields:
     or Bioanalyzer/tapestation.
   type: integer
 
-# include: ../includes/sequencing.yaml
+# include: ../includes/v0/sequencing.yaml
 
-# include: ../includes/paths.yaml
+# include: ../includes/v0/paths.yaml

@@ -1,6 +1,15 @@
 doc_url: https://portal.hubmapconsortium.org/docs/assays/atacseq
 fields:
-  # include: ../includes/all_assays.yaml
+  -
+    name: version
+    description: Version of the schema to use when validating this metadata.
+    constraints:
+      enum:
+        - '1'
+  -
+    name: description
+    description: Free-text description of this assay.
+  # include: ../includes/v0/all_assays.yaml
   -
     name: assay_category
     constraints:
@@ -19,10 +28,10 @@ fields:
     constraints:
       enum:
         - DNA
-  # include: ../includes/is_targeted.yaml
+  # include: ../includes/v0/is_targeted.yaml
 
   # Level 2 fields:
-  # include: ../includes/acquisition_instrument.yaml
+  # include: ../includes/v0/acquisition_instrument.yaml
   -
     name: is_technical_replicate
     description: If TRUE, fastq files in dataset need to be merged.
@@ -148,4 +157,4 @@ fields:
     name: sequencing_phix_percent
     description: 'Percent PhiX loaded to the run.'
 
-  # include: ../includes/paths.yaml
+  # include: ../includes/v0/paths.yaml

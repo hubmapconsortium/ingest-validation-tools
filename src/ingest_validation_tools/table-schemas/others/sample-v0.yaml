@@ -5,7 +5,7 @@ fields:
   description: (No description for this field was supplied.)
   constraints:
     required: True
-    pattern: '([A-Z]+[0-9]+)-(BL|BR|LB|RB|HT|LK|RK|LI|LV|LL|RL|LY\d\d|SI|SP|TH|TR|UR|OT)(-\d+)+(_\d+)?' 
+    pattern: '([A-Z]+[0-9]+)-[A-Z]{2}\d*(-\d+)+(_\d+)?'
 -
   heading: Donor
   name: vital_state 
