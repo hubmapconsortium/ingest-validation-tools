@@ -4,6 +4,7 @@
 - Move script docs into subdirectory, and improve coverage.
 - Put TOC in blockquote: semantics are't right, but it indents.
 - Simplify sample ID regex.
+- Add the generated YAML to the output directory.
 - Generate a report about the metadata values used in Elasticsearch.
 
 ## v0.0.9 - 2021-03-16

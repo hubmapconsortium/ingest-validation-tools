@@ -3,6 +3,7 @@
 import argparse
 from pathlib import Path
 import sys
+from yaml import dump as dump_yaml
 
 from tableschema_to_template.create_xlsx import create_xlsx
 
@@ -43,6 +44,14 @@ def main():
         f.write(generate_readme_md(
             table_schemas, directory_schema, args.type, is_assay=is_assay
         ))
+
+    # YAML:
+    for v in versions:
+        with open(Path(args.target) / f'v{v}.yaml', 'w') as f:
+            f.write(
+                '# Generated YAML: PRs should not start here!\n'
+                + dump_yaml(table_schemas[v])
+            )
 
     # Data entry templates:
     with open(Path(args.target) / get_tsv_name(args.type, is_assay=is_assay), 'w') as f:
