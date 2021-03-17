@@ -2,6 +2,7 @@ import re
 from string import Template
 import shelve
 from pathlib import Path
+from sys import stderr
 
 import frictionless
 import requests
@@ -22,6 +23,7 @@ class CheckFactory():
     def _check_url_status_cache(self, url):
         with shelve.open(str(Path(__file__).parent / 'url-status-cache')) as url_status_cache:
             if url not in url_status_cache:
+                print(f'Fetching un-cached url: {url}', file=stderr)
                 response = requests.get(url)
                 url_status_cache[url] = response.status_code
             return url_status_cache[url]
