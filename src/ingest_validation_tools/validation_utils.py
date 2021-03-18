@@ -85,16 +85,17 @@ def get_tsv_errors(tsv_path, type, optional_fields=[], offline=None, encoding=No
         return 'File has no data rows.'
 
     version = rows[0]['version'] if 'version' in rows[0] else '0'
+    source_project = rows[0]['source_project'] if 'source_project' in rows[0] else None
     try:
         others = [
             p.stem.split('-v')[0] for p in
             (Path(__file__).parent / 'table-schemas/others').iterdir()
         ]
         if type in others:
-            schema = get_other_schema(type, version,
+            schema = get_other_schema(type, version, source_project=source_project,
                                       offline=offline)
         else:
-            schema = get_table_schema(type, version,
+            schema = get_table_schema(type, version, source_project=source_project,
                                       offline=offline, optional_fields=optional_fields)
     except OSError as e:
         return {e.strerror: Path(e.filename).name}

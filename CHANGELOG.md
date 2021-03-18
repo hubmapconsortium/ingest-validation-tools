@@ -1,6 +1,7 @@
 # Changelog
 
 ## v0.0.10 - in progress
+- Look for a `source_project` field to distinguish schemas.
 - Move script docs into subdirectory, and improve coverage.
 - Put TOC in blockquote: semantics are't right, but it indents.
 - Simplify sample ID regex.
