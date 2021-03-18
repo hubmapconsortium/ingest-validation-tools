@@ -40,7 +40,7 @@ def dict_schema_versions():
 
 
 def _get_schema_filename(schema_name, version, source_project):
-    dash_source = f'-{source_project}' if source_project else ''
+    dash_source = f'-{source_project.lower().replace(' ', '_')}' if source_project else ''
     dash_version = f'-v{version}'
     return f'{schema_name}{dash_source}{dash_version}.yaml'
 
