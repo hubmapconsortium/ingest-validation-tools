@@ -21,11 +21,11 @@ def dict_reader_wrapper(path, encoding):
     return rows
 
 
-def get_data_dir_errors(type, data_path, dataset_ignore_globs=[]):
+def get_data_dir_errors(schema_name, data_path, dataset_ignore_globs=[]):
     '''
     Validate a single data_path.
     '''
-    schema = get_directory_schema(type)
+    schema = get_directory_schema(schema_name)
     try:
         validate_directory(
             data_path, schema, dataset_ignore_globs=dataset_ignore_globs)
@@ -66,11 +66,11 @@ def get_context_of_decode_error(e):
     return f'Invalid {e.encoding} because {e.reason}: "{in_context}"'
 
 
-def get_tsv_errors(tsv_path, type, optional_fields=[], offline=None, encoding=None):
+def get_tsv_errors(tsv_path, schema_name, optional_fields=[], offline=None, encoding=None):
     '''
     Validate the TSV.
     '''
-    logging.info(f'Validating {type} TSV...')
+    logging.info(f'Validating {schema_name} TSV...')
     if not Path(tsv_path).exists():
         return 'File does not exist'
 
@@ -85,16 +85,17 @@ def get_tsv_errors(tsv_path, type, optional_fields=[], offline=None, encoding=No
         return 'File has no data rows.'
 
     version = rows[0]['version'] if 'version' in rows[0] else '0'
+    source_project = rows[0]['source_project'] if 'source_project' in rows[0] else None
     try:
         others = [
             p.stem.split('-v')[0] for p in
             (Path(__file__).parent / 'table-schemas/others').iterdir()
         ]
-        if type in others:
-            schema = get_other_schema(type, version,
+        if schema_name in others:
+            schema = get_other_schema(schema_name, version, source_project=source_project,
                                       offline=offline)
         else:
-            schema = get_table_schema(type, version,
+            schema = get_table_schema(schema_name, version, source_project=source_project,
                                       offline=offline, optional_fields=optional_fields)
     except OSError as e:
         return {e.strerror: Path(e.filename).name}
