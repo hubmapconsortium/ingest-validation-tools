@@ -39,7 +39,7 @@ fields:
   description: Name of the person responsible for executing the assay.
   name: operator
 - constraints:
-    required: true
+    required: false
   description: Email address for the operator.
   format: email
   name: operator_email
@@ -48,7 +48,7 @@ fields:
   description: Name of the principal investigator responsible for the data.
   name: pi
 - constraints:
-    required: true
+    required: false
   description: Email address for the principal investigator.
   format: email
   name: pi_email
@@ -79,7 +79,8 @@ fields:
 - constraints:
     required: true
   description: Specifies whether or not a specific molecule(s) is/are targeted for
-    detection/measurement by the assay. The CODEX analyte is protein.
+    detection/measurement by the assay. For example, an antibody targets a specific
+    protein.
   name: is_targeted
   type: boolean
 - constraints:
@@ -115,21 +116,21 @@ fields:
   description: The method by which tissues are dissociated into single cells in suspension.
   name: sc_isolation_tissue_dissociation
 - constraints:
-    required: false
+    required: true
   description: The method by which specific cell populations are sorted or enriched.
   name: sc_isolation_enrichment
 - constraints:
-    required: true
+    required: false
   description: A quality metric by visual inspection prior to cell lysis or defined
     by known parameters such as wells with several cells or no cells. This can be
     captured at a high level.
   name: sc_isolation_quality_metric
 - constraints:
-    required: true
+    required: false
   description: Total number of cell/nuclei yielded post dissociation and enrichment
   name: sc_isolation_cell_number
 - constraints:
-    required: true
+    required: false
   description: Number of cell/nuclei input to the assay
   name: rnaseq_assay_input
 - constraints:
@@ -152,16 +153,16 @@ fields:
   description: Whether the library was generated for single-end or paired end sequencing
   name: library_layout
 - constraints:
-    required: true
+    required: false
   description: Adapter sequence to be used for adapter trimming
   name: library_adapter_sequence
 - constraints:
-    required: true
+    required: false
   description: An id for the library. The id may be text and/or numbers
   name: library_id
 - constraints:
-    required: true
-  description: Is the sequencing reaction run in repliucate, TRUE or FALSE
+    required: false
+  description: Is the sequencing reaction run in replicate, TRUE or FALSE
   name: is_technical_replicate
   type: boolean
 - constraints:
@@ -177,15 +178,15 @@ fields:
   description: Length of the cell barcode in base pairs
   name: cell_barcode_size
 - constraints:
-    required: true
+    required: false
   description: Number of PCR cycles to amplify cDNA
   name: library_pcr_cycles
 - constraints:
-    required: true
+    required: false
   description: Number of PCR cycles performed for library indexing
   name: library_pcr_cycles_for_sample_index
 - constraints:
-    required: true
+    required: false
   description: Total number of ng of library after final pcr amplification step. This
     is the concentration (ng/ul) * volume (ul)
   name: library_final_yield_value
@@ -193,21 +194,21 @@ fields:
 - constraints:
     enum:
     - ng
-    required: true
+    required: false
   description: Units of final library yield
   name: library_final_yield_unit
 - constraints:
-    required: true
+    required: false
   description: Average size of sequencing library fragments estimated via gel electrophoresis
     or bioanalyzer/tapestation.
   name: library_average_fragment_size
 - constraints:
-    required: true
+    required: false
   description: Reagent kit used for sequencing
   name: sequencing_reagent_kit
 - constraints:
     pattern: \d+(/\d+)+
-    required: true
+    required: false
   description: Slash-delimited list of the number of sequencing cycles for, for example,
     Read1, i7 index, i5 index, and Read2.
   name: sequencing_read_format
@@ -215,19 +216,19 @@ fields:
 - constraints:
     maximum: 100
     minimum: 0
-    required: true
+    required: false
   description: Percent of bases with Quality scores above Q30
   name: sequencing_read_percent_q30
   type: number
 - constraints:
     maximum: 100
     minimum: 0
-    required: true
+    required: false
   description: Percent PhiX loaded to the run
   name: sequencing_phix_percent
   type: number
 - constraints:
-    required: true
+    required: false
   description: Relative path to file with ORCID IDs for contributors for this dataset.
   name: contributors_path
 - constraints:
