@@ -1,0 +1,32 @@
+# Generated YAML: PRs should not start here!
+fields:
+- constraints:
+    required: true
+  description: Institutional affiliation
+  name: affiliation
+- constraints:
+    required: true
+  description: First name
+  name: first_name
+- constraints:
+    required: true
+  description: Last name
+  name: last_name
+- constraints:
+    required: false
+  description: Middle name or initial
+  name: middle_name_or_initial
+- constraints:
+    required: true
+  description: Name for display
+  name: name
+- constraints:
+    pattern: \d{4}-\d{4}-\d{4}-\d{3}[0-9X]
+    required: true
+  custom_constraints:
+    url:
+      prefix: https://orcid.org/
+  description: ORCID ID of contributor
+  example: 0000-0002-8928-741X
+  name: orcid_id
+  type: string
