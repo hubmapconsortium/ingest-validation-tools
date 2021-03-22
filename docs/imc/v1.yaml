@@ -202,12 +202,6 @@ fields:
   type: number
 - constraints:
     required: true
-  description: Time stamp indicating end of ablation for ROI
-  format: '%Y-%m-%d %H:%M'
-  name: end_datetime
-  type: datetime
-- constraints:
-    required: true
   description: Image width value of the ROI acquisition
   name: max_x_width_value
   type: number
@@ -244,12 +238,6 @@ fields:
     required: true
   description: Type of signal measured per channel (usually dual counts)
   name: signal_type
-- constraints:
-    required: true
-  description: Time stamp indicating start of ablation for ROI
-  format: '%Y-%m-%d %H:%M'
-  name: start_datetime
-  type: datetime
 - constraints:
     required: true
   description: Numerical data precision in bytes

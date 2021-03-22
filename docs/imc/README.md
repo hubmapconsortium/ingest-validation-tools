@@ -60,14 +60,12 @@ The other fields function the same way for all assays using antibodies. For more
 [`roi_id`](#roi_id)<br>
 [`acquisition_id`](#acquisition_id)<br>
 [`dual_count_start`](#dual_count_start)<br>
-[`end_datetime`](#end_datetime)<br>
 [`max_x_width_value`](#max_x_width_value)<br>
 [`max_x_width_unit`](#max_x_width_unit)<br>
 [`max_y_height_value`](#max_y_height_value)<br>
 [`max_y_height_unit`](#max_y_height_unit)<br>
 [`segment_data_format`](#segment_data_format)<br>
 [`signal_type`](#signal_type)<br>
-[`start_datetime`](#start_datetime)<br>
 [`data_precision_bytes`](#data_precision_bytes)<br>
 [`contributors_path`](#contributors_path)<br>
 [`data_path`](#data_path)<br></details></blockquote>
@@ -287,14 +285,6 @@ Threshold for dual counting.
 | type | `number` |
 | required | `True` |
 
-##### `end_datetime`
-Time stamp indicating end of ablation for ROI.
-| constraint | value |
-| --- | --- |
-| type | `datetime` |
-| format | `%Y-%m-%d %H:%M` |
-| required | `True` |
-
 ##### `max_x_width_value`
 Image width value of the ROI acquisition.
 | constraint | value |
@@ -335,14 +325,6 @@ Type of signal measured per channel (usually dual counts)
 | constraint | value |
 | --- | --- |
 | enum | `dual count`, `pulse count`, or `intensity value` |
-| required | `True` |
-
-##### `start_datetime`
-Time stamp indicating start of ablation for ROI.
-| constraint | value |
-| --- | --- |
-| type | `datetime` |
-| format | `%Y-%m-%d %H:%M` |
 | required | `True` |
 
 ##### `data_precision_bytes`

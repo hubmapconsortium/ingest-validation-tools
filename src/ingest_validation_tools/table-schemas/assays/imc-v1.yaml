@@ -39,10 +39,6 @@ fields:
 - name: dual_count_start
   description: Threshold for dual counting.
   type: number
-- name: end_datetime
-  description: Time stamp indicating end of ablation for ROI
-  type: datetime
-  format: "%Y-%m-%d %H:%M"
 # include: ../includes/v0/imc_roi_dimensions.yaml
 - name: segment_data_format
   description: This refers to the data type, which is a "float" for the IMC counts.
@@ -58,10 +54,6 @@ fields:
       - dual count
       - pulse count
       - intensity value
-- name: start_datetime
-  description: Time stamp indicating start of ablation for ROI
-  type: datetime
-  format: "%Y-%m-%d %H:%M"
 - name: data_precision_bytes
   description: Numerical data precision in bytes
   type: number
