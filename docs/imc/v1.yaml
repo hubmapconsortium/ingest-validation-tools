@@ -245,6 +245,10 @@ fields:
   type: number
 - constraints:
     required: true
+  description: Relative path to file with antibody information for this dataset.
+  name: antibodies_path
+- constraints:
+    required: true
   description: Relative path to file with ORCID IDs for contributors for this dataset.
   name: contributors_path
 - constraints:
