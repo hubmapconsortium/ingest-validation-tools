@@ -6,6 +6,7 @@ fields:
     constraints:
       enum:
         - sequence
+      required: true
   -
     name: assay_type
     constraints:
@@ -15,11 +16,13 @@ fields:
         - sciRNAseq
         - snRNAseq
         - SNARE2-RNAseq
+      required: true
   -
     name: analyte_class
     constraints:
       enum:
         - RNA
+      required: true
   # include: ../includes/v0/is_targeted.yaml
 
   # Level 2 fields:
@@ -27,12 +30,18 @@ fields:
   -
     name: sc_isolation_protocols_io_doi
     description: "Link to a protocols document answering the question: How were single cells separated into a single-cell suspension?"
+    constraints:
+      required: True
   -
     name: sc_isolation_entity
-    description: The type of single cell entity derived from isolation protocol
+    description: The type of single cell entity derived from isolation protocol.
+    constraints:
+      required: True
   -
     name: sc_isolation_tissue_dissociation
     description: The method by which tissues are dissociated into single cells in suspension.
+    constraints:
+      required: True
   -
     name: sc_isolation_enrichment
     description: The method by which specific cell populations are sorted or enriched.
@@ -41,58 +50,91 @@ fields:
   -
     name: sc_isolation_quality_metric
     description: A quality metric by visual inspection prior to cell lysis or defined by known parameters such as wells with several cells or no cells. This can be captured at a high level.
+    constraints:
+      required: False
   -
     name: sc_isolation_cell_number
-    description: Total number of cell/nuclei yielded post dissociation and enrichment
+    description: Total number of cell/nuclei yielded post dissociation and enrichment.
+    constraints:
+      required: False
   -
     name: rnaseq_assay_input
-    description: Number of cell/nuclei input to the assay
+    description: Number of cell/nuclei input to the assay.
+    constraints:
+      required: True
   -
     name: rnaseq_assay_method
-    description: The kit used for the RNA sequencing assay
+    description: The kit used for the RNA sequencing assay.
+    constraints:
+      required: True
   -
     name: library_construction_protocols_io_doi
     description: A link to the protocol document containing the library construction method (including version) that was used, e.g. "Smart-Seq2", "Drop-Seq", "10X v3".
+    constraints:
+      required: True
   -
     name: library_layout
-    description: Whether the library was generated for single-end or paired end sequencing
+    description: Whether the library was generated for single-end or paired end sequencing.
+    constraints:
+      required: True
   -
     name: library_adapter_sequence
-    description: Adapter sequence to be used for adapter trimming
+    description: Adapter sequence to be used for adapter trimming.
+    constraints:
+      required: False
   -
     name: library_id
-    description: An id for the library. The id may be text and/or numbers
+    description: An id for the library. The id may be text and/or numbers.
+    constraints:
+      required: False
   -
     name: is_technical_replicate
-    description: Is the sequencing reaction run in repliucate, TRUE or FALSE
+    description: Is the sequencing reaction run in repliucate, TRUE or FALSE?
     type: boolean
+    constraints:
+      required: False
   -
     name: cell_barcode_read
-    description: Which read file contains the cell barcode
+    description: Which read file contains the cell barcode.
+    constraints:
+      required: True
   -
     name: cell_barcode_offset
     description: Position(s) in the read at which the cell barcode starts.
+    constraints:
+      required: True
   -
     name: cell_barcode_size
-    description: Length of the cell barcode in base pairs
+    description: Length of the cell barcode in base pairs.
+    constraints:
+      required: True
   -
     name: library_pcr_cycles
-    description: Number of PCR cycles to amplify cDNA
+    description: Number of PCR cycles to amplify cDNA.
+    constraints:
+      required: False
   -
     name: library_pcr_cycles_for_sample_index
-    description: Number of PCR cycles performed for library indexing
+    description: Number of PCR cycles performed for library indexing.
+    constraints:
+      required: False
   -
     name: library_final_yield_value
-    description: Total number of ng of library after final pcr amplification step. This is the concentration (ng/ul) * volume (ul)
+    description: Total number of ng of library after final pcr amplification step. This is the concentration (ng/ul) * volume (ul).
+    constraints:
+      required: False
   -
     name: library_final_yield_unit
-    description: Units of final library yield
+    description: Units of final library yield.
     constraints:
       enum:
         - ng
+      required: False
   -
     name: library_average_fragment_size
     description: Average size of sequencing library fragments estimated via gel electrophoresis or bioanalyzer/tapestation.
+    constraints:
+      required: False
 
   # include: ../includes/v0/sequencing.yaml
 
