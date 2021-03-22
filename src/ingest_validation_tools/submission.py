@@ -176,17 +176,17 @@ class Submission:
 
     def _get_contributors_errors(self, contributors_path):
         return get_tsv_errors(
-            type='contributors', tsv_path=contributors_path,
+            schema_name='contributors', tsv_path=contributors_path,
             offline=self.offline, encoding=self.encoding)
 
     def _get_antibodies_errors(self, antibodies_path):
         return get_tsv_errors(
-            type='antibodies', tsv_path=antibodies_path,
+            schema_name='antibodies', tsv_path=antibodies_path,
             offline=self.offline, encoding=self.encoding)
 
     def _get_assay_internal_errors(self, assay_type, path):
         return get_tsv_errors(
-            type=assay_type, tsv_path=path,
+            schema_name=assay_type, tsv_path=path,
             offline=self.offline, encoding=self.encoding,
             optional_fields=self.optional_fields)
 

@@ -1,0 +1,112 @@
+# Generated YAML: PRs should not start here!
+fields:
+- constraints:
+    pattern: ([A-Z]+[0-9]+)-[A-Z]{2}\d*(-\d+)+(_\d+)?
+    required: true
+  description: (No description for this field was supplied.)
+  heading: IDs
+  name: sample_id
+  type: string
+- constraints:
+    enum:
+    - living
+    - deceased
+    required: true
+  description: Identify the vital state of the donor.
+  heading: Donor
+  name: vital_state
+- constraints:
+    enum:
+    - cancer
+    - relatively healthy
+    - chronic illness
+    required: true
+  description: "Patient's baseline physical condition prior to immediate event leading\
+    \ to organ/tissue acquisition. For example, if a relatively healthy patient suffers\
+    \ trauma, and as a result of reparative surgery, a tissue sample is collected,\
+    \ the subject will be deemed \u201Crelatively healthy\u201D.   Likewise, a relatively\
+    \ healthy subject may have experienced trauma leading to brain death.  As a result\
+    \ of organ donation, a sample is collected.  In this scenario, the subject is\
+    \ deemed \u201Crelatively healthy.\u201D"
+  name: health_status
+- constraints:
+    enum:
+    - healthy
+    - diseased
+    required: true
+  description: Health status of the organ at the time of sample recovery.
+  heading: Medical Procedure
+  name: organ_condition
+- constraints:
+    required: true
+  description: Date of procedure to procure organ.
+  format: '%Y-%m-%d'
+  name: procedure_date
+  notes: Originally, not required, but everyone filled it in. This note was present
+    - need to be filled out only if UNET data no available (e.g. live donor). Internal
+    value, not public, optional only for donors without unet info  - TODO - We have
+    no machinery for keeping some fields private... Should this not be included then?
+  type: date
+- constraints:
+    enum:
+    - UWS
+    - HTK
+    - Unknown
+    - None
+    required: true
+  description: Type of solution that was used to perfuse the organ.
+  name: perfusion_solution
+- constraints:
+    required: true
+  description: Further details on organ level QC checks.
+  name: pathologist_report
+- constraints:
+    required: false
+  description: Time interval between cessation of blood flow and cooling to 4C.
+  name: warm_ischemia_time_value
+  type: number
+- constraints:
+    enum:
+    - minutes
+    required: true
+  description: Time unit
+  name: warm_ischemia_time_unit
+- constraints:
+    required: false
+  description: Time interval on ice to the start of preservation protocol.
+  name: cold_ischemia_time_value
+  type: number
+- constraints:
+    enum:
+    - minutes
+    required: true
+  description: Time unit
+  name: cold_ischemia_time_unit
+- constraints:
+    enum:
+    - Liquid Nitrogen
+    - Liquid Nitrogen Vapor
+    - Freezer (-80 Celsius)
+    - Freezer (-20 Celsius)
+    - Refrigerator (4 Celsius)
+    - Room Temperature
+    required: true
+  description: The temperature of the medium during the preservation process.
+  heading: Biospecimen
+  name: specimen_preservation_temperature
+- constraints:
+    required: false
+  description: 'For example, RIN: 8.7.'
+  name: specimen_quality_criteria
+- constraints:
+    required: false
+  description: If surgical sample, how far from the tumor was the sample obtained
+    from. Typically a number of centimeters. Leave blank if not applicable or unknown.
+  name: specimen_tumor_distance_value
+  type: number
+- constraints:
+    enum:
+    - cm
+    required: false
+  description: Distance unit
+  name: specimen_tumor_distance_unit

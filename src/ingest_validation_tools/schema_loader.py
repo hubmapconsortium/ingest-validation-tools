@@ -39,8 +39,16 @@ def dict_schema_versions():
     return dict_of_sets
 
 
-def get_other_schema(schema_name, version, offline=None):
-    schema = load_yaml(_table_schemas_path / 'others' / f'{schema_name}-v{version}.yaml')
+def _get_schema_filename(schema_name, version, source_project):
+    dash_source = f"-{source_project.lower().replace(' ', '_')}" if source_project else ''
+    dash_version = f'-v{version}'
+    return f'{schema_name}{dash_source}{dash_version}.yaml'
+
+
+def get_other_schema(schema_name, version, source_project=None, offline=None):
+    schema = load_yaml(
+        _table_schemas_path / 'others' /
+        _get_schema_filename(schema_name, version, source_project))
     for field in schema['fields']:
         _add_constraints(field, optional_fields=[], offline=offline)
     return schema
@@ -51,8 +59,10 @@ def get_is_assay(schema_name):
     return schema_name not in ['donor', 'sample', 'antibodies', 'contributors']
 
 
-def get_table_schema(schema_name, version, optional_fields=[], offline=None):
-    schema = load_yaml(_table_schemas_path / 'assays' / f'{schema_name}-v{version}.yaml')
+def get_table_schema(schema_name, version, source_project=None, optional_fields=[], offline=None):
+    schema = load_yaml(
+        _table_schemas_path / 'assays' /
+        _get_schema_filename(schema_name, version, source_project))
 
     for field in schema['fields']:
         _add_level_1_description(field)
