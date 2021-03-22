@@ -8,11 +8,21 @@ description_md: '3D IMC submissions require metadata on the antibodies used in t
 doc_url: https://portal.hubmapconsortium.org/docs/assays/imc
 fields:
 - constraints:
+    enum:
+    - '1'
+    required: true
+  description: Version of the schema to use when validating this metadata.
+  heading: Shared by all types
+  name: version
+- constraints:
+    required: true
+  description: Free-text description of this assay.
+  name: description
+- constraints:
     pattern: '[A-Z]+[0-9]+'
     required: true
   description: HuBMAP Display ID of the donor of the assayed tissue.
   example: ABC123
-  heading: Shared by all types
   name: donor_id
   type: string
 - constraints:

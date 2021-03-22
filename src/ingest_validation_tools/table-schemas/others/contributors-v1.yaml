@@ -1,0 +1,33 @@
+fields:
+  -
+    name: version
+    description: Version of the schema to use when validating this metadata.
+    constraints:
+      enum:
+        - '1'
+  -
+    name: affiliation
+    description: Institutional affiliation
+  -
+    name: first_name
+    description: First name
+  -
+    name: last_name
+    description: Last name
+  -
+    name: middle_name_or_initial
+    description: Middle name or initial
+    constraints:
+      required: False
+  -
+    name: name
+    description: Name for display
+  -
+    name: orcid_id
+    description: ORCID ID of contributor
+    constraints:
+      pattern: '\d{4}-\d{4}-\d{4}-\d{3}[0-9X]'
+    example: 0000-0002-8928-741X
+    custom_constraints:
+      url:
+        prefix: https://orcid.org/

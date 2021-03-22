@@ -22,10 +22,10 @@ Related files:
 
 <details open="true"><summary><b>Version 1 (current)</b></summary>
 
-<blockquote>[`version`](#version)<br>
-[`description`](#description)<br>
-<details><summary>Shared by all types</summary>
+<blockquote><details><summary>Shared by all types</summary>
 
+[`version`](#version)<br>
+[`description`](#description)<br>
 [`donor_id`](#donor_id)<br>
 [`tissue_id`](#tissue_id)<br>
 [`execution_datetime`](#execution_datetime)<br>
@@ -73,6 +73,8 @@ Related files:
 [`sequencing_phix_percent`](#sequencing_phix_percent)<br>
 [`contributors_path`](#contributors_path)<br>
 [`data_path`](#data_path)<br></details></blockquote>
+### Shared by all types
+
 ##### `version`
 Version of the schema to use when validating this metadata.
 | constraint | value |
@@ -85,8 +87,6 @@ Free-text description of this assay.
 | constraint | value |
 | --- | --- |
 | required | `True` |
-
-### Shared by all types
 
 ##### `donor_id`
 HuBMAP Display ID of the donor of the assayed tissue. Example: `ABC123`.

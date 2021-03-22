@@ -1,6 +1,6 @@
 doc_url: https://portal.hubmapconsortium.org/docs/assays/maldi-ims
 fields:
-  # include: ../includes/v0/all_assays.yaml
+  # include: ../includes/vA/all_assays.yaml
   -
     name: assay_category
     constraints:

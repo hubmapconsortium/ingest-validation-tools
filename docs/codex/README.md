@@ -45,6 +45,8 @@ For more information, see the [Antibodies TSV documentation](../antibodies).
 
 <blockquote><details><summary>Shared by all types</summary>
 
+[`version`](#version)<br>
+[`description`](#description)<br>
 [`donor_id`](#donor_id)<br>
 [`tissue_id`](#tissue_id)<br>
 [`execution_datetime`](#execution_datetime)<br>
@@ -84,6 +86,19 @@ For more information, see the [Antibodies TSV documentation](../antibodies).
 [`contributors_path`](#contributors_path)<br>
 [`data_path`](#data_path)<br></details></blockquote>
 ### Shared by all types
+
+##### `version`
+Version of the schema to use when validating this metadata.
+| constraint | value |
+| --- | --- |
+| enum | `1` |
+| required | `True` |
+
+##### `description`
+Free-text description of this assay.
+| constraint | value |
+| --- | --- |
+| required | `True` |
 
 ##### `donor_id`
 HuBMAP Display ID of the donor of the assayed tissue. Example: `ABC123`.
