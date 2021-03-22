@@ -35,7 +35,7 @@ fields:
   name: protocols_io_doi
   type: string
 - constraints:
-    required: true
+    required: false
   description: Name of the person responsible for executing the assay.
   name: operator
 - constraints:
@@ -48,7 +48,7 @@ fields:
   description: Name of the principal investigator responsible for the data.
   name: pi
 - constraints:
-    required: false
+    required: true
   description: Email address for the principal investigator.
   format: email
   name: pi_email
