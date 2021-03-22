@@ -36,3 +36,8 @@ fields:
   example: 0000-0002-8928-741X
   name: orcid_id
   type: string
+- constraints:
+    required: true
+  description: Is this individual a contact for DOI purposes?
+  name: is_contact
+  type: boolean

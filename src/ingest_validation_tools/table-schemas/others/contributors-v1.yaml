@@ -31,3 +31,7 @@ fields:
     custom_constraints:
       url:
         prefix: https://orcid.org/
+  -
+    name: is_contact
+    description: Is this individual a contact for DOI purposes?
+    type: boolean

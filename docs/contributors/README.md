@@ -22,7 +22,8 @@ Related files:
 [`last_name`](#last_name)<br>
 [`middle_name_or_initial`](#middle_name_or_initial)<br>
 [`name`](#name)<br>
-[`orcid_id`](#orcid_id)<br></details></blockquote>
+[`orcid_id`](#orcid_id)<br>
+[`is_contact`](#is_contact)<br></details></blockquote>
 ##### `version`
 Version of the schema to use when validating this metadata.
 | constraint | value |
@@ -67,6 +68,13 @@ ORCID ID of contributor. Example: `0000-0002-8928-741X`.
 | pattern (regular expression) | `\d{4}-\d{4}-\d{4}-\d{3}[0-9X]` |
 | required | `True` |
 | url | prefix: `https://orcid.org/` |
+
+##### `is_contact`
+Is this individual a contact for DOI purposes?
+| constraint | value |
+| --- | --- |
+| type | `boolean` |
+| required | `True` |
 
 </details>
 
