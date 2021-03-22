@@ -1,6 +1,5 @@
 from pathlib import Path
-from dataclasses import dataclass
-from collections import defaultdict
+from collections import (defaultdict, namedtuple)
 
 from ingest_validation_tools.yaml_include_loader import load_yaml
 
@@ -9,18 +8,7 @@ _table_schemas_path = Path(__file__).parent / 'table-schemas'
 _directory_schemas_path = Path(__file__).parent / 'directory-schemas'
 
 
-@dataclass
-class SchemaVersion():
-    '''
-    >>> str(SchemaVersion('fake', 3))
-    'fake-v3.yaml'
-
-    '''
-    schema_name: str
-    version: int
-
-    def __str__(self):
-        return f'{self.schema_name}-v{self.version}.yaml'
+SchemaVersion = namedtuple('SchemaVersion', ['schema_name', 'version'])
 
 
 def list_schema_versions():

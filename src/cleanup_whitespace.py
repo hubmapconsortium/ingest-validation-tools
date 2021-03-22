@@ -4,6 +4,7 @@ import csv
 import sys
 import argparse
 from pathlib import Path
+import codecs
 
 
 def main():
@@ -47,7 +48,10 @@ def print_encoding_test(encoding):
             '\u3000',  # idiographic space
         ]
     padding = ''.join(space_chars)
-    sys.stdout.reconfigure(encoding=encoding)
+
+    # For Python 3.7 and above, this is cleaner:
+    #    sys.stdout.reconfigure(encoding=encoding)
+    sys.stdout = codecs.getwriter(encoding)(sys.stdout.detach())
 
     # Header:
     print(
