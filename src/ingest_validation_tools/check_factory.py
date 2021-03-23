@@ -52,6 +52,10 @@ class CheckFactory():
         def sequence_limit_check(row):
             prefix_number_re = r'(?P<prefix>.*?)(?P<number>\d+)$'
             for k, v in row.items():
+                # If the schema declares the field as datetime,
+                # "v" will be a python object, and regexes will error.
+                v = str(v)
+
                 if k not in sequence_limit_fields or not v:
                     continue
 
