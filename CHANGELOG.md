@@ -1,6 +1,7 @@
 # Changelog
 
 ## v0.0.10 - in progress
+- Make more fields optional in HCA scrnaseq.
 - Create subdirectories for `examples` and `tests` to clean up the top level.
 - Add v1 for all schemas.
 - Introduce scrnaseq-hca.
