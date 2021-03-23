@@ -52,6 +52,7 @@ def print_encoding_test(encoding):
     # Header:
     print(
         'quoted', 'empty', 'padded',
+        '',  # Empty column header: should be cleaned up!
         sep='\t'
     )
 
@@ -60,9 +61,14 @@ def print_encoding_test(encoding):
         f'"{padding}123{padding}"',
         '',
         f'{padding}123{padding}',
+        '', '',  # Two empty cells: should be cleaned up!
         sep='\t',
-        end=''
     )
+    print(
+        '', '', '', '',  # More empty cells: should be cleaned up!
+        sep='\t'
+    )
+    # Trailing \n means there's a trailing empty line in the TSV to clean up.
     return 0
 
 
@@ -73,18 +79,48 @@ def print_clean_tsv(tsv_path):
     for encoding in ['utf-8', 'latin-1']:
         warn(f'Trying to read {tsv_path} as {encoding}...')
         try:
-            with tsv_path.open(encoding=encoding) as f:
-                # There could be whitespace inside the quoted value,
-                # so we really do need to parse it as a tsv,
-                # and can't just use a regex.
-                for row in csv.reader(f, dialect=dialect):
-                    writer.writerow(val.strip() for val in row)
+            # Read the file completely to determine if there are encoding problems,
+            # rather than reading and writing line-by-line.
+            rows = csv_to_rows(tsv_path, encoding=encoding, dialect=dialect)
+            clean_rows = clean(rows)
+            for row in clean_rows:
+                writer.writerow(row)
             warn('Read succeeded')
             return 0
         except UnicodeDecodeError as e:
             warn(f'Read failed: {e}')
             continue
     return 1
+
+
+def csv_to_rows(tsv_path, encoding=None, dialect=None):
+    rows = []
+    with tsv_path.open(encoding=encoding) as f:
+        for row in csv.reader(f, dialect=dialect):
+            rows.append(row)
+    return rows
+
+
+def clean(rows):
+    clean_rows = []
+    max_i = None
+    for row in rows:
+        stripped_row = [val.strip() for val in row]
+        if not any(stripped_row):
+            continue
+        if max_i is None:
+            max_i = last_non_empty_index(stripped_row)
+        clean_rows.append(stripped_row[:max_i])
+    return clean_rows
+
+
+def last_non_empty_index(values):
+    '''
+    >>> last_non_empty_index(['', '', '0', '', ''])
+    2
+
+    '''
+    return max(i for i, val in enumerate(values) if len(val))
 
 
 def warn(s):
