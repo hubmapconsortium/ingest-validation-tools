@@ -193,6 +193,9 @@ def _add_constraints(field, optional_fields, offline=None):
     if 'custom_constraints' not in field:
         field['custom_constraints'] = {}
 
+    # For all fields:
+    # field['custom_constraints']['sequence_limit'] = 1
+
     # Guess constraints:
     if 'required' not in field['constraints']:
         field['constraints']['required'] = True
