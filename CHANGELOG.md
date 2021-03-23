@@ -1,7 +1,8 @@
 # Changelog
 
 ## v0.0.10 - in progress
-- Add v1 for all schemas
+- Create subdirectories for `examples` and `tests` to clean up the top level.
+- Add v1 for all schemas.
 - Introduce scrnaseq-hca.
 - Look for a `source_project` field to distinguish schemas.
 - Move script docs into subdirectory, and improve coverage.

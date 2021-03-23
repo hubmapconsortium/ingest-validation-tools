@@ -6,13 +6,13 @@ import subprocess
 # Fixtures or doctests should be used for the details:
 # They run faster, and tell us more when there is a failure.
 good_args = [
-    '--local_directory dataset-examples/good-scatacseq-v1/submission/ '
+    '--local_directory examples/dataset-examples/good-scatacseq-v1/submission/ '
     '--dataset_ignore_globs ignore-*.tsv .* '
     '--submission_ignore_globs drv_ignore_*',
     # NOTE: When called from the shell,
     # remember to quote '*' arguments to prevent expansion.
 
-    '--tsv_paths dataset-examples/good-scatacseq-v1/submission/metadata.tsv'
+    '--tsv_paths examples/dataset-examples/good-scatacseq-v1/submission/metadata.tsv'
 ]
 bad_args = [
     '--bad',
