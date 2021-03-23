@@ -190,15 +190,15 @@ def _add_constraints(field, optional_fields, offline=None):
     '''
     if 'constraints' not in field:
         field['constraints'] = {}
+    if 'custom_constraints' not in field:
+        field['custom_constraints'] = {}
 
     # Guess constraints:
     if 'required' not in field['constraints']:
         field['constraints']['required'] = True
     if 'protocols_io_doi' in field['name']:
         field['constraints']['pattern'] = r'10\.17504/.*'
-        field['custom_constraints'] = {
-            'url': {'prefix': 'https://dx.doi.org/'}
-        }
+        field['custom_constraints']['url'] = {'prefix': 'https://dx.doi.org/'}
     if field['name'].endswith('_email'):
         field['format'] = 'email'
 
