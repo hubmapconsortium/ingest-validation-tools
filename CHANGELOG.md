@@ -2,6 +2,8 @@
 
 ## v0.0.10 - in progress
 - Make it work with Python 3.6.
+- Create subdirectories for `examples` and `tests` to clean up the top level.
+- Add v1 for all schemas.
 - Introduce scrnaseq-hca.
 - Look for a `source_project` field to distinguish schemas.
 - Move script docs into subdirectory, and improve coverage.

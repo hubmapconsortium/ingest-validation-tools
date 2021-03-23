@@ -1,2 +1,2 @@
-affiliation	first_name	last_name	middle_name_or_initial	name	orcid_id
-					
+version	affiliation	first_name	last_name	middle_name_or_initial	name	orcid_id	is_contact
+1							

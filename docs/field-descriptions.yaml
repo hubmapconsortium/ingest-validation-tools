@@ -89,6 +89,7 @@ health_status: "Patient's baseline physical condition prior to immediate event l
   \ \u201Crelatively healthy.\u201D"
 height_unit: The vertical measurement or distance from the base to the top of a subject
   or participant.
+is_contact: Is this individual a contact for DOI purposes?
 is_targeted: Specifies whether or not a specific molecule(s) is/are targeted for detection/measurement
   by the assay. The CODEX analyte is protein.
 is_technical_replicate: Is this a sequencing replicate?
