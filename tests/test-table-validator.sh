@@ -3,7 +3,7 @@ set -o errexit
 
 die() { set +v; echo "$red$*$reset" 1>&2 ; exit 1; }
 
-for FIXTURE in table-examples/*; do
+for FIXTURE in examples/table-examples/*; do
   echo $FIXTURE
   EXPECTED="$FIXTURE/output.txt"
   ACTUAL="/tmp/actual-output.txt"

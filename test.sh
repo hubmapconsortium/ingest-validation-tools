@@ -20,11 +20,11 @@ if [[ -z $CONTINUE_FROM ]]; then
   end mypy
 fi
 
-for TEST in test-*; do
+for TEST in tests/test-*; do
   if [[ -z $CONTINUE_FROM ]] || [[ $CONTINUE_FROM = $TEST ]]; then
     CONTINUE_FROM=''
     start $TEST
-    eval ./$TEST
+    eval $TEST
     end $TEST
   fi
 done

@@ -5,13 +5,13 @@ red=`tput setaf 1`
 reset=`tput sgr0`
 die() { set +v; echo "$red$*$reset" 1>&2 ; exit 1; }
 
-for SUITE in dataset-examples dataset-iec-examples; do
+for SUITE in examples/dataset-examples examples/dataset-iec-examples; do
 
   case $SUITE in
-    dataset-iec-examples)
+    examples/dataset-iec-examples)
       OPTS="--dataset_ignore_globs 'metadata.tsv' --submission_ignore_globs '*'"
       ;;
-    dataset-examples)
+    examples/dataset-examples)
       # To minimize dependence on outside resources, --offline used here,
       # but ID lookup is still exercised by iec-examples.
       OPTS="--dataset_ignore_globs 'ignore-*.tsv' '.*' --submission_ignore_globs 'drv_ignore_*' --offline --output as_md"
