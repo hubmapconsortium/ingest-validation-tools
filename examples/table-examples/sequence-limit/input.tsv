@@ -1,4 +1,5 @@
 comment	limit_2	limit_4
+first row doesn't match RE	string, or empty	
 no error	4	x1y1
 limit_2 error	5	x1y2
 limit_2 error, again	6	x1y3

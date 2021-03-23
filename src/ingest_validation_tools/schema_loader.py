@@ -194,7 +194,8 @@ def _add_constraints(field, optional_fields, offline=None):
         field['custom_constraints'] = {}
 
     # For all fields:
-    # field['custom_constraints']['sequence_limit'] = 1
+    # TODO:
+    # field['custom_constraints']['sequence_limit'] = 2
 
     # Guess constraints:
     if 'required' not in field['constraints']:

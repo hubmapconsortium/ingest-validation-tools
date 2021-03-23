@@ -57,7 +57,8 @@ class CheckFactory():
 
                 match = re.search(prefix_number_re, v)
                 if not match:
-                    del self._prev_value_run_length[k]
+                    if k in self._prev_value_run_length:
+                        del self._prev_value_run_length[k]
                     continue
 
                 if k not in self._prev_value_run_length:
@@ -77,6 +78,7 @@ class CheckFactory():
                 self._prev_value_run_length[k] = (v, run_length)
 
                 limit = sequence_limit_fields[k]
+                assert limit > 1, 'The lowest allowed limit is 2'
                 if run_length >= limit:
                     note = template.substitute(run_length=run_length, limit=limit)
                     yield frictionless.errors.CellError.from_row(row, note=note, field_name=k)
