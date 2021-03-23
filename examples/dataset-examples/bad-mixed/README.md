@@ -43,4 +43,7 @@ Reference Errors:
     bad-shared-dataset:
     - examples/dataset-examples/bad-mixed/submission/codex-metadata.tsv (row 2)
     - examples/dataset-examples/bad-mixed/submission/scatacseq-metadata.tsv (row 2)
+Hint: 'If validation fails because of extra whitespace in the TSV, try:
+
+  src/cleanup_whitespace.py --tsv_path original.tsv > clean.tsv'
 ```

@@ -1,6 +1,7 @@
 # Changelog
 
 ## v0.0.10 - in progress
+- If it errors, add a note about cleanup_whitespace.py.
 - Make it work with Python 3.6.
 - Create subdirectories for `examples` and `tests` to clean up the top level.
 - Add v1 for all schemas.

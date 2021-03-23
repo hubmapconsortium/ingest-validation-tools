@@ -63,4 +63,7 @@ Metadata TSV Errors:
         has no data rows.
       row 2, antibodies examples/dataset-examples/bad-tsv-formats/submission/antibodies.tsv: File
         does not exist
+Hint: 'If validation fails because of extra whitespace in the TSV, try:
+
+  src/cleanup_whitespace.py --tsv_path original.tsv > clean.tsv'
 ```

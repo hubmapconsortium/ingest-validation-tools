@@ -8,4 +8,7 @@ Metadata TSV Errors:
         does not exist
       row 2, antibodies examples/dataset-examples/bad-missing-data/submission/antibodies-missing.tsv: File
         does not exist
+Hint: 'If validation fails because of extra whitespace in the TSV, try:
+
+  src/cleanup_whitespace.py --tsv_path original.tsv > clean.tsv'
 ```
