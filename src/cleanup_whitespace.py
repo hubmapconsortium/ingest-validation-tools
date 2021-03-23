@@ -102,6 +102,16 @@ def csv_to_rows(tsv_path, encoding=None, dialect=None):
 
 
 def clean(rows):
+    '''
+    >>> clean([
+    ...     ['  x', 'y  ', ''],
+    ...     ['', '  Hi!  ', '', ''],
+    ...     ['', ''],
+    ...     []    
+    ... ])
+    [['x', 'y'], ['', 'Hi!']]
+
+    '''
     clean_rows = []
     max_i = None
     for row in rows:
@@ -110,7 +120,7 @@ def clean(rows):
             continue
         if max_i is None:
             max_i = last_non_empty_index(stripped_row)
-        clean_rows.append(stripped_row[:max_i])
+        clean_rows.append(stripped_row[:max_i+1])
     return clean_rows
 
 
