@@ -62,7 +62,7 @@
   is_qa_qc: False
 -
   pattern: 'Level3/Channel+[^/]/[^/]+\.stl'
-  description: 'Annotation file. File is optional.
+  description: 'Annotation file. File is optional.'
   required: False
   is_qa_qc: False
 -
