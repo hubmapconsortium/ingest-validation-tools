@@ -1,19 +1,19 @@
 # mcd/:
 -
   pattern: 'mcd/[^/]+_HuBMAP_[^/]+_slide[^/]+\.zip'
-  description: 'CSV containing labels for sections as well as whether or not they were included in the 3D model'
+  description: 'CSV containing labels for sections as well as whether or not they were included in the 3D model.'
   required: True
   is_qa_qc: False
 
 -
   pattern: 'mcd/section_report\.csv'
-  description: 'CSV containing labels for sections as well as whether or not they were included in the 3D model'
+  description: 'Contains tissue id, acquisition id, 3D image ordering, MCD image ordering, and boolean if used for 3D model.'
   required: True
   is_qa_qc: True
 
 -
   pattern: 'mcd/channelnames_report\.csv'
-  description: 'CSV containing antibodies used and whether they were detected sufficiently or not'
+  description: 'Contains antibodies names used and whether they were detected sufficiently or not'
   required: True
   is_qa_qc: True
 
