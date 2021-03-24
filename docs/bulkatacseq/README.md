@@ -228,6 +228,7 @@ Unit of library_concentration_value.
 | --- | --- |
 | enum | `nM` |
 | required | `True` |
+| units for | `library_concentration_value` |
 
 ##### `library_construction_protocols_io_doi`
 A link to the protocol document containing the library construction method (including version) that was used, e.g. "Smart-Seq2", "Drop-Seq", "10X v3".
@@ -258,6 +259,7 @@ Units of library final yield.
 | --- | --- |
 | enum | `ng` |
 | required | `True` |
+| units for | `library_final_yield_value` |
 
 ##### `library_id`
 ID of the library sample.
@@ -504,6 +506,7 @@ Unit of library_concentration_value.
 | --- | --- |
 | enum | `nM` |
 | required | `True` |
+| units for | `library_concentration_value` |
 
 ##### `library_construction_protocols_io_doi`
 A link to the protocol document containing the library construction method (including version) that was used, e.g. "Smart-Seq2", "Drop-Seq", "10X v3".
@@ -534,6 +537,7 @@ Units of library final yield.
 | --- | --- |
 | enum | `ng` |
 | required | `True` |
+| units for | `library_final_yield_value` |
 
 ##### `library_id`
 ID of the library sample.

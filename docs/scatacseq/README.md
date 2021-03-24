@@ -336,6 +336,7 @@ Units for library_final_yield.
 | --- | --- |
 | enum | `ng` |
 | required | `True` |
+| units for | `library_final_yield` |
 
 ##### `library_average_fragment_size`
 Average size of sequencing library fragments estimated via gel electrophoresis or bioanalyzer/tapestation. Numeric value in bp.
@@ -642,6 +643,7 @@ Units for library_final_yield.
 | --- | --- |
 | enum | `ng` |
 | required | `True` |
+| units for | `library_final_yield` |
 
 ##### `library_average_fragment_size`
 Average size of sequencing library fragments estimated via gel electrophoresis or bioanalyzer/tapestation. Numeric value in bp.

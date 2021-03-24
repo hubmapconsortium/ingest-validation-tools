@@ -273,6 +273,7 @@ fields:
     required: true
   custom_constraints:
     sequence_limit: 2
+    units_for: library_final_yield_value
   description: Units of final library yield
   name: library_final_yield_unit
 - constraints:

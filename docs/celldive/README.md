@@ -230,6 +230,7 @@ The unit of measurement of the width of a pixel.
 | --- | --- |
 | enum | `nm` or `um` |
 | required | `True` |
+| units for | `resolution_x_value` |
 
 ##### `resolution_y_value`
 The height of a pixel.
@@ -244,6 +245,7 @@ The unit of measurement of the height of a pixel.
 | --- | --- |
 | enum | `nm` or `um` |
 | required | `True` |
+| units for | `resolution_y_value` |
 
 ##### `processing_protocols_io_doi`
 DOI for analysis protocols.io for this assay. Leave blank if not applicable.
@@ -426,6 +428,7 @@ The unit of measurement of the width of a pixel.
 | --- | --- |
 | enum | `nm` or `um` |
 | required | `True` |
+| units for | `resolution_x_value` |
 
 ##### `resolution_y_value`
 The height of a pixel.
@@ -440,6 +443,7 @@ The unit of measurement of the height of a pixel.
 | --- | --- |
 | enum | `nm` or `um` |
 | required | `True` |
+| units for | `resolution_y_value` |
 
 ##### `processing_protocols_io_doi`
 DOI for analysis protocols.io for this assay. Leave blank if not applicable.

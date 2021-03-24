@@ -186,6 +186,7 @@ The unit of measurement of the width of a pixel.
 | --- | --- |
 | enum | `nm` or `um` |
 | required | `True` |
+| units for | `resolution_x_value` |
 
 ##### `resolution_y_value`
 The height of a pixel.
@@ -200,6 +201,7 @@ The unit of measurement of the height of a pixel.
 | --- | --- |
 | enum | `nm` or `um` |
 | required | `True` |
+| units for | `resolution_y_value` |
 
 ##### `resolution_z_value`
 Optional if assay does not have multiple z-levels. Note that this is resolution within a given sample: z-pitch (resolution_z_value) is the increment distance between image slices, ie. the microscope stage is moved up or down in increments to capture images of several focal planes.
@@ -214,6 +216,7 @@ The unit of incremental distance between image slices.(um)
 | --- | --- |
 | enum | `nm` or `um` |
 | required | `True` |
+| units for | `resolution_z_value` |
 
 ##### `number_of_channels`
 Number of channels capturing the emission spectrum from natural fluorophores in the sample.
@@ -360,6 +363,7 @@ The unit of measurement of the width of a pixel.
 | --- | --- |
 | enum | `nm` or `um` |
 | required | `True` |
+| units for | `resolution_x_value` |
 
 ##### `resolution_y_value`
 The height of a pixel.
@@ -374,6 +378,7 @@ The unit of measurement of the height of a pixel.
 | --- | --- |
 | enum | `nm` or `um` |
 | required | `True` |
+| units for | `resolution_y_value` |
 
 ##### `resolution_z_value`
 Optional if assay does not have multiple z-levels. Note that this is resolution within a given sample: z-pitch (resolution_z_value) is the increment distance between image slices, ie. the microscope stage is moved up or down in increments to capture images of several focal planes.
@@ -388,6 +393,7 @@ The unit of incremental distance between image slices.(um)
 | --- | --- |
 | enum | `nm` or `um` |
 | required | `True` |
+| units for | `resolution_z_value` |
 
 ##### `number_of_channels`
 Number of channels capturing the emission spectrum from natural fluorophores in the sample.

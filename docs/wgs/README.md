@@ -193,6 +193,7 @@ Units of DNA input into library preparation.
 | --- | --- |
 | enum | `ug` |
 | required | `True` |
+| units for | `dna_assay_input_value` |
 
 ##### `library_construction_method`
 Describes DNA library preparation kit. Modality of isolating gDNA, Fragmentation and generating sequencing libraries.
@@ -235,6 +236,7 @@ Total units of library after final pcr amplification step.
 | --- | --- |
 | enum | `ng` |
 | required | `True` |
+| units for | `library_final_yield` |
 
 ##### `library_average_fragment_size`
 Average size of sequencing library fragments estimated via gel electrophoresis or bioanalyzer/tapestation.
@@ -412,6 +414,7 @@ Units of DNA input into library preparation.
 | --- | --- |
 | enum | `ug` |
 | required | `True` |
+| units for | `dna_assay_input_value` |
 
 ##### `library_construction_method`
 Describes DNA library preparation kit. Modality of isolating gDNA, Fragmentation and generating sequencing libraries.
@@ -454,6 +457,7 @@ Total units of library after final pcr amplification step.
 | --- | --- |
 | enum | `ng` |
 | required | `True` |
+| units for | `library_final_yield` |
 
 ##### `library_average_fragment_size`
 Average size of sequencing library fragments estimated via gel electrophoresis or bioanalyzer/tapestation.

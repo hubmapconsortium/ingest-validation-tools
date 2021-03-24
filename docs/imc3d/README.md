@@ -275,6 +275,7 @@ Frequency unit of laser ablation.
 | --- | --- |
 | enum | `Hz` |
 | required | `True` |
+| units for | `ablation_frequency_value` |
 
 ##### `roi_description`
 A description of the region of interest (ROI) captured in the image.
@@ -308,6 +309,7 @@ Units of image width of the ROI acquisition.
 | --- | --- |
 | enum | `um` |
 | required | `True` |
+| units for | `max_x_width_value` |
 
 ##### `max_y_height_value`
 Image height value of the ROI acquisition.
@@ -322,6 +324,7 @@ Units of image height of the ROI acquisition.
 | --- | --- |
 | enum | `um` |
 | required | `True` |
+| units for | `max_y_height_value` |
 
 ##### `segment_data_format`
 This refers to the data type, which is a "float" for the IMC counts.
@@ -544,6 +547,7 @@ Frequency unit of laser ablation.
 | --- | --- |
 | enum | `Hz` |
 | required | `True` |
+| units for | `ablation_frequency_value` |
 
 ##### `roi_description`
 A description of the region of interest (ROI) captured in the image.
@@ -577,6 +581,7 @@ Units of image width of the ROI acquisition.
 | --- | --- |
 | enum | `um` |
 | required | `True` |
+| units for | `max_x_width_value` |
 
 ##### `max_y_height_value`
 Image height value of the ROI acquisition.
@@ -591,6 +596,7 @@ Units of image height of the ROI acquisition.
 | --- | --- |
 | enum | `um` |
 | required | `True` |
+| units for | `max_y_height_value` |
 
 ##### `segment_data_format`
 This refers to the data type, which is a "float" for the IMC counts.

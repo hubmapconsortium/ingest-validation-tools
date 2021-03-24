@@ -220,6 +220,7 @@ fields:
     required: true
   custom_constraints:
     sequence_limit: 2
+    units_for: ablation_frequency_value
   description: Frequency unit of laser ablation
   name: ablation_frequency_unit
 - constraints:
@@ -258,6 +259,7 @@ fields:
     required: true
   custom_constraints:
     sequence_limit: 2
+    units_for: max_x_width_value
   description: Units of image width of the ROI acquisition
   name: max_x_width_unit
 - constraints:
@@ -273,6 +275,7 @@ fields:
     required: true
   custom_constraints:
     sequence_limit: 2
+    units_for: max_y_height_value
   description: Units of image height of the ROI acquisition
   name: max_y_height_unit
 - constraints:

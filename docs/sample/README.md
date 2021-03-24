@@ -113,6 +113,7 @@ Time unit.
 | --- | --- |
 | required | `True` |
 | enum | `minutes` |
+| units for | `warm_ischemia_time_value` |
 
 ##### `cold_ischemia_time_value`
 Time interval on ice to the start of preservation protocol. Leave blank if not applicable.
@@ -127,6 +128,7 @@ Time unit.
 | --- | --- |
 | required | `True` |
 | enum | `minutes` |
+| units for | `cold_ischemia_time_value` |
 
 ### Biospecimen
 
@@ -156,6 +158,7 @@ Distance unit. Leave blank if not applicable.
 | --- | --- |
 | required | `False` |
 | enum | `cm` |
+| units for | `specimen_tumor_distance_value` |
 
 </details>
 

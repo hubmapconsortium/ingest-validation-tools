@@ -142,6 +142,7 @@ fields:
     required: true
   custom_constraints:
     sequence_limit: 2
+    units_for: dna_assay_input_value
   description: Units of DNA input into library preparation
   name: dna_assay_input_unit
 - constraints:
@@ -194,6 +195,7 @@ fields:
     required: true
   custom_constraints:
     sequence_limit: 2
+    units_for: library_final_yield
   description: Total units of library after final pcr amplification step
   name: library_final_yield_unit
 - constraints:

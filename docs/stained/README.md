@@ -183,6 +183,7 @@ The unit of measurement of the width of a pixel.
 | --- | --- |
 | enum | `nm` or `um` |
 | required | `True` |
+| units for | `resolution_x_value` |
 
 ##### `resolution_y_value`
 The height of a pixel.
@@ -197,6 +198,7 @@ The unit of measurement of the height of a pixel.
 | --- | --- |
 | enum | `nm` or `um` |
 | required | `True` |
+| units for | `resolution_y_value` |
 
 ##### `resolution_z_value`
 Optional if assay does not have multiple z-levels. Note that this is resolution within a given sample: z-pitch (resolution_z_value) is the increment distance between image slices ie. the microscope stage is moved up or down in increments to capture images of several focal planes. The best one will be used & the rest discarded. The thickness of the sample itself is sample metadata. Leave blank if not applicable.
@@ -211,6 +213,7 @@ The unit of incremental distance between image slices.
 | --- | --- |
 | enum | `nm` or `um` |
 | required | `True` |
+| units for | `resolution_z_value` |
 
 ##### `stain`
 Chemical stains (dyes) applied to histology samples to highlight important features of the tissue as well as to enhance the tissue contrast.
@@ -364,6 +367,7 @@ The unit of measurement of the width of a pixel.
 | --- | --- |
 | enum | `nm` or `um` |
 | required | `True` |
+| units for | `resolution_x_value` |
 
 ##### `resolution_y_value`
 The height of a pixel.
@@ -378,6 +382,7 @@ The unit of measurement of the height of a pixel.
 | --- | --- |
 | enum | `nm` or `um` |
 | required | `True` |
+| units for | `resolution_y_value` |
 
 ##### `resolution_z_value`
 Optional if assay does not have multiple z-levels. Note that this is resolution within a given sample: z-pitch (resolution_z_value) is the increment distance between image slices ie. the microscope stage is moved up or down in increments to capture images of several focal planes. The best one will be used & the rest discarded. The thickness of the sample itself is sample metadata. Leave blank if not applicable.
@@ -392,6 +397,7 @@ The unit of incremental distance between image slices.
 | --- | --- |
 | enum | `nm` or `um` |
 | required | `True` |
+| units for | `resolution_z_value` |
 
 ##### `stain`
 Chemical stains (dyes) applied to histology samples to highlight important features of the tissue as well as to enhance the tissue contrast.

@@ -182,6 +182,7 @@ The unit of measurement of the width of a pixel.
 | --- | --- |
 | enum | `nm` or `um` |
 | required | `True` |
+| units for | `resolution_x_value` |
 
 ##### `resolution_y_value`
 The height of a pixel.
@@ -196,6 +197,7 @@ The unit of measurement of the height of a pixel.
 | --- | --- |
 | enum | `nm` or `um` |
 | required | `True` |
+| units for | `resolution_y_value` |
 
 ##### `number_of_channels`
 Number of fluorescent channels imaged during each cycle.
@@ -372,6 +374,7 @@ The unit of measurement of the width of a pixel.
 | --- | --- |
 | enum | `nm` or `um` |
 | required | `True` |
+| units for | `resolution_x_value` |
 
 ##### `resolution_y_value`
 The height of a pixel.
@@ -386,6 +389,7 @@ The unit of measurement of the height of a pixel.
 | --- | --- |
 | enum | `nm` or `um` |
 | required | `True` |
+| units for | `resolution_y_value` |
 
 ##### `number_of_channels`
 Number of fluorescent channels imaged during each cycle.

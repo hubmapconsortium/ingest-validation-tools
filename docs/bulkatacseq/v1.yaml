@@ -184,6 +184,7 @@ fields:
     required: true
   custom_constraints:
     sequence_limit: 2
+    units_for: library_concentration_value
   description: Unit of library_concentration_value
   name: library_concentration_unit
 - constraints:
@@ -222,6 +223,7 @@ fields:
     required: true
   custom_constraints:
     sequence_limit: 2
+    units_for: library_final_yield_value
   description: Units of library final yield
   name: library_final_yield_unit
 - constraints:

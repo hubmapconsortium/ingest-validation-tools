@@ -163,6 +163,7 @@ fields:
     required: true
   custom_constraints:
     sequence_limit: 2
+    units_for: resolution_x_value
   description: The unit of measurement of width of a pixel.(nm)
   name: resolution_x_unit
 - constraints:
@@ -180,6 +181,7 @@ fields:
     required: true
   custom_constraints:
     sequence_limit: 2
+    units_for: resolution_y_value
   description: The unit of measurement of height of a pixel. (nm)
   name: resolution_y_unit
 - constraints:
@@ -202,6 +204,7 @@ fields:
     required: true
   custom_constraints:
     sequence_limit: 2
+    units_for: resolution_z_value
   description: The unit of incremental distance between image slices.(um)
   name: resolution_z_unit
 - constraints:

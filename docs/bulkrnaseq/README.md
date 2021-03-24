@@ -221,6 +221,7 @@ Units of RNA input amount to the assay.
 | --- | --- |
 | enum | `ug` |
 | required | `True` |
+| units for | `rnaseq_assay_input_value` |
 
 ##### `rnaseq_assay_method`
 rnaseq assay kit used.
@@ -270,6 +271,7 @@ units of library final yield.
 | --- | --- |
 | enum | `ng` |
 | required | `True` |
+| units for | `library_final_yield_value` |
 
 ##### `library_average_fragment_size`
 Average size in base pairs (bp) of sequencing library fragments estimated via gel electrophoresis or Bioanalyzer/tapestation.
@@ -471,6 +473,7 @@ Units of RNA input amount to the assay.
 | --- | --- |
 | enum | `ug` |
 | required | `True` |
+| units for | `rnaseq_assay_input_value` |
 
 ##### `rnaseq_assay_method`
 rnaseq assay kit used.
@@ -520,6 +523,7 @@ units of library final yield.
 | --- | --- |
 | enum | `ng` |
 | required | `True` |
+| units for | `library_final_yield_value` |
 
 ##### `library_average_fragment_size`
 Average size in base pairs (bp) of sequencing library fragments estimated via gel electrophoresis or Bioanalyzer/tapestation.

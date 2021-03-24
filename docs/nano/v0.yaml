@@ -169,6 +169,7 @@ fields:
     required: true
   custom_constraints:
     sequence_limit: 2
+    units_for: resolution_x_value
   description: The unit of measurement of the width of a pixel.
   name: resolution_x_unit
 - constraints:
@@ -185,6 +186,7 @@ fields:
     required: true
   custom_constraints:
     sequence_limit: 2
+    units_for: resolution_y_value
   description: The unit of measurement of the height of a pixel.
   name: resolution_y_unit
 - constraints:

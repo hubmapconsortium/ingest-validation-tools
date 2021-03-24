@@ -187,6 +187,7 @@ The unit of measurement of the width of a pixel.
 | --- | --- |
 | enum | `nm` or `um` |
 | required | `True` |
+| units for | `resolution_x_value` |
 
 ##### `resolution_y_value`
 The height of a pixel.
@@ -201,6 +202,7 @@ The unit of measurement of the height of a pixel.
 | --- | --- |
 | enum | `nm` or `um` |
 | required | `True` |
+| units for | `resolution_y_value` |
 
 ##### `resolution_z_value`
 The distance at which two objects along the detection z-axis can be distinguished (resolved as 2 objects).
@@ -215,6 +217,7 @@ The unit of z resolution.
 | --- | --- |
 | enum | `nm` or `um` |
 | required | `True` |
+| units for | `resolution_z_value` |
 
 ##### `number_of_antibodies`
 Number of antibodies.
@@ -367,6 +370,7 @@ The unit of measurement of the width of a pixel.
 | --- | --- |
 | enum | `nm` or `um` |
 | required | `True` |
+| units for | `resolution_x_value` |
 
 ##### `resolution_y_value`
 The height of a pixel.
@@ -381,6 +385,7 @@ The unit of measurement of the height of a pixel.
 | --- | --- |
 | enum | `nm` or `um` |
 | required | `True` |
+| units for | `resolution_y_value` |
 
 ##### `resolution_z_value`
 The distance at which two objects along the detection z-axis can be distinguished (resolved as 2 objects).
@@ -395,6 +400,7 @@ The unit of z resolution.
 | --- | --- |
 | enum | `nm` or `um` |
 | required | `True` |
+| units for | `resolution_z_value` |
 
 ##### `number_of_antibodies`
 Number of antibodies.
