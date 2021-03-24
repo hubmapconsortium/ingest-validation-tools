@@ -224,7 +224,7 @@ fields:
 - constraints:
     enum:
     - Hz
-    required: true
+    required: false
   custom_constraints:
     sequence_limit: 2
     units_for: ablation_frequency_value
@@ -270,7 +270,7 @@ fields:
 - constraints:
     enum:
     - um
-    required: true
+    required: false
   custom_constraints:
     sequence_limit: 2
     units_for: max_x_width_value
@@ -286,7 +286,7 @@ fields:
 - constraints:
     enum:
     - um
-    required: true
+    required: false
   custom_constraints:
     sequence_limit: 2
     units_for: max_y_height_value

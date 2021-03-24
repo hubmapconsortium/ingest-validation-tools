@@ -142,7 +142,7 @@ fields:
     enum:
     - nm
     - um
-    required: true
+    required: false
   custom_constraints:
     sequence_limit: 2
     units_for: resolution_x_value
@@ -159,7 +159,7 @@ fields:
     enum:
     - nm
     - um
-    required: true
+    required: false
   custom_constraints:
     sequence_limit: 2
     units_for: resolution_y_value
@@ -181,7 +181,7 @@ fields:
     enum:
     - nm
     - um
-    required: true
+    required: false
   custom_constraints:
     sequence_limit: 2
     units_for: resolution_z_value

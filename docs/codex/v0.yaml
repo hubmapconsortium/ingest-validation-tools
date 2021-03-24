@@ -146,7 +146,7 @@ fields:
     - mm
     - um
     - nm
-    required: true
+    required: false
   custom_constraints:
     sequence_limit: 2
     units_for: resolution_x_value
@@ -164,7 +164,7 @@ fields:
     - mm
     - um
     - nm
-    required: true
+    required: false
   custom_constraints:
     sequence_limit: 2
     units_for: resolution_y_value
@@ -187,7 +187,7 @@ fields:
     - mm
     - um
     - nm
-    required: true
+    required: false
   custom_constraints:
     sequence_limit: 2
     units_for: resolution_z_value

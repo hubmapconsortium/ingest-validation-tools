@@ -227,7 +227,7 @@ fields:
     - um
     - mm
     - cm
-    required: true
+    required: false
   custom_constraints:
     sequence_limit: 2
     units_for: lc_length_value
@@ -243,7 +243,7 @@ fields:
 - constraints:
     enum:
     - C
-    required: true
+    required: false
   custom_constraints:
     sequence_limit: 2
     units_for: lc_temp_value
@@ -261,7 +261,7 @@ fields:
     - um
     - mm
     - cm
-    required: true
+    required: false
   custom_constraints:
     sequence_limit: 2
     units_for: lc_id_value

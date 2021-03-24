@@ -276,11 +276,11 @@ LC column length.
 | required | `True` |
 
 ##### `lc_length_unit`
-units for LC column length (typically cm)
+units for LC column length (typically cm) Leave blank if not applicable.
 | constraint | value |
 | --- | --- |
 | enum | `um`, `mm`, or `cm` |
-| required | `True` |
+| required | `False` |
 | units for | `lc_length_value` |
 
 ##### `lc_temp_value`
@@ -291,11 +291,11 @@ LC temperature.
 | required | `True` |
 
 ##### `lc_temp_unit`
-units for LC temperature.
+units for LC temperature. Leave blank if not applicable.
 | constraint | value |
 | --- | --- |
 | enum | `C` |
-| required | `True` |
+| required | `False` |
 | units for | `lc_temp_value` |
 
 ##### `lc_id_value`
@@ -306,11 +306,11 @@ LC column inner diameter (microns)
 | required | `True` |
 
 ##### `lc_id_unit`
-units of LC column inner diameter (typically microns)
+units of LC column inner diameter (typically microns) Leave blank if not applicable.
 | constraint | value |
 | --- | --- |
 | enum | `um`, `mm`, or `cm` |
-| required | `True` |
+| required | `False` |
 | units for | `lc_id_value` |
 
 ##### `lc_flow_rate_value`
@@ -576,11 +576,11 @@ LC column length.
 | required | `True` |
 
 ##### `lc_length_unit`
-units for LC column length (typically cm)
+units for LC column length (typically cm) Leave blank if not applicable.
 | constraint | value |
 | --- | --- |
 | enum | `um`, `mm`, or `cm` |
-| required | `True` |
+| required | `False` |
 | units for | `lc_length_value` |
 
 ##### `lc_temp_value`
@@ -591,11 +591,11 @@ LC temperature.
 | required | `True` |
 
 ##### `lc_temp_unit`
-units for LC temperature.
+units for LC temperature. Leave blank if not applicable.
 | constraint | value |
 | --- | --- |
 | enum | `C` |
-| required | `True` |
+| required | `False` |
 | units for | `lc_temp_value` |
 
 ##### `lc_id_value`
@@ -606,11 +606,11 @@ LC column inner diameter (microns)
 | required | `True` |
 
 ##### `lc_id_unit`
-units of LC column inner diameter (typically microns)
+units of LC column inner diameter (typically microns) Leave blank if not applicable.
 | constraint | value |
 | --- | --- |
 | enum | `um`, `mm`, or `cm` |
-| required | `True` |
+| required | `False` |
 | units for | `lc_id_value` |
 
 ##### `lc_flow_rate_value`

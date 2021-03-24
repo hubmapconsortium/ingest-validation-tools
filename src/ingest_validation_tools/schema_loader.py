@@ -219,6 +219,7 @@ def _add_constraints(field, optional_fields, offline=None, names=None):
                 break
         if target in names:
             field['custom_constraints']['units_for'] = target
+            field['constraints']['required'] = False
 
     # Guess types:
     if field['name'].startswith('is_'):

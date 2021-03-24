@@ -188,11 +188,11 @@ Amount of DNA input into library preparation.
 | required | `True` |
 
 ##### `dna_assay_input_unit`
-Units of DNA input into library preparation.
+Units of DNA input into library preparation. Leave blank if not applicable.
 | constraint | value |
 | --- | --- |
 | enum | `ug` |
-| required | `True` |
+| required | `False` |
 | units for | `dna_assay_input_value` |
 
 ##### `library_construction_method`
@@ -231,11 +231,11 @@ Total amount of library after final pcr amplification step.
 | required | `True` |
 
 ##### `library_final_yield_unit`
-Total units of library after final pcr amplification step.
+Total units of library after final pcr amplification step. Leave blank if not applicable.
 | constraint | value |
 | --- | --- |
 | enum | `ng` |
-| required | `True` |
+| required | `False` |
 | units for | `library_final_yield` |
 
 ##### `library_average_fragment_size`
@@ -409,11 +409,11 @@ Amount of DNA input into library preparation.
 | required | `True` |
 
 ##### `dna_assay_input_unit`
-Units of DNA input into library preparation.
+Units of DNA input into library preparation. Leave blank if not applicable.
 | constraint | value |
 | --- | --- |
 | enum | `ug` |
-| required | `True` |
+| required | `False` |
 | units for | `dna_assay_input_value` |
 
 ##### `library_construction_method`
@@ -452,11 +452,11 @@ Total amount of library after final pcr amplification step.
 | required | `True` |
 
 ##### `library_final_yield_unit`
-Total units of library after final pcr amplification step.
+Total units of library after final pcr amplification step. Leave blank if not applicable.
 | constraint | value |
 | --- | --- |
 | enum | `ng` |
-| required | `True` |
+| required | `False` |
 | units for | `library_final_yield` |
 
 ##### `library_average_fragment_size`

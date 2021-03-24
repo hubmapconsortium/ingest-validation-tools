@@ -270,11 +270,11 @@ Frequency value of laser ablation (in Hz)
 | required | `True` |
 
 ##### `ablation_frequency_unit`
-Frequency unit of laser ablation.
+Frequency unit of laser ablation. Leave blank if not applicable.
 | constraint | value |
 | --- | --- |
 | enum | `Hz` |
-| required | `True` |
+| required | `False` |
 | units for | `ablation_frequency_value` |
 
 ##### `roi_description`
@@ -304,11 +304,11 @@ Image width value of the ROI acquisition.
 | required | `True` |
 
 ##### `max_x_width_unit`
-Units of image width of the ROI acquisition.
+Units of image width of the ROI acquisition. Leave blank if not applicable.
 | constraint | value |
 | --- | --- |
 | enum | `um` |
-| required | `True` |
+| required | `False` |
 | units for | `max_x_width_value` |
 
 ##### `max_y_height_value`
@@ -319,11 +319,11 @@ Image height value of the ROI acquisition.
 | required | `True` |
 
 ##### `max_y_height_unit`
-Units of image height of the ROI acquisition.
+Units of image height of the ROI acquisition. Leave blank if not applicable.
 | constraint | value |
 | --- | --- |
 | enum | `um` |
-| required | `True` |
+| required | `False` |
 | units for | `max_y_height_value` |
 
 ##### `segment_data_format`
@@ -542,11 +542,11 @@ Frequency value of laser ablation (in Hz)
 | required | `True` |
 
 ##### `ablation_frequency_unit`
-Frequency unit of laser ablation.
+Frequency unit of laser ablation. Leave blank if not applicable.
 | constraint | value |
 | --- | --- |
 | enum | `Hz` |
-| required | `True` |
+| required | `False` |
 | units for | `ablation_frequency_value` |
 
 ##### `roi_description`
@@ -576,11 +576,11 @@ Image width value of the ROI acquisition.
 | required | `True` |
 
 ##### `max_x_width_unit`
-Units of image width of the ROI acquisition.
+Units of image width of the ROI acquisition. Leave blank if not applicable.
 | constraint | value |
 | --- | --- |
 | enum | `um` |
-| required | `True` |
+| required | `False` |
 | units for | `max_x_width_value` |
 
 ##### `max_y_height_value`
@@ -591,11 +591,11 @@ Image height value of the ROI acquisition.
 | required | `True` |
 
 ##### `max_y_height_unit`
-Units of image height of the ROI acquisition.
+Units of image height of the ROI acquisition. Leave blank if not applicable.
 | constraint | value |
 | --- | --- |
 | enum | `um` |
-| required | `True` |
+| required | `False` |
 | units for | `max_y_height_value` |
 
 ##### `segment_data_format`

@@ -108,10 +108,10 @@ Time interval between cessation of blood flow and cooling to 4C. Leave blank if 
 | required | `False` |
 
 ##### `warm_ischemia_time_unit`
-Time unit.
+Time unit. Leave blank if not applicable.
 | constraint | value |
 | --- | --- |
-| required | `True` |
+| required | `False` |
 | enum | `minutes` |
 | units for | `warm_ischemia_time_value` |
 
@@ -123,10 +123,10 @@ Time interval on ice to the start of preservation protocol. Leave blank if not a
 | required | `False` |
 
 ##### `cold_ischemia_time_unit`
-Time unit.
+Time unit. Leave blank if not applicable.
 | constraint | value |
 | --- | --- |
-| required | `True` |
+| required | `False` |
 | enum | `minutes` |
 | units for | `cold_ischemia_time_value` |
 

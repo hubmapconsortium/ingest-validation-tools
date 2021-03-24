@@ -305,11 +305,11 @@ Total number of ng of library after final pcr amplification step. This is the co
 | required | `True` |
 
 ##### `library_final_yield_unit`
-Units of final library yield.
+Units of final library yield. Leave blank if not applicable.
 | constraint | value |
 | --- | --- |
 | enum | `ng` |
-| required | `True` |
+| required | `False` |
 | units for | `library_final_yield_value` |
 
 ##### `library_average_fragment_size`
@@ -588,11 +588,11 @@ Total number of ng of library after final pcr amplification step. This is the co
 | required | `True` |
 
 ##### `library_final_yield_unit`
-Units of final library yield.
+Units of final library yield. Leave blank if not applicable.
 | constraint | value |
 | --- | --- |
 | enum | `ng` |
-| required | `True` |
+| required | `False` |
 | units for | `library_final_yield_value` |
 
 ##### `library_average_fragment_size`

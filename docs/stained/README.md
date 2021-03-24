@@ -178,11 +178,11 @@ The width of a pixel.
 | required | `True` |
 
 ##### `resolution_x_unit`
-The unit of measurement of the width of a pixel.
+The unit of measurement of the width of a pixel. Leave blank if not applicable.
 | constraint | value |
 | --- | --- |
 | enum | `nm` or `um` |
-| required | `True` |
+| required | `False` |
 | units for | `resolution_x_value` |
 
 ##### `resolution_y_value`
@@ -193,11 +193,11 @@ The height of a pixel.
 | required | `True` |
 
 ##### `resolution_y_unit`
-The unit of measurement of the height of a pixel.
+The unit of measurement of the height of a pixel. Leave blank if not applicable.
 | constraint | value |
 | --- | --- |
 | enum | `nm` or `um` |
-| required | `True` |
+| required | `False` |
 | units for | `resolution_y_value` |
 
 ##### `resolution_z_value`
@@ -208,11 +208,11 @@ Optional if assay does not have multiple z-levels. Note that this is resolution 
 | required | `True` |
 
 ##### `resolution_z_unit`
-The unit of incremental distance between image slices.
+The unit of incremental distance between image slices. Leave blank if not applicable.
 | constraint | value |
 | --- | --- |
 | enum | `nm` or `um` |
-| required | `True` |
+| required | `False` |
 | units for | `resolution_z_value` |
 
 ##### `stain`
@@ -362,11 +362,11 @@ The width of a pixel.
 | required | `True` |
 
 ##### `resolution_x_unit`
-The unit of measurement of the width of a pixel.
+The unit of measurement of the width of a pixel. Leave blank if not applicable.
 | constraint | value |
 | --- | --- |
 | enum | `nm` or `um` |
-| required | `True` |
+| required | `False` |
 | units for | `resolution_x_value` |
 
 ##### `resolution_y_value`
@@ -377,11 +377,11 @@ The height of a pixel.
 | required | `True` |
 
 ##### `resolution_y_unit`
-The unit of measurement of the height of a pixel.
+The unit of measurement of the height of a pixel. Leave blank if not applicable.
 | constraint | value |
 | --- | --- |
 | enum | `nm` or `um` |
-| required | `True` |
+| required | `False` |
 | units for | `resolution_y_value` |
 
 ##### `resolution_z_value`
@@ -392,11 +392,11 @@ Optional if assay does not have multiple z-levels. Note that this is resolution 
 | required | `True` |
 
 ##### `resolution_z_unit`
-The unit of incremental distance between image slices.
+The unit of incremental distance between image slices. Leave blank if not applicable.
 | constraint | value |
 | --- | --- |
 | enum | `nm` or `um` |
-| required | `True` |
+| required | `False` |
 | units for | `resolution_z_value` |
 
 ##### `stain`
