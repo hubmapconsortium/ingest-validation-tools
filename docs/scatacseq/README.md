@@ -351,9 +351,10 @@ Reagent kit used for sequencing. NovaSeq6000 for example.
 | required | `True` |
 
 ##### `sequencing_read_format`
-Number of sequencing cycles in Read1, i7 index, i5 index, and Read2. Eg: for 10X snATAC-seq: 50+8+16+50 (R1,Index,R2,R3). For SNARE-seq2: 75+94+8+75.
+Number of sequencing cycles in Read1, i7 index, i5 index, and Read2. Eg: for 10X snATAC-seq: 50+8+16+50 (R1,Index,R2,R3). For SNARE-seq2: 75+94+8+75. Example: `12/34/56`.
 | constraint | value |
 | --- | --- |
+| pattern (regular expression) | `\d+(/\d+)+` |
 | required | `True` |
 
 ##### `sequencing_read_percent_q30`
