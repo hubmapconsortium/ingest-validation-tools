@@ -167,7 +167,6 @@ fields:
     required: true
   description: The manufacturer of the instrument used to prepare the sample for the
     assay.
-  heading: Level 3
   name: preparation_instrument_vendor
 - constraints:
     enum:
