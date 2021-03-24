@@ -207,6 +207,8 @@ def _add_constraints(field, optional_fields, offline=None):
         field['custom_constraints']['url'] = {'prefix': 'https://dx.doi.org/'}
     if field['name'].endswith('_email'):
         field['format'] = 'email'
+    if field['name'].endswith('_units'):
+        field['custom_constraints']['units_for'] = field['name'].replace('_units', '')
 
     # Guess types:
     if field['name'].startswith('is_'):
