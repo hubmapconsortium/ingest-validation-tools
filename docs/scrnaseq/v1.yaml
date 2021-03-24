@@ -117,6 +117,11 @@ fields:
   name: sc_isolation_protocols_io_doi
   type: string
 - constraints:
+    enum:
+    - whole cell
+    - nucleus
+    - cell-cell multimer
+    - spatially encoded cell barcoding
     required: true
   description: The type of single cell entity derived from isolation protocol
   name: sc_isolation_entity
@@ -125,6 +130,9 @@ fields:
   description: The method by which tissues are dissociated into single cells in suspension.
   name: sc_isolation_tissue_dissociation
 - constraints:
+    enum:
+    - none
+    - FACS
     required: false
   description: The method by which specific cell populations are sorted or enriched.
   name: sc_isolation_enrichment
@@ -158,13 +166,18 @@ fields:
   name: library_construction_protocols_io_doi
   type: string
 - constraints:
+    enum:
+    - single-end
+    - paired-end
     required: true
   description: Whether the library was generated for single-end or paired end sequencing
   name: library_layout
 - constraints:
+    pattern: '[ATCG]+(\+[ATCG]+)?'
     required: true
   description: Adapter sequence to be used for adapter trimming
   name: library_adapter_sequence
+  type: string
 - constraints:
     required: true
   description: An id for the library. The id may be text and/or numbers
@@ -179,21 +192,27 @@ fields:
   description: Which read file contains the cell barcode
   name: cell_barcode_read
 - constraints:
+    pattern: \d+(,\d+)*
     required: true
   description: Position(s) in the read at which the cell barcode starts.
   name: cell_barcode_offset
+  type: string
 - constraints:
+    pattern: \d+(,\d+)*
     required: true
   description: Length of the cell barcode in base pairs
   name: cell_barcode_size
+  type: string
 - constraints:
     required: true
   description: Number of PCR cycles to amplify cDNA
   name: library_pcr_cycles
+  type: integer
 - constraints:
     required: true
   description: Number of PCR cycles performed for library indexing
   name: library_pcr_cycles_for_sample_index
+  type: integer
 - constraints:
     required: true
   description: Total number of ng of library after final pcr amplification step. This

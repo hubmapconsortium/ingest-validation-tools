@@ -196,6 +196,7 @@ Link to a protocols document answering the question: How were single cells separ
 The type of single cell entity derived from isolation protocol.
 | constraint | value |
 | --- | --- |
+| enum | `whole cell`, `nucleus`, `cell-cell multimer`, or `spatially encoded cell barcoding` |
 | required | `True` |
 
 ##### `sc_isolation_tissue_dissociation`
@@ -209,6 +210,7 @@ The method by which specific cell populations are sorted or enriched. Leave blan
 | constraint | value |
 | --- | --- |
 | required | `False` |
+| enum | `none` or `FACS` |
 
 ##### `sc_isolation_quality_metric`
 A quality metric by visual inspection prior to cell lysis or defined by known parameters such as wells with several cells or no cells. This can be captured at a high level.
@@ -246,12 +248,14 @@ A link to the protocol document containing the library construction method (incl
 Whether the library was generated for single-end or paired end sequencing.
 | constraint | value |
 | --- | --- |
+| enum | `single-end` or `paired-end` |
 | required | `True` |
 
 ##### `library_adapter_sequence`
 Adapter sequence to be used for adapter trimming.
 | constraint | value |
 | --- | --- |
+| pattern (regular expression) | `[ATCG]+(\+[ATCG]+)?` |
 | required | `True` |
 
 ##### `library_id`
@@ -277,24 +281,28 @@ Which read file contains the cell barcode.
 Position(s) in the read at which the cell barcode starts.
 | constraint | value |
 | --- | --- |
+| pattern (regular expression) | `\d+(,\d+)*` |
 | required | `True` |
 
 ##### `cell_barcode_size`
 Length of the cell barcode in base pairs.
 | constraint | value |
 | --- | --- |
+| pattern (regular expression) | `\d+(,\d+)*` |
 | required | `True` |
 
 ##### `library_pcr_cycles`
 Number of PCR cycles to amplify cDNA.
 | constraint | value |
 | --- | --- |
+| type | `integer` |
 | required | `True` |
 
 ##### `library_pcr_cycles_for_sample_index`
 Number of PCR cycles performed for library indexing.
 | constraint | value |
 | --- | --- |
+| type | `integer` |
 | required | `True` |
 
 ##### `library_final_yield_value`
