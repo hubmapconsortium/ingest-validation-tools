@@ -1,6 +1,7 @@
 # Changelog
 
 ## v0.0.10 - in progress
+- Cleaned up description on 3D IMC directory schema.
 - Updated a description on 3D IMC directory schema.
 - Fixed typo in CODEX directory schema.
 - Make more fields optional in HCA scrnaseq.
