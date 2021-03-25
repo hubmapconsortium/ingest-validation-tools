@@ -19,7 +19,19 @@ For more information, see the [Antibodies TSV documentation](../antibodies).
 
 | pattern | required? | description |
 | --- | --- | --- |
-| `TODO` | ✓ | Directory structure not yet specified. |
+| `Level0/Channel+[^/]/[^/]+\.csv` | ✓ | **[QA/QC]** Contains metadata and channel info. |
+| `Level0/Channel+[^/]/[^/]+\.czi` |  | Zeiss raw image file. File is optional. |
+| `Level0/Channel+[^/]/[^/]+\.ome.tiff` | ✓ | Raw image file. |
+| `Level1/Channel+[^/]/[^/]+\.tif` |  | Stitched image. File is optional. |
+| `Level1/Channel+[^/]/[^/]+\.mp4` |  | Stitched image. File is optional. |
+| `Level2/Channel+[^/]/[^/]+\.csv` |  | **[QA/QC]** Contains file, parent and bounds. Required when level 2 is populated. File is optional. |
+| `Level2/Channel+[^/]/[^/]+\.obj` |  | Segmentation mask. File is optional. |
+| `Level2/Channel+[^/]/[^/]+\.stl` |  | Segmentation mask. File is optional. |
+| `Level2/Channel+[^/]/[^/]+\.ome.tiff` |  | Segmentation mask. File is optional. |
+| `Level3/Channel+[^/]/[^/]+\.csv` |  | **[QA/QC]** Contains file, parent and bounds. Required when level 3 is populated. File is optional. |
+| `Level3/Channel+[^/]/[^/]+\.obj` |  | Annotation file. File is optional. |
+| `Level3/Channel+[^/]/[^/]+\.stl` |  | Annotation file. File is optional. |
+| `Level3/Channel+[^/]/[^/]+\.ome.tiff` |  | Annotation file. File is optional. |
 | `extras/.*` |  | Free-form descriptive information supplied by the TMC |
 | `extras/thumbnail\.(png\|jpg)` |  | Optional thumbnail image which may be shown in search interface |
 
