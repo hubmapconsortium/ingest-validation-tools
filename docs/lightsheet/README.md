@@ -19,7 +19,7 @@ For more information, see the [Antibodies TSV documentation](../antibodies).
 
 | pattern | required? | description |
 | --- | --- | --- |
-| `Level0/Channel+[^/]/[^/]+\.csv` | ✓ | **[QA/QC]** Contains metadata and channel info. |
+| `Level0/Channel[^/]+/[^/]+\.csv` | ✓ | **[QA/QC]** Contains metadata and channel info. |
 | `Level0/Channel+[^/]/[^/]+\.czi` |  | Zeiss raw image file. File is optional. |
 | `Level0/Channel+[^/]/[^/]+\.ome.tiff` | ✓ | Raw image file. |
 | `Level1/Channel+[^/]/[^/]+\.tif` |  | Stitched image. File is optional. |
