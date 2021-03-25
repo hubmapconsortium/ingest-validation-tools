@@ -41,7 +41,7 @@ pip install -r requirements.txt
 src/validate_submission.py --help
 ```
 
-You should see [the documention for `validate_submission.py`](README-validate_submission.py.md)
+You should see [the documention for `validate_submission.py`](script-docs/README-validate_submission.py.md)
 
 Now run it against one of the included examples, giving the path to a submission directory:
 ```
@@ -64,7 +64,7 @@ Addition help for certain common error messages is available [here](README-valid
 
 If you don't have an entire submission directory at hand, the same command can validate individual metadata TSVs:
 ```
-src/validate_submission.py --tsv_paths dataset-examples/good-scatacseq/submission/metadata.tsv
+src/validate_submission.py --tsv_paths dataset-examples/good-scatacseq-v1/submission/metadata.tsv
 ```
 ```
 No errors!

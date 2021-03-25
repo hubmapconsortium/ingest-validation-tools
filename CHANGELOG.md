@@ -1,6 +1,21 @@
 # Changelog
 
-## v0.0.9 - in progress
+## v0.0.10 - in progress
+- Fixed typo in CODEX directory schema.
+- Make more fields optional in HCA scrnaseq.
+- Make it work with Python 3.6.
+- Create subdirectories for `examples` and `tests` to clean up the top level.
+- Add v1 for all schemas.
+- Introduce scrnaseq-hca.
+- Look for a `source_project` field to distinguish schemas.
+- Move script docs into subdirectory, and improve coverage.
+- Put TOC in blockquote: semantics are't right, but it indents.
+- Simplify sample ID regex.
+- Cache network responses to disk.
+- Add the generated YAML to the output directory.
+- Generate a report about the metadata values used in Elasticsearch.
+
+## v0.0.9 - 2021-03-16
 - Fix typo in CellDIVE.
 - Update CLI usage to highlight sample validation.
 - Update lightsheet docs.
@@ -29,6 +44,8 @@
 - Slightly better errors when a directory is found when a TSV is expected.
 - Make as_text_list the default output format.
 - Script to generate CSV for fields and enums.
+- Add version number to schemas.
+- Clarify guidelines for direction schemas.
 
 ## v0.0.8 - 2021-02-10
 - Update CODEX directory structure

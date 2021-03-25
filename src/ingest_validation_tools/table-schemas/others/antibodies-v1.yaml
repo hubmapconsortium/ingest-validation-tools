@@ -1,0 +1,50 @@
+description_md: |
+  Changes:
+  - v1: Version number added.
+fields:
+  -
+    name: version
+    description: Current version of metadata schema. Template provides the correct value.
+    constraints:
+      enum: ['1']
+  -
+    name: channel_id
+    description: Structure of channel_id depends on assay type.
+  -
+    name: antibody_name
+    description: Anti-(target name) antibody. Not validated or used down-stream.
+  -
+    name: rr_id
+    description: 'The rr_id is a unique antibody identifier that comes from the Antibody Registry (https://antibodyregistry.org).'
+    constraints:
+      pattern: 'AB_\d+'
+    custom_constraints:
+      url:
+        prefix: 'https://scicrunch.org/resolver/RRID:'
+    example: AB_10002075
+  -
+    name: uniprot_accession_number
+    description: 'The uniprot_accession_number is a unique identifier for proteins in the UniProt database (https://www.uniprot.org).'
+    custom_constraints:
+      url:
+        prefix: 'https://www.uniprot.org/uniprot/'
+  -
+    name: lot_number
+    description: 'The lot# is specific to the vendor. (eg: Abcam lot# GR3238979-1)'
+  -
+    name: dilution
+    description: Antibody solutions may be diluted according to the experimental protocol.
+    constraints:
+      required: False
+      pattern: '1/\d+'
+    example: 1/200
+  -
+    name: conjugated_cat_number
+    description: An antibody may be conjugated to a fluorescent tag or a metal tag for detection. Conjugated antibodies may be purchased from commercial providers. 
+    constraints:
+      required: False
+  -
+    name: conjugated_tag
+    description: The name of the entity conjugated to the antibody.
+    constraints:
+      required: False
