@@ -1,0 +1,151 @@
+doc_url: https://portal.hubmapconsortium.org/docs/assays/atacseq
+fields:
+  # include: ../includes/vA/all_assays.yaml
+  -
+    name: assay_category
+    constraints:
+      enum:
+        - sequence
+  -
+    name: assay_type
+    constraints:
+      enum:
+        - SNARE-seq2
+        - scATACseq
+        - sciATACseq
+        - snATACseq
+  -
+    name: analyte_class
+    constraints:
+      enum:
+        - DNA
+  # include: ../includes/v0/is_targeted.yaml
+
+  # Level 2 fields:
+  # include: ../includes/v0/acquisition_instrument.yaml
+  -
+    name: is_technical_replicate
+    description: If TRUE, fastq files in dataset need to be merged.
+  -
+    name: library_id
+    description: A library ID, unique within a TMC, which allows corresponding RNA and chromatin accessibility datasets to be linked.
+  -
+    name: sc_isolation_protocols_io_doi
+    description: 'Link to a protocols document answering the question: How were single cells separated into a single-cell suspension?'
+  -
+    name: sc_isolation_entity
+    description: The type of single cell entity derived from isolation protocol.
+    constraints:
+      enum:
+        - whole cell
+        - nucleus
+        - cell-cell multimer
+        - spatially encoded cell barcoding
+  -
+    name: sc_isolation_tissue_dissociation
+    description: The method by which tissues are dissociated into single cells in suspension.
+  -
+    name: sc_isolation_enrichment
+    description: The method by which specific cell populations are sorted or enriched.
+    constraints:
+      enum:
+        - none
+        - FACS
+  -
+    name: sc_isolation_quality_metric
+    description: 'A quality metric by visual inspection prior to cell lysis or defined by known parameters such as wells with several cells or no cells. This can be captured at a high level. "OK" or "not OK", or with more specificity such as "debris", "clump", "low clump".'
+  -
+    name: sc_isolation_cell_number
+    description: Total number of cell/nuclei yielded post dissociation and enrichment.
+    type: integer
+  -
+    name: transposition_input
+    description: Number of cell/nuclei input to the assay.
+    type: number
+  -
+    name: transposition_method
+    description: Modality of capturing accessible chromatin molecules.
+    constraints:
+      enum:
+        - SNARE-Seq2-AC
+        - scATACseq
+        - bulkATACseq
+        - snATACseq
+        - sciATACseq
+  -
+    name: transposition_transposase_source
+    description: The source of the Tn5 transposase and transposon used for capturing accessible chromatin.
+    constraints:
+      enum:
+        - 10X snATAC
+        - In-house
+        - Nextera
+  -
+    name: transposition_kit_number
+    description: If Tn5 came from a kit, provide the catalog number.
+    constraints:
+      required: False
+  -
+    name: library_construction_protocols_io_doi
+    description: A link to the protocol document containing the library construction method (including version) that was used, e.g. "Smart-Seq2", "Drop-Seq", "10X v3". DOI for protocols.io referring to the protocol for this assay.
+  -
+    name: library_layout
+    description: Whether the library was generated for single-end or paired end sequencing.
+    constraints:
+      enum:
+        - single-end
+        - paired-end
+  -
+    name: library_adapter_sequence
+    description: Adapter sequence to be used for adapter trimming.
+    constraints:
+      pattern: '[ATCG]+(\+[ATCG]+)?'
+  -
+    name: cell_barcode_read
+    description: Which read file contains the cell barcode.
+  -
+    name: cell_barcode_offset
+    description: Positions in the read at which the cell barcodes start. Cell barcodes are, for example, 3 x 8 bp sequences that are spaced by constant sequences (the offsets). First barcode at position 0, then 38, then 76. (Does not apply to SNARE-seq and BulkATAC.)
+    constraints:
+      pattern: '\d+(,\d+)*'
+  -
+    name: cell_barcode_size
+    description: Length of the cell barcode in base pairs. Cell barcodes are, for example, 3 x 8 bp sequences that are spaced by constant sequences, the offsets. (Does not apply to SNARE-seq and BulkATAC.)
+    constraints:
+      pattern: '\d+(,\d+)*'
+  -
+    name: library_pcr_cycles
+    description: Number of PCR cycles to enrich for accessible chromatin fragments.
+    type: integer
+  -
+    name: library_pcr_cycles_for_sample_index
+    description: Number of PCR cycles performed for library generation (figure in Descriptions section)
+    type: integer
+  -
+    name: library_final_yield
+    description: Total ng of library after final pcr amplification step.
+    type: number
+  -
+    name: library_final_yield_unit
+    description: Units for library_final_yield
+    constraints:
+      enum:
+        - ng
+  -
+    name: library_average_fragment_size
+    description: Average size of sequencing library fragments estimated via gel electrophoresis or bioanalyzer/tapestation. Numeric value in bp.
+    type: number
+  -
+    name: sequencing_reagent_kit
+    description: Reagent kit used for sequencing. NovaSeq6000 for example
+  -
+    name: sequencing_read_format
+    description: 'Number of sequencing cycles in Read1, i7 index, i5 index, and Read2. Eg: for 10X snATAC-seq: 50+8+16+50 (R1,Index,R2,R3). For SNARE-seq2: 75+94+8+75'
+  -
+    name: sequencing_read_percent_q30
+    description: 'Percent of bases with Quality scores above Q30.'
+  -
+    name: sequencing_phix_percent
+    description: 'Percent PhiX loaded to the run.'
+
+  # include: ../includes/v0/paths.yaml

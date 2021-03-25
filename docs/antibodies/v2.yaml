@@ -1,0 +1,75 @@
+# Generated YAML: PRs should not start here!
+description_md: 'Changes:
+
+  - v1: Version number added.
+
+  - v2: Add concentration fields.
+
+  '
+fields:
+- constraints:
+    enum:
+    - '2'
+    required: true
+  description: Current version of metadata schema. Template provides the correct value.
+  name: version
+- constraints:
+    required: true
+  description: Structure of channel_id depends on assay type.
+  name: channel_id
+- constraints:
+    required: true
+  description: Anti-(target name) antibody. Not validated or used down-stream.
+  name: antibody_name
+- constraints:
+    pattern: AB_\d+
+    required: true
+  custom_constraints:
+    url:
+      prefix: 'https://scicrunch.org/resolver/RRID:'
+  description: The rr_id is a unique antibody identifier that comes from the Antibody
+    Registry (https://antibodyregistry.org).
+  example: AB_10002075
+  name: rr_id
+  type: string
+- constraints:
+    required: true
+  custom_constraints:
+    url:
+      prefix: https://www.uniprot.org/uniprot/
+  description: The uniprot_accession_number is a unique identifier for proteins in
+    the UniProt database (https://www.uniprot.org).
+  name: uniprot_accession_number
+- constraints:
+    required: true
+  description: 'The lot# is specific to the vendor. (eg: Abcam lot# GR3238979-1)'
+  name: lot_number
+- constraints:
+    pattern: 1/\d+
+    required: false
+  description: Antibody solutions may be diluted according to the experimental protocol.
+  example: 1/200
+  name: dilution
+  type: string
+- constraints:
+    required: false
+  description: The concentration value of the antibody preparation.
+  name: concentration_value
+  type: number
+- constraints:
+    enum:
+    - ug/ml
+    required: false
+  custom_constraints:
+    units_for: concentration_value
+  description: The concentration units of the antibody preparation.
+  name: concentration_unit
+- constraints:
+    required: false
+  description: An antibody may be conjugated to a fluorescent tag or a metal tag for
+    detection. Conjugated antibodies may be purchased from commercial providers.
+  name: conjugated_cat_number
+- constraints:
+    required: false
+  description: The name of the entity conjugated to the antibody.
+  name: conjugated_tag
