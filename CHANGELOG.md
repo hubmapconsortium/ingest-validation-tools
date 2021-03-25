@@ -1,6 +1,7 @@
 # Changelog
 
 ## v0.0.10 - in progress
+- Introduced Lightsheet directory schema.
 - Fixed typo in CODEX directory schema.
 - Make more fields optional in HCA scrnaseq.
 - Make it work with Python 3.6.
