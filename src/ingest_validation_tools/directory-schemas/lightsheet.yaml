@@ -1,6 +1,6 @@
 # Level0/
 -
-  pattern: 'Level0/Channel+[^/]/[^/]+\.csv'
+  pattern: 'Level0/Channel[^/]+/[^/]+\.csv'
   description: 'Contains metadata and channel info.'
   required: True
   is_qa_qc: True
