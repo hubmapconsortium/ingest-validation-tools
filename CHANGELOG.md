@@ -1,6 +1,7 @@
 # Changelog
 
 ## v0.0.10 - in progress
+- Fixed typo in CODEX directory schema.
 - Make more fields optional in HCA scrnaseq.
 - Make it work with Python 3.6.
 - Create subdirectories for `examples` and `tests` to clean up the top level.
