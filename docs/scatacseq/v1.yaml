@@ -265,8 +265,7 @@ fields:
 - constraints:
     pattern: \d+(/\d+)+
     required: true
-  description: 'Number of sequencing cycles in Read1, i7 index, i5 index, and Read2.
-    Eg: for 10X snATAC-seq: 50+8+16+50 (R1,Index,R2,R3). For SNARE-seq2: 75+94+8+75'
+  description: Number of sequencing cycles in Read1, i7 index, i5 index, and Read2.
   example: 12/34/56
   name: sequencing_read_format
   type: string
