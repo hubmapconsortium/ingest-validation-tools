@@ -1,6 +1,7 @@
 # Changelog
 
 ## v0.0.10 - in progress
+- Consistent pattern constraint for sequencing_read_format.
 - Diagram of overall repo structure; Explain doc build process.
 - Remove vestigial "Level 3".
 - Fixed typo in CODEX directory schema.
