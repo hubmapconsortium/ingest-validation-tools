@@ -1,6 +1,7 @@
 # Changelog
 
 ## v0.0.10 - in progress
+- Diagram of overall repo structure; Explain doc build process.
 - Remove vestigial "Level 3".
 - Fixed typo in CODEX directory schema.
 - Make more fields optional in HCA scrnaseq.
