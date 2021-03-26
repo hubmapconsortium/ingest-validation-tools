@@ -133,7 +133,7 @@ fields:
     enum:
     - none
     - FACS
-    required: false
+    required: true
   description: The method by which specific cell populations are sorted or enriched.
   name: sc_isolation_enrichment
 - constraints:

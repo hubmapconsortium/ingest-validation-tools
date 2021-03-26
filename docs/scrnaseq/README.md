@@ -206,11 +206,11 @@ The method by which tissues are dissociated into single cells in suspension.
 | required | `True` |
 
 ##### `sc_isolation_enrichment`
-The method by which specific cell populations are sorted or enriched. Leave blank if not applicable.
+The method by which specific cell populations are sorted or enriched.
 | constraint | value |
 | --- | --- |
-| required | `False` |
 | enum | `none` or `FACS` |
+| required | `True` |
 
 ##### `sc_isolation_quality_metric`
 A quality metric by visual inspection prior to cell lysis or defined by known parameters such as wells with several cells or no cells. This can be captured at a high level.
