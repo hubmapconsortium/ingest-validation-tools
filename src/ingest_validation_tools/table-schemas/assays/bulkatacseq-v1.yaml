@@ -86,6 +86,7 @@ fields:
   description: Slash-delimited list of the number of sequencing cycles for, for example, Read1, i7 index, i5 index, and Read2.
   constraints:
     pattern: '\d+(/\d+)+'
+  example: '12/34/56'
 - name: sequencing_read_percent_q30
   description: Percent of bases with Quality scores above Q30
 - name: sequencing_reagent_kit
