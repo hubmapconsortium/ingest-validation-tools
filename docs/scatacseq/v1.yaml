@@ -6,6 +6,7 @@ fields:
     - '1'
     required: true
   description: Version of the schema to use when validating this metadata.
+  heading: Shared by all types
   name: version
 - constraints:
     required: true
@@ -16,7 +17,6 @@ fields:
     required: true
   description: HuBMAP Display ID of the donor of the assayed tissue.
   example: ABC123
-  heading: Shared by all types
   name: donor_id
   type: string
 - constraints:

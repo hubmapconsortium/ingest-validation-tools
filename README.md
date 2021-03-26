@@ -64,7 +64,7 @@ Addition help for certain common error messages is available [here](README-valid
 
 If you don't have an entire submission directory at hand, the same command can validate individual metadata TSVs:
 ```
-src/validate_submission.py --tsv_paths dataset-examples/good-scatacseq/submission/metadata.tsv
+src/validate_submission.py --tsv_paths dataset-examples/good-scatacseq-v1/submission/metadata.tsv
 ```
 ```
 No errors!

@@ -1,15 +1,6 @@
 doc_url: https://portal.hubmapconsortium.org/docs/assays/atacseq
 fields:
-  -
-    name: version
-    description: Version of the schema to use when validating this metadata.
-    constraints:
-      enum:
-        - '1'
-  -
-    name: description
-    description: Free-text description of this assay.
-  # include: ../includes/v0/all_assays.yaml
+  # include: ../includes/vA/all_assays.yaml
   -
     name: assay_category
     constraints:

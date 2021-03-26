@@ -1,0 +1,63 @@
+doc_url: https://portal.hubmapconsortium.org/docs/assays/imc
+description_md:
+  IMC submissions require metadata on the antibodies used in the assay to be
+  provided in an Antibodies TSV. For IMC, the `channel_id` is the name of the
+  metal tag on the corresponding antibody. 
+    
+  The other fields function the same way for all assays using antibodies.
+  For more information, see the [Antibodies TSV documentation](../antibodies).
+fields:
+# include: ../includes/vA/all_assays.yaml
+-
+  name: assay_category
+  constraints:
+    enum:
+      - mass_spectrometry_imaging
+
+-
+  name: assay_type
+  constraints:
+    enum:
+      - Imaging Mass Cytometry
+-
+  name: analyte_class
+  constraints:
+    enum:
+      - protein
+# include: ../includes/v0/is_targeted.yaml
+
+# Level 2 fields:
+# include: ../includes/v0/acquisition_instrument.yaml
+# include: ../includes/v0/prep_instrument.yaml
+# include: ../includes/v0/doi/section_prep.yaml
+# include: ../includes/v0/doi/reagent_prep.yaml
+- name: number_of_channels
+  description: Number of mass channels measured
+  type: number
+# include: ../includes/v0/ablation.yaml
+# include: ../includes/v0/imc_roi_id.yaml
+- name: dual_count_start
+  description: Threshold for dual counting.
+  type: number
+# include: ../includes/v0/imc_roi_dimensions.yaml
+- name: segment_data_format
+  description: This refers to the data type, which is a "float" for the IMC counts.
+  constraints:
+    enum:
+      - float
+      - integer
+      - string
+- name: signal_type
+  description: Type of signal measured per channel (usually dual counts)
+  constraints:
+    enum:
+      - dual count
+      - pulse count
+      - intensity value
+- name: data_precision_bytes
+  description: Numerical data precision in bytes
+  type: number
+- name: antibodies_path
+  description: Relative path to file with antibody information for this dataset.
+
+# include: ../includes/v0/paths.yaml
