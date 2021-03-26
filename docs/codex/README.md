@@ -21,7 +21,7 @@ For more information, see the [Antibodies TSV documentation](../antibodies).
 
 | pattern | example | required? | description |
 | --- | --- | --- | --- |
-| `[^/]+NAV[^/]*\.tif` |  |  | Navigational Image showing Region of Interest (Keyance Microscope only) |
+| `NAV[^/]+\.tif` |  |  | Navigational Image showing Region of Interest (Keyance Microscope only) |
 | `.+\.pdf` | `summary.pdf` | ✓ | **[QA/QC]** PDF export of Powerpoint slide deck containing the Image Analysis Report |
 | `drv_[^/]+/channelNames\.txt` |  | ✓ | Text file produced by the Akoya software which contains the (linearized) channel number and the Name/ID/Target of the channel (required for HuBMAP pipeline) |
 | `src_[^/]+/experiment\.json` |  | ✓ | JSON file produced by the Akoya software which contains the metadata for the experiment, including the software version used, microscope parameters, channel names, pixel dimensions, etc. (required for HuBMAP pipeline) |
@@ -71,10 +71,6 @@ For more information, see the [Antibodies TSV documentation](../antibodies).
 [`resolution_y_unit`](#resolution_y_unit)<br>
 [`resolution_z_value`](#resolution_z_value)<br>
 [`resolution_z_unit`](#resolution_z_unit)<br>
-</details>
-
-<details><summary>Level 3</summary>
-
 [`preparation_instrument_vendor`](#preparation_instrument_vendor)<br>
 [`preparation_instrument_model`](#preparation_instrument_model)<br>
 [`number_of_antibodies`](#number_of_antibodies)<br>
@@ -241,8 +237,6 @@ The unit of incremental distance between image slices.(um)
 | --- | --- |
 | enum | `mm`, `um`, or `nm` |
 | required | `True` |
-
-### Level 3
 
 ##### `preparation_instrument_vendor`
 The manufacturer of the instrument used to prepare the sample for the assay.
