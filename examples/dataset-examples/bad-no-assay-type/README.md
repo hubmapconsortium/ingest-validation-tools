@@ -2,4 +2,7 @@
 Preflight: 'examples/dataset-examples/bad-no-assay-type/submission/bad-metadata.tsv
   does not contain "assay_type". Has "orcid_id": Contributors TSV found where metadata
   TSV expected.'
+Hint: 'If validation fails because of extra whitespace in the TSV, try:
+
+  src/cleanup_whitespace.py --tsv_path original.tsv > clean.tsv'
 ```

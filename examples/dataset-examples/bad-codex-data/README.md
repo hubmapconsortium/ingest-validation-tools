@@ -25,4 +25,7 @@ Metadata TSV Errors:
       row 2, antibodies examples/dataset-examples/bad-codex-data/submission/antibodies.tsv: "Invalid\
         \ ascii because ordinal not in range(128): \"mber\tconjugated_tag\n [ \xF0\
         \ ] \x9F\x98\x83\t\tbad-value\t\t\tinv\""
+Hint: 'If validation fails because of extra whitespace in the TSV, try:
+
+  src/cleanup_whitespace.py --tsv_path original.tsv > clean.tsv'
 ```

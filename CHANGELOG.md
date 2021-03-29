@@ -1,6 +1,7 @@
 # Changelog
 
 ## v0.0.10 - in progress
+- If it errors, add a note about cleanup_whitespace.py.
 - Apply missing constraints to scrnaseq.
 - Consistent pattern constraint for sequencing_read_format.
 - Diagram of overall repo structure; Explain doc build process.
