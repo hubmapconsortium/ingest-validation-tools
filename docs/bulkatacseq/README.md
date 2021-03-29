@@ -303,7 +303,7 @@ Percent PhiX loaded to the run.
 | maximum | `100` |
 
 ##### `sequencing_read_format`
-Slash-delimited list of the number of sequencing cycles for, for example, Read1, i7 index, i5 index, and Read2.
+Slash-delimited list of the number of sequencing cycles for, for example, Read1, i7 index, i5 index, and Read2. Example: `12/34/56`.
 | constraint | value |
 | --- | --- |
 | pattern (regular expression) | `\d+(/\d+)+` |

@@ -149,6 +149,11 @@ fields:
   name: sc_isolation_protocols_io_doi
   type: string
 - constraints:
+    enum:
+    - whole cell
+    - nucleus
+    - cell-cell multimer
+    - spatially encoded cell barcoding
     required: true
   custom_constraints:
     sequence_limit: 2
@@ -161,7 +166,10 @@ fields:
   description: The method by which tissues are dissociated into single cells in suspension.
   name: sc_isolation_tissue_dissociation
 - constraints:
-    required: false
+    enum:
+    - none
+    - FACS
+    required: true
   custom_constraints:
     sequence_limit: 2
   description: The method by which specific cell populations are sorted or enriched.
@@ -205,17 +213,22 @@ fields:
   name: library_construction_protocols_io_doi
   type: string
 - constraints:
+    enum:
+    - single-end
+    - paired-end
     required: true
   custom_constraints:
     sequence_limit: 2
   description: Whether the library was generated for single-end or paired end sequencing
   name: library_layout
 - constraints:
+    pattern: '[ATCG]+(\+[ATCG]+)?'
     required: true
   custom_constraints:
     sequence_limit: 2
   description: Adapter sequence to be used for adapter trimming
   name: library_adapter_sequence
+  type: string
 - constraints:
     required: true
   custom_constraints:
@@ -236,29 +249,35 @@ fields:
   description: Which read file contains the cell barcode
   name: cell_barcode_read
 - constraints:
+    pattern: \d+(,\d+)*
     required: true
   custom_constraints:
     sequence_limit: 2
   description: Position(s) in the read at which the cell barcode starts.
   name: cell_barcode_offset
+  type: string
 - constraints:
+    pattern: \d+(,\d+)*
     required: true
   custom_constraints:
     sequence_limit: 2
   description: Length of the cell barcode in base pairs
   name: cell_barcode_size
+  type: string
 - constraints:
     required: true
   custom_constraints:
     sequence_limit: 2
   description: Number of PCR cycles to amplify cDNA
   name: library_pcr_cycles
+  type: integer
 - constraints:
     required: true
   custom_constraints:
     sequence_limit: 2
   description: Number of PCR cycles performed for library indexing
   name: library_pcr_cycles_for_sample_index
+  type: integer
 - constraints:
     required: true
   custom_constraints:
