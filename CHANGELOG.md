@@ -1,6 +1,7 @@
 # Changelog
 
 ## v0.0.10 - in progress
+- Apply "units_for": Units only required is value is given.
 - Check for auto-incremented fields.
 - Make more fields optional in HCA scrnaseq.
 - Make it work with Python 3.6.

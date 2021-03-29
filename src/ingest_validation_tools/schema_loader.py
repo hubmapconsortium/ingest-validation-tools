@@ -37,8 +37,9 @@ def get_other_schema(schema_name, version, source_project=None, offline=None):
     schema = load_yaml(
         _table_schemas_path / 'others' /
         _get_schema_filename(schema_name, version, source_project))
+    names = [field['name'] for field in schema['fields']]
     for field in schema['fields']:
-        _add_constraints(field, optional_fields=[], offline=offline)
+        _add_constraints(field, optional_fields=[], offline=offline, names=names)
     return schema
 
 
@@ -52,11 +53,12 @@ def get_table_schema(schema_name, version, source_project=None, optional_fields=
         _table_schemas_path / 'assays' /
         _get_schema_filename(schema_name, version, source_project))
 
+    names = [field['name'] for field in schema['fields']]
     for field in schema['fields']:
         _add_level_1_description(field)
         _validate_level_1_enum(field)
 
-        _add_constraints(field, optional_fields, offline=offline)
+        _add_constraints(field, optional_fields, offline=offline, names=names)
         _validate_field(field)
 
     return schema
@@ -157,7 +159,7 @@ def _validate_level_1_enum(field):
             'Allowed: {sorted(allowed)}'
 
 
-def _add_constraints(field, optional_fields, offline=None):
+def _add_constraints(field, optional_fields, offline=None, names=None):
     '''
     Modifies field in-place, adding implicit constraints
     based on the field name.
@@ -207,6 +209,17 @@ def _add_constraints(field, optional_fields, offline=None):
         field['custom_constraints']['url'] = {'prefix': 'https://dx.doi.org/'}
     if field['name'].endswith('_email'):
         field['format'] = 'email'
+    if field['name'].endswith('_unit'):
+        # Issues have been filed to make names more consistent:
+        # https://github.com/hubmapconsortium/ingest-validation-tools/issues/645
+        # https://github.com/hubmapconsortium/ingest-validation-tools/issues/646
+        for suffix in ['_value', '']:
+            target = field['name'].replace('_unit', suffix)
+            if target in names:
+                break
+        if target in names:
+            field['custom_constraints']['units_for'] = target
+            field['constraints']['required'] = False
 
     # Guess types:
     if field['name'].startswith('is_'):

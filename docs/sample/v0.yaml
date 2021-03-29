@@ -84,9 +84,10 @@ fields:
 - constraints:
     enum:
     - minutes
-    required: true
+    required: false
   custom_constraints:
     sequence_limit: 2
+    units_for: warm_ischemia_time_value
   description: Time unit
   name: warm_ischemia_time_unit
 - constraints:
@@ -99,9 +100,10 @@ fields:
 - constraints:
     enum:
     - minutes
-    required: true
+    required: false
   custom_constraints:
     sequence_limit: 2
+    units_for: cold_ischemia_time_value
   description: Time unit
   name: cold_ischemia_time_unit
 - constraints:
@@ -138,5 +140,6 @@ fields:
     required: false
   custom_constraints:
     sequence_limit: 2
+    units_for: specimen_tumor_distance_value
   description: Distance unit
   name: specimen_tumor_distance_unit

@@ -223,11 +223,12 @@ The concentration value of the pooled library samples submitted for sequencing.
 | required | `True` |
 
 ##### `library_concentration_unit`
-Unit of library_concentration_value.
+Unit of library_concentration_value. Leave blank if not applicable.
 | constraint | value |
 | --- | --- |
 | enum | `nM` |
-| required | `True` |
+| required | `False` |
+| units for | `library_concentration_value` |
 
 ##### `library_construction_protocols_io_doi`
 A link to the protocol document containing the library construction method (including version) that was used, e.g. "Smart-Seq2", "Drop-Seq", "10X v3".
@@ -253,11 +254,12 @@ Total amount (eg. nanograms) of library after the clean-up step of final pcr amp
 | required | `True` |
 
 ##### `library_final_yield_unit`
-Units of library final yield.
+Units of library final yield. Leave blank if not applicable.
 | constraint | value |
 | --- | --- |
 | enum | `ng` |
-| required | `True` |
+| required | `False` |
+| units for | `library_final_yield_value` |
 
 ##### `library_id`
 ID of the library sample.
@@ -499,11 +501,12 @@ The concentration value of the pooled library samples submitted for sequencing.
 | required | `True` |
 
 ##### `library_concentration_unit`
-Unit of library_concentration_value.
+Unit of library_concentration_value. Leave blank if not applicable.
 | constraint | value |
 | --- | --- |
 | enum | `nM` |
-| required | `True` |
+| required | `False` |
+| units for | `library_concentration_value` |
 
 ##### `library_construction_protocols_io_doi`
 A link to the protocol document containing the library construction method (including version) that was used, e.g. "Smart-Seq2", "Drop-Seq", "10X v3".
@@ -529,11 +532,12 @@ Total amount (eg. nanograms) of library after the clean-up step of final pcr amp
 | required | `True` |
 
 ##### `library_final_yield_unit`
-Units of library final yield.
+Units of library final yield. Leave blank if not applicable.
 | constraint | value |
 | --- | --- |
 | enum | `ng` |
-| required | `True` |
+| required | `False` |
+| units for | `library_final_yield_value` |
 
 ##### `library_id`
 ID of the library sample.

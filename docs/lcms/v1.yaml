@@ -241,9 +241,10 @@ fields:
     - um
     - mm
     - cm
-    required: true
+    required: false
   custom_constraints:
     sequence_limit: 2
+    units_for: lc_length_value
   description: units for LC column length (typically cm)
   name: lc_length_unit
 - constraints:
@@ -256,9 +257,10 @@ fields:
 - constraints:
     enum:
     - C
-    required: true
+    required: false
   custom_constraints:
     sequence_limit: 2
+    units_for: lc_temp_value
   description: units for LC temperature
   name: lc_temp_unit
 - constraints:
@@ -273,9 +275,10 @@ fields:
     - um
     - mm
     - cm
-    required: true
+    required: false
   custom_constraints:
     sequence_limit: 2
+    units_for: lc_id_value
   description: units of LC column inner diameter (typically microns)
   name: lc_id_unit
 - constraints:
@@ -292,6 +295,7 @@ fields:
     required: false
   custom_constraints:
     sequence_limit: 2
+    units_for: lc_flow_rate_value
   description: Units of flow rate.
   name: lc_flow_rate_unit
 - constraints:

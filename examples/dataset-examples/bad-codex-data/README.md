@@ -1,6 +1,9 @@
 ```
 Metadata TSV Errors:
   examples/dataset-examples/bad-codex-data/submission/codex-metadata.tsv (as codex):
+    Internal:
+    - On row 2, column "resolution_z_unit", value "None" fails because Required when
+      resolution_z_value is filled
     External:
       row 2, referencing examples/dataset-examples/bad-codex-data/submission/dataset-1:
         Not allowed:
