@@ -3,7 +3,7 @@ doc_url: https://portal.hubmapconsortium.org/docs/assays/rnaseq
 fields:
 - constraints:
     pattern: '[A-Z]+[0-9]+'
-    required: true
+    required: false
   description: HuBMAP Display ID of the donor of the assayed tissue.
   example: ABC123
   heading: Shared by all types
@@ -11,7 +11,7 @@ fields:
   type: string
 - constraints:
     pattern: ([A-Z]+[0-9]+)-[A-Z]{2}\d*(-\d+)+(_\d+)?
-    required: true
+    required: false
   description: HuBMAP Display ID of the assayed tissue.
   example: ABC123-BL-1-2-3_456
   name: tissue_id
@@ -232,7 +232,7 @@ fields:
   description: Relative path to file with ORCID IDs for contributors for this dataset.
   name: contributors_path
 - constraints:
-    required: true
+    required: false
   description: Relative path to file or directory with instrument data. Downstream
     processing will depend on filename extension conventions.
   name: data_path

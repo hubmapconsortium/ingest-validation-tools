@@ -140,7 +140,10 @@ fields:
     description: Reagent kit used for sequencing. NovaSeq6000 for example
   -
     name: sequencing_read_format
-    description: 'Number of sequencing cycles in Read1, i7 index, i5 index, and Read2. Eg: for 10X snATAC-seq: 50+8+16+50 (R1,Index,R2,R3). For SNARE-seq2: 75+94+8+75'
+    description: 'Number of sequencing cycles in Read1, i7 index, i5 index, and Read2.'
+    constraints:
+      pattern: '\d+(/\d+)+'
+    example: '12/34/56'
   -
     name: sequencing_read_percent_q30
     description: 'Percent of bases with Quality scores above Q30.'
