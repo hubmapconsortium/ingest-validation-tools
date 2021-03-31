@@ -295,6 +295,7 @@ Units of final library yield. Leave blank if not applicable.
 | --- | --- |
 | enum | `ng` |
 | required | `False` |
+| units for | `library_final_yield_value` |
 
 ##### `library_average_fragment_size`
 Average size of sequencing library fragments estimated via gel electrophoresis or bioanalyzer/tapestation. Leave blank if not applicable.

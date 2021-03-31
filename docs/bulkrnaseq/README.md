@@ -216,11 +216,12 @@ RNA input amount value to the assay.
 | required | `True` |
 
 ##### `rnaseq_assay_input_unit`
-Units of RNA input amount to the assay.
+Units of RNA input amount to the assay. Leave blank if not applicable.
 | constraint | value |
 | --- | --- |
 | enum | `ug` |
-| required | `True` |
+| required | `False` |
+| units for | `rnaseq_assay_input_value` |
 
 ##### `rnaseq_assay_method`
 rnaseq assay kit used.
@@ -265,11 +266,12 @@ Total amount of library after final pcr amplification step.
 | required | `True` |
 
 ##### `library_final_yield_unit`
-units of library final yield.
+units of library final yield. Leave blank if not applicable.
 | constraint | value |
 | --- | --- |
 | enum | `ng` |
-| required | `True` |
+| required | `False` |
+| units for | `library_final_yield_value` |
 
 ##### `library_average_fragment_size`
 Average size in base pairs (bp) of sequencing library fragments estimated via gel electrophoresis or Bioanalyzer/tapestation.
@@ -466,11 +468,12 @@ RNA input amount value to the assay.
 | required | `True` |
 
 ##### `rnaseq_assay_input_unit`
-Units of RNA input amount to the assay.
+Units of RNA input amount to the assay. Leave blank if not applicable.
 | constraint | value |
 | --- | --- |
 | enum | `ug` |
-| required | `True` |
+| required | `False` |
+| units for | `rnaseq_assay_input_value` |
 
 ##### `rnaseq_assay_method`
 rnaseq assay kit used.
@@ -515,11 +518,12 @@ Total amount of library after final pcr amplification step.
 | required | `True` |
 
 ##### `library_final_yield_unit`
-units of library final yield.
+units of library final yield. Leave blank if not applicable.
 | constraint | value |
 | --- | --- |
 | enum | `ng` |
-| required | `True` |
+| required | `False` |
+| units for | `library_final_yield_value` |
 
 ##### `library_average_fragment_size`
 Average size in base pairs (bp) of sequencing library fragments estimated via gel electrophoresis or Bioanalyzer/tapestation.

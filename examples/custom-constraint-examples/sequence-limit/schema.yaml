@@ -12,3 +12,8 @@ fields:
     type: string
     custom_constraints:
       sequence_limit: 4
+  -
+    name: date
+    type: date
+    custom_constraints:
+      sequence_limit: 2
