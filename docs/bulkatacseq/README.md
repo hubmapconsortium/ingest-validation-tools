@@ -22,7 +22,8 @@ Related files:
 
 <details open="true"><summary><b>Version 1 (current)</b></summary>
 
-<blockquote><details><summary>Shared by all types</summary>
+<blockquote>
+<details><summary>Shared by all types</summary>
 
 [`version`](#version)<br>
 [`description`](#description)<br>
@@ -69,7 +70,8 @@ Related files:
 [`transposition_transposase_source`](#transposition_transposase_source)<br>
 [`contributors_path`](#contributors_path)<br>
 [`data_path`](#data_path)<br>
-</details></blockquote>
+</details>
+</blockquote>
 
 ### Shared by all types
 

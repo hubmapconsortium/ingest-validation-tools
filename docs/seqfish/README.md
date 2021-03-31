@@ -22,7 +22,8 @@ Related files:
 
 <details open="true"><summary><b>Version 1 (current)</b></summary>
 
-<blockquote><details><summary>Shared by all types</summary>
+<blockquote>
+<details><summary>Shared by all types</summary>
 
 [`version`](#version)<br>
 [`description`](#description)<br>
@@ -62,7 +63,8 @@ Related files:
 [`reagent_prep_protocols_io_doi`](#reagent_prep_protocols_io_doi)<br>
 [`contributors_path`](#contributors_path)<br>
 [`data_path`](#data_path)<br>
-</details></blockquote>
+</details>
+</blockquote>
 
 ### Shared by all types
 
