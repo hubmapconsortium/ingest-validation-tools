@@ -22,7 +22,9 @@ Related files:
 
 <details open="true"><summary><b>Version 0 (current)</b></summary>
 
-<blockquote><details><summary>Shared by all types</summary>
+<blockquote>
+
+<details><summary>Shared by all types</summary>
 
 [`donor_id`](#donor_id)<br>
 [`tissue_id`](#tissue_id)<br>
@@ -36,8 +38,8 @@ Related files:
 [`assay_type`](#assay_type)<br>
 [`analyte_class`](#analyte_class)<br>
 [`is_targeted`](#is_targeted)<br>
-</details>
 
+</details>
 <details><summary>Unique to this type</summary>
 
 [`acquisition_instrument_vendor`](#acquisition_instrument_vendor)<br>
@@ -68,7 +70,11 @@ Related files:
 [`sequencing_read_percent_q30`](#sequencing_read_percent_q30)<br>
 [`sequencing_phix_percent`](#sequencing_phix_percent)<br>
 [`contributors_path`](#contributors_path)<br>
-[`data_path`](#data_path)<br></details></blockquote>
+[`data_path`](#data_path)<br>
+</details>
+
+</blockquote>
+
 ### Shared by all types
 
 ##### `donor_id`

@@ -33,7 +33,9 @@ The other fields function the same way for all assays using antibodies. For more
 
 <details open="true"><summary><b>Version 1 (current)</b></summary>
 
-<blockquote><details><summary>Shared by all types</summary>
+<blockquote>
+
+<details><summary>Shared by all types</summary>
 
 [`version`](#version)<br>
 [`description`](#description)<br>
@@ -49,8 +51,8 @@ The other fields function the same way for all assays using antibodies. For more
 [`assay_type`](#assay_type)<br>
 [`analyte_class`](#analyte_class)<br>
 [`is_targeted`](#is_targeted)<br>
-</details>
 
+</details>
 <details><summary>Unique to this type</summary>
 
 [`acquisition_instrument_vendor`](#acquisition_instrument_vendor)<br>
@@ -78,7 +80,11 @@ The other fields function the same way for all assays using antibodies. For more
 [`signal_type`](#signal_type)<br>
 [`antibodies_path`](#antibodies_path)<br>
 [`contributors_path`](#contributors_path)<br>
-[`data_path`](#data_path)<br></details></blockquote>
+[`data_path`](#data_path)<br>
+</details>
+
+</blockquote>
+
 ### Shared by all types
 
 ##### `version`

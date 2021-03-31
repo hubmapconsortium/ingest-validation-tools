@@ -1,6 +1,7 @@
 # Changelog
 
 ## v0.0.10 - in progress
+- Fix the generated TOC for antibodies.
 - Apply "units_for": Units only required is value is given.
 - Check for auto-incremented fields.
 - If it errors, add a note about cleanup_whitespace.py.
