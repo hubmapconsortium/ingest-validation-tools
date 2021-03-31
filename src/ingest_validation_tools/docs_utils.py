@@ -248,10 +248,8 @@ def _make_toc(md):
 
     >>> print(_make_toc(md))
     <blockquote><details><summary>Section A</summary>
-    <BLANKLINE>
     [`Item 1`](#item-1)<br>
     </details>
-    <BLANKLINE>
     <details><summary>Section B</summary>
     </details></blockquote>
 
@@ -268,17 +266,20 @@ def _make_toc(md):
         re.sub(r'^#+\s+', '', line)
         for line in lines if len(line) and line[0] == '#'
     ]
-    mds = '\n'.join([
-        (
-            # Assume section headers do not contain backticks...
-            f'</details>\n\n<details><summary>{h}</summary>\n'
-            if '`' not in h else
-            # Otherwise, make a link to the field:
-            f"[{h}](#{h.lower().replace(' ', '-').replace('`', '')})<br>"
-        )
-        for h in headers
-    ]).replace('</details>\n\n', '', 1) + '</details>'
-    return f'<blockquote>{mds}</blockquote>'
+    in_details = False
+    mds = []
+    for h in headers:
+        if '`' in h:
+            mds.append(f"[{h}](#{h.lower().replace(' ', '-').replace('`', '')})<br>")
+        else:
+            if in_details:
+                mds.append('</details>')
+            mds.append(f'<details><summary>{h}</summary>')
+            in_details = True
+    if in_details:
+        mds.append('</details>')
+    joined_mds = "\n".join(mds)
+    return f'<blockquote>{joined_mds}</blockquote>'
 
 
 def _make_dir_description(dir_schema):
