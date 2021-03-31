@@ -1,1 +1,2 @@
-* @mccalluc
+*.py @mccalluc
+/src/ingest_validation_tools/directory-schemas @icaoberg
