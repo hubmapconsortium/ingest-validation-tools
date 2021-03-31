@@ -255,6 +255,13 @@ def _make_toc(md):
     <details><summary>Section B</summary>
     </details></blockquote>
 
+    >>> md = '## `Item 1`\\n## `Item 3`\\n## `Item 3`\\n'
+
+    >>> print(_make_toc(md))
+    <blockquote>[`Item 1`](#item-1)<br>
+    [`Item 3`](#item-3)<br>
+    [`Item 3`](#item-3)<br></blockquote>
+
     '''
     lines = md.split('\n')
     headers = [
