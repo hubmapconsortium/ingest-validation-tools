@@ -248,9 +248,12 @@ def _make_toc(md):
 
     >>> print(_make_toc(md))
     <blockquote><details><summary>Section A</summary>
+    <BLANKLINE>
     [`Item 1`](#item-1)<br>
+    <BLANKLINE>
     </details>
     <details><summary>Section B</summary>
+    <BLANKLINE>
     </details></blockquote>
     <BLANKLINE>
 
@@ -275,8 +278,8 @@ def _make_toc(md):
             mds.append(f"[{h}](#{h.lower().replace(' ', '-').replace('`', '')})<br>")
         else:
             if in_details:
-                mds.append('</details>')
-            mds.append(f'<details><summary>{h}</summary>')
+                mds.append('\n</details>')
+            mds.append(f'<details><summary>{h}</summary>\n')
             in_details = True
     if in_details:
         mds.append('</details>')

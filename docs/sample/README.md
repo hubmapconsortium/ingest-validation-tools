@@ -17,13 +17,18 @@ Related files:
 <details open="true"><summary><b>Version 0 (current)</b></summary>
 
 <blockquote><details><summary>IDs</summary>
+
 [`sample_id`](#sample_id)<br>
+
 </details>
 <details><summary>Donor</summary>
+
 [`vital_state`](#vital_state)<br>
 [`health_status`](#health_status)<br>
+
 </details>
 <details><summary>Medical Procedure</summary>
+
 [`organ_condition`](#organ_condition)<br>
 [`procedure_date`](#procedure_date)<br>
 [`perfusion_solution`](#perfusion_solution)<br>
@@ -32,8 +37,10 @@ Related files:
 [`warm_ischemia_time_unit`](#warm_ischemia_time_unit)<br>
 [`cold_ischemia_time_value`](#cold_ischemia_time_value)<br>
 [`cold_ischemia_time_unit`](#cold_ischemia_time_unit)<br>
+
 </details>
 <details><summary>Biospecimen</summary>
+
 [`specimen_preservation_temperature`](#specimen_preservation_temperature)<br>
 [`specimen_quality_criteria`](#specimen_quality_criteria)<br>
 [`specimen_tumor_distance_value`](#specimen_tumor_distance_value)<br>
