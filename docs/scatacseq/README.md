@@ -331,11 +331,12 @@ Total ng of library after final pcr amplification step.
 | required | `True` |
 
 ##### `library_final_yield_unit`
-Units for library_final_yield.
+Units for library_final_yield. Leave blank if not applicable.
 | constraint | value |
 | --- | --- |
 | enum | `ng` |
-| required | `True` |
+| required | `False` |
+| units for | `library_final_yield` |
 
 ##### `library_average_fragment_size`
 Average size of sequencing library fragments estimated via gel electrophoresis or bioanalyzer/tapestation. Numeric value in bp.
@@ -351,9 +352,10 @@ Reagent kit used for sequencing. NovaSeq6000 for example.
 | required | `True` |
 
 ##### `sequencing_read_format`
-Number of sequencing cycles in Read1, i7 index, i5 index, and Read2. Eg: for 10X snATAC-seq: 50+8+16+50 (R1,Index,R2,R3). For SNARE-seq2: 75+94+8+75.
+Number of sequencing cycles in Read1, i7 index, i5 index, and Read2. Example: `12/34/56`.
 | constraint | value |
 | --- | --- |
+| pattern (regular expression) | `\d+(/\d+)+` |
 | required | `True` |
 
 ##### `sequencing_read_percent_q30`
@@ -637,11 +639,12 @@ Total ng of library after final pcr amplification step.
 | required | `True` |
 
 ##### `library_final_yield_unit`
-Units for library_final_yield.
+Units for library_final_yield. Leave blank if not applicable.
 | constraint | value |
 | --- | --- |
 | enum | `ng` |
-| required | `True` |
+| required | `False` |
+| units for | `library_final_yield` |
 
 ##### `library_average_fragment_size`
 Average size of sequencing library fragments estimated via gel electrophoresis or bioanalyzer/tapestation. Numeric value in bp.

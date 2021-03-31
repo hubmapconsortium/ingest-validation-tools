@@ -20,12 +20,11 @@ bad_args = [
 
 
 def validate(args):
-    cmd = [
-        'src/validate_submission.py', '--output', 'as_text'
-    ] + args.split(' ')
-    print('Running: ' + ' '.join(cmd))
+    base = ['src/validate_submission.py', '--output', 'as_text']
+    readable = base + [f"'{arg}'" for arg in args.split(' ')]
+    print('Running: ' + ' '.join(readable))
     subprocess.run(
-        cmd, check=True)
+        base + args.split(' '), check=True)
 
 
 for args in good_args:

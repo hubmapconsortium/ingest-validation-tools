@@ -177,11 +177,12 @@ The width of a pixel.
 | required | `True` |
 
 ##### `resolution_x_unit`
-The unit of measurement of the width of a pixel.
+The unit of measurement of the width of a pixel. Leave blank if not applicable.
 | constraint | value |
 | --- | --- |
 | enum | `nm` or `um` |
-| required | `True` |
+| required | `False` |
+| units for | `resolution_x_value` |
 
 ##### `resolution_y_value`
 The height of a pixel.
@@ -191,11 +192,12 @@ The height of a pixel.
 | required | `True` |
 
 ##### `resolution_y_unit`
-The unit of measurement of the height of a pixel.
+The unit of measurement of the height of a pixel. Leave blank if not applicable.
 | constraint | value |
 | --- | --- |
 | enum | `nm` or `um` |
-| required | `True` |
+| required | `False` |
+| units for | `resolution_y_value` |
 
 ##### `number_of_channels`
 Number of fluorescent channels imaged during each cycle.
@@ -367,11 +369,12 @@ The width of a pixel.
 | required | `True` |
 
 ##### `resolution_x_unit`
-The unit of measurement of the width of a pixel.
+The unit of measurement of the width of a pixel. Leave blank if not applicable.
 | constraint | value |
 | --- | --- |
 | enum | `nm` or `um` |
-| required | `True` |
+| required | `False` |
+| units for | `resolution_x_value` |
 
 ##### `resolution_y_value`
 The height of a pixel.
@@ -381,11 +384,12 @@ The height of a pixel.
 | required | `True` |
 
 ##### `resolution_y_unit`
-The unit of measurement of the height of a pixel.
+The unit of measurement of the height of a pixel. Leave blank if not applicable.
 | constraint | value |
 | --- | --- |
 | enum | `nm` or `um` |
-| required | `True` |
+| required | `False` |
+| units for | `resolution_y_value` |
 
 ##### `number_of_channels`
 Number of fluorescent channels imaged during each cycle.

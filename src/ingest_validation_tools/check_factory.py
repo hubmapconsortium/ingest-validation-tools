@@ -46,18 +46,23 @@ class CheckFactory():
         return url_check
 
     def make_sequence_limit_check(self, template=Template(
-            'incremented $run_length times; limit is $limit')):
+            'incremented sequence of $run_length items; limit is $limit')):
         sequence_limit_fields = self._get_constrained_fields('sequence_limit')
 
         def sequence_limit_check(row):
             prefix_number_re = r'(?P<prefix>.*?)(?P<number>\d+)$'
             for k, v in row.items():
+                # If the schema declares the field as datetime,
+                # "v" will be a python object, and regexes will error.
+                v = str(v)
+
                 if k not in sequence_limit_fields or not v:
                     continue
 
                 match = re.search(prefix_number_re, v)
                 if not match:
-                    del self._prev_value_run_length[k]
+                    if k in self._prev_value_run_length:
+                        del self._prev_value_run_length[k]
                     continue
 
                 if k not in self._prev_value_run_length:
@@ -77,6 +82,7 @@ class CheckFactory():
                 self._prev_value_run_length[k] = (v, run_length)
 
                 limit = sequence_limit_fields[k]
+                assert limit > 1, 'The lowest allowed limit is 2'
                 if run_length >= limit:
                     note = template.substitute(run_length=run_length, limit=limit)
                     yield frictionless.errors.CellError.from_row(row, note=note, field_name=k)

@@ -182,11 +182,12 @@ The width of a pixel.
 | required | `True` |
 
 ##### `resolution_x_unit`
-The unit of measurement of the width of a pixel.
+The unit of measurement of the width of a pixel. Leave blank if not applicable.
 | constraint | value |
 | --- | --- |
 | enum | `nm` or `um` |
-| required | `True` |
+| required | `False` |
+| units for | `resolution_x_value` |
 
 ##### `resolution_y_value`
 The height of a pixel.
@@ -196,11 +197,12 @@ The height of a pixel.
 | required | `True` |
 
 ##### `resolution_y_unit`
-The unit of measurement of the height of a pixel.
+The unit of measurement of the height of a pixel. Leave blank if not applicable.
 | constraint | value |
 | --- | --- |
 | enum | `nm` or `um` |
-| required | `True` |
+| required | `False` |
+| units for | `resolution_y_value` |
 
 ##### `resolution_z_value`
 The distance at which two objects along the detection z-axis can be distinguished (resolved as 2 objects).
@@ -210,11 +212,12 @@ The distance at which two objects along the detection z-axis can be distinguishe
 | required | `True` |
 
 ##### `resolution_z_unit`
-The unit of z resolution.
+The unit of z resolution. Leave blank if not applicable.
 | constraint | value |
 | --- | --- |
 | enum | `nm` or `um` |
-| required | `True` |
+| required | `False` |
+| units for | `resolution_z_value` |
 
 ##### `number_of_antibodies`
 Number of antibodies.
@@ -362,11 +365,12 @@ The width of a pixel.
 | required | `True` |
 
 ##### `resolution_x_unit`
-The unit of measurement of the width of a pixel.
+The unit of measurement of the width of a pixel. Leave blank if not applicable.
 | constraint | value |
 | --- | --- |
 | enum | `nm` or `um` |
-| required | `True` |
+| required | `False` |
+| units for | `resolution_x_value` |
 
 ##### `resolution_y_value`
 The height of a pixel.
@@ -376,11 +380,12 @@ The height of a pixel.
 | required | `True` |
 
 ##### `resolution_y_unit`
-The unit of measurement of the height of a pixel.
+The unit of measurement of the height of a pixel. Leave blank if not applicable.
 | constraint | value |
 | --- | --- |
 | enum | `nm` or `um` |
-| required | `True` |
+| required | `False` |
+| units for | `resolution_y_value` |
 
 ##### `resolution_z_value`
 The distance at which two objects along the detection z-axis can be distinguished (resolved as 2 objects).
@@ -390,11 +395,12 @@ The distance at which two objects along the detection z-axis can be distinguishe
 | required | `True` |
 
 ##### `resolution_z_unit`
-The unit of z resolution.
+The unit of z resolution. Leave blank if not applicable.
 | constraint | value |
 | --- | --- |
 | enum | `nm` or `um` |
-| required | `True` |
+| required | `False` |
+| units for | `resolution_z_value` |
 
 ##### `number_of_antibodies`
 Number of antibodies.

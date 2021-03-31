@@ -9,4 +9,7 @@ Sample TSV Errors:
   Celsius / -20 Celsius / Room Temperature" fails because constraint "enum" is "['Liquid
   Nitrogen', 'Liquid Nitrogen Vapor', 'Freezer (-80 Celsius)', 'Freezer (-20 Celsius)',
   'Refrigerator (4 Celsius)', 'Room Temperature']"
+Hint: 'If validation fails because of extra whitespace in the TSV, try:
+
+  src/cleanup_whitespace.py --tsv_path original.tsv > clean.tsv'
 ```

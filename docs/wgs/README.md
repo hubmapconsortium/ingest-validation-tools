@@ -188,11 +188,12 @@ Amount of DNA input into library preparation.
 | required | `True` |
 
 ##### `dna_assay_input_unit`
-Units of DNA input into library preparation.
+Units of DNA input into library preparation. Leave blank if not applicable.
 | constraint | value |
 | --- | --- |
 | enum | `ug` |
-| required | `True` |
+| required | `False` |
+| units for | `dna_assay_input_value` |
 
 ##### `library_construction_method`
 Describes DNA library preparation kit. Modality of isolating gDNA, Fragmentation and generating sequencing libraries.
@@ -230,11 +231,12 @@ Total amount of library after final pcr amplification step.
 | required | `True` |
 
 ##### `library_final_yield_unit`
-Total units of library after final pcr amplification step.
+Total units of library after final pcr amplification step. Leave blank if not applicable.
 | constraint | value |
 | --- | --- |
 | enum | `ng` |
-| required | `True` |
+| required | `False` |
+| units for | `library_final_yield` |
 
 ##### `library_average_fragment_size`
 Average size of sequencing library fragments estimated via gel electrophoresis or bioanalyzer/tapestation.
@@ -407,11 +409,12 @@ Amount of DNA input into library preparation.
 | required | `True` |
 
 ##### `dna_assay_input_unit`
-Units of DNA input into library preparation.
+Units of DNA input into library preparation. Leave blank if not applicable.
 | constraint | value |
 | --- | --- |
 | enum | `ug` |
-| required | `True` |
+| required | `False` |
+| units for | `dna_assay_input_value` |
 
 ##### `library_construction_method`
 Describes DNA library preparation kit. Modality of isolating gDNA, Fragmentation and generating sequencing libraries.
@@ -449,11 +452,12 @@ Total amount of library after final pcr amplification step.
 | required | `True` |
 
 ##### `library_final_yield_unit`
-Total units of library after final pcr amplification step.
+Total units of library after final pcr amplification step. Leave blank if not applicable.
 | constraint | value |
 | --- | --- |
 | enum | `ng` |
-| required | `True` |
+| required | `False` |
+| units for | `library_final_yield` |
 
 ##### `library_average_fragment_size`
 Average size of sequencing library fragments estimated via gel electrophoresis or bioanalyzer/tapestation.
