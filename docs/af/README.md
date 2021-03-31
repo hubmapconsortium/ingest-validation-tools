@@ -29,7 +29,9 @@ Related files:
 
 <details open="true"><summary><b>Version 1 (current)</b></summary>
 
-<blockquote><details><summary>Shared by all types</summary>
+<blockquote>
+
+<details><summary>Shared by all types</summary>
 
 [`version`](#version)<br>
 [`description`](#description)<br>
@@ -45,8 +47,8 @@ Related files:
 [`assay_type`](#assay_type)<br>
 [`analyte_class`](#analyte_class)<br>
 [`is_targeted`](#is_targeted)<br>
-</details>
 
+</details>
 <details><summary>Unique to this type</summary>
 
 [`acquisition_instrument_vendor`](#acquisition_instrument_vendor)<br>
@@ -60,7 +62,11 @@ Related files:
 [`number_of_channels`](#number_of_channels)<br>
 [`overall_protocols_io_doi`](#overall_protocols_io_doi)<br>
 [`contributors_path`](#contributors_path)<br>
-[`data_path`](#data_path)<br></details></blockquote>
+[`data_path`](#data_path)<br>
+</details>
+
+</blockquote>
+
 ### Shared by all types
 
 ##### `version`

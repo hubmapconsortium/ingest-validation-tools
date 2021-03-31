@@ -247,13 +247,31 @@ def _make_toc(md):
     >>> md = '# Section A\\n## `Item 1`\\n# Section B'
 
     >>> print(_make_toc(md))
-    <blockquote><details><summary>Section A</summary>
+    <blockquote>
+    <BLANKLINE>
+    <details><summary>Section A</summary>
     <BLANKLINE>
     [`Item 1`](#item-1)<br>
+    <BLANKLINE>
+    </details>
+    <details><summary>Section B</summary>
+    <BLANKLINE>
     </details>
     <BLANKLINE>
-    <details><summary>Section B</summary>
-    </details></blockquote>
+    </blockquote>
+    <BLANKLINE>
+
+    >>> md = '## `Item 1`\\n## `Item 3`\\n## `Item 3`\\n'
+
+    >>> print(_make_toc(md))
+    <blockquote>
+    <BLANKLINE>
+    [`Item 1`](#item-1)<br>
+    [`Item 3`](#item-3)<br>
+    [`Item 3`](#item-3)<br>
+    <BLANKLINE>
+    </blockquote>
+    <BLANKLINE>
 
     '''
     lines = md.split('\n')
@@ -261,17 +279,22 @@ def _make_toc(md):
         re.sub(r'^#+\s+', '', line)
         for line in lines if len(line) and line[0] == '#'
     ]
-    mds = '\n'.join([
-        (
-            # Assume section headers do not contain backticks...
-            f'</details>\n\n<details><summary>{h}</summary>\n'
-            if '`' not in h else
-            # Otherwise, make a link to the field:
-            f"[{h}](#{h.lower().replace(' ', '-').replace('`', '')})<br>"
-        )
-        for h in headers
-    ]).replace('</details>\n\n', '', 1) + '</details>'
-    return f'<blockquote>{mds}</blockquote>'
+    in_details = False
+    mds = []
+    for h in headers:
+        if '`' in h:
+            mds.append(f"[{h}](#{h.lower().replace(' ', '-').replace('`', '')})<br>")
+        else:
+            if in_details:
+                mds.append('\n</details>')
+            mds.append(f'<details><summary>{h}</summary>\n')
+            in_details = True
+    if in_details:
+        mds.append('</details>')
+    joined_mds = "\n".join(mds)
+    # If MD trails immediately after "</blockquote>",
+    # it doesn't render correctly, so include a newline.
+    return f'<blockquote>\n\n{joined_mds}\n\n</blockquote>\n'
 
 
 def _make_dir_description(dir_schema):

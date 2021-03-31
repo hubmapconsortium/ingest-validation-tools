@@ -21,7 +21,7 @@ For more information, see the [Antibodies TSV documentation](../antibodies).
 
 | pattern | example | required? | description |
 | --- | --- | --- | --- |
-| `NAV[^/]+\.tif` |  |  | Navigational Image showing Region of Interest (Keyance Microscope only) |
+| `[^/]*NAV[^/]*\.tif` |  |  | Navigational Image showing Region of Interest (Keyance Microscope only) |
 | `.+\.pdf` | `summary.pdf` | ✓ | **[QA/QC]** PDF export of Powerpoint slide deck containing the Image Analysis Report |
 | `drv_[^/]+/channelNames\.txt` |  | ✓ | Text file produced by the Akoya software which contains the (linearized) channel number and the Name/ID/Target of the channel (required for HuBMAP pipeline) |
 | `src_[^/]+/experiment\.json` |  | ✓ | JSON file produced by the Akoya software which contains the metadata for the experiment, including the software version used, microscope parameters, channel names, pixel dimensions, etc. (required for HuBMAP pipeline) |
@@ -43,7 +43,9 @@ For more information, see the [Antibodies TSV documentation](../antibodies).
 
 <details open="true"><summary><b>Version 1 (current)</b></summary>
 
-<blockquote><details><summary>Shared by all types</summary>
+<blockquote>
+
+<details><summary>Shared by all types</summary>
 
 [`version`](#version)<br>
 [`description`](#description)<br>
@@ -59,8 +61,8 @@ For more information, see the [Antibodies TSV documentation](../antibodies).
 [`assay_type`](#assay_type)<br>
 [`analyte_class`](#analyte_class)<br>
 [`is_targeted`](#is_targeted)<br>
-</details>
 
+</details>
 <details><summary>Unique to this type</summary>
 
 [`acquisition_instrument_vendor`](#acquisition_instrument_vendor)<br>
@@ -80,7 +82,11 @@ For more information, see the [Antibodies TSV documentation](../antibodies).
 [`reagent_prep_protocols_io_doi`](#reagent_prep_protocols_io_doi)<br>
 [`antibodies_path`](#antibodies_path)<br>
 [`contributors_path`](#contributors_path)<br>
-[`data_path`](#data_path)<br></details></blockquote>
+[`data_path`](#data_path)<br>
+</details>
+
+</blockquote>
+
 ### Shared by all types
 
 ##### `version`

@@ -19,7 +19,9 @@ Changes:
 
 <details open="true"><summary><b>Version 2 (current)</b></summary>
 
-<blockquote>[`version`](#version)<br>
+<blockquote>
+
+[`version`](#version)<br>
 [`channel_id`](#channel_id)<br>
 [`antibody_name`](#antibody_name)<br>
 [`rr_id`](#rr_id)<br>
@@ -29,7 +31,10 @@ Changes:
 [`concentration_value`](#concentration_value)<br>
 [`concentration_unit`](#concentration_unit)<br>
 [`conjugated_cat_number`](#conjugated_cat_number)<br>
-[`conjugated_tag`](#conjugated_tag)<br></details></blockquote>
+[`conjugated_tag`](#conjugated_tag)<br>
+
+</blockquote>
+
 ##### `version`
 Current version of metadata schema. Template provides the correct value.
 | constraint | value |

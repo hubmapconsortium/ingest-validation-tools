@@ -3,6 +3,8 @@
 ## v0.0.10 - in progress
 - Cleaned up description on 3D IMC directory schema.
 - Updated a description on 3D IMC directory schema.
+- Updated regular expression on CODEX directory schema.
+- Fix the generated TOC for antibodies.
 - Apply "units_for": Units only required is value is given.
 - Check for auto-incremented fields.
 - If it errors, add a note about cleanup_whitespace.py.
