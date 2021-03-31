@@ -16,14 +16,19 @@ Related files:
 
 <details open="true"><summary><b>Version 1 (current)</b></summary>
 
-<blockquote>[`version`](#version)<br>
+<blockquote>
+
+[`version`](#version)<br>
 [`affiliation`](#affiliation)<br>
 [`first_name`](#first_name)<br>
 [`last_name`](#last_name)<br>
 [`middle_name_or_initial`](#middle_name_or_initial)<br>
 [`name`](#name)<br>
 [`orcid_id`](#orcid_id)<br>
-[`is_contact`](#is_contact)<br></details></blockquote>
+[`is_contact`](#is_contact)<br>
+
+</blockquote>
+
 ##### `version`
 Version of the schema to use when validating this metadata.
 | constraint | value |

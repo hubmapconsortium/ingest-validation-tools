@@ -1,7 +1,8 @@
 # Changelog
 
 ## v0.0.10 - in progress
-  Updated regular expression on CODEX directory schema.
+- Updated regular expression on CODEX directory schema.
+- Fix the generated TOC for antibodies.
 - Apply "units_for": Units only required is value is given.
 - Check for auto-incremented fields.
 - If it errors, add a note about cleanup_whitespace.py.
