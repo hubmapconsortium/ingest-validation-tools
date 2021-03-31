@@ -24,6 +24,7 @@ Related files:
 [`name`](#name)<br>
 [`orcid_id`](#orcid_id)<br>
 [`is_contact`](#is_contact)<br></blockquote>
+
 ##### `version`
 Version of the schema to use when validating this metadata.
 | constraint | value |

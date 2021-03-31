@@ -252,6 +252,7 @@ def _make_toc(md):
     </details>
     <details><summary>Section B</summary>
     </details></blockquote>
+    <BLANKLINE>
 
     >>> md = '## `Item 1`\\n## `Item 3`\\n## `Item 3`\\n'
 
@@ -259,6 +260,7 @@ def _make_toc(md):
     <blockquote>[`Item 1`](#item-1)<br>
     [`Item 3`](#item-3)<br>
     [`Item 3`](#item-3)<br></blockquote>
+    <BLANKLINE>
 
     '''
     lines = md.split('\n')
@@ -279,7 +281,9 @@ def _make_toc(md):
     if in_details:
         mds.append('</details>')
     joined_mds = "\n".join(mds)
-    return f'<blockquote>{joined_mds}</blockquote>'
+    # If MD trails immediately after "</blockquote>",
+    # it doesn't render correctly, so include a newline.
+    return f'<blockquote>{joined_mds}</blockquote>\n'
 
 
 def _make_dir_description(dir_schema):

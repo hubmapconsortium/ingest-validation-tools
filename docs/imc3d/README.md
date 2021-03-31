@@ -77,6 +77,7 @@ The other fields function the same way for all assays using antibodies. For more
 [`contributors_path`](#contributors_path)<br>
 [`data_path`](#data_path)<br>
 </details></blockquote>
+
 ### Shared by all types
 
 ##### `version`

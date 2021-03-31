@@ -60,6 +60,7 @@ Related files:
 [`contributors_path`](#contributors_path)<br>
 [`data_path`](#data_path)<br>
 </details></blockquote>
+
 ### Shared by all types
 
 ##### `version`

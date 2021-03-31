@@ -30,6 +30,7 @@ Changes:
 [`concentration_unit`](#concentration_unit)<br>
 [`conjugated_cat_number`](#conjugated_cat_number)<br>
 [`conjugated_tag`](#conjugated_tag)<br></blockquote>
+
 ##### `version`
 Current version of metadata schema. Template provides the correct value.
 | constraint | value |
