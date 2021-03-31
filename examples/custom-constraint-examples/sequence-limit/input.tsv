@@ -1,0 +1,9 @@
+comment	limit_2	limit_4	date
+first row doesn't match RE	string, or empty		
+no error	4	x1y1	2000-01-01
+limit_2 error	5	x1y2	
+limit_2 error, again	6	x1y3	
+limit_4 error		x1y4	
+no error: gap clears counter	7	x2y5	
+no error	xyz	x1y5	
+no error	8	x1y6	

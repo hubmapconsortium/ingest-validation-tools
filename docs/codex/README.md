@@ -204,11 +204,12 @@ The width of a pixel. (Akoya pixel is 377nm square)
 | required | `True` |
 
 ##### `resolution_x_unit`
-The unit of measurement of width of a pixel.(nm)
+The unit of measurement of width of a pixel.(nm) Leave blank if not applicable.
 | constraint | value |
 | --- | --- |
 | enum | `mm`, `um`, or `nm` |
-| required | `True` |
+| required | `False` |
+| units for | `resolution_x_value` |
 
 ##### `resolution_y_value`
 The height of a pixel. (Akoya pixel is 377nm square)
@@ -218,11 +219,12 @@ The height of a pixel. (Akoya pixel is 377nm square)
 | required | `True` |
 
 ##### `resolution_y_unit`
-The unit of measurement of height of a pixel. (nm)
+The unit of measurement of height of a pixel. (nm) Leave blank if not applicable.
 | constraint | value |
 | --- | --- |
 | enum | `mm`, `um`, or `nm` |
-| required | `True` |
+| required | `False` |
+| units for | `resolution_y_value` |
 
 ##### `resolution_z_value`
 Optional if assay does not have multiple z-levels. Note that this is resolution within a given sample: z-pitch (resolution_z_value) is the increment distance between image slices (for Akoya, z-pitch=1.5um) ie. the microscope stage is moved up or down in increments of 1.5um to capture images of several focal planes. The best one will be used & the rest discarded. The thickness of the sample itself is sample metadata. Leave blank if not applicable.
@@ -232,11 +234,12 @@ Optional if assay does not have multiple z-levels. Note that this is resolution 
 | required | `False` |
 
 ##### `resolution_z_unit`
-The unit of incremental distance between image slices.(um)
+The unit of incremental distance between image slices.(um) Leave blank if not applicable.
 | constraint | value |
 | --- | --- |
 | enum | `mm`, `um`, or `nm` |
-| required | `True` |
+| required | `False` |
+| units for | `resolution_z_value` |
 
 ##### `preparation_instrument_vendor`
 The manufacturer of the instrument used to prepare the sample for the assay.
@@ -423,11 +426,12 @@ The width of a pixel. (Akoya pixel is 377nm square)
 | required | `True` |
 
 ##### `resolution_x_unit`
-The unit of measurement of width of a pixel.(nm)
+The unit of measurement of width of a pixel.(nm) Leave blank if not applicable.
 | constraint | value |
 | --- | --- |
 | enum | `mm`, `um`, or `nm` |
-| required | `True` |
+| required | `False` |
+| units for | `resolution_x_value` |
 
 ##### `resolution_y_value`
 The height of a pixel. (Akoya pixel is 377nm square)
@@ -437,11 +441,12 @@ The height of a pixel. (Akoya pixel is 377nm square)
 | required | `True` |
 
 ##### `resolution_y_unit`
-The unit of measurement of height of a pixel. (nm)
+The unit of measurement of height of a pixel. (nm) Leave blank if not applicable.
 | constraint | value |
 | --- | --- |
 | enum | `mm`, `um`, or `nm` |
-| required | `True` |
+| required | `False` |
+| units for | `resolution_y_value` |
 
 ##### `resolution_z_value`
 Optional if assay does not have multiple z-levels. Note that this is resolution within a given sample: z-pitch (resolution_z_value) is the increment distance between image slices (for Akoya, z-pitch=1.5um) ie. the microscope stage is moved up or down in increments of 1.5um to capture images of several focal planes. The best one will be used & the rest discarded. The thickness of the sample itself is sample metadata. Leave blank if not applicable.
@@ -451,11 +456,12 @@ Optional if assay does not have multiple z-levels. Note that this is resolution 
 | required | `False` |
 
 ##### `resolution_z_unit`
-The unit of incremental distance between image slices.(um)
+The unit of incremental distance between image slices.(um) Leave blank if not applicable.
 | constraint | value |
 | --- | --- |
 | enum | `mm`, `um`, or `nm` |
-| required | `True` |
+| required | `False` |
+| units for | `resolution_z_value` |
 
 ### Level 3
 
