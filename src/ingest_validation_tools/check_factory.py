@@ -8,6 +8,9 @@ import frictionless
 import requests
 
 
+cache_path = str(Path(__file__).parent / 'url-status-cache')
+
+
 class CheckFactory():
     def __init__(self, schema):
         self.schema = schema
@@ -21,7 +24,7 @@ class CheckFactory():
         }
 
     def _check_url_status_cache(self, url):
-        with shelve.open(str(Path(__file__).parent / 'url-status-cache')) as url_status_cache:
+        with shelve.open(cache_path) as url_status_cache:
             if url not in url_status_cache:
                 print(f'Fetching un-cached url: {url}', file=stderr)
                 response = requests.get(url)

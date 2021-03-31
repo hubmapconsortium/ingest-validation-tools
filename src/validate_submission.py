@@ -2,6 +2,7 @@
 
 import argparse
 import sys
+from glob import glob
 from pathlib import Path
 import inspect
 
@@ -9,7 +10,7 @@ from ingest_validation_tools.error_report import ErrorReport
 from ingest_validation_tools.submission import Submission
 from ingest_validation_tools import argparse_types
 from ingest_validation_tools.argparse_types import ShowUsageException
-
+from ingest_validation_tools.check_factory import cache_path
 
 directory_schemas = sorted({
     p.stem for p in
@@ -61,6 +62,10 @@ Typical usage:
     parser.add_argument(
         '--offline', action='store_true',
         help='Skip checks that require network access.'
+    )
+    parser.add_argument(
+        '--clear_cache', action='store_true',
+        help='Clear cache of network check responses.'
     )
 
     default_ignore = '.*'
@@ -120,6 +125,11 @@ def parse_args():
 
 def main():
     args = parse_args()
+
+    if args.clear_cache:
+        for path in glob(f'{cache_path}*'):
+            Path(path).unlink()
+
     submission_args = {
         'add_notes': args.add_notes,
         'encoding': args.encoding,

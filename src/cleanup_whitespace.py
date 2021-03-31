@@ -124,7 +124,7 @@ def clean(rows):
             continue
         if max_i is None:
             max_i = last_non_empty_index(stripped_row)
-        clean_rows.append(stripped_row[:max_i+1])
+        clean_rows.append(stripped_row[:max_i + 1])
     return clean_rows
 
 
