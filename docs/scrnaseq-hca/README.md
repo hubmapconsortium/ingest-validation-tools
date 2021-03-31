@@ -23,6 +23,7 @@ Related files:
 <details open="true"><summary><b>Version 0 (current)</b></summary>
 
 <blockquote>
+
 <details><summary>Shared by all types</summary>
 
 [`donor_id`](#donor_id)<br>
@@ -71,6 +72,7 @@ Related files:
 [`contributors_path`](#contributors_path)<br>
 [`data_path`](#data_path)<br>
 </details>
+
 </blockquote>
 
 ### Shared by all types

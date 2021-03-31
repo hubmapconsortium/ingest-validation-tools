@@ -17,6 +17,7 @@ Related files:
 <details open="true"><summary><b>Version 0 (current)</b></summary>
 
 <blockquote>
+
 <details><summary>IDs</summary>
 
 [`sample_id`](#sample_id)<br>
@@ -47,6 +48,7 @@ Related files:
 [`specimen_tumor_distance_value`](#specimen_tumor_distance_value)<br>
 [`specimen_tumor_distance_unit`](#specimen_tumor_distance_unit)<br>
 </details>
+
 </blockquote>
 
 ### IDs

@@ -20,6 +20,7 @@ Changes:
 <details open="true"><summary><b>Version 2 (current)</b></summary>
 
 <blockquote>
+
 [`version`](#version)<br>
 [`channel_id`](#channel_id)<br>
 [`antibody_name`](#antibody_name)<br>
@@ -31,6 +32,7 @@ Changes:
 [`concentration_unit`](#concentration_unit)<br>
 [`conjugated_cat_number`](#conjugated_cat_number)<br>
 [`conjugated_tag`](#conjugated_tag)<br>
+
 </blockquote>
 
 ##### `version`

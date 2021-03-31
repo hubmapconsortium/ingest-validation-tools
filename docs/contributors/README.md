@@ -17,6 +17,7 @@ Related files:
 <details open="true"><summary><b>Version 1 (current)</b></summary>
 
 <blockquote>
+
 [`version`](#version)<br>
 [`affiliation`](#affiliation)<br>
 [`first_name`](#first_name)<br>
@@ -25,6 +26,7 @@ Related files:
 [`name`](#name)<br>
 [`orcid_id`](#orcid_id)<br>
 [`is_contact`](#is_contact)<br>
+
 </blockquote>
 
 ##### `version`

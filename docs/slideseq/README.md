@@ -34,6 +34,7 @@ Related files:
 <details open="true"><summary><b>Version 1 (current)</b></summary>
 
 <blockquote>
+
 <details><summary>Shared by all types</summary>
 
 [`version`](#version)<br>
@@ -77,6 +78,7 @@ Related files:
 [`contributors_path`](#contributors_path)<br>
 [`data_path`](#data_path)<br>
 </details>
+
 </blockquote>
 
 ### Shared by all types

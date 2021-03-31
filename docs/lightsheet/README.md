@@ -29,6 +29,7 @@ For more information, see the [Antibodies TSV documentation](../antibodies).
 <details open="true"><summary><b>Version 1 (current)</b></summary>
 
 <blockquote>
+
 <details><summary>Shared by all types</summary>
 
 [`version`](#version)<br>
@@ -63,6 +64,7 @@ For more information, see the [Antibodies TSV documentation](../antibodies).
 [`contributors_path`](#contributors_path)<br>
 [`data_path`](#data_path)<br>
 </details>
+
 </blockquote>
 
 ### Shared by all types
