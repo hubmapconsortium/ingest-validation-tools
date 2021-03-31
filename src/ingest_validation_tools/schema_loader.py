@@ -171,7 +171,7 @@ def _add_constraints(field, optional_fields, offline=None, names=None):
     {'constraints': {'maximum': 100,
                      'minimum': 0,
                      'required': True},
-     'custom_constraints': {'sequence_limit': 2},
+     'custom_constraints': {'sequence_limit': 3},
      'name': 'abc_percent',
      'type': 'number'}
 
@@ -179,7 +179,7 @@ def _add_constraints(field, optional_fields, offline=None, names=None):
     >>> _add_constraints(field, ['optional_value'])
     >>> pprint(field, width=40)
     {'constraints': {'required': False},
-     'custom_constraints': {'sequence_limit': 2},
+     'custom_constraints': {'sequence_limit': 3},
      'name': 'optional_value',
      'type': 'number'}
 
@@ -188,7 +188,7 @@ def _add_constraints(field, optional_fields, offline=None, names=None):
     >>> pprint(field, width=40)
     {'constraints': {'pattern': 'fake-regex',
                      'required': True},
-     'custom_constraints': {'sequence_limit': 2},
+     'custom_constraints': {'sequence_limit': 3},
      'name': 'whatever',
      'type': 'string'}
 
@@ -199,7 +199,7 @@ def _add_constraints(field, optional_fields, offline=None, names=None):
         field['custom_constraints'] = {}
 
     # For all fields:
-    field['custom_constraints']['sequence_limit'] = 2
+    field['custom_constraints']['sequence_limit'] = 3
 
     # Guess constraints:
     if 'required' not in field['constraints']:
