@@ -23,7 +23,6 @@ Related files:
 <details open="true"><summary><b>Version 1 (current)</b></summary>
 
 <blockquote><details><summary>Shared by all types</summary>
-
 [`version`](#version)<br>
 [`description`](#description)<br>
 [`donor_id`](#donor_id)<br>
@@ -39,9 +38,7 @@ Related files:
 [`analyte_class`](#analyte_class)<br>
 [`is_targeted`](#is_targeted)<br>
 </details>
-
 <details><summary>Unique to this type</summary>
-
 [`acquisition_instrument_vendor`](#acquisition_instrument_vendor)<br>
 [`acquisition_instrument_model`](#acquisition_instrument_model)<br>
 [`is_technical_replicate`](#is_technical_replicate)<br>
@@ -72,7 +69,8 @@ Related files:
 [`sequencing_read_percent_q30`](#sequencing_read_percent_q30)<br>
 [`sequencing_phix_percent`](#sequencing_phix_percent)<br>
 [`contributors_path`](#contributors_path)<br>
-[`data_path`](#data_path)<br></details></blockquote>
+[`data_path`](#data_path)<br>
+</details></blockquote>
 ### Shared by all types
 
 ##### `version`

@@ -23,7 +23,6 @@ Related files:
 <details open="true"><summary><b>Version 0 (current)</b></summary>
 
 <blockquote><details><summary>Shared by all types</summary>
-
 [`donor_id`](#donor_id)<br>
 [`tissue_id`](#tissue_id)<br>
 [`execution_datetime`](#execution_datetime)<br>
@@ -37,9 +36,7 @@ Related files:
 [`analyte_class`](#analyte_class)<br>
 [`is_targeted`](#is_targeted)<br>
 </details>
-
 <details><summary>Unique to this type</summary>
-
 [`acquisition_instrument_vendor`](#acquisition_instrument_vendor)<br>
 [`acquisition_instrument_model`](#acquisition_instrument_model)<br>
 [`sc_isolation_protocols_io_doi`](#sc_isolation_protocols_io_doi)<br>
@@ -68,7 +65,8 @@ Related files:
 [`sequencing_read_percent_q30`](#sequencing_read_percent_q30)<br>
 [`sequencing_phix_percent`](#sequencing_phix_percent)<br>
 [`contributors_path`](#contributors_path)<br>
-[`data_path`](#data_path)<br></details></blockquote>
+[`data_path`](#data_path)<br>
+</details></blockquote>
 ### Shared by all types
 
 ##### `donor_id`

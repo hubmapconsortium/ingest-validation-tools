@@ -29,7 +29,6 @@ For more information, see the [Antibodies TSV documentation](../antibodies).
 <details open="true"><summary><b>Version 1 (current)</b></summary>
 
 <blockquote><details><summary>Shared by all types</summary>
-
 [`version`](#version)<br>
 [`description`](#description)<br>
 [`donor_id`](#donor_id)<br>
@@ -45,9 +44,7 @@ For more information, see the [Antibodies TSV documentation](../antibodies).
 [`analyte_class`](#analyte_class)<br>
 [`is_targeted`](#is_targeted)<br>
 </details>
-
 <details><summary>Unique to this type</summary>
-
 [`acquisition_instrument_vendor`](#acquisition_instrument_vendor)<br>
 [`acquisition_instrument_model`](#acquisition_instrument_model)<br>
 [`resolution_x_value`](#resolution_x_value)<br>
@@ -60,7 +57,8 @@ For more information, see the [Antibodies TSV documentation](../antibodies).
 [`number_of_channels`](#number_of_channels)<br>
 [`antibodies_path`](#antibodies_path)<br>
 [`contributors_path`](#contributors_path)<br>
-[`data_path`](#data_path)<br></details></blockquote>
+[`data_path`](#data_path)<br>
+</details></blockquote>
 ### Shared by all types
 
 ##### `version`
