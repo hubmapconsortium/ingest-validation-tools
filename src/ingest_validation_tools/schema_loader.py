@@ -137,7 +137,9 @@ def _validate_level_1_enum(field):
             'WGS',
             'SNARE2-RNAseq',
             'snRNAseq',
-            'scRNAseq-10xGenomics',
+            'scRNAseq-10xGenomics',  # Only needed for scrnaseq-v0.yaml.
+            'scRNAseq-10xGenomics-v2',
+            'scRNAseq-10xGenomics-v3',
             'scRNAseq',
             'Slide-seq'
         ],

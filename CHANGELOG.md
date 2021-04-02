@@ -1,6 +1,7 @@
 # Changelog
 
 ## v0.0.10 - in progress
+- Distinguish v2 and v3 10x.
 - Cleaned up description on 3D IMC directory schema.
 - Updated a description on 3D IMC directory schema.
 - Updated regular expression on CODEX directory schema.
