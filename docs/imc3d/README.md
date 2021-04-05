@@ -14,17 +14,17 @@ The other fields function the same way for all assays using antibodies. For more
 
 | pattern | required? | description |
 | --- | --- | --- |
-| `mcd/[^/]+_HuBMAP_[^/]+organ[^/]+_slide[^/]+\.zip` | ✓ | csv containing labels for sections as well as whether or not they were included in the 3D model |
-| `mcd/section_report\.csv` | ✓ | **[QA/QC]** csv containing labels for sections as well as whether or not they were included in the 3D model |
-| `mcd/channelnames_report\.csv` | ✓ | **[QA/QC]** CSV containing antibodies used and whether they were detected sufficiently or not |
-| `3D_image_stack\.ome\.tiff` | ✓ | OME.tiff file comprising all slices and channels |
-| `SingleCellData/cells\.csv` | ✓ | Contains one csv file per tissue with marker intensities (untransformed, range normalized to 99th percentile), phenograph cluster label and cell type label per single cell |
-| `SingleCellData/cellsinfo\.txt` |  | Text file containing formatting information about cells*organ*.csv |
-| `mapping/cluster_labels_image\.tif` | ✓ | Cell image labeled by cell type |
-| `processed/umap_phenograph\.pdf` |  | tSNE phenograph |
-| `processed/CellTypeComposition_perTissue\.pdf` |  | Cell type composition bar graph per tissue |
-| `processed/Densityplots_perMarker\.pdf` |  | **[QA/QC]** Density plots of marker intensity, separated by marker |
-| `processed/celltypes\.pdf` |  | Heatmap of marker expression per cluster, annotated by assigned cell type |
+| `mcd/[^/]+_HuBMAP_[^/]+_slide[^/]+\.zip` | ✓ | CSV containing labels for sections as well as whether or not they were included in the 3D model. |
+| `mcd/section_report\.csv` | ✓ | **[QA/QC]** Contains tissue id, acquisition id, 3D image ordering, MCD image ordering, and boolean if used for 3D model. |
+| `mcd/channelnames_report\.csv` | ✓ | **[QA/QC]** Contains antibodies names used and whether they were detected sufficiently or not. |
+| `3D_image_stack\.ome\.tiff` | ✓ | OME.tiff file comprising all slices and channels. |
+| `SingleCellData/cells\.csv` | ✓ | Contains one csv file per tissue with marker intensities (untransformed, range normalized to 99th percentile), phenograph cluster label and cell type label per single cell. |
+| `SingleCellData/cellsinfo\.txt` |  | Text file containing formatting information about cells*organ*.csv. File is optional. |
+| `Mapping/cluster_labels_image\.tif` | ✓ | Cell image labeled by cell type. |
+| `processed/umap_phenograph\.pdf` |  | tSNE phenograph. File is optional. |
+| `processed/CellTypeComposition_perTissue\.pdf` |  | Cell type composition bar graph per tissue. File is optional. |
+| `processed/Densityplots_perMarker\.pdf` |  | **[QA/QC]** Density plots of marker intensity, separated by marker. File is optional. |
+| `processed/celltypes\.pdf` |  | Heatmap of marker expression per cluster, annotated by assigned cell type. File is optional. |
 | `extras/.*` |  | Free-form descriptive information supplied by the TMC |
 | `extras/thumbnail\.(png\|jpg)` |  | Optional thumbnail image which may be shown in search interface |
 
