@@ -5,7 +5,6 @@ ${optional_doc_link_md}
 - [📝 Excel template](${xlsx_url}): For metadata entry.
 - [📝 TSV template](${tsv_url}): Alternative for metadata entry.
 - [💻 Metadata schema](${metadata_source_url}): To update metadata fields.
-${optional_dir_schema_link_md}
 
 ${optional_description_md}
 
