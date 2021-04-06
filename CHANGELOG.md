@@ -1,6 +1,7 @@
 # Changelog
 
 ## v0.0.10 - in progress
+- Add 'Belzer MPS/KPS' as an option.
 - Cleaned up description on 3D IMC directory schema.
 - Updated a description on 3D IMC directory schema.
 - Updated regular expression on CODEX directory schema.

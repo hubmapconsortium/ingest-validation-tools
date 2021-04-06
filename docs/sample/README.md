@@ -98,7 +98,7 @@ Type of solution that was used to perfuse the organ.
 | constraint | value |
 | --- | --- |
 | required | `True` |
-| enum | `UWS`, `HTK`, `Unknown`, or `None` |
+| enum | `UWS`, `HTK`, `Belzer MPS/KPS`, `Unknown`, or `None` |
 
 ##### `pathologist_report`
 Further details on organ level QC checks.
