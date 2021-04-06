@@ -1,6 +1,7 @@
 # Changelog
 
 ## v0.0.10 - in progress
+- Remove links to YAML from MD.
 - Cleaned up description on 3D IMC directory schema.
 - Updated a description on 3D IMC directory schema.
 - Updated regular expression on CODEX directory schema.
