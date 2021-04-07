@@ -101,6 +101,12 @@ fields:
     constraints:
       pattern: '\d+(,\d+)*'
   -
+    name: expected_cell_count
+    description: Parameter for downstream pipeline; How many cells are expected?
+    type: integer
+    constraints:
+      required: false
+  -
     name: library_pcr_cycles
     description: Number of PCR cycles to amplify cDNA
     type: integer

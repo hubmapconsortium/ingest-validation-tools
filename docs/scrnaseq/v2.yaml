@@ -265,6 +265,13 @@ fields:
   name: cell_barcode_size
   type: string
 - constraints:
+    required: false
+  custom_constraints:
+    sequence_limit: 3
+  description: Parameter for downstream pipeline; How many cells are expected?
+  name: expected_cell_count
+  type: integer
+- constraints:
     required: true
   custom_constraints:
     sequence_limit: 3

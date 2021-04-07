@@ -60,6 +60,7 @@ Related files:
 [`cell_barcode_read`](#cell_barcode_read)<br>
 [`cell_barcode_offset`](#cell_barcode_offset)<br>
 [`cell_barcode_size`](#cell_barcode_size)<br>
+[`expected_cell_count`](#expected_cell_count)<br>
 [`library_pcr_cycles`](#library_pcr_cycles)<br>
 [`library_pcr_cycles_for_sample_index`](#library_pcr_cycles_for_sample_index)<br>
 [`library_final_yield_value`](#library_final_yield_value)<br>
@@ -294,6 +295,13 @@ Length of the cell barcode in base pairs.
 | --- | --- |
 | pattern (regular expression) | `\d+(,\d+)*` |
 | required | `True` |
+
+##### `expected_cell_count`
+Parameter for downstream pipeline; How many cells are expected? Leave blank if not applicable.
+| constraint | value |
+| --- | --- |
+| type | `integer` |
+| required | `False` |
 
 ##### `library_pcr_cycles`
 Number of PCR cycles to amplify cDNA.
