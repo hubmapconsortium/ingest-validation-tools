@@ -2,6 +2,8 @@
 
 ## v0.0.10 - in progress
 - Distinguish v2 and v3 10x.
+- Add 'Belzer MPS/KPS' as an option.
+- Remove links to YAML from MD.
 - Cleaned up description on 3D IMC directory schema.
 - Updated a description on 3D IMC directory schema.
 - Updated regular expression on CODEX directory schema.

@@ -4,8 +4,6 @@ Related files:
 - [🔬 Background doc](https://portal.hubmapconsortium.org/docs/assays/atacseq): More details about this type.
 - [📝 Excel template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/master/docs/scatacseq/scatacseq-metadata.xlsx): For metadata entry.
 - [📝 TSV template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/master/docs/scatacseq/scatacseq-metadata.tsv): Alternative for metadata entry.
-- [💻 Metadata schema](https://github.com/hubmapconsortium/ingest-validation-tools/edit/master/src/ingest_validation_tools/table-schemas/assays/scatacseq.yaml): To update metadata fields.
-- [💻 Directory schema](https://github.com/hubmapconsortium/ingest-validation-tools/edit/master/src/ingest_validation_tools/directory-schemas/scatacseq.yaml): To update directory structure.
 
 
 

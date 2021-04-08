@@ -4,8 +4,6 @@ Related files:
 
 - [📝 Excel template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/master/docs/sample/sample.xlsx): For metadata entry.
 - [📝 TSV template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/master/docs/sample/sample.tsv): Alternative for metadata entry.
-- [💻 Metadata schema](https://github.com/hubmapconsortium/ingest-validation-tools/edit/master/src/ingest_validation_tools/table-schemas/sample.yaml): To update metadata fields.
-
 
 
 
@@ -98,7 +96,7 @@ Type of solution that was used to perfuse the organ.
 | constraint | value |
 | --- | --- |
 | required | `True` |
-| enum | `UWS`, `HTK`, `Unknown`, or `None` |
+| enum | `UWS`, `HTK`, `Belzer MPS/KPS`, `Unknown`, or `None` |
 
 ##### `pathologist_report`
 Further details on organ level QC checks.

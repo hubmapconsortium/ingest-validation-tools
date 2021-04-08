@@ -80,17 +80,9 @@ def generate_readme_md(
     raw_base_url = 'https://raw.githubusercontent.com/' \
         'hubmapconsortium/ingest-validation-tools/master/docs'
 
-    src_url_base = 'https://github.com/hubmapconsortium' \
-        '/ingest-validation-tools/edit/master/src/ingest_validation_tools'
-    end_of_path = f'{"assays/" if is_assay else ""}{schema_name}.yaml'
-
-    directory_source_url = f'{src_url_base}/directory-schemas/{schema_name}.yaml'
-    optional_dir_schema_link_md, optional_dir_description_md = (
-        (
-            f'- [💻 Directory schema]({directory_source_url}): To update directory structure.',
-            f'## Directory schema\n{_make_dir_description(directory_schema)}'
-        ) if directory_schema else
-        ('', '')
+    optional_dir_description_md = (
+        f'## Directory schema\n{_make_dir_description(directory_schema)}'
+        if directory_schema else ''
     )
 
     optional_doc_link_md = (
@@ -112,7 +104,6 @@ def generate_readme_md(
 
         'tsv_url': f'{raw_base_url}/{schema_name}/{get_tsv_name(schema_name, is_assay=is_assay)}',
         'xlsx_url': f'{raw_base_url}/{schema_name}/{get_xlsx_name(schema_name, is_assay=is_assay)}',
-        'metadata_source_url': f'{src_url_base}/table-schemas/{end_of_path}',
 
         'current_version_md':
             _make_fields_md(
@@ -126,7 +117,6 @@ def generate_readme_md(
                 for v in reversed(range(int(max_version)))
             ]),
 
-        'optional_dir_schema_link_md': optional_dir_schema_link_md,
         'optional_dir_description_md': optional_dir_description_md,
 
         'optional_doc_link_md': optional_doc_link_md,
