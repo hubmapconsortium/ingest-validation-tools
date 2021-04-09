@@ -1,6 +1,7 @@
 # Changelog
 
 ## v0.0.10 - in progress
+- Remove the sequence_limit where not appropriate.
 - Distinguish v2 and v3 10x.
 - Add 'Belzer MPS/KPS' as an option.
 - Remove links to YAML from MD.
