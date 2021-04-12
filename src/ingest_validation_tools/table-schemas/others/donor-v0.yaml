@@ -19,10 +19,10 @@ fields:
   # Because nothing depends on it, we'll use this as a place to develop the ontology machinery.
   constraints:
     enum:
-      - A
-      - B
-      - AB
-      - O
+      A: http://purl.bioontology.org/ontology/SNOMEDCT/49790006
+      B: http://purl.bioontology.org/ontology/SNOMEDCT/21221007
+      AB: http://purl.bioontology.org/ontology/SNOMEDCT/103868007
+      O: http://purl.bioontology.org/ontology/SNOMEDCT/113036007
 
 # -
 #   name: body_mass_index_unit

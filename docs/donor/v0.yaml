@@ -13,10 +13,10 @@ fields:
   type: number
 - constraints:
     enum:
-    - A
-    - B
-    - AB
-    - O
+      A: http://purl.bioontology.org/ontology/SNOMEDCT/49790006
+      AB: http://purl.bioontology.org/ontology/SNOMEDCT/103868007
+      B: http://purl.bioontology.org/ontology/SNOMEDCT/21221007
+      O: http://purl.bioontology.org/ontology/SNOMEDCT/113036007
     required: true
   custom_constraints:
     sequence_limit: 3

@@ -1,5 +1,6 @@
 from pathlib import Path
 from collections import (defaultdict, namedtuple)
+from copy import deepcopy
 
 from ingest_validation_tools.yaml_include_loader import load_yaml
 
@@ -246,3 +247,47 @@ def _add_constraints(field, optional_fields, offline=None, names=None):
         c_c = 'custom_constraints'
         if c_c in field and 'url' in field[c_c]:
             del field[c_c]['url']
+
+
+def enum_maps_to_lists(schema):
+    '''
+    >>> schema = {
+    ...     'whatever': 'is preserved',
+    ...     'fields': [
+    ...         {
+    ...             'name': 'ice_cream',
+    ...             'constraints': {
+    ...                 'enum': {
+    ...                     'vanilla': 'http://example.com/vanil',
+    ...                     'chocolate': 'http://example.com/choco'
+    ...                 }
+    ...             }
+    ...         },
+    ...         {
+    ...             'name': 'mood',
+    ...             'constraints': {
+    ...                 'enum': ['happy', 'sad']
+    ...             }
+    ...         },
+    ...         {'name': 'no_enum', 'constraints': {}},
+    ...         {'name': 'no_constraints'},
+    ...     ]
+    ... }
+    >>> from pprint import pprint
+    >>> pprint(enum_maps_to_lists(schema))
+    {'fields': [{'constraints': {'enum': ['vanilla', 'chocolate']},
+                 'name': 'ice_cream'},
+                {'constraints': {'enum': ['happy', 'sad']}, 'name': 'mood'},
+                {'constraints': {}, 'name': 'no_enum'},
+                {'name': 'no_constraints'}],
+     'whatever': 'is preserved'}
+
+    '''
+    schema_copy = deepcopy(schema)
+    for field in schema_copy['fields']:
+        if 'constraints' in field:
+            constraints = field['constraints']
+            if 'enum' in constraints:
+                if isinstance(constraints['enum'], dict):
+                    constraints['enum'] = list(constraints['enum'].keys())
+    return schema_copy
