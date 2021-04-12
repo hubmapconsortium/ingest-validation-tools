@@ -161,7 +161,7 @@ def _make_constraints_table(field):
     if 'custom_constraints' in field:
         for key, value in field['custom_constraints'].items():
             if key == 'sequence_limit':
-                # Applied to every field,
+                # Applied to nearly every field,
                 # but we don't want to clutter the docs:
                 continue
             key_md = _make_key_md(key, value)
@@ -170,7 +170,19 @@ def _make_constraints_table(field):
     if len(table_md_rows) < 3:
         # Empty it, if there is no data.
         table_md_rows = []
-    return '\n'.join(table_md_rows)
+    main_table_md = '\n'.join(table_md_rows)
+
+    onto_table_md = _make_onto_table(field['constraints']['enum']) if 'constraints' in field and 'enum' in field['constraints'] else ''
+    return main_table_md + onto_table_md
+
+
+def _make_onto_table(enum):
+    if not isinstance(enum, dict):
+        return ''
+    table_md_rows = ['| term | URI |', '| --- | --- |']
+    for term, uri in enum.items():
+        table_md_rows.append(f'| {term} | `{uri}` |')
+    return '\n\nOntology terms:\n\n' + '\n'.join(table_md_rows)
 
 
 def _make_key_md(key, value):
