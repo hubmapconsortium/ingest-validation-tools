@@ -17,6 +17,12 @@ fields:
   name: blood_type
   description:  'ABO blood type or "serotype" refers to the presence/absence of the either/both A & B blood antigens.' 
   # Because nothing depends on it, we'll use this as a place to develop the ontology machinery.
+  constraints:
+    enum:
+      - A
+      - B
+      - AB
+      - O
 
 # -
 #   name: body_mass_index_unit

@@ -1,6 +1,6 @@
 # Generated YAML: PRs should not start here!
 description_md: 'This file is really only here to provide descriptions of fields in
-  the UI. The full description of Donor metadata is at https://portal.hubmapconsortium.org/docs/donor
+  portal-ui. The full description of Donor metadata is at https://portal.hubmapconsortium.org/docs/donor
 
   Most definitions taken from https://ncit.nci.nih.gov/ncitbrowser/pages/home.jsf?version=20.11e'
 fields:
@@ -12,6 +12,11 @@ fields:
   name: age_value
   type: number
 - constraints:
+    enum:
+    - A
+    - B
+    - AB
+    - O
     required: true
   custom_constraints:
     sequence_limit: 3

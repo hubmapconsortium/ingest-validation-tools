@@ -5,7 +5,7 @@ Related files:
 - [📝 Excel template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/master/docs/donor/donor.xlsx): For metadata entry.
 - [📝 TSV template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/master/docs/donor/donor.tsv): Alternative for metadata entry.
 
-This file is really only here to provide descriptions of fields in the UI. The full description of Donor metadata is at https://portal.hubmapconsortium.org/docs/donor
+This file is really only here to provide descriptions of fields in portal-ui. The full description of Donor metadata is at https://portal.hubmapconsortium.org/docs/donor
 Most definitions taken from https://ncit.nci.nih.gov/ncitbrowser/pages/home.jsf?version=20.11e
 
 
@@ -42,6 +42,7 @@ The time elapsed since birth.
 ABO blood type or "serotype" refers to the presence/absence of the either/both A & B blood antigens.
 | constraint | value |
 | --- | --- |
+| enum | `A`, `B`, `AB`, or `O` |
 | required | `True` |
 
 ##### `body_mass_index_value`
