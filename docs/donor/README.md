@@ -44,7 +44,9 @@ ABO blood type or "serotype" refers to the presence/absence of the either/both A
 | --- | --- |
 | enum | `A`, `B`, `AB`, or `O` |
 | required | `True` |
+
 Ontology terms:
+
 | term | URI |
 | --- | --- |
 | A | `http://purl.bioontology.org/ontology/SNOMEDCT/49790006` |

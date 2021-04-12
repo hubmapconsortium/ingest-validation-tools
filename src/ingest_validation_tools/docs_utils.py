@@ -172,7 +172,8 @@ def _make_constraints_table(field):
         table_md_rows = []
     main_table_md = '\n'.join(table_md_rows)
 
-    onto_table_md = _make_onto_table(field['constraints']['enum']) if 'constraints' in field and 'enum' in field['constraints'] else ''
+    onto_table_md = _make_onto_table(field['constraints']['enum']) \
+        if 'constraints' in field and 'enum' in field['constraints'] else ''
     return main_table_md + onto_table_md
 
 

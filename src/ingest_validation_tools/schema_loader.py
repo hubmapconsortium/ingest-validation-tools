@@ -298,5 +298,7 @@ def enum_maps_to_lists(schema, add_none_of_the_above=False):
             constraints = field['constraints']
             if 'enum' in constraints:
                 if isinstance(constraints['enum'], dict):
-                    constraints['enum'] = list(constraints['enum'].keys()) + ['None of the above']
+                    constraints['enum'] = list(constraints['enum'].keys())
+                    if add_none_of_the_above:
+                        constraints['enum'].append('None of the above')
     return schema_copy
