@@ -1,7 +1,7 @@
 # Changelog
 
 ## v0.0.10 - in progress
-- Add expected_cells_count.
+- Add expected_cell_count.
 - Add 'Belzer MPS/KPS' as an option.
 - Remove links to YAML from MD.
 - Cleaned up description on 3D IMC directory schema.
