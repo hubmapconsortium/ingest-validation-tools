@@ -297,7 +297,7 @@ Length of the cell barcode in base pairs.
 | required | `True` |
 
 ##### `expected_cell_count`
-Parameter for downstream pipeline; How many cells are expected? Leave blank if not applicable.
+How many cells are expected? This may be used in downstream pipelines to guide selection of cell barcodes or segmentation parameters. Leave blank if not applicable.
 | constraint | value |
 | --- | --- |
 | type | `integer` |
