@@ -249,7 +249,7 @@ def _add_constraints(field, optional_fields, offline=None, names=None):
             del field[c_c]['url']
 
 
-def enum_maps_to_lists(schema):
+def enum_maps_to_lists(schema, add_none_of_the_above=False):
     '''
     >>> schema = {
     ...     'whatever': 'is preserved',
@@ -282,6 +282,15 @@ def enum_maps_to_lists(schema):
                 {'name': 'no_constraints'}],
      'whatever': 'is preserved'}
 
+    >>> pprint(enum_maps_to_lists(schema, add_none_of_the_above=True))
+    {'fields': [{'constraints': {'enum': ['vanilla',
+                                          'chocolate',
+                                          'None of the above']},
+                 'name': 'ice_cream'},
+                {'constraints': {'enum': ['happy', 'sad']}, 'name': 'mood'},
+                {'constraints': {}, 'name': 'no_enum'},
+                {'name': 'no_constraints'}],
+     'whatever': 'is preserved'}
     '''
     schema_copy = deepcopy(schema)
     for field in schema_copy['fields']:
@@ -289,5 +298,5 @@ def enum_maps_to_lists(schema):
             constraints = field['constraints']
             if 'enum' in constraints:
                 if isinstance(constraints['enum'], dict):
-                    constraints['enum'] = list(constraints['enum'].keys())
+                    constraints['enum'] = list(constraints['enum'].keys()) + ['None of the above']
     return schema_copy
