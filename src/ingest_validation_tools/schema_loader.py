@@ -254,25 +254,17 @@ def enum_maps_to_lists(schema, add_none_of_the_above=False, add_desired=False):
     >>> schema = {
     ...     'whatever': 'is preserved',
     ...     'fields': [
-    ...         {
-    ...             'name': 'ice_cream',
-    ...             'constraints': {
+    ...         {'name': 'ice_cream',
+    ...          'constraints': {
     ...                 'enum': {
     ...                     'vanilla': 'http://example.com/vanil',
-    ...                     'chocolate': 'http://example.com/choco'
-    ...                 }
-    ...             }
-    ...         },
-    ...         {
-    ...             'name': 'mood',
-    ...             'constraints': {
-    ...                 'enum': ['happy', 'sad']
-    ...             }
-    ...         },
+    ...                     'chocolate': 'http://example.com/choco'}}},
+    ...         {'name': 'mood',
+    ...          'constraints': {
+    ...                 'enum': ['happy', 'sad']}},
     ...         {'name': 'no_enum', 'constraints': {}},
     ...         {'name': 'no_constraints'},
-    ...     ]
-    ... }
+    ...     ]}
     >>> from pprint import pprint
     >>> pprint(enum_maps_to_lists(schema))
     {'fields': [{'constraints': {'enum': ['vanilla', 'chocolate']},
