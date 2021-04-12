@@ -43,6 +43,32 @@ class PreflightError(Exception):
     pass
 
 
+def get_schema_version(path, encoding='ASCII'):  # TODO: Check type on encoding.
+    try:
+        rows = dict_reader_wrapper(path, encoding)
+    except UnicodeDecodeError:
+        return None
+        # TODO: use get_context_of_decode_error
+    except IsADirectoryError:
+        raise PreflightError(f'Expected a TSV, found a directory at {path}.')
+    if not rows:
+        raise PreflightError(f'{path} has no data rows.')
+    if 'assay_type' not in rows[0]:
+        message = f'{path} does not contain "assay_type". '
+        if 'channel_id' in rows[0]:
+            message += 'Has "channel_id": Antibodies TSV found where metadata TSV expected.'
+        elif 'orcid_id' in rows[0]:
+            message += 'Has "orcid_id": Contributors TSV found where metadata TSV expected.'
+        else:
+            message += f'Column headers: {", ".join(rows[0].keys())}'
+        raise PreflightError(message)
+
+    name = rows[0]['assay_type']
+    version = rows[0]['version'] if 'version' in rows[0] else 0
+
+    return SchemaVersion(_assay_to_schema_name(name), version)
+
+
 class Submission:
     def __init__(self, directory_path=None, tsv_paths=[],
                  optional_fields=[], add_notes=True,
@@ -59,7 +85,7 @@ class Submission:
         self.errors = {}
         try:
             unsorted_effective_tsv_paths = {
-                str(path): self._get_schema_version(path)
+                str(path): get_schema_version(path, encoding=self.encoding)
                 for path in (
                     tsv_paths if tsv_paths
                     else directory_path.glob(f'*{TSV_SUFFIX}')
@@ -71,31 +97,6 @@ class Submission:
             }
         except PreflightError as e:
             self.errors['Preflight'] = str(e)
-
-    def _get_schema_version(self, path):
-        try:
-            rows = dict_reader_wrapper(path, self.encoding)
-        except UnicodeDecodeError:
-            return None
-            # TODO: use get_context_of_decode_error
-        except IsADirectoryError:
-            raise PreflightError(f'Expected a TSV, found a directory at {path}.')
-        if not rows:
-            raise PreflightError(f'{path} has no data rows.')
-        if 'assay_type' not in rows[0]:
-            message = f'{path} does not contain "assay_type". '
-            if 'channel_id' in rows[0]:
-                message += 'Has "channel_id": Antibodies TSV found where metadata TSV expected.'
-            elif 'orcid_id' in rows[0]:
-                message += 'Has "orcid_id": Contributors TSV found where metadata TSV expected.'
-            else:
-                message += f'Column headers: {", ".join(rows[0].keys())}'
-            raise PreflightError(message)
-
-        name = rows[0]['assay_type']
-        version = rows[0]['version'] if 'version' in rows[0] else 0
-
-        return SchemaVersion(_assay_to_schema_name(name), version)
 
     def get_errors(self):
         # This creates a deeply nested dict.
