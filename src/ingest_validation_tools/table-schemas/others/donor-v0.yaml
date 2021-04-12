@@ -1,9 +1,10 @@
-# This file is really only here to provide descriptions of fields in the UI.
-# The full description of Donor metadata is at
-# https://portal.hubmapconsortium.org/docs/donor
+description_md:
+  This file is really only here to provide descriptions of fields in portal-ui.
+  The full description of Donor metadata is at
+  https://portal.hubmapconsortium.org/docs/donor
 
-# Most definitions taken from:
-# https://ncit.nci.nih.gov/ncitbrowser/pages/home.jsf?version=20.11e
+  Most definitions taken from
+  https://ncit.nci.nih.gov/ncitbrowser/pages/home.jsf?version=20.11e
 
 fields:
 # -
@@ -15,6 +16,8 @@ fields:
 -
   name: blood_type
   description:  'ABO blood type or "serotype" refers to the presence/absence of the either/both A & B blood antigens.' 
+  # Because nothing depends on it, we'll use this as a place to develop the ontology machinery.
+
 # -
 #   name: body_mass_index_unit
 #   description: ...

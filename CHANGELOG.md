@@ -1,6 +1,7 @@
 # Changelog
 
 ## v0.0.10 - in progress
+- User donor as a test-bed for ontology-enums.
 - Distinguish v2 and v3 10x.
 - Add 'Belzer MPS/KPS' as an option.
 - Remove links to YAML from MD.
