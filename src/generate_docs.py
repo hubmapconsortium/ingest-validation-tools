@@ -55,7 +55,8 @@ def main():
 
     # Data entry templates:
     with open(Path(args.target) / get_tsv_name(args.type, is_assay=is_assay), 'w') as f:
-        max_schema = enum_maps_to_lists(table_schemas[max_version], add_none_of_the_above=True)
+        max_schema = enum_maps_to_lists(table_schemas[max_version],
+                                        add_none_of_the_above=True, add_desired=True)
         f.write(generate_template_tsv(max_schema))
     create_xlsx(
         max_schema, Path(args.target) / get_xlsx_name(args.type, is_assay=is_assay),

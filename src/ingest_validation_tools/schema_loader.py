@@ -249,7 +249,7 @@ def _add_constraints(field, optional_fields, offline=None, names=None):
             del field[c_c]['url']
 
 
-def enum_maps_to_lists(schema, add_none_of_the_above=False):
+def enum_maps_to_lists(schema, add_none_of_the_above=False, add_desired=False):
     '''
     >>> schema = {
     ...     'whatever': 'is preserved',
@@ -291,9 +291,24 @@ def enum_maps_to_lists(schema, add_none_of_the_above=False):
                 {'constraints': {}, 'name': 'no_enum'},
                 {'name': 'no_constraints'}],
      'whatever': 'is preserved'}
+
+    >>> pprint(enum_maps_to_lists(schema, add_none_of_the_above=True, add_desired=True))
+    {'fields': [{'constraints': {'enum': ['vanilla',
+                                          'chocolate',
+                                          'None of the above']},
+                 'name': 'ice_cream'},
+                {'description': 'Desired value for ice_cream',
+                 'name': 'ice_cream_desired'},
+                {'constraints': {'enum': ['happy', 'sad']}, 'name': 'mood'},
+                {'constraints': {}, 'name': 'no_enum'},
+                {'name': 'no_constraints'}],
+     'whatever': 'is preserved'}
     '''
     schema_copy = deepcopy(schema)
-    for field in schema_copy['fields']:
+    schema_copy['fields'], original_fields = \
+        [], schema_copy['fields']
+    for field in original_fields:
+        extra_field = None
         if 'constraints' in field:
             constraints = field['constraints']
             if 'enum' in constraints:
@@ -301,4 +316,12 @@ def enum_maps_to_lists(schema, add_none_of_the_above=False):
                     constraints['enum'] = list(constraints['enum'].keys())
                     if add_none_of_the_above:
                         constraints['enum'].append('None of the above')
+                    if add_desired:
+                        extra_field = {
+                            'name': f"{field['name']}_desired",
+                            'description': f"Desired value for {field['name']}"
+                        }
+        schema_copy['fields'].append(field)
+        if extra_field:
+            schema_copy['fields'].append(extra_field)
     return schema_copy
