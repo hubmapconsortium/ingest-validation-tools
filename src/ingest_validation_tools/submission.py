@@ -1,10 +1,7 @@
 from datetime import datetime
 from collections import defaultdict
 from fnmatch import fnmatch
-from pathlib import Path
 from collections import Counter
-
-from ingest_validation_tools.yaml_include_loader import load_yaml
 
 from ingest_validation_tools.validation_utils import (
     get_tsv_errors,
@@ -19,28 +16,11 @@ from ingest_validation_tools.plugin_validator import (
 )
 
 from ingest_validation_tools.schema_loader import (
-    SchemaVersion, get_schema_version_from_row
+    get_schema_version_from_row, PreflightError
 )
 
 
-def _assay_to_schema_name(name):
-    '''
-    Given an assay name, read all the schemas until one matches.
-    Return the schema name, but not the version.
-    '''
-    for path in (Path(__file__).parent / 'table-schemas' / 'assays').glob('*.yaml'):
-        schema = load_yaml(path)
-        for field in schema['fields']:
-            if field['name'] == 'assay_type' and name in field['constraints']['enum']:
-                return path.stem.split('-v')[0]
-    raise PreflightError(f"Can't find schema where '{name}' is in the enum for assay_type")
-
-
 TSV_SUFFIX = 'metadata.tsv'
-
-
-class PreflightError(Exception):
-    pass
 
 
 class Submission:
@@ -83,7 +63,6 @@ class Submission:
         if not rows:
             raise PreflightError(f'{path} has no data rows.')
         return get_schema_version_from_row(path, rows[0])
-
 
     def get_errors(self):
         # This creates a deeply nested dict.
