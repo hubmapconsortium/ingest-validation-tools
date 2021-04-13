@@ -57,6 +57,11 @@ def _assay_to_schema_name(name):
     Given an assay name, read all the schemas until one matches.
     Return the schema name, but not the version.
 
+    >>> _assay_to_schema_name('Bad assay')
+    Traceback (most recent call last):
+    ...
+    schema_loader.PreflightError: Can't find schema where 'Bad assay' is in the enum for assay_type
+
     >>> _assay_to_schema_name('PAS microscopy')
     'stained'
 
