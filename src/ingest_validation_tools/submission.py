@@ -92,10 +92,13 @@ class Submission:
                 message += f'Column headers: {", ".join(rows[0].keys())}'
             raise PreflightError(message)
 
-        name = rows[0]['assay_type']
+        assay = rows[0]['assay_type']
         version = rows[0]['version'] if 'version' in rows[0] else 0
+        schema_name = _assay_to_schema_name(assay)
+        if 'source_project' in rows[0]:
+            schema_name += f"-{rows[0]['source_project']}"
 
-        return SchemaVersion(_assay_to_schema_name(name), version)
+        return SchemaVersion(schema_name, version)
 
     def get_errors(self):
         # This creates a deeply nested dict.
