@@ -19,7 +19,7 @@ from ingest_validation_tools.plugin_validator import (
 )
 
 from ingest_validation_tools.schema_loader import (
-    SchemaVersion
+    SchemaVersion, get_schema_version_from_row
 )
 
 
@@ -82,7 +82,7 @@ class Submission:
             raise PreflightError(f'Expected a TSV, found a directory at {path}.')
         if not rows:
             raise PreflightError(f'{path} has no data rows.')
-        return _get_schema_version_from_row(path, rows[0])
+        return get_schema_version_from_row(path, rows[0])
 
 
     def get_errors(self):
@@ -271,39 +271,3 @@ class Submission:
                     reference = f'{tsv_path} (row {i+2})'
                     references[row[col_name]].append(reference)
         return references
-
-
-def _get_schema_version_from_row(path, row):
-    '''
-    >>> _get_schema_version_from_row('empty', {'bad-column': 'bad-value'})
-    Traceback (most recent call last):
-    ...
-    submission.PreflightError: empty does not contain "assay_type". Column headers: bad-column
-
-    >>> _get_schema_version_from_row('v0', {'assay_type': 'PAS microscopy'})
-    SchemaVersion(schema_name='stained', version=0)
-
-    >>> _get_schema_version_from_row('v42', {'assay_type': 'PAS microscopy', 'version': 42})
-    SchemaVersion(schema_name='stained', version=42)
-
-    >>> _get_schema_version_from_row('xyz-v42', {'assay_type': 'PAS microscopy', 'version': 42, 'source_project': 'XYZ'})
-    SchemaVersion(schema_name='stained-XYZ', version=42)
-
-    '''
-    if 'assay_type' not in row:
-        message = f'{path} does not contain "assay_type". '
-        if 'channel_id' in row:
-            message += 'Has "channel_id": Antibodies TSV found where metadata TSV expected.'
-        elif 'orcid_id' in row:
-            message += 'Has "orcid_id": Contributors TSV found where metadata TSV expected.'
-        else:
-            message += f'Column headers: {", ".join(row.keys())}'
-        raise PreflightError(message)
-
-    assay = row['assay_type']
-    version = row['version'] if 'version' in row else 0
-    schema_name = _assay_to_schema_name(assay)
-    if 'source_project' in row:
-        schema_name += f"-{row['source_project']}"
-
-    return SchemaVersion(schema_name, version)
