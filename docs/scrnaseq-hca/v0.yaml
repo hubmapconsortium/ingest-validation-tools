@@ -2,6 +2,14 @@
 doc_url: https://portal.hubmapconsortium.org/docs/assays/rnaseq
 fields:
 - constraints:
+    enum:
+    - HCA
+    required: true
+  custom_constraints:
+    sequence_limit: 3
+  description: Source project
+  name: source_project
+- constraints:
     pattern: '[A-Z]+[0-9]+'
     required: false
   custom_constraints:

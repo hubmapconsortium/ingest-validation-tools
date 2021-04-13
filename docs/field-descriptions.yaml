@@ -256,6 +256,7 @@ sequencing_read_percent_q30: Percent of bases with Quality scores above Q30
 sequencing_reagent_kit: Reagent kit used for sequencing
 sex: 'Biological sex at birth: male or female or other.'
 signal_type: Type of signal measured per channel (usually dual counts)
+source_project: Source project
 specimen_preservation_temperature: The temperature of the medium during the preservation
   process.
 specimen_quality_criteria: 'For example, RIN: 8.7.'

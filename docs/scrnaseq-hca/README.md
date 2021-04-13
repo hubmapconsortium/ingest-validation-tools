@@ -22,6 +22,7 @@ Related files:
 
 <blockquote>
 
+[`source_project`](#source_project)<br>
 <details><summary>Shared by all types</summary>
 
 [`donor_id`](#donor_id)<br>
@@ -72,6 +73,13 @@ Related files:
 </details>
 
 </blockquote>
+
+##### `source_project`
+Source project.
+| constraint | value |
+| --- | --- |
+| enum | `HCA` |
+| required | `True` |
 
 ### Shared by all types
 
