@@ -1,5 +1,6 @@
 from pathlib import Path
 from collections import (defaultdict, namedtuple)
+import re
 
 from ingest_validation_tools.yaml_include_loader import load_yaml
 
@@ -44,42 +45,56 @@ def get_schema_version_from_row(path, row):
         raise PreflightError(message)
 
     assay = row['assay_type']
-    version = row['version'] if 'version' in row else 0
-    schema_name = _assay_to_schema_name(assay)
-    if 'source_project' in row:
-        schema_name += f" ({row['source_project']})"
+    source_project = row['source_project'] if 'source_project' in row else None
+    schema_name = _assay_to_schema_name(assay, source_project)
 
+    version = row['version'] if 'version' in row else 0
     return SchemaVersion(schema_name, version)
 
 
-def _assay_to_schema_name(name):
+def _assay_to_schema_name(assay_type, source_project):
     '''
-    Given an assay name, read all the schemas until one matches.
+    Given an assay name, and a source_project (may be None),
+    read all the schemas until one matches.
     Return the schema name, but not the version.
 
-    >>> _assay_to_schema_name('Bad assay')
+    >>> _assay_to_schema_name('Bad assay', None)
     Traceback (most recent call last):
     ...
     schema_loader.PreflightError: Can't find schema where 'Bad assay' is in the enum for assay_type
 
-    >>> _assay_to_schema_name('PAS microscopy')
+    >>> _assay_to_schema_name('PAS microscopy', None)
     'stained'
+
+    >>> _assay_to_schema_name('snRNAseq', 'HCA')
+    'scrnaseq-hca'
 
     '''
     for path in (Path(__file__).parent / 'table-schemas' / 'assays').glob('*.yaml'):
         schema = load_yaml(path)
+        assay_type_match = False
+        source_project_match = False
         for field in schema['fields']:
-            if field['name'] == 'assay_type' and name in field['constraints']['enum']:
-                return path.stem.split('-v')[0]
-    raise PreflightError(f"Can't find schema where '{name}' is in the enum for assay_type")
+            if field['name'] == 'assay_type' and assay_type in field['constraints']['enum']:
+                assay_type_match = True
+            if field['name'] == 'source_project' and source_project in field['constraints']['enum']:
+                source_project_match = True
+            if assay_type_match and (source_project_match or source_project is None):
+                return re.match(r'.+(?=-v\d+)', path.stem)[0]
+    raise PreflightError(f"Can't find schema where '{assay_type}' is in the enum for assay_type")
 
 
 def list_schema_versions():
+    '''
+    >>> list_schema_versions()[0]
+    ASDF
+
+    '''
     schema_paths = list((_table_schemas_path / 'assays').iterdir()) + \
         list((_table_schemas_path / 'others').iterdir())
     stems = sorted(p.stem for p in schema_paths)
     return [
-        SchemaVersion(*stem.split('-v')) for stem in stems
+        SchemaVersion(re.match(r'(.+)-v(\d+)', stem)) for stem in stems
     ]
 
 
@@ -90,16 +105,14 @@ def dict_schema_versions():
     return dict_of_sets
 
 
-def _get_schema_filename(schema_name, version, source_project):
-    dash_source = f"-{source_project.lower().replace(' ', '_')}" if source_project else ''
-    dash_version = f'-v{version}'
-    return f'{schema_name}{dash_source}{dash_version}.yaml'
+def _get_schema_filename(schema_name, version):
+    return f'{schema_name}-v{version}.yaml'
 
 
-def get_other_schema(schema_name, version, source_project=None, offline=None):
+def get_other_schema(schema_name, version, offline=None):
     schema = load_yaml(
         _table_schemas_path / 'others' /
-        _get_schema_filename(schema_name, version, source_project))
+        _get_schema_filename(schema_name, version))
     names = [field['name'] for field in schema['fields']]
     for field in schema['fields']:
         _add_constraints(field, optional_fields=[], offline=offline, names=names)
@@ -111,10 +124,10 @@ def get_is_assay(schema_name):
     return schema_name not in ['donor', 'sample', 'antibodies', 'contributors']
 
 
-def get_table_schema(schema_name, version, source_project=None, optional_fields=[], offline=None):
+def get_table_schema(schema_name, version, optional_fields=[], offline=None):
     schema = load_yaml(
         _table_schemas_path / 'assays' /
-        _get_schema_filename(schema_name, version, source_project))
+        _get_schema_filename(schema_name, version))
 
     names = [field['name'] for field in schema['fields']]
     for field in schema['fields']:

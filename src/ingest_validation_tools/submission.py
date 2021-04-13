@@ -175,6 +175,7 @@ class Submission:
 
             data_path = self.directory_path / \
                 row['data_path']
+
             data_dir_errors = self._get_data_dir_errors(
                 assay_type, data_path)
             if data_dir_errors:
