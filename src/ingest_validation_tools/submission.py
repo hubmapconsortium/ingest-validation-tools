@@ -274,6 +274,22 @@ class Submission:
 
 
 def _get_schema_version_from_row(path, row):
+    '''
+    >>> _get_schema_version_from_row('empty', {'bad-column': 'bad-value'})
+    Traceback (most recent call last):
+    ...
+    submission.PreflightError: empty does not contain "assay_type". Column headers: bad-column
+
+    >>> _get_schema_version_from_row('v0', {'assay_type': 'PAS microscopy'})
+    SchemaVersion(schema_name='stained', version=0)
+
+    >>> _get_schema_version_from_row('v42', {'assay_type': 'PAS microscopy', 'version': 42})
+    SchemaVersion(schema_name='stained', version=42)
+
+    >>> _get_schema_version_from_row('xyz-v42', {'assay_type': 'PAS microscopy', 'version': 42, 'source_project': 'XYZ'})
+    SchemaVersion(schema_name='stained-XYZ', version=42)
+
+    '''
     if 'assay_type' not in row:
         message = f'{path} does not contain "assay_type". '
         if 'channel_id' in row:
