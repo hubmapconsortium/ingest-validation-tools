@@ -133,7 +133,7 @@ Data submission to HuBMAP is composed of discrete phases:
 - Restructuring
 - Re-re-validation and pipeline runs
 
-[![Submission process](https://docs.google.com/drawings/d/e/2PACX-1vQeNhQsKQewUz1rHDIl2rQLn08gt_wbTnDvkBM3fCBA5BareGPuwYxSHTTXwY2Y0XGLGmX9UcqzDC5U/pub?w=1000)](https://docs.google.com/drawings/d/1Cicn-JUVU9QmfsP0CHtGPJkqCe08DlENlKR02leOiLg/edit)
+[![Submission directory structure](https://docs.google.com/drawings/d/e/2PACX-1vS8F78bk0zHSRygMIyTLruAMxjL4c5EY_q_Mp3gN2TbdZLtalax5AxyvwBWyqWwAJH941ziqJPqBDTW/pub?w=500)](https://docs.google.com/drawings/d/1nhrRWBgcZh6GE2MCKysIq4KzsRL6SZm0jYtvadF83Kk/edit)
 
 Submissions are based on directories containing at a minimum:
 - one or more `*-metadata.tsv` files.
@@ -147,4 +147,4 @@ but if they are applicable to only a single dataset, they can be placed within t
 
 You can validate your submission directory locally, then upload it to Globus, and the same validation will be run there.
 
-[![Submission process](https://docs.google.com/drawings/d/e/2PACX-1vScOVTJCQjaHj0oiVuvPxuQDNXFCtI-CGTTOm-kSPji9DehMxRIaWg98qKAkkvwSWn5d2TuL1z4mIyh/pub?w=1000)](https://docs.google.com/drawings/d/11DLkPe_mfC3kh69HCYqCx5MAVTTkYOXqVjyFY85jMLQ/edit)
+[![Submission process flowchart](https://docs.google.com/drawings/d/e/2PACX-1vScOVTJCQjaHj0oiVuvPxuQDNXFCtI-CGTTOm-kSPji9DehMxRIaWg98qKAkkvwSWn5d2TuL1z4mIyh/pub?w=1000)](https://docs.google.com/drawings/d/11DLkPe_mfC3kh69HCYqCx5MAVTTkYOXqVjyFY85jMLQ/edit)
