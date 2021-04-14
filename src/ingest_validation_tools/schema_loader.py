@@ -29,10 +29,6 @@ def get_schema_version_from_row(path, row):
     >>> get_schema_version_from_row('v42', {'assay_type': 'PAS microscopy', 'version': 42})
     SchemaVersion(schema_name='stained', version=42)
 
-    >>> get_schema_version_from_row('xyz-v42',
-    ...     {'assay_type': 'PAS microscopy', 'version': 42, 'source_project': 'XYZ'})
-    SchemaVersion(schema_name='stained (XYZ)', version=42)
-
     '''
     if 'assay_type' not in row:
         message = f'{path} does not contain "assay_type". '
@@ -61,10 +57,15 @@ def _assay_to_schema_name(assay_type, source_project):
     >>> _assay_to_schema_name('Bad assay', None)
     Traceback (most recent call last):
     ...
-    schema_loader.PreflightError: Can't find schema where 'Bad assay' is in the enum for assay_type
+    schema_loader.PreflightError: Can't find schema where 'Bad assay' is allowed assay_type
 
     >>> _assay_to_schema_name('PAS microscopy', None)
     'stained'
+
+    >>> _assay_to_schema_name('PAS microscopy', 'Bad project')
+    Traceback (most recent call last):
+    ...
+    schema_loader.PreflightError: Can't find schema where 'PAS microscopy' is allowed assay_type and 'Bad project' is allowed source_project
 
     >>> _assay_to_schema_name('snRNAseq', 'HCA')
     'scrnaseq-hca'
@@ -81,20 +82,23 @@ def _assay_to_schema_name(assay_type, source_project):
                 source_project_match = True
             if assay_type_match and (source_project_match or source_project is None):
                 return re.match(r'.+(?=-v\d+)', path.stem)[0]
-    raise PreflightError(f"Can't find schema where '{assay_type}' is in the enum for assay_type")
+    message = f"Can't find schema where '{assay_type}' is allowed assay_type"
+    if source_project is not None:
+        message += f" and '{source_project}' is allowed source_project"
+    raise PreflightError(message)
 
 
 def list_schema_versions():
     '''
     >>> list_schema_versions()[0]
-    ASDF
+    SchemaVersion(schema_name='af', version='0')
 
     '''
     schema_paths = list((_table_schemas_path / 'assays').iterdir()) + \
         list((_table_schemas_path / 'others').iterdir())
     stems = sorted(p.stem for p in schema_paths)
     return [
-        SchemaVersion(re.match(r'(.+)-v(\d+)', stem)) for stem in stems
+        SchemaVersion(*re.match(r'(.+)-v(\d+)', stem).groups()) for stem in stems
     ]
 
 
