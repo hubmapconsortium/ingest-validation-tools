@@ -2,7 +2,7 @@
 
 ## v0.0.10 - in progress
 - User donor as a test-bed for ontology-enums.
-- Distinguish v2 and v3 10x.
+- Distinguish v2 and v3 10x, and add to HCA as well.
 - Add 'Belzer MPS/KPS' as an option.
 - Remove links to YAML from MD.
 - Cleaned up description on 3D IMC directory schema.
