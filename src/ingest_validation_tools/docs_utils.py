@@ -172,12 +172,12 @@ def _make_constraints_table(field):
         table_md_rows = []
     main_table_md = '\n'.join(table_md_rows)
 
-    onto_table_md = _make_onto_table(field['constraints']['enum']) \
+    ontology_table_md = _make_ontology_table(field['constraints']['enum']) \
         if 'constraints' in field and 'enum' in field['constraints'] else ''
-    return main_table_md + onto_table_md
+    return main_table_md + ontology_table_md
 
 
-def _make_onto_table(enum):
+def _make_ontology_table(enum):
     if not isinstance(enum, dict):
         return ''
     table_md_rows = ['| term | URI |', '| --- | --- |']
