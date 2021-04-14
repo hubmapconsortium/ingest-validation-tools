@@ -277,7 +277,7 @@ def enum_maps_to_lists(schema, add_none_of_the_above=False, add_suggested=False)
     >>> pprint(enum_maps_to_lists(schema, add_none_of_the_above=True))
     {'fields': [{'constraints': {'enum': ['vanilla',
                                           'chocolate',
-                                          'None of the above']},
+                                          'Submitter Suggestion']},
                  'name': 'ice_cream'},
                 {'constraints': {'enum': ['happy', 'sad']}, 'name': 'mood'},
                 {'constraints': {}, 'name': 'no_enum'},
@@ -287,7 +287,7 @@ def enum_maps_to_lists(schema, add_none_of_the_above=False, add_suggested=False)
     >>> pprint(enum_maps_to_lists(schema, add_none_of_the_above=True, add_suggested=True))
     {'fields': [{'constraints': {'enum': ['vanilla',
                                           'chocolate',
-                                          'None of the above']},
+                                          'Submitter Suggestion']},
                  'name': 'ice_cream'},
                 {'description': 'Desired value for ice_cream',
                  'name': 'ice_cream_suggested'},
@@ -307,7 +307,7 @@ def enum_maps_to_lists(schema, add_none_of_the_above=False, add_suggested=False)
                 if isinstance(constraints['enum'], dict):
                     constraints['enum'] = list(constraints['enum'].keys())
                     if add_none_of_the_above:
-                        constraints['enum'].append('None of the above')
+                        constraints['enum'].append('Submitter Suggestion')
                     if add_suggested:
                         extra_field = {
                             'name': f"{field['name']}_suggested",
