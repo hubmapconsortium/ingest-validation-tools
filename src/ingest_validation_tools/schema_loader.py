@@ -57,15 +57,16 @@ def _assay_to_schema_name(assay_type, source_project):
     >>> _assay_to_schema_name('Bad assay', None)
     Traceback (most recent call last):
     ...
-    schema_loader.PreflightError: Can't find schema where 'Bad assay' is allowed assay_type
+    schema_loader.PreflightError: No schema where 'Bad assay' is assay_type
 
     >>> _assay_to_schema_name('PAS microscopy', None)
     'stained'
 
-    >>> _assay_to_schema_name('PAS microscopy', 'Bad project')
-    Traceback (most recent call last):
-    ...
-    schema_loader.PreflightError: Can't find schema where 'PAS microscopy' is allowed assay_type and 'Bad project' is allowed source_project
+    >>> try:
+    ...    _assay_to_schema_name('PAS microscopy', 'Bad project')
+    ... except PreflightError as e:
+    ...    print(e)
+    No schema where 'PAS microscopy' is assay_type and 'Bad project' is source_project
 
     >>> _assay_to_schema_name('snRNAseq', 'HCA')
     'scrnaseq-hca'
@@ -82,9 +83,9 @@ def _assay_to_schema_name(assay_type, source_project):
                 source_project_match = True
             if assay_type_match and (source_project_match or source_project is None):
                 return re.match(r'.+(?=-v\d+)', path.stem)[0]
-    message = f"Can't find schema where '{assay_type}' is allowed assay_type"
+    message = f"No schema where '{assay_type}' is assay_type"
     if source_project is not None:
-        message += f" and '{source_project}' is allowed source_project"
+        message += f" and '{source_project}' is source_project"
     raise PreflightError(message)
 
 
