@@ -1,6 +1,7 @@
 # Changelog
 
 ## v0.0.10 - in progress
+- Remove contributors_path from HCA.
 - Add expected_cell_count.
 - Remove the sequence_limit where not appropriate.
 - Chuck missed `source_project` in scrnaseq-hca: Added now.

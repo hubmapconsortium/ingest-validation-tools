@@ -181,11 +181,13 @@ class Submission:
             if data_dir_errors:
                 errors[f'{row_number}, referencing {data_path}'] = data_dir_errors
 
-            contributors_path = self.directory_path / row['contributors_path']
-            contributors_errors = self._get_contributors_errors(contributors_path)
-            if contributors_errors:
-                errors[f'{row_number}, contributors {contributors_path}'] = \
-                    contributors_errors
+            if row['contributors_path']:
+                # For HCA, contributors is optional
+                contributors_path = self.directory_path / row['contributors_path']
+                contributors_errors = self._get_contributors_errors(contributors_path)
+                if contributors_errors:
+                    errors[f'{row_number}, contributors {contributors_path}'] = \
+                        contributors_errors
 
             if 'antibodies_path' in row:
                 antibodies_path = self.directory_path / row['antibodies_path']
