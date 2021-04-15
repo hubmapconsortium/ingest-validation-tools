@@ -15,8 +15,7 @@ fields:
   name: version
 - constraints:
     required: true
-  custom_constraints:
-    sequence_limit: 3
+  custom_constraints: {}
   description: Structure of channel_id depends on assay type.
   name: channel_id
 - constraints:

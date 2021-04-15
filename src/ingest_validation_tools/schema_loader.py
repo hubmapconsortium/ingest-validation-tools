@@ -239,13 +239,15 @@ def _validate_level_1_enum(field):
         actual = set(field['constraints']['enum']) if 'enum' in field['constraints'] else set()
         allowed = set(enums[name])
         assert actual <= allowed, f'Unexpected enums for {name}: {actual - allowed}\n' \
-            'Allowed: {sorted(allowed)}'
+            f'Allowed: {sorted(allowed)}'
 
 
 def _add_constraints(field, optional_fields, offline=None, names=None):
     '''
     Modifies field in-place, adding implicit constraints
     based on the field name.
+
+    Names (like "percent") are taken as hint about the data:
 
     >>> from pprint import pprint
     >>> field = {'name': 'abc_percent'}
@@ -258,6 +260,8 @@ def _add_constraints(field, optional_fields, offline=None, names=None):
      'name': 'abc_percent',
      'type': 'number'}
 
+    Fields can be made optional at run-time:
+
     >>> field = {'name': 'optional_value'}
     >>> _add_constraints(field, ['optional_value'])
     >>> pprint(field, width=40)
@@ -265,6 +269,8 @@ def _add_constraints(field, optional_fields, offline=None, names=None):
      'custom_constraints': {'sequence_limit': 3},
      'name': 'optional_value',
      'type': 'number'}
+
+    Default field type is string:
 
     >>> field = {'name': 'whatever', 'constraints': {'pattern': 'fake-regex'}}
     >>> _add_constraints(field, [])
@@ -275,14 +281,20 @@ def _add_constraints(field, optional_fields, offline=None, names=None):
      'name': 'whatever',
      'type': 'string'}
 
+    Some fields are expected to have sequential numbers:
+
+    >>> field = {'name': 'channel_id'}
+    >>> _add_constraints(field, [])
+    >>> pprint(field, width=40)
+    {'constraints': {'required': True},
+     'custom_constraints': {},
+     'name': 'channel_id'}
+
     '''
     if 'constraints' not in field:
         field['constraints'] = {}
     if 'custom_constraints' not in field:
         field['custom_constraints'] = {}
-
-    # For all fields:
-    field['custom_constraints']['sequence_limit'] = 3
 
     # Guess constraints:
     if 'required' not in field['constraints']:
@@ -292,6 +304,8 @@ def _add_constraints(field, optional_fields, offline=None, names=None):
         field['custom_constraints']['url'] = {'prefix': 'https://dx.doi.org/'}
     if field['name'].endswith('_email'):
         field['format'] = 'email'
+    if field['name'] != 'channel_id':
+        field['custom_constraints']['sequence_limit'] = 3
     if field['name'].endswith('_unit'):
         # Issues have been filed to make names more consistent:
         # https://github.com/hubmapconsortium/ingest-validation-tools/issues/645
