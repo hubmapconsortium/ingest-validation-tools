@@ -93,7 +93,8 @@ fields:
   name: assay_category
 - constraints:
     enum:
-    - scRNAseq-10xGenomics
+    - scRNAseq-10xGenomics-v2
+    - scRNAseq-10xGenomics-v3
     - scRNAseq
     - sciRNAseq
     - snRNAseq
@@ -264,6 +265,14 @@ fields:
   description: Length of the cell barcode in base pairs
   name: cell_barcode_size
   type: string
+- constraints:
+    required: false
+  custom_constraints:
+    sequence_limit: 3
+  description: How many cells are expected? This may be used in downstream pipelines
+    to guide selection of cell barcodes or segmentation parameters.
+  name: expected_cell_count
+  type: integer
 - constraints:
     required: true
   custom_constraints:

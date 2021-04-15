@@ -1,6 +1,13 @@
 doc_url: https://portal.hubmapconsortium.org/docs/assays/rnaseq
 fields:
-  # include: ../includes/vA/all_assays.yaml
+  -
+    heading: Shared by all types
+    name: version
+    description: Version of the schema to use when validating this metadata.
+    constraints:
+      enum:
+        - '1'
+  # include: ../includes/vA/all_assays_wo_version.yaml
   -
     name: assay_category
     constraints:
@@ -10,7 +17,8 @@ fields:
     name: assay_type
     constraints:
       enum:
-        - scRNAseq-10xGenomics
+        - scRNAseq-10xGenomics-v2
+        - scRNAseq-10xGenomics-v3
         - scRNAseq
         - sciRNAseq
         - snRNAseq
@@ -93,6 +101,12 @@ fields:
     description: Length of the cell barcode in base pairs
     constraints:
       pattern: '\d+(,\d+)*'
+  -
+    name: expected_cell_count
+    description: How many cells are expected? This may be used in downstream pipelines to guide selection of cell barcodes or segmentation parameters.
+    type: integer
+    constraints:
+      required: false
   -
     name: library_pcr_cycles
     description: Number of PCR cycles to amplify cDNA
