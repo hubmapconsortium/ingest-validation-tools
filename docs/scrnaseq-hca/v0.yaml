@@ -7,7 +7,8 @@ fields:
     required: true
   custom_constraints:
     sequence_limit: 3
-  description: Source project
+  description: External source (outside of HuBMAP) of the project, eg. HCA (The Human
+    Cell Atlas Consortium).
   name: source_project
 - constraints:
     pattern: '[A-Z]+[0-9]+'

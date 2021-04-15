@@ -75,7 +75,7 @@ Related files:
 </blockquote>
 
 ##### `source_project`
-Source project.
+External source (outside of HuBMAP) of the project, eg. HCA (The Human Cell Atlas Consortium).
 | constraint | value |
 | --- | --- |
 | enum | `HCA` |
