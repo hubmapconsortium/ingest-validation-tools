@@ -87,7 +87,8 @@ fields:
   name: assay_category
 - constraints:
     enum:
-    - scRNAseq-10xGenomics
+    - scRNAseq-10xGenomics-v2
+    - scRNAseq-10xGenomics-v3
     - scRNAseq
     - sciRNAseq
     - snRNAseq

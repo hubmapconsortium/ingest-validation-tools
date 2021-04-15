@@ -150,7 +150,7 @@ Each assay is placed into one of the following 3 general categories: generation 
 The specific type of assay being executed.
 | constraint | value |
 | --- | --- |
-| enum | `scRNAseq-10xGenomics`, `scRNAseq`, `sciRNAseq`, `snRNAseq`, or `SNARE2-RNAseq` |
+| enum | `scRNAseq-10xGenomics-v2`, `scRNAseq-10xGenomics-v3`, `scRNAseq`, `sciRNAseq`, `snRNAseq`, or `SNARE2-RNAseq` |
 | required | `True` |
 
 ##### `analyte_class`
