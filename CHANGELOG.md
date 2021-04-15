@@ -2,6 +2,8 @@
 
 ## v0.0.10 - in progress
 - User donor as a test-bed for ontology-enums.
+- Remove the sequence_limit where not appropriate.
+- Chuck missed `source_project` in scrnaseq-hca: Added now.
 - Distinguish v2 and v3 10x, and add to HCA as well.
 - Add 'Belzer MPS/KPS' as an option.
 - Remove links to YAML from MD.
