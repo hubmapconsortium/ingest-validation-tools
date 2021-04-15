@@ -22,6 +22,7 @@ Related files:
 
 <blockquote>
 
+[`source_project`](#source_project)<br>
 <details><summary>Shared by all types</summary>
 
 [`donor_id`](#donor_id)<br>
@@ -72,6 +73,13 @@ Related files:
 </details>
 
 </blockquote>
+
+##### `source_project`
+External source (outside of HuBMAP) of the project, eg. HCA (The Human Cell Atlas Consortium).
+| constraint | value |
+| --- | --- |
+| enum | `HCA` |
+| required | `True` |
 
 ### Shared by all types
 
