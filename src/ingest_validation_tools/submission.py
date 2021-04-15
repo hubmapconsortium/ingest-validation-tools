@@ -182,7 +182,6 @@ class Submission:
                 errors[f'{row_number}, referencing {data_path}'] = data_dir_errors
 
             if 'contributors_path' in row and row['contributors_path']:
-                # For HCA, contributors is optional
                 contributors_path = self.directory_path / row['contributors_path']
                 contributors_errors = self._get_contributors_errors(contributors_path)
                 if contributors_errors:
