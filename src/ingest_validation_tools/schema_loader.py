@@ -1,5 +1,6 @@
 from pathlib import Path
 from collections import (defaultdict, namedtuple)
+import re
 
 from ingest_validation_tools.yaml_include_loader import load_yaml
 
@@ -8,15 +9,97 @@ _table_schemas_path = Path(__file__).parent / 'table-schemas'
 _directory_schemas_path = Path(__file__).parent / 'directory-schemas'
 
 
+class PreflightError(Exception):
+    pass
+
+
 SchemaVersion = namedtuple('SchemaVersion', ['schema_name', 'version'])
 
 
+def get_schema_version_from_row(path, row):
+    '''
+    >>> get_schema_version_from_row('empty', {'bad-column': 'bad-value'})
+    Traceback (most recent call last):
+    ...
+    schema_loader.PreflightError: empty does not contain "assay_type". Column headers: bad-column
+
+    >>> get_schema_version_from_row('v0', {'assay_type': 'PAS microscopy'})
+    SchemaVersion(schema_name='stained', version=0)
+
+    >>> get_schema_version_from_row('v42', {'assay_type': 'PAS microscopy', 'version': 42})
+    SchemaVersion(schema_name='stained', version=42)
+
+    '''
+    if 'assay_type' not in row:
+        message = f'{path} does not contain "assay_type". '
+        if 'channel_id' in row:
+            message += 'Has "channel_id": Antibodies TSV found where metadata TSV expected.'
+        elif 'orcid_id' in row:
+            message += 'Has "orcid_id": Contributors TSV found where metadata TSV expected.'
+        else:
+            message += f'Column headers: {", ".join(row.keys())}'
+        raise PreflightError(message)
+
+    assay = row['assay_type']
+    source_project = row['source_project'] if 'source_project' in row else None
+    schema_name = _assay_to_schema_name(assay, source_project)
+
+    version = row['version'] if 'version' in row else 0
+    return SchemaVersion(schema_name, version)
+
+
+def _assay_to_schema_name(assay_type, source_project):
+    '''
+    Given an assay name, and a source_project (may be None),
+    read all the schemas until one matches.
+    Return the schema name, but not the version.
+
+    >>> _assay_to_schema_name('Bad assay', None)
+    Traceback (most recent call last):
+    ...
+    schema_loader.PreflightError: No schema where 'Bad assay' is assay_type
+
+    >>> _assay_to_schema_name('PAS microscopy', None)
+    'stained'
+
+    >>> try:
+    ...    _assay_to_schema_name('PAS microscopy', 'Bad project')
+    ... except PreflightError as e:
+    ...    print(e)
+    No schema where 'PAS microscopy' is assay_type and 'Bad project' is source_project
+
+    >>> _assay_to_schema_name('snRNAseq', 'HCA')
+    'scrnaseq-hca'
+
+    '''
+    for path in (Path(__file__).parent / 'table-schemas' / 'assays').glob('*.yaml'):
+        schema = load_yaml(path)
+        assay_type_match = False
+        source_project_match = False
+        for field in schema['fields']:
+            if field['name'] == 'assay_type' and assay_type in field['constraints']['enum']:
+                assay_type_match = True
+            if field['name'] == 'source_project' and source_project in field['constraints']['enum']:
+                source_project_match = True
+            if assay_type_match and (source_project_match or source_project is None):
+                return re.match(r'.+(?=-v\d+)', path.stem)[0]
+    message = f"No schema where '{assay_type}' is assay_type"
+    if source_project is not None:
+        message += f" and '{source_project}' is source_project"
+    raise PreflightError(message)
+
+
 def list_schema_versions():
+    '''
+    >>> list_schema_versions()[0]
+    SchemaVersion(schema_name='af', version='0')
+
+    '''
     schema_paths = list((_table_schemas_path / 'assays').iterdir()) + \
         list((_table_schemas_path / 'others').iterdir())
     stems = sorted(p.stem for p in schema_paths)
     return [
-        SchemaVersion(*stem.split('-v')) for stem in stems
+        SchemaVersion(*re.match(r'(.+)-v(\d+)', stem).groups()) for stem in stems
     ]
 
 
@@ -27,16 +110,14 @@ def dict_schema_versions():
     return dict_of_sets
 
 
-def _get_schema_filename(schema_name, version, source_project):
-    dash_source = f"-{source_project.lower().replace(' ', '_')}" if source_project else ''
-    dash_version = f'-v{version}'
-    return f'{schema_name}{dash_source}{dash_version}.yaml'
+def _get_schema_filename(schema_name, version):
+    return f'{schema_name}-v{version}.yaml'
 
 
-def get_other_schema(schema_name, version, source_project=None, offline=None):
+def get_other_schema(schema_name, version, offline=None):
     schema = load_yaml(
         _table_schemas_path / 'others' /
-        _get_schema_filename(schema_name, version, source_project))
+        _get_schema_filename(schema_name, version))
     names = [field['name'] for field in schema['fields']]
     for field in schema['fields']:
         _add_constraints(field, optional_fields=[], offline=offline, names=names)
@@ -48,10 +129,10 @@ def get_is_assay(schema_name):
     return schema_name not in ['donor', 'sample', 'antibodies', 'contributors']
 
 
-def get_table_schema(schema_name, version, source_project=None, optional_fields=[], offline=None):
+def get_table_schema(schema_name, version, optional_fields=[], offline=None):
     schema = load_yaml(
         _table_schemas_path / 'assays' /
-        _get_schema_filename(schema_name, version, source_project))
+        _get_schema_filename(schema_name, version))
 
     names = [field['name'] for field in schema['fields']]
     for field in schema['fields']:
