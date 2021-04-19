@@ -1,6 +1,8 @@
 # Changelog
 
 ## v0.0.10 - in progress
+- Make the codeowners more granular.
+- Distinguish v2 and v3 10x.
 - Add expected_cell_count.
 - Remove the sequence_limit where not appropriate.
 - Chuck missed `source_project` in scrnaseq-hca: Added now.
