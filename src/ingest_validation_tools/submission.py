@@ -1,10 +1,7 @@
 from datetime import datetime
 from collections import defaultdict
 from fnmatch import fnmatch
-from pathlib import Path
 from collections import Counter
-
-from ingest_validation_tools.yaml_include_loader import load_yaml
 
 from ingest_validation_tools.validation_utils import (
     get_tsv_errors,
@@ -19,28 +16,11 @@ from ingest_validation_tools.plugin_validator import (
 )
 
 from ingest_validation_tools.schema_loader import (
-    SchemaVersion
+    get_schema_version_from_row, PreflightError
 )
 
 
-def _assay_to_schema_name(name):
-    '''
-    Given an assay name, read all the schemas until one matches.
-    Return the schema name, but not the version.
-    '''
-    for path in (Path(__file__).parent / 'table-schemas' / 'assays').glob('*.yaml'):
-        schema = load_yaml(path)
-        for field in schema['fields']:
-            if field['name'] == 'assay_type' and name in field['constraints']['enum']:
-                return path.stem.split('-v')[0]
-    raise PreflightError(f"Can't find schema where '{name}' is in the enum for assay_type")
-
-
 TSV_SUFFIX = 'metadata.tsv'
-
-
-class PreflightError(Exception):
-    pass
 
 
 class Submission:
@@ -82,20 +62,7 @@ class Submission:
             raise PreflightError(f'Expected a TSV, found a directory at {path}.')
         if not rows:
             raise PreflightError(f'{path} has no data rows.')
-        if 'assay_type' not in rows[0]:
-            message = f'{path} does not contain "assay_type". '
-            if 'channel_id' in rows[0]:
-                message += 'Has "channel_id": Antibodies TSV found where metadata TSV expected.'
-            elif 'orcid_id' in rows[0]:
-                message += 'Has "orcid_id": Contributors TSV found where metadata TSV expected.'
-            else:
-                message += f'Column headers: {", ".join(rows[0].keys())}'
-            raise PreflightError(message)
-
-        name = rows[0]['assay_type']
-        version = rows[0]['version'] if 'version' in rows[0] else 0
-
-        return SchemaVersion(_assay_to_schema_name(name), version)
+        return get_schema_version_from_row(path, rows[0])
 
     def get_errors(self):
         # This creates a deeply nested dict.
@@ -208,6 +175,7 @@ class Submission:
 
             data_path = self.directory_path / \
                 row['data_path']
+
             data_dir_errors = self._get_data_dir_errors(
                 assay_type, data_path)
             if data_dir_errors:

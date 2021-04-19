@@ -3,26 +3,31 @@ doc_url: https://portal.hubmapconsortium.org/docs/assays/rnaseq
 fields:
 - constraints:
     enum:
-    - HCA
+    - '1'
     required: true
   custom_constraints:
     sequence_limit: 3
-  description: External source (outside of HuBMAP) of the project, eg. HCA (The Human
-    Cell Atlas Consortium).
-  name: source_project
+  description: Version of the schema to use when validating this metadata.
+  heading: Shared by all types
+  name: version
+- constraints:
+    required: true
+  custom_constraints:
+    sequence_limit: 3
+  description: Free-text description of this assay.
+  name: description
 - constraints:
     pattern: '[A-Z]+[0-9]+'
-    required: false
+    required: true
   custom_constraints:
     sequence_limit: 3
   description: HuBMAP Display ID of the donor of the assayed tissue.
   example: ABC123
-  heading: Shared by all types
   name: donor_id
   type: string
 - constraints:
     pattern: ([A-Z]+[0-9]+)-[A-Z]{2}\d*(-\d+)+(_\d+)?
-    required: false
+    required: true
   custom_constraints:
     sequence_limit: 3
   description: HuBMAP Display ID of the assayed tissue.
@@ -57,7 +62,7 @@ fields:
   description: Name of the person responsible for executing the assay.
   name: operator
 - constraints:
-    required: false
+    required: true
   custom_constraints:
     sequence_limit: 3
   description: Email address for the operator.
@@ -70,7 +75,7 @@ fields:
   description: Name of the principal investigator responsible for the data.
   name: pi
 - constraints:
-    required: false
+    required: true
   custom_constraints:
     sequence_limit: 3
   description: Email address for the principal investigator.
@@ -112,8 +117,7 @@ fields:
   custom_constraints:
     sequence_limit: 3
   description: Specifies whether or not a specific molecule(s) is/are targeted for
-    detection/measurement by the assay. For example, an antibody targets a specific
-    protein.
+    detection/measurement by the assay. The CODEX analyte is protein.
   name: is_targeted
   type: boolean
 - constraints:
@@ -146,6 +150,11 @@ fields:
   name: sc_isolation_protocols_io_doi
   type: string
 - constraints:
+    enum:
+    - whole cell
+    - nucleus
+    - cell-cell multimer
+    - spatially encoded cell barcoding
     required: true
   custom_constraints:
     sequence_limit: 3
@@ -158,13 +167,16 @@ fields:
   description: The method by which tissues are dissociated into single cells in suspension.
   name: sc_isolation_tissue_dissociation
 - constraints:
+    enum:
+    - none
+    - FACS
     required: true
   custom_constraints:
     sequence_limit: 3
   description: The method by which specific cell populations are sorted or enriched.
   name: sc_isolation_enrichment
 - constraints:
-    required: false
+    required: true
   custom_constraints:
     sequence_limit: 3
   description: A quality metric by visual inspection prior to cell lysis or defined
@@ -172,13 +184,13 @@ fields:
     captured at a high level.
   name: sc_isolation_quality_metric
 - constraints:
-    required: false
+    required: true
   custom_constraints:
     sequence_limit: 3
   description: Total number of cell/nuclei yielded post dissociation and enrichment
   name: sc_isolation_cell_number
 - constraints:
-    required: false
+    required: true
   custom_constraints:
     sequence_limit: 3
   description: Number of cell/nuclei input to the assay
@@ -202,28 +214,33 @@ fields:
   name: library_construction_protocols_io_doi
   type: string
 - constraints:
+    enum:
+    - single-end
+    - paired-end
     required: true
   custom_constraints:
     sequence_limit: 3
   description: Whether the library was generated for single-end or paired end sequencing
   name: library_layout
 - constraints:
-    required: false
+    pattern: '[ATCG]+(\+[ATCG]+)?'
+    required: true
   custom_constraints:
     sequence_limit: 3
   description: Adapter sequence to be used for adapter trimming
   name: library_adapter_sequence
+  type: string
 - constraints:
-    required: false
+    required: true
   custom_constraints:
     sequence_limit: 3
   description: An id for the library. The id may be text and/or numbers
   name: library_id
 - constraints:
-    required: false
+    required: true
   custom_constraints:
     sequence_limit: 3
-  description: Is the sequencing reaction run in replicate, TRUE or FALSE
+  description: Is the sequencing reaction run in repliucate, TRUE or FALSE
   name: is_technical_replicate
   type: boolean
 - constraints:
@@ -233,31 +250,45 @@ fields:
   description: Which read file contains the cell barcode
   name: cell_barcode_read
 - constraints:
+    pattern: \d+(,\d+)*
     required: true
   custom_constraints:
     sequence_limit: 3
   description: Position(s) in the read at which the cell barcode starts.
   name: cell_barcode_offset
+  type: string
 - constraints:
+    pattern: \d+(,\d+)*
     required: true
   custom_constraints:
     sequence_limit: 3
   description: Length of the cell barcode in base pairs
   name: cell_barcode_size
+  type: string
 - constraints:
     required: false
+  custom_constraints:
+    sequence_limit: 3
+  description: How many cells are expected? This may be used in downstream pipelines
+    to guide selection of cell barcodes or segmentation parameters.
+  name: expected_cell_count
+  type: integer
+- constraints:
+    required: true
   custom_constraints:
     sequence_limit: 3
   description: Number of PCR cycles to amplify cDNA
   name: library_pcr_cycles
+  type: integer
 - constraints:
-    required: false
+    required: true
   custom_constraints:
     sequence_limit: 3
   description: Number of PCR cycles performed for library indexing
   name: library_pcr_cycles_for_sample_index
+  type: integer
 - constraints:
-    required: false
+    required: true
   custom_constraints:
     sequence_limit: 3
   description: Total number of ng of library after final pcr amplification step. This
@@ -274,21 +305,21 @@ fields:
   description: Units of final library yield
   name: library_final_yield_unit
 - constraints:
-    required: false
+    required: true
   custom_constraints:
     sequence_limit: 3
   description: Average size of sequencing library fragments estimated via gel electrophoresis
     or bioanalyzer/tapestation.
   name: library_average_fragment_size
 - constraints:
-    required: false
+    required: true
   custom_constraints:
     sequence_limit: 3
   description: Reagent kit used for sequencing
   name: sequencing_reagent_kit
 - constraints:
     pattern: \d+(/\d+)+
-    required: false
+    required: true
   custom_constraints:
     sequence_limit: 3
   description: Slash-delimited list of the number of sequencing cycles for, for example,
@@ -298,7 +329,7 @@ fields:
 - constraints:
     maximum: 100
     minimum: 0
-    required: false
+    required: true
   custom_constraints:
     sequence_limit: 3
   description: Percent of bases with Quality scores above Q30
@@ -307,20 +338,20 @@ fields:
 - constraints:
     maximum: 100
     minimum: 0
-    required: false
+    required: true
   custom_constraints:
     sequence_limit: 3
   description: Percent PhiX loaded to the run
   name: sequencing_phix_percent
   type: number
 - constraints:
-    required: false
+    required: true
   custom_constraints:
     sequence_limit: 3
   description: Relative path to file with ORCID IDs for contributors for this dataset.
   name: contributors_path
 - constraints:
-    required: false
+    required: true
   custom_constraints:
     sequence_limit: 3
   description: Relative path to file or directory with instrument data. Downstream
