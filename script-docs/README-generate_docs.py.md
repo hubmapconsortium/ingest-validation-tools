@@ -1,4 +1,4 @@
-```
+```text
 usage: generate_docs.py [-h] type target
 
 positional arguments:

@@ -1,4 +1,4 @@
-```
+```text
 usage: cleanup_whitespace.py [-h] (--tsv_path PATH | --encoding_test ENCODING)
 
 Data providers may use the "--tsv_path" option to strip invisible characters

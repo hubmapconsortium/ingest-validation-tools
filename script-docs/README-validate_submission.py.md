@@ -1,4 +1,4 @@
-```
+```text
 usage: validate_submission.py [-h]
                               (--local_directory PATH | --tsv_paths PATH [PATH ...])
                               [--optional_fields FIELD [FIELD ...]]
