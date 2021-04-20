@@ -1,6 +1,7 @@
 # Changelog
 
 ## v0.0.10 - in progress
+- Remove inappropriate syntax highlighting from CLI docs.
 - Fix bug in report generation.
 - Remove contributors_path from HCA.
 - Make the codeowners more granular.
