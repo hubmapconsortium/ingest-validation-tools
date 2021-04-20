@@ -2,6 +2,7 @@
 
 ## v0.0.10 - in progress
 - Fix bug in report generation.
+- Remove contributors_path from HCA.
 - Make the codeowners more granular.
 - Distinguish v2 and v3 10x.
 - Add expected_cell_count.

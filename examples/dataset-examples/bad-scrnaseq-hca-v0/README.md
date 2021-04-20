@@ -4,8 +4,6 @@ Metadata TSV Errors:
     External:
       row 2, referencing examples/dataset-examples/bad-scrnaseq-hca-v0/submission/data:
         No such file or directory: examples/dataset-examples/bad-scrnaseq-hca-v0/submission/data
-      row 2, contributors examples/dataset-examples/bad-scrnaseq-hca-v0/submission/contrib: File
-        does not exist
 Hint: 'If validation fails because of extra whitespace in the TSV, try:
 
   src/cleanup_whitespace.py --tsv_path original.tsv > clean.tsv'

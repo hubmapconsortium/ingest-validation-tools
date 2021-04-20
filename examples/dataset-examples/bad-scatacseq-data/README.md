@@ -23,8 +23,6 @@ Metadata TSV Errors:
         - scatacseq-metadata.tsv
         Required but missing:
         - '[^/]+\.fastq\.gz'
-      row 3, contributors examples/dataset-examples/bad-scatacseq-data/submission: Expected
-        a TSV, but found a directory
 Hint: 'If validation fails because of extra whitespace in the TSV, try:
 
   src/cleanup_whitespace.py --tsv_path original.tsv > clean.tsv'
