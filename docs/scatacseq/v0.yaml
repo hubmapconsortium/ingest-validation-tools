@@ -339,7 +339,7 @@ fields:
     required: true
   custom_constraints:
     sequence_limit: 3
-  description: Percent of bases with Quality scores above Q30.
+  description: Percent of bases with Quality scores above Q30
   name: sequencing_read_percent_q30
   type: number
 - constraints:
