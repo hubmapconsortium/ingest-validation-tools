@@ -1,6 +1,7 @@
 # Changelog
 
 ## v0.0.11 - in progress
+- Longer description for Q30.
 
 ## v0.0.10 - 2021-04-21
 - Remove inappropriate syntax highlighting from CLI docs.
