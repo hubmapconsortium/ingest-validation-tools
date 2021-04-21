@@ -363,7 +363,7 @@ Number of sequencing cycles in Read1, i7 index, i5 index, and Read2. Example: `1
 | required | `True` |
 
 ##### `sequencing_read_percent_q30`
-Percent of bases with Quality scores above Q30.
+Q30 is the weighted average of all the reads (e.g. # bases UMI * q30 UMI + # bases R2 * q30 R2 + ...)
 | constraint | value |
 | --- | --- |
 | type | `number` |
@@ -670,7 +670,7 @@ Number of sequencing cycles in Read1, i7 index, i5 index, and Read2. Eg: for 10X
 | required | `True` |
 
 ##### `sequencing_read_percent_q30`
-Percent of bases with Quality scores above Q30.
+Q30 is the weighted average of all the reads (e.g. # bases UMI * q30 UMI + # bases R2 * q30 R2 + ...)
 | constraint | value |
 | --- | --- |
 | type | `number` |

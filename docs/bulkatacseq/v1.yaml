@@ -291,7 +291,8 @@ fields:
     required: true
   custom_constraints:
     sequence_limit: 3
-  description: Percent of bases with Quality scores above Q30
+  description: 'Q30 is the weighted average of all the reads (e.g. # bases UMI * q30
+    UMI + # bases R2 * q30 R2 + ...)'
   name: sequencing_read_percent_q30
   type: number
 - constraints:
