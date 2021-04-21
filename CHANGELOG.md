@@ -1,6 +1,9 @@
 # Changelog
 
-## v0.0.10 - in progress
+## v0.0.11 - in progress
+- No Donor and Tissue ID validation needed for HCA.
+
+## v0.0.10 - 2021-04-21
 - Remove inappropriate syntax highlighting from CLI docs.
 - Fix bug in report generation.
 - Remove contributors_path from HCA.
