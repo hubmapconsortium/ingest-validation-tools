@@ -87,8 +87,7 @@ fields:
   constraints:
     pattern: '\d+(/\d+)+'
   example: '12/34/56'
-- name: sequencing_read_percent_q30
-  description: Percent of bases with Quality scores above Q30
+# include: ../includes/fields/sequencing_read_percent_q30.yaml
 - name: sequencing_reagent_kit
   description: Reagent kit used for sequencing. NovaSeq6000 for example
 - name: transposition_kit_number
