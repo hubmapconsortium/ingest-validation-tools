@@ -314,7 +314,7 @@ Slash-delimited list of the number of sequencing cycles for, for example, Read1,
 | required | `True` |
 
 ##### `sequencing_read_percent_q30`
-Percent of bases with Quality scores above Q30.
+Q30 is the weighted average of all the reads (e.g. # bases UMI * q30 UMI + # bases R2 * q30 R2 + ...)
 | constraint | value |
 | --- | --- |
 | type | `number` |
@@ -592,7 +592,7 @@ Slash-delimited list of the number of sequencing cycles for, for example, Read1,
 | required | `True` |
 
 ##### `sequencing_read_percent_q30`
-Percent of bases with Quality scores above Q30.
+Q30 is the weighted average of all the reads (e.g. # bases UMI * q30 UMI + # bases R2 * q30 R2 + ...)
 | constraint | value |
 | --- | --- |
 | type | `number` |
