@@ -84,17 +84,15 @@ External source (outside of HuBMAP) of the project, eg. HCA (The Human Cell Atla
 ### Shared by all types
 
 ##### `donor_id`
-HuBMAP Display ID of the donor of the assayed tissue. Leave blank if not applicable. Example: `ABC123`.
+HuBMAP Display ID of the donor of the assayed tissue. Leave blank if not applicable.
 | constraint | value |
 | --- | --- |
-| pattern (regular expression) | `[A-Z]+[0-9]+` |
 | required | `False` |
 
 ##### `tissue_id`
-HuBMAP Display ID of the assayed tissue. Leave blank if not applicable. Example: `ABC123-BL-1-2-3_456`.
+HuBMAP Display ID of the assayed tissue. Leave blank if not applicable.
 | constraint | value |
 | --- | --- |
-| pattern (regular expression) | `([A-Z]+[0-9]+)-[A-Z]{2}\d*(-\d+)+(_\d+)?` |
 | required | `False` |
 
 ##### `execution_datetime`

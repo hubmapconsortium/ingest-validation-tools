@@ -7,18 +7,14 @@ fields:
     enum:
       - HCA
 - constraints:
-    pattern: '[A-Z]+[0-9]+'
     required: false
   description: HuBMAP Display ID of the donor of the assayed tissue.
-  example: ABC123
   heading: Shared by all types
   name: donor_id
   type: string
 - constraints:
-    pattern: ([A-Z]+[0-9]+)-[A-Z]{2}\d*(-\d+)+(_\d+)?
     required: false
   description: HuBMAP Display ID of the assayed tissue.
-  example: ABC123-BL-1-2-3_456
   name: tissue_id
   type: string
 - constraints:
