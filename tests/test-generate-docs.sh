@@ -21,7 +21,8 @@ rm -rf docs-test
 
 # Test docs:
 
-for TYPE in $(ls -d docs/*/); do # Just get subdirectories
+for TYPE in $(ls -d docs/*/ | grep -v '/_'); do # Just get subdirectories
+  
   TYPE=`basename $TYPE`
   echo "Testing $TYPE generation..."
 

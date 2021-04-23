@@ -39,8 +39,12 @@ def main():
         table_schemas = {v: get_other_schema(args.type, v) for v in versions}
         directory_schema = {}
 
-    # README:
-    with open(Path(args.target) / 'README.md', 'w') as f:
+    # README.md:
+    with open(Path(args.target) / 'index.md', 'w') as f:
+        f.write('Moved to [index.md]. (Move to github pages is in process.)')
+
+    # index.md:
+    with open(Path(args.target) / 'index.md', 'w') as f:
         f.write(generate_readme_md(
             table_schemas, directory_schema, args.type, is_assay=is_assay
         ))

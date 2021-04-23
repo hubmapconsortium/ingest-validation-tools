@@ -137,7 +137,7 @@ def _make_fields_md(table_schema, title, is_open=False):
         ]))
     joined_list = '\n\n'.join(fields_md_list)
     return f'''
-<details {'open="true"' if is_open else ''}><summary><b>{title}</b></summary>
+<details markdown="1" {'open="true"' if is_open else ''}><summary><b>{title}</b></summary>
 
 {_make_toc(joined_list) if is_open else ''}
 {joined_list}
@@ -170,7 +170,7 @@ def _make_constraints_table(field):
     if len(table_md_rows) < 3:
         # Empty it, if there is no data.
         table_md_rows = []
-    return '\n'.join(table_md_rows)
+    return '\n' + '\n'.join(table_md_rows)
 
 
 def _make_key_md(key, value):
@@ -277,7 +277,7 @@ def _make_toc(md):
         else:
             if in_details:
                 mds.append('\n</details>')
-            mds.append(f'<details><summary>{h}</summary>\n')
+            mds.append(f'<details markdown="1"><summary>{h}</summary>\n')
             in_details = True
     if in_details:
         mds.append('</details>')
