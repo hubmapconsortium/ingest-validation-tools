@@ -1,1 +1,1 @@
-Moved to [index.md]. (Move to github pages is in process.)
+Moved to [index.md](index.md). (Move to github pages is in process.)
