@@ -40,7 +40,7 @@ def main():
         directory_schema = {}
 
     # README.md:
-    with open(Path(args.target) / 'index.md', 'w') as f:
+    with open(Path(args.target) / 'README.md', 'w') as f:
         f.write('Moved to [index.md]. (Move to github pages is in process.)')
 
     # index.md:
