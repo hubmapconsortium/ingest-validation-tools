@@ -71,6 +71,9 @@ def _assay_to_schema_name(assay_type, source_project):
     >>> _assay_to_schema_name('snRNAseq', 'HCA')
     'scrnaseq-hca'
 
+    >>> _assay_to_schema_name('snRNAseq', None)
+    'scrnaseq'
+
     '''
     for path in (Path(__file__).parent / 'table-schemas' / 'assays').glob('*.yaml'):
         schema = load_yaml(path)
