@@ -239,12 +239,12 @@ def _make_toc(md):
     >>> print(_make_toc(md))
     <blockquote>
     <BLANKLINE>
-    <details><summary>Section A</summary>
+    <details markdown="1"><summary>Section A</summary>
     <BLANKLINE>
     [`Item 1`](#item-1)<br>
     <BLANKLINE>
     </details>
-    <details><summary>Section B</summary>
+    <details markdown="1"><summary>Section B</summary>
     <BLANKLINE>
     </details>
     <BLANKLINE>
