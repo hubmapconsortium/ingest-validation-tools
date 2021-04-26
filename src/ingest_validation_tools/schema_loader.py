@@ -66,28 +66,20 @@ def _assay_to_schema_name(assay_type, source_project):
 
     Or, if a match can not be found (try-except just for shorter lines):
 
-    >>> try:
-    ...    _assay_to_schema_name('PAS microscopy', 'HCA')
-    ... except PreflightError as e:
-    ...    print(e)
+    >>> try:  _assay_to_schema_name('PAS microscopy', 'HCA')
+    ... except PreflightError as e: print(e)
     No schema where 'PAS microscopy' is assay_type and 'HCA' is source_project
 
-    >>> try:
-    ...    _assay_to_schema_name('snRNAseq', 'Bad Project')
-    ... except PreflightError as e:
-    ...    print(e)
+    >>> try: _assay_to_schema_name('snRNAseq', 'Bad Project')
+    ... except PreflightError as e: print(e)
     No schema where 'snRNAseq' is assay_type and 'Bad Project' is source_project
 
-    >>> try:
-    ...    _assay_to_schema_name('Bad assay', None)
-    ... except PreflightError as e:
-    ...    print(e)
+    >>> try: _assay_to_schema_name('Bad assay', None)
+    ... except PreflightError as e: print(e)
     No schema where 'Bad assay' is assay_type
 
-    >>> try:
-    ...    _assay_to_schema_name('Bad assay', 'HCA')
-    ... except PreflightError as e:
-    ...    print(e)
+    >>> try: _assay_to_schema_name('Bad assay', 'HCA')
+    ... except PreflightError as e: print(e)
     No schema where 'Bad assay' is assay_type and 'HCA' is source_project
 
     '''
@@ -96,6 +88,10 @@ def _assay_to_schema_name(assay_type, source_project):
 
         assay_type_fields = [f for f in schema['fields'] if f['name'] == 'assay_type']
         source_project_fields = [f for f in schema['fields'] if f['name'] == 'source_project']
+        
+        # Because names are unique, these list should not contain more than one field:
+        assert len(assay_type_fields) <= 1
+        assert len(source_project_fields) <= 1
 
         if assay_type not in assay_type_fields[0]['constraints']['enum']:
             continue
