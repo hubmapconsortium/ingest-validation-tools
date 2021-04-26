@@ -237,7 +237,7 @@ def _make_toc(md):
     >>> md = '# Section A\\n## `Item 1`\\n# Section B'
 
     >>> print(_make_toc(md))
-    <blockquote>
+    <blockquote markdown="1">
     <BLANKLINE>
     <details markdown="1"><summary>Section A</summary>
     <BLANKLINE>
@@ -254,7 +254,7 @@ def _make_toc(md):
     >>> md = '## `Item 1`\\n## `Item 3`\\n## `Item 3`\\n'
 
     >>> print(_make_toc(md))
-    <blockquote>
+    <blockquote markdown="1">
     <BLANKLINE>
     [`Item 1`](#item-1)<br>
     [`Item 3`](#item-3)<br>
