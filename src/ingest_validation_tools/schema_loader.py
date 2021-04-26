@@ -88,7 +88,7 @@ def _assay_to_schema_name(assay_type, source_project):
 
         assay_type_fields = [f for f in schema['fields'] if f['name'] == 'assay_type']
         source_project_fields = [f for f in schema['fields'] if f['name'] == 'source_project']
-        
+
         # Because names are unique, these list should not contain more than one field:
         assert len(assay_type_fields) <= 1
         assert len(source_project_fields) <= 1

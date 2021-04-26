@@ -29,6 +29,7 @@ def main():
 
     schema_versions = dict_schema_versions()
     versions = sorted(schema_versions[args.type])
+    assert versions, f'No versions for {args.type}'
     max_version = max(versions)
 
     is_assay = get_is_assay(args.type)
