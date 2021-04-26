@@ -44,7 +44,7 @@ For more information, see the [Antibodies TSV documentation](../antibodies).
 
 <details markdown="1" open="true"><summary><b>Version 1 (current)</b></summary>
 
-<blockquote>
+<blockquote markdown="1">
 
 <details markdown="1"><summary>Shared by all types</summary>
 

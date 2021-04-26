@@ -17,7 +17,7 @@ Related files:
 
 <details markdown="1" open="true"><summary><b>Version 1 (current)</b></summary>
 
-<blockquote>
+<blockquote markdown="1">
 
 [`version`](#version)<br>
 [`affiliation`](#affiliation)<br>

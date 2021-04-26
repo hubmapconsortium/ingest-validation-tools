@@ -34,7 +34,7 @@ The other fields function the same way for all assays using antibodies. For more
 
 <details markdown="1" open="true"><summary><b>Version 1 (current)</b></summary>
 
-<blockquote>
+<blockquote markdown="1">
 
 <details markdown="1"><summary>Shared by all types</summary>
 

@@ -23,7 +23,7 @@ Related files:
 
 <details markdown="1" open="true"><summary><b>Version 0 (current)</b></summary>
 
-<blockquote>
+<blockquote markdown="1">
 
 [`source_project`](#source_project)<br>
 <details markdown="1"><summary>Shared by all types</summary>

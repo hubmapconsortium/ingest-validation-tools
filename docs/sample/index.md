@@ -17,7 +17,7 @@ Related files:
 
 <details markdown="1" open="true"><summary><b>Version 0 (current)</b></summary>
 
-<blockquote>
+<blockquote markdown="1">
 
 <details markdown="1"><summary>IDs</summary>
 

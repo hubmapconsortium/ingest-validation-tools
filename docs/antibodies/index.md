@@ -20,7 +20,7 @@ Changes:
 
 <details markdown="1" open="true"><summary><b>Version 2 (current)</b></summary>
 
-<blockquote>
+<blockquote markdown="1">
 
 [`version`](#version)<br>
 [`channel_id`](#channel_id)<br>

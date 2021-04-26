@@ -284,7 +284,7 @@ def _make_toc(md):
     joined_mds = "\n".join(mds)
     # If MD trails immediately after "</blockquote>",
     # it doesn't render correctly, so include a newline.
-    return f'<blockquote>\n\n{joined_mds}\n\n</blockquote>\n'
+    return f'<blockquote markdown="1">\n\n{joined_mds}\n\n</blockquote>\n'
 
 
 def _make_dir_description(dir_schema):
