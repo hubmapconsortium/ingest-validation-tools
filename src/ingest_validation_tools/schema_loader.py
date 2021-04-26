@@ -54,35 +54,60 @@ def _assay_to_schema_name(assay_type, source_project):
     read all the schemas until one matches.
     Return the schema name, but not the version.
 
-    >>> _assay_to_schema_name('Bad assay', None)
-    Traceback (most recent call last):
-    ...
-    schema_loader.PreflightError: No schema where 'Bad assay' is assay_type
-
     >>> _assay_to_schema_name('PAS microscopy', None)
     'stained'
 
-    >>> try:
-    ...    _assay_to_schema_name('PAS microscopy', 'Bad project')
-    ... except PreflightError as e:
-    ...    print(e)
-    No schema where 'PAS microscopy' is assay_type and 'Bad project' is source_project
+    >>> _assay_to_schema_name('snRNAseq', None)
+    'scrnaseq'
 
     >>> _assay_to_schema_name('snRNAseq', 'HCA')
     'scrnaseq-hca'
 
+
+    Or, if a match can not be found (try-except just for shorter lines):
+
+    >>> try:  _assay_to_schema_name('PAS microscopy', 'HCA')
+    ... except PreflightError as e: print(e)
+    No schema where 'PAS microscopy' is assay_type and 'HCA' is source_project
+
+    >>> try: _assay_to_schema_name('snRNAseq', 'Bad Project')
+    ... except PreflightError as e: print(e)
+    No schema where 'snRNAseq' is assay_type and 'Bad Project' is source_project
+
+    >>> try: _assay_to_schema_name('Bad assay', None)
+    ... except PreflightError as e: print(e)
+    No schema where 'Bad assay' is assay_type
+
+    >>> try: _assay_to_schema_name('Bad assay', 'HCA')
+    ... except PreflightError as e: print(e)
+    No schema where 'Bad assay' is assay_type and 'HCA' is source_project
+
     '''
     for path in (Path(__file__).parent / 'table-schemas' / 'assays').glob('*.yaml'):
         schema = load_yaml(path)
-        assay_type_match = False
-        source_project_match = False
-        for field in schema['fields']:
-            if field['name'] == 'assay_type' and assay_type in field['constraints']['enum']:
-                assay_type_match = True
-            if field['name'] == 'source_project' and source_project in field['constraints']['enum']:
-                source_project_match = True
-            if assay_type_match and (source_project_match or source_project is None):
-                return re.match(r'.+(?=-v\d+)', path.stem)[0]
+
+        assay_type_fields = [f for f in schema['fields'] if f['name'] == 'assay_type']
+        source_project_fields = [f for f in schema['fields'] if f['name'] == 'source_project']
+
+        # Because names are unique, these list should not contain more than one field:
+        assert len(assay_type_fields) <= 1
+        assert len(source_project_fields) <= 1
+
+        if assay_type not in assay_type_fields[0]['constraints']['enum']:
+            continue
+
+        if source_project_fields:
+            if not source_project:
+                continue
+
+        if source_project:
+            if not source_project_fields:
+                continue
+            if source_project not in source_project_fields[0]['constraints']['enum']:
+                continue
+
+        return re.match(r'.+(?=-v\d+)', path.stem)[0]
+
     message = f"No schema where '{assay_type}' is assay_type"
     if source_project is not None:
         message += f" and '{source_project}' is source_project"
