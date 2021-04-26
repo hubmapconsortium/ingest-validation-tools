@@ -42,7 +42,8 @@ def main():
 
     # README.md:
     with open(Path(args.target) / 'README.md', 'w') as f:
-        f.write('Moved to [index.md](index.md). (Move to github pages is in process.)')
+        url = f'https://hubmapconsortium.github.io/ingest-validation-tools/{args.type}/'
+        f.write(f'Moved to [github pages]({url}).')
 
     # index.md:
     with open(Path(args.target) / 'index.md', 'w') as f:

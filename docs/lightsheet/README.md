@@ -1,1 +1,1 @@
-Moved to [index.md](index.md). (Move to github pages is in process.)
+Moved to [github pages](https://hubmapconsortium.github.io/ingest-validation-tools/lightsheet/).
