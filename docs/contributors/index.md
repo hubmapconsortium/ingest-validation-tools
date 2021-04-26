@@ -30,6 +30,7 @@ Related files:
 
 </blockquote>
 
+<a name="version"></a>
 ##### `version`
 Version of the schema to use when validating this metadata.
 
@@ -38,6 +39,7 @@ Version of the schema to use when validating this metadata.
 | enum | `1` |
 | required | `True` |
 
+<a name="affiliation"></a>
 ##### `affiliation`
 Institutional affiliation.
 
@@ -45,6 +47,7 @@ Institutional affiliation.
 | --- | --- |
 | required | `True` |
 
+<a name="first_name"></a>
 ##### `first_name`
 First name.
 
@@ -52,6 +55,7 @@ First name.
 | --- | --- |
 | required | `True` |
 
+<a name="last_name"></a>
 ##### `last_name`
 Last name.
 
@@ -59,6 +63,7 @@ Last name.
 | --- | --- |
 | required | `True` |
 
+<a name="middle_name_or_initial"></a>
 ##### `middle_name_or_initial`
 Middle name or initial. Leave blank if not applicable.
 
@@ -66,6 +71,7 @@ Middle name or initial. Leave blank if not applicable.
 | --- | --- |
 | required | `False` |
 
+<a name="name"></a>
 ##### `name`
 Name for display.
 
@@ -73,6 +79,7 @@ Name for display.
 | --- | --- |
 | required | `True` |
 
+<a name="orcid_id"></a>
 ##### `orcid_id`
 ORCID ID of contributor. Example: `0000-0002-8928-741X`.
 
@@ -82,6 +89,7 @@ ORCID ID of contributor. Example: `0000-0002-8928-741X`.
 | required | `True` |
 | url | prefix: `https://orcid.org/` |
 
+<a name="is_contact"></a>
 ##### `is_contact`
 Is this individual a contact for DOI purposes?
 
@@ -96,6 +104,7 @@ Is this individual a contact for DOI purposes?
 <details markdown="1" ><summary><b>Version 0</b></summary>
 
 
+<a name="affiliation"></a>
 ##### `affiliation`
 Institutional affiliation.
 
@@ -103,6 +112,7 @@ Institutional affiliation.
 | --- | --- |
 | required | `True` |
 
+<a name="first_name"></a>
 ##### `first_name`
 First name.
 
@@ -110,6 +120,7 @@ First name.
 | --- | --- |
 | required | `True` |
 
+<a name="last_name"></a>
 ##### `last_name`
 Last name.
 
@@ -117,6 +128,7 @@ Last name.
 | --- | --- |
 | required | `True` |
 
+<a name="middle_name_or_initial"></a>
 ##### `middle_name_or_initial`
 Middle name or initial. Leave blank if not applicable.
 
@@ -124,6 +136,7 @@ Middle name or initial. Leave blank if not applicable.
 | --- | --- |
 | required | `False` |
 
+<a name="name"></a>
 ##### `name`
 Name for display.
 
@@ -131,6 +144,7 @@ Name for display.
 | --- | --- |
 | required | `True` |
 
+<a name="orcid_id"></a>
 ##### `orcid_id`
 ORCID ID of contributor. Example: `0000-0002-8928-741X`.
 

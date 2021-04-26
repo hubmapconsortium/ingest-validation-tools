@@ -130,8 +130,10 @@ def _make_fields_md(table_schema, title, is_open=False):
         if 'heading' in field:
             fields_md_list.append(f"### {field['heading']}")
         table_md = _make_constraints_table(field)
+        name = field['name']
         fields_md_list.append('\n'.join([
-            f"##### `{field['name']}`",
+            f'<a name="{name}"></a>',
+            f"##### `{name}`",
             _enrich_description(field),
             table_md
         ]))
