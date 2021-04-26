@@ -4,6 +4,7 @@
 - No Donor and Tissue ID validation needed for HCA.
 - Longer description for Q30.
 - Setup GH Pages.
+- Fix bug with loading non-HCA schemas that have an HCA variant.
 
 ## v0.0.10 - 2021-04-21
 - Remove inappropriate syntax highlighting from CLI docs.
