@@ -1,4 +1,7 @@
-# ${schema_name}
+---
+title: ${schema_name}
+layout: default
+---
 
 Related files:
 ${optional_doc_link_md}

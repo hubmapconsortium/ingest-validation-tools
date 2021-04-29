@@ -130,14 +130,16 @@ def _make_fields_md(table_schema, title, is_open=False):
         if 'heading' in field:
             fields_md_list.append(f"### {field['heading']}")
         table_md = _make_constraints_table(field)
+        name = field['name']
         fields_md_list.append('\n'.join([
-            f"##### `{field['name']}`",
+            f'<a name="{name}"></a>',
+            f"##### `{name}`",
             _enrich_description(field),
             table_md
         ]))
     joined_list = '\n\n'.join(fields_md_list)
     return f'''
-<details {'open="true"' if is_open else ''}><summary><b>{title}</b></summary>
+<details markdown="1" {'open="true"' if is_open else ''}><summary><b>{title}</b></summary>
 
 {_make_toc(joined_list) if is_open else ''}
 {joined_list}
@@ -170,7 +172,7 @@ def _make_constraints_table(field):
     if len(table_md_rows) < 3:
         # Empty it, if there is no data.
         table_md_rows = []
-    return '\n'.join(table_md_rows)
+    return '\n' + '\n'.join(table_md_rows)
 
 
 def _make_key_md(key, value):
@@ -237,14 +239,14 @@ def _make_toc(md):
     >>> md = '# Section A\\n## `Item 1`\\n# Section B'
 
     >>> print(_make_toc(md))
-    <blockquote>
+    <blockquote markdown="1">
     <BLANKLINE>
-    <details><summary>Section A</summary>
+    <details markdown="1"><summary>Section A</summary>
     <BLANKLINE>
     [`Item 1`](#item-1)<br>
     <BLANKLINE>
     </details>
-    <details><summary>Section B</summary>
+    <details markdown="1"><summary>Section B</summary>
     <BLANKLINE>
     </details>
     <BLANKLINE>
@@ -254,7 +256,7 @@ def _make_toc(md):
     >>> md = '## `Item 1`\\n## `Item 3`\\n## `Item 3`\\n'
 
     >>> print(_make_toc(md))
-    <blockquote>
+    <blockquote markdown="1">
     <BLANKLINE>
     [`Item 1`](#item-1)<br>
     [`Item 3`](#item-3)<br>
@@ -277,14 +279,14 @@ def _make_toc(md):
         else:
             if in_details:
                 mds.append('\n</details>')
-            mds.append(f'<details><summary>{h}</summary>\n')
+            mds.append(f'<details markdown="1"><summary>{h}</summary>\n')
             in_details = True
     if in_details:
         mds.append('</details>')
     joined_mds = "\n".join(mds)
     # If MD trails immediately after "</blockquote>",
     # it doesn't render correctly, so include a newline.
-    return f'<blockquote>\n\n{joined_mds}\n\n</blockquote>\n'
+    return f'<blockquote markdown="1">\n\n{joined_mds}\n\n</blockquote>\n'
 
 
 def _make_dir_description(dir_schema):

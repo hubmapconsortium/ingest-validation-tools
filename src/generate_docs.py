@@ -40,8 +40,13 @@ def main():
         table_schemas = {v: get_other_schema(args.type, v) for v in versions}
         directory_schema = {}
 
-    # README:
+    # README.md:
     with open(Path(args.target) / 'README.md', 'w') as f:
+        url = f'https://hubmapconsortium.github.io/ingest-validation-tools/{args.type}/'
+        f.write(f'Moved to [github pages]({url}).')
+
+    # index.md:
+    with open(Path(args.target) / 'index.md', 'w') as f:
         f.write(generate_readme_md(
             table_schemas, directory_schema, args.type, is_assay=is_assay
         ))
