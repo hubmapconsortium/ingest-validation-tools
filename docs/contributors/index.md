@@ -1,5 +1,6 @@
 ---
 title: contributors
+schema_name: contributors
 layout: default
 ---
 

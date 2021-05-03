@@ -1,5 +1,6 @@
 ---
 title: sample
+schema_name: sample
 layout: default
 ---
 

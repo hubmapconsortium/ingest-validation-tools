@@ -1,5 +1,6 @@
 ---
-title: nano
+title: NanoDESI / NanoPOTS
+schema_name: nano
 layout: default
 ---
 

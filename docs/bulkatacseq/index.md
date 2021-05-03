@@ -1,5 +1,6 @@
 ---
-title: bulkatacseq
+title: bulkATACseq
+schema_name: bulkatacseq
 layout: default
 ---
 

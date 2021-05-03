@@ -1,5 +1,6 @@
 ---
-title: mxif
+title: MxIF
+schema_name: mxif
 layout: default
 ---
 

@@ -1,5 +1,6 @@
 ---
-title: seqfish
+title: seqFISH
+schema_name: seqfish
 layout: default
 ---
 

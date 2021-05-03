@@ -1,5 +1,6 @@
 ---
-title: af
+title: AF
+schema_name: af
 layout: default
 ---
 

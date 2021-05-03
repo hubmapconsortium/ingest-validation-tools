@@ -1,5 +1,6 @@
 ---
 title: antibodies
+schema_name: antibodies
 layout: default
 ---
 

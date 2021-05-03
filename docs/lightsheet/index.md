@@ -1,5 +1,6 @@
 ---
-title: lightsheet
+title: Light Sheet
+schema_name: lightsheet
 layout: default
 ---
 

@@ -1,5 +1,6 @@
 ---
-title: imc3d
+title: 3D Imaging Mass Cytometry
+schema_name: imc3d
 layout: default
 ---
 

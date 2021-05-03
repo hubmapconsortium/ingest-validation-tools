@@ -1,5 +1,6 @@
 ---
-title: wgs
+title: WGS
+schema_name: wgs
 layout: default
 ---
 

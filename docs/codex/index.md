@@ -1,5 +1,6 @@
 ---
-title: codex
+title: CODEX
+schema_name: codex
 layout: default
 ---
 

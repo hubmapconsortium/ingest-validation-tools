@@ -1,5 +1,6 @@
 ---
-title: maldiims
+title: MALDI-IMS
+schema_name: maldiims
 layout: default
 ---
 

@@ -1,5 +1,6 @@
 ---
-title: imc
+title: Imaging Mass Cytometry
+schema_name: imc
 layout: default
 ---
 

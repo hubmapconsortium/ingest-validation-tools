@@ -1,5 +1,6 @@
 ---
-title: stained
+title: PAS microscopy
+schema_name: stained
 layout: default
 ---
 

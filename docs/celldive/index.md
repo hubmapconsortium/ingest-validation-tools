@@ -1,5 +1,6 @@
 ---
-title: celldive
+title: Cell DIVE
+schema_name: celldive
 layout: default
 ---
 

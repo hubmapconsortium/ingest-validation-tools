@@ -1,5 +1,6 @@
 ---
-title: slideseq
+title: Slide-seq
+schema_name: slideseq
 layout: default
 ---
 

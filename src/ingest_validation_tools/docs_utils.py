@@ -77,6 +77,12 @@ def generate_readme_md(
     max_version = max(table_schemas.keys())
     max_version_table_schema = table_schemas[max_version]
 
+    assay_type_fields = [
+        field for field in max_version_table_schema['fields']
+        if field['name'] == 'assay_type'
+    ]
+    title = ' / '.join(assay_type_fields[0]['constraints']['enum']) if assay_type_fields else schema_name
+
     raw_base_url = 'https://raw.githubusercontent.com/' \
         'hubmapconsortium/ingest-validation-tools/master/docs'
 
@@ -99,6 +105,7 @@ def generate_readme_md(
         (Path(__file__).parent / 'docs.template').read_text()
     )
     return template.substitute({
+        'title': title,
         'schema_name': schema_name,
         'max_version': max_version,
 
