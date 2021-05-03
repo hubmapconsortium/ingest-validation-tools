@@ -3,6 +3,16 @@
 
 @import "minima";
 
+header {
+  background-color: rgb(68, 74, 101);
+}
+
+header .wrapper {
+  background-color: transparent;
+  color: #FFF;
+  box-shadow: none;
+}
+
 .page-content {
   background-color: rgb(250, 250, 250);
 }
