@@ -1,6 +1,7 @@
 ---
 title: MxIF
 schema_name: mxif
+category: imaging
 layout: default
 ---
 

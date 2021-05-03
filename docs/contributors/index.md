@@ -1,6 +1,7 @@
 ---
 title: contributors
 schema_name: contributors
+category: other
 layout: default
 ---
 

@@ -1,6 +1,7 @@
 ---
 title: Light Sheet
 schema_name: lightsheet
+category: imaging
 layout: default
 ---
 

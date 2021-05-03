@@ -1,6 +1,7 @@
 ---
 title: CODEX
 schema_name: codex
+category: imaging
 layout: default
 ---
 

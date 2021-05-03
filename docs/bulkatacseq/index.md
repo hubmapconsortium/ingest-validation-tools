@@ -1,6 +1,7 @@
 ---
 title: bulkATACseq
 schema_name: bulkatacseq
+category: sequence
 layout: default
 ---
 

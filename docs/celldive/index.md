@@ -1,6 +1,7 @@
 ---
 title: Cell DIVE
 schema_name: celldive
+category: imaging
 layout: default
 ---
 

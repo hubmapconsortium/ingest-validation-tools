@@ -1,6 +1,7 @@
 ---
 title: antibodies
 schema_name: antibodies
+category: other
 layout: default
 ---
 

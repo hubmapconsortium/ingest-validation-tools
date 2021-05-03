@@ -1,6 +1,7 @@
 ---
 title: WGS
 schema_name: wgs
+category: sequence
 layout: default
 ---
 

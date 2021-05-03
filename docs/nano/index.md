@@ -1,6 +1,7 @@
 ---
 title: NanoDESI / NanoPOTS
 schema_name: nano
+category: mass_spectrometry_imaging
 layout: default
 ---
 
