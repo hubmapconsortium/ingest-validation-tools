@@ -12,7 +12,7 @@ title: HuBMAP Data Submission Guidelines
 {% assign pages = category.items | sort: "title" %}
 {% for page in pages %}
 
-[{{ page.title }}]({{ page.schema_name }})
+- [{{ page.title }}]({{ page.schema_name }})
 
 {% endfor %}
 

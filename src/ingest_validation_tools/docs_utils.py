@@ -84,6 +84,13 @@ def generate_readme_md(
     title = ' / '.join(assay_type_fields[0]['constraints']['enum']) \
         if assay_type_fields else schema_name
 
+    source_project_fields = [
+        field for field in max_version_table_schema['fields']
+        if field['name'] == 'source_project'
+    ]
+    if source_project_fields:
+        title += f" ({source_project_fields[0]['constraints']['enum'][0]})"
+
     assay_category_fields = [
         field for field in max_version_table_schema['fields']
         if field['name'] == 'assay_category'
