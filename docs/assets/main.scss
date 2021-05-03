@@ -3,8 +3,9 @@
 
 @import "minima";
 
-header {
+header.site-header {
   background-color: rgb(68, 74, 101);
+  border: none;
 }
 
 header .wrapper {
