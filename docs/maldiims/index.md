@@ -15,8 +15,8 @@ Related files:
 | pattern | required? | description |
 | --- | --- | --- |
 | `csv/[^/]+\.csv` | ✓ | Intensities M/Z values with Pixel location |
-| `imzML/[^/]+\.ibd` | ✓ | Index to imzML file |
-| `imzML/[^/]+\.imzMl` | ✓ | Mass spec raw data file |
+| `imzML/[^/]+\.ibd` | ✓ | Mass spec data saved in a binary format. |
+| `imzML/[^/]+\.imzML` | ✓ | Mass spec metadata saved in XML format. Index to .ibd file. |
 | `metadata/[^/]+_LipidAssignments\.xlsx` | ✓ | Microsoft Excel file containing the m/z, assignment, lipid class, etc. |
 | `metadata/[^/]+_meta\.json` | ✓ | JSON file containing the machine parameters/settings |
 | `metadata/[^/]+_microscopy\.txt` | ✓ | Transformations/map back to autofluorescence microscopy (related) data |
