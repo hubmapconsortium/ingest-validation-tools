@@ -111,7 +111,7 @@ Type of solution that was used to perfuse the organ.
 | constraint | value |
 | --- | --- |
 | required | `True` |
-| enum | `UWS`, `HTK`, `Belzer MPS/KPS`, `Unknown`, or `None` |
+| enum | `UWS`, `HTK`, `Belzer MPS/KPS`, `Formalin`, `Unknown`, or `None` |
 
 <a name="pathologist_report"></a>
 ##### `pathologist_report`

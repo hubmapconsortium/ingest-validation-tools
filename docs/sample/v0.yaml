@@ -62,6 +62,7 @@ fields:
     - UWS
     - HTK
     - Belzer MPS/KPS
+    - Formalin
     - Unknown
     - None
     required: true
