@@ -6,6 +6,7 @@
 - Setup GH Pages.
 - Fix bug with loading non-HCA schemas that have an HCA variant.
 - Add formalin as a Sample perfusion_solution.
+- Style the GH Pages like the portal.
 
 ## v0.0.10 - 2021-04-21
 - Remove inappropriate syntax highlighting from CLI docs.
