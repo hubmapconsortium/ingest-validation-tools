@@ -72,31 +72,33 @@ def _enrich_description(field):
     return description.strip()
 
 
+def _get_field(field_name, schema):
+    fields = [
+        field for field in schema['fields']
+        if field['name'] == field_name
+    ]
+    if not fields:
+        return None
+    assert len(fields) == 1
+    return fields[0]
+
+
 def generate_readme_md(
         table_schemas, directory_schema, schema_name, is_assay=True):
     max_version = max(table_schemas.keys())
     max_version_table_schema = table_schemas[max_version]
 
-    assay_type_fields = [
-        field for field in max_version_table_schema['fields']
-        if field['name'] == 'assay_type'
-    ]
-    title = ' / '.join(assay_type_fields[0]['constraints']['enum']) \
-        if assay_type_fields else schema_name
+    assay_type_field = _get_field('assay_type', max_version_table_schema)
+    title = ' / '.join(assay_type_field['constraints']['enum']) \
+        if assay_type_field else schema_name
 
-    source_project_fields = [
-        field for field in max_version_table_schema['fields']
-        if field['name'] == 'source_project'
-    ]
-    if source_project_fields:
-        title += f" ({source_project_fields[0]['constraints']['enum'][0]})"
+    source_project_field = _get_field('source_project', max_version_table_schema)
+    if source_project_field:
+        title += f" ({source_project_field['constraints']['enum'][0]})"
 
-    assay_category_fields = [
-        field for field in max_version_table_schema['fields']
-        if field['name'] == 'assay_category'
-    ]
-    category = ' / '.join(assay_category_fields[0]['constraints']['enum']) \
-        if assay_type_fields else 'other'
+    assay_category_field = _get_field('assay_category', max_version_table_schema)
+    category = ' / '.join(assay_category_field['constraints']['enum']) \
+        if assay_category_field else 'other'
 
     raw_base_url = 'https://raw.githubusercontent.com/' \
         'hubmapconsortium/ingest-validation-tools/master/docs'
