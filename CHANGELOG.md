@@ -10,6 +10,7 @@
 - Style the GH Pages like the portal.
 - Catch metadata TSVs with non-ASCII characters.
 - More general ignore forurl-status-cache.
+- Improve navigation and styling of new GH Pages.
 
 ## v0.0.10 - 2021-04-21
 - Remove inappropriate syntax highlighting from CLI docs.

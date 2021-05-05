@@ -33,7 +33,7 @@ Related files:
 </blockquote>
 
 <a name="version"></a>
-##### `version`
+##### [`version`](#version)
 Version of the schema to use when validating this metadata.
 
 | constraint | value |
@@ -42,7 +42,7 @@ Version of the schema to use when validating this metadata.
 | required | `True` |
 
 <a name="affiliation"></a>
-##### `affiliation`
+##### [`affiliation`](#affiliation)
 Institutional affiliation.
 
 | constraint | value |
@@ -50,7 +50,7 @@ Institutional affiliation.
 | required | `True` |
 
 <a name="first_name"></a>
-##### `first_name`
+##### [`first_name`](#first_name)
 First name.
 
 | constraint | value |
@@ -58,7 +58,7 @@ First name.
 | required | `True` |
 
 <a name="last_name"></a>
-##### `last_name`
+##### [`last_name`](#last_name)
 Last name.
 
 | constraint | value |
@@ -66,7 +66,7 @@ Last name.
 | required | `True` |
 
 <a name="middle_name_or_initial"></a>
-##### `middle_name_or_initial`
+##### [`middle_name_or_initial`](#middle_name_or_initial)
 Middle name or initial. Leave blank if not applicable.
 
 | constraint | value |
@@ -74,7 +74,7 @@ Middle name or initial. Leave blank if not applicable.
 | required | `False` |
 
 <a name="name"></a>
-##### `name`
+##### [`name`](#name)
 Name for display.
 
 | constraint | value |
@@ -82,7 +82,7 @@ Name for display.
 | required | `True` |
 
 <a name="orcid_id"></a>
-##### `orcid_id`
+##### [`orcid_id`](#orcid_id)
 ORCID ID of contributor. Example: `0000-0002-8928-741X`.
 
 | constraint | value |
@@ -92,7 +92,7 @@ ORCID ID of contributor. Example: `0000-0002-8928-741X`.
 | url | prefix: `https://orcid.org/` |
 
 <a name="is_contact"></a>
-##### `is_contact`
+##### [`is_contact`](#is_contact)
 Is this individual a contact for DOI purposes?
 
 | constraint | value |
@@ -107,7 +107,7 @@ Is this individual a contact for DOI purposes?
 
 
 <a name="affiliation"></a>
-##### `affiliation`
+##### [`affiliation`](#affiliation)
 Institutional affiliation.
 
 | constraint | value |
@@ -115,7 +115,7 @@ Institutional affiliation.
 | required | `True` |
 
 <a name="first_name"></a>
-##### `first_name`
+##### [`first_name`](#first_name)
 First name.
 
 | constraint | value |
@@ -123,7 +123,7 @@ First name.
 | required | `True` |
 
 <a name="last_name"></a>
-##### `last_name`
+##### [`last_name`](#last_name)
 Last name.
 
 | constraint | value |
@@ -131,7 +131,7 @@ Last name.
 | required | `True` |
 
 <a name="middle_name_or_initial"></a>
-##### `middle_name_or_initial`
+##### [`middle_name_or_initial`](#middle_name_or_initial)
 Middle name or initial. Leave blank if not applicable.
 
 | constraint | value |
@@ -139,7 +139,7 @@ Middle name or initial. Leave blank if not applicable.
 | required | `False` |
 
 <a name="name"></a>
-##### `name`
+##### [`name`](#name)
 Name for display.
 
 | constraint | value |
@@ -147,7 +147,7 @@ Name for display.
 | required | `True` |
 
 <a name="orcid_id"></a>
-##### `orcid_id`
+##### [`orcid_id`](#orcid_id)
 ORCID ID of contributor. Example: `0000-0002-8928-741X`.
 
 | constraint | value |
