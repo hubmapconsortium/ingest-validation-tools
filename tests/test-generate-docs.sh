@@ -21,8 +21,9 @@ rm -rf docs-test
 
 # Test docs:
 
-for TYPE in $(ls -d docs/*/ | grep -v '/_'); do # Just get subdirectories
-  
+for TYPE in $(ls -d docs/*); do
+  [ -e $TYPE/index.md ] || continue
+
   TYPE=`basename $TYPE`
   echo "Testing $TYPE generation..."
 
@@ -36,7 +37,7 @@ for TYPE in $(ls -d docs/*/ | grep -v '/_'); do # Just get subdirectories
   eval $TEST_CMD
   diff -r $REAL_DEST $TEST_DEST \
     || die "Update needed: $REAL_CMD
-Or:" 'for D in `ls -d docs/*/ | grep -v /_`; do src/generate_docs.py `basename $D` $D; done'
+Or:" 'for D in `ls -d docs/*/`; do [ -e $D/index.md ] || continue; src/generate_docs.py `basename $D` $D; done'
   rm -rf $TEST_DEST
   ((++GENERATE_COUNT))
 done

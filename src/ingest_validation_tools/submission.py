@@ -55,9 +55,8 @@ class Submission:
     def _get_schema_version(self, path):
         try:
             rows = dict_reader_wrapper(path, self.encoding)
-        except UnicodeDecodeError:
-            return None
-            # TODO: use get_context_of_decode_error
+        except UnicodeDecodeError as e:
+            raise PreflightError(get_context_of_decode_error(e))
         except IsADirectoryError:
             raise PreflightError(f'Expected a TSV, found a directory at {path}.')
         if not rows:
