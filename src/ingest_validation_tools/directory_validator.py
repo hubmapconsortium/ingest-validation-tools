@@ -23,7 +23,9 @@ def validate_directory(path, paths_dict, dataset_ignore_globs=[]):
     for triple in walk(path):
         (dir_path, _dir_names, file_names) = triple
         # [1:] removes leading '/', if any.
-        prefix = dir_path.replace(str(path), '')[1:]
+        # '\\' converts MS backslashes to forward slashes.
+        # ... and hope no one has an actual backslash in the filename!
+        prefix = dir_path.replace(str(path), '')[1:].replace('\\', '/')
         actual_paths += (
             [f'{prefix}/{name}' for name in file_names]
             if prefix else file_names
