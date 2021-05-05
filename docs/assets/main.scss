@@ -12,17 +12,25 @@ body {
 
 header.site-header {
   background-color: rgb(68, 74, 101);
+  color: #FFF;
   border: none;
+  box-shadow: 
+   rgba(0, 0, 0, 0.2) 0px 2px 4px -1px,
+   rgba(0, 0, 0, 0.14) 0px 4px 5px 0px,
+   rgba(0, 0, 0, 0.12) 0px 1px 10px 0px;
 }
 
-header .wrapper {
-  background-color: transparent;
-  color: #FFF;
-  box-shadow: none;
+.toolbar {
+  // Copied from minima .wrapper:
+  max-width: 800px;
+  margin-right: auto;
+  margin-left: auto;
+  margin-top: 1rem;
 }
 
 .page-content {
   background-color: rgb(250, 250, 250);
+  padding-top: 1rem;
 }
 
 h1 {
@@ -33,6 +41,14 @@ h1 {
   max-width: 800px;
   margin-right: auto;
   margin-left: auto;
+
+  &.category {
+    color: #444A65;
+    font-size: 1.1rem;
+    font-weight: 500;
+    line-height: 1.75;
+    margin-bottom: 0;
+  }
 }
 
 .wrapper {
