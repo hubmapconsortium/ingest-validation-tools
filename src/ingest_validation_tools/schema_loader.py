@@ -16,6 +16,17 @@ class PreflightError(Exception):
 SchemaVersion = namedtuple('SchemaVersion', ['schema_name', 'version'])
 
 
+def get_field_enum(field_name, schema):
+    fields = [
+        field for field in schema['fields']
+        if field['name'] == field_name
+    ]
+    if not fields:
+        return []
+    assert len(fields) == 1
+    return fields[0]['constraints']['enum']
+
+
 def get_schema_version_from_row(path, row):
     '''
     >>> get_schema_version_from_row('empty', {'bad-column': 'bad-value'})
@@ -85,25 +96,20 @@ def _assay_to_schema_name(assay_type, source_project):
     '''
     for path in (Path(__file__).parent / 'table-schemas' / 'assays').glob('*.yaml'):
         schema = load_yaml(path)
+        assay_type_enum = get_field_enum('assay_type', schema)
+        source_project_enum = get_field_enum('source_project', schema)
 
-        assay_type_fields = [f for f in schema['fields'] if f['name'] == 'assay_type']
-        source_project_fields = [f for f in schema['fields'] if f['name'] == 'source_project']
-
-        # Because names are unique, these list should not contain more than one field:
-        assert len(assay_type_fields) <= 1
-        assert len(source_project_fields) <= 1
-
-        if assay_type not in assay_type_fields[0]['constraints']['enum']:
+        if assay_type not in assay_type_enum:
             continue
 
-        if source_project_fields:
+        if source_project_enum:
             if not source_project:
                 continue
 
         if source_project:
-            if not source_project_fields:
+            if not source_project_enum:
                 continue
-            if source_project not in source_project_fields[0]['constraints']['enum']:
+            if source_project not in source_project_enum:
                 continue
 
         return re.match(r'.+(?=-v\d+)', path.stem)[0]
