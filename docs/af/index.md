@@ -1,5 +1,7 @@
 ---
-title: af
+title: AF
+schema_name: af
+category: imaging
 layout: default
 ---
 

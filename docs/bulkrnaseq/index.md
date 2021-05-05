@@ -1,5 +1,7 @@
 ---
-title: bulkrnaseq
+title: bulk RNA
+schema_name: bulkrnaseq
+category: sequence
 layout: default
 ---
 

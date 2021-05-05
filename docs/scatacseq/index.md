@@ -1,5 +1,7 @@
 ---
-title: scatacseq
+title: SNARE-seq2 / scATACseq / sciATACseq / snATACseq
+schema_name: scatacseq
+category: sequence
 layout: default
 ---
 

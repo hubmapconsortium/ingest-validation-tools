@@ -1,5 +1,7 @@
 ---
 title: sample
+schema_name: sample
+category: other
 layout: default
 ---
 

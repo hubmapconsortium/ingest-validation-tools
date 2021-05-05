@@ -1,5 +1,7 @@
 ---
-title: slideseq
+title: Slide-seq
+schema_name: slideseq
+category: sequence
 layout: default
 ---
 
