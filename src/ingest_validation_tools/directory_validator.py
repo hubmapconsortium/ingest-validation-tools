@@ -1,4 +1,4 @@
-from os import walk
+import os
 import re
 from fnmatch import fnmatch
 
@@ -20,12 +20,13 @@ def validate_directory(path, paths_dict, dataset_ignore_globs=[]):
             'No such file or directory': str(path)
         })
     actual_paths = []
-    for triple in walk(path):
+    for triple in os.walk(path):
         (dir_path, _dir_names, file_names) = triple
         # [1:] removes leading '/', if any.
-        # '\\' converts MS backslashes to forward slashes.
-        # ... and hope no one has an actual backslash in the filename!
-        prefix = dir_path.replace(str(path), '')[1:].replace('\\', '/')
+        prefix = dir_path.replace(str(path), '')[1:]
+        if os.name == 'nt':
+            # Convert MS backslashes to forward slashes.
+            prefix = prefix.replace('\\', '/')
         actual_paths += (
             [f'{prefix}/{name}' for name in file_names]
             if prefix else file_names
