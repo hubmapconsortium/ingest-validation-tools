@@ -148,7 +148,7 @@ def _make_fields_md(table_schema, title, is_open=False):
         name = field['name']
         fields_md_list.append('\n'.join([
             f'<a name="{name}"></a>',
-            f"##### `{name}`",
+            f"##### [`{name}`](#{name})",
             _enrich_description(field),
             table_md
         ]))
@@ -283,7 +283,7 @@ def _make_toc(md):
     '''
     lines = md.split('\n')
     headers = [
-        re.sub(r'^#+\s+', '', line)
+        re.sub(r'^#+\s*', '', re.sub(r'.*\[(.*)\].*', r'\1', line))
         for line in lines if len(line) and line[0] == '#'
     ]
     in_details = False
