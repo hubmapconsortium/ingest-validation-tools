@@ -425,9 +425,9 @@ Percent PhiX loaded to the run. Leave blank if not applicable.
 | constraint | value |
 | --- | --- |
 | type | `number` |
-| maximum | `100` |
-| minimum | `0` |
 | required | `False` |
+| minimum | `0` |
+| maximum | `100` |
 
 <a name="contributors_path"></a>
 ##### [`contributors_path`](#contributors_path)

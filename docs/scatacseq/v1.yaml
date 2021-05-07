@@ -365,7 +365,7 @@ fields:
     required: true
   custom_constraints:
     sequence_limit: 3
-  description: Percent PhiX loaded to the run.
+  description: Percent PhiX loaded to the run
   name: sequencing_phix_percent
   type: number
 - constraints:

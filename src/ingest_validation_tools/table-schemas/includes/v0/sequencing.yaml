@@ -5,5 +5,4 @@
   constraints:
     pattern: '\d+(/\d+)+'
 # include: ../fields/sequencing_read_percent_q30.yaml
-- name: sequencing_phix_percent
-  description: Percent PhiX loaded to the run
+# include: ../fields/sequencing_phix_percent.yaml

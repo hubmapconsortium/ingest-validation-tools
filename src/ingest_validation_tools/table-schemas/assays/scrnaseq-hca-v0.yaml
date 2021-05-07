@@ -217,13 +217,9 @@ fields:
 # include: ../includes/fields/sequencing_read_percent_q30.yaml
   constraints:
     required: false
-- constraints:
-    maximum: 100
-    minimum: 0
+# include: ../includes/fields/sequencing_phix_percent.yaml
+  constraints:
     required: false
-  description: Percent PhiX loaded to the run
-  name: sequencing_phix_percent
-  type: number
 - constraints:
     required: false
   description: Relative path to file with ORCID IDs for contributors for this dataset.
