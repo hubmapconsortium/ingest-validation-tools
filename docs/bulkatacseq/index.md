@@ -399,7 +399,7 @@ Q30 is the weighted average of all the reads (e.g. # bases UMI * q30 UMI + # bas
 
 <a name="sequencing_reagent_kit"></a>
 ##### [`sequencing_reagent_kit`](#sequencing_reagent_kit)
-Reagent kit used for sequencing. NovaSeq6000 for example.
+Reagent kit used for sequencing.
 
 | constraint | value |
 | --- | --- |
@@ -755,7 +755,7 @@ Q30 is the weighted average of all the reads (e.g. # bases UMI * q30 UMI + # bas
 
 <a name="sequencing_reagent_kit"></a>
 ##### [`sequencing_reagent_kit`](#sequencing_reagent_kit)
-Reagent kit used for sequencing. NovaSeq6000 for example.
+Reagent kit used for sequencing.
 
 | constraint | value |
 | --- | --- |

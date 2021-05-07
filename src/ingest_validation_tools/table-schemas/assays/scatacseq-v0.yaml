@@ -135,9 +135,7 @@ fields:
     name: library_average_fragment_size
     description: Average size of sequencing library fragments estimated via gel electrophoresis or bioanalyzer/tapestation. Numeric value in bp.
     type: number
-  -
-    name: sequencing_reagent_kit
-    description: Reagent kit used for sequencing. NovaSeq6000 for example
+  # include: ../includes/fields/sequencing_reagent_kit.yaml
   # include: ../includes/fields/sequencing_read_format.yaml
   # include: ../includes/fields/sequencing_read_percent_q30.yaml
   # include: ../includes/fields/sequencing_phix_percent.yaml

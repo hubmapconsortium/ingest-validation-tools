@@ -1,5 +1,4 @@
-- name: sequencing_reagent_kit
-  description: Reagent kit used for sequencing
+# include: ../fields/sequencing_reagent_kit.yaml
 # include: ../fields/sequencing_read_format.yaml
 # include: ../fields/sequencing_read_percent_q30.yaml
 # include: ../fields/sequencing_phix_percent.yaml
