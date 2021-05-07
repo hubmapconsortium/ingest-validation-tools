@@ -12,6 +12,7 @@
 - More general ignore forurl-status-cache.
 - Support Windows environments by converting back-slashes for forward slashes.
 - Improve navigation and styling of new GH Pages.
+- Missing `data_path` will no longer cause spurious errors when submission is interpretted as dataset.
 
 ## v0.0.10 - 2021-04-21
 - Remove inappropriate syntax highlighting from CLI docs.
