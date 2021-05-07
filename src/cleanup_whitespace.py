@@ -4,13 +4,13 @@ import csv
 import sys
 import argparse
 from pathlib import Path
-import codecs
 
 
 def main():
     parser = argparse.ArgumentParser(
         description='''
-Data providers may use the "--tsv_in"/"--tsv_out" options to strip invisible characters from TSVs.'''
+Use the "--tsv_in"/"--tsv_out" options to strip invisible characters from TSVs.
+'''
     )
     mutex = parser.add_mutually_exclusive_group(required=True)
     mutex.add_argument(
