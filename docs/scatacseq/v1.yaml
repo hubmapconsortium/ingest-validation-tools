@@ -345,7 +345,8 @@ fields:
     required: true
   custom_constraints:
     sequence_limit: 3
-  description: Number of sequencing cycles in Read1, i7 index, i5 index, and Read2.
+  description: Slash-delimited list of the number of sequencing cycles for, for example,
+    Read1, i7 index, i5 index, and Read2.
   example: 12/34/56
   name: sequencing_read_format
   type: string

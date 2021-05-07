@@ -207,13 +207,7 @@ fields:
     required: false
   description: Reagent kit used for sequencing
   name: sequencing_reagent_kit
-- constraints:
-    pattern: \d+(/\d+)+
-    required: false
-  description: Slash-delimited list of the number of sequencing cycles for, for example,
-    Read1, i7 index, i5 index, and Read2.
-  name: sequencing_read_format
-  type: string
+# include: ../includes/fields/sequencing_read_format.yaml
 # include: ../includes/fields/sequencing_read_percent_q30.yaml
   constraints:
     required: false
