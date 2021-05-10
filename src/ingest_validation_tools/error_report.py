@@ -18,7 +18,7 @@ class ErrorReport:
         if self.errors:
             self.errors['Hint'] = \
                 'If validation fails because of extra whitespace in the TSV, try:\n' \
-                'src/cleanup_whitespace.py --tsv_path original.tsv > clean.tsv'
+                'src/cleanup_whitespace.py --tsv_in original.tsv --tsv_out clean.tsv'
 
     def _as_list(self):
         return [munge(m) for m in _build_list(self.errors)]
