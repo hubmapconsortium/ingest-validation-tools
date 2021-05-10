@@ -399,7 +399,7 @@ Q30 is the weighted average of all the reads (e.g. # bases UMI * q30 UMI + # bas
 
 <a name="sequencing_reagent_kit"></a>
 ##### [`sequencing_reagent_kit`](#sequencing_reagent_kit)
-Reagent kit used for sequencing. NovaSeq6000 for example.
+Reagent kit used for sequencing.
 
 | constraint | value |
 | --- | --- |
@@ -735,7 +735,7 @@ Percent PhiX loaded to the run.
 
 <a name="sequencing_read_format"></a>
 ##### [`sequencing_read_format`](#sequencing_read_format)
-Slash-delimited list of the number of sequencing cycles for, for example, Read1, i7 index, i5 index, and Read2.
+Slash-delimited list of the number of sequencing cycles for, for example, Read1, i7 index, i5 index, and Read2. Example: `12/34/56`.
 
 | constraint | value |
 | --- | --- |
@@ -755,7 +755,7 @@ Q30 is the weighted average of all the reads (e.g. # bases UMI * q30 UMI + # bas
 
 <a name="sequencing_reagent_kit"></a>
 ##### [`sequencing_reagent_kit`](#sequencing_reagent_kit)
-Reagent kit used for sequencing. NovaSeq6000 for example.
+Reagent kit used for sequencing.
 
 | constraint | value |
 | --- | --- |

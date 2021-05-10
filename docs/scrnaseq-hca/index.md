@@ -400,12 +400,12 @@ Reagent kit used for sequencing. Leave blank if not applicable.
 
 <a name="sequencing_read_format"></a>
 ##### [`sequencing_read_format`](#sequencing_read_format)
-Slash-delimited list of the number of sequencing cycles for, for example, Read1, i7 index, i5 index, and Read2. Leave blank if not applicable.
+Slash-delimited list of the number of sequencing cycles for, for example, Read1, i7 index, i5 index, and Read2. Example: `12/34/56`.
 
 | constraint | value |
 | --- | --- |
 | pattern (regular expression) | `\d+(/\d+)+` |
-| required | `False` |
+| required | `True` |
 
 <a name="sequencing_read_percent_q30"></a>
 ##### [`sequencing_read_percent_q30`](#sequencing_read_percent_q30)
@@ -425,9 +425,9 @@ Percent PhiX loaded to the run. Leave blank if not applicable.
 | constraint | value |
 | --- | --- |
 | type | `number` |
-| maximum | `100` |
-| minimum | `0` |
 | required | `False` |
+| minimum | `0` |
+| maximum | `100` |
 
 <a name="contributors_path"></a>
 ##### [`contributors_path`](#contributors_path)

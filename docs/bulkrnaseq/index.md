@@ -359,7 +359,7 @@ Reagent kit used for sequencing.
 
 <a name="sequencing_read_format"></a>
 ##### [`sequencing_read_format`](#sequencing_read_format)
-Slash-delimited list of the number of sequencing cycles for, for example, Read1, i7 index, i5 index, and Read2.
+Slash-delimited list of the number of sequencing cycles for, for example, Read1, i7 index, i5 index, and Read2. Example: `12/34/56`.
 
 | constraint | value |
 | --- | --- |
@@ -679,7 +679,7 @@ Reagent kit used for sequencing.
 
 <a name="sequencing_read_format"></a>
 ##### [`sequencing_read_format`](#sequencing_read_format)
-Slash-delimited list of the number of sequencing cycles for, for example, Read1, i7 index, i5 index, and Read2.
+Slash-delimited list of the number of sequencing cycles for, for example, Read1, i7 index, i5 index, and Read2. Example: `12/34/56`.
 
 | constraint | value |
 | --- | --- |
