@@ -25,5 +25,5 @@ Metadata TSV Errors:
         - '[^/]+\.fastq\.gz'
 Hint: 'If validation fails because of extra whitespace in the TSV, try:
 
-  src/cleanup_whitespace.py --tsv_path original.tsv > clean.tsv'
+  src/cleanup_whitespace.py --tsv_in original.tsv --tsv_out clean.tsv'
 ```
