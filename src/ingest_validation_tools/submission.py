@@ -172,13 +172,11 @@ class Submission:
         for i, row in enumerate(rows):
             row_number = f'row {i+2}'
 
-            data_path = self.directory_path / \
-                row['data_path']
-
-            data_dir_errors = self._get_data_dir_errors(
-                assay_type, data_path)
-            if data_dir_errors:
-                errors[f'{row_number}, referencing {data_path}'] = data_dir_errors
+            if 'data_path' in row and row['data_path']:
+                data_path = self.directory_path / row['data_path']
+                data_dir_errors = self._get_data_dir_errors(assay_type, data_path)
+                if data_dir_errors:
+                    errors[f'{row_number}, referencing {data_path}'] = data_dir_errors
 
             if 'contributors_path' in row and row['contributors_path']:
                 contributors_path = self.directory_path / row['contributors_path']
