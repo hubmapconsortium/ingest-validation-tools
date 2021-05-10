@@ -80,16 +80,10 @@ fields:
     \ the question: Are the nuclei intact and are the nuclei free of significant amounts\
     \ of debris? This can be captured at a high level, \u201COK\u201D or \u201Cnot\
     \ OK\u201D."
-- name: sequencing_phix_percent
-  description: Percent PhiX loaded to the run
-- name: sequencing_read_format
-  description: Slash-delimited list of the number of sequencing cycles for, for example, Read1, i7 index, i5 index, and Read2.
-  constraints:
-    pattern: '\d+(/\d+)+'
-  example: '12/34/56'
+# include: ../includes/fields/sequencing_phix_percent.yaml
+# include: ../includes/fields/sequencing_read_format.yaml
 # include: ../includes/fields/sequencing_read_percent_q30.yaml
-- name: sequencing_reagent_kit
-  description: Reagent kit used for sequencing. NovaSeq6000 for example
+# include: ../includes/fields/sequencing_reagent_kit.yaml
 - name: transposition_kit_number
   description: If Tn5 came from a kit, provide the catalog number.
   constraints:
