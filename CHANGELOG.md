@@ -12,6 +12,7 @@
 - More general ignore forurl-status-cache.
 - Support Windows environments by converting back-slashes for forward slashes.
 - Improve navigation and styling of new GH Pages.
+- In cleanup_whitespace.py, avoid printing extra newlines on windows.
 - Field templates for sequencing fields.
 - Missing `data_path` will no longer cause spurious errors when submission is interpretted as dataset.
 
