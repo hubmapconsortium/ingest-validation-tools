@@ -8,7 +8,7 @@
 # directory beginning with src_ contains the raw (unprocessed by Akoya) files.
 
 -
-  pattern: '[^/]*NAV[^/]*\.tif'
+  pattern: '([^/]*NAV[^/]*\.tif)|(NAV[^/]*\.tif)'
   description: 'Navigational Image showing Region of Interest (Keyance Microscope only)'
   required: False
 -
@@ -21,7 +21,7 @@
   description: 'Text file produced by the Akoya software which contains the (linearized) channel number and the Name/ID/Target of the channel (required for HuBMAP pipeline)'
   required: True
 -
-  pattern: 'src_[^/]+/experiment\.json'
+  pattern: '(src_[^/]+/experiment\.json)|(src_[^/]+/experiment\.txt)'
   description: 'JSON file produced by the Akoya software which contains the metadata for the experiment, including the software version used, microscope parameters, channel names, pixel dimensions, etc. (required for HuBMAP pipeline)'
   required: True
 -
