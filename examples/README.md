@@ -24,7 +24,7 @@ an `input.tsv` to validate, and an `output.txt` with the error message produced.
 
 The core of `ingest-validation-tools` is Dataset submission validation.
 Each subdirectory here is an end-to-end test of submission validation: Each contains
-- a `submission` directory, containing one or more metadata TSVs, dataset directories, and contributors and antibodies TSVs.
+- a `submission` directory, containing one or more metadata TSVs, dataset directories, and contributors and antibodies TSVs,
 - and a `README.md` with the output when validating that directory.
 
 Examples which are expected to produce errors are prefixed with `bad-`, those that are good, `good-`.
