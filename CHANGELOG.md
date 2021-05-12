@@ -15,6 +15,7 @@
 - In cleanup_whitespace.py, avoid printing extra newlines on windows.
 - Field templates for sequencing fields.
 - Missing `data_path` will no longer cause spurious errors when submission is interpretted as dataset.
+- README for `examples/` directory.
 
 ## v0.0.10 - 2021-04-21
 - Remove inappropriate syntax highlighting from CLI docs.
