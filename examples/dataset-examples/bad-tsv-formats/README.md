@@ -50,15 +50,15 @@ Metadata TSV Errors:
         - exposure_times.txt
         - segmentation.json
         Required but missing:
+        - (src_[^/]+/experiment\.json)|(src_[^/]+/experiment\.txt)
         - .+\.pdf
         - drv_[^/]+/channelNames\.txt
         - drv_[^/]+/processed_[^/]+/.*
         - src_[^/]+/channelnames\.txt
         - src_[^/]+/channelnames_report\.csv
         - src_[^/]+/cyc.*_reg.*_.*/.*_.*_Z.*_CH.*\.tif
-        - src_[^/]+/experiment\.json
         - src_[^/]+/exposure_times\.txt
-        - src_[^/]+/segmentation\.json
+        - src_[^/]+/segmentation\.(json|txt)
       row 2, contributors examples/dataset-examples/bad-tsv-formats/submission/contributors.tsv: File
         has no data rows.
       row 2, antibodies examples/dataset-examples/bad-tsv-formats/submission/antibodies.tsv: File
