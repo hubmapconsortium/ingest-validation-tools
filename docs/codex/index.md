@@ -27,12 +27,12 @@ For more information, see the [Antibodies TSV documentation](../antibodies).
 | `[^/]*NAV[^/]*\.tif` |  |  | Navigational Image showing Region of Interest (Keyance Microscope only) |
 | `.+\.pdf` | `summary.pdf` | ✓ | **[QA/QC]** PDF export of Powerpoint slide deck containing the Image Analysis Report |
 | `drv_[^/]+/channelNames\.txt` |  | ✓ | Text file produced by the Akoya software which contains the (linearized) channel number and the Name/ID/Target of the channel (required for HuBMAP pipeline) |
-| `src_[^/]+/experiment\.json` |  | ✓ | JSON file produced by the Akoya software which contains the metadata for the experiment, including the software version used, microscope parameters, channel names, pixel dimensions, etc. (required for HuBMAP pipeline) |
+| `(src_[^/]+/experiment\.json)\|(src_[^/]+/experiment\.txt)` |  | ✓ | JSON file produced by the Akoya software which contains the metadata for the experiment, including the software version used, microscope parameters, channel names, pixel dimensions, etc. (required for HuBMAP pipeline) |
 | `drv_[^/]+/experiment\.json` |  |  | JSON file produced by the Akoya software which contains the metadata for the experiment, including the software version used, microscope parameters, channel names, pixel dimensions, etc. (required for HuBMAP pipeline) |
 | `src_[^/]+/exposure_times\.txt` |  | ✓ | Comma separated text file used for background subtraction that contains valid exposure times for all cycles [e.g: Cycle,CH1,CH2,CH3,CH4]. |
 | `drv_[^/]+/exposure_times\.txt` |  |  | Comma separated text file used for background subtraction that contains valid exposure times for all cycles [e.g: Cycle,CH1,CH2,CH3,CH4]. |
-| `src_[^/]+/segmentation\.json` |  | ✓ | JSON file produced by the Akoya software which contains the parameters used for segmentation. (required for HuBMAP pipeline) |
-| `drv_[^/]+/segmentation\.json` |  |  | JSON file produced by the Akoya software which contains the parameters used for segmentation. (required for HuBMAP pipeline) |
+| `src_[^/]+/segmentation\.(json\|txt)` |  | ✓ | JSON file produced by the Akoya software which contains the parameters used for segmentation. (required for HuBMAP pipeline) |
+| `drv_[^/]+/segmentation\.(json\|txt)` |  |  | JSON file produced by the Akoya software which contains the parameters used for segmentation. (required for HuBMAP pipeline) |
 | `drv_[^/]+/processed_[^/]+/.*` |  | ✓ | processed files produced by the Akoya software, not used by the HIVE |
 | `src_[^/]+/channelnames_report\.csv` |  | ✓ | Two column CSV: The first column is a name or target; The second column is boolean: "FALSE" channels are excluded from processing. (required for HuBMAP pipeline) |
 | `src_[^/]+/channelnames\.txt` |  | ✓ | Text file produced by the Akoya software which contains the (linearized) channel number and the Name/ID/Target of the channel (required for HuBMAP pipeline) |
