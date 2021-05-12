@@ -4,7 +4,7 @@ This directory contains example inputs and outputs of different components of th
 Adding more examples is one way to test new schemas or new code...
 but it's possible to have too much of a good thing:
 If we eventually _do_ need to change the behavior,
-sorting out redundant failing tests can ba a nuisance.
+sorting out redundant failing tests can be a nuisance.
 Particularly when testing new code, granular unit tests can give you more information than coarse end-to-end tests.
 
 Putting that aside, here is what we have:
