@@ -1,4 +1,4 @@
-# Adding examples to `examples/`
+# `examples/`
 
 This directory contains example inputs and outputs of different components of this system.
 Adding more examples is one way to test new schemas or new code...
