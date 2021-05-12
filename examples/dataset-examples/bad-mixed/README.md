@@ -9,13 +9,13 @@ Metadata TSV Errors:
         Not allowed:
         - not-good-for-either-type.txt
         Required but missing:
-        - (src_[^/]+/experiment\.json)|(src_[^/]+/experiment\.txt)
         - .+\.pdf
         - drv_[^/]+/channelNames\.txt
         - drv_[^/]+/processed_[^/]+/.*
         - src_[^/]+/channelnames\.txt
         - src_[^/]+/channelnames_report\.csv
         - src_[^/]+/cyc.*_reg.*_.*/.*_.*_Z.*_CH.*\.tif
+        - src_[^/]+/experiment\.json
         - src_[^/]+/exposure_times\.txt
         - src_[^/]+/segmentation\.(json|txt)
       row 2, contributors examples/dataset-examples/bad-mixed/submission/contributors.tsv: File
