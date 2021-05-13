@@ -190,6 +190,26 @@ def _make_fields_md(table_schema, title, is_open=False):
 
 
 def _make_constraints_table(field):
+    '''
+    >>> field = {
+    ...   'name': 'field',
+    ...   'type': 'fake type',
+    ...   'constraints': {
+    ...     'enum': ['a', 'b']
+    ...   },
+    ...   'custom_constraints': {
+    ...     'custom': 'fake',
+    ...   }
+    ... }
+    >>> print(_make_constraints_table(field))
+    <BLANKLINE>
+    | constraint | value |
+    | --- | --- |
+    | type | `fake type` |
+    | enum | `a` or `b` |
+    | custom | `fake` |
+    '''
+
     table_md_rows = ['| constraint | value |', '| --- | --- |']
     for key, value in field.items():
         if key in ['type', 'format']:
