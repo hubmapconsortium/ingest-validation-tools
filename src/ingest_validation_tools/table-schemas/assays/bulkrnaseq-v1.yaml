@@ -62,13 +62,7 @@ fields:
 - name: library_pcr_cycles_for_sample_index
   description: Number of PCR cycles performed for library indexing
   type: integer
-- name: library_final_yield_value
-  description: Total amount of library after final pcr amplification step
-- name: library_final_yield_unit
-  description: units of library final yield
-  constraints:
-    enum:
-      - ng
+# include: ../includes/fields/library_final_yield_value_unit.yaml
 - name: library_average_fragment_size
   description: Average size in base pairs (bp) of sequencing library fragments estimated via gel electrophoresis
     or Bioanalyzer/tapestation.
