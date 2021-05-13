@@ -59,8 +59,7 @@ fields:
   constraints:
     enum:
       - ng
-- name: library_id
-  description: ID of the library sample.
+# include: ../includes/fields/library_id.yaml
 - name: library_layout
   description: State whether the library was generated for single-end or paired end
     sequencing.

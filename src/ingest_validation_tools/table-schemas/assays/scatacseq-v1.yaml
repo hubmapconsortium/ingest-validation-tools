@@ -26,9 +26,7 @@ fields:
   -
     name: is_technical_replicate
     description: If TRUE, fastq files in dataset need to be merged.
-  -
-    name: library_id
-    description: A library ID, unique within a TMC, which allows corresponding RNA and chromatin accessibility datasets to be linked.
+  # include: ../includes/fields/library_id.yaml
   -
     name: sc_isolation_protocols_io_doi
     description: 'Link to a protocols document answering the question: How were single cells separated into a single-cell suspension?'
