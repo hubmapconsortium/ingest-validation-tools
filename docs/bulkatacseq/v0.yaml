@@ -198,9 +198,8 @@ fields:
     required: true
   custom_constraints:
     sequence_limit: 3
-  description: 'Total amount (eg. nanograms) of library after the clean-up step of
-    final pcr amplification step. Answer the question: What is the Qubit measured
-    concentration (ng/ul) times the elution volume (ul) after the final clean-up step?'
+  description: Total number of ng of library after final pcr amplification step. This
+    is the concentration (ng/ul) * volume (ul)
   name: library_final_yield_value
   type: number
 - constraints:
@@ -210,13 +209,14 @@ fields:
   custom_constraints:
     sequence_limit: 3
     units_for: library_final_yield_value
-  description: Units of library final yield
+  description: Units of final library yield
   name: library_final_yield_unit
 - constraints:
     required: true
   custom_constraints:
     sequence_limit: 3
-  description: ID of the library sample.
+  description: A library ID, unique within a TMC, which allows corresponding RNA and
+    chromatin accessibility datasets to be linked.
   name: library_id
 - constraints:
     enum:

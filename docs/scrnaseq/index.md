@@ -306,7 +306,7 @@ A link to the protocol document containing the library construction method (incl
 
 <a name="library_layout"></a>
 ##### [`library_layout`](#library_layout)
-Whether the library was generated for single-end or paired end sequencing.
+State whether the library was generated for single-end or paired end sequencing.
 
 | constraint | value |
 | --- | --- |
@@ -324,7 +324,7 @@ Adapter sequence to be used for adapter trimming.
 
 <a name="library_id"></a>
 ##### [`library_id`](#library_id)
-An id for the library. The id may be text and/or numbers.
+A library ID, unique within a TMC, which allows corresponding RNA and chromatin accessibility datasets to be linked.
 
 | constraint | value |
 | --- | --- |
@@ -705,7 +705,7 @@ A link to the protocol document containing the library construction method (incl
 
 <a name="library_layout"></a>
 ##### [`library_layout`](#library_layout)
-Whether the library was generated for single-end or paired end sequencing.
+State whether the library was generated for single-end or paired end sequencing.
 
 | constraint | value |
 | --- | --- |
@@ -723,7 +723,7 @@ Adapter sequence to be used for adapter trimming.
 
 <a name="library_id"></a>
 ##### [`library_id`](#library_id)
-An id for the library. The id may be text and/or numbers.
+A library ID, unique within a TMC, which allows corresponding RNA and chromatin accessibility datasets to be linked.
 
 | constraint | value |
 | --- | --- |
@@ -1077,10 +1077,11 @@ A link to the protocol document containing the library construction method (incl
 
 <a name="library_layout"></a>
 ##### [`library_layout`](#library_layout)
-Whether the library was generated for single-end or paired end sequencing.
+State whether the library was generated for single-end or paired end sequencing.
 
 | constraint | value |
 | --- | --- |
+| enum | `single-end` or `paired-end` |
 | required | `True` |
 
 <a name="library_adapter_sequence"></a>
@@ -1093,7 +1094,7 @@ Adapter sequence to be used for adapter trimming.
 
 <a name="library_id"></a>
 ##### [`library_id`](#library_id)
-An id for the library. The id may be text and/or numbers.
+A library ID, unique within a TMC, which allows corresponding RNA and chromatin accessibility datasets to be linked.
 
 | constraint | value |
 | --- | --- |

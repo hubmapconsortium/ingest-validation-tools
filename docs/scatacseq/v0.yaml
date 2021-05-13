@@ -244,7 +244,8 @@ fields:
     required: true
   custom_constraints:
     sequence_limit: 3
-  description: Whether the library was generated for single-end or paired end sequencing.
+  description: State whether the library was generated for single-end or paired end
+    sequencing.
   name: library_layout
 - constraints:
     pattern: '[ATCG]+(\+[ATCG]+)?'
