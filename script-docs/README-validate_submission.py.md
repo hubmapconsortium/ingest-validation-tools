@@ -49,4 +49,10 @@ Typical usage:
   After the initial validation on Globus, the metadata TSVs are broken up,
   and one-line TSVs are put in each dataset directory. This structure needs
   extra parameters.
+
+Exit status codes:
+  0: Validation passed
+  1: Unexpected bug
+  2: User error
+  3: Validation failed
 ```

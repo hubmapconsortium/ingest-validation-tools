@@ -9,9 +9,22 @@ from ingest_validation_tools.samples import Samples
 from ingest_validation_tools.argparse_types import ShowUsageException
 
 
+VALID_STATUS = 0
+BUG_STATUS = 1
+ERROR_STATUS = 2
+INVALID_STATUS = 3
+
+
 def make_parser():
     parser = argparse.ArgumentParser(
-        description='Validate a HuBMAP Sample metadata TSV.')
+        description='Validate a HuBMAP Sample metadata TSV.',
+        epilog=f'''
+Exit status codes:
+  {VALID_STATUS}: Validation passed
+  {BUG_STATUS}: Unexpected bug
+  {ERROR_STATUS}: User error
+  {INVALID_STATUS}: Validation failed
+''')
     parser.add_argument(
         '--path', required=True,
         help='Sample metadata.tsv path. ')
@@ -40,7 +53,7 @@ def main():
     errors = samples.get_errors()
     report = ErrorReport(errors)
     print(getattr(report, args.output)())
-    return 1 if errors else 0
+    return INVALID_STATUS if errors else VALID_STATUS
 
 
 if __name__ == "__main__":
@@ -49,5 +62,5 @@ if __name__ == "__main__":
     except ShowUsageException as e:
         print(parser.format_usage(), file=sys.stderr)
         print(e, file=sys.stderr)
-        exit_status = 2
+        exit_status = ERROR_STATUS
     sys.exit(exit_status)

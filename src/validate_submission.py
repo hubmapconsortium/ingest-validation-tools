@@ -19,12 +19,18 @@ directory_schemas = sorted({
 })
 
 
+VALID_STATUS = 0
+BUG_STATUS = 1
+ERROR_STATUS = 2
+INVALID_STATUS = 3
+
+
 def make_parser():
     parser = argparse.ArgumentParser(
         description='''
 Validate a HuBMAP submission, both the metadata TSVs, and the datasets,
 either local or remote, or a combination of the two.''',
-        epilog='''
+        epilog=f'''
 Typical usage:
   --tsv_paths: Used to validate Sample metadata TSVs. (Because it does
   not check references, should not be used to validate Dataset metadata TSVs.)
@@ -36,6 +42,11 @@ Typical usage:
   and one-line TSVs are put in each dataset directory. This structure needs
   extra parameters.
 
+Exit status codes:
+  {VALID_STATUS}: Validation passed
+  {BUG_STATUS}: Unexpected bug
+  {ERROR_STATUS}: User error
+  {INVALID_STATUS}: Validation failed
 ''',
         formatter_class=argparse.RawDescriptionHelpFormatter)
 
@@ -157,7 +168,7 @@ def main():
     errors = submission.get_errors()
     report = ErrorReport(errors)
     print(getattr(report, args.output)())
-    return 1 if errors else 0
+    return INVALID_STATUS if errors else VALID_STATUS
 
 
 if __name__ == "__main__":
@@ -166,5 +177,5 @@ if __name__ == "__main__":
     except ShowUsageException as e:
         print(parser.format_usage(), file=sys.stderr)
         print(e, file=sys.stderr)
-        exit_status = 2
+        exit_status = ERROR_STATUS
     sys.exit(exit_status)
