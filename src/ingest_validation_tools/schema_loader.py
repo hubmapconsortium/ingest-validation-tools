@@ -224,7 +224,9 @@ def _validate_level_1_enum(field):
     ...
     KeyError: 'constraints'
 
-    TODO: This should error. Filed https://github.com/hubmapconsortium/ingest-validation-tools/issues/724
+    TODO: This should error.
+    Filed https://github.com/hubmapconsortium/ingest-validation-tools/issues/724
+
     >>> field['constraints'] = {}
     >>> _validate_level_1_enum(field)
 
