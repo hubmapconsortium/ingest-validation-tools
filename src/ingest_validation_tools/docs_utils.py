@@ -14,6 +14,17 @@ def get_xlsx_name(type, is_assay=True):
 
 
 def generate_template_tsv(table_schema):
+    '''
+    >>> schema = {'fields': [{
+    ...   'name': 'fake',
+    ...   'constraints': {
+    ...     'enum': ['a', 'b', 'c']
+    ...   }
+    ... }]}
+    >>> generate_template_tsv(schema)
+    'fake\\na / b / c'
+    '''
+
     names = [field['name'] for field in table_schema['fields']]
     header_row = '\t'.join(names)
 
@@ -140,6 +151,21 @@ def generate_readme_md(
 
 
 def _make_fields_md(table_schema, title, is_open=False):
+    '''
+    >>> schema = {'fields': [{
+    ...   'heading': 'A head',
+    ...   'name': 'a_name',
+    ...   'description': 'A description'
+    ... }]}
+    >>> print(_clean(_make_fields_md(schema, 'A title')))
+    <details markdown="1" ><summary><b>A title</b></summary>
+    ### A head
+    <a name="a_name"></a>
+    ##### [`a_name`](#a_name)
+    A description.
+    </details>
+    '''
+
     fields_md_list = []
     for field in table_schema['fields']:
         if 'heading' in field:
@@ -245,6 +271,10 @@ def _md_escape_re(re_string):
     return re.sub(r'([|])', r'\\\1', re_string)
 
 
+def _clean(s):
+    return re.sub(r'\n+', '\n', s).strip()
+
+
 def _make_toc(md):
     # Github should do this for us, but it doesn't.
     # Existing solutions expect a file, not a string,
@@ -253,32 +283,23 @@ def _make_toc(md):
     '''
     >>> md = '# Section A\\n## `Item 1`\\n# Section B'
 
-    >>> print(_make_toc(md))
+    >>> print(_clean(_make_toc(md)))
     <blockquote markdown="1">
-    <BLANKLINE>
     <details markdown="1"><summary>Section A</summary>
-    <BLANKLINE>
     [`Item 1`](#item-1)<br>
-    <BLANKLINE>
     </details>
     <details markdown="1"><summary>Section B</summary>
-    <BLANKLINE>
     </details>
-    <BLANKLINE>
     </blockquote>
-    <BLANKLINE>
 
     >>> md = '## `Item 1`\\n## `Item 3`\\n## `Item 3`\\n'
 
-    >>> print(_make_toc(md))
+    >>> print(_clean(_make_toc(md)))
     <blockquote markdown="1">
-    <BLANKLINE>
     [`Item 1`](#item-1)<br>
     [`Item 3`](#item-3)<br>
     [`Item 3`](#item-3)<br>
-    <BLANKLINE>
     </blockquote>
-    <BLANKLINE>
 
     '''
     lines = md.split('\n')
