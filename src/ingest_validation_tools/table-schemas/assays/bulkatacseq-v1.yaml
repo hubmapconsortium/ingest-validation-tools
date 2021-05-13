@@ -32,13 +32,7 @@ fields:
 - name: library_average_fragment_size
   description: Average size in basepairs (bp) of sequencing library fragments estimated via gel
     electrophoresis or Bioanalyzer/tapestation.
-- name: library_concentration_value
-  description: The concentration value of the pooled library samples submitted for sequencing.
-- name: library_concentration_unit
-  description: Unit of library_concentration_value
-  constraints:
-    enum:
-      - nM
+# include: ../includes/fields/library_concentration_value_unit.yaml
 - name: library_construction_protocols_io_doi
   description: A link to the protocol document containing the library construction
     method (including version) that was used, e.g. "Smart-Seq2", "Drop-Seq", "10X
