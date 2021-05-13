@@ -55,7 +55,7 @@ Typical usage:
 
     parser.add_argument(
         '--optional_fields', nargs='+',
-        metavar='FIELD',
+        metavar='FIELD', default=[],
         help='The listed fields will be treated as optional. '
         '(But if they are supplied in the TSV, they will be validated.)'
     )
@@ -134,7 +134,7 @@ def main():
         'add_notes': args.add_notes,
         'encoding': args.encoding,
         'offline': args.offline,
-        'optional_fields': args.optional_fields or []
+        'optional_fields': args.optional_fields
     }
 
     if args.local_directory:
