@@ -53,9 +53,7 @@ fields:
   -
     name: library_construction_protocols_io_doi
     description: A link to the protocol document containing the library construction method (including version) that was used, e.g. "Smart-Seq2", "Drop-Seq", "10X v3".
-  -
-    name: library_layout
-    description: Whether the library was generated for single-end or paired end sequencing
+  # include: ../includes/fields/library_layout.yaml
   -
     name: library_adapter_sequence
     description: Adapter sequence to be used for adapter trimming

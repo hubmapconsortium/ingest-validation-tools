@@ -54,13 +54,7 @@ fields:
   description: A link to the protocol document containing the library construction
     method (including version) that was used, e.g. "Smart-Seq2", "Drop-Seq", "10X
     v3".
-- name: library_layout
-  description: State whether the library was generated for single-end or paired end
-    sequencing.
-  constraints:
-    enum:
-      - single-end
-      - paired-end
+# include: ../includes/fields/library_layout.yaml
 - name: library_adapter_sequence
   description: Adapter sequence to be used for adapter trimming.
   constraints:

@@ -60,13 +60,7 @@ fields:
     enum:
       - ng
 # include: ../includes/fields/library_id.yaml
-- name: library_layout
-  description: State whether the library was generated for single-end or paired end
-    sequencing.
-  constraints:
-    enum:
-      - single-end
-      - paired-end
+# include: ../includes/fields/library_layout.yaml
 - name: library_pcr_cycles
   description: Number of PCR cycles performed in order to add adapters and amplify
     the library. Usually, this includes 5 pre-amplificationn cycles followed by 0-5

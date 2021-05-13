@@ -1,0 +1,7 @@
+- name: library_layout
+  description: State whether the library was generated for single-end or paired end
+    sequencing.
+  constraints:
+    enum:
+      - single-end
+      - paired-end
