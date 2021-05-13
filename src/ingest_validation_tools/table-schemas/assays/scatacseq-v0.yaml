@@ -14,6 +14,7 @@ fields:
         - scATACseq
         - sciATACseq
         - snATACseq
+        - SNARE2-ATACseq
   -
     name: analyte_class
     constraints:
