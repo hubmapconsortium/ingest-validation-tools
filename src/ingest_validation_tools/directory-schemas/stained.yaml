@@ -2,10 +2,10 @@
 #   a set of transformation files that are useful for other
 #   related datasets. (Vanderbilt)
 -
-  pattern: '(processedMicroscopy|processed_microscopy)/[^/]+_PAS_images/[^/]+ome\.tif'
+  pattern: '(processedMicroscopy|processed_microscopy)/[^/]+_images/[^/]+ome\.tif'
   description: 'OME TIFF files (multichannel, multi-layered, image pyramids) produced by the PAS microscopy experiment'
 -
-  pattern: '(processedMicroscopy|processed_microscopy)/[^/]+_PAS_transformations/[^/]+\.txt'
+  pattern: '(processedMicroscopy|processed_microscopy)/[^/]+_transformations/[^/]+\.txt'
   description: 'Transformations to PAS (related) data'
 -
   pattern: '(rawMicroscopy|raw_microscopy)/[^/]+\.xml'
