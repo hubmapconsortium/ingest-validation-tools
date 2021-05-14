@@ -1,8 +1,8 @@
-#   A dataset consists of a stained microscopy run, and  
+#   A dataset consists of a stained microscopy run, and
 #   a set of transformation files that are useful for other
 #   related datasets. (Vanderbilt)
 -
-  pattern: '(processedMicroscopy|processed_microscopy)/[^/]+_images/[^/]+ome\.tif'
+  pattern: '(processedMicroscopy|processed_microscopy)/[^/]+_images/[^/]+ome\.(tif|tiff)'
   description: 'OME TIFF files (multichannel, multi-layered, image pyramids) produced by the PAS microscopy experiment'
 -
   pattern: '(processedMicroscopy|processed_microscopy)/[^/]+_transformations/[^/]+\.txt'

@@ -3,7 +3,7 @@
 # related datasets. (Vanderbilt)
 
 -
-  pattern: '(processedMicroscopy|processed_microscopy)/[^/]+_images/[^/]+\.ome\.tif'
+  pattern: '(processedMicroscopy|processed_microscopy)/[^/]+_images/[^/]+\.ome\.(tif|tiff)'
   description: 'OME TIFF files (multichannel, multi-layered, image pyramids) produced by the autofluorescence microscopy'
 -
   pattern: '(processedMicroscopy|processed_microscopy)/[^/]+_transformations/[^/]+\.txt'
