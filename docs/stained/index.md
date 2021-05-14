@@ -16,10 +16,10 @@ Related files:
 
 | pattern | required? | description |
 | --- | --- | --- |
-| `processedMicroscopy/[^/]+_PAS_images/[^/]+ome\.tif` | ✓ | OME TIFF files (multichannel, multi-layered, image pyramids) produced by the PAS microscopy experiment |
-| `processedMicroscopy/[^/]+_PAS_transformations/[^/]+\.txt` | ✓ | Transformations to PAS (related) data |
-| `rawMicroscopy/[^/]+\.xml` | ✓ | XML metadata file from the autofluorescence microscopy experiments |
-| `rawMicroscopy/[^/]+\.scn` | ✓ | Raw microscope file for the experiment |
+| `(processedMicroscopy\|processed_microscopy)/[^/]+_images/[^/]+ome\.tif` | ✓ | OME TIFF files (multichannel, multi-layered, image pyramids) produced by the PAS microscopy experiment |
+| `(processedMicroscopy\|processed_microscopy)/[^/]+_transformations/[^/]+\.txt` |  | Transformations to PAS (related) data |
+| `(rawMicroscopy\|raw_microscopy)/[^/]+\.xml` | ✓ | XML metadata file from the autofluorescence microscopy experiments |
+| `(rawMicroscopy\|raw_microscopy)/[^/]+\.scn` | ✓ | Raw microscope file for the experiment |
 | `extras/.*` |  | Free-form descriptive information supplied by the TMC |
 | `extras/thumbnail\.(png\|jpg)` |  | Optional thumbnail image which may be shown in search interface |
 

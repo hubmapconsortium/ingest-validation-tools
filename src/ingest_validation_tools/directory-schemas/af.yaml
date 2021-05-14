@@ -1,4 +1,4 @@
-# A dataset consists of a single autofluorescence microscopy run, and  
+# A dataset consists of a single autofluorescence microscopy run, and
 # a set of transformation files that are useful for other
 # related datasets. (Vanderbilt)
 
@@ -7,7 +7,7 @@
   description: 'OME TIFF files (multichannel, multi-layered, image pyramids) produced by the autofluorescence microscopy'
 -
   pattern: '(processedMicroscopy|processed_microscopy)/[^/]+_transformations/[^/]+\.txt'
-  description: 'Transformations to IMS (related) data''
+  description: 'Transformations to IMS (related) data'
   required: False
 -
   pattern: '(rawMicroscopy|raw_microscopy)/[^/]+\.xml'
