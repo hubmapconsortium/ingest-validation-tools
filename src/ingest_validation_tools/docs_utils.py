@@ -2,6 +2,8 @@ import re
 from string import Template
 from pathlib import Path
 
+from ingest_validation_tools.schema_loader import get_field_enum
+
 
 def get_tsv_name(type, is_assay=True):
     return f'{type}{"-metadata" if is_assay else ""}.tsv'
@@ -77,6 +79,17 @@ def generate_readme_md(
     max_version = max(table_schemas.keys())
     max_version_table_schema = table_schemas[max_version]
 
+    assay_type_enum = get_field_enum('assay_type', max_version_table_schema)
+    assay_category_enum = get_field_enum('assay_category', max_version_table_schema)
+    source_project_enum = get_field_enum('source_project', max_version_table_schema)
+
+    title = ' / '.join(assay_type_enum) \
+        if assay_type_enum else schema_name
+    category = ' / '.join(assay_category_enum) \
+        if assay_category_enum else 'other'
+    title += f" ({' / '.join(source_project_enum)})" \
+        if source_project_enum else ''
+
     raw_base_url = 'https://raw.githubusercontent.com/' \
         'hubmapconsortium/ingest-validation-tools/master/docs'
 
@@ -99,7 +112,9 @@ def generate_readme_md(
         (Path(__file__).parent / 'docs.template').read_text()
     )
     return template.substitute({
+        'title': title,
         'schema_name': schema_name,
+        'category': category,
         'max_version': max_version,
 
         'tsv_url': f'{raw_base_url}/{schema_name}/{get_tsv_name(schema_name, is_assay=is_assay)}',
@@ -133,7 +148,7 @@ def _make_fields_md(table_schema, title, is_open=False):
         name = field['name']
         fields_md_list.append('\n'.join([
             f'<a name="{name}"></a>',
-            f"##### `{name}`",
+            f"##### [`{name}`](#{name})",
             _enrich_description(field),
             table_md
         ]))
@@ -268,7 +283,7 @@ def _make_toc(md):
     '''
     lines = md.split('\n')
     headers = [
-        re.sub(r'^#+\s+', '', line)
+        re.sub(r'^#+\s*', '', re.sub(r'.*\[(.*)\].*', r'\1', line))
         for line in lines if len(line) and line[0] == '#'
     ]
     in_details = False

@@ -203,27 +203,16 @@ fields:
   description: Average size of sequencing library fragments estimated via gel electrophoresis
     or bioanalyzer/tapestation.
   name: library_average_fragment_size
-- constraints:
+# include: ../includes/fields/sequencing_reagent_kit.yaml
+  constraints:
     required: false
-  description: Reagent kit used for sequencing
-  name: sequencing_reagent_kit
-- constraints:
-    pattern: \d+(/\d+)+
-    required: false
-  description: Slash-delimited list of the number of sequencing cycles for, for example,
-    Read1, i7 index, i5 index, and Read2.
-  name: sequencing_read_format
-  type: string
+# include: ../includes/fields/sequencing_read_format.yaml
 # include: ../includes/fields/sequencing_read_percent_q30.yaml
   constraints:
     required: false
-- constraints:
-    maximum: 100
-    minimum: 0
+# include: ../includes/fields/sequencing_phix_percent.yaml
+  constraints:
     required: false
-  description: Percent PhiX loaded to the run
-  name: sequencing_phix_percent
-  type: number
 - constraints:
     required: false
   description: Relative path to file with ORCID IDs for contributors for this dataset.

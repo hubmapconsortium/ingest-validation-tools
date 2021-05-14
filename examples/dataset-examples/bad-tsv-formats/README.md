@@ -58,12 +58,12 @@ Metadata TSV Errors:
         - src_[^/]+/cyc.*_reg.*_.*/.*_.*_Z.*_CH.*\.tif
         - src_[^/]+/experiment\.json
         - src_[^/]+/exposure_times\.txt
-        - src_[^/]+/segmentation\.json
+        - src_[^/]+/segmentation\.(json|txt)
       row 2, contributors examples/dataset-examples/bad-tsv-formats/submission/contributors.tsv: File
         has no data rows.
       row 2, antibodies examples/dataset-examples/bad-tsv-formats/submission/antibodies.tsv: File
         does not exist
 Hint: 'If validation fails because of extra whitespace in the TSV, try:
 
-  src/cleanup_whitespace.py --tsv_path original.tsv > clean.tsv'
+  src/cleanup_whitespace.py --tsv_in original.tsv --tsv_out clean.tsv'
 ```

@@ -1,6 +1,7 @@
 # Changelog
 
 ## v0.0.11 - in progress
+- Updated CODEX directory structure schema.
 - No Donor and Tissue ID validation needed for HCA.
 - Longer description for Q30.
 - Setup GH Pages.
@@ -9,6 +10,17 @@
 - Update description of the `.ibd` and `.imzML` files in the `maldiims` schema
 - Added example `maldiims` folder structure
 - Updated README.md to reflect the `examples/...` folder structure
+- Use assay names to make titles.
+- Add formalin as a Sample perfusion_solution.
+- Style the GH Pages like the portal.
+- Catch metadata TSVs with non-ASCII characters.
+- More general ignore forurl-status-cache.
+- Support Windows environments by converting back-slashes for forward slashes.
+- Improve navigation and styling of new GH Pages.
+- In cleanup_whitespace.py, avoid printing extra newlines on windows.
+- Field templates for sequencing fields.
+- Missing `data_path` will no longer cause spurious errors when submission is interpretted as dataset.
+- README for `examples/` directory.
 
 ## v0.0.10 - 2021-04-21
 - Remove inappropriate syntax highlighting from CLI docs.

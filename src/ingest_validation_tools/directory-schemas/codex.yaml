@@ -37,11 +37,11 @@
   description: 'Comma separated text file used for background subtraction that contains valid exposure times for all cycles [e.g: Cycle,CH1,CH2,CH3,CH4].'
   required: False
 -
-  pattern: 'src_[^/]+/segmentation\.json'
+  pattern: 'src_[^/]+/segmentation\.(json|txt)'
   description: 'JSON file produced by the Akoya software which contains the parameters used for segmentation. (required for HuBMAP pipeline)'
   required: True
 -
-  pattern: 'drv_[^/]+/segmentation\.json'
+  pattern: 'drv_[^/]+/segmentation\.(json|txt)'
   description: 'JSON file produced by the Akoya software which contains the parameters used for segmentation. (required for HuBMAP pipeline)'
   required: False
 -

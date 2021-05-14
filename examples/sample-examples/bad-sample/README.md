@@ -11,5 +11,5 @@ Sample TSV Errors:
   'Refrigerator (4 Celsius)', 'Room Temperature']"
 Hint: 'If validation fails because of extra whitespace in the TSV, try:
 
-  src/cleanup_whitespace.py --tsv_path original.tsv > clean.tsv'
+  src/cleanup_whitespace.py --tsv_in original.tsv --tsv_out clean.tsv'
 ```

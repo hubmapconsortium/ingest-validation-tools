@@ -268,6 +268,7 @@ fields:
     sequence_limit: 3
   description: Slash-delimited list of the number of sequencing cycles for, for example,
     Read1, i7 index, i5 index, and Read2.
+  example: 12/34/56
   name: sequencing_read_format
   type: string
 - constraints:
@@ -284,7 +285,7 @@ fields:
     required: true
   custom_constraints:
     sequence_limit: 3
-  description: Reagent kit used for sequencing. NovaSeq6000 for example
+  description: Reagent kit used for sequencing
   name: sequencing_reagent_kit
 - constraints:
     required: false

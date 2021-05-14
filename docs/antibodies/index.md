@@ -1,5 +1,7 @@
 ---
 title: antibodies
+schema_name: antibodies
+category: other
 layout: default
 ---
 
@@ -37,7 +39,7 @@ Changes:
 </blockquote>
 
 <a name="version"></a>
-##### `version`
+##### [`version`](#version)
 Current version of metadata schema. Template provides the correct value.
 
 | constraint | value |
@@ -46,7 +48,7 @@ Current version of metadata schema. Template provides the correct value.
 | required | `True` |
 
 <a name="channel_id"></a>
-##### `channel_id`
+##### [`channel_id`](#channel_id)
 Structure of channel_id depends on assay type.
 
 | constraint | value |
@@ -54,7 +56,7 @@ Structure of channel_id depends on assay type.
 | required | `True` |
 
 <a name="antibody_name"></a>
-##### `antibody_name`
+##### [`antibody_name`](#antibody_name)
 Anti-(target name) antibody. Not validated or used down-stream.
 
 | constraint | value |
@@ -62,7 +64,7 @@ Anti-(target name) antibody. Not validated or used down-stream.
 | required | `True` |
 
 <a name="rr_id"></a>
-##### `rr_id`
+##### [`rr_id`](#rr_id)
 The rr_id is a unique antibody identifier that comes from the Antibody Registry (https://antibodyregistry.org). Example: `AB_10002075`.
 
 | constraint | value |
@@ -72,7 +74,7 @@ The rr_id is a unique antibody identifier that comes from the Antibody Registry 
 | url | prefix: `https://scicrunch.org/resolver/RRID:` |
 
 <a name="uniprot_accession_number"></a>
-##### `uniprot_accession_number`
+##### [`uniprot_accession_number`](#uniprot_accession_number)
 The uniprot_accession_number is a unique identifier for proteins in the UniProt database (https://www.uniprot.org).
 
 | constraint | value |
@@ -81,7 +83,7 @@ The uniprot_accession_number is a unique identifier for proteins in the UniProt 
 | url | prefix: `https://www.uniprot.org/uniprot/` |
 
 <a name="lot_number"></a>
-##### `lot_number`
+##### [`lot_number`](#lot_number)
 The lot# is specific to the vendor. (eg: Abcam lot# GR3238979-1)
 
 | constraint | value |
@@ -89,7 +91,7 @@ The lot# is specific to the vendor. (eg: Abcam lot# GR3238979-1)
 | required | `True` |
 
 <a name="dilution"></a>
-##### `dilution`
+##### [`dilution`](#dilution)
 Antibody solutions may be diluted according to the experimental protocol. Leave blank if not applicable. Example: `1/200`.
 
 | constraint | value |
@@ -98,7 +100,7 @@ Antibody solutions may be diluted according to the experimental protocol. Leave 
 | pattern (regular expression) | `1/\d+` |
 
 <a name="concentration_value"></a>
-##### `concentration_value`
+##### [`concentration_value`](#concentration_value)
 The concentration value of the antibody preparation. Leave blank if not applicable.
 
 | constraint | value |
@@ -107,7 +109,7 @@ The concentration value of the antibody preparation. Leave blank if not applicab
 | required | `False` |
 
 <a name="concentration_unit"></a>
-##### `concentration_unit`
+##### [`concentration_unit`](#concentration_unit)
 The concentration units of the antibody preparation. Leave blank if not applicable.
 
 | constraint | value |
@@ -117,7 +119,7 @@ The concentration units of the antibody preparation. Leave blank if not applicab
 | units for | `concentration_value` |
 
 <a name="conjugated_cat_number"></a>
-##### `conjugated_cat_number`
+##### [`conjugated_cat_number`](#conjugated_cat_number)
 An antibody may be conjugated to a fluorescent tag or a metal tag for detection. Conjugated antibodies may be purchased from commercial providers. Leave blank if not applicable.
 
 | constraint | value |
@@ -125,7 +127,7 @@ An antibody may be conjugated to a fluorescent tag or a metal tag for detection.
 | required | `False` |
 
 <a name="conjugated_tag"></a>
-##### `conjugated_tag`
+##### [`conjugated_tag`](#conjugated_tag)
 The name of the entity conjugated to the antibody. Leave blank if not applicable.
 
 | constraint | value |
@@ -139,7 +141,7 @@ The name of the entity conjugated to the antibody. Leave blank if not applicable
 
 
 <a name="version"></a>
-##### `version`
+##### [`version`](#version)
 Current version of metadata schema. Template provides the correct value.
 
 | constraint | value |
@@ -148,7 +150,7 @@ Current version of metadata schema. Template provides the correct value.
 | required | `True` |
 
 <a name="channel_id"></a>
-##### `channel_id`
+##### [`channel_id`](#channel_id)
 Structure of channel_id depends on assay type.
 
 | constraint | value |
@@ -156,7 +158,7 @@ Structure of channel_id depends on assay type.
 | required | `True` |
 
 <a name="antibody_name"></a>
-##### `antibody_name`
+##### [`antibody_name`](#antibody_name)
 Anti-(target name) antibody. Not validated or used down-stream.
 
 | constraint | value |
@@ -164,7 +166,7 @@ Anti-(target name) antibody. Not validated or used down-stream.
 | required | `True` |
 
 <a name="rr_id"></a>
-##### `rr_id`
+##### [`rr_id`](#rr_id)
 The rr_id is a unique antibody identifier that comes from the Antibody Registry (https://antibodyregistry.org). Example: `AB_10002075`.
 
 | constraint | value |
@@ -174,7 +176,7 @@ The rr_id is a unique antibody identifier that comes from the Antibody Registry 
 | url | prefix: `https://scicrunch.org/resolver/RRID:` |
 
 <a name="uniprot_accession_number"></a>
-##### `uniprot_accession_number`
+##### [`uniprot_accession_number`](#uniprot_accession_number)
 The uniprot_accession_number is a unique identifier for proteins in the UniProt database (https://www.uniprot.org).
 
 | constraint | value |
@@ -183,7 +185,7 @@ The uniprot_accession_number is a unique identifier for proteins in the UniProt 
 | url | prefix: `https://www.uniprot.org/uniprot/` |
 
 <a name="lot_number"></a>
-##### `lot_number`
+##### [`lot_number`](#lot_number)
 The lot# is specific to the vendor. (eg: Abcam lot# GR3238979-1)
 
 | constraint | value |
@@ -191,7 +193,7 @@ The lot# is specific to the vendor. (eg: Abcam lot# GR3238979-1)
 | required | `True` |
 
 <a name="dilution"></a>
-##### `dilution`
+##### [`dilution`](#dilution)
 Antibody solutions may be diluted according to the experimental protocol. Leave blank if not applicable. Example: `1/200`.
 
 | constraint | value |
@@ -200,7 +202,7 @@ Antibody solutions may be diluted according to the experimental protocol. Leave 
 | pattern (regular expression) | `1/\d+` |
 
 <a name="conjugated_cat_number"></a>
-##### `conjugated_cat_number`
+##### [`conjugated_cat_number`](#conjugated_cat_number)
 An antibody may be conjugated to a fluorescent tag or a metal tag for detection. Conjugated antibodies may be purchased from commercial providers. Leave blank if not applicable.
 
 | constraint | value |
@@ -208,7 +210,7 @@ An antibody may be conjugated to a fluorescent tag or a metal tag for detection.
 | required | `False` |
 
 <a name="conjugated_tag"></a>
-##### `conjugated_tag`
+##### [`conjugated_tag`](#conjugated_tag)
 The name of the entity conjugated to the antibody. Leave blank if not applicable.
 
 | constraint | value |
@@ -223,7 +225,7 @@ The name of the entity conjugated to the antibody. Leave blank if not applicable
 
 
 <a name="channel_id"></a>
-##### `channel_id`
+##### [`channel_id`](#channel_id)
 Structure of channel_id depends on assay type.
 
 | constraint | value |
@@ -231,7 +233,7 @@ Structure of channel_id depends on assay type.
 | required | `True` |
 
 <a name="antibody_name"></a>
-##### `antibody_name`
+##### [`antibody_name`](#antibody_name)
 Anti-(target name) antibody. Not validated or used down-stream.
 
 | constraint | value |
@@ -239,7 +241,7 @@ Anti-(target name) antibody. Not validated or used down-stream.
 | required | `True` |
 
 <a name="rr_id"></a>
-##### `rr_id`
+##### [`rr_id`](#rr_id)
 The rr_id is a unique antibody identifier that comes from the Antibody Registry (https://antibodyregistry.org). Example: `AB_10002075`.
 
 | constraint | value |
@@ -249,7 +251,7 @@ The rr_id is a unique antibody identifier that comes from the Antibody Registry 
 | url | prefix: `https://scicrunch.org/resolver/RRID:` |
 
 <a name="uniprot_accession_number"></a>
-##### `uniprot_accession_number`
+##### [`uniprot_accession_number`](#uniprot_accession_number)
 The uniprot_accession_number is a unique identifier for proteins in the UniProt database (https://www.uniprot.org).
 
 | constraint | value |
@@ -258,7 +260,7 @@ The uniprot_accession_number is a unique identifier for proteins in the UniProt 
 | url | prefix: `https://www.uniprot.org/uniprot/` |
 
 <a name="lot_number"></a>
-##### `lot_number`
+##### [`lot_number`](#lot_number)
 The lot# is specific to the vendor. (eg: Abcam lot# GR3238979-1)
 
 | constraint | value |
@@ -266,7 +268,7 @@ The lot# is specific to the vendor. (eg: Abcam lot# GR3238979-1)
 | required | `True` |
 
 <a name="dilution"></a>
-##### `dilution`
+##### [`dilution`](#dilution)
 Antibody solutions may be diluted according to the experimental protocol. Leave blank if not applicable. Example: `1/200`.
 
 | constraint | value |
@@ -275,7 +277,7 @@ Antibody solutions may be diluted according to the experimental protocol. Leave 
 | pattern (regular expression) | `1/\d+` |
 
 <a name="conjugated_cat_number"></a>
-##### `conjugated_cat_number`
+##### [`conjugated_cat_number`](#conjugated_cat_number)
 An antibody may be conjugated to a fluorescent tag or a metal tag for detection. Conjugated antibodies may be purchased from commercial providers. Leave blank if not applicable.
 
 | constraint | value |
@@ -283,7 +285,7 @@ An antibody may be conjugated to a fluorescent tag or a metal tag for detection.
 | required | `False` |
 
 <a name="conjugated_tag"></a>
-##### `conjugated_tag`
+##### [`conjugated_tag`](#conjugated_tag)
 The name of the entity conjugated to the antibody. Leave blank if not applicable.
 
 | constraint | value |

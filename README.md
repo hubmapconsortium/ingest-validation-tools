@@ -15,7 +15,7 @@ When all the parts are finalized,
 - The list of fields will be translated into a table schema, like those [here](src/ingest_validation_tools/table-schemas).
 - The list of files will be translated into a directory schema, like those [here](src/ingest_validation_tools/directory-schemas).
 
-When those parts are in place, the [docs](docs/) are updated, and we're ready to validate submissions.
+When those parts are in place, the [documention on GH Pages](https://hubmapconsortium.github.io/ingest-validation-tools/) is updated, and we're ready to validate submissions.
 
 ### Stability
 
@@ -57,7 +57,7 @@ src/validate_submission.py --local_directory examples/dataset-examples/good-code
 No errors!
 ```
 
-Documentation and metadata TSV templates for each assay type are [here](docs).
+Documentation and metadata TSV templates for each assay type are [here](https://hubmapconsortium.github.io/ingest-validation-tools/).
 Addition help for certain common error messages is available [here](README-validate-submission-help.md)
 
 ### Validating single TSVs:

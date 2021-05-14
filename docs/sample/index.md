@@ -1,5 +1,7 @@
 ---
 title: sample
+schema_name: sample
+category: other
 layout: default
 ---
 
@@ -55,7 +57,7 @@ Related files:
 ### IDs
 
 <a name="sample_id"></a>
-##### `sample_id`
+##### [`sample_id`](#sample_id)
 (No description for this field was supplied.)
 
 | constraint | value |
@@ -66,7 +68,7 @@ Related files:
 ### Donor
 
 <a name="vital_state"></a>
-##### `vital_state`
+##### [`vital_state`](#vital_state)
 Identify the vital state of the donor.
 
 | constraint | value |
@@ -75,7 +77,7 @@ Identify the vital state of the donor.
 | enum | `living` or `deceased` |
 
 <a name="health_status"></a>
-##### `health_status`
+##### [`health_status`](#health_status)
 Patient's baseline physical condition prior to immediate event leading to organ/tissue acquisition. For example, if a relatively healthy patient suffers trauma, and as a result of reparative surgery, a tissue sample is collected, the subject will be deemed “relatively healthy”.   Likewise, a relatively healthy subject may have experienced trauma leading to brain death.  As a result of organ donation, a sample is collected.  In this scenario, the subject is deemed “relatively healthy.”.
 
 | constraint | value |
@@ -86,7 +88,7 @@ Patient's baseline physical condition prior to immediate event leading to organ/
 ### Medical Procedure
 
 <a name="organ_condition"></a>
-##### `organ_condition`
+##### [`organ_condition`](#organ_condition)
 Health status of the organ at the time of sample recovery.
 
 | constraint | value |
@@ -95,7 +97,7 @@ Health status of the organ at the time of sample recovery.
 | enum | `healthy` or `diseased` |
 
 <a name="procedure_date"></a>
-##### `procedure_date`
+##### [`procedure_date`](#procedure_date)
 Date of procedure to procure organ.
 
 | constraint | value |
@@ -105,16 +107,16 @@ Date of procedure to procure organ.
 | required | `True` |
 
 <a name="perfusion_solution"></a>
-##### `perfusion_solution`
+##### [`perfusion_solution`](#perfusion_solution)
 Type of solution that was used to perfuse the organ.
 
 | constraint | value |
 | --- | --- |
 | required | `True` |
-| enum | `UWS`, `HTK`, `Belzer MPS/KPS`, `Unknown`, or `None` |
+| enum | `UWS`, `HTK`, `Belzer MPS/KPS`, `Formalin`, `Unknown`, or `None` |
 
 <a name="pathologist_report"></a>
-##### `pathologist_report`
+##### [`pathologist_report`](#pathologist_report)
 Further details on organ level QC checks.
 
 | constraint | value |
@@ -122,7 +124,7 @@ Further details on organ level QC checks.
 | required | `True` |
 
 <a name="warm_ischemia_time_value"></a>
-##### `warm_ischemia_time_value`
+##### [`warm_ischemia_time_value`](#warm_ischemia_time_value)
 Time interval between cessation of blood flow and cooling to 4C. Leave blank if not applicable.
 
 | constraint | value |
@@ -131,7 +133,7 @@ Time interval between cessation of blood flow and cooling to 4C. Leave blank if 
 | required | `False` |
 
 <a name="warm_ischemia_time_unit"></a>
-##### `warm_ischemia_time_unit`
+##### [`warm_ischemia_time_unit`](#warm_ischemia_time_unit)
 Time unit. Leave blank if not applicable.
 
 | constraint | value |
@@ -141,7 +143,7 @@ Time unit. Leave blank if not applicable.
 | units for | `warm_ischemia_time_value` |
 
 <a name="cold_ischemia_time_value"></a>
-##### `cold_ischemia_time_value`
+##### [`cold_ischemia_time_value`](#cold_ischemia_time_value)
 Time interval on ice to the start of preservation protocol. Leave blank if not applicable.
 
 | constraint | value |
@@ -150,7 +152,7 @@ Time interval on ice to the start of preservation protocol. Leave blank if not a
 | required | `False` |
 
 <a name="cold_ischemia_time_unit"></a>
-##### `cold_ischemia_time_unit`
+##### [`cold_ischemia_time_unit`](#cold_ischemia_time_unit)
 Time unit. Leave blank if not applicable.
 
 | constraint | value |
@@ -162,7 +164,7 @@ Time unit. Leave blank if not applicable.
 ### Biospecimen
 
 <a name="specimen_preservation_temperature"></a>
-##### `specimen_preservation_temperature`
+##### [`specimen_preservation_temperature`](#specimen_preservation_temperature)
 The temperature of the medium during the preservation process.
 
 | constraint | value |
@@ -171,7 +173,7 @@ The temperature of the medium during the preservation process.
 | enum | `Liquid Nitrogen`, `Liquid Nitrogen Vapor`, `Freezer (-80 Celsius)`, `Freezer (-20 Celsius)`, `Refrigerator (4 Celsius)`, or `Room Temperature` |
 
 <a name="specimen_quality_criteria"></a>
-##### `specimen_quality_criteria`
+##### [`specimen_quality_criteria`](#specimen_quality_criteria)
 For example, RIN: 8.7. Leave blank if not applicable.
 
 | constraint | value |
@@ -179,7 +181,7 @@ For example, RIN: 8.7. Leave blank if not applicable.
 | required | `False` |
 
 <a name="specimen_tumor_distance_value"></a>
-##### `specimen_tumor_distance_value`
+##### [`specimen_tumor_distance_value`](#specimen_tumor_distance_value)
 If surgical sample, how far from the tumor was the sample obtained from. Typically a number of centimeters. Leave blank if not applicable or unknown. Leave blank if not applicable.
 
 | constraint | value |
@@ -188,7 +190,7 @@ If surgical sample, how far from the tumor was the sample obtained from. Typical
 | required | `False` |
 
 <a name="specimen_tumor_distance_unit"></a>
-##### `specimen_tumor_distance_unit`
+##### [`specimen_tumor_distance_unit`](#specimen_tumor_distance_unit)
 Distance unit. Leave blank if not applicable.
 
 | constraint | value |

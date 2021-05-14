@@ -16,14 +16,7 @@ Metadata TSV Errors:
         - '[^/]+\.fastq\.gz'
       row 2, contributors examples/dataset-examples/bad-scatacseq-data/submission: Expected
         a TSV, but found a directory
-      row 3, referencing examples/dataset-examples/bad-scatacseq-data/submission:
-        Not allowed:
-        - dataset-1/not-the-file-you-are-looking-for.txt
-        - dataset-1/unexpected-directory/place-holder.txt
-        - scatacseq-metadata.tsv
-        Required but missing:
-        - '[^/]+\.fastq\.gz'
 Hint: 'If validation fails because of extra whitespace in the TSV, try:
 
-  src/cleanup_whitespace.py --tsv_path original.tsv > clean.tsv'
+  src/cleanup_whitespace.py --tsv_in original.tsv --tsv_out clean.tsv'
 ```

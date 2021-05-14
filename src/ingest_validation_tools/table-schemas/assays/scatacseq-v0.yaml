@@ -135,15 +135,9 @@ fields:
     name: library_average_fragment_size
     description: Average size of sequencing library fragments estimated via gel electrophoresis or bioanalyzer/tapestation. Numeric value in bp.
     type: number
-  -
-    name: sequencing_reagent_kit
-    description: Reagent kit used for sequencing. NovaSeq6000 for example
-  -
-    name: sequencing_read_format
-    description: 'Number of sequencing cycles in Read1, i7 index, i5 index, and Read2. Eg: for 10X snATAC-seq: 50+8+16+50 (R1,Index,R2,R3). For SNARE-seq2: 75+94+8+75'
+  # include: ../includes/fields/sequencing_reagent_kit.yaml
+  # include: ../includes/fields/sequencing_read_format.yaml
   # include: ../includes/fields/sequencing_read_percent_q30.yaml
-  -
-    name: sequencing_phix_percent
-    description: 'Percent PhiX loaded to the run.'
+  # include: ../includes/fields/sequencing_phix_percent.yaml
 
   # include: ../includes/v0/paths.yaml

@@ -21,7 +21,7 @@ Metadata TSV Errors:
         - src_[^/]+/cyc.*_reg.*_.*/.*_.*_Z.*_CH.*\.tif
         - src_[^/]+/experiment\.json
         - src_[^/]+/exposure_times\.txt
-        - src_[^/]+/segmentation\.json
+        - src_[^/]+/segmentation\.(json|txt)
       row 2, contributors examples/dataset-examples/bad-codex-data/submission/contributors.tsv:
       - On row 2, column "orcid_id", value "bad-id" fails because constraint "pattern"
         is "\d{4}-\d{4}-\d{4}-\d{3}[0-9X]"
@@ -32,5 +32,5 @@ Metadata TSV Errors:
         \ ] \x9F\x98\x83\t\tbad-value\t\t\tinv\""
 Hint: 'If validation fails because of extra whitespace in the TSV, try:
 
-  src/cleanup_whitespace.py --tsv_path original.tsv > clean.tsv'
+  src/cleanup_whitespace.py --tsv_in original.tsv --tsv_out clean.tsv'
 ```
