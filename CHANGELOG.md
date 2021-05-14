@@ -6,6 +6,10 @@
 - Longer description for Q30.
 - Setup GH Pages.
 - Fix bug with loading non-HCA schemas that have an HCA variant.
+- Fix bug in the `maldiims` schema to use correct file name extension
+- Update description of the `.ibd` and `.imzML` files in the `maldiims` schema
+- Added example `maldiims` folder structure
+- Updated README.md to reflect the `examples/...` folder structure
 - Use assay names to make titles.
 - Add formalin as a Sample perfusion_solution.
 - Style the GH Pages like the portal.

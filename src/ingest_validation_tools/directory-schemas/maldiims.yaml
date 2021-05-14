@@ -6,10 +6,10 @@
   description: 'Intensities M/Z values with Pixel location'
 -
   pattern: 'imzML/[^/]+\.ibd'
-  description: 'Index to imzML file'
+  description: 'Mass spec data saved in a binary format.'
 -
-  pattern: 'imzML/[^/]+\.imzMl'
-  description: 'Mass spec raw data file'
+  pattern: 'imzML/[^/]+\.imzML'
+  description: 'Mass spec metadata saved in XML format. Index to .ibd file.'
 -
   pattern: 'metadata/[^/]+_LipidAssignments\.xlsx'
   description: 'Microsoft Excel file containing the m/z, assignment, lipid class, etc.'
