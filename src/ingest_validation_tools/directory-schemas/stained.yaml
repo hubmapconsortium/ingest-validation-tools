@@ -7,6 +7,7 @@
 -
   pattern: '(processedMicroscopy|processed_microscopy)/[^/]+_transformations/[^/]+\.txt'
   description: 'Transformations to PAS (related) data'
+  required: False
 -
   pattern: '(rawMicroscopy|raw_microscopy)/[^/]+\.xml'
   description: 'XML metadata file from the autofluorescence microscopy experiments'
