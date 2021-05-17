@@ -27,8 +27,7 @@ fields:
 - constraints:
     pattern: '[A-Z]+[0-9]+'
     required: true
-  custom_constraints:
-    sequence_limit: 3
+  custom_constraints: {}
   description: HuBMAP Display ID of the donor of the assayed tissue.
   example: ABC123
   name: donor_id
@@ -36,8 +35,7 @@ fields:
 - constraints:
     pattern: ([A-Z]+[0-9]+)-[A-Z]{2}\d*(-\d+)+(_\d+)?
     required: true
-  custom_constraints:
-    sequence_limit: 3
+  custom_constraints: {}
   description: HuBMAP Display ID of the assayed tissue.
   example: ABC123-BL-1-2-3_456
   name: tissue_id
