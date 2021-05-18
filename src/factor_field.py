@@ -59,7 +59,7 @@ def pull(field_name, input_dir):
                 definition += line
                 continue
             elif inside:
-                definitions[definition].add(str(fileinput.filename()))
+                definitions[definition].add(str(fileinput.filename().name))
                 inside = False
             print(line, end='')
     return definitions
@@ -67,7 +67,7 @@ def pull(field_name, input_dir):
 
 def push(field_name, definitions, output_dir):
     options = [
-        f"# {'; '.join(files)}\n{definition}"
+        f"# {'; '.join(sorted(files))}\n{definition}"
         for definition, files in definitions.items()
     ]
     (output_dir / f'{field_name}.yaml').write_text('\n'.join(options))
