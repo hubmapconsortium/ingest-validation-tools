@@ -1,6 +1,6 @@
 # Generated YAML: PRs should not start here!
-description_md: "CODEX uploads require metadata on the antibodies used in the\
-  \ assay to be provided in an Antibodies TSV.\nFor CODEX, in that TSV, the `channel_id`\
+description_md: "CODEX uploads require metadata on the antibodies used in the assay\
+  \ to be provided in an Antibodies TSV.\nFor CODEX, in that TSV, the `channel_id`\
   \ is a cycle#/channel# combination linked to a given image file (of the form `Cycle[0-9]_CH[0-9]`).\
   \ \nEach TIF file in a CODEX dataset contains image data captured from a single\
   \ channel in a single cycle,\nidentified and connected to the `channel_id` by its\

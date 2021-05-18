@@ -1,7 +1,7 @@
 # Generated YAML: PRs should not start here!
-description_md: "Lightsheet uploads require metadata on the antibodies used in\
-  \ the assay\nto be provided in an Antibodies TSV. For Lightsheet, the `channel_id`\
-  \ is the\nname of the fluorophore tag on the antibody. \n  \nThe other fields function\
+description_md: "Lightsheet uploads require metadata on the antibodies used in the\
+  \ assay\nto be provided in an Antibodies TSV. For Lightsheet, the `channel_id` is\
+  \ the\nname of the fluorophore tag on the antibody. \n  \nThe other fields function\
   \ the same way for all assays using antibodies.\nFor more information, see the [Antibodies\
   \ TSV documentation](../antibodies).\n"
 doc_url: https://portal.hubmapconsortium.org/docs/assays/lightsheet

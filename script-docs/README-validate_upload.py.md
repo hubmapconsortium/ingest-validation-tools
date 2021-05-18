@@ -1,14 +1,14 @@
 ```text
 usage: validate_upload.py [-h]
-                              (--local_directory PATH | --tsv_paths PATH [PATH ...])
-                              [--optional_fields FIELD [FIELD ...]]
-                              [--offline] [--clear_cache]
-                              [--dataset_ignore_globs GLOB [GLOB ...]]
-                              [--upload_ignore_globs GLOB [GLOB ...]]
-                              [--encoding ENCODING]
-                              [--plugin_directory PLUGIN_DIRECTORY]
-                              [--output {as_browser,as_html_doc,as_html_fragment,as_md,as_text,as_text_list,as_yaml}]
-                              [--add_notes]
+                          (--local_directory PATH | --tsv_paths PATH [PATH ...])
+                          [--optional_fields FIELD [FIELD ...]] [--offline]
+                          [--clear_cache]
+                          [--dataset_ignore_globs GLOB [GLOB ...]]
+                          [--upload_ignore_globs GLOB [GLOB ...]]
+                          [--encoding ENCODING]
+                          [--plugin_directory PLUGIN_DIRECTORY]
+                          [--output {as_browser,as_html_doc,as_html_fragment,as_md,as_text,as_text_list,as_yaml}]
+                          [--add_notes]
 
 Validate a HuBMAP upload, both the metadata TSVs, and the datasets,
 either local or remote, or a combination of the two.
