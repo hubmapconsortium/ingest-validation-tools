@@ -1,6 +1,8 @@
 # Changelog
 
-## v0.0.11 - in progress
+## v0.0.12 - in progress
+
+## v0.0.11 - 2021-05-18
 - Updated AF and stained microscopy structure schema.
 - Updated CODEX directory structure schema.
 - No Donor and Tissue ID validation needed for HCA.
