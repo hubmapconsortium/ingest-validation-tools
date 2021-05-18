@@ -249,10 +249,11 @@ A link to the protocol document containing the library construction method (incl
 
 <a name="library_layout"></a>
 ##### [`library_layout`](#library_layout)
-Whether the library was generated for single-end or paired end sequencing.
+State whether the library was generated for single-end or paired end sequencing.
 
 | constraint | value |
 | --- | --- |
+| enum | `single-end` or `paired-end` |
 | required | `True` |
 
 <a name="library_adapter_sequence"></a>
@@ -556,10 +557,11 @@ A link to the protocol document containing the library construction method (incl
 
 <a name="library_layout"></a>
 ##### [`library_layout`](#library_layout)
-Whether the library was generated for single-end or paired end sequencing.
+State whether the library was generated for single-end or paired end sequencing.
 
 | constraint | value |
 | --- | --- |
+| enum | `single-end` or `paired-end` |
 | required | `True` |
 
 <a name="library_adapter_sequence"></a>

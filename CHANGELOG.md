@@ -23,6 +23,7 @@
 - Missing `data_path` will no longer cause spurious errors when submission is interpretted as dataset.
 - README for `examples/` directory.
 - Distinct error codes for different situations.
+- Field templates for library fields.
 - More doctests.
 - Loosen sequential items check, and improve error message.
 

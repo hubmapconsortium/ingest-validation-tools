@@ -32,13 +32,7 @@ fields:
 - name: library_average_fragment_size
   description: Average size in basepairs (bp) of sequencing library fragments estimated via gel
     electrophoresis or Bioanalyzer/tapestation.
-- name: library_concentration_value
-  description: The concentration value of the pooled library samples submitted for sequencing.
-- name: library_concentration_unit
-  description: Unit of library_concentration_value
-  constraints:
-    enum:
-      - nM
+# include: ../includes/fields/library_concentration_value_unit.yaml
 - name: library_construction_protocols_io_doi
   description: A link to the protocol document containing the library construction
     method (including version) that was used, e.g. "Smart-Seq2", "Drop-Seq", "10X
@@ -50,24 +44,9 @@ fields:
     type: datetime
     format: '%Y-%m-%d'
     required: False
-- name: library_final_yield_value
-  description: 'Total amount (eg. nanograms) of library after the clean-up step of
-    final pcr amplification step. Answer the question: What is the Qubit measured
-    concentration (ng/ul) times the elution volume (ul) after the final clean-up step?'
-- name: library_final_yield_unit
-  description: Units of library final yield
-  constraints:
-    enum:
-      - ng
-- name: library_id
-  description: ID of the library sample.
-- name: library_layout
-  description: State whether the library was generated for single-end or paired end
-    sequencing.
-  constraints:
-    enum:
-      - single-end
-      - paired-end
+# include: ../includes/fields/library_final_yield_value_unit.yaml
+# include: ../includes/fields/library_id.yaml
+# include: ../includes/fields/library_layout.yaml
 - name: library_pcr_cycles
   description: Number of PCR cycles performed in order to add adapters and amplify
     the library. Usually, this includes 5 pre-amplificationn cycles followed by 0-5

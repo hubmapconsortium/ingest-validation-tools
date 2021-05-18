@@ -1,0 +1,7 @@
+- name: library_final_yield_value
+  description: Total number of ng of library after final pcr amplification step. This is the concentration (ng/ul) * volume (ul)
+- name: library_final_yield_unit
+  description: Units of final library yield
+  constraints:
+    enum:
+      - ng

@@ -53,15 +53,11 @@ fields:
   -
     name: library_construction_protocols_io_doi
     description: A link to the protocol document containing the library construction method (including version) that was used, e.g. "Smart-Seq2", "Drop-Seq", "10X v3".
-  -
-    name: library_layout
-    description: Whether the library was generated for single-end or paired end sequencing
+  # include: ../includes/fields/library_layout.yaml
   -
     name: library_adapter_sequence
     description: Adapter sequence to be used for adapter trimming
-  -
-    name: library_id
-    description: An id for the library. The id may be text and/or numbers
+  # include: ../includes/fields/library_id.yaml
   -
     name: is_technical_replicate
     description: Is the sequencing reaction run in repliucate, TRUE or FALSE
@@ -81,15 +77,7 @@ fields:
   -
     name: library_pcr_cycles_for_sample_index
     description: Number of PCR cycles performed for library indexing
-  -
-    name: library_final_yield_value
-    description: Total number of ng of library after final pcr amplification step. This is the concentration (ng/ul) * volume (ul)
-  -
-    name: library_final_yield_unit
-    description: Units of final library yield
-    constraints:
-      enum:
-        - ng
+  # include: ../includes/fields/library_final_yield_value_unit.yaml
   -
     name: library_average_fragment_size
     description: Average size of sequencing library fragments estimated via gel electrophoresis or bioanalyzer/tapestation.

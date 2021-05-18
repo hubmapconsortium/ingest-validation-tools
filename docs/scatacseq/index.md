@@ -344,7 +344,7 @@ A link to the protocol document containing the library construction method (incl
 
 <a name="library_layout"></a>
 ##### [`library_layout`](#library_layout)
-Whether the library was generated for single-end or paired end sequencing.
+State whether the library was generated for single-end or paired end sequencing.
 
 | constraint | value |
 | --- | --- |
@@ -738,7 +738,7 @@ A link to the protocol document containing the library construction method (incl
 
 <a name="library_layout"></a>
 ##### [`library_layout`](#library_layout)
-Whether the library was generated for single-end or paired end sequencing.
+State whether the library was generated for single-end or paired end sequencing.
 
 | constraint | value |
 | --- | --- |

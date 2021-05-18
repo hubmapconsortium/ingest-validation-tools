@@ -217,7 +217,8 @@ fields:
     required: true
   custom_constraints:
     sequence_limit: 3
-  description: Whether the library was generated for single-end or paired end sequencing
+  description: State whether the library was generated for single-end or paired end
+    sequencing.
   name: library_layout
 - constraints:
     pattern: '[ATCG]+(\+[ATCG]+)?'
@@ -231,7 +232,8 @@ fields:
     required: true
   custom_constraints:
     sequence_limit: 3
-  description: An id for the library. The id may be text and/or numbers
+  description: A library ID, unique within a TMC, which allows corresponding RNA and
+    chromatin accessibility datasets to be linked.
   name: library_id
 - constraints:
     required: true
