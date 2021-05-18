@@ -49,7 +49,8 @@ class CheckFactory():
         return url_check
 
     def make_sequence_limit_check(self, template=Template(
-            'incremented sequence of $run_length items; limit is $limit')):
+            'there is a run of $run_length sequential items: Limit is $limit. '
+            'If correct, reorder rows.')):
         sequence_limit_fields = self._get_constrained_fields('sequence_limit')
 
         def sequence_limit_check(row):

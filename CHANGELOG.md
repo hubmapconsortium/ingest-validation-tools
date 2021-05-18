@@ -23,6 +23,7 @@
 - Missing `data_path` will no longer cause spurious errors when submission is interpretted as dataset.
 - README for `examples/` directory.
 - More doctests.
+- Loosen sequential items check, and improve error message.
 
 ## v0.0.10 - 2021-04-21
 - Remove inappropriate syntax highlighting from CLI docs.

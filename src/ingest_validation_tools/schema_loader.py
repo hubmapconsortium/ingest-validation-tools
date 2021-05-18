@@ -340,12 +340,12 @@ def _add_constraints(field, optional_fields, offline=None, names=None):
 
     Some fields are expected to have sequential numbers:
 
-    >>> field = {'name': 'channel_id'}
+    >>> field = {'name': 'seq_expected', 'custom_constraints': {'sequence_limit': False}}
     >>> _add_constraints(field, [])
     >>> pprint(field, width=40)
     {'constraints': {'required': True},
      'custom_constraints': {},
-     'name': 'channel_id'}
+     'name': 'seq_expected'}
 
     '''
     if 'constraints' not in field:
@@ -361,8 +361,13 @@ def _add_constraints(field, optional_fields, offline=None, names=None):
         field['custom_constraints']['url'] = {'prefix': 'https://dx.doi.org/'}
     if field['name'].endswith('_email'):
         field['format'] = 'email'
-    if field['name'] != 'channel_id':
+
+    # In the src schemas, set to False to avoid limit on sequences.
+    if field['custom_constraints'].get('sequence_limit', True):
         field['custom_constraints']['sequence_limit'] = 3
+    else:
+        del field['custom_constraints']['sequence_limit']
+
     if field['name'].endswith('_unit'):
         # Issues have been filed to make names more consistent:
         # https://github.com/hubmapconsortium/ingest-validation-tools/issues/645

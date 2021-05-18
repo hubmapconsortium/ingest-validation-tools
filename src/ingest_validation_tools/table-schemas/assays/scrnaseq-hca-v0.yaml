@@ -12,11 +12,15 @@ fields:
   heading: Shared by all types
   name: donor_id
   type: string
+  custom_constraints:
+    sequence_limit: False
 - constraints:
     required: false
   description: HuBMAP Display ID of the assayed tissue.
   name: tissue_id
   type: string
+  custom_constraints:
+    sequence_limit: False
 - constraints:
     required: true
   description: Start date and time of assay, typically a date-time stamped folder
