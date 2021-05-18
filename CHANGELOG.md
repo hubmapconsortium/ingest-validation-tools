@@ -1,6 +1,9 @@
 # Changelog
 
 ## v0.0.12 - in progress
+- (Temporary?) script to locate all uses of a field in the src schema.
+  replace them with an `# include:`, and add to `includes/fields` a new file
+  which shows all variations. Chris can choose the one which is correct.
 
 ## v0.0.11 - 2021-05-18
 - Updated AF and stained microscopy structure schema.

@@ -1,13 +1,11 @@
 doc_url: https://portal.hubmapconsortium.org/docs/assays/rnaseq
 fields:
   # include: ../includes/vA/all_assays.yaml
-  -
-    name: assay_category
+  - name: assay_category
     constraints:
       enum:
         - sequence
-  -
-    name: assay_type
+  - name: assay_type
     constraints:
       enum:
         - scRNAseq-10xGenomics
@@ -15,8 +13,7 @@ fields:
         - sciRNAseq
         - snRNAseq
         - SNARE2-RNAseq
-  -
-    name: analyte_class
+  - name: analyte_class
     constraints:
       enum:
         - RNA
@@ -24,11 +21,9 @@ fields:
 
   # Level 2 fields:
   # include: ../includes/v0/acquisition_instrument.yaml
-  -
-    name: sc_isolation_protocols_io_doi
+  - name: sc_isolation_protocols_io_doi
     description: "Link to a protocols document answering the question: How were single cells separated into a single-cell suspension?"
-  -
-    name: sc_isolation_entity
+  - name: sc_isolation_entity
     description: The type of single cell entity derived from isolation protocol
     constraints:
       enum:
@@ -36,66 +31,51 @@ fields:
         - nucleus
         - cell-cell multimer
         - spatially encoded cell barcoding
-  -
-    name: sc_isolation_tissue_dissociation
+  - name: sc_isolation_tissue_dissociation
     description: The method by which tissues are dissociated into single cells in suspension.
-  -
-    name: sc_isolation_enrichment
+  - name: sc_isolation_enrichment
     description: The method by which specific cell populations are sorted or enriched.
     constraints:
       enum:
         - none
         - FACS
-  -
-    name: sc_isolation_quality_metric
+  - name: sc_isolation_quality_metric
     description: A quality metric by visual inspection prior to cell lysis or defined by known parameters such as wells with several cells or no cells. This can be captured at a high level.
-  -
-    name: sc_isolation_cell_number
+  - name: sc_isolation_cell_number
     description: Total number of cell/nuclei yielded post dissociation and enrichment
-  -
-    name: rnaseq_assay_input
+  - name: rnaseq_assay_input
     description: Number of cell/nuclei input to the assay
-  -
-    name: rnaseq_assay_method
+  - name: rnaseq_assay_method
     description: The kit used for the RNA sequencing assay
-  -
-    name: library_construction_protocols_io_doi
+  - name: library_construction_protocols_io_doi
     description: A link to the protocol document containing the library construction method (including version) that was used, e.g. "Smart-Seq2", "Drop-Seq", "10X v3".
   # include: ../includes/fields/library_layout.yaml
-  -
-    name: library_adapter_sequence
+  - name: library_adapter_sequence
     description: Adapter sequence to be used for adapter trimming
     constraints:
       pattern: '[ATCG]+(\+[ATCG]+)?'
   # include: ../includes/fields/library_id.yaml
-  -
-    name: is_technical_replicate
+  - name: is_technical_replicate
     description: Is the sequencing reaction run in repliucate, TRUE or FALSE
     type: boolean
-  -
-    name: cell_barcode_read
+  - name: cell_barcode_read
     description: Which read file contains the cell barcode
-  -
-    name: cell_barcode_offset
+  - name: cell_barcode_offset
     description: Position(s) in the read at which the cell barcode starts.
     constraints:
       pattern: '\d+(,\d+)*'
-  -
-    name: cell_barcode_size
+  - name: cell_barcode_size
     description: Length of the cell barcode in base pairs
     constraints:
       pattern: '\d+(,\d+)*'
-  -
-    name: library_pcr_cycles
+  - name: library_pcr_cycles
     description: Number of PCR cycles to amplify cDNA
     type: integer
-  -
-    name: library_pcr_cycles_for_sample_index
+  - name: library_pcr_cycles_for_sample_index
     description: Number of PCR cycles performed for library indexing
     type: integer
   # include: ../includes/fields/library_final_yield_value_unit.yaml
-  -
-    name: library_average_fragment_size
+  - name: library_average_fragment_size
     description: Average size of sequencing library fragments estimated via gel electrophoresis or bioanalyzer/tapestation.
 
   # include: ../includes/v0/sequencing.yaml
