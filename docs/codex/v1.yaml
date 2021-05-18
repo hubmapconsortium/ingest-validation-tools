@@ -1,10 +1,10 @@
 # Generated YAML: PRs should not start here!
-description_md: "CODEX submissions require metadata on the antibodies used in the\
+description_md: "CODEX uploads require metadata on the antibodies used in the\
   \ assay to be provided in an Antibodies TSV.\nFor CODEX, in that TSV, the `channel_id`\
   \ is a cycle#/channel# combination linked to a given image file (of the form `Cycle[0-9]_CH[0-9]`).\
   \ \nEach TIF file in a CODEX dataset contains image data captured from a single\
   \ channel in a single cycle,\nidentified and connected to the `channel_id` by its\
-  \ location in the submission directory\n(of the form `src_*/cyc*_reg*_*/*_*_Z*_CH*.tif`).\n\
+  \ location in the upload directory\n(of the form `src_*/cyc*_reg*_*/*_*_Z*_CH*.tif`).\n\
   \nThe other fields function the same way for all assays using antibodies.\nFor more\
   \ information, see the [Antibodies TSV documentation](../antibodies).\n"
 doc_url: https://portal.hubmapconsortium.org/docs/assays/codex

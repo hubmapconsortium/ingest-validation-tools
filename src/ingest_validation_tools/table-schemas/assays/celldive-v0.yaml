@@ -1,6 +1,6 @@
 # doc_url: TODO https://github.com/hubmapconsortium/ingest-validation-tools/issues/480
 description_md: |
-  CellDIVE submissions require metadata on the antibodies used in the assay
+  CellDIVE uploads require metadata on the antibodies used in the assay
   to be provided in an Antibodies TSV.
   For CellDIVE, the `channel_id` is represented as a cycle#/channel# combination
   (of the form `Cycle[0-9]_CH[0-9]`) linked to a given image file in the directory. 

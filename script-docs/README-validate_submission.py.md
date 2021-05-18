@@ -1,16 +1,16 @@
 ```text
-usage: validate_submission.py [-h]
+usage: validate_upload.py [-h]
                               (--local_directory PATH | --tsv_paths PATH [PATH ...])
                               [--optional_fields FIELD [FIELD ...]]
                               [--offline] [--clear_cache]
                               [--dataset_ignore_globs GLOB [GLOB ...]]
-                              [--submission_ignore_globs GLOB [GLOB ...]]
+                              [--upload_ignore_globs GLOB [GLOB ...]]
                               [--encoding ENCODING]
                               [--plugin_directory PLUGIN_DIRECTORY]
                               [--output {as_browser,as_html_doc,as_html_fragment,as_md,as_text,as_text_list,as_yaml}]
                               [--add_notes]
 
-Validate a HuBMAP submission, both the metadata TSVs, and the datasets,
+Validate a HuBMAP upload, both the metadata TSVs, and the datasets,
 either local or remote, or a combination of the two.
 
 optional arguments:
@@ -27,8 +27,8 @@ optional arguments:
   --dataset_ignore_globs GLOB [GLOB ...]
                         Matching files in each dataset directory will be
                         ignored. Default: .*
-  --submission_ignore_globs GLOB [GLOB ...]
-                        Matching sub-directories in the submission will be
+  --upload_ignore_globs GLOB [GLOB ...]
+                        Matching sub-directories in the upload will be
                         ignored.
   --encoding ENCODING   Character-encoding to use for parsing TSVs. Default:
                         ascii. Work-in-progress:
@@ -43,9 +43,9 @@ Typical usage:
   --tsv_paths: Used to validate Sample metadata TSVs. (Because it does
   not check references, should not be used to validate Dataset metadata TSVs.)
 
-  --local_directory: Used by lab before submission, and on Globus after upload.
+  --local_directory: Used by lab before upload, and on Globus after upload.
 
-  --local_directory + --dataset_ignore_globs + --submission_ignore_globs:
+  --local_directory + --dataset_ignore_globs + --upload_ignore_globs:
   After the initial validation on Globus, the metadata TSVs are broken up,
   and one-line TSVs are put in each dataset directory. This structure needs
   extra parameters.

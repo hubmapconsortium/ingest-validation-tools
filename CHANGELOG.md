@@ -26,6 +26,7 @@
 - Field templates for library fields.
 - More doctests.
 - Loosen sequential items check, and improve error message.
+- Replace "submission" with "upload".
 
 ## v0.0.10 - 2021-04-21
 - Remove inappropriate syntax highlighting from CLI docs.

@@ -1,11 +1,11 @@
 ```
 Metadata TSV Errors:
-  examples/dataset-examples/bad-codex-data/submission/codex-metadata.tsv (as codex):
+  examples/dataset-examples/bad-codex-data/upload/codex-metadata.tsv (as codex):
     Internal:
     - On row 2, column "resolution_z_unit", value "None" fails because Required when
       resolution_z_value is filled
     External:
-      row 2, referencing examples/dataset-examples/bad-codex-data/submission/dataset-1:
+      row 2, referencing examples/dataset-examples/bad-codex-data/upload/dataset-1:
         Not allowed:
         - channelnames.txt
         - cyc002_reg001_200216_112537/bad
@@ -22,12 +22,12 @@ Metadata TSV Errors:
         - src_[^/]+/experiment\.json
         - src_[^/]+/exposure_times\.txt
         - src_[^/]+/segmentation\.(json|txt)
-      row 2, contributors examples/dataset-examples/bad-codex-data/submission/contributors.tsv:
+      row 2, contributors examples/dataset-examples/bad-codex-data/upload/contributors.tsv:
       - On row 2, column "orcid_id", value "bad-id" fails because constraint "pattern"
         is "\d{4}-\d{4}-\d{4}-\d{3}[0-9X]"
       - 'On row 4, column "affiliation", value "somewhere3" fails because there is
         a run of 3 sequential items: Limit is 3. If correct, reorder rows.'
-      row 2, antibodies examples/dataset-examples/bad-codex-data/submission/antibodies.tsv: "Invalid\
+      row 2, antibodies examples/dataset-examples/bad-codex-data/upload/antibodies.tsv: "Invalid\
         \ ascii because ordinal not in range(128): \"mber\tconjugated_tag\n [ \xF0\
         \ ] \x9F\x98\x83\t\tbad-value\t\t\tinv\""
 Hint: 'If validation fails because of extra whitespace in the TSV, try:

@@ -1,6 +1,6 @@
 ---
 layout: default
-title: HuBMAP Data Submission Guidelines
+title: HuBMAP Data Upload Guidelines
 ---
 
 {% assign categories = site.pages | group_by: "category" %}

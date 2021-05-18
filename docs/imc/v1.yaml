@@ -1,5 +1,5 @@
 # Generated YAML: PRs should not start here!
-description_md: 'IMC submissions require metadata on the antibodies used in the assay
+description_md: 'IMC uploads require metadata on the antibodies used in the assay
   to be provided in an Antibodies TSV. For IMC, the `channel_id` is the name of the
   metal tag on the corresponding antibody.
 

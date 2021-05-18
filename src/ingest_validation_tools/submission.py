@@ -23,15 +23,15 @@ from ingest_validation_tools.schema_loader import (
 TSV_SUFFIX = 'metadata.tsv'
 
 
-class Submission:
+class Upload:
     def __init__(self, directory_path=None, tsv_paths=[],
                  optional_fields=[], add_notes=True,
-                 dataset_ignore_globs=[], submission_ignore_globs=[],
+                 dataset_ignore_globs=[], upload_ignore_globs=[],
                  plugin_directory=None, encoding=None, offline=None):
         self.directory_path = directory_path
         self.optional_fields = optional_fields
         self.dataset_ignore_globs = dataset_ignore_globs
-        self.submission_ignore_globs = submission_ignore_globs
+        self.upload_ignore_globs = upload_ignore_globs
         self.plugin_directory = plugin_directory
         self.encoding = encoding
         self.offline = offline
@@ -218,7 +218,7 @@ class Submission:
             if not path.name.endswith(TSV_SUFFIX)
             and not any([
                 fnmatch(path.name, glob)
-                for glob in self.submission_ignore_globs
+                for glob in self.upload_ignore_globs
             ])
         }
         unreferenced_paths = non_metadata_paths - referenced_data_paths

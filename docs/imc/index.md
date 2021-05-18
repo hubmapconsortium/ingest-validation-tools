@@ -10,7 +10,7 @@ Related files:
 - [📝 Excel template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/master/docs/imc/imc-metadata.xlsx): For metadata entry.
 - [📝 TSV template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/master/docs/imc/imc-metadata.tsv): Alternative for metadata entry.
 
-IMC submissions require metadata on the antibodies used in the assay to be provided in an Antibodies TSV. For IMC, the `channel_id` is the name of the metal tag on the corresponding antibody.
+IMC uploads require metadata on the antibodies used in the assay to be provided in an Antibodies TSV. For IMC, the `channel_id` is the name of the metal tag on the corresponding antibody.
 The other fields function the same way for all assays using antibodies. For more information, see the [Antibodies TSV documentation](../antibodies).
 
 ## Directory schema
