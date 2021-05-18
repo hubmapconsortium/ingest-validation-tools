@@ -1,9 +1,9 @@
 # Generated YAML: PRs should not start here!
-description_md: "CellDIVE submissions require metadata on the antibodies used in the\
-  \ assay\nto be provided in an Antibodies TSV.\nFor CellDIVE, the `channel_id` is\
-  \ represented as a cycle#/channel# combination\n(of the form `Cycle[0-9]_CH[0-9]`)\
-  \ linked to a given image file in the directory. \n  \nThe other fields function\
-  \ the same way for all assays using antibodies.\nFor more information, see the [Antibodies\
+description_md: "CellDIVE uploads require metadata on the antibodies used in the assay\n\
+  to be provided in an Antibodies TSV.\nFor CellDIVE, the `channel_id` is represented\
+  \ as a cycle#/channel# combination\n(of the form `Cycle[0-9]_CH[0-9]`) linked to\
+  \ a given image file in the directory. \n  \nThe other fields function the same\
+  \ way for all assays using antibodies.\nFor more information, see the [Antibodies\
   \ TSV documentation](../antibodies).\n"
 fields:
 - constraints:

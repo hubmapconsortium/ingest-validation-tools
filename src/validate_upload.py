@@ -7,7 +7,7 @@ from pathlib import Path
 import inspect
 
 from ingest_validation_tools.error_report import ErrorReport
-from ingest_validation_tools.submission import Submission
+from ingest_validation_tools.upload import Upload
 from ingest_validation_tools import argparse_types
 from ingest_validation_tools.argparse_types import ShowUsageException
 from ingest_validation_tools.check_factory import cache_path
@@ -28,16 +28,16 @@ INVALID_STATUS = 3
 def make_parser():
     parser = argparse.ArgumentParser(
         description='''
-Validate a HuBMAP submission, both the metadata TSVs, and the datasets,
+Validate a HuBMAP upload, both the metadata TSVs, and the datasets,
 either local or remote, or a combination of the two.''',
         epilog=f'''
 Typical usage:
   --tsv_paths: Used to validate Sample metadata TSVs. (Because it does
   not check references, should not be used to validate Dataset metadata TSVs.)
 
-  --local_directory: Used by lab before submission, and on Globus after upload.
+  --local_directory: Used by lab before upload, and on Globus after upload.
 
-  --local_directory + --dataset_ignore_globs + --submission_ignore_globs:
+  --local_directory + --dataset_ignore_globs + --upload_ignore_globs:
   After the initial validation on Globus, the metadata TSVs are broken up,
   and one-line TSVs are put in each dataset directory. This structure needs
   extra parameters.
@@ -87,9 +87,9 @@ Exit status codes:
         help=f'Matching files in each dataset directory will be ignored. Default: {default_ignore}'
     )
     parser.add_argument(
-        '--submission_ignore_globs', nargs='+',
+        '--upload_ignore_globs', nargs='+',
         metavar='GLOB',
-        help='Matching sub-directories in the submission will be ignored.'
+        help='Matching sub-directories in the upload will be ignored.'
     )
 
     default_encoding = 'ascii'
@@ -141,7 +141,7 @@ def main():
         for path in glob(f'{cache_path}*'):
             Path(path).unlink()
 
-    submission_args = {
+    upload_args = {
         'add_notes': args.add_notes,
         'encoding': args.encoding,
         'offline': args.offline,
@@ -149,23 +149,23 @@ def main():
     }
 
     if args.local_directory:
-        submission_args['directory_path'] = Path(args.local_directory)
+        upload_args['directory_path'] = Path(args.local_directory)
 
     if args.tsv_paths:
-        submission_args['tsv_paths'] = args.tsv_paths
+        upload_args['tsv_paths'] = args.tsv_paths
 
     if args.dataset_ignore_globs:
-        submission_args['dataset_ignore_globs'] = \
+        upload_args['dataset_ignore_globs'] = \
             args.dataset_ignore_globs
-    if args.submission_ignore_globs:
-        submission_args['submission_ignore_globs'] = \
-            args.submission_ignore_globs
+    if args.upload_ignore_globs:
+        upload_args['upload_ignore_globs'] = \
+            args.upload_ignore_globs
     if args.plugin_directory:
-        submission_args['plugin_directory'] = \
+        upload_args['plugin_directory'] = \
             args.plugin_directory
 
-    submission = Submission(**submission_args)
-    errors = submission.get_errors()
+    upload = Upload(**upload_args)
+    errors = upload.get_errors()
     report = ErrorReport(errors)
     print(getattr(report, args.output)())
     return INVALID_STATUS if errors else VALID_STATUS

@@ -1,4 +1,4 @@
-This document lists common `validate_submission.py` errors, their interpretation, and their remedies.
+This document lists common `validate_upload.py` errors, their interpretation, and their remedies.
 
 ## `404` error
 ```
