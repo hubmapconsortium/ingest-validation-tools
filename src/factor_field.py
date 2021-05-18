@@ -57,9 +57,9 @@ def pull(field_name, input_dir):
             elif inside and line[0] != '-':
                 definition += line
             elif inside:
-                definitions[definition].add(fileinput.filename())
+                definitions[definition].add(str(fileinput.filename()))
                 inside = False
-            print(line)
+            print(line, end='')
     return definitions
 
 
