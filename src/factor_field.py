@@ -3,6 +3,8 @@
 import sys
 import argparse
 from pathlib import Path
+import fileinput
+from collections import defaultdict
 
 
 def main():
@@ -36,8 +38,37 @@ def main():
     return 0
 
 
-def factor_field(field, input_dir, output_dir):
-    print(field, input_dir, output_dir)
+def factor_field(field_name, input_dir, output_dir):
+    definitions = pull(field_name, input_dir)
+    push(field_name, definitions, output_dir)
+
+
+def pull(field_name, input_dir):
+    definitions = defaultdict(set)
+    with fileinput.input(files=input_dir.iterdir(), inplace=True) as f:
+        inside = False
+        definition = None
+        for line in f:
+            # This assumes the YAML has been cleaned up!
+            if f'name: {field_name}' in line:
+                inside = True
+                print(f'# include: ../includes/fields/{field_name}.yaml')
+                definition = line
+            elif inside and line[0] != '-':
+                definition += line
+            elif inside:
+                definitions[definition].add(fileinput.filename())
+                inside = False
+            print(line)
+    return definitions
+
+
+def push(field_name, definitions, output_dir):
+    options = [
+        f"# {'; '.join(files)}\n{definition}"
+        for definition, files in definitions.items()
+    ]
+    (output_dir / f'{field_name}.yaml').write_text('\n'.join(options))
 
 
 if __name__ == "__main__":
