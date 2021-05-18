@@ -7,38 +7,38 @@ description_md: |
   The other fields function the same way for all assays using antibodies.
   For more information, see the [Antibodies TSV documentation](../antibodies).
 fields:
-  # include: ../includes/v0/all_assays.yaml
-  - name: assay_category
-    constraints:
-      enum:
-        - imaging
-  - name: assay_type
-    constraints:
-      enum:
-        - Light Sheet
-  - name: analyte_class
-    constraints:
-      enum:
-        - protein
-  # include: ../includes/v0/is_targeted.yaml
+# include: ../includes/v0/all_assays.yaml
+- name: assay_category
+  constraints:
+    enum:
+      - imaging
+- name: assay_type
+  constraints:
+    enum:
+      - Light Sheet
+- name: analyte_class
+  constraints:
+    enum:
+      - protein
+# include: ../includes/v0/is_targeted.yaml
 
-  # Level 2 fields:
-  # include: ../includes/v0/acquisition_instrument.yaml
-  # include: ../includes/v0/x_y.yaml
+# Level 2 fields:
+# include: ../includes/v0/acquisition_instrument.yaml
+# include: ../includes/v0/x_y.yaml
 
-  - name: resolution_z_value
-    description: The distance at which two objects along the detection
-      z-axis can be distinguished (resolved as 2 objects).
-  - name: resolution_z_unit
-    description: The unit of z resolution.
-    constraints:
-      enum:
-        - nm
-        - um
+- name: resolution_z_value
+  description: The distance at which two objects along the detection
+    z-axis can be distinguished (resolved as 2 objects).
+- name: resolution_z_unit
+  description: The unit of z resolution.
+  constraints:
+    enum:
+      - nm
+      - um
 
-  # include: ../includes/v0/antibodies_channels.yaml
+# include: ../includes/v0/antibodies_channels.yaml
 
-  - name: antibodies_path
-    description: Relative path to file with antibody information for this dataset.
-    
-  # include: ../includes/v0/paths.yaml
+- name: antibodies_path
+  description: Relative path to file with antibody information for this dataset.
+  
+# include: ../includes/v0/paths.yaml
