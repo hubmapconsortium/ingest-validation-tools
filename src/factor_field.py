@@ -54,8 +54,10 @@ def pull(field_name, input_dir):
                 inside = True
                 print(f'# include: ../includes/fields/{field_name}.yaml')
                 definition = line
+                continue
             elif inside and line[0] != '-':
                 definition += line
+                continue
             elif inside:
                 definitions[definition].add(str(fileinput.filename()))
                 inside = False
