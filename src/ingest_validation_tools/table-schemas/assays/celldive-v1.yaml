@@ -9,18 +9,15 @@ description_md: |
   For more information, see the [Antibodies TSV documentation](../antibodies).
 fields:
 # include: ../includes/vA/all_assays.yaml
--
-  name: assay_category
+- name: assay_category
   constraints:
     enum:
       - imaging
--
-  name: assay_type
+- name: assay_type
   constraints:
     enum:
       - Cell DIVE
--
-  name: analyte_class
+- name: analyte_class
   constraints:
     enum:
       - protein 

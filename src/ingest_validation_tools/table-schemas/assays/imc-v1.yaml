@@ -8,19 +8,16 @@ description_md:
   For more information, see the [Antibodies TSV documentation](../antibodies).
 fields:
 # include: ../includes/vA/all_assays.yaml
--
-  name: assay_category
+- name: assay_category
   constraints:
     enum:
       - mass_spectrometry_imaging
 
--
-  name: assay_type
+- name: assay_type
   constraints:
     enum:
       - Imaging Mass Cytometry
--
-  name: analyte_class
+- name: analyte_class
   constraints:
     enum:
       - protein

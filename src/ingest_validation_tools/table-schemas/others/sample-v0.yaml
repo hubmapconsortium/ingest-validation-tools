@@ -15,8 +15,7 @@ fields:
       - living
       - deceased  
   description: Identify the vital state of the donor.  
--
-  name: health_status 
+- name: health_status 
   constraints:
     required: True 
     enum:
@@ -37,8 +36,7 @@ fields:
       - healthy
       - diseased  
   description:  Health status of the organ at the time of sample recovery.
--
-  name: procedure_date 
+- name: procedure_date 
   constraints:
     required: True
   type: date
@@ -46,8 +44,7 @@ fields:
   description: Date of procedure to procure organ.
   # https://github.com/hubmapconsortium/ingest-validation-tools/issues/479
   notes: Originally, not required, but everyone filled it in. This note was present - need to be filled out only if UNET data no available (e.g. live donor). Internal value, not public, optional only for donors without unet info  - TODO - We have no machinery for keeping some fields private... Should this not be included then?
--
-  name: perfusion_solution  
+- name: perfusion_solution  
   constraints:
     required: True
     enum:
@@ -58,32 +55,27 @@ fields:
       - Unknown
       - None  
   description: Type of solution that was used to perfuse the organ.
--
-  name: pathologist_report  
+- name: pathologist_report  
   constraints:
     required: True
   description: Further details on organ level QC checks.
--
-  name: warm_ischemia_time_value 
+- name: warm_ischemia_time_value 
   constraints:
     required: False
   type: number
   description: Time interval between cessation of blood flow and cooling to 4C.
--
-  name: warm_ischemia_time_unit
+- name: warm_ischemia_time_unit
   description: Time unit
   constraints:
     required: True
     enum:
       - minutes
--
-  name: cold_ischemia_time_value
+- name: cold_ischemia_time_value
   constraints:
     required: False
   type: number
   description: Time interval on ice to the start of preservation protocol.
--
-  name: cold_ischemia_time_unit
+- name: cold_ischemia_time_unit
   description: Time unit
   constraints:
     required: True
@@ -102,19 +94,16 @@ fields:
       - Refrigerator (4 Celsius)
       - Room Temperature
   description: The temperature of the medium during the preservation process.
--
-  name: specimen_quality_criteria  
+- name: specimen_quality_criteria  
   constraints:
     required: False  
   description: 'For example, RIN: 8.7.'
--
-  name: specimen_tumor_distance_value 
+- name: specimen_tumor_distance_value 
   constraints:
     required: False
   type: number
   description: If surgical sample, how far from the tumor was the sample obtained from. Typically a number of centimeters. Leave blank if not applicable or unknown.
--
-  name: specimen_tumor_distance_unit 
+- name: specimen_tumor_distance_unit 
   constraints:
     required: False
     enum:

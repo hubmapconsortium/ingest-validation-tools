@@ -1,18 +1,15 @@
 doc_url: https://portal.hubmapconsortium.org/docs/assays/wgs
 fields:
 # include: ../includes/v0/all_assays.yaml
--
-  name: assay_category
+- name: assay_category
   constraints:
     enum:
       - sequence
--
-  name: assay_type
+- name: assay_type
   constraints:
     enum:
       - WGS
--
-  name: analyte_class
+- name: analyte_class
   constraints:
     enum:
       - DNA
