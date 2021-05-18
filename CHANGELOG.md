@@ -1,6 +1,7 @@
 # Changelog
 
 ## v0.0.12 - in progress
+- Cleanup whitespace in yaml.
 
 ## v0.0.11 - 2021-05-18
 - Updated AF and stained microscopy structure schema.

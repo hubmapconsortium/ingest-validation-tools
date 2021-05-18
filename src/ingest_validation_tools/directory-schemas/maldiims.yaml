@@ -1,6 +1,6 @@
 # A dataset consists of a single MALDI IMS run and related files
-# can be positive or negative. 
-#   
+# can be positive or negative.
+#
 -
   pattern: 'csv/[^/]+\.csv'
   description: 'Intensities M/Z values with Pixel location'

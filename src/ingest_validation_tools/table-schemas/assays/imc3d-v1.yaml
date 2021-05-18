@@ -1,26 +1,23 @@
 doc_url: https://portal.hubmapconsortium.org/docs/assays/imc
-description_md:
+description_md: >-
   3D IMC uploads require metadata on the antibodies used in the assay to be
   provided in an Antibodies TSV. For 3D IMC, the `channel_id` is the name of the
-  metal tag on the corresponding antibody. 
-    
+  metal tag on the corresponding antibody.
+
   The other fields function the same way for all assays using antibodies.
   For more information, see the [Antibodies TSV documentation](../antibodies).
 fields:
 # include: ../includes/vA/all_assays.yaml
--
-  name: assay_category
+- name: assay_category
   constraints:
     enum:
       - mass_spectrometry_imaging
 
--
-  name: assay_type
+- name: assay_type
   constraints:
     enum:
       - 3D Imaging Mass Cytometry
--
-  name: analyte_class
+- name: analyte_class
   constraints:
     enum:
       - protein

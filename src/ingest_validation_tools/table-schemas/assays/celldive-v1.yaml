@@ -1,31 +1,28 @@
 # doc_url: TODO https://github.com/hubmapconsortium/ingest-validation-tools/issues/480
-description_md: |
+description_md: >-
   CellDIVE uploads require metadata on the antibodies used in the assay
   to be provided in an Antibodies TSV.
   For CellDIVE, the `channel_id` is represented as a cycle#/channel# combination
-  (of the form `Cycle[0-9]_CH[0-9]`) linked to a given image file in the directory. 
-    
+  (of the form `Cycle[0-9]_CH[0-9]`) linked to a given image file in the directory.
+
   The other fields function the same way for all assays using antibodies.
   For more information, see the [Antibodies TSV documentation](../antibodies).
 fields:
 # include: ../includes/vA/all_assays.yaml
--
-  name: assay_category
+- name: assay_category
   constraints:
     enum:
       - imaging
--
-  name: assay_type
+- name: assay_type
   constraints:
     enum:
       - Cell DIVE
--
-  name: analyte_class
+- name: analyte_class
   constraints:
     enum:
-      - protein 
+      - protein
 # include: ../includes/v0/is_targeted.yaml
-   
+
 # include: ../includes/v0/acquisition_instrument.yaml
 # include: ../includes/v0/antibodies_channels.yaml
 - name: number_of_cycles

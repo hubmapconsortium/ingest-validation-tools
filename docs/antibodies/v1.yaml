@@ -1,9 +1,5 @@
 # Generated YAML: PRs should not start here!
-description_md: 'Changes:
-
-  - v1: Version number added.
-
-  '
+description_md: 'Changes: - v1: Version number added.'
 fields:
 - constraints:
     enum:

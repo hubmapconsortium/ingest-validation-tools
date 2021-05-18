@@ -10,13 +10,8 @@ Related files:
 - [📝 Excel template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/master/docs/lightsheet/lightsheet-metadata.xlsx): For metadata entry.
 - [📝 TSV template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/master/docs/lightsheet/lightsheet-metadata.tsv): Alternative for metadata entry.
 
-Lightsheet uploads require metadata on the antibodies used in the assay
-to be provided in an Antibodies TSV. For Lightsheet, the `channel_id` is the
-name of the fluorophore tag on the antibody. 
-  
-The other fields function the same way for all assays using antibodies.
-For more information, see the [Antibodies TSV documentation](../antibodies).
-
+Lightsheet uploads require metadata on the antibodies used in the assay to be provided in an Antibodies TSV. For Lightsheet, the `channel_id` is the name of the fluorophore tag on the antibody.
+The other fields function the same way for all assays using antibodies. For more information, see the [Antibodies TSV documentation](../antibodies).
 
 ## Directory schema
 
