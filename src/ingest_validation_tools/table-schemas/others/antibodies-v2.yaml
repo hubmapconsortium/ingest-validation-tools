@@ -1,6 +1,8 @@
-description_md: |
+description_md: >-
   Changes:
+
   - v1: Version number added.
+
   - v2: Add concentration fields.
 fields:
   - name: version
@@ -48,7 +50,7 @@ fields:
     custom_constraints:
       units_for: concentration_value
   - name: conjugated_cat_number
-    description: An antibody may be conjugated to a fluorescent tag or a metal tag for detection. Conjugated antibodies may be purchased from commercial providers. 
+    description: An antibody may be conjugated to a fluorescent tag or a metal tag for detection. Conjugated antibodies may be purchased from commercial providers.
     constraints:
       required: False
   - name: conjugated_tag

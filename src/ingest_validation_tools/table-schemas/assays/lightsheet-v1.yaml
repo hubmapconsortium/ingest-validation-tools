@@ -1,9 +1,9 @@
 doc_url: https://portal.hubmapconsortium.org/docs/assays/lightsheet
-description_md: |
+description_md: >-
   Lightsheet uploads require metadata on the antibodies used in the assay
   to be provided in an Antibodies TSV. For Lightsheet, the `channel_id` is the
-  name of the fluorophore tag on the antibody. 
-    
+  name of the fluorophore tag on the antibody.
+
   The other fields function the same way for all assays using antibodies.
   For more information, see the [Antibodies TSV documentation](../antibodies).
 fields:
@@ -40,5 +40,5 @@ fields:
 
 - name: antibodies_path
   description: Relative path to file with antibody information for this dataset.
-  
+
 # include: ../includes/v0/paths.yaml

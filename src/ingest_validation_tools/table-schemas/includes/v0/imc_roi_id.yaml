@@ -1,7 +1,7 @@
 - name: roi_description
   description: A description of the region of interest (ROI) captured in the image.
 - name: roi_id
-  description: Multiple images (1-n) are acquired from regions of interest (ROI1, ROI2, ROI3, etc) on a slide. 
+  description: Multiple images (1-n) are acquired from regions of interest (ROI1, ROI2, ROI3, etc) on a slide.
     The roi_id is a number from 1-n representing the ROI captured on a slide.
   type: number
 - name: acquisition_id

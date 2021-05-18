@@ -27,7 +27,7 @@ fields:
       pattern: '1/\d+'
     example: 1/200
   - name: conjugated_cat_number
-    description: An antibody may be conjugated to a fluorescent tag or a metal tag for detection. Conjugated antibodies may be purchased from commercial providers. 
+    description: An antibody may be conjugated to a fluorescent tag or a metal tag for detection. Conjugated antibodies may be purchased from commercial providers.
     constraints:
       required: False
   - name: conjugated_tag
