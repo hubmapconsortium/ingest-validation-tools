@@ -307,7 +307,7 @@ date and time of library creation. YYYY-MM-DD, where YYYY is the year, MM is the
 
 <a name="library_final_yield_value"></a>
 ##### [`library_final_yield_value`](#library_final_yield_value)
-Total amount (eg. nanograms) of library after the clean-up step of final pcr amplification step. Answer the question: What is the Qubit measured concentration (ng/ul) times the elution volume (ul) after the final clean-up step?
+Total number of ng of library after final pcr amplification step. This is the concentration (ng/ul) * volume (ul)
 
 | constraint | value |
 | --- | --- |
@@ -316,7 +316,7 @@ Total amount (eg. nanograms) of library after the clean-up step of final pcr amp
 
 <a name="library_final_yield_unit"></a>
 ##### [`library_final_yield_unit`](#library_final_yield_unit)
-Units of library final yield. Leave blank if not applicable.
+Units of final library yield. Leave blank if not applicable.
 
 | constraint | value |
 | --- | --- |
@@ -326,7 +326,7 @@ Units of library final yield. Leave blank if not applicable.
 
 <a name="library_id"></a>
 ##### [`library_id`](#library_id)
-ID of the library sample.
+A library ID, unique within a TMC, which allows corresponding RNA and chromatin accessibility datasets to be linked.
 
 | constraint | value |
 | --- | --- |
@@ -663,7 +663,7 @@ date and time of library creation. YYYY-MM-DD, where YYYY is the year, MM is the
 
 <a name="library_final_yield_value"></a>
 ##### [`library_final_yield_value`](#library_final_yield_value)
-Total amount (eg. nanograms) of library after the clean-up step of final pcr amplification step. Answer the question: What is the Qubit measured concentration (ng/ul) times the elution volume (ul) after the final clean-up step?
+Total number of ng of library after final pcr amplification step. This is the concentration (ng/ul) * volume (ul)
 
 | constraint | value |
 | --- | --- |
@@ -672,7 +672,7 @@ Total amount (eg. nanograms) of library after the clean-up step of final pcr amp
 
 <a name="library_final_yield_unit"></a>
 ##### [`library_final_yield_unit`](#library_final_yield_unit)
-Units of library final yield. Leave blank if not applicable.
+Units of final library yield. Leave blank if not applicable.
 
 | constraint | value |
 | --- | --- |
@@ -682,7 +682,7 @@ Units of library final yield. Leave blank if not applicable.
 
 <a name="library_id"></a>
 ##### [`library_id`](#library_id)
-ID of the library sample.
+A library ID, unique within a TMC, which allows corresponding RNA and chromatin accessibility datasets to be linked.
 
 | constraint | value |
 | --- | --- |

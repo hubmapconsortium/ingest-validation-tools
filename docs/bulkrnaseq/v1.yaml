@@ -233,7 +233,8 @@ fields:
     required: true
   custom_constraints:
     sequence_limit: 3
-  description: Total amount of library after final pcr amplification step
+  description: Total number of ng of library after final pcr amplification step. This
+    is the concentration (ng/ul) * volume (ul)
   name: library_final_yield_value
   type: number
 - constraints:
@@ -243,7 +244,7 @@ fields:
   custom_constraints:
     sequence_limit: 3
     units_for: library_final_yield_value
-  description: units of library final yield
+  description: Units of final library yield
   name: library_final_yield_unit
 - constraints:
     required: true

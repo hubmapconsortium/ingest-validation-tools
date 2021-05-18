@@ -1,0 +1,7 @@
+- name: library_concentration_value
+  description: The concentration value of the pooled library samples submitted for sequencing.
+- name: library_concentration_unit
+  description: Unit of library_concentration_value
+  constraints:
+    enum:
+      - nM

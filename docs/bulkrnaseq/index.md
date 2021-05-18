@@ -323,7 +323,7 @@ Number of PCR cycles performed for library indexing.
 
 <a name="library_final_yield_value"></a>
 ##### [`library_final_yield_value`](#library_final_yield_value)
-Total amount of library after final pcr amplification step.
+Total number of ng of library after final pcr amplification step. This is the concentration (ng/ul) * volume (ul)
 
 | constraint | value |
 | --- | --- |
@@ -332,7 +332,7 @@ Total amount of library after final pcr amplification step.
 
 <a name="library_final_yield_unit"></a>
 ##### [`library_final_yield_unit`](#library_final_yield_unit)
-units of library final yield. Leave blank if not applicable.
+Units of final library yield. Leave blank if not applicable.
 
 | constraint | value |
 | --- | --- |
@@ -643,7 +643,7 @@ Number of PCR cycles performed for library indexing.
 
 <a name="library_final_yield_value"></a>
 ##### [`library_final_yield_value`](#library_final_yield_value)
-Total amount of library after final pcr amplification step.
+Total number of ng of library after final pcr amplification step. This is the concentration (ng/ul) * volume (ul)
 
 | constraint | value |
 | --- | --- |
@@ -652,7 +652,7 @@ Total amount of library after final pcr amplification step.
 
 <a name="library_final_yield_unit"></a>
 ##### [`library_final_yield_unit`](#library_final_yield_unit)
-units of library final yield. Leave blank if not applicable.
+Units of final library yield. Leave blank if not applicable.
 
 | constraint | value |
 | --- | --- |
