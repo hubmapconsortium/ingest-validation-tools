@@ -45,13 +45,13 @@ You should see [the documention for `validate_submission.py`](script-docs/README
 
 Now run it against one of the included examples, giving the path to a submission directory:
 ```
-src/validate_submission.py --local_directory dataset-examples/bad-tsv-formats/submission --as_text
+src/validate_submission.py --local_directory examples/dataset-examples/bad-tsv-formats/submission --output as_text
 ```
 
-You should now see [this (extensive) error message](dataset-examples/bad-tsv-formats/README.md).
+You should now see [this (extensive) error message](examples/dataset-examples/bad-tsv-formats/README.md).
 This example TSV has been constructed with a mistake in every column, just to demonstrate the checks which are available. Hopefully, more often your experience will be like this:
 ```
-src/validate_submission.py --local_directory dataset-examples/good-codex-akoya/submission
+src/validate_submission.py --local_directory examples/dataset-examples/good-codex-akoya/submission
 ```
 ```
 No errors!
@@ -64,7 +64,7 @@ Addition help for certain common error messages is available [here](README-valid
 
 If you don't have an entire submission directory at hand, the same command can validate individual metadata TSVs:
 ```
-src/validate_submission.py --tsv_paths dataset-examples/good-scatacseq-v1/submission/metadata.tsv
+src/validate_submission.py --tsv_paths examples/dataset-examples/good-scatacseq-v1/submission/metadata.tsv
 ```
 ```
 No errors!
@@ -85,7 +85,7 @@ pip install -r requirements.txt
 
 # Back to ingest-validation-tools...
 cd ../ingest-validation-tools
-src/validate_submission.py --local_directory dataset-examples/good-codex-akoya/submission \
+src/validate_submission.py --local_directory examples/dataset-examples/good-codex-akoya/submission \
   --plugin_directory ../ingest-validation-tests/src/ingest_validation_tests/
 ```
 

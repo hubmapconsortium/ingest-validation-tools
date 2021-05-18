@@ -135,6 +135,11 @@ def list_schema_versions():
 
 
 def dict_schema_versions():
+    '''
+    >>> sorted(dict_schema_versions()['af'])
+    ['0', '1']
+    '''
+
     dict_of_sets = defaultdict(set)
     for sv in list_schema_versions():
         dict_of_sets[sv.schema_name].add(sv.version)
@@ -212,6 +217,27 @@ def _add_level_1_description(field):
 
 
 def _validate_level_1_enum(field):
+    '''
+    >>> field = {'name': 'assay_category'}
+    >>> _validate_level_1_enum(field)
+    Traceback (most recent call last):
+    ...
+    KeyError: 'constraints'
+
+    TODO: This should error.
+    Filed https://github.com/hubmapconsortium/ingest-validation-tools/issues/724
+
+    >>> field['constraints'] = {}
+    >>> _validate_level_1_enum(field)
+
+    >>> field['constraints']['enum'] = ['fake']
+    >>> _validate_level_1_enum(field)
+    Traceback (most recent call last):
+    ...
+    AssertionError: Unexpected enums for assay_category: {'fake'}
+    Allowed: ['imaging', 'mass_spectrometry', 'mass_spectrometry_imaging', 'sequence']
+    '''
+
     enums = {
         'assay_category': [
             'imaging',
@@ -314,12 +340,12 @@ def _add_constraints(field, optional_fields, offline=None, names=None):
 
     Some fields are expected to have sequential numbers:
 
-    >>> field = {'name': 'channel_id'}
+    >>> field = {'name': 'seq_expected', 'custom_constraints': {'sequence_limit': False}}
     >>> _add_constraints(field, [])
     >>> pprint(field, width=40)
     {'constraints': {'required': True},
      'custom_constraints': {},
-     'name': 'channel_id'}
+     'name': 'seq_expected'}
 
     '''
     if 'constraints' not in field:
@@ -335,8 +361,13 @@ def _add_constraints(field, optional_fields, offline=None, names=None):
         field['custom_constraints']['url'] = {'prefix': 'https://dx.doi.org/'}
     if field['name'].endswith('_email'):
         field['format'] = 'email'
-    if field['name'] != 'channel_id':
+
+    # In the src schemas, set to False to avoid limit on sequences.
+    if field['custom_constraints'].get('sequence_limit', True):
         field['custom_constraints']['sequence_limit'] = 3
+    else:
+        del field['custom_constraints']['sequence_limit']
+
     if field['name'].endswith('_unit'):
         # Issues have been filed to make names more consistent:
         # https://github.com/hubmapconsortium/ingest-validation-tools/issues/645

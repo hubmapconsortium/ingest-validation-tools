@@ -21,12 +21,12 @@ Metadata TSV Errors:
         - src_[^/]+/cyc.*_reg.*_.*/.*_.*_Z.*_CH.*\.tif
         - src_[^/]+/experiment\.json
         - src_[^/]+/exposure_times\.txt
-        - src_[^/]+/segmentation\.json
+        - src_[^/]+/segmentation\.(json|txt)
       row 2, contributors examples/dataset-examples/bad-codex-data/submission/contributors.tsv:
       - On row 2, column "orcid_id", value "bad-id" fails because constraint "pattern"
         is "\d{4}-\d{4}-\d{4}-\d{3}[0-9X]"
-      - On row 4, column "affiliation", value "somewhere3" fails because incremented
-        sequence of 3 items; limit is 3
+      - 'On row 4, column "affiliation", value "somewhere3" fails because there is
+        a run of 3 sequential items: Limit is 3. If correct, reorder rows.'
       row 2, antibodies examples/dataset-examples/bad-codex-data/submission/antibodies.tsv: "Invalid\
         \ ascii because ordinal not in range(128): \"mber\tconjugated_tag\n [ \xF0\
         \ ] \x9F\x98\x83\t\tbad-value\t\t\tinv\""
