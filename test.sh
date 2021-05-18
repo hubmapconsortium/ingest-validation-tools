@@ -12,7 +12,7 @@ CONTINUE_FROM="$1"
 
 if [[ -z $CONTINUE_FROM ]]; then
   start flake8
-  flake8 || die 'Try: autopep8 --in-place --aggressive -r .'
+  flake8 src || die 'Try: autopep8 --in-place --aggressive -r .'
   end flake8
 
   start mypy
