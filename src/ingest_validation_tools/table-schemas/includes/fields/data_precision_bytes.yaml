@@ -1,0 +1,10 @@
+# imc-v0.yaml
+- name: data_precision_bytes
+  description: Numerical data precision in bytes
+  type: number
+
+
+# imc-v1.yaml
+- name: data_precision_bytes
+  description: Numerical data precision in bytes
+  type: number

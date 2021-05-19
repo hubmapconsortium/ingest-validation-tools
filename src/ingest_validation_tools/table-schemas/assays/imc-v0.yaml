@@ -59,8 +59,5 @@ fields:
   description: Time stamp indicating start of ablation for ROI
   type: datetime
   format: "%Y-%m-%d %H:%M"
-- name: data_precision_bytes
-  description: Numerical data precision in bytes
-  type: number
-
+# include: ../includes/fields/data_precision_bytes.yaml
 # include: ../includes/v0/paths.yaml
