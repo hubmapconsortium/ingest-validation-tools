@@ -1,0 +1,14 @@
+# bulkatacseq-v0.yaml; bulkatacseq-v1.yaml
+- name: transposition_method
+  description: Modality of capturing accessible chromatin molecules. The kit used, for example.
+
+# scatacseq-v0.yaml; scatacseq-v1.yaml
+- name: transposition_method
+  description: Modality of capturing accessible chromatin molecules.
+  constraints:
+    enum:
+      - SNARE-Seq2-AC
+      - scATACseq
+      - bulkATACseq
+      - snATACseq
+      - sciATACseq

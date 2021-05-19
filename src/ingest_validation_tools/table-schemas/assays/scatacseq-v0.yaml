@@ -49,15 +49,7 @@ fields:
 - name: transposition_input
   description: Number of cell/nuclei input to the assay.
   type: number
-- name: transposition_method
-  description: Modality of capturing accessible chromatin molecules.
-  constraints:
-    enum:
-      - SNARE-Seq2-AC
-      - scATACseq
-      - bulkATACseq
-      - snATACseq
-      - sciATACseq
+# include: ../includes/fields/transposition_method.yaml
 - name: transposition_transposase_source
   description: The source of the Tn5 transposase and transposon used for capturing accessible chromatin.
   constraints:

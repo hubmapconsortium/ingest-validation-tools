@@ -64,8 +64,7 @@ fields:
   description: If Tn5 came from a kit, provide the catalog number.
   constraints:
     required: False
-- name: transposition_method
-  description: Modality of capturing accessible chromatin molecules. The kit used, for example.
+# include: ../includes/fields/transposition_method.yaml
 - name: transposition_transposase_source
   description: The source of the Tn5 transposase and transposon used for capturing
     accessible chromatin.
