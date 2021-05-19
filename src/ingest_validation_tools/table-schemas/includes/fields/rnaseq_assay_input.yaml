@@ -1,0 +1,16 @@
+# scrnaseq-hca-v0.yaml
+- name: rnaseq_assay_input
+  constraints:
+    required: false
+  description: Number of cell/nuclei input to the assay
+
+# scrnaseq-v0.yaml; scrnaseq-v1.yaml; scrnaseq-v2.yaml
+- name: rnaseq_assay_input
+  description: Number of cell/nuclei input to the assay
+
+# bulkrnaseq-v0.yaml; bulkrnaseq-v1.yaml
+- name: rnaseq_assay_input_unit
+  description: Units of RNA input amount to the assay
+  constraints:
+    enum:
+      - ug

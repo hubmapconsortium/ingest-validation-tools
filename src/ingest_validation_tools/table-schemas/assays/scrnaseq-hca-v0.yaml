@@ -134,10 +134,7 @@ fields:
   constraints:
     required: false
   description: Total number of cell/nuclei yielded post dissociation and enrichment
-- name: rnaseq_assay_input
-  constraints:
-    required: false
-  description: Number of cell/nuclei input to the assay
+# include: ../includes/fields/rnaseq_assay_input.yaml
 - name: rnaseq_assay_method
   constraints:
     required: true

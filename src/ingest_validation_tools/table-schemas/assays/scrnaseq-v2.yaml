@@ -50,8 +50,7 @@ fields:
   description: A quality metric by visual inspection prior to cell lysis or defined by known parameters such as wells with several cells or no cells. This can be captured at a high level.
 - name: sc_isolation_cell_number
   description: Total number of cell/nuclei yielded post dissociation and enrichment
-- name: rnaseq_assay_input
-  description: Number of cell/nuclei input to the assay
+# include: ../includes/fields/rnaseq_assay_input.yaml
 - name: rnaseq_assay_method
   description: The kit used for the RNA sequencing assay
 - name: library_construction_protocols_io_doi
