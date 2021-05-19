@@ -1,0 +1,3 @@
+# stained-v0.yaml; stained-v1.yaml
+- name: stain
+  description: Chemical stains (dyes) applied to histology samples to highlight important features of the tissue as well as to enhance the tissue contrast.
