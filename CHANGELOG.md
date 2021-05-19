@@ -3,6 +3,7 @@
 ## v0.0.12 - in progress
 - Cleanup whitespace in yaml.
 - Tools to resolve duplicated field definitions.
+- Rearrange YAML so static processing works.
 
 ## v0.0.11 - 2021-05-18
 - Updated AF and stained microscopy structure schema.

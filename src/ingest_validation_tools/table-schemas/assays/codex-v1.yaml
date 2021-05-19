@@ -25,9 +25,8 @@ fields:
 # include: ../includes/v0/is_targeted.yaml
 
 # Level 2 fields:
--
+- name: acquisition_instrument_vendor
   heading: Unique to this type
-  name: acquisition_instrument_vendor
   description: An acquisition_instrument is the device that contains the signal detection hardware and signal processing software. Assays generate signals such as light of various intensities or color or signals representing molecular mass.
   constraints:
     enum: ['Keyence','Zeiss']
