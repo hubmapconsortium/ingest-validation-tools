@@ -44,11 +44,7 @@ fields:
 # include: ../includes/fields/library_final_yield_value_unit.yaml
 # include: ../includes/fields/library_id.yaml
 # include: ../includes/fields/library_layout.yaml
-- name: library_pcr_cycles
-  description: Number of PCR cycles performed in order to add adapters and amplify
-    the library. Usually, this includes 5 pre-amplificationn cycles followed by 0-5
-    additional cycles determined by qPCR.
-  type: integer
+# include: ../includes/fields/library_pcr_cycles.yaml
 - name: library_preparation_kit
   description: Reagent kit used for library preparation
 - name: sample_quality_metric

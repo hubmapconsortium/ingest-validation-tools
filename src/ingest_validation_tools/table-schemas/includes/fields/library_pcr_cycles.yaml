@@ -1,0 +1,26 @@
+# scrnaseq-v0.yaml; slideseq-v0.yaml; slideseq-v1.yaml
+- name: library_pcr_cycles_for_sample_index
+  description: Number of PCR cycles performed for library indexing
+
+# bulkatacseq-v0.yaml; bulkatacseq-v1.yaml
+- name: library_pcr_cycles
+  description: Number of PCR cycles performed in order to add adapters and amplify
+    the library. Usually, this includes 5 pre-amplificationn cycles followed by 0-5
+    additional cycles determined by qPCR.
+  type: integer
+
+# scrnaseq-hca-v0.yaml
+- name: library_pcr_cycles_for_sample_index
+  constraints:
+    required: false
+  description: Number of PCR cycles performed for library indexing
+
+# bulkrnaseq-v0.yaml; bulkrnaseq-v1.yaml; scrnaseq-v1.yaml; scrnaseq-v2.yaml
+- name: library_pcr_cycles_for_sample_index
+  description: Number of PCR cycles performed for library indexing
+  type: integer
+
+# scatacseq-v0.yaml; scatacseq-v1.yaml
+- name: library_pcr_cycles_for_sample_index
+  description: Number of PCR cycles performed for library generation (figure in Descriptions section)
+  type: integer

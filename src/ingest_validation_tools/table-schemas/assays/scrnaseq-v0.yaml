@@ -54,10 +54,8 @@ fields:
   description: Position(s) in the read at which the cell barcode starts.
 - name: cell_barcode_size
   description: Length of the cell barcode in base pairs
-- name: library_pcr_cycles
-  description: Number of PCR cycles to amplify cDNA
-- name: library_pcr_cycles_for_sample_index
-  description: Number of PCR cycles performed for library indexing
+# include: ../includes/fields/library_pcr_cycles.yaml
+# include: ../includes/fields/library_pcr_cycles.yaml
 # include: ../includes/fields/library_final_yield_value_unit.yaml
 - name: library_average_fragment_size
   description: Average size of sequencing library fragments estimated via gel electrophoresis or bioanalyzer/tapestation.
