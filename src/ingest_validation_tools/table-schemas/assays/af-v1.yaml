@@ -31,7 +31,5 @@ fields:
       - um
 - name: number_of_channels
   description: Number of channels capturing the emission spectrum from natural fluorophores in the sample.
-- name: overall_protocols_io_doi
-  description: DOI for protocols.io referring to the overall protocol for the assay.
-
+# include: ../includes/fields/overall_protocols_io_doi.yaml
 # include: ../includes/v0/paths.yaml

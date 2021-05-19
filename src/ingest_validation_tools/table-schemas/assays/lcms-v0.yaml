@@ -95,9 +95,5 @@ fields:
   description: DOI for analysis protocols.io for this assay.
   constraints:
     required: False
-- name: overall_protocols_io_doi
-  description: DOI for protocols.io for the overall process for this assay.
-  constraints:
-    required: False
-
+# include: ../includes/fields/overall_protocols_io_doi.yaml
 # include: ../includes/v0/paths.yaml

@@ -1,0 +1,11 @@
+# lcms-v0.yaml; lcms-v1.yaml
+- name: overall_protocols_io_doi
+  description: DOI for protocols.io for the overall process for this assay.
+  constraints:
+    required: False
+
+
+# af-v0.yaml; af-v1.yaml; nano-v0.yaml; nano-v1.yaml
+- name: overall_protocols_io_doi
+  description: DOI for protocols.io referring to the overall protocol for the assay.
+
