@@ -60,10 +60,7 @@ fields:
   type: boolean
 - name: cell_barcode_read
   description: Which read file contains the cell barcode
-- name: cell_barcode_offset
-  description: Position(s) in the read at which the cell barcode starts.
-  constraints:
-    pattern: '\d+(,\d+)*'
+# include: ../includes/fields/cell_barcode_offset.yaml
 - name: cell_barcode_size
   description: Length of the cell barcode in base pairs
   constraints:
