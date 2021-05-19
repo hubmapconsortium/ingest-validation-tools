@@ -1,0 +1,16 @@
+# mxif-v0.yaml; mxif-v1.yaml
+- name: number_of_cycles
+  description: Number of cycles of 1. antibody application, 2. image capture, 3. antibody stripping.
+
+
+# codex-v0.yaml; codex-v1.yaml
+- name: number_of_cycles
+  description: Number of cycles of 1. oligo application, 2. fluor application, 3. washes
+
+# celldive-v0.yaml; celldive-v1.yaml
+- name: number_of_cycles
+  description: Number of cycles of 1. oligo application, 2. fluor application, 3. dye inactivation.
+
+# seqfish-v0.yaml; seqfish-v1.yaml
+- name: number_of_cycles
+  description: For each barcode region being interrogated, the number of cycles of 1. Hybridization of readout probes, 2. imaging, 3. Washes (the paper describes 1 readout probe per hyb cycle -> 20 readout probes = 20 hyb cycles)

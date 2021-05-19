@@ -22,9 +22,7 @@ fields:
 
 - name: number_of_channels
   description: Number of fluorescent channels imaged during each cycle.
-- name: number_of_cycles
-  description: Number of cycles of 1. antibody application, 2. image capture, 3. antibody stripping.
-
+# include: ../includes/fields/number_of_cycles.yaml
 # include: ../includes/v0/doi/section_prep.yaml
 # include: ../includes/v0/doi/reagent_prep.yaml
 # include: ../includes/v0/doi/overall.yaml

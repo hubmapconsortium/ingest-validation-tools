@@ -65,8 +65,7 @@ fields:
     enum: ['version 1 robot','prototype robot - Stanford/Nolan Lab']
 
 # include: ../includes/v0/antibodies_channels.yaml
-- name: number_of_cycles
-  description: Number of cycles of 1. oligo application, 2. fluor application, 3. washes
+# include: ../includes/fields/number_of_cycles.yaml
 # include: ../includes/v0/doi/section_prep.yaml
 # include: ../includes/v0/doi/reagent_prep.yaml
 - name: antibodies_path

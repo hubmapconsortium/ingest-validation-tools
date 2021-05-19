@@ -25,8 +25,7 @@ fields:
 
 # include: ../includes/v0/acquisition_instrument.yaml
 # include: ../includes/v0/antibodies_channels.yaml
-- name: number_of_cycles
-  description: Number of cycles of 1. oligo application, 2. fluor application, 3. dye inactivation.
+# include: ../includes/fields/number_of_cycles.yaml
 - name: number_of_imaging_rounds
   description: the total number of acquisitions performed on microscope to collect autofluorescence/background or stained signal.
 # include: ../includes/v0/x_y.yaml
