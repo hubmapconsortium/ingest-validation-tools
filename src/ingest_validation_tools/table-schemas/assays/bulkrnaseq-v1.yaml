@@ -18,9 +18,7 @@ fields:
 # Level 2 fields:
 
 # include: ../includes/v0/acquisition_instrument.yaml
-- name: bulk_rna_isolation_protocols_io_doi
-  description: 'Link to a protocols document answering the question: How was tissue
-    stored and processed for RNA isolation RNA_isolation_protocols_io_doi'
+# include: ../includes/fields/bulk_rna_isolation_protocols_io_doi.yaml
 - name: bulk_rna_yield_value
   description: 'RNA (ng) per Weight of Tissue (mg). Answer the question: How much
     RNA in ng was isolated? How much tissue in mg was initially used for isolating
