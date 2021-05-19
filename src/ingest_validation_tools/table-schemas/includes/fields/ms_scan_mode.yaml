@@ -1,0 +1,3 @@
+# lcms-v0.yaml; lcms-v1.yaml
+- name: ms_scan_mode
+  description: Indicates whether experiment is MS, MS/MS, or other (possibly MS3 for TMT)
