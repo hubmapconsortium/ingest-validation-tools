@@ -1,0 +1,3 @@
+# seqfish-v0.yaml; seqfish-v1.yaml
+- name: number_of_barcode_regions_per_barcode_probe
+  description: Number of barcode regions on each mRNA barcode probe (the paper describes mRNA probes with 4 barcoded regions)
