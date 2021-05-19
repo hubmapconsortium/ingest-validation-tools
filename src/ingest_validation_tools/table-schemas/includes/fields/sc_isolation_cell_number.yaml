@@ -1,0 +1,14 @@
+# scrnaseq-hca-v0.yaml
+- name: sc_isolation_cell_number
+  constraints:
+    required: false
+  description: Total number of cell/nuclei yielded post dissociation and enrichment
+
+# scrnaseq-v0.yaml; scrnaseq-v1.yaml; scrnaseq-v2.yaml
+- name: sc_isolation_cell_number
+  description: Total number of cell/nuclei yielded post dissociation and enrichment
+
+# scatacseq-v0.yaml; scatacseq-v1.yaml
+- name: sc_isolation_cell_number
+  description: Total number of cell/nuclei yielded post dissociation and enrichment.
+  type: integer

@@ -43,9 +43,7 @@ fields:
       - FACS
 - name: sc_isolation_quality_metric
   description: 'A quality metric by visual inspection prior to cell lysis or defined by known parameters such as wells with several cells or no cells. This can be captured at a high level. "OK" or "not OK", or with more specificity such as "debris", "clump", "low clump".'
-- name: sc_isolation_cell_number
-  description: Total number of cell/nuclei yielded post dissociation and enrichment.
-  type: integer
+# include: ../includes/fields/sc_isolation_cell_number.yaml
 - name: transposition_input
   description: Number of cell/nuclei input to the assay.
   type: number
