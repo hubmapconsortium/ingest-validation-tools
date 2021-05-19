@@ -28,9 +28,7 @@ fields:
 # include: ../includes/v0/prep_instrument.yaml
 # include: ../includes/v0/doi/section_prep.yaml
 # include: ../includes/v0/doi/reagent_prep.yaml
-- name: number_of_channels
-  description: Number of mass channels measured
-  type: number
+# include: ../includes/fields/number_of_channels.yaml
 # include: ../includes/v0/ablation.yaml
 # include: ../includes/v0/imc_roi_id.yaml
 - name: dual_count_start

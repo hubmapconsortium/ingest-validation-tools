@@ -1,0 +1,16 @@
+# imc-v0.yaml; imc-v1.yaml; imc3d-v0.yaml; imc3d-v1.yaml
+- name: number_of_channels
+  description: Number of mass channels measured
+  type: number
+
+# af-v0.yaml; af-v1.yaml
+- name: number_of_channels
+  description: Number of channels capturing the emission spectrum from natural fluorophores in the sample.
+
+# mxif-v0.yaml; mxif-v1.yaml
+- name: number_of_channels
+  description: Number of fluorescent channels imaged during each cycle.
+
+# seqfish-v0.yaml; seqfish-v1.yaml
+- name: number_of_channels
+  description: Number of fluorescent channels (the paper describes 3 channels - for 3 fluorescent dyes)
