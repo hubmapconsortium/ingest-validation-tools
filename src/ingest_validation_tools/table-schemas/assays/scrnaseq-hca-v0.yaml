@@ -178,10 +178,7 @@ fields:
   constraints:
     required: true
   description: Position(s) in the read at which the cell barcode starts.
-- name: cell_barcode_size
-  constraints:
-    required: true
-  description: Length of the cell barcode in base pairs
+# include: ../includes/fields/cell_barcode_size.yaml
 - name: library_pcr_cycles
   constraints:
     required: false

@@ -71,10 +71,7 @@ fields:
   description: Position(s) in the read at which the cell barcode starts.
   constraints:
     pattern: '\d+(,\d+)*'
-- name: cell_barcode_size
-  description: Length of the cell barcode in base pairs
-  constraints:
-    pattern: '\d+(,\d+)*'
+# include: ../includes/fields/cell_barcode_size.yaml
 - name: expected_cell_count
   description: How many cells are expected? This may be used in downstream pipelines to guide selection of cell barcodes or segmentation parameters.
   type: integer

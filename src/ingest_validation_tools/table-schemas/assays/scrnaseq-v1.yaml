@@ -64,10 +64,7 @@ fields:
   description: Position(s) in the read at which the cell barcode starts.
   constraints:
     pattern: '\d+(,\d+)*'
-- name: cell_barcode_size
-  description: Length of the cell barcode in base pairs
-  constraints:
-    pattern: '\d+(,\d+)*'
+# include: ../includes/fields/cell_barcode_size.yaml
 - name: library_pcr_cycles
   description: Number of PCR cycles to amplify cDNA
   type: integer

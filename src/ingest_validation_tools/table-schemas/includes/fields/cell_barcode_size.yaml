@@ -1,0 +1,21 @@
+# scrnaseq-hca-v0.yaml
+- name: cell_barcode_size
+  constraints:
+    required: true
+  description: Length of the cell barcode in base pairs
+
+# scrnaseq-v1.yaml; scrnaseq-v2.yaml
+- name: cell_barcode_size
+  description: Length of the cell barcode in base pairs
+  constraints:
+    pattern: '\d+(,\d+)*'
+
+# scrnaseq-v0.yaml
+- name: cell_barcode_size
+  description: Length of the cell barcode in base pairs
+
+# scatacseq-v0.yaml; scatacseq-v1.yaml
+- name: cell_barcode_size
+  description: Length of the cell barcode in base pairs. Cell barcodes are, for example, 3 x 8 bp sequences that are spaced by constant sequences, the offsets. (Does not apply to SNARE-seq and BulkATAC.)
+  constraints:
+    pattern: '\d+(,\d+)*'
