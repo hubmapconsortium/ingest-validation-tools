@@ -76,13 +76,7 @@ fields:
   description: Value of flow rate.
   constraints:
     required: False
-- name: lc_flow_rate_unit
-  description: Units of flow rate.
-  constraints:
-    required: False
-    enum:
-      - nL/min
-      - mL/min
+# include: ../includes/fields/lc_flow_rate_unit.yaml
 - name: lc_gradient
   description: LC gradient
 - name: lc_mobile_phase_a

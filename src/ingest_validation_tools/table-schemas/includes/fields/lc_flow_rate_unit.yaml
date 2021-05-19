@@ -1,0 +1,8 @@
+# lcms-v0.yaml; lcms-v1.yaml
+- name: lc_flow_rate_unit
+  description: Units of flow rate.
+  constraints:
+    required: False
+    enum:
+      - nL/min
+      - mL/min
