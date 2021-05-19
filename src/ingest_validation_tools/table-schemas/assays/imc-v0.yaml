@@ -55,10 +55,7 @@ fields:
       - dual count
       - pulse count
       - intensity value
-- name: start_datetime
-  description: Time stamp indicating start of ablation for ROI
-  type: datetime
-  format: "%Y-%m-%d %H:%M"
+# include: ../includes/fields/start_datetime.yaml
 - name: data_precision_bytes
   description: Numerical data precision in bytes
   type: number
