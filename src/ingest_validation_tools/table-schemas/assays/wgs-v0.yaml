@@ -20,9 +20,7 @@ fields:
 # include: ../includes/fields/gdna_fragmentation_quality_assurance.yaml
 # include: ../includes/fields/dna_assay_input_value.yaml
 # include: ../includes/fields/dna_assay_input_unit.yaml
-- name: library_construction_method
-  description: Describes DNA library preparation kit. Modality of isolating gDNA,
-    Fragmentation and generating sequencing libraries.
+# include: ../includes/fields/library_construction_method.yaml
 - name: library_construction_protocols_io_doi
   description: A link to the protocol document containing the library construction
     method (including version) that was used.

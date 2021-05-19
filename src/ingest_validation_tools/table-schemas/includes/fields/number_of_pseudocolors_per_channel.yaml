@@ -1,0 +1,2 @@
+- name: number_of_pseudocolors_per_channel
+  description: Number of pseudocolors that can be assigned to each fluorescent channel (the paper describes 20 pseudocolors per channel (x 3 channels -> total = 60)

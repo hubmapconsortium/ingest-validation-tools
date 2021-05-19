@@ -1,0 +1,2 @@
+- name: number_of_readout_probes_per_channel
+  description: Number of readout probes that can be interrogated per channel per cycle (the paper describes 20 readout probes per channel (x 3 channels -> total = 60))

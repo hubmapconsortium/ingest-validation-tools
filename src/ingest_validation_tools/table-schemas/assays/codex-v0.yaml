@@ -59,11 +59,7 @@ fields:
   description: The manufacturer of the instrument used to prepare the sample for the assay.
   constraints:
     enum: ['CODEX']
-- name: preparation_instrument_model
-  description: The model number/name of the instrument used to prepare the sample for the assay
-  constraints:
-    enum: ['version 1 robot','prototype robot - Stanford/Nolan Lab']
-
+# include: ../includes/fields/preparation_instrument_model.yaml
 # include: ../includes/v0/antibodies_channels.yaml
 - name: number_of_cycles
   description: Number of cycles of 1. oligo application, 2. fluor application, 3. washes

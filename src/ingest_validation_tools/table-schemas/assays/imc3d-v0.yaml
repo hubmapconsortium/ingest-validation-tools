@@ -31,9 +31,7 @@ fields:
 - name: number_of_channels
   description: Number of mass channels measured
   type: number
-- name: number_of_sections
-  description: Number of sections
-  type: number
+# include: ../includes/fields/number_of_sections.yaml
 # include: ../includes/v0/ablation.yaml
 # include: ../includes/v0/imc_roi_id.yaml
 # include: ../includes/v0/imc_roi_dimensions.yaml

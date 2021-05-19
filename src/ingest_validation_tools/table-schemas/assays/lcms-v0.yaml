@@ -31,8 +31,7 @@ fields:
 - name: mz_range_high_value
   description: The high value of the scanned mass range for MS1. (unitless)
 # include: ../includes/fields/data_collection_mode.yaml
-- name: ms_scan_mode
-  description: Indicates whether experiment is MS, MS/MS, or other (possibly MS3 for TMT)
+# include: ../includes/fields/ms_scan_mode.yaml
 # include: ../includes/fields/labeling.yaml
 # include: ../includes/v0/doi/section_prep.yaml
 # include: ../includes/fields/lc_instrument_vendor.yaml
@@ -51,8 +50,7 @@ fields:
 # include: ../includes/fields/lc_gradient.yaml
 # include: ../includes/fields/lc_mobile_phase_a.yaml
 # include: ../includes/fields/lc_mobile_phase_b.yaml
-- name: processing_search
-  description: Software for analyzing and searching LC-MS/MS omics data
+# include: ../includes/fields/processing_search.yaml
 - name: processing_protocols_io_doi
   description: DOI for analysis protocols.io for this assay.
   constraints:
