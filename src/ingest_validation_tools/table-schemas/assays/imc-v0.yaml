@@ -36,10 +36,7 @@ fields:
 - name: dual_count_start
   description: Threshold for dual counting.
   type: number
-- name: end_datetime
-  description: Time stamp indicating end of ablation for ROI
-  type: datetime
-  format: "%Y-%m-%d %H:%M"
+# include: ../includes/fields/end_datetime.yaml
 # include: ../includes/v0/imc_roi_dimensions.yaml
 - name: segment_data_format
   description: This refers to the data type, which is a "float" for the IMC counts.
