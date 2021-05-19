@@ -1,0 +1,8 @@
+# imc-v0.yaml; imc-v1.yaml; imc3d-v0.yaml; imc3d-v1.yaml
+- name: segment_data_format
+  description: This refers to the data type, which is a "float" for the IMC counts.
+  constraints:
+    enum:
+      - float
+      - integer
+      - string

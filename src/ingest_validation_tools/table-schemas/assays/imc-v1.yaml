@@ -37,13 +37,7 @@ fields:
   description: Threshold for dual counting.
   type: number
 # include: ../includes/v0/imc_roi_dimensions.yaml
-- name: segment_data_format
-  description: This refers to the data type, which is a "float" for the IMC counts.
-  constraints:
-    enum:
-      - float
-      - integer
-      - string
+# include: ../includes/fields/segment_data_format.yaml
 - name: signal_type
   description: Type of signal measured per channel (usually dual counts)
   constraints:
