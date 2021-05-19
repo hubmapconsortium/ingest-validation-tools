@@ -35,8 +35,7 @@ fields:
     enum:
       - Positive
       - Negative
-- name: mz_range_low_value
-  description: A number representing the mass:charge ratio
+# include: ../includes/fields/mz_range_low_value.yaml
 - name: mz_range_high_value
   description: A number representing the mass:charge ratio
 
