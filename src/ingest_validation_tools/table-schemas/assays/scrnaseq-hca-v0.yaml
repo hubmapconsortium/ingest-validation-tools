@@ -186,10 +186,7 @@ fields:
   constraints:
     required: false
   description: Number of PCR cycles to amplify cDNA
-- name: library_pcr_cycles_for_sample_index
-  constraints:
-    required: false
-  description: Number of PCR cycles performed for library indexing
+# include: ../includes/fields/library_pcr_cycles_for_sample_index.yaml
 - name: library_final_yield_value
   constraints:
     required: false

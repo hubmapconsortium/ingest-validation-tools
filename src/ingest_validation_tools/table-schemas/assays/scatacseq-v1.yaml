@@ -89,9 +89,7 @@ fields:
 - name: library_pcr_cycles
   description: Number of PCR cycles to enrich for accessible chromatin fragments.
   type: integer
-- name: library_pcr_cycles_for_sample_index
-  description: Number of PCR cycles performed for library generation (figure in Descriptions section)
-  type: integer
+# include: ../includes/fields/library_pcr_cycles_for_sample_index.yaml
 - name: library_final_yield
   description: Total ng of library after final pcr amplification step.
   type: number
