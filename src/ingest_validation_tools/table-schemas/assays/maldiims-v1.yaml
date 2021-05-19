@@ -45,9 +45,7 @@ fields:
 - name: preparation_type
   description: Common methods of depositing matrix for MALDI imaging include robotic spotting, electrospray deposition, and spray-coating with an airbrush.
 # include: ../includes/v0/prep_instrument.yaml
-- name: preparation_maldi_matrix
-  description: The matrix is a compound of crystallized molecules that acts like a buffer between the sample and the laser.
-    It also helps ionize the sample, carrying it along the flight tube so it can be detected.
+# include: ../includes/fields/preparation_maldi_matrix.yaml
 # include: ../includes/v0/doi/section_prep.yaml
 # include: ../includes/v0/doi/overall.yaml
 
