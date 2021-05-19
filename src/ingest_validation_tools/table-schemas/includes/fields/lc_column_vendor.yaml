@@ -1,0 +1,3 @@
+# lcms-v0.yaml; lcms-v1.yaml
+- name: lc_column_vendor
+  description: 'OPTIONAL: The manufacturer of the LC Column unless self-packed, pulled tip capilary is used'
