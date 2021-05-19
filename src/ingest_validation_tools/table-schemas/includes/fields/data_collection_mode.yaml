@@ -1,0 +1,3 @@
+# lcms-v0.yaml; lcms-v1.yaml
+- name: data_collection_mode
+  description: Mode of data collection in tandem MS assays. Either DDA (Data-dependent acquisition) or DIA (Data-indemendent acquisition.
