@@ -37,8 +37,7 @@ fields:
   description: Total number of cell/nuclei yielded post dissociation and enrichment
 - name: rnaseq_assay_input
   description: Number of cell/nuclei input to the assay
-- name: rnaseq_assay_method
-  description: The kit used for the RNA sequencing assay
+# include: ../includes/fields/rnaseq_assay_method.yaml
 - name: library_construction_protocols_io_doi
   description: A link to the protocol document containing the library construction method (including version) that was used, e.g. "Smart-Seq2", "Drop-Seq", "10X v3".
 # include: ../includes/fields/library_layout.yaml
