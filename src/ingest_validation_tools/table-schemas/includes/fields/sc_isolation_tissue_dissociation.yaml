@@ -1,0 +1,9 @@
+# scrnaseq-hca-v0.yaml
+- name: sc_isolation_tissue_dissociation
+  constraints:
+    required: true
+  description: The method by which tissues are dissociated into single cells in suspension.
+
+# scatacseq-v0.yaml; scatacseq-v1.yaml; scrnaseq-v0.yaml; scrnaseq-v1.yaml; scrnaseq-v2.yaml
+- name: sc_isolation_tissue_dissociation
+  description: The method by which tissues are dissociated into single cells in suspension.
