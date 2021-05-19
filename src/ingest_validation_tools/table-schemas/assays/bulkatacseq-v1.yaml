@@ -17,8 +17,7 @@ fields:
 
 # Level 2 fields:
 # include: ../includes/v0/acquisition_instrument.yaml
-- name: bulk_transposition_input_number_nuclei
-  description: A number (no comma separators)
+# include: ../includes/fields/bulk_transposition_input_number_nuclei.yaml
 - name: bulk_atac_cell_isolation_protocols_io_doi
   description: 'Link to a protocols document answering the question: How was tissue
     stored and processed for cell/nuclei isolation'
