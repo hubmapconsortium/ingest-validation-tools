@@ -1,0 +1,5 @@
+# codex-v0.yaml; codex-v1.yaml
+- name: resolution_y_unit
+  description: The unit of measurement of height of a pixel. (nm)
+  constraints:
+    enum: ['mm', 'um', 'nm']
