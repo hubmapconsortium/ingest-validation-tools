@@ -1,0 +1,6 @@
+# lcms-v0.yaml; lcms-v1.yaml
+- name: lc_temp_unit
+  description: units for LC temperature
+  constraints:
+    enum:
+      - C

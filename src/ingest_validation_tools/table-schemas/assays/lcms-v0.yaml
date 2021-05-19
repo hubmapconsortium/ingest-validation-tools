@@ -58,11 +58,7 @@ fields:
       - cm
 - name: lc_temp_value
   description: LC temperature
-- name: lc_temp_unit
-  description: units for LC temperature
-  constraints:
-    enum:
-      - C
+# include: ../includes/fields/lc_temp_unit.yaml
 - name: lc_id_value
   description: LC column inner diameter (microns)
 - name: lc_id_unit
