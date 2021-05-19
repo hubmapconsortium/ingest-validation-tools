@@ -112,10 +112,7 @@ fields:
   description: 'Link to a protocols document answering the question: How were single
     cells separated into a single-cell suspension?'
   type: string
-- name: sc_isolation_entity
-  constraints:
-    required: true
-  description: The type of single cell entity derived from isolation protocol
+# include: ../includes/fields/sc_isolation_entity.yaml
 - name: sc_isolation_tissue_dissociation
   constraints:
     required: true
