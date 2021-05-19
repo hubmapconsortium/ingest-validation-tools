@@ -33,12 +33,7 @@ fields:
       - spatially encoded cell barcoding
 - name: sc_isolation_tissue_dissociation
   description: The method by which tissues are dissociated into single cells in suspension.
-- name: sc_isolation_enrichment
-  description: The method by which specific cell populations are sorted or enriched.
-  constraints:
-    enum:
-      - none
-      - FACS
+# include: ../includes/fields/sc_isolation_enrichment.yaml
 - name: sc_isolation_quality_metric
   description: A quality metric by visual inspection prior to cell lysis or defined by known parameters such as wells with several cells or no cells. This can be captured at a high level.
 - name: sc_isolation_cell_number

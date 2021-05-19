@@ -120,10 +120,7 @@ fields:
   constraints:
     required: true
   description: The method by which tissues are dissociated into single cells in suspension.
-- name: sc_isolation_enrichment
-  constraints:
-    required: true
-  description: The method by which specific cell populations are sorted or enriched.
+# include: ../includes/fields/sc_isolation_enrichment.yaml
 - name: sc_isolation_quality_metric
   constraints:
     required: false
