@@ -55,7 +55,7 @@ def pull(field_name, input_dir):
                 print(f'# include: ../includes/fields/{field_name}.yaml')
                 definition = line
                 continue
-            elif inside and line[0] != '-':
+            elif inside and line[0] not in ['-', '#']:
                 definition += line
                 continue
             elif inside:
