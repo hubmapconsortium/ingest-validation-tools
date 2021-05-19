@@ -69,7 +69,7 @@ def push(field_name, definitions, output_dir):
     options = [
         f"# {'; '.join(sorted(files))}\n{definition}"
         for definition, files in definitions.items()
-    ]
+    ] if len(definitions) > 1 else definitions.keys()
     (output_dir / f'{field_name}.yaml').write_text('\n'.join(options))
 
 
