@@ -34,13 +34,7 @@ fields:
   description: A link to the protocol document containing the library construction
     method (including version) that was used, e.g. "Smart-Seq2", "Drop-Seq", "10X
     v3".
-- name: library_creation_date
-  description: date and time of library creation. YYYY-MM-DD, where YYYY is the year,
-    MM is the month with leading 0s, and DD is the day with leading 0s.
-  constraints:
-    type: datetime
-    format: '%Y-%m-%d'
-    required: False
+# include: ../includes/fields/library_creation_date.yaml
 # include: ../includes/fields/library_final_yield_value_unit.yaml
 # include: ../includes/fields/library_id.yaml
 # include: ../includes/fields/library_layout.yaml
