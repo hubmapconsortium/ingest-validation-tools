@@ -1,0 +1,4 @@
+# celldive-v0.yaml; celldive-v1.yaml; codex-v0.yaml; codex-v1.yaml; imc-v1.yaml; imc3d-v0.yaml; imc3d-v1.yaml; lightsheet-v0.yaml; lightsheet-v1.yaml; mxif-v0.yaml; mxif-v1.yaml
+- name: antibodies_path
+  description: Relative path to file with antibody information for this dataset.
+

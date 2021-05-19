@@ -69,7 +69,5 @@ fields:
   description: Number of cycles of 1. oligo application, 2. fluor application, 3. washes
 # include: ../includes/v0/doi/section_prep.yaml
 # include: ../includes/v0/doi/reagent_prep.yaml
-- name: antibodies_path
-  description: Relative path to file with antibody information for this dataset.
-
+# include: ../includes/fields/antibodies_path.yaml
 # include: ../includes/v0/paths.yaml

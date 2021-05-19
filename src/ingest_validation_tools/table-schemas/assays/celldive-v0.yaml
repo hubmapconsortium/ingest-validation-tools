@@ -35,7 +35,5 @@ fields:
   constraints:
     required: False
 # include: ../includes/v0/doi/overall.yaml
-- name: antibodies_path
-  description: Relative path to file with antibody information for this dataset.
-
+# include: ../includes/fields/antibodies_path.yaml
 # include: ../includes/v0/paths.yaml
