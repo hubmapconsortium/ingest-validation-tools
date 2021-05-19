@@ -165,11 +165,7 @@ fields:
   constraints:
     required: false
   description: An id for the library. The id may be text and/or numbers
-- name: is_technical_replicate
-  constraints:
-    required: false
-  description: Is the sequencing reaction run in replicate, TRUE or FALSE
-  type: boolean
+# include: ../includes/fields/is_technical_replicate.yaml
 - name: cell_barcode_read
   constraints:
     required: true

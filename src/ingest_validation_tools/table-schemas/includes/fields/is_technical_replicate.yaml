@@ -1,0 +1,19 @@
+# scrnaseq-v0.yaml; scrnaseq-v1.yaml; scrnaseq-v2.yaml; slideseq-v0.yaml; slideseq-v1.yaml
+- name: is_technical_replicate
+  description: Is the sequencing reaction run in repliucate, TRUE or FALSE
+  type: boolean
+
+# bulkatacseq-v0.yaml; bulkatacseq-v1.yaml
+- name: is_technical_replicate
+  description: Is this a sequencing replicate?
+
+# scrnaseq-hca-v0.yaml
+- name: is_technical_replicate
+  constraints:
+    required: false
+  description: Is the sequencing reaction run in replicate, TRUE or FALSE
+  type: boolean
+
+# scatacseq-v0.yaml; scatacseq-v1.yaml
+- name: is_technical_replicate
+  description: If TRUE, fastq files in dataset need to be merged.

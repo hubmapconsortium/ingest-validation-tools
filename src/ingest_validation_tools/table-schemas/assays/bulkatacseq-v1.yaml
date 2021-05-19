@@ -22,8 +22,7 @@ fields:
 - name: bulk_atac_cell_isolation_protocols_io_doi
   description: 'Link to a protocols document answering the question: How was tissue
     stored and processed for cell/nuclei isolation'
-- name: is_technical_replicate
-  description: Is this a sequencing replicate?
+# include: ../includes/fields/is_technical_replicate.yaml
 - name: library_adapter_sequence
   description: Adapter sequence to be used for adapter trimming
 - name: library_average_fragment_size

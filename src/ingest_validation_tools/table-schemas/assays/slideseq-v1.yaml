@@ -26,9 +26,7 @@ fields:
   description: Adapter sequence to be used for adapter trimming
 - name: puck_id
   description: Slide-seq captures RNA sequence data on spatially barcoded arrays of beads. Beads are fixed to a slide in a region shaped like a round puck. Each puck has a unique puck_id.
-- name: is_technical_replicate
-  description: Is the sequencing reaction run in repliucate, TRUE or FALSE
-  type: boolean
+# include: ../includes/fields/is_technical_replicate.yaml
 - name: bead_barcode_read
   description: Which read file contains the bead barcode
 - name: bead_barcode_offset
