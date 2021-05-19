@@ -1,0 +1,7 @@
+- name: lc_flow_rate_unit
+  description: Units of flow rate.
+  constraints:
+    required: False
+    enum:
+      - nL/min
+      - mL/min

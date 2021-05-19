@@ -35,58 +35,22 @@ fields:
   description: Indicates whether experiment is MS, MS/MS, or other (possibly MS3 for TMT)
 # include: ../includes/fields/labeling.yaml
 # include: ../includes/v0/doi/section_prep.yaml
-- name: lc_instrument_vendor
-  description: The manufacturer of the instrument used for LC
-- name: lc_instrument_model
-  description: The model number/name of the instrument used for LC
-- name: lc_column_vendor
-  description: 'OPTIONAL: The manufacturer of the LC Column unless self-packed, pulled tip capilary is used'
-- name: lc_column_model
-  description: The model number/name of the LC Column - IF custom self-packed, pulled tip calillary is used enter "Pulled tip capilary"
-- name: lc_resin
-  description: Details of the resin used for lc, including vendor, particle size, pore size
-- name: lc_length_value
-  description: LC column length
-- name: lc_length_unit
-  description: units for LC column length (typically cm)
-  constraints:
-    enum:
-      - um
-      - mm
-      - cm
-- name: lc_temp_value
-  description: LC temperature
-- name: lc_temp_unit
-  description: units for LC temperature
-  constraints:
-    enum:
-      - C
-- name: lc_id_value
-  description: LC column inner diameter (microns)
-- name: lc_id_unit
-  description: units of LC column inner diameter (typically microns)
-  constraints:
-    enum:
-      - um
-      - mm
-      - cm
-- name: lc_flow_rate_value
-  description: Value of flow rate.
-  constraints:
-    required: False
-- name: lc_flow_rate_unit
-  description: Units of flow rate.
-  constraints:
-    required: False
-    enum:
-      - nL/min
-      - mL/min
-- name: lc_gradient
-  description: LC gradient
-- name: lc_mobile_phase_a
-  description: Composition of mobile phase A
-- name: lc_mobile_phase_b
-  description: Composition of mobile phase B
+# include: ../includes/fields/lc_instrument_vendor.yaml
+# include: ../includes/fields/lc_instrument_model.yaml
+# include: ../includes/fields/lc_column_vendor.yaml
+# include: ../includes/fields/lc_column_model.yaml
+# include: ../includes/fields/lc_resin.yaml
+# include: ../includes/fields/lc_length_value.yaml
+# include: ../includes/fields/lc_length_unit.yaml
+# include: ../includes/fields/lc_temp_value.yaml
+# include: ../includes/fields/lc_temp_unit.yaml
+# include: ../includes/fields/lc_id_value.yaml
+# include: ../includes/fields/lc_id_unit.yaml
+# include: ../includes/fields/lc_flow_rate_value.yaml
+# include: ../includes/fields/lc_flow_rate_unit.yaml
+# include: ../includes/fields/lc_gradient.yaml
+# include: ../includes/fields/lc_mobile_phase_a.yaml
+# include: ../includes/fields/lc_mobile_phase_b.yaml
 - name: processing_search
   description: Software for analyzing and searching LC-MS/MS omics data
 - name: processing_protocols_io_doi
