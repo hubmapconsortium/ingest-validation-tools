@@ -1,0 +1,3 @@
+# lcms-v0.yaml; lcms-v1.yaml
+- name: labeling
+  description: Indicates whether samples were labeled prior to MS analysis (e.g., TMT)
