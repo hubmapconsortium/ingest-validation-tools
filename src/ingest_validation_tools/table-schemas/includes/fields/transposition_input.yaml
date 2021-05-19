@@ -1,0 +1,4 @@
+# scatacseq-v0.yaml; scatacseq-v1.yaml
+- name: transposition_input
+  description: Number of cell/nuclei input to the assay.
+  type: number

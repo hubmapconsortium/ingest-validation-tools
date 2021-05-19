@@ -46,9 +46,7 @@ fields:
 - name: sc_isolation_cell_number
   description: Total number of cell/nuclei yielded post dissociation and enrichment.
   type: integer
-- name: transposition_input
-  description: Number of cell/nuclei input to the assay.
-  type: number
+# include: ../includes/fields/transposition_input.yaml
 - name: transposition_method
   description: Modality of capturing accessible chromatin molecules.
   constraints:
