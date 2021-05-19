@@ -95,11 +95,7 @@ fields:
 - name: library_final_yield
   description: Total ng of library after final pcr amplification step.
   type: number
-- name: library_final_yield_unit
-  description: Units for library_final_yield
-  constraints:
-    enum:
-      - ng
+# include: ../includes/fields/library_final_yield_unit.yaml
 - name: library_average_fragment_size
   description: Average size of sequencing library fragments estimated via gel electrophoresis or bioanalyzer/tapestation. Numeric value in bp.
   type: number

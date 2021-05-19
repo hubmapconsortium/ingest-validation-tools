@@ -1,0 +1,21 @@
+# wgs-v0.yaml; wgs-v1.yaml
+- name: library_final_yield_unit
+  description: Total units of library after final pcr amplification step
+  constraints:
+    enum:
+      - ng
+
+# scrnaseq-hca-v0.yaml
+- name: library_final_yield_unit
+  constraints:
+    enum:
+    - ng
+    required: false
+  description: Units of final library yield
+
+# scatacseq-v0.yaml; scatacseq-v1.yaml
+- name: library_final_yield_unit
+  description: Units for library_final_yield
+  constraints:
+    enum:
+      - ng
