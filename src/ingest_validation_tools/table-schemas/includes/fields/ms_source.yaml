@@ -1,0 +1,14 @@
+# lcms-v0.yaml; lcms-v1.yaml
+- name: ms_source
+  description: The ion source type used for surface sampling (MALDI, MALDI-2, DESI, or SIMS) or LC-MS/MS data acquisition (nESI)
+
+# maldiims-v0.yaml; maldiims-v1.yaml; nano-v0.yaml; nano-v1.yaml
+- name: ms_source
+  description: The ion source type used for surface sampling (MALDI, MALDI-2, DESI, or SIMS) or LC-MS/MS data acquisition (nESI)
+  constraints:
+    enum:
+      - MALDI
+      - MALDI-2
+      - DESI
+      - SIMS
+      - nESI
