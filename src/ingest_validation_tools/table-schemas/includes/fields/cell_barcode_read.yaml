@@ -1,0 +1,13 @@
+# scrnaseq-hca-v0.yaml
+- name: cell_barcode_read
+  constraints:
+    required: true
+  description: Which read file contains the cell barcode
+
+# scrnaseq-v0.yaml; scrnaseq-v1.yaml; scrnaseq-v2.yaml
+- name: cell_barcode_read
+  description: Which read file contains the cell barcode
+
+# scatacseq-v0.yaml; scatacseq-v1.yaml
+- name: cell_barcode_read
+  description: Which read file contains the cell barcode.

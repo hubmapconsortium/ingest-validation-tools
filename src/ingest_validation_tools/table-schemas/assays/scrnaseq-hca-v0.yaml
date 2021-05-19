@@ -170,10 +170,7 @@ fields:
     required: false
   description: Is the sequencing reaction run in replicate, TRUE or FALSE
   type: boolean
-- name: cell_barcode_read
-  constraints:
-    required: true
-  description: Which read file contains the cell barcode
+# include: ../includes/fields/cell_barcode_read.yaml
 - name: cell_barcode_offset
   constraints:
     required: true

@@ -58,8 +58,7 @@ fields:
 - name: is_technical_replicate
   description: Is the sequencing reaction run in repliucate, TRUE or FALSE
   type: boolean
-- name: cell_barcode_read
-  description: Which read file contains the cell barcode
+# include: ../includes/fields/cell_barcode_read.yaml
 - name: cell_barcode_offset
   description: Position(s) in the read at which the cell barcode starts.
   constraints:
