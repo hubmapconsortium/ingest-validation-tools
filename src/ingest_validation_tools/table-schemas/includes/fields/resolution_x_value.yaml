@@ -1,0 +1,3 @@
+# codex-v0.yaml; codex-v1.yaml
+- name: resolution_x_value
+  description: The width of a pixel. (Akoya pixel is 377nm square)
