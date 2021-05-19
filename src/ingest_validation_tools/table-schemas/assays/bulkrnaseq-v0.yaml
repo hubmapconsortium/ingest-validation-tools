@@ -26,12 +26,7 @@ fields:
     RNA in ng was isolated? How much tissue in mg was initially used for isolating
     RNA? Calculate the yield by dividing total RNA isolated by amount of tissue used
     to isolate RNA from (ng/mg).'
-- name: bulk_rna_yield_units_per_tissue_unit
-  description: RNA amount per Tissue input amount. Valid values should be weight/weight
-    (ng/mg).
-  constraints:
-    enum:
-      - ng/mg
+# include: ../includes/fields/bulk_rna_yield_units_per_tissue_unit.yaml
 - name: bulk_rna_isolation_quality_metric_value
   description: RIN value
   type: number
