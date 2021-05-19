@@ -33,9 +33,7 @@ fields:
   type: number
 # include: ../includes/v0/ablation.yaml
 # include: ../includes/v0/imc_roi_id.yaml
-- name: dual_count_start
-  description: Threshold for dual counting.
-  type: number
+# include: ../includes/fields/dual_count_start.yaml
 - name: end_datetime
   description: Time stamp indicating end of ablation for ROI
   type: datetime

@@ -1,0 +1,4 @@
+# imc-v0.yaml; imc-v1.yaml
+- name: dual_count_start
+  description: Threshold for dual counting.
+  type: number
