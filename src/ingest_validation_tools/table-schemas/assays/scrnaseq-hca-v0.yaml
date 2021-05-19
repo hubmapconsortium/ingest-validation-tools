@@ -101,7 +101,7 @@ fields:
     (models) of that instrument with different features or sensitivities. Differences
     in features or sensitivities may be relevant to processing or interpretation of
     the data.
-  name: acquisition_instrument_model
+# include: ../includes/fields/acquisition_instrument_model.yaml
 - constraints:
     pattern: 10\.17504/.*
     required: true
