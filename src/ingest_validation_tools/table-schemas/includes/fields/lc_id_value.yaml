@@ -1,0 +1,3 @@
+# lcms-v0.yaml; lcms-v1.yaml
+- name: lc_id_value
+  description: LC column inner diameter (microns)

@@ -63,8 +63,7 @@ fields:
   constraints:
     enum:
       - C
-- name: lc_id_value
-  description: LC column inner diameter (microns)
+# include: ../includes/fields/lc_id_value.yaml
 - name: lc_id_unit
   description: units of LC column inner diameter (typically microns)
   constraints:
