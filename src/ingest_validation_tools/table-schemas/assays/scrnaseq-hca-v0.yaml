@@ -41,7 +41,7 @@ fields:
   type: string
 - name: operator
   constraints:
-    required: true
+    required: false
   description: Name of the person responsible for executing the assay.
 - name: operator_email
   constraints:
