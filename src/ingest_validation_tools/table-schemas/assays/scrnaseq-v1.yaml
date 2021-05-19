@@ -21,8 +21,7 @@ fields:
 
 # Level 2 fields:
 # include: ../includes/v0/acquisition_instrument.yaml
-- name: sc_isolation_protocols_io_doi
-  description: "Link to a protocols document answering the question: How were single cells separated into a single-cell suspension?"
+# include: ../includes/fields/sc_isolation_protocols_io_doi.yaml
 - name: sc_isolation_entity
   description: The type of single cell entity derived from isolation protocol
   constraints:
