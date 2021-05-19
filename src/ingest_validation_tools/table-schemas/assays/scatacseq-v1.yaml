@@ -58,13 +58,7 @@ fields:
       - bulkATACseq
       - snATACseq
       - sciATACseq
-- name: transposition_transposase_source
-  description: The source of the Tn5 transposase and transposon used for capturing accessible chromatin.
-  constraints:
-    enum:
-      - 10X snATAC
-      - In-house
-      - Nextera
+# include: ../includes/fields/transposition_transposase_source.yaml
 - name: transposition_kit_number
   description: If Tn5 came from a kit, provide the catalog number.
   constraints:

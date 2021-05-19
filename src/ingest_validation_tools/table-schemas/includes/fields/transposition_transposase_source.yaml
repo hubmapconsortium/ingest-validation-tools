@@ -1,0 +1,14 @@
+# bulkatacseq-v0.yaml; bulkatacseq-v1.yaml
+- name: transposition_transposase_source
+  description: The source of the Tn5 transposase and transposon used for capturing
+    accessible chromatin.
+
+
+# scatacseq-v0.yaml; scatacseq-v1.yaml
+- name: transposition_transposase_source
+  description: The source of the Tn5 transposase and transposon used for capturing accessible chromatin.
+  constraints:
+    enum:
+      - 10X snATAC
+      - In-house
+      - Nextera
