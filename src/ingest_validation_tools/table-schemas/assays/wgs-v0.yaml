@@ -17,12 +17,7 @@ fields:
 
 # Level 2:
 # include: ../includes/v0/acquisition_instrument.yaml
-- name: gdna_fragmentation_quality_assurance
-  description: Is the gDNA integrity good enough for WGS? This is usually checked through running a gel.
-  constraints:
-    enum:
-      - Pass
-      - Fail
+# include: ../includes/fields/gdna_fragmentation_quality_assurance.yaml
 - name: dna_assay_input_value
   description: Amount of DNA input into library preparation
   type: number
