@@ -23,9 +23,7 @@ fields:
     enum:
       - Pass
       - Fail
-- name: dna_assay_input_value
-  description: Amount of DNA input into library preparation
-  type: number
+# include: ../includes/fields/dna_assay_input_value.yaml
 - name: dna_assay_input_unit
   description: Units of DNA input into library preparation
   constraints:
