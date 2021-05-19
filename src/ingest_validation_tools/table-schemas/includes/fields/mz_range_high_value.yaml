@@ -1,0 +1,13 @@
+# lcms-v0.yaml; lcms-v1.yaml
+- name: mz_range_high_value
+  description: The high value of the scanned mass range for MS1. (unitless)
+
+# nano-v0.yaml; nano-v1.yaml
+- name: mz_range_high_value
+  description: A number representing the mass:charge ratio
+
+
+# maldiims-v0.yaml; maldiims-v1.yaml
+- name: mz_range_high_value
+  description: The high value of the scanned mass range for MS1. (unitless)
+

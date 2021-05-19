@@ -37,9 +37,7 @@ fields:
       - positive ion mode
 - name: mz_range_low_value
   description: The low value of the scanned mass range for MS1. (unitless)
-- name: mz_range_high_value
-  description: The high value of the scanned mass range for MS1. (unitless)
-
+# include: ../includes/fields/mz_range_high_value.yaml
 # include: ../includes/v0/x_y.yaml
 
 - name: preparation_type

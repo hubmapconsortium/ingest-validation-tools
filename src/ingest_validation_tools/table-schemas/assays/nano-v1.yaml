@@ -37,9 +37,7 @@ fields:
       - Negative
 - name: mz_range_low_value
   description: A number representing the mass:charge ratio
-- name: mz_range_high_value
-  description: A number representing the mass:charge ratio
-
+# include: ../includes/fields/mz_range_high_value.yaml
 # include: ../includes/v0/x_y.yaml
 
 - name: processing_protocols_io_doi
