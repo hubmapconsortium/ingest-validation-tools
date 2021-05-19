@@ -39,8 +39,7 @@ fields:
   description: Number of readout probes that can be interrogated per channel per cycle (the paper describes 20 readout probes per channel (x 3 channels -> total = 60))
 - name: number_of_pseudocolors_per_channel
   description: Number of pseudocolors that can be assigned to each fluorescent channel (the paper describes 20 pseudocolors per channel (x 3 channels -> total = 60)
-- name: number_of_channels
-  description: Number of fluorescent channels (the paper describes 3 channels - for 3 fluorescent dyes)
+# include: ../includes/fields/number_of_channels.yaml
 - name: number_of_cycles
   description: For each barcode region being interrogated, the number of cycles of 1. Hybridization of readout probes, 2. imaging, 3. Washes (the paper describes 1 readout probe per hyb cycle -> 20 readout probes = 20 hyb cycles)
 # include: ../includes/v0/doi/section_prep.yaml
