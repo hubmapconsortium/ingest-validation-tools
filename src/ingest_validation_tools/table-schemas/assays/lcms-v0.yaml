@@ -43,8 +43,7 @@ fields:
   description: The model number/name of the instrument used for LC
 - name: lc_column_vendor
   description: 'OPTIONAL: The manufacturer of the LC Column unless self-packed, pulled tip capilary is used'
-- name: lc_column_model
-  description: The model number/name of the LC Column - IF custom self-packed, pulled tip calillary is used enter "Pulled tip capilary"
+# include: ../includes/fields/lc_column_model.yaml
 - name: lc_resin
   description: Details of the resin used for lc, including vendor, particle size, pore size
 - name: lc_length_value
