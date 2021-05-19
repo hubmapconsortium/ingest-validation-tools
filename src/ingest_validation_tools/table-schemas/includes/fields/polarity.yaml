@@ -1,0 +1,19 @@
+# lcms-v0.yaml; lcms-v1.yaml
+- name: polarity
+  description: The polarity of the mass analysis (positive or negative ion modes)
+
+# nano-v0.yaml; nano-v1.yaml
+- name: polarity
+  description: The polarity of the mass analysis (positive or negative ion modes)
+  constraints:
+    enum:
+      - Positive
+      - Negative
+
+# maldiims-v0.yaml; maldiims-v1.yaml
+- name: polarity
+  description: The polarity of the mass analysis (positive or negative ion modes)
+  constraints:
+    enum:
+      - negative ion mode
+      - positive ion mode
