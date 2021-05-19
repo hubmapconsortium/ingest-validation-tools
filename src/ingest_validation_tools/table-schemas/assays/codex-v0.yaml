@@ -36,10 +36,7 @@ fields:
     enum: ['BZ-X800','BZ-X710','Axio Observer Z1']
 - name: resolution_x_value
   description: The width of a pixel. (Akoya pixel is 377nm square)
-- name: resolution_x_unit
-  description: The unit of measurement of width of a pixel.(nm)
-  constraints:
-    enum: ['mm', 'um', 'nm']
+# include: ../includes/fields/resolution_x_unit.yaml
 - name: resolution_y_value
   description: The height of a pixel. (Akoya pixel is 377nm square)
 - name: resolution_y_unit
