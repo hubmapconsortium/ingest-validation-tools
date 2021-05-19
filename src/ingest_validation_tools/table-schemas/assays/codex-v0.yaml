@@ -25,9 +25,8 @@ fields:
 # include: ../includes/v0/is_targeted.yaml
 
 # Level 2 fields:
--
+- name: acquisition_instrument_vendor
   heading: Unique to this type
-  name: acquisition_instrument_vendor
   description: An acquisition_instrument is the device that contains the signal detection hardware and signal processing software. Assays generate signals such as light of various intensities or color or signals representing molecular mass.
   constraints:
     enum: ['Keyence','Zeiss']
@@ -55,9 +54,8 @@ fields:
   description: The unit of incremental distance between image slices.(um)
   constraints:
     enum: ['mm', 'um', 'nm']
--
+- name: preparation_instrument_vendor
   heading: Level 3
-  name: preparation_instrument_vendor
   description: The manufacturer of the instrument used to prepare the sample for the assay.
   constraints:
     enum: ['CODEX']
