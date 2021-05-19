@@ -1,0 +1,8 @@
+# lcms-v0.yaml; lcms-v1.yaml
+- name: lc_length_unit
+  description: units for LC column length (typically cm)
+  constraints:
+    enum:
+      - um
+      - mm
+      - cm
