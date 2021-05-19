@@ -87,8 +87,7 @@ fields:
   description: LC gradient
 - name: lc_mobile_phase_a
   description: Composition of mobile phase A
-- name: lc_mobile_phase_b
-  description: Composition of mobile phase B
+# include: ../includes/fields/lc_mobile_phase_b.yaml
 - name: processing_search
   description: Software for analyzing and searching LC-MS/MS omics data
 - name: processing_protocols_io_doi
