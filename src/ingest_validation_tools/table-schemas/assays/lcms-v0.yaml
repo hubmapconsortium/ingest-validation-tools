@@ -85,8 +85,7 @@ fields:
       - mL/min
 - name: lc_gradient
   description: LC gradient
-- name: lc_mobile_phase_a
-  description: Composition of mobile phase A
+# include: ../includes/fields/lc_mobile_phase_a.yaml
 - name: lc_mobile_phase_b
   description: Composition of mobile phase B
 - name: processing_search
