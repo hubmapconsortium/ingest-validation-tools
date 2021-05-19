@@ -40,8 +40,7 @@ fields:
   description: The unit of measurement of width of a pixel.(nm)
   constraints:
     enum: ['mm', 'um', 'nm']
-- name: resolution_y_value
-  description: The height of a pixel. (Akoya pixel is 377nm square)
+# include: ../includes/fields/resolution_y_value.yaml
 - name: resolution_y_unit
   description: The unit of measurement of height of a pixel. (nm)
   constraints:
