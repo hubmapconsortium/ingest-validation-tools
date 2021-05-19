@@ -37,8 +37,7 @@ fields:
 - name: labeling
   description: Indicates whether samples were labeled prior to MS analysis (e.g., TMT)
 # include: ../includes/v0/doi/section_prep.yaml
-- name: lc_instrument_vendor
-  description: The manufacturer of the instrument used for LC
+# include: ../includes/fields/lc_instrument_vendor.yaml
 - name: lc_instrument_model
   description: The model number/name of the instrument used for LC
 - name: lc_column_vendor

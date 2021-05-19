@@ -1,0 +1,3 @@
+# lcms-v0.yaml; lcms-v1.yaml
+- name: lc_instrument_vendor
+  description: The manufacturer of the instrument used for LC
