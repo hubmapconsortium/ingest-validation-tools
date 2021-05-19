@@ -72,10 +72,7 @@ fields:
 - name: library_construction_protocols_io_doi
   description: A link to the protocol document containing the library construction method (including version) that was used, e.g. "Smart-Seq2", "Drop-Seq", "10X v3". DOI for protocols.io referring to the protocol for this assay.
 # include: ../includes/fields/library_layout.yaml
-- name: library_adapter_sequence
-  description: Adapter sequence to be used for adapter trimming.
-  constraints:
-    pattern: '[ATCG]+(\+[ATCG]+)?'
+# include: ../includes/fields/library_adapter_sequence.yaml
 - name: cell_barcode_read
   description: Which read file contains the cell barcode.
 - name: cell_barcode_offset

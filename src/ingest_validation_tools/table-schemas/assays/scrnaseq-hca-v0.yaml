@@ -157,10 +157,7 @@ fields:
   constraints:
     required: true
   description: Whether the library was generated for single-end or paired end sequencing
-- name: library_adapter_sequence
-  constraints:
-    required: false
-  description: Adapter sequence to be used for adapter trimming
+# include: ../includes/fields/library_adapter_sequence.yaml
 - name: library_id
   constraints:
     required: false

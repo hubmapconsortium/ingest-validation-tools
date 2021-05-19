@@ -1,0 +1,33 @@
+# wgs-v0.yaml; wgs-v1.yaml
+- name: library_adapter_sequence
+  description: The adapter sequence to be used for adapter trimming starting with the 5' end. (eg. 5-ATCCTGAGAA)
+  constraints:
+    pattern: '5-[GATCU]+'
+
+# bulkatacseq-v0.yaml; bulkatacseq-v1.yaml; scrnaseq-v0.yaml; slideseq-v0.yaml; slideseq-v1.yaml
+- name: library_adapter_sequence
+  description: Adapter sequence to be used for adapter trimming
+
+# scrnaseq-hca-v0.yaml
+- name: library_adapter_sequence
+  constraints:
+    required: false
+  description: Adapter sequence to be used for adapter trimming
+
+# scrnaseq-v1.yaml; scrnaseq-v2.yaml
+- name: library_adapter_sequence
+  description: Adapter sequence to be used for adapter trimming
+  constraints:
+    pattern: '[ATCG]+(\+[ATCG]+)?'
+
+# bulkrnaseq-v0.yaml; bulkrnaseq-v1.yaml
+- name: library_adapter_sequence
+  description: Adapter sequence to be used for adapter trimming.
+  constraints:
+   pattern: 5-[GATCU]+
+
+# scatacseq-v0.yaml; scatacseq-v1.yaml
+- name: library_adapter_sequence
+  description: Adapter sequence to be used for adapter trimming.
+  constraints:
+    pattern: '[ATCG]+(\+[ATCG]+)?'

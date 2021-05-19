@@ -24,8 +24,7 @@ fields:
     stored and processed for cell/nuclei isolation'
 - name: is_technical_replicate
   description: Is this a sequencing replicate?
-- name: library_adapter_sequence
-  description: Adapter sequence to be used for adapter trimming
+# include: ../includes/fields/library_adapter_sequence.yaml
 - name: library_average_fragment_size
   description: Average size in basepairs (bp) of sequencing library fragments estimated via gel
     electrophoresis or Bioanalyzer/tapestation.

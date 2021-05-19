@@ -52,10 +52,7 @@ fields:
     method (including version) that was used, e.g. "Smart-Seq2", "Drop-Seq", "10X
     v3".
 # include: ../includes/fields/library_layout.yaml
-- name: library_adapter_sequence
-  description: Adapter sequence to be used for adapter trimming.
-  constraints:
-   pattern: 5-[GATCU]+
+# include: ../includes/fields/library_adapter_sequence.yaml
 - name: library_pcr_cycles_for_sample_index
   description: Number of PCR cycles performed for library indexing
   type: integer
