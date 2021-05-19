@@ -65,13 +65,7 @@ fields:
       - C
 - name: lc_id_value
   description: LC column inner diameter (microns)
-- name: lc_id_unit
-  description: units of LC column inner diameter (typically microns)
-  constraints:
-    enum:
-      - um
-      - mm
-      - cm
+# include: ../includes/fields/lc_id_unit.yaml
 - name: lc_flow_rate_value
   description: Value of flow rate.
   constraints:
