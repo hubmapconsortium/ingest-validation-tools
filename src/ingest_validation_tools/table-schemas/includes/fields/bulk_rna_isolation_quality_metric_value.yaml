@@ -1,0 +1,6 @@
+- name: bulk_rna_isolation_quality_metric_value
+  description: RIN value
+  type: number
+  constraints:
+    minimum: 1
+    maximum: 10
