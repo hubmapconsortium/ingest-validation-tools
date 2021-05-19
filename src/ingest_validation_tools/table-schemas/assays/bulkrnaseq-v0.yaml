@@ -21,11 +21,7 @@ fields:
 - name: bulk_rna_isolation_protocols_io_doi
   description: 'Link to a protocols document answering the question: How was tissue
     stored and processed for RNA isolation RNA_isolation_protocols_io_doi'
-- name: bulk_rna_yield_value
-  description: 'RNA (ng) per Weight of Tissue (mg). Answer the question: How much
-    RNA in ng was isolated? How much tissue in mg was initially used for isolating
-    RNA? Calculate the yield by dividing total RNA isolated by amount of tissue used
-    to isolate RNA from (ng/mg).'
+# include: ../includes/fields/bulk_rna_yield_value.yaml
 - name: bulk_rna_yield_units_per_tissue_unit
   description: RNA amount per Tissue input amount. Valid values should be weight/weight
     (ng/mg).
