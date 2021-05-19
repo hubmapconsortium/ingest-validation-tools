@@ -89,8 +89,7 @@ fields:
   description: Composition of mobile phase A
 - name: lc_mobile_phase_b
   description: Composition of mobile phase B
-- name: processing_search
-  description: Software for analyzing and searching LC-MS/MS omics data
+# include: ../includes/fields/processing_search.yaml
 - name: processing_protocols_io_doi
   description: DOI for analysis protocols.io for this assay.
   constraints:
