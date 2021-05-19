@@ -1,0 +1,6 @@
+# wgs-v0.yaml; wgs-v1.yaml
+- name: dna_assay_input_unit
+  description: Units of DNA input into library preparation
+  constraints:
+    enum:
+      - ug
