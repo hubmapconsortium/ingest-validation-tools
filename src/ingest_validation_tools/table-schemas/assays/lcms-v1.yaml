@@ -56,8 +56,7 @@ fields:
       - um
       - mm
       - cm
-- name: lc_temp_value
-  description: LC temperature
+# include: ../includes/fields/lc_temp_value.yaml
 - name: lc_temp_unit
   description: units for LC temperature
   constraints:

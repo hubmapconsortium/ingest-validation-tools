@@ -1,0 +1,3 @@
+# lcms-v0.yaml; lcms-v1.yaml
+- name: lc_temp_value
+  description: LC temperature
