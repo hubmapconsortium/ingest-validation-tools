@@ -60,11 +60,7 @@ fields:
   description: Number of PCR cycles performed for library indexing
   type: integer
 # include: ../includes/fields/library_final_yield_value_unit.yaml
-- name: library_average_fragment_size
-  description: Average size in base pairs (bp) of sequencing library fragments estimated via gel electrophoresis
-    or Bioanalyzer/tapestation.
-  type: integer
-
+# include: ../includes/fields/library_average_fragment_size.yaml
 # include: ../includes/v0/sequencing.yaml
 
 # include: ../includes/v0/paths.yaml

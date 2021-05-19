@@ -1,0 +1,35 @@
+# wgs-v0.yaml; wgs-v1.yaml
+- name: library_average_fragment_size
+  description: Average size of sequencing library fragments estimated via gel electrophoresis
+    or bioanalyzer/tapestation.
+  type: number
+
+
+# scrnaseq-v0.yaml; scrnaseq-v1.yaml; scrnaseq-v2.yaml; slideseq-v0.yaml; slideseq-v1.yaml
+- name: library_average_fragment_size
+  description: Average size of sequencing library fragments estimated via gel electrophoresis or bioanalyzer/tapestation.
+
+
+# bulkatacseq-v0.yaml; bulkatacseq-v1.yaml
+- name: library_average_fragment_size
+  description: Average size in basepairs (bp) of sequencing library fragments estimated via gel
+    electrophoresis or Bioanalyzer/tapestation.
+
+# scrnaseq-hca-v0.yaml
+- name: library_average_fragment_size
+  constraints:
+    required: false
+  description: Average size of sequencing library fragments estimated via gel electrophoresis
+    or bioanalyzer/tapestation.
+
+# bulkrnaseq-v0.yaml; bulkrnaseq-v1.yaml
+- name: library_average_fragment_size
+  description: Average size in base pairs (bp) of sequencing library fragments estimated via gel electrophoresis
+    or Bioanalyzer/tapestation.
+  type: integer
+
+
+# scatacseq-v0.yaml; scatacseq-v1.yaml
+- name: library_average_fragment_size
+  description: Average size of sequencing library fragments estimated via gel electrophoresis or bioanalyzer/tapestation. Numeric value in bp.
+  type: number

@@ -100,9 +100,7 @@ fields:
   constraints:
     enum:
       - ng
-- name: library_average_fragment_size
-  description: Average size of sequencing library fragments estimated via gel electrophoresis or bioanalyzer/tapestation. Numeric value in bp.
-  type: number
+# include: ../includes/fields/library_average_fragment_size.yaml
 - name: sequencing_reagent_kit
   description: Reagent kit used for sequencing. NovaSeq6000 for example
 # include: ../includes/fields/sequencing_read_format.yaml

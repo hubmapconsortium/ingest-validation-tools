@@ -202,11 +202,7 @@ fields:
     - ng
     required: false
   description: Units of final library yield
-- name: library_average_fragment_size
-  constraints:
-    required: false
-  description: Average size of sequencing library fragments estimated via gel electrophoresis
-    or bioanalyzer/tapestation.
+# include: ../includes/fields/library_average_fragment_size.yaml
 # include: ../includes/fields/sequencing_reagent_kit.yaml
   constraints:
     required: false

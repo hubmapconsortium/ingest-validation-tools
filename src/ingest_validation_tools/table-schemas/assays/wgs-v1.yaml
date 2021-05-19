@@ -50,11 +50,7 @@ fields:
   constraints:
     enum:
       - ng
-- name: library_average_fragment_size
-  description: Average size of sequencing library fragments estimated via gel electrophoresis
-    or bioanalyzer/tapestation.
-  type: number
-
+# include: ../includes/fields/library_average_fragment_size.yaml
 # include: ../includes/v0/sequencing.yaml
 
 # include: ../includes/v0/paths.yaml

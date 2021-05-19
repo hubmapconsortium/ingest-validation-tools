@@ -26,9 +26,7 @@ fields:
   description: Is this a sequencing replicate?
 - name: library_adapter_sequence
   description: Adapter sequence to be used for adapter trimming
-- name: library_average_fragment_size
-  description: Average size in basepairs (bp) of sequencing library fragments estimated via gel
-    electrophoresis or Bioanalyzer/tapestation.
+# include: ../includes/fields/library_average_fragment_size.yaml
 # include: ../includes/fields/library_concentration_value_unit.yaml
 - name: library_construction_protocols_io_doi
   description: A link to the protocol document containing the library construction
