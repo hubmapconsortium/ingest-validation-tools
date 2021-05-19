@@ -39,8 +39,7 @@ fields:
 # include: ../includes/v0/doi/section_prep.yaml
 - name: lc_instrument_vendor
   description: The manufacturer of the instrument used for LC
-- name: lc_instrument_model
-  description: The model number/name of the instrument used for LC
+# include: ../includes/fields/lc_instrument_model.yaml
 - name: lc_column_vendor
   description: 'OPTIONAL: The manufacturer of the LC Column unless self-packed, pulled tip capilary is used'
 - name: lc_column_model

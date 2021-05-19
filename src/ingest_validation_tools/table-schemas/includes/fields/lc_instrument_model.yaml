@@ -1,0 +1,3 @@
+# lcms-v0.yaml; lcms-v1.yaml
+- name: lc_instrument_model
+  description: The model number/name of the instrument used for LC
