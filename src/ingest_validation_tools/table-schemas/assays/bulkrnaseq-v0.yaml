@@ -22,13 +22,8 @@ fields:
 # include: ../includes/fields/bulk_rna_yield_value.yaml
 # include: ../includes/fields/bulk_rna_yield_units_per_tissue_unit.yaml
 # include: ../includes/fields/bulk_rna_isolation_quality_metric_value.yaml
-- name: rnaseq_assay_input_value
-  description: RNA input amount value to the assay
-- name: rnaseq_assay_input_unit
-  description: Units of RNA input amount to the assay
-  constraints:
-    enum:
-      - ug
+# include: ../includes/fields/rnaseq_assay_input_value.yaml
+# include: ../includes/fields/rnaseq_assay_input_unit.yaml
 - name: rnaseq_assay_method
   description: rnaseq assay kit used.
 - name: library_construction_protocols_io_doi

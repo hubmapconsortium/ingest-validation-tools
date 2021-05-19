@@ -1,0 +1,2 @@
+- name: rnaseq_assay_input_value
+  description: RNA input amount value to the assay

@@ -1,0 +1,7 @@
+- name: signal_type
+  description: Type of signal measured per channel (usually dual counts)
+  constraints:
+    enum:
+      - dual count
+      - pulse count
+      - intensity value

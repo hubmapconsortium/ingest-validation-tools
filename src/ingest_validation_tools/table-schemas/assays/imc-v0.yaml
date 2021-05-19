@@ -36,24 +36,9 @@ fields:
 # include: ../includes/fields/dual_count_start.yaml
 # include: ../includes/fields/end_datetime.yaml
 # include: ../includes/v0/imc_roi_dimensions.yaml
-- name: segment_data_format
-  description: This refers to the data type, which is a "float" for the IMC counts.
-  constraints:
-    enum:
-      - float
-      - integer
-      - string
-- name: signal_type
-  description: Type of signal measured per channel (usually dual counts)
-  constraints:
-    enum:
-      - dual count
-      - pulse count
-      - intensity value
-- name: start_datetime
-  description: Time stamp indicating start of ablation for ROI
-  type: datetime
-  format: "%Y-%m-%d %H:%M"
+# include: ../includes/fields/segment_data_format.yaml
+# include: ../includes/fields/signal_type.yaml
+# include: ../includes/fields/start_datetime.yaml
 - name: data_precision_bytes
   description: Numerical data precision in bytes
   type: number

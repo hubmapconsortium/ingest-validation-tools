@@ -35,19 +35,7 @@ fields:
 # include: ../includes/v0/ablation.yaml
 # include: ../includes/v0/imc_roi_id.yaml
 # include: ../includes/v0/imc_roi_dimensions.yaml
-- name: segment_data_format
-  description: This refers to the data type, which is a "float" for the IMC counts.
-  constraints:
-    enum:
-      - float
-      - integer
-      - string
-- name: signal_type
-  description: Type of signal measured per channel (usually dual counts)
-  constraints:
-    enum:
-      - dual count
-      - pulse count
-      - intensity value
+# include: ../includes/fields/segment_data_format.yaml
+# include: ../includes/fields/signal_type.yaml
 # include: ../includes/fields/antibodies_path.yaml
 # include: ../includes/v0/paths.yaml

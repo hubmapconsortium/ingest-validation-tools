@@ -1,0 +1,7 @@
+- name: segment_data_format
+  description: This refers to the data type, which is a "float" for the IMC counts.
+  constraints:
+    enum:
+      - float
+      - integer
+      - string
