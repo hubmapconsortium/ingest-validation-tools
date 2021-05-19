@@ -1,0 +1,3 @@
+# celldive-v0.yaml; celldive-v1.yaml
+- name: number_of_imaging_rounds
+  description: the total number of acquisitions performed on microscope to collect autofluorescence/background or stained signal.
