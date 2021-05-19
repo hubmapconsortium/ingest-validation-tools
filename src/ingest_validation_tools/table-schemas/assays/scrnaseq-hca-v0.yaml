@@ -190,18 +190,8 @@ fields:
   constraints:
     required: false
   description: Number of PCR cycles performed for library indexing
-- name: library_final_yield_value
-  constraints:
-    required: false
-  description: Total number of ng of library after final pcr amplification step. This
-    is the concentration (ng/ul) * volume (ul)
-  type: number
-- name: library_final_yield_unit
-  constraints:
-    enum:
-    - ng
-    required: false
-  description: Units of final library yield
+# include: ../includes/fields/library_final_yield.yaml
+# include: ../includes/fields/library_final_yield.yaml
 - name: library_average_fragment_size
   constraints:
     required: false
