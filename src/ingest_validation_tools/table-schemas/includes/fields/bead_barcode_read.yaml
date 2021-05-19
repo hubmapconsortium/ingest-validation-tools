@@ -1,0 +1,3 @@
+# slideseq-v0.yaml; slideseq-v1.yaml
+- name: bead_barcode_read
+  description: Which read file contains the bead barcode
