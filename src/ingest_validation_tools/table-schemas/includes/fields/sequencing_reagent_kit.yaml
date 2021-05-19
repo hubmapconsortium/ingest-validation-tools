@@ -1,2 +1,3 @@
+# scatacseq-v1.yaml
 - name: sequencing_reagent_kit
-  description: Reagent kit used for sequencing
+  description: Reagent kit used for sequencing. NovaSeq6000 for example
