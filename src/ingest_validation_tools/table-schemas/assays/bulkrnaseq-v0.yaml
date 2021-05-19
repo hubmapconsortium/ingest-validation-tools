@@ -32,12 +32,7 @@ fields:
   constraints:
     enum:
       - ng/mg
-- name: bulk_rna_isolation_quality_metric_value
-  description: RIN value
-  type: number
-  constraints:
-    minimum: 1
-    maximum: 10
+# include: ../includes/fields/bulk_rna_isolation_quality_metric_value.yaml
 - name: rnaseq_assay_input_value
   description: RNA input amount value to the assay
 - name: rnaseq_assay_input_unit
