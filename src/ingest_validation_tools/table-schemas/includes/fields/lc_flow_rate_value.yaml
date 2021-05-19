@@ -1,0 +1,5 @@
+# lcms-v0.yaml; lcms-v1.yaml
+- name: lc_flow_rate_value
+  description: Value of flow rate.
+  constraints:
+    required: False

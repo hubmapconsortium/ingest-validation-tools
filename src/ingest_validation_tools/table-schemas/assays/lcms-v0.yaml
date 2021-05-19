@@ -72,10 +72,7 @@ fields:
       - um
       - mm
       - cm
-- name: lc_flow_rate_value
-  description: Value of flow rate.
-  constraints:
-    required: False
+# include: ../includes/fields/lc_flow_rate_value.yaml
 - name: lc_flow_rate_unit
   description: Units of flow rate.
   constraints:
