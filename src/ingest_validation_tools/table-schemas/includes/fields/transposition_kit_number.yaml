@@ -1,0 +1,5 @@
+# bulkatacseq-v0.yaml; bulkatacseq-v1.yaml; scatacseq-v0.yaml; scatacseq-v1.yaml
+- name: transposition_kit_number
+  description: If Tn5 came from a kit, provide the catalog number.
+  constraints:
+    required: False

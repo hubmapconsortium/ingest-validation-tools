@@ -60,10 +60,7 @@ fields:
 # include: ../includes/fields/sequencing_read_format.yaml
 # include: ../includes/fields/sequencing_read_percent_q30.yaml
 # include: ../includes/fields/sequencing_reagent_kit.yaml
-- name: transposition_kit_number
-  description: If Tn5 came from a kit, provide the catalog number.
-  constraints:
-    required: False
+# include: ../includes/fields/transposition_kit_number.yaml
 - name: transposition_method
   description: Modality of capturing accessible chromatin molecules. The kit used, for example.
 - name: transposition_transposase_source
