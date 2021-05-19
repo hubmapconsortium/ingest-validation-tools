@@ -38,8 +38,7 @@ fields:
   constraints:
     minimum: 1
     maximum: 10
-- name: rnaseq_assay_input_value
-  description: RNA input amount value to the assay
+# include: ../includes/fields/rnaseq_assay_input_value.yaml
 - name: rnaseq_assay_input_unit
   description: Units of RNA input amount to the assay
   constraints:
