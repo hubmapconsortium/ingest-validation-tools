@@ -54,11 +54,7 @@ fields:
   description: The unit of incremental distance between image slices.(um)
   constraints:
     enum: ['mm', 'um', 'nm']
-- name: preparation_instrument_vendor
-  heading: Level 3
-  description: The manufacturer of the instrument used to prepare the sample for the assay.
-  constraints:
-    enum: ['CODEX']
+# include: ../includes/fields/preparation_instrument_vendor.yaml
 - name: preparation_instrument_model
   description: The model number/name of the instrument used to prepare the sample for the assay
   constraints:
