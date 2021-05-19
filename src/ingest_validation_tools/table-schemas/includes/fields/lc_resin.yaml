@@ -1,0 +1,3 @@
+# lcms-v0.yaml; lcms-v1.yaml
+- name: lc_resin
+  description: Details of the resin used for lc, including vendor, particle size, pore size

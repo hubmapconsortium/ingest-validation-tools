@@ -45,8 +45,7 @@ fields:
   description: 'OPTIONAL: The manufacturer of the LC Column unless self-packed, pulled tip capilary is used'
 - name: lc_column_model
   description: The model number/name of the LC Column - IF custom self-packed, pulled tip calillary is used enter "Pulled tip capilary"
-- name: lc_resin
-  description: Details of the resin used for lc, including vendor, particle size, pore size
+# include: ../includes/fields/lc_resin.yaml
 - name: lc_length_value
   description: LC column length
 - name: lc_length_unit
