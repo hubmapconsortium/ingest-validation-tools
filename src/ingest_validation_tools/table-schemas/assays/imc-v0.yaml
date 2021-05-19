@@ -48,13 +48,7 @@ fields:
       - float
       - integer
       - string
-- name: signal_type
-  description: Type of signal measured per channel (usually dual counts)
-  constraints:
-    enum:
-      - dual count
-      - pulse count
-      - intensity value
+# include: ../includes/fields/signal_type.yaml
 - name: start_datetime
   description: Time stamp indicating start of ablation for ROI
   type: datetime

@@ -1,0 +1,8 @@
+# imc-v0.yaml; imc-v1.yaml; imc3d-v0.yaml; imc3d-v1.yaml
+- name: signal_type
+  description: Type of signal measured per channel (usually dual counts)
+  constraints:
+    enum:
+      - dual count
+      - pulse count
+      - intensity value

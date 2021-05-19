@@ -44,13 +44,7 @@ fields:
       - float
       - integer
       - string
-- name: signal_type
-  description: Type of signal measured per channel (usually dual counts)
-  constraints:
-    enum:
-      - dual count
-      - pulse count
-      - intensity value
+# include: ../includes/fields/signal_type.yaml
 - name: antibodies_path
   description: Relative path to file with antibody information for this dataset.
 
