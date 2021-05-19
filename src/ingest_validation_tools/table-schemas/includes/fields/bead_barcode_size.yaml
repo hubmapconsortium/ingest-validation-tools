@@ -1,0 +1,3 @@
+# slideseq-v0.yaml; slideseq-v1.yaml
+- name: bead_barcode_size
+  description: Length of the bead barcode in base pairs

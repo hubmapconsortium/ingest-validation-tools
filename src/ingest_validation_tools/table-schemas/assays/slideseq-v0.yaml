@@ -33,8 +33,7 @@ fields:
   description: Which read file contains the bead barcode
 - name: bead_barcode_offset
   description: Position(s) in the read at which the bead barcode starts
-- name: bead_barcode_size
-  description: Length of the bead barcode in base pairs
+# include: ../includes/fields/bead_barcode_size.yaml
 - name: library_pcr_cycles
   description: Number of PCR cycles to amplify cDNA
 - name: library_pcr_cycles_for_sample_index
