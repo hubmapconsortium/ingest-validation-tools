@@ -83,8 +83,7 @@ fields:
     enum:
       - nL/min
       - mL/min
-- name: lc_gradient
-  description: LC gradient
+# include: ../includes/fields/lc_gradient.yaml
 - name: lc_mobile_phase_a
   description: Composition of mobile phase A
 - name: lc_mobile_phase_b
