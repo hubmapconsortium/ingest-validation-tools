@@ -1,0 +1,31 @@
+# wgs-v0.yaml; wgs-v1.yaml
+- name: library_construction_protocols_io_doi
+  description: A link to the protocol document containing the library construction
+    method (including version) that was used.
+
+# scrnaseq-v0.yaml; scrnaseq-v1.yaml; scrnaseq-v2.yaml; slideseq-v0.yaml; slideseq-v1.yaml
+- name: library_construction_protocols_io_doi
+  description: A link to the protocol document containing the library construction method (including version) that was used, e.g. "Smart-Seq2", "Drop-Seq", "10X v3".
+
+# bulkatacseq-v0.yaml; bulkatacseq-v1.yaml; bulkrnaseq-v0.yaml; bulkrnaseq-v1.yaml
+- name: library_construction_protocols_io_doi
+  description: A link to the protocol document containing the library construction
+    method (including version) that was used, e.g. "Smart-Seq2", "Drop-Seq", "10X
+    v3".
+
+# scrnaseq-hca-v0.yaml
+- name: library_construction_protocols_io_doi
+  constraints:
+    pattern: 10\.17504/.*
+    required: true
+  custom_constraints:
+    url:
+      prefix: https://dx.doi.org/
+  description: A link to the protocol document containing the library construction
+    method (including version) that was used, e.g. "Smart-Seq2", "Drop-Seq", "10X
+    v3".
+  type: string
+
+# scatacseq-v0.yaml; scatacseq-v1.yaml
+- name: library_construction_protocols_io_doi
+  description: A link to the protocol document containing the library construction method (including version) that was used, e.g. "Smart-Seq2", "Drop-Seq", "10X v3". DOI for protocols.io referring to the protocol for this assay.

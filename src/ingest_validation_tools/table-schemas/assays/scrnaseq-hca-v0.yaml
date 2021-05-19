@@ -142,17 +142,7 @@ fields:
   constraints:
     required: true
   description: The kit used for the RNA sequencing assay
-- name: library_construction_protocols_io_doi
-  constraints:
-    pattern: 10\.17504/.*
-    required: true
-  custom_constraints:
-    url:
-      prefix: https://dx.doi.org/
-  description: A link to the protocol document containing the library construction
-    method (including version) that was used, e.g. "Smart-Seq2", "Drop-Seq", "10X
-    v3".
-  type: string
+# include: ../includes/fields/library_construction_protocols_io_doi.yaml
 - name: library_layout
   constraints:
     required: true
