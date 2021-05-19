@@ -30,12 +30,10 @@ fields:
   description: The low value of the scanned mass range for MS1. (unitless)
 - name: mz_range_high_value
   description: The high value of the scanned mass range for MS1. (unitless)
-- name: data_collection_mode
-  description: Mode of data collection in tandem MS assays. Either DDA (Data-dependent acquisition) or DIA (Data-indemendent acquisition.
+# include: ../includes/fields/data_collection_mode.yaml
 - name: ms_scan_mode
   description: Indicates whether experiment is MS, MS/MS, or other (possibly MS3 for TMT)
-- name: labeling
-  description: Indicates whether samples were labeled prior to MS analysis (e.g., TMT)
+# include: ../includes/fields/labeling.yaml
 # include: ../includes/v0/doi/section_prep.yaml
 - name: lc_instrument_vendor
   description: The manufacturer of the instrument used for LC

@@ -33,9 +33,7 @@ fields:
   type: number
 # include: ../includes/v0/ablation.yaml
 # include: ../includes/v0/imc_roi_id.yaml
-- name: dual_count_start
-  description: Threshold for dual counting.
-  type: number
+# include: ../includes/fields/dual_count_start.yaml
 # include: ../includes/v0/imc_roi_dimensions.yaml
 - name: segment_data_format
   description: This refers to the data type, which is a "float" for the IMC counts.
