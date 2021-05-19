@@ -1,0 +1,4 @@
+# imc3d-v0.yaml; imc3d-v1.yaml
+- name: number_of_sections
+  description: Number of sections
+  type: number
