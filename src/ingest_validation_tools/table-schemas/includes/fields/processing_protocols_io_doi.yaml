@@ -1,0 +1,10 @@
+# celldive-v0.yaml; celldive-v1.yaml; lcms-v0.yaml; lcms-v1.yaml
+- name: processing_protocols_io_doi
+  description: DOI for analysis protocols.io for this assay.
+  constraints:
+    required: False
+
+# nano-v0.yaml; nano-v1.yaml
+- name: processing_protocols_io_doi
+  # CHRIS: This is the text from one of the MALDI fields. Edit if needed.
+  description: DOI for protocols.io referring to the protocol for preparing tissue sections for the assay.

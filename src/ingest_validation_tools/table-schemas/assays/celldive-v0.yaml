@@ -30,10 +30,7 @@ fields:
 - name: number_of_imaging_rounds
   description: the total number of acquisitions performed on microscope to collect autofluorescence/background or stained signal.
 # include: ../includes/v0/x_y.yaml
-- name: processing_protocols_io_doi
-  description: DOI for analysis protocols.io for this assay.
-  constraints:
-    required: False
+# include: ../includes/fields/processing_protocols_io_doi.yaml
 # include: ../includes/v0/doi/overall.yaml
 - name: antibodies_path
   description: Relative path to file with antibody information for this dataset.
