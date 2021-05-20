@@ -136,16 +136,16 @@ class Upload:
                 errors[f'{path} (as {schema_name})'] = single_tsv_errors
         return errors
 
-    def _get_data_dir_errors(self, assay_type, data_path):
+    def _get_data_dir_errors(self, data_path, assay_type):
         return get_data_dir_errors(
             assay_type, data_path, dataset_ignore_globs=self.dataset_ignore_globs)
 
-    def _get_contributors_errors(self, contributors_path):
+    def _get_contributors_errors(self, contributors_path, _):
         return get_tsv_errors(
             schema_name='contributors', tsv_path=contributors_path,
             offline=self.offline, encoding=self.encoding)
 
-    def _get_antibodies_errors(self, antibodies_path):
+    def _get_antibodies_errors(self, antibodies_path, _):
         return get_tsv_errors(
             schema_name='antibodies', tsv_path=antibodies_path,
             offline=self.offline, encoding=self.encoding)
@@ -174,20 +174,20 @@ class Upload:
 
             if row.get('data_path'):
                 data_path = self.directory_path / row['data_path']
-                data_dir_errors = self._get_data_dir_errors(assay_type, data_path)
+                data_dir_errors = self._get_data_dir_errors(data_path, assay_type)
                 if data_dir_errors:
                     errors[f'{row_number}, referencing {data_path}'] = data_dir_errors
 
             if row.get('contributors_path'):
                 contributors_path = self.directory_path / row['contributors_path']
-                contributors_errors = self._get_contributors_errors(contributors_path)
+                contributors_errors = self._get_contributors_errors(contributors_path, assay_type)
                 if contributors_errors:
                     errors[f'{row_number}, contributors {contributors_path}'] = \
                         contributors_errors
 
             if row.get('antibodies_path'):
                 antibodies_path = self.directory_path / row['antibodies_path']
-                antibodies_errors = self._get_antibodies_errors(antibodies_path)
+                antibodies_errors = self._get_antibodies_errors(antibodies_path, assay_type)
                 if antibodies_errors:
                     errors[f'{row_number}, antibodies {antibodies_path}'] = \
                         antibodies_errors
