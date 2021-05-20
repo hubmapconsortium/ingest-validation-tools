@@ -166,29 +166,14 @@ class Upload:
         errors = {}
         for i, row in enumerate(rows):
             row_number = f'row {i+2}'
-
-            if row.get('data_path'):
-                data_path = self.directory_path / row['data_path']
-                data_dir_errors = self._get_ref_errors(
-                    'data', data_path, assay_type)
-                if data_dir_errors:
-                    errors[f'{row_number}, data {data_path}'] = data_dir_errors
-
-            if row.get('contributors_path'):
-                contributors_path = self.directory_path / row['contributors_path']
-                contributors_errors = self._get_ref_errors(
-                    'contributors', contributors_path, assay_type)
-                if contributors_errors:
-                    errors[f'{row_number}, contributors {contributors_path}'] = \
-                        contributors_errors
-
-            if row.get('antibodies_path'):
-                antibodies_path = self.directory_path / row['antibodies_path']
-                antibodies_errors = self._get_ref_errors(
-                    'antibodies', antibodies_path, assay_type)
-                if antibodies_errors:
-                    errors[f'{row_number}, antibodies {antibodies_path}'] = \
-                        antibodies_errors
+            for ref in ['data', 'contributors', 'antibodies']:
+                field = f'{ref}_path'
+                if not row.get(field):
+                    continue
+                path = self.directory_path / row[field]
+                ref_errors = self._get_ref_errors(ref, path, assay_type)
+                if ref_errors:
+                    errors[f'{row_number}, {ref} {path}'] = ref_errors
 
         return errors
 
