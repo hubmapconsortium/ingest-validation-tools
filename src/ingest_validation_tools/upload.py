@@ -172,20 +172,20 @@ class Upload:
         for i, row in enumerate(rows):
             row_number = f'row {i+2}'
 
-            if 'data_path' in row and row['data_path']:
+            if row.get('data_path'):
                 data_path = self.directory_path / row['data_path']
                 data_dir_errors = self._get_data_dir_errors(assay_type, data_path)
                 if data_dir_errors:
                     errors[f'{row_number}, referencing {data_path}'] = data_dir_errors
 
-            if 'contributors_path' in row and row['contributors_path']:
+            if row.get('contributors_path'):
                 contributors_path = self.directory_path / row['contributors_path']
                 contributors_errors = self._get_contributors_errors(contributors_path)
                 if contributors_errors:
                     errors[f'{row_number}, contributors {contributors_path}'] = \
                         contributors_errors
 
-            if 'antibodies_path' in row and row['antibodies_path']:
+            if row.get('antibodies_path'):
                 antibodies_path = self.directory_path / row['antibodies_path']
                 antibodies_errors = self._get_antibodies_errors(antibodies_path)
                 if antibodies_errors:
