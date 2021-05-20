@@ -98,7 +98,7 @@ class Upload:
 
     ###################################
     #
-    # Three top-level private methods:
+    # Top-level private methods:
     #
     ###################################
 
@@ -120,7 +120,7 @@ class Upload:
             schema_name = schema_version.schema_name
 
             single_tsv_internal_errors = \
-                self.__get_assay_internal_errors(schema_name, path)
+                self.__get_assay_tsv_errors(schema_name, path)
             single_tsv_external_errors = \
                 self.__get_assay_reference_errors(schema_name, path)
 
@@ -176,7 +176,7 @@ class Upload:
                 schema_name=ref_type, tsv_path=path,
                 offline=self.offline, encoding=self.encoding)
 
-    def __get_assay_internal_errors(self, assay_type, path):
+    def __get_assay_tsv_errors(self, assay_type, path):
         return get_tsv_errors(
             schema_name=assay_type, tsv_path=path,
             offline=self.offline, encoding=self.encoding,
