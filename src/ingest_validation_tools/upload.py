@@ -172,7 +172,7 @@ class Upload:
                 data_dir_errors = self._get_ref_errors(
                     'data', data_path, assay_type)
                 if data_dir_errors:
-                    errors[f'{row_number}, referencing {data_path}'] = data_dir_errors
+                    errors[f'{row_number}, data {data_path}'] = data_dir_errors
 
             if row.get('contributors_path'):
                 contributors_path = self.directory_path / row['contributors_path']

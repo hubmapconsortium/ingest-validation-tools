@@ -5,7 +5,7 @@ Metadata TSV Errors:
     - On row 2, column "donor_id", value "-INVALID-" fails because constraint "pattern"
       is "[A-Z]+[0-9]+"
     External:
-      row 2, referencing examples/dataset-examples/bad-mixed/upload/bad-shared-dataset:
+      row 2, data examples/dataset-examples/bad-mixed/upload/bad-shared-dataset:
         Not allowed:
         - not-good-for-either-type.txt
         Required but missing:
@@ -31,7 +31,7 @@ Metadata TSV Errors:
     - On row 2, column "library_construction_protocols_io_doi", value "" fails because
       constraint "required" is "True"
     External:
-      row 2, referencing examples/dataset-examples/bad-mixed/upload/bad-shared-dataset:
+      row 2, data examples/dataset-examples/bad-mixed/upload/bad-shared-dataset:
         Not allowed:
         - not-good-for-either-type.txt
         Required but missing:
