@@ -136,18 +136,18 @@ class Upload:
                 errors[f'{path} (as {schema_name})'] = single_tsv_errors
         return errors
 
-    def _get_data_dir_errors(self, data_path, assay_type):
+    def _get_data_dir_errors(self, path, assay_type):
         return get_data_dir_errors(
-            assay_type, data_path, dataset_ignore_globs=self.dataset_ignore_globs)
+            assay_type, path, dataset_ignore_globs=self.dataset_ignore_globs)
 
-    def _get_contributors_errors(self, contributors_path, _):
+    def _get_contributors_errors(self, path, _):
         return get_tsv_errors(
-            schema_name='contributors', tsv_path=contributors_path,
+            schema_name='contributors', tsv_path=path,
             offline=self.offline, encoding=self.encoding)
 
-    def _get_antibodies_errors(self, antibodies_path, _):
+    def _get_antibodies_errors(self, path, _):
         return get_tsv_errors(
-            schema_name='antibodies', tsv_path=antibodies_path,
+            schema_name='antibodies', tsv_path=path,
             offline=self.offline, encoding=self.encoding)
 
     def _get_assay_internal_errors(self, assay_type, path):
