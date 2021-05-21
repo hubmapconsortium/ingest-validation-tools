@@ -10,11 +10,10 @@ fields:
     name: assay_type
     constraints:
       enum:
-        - SNARE-seq2
         - scATACseq
         - sciATACseq
         - snATACseq
-        - SNARE2-ATACseq
+        - SNARE-ATACseq2
   -
     name: analyte_class
     constraints:
