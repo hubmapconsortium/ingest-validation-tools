@@ -224,11 +224,18 @@ def _validate_level_1_enum(field):
     ...
     KeyError: 'constraints'
 
-    TODO: This should error.
-    Filed https://github.com/hubmapconsortium/ingest-validation-tools/issues/724
-
     >>> field['constraints'] = {}
     >>> _validate_level_1_enum(field)
+    Traceback (most recent call last):
+    ...
+    TypeError: 'NoneType' object is not iterable
+
+    >>> field['constraints']['required'] = False
+    >>> _validate_level_1_enum(field)
+
+    (No error if not required!)
+
+    >>> del field['constraints']['required']
 
     >>> field['constraints']['enum'] = ['fake']
     >>> _validate_level_1_enum(field)
@@ -293,7 +300,12 @@ def _validate_level_1_enum(field):
     }
     name = field['name']
     if name in enums:
-        actual = set(field['constraints']['enum']) if 'enum' in field['constraints'] else set()
+        optional = not field['constraints'].get('required', True)  # Default: required = True
+        actual = set(field['constraints'].get(
+            'enum',
+            [] if optional else None
+            # Only optional fields are allowed to skip the enum.
+        ))
         allowed = set(enums[name])
         assert actual <= allowed, f'Unexpected enums for {name}: {actual - allowed}\n' \
             f'Allowed: {sorted(allowed)}'
