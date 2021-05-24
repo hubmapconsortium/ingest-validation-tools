@@ -223,7 +223,7 @@ def _make_constraints_table(field):
             table_md_rows.append(f'| {key_md} | {value_md} |')
     if 'custom_constraints' in field:
         for key, value in field['custom_constraints'].items():
-            if key == 'sequence_limit':
+            if key in ['sequence_limit', 'forbid_na']:
                 # Applied to every field,
                 # but we don't want to clutter the docs:
                 continue

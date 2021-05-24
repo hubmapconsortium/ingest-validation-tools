@@ -1,6 +1,7 @@
 # Changelog
 
 ## v0.0.12 - in progress
+- Disallow N/A values.
 - Another optional field in HCA scrnaseq.
 - Cleanup whitespace in yaml.
 - Tools to resolve duplicated field definitions.
