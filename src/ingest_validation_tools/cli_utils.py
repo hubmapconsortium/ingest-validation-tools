@@ -23,4 +23,3 @@ exit_codes = namedtuple(
     ],
     defaults=[0, 1, 2, 3]
 )()
-
