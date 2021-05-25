@@ -2,6 +2,7 @@
 
 ## v0.0.12 - in progress
 - Better section headers.
+- Tighter validation of shared fields in assay schemas.
 - Another optional field in HCA scrnaseq.
 - Cleanup whitespace in yaml.
 - Tools to resolve duplicated field definitions.
