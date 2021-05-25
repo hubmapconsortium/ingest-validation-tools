@@ -54,6 +54,12 @@ cell_barcode_size: Length of the cell barcode in base pairs
 channel_id: Structure of channel_id depends on assay type.
 cold_ischemia_time_unit: Time unit
 cold_ischemia_time_value: Time interval on ice to the start of preservation protocol.
+column_length_unit: Unit for GC column length (typically cm)
+column_length_value: GC column length
+column_model: The model of the GC column used
+column_temp_unit: Units for GC column temperature
+column_temp_value: GC column temperature
+column_vendor: The manufacturer of the GC column
 concentration_unit: The concentration units of the antibody preparation.
 concentration_value: The concentration value of the antibody preparation.
 conjugated_cat_number: An antibody may be conjugated to a fluorescent tag or a metal
@@ -82,6 +88,7 @@ expected_cell_count: How many cells are expected? This may be used in downstream
 first_name: First name
 gdna_fragmentation_quality_assurance: Is the gDNA integrity good enough for WGS? This
   is usually checked through running a gel.
+guard_column: Specifies if guard column was used
 health_status: "Patient's baseline physical condition prior to immediate event leading\
   \ to organ/tissue acquisition. For example, if a relatively healthy patient suffers\
   \ trauma, and as a result of reparative surgery, a tissue sample is collected, the\
@@ -91,6 +98,14 @@ health_status: "Patient's baseline physical condition prior to immediate event l
   \ \u201Crelatively healthy.\u201D"
 height_unit: The vertical measurement or distance from the base to the top of a subject
   or participant.
+internal_standard: Specifies if internal standard was utilized and designates what
+  standard was used. Leave blank if not applicable.
+ion_mobility: 'Specifies whether or not ion mobility spectrometry was performed and
+  which technology was used. Technologies for measuring ion mobility: Traveling Wave
+  Ion Mobility Spectrometry (TWIMS), Trapped Ion Mobility Spectrometry (TIMS), High
+  Field Asymmetric waveform ion Mobility Spectrometry (FAIMS), Drift Tube Ion Mobility
+  Spectrometry (DTIMS, Structures for Lossless Ion Manipulations (SLIM).'
+ion_source: Specifies the ion source used
 is_contact: Is this individual a contact for DOI purposes?
 is_targeted: Specifies whether or not a specific molecule(s) is/are targeted for detection/measurement
   by the assay. The CODEX analyte is protein.
@@ -151,6 +166,8 @@ library_pcr_cycles: Number of PCR cycles to amplify cDNA
 library_pcr_cycles_for_sample_index: Number of PCR cycles performed for library indexing
 library_preparation_kit: Reagent kit used for library preparation
 lot_number: 'The lot# is specific to the vendor. (eg: Abcam lot# GR3238979-1)'
+mass_resolving_power: "The MS1 resolving power defined as m/\u2206m where \u2206m\
+  \ is the FWHM for a given peak with a specified m/z (m). (unitless)"
 max_x_width_unit: Units of image width of the ROI acquisition
 max_x_width_value: Image width value of the ROI acquisition
 max_y_height_unit: Units of image height of the ROI acquisition
@@ -166,6 +183,7 @@ ms_source: The ion source type used for surface sampling (MALDI, MALDI-2, DESI, 
   SIMS) or LC-MS/MS data acquisition (nESI)
 mz_range_high_value: A number representing the mass:charge ratio
 mz_range_low_value: A number representing the mass:charge ratio
+mz_resolving_power: The peak (m/z) used to calculate the MS1 resolving power.
 name: Name for display
 number_of_antibodies: Number of antibodies
 number_of_barcode_probes: Number of barcode probes targeting mRNAs (eg. 24,000 barcode
@@ -262,6 +280,18 @@ sex: 'Biological sex at birth: male or female or other.'
 signal_type: Type of signal measured per channel (usually dual counts)
 source_project: External source (outside of HuBMAP) of the project, eg. HCA (The Human
   Cell Atlas Consortium).
+spatial_sampling_type: Specifies whether or not the analysis was performed in a spatially
+  targeted manner. Spatial profiling experiments target specific tissue foci but do
+  not necessarily generate images. Spatial imaging expriments collect data from a
+  regular array (pixels) that can be visualized as heat maps of ion intensity at each
+  location (molecular images). Leave blank if data are derived from bulk analysis.
+spatial_target: Specifies the cell-type or functional tissue unit (FTU) that is targeted
+  in the spatial profiling experiment. Leave blank if data are generated in imaging
+  mode without a specific target structure.
+spatial_type: Specifies whether or not the analysis was performed in a spatialy targeted
+  manner and the technique used for spatial sampling. For example, Laser-capture microdissection
+  (LCM), Liquid Extraction Surface Analysis (LESA), Nanodroplet Processing in One
+  pot for Trace Samples (nanoPOTS). Leave blank if not applicable.
 specimen_preservation_temperature: The temperature of the medium during the preservation
   process.
 specimen_quality_criteria: 'For example, RIN: 8.7.'

@@ -1,6 +1,7 @@
 # Changelog
 
 ## v0.0.12 - in progress
+- Add gcms.
 - Pull out the fields that have only one variant.
 - Cleanup code for reference validations.
 - Better section headers.
