@@ -211,7 +211,6 @@ fields:
   constraints:
     required: false
 # include: ../includes/fields/sequencing_read_format.yaml
-  constraints:
     required: false
 # include: ../includes/fields/sequencing_read_percent_q30.yaml
   constraints:
