@@ -1,6 +1,7 @@
 # Changelog
 
 ## v0.0.12 - in progress
+- `maldiims` to `ims`: Only touches URLs; doesn't affect validation.
 - Pull out the fields that have only one variant.
 - Cleanup code for reference validations.
 - Better section headers.
