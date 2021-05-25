@@ -1,7 +1,7 @@
 ---
 title: sample
 schema_name: sample
-category: other
+category: Other TSVs
 layout: default
 ---
 
