@@ -1,7 +1,7 @@
 ---
 title: Cell DIVE
 schema_name: celldive
-category: imaging
+category: Imaging assays
 layout: default
 ---
 

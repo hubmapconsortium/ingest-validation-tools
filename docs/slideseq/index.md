@@ -1,7 +1,7 @@
 ---
 title: Slide-seq
 schema_name: slideseq
-category: sequence
+category: Sequence assays
 layout: default
 ---
 
