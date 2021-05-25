@@ -1,11 +1,4 @@
 # scrnaseq-hca-v0.yaml
 - name: sc_isolation_protocols_io_doi
-  constraints:
-    pattern: 10\.17504/.*
-    required: true
-  custom_constraints:
-    url:
-      prefix: https://dx.doi.org/
   description: 'Link to a protocols document answering the question: How were single
     cells separated into a single-cell suspension?'
-  type: string
