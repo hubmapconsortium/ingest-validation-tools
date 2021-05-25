@@ -250,8 +250,8 @@ Link to a protocols document answering the question: How were single cells separ
 
 | constraint | value |
 | --- | --- |
-| required | `True` |
 | pattern (regular expression) | `10\.17504/.*` |
+| required | `True` |
 | url | prefix: `https://dx.doi.org/` |
 
 <a name="sc_isolation_entity"></a>
@@ -644,8 +644,8 @@ Link to a protocols document answering the question: How were single cells separ
 
 | constraint | value |
 | --- | --- |
-| required | `True` |
 | pattern (regular expression) | `10\.17504/.*` |
+| required | `True` |
 | url | prefix: `https://dx.doi.org/` |
 
 <a name="sc_isolation_entity"></a>
