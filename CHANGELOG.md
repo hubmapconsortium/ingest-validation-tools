@@ -2,6 +2,8 @@
 
 ## v0.0.12 - in progress
 - Cleanup code for reference validations.
+- Better section headers.
+- Tighter validation of shared fields in assay schemas.
 - Another optional field in HCA scrnaseq.
 - Cleanup whitespace in yaml.
 - Tools to resolve duplicated field definitions.

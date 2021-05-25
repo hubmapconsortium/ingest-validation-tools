@@ -1,7 +1,7 @@
 ---
 title: bulkATACseq
 schema_name: bulkatacseq
-category: sequence
+category: Sequence assays
 layout: default
 ---
 
