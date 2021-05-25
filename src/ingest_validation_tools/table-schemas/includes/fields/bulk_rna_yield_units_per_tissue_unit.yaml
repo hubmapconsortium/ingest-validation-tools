@@ -1,0 +1,6 @@
+- name: bulk_rna_yield_units_per_tissue_unit
+  description: RNA amount per Tissue input amount. Valid values should be weight/weight
+    (ng/mg).
+  constraints:
+    enum:
+      - ng/mg

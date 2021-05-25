@@ -1,7 +1,7 @@
 ---
 title: scRNAseq-10xGenomics-v2 / scRNAseq-10xGenomics-v3 / scRNAseq / sciRNAseq / snRNAseq / SNARE2-RNAseq (HCA)
 schema_name: scrnaseq-hca
-category: sequence
+category: Sequence assays
 layout: default
 ---
 
@@ -128,11 +128,11 @@ DOI for protocols.io referring to the protocol for this assay.
 
 <a name="operator"></a>
 ##### [`operator`](#operator)
-Name of the person responsible for executing the assay.
+Name of the person responsible for executing the assay. Leave blank if not applicable.
 
 | constraint | value |
 | --- | --- |
-| required | `True` |
+| required | `False` |
 
 <a name="operator_email"></a>
 ##### [`operator_email`](#operator_email)
