@@ -1,0 +1,2 @@
+- name: resolution_y_value
+  description: The height of a pixel. (Akoya pixel is 377nm square)

@@ -1,0 +1,6 @@
+- name: gdna_fragmentation_quality_assurance
+  description: Is the gDNA integrity good enough for WGS? This is usually checked through running a gel.
+  constraints:
+    enum:
+      - Pass
+      - Fail
