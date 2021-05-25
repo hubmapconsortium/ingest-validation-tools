@@ -1,19 +1,10 @@
-# scrnaseq-v0.yaml; slideseq-v0.yaml; slideseq-v1.yaml
-- name: library_pcr_cycles_for_sample_index
-  description: Number of PCR cycles performed for library indexing
-
 # scrnaseq-hca-v0.yaml
 - name: library_pcr_cycles_for_sample_index
   constraints:
     required: false
   description: Number of PCR cycles performed for library indexing
 
-# bulkrnaseq-v0.yaml; bulkrnaseq-v1.yaml; scrnaseq-v1.yaml; scrnaseq-v2.yaml
+# everything else
 - name: library_pcr_cycles_for_sample_index
   description: Number of PCR cycles performed for library indexing
-  type: integer
-
-# scatacseq-v0.yaml; scatacseq-v1.yaml
-- name: library_pcr_cycles_for_sample_index
-  description: Number of PCR cycles performed for library generation (figure in Descriptions section)
   type: integer
