@@ -1,7 +1,7 @@
 ---
 title: 3D Imaging Mass Cytometry
 schema_name: imc3d
-category: mass_spectrometry_imaging
+category: Imaging mass spectrometry
 layout: default
 ---
 

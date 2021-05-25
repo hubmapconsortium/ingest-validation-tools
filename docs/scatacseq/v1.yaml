@@ -377,7 +377,7 @@ fields:
   custom_constraints:
     forbid_na: true
     sequence_limit: 3
-  description: Reagent kit used for sequencing. NovaSeq6000 for example
+  description: Reagent kit used for sequencing
   name: sequencing_reagent_kit
 - constraints:
     pattern: \d+(/\d+)+

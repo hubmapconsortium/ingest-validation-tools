@@ -1,7 +1,7 @@
 ---
 title: scRNAseq-10xGenomics-v2 / scRNAseq-10xGenomics-v3 / scRNAseq / sciRNAseq / snRNAseq / SNARE2-RNAseq
 schema_name: scrnaseq
-category: sequence
+category: Sequence assays
 layout: default
 ---
 

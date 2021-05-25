@@ -1,0 +1,4 @@
+- name: start_datetime
+  description: Time stamp indicating start of ablation for ROI
+  type: datetime
+  format: "%Y-%m-%d %H:%M"

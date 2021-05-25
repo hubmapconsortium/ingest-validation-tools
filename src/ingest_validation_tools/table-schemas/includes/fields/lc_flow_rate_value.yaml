@@ -1,0 +1,4 @@
+- name: lc_flow_rate_value
+  description: Value of flow rate.
+  constraints:
+    required: False

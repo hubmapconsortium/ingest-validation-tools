@@ -8,7 +8,7 @@ Metadata TSV Errors:
       constraint "required" is "True"
     - Row at position "3" is completely blank
     External:
-      row 2, referencing examples/dataset-examples/bad-scatacseq-data/upload/dataset-1:
+      row 2, data examples/dataset-examples/bad-scatacseq-data/upload/dataset-1:
         Not allowed:
         - not-the-file-you-are-looking-for.txt
         - unexpected-directory/place-holder.txt

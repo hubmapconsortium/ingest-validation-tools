@@ -1,7 +1,7 @@
 ---
 title: CODEX
 schema_name: codex
-category: imaging
+category: Imaging assays
 layout: default
 ---
 
