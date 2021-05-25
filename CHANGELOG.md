@@ -1,6 +1,7 @@
 # Changelog
 
 ## v0.0.12 - in progress
+- Factor out sc_isolation_protocols_io_doi.
 - Cleanup whitespace in yaml.
 - Tools to resolve duplicated field definitions.
 - Rearrange YAML so static processing works.
