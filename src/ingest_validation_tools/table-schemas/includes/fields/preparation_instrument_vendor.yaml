@@ -1,12 +1,4 @@
-# codex-v1.yaml
 - name: preparation_instrument_vendor
-  description: The manufacturer of the instrument used to prepare the sample for the assay.
-  constraints:
-    enum: ['CODEX']
-
-# codex-v0.yaml
-- name: preparation_instrument_vendor
-  heading: Level 3
   description: The manufacturer of the instrument used to prepare the sample for the assay.
   constraints:
     enum: ['CODEX']
