@@ -1,6 +1,7 @@
 # Changelog
 
 ## v0.0.12 - in progress
+- Pull out sc_isolation_tissue_dissociation.
 - Cleanup whitespace in yaml.
 - Tools to resolve duplicated field definitions.
 - Rearrange YAML so static processing works.
