@@ -1,6 +1,7 @@
 # Changelog
 
 ## v0.0.12 - in progress
+- Factor out exit status codes.
 - Tighter validation of shared fields in assay schemas.
 - Another optional field in HCA scrnaseq.
 - Cleanup whitespace in yaml.
