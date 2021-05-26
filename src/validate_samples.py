@@ -14,10 +14,10 @@ def make_parser():
         description='Validate a HuBMAP Sample metadata TSV.',
         epilog=f'''
 Exit status codes:
-  {exit_codes.VALID_STATUS}: Validation passed
-  {exit_codes.BUG_STATUS}: Unexpected bug
-  {exit_codes.ERROR_STATUS}: User error
-  {exit_codes.INVALID_STATUS}: Validation failed
+  {exit_codes.VALID}: Validation passed
+  {exit_codes.BUG}: Unexpected bug
+  {exit_codes.ERROR}: User error
+  {exit_codes.INVALID}: Validation failed
 ''')
     parser.add_argument(
         '--path', required=True,
@@ -47,7 +47,7 @@ def main():
     errors = samples.get_errors()
     report = ErrorReport(errors)
     print(getattr(report, args.output)())
-    return exit_codes.INVALID_STATUS if errors else exit_codes.VALID_STATUS
+    return exit_codes.INVALID if errors else exit_codes.VALID
 
 
 if __name__ == "__main__":
@@ -56,5 +56,5 @@ if __name__ == "__main__":
     except ShowUsageException as e:
         print(parser.format_usage(), file=sys.stderr)
         print(e, file=sys.stderr)
-        exit_status = exit_codes.ERROR_STATUS
+        exit_status = exit_codes.ERROR
     sys.exit(exit_status)

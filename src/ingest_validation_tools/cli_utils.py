@@ -15,11 +15,5 @@ def dir_path(s):
 
 exit_codes = namedtuple(
     'ExitCode',
-    [
-        'VALID_STATUS',
-        'BUG_STATUS',
-        'ERROR_STATUS',
-        'INVALID_STATUS'
-    ],
-    defaults=[0, 1, 2, 3]
-)()
+    ['VALID', 'BUG', 'ERROR', 'INVALID']
+)(0, 1, 2, 3)
