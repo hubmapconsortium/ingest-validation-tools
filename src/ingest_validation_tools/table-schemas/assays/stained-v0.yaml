@@ -27,8 +27,7 @@ fields:
     enum:
       - nm
       - um
-- name: stain
-  description: Chemical stains (dyes) applied to histology samples to highlight important features of the tissue as well as to enhance the tissue contrast.
+# include: ../includes/fields/stain.yaml
 # include: ../includes/v0/doi/section_prep.yaml
 # include: ../includes/v0/doi/overall.yaml
 

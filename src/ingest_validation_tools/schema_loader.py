@@ -325,7 +325,8 @@ def _add_constraints(field, optional_fields, offline=None, names=None):
     {'constraints': {'maximum': 100,
                      'minimum': 0,
                      'required': True},
-     'custom_constraints': {'sequence_limit': 3},
+     'custom_constraints': {'forbid_na': True,
+                            'sequence_limit': 3},
      'name': 'abc_percent',
      'type': 'number'}
 
@@ -335,7 +336,8 @@ def _add_constraints(field, optional_fields, offline=None, names=None):
     >>> _add_constraints(field, ['optional_value'])
     >>> pprint(field, width=40)
     {'constraints': {'required': False},
-     'custom_constraints': {'sequence_limit': 3},
+     'custom_constraints': {'forbid_na': True,
+                            'sequence_limit': 3},
      'name': 'optional_value',
      'type': 'number'}
 
@@ -346,7 +348,8 @@ def _add_constraints(field, optional_fields, offline=None, names=None):
     >>> pprint(field, width=40)
     {'constraints': {'pattern': 'fake-regex',
                      'required': True},
-     'custom_constraints': {'sequence_limit': 3},
+     'custom_constraints': {'forbid_na': True,
+                            'sequence_limit': 3},
      'name': 'whatever',
      'type': 'string'}
 
@@ -356,7 +359,7 @@ def _add_constraints(field, optional_fields, offline=None, names=None):
     >>> _add_constraints(field, [])
     >>> pprint(field, width=40)
     {'constraints': {'required': True},
-     'custom_constraints': {},
+     'custom_constraints': {'forbid_na': True},
      'name': 'seq_expected'}
 
     '''
@@ -374,11 +377,16 @@ def _add_constraints(field, optional_fields, offline=None, names=None):
     if field['name'].endswith('_email'):
         field['format'] = 'email'
 
-    # In the src schemas, set to False to avoid limit on sequences.
+    # In the src schemas, set to False to avoid limit on sequences...
     if field['custom_constraints'].get('sequence_limit', True):
         field['custom_constraints']['sequence_limit'] = 3
     else:
         del field['custom_constraints']['sequence_limit']
+    # ... or to allow "N/A":
+    if field['custom_constraints'].get('forbid_na', True):
+        field['custom_constraints']['forbid_na'] = True
+    else:
+        del field['custom_constraints']['forbid_na']
 
     if field['name'].endswith('_unit'):
         # Issues have been filed to make names more consistent:

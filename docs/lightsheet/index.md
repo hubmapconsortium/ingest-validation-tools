@@ -1,7 +1,7 @@
 ---
 title: Light Sheet
 schema_name: lightsheet
-category: imaging
+category: Imaging assays
 layout: default
 ---
 

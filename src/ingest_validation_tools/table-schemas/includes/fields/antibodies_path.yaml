@@ -1,0 +1,3 @@
+- name: antibodies_path
+  description: Relative path to file with antibody information for this dataset.
+

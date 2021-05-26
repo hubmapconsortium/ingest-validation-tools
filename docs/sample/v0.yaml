@@ -4,6 +4,7 @@ fields:
     pattern: ([A-Z]+[0-9]+)-[A-Z]{2}\d*(-\d+)+(_\d+)?
     required: true
   custom_constraints:
+    forbid_na: true
     sequence_limit: 3
   description: (No description for this field was supplied.)
   heading: IDs
@@ -15,6 +16,7 @@ fields:
     - deceased
     required: true
   custom_constraints:
+    forbid_na: true
     sequence_limit: 3
   description: Identify the vital state of the donor.
   heading: Donor
@@ -26,6 +28,7 @@ fields:
     - chronic illness
     required: true
   custom_constraints:
+    forbid_na: true
     sequence_limit: 3
   description: "Patient's baseline physical condition prior to immediate event leading\
     \ to organ/tissue acquisition. For example, if a relatively healthy patient suffers\
@@ -41,6 +44,7 @@ fields:
     - diseased
     required: true
   custom_constraints:
+    forbid_na: true
     sequence_limit: 3
   description: Health status of the organ at the time of sample recovery.
   heading: Medical Procedure
@@ -48,6 +52,7 @@ fields:
 - constraints:
     required: true
   custom_constraints:
+    forbid_na: true
     sequence_limit: 3
   description: Date of procedure to procure organ.
   format: '%Y-%m-%d'
@@ -67,18 +72,21 @@ fields:
     - None
     required: true
   custom_constraints:
+    forbid_na: true
     sequence_limit: 3
   description: Type of solution that was used to perfuse the organ.
   name: perfusion_solution
 - constraints:
     required: true
   custom_constraints:
+    forbid_na: true
     sequence_limit: 3
   description: Further details on organ level QC checks.
   name: pathologist_report
 - constraints:
     required: false
   custom_constraints:
+    forbid_na: true
     sequence_limit: 3
   description: Time interval between cessation of blood flow and cooling to 4C.
   name: warm_ischemia_time_value
@@ -88,6 +96,7 @@ fields:
     - minutes
     required: false
   custom_constraints:
+    forbid_na: true
     sequence_limit: 3
     units_for: warm_ischemia_time_value
   description: Time unit
@@ -95,6 +104,7 @@ fields:
 - constraints:
     required: false
   custom_constraints:
+    forbid_na: true
     sequence_limit: 3
   description: Time interval on ice to the start of preservation protocol.
   name: cold_ischemia_time_value
@@ -104,6 +114,7 @@ fields:
     - minutes
     required: false
   custom_constraints:
+    forbid_na: true
     sequence_limit: 3
     units_for: cold_ischemia_time_value
   description: Time unit
@@ -118,6 +129,7 @@ fields:
     - Room Temperature
     required: true
   custom_constraints:
+    forbid_na: true
     sequence_limit: 3
   description: The temperature of the medium during the preservation process.
   heading: Biospecimen
@@ -125,12 +137,14 @@ fields:
 - constraints:
     required: false
   custom_constraints:
+    forbid_na: true
     sequence_limit: 3
   description: 'For example, RIN: 8.7.'
   name: specimen_quality_criteria
 - constraints:
     required: false
   custom_constraints:
+    forbid_na: true
     sequence_limit: 3
   description: If surgical sample, how far from the tumor was the sample obtained
     from. Typically a number of centimeters. Leave blank if not applicable or unknown.
@@ -141,6 +155,7 @@ fields:
     - cm
     required: false
   custom_constraints:
+    forbid_na: true
     sequence_limit: 3
     units_for: specimen_tumor_distance_value
   description: Distance unit

@@ -17,11 +17,8 @@ fields:
 
 # Level 2 fields:
 # include: ../includes/v0/acquisition_instrument.yaml
-- name: bulk_transposition_input_number_nuclei
-  description: A number (no comma separators)
-- name: bulk_atac_cell_isolation_protocols_io_doi
-  description: 'Link to a protocols document answering the question: How was tissue
-    stored and processed for cell/nuclei isolation'
+# include: ../includes/fields/bulk_transposition_input_number_nuclei.yaml
+# include: ../includes/fields/bulk_atac_cell_isolation_protocols_io_doi.yaml
 - name: is_technical_replicate
   description: Is this a sequencing replicate?
 - name: library_adapter_sequence
@@ -34,13 +31,7 @@ fields:
   description: A link to the protocol document containing the library construction
     method (including version) that was used, e.g. "Smart-Seq2", "Drop-Seq", "10X
     v3".
-- name: library_creation_date
-  description: date and time of library creation. YYYY-MM-DD, where YYYY is the year,
-    MM is the month with leading 0s, and DD is the day with leading 0s.
-  constraints:
-    type: datetime
-    format: '%Y-%m-%d'
-    required: False
+# include: ../includes/fields/library_creation_date.yaml
 # include: ../includes/fields/library_final_yield_value_unit.yaml
 # include: ../includes/fields/library_id.yaml
 # include: ../includes/fields/library_layout.yaml
@@ -49,21 +40,13 @@ fields:
     the library. Usually, this includes 5 pre-amplificationn cycles followed by 0-5
     additional cycles determined by qPCR.
   type: integer
-- name: library_preparation_kit
-  description: Reagent kit used for library preparation
-- name: sample_quality_metric
-  description: "This is a quality metric by visual inspection. This should answer\
-    \ the question: Are the nuclei intact and are the nuclei free of significant amounts\
-    \ of debris? This can be captured at a high level, \u201COK\u201D or \u201Cnot\
-    \ OK\u201D."
+# include: ../includes/fields/library_preparation_kit.yaml
+# include: ../includes/fields/sample_quality_metric.yaml
 # include: ../includes/fields/sequencing_phix_percent.yaml
 # include: ../includes/fields/sequencing_read_format.yaml
 # include: ../includes/fields/sequencing_read_percent_q30.yaml
 # include: ../includes/fields/sequencing_reagent_kit.yaml
-- name: transposition_kit_number
-  description: If Tn5 came from a kit, provide the catalog number.
-  constraints:
-    required: False
+# include: ../includes/fields/transposition_kit_number.yaml
 - name: transposition_method
   description: Modality of capturing accessible chromatin molecules. The kit used, for example.
 - name: transposition_transposase_source

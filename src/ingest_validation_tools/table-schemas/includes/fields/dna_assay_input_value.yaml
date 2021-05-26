@@ -1,0 +1,3 @@
+- name: dna_assay_input_value
+  description: Amount of DNA input into library preparation
+  type: number

@@ -1,7 +1,7 @@
 ---
 title: scRNAseq-10xGenomics-v2 / scRNAseq-10xGenomics-v3 / scRNAseq / sciRNAseq / snRNAseq / SNARE2-RNAseq (HCA)
 schema_name: scrnaseq-hca
-category: sequence
+category: Sequence assays
 layout: default
 ---
 
@@ -400,12 +400,12 @@ Reagent kit used for sequencing. Leave blank if not applicable.
 
 <a name="sequencing_read_format"></a>
 ##### [`sequencing_read_format`](#sequencing_read_format)
-Slash-delimited list of the number of sequencing cycles for, for example, Read1, i7 index, i5 index, and Read2. Example: `12/34/56`.
+Slash-delimited list of the number of sequencing cycles for, for example, Read1, i7 index, i5 index, and Read2. Leave blank if not applicable. Example: `12/34/56`.
 
 | constraint | value |
 | --- | --- |
 | pattern (regular expression) | `\d+(/\d+)+` |
-| required | `True` |
+| required | `False` |
 
 <a name="sequencing_read_percent_q30"></a>
 ##### [`sequencing_read_percent_q30`](#sequencing_read_percent_q30)

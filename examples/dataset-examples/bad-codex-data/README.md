@@ -5,7 +5,7 @@ Metadata TSV Errors:
     - On row 2, column "resolution_z_unit", value "None" fails because Required when
       resolution_z_value is filled
     External:
-      row 2, referencing examples/dataset-examples/bad-codex-data/upload/dataset-1:
+      row 2, data examples/dataset-examples/bad-codex-data/upload/dataset-1:
         Not allowed:
         - channelnames.txt
         - cyc002_reg001_200216_112537/bad

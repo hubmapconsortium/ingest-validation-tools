@@ -1,0 +1,2 @@
+- name: lc_column_model
+  description: The model number/name of the LC Column - IF custom self-packed, pulled tip calillary is used enter "Pulled tip capilary"
