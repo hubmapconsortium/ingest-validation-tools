@@ -6,6 +6,7 @@ import inspect
 
 from ingest_validation_tools.error_report import ErrorReport
 from ingest_validation_tools.argparse_types import ShowUsageException
+from ingest_validation_tools.schema_loader import PreflightError
 from ingest_validation_tools.validation_utils import (
     get_tsv_errors, get_schema_version
 )
@@ -50,12 +51,17 @@ parser = make_parser()
 
 def main():
     args = parser.parse_args()
-    schema_name = (
-        args.schema if args.schema != 'metadata'
-        else get_schema_version(args.path, 'ascii').schema_name
-    )
-    errors = get_tsv_errors(args.path, schema_name=schema_name)
-    report = ErrorReport({f'{schema_name} TSV errors': errors} if errors else {})
+    try:
+        schema_name = (
+            args.schema if args.schema != 'metadata'
+            else get_schema_version(args.path, 'ascii').schema_name
+        )
+    except PreflightError as e:
+        errors = {'Preflight': str(e)}
+    else: 
+        errors = get_tsv_errors(args.path, schema_name=schema_name)
+        errors = {f'{schema_name} TSV errors': errors} if errors else {}
+    report = ErrorReport(errors)
     print(getattr(report, args.output)())
     return INVALID_STATUS if errors else VALID_STATUS
 
