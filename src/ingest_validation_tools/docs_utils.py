@@ -140,7 +140,7 @@ def generate_readme_md(
         'current_version_md':
             _make_fields_md(
                 table_schemas[max_version], f'Version {max_version} (current)', is_open=True
-            ),
+        ),
         'previous_versions_md':
             '\n\n'.join([
                 _make_fields_md(

@@ -13,6 +13,7 @@ from ingest_validation_tools.schema_loader import (
     get_schema_version_from_row, PreflightError
 )
 
+
 class TableValidationErrors(Exception):
     pass
 

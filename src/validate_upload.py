@@ -120,17 +120,8 @@ Exit status codes:
 parser = make_parser()
 
 
-def parse_args():
-    args = parser.parse_args()
-    if not (args.tsv_paths or args.local_directory):
-        raise ShowUsageException(
-            'Either local file or local directory is required')
-
-    return args
-
-
 def main():
-    args = parse_args()
+    args = parser.parse_args()
 
     if args.clear_cache:
         for path in glob(f'{cache_path}*'):
@@ -145,9 +136,6 @@ def main():
 
     if args.local_directory:
         upload_args['directory_path'] = Path(args.local_directory)
-
-    if args.tsv_paths:
-        upload_args['tsv_paths'] = args.tsv_paths
 
     if args.dataset_ignore_globs:
         upload_args['dataset_ignore_globs'] = \

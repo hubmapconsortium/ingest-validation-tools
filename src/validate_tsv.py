@@ -27,7 +27,8 @@ Exit status codes:
   {BUG_STATUS}: Unexpected bug
   {ERROR_STATUS}: User error
   {INVALID_STATUS}: Validation failed
-''')
+''',
+        formatter_class=argparse.RawDescriptionHelpFormatter)
     parser.add_argument(
         '--path', required=True,
         help='TSV path')
@@ -58,7 +59,7 @@ def main():
         )
     except PreflightError as e:
         errors = {'Preflight': str(e)}
-    else: 
+    else:
         errors = get_tsv_errors(args.path, schema_name=schema_name)
         errors = {f'{schema_name} TSV errors': errors} if errors else {}
     report = ErrorReport(errors)

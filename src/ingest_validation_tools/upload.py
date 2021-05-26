@@ -17,7 +17,7 @@ from ingest_validation_tools.plugin_validator import (
 )
 
 from ingest_validation_tools.schema_loader import (
-    get_schema_version_from_row, PreflightError
+    PreflightError
 )
 
 
