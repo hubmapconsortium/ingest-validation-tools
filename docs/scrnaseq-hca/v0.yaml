@@ -319,7 +319,7 @@ fields:
   name: sequencing_reagent_kit
 - constraints:
     pattern: \d+(/\d+)+
-    required: true
+    required: false
   custom_constraints:
     forbid_na: true
     sequence_limit: 3

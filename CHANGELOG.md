@@ -1,6 +1,7 @@
 # Changelog
 
 ## v0.0.12 - in progress
+- sequencing_read_format is optional for HCA.
 - Disallow N/A values.
 - Pull out the fields that have only one variant.
 - Cleanup code for reference validations.
