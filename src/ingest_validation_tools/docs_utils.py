@@ -125,7 +125,13 @@ def generate_readme_md(
     return template.substitute({
         'title': title,
         'schema_name': schema_name,
-        'category': category,
+        'category': {
+            'imaging': 'Imaging assays',
+            'mass_spectrometry': 'Mass spectrometry',
+            'mass_spectrometry_imaging': 'Imaging mass spectrometry',
+            'sequence': 'Sequence assays',
+            'other': 'Other TSVs'
+        }[category],
         'max_version': max_version,
 
         'tsv_url': f'{raw_base_url}/{schema_name}/{get_tsv_name(schema_name, is_assay=is_assay)}',
@@ -223,7 +229,7 @@ def _make_constraints_table(field):
             table_md_rows.append(f'| {key_md} | {value_md} |')
     if 'custom_constraints' in field:
         for key, value in field['custom_constraints'].items():
-            if key == 'sequence_limit':
+            if key in ['sequence_limit', 'forbid_na']:
                 # Applied to every field,
                 # but we don't want to clutter the docs:
                 continue

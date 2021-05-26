@@ -1,0 +1,5 @@
+- name: expected_cell_count
+  description: How many cells are expected? This may be used in downstream pipelines to guide selection of cell barcodes or segmentation parameters.
+  type: integer
+  constraints:
+    required: false
