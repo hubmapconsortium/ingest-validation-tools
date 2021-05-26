@@ -52,15 +52,10 @@ Exit status codes:
 
     # What should be validated?
 
-    mutex_group = parser.add_mutually_exclusive_group(required=True)
-    mutex_group.add_argument(
+    parser.add_argument(
         '--local_directory', type=argparse_types.dir_path,
-        metavar='PATH',
+        metavar='PATH', required=True,
         help='Local directory to validate')
-    mutex_group.add_argument(
-        '--tsv_paths', nargs='+',
-        metavar='PATH',
-        help='Paths of metadata.tsv files.')
 
     # Should validation be loosened?
 
