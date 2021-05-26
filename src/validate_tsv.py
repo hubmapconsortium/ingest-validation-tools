@@ -5,8 +5,10 @@ import sys
 import inspect
 
 from ingest_validation_tools.error_report import ErrorReport
-from ingest_validation_tools.samples import Samples
 from ingest_validation_tools.argparse_types import ShowUsageException
+from ingest_validation_tools.validation_utils import (
+    get_tsv_errors, get_schema_version
+)
 
 
 VALID_STATUS = 0
@@ -17,7 +19,7 @@ INVALID_STATUS = 3
 
 def make_parser():
     parser = argparse.ArgumentParser(
-        description='Validate a HuBMAP Sample metadata TSV.',
+        description='Validate a HuBMAP TSV.',
         epilog=f'''
 Exit status codes:
   {VALID_STATUS}: Validation passed
@@ -27,7 +29,10 @@ Exit status codes:
 ''')
     parser.add_argument(
         '--path', required=True,
-        help='Sample metadata.tsv path. ')
+        help='TSV path')
+    parser.add_argument(
+        '--schema', required=True,
+        choices=['sample', 'antibodies', 'contributors', 'metadata'])
     error_report_methods = [
         name for (name, type) in inspect.getmembers(ErrorReport)
         if name.startswith('as_')
@@ -45,13 +50,12 @@ parser = make_parser()
 
 def main():
     args = parser.parse_args()
-    sample_args = {
-        'path': args.path
-    }
-
-    samples = Samples(**sample_args)
-    errors = samples.get_errors()
-    report = ErrorReport(errors)
+    schema_name = (
+        args.schema if args.schema != 'metadata'
+        else get_schema_version(args.path, 'ascii').schema_name
+    )
+    errors = get_tsv_errors(args.path, schema_name=schema_name)
+    report = ErrorReport({f'{schema_name} TSV errors': errors} if errors else {})
     print(getattr(report, args.output)())
     return INVALID_STATUS if errors else VALID_STATUS
 

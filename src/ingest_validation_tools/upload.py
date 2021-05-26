@@ -7,7 +7,8 @@ from ingest_validation_tools.validation_utils import (
     get_tsv_errors,
     get_data_dir_errors,
     dict_reader_wrapper,
-    get_context_of_decode_error
+    get_context_of_decode_error,
+    get_schema_version
 )
 
 from ingest_validation_tools.plugin_validator import (
@@ -39,7 +40,7 @@ class Upload:
         self.errors = {}
         try:
             unsorted_effective_tsv_paths = {
-                str(path): self._get_schema_version(path)
+                str(path): get_schema_version(path, self.encoding)
                 for path in (
                     tsv_paths if tsv_paths
                     else directory_path.glob(f'*{TSV_SUFFIX}')
@@ -51,17 +52,6 @@ class Upload:
             }
         except PreflightError as e:
             self.errors['Preflight'] = str(e)
-
-    def _get_schema_version(self, path):
-        try:
-            rows = dict_reader_wrapper(path, self.encoding)
-        except UnicodeDecodeError as e:
-            raise PreflightError(get_context_of_decode_error(e))
-        except IsADirectoryError:
-            raise PreflightError(f'Expected a TSV, found a directory at {path}.')
-        if not rows:
-            raise PreflightError(f'{path} has no data rows.')
-        return get_schema_version_from_row(path, rows[0])
 
     #####################
     #
