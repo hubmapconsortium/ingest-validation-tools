@@ -1,6 +1,7 @@
 # Changelog
 
 ## v0.0.12 - in progress
+- Add script to validate any TSV.
 - Factor out exit status codes.
 - Pull out sc_isolation_tissue_dissociation.
 - sequencing_read_format is optional for HCA.

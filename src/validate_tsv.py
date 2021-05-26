@@ -21,7 +21,8 @@ Exit status codes:
   {exit_codes.BUG}: Unexpected bug
   {exit_codes.ERROR}: User error
   {exit_codes.INVALID}: Validation failed
-''')
+''',
+        formatter_class=argparse.RawDescriptionHelpFormatter)
     parser.add_argument(
         '--path', required=True,
         help='TSV path')
