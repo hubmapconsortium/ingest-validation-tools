@@ -5,17 +5,11 @@ import sys
 import inspect
 
 from ingest_validation_tools.error_report import ErrorReport
-from ingest_validation_tools.argparse_types import ShowUsageException
+from ingest_validation_tools.cli_utils import ShowUsageException, exit_codes
 from ingest_validation_tools.schema_loader import PreflightError
 from ingest_validation_tools.validation_utils import (
     get_tsv_errors, get_schema_version
 )
-
-
-VALID_STATUS = 0
-BUG_STATUS = 1
-ERROR_STATUS = 2
-INVALID_STATUS = 3
 
 
 def make_parser():
@@ -23,12 +17,11 @@ def make_parser():
         description='Validate a HuBMAP TSV.',
         epilog=f'''
 Exit status codes:
-  {VALID_STATUS}: Validation passed
-  {BUG_STATUS}: Unexpected bug
-  {ERROR_STATUS}: User error
-  {INVALID_STATUS}: Validation failed
-''',
-        formatter_class=argparse.RawDescriptionHelpFormatter)
+  {exit_codes.VALID}: Validation passed
+  {exit_codes.BUG}: Unexpected bug
+  {exit_codes.ERROR}: User error
+  {exit_codes.INVALID}: Validation failed
+''')
     parser.add_argument(
         '--path', required=True,
         help='TSV path')
@@ -64,7 +57,7 @@ def main():
         errors = {f'{schema_name} TSV errors': errors} if errors else {}
     report = ErrorReport(errors)
     print(getattr(report, args.output)())
-    return INVALID_STATUS if errors else VALID_STATUS
+    return exit_codes.INVALID if errors else exit_codes.VALID
 
 
 if __name__ == "__main__":
@@ -73,5 +66,5 @@ if __name__ == "__main__":
     except ShowUsageException as e:
         print(parser.format_usage(), file=sys.stderr)
         print(e, file=sys.stderr)
-        exit_status = ERROR_STATUS
+        exit_status = exit_codes.ERROR
     sys.exit(exit_status)
