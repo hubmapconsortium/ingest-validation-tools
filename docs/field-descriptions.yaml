@@ -67,6 +67,9 @@ data_path: Relative path to file or directory with instrument data. Downstream p
   will depend on filename extension conventions.
 data_precision_bytes: Numerical data precision in bytes
 description: Free-text description of this assay.
+desi_solvent: TODO
+desi_solvent_flow_rate: TODO
+desi_solvent_flow_rate_unit: TODO
 dilution: Antibody solutions may be diluted according to the experimental protocol.
 dna_assay_input_unit: Units of DNA input into library preparation
 dna_assay_input_value: Amount of DNA input into library preparation
@@ -91,6 +94,10 @@ health_status: "Patient's baseline physical condition prior to immediate event l
   \ \u201Crelatively healthy.\u201D"
 height_unit: The vertical measurement or distance from the base to the top of a subject
   or participant.
+ion_mobility: 'Methodologies for measuring ion mobility: Traveling Wave Ion Mobility
+  Spectrometry (TWIMS), Trapped Ion Mobility Spectrometry (TIMS), High Field Asymmetric
+  waveform ion Mobility Spectrometry (FAIMS), Drift Tube Ion Mobility Spectrometry
+  (DTIMS), Structures for Lossless Ion Manipulations Spectrometry (SLIMS).'
 is_contact: Is this individual a contact for DOI purposes?
 is_targeted: Specifies whether or not a specific molecule(s) is/are targeted for detection/measurement
   by the assay. The CODEX analyte is protein.
@@ -151,6 +158,9 @@ library_pcr_cycles: Number of PCR cycles to amplify cDNA
 library_pcr_cycles_for_sample_index: Number of PCR cycles performed for library indexing
 library_preparation_kit: Reagent kit used for library preparation
 lot_number: 'The lot# is specific to the vendor. (eg: Abcam lot# GR3238979-1)'
+mass_resolving_power: "This is the MS1 resolving power.\_This is a unitless value\
+  \ often calculated as m/\u2206m where \u2206m is the FWHM for a given peak with\
+  \ a certain m/z (m)."
 max_x_width_unit: Units of image width of the ROI acquisition
 max_x_width_value: Image width value of the ROI acquisition
 max_y_height_unit: Units of image height of the ROI acquisition
@@ -160,12 +170,12 @@ mechanism_of_injury: 'Mechanism of injury may be, for example: fall, impact (eg:
 medical_history: A record of a patient's background regarding health and the occurrence
   of disease events of the individual.
 middle_name_or_initial: Middle name or initial
-ms_scan_mode: Indicates whether experiment is MS, MS/MS, or other (possibly MS3 for
-  TMT)
+ms_scan_mode: TODO
 ms_source: The ion source type used for surface sampling (MALDI, MALDI-2, DESI, or
   SIMS) or LC-MS/MS data acquisition (nESI)
 mz_range_high_value: A number representing the mass:charge ratio
 mz_range_low_value: A number representing the mass:charge ratio
+mz_resolving_power: This is the m/z used to calculate the resolving power.
 name: Name for display
 number_of_antibodies: Number of antibodies
 number_of_barcode_probes: Number of barcode probes targeting mRNAs (eg. 24,000 barcode

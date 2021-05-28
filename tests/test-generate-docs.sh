@@ -35,6 +35,7 @@ for TYPE in $(ls -d docs/*); do
   TEST_CMD="src/generate_docs.py $TYPE $TEST_DEST"
 
   mkdir -p $TEST_DEST || echo "$TEST_DEST already exists"
+  echo "Running: $TEST_CMD"
   eval $TEST_CMD
   diff -r $REAL_DEST $TEST_DEST \
     || die "Update needed: $REAL_CMD
