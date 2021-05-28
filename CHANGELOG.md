@@ -1,6 +1,7 @@
 # Changelog
 
 ## v0.0.12 - in progress
+- New version of IMS.
 - `maldiims` to `ims`: Only touches URLs; doesn't affect validation.
 - Add script to validate any TSV.
 - Factor out exit status codes.
