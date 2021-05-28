@@ -15,13 +15,12 @@ fields:
 - name: analyte_class
   constraints:
     enum:
-      - protein # NOTE: You had "proteins", but singular is used elsewhere.
+      - protein # NOTE: "proteins" specified, but singular is used elsewhere.
       - metabolites
       - lipids
       - peptides
       - phosphopeptides
       - glycans
-      - metabolites
 
 # include: ../includes/v0/is_targeted.yaml
 
