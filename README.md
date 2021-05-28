@@ -62,9 +62,10 @@ Addition help for certain common error messages is available [here](README-valid
 
 ### Validating single TSVs:
 
-If you don't have an entire upload directory at hand, the same command can validate individual metadata TSVs:
+If you don't have an entire upload directory at hand, you can validate individual
+metadata, antibodies, contributors, or sample TSVs:
 ```
-src/validate_upload.py --tsv_paths examples/dataset-examples/good-scatacseq-v1/upload/metadata.tsv
+src/validate_tsv.py --schema metadata --path examples/dataset-examples/good-scatacseq-v1/upload/metadata.tsv
 ```
 ```
 No errors!
