@@ -13,7 +13,7 @@ from ingest_validation_tools.schema_loader import (
 from ingest_validation_tools.docs_utils import (
     get_tsv_name, get_xlsx_name,
     generate_template_tsv, generate_readme_md)
-from ingest_validation_tools.argparse_types import dir_path
+from ingest_validation_tools.cli_utils import dir_path
 
 
 def main():

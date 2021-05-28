@@ -8,8 +8,7 @@ import inspect
 
 from ingest_validation_tools.error_report import ErrorReport
 from ingest_validation_tools.upload import Upload
-from ingest_validation_tools import argparse_types
-from ingest_validation_tools.argparse_types import ShowUsageException
+from ingest_validation_tools.cli_utils import ShowUsageException, exit_codes, dir_path
 from ingest_validation_tools.check_factory import cache_path
 
 directory_schemas = sorted({
@@ -17,12 +16,6 @@ directory_schemas = sorted({
     (Path(__file__).parent / 'ingest_validation_tools' /
      'directory-schemas').glob('*.yaml')
 })
-
-
-VALID_STATUS = 0
-BUG_STATUS = 1
-ERROR_STATUS = 2
-INVALID_STATUS = 3
 
 
 def make_parser():
@@ -43,24 +36,19 @@ Typical usage:
   extra parameters.
 
 Exit status codes:
-  {VALID_STATUS}: Validation passed
-  {BUG_STATUS}: Unexpected bug
-  {ERROR_STATUS}: User error
-  {INVALID_STATUS}: Validation failed
+  {exit_codes.VALID}: Validation passed
+  {exit_codes.BUG}: Unexpected bug
+  {exit_codes.ERROR}: User error
+  {exit_codes.INVALID}: Validation failed
 ''',
         formatter_class=argparse.RawDescriptionHelpFormatter)
 
     # What should be validated?
 
-    mutex_group = parser.add_mutually_exclusive_group(required=True)
-    mutex_group.add_argument(
-        '--local_directory', type=argparse_types.dir_path,
-        metavar='PATH',
+    parser.add_argument(
+        '--local_directory', type=dir_path,
+        metavar='PATH', required=True,
         help='Local directory to validate')
-    mutex_group.add_argument(
-        '--tsv_paths', nargs='+',
-        metavar='PATH',
-        help='Paths of metadata.tsv files.')
 
     # Should validation be loosened?
 
@@ -125,17 +113,8 @@ Exit status codes:
 parser = make_parser()
 
 
-def parse_args():
-    args = parser.parse_args()
-    if not (args.tsv_paths or args.local_directory):
-        raise ShowUsageException(
-            'Either local file or local directory is required')
-
-    return args
-
-
 def main():
-    args = parse_args()
+    args = parser.parse_args()
 
     if args.clear_cache:
         for path in glob(f'{cache_path}*'):
@@ -151,9 +130,6 @@ def main():
     if args.local_directory:
         upload_args['directory_path'] = Path(args.local_directory)
 
-    if args.tsv_paths:
-        upload_args['tsv_paths'] = args.tsv_paths
-
     if args.dataset_ignore_globs:
         upload_args['dataset_ignore_globs'] = \
             args.dataset_ignore_globs
@@ -168,7 +144,7 @@ def main():
     errors = upload.get_errors()
     report = ErrorReport(errors)
     print(getattr(report, args.output)())
-    return INVALID_STATUS if errors else VALID_STATUS
+    return exit_codes.INVALID if errors else exit_codes.VALID
 
 
 if __name__ == "__main__":
@@ -177,5 +153,5 @@ if __name__ == "__main__":
     except ShowUsageException as e:
         print(parser.format_usage(), file=sys.stderr)
         print(e, file=sys.stderr)
-        exit_status = ERROR_STATUS
+        exit_status = exit_codes.ERROR
     sys.exit(exit_status)

@@ -1,6 +1,5 @@
 ```text
-usage: validate_upload.py [-h]
-                          (--local_directory PATH | --tsv_paths PATH [PATH ...])
+usage: validate_upload.py [-h] --local_directory PATH
                           [--optional_fields FIELD [FIELD ...]] [--offline]
                           [--clear_cache]
                           [--dataset_ignore_globs GLOB [GLOB ...]]
@@ -17,8 +16,6 @@ optional arguments:
   -h, --help            show this help message and exit
   --local_directory PATH
                         Local directory to validate
-  --tsv_paths PATH [PATH ...]
-                        Paths of metadata.tsv files.
   --optional_fields FIELD [FIELD ...]
                         The listed fields will be treated as optional. (But if
                         they are supplied in the TSV, they will be validated.)

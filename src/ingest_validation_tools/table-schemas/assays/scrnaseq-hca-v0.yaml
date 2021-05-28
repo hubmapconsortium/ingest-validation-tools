@@ -112,10 +112,7 @@ fields:
   constraints:
     required: true
   description: The type of single cell entity derived from isolation protocol
-- name: sc_isolation_tissue_dissociation
-  constraints:
-    required: true
-  description: The method by which tissues are dissociated into single cells in suspension.
+# include: ../includes/fields/sc_isolation_tissue_dissociation.yaml
 - name: sc_isolation_enrichment
   constraints:
     required: true
@@ -207,6 +204,7 @@ fields:
   constraints:
     required: false
 # include: ../includes/fields/sequencing_read_format.yaml
+    required: false
 # include: ../includes/fields/sequencing_read_percent_q30.yaml
   constraints:
     required: false

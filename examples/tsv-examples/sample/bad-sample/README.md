@@ -1,5 +1,5 @@
 ```
-Sample TSV Errors:
+sample TSV errors:
 - On row 2, column "sample_id", value "" fails because constraint "required" is "True"
 - On row 2, column "procedure_date", value "" fails because constraint "required"
   is "True"
