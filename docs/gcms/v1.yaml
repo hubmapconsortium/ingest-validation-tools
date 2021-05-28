@@ -141,8 +141,7 @@ fields:
     required: true
   custom_constraints:
     sequence_limit: 3
-  description: The ion source type used for surface sampling (MALDI, MALDI-2, DESI,
-    or SIMS) or LC-MS/MS data acquisition (nESI)
+  description: The ion source type used for surface sampling.
   name: ms_source
 - constraints:
     enum:

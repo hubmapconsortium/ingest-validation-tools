@@ -179,8 +179,7 @@ medical_history: A record of a patient's background regarding health and the occ
 middle_name_or_initial: Middle name or initial
 ms_scan_mode: Indicates whether experiment is MS, MS/MS, or other (possibly MS3 for
   TMT)
-ms_source: The ion source type used for surface sampling (MALDI, MALDI-2, DESI, or
-  SIMS) or LC-MS/MS data acquisition (nESI)
+ms_source: The ion source type used for surface sampling.
 mz_range_high_value: A number representing the mass:charge ratio
 mz_range_low_value: A number representing the mass:charge ratio
 mz_resolving_power: The peak (m/z) used to calculate the MS1 resolving power.

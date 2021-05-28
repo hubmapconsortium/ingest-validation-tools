@@ -232,7 +232,7 @@ Manufacturers of an acquisition instrument may offer various versions (models) o
 
 <a name="ms_source"></a>
 ##### [`ms_source`](#ms_source)
-The ion source type used for surface sampling (MALDI, MALDI-2, DESI, or SIMS) or LC-MS/MS data acquisition (nESI)
+The ion source type used for surface sampling.
 
 | constraint | value |
 | --- | --- |
