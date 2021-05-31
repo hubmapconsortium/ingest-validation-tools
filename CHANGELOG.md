@@ -1,6 +1,7 @@
 # Changelog
 
 ## v0.0.12 - in progress
+- Ensure that version numbers match the constraint inside the file.
 - `maldiims` to `ims`: Only touches URLs; doesn't affect validation.
 - Add script to validate any TSV.
 - Factor out exit status codes.
