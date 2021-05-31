@@ -260,6 +260,7 @@ def _validate_level_1_enum(field):
             'bulkATACseq',
             'Cell DIVE',
             'CODEX',
+            'CZE-MS',
             'DESI',
             'Imaging Mass Cytometry',
             'LC-MS (metabolomics)',
