@@ -8,7 +8,20 @@ import frictionless
 import requests
 
 
-class CheckFactory():
+cache_path = str(Path(__file__).parent / 'url-status-cache')
+
+
+def make_checks(schema):
+    factory = _CheckFactory(schema)
+    return [
+        factory.make_url_check(),
+        factory.make_sequence_limit_check(),
+        factory.make_units_check(),
+        factory.make_forbid_na_check()
+    ]
+
+
+class _CheckFactory():
     def __init__(self, schema):
         self.schema = schema
         self._prev_value_run_length = {}
@@ -21,7 +34,7 @@ class CheckFactory():
         }
 
     def _check_url_status_cache(self, url):
-        with shelve.open(str(Path(__file__).parent / 'url-status-cache')) as url_status_cache:
+        with shelve.open(cache_path) as url_status_cache:
             if url not in url_status_cache:
                 print(f'Fetching un-cached url: {url}', file=stderr)
                 response = requests.get(url)
@@ -46,18 +59,24 @@ class CheckFactory():
         return url_check
 
     def make_sequence_limit_check(self, template=Template(
-            'incremented $run_length times; limit is $limit')):
+            'there is a run of $run_length sequential items: Limit is $limit. '
+            'If correct, reorder rows.')):
         sequence_limit_fields = self._get_constrained_fields('sequence_limit')
 
         def sequence_limit_check(row):
             prefix_number_re = r'(?P<prefix>.*?)(?P<number>\d+)$'
             for k, v in row.items():
+                # If the schema declares the field as datetime,
+                # "v" will be a python object, and regexes will error.
+                v = str(v)
+
                 if k not in sequence_limit_fields or not v:
                     continue
 
                 match = re.search(prefix_number_re, v)
                 if not match:
-                    del self._prev_value_run_length[k]
+                    if k in self._prev_value_run_length:
+                        del self._prev_value_run_length[k]
                     continue
 
                 if k not in self._prev_value_run_length:
@@ -77,6 +96,7 @@ class CheckFactory():
                 self._prev_value_run_length[k] = (v, run_length)
 
                 limit = sequence_limit_fields[k]
+                assert limit > 1, 'The lowest allowed limit is 2'
                 if run_length >= limit:
                     note = template.substitute(run_length=run_length, limit=limit)
                     yield frictionless.errors.CellError.from_row(row, note=note, field_name=k)
@@ -95,3 +115,18 @@ class CheckFactory():
                         note = template.substitute(units_for=units_for)
                         yield frictionless.errors.CellError.from_row(row, note=note, field_name=k)
         return units_check
+
+    def make_forbid_na_check(self, template=Template(
+            '"N/A" fields should just be left empty')):
+        forbid_na_constrained_fields = self._get_constrained_fields('forbid_na')
+
+        def forbid_na_check(row):
+            for k, v in row.items():
+                if (
+                    k in forbid_na_constrained_fields
+                    and isinstance(v, str)
+                    and v.upper() in ['NA', 'N/A']
+                ):
+                    note = template.substitute()
+                    yield frictionless.errors.CellError.from_row(row, note=note, field_name=k)
+        return forbid_na_check

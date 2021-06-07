@@ -1,4 +1,1 @@
-# HuBMAP Submission Documentation
-
-Here you will find documentation, TSV templates, and JSON schemas
-for submissions to HuBMAP.
+Moved to [github pages](https://hubmapconsortium.github.io/ingest-validation-tools).

@@ -9,12 +9,12 @@ for SUITE in examples/dataset-examples examples/dataset-iec-examples; do
 
   case $SUITE in
     examples/dataset-iec-examples)
-      OPTS="--dataset_ignore_globs 'metadata.tsv' --submission_ignore_globs '*'"
+      OPTS="--dataset_ignore_globs 'metadata.tsv' --upload_ignore_globs '*'"
       ;;
     examples/dataset-examples)
       # To minimize dependence on outside resources, --offline used here,
       # but ID lookup is still exercised by iec-examples.
-      OPTS="--dataset_ignore_globs 'ignore-*.tsv' '.*' --submission_ignore_globs 'drv_ignore_*' --offline --output as_md"
+      OPTS="--dataset_ignore_globs 'ignore-*.tsv' '.*' --upload_ignore_globs 'drv_ignore_*' --offline --output as_md"
       ;;
     *)
       die "Unexpected $SUITE"
@@ -22,7 +22,7 @@ for SUITE in examples/dataset-examples examples/dataset-iec-examples; do
 
   for EXAMPLE in $SUITE/*; do
     echo "Testing $EXAMPLE ..."
-    CMD="src/validate_submission.py --local_directory $EXAMPLE/submission $OPTS "
+    CMD="src/validate_upload.py --local_directory $EXAMPLE/upload $OPTS "
     echo "$CMD"
     README="$EXAMPLE/README.md"
     diff $README <( eval "$CMD" ) \

@@ -24,6 +24,8 @@ def _load_includes(path, indent=0):
     text = path.read_text()
     if re.match(r'\s', text[0]):
         raise Exception(f'Unexpected padding in the first column: {path}')
+    if re.search(r'\S.*#\s*include:', text):
+        raise Exception(f'"# include:" is not alone on a line in: {path}')
     expanded_text = re.sub(
         r'^([ \t]*)#\s*include:\s*(\S+)',
         _expand_match_generator(path.parent),

@@ -9,6 +9,9 @@ from ingest_validation_tools.directory_validator import (
     validate_directory, DirectoryValidationErrors)
 from ingest_validation_tools.table_validator import (
     get_table_errors)
+from ingest_validation_tools.schema_loader import (
+    get_schema_version_from_row, PreflightError
+)
 
 
 class TableValidationErrors(Exception):
@@ -19,6 +22,18 @@ def dict_reader_wrapper(path, encoding):
     with open(path, encoding=encoding) as f:
         rows = list(DictReader(f, dialect='excel-tab'))
     return rows
+
+
+def get_schema_version(path, encoding):
+    try:
+        rows = dict_reader_wrapper(path, encoding)
+    except UnicodeDecodeError as e:
+        raise PreflightError(get_context_of_decode_error(e))
+    except IsADirectoryError:
+        raise PreflightError(f'Expected a TSV, found a directory at {path}.')
+    if not rows:
+        raise PreflightError(f'{path} has no data rows.')
+    return get_schema_version_from_row(path, rows[0])
 
 
 def get_data_dir_errors(schema_name, data_path, dataset_ignore_globs=[]):
@@ -85,18 +100,16 @@ def get_tsv_errors(tsv_path, schema_name, optional_fields=[], offline=None, enco
         return 'File has no data rows.'
 
     version = rows[0]['version'] if 'version' in rows[0] else '0'
-    source_project = rows[0]['source_project'] if 'source_project' in rows[0] else None
     try:
         others = [
             p.stem.split('-v')[0] for p in
             (Path(__file__).parent / 'table-schemas/others').iterdir()
         ]
         if schema_name in others:
-            schema = get_other_schema(schema_name, version, source_project=source_project,
-                                      offline=offline)
+            schema = get_other_schema(schema_name, version, offline=offline)
         else:
-            schema = get_table_schema(schema_name, version, source_project=source_project,
-                                      offline=offline, optional_fields=optional_fields)
+            schema = get_table_schema(schema_name, version, offline=offline,
+                                      optional_fields=optional_fields)
     except OSError as e:
         return {e.strerror: Path(e.filename).name}
     return get_table_errors(tsv_path, schema)

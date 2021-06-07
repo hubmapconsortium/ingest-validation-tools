@@ -1,0 +1,2 @@
+- name: preparation_type
+  description: Common methods of depositing matrix for MALDI imaging include robotic spotting, electrospray deposition, and spray-coating with an airbrush.

@@ -11,5 +11,5 @@ for TOOL in src/*.py; do
   diff \
         <(perl -ne 'print if /usage: '$TOOL'/../```/ and ! /```/' $DOCS/README-$TOOL.md) \
         <(src/$TOOL -h) \
-      || die 'Update: (echo '"'"'```'"'"'; src/'$TOOL' -h; echo '"'"'```'"'"') >' $DOCS/README-$TOOL.md
+      || die 'Update: (echo '"'"'```text'"'"'; src/'$TOOL' -h; echo '"'"'```'"'"') >' $DOCS/README-$TOOL.md
 done

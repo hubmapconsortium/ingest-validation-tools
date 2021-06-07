@@ -1,0 +1,3 @@
+On row 4, column "limit_2", value "5" fails because there is a run of 2 sequential items: Limit is 2. If correct, reorder rows.
+On row 5, column "limit_2", value "6" fails because there is a run of 3 sequential items: Limit is 2. If correct, reorder rows.
+On row 6, column "limit_4", value "x1y4" fails because there is a run of 4 sequential items: Limit is 4. If correct, reorder rows.

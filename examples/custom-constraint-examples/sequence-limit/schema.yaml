@@ -1,0 +1,15 @@
+fields:
+  - name: comment
+    type: string
+  - name: limit_2
+    type: string
+    custom_constraints:
+      sequence_limit: 2
+  - name: limit_4
+    type: string
+    custom_constraints:
+      sequence_limit: 4
+  - name: date
+    type: date
+    custom_constraints:
+      sequence_limit: 2

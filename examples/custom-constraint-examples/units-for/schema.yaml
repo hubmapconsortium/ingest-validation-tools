@@ -1,0 +1,9 @@
+fields:
+  - name: a_value
+    type: number
+  - name: a_unit
+    type: string
+    custom_constraints:
+      units_for: a_value
+  - name: note
+    type: string

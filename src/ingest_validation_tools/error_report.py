@@ -15,6 +15,10 @@ Dumper.ignore_aliases = lambda *args: True
 class ErrorReport:
     def __init__(self, errors_dict):
         self.errors = errors_dict
+        if self.errors:
+            self.errors['Hint'] = \
+                'If validation fails because of extra whitespace in the TSV, try:\n' \
+                'src/cleanup_whitespace.py --tsv_in original.tsv --tsv_out clean.tsv'
 
     def _as_list(self):
         return [munge(m) for m in _build_list(self.errors)]
@@ -44,6 +48,9 @@ class ErrorReport:
         <dl>
           <dt>really</dt>
           <dd>simple</dd>
+          <dt>Hint</dt>
+          <dd>If validation fails because of extra whitespace in the TSV, try:
+        src/cleanup_whitespace.py --tsv_in original.tsv --tsv_out clean.tsv</dd>
         </dl>
         '''
         if not self.errors:

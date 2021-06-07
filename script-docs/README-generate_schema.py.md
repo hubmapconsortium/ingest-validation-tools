@@ -1,4 +1,4 @@
-```
+```text
 usage: generate_schema.py [-h] [--fields FIELDS]
 
 optional arguments:

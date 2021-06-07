@@ -1,0 +1,4 @@
+- name: transposition_kit_number
+  description: If Tn5 came from a kit, provide the catalog number.
+  constraints:
+    required: False

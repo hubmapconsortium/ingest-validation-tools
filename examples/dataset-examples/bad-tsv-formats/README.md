@@ -1,6 +1,6 @@
 ```
 Metadata TSV Errors:
-  examples/dataset-examples/bad-tsv-formats/submission/codex-metadata.tsv (as codex):
+  examples/dataset-examples/bad-tsv-formats/upload/codex-metadata.tsv (as codex):
     Internal:
     - On row 2, column "donor_id", value "not-uuid" fails because constraint "pattern"
       is "[A-Z]+[0-9]+"
@@ -42,7 +42,7 @@ Metadata TSV Errors:
     - On row 2, column "reagent_prep_protocols_io_doi", value "not-doi" fails because
       constraint "pattern" is "10\.17504/.*"
     External:
-      row 2, referencing examples/dataset-examples/bad-tsv-formats/submission/dataset-1:
+      row 2, data examples/dataset-examples/bad-tsv-formats/upload/dataset-1:
         Not allowed:
         - channelnames.txt
         - cyc002_reg001_200216_112537/1_00001_Z001_CH1.tif
@@ -58,9 +58,12 @@ Metadata TSV Errors:
         - src_[^/]+/cyc.*_reg.*_.*/.*_.*_Z.*_CH.*\.tif
         - src_[^/]+/experiment\.json
         - src_[^/]+/exposure_times\.txt
-        - src_[^/]+/segmentation\.json
-      row 2, contributors examples/dataset-examples/bad-tsv-formats/submission/contributors.tsv: File
+        - src_[^/]+/segmentation\.(json|txt)
+      row 2, contributors examples/dataset-examples/bad-tsv-formats/upload/contributors.tsv: File
         has no data rows.
-      row 2, antibodies examples/dataset-examples/bad-tsv-formats/submission/antibodies.tsv: File
+      row 2, antibodies examples/dataset-examples/bad-tsv-formats/upload/antibodies.tsv: File
         does not exist
+Hint: 'If validation fails because of extra whitespace in the TSV, try:
+
+  src/cleanup_whitespace.py --tsv_in original.tsv --tsv_out clean.tsv'
 ```

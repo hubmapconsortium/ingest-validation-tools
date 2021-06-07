@@ -4,32 +4,52 @@ fields:
     enum:
     - '1'
     required: true
+  custom_constraints:
+    forbid_na: true
+    sequence_limit: 3
   description: Version of the schema to use when validating this metadata.
   name: version
 - constraints:
     required: true
+  custom_constraints:
+    forbid_na: true
+    sequence_limit: 3
   description: Institutional affiliation
   name: affiliation
 - constraints:
     required: true
+  custom_constraints:
+    forbid_na: true
+    sequence_limit: 3
   description: First name
   name: first_name
 - constraints:
     required: true
+  custom_constraints:
+    forbid_na: true
+    sequence_limit: 3
   description: Last name
   name: last_name
 - constraints:
     required: false
+  custom_constraints:
+    forbid_na: true
+    sequence_limit: 3
   description: Middle name or initial
   name: middle_name_or_initial
 - constraints:
     required: true
+  custom_constraints:
+    forbid_na: true
+    sequence_limit: 3
   description: Name for display
   name: name
 - constraints:
     pattern: \d{4}-\d{4}-\d{4}-\d{3}[0-9X]
     required: true
   custom_constraints:
+    forbid_na: true
+    sequence_limit: 3
     url:
       prefix: https://orcid.org/
   description: ORCID ID of contributor
@@ -38,6 +58,9 @@ fields:
   type: string
 - constraints:
     required: true
+  custom_constraints:
+    forbid_na: true
+    sequence_limit: 3
   description: Is this individual a contact for DOI purposes?
   name: is_contact
   type: boolean

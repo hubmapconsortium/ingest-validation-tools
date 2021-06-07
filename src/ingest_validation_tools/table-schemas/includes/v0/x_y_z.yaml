@@ -1,30 +1,24 @@
--
-  name: resolution_x_value
+- name: resolution_x_value
   description: The width of a pixel.
--
-  name: resolution_x_unit
+- name: resolution_x_unit
   description: The unit of measurement of the width of a pixel.
   constraints:
     enum:
       - nm
       - um
--
-  name: resolution_y_value
+- name: resolution_y_value
   description: The height of a pixel
--
-  name: resolution_y_unit
+- name: resolution_y_unit
   description: The unit of measurement of the height of a pixel.
   constraints:
     enum:
       - nm
       - um
--
-  name: resolution_z_value
+- name: resolution_z_value
   description: The increment distance between image slices,
     ie. the microscope stage is moved up or down in increments
     to capture images of several focal planes.
--
-  name: resolution_z_unit
+- name: resolution_z_unit
   description: The unit of incremental distance between image slices.
   constraints:
     enum:

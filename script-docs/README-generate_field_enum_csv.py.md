@@ -1,4 +1,4 @@
-```
+```text
 usage: generate_field_enum_csv.py [-h] [--fields FIELD [FIELD ...]]
 
 optional arguments:

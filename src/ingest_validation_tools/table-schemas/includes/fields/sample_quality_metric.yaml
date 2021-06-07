@@ -1,0 +1,5 @@
+- name: sample_quality_metric
+  description: "This is a quality metric by visual inspection. This should answer\
+    \ the question: Are the nuclei intact and are the nuclei free of significant amounts\
+    \ of debris? This can be captured at a high level, \u201COK\u201D or \u201Cnot\
+    \ OK\u201D."

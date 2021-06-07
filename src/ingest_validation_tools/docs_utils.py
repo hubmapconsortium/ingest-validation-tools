@@ -2,6 +2,8 @@ import re
 from string import Template
 from pathlib import Path
 
+from ingest_validation_tools.schema_loader import get_field_enum
+
 
 def get_tsv_name(type, is_assay=True):
     return f'{type}{"-metadata" if is_assay else ""}.tsv'
@@ -12,6 +14,17 @@ def get_xlsx_name(type, is_assay=True):
 
 
 def generate_template_tsv(table_schema):
+    '''
+    >>> schema = {'fields': [{
+    ...   'name': 'fake',
+    ...   'constraints': {
+    ...     'enum': ['a', 'b', 'c']
+    ...   }
+    ... }]}
+    >>> generate_template_tsv(schema)
+    'fake\\na / b / c'
+    '''
+
     names = [field['name'] for field in table_schema['fields']]
     header_row = '\t'.join(names)
 
@@ -77,20 +90,23 @@ def generate_readme_md(
     max_version = max(table_schemas.keys())
     max_version_table_schema = table_schemas[max_version]
 
+    assay_type_enum = get_field_enum('assay_type', max_version_table_schema)
+    assay_category_enum = get_field_enum('assay_category', max_version_table_schema)
+    source_project_enum = get_field_enum('source_project', max_version_table_schema)
+
+    title = ' / '.join(assay_type_enum) \
+        if assay_type_enum else schema_name
+    category = ' / '.join(assay_category_enum) \
+        if assay_category_enum else 'other'
+    title += f" ({' / '.join(source_project_enum)})" \
+        if source_project_enum else ''
+
     raw_base_url = 'https://raw.githubusercontent.com/' \
         'hubmapconsortium/ingest-validation-tools/master/docs'
 
-    src_url_base = 'https://github.com/hubmapconsortium' \
-        '/ingest-validation-tools/edit/master/src/ingest_validation_tools'
-    end_of_path = f'{"assays/" if is_assay else ""}{schema_name}.yaml'
-
-    directory_source_url = f'{src_url_base}/directory-schemas/{schema_name}.yaml'
-    optional_dir_schema_link_md, optional_dir_description_md = (
-        (
-            f'- [💻 Directory schema]({directory_source_url}): To update directory structure.',
-            f'## Directory schema\n{_make_dir_description(directory_schema)}'
-        ) if directory_schema else
-        ('', '')
+    optional_dir_description_md = (
+        f'## Directory schema\n{_make_dir_description(directory_schema)}'
+        if directory_schema else ''
     )
 
     optional_doc_link_md = (
@@ -107,17 +123,24 @@ def generate_readme_md(
         (Path(__file__).parent / 'docs.template').read_text()
     )
     return template.substitute({
+        'title': title,
         'schema_name': schema_name,
+        'category': {
+            'imaging': 'Imaging assays',
+            'mass_spectrometry': 'Mass spectrometry',
+            'mass_spectrometry_imaging': 'Imaging mass spectrometry',
+            'sequence': 'Sequence assays',
+            'other': 'Other TSVs'
+        }[category],
         'max_version': max_version,
 
         'tsv_url': f'{raw_base_url}/{schema_name}/{get_tsv_name(schema_name, is_assay=is_assay)}',
         'xlsx_url': f'{raw_base_url}/{schema_name}/{get_xlsx_name(schema_name, is_assay=is_assay)}',
-        'metadata_source_url': f'{src_url_base}/table-schemas/{end_of_path}',
 
         'current_version_md':
             _make_fields_md(
                 table_schemas[max_version], f'Version {max_version} (current)', is_open=True
-            ),
+        ),
         'previous_versions_md':
             '\n\n'.join([
                 _make_fields_md(
@@ -126,7 +149,6 @@ def generate_readme_md(
                 for v in reversed(range(int(max_version)))
             ]),
 
-        'optional_dir_schema_link_md': optional_dir_schema_link_md,
         'optional_dir_description_md': optional_dir_description_md,
 
         'optional_doc_link_md': optional_doc_link_md,
@@ -135,19 +157,36 @@ def generate_readme_md(
 
 
 def _make_fields_md(table_schema, title, is_open=False):
+    '''
+    >>> schema = {'fields': [{
+    ...   'heading': 'A head',
+    ...   'name': 'a_name',
+    ...   'description': 'A description'
+    ... }]}
+    >>> print(_clean(_make_fields_md(schema, 'A title')))
+    <details markdown="1" ><summary><b>A title</b></summary>
+    ### A head
+    <a name="a_name"></a>
+    ##### [`a_name`](#a_name)
+    A description.
+    </details>
+    '''
+
     fields_md_list = []
     for field in table_schema['fields']:
         if 'heading' in field:
             fields_md_list.append(f"### {field['heading']}")
         table_md = _make_constraints_table(field)
+        name = field['name']
         fields_md_list.append('\n'.join([
-            f"##### `{field['name']}`",
+            f'<a name="{name}"></a>',
+            f"##### [`{name}`](#{name})",
             _enrich_description(field),
             table_md
         ]))
     joined_list = '\n\n'.join(fields_md_list)
     return f'''
-<details {'open="true"' if is_open else ''}><summary><b>{title}</b></summary>
+<details markdown="1" {'open="true"' if is_open else ''}><summary><b>{title}</b></summary>
 
 {_make_toc(joined_list) if is_open else ''}
 {joined_list}
@@ -157,6 +196,26 @@ def _make_fields_md(table_schema, title, is_open=False):
 
 
 def _make_constraints_table(field):
+    '''
+    >>> field = {
+    ...   'name': 'field',
+    ...   'type': 'fake type',
+    ...   'constraints': {
+    ...     'enum': ['a', 'b']
+    ...   },
+    ...   'custom_constraints': {
+    ...     'custom': 'fake',
+    ...   }
+    ... }
+    >>> print(_make_constraints_table(field))
+    <BLANKLINE>
+    | constraint | value |
+    | --- | --- |
+    | type | `fake type` |
+    | enum | `a` or `b` |
+    | custom | `fake` |
+    '''
+
     table_md_rows = ['| constraint | value |', '| --- | --- |']
     for key, value in field.items():
         if key in ['type', 'format']:
@@ -170,13 +229,17 @@ def _make_constraints_table(field):
             table_md_rows.append(f'| {key_md} | {value_md} |')
     if 'custom_constraints' in field:
         for key, value in field['custom_constraints'].items():
+            if key in ['sequence_limit', 'forbid_na']:
+                # Applied to every field,
+                # but we don't want to clutter the docs:
+                continue
             key_md = _make_key_md(key, value)
             value_md = _make_value_md(key, value)
             table_md_rows.append(f'| {key_md} | {value_md} |')
     if len(table_md_rows) < 3:
         # Empty it, if there is no data.
         table_md_rows = []
-    return '\n'.join(table_md_rows)
+    return '\n' + '\n'.join(table_md_rows)
 
 
 def _make_key_md(key, value):
@@ -234,6 +297,10 @@ def _md_escape_re(re_string):
     return re.sub(r'([|])', r'\\\1', re_string)
 
 
+def _clean(s):
+    return re.sub(r'\n+', '\n', s).strip()
+
+
 def _make_toc(md):
     # Github should do this for us, but it doesn't.
     # Existing solutions expect a file, not a string,
@@ -242,32 +309,46 @@ def _make_toc(md):
     '''
     >>> md = '# Section A\\n## `Item 1`\\n# Section B'
 
-    >>> print(_make_toc(md))
-    <blockquote><details><summary>Section A</summary>
-    <BLANKLINE>
+    >>> print(_clean(_make_toc(md)))
+    <blockquote markdown="1">
+    <details markdown="1"><summary>Section A</summary>
     [`Item 1`](#item-1)<br>
     </details>
-    <BLANKLINE>
-    <details><summary>Section B</summary>
-    </details></blockquote>
+    <details markdown="1"><summary>Section B</summary>
+    </details>
+    </blockquote>
+
+    >>> md = '## `Item 1`\\n## `Item 3`\\n## `Item 3`\\n'
+
+    >>> print(_clean(_make_toc(md)))
+    <blockquote markdown="1">
+    [`Item 1`](#item-1)<br>
+    [`Item 3`](#item-3)<br>
+    [`Item 3`](#item-3)<br>
+    </blockquote>
 
     '''
     lines = md.split('\n')
     headers = [
-        re.sub(r'^#+\s+', '', line)
+        re.sub(r'^#+\s*', '', re.sub(r'.*\[(.*)\].*', r'\1', line))
         for line in lines if len(line) and line[0] == '#'
     ]
-    mds = '\n'.join([
-        (
-            # Assume section headers do not contain backticks...
-            f'</details>\n\n<details><summary>{h}</summary>\n'
-            if '`' not in h else
-            # Otherwise, make a link to the field:
-            f"[{h}](#{h.lower().replace(' ', '-').replace('`', '')})<br>"
-        )
-        for h in headers
-    ]).replace('</details>\n\n', '', 1) + '</details>'
-    return f'<blockquote>{mds}</blockquote>'
+    in_details = False
+    mds = []
+    for h in headers:
+        if '`' in h:
+            mds.append(f"[{h}](#{h.lower().replace(' ', '-').replace('`', '')})<br>")
+        else:
+            if in_details:
+                mds.append('\n</details>')
+            mds.append(f'<details markdown="1"><summary>{h}</summary>\n')
+            in_details = True
+    if in_details:
+        mds.append('</details>')
+    joined_mds = "\n".join(mds)
+    # If MD trails immediately after "</blockquote>",
+    # it doesn't render correctly, so include a newline.
+    return f'<blockquote markdown="1">\n\n{joined_mds}\n\n</blockquote>\n'
 
 
 def _make_dir_description(dir_schema):

@@ -1,0 +1,7 @@
+fields:
+  - name: a_string
+    type: string
+  - name: a_number
+    type: number
+  - name: another_string
+    type: string

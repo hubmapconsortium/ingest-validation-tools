@@ -1,7 +1,0 @@
-fields:
-  -
-    name: a_string
-    type: string
-  -
-    name: a_number
-    type: number

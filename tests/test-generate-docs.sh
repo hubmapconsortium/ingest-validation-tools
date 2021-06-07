@@ -21,8 +21,11 @@ rm -rf docs-test
 
 # Test docs:
 
-for TYPE in $(ls -d docs/*/); do # Just get subdirectories
+for TYPE in $(ls -d docs/*); do
+  # Skip directories that are unpopulated:
   TYPE=`basename $TYPE`
+  [ -e docs/$TYPE/$TYPE-metadata.tsv ] || continue
+
   echo "Testing $TYPE generation..."
 
   REAL_DEST="docs/$TYPE"
@@ -35,7 +38,7 @@ for TYPE in $(ls -d docs/*/); do # Just get subdirectories
   eval $TEST_CMD
   diff -r $REAL_DEST $TEST_DEST \
     || die "Update needed: $REAL_CMD
-Or:" 'for D in `ls -d docs/*/`; do src/generate_docs.py `basename $D` $D; done'
+Or:" 'for D in `ls -d docs/*/`; do D=`basename $D`; [ -e docs/$D/$D-metadata.tsv ] || continue; src/generate_docs.py $D docs/$D; done'
   rm -rf $TEST_DEST
   ((++GENERATE_COUNT))
 done
