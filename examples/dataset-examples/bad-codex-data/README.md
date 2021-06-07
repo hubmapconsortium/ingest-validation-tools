@@ -13,15 +13,15 @@ Metadata TSV Errors:
         - exposure_times.txt
         - segmentation.json
         Required but missing:
+        - (processed|drv_)[^/]+/channelNames\.txt
+        - (processed|drv_)[^/]+/processed_[^/]+/.*
+        - (raw|src_)[^/]+/channelnames\.txt
+        - (raw|src_)[^/]+/channelnames_report\.csv
+        - (raw|src_)[^/]+/cyc.*_reg.*_.*/.*_.*_Z.*_CH.*\.tif
+        - (raw|src_)[^/]+/experiment\.json
+        - (raw|src_)[^/]+/exposure_times\.txt
+        - (raw|src_)[^/]+/segmentation\.(json|txt)
         - .+\.pdf
-        - drv_[^/]+/channelNames\.txt
-        - drv_[^/]+/processed_[^/]+/.*
-        - src_[^/]+/channelnames\.txt
-        - src_[^/]+/channelnames_report\.csv
-        - src_[^/]+/cyc.*_reg.*_.*/.*_.*_Z.*_CH.*\.tif
-        - src_[^/]+/experiment\.json
-        - src_[^/]+/exposure_times\.txt
-        - src_[^/]+/segmentation\.(json|txt)
       row 2, contributors examples/dataset-examples/bad-codex-data/upload/contributors.tsv:
       - On row 2, column "orcid_id", value "bad-id" fails because constraint "pattern"
         is "\d{4}-\d{4}-\d{4}-\d{3}[0-9X]"

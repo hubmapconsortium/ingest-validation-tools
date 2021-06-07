@@ -9,15 +9,15 @@ Metadata TSV Errors:
         Not allowed:
         - not-good-for-either-type.txt
         Required but missing:
+        - (processed|drv_)[^/]+/channelNames\.txt
+        - (processed|drv_)[^/]+/processed_[^/]+/.*
+        - (raw|src_)[^/]+/channelnames\.txt
+        - (raw|src_)[^/]+/channelnames_report\.csv
+        - (raw|src_)[^/]+/cyc.*_reg.*_.*/.*_.*_Z.*_CH.*\.tif
+        - (raw|src_)[^/]+/experiment\.json
+        - (raw|src_)[^/]+/exposure_times\.txt
+        - (raw|src_)[^/]+/segmentation\.(json|txt)
         - .+\.pdf
-        - drv_[^/]+/channelNames\.txt
-        - drv_[^/]+/processed_[^/]+/.*
-        - src_[^/]+/channelnames\.txt
-        - src_[^/]+/channelnames_report\.csv
-        - src_[^/]+/cyc.*_reg.*_.*/.*_.*_Z.*_CH.*\.tif
-        - src_[^/]+/experiment\.json
-        - src_[^/]+/exposure_times\.txt
-        - src_[^/]+/segmentation\.(json|txt)
       row 2, contributors examples/dataset-examples/bad-mixed/upload/contributors.tsv: File
         has no data rows.
       row 2, antibodies examples/dataset-examples/bad-mixed/upload/antibodies.tsv: File
