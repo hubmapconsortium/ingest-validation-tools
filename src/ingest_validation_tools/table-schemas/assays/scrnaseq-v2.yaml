@@ -5,7 +5,7 @@ fields:
   description: Version of the schema to use when validating this metadata.
   constraints:
     enum:
-      - '1'
+      - '2'
 # include: ../includes/vA/all_assays_wo_version.yaml
 - name: assay_category
   constraints:
@@ -38,8 +38,7 @@ fields:
       - nucleus
       - cell-cell multimer
       - spatially encoded cell barcoding
-- name: sc_isolation_tissue_dissociation
-  description: The method by which tissues are dissociated into single cells in suspension.
+# include: ../includes/fields/sc_isolation_tissue_dissociation.yaml
 - name: sc_isolation_enrichment
   description: The method by which specific cell populations are sorted or enriched.
   constraints:

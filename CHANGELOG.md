@@ -2,6 +2,13 @@
 
 ## v0.0.12 - in progress
 - Add gcms.
+- Ensure that version numbers match the constraint inside the file.
+- `maldiims` to `ims`: Only touches URLs; doesn't affect validation.
+- Add script to validate any TSV.
+- Factor out exit status codes.
+- Pull out sc_isolation_tissue_dissociation.
+- sequencing_read_format is optional for HCA.
+- Disallow N/A values.
 - Pull out the fields that have only one variant.
 - Cleanup code for reference validations.
 - Better section headers.

@@ -89,7 +89,7 @@ Version of the schema to use when validating this metadata.
 
 | constraint | value |
 | --- | --- |
-| enum | `1` |
+| enum | `2` |
 | required | `True` |
 
 <a name="description"></a>
