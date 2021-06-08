@@ -10,7 +10,7 @@ fields:
     enum:
       - MALDI-IMS
       - SIMS-IMS
-      # TODO: "NanoDESI" is already a value under the nano schema: It can't be in both.
+      - nanoDESI
       - DESI
 - name: analyte_class
   constraints:
@@ -42,15 +42,15 @@ fields:
       # - DESI
       # - SIMS
       # - nESI
-- name: polarity # TODO: Why is this green in the spreadsheet?
+- name: polarity
   description: The polarity of the mass analysis (positive or negative ion modes)
   constraints:
     enum:
       - negative ion mode
       - positive ion mode
-- name: mz_range_low_value # TODO: Why is this green in the spreadsheet?
+- name: mz_range_low_value
   description: The low value of the scanned mass range for MS1. (unitless)
-- name: mz_range_high_value # TODO: Why is this green in the spreadsheet?
+- name: mz_range_high_value
   description: The high value of the scanned mass range for MS1. (unitless)
 
 - name: mass_resolving_power
@@ -68,9 +68,9 @@ fields:
       - TWIMS
       - FAIMS
       - DTIMS
-      - SLIMS # TODO: Confirm that adding final "S" here is correct?
+      - SLIMS
 - name: ms_scan_mode
-  description: TODO
+  description: Scan mode refers to the number of steps in the separation of fragments.
   constraints:
     enum:
       - MS
@@ -84,7 +84,6 @@ fields:
     spotting, electrospray deposition, and spray-coating with an airbrush.
   constraints:
     required: False
-    # TODO: Should this be an enum?
 - name: preparation_instrument_vendor
   description: The manufacturer of the instrument used to prepare the sample for the
     assay.
@@ -100,16 +99,17 @@ fields:
     buffer between the sample and the laser. It also helps ionize the sample, carrying
     it along the flight tube so it can be detected.
   constraints:
-    required: False
-    # TODO: Should this be an enum?
+     enum:
+         - CHB
+         - DHB
+         - SA
 
 - name: desi_solvent
-  description: TODO
+  description: Solvent composition for conducting nanospray desorption electrospray ionization (nanoDESI) or desorption electrospray ionization (DESI).
   constraints:
     required: False
-    # TODO: Should this be an enum?
 - name: desi_solvent_flow_rate
-  description: TODO
+  description: The rate of flow of the solvent into a spray.
   type: number
   constraints:
     required: False
@@ -118,7 +118,7 @@ fields:
   constraints:
     required: False
     enum:
-      - TODO
+      - uL/minute
 
 
 # include: ../includes/v0/doi/section_prep.yaml
