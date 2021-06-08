@@ -148,6 +148,11 @@ fields:
   name: sc_isolation_protocols_io_doi
   type: string
 - constraints:
+    enum:
+    - whole cell
+    - nucleus
+    - cell-cell multimer
+    - spatially encoded cell barcoding
     required: true
   custom_constraints:
     forbid_na: true

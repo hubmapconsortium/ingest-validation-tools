@@ -1015,6 +1015,7 @@ The type of single cell entity derived from isolation protocol.
 
 | constraint | value |
 | --- | --- |
+| enum | `whole cell`, `nucleus`, `cell-cell multimer`, or `spatially encoded cell barcoding` |
 | required | `True` |
 
 <a name="sc_isolation_tissue_dissociation"></a>
