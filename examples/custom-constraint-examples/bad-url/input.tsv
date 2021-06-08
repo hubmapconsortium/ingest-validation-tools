@@ -3,3 +3,4 @@ both good	https://portal.hubmapconsortium.org/browse/dataset/f9ae931b8b49252f150
 uuid bad	https://portal.hubmapconsortium.org/	bad
 url bad	https://portal.hubmapconsortium.org/bad	f9ae931b8b49252f150d7f8bf1d2d13f
 missing values ok		
+network errors reported	bad://url	

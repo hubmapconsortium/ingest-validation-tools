@@ -1,7 +1,7 @@
 ---
 title: SNARE-seq2 / scATACseq / sciATACseq / snATACseq
 schema_name: scatacseq
-category: sequence
+category: Sequence assays
 layout: default
 ---
 
@@ -434,7 +434,7 @@ Average size of sequencing library fragments estimated via gel electrophoresis o
 
 <a name="sequencing_reagent_kit"></a>
 ##### [`sequencing_reagent_kit`](#sequencing_reagent_kit)
-Reagent kit used for sequencing. NovaSeq6000 for example.
+Reagent kit used for sequencing.
 
 | constraint | value |
 | --- | --- |

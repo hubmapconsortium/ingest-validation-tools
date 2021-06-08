@@ -1,7 +1,7 @@
 ---
 title: CODEX
 schema_name: codex
-category: imaging
+category: Imaging assays
 layout: default
 ---
 
@@ -279,7 +279,7 @@ Optional if assay does not have multiple z-levels. Note that this is resolution 
 
 <a name="resolution_z_unit"></a>
 ##### [`resolution_z_unit`](#resolution_z_unit)
-The unit of incremental distance between image slices.(um) Leave blank if not applicable.
+The unit of incremental distance between image slices. Leave blank if not applicable.
 
 | constraint | value |
 | --- | --- |
@@ -561,7 +561,7 @@ Optional if assay does not have multiple z-levels. Note that this is resolution 
 
 <a name="resolution_z_unit"></a>
 ##### [`resolution_z_unit`](#resolution_z_unit)
-The unit of incremental distance between image slices.(um) Leave blank if not applicable.
+The unit of incremental distance between image slices. Leave blank if not applicable.
 
 | constraint | value |
 | --- | --- |

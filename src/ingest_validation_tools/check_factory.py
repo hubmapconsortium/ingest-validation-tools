@@ -11,7 +11,17 @@ import requests
 cache_path = str(Path(__file__).parent / 'url-status-cache')
 
 
-class CheckFactory():
+def make_checks(schema):
+    factory = _CheckFactory(schema)
+    return [
+        factory.make_url_check(),
+        factory.make_sequence_limit_check(),
+        factory.make_units_check(),
+        factory.make_forbid_na_check()
+    ]
+
+
+class _CheckFactory():
     def __init__(self, schema):
         self.schema = schema
         self._prev_value_run_length = {}
@@ -27,8 +37,11 @@ class CheckFactory():
         with shelve.open(cache_path) as url_status_cache:
             if url not in url_status_cache:
                 print(f'Fetching un-cached url: {url}', file=stderr)
-                response = requests.get(url)
-                url_status_cache[url] = response.status_code
+                try:
+                    response = requests.get(url)
+                    url_status_cache[url] = response.status_code
+                except Exception as e:
+                    url_status_cache[url] = str(e)
             return url_status_cache[url]
 
     def make_url_check(self, template=Template(
@@ -105,3 +118,18 @@ class CheckFactory():
                         note = template.substitute(units_for=units_for)
                         yield frictionless.errors.CellError.from_row(row, note=note, field_name=k)
         return units_check
+
+    def make_forbid_na_check(self, template=Template(
+            '"N/A" fields should just be left empty')):
+        forbid_na_constrained_fields = self._get_constrained_fields('forbid_na')
+
+        def forbid_na_check(row):
+            for k, v in row.items():
+                if (
+                    k in forbid_na_constrained_fields
+                    and isinstance(v, str)
+                    and v.upper() in ['NA', 'N/A']
+                ):
+                    note = template.substitute()
+                    yield frictionless.errors.CellError.from_row(row, note=note, field_name=k)
+        return forbid_na_check

@@ -1,0 +1,3 @@
+- name: preparation_maldi_matrix
+  description: The matrix is a compound of crystallized molecules that acts like a buffer between the sample and the laser.
+    It also helps ionize the sample, carrying it along the flight tube so it can be detected.

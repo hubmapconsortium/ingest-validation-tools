@@ -1,11 +1,7 @@
 # Generated YAML: PRs should not start here!
 doc_url: https://portal.hubmapconsortium.org/docs/assays/rnaseq
 fields:
-- name: source_project
-  description: External source (outside of HuBMAP) of the project, eg. HCA (The Human Cell Atlas Consortium).
-  constraints:
-    enum:
-      - HCA
+# include: ../includes/fields/source_project.yaml
 - name: donor_id
   constraints:
     required: false
@@ -41,7 +37,7 @@ fields:
   type: string
 - name: operator
   constraints:
-    required: true
+    required: false
   description: Name of the person responsible for executing the assay.
 - name: operator_email
   constraints:
@@ -116,10 +112,7 @@ fields:
   constraints:
     required: true
   description: The type of single cell entity derived from isolation protocol
-- name: sc_isolation_tissue_dissociation
-  constraints:
-    required: true
-  description: The method by which tissues are dissociated into single cells in suspension.
+# include: ../includes/fields/sc_isolation_tissue_dissociation.yaml
 - name: sc_isolation_enrichment
   constraints:
     required: true
@@ -208,6 +201,7 @@ fields:
   constraints:
     required: false
 # include: ../includes/fields/sequencing_read_format.yaml
+    required: false
 # include: ../includes/fields/sequencing_read_percent_q30.yaml
   constraints:
     required: false

@@ -1,0 +1,2 @@
+- name: lc_column_vendor
+  description: 'OPTIONAL: The manufacturer of the LC Column unless self-packed, pulled tip capilary is used'

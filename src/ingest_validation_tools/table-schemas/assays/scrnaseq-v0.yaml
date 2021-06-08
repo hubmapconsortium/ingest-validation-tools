@@ -25,8 +25,7 @@ fields:
   description: "Link to a protocols document answering the question: How were single cells separated into a single-cell suspension?"
 - name: sc_isolation_entity
   description: The type of single cell entity derived from isolation protocol
-- name: sc_isolation_tissue_dissociation
-  description: The method by which tissues are dissociated into single cells in suspension.
+# include: ../includes/fields/sc_isolation_tissue_dissociation.yaml
 - name: sc_isolation_enrichment
   description: The method by which specific cell populations are sorted or enriched.
   constraints:

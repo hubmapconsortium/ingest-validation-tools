@@ -1,7 +1,7 @@
 ---
 title: Imaging Mass Cytometry
 schema_name: imc
-category: mass_spectrometry_imaging
+category: Imaging mass spectrometry
 layout: default
 ---
 
