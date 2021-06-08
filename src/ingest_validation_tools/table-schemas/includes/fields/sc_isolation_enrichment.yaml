@@ -1,19 +1,6 @@
-# scrnaseq-hca-v0.yaml
-- name: sc_isolation_enrichment
-  constraints:
-    required: true
-  description: The method by which specific cell populations are sorted or enriched.
-
-# scatacseq-v0.yaml; scatacseq-v1.yaml; scrnaseq-v1.yaml; scrnaseq-v2.yaml
 - name: sc_isolation_enrichment
   description: The method by which specific cell populations are sorted or enriched.
   constraints:
     enum:
       - none
       - FACS
-
-# scrnaseq-v0.yaml
-- name: sc_isolation_enrichment
-  description: The method by which specific cell populations are sorted or enriched.
-  constraints:
-    required: False
