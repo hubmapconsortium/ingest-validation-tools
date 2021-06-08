@@ -1,29 +1,3 @@
-# af-v0.yaml; af-v1.yaml; seqfish-v0.yaml; seqfish-v1.yaml
-- name: resolution_z_unit
-  description: The unit of incremental distance between image slices.(um)
-  constraints:
-    enum:
-      - nm
-      - um
-
-# stained-v0.yaml; stained-v1.yaml
-- name: resolution_z_unit
-  description: The unit of incremental distance between image slices.
-  constraints:
-    enum:
-      - nm
-      - um
-
-# lightsheet-v0.yaml; lightsheet-v1.yaml
-- name: resolution_z_unit
-  description: The unit of z resolution.
-  constraints:
-    enum:
-      - nm
-      - um
-
-
-# codex-v0.yaml; codex-v1.yaml
 - name: resolution_z_unit
   description: The unit of incremental distance between image slices.
   constraints:

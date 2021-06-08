@@ -30,6 +30,7 @@ fields:
   description: The distance at which two objects along the detection
     z-axis can be distinguished (resolved as 2 objects).
 # include: ../includes/fields/resolution_z_unit.yaml
+  description: The unit of distance at which two objects along the detection z-axis can be distinguished (resolved as 2 objects).
 # include: ../includes/v0/antibodies_channels.yaml
 
 - name: antibodies_path
