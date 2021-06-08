@@ -1,7 +1,7 @@
 ---
 title: WGS
 schema_name: wgs
-category: sequence
+category: Sequence assays
 layout: default
 ---
 

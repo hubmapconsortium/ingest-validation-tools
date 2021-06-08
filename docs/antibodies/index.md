@@ -1,7 +1,7 @@
 ---
 title: antibodies
 schema_name: antibodies
-category: other
+category: Other TSVs
 layout: default
 ---
 

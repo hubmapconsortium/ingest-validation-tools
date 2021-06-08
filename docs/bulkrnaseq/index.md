@@ -1,7 +1,7 @@
 ---
 title: bulk RNA
 schema_name: bulkrnaseq
-category: sequence
+category: Sequence assays
 layout: default
 ---
 

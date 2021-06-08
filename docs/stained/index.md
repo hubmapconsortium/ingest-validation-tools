@@ -1,7 +1,7 @@
 ---
 title: PAS microscopy
 schema_name: stained
-category: imaging
+category: Imaging assays
 layout: default
 ---
 
@@ -264,7 +264,7 @@ The unit of incremental distance between image slices. Leave blank if not applic
 
 | constraint | value |
 | --- | --- |
-| enum | `nm` or `um` |
+| enum | `mm`, `um`, or `nm` |
 | required | `False` |
 | units for | `resolution_z_value` |
 
@@ -498,7 +498,7 @@ The unit of incremental distance between image slices. Leave blank if not applic
 
 | constraint | value |
 | --- | --- |
-| enum | `nm` or `um` |
+| enum | `mm`, `um`, or `nm` |
 | required | `False` |
 | units for | `resolution_z_value` |
 

@@ -1,0 +1,3 @@
+- name: number_of_sections
+  description: Number of sections
+  type: number

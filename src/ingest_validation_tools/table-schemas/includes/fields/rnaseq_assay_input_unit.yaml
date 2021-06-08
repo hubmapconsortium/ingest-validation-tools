@@ -1,0 +1,5 @@
+- name: rnaseq_assay_input_unit
+  description: Units of RNA input amount to the assay
+  constraints:
+    enum:
+      - ug

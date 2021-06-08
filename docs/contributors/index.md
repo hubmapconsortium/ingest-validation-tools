@@ -1,7 +1,7 @@
 ---
 title: contributors
 schema_name: contributors
-category: other
+category: Other TSVs
 layout: default
 ---
 
