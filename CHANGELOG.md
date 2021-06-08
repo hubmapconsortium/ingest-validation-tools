@@ -1,6 +1,7 @@
 # Changelog
 
 ## v0.0.12 - in progress
+- cleanup resolution_z_unit
 - Network problems in report, instead of quitting with stack trace.
 - New lightsheet schema.
 - Introduced Lightsheet directory schema.
