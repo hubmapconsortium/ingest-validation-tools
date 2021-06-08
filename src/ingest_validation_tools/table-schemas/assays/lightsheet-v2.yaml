@@ -7,7 +7,13 @@ description_md: >-
   The other fields function the same way for all assays using antibodies.
   For more information, see the [Antibodies TSV documentation](../antibodies).
 fields:
-# include: ../includes/vA/all_assays.yaml
+- name: version
+  heading: Shared by all types
+  description: Version of the schema to use when validating this metadata.
+  constraints:
+    enum:
+      - '2'
+# include: ../includes/vA/all_assays_wo_version.yaml
 - name: assay_category
   constraints:
     enum:
@@ -26,16 +32,24 @@ fields:
 # include: ../includes/v0/acquisition_instrument.yaml
 # include: ../includes/v0/x_y.yaml
 
-- name: resolution_z_value
-  description: The distance at which two objects along the detection
-    z-axis can be distinguished (resolved as 2 objects).
-- name: resolution_z_unit
-  description: The unit of z resolution.
+- name: range_z_value
+  description: The total range of the z axis.
+- name: range_z_unit
+  description: The unit of range_z_value.
   constraints:
     enum:
       - nm
       - um
-
+- name: step_z_value
+  description: The number of optical sections in z axis range.
+- name: increment_z_value
+  description: The distance between sequential optical sections.
+- name: increment_z_unit
+  description: The units of increment z value.
+  constraints:
+    enum:
+      - nm
+      - um
 # include: ../includes/v0/antibodies_channels.yaml
 
 # include: ../includes/fields/antibodies_path.yaml
