@@ -13,7 +13,7 @@ from ingest_validation_tools.schema_loader import (
 from ingest_validation_tools.docs_utils import (
     get_tsv_name, get_xlsx_name,
     generate_template_tsv, generate_readme_md)
-from ingest_validation_tools.argparse_types import dir_path
+from ingest_validation_tools.cli_utils import dir_path
 
 
 def main():
@@ -53,10 +53,16 @@ def main():
 
     # YAML:
     for v in versions:
+        schema = table_schemas[v]
+        first_field = schema['fields'][0]
+        if first_field['name'] == 'version':
+            assert first_field['constraints']['enum'] == [v], \
+                f'Wrong version constraint in {args.type}-v{v}.yaml'
+        assert schema['fields'][0]
         with open(Path(args.target) / f'v{v}.yaml', 'w') as f:
             f.write(
                 '# Generated YAML: PRs should not start here!\n'
-                + dump_yaml(table_schemas[v])
+                + dump_yaml(schema)
             )
 
     # Data entry templates:

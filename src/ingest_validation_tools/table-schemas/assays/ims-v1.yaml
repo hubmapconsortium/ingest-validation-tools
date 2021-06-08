@@ -1,0 +1,51 @@
+doc_url: https://portal.hubmapconsortium.org/docs/assays/maldi-ims
+fields:
+# include: ../includes/vA/all_assays.yaml
+- name: assay_category
+  constraints:
+    enum:
+      - mass_spectrometry_imaging
+- name: assay_type
+  constraints:
+    enum:
+      - MALDI-IMS
+- name: analyte_class
+  constraints:
+    enum:
+      - protein
+      - metabolites
+      - lipids
+# include: ../includes/v0/is_targeted.yaml
+
+# Level 2:
+
+# include: ../includes/v0/acquisition_instrument.yaml
+- name: ms_source
+  description: The ion source type used for surface sampling (MALDI, MALDI-2, DESI, or SIMS) or LC-MS/MS data acquisition (nESI)
+  constraints:
+    enum:
+      - MALDI
+      - MALDI-2
+      - DESI
+      - SIMS
+      - nESI
+- name: polarity
+  description: The polarity of the mass analysis (positive or negative ion modes)
+  constraints:
+    enum:
+      - negative ion mode
+      - positive ion mode
+- name: mz_range_low_value
+  description: The low value of the scanned mass range for MS1. (unitless)
+- name: mz_range_high_value
+  description: The high value of the scanned mass range for MS1. (unitless)
+
+# include: ../includes/v0/x_y.yaml
+
+# include: ../includes/fields/preparation_type.yaml
+# include: ../includes/v0/prep_instrument.yaml
+# include: ../includes/fields/preparation_maldi_matrix.yaml
+# include: ../includes/v0/doi/section_prep.yaml
+# include: ../includes/v0/doi/overall.yaml
+
+# include: ../includes/v0/paths.yaml

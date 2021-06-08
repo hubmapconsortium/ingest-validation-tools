@@ -2,7 +2,7 @@
 Metadata TSV Errors:
   examples/dataset-examples/bad-scrnaseq-hca-v0/upload/metadata.tsv (as scrnaseq-hca):
     External:
-      row 2, referencing examples/dataset-examples/bad-scrnaseq-hca-v0/upload/data:
+      row 2, data examples/dataset-examples/bad-scrnaseq-hca-v0/upload/data:
         No such file or directory: examples/dataset-examples/bad-scrnaseq-hca-v0/upload/data
 Hint: 'If validation fails because of extra whitespace in the TSV, try:
 

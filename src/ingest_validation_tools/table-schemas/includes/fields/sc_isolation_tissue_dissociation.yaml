@@ -1,0 +1,2 @@
+- name: sc_isolation_tissue_dissociation
+  description: The method by which tissues are dissociated into single cells in suspension.

@@ -5,7 +5,7 @@ def munge(message):
     '''
     Make the error message less informative.
 
-    >>> munge('In md.tsv (as fake): External: row 2, referencing fake/ds: Not allowed: nope.txt')
+    >>> munge('In md.tsv (as fake): External: row 2, data fake/ds: Not allowed: nope.txt')
     'In the dataset fake/ds referenced on row 2, the file "nope.txt" is not allowed.'
 
     '''
@@ -16,7 +16,7 @@ def munge(message):
         (r'^Metadata TSV Errors: \S+/',
          'In '),
 
-        (r'.*: External: (row \d+), referencing ([^:]+): ([^:]+): (.+)',
+        (r'.*: External: (row \d+), data ([^:]+): ([^:]+): (.+)',
          r'In the dataset \2 referenced on \1, the file "\4" is \3.'),
 
         (r' \(as \S+\): External: Warning: File has no data rows',
