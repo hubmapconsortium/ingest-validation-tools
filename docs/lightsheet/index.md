@@ -259,11 +259,11 @@ The distance at which two objects along the detection z-axis can be distinguishe
 
 <a name="resolution_z_unit"></a>
 ##### [`resolution_z_unit`](#resolution_z_unit)
-The unit of z resolution. Leave blank if not applicable.
+The unit of distance at which two objects along the detection z-axis can be distinguished (resolved as 2 objects). Leave blank if not applicable.
 
 | constraint | value |
 | --- | --- |
-| enum | `nm` or `um` |
+| enum | `mm`, `um`, or `nm` |
 | required | `False` |
 | units for | `resolution_z_value` |
 
@@ -492,11 +492,11 @@ The distance at which two objects along the detection z-axis can be distinguishe
 
 <a name="resolution_z_unit"></a>
 ##### [`resolution_z_unit`](#resolution_z_unit)
-The unit of z resolution. Leave blank if not applicable.
+The unit of distance at which two objects along the detection z-axis can be distinguished (resolved as 2 objects). Leave blank if not applicable.
 
 | constraint | value |
 | --- | --- |
-| enum | `nm` or `um` |
+| enum | `mm`, `um`, or `nm` |
 | required | `False` |
 | units for | `resolution_z_value` |
 

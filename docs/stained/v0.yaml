@@ -163,8 +163,9 @@ fields:
   type: number
 - constraints:
     enum:
-    - nm
+    - mm
     - um
+    - nm
     required: false
   custom_constraints:
     sequence_limit: 3

@@ -265,11 +265,11 @@ Optional if assay does not have multiple z-levels. Note that this is resolution 
 
 <a name="resolution_z_unit"></a>
 ##### [`resolution_z_unit`](#resolution_z_unit)
-The unit of incremental distance between image slices.(um) Leave blank if not applicable.
+The unit of incremental distance between image slices. Leave blank if not applicable.
 
 | constraint | value |
 | --- | --- |
-| enum | `nm` or `um` |
+| enum | `mm`, `um`, or `nm` |
 | required | `False` |
 | units for | `resolution_z_value` |
 
@@ -562,11 +562,11 @@ Optional if assay does not have multiple z-levels. Note that this is resolution 
 
 <a name="resolution_z_unit"></a>
 ##### [`resolution_z_unit`](#resolution_z_unit)
-The unit of incremental distance between image slices.(um) Leave blank if not applicable.
+The unit of incremental distance between image slices. Leave blank if not applicable.
 
 | constraint | value |
 | --- | --- |
-| enum | `nm` or `um` |
+| enum | `mm`, `um`, or `nm` |
 | required | `False` |
 | units for | `resolution_z_value` |
 
