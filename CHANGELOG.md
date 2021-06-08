@@ -1,6 +1,7 @@
 # Changelog
 
 ## v0.0.12 - in progress
+- CLEANUP rnaseq_assay_method
 - Cleanup whitespace in yaml.
 - Tools to resolve duplicated field definitions.
 - Rearrange YAML so static processing works.
