@@ -25,6 +25,6 @@
 
 # codex-v0.yaml; codex-v1.yaml
 - name: resolution_z_unit
-  description: The unit of incremental distance between image slices.(um)
+  description: The unit of incremental distance between image slices.
   constraints:
     enum: ['mm', 'um', 'nm']
