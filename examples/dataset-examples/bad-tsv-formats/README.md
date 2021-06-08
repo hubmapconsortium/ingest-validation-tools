@@ -42,7 +42,7 @@ Metadata TSV Errors:
     - On row 2, column "reagent_prep_protocols_io_doi", value "not-doi" fails because
       constraint "pattern" is "10\.17504/.*"
     External:
-      row 2, referencing examples/dataset-examples/bad-tsv-formats/upload/dataset-1:
+      row 2, data examples/dataset-examples/bad-tsv-formats/upload/dataset-1:
         Not allowed:
         - channelnames.txt
         - cyc002_reg001_200216_112537/1_00001_Z001_CH1.tif

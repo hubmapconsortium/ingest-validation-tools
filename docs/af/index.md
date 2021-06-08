@@ -1,7 +1,7 @@
 ---
 title: AF
 schema_name: af
-category: imaging
+category: Imaging assays
 layout: default
 ---
 

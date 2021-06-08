@@ -1,7 +1,7 @@
 ---
 title: PAS microscopy
 schema_name: stained
-category: imaging
+category: Imaging assays
 layout: default
 ---
 

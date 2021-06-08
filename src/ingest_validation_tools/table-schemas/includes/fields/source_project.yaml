@@ -1,0 +1,5 @@
+- name: source_project
+  description: External source (outside of HuBMAP) of the project, eg. HCA (The Human Cell Atlas Consortium).
+  constraints:
+    enum:
+      - HCA

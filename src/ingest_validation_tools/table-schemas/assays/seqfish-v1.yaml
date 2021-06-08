@@ -26,14 +26,10 @@ fields:
     required: False
 # include: ../includes/fields/resolution_z_unit.yaml
 # include: ../includes/v0/prep_instrument.yaml
-- name: number_of_barcode_probes
-  description: Number of barcode probes targeting mRNAs (eg. 24,000 barcode probes = 24,000 mRNAs - 1 per mRNA of interest)
-- name: number_of_barcode_regions_per_barcode_probe
-  description: Number of barcode regions on each mRNA barcode probe (the paper describes mRNA probes with 4 barcoded regions)
-- name: number_of_readout_probes_per_channel
-  description: Number of readout probes that can be interrogated per channel per cycle (the paper describes 20 readout probes per channel (x 3 channels -> total = 60))
-- name: number_of_pseudocolors_per_channel
-  description: Number of pseudocolors that can be assigned to each fluorescent channel (the paper describes 20 pseudocolors per channel (x 3 channels -> total = 60)
+# include: ../includes/fields/number_of_barcode_probes.yaml
+# include: ../includes/fields/number_of_barcode_regions_per_barcode_probe.yaml
+# include: ../includes/fields/number_of_readout_probes_per_channel.yaml
+# include: ../includes/fields/number_of_pseudocolors_per_channel.yaml
 - name: number_of_channels
   description: Number of fluorescent channels (the paper describes 3 channels - for 3 fluorescent dyes)
 - name: number_of_cycles

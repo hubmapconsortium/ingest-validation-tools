@@ -1,7 +1,7 @@
 ---
 title: MxIF
 schema_name: mxif
-category: imaging
+category: Imaging assays
 layout: default
 ---
 
