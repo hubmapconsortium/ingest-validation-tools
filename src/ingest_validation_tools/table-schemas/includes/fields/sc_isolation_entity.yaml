@@ -1,29 +1,8 @@
-# scrnaseq-hca-v0.yaml
-- name: sc_isolation_entity
-  constraints:
-    required: true
-  description: The type of single cell entity derived from isolation protocol
-
-# scrnaseq-v1.yaml; scrnaseq-v2.yaml
 - name: sc_isolation_entity
   description: The type of single cell entity derived from isolation protocol
   constraints:
-    enum:
-      - whole cell
-      - nucleus
-      - cell-cell multimer
-      - spatially encoded cell barcoding
-
-# scrnaseq-v0.yaml
-- name: sc_isolation_entity
-  description: The type of single cell entity derived from isolation protocol
-
-# scatacseq-v0.yaml; scatacseq-v1.yaml
-- name: sc_isolation_entity
-  description: The type of single cell entity derived from isolation protocol.
-  constraints:
-    enum:
-      - whole cell
-      - nucleus
-      - cell-cell multimer
-      - spatially encoded cell barcoding
+     enum:
+         - whole cell
+         - nucleus
+         - cell-cell multimer
+         - spatially encoded cell barcoding
