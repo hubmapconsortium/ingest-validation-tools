@@ -125,6 +125,8 @@ fields:
     required: true
   description: The method by which specific cell populations are sorted or enriched.
 # include: ../includes/fields/sc_isolation_quality_metric.yaml
+  constraints:
+    required: False
 - name: sc_isolation_cell_number
   constraints:
     required: false
