@@ -246,6 +246,7 @@ The method by which specific cell populations are sorted or enriched.
 
 | constraint | value |
 | --- | --- |
+| enum | `none` or `FACS` |
 | required | `True` |
 
 <a name="sc_isolation_quality_metric"></a>

@@ -170,6 +170,9 @@ fields:
   description: The method by which tissues are dissociated into single cells in suspension.
   name: sc_isolation_tissue_dissociation
 - constraints:
+    enum:
+    - none
+    - FACS
     required: true
   custom_constraints:
     forbid_na: true
