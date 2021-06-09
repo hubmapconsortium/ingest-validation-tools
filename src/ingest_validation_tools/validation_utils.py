@@ -112,4 +112,6 @@ def get_tsv_errors(tsv_path, schema_name, optional_fields=[], offline=None, enco
                                       optional_fields=optional_fields)
     except OSError as e:
         return {e.strerror: Path(e.filename).name}
+    if schema.get('deprecated'):
+        return {f'Schema version is deprecated': f'{schema_name}-v{version}'}
     return get_table_errors(tsv_path, schema)

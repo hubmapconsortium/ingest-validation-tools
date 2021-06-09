@@ -1,6 +1,8 @@
 ```
 Metadata TSV Errors:
   examples/dataset-examples/bad-deprecated/upload/nano-metadata.tsv (as nano):
+    Internal:
+      Schema version is deprecated: nano-v1
     External:
       row 2, data examples/dataset-examples/bad-deprecated/upload/abc:
         No such file or directory: examples/dataset-examples/bad-deprecated/upload/abc
