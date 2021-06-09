@@ -1,5 +1,4 @@
 # doc_url: TODO https://github.com/hubmapconsortium/ingest-validation-tools/issues/481
-deprecated: True
 fields:
 # include: ../includes/vA/all_assays.yaml
 
@@ -10,7 +9,6 @@ fields:
 - name: assay_type
   constraints:
     enum:
-      - NanoDESI
       - NanoPOTS
 - name: analyte_class
   constraints:
