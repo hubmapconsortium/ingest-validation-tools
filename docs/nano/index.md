@@ -23,7 +23,7 @@ Related files:
 ## Metadata schema
 
 
-<details markdown="1" open="true"><summary><b>Version 1 (current)</b></summary>
+<details markdown="1" open="true"><summary><s>Version 1 (current)</s> (deprecated)</summary>
 
 <blockquote markdown="1">
 
@@ -323,7 +323,7 @@ Relative path to file or directory with instrument data. Downstream processing w
 </details>
 
 
-<details markdown="1" ><summary><b>Version 0</b></summary>
+<details markdown="1" ><summary><s>Version 0</s> (deprecated)</summary>
 
 
 ### Shared by all types
