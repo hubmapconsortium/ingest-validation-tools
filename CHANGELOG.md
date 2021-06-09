@@ -2,7 +2,7 @@
 
 ## v0.0.12 - in progress
 - Network problems in report, instead of quitting with stack trace.
-- New lightsheet schema.
+- New lightsheet schema, with description of changes.
 - Introduced Lightsheet directory schema.
 - Ensure that version numbers match the constraint inside the file.
 - `maldiims` to `ims`: Only touches URLs; doesn't affect validation.
