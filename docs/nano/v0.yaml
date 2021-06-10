@@ -1,4 +1,5 @@
 # Generated YAML: PRs should not start here!
+deprecated: true
 fields:
 - constraints:
     pattern: '[A-Z]+[0-9]+'
@@ -85,6 +86,7 @@ fields:
   name: assay_category
 - constraints:
     enum:
+    - NanoDESI
     - NanoPOTS
     required: true
   custom_constraints:
