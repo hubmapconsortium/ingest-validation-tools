@@ -170,6 +170,13 @@ def _make_fields_md(table_schema, title, is_open=False):
     ##### [`a_name`](#a_name)
     A description.
     </details>
+
+    >>> schema = {'deprecated': True, 'fields': []}
+    >>> print(_clean(_make_fields_md(schema, 'A title', is_open=True)))
+    <details markdown="1" open="true"><summary><s>A title</s> (deprecated)</summary>
+    <blockquote markdown="1">
+    </blockquote>
+    </details>
     '''
 
     fields_md_list = []
@@ -185,8 +192,12 @@ def _make_fields_md(table_schema, title, is_open=False):
             table_md
         ]))
     joined_list = '\n\n'.join(fields_md_list)
+    if table_schema.get('deprecated'):
+        title_html = f'<s>{title}</s> (deprecated)'
+    else:
+        title_html = f'<b>{title}</b>'
     return f'''
-<details markdown="1" {'open="true"' if is_open else ''}><summary><b>{title}</b></summary>
+<details markdown="1" {'open="true"' if is_open else ''}><summary>{title_html}</summary>
 
 {_make_toc(joined_list) if is_open else ''}
 {joined_list}

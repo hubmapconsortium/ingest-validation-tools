@@ -1,4 +1,5 @@
 # Generated YAML: PRs should not start here!
+deprecated: true
 fields:
 - constraints:
     enum:
