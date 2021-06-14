@@ -321,7 +321,7 @@ The source of the Tn5 transposase and transposon used for capturing accessible c
 
 | constraint | value |
 | --- | --- |
-| enum | `10X snATAC`, `In-house`, or `Nextera` |
+| enum | `10X snATAC`, `In-house`, `Nextera`, or `10X multiome` |
 | required | `True` |
 
 <a name="transposition_kit_number"></a>
