@@ -1,6 +1,6 @@
 # ingest-validation-tools
-HuBMAP data upload guidelines,
-and tools which check that uploads adhere to those guidelines.
+HuBMAP data upload guidelines, and tools which check that uploads adhere to those guidelines.
+Assay documenentation is on [Github Pages](https://hubmapconsortium.github.io/ingest-validation-tools/).
 
 ## For assay type working groups:
 
@@ -14,8 +14,6 @@ When all the parts are finalized,
 - The document will be translated into markdown, and added [here](https://github.com/hubmapconsortium/portal-docs/tree/master/assays).
 - The list of fields will be translated into a table schema, like those [here](src/ingest_validation_tools/table-schemas).
 - The list of files will be translated into a directory schema, like those [here](src/ingest_validation_tools/directory-schemas).
-
-When those parts are in place, the [documention on GH Pages](https://hubmapconsortium.github.io/ingest-validation-tools/) is updated, and we're ready to validate uploads.
 
 ### Stability
 

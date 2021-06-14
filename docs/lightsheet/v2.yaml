@@ -1,5 +1,16 @@
 # Generated YAML: PRs should not start here!
-doc_url: https://portal.hubmapconsortium.org/docs/assays/rnaseq
+description_md: 'Lightsheet uploads require metadata on the antibodies used in the
+  assay to be provided in an Antibodies TSV. For Lightsheet, the `channel_id` is the
+  name of the fluorophore tag on the antibody.
+
+  Version 2 has 5 new fields for metadata describing the Z-dimension specifically
+  relevant to lightsheet. These values provide the total number of image sections
+  captured, the incremental value and unit of distance between the sections and the
+  value and unit of the total distance captured.
+
+  The other fields function the same way for all assays using antibodies. For more
+  information, see the [Antibodies TSV documentation](../antibodies).'
+doc_url: https://portal.hubmapconsortium.org/docs/assays/lightsheet
 fields:
 - constraints:
     enum:
@@ -91,7 +102,7 @@ fields:
   name: pi_email
 - constraints:
     enum:
-    - sequence
+    - imaging
     required: true
   custom_constraints:
     forbid_na: true
@@ -102,12 +113,7 @@ fields:
   name: assay_category
 - constraints:
     enum:
-    - scRNAseq-10xGenomics-v2
-    - scRNAseq-10xGenomics-v3
-    - scRNAseq
-    - sciRNAseq
-    - snRNAseq
-    - SNARE2-RNAseq
+    - Light Sheet
     required: true
   custom_constraints:
     forbid_na: true
@@ -116,7 +122,7 @@ fields:
   name: assay_type
 - constraints:
     enum:
-    - RNA
+    - protein
     required: true
   custom_constraints:
     forbid_na: true
@@ -153,241 +159,112 @@ fields:
     the data.
   name: acquisition_instrument_model
 - constraints:
-    pattern: 10\.17504/.*
     required: true
   custom_constraints:
     forbid_na: true
     sequence_limit: 3
-    url:
-      prefix: https://dx.doi.org/
-  description: 'Link to a protocols document answering the question: How were single
-    cells separated into a single-cell suspension?'
-  name: sc_isolation_protocols_io_doi
-  type: string
+  description: The width of a pixel.
+  name: resolution_x_value
+  type: number
 - constraints:
     enum:
-    - whole cell
-    - nucleus
-    - cell-cell multimer
-    - spatially encoded cell barcoding
-    required: true
-  custom_constraints:
-    forbid_na: true
-    sequence_limit: 3
-  description: The type of single cell entity derived from isolation protocol
-  name: sc_isolation_entity
-- constraints:
-    required: true
-  custom_constraints:
-    forbid_na: true
-    sequence_limit: 3
-  description: The method by which tissues are dissociated into single cells in suspension.
-  name: sc_isolation_tissue_dissociation
-- constraints:
-    enum:
-    - none
-    - FACS
-    required: true
-  custom_constraints:
-    forbid_na: true
-    sequence_limit: 3
-  description: The method by which specific cell populations are sorted or enriched.
-  name: sc_isolation_enrichment
-- constraints:
-    required: true
-  custom_constraints:
-    forbid_na: true
-    sequence_limit: 3
-  description: A quality metric by visual inspection prior to cell lysis or defined
-    by known parameters such as wells with several cells or no cells. This can be
-    captured at a high level.
-  name: sc_isolation_quality_metric
-- constraints:
-    required: true
-  custom_constraints:
-    forbid_na: true
-    sequence_limit: 3
-  description: Total number of cell/nuclei yielded post dissociation and enrichment
-  name: sc_isolation_cell_number
-- constraints:
-    required: true
-  custom_constraints:
-    forbid_na: true
-    sequence_limit: 3
-  description: Number of cell/nuclei input to the assay
-  name: rnaseq_assay_input
-- constraints:
-    required: true
-  custom_constraints:
-    forbid_na: true
-    sequence_limit: 3
-  description: The kit used for the RNA sequencing assay
-  name: rnaseq_assay_method
-- constraints:
-    pattern: 10\.17504/.*
-    required: true
-  custom_constraints:
-    forbid_na: true
-    sequence_limit: 3
-    url:
-      prefix: https://dx.doi.org/
-  description: A link to the protocol document containing the library construction
-    method (including version) that was used, e.g. "Smart-Seq2", "Drop-Seq", "10X
-    v3".
-  name: library_construction_protocols_io_doi
-  type: string
-- constraints:
-    enum:
-    - single-end
-    - paired-end
-    required: true
-  custom_constraints:
-    forbid_na: true
-    sequence_limit: 3
-  description: State whether the library was generated for single-end or paired end
-    sequencing.
-  name: library_layout
-- constraints:
-    pattern: '[ATCG]+(\+[ATCG]+)?'
-    required: true
-  custom_constraints:
-    forbid_na: true
-    sequence_limit: 3
-  description: Adapter sequence to be used for adapter trimming
-  name: library_adapter_sequence
-  type: string
-- constraints:
-    required: true
-  custom_constraints:
-    forbid_na: true
-    sequence_limit: 3
-  description: A library ID, unique within a TMC, which allows corresponding RNA and
-    chromatin accessibility datasets to be linked.
-  name: library_id
-- constraints:
-    required: true
-  custom_constraints:
-    forbid_na: true
-    sequence_limit: 3
-  description: Is the sequencing reaction run in repliucate, TRUE or FALSE
-  name: is_technical_replicate
-  type: boolean
-- constraints:
-    required: true
-  custom_constraints:
-    forbid_na: true
-    sequence_limit: 3
-  description: Which read file contains the cell barcode
-  name: cell_barcode_read
-- constraints:
-    pattern: \d+(,\d+)*
-    required: true
-  custom_constraints:
-    forbid_na: true
-    sequence_limit: 3
-  description: Position(s) in the read at which the cell barcode starts.
-  name: cell_barcode_offset
-  type: string
-- constraints:
-    pattern: \d+(,\d+)*
-    required: true
-  custom_constraints:
-    forbid_na: true
-    sequence_limit: 3
-  description: Length of the cell barcode in base pairs
-  name: cell_barcode_size
-  type: string
-- constraints:
+    - nm
+    - um
     required: false
   custom_constraints:
     forbid_na: true
     sequence_limit: 3
-  description: How many cells are expected? This may be used in downstream pipelines
-    to guide selection of cell barcodes or segmentation parameters.
-  name: expected_cell_count
-  type: integer
+    units_for: resolution_x_value
+  description: The unit of measurement of the width of a pixel.
+  name: resolution_x_unit
 - constraints:
     required: true
   custom_constraints:
     forbid_na: true
     sequence_limit: 3
-  description: Number of PCR cycles to amplify cDNA
-  name: library_pcr_cycles
-  type: integer
-- constraints:
-    required: true
-  custom_constraints:
-    forbid_na: true
-    sequence_limit: 3
-  description: Number of PCR cycles performed for library indexing
-  name: library_pcr_cycles_for_sample_index
-  type: integer
-- constraints:
-    required: true
-  custom_constraints:
-    forbid_na: true
-    sequence_limit: 3
-  description: Total number of ng of library after final pcr amplification step. This
-    is the concentration (ng/ul) * volume (ul)
-  name: library_final_yield_value
+  description: The height of a pixel
+  name: resolution_y_value
   type: number
 - constraints:
     enum:
-    - ng
+    - nm
+    - um
     required: false
   custom_constraints:
     forbid_na: true
     sequence_limit: 3
-    units_for: library_final_yield_value
-  description: Units of final library yield
-  name: library_final_yield_unit
+    units_for: resolution_y_value
+  description: The unit of measurement of the height of a pixel.
+  name: resolution_y_unit
 - constraints:
     required: true
   custom_constraints:
     forbid_na: true
     sequence_limit: 3
-  description: Average size of sequencing library fragments estimated via gel electrophoresis
-    or bioanalyzer/tapestation.
-  name: library_average_fragment_size
-- constraints:
-    required: true
-  custom_constraints:
-    forbid_na: true
-    sequence_limit: 3
-  description: Reagent kit used for sequencing
-  name: sequencing_reagent_kit
-- constraints:
-    pattern: \d+(/\d+)+
-    required: true
-  custom_constraints:
-    forbid_na: true
-    sequence_limit: 3
-  description: Slash-delimited list of the number of sequencing cycles for, for example,
-    Read1, i7 index, i5 index, and Read2.
-  example: 12/34/56
-  name: sequencing_read_format
-  type: string
-- constraints:
-    maximum: 100
-    minimum: 0
-    required: true
-  custom_constraints:
-    forbid_na: true
-    sequence_limit: 3
-  description: 'Q30 is the weighted average of all the reads (e.g. # bases UMI * q30
-    UMI + # bases R2 * q30 R2 + ...)'
-  name: sequencing_read_percent_q30
+  description: The total range of the z axis.
+  name: range_z_value
   type: number
 - constraints:
-    maximum: 100
-    minimum: 0
+    enum:
+    - nm
+    - um
+    required: false
+  custom_constraints:
+    forbid_na: true
+    sequence_limit: 3
+    units_for: range_z_value
+  description: The unit of range_z_value.
+  name: range_z_unit
+- constraints:
     required: true
   custom_constraints:
     forbid_na: true
     sequence_limit: 3
-  description: Percent PhiX loaded to the run
-  name: sequencing_phix_percent
+  description: The number of optical sections in z axis range.
+  name: step_z_value
   type: number
+- constraints:
+    required: true
+  custom_constraints:
+    forbid_na: true
+    sequence_limit: 3
+  description: The distance between sequential optical sections.
+  name: increment_z_value
+  type: number
+- constraints:
+    enum:
+    - nm
+    - um
+    required: false
+  custom_constraints:
+    forbid_na: true
+    sequence_limit: 3
+    units_for: increment_z_value
+  description: The units of increment z value.
+  name: increment_z_unit
+- constraints:
+    required: true
+  custom_constraints:
+    forbid_na: true
+    sequence_limit: 3
+  description: Number of antibodies
+  name: number_of_antibodies
+  type: integer
+- constraints:
+    required: true
+  custom_constraints:
+    forbid_na: true
+    sequence_limit: 3
+  description: Number of fluorescent channels imaged during each cycle.
+  name: number_of_channels
+  type: integer
+- constraints:
+    required: true
+  custom_constraints:
+    forbid_na: true
+    sequence_limit: 3
+  description: Relative path to file with antibody information for this dataset.
+  name: antibodies_path
 - constraints:
     required: true
   custom_constraints:

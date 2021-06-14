@@ -111,6 +111,8 @@ health_status: "Patient's baseline physical condition prior to immediate event l
   \ \u201Crelatively healthy.\u201D"
 height_unit: The vertical measurement or distance from the base to the top of a subject
   or participant.
+increment_z_unit: The units of increment z value.
+increment_z_value: The distance between sequential optical sections.
 ion_mobility: 'Methodologies for measuring ion mobility: Traveling Wave Ion Mobility
   Spectrometry (TWIMS), Trapped Ion Mobility Spectrometry (TIMS), High Field Asymmetric
   waveform ion Mobility Spectrometry (FAIMS), Drift Tube Ion Mobility Spectrometry
@@ -237,19 +239,21 @@ puck_id: Slide-seq captures RNA sequence data on spatially barcoded arrays of be
   unique puck_id.
 race: A grouping of humans based on shared physical characteristics or social/ethnic
   identity generally viewed as distinct.
+range_z_unit: The unit of range_z_value.
+range_z_value: The total range of the z axis.
 reagent_prep_protocols_io_doi: DOI for protocols.io referring to the protocol for
   preparing reagents for the assay.
 resolution_x_unit: The unit of measurement of the width of a pixel.
 resolution_x_value: The width of a pixel.
 resolution_y_unit: The unit of measurement of the height of a pixel.
 resolution_y_value: The height of a pixel
-resolution_z_unit: The unit of z resolution.
+resolution_z_unit: The unit of incremental distance between image slices.
 resolution_z_value: The distance at which two objects along the detection z-axis can
   be distinguished (resolved as 2 objects).
 rnaseq_assay_input: Number of cell/nuclei input to the assay
 rnaseq_assay_input_unit: Units of RNA input amount to the assay
 rnaseq_assay_input_value: RNA input amount value to the assay
-rnaseq_assay_method: rnaseq assay kit used.
+rnaseq_assay_method: The kit used for the RNA sequencing assay
 roi_description: A description of the region of interest (ROI) captured in the image.
 roi_id: Multiple images (1-n) are acquired from regions of interest (ROI1, ROI2, ROI3,
   etc) on a slide. The roi_id is a number from 1-n representing the ROI captured on
@@ -309,6 +313,7 @@ specimen_tumor_distance_value: If surgical sample, how far from the tumor was th
 stain: Chemical stains (dyes) applied to histology samples to highlight important
   features of the tissue as well as to enhance the tissue contrast.
 start_datetime: Time stamp indicating start of ablation for ROI
+step_z_value: The number of optical sections in z axis range.
 tissue_id: HuBMAP Display ID of the assayed tissue.
 transposition_input: Number of cell/nuclei input to the assay.
 transposition_kit_number: If Tn5 came from a kit, provide the catalog number.

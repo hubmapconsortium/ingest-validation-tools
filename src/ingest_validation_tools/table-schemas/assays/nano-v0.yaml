@@ -1,4 +1,5 @@
 # doc_url: TODO https://github.com/hubmapconsortium/ingest-validation-tools/issues/481
+deprecated: True
 fields:
 # include: ../includes/v0/all_assays.yaml
 
