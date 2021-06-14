@@ -24,7 +24,11 @@ rm -rf docs-test
 for TYPE in $(ls -d docs/*); do
   # Skip directories that are unpopulated:
   TYPE=`basename $TYPE`
-  [ -e docs/$TYPE/$TYPE-metadata.tsv ] || continue
+  LOOKFOR="docs/$TYPE/$TYPE-metadata.tsv"
+  if [ ! -e $LOOKFOR ]; then
+    echo "Skipping $TYPE. To add: touch $LOOKFOR"
+    continue
+  fi
 
   echo "Testing $TYPE generation..."
 

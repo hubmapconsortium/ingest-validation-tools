@@ -48,6 +48,24 @@ bulk_rna_yield_value: 'RNA (ng) per Weight of Tissue (mg). Answer the question: 
   to isolate RNA from (ng/mg).'
 bulk_transposition_input_number_nuclei: A number (no comma separators)
 cause_of_death: The circumstance or condition that caused death.
+ce_background_electrolyte: Chemical composition of the background electrolyte that
+  fills the separation capillary (e.g. "3% acetic acid").
+ce_capillary_coating: Treatment of surface of separation capillary. Capillary coating
+  affects the absorption of analytes on capillary inner walls and regulates electroosmotic
+  flow. Entries should indicate the charge of the coating and chemical composition
+  (e.g. "Neutral; Polyacrylamide" or "Positive; Polyethyleneimine" or "Uncoated").
+ce_electroosmotic_flow: Properties of the electroosmotic flow (EOF). Normal EOF is
+  defined as flow towards the cathode, reversed EOF is defined as flow towards the
+  anode, and suppressed EOF involves marginal to almost no flow (e.g. when a neutral
+  coating is used).
+ce_instrument_model: The model name of the instrument used for capillary zone electrophoresis.
+ce_instrument_vendor: The manufacturer of the instrument used for capillary zone electrophoresis.
+  Capillary electrophoresis is used to separate complex biological mixtures prior
+  to performing MS-based analyses. Separations are performed based the analytes migrate
+  through an electrolyte solution in the presence of an electric field.
+ce_interface: Method by which the separation capillary interfaces with mass spectrometer
+  and enables electrospray ionization while completing the separation circuit. The
+  two most prevalent commercial interfaces are sheathless and sheath-flow.
 cell_barcode_offset: Position(s) in the read at which the cell barcode starts.
 cell_barcode_read: Which read file contains the cell barcode
 cell_barcode_size: Length of the cell barcode in base pairs
@@ -61,8 +79,7 @@ conjugated_cat_number: An antibody may be conjugated to a fluorescent tag or a m
 conjugated_tag: The name of the entity conjugated to the antibody.
 contributors_path: Relative path to file with ORCID IDs for contributors for this
   dataset.
-data_collection_mode: Mode of data collection in tandem MS assays. Either DDA (Data-dependent
-  acquisition) or DIA (Data-indemendent acquisition.
+data_collection_mode: TODO
 data_path: Relative path to file or directory with instrument data. Downstream processing
   will depend on filename extension conventions.
 data_precision_bytes: Numerical data precision in bytes
@@ -115,7 +132,7 @@ kidney_donor_profile_index_value: 'The Kidney Donor Profle Index (KDPI) is a num
   associated with increased donor quality and expected longevity. https://optn.transplant.hrsa.gov/media/1512/guide_to_calculating_interpreting_kdpi.pdf
 
   '
-labeling: Indicates whether samples were labeled prior to MS analysis (e.g., TMT)
+labeling: TODO
 last_name: Last name
 lc_column_model: The model number/name of the LC Column - IF custom self-packed, pulled
   tip calillary is used enter "Pulled tip capilary"
@@ -158,9 +175,8 @@ library_pcr_cycles: Number of PCR cycles to amplify cDNA
 library_pcr_cycles_for_sample_index: Number of PCR cycles performed for library indexing
 library_preparation_kit: Reagent kit used for library preparation
 lot_number: 'The lot# is specific to the vendor. (eg: Abcam lot# GR3238979-1)'
-mass_resolving_power: "This is the MS1 resolving power.\_This is a unitless value\
-  \ often calculated as m/\u2206m where \u2206m is the FWHM for a given peak with\
-  \ a certain m/z (m)."
+mass_resolving_power: "The MS1 resolving power defined as m/\u2206m where \u2206m\
+  \ is the FWHM for a given peak with a specified m/z (m). (unitless)"
 max_x_width_unit: Units of image width of the ROI acquisition
 max_x_width_value: Image width value of the ROI acquisition
 max_y_height_unit: Units of image height of the ROI acquisition
@@ -171,8 +187,7 @@ medical_history: A record of a patient's background regarding health and the occ
   of disease events of the individual.
 middle_name_or_initial: Middle name or initial
 ms_scan_mode: TODO
-ms_source: The ion source type used for surface sampling (MALDI, MALDI-2, DESI, or
-  SIMS) or LC-MS/MS data acquisition (nESI)
+ms_source: The technique used for sampling and ionization of the sample.
 mz_range_high_value: A number representing the mass:charge ratio
 mz_range_low_value: A number representing the mass:charge ratio
 mz_resolving_power: This is the m/z used to calculate the resolving power.
@@ -272,6 +287,18 @@ sex: 'Biological sex at birth: male or female or other.'
 signal_type: Type of signal measured per channel (usually dual counts)
 source_project: External source (outside of HuBMAP) of the project, eg. HCA (The Human
   Cell Atlas Consortium).
+spatial_sampling_type: Specifies whether or not the analysis was performed in a spatially
+  targeted manner. Spatial profiling experiments target specific tissue foci but do
+  not necessarily generate images. Spatial imaging expriments collect data from a
+  regular array (pixels) that can be visualized as heat maps of ion intensity at each
+  location (molecular images). Leave blank if data are derived from bulk analysis.
+spatial_target: Specifies the cell-type or functional tissue unit (FTU) that is targeted
+  in the spatial profiling experiment. Leave blank if data are generated in imaging
+  mode without a specific target structure.
+spatial_type: Specifies whether or not the analysis was performed in a spatialy targeted
+  manner and the technique used for spatial sampling. For example, Laser-capture microdissection
+  (LCM), Liquid Extraction Surface Analysis (LESA), Nanodroplet Processing in One
+  pot for Trace Samples (nanoPOTS).
 specimen_preservation_temperature: The temperature of the medium during the preservation
   process.
 specimen_quality_criteria: 'For example, RIN: 8.7.'
