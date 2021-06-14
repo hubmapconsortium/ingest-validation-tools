@@ -180,14 +180,15 @@ fields:
   type: number
 - constraints:
     enum:
-    - nm
+    - mm
     - um
+    - nm
     required: false
   custom_constraints:
     forbid_na: true
     sequence_limit: 3
     units_for: resolution_z_value
-  description: The unit of incremental distance between image slices.(um)
+  description: The unit of incremental distance between image slices.
   name: resolution_z_unit
 - constraints:
     required: true

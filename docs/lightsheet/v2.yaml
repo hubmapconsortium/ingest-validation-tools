@@ -1,6 +1,34 @@
 # Generated YAML: PRs should not start here!
-deprecated: true
+description_md: 'Lightsheet uploads require metadata on the antibodies used in the
+  assay to be provided in an Antibodies TSV. For Lightsheet, the `channel_id` is the
+  name of the fluorophore tag on the antibody.
+
+  Version 2 has 5 new fields for metadata describing the Z-dimension specifically
+  relevant to lightsheet. These values provide the total number of image sections
+  captured, the incremental value and unit of distance between the sections and the
+  value and unit of the total distance captured.
+
+  The other fields function the same way for all assays using antibodies. For more
+  information, see the [Antibodies TSV documentation](../antibodies).'
+doc_url: https://portal.hubmapconsortium.org/docs/assays/lightsheet
 fields:
+- constraints:
+    enum:
+    - '2'
+    required: true
+  custom_constraints:
+    forbid_na: true
+    sequence_limit: 3
+  description: Version of the schema to use when validating this metadata.
+  heading: Shared by all types
+  name: version
+- constraints:
+    required: true
+  custom_constraints:
+    forbid_na: true
+    sequence_limit: 3
+  description: Free-text description of this assay.
+  name: description
 - constraints:
     pattern: '[A-Z]+[0-9]+'
     required: true
@@ -8,7 +36,6 @@ fields:
     forbid_na: true
   description: HuBMAP Display ID of the donor of the assayed tissue.
   example: ABC123
-  heading: Shared by all types
   name: donor_id
   type: string
 - constraints:
@@ -75,7 +102,7 @@ fields:
   name: pi_email
 - constraints:
     enum:
-    - mass_spectrometry_imaging
+    - imaging
     required: true
   custom_constraints:
     forbid_na: true
@@ -86,8 +113,7 @@ fields:
   name: assay_category
 - constraints:
     enum:
-    - NanoDESI
-    - NanoPOTS
+    - Light Sheet
     required: true
   custom_constraints:
     forbid_na: true
@@ -96,7 +122,7 @@ fields:
   name: assay_type
 - constraints:
     enum:
-    - metabolites_and_lipids
+    - protein
     required: true
   custom_constraints:
     forbid_na: true
@@ -132,46 +158,6 @@ fields:
     in features or sensitivities may be relevant to processing or interpretation of
     the data.
   name: acquisition_instrument_model
-- constraints:
-    enum:
-    - MALDI
-    - MALDI-2
-    - DESI
-    - SIMS
-    - nESI
-    required: true
-  custom_constraints:
-    forbid_na: true
-    sequence_limit: 3
-  description: The ion source type used for surface sampling (MALDI, MALDI-2, DESI,
-    or SIMS) or LC-MS/MS data acquisition (nESI)
-  name: ms_source
-- constraints:
-    enum:
-    - Positive
-    - Negative
-    required: true
-  custom_constraints:
-    forbid_na: true
-    sequence_limit: 3
-  description: The polarity of the mass analysis (positive or negative ion modes)
-  name: polarity
-- constraints:
-    required: true
-  custom_constraints:
-    forbid_na: true
-    sequence_limit: 3
-  description: A number representing the mass:charge ratio
-  name: mz_range_low_value
-  type: number
-- constraints:
-    required: true
-  custom_constraints:
-    forbid_na: true
-    sequence_limit: 3
-  description: A number representing the mass:charge ratio
-  name: mz_range_high_value
-  type: number
 - constraints:
     required: true
   custom_constraints:
@@ -211,28 +197,74 @@ fields:
   description: The unit of measurement of the height of a pixel.
   name: resolution_y_unit
 - constraints:
-    pattern: 10\.17504/.*
     required: true
   custom_constraints:
     forbid_na: true
     sequence_limit: 3
-    url:
-      prefix: https://dx.doi.org/
-  description: DOI for protocols.io referring to the protocol for preparing tissue
-    sections for the assay.
-  name: processing_protocols_io_doi
-  type: string
+  description: The total range of the z axis.
+  name: range_z_value
+  type: number
 - constraints:
-    pattern: 10\.17504/.*
+    enum:
+    - nm
+    - um
+    required: false
+  custom_constraints:
+    forbid_na: true
+    sequence_limit: 3
+    units_for: range_z_value
+  description: The unit of range_z_value.
+  name: range_z_unit
+- constraints:
     required: true
   custom_constraints:
     forbid_na: true
     sequence_limit: 3
-    url:
-      prefix: https://dx.doi.org/
-  description: DOI for protocols.io referring to the overall protocol for the assay.
-  name: overall_protocols_io_doi
-  type: string
+  description: The number of optical sections in z axis range.
+  name: step_z_value
+  type: number
+- constraints:
+    required: true
+  custom_constraints:
+    forbid_na: true
+    sequence_limit: 3
+  description: The distance between sequential optical sections.
+  name: increment_z_value
+  type: number
+- constraints:
+    enum:
+    - nm
+    - um
+    required: false
+  custom_constraints:
+    forbid_na: true
+    sequence_limit: 3
+    units_for: increment_z_value
+  description: The units of increment z value.
+  name: increment_z_unit
+- constraints:
+    required: true
+  custom_constraints:
+    forbid_na: true
+    sequence_limit: 3
+  description: Number of antibodies
+  name: number_of_antibodies
+  type: integer
+- constraints:
+    required: true
+  custom_constraints:
+    forbid_na: true
+    sequence_limit: 3
+  description: Number of fluorescent channels imaged during each cycle.
+  name: number_of_channels
+  type: integer
+- constraints:
+    required: true
+  custom_constraints:
+    forbid_na: true
+    sequence_limit: 3
+  description: Relative path to file with antibody information for this dataset.
+  name: antibodies_path
 - constraints:
     required: true
   custom_constraints:

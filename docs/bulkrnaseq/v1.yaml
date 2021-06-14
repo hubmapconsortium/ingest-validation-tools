@@ -213,7 +213,7 @@ fields:
   custom_constraints:
     forbid_na: true
     sequence_limit: 3
-  description: rnaseq assay kit used.
+  description: The kit used for the RNA sequencing assay
   name: rnaseq_assay_method
 - constraints:
     pattern: 10\.17504/.*

@@ -198,8 +198,9 @@ fields:
   type: number
 - constraints:
     enum:
-    - nm
+    - mm
     - um
+    - nm
     required: false
   custom_constraints:
     forbid_na: true

@@ -37,8 +37,11 @@ class _CheckFactory():
         with shelve.open(cache_path) as url_status_cache:
             if url not in url_status_cache:
                 print(f'Fetching un-cached url: {url}', file=stderr)
-                response = requests.get(url)
-                url_status_cache[url] = response.status_code
+                try:
+                    response = requests.get(url)
+                    url_status_cache[url] = response.status_code
+                except Exception as e:
+                    url_status_cache[url] = str(e)
             return url_status_cache[url]
 
     def make_url_check(self, template=Template(
