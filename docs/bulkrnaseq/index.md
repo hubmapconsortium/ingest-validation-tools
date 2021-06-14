@@ -2,6 +2,7 @@
 title: bulk RNA
 schema_name: bulkrnaseq
 category: Sequence assays
+all_versions_deprecated: False
 layout: default
 ---
 
