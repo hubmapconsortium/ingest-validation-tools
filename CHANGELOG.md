@@ -1,6 +1,7 @@
 # Changelog
 
 ## v0.0.12 - in progress
+- Add a warning on pages where ever version has been deprecated.
 - Deprecated flag can now be added to schema.
 - CLEANUP rnaseq_assay_method
 - cleanup resolution_z_unit
