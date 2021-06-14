@@ -4,7 +4,7 @@ import argparse
 import sys
 from pathlib import Path
 
-from ingest_validation_tools.submission import get_schema_version
+from ingest_validation_tools.upload import get_schema_version
 
 
 def make_parser():
