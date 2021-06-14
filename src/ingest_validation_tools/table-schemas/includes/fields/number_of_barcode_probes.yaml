@@ -1,0 +1,2 @@
+- name: number_of_barcode_probes
+  description: Number of barcode probes targeting mRNAs (eg. 24,000 barcode probes = 24,000 mRNAs - 1 per mRNA of interest)

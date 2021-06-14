@@ -1,0 +1,4 @@
+- name: resolution_z_unit
+  description: The unit of incremental distance between image slices.
+  constraints:
+    enum: ['mm', 'um', 'nm']

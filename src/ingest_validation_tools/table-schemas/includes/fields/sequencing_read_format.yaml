@@ -1,0 +1,5 @@
+- name: sequencing_read_format
+  description: Slash-delimited list of the number of sequencing cycles for, for example, Read1, i7 index, i5 index, and Read2.
+  example: '12/34/56'
+  constraints:
+    pattern: '\d+(/\d+)+'

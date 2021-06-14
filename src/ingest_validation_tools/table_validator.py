@@ -4,7 +4,7 @@ from pathlib import Path
 import frictionless
 
 
-from ingest_validation_tools.check_factory import CheckFactory
+from ingest_validation_tools.check_factory import make_checks
 
 
 def get_table_errors(tsv, schema):
@@ -16,13 +16,11 @@ def get_table_errors(tsv, schema):
     assert frictionless.__version__ == '4.0.0',\
         'Upgrade dependencies: "pip install -r requirements.txt"'
 
-    check_factory = CheckFactory(schema)
-    url_check = check_factory.make_url_check()
-    sequence_limit_check = check_factory.make_sequence_limit_check()
-    units_check = check_factory.make_units_check()
-
-    report = frictionless.validate(tsv_path, schema=schema, format='csv', checks=[
-                                   url_check, sequence_limit_check, units_check])
+    report = frictionless.validate(
+        tsv_path, schema=schema,
+        format='csv',
+        checks=make_checks(schema)
+    )
 
     assert len(report['errors']) == 0, f'report has errors: {report}'
     assert 'tasks' in report, f'"tasks" is missing: {report}'

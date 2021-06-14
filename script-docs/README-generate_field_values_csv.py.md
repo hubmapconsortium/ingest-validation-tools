@@ -1,4 +1,4 @@
-```
+```text
 usage: generate_field_values_csv.py [-h] [--url URL] [--size SIZE]
                                     [--type TYPE]
 

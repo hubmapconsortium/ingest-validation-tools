@@ -1,0 +1,2 @@
+- name: sequencing_read_percent_q30
+  description: "Q30 is the weighted average of all the reads (e.g. # bases UMI * q30 UMI + # bases R2 * q30 R2 + ...)"

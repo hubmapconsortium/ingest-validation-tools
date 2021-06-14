@@ -1,0 +1,5 @@
+- name: bulk_rna_yield_value
+  description: 'RNA (ng) per Weight of Tissue (mg). Answer the question: How much
+    RNA in ng was isolated? How much tissue in mg was initially used for isolating
+    RNA? Calculate the yield by dividing total RNA isolated by amount of tissue used
+    to isolate RNA from (ng/mg).'

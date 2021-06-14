@@ -2,9 +2,10 @@
 import sys
 from csv import DictWriter
 import argparse
+from pathlib import Path
 
 from ingest_validation_tools.schema_loader import (
-    list_schema_versions, get_table_schema
+    list_schema_versions, get_table_schema, get_other_schema
 )
 
 
@@ -21,9 +22,15 @@ def main():
 
     writer = DictWriter(sys.stdout, fieldnames=args.fields, extrasaction='ignore')
     writer.writeheader()
-    for schema_version in list_schema_versions():
 
-        schema = get_table_schema(schema_version.schema_name, schema_version.version)
+    others = [
+        p.stem.split('-v')[0] for p in
+        (Path(__file__).parent / 'ingest_validation_tools/table-schemas/others').iterdir()
+    ]
+
+    for schema_version in list_schema_versions():
+        schema = (get_other_schema if schema_version.schema_name in others else get_table_schema)(
+            schema_version.schema_name, schema_version.version)
         for field in schema['fields']:
             if 'constraints' in field and 'enum' in field['constraints']:
                 enums = field['constraints']['enum']

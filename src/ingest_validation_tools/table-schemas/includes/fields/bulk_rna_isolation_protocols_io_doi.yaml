@@ -1,0 +1,3 @@
+- name: bulk_rna_isolation_protocols_io_doi
+  description: 'Link to a protocols document answering the question: How was tissue
+    stored and processed for RNA isolation RNA_isolation_protocols_io_doi'

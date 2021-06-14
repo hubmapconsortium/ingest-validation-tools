@@ -1,7 +1,64 @@
 # Changelog
 
-## v0.0.10 - in progress
+## v0.0.12 - in progress
 - User donor as a test-bed for ontology-enums.
+- Deprecated flag can now be added to schema.
+- CLEANUP rnaseq_assay_method
+- cleanup resolution_z_unit
+- Network problems in report, instead of quitting with stack trace.
+- New lightsheet schema, with description of changes.
+- Introduced Lightsheet directory schema.
+- Ensure that version numbers match the constraint inside the file.
+- `maldiims` to `ims`: Only touches URLs; doesn't affect validation.
+- Add script to validate any TSV.
+- Factor out exit status codes.
+- Pull out sc_isolation_tissue_dissociation.
+- sequencing_read_format is optional for HCA.
+- Disallow N/A values.
+- Pull out the fields that have only one variant.
+- Cleanup code for reference validations.
+- Better section headers.
+- Tighter validation of shared fields in assay schemas.
+- Another optional field in HCA scrnaseq.
+- Cleanup whitespace in yaml.
+- Tools to resolve duplicated field definitions.
+- Rearrange YAML so static processing works.
+
+## v0.0.11 - 2021-05-18
+- Updated AF and stained microscopy structure schema.
+- Updated CODEX directory structure schema.
+- No Donor and Tissue ID validation needed for HCA.
+- Longer description for Q30.
+- Setup GH Pages.
+- Fix bug with loading non-HCA schemas that have an HCA variant.
+- Fix bug in the `maldiims` schema to use correct file name extension
+- Update description of the `.ibd` and `.imzML` files in the `maldiims` schema
+- Added example `maldiims` folder structure
+- Updated README.md to reflect the `examples/...` folder structure
+- Use assay names to make titles.
+- Add formalin as a Sample perfusion_solution.
+- Style the GH Pages like the portal.
+- Catch metadata TSVs with non-ASCII characters.
+- More general ignore forurl-status-cache.
+- Support Windows environments by converting back-slashes for forward slashes.
+- Improve navigation and styling of new GH Pages.
+- In cleanup_whitespace.py, avoid printing extra newlines on windows.
+- Field templates for sequencing fields.
+- Missing `data_path` will no longer cause spurious errors when submission is interpretted as dataset.
+- README for `examples/` directory.
+- Distinct error codes for different situations.
+- Field templates for library fields.
+- More doctests.
+- Loosen sequential items check, and improve error message.
+- Replace "submission" with "upload".
+
+## v0.0.10 - 2021-04-21
+- Remove inappropriate syntax highlighting from CLI docs.
+- Fix bug in report generation.
+- Remove contributors_path from HCA.
+- Make the codeowners more granular.
+- Distinguish v2 and v3 10x.
+- Add expected_cell_count.
 - Remove the sequence_limit where not appropriate.
 - Chuck missed `source_project` in scrnaseq-hca: Added now.
 - Distinguish v2 and v3 10x, and add to HCA as well.

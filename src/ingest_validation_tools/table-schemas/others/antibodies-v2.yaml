@@ -1,21 +1,21 @@
-description_md: |
+description_md: >-
   Changes:
+
   - v1: Version number added.
+
   - v2: Add concentration fields.
 fields:
-  -
-    name: version
+  - name: version
     description: Current version of metadata schema. Template provides the correct value.
     constraints:
       enum: ['2']
-  -
-    name: channel_id
+  - name: channel_id
     description: Structure of channel_id depends on assay type.
-  -
-    name: antibody_name
+    custom_constraints:
+      sequence_limit: False
+  - name: antibody_name
     description: Anti-(target name) antibody. Not validated or used down-stream.
-  -
-    name: rr_id
+  - name: rr_id
     description: 'The rr_id is a unique antibody identifier that comes from the Antibody Registry (https://antibodyregistry.org).'
     constraints:
       pattern: 'AB_\d+'
@@ -23,30 +23,25 @@ fields:
       url:
         prefix: 'https://scicrunch.org/resolver/RRID:'
     example: AB_10002075
-  -
-    name: uniprot_accession_number
+  - name: uniprot_accession_number
     description: 'The uniprot_accession_number is a unique identifier for proteins in the UniProt database (https://www.uniprot.org).'
     custom_constraints:
       url:
         prefix: 'https://www.uniprot.org/uniprot/'
-  -
-    name: lot_number
+  - name: lot_number
     description: 'The lot# is specific to the vendor. (eg: Abcam lot# GR3238979-1)'
-  -
-    name: dilution
+  - name: dilution
     description: Antibody solutions may be diluted according to the experimental protocol.
     constraints:
       required: False
       pattern: '1/\d+'
     example: 1/200
-  -
-    name: concentration_value
+  - name: concentration_value
     description: The concentration value of the antibody preparation.
     type: number
     constraints:
       required: False
-  -
-    name: concentration_unit
+  - name: concentration_unit
     description: The concentration units of the antibody preparation.
     constraints:
       enum:
@@ -54,13 +49,11 @@ fields:
       required: False
     custom_constraints:
       units_for: concentration_value
-  -
-    name: conjugated_cat_number
-    description: An antibody may be conjugated to a fluorescent tag or a metal tag for detection. Conjugated antibodies may be purchased from commercial providers. 
+  - name: conjugated_cat_number
+    description: An antibody may be conjugated to a fluorescent tag or a metal tag for detection. Conjugated antibodies may be purchased from commercial providers.
     constraints:
       required: False
-  -
-    name: conjugated_tag
+  - name: conjugated_tag
     description: The name of the entity conjugated to the antibody.
     constraints:
       required: False

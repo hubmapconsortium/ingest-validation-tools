@@ -17,6 +17,17 @@ class PreflightError(Exception):
 SchemaVersion = namedtuple('SchemaVersion', ['schema_name', 'version'])
 
 
+def get_field_enum(field_name, schema):
+    fields = [
+        field for field in schema['fields']
+        if field['name'] == field_name
+    ]
+    if not fields:
+        return []
+    assert len(fields) == 1
+    return fields[0]['constraints']['enum']
+
+
 def get_schema_version_from_row(path, row):
     '''
     >>> get_schema_version_from_row('empty', {'bad-column': 'bad-value'})
@@ -55,35 +66,55 @@ def _assay_to_schema_name(assay_type, source_project):
     read all the schemas until one matches.
     Return the schema name, but not the version.
 
-    >>> _assay_to_schema_name('Bad assay', None)
-    Traceback (most recent call last):
-    ...
-    schema_loader.PreflightError: No schema where 'Bad assay' is assay_type
-
     >>> _assay_to_schema_name('PAS microscopy', None)
     'stained'
 
-    >>> try:
-    ...    _assay_to_schema_name('PAS microscopy', 'Bad project')
-    ... except PreflightError as e:
-    ...    print(e)
-    No schema where 'PAS microscopy' is assay_type and 'Bad project' is source_project
+    >>> _assay_to_schema_name('snRNAseq', None)
+    'scrnaseq'
 
     >>> _assay_to_schema_name('snRNAseq', 'HCA')
     'scrnaseq-hca'
 
+
+    Or, if a match can not be found (try-except just for shorter lines):
+
+    >>> try:  _assay_to_schema_name('PAS microscopy', 'HCA')
+    ... except PreflightError as e: print(e)
+    No schema where 'PAS microscopy' is assay_type and 'HCA' is source_project
+
+    >>> try: _assay_to_schema_name('snRNAseq', 'Bad Project')
+    ... except PreflightError as e: print(e)
+    No schema where 'snRNAseq' is assay_type and 'Bad Project' is source_project
+
+    >>> try: _assay_to_schema_name('Bad assay', None)
+    ... except PreflightError as e: print(e)
+    No schema where 'Bad assay' is assay_type
+
+    >>> try: _assay_to_schema_name('Bad assay', 'HCA')
+    ... except PreflightError as e: print(e)
+    No schema where 'Bad assay' is assay_type and 'HCA' is source_project
+
     '''
     for path in (Path(__file__).parent / 'table-schemas' / 'assays').glob('*.yaml'):
         schema = load_yaml(path)
-        assay_type_match = False
-        source_project_match = False
-        for field in schema['fields']:
-            if field['name'] == 'assay_type' and assay_type in field['constraints']['enum']:
-                assay_type_match = True
-            if field['name'] == 'source_project' and source_project in field['constraints']['enum']:
-                source_project_match = True
-            if assay_type_match and (source_project_match or source_project is None):
-                return re.match(r'.+(?=-v\d+)', path.stem)[0]
+        assay_type_enum = get_field_enum('assay_type', schema)
+        source_project_enum = get_field_enum('source_project', schema)
+
+        if assay_type not in assay_type_enum:
+            continue
+
+        if source_project_enum:
+            if not source_project:
+                continue
+
+        if source_project:
+            if not source_project_enum:
+                continue
+            if source_project not in source_project_enum:
+                continue
+
+        return re.match(r'.+(?=-v\d+)', path.stem)[0]
+
     message = f"No schema where '{assay_type}' is assay_type"
     if source_project is not None:
         message += f" and '{source_project}' is source_project"
@@ -105,6 +136,11 @@ def list_schema_versions():
 
 
 def dict_schema_versions():
+    '''
+    >>> sorted(dict_schema_versions()['af'])
+    ['0', '1']
+    '''
+
     dict_of_sets = defaultdict(set)
     for sv in list_schema_versions():
         dict_of_sets[sv.schema_name].add(sv.version)
@@ -182,6 +218,34 @@ def _add_level_1_description(field):
 
 
 def _validate_level_1_enum(field):
+    '''
+    >>> field = {'name': 'assay_category'}
+    >>> _validate_level_1_enum(field)
+    Traceback (most recent call last):
+    ...
+    KeyError: 'constraints'
+
+    >>> field['constraints'] = {}
+    >>> _validate_level_1_enum(field)
+    Traceback (most recent call last):
+    ...
+    TypeError: 'NoneType' object is not iterable
+
+    >>> field['constraints']['required'] = False
+    >>> _validate_level_1_enum(field)
+
+    (No error if not required!)
+
+    >>> del field['constraints']['required']
+
+    >>> field['constraints']['enum'] = ['fake']
+    >>> _validate_level_1_enum(field)
+    Traceback (most recent call last):
+    ...
+    AssertionError: Unexpected enums for assay_category: {'fake'}
+    Allowed: ['imaging', 'mass_spectrometry', 'mass_spectrometry_imaging', 'sequence']
+    '''
+
     enums = {
         'assay_category': [
             'imaging',
@@ -237,7 +301,12 @@ def _validate_level_1_enum(field):
     }
     name = field['name']
     if name in enums:
-        actual = set(field['constraints']['enum']) if 'enum' in field['constraints'] else set()
+        optional = not field['constraints'].get('required', True)  # Default: required = True
+        actual = set(field['constraints'].get(
+            'enum',
+            [] if optional else None
+            # Only optional fields are allowed to skip the enum.
+        ))
         allowed = set(enums[name])
         assert actual <= allowed, f'Unexpected enums for {name}: {actual - allowed}\n' \
             f'Allowed: {sorted(allowed)}'
@@ -257,7 +326,8 @@ def _add_constraints(field, optional_fields, offline=None, names=None):
     {'constraints': {'maximum': 100,
                      'minimum': 0,
                      'required': True},
-     'custom_constraints': {'sequence_limit': 3},
+     'custom_constraints': {'forbid_na': True,
+                            'sequence_limit': 3},
      'name': 'abc_percent',
      'type': 'number'}
 
@@ -267,7 +337,8 @@ def _add_constraints(field, optional_fields, offline=None, names=None):
     >>> _add_constraints(field, ['optional_value'])
     >>> pprint(field, width=40)
     {'constraints': {'required': False},
-     'custom_constraints': {'sequence_limit': 3},
+     'custom_constraints': {'forbid_na': True,
+                            'sequence_limit': 3},
      'name': 'optional_value',
      'type': 'number'}
 
@@ -278,18 +349,19 @@ def _add_constraints(field, optional_fields, offline=None, names=None):
     >>> pprint(field, width=40)
     {'constraints': {'pattern': 'fake-regex',
                      'required': True},
-     'custom_constraints': {'sequence_limit': 3},
+     'custom_constraints': {'forbid_na': True,
+                            'sequence_limit': 3},
      'name': 'whatever',
      'type': 'string'}
 
     Some fields are expected to have sequential numbers:
 
-    >>> field = {'name': 'channel_id'}
+    >>> field = {'name': 'seq_expected', 'custom_constraints': {'sequence_limit': False}}
     >>> _add_constraints(field, [])
     >>> pprint(field, width=40)
     {'constraints': {'required': True},
-     'custom_constraints': {},
-     'name': 'channel_id'}
+     'custom_constraints': {'forbid_na': True},
+     'name': 'seq_expected'}
 
     '''
     if 'constraints' not in field:
@@ -305,8 +377,18 @@ def _add_constraints(field, optional_fields, offline=None, names=None):
         field['custom_constraints']['url'] = {'prefix': 'https://dx.doi.org/'}
     if field['name'].endswith('_email'):
         field['format'] = 'email'
-    if field['name'] != 'channel_id':
+
+    # In the src schemas, set to False to avoid limit on sequences...
+    if field['custom_constraints'].get('sequence_limit', True):
         field['custom_constraints']['sequence_limit'] = 3
+    else:
+        del field['custom_constraints']['sequence_limit']
+    # ... or to allow "N/A":
+    if field['custom_constraints'].get('forbid_na', True):
+        field['custom_constraints']['forbid_na'] = True
+    else:
+        del field['custom_constraints']['forbid_na']
+
     if field['name'].endswith('_unit'):
         # Issues have been filed to make names more consistent:
         # https://github.com/hubmapconsortium/ingest-validation-tools/issues/645

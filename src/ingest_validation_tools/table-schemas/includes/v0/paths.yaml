@@ -1,6 +1,4 @@
--
-  name: contributors_path
+- name: contributors_path
   description: Relative path to file with ORCID IDs for contributors for this dataset.
--
-  name: data_path
+- name: data_path
   description: Relative path to file or directory with instrument data. Downstream processing will depend on filename extension conventions.

@@ -1,4 +1,4 @@
-#  GE CellDIVE Directory Schema 
+#  GE CellDIVE Directory Schema
 
 -
   pattern: 'channel_list\.txt'
@@ -29,8 +29,8 @@
   description: 'vHE slides'
 -
 #
-# These are marked as optional as they were extra files included on the hard drive 
-# received from GE that probably should be deleted from the dataset. 
+# These are marked as optional as they were extra files included on the hard drive
+# received from GE that probably should be deleted from the dataset.
 #
   pattern: 'HuBMAP_OME/move_images.bat'
   description: 'moves files'
