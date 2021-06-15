@@ -2,6 +2,7 @@
 title: PAS microscopy
 schema_name: stained
 category: Imaging assays
+all_versions_deprecated: False
 layout: default
 ---
 

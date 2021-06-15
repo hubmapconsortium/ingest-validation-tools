@@ -133,6 +133,8 @@ def generate_readme_md(
             'other': 'Other TSVs'
         }[category],
         'max_version': max_version,
+        'all_versions_deprecated':
+            all(schema.get('deprecated') for schema in table_schemas.values()),
 
         'tsv_url': f'{raw_base_url}/{schema_name}/{get_tsv_name(schema_name, is_assay=is_assay)}',
         'xlsx_url': f'{raw_base_url}/{schema_name}/{get_xlsx_name(schema_name, is_assay=is_assay)}',
