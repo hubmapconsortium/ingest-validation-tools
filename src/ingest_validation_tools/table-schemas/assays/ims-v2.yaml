@@ -4,7 +4,7 @@ fields:
 - name: assay_category
   constraints:
     enum:
-      - mass_spectrometry_imaging # TODO: This is an internal ID; would prefer not to change.
+      - mass_spectrometry_imaging
 - name: assay_type
   constraints:
     enum:
@@ -113,8 +113,8 @@ fields:
   type: number
   constraints:
     required: False
-- name: desi_solvent_flow_rate_unit # TODO: Not in spreadsheet: Should be added, right?
-  description: TODO
+- name: desi_solvent_flow_rate_unit
+  description: Units of the rate of solvent flow.
   constraints:
     required: False
     enum:
@@ -125,7 +125,8 @@ fields:
 
 - name: processing_protocols_io_doi
   description: DOI for analysis protocols.io for this assay.
-  # TODO: Confirm that it is required?
+  constraints:
+    required: False
 
 # include: ../includes/v0/doi/overall.yaml
 

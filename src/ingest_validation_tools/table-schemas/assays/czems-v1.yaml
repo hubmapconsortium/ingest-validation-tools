@@ -4,7 +4,7 @@ fields:
 - name: assay_category
   constraints:
     enum:
-      - mass_spectrometry_imaging # TODO: This is an internal ID; would prefer not to change.
+      - mass_spectrometry
 - name: assay_type
   constraints:
     enum:
@@ -28,11 +28,7 @@ fields:
   description: The technique used for sampling and ionization of the sample.
   constraints:
     enum:
-      - ESI
-      - MALDI
-      # TODO: Is MALDI-2 an option?
-      - DESI
-      # TODO: Confirm that you want just these three values as an enum?
+      - nanoflex
 - name: polarity
   description: The polarity of the mass analysis (positive or negative ion modes)
   constraints:
@@ -49,13 +45,11 @@ fields:
   # TODO: Not the same definitions as given in IMS. Is that correct?
   type: number
 - name: mz_resolving_power
-  description: TThe peak (m/z) used to calculate the MS1 resolving power.
-  # TODO: Again, definitions are different. Why?
+  description: The peak (m/z) used to calculate the resolving power.
   type: number
 
 - name: ion_mobility
   description: 'Specifies whether or not ion mobility spectrometry was performed and which technology was used. Technologies for measuring ion mobility: Traveling Wave Ion Mobility Spectrometry (TWIMS), Trapped Ion Mobility Spectrometry (TIMS), High Field Asymmetric waveform ion Mobility Spectrometry (FAIMS), Drift Tube Ion Mobility Spectrometry (DTIMS, Structures for Lossless Ion Manipulations (SLIM).'
-  # TODO: Again, definitions do not match.
   constraints:
     required: False
     enum:
@@ -63,9 +57,13 @@ fields:
       - TWIMS
       - FAIMS
       - DTIMS
-      - SLIMS # TODO: Confirm that adding final "S" here is correct?
+      - SLIMS
 - name: data_collection_mode
-  description: TODO
+  description: Mode of data collection in tandem MS assays. Either DDA (Data-dependent acquisition) or DIA (Data-independent acquisition).
+  constraints:
+    enum:
+      - DDA
+      - DIA
 - name: ms_scan_mode
   description: Indicates whether the data were generated using MS, MS/MS, MS3, or MSn.
   # TODO: Confirm that the list in the description should reified in enum.
@@ -75,7 +73,7 @@ fields:
       - MS/MS
       - MS3
 - name: labeling
-  description: TODO
+  description: Indicates whether samples were labeled prior to MS analysis (e.g., TMT).
 
 # include: ../includes/v0/doi/section_prep.yaml
 
@@ -87,12 +85,8 @@ fields:
       - sheathless
 - name: ce_capillary_coating
   description: Treatment of surface of separation capillary. Capillary coating affects the absorption of analytes on capillary inner walls and regulates electroosmotic flow. Entries should indicate the charge of the coating and chemical composition (e.g. "Neutral; Polyacrylamide" or "Positive; Polyethyleneimine" or "Uncoated").
-  # TODO: Typically we want to split coordinated fields into their components,
-  # in this case, the charge and the chemical composition.
-  # TODO: Can this be enum?
 - name: ce_background_electrolyte
   description: Chemical composition of the background electrolyte that fills the separation capillary (e.g. "3% acetic acid").
-  # TODO: Can this be enum?
 - name: ce_instrument_vendor
   description: The manufacturer of the instrument used for capillary zone electrophoresis. Capillary electrophoresis is used to separate complex biological mixtures prior to performing MS-based analyses. Separations are performed based the analytes migrate through an electrolyte solution in the presence of an electric field.
 - name: ce_instrument_model
@@ -124,7 +118,6 @@ fields:
   description: Specifies the cell-type or functional tissue unit (FTU) that is targeted in the spatial profiling experiment. Leave blank if data are generated in imaging mode without a specific target structure.
   constraints:
     required: False
-    # TODO: Confirm that there is not an enum here?
 
 # include: ../includes/v0/x_y.yaml
 
