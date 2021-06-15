@@ -1,7 +1,7 @@
 ---
 title: CZE-MS
 schema_name: czems
-category: Imaging mass spectrometry
+category: Mass spectrometry
 layout: default
 ---
 
@@ -179,7 +179,7 @@ Each assay is placed into one of the following 3 general categories: generation 
 
 | constraint | value |
 | --- | --- |
-| enum | `mass_spectrometry_imaging` |
+| enum | `mass_spectrometry` |
 | required | `True` |
 
 <a name="assay_type"></a>
@@ -233,7 +233,7 @@ The technique used for sampling and ionization of the sample.
 
 | constraint | value |
 | --- | --- |
-| enum | `ESI`, `MALDI`, or `DESI` |
+| enum | `nanoflex` |
 | required | `True` |
 
 <a name="polarity"></a>
@@ -274,7 +274,7 @@ The MS1 resolving power defined as m/∆m where ∆m is the FWHM for a given pea
 
 <a name="mz_resolving_power"></a>
 ##### [`mz_resolving_power`](#mz_resolving_power)
-TThe peak (m/z) used to calculate the MS1 resolving power.
+The peak (m/z) used to calculate the resolving power.
 
 | constraint | value |
 | --- | --- |
@@ -292,10 +292,11 @@ Specifies whether or not ion mobility spectrometry was performed and which techn
 
 <a name="data_collection_mode"></a>
 ##### [`data_collection_mode`](#data_collection_mode)
-TODO.
+Mode of data collection in tandem MS assays. Either DDA (Data-dependent acquisition) or DIA (Data-independent acquisition).
 
 | constraint | value |
 | --- | --- |
+| enum | `DDA` or `DIA` |
 | required | `True` |
 
 <a name="ms_scan_mode"></a>
@@ -309,7 +310,7 @@ Indicates whether the data were generated using MS, MS/MS, MS3, or MSn.
 
 <a name="labeling"></a>
 ##### [`labeling`](#labeling)
-TODO.
+Indicates whether samples were labeled prior to MS analysis (e.g., TMT).
 
 | constraint | value |
 | --- | --- |

@@ -91,7 +91,7 @@ fields:
   name: pi_email
 - constraints:
     enum:
-    - mass_spectrometry_imaging
+    - mass_spectrometry
     required: true
   custom_constraints:
     forbid_na: true
@@ -154,9 +154,7 @@ fields:
   name: acquisition_instrument_model
 - constraints:
     enum:
-    - ESI
-    - MALDI
-    - DESI
+    - nanoflex
     required: true
   custom_constraints:
     forbid_na: true
@@ -203,7 +201,7 @@ fields:
   custom_constraints:
     forbid_na: true
     sequence_limit: 3
-  description: TThe peak (m/z) used to calculate the MS1 resolving power.
+  description: The peak (m/z) used to calculate the resolving power.
   name: mz_resolving_power
   type: number
 - constraints:
@@ -224,11 +222,15 @@ fields:
     Mobility Spectrometry (DTIMS, Structures for Lossless Ion Manipulations (SLIM).'
   name: ion_mobility
 - constraints:
+    enum:
+    - DDA
+    - DIA
     required: true
   custom_constraints:
     forbid_na: true
     sequence_limit: 3
-  description: TODO
+  description: Mode of data collection in tandem MS assays. Either DDA (Data-dependent
+    acquisition) or DIA (Data-independent acquisition).
   name: data_collection_mode
 - constraints:
     enum:
@@ -247,7 +249,8 @@ fields:
   custom_constraints:
     forbid_na: true
     sequence_limit: 3
-  description: TODO
+  description: Indicates whether samples were labeled prior to MS analysis (e.g.,
+    TMT).
   name: labeling
 - constraints:
     pattern: 10\.17504/.*

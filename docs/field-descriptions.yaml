@@ -79,14 +79,16 @@ conjugated_cat_number: An antibody may be conjugated to a fluorescent tag or a m
 conjugated_tag: The name of the entity conjugated to the antibody.
 contributors_path: Relative path to file with ORCID IDs for contributors for this
   dataset.
-data_collection_mode: TODO
+data_collection_mode: Mode of data collection in tandem MS assays. Either DDA (Data-dependent
+  acquisition) or DIA (Data-indemendent acquisition.
 data_path: Relative path to file or directory with instrument data. Downstream processing
   will depend on filename extension conventions.
 data_precision_bytes: Numerical data precision in bytes
 description: Free-text description of this assay.
-desi_solvent: TODO
-desi_solvent_flow_rate: TODO
-desi_solvent_flow_rate_unit: TODO
+desi_solvent: Solvent composition for conducting nanospray desorption electrospray
+  ionization (nanoDESI) or desorption electrospray ionization (DESI).
+desi_solvent_flow_rate: The rate of flow of the solvent into a spray.
+desi_solvent_flow_rate_unit: Units of the rate of solvent flow.
 dilution: Antibody solutions may be diluted according to the experimental protocol.
 dna_assay_input_unit: Units of DNA input into library preparation
 dna_assay_input_value: Amount of DNA input into library preparation
@@ -134,7 +136,7 @@ kidney_donor_profile_index_value: 'The Kidney Donor Profle Index (KDPI) is a num
   associated with increased donor quality and expected longevity. https://optn.transplant.hrsa.gov/media/1512/guide_to_calculating_interpreting_kdpi.pdf
 
   '
-labeling: TODO
+labeling: Indicates whether samples were labeled prior to MS analysis (e.g., TMT)
 last_name: Last name
 lc_column_model: The model number/name of the LC Column - IF custom self-packed, pulled
   tip calillary is used enter "Pulled tip capilary"
@@ -188,11 +190,11 @@ mechanism_of_injury: 'Mechanism of injury may be, for example: fall, impact (eg:
 medical_history: A record of a patient's background regarding health and the occurrence
   of disease events of the individual.
 middle_name_or_initial: Middle name or initial
-ms_scan_mode: TODO
+ms_scan_mode: Scan mode refers to the number of steps in the separation of fragments.
 ms_source: The technique used for sampling and ionization of the sample.
 mz_range_high_value: A number representing the mass:charge ratio
 mz_range_low_value: A number representing the mass:charge ratio
-mz_resolving_power: This is the m/z used to calculate the resolving power.
+mz_resolving_power: The peak (m/z) used to calculate the resolving power.
 name: Name for display
 number_of_antibodies: Number of antibodies
 number_of_barcode_probes: Number of barcode probes targeting mRNAs (eg. 24,000 barcode
