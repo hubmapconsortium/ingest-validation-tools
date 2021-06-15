@@ -71,7 +71,8 @@ fields:
   constraints:
     pattern: '[ATCG]+(\+[ATCG]+)?'
 - name: cell_barcode_read
-  required: FALSE
+  constraints:
+    required: False
   description: Which read file contains the cell barcode. This field is not required for barcoding by single-cell combinatorial indexing.
 - name: cell_barcode_offset
   required: FALSE
