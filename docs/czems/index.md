@@ -2,6 +2,7 @@
 title: CZE-MS
 schema_name: czems
 category: Mass spectrometry
+all_versions_deprecated: False
 layout: default
 ---
 
