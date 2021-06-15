@@ -2,6 +2,7 @@
 title: MxIF
 schema_name: mxif
 category: Imaging assays
+all_versions_deprecated: False
 layout: default
 ---
 

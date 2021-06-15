@@ -3,6 +3,7 @@
 ## v0.0.12 - in progress
 - Create CZE-MS.
 - New version of IMS.
+- Add a warning on pages where every version has been deprecated.
 - Deprecated flag can now be added to schema.
 - CLEANUP rnaseq_assay_method
 - cleanup resolution_z_unit

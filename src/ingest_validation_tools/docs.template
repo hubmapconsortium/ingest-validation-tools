@@ -2,6 +2,7 @@
 title: ${title}
 schema_name: ${schema_name}
 category: ${category}
+all_versions_deprecated: ${all_versions_deprecated}
 layout: default
 ---
 
