@@ -132,7 +132,7 @@ Data upload to HuBMAP is composed of discrete phases:
 - Restructuring
 - Re-re-validation and pipeline runs
 
-[![Upload process](https://docs.google.com/drawings/d/e/2PACX-1vQeNhQsKQewUz1rHDIl2rQLn08gt_wbTnDvkBM3fCBA5BareGPuwYxSHTTXwY2Y0XGLGmX9UcqzDC5U/pub?w=1000)](https://docs.google.com/drawings/d/1Cicn-JUVU9QmfsP0CHtGPJkqCe08DlENlKR02leOiLg/edit)
+[![Upload process](https://docs.google.com/drawings/d/e/2PACX-1vScOVTJCQjaHj0oiVuvPxuQDNXFCtI-CGTTOm-kSPji9DehMxRIaWg98qKAkkvwSWn5d2TuL1z4mIyh/pub?w=1000)](https://docs.google.com/drawings/d/11DLkPe_mfC3kh69HCYqCx5MAVTTkYOXqVjyFY85jMLQ/edit)
 
 Uploads are based on directories containing at a minimum:
 - one or more `*-metadata.tsv` files.
