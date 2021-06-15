@@ -10,7 +10,7 @@ fields:
     enum:
       - MALDI-IMS
       - SIMS-IMS
-      - nanoDESI
+      - NanoDESI
       - DESI
 - name: analyte_class
   constraints:
