@@ -1,5 +1,5 @@
 ---
-title: MALDI-IMS / SIMS-IMS / DESI
+title: MALDI-IMS / SIMS-IMS / NanoDESI / DESI
 schema_name: ims
 category: Imaging mass spectrometry
 layout: default
@@ -92,7 +92,7 @@ Version of the schema to use when validating this metadata.
 
 | constraint | value |
 | --- | --- |
-| enum | `1` |
+| enum | `2` |
 | required | `True` |
 
 <a name="description"></a>
@@ -190,7 +190,7 @@ The specific type of assay being executed.
 
 | constraint | value |
 | --- | --- |
-| enum | `MALDI-IMS`, `SIMS-IMS`, or `DESI` |
+| enum | `MALDI-IMS`, `SIMS-IMS`, `NanoDESI`, or `DESI` |
 | required | `True` |
 
 <a name="analyte_class"></a>
@@ -293,7 +293,7 @@ Methodologies for measuring ion mobility: Traveling Wave Ion Mobility Spectromet
 
 <a name="ms_scan_mode"></a>
 ##### [`ms_scan_mode`](#ms_scan_mode)
-TODO.
+Scan mode refers to the number of steps in the separation of fragments.
 
 | constraint | value |
 | --- | --- |
@@ -364,15 +364,16 @@ The model number/name of the instrument used to prepare the sample for the assay
 
 <a name="preparation_maldi_matrix"></a>
 ##### [`preparation_maldi_matrix`](#preparation_maldi_matrix)
-The matrix is a compound of crystallized molecules that acts like a buffer between the sample and the laser. It also helps ionize the sample, carrying it along the flight tube so it can be detected. Leave blank if not applicable.
+The matrix is a compound of crystallized molecules that acts like a buffer between the sample and the laser. It also helps ionize the sample, carrying it along the flight tube so it can be detected.
 
 | constraint | value |
 | --- | --- |
-| required | `False` |
+| enum | `CHB`, `DHB`, or `SA` |
+| required | `True` |
 
 <a name="desi_solvent"></a>
 ##### [`desi_solvent`](#desi_solvent)
-TODO. Leave blank if not applicable.
+Solvent composition for conducting nanospray desorption electrospray ionization (nanoDESI) or desorption electrospray ionization (DESI). Leave blank if not applicable.
 
 | constraint | value |
 | --- | --- |
@@ -380,7 +381,7 @@ TODO. Leave blank if not applicable.
 
 <a name="desi_solvent_flow_rate"></a>
 ##### [`desi_solvent_flow_rate`](#desi_solvent_flow_rate)
-TODO. Leave blank if not applicable.
+The rate of flow of the solvent into a spray. Leave blank if not applicable.
 
 | constraint | value |
 | --- | --- |
@@ -389,12 +390,12 @@ TODO. Leave blank if not applicable.
 
 <a name="desi_solvent_flow_rate_unit"></a>
 ##### [`desi_solvent_flow_rate_unit`](#desi_solvent_flow_rate_unit)
-TODO. Leave blank if not applicable.
+Units of the rate of solvent flow. Leave blank if not applicable.
 
 | constraint | value |
 | --- | --- |
 | required | `False` |
-| enum | `TODO` |
+| enum | `uL/minute` |
 | units for | `desi_solvent_flow_rate` |
 
 <a name="section_prep_protocols_io_doi"></a>
@@ -409,11 +410,11 @@ DOI for protocols.io referring to the protocol for preparing tissue sections for
 
 <a name="processing_protocols_io_doi"></a>
 ##### [`processing_protocols_io_doi`](#processing_protocols_io_doi)
-DOI for analysis protocols.io for this assay.
+DOI for analysis protocols.io for this assay. Leave blank if not applicable.
 
 | constraint | value |
 | --- | --- |
-| required | `True` |
+| required | `False` |
 | pattern (regular expression) | `10\.17504/.*` |
 | url | prefix: `https://dx.doi.org/` |
 

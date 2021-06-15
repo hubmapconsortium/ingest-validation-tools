@@ -3,7 +3,7 @@ doc_url: https://portal.hubmapconsortium.org/docs/assays/maldi-ims
 fields:
 - constraints:
     enum:
-    - '1'
+    - '2'
     required: true
   custom_constraints:
     forbid_na: true
@@ -104,6 +104,7 @@ fields:
     enum:
     - MALDI-IMS
     - SIMS-IMS
+    - NanoDESI
     - DESI
     required: true
   custom_constraints:
@@ -237,7 +238,7 @@ fields:
   custom_constraints:
     forbid_na: true
     sequence_limit: 3
-  description: TODO
+  description: Scan mode refers to the number of steps in the separation of fragments.
   name: ms_scan_mode
 - constraints:
     required: true
@@ -302,7 +303,11 @@ fields:
     for the assay
   name: preparation_instrument_model
 - constraints:
-    required: false
+    enum:
+    - CHB
+    - DHB
+    - SA
+    required: true
   custom_constraints:
     forbid_na: true
     sequence_limit: 3
@@ -315,25 +320,26 @@ fields:
   custom_constraints:
     forbid_na: true
     sequence_limit: 3
-  description: TODO
+  description: Solvent composition for conducting nanospray desorption electrospray
+    ionization (nanoDESI) or desorption electrospray ionization (DESI).
   name: desi_solvent
 - constraints:
     required: false
   custom_constraints:
     forbid_na: true
     sequence_limit: 3
-  description: TODO
+  description: The rate of flow of the solvent into a spray.
   name: desi_solvent_flow_rate
   type: number
 - constraints:
     enum:
-    - TODO
+    - uL/minute
     required: false
   custom_constraints:
     forbid_na: true
     sequence_limit: 3
     units_for: desi_solvent_flow_rate
-  description: TODO
+  description: Units of the rate of solvent flow.
   name: desi_solvent_flow_rate_unit
 - constraints:
     pattern: 10\.17504/.*
@@ -349,7 +355,7 @@ fields:
   type: string
 - constraints:
     pattern: 10\.17504/.*
-    required: true
+    required: false
   custom_constraints:
     forbid_na: true
     sequence_limit: 3
