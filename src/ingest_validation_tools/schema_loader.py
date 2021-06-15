@@ -300,7 +300,6 @@ def _validate_level_1_enum(field):
             'polysaccharides',
             'metabolites_and_lipids',
             'glycans',
-            'proteins',
             'peptides',
             'phosphopeptides'
         ]
