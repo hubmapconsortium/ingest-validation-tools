@@ -2,6 +2,7 @@
 title: bulk RNA
 schema_name: bulkrnaseq
 category: Sequence assays
+all_versions_deprecated: False
 layout: default
 ---
 
@@ -278,7 +279,7 @@ Units of RNA input amount to the assay. Leave blank if not applicable.
 
 <a name="rnaseq_assay_method"></a>
 ##### [`rnaseq_assay_method`](#rnaseq_assay_method)
-rnaseq assay kit used.
+The kit used for the RNA sequencing assay.
 
 | constraint | value |
 | --- | --- |
@@ -598,7 +599,7 @@ Units of RNA input amount to the assay. Leave blank if not applicable.
 
 <a name="rnaseq_assay_method"></a>
 ##### [`rnaseq_assay_method`](#rnaseq_assay_method)
-rnaseq assay kit used.
+The kit used for the RNA sequencing assay.
 
 | constraint | value |
 | --- | --- |

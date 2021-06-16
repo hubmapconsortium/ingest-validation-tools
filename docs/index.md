@@ -24,7 +24,9 @@ Assay types and their schemas are linked below; For the bigger picture, and to c
 {% for page in pages %}
 {% unless page.exclude_from_index %}
 
+{% unless page.all_versions_deprecated %}
 - [{{ page.title }}]({{ page.schema_name }})
+{% endunless %}
 
 {% endunless %}
 {% endfor %}

@@ -2,6 +2,7 @@
 title: bulkATACseq
 schema_name: bulkatacseq
 category: Sequence assays
+all_versions_deprecated: False
 layout: default
 ---
 

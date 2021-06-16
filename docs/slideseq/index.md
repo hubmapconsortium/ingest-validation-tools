@@ -2,6 +2,7 @@
 title: Slide-seq
 schema_name: slideseq
 category: Sequence assays
+all_versions_deprecated: False
 layout: default
 ---
 

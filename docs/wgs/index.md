@@ -2,6 +2,7 @@
 title: WGS
 schema_name: wgs
 category: Sequence assays
+all_versions_deprecated: False
 layout: default
 ---
 
