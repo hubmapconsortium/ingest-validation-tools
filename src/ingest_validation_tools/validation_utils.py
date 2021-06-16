@@ -89,6 +89,14 @@ def get_tsv_errors(tsv_path, schema_name, optional_fields=[], offline=None, enco
     if not Path(tsv_path).exists():
         return 'File does not exist'
 
+    '''
+    >>> import tempfile
+    >>> from pathlib import Path
+
+    >>> get_tsv_errors('no-such.tsv', 'fake')
+    'File does not exist'
+    '''
+
     try:
         rows = dict_reader_wrapper(tsv_path, encoding=encoding)
     except IsADirectoryError:
@@ -96,8 +104,33 @@ def get_tsv_errors(tsv_path, schema_name, optional_fields=[], offline=None, enco
     except UnicodeDecodeError as e:
         return get_context_of_decode_error(e)
 
+    '''
+    >>> with tempfile.TemporaryDirectory() as dir:
+    ...     tsv_path = Path(dir)
+    ...     get_tsv_errors(tsv_path, 'fake')
+    'Expected a TSV, but found a directory'
+
+    >>> with tempfile.TemporaryDirectory() as dir:
+    ...     tsv_path = Path(dir) / 'fake.tsv'
+    ...     tsv_path.write_bytes(b'\\xff')
+    ...     get_tsv_errors(tsv_path, 'fake')
+    1
+    'Invalid utf-8 because invalid start byte: " [ ÿ ] "'
+    '''
+
     if not rows:
         return 'File has no data rows.'
+
+    '''
+    >>> def test_tsv(content):
+    ...     with tempfile.TemporaryDirectory() as dir:
+    ...         tsv_path = Path(dir) / 'fake.tsv'
+    ...         tsv_path.write_text(content)
+    ...         return get_tsv_errors(tsv_path, 'fake')
+
+    >>> test_tsv('')
+    'File has no data rows.'
+    '''
 
     version = rows[0]['version'] if 'version' in rows[0] else '0'
     try:
@@ -112,6 +145,12 @@ def get_tsv_errors(tsv_path, schema_name, optional_fields=[], offline=None, enco
                                       optional_fields=optional_fields)
     except OSError as e:
         return {e.strerror: Path(e.filename).name}
+    
+    '''
+    >>> test_tsv('assay_type\\nfake')
+    {'No such file or directory': 'fake-v0.yaml'}
+    '''
+
     if schema.get('deprecated'):
         return {f'Schema version is deprecated': f'{schema_name}-v{version}'}
     return get_table_errors(tsv_path, schema)
