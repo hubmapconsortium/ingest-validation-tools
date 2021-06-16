@@ -1,6 +1,7 @@
 # Changelog
 
 ## v0.0.12 - in progress
+- Doc test for deprecated schemas.
 - Add 10X multiome to scatacseq.
 - Add a warning on pages where ever version has been deprecated.
 - Deprecated flag can now be added to schema.
