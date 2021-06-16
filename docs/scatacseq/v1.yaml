@@ -251,6 +251,7 @@ fields:
     - 10X snATAC
     - In-house
     - Nextera
+    - 10X multiome
     required: true
   custom_constraints:
     forbid_na: true
