@@ -84,27 +84,13 @@ def get_context_of_decode_error(e):
 def get_tsv_errors(tsv_path, schema_name, optional_fields=[], offline=None, encoding=None):
     '''
     Validate the TSV.
-    '''
-    logging.info(f'Validating {schema_name} TSV...')
-    if not Path(tsv_path).exists():
-        return 'File does not exist'
 
-    '''
     >>> import tempfile
     >>> from pathlib import Path
 
     >>> get_tsv_errors('no-such.tsv', 'fake')
     'File does not exist'
-    '''
 
-    try:
-        rows = dict_reader_wrapper(tsv_path, encoding=encoding)
-    except IsADirectoryError:
-        return 'Expected a TSV, but found a directory'
-    except UnicodeDecodeError as e:
-        return get_context_of_decode_error(e)
-
-    '''
     >>> with tempfile.TemporaryDirectory() as dir:
     ...     tsv_path = Path(dir)
     ...     get_tsv_errors(tsv_path, 'fake')
@@ -116,21 +102,36 @@ def get_tsv_errors(tsv_path, schema_name, optional_fields=[], offline=None, enco
     ...     get_tsv_errors(tsv_path, 'fake')
     1
     'Invalid utf-8 because invalid start byte: " [ ÿ ] "'
-    '''
 
-    if not rows:
-        return 'File has no data rows.'
-
-    '''
-    >>> def test_tsv(content):
+    >>> def test_tsv(content, assay_type='fake'):
     ...     with tempfile.TemporaryDirectory() as dir:
     ...         tsv_path = Path(dir) / 'fake.tsv'
     ...         tsv_path.write_text(content)
-    ...         return get_tsv_errors(tsv_path, 'fake')
+    ...         return get_tsv_errors(tsv_path, assay_type)
 
-    >>> test_tsv('')
+    >>> test_tsv('just_a_header_not_enough')
     'File has no data rows.'
+
+    >>> test_tsv('fake_head\\nfake_data')
+    {'No such file or directory': 'fake-v0.yaml'}
+
+    >>> test_tsv('fake_head\\nfake_data', assay_type='nano')
+    {'Schema version is deprecated': 'nano-v0'}
     '''
+
+    logging.info(f'Validating {schema_name} TSV...')
+    if not Path(tsv_path).exists():
+        return 'File does not exist'
+
+    try:
+        rows = dict_reader_wrapper(tsv_path, encoding=encoding)
+    except IsADirectoryError:
+        return 'Expected a TSV, but found a directory'
+    except UnicodeDecodeError as e:
+        return get_context_of_decode_error(e)
+
+    if not rows:
+        return 'File has no data rows.'
 
     version = rows[0]['version'] if 'version' in rows[0] else '0'
     try:
@@ -145,12 +146,8 @@ def get_tsv_errors(tsv_path, schema_name, optional_fields=[], offline=None, enco
                                       optional_fields=optional_fields)
     except OSError as e:
         return {e.strerror: Path(e.filename).name}
-    
-    '''
-    >>> test_tsv('assay_type\\nfake')
-    {'No such file or directory': 'fake-v0.yaml'}
-    '''
 
     if schema.get('deprecated'):
         return {f'Schema version is deprecated': f'{schema_name}-v{version}'}
+
     return get_table_errors(tsv_path, schema)
