@@ -117,6 +117,18 @@ def get_tsv_errors(tsv_path, schema_name, optional_fields=[], offline=None, enco
 
     >>> test_tsv('fake_head\\nfake_data', assay_type='nano')
     {'Schema version is deprecated': 'nano-v0'}
+
+    >>> test_tsv('version\\n1', assay_type='nano')
+    {'Schema version is deprecated': 'nano-v1'}
+
+    >>> test_tsv('version\\n2', assay_type='nano')
+    {'No such file or directory': 'nano-v2.yaml'}
+
+    >>> test_tsv('version\\n1', assay_type='codex')
+    ['Could not determine delimiter']
+
+    >>> errors = test_tsv('version\\tfake\\n1\\tfake', assay_type='codex')
+    >>> assert 'Unexpected fields' in errors[0]
     '''
 
     logging.info(f'Validating {schema_name} TSV...')
