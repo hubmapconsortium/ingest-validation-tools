@@ -29,6 +29,7 @@ fields:
   constraints:
     enum:
       - nanoflex
+      - ESI
       - electron impact
 - name: polarity
   description: The polarity of the mass analysis (positive or negative ion modes)
