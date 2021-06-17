@@ -44,10 +44,6 @@ fields:
       - SIMS-C60
       - SIMS-H2O
       - ESI
-      # TODO: If any data was uploaded with deprecated value, what should it map to?
-      # - DESI
-      # - SIMS
-      # - nESI
 - name: polarity
   description: The polarity of the mass analysis (positive or negative ion modes)
   constraints:

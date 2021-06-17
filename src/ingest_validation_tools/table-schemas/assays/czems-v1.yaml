@@ -30,7 +30,6 @@ fields:
     enum:
       - nanoflex
       - ESI
-      - ESI
 - name: polarity
   description: The polarity of the mass analysis (positive or negative ion modes)
   constraints:
@@ -43,8 +42,7 @@ fields:
   description: The high value of the scanned mass range for MS1. (unitless)
 
 - name: mass_resolving_power
-  description: The MS1 resolving power defined as m/∆m where ∆m is the FWHM for a given peak with a specified m/z (m). (unitless)
-  # TODO: Not the same definitions as given in IMS. Is that correct?
+  description: This is the MS1 resolving power. This is a unitless value often calculated as m/∆m where ∆m is the FWHM for a given peak with a certain m/z (m).
   type: number
 - name: mz_resolving_power
   description: The peak (m/z) used to calculate the resolving power.
@@ -67,8 +65,7 @@ fields:
       - DDA
       - DIA
 - name: ms_scan_mode
-  description: Indicates whether the data were generated using MS, MS/MS, MS3, or MSn.
-  # TODO: Confirm that the list in the description should reified in enum.
+  description: Indicates whether the data were generated using MS, MS/MS or MS3.
   constraints:
     enum:
       - MS
@@ -121,13 +118,14 @@ fields:
   constraints:
     required: False
 
-# include: ../includes/v0/x_y.yaml
+# include: ../includes/v0/x_y_optional.yaml
 
 # include: ../includes/fields/processing_search.yaml
 
 - name: processing_protocols_io_doi
   description: DOI for analysis protocols.io for this assay.
-  # TODO: Confirm that it is required?
+  constraints:
+    required: False
 # include: ../includes/v0/doi/overall.yaml
 
 # include: ../includes/v0/paths.yaml
