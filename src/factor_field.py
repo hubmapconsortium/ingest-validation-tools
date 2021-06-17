@@ -9,9 +9,7 @@ from collections import defaultdict
 
 def main():
     parser = argparse.ArgumentParser(description='''
-    Factor out all variants of a given field. Typical use:
-
-    src/factor_field.py --field resolution_z_value
+    Factor out all variants of a given field.
     ''')
     parser.add_argument(
         '--field',
@@ -42,14 +40,31 @@ def factor_field(field_name, input_dir, output_dir):
 
 def pull(field_name, input_dir):
     definitions = defaultdict(set)
-    files = [str(f) for f in input_dir.iterdir()]
-    with fileinput.input(files=files, inplace=True) as f:
-        replace(
-            lines=f,
-            file_name=fileinput.filename(),
-            field_name=field_name,
-            definitions=definitions
-        )
+    # files = [str(f) for f in input_dir.iterdir()]
+    # with fileinput.input(files=files, inplace=True) as f:
+    #     replace(
+    #         lines=f,
+    #         file_name=fileinput.filename(),
+    #         field_name=field_name,
+    #         definitions=definitions
+    #     )
+    with fileinput.input(files=(str(f) for f in input_dir.iterdir()), inplace=True) as f:
+        inside = False
+        definition = None
+        for line in f:
+            # This assumes the YAML has been cleaned up!
+            if f'name: {field_name}' in line:
+                inside = True
+                print(f'# include: ../includes/fields/{field_name}.yaml')
+                definition = line
+                continue
+            elif inside and line[0] not in ['-', '#']:
+                definition += line
+                continue
+            elif inside:
+                definitions[definition].add(str(fileinput.filename()))
+                inside = False
+            print(line, end='')
     return definitions
 
 
