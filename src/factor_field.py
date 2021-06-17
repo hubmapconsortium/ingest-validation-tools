@@ -11,10 +11,7 @@ def main():
     parser = argparse.ArgumentParser(description='''
     Factor out all variants of a given field. Typical use:
 
-    src/factor_field.py \\
-        --field resolution_z_value \\
-        --input_dir src/ingest_validation_tools/table-schemas/assays/ \\
-        --output_dir src/ingest_validation_tools/table-schemas/includes/fields
+    src/factor_field.py --field resolution_z_value
     ''')
     parser.add_argument(
         '--field',
@@ -25,13 +22,13 @@ def main():
         type=Path,
         metavar='IN',
         help='Directory to scan for instances of the field',
-        required=True)
+        default='src/ingest_validation_tools/table-schemas/assays')
     parser.add_argument(
         '--output_dir',
         type=Path,
         metavar='OUT',
         help='Directory to write field extracts',
-        required=True)
+        default='src/ingest_validation_tools/table-schemas/includes/fields')
     args = parser.parse_args()
 
     factor_field(args.field, args.input_dir, args.output_dir)
