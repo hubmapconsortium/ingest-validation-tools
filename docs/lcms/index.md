@@ -253,6 +253,7 @@ The polarity of the mass analysis (positive or negative ion modes)
 
 | constraint | value |
 | --- | --- |
+| enum | `negative ion mode` or `positive ion mode` |
 | required | `True` |
 
 <a name="mz_range_low_value"></a>
@@ -275,7 +276,7 @@ The high value of the scanned mass range for MS1. (unitless)
 
 <a name="mass_resolving_power"></a>
 ##### [`mass_resolving_power`](#mass_resolving_power)
-This is the MS1 resolving power. This is a unitless value often calculated as m/∆m where ∆m is the FWHM for a given peak with a certain m/z (m).
+The MS1 resolving power defined as m/∆m where ∆m is the FWHM for a given peak with a specified m/z (m). (unitless)
 
 | constraint | value |
 | --- | --- |
@@ -747,6 +748,7 @@ The polarity of the mass analysis (positive or negative ion modes)
 
 | constraint | value |
 | --- | --- |
+| enum | `negative ion mode` or `positive ion mode` |
 | required | `True` |
 
 <a name="mz_range_low_value"></a>
@@ -1134,6 +1136,7 @@ The polarity of the mass analysis (positive or negative ion modes)
 
 | constraint | value |
 | --- | --- |
+| enum | `negative ion mode` or `positive ion mode` |
 | required | `True` |
 
 <a name="mz_range_low_value"></a>

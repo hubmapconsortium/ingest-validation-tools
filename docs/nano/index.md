@@ -226,12 +226,12 @@ The polarity of the mass analysis (positive or negative ion modes)
 
 | constraint | value |
 | --- | --- |
-| enum | `Positive` or `Negative` |
+| enum | `negative ion mode` or `positive ion mode` |
 | required | `True` |
 
 <a name="mz_range_low_value"></a>
 ##### [`mz_range_low_value`](#mz_range_low_value)
-A number representing the mass:charge ratio.
+The low value of the scanned mass range for MS1. (unitless)
 
 | constraint | value |
 | --- | --- |
@@ -240,7 +240,7 @@ A number representing the mass:charge ratio.
 
 <a name="mz_range_high_value"></a>
 ##### [`mz_range_high_value`](#mz_range_high_value)
-A number representing the mass:charge ratio.
+The high value of the scanned mass range for MS1. (unitless)
 
 | constraint | value |
 | --- | --- |
@@ -470,12 +470,12 @@ The polarity of the mass analysis (positive or negative ion modes)
 
 | constraint | value |
 | --- | --- |
-| enum | `Positive` or `Negative` |
+| enum | `negative ion mode` or `positive ion mode` |
 | required | `True` |
 
 <a name="mz_range_low_value"></a>
 ##### [`mz_range_low_value`](#mz_range_low_value)
-A number representing the mass:charge ratio.
+The low value of the scanned mass range for MS1. (unitless)
 
 | constraint | value |
 | --- | --- |
@@ -484,7 +484,7 @@ A number representing the mass:charge ratio.
 
 <a name="mz_range_high_value"></a>
 ##### [`mz_range_high_value`](#mz_range_high_value)
-A number representing the mass:charge ratio.
+The high value of the scanned mass range for MS1. (unitless)
 
 | constraint | value |
 | --- | --- |

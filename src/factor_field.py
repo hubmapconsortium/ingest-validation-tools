@@ -105,7 +105,6 @@ def replace(lines, get_file_name, field_name, definitions):
             definitions[definition].add(get_file_name())
             inside = False
         print(line, end='')
-    return definitions
 
 
 if __name__ == "__main__":

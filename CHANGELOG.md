@@ -1,7 +1,7 @@
 # Changelog
 
 ## v0.0.12 - in progress
-- Add new LCMS version.
+- Add new LCMS version, and clean up reused fields.
 - Add gcms.
 - Make some scatacseq fields optional.
 - Create CE-MS.
