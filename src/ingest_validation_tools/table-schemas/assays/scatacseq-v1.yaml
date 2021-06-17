@@ -82,7 +82,7 @@ fields:
   constraints:
     pattern: '\d+(,\d+)*'
 - name: cell_barcode_size
-  constraints
+  constraints:
     required: FALSE
   description: Length of the cell barcode in base pairs. Cell barcodes are, for example, 3 x 8 bp sequences that are spaced by constant sequences, the offsets. (Does not apply to sciATACseq, SNARE-seq and BulkATAC.)
   constraints:
