@@ -1,3 +1,4 @@
 - name: mz_resolving_power
   description: The peak (m/z) used to calculate the resolving power.
   type: number
+  
