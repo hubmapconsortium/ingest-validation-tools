@@ -64,6 +64,31 @@ def push(field_name, definitions, output_dir):
 
 
 def replace(lines, file_name, field_name, definitions):
+    '''
+    >>> lines = """
+    ... - name: a
+    ...   description: alpha
+    ... - name: b
+    ...   description: beta
+    ... - name: c
+    ...   description: gamma?
+    ... """.split('\\n')
+    >>> lines = [l + '\\n' for l in lines]
+    >>> definitions = defaultdict(set)
+
+    >>> replace(lines, file_name='fake.yaml', field_name='b', definitions=definitions)
+    <BLANKLINE>
+    - name: a
+      description: alpha
+    # include: ../includes/fields/b.yaml
+    - name: c
+      description: gamma?
+    <BLANKLINE>
+
+    >>> dict(definitions)
+    {'- name: b\\n  description: beta\\n': {'fake.yaml'}}
+    '''
+
     inside = False
     definition = None
     for line in lines:
