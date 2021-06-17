@@ -2,6 +2,7 @@
 title: GC-MS
 schema_name: gcms
 category: Imaging mass spectrometry
+all_versions_deprecated: False
 layout: default
 ---
 
