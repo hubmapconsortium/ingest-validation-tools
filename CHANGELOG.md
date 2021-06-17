@@ -4,6 +4,8 @@
 - Create CZE-MS.
 - New version of IMS.
 - Add a warning on pages where every version has been deprecated.
+- Doc test for deprecated schemas.
+- Add 10X multiome to scatacseq.
 - Deprecated flag can now be added to schema.
 - CLEANUP rnaseq_assay_method
 - cleanup resolution_z_unit
