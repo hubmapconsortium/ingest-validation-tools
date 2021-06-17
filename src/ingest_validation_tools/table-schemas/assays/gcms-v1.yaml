@@ -65,13 +65,7 @@ fields:
   description: Specifies if guard column was used
 
 # include: ../includes/fields/spatial_type.yaml
-- name: spatial_sampling_type
-  description: Specifies whether or not the analysis was performed in a spatially targeted manner. Spatial profiling experiments target specific tissue foci but do not necessarily generate images. Spatial imaging expriments collect data from a regular array (pixels) that can be visualized as heat maps of ion intensity at each location (molecular images). Leave blank if data are derived from bulk analysis.
-  constraints:
-    required: False
-    enum:
-      - profiling
-      - imaging
+# include: ../includes/fields/spatial_sampling_type.yaml
 # include: ../includes/fields/spatial_target.yaml
 # include: ../includes/v0/x_y_optional.yaml
 # include: ../includes/fields/processing_search.yaml
