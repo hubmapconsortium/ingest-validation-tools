@@ -3,7 +3,7 @@ fields:
 - name: assay_category
   constraints:
     enum:
-      - mass_spectrometry_imaging
+      - mass_spectrometry
 - name: assay_type
   constraints:
     enum:
@@ -11,7 +11,6 @@ fields:
 - name: analyte_class
   constraints:
     enum:
-      # TODO: Definitely not protein?
       - metabolites
       - lipids
 # include: ../includes/v0/is_targeted.yaml
@@ -28,6 +27,7 @@ fields:
       - DESI
       - SIMS
       - nESI
+      - EI
 - name: polarity
   description: The polarity of the mass analysis (positive or negative ion modes)
   constraints:
@@ -68,17 +68,17 @@ fields:
 - name: column_length_value
   description: GC column length
 - name: column_length_unit
-  description: Unit for GC column length (typically cm)
+  description: Unit for GC column length
   constraints:
     enum:
-      - cm # TODO: Confirm?
+      - cm
 - name: column_temp_value
   description: GC column temperature 
 - name: column_temp_unit
   description: Units for GC column temperature
   constraints:
     enum:
-      - C # TODO: Confirm?
+      - C
 - name: internal_standard
   description: Specifies if internal standard was utilized and designates what standard was used. Leave blank if not applicable.
 - name: ion_source
@@ -105,7 +105,6 @@ fields:
   description: Specifies the cell-type or functional tissue unit (FTU) that is targeted in the spatial profiling experiment. Leave blank if data are generated in imaging mode without a specific target structure.
   constraints:
     required: False
-    # TODO: No enum? "FTU or cell-type designation"
 
 # include: ../includes/v0/x_y.yaml
 # include: ../includes/fields/processing_search.yaml
