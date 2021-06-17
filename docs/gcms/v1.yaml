@@ -90,7 +90,7 @@ fields:
   name: pi_email
 - constraints:
     enum:
-    - mass_spectrometry_imaging
+    - mass_spectrometry
     required: true
   custom_constraints:
     forbid_na: true
@@ -154,6 +154,7 @@ fields:
     - DESI
     - SIMS
     - nESI
+    - EI
     required: true
   custom_constraints:
     forbid_na: true
@@ -286,7 +287,7 @@ fields:
     forbid_na: true
     sequence_limit: 3
     units_for: column_length_value
-  description: Unit for GC column length (typically cm)
+  description: Unit for GC column length
   name: column_length_unit
 - constraints:
     required: true

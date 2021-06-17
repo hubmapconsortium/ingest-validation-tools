@@ -1,7 +1,7 @@
 ---
 title: GC-MS
 schema_name: gcms
-category: Imaging mass spectrometry
+category: Mass spectrometry
 all_versions_deprecated: False
 layout: default
 ---
@@ -183,7 +183,7 @@ Each assay is placed into one of the following 3 general categories: generation 
 
 | constraint | value |
 | --- | --- |
-| enum | `mass_spectrometry_imaging` |
+| enum | `mass_spectrometry` |
 | required | `True` |
 
 <a name="assay_type"></a>
@@ -237,7 +237,7 @@ The ion source type used for surface sampling.
 
 | constraint | value |
 | --- | --- |
-| enum | `MALDI`, `MALDI-2`, `DESI`, `SIMS`, or `nESI` |
+| enum | `MALDI`, `MALDI-2`, `DESI`, `SIMS`, `nESI`, or `EI` |
 | required | `True` |
 
 <a name="polarity"></a>
@@ -355,7 +355,7 @@ GC column length.
 
 <a name="column_length_unit"></a>
 ##### [`column_length_unit`](#column_length_unit)
-Unit for GC column length (typically cm) Leave blank if not applicable.
+Unit for GC column length. Leave blank if not applicable.
 
 | constraint | value |
 | --- | --- |

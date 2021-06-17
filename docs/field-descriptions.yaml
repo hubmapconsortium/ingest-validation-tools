@@ -72,7 +72,7 @@ cell_barcode_size: Length of the cell barcode in base pairs
 channel_id: Structure of channel_id depends on assay type.
 cold_ischemia_time_unit: Time unit
 cold_ischemia_time_value: Time interval on ice to the start of preservation protocol.
-column_length_unit: Unit for GC column length (typically cm)
+column_length_unit: Unit for GC column length
 column_length_value: GC column length
 column_model: The model of the GC column used
 column_temp_unit: Units for GC column temperature
