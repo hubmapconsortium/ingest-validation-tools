@@ -8,8 +8,8 @@
 - Doc test for deprecated schemas.
 - Add 10X multiome to scatacseq.
 - Deprecated flag can now be added to schema.
-- CLEANUP rnaseq_assay_method
-- cleanup resolution_z_unit
+- CLEANUP rnaseq_assay_method.
+- cleanup resolution_z_unit.
 - Network problems in report, instead of quitting with stack trace.
 - New lightsheet schema, with description of changes.
 - Introduced Lightsheet directory schema.
