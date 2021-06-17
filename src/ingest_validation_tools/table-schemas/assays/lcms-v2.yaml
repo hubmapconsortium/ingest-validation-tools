@@ -47,16 +47,7 @@ fields:
 # include: ../includes/fields/mz_range_high_value.yaml
 # include: ../includes/fields/mass_resolving_power.yaml
 # include: ../includes/fields/mz_resolving_power.yaml
-- name: ion_mobility
-  description: 'Specifies whether or not ion mobility spectrometry was performed and which technology was used. Technologies for measuring ion mobility: Traveling Wave Ion Mobility Spectrometry (TWIMS), Trapped Ion Mobility Spectrometry (TIMS), High Field Asymmetric waveform ion Mobility Spectrometry (FAIMS), Drift Tube Ion Mobility Spectrometry (DTIMS, Structures for Lossless Ion Manipulations (SLIM).'
-  constraints:
-    required: False
-    enum:
-      - TIMS
-      - TWIMS
-      - FAIMS
-      - DTIMS
-      - SLIMS
+# include: ../includes/fields/ion_mobility.yaml
 # include: ../includes/fields/data_collection_mode.yaml
 # include: ../includes/fields/ms_scan_mode.yaml
 # include: ../includes/fields/labeling.yaml
