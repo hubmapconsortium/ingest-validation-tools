@@ -434,12 +434,12 @@ Specifies the cell-type or functional tissue unit (FTU) that is targeted in the 
 
 <a name="resolution_x_value"></a>
 ##### [`resolution_x_value`](#resolution_x_value)
-The width of a pixel.
+The width of a pixel. Leave blank if not applicable.
 
 | constraint | value |
 | --- | --- |
 | type | `number` |
-| required | `True` |
+| required | `False` |
 
 <a name="resolution_x_unit"></a>
 ##### [`resolution_x_unit`](#resolution_x_unit)
@@ -453,12 +453,12 @@ The unit of measurement of the width of a pixel. Leave blank if not applicable.
 
 <a name="resolution_y_value"></a>
 ##### [`resolution_y_value`](#resolution_y_value)
-The height of a pixel.
+The height of a pixel. Leave blank if not applicable.
 
 | constraint | value |
 | --- | --- |
 | type | `number` |
-| required | `True` |
+| required | `False` |
 
 <a name="resolution_y_unit"></a>
 ##### [`resolution_y_unit`](#resolution_y_unit)

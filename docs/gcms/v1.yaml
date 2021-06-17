@@ -368,7 +368,7 @@ fields:
     mode without a specific target structure.
   name: spatial_target
 - constraints:
-    required: true
+    required: false
   custom_constraints:
     forbid_na: true
     sequence_limit: 3
@@ -387,7 +387,7 @@ fields:
   description: The unit of measurement of the width of a pixel.
   name: resolution_x_unit
 - constraints:
-    required: true
+    required: false
   custom_constraints:
     forbid_na: true
     sequence_limit: 3

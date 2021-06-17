@@ -106,7 +106,7 @@ fields:
   constraints:
     required: False
 
-# include: ../includes/v0/x_y.yaml
+# include: ../includes/v0/x_y_optional.yaml
 # include: ../includes/fields/processing_search.yaml
 
 # include: ../includes/v0/doi/section_prep.yaml
