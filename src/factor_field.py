@@ -40,7 +40,7 @@ def factor_field(field_name, input_dir, output_dir):
 
 def pull(field_name, input_dir):
     definitions = defaultdict(set)
-    # files = [str(f) for f in input_dir.iterdir()]
+    files = [str(f) for f in input_dir.iterdir()]
     # with fileinput.input(files=files, inplace=True) as f:
     #     replace(
     #         lines=f,
@@ -48,7 +48,7 @@ def pull(field_name, input_dir):
     #         field_name=field_name,
     #         definitions=definitions
     #     )
-    with fileinput.input(files=(str(f) for f in input_dir.iterdir()), inplace=True) as f:
+    with fileinput.input(files=files, inplace=True) as f:
         inside = False
         definition = None
         for line in f:
