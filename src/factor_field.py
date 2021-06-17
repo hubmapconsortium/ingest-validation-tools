@@ -42,7 +42,8 @@ def factor_field(field_name, input_dir, output_dir):
 
 def pull(field_name, input_dir):
     definitions = defaultdict(set)
-    with fileinput.input(files=(str(f) for f in input_dir.iterdir()), inplace=True) as f:
+    files = [str(f) for f in input_dir.iterdir()]
+    with fileinput.input(files=files, inplace=True) as f:
         replace(
             lines=f,
             file_name=fileinput.filename(),
@@ -57,7 +58,11 @@ def push(field_name, definitions, output_dir):
         f"# {'; '.join(sorted(files))}\n{definition}"
         for definition, files in definitions.items()
     ] if len(definitions) > 1 else definitions.keys()
-    (output_dir / f'{field_name}.yaml').write_text('\n'.join(options))
+    if options:
+        (output_dir / f'{field_name}.yaml').write_text('\n'.join(options))
+    else:
+        print('Check spelling of field name')
+        sys.exit(1)
 
 
 def replace(lines, file_name, field_name, definitions):
@@ -85,6 +90,9 @@ def replace(lines, file_name, field_name, definitions):
     >>> dict(definitions)
     {'- name: b\\n  description: beta\\n': {'fake.yaml'}}
     '''
+
+    if file_name is None:
+        return
 
     inside = False
     definition = None
