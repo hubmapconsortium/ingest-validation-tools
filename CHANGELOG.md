@@ -1,6 +1,7 @@
 # Changelog
 
 ## v0.0.12 - in progress
+- Make some scatacseq fields optional.
 - Create CZE-MS.
 - New version of IMS.
 - Add a warning on pages where every version has been deprecated.
