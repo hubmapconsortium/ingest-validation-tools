@@ -101,11 +101,7 @@ fields:
     enum:
       - profiling
       - imaging
-- name: spatial_target
-  description: Specifies the cell-type or functional tissue unit (FTU) that is targeted in the spatial profiling experiment. Leave blank if data are generated in imaging mode without a specific target structure.
-  constraints:
-    required: False
-
+# include: ../includes/fields/spatial_target.yaml
 # include: ../includes/v0/x_y_optional.yaml
 # include: ../includes/fields/processing_search.yaml
 

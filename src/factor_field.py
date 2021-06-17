@@ -46,22 +46,12 @@ def factor_field(field_name, input_dir, output_dir):
 def pull(field_name, input_dir):
     definitions = defaultdict(set)
     with fileinput.input(files=(str(f) for f in input_dir.iterdir()), inplace=True) as f:
-        inside = False
-        definition = None
-        for line in f:
-            # This assumes the YAML has been cleaned up!
-            if f'name: {field_name}' in line:
-                inside = True
-                print(f'# include: ../includes/fields/{field_name}.yaml')
-                definition = line
-                continue
-            elif inside and line[0] not in ['-', '#']:
-                definition += line
-                continue
-            elif inside:
-                definitions[definition].add(str(fileinput.filename()))
-                inside = False
-            print(line, end='')
+        replace(
+            lines=f,
+            file_name=fileinput.filename(),
+            field_name=field_name,
+            definitions=definitions
+        )
     return definitions
 
 
@@ -71,6 +61,25 @@ def push(field_name, definitions, output_dir):
         for definition, files in definitions.items()
     ] if len(definitions) > 1 else definitions.keys()
     (output_dir / f'{field_name}.yaml').write_text('\n'.join(options))
+
+
+def replace(lines, file_name, field_name, definitions):
+    inside = False
+    definition = None
+    for line in lines:
+        # This assumes the YAML has been cleaned up!
+        if f'name: {field_name}' in line:
+            inside = True
+            print(f'# include: ../includes/fields/{field_name}.yaml')
+            definition = line
+            continue
+        elif inside and line[0] not in ['-', '#']:
+            definition += line
+            continue
+        elif inside:
+            definitions[definition].add(file_name)
+            inside = False
+        print(line, end='')
 
 
 if __name__ == "__main__":
