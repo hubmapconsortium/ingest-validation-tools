@@ -87,8 +87,10 @@ def _enrich_description(field):
 
 def generate_readme_md(
         table_schemas, directory_schema, schema_name, is_assay=True):
-    max_version = max(table_schemas.keys())
-    max_version_table_schema = table_schemas[max_version]
+    int_keys = [int(k) for k in table_schemas.keys()]
+    max_version = max(int_keys)
+    min_version = min(int_keys)
+    max_version_table_schema = table_schemas[str(max_version)]
 
     assay_type_enum = get_field_enum('assay_type', max_version_table_schema)
     assay_category_enum = get_field_enum('assay_category', max_version_table_schema)
@@ -133,20 +135,20 @@ def generate_readme_md(
             'other': 'Other TSVs'
         }[category],
         'max_version': max_version,
+        'all_versions_deprecated':
+            all(schema.get('deprecated') for schema in table_schemas.values()),
 
         'tsv_url': f'{raw_base_url}/{schema_name}/{get_tsv_name(schema_name, is_assay=is_assay)}',
         'xlsx_url': f'{raw_base_url}/{schema_name}/{get_xlsx_name(schema_name, is_assay=is_assay)}',
 
         'current_version_md':
             _make_fields_md(
-                table_schemas[max_version], f'Version {max_version} (current)', is_open=True
+                max_version_table_schema, f'Version {max_version} (current)', is_open=True
         ),
         'previous_versions_md':
             '\n\n'.join([
-                _make_fields_md(
-                    table_schemas[str(v)], f'Version {v}'
-                )
-                for v in reversed(range(int(max_version)))
+                _make_fields_md(table_schemas[str(v)], f'Version {v}')
+                for v in range(max_version - 1, min_version - 1, -1)
             ]),
 
         'optional_dir_description_md': optional_dir_description_md,

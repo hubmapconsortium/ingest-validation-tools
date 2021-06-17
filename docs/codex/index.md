@@ -2,6 +2,7 @@
 title: CODEX
 schema_name: codex
 category: Imaging assays
+all_versions_deprecated: False
 layout: default
 ---
 

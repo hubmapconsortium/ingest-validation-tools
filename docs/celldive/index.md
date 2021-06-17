@@ -2,6 +2,7 @@
 title: Cell DIVE
 schema_name: celldive
 category: Imaging assays
+all_versions_deprecated: False
 layout: default
 ---
 

@@ -2,6 +2,7 @@
 title: Imaging Mass Cytometry
 schema_name: imc
 category: Imaging mass spectrometry
+all_versions_deprecated: False
 layout: default
 ---
 

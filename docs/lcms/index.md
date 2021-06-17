@@ -2,6 +2,7 @@
 title: LC-MS (metabolomics) / LC-MS/MS (label-free proteomics) / MS (shotgun lipidomics)
 schema_name: lcms
 category: Mass spectrometry
+all_versions_deprecated: False
 layout: default
 ---
 

@@ -2,6 +2,7 @@
 title: seqFISH
 schema_name: seqfish
 category: Imaging assays
+all_versions_deprecated: False
 layout: default
 ---
 
