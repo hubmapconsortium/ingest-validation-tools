@@ -1,9 +1,9 @@
 # Generated YAML: PRs should not start here!
-doc_url: https://portal.hubmapconsortium.org/docs/assays/atacseq
+doc_url: https://portal.hubmapconsortium.org/docs/assays/maldi-ims
 fields:
 - constraints:
     enum:
-    - '1'
+    - '2'
     required: true
   custom_constraints:
     forbid_na: true
@@ -91,7 +91,7 @@ fields:
   name: pi_email
 - constraints:
     enum:
-    - sequence
+    - mass_spectrometry_imaging
     required: true
   custom_constraints:
     forbid_na: true
@@ -102,10 +102,10 @@ fields:
   name: assay_category
 - constraints:
     enum:
-    - SNARE-seq2
-    - scATACseq
-    - sciATACseq
-    - snATACseq
+    - MALDI-IMS
+    - SIMS-IMS
+    - NanoDESI
+    - DESI
     required: true
   custom_constraints:
     forbid_na: true
@@ -114,7 +114,12 @@ fields:
   name: assay_type
 - constraints:
     enum:
-    - DNA
+    - protein
+    - metabolites
+    - lipids
+    - peptides
+    - phosphopeptides
+    - glycans
     required: true
   custom_constraints:
     forbid_na: true
@@ -151,21 +156,191 @@ fields:
     the data.
   name: acquisition_instrument_model
 - constraints:
+    enum:
+    - MALDI
+    - MALDI-2
+    - LDI
+    - LA
+    - SIMS-C60
+    - SIMS-H2O
+    - ESI
     required: true
   custom_constraints:
     forbid_na: true
     sequence_limit: 3
-  description: If TRUE, fastq files in dataset need to be merged.
-  name: is_technical_replicate
-  type: boolean
+  description: The ion source type used for surface sampling (MALDI, MALDI-2, DESI,
+    or SIMS) or LC-MS/MS data acquisition (nESI)
+  name: ms_source
+- constraints:
+    enum:
+    - negative ion mode
+    - positive ion mode
+    required: true
+  custom_constraints:
+    forbid_na: true
+    sequence_limit: 3
+  description: The polarity of the mass analysis (positive or negative ion modes)
+  name: polarity
 - constraints:
     required: true
   custom_constraints:
     forbid_na: true
     sequence_limit: 3
-  description: A library ID, unique within a TMC, which allows corresponding RNA and
-    chromatin accessibility datasets to be linked.
-  name: library_id
+  description: The low value of the scanned mass range for MS1. (unitless)
+  name: mz_range_low_value
+  type: number
+- constraints:
+    required: true
+  custom_constraints:
+    forbid_na: true
+    sequence_limit: 3
+  description: The high value of the scanned mass range for MS1. (unitless)
+  name: mz_range_high_value
+  type: number
+- constraints:
+    required: true
+  custom_constraints:
+    forbid_na: true
+    sequence_limit: 3
+  description: "This is the MS1 resolving power.\_This is a unitless value often calculated\
+    \ as m/\u2206m where \u2206m is the FWHM for a given peak with a certain m/z (m)."
+  name: mass_resolving_power
+  type: number
+- constraints:
+    required: true
+  custom_constraints:
+    forbid_na: true
+    sequence_limit: 3
+  description: This is the m/z used to calculate the resolving power.
+  name: mz_resolving_power
+- constraints:
+    enum:
+    - TIMS
+    - TWIMS
+    - FAIMS
+    - DTIMS
+    - SLIMS
+    required: false
+  custom_constraints:
+    forbid_na: true
+    sequence_limit: 3
+  description: 'Methodologies for measuring ion mobility: Traveling Wave Ion Mobility
+    Spectrometry (TWIMS), Trapped Ion Mobility Spectrometry (TIMS), High Field Asymmetric
+    waveform ion Mobility Spectrometry (FAIMS), Drift Tube Ion Mobility Spectrometry
+    (DTIMS), Structures for Lossless Ion Manipulations Spectrometry (SLIMS).'
+  name: ion_mobility
+- constraints:
+    enum:
+    - MS
+    - MS/MS
+    - MS3
+    required: true
+  custom_constraints:
+    forbid_na: true
+    sequence_limit: 3
+  description: Scan mode refers to the number of steps in the separation of fragments.
+  name: ms_scan_mode
+- constraints:
+    required: true
+  custom_constraints:
+    forbid_na: true
+    sequence_limit: 3
+  description: The width of a pixel.
+  name: resolution_x_value
+  type: number
+- constraints:
+    enum:
+    - nm
+    - um
+    required: false
+  custom_constraints:
+    forbid_na: true
+    sequence_limit: 3
+    units_for: resolution_x_value
+  description: The unit of measurement of the width of a pixel.
+  name: resolution_x_unit
+- constraints:
+    required: true
+  custom_constraints:
+    forbid_na: true
+    sequence_limit: 3
+  description: The height of a pixel
+  name: resolution_y_value
+  type: number
+- constraints:
+    enum:
+    - nm
+    - um
+    required: false
+  custom_constraints:
+    forbid_na: true
+    sequence_limit: 3
+    units_for: resolution_y_value
+  description: The unit of measurement of the height of a pixel.
+  name: resolution_y_unit
+- constraints:
+    required: false
+  custom_constraints:
+    forbid_na: true
+    sequence_limit: 3
+  description: Common methods of depositing matrix for MALDI imaging include robotic
+    spotting, electrospray deposition, and spray-coating with an airbrush.
+  name: preparation_type
+- constraints:
+    required: false
+  custom_constraints:
+    forbid_na: true
+    sequence_limit: 3
+  description: The manufacturer of the instrument used to prepare the sample for the
+    assay.
+  name: preparation_instrument_vendor
+- constraints:
+    required: false
+  custom_constraints:
+    forbid_na: true
+    sequence_limit: 3
+  description: The model number/name of the instrument used to prepare the sample
+    for the assay
+  name: preparation_instrument_model
+- constraints:
+    enum:
+    - CHB
+    - DHB
+    - SA
+    required: true
+  custom_constraints:
+    forbid_na: true
+    sequence_limit: 3
+  description: The matrix is a compound of crystallized molecules that acts like a
+    buffer between the sample and the laser. It also helps ionize the sample, carrying
+    it along the flight tube so it can be detected.
+  name: preparation_maldi_matrix
+- constraints:
+    required: false
+  custom_constraints:
+    forbid_na: true
+    sequence_limit: 3
+  description: Solvent composition for conducting nanospray desorption electrospray
+    ionization (nanoDESI) or desorption electrospray ionization (DESI).
+  name: desi_solvent
+- constraints:
+    required: false
+  custom_constraints:
+    forbid_na: true
+    sequence_limit: 3
+  description: The rate of flow of the solvent into a spray.
+  name: desi_solvent_flow_rate
+  type: number
+- constraints:
+    enum:
+    - uL/minute
+    required: false
+  custom_constraints:
+    forbid_na: true
+    sequence_limit: 3
+    units_for: desi_solvent_flow_rate
+  description: Units of the rate of solvent flow.
+  name: desi_solvent_flow_rate_unit
 - constraints:
     pattern: 10\.17504/.*
     required: true
@@ -174,98 +349,21 @@ fields:
     sequence_limit: 3
     url:
       prefix: https://dx.doi.org/
-  description: 'Link to a protocols document answering the question: How were single
-    cells separated into a single-cell suspension?'
-  name: sc_isolation_protocols_io_doi
+  description: DOI for protocols.io referring to the protocol for preparing tissue
+    sections for the assay.
+  name: section_prep_protocols_io_doi
   type: string
 - constraints:
-    enum:
-    - whole cell
-    - nucleus
-    - cell-cell multimer
-    - spatially encoded cell barcoding
-    required: true
-  custom_constraints:
-    forbid_na: true
-    sequence_limit: 3
-  description: The type of single cell entity derived from isolation protocol.
-  name: sc_isolation_entity
-- constraints:
-    required: true
-  custom_constraints:
-    forbid_na: true
-    sequence_limit: 3
-  description: The method by which tissues are dissociated into single cells in suspension.
-  name: sc_isolation_tissue_dissociation
-- constraints:
-    enum:
-    - none
-    - FACS
-    required: true
-  custom_constraints:
-    forbid_na: true
-    sequence_limit: 3
-  description: The method by which specific cell populations are sorted or enriched.
-  name: sc_isolation_enrichment
-- constraints:
-    required: true
-  custom_constraints:
-    forbid_na: true
-    sequence_limit: 3
-  description: A quality metric by visual inspection prior to cell lysis or defined
-    by known parameters such as wells with several cells or no cells. This can be
-    captured at a high level. "OK" or "not OK", or with more specificity such as "debris",
-    "clump", "low clump".
-  name: sc_isolation_quality_metric
-- constraints:
-    required: true
-  custom_constraints:
-    forbid_na: true
-    sequence_limit: 3
-  description: Total number of cell/nuclei yielded post dissociation and enrichment.
-  name: sc_isolation_cell_number
-  type: integer
-- constraints:
-    required: true
-  custom_constraints:
-    forbid_na: true
-    sequence_limit: 3
-  description: Number of cell/nuclei input to the assay.
-  name: transposition_input
-  type: number
-- constraints:
-    enum:
-    - SNARE-Seq2-AC
-    - scATACseq
-    - bulkATACseq
-    - snATACseq
-    - sciATACseq
-    required: true
-  custom_constraints:
-    forbid_na: true
-    sequence_limit: 3
-  description: Modality of capturing accessible chromatin molecules.
-  name: transposition_method
-- constraints:
-    enum:
-    - 10X snATAC
-    - In-house
-    - Nextera
-    - 10X multiome
-    required: true
-  custom_constraints:
-    forbid_na: true
-    sequence_limit: 3
-  description: The source of the Tn5 transposase and transposon used for capturing
-    accessible chromatin.
-  name: transposition_transposase_source
-- constraints:
+    pattern: 10\.17504/.*
     required: false
   custom_constraints:
     forbid_na: true
     sequence_limit: 3
-  description: If Tn5 came from a kit, provide the catalog number.
-  name: transposition_kit_number
+    url:
+      prefix: https://dx.doi.org/
+  description: DOI for analysis protocols.io for this assay.
+  name: processing_protocols_io_doi
+  type: string
 - constraints:
     pattern: 10\.17504/.*
     required: true
@@ -274,145 +372,9 @@ fields:
     sequence_limit: 3
     url:
       prefix: https://dx.doi.org/
-  description: A link to the protocol document containing the library construction
-    method (including version) that was used, e.g. "Smart-Seq2", "Drop-Seq", "10X
-    v3". DOI for protocols.io referring to the protocol for this assay.
-  name: library_construction_protocols_io_doi
+  description: DOI for protocols.io for the overall process.
+  name: overall_protocols_io_doi
   type: string
-- constraints:
-    enum:
-    - single-end
-    - paired-end
-    required: true
-  custom_constraints:
-    forbid_na: true
-    sequence_limit: 3
-  description: State whether the library was generated for single-end or paired end
-    sequencing.
-  name: library_layout
-- constraints:
-    pattern: '[ATCG]+(\+[ATCG]+)?'
-    required: true
-  custom_constraints:
-    forbid_na: true
-    sequence_limit: 3
-  description: Adapter sequence to be used for adapter trimming.
-  name: library_adapter_sequence
-  type: string
-- constraints:
-    required: false
-  custom_constraints:
-    forbid_na: true
-    sequence_limit: 3
-  description: Which read file contains the cell barcode. This field is not required
-    for barcoding by single-cell combinatorial indexing.
-  name: cell_barcode_read
-- constraints:
-    pattern: \d+(,\d+)*
-    required: true
-  custom_constraints:
-    forbid_na: true
-    sequence_limit: 3
-  description: Positions in the read at which the cell barcodes start. Cell barcodes
-    are, for example, 3 x 8 bp sequences that are spaced by constant sequences (the
-    offsets). First barcode at position 0, then 38, then 76. (Does not apply to sciATACseq,
-    SNARE-seq and BulkATAC.)
-  name: cell_barcode_offset
-  type: string
-- constraints:
-    pattern: \d+(,\d+)*
-    required: true
-  custom_constraints:
-    forbid_na: true
-    sequence_limit: 3
-  description: Length of the cell barcode in base pairs. Cell barcodes are, for example,
-    3 x 8 bp sequences that are spaced by constant sequences, the offsets. (Does not
-    apply to sciATACseq, SNARE-seq and BulkATAC.)
-  name: cell_barcode_size
-  type: string
-- constraints:
-    required: true
-  custom_constraints:
-    forbid_na: true
-    sequence_limit: 3
-  description: Number of PCR cycles to enrich for accessible chromatin fragments.
-  name: library_pcr_cycles
-  type: integer
-- constraints:
-    required: true
-  custom_constraints:
-    forbid_na: true
-    sequence_limit: 3
-  description: Number of PCR cycles performed for library generation (figure in Descriptions
-    section)
-  name: library_pcr_cycles_for_sample_index
-  type: integer
-- constraints:
-    required: true
-  custom_constraints:
-    forbid_na: true
-    sequence_limit: 3
-  description: Total ng of library after final pcr amplification step.
-  name: library_final_yield
-  type: number
-- constraints:
-    enum:
-    - ng
-    required: false
-  custom_constraints:
-    forbid_na: true
-    sequence_limit: 3
-    units_for: library_final_yield
-  description: Units for library_final_yield
-  name: library_final_yield_unit
-- constraints:
-    required: true
-  custom_constraints:
-    forbid_na: true
-    sequence_limit: 3
-  description: Average size of sequencing library fragments estimated via gel electrophoresis
-    or bioanalyzer/tapestation. Numeric value in bp.
-  name: library_average_fragment_size
-  type: number
-- constraints:
-    required: true
-  custom_constraints:
-    forbid_na: true
-    sequence_limit: 3
-  description: Reagent kit used for sequencing
-  name: sequencing_reagent_kit
-- constraints:
-    pattern: \d+(/\d+)+
-    required: true
-  custom_constraints:
-    forbid_na: true
-    sequence_limit: 3
-  description: Slash-delimited list of the number of sequencing cycles for, for example,
-    Read1, i7 index, i5 index, and Read2.
-  example: 12/34/56
-  name: sequencing_read_format
-  type: string
-- constraints:
-    maximum: 100
-    minimum: 0
-    required: true
-  custom_constraints:
-    forbid_na: true
-    sequence_limit: 3
-  description: 'Q30 is the weighted average of all the reads (e.g. # bases UMI * q30
-    UMI + # bases R2 * q30 R2 + ...)'
-  name: sequencing_read_percent_q30
-  type: number
-- constraints:
-    maximum: 100
-    minimum: 0
-    required: true
-  custom_constraints:
-    forbid_na: true
-    sequence_limit: 3
-  description: Percent PhiX loaded to the run
-  name: sequencing_phix_percent
-  type: number
 - constraints:
     required: true
   custom_constraints:

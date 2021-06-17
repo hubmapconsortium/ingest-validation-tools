@@ -48,6 +48,24 @@ bulk_rna_yield_value: 'RNA (ng) per Weight of Tissue (mg). Answer the question: 
   to isolate RNA from (ng/mg).'
 bulk_transposition_input_number_nuclei: A number (no comma separators)
 cause_of_death: The circumstance or condition that caused death.
+ce_background_electrolyte: Chemical composition of the background electrolyte that
+  fills the separation capillary (e.g. "3% acetic acid").
+ce_capillary_coating: Treatment of surface of separation capillary. Capillary coating
+  affects the absorption of analytes on capillary inner walls and regulates electroosmotic
+  flow. Entries should indicate the charge of the coating and chemical composition
+  (e.g. "Neutral; Polyacrylamide" or "Positive; Polyethyleneimine" or "Uncoated").
+ce_electroosmotic_flow: Properties of the electroosmotic flow (EOF). Normal EOF is
+  defined as flow towards the cathode, reversed EOF is defined as flow towards the
+  anode, and suppressed EOF involves marginal to almost no flow (e.g. when a neutral
+  coating is used).
+ce_instrument_model: The model name of the instrument used for capillary zone electrophoresis.
+ce_instrument_vendor: The manufacturer of the instrument used for capillary zone electrophoresis.
+  Capillary electrophoresis is used to separate complex biological mixtures prior
+  to performing MS-based analyses. Separations are performed based the analytes migrate
+  through an electrolyte solution in the presence of an electric field.
+ce_interface: Method by which the separation capillary interfaces with mass spectrometer
+  and enables electrospray ionization while completing the separation circuit. The
+  two most prevalent commercial interfaces are sheathless and sheath-flow.
 cell_barcode_offset: Position(s) in the read at which the cell barcode starts.
 cell_barcode_read: Which read file contains the cell barcode
 cell_barcode_size: Length of the cell barcode in base pairs
@@ -73,6 +91,10 @@ data_path: Relative path to file or directory with instrument data. Downstream p
   will depend on filename extension conventions.
 data_precision_bytes: Numerical data precision in bytes
 description: Free-text description of this assay.
+desi_solvent: Solvent composition for conducting nanospray desorption electrospray
+  ionization (nanoDESI) or desorption electrospray ionization (DESI).
+desi_solvent_flow_rate: The rate of flow of the solvent into a spray.
+desi_solvent_flow_rate_unit: Units of the rate of solvent flow.
 dilution: Antibody solutions may be diluted according to the experimental protocol.
 dna_assay_input_unit: Units of DNA input into library preparation
 dna_assay_input_value: Amount of DNA input into library preparation
@@ -102,11 +124,10 @@ increment_z_unit: The units of increment z value.
 increment_z_value: The distance between sequential optical sections.
 internal_standard: Specifies if internal standard was utilized and designates what
   standard was used. Leave blank if not applicable.
-ion_mobility: 'Specifies whether or not ion mobility spectrometry was performed and
-  which technology was used. Technologies for measuring ion mobility: Traveling Wave
-  Ion Mobility Spectrometry (TWIMS), Trapped Ion Mobility Spectrometry (TIMS), High
-  Field Asymmetric waveform ion Mobility Spectrometry (FAIMS), Drift Tube Ion Mobility
-  Spectrometry (DTIMS, Structures for Lossless Ion Manipulations (SLIM).'
+ion_mobility: 'Methodologies for measuring ion mobility: Traveling Wave Ion Mobility
+  Spectrometry (TWIMS), Trapped Ion Mobility Spectrometry (TIMS), High Field Asymmetric
+  waveform ion Mobility Spectrometry (FAIMS), Drift Tube Ion Mobility Spectrometry
+  (DTIMS), Structures for Lossless Ion Manipulations Spectrometry (SLIMS).'
 ion_source: Specifies the ion source used
 is_contact: Is this individual a contact for DOI purposes?
 is_targeted: Specifies whether or not a specific molecule(s) is/are targeted for detection/measurement
@@ -179,12 +200,11 @@ mechanism_of_injury: 'Mechanism of injury may be, for example: fall, impact (eg:
 medical_history: A record of a patient's background regarding health and the occurrence
   of disease events of the individual.
 middle_name_or_initial: Middle name or initial
-ms_scan_mode: Indicates whether experiment is MS, MS/MS, or other (possibly MS3 for
-  TMT)
+ms_scan_mode: Indicates whether the data were generated using MS, MS/MS or MS3.
 ms_source: The ion source type used for surface sampling.
 mz_range_high_value: A number representing the mass:charge ratio
 mz_range_low_value: A number representing the mass:charge ratio
-mz_resolving_power: The peak (m/z) used to calculate the MS1 resolving power.
+mz_resolving_power: The peak (m/z) used to calculate the resolving power.
 name: Name for display
 number_of_antibodies: Number of antibodies
 number_of_barcode_probes: Number of barcode probes targeting mRNAs (eg. 24,000 barcode
@@ -294,7 +314,7 @@ spatial_target: Specifies the cell-type or functional tissue unit (FTU) that is 
 spatial_type: Specifies whether or not the analysis was performed in a spatialy targeted
   manner and the technique used for spatial sampling. For example, Laser-capture microdissection
   (LCM), Liquid Extraction Surface Analysis (LESA), Nanodroplet Processing in One
-  pot for Trace Samples (nanoPOTS). Leave blank if not applicable.
+  pot for Trace Samples (nanoPOTS).
 specimen_preservation_temperature: The temperature of the medium during the preservation
   process.
 specimen_quality_criteria: 'For example, RIN: 8.7.'

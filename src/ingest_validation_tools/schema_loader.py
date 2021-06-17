@@ -259,7 +259,9 @@ def _validate_level_1_enum(field):
             'bulk RNA',
             'bulkATACseq',
             'Cell DIVE',
+            'CE-MS',
             'CODEX',
+            'DESI',
             'GC-MS',
             'Imaging Mass Cytometry',
             'LC-MS (metabolomics)',
@@ -275,6 +277,7 @@ def _validate_level_1_enum(field):
             'sciATACseq',
             'sciRNAseq',
             'seqFISH',
+            'SIMS-IMS',
             'SNARE-seq2',
             'snATACseq',
             'snRNA',
@@ -296,7 +299,10 @@ def _validate_level_1_enum(field):
             'lipids',
             'metabolites',
             'polysaccharides',
-            'metabolites_and_lipids'
+            'metabolites_and_lipids',
+            'glycans',
+            'peptides',
+            'phosphopeptides'
         ]
     }
     name = field['name']
