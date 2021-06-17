@@ -1,0 +1,115 @@
+fields:
+# include: ../includes/vA/all_assays.yaml
+- name: assay_category
+  constraints:
+    enum:
+      - mass_spectrometry
+- name: assay_type
+  constraints:
+    enum:
+      - GC-MS
+- name: analyte_class
+  constraints:
+    enum:
+      - metabolites
+      - lipids
+# include: ../includes/v0/is_targeted.yaml
+
+# Level 2:
+
+# include: ../includes/v0/acquisition_instrument.yaml
+- name: ms_source
+  description: The ion source type used for surface sampling.
+  constraints:
+    enum:
+      - MALDI
+      - MALDI-2
+      - DESI
+      - SIMS
+      - nESI
+      - EI
+- name: polarity
+  description: The polarity of the mass analysis (positive or negative ion modes)
+  constraints:
+    enum:
+      - negative ion mode
+      - positive ion mode
+- name: mz_range_low_value
+  description: The low value of the scanned mass range for MS1. (unitless)
+- name: mz_range_high_value
+  description: The high value of the scanned mass range for MS1. (unitless)
+
+- name: mass_resolving_power
+  description: The MS1 resolving power defined as m/∆m where ∆m is the FWHM for a given peak with a specified m/z (m). (unitless)
+  type: number
+- name: mz_resolving_power
+  description: The peak (m/z) used to calculate the MS1 resolving power.
+  type: number
+- name: ion_mobility
+  description: 'Specifies whether or not ion mobility spectrometry was performed and which technology was used. Technologies for measuring ion mobility: Traveling Wave Ion Mobility Spectrometry (TWIMS), Trapped Ion Mobility Spectrometry (TIMS), High Field Asymmetric waveform ion Mobility Spectrometry (FAIMS), Drift Tube Ion Mobility Spectrometry (DTIMS, Structures for Lossless Ion Manipulations (SLIM).'
+  constraints:
+    required: False
+    enum:
+      - TIMS
+      - TWIMS
+      - FAIMS
+      - DTIMS
+      - SLIM
+
+# include: ../includes/fields/data_collection_mode.yaml
+# include: ../includes/fields/ms_scan_mode.yaml
+# include: ../includes/fields/labeling.yaml
+# include: ../includes/v0/doi/section_prep.yaml
+
+- name: column_vendor
+  description: The manufacturer of the GC column
+- name: column_model
+  description: The model of the GC column used
+- name: column_length_value
+  description: GC column length
+- name: column_length_unit
+  description: Unit for GC column length
+  constraints:
+    enum:
+      - cm
+- name: column_temp_value
+  description: GC column temperature 
+- name: column_temp_unit
+  description: Units for GC column temperature
+  constraints:
+    enum:
+      - C
+- name: internal_standard
+  description: Specifies if internal standard was utilized and designates what standard was used. Leave blank if not applicable.
+- name: ion_source
+  description: Specifies the ion source used 
+- name: guard_column
+  description: Specifies if guard column was used
+
+- name: spatial_type
+  description: Specifies whether or not the analysis was performed in a spatialy targeted manner and the technique used for spatial sampling. For example, Laser-capture microdissection (LCM), Liquid Extraction Surface Analysis (LESA), Nanodroplet Processing in One pot for Trace Samples (nanoPOTS). Leave blank if not applicable.
+  constraints:
+    required: False
+    enum:
+      - LCM
+      - LESA
+      - microLESA
+- name: spatial_sampling_type
+  description: Specifies whether or not the analysis was performed in a spatially targeted manner. Spatial profiling experiments target specific tissue foci but do not necessarily generate images. Spatial imaging expriments collect data from a regular array (pixels) that can be visualized as heat maps of ion intensity at each location (molecular images). Leave blank if data are derived from bulk analysis.
+  constraints:
+    required: False
+    enum:
+      - profiling
+      - imaging
+- name: spatial_target
+  description: Specifies the cell-type or functional tissue unit (FTU) that is targeted in the spatial profiling experiment. Leave blank if data are generated in imaging mode without a specific target structure.
+  constraints:
+    required: False
+
+# include: ../includes/v0/x_y_optional.yaml
+# include: ../includes/fields/processing_search.yaml
+
+# include: ../includes/v0/doi/section_prep.yaml
+# include: ../includes/v0/doi/overall.yaml
+
+# include: ../includes/v0/paths.yaml

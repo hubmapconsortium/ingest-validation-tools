@@ -1,6 +1,7 @@
 # Changelog
 
 ## v0.0.12 - in progress
+- Add gcms.
 - Make some scatacseq fields optional.
 - Create CE-MS.
 - New version of IMS.
