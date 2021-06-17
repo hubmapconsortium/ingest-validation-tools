@@ -1,0 +1,9 @@
+- name: spatial_type
+  description: Specifies whether or not the analysis was performed in a spatialy targeted manner and the technique used for spatial sampling. For example, Laser-capture microdissection (LCM), Liquid Extraction Surface Analysis (LESA), Nanodroplet Processing in One pot for Trace Samples (nanoPOTS).
+  constraints:
+    required: False
+    enum:
+      - LCM
+      - LESA
+      - nanoPOTS
+      - microLESA

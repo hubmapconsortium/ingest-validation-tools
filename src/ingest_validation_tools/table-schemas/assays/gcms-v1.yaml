@@ -64,14 +64,7 @@ fields:
 - name: guard_column
   description: Specifies if guard column was used
 
-- name: spatial_type
-  description: Specifies whether or not the analysis was performed in a spatialy targeted manner and the technique used for spatial sampling. For example, Laser-capture microdissection (LCM), Liquid Extraction Surface Analysis (LESA), Nanodroplet Processing in One pot for Trace Samples (nanoPOTS). Leave blank if not applicable.
-  constraints:
-    required: False
-    enum:
-      - LCM
-      - LESA
-      - microLESA
+# include: ../includes/fields/spatial_type.yaml
 - name: spatial_sampling_type
   description: Specifies whether or not the analysis was performed in a spatially targeted manner. Spatial profiling experiments target specific tissue foci but do not necessarily generate images. Spatial imaging expriments collect data from a regular array (pixels) that can be visualized as heat maps of ion intensity at each location (molecular images). Leave blank if data are derived from bulk analysis.
   constraints:
