@@ -39,9 +39,7 @@ fields:
 - name: mz_range_high_value
   description: The high value of the scanned mass range for MS1. (unitless)
 
-- name: mass_resolving_power
-  description: The MS1 resolving power defined as m/∆m where ∆m is the FWHM for a given peak with a specified m/z (m). (unitless)
-  type: number
+# include: ../includes/fields/mass_resolving_power.yaml
 - name: mz_resolving_power
   description: The peak (m/z) used to calculate the MS1 resolving power.
   type: number
