@@ -234,7 +234,7 @@ The technique used for sampling and ionization of the sample.
 
 | constraint | value |
 | --- | --- |
-| enum | `nanoflex` |
+| enum | `nanoflex` or `ESI` |
 | required | `True` |
 
 <a name="polarity"></a>
@@ -266,7 +266,7 @@ The high value of the scanned mass range for MS1. (unitless)
 
 <a name="mass_resolving_power"></a>
 ##### [`mass_resolving_power`](#mass_resolving_power)
-The MS1 resolving power defined as m/∆m where ∆m is the FWHM for a given peak with a specified m/z (m). (unitless)
+This is the MS1 resolving power. This is a unitless value often calculated as m/∆m where ∆m is the FWHM for a given peak with a certain m/z (m).
 
 | constraint | value |
 | --- | --- |
@@ -302,7 +302,7 @@ Mode of data collection in tandem MS assays. Either DDA (Data-dependent acquisit
 
 <a name="ms_scan_mode"></a>
 ##### [`ms_scan_mode`](#ms_scan_mode)
-Indicates whether the data were generated using MS, MS/MS, MS3, or MSn.
+Indicates whether the data were generated using MS, MS/MS or MS3.
 
 | constraint | value |
 | --- | --- |
@@ -405,12 +405,12 @@ Specifies the cell-type or functional tissue unit (FTU) that is targeted in the 
 
 <a name="resolution_x_value"></a>
 ##### [`resolution_x_value`](#resolution_x_value)
-The width of a pixel.
+The width of a pixel. Leave blank if not applicable.
 
 | constraint | value |
 | --- | --- |
 | type | `number` |
-| required | `True` |
+| required | `False` |
 
 <a name="resolution_x_unit"></a>
 ##### [`resolution_x_unit`](#resolution_x_unit)
@@ -424,12 +424,12 @@ The unit of measurement of the width of a pixel. Leave blank if not applicable.
 
 <a name="resolution_y_value"></a>
 ##### [`resolution_y_value`](#resolution_y_value)
-The height of a pixel.
+The height of a pixel. Leave blank if not applicable.
 
 | constraint | value |
 | --- | --- |
 | type | `number` |
-| required | `True` |
+| required | `False` |
 
 <a name="resolution_y_unit"></a>
 ##### [`resolution_y_unit`](#resolution_y_unit)
@@ -451,11 +451,11 @@ Software for analyzing and searching LC-MS/MS omics data.
 
 <a name="processing_protocols_io_doi"></a>
 ##### [`processing_protocols_io_doi`](#processing_protocols_io_doi)
-DOI for analysis protocols.io for this assay.
+DOI for analysis protocols.io for this assay. Leave blank if not applicable.
 
 | constraint | value |
 | --- | --- |
-| required | `True` |
+| required | `False` |
 | pattern (regular expression) | `10\.17504/.*` |
 | url | prefix: `https://dx.doi.org/` |
 

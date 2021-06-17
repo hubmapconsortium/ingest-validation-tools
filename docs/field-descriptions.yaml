@@ -179,8 +179,9 @@ library_pcr_cycles: Number of PCR cycles to amplify cDNA
 library_pcr_cycles_for_sample_index: Number of PCR cycles performed for library indexing
 library_preparation_kit: Reagent kit used for library preparation
 lot_number: 'The lot# is specific to the vendor. (eg: Abcam lot# GR3238979-1)'
-mass_resolving_power: "The MS1 resolving power defined as m/\u2206m where \u2206m\
-  \ is the FWHM for a given peak with a specified m/z (m). (unitless)"
+mass_resolving_power: "This is the MS1 resolving power.\_This is a unitless value\
+  \ often calculated as m/\u2206m where \u2206m is the FWHM for a given peak with\
+  \ a certain m/z (m)."
 max_x_width_unit: Units of image width of the ROI acquisition
 max_x_width_value: Image width value of the ROI acquisition
 max_y_height_unit: Units of image height of the ROI acquisition
@@ -190,7 +191,7 @@ mechanism_of_injury: 'Mechanism of injury may be, for example: fall, impact (eg:
 medical_history: A record of a patient's background regarding health and the occurrence
   of disease events of the individual.
 middle_name_or_initial: Middle name or initial
-ms_scan_mode: Scan mode refers to the number of steps in the separation of fragments.
+ms_scan_mode: Indicates whether the data were generated using MS, MS/MS or MS3.
 ms_source: The technique used for sampling and ionization of the sample.
 mz_range_high_value: A number representing the mass:charge ratio
 mz_range_low_value: A number representing the mass:charge ratio

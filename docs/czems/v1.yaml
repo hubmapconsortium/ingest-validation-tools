@@ -155,6 +155,7 @@ fields:
 - constraints:
     enum:
     - nanoflex
+    - ESI
     required: true
   custom_constraints:
     forbid_na: true
@@ -192,8 +193,8 @@ fields:
   custom_constraints:
     forbid_na: true
     sequence_limit: 3
-  description: "The MS1 resolving power defined as m/\u2206m where \u2206m is the\
-    \ FWHM for a given peak with a specified m/z (m). (unitless)"
+  description: "This is the MS1 resolving power.\_This is a unitless value often calculated\
+    \ as m/\u2206m where \u2206m is the FWHM for a given peak with a certain m/z (m)."
   name: mass_resolving_power
   type: number
 - constraints:
@@ -241,8 +242,7 @@ fields:
   custom_constraints:
     forbid_na: true
     sequence_limit: 3
-  description: Indicates whether the data were generated using MS, MS/MS, MS3, or
-    MSn.
+  description: Indicates whether the data were generated using MS, MS/MS or MS3.
   name: ms_scan_mode
 - constraints:
     required: true
@@ -365,7 +365,7 @@ fields:
     mode without a specific target structure.
   name: spatial_target
 - constraints:
-    required: true
+    required: false
   custom_constraints:
     forbid_na: true
     sequence_limit: 3
@@ -384,7 +384,7 @@ fields:
   description: The unit of measurement of the width of a pixel.
   name: resolution_x_unit
 - constraints:
-    required: true
+    required: false
   custom_constraints:
     forbid_na: true
     sequence_limit: 3
@@ -411,7 +411,7 @@ fields:
   name: processing_search
 - constraints:
     pattern: 10\.17504/.*
-    required: true
+    required: false
   custom_constraints:
     forbid_na: true
     sequence_limit: 3
