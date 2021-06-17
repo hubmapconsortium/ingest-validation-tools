@@ -56,9 +56,7 @@ fields:
   description: The high value of the scanned mass range for MS1. (unitless)
 
 # include: ../includes/fields/mass_resolving_power.yaml
-- name: mz_resolving_power
-  description: This is the m/z used to calculate the resolving power.
-
+# include: ../includes/fields/mz_resolving_power.yaml
 - name: ion_mobility
   description: 'Methodologies for measuring ion mobility: Traveling Wave Ion Mobility Spectrometry (TWIMS), Trapped Ion Mobility Spectrometry (TIMS), High Field Asymmetric waveform ion Mobility Spectrometry (FAIMS), Drift Tube Ion Mobility Spectrometry (DTIMS), Structures for Lossless Ion Manipulations Spectrometry (SLIMS).'
   constraints:
