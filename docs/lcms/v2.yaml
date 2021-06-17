@@ -1,9 +1,11 @@
 # Generated YAML: PRs should not start here!
+description_md: v2 adds `mass_resolving_power`, `mz_resolving_power`, `ion_mobility`,
+  `spatial_type`, `spatial_sampling_type`, `spatial_target`, and `resolution_{x/y}_{value/unit}`.
 doc_url: https://portal.hubmapconsortium.org/docs/assays/lcms
 fields:
 - constraints:
     enum:
-    - '1'
+    - '2'
     required: true
   custom_constraints:
     forbid_na: true
@@ -102,9 +104,12 @@ fields:
   name: assay_category
 - constraints:
     enum:
-    - LC-MS (metabolomics)
-    - LC-MS/MS (label-free proteomics)
-    - MS (shotgun lipidomics)
+    - LC-MS
+    - MS
+    - LC-MS Bottom-Up
+    - MS Bottom-Up
+    - LC-MS Top-Down
+    - MS Top-Down
     required: true
   custom_constraints:
     forbid_na: true
@@ -116,6 +121,9 @@ fields:
     - protein
     - metabolites
     - lipids
+    - peptides
+    - phosphopeptides
+    - glycans
     required: false
   custom_constraints:
     forbid_na: true
@@ -152,12 +160,13 @@ fields:
     the data.
   name: acquisition_instrument_model
 - constraints:
+    enum:
+    - ESI
     required: true
   custom_constraints:
     forbid_na: true
     sequence_limit: 3
-  description: The ion source type used for surface sampling (MALDI, MALDI-2, DESI,
-    or SIMS) or LC-MS/MS data acquisition (nESI)
+  description: The ion source type used for surface sampling.
   name: ms_source
 - constraints:
     required: true
@@ -182,6 +191,40 @@ fields:
   description: The high value of the scanned mass range for MS1. (unitless)
   name: mz_range_high_value
   type: number
+- constraints:
+    required: true
+  custom_constraints:
+    forbid_na: true
+    sequence_limit: 3
+  description: "This is the MS1 resolving power.\_This is a unitless value often calculated\
+    \ as m/\u2206m where \u2206m is the FWHM for a given peak with a certain m/z (m)."
+  name: mass_resolving_power
+  type: number
+- constraints:
+    required: true
+  custom_constraints:
+    forbid_na: true
+    sequence_limit: 3
+  description: The peak (m/z) used to calculate the resolving power.
+  name: mz_resolving_power
+  type: number
+- constraints:
+    enum:
+    - TIMS
+    - TWIMS
+    - FAIMS
+    - DTIMS
+    - SLIMS
+    required: false
+  custom_constraints:
+    forbid_na: true
+    sequence_limit: 3
+  description: 'Specifies whether or not ion mobility spectrometry was performed and
+    which technology was used. Technologies for measuring ion mobility: Traveling
+    Wave Ion Mobility Spectrometry (TWIMS), Trapped Ion Mobility Spectrometry (TIMS),
+    High Field Asymmetric waveform ion Mobility Spectrometry (FAIMS), Drift Tube Ion
+    Mobility Spectrometry (DTIMS, Structures for Lossless Ion Manipulations (SLIM).'
+  name: ion_mobility
 - constraints:
     required: true
   custom_constraints:
@@ -354,6 +397,83 @@ fields:
     sequence_limit: 3
   description: Composition of mobile phase B
   name: lc_mobile_phase_b
+- constraints:
+    enum:
+    - LCM
+    - LESA
+    - nanoPOTS
+    - microLESA
+    required: false
+  custom_constraints:
+    forbid_na: true
+    sequence_limit: 3
+  description: Specifies whether or not the analysis was performed in a spatialy targeted
+    manner and the technique used for spatial sampling. For example, Laser-capture
+    microdissection (LCM), Liquid Extraction Surface Analysis (LESA), Nanodroplet
+    Processing in One pot for Trace Samples (nanoPOTS).
+  name: spatial_type
+- constraints:
+    enum:
+    - profiling
+    - imaging
+    required: false
+  custom_constraints:
+    forbid_na: true
+    sequence_limit: 3
+  description: Specifies whether or not the analysis was performed in a spatially
+    targeted manner. Spatial profiling experiments target specific tissue foci but
+    do not necessarily generate images. Spatial imaging expriments collect data from
+    a regular array (pixels) that can be visualized as heat maps of ion intensity
+    at each location (molecular images). Leave blank if data are derived from bulk
+    analysis.
+  name: spatial_sampling_type
+- constraints:
+    required: false
+  custom_constraints:
+    forbid_na: true
+    sequence_limit: 3
+  description: Specifies the cell-type or functional tissue unit (FTU) that is targeted
+    in the spatial profiling experiment. Leave blank if data are generated in imaging
+    mode without a specific target structure.
+  name: spatial_target
+- constraints:
+    required: false
+  custom_constraints:
+    forbid_na: true
+    sequence_limit: 3
+  description: The width of a pixel.
+  name: resolution_x_value
+  type: number
+- constraints:
+    enum:
+    - nm
+    - um
+    required: false
+  custom_constraints:
+    forbid_na: true
+    sequence_limit: 3
+    units_for: resolution_x_value
+  description: The unit of measurement of the width of a pixel.
+  name: resolution_x_unit
+- constraints:
+    required: false
+  custom_constraints:
+    forbid_na: true
+    sequence_limit: 3
+  description: The height of a pixel
+  name: resolution_y_value
+  type: number
+- constraints:
+    enum:
+    - nm
+    - um
+    required: false
+  custom_constraints:
+    forbid_na: true
+    sequence_limit: 3
+    units_for: resolution_y_value
+  description: The unit of measurement of the height of a pixel.
+  name: resolution_y_unit
 - constraints:
     required: true
   custom_constraints:

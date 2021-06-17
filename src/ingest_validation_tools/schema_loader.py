@@ -290,7 +290,13 @@ def _validate_level_1_enum(field):
             'scRNAseq-10xGenomics-v2',
             'scRNAseq-10xGenomics-v3',
             'scRNAseq',
-            'Slide-seq'
+            'Slide-seq',
+            'MS Bottom-Up',
+            'MS Top-Down',
+            'LC-MS Top-Down',
+            'LC-MS',
+            'LC-MS Bottom-Up',
+            'MS'
         ],
         'analyte_class': [
             'DNA',

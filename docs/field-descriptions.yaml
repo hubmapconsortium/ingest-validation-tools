@@ -131,7 +131,7 @@ ion_mobility: 'Methodologies for measuring ion mobility: Traveling Wave Ion Mobi
 ion_source: Specifies the ion source used
 is_contact: Is this individual a contact for DOI purposes?
 is_targeted: Specifies whether or not a specific molecule(s) is/are targeted for detection/measurement
-  by the assay. The CODEX analyte is protein.
+  by the assay.
 is_technical_replicate: Is this a sequencing replicate?
 kidney_donor_profile_index_value: 'The Kidney Donor Profle Index (KDPI) is a numerical
   measure that combines ten donor factors, including clinical parameters and demographics,
