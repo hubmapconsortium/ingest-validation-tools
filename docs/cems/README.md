@@ -1,1 +1,1 @@
-Moved to [github pages](https://hubmapconsortium.github.io/ingest-validation-tools/czems/).
+Moved to [github pages](https://hubmapconsortium.github.io/ingest-validation-tools/cems/).

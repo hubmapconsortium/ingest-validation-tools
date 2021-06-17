@@ -1,6 +1,6 @@
 ---
-title: CZE-MS
-schema_name: czems
+title: CE-MS
+schema_name: cems
 category: Mass spectrometry
 all_versions_deprecated: False
 layout: default
@@ -8,8 +8,8 @@ layout: default
 
 Related files:
 - [🔬 Background doc](https://portal.hubmapconsortium.org/docs/assays/maldi-ims): More details about this type.
-- [📝 Excel template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/master/docs/czems/czems-metadata.xlsx): For metadata entry.
-- [📝 TSV template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/master/docs/czems/czems-metadata.tsv): Alternative for metadata entry.
+- [📝 Excel template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/master/docs/cems/cems-metadata.xlsx): For metadata entry.
+- [📝 TSV template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/master/docs/cems/cems-metadata.tsv): Alternative for metadata entry.
 
 
 
@@ -189,7 +189,7 @@ The specific type of assay being executed.
 
 | constraint | value |
 | --- | --- |
-| enum | `CZE-MS` |
+| enum | `CE-MS` |
 | required | `True` |
 
 <a name="analyte_class"></a>
