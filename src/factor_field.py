@@ -41,30 +41,13 @@ def factor_field(field_name, input_dir, output_dir):
 def pull(field_name, input_dir):
     definitions = defaultdict(set)
     files = [str(f) for f in input_dir.iterdir()]
-    # with fileinput.input(files=files, inplace=True) as f:
-    #     replace(
-    #         lines=f,
-    #         file_name=fileinput.filename(),
-    #         field_name=field_name,
-    #         definitions=definitions
-    #     )
-    with fileinput.input(files=files, inplace=True) as f:
-        inside = False
-        definition = None
-        for line in f:
-            # This assumes the YAML has been cleaned up!
-            if f'name: {field_name}' in line:
-                inside = True
-                print(f'# include: ../includes/fields/{field_name}.yaml')
-                definition = line
-                continue
-            elif inside and line[0] not in ['-', '#']:
-                definition += line
-                continue
-            elif inside:
-                definitions[definition].add(str(fileinput.filename()))
-                inside = False
-            print(line, end='')
+    with fileinput.input(files=files, inplace=True) as lines:
+        replace(
+            lines=lines,
+            get_file_name=lambda: str(fileinput.filename()),
+            field_name=field_name,
+            definitions=definitions
+        )
     return definitions
 
 
@@ -76,11 +59,11 @@ def push(field_name, definitions, output_dir):
     if options:
         (output_dir / f'{field_name}.yaml').write_text('\n'.join(options))
     else:
-        print('Check spelling of field name')
+        print(f"Check spelling of field name: '{field_name}'")
         sys.exit(1)
 
 
-def replace(lines, file_name, field_name, definitions):
+def replace(lines, get_file_name, field_name, definitions):
     '''
     >>> lines = """
     ... - name: a
@@ -93,7 +76,7 @@ def replace(lines, file_name, field_name, definitions):
     >>> lines = [l + '\\n' for l in lines]
     >>> definitions = defaultdict(set)
 
-    >>> replace(lines, file_name='fake.yaml', field_name='b', definitions=definitions)
+    >>> replace(lines, get_file_name=lambda: 'fake.yaml', field_name='b', definitions=definitions)
     <BLANKLINE>
     - name: a
       description: alpha
@@ -105,9 +88,6 @@ def replace(lines, file_name, field_name, definitions):
     >>> dict(definitions)
     {'- name: b\\n  description: beta\\n': {'fake.yaml'}}
     '''
-
-    if file_name is None:
-        return
 
     inside = False
     definition = None
@@ -122,10 +102,10 @@ def replace(lines, file_name, field_name, definitions):
             definition += line
             continue
         elif inside:
-            assert definition is not None
-            definitions[definition].add(file_name)
+            definitions[definition].add(get_file_name())
             inside = False
         print(line, end='')
+    return definitions
 
 
 if __name__ == "__main__":
