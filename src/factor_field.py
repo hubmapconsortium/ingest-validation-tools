@@ -99,6 +99,7 @@ def replace(lines, file_name, field_name, definitions):
             definition += line
             continue
         elif inside:
+            assert definition is not None
             definitions[definition].add(file_name)
             inside = False
         print(line, end='')
