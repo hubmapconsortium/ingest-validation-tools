@@ -8,11 +8,11 @@ fields:
 - name: assay_type
   constraints:
     enum:
-      - CZE-MS
+      - CE-MS
 - name: analyte_class
   constraints:
     enum:
-      - protein # NOTE: "proteins" specified, but singular is used elsewhere.
+      - protein
       - metabolites
       - lipids
       - peptides

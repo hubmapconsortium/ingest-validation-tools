@@ -102,7 +102,7 @@ fields:
   name: assay_category
 - constraints:
     enum:
-    - CZE-MS
+    - CE-MS
     required: true
   custom_constraints:
     forbid_na: true
