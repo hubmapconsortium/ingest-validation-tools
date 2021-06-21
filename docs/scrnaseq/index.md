@@ -342,29 +342,29 @@ Is the sequencing reaction run in repliucate, TRUE or FALSE.
 
 <a name="cell_barcode_read"></a>
 ##### [`cell_barcode_read`](#cell_barcode_read)
-Which read file contains the cell barcode.
+Which read file contains the cell barcode. Leave blank if not applicable.
 
 | constraint | value |
 | --- | --- |
-| required | `True` |
+| required | `False` |
 
 <a name="cell_barcode_offset"></a>
 ##### [`cell_barcode_offset`](#cell_barcode_offset)
-Position(s) in the read at which the cell barcode starts.
+Position(s) in the read at which the cell barcode starts. Leave blank if not applicable.
 
 | constraint | value |
 | --- | --- |
+| required | `False` |
 | pattern (regular expression) | `\d+(,\d+)*` |
-| required | `True` |
 
 <a name="cell_barcode_size"></a>
 ##### [`cell_barcode_size`](#cell_barcode_size)
-Length of the cell barcode in base pairs.
+Length of the cell barcode in base pairs. Leave blank if not applicable.
 
 | constraint | value |
 | --- | --- |
+| required | `False` |
 | pattern (regular expression) | `\d+(,\d+)*` |
-| required | `True` |
 
 <a name="expected_cell_count"></a>
 ##### [`expected_cell_count`](#expected_cell_count)
