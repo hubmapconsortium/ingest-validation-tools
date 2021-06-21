@@ -1,6 +1,8 @@
 # Changelog
 
 ## v0.0.12 - in progress
+- User donor as a test-bed for ontology-enums.
+- Add a warning on pages where every version has been deprecated.
 - Add gcms.
 - Make some scatacseq fields optional.
 - Create CE-MS.
