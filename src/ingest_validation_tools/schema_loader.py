@@ -29,7 +29,6 @@ class TableSchemaLoader():
     def __init__(self, table_schemas_path):
         self._table_schemas_path = table_schemas_path
 
-
     def list_others(self):
         return [
             p.stem.split('-v')[0] for p in
@@ -38,10 +37,12 @@ class TableSchemaLoader():
 
     def get_schema_version_from_row(self, path, row):
         '''
-        >>> get_schema_version_from_row('empty', {'bad-column': 'bad-value'})
-        Traceback (most recent call last):
-        ...
-        schema_loader.PreflightError: empty does not contain "assay_type". Column headers: bad-column
+        >>> loader = TableSchemaLoader('src/ingest_validation_tools/table-schemas')
+        >>> try:
+        ...     loader.get_schema_version_from_row('empty', {'bad-column': 'bad-value'})
+        ... catch Exception as e:
+        ...     print(e)
+        empty does not contain "assay_type". Column headers: bad-column
 
         >>> get_schema_version_from_row('v0', {'assay_type': 'PAS microscopy'})
         SchemaVersion(schema_name='stained', version=0)
@@ -66,7 +67,6 @@ class TableSchemaLoader():
 
         version = row['version'] if 'version' in row else 0
         return SchemaVersion(schema_name, version)
-
 
     def _assay_to_schema_name(self, assay_type, source_project):
         '''
@@ -128,7 +128,6 @@ class TableSchemaLoader():
             message += f" and '{source_project}' is source_project"
         raise PreflightError(message)
 
-
     def list_schema_versions(self):
         '''
         >>> list_schema_versions()[0]
@@ -142,7 +141,6 @@ class TableSchemaLoader():
             SchemaVersion(*re.match(r'(.+)-v(\d+)', stem).groups()) for stem in stems
         ]
 
-
     def dict_schema_versions(self):
         '''
         >>> sorted(dict_schema_versions()['af'])
@@ -154,10 +152,8 @@ class TableSchemaLoader():
             dict_of_sets[sv.schema_name].add(sv.version)
         return dict_of_sets
 
-
     def _get_schema_filename(self, schema_name, version):
         return f'{schema_name}-v{version}.yaml'
-
 
     def get_other_schema(self, schema_name, version, offline=None):
         schema = load_yaml(
@@ -168,11 +164,9 @@ class TableSchemaLoader():
             _add_constraints(field, optional_fields=[], offline=offline, names=names)
         return schema
 
-
     def get_is_assay(self, schema_name):
         # TODO: read from file system... but larger refactor may make it redundant.
         return schema_name not in ['donor', 'sample', 'antibodies', 'contributors']
-
 
     def get_table_schema(self, schema_name, version, optional_fields=[], offline=None):
         schema = load_yaml(

@@ -163,16 +163,20 @@ class Upload:
     def __get_ref_errors(self, ref_type, path, assay_type):
         if ref_type == 'data':
             return get_data_dir_errors(
-                assay_type, path, dataset_ignore_globs=self.dataset_ignore_globs)
+                assay_type, path,
+                dataset_ignore_globs=self.dataset_ignore_globs,
+                directory_schemas=self.directory_schemas)
         else:
             return get_tsv_errors(
                 schema_name=ref_type, tsv_path=path,
-                offline=self.offline, encoding=self.encoding)
+                offline=self.offline, encoding=self.encoding,
+                table_schemas=self.table_schemas)
 
     def __get_assay_tsv_errors(self, assay_type, path):
         return get_tsv_errors(
             schema_name=assay_type, tsv_path=path,
             offline=self.offline, encoding=self.encoding,
+            table_schemas=self.table_schemas,
             optional_fields=self.optional_fields)
 
     def __get_assay_reference_errors(self, assay_type, path):

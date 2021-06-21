@@ -49,12 +49,14 @@ def main():
     try:
         schema_name = (
             args.schema if args.schema != 'metadata'
-            else get_schema_version(args.path, 'ascii').schema_name
+            else get_schema_version(args.path, 'ascii',
+                                    table_schemas=args.table_schemas).schema_name
         )
     except PreflightError as e:
         errors = {'Preflight': str(e)}
     else:
-        errors = get_tsv_errors(args.path, schema_name=schema_name)
+        errors = get_tsv_errors(args.path, schema_name=schema_name,
+                                table_schemas=args.table_schemas)
         errors = {f'{schema_name} TSV errors': errors} if errors else {}
     report = ErrorReport(errors)
     print(getattr(report, args.output)())
