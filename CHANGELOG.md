@@ -1,6 +1,7 @@
 # Changelog
 
 ## v0.0.12 - in progress
+- Add config option to point at outside schema directories.
 - Add gcms.
 - Make some scatacseq fields optional.
 - Create CE-MS.

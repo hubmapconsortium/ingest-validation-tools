@@ -3,7 +3,7 @@ from csv import DictReader
 from pathlib import Path
 
 from ingest_validation_tools.schema_loader import (
-    get_table_schema, get_other_schema,
+    TableSchemaLoader, get_table_schema, get_other_schema,
     get_directory_schema)
 from ingest_validation_tools.directory_validator import (
     validate_directory, DirectoryValidationErrors)
@@ -81,7 +81,7 @@ def get_context_of_decode_error(e):
     return f'Invalid {e.encoding} because {e.reason}: "{in_context}"'
 
 
-def get_tsv_errors(tsv_path, schema_name, optional_fields=[], offline=None, encoding=None):
+def get_tsv_errors(tsv_path, schema_name, optional_fields=[], table_schemas=None, offline=None, encoding=None):
     '''
     Validate the TSV.
 
@@ -147,15 +147,13 @@ def get_tsv_errors(tsv_path, schema_name, optional_fields=[], offline=None, enco
 
     version = rows[0]['version'] if 'version' in rows[0] else '0'
     try:
-        others = [
-            p.stem.split('-v')[0] for p in
-            (Path(__file__).parent / 'table-schemas/others').iterdir()
-        ]
+        loader = TableSchemaLoader(table_schemas_path=table_schemas)
+        others = loader.list_others()
         if schema_name in others:
-            schema = get_other_schema(schema_name, version, offline=offline)
+            schema = loader.get_other_schema(schema_name, version, offline=offline)
         else:
-            schema = get_table_schema(schema_name, version, offline=offline,
-                                      optional_fields=optional_fields)
+            schema = loader.get_table_schema(schema_name, version, offline=offline,
+                                             optional_fields=optional_fields)
     except OSError as e:
         return {e.strerror: Path(e.filename).name}
 

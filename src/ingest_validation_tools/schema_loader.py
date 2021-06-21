@@ -4,8 +4,6 @@ import re
 
 from ingest_validation_tools.yaml_include_loader import load_yaml
 
-
-_table_schemas_path = Path(__file__).parent / 'table-schemas'
 _directory_schemas_path = Path(__file__).parent / 'directory-schemas'
 
 
@@ -27,175 +25,190 @@ def get_field_enum(field_name, schema):
     return fields[0]['constraints']['enum']
 
 
-def get_schema_version_from_row(path, row):
-    '''
-    >>> get_schema_version_from_row('empty', {'bad-column': 'bad-value'})
-    Traceback (most recent call last):
-    ...
-    schema_loader.PreflightError: empty does not contain "assay_type". Column headers: bad-column
+class TableSchemaLoader():
+    def __init__(self, table_schemas_path):
+        self._table_schemas_path = table_schemas_path
 
-    >>> get_schema_version_from_row('v0', {'assay_type': 'PAS microscopy'})
-    SchemaVersion(schema_name='stained', version=0)
 
-    >>> get_schema_version_from_row('v42', {'assay_type': 'PAS microscopy', 'version': 42})
-    SchemaVersion(schema_name='stained', version=42)
+    def list_others(self):
+        return [
+            p.stem.split('-v')[0] for p in
+            (self._table_schemas_path / 'others').iterdir()
+        ]
 
-    '''
-    if 'assay_type' not in row:
-        message = f'{path} does not contain "assay_type". '
-        if 'channel_id' in row:
-            message += 'Has "channel_id": Antibodies TSV found where metadata TSV expected.'
-        elif 'orcid_id' in row:
-            message += 'Has "orcid_id": Contributors TSV found where metadata TSV expected.'
-        else:
-            message += f'Column headers: {", ".join(row.keys())}'
+    def get_schema_version_from_row(self, path, row):
+        '''
+        >>> get_schema_version_from_row('empty', {'bad-column': 'bad-value'})
+        Traceback (most recent call last):
+        ...
+        schema_loader.PreflightError: empty does not contain "assay_type". Column headers: bad-column
+
+        >>> get_schema_version_from_row('v0', {'assay_type': 'PAS microscopy'})
+        SchemaVersion(schema_name='stained', version=0)
+
+        >>> get_schema_version_from_row('v42', {'assay_type': 'PAS microscopy', 'version': 42})
+        SchemaVersion(schema_name='stained', version=42)
+
+        '''
+        if 'assay_type' not in row:
+            message = f'{path} does not contain "assay_type". '
+            if 'channel_id' in row:
+                message += 'Has "channel_id": Antibodies TSV found where metadata TSV expected.'
+            elif 'orcid_id' in row:
+                message += 'Has "orcid_id": Contributors TSV found where metadata TSV expected.'
+            else:
+                message += f'Column headers: {", ".join(row.keys())}'
+            raise PreflightError(message)
+
+        assay = row['assay_type']
+        source_project = row['source_project'] if 'source_project' in row else None
+        schema_name = self._assay_to_schema_name(assay, source_project)
+
+        version = row['version'] if 'version' in row else 0
+        return SchemaVersion(schema_name, version)
+
+
+    def _assay_to_schema_name(self, assay_type, source_project):
+        '''
+        Given an assay name, and a source_project (may be None),
+        read all the schemas until one matches.
+        Return the schema name, but not the version.
+
+        >>> _assay_to_schema_name('PAS microscopy', None)
+        'stained'
+
+        >>> _assay_to_schema_name('snRNAseq', None)
+        'scrnaseq'
+
+        >>> _assay_to_schema_name('snRNAseq', 'HCA')
+        'scrnaseq-hca'
+
+
+        Or, if a match can not be found (try-except just for shorter lines):
+
+        >>> try:  _assay_to_schema_name('PAS microscopy', 'HCA')
+        ... except PreflightError as e: print(e)
+        No schema where 'PAS microscopy' is assay_type and 'HCA' is source_project
+
+        >>> try: _assay_to_schema_name('snRNAseq', 'Bad Project')
+        ... except PreflightError as e: print(e)
+        No schema where 'snRNAseq' is assay_type and 'Bad Project' is source_project
+
+        >>> try: _assay_to_schema_name('Bad assay', None)
+        ... except PreflightError as e: print(e)
+        No schema where 'Bad assay' is assay_type
+
+        >>> try: _assay_to_schema_name('Bad assay', 'HCA')
+        ... except PreflightError as e: print(e)
+        No schema where 'Bad assay' is assay_type and 'HCA' is source_project
+
+        '''
+        for path in (self._table_schemas_path / 'assays').glob('*.yaml'):
+            schema = load_yaml(path)
+            assay_type_enum = get_field_enum('assay_type', schema)
+            source_project_enum = get_field_enum('source_project', schema)
+
+            if assay_type not in assay_type_enum:
+                continue
+
+            if source_project_enum:
+                if not source_project:
+                    continue
+
+            if source_project:
+                if not source_project_enum:
+                    continue
+                if source_project not in source_project_enum:
+                    continue
+
+            return re.match(r'.+(?=-v\d+)', path.stem)[0]
+
+        message = f"No schema where '{assay_type}' is assay_type"
+        if source_project is not None:
+            message += f" and '{source_project}' is source_project"
         raise PreflightError(message)
 
-    assay = row['assay_type']
-    source_project = row['source_project'] if 'source_project' in row else None
-    schema_name = _assay_to_schema_name(assay, source_project)
 
-    version = row['version'] if 'version' in row else 0
-    return SchemaVersion(schema_name, version)
+    def list_schema_versions(self):
+        '''
+        >>> list_schema_versions()[0]
+        SchemaVersion(schema_name='af', version='0')
 
-
-def _assay_to_schema_name(assay_type, source_project):
-    '''
-    Given an assay name, and a source_project (may be None),
-    read all the schemas until one matches.
-    Return the schema name, but not the version.
-
-    >>> _assay_to_schema_name('PAS microscopy', None)
-    'stained'
-
-    >>> _assay_to_schema_name('snRNAseq', None)
-    'scrnaseq'
-
-    >>> _assay_to_schema_name('snRNAseq', 'HCA')
-    'scrnaseq-hca'
+        '''
+        schema_paths = list((self._table_schemas_path / 'assays').iterdir()) + \
+            list((self._table_schemas_path / 'others').iterdir())
+        stems = sorted(p.stem for p in schema_paths)
+        return [
+            SchemaVersion(*re.match(r'(.+)-v(\d+)', stem).groups()) for stem in stems
+        ]
 
 
-    Or, if a match can not be found (try-except just for shorter lines):
+    def dict_schema_versions(self):
+        '''
+        >>> sorted(dict_schema_versions()['af'])
+        ['0', '1']
+        '''
 
-    >>> try:  _assay_to_schema_name('PAS microscopy', 'HCA')
-    ... except PreflightError as e: print(e)
-    No schema where 'PAS microscopy' is assay_type and 'HCA' is source_project
-
-    >>> try: _assay_to_schema_name('snRNAseq', 'Bad Project')
-    ... except PreflightError as e: print(e)
-    No schema where 'snRNAseq' is assay_type and 'Bad Project' is source_project
-
-    >>> try: _assay_to_schema_name('Bad assay', None)
-    ... except PreflightError as e: print(e)
-    No schema where 'Bad assay' is assay_type
-
-    >>> try: _assay_to_schema_name('Bad assay', 'HCA')
-    ... except PreflightError as e: print(e)
-    No schema where 'Bad assay' is assay_type and 'HCA' is source_project
-
-    '''
-    for path in (Path(__file__).parent / 'table-schemas' / 'assays').glob('*.yaml'):
-        schema = load_yaml(path)
-        assay_type_enum = get_field_enum('assay_type', schema)
-        source_project_enum = get_field_enum('source_project', schema)
-
-        if assay_type not in assay_type_enum:
-            continue
-
-        if source_project_enum:
-            if not source_project:
-                continue
-
-        if source_project:
-            if not source_project_enum:
-                continue
-            if source_project not in source_project_enum:
-                continue
-
-        return re.match(r'.+(?=-v\d+)', path.stem)[0]
-
-    message = f"No schema where '{assay_type}' is assay_type"
-    if source_project is not None:
-        message += f" and '{source_project}' is source_project"
-    raise PreflightError(message)
+        dict_of_sets = defaultdict(set)
+        for sv in self.list_schema_versions():
+            dict_of_sets[sv.schema_name].add(sv.version)
+        return dict_of_sets
 
 
-def list_schema_versions():
-    '''
-    >>> list_schema_versions()[0]
-    SchemaVersion(schema_name='af', version='0')
-
-    '''
-    schema_paths = list((_table_schemas_path / 'assays').iterdir()) + \
-        list((_table_schemas_path / 'others').iterdir())
-    stems = sorted(p.stem for p in schema_paths)
-    return [
-        SchemaVersion(*re.match(r'(.+)-v(\d+)', stem).groups()) for stem in stems
-    ]
+    def _get_schema_filename(self, schema_name, version):
+        return f'{schema_name}-v{version}.yaml'
 
 
-def dict_schema_versions():
-    '''
-    >>> sorted(dict_schema_versions()['af'])
-    ['0', '1']
-    '''
-
-    dict_of_sets = defaultdict(set)
-    for sv in list_schema_versions():
-        dict_of_sets[sv.schema_name].add(sv.version)
-    return dict_of_sets
+    def get_other_schema(self, schema_name, version, offline=None):
+        schema = load_yaml(
+            self._table_schemas_path / 'others' /
+            self._get_schema_filename(schema_name, version))
+        names = [field['name'] for field in schema['fields']]
+        for field in schema['fields']:
+            _add_constraints(field, optional_fields=[], offline=offline, names=names)
+        return schema
 
 
-def _get_schema_filename(schema_name, version):
-    return f'{schema_name}-v{version}.yaml'
+    def get_is_assay(self, schema_name):
+        # TODO: read from file system... but larger refactor may make it redundant.
+        return schema_name not in ['donor', 'sample', 'antibodies', 'contributors']
 
 
-def get_other_schema(schema_name, version, offline=None):
-    schema = load_yaml(
-        _table_schemas_path / 'others' /
-        _get_schema_filename(schema_name, version))
-    names = [field['name'] for field in schema['fields']]
-    for field in schema['fields']:
-        _add_constraints(field, optional_fields=[], offline=offline, names=names)
-    return schema
+    def get_table_schema(self, schema_name, version, optional_fields=[], offline=None):
+        schema = load_yaml(
+            self._table_schemas_path / 'assays' /
+            self._get_schema_filename(schema_name, version))
+
+        names = [field['name'] for field in schema['fields']]
+        for field in schema['fields']:
+            _add_level_1_description(field)
+            _validate_level_1_enum(field)
+
+            _add_constraints(field, optional_fields, offline=offline, names=names)
+            _validate_field(field)
+
+        return schema
 
 
-def get_is_assay(schema_name):
-    # TODO: read from file system... but larger refactor may make it redundant.
-    return schema_name not in ['donor', 'sample', 'antibodies', 'contributors']
+class DirectorySchemaLoader():
+    def __init__(self, directory_schemas_path):
+        self._directory_schemas_path = _directory_schemas_path
 
-
-def get_table_schema(schema_name, version, optional_fields=[], offline=None):
-    schema = load_yaml(
-        _table_schemas_path / 'assays' /
-        _get_schema_filename(schema_name, version))
-
-    names = [field['name'] for field in schema['fields']]
-    for field in schema['fields']:
-        _add_level_1_description(field)
-        _validate_level_1_enum(field)
-
-        _add_constraints(field, optional_fields, offline=offline, names=names)
-        _validate_field(field)
-
-    return schema
-
-
-def get_directory_schema(directory_type):
-    schema = load_yaml(_directory_schemas_path / f'{directory_type}.yaml')
-    schema += [
-        {
-            'pattern': r'extras/.*',
-            'description': 'Free-form descriptive information supplied by the TMC',
-            'required': False
-        },
-        {
-            'pattern': r'extras/thumbnail\.(png|jpg)',
-            'description': 'Optional thumbnail image which may be shown in search interface',
-            'required': False
-        }
-    ]
-    return schema
+    def get_directory_schema(directory_type):
+        schema = load_yaml(_directory_schemas_path / f'{directory_type}.yaml')
+        schema += [
+            {
+                'pattern': r'extras/.*',
+                'description': 'Free-form descriptive information supplied by the TMC',
+                'required': False
+            },
+            {
+                'pattern': r'extras/thumbnail\.(png|jpg)',
+                'description': 'Optional thumbnail image which may be shown in search interface',
+                'required': False
+            }
+        ]
+        return schema
 
 
 def _validate_field(field):

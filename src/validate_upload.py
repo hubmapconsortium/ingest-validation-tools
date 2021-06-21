@@ -50,6 +50,20 @@ Exit status codes:
         metavar='PATH', required=True,
         help='Local directory to validate')
 
+    # What schema should be used?
+
+    base_path = Path(__file__) / 'ingest_validation_tools'
+
+    parser.add_argument(
+        '--table_schemas', type=dir_path,
+        metavar='PATH', default=base_path / 'table-schemas'
+    )
+
+    parser.add_argument(
+        '--directory_schemas', type=dir_path,
+        metavar='PATH', default=base_path / 'directory-schemas'
+    )
+
     # Should validation be loosened?
 
     parser.add_argument(
@@ -124,7 +138,9 @@ def main():
         'add_notes': args.add_notes,
         'encoding': args.encoding,
         'offline': args.offline,
-        'optional_fields': args.optional_fields
+        'optional_fields': args.optional_fields,
+        'table_schemas': args.table_schemas,
+        'directory_schemas': args.directory_schemas,
     }
 
     if args.local_directory:

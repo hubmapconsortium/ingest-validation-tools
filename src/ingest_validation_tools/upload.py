@@ -28,7 +28,8 @@ class Upload:
     def __init__(self, directory_path=None, tsv_paths=[],
                  optional_fields=[], add_notes=True,
                  dataset_ignore_globs=[], upload_ignore_globs=[],
-                 plugin_directory=None, encoding=None, offline=None):
+                 plugin_directory=None, encoding=None, offline=None,
+                 table_schemas=None, directory_schemas=None):
         self.directory_path = directory_path
         self.optional_fields = optional_fields
         self.dataset_ignore_globs = dataset_ignore_globs
@@ -37,6 +38,8 @@ class Upload:
         self.encoding = encoding
         self.offline = offline
         self.add_notes = add_notes
+        self.table_schemas = table_schemas
+        self.directory_schemas = directory_schemas
         self.errors = {}
         try:
             unsorted_effective_tsv_paths = {
