@@ -1,6 +1,7 @@
 # Changelog
 
 ## v0.0.12 - in progress
+- Make barcode fields optional.
 - Add gcms.
 - Make some scatacseq fields optional.
 - Create CE-MS.
