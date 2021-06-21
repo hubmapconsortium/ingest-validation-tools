@@ -1,0 +1,131 @@
+doc_url: https://portal.hubmapconsortium.org/docs/assays/maldi-ims
+fields:
+# include: ../includes/vA/all_assays.yaml
+- name: assay_category
+  constraints:
+    enum:
+      - mass_spectrometry
+- name: assay_type
+  constraints:
+    enum:
+      - CE-MS
+- name: analyte_class
+  constraints:
+    enum:
+      - protein
+      - metabolites
+      - lipids
+      - peptides
+      - phosphopeptides
+      - glycans
+
+# include: ../includes/v0/is_targeted.yaml
+
+# Level 2:
+
+# include: ../includes/v0/acquisition_instrument.yaml
+- name: ms_source
+  description: The technique used for sampling and ionization of the sample.
+  constraints:
+    enum:
+      - nanoflex
+      - ESI
+- name: polarity
+  description: The polarity of the mass analysis (positive or negative ion modes)
+  constraints:
+    enum:
+      - negative ion mode
+      - positive ion mode
+- name: mz_range_low_value
+  description: The low value of the scanned mass range for MS1. (unitless)
+- name: mz_range_high_value
+  description: The high value of the scanned mass range for MS1. (unitless)
+
+- name: mass_resolving_power
+  description: This is the MS1 resolving power. This is a unitless value often calculated as m/∆m where ∆m is the FWHM for a given peak with a certain m/z (m).
+  type: number
+- name: mz_resolving_power
+  description: The peak (m/z) used to calculate the resolving power.
+  type: number
+
+- name: ion_mobility
+  description: 'Specifies whether or not ion mobility spectrometry was performed and which technology was used. Technologies for measuring ion mobility: Traveling Wave Ion Mobility Spectrometry (TWIMS), Trapped Ion Mobility Spectrometry (TIMS), High Field Asymmetric waveform ion Mobility Spectrometry (FAIMS), Drift Tube Ion Mobility Spectrometry (DTIMS, Structures for Lossless Ion Manipulations (SLIM).'
+  constraints:
+    required: False
+    enum:
+      - TIMS
+      - TWIMS
+      - FAIMS
+      - DTIMS
+      - SLIMS
+- name: data_collection_mode
+  description: Mode of data collection in tandem MS assays. Either DDA (Data-dependent acquisition) or DIA (Data-independent acquisition).
+  constraints:
+    enum:
+      - DDA
+      - DIA
+- name: ms_scan_mode
+  description: Indicates whether the data were generated using MS, MS/MS or MS3.
+  constraints:
+    enum:
+      - MS
+      - MS/MS
+      - MS3
+- name: labeling
+  description: Indicates whether samples were labeled prior to MS analysis (e.g., TMT).
+
+# include: ../includes/v0/doi/section_prep.yaml
+
+- name: ce_interface
+  description: Method by which the separation capillary interfaces with mass spectrometer and enables electrospray ionization while completing the separation circuit. The two most prevalent commercial interfaces are sheathless and sheath-flow.
+  constraints:
+    enum:
+      - sheath-flow
+      - sheathless
+- name: ce_capillary_coating
+  description: Treatment of surface of separation capillary. Capillary coating affects the absorption of analytes on capillary inner walls and regulates electroosmotic flow. Entries should indicate the charge of the coating and chemical composition (e.g. "Neutral; Polyacrylamide" or "Positive; Polyethyleneimine" or "Uncoated").
+- name: ce_background_electrolyte
+  description: Chemical composition of the background electrolyte that fills the separation capillary (e.g. "3% acetic acid").
+- name: ce_instrument_vendor
+  description: The manufacturer of the instrument used for capillary zone electrophoresis. Capillary electrophoresis is used to separate complex biological mixtures prior to performing MS-based analyses. Separations are performed based the analytes migrate through an electrolyte solution in the presence of an electric field.
+- name: ce_instrument_model
+  description: The model name of the instrument used for capillary zone electrophoresis.
+- name: ce_electroosmotic_flow
+  description: Properties of the electroosmotic flow (EOF). Normal EOF is defined as flow towards the cathode, reversed EOF is defined as flow towards the anode, and suppressed EOF involves marginal to almost no flow (e.g. when a neutral coating is used).
+  constraints:
+    enum:
+      - suppressed
+      - normal
+      - reversed
+- name: spatial_type
+  description: Specifies whether or not the analysis was performed in a spatialy targeted manner and the technique used for spatial sampling. For example, Laser-capture microdissection (LCM), Liquid Extraction Surface Analysis (LESA), Nanodroplet Processing in One pot for Trace Samples (nanoPOTS).
+  constraints:
+    required: False
+    enum:
+      - LCM
+      - LESA
+      - nanoPOTS
+      - microLESA
+- name: spatial_sampling_type
+  description: Specifies whether or not the analysis was performed in a spatially targeted manner. Spatial profiling experiments target specific tissue foci but do not necessarily generate images. Spatial imaging expriments collect data from a regular array (pixels) that can be visualized as heat maps of ion intensity at each location (molecular images). Leave blank if data are derived from bulk analysis.
+  constraints:
+    required: False
+    enum:
+      - profiling
+      - imaging
+- name: spatial_target
+  description: Specifies the cell-type or functional tissue unit (FTU) that is targeted in the spatial profiling experiment. Leave blank if data are generated in imaging mode without a specific target structure.
+  constraints:
+    required: False
+
+# include: ../includes/v0/x_y_optional.yaml
+
+# include: ../includes/fields/processing_search.yaml
+
+- name: processing_protocols_io_doi
+  description: DOI for analysis protocols.io for this assay.
+  constraints:
+    required: False
+# include: ../includes/v0/doi/overall.yaml
+
+# include: ../includes/v0/paths.yaml

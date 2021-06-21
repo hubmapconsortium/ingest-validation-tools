@@ -24,7 +24,11 @@ rm -rf docs-test
 for TYPE in $(ls -d docs/*); do
   # Skip directories that are unpopulated:
   TYPE=`basename $TYPE`
-  [ -e docs/$TYPE/$TYPE-metadata.tsv ] || continue
+  LOOKFOR="docs/$TYPE/$TYPE-metadata.tsv"
+  if [ ! -e $LOOKFOR ]; then
+    echo "Skipping $TYPE. To add: touch $LOOKFOR"
+    continue
+  fi
 
   echo "Testing $TYPE generation..."
 
@@ -35,6 +39,7 @@ for TYPE in $(ls -d docs/*); do
   TEST_CMD="src/generate_docs.py $TYPE $TEST_DEST"
 
   mkdir -p $TEST_DEST || echo "$TEST_DEST already exists"
+  echo "Running: $TEST_CMD"
   eval $TEST_CMD
   diff -r $REAL_DEST $TEST_DEST \
     || die "Update needed: $REAL_CMD

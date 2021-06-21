@@ -1,0 +1,135 @@
+doc_url: https://portal.hubmapconsortium.org/docs/assays/maldi-ims
+fields:
+- name: version
+  heading: Shared by all types
+  description: Version of the schema to use when validating this metadata.
+  constraints:
+    enum:
+      - '2'
+# include: ../includes/vA/all_assays_wo_version.yaml
+- name: assay_category
+  constraints:
+    enum:
+      - mass_spectrometry_imaging
+- name: assay_type
+  constraints:
+    enum:
+      - MALDI-IMS
+      - SIMS-IMS
+      - NanoDESI
+      - DESI
+- name: analyte_class
+  constraints:
+    enum:
+      - protein # NOTE: "proteins" specified, but singular is used elsewhere.
+      - metabolites
+      - lipids
+      - peptides
+      - phosphopeptides
+      - glycans
+
+# include: ../includes/v0/is_targeted.yaml
+
+# Level 2:
+
+# include: ../includes/v0/acquisition_instrument.yaml
+- name: ms_source
+  description: The ion source type used for surface sampling (MALDI, MALDI-2, DESI, or SIMS) or LC-MS/MS data acquisition (nESI)
+  constraints:
+    enum:
+      - MALDI
+      - MALDI-2
+      - LDI
+      - LA
+      - SIMS-C60
+      - SIMS-H2O
+      - ESI
+- name: polarity
+  description: The polarity of the mass analysis (positive or negative ion modes)
+  constraints:
+    enum:
+      - negative ion mode
+      - positive ion mode
+- name: mz_range_low_value
+  description: The low value of the scanned mass range for MS1. (unitless)
+- name: mz_range_high_value
+  description: The high value of the scanned mass range for MS1. (unitless)
+
+- name: mass_resolving_power
+  description: This is the MS1 resolving power. This is a unitless value often calculated as m/∆m where ∆m is the FWHM for a given peak with a certain m/z (m).
+  type: number
+- name: mz_resolving_power
+  description: This is the m/z used to calculate the resolving power.
+
+- name: ion_mobility
+  description: 'Methodologies for measuring ion mobility: Traveling Wave Ion Mobility Spectrometry (TWIMS), Trapped Ion Mobility Spectrometry (TIMS), High Field Asymmetric waveform ion Mobility Spectrometry (FAIMS), Drift Tube Ion Mobility Spectrometry (DTIMS), Structures for Lossless Ion Manipulations Spectrometry (SLIMS).'
+  constraints:
+    required: False
+    enum:
+      - TIMS
+      - TWIMS
+      - FAIMS
+      - DTIMS
+      - SLIMS
+- name: ms_scan_mode
+  description: Scan mode refers to the number of steps in the separation of fragments.
+  constraints:
+    enum:
+      - MS
+      - MS/MS
+      - MS3
+
+# include: ../includes/v0/x_y.yaml
+
+- name: preparation_type
+  description: Common methods of depositing matrix for MALDI imaging include robotic
+    spotting, electrospray deposition, and spray-coating with an airbrush.
+  constraints:
+    required: False
+- name: preparation_instrument_vendor
+  description: The manufacturer of the instrument used to prepare the sample for the
+    assay.
+  constraints:
+    required: False
+- name: preparation_instrument_model
+  description: The model number/name of the instrument used to prepare the sample
+    for the assay
+  constraints:
+    required: False  
+- name: preparation_maldi_matrix
+  description: The matrix is a compound of crystallized molecules that acts like a
+    buffer between the sample and the laser. It also helps ionize the sample, carrying
+    it along the flight tube so it can be detected.
+  constraints:
+     enum:
+         - CHB
+         - DHB
+         - SA
+
+- name: desi_solvent
+  description: Solvent composition for conducting nanospray desorption electrospray ionization (nanoDESI) or desorption electrospray ionization (DESI).
+  constraints:
+    required: False
+- name: desi_solvent_flow_rate
+  description: The rate of flow of the solvent into a spray.
+  type: number
+  constraints:
+    required: False
+- name: desi_solvent_flow_rate_unit
+  description: Units of the rate of solvent flow.
+  constraints:
+    required: False
+    enum:
+      - uL/minute
+
+
+# include: ../includes/v0/doi/section_prep.yaml
+
+- name: processing_protocols_io_doi
+  description: DOI for analysis protocols.io for this assay.
+  constraints:
+    required: False
+
+# include: ../includes/v0/doi/overall.yaml
+
+# include: ../includes/v0/paths.yaml

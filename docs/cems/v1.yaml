@@ -1,5 +1,5 @@
 # Generated YAML: PRs should not start here!
-doc_url: https://portal.hubmapconsortium.org/docs/assays/atacseq
+doc_url: https://portal.hubmapconsortium.org/docs/assays/maldi-ims
 fields:
 - constraints:
     enum:
@@ -91,7 +91,7 @@ fields:
   name: pi_email
 - constraints:
     enum:
-    - sequence
+    - mass_spectrometry
     required: true
   custom_constraints:
     forbid_na: true
@@ -102,10 +102,7 @@ fields:
   name: assay_category
 - constraints:
     enum:
-    - SNARE-seq2
-    - scATACseq
-    - sciATACseq
-    - snATACseq
+    - CE-MS
     required: true
   custom_constraints:
     forbid_na: true
@@ -114,7 +111,12 @@ fields:
   name: assay_type
 - constraints:
     enum:
-    - DNA
+    - protein
+    - metabolites
+    - lipids
+    - peptides
+    - phosphopeptides
+    - glycans
     required: true
   custom_constraints:
     forbid_na: true
@@ -151,21 +153,105 @@ fields:
     the data.
   name: acquisition_instrument_model
 - constraints:
+    enum:
+    - nanoflex
+    - ESI
     required: true
   custom_constraints:
     forbid_na: true
     sequence_limit: 3
-  description: If TRUE, fastq files in dataset need to be merged.
-  name: is_technical_replicate
-  type: boolean
+  description: The technique used for sampling and ionization of the sample.
+  name: ms_source
+- constraints:
+    enum:
+    - negative ion mode
+    - positive ion mode
+    required: true
+  custom_constraints:
+    forbid_na: true
+    sequence_limit: 3
+  description: The polarity of the mass analysis (positive or negative ion modes)
+  name: polarity
 - constraints:
     required: true
   custom_constraints:
     forbid_na: true
     sequence_limit: 3
-  description: A library ID, unique within a TMC, which allows corresponding RNA and
-    chromatin accessibility datasets to be linked.
-  name: library_id
+  description: The low value of the scanned mass range for MS1. (unitless)
+  name: mz_range_low_value
+  type: number
+- constraints:
+    required: true
+  custom_constraints:
+    forbid_na: true
+    sequence_limit: 3
+  description: The high value of the scanned mass range for MS1. (unitless)
+  name: mz_range_high_value
+  type: number
+- constraints:
+    required: true
+  custom_constraints:
+    forbid_na: true
+    sequence_limit: 3
+  description: "This is the MS1 resolving power.\_This is a unitless value often calculated\
+    \ as m/\u2206m where \u2206m is the FWHM for a given peak with a certain m/z (m)."
+  name: mass_resolving_power
+  type: number
+- constraints:
+    required: true
+  custom_constraints:
+    forbid_na: true
+    sequence_limit: 3
+  description: The peak (m/z) used to calculate the resolving power.
+  name: mz_resolving_power
+  type: number
+- constraints:
+    enum:
+    - TIMS
+    - TWIMS
+    - FAIMS
+    - DTIMS
+    - SLIMS
+    required: false
+  custom_constraints:
+    forbid_na: true
+    sequence_limit: 3
+  description: 'Specifies whether or not ion mobility spectrometry was performed and
+    which technology was used. Technologies for measuring ion mobility: Traveling
+    Wave Ion Mobility Spectrometry (TWIMS), Trapped Ion Mobility Spectrometry (TIMS),
+    High Field Asymmetric waveform ion Mobility Spectrometry (FAIMS), Drift Tube Ion
+    Mobility Spectrometry (DTIMS, Structures for Lossless Ion Manipulations (SLIM).'
+  name: ion_mobility
+- constraints:
+    enum:
+    - DDA
+    - DIA
+    required: true
+  custom_constraints:
+    forbid_na: true
+    sequence_limit: 3
+  description: Mode of data collection in tandem MS assays. Either DDA (Data-dependent
+    acquisition) or DIA (Data-independent acquisition).
+  name: data_collection_mode
+- constraints:
+    enum:
+    - MS
+    - MS/MS
+    - MS3
+    required: true
+  custom_constraints:
+    forbid_na: true
+    sequence_limit: 3
+  description: Indicates whether the data were generated using MS, MS/MS or MS3.
+  name: ms_scan_mode
+- constraints:
+    required: true
+  custom_constraints:
+    forbid_na: true
+    sequence_limit: 3
+  description: Indicates whether samples were labeled prior to MS analysis (e.g.,
+    TMT).
+  name: labeling
 - constraints:
     pattern: 10\.17504/.*
     required: true
@@ -174,98 +260,166 @@ fields:
     sequence_limit: 3
     url:
       prefix: https://dx.doi.org/
-  description: 'Link to a protocols document answering the question: How were single
-    cells separated into a single-cell suspension?'
-  name: sc_isolation_protocols_io_doi
+  description: DOI for protocols.io referring to the protocol for preparing tissue
+    sections for the assay.
+  name: section_prep_protocols_io_doi
   type: string
 - constraints:
     enum:
-    - whole cell
-    - nucleus
-    - cell-cell multimer
-    - spatially encoded cell barcoding
+    - sheath-flow
+    - sheathless
     required: true
   custom_constraints:
     forbid_na: true
     sequence_limit: 3
-  description: The type of single cell entity derived from isolation protocol.
-  name: sc_isolation_entity
+  description: Method by which the separation capillary interfaces with mass spectrometer
+    and enables electrospray ionization while completing the separation circuit. The
+    two most prevalent commercial interfaces are sheathless and sheath-flow.
+  name: ce_interface
 - constraints:
     required: true
   custom_constraints:
     forbid_na: true
     sequence_limit: 3
-  description: The method by which tissues are dissociated into single cells in suspension.
-  name: sc_isolation_tissue_dissociation
-- constraints:
-    enum:
-    - none
-    - FACS
-    required: true
-  custom_constraints:
-    forbid_na: true
-    sequence_limit: 3
-  description: The method by which specific cell populations are sorted or enriched.
-  name: sc_isolation_enrichment
+  description: Treatment of surface of separation capillary. Capillary coating affects
+    the absorption of analytes on capillary inner walls and regulates electroosmotic
+    flow. Entries should indicate the charge of the coating and chemical composition
+    (e.g. "Neutral; Polyacrylamide" or "Positive; Polyethyleneimine" or "Uncoated").
+  name: ce_capillary_coating
 - constraints:
     required: true
   custom_constraints:
     forbid_na: true
     sequence_limit: 3
-  description: A quality metric by visual inspection prior to cell lysis or defined
-    by known parameters such as wells with several cells or no cells. This can be
-    captured at a high level. "OK" or "not OK", or with more specificity such as "debris",
-    "clump", "low clump".
-  name: sc_isolation_quality_metric
+  description: Chemical composition of the background electrolyte that fills the separation
+    capillary (e.g. "3% acetic acid").
+  name: ce_background_electrolyte
 - constraints:
     required: true
   custom_constraints:
     forbid_na: true
     sequence_limit: 3
-  description: Total number of cell/nuclei yielded post dissociation and enrichment.
-  name: sc_isolation_cell_number
-  type: integer
+  description: The manufacturer of the instrument used for capillary zone electrophoresis.
+    Capillary electrophoresis is used to separate complex biological mixtures prior
+    to performing MS-based analyses. Separations are performed based the analytes
+    migrate through an electrolyte solution in the presence of an electric field.
+  name: ce_instrument_vendor
 - constraints:
     required: true
   custom_constraints:
     forbid_na: true
     sequence_limit: 3
-  description: Number of cell/nuclei input to the assay.
-  name: transposition_input
-  type: number
+  description: The model name of the instrument used for capillary zone electrophoresis.
+  name: ce_instrument_model
 - constraints:
     enum:
-    - SNARE-Seq2-AC
-    - scATACseq
-    - bulkATACseq
-    - snATACseq
-    - sciATACseq
+    - suppressed
+    - normal
+    - reversed
     required: true
   custom_constraints:
     forbid_na: true
     sequence_limit: 3
-  description: Modality of capturing accessible chromatin molecules.
-  name: transposition_method
+  description: Properties of the electroosmotic flow (EOF). Normal EOF is defined
+    as flow towards the cathode, reversed EOF is defined as flow towards the anode,
+    and suppressed EOF involves marginal to almost no flow (e.g. when a neutral coating
+    is used).
+  name: ce_electroosmotic_flow
 - constraints:
     enum:
-    - 10X snATAC
-    - In-house
-    - Nextera
-    - 10X multiome
-    required: true
+    - LCM
+    - LESA
+    - nanoPOTS
+    - microLESA
+    required: false
   custom_constraints:
     forbid_na: true
     sequence_limit: 3
-  description: The source of the Tn5 transposase and transposon used for capturing
-    accessible chromatin.
-  name: transposition_transposase_source
+  description: Specifies whether or not the analysis was performed in a spatialy targeted
+    manner and the technique used for spatial sampling. For example, Laser-capture
+    microdissection (LCM), Liquid Extraction Surface Analysis (LESA), Nanodroplet
+    Processing in One pot for Trace Samples (nanoPOTS).
+  name: spatial_type
+- constraints:
+    enum:
+    - profiling
+    - imaging
+    required: false
+  custom_constraints:
+    forbid_na: true
+    sequence_limit: 3
+  description: Specifies whether or not the analysis was performed in a spatially
+    targeted manner. Spatial profiling experiments target specific tissue foci but
+    do not necessarily generate images. Spatial imaging expriments collect data from
+    a regular array (pixels) that can be visualized as heat maps of ion intensity
+    at each location (molecular images). Leave blank if data are derived from bulk
+    analysis.
+  name: spatial_sampling_type
 - constraints:
     required: false
   custom_constraints:
     forbid_na: true
     sequence_limit: 3
-  description: If Tn5 came from a kit, provide the catalog number.
-  name: transposition_kit_number
+  description: Specifies the cell-type or functional tissue unit (FTU) that is targeted
+    in the spatial profiling experiment. Leave blank if data are generated in imaging
+    mode without a specific target structure.
+  name: spatial_target
+- constraints:
+    required: false
+  custom_constraints:
+    forbid_na: true
+    sequence_limit: 3
+  description: The width of a pixel.
+  name: resolution_x_value
+  type: number
+- constraints:
+    enum:
+    - nm
+    - um
+    required: false
+  custom_constraints:
+    forbid_na: true
+    sequence_limit: 3
+    units_for: resolution_x_value
+  description: The unit of measurement of the width of a pixel.
+  name: resolution_x_unit
+- constraints:
+    required: false
+  custom_constraints:
+    forbid_na: true
+    sequence_limit: 3
+  description: The height of a pixel
+  name: resolution_y_value
+  type: number
+- constraints:
+    enum:
+    - nm
+    - um
+    required: false
+  custom_constraints:
+    forbid_na: true
+    sequence_limit: 3
+    units_for: resolution_y_value
+  description: The unit of measurement of the height of a pixel.
+  name: resolution_y_unit
+- constraints:
+    required: true
+  custom_constraints:
+    forbid_na: true
+    sequence_limit: 3
+  description: Software for analyzing and searching LC-MS/MS omics data
+  name: processing_search
+- constraints:
+    pattern: 10\.17504/.*
+    required: false
+  custom_constraints:
+    forbid_na: true
+    sequence_limit: 3
+    url:
+      prefix: https://dx.doi.org/
+  description: DOI for analysis protocols.io for this assay.
+  name: processing_protocols_io_doi
+  type: string
 - constraints:
     pattern: 10\.17504/.*
     required: true
@@ -274,145 +428,9 @@ fields:
     sequence_limit: 3
     url:
       prefix: https://dx.doi.org/
-  description: A link to the protocol document containing the library construction
-    method (including version) that was used, e.g. "Smart-Seq2", "Drop-Seq", "10X
-    v3". DOI for protocols.io referring to the protocol for this assay.
-  name: library_construction_protocols_io_doi
+  description: DOI for protocols.io for the overall process.
+  name: overall_protocols_io_doi
   type: string
-- constraints:
-    enum:
-    - single-end
-    - paired-end
-    required: true
-  custom_constraints:
-    forbid_na: true
-    sequence_limit: 3
-  description: State whether the library was generated for single-end or paired end
-    sequencing.
-  name: library_layout
-- constraints:
-    pattern: '[ATCG]+(\+[ATCG]+)?'
-    required: true
-  custom_constraints:
-    forbid_na: true
-    sequence_limit: 3
-  description: Adapter sequence to be used for adapter trimming.
-  name: library_adapter_sequence
-  type: string
-- constraints:
-    required: false
-  custom_constraints:
-    forbid_na: true
-    sequence_limit: 3
-  description: Which read file contains the cell barcode. This field is not required
-    for barcoding by single-cell combinatorial indexing.
-  name: cell_barcode_read
-- constraints:
-    pattern: \d+(,\d+)*
-    required: true
-  custom_constraints:
-    forbid_na: true
-    sequence_limit: 3
-  description: Positions in the read at which the cell barcodes start. Cell barcodes
-    are, for example, 3 x 8 bp sequences that are spaced by constant sequences (the
-    offsets). First barcode at position 0, then 38, then 76. (Does not apply to sciATACseq,
-    SNARE-seq and BulkATAC.)
-  name: cell_barcode_offset
-  type: string
-- constraints:
-    pattern: \d+(,\d+)*
-    required: true
-  custom_constraints:
-    forbid_na: true
-    sequence_limit: 3
-  description: Length of the cell barcode in base pairs. Cell barcodes are, for example,
-    3 x 8 bp sequences that are spaced by constant sequences, the offsets. (Does not
-    apply to sciATACseq, SNARE-seq and BulkATAC.)
-  name: cell_barcode_size
-  type: string
-- constraints:
-    required: true
-  custom_constraints:
-    forbid_na: true
-    sequence_limit: 3
-  description: Number of PCR cycles to enrich for accessible chromatin fragments.
-  name: library_pcr_cycles
-  type: integer
-- constraints:
-    required: true
-  custom_constraints:
-    forbid_na: true
-    sequence_limit: 3
-  description: Number of PCR cycles performed for library generation (figure in Descriptions
-    section)
-  name: library_pcr_cycles_for_sample_index
-  type: integer
-- constraints:
-    required: true
-  custom_constraints:
-    forbid_na: true
-    sequence_limit: 3
-  description: Total ng of library after final pcr amplification step.
-  name: library_final_yield
-  type: number
-- constraints:
-    enum:
-    - ng
-    required: false
-  custom_constraints:
-    forbid_na: true
-    sequence_limit: 3
-    units_for: library_final_yield
-  description: Units for library_final_yield
-  name: library_final_yield_unit
-- constraints:
-    required: true
-  custom_constraints:
-    forbid_na: true
-    sequence_limit: 3
-  description: Average size of sequencing library fragments estimated via gel electrophoresis
-    or bioanalyzer/tapestation. Numeric value in bp.
-  name: library_average_fragment_size
-  type: number
-- constraints:
-    required: true
-  custom_constraints:
-    forbid_na: true
-    sequence_limit: 3
-  description: Reagent kit used for sequencing
-  name: sequencing_reagent_kit
-- constraints:
-    pattern: \d+(/\d+)+
-    required: true
-  custom_constraints:
-    forbid_na: true
-    sequence_limit: 3
-  description: Slash-delimited list of the number of sequencing cycles for, for example,
-    Read1, i7 index, i5 index, and Read2.
-  example: 12/34/56
-  name: sequencing_read_format
-  type: string
-- constraints:
-    maximum: 100
-    minimum: 0
-    required: true
-  custom_constraints:
-    forbid_na: true
-    sequence_limit: 3
-  description: 'Q30 is the weighted average of all the reads (e.g. # bases UMI * q30
-    UMI + # bases R2 * q30 R2 + ...)'
-  name: sequencing_read_percent_q30
-  type: number
-- constraints:
-    maximum: 100
-    minimum: 0
-    required: true
-  custom_constraints:
-    forbid_na: true
-    sequence_limit: 3
-  description: Percent PhiX loaded to the run
-  name: sequencing_phix_percent
-  type: number
 - constraints:
     required: true
   custom_constraints:

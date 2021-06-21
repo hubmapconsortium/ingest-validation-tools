@@ -322,7 +322,7 @@ The source of the Tn5 transposase and transposon used for capturing accessible c
 
 | constraint | value |
 | --- | --- |
-| enum | `10X snATAC`, `In-house`, or `Nextera` |
+| enum | `10X snATAC`, `In-house`, `Nextera`, or `10X multiome` |
 | required | `True` |
 
 <a name="transposition_kit_number"></a>
@@ -363,15 +363,15 @@ Adapter sequence to be used for adapter trimming.
 
 <a name="cell_barcode_read"></a>
 ##### [`cell_barcode_read`](#cell_barcode_read)
-Which read file contains the cell barcode.
+Which read file contains the cell barcode. This field is not required for barcoding by single-cell combinatorial indexing. Leave blank if not applicable.
 
 | constraint | value |
 | --- | --- |
-| required | `True` |
+| required | `False` |
 
 <a name="cell_barcode_offset"></a>
 ##### [`cell_barcode_offset`](#cell_barcode_offset)
-Positions in the read at which the cell barcodes start. Cell barcodes are, for example, 3 x 8 bp sequences that are spaced by constant sequences (the offsets). First barcode at position 0, then 38, then 76. (Does not apply to SNARE-seq and BulkATAC.)
+Positions in the read at which the cell barcodes start. Cell barcodes are, for example, 3 x 8 bp sequences that are spaced by constant sequences (the offsets). First barcode at position 0, then 38, then 76. (Does not apply to sciATACseq, SNARE-seq and BulkATAC.)
 
 | constraint | value |
 | --- | --- |
@@ -380,7 +380,7 @@ Positions in the read at which the cell barcodes start. Cell barcodes are, for e
 
 <a name="cell_barcode_size"></a>
 ##### [`cell_barcode_size`](#cell_barcode_size)
-Length of the cell barcode in base pairs. Cell barcodes are, for example, 3 x 8 bp sequences that are spaced by constant sequences, the offsets. (Does not apply to SNARE-seq and BulkATAC.)
+Length of the cell barcode in base pairs. Cell barcodes are, for example, 3 x 8 bp sequences that are spaced by constant sequences, the offsets. (Does not apply to sciATACseq, SNARE-seq and BulkATAC.)
 
 | constraint | value |
 | --- | --- |
