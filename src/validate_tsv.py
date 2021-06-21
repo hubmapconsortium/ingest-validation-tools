@@ -50,8 +50,7 @@ def main():
         schema_name = (
             args.schema if args.schema != 'metadata'
             else get_schema_version(args.path, 'ascii',
-                                    table_schemas=args.table_schemas).schema_name
-        )
+                                    table_schemas=args.table_schemas).schema_name)
     except PreflightError as e:
         errors = {'Preflight': str(e)}
     else:

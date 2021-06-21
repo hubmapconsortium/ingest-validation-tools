@@ -43,7 +43,7 @@ class Upload:
         self.errors = {}
         try:
             unsorted_effective_tsv_paths = {
-                str(path): get_schema_version(path, self.encoding)
+                str(path): get_schema_version(path, self.encoding, table_schemas=self.table_schemas)
                 for path in (
                     tsv_paths if tsv_paths
                     else directory_path.glob(f'*{TSV_SUFFIX}')
