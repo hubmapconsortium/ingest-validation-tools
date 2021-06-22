@@ -1,4 +1,5 @@
 doc_url: https://portal.hubmapconsortium.org/docs/assays/af
+description_md: AF stands for autofluorescence microscopy.
 fields:
 # include: ../includes/vA/all_assays.yaml
 
