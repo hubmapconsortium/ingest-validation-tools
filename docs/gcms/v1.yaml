@@ -124,7 +124,7 @@ fields:
     forbid_na: true
     sequence_limit: 3
   description: Specifies whether or not a specific molecule(s) is/are targeted for
-    detection/measurement by the assay. The CODEX analyte is protein.
+    detection/measurement by the assay.
   name: is_targeted
   type: boolean
 - constraints:
@@ -201,7 +201,7 @@ fields:
   custom_constraints:
     forbid_na: true
     sequence_limit: 3
-  description: The peak (m/z) used to calculate the MS1 resolving power.
+  description: The peak (m/z) used to calculate the resolving power.
   name: mz_resolving_power
   type: number
 - constraints:
@@ -210,7 +210,7 @@ fields:
     - TWIMS
     - FAIMS
     - DTIMS
-    - SLIM
+    - SLIMS
     required: false
   custom_constraints:
     forbid_na: true
@@ -333,6 +333,7 @@ fields:
     enum:
     - LCM
     - LESA
+    - nanoPOTS
     - microLESA
     required: false
   custom_constraints:
@@ -341,7 +342,7 @@ fields:
   description: Specifies whether or not the analysis was performed in a spatialy targeted
     manner and the technique used for spatial sampling. For example, Laser-capture
     microdissection (LCM), Liquid Extraction Surface Analysis (LESA), Nanodroplet
-    Processing in One pot for Trace Samples (nanoPOTS). Leave blank if not applicable.
+    Processing in One pot for Trace Samples (nanoPOTS).
   name: spatial_type
 - constraints:
     enum:

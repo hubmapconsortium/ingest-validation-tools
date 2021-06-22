@@ -125,7 +125,7 @@ fields:
     forbid_na: true
     sequence_limit: 3
   description: Specifies whether or not a specific molecule(s) is/are targeted for
-    detection/measurement by the assay. The CODEX analyte is protein.
+    detection/measurement by the assay.
   name: is_targeted
   type: boolean
 - constraints:
@@ -164,8 +164,8 @@ fields:
   name: ms_source
 - constraints:
     enum:
-    - Positive
-    - Negative
+    - negative ion mode
+    - positive ion mode
     required: true
   custom_constraints:
     forbid_na: true
@@ -177,7 +177,7 @@ fields:
   custom_constraints:
     forbid_na: true
     sequence_limit: 3
-  description: A number representing the mass:charge ratio
+  description: The low value of the scanned mass range for MS1. (unitless)
   name: mz_range_low_value
   type: number
 - constraints:
@@ -185,7 +185,7 @@ fields:
   custom_constraints:
     forbid_na: true
     sequence_limit: 3
-  description: A number representing the mass:charge ratio
+  description: The high value of the scanned mass range for MS1. (unitless)
   name: mz_range_high_value
   type: number
 - constraints:
