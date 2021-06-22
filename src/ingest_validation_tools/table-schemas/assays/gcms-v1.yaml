@@ -1,3 +1,4 @@
+description_md: This schema is for gas chromatography - mass spectrophotometry (GCMS).
 fields:
 # include: ../includes/vA/all_assays.yaml
 - name: assay_category
