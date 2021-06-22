@@ -1,5 +1,6 @@
 from pathlib import Path
 from collections import (defaultdict, namedtuple)
+from copy import deepcopy
 import re
 
 from ingest_validation_tools.yaml_include_loader import load_yaml
@@ -436,3 +437,73 @@ def _add_constraints(field, optional_fields, offline=None, names=None):
         c_c = 'custom_constraints'
         if c_c in field and 'url' in field[c_c]:
             del field[c_c]['url']
+
+
+def enum_maps_to_lists(schema, add_none_of_the_above=False, add_suggested=False):
+    '''
+    >>> schema = {
+    ...     'whatever': 'is preserved',
+    ...     'fields': [
+    ...         {'name': 'ice_cream',
+    ...          'constraints': {
+    ...                 'enum': {
+    ...                     'vanilla': 'http://example.com/vanil',
+    ...                     'chocolate': 'http://example.com/choco'}}},
+    ...         {'name': 'mood',
+    ...          'constraints': {
+    ...                 'enum': ['happy', 'sad']}},
+    ...         {'name': 'no_enum', 'constraints': {}},
+    ...         {'name': 'no_constraints'},
+    ...     ]}
+    >>> from pprint import pprint
+    >>> pprint(enum_maps_to_lists(schema))
+    {'fields': [{'constraints': {'enum': ['vanilla', 'chocolate']},
+                 'name': 'ice_cream'},
+                {'constraints': {'enum': ['happy', 'sad']}, 'name': 'mood'},
+                {'constraints': {}, 'name': 'no_enum'},
+                {'name': 'no_constraints'}],
+     'whatever': 'is preserved'}
+
+    >>> pprint(enum_maps_to_lists(schema, add_none_of_the_above=True))
+    {'fields': [{'constraints': {'enum': ['vanilla',
+                                          'chocolate',
+                                          'Submitter Suggestion']},
+                 'name': 'ice_cream'},
+                {'constraints': {'enum': ['happy', 'sad']}, 'name': 'mood'},
+                {'constraints': {}, 'name': 'no_enum'},
+                {'name': 'no_constraints'}],
+     'whatever': 'is preserved'}
+
+    >>> pprint(enum_maps_to_lists(schema, add_none_of_the_above=True, add_suggested=True))
+    {'fields': [{'constraints': {'enum': ['vanilla',
+                                          'chocolate',
+                                          'Submitter Suggestion']},
+                 'name': 'ice_cream'},
+                {'description': 'Desired value for ice_cream',
+                 'name': 'ice_cream_suggested'},
+                {'constraints': {'enum': ['happy', 'sad']}, 'name': 'mood'},
+                {'constraints': {}, 'name': 'no_enum'},
+                {'name': 'no_constraints'}],
+     'whatever': 'is preserved'}
+    '''
+    schema_copy = deepcopy(schema)
+    schema_copy['fields'], original_fields = \
+        [], schema_copy['fields']
+    for field in original_fields:
+        extra_field = None
+        if 'constraints' in field:
+            constraints = field['constraints']
+            if 'enum' in constraints:
+                if isinstance(constraints['enum'], dict):
+                    constraints['enum'] = list(constraints['enum'].keys())
+                    if add_none_of_the_above:
+                        constraints['enum'].append('Submitter Suggestion')
+                    if add_suggested:
+                        extra_field = {
+                            'name': f"{field['name']}_suggested",
+                            'description': f"Desired value for {field['name']}"
+                        }
+        schema_copy['fields'].append(field)
+        if extra_field:
+            schema_copy['fields'].append(extra_field)
+    return schema_copy

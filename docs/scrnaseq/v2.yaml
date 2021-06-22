@@ -273,7 +273,7 @@ fields:
   name: is_technical_replicate
   type: boolean
 - constraints:
-    required: true
+    required: false
   custom_constraints:
     forbid_na: true
     sequence_limit: 3
@@ -281,7 +281,7 @@ fields:
   name: cell_barcode_read
 - constraints:
     pattern: \d+(,\d+)*
-    required: true
+    required: false
   custom_constraints:
     forbid_na: true
     sequence_limit: 3
@@ -290,7 +290,7 @@ fields:
   type: string
 - constraints:
     pattern: \d+(,\d+)*
-    required: true
+    required: false
   custom_constraints:
     forbid_na: true
     sequence_limit: 3
