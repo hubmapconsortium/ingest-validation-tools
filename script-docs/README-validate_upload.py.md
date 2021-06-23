@@ -9,8 +9,8 @@ usage: validate_upload.py [-h] --local_directory PATH
                           [--output {as_browser,as_html_doc,as_html_fragment,as_md,as_text,as_text_list,as_yaml}]
                           [--add_notes]
 
-Validate a HuBMAP upload, both the metadata TSVs, and the datasets,
-either local or remote, or a combination of the two.
+Validate a HuBMAP upload, both the metadata TSVs and the datasets.
+If you only want to validate a TSV in isolation, look at validate_tsv.py.
 
 optional arguments:
   -h, --help            show this help message and exit
