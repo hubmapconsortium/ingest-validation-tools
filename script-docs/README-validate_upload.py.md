@@ -37,9 +37,6 @@ optional arguments:
   --add_notes           Append a context note to error reports.
 
 Typical usage:
-  --tsv_paths: Used to validate Sample metadata TSVs. (Because it does
-  not check references, should not be used to validate Dataset metadata TSVs.)
-
   --local_directory: Used by lab before upload, and on Globus after upload.
 
   --local_directory + --dataset_ignore_globs + --upload_ignore_globs:
