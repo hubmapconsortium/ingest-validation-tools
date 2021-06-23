@@ -62,7 +62,7 @@ class Upload:
     def get_errors(self, **kwargs):
         # This creates a deeply nested dict.
         # Keys are present only if there is actually an error to report.
-        # kwargs are passed to the plugin validators.
+        # plugin_kwargs are passed to the plugin validators.
         if self.errors:
             return self.errors
 
