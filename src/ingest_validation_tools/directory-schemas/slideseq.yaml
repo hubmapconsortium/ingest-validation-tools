@@ -38,7 +38,7 @@
 # subdirectory fastq
 #
 -
-  pattern: '[^/]+/fastq/Puck_[^/]\.read1\.fastq\.gz'
+  pattern: '[^/]+/fastq/Puck_[^/]+\.read1\.fastq\.gz'
   description: 'each puck will have 2 fastq files, this file contains the first set of paired reads'
 -
   pattern: '[^/]+/fastq/Puck_[^/]+\.read2\.fastq\.gz'
