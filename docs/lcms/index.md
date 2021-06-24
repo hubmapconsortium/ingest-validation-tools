@@ -11,7 +11,7 @@ Related files:
 - [📝 Excel template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/master/docs/lcms/lcms-metadata.xlsx): For metadata entry.
 - [📝 TSV template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/master/docs/lcms/lcms-metadata.tsv): Alternative for metadata entry.
 
-v2 adds `mass_resolving_power`, `mz_resolving_power`, `ion_mobility`, `spatial_type`, `spatial_sampling_type`, `spatial_target`, and `resolution_{x/y}_{value/unit}`.
+This schema is for liquid chromatography mass spectrometry (LCMS). v2 adds `mass_resolving_power`, `mz_resolving_power`, `ion_mobility`, `spatial_type`, `spatial_sampling_type`, `spatial_target`, and `resolution_{x/y}_{value/unit}`.
 
 ## Directory schema
 

@@ -11,7 +11,7 @@ Related files:
 - [📝 Excel template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/master/docs/scatacseq/scatacseq-metadata.xlsx): For metadata entry.
 - [📝 TSV template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/master/docs/scatacseq/scatacseq-metadata.tsv): Alternative for metadata entry.
 
-
+This schema is for the single cell Assay for Transposase Accessible Chromatin by sequencing (scATACseq).
 
 ## Directory schema
 

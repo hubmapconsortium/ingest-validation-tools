@@ -11,7 +11,7 @@ Related files:
 - [📝 Excel template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/master/docs/bulkatacseq/bulkatacseq-metadata.xlsx): For metadata entry.
 - [📝 TSV template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/master/docs/bulkatacseq/bulkatacseq-metadata.tsv): Alternative for metadata entry.
 
-
+This schema is for Assay for Transposase-Accessible Chromatin by sequencing (ATACseq)of bulk sample.
 
 ## Directory schema
 

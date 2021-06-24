@@ -11,7 +11,7 @@ Related files:
 - [📝 Excel template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/master/docs/scrnaseq/scrnaseq-metadata.xlsx): For metadata entry.
 - [📝 TSV template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/master/docs/scrnaseq/scrnaseq-metadata.tsv): Alternative for metadata entry.
 
-
+This schema is for single cell RNA sequencing (scRNAseq).
 
 ## Directory schema
 
