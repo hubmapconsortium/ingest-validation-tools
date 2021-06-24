@@ -206,7 +206,7 @@ Analytes are the target molecules being measured with the assay.
 
 <a name="is_targeted"></a>
 ##### [`is_targeted`](#is_targeted)
-Specifies whether or not a specific molecule(s) is/are targeted for detection/measurement by the assay. The CODEX analyte is protein.
+Specifies whether or not a specific molecule(s) is/are targeted for detection/measurement by the assay.
 
 | constraint | value |
 | --- | --- |
@@ -278,7 +278,7 @@ The MS1 resolving power defined as m/∆m where ∆m is the FWHM for a given pea
 
 <a name="mz_resolving_power"></a>
 ##### [`mz_resolving_power`](#mz_resolving_power)
-The peak (m/z) used to calculate the MS1 resolving power.
+The peak (m/z) used to calculate the resolving power.
 
 | constraint | value |
 | --- | --- |
@@ -292,7 +292,7 @@ Specifies whether or not ion mobility spectrometry was performed and which techn
 | constraint | value |
 | --- | --- |
 | required | `False` |
-| enum | `TIMS`, `TWIMS`, `FAIMS`, `DTIMS`, or `SLIM` |
+| enum | `TIMS`, `TWIMS`, `FAIMS`, `DTIMS`, or `SLIMS` |
 
 <a name="data_collection_mode"></a>
 ##### [`data_collection_mode`](#data_collection_mode)
@@ -408,12 +408,12 @@ Specifies if guard column was used.
 
 <a name="spatial_type"></a>
 ##### [`spatial_type`](#spatial_type)
-Specifies whether or not the analysis was performed in a spatialy targeted manner and the technique used for spatial sampling. For example, Laser-capture microdissection (LCM), Liquid Extraction Surface Analysis (LESA), Nanodroplet Processing in One pot for Trace Samples (nanoPOTS). Leave blank if not applicable. Leave blank if not applicable.
+Specifies whether or not the analysis was performed in a spatialy targeted manner and the technique used for spatial sampling. For example, Laser-capture microdissection (LCM), Liquid Extraction Surface Analysis (LESA), Nanodroplet Processing in One pot for Trace Samples (nanoPOTS). Leave blank if not applicable.
 
 | constraint | value |
 | --- | --- |
 | required | `False` |
-| enum | `LCM`, `LESA`, or `microLESA` |
+| enum | `LCM`, `LESA`, `nanoPOTS`, or `microLESA` |
 
 <a name="spatial_sampling_type"></a>
 ##### [`spatial_sampling_type`](#spatial_sampling_type)

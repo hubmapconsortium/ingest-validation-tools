@@ -203,7 +203,7 @@ Analytes are the target molecules being measured with the assay.
 
 <a name="is_targeted"></a>
 ##### [`is_targeted`](#is_targeted)
-Specifies whether or not a specific molecule(s) is/are targeted for detection/measurement by the assay. The CODEX analyte is protein.
+Specifies whether or not a specific molecule(s) is/are targeted for detection/measurement by the assay.
 
 | constraint | value |
 | --- | --- |
@@ -266,7 +266,7 @@ The high value of the scanned mass range for MS1. (unitless)
 
 <a name="mass_resolving_power"></a>
 ##### [`mass_resolving_power`](#mass_resolving_power)
-This is the MS1 resolving power. This is a unitless value often calculated as m/∆m where ∆m is the FWHM for a given peak with a certain m/z (m).
+The MS1 resolving power defined as m/∆m where ∆m is the FWHM for a given peak with a specified m/z (m). (unitless)
 
 | constraint | value |
 | --- | --- |
