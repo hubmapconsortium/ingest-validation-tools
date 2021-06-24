@@ -11,7 +11,7 @@ Related files:
 - [📝 Excel template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/master/docs/seqfish/seqfish-metadata.xlsx): For metadata entry.
 - [📝 TSV template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/master/docs/seqfish/seqfish-metadata.tsv): Alternative for metadata entry.
 
-
+This schema is for spatial sequencing by fluorescence in situ hybridization (seqFISH).
 
 ## Directory schema
 

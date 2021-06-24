@@ -1,4 +1,5 @@
 # Generated YAML: PRs should not start here!
+description_md: This schema is for single cell RNA sequencing (scRNAseq).
 doc_url: https://portal.hubmapconsortium.org/docs/assays/rnaseq
 fields:
 - constraints:

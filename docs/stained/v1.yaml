@@ -1,4 +1,6 @@
 # Generated YAML: PRs should not start here!
+description_md: "This schema is for microscopy of tissue treated with periodic acid\u2013\
+  Schiff stain (stained)."
 doc_url: https://portal.hubmapconsortium.org/docs/assays/pas
 fields:
 - constraints:
