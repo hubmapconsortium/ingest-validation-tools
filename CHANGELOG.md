@@ -1,6 +1,7 @@
 # Changelog
 
 ## v0.0.12 - in progress
+- Explain acronyms.
 - Add new LCMS version, and clean up reused fields.
 - Make barcode fields optional.
 - User donor as a test-bed for ontology-enums.
