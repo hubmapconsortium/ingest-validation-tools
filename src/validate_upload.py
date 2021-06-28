@@ -2,7 +2,6 @@
 
 import argparse
 import sys
-from glob import glob
 from pathlib import Path
 import inspect
 
@@ -114,8 +113,7 @@ def main():
     args = parser.parse_args()
 
     if args.clear_cache:
-        for path in glob(f'{cache_path}*'):
-            Path(path).unlink()
+        cache_path.unlink()
 
     upload_args = {
         'add_notes': args.add_notes,
