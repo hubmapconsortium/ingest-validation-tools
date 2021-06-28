@@ -86,7 +86,7 @@ conjugated_tag: The name of the entity conjugated to the antibody.
 contributors_path: Relative path to file with ORCID IDs for contributors for this
   dataset.
 data_collection_mode: Mode of data collection in tandem MS assays. Either DDA (Data-dependent
-  acquisition) or DIA (Data-indemendent acquisition.
+  acquisition) or DIA (Data-independent acquisition).
 data_path: Relative path to file or directory with instrument data. Downstream processing
   will depend on filename extension conventions.
 data_precision_bytes: Numerical data precision in bytes
