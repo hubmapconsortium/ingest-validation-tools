@@ -1,6 +1,7 @@
 # Changelog
 
 ## v0.0.12 - in progress
+- Make the network cache file JSON, for portability.
 - Dependabot update.
 - Fix typo.
 - Explain acronyms.
