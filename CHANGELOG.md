@@ -2,6 +2,8 @@
 
 ## v0.0.12 - in progress
 - Make the network cache file JSON, for portability.
+- Dependabot update.
+- Fix typo.
 - Explain acronyms.
 - Add kwarg to pass-through to tests.
 - Update `validate_upload.py` docs.
