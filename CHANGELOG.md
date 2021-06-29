@@ -1,6 +1,7 @@
 # Changelog
 
 ## v0.0.12 - in progress
+- Dependabot update.
 - Fix typo.
 - Explain acronyms.
 - Add kwarg to pass-through to tests.
