@@ -2,6 +2,7 @@
 title: bulk RNA
 schema_name: bulkrnaseq
 category: Sequence assays
+all_versions_deprecated: False
 layout: default
 ---
 
@@ -193,7 +194,7 @@ Analytes are the target molecules being measured with the assay.
 
 <a name="is_targeted"></a>
 ##### [`is_targeted`](#is_targeted)
-Specifies whether or not a specific molecule(s) is/are targeted for detection/measurement by the assay. The CODEX analyte is protein.
+Specifies whether or not a specific molecule(s) is/are targeted for detection/measurement by the assay.
 
 | constraint | value |
 | --- | --- |
@@ -278,7 +279,7 @@ Units of RNA input amount to the assay. Leave blank if not applicable.
 
 <a name="rnaseq_assay_method"></a>
 ##### [`rnaseq_assay_method`](#rnaseq_assay_method)
-rnaseq assay kit used.
+The kit used for the RNA sequencing assay.
 
 | constraint | value |
 | --- | --- |
@@ -513,7 +514,7 @@ Analytes are the target molecules being measured with the assay.
 
 <a name="is_targeted"></a>
 ##### [`is_targeted`](#is_targeted)
-Specifies whether or not a specific molecule(s) is/are targeted for detection/measurement by the assay. The CODEX analyte is protein.
+Specifies whether or not a specific molecule(s) is/are targeted for detection/measurement by the assay.
 
 | constraint | value |
 | --- | --- |
@@ -598,7 +599,7 @@ Units of RNA input amount to the assay. Leave blank if not applicable.
 
 <a name="rnaseq_assay_method"></a>
 ##### [`rnaseq_assay_method`](#rnaseq_assay_method)
-rnaseq assay kit used.
+The kit used for the RNA sequencing assay.
 
 | constraint | value |
 | --- | --- |

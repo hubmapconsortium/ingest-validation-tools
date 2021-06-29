@@ -1,4 +1,5 @@
 doc_url: https://portal.hubmapconsortium.org/docs/assays/atacseq
+description_md: This schema is for the single cell Assay for Transposase Accessible Chromatin by sequencing (scATACseq).
 fields:
 # include: ../includes/vA/all_assays.yaml
 - name: assay_category
@@ -33,8 +34,7 @@ fields:
     enum:
       - none
       - FACS
-- name: sc_isolation_quality_metric
-  description: 'A quality metric by visual inspection prior to cell lysis or defined by known parameters such as wells with several cells or no cells. This can be captured at a high level. "OK" or "not OK", or with more specificity such as "debris", "clump", "low clump".'
+# include: ../includes/fields/sc_isolation_quality_metric.yaml
 - name: sc_isolation_cell_number
   description: Total number of cell/nuclei yielded post dissociation and enrichment.
   type: integer
@@ -55,6 +55,7 @@ fields:
       - 10X snATAC
       - In-house
       - Nextera
+      - 10X multiome
 # include: ../includes/fields/transposition_kit_number.yaml
 - name: library_construction_protocols_io_doi
   description: A link to the protocol document containing the library construction method (including version) that was used, e.g. "Smart-Seq2", "Drop-Seq", "10X v3". DOI for protocols.io referring to the protocol for this assay.
@@ -64,13 +65,19 @@ fields:
   constraints:
     pattern: '[ATCG]+(\+[ATCG]+)?'
 - name: cell_barcode_read
-  description: Which read file contains the cell barcode.
+  constraints:
+    required: False
+  description: Which read file contains the cell barcode. This field is not required for barcoding by single-cell combinatorial indexing.
 - name: cell_barcode_offset
-  description: Positions in the read at which the cell barcodes start. Cell barcodes are, for example, 3 x 8 bp sequences that are spaced by constant sequences (the offsets). First barcode at position 0, then 38, then 76. (Does not apply to SNARE-seq and BulkATAC.)
+  constraints:
+    required: FALSE
+  description: Positions in the read at which the cell barcodes start. Cell barcodes are, for example, 3 x 8 bp sequences that are spaced by constant sequences (the offsets). First barcode at position 0, then 38, then 76. (Does not apply to sciATACseq, SNARE-seq and BulkATAC.)
   constraints:
     pattern: '\d+(,\d+)*'
 - name: cell_barcode_size
-  description: Length of the cell barcode in base pairs. Cell barcodes are, for example, 3 x 8 bp sequences that are spaced by constant sequences, the offsets. (Does not apply to SNARE-seq and BulkATAC.)
+  constraints:
+    required: FALSE
+  description: Length of the cell barcode in base pairs. Cell barcodes are, for example, 3 x 8 bp sequences that are spaced by constant sequences, the offsets. (Does not apply to sciATACseq, SNARE-seq and BulkATAC.)
   constraints:
     pattern: '\d+(,\d+)*'
 - name: library_pcr_cycles

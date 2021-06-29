@@ -1,0 +1,20 @@
+- name: resolution_x_value
+  description: The width of a pixel.
+  constraints:
+    required: False
+- name: resolution_x_unit
+  description: The unit of measurement of the width of a pixel.
+  constraints:
+    enum:
+      - nm
+      - um
+- name: resolution_y_value
+  description: The height of a pixel
+  constraints:
+    required: False
+- name: resolution_y_unit
+  description: The unit of measurement of the height of a pixel.
+  constraints:
+    enum:
+      - nm
+      - um

@@ -1,0 +1,7 @@
+- name: spatial_sampling_type
+  description: Specifies whether or not the analysis was performed in a spatially targeted manner. Spatial profiling experiments target specific tissue foci but do not necessarily generate images. Spatial imaging expriments collect data from a regular array (pixels) that can be visualized as heat maps of ion intensity at each location (molecular images). Leave blank if data are derived from bulk analysis.
+  constraints:
+    required: False
+    enum:
+      - profiling
+      - imaging

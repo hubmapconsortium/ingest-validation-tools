@@ -59,9 +59,10 @@ class Upload:
     #
     #####################
 
-    def get_errors(self):
+    def get_errors(self, **kwargs):
         # This creates a deeply nested dict.
         # Keys are present only if there is actually an error to report.
+        # plugin_kwargs are passed to the plugin validators.
         if self.errors:
             return self.errors
 
@@ -74,7 +75,7 @@ class Upload:
         if reference_errors:
             errors['Reference Errors'] = reference_errors
 
-        plugin_errors = self._get_plugin_errors()
+        plugin_errors = self._get_plugin_errors(**kwargs)
         if plugin_errors:
             errors['Plugin Errors'] = plugin_errors
 
@@ -136,7 +137,7 @@ class Upload:
             errors['Multiple References'] = multi_ref_errors
         return errors
 
-    def _get_plugin_errors(self):
+    def _get_plugin_errors(self, **kwargs):
         plugin_path = self.plugin_directory
         if not plugin_path:
             return None
@@ -144,7 +145,8 @@ class Upload:
         for metadata_path in self.effective_tsv_paths.keys():
             try:
                 for k, v in run_plugin_validators_iter(metadata_path,
-                                                       plugin_path):
+                                                       plugin_path,
+                                                       **kwargs):
                     errors[k].append(v)
             except PluginValidatorError as e:
                 # We are ok with just returning a single error, rather than all.

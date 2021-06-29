@@ -84,7 +84,53 @@ def get_context_of_decode_error(e):
 def get_tsv_errors(tsv_path, schema_name, optional_fields=[], offline=None, encoding=None):
     '''
     Validate the TSV.
+
+    >>> import tempfile
+    >>> from pathlib import Path
+
+    >>> get_tsv_errors('no-such.tsv', 'fake')
+    'File does not exist'
+
+    >>> with tempfile.TemporaryDirectory() as dir:
+    ...     tsv_path = Path(dir)
+    ...     get_tsv_errors(tsv_path, 'fake')
+    'Expected a TSV, but found a directory'
+
+    >>> with tempfile.TemporaryDirectory() as dir:
+    ...     tsv_path = Path(dir) / 'fake.tsv'
+    ...     tsv_path.write_bytes(b'\\xff')
+    ...     get_tsv_errors(tsv_path, 'fake')
+    1
+    'Invalid utf-8 because invalid start byte: " [ ÿ ] "'
+
+    >>> def test_tsv(content, assay_type='fake'):
+    ...     with tempfile.TemporaryDirectory() as dir:
+    ...         tsv_path = Path(dir) / 'fake.tsv'
+    ...         tsv_path.write_text(content)
+    ...         return get_tsv_errors(tsv_path, assay_type)
+
+    >>> test_tsv('just_a_header_not_enough')
+    'File has no data rows.'
+
+    >>> test_tsv('fake_head\\nfake_data')
+    {'No such file or directory': 'fake-v0.yaml'}
+
+    >>> test_tsv('fake_head\\nfake_data', assay_type='nano')
+    {'Schema version is deprecated': 'nano-v0'}
+
+    >>> test_tsv('version\\n1', assay_type='nano')
+    {'Schema version is deprecated': 'nano-v1'}
+
+    >>> test_tsv('version\\n2', assay_type='nano')
+    {'No such file or directory': 'nano-v2.yaml'}
+
+    >>> test_tsv('version\\n1', assay_type='codex')
+    ['Could not determine delimiter']
+
+    >>> errors = test_tsv('version\\tfake\\n1\\tfake', assay_type='codex')
+    >>> assert 'Unexpected fields' in errors[0]
     '''
+
     logging.info(f'Validating {schema_name} TSV...')
     if not Path(tsv_path).exists():
         return 'File does not exist'
@@ -112,4 +158,8 @@ def get_tsv_errors(tsv_path, schema_name, optional_fields=[], offline=None, enco
                                       optional_fields=optional_fields)
     except OSError as e:
         return {e.strerror: Path(e.filename).name}
+
+    if schema.get('deprecated'):
+        return {f'Schema version is deprecated': f'{schema_name}-v{version}'}
+
     return get_table_errors(tsv_path, schema)

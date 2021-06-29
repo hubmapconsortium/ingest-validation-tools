@@ -2,6 +2,7 @@
 title: AF
 schema_name: af
 category: Imaging assays
+all_versions_deprecated: False
 layout: default
 ---
 
@@ -10,7 +11,7 @@ Related files:
 - [📝 Excel template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/master/docs/af/af-metadata.xlsx): For metadata entry.
 - [📝 TSV template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/master/docs/af/af-metadata.tsv): Alternative for metadata entry.
 
-
+This schema is for autofluorescence (AF).
 
 ## Directory schema
 
@@ -185,7 +186,7 @@ Analytes are the target molecules being measured with the assay. Leave blank if 
 
 <a name="is_targeted"></a>
 ##### [`is_targeted`](#is_targeted)
-Specifies whether or not a specific molecule(s) is/are targeted for detection/measurement by the assay. The CODEX analyte is protein.
+Specifies whether or not a specific molecule(s) is/are targeted for detection/measurement by the assay.
 
 | constraint | value |
 | --- | --- |
@@ -410,7 +411,7 @@ Analytes are the target molecules being measured with the assay. Leave blank if 
 
 <a name="is_targeted"></a>
 ##### [`is_targeted`](#is_targeted)
-Specifies whether or not a specific molecule(s) is/are targeted for detection/measurement by the assay. The CODEX analyte is protein.
+Specifies whether or not a specific molecule(s) is/are targeted for detection/measurement by the assay.
 
 | constraint | value |
 | --- | --- |

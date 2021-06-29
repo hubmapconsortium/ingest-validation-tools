@@ -1,0 +1,10 @@
+- name: ion_mobility
+  description: 'Specifies whether or not ion mobility spectrometry was performed and which technology was used. Technologies for measuring ion mobility: Traveling Wave Ion Mobility Spectrometry (TWIMS), Trapped Ion Mobility Spectrometry (TIMS), High Field Asymmetric waveform ion Mobility Spectrometry (FAIMS), Drift Tube Ion Mobility Spectrometry (DTIMS, Structures for Lossless Ion Manipulations (SLIM).'
+  constraints:
+    required: False
+    enum:
+      - TIMS
+      - TWIMS
+      - FAIMS
+      - DTIMS
+      - SLIMS

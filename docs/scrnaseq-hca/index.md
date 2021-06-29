@@ -2,6 +2,7 @@
 title: scRNAseq-10xGenomics-v2 / scRNAseq-10xGenomics-v3 / scRNAseq / sciRNAseq / snRNAseq / SNARE2-RNAseq (HCA)
 schema_name: scrnaseq-hca
 category: Sequence assays
+all_versions_deprecated: False
 layout: default
 ---
 
@@ -251,7 +252,7 @@ The method by which specific cell populations are sorted or enriched.
 
 <a name="sc_isolation_quality_metric"></a>
 ##### [`sc_isolation_quality_metric`](#sc_isolation_quality_metric)
-A quality metric by visual inspection prior to cell lysis or defined by known parameters such as wells with several cells or no cells. This can be captured at a high level. Leave blank if not applicable.
+A quality metric by visual inspection prior to cell lysis or defined by known parameters such as wells with several cells or no cells. This can be captured at a high level. "OK" or "not OK", or with more specificity such as "debris", "clump", "low clump". Leave blank if not applicable.
 
 | constraint | value |
 | --- | --- |
