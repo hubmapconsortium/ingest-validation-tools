@@ -129,7 +129,7 @@ fields:
     forbid_na: true
     sequence_limit: 3
   description: Specifies whether or not a specific molecule(s) is/are targeted for
-    detection/measurement by the assay. The CODEX analyte is protein.
+    detection/measurement by the assay.
   name: is_targeted
   type: boolean
 - constraints:
@@ -193,8 +193,8 @@ fields:
   custom_constraints:
     forbid_na: true
     sequence_limit: 3
-  description: "This is the MS1 resolving power.\_This is a unitless value often calculated\
-    \ as m/\u2206m where \u2206m is the FWHM for a given peak with a certain m/z (m)."
+  description: "The MS1 resolving power defined as m/\u2206m where \u2206m is the\
+    \ FWHM for a given peak with a specified m/z (m). (unitless)"
   name: mass_resolving_power
   type: number
 - constraints:

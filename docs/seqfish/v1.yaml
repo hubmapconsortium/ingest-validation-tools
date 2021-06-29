@@ -1,4 +1,6 @@
 # Generated YAML: PRs should not start here!
+description_md: This schema is for spatial sequencing by fluorescence in situ hybridization
+  (seqFISH).
 doc_url: https://portal.hubmapconsortium.org/docs/assays/seqfish
 fields:
 - constraints:
@@ -124,7 +126,7 @@ fields:
     forbid_na: true
     sequence_limit: 3
   description: Specifies whether or not a specific molecule(s) is/are targeted for
-    detection/measurement by the assay. The CODEX analyte is protein.
+    detection/measurement by the assay.
   name: is_targeted
   type: boolean
 - constraints:

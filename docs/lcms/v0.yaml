@@ -112,7 +112,7 @@ fields:
     forbid_na: true
     sequence_limit: 3
   description: Specifies whether or not a specific molecule(s) is/are targeted for
-    detection/measurement by the assay. The CODEX analyte is protein.
+    detection/measurement by the assay.
   name: is_targeted
   type: boolean
 - constraints:
@@ -144,6 +144,9 @@ fields:
     or SIMS) or LC-MS/MS data acquisition (nESI)
   name: ms_source
 - constraints:
+    enum:
+    - negative ion mode
+    - positive ion mode
     required: true
   custom_constraints:
     forbid_na: true
