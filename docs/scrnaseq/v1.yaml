@@ -199,7 +199,8 @@ fields:
     sequence_limit: 3
   description: A quality metric by visual inspection prior to cell lysis or defined
     by known parameters such as wells with several cells or no cells. This can be
-    captured at a high level.
+    captured at a high level. "OK" or "not OK", or with more specificity such as "debris",
+    "clump", "low clump".
   name: sc_isolation_quality_metric
 - constraints:
     required: true

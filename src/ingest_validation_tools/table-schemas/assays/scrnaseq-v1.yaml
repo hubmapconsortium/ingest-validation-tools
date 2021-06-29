@@ -23,14 +23,7 @@ fields:
 # include: ../includes/v0/acquisition_instrument.yaml
 - name: sc_isolation_protocols_io_doi
   description: "Link to a protocols document answering the question: How were single cells separated into a single-cell suspension?"
-- name: sc_isolation_entity
-  description: The type of single cell entity derived from isolation protocol
-  constraints:
-    enum:
-      - whole cell
-      - nucleus
-      - cell-cell multimer
-      - spatially encoded cell barcoding
+# include: ../includes/fields/sc_isolation_entity.yaml
 # include: ../includes/fields/sc_isolation_tissue_dissociation.yaml
 - name: sc_isolation_enrichment
   description: The method by which specific cell populations are sorted or enriched.

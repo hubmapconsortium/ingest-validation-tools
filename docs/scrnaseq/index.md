@@ -265,7 +265,7 @@ The method by which specific cell populations are sorted or enriched.
 
 <a name="sc_isolation_quality_metric"></a>
 ##### [`sc_isolation_quality_metric`](#sc_isolation_quality_metric)
-A quality metric by visual inspection prior to cell lysis or defined by known parameters such as wells with several cells or no cells. This can be captured at a high level.
+A quality metric by visual inspection prior to cell lysis or defined by known parameters such as wells with several cells or no cells. This can be captured at a high level. "OK" or "not OK", or with more specificity such as "debris", "clump", "low clump".
 
 | constraint | value |
 | --- | --- |
@@ -664,7 +664,7 @@ The method by which specific cell populations are sorted or enriched.
 
 <a name="sc_isolation_quality_metric"></a>
 ##### [`sc_isolation_quality_metric`](#sc_isolation_quality_metric)
-A quality metric by visual inspection prior to cell lysis or defined by known parameters such as wells with several cells or no cells. This can be captured at a high level.
+A quality metric by visual inspection prior to cell lysis or defined by known parameters such as wells with several cells or no cells. This can be captured at a high level. "OK" or "not OK", or with more specificity such as "debris", "clump", "low clump".
 
 | constraint | value |
 | --- | --- |
@@ -1016,6 +1016,7 @@ The type of single cell entity derived from isolation protocol.
 
 | constraint | value |
 | --- | --- |
+| enum | `whole cell`, `nucleus`, `cell-cell multimer`, or `spatially encoded cell barcoding` |
 | required | `True` |
 
 <a name="sc_isolation_tissue_dissociation"></a>
@@ -1036,7 +1037,7 @@ The method by which specific cell populations are sorted or enriched. Leave blan
 
 <a name="sc_isolation_quality_metric"></a>
 ##### [`sc_isolation_quality_metric`](#sc_isolation_quality_metric)
-A quality metric by visual inspection prior to cell lysis or defined by known parameters such as wells with several cells or no cells. This can be captured at a high level.
+A quality metric by visual inspection prior to cell lysis or defined by known parameters such as wells with several cells or no cells. This can be captured at a high level. "OK" or "not OK", or with more specificity such as "debris", "clump", "low clump".
 
 | constraint | value |
 | --- | --- |

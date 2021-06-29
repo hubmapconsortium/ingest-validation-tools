@@ -1,6 +1,8 @@
 # Changelog
 
 ## v0.0.12 - in progress
+- CLEANUP-sc_isolation_entity
+- cleanup resolution_z_unit
 - Fix typo.
 - Explain acronyms.
 - Add kwarg to pass-through to tests.
