@@ -38,8 +38,7 @@ fields:
     enum:
       - none
       - FACS
-- name: sc_isolation_quality_metric
-  description: A quality metric by visual inspection prior to cell lysis or defined by known parameters such as wells with several cells or no cells. This can be captured at a high level.
+# include: ../includes/fields/sc_isolation_quality_metric.yaml
 - name: sc_isolation_cell_number
   description: Total number of cell/nuclei yielded post dissociation and enrichment
 - name: rnaseq_assay_input

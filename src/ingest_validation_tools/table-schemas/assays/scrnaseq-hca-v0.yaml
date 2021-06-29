@@ -117,12 +117,9 @@ fields:
   constraints:
     required: true
   description: The method by which specific cell populations are sorted or enriched.
-- name: sc_isolation_quality_metric
+# include: ../includes/fields/sc_isolation_quality_metric.yaml
   constraints:
-    required: false
-  description: A quality metric by visual inspection prior to cell lysis or defined
-    by known parameters such as wells with several cells or no cells. This can be
-    captured at a high level.
+    required: False
 - name: sc_isolation_cell_number
   constraints:
     required: false
