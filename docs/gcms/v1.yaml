@@ -228,7 +228,7 @@ fields:
     forbid_na: true
     sequence_limit: 3
   description: Mode of data collection in tandem MS assays. Either DDA (Data-dependent
-    acquisition) or DIA (Data-indemendent acquisition.
+    acquisition) or DIA (Data-independent acquisition).
   name: data_collection_mode
 - constraints:
     required: true
