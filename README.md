@@ -2,6 +2,11 @@
 HuBMAP data upload guidelines, and tools which check that uploads adhere to those guidelines.
 Assay documenentation is on [Github Pages](https://hubmapconsortium.github.io/ingest-validation-tools/).
 
+HuBMAP has three distinct metadata processes:
+- **Donor** metadata is handled by Jonathan Silverstein on an adhoc basis: He works with whatever format the TMC can provide, and aligns it with controlled vocabularies. 
+- **Sample** metadata is handled by Chris Briggs and Bill Shirey. [The standard operating procedure is outlined here.](https://docs.google.com/document/d/1K-PvBaduhrN-aU-vzWd9gZqeGvhGF3geTwRR0ww74Jo/edit)
+- **Dataset** uploads should be validated first by the TMCs. Dataset upload validation is the focus of this repo. [Details below.](#upload-process-and-upload-directory-structure)
+
 ## For assay type working groups:
 
 Before we can write code to validate a particular assay type, there are some prequisites:
@@ -88,9 +93,9 @@ src/validate_upload.py --local_directory examples/dataset-examples/good-codex-ak
   --plugin_directory ../ingest-validation-tests/src/ingest_validation_tests/
 ```
 
-## For developers:
+## For developers and contributors:
 
-A good example is of usage is `validate-upload.py`; In a nutshell:
+A good example is of programatic usage is `validate-upload.py`; In a nutshell:
 ```python
 upload = Upload(directory_path=path)
 report = ErrorReport(upload.get_errors())
@@ -98,9 +103,7 @@ print(report.as_text())
 ```
 (If it would be useful for this to be installable with `pip`, please file an issue.)
 
-## For contributors:
-
-Checkout the project, cd, venv, and then:
+To make contributions, checkout the project, cd, venv, and then:
 ```
 pip install -r requirements.txt
 pip install -r requirements-dev.txt
@@ -116,7 +119,7 @@ $ git tag v0.0.x
 $ git push origin v0.0.x
 ```
 
-## Repo structure
+### Repo structure
 [![Repo structure](https://docs.google.com/drawings/d/e/2PACX-1vQ8gorGI8ceYBf0bIJQlw4HvI3ooVTvCfickHhCvGJU4yy5kViJI39oqQ7xB20WLYxv8FMRuBLGwmH-/pub?w=600)](https://docs.google.com/drawings/d/1UK81oUHTSHetGXRsA-YeSFS-kb6Nw2rNpnw8SBysYXU/edit)
 
 Checking in the built documentation is not the typical approach, but has worked well for this project:
@@ -146,4 +149,4 @@ but if they are applicable to only a single dataset, they can be placed within t
 
 You can validate your upload directory locally, then upload it to Globus, and the same validation will be run there.
 
-[![Upload diagram](https://docs.google.com/drawings/d/e/2PACX-1vS8F78bk0zHSRygMIyTLruAMxjL4c5EY_q_Mp3gN2TbdZLtalax5AxyvwBWyqWwAJH941ziqJPqBDTW/pub?w=500)](https://docs.google.com/drawings/d/1nhrRWBgcZh6GE2MCKysIq4KzsRL6SZm0jYtvadF83Kk/edit)
+[![Upload directory structure](https://docs.google.com/drawings/d/e/2PACX-1vS8F78bk0zHSRygMIyTLruAMxjL4c5EY_q_Mp3gN2TbdZLtalax5AxyvwBWyqWwAJH941ziqJPqBDTW/pub?w=500)](https://docs.google.com/drawings/d/1nhrRWBgcZh6GE2MCKysIq4KzsRL6SZm0jYtvadF83Kk/edit)
