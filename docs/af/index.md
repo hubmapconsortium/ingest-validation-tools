@@ -8,8 +8,8 @@ layout: default
 
 Related files:
 - [🔬 Background doc](https://portal.hubmapconsortium.org/docs/assays/af): More details about this type.
-- [📝 Excel template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/master/docs/af/af-metadata.xlsx): For metadata entry.
-- [📝 TSV template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/master/docs/af/af-metadata.tsv): Alternative for metadata entry.
+- [📝 Excel template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/main/docs/af/af-metadata.xlsx): For metadata entry.
+- [📝 TSV template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/main/docs/af/af-metadata.tsv): Alternative for metadata entry.
 
 This schema is for autofluorescence (AF).
 

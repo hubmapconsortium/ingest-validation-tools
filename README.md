@@ -16,7 +16,7 @@ Before we can write code to validate a particular assay type, there are some pre
   [Suggestions for describing directories](HOWTO-describe-directories.md).
 
 When all the parts are finalized,
-- The document will be translated into markdown, and added [here](https://github.com/hubmapconsortium/portal-docs/tree/master/assays).
+- The document will be translated into markdown, and added [here](https://github.com/hubmapconsortium/portal-docs/tree/main/assays).
 - The list of fields will be translated into a table schema, like those [here](src/ingest_validation_tools/table-schemas).
 - The list of files will be translated into a directory schema, like those [here](src/ingest_validation_tools/directory-schemas).
 
