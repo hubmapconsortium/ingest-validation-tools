@@ -1,6 +1,7 @@
 # Changelog
 
 ## v0.0.12 - in progress
+- Document Donor and Sample Metadata process.
 - Make the network cache file JSON, for portability.
 - Dependabot update.
 - Fix typo.
