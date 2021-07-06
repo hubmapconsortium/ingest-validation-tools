@@ -104,7 +104,7 @@ def generate_readme_md(
         if source_project_enum else ''
 
     raw_base_url = 'https://raw.githubusercontent.com/' \
-        'hubmapconsortium/ingest-validation-tools/master/docs'
+        'hubmapconsortium/ingest-validation-tools/main/docs'
 
     optional_dir_description_md = (
         f'## Directory schema\n{_make_dir_description(directory_schema)}'
