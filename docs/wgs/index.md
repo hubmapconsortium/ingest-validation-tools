@@ -8,8 +8,8 @@ layout: default
 
 Related files:
 - [🔬 Background doc](https://portal.hubmapconsortium.org/docs/assays/wgs): More details about this type.
-- [📝 Excel template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/master/docs/wgs/wgs-metadata.xlsx): For metadata entry.
-- [📝 TSV template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/master/docs/wgs/wgs-metadata.tsv): Alternative for metadata entry.
+- [📝 Excel template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/main/docs/wgs/wgs-metadata.xlsx): For metadata entry.
+- [📝 TSV template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/main/docs/wgs/wgs-metadata.tsv): Alternative for metadata entry.
 
 
 

@@ -8,8 +8,8 @@ layout: default
 
 Related files:
 - [🔬 Background doc](https://portal.hubmapconsortium.org/docs/assays/atacseq): More details about this type.
-- [📝 Excel template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/master/docs/bulkatacseq/bulkatacseq-metadata.xlsx): For metadata entry.
-- [📝 TSV template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/master/docs/bulkatacseq/bulkatacseq-metadata.tsv): Alternative for metadata entry.
+- [📝 Excel template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/main/docs/bulkatacseq/bulkatacseq-metadata.xlsx): For metadata entry.
+- [📝 TSV template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/main/docs/bulkatacseq/bulkatacseq-metadata.tsv): Alternative for metadata entry.
 
 This schema is for Assay for Transposase-Accessible Chromatin by sequencing (ATACseq)of bulk sample.
 
