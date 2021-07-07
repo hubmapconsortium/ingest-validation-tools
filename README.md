@@ -48,13 +48,16 @@ You should see [the documention for `validate_upload.py`](script-docs/README-val
 
 Now run it against one of the included examples, giving the path to an upload directory:
 ```
-src/validate_upload.py --local_directory examples/dataset-examples/bad-tsv-formats/upload --output as_text
+src/validate_upload.py \
+  --local_directory examples/dataset-examples/bad-tsv-formats/upload \
+  --output as_text
 ```
 
 You should now see [this (extensive) error message](examples/dataset-examples/bad-tsv-formats/README.md).
 This example TSV has been constructed with a mistake in every column, just to demonstrate the checks which are available. Hopefully, more often your experience will be like this:
 ```
-src/validate_upload.py --local_directory examples/dataset-examples/good-codex-akoya/upload
+src/validate_upload.py \
+  --local_directory examples/dataset-examples/good-codex-akoya/upload
 ```
 ```
 No errors!
@@ -68,7 +71,9 @@ Addition help for certain common error messages is available [here](README-valid
 If you don't have an entire upload directory at hand, you can validate individual
 metadata, antibodies, contributors, or sample TSVs:
 ```
-src/validate_tsv.py --schema metadata --path examples/dataset-examples/good-scatacseq-v1/upload/metadata.tsv
+src/validate_tsv.py \
+  --schema metadata \
+  --path examples/dataset-examples/good-scatacseq-v1/upload/metadata.tsv
 ```
 ```
 No errors!
@@ -89,7 +94,8 @@ pip install -r requirements.txt
 
 # Back to ingest-validation-tools...
 cd ../ingest-validation-tools
-src/validate_upload.py --local_directory examples/dataset-examples/good-codex-akoya/upload \
+src/validate_upload.py \
+  --local_directory examples/dataset-examples/good-codex-akoya/upload \
   --plugin_directory ../ingest-validation-tests/src/ingest_validation_tests/
 ```
 
