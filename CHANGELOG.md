@@ -1,6 +1,7 @@
 # Changelog
 
 ## v0.0.12 - in progress
+- Ammend LCMS docs.
 - Fix CI: point to right branch.
 - Document Donor and Sample Metadata process.
 - Make the network cache file JSON, for portability.
