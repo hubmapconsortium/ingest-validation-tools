@@ -7,8 +7,9 @@
 #
 # directory beginning with (raw|src_) contains the raw (unprocessed by Akoya) files.
 
+# university of florida
 -
-  pattern: '[^/]*NAV[^/]*\.tif'
+  pattern: '[^/]NAV[^/]*\.tif'
   description: 'Navigational Image showing Region of Interest (Keyance Microscope only)'
   required: False
 -
@@ -17,44 +18,32 @@
   description: 'PDF export of Powerpoint slide deck containing the Image Analysis Report'
   is_qa_qc: True
 -
-  pattern: '(processed|drv_)[^/]+/channelNames\.txt'
-  description: 'Text file produced by the Akoya software which contains the (linearized) channel number and the Name/ID/Target of the channel (required for HuBMAP pipeline)'
-  required: True
--
-  pattern: '(raw|src_)[^/]+/experiment\.json'
+  pattern: '((raw|src_)+/experiment\.json|(raw|src_)+/Experiment\.json)'
   description: 'JSON file produced by the Akoya software which contains the metadata for the experiment, including the software version used, microscope parameters, channel names, pixel dimensions, etc. (required for HuBMAP pipeline)'
   required: True
--
-  pattern: '(processed|drv_)[^/]+/experiment\.json'
-  description: 'JSON file produced by the Akoya software which contains the metadata for the experiment, including the software version used, microscope parameters, channel names, pixel dimensions, etc. (required for HuBMAP pipeline)'
-  required: False
 -
   pattern: '(raw|src_)[^/]+/exposure_times\.txt'
   description: 'Comma separated text file used for background subtraction that contains valid exposure times for all cycles [e.g: Cycle,CH1,CH2,CH3,CH4].'
   required: True
 -
-  pattern: '(processed|drv_)[^/]+/exposure_times\.txt'
-  description: 'Comma separated text file used for background subtraction that contains valid exposure times for all cycles [e.g: Cycle,CH1,CH2,CH3,CH4].'
+  pattern: 'raw/segmentation\.json'
+  description: 'JSON file produced by the Akoya software with segmentation information'
   required: False
 -
-  pattern: '(raw|src_)[^/]+/segmentation\.(json|txt)'
-  description: 'JSON file produced by the Akoya software which contains the parameters used for segmentation. (required for HuBMAP pipeline)'
+  pattern: '(processed|drv_|extras)/config\.txt'
+  description: 'JSON file produced by the Akoya software with segmentation information'
+  required: False
+-
+  pattern: '(raw/segmentation\.json|(processed|drv_|extras)/config\.txt)'
+  description: 'Sanity check that verifies the existence of at least one of these files. This is required for the HuBMAP processing pipeline'
   required: True
 -
-  pattern: '(processed|drv_)[^/]+/segmentation\.(json|txt)'
-  description: 'JSON file produced by the Akoya software which contains the parameters used for segmentation. (required for HuBMAP pipeline)'
-  required: False
--
-  pattern: '(processed|drv_)[^/]+/processed_[^/]+/.*'
-  description: 'processed files produced by the Akoya software, not used by the HIVE'
-  ignore: True
+  pattern: '(processed|drv_)/.*'
+  description: 'Processed files produced by the Akoya software or alternative software.'
+  required: True
 -
   pattern: '(raw|src_)[^/]+/channelnames_report\.csv'
   description: 'Two column CSV: The first column is a name or target; The second column is boolean: "FALSE" channels are excluded from processing. (required for HuBMAP pipeline)'
-  required: True
--
-  pattern: '(raw|src_)[^/]+/channelnames\.txt'
-  description: 'Text file produced by the Akoya software which contains the (linearized) channel number and the Name/ID/Target of the channel (required for HuBMAP pipeline)'
   required: True
 -
   pattern: '(raw|src_)[^/]+/cyc.*_reg.*_.*/.*_.*_Z.*_CH.*\.tif'
@@ -65,7 +54,14 @@
   description: 'Group Capture Information File (Keyance Microscope only)'
   required: False
 -
-  pattern: 'processed/config\.txt'
-  description: 'TXT file with software configuration needed for the processing pipelines.'
+  pattern: '((raw|src_)+/channelnames\.txt|(raw|src_)+/channelNames\.txt)'
+  description: 'Text file produced by the Akoya software which contains the (linearized) channel number and the Name/ID/Target of the channel (required for HuBMAP pipeline)'
+  required: True
+-
+  pattern: '(raw|src_)+exposure_times\.txt'
+  description: 'Exposure times for channel/cycle'
   required: False
-
+-
+  pattern: '(raw|src_)+reg_00\.png'
+  description: 'Region overviews'
+  required: False
