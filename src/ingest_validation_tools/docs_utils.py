@@ -415,7 +415,7 @@ def _make_dir_description(dir_schema):
     >>> _make_dir_description(dir_schema)
     Traceback (most recent call last):
     ...
-    AssertionError: Example "ABC123" does not match pattern "[A-Z]\d"
+    AssertionError: Example "ABC123" does not match pattern "[A-Z]\\d"
 
     Unexpected flags cause error:
 
