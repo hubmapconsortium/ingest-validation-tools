@@ -65,6 +65,11 @@ def _get_required_allowed(dir_schema):
     (['this_is_required'], ['this_is_required', 'this_is_optional'])
 
     '''
+    for item in dir_schema:
+        for k in item:
+            assert k in {'pattern', 'required', 'description', 'example', 'is_qa_qc'}, \
+                f'Unexpected key "{k}" in {item}'
+    assert [all(k in {'pattern', 'required'} for k in item.keys()) for item in dir_schema]
     allowed = [
         item['pattern'] for item in dir_schema]
     required = [
