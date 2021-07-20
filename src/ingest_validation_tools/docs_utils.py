@@ -415,9 +415,23 @@ def _make_dir_description(dir_schema):
     >>> _make_dir_description(dir_schema)
     Traceback (most recent call last):
     ...
-    Exception: Example "ABC123" does not match pattern "[A-Z]\\d"
+    AssertionError: Example "ABC123" does not match pattern "[A-Z]\\d"
 
+    Unexpected flags cause error:
+
+    >>> dir_schema = [
+    ...   { 'bad': 'schema' }
+    ... ]
+    >>> _make_dir_description(dir_schema)
+    Traceback (most recent call last):
+    ...
+    AssertionError: Unexpected key "bad" in {'bad': 'schema'}
     '''
+    for line in dir_schema:
+        for k in line.keys():
+            assert k in {'pattern', 'required', 'description', 'example', 'is_qa_qc'}, \
+                f'Unexpected key "{k}" in {line}'
+
     has_examples = any('example' in line for line in dir_schema)
 
     output = []
@@ -442,8 +456,8 @@ def _make_dir_description(dir_schema):
                 row.append('')
             else:
                 example = line['example']
-                if not re.fullmatch(pattern, example):
-                    raise Exception(f'Example "{example}" does not match pattern "{pattern}"')
+                assert re.fullmatch(pattern, example), \
+                    f'Example "{example}" does not match pattern "{pattern}"'
                 example_md = f'`{_md_escape_re(example)}`'
                 row.append(example_md)
 
