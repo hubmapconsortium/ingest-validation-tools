@@ -46,7 +46,7 @@
   description: 'HandE RGB thumbnail'
   required: False
 -
-  pattern: '(processed|drv_.*|extras)/config\.txt'
+  pattern: '(processed|drv_[^/]*|extras)/config\.txt'
   description: 'Configuration file with information needed for the HuBMAP processing pipeline'
   required: False
 -
