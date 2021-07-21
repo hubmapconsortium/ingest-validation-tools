@@ -50,7 +50,7 @@
   description: 'Configuration file with information needed for the HuBMAP processing pipeline'
   required: False
 -
-  pattern: '(raw/segmentation\.json|(processed|drv_src.*|extras)/config\.txt)'
+  pattern: 'raw/segmentation\.json|(processed|drv_src.*|extras)/config\.txt'
   description: 'Sanity check that verifies the existence of at least one of these files. This is required for the HuBMAP processing pipeline'
   required: True
 -
