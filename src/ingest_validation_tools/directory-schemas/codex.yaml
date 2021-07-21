@@ -18,7 +18,7 @@
   description: 'Processed files produced by the Akoya software or alternative software.'
   required: True
 -
-  pattern: '(raw|src_.*)+exposure_times\.txt'
+  pattern: '(raw|src_[^/]*)/exposure_times\.txt'
   description: 'Comma separated text file used for background subtraction that contains valid exposure times for all cycles [e.g: Cycle,CH1,CH2,CH3,CH4].'
   required: False
 -
