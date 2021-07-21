@@ -66,6 +66,6 @@
   description: 'Group Capture Information File (Keyance Microscope only)'
   required: False
 -
-  pattern: '((raw|src_.*)+/(channelnames|channelNames)\.txt)'
+  pattern: '(raw|src_.*)/channel[Nn]ames\.txt'
   description: 'Text file produced by the Akoya software which contains the (linearized) channel number and the Name/ID/Target of the channel (required for HuBMAP pipeline)'
   required: True
