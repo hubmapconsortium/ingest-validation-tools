@@ -1,7 +1,7 @@
 # A dataset consists of a single CODEX experimental run
 
 -
-  pattern: '[^/]NAV[^/]*\.tif'
+  pattern: '[^/]*NAV[^/]*\.tif'
   description: 'Navigational Image showing Region of Interest (Keyance Microscope only)'
   required: False
 -
