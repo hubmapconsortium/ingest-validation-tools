@@ -30,7 +30,7 @@
   description: 'JSON file produced by the Akoya software which contains the metadata for the experiment, including the software version used, microscope parameters, channel names, pixel dimensions, etc. (required for HuBMAP pipeline)'
   required: True
 -
-  pattern: '((raw|src.*)/segmentation\.json)'
+  pattern: '(raw|src_[^/]*)/segmentation\.json'
   description: 'JSON file produced by the Akoya software with segmentation information'
   required: False
 -
