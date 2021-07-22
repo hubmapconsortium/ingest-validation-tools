@@ -1,5 +1,5 @@
 ---
-title: SNARE-seq2 / scATACseq / sciATACseq / snATACseq
+title: scATACseq / sciATACseq / snATACseq / SNARE-seq2
 schema_name: scatacseq
 category: Sequence assays
 all_versions_deprecated: False
@@ -883,3 +883,9 @@ Relative path to file or directory with instrument data. Downstream processing w
 | required | `True` |
 
 </details>
+
+## Pipeline
+
+<details markdown="1" open="true"><summary><b>Version 1.4.3 (current)</b></summary>
+
+[Pipeline package](https://github.com/hubmapconsortium/sc-atac-seq-pipeline/releases/tag/v1.4.3)
