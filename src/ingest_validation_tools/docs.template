@@ -13,6 +13,8 @@ ${optional_doc_link_md}
 
 ${optional_description_md}
 
+${optional_pipeline_description_md}
+
 ${optional_dir_description_md}
 
 ## Metadata schema

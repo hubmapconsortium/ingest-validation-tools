@@ -144,7 +144,7 @@ def generate_readme_md(
         'current_version_md':
             _make_fields_md(
                 max_version_table_schema, f'Version {max_version} (current)', is_open=True
-            ),
+        ),
         'previous_versions_md':
             '\n\n'.join([
                 _make_fields_md(table_schemas[str(v)], f'Version {v}')
@@ -470,3 +470,18 @@ def _make_dir_description(dir_schema):
 
         output.append('| ' + ' | '.join(row) + ' |')
     return '\n'.join(output)
+
+
+def make_pipeline_link(info):
+    '''
+    >>> info = {
+    ...     "name": "scATACseq Pipeline",
+    ...     "repo_url": "https://github.com/hubmapconsortium/foo",
+    ...     "version_tag": "v1.4.3"
+    ... }
+    >>> print(make_pipeline_link(info))
+    [scATACseq Pipeline v1.4.3](https://github.com/hubmapconsortium/foo/releases/tag/v1.4.3)
+    '''
+    text = f"{info['name']} {info['version_tag']}"
+    href = f"{info['repo_url']}/releases/tag/{info['version_tag']}"
+    return f"[{text}]({href})"
