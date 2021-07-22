@@ -14,6 +14,8 @@ Related files:
 This schema is for the single cell Assay for Transposase Accessible Chromatin by sequencing (scATACseq).
 
 ## Directory schema
+The HIVE will process each dataset with
+[scATACseq Pipeline 1.4.3](https://github.com/hubmapconsortium/sc-atac-seq-pipeline/releases/tag/1.4.3).
 
 | pattern | required? | description |
 | --- | --- | --- |
