@@ -86,7 +86,7 @@ def _enrich_description(field):
 
 
 def generate_readme_md(
-        table_schemas, directory_schema, schema_name, is_assay=True):
+        table_schemas, pipeline_info, directory_schema, schema_name, is_assay=True):
     int_keys = [int(k) for k in table_schemas.keys()]
     max_version = max(int_keys)
     min_version = min(int_keys)
@@ -107,7 +107,7 @@ def generate_readme_md(
         'hubmapconsortium/ingest-validation-tools/main/docs'
 
     optional_dir_description_md = (
-        f'## Directory schema\n{_make_dir_description(directory_schema)}'
+        f'## Directory schema\n{_make_dir_description(directory_schema, pipeline_info)}'
         if directory_schema else ''
     )
 
@@ -377,7 +377,7 @@ def _make_toc(md):
     return f'<blockquote markdown="1">\n\n{joined_mds}\n\n</blockquote>\n'
 
 
-def _make_dir_description(dir_schema):
+def _make_dir_description(dir_schema, pipeline_info=None):
     '''
     QA and Required flags are handled:
 
@@ -426,6 +426,24 @@ def _make_dir_description(dir_schema):
     Traceback (most recent call last):
     ...
     AssertionError: Unexpected key "bad" in {'bad': 'schema'}
+
+    Pipeline info added, if available:
+
+    >>> dir_schema = [
+    ...   { 'pattern': 'required\\.txt', 'description': 'Required!'}
+    ... ]
+    >>> pipeline_info = {
+    ...     "name": "Fake Pipeline",
+    ...     "repo_url": "https://github.com/hubmapconsortium/fake",
+    ...     "version_tag": "v1.2.3"
+    ... }
+    >>> print(_make_dir_description(dir_schema, pipeline_info))
+    The HIVE will process each dataset with
+    [Fake Pipeline v1.2.3](https://github.com/hubmapconsortium/fake/releases/tag/v1.2.3).
+    <BLANKLINE>
+    | pattern | required? | description |
+    | --- | --- | --- |
+    | `required\.txt` | ✓ | Required! |
     '''
     for line in dir_schema:
         for k in line.keys():
@@ -469,18 +487,22 @@ def _make_dir_description(dir_schema):
         row.append(description_md)
 
         output.append('| ' + ' | '.join(row) + ' |')
-    return '\n'.join(output)
+    table = '\n'.join(output)
+    pipeline_blurb = \
+        'The HIVE will process each dataset with\n' + make_pipeline_link(pipeline_info) + '.\n' \
+        if pipeline_info else ''
+    return f"{pipeline_blurb}{table}"
 
 
 def make_pipeline_link(info):
     '''
     >>> info = {
-    ...     "name": "scATACseq Pipeline",
-    ...     "repo_url": "https://github.com/hubmapconsortium/foo",
-    ...     "version_tag": "v1.4.3"
+    ...     "name": "Fake Pipeline",
+    ...     "repo_url": "https://github.com/hubmapconsortium/fake",
+    ...     "version_tag": "v1.2.3"
     ... }
     >>> print(make_pipeline_link(info))
-    [scATACseq Pipeline v1.4.3](https://github.com/hubmapconsortium/foo/releases/tag/v1.4.3)
+    [Fake Pipeline v1.2.3](https://github.com/hubmapconsortium/fake/releases/tag/v1.2.3)
     '''
     text = f"{info['name']} {info['version_tag']}"
     href = f"{info['repo_url']}/releases/tag/{info['version_tag']}"
