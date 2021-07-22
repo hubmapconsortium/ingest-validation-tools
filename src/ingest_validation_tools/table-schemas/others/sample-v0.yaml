@@ -52,6 +52,7 @@ fields:
       - HTK
       - Belzer MPS/KPS
       - Formalin
+      - Perfadex
       - Unknown
       - None
   description: Type of solution that was used to perfuse the organ.
