@@ -443,7 +443,7 @@ def _make_dir_description(dir_schema, pipeline_info=None):
     <BLANKLINE>
     | pattern | required? | description |
     | --- | --- | --- |
-    | `required\.txt` | ✓ | Required! |
+    | `required\\.txt` | ✓ | Required! |
     '''
     for line in dir_schema:
         for k in line.keys():
