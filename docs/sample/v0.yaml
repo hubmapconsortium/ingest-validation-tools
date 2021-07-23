@@ -68,6 +68,7 @@ fields:
     - HTK
     - Belzer MPS/KPS
     - Formalin
+    - Perfadex
     - Unknown
     - None
     required: true
