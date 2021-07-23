@@ -1,7 +1,9 @@
 # Changelog
 
-## v0.0.12 - in progress
+## v0.0.13 - in progress
 - Add pipeline info.
+
+## v0.0.12 - 2021-07-23
 - Catch unrecognized keys in dir schema.
 - Ammend LCMS docs.
 - Fix CI: point to right branch.
