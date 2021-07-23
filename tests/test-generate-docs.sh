@@ -24,9 +24,10 @@ rm -rf docs-test
 for TYPE in $(ls -d docs/*); do
   # Skip directories that are unpopulated:
   TYPE=`basename $TYPE`
-  LOOKFOR="docs/$TYPE/$TYPE-metadata.tsv"
-  if [ ! -e $LOOKFOR ]; then
-    echo "Skipping $TYPE. To add: touch $LOOKFOR"
+  LOOKFOR_ASSAY="docs/$TYPE/$TYPE-metadata.tsv"
+  LOOKFOR_OTHER="docs/$TYPE/$TYPE.tsv"
+  if [ ! -e $LOOKFOR_ASSAY ] && [ ! -e $LOOKFOR_OTHER ]; then
+    echo "Skipping $TYPE. To add: 'touch $LOOKFOR_ASSAY' for assays, or 'touch $LOOKFOR_OTHER' for other."
     continue
   fi
 
@@ -43,7 +44,7 @@ for TYPE in $(ls -d docs/*); do
   eval $TEST_CMD
   diff -r $REAL_DEST $TEST_DEST \
     || die "Update needed: $REAL_CMD
-Or:" 'for D in `ls -d docs/*/`; do D=`basename $D`; [ -e docs/$D/$D-metadata.tsv ] || continue; src/generate_docs.py $D docs/$D; done'
+Or:" 'for D in `ls -d docs/*/`; do D=`basename $D`; [ -e docs/$D/*.tsv ] || continue; src/generate_docs.py $D docs/$D; done'
   rm -rf $TEST_DEST
   ((++GENERATE_COUNT))
 done
