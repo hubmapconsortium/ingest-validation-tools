@@ -1,0 +1,5 @@
+- name: spatial_target
+  description: Specifies the cell-type or functional tissue unit (FTU) that is targeted in the spatial profiling experiment. Leave blank if data are generated in imaging mode without a specific target structure.
+  constraints:
+    required: False
+

@@ -1,14 +1,14 @@
 import re
 from string import Template
-import shelve
 from pathlib import Path
 from sys import stderr
+import json
 
 import frictionless
 import requests
 
 
-cache_path = str(Path(__file__).parent / 'url-status-cache')
+cache_path = Path(__file__).parent / 'url-status-cache.json'
 
 
 def make_checks(schema):
@@ -34,12 +34,22 @@ class _CheckFactory():
         }
 
     def _check_url_status_cache(self, url):
-        with shelve.open(cache_path) as url_status_cache:
-            if url not in url_status_cache:
-                print(f'Fetching un-cached url: {url}', file=stderr)
+        if not cache_path.exists():
+            cache_path.write_text('{}')
+        url_status_cache = json.loads(cache_path.read_text())
+        if url not in url_status_cache:
+            print(f'Fetching un-cached url: {url}', file=stderr)
+            try:
                 response = requests.get(url)
                 url_status_cache[url] = response.status_code
-            return url_status_cache[url]
+            except Exception as e:
+                url_status_cache[url] = str(e)
+            cache_path.write_text(json.dumps(
+                url_status_cache,
+                sort_keys=True,
+                indent=2
+            ))
+        return url_status_cache[url]
 
     def make_url_check(self, template=Template(
             'URL returned $status: "$url"')):

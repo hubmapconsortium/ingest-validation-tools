@@ -1,0 +1,100 @@
+# Generated YAML: PRs should not start here!
+description_md: 'This file is really only here to provide descriptions of fields in
+  portal-ui. The full description of Donor metadata is at https://portal.hubmapconsortium.org/docs/donor
+
+  Most definitions taken from https://ncit.nci.nih.gov/ncitbrowser/pages/home.jsf?version=20.11e'
+fields:
+- constraints:
+    required: true
+  custom_constraints:
+    sequence_limit: 3
+  description: The time elapsed since birth.
+  name: age_value
+  type: number
+- constraints:
+    enum:
+      A: http://purl.bioontology.org/ontology/SNOMEDCT/49790006
+      AB: http://purl.bioontology.org/ontology/SNOMEDCT/103868007
+      B: http://purl.bioontology.org/ontology/SNOMEDCT/21221007
+      O: http://purl.bioontology.org/ontology/SNOMEDCT/113036007
+    required: true
+  custom_constraints:
+    sequence_limit: 3
+  description: ABO blood type or "serotype" refers to the presence/absence of the
+    either/both A & B blood antigens.
+  name: blood_type
+- constraints:
+    required: true
+  custom_constraints:
+    sequence_limit: 3
+  description: An individual's weight in kilograms divided by the square of the height
+    in meters.
+  name: body_mass_index_value
+  type: number
+- constraints:
+    required: true
+  custom_constraints:
+    sequence_limit: 3
+  description: The circumstance or condition that caused death.
+  name: cause_of_death
+- constraints:
+    required: true
+  custom_constraints:
+    sequence_limit: 3
+  description: The vertical measurement or distance from the base to the top of a
+    subject or participant.
+  name: height_unit
+- constraints:
+    required: true
+  custom_constraints:
+    sequence_limit: 3
+  description: 'The Kidney Donor Profle Index (KDPI) is a numerical measure that combines
+    ten donor factors, including clinical parameters and demographics, to summarize
+    into a single number the quality of deceased donor kidneys relative to other recovered
+    kidneys. The KDPI is derived by frst calculating the Kidney Donor Risk Index (KDRI)
+    for a deceased donor. Kidneys from a donor with a KDPI of 90%, for example, have
+    a KDRI (which indicates relative risk of graft failure) greater than 90% of recovered
+    kidneys. The KDPI is simply a mapping of the KDRI from a relative risk scale to
+    a cumulative percentage scale. The reference population used for this mapping
+    is all deceased donors in the United States  with a kidney recovered for the purpose
+    of transplantation in the prior calendar year.  Lower KDPI values are associated
+    with increased donor quality and expected longevity. https://optn.transplant.hrsa.gov/media/1512/guide_to_calculating_interpreting_kdpi.pdf
+
+    '
+  name: kidney_donor_profile_index_value
+  type: number
+- constraints:
+    required: true
+  custom_constraints:
+    sequence_limit: 3
+  description: 'Mechanism of injury may be, for example: fall, impact (eg: auto accident),
+    weapon (eg: firearm), etc.'
+  name: mechanism_of_injury
+- constraints:
+    required: true
+  custom_constraints:
+    sequence_limit: 3
+  description: A record of a patient's background regarding health and the occurrence
+    of disease events of the individual.
+  name: medical_history
+- constraints:
+    required: true
+  custom_constraints:
+    sequence_limit: 3
+  description: A grouping of humans based on shared physical characteristics or social/ethnic
+    identity generally viewed as distinct.
+  name: race
+- constraints:
+    required: true
+  custom_constraints:
+    sequence_limit: 3
+  description: 'Biological sex at birth: male or female or other.'
+  name: sex
+- constraints:
+    required: true
+  custom_constraints:
+    sequence_limit: 3
+  description: A measurement that describes the vertical force exerted by a mass of
+    the patient as a result of gravity.
+  name: weight_value
+  type: number

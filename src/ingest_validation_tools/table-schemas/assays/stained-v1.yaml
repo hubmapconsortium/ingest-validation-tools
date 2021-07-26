@@ -1,4 +1,5 @@
 doc_url: https://portal.hubmapconsortium.org/docs/assays/pas
+description_md: This schema is for microscopy of tissue treated with periodic acid–Schiff stain (stained).
 fields:
 # include: ../includes/vA/all_assays.yaml
 - name: assay_category
@@ -21,12 +22,7 @@ fields:
 
 - name: resolution_z_value
   description: 'Optional if assay does not have multiple z-levels. Note that this is resolution within a given sample: z-pitch (resolution_z_value) is the increment distance between image slices ie. the microscope stage is moved up or down in increments to capture images of several focal planes. The best one will be used & the rest discarded. The thickness of the sample itself is sample metadata. Leave blank if not applicable.'
-- name: resolution_z_unit
-  description: The unit of incremental distance between image slices.
-  constraints:
-    enum:
-      - nm
-      - um
+# include: ../includes/fields/resolution_z_unit.yaml
 # include: ../includes/fields/stain.yaml
 # include: ../includes/v0/doi/section_prep.yaml
 # include: ../includes/v0/doi/overall.yaml

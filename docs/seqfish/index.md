@@ -2,15 +2,16 @@
 title: seqFISH
 schema_name: seqfish
 category: Imaging assays
+all_versions_deprecated: False
 layout: default
 ---
 
 Related files:
 - [🔬 Background doc](https://portal.hubmapconsortium.org/docs/assays/seqfish): More details about this type.
-- [📝 Excel template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/master/docs/seqfish/seqfish-metadata.xlsx): For metadata entry.
-- [📝 TSV template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/master/docs/seqfish/seqfish-metadata.tsv): Alternative for metadata entry.
+- [📝 Excel template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/main/docs/seqfish/seqfish-metadata.xlsx): For metadata entry.
+- [📝 TSV template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/main/docs/seqfish/seqfish-metadata.tsv): Alternative for metadata entry.
 
-
+This schema is for spatial sequencing by fluorescence in situ hybridization (seqFISH).
 
 ## Directory schema
 
@@ -191,7 +192,7 @@ Analytes are the target molecules being measured with the assay.
 
 <a name="is_targeted"></a>
 ##### [`is_targeted`](#is_targeted)
-Specifies whether or not a specific molecule(s) is/are targeted for detection/measurement by the assay. The CODEX analyte is protein.
+Specifies whether or not a specific molecule(s) is/are targeted for detection/measurement by the assay.
 
 | constraint | value |
 | --- | --- |
@@ -265,11 +266,11 @@ Optional if assay does not have multiple z-levels. Note that this is resolution 
 
 <a name="resolution_z_unit"></a>
 ##### [`resolution_z_unit`](#resolution_z_unit)
-The unit of incremental distance between image slices.(um) Leave blank if not applicable.
+The unit of incremental distance between image slices. Leave blank if not applicable.
 
 | constraint | value |
 | --- | --- |
-| enum | `nm` or `um` |
+| enum | `mm`, `um`, or `nm` |
 | required | `False` |
 | units for | `resolution_z_value` |
 
@@ -488,7 +489,7 @@ Analytes are the target molecules being measured with the assay.
 
 <a name="is_targeted"></a>
 ##### [`is_targeted`](#is_targeted)
-Specifies whether or not a specific molecule(s) is/are targeted for detection/measurement by the assay. The CODEX analyte is protein.
+Specifies whether or not a specific molecule(s) is/are targeted for detection/measurement by the assay.
 
 | constraint | value |
 | --- | --- |
@@ -562,11 +563,11 @@ Optional if assay does not have multiple z-levels. Note that this is resolution 
 
 <a name="resolution_z_unit"></a>
 ##### [`resolution_z_unit`](#resolution_z_unit)
-The unit of incremental distance between image slices.(um) Leave blank if not applicable.
+The unit of incremental distance between image slices. Leave blank if not applicable.
 
 | constraint | value |
 | --- | --- |
-| enum | `nm` or `um` |
+| enum | `mm`, `um`, or `nm` |
 | required | `False` |
 | units for | `resolution_z_value` |
 

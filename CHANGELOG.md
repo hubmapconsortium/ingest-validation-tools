@@ -3,8 +3,33 @@
 ## v0.0.13 - in progress
 - Updated CODEX directory structure.
 
-## v0.0.12 - in progress
-- Updated CODEX directory structure schema with reference to configuration file.
+## v0.0.12 - 2021-07-23
+- Catch unrecognized keys in dir schema.
+- Ammend LCMS docs.
+- Fix CI: point to right branch.
+- Document Donor and Sample Metadata process.
+- Make the network cache file JSON, for portability.
+- Dependabot update.
+- Fix typo.
+- Explain acronyms.
+- Add kwarg to pass-through to tests.
+- Update `validate_upload.py` docs.
+- Add new LCMS version, and clean up reused fields.
+- Make barcode fields optional.
+- User donor as a test-bed for ontology-enums.
+- Add a warning on pages where every version has been deprecated.
+- Add gcms.
+- Make some scatacseq fields optional.
+- Create CE-MS.
+- New version of IMS.
+- Add a warning on pages where every version has been deprecated.
+- Doc test for deprecated schemas.
+- Add 10X multiome to scatacseq.
+- Deprecated flag can now be added to schema.
+- CLEANUP rnaseq_assay_method.
+- cleanup resolution_z_unit.
+- Network problems in report, instead of quitting with stack trace.
+- New lightsheet schema, with description of changes.
 - Introduced Lightsheet directory schema.
 - Ensure that version numbers match the constraint inside the file.
 - `maldiims` to `ims`: Only touches URLs; doesn't affect validation.

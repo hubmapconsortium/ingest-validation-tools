@@ -108,7 +108,7 @@ fields:
     forbid_na: true
     sequence_limit: 3
   description: Specifies whether or not a specific molecule(s) is/are targeted for
-    detection/measurement by the assay. The CODEX analyte is protein.
+    detection/measurement by the assay.
   name: is_targeted
   type: boolean
 - constraints:
@@ -197,7 +197,7 @@ fields:
   custom_constraints:
     forbid_na: true
     sequence_limit: 3
-  description: rnaseq assay kit used.
+  description: The kit used for the RNA sequencing assay
   name: rnaseq_assay_method
 - constraints:
     pattern: 10\.17504/.*

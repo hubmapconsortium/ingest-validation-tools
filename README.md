@@ -2,6 +2,11 @@
 HuBMAP data upload guidelines, and tools which check that uploads adhere to those guidelines.
 Assay documenentation is on [Github Pages](https://hubmapconsortium.github.io/ingest-validation-tools/).
 
+HuBMAP has three distinct metadata processes:
+- **Donor** metadata is handled by Jonathan Silverstein on an adhoc basis: He works with whatever format the TMC can provide, and aligns it with controlled vocabularies. 
+- **Sample** metadata is handled by Chris Briggs and Bill Shirey. [The standard operating procedure is outlined here.](https://docs.google.com/document/d/1K-PvBaduhrN-aU-vzWd9gZqeGvhGF3geTwRR0ww74Jo/edit)
+- **Dataset** uploads should be validated first by the TMCs. Dataset upload validation is the focus of this repo. [Details below.](#upload-process-and-upload-directory-structure)
+
 ## For assay type working groups:
 
 Before we can write code to validate a particular assay type, there are some prequisites:
@@ -11,7 +16,7 @@ Before we can write code to validate a particular assay type, there are some pre
   [Suggestions for describing directories](HOWTO-describe-directories.md).
 
 When all the parts are finalized,
-- The document will be translated into markdown, and added [here](https://github.com/hubmapconsortium/portal-docs/tree/master/assays).
+- The document will be translated into markdown, and added [here](https://github.com/hubmapconsortium/portal-docs/tree/main/assays).
 - The list of fields will be translated into a table schema, like those [here](src/ingest_validation_tools/table-schemas).
 - The list of files will be translated into a directory schema, like those [here](src/ingest_validation_tools/directory-schemas).
 
@@ -43,13 +48,16 @@ You should see [the documention for `validate_upload.py`](script-docs/README-val
 
 Now run it against one of the included examples, giving the path to an upload directory:
 ```
-src/validate_upload.py --local_directory examples/dataset-examples/bad-tsv-formats/upload --output as_text
+src/validate_upload.py \
+  --local_directory examples/dataset-examples/bad-tsv-formats/upload \
+  --output as_text
 ```
 
 You should now see [this (extensive) error message](examples/dataset-examples/bad-tsv-formats/README.md).
 This example TSV has been constructed with a mistake in every column, just to demonstrate the checks which are available. Hopefully, more often your experience will be like this:
 ```
-src/validate_upload.py --local_directory examples/dataset-examples/good-codex-akoya/upload
+src/validate_upload.py \
+  --local_directory examples/dataset-examples/good-codex-akoya/upload
 ```
 ```
 No errors!
@@ -63,7 +71,9 @@ Addition help for certain common error messages is available [here](README-valid
 If you don't have an entire upload directory at hand, you can validate individual
 metadata, antibodies, contributors, or sample TSVs:
 ```
-src/validate_tsv.py --schema metadata --path examples/dataset-examples/good-scatacseq-v1/upload/metadata.tsv
+src/validate_tsv.py \
+  --schema metadata \
+  --path examples/dataset-examples/good-scatacseq-v1/upload/metadata.tsv
 ```
 ```
 No errors!
@@ -84,13 +94,14 @@ pip install -r requirements.txt
 
 # Back to ingest-validation-tools...
 cd ../ingest-validation-tools
-src/validate_upload.py --local_directory examples/dataset-examples/good-codex-akoya/upload \
+src/validate_upload.py \
+  --local_directory examples/dataset-examples/good-codex-akoya/upload \
   --plugin_directory ../ingest-validation-tests/src/ingest_validation_tests/
 ```
 
-## For developers:
+## For developers and contributors:
 
-A good example is of usage is `validate-upload.py`; In a nutshell:
+A good example is of programatic usage is `validate-upload.py`; In a nutshell:
 ```python
 upload = Upload(directory_path=path)
 report = ErrorReport(upload.get_errors())
@@ -98,9 +109,7 @@ print(report.as_text())
 ```
 (If it would be useful for this to be installable with `pip`, please file an issue.)
 
-## For contributors:
-
-Checkout the project, cd, venv, and then:
+To make contributions, checkout the project, cd, venv, and then:
 ```
 pip install -r requirements.txt
 pip install -r requirements-dev.txt
@@ -116,7 +125,7 @@ $ git tag v0.0.x
 $ git push origin v0.0.x
 ```
 
-## Repo structure
+### Repo structure
 [![Repo structure](https://docs.google.com/drawings/d/e/2PACX-1vQ8gorGI8ceYBf0bIJQlw4HvI3ooVTvCfickHhCvGJU4yy5kViJI39oqQ7xB20WLYxv8FMRuBLGwmH-/pub?w=600)](https://docs.google.com/drawings/d/1UK81oUHTSHetGXRsA-YeSFS-kb6Nw2rNpnw8SBysYXU/edit)
 
 Checking in the built documentation is not the typical approach, but has worked well for this project:
@@ -132,7 +141,7 @@ Data upload to HuBMAP is composed of discrete phases:
 - Restructuring
 - Re-re-validation and pipeline runs
 
-[![Upload process](https://docs.google.com/drawings/d/e/2PACX-1vQeNhQsKQewUz1rHDIl2rQLn08gt_wbTnDvkBM3fCBA5BareGPuwYxSHTTXwY2Y0XGLGmX9UcqzDC5U/pub?w=1000)](https://docs.google.com/drawings/d/1Cicn-JUVU9QmfsP0CHtGPJkqCe08DlENlKR02leOiLg/edit)
+[![Upload process](https://docs.google.com/drawings/d/e/2PACX-1vScOVTJCQjaHj0oiVuvPxuQDNXFCtI-CGTTOm-kSPji9DehMxRIaWg98qKAkkvwSWn5d2TuL1z4mIyh/pub?w=1000)](https://docs.google.com/drawings/d/11DLkPe_mfC3kh69HCYqCx5MAVTTkYOXqVjyFY85jMLQ/edit)
 
 Uploads are based on directories containing at a minimum:
 - one or more `*-metadata.tsv` files.
@@ -146,4 +155,4 @@ but if they are applicable to only a single dataset, they can be placed within t
 
 You can validate your upload directory locally, then upload it to Globus, and the same validation will be run there.
 
-[![Upload diagram](https://docs.google.com/drawings/d/e/2PACX-1vS8F78bk0zHSRygMIyTLruAMxjL4c5EY_q_Mp3gN2TbdZLtalax5AxyvwBWyqWwAJH941ziqJPqBDTW/pub?w=500)](https://docs.google.com/drawings/d/1nhrRWBgcZh6GE2MCKysIq4KzsRL6SZm0jYtvadF83Kk/edit)
+[![Upload directory structure](https://docs.google.com/drawings/d/e/2PACX-1vS8F78bk0zHSRygMIyTLruAMxjL4c5EY_q_Mp3gN2TbdZLtalax5AxyvwBWyqWwAJH941ziqJPqBDTW/pub?w=500)](https://docs.google.com/drawings/d/1nhrRWBgcZh6GE2MCKysIq4KzsRL6SZm0jYtvadF83Kk/edit)

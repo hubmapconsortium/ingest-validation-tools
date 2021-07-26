@@ -9,7 +9,7 @@ from tableschema_to_template.create_xlsx import create_xlsx
 
 from ingest_validation_tools.schema_loader import (
     dict_schema_versions, get_table_schema, get_other_schema, get_directory_schema,
-    get_is_assay)
+    get_is_assay, enum_maps_to_lists)
 from ingest_validation_tools.docs_utils import (
     get_tsv_name, get_xlsx_name,
     generate_template_tsv, generate_readme_md)
@@ -67,7 +67,8 @@ def main():
 
     # Data entry templates:
     with open(Path(args.target) / get_tsv_name(args.type, is_assay=is_assay), 'w') as f:
-        max_schema = table_schemas[max_version]
+        max_schema = enum_maps_to_lists(table_schemas[max_version],
+                                        add_none_of_the_above=True, add_suggested=True)
         f.write(generate_template_tsv(max_schema))
     create_xlsx(
         max_schema, Path(args.target) / get_xlsx_name(args.type, is_assay=is_assay),

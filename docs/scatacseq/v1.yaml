@@ -1,4 +1,6 @@
 # Generated YAML: PRs should not start here!
+description_md: This schema is for the single cell Assay for Transposase Accessible
+  Chromatin by sequencing (scATACseq).
 doc_url: https://portal.hubmapconsortium.org/docs/assays/atacseq
 fields:
 - constraints:
@@ -127,7 +129,7 @@ fields:
     forbid_na: true
     sequence_limit: 3
   description: Specifies whether or not a specific molecule(s) is/are targeted for
-    detection/measurement by the assay. The CODEX analyte is protein.
+    detection/measurement by the assay.
   name: is_targeted
   type: boolean
 - constraints:
@@ -251,6 +253,7 @@ fields:
     - 10X snATAC
     - In-house
     - Nextera
+    - 10X multiome
     required: true
   custom_constraints:
     forbid_na: true
@@ -299,11 +302,12 @@ fields:
   name: library_adapter_sequence
   type: string
 - constraints:
-    required: true
+    required: false
   custom_constraints:
     forbid_na: true
     sequence_limit: 3
-  description: Which read file contains the cell barcode.
+  description: Which read file contains the cell barcode. This field is not required
+    for barcoding by single-cell combinatorial indexing.
   name: cell_barcode_read
 - constraints:
     pattern: \d+(,\d+)*
@@ -313,8 +317,8 @@ fields:
     sequence_limit: 3
   description: Positions in the read at which the cell barcodes start. Cell barcodes
     are, for example, 3 x 8 bp sequences that are spaced by constant sequences (the
-    offsets). First barcode at position 0, then 38, then 76. (Does not apply to SNARE-seq
-    and BulkATAC.)
+    offsets). First barcode at position 0, then 38, then 76. (Does not apply to sciATACseq,
+    SNARE-seq and BulkATAC.)
   name: cell_barcode_offset
   type: string
 - constraints:
@@ -325,7 +329,7 @@ fields:
     sequence_limit: 3
   description: Length of the cell barcode in base pairs. Cell barcodes are, for example,
     3 x 8 bp sequences that are spaced by constant sequences, the offsets. (Does not
-    apply to SNARE-seq and BulkATAC.)
+    apply to sciATACseq, SNARE-seq and BulkATAC.)
   name: cell_barcode_size
   type: string
 - constraints:

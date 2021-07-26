@@ -30,8 +30,8 @@ for TEST in tests/test-*; do
 done
 
 start changelog
-if [ "$TRAVIS_BRANCH" != 'master' ]; then
-  diff CHANGELOG.md <(curl -s https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/master/CHANGELOG.md) \
+if [ "$TRAVIS_BRANCH" != 'main' ]; then
+  diff CHANGELOG.md <(curl -s https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/main/CHANGELOG.md) \
     && die 'Update CHANGELOG.md'
 fi
 end changelog

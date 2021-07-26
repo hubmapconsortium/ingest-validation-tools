@@ -2,7 +2,6 @@
 
 import argparse
 import sys
-from glob import glob
 from pathlib import Path
 import inspect
 
@@ -21,13 +20,10 @@ directory_schemas = sorted({
 def make_parser():
     parser = argparse.ArgumentParser(
         description='''
-Validate a HuBMAP upload, both the metadata TSVs, and the datasets,
-either local or remote, or a combination of the two.''',
+Validate a HuBMAP upload, both the metadata TSVs and the datasets.
+If you only want to validate a TSV in isolation, look at validate_tsv.py.''',
         epilog=f'''
 Typical usage:
-  --tsv_paths: Used to validate Sample metadata TSVs. (Because it does
-  not check references, should not be used to validate Dataset metadata TSVs.)
-
   --local_directory: Used by lab before upload, and on Globus after upload.
 
   --local_directory + --dataset_ignore_globs + --upload_ignore_globs:
@@ -117,8 +113,7 @@ def main():
     args = parser.parse_args()
 
     if args.clear_cache:
-        for path in glob(f'{cache_path}*'):
-            Path(path).unlink()
+        cache_path.unlink()
 
     upload_args = {
         'add_notes': args.add_notes,

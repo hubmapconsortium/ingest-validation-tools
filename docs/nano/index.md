@@ -2,13 +2,14 @@
 title: NanoDESI / NanoPOTS
 schema_name: nano
 category: Imaging mass spectrometry
+all_versions_deprecated: True
 layout: default
 ---
 
 Related files:
 
-- [📝 Excel template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/master/docs/nano/nano-metadata.xlsx): For metadata entry.
-- [📝 TSV template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/master/docs/nano/nano-metadata.tsv): Alternative for metadata entry.
+- [📝 Excel template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/main/docs/nano/nano-metadata.xlsx): For metadata entry.
+- [📝 TSV template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/main/docs/nano/nano-metadata.tsv): Alternative for metadata entry.
 
 
 
@@ -23,7 +24,7 @@ Related files:
 ## Metadata schema
 
 
-<details markdown="1" open="true"><summary><b>Version 1 (current)</b></summary>
+<details markdown="1" open="true"><summary><s>Version 1 (current)</s> (deprecated)</summary>
 
 <blockquote markdown="1">
 
@@ -185,7 +186,7 @@ Analytes are the target molecules being measured with the assay.
 
 <a name="is_targeted"></a>
 ##### [`is_targeted`](#is_targeted)
-Specifies whether or not a specific molecule(s) is/are targeted for detection/measurement by the assay. The CODEX analyte is protein.
+Specifies whether or not a specific molecule(s) is/are targeted for detection/measurement by the assay.
 
 | constraint | value |
 | --- | --- |
@@ -225,12 +226,12 @@ The polarity of the mass analysis (positive or negative ion modes)
 
 | constraint | value |
 | --- | --- |
-| enum | `Positive` or `Negative` |
+| enum | `negative ion mode` or `positive ion mode` |
 | required | `True` |
 
 <a name="mz_range_low_value"></a>
 ##### [`mz_range_low_value`](#mz_range_low_value)
-A number representing the mass:charge ratio.
+The low value of the scanned mass range for MS1. (unitless)
 
 | constraint | value |
 | --- | --- |
@@ -239,7 +240,7 @@ A number representing the mass:charge ratio.
 
 <a name="mz_range_high_value"></a>
 ##### [`mz_range_high_value`](#mz_range_high_value)
-A number representing the mass:charge ratio.
+The high value of the scanned mass range for MS1. (unitless)
 
 | constraint | value |
 | --- | --- |
@@ -323,7 +324,7 @@ Relative path to file or directory with instrument data. Downstream processing w
 </details>
 
 
-<details markdown="1" ><summary><b>Version 0</b></summary>
+<details markdown="1" ><summary><s>Version 0</s> (deprecated)</summary>
 
 
 ### Shared by all types
@@ -429,7 +430,7 @@ Analytes are the target molecules being measured with the assay.
 
 <a name="is_targeted"></a>
 ##### [`is_targeted`](#is_targeted)
-Specifies whether or not a specific molecule(s) is/are targeted for detection/measurement by the assay. The CODEX analyte is protein.
+Specifies whether or not a specific molecule(s) is/are targeted for detection/measurement by the assay.
 
 | constraint | value |
 | --- | --- |
@@ -469,12 +470,12 @@ The polarity of the mass analysis (positive or negative ion modes)
 
 | constraint | value |
 | --- | --- |
-| enum | `Positive` or `Negative` |
+| enum | `negative ion mode` or `positive ion mode` |
 | required | `True` |
 
 <a name="mz_range_low_value"></a>
 ##### [`mz_range_low_value`](#mz_range_low_value)
-A number representing the mass:charge ratio.
+The low value of the scanned mass range for MS1. (unitless)
 
 | constraint | value |
 | --- | --- |
@@ -483,7 +484,7 @@ A number representing the mass:charge ratio.
 
 <a name="mz_range_high_value"></a>
 ##### [`mz_range_high_value`](#mz_range_high_value)
-A number representing the mass:charge ratio.
+The high value of the scanned mass range for MS1. (unitless)
 
 | constraint | value |
 | --- | --- |

@@ -1,4 +1,5 @@
 # Generated YAML: PRs should not start here!
+description_md: This schema is for autofluorescence (AF).
 doc_url: https://portal.hubmapconsortium.org/docs/assays/af
 fields:
 - constraints:
@@ -122,7 +123,7 @@ fields:
     forbid_na: true
     sequence_limit: 3
   description: Specifies whether or not a specific molecule(s) is/are targeted for
-    detection/measurement by the assay. The CODEX analyte is protein.
+    detection/measurement by the assay.
   name: is_targeted
   type: boolean
 - constraints:
@@ -196,14 +197,15 @@ fields:
   type: number
 - constraints:
     enum:
-    - nm
+    - mm
     - um
+    - nm
     required: false
   custom_constraints:
     forbid_na: true
     sequence_limit: 3
     units_for: resolution_z_value
-  description: The unit of incremental distance between image slices.(um)
+  description: The unit of incremental distance between image slices.
   name: resolution_z_unit
 - constraints:
     required: true

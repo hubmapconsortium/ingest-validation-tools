@@ -87,8 +87,10 @@ def _enrich_description(field):
 
 def generate_readme_md(
         table_schemas, directory_schema, schema_name, is_assay=True):
-    max_version = max(table_schemas.keys())
-    max_version_table_schema = table_schemas[max_version]
+    int_keys = [int(k) for k in table_schemas.keys()]
+    max_version = max(int_keys)
+    min_version = min(int_keys)
+    max_version_table_schema = table_schemas[str(max_version)]
 
     assay_type_enum = get_field_enum('assay_type', max_version_table_schema)
     assay_category_enum = get_field_enum('assay_category', max_version_table_schema)
@@ -102,7 +104,7 @@ def generate_readme_md(
         if source_project_enum else ''
 
     raw_base_url = 'https://raw.githubusercontent.com/' \
-        'hubmapconsortium/ingest-validation-tools/master/docs'
+        'hubmapconsortium/ingest-validation-tools/main/docs'
 
     optional_dir_description_md = (
         f'## Directory schema\n{_make_dir_description(directory_schema)}'
@@ -133,20 +135,20 @@ def generate_readme_md(
             'other': 'Other TSVs'
         }[category],
         'max_version': max_version,
+        'all_versions_deprecated':
+            all(schema.get('deprecated') for schema in table_schemas.values()),
 
         'tsv_url': f'{raw_base_url}/{schema_name}/{get_tsv_name(schema_name, is_assay=is_assay)}',
         'xlsx_url': f'{raw_base_url}/{schema_name}/{get_xlsx_name(schema_name, is_assay=is_assay)}',
 
         'current_version_md':
             _make_fields_md(
-                table_schemas[max_version], f'Version {max_version} (current)', is_open=True
-        ),
+                max_version_table_schema, f'Version {max_version} (current)', is_open=True
+            ),
         'previous_versions_md':
             '\n\n'.join([
-                _make_fields_md(
-                    table_schemas[str(v)], f'Version {v}'
-                )
-                for v in reversed(range(int(max_version)))
+                _make_fields_md(table_schemas[str(v)], f'Version {v}')
+                for v in range(max_version - 1, min_version - 1, -1)
             ]),
 
         'optional_dir_description_md': optional_dir_description_md,
@@ -170,6 +172,13 @@ def _make_fields_md(table_schema, title, is_open=False):
     ##### [`a_name`](#a_name)
     A description.
     </details>
+
+    >>> schema = {'deprecated': True, 'fields': []}
+    >>> print(_clean(_make_fields_md(schema, 'A title', is_open=True)))
+    <details markdown="1" open="true"><summary><s>A title</s> (deprecated)</summary>
+    <blockquote markdown="1">
+    </blockquote>
+    </details>
     '''
 
     fields_md_list = []
@@ -185,8 +194,12 @@ def _make_fields_md(table_schema, title, is_open=False):
             table_md
         ]))
     joined_list = '\n\n'.join(fields_md_list)
+    if table_schema.get('deprecated'):
+        title_html = f'<s>{title}</s> (deprecated)'
+    else:
+        title_html = f'<b>{title}</b>'
     return f'''
-<details markdown="1" {'open="true"' if is_open else ''}><summary><b>{title}</b></summary>
+<details markdown="1" {'open="true"' if is_open else ''}><summary>{title_html}</summary>
 
 {_make_toc(joined_list) if is_open else ''}
 {joined_list}
@@ -239,7 +252,20 @@ def _make_constraints_table(field):
     if len(table_md_rows) < 3:
         # Empty it, if there is no data.
         table_md_rows = []
-    return '\n' + '\n'.join(table_md_rows)
+    main_table_md = '\n'.join(table_md_rows)
+
+    ontology_table_md = _make_ontology_table(field['constraints']['enum']) \
+        if 'constraints' in field and 'enum' in field['constraints'] else ''
+    return '\n' + main_table_md + ontology_table_md
+
+
+def _make_ontology_table(enum):
+    if not isinstance(enum, dict):
+        return ''
+    table_md_rows = ['| term | URI |', '| --- | --- |']
+    for term, uri in enum.items():
+        table_md_rows.append(f'| {term} | `{uri}` |')
+    return '\n\nOntology terms:\n\n' + '\n'.join(table_md_rows)
 
 
 def _make_key_md(key, value):
@@ -389,9 +415,23 @@ def _make_dir_description(dir_schema):
     >>> _make_dir_description(dir_schema)
     Traceback (most recent call last):
     ...
-    Exception: Example "ABC123" does not match pattern "[A-Z]\\d"
+    AssertionError: Example "ABC123" does not match pattern "[A-Z]\\d"
 
+    Unexpected flags cause error:
+
+    >>> dir_schema = [
+    ...   { 'bad': 'schema' }
+    ... ]
+    >>> _make_dir_description(dir_schema)
+    Traceback (most recent call last):
+    ...
+    AssertionError: Unexpected key "bad" in {'bad': 'schema'}
     '''
+    for line in dir_schema:
+        for k in line.keys():
+            assert k in {'pattern', 'required', 'description', 'example', 'is_qa_qc'}, \
+                f'Unexpected key "{k}" in {line}'
+
     has_examples = any('example' in line for line in dir_schema)
 
     output = []
@@ -416,8 +456,8 @@ def _make_dir_description(dir_schema):
                 row.append('')
             else:
                 example = line['example']
-                if not re.fullmatch(pattern, example):
-                    raise Exception(f'Example "{example}" does not match pattern "{pattern}"')
+                assert re.fullmatch(pattern, example), \
+                    f'Example "{example}" does not match pattern "{pattern}"'
                 example_md = f'`{_md_escape_re(example)}`'
                 row.append(example_md)
 

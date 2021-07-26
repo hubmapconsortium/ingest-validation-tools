@@ -1,4 +1,5 @@
 doc_url: https://portal.hubmapconsortium.org/docs/assays/rnaseq
+description_md: This schema is for single cell RNA sequencing (scRNAseq).
 fields:
 - name: version
   heading: Shared by all types
@@ -51,8 +52,7 @@ fields:
   description: Total number of cell/nuclei yielded post dissociation and enrichment
 - name: rnaseq_assay_input
   description: Number of cell/nuclei input to the assay
-- name: rnaseq_assay_method
-  description: The kit used for the RNA sequencing assay
+# include: ../includes/fields/rnaseq_assay_method.yaml
 - name: library_construction_protocols_io_doi
   description: A link to the protocol document containing the library construction method (including version) that was used, e.g. "Smart-Seq2", "Drop-Seq", "10X v3".
 # include: ../includes/fields/library_layout.yaml
@@ -66,13 +66,17 @@ fields:
   type: boolean
 - name: cell_barcode_read
   description: Which read file contains the cell barcode
+  constraints:
+    required: FALSE
 - name: cell_barcode_offset
   description: Position(s) in the read at which the cell barcode starts.
   constraints:
+    required: FALSE
     pattern: '\d+(,\d+)*'
 - name: cell_barcode_size
   description: Length of the cell barcode in base pairs
   constraints:
+    required: FALSE
     pattern: '\d+(,\d+)*'
 # include: ../includes/fields/expected_cell_count.yaml
 - name: library_pcr_cycles
