@@ -6,7 +6,7 @@
   required: False
 -
   example: 'summary.pdf'
-  pattern: '[^/].*\.pdf'
+  pattern: '[^/]*\.pdf'
   description: 'PDF export of Powerpoint slide deck containing the Image Analysis Report'
   is_qa_qc: True
   required: False
