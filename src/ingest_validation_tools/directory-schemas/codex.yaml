@@ -6,9 +6,10 @@
   required: False
 -
   example: 'summary.pdf'
-  pattern: '.+\.pdf'
+  pattern: '[^/].*\.pdf'
   description: 'PDF export of Powerpoint slide deck containing the Image Analysis Report'
   is_qa_qc: True
+  required: False
 -
   pattern: '(raw|src_.*)/.*'
   description: 'Raw data directory.'
@@ -50,7 +51,7 @@
   description: 'Configuration file with information needed for the HuBMAP processing pipeline'
   required: False
 -
-  pattern: 'raw/segmentation\.json|(processed|drv_src.*|extras)/config\.txt'
+  pattern: 'raw/segmentation\.json|(processed|drv_.*|extras)/config\.txt'
   description: 'Sanity check that verifies the existence of at least one of these files. This is required for the HuBMAP processing pipeline'
   required: True
 -
