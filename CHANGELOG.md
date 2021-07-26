@@ -1,5 +1,8 @@
 # Changelog
 
+## v0.0.13 - in progress
+- Updated CODEX directory structure.
+
 ## v0.0.12 - in progress
 - Updated CODEX directory structure schema with reference to configuration file.
 - Introduced Lightsheet directory schema.

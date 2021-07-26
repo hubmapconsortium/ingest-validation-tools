@@ -50,15 +50,11 @@ Metadata TSV Errors:
         - exposure_times.txt
         - segmentation.json
         Required but missing:
-        - (processed|drv_)[^/]+/channelNames\.txt
-        - (processed|drv_)[^/]+/processed_[^/]+/.*
-        - (raw|src_)[^/]+/channelnames\.txt
-        - (raw|src_)[^/]+/channelnames_report\.csv
-        - (raw|src_)[^/]+/cyc.*_reg.*_.*/.*_.*_Z.*_CH.*\.tif
-        - (raw|src_)[^/]+/experiment\.json
-        - (raw|src_)[^/]+/exposure_times\.txt
-        - (raw|src_)[^/]+/segmentation\.(json|txt)
-        - .+\.pdf
+        - (processed|drv_.*)/.*
+        - (raw|src_.*)/.*
+        - (raw|src_.*)/channel[Nn]ames\.txt
+        - (raw|src_[^/]*)/[Ee]xperiment\.json
+        - raw/segmentation\.json|(processed|drv_.*|extras)/config\.txt
       row 2, contributors examples/dataset-examples/bad-tsv-formats/upload/contributors.tsv: File
         has no data rows.
       row 2, antibodies examples/dataset-examples/bad-tsv-formats/upload/antibodies.tsv: File
