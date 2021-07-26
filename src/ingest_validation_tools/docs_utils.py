@@ -86,7 +86,7 @@ def _enrich_description(field):
 
 
 def generate_readme_md(
-        table_schemas, pipeline_info, directory_schema, schema_name, is_assay=True):
+        table_schemas, pipeline_infos, directory_schema, schema_name, is_assay=True):
     int_keys = [int(k) for k in table_schemas.keys()]
     max_version = max(int_keys)
     min_version = min(int_keys)
@@ -107,7 +107,7 @@ def generate_readme_md(
         'hubmapconsortium/ingest-validation-tools/main/docs'
 
     optional_dir_description_md = (
-        f'## Directory schema\n{_make_dir_description(directory_schema, pipeline_info)}'
+        f'## Directory schema\n{_make_dir_description(directory_schema, pipeline_infos)}'
         if directory_schema else ''
     )
 
@@ -377,7 +377,7 @@ def _make_toc(md):
     return f'<blockquote markdown="1">\n\n{joined_mds}\n\n</blockquote>\n'
 
 
-def _make_dir_description(dir_schema, pipeline_info=None):
+def _make_dir_description(dir_schema, pipeline_infos=[]):
     '''
     QA and Required flags are handled:
 
@@ -432,12 +432,12 @@ def _make_dir_description(dir_schema, pipeline_info=None):
     >>> dir_schema = [
     ...   { 'pattern': 'required\\.txt', 'description': 'Required!'}
     ... ]
-    >>> pipeline_info = {
+    >>> pipeline_infos = [{
     ...     "name": "Fake Pipeline",
     ...     "repo_url": "https://github.com/hubmapconsortium/fake",
     ...     "version_tag": "v1.2.3"
-    ... }
-    >>> print(_make_dir_description(dir_schema, pipeline_info))
+    ... }]
+    >>> print(_make_dir_description(dir_schema, pipeline_infos))
     The HIVE will process each dataset with
     [Fake Pipeline v1.2.3](https://github.com/hubmapconsortium/fake/releases/tag/v1.2.3).
     <BLANKLINE>
@@ -488,9 +488,10 @@ def _make_dir_description(dir_schema, pipeline_info=None):
 
         output.append('| ' + ' | '.join(row) + ' |')
     table = '\n'.join(output)
+    pipeline_infos_md = ' and '.join(make_pipeline_link(info) for info in pipeline_infos)
     pipeline_blurb = \
-        'The HIVE will process each dataset with\n' + make_pipeline_link(pipeline_info) + '.\n' \
-        if pipeline_info else ''
+        f'The HIVE will process each dataset with\n{pipeline_infos_md}.\n' \
+        if pipeline_infos else ''
     return f"{pipeline_blurb}{table}"
 
 

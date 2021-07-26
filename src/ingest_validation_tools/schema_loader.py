@@ -11,9 +11,9 @@ _directory_schemas_path = Path(__file__).parent / 'directory-schemas'
 _pipeline_infos_path = Path(__file__).parent / 'pipeline-infos'
 
 
-def get_pipeline_info(name):
+def get_pipeline_infos(name):
     info_path = _pipeline_infos_path / f'{name}.yaml'
-    return load_yaml(info_path) if info_path.exists() else None
+    return load_yaml(info_path) if info_path.exists() else []
 
 
 class PreflightError(Exception):
