@@ -15,7 +15,7 @@
   description: 'Raw data directory.'
   required: True
 -
-  pattern: '(processed|drv_.*)/.*'
+  pattern: '(processed|drv_[^/]*)/.*'
   description: 'Processed files produced by the Akoya software or alternative software.'
   required: True
 -
