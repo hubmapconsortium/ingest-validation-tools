@@ -2,6 +2,10 @@
 
 ## v0.0.13 - in progress
 - Updated CODEX directory structure.
+- Non-assay schema docs were not be update. Fix that.
+- Sample was being skipped in doc generation. Fix that.
+- Add to enums for `perfusion_solutions` and `ms_source`.
+- Upgrade from dependabot.
 
 ## v0.0.12 - 2021-07-23
 - Catch unrecognized keys in dir schema.
