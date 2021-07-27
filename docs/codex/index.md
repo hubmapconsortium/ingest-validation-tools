@@ -23,14 +23,14 @@ The other fields function the same way for all assays using antibodies. For more
 | `(raw\|src_[^/]*)/exposure_times\.txt` |  |  | Comma separated text file used for background subtraction that contains valid exposure times for all cycles [e.g: Cycle,CH1,CH2,CH3,CH4]. |
 | `raw/reg_[^/]*\.png` | `raw/reg_00.png` |  | Region overviews |
 | `(raw\|src_[^/]*)/[Ee]xperiment\.json` |  | ✓ | JSON file produced by the Akoya software which contains the metadata for the experiment, including the software version used, microscope parameters, channel names, pixel dimensions, etc. (required for HuBMAP pipeline) |
-| `(raw\|src_[^/]*)/segmentation\.json` |  |  | JSON file produced by the Akoya software with segmentation information |
 | `processed/HandE\.tif` |  |  | HandE image |
 | `processed/HandE_RGB\.tif` |  |  | HandE RGB image |
 | `processed/HandE_RGB_thumbnail.jpg` |  |  | HandE RGB thumbnail |
-| `(processed\|drv_[^/]*\|extras)/config\.txt` |  |  | Configuration file with information needed for the HuBMAP processing pipeline |
-| `raw/segmentation\.json\|(processed\|drv_.*\|extras)/config\.txt` |  | ✓ | Sanity check that verifies the existence of at least one of these files. This is required for the HuBMAP processing pipeline |
+| `(src_[^/]*\|drv_[^/]*\|extras)/[sS]egmentation\.json` |  |  | JSON file produced by the Akoya software with segmentation information |
+| `(raw\|processed)/config\.txt` |  |  | Configuration file with information needed for the HuBMAP processing pipeline |
+| `(raw\|processed)/config\.txt\|(src_[^/]*\|drv_[^/]*\|extras)/[sS]egmentation\.json` |  | ✓ | Sanity check that verifies the existence of at least one of these files. This is required for the HuBMAP processing pipeline |
 | `src_[^/]+/channelnames_report\.csv` |  |  | Two column CSV: The first column is a name or target; The second column is boolean: "FALSE" channels are excluded from processing. (required for HuBMAP pipeline) |
-| `src_.*/cyc.*_reg.*_.*/.*_.*_Z.*_CH.*\.tif` |  |  | TIFF files produced by the experiment. General folder format: Cycle(n)_Region(n)_date; General file format: name_tileNumber(n)_zplaneNumber(n)_channelNumber(n) |
+| `(raw\|src_.*)/[cC]yc.*_reg.*/.*_Z.*_CH.*\.tif` |  | ✓ | TIFF files produced by the experiment. General folder format: Cycle(n)_Region(n)_date; General file format: name_tileNumber(n)_zplaneNumber(n)_channelNumber(n) |
 | `src_.*/cyc.*_reg.*_.*/.*\.gci` |  |  | Group Capture Information File (Keyance Microscope only) |
 | `(raw\|src_.*)/channel[Nn]ames\.txt` |  | ✓ | Text file produced by the Akoya software which contains the (linearized) channel number and the Name/ID/Target of the channel (required for HuBMAP pipeline) |
 | `(raw\|src_.*)/.*` |  | ✓ | Raw data directory. |
