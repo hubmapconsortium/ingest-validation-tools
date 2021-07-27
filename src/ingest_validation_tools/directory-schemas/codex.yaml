@@ -1,6 +1,7 @@
 # A dataset consists of a single CODEX experimental run
 
 -
+  example: 'NAV.tif'
   pattern: '[^/]*NAV[^/]*\.tif'
   description: 'Navigational Image showing Region of Interest (Keyance Microscope only)'
   required: False
@@ -11,19 +12,12 @@
   is_qa_qc: True
   required: False
 -
-  pattern: '(raw|src_.*)/.*'
-  description: 'Raw data directory.'
-  required: True
--
-  pattern: '(processed|drv_[^/]*)/.*'
-  description: 'Processed files produced by the Akoya software or alternative software.'
-  required: True
--
   pattern: '(raw|src_[^/]*)/exposure_times\.txt'
   description: 'Comma separated text file used for background subtraction that contains valid exposure times for all cycles [e.g: Cycle,CH1,CH2,CH3,CH4].'
   required: False
 -
-  pattern: 'raw/reg_00\.png'
+  example: 'raw/reg_00.png'
+  pattern: 'raw/reg_[^/]*\.png'
   description: 'Region overviews'
   required: False
 -
@@ -69,4 +63,12 @@
 -
   pattern: '(raw|src_.*)/channel[Nn]ames\.txt'
   description: 'Text file produced by the Akoya software which contains the (linearized) channel number and the Name/ID/Target of the channel (required for HuBMAP pipeline)'
+  required: True
+-
+  pattern: '(raw|src_.*)/.*'
+  description: 'Raw data directory.'
+  required: True
+-
+  pattern: '(processed|drv_[^/]*)/.*'
+  description: 'Processed files produced by the Akoya software or alternative software.'
   required: True
