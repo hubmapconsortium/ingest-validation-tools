@@ -2,13 +2,14 @@
 title: sample
 schema_name: sample
 category: Other TSVs
+all_versions_deprecated: False
 layout: default
 ---
 
 Related files:
 
-- [📝 Excel template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/master/docs/sample/sample.xlsx): For metadata entry.
-- [📝 TSV template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/master/docs/sample/sample.tsv): Alternative for metadata entry.
+- [📝 Excel template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/main/docs/sample/sample.xlsx): For metadata entry.
+- [📝 TSV template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/main/docs/sample/sample.tsv): Alternative for metadata entry.
 
 
 
@@ -113,7 +114,7 @@ Type of solution that was used to perfuse the organ.
 | constraint | value |
 | --- | --- |
 | required | `True` |
-| enum | `UWS`, `HTK`, `Belzer MPS/KPS`, `Formalin`, `Unknown`, or `None` |
+| enum | `UWS`, `HTK`, `Belzer MPS/KPS`, `Formalin`, `Perfadex`, `Unknown`, or `None` |
 
 <a name="pathologist_report"></a>
 ##### [`pathologist_report`](#pathologist_report)
