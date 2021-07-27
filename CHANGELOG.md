@@ -1,6 +1,7 @@
 # Changelog
 
 ## v0.0.13 - in progress
+- Upgrade from dependabot.
 
 ## v0.0.12 - 2021-07-23
 - Catch unrecognized keys in dir schema.
