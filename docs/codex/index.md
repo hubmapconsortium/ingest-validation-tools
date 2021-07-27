@@ -18,12 +18,10 @@ The other fields function the same way for all assays using antibodies. For more
 
 | pattern | example | required? | description |
 | --- | --- | --- | --- |
-| `[^/]*NAV[^/]*\.tif` |  |  | Navigational Image showing Region of Interest (Keyance Microscope only) |
-| `[^/].*\.pdf` | `summary.pdf` |  | **[QA/QC]** PDF export of Powerpoint slide deck containing the Image Analysis Report |
-| `(raw\|src_.*)/.*` |  | ✓ | Raw data directory. |
-| `(processed\|drv_.*)/.*` |  | ✓ | Processed files produced by the Akoya software or alternative software. |
+| `[^/]*NAV[^/]*\.tif` | `NAV.tif` |  | Navigational Image showing Region of Interest (Keyance Microscope only) |
+| `[^/]*\.pdf` | `summary.pdf` |  | **[QA/QC]** PDF export of Powerpoint slide deck containing the Image Analysis Report |
 | `(raw\|src_[^/]*)/exposure_times\.txt` |  |  | Comma separated text file used for background subtraction that contains valid exposure times for all cycles [e.g: Cycle,CH1,CH2,CH3,CH4]. |
-| `raw/reg_00\.png` |  |  | Region overviews |
+| `raw/reg_[^/]*\.png` | `raw/reg_00.png` |  | Region overviews |
 | `(raw\|src_[^/]*)/[Ee]xperiment\.json` |  | ✓ | JSON file produced by the Akoya software which contains the metadata for the experiment, including the software version used, microscope parameters, channel names, pixel dimensions, etc. (required for HuBMAP pipeline) |
 | `(raw\|src_[^/]*)/segmentation\.json` |  |  | JSON file produced by the Akoya software with segmentation information |
 | `processed/HandE\.tif` |  |  | HandE image |
@@ -35,6 +33,8 @@ The other fields function the same way for all assays using antibodies. For more
 | `src_.*/cyc.*_reg.*_.*/.*_.*_Z.*_CH.*\.tif` |  |  | TIFF files produced by the experiment. General folder format: Cycle(n)_Region(n)_date; General file format: name_tileNumber(n)_zplaneNumber(n)_channelNumber(n) |
 | `src_.*/cyc.*_reg.*_.*/.*\.gci` |  |  | Group Capture Information File (Keyance Microscope only) |
 | `(raw\|src_.*)/channel[Nn]ames\.txt` |  | ✓ | Text file produced by the Akoya software which contains the (linearized) channel number and the Name/ID/Target of the channel (required for HuBMAP pipeline) |
+| `(raw\|src_.*)/.*` |  | ✓ | Raw data directory. |
+| `(processed\|drv_[^/]*)/.*` |  | ✓ | Processed files produced by the Akoya software or alternative software. |
 | `extras/.*` |  |  | Free-form descriptive information supplied by the TMC |
 | `extras/thumbnail\.(png\|jpg)` |  |  | Optional thumbnail image which may be shown in search interface |
 
