@@ -9,7 +9,7 @@ Metadata TSV Errors:
         Not allowed:
         - not-good-for-either-type.txt
         Required but missing:
-        - (processed|drv_.*)/.*
+        - (processed|drv_[^/]*)/.*
         - (raw|src_.*)/.*
         - (raw|src_.*)/channel[Nn]ames\.txt
         - (raw|src_[^/]*)/[Ee]xperiment\.json

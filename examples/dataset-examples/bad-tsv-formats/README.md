@@ -50,7 +50,7 @@ Metadata TSV Errors:
         - exposure_times.txt
         - segmentation.json
         Required but missing:
-        - (processed|drv_.*)/.*
+        - (processed|drv_[^/]*)/.*
         - (raw|src_.*)/.*
         - (raw|src_.*)/channel[Nn]ames\.txt
         - (raw|src_[^/]*)/[Ee]xperiment\.json
