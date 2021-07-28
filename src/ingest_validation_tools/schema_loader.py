@@ -8,12 +8,12 @@ from ingest_validation_tools.yaml_include_loader import load_yaml
 
 _table_schemas_path = Path(__file__).parent / 'table-schemas'
 _directory_schemas_path = Path(__file__).parent / 'directory-schemas'
-_pipeline_infos_path = Path(__file__).parent / 'pipeline-infos'
+_pipeline_infos_path = Path(__file__).parent / 'pipeline-infos/pipeline-infos.yaml'
 
 
 def get_pipeline_infos(name):
-    info_path = _pipeline_infos_path / f'{name}.yaml'
-    return load_yaml(info_path) if info_path.exists() else []
+    infos = load_yaml(_pipeline_infos_path)
+    return infos.get(name, [])
 
 
 class PreflightError(Exception):
