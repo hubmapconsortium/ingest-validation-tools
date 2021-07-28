@@ -40,7 +40,7 @@ def get_data_dir_errors(schema_name, data_path, dataset_ignore_globs=[]):
     '''
     Validate a single data_path.
     '''
-    schema = get_directory_schema(schema_name)
+    schema = get_directory_schema(schema_name)['files']
     try:
         validate_directory(
             data_path, schema, dataset_ignore_globs=dataset_ignore_globs)

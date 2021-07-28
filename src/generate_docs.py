@@ -35,10 +35,10 @@ def main():
     is_assay = get_is_assay(args.type)
     if is_assay:
         table_schemas = {v: get_table_schema(args.type, v) for v in versions}
-        directory_schema = get_directory_schema(args.type)
+        directory_schema = get_directory_schema(args.type)['files']
     else:
         table_schemas = {v: get_other_schema(args.type, v) for v in versions}
-        directory_schema = {}
+        directory_schema = []
 
     # README.md:
     with open(Path(args.target) / 'README.md', 'w') as f:

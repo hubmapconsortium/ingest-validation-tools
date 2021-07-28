@@ -183,8 +183,13 @@ def get_table_schema(schema_name, version, optional_fields=[], offline=None):
 
 
 def get_directory_schema(directory_type):
-    schema = load_yaml(_directory_schemas_path / f'{directory_type}.yaml')
-    schema += [
+    schema = load_yaml(_directory_schemas_path / f'{directory_type}-v0.yaml')
+    schema['files'] += [
+        {
+            'pattern': r'directory-schema-version.txt',
+            'description': 'Contains the directory schema version to use; Assume v0 if not present',
+            'required': False
+        },
         {
             'pattern': r'extras/.*',
             'description': 'Free-form descriptive information supplied by the TMC',
