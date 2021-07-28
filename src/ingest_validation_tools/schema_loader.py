@@ -183,10 +183,16 @@ def get_table_schema(schema_name, version, optional_fields=[], offline=None):
 
 
 def get_directory_schema(directory_type, version):
-    schema = load_yaml(_directory_schemas_path / f'{directory_type}-{version}.yaml')
+    directory_schema_path = _directory_schemas_path / f'{directory_type}-{version}.yaml'
+    if not directory_schema_path.exists():
+        return {'files': [{
+            'pattern': 'TODO',
+            'description': f'Directory structure for {directory_type} {version} not yet specified.'
+        }]}
+    schema = load_yaml(directory_schema_path)
     schema['files'] += [
         {
-            'pattern': r'directory-schema-version.txt',
+            'pattern': r'directory-schema-version\.txt',
             'description': 'Contains the directory schema version to use; Assume v0 if not present',
             'required': False
         },

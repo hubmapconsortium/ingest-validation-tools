@@ -30,9 +30,10 @@ Metadata TSV Errors:
     External:
       row 2, data examples/dataset-examples/bad-mixed/upload/bad-shared-dataset:
         Not allowed:
+        - directory-schema-version.txt
         - not-good-for-either-type.txt
         Required but missing:
-        - '[^/]+\.fastq\.gz'
+        - TODO
       row 2, contributors examples/dataset-examples/bad-mixed/upload/contributors.tsv: File
         has no data rows.
 Reference Errors:
