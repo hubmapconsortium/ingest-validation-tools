@@ -30,15 +30,15 @@ def get_field_enum(field_name, schema):
 
 def get_table_schema_version_from_row(path, row):
     '''
-    >>> get_schema_version_from_row('empty', {'bad-column': 'bad-value'})
+    >>> get_table_schema_version_from_row('empty', {'bad-column': 'bad-value'})
     Traceback (most recent call last):
     ...
     schema_loader.PreflightError: empty does not contain "assay_type". Column headers: bad-column
 
-    >>> get_schema_version_from_row('v0', {'assay_type': 'PAS microscopy'})
+    >>> get_table_schema_version_from_row('v0', {'assay_type': 'PAS microscopy'})
     SchemaVersion(schema_name='stained', version=0)
 
-    >>> get_schema_version_from_row('v42', {'assay_type': 'PAS microscopy', 'version': 42})
+    >>> get_table_schema_version_from_row('v42', {'assay_type': 'PAS microscopy', 'version': 42})
     SchemaVersion(schema_name='stained', version=42)
 
     '''
@@ -123,7 +123,7 @@ def _assay_to_schema_name(assay_type, source_project):
 
 def list_table_schema_versions():
     '''
-    >>> list_schema_versions()[0]
+    >>> list_table_schema_versions()[0]
     SchemaVersion(schema_name='af', version='0')
 
     '''
@@ -137,7 +137,7 @@ def list_table_schema_versions():
 
 def dict_table_schema_versions():
     '''
-    >>> sorted(dict_schema_versions()['af'])
+    >>> sorted(dict_table_schema_versions()['af'])
     ['0', '1']
     '''
 
