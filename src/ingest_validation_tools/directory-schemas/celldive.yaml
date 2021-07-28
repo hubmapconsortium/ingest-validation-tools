@@ -10,7 +10,7 @@
   required: True
 -
   example: 'HuBMAP_OME/region_011/S20030092_region_011.ome.tif'
-  pattern: 'HuBMAP_OME/region_[^/]+/S[^/]+\.ome\.tif'
+  pattern: 'HuBMAP_OME/region_\d+/S[^/]\d+_region_\d+\.ome\.tif'
   description: 'OME TIFF Files for the corresponding region (e.g. region_001) by slide (e.g S20030077)'
   required: True
 -
