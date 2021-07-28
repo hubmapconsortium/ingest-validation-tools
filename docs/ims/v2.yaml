@@ -165,6 +165,7 @@ fields:
     - SIMS-C60
     - SIMS-H2O
     - ESI
+    - nanoDESI
     required: true
   custom_constraints:
     forbid_na: true
