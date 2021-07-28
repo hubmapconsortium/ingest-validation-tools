@@ -25,6 +25,7 @@ This schema is for imaging mass spectrometry (IMS).
 | `metadata/[^/]+_microscopy\.txt` | ✓ | Transformations/map back to autofluorescence microscopy (related) data |
 | `ometiffs/[^/]+_multilayer\.ome\.tiff` | ✓ | Aligned multilayer OME TIFF file of the IMS data |
 | `ometiffs/separate/[^/]+_mz[^/]+\.ome\.tiff` | ✓ | Each file is a different M/Z value. |
+| `directory-schema-version.txt` |  | Contains the directory schema version to use; Assume v0 if not present |
 | `extras/.*` |  | Free-form descriptive information supplied by the TMC |
 | `extras/thumbnail\.(png\|jpg)` |  | Optional thumbnail image which may be shown in search interface |
 

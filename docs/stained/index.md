@@ -21,6 +21,7 @@ This schema is for microscopy of tissue treated with periodic acid–Schiff stai
 | `(processedMicroscopy\|processed_microscopy)/[^/]+_transformations/[^/]+\.txt` |  | Transformations to PAS (related) data |
 | `(rawMicroscopy\|raw_microscopy)/[^/]+\.xml` | ✓ | XML metadata file from the autofluorescence microscopy experiments |
 | `(rawMicroscopy\|raw_microscopy)/[^/]+\.scn` | ✓ | Raw microscope file for the experiment |
+| `directory-schema-version.txt` |  | Contains the directory schema version to use; Assume v0 if not present |
 | `extras/.*` |  | Free-form descriptive information supplied by the TMC |
 | `extras/thumbnail\.(png\|jpg)` |  | Optional thumbnail image which may be shown in search interface |
 

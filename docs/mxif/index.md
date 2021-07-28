@@ -18,6 +18,7 @@ This schema is for multiplex immunofluorescence microscopy (MxIF).
 | pattern | required? | description |
 | --- | --- | --- |
 | `TODO` | ✓ | Directory structure not yet specified. https://github.com/hubmapconsortium/ingest-validation-tools/issues/449 |
+| `directory-schema-version.txt` |  | Contains the directory schema version to use; Assume v0 if not present |
 | `extras/.*` |  | Free-form descriptive information supplied by the TMC |
 | `extras/thumbnail\.(png\|jpg)` |  | Optional thumbnail image which may be shown in search interface |
 

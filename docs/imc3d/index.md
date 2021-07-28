@@ -29,6 +29,7 @@ The other fields function the same way for all assays using antibodies. For more
 | `processed/CellTypeComposition_perTissue\.pdf` |  | Cell type composition bar graph per tissue. File is optional. |
 | `processed/Densityplots_perMarker\.pdf` |  | **[QA/QC]** Density plots of marker intensity, separated by marker. File is optional. |
 | `processed/celltypes\.pdf` |  | Heatmap of marker expression per cluster, annotated by assigned cell type. File is optional. |
+| `directory-schema-version.txt` |  | Contains the directory schema version to use; Assume v0 if not present |
 | `extras/.*` |  | Free-form descriptive information supplied by the TMC |
 | `extras/thumbnail\.(png\|jpg)` |  | Optional thumbnail image which may be shown in search interface |
 
