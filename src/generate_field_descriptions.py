@@ -4,7 +4,7 @@ from yaml import dump as dump_yaml
 import argparse
 
 from ingest_validation_tools.schema_loader import (
-    list_schema_versions, get_table_schema, get_other_schema, get_is_assay
+    list_table_schema_versions, get_table_schema, get_other_schema, get_is_assay
 )
 
 
@@ -14,7 +14,7 @@ def main():
     parser.parse_args()
 
     mapping = {}
-    for schema_version in list_schema_versions():
+    for schema_version in list_table_schema_versions():
         schema_name = schema_version.schema_name
         get_schema = get_table_schema if get_is_assay(schema_name) else get_other_schema
         schema = get_schema(schema_version.schema_name, schema_version.version)

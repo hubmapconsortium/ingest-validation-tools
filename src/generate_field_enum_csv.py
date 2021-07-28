@@ -5,7 +5,7 @@ import argparse
 from pathlib import Path
 
 from ingest_validation_tools.schema_loader import (
-    list_schema_versions, get_table_schema, get_other_schema
+    list_table_schema_versions, get_table_schema, get_other_schema
 )
 
 
@@ -28,7 +28,7 @@ def main():
         (Path(__file__).parent / 'ingest_validation_tools/table-schemas/others').iterdir()
     ]
 
-    for schema_version in list_schema_versions():
+    for schema_version in list_table_schema_versions():
         schema = (get_other_schema if schema_version.schema_name in others else get_table_schema)(
             schema_version.schema_name, schema_version.version)
         for field in schema['fields']:

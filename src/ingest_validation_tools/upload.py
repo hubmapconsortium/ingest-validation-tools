@@ -8,7 +8,7 @@ from ingest_validation_tools.validation_utils import (
     get_data_dir_errors,
     dict_reader_wrapper,
     get_context_of_decode_error,
-    get_schema_version
+    get_table_schema_version
 )
 
 from ingest_validation_tools.plugin_validator import (
@@ -40,7 +40,7 @@ class Upload:
         self.errors = {}
         try:
             unsorted_effective_tsv_paths = {
-                str(path): get_schema_version(path, self.encoding)
+                str(path): get_table_schema_version(path, self.encoding)
                 for path in (
                     tsv_paths if tsv_paths
                     else directory_path.glob(f'*{TSV_SUFFIX}')

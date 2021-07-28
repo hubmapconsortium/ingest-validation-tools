@@ -28,7 +28,7 @@ def get_field_enum(field_name, schema):
     return fields[0]['constraints']['enum']
 
 
-def get_schema_version_from_row(path, row):
+def get_table_schema_version_from_row(path, row):
     '''
     >>> get_schema_version_from_row('empty', {'bad-column': 'bad-value'})
     Traceback (most recent call last):
@@ -121,7 +121,7 @@ def _assay_to_schema_name(assay_type, source_project):
     raise PreflightError(message)
 
 
-def list_schema_versions():
+def list_table_schema_versions():
     '''
     >>> list_schema_versions()[0]
     SchemaVersion(schema_name='af', version='0')
@@ -135,14 +135,14 @@ def list_schema_versions():
     ]
 
 
-def dict_schema_versions():
+def dict_table_schema_versions():
     '''
     >>> sorted(dict_schema_versions()['af'])
     ['0', '1']
     '''
 
     dict_of_sets = defaultdict(set)
-    for sv in list_schema_versions():
+    for sv in list_table_schema_versions():
         dict_of_sets[sv.schema_name].add(sv.version)
     return dict_of_sets
 
@@ -182,8 +182,8 @@ def get_table_schema(schema_name, version, optional_fields=[], offline=None):
     return schema
 
 
-def get_directory_schema(directory_type):
-    schema = load_yaml(_directory_schemas_path / f'{directory_type}-v0.yaml')
+def get_directory_schema(directory_type, version):
+    schema = load_yaml(_directory_schemas_path / f'{directory_type}-{version}.yaml')
     schema['files'] += [
         {
             'pattern': r'directory-schema-version.txt',

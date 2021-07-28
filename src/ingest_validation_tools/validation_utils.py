@@ -10,7 +10,7 @@ from ingest_validation_tools.directory_validator import (
 from ingest_validation_tools.table_validator import (
     get_table_errors)
 from ingest_validation_tools.schema_loader import (
-    get_schema_version_from_row, PreflightError
+    get_table_schema_version_from_row, PreflightError
 )
 
 
@@ -24,7 +24,7 @@ def dict_reader_wrapper(path, encoding):
     return rows
 
 
-def get_schema_version(path, encoding):
+def get_table_schema_version(path, encoding):
     try:
         rows = dict_reader_wrapper(path, encoding)
     except UnicodeDecodeError as e:
@@ -33,14 +33,20 @@ def get_schema_version(path, encoding):
         raise PreflightError(f'Expected a TSV, found a directory at {path}.')
     if not rows:
         raise PreflightError(f'{path} has no data rows.')
-    return get_schema_version_from_row(path, rows[0])
+    return get_table_schema_version_from_row(path, rows[0])
+
+
+def get_directory_schema_version(data_path):
+    version_path = data_path / 'directory-schema-version.txt'
+    return version_path.read_text().strip() if version_path.exists() else 'v0'
 
 
 def get_data_dir_errors(schema_name, data_path, dataset_ignore_globs=[]):
     '''
     Validate a single data_path.
     '''
-    schema = get_directory_schema(schema_name)['files']
+    directory_schema_version = get_directory_schema_version(data_path)
+    schema = get_directory_schema(schema_name, directory_schema_version)['files']
     try:
         validate_directory(
             data_path, schema, dataset_ignore_globs=dataset_ignore_globs)
