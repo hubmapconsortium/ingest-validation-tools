@@ -1,6 +1,7 @@
 # Changelog
 
 ## v0.0.13 - in progress
+- Implement versioning for directory schemas.
 - Updated CODEX directory structure.
 - Non-assay schema docs were not be update. Fix that.
 - Sample was being skipped in doc generation. Fix that.
