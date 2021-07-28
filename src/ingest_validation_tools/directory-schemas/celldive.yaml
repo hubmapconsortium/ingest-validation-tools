@@ -15,6 +15,6 @@
   required: True
 -
   example: 'HuBMAP_rounds/round_info_S20030078_002.dat'
-  pattern: 'HuBMAP_rounds/round_info_S[^/]*\.dat'
+  pattern: 'HuBMAP_rounds/round_info_S\d+_\d+\.dat'
   description: 'Metadata file for the capture by slide (e.g S20030077) item-value tab separated format'
   required: True
