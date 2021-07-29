@@ -4,7 +4,7 @@ title: HuBMAP Data Upload Guidelines
 ---
 
 Well-defined schemas ensure that HuBMAP data and metadata are reusable.
-If you are starting work on a new assay type, reivew the
+If you are starting work on a new assay type, review the
 [guidelines for directory schemas](https://github.com/hubmapconsortium/ingest-validation-tools/blob/master/HOWTO-describe-directories.md#readme).
 If you have an upload prepared, it can be validated with
 [`validate_upload.py`](https://github.com/hubmapconsortium/ingest-validation-tools/blob/master/script-docs/README-validate_upload.py.md#readme),
