@@ -45,6 +45,7 @@ fields:
       - SIMS-C60
       - SIMS-H2O
       - ESI
+      - nanoDESI
 # include: ../includes/fields/polarity.yaml
 # include: ../includes/fields/mz_range_low_value.yaml
 # include: ../includes/fields/mz_range_high_value.yaml
