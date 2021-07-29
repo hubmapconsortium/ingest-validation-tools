@@ -15,7 +15,8 @@ Lightsheet uploads require metadata on the antibodies used in the assay to be pr
 Version 2 has 5 new fields for metadata describing the Z-dimension specifically relevant to lightsheet. These values provide the total number of image sections captured, the incremental value and unit of distance between the sections and the value and unit of the total distance captured.
 The other fields function the same way for all assays using antibodies. For more information, see the [Antibodies TSV documentation](../antibodies).
 
-## Directory schema
+## Directory schemas
+### v0
 
 | pattern | required? | description |
 | --- | --- | --- |
@@ -32,7 +33,7 @@ The other fields function the same way for all assays using antibodies. For more
 | `Level3/Channel[^/]+/[^/]+\.obj` |  | Annotation file. File is optional. |
 | `Level3/Channel[^/]+/[^/]+\.stl` |  | Annotation file. File is optional. |
 | `Level3/Channel[^/]+/[^/]+\.ome.tiff` |  | Annotation file. File is optional. |
-| `directory-schema-version.txt` |  | Contains the directory schema version to use; Assume v0 if not present |
+| `directory-schema-version\.txt` |  | Contains the directory schema version to use; Assume v0 if not present |
 | `extras/.*` |  | Free-form descriptive information supplied by the TMC |
 | `extras/thumbnail\.(png\|jpg)` |  | Optional thumbnail image which may be shown in search interface |
 

@@ -14,7 +14,8 @@ Related files:
 This schema is for 3 dimensional imaging mass cytometry (IMC 3D). 3D IMC uploads require metadata on the antibodies used in the assay to be provided in an Antibodies TSV. For 3D IMC, the `channel_id` is the name of the metal tag on the corresponding antibody.
 The other fields function the same way for all assays using antibodies. For more information, see the [Antibodies TSV documentation](../antibodies).
 
-## Directory schema
+## Directory schemas
+### v0
 
 | pattern | required? | description |
 | --- | --- | --- |
@@ -29,7 +30,7 @@ The other fields function the same way for all assays using antibodies. For more
 | `processed/CellTypeComposition_perTissue\.pdf` |  | Cell type composition bar graph per tissue. File is optional. |
 | `processed/Densityplots_perMarker\.pdf` |  | **[QA/QC]** Density plots of marker intensity, separated by marker. File is optional. |
 | `processed/celltypes\.pdf` |  | Heatmap of marker expression per cluster, annotated by assigned cell type. File is optional. |
-| `directory-schema-version.txt` |  | Contains the directory schema version to use; Assume v0 if not present |
+| `directory-schema-version\.txt` |  | Contains the directory schema version to use; Assume v0 if not present |
 | `extras/.*` |  | Free-form descriptive information supplied by the TMC |
 | `extras/thumbnail\.(png\|jpg)` |  | Optional thumbnail image which may be shown in search interface |
 

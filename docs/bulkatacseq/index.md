@@ -13,12 +13,13 @@ Related files:
 
 This schema is for Assay for Transposase-Accessible Chromatin by sequencing (ATACseq)of bulk sample.
 
-## Directory schema
+## Directory schemas
+### v0
 
 | pattern | required? | description |
 | --- | --- | --- |
 | `.*\.fastq\.gz` | ✓ | TODO: https://github.com/hubmapconsortium/ingest-validation-tools/issues/445 |
-| `directory-schema-version.txt` |  | Contains the directory schema version to use; Assume v0 if not present |
+| `directory-schema-version\.txt` |  | Contains the directory schema version to use; Assume v0 if not present |
 | `extras/.*` |  | Free-form descriptive information supplied by the TMC |
 | `extras/thumbnail\.(png\|jpg)` |  | Optional thumbnail image which may be shown in search interface |
 

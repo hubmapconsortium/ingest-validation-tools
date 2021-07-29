@@ -13,14 +13,7 @@ Related files:
 
 This schema is for liquid chromatography mass spectrometry (LCMS). v2 adds `mass_resolving_power`, `mz_resolving_power`, `ion_mobility`, `spatial_type`, `spatial_sampling_type`, `spatial_target`, and `resolution_{x/y}_{value/unit}`. In the case of datasets in which more than one `analyte_type` was interrogated (e.g. lipids plus metabolytes), those datasets should be split into one dataset per analyte.
 
-## Directory schema
 
-| pattern | required? | description |
-| --- | --- | --- |
-| `TODO` | ✓ | Directory structure not yet specified. https://github.com/hubmapconsortium/ingest-validation-tools/issues/448 |
-| `directory-schema-version.txt` |  | Contains the directory schema version to use; Assume v0 if not present |
-| `extras/.*` |  | Free-form descriptive information supplied by the TMC |
-| `extras/thumbnail\.(png\|jpg)` |  | Optional thumbnail image which may be shown in search interface |
 
 ## Metadata schema
 

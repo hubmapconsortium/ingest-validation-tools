@@ -14,7 +14,8 @@ Related files:
 CellDIVE uploads require metadata on the antibodies used in the assay to be provided in an Antibodies TSV. For CellDIVE, the `channel_id` is represented as a cycle#/channel# combination (of the form `Cycle[0-9]_CH[0-9]`) linked to a given image file in the directory.
 The other fields function the same way for all assays using antibodies. For more information, see the [Antibodies TSV documentation](../antibodies).
 
-## Directory schema
+## Directory schemas
+### v0
 
 | pattern | required? | description |
 | --- | --- | --- |
@@ -31,7 +32,7 @@ The other fields function the same way for all assays using antibodies. For more
 | `HuBMAP_Seg_and_quant/*/move_images.bat` |  | moves files |
 | `HuBMAP_OME/make_folders.bat` |  | creates directories |
 | `HuBMAP_Seg_and_quant/*/make_folders.bat` |  | creates directories |
-| `directory-schema-version.txt` |  | Contains the directory schema version to use; Assume v0 if not present |
+| `directory-schema-version\.txt` |  | Contains the directory schema version to use; Assume v0 if not present |
 | `extras/.*` |  | Free-form descriptive information supplied by the TMC |
 | `extras/thumbnail\.(png\|jpg)` |  | Optional thumbnail image which may be shown in search interface |
 

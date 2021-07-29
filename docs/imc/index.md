@@ -14,14 +14,7 @@ Related files:
 This schema is for imaging mass cytometry (IMC). IMC uploads require metadata on the antibodies used in the assay to be provided in an Antibodies TSV. For IMC, the `channel_id` is the name of the metal tag on the corresponding antibody.
 The other fields function the same way for all assays using antibodies. For more information, see the [Antibodies TSV documentation](../antibodies).
 
-## Directory schema
 
-| pattern | required? | description |
-| --- | --- | --- |
-| `TODO` | ✓ | Directory structure not yet specified. https://github.com/hubmapconsortium/ingest-validation-tools/issues/447 |
-| `directory-schema-version.txt` |  | Contains the directory schema version to use; Assume v0 if not present |
-| `extras/.*` |  | Free-form descriptive information supplied by the TMC |
-| `extras/thumbnail\.(png\|jpg)` |  | Optional thumbnail image which may be shown in search interface |
 
 ## Metadata schema
 

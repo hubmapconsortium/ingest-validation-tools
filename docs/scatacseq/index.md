@@ -13,12 +13,13 @@ Related files:
 
 This schema is for the single cell Assay for Transposase Accessible Chromatin by sequencing (scATACseq).
 
-## Directory schema
+## Directory schemas
+### v0
 
 | pattern | required? | description |
 | --- | --- | --- |
 | `[^/]+\.fastq\.gz` | ✓ | Compressed FastQ file |
-| `directory-schema-version.txt` |  | Contains the directory schema version to use; Assume v0 if not present |
+| `directory-schema-version\.txt` |  | Contains the directory schema version to use; Assume v0 if not present |
 | `extras/.*` |  | Free-form descriptive information supplied by the TMC |
 | `extras/thumbnail\.(png\|jpg)` |  | Optional thumbnail image which may be shown in search interface |
 
