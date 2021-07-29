@@ -129,7 +129,7 @@ def list_table_schema_versions():
     '''
     schema_paths = list((_table_schemas_path / 'assays').iterdir()) + \
         list((_table_schemas_path / 'others').iterdir())
-    stems = sorted(p.stem for p in schema_paths)
+    stems = sorted(p.stem for p in schema_paths if p.suffix == '.yaml')
     return [
         SchemaVersion(*re.match(r'(.+)-v(\d+)', stem).groups()) for stem in stems
     ]
@@ -143,6 +143,26 @@ def dict_table_schema_versions():
 
     dict_of_sets = defaultdict(set)
     for sv in list_table_schema_versions():
+        dict_of_sets[sv.schema_name].add(sv.version)
+    return dict_of_sets
+
+
+def list_directory_schema_versions():
+    '''
+    >>> list_directory_schema_versions()[0]
+    SchemaVersion(schema_name='af', version='0')
+
+    '''
+    schema_paths = list(_directory_schemas_path.iterdir())
+    stems = sorted(p.stem for p in schema_paths if p.suffix == '.yaml')
+    return [
+        SchemaVersion(*re.match(r'(.+)-v(\d+)', stem).groups()) for stem in stems
+    ]
+
+
+def dict_directory_schema_versions():
+    dict_of_sets = defaultdict(set)
+    for sv in list_directory_schema_versions():
         dict_of_sets[sv.schema_name].add(sv.version)
     return dict_of_sets
 
@@ -183,7 +203,7 @@ def get_table_schema(schema_name, version, optional_fields=[], offline=None):
 
 
 def get_directory_schema(directory_type, version):
-    directory_schema_path = _directory_schemas_path / f'{directory_type}-{version}.yaml'
+    directory_schema_path = _directory_schemas_path / _get_schema_filename(directory_type, version)
     if not directory_schema_path.exists():
         return {'files': [{
             'pattern': 'TODO',

@@ -86,7 +86,7 @@ def _enrich_description(field):
 
 
 def generate_readme_md(
-        table_schemas, directory_schema, schema_name, is_assay=True):
+        table_schemas, directory_schemas, schema_name, is_assay=True):
     int_keys = [int(k) for k in table_schemas.keys()]
     max_version = max(int_keys)
     min_version = min(int_keys)
@@ -107,8 +107,8 @@ def generate_readme_md(
         'hubmapconsortium/ingest-validation-tools/main/docs'
 
     optional_dir_description_md = (
-        f'## Directory schema\n{_make_dir_description(directory_schema)}'
-        if directory_schema else ''
+        f'## Directory schemas\n{_make_dir_descriptions(directory_schemas)}'
+        if directory_schemas else ''
     )
 
     optional_doc_link_md = (
@@ -375,6 +375,13 @@ def _make_toc(md):
     # If MD trails immediately after "</blockquote>",
     # it doesn't render correctly, so include a newline.
     return f'<blockquote markdown="1">\n\n{joined_mds}\n\n</blockquote>\n'
+
+
+def _make_dir_descriptions(dir_schemas):
+    return '\n'.join(
+        f'### v{v}\n' + _make_dir_description(lines)
+        for v, lines in dir_schemas.items()
+    )
 
 
 def _make_dir_description(dir_schema):
