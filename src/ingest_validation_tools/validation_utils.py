@@ -1,6 +1,7 @@
 import logging
 from csv import DictReader
 from pathlib import Path
+import re
 
 from ingest_validation_tools.schema_loader import (
     get_table_schema, get_other_schema,
@@ -38,7 +39,11 @@ def get_table_schema_version(path, encoding):
 
 def get_directory_schema_version(data_path):
     version_path = data_path / 'directory-schema-version.txt'
-    return version_path.read_text().strip() if version_path.exists() else 'v0'
+    return (
+        # Remove optional leading "v"
+        re.sub(r'^v', '', version_path.read_text().strip())
+        if version_path.exists() else '0'
+    )
 
 
 def get_data_dir_errors(schema_name, data_path, dataset_ignore_globs=[]):
