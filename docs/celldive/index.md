@@ -21,7 +21,7 @@ The other fields function the same way for all assays using antibodies. For more
 | `channel_list\.txt` |  | ✓ | Information about the capture channels and tags (comma separated) |
 | `slide_list\.txt` |  | ✓ | Information about the slides used by the experiment- each line corresponds to a slide name (begins with S - e.g. S20030077) - used in filenames |
 | `HuBMAP_OME/region_\d+/S\d+_region_\d+\.ome\.tif` | `HuBMAP_OME/region_011/S20030092_region_011.ome.tif` | ✓ | OME TIFF Files for the corresponding region (e.g. region_001) by slide (e.g S20030077) |
-| `HuBMAP_rounds/round_info_\d+\.dat` | `HuBMAP_rounds/round_info_002.dat` | ✓ | Metadata file for the capture by slide (e.g S20030077) item-value tab separated format |
+| `HuBMAP_rounds/round_info_\d+\.dat` | `HuBMAP_rounds/round_info_002.dat` | ✓ | Metadata file for the capture item-value tab separated format |
 | `extras/.*` |  |  | Free-form descriptive information supplied by the TMC |
 | `extras/thumbnail\.(png\|jpg)` |  |  | Optional thumbnail image which may be shown in search interface |
 
