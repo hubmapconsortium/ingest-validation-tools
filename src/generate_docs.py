@@ -37,7 +37,7 @@ def main():
         table_schemas = {v: get_table_schema(args.type, v) for v in table_schema_versions}
         directory_schema_versions = sorted(dict_directory_schema_versions()[args.type])
         directory_schemas = {
-            v: get_directory_schema(args.type, v)['files']
+            v: get_directory_schema(args.type, v)
             for v in directory_schema_versions
         }
     else:

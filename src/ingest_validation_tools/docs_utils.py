@@ -378,12 +378,16 @@ def _make_toc(md):
 
 
 def _make_dir_descriptions(dir_schemas):
+    is_deprecated = dir_schemas.get('deprecated', False)
     sorted_items = sorted(dir_schemas.items(), key=lambda item: item[0])
     sorted_items.reverse()
-    return '\n'.join(
-        f'### v{v}\n' + _make_dir_description(lines)
-        for v, lines in sorted_items
+    descriptions = '\n'.join(
+        f'### v{v}\n' + _make_dir_description(schema['files'])
+        for v, schema in sorted_items
     )
+    if not is_deprecated:
+        return descriptions
+    return f'<details markdown="1"><summary>Deprecated</summary>\n{descriptions}</details>'
 
 
 def _make_dir_description(dir_schema):
