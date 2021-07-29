@@ -190,7 +190,7 @@ fields:
   custom_constraints:
     forbid_na: true
     sequence_limit: 3
-  description: The type of single cell entity derived from isolation protocol.
+  description: The type of single cell entity derived from isolation protocol
   name: sc_isolation_entity
 - constraints:
     required: true

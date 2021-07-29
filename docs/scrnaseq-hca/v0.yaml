@@ -156,6 +156,11 @@ fields:
   name: sc_isolation_protocols_io_doi
   type: string
 - constraints:
+    enum:
+    - whole cell
+    - nucleus
+    - cell-cell multimer
+    - spatially encoded cell barcoding
     required: true
   custom_constraints:
     forbid_na: true
@@ -183,7 +188,8 @@ fields:
     sequence_limit: 3
   description: A quality metric by visual inspection prior to cell lysis or defined
     by known parameters such as wells with several cells or no cells. This can be
-    captured at a high level.
+    captured at a high level. "OK" or "not OK", or with more specificity such as "debris",
+    "clump", "low clump".
   name: sc_isolation_quality_metric
 - constraints:
     required: false

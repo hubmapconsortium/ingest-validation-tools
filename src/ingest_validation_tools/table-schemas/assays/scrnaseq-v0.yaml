@@ -23,15 +23,13 @@ fields:
 # include: ../includes/v0/acquisition_instrument.yaml
 - name: sc_isolation_protocols_io_doi
   description: "Link to a protocols document answering the question: How were single cells separated into a single-cell suspension?"
-- name: sc_isolation_entity
-  description: The type of single cell entity derived from isolation protocol
+# include: ../includes/fields/sc_isolation_entity.yaml
 # include: ../includes/fields/sc_isolation_tissue_dissociation.yaml
 - name: sc_isolation_enrichment
   description: The method by which specific cell populations are sorted or enriched.
   constraints:
     required: False
-- name: sc_isolation_quality_metric
-  description: A quality metric by visual inspection prior to cell lysis or defined by known parameters such as wells with several cells or no cells. This can be captured at a high level.
+# include: ../includes/fields/sc_isolation_quality_metric.yaml
 - name: sc_isolation_cell_number
   description: Total number of cell/nuclei yielded post dissociation and enrichment
 - name: rnaseq_assay_input
