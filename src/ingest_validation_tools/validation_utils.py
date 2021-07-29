@@ -59,6 +59,8 @@ def get_data_dir_errors(schema_name, data_path, dataset_ignore_globs=[]):
         validate_directory(
             data_path, schema['files'], dataset_ignore_globs=dataset_ignore_globs)
     except DirectoryValidationErrors as e:
+        if schema.get('deprecated', False):
+            return {'Deprecated directory schema': schema_label}
         return e.errors
     except OSError as e:
         return {e.strerror: e.filename}
