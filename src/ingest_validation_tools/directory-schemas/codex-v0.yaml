@@ -49,7 +49,6 @@ files:
   -
     pattern: 'drv_[^/]+/processed_[^/]+/.*'
     description: 'processed files produced by the Akoya software, not used by the HIVE'
-    ignore: True
   -
     pattern: 'src_[^/]+/channelnames_report\.csv'
     description: 'Two column CSV: The first column is a name or target; The second column is boolean: "FALSE" channels are excluded from processing. (required for HuBMAP pipeline)'

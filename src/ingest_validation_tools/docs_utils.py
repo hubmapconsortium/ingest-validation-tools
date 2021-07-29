@@ -378,9 +378,11 @@ def _make_toc(md):
 
 
 def _make_dir_descriptions(dir_schemas):
+    sorted_items = sorted(dir_schemas.items(), key=lambda item: item[0])
+    sorted_items.reverse()
     return '\n'.join(
         f'### v{v}\n' + _make_dir_description(lines)
-        for v, lines in dir_schemas.items()
+        for v, lines in sorted_items
     )
 
 
