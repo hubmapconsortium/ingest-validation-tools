@@ -52,21 +52,15 @@ def get_data_dir_errors(schema_name, data_path, dataset_ignore_globs=[]):
     '''
     directory_schema_version = get_directory_schema_version(data_path)
     schema = get_directory_schema(schema_name, directory_schema_version)
-    is_deprecated = schema.get('deprecated', False)
-    deprecation_error = {f'{schema_name} {directory_schema_version}': 'is deprecated'}
     try:
         validate_directory(
             data_path, schema['files'], dataset_ignore_globs=dataset_ignore_globs)
-        if is_deprecated:
-            return deprecation_error
     except DirectoryValidationErrors as e:
-        if is_deprecated:
-            return deprecation_error
         return e.errors
     except OSError as e:
-        # If the data_path doesn't even exist we want to throw that error,
-        # instead of the deprecation.
         return {e.strerror: e.filename}
+    if schema.get('deprecated', False):
+        return {f'{schema_name} {directory_schema_version}': 'is deprecated'}
 
 
 def get_context_of_decode_error(e):
