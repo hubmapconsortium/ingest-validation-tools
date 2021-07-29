@@ -52,6 +52,9 @@ def get_data_dir_errors(schema_name, data_path, dataset_ignore_globs=[]):
     '''
     directory_schema_version = get_directory_schema_version(data_path)
     schema = get_directory_schema(schema_name, directory_schema_version)
+    schema_label = f'{schema_name} {directory_schema_version}'
+    if not schema['files']:
+        return {'Undefined directory schema': schema_label}
     try:
         validate_directory(
             data_path, schema['files'], dataset_ignore_globs=dataset_ignore_globs)
@@ -60,7 +63,7 @@ def get_data_dir_errors(schema_name, data_path, dataset_ignore_globs=[]):
     except OSError as e:
         return {e.strerror: e.filename}
     if schema.get('deprecated', False):
-        return {f'{schema_name} {directory_schema_version}': 'is deprecated'}
+        return {'Deprecated directory schema': schema_label}
 
 
 def get_context_of_decode_error(e):

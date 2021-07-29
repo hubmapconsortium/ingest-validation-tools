@@ -287,7 +287,8 @@ sc_isolation_protocols_io_doi: 'Link to a protocols document answering the quest
   How were single cells separated into a single-cell suspension?'
 sc_isolation_quality_metric: A quality metric by visual inspection prior to cell lysis
   or defined by known parameters such as wells with several cells or no cells. This
-  can be captured at a high level.
+  can be captured at a high level. "OK" or "not OK", or with more specificity such
+  as "debris", "clump", "low clump".
 sc_isolation_tissue_dissociation: The method by which tissues are dissociated into
   single cells in suspension.
 section_prep_protocols_io_doi: DOI for protocols.io referring to the protocol for
