@@ -40,6 +40,7 @@ The other fields function the same way for all assays using antibodies. For more
 | `extras/.*` |  |  | Free-form descriptive information supplied by the TMC |
 | `extras/thumbnail\.(png\|jpg)` |  |  | Optional thumbnail image which may be shown in search interface |
 ### v0
+<details markdown="1"><summary>Deprecated</summary>
 
 | pattern | example | required? | description |
 | --- | --- | --- | --- |
@@ -60,6 +61,8 @@ The other fields function the same way for all assays using antibodies. For more
 | `directory-schema-version\.txt` |  |  | Contains the directory schema version to use; Assume v0 if not present |
 | `extras/.*` |  |  | Free-form descriptive information supplied by the TMC |
 | `extras/thumbnail\.(png\|jpg)` |  |  | Optional thumbnail image which may be shown in search interface |
+
+</details>
 
 ## Metadata schema
 

@@ -378,42 +378,53 @@ def _make_toc(md):
 
 
 def _make_dir_descriptions(dir_schemas):
-    is_deprecated = dir_schemas.get('deprecated', False)
     sorted_items = sorted(dir_schemas.items(), key=lambda item: item[0])
     sorted_items.reverse()
-    descriptions = '\n'.join(
-        f'### v{v}\n' + _make_dir_description(schema['files'])
+    return '\n'.join(
+        f'### v{v}\n' + _make_dir_description(schema['files'], schema.get('deprecated', False))
         for v, schema in sorted_items
     )
-    if not is_deprecated:
-        return descriptions
-    return f'<details markdown="1"><summary>Deprecated</summary>\n{descriptions}</details>'
 
 
-def _make_dir_description(dir_schema):
+def _make_dir_description(files, is_deprecated=False):
     '''
     QA and Required flags are handled:
 
-    >>> dir_schema = [
+    >>> files = [
     ...   { 'pattern': 'required\\.txt', 'description': 'Required!',
     ...     'is_qa_qc': True },
     ...   { 'pattern': 'optional\\.txt', 'description': 'Optional!',
     ...     'required': False }
     ... ]
-    >>> print(_make_dir_description(dir_schema))
+    >>> print(_make_dir_description(files))
     <BLANKLINE>
     | pattern | required? | description |
     | --- | --- | --- |
     | `required\\.txt` | ✓ | **[QA/QC]** Required! |
     | `optional\\.txt` |  | Optional! |
 
+    Deprecated is handled:
+
+    >>> files = [
+    ...   { 'pattern': 'optional\\.txt', 'description': 'Optional!',
+    ...     'required': False }
+    ... ]
+    >>> print(_make_dir_description(files, True))
+    <details markdown="1"><summary>Deprecated</summary>
+    <BLANKLINE>
+    | pattern | required? | description |
+    | --- | --- | --- |
+    | `optional\\.txt` |  | Optional! |
+    <BLANKLINE>
+    </details>
+
     Examples add an extra column:
 
-    >>> dir_schema = [
+    >>> files = [
     ...   { 'pattern': '[A-Z]+\\d+', 'description': 'letters numbers', 'example': 'ABC123'},
     ...   { 'pattern': '[A-Z]', 'description': 'one letter, no example'},
     ... ]
-    >>> print(_make_dir_description(dir_schema))
+    >>> print(_make_dir_description(files))
     <BLANKLINE>
     | pattern | example | required? | description |
     | --- | --- | --- | --- |
@@ -422,30 +433,30 @@ def _make_dir_description(dir_schema):
 
     Bad examples cause errors:
 
-    >>> dir_schema = [
+    >>> files = [
     ...   { 'pattern': '[A-Z]\\d', 'description': '1 letter 1 number', 'example': 'ABC123'},
     ... ]
-    >>> _make_dir_description(dir_schema)
+    >>> _make_dir_description(files)
     Traceback (most recent call last):
     ...
     AssertionError: Example "ABC123" does not match pattern "[A-Z]\\d"
 
     Unexpected flags cause error:
 
-    >>> dir_schema = [
+    >>> files = [
     ...   { 'bad': 'schema' }
     ... ]
-    >>> _make_dir_description(dir_schema)
+    >>> _make_dir_description(files)
     Traceback (most recent call last):
     ...
     AssertionError: Unexpected key "bad" in {'bad': 'schema'}
     '''
-    for line in dir_schema:
+    for line in files:
         for k in line.keys():
             assert k in {'pattern', 'required', 'description', 'example', 'is_qa_qc'}, \
                 f'Unexpected key "{k}" in {line}'
 
-    has_examples = any('example' in line for line in dir_schema)
+    has_examples = any('example' in line for line in files)
 
     output = []
     if has_examples:
@@ -457,7 +468,7 @@ def _make_dir_description(dir_schema):
 | pattern | required? | description |
 | --- | --- | --- |''')
 
-    for line in dir_schema:
+    for line in files:
         row = []
 
         pattern = line['pattern']
@@ -482,4 +493,7 @@ def _make_dir_description(dir_schema):
         row.append(description_md)
 
         output.append('| ' + ' | '.join(row) + ' |')
-    return '\n'.join(output)
+    table = '\n'.join(output)
+    if not is_deprecated:
+        return table
+    return f'<details markdown="1"><summary>Deprecated</summary>\n{table}\n\n</details>'
