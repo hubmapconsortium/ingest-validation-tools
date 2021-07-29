@@ -1,6 +1,7 @@
 # Changelog
 
 ## v0.0.13 - in progress
+- Hotfix on CellDive directory to reflect changes to dataset.
 - Updated CellDive directory structure.
 - Updated CODEX directory structure.
 - Non-assay schema docs were not be update. Fix that.
