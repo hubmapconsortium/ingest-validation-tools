@@ -51,10 +51,12 @@ def get_data_dir_errors(schema_name, data_path, dataset_ignore_globs=[]):
     Validate a single data_path.
     '''
     directory_schema_version = get_directory_schema_version(data_path)
-    schema = get_directory_schema(schema_name, directory_schema_version)['files']
+    schema = get_directory_schema(schema_name, directory_schema_version)
+    if schema.get('deprecated', False):
+        return {f'{schema_name} {directory_schema_version}': 'is deprecated'}
     try:
         validate_directory(
-            data_path, schema, dataset_ignore_globs=dataset_ignore_globs)
+            data_path, schema['files'], dataset_ignore_globs=dataset_ignore_globs)
     except DirectoryValidationErrors as e:
         return e.errors
     except OSError as e:
