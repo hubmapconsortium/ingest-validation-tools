@@ -32,8 +32,6 @@ Metadata TSV Errors:
         Not allowed:
         - directory-schema-version.txt
         - not-good-for-either-type.txt
-        Required but missing:
-        - TODO
       row 2, contributors examples/dataset-examples/bad-mixed/upload/contributors.tsv: File
         has no data rows.
 Reference Errors:
