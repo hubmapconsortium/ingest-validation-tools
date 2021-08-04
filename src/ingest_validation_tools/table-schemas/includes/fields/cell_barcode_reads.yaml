@@ -1,0 +1,2 @@
+- name: cell_barcode_reads
+  description: Which read files contains the cell barcodes.
