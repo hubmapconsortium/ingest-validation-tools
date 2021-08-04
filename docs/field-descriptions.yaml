@@ -68,6 +68,7 @@ ce_interface: Method by which the separation capillary interfaces with mass spec
   two most prevalent commercial interfaces are sheathless and sheath-flow.
 cell_barcode_offset: Position(s) in the read at which the cell barcode starts.
 cell_barcode_read: Which read file contains the cell barcode
+cell_barcode_reads: Which read files contains the cell barcodes.
 cell_barcode_size: Length of the cell barcode in base pairs
 channel_id: Structure of channel_id depends on assay type.
 cold_ischemia_time_unit: Time unit

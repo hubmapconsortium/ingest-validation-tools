@@ -1,7 +1,13 @@
 doc_url: https://portal.hubmapconsortium.org/docs/assays/atacseq
 description_md: This schema is for the single cell Assay for Transposase Accessible Chromatin by sequencing (scATACseq).
 fields:
-# include: ../includes/vA/all_assays.yaml
+- name: version
+  heading: Shared by all types
+  description: Version of the schema to use when validating this metadata.
+  constraints:
+    enum:
+      - '2'
+# include: ../includes/vA/all_assays_wo_version.yaml
 - name: assay_category
   constraints:
     enum:

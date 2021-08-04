@@ -6,7 +6,7 @@ fields:
   description: Version of the schema to use when validating this metadata.
   constraints:
     enum:
-      - '2'
+      - '3'
 # include: ../includes/vA/all_assays_wo_version.yaml
 - name: assay_category
   constraints:
