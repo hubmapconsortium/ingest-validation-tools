@@ -1,6 +1,7 @@
 # Changelog
 
 ## v0.0.13 - in progress
+- Increment `cell_barcode_reads` as JSON array.
 - Hotfix on CellDive directory to reflect changes to dataset.
 - Updated CellDive directory structure.
 - Updated CODEX directory structure.
