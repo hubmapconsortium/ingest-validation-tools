@@ -22,10 +22,14 @@ When all the parts are finalized,
 
 ### Stability
 
-Once approved, both the list of metadata fields and the list of files is fixed.
+Once approved, both the list of metadata fields (metadata schema)
+and the list of files (directory schema) are fixed in a particular version.
 The metadata for a particular assay type needs to be consistent for all datasets,
 as does the set of files which comprise a dataset.
 Edits to descriptions are welcome, as are improved validations.
+
+If a more significant change is necessary, a new version is required,
+and when the older form is no longer acceptable, the schema should be deprecated.
 
 HuBMAP HIVE members: For questions about the stability of metadata,
 contact Nils Gehlenborg (@ngehlenborg), or add him as a reviewer on the PR.

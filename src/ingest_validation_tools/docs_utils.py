@@ -378,8 +378,7 @@ def _make_toc(md):
 
 
 def _make_dir_descriptions(dir_schemas):
-    sorted_items = sorted(dir_schemas.items(), key=lambda item: item[0])
-    sorted_items.reverse()
+    sorted_items = sorted(dir_schemas.items(), key=lambda item: item[0], reverse=True)
     return '\n'.join(
         f'### v{v}\n' + _make_dir_description(schema['files'], schema.get('deprecated', False))
         for v, schema in sorted_items
