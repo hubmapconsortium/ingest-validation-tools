@@ -1,2 +1,3 @@
 - name: cell_barcode_reads
-  description: Which read files contains the cell barcodes.
+  description: Which read files contains the cell barcodes, formatted as a JSON array.
+  type: array

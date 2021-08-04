@@ -262,8 +262,9 @@ fields:
   custom_constraints:
     forbid_na: true
     sequence_limit: 3
-  description: Which read files contains the cell barcodes.
+  description: Which read files contains the cell barcodes, formatted as a JSON array.
   name: cell_barcode_reads
+  type: array
 - constraints:
     required: true
   custom_constraints:

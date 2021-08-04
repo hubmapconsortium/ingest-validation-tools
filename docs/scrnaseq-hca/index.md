@@ -336,10 +336,11 @@ Is the sequencing reaction run in replicate, TRUE or FALSE. Leave blank if not a
 
 <a name="cell_barcode_reads"></a>
 ##### [`cell_barcode_reads`](#cell_barcode_reads)
-Which read files contains the cell barcodes.
+Which read files contains the cell barcodes, formatted as a JSON array.
 
 | constraint | value |
 | --- | --- |
+| type | `array` |
 | required | `True` |
 
 <a name="cell_barcode_offset"></a>

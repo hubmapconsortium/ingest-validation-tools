@@ -363,10 +363,11 @@ Adapter sequence to be used for adapter trimming.
 
 <a name="cell_barcode_reads"></a>
 ##### [`cell_barcode_reads`](#cell_barcode_reads)
-Which read files contains the cell barcodes.
+Which read files contains the cell barcodes, formatted as a JSON array.
 
 | constraint | value |
 | --- | --- |
+| type | `array` |
 | required | `True` |
 
 <a name="cell_barcode_offset"></a>
