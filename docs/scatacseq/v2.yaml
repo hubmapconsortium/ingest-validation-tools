@@ -306,7 +306,7 @@ fields:
   custom_constraints:
     forbid_na: true
     sequence_limit: 3
-  description: Which read files contains the cell barcodes.
+  description: 'Which read files contains the cell barcodes: Comma-delimited list.'
   name: cell_barcode_reads
 - constraints:
     pattern: \d+(,\d+)*

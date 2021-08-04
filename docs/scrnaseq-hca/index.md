@@ -336,7 +336,7 @@ Is the sequencing reaction run in replicate, TRUE or FALSE. Leave blank if not a
 
 <a name="cell_barcode_reads"></a>
 ##### [`cell_barcode_reads`](#cell_barcode_reads)
-Which read files contains the cell barcodes.
+Which read files contains the cell barcodes: Comma-delimited list.
 
 | constraint | value |
 | --- | --- |

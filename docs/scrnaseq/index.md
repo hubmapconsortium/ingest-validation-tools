@@ -342,7 +342,7 @@ Is the sequencing reaction run in repliucate, TRUE or FALSE.
 
 <a name="cell_barcode_reads"></a>
 ##### [`cell_barcode_reads`](#cell_barcode_reads)
-Which read files contains the cell barcodes.
+Which read files contains the cell barcodes: Comma-delimited list.
 
 | constraint | value |
 | --- | --- |
