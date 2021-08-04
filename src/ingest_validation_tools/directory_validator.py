@@ -16,9 +16,7 @@ def validate_directory(path, paths_dict, dataset_ignore_globs=[]):
     required_patterns, allowed_patterns = _get_required_allowed(paths_dict)
     required_missing_errors, not_allowed_errors = ([], [])
     if not path.exists():
-        raise DirectoryValidationErrors({
-            'No such file or directory': str(path)
-        })
+        raise FileNotFoundError(0, 'No such file or directory', str(path))
     actual_paths = []
     for triple in os.walk(path):
         (dir_path, _dir_names, file_names) = triple
