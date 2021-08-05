@@ -67,10 +67,9 @@ fields:
   name: sample_preparation_protocols_io_doi
   # TODO: Unclear: Is the requirement here that this be provided in the TSV, rather than the UI?
   # Or is the intention that this information is already available, and doesn't need to be in the TSV at all?
-  description: Currently captured from ingest portal.
+  description: TODO
 -
   name: sample_preparation_media
-  # TODO: Should perfusion_solution be mapped to this? Not quite the same thing.
   description: What was the sample preserved in.
   constraints:
     enum:

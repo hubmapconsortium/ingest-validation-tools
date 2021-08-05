@@ -1,0 +1,151 @@
+description_md:
+  See also the sample schema.
+fields:
+- name: version
+  description: Current version of schema.
+  constraints:
+    enum: ['1']	
+-
+  heading: IDs
+  # Moved this above organ_id: As a general pattern, we want the higher level information first.
+  name: donor_id
+  description: Unique identifier for the organ donor.
+  constraints:
+    pattern: '([A-Z]+[0-9]+)-[A-Z]{2}\d*(-\d+)+(_\d+)?'
+-
+  name: organ_id
+  description: Unique identifier for the organ. Currently referred to as "sample ID".
+  constraints:
+    pattern: '([A-Z]+[0-9]+)-[A-Z]{2}\d*(-\d+)+(_\d+)?'
+-
+  heading: Details
+  name: organ
+  description: Organ from which the tissue is going to be taken
+  constraints:
+    enum:
+      - TODO
+-
+  name: organ_condition
+  description: Health status of the organ at the time of sample recovery
+  constraints:
+    enum:
+      - TODO
+-
+  name: organ_source
+  description: TODO
+  constraints:
+    enum:
+      - surgery
+      - organ donor
+      - autopsy
+-
+  name: perfusion_solution
+  description: Type of solution that was used to perfuse the organ
+  constraints:
+    required: False
+    enum:
+      - RPMI
+      - PBS, Miltenyi Tissue Preservation Buffer
+      - UWS
+      - HTK
+      - Belzer MPS/KPS
+      - Unknown
+-
+  name: transport_solution
+  description: Type of solution used during transport
+  constraints:
+    required: False
+    enum: 
+      - RPMI
+      - PBS, Miltenyi Tissue Preservation Buffer
+      - UWS
+      - HTK
+      - Belzer MPS/KPS
+      - Unknown
+-
+  name: warm_ischemic_time_value
+  # TODO: Map old warm_ischemia_time_value to this?
+  description: Time interval between cessation of blood flow and cooling to 4C. (Preservation solution flushed time) - (Organ out time)
+-
+  name: warm_ischemic_time_unit
+  description: TODO
+  constraints:
+    enum:
+      - minute
+-
+  name: cold_ischemic_time_value
+  # TODO: Map old cold_ischemia_time_value to this?
+  description: Time interval on ice to the start of preservation protocol. (Specimen acquisition start time) - (Preservation solution flushed time)
+-
+  name: cold_ischemic_time_unit
+  description: TODO
+  constraints:
+    enum:
+      - minute
+# TODO: IEC will calculate total_ischemia_time_value. Issue #?
+-
+  name: cold_ischemic_time_unit
+  description: TODO
+  constraints:
+    enum:
+      - minute
+-
+  name: organ_weight_value
+  description: The total organ weight. 
+-
+  name: organ_weight_unit
+  description: TODO
+  constraints:
+    enum:
+      - g
+-
+  name: pathologist_report
+  description: Further details on organ level QC checks.
+-
+  name: height_value
+  description: Organ specific dimension
+  constraints:
+    required: False
+ -
+  name: height_unit
+  description: TODO
+  constraints:
+    enum:
+      - cm # TODO: Confirm
+  custom_constraints:
+    units_for: height_value
+-
+  name: width_value
+  description: Organ specific dimension
+  constraints:
+    required: False
+ -
+  name: width_unit
+  description: TODO
+  constraints:
+    enum:
+      - cm # TODO: Confirm
+  custom_constraints:
+    units_for: width_value
+-
+  name: length_value
+  description: Organ specific dimension
+  constraints:
+    required: False
+ -
+  name: length_unit
+  description: TODO
+  constraints:
+    enum:
+      - cm # TODO: Confirm
+  custom_constraints:
+    units_for: length_value
+# TODO: "Organ images"? Is there a separate plan for them, or are you expecting them to be provided in the TSV?
+  -
+    name: organ_preparation_protocols_io_doi
+    # TODO: Unclear: Is the requirement here that this be provided in the TSV, rather than the UI?
+    # Or is the intention that this information is already available, and doesn't need to be in the TSV at all?
+    description: TODO
+  -
+    name: notes
+    description: TODO	
