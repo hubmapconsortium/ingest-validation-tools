@@ -1,0 +1,224 @@
+# Generated YAML: PRs should not start here!
+description_md: See also the sample schema.
+fields:
+- constraints:
+    enum:
+    - '1'
+    required: true
+  custom_constraints:
+    forbid_na: true
+    sequence_limit: 3
+  description: Current version of schema.
+  name: version
+- constraints:
+    pattern: ([A-Z]+[0-9]+)-[A-Z]{2}\d*(-\d+)+(_\d+)?
+    required: true
+  custom_constraints:
+    forbid_na: true
+    sequence_limit: 3
+  description: Unique identifier for the organ donor.
+  heading: IDs
+  name: donor_id
+  type: string
+- constraints:
+    pattern: ([A-Z]+[0-9]+)-[A-Z]{2}\d*(-\d+)+(_\d+)?
+    required: true
+  custom_constraints:
+    forbid_na: true
+    sequence_limit: 3
+  description: Unique identifier for the organ. Currently referred to as "sample ID".
+  name: organ_id
+  type: string
+- constraints:
+    enum:
+    - TODO
+    required: true
+  custom_constraints:
+    forbid_na: true
+    sequence_limit: 3
+  description: Organ from which the tissue is going to be taken
+  heading: Details
+  name: organ
+- constraints:
+    enum:
+    - TODO
+    required: true
+  custom_constraints:
+    forbid_na: true
+    sequence_limit: 3
+  description: Health status of the organ at the time of sample recovery
+  name: organ_condition
+- constraints:
+    enum:
+    - surgery
+    - organ donor
+    - autopsy
+    required: true
+  custom_constraints:
+    forbid_na: true
+    sequence_limit: 3
+  description: TODO
+  name: organ_source
+- constraints:
+    enum:
+    - RPMI
+    - PBS, Miltenyi Tissue Preservation Buffer
+    - UWS
+    - HTK
+    - Belzer MPS/KPS
+    - Unknown
+    required: false
+  custom_constraints:
+    forbid_na: true
+    sequence_limit: 3
+  description: Type of solution that was used to perfuse the organ
+  name: perfusion_solution
+- constraints:
+    enum:
+    - RPMI
+    - PBS, Miltenyi Tissue Preservation Buffer
+    - UWS
+    - HTK
+    - Belzer MPS/KPS
+    - Unknown
+    required: false
+  custom_constraints:
+    forbid_na: true
+    sequence_limit: 3
+  description: Type of solution used during transport
+  name: transport_solution
+- constraints:
+    required: true
+  custom_constraints:
+    forbid_na: true
+    sequence_limit: 3
+  description: Time interval between cessation of blood flow and cooling to 4C. (Preservation
+    solution flushed time) - (Organ out time)
+  name: warm_ischemic_time_value
+  type: number
+- constraints:
+    enum:
+    - minute
+    required: false
+  custom_constraints:
+    forbid_na: true
+    sequence_limit: 3
+    units_for: warm_ischemic_time_value
+  description: TODO
+  name: warm_ischemic_time_unit
+- constraints:
+    required: true
+  custom_constraints:
+    forbid_na: true
+    sequence_limit: 3
+  description: Time interval on ice to the start of preservation protocol. (Specimen
+    acquisition start time) - (Preservation solution flushed time)
+  name: cold_ischemic_time_value
+  type: number
+- constraints:
+    enum:
+    - minute
+    required: false
+  custom_constraints:
+    forbid_na: true
+    sequence_limit: 3
+    units_for: cold_ischemic_time_value
+  description: TODO
+  name: cold_ischemic_time_unit
+- constraints:
+    required: true
+  custom_constraints:
+    forbid_na: true
+    sequence_limit: 3
+  description: The total organ weight.
+  name: organ_weight_value
+  type: number
+- constraints:
+    enum:
+    - g
+    required: false
+  custom_constraints:
+    forbid_na: true
+    sequence_limit: 3
+    units_for: organ_weight_value
+  description: TODO
+  name: organ_weight_unit
+- constraints:
+    required: true
+  custom_constraints:
+    forbid_na: true
+    sequence_limit: 3
+  description: Further details on organ level QC checks.
+  name: pathologist_report
+- constraints:
+    required: false
+  custom_constraints:
+    forbid_na: true
+    sequence_limit: 3
+  description: Organ specific dimension
+  name: height_value
+  type: number
+- constraints:
+    enum:
+    - cm
+    required: false
+  custom_constraints:
+    forbid_na: true
+    sequence_limit: 3
+    units_for: height_value
+  description: TODO
+  name: height_unit
+- constraints:
+    required: false
+  custom_constraints:
+    forbid_na: true
+    sequence_limit: 3
+  description: Organ specific dimension
+  name: width_value
+  type: number
+- constraints:
+    enum:
+    - cm
+    required: false
+  custom_constraints:
+    forbid_na: true
+    sequence_limit: 3
+    units_for: width_value
+  description: TODO
+  name: width_unit
+- constraints:
+    required: false
+  custom_constraints:
+    forbid_na: true
+    sequence_limit: 3
+  description: Organ specific dimension
+  name: length_value
+  type: number
+- constraints:
+    enum:
+    - cm
+    required: false
+  custom_constraints:
+    forbid_na: true
+    sequence_limit: 3
+    units_for: length_value
+  description: TODO
+  name: length_unit
+- constraints:
+    pattern: 10\.17504/.*
+    required: true
+  custom_constraints:
+    forbid_na: true
+    sequence_limit: 3
+    url:
+      prefix: https://dx.doi.org/
+  description: TODO
+  name: organ_preparation_protocols_io_doi
+  type: string
+- constraints:
+    required: true
+  custom_constraints:
+    forbid_na: true
+    sequence_limit: 3
+  description: TODO
+  name: notes

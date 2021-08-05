@@ -162,8 +162,9 @@ def get_other_schema(schema_name, version, offline=None):
 
 
 def get_is_assay(schema_name):
-    # TODO: read from file system... but larger refactor may make it redundant.
-    return schema_name not in ['donor', 'sample', 'antibodies', 'contributors']
+    other_paths = Path(__file__).parent.glob('table-schemas/others/*.yaml')
+    others = set(f.stem.split('-v')[0] for f in other_paths)
+    return schema_name not in others
 
 
 def get_table_schema(schema_name, version, optional_fields=[], offline=None):

@@ -22,6 +22,7 @@ acquisition_instrument_vendor: An acquisition_instrument is the device that cont
 affiliation: Institutional affiliation
 age_value: The time elapsed since birth.
 analyte_class: Analytes are the target molecules being measured with the assay.
+anatomical_region: Region within the organ.
 antibodies_path: Relative path to file with antibody information for this dataset.
 antibody_name: Anti-(target name) antibody. Not validated or used down-stream.
 assay_category: 'Each assay is placed into one of the following 3 general categories:
@@ -72,6 +73,9 @@ cell_barcode_size: Length of the cell barcode in base pairs
 channel_id: Structure of channel_id depends on assay type.
 cold_ischemia_time_unit: Time unit
 cold_ischemia_time_value: Time interval on ice to the start of preservation protocol.
+cold_ischemic_time_unit: TODO
+cold_ischemic_time_value: Time interval on ice to the start of preservation protocol.
+  (Specimen acquisition start time) - (Preservation solution flushed time)
 column_length_unit: Unit for GC column length
 column_length_value: GC column length
 column_model: The model of the GC column used
@@ -98,7 +102,7 @@ desi_solvent_flow_rate_unit: Units of the rate of solvent flow.
 dilution: Antibody solutions may be diluted according to the experimental protocol.
 dna_assay_input_unit: Units of DNA input into library preparation
 dna_assay_input_value: Amount of DNA input into library preparation
-donor_id: HuBMAP Display ID of the donor of the assayed tissue.
+donor_id: Unique identifier for the organ donor.
 dual_count_start: Threshold for dual counting.
 end_datetime: Time stamp indicating end of ablation for ROI
 execution_datetime: Start date and time of assay, typically a date-time stamped folder
@@ -118,8 +122,11 @@ health_status: "Patient's baseline physical condition prior to immediate event l
   \ healthy subject may have experienced trauma leading to brain death.  As a result\
   \ of organ donation, a sample is collected.  In this scenario, the subject is deemed\
   \ \u201Crelatively healthy.\u201D"
-height_unit: The vertical measurement or distance from the base to the top of a subject
-  or participant.
+height_unit: TODO
+height_value: Organ specific dimension
+histological_report: Histopathological reporting of key variables that are important
+  for the tissue (absence of necrosis, comment on composition, significant pathology
+  description, high level inflammation/fibrosis assessment, etc.)
 increment_z_unit: The units of increment z value.
 increment_z_value: The distance between sequential optical sections.
 internal_standard: Specifies if internal standard was utilized and designates what
@@ -168,6 +175,8 @@ lc_resin: Details of the resin used for lc, including vendor, particle size, por
   size
 lc_temp_unit: units for LC temperature
 lc_temp_value: LC temperature
+length_unit: TODO
+length_value: Organ specific dimension
 library_adapter_sequence: Adapter sequence to be used for adapter trimming
 library_average_fragment_size: Average size of sequencing library fragments estimated
   via gel electrophoresis or bioanalyzer/tapestation.
@@ -207,6 +216,7 @@ mz_range_high_value: The high value of the scanned mass range for MS1. (unitless
 mz_range_low_value: The low value of the scanned mass range for MS1. (unitless)
 mz_resolving_power: The peak (m/z) used to calculate the resolving power.
 name: Name for display
+notes: TODO
 number_of_antibodies: Number of antibodies
 number_of_barcode_probes: Number of barcode probes targeting mRNAs (eg. 24,000 barcode
   probes = 24,000 mRNAs - 1 per mRNA of interest)
@@ -227,10 +237,16 @@ number_of_sections: Number of sections
 operator: Name of the person responsible for executing the assay.
 operator_email: Email address for the operator.
 orcid_id: ORCID ID of contributor
-organ_condition: Health status of the organ at the time of sample recovery.
+organ: Organ from which the tissue is going to be taken
+organ_condition: Health status of the organ at the time of sample recovery
+organ_id: Unique identifier for the organ. Currently referred to as "sample ID".
+organ_preparation_protocols_io_doi: TODO
+organ_source: TODO
+organ_weight_unit: TODO
+organ_weight_value: The total organ weight.
 overall_protocols_io_doi: DOI for protocols.io for the overall process.
 pathologist_report: Further details on organ level QC checks.
-perfusion_solution: Type of solution that was used to perfuse the organ.
+perfusion_solution: Type of solution that was used to perfuse the organ
 pi: Name of the principal investigator responsible for the data.
 pi_email: Email address for the principal investigator.
 polarity: The polarity of the mass analysis (positive or negative ion modes)
@@ -274,10 +290,19 @@ roi_id: Multiple images (1-n) are acquired from regions of interest (ROI1, ROI2,
 rr_id: The rr_id is a unique antibody identifier that comes from the Antibody Registry
   (https://antibodyregistry.org).
 sample_id: (No description for this field was supplied.)
+sample_pathology_distance_value: If surgical sample, how far from the pathology was
+  the sample obtained.
+sample_preparation_media: What was the sample preserved in.
+sample_preparation_protocols_io_doi: TODO
+sample_preparation_temperature: The temperature for the preparation process.
+sample_quality_criteria: 'For example, RIN: 8.7'
 sample_quality_metric: "This is a quality metric by visual inspection. This should\
   \ answer the question: Are the nuclei intact and are the nuclei free of significant\
   \ amounts of debris? This can be captured at a high level, \u201COK\u201D or \u201C\
   not OK\u201D."
+sample_storage_temperature: The temperature during storage, after preparation and
+  before the assay is performed.
+sample_tumor_distance_unit: Distance unit
 sc_isolation_cell_number: Total number of cell/nuclei yielded post dissociation and
   enrichment
 sc_isolation_enrichment: The method by which specific cell populations are sorted
@@ -302,6 +327,7 @@ sequencing_read_percent_q30: 'Q30 is the weighted average of all the reads (e.g.
 sequencing_reagent_kit: Reagent kit used for sequencing
 sex: 'Biological sex at birth: male or female or other.'
 signal_type: Type of signal measured per channel (usually dual counts)
+source_id: Unique identifier for the source (parent) from which the sample was taken.
 source_project: External source (outside of HuBMAP) of the project, eg. HCA (The Human
   Cell Atlas Consortium).
 spatial_sampling_type: Specifies whether or not the analysis was performed in a spatially
@@ -327,7 +353,9 @@ stain: Chemical stains (dyes) applied to histology samples to highlight importan
   features of the tissue as well as to enhance the tissue contrast.
 start_datetime: Time stamp indicating start of ablation for ROI
 step_z_value: The number of optical sections in z axis range.
+tissue: Organ specific tissue.
 tissue_id: HuBMAP Display ID of the assayed tissue.
+transport_solution: Type of solution used during transport
 transposition_input: Number of cell/nuclei input to the assay.
 transposition_kit_number: If Tn5 came from a kit, provide the catalog number.
 transposition_method: Modality of capturing accessible chromatin molecules.
@@ -335,11 +363,16 @@ transposition_transposase_source: The source of the Tn5 transposase and transpos
   used for capturing accessible chromatin.
 uniprot_accession_number: The uniprot_accession_number is a unique identifier for
   proteins in the UniProt database (https://www.uniprot.org).
-version: Version of the schema to use when validating this metadata.
+version: Current version of schema.
 vital_state: Identify the vital state of the donor.
 warm_ischemia_time_unit: Time unit
 warm_ischemia_time_value: Time interval between cessation of blood flow and cooling
   to 4C.
-weight_value: A measurement that describes the vertical force exerted by a mass of
-  the patient as a result of gravity.
+warm_ischemic_time_unit: TODO
+warm_ischemic_time_value: Time interval between cessation of blood flow and cooling
+  to 4C. (Preservation solution flushed time) - (Organ out time)
+weight_unit: Sample weight.
+weight_value: Sample weight.
+width_unit: TODO
+width_value: Organ specific dimension
 

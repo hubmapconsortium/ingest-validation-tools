@@ -11,49 +11,197 @@ Related files:
 - [📝 Excel template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/main/docs/sample/sample.xlsx): For metadata entry.
 - [📝 TSV template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/main/docs/sample/sample.tsv): Alternative for metadata entry.
 
-
+Sample schema v1 is a complete rewrite; There are fields that correspond to v0, but these will need to be mapped at index-time. See also the organ schema.
 
 
 
 ## Metadata schema
 
 
-<details markdown="1" open="true"><summary><b>Version 0 (current)</b></summary>
+<details markdown="1" open="true"><summary><b>Version 1 (current)</b></summary>
 
 <blockquote markdown="1">
 
+[`version`](#version)<br>
 <details markdown="1"><summary>IDs</summary>
 
+[`source_id`](#source_id)<br>
 [`sample_id`](#sample_id)<br>
 
 </details>
-<details markdown="1"><summary>Donor</summary>
+<details markdown="1"><summary>Details</summary>
 
-[`vital_state`](#vital_state)<br>
-[`health_status`](#health_status)<br>
-
-</details>
-<details markdown="1"><summary>Medical Procedure</summary>
-
-[`organ_condition`](#organ_condition)<br>
-[`procedure_date`](#procedure_date)<br>
-[`perfusion_solution`](#perfusion_solution)<br>
-[`pathologist_report`](#pathologist_report)<br>
-[`warm_ischemia_time_value`](#warm_ischemia_time_value)<br>
-[`warm_ischemia_time_unit`](#warm_ischemia_time_unit)<br>
-[`cold_ischemia_time_value`](#cold_ischemia_time_value)<br>
-[`cold_ischemia_time_unit`](#cold_ischemia_time_unit)<br>
-
-</details>
-<details markdown="1"><summary>Biospecimen</summary>
-
-[`specimen_preservation_temperature`](#specimen_preservation_temperature)<br>
-[`specimen_quality_criteria`](#specimen_quality_criteria)<br>
-[`specimen_tumor_distance_value`](#specimen_tumor_distance_value)<br>
-[`specimen_tumor_distance_unit`](#specimen_tumor_distance_unit)<br>
+[`anatomical_region`](#anatomical_region)<br>
+[`tissue`](#tissue)<br>
+[`weight_value`](#weight_value)<br>
+[`weight_unit`](#weight_unit)<br>
+[`sample_pathology_distance_value`](#sample_pathology_distance_value)<br>
+[`sample_tumor_distance_unit`](#sample_tumor_distance_unit)<br>
+[`sample_preparation_protocols_io_doi`](#sample_preparation_protocols_io_doi)<br>
+[`sample_preparation_media`](#sample_preparation_media)<br>
+[`sample_preparation_temperature`](#sample_preparation_temperature)<br>
+[`sample_storage_temperature`](#sample_storage_temperature)<br>
+[`sample_quality_criteria`](#sample_quality_criteria)<br>
+[`histological_report`](#histological_report)<br>
+[`notes`](#notes)<br>
 </details>
 
 </blockquote>
+
+<a name="version"></a>
+##### [`version`](#version)
+Current version of schema.
+
+| constraint | value |
+| --- | --- |
+| enum | `1` |
+| required | `True` |
+
+### IDs
+
+<a name="source_id"></a>
+##### [`source_id`](#source_id)
+Unique identifier for the source (parent) from which the sample was taken.
+
+| constraint | value |
+| --- | --- |
+| pattern (regular expression) | `([A-Z]+[0-9]+)-[A-Z]{2}\d*(-\d+)+(_\d+)?` |
+| required | `True` |
+
+<a name="sample_id"></a>
+##### [`sample_id`](#sample_id)
+Unique identifier for the sample. Currently referred to as "tissue ID".
+
+| constraint | value |
+| --- | --- |
+| pattern (regular expression) | `([A-Z]+[0-9]+)-[A-Z]{2}\d*(-\d+)+(_\d+)?` |
+| required | `True` |
+
+### Details
+
+<a name="anatomical_region"></a>
+##### [`anatomical_region`](#anatomical_region)
+Region within the organ. Leave blank if not applicable.
+
+| constraint | value |
+| --- | --- |
+| required | `False` |
+| enum | `TODO` |
+
+<a name="tissue"></a>
+##### [`tissue`](#tissue)
+Organ specific tissue.
+
+| constraint | value |
+| --- | --- |
+| enum | `TODO` |
+| required | `True` |
+
+<a name="weight_value"></a>
+##### [`weight_value`](#weight_value)
+Sample weight. Leave blank if not applicable.
+
+| constraint | value |
+| --- | --- |
+| type | `number` |
+| required | `False` |
+
+<a name="weight_unit"></a>
+##### [`weight_unit`](#weight_unit)
+Sample weight. Leave blank if not applicable.
+
+| constraint | value |
+| --- | --- |
+| enum | `g` |
+| required | `False` |
+| units for | `weight_value` |
+
+<a name="sample_pathology_distance_value"></a>
+##### [`sample_pathology_distance_value`](#sample_pathology_distance_value)
+If surgical sample, how far from the pathology was the sample obtained. Leave blank if not applicable.
+
+| constraint | value |
+| --- | --- |
+| type | `number` |
+| required | `False` |
+
+<a name="sample_tumor_distance_unit"></a>
+##### [`sample_tumor_distance_unit`](#sample_tumor_distance_unit)
+Distance unit.
+
+| constraint | value |
+| --- | --- |
+| enum | `cm` |
+| required | `True` |
+| units for | `sample_pathology_distance_value` |
+
+<a name="sample_preparation_protocols_io_doi"></a>
+##### [`sample_preparation_protocols_io_doi`](#sample_preparation_protocols_io_doi)
+TODO.
+
+| constraint | value |
+| --- | --- |
+| required | `True` |
+| pattern (regular expression) | `10\.17504/.*` |
+| url | prefix: `https://dx.doi.org/` |
+
+<a name="sample_preparation_media"></a>
+##### [`sample_preparation_media`](#sample_preparation_media)
+What was the sample preserved in.
+
+| constraint | value |
+| --- | --- |
+| enum | `fresh`, `snap frozen`, `fresh frozen OCT`, `FFPE`, `RNAlater`, `4% PFA`, `fixed frozen OCT`, `Cellfreezing media`, `CMC`, or `10% NBF` |
+| required | `True` |
+
+<a name="sample_preparation_temperature"></a>
+##### [`sample_preparation_temperature`](#sample_preparation_temperature)
+The temperature for the preparation process.
+
+| constraint | value |
+| --- | --- |
+| enum | `Liquid Nitrogen`, `Liquid Nitrogen Vapor`, `Freezer (-80 Celsius)`, `Freezer (-20 Celsius)`, `Refrigerator (4 Celsius)`, or `Room Temperature` |
+| required | `True` |
+
+<a name="sample_storage_temperature"></a>
+##### [`sample_storage_temperature`](#sample_storage_temperature)
+The temperature during storage, after preparation and before the assay is performed.
+
+| constraint | value |
+| --- | --- |
+| enum | `Liquid Nitrogen`, `Liquid Nitrogen Vapor`, `Freezer (-80 Celsius)`, `Freezer (-20 Celsius)`, `Refrigerator (4 Celsius)`, or `Room Temperature` |
+| required | `True` |
+
+<a name="sample_quality_criteria"></a>
+##### [`sample_quality_criteria`](#sample_quality_criteria)
+For example, RIN: 8.7. Leave blank if not applicable.
+
+| constraint | value |
+| --- | --- |
+| required | `False` |
+
+<a name="histological_report"></a>
+##### [`histological_report`](#histological_report)
+Histopathological reporting of key variables that are important for the tissue (absence of necrosis, comment on composition, significant pathology description, high level inflammation/fibrosis assessment, etc.) Leave blank if not applicable.
+
+| constraint | value |
+| --- | --- |
+| required | `False` |
+
+<a name="notes"></a>
+##### [`notes`](#notes)
+TODO. Leave blank if not applicable.
+
+| constraint | value |
+| --- | --- |
+| enum | `left` or `right` |
+| required | `False` |
+
+</details>
+
+
+<details markdown="1" ><summary><b>Version 0</b></summary>
+
 
 ### IDs
 
@@ -201,4 +349,3 @@ Distance unit. Leave blank if not applicable.
 | units for | `specimen_tumor_distance_value` |
 
 </details>
-

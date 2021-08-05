@@ -1,0 +1,173 @@
+# Generated YAML: PRs should not start here!
+description_md: Sample schema v1 is a complete rewrite; There are fields that correspond
+  to v0, but these will need to be mapped at index-time. See also the organ schema.
+fields:
+- constraints:
+    enum:
+    - '1'
+    required: true
+  custom_constraints:
+    forbid_na: true
+    sequence_limit: 3
+  description: Current version of schema.
+  name: version
+- constraints:
+    pattern: ([A-Z]+[0-9]+)-[A-Z]{2}\d*(-\d+)+(_\d+)?
+    required: true
+  custom_constraints:
+    forbid_na: true
+    sequence_limit: 3
+  description: Unique identifier for the source (parent) from which the sample was
+    taken.
+  heading: IDs
+  name: source_id
+  type: string
+- constraints:
+    pattern: ([A-Z]+[0-9]+)-[A-Z]{2}\d*(-\d+)+(_\d+)?
+    required: true
+  custom_constraints:
+    forbid_na: true
+    sequence_limit: 3
+  description: Unique identifier for the sample. Currently referred to as "tissue
+    ID".
+  name: sample_id
+  type: string
+- constraints:
+    enum:
+    - TODO
+    required: false
+  custom_constraints:
+    forbid_na: true
+    sequence_limit: 3
+  description: Region within the organ.
+  heading: Details
+  name: anatomical_region
+- constraints:
+    enum:
+    - TODO
+    required: true
+  custom_constraints:
+    forbid_na: true
+    sequence_limit: 3
+  description: Organ specific tissue.
+  name: tissue
+- constraints:
+    required: false
+  custom_constraints:
+    forbid_na: true
+    sequence_limit: 3
+  description: Sample weight.
+  name: weight_value
+  type: number
+- constraints:
+    enum:
+    - g
+    required: false
+  custom_constraints:
+    forbid_na: true
+    sequence_limit: 3
+    units_for: weight_value
+  description: Sample weight.
+  name: weight_unit
+- constraints:
+    required: false
+  custom_constraints:
+    forbid_na: true
+    sequence_limit: 3
+  description: If surgical sample, how far from the pathology was the sample obtained.
+  name: sample_pathology_distance_value
+  type: number
+- constraints:
+    enum:
+    - cm
+    required: true
+  custom_constraints:
+    forbid_na: true
+    sequence_limit: 3
+    units_for: sample_pathology_distance_value
+  description: Distance unit
+  name: sample_tumor_distance_unit
+- constraints:
+    pattern: 10\.17504/.*
+    required: true
+  custom_constraints:
+    forbid_na: true
+    sequence_limit: 3
+    url:
+      prefix: https://dx.doi.org/
+  description: TODO
+  name: sample_preparation_protocols_io_doi
+  type: string
+- constraints:
+    enum:
+    - fresh
+    - snap frozen
+    - fresh frozen OCT
+    - FFPE
+    - RNAlater
+    - 4% PFA
+    - fixed frozen OCT
+    - Cellfreezing media
+    - CMC
+    - 10% NBF
+    required: true
+  custom_constraints:
+    forbid_na: true
+    sequence_limit: 3
+  description: What was the sample preserved in.
+  name: sample_preparation_media
+- constraints:
+    enum:
+    - Liquid Nitrogen
+    - Liquid Nitrogen Vapor
+    - Freezer (-80 Celsius)
+    - Freezer (-20 Celsius)
+    - Refrigerator (4 Celsius)
+    - Room Temperature
+    required: true
+  custom_constraints:
+    forbid_na: true
+    sequence_limit: 3
+  description: The temperature for the preparation process.
+  name: sample_preparation_temperature
+- constraints:
+    enum:
+    - Liquid Nitrogen
+    - Liquid Nitrogen Vapor
+    - Freezer (-80 Celsius)
+    - Freezer (-20 Celsius)
+    - Refrigerator (4 Celsius)
+    - Room Temperature
+    required: true
+  custom_constraints:
+    forbid_na: true
+    sequence_limit: 3
+  description: The temperature during storage, after preparation and before the assay
+    is performed.
+  name: sample_storage_temperature
+- constraints:
+    required: false
+  custom_constraints:
+    forbid_na: true
+    sequence_limit: 3
+  description: 'For example, RIN: 8.7'
+  name: sample_quality_criteria
+- constraints:
+    required: false
+  custom_constraints:
+    forbid_na: true
+    sequence_limit: 3
+  description: Histopathological reporting of key variables that are important for
+    the tissue (absence of necrosis, comment on composition, significant pathology
+    description, high level inflammation/fibrosis assessment, etc.)
+  name: histological_report
+- constraints:
+    enum:
+    - left
+    - right
+    required: false
+  custom_constraints:
+    forbid_na: true
+    sequence_limit: 3
+  description: TODO
+  name: notes

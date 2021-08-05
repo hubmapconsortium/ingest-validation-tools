@@ -1,10 +1,9 @@
-description_md:
-  See also the sample schema.
+description_md: See also the sample schema.
 fields:
 - name: version
   description: Current version of schema.
   constraints:
-    enum: ['1']	
+    enum: ['1']
 -
   heading: IDs
   # Moved this above organ_id: As a general pattern, we want the higher level information first.
@@ -84,12 +83,6 @@ fields:
       - minute
 # TODO: IEC will calculate total_ischemia_time_value. Issue #?
 -
-  name: cold_ischemic_time_unit
-  description: TODO
-  constraints:
-    enum:
-      - minute
--
   name: organ_weight_value
   description: The total organ weight. 
 -
@@ -106,7 +99,7 @@ fields:
   description: Organ specific dimension
   constraints:
     required: False
- -
+-
   name: height_unit
   description: TODO
   constraints:
@@ -119,7 +112,7 @@ fields:
   description: Organ specific dimension
   constraints:
     required: False
- -
+-
   name: width_unit
   description: TODO
   constraints:
@@ -132,7 +125,7 @@ fields:
   description: Organ specific dimension
   constraints:
     required: False
- -
+-
   name: length_unit
   description: TODO
   constraints:
@@ -141,11 +134,11 @@ fields:
   custom_constraints:
     units_for: length_value
 # TODO: "Organ images"? Is there a separate plan for them, or are you expecting them to be provided in the TSV?
-  -
-    name: organ_preparation_protocols_io_doi
-    # TODO: Unclear: Is the requirement here that this be provided in the TSV, rather than the UI?
-    # Or is the intention that this information is already available, and doesn't need to be in the TSV at all?
-    description: TODO
-  -
-    name: notes
-    description: TODO	
+-
+  name: organ_preparation_protocols_io_doi
+  # TODO: Unclear: Is the requirement here that this be provided in the TSV, rather than the UI?
+  # Or is the intention that this information is already available, and doesn't need to be in the TSV at all?
+  description: TODO
+-
+  name: notes
+  description: TODO	
