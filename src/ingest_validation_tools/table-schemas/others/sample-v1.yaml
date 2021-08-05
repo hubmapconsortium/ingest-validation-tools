@@ -1,0 +1,135 @@
+description_md:
+  Sample schema v1 is a complete rewrite; There are fields that correspond to v0, but these will need to be mapped at index-time.
+  See also the organ schema.
+fields:
+- name: version
+  description: Current version of schema.
+  constraints:
+    enum: ['1']	
+-
+  heading: IDs
+  # Moved this above sample_id: As a general pattern, we want the higher level information first.
+  name: source_id
+  description: Unique identifier for the source (parent) from which the sample was taken.
+  constraints:
+    pattern: '([A-Z]+[0-9]+)-[A-Z]{2}\d*(-\d+)+(_\d+)?'
+-
+  name: sample_id
+  description: Unique identifier for the sample. Currently referred to as "tissue ID".
+  constraints:
+    pattern: '([A-Z]+[0-9]+)-[A-Z]{2}\d*(-\d+)+(_\d+)?'
+-
+  heading: Details
+  name: anatomical_region
+  description: Region within the organ.
+  constraints:
+    required: False
+    enum:
+      - TODO
+-
+  name: tissue
+  description: Organ specific tissue.
+  constraints:
+    enum:
+      - TODO
+-
+  name: weight_value
+  description: Sample weight.
+  type: float
+  constraints:
+    required: False
+-
+  name: weight_unit
+  description: Sample weight.
+  constraints:
+    enum:
+      - g
+  type: float
+  custom_constraints:
+    units_for: weight_value
+-
+  name: sample_pathology_distance_value
+  # TODO: Map old specimen_tumor_distance_value to this.
+  constraints:
+    required: False
+  type: number
+  description: If surgical sample, how far from the pathology was the sample obtained. 
+-
+  name: sample_tumor_distance_unit
+  # TODO: Map old specimen_tumor_distance_unit to this.
+  constraints:
+    enum:
+     - cm
+  description: Distance unit
+  custom_constraints:
+    units_for: sample_pathology_distance_value
+-
+  name: sample_preparation_protocols_io_doi
+  # TODO: Unclear: Is the requirement here that this be provided in the TSV, rather than the UI?
+  # Or is the intention that this information is already available, and doesn't need to be in the TSV at all?
+  description: Currently captured from ingest portal.
+-
+  name: sample_preparation_media
+  # TODO: Should perfusion_solution be mapped to this? Not quite the same thing.
+  description: What was the sample preserved in.
+  constraints:
+    enum:
+      - fresh
+      - snap frozen
+      - fresh frozen OCT
+      - FFPE
+      - RNAlater
+      - 4% PFA
+      # Other-define
+      - fixed frozen OCT
+      - Cellfreezing media # TODO: change to "cell freezing media"?
+      - CMC
+      - 10% NBF
+-
+  name: sample_preparation_temperature
+  description: The temperature for the preparation process.
+  constraints:
+    enum:
+      - Liquid Nitrogen
+      - Liquid Nitrogen Vapor
+      - Freezer (-80 Celsius)
+      - Freezer (-20 Celsius)
+      - Refrigerator (4 Celsius)
+      - Room Temperature
+-
+  name: sample_storage_temperature
+  # TODO: Map old specimen_preservation_temperature to this.
+  description: The temperature during storage, after preparation and before the assay is performed.
+  constraints:
+    enum:
+      - Liquid Nitrogen
+      - Liquid Nitrogen Vapor
+      - Freezer (-80 Celsius)
+      - Freezer (-20 Celsius)
+      - Refrigerator (4 Celsius)
+      - Room Temperature
+-
+  name: sample_quality_criteria
+  # TODO: Map old specimen_quality_criteria to this.
+  # TODO: The Excel sheet gives an emumeration:
+  #   - RIN
+  #   - Histopathology
+  # What precisely are the requirements here?
+  description: 'For example, RIN: 8.7'
+  constraints:
+    required: False
+-
+  name: histological_report
+  # TODO: Map old pathologist_report to this.
+  description: Histopathological reporting of key variables that are important for the tissue (absence of necrosis, comment on composition, significant pathology description, high level inflammation/fibrosis assessment, etc.)
+  constraints:
+    required: False
+-
+  name: notes
+  # TODO: Only examples were of left/right. Should this be called something different, and/or is a separate free-text field needed?
+  description: TODO
+  constraints:
+    enum:
+      - left
+      - right
+    required: False	
