@@ -2,6 +2,8 @@
 
 ## v0.0.13 - in progress
 - Add pipeline info.
+- Hotfix on CellDive directory to reflect changes to dataset.
+- Updated CellDive directory structure.
 - Updated CODEX directory structure.
 - Non-assay schema docs were not be update. Fix that.
 - Sample was being skipped in doc generation. Fix that.
