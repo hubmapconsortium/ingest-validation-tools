@@ -9,7 +9,7 @@ from tableschema_to_template.create_xlsx import create_xlsx
 
 from ingest_validation_tools.schema_loader import (
     dict_schema_versions, get_table_schema, get_other_schema, get_directory_schema,
-    get_is_assay, enum_maps_to_lists)
+    get_pipeline_infos, get_is_assay, enum_maps_to_lists)
 from ingest_validation_tools.docs_utils import (
     get_tsv_name, get_xlsx_name,
     generate_template_tsv, generate_readme_md)
@@ -35,9 +35,11 @@ def main():
     is_assay = get_is_assay(args.type)
     if is_assay:
         table_schemas = {v: get_table_schema(args.type, v) for v in versions}
+        pipeline_infos = get_pipeline_infos(args.type)
         directory_schema = get_directory_schema(args.type)
     else:
         table_schemas = {v: get_other_schema(args.type, v) for v in versions}
+        pipeline_infos = []
         directory_schema = {}
 
     # README.md:
@@ -48,7 +50,11 @@ def main():
     # index.md:
     with open(Path(args.target) / 'index.md', 'w') as f:
         f.write(generate_readme_md(
-            table_schemas, directory_schema, args.type, is_assay=is_assay
+            table_schemas=table_schemas,
+            pipeline_infos=pipeline_infos,
+            directory_schema=directory_schema,
+            schema_name=args.type,
+            is_assay=is_assay
         ))
 
     # YAML:
