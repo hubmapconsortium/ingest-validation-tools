@@ -17,18 +17,18 @@ Related files:
 
 | pattern | required? | description |
 | --- | --- | --- |
-| `[^/]+/alignment/Puck_[^/]+\.bam` | ✓ | aligned sequencing data from Slide-seq experiments against reference HG38 |
-| `[^/]+/alignment/Puck_[^/]+_mapping_rate\.txt` | ✓ | mapping rate summary (~ 10 number of mapping statistics per puck) |
-| `[^/]+/alignment/Puck_[^/]+_alignment_quality\.pdf` | ✓ | mapping quality plots (has unique and multiple alignment ratio, alignment scores alignment mismatch) |
-| `[^/]+/alignment/Puck_[^/]+\.digital_expression\.txt\.gz` | ✓ | bead x gene expression matrix (csv file) |
-| `[^/]+/alignment/Puck_[^/]+\.exonic\+intronic\.pdf` | ✓ | post alignment plots (qa/qc), plots of sequencing data, alignment and barcode matching |
+| `[^/]+/alignment/Puck_[^/]+\.bam` | ✓ | Aligned sequencing data from Slide-seq experiments against reference HG38 |
+| `[^/]+/alignment/Puck_[^/]+_mapping_rate\.txt` | ✓ | Mapping rate summary (~ 10 number of mapping statistics per puck) |
+| `[^/]+/alignment/Puck_[^/]+_alignment_quality\.pdf` | ✓ | Mapping quality plots (has unique and multiple alignment ratio, alignment scores alignment mismatch) |
+| `[^/]+/alignment/Puck_[^/]+\.digital_expression\.txt\.gz` | ✓ | Bead x gene expression matrix (csv file) |
+| `[^/]+/alignment/Puck_[^/]+\.exonic\+intronic\.pdf` | ✓ | Post alignment plots (qa/qc), plots of sequencing data, alignment and barcode matching |
 | `[^/]+/barcode_matching/BeadBarcodes\.txt` | ✓ | barcodes of all sequenced beads (Many of these barcodes will not be in the matched_bead_barcodes files) |
 | `[^/]+/barcode_matching/BeadLocations\.txt` | ✓ | spatial coordinates of all sequenced beads (1 to 1 correspondence with BeadBarcodes) |
-| `[^/]+/barcode_matching/Puck_[^/]+_unique_matched_illumina_barcodes\.txt` | ✓ | matched Illumina barcodes (used by illumina sequencer) |
-| `[^/]+/barcode_matching/Puck_[^/]+_matched_bead_barcodes\.txt` | ✓ | matched bead barcodes (these are the barcodes that matched bead on the puck) |
-| `[^/]+/barcode_matching/Puck_[^/]+_matched_bead_locations\.txt` | ✓ | matched bead coordinates (these are the location of the barcodes that matched bead on the puck) |
-| `[^/]+/fastq/Puck_[^/]+\.read1\.fastq\.gz` | ✓ | each puck will have 2 fastq files, this file contains the first set of paired reads |
-| `[^/]+/fastq/Puck_[^/]+\.read2\.fastq\.gz` | ✓ | each puck will have 2 fastq files, this file contains the second set of paired reads |
+| `[^/]+/barcode_matching/Puck_[^/]+_unique_matched_illumina_barcodes\.txt` | ✓ | Matched Illumina barcodes (used by illumina sequencer) |
+| `[^/]+/barcode_matching/Puck_[^/]+_matched_bead_barcodes\.txt` | ✓ | Matched bead barcodes (these are the barcodes that matched bead on the puck) |
+| `[^/]+/barcode_matching/Puck_[^/]+_matched_bead_locations\.txt` | ✓ | Matched bead coordinates (these are the location of the barcodes that matched bead on the puck) |
+| `[^/]+/fastq/Puck_[^/]+\.read1\.fastq\.gz` | ✓ | Each puck will have 2 fastq files, this file contains the first set of paired reads |
+| `[^/]+/fastq/Puck_[^/]+\.read2\.fastq\.gz` | ✓ | Each puck will have 2 fastq files, this file contains the second set of paired reads |
 | `extras/.*` |  | Free-form descriptive information supplied by the TMC |
 | `extras/thumbnail\.(png\|jpg)` |  | Optional thumbnail image which may be shown in search interface |
 
