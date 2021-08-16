@@ -209,11 +209,6 @@ def get_directory_schema(directory_type, version):
     schema = load_yaml(directory_schema_path)
     schema['files'] += [
         {
-            'pattern': r'directory-schema-version\.txt',
-            'description': 'Contains the directory schema version to use; Assume v0 if not present',
-            'required': False
-        },
-        {
             'pattern': r'extras/.*',
             'description': 'Free-form descriptive information supplied by the TMC',
             'required': False

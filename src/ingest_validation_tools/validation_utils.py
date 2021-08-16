@@ -38,12 +38,11 @@ def get_table_schema_version(path, encoding):
 
 
 def get_directory_schema_version(data_path):
-    version_path = data_path / 'directory-schema-version.txt'
-    return (
-        # Remove optional leading "v"
-        re.sub(r'^v', '', version_path.read_text().strip())
-        if version_path.exists() else '0'
-    )
+    '''
+    Read all schemas, and return the one with the fewest errors.
+    (Having an explicit indication of the version of the submission was proposed and rejected.)
+    '''
+    # TODO
 
 
 def get_data_dir_errors(schema_name, data_path, dataset_ignore_globs=[]):
