@@ -1,11 +1,10 @@
 import logging
 from csv import DictReader
 from pathlib import Path
-import re
 
 from ingest_validation_tools.schema_loader import (
     get_table_schema, get_other_schema,
-    get_directory_schema)
+    get_directory_schema, get_all_directory_schema_versions)
 from ingest_validation_tools.directory_validator import (
     validate_directory, DirectoryValidationErrors)
 from ingest_validation_tools.table_validator import (
@@ -37,34 +36,68 @@ def get_table_schema_version(path, encoding):
     return get_table_schema_version_from_row(path, rows[0])
 
 
-def get_directory_schema_version(data_path):
+def _get_best_directory_schema_version(schema_name, data_path, dataset_ignore_globs):
     '''
     Read all schemas, and return the one with the fewest errors.
     (Having an explicit indication of the version of the submission was proposed and rejected.)
     '''
-    # TODO
+    # Get all directory schemas:
+    all_directory_schema_versions = get_all_directory_schema_versions(schema_name)
+
+    # Validate with each:
+    all_directory_schemas_errors = [
+        (directory_schema_version, _get_data_dir_errors_for_version(
+            schema_name, data_path, dataset_ignore_globs, directory_schema_version))
+        for directory_schema_version in all_directory_schema_versions
+    ]
+
+    # Sort for simpler errors at the top:
+    # TODO: Check logic
+    all_directory_schemas_errors.sort(key=lambda schema_error: len(str(schema_error[1])))
+
+    # Return the best:
+    return all_directory_schemas_errors[0][0]
 
 
 def get_data_dir_errors(schema_name, data_path, dataset_ignore_globs=[]):
     '''
     Validate a single data_path.
     '''
-    directory_schema_version = get_directory_schema_version(data_path)
+    directory_schema_version = _get_best_directory_schema_version(
+        schema_name, data_path, dataset_ignore_globs)
+    return _get_data_dir_errors_for_version(
+        schema_name, data_path, dataset_ignore_globs, directory_schema_version, )
+
+
+def _get_data_dir_errors_for_version(
+        schema_name, data_path, dataset_ignore_globs, directory_schema_version):
     schema = get_directory_schema(schema_name, directory_schema_version)
     schema_label = f'{schema_name} {directory_schema_version}'
+
     if not schema['files']:
         return {'Undefined directory schema': schema_label}
+
+    schema_warning = {'Deprecated directory schema': schema_label} \
+        if schema.get('deprecated', False) else None
+
     try:
         validate_directory(
             data_path, schema['files'], dataset_ignore_globs=dataset_ignore_globs)
     except DirectoryValidationErrors as e:
-        if schema.get('deprecated', False):
-            return {'Deprecated directory schema': schema_label}
+        # If there are DirectoryValidationErrors and the schema is deprecated...
+        #    schema deprecation is more important.
+        if schema_warning:
+            return schema_warning
         return e.errors
     except OSError as e:
+        # If there are OSErrors and the schema is deprecated...
+        #    the OSErrors are more important.
         return {e.strerror: e.filename}
-    if schema.get('deprecated', False):
-        return {'Deprecated directory schema': schema_label}
+    if schema_warning:
+        return schema_warning
+
+    # No problems!
+    return None
 
 
 def get_context_of_decode_error(e):
@@ -177,6 +210,6 @@ def get_tsv_errors(tsv_path, schema_name, optional_fields=[], offline=None, enco
         return {e.strerror: Path(e.filename).name}
 
     if schema.get('deprecated'):
-        return {f'Schema version is deprecated': f'{schema_name}-v{version}'}
+        return {'Schema version is deprecated': f'{schema_name}-v{version}'}
 
     return get_table_errors(tsv_path, schema)

@@ -160,6 +160,13 @@ def list_directory_schema_versions():
     ]
 
 
+def get_all_directory_schema_versions(schema_name):
+    return [
+        version for version in list_directory_schema_versions()
+        if version.schema_name == schema_name
+    ]
+
+
 def dict_directory_schema_versions():
     dict_of_sets = defaultdict(set)
     for sv in list_directory_schema_versions():
