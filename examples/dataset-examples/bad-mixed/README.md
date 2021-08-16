@@ -29,7 +29,10 @@ Metadata TSV Errors:
       constraint "required" is "True"
     External:
       row 2, data examples/dataset-examples/bad-mixed/upload/bad-shared-dataset:
-        Undefined directory schema: scatacseq 1
+        Not allowed:
+        - not-good-for-either-type.txt
+        Required but missing:
+        - '[^/]+\.fastq\.gz'
       row 2, contributors examples/dataset-examples/bad-mixed/upload/contributors.tsv: File
         has no data rows.
 Reference Errors:
