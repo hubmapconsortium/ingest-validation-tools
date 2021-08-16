@@ -1,0 +1,8 @@
+# Joel Welling and Matt Ruffalo have responsibility for the content of this file.
+# They will keep it up to date, and regenerate documentation after any changes.
+
+scatacseq:
+  -
+    name: scATACseq Pipeline
+    repo_url: https://github.com/hubmapconsortium/sc-atac-seq-pipeline
+    version_tag: 1.4.3
