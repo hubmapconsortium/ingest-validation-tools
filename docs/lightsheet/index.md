@@ -33,7 +33,6 @@ The other fields function the same way for all assays using antibodies. For more
 | `Level3/Channel[^/]+/[^/]+\.obj` |  | Annotation file. File is optional. |
 | `Level3/Channel[^/]+/[^/]+\.stl` |  | Annotation file. File is optional. |
 | `Level3/Channel[^/]+/[^/]+\.ome.tiff` |  | Annotation file. File is optional. |
-| `directory-schema-version\.txt` |  | Contains the directory schema version to use; Assume v0 if not present |
 | `extras/.*` |  | Free-form descriptive information supplied by the TMC |
 | `extras/thumbnail\.(png\|jpg)` |  | Optional thumbnail image which may be shown in search interface |
 

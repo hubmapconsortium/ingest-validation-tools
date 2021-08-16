@@ -19,7 +19,6 @@ This schema is for single cell RNA sequencing (scRNAseq).
 | pattern | required? | description |
 | --- | --- | --- |
 | `[^/]+\.fastq\.gz` | ✓ | Compressed FastQ file |
-| `directory-schema-version\.txt` |  | Contains the directory schema version to use; Assume v0 if not present |
 | `extras/.*` |  | Free-form descriptive information supplied by the TMC |
 | `extras/thumbnail\.(png\|jpg)` |  | Optional thumbnail image which may be shown in search interface |
 

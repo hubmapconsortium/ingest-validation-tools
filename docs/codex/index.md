@@ -36,7 +36,6 @@ The other fields function the same way for all assays using antibodies. For more
 | `(raw\|src_.*)/channel[Nn]ames\.txt` |  | ✓ | Text file produced by the Akoya software which contains the (linearized) channel number and the Name/ID/Target of the channel (required for HuBMAP pipeline) |
 | `(raw\|src_.*)/.*` |  | ✓ | Raw data directory. |
 | `(processed\|drv_[^/]*)/.*` |  | ✓ | Processed files produced by the Akoya software or alternative software. |
-| `directory-schema-version\.txt` |  |  | Contains the directory schema version to use; Assume v0 if not present |
 | `extras/.*` |  |  | Free-form descriptive information supplied by the TMC |
 | `extras/thumbnail\.(png\|jpg)` |  |  | Optional thumbnail image which may be shown in search interface |
 ### v0
@@ -58,7 +57,6 @@ The other fields function the same way for all assays using antibodies. For more
 | `src_[^/]+/channelnames\.txt` |  | ✓ | Text file produced by the Akoya software which contains the (linearized) channel number and the Name/ID/Target of the channel (required for HuBMAP pipeline) |
 | `src_[^/]+/cyc.*_reg.*_.*/.*_.*_Z.*_CH.*\.tif` |  | ✓ | TIFF files produced by the experiment. General folder format: Cycle(n)_Region(n)_date; General file format: name_tileNumber(n)_zplaneNumber(n)_channelNumber(n) |
 | `src_[^/]+/cyc.*_reg.*_.*/.*\.gci` |  |  | Group Capture Information File (Keyance Microscope only) |
-| `directory-schema-version\.txt` |  |  | Contains the directory schema version to use; Assume v0 if not present |
 | `extras/.*` |  |  | Free-form descriptive information supplied by the TMC |
 | `extras/thumbnail\.(png\|jpg)` |  |  | Optional thumbnail image which may be shown in search interface |
 

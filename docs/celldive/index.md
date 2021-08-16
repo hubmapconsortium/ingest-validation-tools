@@ -32,7 +32,6 @@ The other fields function the same way for all assays using antibodies. For more
 | `HuBMAP_Seg_and_quant/*/move_images.bat` |  | moves files |
 | `HuBMAP_OME/make_folders.bat` |  | creates directories |
 | `HuBMAP_Seg_and_quant/*/make_folders.bat` |  | creates directories |
-| `directory-schema-version\.txt` |  | Contains the directory schema version to use; Assume v0 if not present |
 | `extras/.*` |  | Free-form descriptive information supplied by the TMC |
 | `extras/thumbnail\.(png\|jpg)` |  | Optional thumbnail image which may be shown in search interface |
 

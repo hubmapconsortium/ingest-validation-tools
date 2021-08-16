@@ -30,7 +30,6 @@ Related files:
 | `[^/]+/barcode_matching/Puck_[^/]+_matched_bead_locations\.txt` | ✓ | matched bead coordinates (these are the location of the barcodes that matched bead on the puck) |
 | `[^/]+/fastq/Puck_[^/]+\.read1\.fastq\.gz` | ✓ | each puck will have 2 fastq files, this file contains the first set of paired reads |
 | `[^/]+/fastq/Puck_[^/]+\.read2\.fastq\.gz` | ✓ | each puck will have 2 fastq files, this file contains the second set of paired reads |
-| `directory-schema-version\.txt` |  | Contains the directory schema version to use; Assume v0 if not present |
 | `extras/.*` |  | Free-form descriptive information supplied by the TMC |
 | `extras/thumbnail\.(png\|jpg)` |  | Optional thumbnail image which may be shown in search interface |
 
