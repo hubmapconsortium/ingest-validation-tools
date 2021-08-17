@@ -86,7 +86,7 @@ def _enrich_description(field):
 
 
 def generate_readme_md(
-        table_schemas, directory_schemas, schema_name, is_assay=True):
+        table_schemas, pipeline_infos, directory_schemas, schema_name, is_assay=True):
     int_keys = [int(k) for k in table_schemas.keys()]
     max_version = max(int_keys)
     min_version = min(int_keys)
@@ -107,7 +107,7 @@ def generate_readme_md(
         'hubmapconsortium/ingest-validation-tools/main/docs'
 
     optional_dir_description_md = (
-        f'## Directory schemas\n{_make_dir_descriptions(directory_schemas)}'
+        f'## Directory schemas\n{_make_dir_descriptions(directory_schemas, pipeline_infos)}'
         if directory_schemas else ''
     )
 
@@ -377,9 +377,24 @@ def _make_toc(md):
     return f'<blockquote markdown="1">\n\n{joined_mds}\n\n</blockquote>\n'
 
 
-def _make_dir_descriptions(dir_schemas):
+def _make_dir_descriptions(dir_schemas, pipeline_infos):
+    '''
+    >>> dir_schema = [
+    ...   { 'pattern': 'required\\.txt', 'description': 'Required!'}
+    ... ]
+    >>> pipeline_infos = [{
+    ...     "name": "Fake Pipeline",
+    ...     "repo_url": "https://github.com/hubmapconsortium/fake",
+    ...     "version_tag": "v1.2.3"
+    ... }]
+    '''
+    pipeline_infos_md = ' and '.join(make_pipeline_link(info) for info in pipeline_infos)
+    pipeline_blurb = \
+        f'The HIVE will process each dataset with\n{pipeline_infos_md}.\n' \
+        if pipeline_infos else ''
+
     sorted_items = sorted(dir_schemas.items(), key=lambda item: item[0], reverse=True)
-    return '\n'.join(
+    return pipeline_blurb + '\n'.join(
         f'### v{v}\n' + _make_dir_description(schema['files'], schema.get('deprecated', False))
         for v, schema in sorted_items
     )
@@ -493,6 +508,22 @@ def _make_dir_description(files, is_deprecated=False):
 
         output.append('| ' + ' | '.join(row) + ' |')
     table = '\n'.join(output)
-    if not is_deprecated:
-        return table
-    return f'<details markdown="1"><summary>Deprecated</summary>\n{table}\n\n</details>'
+
+    if is_deprecated:
+        return f'<details markdown="1"><summary>Deprecated</summary>\n{table}\n\n</details>'
+    return table
+
+
+def make_pipeline_link(info):
+    '''
+    >>> info = {
+    ...     "name": "Fake Pipeline",
+    ...     "repo_url": "https://github.com/hubmapconsortium/fake",
+    ...     "version_tag": "v1.2.3"
+    ... }
+    >>> print(make_pipeline_link(info))
+    [Fake Pipeline v1.2.3](https://github.com/hubmapconsortium/fake/releases/tag/v1.2.3)
+    '''
+    text = f"{info['name']} {info['version_tag']}"
+    href = f"{info['repo_url']}/releases/tag/{info['version_tag']}"
+    return f"[{text}]({href})"

@@ -2,6 +2,8 @@
 
 ## v0.0.13 - in progress
 - Implement versioning for directory schemas.
+- Update the flowchart to reflect the roles of Bill and PK.
+- Add pipeline info.
 - Hotfix on CellDive directory to reflect changes to dataset.
 - Updated CellDive directory structure.
 - Updated CODEX directory structure.
