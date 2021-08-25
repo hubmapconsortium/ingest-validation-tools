@@ -264,7 +264,7 @@ fields:
   description: units for LC column length (typically cm)
   name: lc_length_unit
 - constraints:
-    required: true
+    required: false
   custom_constraints:
     forbid_na: true
     sequence_limit: 3
