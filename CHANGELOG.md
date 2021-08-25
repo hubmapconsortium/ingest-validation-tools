@@ -1,6 +1,8 @@
 # Changelog
 
 ## v0.0.13 - in progress
+- In bash scripts, make python3 explicit.
+- Update the flowchart to reflect the roles of Bill and PK.
 - Add pipeline info.
 - Hotfix on CellDive directory to reflect changes to dataset.
 - Updated CellDive directory structure.
