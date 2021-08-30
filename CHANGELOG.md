@@ -1,6 +1,7 @@
 # Changelog
 
 ## v0.0.13 - in progress
+- Hit a different URL for ORCID, that will not give us soft 404s.
 - In bash scripts, make python3 explicit.
 - Update the flowchart to reflect the roles of Bill and PK.
 - Add pipeline info.
