@@ -23,7 +23,7 @@ fields:
     example: 0000-0002-8928-741X
     custom_constraints:
       url:
-        prefix: https://orcid.org/
+        prefix: https://pub.orcid.org/v3.0/
   - name: is_contact
     description: Is this individual a contact for DOI purposes?
     type: boolean
