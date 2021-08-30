@@ -18,4 +18,4 @@ fields:
     example: 0000-0002-8928-741X
     custom_constraints:
       url:
-        prefix: https://orcid.org/
+        prefix: https://pub.orcid.org/v3.0/
