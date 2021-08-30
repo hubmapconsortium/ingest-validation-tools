@@ -65,7 +65,7 @@ fields:
   description: Is the sequencing reaction run in repliucate, TRUE or FALSE
   type: boolean
 - name: cell_barcode_read
-  description: Which read file(s)contains the cell barcode. Multiple cell_barcode_read files must be provided as a comma-delimited list (e.g. file1,file2,file3).
+  description: Which read file(s) contains the cell barcode. Multiple cell_barcode_read files must be provided as a comma-delimited list (e.g. file1,file2,file3).
   constraints:
     required: FALSE
 - name: cell_barcode_offset
