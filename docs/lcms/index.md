@@ -396,12 +396,12 @@ units for LC column length (typically cm) Leave blank if not applicable.
 
 <a name="lc_temp_value"></a>
 ##### [`lc_temp_value`](#lc_temp_value)
-LC temperature.
+LC temperature. Leave blank if not applicable.
 
 | constraint | value |
 | --- | --- |
 | type | `number` |
-| required | `True` |
+| required | `False` |
 
 <a name="lc_temp_unit"></a>
 ##### [`lc_temp_unit`](#lc_temp_unit)
@@ -864,12 +864,12 @@ units for LC column length (typically cm) Leave blank if not applicable.
 
 <a name="lc_temp_value"></a>
 ##### [`lc_temp_value`](#lc_temp_value)
-LC temperature.
+LC temperature. Leave blank if not applicable.
 
 | constraint | value |
 | --- | --- |
 | type | `number` |
-| required | `True` |
+| required | `False` |
 
 <a name="lc_temp_unit"></a>
 ##### [`lc_temp_unit`](#lc_temp_unit)
@@ -1252,12 +1252,12 @@ units for LC column length (typically cm) Leave blank if not applicable.
 
 <a name="lc_temp_value"></a>
 ##### [`lc_temp_value`](#lc_temp_value)
-LC temperature.
+LC temperature. Leave blank if not applicable.
 
 | constraint | value |
 | --- | --- |
 | type | `number` |
-| required | `True` |
+| required | `False` |
 
 <a name="lc_temp_unit"></a>
 ##### [`lc_temp_unit`](#lc_temp_unit)
