@@ -1,2 +1,4 @@
 - name: lc_temp_value
   description: LC temperature
+  constraints:
+    required: False
