@@ -365,7 +365,7 @@ Adapter sequence to be used for adapter trimming.
 
 <a name="cell_barcode_read"></a>
 ##### [`cell_barcode_read`](#cell_barcode_read)
-Which read file contains the cell barcode. This field is not required for barcoding by single-cell combinatorial indexing. Leave blank if not applicable.
+Which read file(s) contains the cell barcode. Multiple cell_barcode_read files must be provided as a comma-delimited list (e.g. file1,file2,file3). This field is not required for barcoding by single-cell combinatorial indexing. Leave blank if not applicable.
 
 | constraint | value |
 | --- | --- |

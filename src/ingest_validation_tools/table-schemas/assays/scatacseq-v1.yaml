@@ -75,7 +75,7 @@ fields:
 - name: cell_barcode_read
   constraints:
     required: False
-  description: Which read file contains the cell barcode. This field is not required for barcoding by single-cell combinatorial indexing.
+  description: Which read file(s) contains the cell barcode. Multiple cell_barcode_read files must be provided as a comma-delimited list (e.g. file1,file2,file3). This field is not required for barcoding by single-cell combinatorial indexing.
 - name: cell_barcode_offset
   constraints:
     required: FALSE
