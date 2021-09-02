@@ -1,21 +1,9 @@
 #!/usr/bin/env bash
 set -o errexit
 
-echo 'start?'
-
-if [[ ! -z "$TERM" ]]; then
-  red=`tput setaf 1`
-  green=`tput setaf 2`
-  reset=`tput sgr0`
-fi
-
-echo 'call tput?'
-
-start() { [[ -z $CI ]] || echo travis_fold':'start:$1; echo $green$1$reset; }
-end() { [[ -z $CI ]] || echo travis_fold':'end:$1; }
-die() { set +v; echo "$red$*$reset" 1>&2 ; exit 1; }
-
-echo 'functions?'
+start() { echo "::group::$1"; }
+end() { echo "::endgroup::"; }
+die() { set +v; echo "$*" 1>&2 ; sleep 1; exit 1; }
 
 CONTINUE_FROM="$1"
 
