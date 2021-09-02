@@ -2,6 +2,7 @@
 
 ## v0.0.13 - in progress
 - Switch to Github CI.
+- `cell_barcode_read` description: comma-delimitted. 
 - Update the lcms schema field "lc_temp_value" optional.
 - Hit a different URL for ORCID, that will not give us soft 404s.
 - In bash scripts, make python3 explicit.
