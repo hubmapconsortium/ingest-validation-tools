@@ -3,9 +3,11 @@ set -o errexit
 
 echo 'start?'
 
-red=`tput setaf 1`
-green=`tput setaf 2`
-reset=`tput sgr0`
+if [[ ! -z "$TERM" ]]; then
+  red=`tput setaf 1`
+  green=`tput setaf 2`
+  reset=`tput sgr0`
+fi
 
 echo 'call tput?'
 

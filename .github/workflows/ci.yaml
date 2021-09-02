@@ -28,7 +28,6 @@ jobs:
 
     - name: Run test script
       run: ./test.sh
-      env:
-        TERM: dumb
+      # env:
       #   GH_ACTIONS_BRANCH: ${{ github.ref }}
       #   GH_ACTIONS: true
