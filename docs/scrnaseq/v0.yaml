@@ -50,7 +50,6 @@ fields:
     sequence_limit: 3
   description: Name of the person responsible for executing the assay.
   name: operator
-  type: string
 - constraints:
     required: true
   custom_constraints:
@@ -67,7 +66,6 @@ fields:
     sequence_limit: 3
   description: Name of the principal investigator responsible for the data.
   name: pi
-  type: string
 - constraints:
     required: true
   custom_constraints:
@@ -88,7 +86,6 @@ fields:
     generation of images of microscopic entities, identification & quantitation of
     molecules by mass spectrometry, and determination of nucleotide sequence.'
   name: assay_category
-  type: string
 - constraints:
     enum:
     - scRNAseq-10xGenomics
@@ -102,7 +99,6 @@ fields:
     sequence_limit: 3
   description: The specific type of assay being executed.
   name: assay_type
-  type: string
 - constraints:
     enum:
     - RNA
@@ -112,7 +108,6 @@ fields:
     sequence_limit: 3
   description: Analytes are the target molecules being measured with the assay.
   name: analyte_class
-  type: string
 - constraints:
     enum:
     - 'TRUE'
@@ -135,7 +130,6 @@ fields:
     of various intensities or color or signals representing the molecular mass.
   heading: Unique to this type
   name: acquisition_instrument_vendor
-  type: string
 - constraints:
     required: true
   custom_constraints:
@@ -146,7 +140,6 @@ fields:
     in features or sensitivities may be relevant to processing or interpretation of
     the data.
   name: acquisition_instrument_model
-  type: string
 - constraints:
     pattern: 10\.17504/.*
     required: true
@@ -166,7 +159,6 @@ fields:
     sequence_limit: 3
   description: The type of single cell entity derived from isolation protocol
   name: sc_isolation_entity
-  type: string
 - constraints:
     required: true
   custom_constraints:
@@ -174,7 +166,6 @@ fields:
     sequence_limit: 3
   description: The method by which tissues are dissociated into single cells in suspension.
   name: sc_isolation_tissue_dissociation
-  type: string
 - constraints:
     required: false
   custom_constraints:
@@ -182,7 +173,6 @@ fields:
     sequence_limit: 3
   description: The method by which specific cell populations are sorted or enriched.
   name: sc_isolation_enrichment
-  type: string
 - constraints:
     required: true
   custom_constraints:
@@ -192,7 +182,6 @@ fields:
     by known parameters such as wells with several cells or no cells. This can be
     captured at a high level.
   name: sc_isolation_quality_metric
-  type: string
 - constraints:
     required: true
   custom_constraints:
@@ -200,7 +189,6 @@ fields:
     sequence_limit: 3
   description: Total number of cell/nuclei yielded post dissociation and enrichment
   name: sc_isolation_cell_number
-  type: string
 - constraints:
     required: true
   custom_constraints:
@@ -208,7 +196,6 @@ fields:
     sequence_limit: 3
   description: Number of cell/nuclei input to the assay
   name: rnaseq_assay_input
-  type: string
 - constraints:
     required: true
   custom_constraints:
@@ -216,7 +203,6 @@ fields:
     sequence_limit: 3
   description: The kit used for the RNA sequencing assay
   name: rnaseq_assay_method
-  type: string
 - constraints:
     pattern: 10\.17504/.*
     required: true
@@ -241,7 +227,6 @@ fields:
   description: State whether the library was generated for single-end or paired end
     sequencing.
   name: library_layout
-  type: string
 - constraints:
     required: true
   custom_constraints:
@@ -249,7 +234,6 @@ fields:
     sequence_limit: 3
   description: Adapter sequence to be used for adapter trimming
   name: library_adapter_sequence
-  type: string
 - constraints:
     required: true
   custom_constraints:
@@ -258,7 +242,6 @@ fields:
   description: A library ID, unique within a TMC, which allows corresponding RNA and
     chromatin accessibility datasets to be linked.
   name: library_id
-  type: string
 - constraints:
     enum:
     - 'TRUE'
@@ -277,7 +260,6 @@ fields:
     sequence_limit: 3
   description: Which read file contains the cell barcode
   name: cell_barcode_read
-  type: string
 - constraints:
     required: true
   custom_constraints:
@@ -285,7 +267,6 @@ fields:
     sequence_limit: 3
   description: Position(s) in the read at which the cell barcode starts.
   name: cell_barcode_offset
-  type: string
 - constraints:
     required: true
   custom_constraints:
@@ -293,7 +274,6 @@ fields:
     sequence_limit: 3
   description: Length of the cell barcode in base pairs
   name: cell_barcode_size
-  type: string
 - constraints:
     required: true
   custom_constraints:
@@ -301,7 +281,6 @@ fields:
     sequence_limit: 3
   description: Number of PCR cycles to amplify cDNA
   name: library_pcr_cycles
-  type: string
 - constraints:
     required: true
   custom_constraints:
@@ -309,7 +288,6 @@ fields:
     sequence_limit: 3
   description: Number of PCR cycles performed for library indexing
   name: library_pcr_cycles_for_sample_index
-  type: string
 - constraints:
     required: true
   custom_constraints:
@@ -329,7 +307,6 @@ fields:
     units_for: library_final_yield_value
   description: Units of final library yield
   name: library_final_yield_unit
-  type: string
 - constraints:
     required: true
   custom_constraints:
@@ -338,7 +315,6 @@ fields:
   description: Average size of sequencing library fragments estimated via gel electrophoresis
     or bioanalyzer/tapestation.
   name: library_average_fragment_size
-  type: string
 - constraints:
     required: true
   custom_constraints:
@@ -346,7 +322,6 @@ fields:
     sequence_limit: 3
   description: Reagent kit used for sequencing
   name: sequencing_reagent_kit
-  type: string
 - constraints:
     pattern: \d+(/\d+)+
     required: true
@@ -386,7 +361,6 @@ fields:
     sequence_limit: 3
   description: Relative path to file with ORCID IDs for contributors for this dataset.
   name: contributors_path
-  type: string
 - constraints:
     required: true
   custom_constraints:
@@ -395,4 +369,3 @@ fields:
   description: Relative path to file or directory with instrument data. Downstream
     processing will depend on filename extension conventions.
   name: data_path
-  type: string

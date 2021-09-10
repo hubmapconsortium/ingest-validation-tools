@@ -50,7 +50,6 @@ fields:
     sequence_limit: 3
   description: Name of the person responsible for executing the assay.
   name: operator
-  type: string
 - constraints:
     required: true
   custom_constraints:
@@ -67,7 +66,6 @@ fields:
     sequence_limit: 3
   description: Name of the principal investigator responsible for the data.
   name: pi
-  type: string
 - constraints:
     required: true
   custom_constraints:
@@ -88,7 +86,6 @@ fields:
     generation of images of microscopic entities, identification & quantitation of
     molecules by mass spectrometry, and determination of nucleotide sequence.'
   name: assay_category
-  type: string
 - constraints:
     enum:
     - SNARE-seq2
@@ -101,7 +98,6 @@ fields:
     sequence_limit: 3
   description: The specific type of assay being executed.
   name: assay_type
-  type: string
 - constraints:
     enum:
     - DNA
@@ -111,7 +107,6 @@ fields:
     sequence_limit: 3
   description: Analytes are the target molecules being measured with the assay.
   name: analyte_class
-  type: string
 - constraints:
     enum:
     - 'TRUE'
@@ -134,7 +129,6 @@ fields:
     of various intensities or color or signals representing the molecular mass.
   heading: Unique to this type
   name: acquisition_instrument_vendor
-  type: string
 - constraints:
     required: true
   custom_constraints:
@@ -145,7 +139,6 @@ fields:
     in features or sensitivities may be relevant to processing or interpretation of
     the data.
   name: acquisition_instrument_model
-  type: string
 - constraints:
     enum:
     - 'TRUE'
@@ -165,7 +158,6 @@ fields:
   description: A library ID, unique within a TMC, which allows corresponding RNA and
     chromatin accessibility datasets to be linked.
   name: library_id
-  type: string
 - constraints:
     pattern: 10\.17504/.*
     required: true
@@ -190,7 +182,6 @@ fields:
     sequence_limit: 3
   description: The type of single cell entity derived from isolation protocol.
   name: sc_isolation_entity
-  type: string
 - constraints:
     required: true
   custom_constraints:
@@ -198,7 +189,6 @@ fields:
     sequence_limit: 3
   description: The method by which tissues are dissociated into single cells in suspension.
   name: sc_isolation_tissue_dissociation
-  type: string
 - constraints:
     enum:
     - none
@@ -209,7 +199,6 @@ fields:
     sequence_limit: 3
   description: The method by which specific cell populations are sorted or enriched.
   name: sc_isolation_enrichment
-  type: string
 - constraints:
     required: true
   custom_constraints:
@@ -220,7 +209,6 @@ fields:
     captured at a high level. "OK" or "not OK", or with more specificity such as "debris",
     "clump", "low clump".
   name: sc_isolation_quality_metric
-  type: string
 - constraints:
     required: true
   custom_constraints:
@@ -250,7 +238,6 @@ fields:
     sequence_limit: 3
   description: Modality of capturing accessible chromatin molecules.
   name: transposition_method
-  type: string
 - constraints:
     enum:
     - 10X snATAC
@@ -263,7 +250,6 @@ fields:
   description: The source of the Tn5 transposase and transposon used for capturing
     accessible chromatin.
   name: transposition_transposase_source
-  type: string
 - constraints:
     required: false
   custom_constraints:
@@ -271,7 +257,6 @@ fields:
     sequence_limit: 3
   description: If Tn5 came from a kit, provide the catalog number.
   name: transposition_kit_number
-  type: string
 - constraints:
     pattern: 10\.17504/.*
     required: true
@@ -296,7 +281,6 @@ fields:
   description: State whether the library was generated for single-end or paired end
     sequencing.
   name: library_layout
-  type: string
 - constraints:
     pattern: '[ATCG]+(\+[ATCG]+)?'
     required: true
@@ -313,7 +297,6 @@ fields:
     sequence_limit: 3
   description: Which read file contains the cell barcode.
   name: cell_barcode_read
-  type: string
 - constraints:
     pattern: \d+(,\d+)*
     required: true
@@ -372,7 +355,6 @@ fields:
     units_for: library_final_yield
   description: Units for library_final_yield
   name: library_final_yield_unit
-  type: string
 - constraints:
     required: true
   custom_constraints:
@@ -389,7 +371,6 @@ fields:
     sequence_limit: 3
   description: Reagent kit used for sequencing
   name: sequencing_reagent_kit
-  type: string
 - constraints:
     pattern: \d+(/\d+)+
     required: true
@@ -429,7 +410,6 @@ fields:
     sequence_limit: 3
   description: Relative path to file with ORCID IDs for contributors for this dataset.
   name: contributors_path
-  type: string
 - constraints:
     required: true
   custom_constraints:
@@ -438,4 +418,3 @@ fields:
   description: Relative path to file or directory with instrument data. Downstream
     processing will depend on filename extension conventions.
   name: data_path
-  type: string

@@ -21,7 +21,6 @@ fields:
   description: Identify the vital state of the donor.
   heading: Donor
   name: vital_state
-  type: string
 - constraints:
     enum:
     - cancer
@@ -39,7 +38,6 @@ fields:
     \ of organ donation, a sample is collected.  In this scenario, the subject is\
     \ deemed \u201Crelatively healthy.\u201D"
   name: health_status
-  type: string
 - constraints:
     enum:
     - healthy
@@ -51,7 +49,6 @@ fields:
   description: Health status of the organ at the time of sample recovery.
   heading: Medical Procedure
   name: organ_condition
-  type: string
 - constraints:
     required: true
   custom_constraints:
@@ -80,7 +77,6 @@ fields:
     sequence_limit: 3
   description: Type of solution that was used to perfuse the organ.
   name: perfusion_solution
-  type: string
 - constraints:
     required: true
   custom_constraints:
@@ -88,7 +84,6 @@ fields:
     sequence_limit: 3
   description: Further details on organ level QC checks.
   name: pathologist_report
-  type: string
 - constraints:
     required: false
   custom_constraints:
@@ -107,7 +102,6 @@ fields:
     units_for: warm_ischemia_time_value
   description: Time unit
   name: warm_ischemia_time_unit
-  type: string
 - constraints:
     required: false
   custom_constraints:
@@ -126,7 +120,6 @@ fields:
     units_for: cold_ischemia_time_value
   description: Time unit
   name: cold_ischemia_time_unit
-  type: string
 - constraints:
     enum:
     - Liquid Nitrogen
@@ -142,7 +135,6 @@ fields:
   description: The temperature of the medium during the preservation process.
   heading: Biospecimen
   name: specimen_preservation_temperature
-  type: string
 - constraints:
     required: false
   custom_constraints:
@@ -150,7 +142,6 @@ fields:
     sequence_limit: 3
   description: 'For example, RIN: 8.7.'
   name: specimen_quality_criteria
-  type: string
 - constraints:
     required: false
   custom_constraints:
@@ -170,4 +161,3 @@ fields:
     units_for: specimen_tumor_distance_value
   description: Distance unit
   name: specimen_tumor_distance_unit
-  type: string

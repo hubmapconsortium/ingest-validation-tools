@@ -9,7 +9,6 @@ fields:
     sequence_limit: 3
   description: Version of the schema to use when validating this metadata.
   name: version
-  type: string
 - constraints:
     required: true
   custom_constraints:
@@ -17,7 +16,6 @@ fields:
     sequence_limit: 3
   description: Institutional affiliation
   name: affiliation
-  type: string
 - constraints:
     required: true
   custom_constraints:
@@ -25,7 +23,6 @@ fields:
     sequence_limit: 3
   description: First name
   name: first_name
-  type: string
 - constraints:
     required: true
   custom_constraints:
@@ -33,7 +30,6 @@ fields:
     sequence_limit: 3
   description: Last name
   name: last_name
-  type: string
 - constraints:
     required: false
   custom_constraints:
@@ -41,7 +37,6 @@ fields:
     sequence_limit: 3
   description: Middle name or initial
   name: middle_name_or_initial
-  type: string
 - constraints:
     required: true
   custom_constraints:
@@ -49,7 +44,6 @@ fields:
     sequence_limit: 3
   description: Name for display
   name: name
-  type: string
 - constraints:
     pattern: \d{4}-\d{4}-\d{4}-\d{3}[0-9X]
     required: true

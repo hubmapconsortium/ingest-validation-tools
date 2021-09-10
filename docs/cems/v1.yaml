@@ -11,7 +11,6 @@ fields:
   description: Version of the schema to use when validating this metadata.
   heading: Shared by all types
   name: version
-  type: string
 - constraints:
     required: true
   custom_constraints:
@@ -19,7 +18,6 @@ fields:
     sequence_limit: 3
   description: Free-text description of this assay.
   name: description
-  type: string
 - constraints:
     pattern: '[A-Z]+[0-9]+'
     required: true
@@ -68,7 +66,6 @@ fields:
     sequence_limit: 3
   description: Name of the person responsible for executing the assay.
   name: operator
-  type: string
 - constraints:
     required: true
   custom_constraints:
@@ -85,7 +82,6 @@ fields:
     sequence_limit: 3
   description: Name of the principal investigator responsible for the data.
   name: pi
-  type: string
 - constraints:
     required: true
   custom_constraints:
@@ -106,7 +102,6 @@ fields:
     generation of images of microscopic entities, identification & quantitation of
     molecules by mass spectrometry, and determination of nucleotide sequence.'
   name: assay_category
-  type: string
 - constraints:
     enum:
     - CE-MS
@@ -116,7 +111,6 @@ fields:
     sequence_limit: 3
   description: The specific type of assay being executed.
   name: assay_type
-  type: string
 - constraints:
     enum:
     - protein
@@ -131,7 +125,6 @@ fields:
     sequence_limit: 3
   description: Analytes are the target molecules being measured with the assay.
   name: analyte_class
-  type: string
 - constraints:
     enum:
     - 'TRUE'
@@ -154,7 +147,6 @@ fields:
     of various intensities or color or signals representing the molecular mass.
   heading: Unique to this type
   name: acquisition_instrument_vendor
-  type: string
 - constraints:
     required: true
   custom_constraints:
@@ -165,7 +157,6 @@ fields:
     in features or sensitivities may be relevant to processing or interpretation of
     the data.
   name: acquisition_instrument_model
-  type: string
 - constraints:
     enum:
     - nanoflex
@@ -176,7 +167,6 @@ fields:
     sequence_limit: 3
   description: The technique used for sampling and ionization of the sample.
   name: ms_source
-  type: string
 - constraints:
     enum:
     - negative ion mode
@@ -187,7 +177,6 @@ fields:
     sequence_limit: 3
   description: The polarity of the mass analysis (positive or negative ion modes)
   name: polarity
-  type: string
 - constraints:
     required: true
   custom_constraints:
@@ -238,7 +227,6 @@ fields:
     High Field Asymmetric waveform ion Mobility Spectrometry (FAIMS), Drift Tube Ion
     Mobility Spectrometry (DTIMS, Structures for Lossless Ion Manipulations (SLIM).'
   name: ion_mobility
-  type: string
 - constraints:
     enum:
     - DDA
@@ -250,7 +238,6 @@ fields:
   description: Mode of data collection in tandem MS assays. Either DDA (Data-dependent
     acquisition) or DIA (Data-independent acquisition).
   name: data_collection_mode
-  type: string
 - constraints:
     enum:
     - MS
@@ -262,7 +249,6 @@ fields:
     sequence_limit: 3
   description: Indicates whether the data were generated using MS, MS/MS or MS3.
   name: ms_scan_mode
-  type: string
 - constraints:
     required: true
   custom_constraints:
@@ -271,7 +257,6 @@ fields:
   description: Indicates whether samples were labeled prior to MS analysis (e.g.,
     TMT).
   name: labeling
-  type: string
 - constraints:
     pattern: 10\.17504/.*
     required: true
@@ -296,7 +281,6 @@ fields:
     and enables electrospray ionization while completing the separation circuit. The
     two most prevalent commercial interfaces are sheathless and sheath-flow.
   name: ce_interface
-  type: string
 - constraints:
     required: true
   custom_constraints:
@@ -307,7 +291,6 @@ fields:
     flow. Entries should indicate the charge of the coating and chemical composition
     (e.g. "Neutral; Polyacrylamide" or "Positive; Polyethyleneimine" or "Uncoated").
   name: ce_capillary_coating
-  type: string
 - constraints:
     required: true
   custom_constraints:
@@ -316,7 +299,6 @@ fields:
   description: Chemical composition of the background electrolyte that fills the separation
     capillary (e.g. "3% acetic acid").
   name: ce_background_electrolyte
-  type: string
 - constraints:
     required: true
   custom_constraints:
@@ -327,7 +309,6 @@ fields:
     to performing MS-based analyses. Separations are performed based the analytes
     migrate through an electrolyte solution in the presence of an electric field.
   name: ce_instrument_vendor
-  type: string
 - constraints:
     required: true
   custom_constraints:
@@ -335,7 +316,6 @@ fields:
     sequence_limit: 3
   description: The model name of the instrument used for capillary zone electrophoresis.
   name: ce_instrument_model
-  type: string
 - constraints:
     enum:
     - suppressed
@@ -350,7 +330,6 @@ fields:
     and suppressed EOF involves marginal to almost no flow (e.g. when a neutral coating
     is used).
   name: ce_electroosmotic_flow
-  type: string
 - constraints:
     enum:
     - LCM
@@ -366,7 +345,6 @@ fields:
     microdissection (LCM), Liquid Extraction Surface Analysis (LESA), Nanodroplet
     Processing in One pot for Trace Samples (nanoPOTS).
   name: spatial_type
-  type: string
 - constraints:
     enum:
     - profiling
@@ -382,7 +360,6 @@ fields:
     at each location (molecular images). Leave blank if data are derived from bulk
     analysis.
   name: spatial_sampling_type
-  type: string
 - constraints:
     required: false
   custom_constraints:
@@ -392,7 +369,6 @@ fields:
     in the spatial profiling experiment. Leave blank if data are generated in imaging
     mode without a specific target structure.
   name: spatial_target
-  type: string
 - constraints:
     required: false
   custom_constraints:
@@ -412,7 +388,6 @@ fields:
     units_for: resolution_x_value
   description: The unit of measurement of the width of a pixel.
   name: resolution_x_unit
-  type: string
 - constraints:
     required: false
   custom_constraints:
@@ -432,7 +407,6 @@ fields:
     units_for: resolution_y_value
   description: The unit of measurement of the height of a pixel.
   name: resolution_y_unit
-  type: string
 - constraints:
     required: true
   custom_constraints:
@@ -440,7 +414,6 @@ fields:
     sequence_limit: 3
   description: Software for analyzing and searching LC-MS/MS omics data
   name: processing_search
-  type: string
 - constraints:
     pattern: 10\.17504/.*
     required: false
@@ -470,7 +443,6 @@ fields:
     sequence_limit: 3
   description: Relative path to file with ORCID IDs for contributors for this dataset.
   name: contributors_path
-  type: string
 - constraints:
     required: true
   custom_constraints:
@@ -479,4 +451,3 @@ fields:
   description: Relative path to file or directory with instrument data. Downstream
     processing will depend on filename extension conventions.
   name: data_path
-  type: string

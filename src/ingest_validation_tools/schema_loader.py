@@ -361,7 +361,7 @@ def _add_constraints(field, optional_fields, offline=None, names=None):
      'name': 'optional_value',
      'type': 'number'}
 
-    Default field type is string:
+    String type made explicit if there is a pattern:
 
     >>> field = {'name': 'whatever', 'constraints': {'pattern': 'fake-regex'}}
     >>> _add_constraints(field, [])
@@ -380,8 +380,7 @@ def _add_constraints(field, optional_fields, offline=None, names=None):
     >>> pprint(field, width=40)
     {'constraints': {'required': True},
      'custom_constraints': {'forbid_na': True},
-     'name': 'seq_expected',
-     'type': 'string'}
+     'name': 'seq_expected'}
 
     Booleans should be TRUE or FALSE:
 
@@ -408,6 +407,7 @@ def _add_constraints(field, optional_fields, offline=None, names=None):
         field['constraints']['pattern'] = r'10\.17504/.*'
         field['custom_constraints']['url'] = {'prefix': 'https://dx.doi.org/'}
     if field['name'].endswith('_email'):
+        field['type'] = 'string'
         field['format'] = 'email'
 
     # In the src schemas, set to False to avoid limit on sequences...
@@ -444,7 +444,7 @@ def _add_constraints(field, optional_fields, offline=None, names=None):
         field['type'] = 'number'
         field['constraints']['minimum'] = 0
         field['constraints']['maximum'] = 100
-    if 'type' not in field:
+    if 'pattern' in field['constraints']:
         field['type'] = 'string'
 
     # Override:
@@ -458,7 +458,7 @@ def _add_constraints(field, optional_fields, offline=None, names=None):
             del field[c_c]['url']
 
     # Tighter booleans:
-    if field['type'] == 'boolean':
+    if field.get('type') == 'boolean':
         field['type'] = 'string'
         field['constraints']['enum'] = ['TRUE', 'FALSE']
         # There is a right way to constrain booleans:
@@ -467,7 +467,12 @@ def _add_constraints(field, optional_fields, offline=None, names=None):
         #   field['falseValues'] = ['FALSE']
         # ... but the error messages aren't helpful:
         #   value "false" fails because type is "boolean/default"
-        # So we treat it as a string enum for validation.
+        # ... so we treat it as a string enum for validation.
+
+    if 'format' in field:
+        # This is a bug, not a validation problem.
+        assert 'type' in field, \
+            f'Without type, format is ineffective during validation of {field["name"]}'
 
 
 def enum_maps_to_lists(schema, add_none_of_the_above=False, add_suggested=False):

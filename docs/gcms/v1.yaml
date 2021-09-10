@@ -11,7 +11,6 @@ fields:
   description: Version of the schema to use when validating this metadata.
   heading: Shared by all types
   name: version
-  type: string
 - constraints:
     required: true
   custom_constraints:
@@ -19,7 +18,6 @@ fields:
     sequence_limit: 3
   description: Free-text description of this assay.
   name: description
-  type: string
 - constraints:
     pattern: '[A-Z]+[0-9]+'
     required: true
@@ -68,7 +66,6 @@ fields:
     sequence_limit: 3
   description: Name of the person responsible for executing the assay.
   name: operator
-  type: string
 - constraints:
     required: true
   custom_constraints:
@@ -85,7 +82,6 @@ fields:
     sequence_limit: 3
   description: Name of the principal investigator responsible for the data.
   name: pi
-  type: string
 - constraints:
     required: true
   custom_constraints:
@@ -106,7 +102,6 @@ fields:
     generation of images of microscopic entities, identification & quantitation of
     molecules by mass spectrometry, and determination of nucleotide sequence.'
   name: assay_category
-  type: string
 - constraints:
     enum:
     - GC-MS
@@ -116,7 +111,6 @@ fields:
     sequence_limit: 3
   description: The specific type of assay being executed.
   name: assay_type
-  type: string
 - constraints:
     enum:
     - metabolites
@@ -127,7 +121,6 @@ fields:
     sequence_limit: 3
   description: Analytes are the target molecules being measured with the assay.
   name: analyte_class
-  type: string
 - constraints:
     enum:
     - 'TRUE'
@@ -150,7 +143,6 @@ fields:
     of various intensities or color or signals representing the molecular mass.
   heading: Unique to this type
   name: acquisition_instrument_vendor
-  type: string
 - constraints:
     required: true
   custom_constraints:
@@ -161,7 +153,6 @@ fields:
     in features or sensitivities may be relevant to processing or interpretation of
     the data.
   name: acquisition_instrument_model
-  type: string
 - constraints:
     enum:
     - MALDI
@@ -176,7 +167,6 @@ fields:
     sequence_limit: 3
   description: The ion source type used for surface sampling.
   name: ms_source
-  type: string
 - constraints:
     enum:
     - negative ion mode
@@ -187,7 +177,6 @@ fields:
     sequence_limit: 3
   description: The polarity of the mass analysis (positive or negative ion modes)
   name: polarity
-  type: string
 - constraints:
     required: true
   custom_constraints:
@@ -238,7 +227,6 @@ fields:
     High Field Asymmetric waveform ion Mobility Spectrometry (FAIMS), Drift Tube Ion
     Mobility Spectrometry (DTIMS, Structures for Lossless Ion Manipulations (SLIM).'
   name: ion_mobility
-  type: string
 - constraints:
     required: true
   custom_constraints:
@@ -247,7 +235,6 @@ fields:
   description: Mode of data collection in tandem MS assays. Either DDA (Data-dependent
     acquisition) or DIA (Data-independent acquisition).
   name: data_collection_mode
-  type: string
 - constraints:
     required: true
   custom_constraints:
@@ -256,7 +243,6 @@ fields:
   description: Indicates whether experiment is MS, MS/MS, or other (possibly MS3 for
     TMT)
   name: ms_scan_mode
-  type: string
 - constraints:
     required: true
   custom_constraints:
@@ -265,7 +251,6 @@ fields:
   description: Indicates whether samples were labeled prior to MS analysis (e.g.,
     TMT)
   name: labeling
-  type: string
 - constraints:
     pattern: 10\.17504/.*
     required: true
@@ -285,7 +270,6 @@ fields:
     sequence_limit: 3
   description: The manufacturer of the GC column
   name: column_vendor
-  type: string
 - constraints:
     required: true
   custom_constraints:
@@ -293,7 +277,6 @@ fields:
     sequence_limit: 3
   description: The model of the GC column used
   name: column_model
-  type: string
 - constraints:
     required: true
   custom_constraints:
@@ -312,7 +295,6 @@ fields:
     units_for: column_length_value
   description: Unit for GC column length
   name: column_length_unit
-  type: string
 - constraints:
     required: true
   custom_constraints:
@@ -331,7 +313,6 @@ fields:
     units_for: column_temp_value
   description: Units for GC column temperature
   name: column_temp_unit
-  type: string
 - constraints:
     required: true
   custom_constraints:
@@ -340,7 +321,6 @@ fields:
   description: Specifies if internal standard was utilized and designates what standard
     was used. Leave blank if not applicable.
   name: internal_standard
-  type: string
 - constraints:
     required: true
   custom_constraints:
@@ -348,7 +328,6 @@ fields:
     sequence_limit: 3
   description: Specifies the ion source used
   name: ion_source
-  type: string
 - constraints:
     required: true
   custom_constraints:
@@ -356,7 +335,6 @@ fields:
     sequence_limit: 3
   description: Specifies if guard column was used
   name: guard_column
-  type: string
 - constraints:
     enum:
     - LCM
@@ -372,7 +350,6 @@ fields:
     microdissection (LCM), Liquid Extraction Surface Analysis (LESA), Nanodroplet
     Processing in One pot for Trace Samples (nanoPOTS).
   name: spatial_type
-  type: string
 - constraints:
     enum:
     - profiling
@@ -388,7 +365,6 @@ fields:
     at each location (molecular images). Leave blank if data are derived from bulk
     analysis.
   name: spatial_sampling_type
-  type: string
 - constraints:
     required: false
   custom_constraints:
@@ -398,7 +374,6 @@ fields:
     in the spatial profiling experiment. Leave blank if data are generated in imaging
     mode without a specific target structure.
   name: spatial_target
-  type: string
 - constraints:
     required: false
   custom_constraints:
@@ -418,7 +393,6 @@ fields:
     units_for: resolution_x_value
   description: The unit of measurement of the width of a pixel.
   name: resolution_x_unit
-  type: string
 - constraints:
     required: false
   custom_constraints:
@@ -438,7 +412,6 @@ fields:
     units_for: resolution_y_value
   description: The unit of measurement of the height of a pixel.
   name: resolution_y_unit
-  type: string
 - constraints:
     required: true
   custom_constraints:
@@ -446,7 +419,6 @@ fields:
     sequence_limit: 3
   description: Software for analyzing and searching LC-MS/MS omics data
   name: processing_search
-  type: string
 - constraints:
     pattern: 10\.17504/.*
     required: true
@@ -477,7 +449,6 @@ fields:
     sequence_limit: 3
   description: Relative path to file with ORCID IDs for contributors for this dataset.
   name: contributors_path
-  type: string
 - constraints:
     required: true
   custom_constraints:
@@ -486,4 +457,3 @@ fields:
   description: Relative path to file or directory with instrument data. Downstream
     processing will depend on filename extension conventions.
   name: data_path
-  type: string
