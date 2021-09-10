@@ -59,6 +59,7 @@ fields:
     sequence_limit: 3
   description: Name of the person responsible for executing the assay.
   name: operator
+  type: string
 - constraints:
     required: true
   custom_constraints:
@@ -67,6 +68,7 @@ fields:
   description: Email address for the operator.
   format: email
   name: operator_email
+  type: string
 - constraints:
     required: true
   custom_constraints:
@@ -74,6 +76,7 @@ fields:
     sequence_limit: 3
   description: Name of the principal investigator responsible for the data.
   name: pi
+  type: string
 - constraints:
     required: true
   custom_constraints:
@@ -82,6 +85,7 @@ fields:
   description: Email address for the principal investigator.
   format: email
   name: pi_email
+  type: string
 - constraints:
     enum:
     - imaging
@@ -93,6 +97,7 @@ fields:
     generation of images of microscopic entities, identification & quantitation of
     molecules by mass spectrometry, and determination of nucleotide sequence.'
   name: assay_category
+  type: string
 - constraints:
     enum:
     - CODEX
@@ -102,6 +107,7 @@ fields:
     sequence_limit: 3
   description: The specific type of assay being executed.
   name: assay_type
+  type: string
 - constraints:
     enum:
     - protein
@@ -111,7 +117,11 @@ fields:
     sequence_limit: 3
   description: Analytes are the target molecules being measured with the assay.
   name: analyte_class
+  type: string
 - constraints:
+    enum:
+    - 'TRUE'
+    - 'FALSE'
     required: true
   custom_constraints:
     forbid_na: true
@@ -119,7 +129,7 @@ fields:
   description: Specifies whether or not a specific molecule(s) is/are targeted for
     detection/measurement by the assay.
   name: is_targeted
-  type: boolean
+  type: string
 - constraints:
     enum:
     - Keyence
@@ -133,6 +143,7 @@ fields:
     of various intensities or color or signals representing molecular mass.
   heading: Unique to this type
   name: acquisition_instrument_vendor
+  type: string
 - constraints:
     enum:
     - BZ-X800
@@ -147,6 +158,7 @@ fields:
     in features or sensitivities may be relevant to processing or interpretation of
     the data.
   name: acquisition_instrument_model
+  type: string
 - constraints:
     required: true
   custom_constraints:
@@ -167,6 +179,7 @@ fields:
     units_for: resolution_x_value
   description: The unit of measurement of width of a pixel.(nm)
   name: resolution_x_unit
+  type: string
 - constraints:
     required: true
   custom_constraints:
@@ -187,6 +200,7 @@ fields:
     units_for: resolution_y_value
   description: The unit of measurement of height of a pixel. (nm)
   name: resolution_y_unit
+  type: string
 - constraints:
     required: false
   custom_constraints:
@@ -212,6 +226,7 @@ fields:
     units_for: resolution_z_value
   description: The unit of incremental distance between image slices.
   name: resolution_z_unit
+  type: string
 - constraints:
     enum:
     - CODEX
@@ -223,6 +238,7 @@ fields:
     assay.
   heading: Level 3
   name: preparation_instrument_vendor
+  type: string
 - constraints:
     enum:
     - version 1 robot
@@ -234,6 +250,7 @@ fields:
   description: The model number/name of the instrument used to prepare the sample
     for the assay
   name: preparation_instrument_model
+  type: string
 - constraints:
     required: true
   custom_constraints:
@@ -290,6 +307,7 @@ fields:
     sequence_limit: 3
   description: Relative path to file with antibody information for this dataset.
   name: antibodies_path
+  type: string
 - constraints:
     required: true
   custom_constraints:
@@ -297,6 +315,7 @@ fields:
     sequence_limit: 3
   description: Relative path to file with ORCID IDs for contributors for this dataset.
   name: contributors_path
+  type: string
 - constraints:
     required: true
   custom_constraints:
@@ -305,3 +324,4 @@ fields:
   description: Relative path to file or directory with instrument data. Downstream
     processing will depend on filename extension conventions.
   name: data_path
+  type: string

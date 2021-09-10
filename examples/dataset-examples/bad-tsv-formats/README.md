@@ -10,9 +10,14 @@ Metadata TSV Errors:
       "datetime/%Y-%m-%d %H:%M"
     - On row 2, column "protocols_io_doi", value "10\.17504/protocols.io.menc3de"
       fails because constraint "pattern" is "10\.17504/.*"
+    - On row 2, column "operator_email", value "operator_emailATexample.com" fails
+      because type is "string/email"
+    - On row 2, column "pi_email", value "pi_emailATexample.com" fails because type
+      is "string/email"
     - On row 2, column "analyte_class", value "analyte_class" fails because constraint
       "enum" is "['protein']"
-    - On row 2, column "is_targeted", value "is_targeted" fails because type is "boolean/default"
+    - On row 2, column "is_targeted", value "is_targeted" fails because constraint
+      "enum" is "['TRUE', 'FALSE']"
     - On row 2, column "acquisition_instrument_vendor", value "acquisition_instrument_vendor"
       fails because constraint "enum" is "['Keyence', 'Zeiss']"
     - On row 2, column "acquisition_instrument_model", value "acquisition_instrument_model"

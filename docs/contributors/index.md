@@ -98,8 +98,8 @@ Is this individual a contact for DOI purposes?
 
 | constraint | value |
 | --- | --- |
-| type | `boolean` |
 | required | `True` |
+| enum | `TRUE` or `FALSE` |
 
 </details>
 

@@ -10,12 +10,14 @@ fields:
     sequence_limit: 3
   description: Current version of metadata schema. Template provides the correct value.
   name: version
+  type: string
 - constraints:
     required: true
   custom_constraints:
     forbid_na: true
   description: Structure of channel_id depends on assay type.
   name: channel_id
+  type: string
 - constraints:
     required: true
   custom_constraints:
@@ -23,6 +25,7 @@ fields:
     sequence_limit: 3
   description: Anti-(target name) antibody. Not validated or used down-stream.
   name: antibody_name
+  type: string
 - constraints:
     pattern: AB_\d+
     required: true
@@ -46,6 +49,7 @@ fields:
   description: The uniprot_accession_number is a unique identifier for proteins in
     the UniProt database (https://www.uniprot.org).
   name: uniprot_accession_number
+  type: string
 - constraints:
     required: true
   custom_constraints:
@@ -53,6 +57,7 @@ fields:
     sequence_limit: 3
   description: 'The lot# is specific to the vendor. (eg: Abcam lot# GR3238979-1)'
   name: lot_number
+  type: string
 - constraints:
     pattern: 1/\d+
     required: false
@@ -71,6 +76,7 @@ fields:
   description: An antibody may be conjugated to a fluorescent tag or a metal tag for
     detection. Conjugated antibodies may be purchased from commercial providers.
   name: conjugated_cat_number
+  type: string
 - constraints:
     required: false
   custom_constraints:
@@ -78,3 +84,4 @@ fields:
     sequence_limit: 3
   description: The name of the entity conjugated to the antibody.
   name: conjugated_tag
+  type: string

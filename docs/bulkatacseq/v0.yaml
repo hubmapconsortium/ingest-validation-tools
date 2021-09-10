@@ -50,6 +50,7 @@ fields:
     sequence_limit: 3
   description: Name of the person responsible for executing the assay.
   name: operator
+  type: string
 - constraints:
     required: true
   custom_constraints:
@@ -58,6 +59,7 @@ fields:
   description: Email address for the operator.
   format: email
   name: operator_email
+  type: string
 - constraints:
     required: true
   custom_constraints:
@@ -65,6 +67,7 @@ fields:
     sequence_limit: 3
   description: Name of the principal investigator responsible for the data.
   name: pi
+  type: string
 - constraints:
     required: true
   custom_constraints:
@@ -73,6 +76,7 @@ fields:
   description: Email address for the principal investigator.
   format: email
   name: pi_email
+  type: string
 - constraints:
     enum:
     - sequence
@@ -84,6 +88,7 @@ fields:
     generation of images of microscopic entities, identification & quantitation of
     molecules by mass spectrometry, and determination of nucleotide sequence.'
   name: assay_category
+  type: string
 - constraints:
     enum:
     - bulkATACseq
@@ -93,6 +98,7 @@ fields:
     sequence_limit: 3
   description: The specific type of assay being executed.
   name: assay_type
+  type: string
 - constraints:
     enum:
     - DNA
@@ -102,7 +108,11 @@ fields:
     sequence_limit: 3
   description: Analytes are the target molecules being measured with the assay.
   name: analyte_class
+  type: string
 - constraints:
+    enum:
+    - 'TRUE'
+    - 'FALSE'
     required: true
   custom_constraints:
     forbid_na: true
@@ -110,7 +120,7 @@ fields:
   description: Specifies whether or not a specific molecule(s) is/are targeted for
     detection/measurement by the assay.
   name: is_targeted
-  type: boolean
+  type: string
 - constraints:
     required: true
   custom_constraints:
@@ -121,6 +131,7 @@ fields:
     of various intensities or color or signals representing the molecular mass.
   heading: Unique to this type
   name: acquisition_instrument_vendor
+  type: string
 - constraints:
     required: true
   custom_constraints:
@@ -131,6 +142,7 @@ fields:
     in features or sensitivities may be relevant to processing or interpretation of
     the data.
   name: acquisition_instrument_model
+  type: string
 - constraints:
     required: true
   custom_constraints:
@@ -138,6 +150,7 @@ fields:
     sequence_limit: 3
   description: A number (no comma separators)
   name: bulk_transposition_input_number_nuclei
+  type: string
 - constraints:
     pattern: 10\.17504/.*
     required: true
@@ -151,13 +164,16 @@ fields:
   name: bulk_atac_cell_isolation_protocols_io_doi
   type: string
 - constraints:
+    enum:
+    - 'TRUE'
+    - 'FALSE'
     required: true
   custom_constraints:
     forbid_na: true
     sequence_limit: 3
   description: Is this a sequencing replicate?
   name: is_technical_replicate
-  type: boolean
+  type: string
 - constraints:
     required: true
   custom_constraints:
@@ -165,6 +181,7 @@ fields:
     sequence_limit: 3
   description: Adapter sequence to be used for adapter trimming
   name: library_adapter_sequence
+  type: string
 - constraints:
     required: true
   custom_constraints:
@@ -173,6 +190,7 @@ fields:
   description: Average size in basepairs (bp) of sequencing library fragments estimated
     via gel electrophoresis or Bioanalyzer/tapestation.
   name: library_average_fragment_size
+  type: string
 - constraints:
     required: true
   custom_constraints:
@@ -192,6 +210,7 @@ fields:
     units_for: library_concentration_value
   description: Unit of library_concentration_value
   name: library_concentration_unit
+  type: string
 - constraints:
     pattern: 10\.17504/.*
     required: true
@@ -215,6 +234,7 @@ fields:
   description: date and time of library creation. YYYY-MM-DD, where YYYY is the year,
     MM is the month with leading 0s, and DD is the day with leading 0s.
   name: library_creation_date
+  type: string
 - constraints:
     required: true
   custom_constraints:
@@ -234,6 +254,7 @@ fields:
     units_for: library_final_yield_value
   description: Units of final library yield
   name: library_final_yield_unit
+  type: string
 - constraints:
     required: true
   custom_constraints:
@@ -242,6 +263,7 @@ fields:
   description: A library ID, unique within a TMC, which allows corresponding RNA and
     chromatin accessibility datasets to be linked.
   name: library_id
+  type: string
 - constraints:
     enum:
     - single-end
@@ -253,6 +275,7 @@ fields:
   description: State whether the library was generated for single-end or paired end
     sequencing.
   name: library_layout
+  type: string
 - constraints:
     required: true
   custom_constraints:
@@ -270,6 +293,7 @@ fields:
     sequence_limit: 3
   description: Reagent kit used for library preparation
   name: library_preparation_kit
+  type: string
 - constraints:
     required: true
   custom_constraints:
@@ -280,6 +304,7 @@ fields:
     \ of debris? This can be captured at a high level, \u201COK\u201D or \u201Cnot\
     \ OK\u201D."
   name: sample_quality_metric
+  type: string
 - constraints:
     maximum: 100
     minimum: 0
@@ -319,6 +344,7 @@ fields:
     sequence_limit: 3
   description: Reagent kit used for sequencing
   name: sequencing_reagent_kit
+  type: string
 - constraints:
     required: false
   custom_constraints:
@@ -326,6 +352,7 @@ fields:
     sequence_limit: 3
   description: If Tn5 came from a kit, provide the catalog number.
   name: transposition_kit_number
+  type: string
 - constraints:
     required: true
   custom_constraints:
@@ -334,6 +361,7 @@ fields:
   description: Modality of capturing accessible chromatin molecules. The kit used,
     for example.
   name: transposition_method
+  type: string
 - constraints:
     required: true
   custom_constraints:
@@ -342,6 +370,7 @@ fields:
   description: The source of the Tn5 transposase and transposon used for capturing
     accessible chromatin.
   name: transposition_transposase_source
+  type: string
 - constraints:
     required: true
   custom_constraints:
@@ -349,6 +378,7 @@ fields:
     sequence_limit: 3
   description: Relative path to file with ORCID IDs for contributors for this dataset.
   name: contributors_path
+  type: string
 - constraints:
     required: true
   custom_constraints:
@@ -357,3 +387,4 @@ fields:
   description: Relative path to file or directory with instrument data. Downstream
     processing will depend on filename extension conventions.
   name: data_path
+  type: string

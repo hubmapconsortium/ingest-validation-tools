@@ -25,6 +25,7 @@ fields:
   description: ABO blood type or "serotype" refers to the presence/absence of the
     either/both A & B blood antigens.
   name: blood_type
+  type: string
 - constraints:
     required: true
   custom_constraints:
@@ -41,6 +42,7 @@ fields:
     sequence_limit: 3
   description: The circumstance or condition that caused death.
   name: cause_of_death
+  type: string
 - constraints:
     required: true
   custom_constraints:
@@ -49,6 +51,7 @@ fields:
   description: The vertical measurement or distance from the base to the top of a
     subject or participant.
   name: height_unit
+  type: string
 - constraints:
     required: true
   custom_constraints:
@@ -77,6 +80,7 @@ fields:
   description: 'Mechanism of injury may be, for example: fall, impact (eg: auto accident),
     weapon (eg: firearm), etc.'
   name: mechanism_of_injury
+  type: string
 - constraints:
     required: true
   custom_constraints:
@@ -85,6 +89,7 @@ fields:
   description: A record of a patient's background regarding health and the occurrence
     of disease events of the individual.
   name: medical_history
+  type: string
 - constraints:
     required: true
   custom_constraints:
@@ -93,6 +98,7 @@ fields:
   description: A grouping of humans based on shared physical characteristics or social/ethnic
     identity generally viewed as distinct.
   name: race
+  type: string
 - constraints:
     required: true
   custom_constraints:
@@ -100,6 +106,7 @@ fields:
     sequence_limit: 3
   description: 'Biological sex at birth: male or female or other.'
   name: sex
+  type: string
 - constraints:
     required: true
   custom_constraints:

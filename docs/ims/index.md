@@ -209,8 +209,8 @@ Specifies whether or not a specific molecule(s) is/are targeted for detection/me
 
 | constraint | value |
 | --- | --- |
-| type | `boolean` |
 | required | `True` |
+| enum | `TRUE` or `FALSE` |
 
 ### Unique to this type
 
@@ -576,8 +576,8 @@ Specifies whether or not a specific molecule(s) is/are targeted for detection/me
 
 | constraint | value |
 | --- | --- |
-| type | `boolean` |
 | required | `True` |
+| enum | `TRUE` or `FALSE` |
 
 ### Unique to this type
 
@@ -853,8 +853,8 @@ Specifies whether or not a specific molecule(s) is/are targeted for detection/me
 
 | constraint | value |
 | --- | --- |
-| type | `boolean` |
 | required | `True` |
+| enum | `TRUE` or `FALSE` |
 
 ### Unique to this type
 

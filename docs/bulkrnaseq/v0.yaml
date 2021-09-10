@@ -50,6 +50,7 @@ fields:
     sequence_limit: 3
   description: Name of the person responsible for executing the assay.
   name: operator
+  type: string
 - constraints:
     required: true
   custom_constraints:
@@ -58,6 +59,7 @@ fields:
   description: Email address for the operator.
   format: email
   name: operator_email
+  type: string
 - constraints:
     required: true
   custom_constraints:
@@ -65,6 +67,7 @@ fields:
     sequence_limit: 3
   description: Name of the principal investigator responsible for the data.
   name: pi
+  type: string
 - constraints:
     required: true
   custom_constraints:
@@ -73,6 +76,7 @@ fields:
   description: Email address for the principal investigator.
   format: email
   name: pi_email
+  type: string
 - constraints:
     enum:
     - sequence
@@ -84,6 +88,7 @@ fields:
     generation of images of microscopic entities, identification & quantitation of
     molecules by mass spectrometry, and determination of nucleotide sequence.'
   name: assay_category
+  type: string
 - constraints:
     enum:
     - bulk RNA
@@ -93,6 +98,7 @@ fields:
     sequence_limit: 3
   description: The specific type of assay being executed.
   name: assay_type
+  type: string
 - constraints:
     enum:
     - RNA
@@ -102,7 +108,11 @@ fields:
     sequence_limit: 3
   description: Analytes are the target molecules being measured with the assay.
   name: analyte_class
+  type: string
 - constraints:
+    enum:
+    - 'TRUE'
+    - 'FALSE'
     required: true
   custom_constraints:
     forbid_na: true
@@ -110,7 +120,7 @@ fields:
   description: Specifies whether or not a specific molecule(s) is/are targeted for
     detection/measurement by the assay.
   name: is_targeted
-  type: boolean
+  type: string
 - constraints:
     required: true
   custom_constraints:
@@ -121,6 +131,7 @@ fields:
     of various intensities or color or signals representing the molecular mass.
   heading: Unique to this type
   name: acquisition_instrument_vendor
+  type: string
 - constraints:
     required: true
   custom_constraints:
@@ -131,6 +142,7 @@ fields:
     in features or sensitivities may be relevant to processing or interpretation of
     the data.
   name: acquisition_instrument_model
+  type: string
 - constraints:
     pattern: 10\.17504/.*
     required: true
@@ -164,6 +176,7 @@ fields:
   description: RNA amount per Tissue input amount. Valid values should be weight/weight
     (ng/mg).
   name: bulk_rna_yield_units_per_tissue_unit
+  type: string
 - constraints:
     maximum: 10
     minimum: 1
@@ -192,6 +205,7 @@ fields:
     units_for: rnaseq_assay_input_value
   description: Units of RNA input amount to the assay
   name: rnaseq_assay_input_unit
+  type: string
 - constraints:
     required: true
   custom_constraints:
@@ -199,6 +213,7 @@ fields:
     sequence_limit: 3
   description: The kit used for the RNA sequencing assay
   name: rnaseq_assay_method
+  type: string
 - constraints:
     pattern: 10\.17504/.*
     required: true
@@ -223,6 +238,7 @@ fields:
   description: State whether the library was generated for single-end or paired end
     sequencing.
   name: library_layout
+  type: string
 - constraints:
     pattern: 5-[GATCU]+
     required: true
@@ -259,6 +275,7 @@ fields:
     units_for: library_final_yield_value
   description: Units of final library yield
   name: library_final_yield_unit
+  type: string
 - constraints:
     required: true
   custom_constraints:
@@ -275,6 +292,7 @@ fields:
     sequence_limit: 3
   description: Reagent kit used for sequencing
   name: sequencing_reagent_kit
+  type: string
 - constraints:
     pattern: \d+(/\d+)+
     required: true
@@ -314,6 +332,7 @@ fields:
     sequence_limit: 3
   description: Relative path to file with ORCID IDs for contributors for this dataset.
   name: contributors_path
+  type: string
 - constraints:
     required: true
   custom_constraints:
@@ -322,3 +341,4 @@ fields:
   description: Relative path to file or directory with instrument data. Downstream
     processing will depend on filename extension conventions.
   name: data_path
+  type: string

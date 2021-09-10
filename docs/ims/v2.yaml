@@ -12,6 +12,7 @@ fields:
   description: Version of the schema to use when validating this metadata.
   heading: Shared by all types
   name: version
+  type: string
 - constraints:
     required: true
   custom_constraints:
@@ -19,6 +20,7 @@ fields:
     sequence_limit: 3
   description: Free-text description of this assay.
   name: description
+  type: string
 - constraints:
     pattern: '[A-Z]+[0-9]+'
     required: true
@@ -67,6 +69,7 @@ fields:
     sequence_limit: 3
   description: Name of the person responsible for executing the assay.
   name: operator
+  type: string
 - constraints:
     required: true
   custom_constraints:
@@ -75,6 +78,7 @@ fields:
   description: Email address for the operator.
   format: email
   name: operator_email
+  type: string
 - constraints:
     required: true
   custom_constraints:
@@ -82,6 +86,7 @@ fields:
     sequence_limit: 3
   description: Name of the principal investigator responsible for the data.
   name: pi
+  type: string
 - constraints:
     required: true
   custom_constraints:
@@ -90,6 +95,7 @@ fields:
   description: Email address for the principal investigator.
   format: email
   name: pi_email
+  type: string
 - constraints:
     enum:
     - mass_spectrometry_imaging
@@ -101,6 +107,7 @@ fields:
     generation of images of microscopic entities, identification & quantitation of
     molecules by mass spectrometry, and determination of nucleotide sequence.'
   name: assay_category
+  type: string
 - constraints:
     enum:
     - MALDI-IMS
@@ -113,6 +120,7 @@ fields:
     sequence_limit: 3
   description: The specific type of assay being executed.
   name: assay_type
+  type: string
 - constraints:
     enum:
     - protein
@@ -127,7 +135,11 @@ fields:
     sequence_limit: 3
   description: Analytes are the target molecules being measured with the assay.
   name: analyte_class
+  type: string
 - constraints:
+    enum:
+    - 'TRUE'
+    - 'FALSE'
     required: true
   custom_constraints:
     forbid_na: true
@@ -135,7 +147,7 @@ fields:
   description: Specifies whether or not a specific molecule(s) is/are targeted for
     detection/measurement by the assay.
   name: is_targeted
-  type: boolean
+  type: string
 - constraints:
     required: true
   custom_constraints:
@@ -146,6 +158,7 @@ fields:
     of various intensities or color or signals representing the molecular mass.
   heading: Unique to this type
   name: acquisition_instrument_vendor
+  type: string
 - constraints:
     required: true
   custom_constraints:
@@ -156,6 +169,7 @@ fields:
     in features or sensitivities may be relevant to processing or interpretation of
     the data.
   name: acquisition_instrument_model
+  type: string
 - constraints:
     enum:
     - MALDI
@@ -173,6 +187,7 @@ fields:
   description: The ion source type used for surface sampling (MALDI, MALDI-2, DESI,
     or SIMS) or LC-MS/MS data acquisition (nESI)
   name: ms_source
+  type: string
 - constraints:
     enum:
     - negative ion mode
@@ -183,6 +198,7 @@ fields:
     sequence_limit: 3
   description: The polarity of the mass analysis (positive or negative ion modes)
   name: polarity
+  type: string
 - constraints:
     required: true
   custom_constraints:
@@ -233,6 +249,7 @@ fields:
     High Field Asymmetric waveform ion Mobility Spectrometry (FAIMS), Drift Tube Ion
     Mobility Spectrometry (DTIMS, Structures for Lossless Ion Manipulations (SLIM).'
   name: ion_mobility
+  type: string
 - constraints:
     enum:
     - MS
@@ -244,6 +261,7 @@ fields:
     sequence_limit: 3
   description: Scan mode refers to the number of steps in the separation of fragments.
   name: ms_scan_mode
+  type: string
 - constraints:
     required: true
   custom_constraints:
@@ -263,6 +281,7 @@ fields:
     units_for: resolution_x_value
   description: The unit of measurement of the width of a pixel.
   name: resolution_x_unit
+  type: string
 - constraints:
     required: true
   custom_constraints:
@@ -282,6 +301,7 @@ fields:
     units_for: resolution_y_value
   description: The unit of measurement of the height of a pixel.
   name: resolution_y_unit
+  type: string
 - constraints:
     required: false
   custom_constraints:
@@ -290,6 +310,7 @@ fields:
   description: Common methods of depositing matrix for MALDI imaging include robotic
     spotting, electrospray deposition, and spray-coating with an airbrush.
   name: preparation_type
+  type: string
 - constraints:
     required: false
   custom_constraints:
@@ -298,6 +319,7 @@ fields:
   description: The manufacturer of the instrument used to prepare the sample for the
     assay.
   name: preparation_instrument_vendor
+  type: string
 - constraints:
     required: false
   custom_constraints:
@@ -306,6 +328,7 @@ fields:
   description: The model number/name of the instrument used to prepare the sample
     for the assay
   name: preparation_instrument_model
+  type: string
 - constraints:
     enum:
     - CHB
@@ -319,6 +342,7 @@ fields:
     buffer between the sample and the laser. It also helps ionize the sample, carrying
     it along the flight tube so it can be detected.
   name: preparation_maldi_matrix
+  type: string
 - constraints:
     required: false
   custom_constraints:
@@ -327,6 +351,7 @@ fields:
   description: Solvent composition for conducting nanospray desorption electrospray
     ionization (nanoDESI) or desorption electrospray ionization (DESI).
   name: desi_solvent
+  type: string
 - constraints:
     required: false
   custom_constraints:
@@ -345,6 +370,7 @@ fields:
     units_for: desi_solvent_flow_rate
   description: Units of the rate of solvent flow.
   name: desi_solvent_flow_rate_unit
+  type: string
 - constraints:
     pattern: 10\.17504/.*
     required: true
@@ -386,6 +412,7 @@ fields:
     sequence_limit: 3
   description: Relative path to file with ORCID IDs for contributors for this dataset.
   name: contributors_path
+  type: string
 - constraints:
     required: true
   custom_constraints:
@@ -394,3 +421,4 @@ fields:
   description: Relative path to file or directory with instrument data. Downstream
     processing will depend on filename extension conventions.
   name: data_path
+  type: string

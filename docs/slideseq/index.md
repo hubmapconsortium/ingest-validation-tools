@@ -209,8 +209,8 @@ Specifies whether or not a specific molecule(s) is/are targeted for detection/me
 
 | constraint | value |
 | --- | --- |
-| type | `boolean` |
 | required | `True` |
+| enum | `TRUE` or `FALSE` |
 
 ### Unique to this type
 
@@ -279,8 +279,8 @@ Is the sequencing reaction run in repliucate, TRUE or FALSE.
 
 | constraint | value |
 | --- | --- |
-| type | `boolean` |
 | required | `True` |
+| enum | `TRUE` or `FALSE` |
 
 <a name="bead_barcode_read"></a>
 ##### [`bead_barcode_read`](#bead_barcode_read)
@@ -517,8 +517,8 @@ Specifies whether or not a specific molecule(s) is/are targeted for detection/me
 
 | constraint | value |
 | --- | --- |
-| type | `boolean` |
 | required | `True` |
+| enum | `TRUE` or `FALSE` |
 
 ### Unique to this type
 
@@ -587,8 +587,8 @@ Is the sequencing reaction run in repliucate, TRUE or FALSE.
 
 | constraint | value |
 | --- | --- |
-| type | `boolean` |
 | required | `True` |
+| enum | `TRUE` or `FALSE` |
 
 <a name="bead_barcode_read"></a>
 ##### [`bead_barcode_read`](#bead_barcode_read)

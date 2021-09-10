@@ -380,8 +380,21 @@ def _add_constraints(field, optional_fields, offline=None, names=None):
     >>> pprint(field, width=40)
     {'constraints': {'required': True},
      'custom_constraints': {'forbid_na': True},
-     'name': 'seq_expected'}
+     'name': 'seq_expected',
+     'type': 'string'}
 
+    Booleans should be TRUE or FALSE:
+
+    >>> field = {'name': 'a_bool', 'type': 'boolean'}
+    >>> _add_constraints(field, [])
+    >>> pprint(field, width=40)
+    {'constraints': {'enum': ['TRUE',
+                              'FALSE'],
+                     'required': True},
+     'custom_constraints': {'forbid_na': True,
+                            'sequence_limit': 3},
+     'name': 'a_bool',
+     'type': 'string'}
     '''
     if 'constraints' not in field:
         field['constraints'] = {}
@@ -431,7 +444,7 @@ def _add_constraints(field, optional_fields, offline=None, names=None):
         field['type'] = 'number'
         field['constraints']['minimum'] = 0
         field['constraints']['maximum'] = 100
-    if 'pattern' in field['constraints']:
+    if 'type' not in field:
         field['type'] = 'string'
 
     # Override:
@@ -443,6 +456,18 @@ def _add_constraints(field, optional_fields, offline=None, names=None):
         c_c = 'custom_constraints'
         if c_c in field and 'url' in field[c_c]:
             del field[c_c]['url']
+
+    # Tighter booleans:
+    if field['type'] == 'boolean':
+        field['type'] = 'string'
+        field['constraints']['enum'] = ['TRUE', 'FALSE']
+        # There is a right way to constrain booleans:
+        #   https://specs.frictionlessdata.io/table-schema/#boolean
+        #   field['trueValues'] = ['TRUE']
+        #   field['falseValues'] = ['FALSE']
+        # ... but the error messages aren't helpful:
+        #   value "false" fails because type is "boolean/default"
+        # So we treat it as a string enum for validation.
 
 
 def enum_maps_to_lists(schema, add_none_of_the_above=False, add_suggested=False):

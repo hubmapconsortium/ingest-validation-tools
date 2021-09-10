@@ -209,8 +209,8 @@ Specifies whether or not a specific molecule(s) is/are targeted for detection/me
 
 | constraint | value |
 | --- | --- |
-| type | `boolean` |
 | required | `True` |
+| enum | `TRUE` or `FALSE` |
 
 ### Unique to this type
 
@@ -236,8 +236,8 @@ If TRUE, fastq files in dataset need to be merged.
 
 | constraint | value |
 | --- | --- |
-| type | `boolean` |
 | required | `True` |
+| enum | `TRUE` or `FALSE` |
 
 <a name="library_id"></a>
 ##### [`library_id`](#library_id)
@@ -603,8 +603,8 @@ Specifies whether or not a specific molecule(s) is/are targeted for detection/me
 
 | constraint | value |
 | --- | --- |
-| type | `boolean` |
 | required | `True` |
+| enum | `TRUE` or `FALSE` |
 
 ### Unique to this type
 
@@ -630,8 +630,8 @@ If TRUE, fastq files in dataset need to be merged.
 
 | constraint | value |
 | --- | --- |
-| type | `boolean` |
 | required | `True` |
+| enum | `TRUE` or `FALSE` |
 
 <a name="library_id"></a>
 ##### [`library_id`](#library_id)

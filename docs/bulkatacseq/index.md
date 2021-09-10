@@ -203,8 +203,8 @@ Specifies whether or not a specific molecule(s) is/are targeted for detection/me
 
 | constraint | value |
 | --- | --- |
-| type | `boolean` |
 | required | `True` |
+| enum | `TRUE` or `FALSE` |
 
 ### Unique to this type
 
@@ -248,8 +248,8 @@ Is this a sequencing replicate?
 
 | constraint | value |
 | --- | --- |
-| type | `boolean` |
 | required | `True` |
+| enum | `TRUE` or `FALSE` |
 
 <a name="library_adapter_sequence"></a>
 ##### [`library_adapter_sequence`](#library_adapter_sequence)
@@ -559,8 +559,8 @@ Specifies whether or not a specific molecule(s) is/are targeted for detection/me
 
 | constraint | value |
 | --- | --- |
-| type | `boolean` |
 | required | `True` |
+| enum | `TRUE` or `FALSE` |
 
 ### Unique to this type
 
@@ -604,8 +604,8 @@ Is this a sequencing replicate?
 
 | constraint | value |
 | --- | --- |
-| type | `boolean` |
 | required | `True` |
+| enum | `TRUE` or `FALSE` |
 
 <a name="library_adapter_sequence"></a>
 ##### [`library_adapter_sequence`](#library_adapter_sequence)

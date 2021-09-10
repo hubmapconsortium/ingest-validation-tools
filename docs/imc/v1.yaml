@@ -17,6 +17,7 @@ fields:
   description: Version of the schema to use when validating this metadata.
   heading: Shared by all types
   name: version
+  type: string
 - constraints:
     required: true
   custom_constraints:
@@ -24,6 +25,7 @@ fields:
     sequence_limit: 3
   description: Free-text description of this assay.
   name: description
+  type: string
 - constraints:
     pattern: '[A-Z]+[0-9]+'
     required: true
@@ -72,6 +74,7 @@ fields:
     sequence_limit: 3
   description: Name of the person responsible for executing the assay.
   name: operator
+  type: string
 - constraints:
     required: true
   custom_constraints:
@@ -80,6 +83,7 @@ fields:
   description: Email address for the operator.
   format: email
   name: operator_email
+  type: string
 - constraints:
     required: true
   custom_constraints:
@@ -87,6 +91,7 @@ fields:
     sequence_limit: 3
   description: Name of the principal investigator responsible for the data.
   name: pi
+  type: string
 - constraints:
     required: true
   custom_constraints:
@@ -95,6 +100,7 @@ fields:
   description: Email address for the principal investigator.
   format: email
   name: pi_email
+  type: string
 - constraints:
     enum:
     - mass_spectrometry_imaging
@@ -106,6 +112,7 @@ fields:
     generation of images of microscopic entities, identification & quantitation of
     molecules by mass spectrometry, and determination of nucleotide sequence.'
   name: assay_category
+  type: string
 - constraints:
     enum:
     - Imaging Mass Cytometry
@@ -115,6 +122,7 @@ fields:
     sequence_limit: 3
   description: The specific type of assay being executed.
   name: assay_type
+  type: string
 - constraints:
     enum:
     - protein
@@ -124,7 +132,11 @@ fields:
     sequence_limit: 3
   description: Analytes are the target molecules being measured with the assay.
   name: analyte_class
+  type: string
 - constraints:
+    enum:
+    - 'TRUE'
+    - 'FALSE'
     required: true
   custom_constraints:
     forbid_na: true
@@ -132,7 +144,7 @@ fields:
   description: Specifies whether or not a specific molecule(s) is/are targeted for
     detection/measurement by the assay.
   name: is_targeted
-  type: boolean
+  type: string
 - constraints:
     required: true
   custom_constraints:
@@ -143,6 +155,7 @@ fields:
     of various intensities or color or signals representing the molecular mass.
   heading: Unique to this type
   name: acquisition_instrument_vendor
+  type: string
 - constraints:
     required: true
   custom_constraints:
@@ -153,6 +166,7 @@ fields:
     in features or sensitivities may be relevant to processing or interpretation of
     the data.
   name: acquisition_instrument_model
+  type: string
 - constraints:
     required: true
   custom_constraints:
@@ -161,6 +175,7 @@ fields:
   description: The manufacturer of the instrument used to prepare the sample for the
     assay.
   name: preparation_instrument_vendor
+  type: string
 - constraints:
     required: true
   custom_constraints:
@@ -169,6 +184,7 @@ fields:
   description: The model number/name of the instrument used to prepare the sample
     for the assay
   name: preparation_instrument_model
+  type: string
 - constraints:
     pattern: 10\.17504/.*
     required: true
@@ -219,6 +235,7 @@ fields:
     sequence_limit: 3
   description: Units of x resolution distance between laser ablation shots.
   name: ablation_distance_between_shots_x_units
+  type: string
 - constraints:
     required: true
   custom_constraints:
@@ -237,6 +254,7 @@ fields:
     sequence_limit: 3
   description: Units of y resolution distance between laser ablation shots.
   name: ablation_distance_between_shots_y_units
+  type: string
 - constraints:
     required: true
   custom_constraints:
@@ -255,6 +273,7 @@ fields:
     units_for: ablation_frequency_value
   description: Frequency unit of laser ablation
   name: ablation_frequency_unit
+  type: string
 - constraints:
     required: true
   custom_constraints:
@@ -262,6 +281,7 @@ fields:
     sequence_limit: 3
   description: A description of the region of interest (ROI) captured in the image.
   name: roi_description
+  type: string
 - constraints:
     required: true
   custom_constraints:
@@ -281,6 +301,7 @@ fields:
     for a slide. Together, the acquisition_id and the roi_id indicate the slide-ROI
     represented in the image.
   name: acquisition_id
+  type: string
 - constraints:
     required: true
   custom_constraints:
@@ -307,6 +328,7 @@ fields:
     units_for: max_x_width_value
   description: Units of image width of the ROI acquisition
   name: max_x_width_unit
+  type: string
 - constraints:
     required: true
   custom_constraints:
@@ -325,6 +347,7 @@ fields:
     units_for: max_y_height_value
   description: Units of image height of the ROI acquisition
   name: max_y_height_unit
+  type: string
 - constraints:
     enum:
     - float
@@ -336,6 +359,7 @@ fields:
     sequence_limit: 3
   description: This refers to the data type, which is a "float" for the IMC counts.
   name: segment_data_format
+  type: string
 - constraints:
     enum:
     - dual count
@@ -347,6 +371,7 @@ fields:
     sequence_limit: 3
   description: Type of signal measured per channel (usually dual counts)
   name: signal_type
+  type: string
 - constraints:
     required: true
   custom_constraints:
@@ -362,6 +387,7 @@ fields:
     sequence_limit: 3
   description: Relative path to file with antibody information for this dataset.
   name: antibodies_path
+  type: string
 - constraints:
     required: true
   custom_constraints:
@@ -369,6 +395,7 @@ fields:
     sequence_limit: 3
   description: Relative path to file with ORCID IDs for contributors for this dataset.
   name: contributors_path
+  type: string
 - constraints:
     required: true
   custom_constraints:
@@ -377,3 +404,4 @@ fields:
   description: Relative path to file or directory with instrument data. Downstream
     processing will depend on filename extension conventions.
   name: data_path
+  type: string
