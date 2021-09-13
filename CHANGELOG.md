@@ -1,6 +1,8 @@
 # Changelog
 
 ## v0.0.13 - in progress
+- Make email validation effective.
+- Add a test to confirm that backslashes aren't ignored during validation.
 - Update the lcms schema field "lc_temp_value" optional
 - Switch to Github CI.
 - `cell_barcode_read` description: comma-delimitted. 

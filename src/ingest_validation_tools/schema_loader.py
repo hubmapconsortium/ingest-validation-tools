@@ -396,6 +396,7 @@ def _add_constraints(field, optional_fields, offline=None, names=None):
         field['custom_constraints']['url'] = {'prefix': 'https://dx.doi.org/'}
     if field['name'].endswith('_email'):
         field['format'] = 'email'
+        field['type'] = 'string'
 
     # In the src schemas, set to False to avoid limit on sequences...
     if field['custom_constraints'].get('sequence_limit', True):

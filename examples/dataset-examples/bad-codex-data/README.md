@@ -2,6 +2,10 @@
 Metadata TSV Errors:
   examples/dataset-examples/bad-codex-data/upload/codex-metadata.tsv (as codex):
     Internal:
+    - On row 2, column "protocols_io_doi", value "10\.17504/protocols.io.menc3de"
+      fails because constraint "pattern" is "10\.17504/.*"
+    - On row 2, column "operator_email", value "no-at.example.com" fails because type
+      is "string/email"
     - On row 2, column "resolution_z_unit", value "None" fails because Required when
       resolution_z_value is filled
     External:
