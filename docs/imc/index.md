@@ -24,6 +24,9 @@ The other fields function the same way for all assays using antibodies. For more
 
 ## Metadata schema
 
+### Field types
+- *Boolean* fields can be given as `TRUE`/`FALSE`, `True`/`False`, `true`/`false`, or `1`/`0`.  
+
 
 <details markdown="1" open="true"><summary><b>Version 1 (current)</b></summary>
 
