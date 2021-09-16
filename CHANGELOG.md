@@ -1,6 +1,7 @@
 # Changelog
 
 ## v0.0.13 - in progress
+- Explain allowed values for booleans.
 - Update the lcms schema field "lc_temp_value" optional
 - Switch to Github CI.
 - `cell_barcode_read` description: comma-delimitted. 
