@@ -9,6 +9,8 @@ fields:
   constraints:
     enum:
       - MALDI-IMS
+      - MALDI-IMS-pos
+      - MALDI-IMS-neg
 - name: analyte_class
   constraints:
     enum:
