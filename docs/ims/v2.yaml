@@ -106,6 +106,8 @@ fields:
 - constraints:
     enum:
     - MALDI-IMS
+    - MALDI-IMS-pos
+    - MALDI-IMS-neg
     - SIMS-IMS
     - NanoDESI
     - DESI

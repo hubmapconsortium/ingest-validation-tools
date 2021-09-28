@@ -1,5 +1,5 @@
 ---
-title: MALDI-IMS / SIMS-IMS / NanoDESI / DESI
+title: MALDI-IMS / MALDI-IMS-pos / MALDI-IMS-neg / SIMS-IMS / NanoDESI / DESI
 schema_name: ims
 category: Imaging mass spectrometry
 all_versions_deprecated: False
@@ -194,7 +194,7 @@ The specific type of assay being executed.
 
 | constraint | value |
 | --- | --- |
-| enum | `MALDI-IMS`, `SIMS-IMS`, `NanoDESI`, or `DESI` |
+| enum | `MALDI-IMS`, `MALDI-IMS-pos`, `MALDI-IMS-neg`, `SIMS-IMS`, `NanoDESI`, or `DESI` |
 | required | `True` |
 
 <a name="analyte_class"></a>
@@ -561,7 +561,7 @@ The specific type of assay being executed.
 
 | constraint | value |
 | --- | --- |
-| enum | `MALDI-IMS` |
+| enum | `MALDI-IMS`, `MALDI-IMS-pos`, or `MALDI-IMS-neg` |
 | required | `True` |
 
 <a name="analyte_class"></a>
@@ -838,7 +838,7 @@ The specific type of assay being executed.
 
 | constraint | value |
 | --- | --- |
-| enum | `MALDI-IMS` |
+| enum | `MALDI-IMS`, `MALDI-IMS-pos`, or `MALDI-IMS-neg` |
 | required | `True` |
 
 <a name="analyte_class"></a>

@@ -105,6 +105,8 @@ fields:
 - constraints:
     enum:
     - MALDI-IMS
+    - MALDI-IMS-pos
+    - MALDI-IMS-neg
     required: true
   custom_constraints:
     forbid_na: true
