@@ -3,7 +3,7 @@ set -o errexit
 
 die() { set +v; echo "$*" 1>&2 ; sleep 1; exit 1; }
 
-for SCHEMA in antibodies contributors sample metadata; do
+for SCHEMA in `ls examples/tsv-examples`; do
   for EXAMPLE in examples/tsv-examples/$SCHEMA/*; do
     echo "Testing $EXAMPLE ..."
     CMD="src/validate_tsv.py --path $EXAMPLE/$SCHEMA.tsv --schema $SCHEMA --output as_md"
