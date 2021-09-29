@@ -1,6 +1,7 @@
 # Changelog
 
 ## v0.0.13 - in progress
+- Add support for MALDI-IMS-pos and -neg as assay types
 - Make email validation effective.
 - Add a test to confirm that backslashes aren't ignored during validation.
 - Explain allowed values for booleans.
