@@ -1,7 +1,8 @@
 # Changelog
 
 ## v0.0.13 - in progress
-- work around mypy importlib type hinting problem
+- Updated LC-MS directory structure schema.
+- Work around mypy importlib type hinting problem.
 - Antibodies validation is broken; Move test out the way.
 - Make email validation effective.
 - Add a test to confirm that backslashes aren't ignored during validation.
