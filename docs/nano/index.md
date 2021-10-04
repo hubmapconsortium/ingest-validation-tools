@@ -162,7 +162,7 @@ Email address for the principal investigator.
 
 <a name="assay_category"></a>
 ##### [`assay_category`](#assay_category)
-Each assay is placed into one of the following 3 general categories: generation of images of microscopic entities, identification & quantitation of molecules by mass spectrometry, and determination of nucleotide sequence.
+Each assay is placed into one of the following 4 general categories: generation of images of microscopic entities, identification & quantitation of molecules by mass spectrometry, imaging mass spectrometry, and determination of nucleotide sequence.
 
 | constraint | value |
 | --- | --- |
@@ -406,7 +406,7 @@ Email address for the principal investigator.
 
 <a name="assay_category"></a>
 ##### [`assay_category`](#assay_category)
-Each assay is placed into one of the following 3 general categories: generation of images of microscopic entities, identification & quantitation of molecules by mass spectrometry, and determination of nucleotide sequence.
+Each assay is placed into one of the following 4 general categories: generation of images of microscopic entities, identification & quantitation of molecules by mass spectrometry, imaging mass spectrometry, and determination of nucleotide sequence.
 
 | constraint | value |
 | --- | --- |

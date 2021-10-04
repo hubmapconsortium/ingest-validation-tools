@@ -214,7 +214,8 @@ def _add_level_1_description(field):
     descriptions = {
         'assay_category': 'Each assay is placed into one of the following 4 general categories: '
         'generation of images of microscopic entities, identification & quantitation of molecules '
-        'by mass spectrometry, imaging mass spectrometry, and determination of nucleotide sequence.',
+        'by mass spectrometry, imaging mass spectrometry, and determination of nucleotide '
+        'sequence.',
         'assay_type': 'The specific type of assay being executed.',
         'analyte_class': 'Analytes are the target molecules being measured with the assay.',
     }
