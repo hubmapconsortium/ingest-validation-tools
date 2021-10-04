@@ -51,7 +51,7 @@ class _CheckFactory():
                 # For more details:
                 # https://github.com/ebi-uniprot/uniprot-rest-api/issues/23
                 # https://github.com/Ensembl/ensembl-rest/issues/427
-                response = requests.get(url, verify=False)
+                response = requests.get(url)
                 url_status_cache[url] = response.status_code
             except Exception as e:
                 url_status_cache[url] = str(e)
