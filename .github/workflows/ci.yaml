@@ -7,6 +7,14 @@ jobs:
 
     # Available versions:
     # https://docs.github.com/en/free-pro-team@latest/actions/reference/workflow-syntax-for-github-actions#jobsjob_idruns-on
+      
+    # Uniprot's SSL setup is not sufficient for
+    # the latest Ubuntu security settings.
+    # So, use an older Ubuntu for now.
+    #
+    # More details:
+    # https://github.com/ebi-uniprot/uniprot-rest-api/issues/23
+    # https://github.com/Ensembl/ensembl-rest/issues/427
     runs-on: ubuntu-18.04
 
     steps:

@@ -40,17 +40,6 @@ class _CheckFactory():
         if url not in url_status_cache:
             print(f'Fetching un-cached url: {url}', file=stderr)
             try:
-                # Uniprot's SSL setup is not sufficient for
-                # Ubuntu's security settings.
-                # We hit this trying to run tests on Github CI.
-                #
-                # The only solution is to weaken verification,
-                # either going into the SSL config in the environment,
-                # or, more simply, turning it off here.
-                #
-                # For more details:
-                # https://github.com/ebi-uniprot/uniprot-rest-api/issues/23
-                # https://github.com/Ensembl/ensembl-rest/issues/427
                 response = requests.get(url)
                 url_status_cache[url] = response.status_code
             except Exception as e:
