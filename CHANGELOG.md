@@ -1,6 +1,7 @@
 # Changelog
 
 ## v0.0.13 - in progress
+- Don't verify HTTPS resources: Conflict between Uniprot SSL setup and Ubuntu.
 - work around mypy importlib type hinting problem
 - Antibodies validation is broken; Move test out the way.
 - Make email validation effective.
