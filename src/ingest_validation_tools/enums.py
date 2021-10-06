@@ -1,12 +1,14 @@
 '''
 >>> local_names = set(shared_enums['assay_type'])
 >>> import requests
+
+TODO: We need an endpoint that returns all the names.
+
 >>> canon_names = set(requests.get(
 ...    'https://search.api.hubmapconsortium.org/assaytype?simple=true&primary=true'
 ... ).json()['result'])
-
-# >>> local_names - canon_names
-# {}
+>>> local_names - canon_names
+{}
 '''
 
 shared_enums = {
