@@ -58,9 +58,6 @@ fields:
     enum:
     - sequence
     required: true
-  description: 'Each assay is placed into one of the following 3 general categories:
-    generation of images of microscopic entities, identification & quantitation of
-    molecules by mass spectrometry, and determination of nucleotide sequence.'
 - name: assay_type
   constraints:
     enum:

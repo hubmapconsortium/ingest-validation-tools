@@ -16,6 +16,10 @@ fields:
     enum:
       - mass_spectrometry
 - name: assay_type
+  description:
+    Bottom-up refers to analyzing proteins in a sample by digesting them to peptides.
+    Top-down refers to analyzing whole proteins without digestion. LC-MS and MS are for lipids/metabolites.
+    LC-MS Bottom-Up and MS Bottom-Up are for peptides. LC-MS Top-Down and MS Top-Down are for proteins.
   constraints:
     enum:
       - LC-MS
