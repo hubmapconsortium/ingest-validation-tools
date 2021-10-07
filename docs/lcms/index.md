@@ -198,7 +198,7 @@ Each assay is placed into one of the following 4 general categories: generation 
 
 <a name="assay_type"></a>
 ##### [`assay_type`](#assay_type)
-The specific type of assay being executed.
+Bottom-up refers to analyzing proteins in a sample by digesting them to peptides. Top-down refers to analyzing whole proteins without digestion. LC-MS and MS are for lipids/metabolites. LC-MS Bottom-Up and MS Bottom-Up are for peptides. LC-MS Top-Down and MS Top-Down are for proteins.
 
 | constraint | value |
 | --- | --- |
