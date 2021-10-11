@@ -79,6 +79,7 @@ fields:
   description: Email address for the operator.
   format: email
   name: operator_email
+  type: string
 - constraints:
     required: true
   custom_constraints:
@@ -94,6 +95,7 @@ fields:
   description: Email address for the principal investigator.
   format: email
   name: pi_email
+  type: string
 - constraints:
     enum:
     - mass_spectrometry
@@ -101,9 +103,10 @@ fields:
   custom_constraints:
     forbid_na: true
     sequence_limit: 3
-  description: 'Each assay is placed into one of the following 3 general categories:
+  description: 'Each assay is placed into one of the following 4 general categories:
     generation of images of microscopic entities, identification & quantitation of
-    molecules by mass spectrometry, and determination of nucleotide sequence.'
+    molecules by mass spectrometry, imaging mass spectrometry, and determination of
+    nucleotide sequence.'
   name: assay_category
 - constraints:
     enum:
@@ -117,7 +120,10 @@ fields:
   custom_constraints:
     forbid_na: true
     sequence_limit: 3
-  description: The specific type of assay being executed.
+  description: Bottom-up refers to analyzing proteins in a sample by digesting them
+    to peptides. Top-down refers to analyzing whole proteins without digestion. LC-MS
+    and MS are for lipids/metabolites. LC-MS Bottom-Up and MS Bottom-Up are for peptides.
+    LC-MS Top-Down and MS Top-Down are for proteins.
   name: assay_type
 - constraints:
     enum:
@@ -326,7 +332,7 @@ fields:
   description: units for LC column length (typically cm)
   name: lc_length_unit
 - constraints:
-    required: true
+    required: false
   custom_constraints:
     forbid_na: true
     sequence_limit: 3

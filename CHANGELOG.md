@@ -2,6 +2,19 @@
 
 ## v0.0.13 - in progress
 - Cosmetic changes to Slide-seq directory structure schema.
+- Longer assay description for LCMS, and supporting machinery.
+- In CI, pin to older Ubuntu version to avoid SSL problems with Uniprot.
+- Level 1 description of assay_category: Updated "3" assay categories to "4". Added imaging mass spec.
+- work around mypy importlib type hinting problem
+- Antibodies validation is broken; Move test out the way.
+- Make email validation effective.
+- Add a test to confirm that backslashes aren't ignored during validation.
+- Explain allowed values for booleans.
+- Update the lcms schema field "lc_temp_value" optional
+- Switch to Github CI.
+- `cell_barcode_read` description: comma-delimitted. 
+- Update the lcms schema field "lc_temp_value" optional.
+- Hit a different URL for ORCID, that will not give us soft 404s.
 - In bash scripts, make python3 explicit.
 - Update the flowchart to reflect the roles of Bill and PK.
 - Add pipeline info.

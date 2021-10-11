@@ -1,9 +1,7 @@
 #!/usr/bin/env bash
 set -o errexit
 
-red=`tput setaf 1`
-reset=`tput sgr0`
-die() { set +v; echo "$red$*$reset" 1>&2 ; exit 1; }
+die() { set +v; echo "$*" 1>&2 ; sleep 1; exit 1; }
 
 for SUITE in examples/dataset-examples examples/dataset-iec-examples; do
 

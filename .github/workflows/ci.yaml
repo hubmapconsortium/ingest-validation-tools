@@ -1,0 +1,41 @@
+name: Portal CI
+
+on: [push, pull_request]
+
+jobs:
+  build:
+
+    # Available versions:
+    # https://docs.github.com/en/free-pro-team@latest/actions/reference/workflow-syntax-for-github-actions#jobsjob_idruns-on
+      
+    # Uniprot's SSL setup is not sufficient for
+    # the latest Ubuntu security settings.
+    # So, use an older Ubuntu for now.
+    #
+    # More details:
+    # https://github.com/ebi-uniprot/uniprot-rest-api/issues/23
+    # https://github.com/Ensembl/ensembl-rest/issues/427
+    runs-on: ubuntu-18.04
+
+    steps:
+    - uses: actions/checkout@v2
+      # with:
+      #   submodules: 'recursive'
+
+    - name: Set up Python 3.6
+      uses: actions/setup-python@v2
+      with:
+        python-version: '3.6' # The Red Hat version used by IEC doesn't support anything more recent. :(
+        architecture: 'x64'
+
+    - name: Install python main dependencies
+      run: pip install -r requirements.txt
+
+    - name: Install python dev dependencies
+      run: pip install -r requirements-dev.txt
+
+    - name: Run test script
+      run: ./test.sh
+      # env:
+      #   GH_ACTIONS_BRANCH: ${{ github.ref }}
+      #   GH_ACTIONS: true

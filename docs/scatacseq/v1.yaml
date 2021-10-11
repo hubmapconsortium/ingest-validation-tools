@@ -76,6 +76,7 @@ fields:
   description: Email address for the operator.
   format: email
   name: operator_email
+  type: string
 - constraints:
     required: true
   custom_constraints:
@@ -91,6 +92,7 @@ fields:
   description: Email address for the principal investigator.
   format: email
   name: pi_email
+  type: string
 - constraints:
     enum:
     - sequence
@@ -98,9 +100,10 @@ fields:
   custom_constraints:
     forbid_na: true
     sequence_limit: 3
-  description: 'Each assay is placed into one of the following 3 general categories:
+  description: 'Each assay is placed into one of the following 4 general categories:
     generation of images of microscopic entities, identification & quantitation of
-    molecules by mass spectrometry, and determination of nucleotide sequence.'
+    molecules by mass spectrometry, imaging mass spectrometry, and determination of
+    nucleotide sequence.'
   name: assay_category
 - constraints:
     enum:
@@ -306,8 +309,9 @@ fields:
   custom_constraints:
     forbid_na: true
     sequence_limit: 3
-  description: Which read file contains the cell barcode. This field is not required
-    for barcoding by single-cell combinatorial indexing.
+  description: Which read file(s) contains the cell barcode. Multiple cell_barcode_read
+    files must be provided as a comma-delimited list (e.g. file1,file2,file3). This
+    field is not required for barcoding by single-cell combinatorial indexing.
   name: cell_barcode_read
 - constraints:
     pattern: \d+(,\d+)*

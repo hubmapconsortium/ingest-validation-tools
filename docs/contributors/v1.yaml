@@ -51,7 +51,7 @@ fields:
     forbid_na: true
     sequence_limit: 3
     url:
-      prefix: https://orcid.org/
+      prefix: https://pub.orcid.org/v3.0/
   description: ORCID ID of contributor
   example: 0000-0002-8928-741X
   name: orcid_id

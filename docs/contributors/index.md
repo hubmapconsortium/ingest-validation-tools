@@ -17,6 +17,9 @@ Related files:
 
 ## Metadata schema
 
+### Field types
+- *Boolean* fields can be given as `TRUE`/`FALSE`, `True`/`False`, `true`/`false`, or `1`/`0`.  
+
 
 <details markdown="1" open="true"><summary><b>Version 1 (current)</b></summary>
 
@@ -90,7 +93,7 @@ ORCID ID of contributor. Example: `0000-0002-8928-741X`.
 | --- | --- |
 | pattern (regular expression) | `\d{4}-\d{4}-\d{4}-\d{3}[0-9X]` |
 | required | `True` |
-| url | prefix: `https://orcid.org/` |
+| url | prefix: `https://pub.orcid.org/v3.0/` |
 
 <a name="is_contact"></a>
 ##### [`is_contact`](#is_contact)
@@ -155,6 +158,6 @@ ORCID ID of contributor. Example: `0000-0002-8928-741X`.
 | --- | --- |
 | pattern (regular expression) | `\d{4}-\d{4}-\d{4}-\d{3}[0-9X]` |
 | required | `True` |
-| url | prefix: `https://orcid.org/` |
+| url | prefix: `https://pub.orcid.org/v3.0/` |
 
 </details>
