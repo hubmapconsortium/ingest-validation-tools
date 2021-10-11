@@ -194,7 +194,7 @@ Email address for the principal investigator.
 
 <a name="assay_category"></a>
 ##### [`assay_category`](#assay_category)
-Each assay is placed into one of the following 3 general categories: generation of images of microscopic entities, identification & quantitation of molecules by mass spectrometry, and determination of nucleotide sequence.
+Each assay is placed into one of the following 4 general categories: generation of images of microscopic entities, identification & quantitation of molecules by mass spectrometry, imaging mass spectrometry, and determination of nucleotide sequence.
 
 | constraint | value |
 | --- | --- |
@@ -203,7 +203,7 @@ Each assay is placed into one of the following 3 general categories: generation 
 
 <a name="assay_type"></a>
 ##### [`assay_type`](#assay_type)
-The specific type of assay being executed.
+Bottom-up refers to analyzing proteins in a sample by digesting them to peptides. Top-down refers to analyzing whole proteins without digestion. LC-MS and MS are for lipids/metabolites. LC-MS Bottom-Up and MS Bottom-Up are for peptides. LC-MS Top-Down and MS Top-Down are for proteins.
 
 | constraint | value |
 | --- | --- |
@@ -690,7 +690,7 @@ Email address for the principal investigator.
 
 <a name="assay_category"></a>
 ##### [`assay_category`](#assay_category)
-Each assay is placed into one of the following 3 general categories: generation of images of microscopic entities, identification & quantitation of molecules by mass spectrometry, and determination of nucleotide sequence.
+Each assay is placed into one of the following 4 general categories: generation of images of microscopic entities, identification & quantitation of molecules by mass spectrometry, imaging mass spectrometry, and determination of nucleotide sequence.
 
 | constraint | value |
 | --- | --- |
@@ -1078,7 +1078,7 @@ Email address for the principal investigator.
 
 <a name="assay_category"></a>
 ##### [`assay_category`](#assay_category)
-Each assay is placed into one of the following 3 general categories: generation of images of microscopic entities, identification & quantitation of molecules by mass spectrometry, and determination of nucleotide sequence.
+Each assay is placed into one of the following 4 general categories: generation of images of microscopic entities, identification & quantitation of molecules by mass spectrometry, imaging mass spectrometry, and determination of nucleotide sequence.
 
 | constraint | value |
 | --- | --- |

@@ -24,9 +24,10 @@ age_value: The time elapsed since birth.
 analyte_class: Analytes are the target molecules being measured with the assay.
 antibodies_path: Relative path to file with antibody information for this dataset.
 antibody_name: Anti-(target name) antibody. Not validated or used down-stream.
-assay_category: 'Each assay is placed into one of the following 3 general categories:
+assay_category: 'Each assay is placed into one of the following 4 general categories:
   generation of images of microscopic entities, identification & quantitation of molecules
-  by mass spectrometry, and determination of nucleotide sequence.'
+  by mass spectrometry, imaging mass spectrometry, and determination of nucleotide
+  sequence.'
 assay_type: The specific type of assay being executed.
 bead_barcode_offset: Position(s) in the read at which the bead barcode starts
 bead_barcode_read: Which read file contains the bead barcode

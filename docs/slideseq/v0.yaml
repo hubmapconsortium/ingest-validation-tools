@@ -81,9 +81,10 @@ fields:
   custom_constraints:
     forbid_na: true
     sequence_limit: 3
-  description: 'Each assay is placed into one of the following 3 general categories:
+  description: 'Each assay is placed into one of the following 4 general categories:
     generation of images of microscopic entities, identification & quantitation of
-    molecules by mass spectrometry, and determination of nucleotide sequence.'
+    molecules by mass spectrometry, imaging mass spectrometry, and determination of
+    nucleotide sequence.'
   name: assay_category
 - constraints:
     enum:
