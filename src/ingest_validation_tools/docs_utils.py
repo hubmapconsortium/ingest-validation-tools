@@ -404,7 +404,7 @@ def _make_dir_description(dir_schema, pipeline_infos=[]):
     <BLANKLINE>
     | pattern | required? | description |
     | --- | --- | --- |
-    | `[A-Z]+\d+` (example: `ABC123`) | ✓ | letters numbers |
+    | `[A-Z]+\\d+` (example: `ABC123`) | ✓ | letters numbers |
     | `[A-Z]` | ✓ | one letter, no example |
 
     Bad examples cause errors:
