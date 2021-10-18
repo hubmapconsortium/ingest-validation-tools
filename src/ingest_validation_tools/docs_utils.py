@@ -402,10 +402,10 @@ def _make_dir_description(dir_schema, pipeline_infos=[]):
     ... ]
     >>> print(_make_dir_description(dir_schema))
     <BLANKLINE>
-    | pattern | example | required? | description |
-    | --- | --- | --- | --- |
-    | `[A-Z]+\\d+` | `ABC123` | ✓ | letters numbers |
-    | `[A-Z]` |  | ✓ | one letter, no example |
+    | pattern | required? | description |
+    | --- | --- | --- |
+    | `[A-Z]+\d+` (example: `ABC123`) | ✓ | letters numbers |
+    | `[A-Z]` | ✓ | one letter, no example |
 
     Bad examples cause errors:
 
@@ -450,34 +450,22 @@ def _make_dir_description(dir_schema, pipeline_infos=[]):
             assert k in {'pattern', 'required', 'description', 'example', 'is_qa_qc'}, \
                 f'Unexpected key "{k}" in {line}'
 
-    has_examples = any('example' in line for line in dir_schema)
-
-    output = []
-    if has_examples:
-        output.append('''
-| pattern | example | required? | description |
-| --- | --- | --- | --- |''')
-    else:
-        output.append('''
+    output = ['''
 | pattern | required? | description |
-| --- | --- | --- |''')
+| --- | --- | --- |''']
 
     for line in dir_schema:
         row = []
 
         pattern = line['pattern']
         pattern_md = f'`{_md_escape_re(pattern)}`'
+        if 'example' in line:
+            example = line['example']
+            assert re.fullmatch(pattern, example), \
+                f'Example "{example}" does not match pattern "{pattern}"'
+            example_md = f'`{_md_escape_re(example)}`'
+            pattern_md += f' (example: {example_md})'
         row.append(pattern_md)
-
-        if has_examples:
-            if 'example' not in line:
-                row.append('')
-            else:
-                example = line['example']
-                assert re.fullmatch(pattern, example), \
-                    f'Example "{example}" does not match pattern "{pattern}"'
-                example_md = f'`{_md_escape_re(example)}`'
-                row.append(example_md)
 
         required_md = '' if 'required' in line and not line['required'] else '✓'
         row.append(required_md)
