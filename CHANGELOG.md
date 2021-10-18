@@ -1,6 +1,7 @@
 # Changelog
 
 ## v0.0.13 - in progress
+- Script to populate directory based on examples.
 - Updated LC-MS directory structure schema.
 - Work around mypy importlib type hinting problem.
 - Longer assay description for LCMS, and supporting machinery.
