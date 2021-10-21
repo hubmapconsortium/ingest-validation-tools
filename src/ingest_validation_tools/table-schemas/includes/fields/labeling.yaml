@@ -1,2 +1,6 @@
 - name: labeling
   description: Indicates whether samples were labeled prior to MS analysis (e.g., TMT)
+- name: label_name
+  description: The name of the sample label
+  constraints:
+    required: False
