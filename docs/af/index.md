@@ -11,6 +11,7 @@ Related files:
 - [📝 Excel template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/main/docs/af/af-metadata.xlsx): For metadata entry.
 - [📝 TSV template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/main/docs/af/af-metadata.tsv): Alternative for metadata entry.
 
+Release date: 2001-01-01
 This schema is for autofluorescence (AF).
 
 ## Directory schema

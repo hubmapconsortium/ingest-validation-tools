@@ -1,5 +1,6 @@
 doc_url: https://portal.hubmapconsortium.org/docs/assays/af
 description_md: This schema is for autofluorescence (AF).
+release_date: 2001-01-01
 fields:
 # include: ../includes/vA/all_assays.yaml
 

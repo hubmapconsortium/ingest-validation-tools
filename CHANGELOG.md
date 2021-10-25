@@ -1,6 +1,7 @@
 # Changelog
 
 ## v0.0.13 - in progress
+- Add release date to schema.
 - Present directory path examples in same column.
 - Updated LC-MS directory structure schema.
 - Work around mypy importlib type hinting problem.

@@ -11,7 +11,7 @@ ${optional_doc_link_md}
 - [📝 Excel template](${xlsx_url}): For metadata entry.
 - [📝 TSV template](${tsv_url}): Alternative for metadata entry.
 
-${optional_description_md}
+${optional_release_date}${optional_description_md}
 
 ${optional_dir_description_md}
 
