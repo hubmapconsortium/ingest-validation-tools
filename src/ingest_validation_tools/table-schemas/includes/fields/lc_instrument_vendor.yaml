@@ -1,2 +1,4 @@
 - name: lc_instrument_vendor
   description: The manufacturer of the instrument used for LC
+  constraints:
+    required: False
