@@ -1,2 +1,4 @@
 - name: labeling
   description: Indicates whether samples were labeled prior to MS analysis (e.g., TMT)
+- name: label_name
+  description: If the samples were labeled (e.g. TMT), provide the name/ID of the label on this sample.
