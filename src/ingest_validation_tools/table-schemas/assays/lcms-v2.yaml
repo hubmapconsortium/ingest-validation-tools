@@ -45,8 +45,6 @@ fields:
 - name: dms
   description: Was differential mobility spectrometry used in this assay?
   type: boolean
-  constraints:
-    required: TRUE
 - name: ms_source
   description: The ion source type used for surface sampling.
   constraints:
