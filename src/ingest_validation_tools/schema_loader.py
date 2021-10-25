@@ -279,6 +279,7 @@ def _validate_level_1_enum(field):
             'Light Sheet',
             'MxIF',
             'MALDI-IMS',
+            'Multiplex Ion Beam Imaging',
             'MS (shotgun lipidomics)',
             'NanoDESI',
             'NanoPOTS',
