@@ -1,6 +1,7 @@
 # Changelog
 
 ## v0.0.13 - in progress
+- Add fields for LCMS v3.
 - Make LC fields optional.
 - Present directory path examples in same column.
 - Updated LC-MS directory structure schema.
