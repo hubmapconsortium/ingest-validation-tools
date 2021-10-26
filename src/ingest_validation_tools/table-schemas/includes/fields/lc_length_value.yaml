@@ -1,2 +1,4 @@
 - name: lc_length_value
   description: LC column length
+  constraints:
+    required: False

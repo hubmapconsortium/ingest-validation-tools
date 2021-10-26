@@ -3,3 +3,4 @@
   constraints:
     enum:
       - C
+    required: False

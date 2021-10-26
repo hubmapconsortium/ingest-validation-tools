@@ -272,21 +272,21 @@ The high value of the scanned mass range for MS1. (unitless)
 
 <a name="mass_resolving_power"></a>
 ##### [`mass_resolving_power`](#mass_resolving_power)
-The MS1 resolving power defined as m/∆m where ∆m is the FWHM for a given peak with a specified m/z (m). (unitless)
+The MS1 resolving power defined as m/∆m where ∆m is the FWHM for a given peak with a specified m/z (m). (unitless) Leave blank if not applicable.
 
 | constraint | value |
 | --- | --- |
 | type | `number` |
-| required | `True` |
+| required | `False` |
 
 <a name="mz_resolving_power"></a>
 ##### [`mz_resolving_power`](#mz_resolving_power)
-The peak (m/z) used to calculate the resolving power.
+The peak (m/z) used to calculate the resolving power. Leave blank if not applicable.
 
 | constraint | value |
 | --- | --- |
 | type | `number` |
-| required | `True` |
+| required | `False` |
 
 <a name="ion_mobility"></a>
 ##### [`ion_mobility`](#ion_mobility)
