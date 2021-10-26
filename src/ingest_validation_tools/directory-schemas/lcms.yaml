@@ -1,4 +1,24 @@
 -
-  pattern: 'TODO'
-  description: 'Directory structure not yet specified. https://github.com/hubmapconsortium/ingest-validation-tools/issues/448'
-
+  pattern: 'raw_data/*\.raw'
+  description: 'Raw mass spectrometry data from an assay of LC-MS, MS, LC-MS Bottom-Up, MS Bottom-Up, LC-MS Top-Down, or MS Top-Down that describes an analyte class of protein, metabolites, lipids, peptides, phosphopeptides, or glycans.'
+  required: True
+-
+  pattern: 'raw_data/*\.mzML'
+  description: 'Raw mass spectrometry data from an assay of LC-MS, MS, LC-MS Bottom-Up, MS Bottom-Up, LC-MS Top-Down, or MS Top-Down that describes an analyte class of protein, metabolites, lipids, peptides, phosphopeptides, or glycans.'
+  required: True
+-
+  pattern: 'ID_search_results/*\.txt'
+  description: 'Identification results. Annotated data describing (qualitative or quantitative) the proteins, metabolites, lipids, peptides, phosphopeptides, or glycans identified from the corresponding raw data.'
+  required: True
+-
+  pattern: 'ID_search_results/*\.csv'
+  description: 'Identification results. Annotated data describing (qualitative or quantitative) the proteins, metabolites, lipids, peptides, phosphopeptides, or glycans identified from the corresponding raw data.'
+  required: True
+-
+  pattern: 'ID_metadata/*\.xml'
+  description: 'Identification search parameters / metadata. Software settings used during the analyte identification process (e.g., from MaxQuant or Proteome Discoverer).'
+  required: False
+-
+  pattern: 'QC_results/*\.(xml|txt|html|pdf|log|yaml)'
+  description: 'Output file resulting from QC analysis. A list of metrics with the score of the current dataset that shows the quality of data collection.'
+  required: False

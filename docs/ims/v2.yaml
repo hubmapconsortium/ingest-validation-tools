@@ -203,7 +203,7 @@ fields:
   name: mz_range_high_value
   type: number
 - constraints:
-    required: true
+    required: false
   custom_constraints:
     forbid_na: true
     sequence_limit: 3
@@ -212,7 +212,7 @@ fields:
   name: mass_resolving_power
   type: number
 - constraints:
-    required: true
+    required: false
   custom_constraints:
     forbid_na: true
     sequence_limit: 3

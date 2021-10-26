@@ -212,6 +212,8 @@ def _validate_field(field):
 
 
 def _add_level_1_description(field):
+    if 'description' in field:
+        return
     descriptions = {
         'assay_category': 'Each assay is placed into one of the following 4 general categories: '
         'generation of images of microscopic entities, identification & quantitation of molecules '
