@@ -1,6 +1,7 @@
 # Changelog
 
 ## v0.0.13 - in progress
+- Provide a map in docs/ from fields to the assays they are used in.
 - Make LC fields optional.
 - Present directory path examples in same column.
 - Updated LC-MS directory structure schema.
