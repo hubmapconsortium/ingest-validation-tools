@@ -137,7 +137,7 @@ def main():
 
     upload = Upload(**upload_args)
     errors = upload.get_errors()
-    report = ErrorReport(errors)
+    report = ErrorReport(errors, effective_tsv_paths=upload.effective_tsv_paths)
     print(getattr(report, args.output)())
     return exit_codes.INVALID if errors else exit_codes.VALID
 

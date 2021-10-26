@@ -38,6 +38,7 @@ class Upload:
         self.offline = offline
         self.add_notes = add_notes
         self.errors = {}
+        self.effective_tsv_paths = {}
         try:
             unsorted_effective_tsv_paths = {
                 str(path): get_schema_version(path, self.encoding)
