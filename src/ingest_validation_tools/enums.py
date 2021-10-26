@@ -1,15 +1,50 @@
 '''
->>> local_names = set(shared_enums['assay_type'])
 >>> import requests
->>> downstream_names = set(requests.get(
-...    'https://search.api.hubmapconsortium.org/assaytype?simple=true&primary=true'
-... ).json()['result'])
->>> local_names - downstream_names
-{}
-
-ie: There should be no local names that are not recognized downstream.
-TODO: We need an endpoint that returns these.
+>>> local_names = shared_enums['assay_type']
+>>> remote_mismatch = []
+>>> for name in local_names:
+...     response = requests.post(
+...         'https://search.api.hubmapconsortium.org/assayname',
+...         json={'name':name}, headers={'Content-Type': 'application/json'}).json()
+...     if 'error' in response:
+...         remote_mismatch.append(name)
+>>> print('\\n'.join(remote_mismatch))
+3D Imaging Mass Cytometry
+scRNA-Seq(10xGenomics)
+bulk RNA
+bulkATACseq
+CE-MS
+DESI
+GC-MS
+Imaging Mass Cytometry
+LC-MS (metabolomics)
+LC-MS/MS (label-free proteomics)
+Light Sheet
+MALDI-IMS
+MS (shotgun lipidomics)
+NanoDESI
+NanoPOTS
+PAS microscopy
+scATACseq
+seqFISH
+SIMS-IMS
+SNARE-seq2
+snRNA
+SPLiT-Seq
+TMT (proteomics)
+scRNAseq-10xGenomics
+scRNAseq-10xGenomics-v2
+scRNAseq-10xGenomics-v3
+scRNAseq
+MS Bottom-Up
+MS Top-Down
+LC-MS Top-Down
+LC-MS
+LC-MS Bottom-Up
+MS
 '''
+# TODO: This list should be empty: There should be no unmatched terms.
+
 
 shared_enums = {
     'assay_category': [
