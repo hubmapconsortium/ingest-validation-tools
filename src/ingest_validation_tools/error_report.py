@@ -20,18 +20,21 @@ class ErrorReport:
                 'If validation fails because of extra whitespace in the TSV, try:\n' \
                 'src/cleanup_whitespace.py --tsv_in original.tsv --tsv_out clean.tsv'
 
+    def _no_errors():
+        return 'No errors!\n'
+
     def _as_list(self):
         return [munge(m) for m in _build_list(self.errors)]
 
     def as_text_list(self):
-        return '\n'.join(self._as_list()) or 'No errors!\n'
+        return '\n'.join(self._as_list()) or self._no_errors()
 
     def as_yaml(self):
         return dump(self.errors, sort_keys=False)
 
     def as_text(self):
         if not self.errors:
-            return 'No errors!\n'
+            return self._no_errors()
         else:
             return self.as_yaml()
 
@@ -54,7 +57,7 @@ class ErrorReport:
         </dl>
         '''
         if not self.errors:
-            return 'No errors!'
+            return self._no_errors()
         doc, tag, _, line = Doc().ttl()
         _build_doc(tag, line, self.errors)
         return indent(doc.getvalue())
