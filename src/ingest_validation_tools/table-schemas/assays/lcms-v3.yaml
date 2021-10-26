@@ -46,7 +46,7 @@ fields:
 
 # Level 2 fields:
 # include: ../includes/v0/acquisition_instrument.yaml
-# include: ../invludes/fields/dms.yaml
+# include: ../includes/fields/dms.yaml
 - name: ms_source
   description: The ion source type used for surface sampling.
   constraints:

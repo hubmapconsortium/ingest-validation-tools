@@ -1,6 +1,32 @@
 # Generated YAML: PRs should not start here!
+description_md: 'This schema is for liquid chromatography mass spectrometry (LCMS).
+
+  v2 adds `mass_resolving_power`, `mz_resolving_power`, `ion_mobility`, `spatial_type`,
+  `spatial_sampling_type`, `spatial_target`, and `resolution_{x/y}_{value/unit}`.
+  In the case of datasets in which more than one `analyte_type` was interrogated (e.g.
+  lipids plus metabolytes), those datasets should be split into one dataset per analyte.
+
+  v3 adds `dms` and `label_name` fields, and `negative and positive ion mode` as a
+  polarity option.'
 doc_url: https://portal.hubmapconsortium.org/docs/assays/lcms
 fields:
+- constraints:
+    enum:
+    - '3'
+    required: true
+  custom_constraints:
+    forbid_na: true
+    sequence_limit: 3
+  description: Version of the schema to use when validating this metadata.
+  heading: Shared by all types
+  name: version
+- constraints:
+    required: true
+  custom_constraints:
+    forbid_na: true
+    sequence_limit: 3
+  description: Free-text description of this assay.
+  name: description
 - constraints:
     pattern: '[A-Z]+[0-9]+'
     required: true
@@ -8,7 +34,6 @@ fields:
     forbid_na: true
   description: HuBMAP Display ID of the donor of the assayed tissue.
   example: ABC123
-  heading: Shared by all types
   name: donor_id
   type: string
 - constraints:
@@ -89,20 +114,29 @@ fields:
   name: assay_category
 - constraints:
     enum:
-    - LC-MS (metabolomics)
-    - LC-MS/MS (label-free proteomics)
-    - MS (shotgun lipidomics)
+    - LC-MS
+    - MS
+    - LC-MS Bottom-Up
+    - MS Bottom-Up
+    - LC-MS Top-Down
+    - MS Top-Down
     required: true
   custom_constraints:
     forbid_na: true
     sequence_limit: 3
-  description: The specific type of assay being executed.
+  description: Bottom-up refers to analyzing proteins in a sample by digesting them
+    to peptides. Top-down refers to analyzing whole proteins without digestion. LC-MS
+    and MS are for lipids/metabolites. LC-MS Bottom-Up and MS Bottom-Up are for peptides.
+    LC-MS Top-Down and MS Top-Down are for proteins.
   name: assay_type
 - constraints:
     enum:
     - protein
     - metabolites
     - lipids
+    - peptides
+    - phosphopeptides
+    - glycans
     required: false
   custom_constraints:
     forbid_na: true
@@ -143,8 +177,17 @@ fields:
   custom_constraints:
     forbid_na: true
     sequence_limit: 3
-  description: The ion source type used for surface sampling (MALDI, MALDI-2, DESI,
-    or SIMS) or LC-MS/MS data acquisition (nESI)
+  description: Was differential mobility spectrometry used in this assay?
+  name: dms
+  type: boolean
+- constraints:
+    enum:
+    - ESI
+    required: true
+  custom_constraints:
+    forbid_na: true
+    sequence_limit: 3
+  description: The ion source type used for surface sampling.
   name: ms_source
 - constraints:
     enum:
@@ -174,6 +217,40 @@ fields:
   name: mz_range_high_value
   type: number
 - constraints:
+    required: false
+  custom_constraints:
+    forbid_na: true
+    sequence_limit: 3
+  description: "The MS1 resolving power defined as m/\u2206m where \u2206m is the\
+    \ FWHM for a given peak with a specified m/z (m). (unitless)"
+  name: mass_resolving_power
+  type: number
+- constraints:
+    required: false
+  custom_constraints:
+    forbid_na: true
+    sequence_limit: 3
+  description: The peak (m/z) used to calculate the resolving power.
+  name: mz_resolving_power
+  type: number
+- constraints:
+    enum:
+    - TIMS
+    - TWIMS
+    - FAIMS
+    - DTIMS
+    - SLIMS
+    required: false
+  custom_constraints:
+    forbid_na: true
+    sequence_limit: 3
+  description: 'Specifies whether or not ion mobility spectrometry was performed and
+    which technology was used. Technologies for measuring ion mobility: Traveling
+    Wave Ion Mobility Spectrometry (TWIMS), Trapped Ion Mobility Spectrometry (TIMS),
+    High Field Asymmetric waveform ion Mobility Spectrometry (FAIMS), Drift Tube Ion
+    Mobility Spectrometry (DTIMS, Structures for Lossless Ion Manipulations (SLIM).'
+  name: ion_mobility
+- constraints:
     required: true
   custom_constraints:
     forbid_na: true
@@ -197,6 +274,14 @@ fields:
   description: Indicates whether samples were labeled prior to MS analysis (e.g.,
     TMT)
   name: labeling
+- constraints:
+    required: false
+  custom_constraints:
+    forbid_na: true
+    sequence_limit: 3
+  description: If the samples were labeled (e.g. TMT), provide the name/ID of the
+    label on this sample.
+  name: label_name
 - constraints:
     pattern: 10\.17504/.*
     required: true
@@ -345,6 +430,83 @@ fields:
     sequence_limit: 3
   description: Composition of mobile phase B
   name: lc_mobile_phase_b
+- constraints:
+    enum:
+    - LCM
+    - LESA
+    - nanoPOTS
+    - microLESA
+    required: false
+  custom_constraints:
+    forbid_na: true
+    sequence_limit: 3
+  description: Specifies whether or not the analysis was performed in a spatialy targeted
+    manner and the technique used for spatial sampling. For example, Laser-capture
+    microdissection (LCM), Liquid Extraction Surface Analysis (LESA), Nanodroplet
+    Processing in One pot for Trace Samples (nanoPOTS).
+  name: spatial_type
+- constraints:
+    enum:
+    - profiling
+    - imaging
+    required: false
+  custom_constraints:
+    forbid_na: true
+    sequence_limit: 3
+  description: Specifies whether or not the analysis was performed in a spatially
+    targeted manner. Spatial profiling experiments target specific tissue foci but
+    do not necessarily generate images. Spatial imaging expriments collect data from
+    a regular array (pixels) that can be visualized as heat maps of ion intensity
+    at each location (molecular images). Leave blank if data are derived from bulk
+    analysis.
+  name: spatial_sampling_type
+- constraints:
+    required: false
+  custom_constraints:
+    forbid_na: true
+    sequence_limit: 3
+  description: Specifies the cell-type or functional tissue unit (FTU) that is targeted
+    in the spatial profiling experiment. Leave blank if data are generated in imaging
+    mode without a specific target structure.
+  name: spatial_target
+- constraints:
+    required: false
+  custom_constraints:
+    forbid_na: true
+    sequence_limit: 3
+  description: The width of a pixel.
+  name: resolution_x_value
+  type: number
+- constraints:
+    enum:
+    - nm
+    - um
+    required: false
+  custom_constraints:
+    forbid_na: true
+    sequence_limit: 3
+    units_for: resolution_x_value
+  description: The unit of measurement of the width of a pixel.
+  name: resolution_x_unit
+- constraints:
+    required: false
+  custom_constraints:
+    forbid_na: true
+    sequence_limit: 3
+  description: The height of a pixel
+  name: resolution_y_value
+  type: number
+- constraints:
+    enum:
+    - nm
+    - um
+    required: false
+  custom_constraints:
+    forbid_na: true
+    sequence_limit: 3
+    units_for: resolution_y_value
+  description: The unit of measurement of the height of a pixel.
+  name: resolution_y_unit
 - constraints:
     required: true
   custom_constraints:

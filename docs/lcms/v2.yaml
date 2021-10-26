@@ -181,6 +181,7 @@ fields:
     enum:
     - negative ion mode
     - positive ion mode
+    - negative and positive ion mode
     required: true
   custom_constraints:
     forbid_na: true

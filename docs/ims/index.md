@@ -248,7 +248,7 @@ The polarity of the mass analysis (positive or negative ion modes)
 
 | constraint | value |
 | --- | --- |
-| enum | `negative ion mode` or `positive ion mode` |
+| enum | `negative ion mode`, `positive ion mode`, or `negative and positive ion mode` |
 | required | `True` |
 
 <a name="mz_range_low_value"></a>
@@ -615,7 +615,7 @@ The polarity of the mass analysis (positive or negative ion modes)
 
 | constraint | value |
 | --- | --- |
-| enum | `negative ion mode` or `positive ion mode` |
+| enum | `negative ion mode`, `positive ion mode`, or `negative and positive ion mode` |
 | required | `True` |
 
 <a name="mz_range_low_value"></a>
@@ -892,7 +892,7 @@ The polarity of the mass analysis (positive or negative ion modes)
 
 | constraint | value |
 | --- | --- |
-| enum | `negative ion mode` or `positive ion mode` |
+| enum | `negative ion mode`, `positive ion mode`, or `negative and positive ion mode` |
 | required | `True` |
 
 <a name="mz_range_low_value"></a>
