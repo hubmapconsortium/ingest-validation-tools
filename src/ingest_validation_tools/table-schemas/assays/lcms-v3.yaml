@@ -42,6 +42,9 @@ fields:
 
 # Level 2 fields:
 # include: ../includes/v0/acquisition_instrument.yaml
+- name: dms
+  description: was differential mobility spectrometry used in this assay?
+  type: boolean
 - name: ms_source
   description: The ion source type used for surface sampling.
   constraints:
