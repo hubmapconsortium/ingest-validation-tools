@@ -1,7 +1,7 @@
 # Changelog
 
 ## v0.0.13 - in progress
-- Check that assay terms match approved list.
+- Check that assay terms match approved list. (Right now, they don't.)
 - Level 1 description of assay_category: Updated "3" assay categories to "4". Added imaging mass spec.
 - work around mypy importlib type hinting problem
 - Antibodies validation is broken; Move test out the way.
