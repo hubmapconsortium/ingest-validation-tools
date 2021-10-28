@@ -8,6 +8,8 @@ description_md: >-
 
   The other fields function the same way for all assays using antibodies.
   For more information, see the [Antibodies TSV documentation](../antibodies).
+  
+  For an example of a CODEX dataset & directory, click this [link](https://portal.hubmapconsortium.org/browse/dataset/053544cd63125fc25f6a71a8f444bafc) and click the Globus link.
 fields:
 # include: ../includes/vA/all_assays.yaml
 - name: assay_category
