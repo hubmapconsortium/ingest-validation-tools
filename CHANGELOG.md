@@ -1,6 +1,7 @@
 # Changelog
 
 ## v0.0.13 - in progress
+- Added links to examples in the portal for 5 assays.
 - Make LC fields optional.
 - Present directory path examples in same column.
 - Updated LC-MS directory structure schema.

@@ -2,7 +2,9 @@ doc_url: https://portal.hubmapconsortium.org/docs/assays/lightsheet
 description_md: >-
   Lightsheet uploads require metadata on the antibodies used in the assay
   to be provided in an Antibodies TSV. For Lightsheet, the `channel_id` is the
-  name of the fluorophore tag on the antibody.
+  name of the fluorophore tag on the antibody. For an example of a lightsheet dataset & directory, see this 
+  [example lightsheet dataset](https://portal.hubmapconsortium.org/browse/dataset/b6eba6afe660a8a85c2648e368b0cf9f#files) 
+  and click the Globus link. 
   
   Version 2 has 5 new fields for metadata describing the Z-dimension specifically relevant to lightsheet.
   These values provide the total number of image sections captured, the incremental value and unit of distance

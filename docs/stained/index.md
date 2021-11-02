@@ -11,7 +11,7 @@ Related files:
 - [📝 Excel template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/main/docs/stained/stained-metadata.xlsx): For metadata entry.
 - [📝 TSV template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/main/docs/stained/stained-metadata.tsv): Alternative for metadata entry.
 
-This schema is for microscopy of tissue treated with periodic acid–Schiff stain (stained).
+This schema is for microscopy of tissue treated with periodic acid–Schiff stain (stained). For an example of a PAS (Periodic acid-Schiff) dataset & directory, see this [example PAS stained dataset](https://portal.hubmapconsortium.org/browse/dataset/7308530b92438fdbe258b501aeb86069#files) and click the Globus link.
 
 ## Directory schema
 

@@ -5,7 +5,9 @@ description_md: 'This schema is for CO-Detection by indEXing (CODEX). CODEX uplo
   to a given image file (of the form `Cycle[0-9]_CH[0-9]`). Each TIF file in a CODEX
   dataset contains image data captured from a single channel in a single cycle, identified
   and connected to the `channel_id` by its location in the upload directory (of the
-  form `src_*/cyc*_reg*_*/*_*_Z*_CH*.tif`).
+  form `src_*/cyc*_reg*_*/*_*_Z*_CH*.tif`). For an example of a CODEX dataset & directory,
+  see this example  [CODEX dataset](https://portal.hubmapconsortium.org/browse/dataset/053544cd63125fc25f6a71a8f444bafc#files)
+  and click the Globus link.
 
   The other fields function the same way for all assays using antibodies. For more
   information, see the [Antibodies TSV documentation](../antibodies).'
