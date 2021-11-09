@@ -11,7 +11,7 @@ Related files:
 - [📝 Excel template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/main/docs/af/af-metadata.xlsx): For metadata entry.
 - [📝 TSV template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/main/docs/af/af-metadata.tsv): Alternative for metadata entry.
 
-This schema is for autofluorescence (AF).
+This schema is for autofluorescence (AF). For an example of an AF dataset & directory, see this [example autofluorescence dataset](https://portal.hubmapconsortium.org/browse/dataset/dc289471333309925e46ceb9bafafaf4#files) and click the Globus link.
 
 ## Directory schema
 

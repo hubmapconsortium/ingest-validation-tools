@@ -2,10 +2,17 @@
 
 ## v0.0.13 - in progress
 - Cosmetic changes to Slide-seq directory structure schema.
+- Cleaned up LC-MS directory structure schema.
+- Added links to examples in the portal for 5 assays.
+- Make LC fields optional.
+- Present directory path examples in same column.
+- Updated LC-MS directory structure schema.
+- Work around mypy importlib type hinting problem.
 - Longer assay description for LCMS, and supporting machinery.
 - In CI, pin to older Ubuntu version to avoid SSL problems with Uniprot.
-- Level 1 description of assay_category: Updated "3" assay categories to "4". Added imaging mass spec.
-- work around mypy importlib type hinting problem
+- Level 1 description of assay_category: Updated "3" assay categories to "4". 
+- Added imaging mass spec.
+- Work around mypy importlib type hinting problem.
 - Antibodies validation is broken; Move test out the way.
 - Make email validation effective.
 - Add a test to confirm that backslashes aren't ignored during validation.

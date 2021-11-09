@@ -1,2 +1,4 @@
 - name: lc_resin
   description: Details of the resin used for lc, including vendor, particle size, pore size
+  constraints:
+    required: False

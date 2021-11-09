@@ -11,32 +11,32 @@ Related files:
 - [📝 Excel template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/main/docs/codex/codex-metadata.xlsx): For metadata entry.
 - [📝 TSV template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/main/docs/codex/codex-metadata.tsv): Alternative for metadata entry.
 
-This schema is for CO-Detection by indEXing (CODEX). CODEX uploads require metadata on the antibodies used in the assay to be provided in an Antibodies TSV. For CODEX, in that TSV, the `channel_id` is a cycle#/channel# combination linked to a given image file (of the form `Cycle[0-9]_CH[0-9]`). Each TIF file in a CODEX dataset contains image data captured from a single channel in a single cycle, identified and connected to the `channel_id` by its location in the upload directory (of the form `src_*/cyc*_reg*_*/*_*_Z*_CH*.tif`).
+This schema is for CO-Detection by indEXing (CODEX). CODEX uploads require metadata on the antibodies used in the assay to be provided in an Antibodies TSV. For CODEX, in that TSV, the `channel_id` is a cycle#/channel# combination linked to a given image file (of the form `Cycle[0-9]_CH[0-9]`). Each TIF file in a CODEX dataset contains image data captured from a single channel in a single cycle, identified and connected to the `channel_id` by its location in the upload directory (of the form `src_*/cyc*_reg*_*/*_*_Z*_CH*.tif`). For an example of a CODEX dataset & directory, see this example  [CODEX dataset](https://portal.hubmapconsortium.org/browse/dataset/053544cd63125fc25f6a71a8f444bafc#files) and click the Globus link.
 The other fields function the same way for all assays using antibodies. For more information, see the [Antibodies TSV documentation](../antibodies).
 
 ## Directory schema
 
-| pattern | example | required? | description |
-| --- | --- | --- | --- |
-| `[^/]*NAV[^/]*\.tif` | `NAV.tif` |  | Navigational Image showing Region of Interest (Keyance Microscope only) |
-| `[^/]*\.pdf` | `summary.pdf` |  | **[QA/QC]** PDF export of Powerpoint slide deck containing the Image Analysis Report |
-| `(raw\|src_[^/]*)/exposure_times\.txt` |  |  | Comma separated text file used for background subtraction that contains valid exposure times for all cycles [e.g: Cycle,CH1,CH2,CH3,CH4]. |
-| `raw/reg_[^/]*\.png` | `raw/reg_00.png` |  | Region overviews |
-| `(raw\|src_[^/]*)/[Ee]xperiment\.json` |  | ✓ | JSON file produced by the Akoya software which contains the metadata for the experiment, including the software version used, microscope parameters, channel names, pixel dimensions, etc. (required for HuBMAP pipeline) |
-| `processed/HandE\.tif` |  |  | HandE image |
-| `processed/HandE_RGB\.tif` |  |  | HandE RGB image |
-| `processed/HandE_RGB_thumbnail.jpg` |  |  | HandE RGB thumbnail |
-| `(src_[^/]*\|drv_[^/]*\|extras)/[sS]egmentation\.json` |  |  | JSON file produced by the Akoya software with segmentation information |
-| `(raw\|processed)/config\.txt` |  |  | Configuration file with information needed for the HuBMAP processing pipeline |
-| `(raw\|processed)/config\.txt\|(src_[^/]*\|drv_[^/]*\|extras)/[sS]egmentation\.json` |  | ✓ | Sanity check that verifies the existence of at least one of these files. This is required for the HuBMAP processing pipeline |
-| `src_[^/]+/channelnames_report\.csv` |  |  | Two column CSV: The first column is a name or target; The second column is boolean: "FALSE" channels are excluded from processing. (required for HuBMAP pipeline) |
-| `(raw\|src_.*)/[cC]yc.*_reg.*/.*_Z.*_CH.*\.tif` |  | ✓ | TIFF files produced by the experiment. General folder format: Cycle(n)_Region(n)_date; General file format: name_tileNumber(n)_zplaneNumber(n)_channelNumber(n) |
-| `src_.*/cyc.*_reg.*_.*/.*\.gci` |  |  | Group Capture Information File (Keyance Microscope only) |
-| `(raw\|src_.*)/channel[Nn]ames\.txt` |  | ✓ | Text file produced by the Akoya software which contains the (linearized) channel number and the Name/ID/Target of the channel (required for HuBMAP pipeline) |
-| `(raw\|src_.*)/.*` |  | ✓ | Raw data directory. |
-| `(processed\|drv_[^/]*)/.*` |  | ✓ | Processed files produced by the Akoya software or alternative software. |
-| `extras/.*` |  |  | Free-form descriptive information supplied by the TMC |
-| `extras/thumbnail\.(png\|jpg)` |  |  | Optional thumbnail image which may be shown in search interface |
+| pattern | required? | description |
+| --- | --- | --- |
+| `[^/]*NAV[^/]*\.tif` (example: `NAV.tif`) |  | Navigational Image showing Region of Interest (Keyance Microscope only) |
+| `[^/]*\.pdf` (example: `summary.pdf`) |  | **[QA/QC]** PDF export of Powerpoint slide deck containing the Image Analysis Report |
+| `(raw\|src_[^/]*)/exposure_times\.txt` |  | Comma separated text file used for background subtraction that contains valid exposure times for all cycles [e.g: Cycle,CH1,CH2,CH3,CH4]. |
+| `raw/reg_[^/]*\.png` (example: `raw/reg_00.png`) |  | Region overviews |
+| `(raw\|src_[^/]*)/[Ee]xperiment\.json` | ✓ | JSON file produced by the Akoya software which contains the metadata for the experiment, including the software version used, microscope parameters, channel names, pixel dimensions, etc. (required for HuBMAP pipeline) |
+| `processed/HandE\.tif` |  | HandE image |
+| `processed/HandE_RGB\.tif` |  | HandE RGB image |
+| `processed/HandE_RGB_thumbnail.jpg` |  | HandE RGB thumbnail |
+| `(src_[^/]*\|drv_[^/]*\|extras)/[sS]egmentation\.json` |  | JSON file produced by the Akoya software with segmentation information |
+| `(raw\|processed)/config\.txt` |  | Configuration file with information needed for the HuBMAP processing pipeline |
+| `(raw\|processed)/config\.txt\|(src_[^/]*\|drv_[^/]*\|extras)/[sS]egmentation\.json` | ✓ | Sanity check that verifies the existence of at least one of these files. This is required for the HuBMAP processing pipeline |
+| `src_[^/]+/channelnames_report\.csv` |  | Two column CSV: The first column is a name or target; The second column is boolean: "FALSE" channels are excluded from processing. (required for HuBMAP pipeline) |
+| `(raw\|src_.*)/[cC]yc.*_reg.*/.*_Z.*_CH.*\.tif` | ✓ | TIFF files produced by the experiment. General folder format: Cycle(n)_Region(n)_date; General file format: name_tileNumber(n)_zplaneNumber(n)_channelNumber(n) |
+| `src_.*/cyc.*_reg.*_.*/.*\.gci` |  | Group Capture Information File (Keyance Microscope only) |
+| `(raw\|src_.*)/channel[Nn]ames\.txt` | ✓ | Text file produced by the Akoya software which contains the (linearized) channel number and the Name/ID/Target of the channel (required for HuBMAP pipeline) |
+| `(raw\|src_.*)/.*` | ✓ | Raw data directory. |
+| `(processed\|drv_[^/]*)/.*` | ✓ | Processed files produced by the Akoya software or alternative software. |
+| `extras/.*` |  | Free-form descriptive information supplied by the TMC |
+| `extras/thumbnail\.(png\|jpg)` |  | Optional thumbnail image which may be shown in search interface |
 
 ## Metadata schema
 

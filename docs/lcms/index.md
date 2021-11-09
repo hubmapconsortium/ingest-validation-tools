@@ -11,13 +11,16 @@ Related files:
 - [📝 Excel template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/main/docs/lcms/lcms-metadata.xlsx): For metadata entry.
 - [📝 TSV template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/main/docs/lcms/lcms-metadata.tsv): Alternative for metadata entry.
 
-This schema is for liquid chromatography mass spectrometry (LCMS). v2 adds `mass_resolving_power`, `mz_resolving_power`, `ion_mobility`, `spatial_type`, `spatial_sampling_type`, `spatial_target`, and `resolution_{x/y}_{value/unit}`. In the case of datasets in which more than one `analyte_type` was interrogated (e.g. lipids plus metabolytes), those datasets should be split into one dataset per analyte.
+This schema is for liquid chromatography mass spectrometry (LCMS). v2 adds `mass_resolving_power`, `mz_resolving_power`, `ion_mobility`, `spatial_type`, `spatial_sampling_type`, `spatial_target`, and `resolution_{x/y}_{value/unit}`. In the case of datasets in which more than one `analyte_type` was interrogated (e.g. lipids plus metabolytes), those datasets should be split into one dataset per analyte. For an example of an LC-MS dataset & directory, see this [example LC-MS dataset](https://portal.hubmapconsortium.org/browse/dataset/7f1fd7b9c8c3745fcab037a2fa37f5b9) and click the Globus link.
 
 ## Directory schema
 
 | pattern | required? | description |
 | --- | --- | --- |
-| `TODO` | ✓ | Directory structure not yet specified. https://github.com/hubmapconsortium/ingest-validation-tools/issues/448 |
+| `raw_data/*\.(raw\|mzML)` | ✓ | Raw mass spectrometry data from an assay of LC-MS, MS, LC-MS Bottom-Up, MS Bottom-Up, LC-MS Top-Down, or MS Top-Down that describes an analyte class of protein, metabolites, lipids, peptides, phosphopeptides, or glycans. |
+| `ID_search_results/*\.(txt\|csv)` | ✓ | Identification results. Annotated data describing (qualitative or quantitative) the proteins, metabolites, lipids, peptides, phosphopeptides, or glycans identified from the corresponding raw data. |
+| `ID_metadata/*\.xml` |  | Identification search parameters / metadata. Software settings used during the analyte identification process (e.g., from MaxQuant or Proteome Discoverer). |
+| `QC_results/*\.(xml\|txt\|html\|pdf\|log\|yaml)` |  | Output file resulting from QC analysis. A list of metrics with the score of the current dataset that shows the quality of data collection. |
 | `extras/.*` |  | Free-form descriptive information supplied by the TMC |
 | `extras/thumbnail\.(png\|jpg)` |  | Optional thumbnail image which may be shown in search interface |
 
@@ -279,21 +282,21 @@ The high value of the scanned mass range for MS1. (unitless)
 
 <a name="mass_resolving_power"></a>
 ##### [`mass_resolving_power`](#mass_resolving_power)
-The MS1 resolving power defined as m/∆m where ∆m is the FWHM for a given peak with a specified m/z (m). (unitless)
+The MS1 resolving power defined as m/∆m where ∆m is the FWHM for a given peak with a specified m/z (m). (unitless) Leave blank if not applicable.
 
 | constraint | value |
 | --- | --- |
 | type | `number` |
-| required | `True` |
+| required | `False` |
 
 <a name="mz_resolving_power"></a>
 ##### [`mz_resolving_power`](#mz_resolving_power)
-The peak (m/z) used to calculate the resolving power.
+The peak (m/z) used to calculate the resolving power. Leave blank if not applicable.
 
 | constraint | value |
 | --- | --- |
 | type | `number` |
-| required | `True` |
+| required | `False` |
 
 <a name="ion_mobility"></a>
 ##### [`ion_mobility`](#ion_mobility)
@@ -340,52 +343,52 @@ DOI for protocols.io referring to the protocol for preparing tissue sections for
 
 <a name="lc_instrument_vendor"></a>
 ##### [`lc_instrument_vendor`](#lc_instrument_vendor)
-The manufacturer of the instrument used for LC.
+The manufacturer of the instrument used for LC. Leave blank if not applicable.
 
 | constraint | value |
 | --- | --- |
-| required | `True` |
+| required | `False` |
 
 <a name="lc_instrument_model"></a>
 ##### [`lc_instrument_model`](#lc_instrument_model)
-The model number/name of the instrument used for LC.
+The model number/name of the instrument used for LC. Leave blank if not applicable.
 
 | constraint | value |
 | --- | --- |
-| required | `True` |
+| required | `False` |
 
 <a name="lc_column_vendor"></a>
 ##### [`lc_column_vendor`](#lc_column_vendor)
-OPTIONAL: The manufacturer of the LC Column unless self-packed, pulled tip capilary is used.
+OPTIONAL: The manufacturer of the LC Column unless self-packed, pulled tip capilary is used. Leave blank if not applicable.
 
 | constraint | value |
 | --- | --- |
-| required | `True` |
+| required | `False` |
 
 <a name="lc_column_model"></a>
 ##### [`lc_column_model`](#lc_column_model)
-The model number/name of the LC Column - IF custom self-packed, pulled tip calillary is used enter "Pulled tip capilary".
+The model number/name of the LC Column - IF custom self-packed, pulled tip calillary is used enter "Pulled tip capilary". Leave blank if not applicable.
 
 | constraint | value |
 | --- | --- |
-| required | `True` |
+| required | `False` |
 
 <a name="lc_resin"></a>
 ##### [`lc_resin`](#lc_resin)
-Details of the resin used for lc, including vendor, particle size, pore size.
+Details of the resin used for lc, including vendor, particle size, pore size. Leave blank if not applicable.
 
 | constraint | value |
 | --- | --- |
-| required | `True` |
+| required | `False` |
 
 <a name="lc_length_value"></a>
 ##### [`lc_length_value`](#lc_length_value)
-LC column length.
+LC column length. Leave blank if not applicable.
 
 | constraint | value |
 | --- | --- |
 | type | `number` |
-| required | `True` |
+| required | `False` |
 
 <a name="lc_length_unit"></a>
 ##### [`lc_length_unit`](#lc_length_unit)
@@ -418,12 +421,12 @@ units for LC temperature. Leave blank if not applicable.
 
 <a name="lc_id_value"></a>
 ##### [`lc_id_value`](#lc_id_value)
-LC column inner diameter (microns)
+LC column inner diameter (microns) Leave blank if not applicable.
 
 | constraint | value |
 | --- | --- |
 | type | `number` |
-| required | `True` |
+| required | `False` |
 
 <a name="lc_id_unit"></a>
 ##### [`lc_id_unit`](#lc_id_unit)
@@ -456,27 +459,27 @@ Units of flow rate. Leave blank if not applicable.
 
 <a name="lc_gradient"></a>
 ##### [`lc_gradient`](#lc_gradient)
-LC gradient.
+LC gradient. Leave blank if not applicable.
 
 | constraint | value |
 | --- | --- |
-| required | `True` |
+| required | `False` |
 
 <a name="lc_mobile_phase_a"></a>
 ##### [`lc_mobile_phase_a`](#lc_mobile_phase_a)
-Composition of mobile phase A.
+Composition of mobile phase A. Leave blank if not applicable.
 
 | constraint | value |
 | --- | --- |
-| required | `True` |
+| required | `False` |
 
 <a name="lc_mobile_phase_b"></a>
 ##### [`lc_mobile_phase_b`](#lc_mobile_phase_b)
-Composition of mobile phase B.
+Composition of mobile phase B. Leave blank if not applicable.
 
 | constraint | value |
 | --- | --- |
-| required | `True` |
+| required | `False` |
 
 <a name="spatial_type"></a>
 ##### [`spatial_type`](#spatial_type)
@@ -808,52 +811,52 @@ DOI for protocols.io referring to the protocol for preparing tissue sections for
 
 <a name="lc_instrument_vendor"></a>
 ##### [`lc_instrument_vendor`](#lc_instrument_vendor)
-The manufacturer of the instrument used for LC.
+The manufacturer of the instrument used for LC. Leave blank if not applicable.
 
 | constraint | value |
 | --- | --- |
-| required | `True` |
+| required | `False` |
 
 <a name="lc_instrument_model"></a>
 ##### [`lc_instrument_model`](#lc_instrument_model)
-The model number/name of the instrument used for LC.
+The model number/name of the instrument used for LC. Leave blank if not applicable.
 
 | constraint | value |
 | --- | --- |
-| required | `True` |
+| required | `False` |
 
 <a name="lc_column_vendor"></a>
 ##### [`lc_column_vendor`](#lc_column_vendor)
-OPTIONAL: The manufacturer of the LC Column unless self-packed, pulled tip capilary is used.
+OPTIONAL: The manufacturer of the LC Column unless self-packed, pulled tip capilary is used. Leave blank if not applicable.
 
 | constraint | value |
 | --- | --- |
-| required | `True` |
+| required | `False` |
 
 <a name="lc_column_model"></a>
 ##### [`lc_column_model`](#lc_column_model)
-The model number/name of the LC Column - IF custom self-packed, pulled tip calillary is used enter "Pulled tip capilary".
+The model number/name of the LC Column - IF custom self-packed, pulled tip calillary is used enter "Pulled tip capilary". Leave blank if not applicable.
 
 | constraint | value |
 | --- | --- |
-| required | `True` |
+| required | `False` |
 
 <a name="lc_resin"></a>
 ##### [`lc_resin`](#lc_resin)
-Details of the resin used for lc, including vendor, particle size, pore size.
+Details of the resin used for lc, including vendor, particle size, pore size. Leave blank if not applicable.
 
 | constraint | value |
 | --- | --- |
-| required | `True` |
+| required | `False` |
 
 <a name="lc_length_value"></a>
 ##### [`lc_length_value`](#lc_length_value)
-LC column length.
+LC column length. Leave blank if not applicable.
 
 | constraint | value |
 | --- | --- |
 | type | `number` |
-| required | `True` |
+| required | `False` |
 
 <a name="lc_length_unit"></a>
 ##### [`lc_length_unit`](#lc_length_unit)
@@ -886,12 +889,12 @@ units for LC temperature. Leave blank if not applicable.
 
 <a name="lc_id_value"></a>
 ##### [`lc_id_value`](#lc_id_value)
-LC column inner diameter (microns)
+LC column inner diameter (microns) Leave blank if not applicable.
 
 | constraint | value |
 | --- | --- |
 | type | `number` |
-| required | `True` |
+| required | `False` |
 
 <a name="lc_id_unit"></a>
 ##### [`lc_id_unit`](#lc_id_unit)
@@ -924,27 +927,27 @@ Units of flow rate. Leave blank if not applicable.
 
 <a name="lc_gradient"></a>
 ##### [`lc_gradient`](#lc_gradient)
-LC gradient.
+LC gradient. Leave blank if not applicable.
 
 | constraint | value |
 | --- | --- |
-| required | `True` |
+| required | `False` |
 
 <a name="lc_mobile_phase_a"></a>
 ##### [`lc_mobile_phase_a`](#lc_mobile_phase_a)
-Composition of mobile phase A.
+Composition of mobile phase A. Leave blank if not applicable.
 
 | constraint | value |
 | --- | --- |
-| required | `True` |
+| required | `False` |
 
 <a name="lc_mobile_phase_b"></a>
 ##### [`lc_mobile_phase_b`](#lc_mobile_phase_b)
-Composition of mobile phase B.
+Composition of mobile phase B. Leave blank if not applicable.
 
 | constraint | value |
 | --- | --- |
-| required | `True` |
+| required | `False` |
 
 <a name="processing_search"></a>
 ##### [`processing_search`](#processing_search)
@@ -1196,52 +1199,52 @@ DOI for protocols.io referring to the protocol for preparing tissue sections for
 
 <a name="lc_instrument_vendor"></a>
 ##### [`lc_instrument_vendor`](#lc_instrument_vendor)
-The manufacturer of the instrument used for LC.
+The manufacturer of the instrument used for LC. Leave blank if not applicable.
 
 | constraint | value |
 | --- | --- |
-| required | `True` |
+| required | `False` |
 
 <a name="lc_instrument_model"></a>
 ##### [`lc_instrument_model`](#lc_instrument_model)
-The model number/name of the instrument used for LC.
+The model number/name of the instrument used for LC. Leave blank if not applicable.
 
 | constraint | value |
 | --- | --- |
-| required | `True` |
+| required | `False` |
 
 <a name="lc_column_vendor"></a>
 ##### [`lc_column_vendor`](#lc_column_vendor)
-OPTIONAL: The manufacturer of the LC Column unless self-packed, pulled tip capilary is used.
+OPTIONAL: The manufacturer of the LC Column unless self-packed, pulled tip capilary is used. Leave blank if not applicable.
 
 | constraint | value |
 | --- | --- |
-| required | `True` |
+| required | `False` |
 
 <a name="lc_column_model"></a>
 ##### [`lc_column_model`](#lc_column_model)
-The model number/name of the LC Column - IF custom self-packed, pulled tip calillary is used enter "Pulled tip capilary".
+The model number/name of the LC Column - IF custom self-packed, pulled tip calillary is used enter "Pulled tip capilary". Leave blank if not applicable.
 
 | constraint | value |
 | --- | --- |
-| required | `True` |
+| required | `False` |
 
 <a name="lc_resin"></a>
 ##### [`lc_resin`](#lc_resin)
-Details of the resin used for lc, including vendor, particle size, pore size.
+Details of the resin used for lc, including vendor, particle size, pore size. Leave blank if not applicable.
 
 | constraint | value |
 | --- | --- |
-| required | `True` |
+| required | `False` |
 
 <a name="lc_length_value"></a>
 ##### [`lc_length_value`](#lc_length_value)
-LC column length.
+LC column length. Leave blank if not applicable.
 
 | constraint | value |
 | --- | --- |
 | type | `number` |
-| required | `True` |
+| required | `False` |
 
 <a name="lc_length_unit"></a>
 ##### [`lc_length_unit`](#lc_length_unit)
@@ -1274,12 +1277,12 @@ units for LC temperature. Leave blank if not applicable.
 
 <a name="lc_id_value"></a>
 ##### [`lc_id_value`](#lc_id_value)
-LC column inner diameter (microns)
+LC column inner diameter (microns) Leave blank if not applicable.
 
 | constraint | value |
 | --- | --- |
 | type | `number` |
-| required | `True` |
+| required | `False` |
 
 <a name="lc_id_unit"></a>
 ##### [`lc_id_unit`](#lc_id_unit)
@@ -1312,27 +1315,27 @@ Units of flow rate. Leave blank if not applicable.
 
 <a name="lc_gradient"></a>
 ##### [`lc_gradient`](#lc_gradient)
-LC gradient.
+LC gradient. Leave blank if not applicable.
 
 | constraint | value |
 | --- | --- |
-| required | `True` |
+| required | `False` |
 
 <a name="lc_mobile_phase_a"></a>
 ##### [`lc_mobile_phase_a`](#lc_mobile_phase_a)
-Composition of mobile phase A.
+Composition of mobile phase A. Leave blank if not applicable.
 
 | constraint | value |
 | --- | --- |
-| required | `True` |
+| required | `False` |
 
 <a name="lc_mobile_phase_b"></a>
 ##### [`lc_mobile_phase_b`](#lc_mobile_phase_b)
-Composition of mobile phase B.
+Composition of mobile phase B. Leave blank if not applicable.
 
 | constraint | value |
 | --- | --- |
-| required | `True` |
+| required | `False` |
 
 <a name="processing_search"></a>
 ##### [`processing_search`](#processing_search)
