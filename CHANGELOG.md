@@ -1,6 +1,7 @@
 # Changelog
 
 ## v0.0.13 - in progress
+- Fixed regex on directory structure schema.
 - Cleaned up LC-MS directory structure schema.
 - Added links to examples in the portal for 5 assays.
 - Make LC fields optional.
