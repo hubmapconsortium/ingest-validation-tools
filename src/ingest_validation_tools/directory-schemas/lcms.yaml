@@ -4,7 +4,7 @@
   description: 'Raw mass spectrometry data from an assay of LC-MS, MS, LC-MS Bottom-Up, MS Bottom-Up, LC-MS Top-Down, or MS Top-Down that describes an analyte class of protein, metabolites, lipids, peptides, phosphopeptides, or glycans.'
   required: True
 -
-  pattern: 'ID_search_results/[^/]*.(txt|csv)'
+  pattern: 'ID_search_results/[^/]+\.(txt|csv)'
   description: 'Identification results. Annotated data describing (qualitative or quantitative) the proteins, metabolites, lipids, peptides, phosphopeptides, or glycans identified from the corresponding raw data.'
   required: True
 -
