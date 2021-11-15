@@ -1,6 +1,6 @@
 -
   example: 'raw_data/20200707_rmi049_75umPLRPS_Kidney_GF10pc_VAN0003LK32_biorep05_techrep02.raw'
-  pattern: 'raw_data/[^/]*.(raw|mzML)'
+  pattern: 'raw_data/[^/]+\.(raw|mzML)'
   description: 'Raw mass spectrometry data from an assay of LC-MS, MS, LC-MS Bottom-Up, MS Bottom-Up, LC-MS Top-Down, or MS Top-Down that describes an analyte class of protein, metabolites, lipids, peptides, phosphopeptides, or glycans.'
   required: True
 -
