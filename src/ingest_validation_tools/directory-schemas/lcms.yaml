@@ -12,6 +12,6 @@
   description: 'Identification search parameters / metadata. Software settings used during the analyte identification process (e.g., from MaxQuant or Proteome Discoverer).'
   required: False
 -
-  pattern: 'QC_results/[^/]*.(xml|txt|html|pdf|log|yaml)'
+  pattern: 'QC_results/[^/]+\.(xml|txt|html|pdf|log|yaml)'
   description: 'Output file resulting from QC analysis. A list of metrics with the score of the current dataset that shows the quality of data collection.'
   required: False
