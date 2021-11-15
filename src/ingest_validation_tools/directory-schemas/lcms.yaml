@@ -8,7 +8,7 @@
   description: 'Identification results. Annotated data describing (qualitative or quantitative) the proteins, metabolites, lipids, peptides, phosphopeptides, or glycans identified from the corresponding raw data.'
   required: True
 -
-  pattern: 'ID_metadata/[^/]*.xml'
+  pattern: 'ID_metadata/[^/]+\.xml'
   description: 'Identification search parameters / metadata. Software settings used during the analyte identification process (e.g., from MaxQuant or Proteome Discoverer).'
   required: False
 -
