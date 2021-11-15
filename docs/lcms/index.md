@@ -17,10 +17,10 @@ This schema is for liquid chromatography mass spectrometry (LCMS). v2 adds `mass
 
 | pattern | required? | description |
 | --- | --- | --- |
-| `raw_data/[^/]*.(raw\|mzML)` (example: `raw_data/20200707_rmi049_75umPLRPS_Kidney_GF10pc_VAN0003LK32_biorep05_techrep02.raw`) | ✓ | Raw mass spectrometry data from an assay of LC-MS, MS, LC-MS Bottom-Up, MS Bottom-Up, LC-MS Top-Down, or MS Top-Down that describes an analyte class of protein, metabolites, lipids, peptides, phosphopeptides, or glycans. |
-| `ID_search_results/[^/]*.(txt\|csv)` | ✓ | Identification results. Annotated data describing (qualitative or quantitative) the proteins, metabolites, lipids, peptides, phosphopeptides, or glycans identified from the corresponding raw data. |
-| `ID_metadata/[^/]*.xml` |  | Identification search parameters / metadata. Software settings used during the analyte identification process (e.g., from MaxQuant or Proteome Discoverer). |
-| `QC_results/[^/]*.(xml\|txt\|html\|pdf\|log\|yaml)` |  | Output file resulting from QC analysis. A list of metrics with the score of the current dataset that shows the quality of data collection. |
+| `raw_data/[^/]+\.(raw\|mzML)` (example: `raw_data/20200707_rmi049_75umPLRPS_Kidney_GF10pc_VAN0003LK32_biorep05_techrep02.raw`) | ✓ | Raw mass spectrometry data from an assay of LC-MS, MS, LC-MS Bottom-Up, MS Bottom-Up, LC-MS Top-Down, or MS Top-Down that describes an analyte class of protein, metabolites, lipids, peptides, phosphopeptides, or glycans. |
+| `ID_search_results/[^/]+\.(txt\|csv)` | ✓ | Identification results. Annotated data describing (qualitative or quantitative) the proteins, metabolites, lipids, peptides, phosphopeptides, or glycans identified from the corresponding raw data. |
+| `ID_metadata/[^/]+\.xml` |  | Identification search parameters / metadata. Software settings used during the analyte identification process (e.g., from MaxQuant or Proteome Discoverer). |
+| `QC_results/[^/]+\.(xml\|txt\|html\|pdf\|log\|yaml)` |  | Output file resulting from QC analysis. A list of metrics with the score of the current dataset that shows the quality of data collection. |
 | `extras/.*` |  | Free-form descriptive information supplied by the TMC |
 | `extras/thumbnail\.(png\|jpg)` |  | Optional thumbnail image which may be shown in search interface |
 
