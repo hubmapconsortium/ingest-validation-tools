@@ -8,11 +8,11 @@
   required: False
 -
   pattern: 'mcd/channelnames_report\.csv'
-  description: 'Contains antibodies names used and whether they were detected sufficiently or not.'
+  description: 'CSV containing isotope mass values, their antibody targets, and integration parameters'
   required: False
 -
   pattern: '3D_image_stack\.ome\.tiff'
-  description: 'OME.tiff file comprising all slices and channels.'
+  description: 'OME.tiff file comprising all channels per Field of View'
   required: True
 -
   pattern: 'SingleCellData/cells\.csv'
