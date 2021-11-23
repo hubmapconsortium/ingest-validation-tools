@@ -53,15 +53,18 @@ This schema is for Multiplex Ion Beam Imaging (MIBI).
 [`resolution_x_unit`](#resolution_x_unit)<br>
 [`resolution_y_value`](#resolution_y_value)<br>
 [`resolution_y_unit`](#resolution_y_unit)<br>
+[`max_x_width_value`](#max_x_width_value)<br>
+[`max_x_width_unit`](#max_x_width_unit)<br>
+[`max_y_height_value`](#max_y_height_value)<br>
+[`max_y_height_unit`](#max_y_height_unit)<br>
+[`roi_description`](#roi_description)<br>
+[`roi_id`](#roi_id)<br>
+[`acquisition_id`](#acquisition_id)<br>
 [`area_normalized_ion_dose_unit`](#area_normalized_ion_dose_unit)<br>
 [`area_normalized_ion_dose_value`](#area_normalized_ion_dose_value)<br>
 [`data_precision_bytes`](#data_precision_bytes)<br>
 [`dual_count_start`](#dual_count_start)<br>
 [`end_datetime`](#end_datetime)<br>
-[`max_x_width_value`](#max_x_width_value)<br>
-[`max_x_width_unit`](#max_x_width_unit)<br>
-[`max_y_height_value`](#max_y_height_value)<br>
-[`max_y_height_unit`](#max_y_height_unit)<br>
 [`pixel_dwell_time_value`](#pixel_dwell_time_value)<br>
 [`pixel_dwell_time_unit`](#pixel_dwell_time_unit)<br>
 [`pixel_size_x_value`](#pixel_size_x_value)<br>
@@ -267,6 +270,69 @@ The unit of measurement of height of a pixel. (nm) Leave blank if not applicable
 | required | `False` |
 | units for | `resolution_y_value` |
 
+<a name="max_x_width_value"></a>
+##### [`max_x_width_value`](#max_x_width_value)
+Image width value of the ROI acquisition.
+
+| constraint | value |
+| --- | --- |
+| type | `number` |
+| required | `True` |
+
+<a name="max_x_width_unit"></a>
+##### [`max_x_width_unit`](#max_x_width_unit)
+Units of image width of the ROI acquisition. Leave blank if not applicable.
+
+| constraint | value |
+| --- | --- |
+| enum | `um` |
+| required | `False` |
+| units for | `max_x_width_value` |
+
+<a name="max_y_height_value"></a>
+##### [`max_y_height_value`](#max_y_height_value)
+Image height value of the ROI acquisition.
+
+| constraint | value |
+| --- | --- |
+| type | `number` |
+| required | `True` |
+
+<a name="max_y_height_unit"></a>
+##### [`max_y_height_unit`](#max_y_height_unit)
+Units of image height of the ROI acquisition. Leave blank if not applicable.
+
+| constraint | value |
+| --- | --- |
+| enum | `um` |
+| required | `False` |
+| units for | `max_y_height_value` |
+
+<a name="roi_description"></a>
+##### [`roi_description`](#roi_description)
+A description of the region of interest (ROI) captured in the image.
+
+| constraint | value |
+| --- | --- |
+| required | `True` |
+
+<a name="roi_id"></a>
+##### [`roi_id`](#roi_id)
+Multiple images (1-n) are acquired from regions of interest (ROI1, ROI2, ROI3, etc) on a slide. The roi_id is a number from 1-n representing the ROI captured on a slide.
+
+| constraint | value |
+| --- | --- |
+| type | `number` |
+| required | `True` |
+
+<a name="acquisition_id"></a>
+##### [`acquisition_id`](#acquisition_id)
+The acquisition_id refers to the directory containing the ROI images for a slide. Together, the acquisition_id and the roi_id indicate the slide-ROI represented in the image.
+
+| constraint | value |
+| --- | --- |
+| required | `True` |
+
 <a name="area_normalized_ion_dose_unit"></a>
 ##### [`area_normalized_ion_dose_unit`](#area_normalized_ion_dose_unit)
 Area normalized ion dose unit. Leave blank if not applicable.
@@ -313,44 +379,6 @@ Time stamp indicating end of ablation for ROI.
 | type | `datetime` |
 | format | `%Y-%m-%d %H:%M` |
 | required | `True` |
-
-<a name="max_x_width_value"></a>
-##### [`max_x_width_value`](#max_x_width_value)
-Image width value of the ROI acquisition.
-
-| constraint | value |
-| --- | --- |
-| type | `number` |
-| required | `True` |
-
-<a name="max_x_width_unit"></a>
-##### [`max_x_width_unit`](#max_x_width_unit)
-Units of image width of the ROI acquisition. Leave blank if not applicable.
-
-| constraint | value |
-| --- | --- |
-| enum | `um` |
-| required | `False` |
-| units for | `max_x_width_value` |
-
-<a name="max_y_height_value"></a>
-##### [`max_y_height_value`](#max_y_height_value)
-Image height value of the ROI acquisition.
-
-| constraint | value |
-| --- | --- |
-| type | `number` |
-| required | `True` |
-
-<a name="max_y_height_unit"></a>
-##### [`max_y_height_unit`](#max_y_height_unit)
-Units of image height of the ROI acquisition. Leave blank if not applicable.
-
-| constraint | value |
-| --- | --- |
-| enum | `um` |
-| required | `False` |
-| units for | `max_y_height_value` |
 
 <a name="pixel_dwell_time_value"></a>
 ##### [`pixel_dwell_time_value`](#pixel_dwell_time_value)
@@ -451,7 +479,7 @@ Primary ion current unit, typically nA or pA. Leave blank if not applicable.
 
 | constraint | value |
 | --- | --- |
-| enum | `nA` |
+| enum | `nA` or `pA` |
 | required | `False` |
 | units for | `primary_ion_current_value` |
 

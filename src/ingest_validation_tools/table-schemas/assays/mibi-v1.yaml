@@ -45,7 +45,6 @@ fields:
 # include: ../includes/fields/dual_count_start.yaml
 # include: ../includes/fields/end_datetime.yaml
 
-# include: ../includes/v0/imc_roi_dimensions.yaml
 # include: ../includes/vA/pixel.yaml
 
 - name: preparation_instrument_vendor
