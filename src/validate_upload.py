@@ -1,9 +1,11 @@
 #!/usr/bin/env python3
 
 import argparse
+from re import sub
 import sys
 from pathlib import Path
 import inspect
+from datetime import datetime
 
 from ingest_validation_tools.error_report import ErrorReport
 from ingest_validation_tools.upload import Upload
@@ -99,6 +101,8 @@ Exit status codes:
 
     parser.add_argument('--add_notes', action='store_true',
                         help='Append a context note to error reports.')
+    parser.add_argument('--save_report', action='store_true',
+                        help='Save the report in each extras/ directory.')
 
     return parser
 
@@ -107,6 +111,17 @@ Exit status codes:
 # to be able to show the usage string if it catches a ShowUsageException.
 # Defining this at the top level makes that possible.
 parser = make_parser()
+
+
+def _save_report(upload, report):
+    for subdir in upload.directory_path.glob('*'):
+        if not subdir.is_dir():
+            continue
+        extras_path = subdir / 'extras'
+        extras_path.mkdir(exist_ok=True)
+        timestamp = datetime.today().strftime('%Y-%m-%d_%H-%M-%S')
+        report_path = extras_path / f'report-{timestamp}.txt'
+        report_path.write_text(report.as_text_list())
 
 
 def main():
@@ -139,6 +154,8 @@ def main():
     errors = upload.get_errors()
     report = ErrorReport(errors)
     print(getattr(report, args.output)())
+    if args.save_report:
+        _save_report(upload, report)
     return exit_codes.INVALID if errors else exit_codes.VALID
 
 
