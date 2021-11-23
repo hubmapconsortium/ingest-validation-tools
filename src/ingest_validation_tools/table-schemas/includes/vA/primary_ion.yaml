@@ -10,3 +10,4 @@
   constraints:
     enum:
       - nA
+      - pA
