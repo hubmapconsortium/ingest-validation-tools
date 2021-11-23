@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 
 import argparse
-from re import sub
 import sys
 from pathlib import Path
 import inspect
