@@ -26,11 +26,8 @@ fields:
 # include: ../includes/fields/resolution_x_unit.yaml
 # include: ../includes/fields/resolution_y_value.yaml
 # include: ../includes/fields/resolution_y_unit.yaml
-# include: ..includes/fields/max_x_width_value.yaml
-# include: ..includes/fields/max_x_width_unit.yaml
-# include: ..includes/fields/max_y_height_value.yaml
-# include: ..includes/fields/max_y_height_unit.yaml
-# include ../includes/v0/imc_roi_id.yaml
+# include: ../includes/v0/imc_roi_dimensions.yaml
+# include: ../includes/v0/imc_roi_id.yaml
 
 - name: area_normalized_ion_dose_unit
   description: Area normalized ion dose unit
