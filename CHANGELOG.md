@@ -1,6 +1,7 @@
 # Changelog
 
 ## v0.0.13 - in progress
+- In the report notes, record the version of the checkout.
 - Update assay list.
 - Added WGS directory structure schema.
 - Fixed regex on directory structure schema.
