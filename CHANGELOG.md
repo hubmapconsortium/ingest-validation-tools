@@ -1,6 +1,7 @@
 # Changelog
 
 ## v0.0.13 - in progress
+- Optionally, dump validation report into the extras directory.
 - Update assay list.
 - Added WGS directory structure schema.
 - Fixed regex on directory structure schema.
