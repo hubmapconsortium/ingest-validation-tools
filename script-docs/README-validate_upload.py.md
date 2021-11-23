@@ -7,7 +7,7 @@ usage: validate_upload.py [-h] --local_directory PATH
                           [--encoding ENCODING]
                           [--plugin_directory PLUGIN_DIRECTORY]
                           [--output {as_browser,as_html_doc,as_html_fragment,as_md,as_text,as_text_list,as_yaml}]
-                          [--add_notes]
+                          [--add_notes] [--save_report]
 
 Validate a HuBMAP upload, both the metadata TSVs and the datasets.
 If you only want to validate a TSV in isolation, look at validate_tsv.py.
@@ -35,6 +35,7 @@ optional arguments:
                         Directory of plugin tests.
   --output {as_browser,as_html_doc,as_html_fragment,as_md,as_text,as_text_list,as_yaml}
   --add_notes           Append a context note to error reports.
+  --save_report         Save the report in each extras/ directory.
 
 Typical usage:
   --local_directory: Used by lab before upload, and on Globus after upload.
