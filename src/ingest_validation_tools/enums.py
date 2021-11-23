@@ -9,32 +9,20 @@
 ...     if 'error' in response:
 ...         remote_mismatch.append(name)
 >>> print('\\n'.join(remote_mismatch))
-3D Imaging Mass Cytometry
-scRNA-Seq(10xGenomics)
 bulk RNA
-bulkATACseq
 CE-MS
 DESI
 GC-MS
-Imaging Mass Cytometry
 LC-MS (metabolomics)
-LC-MS/MS (label-free proteomics)
-Light Sheet
-MALDI-IMS
 MS (shotgun lipidomics)
 NanoDESI
 NanoPOTS
-PAS microscopy
 scATACseq
-seqFISH
 SIMS-IMS
 SNARE-seq2
 snRNA
 SPLiT-Seq
 TMT (proteomics)
-scRNAseq-10xGenomics
-scRNAseq-10xGenomics-v2
-scRNAseq-10xGenomics-v3
 scRNAseq
 MS Bottom-Up
 MS Top-Down
