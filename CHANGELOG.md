@@ -1,6 +1,7 @@
 # Changelog
 
 ## v0.0.13 - in progress
+- Update assay list.
 - Added WGS directory structure schema.
 - Fixed regex on directory structure schema.
 - Check that assay terms match approved list. (Right now, they don't.)
