@@ -309,7 +309,7 @@ fields:
   description: Units of final library yield
   name: library_final_yield_unit
 - constraints:
-    required: true
+    required: false
   custom_constraints:
     forbid_na: true
     sequence_limit: 3

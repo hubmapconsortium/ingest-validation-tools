@@ -391,12 +391,12 @@ Units of final library yield. Leave blank if not applicable.
 
 <a name="library_average_fragment_size"></a>
 ##### [`library_average_fragment_size`](#library_average_fragment_size)
-Average size in basepairs (bp) of sequencing library fragments estimated via gel electrophoresis or bioanalyzer/tapestation.
+Average size in basepairs (bp) of sequencing library fragments estimated via gel electrophoresis or bioanalyzer/tapestation. Leave blank if not applicable.
 
 | constraint | value |
 | --- | --- |
 | type | `integer` |
-| required | `True` |
+| required | `False` |
 
 <a name="sequencing_reagent_kit"></a>
 ##### [`sequencing_reagent_kit`](#sequencing_reagent_kit)
