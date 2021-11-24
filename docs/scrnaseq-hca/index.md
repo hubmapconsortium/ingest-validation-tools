@@ -266,6 +266,7 @@ Total number of cell/nuclei yielded post dissociation and enrichment. Leave blan
 
 | constraint | value |
 | --- | --- |
+| type | `integer` |
 | required | `False` |
 
 <a name="rnaseq_assay_input"></a>
@@ -357,6 +358,7 @@ Number of PCR cycles to amplify cDNA. Leave blank if not applicable.
 
 | constraint | value |
 | --- | --- |
+| type | `integer` |
 | required | `False` |
 
 <a name="library_pcr_cycles_for_sample_index"></a>
@@ -365,6 +367,7 @@ Number of PCR cycles performed for library indexing. Leave blank if not applicab
 
 | constraint | value |
 | --- | --- |
+| type | `integer` |
 | required | `False` |
 
 <a name="library_final_yield_value"></a>
@@ -388,11 +391,12 @@ Units of final library yield. Leave blank if not applicable.
 
 <a name="library_average_fragment_size"></a>
 ##### [`library_average_fragment_size`](#library_average_fragment_size)
-Average size of sequencing library fragments estimated via gel electrophoresis or bioanalyzer/tapestation. Leave blank if not applicable.
+Average size in basepairs (bp) of sequencing library fragments estimated via gel electrophoresis or bioanalyzer/tapestation.
 
 | constraint | value |
 | --- | --- |
-| required | `False` |
+| type | `integer` |
+| required | `True` |
 
 <a name="sequencing_reagent_kit"></a>
 ##### [`sequencing_reagent_kit`](#sequencing_reagent_kit)

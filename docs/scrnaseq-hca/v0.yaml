@@ -195,6 +195,7 @@ fields:
     sequence_limit: 3
   description: Total number of cell/nuclei yielded post dissociation and enrichment
   name: sc_isolation_cell_number
+  type: integer
 - constraints:
     required: false
   custom_constraints:
@@ -279,6 +280,7 @@ fields:
     sequence_limit: 3
   description: Number of PCR cycles to amplify cDNA
   name: library_pcr_cycles
+  type: integer
 - constraints:
     required: false
   custom_constraints:
@@ -286,6 +288,7 @@ fields:
     sequence_limit: 3
   description: Number of PCR cycles performed for library indexing
   name: library_pcr_cycles_for_sample_index
+  type: integer
 - constraints:
     required: false
   custom_constraints:
@@ -306,13 +309,14 @@ fields:
   description: Units of final library yield
   name: library_final_yield_unit
 - constraints:
-    required: false
+    required: true
   custom_constraints:
     forbid_na: true
     sequence_limit: 3
-  description: Average size of sequencing library fragments estimated via gel electrophoresis
-    or bioanalyzer/tapestation.
+  description: Average size in basepairs (bp) of sequencing library fragments estimated
+    via gel electrophoresis or bioanalyzer/tapestation.
   name: library_average_fragment_size
+  type: integer
 - constraints:
     required: false
   custom_constraints:
