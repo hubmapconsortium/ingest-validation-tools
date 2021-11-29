@@ -2,6 +2,15 @@
 
 ## v0.0.13 - in progress
 - Give schema and version in success message.
+- Generate `field-types.yaml`.
+- Update assay list.
+- Added WGS directory structure schema.
+- Fixed regex on directory structure schema.
+- Check that assay terms match approved list. (Right now, they don't.)
+- Level 1 description of assay_category: Updated "3" assay categories to "4". Added imaging mass spec.
+- work around mypy importlib type hinting problem
+- Cleaned up LC-MS directory structure schema.
+- Added links to examples in the portal for 5 assays.
 - Make LC fields optional.
 - Present directory path examples in same column.
 - Updated LC-MS directory structure schema.
