@@ -170,8 +170,8 @@ lc_resin: Details of the resin used for lc, including vendor, particle size, por
 lc_temp_unit: units for LC temperature
 lc_temp_value: LC temperature
 library_adapter_sequence: Adapter sequence to be used for adapter trimming
-library_average_fragment_size: Average size of sequencing library fragments estimated
-  via gel electrophoresis or bioanalyzer/tapestation.
+library_average_fragment_size: Average size in basepairs (bp) of sequencing library
+  fragments estimated via gel electrophoresis or bioanalyzer/tapestation.
 library_concentration_unit: Unit of library_concentration_value
 library_concentration_value: The concentration value of the pooled library samples
   submitted for sequencing.

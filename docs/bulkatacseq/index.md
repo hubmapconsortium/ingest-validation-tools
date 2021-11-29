@@ -264,10 +264,11 @@ Adapter sequence to be used for adapter trimming.
 
 <a name="library_average_fragment_size"></a>
 ##### [`library_average_fragment_size`](#library_average_fragment_size)
-Average size in basepairs (bp) of sequencing library fragments estimated via gel electrophoresis or Bioanalyzer/tapestation.
+Average size in basepairs (bp) of sequencing library fragments estimated via gel electrophoresis or bioanalyzer/tapestation.
 
 | constraint | value |
 | --- | --- |
+| type | `integer` |
 | required | `True` |
 
 <a name="library_concentration_value"></a>
@@ -620,10 +621,11 @@ Adapter sequence to be used for adapter trimming.
 
 <a name="library_average_fragment_size"></a>
 ##### [`library_average_fragment_size`](#library_average_fragment_size)
-Average size in basepairs (bp) of sequencing library fragments estimated via gel electrophoresis or Bioanalyzer/tapestation.
+Average size in basepairs (bp) of sequencing library fragments estimated via gel electrophoresis or bioanalyzer/tapestation.
 
 | constraint | value |
 | --- | --- |
+| type | `integer` |
 | required | `True` |
 
 <a name="library_concentration_value"></a>
