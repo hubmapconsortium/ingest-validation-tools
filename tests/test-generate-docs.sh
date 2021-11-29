@@ -5,9 +5,11 @@ die() { set +v; echo "$*" 1>&2 ; sleep 1; exit 1; }
 
 # Test field-descriptions.yaml and field-types.yaml:
 
-for ATTR in 'description' 'type' 'assay'; do
-  REAL_DEST="docs/field-${ATTR}s.yaml"
-  TEST_DEST="docs-test/field-${ATTR}s.yaml"
+for ATTR in 'description' 'type' 'assay' 'entity'; do
+  PLURAL="${ATTR}s"
+  [ "$PLURAL" == 'entitys' ] && PLURAL='entities'
+  REAL_DEST="docs/field-${PLURAL}.yaml"
+  TEST_DEST="docs-test/field-${PLURAL}.yaml"
 
   REAL_CMD="src/generate_field_yaml.py --attr $ATTR > $REAL_DEST"
   TEST_CMD="src/generate_field_yaml.py --attr $ATTR > $TEST_DEST"

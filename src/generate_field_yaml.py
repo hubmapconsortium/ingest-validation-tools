@@ -13,7 +13,7 @@ def main():
     parser = argparse.ArgumentParser(
         description='Outputs a YAML dict listing fields and their definitions, or their types.')
     parser.add_argument(
-        '--attr', required=True, choices=['description', 'type', 'assay'],
+        '--attr', required=True, choices=['description', 'type', 'assay', 'entity'],
         help='Attribute to pull from schemas')
     args = parser.parse_args()
 
@@ -34,6 +34,14 @@ def main():
                     continue
                 mapping[name] = attr_value
             elif args.attr == 'type':
+                if name in mapping and mapping[name] != attr_value:
+                    raise Exception(
+                        f'Inconsistent types for {name}: "{mapping[name]}" != "{attr_value}"')
+                mapping[name] = attr_value
+            elif args.attr == 'entity':
+                if name == 'version':
+                    continue
+                attr_value = 'assay' if get_is_assay(schema_name) else schema_name
                 if name in mapping and mapping[name] != attr_value:
                     raise Exception(
                         f'Inconsistent types for {name}: "{mapping[name]}" != "{attr_value}"')
