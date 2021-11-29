@@ -11,18 +11,16 @@ Related files:
 - [📝 Excel template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/main/docs/lcms/lcms-metadata.xlsx): For metadata entry.
 - [📝 TSV template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/main/docs/lcms/lcms-metadata.tsv): Alternative for metadata entry.
 
-This schema is for liquid chromatography mass spectrometry (LCMS). v2 adds `mass_resolving_power`, `mz_resolving_power`, `ion_mobility`, `spatial_type`, `spatial_sampling_type`, `spatial_target`, and `resolution_{x/y}_{value/unit}`. In the case of datasets in which more than one `analyte_type` was interrogated (e.g. lipids plus metabolytes), those datasets should be split into one dataset per analyte.
+This schema is for liquid chromatography mass spectrometry (LCMS). v2 adds `mass_resolving_power`, `mz_resolving_power`, `ion_mobility`, `spatial_type`, `spatial_sampling_type`, `spatial_target`, and `resolution_{x/y}_{value/unit}`. In the case of datasets in which more than one `analyte_type` was interrogated (e.g. lipids plus metabolytes), those datasets should be split into one dataset per analyte. For an example of an LC-MS dataset & directory, see this [example LC-MS dataset](https://portal.hubmapconsortium.org/browse/dataset/7f1fd7b9c8c3745fcab037a2fa37f5b9) and click the Globus link.
 
 ## Directory schema
 
 | pattern | required? | description |
 | --- | --- | --- |
-| `raw_data/*\.raw` | ✓ | Raw mass spectrometry data from an assay of LC-MS, MS, LC-MS Bottom-Up, MS Bottom-Up, LC-MS Top-Down, or MS Top-Down that describes an analyte class of protein, metabolites, lipids, peptides, phosphopeptides, or glycans. |
-| `raw_data/*\.mzML` | ✓ | Raw mass spectrometry data from an assay of LC-MS, MS, LC-MS Bottom-Up, MS Bottom-Up, LC-MS Top-Down, or MS Top-Down that describes an analyte class of protein, metabolites, lipids, peptides, phosphopeptides, or glycans. |
-| `ID_search_results/*\.txt` | ✓ | Identification results. Annotated data describing (qualitative or quantitative) the proteins, metabolites, lipids, peptides, phosphopeptides, or glycans identified from the corresponding raw data. |
-| `ID_search_results/*\.csv` | ✓ | Identification results. Annotated data describing (qualitative or quantitative) the proteins, metabolites, lipids, peptides, phosphopeptides, or glycans identified from the corresponding raw data. |
-| `ID_metadata/*\.xml` |  | Identification search parameters / metadata. Software settings used during the analyte identification process (e.g., from MaxQuant or Proteome Discoverer). |
-| `QC_results/*\.(xml\|txt\|html\|pdf\|log\|yaml)` |  | Output file resulting from QC analysis. A list of metrics with the score of the current dataset that shows the quality of data collection. |
+| `raw_data/[^/]+\.(raw\|mzML)` (example: `raw_data/20200707_rmi049_75umPLRPS_Kidney_GF10pc_VAN0003LK32_biorep05_techrep02.raw`) | ✓ | Raw mass spectrometry data from an assay of LC-MS, MS, LC-MS Bottom-Up, MS Bottom-Up, LC-MS Top-Down, or MS Top-Down that describes an analyte class of protein, metabolites, lipids, peptides, phosphopeptides, or glycans. |
+| `ID_search_results/[^/]+\.(txt\|csv)` | ✓ | Identification results. Annotated data describing (qualitative or quantitative) the proteins, metabolites, lipids, peptides, phosphopeptides, or glycans identified from the corresponding raw data. |
+| `ID_metadata/[^/]+\.xml` |  | Identification search parameters / metadata. Software settings used during the analyte identification process (e.g., from MaxQuant or Proteome Discoverer). |
+| `QC_results/[^/]+\.(xml\|txt\|html\|pdf\|log\|yaml)` |  | Output file resulting from QC analysis. A list of metrics with the score of the current dataset that shows the quality of data collection. |
 | `extras/.*` |  | Free-form descriptive information supplied by the TMC |
 | `extras/thumbnail\.(png\|jpg)` |  | Optional thumbnail image which may be shown in search interface |
 

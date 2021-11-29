@@ -280,6 +280,7 @@ Total number of cell/nuclei yielded post dissociation and enrichment.
 
 | constraint | value |
 | --- | --- |
+| type | `integer` |
 | required | `True` |
 
 <a name="rnaseq_assay_input"></a>
@@ -417,10 +418,11 @@ Units of final library yield. Leave blank if not applicable.
 
 <a name="library_average_fragment_size"></a>
 ##### [`library_average_fragment_size`](#library_average_fragment_size)
-Average size of sequencing library fragments estimated via gel electrophoresis or bioanalyzer/tapestation.
+Average size in basepairs (bp) of sequencing library fragments estimated via gel electrophoresis or bioanalyzer/tapestation.
 
 | constraint | value |
 | --- | --- |
+| type | `integer` |
 | required | `True` |
 
 <a name="sequencing_reagent_kit"></a>
@@ -679,6 +681,7 @@ Total number of cell/nuclei yielded post dissociation and enrichment.
 
 | constraint | value |
 | --- | --- |
+| type | `integer` |
 | required | `True` |
 
 <a name="rnaseq_assay_input"></a>
@@ -807,10 +810,11 @@ Units of final library yield. Leave blank if not applicable.
 
 <a name="library_average_fragment_size"></a>
 ##### [`library_average_fragment_size`](#library_average_fragment_size)
-Average size of sequencing library fragments estimated via gel electrophoresis or bioanalyzer/tapestation.
+Average size in basepairs (bp) of sequencing library fragments estimated via gel electrophoresis or bioanalyzer/tapestation.
 
 | constraint | value |
 | --- | --- |
+| type | `integer` |
 | required | `True` |
 
 <a name="sequencing_reagent_kit"></a>
@@ -1051,6 +1055,7 @@ Total number of cell/nuclei yielded post dissociation and enrichment.
 
 | constraint | value |
 | --- | --- |
+| type | `integer` |
 | required | `True` |
 
 <a name="rnaseq_assay_input"></a>
@@ -1143,6 +1148,7 @@ Number of PCR cycles to amplify cDNA.
 
 | constraint | value |
 | --- | --- |
+| type | `integer` |
 | required | `True` |
 
 <a name="library_pcr_cycles_for_sample_index"></a>
@@ -1151,6 +1157,7 @@ Number of PCR cycles performed for library indexing.
 
 | constraint | value |
 | --- | --- |
+| type | `integer` |
 | required | `True` |
 
 <a name="library_final_yield_value"></a>
@@ -1174,10 +1181,11 @@ Units of final library yield. Leave blank if not applicable.
 
 <a name="library_average_fragment_size"></a>
 ##### [`library_average_fragment_size`](#library_average_fragment_size)
-Average size of sequencing library fragments estimated via gel electrophoresis or bioanalyzer/tapestation.
+Average size in basepairs (bp) of sequencing library fragments estimated via gel electrophoresis or bioanalyzer/tapestation.
 
 | constraint | value |
 | --- | --- |
+| type | `integer` |
 | required | `True` |
 
 <a name="sequencing_reagent_kit"></a>
