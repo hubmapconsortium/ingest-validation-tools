@@ -1,6 +1,7 @@
 # Changelog
 
 ## v0.0.13 - in progress
+- Give schema and version in success message.
 - Generate `field-types.yaml`.
 - Update assay list.
 - Added WGS directory structure schema.
