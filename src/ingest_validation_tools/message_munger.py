@@ -26,8 +26,10 @@ def munge(message):
          r'The dataset directory "\1" is referenced by \2, '
          r'and somewhere else, but references should be unique.'),
 
-        (r'Reference Errors: No References: ',
-         'There are no references from any TSV to '),
+        (r'Reference Errors: No References: Directories: ',
+         'At the root of an upload, the only directories should be datasets. No TSV references '),
+        (r'Reference Errors: No References: Files: ',
+         'At the root of an upload, the only files should be TSVs. No TSV references '),
 
         (r'Metadata TSV Errors: Missing: ',
          ''),
