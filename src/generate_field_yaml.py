@@ -122,6 +122,31 @@ class EntityMapper(Mapper):
 
 
 class AssayMapper(Mapper):
+    '''
+    >>> mapper = AssayMapper()
+    >>> schema_a = {
+    ...     'fields': [{
+    ...         'name': 'assay_type',
+    ...         'constraints': {'enum': ['A']}
+    ...     }]
+    ... }
+    >>> schema_b = {
+    ...     'fields': [{
+    ...         'name': 'assay_type',
+    ...         'constraints': {'enum': ['B']}
+    ...     }]
+    ... }
+    >>> schema_other = {
+    ...     'fields': []
+    ... }
+    >>> mapper.add({'name': 'in_both'}, schema=schema_a)
+    >>> mapper.add({'name': 'in_both'}, schema=schema_b)
+    >>> mapper.add({'name': 'in_other'}, schema=schema_other)
+    >>> print(mapper.dump_yaml().strip())
+    in_both:
+    - A
+    - B
+    '''
     def _get_name_value(self, field, schema_name=None, schema=None):
         assay_type_fields = [
             field for field in schema['fields']
