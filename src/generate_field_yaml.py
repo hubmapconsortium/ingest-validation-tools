@@ -86,6 +86,14 @@ class DescriptionMapper(Mapper):
 
 
 class TypeMapper(Mapper):
+    '''
+    >>> mapper = TypeMapper()
+    >>> mapper.add({'name': 'explicit', 'type': 'fake_type'})
+    >>> mapper.add({'name': 'implicit'})
+    >>> print(mapper.dump_yaml().strip())
+    explicit: fake_type
+    implicit: string
+    '''
     def __init__(self):
         super().__init__()
         self.attr = 'type'
@@ -93,6 +101,15 @@ class TypeMapper(Mapper):
 
 
 class EntityMapper(Mapper):
+    '''
+    >>> mapper = EntityMapper()
+    >>> mapper.add({'name': 'version'}, schema_name='will_skip')
+    >>> mapper.add({'name': 'dataset_field'}, schema_name='default_is_dataset')
+    >>> mapper.add({'name': 'sample_field'}, schema_name='sample')
+    >>> print(mapper.dump_yaml().strip())
+    dataset_field: dataset
+    sample_field: sample
+    '''
     def _skip_field(self, name, attr_value):
         # The version field is unique in that it occurs under multiple
         # entity types: Seems easiest just to skip it,
