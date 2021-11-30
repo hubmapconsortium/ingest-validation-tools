@@ -67,6 +67,14 @@ class Mapper:
 
 
 class DescriptionMapper(Mapper):
+    '''
+    >>> mapper = DescriptionMapper()
+    >>> mapper.add({'name': 'field_name', 'description': 'long description'})
+    >>> mapper.add({'name': 'field_name', 'description': 'short desc'})
+    >>> mapper.add({'name': 'field_name', 'description': 'longer description'})
+    >>> print(mapper.dump_yaml().strip())
+    field_name: short desc
+    '''
     def __init__(self):
         super().__init__()
         self.attr = 'description'
