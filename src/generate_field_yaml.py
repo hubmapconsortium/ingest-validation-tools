@@ -67,6 +67,14 @@ class Mapper:
 
 
 class DescriptionMapper(Mapper):
+    '''
+    >>> mapper = DescriptionMapper()
+    >>> mapper.add({'name': 'field_name', 'description': 'long description'})
+    >>> mapper.add({'name': 'field_name', 'description': 'short desc'})
+    >>> mapper.add({'name': 'field_name', 'description': 'longer description'})
+    >>> print(mapper.dump_yaml().strip())
+    field_name: short desc
+    '''
     def __init__(self):
         super().__init__()
         self.attr = 'description'
@@ -78,6 +86,14 @@ class DescriptionMapper(Mapper):
 
 
 class TypeMapper(Mapper):
+    '''
+    >>> mapper = TypeMapper()
+    >>> mapper.add({'name': 'explicit', 'type': 'fake_type'})
+    >>> mapper.add({'name': 'implicit'})
+    >>> print(mapper.dump_yaml().strip())
+    explicit: fake_type
+    implicit: string
+    '''
     def __init__(self):
         super().__init__()
         self.attr = 'type'
@@ -85,6 +101,15 @@ class TypeMapper(Mapper):
 
 
 class EntityMapper(Mapper):
+    '''
+    >>> mapper = EntityMapper()
+    >>> mapper.add({'name': 'version'}, schema_name='will_skip')
+    >>> mapper.add({'name': 'dataset_field'}, schema_name='default_is_dataset')
+    >>> mapper.add({'name': 'sample_field'}, schema_name='sample')
+    >>> print(mapper.dump_yaml().strip())
+    dataset_field: dataset
+    sample_field: sample
+    '''
     def _skip_field(self, name, attr_value):
         # The version field is unique in that it occurs under multiple
         # entity types: Seems easiest just to skip it,
@@ -93,10 +118,35 @@ class EntityMapper(Mapper):
 
     def _get_name_value(self, field, schema_name=None, schema=None):
         name = field['name']
-        return name, 'assay' if get_is_assay(schema_name) else schema_name
+        return name, 'dataset' if get_is_assay(schema_name) else schema_name
 
 
 class AssayMapper(Mapper):
+    '''
+    >>> mapper = AssayMapper()
+    >>> schema_a = {
+    ...     'fields': [{
+    ...         'name': 'assay_type',
+    ...         'constraints': {'enum': ['A']}
+    ...     }]
+    ... }
+    >>> schema_b = {
+    ...     'fields': [{
+    ...         'name': 'assay_type',
+    ...         'constraints': {'enum': ['B']}
+    ...     }]
+    ... }
+    >>> schema_other = {
+    ...     'fields': []
+    ... }
+    >>> mapper.add({'name': 'in_both'}, schema=schema_a)
+    >>> mapper.add({'name': 'in_both'}, schema=schema_b)
+    >>> mapper.add({'name': 'in_other'}, schema=schema_other)
+    >>> print(mapper.dump_yaml().strip())
+    in_both:
+    - A
+    - B
+    '''
     def _get_name_value(self, field, schema_name=None, schema=None):
         assay_type_fields = [
             field for field in schema['fields']
