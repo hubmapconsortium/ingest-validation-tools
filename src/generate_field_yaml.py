@@ -93,7 +93,7 @@ class EntityMapper(Mapper):
 
     def _get_name_value(self, field, schema_name=None, schema=None):
         name = field['name']
-        return name, 'assay' if get_is_assay(schema_name) else schema_name
+        return name, 'dataset' if get_is_assay(schema_name) else schema_name
 
 
 class AssayMapper(Mapper):
