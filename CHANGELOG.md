@@ -1,7 +1,7 @@
 # Changelog
 
 ## v0.0.13 - in progress
-- Provide a map in docs/ from fields to the assays they are used in.
+- Provides map in docs/ from fields to the entities and assays they are used in.
 - Give schema and version in success message.
 - Generate `field-types.yaml`.
 - Update assay list.
