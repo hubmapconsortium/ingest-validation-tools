@@ -2,6 +2,7 @@ from datetime import datetime
 from collections import defaultdict
 from fnmatch import fnmatch
 from collections import Counter
+from pathlib import Path
 
 from ingest_validation_tools.validation_utils import (
     get_tsv_errors,
@@ -226,8 +227,14 @@ class Upload:
             ])
         }
         unreferenced_paths = non_metadata_paths - referenced_data_paths
-        # TODO: dict with directories and files
-        return [str(path) for path in unreferenced_paths]
+        unreferenced_dir_paths = [path for path in unreferenced_paths if Path(path).is_dir()]
+        unreferenced_file_paths = [path for path in unreferenced_paths if not Path(path).is_dir()]
+        errors = {}
+        if unreferenced_dir_paths:
+            errors['Directories'] = unreferenced_dir_paths
+        if unreferenced_file_paths:
+            errors['Files'] = unreferenced_file_paths
+        return errors
 
     def __get_multi_ref_errors(self):
         errors = {}
