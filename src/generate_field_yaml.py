@@ -40,6 +40,7 @@ class Mapper:
     def __init__(self):
         self.mapping = {}
         self.default_value = None
+
     def add(self, field, schema_name=None, schema=None):
         name, attr_value = self._get_name_value(field, schema_name=schema_name, schema=schema)
         if self._skip_field(name, attr_value):
@@ -48,15 +49,19 @@ class Mapper:
             self._handle_collision(name, attr_value)
         else:
             self.mapping[name] = attr_value
+
     def _get_name_value(self, field, **kwargs):
         name = field['name']
         attr_value = field.get(self.attr, self.default_value)
         return name, attr_value
+
     def _skip_field(self, name, attr_value):
         return False
+
     def _handle_collision(self, name, attr_value):
         raise Exception(
             f'{name} is inconsistent: "{self.mapping[name]}" != "{attr_value}"')
+
     def dump_yaml(self):
         return dump_yaml(self.mapping)
 
@@ -65,6 +70,7 @@ class DescriptionMapper(Mapper):
     def __init__(self):
         super().__init__()
         self.attr = 'description'
+
     def _handle_collision(self, name, attr_value):
         if len(attr_value) < len(self.mapping[name]):
             # Assuming the shorter string will be more generic...
@@ -84,6 +90,7 @@ class EntityMapper(Mapper):
         # entity types: Seems easiest just to skip it,
         # rather than changing value from string to set or list
         return name == 'version'
+
     def _get_name_value(self, field, schema_name=None, schema=None):
         name = field['name']
         return name, 'assay' if get_is_assay(schema_name) else schema_name
@@ -100,10 +107,13 @@ class AssayMapper(Mapper):
             if len(assay_type_fields) else []
         )
         return field['name'], set(value)
+
     def _skip_field(self, name, attr_value):
         return len(attr_value) == 0
+
     def _handle_collision(self, name, attr_value):
         self.mapping[name] |= attr_value
+
     def dump_yaml(self):
         return dump_yaml({k: sorted(list(v)) for k, v in self.mapping.items()})
 
