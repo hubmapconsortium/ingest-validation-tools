@@ -60,6 +60,11 @@ Metadata TSV Errors:
         has no data rows.
       row 2, antibodies examples/dataset-examples/bad-tsv-formats/upload/antibodies.tsv: File
         does not exist
+Reference Errors:
+  Has trailing slash:
+  - dataset-1/
+  No References:
+  - dataset-1
 Hint: 'If validation fails because of extra whitespace in the TSV, try:
 
   src/cleanup_whitespace.py --tsv_in original.tsv --tsv_out clean.tsv'

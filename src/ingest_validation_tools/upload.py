@@ -127,11 +127,14 @@ class Upload:
 
     def _get_reference_errors(self):
         errors = {}
+        slash_ref_errors = self.__get_slash_ref_errors()
         no_ref_errors = self.__get_no_ref_errors()
         try:
             multi_ref_errors = self.__get_multi_ref_errors()
         except UnicodeDecodeError as e:
             return get_context_of_decode_error(e)
+        if slash_ref_errors:
+            errors['Has trailing slash'] = slash_ref_errors
         if no_ref_errors:
             errors['No References'] = no_ref_errors
         if multi_ref_errors:
@@ -201,6 +204,13 @@ class Upload:
 
         return errors
 
+    def __get_slash_ref_errors(self):
+        referenced_data_paths = set(self.__get_data_references().keys())
+        return [
+            path for path in referenced_data_paths
+            if path.endswith('/') or path.endswith('\\')
+        ]
+
     def __get_no_ref_errors(self):
         if not self.directory_path:
             return {}
@@ -216,6 +226,7 @@ class Upload:
             ])
         }
         unreferenced_paths = non_metadata_paths - referenced_data_paths
+        # TODO: dict with directories and files
         return [str(path) for path in unreferenced_paths]
 
     def __get_multi_ref_errors(self):
