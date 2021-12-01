@@ -101,7 +101,8 @@ Exit status codes:
     parser.add_argument('--add_notes', action='store_true',
                         help='Append a context note to error reports.')
     parser.add_argument('--save_report', action='store_true',
-                        help='Save the report; Adding "--upload_ignore_globs \'report-*.txt\'" is necessary to revalidate.')
+                        help='Save the report; Adding "--upload_ignore_globs '
+                        '\'report-*.txt\'" is necessary to revalidate.')
 
     return parser
 
