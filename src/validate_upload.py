@@ -74,7 +74,7 @@ Exit status codes:
     parser.add_argument(
         '--upload_ignore_globs', nargs='+',
         metavar='GLOB',
-        help='Matching sub-directories in the upload will be ignored.'
+        help='Matching files and subdirectories in the upload will be ignored.'
     )
 
     default_encoding = 'ascii'
