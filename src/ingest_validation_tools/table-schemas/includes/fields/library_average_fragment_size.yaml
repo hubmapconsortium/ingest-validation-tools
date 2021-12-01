@@ -1,0 +1,4 @@
+- name: library_average_fragment_size
+  description: Average size in basepairs (bp) of sequencing library fragments estimated via gel
+    electrophoresis or bioanalyzer/tapestation.
+  type: integer

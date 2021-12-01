@@ -2,6 +2,10 @@
 
 ## v0.0.13 - in progress
 - In the report notes, record the version of the checkout.
+- Improve testing of `generate_field_yaml.py`.
+- Provides map in docs/ from fields to the entities and assays they are used in.
+- Give schema and version in success message.
+- Generate `field-types.yaml`.
 - Update assay list.
 - Added WGS directory structure schema.
 - Fixed regex on directory structure schema.
