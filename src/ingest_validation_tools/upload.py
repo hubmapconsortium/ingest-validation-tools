@@ -2,6 +2,7 @@ from datetime import datetime
 from collections import defaultdict
 from fnmatch import fnmatch
 from collections import Counter
+import subprocess
 
 from ingest_validation_tools.validation_utils import (
     get_tsv_errors,
@@ -38,6 +39,7 @@ class Upload:
         self.offline = offline
         self.add_notes = add_notes
         self.errors = {}
+        self.effective_tsv_paths = {}
         try:
             unsorted_effective_tsv_paths = {
                 str(path): get_schema_version(path, self.encoding)
@@ -80,8 +82,14 @@ class Upload:
             errors['Plugin Errors'] = plugin_errors
 
         if self.add_notes:
+            git_version = subprocess.check_output(
+                'git rev-parse --short HEAD'.split(' '),
+                encoding='ascii',
+                stderr=subprocess.STDOUT
+            ).strip()
             errors['Notes'] = {
                 'Time': datetime.now(),
+                'Git version': git_version,
                 'Directory': str(self.directory_path),
                 'Effective TSVs': list(self.effective_tsv_paths.keys())
             }
