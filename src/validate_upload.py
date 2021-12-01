@@ -101,7 +101,7 @@ Exit status codes:
     parser.add_argument('--add_notes', action='store_true',
                         help='Append a context note to error reports.')
     parser.add_argument('--save_report', action='store_true',
-                        help='Save the report in each extras/ directory.')
+                        help='Save the report; Adding "--upload_ignore_globs \'report-*.txt\'" is necessary to revalidate.')
 
     return parser
 
@@ -113,14 +113,9 @@ parser = make_parser()
 
 
 def _save_report(upload, report):
-    for subdir in upload.directory_path.glob('*'):
-        if not subdir.is_dir():
-            continue
-        extras_path = subdir / 'extras'
-        extras_path.mkdir(exist_ok=True)
-        timestamp = datetime.today().strftime('%Y-%m-%d_%H-%M-%S')
-        report_path = extras_path / f'report-{timestamp}.txt'
-        report_path.write_text(report.as_text_list())
+    timestamp = datetime.today().strftime('%Y-%m-%d_%H-%M-%S')
+    report_path = upload.directory_path / f'report-{timestamp}.txt'
+    report_path.write_text(report.as_text_list())
 
 
 def main():
