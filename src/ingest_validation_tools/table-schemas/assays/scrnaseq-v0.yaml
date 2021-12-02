@@ -9,7 +9,7 @@ fields:
   constraints:
     enum:
       - scRNAseq-10xGenomics
-      - scRNAseq
+      # - scRNAseq
       - sciRNAseq
       - snRNAseq
       - SNARE2-RNAseq

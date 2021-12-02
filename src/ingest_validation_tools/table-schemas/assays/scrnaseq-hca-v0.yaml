@@ -63,7 +63,7 @@ fields:
     enum:
     - scRNAseq-10xGenomics-v2
     - scRNAseq-10xGenomics-v3
-    - scRNAseq
+    # - scRNAseq
     - sciRNAseq
     - snRNAseq
     - SNARE2-RNAseq
