@@ -46,7 +46,7 @@ shared_enums = {
         'sciRNAseq',
         'seqFISH',
         # 'SIMS-IMS',
-        # 'SNARE-seq2',
+        'SNARE-seq2',
         'snATACseq',
         # 'snRNA',
         # 'SPLiT-Seq',
