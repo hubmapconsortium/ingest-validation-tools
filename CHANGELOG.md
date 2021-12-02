@@ -2,6 +2,7 @@
 
 ## v0.0.13 - in progress
 - Warn about trailing slashes in paths.
+- Optionally, dump validation report at the top of the upload.
 - In the report notes, record the version of the checkout.
 - Improve testing of `generate_field_yaml.py`.
 - Provides map in docs/ from fields to the entities and assays they are used in.
