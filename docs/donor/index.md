@@ -30,7 +30,7 @@ Most definitions taken from https://ncit.nci.nih.gov/ncitbrowser/pages/home.jsf?
 [`blood_type`](#blood_type)<br>
 [`body_mass_index_value`](#body_mass_index_value)<br>
 [`cause_of_death`](#cause_of_death)<br>
-[`height_unit`](#height_unit)<br>
+[`height_value`](#height_value)<br>
 [`kidney_donor_profile_index_value`](#kidney_donor_profile_index_value)<br>
 [`mechanism_of_injury`](#mechanism_of_injury)<br>
 [`medical_history`](#medical_history)<br>
@@ -84,12 +84,13 @@ The circumstance or condition that caused death.
 | --- | --- |
 | required | `True` |
 
-<a name="height_unit"></a>
-##### [`height_unit`](#height_unit)
+<a name="height_value"></a>
+##### [`height_value`](#height_value)
 The vertical measurement or distance from the base to the top of a subject or participant.
 
 | constraint | value |
 | --- | --- |
+| type | `number` |
 | required | `True` |
 
 <a name="kidney_donor_profile_index_value"></a>

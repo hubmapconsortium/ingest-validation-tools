@@ -119,7 +119,7 @@ health_status: "Patient's baseline physical condition prior to immediate event l
   \ healthy subject may have experienced trauma leading to brain death.  As a result\
   \ of organ donation, a sample is collected.  In this scenario, the subject is deemed\
   \ \u201Crelatively healthy.\u201D"
-height_unit: The vertical measurement or distance from the base to the top of a subject
+height_value: The vertical measurement or distance from the base to the top of a subject
   or participant.
 increment_z_unit: The units of increment z value.
 increment_z_value: The distance between sequential optical sections.

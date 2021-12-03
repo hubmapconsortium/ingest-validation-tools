@@ -68,7 +68,7 @@ first_name: string
 gdna_fragmentation_quality_assurance: string
 guard_column: string
 health_status: string
-height_unit: string
+height_value: number
 increment_z_unit: string
 increment_z_value: number
 internal_standard: string

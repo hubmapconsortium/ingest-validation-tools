@@ -68,7 +68,7 @@ first_name: contributors
 gdna_fragmentation_quality_assurance: dataset
 guard_column: dataset
 health_status: sample
-height_unit: donor
+height_value: donor
 increment_z_unit: dataset
 increment_z_value: dataset
 internal_standard: dataset

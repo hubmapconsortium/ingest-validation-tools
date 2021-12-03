@@ -48,7 +48,8 @@ fields:
     sequence_limit: 3
   description: The vertical measurement or distance from the base to the top of a
     subject or participant.
-  name: height_unit
+  name: height_value
+  type: number
 - constraints:
     required: true
   custom_constraints:
