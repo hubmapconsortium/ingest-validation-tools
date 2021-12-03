@@ -53,6 +53,7 @@ fields:
   type: integer
 - name: rnaseq_assay_input
   description: Number of cell/nuclei input to the assay
+  type: integer
 # include: ../includes/fields/rnaseq_assay_method.yaml
 - name: library_construction_protocols_io_doi
   description: A link to the protocol document containing the library construction method (including version) that was used, e.g. "Smart-Seq2", "Drop-Seq", "10X v3".
