@@ -203,6 +203,7 @@ fields:
     sequence_limit: 3
   description: Number of cell/nuclei input to the assay
   name: rnaseq_assay_input
+  type: integer
 - constraints:
     required: true
   custom_constraints:

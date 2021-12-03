@@ -289,6 +289,7 @@ Number of cell/nuclei input to the assay.
 
 | constraint | value |
 | --- | --- |
+| type | `integer` |
 | required | `True` |
 
 <a name="rnaseq_assay_method"></a>
@@ -690,6 +691,7 @@ Number of cell/nuclei input to the assay.
 
 | constraint | value |
 | --- | --- |
+| type | `integer` |
 | required | `True` |
 
 <a name="rnaseq_assay_method"></a>
@@ -1064,6 +1066,7 @@ Number of cell/nuclei input to the assay.
 
 | constraint | value |
 | --- | --- |
+| type | `integer` |
 | required | `True` |
 
 <a name="rnaseq_assay_method"></a>

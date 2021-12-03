@@ -164,7 +164,7 @@ resolution_y_unit: string
 resolution_y_value: number
 resolution_z_unit: string
 resolution_z_value: number
-rnaseq_assay_input: string
+rnaseq_assay_input: integer
 rnaseq_assay_input_unit: string
 rnaseq_assay_input_value: number
 rnaseq_assay_method: string
