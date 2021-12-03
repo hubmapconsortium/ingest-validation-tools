@@ -33,11 +33,12 @@ fields:
 # -
 #   name: death_event
 #   description: ...
-- name: height_unit
+# - name: height_unit
+#   description:  ...
+-
+  name: height_value
   description:  The vertical measurement or distance from the base to the top of a subject or participant.
-# -
-#   name: height_value
-#   description: ...
+  type: number
 # -
 #   name: kidney_donor_profile_index_unit
 #   description: ...
