@@ -67,7 +67,7 @@ Related files:
 | constraint | value |
 | --- | --- |
 | required | `True` |
-| pattern (regular expression) | `([A-Z]+[0-9]+)-[A-Z]{2}\d*(-\d+)+(_\d+)?` |
+| pattern (regular expression) | <code>([A-Z]+[0-9]+)-[A-Z]{2}\d*(-\d+)+(_\d+)?</code> |
 
 ### Donor
 

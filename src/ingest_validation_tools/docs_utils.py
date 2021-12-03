@@ -297,7 +297,7 @@ def _make_value_md(key, value):
     `A`, `B`, or `C`
 
     >>> print(_make_value_md('pattern', '^some|reg_?ex\\.$'))
-    <code>^some&#124;reg_?ex\.$</code>
+    <code>^some&#124;reg_?ex\\.$</code>
 
     >>> print(_make_value_md('url', {'prefix': 'http://example.com/'}))
     prefix: <code>http://example.com/</code>
@@ -403,8 +403,8 @@ def _make_dir_description(dir_schema, pipeline_infos=[]):
     <BLANKLINE>
     | pattern | required? | description |
     | --- | --- | --- |
-    | <code>required\.txt</code> | ✓ | **[QA/QC]** Required! |
-    | <code>optional\.txt</code> |  | Optional! |
+    | <code>required\\.txt</code> | ✓ | **[QA/QC]** Required! |
+    | <code>optional\\.txt</code> |  | Optional! |
 
     Examples add an extra column:
 
@@ -416,7 +416,7 @@ def _make_dir_description(dir_schema, pipeline_infos=[]):
     <BLANKLINE>
     | pattern | required? | description |
     | --- | --- | --- |
-    | <code>[A-Z]+\d+</code> (example: <code>ABC123</code>) | ✓ | letters numbers |
+    | <code>[A-Z]+\\d+</code> (example: <code>ABC123</code>) | ✓ | letters numbers |
     | <code>[A-Z]</code> | ✓ | one letter, no example |
 
     Bad examples cause errors:
@@ -455,7 +455,7 @@ def _make_dir_description(dir_schema, pipeline_infos=[]):
     <BLANKLINE>
     | pattern | required? | description |
     | --- | --- | --- |
-    | <code>required\.txt</code> | ✓ | Required! |
+    | <code>required\\.txt</code> | ✓ | Required! |
     '''
     for line in dir_schema:
         for k in line.keys():
