@@ -1,6 +1,7 @@
 # Changelog
 
 ## v0.0.13 - in progress
+- Deprecate contributors-v0.
 - Warn about trailing slashes in paths.
 - Optionally, dump validation report at the top of the upload.
 - In the report notes, record the version of the checkout.
