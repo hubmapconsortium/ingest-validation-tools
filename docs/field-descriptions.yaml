@@ -97,6 +97,7 @@ desi_solvent: Solvent composition for conducting nanospray desorption electrospr
 desi_solvent_flow_rate: The rate of flow of the solvent into a spray.
 desi_solvent_flow_rate_unit: Units of the rate of solvent flow.
 dilution: Antibody solutions may be diluted according to the experimental protocol.
+dms: Was differential mobility spectrometry used in this assay?
 dna_assay_input_unit: Units of DNA input into library preparation
 dna_assay_input_value: Amount of DNA input into library preparation
 donor_id: HuBMAP Display ID of the donor of the assayed tissue.
@@ -148,6 +149,8 @@ kidney_donor_profile_index_value: 'The Kidney Donor Profle Index (KDPI) is a num
   associated with increased donor quality and expected longevity. https://optn.transplant.hrsa.gov/media/1512/guide_to_calculating_interpreting_kdpi.pdf
 
   '
+label_name: If the samples were labeled (e.g. TMT), provide the name/ID of the label
+  on this sample.
 labeling: Indicates whether samples were labeled prior to MS analysis (e.g., TMT)
 last_name: Last name
 lc_column_model: The model number/name of the LC Column - IF custom self-packed, pulled

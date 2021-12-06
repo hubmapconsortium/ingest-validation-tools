@@ -461,6 +461,13 @@ desi_solvent_flow_rate_unit:
 - MALDI-IMS
 - NanoDESI
 - SIMS-IMS
+dms:
+- LC-MS
+- LC-MS Bottom-Up
+- LC-MS Top-Down
+- MS
+- MS Bottom-Up
+- MS Top-Down
 dna_assay_input_unit:
 - WGS
 dna_assay_input_value:
@@ -638,6 +645,13 @@ is_technical_replicate:
 - sciRNAseq
 - snATACseq
 - snRNAseq
+label_name:
+- LC-MS
+- LC-MS Bottom-Up
+- LC-MS Top-Down
+- MS
+- MS Bottom-Up
+- MS Top-Down
 labeling:
 - CE-MS
 - GC-MS
