@@ -3,19 +3,23 @@ set -o errexit
 
 die() { set +v; echo "$*" 1>&2 ; sleep 1; exit 1; }
 
-# Test field-descriptions.yaml:
+# Test field-descriptions.yaml and field-types.yaml:
 
-REAL_DEST="docs/field-descriptions.yaml"
-TEST_DEST="docs-test/field-descriptions.yaml"
+for ATTR in 'description' 'type' 'entity' 'assay'; do
+  PLURAL="${ATTR}s"
+  [ "$PLURAL" == 'entitys' ] && PLURAL='entities'
+  REAL_DEST="docs/field-${PLURAL}.yaml"
+  TEST_DEST="docs-test/field-${PLURAL}.yaml"
 
-REAL_CMD="src/generate_field_descriptions.py > $REAL_DEST"
-TEST_CMD="src/generate_field_descriptions.py > $TEST_DEST"
+  REAL_CMD="src/generate_field_yaml.py --attr $ATTR > $REAL_DEST"
+  TEST_CMD="src/generate_field_yaml.py --attr $ATTR > $TEST_DEST"
 
-mkdir docs-test || echo "Already exists"
-eval $TEST_CMD || die "Command failed: $TEST_CMD"
-diff -r $REAL_DEST $TEST_DEST \
-  || die "Update needed: $REAL_CMD; $LOOP"
-rm -rf docs-test
+  mkdir docs-test || echo "Already exists"
+  eval $TEST_CMD || die "Command failed: $TEST_CMD"
+  diff -r $REAL_DEST $TEST_DEST \
+    || die "Update needed: $REAL_CMD; $LOOP"
+  rm -rf docs-test
+done
 
 # Test docs:
 

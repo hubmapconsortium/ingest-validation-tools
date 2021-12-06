@@ -4,6 +4,7 @@ import argparse
 import sys
 from pathlib import Path
 import inspect
+from datetime import datetime
 
 from ingest_validation_tools.error_report import ErrorReport
 from ingest_validation_tools.upload import Upload
@@ -73,7 +74,7 @@ Exit status codes:
     parser.add_argument(
         '--upload_ignore_globs', nargs='+',
         metavar='GLOB',
-        help='Matching sub-directories in the upload will be ignored.'
+        help='Matching files and subdirectories in the upload will be ignored.'
     )
 
     default_encoding = 'ascii'
@@ -99,6 +100,9 @@ Exit status codes:
 
     parser.add_argument('--add_notes', action='store_true',
                         help='Append a context note to error reports.')
+    parser.add_argument('--save_report', action='store_true',
+                        help='Save the report; Adding "--upload_ignore_globs '
+                        '\'report-*.txt\'" is necessary to revalidate.')
 
     return parser
 
@@ -107,6 +111,12 @@ Exit status codes:
 # to be able to show the usage string if it catches a ShowUsageException.
 # Defining this at the top level makes that possible.
 parser = make_parser()
+
+
+def _save_report(upload, report):
+    timestamp = datetime.today().strftime('%Y-%m-%d_%H-%M-%S')
+    report_path = upload.directory_path / f'report-{timestamp}.txt'
+    report_path.write_text(report.as_text_list())
 
 
 def main():
@@ -137,8 +147,10 @@ def main():
 
     upload = Upload(**upload_args)
     errors = upload.get_errors()
-    report = ErrorReport(errors)
+    report = ErrorReport(errors, effective_tsv_paths=upload.effective_tsv_paths)
     print(getattr(report, args.output)())
+    if args.save_report:
+        _save_report(upload, report)
     return exit_codes.INVALID if errors else exit_codes.VALID
 
 
