@@ -17,9 +17,9 @@ Related files:
 
 | pattern | required? | description |
 | --- | --- | --- |
-| `[^/]+\.fastq\.gz` | ✓ | Compressed FastQ file |
-| `extras/.*` |  | Free-form descriptive information supplied by the TMC |
-| `extras/thumbnail\.(png\|jpg)` |  | Optional thumbnail image which may be shown in search interface |
+| <code>[^/]+\.fastq\.gz</code> | ✓ | Compressed FastQ file |
+| <code>extras/.*</code> |  | Free-form descriptive information supplied by the TMC |
+| <code>extras/thumbnail\.(png&#124;jpg)</code> |  | Optional thumbnail image which may be shown in search interface |
 
 ## Metadata schema
 
@@ -126,9 +126,9 @@ DOI for protocols.io referring to the protocol for this assay.
 
 | constraint | value |
 | --- | --- |
-| pattern (regular expression) | `10\.17504/.*` |
+| pattern (regular expression) | <code>10\.17504/.*</code> |
 | required | `True` |
-| url | prefix: `https://dx.doi.org/` |
+| url | prefix: <code>https://dx.doi.org/</code> |
 
 <a name="operator"></a>
 ##### [`operator`](#operator)
@@ -224,9 +224,9 @@ Link to a protocols document answering the question: How were single cells separ
 
 | constraint | value |
 | --- | --- |
-| pattern (regular expression) | `10\.17504/.*` |
+| pattern (regular expression) | <code>10\.17504/.*</code> |
 | required | `True` |
-| url | prefix: `https://dx.doi.org/` |
+| url | prefix: <code>https://dx.doi.org/</code> |
 
 <a name="sc_isolation_entity"></a>
 ##### [`sc_isolation_entity`](#sc_isolation_entity)
@@ -291,9 +291,9 @@ A link to the protocol document containing the library construction method (incl
 
 | constraint | value |
 | --- | --- |
-| pattern (regular expression) | `10\.17504/.*` |
+| pattern (regular expression) | <code>10\.17504/.*</code> |
 | required | `True` |
-| url | prefix: `https://dx.doi.org/` |
+| url | prefix: <code>https://dx.doi.org/</code> |
 
 <a name="library_layout"></a>
 ##### [`library_layout`](#library_layout)
@@ -412,7 +412,7 @@ Slash-delimited list of the number of sequencing cycles for, for example, Read1,
 
 | constraint | value |
 | --- | --- |
-| pattern (regular expression) | `\d+(/\d+)+` |
+| pattern (regular expression) | <code>\d+(/\d+)+</code> |
 | required | `False` |
 
 <a name="sequencing_read_percent_q30"></a>
