@@ -19,6 +19,7 @@ ablation_frequency_value:
 acquisition_id:
 - 3D Imaging Mass Cytometry
 - Imaging Mass Cytometry
+- Multiplex Ion Beam Imaging
 acquisition_instrument_model:
 - 3D Imaging Mass Cytometry
 - AF
@@ -121,6 +122,7 @@ analyte_class:
 - MS (shotgun lipidomics)
 - MS Bottom-Up
 - MS Top-Down
+- Multiplex Ion Beam Imaging
 - MxIF
 - NanoDESI
 - NanoPOTS
@@ -149,6 +151,10 @@ antibodies_path:
 - Imaging Mass Cytometry
 - Light Sheet
 - MxIF
+area_normalized_ion_dose_unit:
+- Multiplex Ion Beam Imaging
+area_normalized_ion_dose_value:
+- Multiplex Ion Beam Imaging
 assay_category:
 - 3D Imaging Mass Cytometry
 - AF
@@ -169,6 +175,7 @@ assay_category:
 - MS (shotgun lipidomics)
 - MS Bottom-Up
 - MS Top-Down
+- Multiplex Ion Beam Imaging
 - MxIF
 - NanoDESI
 - NanoPOTS
@@ -210,6 +217,7 @@ assay_type:
 - MS (shotgun lipidomics)
 - MS Bottom-Up
 - MS Top-Down
+- Multiplex Ion Beam Imaging
 - MxIF
 - NanoDESI
 - NanoPOTS
@@ -329,6 +337,7 @@ contributors_path:
 - MS (shotgun lipidomics)
 - MS Bottom-Up
 - MS Top-Down
+- Multiplex Ion Beam Imaging
 - MxIF
 - NanoDESI
 - NanoPOTS
@@ -382,6 +391,7 @@ data_path:
 - MS (shotgun lipidomics)
 - MS Bottom-Up
 - MS Top-Down
+- Multiplex Ion Beam Imaging
 - MxIF
 - NanoDESI
 - NanoPOTS
@@ -405,6 +415,7 @@ data_path:
 - snRNAseq
 data_precision_bytes:
 - Imaging Mass Cytometry
+- Multiplex Ion Beam Imaging
 description:
 - 3D Imaging Mass Cytometry
 - AF
@@ -425,6 +436,7 @@ description:
 - MS (shotgun lipidomics)
 - MS Bottom-Up
 - MS Top-Down
+- Multiplex Ion Beam Imaging
 - MxIF
 - NanoDESI
 - NanoPOTS
@@ -485,6 +497,7 @@ donor_id:
 - MS (shotgun lipidomics)
 - MS Bottom-Up
 - MS Top-Down
+- Multiplex Ion Beam Imaging
 - MxIF
 - NanoDESI
 - NanoPOTS
@@ -508,8 +521,10 @@ donor_id:
 - snRNAseq
 dual_count_start:
 - Imaging Mass Cytometry
+- Multiplex Ion Beam Imaging
 end_datetime:
 - Imaging Mass Cytometry
+- Multiplex Ion Beam Imaging
 execution_datetime:
 - 3D Imaging Mass Cytometry
 - AF
@@ -530,6 +545,7 @@ execution_datetime:
 - MS (shotgun lipidomics)
 - MS Bottom-Up
 - MS Top-Down
+- Multiplex Ion Beam Imaging
 - MxIF
 - NanoDESI
 - NanoPOTS
@@ -603,6 +619,7 @@ is_targeted:
 - MS (shotgun lipidomics)
 - MS Bottom-Up
 - MS Top-Down
+- Multiplex Ion Beam Imaging
 - MxIF
 - NanoDESI
 - NanoPOTS
@@ -974,15 +991,19 @@ mass_resolving_power:
 max_x_width_unit:
 - 3D Imaging Mass Cytometry
 - Imaging Mass Cytometry
+- Multiplex Ion Beam Imaging
 max_x_width_value:
 - 3D Imaging Mass Cytometry
 - Imaging Mass Cytometry
+- Multiplex Ion Beam Imaging
 max_y_height_unit:
 - 3D Imaging Mass Cytometry
 - Imaging Mass Cytometry
+- Multiplex Ion Beam Imaging
 max_y_height_value:
 - 3D Imaging Mass Cytometry
 - Imaging Mass Cytometry
+- Multiplex Ion Beam Imaging
 ms_scan_mode:
 - CE-MS
 - DESI
@@ -1067,6 +1088,7 @@ number_of_antibodies:
 - CODEX
 - Cell DIVE
 - Light Sheet
+- Multiplex Ion Beam Imaging
 number_of_barcode_probes:
 - seqFISH
 number_of_barcode_regions_per_barcode_probe:
@@ -1078,6 +1100,7 @@ number_of_channels:
 - Cell DIVE
 - Imaging Mass Cytometry
 - Light Sheet
+- Multiplex Ion Beam Imaging
 - MxIF
 - seqFISH
 number_of_cycles:
@@ -1113,6 +1136,7 @@ operator:
 - MS (shotgun lipidomics)
 - MS Bottom-Up
 - MS Top-Down
+- Multiplex Ion Beam Imaging
 - MxIF
 - NanoDESI
 - NanoPOTS
@@ -1154,6 +1178,7 @@ operator_email:
 - MS (shotgun lipidomics)
 - MS Bottom-Up
 - MS Top-Down
+- Multiplex Ion Beam Imaging
 - MxIF
 - NanoDESI
 - NanoPOTS
@@ -1216,6 +1241,7 @@ pi:
 - MS (shotgun lipidomics)
 - MS Bottom-Up
 - MS Top-Down
+- Multiplex Ion Beam Imaging
 - MxIF
 - NanoDESI
 - NanoPOTS
@@ -1257,6 +1283,7 @@ pi_email:
 - MS (shotgun lipidomics)
 - MS Bottom-Up
 - MS Top-Down
+- Multiplex Ion Beam Imaging
 - MxIF
 - NanoDESI
 - NanoPOTS
@@ -1278,6 +1305,18 @@ pi_email:
 - seqFISH
 - snATACseq
 - snRNAseq
+pixel_dwell_time_unit:
+- Multiplex Ion Beam Imaging
+pixel_dwell_time_value:
+- Multiplex Ion Beam Imaging
+pixel_size_x_unit:
+- Multiplex Ion Beam Imaging
+pixel_size_x_value:
+- Multiplex Ion Beam Imaging
+pixel_size_y_unit:
+- Multiplex Ion Beam Imaging
+pixel_size_y_value:
+- Multiplex Ion Beam Imaging
 polarity:
 - CE-MS
 - DESI
@@ -1301,6 +1340,7 @@ preparation_instrument_model:
 - DESI
 - Imaging Mass Cytometry
 - MALDI-IMS
+- Multiplex Ion Beam Imaging
 - NanoDESI
 - SIMS-IMS
 - seqFISH
@@ -1310,6 +1350,7 @@ preparation_instrument_vendor:
 - DESI
 - Imaging Mass Cytometry
 - MALDI-IMS
+- Multiplex Ion Beam Imaging
 - NanoDESI
 - SIMS-IMS
 - seqFISH
@@ -1323,6 +1364,12 @@ preparation_type:
 - MALDI-IMS
 - NanoDESI
 - SIMS-IMS
+primary_ion:
+- Multiplex Ion Beam Imaging
+primary_ion_current_unit:
+- Multiplex Ion Beam Imaging
+primary_ion_current_value:
+- Multiplex Ion Beam Imaging
 processing_protocols_io_doi:
 - CE-MS
 - Cell DIVE
@@ -1372,6 +1419,7 @@ protocols_io_doi:
 - MS (shotgun lipidomics)
 - MS Bottom-Up
 - MS Top-Down
+- Multiplex Ion Beam Imaging
 - MxIF
 - NanoDESI
 - NanoPOTS
@@ -1403,6 +1451,7 @@ reagent_prep_protocols_io_doi:
 - 3D Imaging Mass Cytometry
 - CODEX
 - Imaging Mass Cytometry
+- Multiplex Ion Beam Imaging
 - MxIF
 - seqFISH
 resolution_x_unit:
@@ -1420,6 +1469,7 @@ resolution_x_unit:
 - MS
 - MS Bottom-Up
 - MS Top-Down
+- Multiplex Ion Beam Imaging
 - MxIF
 - NanoDESI
 - NanoPOTS
@@ -1441,6 +1491,7 @@ resolution_x_value:
 - MS
 - MS Bottom-Up
 - MS Top-Down
+- Multiplex Ion Beam Imaging
 - MxIF
 - NanoDESI
 - NanoPOTS
@@ -1462,6 +1513,7 @@ resolution_y_unit:
 - MS
 - MS Bottom-Up
 - MS Top-Down
+- Multiplex Ion Beam Imaging
 - MxIF
 - NanoDESI
 - NanoPOTS
@@ -1483,6 +1535,7 @@ resolution_y_value:
 - MS
 - MS Bottom-Up
 - MS Top-Down
+- Multiplex Ion Beam Imaging
 - MxIF
 - NanoDESI
 - NanoPOTS
@@ -1526,9 +1579,11 @@ rnaseq_assay_method:
 roi_description:
 - 3D Imaging Mass Cytometry
 - Imaging Mass Cytometry
+- Multiplex Ion Beam Imaging
 roi_id:
 - 3D Imaging Mass Cytometry
 - Imaging Mass Cytometry
+- Multiplex Ion Beam Imaging
 sample_quality_metric:
 - bulkATACseq
 sc_isolation_cell_number:
@@ -1620,6 +1675,7 @@ section_prep_protocols_io_doi:
 - MS (shotgun lipidomics)
 - MS Bottom-Up
 - MS Top-Down
+- Multiplex Ion Beam Imaging
 - MxIF
 - NanoDESI
 - PAS microscopy
@@ -1628,6 +1684,7 @@ section_prep_protocols_io_doi:
 segment_data_format:
 - 3D Imaging Mass Cytometry
 - Imaging Mass Cytometry
+- Multiplex Ion Beam Imaging
 sequencing_phix_percent:
 - SNARE-seq2
 - SNARE2-RNAseq
@@ -1695,6 +1752,7 @@ sequencing_reagent_kit:
 signal_type:
 - 3D Imaging Mass Cytometry
 - Imaging Mass Cytometry
+- Multiplex Ion Beam Imaging
 source_project:
 - SNARE2-RNAseq
 - scRNAseq
@@ -1733,6 +1791,7 @@ stain:
 - PAS microscopy
 start_datetime:
 - Imaging Mass Cytometry
+- Multiplex Ion Beam Imaging
 step_z_value:
 - Light Sheet
 tissue_id:
@@ -1755,6 +1814,7 @@ tissue_id:
 - MS (shotgun lipidomics)
 - MS Bottom-Up
 - MS Top-Down
+- Multiplex Ion Beam Imaging
 - MxIF
 - NanoDESI
 - NanoPOTS
@@ -1819,6 +1879,7 @@ version:
 - MS (shotgun lipidomics)
 - MS Bottom-Up
 - MS Top-Down
+- Multiplex Ion Beam Imaging
 - MxIF
 - NanoDESI
 - NanoPOTS
