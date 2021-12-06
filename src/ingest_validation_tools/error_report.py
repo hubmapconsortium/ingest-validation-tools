@@ -13,25 +13,33 @@ Dumper.ignore_aliases = lambda *args: True
 
 
 class ErrorReport:
-    def __init__(self, errors_dict):
+    def __init__(self, errors_dict, effective_tsv_paths={}):
         self.errors = errors_dict
+        self.effective_tsv_paths = effective_tsv_paths
         if self.errors:
             self.errors['Hint'] = \
                 'If validation fails because of extra whitespace in the TSV, try:\n' \
                 'src/cleanup_whitespace.py --tsv_in original.tsv --tsv_out clean.tsv'
 
+    def _no_errors(self):
+        schema_versions = ' and '.join(
+            f'{sv.schema_name}-v{sv.version} ({Path(path).name})'
+            for path, sv in self.effective_tsv_paths.items()
+        )
+        return f'No errors! {schema_versions}\n'
+
     def _as_list(self):
         return [munge(m) for m in _build_list(self.errors)]
 
     def as_text_list(self):
-        return '\n'.join(self._as_list()) or 'No errors!\n'
+        return '\n'.join(self._as_list()) or self._no_errors()
 
     def as_yaml(self):
         return dump(self.errors, sort_keys=False)
 
     def as_text(self):
         if not self.errors:
-            return 'No errors!\n'
+            return self._no_errors()
         else:
             return self.as_yaml()
 
@@ -40,7 +48,7 @@ class ErrorReport:
 
     def as_html_fragment(self):
         '''
-        >>> print(ErrorReport({}).as_html_fragment())
+        >>> print(ErrorReport({}).as_html_fragment().strip())
         No errors!
 
         >>> report = ErrorReport({'really': 'simple'})
@@ -54,7 +62,7 @@ class ErrorReport:
         </dl>
         '''
         if not self.errors:
-            return 'No errors!'
+            return self._no_errors()
         doc, tag, _, line = Doc().ttl()
         _build_doc(tag, line, self.errors)
         return indent(doc.getvalue())

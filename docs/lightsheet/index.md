@@ -11,7 +11,7 @@ Related files:
 - [📝 Excel template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/main/docs/lightsheet/lightsheet-metadata.xlsx): For metadata entry.
 - [📝 TSV template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/main/docs/lightsheet/lightsheet-metadata.tsv): Alternative for metadata entry.
 
-Lightsheet uploads require metadata on the antibodies used in the assay to be provided in an Antibodies TSV. For Lightsheet, the `channel_id` is the name of the fluorophore tag on the antibody.
+Lightsheet uploads require metadata on the antibodies used in the assay to be provided in an Antibodies TSV. For Lightsheet, the `channel_id` is the name of the fluorophore tag on the antibody. For an example of a lightsheet dataset & directory, see this  [example lightsheet dataset](https://portal.hubmapconsortium.org/browse/dataset/b6eba6afe660a8a85c2648e368b0cf9f#files)  and click the Globus link. 
 Version 2 has 5 new fields for metadata describing the Z-dimension specifically relevant to lightsheet. These values provide the total number of image sections captured, the incremental value and unit of distance between the sections and the value and unit of the total distance captured.
 The other fields function the same way for all assays using antibodies. For more information, see the [Antibodies TSV documentation](../antibodies).
 
@@ -19,21 +19,21 @@ The other fields function the same way for all assays using antibodies. For more
 
 | pattern | required? | description |
 | --- | --- | --- |
-| `Level0/Channel[^/]+/[^/]+\.csv` | ✓ | **[QA/QC]** Contains metadata and channel info. |
-| `Level0/Channel[^/]+/[^/]+\.czi` |  | Zeiss raw image file. File is optional. |
-| `Level0/Channel[^/]+/[^/]+\.ome.tiff` | ✓ | Raw image file. |
-| `Level1/Channel[^/]+/[^/]+\.tif` |  | Stitched image. File is optional. |
-| `Level1/Channel[^/]+/[^/]+\.mp4` |  | Stitched image. File is optional. |
-| `Level2/Channel[^/]+/[^/]+\.csv` |  | **[QA/QC]** Contains file, parent and bounds. Required when level 2 is populated. File is optional. |
-| `Level2/Channel[^/]+/[^/]+\.obj` |  | Segmentation mask. File is optional. |
-| `Level2/Channel[^/]+/[^/]+\.stl` |  | Segmentation mask. File is optional. |
-| `Level2/Channel[^/]+/[^/]+\.ome.tiff` |  | Segmentation mask. File is optional. |
-| `Level3/Channel[^/]+/[^/]+\.csv` |  | **[QA/QC]** Contains file, parent and bounds. Required when level 3 is populated. File is optional. |
-| `Level3/Channel[^/]+/[^/]+\.obj` |  | Annotation file. File is optional. |
-| `Level3/Channel[^/]+/[^/]+\.stl` |  | Annotation file. File is optional. |
-| `Level3/Channel[^/]+/[^/]+\.ome.tiff` |  | Annotation file. File is optional. |
-| `extras/.*` |  | Free-form descriptive information supplied by the TMC |
-| `extras/thumbnail\.(png\|jpg)` |  | Optional thumbnail image which may be shown in search interface |
+| <code>Level0/Channel[^/]+/[^/]+\.csv</code> | ✓ | **[QA/QC]** Contains metadata and channel info. |
+| <code>Level0/Channel[^/]+/[^/]+\.czi</code> |  | Zeiss raw image file. File is optional. |
+| <code>Level0/Channel[^/]+/[^/]+\.ome.tiff</code> | ✓ | Raw image file. |
+| <code>Level1/Channel[^/]+/[^/]+\.tif</code> |  | Stitched image. File is optional. |
+| <code>Level1/Channel[^/]+/[^/]+\.mp4</code> |  | Stitched image. File is optional. |
+| <code>Level2/Channel[^/]+/[^/]+\.csv</code> |  | **[QA/QC]** Contains file, parent and bounds. Required when level 2 is populated. File is optional. |
+| <code>Level2/Channel[^/]+/[^/]+\.obj</code> |  | Segmentation mask. File is optional. |
+| <code>Level2/Channel[^/]+/[^/]+\.stl</code> |  | Segmentation mask. File is optional. |
+| <code>Level2/Channel[^/]+/[^/]+\.ome.tiff</code> |  | Segmentation mask. File is optional. |
+| <code>Level3/Channel[^/]+/[^/]+\.csv</code> |  | **[QA/QC]** Contains file, parent and bounds. Required when level 3 is populated. File is optional. |
+| <code>Level3/Channel[^/]+/[^/]+\.obj</code> |  | Annotation file. File is optional. |
+| <code>Level3/Channel[^/]+/[^/]+\.stl</code> |  | Annotation file. File is optional. |
+| <code>Level3/Channel[^/]+/[^/]+\.ome.tiff</code> |  | Annotation file. File is optional. |
+| <code>extras/.*</code> |  | Free-form descriptive information supplied by the TMC |
+| <code>extras/thumbnail\.(png&#124;jpg)</code> |  | Optional thumbnail image which may be shown in search interface |
 
 ## Metadata schema
 
@@ -110,7 +110,7 @@ HuBMAP Display ID of the donor of the assayed tissue. Example: `ABC123`.
 
 | constraint | value |
 | --- | --- |
-| pattern (regular expression) | `[A-Z]+[0-9]+` |
+| pattern (regular expression) | <code>[A-Z]+[0-9]+</code> |
 | required | `True` |
 
 <a name="tissue_id"></a>
@@ -119,7 +119,7 @@ HuBMAP Display ID of the assayed tissue. Example: `ABC123-BL-1-2-3_456`.
 
 | constraint | value |
 | --- | --- |
-| pattern (regular expression) | `([A-Z]+[0-9]+)-[A-Z]{2}\d*(-\d+)+(_\d+)?` |
+| pattern (regular expression) | <code>([A-Z]+[0-9]+)-[A-Z]{2}\d*(-\d+)+(_\d+)?</code> |
 | required | `True` |
 
 <a name="execution_datetime"></a>
@@ -139,8 +139,8 @@ DOI for protocols.io referring to the protocol for this assay.
 | constraint | value |
 | --- | --- |
 | required | `True` |
-| pattern (regular expression) | `10\.17504/.*` |
-| url | prefix: `https://dx.doi.org/` |
+| pattern (regular expression) | <code>10\.17504/.*</code> |
+| url | prefix: <code>https://dx.doi.org/</code> |
 
 <a name="operator"></a>
 ##### [`operator`](#operator)
@@ -388,7 +388,7 @@ HuBMAP Display ID of the donor of the assayed tissue. Example: `ABC123`.
 
 | constraint | value |
 | --- | --- |
-| pattern (regular expression) | `[A-Z]+[0-9]+` |
+| pattern (regular expression) | <code>[A-Z]+[0-9]+</code> |
 | required | `True` |
 
 <a name="tissue_id"></a>
@@ -397,7 +397,7 @@ HuBMAP Display ID of the assayed tissue. Example: `ABC123-BL-1-2-3_456`.
 
 | constraint | value |
 | --- | --- |
-| pattern (regular expression) | `([A-Z]+[0-9]+)-[A-Z]{2}\d*(-\d+)+(_\d+)?` |
+| pattern (regular expression) | <code>([A-Z]+[0-9]+)-[A-Z]{2}\d*(-\d+)+(_\d+)?</code> |
 | required | `True` |
 
 <a name="execution_datetime"></a>
@@ -417,8 +417,8 @@ DOI for protocols.io referring to the protocol for this assay.
 | constraint | value |
 | --- | --- |
 | required | `True` |
-| pattern (regular expression) | `10\.17504/.*` |
-| url | prefix: `https://dx.doi.org/` |
+| pattern (regular expression) | <code>10\.17504/.*</code> |
+| url | prefix: <code>https://dx.doi.org/</code> |
 
 <a name="operator"></a>
 ##### [`operator`](#operator)
@@ -622,7 +622,7 @@ HuBMAP Display ID of the donor of the assayed tissue. Example: `ABC123`.
 
 | constraint | value |
 | --- | --- |
-| pattern (regular expression) | `[A-Z]+[0-9]+` |
+| pattern (regular expression) | <code>[A-Z]+[0-9]+</code> |
 | required | `True` |
 
 <a name="tissue_id"></a>
@@ -631,7 +631,7 @@ HuBMAP Display ID of the assayed tissue. Example: `ABC123-BL-1-2-3_456`.
 
 | constraint | value |
 | --- | --- |
-| pattern (regular expression) | `([A-Z]+[0-9]+)-[A-Z]{2}\d*(-\d+)+(_\d+)?` |
+| pattern (regular expression) | <code>([A-Z]+[0-9]+)-[A-Z]{2}\d*(-\d+)+(_\d+)?</code> |
 | required | `True` |
 
 <a name="execution_datetime"></a>
@@ -651,8 +651,8 @@ DOI for protocols.io referring to the protocol for this assay.
 | constraint | value |
 | --- | --- |
 | required | `True` |
-| pattern (regular expression) | `10\.17504/.*` |
-| url | prefix: `https://dx.doi.org/` |
+| pattern (regular expression) | <code>10\.17504/.*</code> |
+| url | prefix: <code>https://dx.doi.org/</code> |
 
 <a name="operator"></a>
 ##### [`operator`](#operator)

@@ -17,16 +17,16 @@ This schema is for imaging mass spectrometry (IMS).
 
 | pattern | required? | description |
 | --- | --- | --- |
-| `csv/[^/]+\.csv` | ✓ | Intensities M/Z values with Pixel location |
-| `imzML/[^/]+\.ibd` | ✓ | Mass spec data saved in a binary format. |
-| `imzML/[^/]+\.imzML` | ✓ | Mass spec metadata saved in XML format. Index to .ibd file. |
-| `metadata/[^/]+_LipidAssignments\.xlsx` | ✓ | Microsoft Excel file containing the m/z, assignment, lipid class, etc. |
-| `metadata/[^/]+_meta\.json` | ✓ | JSON file containing the machine parameters/settings |
-| `metadata/[^/]+_microscopy\.txt` | ✓ | Transformations/map back to autofluorescence microscopy (related) data |
-| `ometiffs/[^/]+_multilayer\.ome\.tiff` | ✓ | Aligned multilayer OME TIFF file of the IMS data |
-| `ometiffs/separate/[^/]+_mz[^/]+\.ome\.tiff` | ✓ | Each file is a different M/Z value. |
-| `extras/.*` |  | Free-form descriptive information supplied by the TMC |
-| `extras/thumbnail\.(png\|jpg)` |  | Optional thumbnail image which may be shown in search interface |
+| <code>csv/[^/]+\.csv</code> | ✓ | Intensities M/Z values with Pixel location |
+| <code>imzML/[^/]+\.ibd</code> | ✓ | Mass spec data saved in a binary format. |
+| <code>imzML/[^/]+\.imzML</code> | ✓ | Mass spec metadata saved in XML format. Index to .ibd file. |
+| <code>metadata/[^/]+_LipidAssignments\.xlsx</code> | ✓ | Microsoft Excel file containing the m/z, assignment, lipid class, etc. |
+| <code>metadata/[^/]+_meta\.json</code> | ✓ | JSON file containing the machine parameters/settings |
+| <code>metadata/[^/]+_microscopy\.txt</code> | ✓ | Transformations/map back to autofluorescence microscopy (related) data |
+| <code>ometiffs/[^/]+_multilayer\.ome\.tiff</code> | ✓ | Aligned multilayer OME TIFF file of the IMS data |
+| <code>ometiffs/separate/[^/]+_mz[^/]+\.ome\.tiff</code> | ✓ | Each file is a different M/Z value. |
+| <code>extras/.*</code> |  | Free-form descriptive information supplied by the TMC |
+| <code>extras/thumbnail\.(png&#124;jpg)</code> |  | Optional thumbnail image which may be shown in search interface |
 
 ## Metadata schema
 
@@ -113,7 +113,7 @@ HuBMAP Display ID of the donor of the assayed tissue. Example: `ABC123`.
 
 | constraint | value |
 | --- | --- |
-| pattern (regular expression) | `[A-Z]+[0-9]+` |
+| pattern (regular expression) | <code>[A-Z]+[0-9]+</code> |
 | required | `True` |
 
 <a name="tissue_id"></a>
@@ -122,7 +122,7 @@ HuBMAP Display ID of the assayed tissue. Example: `ABC123-BL-1-2-3_456`.
 
 | constraint | value |
 | --- | --- |
-| pattern (regular expression) | `([A-Z]+[0-9]+)-[A-Z]{2}\d*(-\d+)+(_\d+)?` |
+| pattern (regular expression) | <code>([A-Z]+[0-9]+)-[A-Z]{2}\d*(-\d+)+(_\d+)?</code> |
 | required | `True` |
 
 <a name="execution_datetime"></a>
@@ -142,8 +142,8 @@ DOI for protocols.io referring to the protocol for this assay.
 | constraint | value |
 | --- | --- |
 | required | `True` |
-| pattern (regular expression) | `10\.17504/.*` |
-| url | prefix: `https://dx.doi.org/` |
+| pattern (regular expression) | <code>10\.17504/.*</code> |
+| url | prefix: <code>https://dx.doi.org/</code> |
 
 <a name="operator"></a>
 ##### [`operator`](#operator)
@@ -410,8 +410,8 @@ DOI for protocols.io referring to the protocol for preparing tissue sections for
 | constraint | value |
 | --- | --- |
 | required | `True` |
-| pattern (regular expression) | `10\.17504/.*` |
-| url | prefix: `https://dx.doi.org/` |
+| pattern (regular expression) | <code>10\.17504/.*</code> |
+| url | prefix: <code>https://dx.doi.org/</code> |
 
 <a name="processing_protocols_io_doi"></a>
 ##### [`processing_protocols_io_doi`](#processing_protocols_io_doi)
@@ -420,8 +420,8 @@ DOI for analysis protocols.io for this assay. Leave blank if not applicable.
 | constraint | value |
 | --- | --- |
 | required | `False` |
-| pattern (regular expression) | `10\.17504/.*` |
-| url | prefix: `https://dx.doi.org/` |
+| pattern (regular expression) | <code>10\.17504/.*</code> |
+| url | prefix: <code>https://dx.doi.org/</code> |
 
 <a name="overall_protocols_io_doi"></a>
 ##### [`overall_protocols_io_doi`](#overall_protocols_io_doi)
@@ -430,8 +430,8 @@ DOI for protocols.io for the overall process.
 | constraint | value |
 | --- | --- |
 | required | `True` |
-| pattern (regular expression) | `10\.17504/.*` |
-| url | prefix: `https://dx.doi.org/` |
+| pattern (regular expression) | <code>10\.17504/.*</code> |
+| url | prefix: <code>https://dx.doi.org/</code> |
 
 <a name="contributors_path"></a>
 ##### [`contributors_path`](#contributors_path)
@@ -480,7 +480,7 @@ HuBMAP Display ID of the donor of the assayed tissue. Example: `ABC123`.
 
 | constraint | value |
 | --- | --- |
-| pattern (regular expression) | `[A-Z]+[0-9]+` |
+| pattern (regular expression) | <code>[A-Z]+[0-9]+</code> |
 | required | `True` |
 
 <a name="tissue_id"></a>
@@ -489,7 +489,7 @@ HuBMAP Display ID of the assayed tissue. Example: `ABC123-BL-1-2-3_456`.
 
 | constraint | value |
 | --- | --- |
-| pattern (regular expression) | `([A-Z]+[0-9]+)-[A-Z]{2}\d*(-\d+)+(_\d+)?` |
+| pattern (regular expression) | <code>([A-Z]+[0-9]+)-[A-Z]{2}\d*(-\d+)+(_\d+)?</code> |
 | required | `True` |
 
 <a name="execution_datetime"></a>
@@ -509,8 +509,8 @@ DOI for protocols.io referring to the protocol for this assay.
 | constraint | value |
 | --- | --- |
 | required | `True` |
-| pattern (regular expression) | `10\.17504/.*` |
-| url | prefix: `https://dx.doi.org/` |
+| pattern (regular expression) | <code>10\.17504/.*</code> |
+| url | prefix: <code>https://dx.doi.org/</code> |
 
 <a name="operator"></a>
 ##### [`operator`](#operator)
@@ -713,8 +713,8 @@ DOI for protocols.io referring to the protocol for preparing tissue sections for
 | constraint | value |
 | --- | --- |
 | required | `True` |
-| pattern (regular expression) | `10\.17504/.*` |
-| url | prefix: `https://dx.doi.org/` |
+| pattern (regular expression) | <code>10\.17504/.*</code> |
+| url | prefix: <code>https://dx.doi.org/</code> |
 
 <a name="overall_protocols_io_doi"></a>
 ##### [`overall_protocols_io_doi`](#overall_protocols_io_doi)
@@ -723,8 +723,8 @@ DOI for protocols.io for the overall process.
 | constraint | value |
 | --- | --- |
 | required | `True` |
-| pattern (regular expression) | `10\.17504/.*` |
-| url | prefix: `https://dx.doi.org/` |
+| pattern (regular expression) | <code>10\.17504/.*</code> |
+| url | prefix: <code>https://dx.doi.org/</code> |
 
 <a name="contributors_path"></a>
 ##### [`contributors_path`](#contributors_path)
@@ -757,7 +757,7 @@ HuBMAP Display ID of the donor of the assayed tissue. Example: `ABC123`.
 
 | constraint | value |
 | --- | --- |
-| pattern (regular expression) | `[A-Z]+[0-9]+` |
+| pattern (regular expression) | <code>[A-Z]+[0-9]+</code> |
 | required | `True` |
 
 <a name="tissue_id"></a>
@@ -766,7 +766,7 @@ HuBMAP Display ID of the assayed tissue. Example: `ABC123-BL-1-2-3_456`.
 
 | constraint | value |
 | --- | --- |
-| pattern (regular expression) | `([A-Z]+[0-9]+)-[A-Z]{2}\d*(-\d+)+(_\d+)?` |
+| pattern (regular expression) | <code>([A-Z]+[0-9]+)-[A-Z]{2}\d*(-\d+)+(_\d+)?</code> |
 | required | `True` |
 
 <a name="execution_datetime"></a>
@@ -786,8 +786,8 @@ DOI for protocols.io referring to the protocol for this assay.
 | constraint | value |
 | --- | --- |
 | required | `True` |
-| pattern (regular expression) | `10\.17504/.*` |
-| url | prefix: `https://dx.doi.org/` |
+| pattern (regular expression) | <code>10\.17504/.*</code> |
+| url | prefix: <code>https://dx.doi.org/</code> |
 
 <a name="operator"></a>
 ##### [`operator`](#operator)
@@ -990,8 +990,8 @@ DOI for protocols.io referring to the protocol for preparing tissue sections for
 | constraint | value |
 | --- | --- |
 | required | `True` |
-| pattern (regular expression) | `10\.17504/.*` |
-| url | prefix: `https://dx.doi.org/` |
+| pattern (regular expression) | <code>10\.17504/.*</code> |
+| url | prefix: <code>https://dx.doi.org/</code> |
 
 <a name="overall_protocols_io_doi"></a>
 ##### [`overall_protocols_io_doi`](#overall_protocols_io_doi)
@@ -1000,8 +1000,8 @@ DOI for protocols.io for the overall process.
 | constraint | value |
 | --- | --- |
 | required | `True` |
-| pattern (regular expression) | `10\.17504/.*` |
-| url | prefix: `https://dx.doi.org/` |
+| pattern (regular expression) | <code>10\.17504/.*</code> |
+| url | prefix: <code>https://dx.doi.org/</code> |
 
 <a name="contributors_path"></a>
 ##### [`contributors_path`](#contributors_path)

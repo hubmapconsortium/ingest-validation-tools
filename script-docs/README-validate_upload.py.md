@@ -7,7 +7,7 @@ usage: validate_upload.py [-h] --local_directory PATH
                           [--encoding ENCODING]
                           [--plugin_directory PLUGIN_DIRECTORY]
                           [--output {as_browser,as_html_doc,as_html_fragment,as_md,as_text,as_text_list,as_yaml}]
-                          [--add_notes]
+                          [--add_notes] [--save_report]
 
 Validate a HuBMAP upload, both the metadata TSVs and the datasets.
 If you only want to validate a TSV in isolation, look at validate_tsv.py.
@@ -25,8 +25,8 @@ optional arguments:
                         Matching files in each dataset directory will be
                         ignored. Default: .*
   --upload_ignore_globs GLOB [GLOB ...]
-                        Matching sub-directories in the upload will be
-                        ignored.
+                        Matching files and subdirectories in the upload will
+                        be ignored.
   --encoding ENCODING   Character-encoding to use for parsing TSVs. Default:
                         ascii. Work-in-progress:
                         https://github.com/hubmapconsortium/ingest-validation-
@@ -35,6 +35,8 @@ optional arguments:
                         Directory of plugin tests.
   --output {as_browser,as_html_doc,as_html_fragment,as_md,as_text,as_text_list,as_yaml}
   --add_notes           Append a context note to error reports.
+  --save_report         Save the report; Adding "--upload_ignore_globs
+                        'report-*.txt'" is necessary to revalidate.
 
 Typical usage:
   --local_directory: Used by lab before upload, and on Globus after upload.
