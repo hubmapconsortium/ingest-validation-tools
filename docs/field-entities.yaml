@@ -59,6 +59,7 @@ desi_solvent: dataset
 desi_solvent_flow_rate: dataset
 desi_solvent_flow_rate_unit: dataset
 dilution: antibodies
+dms: dataset
 dna_assay_input_unit: dataset
 dna_assay_input_value: dataset
 donor_id: dataset
@@ -80,6 +81,7 @@ is_contact: contributors
 is_targeted: dataset
 is_technical_replicate: dataset
 kidney_donor_profile_index_value: donor
+label_name: dataset
 labeling: dataset
 last_name: contributors
 lc_column_model: dataset

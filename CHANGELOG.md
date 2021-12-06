@@ -2,6 +2,7 @@
 
 ## v0.0.13 - in progress
 - Add MIBI schema.
+- Add fields for LCMS v3.
 - Consistent rendering of code blocks in github pages and github preview.
 - Warn about trailing slashes in paths.
 - Optionally, dump validation report at the top of the upload.
