@@ -24,6 +24,9 @@ age_value: The time elapsed since birth.
 analyte_class: Analytes are the target molecules being measured with the assay.
 antibodies_path: Relative path to file with antibody information for this dataset.
 antibody_name: Anti-(target name) antibody. Not validated or used down-stream.
+area_normalized_ion_dose_unit: Area normalized ion dose unit
+area_normalized_ion_dose_value: Number of primary ions delivered to the sample per
+  unit area
 assay_category: 'Each assay is placed into one of the following 4 general categories:
   generation of images of microscopic entities, identification & quantitation of molecules
   by mass spectrometry, imaging mass spectrometry, and determination of nucleotide
@@ -237,6 +240,14 @@ pathologist_report: Further details on organ level QC checks.
 perfusion_solution: Type of solution that was used to perfuse the organ.
 pi: Name of the principal investigator responsible for the data.
 pi_email: Email address for the principal investigator.
+pixel_dwell_time_unit: Pixel dwell time unit.
+pixel_dwell_time_value: Resident time of primary ion beam on each pixel.
+pixel_size_x_unit: Width unit of the pixel or voxel measurement.
+pixel_size_x_value: Width value of the pixel or voxel measurement (distinct from the
+  image resolution_x_value).
+pixel_size_y_unit: Length unit of the pixel or voxel measurement.
+pixel_size_y_value: Length value of the pixel or voxel measurement (distinct from
+  the image resolution_y_value).
 polarity: The polarity of the mass analysis (positive or negative ion modes)
 preparation_instrument_model: The model number/name of the instrument used to prepare
   the sample for the assay
@@ -247,6 +258,9 @@ preparation_maldi_matrix: The matrix is a compound of crystallized molecules tha
   carrying it along the flight tube so it can be detected.
 preparation_type: Common methods of depositing matrix for MALDI imaging include robotic
   spotting, electrospray deposition, and spray-coating with an airbrush.
+primary_ion: Primary ion.
+primary_ion_current_unit: Primary ion current unit, typically nA or pA
+primary_ion_current_value: Primary ion current value.
 procedure_date: Date of procedure to procure organ.
 processing_protocols_io_doi: DOI for analysis protocols.io for this assay.
 processing_search: Software for analyzing and searching LC-MS/MS omics data

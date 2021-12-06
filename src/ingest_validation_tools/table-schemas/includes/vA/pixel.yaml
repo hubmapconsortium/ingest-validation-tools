@@ -1,0 +1,21 @@
+- name: pixel_dwell_time_value
+  description: Resident time of primary ion beam on each pixel.
+- name: pixel_dwell_time_unit
+  description: Pixel dwell time unit.
+  constraints:
+    enum:
+      - ms
+- name: pixel_size_x_value
+  description: Width value of the pixel or voxel measurement (distinct from the image resolution_x_value).
+- name: pixel_size_x_unit
+  description: Width unit of the pixel or voxel measurement.
+  constraints:
+    enum:
+      - nm
+- name: pixel_size_y_value
+  description: Length value of the pixel or voxel measurement (distinct from the image resolution_y_value).
+- name: pixel_size_y_unit
+  description: Length unit of the pixel or voxel measurement.
+  constraints:
+    enum:
+      - nm

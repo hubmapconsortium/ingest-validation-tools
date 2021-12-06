@@ -15,6 +15,7 @@ DESI
 GC-MS
 LC-MS (metabolomics)
 MS (shotgun lipidomics)
+Multiplex Ion Beam Imaging
 NanoDESI
 NanoPOTS
 scATACseq
@@ -59,6 +60,7 @@ shared_enums = {
         'MxIF',
         'MALDI-IMS',
         'MS (shotgun lipidomics)',
+        'Multiplex Ion Beam Imaging',
         'NanoDESI',
         'NanoPOTS',
         'PAS microscopy',
