@@ -57,6 +57,7 @@ desi_solvent: string
 desi_solvent_flow_rate: number
 desi_solvent_flow_rate_unit: string
 dilution: string
+dms: boolean
 dna_assay_input_unit: string
 dna_assay_input_value: number
 donor_id: string
@@ -78,6 +79,7 @@ is_contact: boolean
 is_targeted: boolean
 is_technical_replicate: boolean
 kidney_donor_profile_index_value: number
+label_name: string
 labeling: string
 last_name: string
 lc_column_model: string
