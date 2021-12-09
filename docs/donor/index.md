@@ -26,19 +26,31 @@ Most definitions taken from https://ncit.nci.nih.gov/ncitbrowser/pages/home.jsf?
 
 <blockquote markdown="1">
 
+[`age_unit`](#age_unit)<br>
 [`age_value`](#age_value)<br>
 [`blood_type`](#blood_type)<br>
 [`body_mass_index_value`](#body_mass_index_value)<br>
 [`cause_of_death`](#cause_of_death)<br>
 [`height_unit`](#height_unit)<br>
+[`height_value`](#height_value)<br>
 [`kidney_donor_profile_index_value`](#kidney_donor_profile_index_value)<br>
 [`mechanism_of_injury`](#mechanism_of_injury)<br>
 [`medical_history`](#medical_history)<br>
 [`race`](#race)<br>
 [`sex`](#sex)<br>
+[`weight_unit`](#weight_unit)<br>
 [`weight_value`](#weight_value)<br>
 
 </blockquote>
+
+<a name="age_unit"></a>
+##### [`age_unit`](#age_unit)
+Unit for age measurement. Leave blank if not applicable.
+
+| constraint | value |
+| --- | --- |
+| required | `False` |
+| units for | `age_value` |
 
 <a name="age_value"></a>
 ##### [`age_value`](#age_value)
@@ -86,10 +98,20 @@ The circumstance or condition that caused death.
 
 <a name="height_unit"></a>
 ##### [`height_unit`](#height_unit)
+Unit for height measurement. Leave blank if not applicable.
+
+| constraint | value |
+| --- | --- |
+| required | `False` |
+| units for | `height_value` |
+
+<a name="height_value"></a>
+##### [`height_value`](#height_value)
 The vertical measurement or distance from the base to the top of a subject or participant.
 
 | constraint | value |
 | --- | --- |
+| type | `number` |
 | required | `True` |
 
 <a name="kidney_donor_profile_index_value"></a>
@@ -132,6 +154,15 @@ Biological sex at birth: male or female or other.
 | constraint | value |
 | --- | --- |
 | required | `True` |
+
+<a name="weight_unit"></a>
+##### [`weight_unit`](#weight_unit)
+Unit for weight measurement. Leave blank if not applicable.
+
+| constraint | value |
+| --- | --- |
+| required | `False` |
+| units for | `weight_value` |
 
 <a name="weight_value"></a>
 ##### [`weight_value`](#weight_value)

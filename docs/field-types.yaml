@@ -8,6 +8,7 @@ acquisition_id: string
 acquisition_instrument_model: string
 acquisition_instrument_vendor: string
 affiliation: string
+age_unit: string
 age_value: number
 analyte_class: string
 antibodies_path: string
@@ -72,6 +73,7 @@ gdna_fragmentation_quality_assurance: string
 guard_column: string
 health_status: string
 height_unit: string
+height_value: number
 increment_z_unit: string
 increment_z_value: number
 internal_standard: string
@@ -221,5 +223,6 @@ version: string
 vital_state: string
 warm_ischemia_time_unit: string
 warm_ischemia_time_value: number
+weight_unit: string
 weight_value: number
 
