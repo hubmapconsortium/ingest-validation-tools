@@ -12,6 +12,8 @@ age_value: number
 analyte_class: string
 antibodies_path: string
 antibody_name: string
+area_normalized_ion_dose_unit: string
+area_normalized_ion_dose_value: number
 assay_category: string
 assay_type: string
 bead_barcode_offset: string
@@ -57,6 +59,7 @@ desi_solvent: string
 desi_solvent_flow_rate: number
 desi_solvent_flow_rate_unit: string
 dilution: string
+dms: boolean
 dna_assay_input_unit: string
 dna_assay_input_value: number
 donor_id: string
@@ -78,6 +81,7 @@ is_contact: boolean
 is_targeted: boolean
 is_technical_replicate: boolean
 kidney_donor_profile_index_value: number
+label_name: string
 labeling: string
 last_name: string
 lc_column_model: string
@@ -144,11 +148,20 @@ pathologist_report: string
 perfusion_solution: string
 pi: string
 pi_email: string
+pixel_dwell_time_unit: string
+pixel_dwell_time_value: number
+pixel_size_x_unit: string
+pixel_size_x_value: number
+pixel_size_y_unit: string
+pixel_size_y_value: number
 polarity: string
 preparation_instrument_model: string
 preparation_instrument_vendor: string
 preparation_maldi_matrix: string
 preparation_type: string
+primary_ion: string
+primary_ion_current_unit: string
+primary_ion_current_value: number
 procedure_date: date
 processing_protocols_io_doi: string
 processing_search: string

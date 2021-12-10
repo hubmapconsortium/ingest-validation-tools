@@ -1,0 +1,13 @@
+- name: primary_ion
+  description: Primary ion.
+  constraints:
+    enum:
+      - Xe
+- name: primary_ion_current_value
+  description: Primary ion current value.
+- name: primary_ion_current_unit
+  description: Primary ion current unit, typically nA or pA
+  constraints:
+    enum:
+      - nA
+      - pA

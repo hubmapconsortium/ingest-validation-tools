@@ -2,6 +2,9 @@
 
 ## v0.0.13 - in progress
 - Deprecate contributors-v0.
+- Add MIBI schema.
+- Add fields for LCMS v3.
+- Consistent rendering of code blocks in github pages and github preview.
 - Warn about trailing slashes in paths.
 - Optionally, dump validation report at the top of the upload.
 - In the report notes, record the version of the checkout.

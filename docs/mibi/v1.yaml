@@ -1,5 +1,5 @@
 # Generated YAML: PRs should not start here!
-doc_url: https://portal.hubmapconsortium.org/docs/assays/maldi-ims
+description_md: This schema is for Multiplex Ion Beam Imaging (MIBI).
 fields:
 - constraints:
     enum:
@@ -105,7 +105,7 @@ fields:
   name: assay_category
 - constraints:
     enum:
-    - MALDI-IMS
+    - Multiplex Ion Beam Imaging
     required: true
   custom_constraints:
     forbid_na: true
@@ -115,8 +115,6 @@ fields:
 - constraints:
     enum:
     - protein
-    - metabolites
-    - lipids
     required: true
   custom_constraints:
     forbid_na: true
@@ -137,109 +135,222 @@ fields:
   custom_constraints:
     forbid_na: true
     sequence_limit: 3
-  description: An acquisition instrument is the device that contains the signal detection
-    hardware and signal processing software. Assays generate signals such as light
-    of various intensities or color or signals representing the molecular mass.
-  heading: Unique to this type
-  name: acquisition_instrument_vendor
+  description: Number of antibodies
+  name: number_of_antibodies
+  type: integer
 - constraints:
     required: true
   custom_constraints:
     forbid_na: true
     sequence_limit: 3
-  description: Manufacturers of an acquisition instrument may offer various versions
-    (models) of that instrument with different features or sensitivities. Differences
-    in features or sensitivities may be relevant to processing or interpretation of
-    the data.
-  name: acquisition_instrument_model
-- constraints:
-    enum:
-    - MALDI
-    - MALDI-2
-    - DESI
-    - SIMS
-    - nESI
-    required: true
-  custom_constraints:
-    forbid_na: true
-    sequence_limit: 3
-  description: The ion source type used for surface sampling (MALDI, MALDI-2, DESI,
-    or SIMS) or LC-MS/MS data acquisition (nESI)
-  name: ms_source
-- constraints:
-    enum:
-    - negative ion mode
-    - positive ion mode
-    - negative and positive ion mode
-    required: true
-  custom_constraints:
-    forbid_na: true
-    sequence_limit: 3
-  description: The polarity of the mass analysis (positive or negative ion modes)
-  name: polarity
+  description: Number of fluorescent channels imaged during each cycle.
+  name: number_of_channels
+  type: integer
 - constraints:
     required: true
   custom_constraints:
     forbid_na: true
     sequence_limit: 3
-  description: The low value of the scanned mass range for MS1. (unitless)
-  name: mz_range_low_value
-  type: number
-- constraints:
-    required: true
-  custom_constraints:
-    forbid_na: true
-    sequence_limit: 3
-  description: The high value of the scanned mass range for MS1. (unitless)
-  name: mz_range_high_value
-  type: number
-- constraints:
-    required: true
-  custom_constraints:
-    forbid_na: true
-    sequence_limit: 3
-  description: The width of a pixel.
+  description: The width of a pixel. (Akoya pixel is 377nm square)
   name: resolution_x_value
   type: number
 - constraints:
     enum:
-    - nm
+    - mm
     - um
+    - nm
     required: false
   custom_constraints:
     forbid_na: true
     sequence_limit: 3
     units_for: resolution_x_value
-  description: The unit of measurement of the width of a pixel.
+  description: The unit of measurement of width of a pixel.(nm)
   name: resolution_x_unit
 - constraints:
     required: true
   custom_constraints:
     forbid_na: true
     sequence_limit: 3
-  description: The height of a pixel
+  description: The height of a pixel. (Akoya pixel is 377nm square)
   name: resolution_y_value
   type: number
 - constraints:
     enum:
-    - nm
+    - mm
     - um
+    - nm
     required: false
   custom_constraints:
     forbid_na: true
     sequence_limit: 3
     units_for: resolution_y_value
-  description: The unit of measurement of the height of a pixel.
+  description: The unit of measurement of height of a pixel. (nm)
   name: resolution_y_unit
 - constraints:
     required: true
   custom_constraints:
     forbid_na: true
     sequence_limit: 3
-  description: Common methods of depositing matrix for MALDI imaging include robotic
-    spotting, electrospray deposition, and spray-coating with an airbrush.
-  name: preparation_type
+  description: Image width value of the ROI acquisition
+  name: max_x_width_value
+  type: number
 - constraints:
+    enum:
+    - um
+    required: false
+  custom_constraints:
+    forbid_na: true
+    sequence_limit: 3
+    units_for: max_x_width_value
+  description: Units of image width of the ROI acquisition
+  name: max_x_width_unit
+- constraints:
+    required: true
+  custom_constraints:
+    forbid_na: true
+    sequence_limit: 3
+  description: Image height value of the ROI acquisition
+  name: max_y_height_value
+  type: number
+- constraints:
+    enum:
+    - um
+    required: false
+  custom_constraints:
+    forbid_na: true
+    sequence_limit: 3
+    units_for: max_y_height_value
+  description: Units of image height of the ROI acquisition
+  name: max_y_height_unit
+- constraints:
+    required: true
+  custom_constraints:
+    forbid_na: true
+    sequence_limit: 3
+  description: A description of the region of interest (ROI) captured in the image.
+  name: roi_description
+- constraints:
+    required: true
+  custom_constraints:
+    forbid_na: true
+    sequence_limit: 3
+  description: Multiple images (1-n) are acquired from regions of interest (ROI1,
+    ROI2, ROI3, etc) on a slide. The roi_id is a number from 1-n representing the
+    ROI captured on a slide.
+  name: roi_id
+  type: number
+- constraints:
+    required: true
+  custom_constraints:
+    forbid_na: true
+    sequence_limit: 3
+  description: The acquisition_id refers to the directory containing the ROI images
+    for a slide. Together, the acquisition_id and the roi_id indicate the slide-ROI
+    represented in the image.
+  name: acquisition_id
+- constraints:
+    enum:
+    - nA*hr/mm2
+    required: false
+  custom_constraints:
+    forbid_na: true
+    sequence_limit: 3
+    units_for: area_normalized_ion_dose_value
+  description: Area normalized ion dose unit
+  name: area_normalized_ion_dose_unit
+- constraints:
+    required: true
+  custom_constraints:
+    forbid_na: true
+    sequence_limit: 3
+  description: Number of primary ions delivered to the sample per unit area
+  name: area_normalized_ion_dose_value
+  type: number
+- constraints:
+    required: true
+  custom_constraints:
+    forbid_na: true
+    sequence_limit: 3
+  description: Numerical data precision in bytes
+  name: data_precision_bytes
+  type: number
+- constraints:
+    required: true
+  custom_constraints:
+    forbid_na: true
+    sequence_limit: 3
+  description: Threshold for dual counting.
+  name: dual_count_start
+  type: number
+- constraints:
+    required: true
+  custom_constraints:
+    forbid_na: true
+    sequence_limit: 3
+  description: Time stamp indicating end of ablation for ROI
+  format: '%Y-%m-%d %H:%M'
+  name: end_datetime
+  type: datetime
+- constraints:
+    required: true
+  custom_constraints:
+    forbid_na: true
+    sequence_limit: 3
+  description: Resident time of primary ion beam on each pixel.
+  name: pixel_dwell_time_value
+  type: number
+- constraints:
+    enum:
+    - ms
+    required: false
+  custom_constraints:
+    forbid_na: true
+    sequence_limit: 3
+    units_for: pixel_dwell_time_value
+  description: Pixel dwell time unit.
+  name: pixel_dwell_time_unit
+- constraints:
+    required: true
+  custom_constraints:
+    forbid_na: true
+    sequence_limit: 3
+  description: Width value of the pixel or voxel measurement (distinct from the image
+    resolution_x_value).
+  name: pixel_size_x_value
+  type: number
+- constraints:
+    enum:
+    - nm
+    required: false
+  custom_constraints:
+    forbid_na: true
+    sequence_limit: 3
+    units_for: pixel_size_x_value
+  description: Width unit of the pixel or voxel measurement.
+  name: pixel_size_x_unit
+- constraints:
+    required: true
+  custom_constraints:
+    forbid_na: true
+    sequence_limit: 3
+  description: Length value of the pixel or voxel measurement (distinct from the image
+    resolution_y_value).
+  name: pixel_size_y_value
+  type: number
+- constraints:
+    enum:
+    - nm
+    required: false
+  custom_constraints:
+    forbid_na: true
+    sequence_limit: 3
+    units_for: pixel_size_y_value
+  description: Length unit of the pixel or voxel measurement.
+  name: pixel_size_y_unit
+- constraints:
+    enum:
+    - Custom
+    - Ionpath
     required: true
   custom_constraints:
     forbid_na: true
@@ -248,6 +359,10 @@ fields:
     assay.
   name: preparation_instrument_vendor
 - constraints:
+    enum:
+    - Custom
+    - MIBIscope 1
+    - MIBIscope 2
     required: true
   custom_constraints:
     forbid_na: true
@@ -256,14 +371,45 @@ fields:
     for the assay
   name: preparation_instrument_model
 - constraints:
+    enum:
+    - Xe
     required: true
   custom_constraints:
     forbid_na: true
     sequence_limit: 3
-  description: The matrix is a compound of crystallized molecules that acts like a
-    buffer between the sample and the laser. It also helps ionize the sample, carrying
-    it along the flight tube so it can be detected.
-  name: preparation_maldi_matrix
+  description: Primary ion.
+  name: primary_ion
+- constraints:
+    required: true
+  custom_constraints:
+    forbid_na: true
+    sequence_limit: 3
+  description: Primary ion current value.
+  name: primary_ion_current_value
+  type: number
+- constraints:
+    enum:
+    - nA
+    - pA
+    required: false
+  custom_constraints:
+    forbid_na: true
+    sequence_limit: 3
+    units_for: primary_ion_current_value
+  description: Primary ion current unit, typically nA or pA
+  name: primary_ion_current_unit
+- constraints:
+    pattern: 10\.17504/.*
+    required: true
+  custom_constraints:
+    forbid_na: true
+    sequence_limit: 3
+    url:
+      prefix: https://dx.doi.org/
+  description: DOI for protocols.io referring to the protocol for preparing reagents
+    for the assay.
+  name: reagent_prep_protocols_io_doi
+  type: string
 - constraints:
     pattern: 10\.17504/.*
     required: true
@@ -277,16 +423,36 @@ fields:
   name: section_prep_protocols_io_doi
   type: string
 - constraints:
-    pattern: 10\.17504/.*
+    enum:
+    - float
+    - integer
+    - string
     required: true
   custom_constraints:
     forbid_na: true
     sequence_limit: 3
-    url:
-      prefix: https://dx.doi.org/
-  description: DOI for protocols.io for the overall process.
-  name: overall_protocols_io_doi
-  type: string
+  description: This refers to the data type, which is a "float" for the IMC counts.
+  name: segment_data_format
+- constraints:
+    enum:
+    - dual count
+    - pulse count
+    - intensity value
+    required: true
+  custom_constraints:
+    forbid_na: true
+    sequence_limit: 3
+  description: Type of signal measured per channel (usually dual counts)
+  name: signal_type
+- constraints:
+    required: true
+  custom_constraints:
+    forbid_na: true
+    sequence_limit: 3
+  description: Time stamp indicating start of ablation for ROI
+  format: '%Y-%m-%d %H:%M'
+  name: start_datetime
+  type: datetime
 - constraints:
     required: true
   custom_constraints:
