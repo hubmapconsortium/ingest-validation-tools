@@ -107,7 +107,7 @@ Is this individual a contact for DOI purposes?
 </details>
 
 
-<details markdown="1" ><summary><b>Version 0</b></summary>
+<details markdown="1" ><summary><s>Version 0</s> (deprecated)</summary>
 
 
 <a name="affiliation"></a>
