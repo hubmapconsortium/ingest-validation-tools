@@ -36,6 +36,7 @@ fields:
   description: Total number of cell/nuclei yielded post dissociation and enrichment
   type: integer
 - name: rnaseq_assay_input
+  type: integer
   description: Number of cell/nuclei input to the assay
 # include: ../includes/fields/rnaseq_assay_method.yaml
 - name: library_construction_protocols_io_doi

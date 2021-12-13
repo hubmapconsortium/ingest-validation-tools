@@ -126,6 +126,7 @@ fields:
   description: Total number of cell/nuclei yielded post dissociation and enrichment
   type: integer
 - name: rnaseq_assay_input
+  type: integer
   constraints:
     required: false
   description: Number of cell/nuclei input to the assay
