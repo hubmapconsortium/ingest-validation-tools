@@ -1,6 +1,7 @@
 # Changelog
 
 ## v0.0.13 - in progress
+- Add more donor field descriptions.
 - Deprecate contributors-v0.
 - Add MIBI schema.
 - Add fields for LCMS v3.

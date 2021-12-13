@@ -20,6 +20,7 @@ acquisition_instrument_vendor: An acquisition_instrument is the device that cont
   such as light of various intensities or color or signals representing molecular
   mass.
 affiliation: Institutional affiliation
+age_unit: Unit for age measurement.
 age_value: The time elapsed since birth.
 analyte_class: Analytes are the target molecules being measured with the assay.
 antibodies_path: Relative path to file with antibody information for this dataset.
@@ -123,7 +124,8 @@ health_status: "Patient's baseline physical condition prior to immediate event l
   \ healthy subject may have experienced trauma leading to brain death.  As a result\
   \ of organ donation, a sample is collected.  In this scenario, the subject is deemed\
   \ \u201Crelatively healthy.\u201D"
-height_unit: The vertical measurement or distance from the base to the top of a subject
+height_unit: Unit for height measurement.
+height_value: The vertical measurement or distance from the base to the top of a subject
   or participant.
 increment_z_unit: The units of increment z value.
 increment_z_value: The distance between sequential optical sections.
@@ -358,6 +360,7 @@ vital_state: Identify the vital state of the donor.
 warm_ischemia_time_unit: Time unit
 warm_ischemia_time_value: Time interval between cessation of blood flow and cooling
   to 4C.
+weight_unit: Unit for weight measurement.
 weight_value: A measurement that describes the vertical force exerted by a mass of
   the patient as a result of gravity.
 
