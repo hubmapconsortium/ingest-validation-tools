@@ -1,6 +1,7 @@
 # Changelog
 
 ## v0.0.13 - in progress
+- Make more fields explicitly numeric
 - Add more donor field descriptions.
 - Deprecate contributors-v0.
 - Add MIBI schema.

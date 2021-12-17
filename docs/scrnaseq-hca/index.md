@@ -275,6 +275,7 @@ Number of cell/nuclei input to the assay. Leave blank if not applicable.
 
 | constraint | value |
 | --- | --- |
+| type | `integer` |
 | required | `False` |
 
 <a name="rnaseq_assay_method"></a>
