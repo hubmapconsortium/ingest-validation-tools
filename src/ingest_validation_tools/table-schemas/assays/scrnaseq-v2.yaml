@@ -64,8 +64,22 @@ fields:
     pattern: '[ATCG]+(\+[ATCG]+)?'
 # include: ../includes/fields/library_id.yaml
 - name: is_technical_replicate
-  description: Is the sequencing reaction run in repliucate, TRUE or FALSE
+  description: Is the sequencing reaction run in replicate, TRUE or FALSE
   type: boolean
+ - name: umi_read
+  description: Which read file(s) contains the UMI (unique molecular identifier) barcode.
+  constraints:
+    required: TRUE
+- name: umi_offset
+  description: Position(s) in the read at which the umi barcode starts.
+  constraints:
+    required: TRUE
+    type: integer
+- name: umi_size
+  description: Length of the umi barcode in base pairs.
+  constraints:
+    required: TRUE
+    type: integer
 - name: cell_barcode_read
   description: Which read file(s) contains the cell barcode. Multiple cell_barcode_read files must be provided as a comma-delimited list (e.g. file1,file2,file3).
   constraints:
