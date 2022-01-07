@@ -218,6 +218,9 @@ transposition_input: dataset
 transposition_kit_number: dataset
 transposition_method: dataset
 transposition_transposase_source: dataset
+umi_offset: dataset
+umi_read: dataset
+umi_size: dataset
 uniprot_accession_number: antibodies
 vital_state: sample
 warm_ischemia_time_unit: sample

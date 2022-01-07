@@ -1,5 +1,8 @@
 # Changelog
 
+## v0.0.14 - in progress
+- Add UMI fields to scrnaseq schema.
+
 ## v0.0.13 - in progress
 - Make more fields explicitly numeric
 - Add more donor field descriptions.

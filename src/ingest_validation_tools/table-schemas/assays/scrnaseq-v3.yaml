@@ -1,12 +1,12 @@
 doc_url: https://portal.hubmapconsortium.org/docs/assays/rnaseq
-description_md: This schema is for single cell RNA sequencing (scRNAseq).
+description_md: This schema is for single cell RNA sequencing (scRNAseq). v3 adds `umi_*` fields.
 fields:
 - name: version
   heading: Shared by all types
   description: Version of the schema to use when validating this metadata.
   constraints:
     enum:
-      - '2'
+      - '3'
 # include: ../includes/vA/all_assays_wo_version.yaml
 - name: assay_category
   constraints:
