@@ -30,6 +30,20 @@ for ATTR in $ATTR_LIST; do
   rm -rf docs-test
 done
 
+# Test Excel summary:
+# This relies on the YAML created above.
+
+FILE="field-schemas.xlsx"
+echo "Checking $FILE"
+
+mkdir docs-test
+REAL_DEST="docs/$FILE"
+TEST_DEST="docs-test/$FILE"
+REAL_CMD="src/generate_grid.py $REAL_DEST"
+TEST_CMD="src/generate_grid.py $TEST_DEST"
+eval $TEST_CMD || die "Command failed: $TEST_CMD"
+diff $REAL_DEST $TEST_DEST || die "Update needed: $REAL_CMD"
+
 # Test docs:
 
 for TYPE in $(ls -d docs/*); do

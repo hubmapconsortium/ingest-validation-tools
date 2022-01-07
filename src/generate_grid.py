@@ -3,6 +3,7 @@
 import argparse
 from pathlib import Path
 import sys
+from datetime import datetime
 
 from yaml import safe_load
 import xlsxwriter
@@ -29,6 +30,10 @@ def main():
 
     workbook = xlsxwriter.Workbook(args.target)
     worksheet = workbook.add_worksheet('schemas + fields')
+    workbook.set_properties({
+        # So regenerated Excel files will be binary identical:
+        'created': datetime(2000, 1, 1)
+    })
     
     # Set column widths:
     worksheet.set_column(0, 0, 40)
@@ -48,6 +53,7 @@ def main():
                 worksheet.write(row + 1, col + 1, '✓')
 
     workbook.close()
+
 
 if __name__ == "__main__":
     sys.exit(main())  # pragma: no cover
