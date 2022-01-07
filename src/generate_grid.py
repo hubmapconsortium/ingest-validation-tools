@@ -25,16 +25,27 @@ def main():
     for schemas in field_schemas.values():
         all_schemas |= set(schemas)
     
-    schema_cols = list(all_schemas)
+    schema_cols = sorted(all_schemas)
 
     workbook = xlsxwriter.Workbook(args.target)
-    worksheet = workbook.add_worksheet()
+    worksheet = workbook.add_worksheet('schemas + fields')
+    
+    # Set column widths:
+    worksheet.set_column(0, 0, 40)
+    worksheet.set_column(1, len(schema_cols), 2)
+    
+    # Format and write headers:
+    header_format = workbook.add_format({'rotation': 60})
+    worksheet.freeze_panes(1, 1)
+    for col, schema in enumerate(schema_cols):
+        worksheet.write(0, col + 1, schema, header_format)
 
+    # Write body of grid:
     for row, field in enumerate(field_schemas):
-        worksheet.write(row, 0, field)
+        worksheet.write(row + 1, 0, field)
         for col, schema in enumerate(schema_cols):
             if schema in field_schemas[field]:
-                worksheet.write(row, col + 1, 'X')
+                worksheet.write(row + 1, col + 1, '✓')
 
     workbook.close()
 
