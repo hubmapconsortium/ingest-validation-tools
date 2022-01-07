@@ -76,6 +76,7 @@ class DescriptionMapper(Mapper):
     >>> print(mapper.dump_yaml().strip())
     field_name: short desc
     '''
+
     def __init__(self):
         super().__init__()
         self.attr = 'description'
@@ -95,6 +96,7 @@ class TypeMapper(Mapper):
     explicit: fake_type
     implicit: string
     '''
+
     def __init__(self):
         super().__init__()
         self.attr = 'type'
@@ -111,6 +113,7 @@ class EntityMapper(Mapper):
     dataset_field: dataset
     sample_field: sample
     '''
+
     def _skip_field(self, name, attr_value):
         # The version field is unique in that it occurs under multiple
         # entity types: Seems easiest just to skip it,
@@ -159,6 +162,7 @@ class AssayMapper(AbstractSetValuedMapper):
     - A
     - B
     '''
+
     def _get_name_value(self, field, schema_name=None, schema=None):
         assay_type_fields = [
             field for field in schema['fields']
@@ -184,6 +188,7 @@ class SchemaMapper(AbstractSetValuedMapper):
     c_field:
     - C
     '''
+
     def _get_name_value(self, field, schema_name=None, schema=None):
         return field['name'], {schema_name}
 

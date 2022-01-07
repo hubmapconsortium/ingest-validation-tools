@@ -9,7 +9,6 @@ from yaml import safe_load
 import xlsxwriter
 
 
-
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument(
@@ -25,7 +24,7 @@ def main():
     all_schemas = set()
     for schemas in field_schemas.values():
         all_schemas |= set(schemas)
-    
+
     schema_cols = sorted(all_schemas)
 
     workbook = xlsxwriter.Workbook(args.target)
@@ -34,11 +33,11 @@ def main():
         # So regenerated Excel files will be binary identical:
         'created': datetime(2000, 1, 1)
     })
-    
+
     # Set column widths:
     worksheet.set_column(0, 0, 40)
     worksheet.set_column(1, len(schema_cols), 2)
-    
+
     # Format and write headers:
     header_format = workbook.add_format({'rotation': 60})
     worksheet.freeze_panes(1, 1)
