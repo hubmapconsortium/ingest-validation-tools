@@ -1,6 +1,6 @@
 # Changelog
 
-## v0.0.13 - in progress
+## v0.0.13 - 2022-01-07
 - Make more fields explicitly numeric
 - Add more donor field descriptions.
 - Deprecate contributors-v0.
