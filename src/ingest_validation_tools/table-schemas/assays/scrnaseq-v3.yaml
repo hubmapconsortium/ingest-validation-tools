@@ -72,6 +72,8 @@ fields:
     required: FALSE
 - name: umi_read
   description: Which read file(s) contains the UMI (unique molecular identifier) barcode.
+  constraints:
+    pattern: '[^/]+'
 - name: umi_offset
   description: Position(s) in the read at which the umi barcode starts.
   type: integer
