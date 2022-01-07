@@ -16,11 +16,8 @@ GC-MS
 LC-MS (metabolomics)
 MS (shotgun lipidomics)
 Multiplex Ion Beam Imaging
-NanoDESI
-NanoPOTS
 scATACseq
 SIMS-IMS
-SNARE-seq2
 snRNA
 SPLiT-Seq
 TMT (proteomics)
@@ -28,9 +25,7 @@ scRNAseq
 MS Bottom-Up
 MS Top-Down
 LC-MS Top-Down
-LC-MS
 LC-MS Bottom-Up
-MS
 '''
 # TODO: This list should be empty: There should be no unmatched terms.
 

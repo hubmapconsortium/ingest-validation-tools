@@ -5,7 +5,7 @@ die() { set +v; echo "$*" 1>&2 ; sleep 1; exit 1; }
 
 # Test field-descriptions.yaml and field-types.yaml:
 
-for ATTR in 'description' 'type' 'entity' 'assay'; do
+for ATTR in 'description' 'type' 'entity' 'assay' 'schema'; do
   PLURAL="${ATTR}s"
   [ "$PLURAL" == 'entitys' ] && PLURAL='entities'
   REAL_DEST="docs/field-${PLURAL}.yaml"

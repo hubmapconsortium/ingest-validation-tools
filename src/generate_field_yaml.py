@@ -12,7 +12,7 @@ def main():
     parser = argparse.ArgumentParser(
         description='Outputs a YAML dict listing fields and their definitions, or their types.')
     parser.add_argument(
-        '--attr', required=True, choices=['description', 'type', 'assay', 'entity'],
+        '--attr', required=True, choices=['description', 'type', 'assay', 'entity', 'schema'],
         help='Attribute to pull from schemas')
     args = parser.parse_args()
 
@@ -33,6 +33,7 @@ def make_mapper(attr):
         'type': TypeMapper,
         'assay': AssayMapper,
         'entity': EntityMapper,
+        'schema': SchemaMapper,
     }[attr]()
 
 
@@ -121,7 +122,18 @@ class EntityMapper(Mapper):
         return name, 'dataset' if get_is_assay(schema_name) else schema_name
 
 
-class AssayMapper(Mapper):
+class AbstractSetValuedMapper(Mapper):
+    def _skip_field(self, name, attr_value):
+        return len(attr_value) == 0
+
+    def _handle_collision(self, name, attr_value):
+        self.mapping[name] |= attr_value
+
+    def dump_yaml(self):
+        return dump_yaml({k: sorted(list(v)) for k, v in self.mapping.items()})
+
+
+class AssayMapper(AbstractSetValuedMapper):
     '''
     >>> mapper = AssayMapper()
     >>> schema_a = {
@@ -158,14 +170,22 @@ class AssayMapper(Mapper):
         )
         return field['name'], set(value)
 
-    def _skip_field(self, name, attr_value):
-        return len(attr_value) == 0
 
-    def _handle_collision(self, name, attr_value):
-        self.mapping[name] |= attr_value
-
-    def dump_yaml(self):
-        return dump_yaml({k: sorted(list(v)) for k, v in self.mapping.items()})
+class SchemaMapper(AbstractSetValuedMapper):
+    '''
+    >>> mapper = SchemaMapper()
+    >>> mapper.add({'name': 'ab_field'}, schema_name='A')
+    >>> mapper.add({'name': 'ab_field'}, schema_name='B')
+    >>> mapper.add({'name': 'c_field'}, schema_name='C')
+    >>> print(mapper.dump_yaml().strip())
+    ab_field:
+    - A
+    - B
+    c_field:
+    - C
+    '''
+    def _get_name_value(self, field, schema_name=None, schema=None):
+        return field['name'], {schema_name}
 
 
 if __name__ == "__main__":
