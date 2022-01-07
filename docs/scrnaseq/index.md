@@ -362,6 +362,7 @@ Which read file(s) contains the UMI (unique molecular identifier) barcode.
 
 | constraint | value |
 | --- | --- |
+| pattern (regular expression) | <code>[^/]+</code> |
 | required | `True` |
 
 <a name="umi_offset"></a>

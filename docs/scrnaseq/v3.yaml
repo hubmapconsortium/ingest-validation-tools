@@ -288,12 +288,14 @@ fields:
     files must be provided as a comma-delimited list (e.g. file1,file2,file3).
   name: cell_barcode_read
 - constraints:
+    pattern: '[^/]+'
     required: true
   custom_constraints:
     forbid_na: true
     sequence_limit: 3
   description: Which read file(s) contains the UMI (unique molecular identifier) barcode.
   name: umi_read
+  type: string
 - constraints:
     required: true
   custom_constraints:
