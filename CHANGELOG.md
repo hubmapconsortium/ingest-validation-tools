@@ -3,7 +3,7 @@
 ## v0.0.14 - in progress
 - Add UMI fields to scrnaseq schema.
 
-## v0.0.13 - in progress
+## v0.0.13 - 2022-01-07
 - Make more fields explicitly numeric
 - Add more donor field descriptions.
 - Deprecate contributors-v0.
