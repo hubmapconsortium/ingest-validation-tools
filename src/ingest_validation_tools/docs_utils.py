@@ -118,6 +118,11 @@ def generate_readme_md(
         if 'doc_url' in max_version_table_schema else ''
     )
 
+    optional_description_md = (
+        max_version_table_schema['description_md']
+        if 'description_md' in max_version_table_schema else ''
+    )
+
     optional_release_date = (
         f", release date {max_version_table_schema['release_date']}"
         if 'release_date' in max_version_table_schema else ''
@@ -158,7 +163,7 @@ def generate_readme_md(
         'optional_dir_description_md': optional_dir_description_md,
 
         'optional_doc_link_md': optional_doc_link_md,
-        'optional_description_md': max_version_table_schema.get('description_md', '')
+        'optional_description_md': optional_description_md
     })
 
 
