@@ -1,4 +1,4 @@
-affiliation	first_name	last_name	middle_name_or_initial	name	orcid_id
-somewhere1	Joe	Smith	X	Joe X Smith	bad-id
-somewhere2	Joe	Smith	X	Joe X Smith	0000-0000-0000-0000
-somewhere3	Joe	Smith	X	Joe X Smith	0000-0000-0000-0000
+version	affiliation	first_name	last_name	middle_name_or_initial	name	orcid_id	is_contact
+1	somewhere1	Joe	Smith	X	Joe X Smith	bad-id	TRUE
+1	somewhere2	Joe	Smith	X	Joe X Smith	0000-0000-0000-0000	FALSE
+1	somewhere3	Joe	Smith	X	Joe X Smith	0000-0000-0000-0000	FALSE

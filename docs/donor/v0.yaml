@@ -5,6 +5,14 @@ description_md: 'This file is really only here to provide descriptions of fields
   Most definitions taken from https://ncit.nci.nih.gov/ncitbrowser/pages/home.jsf?version=20.11e'
 fields:
 - constraints:
+    required: false
+  custom_constraints:
+    forbid_na: true
+    sequence_limit: 3
+    units_for: age_value
+  description: Unit for age measurement.
+  name: age_unit
+- constraints:
     required: true
   custom_constraints:
     forbid_na: true
@@ -42,13 +50,22 @@ fields:
   description: The circumstance or condition that caused death.
   name: cause_of_death
 - constraints:
+    required: false
+  custom_constraints:
+    forbid_na: true
+    sequence_limit: 3
+    units_for: height_value
+  description: Unit for height measurement.
+  name: height_unit
+- constraints:
     required: true
   custom_constraints:
     forbid_na: true
     sequence_limit: 3
   description: The vertical measurement or distance from the base to the top of a
     subject or participant.
-  name: height_unit
+  name: height_value
+  type: number
 - constraints:
     required: true
   custom_constraints:
@@ -100,6 +117,14 @@ fields:
     sequence_limit: 3
   description: 'Biological sex at birth: male or female or other.'
   name: sex
+- constraints:
+    required: false
+  custom_constraints:
+    forbid_na: true
+    sequence_limit: 3
+    units_for: weight_value
+  description: Unit for weight measurement.
+  name: weight_unit
 - constraints:
     required: true
   custom_constraints:

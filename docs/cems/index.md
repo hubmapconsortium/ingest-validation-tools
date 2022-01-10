@@ -17,9 +17,9 @@ Related files:
 
 | pattern | required? | description |
 | --- | --- | --- |
-| `TODO` | ✓ | Directory structure not yet specified. https://github.com/hubmapconsortium/ingest-validation-tools/issues/447 |
-| `extras/.*` |  | Free-form descriptive information supplied by the TMC |
-| `extras/thumbnail\.(png\|jpg)` |  | Optional thumbnail image which may be shown in search interface |
+| <code>TODO</code> | ✓ | Directory structure not yet specified. https://github.com/hubmapconsortium/ingest-validation-tools/issues/447 |
+| <code>extras/.*</code> |  | Free-form descriptive information supplied by the TMC |
+| <code>extras/thumbnail\.(png&#124;jpg)</code> |  | Optional thumbnail image which may be shown in search interface |
 
 ## Metadata schema
 
@@ -111,7 +111,7 @@ HuBMAP Display ID of the donor of the assayed tissue. Example: `ABC123`.
 
 | constraint | value |
 | --- | --- |
-| pattern (regular expression) | `[A-Z]+[0-9]+` |
+| pattern (regular expression) | <code>[A-Z]+[0-9]+</code> |
 | required | `True` |
 
 <a name="tissue_id"></a>
@@ -120,7 +120,7 @@ HuBMAP Display ID of the assayed tissue. Example: `ABC123-BL-1-2-3_456`.
 
 | constraint | value |
 | --- | --- |
-| pattern (regular expression) | `([A-Z]+[0-9]+)-[A-Z]{2}\d*(-\d+)+(_\d+)?` |
+| pattern (regular expression) | <code>([A-Z]+[0-9]+)-[A-Z]{2}\d*(-\d+)+(_\d+)?</code> |
 | required | `True` |
 
 <a name="execution_datetime"></a>
@@ -140,8 +140,8 @@ DOI for protocols.io referring to the protocol for this assay.
 | constraint | value |
 | --- | --- |
 | required | `True` |
-| pattern (regular expression) | `10\.17504/.*` |
-| url | prefix: `https://dx.doi.org/` |
+| pattern (regular expression) | <code>10\.17504/.*</code> |
+| url | prefix: <code>https://dx.doi.org/</code> |
 
 <a name="operator"></a>
 ##### [`operator`](#operator)
@@ -246,7 +246,7 @@ The polarity of the mass analysis (positive or negative ion modes)
 
 | constraint | value |
 | --- | --- |
-| enum | `negative ion mode` or `positive ion mode` |
+| enum | `negative ion mode`, `positive ion mode`, or `negative and positive ion mode` |
 | required | `True` |
 
 <a name="mz_range_low_value"></a>
@@ -269,21 +269,21 @@ The high value of the scanned mass range for MS1. (unitless)
 
 <a name="mass_resolving_power"></a>
 ##### [`mass_resolving_power`](#mass_resolving_power)
-The MS1 resolving power defined as m/∆m where ∆m is the FWHM for a given peak with a specified m/z (m). (unitless)
+The MS1 resolving power defined as m/∆m where ∆m is the FWHM for a given peak with a specified m/z (m). (unitless) Leave blank if not applicable.
 
 | constraint | value |
 | --- | --- |
 | type | `number` |
-| required | `True` |
+| required | `False` |
 
 <a name="mz_resolving_power"></a>
 ##### [`mz_resolving_power`](#mz_resolving_power)
-The peak (m/z) used to calculate the resolving power.
+The peak (m/z) used to calculate the resolving power. Leave blank if not applicable.
 
 | constraint | value |
 | --- | --- |
 | type | `number` |
-| required | `True` |
+| required | `False` |
 
 <a name="ion_mobility"></a>
 ##### [`ion_mobility`](#ion_mobility)
@@ -327,8 +327,8 @@ DOI for protocols.io referring to the protocol for preparing tissue sections for
 | constraint | value |
 | --- | --- |
 | required | `True` |
-| pattern (regular expression) | `10\.17504/.*` |
-| url | prefix: `https://dx.doi.org/` |
+| pattern (regular expression) | <code>10\.17504/.*</code> |
+| url | prefix: <code>https://dx.doi.org/</code> |
 
 <a name="ce_interface"></a>
 ##### [`ce_interface`](#ce_interface)
@@ -459,8 +459,8 @@ DOI for analysis protocols.io for this assay. Leave blank if not applicable.
 | constraint | value |
 | --- | --- |
 | required | `False` |
-| pattern (regular expression) | `10\.17504/.*` |
-| url | prefix: `https://dx.doi.org/` |
+| pattern (regular expression) | <code>10\.17504/.*</code> |
+| url | prefix: <code>https://dx.doi.org/</code> |
 
 <a name="overall_protocols_io_doi"></a>
 ##### [`overall_protocols_io_doi`](#overall_protocols_io_doi)
@@ -469,8 +469,8 @@ DOI for protocols.io for the overall process.
 | constraint | value |
 | --- | --- |
 | required | `True` |
-| pattern (regular expression) | `10\.17504/.*` |
-| url | prefix: `https://dx.doi.org/` |
+| pattern (regular expression) | <code>10\.17504/.*</code> |
+| url | prefix: <code>https://dx.doi.org/</code> |
 
 <a name="contributors_path"></a>
 ##### [`contributors_path`](#contributors_path)

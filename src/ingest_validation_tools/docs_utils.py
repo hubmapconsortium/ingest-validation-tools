@@ -1,6 +1,7 @@
 import re
 from string import Template
 from pathlib import Path
+import html
 
 from ingest_validation_tools.schema_loader import get_field_enum
 
@@ -298,10 +299,10 @@ def _make_value_md(key, value):
     `A`, `B`, or `C`
 
     >>> print(_make_value_md('pattern', '^some|reg_?ex\\.$'))
-    `^some\\|reg_?ex\\.$`
+    <code>^some&#124;reg_?ex\\.$</code>
 
     >>> print(_make_value_md('url', {'prefix': 'http://example.com/'}))
-    prefix: `http://example.com/`
+    prefix: <code>http://example.com/</code>
 
     '''
     if key == 'enum':
@@ -311,18 +312,29 @@ def _make_value_md(key, value):
         backtick_list[-1] = f'or {backtick_list[-1]}'
         return ', '.join(backtick_list)
     if key == 'pattern':
-        return f'`{_md_escape_re(value)}`'
+        return _html_code(value)
     if key == 'url':
-        return f'prefix: `{_md_escape_re(value["prefix"])}`'
+        return f'prefix: {_html_code(value["prefix"])}'
     return f'`{value}`'
 
 
-def _md_escape_re(re_string):
+def _html_code(re_string):
     '''
-    >>> print(_md_escape_re('a|b'))
-    a\\|b
+    In Github pages, '`a|b`' can be used in a table,
+    but in Github markdown preview, it will cause table cells to split.
+    Instead, use HTML and a character entity.
+
+    >>> original = 'gt >|lt <|amp &'
+    >>> wrapped = _html_code(original)
+    >>> print(wrapped)
+    <code>gt &gt;&#124;lt &lt;&#124;amp &amp;</code>
+
+    >>> unwrapped = html.unescape(wrapped.replace('<code>','').replace('</code>',''))
+    >>> assert unwrapped == original
     '''
-    return re.sub(r'([|])', r'\\\1', re_string)
+    escaped = html.escape(re_string)
+    pipe_escaped = escaped.replace('|', '&#124;')
+    return f'<code>{pipe_escaped}</code>'
 
 
 def _clean(s):
@@ -393,8 +405,8 @@ def _make_dir_description(dir_schema, pipeline_infos=[]):
     <BLANKLINE>
     | pattern | required? | description |
     | --- | --- | --- |
-    | `required\\.txt` | ✓ | **[QA/QC]** Required! |
-    | `optional\\.txt` |  | Optional! |
+    | <code>required\\.txt</code> | ✓ | **[QA/QC]** Required! |
+    | <code>optional\\.txt</code> |  | Optional! |
 
     Examples add an extra column:
 
@@ -406,8 +418,8 @@ def _make_dir_description(dir_schema, pipeline_infos=[]):
     <BLANKLINE>
     | pattern | required? | description |
     | --- | --- | --- |
-    | `[A-Z]+\\d+` (example: `ABC123`) | ✓ | letters numbers |
-    | `[A-Z]` | ✓ | one letter, no example |
+    | <code>[A-Z]+\\d+</code> (example: <code>ABC123</code>) | ✓ | letters numbers |
+    | <code>[A-Z]</code> | ✓ | one letter, no example |
 
     Bad examples cause errors:
 
@@ -445,7 +457,7 @@ def _make_dir_description(dir_schema, pipeline_infos=[]):
     <BLANKLINE>
     | pattern | required? | description |
     | --- | --- | --- |
-    | `required\\.txt` | ✓ | Required! |
+    | <code>required\\.txt</code> | ✓ | Required! |
     '''
     for line in dir_schema:
         for k in line.keys():
@@ -460,13 +472,12 @@ def _make_dir_description(dir_schema, pipeline_infos=[]):
         row = []
 
         pattern = line['pattern']
-        pattern_md = f'`{_md_escape_re(pattern)}`'
+        pattern_md = _html_code(pattern)
         if 'example' in line:
             example = line['example']
             assert re.fullmatch(pattern, example), \
                 f'Example "{example}" does not match pattern "{pattern}"'
-            example_md = f'`{_md_escape_re(example)}`'
-            pattern_md += f' (example: {example_md})'
+            pattern_md += f' (example: {_html_code(example)})'
         row.append(pattern_md)
 
         required_md = '' if 'required' in line and not line['required'] else '✓'

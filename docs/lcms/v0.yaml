@@ -150,6 +150,7 @@ fields:
     enum:
     - negative ion mode
     - positive ion mode
+    - negative and positive ion mode
     required: true
   custom_constraints:
     forbid_na: true
@@ -209,21 +210,21 @@ fields:
   name: section_prep_protocols_io_doi
   type: string
 - constraints:
-    required: true
+    required: false
   custom_constraints:
     forbid_na: true
     sequence_limit: 3
   description: The manufacturer of the instrument used for LC
   name: lc_instrument_vendor
 - constraints:
-    required: true
+    required: false
   custom_constraints:
     forbid_na: true
     sequence_limit: 3
   description: The model number/name of the instrument used for LC
   name: lc_instrument_model
 - constraints:
-    required: true
+    required: false
   custom_constraints:
     forbid_na: true
     sequence_limit: 3
@@ -231,7 +232,7 @@ fields:
     tip capilary is used'
   name: lc_column_vendor
 - constraints:
-    required: true
+    required: false
   custom_constraints:
     forbid_na: true
     sequence_limit: 3
@@ -239,7 +240,7 @@ fields:
     tip calillary is used enter "Pulled tip capilary"
   name: lc_column_model
 - constraints:
-    required: true
+    required: false
   custom_constraints:
     forbid_na: true
     sequence_limit: 3
@@ -247,7 +248,7 @@ fields:
     pore size
   name: lc_resin
 - constraints:
-    required: true
+    required: false
   custom_constraints:
     forbid_na: true
     sequence_limit: 3
@@ -285,7 +286,7 @@ fields:
   description: units for LC temperature
   name: lc_temp_unit
 - constraints:
-    required: true
+    required: false
   custom_constraints:
     forbid_na: true
     sequence_limit: 3
@@ -324,21 +325,21 @@ fields:
   description: Units of flow rate.
   name: lc_flow_rate_unit
 - constraints:
-    required: true
+    required: false
   custom_constraints:
     forbid_na: true
     sequence_limit: 3
   description: LC gradient
   name: lc_gradient
 - constraints:
-    required: true
+    required: false
   custom_constraints:
     forbid_na: true
     sequence_limit: 3
   description: Composition of mobile phase A
   name: lc_mobile_phase_a
 - constraints:
-    required: true
+    required: false
   custom_constraints:
     forbid_na: true
     sequence_limit: 3

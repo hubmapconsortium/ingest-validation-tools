@@ -243,10 +243,10 @@ fields:
   custom_constraints:
     forbid_na: true
     sequence_limit: 3
-  description: Average size of sequencing library fragments estimated via gel electrophoresis
-    or bioanalyzer/tapestation.
+  description: Average size in basepairs (bp) of sequencing library fragments estimated
+    via gel electrophoresis or bioanalyzer/tapestation.
   name: library_average_fragment_size
-  type: number
+  type: integer
 - constraints:
     required: true
   custom_constraints:

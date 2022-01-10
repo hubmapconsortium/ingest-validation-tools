@@ -1,7 +1,31 @@
 # Changelog
 
-## v0.0.13 - in progress
+## v0.0.14 - in progress
 - Add release date to schema.
+
+## v0.0.13 - 2022-01-07
+- Make more fields explicitly numeric
+- Add more donor field descriptions.
+- Deprecate contributors-v0.
+- Add MIBI schema.
+- Add fields for LCMS v3.
+- Consistent rendering of code blocks in github pages and github preview.
+- Warn about trailing slashes in paths.
+- Optionally, dump validation report at the top of the upload.
+- In the report notes, record the version of the checkout.
+- Improve testing of `generate_field_yaml.py`.
+- Provides map in docs/ from fields to the entities and assays they are used in.
+- Give schema and version in success message.
+- Generate `field-types.yaml`.
+- Update assay list.
+- Added WGS directory structure schema.
+- Fixed regex on directory structure schema.
+- Check that assay terms match approved list. (Right now, they don't.)
+- Level 1 description of assay_category: Updated "3" assay categories to "4". Added imaging mass spec.
+- work around mypy importlib type hinting problem
+- Cleaned up LC-MS directory structure schema.
+- Added links to examples in the portal for 5 assays.
+- Make LC fields optional.
 - Present directory path examples in same column.
 - Updated LC-MS directory structure schema.
 - Work around mypy importlib type hinting problem.
