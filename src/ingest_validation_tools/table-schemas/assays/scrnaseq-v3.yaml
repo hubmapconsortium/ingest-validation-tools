@@ -76,7 +76,8 @@ fields:
     pattern: '[^/]+'
 - name: umi_offset
   description: Position(s) in the read at which the umi barcode starts.
-  type: integer
+  constraints:
+    pattern: '\d+(,\d+)*'
 - name: umi_size
   description: Length of the umi barcode in base pairs.
   type: integer
