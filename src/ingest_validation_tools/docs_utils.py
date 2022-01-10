@@ -119,7 +119,7 @@ def generate_readme_md(
     )
 
     optional_release_date = (
-        f"Release date: {max_version_table_schema['release_date']}\n"
+        f", release date {max_version_table_schema['release_date']}"
         if 'release_date' in max_version_table_schema else ''
     )
 
@@ -145,7 +145,7 @@ def generate_readme_md(
 
         'current_version_md':
             _make_fields_md(
-                max_version_table_schema, f'Version {max_version} (current)', is_open=True
+                max_version_table_schema, f'Version {max_version} (current{optional_release_date})', is_open=True
         ),
         'previous_versions_md':
             '\n\n'.join([
@@ -156,7 +156,6 @@ def generate_readme_md(
         'optional_dir_description_md': optional_dir_description_md,
 
         'optional_doc_link_md': optional_doc_link_md,
-        'optional_release_date': optional_release_date,
         'optional_description_md': max_version_table_schema.get('description_md', '')
     })
 
