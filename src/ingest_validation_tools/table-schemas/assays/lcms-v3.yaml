@@ -7,6 +7,8 @@ description_md:
   than one `analyte_type` was interrogated (e.g. lipids plus metabolytes), those datasets should be split into one dataset per analyte.
 
   v3 adds `dms` and `label_name` fields, and `negative and positive ion mode` as a polarity option. 
+
+release_date: 2021-12-06
 fields:
 - name: version
   heading: Shared by all types

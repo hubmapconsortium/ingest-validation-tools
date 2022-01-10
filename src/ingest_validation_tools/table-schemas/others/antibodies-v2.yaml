@@ -4,7 +4,6 @@ description_md: >-
   - v1: Version number added.
 
   - v2: Add concentration fields.
-release_date: 2022-01-04
 fields:
   - name: version
     description: Current version of metadata schema. Template provides the correct value.
