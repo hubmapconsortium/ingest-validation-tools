@@ -371,7 +371,7 @@ Position(s) in the read at which the umi barcode starts.
 
 | constraint | value |
 | --- | --- |
-| type | `integer` |
+| pattern (regular expression) | <code>\d+(,\d+)*</code> |
 | required | `True` |
 
 <a name="umi_size"></a>

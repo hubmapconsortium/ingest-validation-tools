@@ -297,13 +297,14 @@ fields:
   name: umi_read
   type: string
 - constraints:
+    pattern: \d+(,\d+)*
     required: true
   custom_constraints:
     forbid_na: true
     sequence_limit: 3
   description: Position(s) in the read at which the umi barcode starts.
   name: umi_offset
-  type: integer
+  type: string
 - constraints:
     required: true
   custom_constraints:
