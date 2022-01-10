@@ -20,6 +20,8 @@ for ATTR in $ATTR_LIST; do
   eval $TEST_CMD || die "Command failed: $TEST_CMD"
   diff -r $REAL_DEST $TEST_DEST \
     || (
+      # If one fails, often they all will, so it's easiest for the user to rerun them all:
+      # The output from the lines below can be copy-and-pasted.
       for ATTR in $ATTR_LIST; do
         REAL_DEST="docs/field-${PLURAL}.yaml"
         REAL_CMD="src/generate_field_yaml.py --attr $ATTR > $REAL_DEST"
