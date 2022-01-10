@@ -9,7 +9,6 @@
 ...     if 'error' in response:
 ...         remote_mismatch.append(name)
 >>> print('\\n'.join(remote_mismatch))
-bulk RNA
 CE-MS
 DESI
 GC-MS
