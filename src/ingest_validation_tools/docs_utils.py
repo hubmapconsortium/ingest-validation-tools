@@ -157,7 +157,7 @@ def generate_readme_md(
 
         'optional_doc_link_md': optional_doc_link_md,
         'optional_release_date': optional_release_date,
-        'optional_description_md': max_version_table_schema.get('description_md')
+        'optional_description_md': max_version_table_schema.get('description_md', '')
     })
 
 

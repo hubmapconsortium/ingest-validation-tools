@@ -11,6 +11,7 @@ Related files:
 - [📝 Excel template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/main/docs/antibodies/antibodies.xlsx): For metadata entry.
 - [📝 TSV template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/main/docs/antibodies/antibodies.tsv): Alternative for metadata entry.
 
+Release date: 2022-01-04
 Changes:
 - v1: Version number added.
 - v2: Add concentration fields.

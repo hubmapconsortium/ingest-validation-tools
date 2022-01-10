@@ -247,4 +247,3 @@ fields:
   description: Relative path to file or directory with instrument data. Downstream
     processing will depend on filename extension conventions.
   name: data_path
-release_date: 2001-01-01
