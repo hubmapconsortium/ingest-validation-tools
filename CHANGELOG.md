@@ -1,5 +1,8 @@
 # Changelog
 
+## v0.0.14 - in progress
+- Add Excel sheet describing which fields show up in which schemas.
+
 ## v0.0.13 - 2022-01-07
 - Make more fields explicitly numeric
 - Add more donor field descriptions.
