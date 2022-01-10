@@ -100,4 +100,3 @@ fields:
     sequence_limit: 3
   description: The name of the entity conjugated to the antibody.
   name: conjugated_tag
-release_date: 2022-01-04
