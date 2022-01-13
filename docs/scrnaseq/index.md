@@ -367,11 +367,11 @@ Which read file(s) contains the UMI (unique molecular identifier) barcode.
 
 <a name="umi_offset"></a>
 ##### [`umi_offset`](#umi_offset)
-Position(s) in the read at which the umi barcode starts.
+Position in the read at which the umi barcode starts.
 
 | constraint | value |
 | --- | --- |
-| pattern (regular expression) | <code>\d+(,\d+)*</code> |
+| type | `integer` |
 | required | `True` |
 
 <a name="umi_size"></a>
