@@ -41,19 +41,22 @@ def main():
     # Format and write headers:
     header_format = workbook.add_format({'rotation': 60})
     worksheet.freeze_panes(1, 1)
-    for col, schema in enumerate(schema_cols):
-        worksheet.write(0, col + 1, schema, header_format)
+    for col, schema in enumerate_from_1(schema_cols):
+        worksheet.write(0, col, schema, header_format)
 
     # Write body of grid:
-    for row, field in enumerate(field_schemas):
-        worksheet.write(row + 1, 0, field)
-        worksheet.write_comment(row + 1, 0, field_descriptions[field])
-        for col, schema in enumerate(schema_cols):
+    for row, field in enumerate_from_1(field_schemas):
+        worksheet.write(row, 0, field)
+        worksheet.write_comment(row, 0, field_descriptions[field])
+        for col, schema in enumerate_from_1(schema_cols):
             if schema in field_schemas[field]:
-                worksheet.write(row + 1, col + 1, '✓')
+                worksheet.write(row, col, '✓')
 
     workbook.close()
 
+
+def enumerate_from_1(arr):
+    return [(i + 1, val) for i, val in enumerate(arr)]
 
 if __name__ == "__main__":
     sys.exit(main())  # pragma: no cover
