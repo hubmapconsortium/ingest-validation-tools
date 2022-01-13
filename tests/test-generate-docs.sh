@@ -5,11 +5,13 @@ die() { set +v; echo "$*" 1>&2 ; sleep 1; exit 1; }
 
 # Test field-descriptions.yaml and field-types.yaml:
 
-for ATTR in 'description' 'type' 'entity' 'assay'; do
+ATTR_LIST='description type entity assay schema'
+for ATTR in $ATTR_LIST; do
   PLURAL="${ATTR}s"
   [ "$PLURAL" == 'entitys' ] && PLURAL='entities'
   REAL_DEST="docs/field-${PLURAL}.yaml"
   TEST_DEST="docs-test/field-${PLURAL}.yaml"
+  echo "Checking $REAL_DEST"
 
   REAL_CMD="src/generate_field_yaml.py --attr $ATTR > $REAL_DEST"
   TEST_CMD="src/generate_field_yaml.py --attr $ATTR > $TEST_DEST"
@@ -17,9 +19,32 @@ for ATTR in 'description' 'type' 'entity' 'assay'; do
   mkdir docs-test || echo "Already exists"
   eval $TEST_CMD || die "Command failed: $TEST_CMD"
   diff -r $REAL_DEST $TEST_DEST \
-    || die "Update needed: $REAL_CMD; $LOOP"
+    || (
+      # If one fails, often they all will, so it's easiest for the user to rerun them all:
+      # The output from the lines below can be copy-and-pasted.
+      for ATTR in $ATTR_LIST; do
+        REAL_DEST="docs/field-${PLURAL}.yaml"
+        REAL_CMD="src/generate_field_yaml.py --attr $ATTR > $REAL_DEST"
+        echo $REAL_CMD
+      done
+      die "Update needed: Easiest to update all files at once."
+    )
   rm -rf docs-test
 done
+
+# Test Excel summary:
+# This relies on the YAML created above.
+
+FILE="field-schemas.xlsx"
+echo "Checking $FILE"
+
+mkdir docs-test
+REAL_DEST="docs/$FILE"
+TEST_DEST="docs-test/$FILE"
+REAL_CMD="src/generate_grid.py $REAL_DEST"
+TEST_CMD="src/generate_grid.py $TEST_DEST"
+eval $TEST_CMD || die "Command failed: $TEST_CMD"
+diff $REAL_DEST $TEST_DEST || die "Update needed: $REAL_CMD"
 
 # Test docs:
 
