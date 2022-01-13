@@ -3,6 +3,7 @@
 ## v0.0.14 - in progress
 - Add UMI fields to scrnaseq schema.
 - Add Excel sheet describing which fields show up in which schemas.
+- Add field descriptions to spreadsheet.
 
 ## v0.0.13 - 2022-01-07
 - Make more fields explicitly numeric

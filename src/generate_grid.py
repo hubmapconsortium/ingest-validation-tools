@@ -17,9 +17,9 @@ def main():
         help='Path for Excel file')
     args = parser.parse_args()
 
-    field_schemas = safe_load(
-        (Path(__file__).parent.parent / 'docs/field-schemas.yaml').read_text()
-    )
+    docs_path = Path(__file__).parent.parent / 'docs'
+    field_schemas = safe_load((docs_path / 'field-schemas.yaml').read_text())
+    field_descriptions = safe_load((docs_path / 'field-descriptions.yaml').read_text())
 
     all_schemas = set()
     for schemas in field_schemas.values():
@@ -47,6 +47,7 @@ def main():
     # Write body of grid:
     for row, field in enumerate(field_schemas):
         worksheet.write(row + 1, 0, field)
+        worksheet.write_comment(row + 1, 0, field_descriptions[field])
         for col, schema in enumerate(schema_cols):
             if schema in field_schemas[field]:
                 worksheet.write(row + 1, col + 1, '✓')
