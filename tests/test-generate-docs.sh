@@ -6,6 +6,7 @@ die() { set +v; echo "$*" 1>&2 ; sleep 1; exit 1; }
 # Test field-descriptions.yaml and field-types.yaml:
 
 ATTR_LIST='description type entity assay schema'
+RERUNS=''
 for ATTR in $ATTR_LIST; do
   PLURAL="${ATTR}s"
   [ "$PLURAL" == 'entitys' ] && PLURAL='entities'
@@ -13,24 +14,15 @@ for ATTR in $ATTR_LIST; do
   TEST_DEST="docs-test/field-${PLURAL}.yaml"
   echo "Checking $REAL_DEST"
 
-  REAL_CMD="src/generate_field_yaml.py --attr $ATTR > $REAL_DEST"
+  REAL_CMD="src/generate_field_yaml.py --attr $ATTR > $REAL_DEST;"
   TEST_CMD="src/generate_field_yaml.py --attr $ATTR > $TEST_DEST"
 
   mkdir docs-test || echo "Already exists"
   eval $TEST_CMD || die "Command failed: $TEST_CMD"
-  diff -r $REAL_DEST $TEST_DEST \
-    || (
-      # If one fails, often they all will, so it's easiest for the user to rerun them all:
-      # The output from the lines below can be copy-and-pasted.
-      for ATTR in $ATTR_LIST; do
-        REAL_DEST="docs/field-${PLURAL}.yaml"
-        REAL_CMD="src/generate_field_yaml.py --attr $ATTR > $REAL_DEST"
-        echo $REAL_CMD
-      done
-      die "Update needed: Easiest to update all files at once."
-    )
+  diff -r $REAL_DEST $TEST_DEST || RERUNS="$RERUNS $REAL_CMD"
   rm -rf docs-test
 done
+[ -z "$RERUNS" ] || die "Update YAMLs: $RERUNS"
 
 # Test Excel summary:
 # This relies on the YAML created above.

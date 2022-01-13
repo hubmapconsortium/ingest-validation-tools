@@ -1071,6 +1071,12 @@ transposition_method:
 transposition_transposase_source:
 - bulkatacseq
 - scatacseq
+umi_offset:
+- scrnaseq
+umi_read:
+- scrnaseq
+umi_size:
+- scrnaseq
 uniprot_accession_number:
 - antibodies
 version:
