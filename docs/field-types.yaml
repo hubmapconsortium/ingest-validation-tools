@@ -218,6 +218,9 @@ transposition_input: number
 transposition_kit_number: string
 transposition_method: string
 transposition_transposase_source: string
+umi_offset: integer
+umi_read: string
+umi_size: integer
 uniprot_accession_number: string
 version: string
 vital_state: string

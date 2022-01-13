@@ -1,12 +1,12 @@
 doc_url: https://portal.hubmapconsortium.org/docs/assays/rnaseq
-description_md: This schema is for single cell RNA sequencing (scRNAseq).
+description_md: This schema is for single cell RNA sequencing (scRNAseq). v3 adds `umi_*` fields.
 fields:
 - name: version
   heading: Shared by all types
   description: Version of the schema to use when validating this metadata.
   constraints:
     enum:
-      - '2'
+      - '3'
 # include: ../includes/vA/all_assays_wo_version.yaml
 - name: assay_category
   constraints:
@@ -70,6 +70,16 @@ fields:
   description: Which read file(s) contains the cell barcode. Multiple cell_barcode_read files must be provided as a comma-delimited list (e.g. file1,file2,file3).
   constraints:
     required: FALSE
+- name: umi_read
+  description: Which read file(s) contains the UMI (unique molecular identifier) barcode.
+  constraints:
+    pattern: '[^/]+'
+- name: umi_offset
+  description: Position in the read at which the umi barcode starts.
+  type: integer
+- name: umi_size
+  description: Length of the umi barcode in base pairs.
+  type: integer
 - name: cell_barcode_offset
   description: Position(s) in the read at which the cell barcode starts.
   constraints:
