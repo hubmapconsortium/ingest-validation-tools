@@ -58,5 +58,6 @@ def main():
 def enumerate_from_1(arr):
     return [(i + 1, val) for i, val in enumerate(arr)]
 
+
 if __name__ == "__main__":
     sys.exit(main())  # pragma: no cover
