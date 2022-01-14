@@ -9,25 +9,13 @@
 ...     if 'error' in response:
 ...         remote_mismatch.append(name)
 >>> print('\\n'.join(remote_mismatch))
-CE-MS
-DESI
-GC-MS
-LC-MS (metabolomics)
-MS (shotgun lipidomics)
-Multiplex Ion Beam Imaging
-scATACseq
-SIMS-IMS
-snRNA
-SPLiT-Seq
-TMT (proteomics)
-scRNAseq
-MS Bottom-Up
-MS Top-Down
-LC-MS Top-Down
-LC-MS Bottom-Up
+<BLANKLINE>
 '''
-# TODO: This list should be empty: There should be no unmatched terms.
-
+# The list above should be empty: That means that all the assays
+# listed below are recognized by the assay service.
+# TODO: Joel will progressively uncomment names below, and when that is done
+#       _validate_level_1_enum() can be renabled in schema_loader.py.
+#       https://github.com/hubmapconsortium/ingest-validation-tools/issues/1023
 
 shared_enums = {
     'assay_category': [
@@ -40,48 +28,47 @@ shared_enums = {
         '3D Imaging Mass Cytometry',
         'scRNA-Seq(10xGenomics)',
         'AF',
-        'bulk RNA',
+        # 'bulk RNA',
         'bulkATACseq',
         'Cell DIVE',
-        'CE-MS',
+        # 'CE-MS',
         'CODEX',
-        'DESI',
-        'GC-MS',
+        # 'DESI',
+        # 'GC-MS',
         'Imaging Mass Cytometry',
-        'LC-MS (metabolomics)',
+        # 'LC-MS (metabolomics)',
         'LC-MS/MS (label-free proteomics)',
         'Light Sheet',
         'MxIF',
         'MALDI-IMS',
-        'MS (shotgun lipidomics)',
-        'Multiplex Ion Beam Imaging',
-        'NanoDESI',
-        'NanoPOTS',
+        # 'MS (shotgun lipidomics)',
+        # 'NanoDESI',
+        # 'NanoPOTS',
         'PAS microscopy',
-        'scATACseq',
+        # 'scATACseq',
         'sciATACseq',
         'sciRNAseq',
         'seqFISH',
-        'SIMS-IMS',
+        # 'SIMS-IMS',
         'SNARE-seq2',
         'snATACseq',
-        'snRNA',
-        'SPLiT-Seq',
-        'TMT (proteomics)',
+        # 'snRNA',
+        # 'SPLiT-Seq',
+        # 'TMT (proteomics)',
         'WGS',
         'SNARE2-RNAseq',
         'snRNAseq',
         'scRNAseq-10xGenomics',  # Only needed for scrnaseq-v0.yaml.
         'scRNAseq-10xGenomics-v2',
         'scRNAseq-10xGenomics-v3',
-        'scRNAseq',
+        # 'scRNAseq',
         'Slide-seq',
-        'MS Bottom-Up',
-        'MS Top-Down',
-        'LC-MS Top-Down',
-        'LC-MS',
-        'LC-MS Bottom-Up',
-        'MS'
+        # 'MS Bottom-Up',
+        # 'MS Top-Down',
+        # 'LC-MS Top-Down',
+        # 'LC-MS',
+        # 'LC-MS Bottom-Up',
+        # 'MS'
     ],
     'analyte_class': [
         'DNA',
