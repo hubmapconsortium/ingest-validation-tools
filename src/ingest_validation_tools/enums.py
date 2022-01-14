@@ -15,6 +15,7 @@
 # listed below are recognized by the assay service.
 # TODO: Joel will progressively uncomment names below, and when that is done
 #       _validate_level_1_enum() can be renabled in schema_loader.py.
+#       https://github.com/hubmapconsortium/ingest-validation-tools/issues/1023
 
 shared_enums = {
     'assay_category': [
