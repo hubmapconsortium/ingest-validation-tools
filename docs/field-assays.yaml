@@ -1873,6 +1873,27 @@ transposition_transposase_source:
 - scATACseq
 - sciATACseq
 - snATACseq
+umi_offset:
+- SNARE2-RNAseq
+- scRNAseq
+- scRNAseq-10xGenomics-v2
+- scRNAseq-10xGenomics-v3
+- sciRNAseq
+- snRNAseq
+umi_read:
+- SNARE2-RNAseq
+- scRNAseq
+- scRNAseq-10xGenomics-v2
+- scRNAseq-10xGenomics-v3
+- sciRNAseq
+- snRNAseq
+umi_size:
+- SNARE2-RNAseq
+- scRNAseq
+- scRNAseq-10xGenomics-v2
+- scRNAseq-10xGenomics-v3
+- sciRNAseq
+- snRNAseq
 version:
 - 3D Imaging Mass Cytometry
 - AF

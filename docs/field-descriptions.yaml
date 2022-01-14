@@ -353,6 +353,9 @@ transposition_kit_number: If Tn5 came from a kit, provide the catalog number.
 transposition_method: Modality of capturing accessible chromatin molecules.
 transposition_transposase_source: The source of the Tn5 transposase and transposon
   used for capturing accessible chromatin.
+umi_offset: Position in the read at which the umi barcode starts.
+umi_read: Which read file(s) contains the UMI (unique molecular identifier) barcode.
+umi_size: Length of the umi barcode in base pairs.
 uniprot_accession_number: The uniprot_accession_number is a unique identifier for
   proteins in the UniProt database (https://www.uniprot.org).
 version: Version of the schema to use when validating this metadata.
