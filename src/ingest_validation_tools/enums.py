@@ -9,9 +9,12 @@
 ...     if 'error' in response:
 ...         remote_mismatch.append(name)
 >>> print('\\n'.join(remote_mismatch))
+<BLANKLINE>
 '''
-# TODO: This list should be empty: There should be no unmatched terms.
-
+# The list above should be empty: That means that all the assays
+# listed below are recognized by the assay service.
+# TODO: Joel will progressively uncomment names below, and when that is done
+#       _validate_level_1_enum() can be renabled in schema_loader.py.
 
 shared_enums = {
     'assay_category': [
