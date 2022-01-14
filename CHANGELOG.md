@@ -1,6 +1,7 @@
 # Changelog
 
 ## v0.0.14 - in progress
+- Add release date to schema.
 - Add UMI fields to scrnaseq schema.
 - Add Excel sheet describing which fields show up in which schemas.
 
