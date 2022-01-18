@@ -21,7 +21,6 @@ The HIVE will process each dataset with
 | --- | --- | --- |
 | <code>[^/]+\.fastq\.gz</code> | ✓ | Compressed FastQ file |
 | <code>extras/.*</code> |  | Free-form descriptive information supplied by the TMC |
-| <code>extras/thumbnail\.(png&#124;jpg)</code> |  | Optional thumbnail image which may be shown in search interface |
 
 ## Metadata schema
 

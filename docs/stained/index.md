@@ -22,7 +22,6 @@ This schema is for microscopy of tissue treated with periodic acid–Schiff stai
 | <code>(rawMicroscopy&#124;raw_microscopy)/[^/]+\.xml</code> | ✓ | XML metadata file from the autofluorescence microscopy experiments |
 | <code>(rawMicroscopy&#124;raw_microscopy)/[^/]+\.scn</code> | ✓ | Raw microscope file for the experiment |
 | <code>extras/.*</code> |  | Free-form descriptive information supplied by the TMC |
-| <code>extras/thumbnail\.(png&#124;jpg)</code> |  | Optional thumbnail image which may be shown in search interface |
 
 ## Metadata schema
 

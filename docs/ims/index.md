@@ -26,7 +26,6 @@ This schema is for imaging mass spectrometry (IMS).
 | <code>ometiffs/[^/]+_multilayer\.ome\.tiff</code> | ✓ | Aligned multilayer OME TIFF file of the IMS data |
 | <code>ometiffs/separate/[^/]+_mz[^/]+\.ome\.tiff</code> | ✓ | Each file is a different M/Z value. |
 | <code>extras/.*</code> |  | Free-form descriptive information supplied by the TMC |
-| <code>extras/thumbnail\.(png&#124;jpg)</code> |  | Optional thumbnail image which may be shown in search interface |
 
 ## Metadata schema
 
