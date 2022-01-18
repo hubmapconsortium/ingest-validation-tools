@@ -181,7 +181,10 @@ def get_table_schema(schema_name, version, optional_fields=[], offline=None):
     names = [field['name'] for field in schema['fields']]
     for field in schema['fields']:
         _add_level_1_description(field)
-        _validate_level_1_enum(field)
+        # TODO: Re-enable when all assay names used in the schemas are recognized
+        #       by the assay service, and the list in enums.py has been uncommented.
+        #       https://github.com/hubmapconsortium/ingest-validation-tools/issues/1023
+        # _validate_level_1_enum(field)
 
         _add_constraints(field, optional_fields, offline=offline, names=names)
         _validate_field(field)

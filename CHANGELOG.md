@@ -1,9 +1,13 @@
 # Changelog
 
 ## v0.0.14 - in progress
+- Add release date to schema.
 - Add UMI fields to scrnaseq schema.
 - Add Excel sheet describing which fields show up in which schemas.
 - Add field descriptions to spreadsheet.
+- Temporarily disable checking the assay names in schemas against the global list.
+  Entries in the global list are now commented out, and Joel will progressively
+  uncomment them.
 
 ## v0.0.13 - 2022-01-07
 - Make more fields explicitly numeric

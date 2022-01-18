@@ -117,9 +117,15 @@ def generate_readme_md(
         'More details about this type.'
         if 'doc_url' in max_version_table_schema else ''
     )
+
     optional_description_md = (
         max_version_table_schema['description_md']
         if 'description_md' in max_version_table_schema else ''
+    )
+
+    optional_release_date = (
+        f", release date {max_version_table_schema['release_date']}"
+        if 'release_date' in max_version_table_schema else ''
     )
 
     template = Template(
@@ -144,8 +150,10 @@ def generate_readme_md(
 
         'current_version_md':
             _make_fields_md(
-                max_version_table_schema, f'Version {max_version} (current)', is_open=True
-        ),
+                max_version_table_schema,
+                f'Version {max_version} (current{optional_release_date})',
+                is_open=True
+            ),
         'previous_versions_md':
             '\n\n'.join([
                 _make_fields_md(table_schemas[str(v)], f'Version {v}')
