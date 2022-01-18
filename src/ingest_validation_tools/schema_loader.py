@@ -199,11 +199,6 @@ def get_directory_schema(directory_type):
             'pattern': r'extras/.*',
             'description': 'Free-form descriptive information supplied by the TMC',
             'required': False
-        },
-        {
-            'pattern': r'extras/thumbnail\.(png|jpg)',
-            'description': 'Optional thumbnail image which may be shown in search interface',
-            'required': False
         }
     ]
     return schema

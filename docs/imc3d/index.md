@@ -30,7 +30,6 @@ The other fields function the same way for all assays using antibodies. For more
 | <code>processed/Densityplots_perMarker\.pdf</code> |  | **[QA/QC]** Density plots of marker intensity, separated by marker. File is optional. |
 | <code>processed/celltypes\.pdf</code> |  | Heatmap of marker expression per cluster, annotated by assigned cell type. File is optional. |
 | <code>extras/.*</code> |  | Free-form descriptive information supplied by the TMC |
-| <code>extras/thumbnail\.(png&#124;jpg)</code> |  | Optional thumbnail image which may be shown in search interface |
 
 ## Metadata schema
 

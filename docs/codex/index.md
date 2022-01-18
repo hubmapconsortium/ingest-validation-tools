@@ -36,7 +36,6 @@ The other fields function the same way for all assays using antibodies. For more
 | <code>(raw&#124;src_.*)/.*</code> | ✓ | Raw data directory. |
 | <code>(processed&#124;drv_[^/]*)/.*</code> | ✓ | Processed files produced by the Akoya software or alternative software. |
 | <code>extras/.*</code> |  | Free-form descriptive information supplied by the TMC |
-| <code>extras/thumbnail\.(png&#124;jpg)</code> |  | Optional thumbnail image which may be shown in search interface |
 
 ## Metadata schema
 

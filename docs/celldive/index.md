@@ -23,7 +23,6 @@ The other fields function the same way for all assays using antibodies. For more
 | <code>HuBMAP_OME/region_\d+/S\d+_region_\d+\.ome\.tif</code> (example: <code>HuBMAP_OME/region_011/S20030092_region_011.ome.tif</code>) | ✓ | OME TIFF Files for the corresponding region (e.g. region_001) by slide (e.g S20030077) |
 | <code>HuBMAP_rounds/round_info_\d+\.dat</code> (example: <code>HuBMAP_rounds/round_info_002.dat</code>) | ✓ | Metadata file for the capture item-value tab separated format |
 | <code>extras/.*</code> |  | Free-form descriptive information supplied by the TMC |
-| <code>extras/thumbnail\.(png&#124;jpg)</code> |  | Optional thumbnail image which may be shown in search interface |
 
 ## Metadata schema
 

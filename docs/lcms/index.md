@@ -24,7 +24,6 @@ v3 adds `dms` and `label_name` fields, and `negative and positive ion mode` as a
 | <code>ID_metadata/[^/]+\.xml</code> |  | Identification search parameters / metadata. Software settings used during the analyte identification process (e.g., from MaxQuant or Proteome Discoverer). |
 | <code>QC_results/[^/]+\.(xml&#124;txt&#124;html&#124;pdf&#124;log&#124;yaml)</code> |  | Output file resulting from QC analysis. A list of metrics with the score of the current dataset that shows the quality of data collection. |
 | <code>extras/.*</code> |  | Free-form descriptive information supplied by the TMC |
-| <code>extras/thumbnail\.(png&#124;jpg)</code> |  | Optional thumbnail image which may be shown in search interface |
 
 ## Metadata schema
 
