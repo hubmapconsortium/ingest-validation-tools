@@ -13,7 +13,7 @@ or if you only have an individual TSV, use [`validate_tsv.py`](https://github.co
 and the validation messages they produce, are available.
 
 Assay types and their schemas are linked below.
-- [An Excel file](field-schemas.xlsx) listing all the schemas and their fields in is available.
+- [An Excel file](field-schemas.xlsx) listing all the schemas and their fields is available.
 - For more information, see the [`ingest-validation-tools` repo](https://github.com/hubmapconsortium/ingest-validation-tools#readme).
 
 {% assign categories = site.pages | group_by: "category" %}
