@@ -4,6 +4,7 @@
 - Add release date to schema.
 - Add UMI fields to scrnaseq schema.
 - Add Excel sheet describing which fields show up in which schemas.
+- Add field descriptions to spreadsheet.
 - Temporarily disable checking the assay names in schemas against the global list.
   Entries in the global list are now commented out, and Joel will progressively
   uncomment them.
