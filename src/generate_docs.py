@@ -34,11 +34,11 @@ def main():
 
     is_assay = get_is_assay(args.type)
     if is_assay:
-        table_schemas = {v: get_table_schema(args.type, v) for v in versions}
+        table_schemas = {v: get_table_schema(args.type, v, keep_headers=True) for v in versions}
         pipeline_infos = get_pipeline_infos(args.type)
         directory_schema = get_directory_schema(args.type)
     else:
-        table_schemas = {v: get_other_schema(args.type, v) for v in versions}
+        table_schemas = {v: get_other_schema(args.type, v, keep_headers=True) for v in versions}
         pipeline_infos = []
         directory_schema = {}
 
@@ -60,7 +60,7 @@ def main():
     # YAML:
     for v in versions:
         schema = table_schemas[v]
-        first_field = schema['fields'][0]
+        first_field = [f for f in schema['fields'] if not isinstance(f, str)][0]
         if first_field['name'] == 'version':
             assert first_field['constraints']['enum'] == [v], \
                 f'Wrong version constraint in {args.type}-v{v}.yaml'
@@ -72,9 +72,10 @@ def main():
             )
 
     # Data entry templates:
+    max_schema = enum_maps_to_lists(table_schemas[max_version],
+                                    add_none_of_the_above=True, add_suggested=True)
+    max_schema['fields'] = [f for f in max_schema['fields'] if not isinstance(f, str)]
     with open(Path(args.target) / get_tsv_name(args.type, is_assay=is_assay), 'w') as f:
-        max_schema = enum_maps_to_lists(table_schemas[max_version],
-                                        add_none_of_the_above=True, add_suggested=True)
         f.write(generate_template_tsv(max_schema))
     create_xlsx(
         max_schema, Path(args.target) / get_xlsx_name(args.type, is_assay=is_assay),
