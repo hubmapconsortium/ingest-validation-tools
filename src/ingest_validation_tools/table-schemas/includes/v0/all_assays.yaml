@@ -1,5 +1,5 @@
+- Shared by all types
 -
-  heading: Shared by all types
   name: donor_id
   description: HuBMAP Display ID of the donor of the assayed tissue.
   constraints:

@@ -1,6 +1,7 @@
 # Changelog
 
 ## v0.0.14 - in progress
+- Headers are no longer properties of fields.
 - Remove mention of `extras/thumbnail.jpg`.
 - Add release date to schema.
 - Add UMI fields to scrnaseq schema.
