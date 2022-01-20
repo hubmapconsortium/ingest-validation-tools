@@ -1,10 +1,6 @@
 # Changelog
-
-<<<<<<< HEAD
-## v0.0.13 - in progress
-- Added MIBI directory structure schema.
-=======
 ## v0.0.14 - in progress
+- Added MIBI directory structure schema.
 - Remove mention of `extras/thumbnail.jpg`.
 - Add release date to schema.
 - Add UMI fields to scrnaseq schema.
@@ -34,7 +30,6 @@
 - Check that assay terms match approved list. (Right now, they don't.)
 - Level 1 description of assay_category: Updated "3" assay categories to "4". Added imaging mass spec.
 - work around mypy importlib type hinting problem
->>>>>>> main
 - Cleaned up LC-MS directory structure schema.
 - Added links to examples in the portal for 5 assays.
 - Make LC fields optional.
