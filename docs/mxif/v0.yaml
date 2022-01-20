@@ -1,6 +1,7 @@
 # Generated YAML: PRs should not start here!
 doc_url: https://portal.hubmapconsortium.org/docs/assays/mxif
 fields:
+- Shared by all types
 - constraints:
     pattern: '[A-Z]+[0-9]+'
     required: true
@@ -8,7 +9,6 @@ fields:
     forbid_na: true
   description: HuBMAP Display ID of the donor of the assayed tissue.
   example: ABC123
-  heading: Shared by all types
   name: donor_id
   type: string
 - constraints:
@@ -114,6 +114,7 @@ fields:
     detection/measurement by the assay.
   name: is_targeted
   type: boolean
+- Unique to this type
 - constraints:
     required: true
   custom_constraints:
@@ -122,7 +123,6 @@ fields:
   description: An acquisition instrument is the device that contains the signal detection
     hardware and signal processing software. Assays generate signals such as light
     of various intensities or color or signals representing the molecular mass.
-  heading: Unique to this type
   name: acquisition_instrument_vendor
 - constraints:
     required: true

@@ -13,6 +13,7 @@ description_md: 'This schema is for CO-Detection by indEXing (CODEX). CODEX uplo
   information, see the [Antibodies TSV documentation](../antibodies).'
 doc_url: https://portal.hubmapconsortium.org/docs/assays/codex
 fields:
+- Shared by all types
 - constraints:
     enum:
     - '1'
@@ -21,7 +22,6 @@ fields:
     forbid_na: true
     sequence_limit: 3
   description: Version of the schema to use when validating this metadata.
-  heading: Shared by all types
   name: version
 - constraints:
     required: true
@@ -142,6 +142,7 @@ fields:
     detection/measurement by the assay.
   name: is_targeted
   type: boolean
+- Unique to this type
 - constraints:
     enum:
     - Keyence
@@ -153,7 +154,6 @@ fields:
   description: An acquisition_instrument is the device that contains the signal detection
     hardware and signal processing software. Assays generate signals such as light
     of various intensities or color or signals representing molecular mass.
-  heading: Unique to this type
   name: acquisition_instrument_vendor
 - constraints:
     enum:
