@@ -38,11 +38,6 @@ fields:
     (models) of that instrument with different features or sensitivities. Differences
     in features or sensitivities may be relevant to processing or interpretation of
     the data.
-  constraints:
-    required: true
-  custom_constraints:
-    forbid_na: true
-    sequence_limit: 3
 - name: area_normalized_ion_dose_unit
   description: Area normalized ion dose unit
   constraints:
