@@ -2,6 +2,8 @@ from datetime import datetime
 from collections import defaultdict
 from fnmatch import fnmatch
 from collections import Counter
+from pathlib import Path
+import subprocess
 
 from ingest_validation_tools.validation_utils import (
     get_tsv_errors,
@@ -38,6 +40,7 @@ class Upload:
         self.offline = offline
         self.add_notes = add_notes
         self.errors = {}
+        self.effective_tsv_paths = {}
         try:
             unsorted_effective_tsv_paths = {
                 str(path): get_schema_version(path, self.encoding)
@@ -80,8 +83,14 @@ class Upload:
             errors['Plugin Errors'] = plugin_errors
 
         if self.add_notes:
+            git_version = subprocess.check_output(
+                'git rev-parse --short HEAD'.split(' '),
+                encoding='ascii',
+                stderr=subprocess.STDOUT
+            ).strip()
             errors['Notes'] = {
                 'Time': datetime.now(),
+                'Git version': git_version,
                 'Directory': str(self.directory_path),
                 'Effective TSVs': list(self.effective_tsv_paths.keys())
             }
@@ -126,11 +135,14 @@ class Upload:
 
     def _get_reference_errors(self):
         errors = {}
+        slash_ref_errors = self.__get_slash_ref_errors()
         no_ref_errors = self.__get_no_ref_errors()
         try:
             multi_ref_errors = self.__get_multi_ref_errors()
         except UnicodeDecodeError as e:
             return get_context_of_decode_error(e)
+        if slash_ref_errors:
+            errors['Has trailing slash'] = slash_ref_errors
         if no_ref_errors:
             errors['No References'] = no_ref_errors
         if multi_ref_errors:
@@ -200,6 +212,13 @@ class Upload:
 
         return errors
 
+    def __get_slash_ref_errors(self):
+        referenced_data_paths = set(self.__get_data_references().keys())
+        return [
+            path for path in referenced_data_paths
+            if path.endswith('/') or path.endswith('\\')
+        ]
+
     def __get_no_ref_errors(self):
         if not self.directory_path:
             return {}
@@ -215,7 +234,14 @@ class Upload:
             ])
         }
         unreferenced_paths = non_metadata_paths - referenced_data_paths
-        return [str(path) for path in unreferenced_paths]
+        unreferenced_dir_paths = [path for path in unreferenced_paths if Path(path).is_dir()]
+        unreferenced_file_paths = [path for path in unreferenced_paths if not Path(path).is_dir()]
+        errors = {}
+        if unreferenced_dir_paths:
+            errors['Directories'] = unreferenced_dir_paths
+        if unreferenced_file_paths:
+            errors['Files'] = unreferenced_file_paths
+        return errors
 
     def __get_multi_ref_errors(self):
         errors = {}

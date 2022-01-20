@@ -91,9 +91,9 @@ ORCID ID of contributor. Example: `0000-0002-8928-741X`.
 
 | constraint | value |
 | --- | --- |
-| pattern (regular expression) | `\d{4}-\d{4}-\d{4}-\d{3}[0-9X]` |
+| pattern (regular expression) | <code>\d{4}-\d{4}-\d{4}-\d{3}[0-9X]</code> |
 | required | `True` |
-| url | prefix: `https://pub.orcid.org/v3.0/` |
+| url | prefix: <code>https://pub.orcid.org/v3.0/</code> |
 
 <a name="is_contact"></a>
 ##### [`is_contact`](#is_contact)
@@ -107,7 +107,7 @@ Is this individual a contact for DOI purposes?
 </details>
 
 
-<details markdown="1" ><summary><b>Version 0</b></summary>
+<details markdown="1" ><summary><s>Version 0</s> (deprecated)</summary>
 
 
 <a name="affiliation"></a>
@@ -156,8 +156,8 @@ ORCID ID of contributor. Example: `0000-0002-8928-741X`.
 
 | constraint | value |
 | --- | --- |
-| pattern (regular expression) | `\d{4}-\d{4}-\d{4}-\d{3}[0-9X]` |
+| pattern (regular expression) | <code>\d{4}-\d{4}-\d{4}-\d{3}[0-9X]</code> |
 | required | `True` |
-| url | prefix: `https://pub.orcid.org/v3.0/` |
+| url | prefix: <code>https://pub.orcid.org/v3.0/</code> |
 
 </details>

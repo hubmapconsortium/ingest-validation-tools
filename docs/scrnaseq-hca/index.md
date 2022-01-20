@@ -17,9 +17,8 @@ Related files:
 
 | pattern | required? | description |
 | --- | --- | --- |
-| `[^/]+\.fastq\.gz` | ✓ | Compressed FastQ file |
-| `extras/.*` |  | Free-form descriptive information supplied by the TMC |
-| `extras/thumbnail\.(png\|jpg)` |  | Optional thumbnail image which may be shown in search interface |
+| <code>[^/]+\.fastq\.gz</code> | ✓ | Compressed FastQ file |
+| <code>extras/.*</code> |  | Free-form descriptive information supplied by the TMC |
 
 ## Metadata schema
 
@@ -126,9 +125,9 @@ DOI for protocols.io referring to the protocol for this assay.
 
 | constraint | value |
 | --- | --- |
-| pattern (regular expression) | `10\.17504/.*` |
+| pattern (regular expression) | <code>10\.17504/.*</code> |
 | required | `True` |
-| url | prefix: `https://dx.doi.org/` |
+| url | prefix: <code>https://dx.doi.org/</code> |
 
 <a name="operator"></a>
 ##### [`operator`](#operator)
@@ -224,9 +223,9 @@ Link to a protocols document answering the question: How were single cells separ
 
 | constraint | value |
 | --- | --- |
-| pattern (regular expression) | `10\.17504/.*` |
+| pattern (regular expression) | <code>10\.17504/.*</code> |
 | required | `True` |
-| url | prefix: `https://dx.doi.org/` |
+| url | prefix: <code>https://dx.doi.org/</code> |
 
 <a name="sc_isolation_entity"></a>
 ##### [`sc_isolation_entity`](#sc_isolation_entity)
@@ -266,6 +265,7 @@ Total number of cell/nuclei yielded post dissociation and enrichment. Leave blan
 
 | constraint | value |
 | --- | --- |
+| type | `integer` |
 | required | `False` |
 
 <a name="rnaseq_assay_input"></a>
@@ -274,6 +274,7 @@ Number of cell/nuclei input to the assay. Leave blank if not applicable.
 
 | constraint | value |
 | --- | --- |
+| type | `integer` |
 | required | `False` |
 
 <a name="rnaseq_assay_method"></a>
@@ -290,9 +291,9 @@ A link to the protocol document containing the library construction method (incl
 
 | constraint | value |
 | --- | --- |
-| pattern (regular expression) | `10\.17504/.*` |
+| pattern (regular expression) | <code>10\.17504/.*</code> |
 | required | `True` |
-| url | prefix: `https://dx.doi.org/` |
+| url | prefix: <code>https://dx.doi.org/</code> |
 
 <a name="library_layout"></a>
 ##### [`library_layout`](#library_layout)
@@ -357,6 +358,7 @@ Number of PCR cycles to amplify cDNA. Leave blank if not applicable.
 
 | constraint | value |
 | --- | --- |
+| type | `integer` |
 | required | `False` |
 
 <a name="library_pcr_cycles_for_sample_index"></a>
@@ -365,6 +367,7 @@ Number of PCR cycles performed for library indexing. Leave blank if not applicab
 
 | constraint | value |
 | --- | --- |
+| type | `integer` |
 | required | `False` |
 
 <a name="library_final_yield_value"></a>
@@ -388,10 +391,11 @@ Units of final library yield. Leave blank if not applicable.
 
 <a name="library_average_fragment_size"></a>
 ##### [`library_average_fragment_size`](#library_average_fragment_size)
-Average size of sequencing library fragments estimated via gel electrophoresis or bioanalyzer/tapestation. Leave blank if not applicable.
+Average size in basepairs (bp) of sequencing library fragments estimated via gel electrophoresis or bioanalyzer/tapestation. Leave blank if not applicable.
 
 | constraint | value |
 | --- | --- |
+| type | `integer` |
 | required | `False` |
 
 <a name="sequencing_reagent_kit"></a>
@@ -408,7 +412,7 @@ Slash-delimited list of the number of sequencing cycles for, for example, Read1,
 
 | constraint | value |
 | --- | --- |
-| pattern (regular expression) | `\d+(/\d+)+` |
+| pattern (regular expression) | <code>\d+(/\d+)+</code> |
 | required | `False` |
 
 <a name="sequencing_read_percent_q30"></a>

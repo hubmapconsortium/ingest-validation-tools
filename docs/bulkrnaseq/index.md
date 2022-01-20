@@ -17,9 +17,8 @@ Related files:
 
 | pattern | required? | description |
 | --- | --- | --- |
-| `TODO` | ✓ | Directory structure not yet specified. https://github.com/hubmapconsortium/ingest-validation-tools/issues/446 |
-| `extras/.*` |  | Free-form descriptive information supplied by the TMC |
-| `extras/thumbnail\.(png\|jpg)` |  | Optional thumbnail image which may be shown in search interface |
+| <code>TODO</code> | ✓ | Directory structure not yet specified. https://github.com/hubmapconsortium/ingest-validation-tools/issues/446 |
+| <code>extras/.*</code> |  | Free-form descriptive information supplied by the TMC |
 
 ## Metadata schema
 
@@ -102,7 +101,7 @@ HuBMAP Display ID of the donor of the assayed tissue. Example: `ABC123`.
 
 | constraint | value |
 | --- | --- |
-| pattern (regular expression) | `[A-Z]+[0-9]+` |
+| pattern (regular expression) | <code>[A-Z]+[0-9]+</code> |
 | required | `True` |
 
 <a name="tissue_id"></a>
@@ -111,7 +110,7 @@ HuBMAP Display ID of the assayed tissue. Example: `ABC123-BL-1-2-3_456`.
 
 | constraint | value |
 | --- | --- |
-| pattern (regular expression) | `([A-Z]+[0-9]+)-[A-Z]{2}\d*(-\d+)+(_\d+)?` |
+| pattern (regular expression) | <code>([A-Z]+[0-9]+)-[A-Z]{2}\d*(-\d+)+(_\d+)?</code> |
 | required | `True` |
 
 <a name="execution_datetime"></a>
@@ -131,8 +130,8 @@ DOI for protocols.io referring to the protocol for this assay.
 | constraint | value |
 | --- | --- |
 | required | `True` |
-| pattern (regular expression) | `10\.17504/.*` |
-| url | prefix: `https://dx.doi.org/` |
+| pattern (regular expression) | <code>10\.17504/.*</code> |
+| url | prefix: <code>https://dx.doi.org/</code> |
 
 <a name="operator"></a>
 ##### [`operator`](#operator)
@@ -229,8 +228,8 @@ Link to a protocols document answering the question: How was tissue stored and p
 | constraint | value |
 | --- | --- |
 | required | `True` |
-| pattern (regular expression) | `10\.17504/.*` |
-| url | prefix: `https://dx.doi.org/` |
+| pattern (regular expression) | <code>10\.17504/.*</code> |
+| url | prefix: <code>https://dx.doi.org/</code> |
 
 <a name="bulk_rna_yield_value"></a>
 ##### [`bulk_rna_yield_value`](#bulk_rna_yield_value)
@@ -295,8 +294,8 @@ A link to the protocol document containing the library construction method (incl
 | constraint | value |
 | --- | --- |
 | required | `True` |
-| pattern (regular expression) | `10\.17504/.*` |
-| url | prefix: `https://dx.doi.org/` |
+| pattern (regular expression) | <code>10\.17504/.*</code> |
+| url | prefix: <code>https://dx.doi.org/</code> |
 
 <a name="library_layout"></a>
 ##### [`library_layout`](#library_layout)
@@ -313,7 +312,7 @@ Adapter sequence to be used for adapter trimming.
 
 | constraint | value |
 | --- | --- |
-| pattern (regular expression) | `5-[GATCU]+` |
+| pattern (regular expression) | <code>5-[GATCU]+</code> |
 | required | `True` |
 
 <a name="library_pcr_cycles_for_sample_index"></a>
@@ -346,7 +345,7 @@ Units of final library yield. Leave blank if not applicable.
 
 <a name="library_average_fragment_size"></a>
 ##### [`library_average_fragment_size`](#library_average_fragment_size)
-Average size in base pairs (bp) of sequencing library fragments estimated via gel electrophoresis or Bioanalyzer/tapestation.
+Average size in basepairs (bp) of sequencing library fragments estimated via gel electrophoresis or bioanalyzer/tapestation.
 
 | constraint | value |
 | --- | --- |
@@ -367,7 +366,7 @@ Slash-delimited list of the number of sequencing cycles for, for example, Read1,
 
 | constraint | value |
 | --- | --- |
-| pattern (regular expression) | `\d+(/\d+)+` |
+| pattern (regular expression) | <code>\d+(/\d+)+</code> |
 | required | `True` |
 
 <a name="sequencing_read_percent_q30"></a>
@@ -422,7 +421,7 @@ HuBMAP Display ID of the donor of the assayed tissue. Example: `ABC123`.
 
 | constraint | value |
 | --- | --- |
-| pattern (regular expression) | `[A-Z]+[0-9]+` |
+| pattern (regular expression) | <code>[A-Z]+[0-9]+</code> |
 | required | `True` |
 
 <a name="tissue_id"></a>
@@ -431,7 +430,7 @@ HuBMAP Display ID of the assayed tissue. Example: `ABC123-BL-1-2-3_456`.
 
 | constraint | value |
 | --- | --- |
-| pattern (regular expression) | `([A-Z]+[0-9]+)-[A-Z]{2}\d*(-\d+)+(_\d+)?` |
+| pattern (regular expression) | <code>([A-Z]+[0-9]+)-[A-Z]{2}\d*(-\d+)+(_\d+)?</code> |
 | required | `True` |
 
 <a name="execution_datetime"></a>
@@ -451,8 +450,8 @@ DOI for protocols.io referring to the protocol for this assay.
 | constraint | value |
 | --- | --- |
 | required | `True` |
-| pattern (regular expression) | `10\.17504/.*` |
-| url | prefix: `https://dx.doi.org/` |
+| pattern (regular expression) | <code>10\.17504/.*</code> |
+| url | prefix: <code>https://dx.doi.org/</code> |
 
 <a name="operator"></a>
 ##### [`operator`](#operator)
@@ -549,8 +548,8 @@ Link to a protocols document answering the question: How was tissue stored and p
 | constraint | value |
 | --- | --- |
 | required | `True` |
-| pattern (regular expression) | `10\.17504/.*` |
-| url | prefix: `https://dx.doi.org/` |
+| pattern (regular expression) | <code>10\.17504/.*</code> |
+| url | prefix: <code>https://dx.doi.org/</code> |
 
 <a name="bulk_rna_yield_value"></a>
 ##### [`bulk_rna_yield_value`](#bulk_rna_yield_value)
@@ -615,8 +614,8 @@ A link to the protocol document containing the library construction method (incl
 | constraint | value |
 | --- | --- |
 | required | `True` |
-| pattern (regular expression) | `10\.17504/.*` |
-| url | prefix: `https://dx.doi.org/` |
+| pattern (regular expression) | <code>10\.17504/.*</code> |
+| url | prefix: <code>https://dx.doi.org/</code> |
 
 <a name="library_layout"></a>
 ##### [`library_layout`](#library_layout)
@@ -633,7 +632,7 @@ Adapter sequence to be used for adapter trimming.
 
 | constraint | value |
 | --- | --- |
-| pattern (regular expression) | `5-[GATCU]+` |
+| pattern (regular expression) | <code>5-[GATCU]+</code> |
 | required | `True` |
 
 <a name="library_pcr_cycles_for_sample_index"></a>
@@ -666,7 +665,7 @@ Units of final library yield. Leave blank if not applicable.
 
 <a name="library_average_fragment_size"></a>
 ##### [`library_average_fragment_size`](#library_average_fragment_size)
-Average size in base pairs (bp) of sequencing library fragments estimated via gel electrophoresis or Bioanalyzer/tapestation.
+Average size in basepairs (bp) of sequencing library fragments estimated via gel electrophoresis or bioanalyzer/tapestation.
 
 | constraint | value |
 | --- | --- |
@@ -687,7 +686,7 @@ Slash-delimited list of the number of sequencing cycles for, for example, Read1,
 
 | constraint | value |
 | --- | --- |
-| pattern (regular expression) | `\d+(/\d+)+` |
+| pattern (regular expression) | <code>\d+(/\d+)+</code> |
 | required | `True` |
 
 <a name="sequencing_read_percent_q30"></a>

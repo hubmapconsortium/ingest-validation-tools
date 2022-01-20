@@ -124,7 +124,9 @@ fields:
   constraints:
     required: false
   description: Total number of cell/nuclei yielded post dissociation and enrichment
+  type: integer
 - name: rnaseq_assay_input
+  type: integer
   constraints:
     required: false
   description: Number of cell/nuclei input to the assay
@@ -173,10 +175,12 @@ fields:
   constraints:
     required: false
   description: Number of PCR cycles to amplify cDNA
+  type: integer
 - name: library_pcr_cycles_for_sample_index
   constraints:
     required: false
   description: Number of PCR cycles performed for library indexing
+  type: integer
 - name: library_final_yield_value
   constraints:
     required: false
@@ -189,11 +193,10 @@ fields:
     - ng
     required: false
   description: Units of final library yield
-- name: library_average_fragment_size
+
+# include: ../includes/fields/library_average_fragment_size.yaml
   constraints:
     required: false
-  description: Average size of sequencing library fragments estimated via gel electrophoresis
-    or bioanalyzer/tapestation.
 # include: ../includes/fields/sequencing_reagent_kit.yaml
   constraints:
     required: false

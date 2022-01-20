@@ -4,6 +4,7 @@ from copy import deepcopy
 import re
 
 from ingest_validation_tools.yaml_include_loader import load_yaml
+from ingest_validation_tools.enums import shared_enums
 
 
 _table_schemas_path = Path(__file__).parent / 'table-schemas'
@@ -180,7 +181,10 @@ def get_table_schema(schema_name, version, optional_fields=[], offline=None):
     names = [field['name'] for field in schema['fields']]
     for field in schema['fields']:
         _add_level_1_description(field)
-        _validate_level_1_enum(field)
+        # TODO: Re-enable when all assay names used in the schemas are recognized
+        #       by the assay service, and the list in enums.py has been uncommented.
+        #       https://github.com/hubmapconsortium/ingest-validation-tools/issues/1023
+        # _validate_level_1_enum(field)
 
         _add_constraints(field, optional_fields, offline=offline, names=names)
         _validate_field(field)
@@ -194,11 +198,6 @@ def get_directory_schema(directory_type):
         {
             'pattern': r'extras/.*',
             'description': 'Free-form descriptive information supplied by the TMC',
-            'required': False
-        },
-        {
-            'pattern': r'extras/thumbnail\.(png|jpg)',
-            'description': 'Optional thumbnail image which may be shown in search interface',
             'required': False
         }
     ]
@@ -255,81 +254,15 @@ def _validate_level_1_enum(field):
     Allowed: ['imaging', 'mass_spectrometry', 'mass_spectrometry_imaging', 'sequence']
     '''
 
-    enums = {
-        'assay_category': [
-            'imaging',
-            'mass_spectrometry',
-            'mass_spectrometry_imaging',
-            'sequence'
-        ],
-        'assay_type': [
-            '3D Imaging Mass Cytometry',
-            'scRNA-Seq(10xGenomics)',
-            'AF',
-            'bulk RNA',
-            'bulkATACseq',
-            'Cell DIVE',
-            'CE-MS',
-            'CODEX',
-            'DESI',
-            'GC-MS',
-            'Imaging Mass Cytometry',
-            'LC-MS (metabolomics)',
-            'LC-MS/MS (label-free proteomics)',
-            'Light Sheet',
-            'MxIF',
-            'MALDI-IMS',
-            'MS (shotgun lipidomics)',
-            'NanoDESI',
-            'NanoPOTS',
-            'PAS microscopy',
-            'scATACseq',
-            'sciATACseq',
-            'sciRNAseq',
-            'seqFISH',
-            'SIMS-IMS',
-            'SNARE-seq2',
-            'snATACseq',
-            'snRNA',
-            'SPLiT-Seq',
-            'TMT (proteomics)',
-            'WGS',
-            'SNARE2-RNAseq',
-            'snRNAseq',
-            'scRNAseq-10xGenomics',  # Only needed for scrnaseq-v0.yaml.
-            'scRNAseq-10xGenomics-v2',
-            'scRNAseq-10xGenomics-v3',
-            'scRNAseq',
-            'Slide-seq',
-            'MS Bottom-Up',
-            'MS Top-Down',
-            'LC-MS Top-Down',
-            'LC-MS',
-            'LC-MS Bottom-Up',
-            'MS'
-        ],
-        'analyte_class': [
-            'DNA',
-            'RNA',
-            'protein',
-            'lipids',
-            'metabolites',
-            'polysaccharides',
-            'metabolites_and_lipids',
-            'glycans',
-            'peptides',
-            'phosphopeptides'
-        ]
-    }
     name = field['name']
-    if name in enums:
+    if name in shared_enums:
         optional = not field['constraints'].get('required', True)  # Default: required = True
         actual = set(field['constraints'].get(
             'enum',
             [] if optional else None
             # Only optional fields are allowed to skip the enum.
         ))
-        allowed = set(enums[name])
+        allowed = set(shared_enums[name])
         assert actual <= allowed, f'Unexpected enums for {name}: {actual - allowed}\n' \
             f'Allowed: {sorted(allowed)}'
 
