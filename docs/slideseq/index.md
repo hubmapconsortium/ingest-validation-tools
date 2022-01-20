@@ -17,16 +17,16 @@ Related files:
 
 | pattern | required? | description |
 | --- | --- | --- |
-| <code>Puck_[^/]+\.all_illumina\.bam</code> | ✓ | aligned sequencing data from Slide-seq experiments against reference HG38 |
-| <code>Puck_[^/]+\.all_illumina\.mapping_rate\.txt</code> | ✓ | mapping rate summary (~ 10 number of mapping statistics per puck) |
-| <code>Puck_[^/]+\.all_illumina\.alignment_quality\.pdf</code> | ✓ | mapping quality plots (has unique and multiple alignment ratio, alignment scores alignment mismatch) |
-| <code>Puck_[^/]+\.pdf</code> | ✓ | post alignment plots (qa/qc), plots of sequencing data, alignment and barcode matching |
-| <code>BeadBarcodes\.txt</code> | ✓ | barcodes of all beads on the puck (Many of these barcodes will not be in the barcode matching file) |
-| <code>BeadLocations\.txt</code> | ✓ | spatial coordinates of all beads (1 to 1 correspondence with BeadBarcodes) |
-| <code>Puck_[^/]+_barcode_xy.txt.gz</code> | ✓ | matched bead barcodes with coordinates. Some beads from BeadBarcodes may be merged |
-| <code>Puck_[^/]+\.matched\.digital_expression\.txt\.gz</code> | ✓ | bead x gene expression matrix (tab-delimited text file) for matched beads |
-| <code>Puck_[^/]+\.read1\.fastq\.gz</code> | ✓ | the first read of the paired reads, containing the bead barcode and UMI |
-| <code>Puck_[^/]+\.read2\.fastq\.gz</code> | ✓ | the second read of the paired reads, containing the sequenced cDNA |
+| <code>Puck_[^/]+\.all_illumina\.bam</code> | ✓ | Aligned sequencing data from Slide-seq experiments against reference HG38 |
+| <code>Puck_[^/]+\.all_illumina\.mapping_rate\.txt</code> | ✓ | Mapping rate summary (~ 10 number of mapping statistics per puck) |
+| <code>Puck_[^/]+\.all_illumina\.alignment_quality\.pdf</code> | ✓ | Mapping quality plots (has unique and multiple alignment ratio, alignment scores alignment mismatch) |
+| <code>Puck_[^/]+\.pdf</code> | ✓ | Post alignment plots (qa/qc), plots of sequencing data, alignment and barcode matching |
+| <code>BeadBarcodes\.txt</code> | ✓ | Barcodes of all beads on the puck (many of these barcodes will not be in the barcode matching file) |
+| <code>BeadLocations\.txt</code> | ✓ | Spatial coordinates of all beads (1 to 1 correspondence with BeadBarcodes) |
+| <code>Puck_[^/]+_barcode_xy.txt.gz</code> | ✓ | Matched bead barcodes with coordinates. Some beads from BeadBarcodes may be merged |
+| <code>Puck_[^/]+\.matched\.digital_expression\.txt\.gz</code> | ✓ | Bead x gene expression matrix (tab-delimited text file) for matched beads |
+| <code>Puck_[^/]+\.read1\.fastq\.gz</code> | ✓ | The first read of the paired reads, containing the bead barcode and UMI |
+| <code>Puck_[^/]+\.read2\.fastq\.gz</code> | ✓ | The second read of the paired reads, containing the sequenced cDNA |
 | <code>extras/.*</code> |  | Free-form descriptive information supplied by the TMC |
 
 ## Metadata schema
