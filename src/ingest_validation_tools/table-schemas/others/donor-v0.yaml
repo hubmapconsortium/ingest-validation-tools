@@ -7,9 +7,9 @@ description_md:
   https://ncit.nci.nih.gov/ncitbrowser/pages/home.jsf?version=20.11e
 
 fields:
-# -
-#   name: age_unit
-#   description: ...
+-
+  name: age_unit
+  description: Unit for age measurement.
 - name: age_value
   description:  The time elapsed since birth. 
 - name: blood_type
@@ -34,10 +34,11 @@ fields:
 #   name: death_event
 #   description: ...
 - name: height_unit
-  description:  The vertical measurement or distance from the base to the top of a subject or participant.
-# -
-#   name: height_value
-#   description: ...
+  description: Unit for height measurement.
+-
+  name: height_value
+  description: The vertical measurement or distance from the base to the top of a subject or participant.
+  type: number
 # -
 #   name: kidney_donor_profile_index_unit
 #   description: ...
@@ -68,8 +69,8 @@ fields:
 - name: sex
   description:  'Biological sex at birth: male or female or other.'
 
-# -
-#   name: weight_unit
-#   description: ...
+-
+  name: weight_unit
+  description: Unit for weight measurement.
 - name: weight_value
   description:  A measurement that describes the vertical force exerted by a mass of the patient as a result of gravity.

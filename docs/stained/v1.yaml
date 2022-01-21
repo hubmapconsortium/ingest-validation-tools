@@ -1,6 +1,8 @@
 # Generated YAML: PRs should not start here!
 description_md: "This schema is for microscopy of tissue treated with periodic acid\u2013\
-  Schiff stain (stained)."
+  Schiff stain (stained). For an example of a PAS (Periodic acid-Schiff) dataset &\
+  \ directory, see this [example PAS stained dataset](https://portal.hubmapconsortium.org/browse/dataset/7308530b92438fdbe258b501aeb86069#files)\
+  \ and click the Globus link."
 doc_url: https://portal.hubmapconsortium.org/docs/assays/pas
 fields:
 - constraints:
@@ -76,6 +78,7 @@ fields:
   description: Email address for the operator.
   format: email
   name: operator_email
+  type: string
 - constraints:
     required: true
   custom_constraints:
@@ -91,6 +94,7 @@ fields:
   description: Email address for the principal investigator.
   format: email
   name: pi_email
+  type: string
 - constraints:
     enum:
     - imaging
@@ -98,9 +102,10 @@ fields:
   custom_constraints:
     forbid_na: true
     sequence_limit: 3
-  description: 'Each assay is placed into one of the following 3 general categories:
+  description: 'Each assay is placed into one of the following 4 general categories:
     generation of images of microscopic entities, identification & quantitation of
-    molecules by mass spectrometry, and determination of nucleotide sequence.'
+    molecules by mass spectrometry, imaging mass spectrometry, and determination of
+    nucleotide sequence.'
   name: assay_category
 - constraints:
     enum:

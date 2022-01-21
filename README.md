@@ -1,6 +1,6 @@
 # ingest-validation-tools
 HuBMAP data upload guidelines, and tools which check that uploads adhere to those guidelines.
-Assay documenentation is on [Github Pages](https://hubmapconsortium.github.io/ingest-validation-tools/).
+Assay documentation is on [Github Pages](https://hubmapconsortium.github.io/ingest-validation-tools/).
 
 HuBMAP has three distinct metadata processes:
 - **Donor** metadata is handled by Jonathan Silverstein on an adhoc basis: He works with whatever format the TMC can provide, and aligns it with controlled vocabularies. 
@@ -9,7 +9,7 @@ HuBMAP has three distinct metadata processes:
 
 ## For assay type working groups:
 
-Before we can write code to validate a particular assay type, there are some prequisites:
+Before we can write code to validate a particular assay type, there are some prerequisites:
 - A document describing the experimental techniques involved.
 - A list of the metadata fields for this type, along with descriptions and constraints.
 - A list of the files to be expected in each dataset directory, along with descriptions.

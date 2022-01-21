@@ -75,6 +75,7 @@ fields:
   description: Email address for the operator.
   format: email
   name: operator_email
+  type: string
 - constraints:
     required: true
   custom_constraints:
@@ -90,6 +91,7 @@ fields:
   description: Email address for the principal investigator.
   format: email
   name: pi_email
+  type: string
 - constraints:
     enum:
     - mass_spectrometry_imaging
@@ -97,9 +99,10 @@ fields:
   custom_constraints:
     forbid_na: true
     sequence_limit: 3
-  description: 'Each assay is placed into one of the following 3 general categories:
+  description: 'Each assay is placed into one of the following 4 general categories:
     generation of images of microscopic entities, identification & quantitation of
-    molecules by mass spectrometry, and determination of nucleotide sequence.'
+    molecules by mass spectrometry, imaging mass spectrometry, and determination of
+    nucleotide sequence.'
   name: assay_category
 - constraints:
     enum:
@@ -177,6 +180,7 @@ fields:
     enum:
     - negative ion mode
     - positive ion mode
+    - negative and positive ion mode
     required: true
   custom_constraints:
     forbid_na: true
@@ -200,7 +204,7 @@ fields:
   name: mz_range_high_value
   type: number
 - constraints:
-    required: true
+    required: false
   custom_constraints:
     forbid_na: true
     sequence_limit: 3
@@ -209,7 +213,7 @@ fields:
   name: mass_resolving_power
   type: number
 - constraints:
-    required: true
+    required: false
   custom_constraints:
     forbid_na: true
     sequence_limit: 3

@@ -122,6 +122,8 @@ def validation_error_iter(base_dir: PathOrStr, assay_type: str,
             mod = sys.modules[mod_nm]
         else:
             spec = util.spec_from_file_location(mod_nm, fpath)
+            if spec is None:
+                raise ValidatorError(f'bad plugin test {fpath}')
             mod = util.module_from_spec(spec)
             sys.modules[mod_nm] = mod
             spec.loader.exec_module(mod)  # type: ignore

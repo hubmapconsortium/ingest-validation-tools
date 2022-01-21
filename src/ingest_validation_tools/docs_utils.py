@@ -1,6 +1,7 @@
 import re
 from string import Template
 from pathlib import Path
+import html
 
 from ingest_validation_tools.schema_loader import get_field_enum
 
@@ -116,9 +117,15 @@ def generate_readme_md(
         'More details about this type.'
         if 'doc_url' in max_version_table_schema else ''
     )
+
     optional_description_md = (
         max_version_table_schema['description_md']
         if 'description_md' in max_version_table_schema else ''
+    )
+
+    optional_release_date = (
+        f", release date {max_version_table_schema['release_date']}"
+        if 'release_date' in max_version_table_schema else ''
     )
 
     template = Template(
@@ -143,8 +150,10 @@ def generate_readme_md(
 
         'current_version_md':
             _make_fields_md(
-                max_version_table_schema, f'Version {max_version} (current)', is_open=True
-        ),
+                max_version_table_schema,
+                f'Version {max_version} (current{optional_release_date})',
+                is_open=True
+            ),
         'previous_versions_md':
             '\n\n'.join([
                 _make_fields_md(table_schemas[str(v)], f'Version {v}')
@@ -296,10 +305,10 @@ def _make_value_md(key, value):
     `A`, `B`, or `C`
 
     >>> print(_make_value_md('pattern', '^some|reg_?ex\\.$'))
-    `^some\\|reg_?ex\\.$`
+    <code>^some&#124;reg_?ex\\.$</code>
 
     >>> print(_make_value_md('url', {'prefix': 'http://example.com/'}))
-    prefix: `http://example.com/`
+    prefix: <code>http://example.com/</code>
 
     '''
     if key == 'enum':
@@ -309,18 +318,29 @@ def _make_value_md(key, value):
         backtick_list[-1] = f'or {backtick_list[-1]}'
         return ', '.join(backtick_list)
     if key == 'pattern':
-        return f'`{_md_escape_re(value)}`'
+        return _html_code(value)
     if key == 'url':
-        return f'prefix: `{_md_escape_re(value["prefix"])}`'
+        return f'prefix: {_html_code(value["prefix"])}'
     return f'`{value}`'
 
 
-def _md_escape_re(re_string):
+def _html_code(re_string):
     '''
-    >>> print(_md_escape_re('a|b'))
-    a\\|b
+    In Github pages, '`a|b`' can be used in a table,
+    but in Github markdown preview, it will cause table cells to split.
+    Instead, use HTML and a character entity.
+
+    >>> original = 'gt >|lt <|amp &'
+    >>> wrapped = _html_code(original)
+    >>> print(wrapped)
+    <code>gt &gt;&#124;lt &lt;&#124;amp &amp;</code>
+
+    >>> unwrapped = html.unescape(wrapped.replace('<code>','').replace('</code>',''))
+    >>> assert unwrapped == original
     '''
-    return re.sub(r'([|])', r'\\\1', re_string)
+    escaped = html.escape(re_string)
+    pipe_escaped = escaped.replace('|', '&#124;')
+    return f'<code>{pipe_escaped}</code>'
 
 
 def _clean(s):
@@ -379,14 +399,24 @@ def _make_toc(md):
 
 def _make_dir_descriptions(dir_schemas, pipeline_infos):
     '''
-    >>> dir_schema = [
-    ...   { 'pattern': 'required\\.txt', 'description': 'Required!'}
-    ... ]
+    >>> dir_schema = {
+    ...     'files': [
+    ...         {'pattern': 'required\\.txt', 'description': 'Required!'}
+    ...     ]
+    ... }
     >>> pipeline_infos = [{
     ...     "name": "Fake Pipeline",
     ...     "repo_url": "https://github.com/hubmapconsortium/fake",
     ...     "version_tag": "v1.2.3"
     ... }]
+    >>> print(_make_dir_descriptions({'0': dir_schema}, pipeline_infos))
+    The HIVE will process each dataset with
+    [Fake Pipeline v1.2.3](https://github.com/hubmapconsortium/fake/releases/tag/v1.2.3).
+    ### v0
+    <BLANKLINE>
+    | pattern | required? | description |
+    | --- | --- | --- |
+    | <code>required\\.txt</code> | ✓ | Required! |
     '''
     pipeline_infos_md = ' and '.join(make_pipeline_link(info) for info in pipeline_infos)
     pipeline_blurb = \
@@ -414,8 +444,8 @@ def _make_dir_description(files, is_deprecated=False):
     <BLANKLINE>
     | pattern | required? | description |
     | --- | --- | --- |
-    | `required\\.txt` | ✓ | **[QA/QC]** Required! |
-    | `optional\\.txt` |  | Optional! |
+    | <code>required\\.txt</code> | ✓ | **[QA/QC]** Required! |
+    | <code>optional\\.txt</code> |  | Optional! |
 
     Deprecated is handled:
 
@@ -428,7 +458,7 @@ def _make_dir_description(files, is_deprecated=False):
     <BLANKLINE>
     | pattern | required? | description |
     | --- | --- | --- |
-    | `optional\\.txt` |  | Optional! |
+    | <code>optional\\.txt</code> |  | Optional! |
     <BLANKLINE>
     </details>
 
@@ -442,8 +472,8 @@ def _make_dir_description(files, is_deprecated=False):
     <BLANKLINE>
     | pattern | example | required? | description |
     | --- | --- | --- | --- |
-    | `[A-Z]+\\d+` | `ABC123` | ✓ | letters numbers |
-    | `[A-Z]` |  | ✓ | one letter, no example |
+    | <code>[A-Z]+\\d+</code> (example: <code>ABC123</code>) | ✓ | letters numbers |
+    | <code>[A-Z]</code> | ✓ | one letter, no example |
 
     Bad examples cause errors:
 
@@ -486,18 +516,13 @@ def _make_dir_description(files, is_deprecated=False):
         row = []
 
         pattern = line['pattern']
-        pattern_md = f'`{_md_escape_re(pattern)}`'
+        pattern_md = _html_code(pattern)
+        if 'example' in line:
+            example = line['example']
+            assert re.fullmatch(pattern, example), \
+                f'Example "{example}" does not match pattern "{pattern}"'
+            pattern_md += f' (example: {_html_code(example)})'
         row.append(pattern_md)
-
-        if has_examples:
-            if 'example' not in line:
-                row.append('')
-            else:
-                example = line['example']
-                assert re.fullmatch(pattern, example), \
-                    f'Example "{example}" does not match pattern "{pattern}"'
-                example_md = f'`{_md_escape_re(example)}`'
-                row.append(example_md)
 
         required_md = '' if 'required' in line and not line['required'] else '✓'
         row.append(required_md)

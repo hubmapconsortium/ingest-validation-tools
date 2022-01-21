@@ -20,11 +20,13 @@ The HIVE will process each dataset with
 
 | pattern | required? | description |
 | --- | --- | --- |
-| `[^/]+\.fastq\.gz` | ✓ | Compressed FastQ file |
-| `extras/.*` |  | Free-form descriptive information supplied by the TMC |
-| `extras/thumbnail\.(png\|jpg)` |  | Optional thumbnail image which may be shown in search interface |
+| <code>[^/]+\.fastq\.gz</code> | ✓ | Compressed FastQ file |
+| <code>extras/.*</code> |  | Free-form descriptive information supplied by the TMC |
 
 ## Metadata schema
+
+### Field types
+- *Boolean* fields can be given as `TRUE`/`FALSE`, `True`/`False`, `true`/`false`, or `1`/`0`.  
 
 
 <details markdown="1" open="true"><summary><b>Version 1 (current)</b></summary>
@@ -111,7 +113,7 @@ HuBMAP Display ID of the donor of the assayed tissue. Example: `ABC123`.
 
 | constraint | value |
 | --- | --- |
-| pattern (regular expression) | `[A-Z]+[0-9]+` |
+| pattern (regular expression) | <code>[A-Z]+[0-9]+</code> |
 | required | `True` |
 
 <a name="tissue_id"></a>
@@ -120,7 +122,7 @@ HuBMAP Display ID of the assayed tissue. Example: `ABC123-BL-1-2-3_456`.
 
 | constraint | value |
 | --- | --- |
-| pattern (regular expression) | `([A-Z]+[0-9]+)-[A-Z]{2}\d*(-\d+)+(_\d+)?` |
+| pattern (regular expression) | <code>([A-Z]+[0-9]+)-[A-Z]{2}\d*(-\d+)+(_\d+)?</code> |
 | required | `True` |
 
 <a name="execution_datetime"></a>
@@ -140,8 +142,8 @@ DOI for protocols.io referring to the protocol for this assay.
 | constraint | value |
 | --- | --- |
 | required | `True` |
-| pattern (regular expression) | `10\.17504/.*` |
-| url | prefix: `https://dx.doi.org/` |
+| pattern (regular expression) | <code>10\.17504/.*</code> |
+| url | prefix: <code>https://dx.doi.org/</code> |
 
 <a name="operator"></a>
 ##### [`operator`](#operator)
@@ -179,7 +181,7 @@ Email address for the principal investigator.
 
 <a name="assay_category"></a>
 ##### [`assay_category`](#assay_category)
-Each assay is placed into one of the following 3 general categories: generation of images of microscopic entities, identification & quantitation of molecules by mass spectrometry, and determination of nucleotide sequence.
+Each assay is placed into one of the following 4 general categories: generation of images of microscopic entities, identification & quantitation of molecules by mass spectrometry, imaging mass spectrometry, and determination of nucleotide sequence.
 
 | constraint | value |
 | --- | --- |
@@ -255,8 +257,8 @@ Link to a protocols document answering the question: How were single cells separ
 | constraint | value |
 | --- | --- |
 | required | `True` |
-| pattern (regular expression) | `10\.17504/.*` |
-| url | prefix: `https://dx.doi.org/` |
+| pattern (regular expression) | <code>10\.17504/.*</code> |
+| url | prefix: <code>https://dx.doi.org/</code> |
 
 <a name="sc_isolation_entity"></a>
 ##### [`sc_isolation_entity`](#sc_isolation_entity)
@@ -343,8 +345,8 @@ A link to the protocol document containing the library construction method (incl
 | constraint | value |
 | --- | --- |
 | required | `True` |
-| pattern (regular expression) | `10\.17504/.*` |
-| url | prefix: `https://dx.doi.org/` |
+| pattern (regular expression) | <code>10\.17504/.*</code> |
+| url | prefix: <code>https://dx.doi.org/</code> |
 
 <a name="library_layout"></a>
 ##### [`library_layout`](#library_layout)
@@ -361,12 +363,12 @@ Adapter sequence to be used for adapter trimming.
 
 | constraint | value |
 | --- | --- |
-| pattern (regular expression) | `[ATCG]+(\+[ATCG]+)?` |
+| pattern (regular expression) | <code>[ATCG]+(\+[ATCG]+)?</code> |
 | required | `True` |
 
 <a name="cell_barcode_read"></a>
 ##### [`cell_barcode_read`](#cell_barcode_read)
-Which read file contains the cell barcode. This field is not required for barcoding by single-cell combinatorial indexing. Leave blank if not applicable.
+Which read file(s) contains the cell barcode. Multiple cell_barcode_read files must be provided as a comma-delimited list (e.g. file1,file2,file3). This field is not required for barcoding by single-cell combinatorial indexing. Leave blank if not applicable.
 
 | constraint | value |
 | --- | --- |
@@ -378,7 +380,7 @@ Positions in the read at which the cell barcodes start. Cell barcodes are, for e
 
 | constraint | value |
 | --- | --- |
-| pattern (regular expression) | `\d+(,\d+)*` |
+| pattern (regular expression) | <code>\d+(,\d+)*</code> |
 | required | `True` |
 
 <a name="cell_barcode_size"></a>
@@ -387,7 +389,7 @@ Length of the cell barcode in base pairs. Cell barcodes are, for example, 3 x 8 
 
 | constraint | value |
 | --- | --- |
-| pattern (regular expression) | `\d+(,\d+)*` |
+| pattern (regular expression) | <code>\d+(,\d+)*</code> |
 | required | `True` |
 
 <a name="library_pcr_cycles"></a>
@@ -429,11 +431,11 @@ Units for library_final_yield. Leave blank if not applicable.
 
 <a name="library_average_fragment_size"></a>
 ##### [`library_average_fragment_size`](#library_average_fragment_size)
-Average size of sequencing library fragments estimated via gel electrophoresis or bioanalyzer/tapestation. Numeric value in bp.
+Average size in basepairs (bp) of sequencing library fragments estimated via gel electrophoresis or bioanalyzer/tapestation.
 
 | constraint | value |
 | --- | --- |
-| type | `number` |
+| type | `integer` |
 | required | `True` |
 
 <a name="sequencing_reagent_kit"></a>
@@ -450,7 +452,7 @@ Slash-delimited list of the number of sequencing cycles for, for example, Read1,
 
 | constraint | value |
 | --- | --- |
-| pattern (regular expression) | `\d+(/\d+)+` |
+| pattern (regular expression) | <code>\d+(/\d+)+</code> |
 | required | `True` |
 
 <a name="sequencing_read_percent_q30"></a>
@@ -505,7 +507,7 @@ HuBMAP Display ID of the donor of the assayed tissue. Example: `ABC123`.
 
 | constraint | value |
 | --- | --- |
-| pattern (regular expression) | `[A-Z]+[0-9]+` |
+| pattern (regular expression) | <code>[A-Z]+[0-9]+</code> |
 | required | `True` |
 
 <a name="tissue_id"></a>
@@ -514,7 +516,7 @@ HuBMAP Display ID of the assayed tissue. Example: `ABC123-BL-1-2-3_456`.
 
 | constraint | value |
 | --- | --- |
-| pattern (regular expression) | `([A-Z]+[0-9]+)-[A-Z]{2}\d*(-\d+)+(_\d+)?` |
+| pattern (regular expression) | <code>([A-Z]+[0-9]+)-[A-Z]{2}\d*(-\d+)+(_\d+)?</code> |
 | required | `True` |
 
 <a name="execution_datetime"></a>
@@ -534,8 +536,8 @@ DOI for protocols.io referring to the protocol for this assay.
 | constraint | value |
 | --- | --- |
 | required | `True` |
-| pattern (regular expression) | `10\.17504/.*` |
-| url | prefix: `https://dx.doi.org/` |
+| pattern (regular expression) | <code>10\.17504/.*</code> |
+| url | prefix: <code>https://dx.doi.org/</code> |
 
 <a name="operator"></a>
 ##### [`operator`](#operator)
@@ -573,7 +575,7 @@ Email address for the principal investigator.
 
 <a name="assay_category"></a>
 ##### [`assay_category`](#assay_category)
-Each assay is placed into one of the following 3 general categories: generation of images of microscopic entities, identification & quantitation of molecules by mass spectrometry, and determination of nucleotide sequence.
+Each assay is placed into one of the following 4 general categories: generation of images of microscopic entities, identification & quantitation of molecules by mass spectrometry, imaging mass spectrometry, and determination of nucleotide sequence.
 
 | constraint | value |
 | --- | --- |
@@ -649,8 +651,8 @@ Link to a protocols document answering the question: How were single cells separ
 | constraint | value |
 | --- | --- |
 | required | `True` |
-| pattern (regular expression) | `10\.17504/.*` |
-| url | prefix: `https://dx.doi.org/` |
+| pattern (regular expression) | <code>10\.17504/.*</code> |
+| url | prefix: <code>https://dx.doi.org/</code> |
 
 <a name="sc_isolation_entity"></a>
 ##### [`sc_isolation_entity`](#sc_isolation_entity)
@@ -737,8 +739,8 @@ A link to the protocol document containing the library construction method (incl
 | constraint | value |
 | --- | --- |
 | required | `True` |
-| pattern (regular expression) | `10\.17504/.*` |
-| url | prefix: `https://dx.doi.org/` |
+| pattern (regular expression) | <code>10\.17504/.*</code> |
+| url | prefix: <code>https://dx.doi.org/</code> |
 
 <a name="library_layout"></a>
 ##### [`library_layout`](#library_layout)
@@ -755,7 +757,7 @@ Adapter sequence to be used for adapter trimming.
 
 | constraint | value |
 | --- | --- |
-| pattern (regular expression) | `[ATCG]+(\+[ATCG]+)?` |
+| pattern (regular expression) | <code>[ATCG]+(\+[ATCG]+)?</code> |
 | required | `True` |
 
 <a name="cell_barcode_read"></a>
@@ -772,7 +774,7 @@ Positions in the read at which the cell barcodes start. Cell barcodes are, for e
 
 | constraint | value |
 | --- | --- |
-| pattern (regular expression) | `\d+(,\d+)*` |
+| pattern (regular expression) | <code>\d+(,\d+)*</code> |
 | required | `True` |
 
 <a name="cell_barcode_size"></a>
@@ -781,7 +783,7 @@ Length of the cell barcode in base pairs. Cell barcodes are, for example, 3 x 8 
 
 | constraint | value |
 | --- | --- |
-| pattern (regular expression) | `\d+(,\d+)*` |
+| pattern (regular expression) | <code>\d+(,\d+)*</code> |
 | required | `True` |
 
 <a name="library_pcr_cycles"></a>
@@ -823,11 +825,11 @@ Units for library_final_yield. Leave blank if not applicable.
 
 <a name="library_average_fragment_size"></a>
 ##### [`library_average_fragment_size`](#library_average_fragment_size)
-Average size of sequencing library fragments estimated via gel electrophoresis or bioanalyzer/tapestation. Numeric value in bp.
+Average size in basepairs (bp) of sequencing library fragments estimated via gel electrophoresis or bioanalyzer/tapestation.
 
 | constraint | value |
 | --- | --- |
-| type | `number` |
+| type | `integer` |
 | required | `True` |
 
 <a name="sequencing_reagent_kit"></a>
@@ -844,7 +846,7 @@ Slash-delimited list of the number of sequencing cycles for, for example, Read1,
 
 | constraint | value |
 | --- | --- |
-| pattern (regular expression) | `\d+(/\d+)+` |
+| pattern (regular expression) | <code>\d+(/\d+)+</code> |
 | required | `True` |
 
 <a name="sequencing_read_percent_q30"></a>

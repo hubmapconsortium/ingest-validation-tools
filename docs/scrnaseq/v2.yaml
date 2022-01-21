@@ -75,6 +75,7 @@ fields:
   description: Email address for the operator.
   format: email
   name: operator_email
+  type: string
 - constraints:
     required: true
   custom_constraints:
@@ -90,6 +91,7 @@ fields:
   description: Email address for the principal investigator.
   format: email
   name: pi_email
+  type: string
 - constraints:
     enum:
     - sequence
@@ -97,9 +99,10 @@ fields:
   custom_constraints:
     forbid_na: true
     sequence_limit: 3
-  description: 'Each assay is placed into one of the following 3 general categories:
+  description: 'Each assay is placed into one of the following 4 general categories:
     generation of images of microscopic entities, identification & quantitation of
-    molecules by mass spectrometry, and determination of nucleotide sequence.'
+    molecules by mass spectrometry, imaging mass spectrometry, and determination of
+    nucleotide sequence.'
   name: assay_category
 - constraints:
     enum:
@@ -211,6 +214,7 @@ fields:
     sequence_limit: 3
   description: Total number of cell/nuclei yielded post dissociation and enrichment
   name: sc_isolation_cell_number
+  type: integer
 - constraints:
     required: true
   custom_constraints:
@@ -218,6 +222,7 @@ fields:
     sequence_limit: 3
   description: Number of cell/nuclei input to the assay
   name: rnaseq_assay_input
+  type: integer
 - constraints:
     required: true
   custom_constraints:
@@ -271,7 +276,7 @@ fields:
   custom_constraints:
     forbid_na: true
     sequence_limit: 3
-  description: Is the sequencing reaction run in repliucate, TRUE or FALSE
+  description: Is the sequencing reaction run in replicate, TRUE or FALSE
   name: is_technical_replicate
   type: boolean
 - constraints:
@@ -279,7 +284,8 @@ fields:
   custom_constraints:
     forbid_na: true
     sequence_limit: 3
-  description: Which read file contains the cell barcode
+  description: Which read file(s) contains the cell barcode. Multiple cell_barcode_read
+    files must be provided as a comma-delimited list (e.g. file1,file2,file3).
   name: cell_barcode_read
 - constraints:
     pattern: \d+(,\d+)*
@@ -348,9 +354,10 @@ fields:
   custom_constraints:
     forbid_na: true
     sequence_limit: 3
-  description: Average size of sequencing library fragments estimated via gel electrophoresis
-    or bioanalyzer/tapestation.
+  description: Average size in basepairs (bp) of sequencing library fragments estimated
+    via gel electrophoresis or bioanalyzer/tapestation.
   name: library_average_fragment_size
+  type: integer
 - constraints:
     required: true
   custom_constraints:

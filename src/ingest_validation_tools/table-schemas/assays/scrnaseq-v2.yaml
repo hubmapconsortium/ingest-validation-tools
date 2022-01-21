@@ -42,7 +42,9 @@ fields:
 # include: ../includes/fields/sc_isolation_quality_metric.yaml
 - name: sc_isolation_cell_number
   description: Total number of cell/nuclei yielded post dissociation and enrichment
+  type: integer
 - name: rnaseq_assay_input
+  type: integer
   description: Number of cell/nuclei input to the assay
 # include: ../includes/fields/rnaseq_assay_method.yaml
 - name: library_construction_protocols_io_doi
@@ -54,10 +56,10 @@ fields:
     pattern: '[ATCG]+(\+[ATCG]+)?'
 # include: ../includes/fields/library_id.yaml
 - name: is_technical_replicate
-  description: Is the sequencing reaction run in repliucate, TRUE or FALSE
+  description: Is the sequencing reaction run in replicate, TRUE or FALSE
   type: boolean
 - name: cell_barcode_read
-  description: Which read file contains the cell barcode
+  description: Which read file(s) contains the cell barcode. Multiple cell_barcode_read files must be provided as a comma-delimited list (e.g. file1,file2,file3).
   constraints:
     required: FALSE
 - name: cell_barcode_offset
@@ -78,9 +80,7 @@ fields:
   description: Number of PCR cycles performed for library indexing
   type: integer
 # include: ../includes/fields/library_final_yield_value_unit.yaml
-- name: library_average_fragment_size
-  description: Average size of sequencing library fragments estimated via gel electrophoresis or bioanalyzer/tapestation.
-
+# include: ../includes/fields/library_average_fragment_size.yaml
 # include: ../includes/v0/sequencing.yaml
 
 # include: ../includes/v0/paths.yaml

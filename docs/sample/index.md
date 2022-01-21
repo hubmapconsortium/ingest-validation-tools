@@ -17,6 +17,9 @@ Related files:
 
 ## Metadata schema
 
+### Field types
+- *Boolean* fields can be given as `TRUE`/`FALSE`, `True`/`False`, `true`/`false`, or `1`/`0`.  
+
 
 <details markdown="1" open="true"><summary><b>Version 0 (current)</b></summary>
 
@@ -64,7 +67,7 @@ Related files:
 | constraint | value |
 | --- | --- |
 | required | `True` |
-| pattern (regular expression) | `([A-Z]+[0-9]+)-[A-Z]{2}\d*(-\d+)+(_\d+)?` |
+| pattern (regular expression) | <code>([A-Z]+[0-9]+)-[A-Z]{2}\d*(-\d+)+(_\d+)?</code> |
 
 ### Donor
 
