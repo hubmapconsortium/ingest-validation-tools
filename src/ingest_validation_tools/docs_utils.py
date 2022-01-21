@@ -3,7 +3,7 @@ from string import Template
 from pathlib import Path
 import html
 
-from ingest_validation_tools.schema_loader import get_field_enum
+from ingest_validation_tools.schema_loader import get_field_enum, get_fields_wo_headers
 
 
 def get_tsv_name(type, is_assay=True):
@@ -26,7 +26,7 @@ def generate_template_tsv(table_schema):
     'fake\\na / b / c'
     '''
 
-    names = [field['name'] for field in table_schema['fields'] if not isinstance(field, str)]
+    names = [field['name'] for field in get_fields_wo_headers(table_schema)]
     header_row = '\t'.join(names)
 
     enums = [

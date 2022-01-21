@@ -24,10 +24,15 @@ class PreflightError(Exception):
 SchemaVersion = namedtuple('SchemaVersion', ['schema_name', 'version'])
 
 
+def get_fields_wo_headers(schema):
+    return [field for field in schema['fields'] if not isinstance(field, str)]
+
+
 def get_field_enum(field_name, schema):
+    fields_wo_headers = get_fields_wo_headers(schema)
     fields = [
-        field for field in schema['fields']
-        if not isinstance(field, str) and field['name'] == field_name
+        field for field in fields_wo_headers
+        if field['name'] == field_name
     ]
     if not fields:
         return []
@@ -162,7 +167,7 @@ def get_other_schema(schema_name, version, offline=None, keep_headers=False):
     schema = load_yaml(
         _table_schemas_path / 'others' /
         _get_schema_filename(schema_name, version))
-    fields_wo_headers = [field for field in schema['fields'] if not isinstance(field, str)]
+    fields_wo_headers = get_fields_wo_headers(schema)
     if not keep_headers:
         schema['fields'] = fields_wo_headers
 
@@ -183,7 +188,7 @@ def get_table_schema(schema_name, version, optional_fields=[], offline=None, kee
     schema = load_yaml(
         _table_schemas_path / 'assays' /
         _get_schema_filename(schema_name, version))
-    fields_wo_headers = [field for field in schema['fields'] if not isinstance(field, str)]
+    fields_wo_headers = get_fields_wo_headers(schema)
     if not keep_headers:
         schema['fields'] = fields_wo_headers
 

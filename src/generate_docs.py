@@ -9,7 +9,7 @@ from tableschema_to_template.create_xlsx import create_xlsx
 
 from ingest_validation_tools.schema_loader import (
     dict_schema_versions, get_table_schema, get_other_schema, get_directory_schema,
-    get_pipeline_infos, get_is_assay, enum_maps_to_lists)
+    get_pipeline_infos, get_is_assay, enum_maps_to_lists, get_fields_wo_headers)
 from ingest_validation_tools.docs_utils import (
     get_tsv_name, get_xlsx_name,
     generate_template_tsv, generate_readme_md)
@@ -60,7 +60,7 @@ def main():
     # YAML:
     for v in versions:
         schema = table_schemas[v]
-        first_field = [f for f in schema['fields'] if not isinstance(f, str)][0]
+        first_field = get_fields_wo_headers(schema)[0]
         if first_field['name'] == 'version':
             assert first_field['constraints']['enum'] == [v], \
                 f'Wrong version constraint in {args.type}-v{v}.yaml'
@@ -74,7 +74,7 @@ def main():
     # Data entry templates:
     max_schema = enum_maps_to_lists(table_schemas[max_version],
                                     add_none_of_the_above=True, add_suggested=True)
-    max_schema['fields'] = [f for f in max_schema['fields'] if not isinstance(f, str)]
+    max_schema['fields'] = get_fields_wo_headers(max_schema)
     with open(Path(args.target) / get_tsv_name(args.type, is_assay=is_assay), 'w') as f:
         f.write(generate_template_tsv(max_schema))
     create_xlsx(
