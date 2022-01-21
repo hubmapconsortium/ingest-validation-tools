@@ -1,6 +1,7 @@
 # Changelog
 
 ## v0.0.14 - in progress
+- Just use pytest to run doctests
 - Remove mention of `extras/thumbnail.jpg`.
 - Add release date to schema.
 - Add UMI fields to scrnaseq schema.
