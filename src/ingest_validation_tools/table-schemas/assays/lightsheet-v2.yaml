@@ -35,6 +35,8 @@ fields:
 # include: ../includes/v0/is_targeted.yaml
 
 # Level 2 fields:
+- Unique to this type
+
 # include: ../includes/v0/acquisition_instrument.yaml
 # include: ../includes/v0/x_y.yaml
 

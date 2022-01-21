@@ -1,5 +1,6 @@
 doc_url: https://portal.hubmapconsortium.org/docs/assays/rnaseq
 fields:
+- Shared by all types
 # include: ../includes/v0/all_assays.yaml
 - name: assay_category
   constraints:
@@ -20,6 +21,8 @@ fields:
 # include: ../includes/v0/is_targeted.yaml
 
 # Level 2 fields:
+- Unique to this type
+
 # include: ../includes/v0/acquisition_instrument.yaml
 - name: sc_isolation_protocols_io_doi
   description: "Link to a protocols document answering the question: How were single cells separated into a single-cell suspension?"

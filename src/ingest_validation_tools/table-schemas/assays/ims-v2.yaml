@@ -32,6 +32,7 @@ fields:
 # include: ../includes/v0/is_targeted.yaml
 
 # Level 2:
+- Unique to this type
 
 # include: ../includes/v0/acquisition_instrument.yaml
 - name: ms_source

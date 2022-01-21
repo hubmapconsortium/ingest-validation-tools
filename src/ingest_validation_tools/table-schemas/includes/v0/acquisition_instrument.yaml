@@ -1,4 +1,3 @@
-- Unique to this type
 -
   name: acquisition_instrument_vendor
   description: An acquisition instrument is the device that contains the signal detection hardware and signal processing software.
