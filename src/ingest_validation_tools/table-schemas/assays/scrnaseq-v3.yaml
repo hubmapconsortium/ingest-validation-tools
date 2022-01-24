@@ -1,8 +1,8 @@
 doc_url: https://portal.hubmapconsortium.org/docs/assays/rnaseq
 description_md: This schema is for single cell RNA sequencing (scRNAseq). v3 adds `umi_*` fields.
 fields:
+- Shared by all types
 - name: version
-  heading: Shared by all types
   description: Version of the schema to use when validating this metadata.
   constraints:
     enum:
@@ -28,6 +28,8 @@ fields:
 # include: ../includes/v0/is_targeted.yaml
 
 # Level 2 fields:
+- Unique to this type
+
 # include: ../includes/v0/acquisition_instrument.yaml
 - name: sc_isolation_protocols_io_doi
   description: "Link to a protocols document answering the question: How were single cells separated into a single-cell suspension?"

@@ -10,6 +10,7 @@ description_md: >-
   The other fields function the same way for all assays using antibodies.
   For more information, see the [Antibodies TSV documentation](../antibodies).
 fields:
+- Shared by all types
 # include: ../includes/vA/all_assays.yaml
 - name: assay_category
   constraints:
@@ -26,8 +27,8 @@ fields:
 # include: ../includes/v0/is_targeted.yaml
 
 # Level 2 fields:
+- Unique to this type
 - name: acquisition_instrument_vendor
-  heading: Unique to this type
   description: An acquisition_instrument is the device that contains the signal detection hardware and signal processing software. Assays generate signals such as light of various intensities or color or signals representing molecular mass.
   constraints:
     enum: ['Keyence','Zeiss']
