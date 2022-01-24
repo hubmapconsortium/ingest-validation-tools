@@ -15,6 +15,10 @@ if [[ -z $CONTINUE_FROM ]]; then
   start mypy
   mypy
   end mypy
+
+  start pytest
+  pytest --doctest-modules
+  end pytest
 fi
 
 for TEST in tests/test-*; do
