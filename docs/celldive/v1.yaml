@@ -7,6 +7,7 @@ description_md: 'CellDIVE uploads require metadata on the antibodies used in the
   The other fields function the same way for all assays using antibodies. For more
   information, see the [Antibodies TSV documentation](../antibodies).'
 fields:
+- Shared by all types
 - constraints:
     enum:
     - '1'
@@ -15,7 +16,6 @@ fields:
     forbid_na: true
     sequence_limit: 3
   description: Version of the schema to use when validating this metadata.
-  heading: Shared by all types
   name: version
 - constraints:
     required: true
@@ -136,6 +136,7 @@ fields:
     detection/measurement by the assay.
   name: is_targeted
   type: boolean
+- Unique to this type
 - constraints:
     required: true
   custom_constraints:
@@ -144,7 +145,6 @@ fields:
   description: An acquisition instrument is the device that contains the signal detection
     hardware and signal processing software. Assays generate signals such as light
     of various intensities or color or signals representing the molecular mass.
-  heading: Unique to this type
   name: acquisition_instrument_vendor
 - constraints:
     required: true

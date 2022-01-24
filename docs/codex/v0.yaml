@@ -10,6 +10,7 @@ description_md: 'CODEX uploads require metadata on the antibodies used in the as
   information, see the [Antibodies TSV documentation](../antibodies).'
 doc_url: https://portal.hubmapconsortium.org/docs/assays/codex
 fields:
+- Shared by all types
 - constraints:
     pattern: '[A-Z]+[0-9]+'
     required: true
@@ -17,7 +18,6 @@ fields:
     forbid_na: true
   description: HuBMAP Display ID of the donor of the assayed tissue.
   example: ABC123
-  heading: Shared by all types
   name: donor_id
   type: string
 - constraints:
@@ -123,6 +123,7 @@ fields:
     detection/measurement by the assay.
   name: is_targeted
   type: boolean
+- Unique to this type
 - constraints:
     enum:
     - Keyence
@@ -134,7 +135,6 @@ fields:
   description: An acquisition_instrument is the device that contains the signal detection
     hardware and signal processing software. Assays generate signals such as light
     of various intensities or color or signals representing molecular mass.
-  heading: Unique to this type
   name: acquisition_instrument_vendor
 - constraints:
     enum:
@@ -215,6 +215,7 @@ fields:
     units_for: resolution_z_value
   description: The unit of incremental distance between image slices.
   name: resolution_z_unit
+- Level 3
 - constraints:
     enum:
     - CODEX
@@ -224,7 +225,6 @@ fields:
     sequence_limit: 3
   description: The manufacturer of the instrument used to prepare the sample for the
     assay.
-  heading: Level 3
   name: preparation_instrument_vendor
 - constraints:
     enum:

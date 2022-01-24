@@ -1,6 +1,7 @@
 doc_url: https://portal.hubmapconsortium.org/docs/assays/atacseq
 description_md: This schema is for the single cell Assay for Transposase Accessible Chromatin by sequencing (scATACseq).
 fields:
+- Shared by all types
 # include: ../includes/vA/all_assays.yaml
 - name: assay_category
   constraints:
@@ -20,6 +21,8 @@ fields:
 # include: ../includes/v0/is_targeted.yaml
 
 # Level 2 fields:
+- Unique to this type
+
 # include: ../includes/v0/acquisition_instrument.yaml
 - name: is_technical_replicate
   description: If TRUE, fastq files in dataset need to be merged.

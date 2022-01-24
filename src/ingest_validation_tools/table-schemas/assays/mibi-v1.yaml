@@ -1,6 +1,7 @@
 # doc_url: TODO
 description_md: This schema is for Multiplex Ion Beam Imaging (MIBI).
 fields:
+- Shared by all types
 # include: ../includes/vA/all_assays.yaml
 
 - name: assay_category

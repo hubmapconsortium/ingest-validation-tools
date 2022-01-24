@@ -1,6 +1,7 @@
 doc_url: https://portal.hubmapconsortium.org/docs/assays/atacseq
 description_md: This schema is for Assay for Transposase-Accessible Chromatin by sequencing (ATACseq)of bulk sample.
 fields:
+- Shared by all types
 # include: ../includes/vA/all_assays.yaml
 - name: assay_category
   constraints:
@@ -17,6 +18,8 @@ fields:
 # include: ../includes/v0/is_targeted.yaml
 
 # Level 2 fields:
+- Unique to this type
+
 # include: ../includes/v0/acquisition_instrument.yaml
 # include: ../includes/fields/bulk_transposition_input_number_nuclei.yaml
 # include: ../includes/fields/bulk_atac_cell_isolation_protocols_io_doi.yaml

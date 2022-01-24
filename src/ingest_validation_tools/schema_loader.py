@@ -24,9 +24,14 @@ class PreflightError(Exception):
 SchemaVersion = namedtuple('SchemaVersion', ['schema_name', 'version'])
 
 
+def get_fields_wo_headers(schema):
+    return [field for field in schema['fields'] if not isinstance(field, str)]
+
+
 def get_field_enum(field_name, schema):
+    fields_wo_headers = get_fields_wo_headers(schema)
     fields = [
-        field for field in schema['fields']
+        field for field in fields_wo_headers
         if field['name'] == field_name
     ]
     if not fields:
@@ -158,12 +163,18 @@ def _get_schema_filename(schema_name, version):
     return f'{schema_name}-v{version}.yaml'
 
 
-def get_other_schema(schema_name, version, offline=None):
+def get_other_schema(schema_name, version, offline=None, keep_headers=False):
     schema = load_yaml(
         _table_schemas_path / 'others' /
         _get_schema_filename(schema_name, version))
-    names = [field['name'] for field in schema['fields']]
+    fields_wo_headers = get_fields_wo_headers(schema)
+    if not keep_headers:
+        schema['fields'] = fields_wo_headers
+
+    names = [field['name'] for field in fields_wo_headers]
     for field in schema['fields']:
+        if isinstance(field, str):
+            continue
         _add_constraints(field, optional_fields=[], offline=offline, names=names)
     return schema
 
@@ -173,13 +184,18 @@ def get_is_assay(schema_name):
     return schema_name not in ['donor', 'sample', 'antibodies', 'contributors']
 
 
-def get_table_schema(schema_name, version, optional_fields=[], offline=None):
+def get_table_schema(schema_name, version, optional_fields=[], offline=None, keep_headers=False):
     schema = load_yaml(
         _table_schemas_path / 'assays' /
         _get_schema_filename(schema_name, version))
+    fields_wo_headers = get_fields_wo_headers(schema)
+    if not keep_headers:
+        schema['fields'] = fields_wo_headers
 
-    names = [field['name'] for field in schema['fields']]
+    names = [field['name'] for field in fields_wo_headers]
     for field in schema['fields']:
+        if isinstance(field, str):
+            continue
         _add_level_1_description(field)
         # TODO: Re-enable when all assay names used in the schemas are recognized
         #       by the assay service, and the list in enums.py has been uncommented.
