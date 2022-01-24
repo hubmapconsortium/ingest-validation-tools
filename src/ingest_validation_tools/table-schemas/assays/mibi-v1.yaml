@@ -21,6 +21,7 @@ fields:
 
 # Level 2 fields:
 
+- Unique to this type
 # include: ../includes/v0/antibodies_channels.yaml
 
 # include: ../includes/fields/resolution_x_value.yaml
@@ -29,16 +30,7 @@ fields:
 # include: ../includes/fields/resolution_y_unit.yaml
 # include: ../includes/v0/imc_roi_dimensions.yaml
 # include: ../includes/v0/imc_roi_id.yaml
-- name: acquisition_instrument_vendor
-  description: An acquisition instrument is the device that contains the signal detection
-    hardware and signal processing software. Assays generate signals such as light
-    of various intensities or color or signals representing the molecular mass.
-  heading: Unique to this type
-- name: acquisition_instrument_model
-  description: Manufacturers of an acquisition instrument may offer various versions
-    (models) of that instrument with different features or sensitivities. Differences
-    in features or sensitivities may be relevant to processing or interpretation of
-    the data.
+# include: ../includes/v0/acquisition_instrument.yaml
 - name: area_normalized_ion_dose_unit
   description: Area normalized ion dose unit
   constraints:
