@@ -130,6 +130,7 @@ fields:
     detection/measurement by the assay.
   name: is_targeted
   type: boolean
+- Unique to this type
 - constraints:
     required: true
   custom_constraints:
@@ -248,6 +249,25 @@ fields:
     for a slide. Together, the acquisition_id and the roi_id indicate the slide-ROI
     represented in the image.
   name: acquisition_id
+- constraints:
+    required: true
+  custom_constraints:
+    forbid_na: true
+    sequence_limit: 3
+  description: An acquisition instrument is the device that contains the signal detection
+    hardware and signal processing software. Assays generate signals such as light
+    of various intensities or color or signals representing the molecular mass.
+  name: acquisition_instrument_vendor
+- constraints:
+    required: true
+  custom_constraints:
+    forbid_na: true
+    sequence_limit: 3
+  description: Manufacturers of an acquisition instrument may offer various versions
+    (models) of that instrument with different features or sensitivities. Differences
+    in features or sensitivities may be relevant to processing or interpretation of
+    the data.
+  name: acquisition_instrument_model
 - constraints:
     enum:
     - nA*hr/mm2

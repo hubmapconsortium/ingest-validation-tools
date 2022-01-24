@@ -33,6 +33,7 @@ acquisition_instrument_model:
 - ims
 - lcms
 - lightsheet
+- mibi
 - mxif
 - nano
 - scatacseq
@@ -55,6 +56,7 @@ acquisition_instrument_vendor:
 - ims
 - lcms
 - lightsheet
+- mibi
 - mxif
 - nano
 - scatacseq

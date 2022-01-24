@@ -1,6 +1,7 @@
 # Changelog
 
 ## v0.0.14 - in progress
+- Add acquisition instrument fields to MIBI that were left out by mistake.
 - Just use pytest to run doctests
 - Headers are no longer properties of fields.
 - Remove mention of `extras/thumbnail.jpg`.

@@ -40,6 +40,7 @@ acquisition_instrument_model:
 - MS (shotgun lipidomics)
 - MS Bottom-Up
 - MS Top-Down
+- Multiplex Ion Beam Imaging
 - MxIF
 - NanoDESI
 - NanoPOTS
@@ -81,6 +82,7 @@ acquisition_instrument_vendor:
 - MS (shotgun lipidomics)
 - MS Bottom-Up
 - MS Top-Down
+- Multiplex Ion Beam Imaging
 - MxIF
 - NanoDESI
 - NanoPOTS
