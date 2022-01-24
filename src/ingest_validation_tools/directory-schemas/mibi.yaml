@@ -1,6 +1,6 @@
 -
   pattern: 'mcd/[^/]+_HuBMAP_[^/]+_slide[^/]+\.zip'
-  description: 'CSV containing labels for sections as well as whether or not they were included in the 3D model.'
+  description: 'Zipped CSV containing labels for sections as well as whether or not they were included in the 3D model.'
   required: False
 -
   pattern: 'mcd/section_report\.csv'
