@@ -50,6 +50,8 @@ This schema is for Multiplex Ion Beam Imaging (MIBI).
 </details>
 <details markdown="1"><summary>Unique to this type</summary>
 
+[`acquisition_instrument_vendor`](#acquisition_instrument_vendor)<br>
+[`acquisition_instrument_model`](#acquisition_instrument_model)<br>
 [`number_of_antibodies`](#number_of_antibodies)<br>
 [`number_of_channels`](#number_of_channels)<br>
 [`resolution_x_value`](#resolution_x_value)<br>
@@ -63,8 +65,6 @@ This schema is for Multiplex Ion Beam Imaging (MIBI).
 [`roi_description`](#roi_description)<br>
 [`roi_id`](#roi_id)<br>
 [`acquisition_id`](#acquisition_id)<br>
-[`acquisition_instrument_vendor`](#acquisition_instrument_vendor)<br>
-[`acquisition_instrument_model`](#acquisition_instrument_model)<br>
 [`area_normalized_ion_dose_unit`](#area_normalized_ion_dose_unit)<br>
 [`area_normalized_ion_dose_value`](#area_normalized_ion_dose_value)<br>
 [`data_precision_bytes`](#data_precision_bytes)<br>
@@ -221,6 +221,22 @@ Specifies whether or not a specific molecule(s) is/are targeted for detection/me
 
 ### Unique to this type
 
+<a name="acquisition_instrument_vendor"></a>
+##### [`acquisition_instrument_vendor`](#acquisition_instrument_vendor)
+An acquisition instrument is the device that contains the signal detection hardware and signal processing software. Assays generate signals such as light of various intensities or color or signals representing the molecular mass.
+
+| constraint | value |
+| --- | --- |
+| required | `True` |
+
+<a name="acquisition_instrument_model"></a>
+##### [`acquisition_instrument_model`](#acquisition_instrument_model)
+Manufacturers of an acquisition instrument may offer various versions (models) of that instrument with different features or sensitivities. Differences in features or sensitivities may be relevant to processing or interpretation of the data.
+
+| constraint | value |
+| --- | --- |
+| required | `True` |
+
 <a name="number_of_antibodies"></a>
 ##### [`number_of_antibodies`](#number_of_antibodies)
 Number of antibodies.
@@ -335,22 +351,6 @@ Multiple images (1-n) are acquired from regions of interest (ROI1, ROI2, ROI3, e
 <a name="acquisition_id"></a>
 ##### [`acquisition_id`](#acquisition_id)
 The acquisition_id refers to the directory containing the ROI images for a slide. Together, the acquisition_id and the roi_id indicate the slide-ROI represented in the image.
-
-| constraint | value |
-| --- | --- |
-| required | `True` |
-
-<a name="acquisition_instrument_vendor"></a>
-##### [`acquisition_instrument_vendor`](#acquisition_instrument_vendor)
-An acquisition instrument is the device that contains the signal detection hardware and signal processing software. Assays generate signals such as light of various intensities or color or signals representing the molecular mass.
-
-| constraint | value |
-| --- | --- |
-| required | `True` |
-
-<a name="acquisition_instrument_model"></a>
-##### [`acquisition_instrument_model`](#acquisition_instrument_model)
-Manufacturers of an acquisition instrument may offer various versions (models) of that instrument with different features or sensitivities. Differences in features or sensitivities may be relevant to processing or interpretation of the data.
 
 | constraint | value |
 | --- | --- |
