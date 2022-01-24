@@ -1,5 +1,6 @@
 doc_url: https://portal.hubmapconsortium.org/docs/assays/maldi-ims
 fields:
+- Shared by all types
 # include: ../includes/v0/all_assays.yaml
 - name: assay_category
   constraints:
@@ -18,6 +19,7 @@ fields:
 # include: ../includes/v0/is_targeted.yaml
 
 # Level 2:
+- Unique to this type
 
 # include: ../includes/v0/acquisition_instrument.yaml
 - name: ms_source
