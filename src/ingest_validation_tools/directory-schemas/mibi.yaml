@@ -20,7 +20,7 @@
   required: True
 -
   pattern: 'SingleCellData/cellsinfo\.txt'
-  description: 'Text file containing formatting information about cellsorgan.csv. File is optional.'
+  description: 'Text file containing formatting information about cellsorgan.csv.'
   required: False
 -
   pattern: 'Mapping/cluster_labels_image\.tif'
