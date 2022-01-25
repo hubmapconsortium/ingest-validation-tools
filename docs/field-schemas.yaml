@@ -101,6 +101,7 @@ antibodies_path:
 - imc
 - imc3d
 - lightsheet
+- mibi
 - mxif
 antibody_name:
 - antibodies

@@ -11,7 +11,8 @@ Related files:
 - [📝 Excel template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/main/docs/mibi/mibi-metadata.xlsx): For metadata entry.
 - [📝 TSV template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/main/docs/mibi/mibi-metadata.tsv): Alternative for metadata entry.
 
-This schema is for Multiplex Ion Beam Imaging (MIBI).
+This schema is for Multiplex Ion Beam Imaging (MIBI). For MIBI, the channel_id (in the Antibodies TSV) is the name of the metal tag on the corresponding antibody.  The other fields function the same way for all assays using antibodies.  For more information, see the [Antibodies TSV documentation](../antibodies).
+
 
 ## Directory schema
 
@@ -86,6 +87,7 @@ This schema is for Multiplex Ion Beam Imaging (MIBI).
 [`segment_data_format`](#segment_data_format)<br>
 [`signal_type`](#signal_type)<br>
 [`start_datetime`](#start_datetime)<br>
+[`antibodies_path`](#antibodies_path)<br>
 [`contributors_path`](#contributors_path)<br>
 [`data_path`](#data_path)<br>
 </details>
@@ -552,6 +554,14 @@ Time stamp indicating start of ablation for ROI.
 | --- | --- |
 | type | `datetime` |
 | format | `%Y-%m-%d %H:%M` |
+| required | `True` |
+
+<a name="antibodies_path"></a>
+##### [`antibodies_path`](#antibodies_path)
+Relative path to file with antibody information for this dataset.
+
+| constraint | value |
+| --- | --- |
 | required | `True` |
 
 <a name="contributors_path"></a>

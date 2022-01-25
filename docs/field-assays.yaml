@@ -152,6 +152,7 @@ antibodies_path:
 - Cell DIVE
 - Imaging Mass Cytometry
 - Light Sheet
+- Multiplex Ion Beam Imaging
 - MxIF
 area_normalized_ion_dose_unit:
 - Multiplex Ion Beam Imaging
