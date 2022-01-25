@@ -1,5 +1,9 @@
 # doc_url: TODO
-description_md: This schema is for Multiplex Ion Beam Imaging (MIBI).
+description_md: >
+  This schema is for Multiplex Ion Beam Imaging (MIBI).
+  For MIBI, the channel_id (in the Antibodies TSV) is the name of the metal tag on the corresponding antibody. 
+  The other fields function the same way for all assays using antibodies. 
+  For more information, see the [Antibodies TSV documentation](../antibodies).
 fields:
 - Shared by all types
 # include: ../includes/vA/all_assays.yaml
@@ -73,4 +77,5 @@ fields:
 # include: ../includes/fields/signal_type.yaml
 # include: ../includes/fields/start_datetime.yaml
 
+# include: ../includes/fields/antibodies_path.yaml
 # include: ../includes/v0/paths.yaml
