@@ -15,11 +15,12 @@ fields:
     enum:
       - RNA
 # include: ../includes/v0/is_targeted.yaml
+# include: ../includes/v0/acquisition_instrument.yaml
 
 # Level 2 fields:
 - Unique to this type
 
-# include: ../includes/v0/acquisition_instrument.yaml
+
 # include: ../includes/fields/bulk_rna_isolation_protocols_io_doi.yaml
 # include: ../includes/fields/bulk_rna_yield_value.yaml
 # include: ../includes/fields/bulk_rna_yield_units_per_tissue_unit.yaml

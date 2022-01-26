@@ -23,9 +23,10 @@ fields:
     enum:
       - protein
 # include: ../includes/v0/is_targeted.yaml
-- Unique to this type
 
 # include: ../includes/v0/acquisition_instrument.yaml
+- Unique to this type
+
 # include: ../includes/v0/antibodies_channels.yaml
 - name: number_of_cycles
   description: Number of cycles of 1. oligo application, 2. fluor application, 3. dye inactivation.
