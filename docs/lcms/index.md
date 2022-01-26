@@ -51,12 +51,12 @@ v3 adds `dms` and `label_name` fields, and `negative and positive ion mode` as a
 [`assay_type`](#assay_type)<br>
 [`analyte_class`](#analyte_class)<br>
 [`is_targeted`](#is_targeted)<br>
+[`acquisition_instrument_vendor`](#acquisition_instrument_vendor)<br>
+[`acquisition_instrument_model`](#acquisition_instrument_model)<br>
 
 </details>
 <details markdown="1"><summary>Unique to this type</summary>
 
-[`acquisition_instrument_vendor`](#acquisition_instrument_vendor)<br>
-[`acquisition_instrument_model`](#acquisition_instrument_model)<br>
 [`dms`](#dms)<br>
 [`ms_source`](#ms_source)<br>
 [`polarity`](#polarity)<br>
@@ -229,8 +229,6 @@ Specifies whether or not a specific molecule(s) is/are targeted for detection/me
 | type | `boolean` |
 | required | `True` |
 
-### Unique to this type
-
 <a name="acquisition_instrument_vendor"></a>
 ##### [`acquisition_instrument_vendor`](#acquisition_instrument_vendor)
 An acquisition instrument is the device that contains the signal detection hardware and signal processing software. Assays generate signals such as light of various intensities or color or signals representing the molecular mass.
@@ -246,6 +244,8 @@ Manufacturers of an acquisition instrument may offer various versions (models) o
 | constraint | value |
 | --- | --- |
 | required | `True` |
+
+### Unique to this type
 
 <a name="dms"></a>
 ##### [`dms`](#dms)
@@ -742,8 +742,6 @@ Specifies whether or not a specific molecule(s) is/are targeted for detection/me
 | type | `boolean` |
 | required | `True` |
 
-### Unique to this type
-
 <a name="acquisition_instrument_vendor"></a>
 ##### [`acquisition_instrument_vendor`](#acquisition_instrument_vendor)
 An acquisition instrument is the device that contains the signal detection hardware and signal processing software. Assays generate signals such as light of various intensities or color or signals representing the molecular mass.
@@ -759,6 +757,8 @@ Manufacturers of an acquisition instrument may offer various versions (models) o
 | constraint | value |
 | --- | --- |
 | required | `True` |
+
+### Unique to this type
 
 <a name="ms_source"></a>
 ##### [`ms_source`](#ms_source)
@@ -1239,8 +1239,6 @@ Specifies whether or not a specific molecule(s) is/are targeted for detection/me
 | type | `boolean` |
 | required | `True` |
 
-### Unique to this type
-
 <a name="acquisition_instrument_vendor"></a>
 ##### [`acquisition_instrument_vendor`](#acquisition_instrument_vendor)
 An acquisition instrument is the device that contains the signal detection hardware and signal processing software. Assays generate signals such as light of various intensities or color or signals representing the molecular mass.
@@ -1256,6 +1254,8 @@ Manufacturers of an acquisition instrument may offer various versions (models) o
 | constraint | value |
 | --- | --- |
 | required | `True` |
+
+### Unique to this type
 
 <a name="ms_source"></a>
 ##### [`ms_source`](#ms_source)
@@ -1627,8 +1627,6 @@ Specifies whether or not a specific molecule(s) is/are targeted for detection/me
 | type | `boolean` |
 | required | `True` |
 
-### Unique to this type
-
 <a name="acquisition_instrument_vendor"></a>
 ##### [`acquisition_instrument_vendor`](#acquisition_instrument_vendor)
 An acquisition instrument is the device that contains the signal detection hardware and signal processing software. Assays generate signals such as light of various intensities or color or signals representing the molecular mass.
@@ -1644,6 +1642,8 @@ Manufacturers of an acquisition instrument may offer various versions (models) o
 | constraint | value |
 | --- | --- |
 | required | `True` |
+
+### Unique to this type
 
 <a name="ms_source"></a>
 ##### [`ms_source`](#ms_source)

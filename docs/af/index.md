@@ -49,12 +49,12 @@ This schema is for autofluorescence (AF). For an example of an AF dataset & dire
 [`assay_type`](#assay_type)<br>
 [`analyte_class`](#analyte_class)<br>
 [`is_targeted`](#is_targeted)<br>
+[`acquisition_instrument_vendor`](#acquisition_instrument_vendor)<br>
+[`acquisition_instrument_model`](#acquisition_instrument_model)<br>
 
 </details>
 <details markdown="1"><summary>Unique to this type</summary>
 
-[`acquisition_instrument_vendor`](#acquisition_instrument_vendor)<br>
-[`acquisition_instrument_model`](#acquisition_instrument_model)<br>
 [`resolution_x_value`](#resolution_x_value)<br>
 [`resolution_x_unit`](#resolution_x_unit)<br>
 [`resolution_y_value`](#resolution_y_value)<br>
@@ -195,8 +195,6 @@ Specifies whether or not a specific molecule(s) is/are targeted for detection/me
 | type | `boolean` |
 | required | `True` |
 
-### Unique to this type
-
 <a name="acquisition_instrument_vendor"></a>
 ##### [`acquisition_instrument_vendor`](#acquisition_instrument_vendor)
 An acquisition instrument is the device that contains the signal detection hardware and signal processing software. Assays generate signals such as light of various intensities or color or signals representing the molecular mass.
@@ -212,6 +210,8 @@ Manufacturers of an acquisition instrument may offer various versions (models) o
 | constraint | value |
 | --- | --- |
 | required | `True` |
+
+### Unique to this type
 
 <a name="resolution_x_value"></a>
 ##### [`resolution_x_value`](#resolution_x_value)
@@ -420,8 +420,6 @@ Specifies whether or not a specific molecule(s) is/are targeted for detection/me
 | type | `boolean` |
 | required | `True` |
 
-### Unique to this type
-
 <a name="acquisition_instrument_vendor"></a>
 ##### [`acquisition_instrument_vendor`](#acquisition_instrument_vendor)
 An acquisition instrument is the device that contains the signal detection hardware and signal processing software. Assays generate signals such as light of various intensities or color or signals representing the molecular mass.
@@ -437,6 +435,8 @@ Manufacturers of an acquisition instrument may offer various versions (models) o
 | constraint | value |
 | --- | --- |
 | required | `True` |
+
+### Unique to this type
 
 <a name="resolution_x_value"></a>
 ##### [`resolution_x_value`](#resolution_x_value)
