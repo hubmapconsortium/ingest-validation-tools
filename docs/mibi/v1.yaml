@@ -1,5 +1,10 @@
 # Generated YAML: PRs should not start here!
-description_md: This schema is for Multiplex Ion Beam Imaging (MIBI).
+description_md: 'This schema is for Multiplex Ion Beam Imaging (MIBI). For MIBI, the
+  channel_id (in the Antibodies TSV) is the name of the metal tag on the corresponding
+  antibody.  The other fields function the same way for all assays using antibodies.  For
+  more information, see the [Antibodies TSV documentation](../antibodies).
+
+  '
 fields:
 - Shared by all types
 - constraints:
@@ -130,6 +135,26 @@ fields:
     detection/measurement by the assay.
   name: is_targeted
   type: boolean
+- Unique to this type
+- constraints:
+    required: true
+  custom_constraints:
+    forbid_na: true
+    sequence_limit: 3
+  description: An acquisition instrument is the device that contains the signal detection
+    hardware and signal processing software. Assays generate signals such as light
+    of various intensities or color or signals representing the molecular mass.
+  name: acquisition_instrument_vendor
+- constraints:
+    required: true
+  custom_constraints:
+    forbid_na: true
+    sequence_limit: 3
+  description: Manufacturers of an acquisition instrument may offer various versions
+    (models) of that instrument with different features or sensitivities. Differences
+    in features or sensitivities may be relevant to processing or interpretation of
+    the data.
+  name: acquisition_instrument_model
 - constraints:
     required: true
   custom_constraints:
@@ -453,6 +478,13 @@ fields:
   format: '%Y-%m-%d %H:%M'
   name: start_datetime
   type: datetime
+- constraints:
+    required: true
+  custom_constraints:
+    forbid_na: true
+    sequence_limit: 3
+  description: Relative path to file with antibody information for this dataset.
+  name: antibodies_path
 - constraints:
     required: true
   custom_constraints:

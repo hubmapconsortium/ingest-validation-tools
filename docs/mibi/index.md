@@ -11,7 +11,8 @@ Related files:
 - [📝 Excel template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/main/docs/mibi/mibi-metadata.xlsx): For metadata entry.
 - [📝 TSV template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/main/docs/mibi/mibi-metadata.tsv): Alternative for metadata entry.
 
-This schema is for Multiplex Ion Beam Imaging (MIBI).
+This schema is for Multiplex Ion Beam Imaging (MIBI). For MIBI, the channel_id (in the Antibodies TSV) is the name of the metal tag on the corresponding antibody.  The other fields function the same way for all assays using antibodies.  For more information, see the [Antibodies TSV documentation](../antibodies).
+
 
 ## Directory schema
 
@@ -46,6 +47,12 @@ This schema is for Multiplex Ion Beam Imaging (MIBI).
 [`assay_type`](#assay_type)<br>
 [`analyte_class`](#analyte_class)<br>
 [`is_targeted`](#is_targeted)<br>
+
+</details>
+<details markdown="1"><summary>Unique to this type</summary>
+
+[`acquisition_instrument_vendor`](#acquisition_instrument_vendor)<br>
+[`acquisition_instrument_model`](#acquisition_instrument_model)<br>
 [`number_of_antibodies`](#number_of_antibodies)<br>
 [`number_of_channels`](#number_of_channels)<br>
 [`resolution_x_value`](#resolution_x_value)<br>
@@ -80,6 +87,7 @@ This schema is for Multiplex Ion Beam Imaging (MIBI).
 [`segment_data_format`](#segment_data_format)<br>
 [`signal_type`](#signal_type)<br>
 [`start_datetime`](#start_datetime)<br>
+[`antibodies_path`](#antibodies_path)<br>
 [`contributors_path`](#contributors_path)<br>
 [`data_path`](#data_path)<br>
 </details>
@@ -211,6 +219,24 @@ Specifies whether or not a specific molecule(s) is/are targeted for detection/me
 | constraint | value |
 | --- | --- |
 | type | `boolean` |
+| required | `True` |
+
+### Unique to this type
+
+<a name="acquisition_instrument_vendor"></a>
+##### [`acquisition_instrument_vendor`](#acquisition_instrument_vendor)
+An acquisition instrument is the device that contains the signal detection hardware and signal processing software. Assays generate signals such as light of various intensities or color or signals representing the molecular mass.
+
+| constraint | value |
+| --- | --- |
+| required | `True` |
+
+<a name="acquisition_instrument_model"></a>
+##### [`acquisition_instrument_model`](#acquisition_instrument_model)
+Manufacturers of an acquisition instrument may offer various versions (models) of that instrument with different features or sensitivities. Differences in features or sensitivities may be relevant to processing or interpretation of the data.
+
+| constraint | value |
+| --- | --- |
 | required | `True` |
 
 <a name="number_of_antibodies"></a>
@@ -528,6 +554,14 @@ Time stamp indicating start of ablation for ROI.
 | --- | --- |
 | type | `datetime` |
 | format | `%Y-%m-%d %H:%M` |
+| required | `True` |
+
+<a name="antibodies_path"></a>
+##### [`antibodies_path`](#antibodies_path)
+Relative path to file with antibody information for this dataset.
+
+| constraint | value |
+| --- | --- |
 | required | `True` |
 
 <a name="contributors_path"></a>
