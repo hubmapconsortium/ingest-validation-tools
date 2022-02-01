@@ -30,7 +30,8 @@ class Upload:
     def __init__(self, directory_path=None, tsv_paths=[],
                  optional_fields=[], add_notes=True,
                  dataset_ignore_globs=[], upload_ignore_globs=[],
-                 plugin_directory=None, encoding=None, offline=None):
+                 plugin_directory=None, encoding=None, offline=None,
+                 ignore_deprecation=False):
         self.directory_path = directory_path
         self.optional_fields = optional_fields
         self.dataset_ignore_globs = dataset_ignore_globs
@@ -39,6 +40,7 @@ class Upload:
         self.encoding = encoding
         self.offline = offline
         self.add_notes = add_notes
+        self.ignore_deprecation = ignore_deprecation
         self.errors = {}
         self.effective_tsv_paths = {}
         try:
@@ -175,13 +177,15 @@ class Upload:
         else:
             return get_tsv_errors(
                 schema_name=ref_type, tsv_path=path,
-                offline=self.offline, encoding=self.encoding)
+                offline=self.offline, encoding=self.encoding,
+                ignore_deprecation=self.ignore_deprecation)
 
     def __get_assay_tsv_errors(self, assay_type, path):
         return get_tsv_errors(
             schema_name=assay_type, tsv_path=path,
             offline=self.offline, encoding=self.encoding,
-            optional_fields=self.optional_fields)
+            optional_fields=self.optional_fields,
+            ignore_deprecation=self.ignore_deprecation)
 
     def __get_assay_reference_errors(self, assay_type, path):
         try:

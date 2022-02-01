@@ -63,6 +63,10 @@ Exit status codes:
         '--clear_cache', action='store_true',
         help='Clear cache of network check responses.'
     )
+    parser.add_argument(
+        '--ignore_deprecation', action='store_true',
+        help='Allow validation against deprecated versions of metadata schemas.'
+    )
 
     default_ignore = '.*'
     parser.add_argument(
@@ -129,7 +133,8 @@ def main():
         'add_notes': args.add_notes,
         'encoding': args.encoding,
         'offline': args.offline,
-        'optional_fields': args.optional_fields
+        'optional_fields': args.optional_fields,
+        'ignore_deprecation': args.ignore_deprecation
     }
 
     if args.local_directory:

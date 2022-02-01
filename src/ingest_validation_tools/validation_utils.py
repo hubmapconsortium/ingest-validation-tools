@@ -81,7 +81,9 @@ def get_context_of_decode_error(e):
     return f'Invalid {e.encoding} because {e.reason}: "{in_context}"'
 
 
-def get_tsv_errors(tsv_path, schema_name, optional_fields=[], offline=None, encoding=None):
+def get_tsv_errors(
+        tsv_path, schema_name, optional_fields=[],
+        offline=None, encoding=None, ignore_deprecation=False):
     '''
     Validate the TSV.
 
@@ -159,7 +161,7 @@ def get_tsv_errors(tsv_path, schema_name, optional_fields=[], offline=None, enco
     except OSError as e:
         return {e.strerror: Path(e.filename).name}
 
-    if schema.get('deprecated'):
+    if schema.get('deprecated') and not ignore_deprecation:
         return {'Schema version is deprecated': f'{schema_name}-v{version}'}
 
     return get_table_errors(tsv_path, schema)
