@@ -18,11 +18,11 @@ fields:
   constraints:
     required: False
 # include: ../includes/v0/is_targeted.yaml
+# include: ../includes/v0/acquisition_instrument.yaml
 
 # Level 2 fields:
 - Unique to this type
 
-# include: ../includes/v0/acquisition_instrument.yaml
 # include: ../includes/v0/x_y.yaml
 
 - name: resolution_z_value

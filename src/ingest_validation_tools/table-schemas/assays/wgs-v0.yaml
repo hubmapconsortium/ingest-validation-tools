@@ -15,11 +15,11 @@ fields:
     enum:
       - DNA
 # include: ../includes/v0/is_targeted.yaml
+# include: ../includes/v0/acquisition_instrument.yaml
 
 # Level 2:
 - Unique to this type
 
-# include: ../includes/v0/acquisition_instrument.yaml
 # include: ../includes/fields/gdna_fragmentation_quality_assurance.yaml
 # include: ../includes/fields/dna_assay_input_value.yaml
 # include: ../includes/fields/dna_assay_input_unit.yaml

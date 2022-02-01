@@ -26,8 +26,6 @@ fields:
       - protein
 # include: ../includes/v0/is_targeted.yaml
 
-# Level 2 fields:
-- Unique to this type
 - name: acquisition_instrument_vendor
   description: An acquisition_instrument is the device that contains the signal detection hardware and signal processing software. Assays generate signals such as light of various intensities or color or signals representing molecular mass.
   constraints:
@@ -36,6 +34,10 @@ fields:
   description: Manufacturers of an acquisition instrument may offer various versions (models) of that instrument with different features or sensitivities. Differences in features or sensitivities may be relevant to processing or interpretation of the data.
   constraints:
     enum: ['BZ-X800','BZ-X710','Axio Observer Z1']
+
+# Level 2 fields:
+- Unique to this type
+
 # include: ../includes/fields/resolution_x_value.yaml
 # include: ../includes/fields/resolution_x_unit.yaml
 # include: ../includes/fields/resolution_y_value.yaml

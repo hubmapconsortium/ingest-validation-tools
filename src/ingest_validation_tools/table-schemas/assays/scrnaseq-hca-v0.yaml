@@ -81,7 +81,6 @@ fields:
   description: Specifies whether or not a specific molecule(s) is/are targeted for
     detection/measurement by the assay. For example, an antibody targets a specific protein.
   type: boolean
-- Unique to this type
 - name: acquisition_instrument_vendor
   constraints:
     required: true
@@ -95,6 +94,7 @@ fields:
     (models) of that instrument with different features or sensitivities. Differences
     in features or sensitivities may be relevant to processing or interpretation of
     the data.
+- Unique to this type
 - name: sc_isolation_protocols_io_doi
   constraints:
     pattern: 10\.17504/.*
