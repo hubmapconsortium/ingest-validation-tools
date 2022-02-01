@@ -2,6 +2,7 @@
 
 ## v0.0.14 - in progress
 - Move "Unique to this type" below the acquisition instrument fields.
+- Add CLI option to allow the use of deprecated schemas.
 - Allowing trailing slashes on dataset directories in metadata TSV.
 - Add acquisition instrument fields to MIBI that were left out by mistake.
 - Just use pytest to run doctests
