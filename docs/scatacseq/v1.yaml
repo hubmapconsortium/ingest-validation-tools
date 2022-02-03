@@ -1,6 +1,6 @@
 # Generated YAML: PRs should not start here!
-description_md: This schema is for the single cell Assay for Transposase Accessible
-  Chromatin by sequencing (scATACseq).
+description_md: This schema is for the single nucleus Assay for Transposase Accessible
+  Chromatin by sequencing (snATACseq).
 doc_url: https://portal.hubmapconsortium.org/docs/assays/atacseq
 fields:
 - Shared by all types
@@ -108,7 +108,6 @@ fields:
 - constraints:
     enum:
     - SNARE-seq2
-    - scATACseq
     - sciATACseq
     - snATACseq
     required: true
@@ -241,7 +240,6 @@ fields:
 - constraints:
     enum:
     - SNARE-Seq2-AC
-    - scATACseq
     - bulkATACseq
     - snATACseq
     - sciATACseq

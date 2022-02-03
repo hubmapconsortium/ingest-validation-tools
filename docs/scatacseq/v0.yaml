@@ -90,7 +90,6 @@ fields:
 - constraints:
     enum:
     - SNARE-seq2
-    - scATACseq
     - sciATACseq
     - snATACseq
     required: true
@@ -223,7 +222,6 @@ fields:
 - constraints:
     enum:
     - SNARE-Seq2-AC
-    - scATACseq
     - bulkATACseq
     - snATACseq
     - sciATACseq
