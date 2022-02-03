@@ -17,7 +17,6 @@ fields:
     enum:
       - scRNAseq-10xGenomics-v2
       - scRNAseq-10xGenomics-v3
-      - snRNAseq-10xGenomics-v2
       - scRNAseq
       - sciRNAseq
       - snRNAseq

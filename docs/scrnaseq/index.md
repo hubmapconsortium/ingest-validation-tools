@@ -1,5 +1,5 @@
 ---
-title: scRNAseq-10xGenomics-v2 / scRNAseq-10xGenomics-v3 / snRNAseq-10xGenomics-v2 / scRNAseq / sciRNAseq / snRNAseq / SNARE2-RNAseq
+title: scRNAseq-10xGenomics-v2 / scRNAseq-10xGenomics-v3 / scRNAseq / sciRNAseq / snRNAseq / SNARE2-RNAseq
 schema_name: scrnaseq
 category: Sequence assays
 all_versions_deprecated: False
@@ -193,7 +193,7 @@ The specific type of assay being executed.
 
 | constraint | value |
 | --- | --- |
-| enum | `scRNAseq-10xGenomics-v2`, `scRNAseq-10xGenomics-v3`, `snRNAseq-10xGenomics-v2`, `scRNAseq`, `sciRNAseq`, `snRNAseq`, or `SNARE2-RNAseq` |
+| enum | `scRNAseq-10xGenomics-v2`, `scRNAseq-10xGenomics-v3`, `scRNAseq`, `sciRNAseq`, `snRNAseq`, or `SNARE2-RNAseq` |
 | required | `True` |
 
 <a name="analyte_class"></a>
@@ -622,7 +622,7 @@ The specific type of assay being executed.
 
 | constraint | value |
 | --- | --- |
-| enum | `scRNAseq-10xGenomics-v2`, `scRNAseq-10xGenomics-v3`, `snRNAseq-10xGenomics-v2`, `scRNAseq`, `sciRNAseq`, `snRNAseq`, or `SNARE2-RNAseq` |
+| enum | `scRNAseq-10xGenomics-v2`, `scRNAseq-10xGenomics-v3`, `scRNAseq`, `sciRNAseq`, `snRNAseq`, or `SNARE2-RNAseq` |
 | required | `True` |
 
 <a name="analyte_class"></a>
@@ -1025,7 +1025,7 @@ The specific type of assay being executed.
 
 | constraint | value |
 | --- | --- |
-| enum | `scRNAseq-10xGenomics`, `snRNAseq-10xGenomics-v2`, `scRNAseq`, `sciRNAseq`, `snRNAseq`, or `SNARE2-RNAseq` |
+| enum | `scRNAseq-10xGenomics`, `scRNAseq`, `sciRNAseq`, `snRNAseq`, or `SNARE2-RNAseq` |
 | required | `True` |
 
 <a name="analyte_class"></a>
@@ -1402,7 +1402,7 @@ The specific type of assay being executed.
 
 | constraint | value |
 | --- | --- |
-| enum | `scRNAseq-10xGenomics`, `snRNAseq-10xGenomics-v2`, `scRNAseq`, `sciRNAseq`, `snRNAseq`, or `SNARE2-RNAseq` |
+| enum | `scRNAseq-10xGenomics`, `scRNAseq`, `sciRNAseq`, `snRNAseq`, or `SNARE2-RNAseq` |
 | required | `True` |
 
 <a name="analyte_class"></a>

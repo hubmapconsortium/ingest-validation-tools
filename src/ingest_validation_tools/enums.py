@@ -57,11 +57,10 @@ shared_enums = {
         # 'TMT (proteomics)',
         'WGS',
         'SNARE2-RNAseq',
-        'snRNAseq',  # equivalent to snRNAseq-10xGenomics-v3
+        'snRNAseq',
         'scRNAseq-10xGenomics',  # Only needed for scrnaseq-v0.yaml.
         'scRNAseq-10xGenomics-v2',
         'scRNAseq-10xGenomics-v3',
-        'snRNAseq-10xGenomics-v2',
         # 'scRNAseq',
         'Slide-seq',
         # 'MS Bottom-Up',

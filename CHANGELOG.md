@@ -1,7 +1,6 @@
 # Changelog
 
 ## v0.0.14 - in progress
-- add snRNAseq-10xGenomics-v2 to the scrnaseq assays
 - Move "Unique to this type" below the acquisition instrument fields.
 - Add CLI option to allow the use of deprecated schemas.
 - Allowing trailing slashes on dataset directories in metadata TSV.
