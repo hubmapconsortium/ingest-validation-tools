@@ -1,6 +1,7 @@
 # Changelog
 
 ## v0.0.14 - in progress
+- Add IMS v3.
 - add snRNAseq-10xGenomics-v2 to the scrnaseq assays
 - Move "Unique to this type" below the acquisition instrument fields.
 - Add CLI option to allow the use of deprecated schemas.

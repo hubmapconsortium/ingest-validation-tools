@@ -50,7 +50,9 @@ fields:
 # include: ../includes/fields/mz_range_low_value.yaml
 # include: ../includes/fields/mz_range_high_value.yaml
 # include: ../includes/fields/mass_resolving_power.yaml
+    required: True
 # include: ../includes/fields/mz_resolving_power.yaml
+    required: True
 # include: ../includes/fields/ion_mobility.yaml
 - name: ms_scan_mode
   description: Scan mode refers to the number of steps in the separation of fragments.
