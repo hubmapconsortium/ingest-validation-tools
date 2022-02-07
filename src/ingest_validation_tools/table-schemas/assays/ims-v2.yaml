@@ -36,7 +36,7 @@ fields:
 - Unique to this type
 
 - name: ms_source
-  description: The ion source type used for surface sampling (MALDI, MALDI-2, DESI, or SIMS) or LC-MS/MS data acquisition (nESI)
+  description: The ion source type used for surface sampling (MALDI, MALDI-2, DESI, nanoDESI or SIMS).
   constraints:
     enum:
       - MALDI
@@ -45,7 +45,6 @@ fields:
       - LA
       - SIMS-C60
       - SIMS-H2O
-      - ESI
       - nanoDESI
 # include: ../includes/fields/polarity.yaml
 # include: ../includes/fields/mz_range_low_value.yaml
@@ -56,6 +55,7 @@ fields:
 - name: ms_scan_mode
   description: Scan mode refers to the number of steps in the separation of fragments.
   constraints:
+    required: TRUE
     enum:
       - MS
       - MS/MS
@@ -81,8 +81,9 @@ fields:
 - name: preparation_maldi_matrix
   description: The matrix is a compound of crystallized molecules that acts like a
     buffer between the sample and the laser. It also helps ionize the sample, carrying
-    it along the flight tube so it can be detected.
+    it along the flight tube so it can be detected. Leave blank if not applicable.
   constraints:
+     required: False
      enum:
          - CHB
          - DHB
