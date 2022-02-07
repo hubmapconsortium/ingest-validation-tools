@@ -97,6 +97,7 @@ fields:
     enum:
     - scRNAseq-10xGenomics-v2
     - scRNAseq-10xGenomics-v3
+    - snRNAseq-10xGenomics-v2
     - scRNAseq
     - sciRNAseq
     - snRNAseq
@@ -126,7 +127,6 @@ fields:
     protein.
   name: is_targeted
   type: boolean
-- Unique to this type
 - constraints:
     required: true
   custom_constraints:
@@ -146,6 +146,7 @@ fields:
     in features or sensitivities may be relevant to processing or interpretation of
     the data.
   name: acquisition_instrument_model
+- Unique to this type
 - constraints:
     pattern: 10\.17504/.*
     required: true

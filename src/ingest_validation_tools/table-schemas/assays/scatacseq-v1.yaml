@@ -18,11 +18,11 @@ fields:
     enum:
       - DNA
 # include: ../includes/v0/is_targeted.yaml
+# include: ../includes/v0/acquisition_instrument.yaml
 
 # Level 2 fields:
 - Unique to this type
 
-# include: ../includes/v0/acquisition_instrument.yaml
 - name: is_technical_replicate
   description: If TRUE, fastq files in dataset need to be merged.
 # include: ../includes/fields/library_id.yaml

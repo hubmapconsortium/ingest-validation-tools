@@ -134,7 +134,6 @@ fields:
     detection/measurement by the assay.
   name: is_targeted
   type: boolean
-- Unique to this type
 - constraints:
     required: true
   custom_constraints:
@@ -154,6 +153,7 @@ fields:
     in features or sensitivities may be relevant to processing or interpretation of
     the data.
   name: acquisition_instrument_model
+- Unique to this type
 - constraints:
     required: true
   custom_constraints:

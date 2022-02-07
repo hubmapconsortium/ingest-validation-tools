@@ -16,11 +16,12 @@ fields:
       - metabolites
       - lipids
 # include: ../includes/v0/is_targeted.yaml
+# include: ../includes/v0/acquisition_instrument.yaml
 
 # Level 2:
 - Unique to this type
 
-# include: ../includes/v0/acquisition_instrument.yaml
+
 - name: ms_source
   description: The ion source type used for surface sampling.
   constraints:

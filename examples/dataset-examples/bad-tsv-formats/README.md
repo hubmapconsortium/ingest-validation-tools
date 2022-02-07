@@ -61,8 +61,6 @@ Metadata TSV Errors:
       row 2, antibodies examples/dataset-examples/bad-tsv-formats/upload/antibodies.tsv: File
         does not exist
 Reference Errors:
-  Has trailing slash:
-  - dataset-1/
   No References:
     Files:
     - dataset-1
