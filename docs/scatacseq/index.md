@@ -1,5 +1,5 @@
 ---
-title: SNARE-seq2 / scATACseq / sciATACseq / snATACseq
+title: SNARE-seq2 / sciATACseq / snATACseq
 schema_name: scatacseq
 category: Sequence assays
 all_versions_deprecated: False
@@ -11,7 +11,7 @@ Related files:
 - [📝 Excel template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/main/docs/scatacseq/scatacseq-metadata.xlsx): For metadata entry.
 - [📝 TSV template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/main/docs/scatacseq/scatacseq-metadata.tsv): Alternative for metadata entry.
 
-This schema is for the single cell Assay for Transposase Accessible Chromatin by sequencing (scATACseq).
+This schema is for the single nucleus Assay for Transposase Accessible Chromatin by sequencing (snATACseq).
 
 ## Directory schema
 The HIVE will process each dataset with
@@ -193,7 +193,7 @@ The specific type of assay being executed.
 
 | constraint | value |
 | --- | --- |
-| enum | `SNARE-seq2`, `scATACseq`, `sciATACseq`, or `snATACseq` |
+| enum | `SNARE-seq2`, `sciATACseq`, or `snATACseq` |
 | required | `True` |
 
 <a name="analyte_class"></a>
@@ -317,7 +317,7 @@ Modality of capturing accessible chromatin molecules.
 
 | constraint | value |
 | --- | --- |
-| enum | `SNARE-Seq2-AC`, `scATACseq`, `bulkATACseq`, `snATACseq`, or `sciATACseq` |
+| enum | `SNARE-Seq2-AC`, `bulkATACseq`, `snATACseq`, or `sciATACseq` |
 | required | `True` |
 
 <a name="transposition_transposase_source"></a>
@@ -587,7 +587,7 @@ The specific type of assay being executed.
 
 | constraint | value |
 | --- | --- |
-| enum | `SNARE-seq2`, `scATACseq`, `sciATACseq`, or `snATACseq` |
+| enum | `SNARE-seq2`, `sciATACseq`, or `snATACseq` |
 | required | `True` |
 
 <a name="analyte_class"></a>
@@ -711,7 +711,7 @@ Modality of capturing accessible chromatin molecules.
 
 | constraint | value |
 | --- | --- |
-| enum | `SNARE-Seq2-AC`, `scATACseq`, `bulkATACseq`, `snATACseq`, or `sciATACseq` |
+| enum | `SNARE-Seq2-AC`, `bulkATACseq`, `snATACseq`, or `sciATACseq` |
 | required | `True` |
 
 <a name="transposition_transposase_source"></a>

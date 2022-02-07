@@ -10,7 +10,6 @@ fields:
   constraints:
     enum:
       - SNARE-seq2
-      - scATACseq
       - sciATACseq
       - snATACseq
 - name: analyte_class
@@ -54,7 +53,6 @@ fields:
   constraints:
     enum:
       - SNARE-Seq2-AC
-      - scATACseq
       - bulkATACseq
       - snATACseq
       - sciATACseq

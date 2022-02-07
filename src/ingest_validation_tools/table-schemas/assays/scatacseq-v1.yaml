@@ -1,5 +1,5 @@
 doc_url: https://portal.hubmapconsortium.org/docs/assays/atacseq
-description_md: This schema is for the single cell Assay for Transposase Accessible Chromatin by sequencing (scATACseq).
+description_md: This schema is for the single nucleus Assay for Transposase Accessible Chromatin by sequencing (snATACseq).
 fields:
 - Shared by all types
 # include: ../includes/vA/all_assays.yaml
@@ -11,7 +11,6 @@ fields:
   constraints:
     enum:
       - SNARE-seq2
-      - scATACseq
       - sciATACseq
       - snATACseq
 - name: analyte_class
@@ -55,7 +54,6 @@ fields:
   constraints:
     enum:
       - SNARE-Seq2-AC
-      - scATACseq
       - bulkATACseq
       - snATACseq
       - sciATACseq

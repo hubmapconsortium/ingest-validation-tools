@@ -52,7 +52,6 @@ acquisition_instrument_model:
 - WGS
 - bulk RNA
 - bulkATACseq
-- scATACseq
 - scRNAseq
 - scRNAseq-10xGenomics
 - scRNAseq-10xGenomics-v2
@@ -95,7 +94,6 @@ acquisition_instrument_vendor:
 - WGS
 - bulk RNA
 - bulkATACseq
-- scATACseq
 - scRNAseq
 - scRNAseq-10xGenomics
 - scRNAseq-10xGenomics-v2
@@ -138,7 +136,6 @@ analyte_class:
 - WGS
 - bulk RNA
 - bulkATACseq
-- scATACseq
 - scRNAseq
 - scRNAseq-10xGenomics
 - scRNAseq-10xGenomics-v2
@@ -193,7 +190,6 @@ assay_category:
 - WGS
 - bulk RNA
 - bulkATACseq
-- scATACseq
 - scRNAseq
 - scRNAseq-10xGenomics
 - scRNAseq-10xGenomics-v2
@@ -236,7 +232,6 @@ assay_type:
 - WGS
 - bulk RNA
 - bulkATACseq
-- scATACseq
 - scRNAseq
 - scRNAseq-10xGenomics
 - scRNAseq-10xGenomics-v2
@@ -280,7 +275,6 @@ ce_interface:
 cell_barcode_offset:
 - SNARE-seq2
 - SNARE2-RNAseq
-- scATACseq
 - scRNAseq
 - scRNAseq-10xGenomics
 - scRNAseq-10xGenomics-v2
@@ -293,7 +287,6 @@ cell_barcode_offset:
 cell_barcode_read:
 - SNARE-seq2
 - SNARE2-RNAseq
-- scATACseq
 - scRNAseq
 - scRNAseq-10xGenomics
 - scRNAseq-10xGenomics-v2
@@ -306,7 +299,6 @@ cell_barcode_read:
 cell_barcode_size:
 - SNARE-seq2
 - SNARE2-RNAseq
-- scATACseq
 - scRNAseq
 - scRNAseq-10xGenomics
 - scRNAseq-10xGenomics-v2
@@ -360,7 +352,6 @@ contributors_path:
 - WGS
 - bulk RNA
 - bulkATACseq
-- scATACseq
 - scRNAseq
 - scRNAseq-10xGenomics
 - scRNAseq-10xGenomics-v2
@@ -415,7 +406,6 @@ data_path:
 - WGS
 - bulk RNA
 - bulkATACseq
-- scATACseq
 - scRNAseq
 - scRNAseq-10xGenomics
 - scRNAseq-10xGenomics-v2
@@ -461,7 +451,6 @@ description:
 - WGS
 - bulk RNA
 - bulkATACseq
-- scATACseq
 - scRNAseq
 - scRNAseq-10xGenomics
 - scRNAseq-10xGenomics-v2
@@ -530,7 +519,6 @@ donor_id:
 - WGS
 - bulk RNA
 - bulkATACseq
-- scATACseq
 - scRNAseq
 - scRNAseq-10xGenomics
 - scRNAseq-10xGenomics-v2
@@ -579,7 +567,6 @@ execution_datetime:
 - WGS
 - bulk RNA
 - bulkATACseq
-- scATACseq
 - scRNAseq
 - scRNAseq-10xGenomics
 - scRNAseq-10xGenomics-v2
@@ -655,7 +642,6 @@ is_targeted:
 - WGS
 - bulk RNA
 - bulkATACseq
-- scATACseq
 - scRNAseq
 - scRNAseq-10xGenomics
 - scRNAseq-10xGenomics-v2
@@ -671,7 +657,6 @@ is_technical_replicate:
 - SNARE2-RNAseq
 - Slide-seq
 - bulkATACseq
-- scATACseq
 - scRNAseq
 - scRNAseq-10xGenomics
 - scRNAseq-10xGenomics-v2
@@ -867,7 +852,6 @@ library_adapter_sequence:
 - WGS
 - bulk RNA
 - bulkATACseq
-- scATACseq
 - scRNAseq
 - scRNAseq-10xGenomics
 - scRNAseq-10xGenomics-v2
@@ -884,7 +868,6 @@ library_average_fragment_size:
 - WGS
 - bulk RNA
 - bulkATACseq
-- scATACseq
 - scRNAseq
 - scRNAseq-10xGenomics
 - scRNAseq-10xGenomics-v2
@@ -907,7 +890,6 @@ library_construction_protocols_io_doi:
 - WGS
 - bulk RNA
 - bulkATACseq
-- scATACseq
 - scRNAseq
 - scRNAseq-10xGenomics
 - scRNAseq-10xGenomics-v2
@@ -922,7 +904,6 @@ library_creation_date:
 library_final_yield:
 - SNARE-seq2
 - WGS
-- scATACseq
 - sciATACseq
 - snATACseq
 library_final_yield_unit:
@@ -932,7 +913,6 @@ library_final_yield_unit:
 - WGS
 - bulk RNA
 - bulkATACseq
-- scATACseq
 - scRNAseq
 - scRNAseq-10xGenomics
 - scRNAseq-10xGenomics-v2
@@ -958,7 +938,6 @@ library_id:
 - SNARE-seq2
 - SNARE2-RNAseq
 - bulkATACseq
-- scATACseq
 - scRNAseq
 - scRNAseq-10xGenomics
 - scRNAseq-10xGenomics-v2
@@ -975,7 +954,6 @@ library_layout:
 - WGS
 - bulk RNA
 - bulkATACseq
-- scATACseq
 - scRNAseq
 - scRNAseq-10xGenomics
 - scRNAseq-10xGenomics-v2
@@ -990,7 +968,6 @@ library_pcr_cycles:
 - SNARE2-RNAseq
 - Slide-seq
 - bulkATACseq
-- scATACseq
 - scRNAseq
 - scRNAseq-10xGenomics
 - scRNAseq-10xGenomics-v2
@@ -1005,7 +982,6 @@ library_pcr_cycles_for_sample_index:
 - SNARE2-RNAseq
 - Slide-seq
 - bulk RNA
-- scATACseq
 - scRNAseq
 - scRNAseq-10xGenomics
 - scRNAseq-10xGenomics-v2
@@ -1190,7 +1166,6 @@ operator:
 - WGS
 - bulk RNA
 - bulkATACseq
-- scATACseq
 - scRNAseq
 - scRNAseq-10xGenomics
 - scRNAseq-10xGenomics-v2
@@ -1233,7 +1208,6 @@ operator_email:
 - WGS
 - bulk RNA
 - bulkATACseq
-- scATACseq
 - scRNAseq
 - scRNAseq-10xGenomics
 - scRNAseq-10xGenomics-v2
@@ -1297,7 +1271,6 @@ pi:
 - WGS
 - bulk RNA
 - bulkATACseq
-- scATACseq
 - scRNAseq
 - scRNAseq-10xGenomics
 - scRNAseq-10xGenomics-v2
@@ -1340,7 +1313,6 @@ pi_email:
 - WGS
 - bulk RNA
 - bulkATACseq
-- scATACseq
 - scRNAseq
 - scRNAseq-10xGenomics
 - scRNAseq-10xGenomics-v2
@@ -1477,7 +1449,6 @@ protocols_io_doi:
 - WGS
 - bulk RNA
 - bulkATACseq
-- scATACseq
 - scRNAseq
 - scRNAseq-10xGenomics
 - scRNAseq-10xGenomics-v2
@@ -1638,7 +1609,6 @@ sample_quality_metric:
 sc_isolation_cell_number:
 - SNARE-seq2
 - SNARE2-RNAseq
-- scATACseq
 - scRNAseq
 - scRNAseq-10xGenomics
 - scRNAseq-10xGenomics-v2
@@ -1651,7 +1621,6 @@ sc_isolation_cell_number:
 sc_isolation_enrichment:
 - SNARE-seq2
 - SNARE2-RNAseq
-- scATACseq
 - scRNAseq
 - scRNAseq-10xGenomics
 - scRNAseq-10xGenomics-v2
@@ -1664,7 +1633,6 @@ sc_isolation_enrichment:
 sc_isolation_entity:
 - SNARE-seq2
 - SNARE2-RNAseq
-- scATACseq
 - scRNAseq
 - scRNAseq-10xGenomics
 - scRNAseq-10xGenomics-v2
@@ -1677,7 +1645,6 @@ sc_isolation_entity:
 sc_isolation_protocols_io_doi:
 - SNARE-seq2
 - SNARE2-RNAseq
-- scATACseq
 - scRNAseq
 - scRNAseq-10xGenomics
 - scRNAseq-10xGenomics-v2
@@ -1690,7 +1657,6 @@ sc_isolation_protocols_io_doi:
 sc_isolation_quality_metric:
 - SNARE-seq2
 - SNARE2-RNAseq
-- scATACseq
 - scRNAseq
 - scRNAseq-10xGenomics
 - scRNAseq-10xGenomics-v2
@@ -1703,7 +1669,6 @@ sc_isolation_quality_metric:
 sc_isolation_tissue_dissociation:
 - SNARE-seq2
 - SNARE2-RNAseq
-- scATACseq
 - scRNAseq
 - scRNAseq-10xGenomics
 - scRNAseq-10xGenomics-v2
@@ -1747,7 +1712,6 @@ sequencing_phix_percent:
 - WGS
 - bulk RNA
 - bulkATACseq
-- scATACseq
 - scRNAseq
 - scRNAseq-10xGenomics
 - scRNAseq-10xGenomics-v2
@@ -1764,7 +1728,6 @@ sequencing_read_format:
 - WGS
 - bulk RNA
 - bulkATACseq
-- scATACseq
 - scRNAseq
 - scRNAseq-10xGenomics
 - scRNAseq-10xGenomics-v2
@@ -1781,7 +1744,6 @@ sequencing_read_percent_q30:
 - WGS
 - bulk RNA
 - bulkATACseq
-- scATACseq
 - scRNAseq
 - scRNAseq-10xGenomics
 - scRNAseq-10xGenomics-v2
@@ -1798,7 +1760,6 @@ sequencing_reagent_kit:
 - WGS
 - bulk RNA
 - bulkATACseq
-- scATACseq
 - scRNAseq
 - scRNAseq-10xGenomics
 - scRNAseq-10xGenomics-v2
@@ -1886,7 +1847,6 @@ tissue_id:
 - WGS
 - bulk RNA
 - bulkATACseq
-- scATACseq
 - scRNAseq
 - scRNAseq-10xGenomics
 - scRNAseq-10xGenomics-v2
@@ -1899,25 +1859,21 @@ tissue_id:
 - snRNAseq-10xGenomics-v2
 transposition_input:
 - SNARE-seq2
-- scATACseq
 - sciATACseq
 - snATACseq
 transposition_kit_number:
 - SNARE-seq2
 - bulkATACseq
-- scATACseq
 - sciATACseq
 - snATACseq
 transposition_method:
 - SNARE-seq2
 - bulkATACseq
-- scATACseq
 - sciATACseq
 - snATACseq
 transposition_transposase_source:
 - SNARE-seq2
 - bulkATACseq
-- scATACseq
 - sciATACseq
 - snATACseq
 umi_offset:
@@ -1976,7 +1932,6 @@ version:
 - WGS
 - bulk RNA
 - bulkATACseq
-- scATACseq
 - scRNAseq
 - scRNAseq-10xGenomics
 - scRNAseq-10xGenomics-v2
