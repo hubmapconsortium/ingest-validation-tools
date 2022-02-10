@@ -68,7 +68,7 @@ def main():
         with open(Path(args.target) / f'v{v}.yaml', 'w') as f:
             f.write(
                 '# Generated YAML: PRs should not start here!\n'
-                + dump_yaml(schema)
+                + dump_yaml(schema, sort_keys=False)
             )
 
     # Data entry templates:
