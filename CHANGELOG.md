@@ -1,6 +1,7 @@
 # Changelog
 
 ## v0.0.14 - in progress
+- Make backward incompatible changes to ims-v2 in place, without a new version.
 - Preserve the key order in generated YAML, for readability.
 - Add 'Multiplex Ion Beam Imaging' assay name
 - Permanently remove snRNA and scATACseq assay names
