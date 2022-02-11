@@ -1,6 +1,7 @@
 # Changelog
 
 ## v0.0.14 - in progress
+- Preserve the key order in generated YAML, for readability.
 - Add 'Multiplex Ion Beam Imaging' assay name
 - Permanently remove snRNA and scATACseq assay names
 - add snRNAseq-10xGenomics-v2 to the scrnaseq assays
