@@ -234,11 +234,11 @@ Manufacturers of an acquisition instrument may offer various versions (models) o
 
 <a name="ms_source"></a>
 ##### [`ms_source`](#ms_source)
-The ion source type used for surface sampling (MALDI, MALDI-2, DESI, or SIMS) or LC-MS/MS data acquisition (nESI)
+The ion source type used for surface sampling (MALDI, MALDI-2, DESI, nanoDESI or SIMS).
 
 | constraint | value |
 | --- | --- |
-| enum | `MALDI`, `MALDI-2`, `LDI`, `LA`, `SIMS-C60`, `SIMS-H2O`, `ESI`, or `nanoDESI` |
+| enum | `MALDI`, `MALDI-2`, `LDI`, `LA`, `SIMS-C60`, `SIMS-H2O`, or `nanoDESI` |
 | required | `True` |
 
 <a name="polarity"></a>
@@ -270,21 +270,21 @@ The high value of the scanned mass range for MS1. (unitless)
 
 <a name="mass_resolving_power"></a>
 ##### [`mass_resolving_power`](#mass_resolving_power)
-The MS1 resolving power defined as m/∆m where ∆m is the FWHM for a given peak with a specified m/z (m). (unitless) Leave blank if not applicable.
+The MS1 resolving power defined as m/∆m where ∆m is the FWHM for a given peak with a specified m/z (m). (unitless)
 
 | constraint | value |
 | --- | --- |
 | type | `number` |
-| required | `False` |
+| required | `True` |
 
 <a name="mz_resolving_power"></a>
 ##### [`mz_resolving_power`](#mz_resolving_power)
-The peak (m/z) used to calculate the resolving power. Leave blank if not applicable.
+The peak (m/z) used to calculate the resolving power.
 
 | constraint | value |
 | --- | --- |
 | type | `number` |
-| required | `False` |
+| required | `True` |
 
 <a name="ion_mobility"></a>
 ##### [`ion_mobility`](#ion_mobility)
@@ -368,12 +368,12 @@ The model number/name of the instrument used to prepare the sample for the assay
 
 <a name="preparation_maldi_matrix"></a>
 ##### [`preparation_maldi_matrix`](#preparation_maldi_matrix)
-The matrix is a compound of crystallized molecules that acts like a buffer between the sample and the laser. It also helps ionize the sample, carrying it along the flight tube so it can be detected.
+The matrix is a compound of crystallized molecules that acts like a buffer between the sample and the laser. It also helps ionize the sample, carrying it along the flight tube so it can be detected. Leave blank if not applicable.
 
 | constraint | value |
 | --- | --- |
 | enum | `CHB`, `DHB`, or `SA` |
-| required | `True` |
+| required | `False` |
 
 <a name="desi_solvent"></a>
 ##### [`desi_solvent`](#desi_solvent)

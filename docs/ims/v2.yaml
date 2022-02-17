@@ -161,7 +161,7 @@ fields:
 - Unique to this type
 - name: ms_source
   description: The ion source type used for surface sampling (MALDI, MALDI-2, DESI,
-    or SIMS) or LC-MS/MS data acquisition (nESI)
+    nanoDESI or SIMS).
   constraints:
     enum:
     - MALDI
@@ -170,7 +170,6 @@ fields:
     - LA
     - SIMS-C60
     - SIMS-H2O
-    - ESI
     - nanoDESI
     required: true
   custom_constraints:
@@ -208,7 +207,7 @@ fields:
     \ FWHM for a given peak with a specified m/z (m). (unitless)"
   type: number
   constraints:
-    required: false
+    required: true
   custom_constraints:
     sequence_limit: 3
     forbid_na: true
@@ -216,7 +215,7 @@ fields:
   description: The peak (m/z) used to calculate the resolving power.
   type: number
   constraints:
-    required: false
+    required: true
   custom_constraints:
     sequence_limit: 3
     forbid_na: true
@@ -319,7 +318,7 @@ fields:
     - CHB
     - DHB
     - SA
-    required: true
+    required: false
   custom_constraints:
     sequence_limit: 3
     forbid_na: true
