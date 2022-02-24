@@ -61,6 +61,7 @@ shared_enums = {
         'scRNAseq-10xGenomics-v2',
         'scRNAseq-10xGenomics-v3',
         'snRNAseq-10xGenomics-v2',
+        'snRNAseq-10xGenomics-v3',
         # 'scRNAseq',
         'Slide-seq',
         # 'MS Bottom-Up',

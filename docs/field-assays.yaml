@@ -62,6 +62,7 @@ acquisition_instrument_model:
 - snATACseq
 - snRNAseq
 - snRNAseq-10xGenomics-v2
+- snRNAseq-10xGenomics-v3
 acquisition_instrument_vendor:
 - 3D Imaging Mass Cytometry
 - AF
@@ -104,6 +105,7 @@ acquisition_instrument_vendor:
 - snATACseq
 - snRNAseq
 - snRNAseq-10xGenomics-v2
+- snRNAseq-10xGenomics-v3
 analyte_class:
 - 3D Imaging Mass Cytometry
 - AF
@@ -146,6 +148,7 @@ analyte_class:
 - snATACseq
 - snRNAseq
 - snRNAseq-10xGenomics-v2
+- snRNAseq-10xGenomics-v3
 antibodies_path:
 - 3D Imaging Mass Cytometry
 - CODEX
@@ -200,6 +203,7 @@ assay_category:
 - snATACseq
 - snRNAseq
 - snRNAseq-10xGenomics-v2
+- snRNAseq-10xGenomics-v3
 assay_type:
 - 3D Imaging Mass Cytometry
 - AF
@@ -242,6 +246,7 @@ assay_type:
 - snATACseq
 - snRNAseq
 - snRNAseq-10xGenomics-v2
+- snRNAseq-10xGenomics-v3
 bead_barcode_offset:
 - Slide-seq
 bead_barcode_read:
@@ -284,6 +289,7 @@ cell_barcode_offset:
 - snATACseq
 - snRNAseq
 - snRNAseq-10xGenomics-v2
+- snRNAseq-10xGenomics-v3
 cell_barcode_read:
 - SNARE-seq2
 - SNARE2-RNAseq
@@ -296,6 +302,7 @@ cell_barcode_read:
 - snATACseq
 - snRNAseq
 - snRNAseq-10xGenomics-v2
+- snRNAseq-10xGenomics-v3
 cell_barcode_size:
 - SNARE-seq2
 - SNARE2-RNAseq
@@ -308,6 +315,7 @@ cell_barcode_size:
 - snATACseq
 - snRNAseq
 - snRNAseq-10xGenomics-v2
+- snRNAseq-10xGenomics-v3
 column_length_unit:
 - GC-MS
 column_length_value:
@@ -362,6 +370,7 @@ contributors_path:
 - snATACseq
 - snRNAseq
 - snRNAseq-10xGenomics-v2
+- snRNAseq-10xGenomics-v3
 data_collection_mode:
 - CE-MS
 - GC-MS
@@ -416,6 +425,7 @@ data_path:
 - snATACseq
 - snRNAseq
 - snRNAseq-10xGenomics-v2
+- snRNAseq-10xGenomics-v3
 data_precision_bytes:
 - Imaging Mass Cytometry
 - Multiplex Ion Beam Imaging
@@ -461,6 +471,7 @@ description:
 - snATACseq
 - snRNAseq
 - snRNAseq-10xGenomics-v2
+- snRNAseq-10xGenomics-v3
 desi_solvent:
 - DESI
 - MALDI-IMS
@@ -529,6 +540,7 @@ donor_id:
 - snATACseq
 - snRNAseq
 - snRNAseq-10xGenomics-v2
+- snRNAseq-10xGenomics-v3
 dual_count_start:
 - Imaging Mass Cytometry
 - Multiplex Ion Beam Imaging
@@ -577,6 +589,7 @@ execution_datetime:
 - snATACseq
 - snRNAseq
 - snRNAseq-10xGenomics-v2
+- snRNAseq-10xGenomics-v3
 expected_cell_count:
 - SNARE2-RNAseq
 - scRNAseq
@@ -585,6 +598,7 @@ expected_cell_count:
 - sciRNAseq
 - snRNAseq
 - snRNAseq-10xGenomics-v2
+- snRNAseq-10xGenomics-v3
 gdna_fragmentation_quality_assurance:
 - WGS
 guard_column:
@@ -652,6 +666,7 @@ is_targeted:
 - snATACseq
 - snRNAseq
 - snRNAseq-10xGenomics-v2
+- snRNAseq-10xGenomics-v3
 is_technical_replicate:
 - SNARE-seq2
 - SNARE2-RNAseq
@@ -666,6 +681,7 @@ is_technical_replicate:
 - snATACseq
 - snRNAseq
 - snRNAseq-10xGenomics-v2
+- snRNAseq-10xGenomics-v3
 label_name:
 - LC-MS
 - LC-MS Bottom-Up
@@ -861,6 +877,7 @@ library_adapter_sequence:
 - snATACseq
 - snRNAseq
 - snRNAseq-10xGenomics-v2
+- snRNAseq-10xGenomics-v3
 library_average_fragment_size:
 - SNARE-seq2
 - SNARE2-RNAseq
@@ -877,6 +894,7 @@ library_average_fragment_size:
 - snATACseq
 - snRNAseq
 - snRNAseq-10xGenomics-v2
+- snRNAseq-10xGenomics-v3
 library_concentration_unit:
 - bulkATACseq
 library_concentration_value:
@@ -899,6 +917,7 @@ library_construction_protocols_io_doi:
 - snATACseq
 - snRNAseq
 - snRNAseq-10xGenomics-v2
+- snRNAseq-10xGenomics-v3
 library_creation_date:
 - bulkATACseq
 library_final_yield:
@@ -922,6 +941,7 @@ library_final_yield_unit:
 - snATACseq
 - snRNAseq
 - snRNAseq-10xGenomics-v2
+- snRNAseq-10xGenomics-v3
 library_final_yield_value:
 - SNARE2-RNAseq
 - Slide-seq
@@ -934,6 +954,7 @@ library_final_yield_value:
 - sciRNAseq
 - snRNAseq
 - snRNAseq-10xGenomics-v2
+- snRNAseq-10xGenomics-v3
 library_id:
 - SNARE-seq2
 - SNARE2-RNAseq
@@ -947,6 +968,7 @@ library_id:
 - snATACseq
 - snRNAseq
 - snRNAseq-10xGenomics-v2
+- snRNAseq-10xGenomics-v3
 library_layout:
 - SNARE-seq2
 - SNARE2-RNAseq
@@ -963,6 +985,7 @@ library_layout:
 - snATACseq
 - snRNAseq
 - snRNAseq-10xGenomics-v2
+- snRNAseq-10xGenomics-v3
 library_pcr_cycles:
 - SNARE-seq2
 - SNARE2-RNAseq
@@ -977,6 +1000,7 @@ library_pcr_cycles:
 - snATACseq
 - snRNAseq
 - snRNAseq-10xGenomics-v2
+- snRNAseq-10xGenomics-v3
 library_pcr_cycles_for_sample_index:
 - SNARE-seq2
 - SNARE2-RNAseq
@@ -991,6 +1015,7 @@ library_pcr_cycles_for_sample_index:
 - snATACseq
 - snRNAseq
 - snRNAseq-10xGenomics-v2
+- snRNAseq-10xGenomics-v3
 library_preparation_kit:
 - bulkATACseq
 mass_resolving_power:
@@ -1176,6 +1201,7 @@ operator:
 - snATACseq
 - snRNAseq
 - snRNAseq-10xGenomics-v2
+- snRNAseq-10xGenomics-v3
 operator_email:
 - 3D Imaging Mass Cytometry
 - AF
@@ -1218,6 +1244,7 @@ operator_email:
 - snATACseq
 - snRNAseq
 - snRNAseq-10xGenomics-v2
+- snRNAseq-10xGenomics-v3
 overall_protocols_io_doi:
 - AF
 - CE-MS
@@ -1281,6 +1308,7 @@ pi:
 - snATACseq
 - snRNAseq
 - snRNAseq-10xGenomics-v2
+- snRNAseq-10xGenomics-v3
 pi_email:
 - 3D Imaging Mass Cytometry
 - AF
@@ -1323,6 +1351,7 @@ pi_email:
 - snATACseq
 - snRNAseq
 - snRNAseq-10xGenomics-v2
+- snRNAseq-10xGenomics-v3
 pixel_dwell_time_unit:
 - Multiplex Ion Beam Imaging
 pixel_dwell_time_value:
@@ -1459,6 +1488,7 @@ protocols_io_doi:
 - snATACseq
 - snRNAseq
 - snRNAseq-10xGenomics-v2
+- snRNAseq-10xGenomics-v3
 puck_id:
 - Slide-seq
 range_z_unit:
@@ -1581,6 +1611,7 @@ rnaseq_assay_input:
 - sciRNAseq
 - snRNAseq
 - snRNAseq-10xGenomics-v2
+- snRNAseq-10xGenomics-v3
 rnaseq_assay_input_unit:
 - bulk RNA
 rnaseq_assay_input_value:
@@ -1596,6 +1627,7 @@ rnaseq_assay_method:
 - sciRNAseq
 - snRNAseq
 - snRNAseq-10xGenomics-v2
+- snRNAseq-10xGenomics-v3
 roi_description:
 - 3D Imaging Mass Cytometry
 - Imaging Mass Cytometry
@@ -1618,6 +1650,7 @@ sc_isolation_cell_number:
 - snATACseq
 - snRNAseq
 - snRNAseq-10xGenomics-v2
+- snRNAseq-10xGenomics-v3
 sc_isolation_enrichment:
 - SNARE-seq2
 - SNARE2-RNAseq
@@ -1630,6 +1663,7 @@ sc_isolation_enrichment:
 - snATACseq
 - snRNAseq
 - snRNAseq-10xGenomics-v2
+- snRNAseq-10xGenomics-v3
 sc_isolation_entity:
 - SNARE-seq2
 - SNARE2-RNAseq
@@ -1642,6 +1676,7 @@ sc_isolation_entity:
 - snATACseq
 - snRNAseq
 - snRNAseq-10xGenomics-v2
+- snRNAseq-10xGenomics-v3
 sc_isolation_protocols_io_doi:
 - SNARE-seq2
 - SNARE2-RNAseq
@@ -1654,6 +1689,7 @@ sc_isolation_protocols_io_doi:
 - snATACseq
 - snRNAseq
 - snRNAseq-10xGenomics-v2
+- snRNAseq-10xGenomics-v3
 sc_isolation_quality_metric:
 - SNARE-seq2
 - SNARE2-RNAseq
@@ -1666,6 +1702,7 @@ sc_isolation_quality_metric:
 - snATACseq
 - snRNAseq
 - snRNAseq-10xGenomics-v2
+- snRNAseq-10xGenomics-v3
 sc_isolation_tissue_dissociation:
 - SNARE-seq2
 - SNARE2-RNAseq
@@ -1678,6 +1715,7 @@ sc_isolation_tissue_dissociation:
 - snATACseq
 - snRNAseq
 - snRNAseq-10xGenomics-v2
+- snRNAseq-10xGenomics-v3
 section_prep_protocols_io_doi:
 - 3D Imaging Mass Cytometry
 - CE-MS
@@ -1721,6 +1759,7 @@ sequencing_phix_percent:
 - snATACseq
 - snRNAseq
 - snRNAseq-10xGenomics-v2
+- snRNAseq-10xGenomics-v3
 sequencing_read_format:
 - SNARE-seq2
 - SNARE2-RNAseq
@@ -1737,6 +1776,7 @@ sequencing_read_format:
 - snATACseq
 - snRNAseq
 - snRNAseq-10xGenomics-v2
+- snRNAseq-10xGenomics-v3
 sequencing_read_percent_q30:
 - SNARE-seq2
 - SNARE2-RNAseq
@@ -1753,6 +1793,7 @@ sequencing_read_percent_q30:
 - snATACseq
 - snRNAseq
 - snRNAseq-10xGenomics-v2
+- snRNAseq-10xGenomics-v3
 sequencing_reagent_kit:
 - SNARE-seq2
 - SNARE2-RNAseq
@@ -1769,6 +1810,7 @@ sequencing_reagent_kit:
 - snATACseq
 - snRNAseq
 - snRNAseq-10xGenomics-v2
+- snRNAseq-10xGenomics-v3
 signal_type:
 - 3D Imaging Mass Cytometry
 - Imaging Mass Cytometry
@@ -1857,6 +1899,7 @@ tissue_id:
 - snATACseq
 - snRNAseq
 - snRNAseq-10xGenomics-v2
+- snRNAseq-10xGenomics-v3
 transposition_input:
 - SNARE-seq2
 - sciATACseq
@@ -1884,6 +1927,7 @@ umi_offset:
 - sciRNAseq
 - snRNAseq
 - snRNAseq-10xGenomics-v2
+- snRNAseq-10xGenomics-v3
 umi_read:
 - SNARE2-RNAseq
 - scRNAseq
@@ -1892,6 +1936,7 @@ umi_read:
 - sciRNAseq
 - snRNAseq
 - snRNAseq-10xGenomics-v2
+- snRNAseq-10xGenomics-v3
 umi_size:
 - SNARE2-RNAseq
 - scRNAseq
@@ -1900,6 +1945,7 @@ umi_size:
 - sciRNAseq
 - snRNAseq
 - snRNAseq-10xGenomics-v2
+- snRNAseq-10xGenomics-v3
 version:
 - 3D Imaging Mass Cytometry
 - AF
@@ -1942,4 +1988,5 @@ version:
 - snATACseq
 - snRNAseq
 - snRNAseq-10xGenomics-v2
+- snRNAseq-10xGenomics-v3
 
