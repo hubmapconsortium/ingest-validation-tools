@@ -4,6 +4,7 @@ description_md: This schema is for microscopy of tissue treated with periodic ac
   [example PAS stained dataset](https://portal.hubmapconsortium.org/browse/dataset/7308530b92438fdbe258b501aeb86069#files) 
   and click the Globus link.
 fields:
+- Shared by all types
 # include: ../includes/vA/all_assays.yaml
 - name: assay_category
   constraints:
@@ -17,10 +18,11 @@ fields:
   constraints:
     required: False
 # include: ../includes/v0/is_targeted.yaml
+# include: ../includes/v0/acquisition_instrument.yaml
 
 # Level 2 fields:
+- Unique to this type
 
-# include: ../includes/v0/acquisition_instrument.yaml
 # include: ../includes/v0/x_y.yaml
 
 - name: resolution_z_value

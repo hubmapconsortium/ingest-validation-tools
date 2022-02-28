@@ -1,5 +1,5 @@
 ---
-title: SNARE-seq2 / scATACseq / sciATACseq / snATACseq
+title: SNARE-seq2 / sciATACseq / snATACseq
 schema_name: scatacseq
 category: Sequence assays
 all_versions_deprecated: False
@@ -11,7 +11,7 @@ Related files:
 - [📝 Excel template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/main/docs/scatacseq/scatacseq-metadata.xlsx): For metadata entry.
 - [📝 TSV template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/main/docs/scatacseq/scatacseq-metadata.tsv): Alternative for metadata entry.
 
-This schema is for the single cell Assay for Transposase Accessible Chromatin by sequencing (scATACseq).
+This schema is for the single nucleus Assay for Transposase Accessible Chromatin by sequencing (snATACseq).
 
 ## Directory schema
 The HIVE will process each dataset with
@@ -48,12 +48,12 @@ The HIVE will process each dataset with
 [`assay_type`](#assay_type)<br>
 [`analyte_class`](#analyte_class)<br>
 [`is_targeted`](#is_targeted)<br>
+[`acquisition_instrument_vendor`](#acquisition_instrument_vendor)<br>
+[`acquisition_instrument_model`](#acquisition_instrument_model)<br>
 
 </details>
 <details markdown="1"><summary>Unique to this type</summary>
 
-[`acquisition_instrument_vendor`](#acquisition_instrument_vendor)<br>
-[`acquisition_instrument_model`](#acquisition_instrument_model)<br>
 [`is_technical_replicate`](#is_technical_replicate)<br>
 [`library_id`](#library_id)<br>
 [`sc_isolation_protocols_io_doi`](#sc_isolation_protocols_io_doi)<br>
@@ -193,7 +193,7 @@ The specific type of assay being executed.
 
 | constraint | value |
 | --- | --- |
-| enum | `SNARE-seq2`, `scATACseq`, `sciATACseq`, or `snATACseq` |
+| enum | `SNARE-seq2`, `sciATACseq`, or `snATACseq` |
 | required | `True` |
 
 <a name="analyte_class"></a>
@@ -214,8 +214,6 @@ Specifies whether or not a specific molecule(s) is/are targeted for detection/me
 | type | `boolean` |
 | required | `True` |
 
-### Unique to this type
-
 <a name="acquisition_instrument_vendor"></a>
 ##### [`acquisition_instrument_vendor`](#acquisition_instrument_vendor)
 An acquisition instrument is the device that contains the signal detection hardware and signal processing software. Assays generate signals such as light of various intensities or color or signals representing the molecular mass.
@@ -231,6 +229,8 @@ Manufacturers of an acquisition instrument may offer various versions (models) o
 | constraint | value |
 | --- | --- |
 | required | `True` |
+
+### Unique to this type
 
 <a name="is_technical_replicate"></a>
 ##### [`is_technical_replicate`](#is_technical_replicate)
@@ -317,7 +317,7 @@ Modality of capturing accessible chromatin molecules.
 
 | constraint | value |
 | --- | --- |
-| enum | `SNARE-Seq2-AC`, `scATACseq`, `bulkATACseq`, `snATACseq`, or `sciATACseq` |
+| enum | `SNARE-Seq2-AC`, `bulkATACseq`, `snATACseq`, or `sciATACseq` |
 | required | `True` |
 
 <a name="transposition_transposase_source"></a>
@@ -587,7 +587,7 @@ The specific type of assay being executed.
 
 | constraint | value |
 | --- | --- |
-| enum | `SNARE-seq2`, `scATACseq`, `sciATACseq`, or `snATACseq` |
+| enum | `SNARE-seq2`, `sciATACseq`, or `snATACseq` |
 | required | `True` |
 
 <a name="analyte_class"></a>
@@ -608,8 +608,6 @@ Specifies whether or not a specific molecule(s) is/are targeted for detection/me
 | type | `boolean` |
 | required | `True` |
 
-### Unique to this type
-
 <a name="acquisition_instrument_vendor"></a>
 ##### [`acquisition_instrument_vendor`](#acquisition_instrument_vendor)
 An acquisition instrument is the device that contains the signal detection hardware and signal processing software. Assays generate signals such as light of various intensities or color or signals representing the molecular mass.
@@ -625,6 +623,8 @@ Manufacturers of an acquisition instrument may offer various versions (models) o
 | constraint | value |
 | --- | --- |
 | required | `True` |
+
+### Unique to this type
 
 <a name="is_technical_replicate"></a>
 ##### [`is_technical_replicate`](#is_technical_replicate)
@@ -711,7 +711,7 @@ Modality of capturing accessible chromatin molecules.
 
 | constraint | value |
 | --- | --- |
-| enum | `SNARE-Seq2-AC`, `scATACseq`, `bulkATACseq`, `snATACseq`, or `sciATACseq` |
+| enum | `SNARE-Seq2-AC`, `bulkATACseq`, `snATACseq`, or `sciATACseq` |
 | required | `True` |
 
 <a name="transposition_transposase_source"></a>

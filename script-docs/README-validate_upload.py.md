@@ -1,7 +1,7 @@
 ```text
 usage: validate_upload.py [-h] --local_directory PATH
                           [--optional_fields FIELD [FIELD ...]] [--offline]
-                          [--clear_cache]
+                          [--clear_cache] [--ignore_deprecation]
                           [--dataset_ignore_globs GLOB [GLOB ...]]
                           [--upload_ignore_globs GLOB [GLOB ...]]
                           [--encoding ENCODING]
@@ -21,6 +21,8 @@ optional arguments:
                         they are supplied in the TSV, they will be validated.)
   --offline             Skip checks that require network access.
   --clear_cache         Clear cache of network check responses.
+  --ignore_deprecation  Allow validation against deprecated versions of
+                        metadata schemas.
   --dataset_ignore_globs GLOB [GLOB ...]
                         Matching files in each dataset directory will be
                         ignored. Default: .*

@@ -1,5 +1,6 @@
 doc_url: https://portal.hubmapconsortium.org/docs/assays/rnaseq
 fields:
+- Shared by all types
 # include: ../includes/v0/all_assays.yaml
 - name: assay_category
   constraints:
@@ -9,6 +10,8 @@ fields:
   constraints:
     enum:
       - scRNAseq-10xGenomics
+      - snRNAseq-10xGenomics-v2
+      - snRNAseq-10xGenomics-v3
       - scRNAseq
       - sciRNAseq
       - snRNAseq
@@ -18,9 +21,11 @@ fields:
     enum:
       - RNA
 # include: ../includes/v0/is_targeted.yaml
+# include: ../includes/v0/acquisition_instrument.yaml
 
 # Level 2 fields:
-# include: ../includes/v0/acquisition_instrument.yaml
+- Unique to this type
+
 - name: sc_isolation_protocols_io_doi
   description: "Link to a protocols document answering the question: How were single cells separated into a single-cell suspension?"
 - name: sc_isolation_entity

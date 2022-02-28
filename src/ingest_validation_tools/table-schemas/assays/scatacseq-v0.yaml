@@ -1,5 +1,6 @@
 doc_url: https://portal.hubmapconsortium.org/docs/assays/atacseq
 fields:
+- Shared by all types
 # include: ../includes/v0/all_assays.yaml
 - name: assay_category
   constraints:
@@ -9,7 +10,6 @@ fields:
   constraints:
     enum:
       - SNARE-seq2
-      - scATACseq
       - sciATACseq
       - snATACseq
 - name: analyte_class
@@ -17,9 +17,11 @@ fields:
     enum:
       - DNA
 # include: ../includes/v0/is_targeted.yaml
+# include: ../includes/v0/acquisition_instrument.yaml
 
 # Level 2 fields:
-# include: ../includes/v0/acquisition_instrument.yaml
+- Unique to this type
+
 - name: is_technical_replicate
   description: If TRUE, fastq files in dataset need to be merged.
 # include: ../includes/fields/library_id.yaml
@@ -51,7 +53,6 @@ fields:
   constraints:
     enum:
       - SNARE-Seq2-AC
-      - scATACseq
       - bulkATACseq
       - snATACseq
       - sciATACseq

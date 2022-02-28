@@ -1,5 +1,6 @@
 doc_url: https://portal.hubmapconsortium.org/docs/assays/wgs
 fields:
+- Shared by all types
 # include: ../includes/vA/all_assays.yaml
 - name: assay_category
   constraints:
@@ -14,9 +15,11 @@ fields:
     enum:
       - DNA
 # include: ../includes/v0/is_targeted.yaml
+# include: ../includes/v0/acquisition_instrument.yaml
 
 # Level 2:
-# include: ../includes/v0/acquisition_instrument.yaml
+- Unique to this type
+
 # include: ../includes/fields/gdna_fragmentation_quality_assurance.yaml
 # include: ../includes/fields/dna_assay_input_value.yaml
 # include: ../includes/fields/dna_assay_input_unit.yaml

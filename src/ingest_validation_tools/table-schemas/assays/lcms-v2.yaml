@@ -6,8 +6,8 @@ description_md:
   For an example of an LC-MS dataset & directory, see this [example LC-MS dataset](https://portal.hubmapconsortium.org/browse/dataset/7f1fd7b9c8c3745fcab037a2fa37f5b9) 
   and click the Globus link.
 fields:
+- Shared by all types
 - name: version
-  heading: Shared by all types
   description: Version of the schema to use when validating this metadata.
   constraints:
     enum:
@@ -41,9 +41,11 @@ fields:
       - glycans
     required: False
 # include: ../includes/v0/is_targeted.yaml
+# include: ../includes/v0/acquisition_instrument.yaml
 
 # Level 2 fields:
-# include: ../includes/v0/acquisition_instrument.yaml
+- Unique to this type
+
 - name: ms_source
   description: The ion source type used for surface sampling.
   constraints:

@@ -9,7 +9,7 @@
 -
   pattern: 'mcd/channelnames_report\.csv'
   description: 'Contains antibodies names used and whether they were detected sufficiently or not.'
-  required: False
+  required: True
 -
   pattern: '3D_image_stack\.ome\.tiff'
   description: 'OME.tiff file comprising all slices and channels.'

@@ -30,7 +30,8 @@ class Upload:
     def __init__(self, directory_path=None, tsv_paths=[],
                  optional_fields=[], add_notes=True,
                  dataset_ignore_globs=[], upload_ignore_globs=[],
-                 plugin_directory=None, encoding=None, offline=None):
+                 plugin_directory=None, encoding=None, offline=None,
+                 ignore_deprecation=False):
         self.directory_path = directory_path
         self.optional_fields = optional_fields
         self.dataset_ignore_globs = dataset_ignore_globs
@@ -39,6 +40,7 @@ class Upload:
         self.encoding = encoding
         self.offline = offline
         self.add_notes = add_notes
+        self.ignore_deprecation = ignore_deprecation
         self.errors = {}
         self.effective_tsv_paths = {}
         try:
@@ -135,14 +137,11 @@ class Upload:
 
     def _get_reference_errors(self):
         errors = {}
-        slash_ref_errors = self.__get_slash_ref_errors()
         no_ref_errors = self.__get_no_ref_errors()
         try:
             multi_ref_errors = self.__get_multi_ref_errors()
         except UnicodeDecodeError as e:
             return get_context_of_decode_error(e)
-        if slash_ref_errors:
-            errors['Has trailing slash'] = slash_ref_errors
         if no_ref_errors:
             errors['No References'] = no_ref_errors
         if multi_ref_errors:
@@ -178,13 +177,15 @@ class Upload:
         else:
             return get_tsv_errors(
                 schema_name=ref_type, tsv_path=path,
-                offline=self.offline, encoding=self.encoding)
+                offline=self.offline, encoding=self.encoding,
+                ignore_deprecation=self.ignore_deprecation)
 
     def __get_assay_tsv_errors(self, assay_type, path):
         return get_tsv_errors(
             schema_name=assay_type, tsv_path=path,
             offline=self.offline, encoding=self.encoding,
-            optional_fields=self.optional_fields)
+            optional_fields=self.optional_fields,
+            ignore_deprecation=self.ignore_deprecation)
 
     def __get_assay_reference_errors(self, assay_type, path):
         try:
@@ -211,13 +212,6 @@ class Upload:
                     errors[f'{row_number}, {ref} {path}'] = ref_errors
 
         return errors
-
-    def __get_slash_ref_errors(self):
-        referenced_data_paths = set(self.__get_data_references().keys())
-        return [
-            path for path in referenced_data_paths
-            if path.endswith('/') or path.endswith('\\')
-        ]
 
     def __get_no_ref_errors(self):
         if not self.directory_path:

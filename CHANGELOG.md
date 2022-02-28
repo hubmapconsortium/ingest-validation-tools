@@ -1,6 +1,18 @@
 # Changelog
 ## v0.0.14 - in progress
 - Added MIBI directory structure schema.
+- add snRNAseq-10xGenomics-v3
+- Make backward incompatible changes to ims-v2 in place, without a new version.
+- Preserve the key order in generated YAML, for readability.
+- Add 'Multiplex Ion Beam Imaging' assay name
+- Permanently remove snRNA and scATACseq assay names
+- add snRNAseq-10xGenomics-v2 to the scrnaseq assays
+- Move "Unique to this type" below the acquisition instrument fields.
+- Add CLI option to allow the use of deprecated schemas.
+- Allowing trailing slashes on dataset directories in metadata TSV.
+- Add acquisition instrument fields to MIBI that were left out by mistake.
+- Just use pytest to run doctests
+- Headers are no longer properties of fields.
 - Remove mention of `extras/thumbnail.jpg`.
 - Add release date to schema.
 - Add UMI fields to scrnaseq schema.

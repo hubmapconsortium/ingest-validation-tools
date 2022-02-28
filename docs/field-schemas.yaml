@@ -33,6 +33,7 @@ acquisition_instrument_model:
 - ims
 - lcms
 - lightsheet
+- mibi
 - mxif
 - nano
 - scatacseq
@@ -55,6 +56,7 @@ acquisition_instrument_vendor:
 - ims
 - lcms
 - lightsheet
+- mibi
 - mxif
 - nano
 - scatacseq
@@ -99,6 +101,7 @@ antibodies_path:
 - imc
 - imc3d
 - lightsheet
+- mibi
 - mxif
 antibody_name:
 - antibodies

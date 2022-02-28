@@ -1,5 +1,6 @@
 doc_url: https://portal.hubmapconsortium.org/docs/assays/atacseq
 fields:
+- Shared by all types
 # include: ../includes/v0/all_assays.yaml
 - name: assay_category
   constraints:
@@ -15,8 +16,11 @@ fields:
       - DNA
 # include: ../includes/v0/is_targeted.yaml
 
-# Level 2 fields:
 # include: ../includes/v0/acquisition_instrument.yaml
+
+# Level 2 fields:
+- Unique to this type
+
 # include: ../includes/fields/bulk_transposition_input_number_nuclei.yaml
 # include: ../includes/fields/bulk_atac_cell_isolation_protocols_io_doi.yaml
 - name: is_technical_replicate

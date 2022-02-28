@@ -1,5 +1,4 @@
 -
-  heading: Shared by all types
   name: version
   description: Version of the schema to use when validating this metadata.
   constraints:
