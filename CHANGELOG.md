@@ -1,5 +1,6 @@
 # Changelog
 ## v0.0.14 - in progress
+- Updated CODEX directory structure schema.
 - Added MIBI directory structure schema.
 - add snRNAseq-10xGenomics-v3
 - Make backward incompatible changes to ims-v2 in place, without a new version.
