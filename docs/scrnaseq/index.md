@@ -189,7 +189,7 @@ Each assay is placed into one of the following 4 general categories: generation 
 
 <a name="assay_type"></a>
 ##### [`assay_type`](#assay_type)
-The specific type of assay being executed.
+The UMI sequence length in the 10xGenomics-v2 kit is 10 base pairs and the length in the 10xGenomics-v3 kit is 12 base pairs.
 
 | constraint | value |
 | --- | --- |
