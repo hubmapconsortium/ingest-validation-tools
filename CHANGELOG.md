@@ -1,5 +1,6 @@
 # Changelog
 ## v0.0.14 - in progress
+- Explain the distinction between the 10X kit versions.
 - Updated CODEX directory structure schema.
 - Added MIBI directory structure schema.
 - add snRNAseq-10xGenomics-v3
