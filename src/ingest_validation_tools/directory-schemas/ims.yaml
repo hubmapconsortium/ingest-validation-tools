@@ -4,25 +4,33 @@
 -
   pattern: 'csv/[^/]+\.csv'
   description: 'Intensities M/Z values with Pixel location'
+  required: False
 -
   pattern: 'imzML/[^/]+\.ibd'
   description: 'Mass spec data saved in a binary format.'
+  required: True
 -
   pattern: 'imzML/[^/]+\.imzML'
   description: 'Mass spec metadata saved in XML format. Index to .ibd file.'
+  required: True
 -
   pattern: 'metadata/[^/]+_LipidAssignments\.xlsx'
   description: 'Microsoft Excel file containing the m/z, assignment, lipid class, etc.'
+  required: False
 -
   pattern: 'metadata/[^/]+_meta\.json'
   description: 'JSON file containing the machine parameters/settings'
+  required: False
 -
   pattern: 'metadata/[^/]+_microscopy\.txt'
   description: 'Transformations/map back to autofluorescence microscopy (related) data'
+  required: False
 -
   pattern: 'ometiffs/[^/]+_multilayer\.ome\.tiff'
   description: 'Aligned multilayer OME TIFF file of the IMS data'
+  required: True
 -
   pattern: 'ometiffs/separate/[^/]+_mz[^/]+\.ome\.tiff'
   description: 'Each file is a different M/Z value.'
+  required: False
 
