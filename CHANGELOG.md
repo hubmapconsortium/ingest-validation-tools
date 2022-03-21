@@ -1,5 +1,6 @@
 # Changelog
 ## v0.0.14 - in progress
+- New sample metadata schemas
 - Explain the distinction between the 10X kit versions.
 - Updated CODEX directory structure schema.
 - Added MIBI directory structure schema.

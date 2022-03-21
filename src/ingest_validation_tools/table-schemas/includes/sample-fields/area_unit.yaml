@@ -1,0 +1,8 @@
+
+- name: area_unit
+  description: 'Area unit'
+  required: false
+  constraints:
+    enum:
+      - mm^2
+      - um^2

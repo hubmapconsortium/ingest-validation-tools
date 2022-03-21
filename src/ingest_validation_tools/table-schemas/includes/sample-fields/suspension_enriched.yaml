@@ -1,0 +1,7 @@
+
+- name: suspension_enriched
+  description: 'Was the cell/nuclei population enriched?'
+  constraints:
+    enum:
+      - yes
+      - no

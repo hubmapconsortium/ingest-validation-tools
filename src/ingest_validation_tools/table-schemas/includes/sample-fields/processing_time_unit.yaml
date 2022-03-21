@@ -1,0 +1,9 @@
+
+- name: processing_time_unit
+  description: 'Time unit'
+  required: false
+  constraints:
+    enum:
+      - min
+      - hours
+      - days

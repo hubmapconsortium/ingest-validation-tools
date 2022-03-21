@@ -1,0 +1,8 @@
+
+- name: pathology_distance_unit
+  description: 'Distance unit'
+  required: false
+  constraints:
+    enum:
+      - mm
+      - cm

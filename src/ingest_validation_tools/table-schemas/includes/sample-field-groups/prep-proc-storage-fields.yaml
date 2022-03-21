@@ -1,0 +1,7 @@
+# include: ../sample-fields/preparation_media.yaml
+# include: ../sample-fields/preparation_temperature.yaml
+# include: ../sample-fields/processing_time_value.yaml
+# include: ../sample-fields/processing_time_unit.yaml
+# include: ../sample-fields/storage_media.yaml
+# include: ../sample-fields/storage_temperature.yaml
+# include: ../sample-fields/quality_criteria.yaml
