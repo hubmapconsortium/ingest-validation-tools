@@ -15,6 +15,8 @@ antibodies_path: string
 antibody_name: string
 area_normalized_ion_dose_unit: string
 area_normalized_ion_dose_value: number
+area_unit: string
+area_value: number
 assay_category: string
 assay_type: string
 bead_barcode_offset: string
@@ -74,6 +76,7 @@ guard_column: string
 health_status: string
 height_unit: string
 height_value: number
+histological_report: string
 increment_z_unit: string
 increment_z_value: number
 internal_standard: string
@@ -132,6 +135,7 @@ mz_range_high_value: number
 mz_range_low_value: number
 mz_resolving_power: number
 name: string
+notes: string
 number_of_antibodies: integer
 number_of_barcode_probes: integer
 number_of_barcode_regions_per_barcode_probe: integer
@@ -147,6 +151,7 @@ orcid_id: string
 organ_condition: string
 overall_protocols_io_doi: string
 pathologist_report: string
+pathology_distance_value: number
 perfusion_solution: string
 pi: string
 pi_email: string
@@ -160,6 +165,8 @@ polarity: string
 preparation_instrument_model: string
 preparation_instrument_vendor: string
 preparation_maldi_matrix: string
+preparation_media: string
+preparation_temperature: string
 preparation_type: string
 primary_ion: string
 primary_ion_current_unit: string
@@ -167,8 +174,11 @@ primary_ion_current_value: number
 procedure_date: date
 processing_protocols_io_doi: string
 processing_search: string
+processing_time_unit: string
+processing_time_value: number
 protocols_io_doi: string
 puck_id: string
+quality_criteria: string
 race: string
 range_z_unit: string
 range_z_value: number
@@ -194,7 +204,10 @@ sc_isolation_entity: string
 sc_isolation_protocols_io_doi: string
 sc_isolation_quality_metric: string
 sc_isolation_tissue_dissociation: string
+section_index_number: string
 section_prep_protocols_io_doi: string
+section_thickness_unit: string
+section_thickness_value: number
 segment_data_format: string
 sequencing_phix_percent: number
 sequencing_read_format: string
@@ -203,6 +216,8 @@ sequencing_reagent_kit: string
 sex: string
 signal_type: string
 source_project: string
+source_storage_time_unit: string
+source_storage_time_value: number
 spatial_sampling_type: string
 spatial_target: string
 spatial_type: string
@@ -213,17 +228,22 @@ specimen_tumor_distance_value: number
 stain: string
 start_datetime: datetime
 step_z_value: number
+storage_media: string
+storage_temperature: string
 tissue_id: string
 transposition_input: number
 transposition_kit_number: string
 transposition_method: string
 transposition_transposase_source: string
+type: string
 umi_offset: integer
 umi_read: string
 umi_size: integer
 uniprot_accession_number: string
 version: string
 vital_state: string
+volume_unit: string
+volume_value: number
 warm_ischemia_time_unit: string
 warm_ischemia_time_value: number
 weight_unit: string
