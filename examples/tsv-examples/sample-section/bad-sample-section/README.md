@@ -31,6 +31,7 @@ sample-section TSV errors:
 - On row 2, column "section_thickness_value", value "bad" fails because type is "number/default"
 - On row 2, column "section_thickness_unit", value "bad" fails because constraint
   "enum" is "['um', 'mm', 'cm']"
+- On row 2, column "section_index_number", value "bad" fails because type is "integer/default"
 - On row 2, column "area_value", value "bad" fails because type is "number/default"
 - On row 2, column "area_unit", value "bad" fails because constraint "enum" is "['mm^2',
   'um^2']"

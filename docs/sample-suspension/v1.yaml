@@ -190,6 +190,7 @@ fields:
     units_for: section_thickness_value
 - name: section_index_number
   description: The index number for the section if the sample is a single section.
+  type: integer
   constraints:
     required: true
   custom_constraints:

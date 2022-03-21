@@ -204,7 +204,7 @@ sc_isolation_entity: string
 sc_isolation_protocols_io_doi: string
 sc_isolation_quality_metric: string
 sc_isolation_tissue_dissociation: string
-section_index_number: string
+section_index_number: integer
 section_prep_protocols_io_doi: string
 section_thickness_unit: string
 section_thickness_value: number

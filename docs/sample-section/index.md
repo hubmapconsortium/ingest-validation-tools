@@ -188,6 +188,7 @@ The index number for the section if the sample is a single section.
 
 | constraint | value |
 | --- | --- |
+| type | `integer` |
 | required | `True` |
 
 <a name="area_value"></a>
