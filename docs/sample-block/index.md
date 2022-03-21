@@ -35,7 +35,6 @@ Related files:
 [`volume_value`](#volume_value)<br>
 [`volume_unit`](#volume_unit)<br>
 [`pathology_distance_value`](#pathology_distance_value)<br>
-[`pathology_distance_value`](#pathology_distance_value)<br>
 [`preparation_media`](#preparation_media)<br>
 [`preparation_temperature`](#preparation_temperature)<br>
 [`processing_time_value`](#processing_time_value)<br>
@@ -130,15 +129,6 @@ Volume unit. Leave blank if not applicable.
 | required | `False` |
 | enum | `mm^3` or `um^3` |
 | units for | `volume_value` |
-
-<a name="pathology_distance_value"></a>
-##### [`pathology_distance_value`](#pathology_distance_value)
-If surgical sample, how far from the pathology was the sample obtained. Typically a number of centimeters. Leave blank if not applicable or unknown. Leave blank if not applicable.
-
-| constraint | value |
-| --- | --- |
-| type | `number` |
-| required | `False` |
 
 <a name="pathology_distance_value"></a>
 ##### [`pathology_distance_value`](#pathology_distance_value)

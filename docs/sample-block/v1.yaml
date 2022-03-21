@@ -97,15 +97,6 @@ fields:
     sequence_limit: 3
     forbid_na: true
   type: number
-- name: pathology_distance_value
-  description: If surgical sample, how far from the pathology was the sample obtained.
-    Typically a number of centimeters. Leave blank if not applicable or unknown.
-  constraints:
-    required: false
-  custom_constraints:
-    sequence_limit: 3
-    forbid_na: true
-  type: number
 - name: preparation_media
   description: The media used during preparation of the sample.
   constraints:
