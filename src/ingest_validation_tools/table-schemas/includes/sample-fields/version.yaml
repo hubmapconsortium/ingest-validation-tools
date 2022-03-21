@@ -1,4 +1,4 @@
 - name: version
   description: 'The version of the sample metadata specification used in the submission.'
   constraints:
-    enum: [1]
+    enum: ['1']
