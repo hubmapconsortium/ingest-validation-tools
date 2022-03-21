@@ -1,3 +1,4 @@
 - name: notes
-  description: ''
-  required: false
+  description: 'Notes'
+  constraints:
+    required: false

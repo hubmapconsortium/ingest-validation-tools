@@ -221,7 +221,7 @@ mz_range_high_value: The high value of the scanned mass range for MS1. (unitless
 mz_range_low_value: The low value of the scanned mass range for MS1. (unitless)
 mz_resolving_power: The peak (m/z) used to calculate the resolving power.
 name: Name for display
-notes: ''
+notes: Notes
 number_of_antibodies: Number of antibodies
 number_of_barcode_probes: Number of barcode probes targeting mRNAs (eg. 24,000 barcode
   probes = 24,000 mRNAs - 1 per mRNA of interest)

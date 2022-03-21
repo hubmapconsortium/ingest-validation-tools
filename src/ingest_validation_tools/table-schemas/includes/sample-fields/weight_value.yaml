@@ -1,3 +1,4 @@
 - name: weight_value
   description: 'Weight of a tissue block'
-  required: false
+  constraints:
+    required: false

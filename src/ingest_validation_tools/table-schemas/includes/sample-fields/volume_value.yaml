@@ -1,3 +1,4 @@
 - name: volume_value
   description: 'The volume of a tissue block.'
-  required: false
+  constraints:
+    required: false

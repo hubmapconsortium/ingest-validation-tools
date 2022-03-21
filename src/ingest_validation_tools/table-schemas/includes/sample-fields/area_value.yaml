@@ -1,3 +1,4 @@
 - name: area_value
   description: 'The area of a tissue section.'
-  required: false
+  constraints:
+    required: false
