@@ -1,4 +1,3 @@
-
 - name: storage_temperature
   description: 'The temperature during storage, after preparation and before the assay is performed.'
   constraints:

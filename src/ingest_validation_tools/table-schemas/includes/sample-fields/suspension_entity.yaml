@@ -1,4 +1,3 @@
-
 - name: suspension_entity
   description: 'The type of single cell entity derived from isolation protocol.'
   constraints:

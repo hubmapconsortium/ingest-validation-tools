@@ -1,4 +1,3 @@
-
 - name: storage_media
   description: 'What was the sample preserved in.'
   constraints:

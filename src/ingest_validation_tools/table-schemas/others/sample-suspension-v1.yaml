@@ -1,3 +1,4 @@
+fields:
 # include: ../includes/sample-field-groups/header-fields.yaml
 # include: ../includes/sample-fields/type.yaml
   constraints:

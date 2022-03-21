@@ -1,4 +1,3 @@
-
 - name: preparation_temperature
   description: 'The temperature for the preparation process.'
   constraints:

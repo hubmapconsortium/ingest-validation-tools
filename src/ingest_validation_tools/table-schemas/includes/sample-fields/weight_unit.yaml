@@ -1,4 +1,3 @@
-
 - name: weight_unit
   description: 'Weight unit'
   required: false

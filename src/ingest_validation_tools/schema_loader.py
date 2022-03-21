@@ -182,7 +182,10 @@ def get_other_schema(schema_name, version, offline=None, keep_headers=False):
 
 def get_is_assay(schema_name):
     # TODO: read from file system... but larger refactor may make it redundant.
-    return schema_name not in ['donor', 'sample', 'antibodies', 'contributors']
+    return schema_name not in [
+        'donor', 'sample', 'antibodies', 'contributors',
+        'sample-block', 'sample-section', 'sample-suspension'
+    ]
 
 
 def get_table_schema(schema_name, version, optional_fields=[], offline=None, keep_headers=False):
