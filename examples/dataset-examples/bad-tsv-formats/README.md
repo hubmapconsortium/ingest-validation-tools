@@ -54,6 +54,7 @@ Metadata TSV Errors:
         - (raw|src_.*)/.*
         - (raw|src_.*)/[cC]yc.*_reg.*/.*_Z.*_CH.*\.tif
         - (raw|src_[^/]*)/[Ee]xperiment\.json
+        - dataset.json
       row 2, contributors examples/dataset-examples/bad-tsv-formats/upload/contributors.tsv: File
         has no data rows.
       row 2, antibodies examples/dataset-examples/bad-tsv-formats/upload/antibodies.tsv: File

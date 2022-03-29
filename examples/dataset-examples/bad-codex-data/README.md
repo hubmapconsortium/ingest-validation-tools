@@ -21,6 +21,7 @@ Metadata TSV Errors:
         - (raw|src_.*)/.*
         - (raw|src_.*)/[cC]yc.*_reg.*/.*_Z.*_CH.*\.tif
         - (raw|src_[^/]*)/[Ee]xperiment\.json
+        - dataset.json
       row 2, contributors examples/dataset-examples/bad-codex-data/upload/contributors.tsv:
       - On row 2, column "orcid_id", value "bad-id" fails because constraint "pattern"
         is "\d{4}-\d{4}-\d{4}-\d{3}[0-9X]"
