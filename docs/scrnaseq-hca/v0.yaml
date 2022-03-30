@@ -159,17 +159,12 @@ fields:
   description: 'Link to a protocols document answering the question: How were single
     cells separated into a single-cell suspension?'
   type: string
-<<<<<<< HEAD
 - constraints:
     enum:
     - whole cell
     - nucleus
     - cell-cell multimer
     - spatially encoded cell barcoding
-=======
-- name: sc_isolation_entity
-  constraints:
->>>>>>> main
     required: true
   description: The type of single cell entity derived from isolation protocol
   custom_constraints:
@@ -194,15 +189,11 @@ fields:
     required: false
   description: A quality metric by visual inspection prior to cell lysis or defined
     by known parameters such as wells with several cells or no cells. This can be
-<<<<<<< HEAD
     captured at a high level. "OK" or "not OK", or with more specificity such as "debris",
     "clump", "low clump".
   name: sc_isolation_quality_metric
 - constraints:
     required: false
-=======
-    captured at a high level.
->>>>>>> main
   custom_constraints:
     sequence_limit: 3
     forbid_na: true
