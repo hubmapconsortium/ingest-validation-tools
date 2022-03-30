@@ -1,5 +1,5 @@
 ---
-title: scRNAseq-10xGenomics-v2 / scRNAseq-10xGenomics-v3 / scRNAseq / sciRNAseq / snRNAseq / SNARE2-RNAseq
+title: scRNAseq-10xGenomics-v2 / scRNAseq-10xGenomics-v3 / snRNAseq-10xGenomics-v2 / snRNAseq-10xGenomics-v3 / scRNAseq / sciRNAseq / snRNAseq / SNARE2-RNAseq
 schema_name: scrnaseq
 category: Sequence assays
 all_versions_deprecated: False
@@ -47,12 +47,12 @@ This schema is for single cell RNA sequencing (scRNAseq). v3 adds `umi_*` fields
 [`assay_type`](#assay_type)<br>
 [`analyte_class`](#analyte_class)<br>
 [`is_targeted`](#is_targeted)<br>
+[`acquisition_instrument_vendor`](#acquisition_instrument_vendor)<br>
+[`acquisition_instrument_model`](#acquisition_instrument_model)<br>
 
 </details>
 <details markdown="1"><summary>Unique to this type</summary>
 
-[`acquisition_instrument_vendor`](#acquisition_instrument_vendor)<br>
-[`acquisition_instrument_model`](#acquisition_instrument_model)<br>
 [`sc_isolation_protocols_io_doi`](#sc_isolation_protocols_io_doi)<br>
 [`sc_isolation_entity`](#sc_isolation_entity)<br>
 [`sc_isolation_tissue_dissociation`](#sc_isolation_tissue_dissociation)<br>
@@ -190,11 +190,11 @@ Each assay is placed into one of the following 4 general categories: generation 
 
 <a name="assay_type"></a>
 ##### [`assay_type`](#assay_type)
-The specific type of assay being executed.
+The UMI sequence length in the 10xGenomics-v2 kit is 10 base pairs and the length in the 10xGenomics-v3 kit is 12 base pairs.
 
 | constraint | value |
 | --- | --- |
-| enum | `scRNAseq-10xGenomics-v2`, `scRNAseq-10xGenomics-v3`, `scRNAseq`, `sciRNAseq`, `snRNAseq`, or `SNARE2-RNAseq` |
+| enum | `scRNAseq-10xGenomics-v2`, `scRNAseq-10xGenomics-v3`, `snRNAseq-10xGenomics-v2`, `snRNAseq-10xGenomics-v3`, `scRNAseq`, `sciRNAseq`, `snRNAseq`, or `SNARE2-RNAseq` |
 | required | `True` |
 
 <a name="analyte_class"></a>
@@ -215,8 +215,6 @@ Specifies whether or not a specific molecule(s) is/are targeted for detection/me
 | type | `boolean` |
 | required | `True` |
 
-### Unique to this type
-
 <a name="acquisition_instrument_vendor"></a>
 ##### [`acquisition_instrument_vendor`](#acquisition_instrument_vendor)
 An acquisition instrument is the device that contains the signal detection hardware and signal processing software. Assays generate signals such as light of various intensities or color or signals representing the molecular mass.
@@ -232,6 +230,8 @@ Manufacturers of an acquisition instrument may offer various versions (models) o
 | constraint | value |
 | --- | --- |
 | required | `True` |
+
+### Unique to this type
 
 <a name="sc_isolation_protocols_io_doi"></a>
 ##### [`sc_isolation_protocols_io_doi`](#sc_isolation_protocols_io_doi)
@@ -623,7 +623,7 @@ The specific type of assay being executed.
 
 | constraint | value |
 | --- | --- |
-| enum | `scRNAseq-10xGenomics-v2`, `scRNAseq-10xGenomics-v3`, `scRNAseq`, `sciRNAseq`, `snRNAseq`, or `SNARE2-RNAseq` |
+| enum | `scRNAseq-10xGenomics-v2`, `scRNAseq-10xGenomics-v3`, `snRNAseq-10xGenomics-v2`, `snRNAseq-10xGenomics-v3`, `scRNAseq`, `sciRNAseq`, `snRNAseq`, or `SNARE2-RNAseq` |
 | required | `True` |
 
 <a name="analyte_class"></a>
@@ -644,8 +644,6 @@ Specifies whether or not a specific molecule(s) is/are targeted for detection/me
 | type | `boolean` |
 | required | `True` |
 
-### Unique to this type
-
 <a name="acquisition_instrument_vendor"></a>
 ##### [`acquisition_instrument_vendor`](#acquisition_instrument_vendor)
 An acquisition instrument is the device that contains the signal detection hardware and signal processing software. Assays generate signals such as light of various intensities or color or signals representing the molecular mass.
@@ -661,6 +659,8 @@ Manufacturers of an acquisition instrument may offer various versions (models) o
 | constraint | value |
 | --- | --- |
 | required | `True` |
+
+### Unique to this type
 
 <a name="sc_isolation_protocols_io_doi"></a>
 ##### [`sc_isolation_protocols_io_doi`](#sc_isolation_protocols_io_doi)
@@ -1026,7 +1026,7 @@ The specific type of assay being executed.
 
 | constraint | value |
 | --- | --- |
-| enum | `scRNAseq-10xGenomics`, `scRNAseq`, `sciRNAseq`, `snRNAseq`, or `SNARE2-RNAseq` |
+| enum | `scRNAseq-10xGenomics`, `snRNAseq-10xGenomics-v2`, `snRNAseq-10xGenomics-v3`, `scRNAseq`, `sciRNAseq`, `snRNAseq`, or `SNARE2-RNAseq` |
 | required | `True` |
 
 <a name="analyte_class"></a>
@@ -1047,8 +1047,6 @@ Specifies whether or not a specific molecule(s) is/are targeted for detection/me
 | type | `boolean` |
 | required | `True` |
 
-### Unique to this type
-
 <a name="acquisition_instrument_vendor"></a>
 ##### [`acquisition_instrument_vendor`](#acquisition_instrument_vendor)
 An acquisition instrument is the device that contains the signal detection hardware and signal processing software. Assays generate signals such as light of various intensities or color or signals representing the molecular mass.
@@ -1064,6 +1062,8 @@ Manufacturers of an acquisition instrument may offer various versions (models) o
 | constraint | value |
 | --- | --- |
 | required | `True` |
+
+### Unique to this type
 
 <a name="sc_isolation_protocols_io_doi"></a>
 ##### [`sc_isolation_protocols_io_doi`](#sc_isolation_protocols_io_doi)
@@ -1403,7 +1403,7 @@ The specific type of assay being executed.
 
 | constraint | value |
 | --- | --- |
-| enum | `scRNAseq-10xGenomics`, `scRNAseq`, `sciRNAseq`, `snRNAseq`, or `SNARE2-RNAseq` |
+| enum | `scRNAseq-10xGenomics`, `snRNAseq-10xGenomics-v2`, `snRNAseq-10xGenomics-v3`, `scRNAseq`, `sciRNAseq`, `snRNAseq`, or `SNARE2-RNAseq` |
 | required | `True` |
 
 <a name="analyte_class"></a>
@@ -1424,8 +1424,6 @@ Specifies whether or not a specific molecule(s) is/are targeted for detection/me
 | type | `boolean` |
 | required | `True` |
 
-### Unique to this type
-
 <a name="acquisition_instrument_vendor"></a>
 ##### [`acquisition_instrument_vendor`](#acquisition_instrument_vendor)
 An acquisition instrument is the device that contains the signal detection hardware and signal processing software. Assays generate signals such as light of various intensities or color or signals representing the molecular mass.
@@ -1441,6 +1439,8 @@ Manufacturers of an acquisition instrument may offer various versions (models) o
 | constraint | value |
 | --- | --- |
 | required | `True` |
+
+### Unique to this type
 
 <a name="sc_isolation_protocols_io_doi"></a>
 ##### [`sc_isolation_protocols_io_doi`](#sc_isolation_protocols_io_doi)

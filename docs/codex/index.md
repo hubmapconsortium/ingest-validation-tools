@@ -21,19 +21,15 @@ The other fields function the same way for all assays using antibodies. For more
 | --- | --- | --- | --- |
 | <code>[^/]*NAV[^/]*\.tif</code> (example: <code>NAV.tif</code>) |  | Navigational Image showing Region of Interest (Keyance Microscope only) |
 | <code>[^/]*\.pdf</code> (example: <code>summary.pdf</code>) |  | **[QA/QC]** PDF export of Powerpoint slide deck containing the Image Analysis Report |
-| <code>(raw&#124;src_[^/]*)/exposure_times\.txt</code> |  | Comma separated text file used for background subtraction that contains valid exposure times for all cycles [e.g: Cycle,CH1,CH2,CH3,CH4]. |
+| <code>(raw&#124;processed)/config\.txt&#124;(src_[^/]*&#124;drv_[^/]*&#124;extras)/[sS]egmentation\.json</code> |  | Sanity check that verifies the existence of at least one of these files. This is required for the HuBMAP processing pipeline |
 | <code>raw/reg_[^/]*\.png</code> (example: <code>raw/reg_00.png</code>) |  | Region overviews |
 | <code>(raw&#124;src_[^/]*)/[Ee]xperiment\.json</code> | ✓ | JSON file produced by the Akoya software which contains the metadata for the experiment, including the software version used, microscope parameters, channel names, pixel dimensions, etc. (required for HuBMAP pipeline) |
 | <code>processed/HandE\.tif</code> |  | HandE image |
 | <code>processed/HandE_RGB\.tif</code> |  | HandE RGB image |
 | <code>processed/HandE_RGB_thumbnail.jpg</code> |  | HandE RGB thumbnail |
-| <code>(src_[^/]*&#124;drv_[^/]*&#124;extras)/[sS]egmentation\.json</code> |  | JSON file produced by the Akoya software with segmentation information |
 | <code>(raw&#124;processed)/config\.txt</code> |  | Configuration file with information needed for the HuBMAP processing pipeline |
-| <code>(raw&#124;processed)/config\.txt&#124;(src_[^/]*&#124;drv_[^/]*&#124;extras)/[sS]egmentation\.json</code> | ✓ | Sanity check that verifies the existence of at least one of these files. This is required for the HuBMAP processing pipeline |
-| <code>src_[^/]+/channelnames_report\.csv</code> |  | Two column CSV: The first column is a name or target; The second column is boolean: "FALSE" channels are excluded from processing. (required for HuBMAP pipeline) |
 | <code>(raw&#124;src_.*)/[cC]yc.*_reg.*/.*_Z.*_CH.*\.tif</code> | ✓ | TIFF files produced by the experiment. General folder format: Cycle(n)_Region(n)_date; General file format: name_tileNumber(n)_zplaneNumber(n)_channelNumber(n) |
 | <code>src_.*/cyc.*_reg.*_.*/.*\.gci</code> |  | Group Capture Information File (Keyance Microscope only) |
-| <code>(raw&#124;src_.*)/channel[Nn]ames\.txt</code> | ✓ | Text file produced by the Akoya software which contains the (linearized) channel number and the Name/ID/Target of the channel (required for HuBMAP pipeline) |
 | <code>(raw&#124;src_.*)/.*</code> | ✓ | Raw data directory. |
 | <code>(processed&#124;drv_[^/]*)/.*</code> | ✓ | Processed files produced by the Akoya software or alternative software. |
 | <code>extras/.*</code> |  | Free-form descriptive information supplied by the TMC |
@@ -86,12 +82,12 @@ The other fields function the same way for all assays using antibodies. For more
 [`assay_type`](#assay_type)<br>
 [`analyte_class`](#analyte_class)<br>
 [`is_targeted`](#is_targeted)<br>
+[`acquisition_instrument_vendor`](#acquisition_instrument_vendor)<br>
+[`acquisition_instrument_model`](#acquisition_instrument_model)<br>
 
 </details>
 <details markdown="1"><summary>Unique to this type</summary>
 
-[`acquisition_instrument_vendor`](#acquisition_instrument_vendor)<br>
-[`acquisition_instrument_model`](#acquisition_instrument_model)<br>
 [`resolution_x_value`](#resolution_x_value)<br>
 [`resolution_x_unit`](#resolution_x_unit)<br>
 [`resolution_y_value`](#resolution_y_value)<br>
@@ -239,8 +235,6 @@ Specifies whether or not a specific molecule(s) is/are targeted for detection/me
 | type | `boolean` |
 | required | `True` |
 
-### Unique to this type
-
 <a name="acquisition_instrument_vendor"></a>
 ##### [`acquisition_instrument_vendor`](#acquisition_instrument_vendor)
 An acquisition_instrument is the device that contains the signal detection hardware and signal processing software. Assays generate signals such as light of various intensities or color or signals representing molecular mass.
@@ -258,6 +252,8 @@ Manufacturers of an acquisition instrument may offer various versions (models) o
 | --- | --- |
 | enum | `BZ-X800`, `BZ-X710`, or `Axio Observer Z1` |
 | required | `True` |
+
+### Unique to this type
 
 <a name="resolution_x_value"></a>
 ##### [`resolution_x_value`](#resolution_x_value)
@@ -521,8 +517,6 @@ Specifies whether or not a specific molecule(s) is/are targeted for detection/me
 | type | `boolean` |
 | required | `True` |
 
-### Unique to this type
-
 <a name="acquisition_instrument_vendor"></a>
 ##### [`acquisition_instrument_vendor`](#acquisition_instrument_vendor)
 An acquisition_instrument is the device that contains the signal detection hardware and signal processing software. Assays generate signals such as light of various intensities or color or signals representing molecular mass.
@@ -540,6 +534,8 @@ Manufacturers of an acquisition instrument may offer various versions (models) o
 | --- | --- |
 | enum | `BZ-X800`, `BZ-X710`, or `Axio Observer Z1` |
 | required | `True` |
+
+### Unique to this type
 
 <a name="resolution_x_value"></a>
 ##### [`resolution_x_value`](#resolution_x_value)

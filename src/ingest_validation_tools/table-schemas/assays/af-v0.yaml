@@ -1,5 +1,6 @@
 doc_url: https://portal.hubmapconsortium.org/docs/assays/af
 fields:
+- Shared by all types
 # include: ../includes/v0/all_assays.yaml
 
 - name: assay_category
@@ -16,9 +17,11 @@ fields:
 
 # include: ../includes/v0/is_targeted.yaml
 
-# Level 2 fields:
-
 # include: ../includes/v0/acquisition_instrument.yaml
+
+# Level 2 fields:
+- Unique to this type
+
 # include: ../includes/v0/x_y.yaml
 
 - name: resolution_z_value

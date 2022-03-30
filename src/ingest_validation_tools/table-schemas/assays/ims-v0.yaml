@@ -1,5 +1,6 @@
 doc_url: https://portal.hubmapconsortium.org/docs/assays/maldi-ims
 fields:
+- Shared by all types
 # include: ../includes/v0/all_assays.yaml
 - name: assay_category
   constraints:
@@ -16,10 +17,11 @@ fields:
       - metabolites
       - lipids
 # include: ../includes/v0/is_targeted.yaml
+# include: ../includes/v0/acquisition_instrument.yaml
 
 # Level 2:
+- Unique to this type
 
-# include: ../includes/v0/acquisition_instrument.yaml
 - name: ms_source
   description: The ion source type used for surface sampling (MALDI, MALDI-2, DESI, or SIMS) or LC-MS/MS data acquisition (nESI)
   constraints:

@@ -10,8 +10,8 @@ description_md:
 
 release_date: 2021-12-06
 fields:
+- Shared by all types
 - name: version
-  heading: Shared by all types
   description: Version of the schema to use when validating this metadata.
   constraints:
     enum:
@@ -45,9 +45,11 @@ fields:
       - glycans
     required: False
 # include: ../includes/v0/is_targeted.yaml
+# include: ../includes/v0/acquisition_instrument.yaml
 
 # Level 2 fields:
-# include: ../includes/v0/acquisition_instrument.yaml
+- Unique to this type
+
 # include: ../includes/fields/dms.yaml
 - name: ms_source
   description: The ion source type used for surface sampling.

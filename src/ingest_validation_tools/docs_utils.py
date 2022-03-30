@@ -3,7 +3,7 @@ from string import Template
 from pathlib import Path
 import html
 
-from ingest_validation_tools.schema_loader import get_field_enum
+from ingest_validation_tools.schema_loader import get_field_enum, get_fields_wo_headers
 
 
 def get_tsv_name(type, is_assay=True):
@@ -26,7 +26,7 @@ def generate_template_tsv(table_schema):
     'fake\\na / b / c'
     '''
 
-    names = [field['name'] for field in table_schema['fields']]
+    names = [field['name'] for field in get_fields_wo_headers(table_schema)]
     header_row = '\t'.join(names)
 
     enums = [
@@ -169,11 +169,13 @@ def generate_readme_md(
 
 def _make_fields_md(table_schema, title, is_open=False):
     '''
-    >>> schema = {'fields': [{
-    ...   'heading': 'A head',
-    ...   'name': 'a_name',
-    ...   'description': 'A description'
-    ... }]}
+    >>> schema = {'fields': [
+    ...   'A head',
+    ...   {
+    ...     'name': 'a_name',
+    ...     'description': 'A description'
+    ...   }
+    ... ]}
     >>> print(_clean(_make_fields_md(schema, 'A title')))
     <details markdown="1" ><summary><b>A title</b></summary>
     ### A head
@@ -192,8 +194,9 @@ def _make_fields_md(table_schema, title, is_open=False):
 
     fields_md_list = []
     for field in table_schema['fields']:
-        if 'heading' in field:
-            fields_md_list.append(f"### {field['heading']}")
+        if isinstance(field, str):
+            fields_md_list.append(f"### {field}")
+            continue
         table_md = _make_constraints_table(field)
         name = field['name']
         fields_md_list.append('\n'.join([
