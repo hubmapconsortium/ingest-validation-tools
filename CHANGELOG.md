@@ -1,6 +1,6 @@
 # Changelog
 ## v0.0.14 - in progress
-- Remove reference to old Travis envvar.
+- Remove reference to old Travis envvar, so post-merge CI run will pass.
 - Explain the distinction between the 10X kit versions.
 - Updated CODEX directory structure schema.
 - Added MIBI directory structure schema.
