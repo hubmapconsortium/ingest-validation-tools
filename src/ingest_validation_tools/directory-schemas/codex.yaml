@@ -11,10 +11,10 @@
   description: 'PDF export of Powerpoint slide deck containing the Image Analysis Report'
   is_qa_qc: True
   required: False
--
-  pattern: '(raw|src_[^/]*)/exposure_times\.txt'
-  description: 'Comma separated text file used for background subtraction that contains valid exposure times for all cycles [e.g: Cycle,CH1,CH2,CH3,CH4].'
-  required: False
+- 
+   pattern: '(raw|processed)/config\.txt|(src_[^/]*|drv_[^/]*|extras)/[sS]egmentation\.json' 
+   description: 'Sanity check that verifies the existence of at least one of these files. This is required for the HuBMAP processing pipeline' 
+   required: False 
 -
   example: 'raw/reg_00.png'
   pattern: 'raw/reg_[^/]*\.png'
@@ -37,20 +37,8 @@
   description: 'HandE RGB thumbnail'
   required: False
 -
-  pattern: '(src_[^/]*|drv_[^/]*|extras)/[sS]egmentation\.json'
-  description: 'JSON file produced by the Akoya software with segmentation information'
-  required: False
--
   pattern: '(raw|processed)/config\.txt'
   description: 'Configuration file with information needed for the HuBMAP processing pipeline'
-  required: False
--
-  pattern: '(raw|processed)/config\.txt|(src_[^/]*|drv_[^/]*|extras)/[sS]egmentation\.json'
-  description: 'Sanity check that verifies the existence of at least one of these files. This is required for the HuBMAP processing pipeline'
-  required: True
--
-  pattern: 'src_[^/]+/channelnames_report\.csv'
-  description: 'Two column CSV: The first column is a name or target; The second column is boolean: "FALSE" channels are excluded from processing. (required for HuBMAP pipeline)'
   required: False
 -
   pattern: '(raw|src_.*)/[cC]yc.*_reg.*/.*_Z.*_CH.*\.tif'
@@ -60,10 +48,6 @@
   pattern: 'src_.*/cyc.*_reg.*_.*/.*\.gci'
   description: 'Group Capture Information File (Keyance Microscope only)'
   required: False
--
-  pattern: '(raw|src_.*)/channel[Nn]ames\.txt'
-  description: 'Text file produced by the Akoya software which contains the (linearized) channel number and the Name/ID/Target of the channel (required for HuBMAP pipeline)'
-  required: True
 -
   pattern: '(raw|src_.*)/.*'
   description: 'Raw data directory.'

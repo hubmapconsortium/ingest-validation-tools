@@ -18,7 +18,17 @@ This schema is for Multiplex Ion Beam Imaging (MIBI). For MIBI, the channel_id (
 
 | pattern | required? | description |
 | --- | --- | --- |
-| <code>TODO</code> | ✓ | Directory structure not yet specified. |
+| <code>mcd/[^/]+_HuBMAP_[^/]+_slide[^/]+\.zip</code> |  | Zipped CSV containing labels for sections as well as whether or not they were included in the 3D model. |
+| <code>mcd/section_report\.csv</code> |  | Contains tissue id, acquisition id, 3D image ordering, MCD image ordering, and boolean if used for 3D model. |
+| <code>mcd/channelnames_report\.csv</code> | ✓ | Contains antibodies names used and whether they were detected sufficiently or not. |
+| <code>3D_image_stack\.ome\.tiff</code> | ✓ | OME.tiff file comprising all slices and channels. |
+| <code>SingleCellData/cells\.csv</code> | ✓ | Contains one csv file per tissue with marker intensities (untransformed, range normalized to 99th percentile), phenograph cluster label and cell type label per single cell. |
+| <code>SingleCellData/cellsinfo\.txt</code> |  | Text file containing formatting information about cellsorgan.csv. |
+| <code>Mapping/cluster_labels_image\.tif</code> | ✓ | Cell image labeled by cell type. |
+| <code>processed/umap_phenograph\.pdf</code> |  | tSNE phenograph. File is optional. |
+| <code>processed/CellTypeComposition_perTissue\.pdf</code> |  | Cell type composition bar graph per tissue. File is optional. |
+| <code>processed/Densityplots_perMarker\.pdf</code> |  | **[QA/QC]** Density plots of marker intensity, separated by marker. File is optional. |
+| <code>processed/celltypes\.pdf</code> |  | Heatmap of marker expression per cluster, annotated by assigned cell type. File is optional. |
 | <code>extras/.*</code> |  | Free-form descriptive information supplied by the TMC |
 
 ## Metadata schema

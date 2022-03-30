@@ -1,6 +1,9 @@
 # Changelog
-
 ## v0.0.14 - in progress
+- Remove reference to old Travis envvar, so post-merge CI run will pass.
+- Explain the distinction between the 10X kit versions.
+- Updated CODEX directory structure schema.
+- Added MIBI directory structure schema.
 - add snRNAseq-10xGenomics-v3
 - Make backward incompatible changes to ims-v2 in place, without a new version.
 - Preserve the key order in generated YAML, for readability.
