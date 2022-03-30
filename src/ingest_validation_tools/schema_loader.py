@@ -42,10 +42,9 @@ def get_field_enum(field_name, schema):
 
 def get_table_schema_version_from_row(path, row):
     '''
-    >>> get_table_schema_version_from_row('empty', {'bad-column': 'bad-value'})
-    Traceback (most recent call last):
-    ...
-    ingest_validation_tools.schema_loader.PreflightError: empty does not contain "assay_type". Column headers: bad-column
+    >>> try: get_table_schema_version_from_row('empty', {'bad-column': 'bad-value'})
+    ... except Exception as e: print(e)
+    empty does not contain "assay_type". Column headers: bad-column
 
     >>> get_table_schema_version_from_row('v0', {'assay_type': 'PAS microscopy'})
     SchemaVersion(schema_name='stained', version=0)
