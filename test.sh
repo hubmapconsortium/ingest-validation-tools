@@ -31,8 +31,11 @@ for TEST in tests/test-*; do
 done
 
 start changelog
-if [ "$TRAVIS_BRANCH" != 'main' ]; then
-  diff CHANGELOG.md <(curl -s https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/main/CHANGELOG.md) \
-    && die 'Update CHANGELOG.md'
-fi
+# TODO: Figure out the right variable to use!
+# if [ "$TRAVIS_BRANCH" != 'main' ]; then
+#   diff CHANGELOG.md <(curl -s https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/main/CHANGELOG.md) \
+#     && die 'Update CHANGELOG.md'
+# fi
 end changelog
+
+env | grep GITHUB
