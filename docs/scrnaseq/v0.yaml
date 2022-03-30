@@ -1,24 +1,7 @@
 # Generated YAML: PRs should not start here!
 doc_url: https://portal.hubmapconsortium.org/docs/assays/rnaseq
-description_md: This schema is for single cell RNA sequencing (scRNAseq).
 fields:
 - Shared by all types
-- name: version
-  description: Version of the schema to use when validating this metadata.
-  constraints:
-    enum:
-    - '2'
-    required: true
-  custom_constraints:
-    sequence_limit: 3
-    forbid_na: true
-- name: description
-  description: Free-text description of this assay.
-  constraints:
-    required: true
-  custom_constraints:
-    sequence_limit: 3
-    forbid_na: true
 - name: donor_id
   description: HuBMAP Display ID of the donor of the assayed tissue.
   constraints:
@@ -107,8 +90,7 @@ fields:
 - name: assay_type
   constraints:
     enum:
-    - scRNAseq-10xGenomics-v2
-    - scRNAseq-10xGenomics-v3
+    - scRNAseq-10xGenomics
     - snRNAseq-10xGenomics-v2
     - snRNAseq-10xGenomics-v3
     - scRNAseq
@@ -192,10 +174,7 @@ fields:
 - name: sc_isolation_enrichment
   description: The method by which specific cell populations are sorted or enriched.
   constraints:
-    enum:
-    - none
-    - FACS
-    required: true
+    required: false
   custom_constraints:
     sequence_limit: 3
     forbid_na: true
@@ -259,12 +238,10 @@ fields:
 - name: library_adapter_sequence
   description: Adapter sequence to be used for adapter trimming
   constraints:
-    pattern: '[ATCG]+(\+[ATCG]+)?'
     required: true
   custom_constraints:
     sequence_limit: 3
     forbid_na: true
-  type: string
 - name: library_id
   description: A library ID, unique within a TMC, which allows corresponding RNA and
     chromatin accessibility datasets to be linked.
@@ -274,7 +251,7 @@ fields:
     sequence_limit: 3
     forbid_na: true
 - name: is_technical_replicate
-  description: Is the sequencing reaction run in replicate, TRUE or FALSE
+  description: Is the sequencing reaction run in repliucate, TRUE or FALSE
   type: boolean
   constraints:
     required: true
@@ -282,37 +259,23 @@ fields:
     sequence_limit: 3
     forbid_na: true
 - name: cell_barcode_read
-  description: Which read file(s) contains the cell barcode. Multiple cell_barcode_read
-    files must be provided as a comma-delimited list (e.g. file1,file2,file3).
+  description: Which read file contains the cell barcode
   constraints:
-    required: false
+    required: true
   custom_constraints:
     sequence_limit: 3
     forbid_na: true
 - name: cell_barcode_offset
   description: Position(s) in the read at which the cell barcode starts.
   constraints:
-    required: false
-    pattern: \d+(,\d+)*
+    required: true
   custom_constraints:
     sequence_limit: 3
     forbid_na: true
-  type: string
 - name: cell_barcode_size
   description: Length of the cell barcode in base pairs
   constraints:
-    required: false
-    pattern: \d+(,\d+)*
-  custom_constraints:
-    sequence_limit: 3
-    forbid_na: true
-  type: string
-- name: expected_cell_count
-  description: How many cells are expected? This may be used in downstream pipelines
-    to guide selection of cell barcodes or segmentation parameters.
-  type: integer
-  constraints:
-    required: false
+    required: true
   custom_constraints:
     sequence_limit: 3
     forbid_na: true

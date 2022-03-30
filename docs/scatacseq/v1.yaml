@@ -183,7 +183,7 @@ fields:
     forbid_na: true
   type: string
 - name: sc_isolation_entity
-  description: The type of single cell entity derived from isolation protocol.
+  description: The type of single cell entity derived from isolation protocol
   constraints:
     enum:
     - whole cell
@@ -193,16 +193,10 @@ fields:
     required: true
   custom_constraints:
     sequence_limit: 3
-<<<<<<< HEAD
-  description: The type of single cell entity derived from isolation protocol
-  name: sc_isolation_entity
-- constraints:
-=======
     forbid_na: true
 - name: sc_isolation_tissue_dissociation
   description: The method by which tissues are dissociated into single cells in suspension.
   constraints:
->>>>>>> main
     required: true
   custom_constraints:
     sequence_limit: 3

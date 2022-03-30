@@ -15,7 +15,7 @@ This schema is for CO-Detection by indEXing (CODEX). CODEX uploads require metad
 The other fields function the same way for all assays using antibodies. For more information, see the [Antibodies TSV documentation](../antibodies).
 
 ## Directory schemas
-### v1
+### v0
 
 | pattern | example | required? | description |
 | --- | --- | --- | --- |
@@ -33,28 +33,6 @@ The other fields function the same way for all assays using antibodies. For more
 | <code>(raw&#124;src_.*)/.*</code> | ✓ | Raw data directory. |
 | <code>(processed&#124;drv_[^/]*)/.*</code> | ✓ | Processed files produced by the Akoya software or alternative software. |
 | <code>extras/.*</code> |  | Free-form descriptive information supplied by the TMC |
-### v0
-<details markdown="1"><summary>Deprecated</summary>
-
-| pattern | example | required? | description |
-| --- | --- | --- | --- |
-| <code>[^/]*NAV[^/]*\.tif</code> |  | Navigational Image showing Region of Interest (Keyance Microscope only) |
-| <code>.+\.pdf</code> (example: <code>summary.pdf</code>) | ✓ | **[QA/QC]** PDF export of Powerpoint slide deck containing the Image Analysis Report |
-| <code>drv_[^/]+/channelNames\.txt</code> | ✓ | Text file produced by the Akoya software which contains the (linearized) channel number and the Name/ID/Target of the channel (required for HuBMAP pipeline) |
-| <code>src_[^/]+/experiment\.json</code> | ✓ | JSON file produced by the Akoya software which contains the metadata for the experiment, including the software version used, microscope parameters, channel names, pixel dimensions, etc. (required for HuBMAP pipeline) |
-| <code>drv_[^/]+/experiment\.json</code> |  | JSON file produced by the Akoya software which contains the metadata for the experiment, including the software version used, microscope parameters, channel names, pixel dimensions, etc. (required for HuBMAP pipeline) |
-| <code>src_[^/]+/exposure_times\.txt</code> | ✓ | Comma separated text file used for background subtraction that contains valid exposure times for all cycles [e.g: Cycle,CH1,CH2,CH3,CH4]. |
-| <code>drv_[^/]+/exposure_times\.txt</code> |  | Comma separated text file used for background subtraction that contains valid exposure times for all cycles [e.g: Cycle,CH1,CH2,CH3,CH4]. |
-| <code>src_[^/]+/segmentation\.(json&#124;txt)</code> | ✓ | JSON file produced by the Akoya software which contains the parameters used for segmentation. (required for HuBMAP pipeline) |
-| <code>drv_[^/]+/segmentation\.(json&#124;txt)</code> |  | JSON file produced by the Akoya software which contains the parameters used for segmentation. (required for HuBMAP pipeline) |
-| <code>drv_[^/]+/processed_[^/]+/.*</code> | ✓ | processed files produced by the Akoya software, not used by the HIVE |
-| <code>src_[^/]+/channelnames_report\.csv</code> | ✓ | Two column CSV: The first column is a name or target; The second column is boolean: "FALSE" channels are excluded from processing. (required for HuBMAP pipeline) |
-| <code>src_[^/]+/channelnames\.txt</code> | ✓ | Text file produced by the Akoya software which contains the (linearized) channel number and the Name/ID/Target of the channel (required for HuBMAP pipeline) |
-| <code>src_[^/]+/cyc.*_reg.*_.*/.*_.*_Z.*_CH.*\.tif</code> | ✓ | TIFF files produced by the experiment. General folder format: Cycle(n)_Region(n)_date; General file format: name_tileNumber(n)_zplaneNumber(n)_channelNumber(n) |
-| <code>src_[^/]+/cyc.*_reg.*_.*/.*\.gci</code> |  | Group Capture Information File (Keyance Microscope only) |
-| <code>extras/.*</code> |  | Free-form descriptive information supplied by the TMC |
-
-</details>
 
 ## Metadata schema
 

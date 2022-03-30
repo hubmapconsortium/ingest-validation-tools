@@ -1,24 +1,7 @@
 # Generated YAML: PRs should not start here!
-doc_url: https://portal.hubmapconsortium.org/docs/assays/rnaseq
-description_md: This schema is for single cell RNA sequencing (scRNAseq).
+doc_url: https://portal.hubmapconsortium.org/docs/assays/atacseq
 fields:
 - Shared by all types
-- name: version
-  description: Version of the schema to use when validating this metadata.
-  constraints:
-    enum:
-    - '2'
-    required: true
-  custom_constraints:
-    sequence_limit: 3
-    forbid_na: true
-- name: description
-  description: Free-text description of this assay.
-  constraints:
-    required: true
-  custom_constraints:
-    sequence_limit: 3
-    forbid_na: true
 - name: donor_id
   description: HuBMAP Display ID of the donor of the assayed tissue.
   constraints:
@@ -107,14 +90,9 @@ fields:
 - name: assay_type
   constraints:
     enum:
-    - scRNAseq-10xGenomics-v2
-    - scRNAseq-10xGenomics-v3
-    - snRNAseq-10xGenomics-v2
-    - snRNAseq-10xGenomics-v3
-    - scRNAseq
-    - sciRNAseq
-    - snRNAseq
-    - SNARE2-RNAseq
+    - SNARE-seq2
+    - sciATACseq
+    - snATACseq
     required: true
   description: The specific type of assay being executed.
   custom_constraints:
@@ -123,7 +101,7 @@ fields:
 - name: analyte_class
   constraints:
     enum:
-    - RNA
+    - DNA
     required: true
   description: Analytes are the target molecules being measured with the assay.
   custom_constraints:
@@ -158,6 +136,22 @@ fields:
     sequence_limit: 3
     forbid_na: true
 - Unique to this type
+- name: is_technical_replicate
+  description: If TRUE, fastq files in dataset need to be merged.
+  constraints:
+    required: true
+  custom_constraints:
+    sequence_limit: 3
+    forbid_na: true
+  type: boolean
+- name: library_id
+  description: A library ID, unique within a TMC, which allows corresponding RNA and
+    chromatin accessibility datasets to be linked.
+  constraints:
+    required: true
+  custom_constraints:
+    sequence_limit: 3
+    forbid_na: true
 - name: sc_isolation_protocols_io_doi
   description: 'Link to a protocols document answering the question: How were single
     cells separated into a single-cell suspension?'
@@ -210,32 +204,56 @@ fields:
     sequence_limit: 3
     forbid_na: true
 - name: sc_isolation_cell_number
-  description: Total number of cell/nuclei yielded post dissociation and enrichment
+  description: Total number of cell/nuclei yielded post dissociation and enrichment.
   type: integer
   constraints:
     required: true
   custom_constraints:
     sequence_limit: 3
     forbid_na: true
-- name: rnaseq_assay_input
-  type: integer
-  description: Number of cell/nuclei input to the assay
+- name: transposition_input
+  description: Number of cell/nuclei input to the assay.
+  type: number
   constraints:
     required: true
   custom_constraints:
     sequence_limit: 3
     forbid_na: true
-- name: rnaseq_assay_method
-  description: The kit used for the RNA sequencing assay
+- name: transposition_method
+  description: Modality of capturing accessible chromatin molecules.
   constraints:
+    enum:
+    - SNARE-Seq2-AC
+    - bulkATACseq
+    - snATACseq
+    - sciATACseq
     required: true
+  custom_constraints:
+    sequence_limit: 3
+    forbid_na: true
+- name: transposition_transposase_source
+  description: The source of the Tn5 transposase and transposon used for capturing
+    accessible chromatin.
+  constraints:
+    enum:
+    - 10X snATAC
+    - In-house
+    - Nextera
+    required: true
+  custom_constraints:
+    sequence_limit: 3
+    forbid_na: true
+- name: transposition_kit_number
+  description: If Tn5 came from a kit, provide the catalog number.
+  constraints:
+    required: false
   custom_constraints:
     sequence_limit: 3
     forbid_na: true
 - name: library_construction_protocols_io_doi
   description: A link to the protocol document containing the library construction
     method (including version) that was used, e.g. "Smart-Seq2", "Drop-Seq", "10X
-    v3".
+    v3". DOI for protocols.io referring to the protocol for this assay.
   constraints:
     required: true
     pattern: 10\.17504/.*
@@ -257,7 +275,7 @@ fields:
     sequence_limit: 3
     forbid_na: true
 - name: library_adapter_sequence
-  description: Adapter sequence to be used for adapter trimming
+  description: Adapter sequence to be used for adapter trimming.
   constraints:
     pattern: '[ATCG]+(\+[ATCG]+)?'
     required: true
@@ -265,59 +283,38 @@ fields:
     sequence_limit: 3
     forbid_na: true
   type: string
-- name: library_id
-  description: A library ID, unique within a TMC, which allows corresponding RNA and
-    chromatin accessibility datasets to be linked.
-  constraints:
-    required: true
-  custom_constraints:
-    sequence_limit: 3
-    forbid_na: true
-- name: is_technical_replicate
-  description: Is the sequencing reaction run in replicate, TRUE or FALSE
-  type: boolean
-  constraints:
-    required: true
-  custom_constraints:
-    sequence_limit: 3
-    forbid_na: true
 - name: cell_barcode_read
-  description: Which read file(s) contains the cell barcode. Multiple cell_barcode_read
-    files must be provided as a comma-delimited list (e.g. file1,file2,file3).
+  description: Which read file contains the cell barcode.
   constraints:
-    required: false
+    required: true
   custom_constraints:
     sequence_limit: 3
     forbid_na: true
 - name: cell_barcode_offset
-  description: Position(s) in the read at which the cell barcode starts.
+  description: Positions in the read at which the cell barcodes start. Cell barcodes
+    are, for example, 3 x 8 bp sequences that are spaced by constant sequences (the
+    offsets). First barcode at position 0, then 38, then 76. (Does not apply to SNARE-seq
+    and BulkATAC.)
   constraints:
-    required: false
     pattern: \d+(,\d+)*
+    required: true
   custom_constraints:
     sequence_limit: 3
     forbid_na: true
   type: string
 - name: cell_barcode_size
-  description: Length of the cell barcode in base pairs
+  description: Length of the cell barcode in base pairs. Cell barcodes are, for example,
+    3 x 8 bp sequences that are spaced by constant sequences, the offsets. (Does not
+    apply to SNARE-seq and BulkATAC.)
   constraints:
-    required: false
     pattern: \d+(,\d+)*
+    required: true
   custom_constraints:
     sequence_limit: 3
     forbid_na: true
   type: string
-- name: expected_cell_count
-  description: How many cells are expected? This may be used in downstream pipelines
-    to guide selection of cell barcodes or segmentation parameters.
-  type: integer
-  constraints:
-    required: false
-  custom_constraints:
-    sequence_limit: 3
-    forbid_na: true
 - name: library_pcr_cycles
-  description: Number of PCR cycles to amplify cDNA
+  description: Number of PCR cycles to enrich for accessible chromatin fragments.
   type: integer
   constraints:
     required: true
@@ -325,24 +322,24 @@ fields:
     sequence_limit: 3
     forbid_na: true
 - name: library_pcr_cycles_for_sample_index
-  description: Number of PCR cycles performed for library indexing
+  description: Number of PCR cycles performed for library generation (figure in Descriptions
+    section)
   type: integer
   constraints:
     required: true
   custom_constraints:
     sequence_limit: 3
     forbid_na: true
-- name: library_final_yield_value
-  description: Total number of ng of library after final pcr amplification step. This
-    is the concentration (ng/ul) * volume (ul)
+- name: library_final_yield
+  description: Total ng of library after final pcr amplification step.
+  type: number
   constraints:
     required: true
   custom_constraints:
     sequence_limit: 3
     forbid_na: true
-  type: number
 - name: library_final_yield_unit
-  description: Units of final library yield
+  description: Units for library_final_yield
   constraints:
     enum:
     - ng
@@ -350,7 +347,7 @@ fields:
   custom_constraints:
     sequence_limit: 3
     forbid_na: true
-    units_for: library_final_yield_value
+    units_for: library_final_yield
 - name: library_average_fragment_size
   description: Average size in basepairs (bp) of sequencing library fragments estimated
     via gel electrophoresis or bioanalyzer/tapestation.
