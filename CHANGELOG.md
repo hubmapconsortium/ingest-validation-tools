@@ -77,8 +77,6 @@
 - Sample was being skipped in doc generation. Fix that.
 - Add to enums for `perfusion_solutions` and `ms_source`.
 - Upgrade from dependabot.
-- CLEANUP-sc_isolation_entity
-- cleanup resolution_z_unit
 
 ## v0.0.12 - 2021-07-23
 - Catch unrecognized keys in dir schema.
