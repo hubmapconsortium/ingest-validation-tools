@@ -37,7 +37,7 @@ fields:
 - name: sc_isolation_protocols_io_doi
   description: "Link to a protocols document answering the question: How were single cells separated into a single-cell suspension?"
 - name: sc_isolation_entity
-  description: The type of single cell entity derived from isolation protocol
+  description: The type of single cell entity derived from isolation protocol.
   constraints:
     enum:
       - whole cell
