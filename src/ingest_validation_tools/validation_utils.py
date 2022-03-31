@@ -1,11 +1,10 @@
 import logging
 from csv import DictReader
 from pathlib import Path
-from json import dumps
 
 from ingest_validation_tools.schema_loader import (
     get_table_schema, get_other_schema,
-    get_directory_schema, get_all_directory_schema_versions)
+    get_directory_schema)
 from ingest_validation_tools.directory_validator import (
     validate_directory, DirectoryValidationErrors)
 from ingest_validation_tools.table_validator import (
@@ -37,57 +36,23 @@ def get_table_schema_version(path, encoding):
     return get_table_schema_version_from_row(path, rows[0])
 
 
-def _get_best_directory_schema_version(schema_name, data_path, dataset_ignore_globs):
-    '''
-    Read all schemas, and return the one with the fewest errors.
-    (Having an explicit indication of the version of the submission was proposed and rejected.)
-    '''
-    # Get all directory schemas:
-    all_directory_schema_versions = get_all_directory_schema_versions(schema_name)
-
-    # Validate with each:
-    all_directory_schemas_errors = [
-        (directory_schema_version, _get_data_dir_errors_for_version(
-            schema_name, data_path, dataset_ignore_globs, directory_schema_version.version))
-        for directory_schema_version in all_directory_schema_versions
-    ]
-
-    # Sort for simpler errors at the top:
-    all_directory_schemas_errors.sort(key=_get_ugliness)
-
-    # Return the best:
-    return all_directory_schemas_errors[0][0]
-
-
-def _get_ugliness(schema_error):
-    '''
-    Quantify the ugliness of errors:
-    Assume that the least ugly error corresponds to the best schema to validate against.
-
-    >>> good = ({}, None)
-    >>> bad = ({}, {'something': 'bad'})
-    >>> worse = ({}, {'something': ['worse']})
-    >>> worst = ({}, 'Deprecated')
-    >>> assert _get_ugliness(good) < _get_ugliness(bad)
-    >>> assert _get_ugliness(bad) < _get_ugliness(worse)
-    >>> assert _get_ugliness(worse) < _get_ugliness(worst)
-    '''
-    (_schema, error) = schema_error
-    if error is None:
-        return 0
-    as_json = dumps(schema_error, indent=0)
-    if 'Deprecated' in as_json:
-        # TODO: Improve this logic.
-        return 999
-    return len(as_json.split('\n'))
+def _get_directory_schema_version(data_path):
+    prefix = 'dir-schema-'
+    version_hints = [path.name for path in (data_path / 'extras').glob(f'{prefix}*')]
+    len_hints = len(version_hints)
+    if len_hints == 0:
+        return '0'
+    elif len_hints == 1:
+        return version_hints[0].replace(prefix, '')
+    else:
+        raise Exception(f'Expect 0 or 1 hints, not {len_hints}: {version_hints}')
 
 
 def get_data_dir_errors(schema_name, data_path, dataset_ignore_globs=[]):
     '''
     Validate a single data_path.
     '''
-    directory_schema_version = _get_best_directory_schema_version(
-        schema_name, data_path, dataset_ignore_globs).version
+    directory_schema_version = _get_directory_schema_version(data_path)
     return _get_data_dir_errors_for_version(
         schema_name, data_path, dataset_ignore_globs, directory_schema_version)
 

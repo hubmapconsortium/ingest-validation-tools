@@ -167,8 +167,18 @@ def list_directory_schema_versions():
     schema_paths = list(_directory_schemas_path.iterdir())
     stems = sorted(p.stem for p in schema_paths if p.suffix == '.yaml')
     return [
-        SchemaVersion(*re.match(r'(.+)-v(\d+)', stem).groups()) for stem in stems
+        SchemaVersion(*_parse_schema_version(stem)) for stem in stems
     ]
+
+
+def _parse_schema_version(stem):
+    '''
+    >>> _parse_schema_version('abc-v0')
+    ('abc', '0')
+    >>> _parse_schema_version('xyz-v99-is the_best!')
+    ('xyz', '99-is the_best!')
+    '''
+    return re.match(r'(.+)-v(\d+.*)', stem).groups()
 
 
 def get_all_directory_schema_versions(schema_name):

@@ -15,6 +15,26 @@ This schema is for CO-Detection by indEXing (CODEX). CODEX uploads require metad
 The other fields function the same way for all assays using antibodies. For more information, see the [Antibodies TSV documentation](../antibodies).
 
 ## Directory schemas
+### v1-with-dataset-json
+
+| pattern | required? | description |
+| --- | --- | --- |
+| <code>[^/]*NAV[^/]*\.tif</code> (example: <code>NAV.tif</code>) |  | Navigational Image showing Region of Interest (Keyance Microscope only) |
+| <code>[^/]*\.pdf</code> (example: <code>summary.pdf</code>) |  | **[QA/QC]** PDF export of Powerpoint slide deck containing the Image Analysis Report |
+| <code>(raw&#124;processed)/config\.txt&#124;(src_[^/]*&#124;drv_[^/]*&#124;extras)/[sS]egmentation\.json</code> |  | Sanity check that verifies the existence of at least one of these files. This is required for the HuBMAP processing pipeline |
+| <code>raw/reg_[^/]*\.png</code> (example: <code>raw/reg_00.png</code>) |  | Region overviews |
+| <code>(raw&#124;src_[^/]*)/[Ee]xperiment\.json</code> |  | JSON file produced by the Akoya software which contains the metadata for the experiment, including the software version used, microscope parameters, channel names, pixel dimensions, etc. (required for HuBMAP pipeline) |
+| <code>dataset\.json</code> (example: <code>dataset.json</code>) | ✓ | Additional CODEX specific metadata file |
+| <code>processed/HandE\.tif</code> |  | HandE image |
+| <code>processed/HandE_RGB\.tif</code> |  | HandE RGB image |
+| <code>processed/HandE_RGB_thumbnail.jpg</code> |  | HandE RGB thumbnail |
+| <code>(raw&#124;processed)/config\.txt</code> |  | Configuration file with information needed for the HuBMAP processing pipeline |
+| <code>(raw&#124;src_.*)/[cC]yc.*_reg.*/.*_Z.*_CH.*\.tif</code> | ✓ | TIFF files produced by the experiment. General folder format: Cycle(n)_Region(n)_date; General file format: name_tileNumber(n)_zplaneNumber(n)_channelNumber(n) |
+| <code>src_.*/cyc.*_reg.*_.*/.*\.gci</code> |  | Group Capture Information File (Keyance Microscope only) |
+| <code>(raw&#124;src_.*)/.*</code> | ✓ | Raw data directory. |
+| <code>(processed&#124;drv_[^/]*)/.*</code> | ✓ | Processed files produced by the Akoya software or alternative software. |
+| <code>extras/dir-schema-v1-with-dataset-json</code> | ✓ | Empty file whose presence indicates the version of the directory schema in use |
+| <code>extras/.*</code> |  | Free-form descriptive information supplied by the TMC |
 ### v0
 
 | pattern | required? | description |
