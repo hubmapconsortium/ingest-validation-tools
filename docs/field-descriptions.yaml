@@ -302,7 +302,7 @@ sc_isolation_cell_number: Total number of cell/nuclei yielded post dissociation 
   enrichment
 sc_isolation_enrichment: The method by which specific cell populations are sorted
   or enriched.
-sc_isolation_entity: The type of single cell entity derived from isolation protocol
+sc_isolation_entity: The type of single cell entity derived from isolation protocol.
 sc_isolation_protocols_io_doi: 'Link to a protocols document answering the question:
   How were single cells separated into a single-cell suspension?'
 sc_isolation_quality_metric: A quality metric by visual inspection prior to cell lysis

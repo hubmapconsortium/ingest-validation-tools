@@ -20,7 +20,10 @@ v3 adds `dms` and `label_name` fields, and `negative and positive ion mode` as a
 
 | pattern | required? | description |
 | --- | --- | --- |
-| <code>TODO</code> | ✓ | Directory structure not yet specified. |
+| <code>raw_data/[^/]+\.(raw&#124;mzML)</code> (example: <code>raw_data/20200707_rmi049_75umPLRPS_Kidney_GF10pc_VAN0003LK32_biorep05_techrep02.raw</code>) | ✓ | Raw mass spectrometry data from an assay of LC-MS, MS, LC-MS Bottom-Up, MS Bottom-Up, LC-MS Top-Down, or MS Top-Down that describes an analyte class of protein, metabolites, lipids, peptides, phosphopeptides, or glycans. |
+| <code>ID_search_results/[^/]+\.(txt&#124;csv)</code> | ✓ | Identification results. Annotated data describing (qualitative or quantitative) the proteins, metabolites, lipids, peptides, phosphopeptides, or glycans identified from the corresponding raw data. |
+| <code>ID_metadata/[^/]+\.xml</code> |  | Identification search parameters / metadata. Software settings used during the analyte identification process (e.g., from MaxQuant or Proteome Discoverer). |
+| <code>QC_results/[^/]+\.(xml&#124;txt&#124;html&#124;pdf&#124;log&#124;yaml)</code> |  | Output file resulting from QC analysis. A list of metrics with the score of the current dataset that shows the quality of data collection. |
 | <code>extras/.*</code> |  | Free-form descriptive information supplied by the TMC |
 
 ## Metadata schema

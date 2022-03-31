@@ -153,7 +153,7 @@ fields:
     forbid_na: true
   type: string
 - name: sc_isolation_entity
-  description: The type of single cell entity derived from isolation protocol
+  description: The type of single cell entity derived from isolation protocol.
   constraints:
     enum:
     - whole cell
