@@ -473,7 +473,7 @@ def _make_dir_description(files, is_deprecated=False):
     ... ]
     >>> print(_make_dir_description(files))
     <BLANKLINE>
-    | pattern | example | required? | description |
+    | pattern | required? | description |
     | --- | --- | --- | --- |
     | <code>[A-Z]+\\d+</code> (example: <code>ABC123</code>) | ✓ | letters numbers |
     | <code>[A-Z]</code> | ✓ | one letter, no example |
@@ -503,17 +503,9 @@ def _make_dir_description(files, is_deprecated=False):
             assert k in {'pattern', 'required', 'description', 'example', 'is_qa_qc'}, \
                 f'Unexpected key "{k}" in {line}'
 
-    has_examples = any('example' in line for line in files)
-
-    output = []
-    if has_examples:
-        output.append('''
-| pattern | example | required? | description |
-| --- | --- | --- | --- |''')
-    else:
-        output.append('''
+    output = ['''
 | pattern | required? | description |
-| --- | --- | --- |''')
+| --- | --- | --- |''']
 
     for line in files:
         row = []
