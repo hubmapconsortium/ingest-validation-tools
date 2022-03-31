@@ -106,15 +106,21 @@ fields:
   description: 'Link to a protocols document answering the question: How were single
     cells separated into a single-cell suspension?'
   type: string
-# include: ../includes/fields/sc_isolation_entity.yaml
+- name: sc_isolation_entity
+  constraints:
+    required: true
+  description: The type of single cell entity derived from isolation protocol
 # include: ../includes/fields/sc_isolation_tissue_dissociation.yaml
 - name: sc_isolation_enrichment
   constraints:
     required: true
   description: The method by which specific cell populations are sorted or enriched.
-# include: ../includes/fields/sc_isolation_quality_metric.yaml
+- name: sc_isolation_quality_metric
   constraints:
-    required: False
+    required: false
+  description: A quality metric by visual inspection prior to cell lysis or defined
+    by known parameters such as wells with several cells or no cells. This can be
+    captured at a high level.
 - name: sc_isolation_cell_number
   constraints:
     required: false

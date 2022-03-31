@@ -1,8 +1,0 @@
-- name: sc_isolation_entity
-  description: The type of single cell entity derived from isolation protocol.
-  constraints:
-     enum:
-         - whole cell
-         - nucleus
-         - cell-cell multimer
-         - spatially encoded cell barcoding
