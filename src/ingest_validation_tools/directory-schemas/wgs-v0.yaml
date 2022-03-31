@@ -1,5 +1,5 @@
 files:
   -
-    pattern: 'TODO'
-    description: 'Directory structure not yet specified.'
+    pattern: '[^/]+\.fastq\.gz'
+    description: 'Compressed FastQ file'
     required: True
