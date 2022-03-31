@@ -37,7 +37,7 @@ def get_table_schema_version(path, encoding):
 
 
 def _get_directory_schema_version(data_path):
-    prefix = 'dir-schema-'
+    prefix = 'dir-schema-v'
     version_hints = [path.name for path in (data_path / 'extras').glob(f'{prefix}*')]
     len_hints = len(version_hints)
     if len_hints == 0:

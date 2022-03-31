@@ -1,0 +1,4 @@
+[
+  "With ingest-validation-tools, this file isn't even read.",
+  "For that, you need to validate with the ingest-validation-tests plugin."
+]
