@@ -474,7 +474,7 @@ def _make_dir_description(files, is_deprecated=False):
     >>> print(_make_dir_description(files))
     <BLANKLINE>
     | pattern | required? | description |
-    | --- | --- | --- | --- |
+    | --- | --- | --- |
     | <code>[A-Z]+\\d+</code> (example: <code>ABC123</code>) | ✓ | letters numbers |
     | <code>[A-Z]</code> | ✓ | one letter, no example |
 
