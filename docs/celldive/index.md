@@ -14,14 +14,24 @@ Related files:
 CellDIVE uploads require metadata on the antibodies used in the assay to be provided in an Antibodies TSV. For CellDIVE, the `channel_id` is represented as a cycle#/channel# combination (of the form `Cycle[0-9]_CH[0-9]`) linked to a given image file in the directory.
 The other fields function the same way for all assays using antibodies. For more information, see the [Antibodies TSV documentation](../antibodies).
 
-## Directory schema
+## Directory schemas
+### v0
 
 | pattern | required? | description |
 | --- | --- | --- |
 | <code>channel_list\.txt</code> | ✓ | Information about the capture channels and tags (comma separated) |
 | <code>slide_list\.txt</code> | ✓ | Information about the slides used by the experiment- each line corresponds to a slide name (begins with S - e.g. S20030077) - used in filenames |
-| <code>HuBMAP_OME/region_\d+/S\d+_region_\d+\.ome\.tif</code> (example: <code>HuBMAP_OME/region_011/S20030092_region_011.ome.tif</code>) | ✓ | OME TIFF Files for the corresponding region (e.g. region_001) by slide (e.g S20030077) |
-| <code>HuBMAP_rounds/round_info_\d+\.dat</code> (example: <code>HuBMAP_rounds/round_info_002.dat</code>) | ✓ | Metadata file for the capture item-value tab separated format |
+| <code>HuBMAP_OME/region_[^/]+/S[^/]+\.ome\.tif</code> | ✓ | OME TIFF Files for the corresponding region (e.g. region_001) by slide (e.g S20030077) |
+| <code>HuBMAP_rounds/round_info_S[^/]*\.dat</code> | ✓ | metadata file for the capture by slide (e.g S20030077) item-value tab separated format |
+| <code>HuBMAP_Seg_and_quant/gray_scale_T_cells/region[^/]*/mask_T_cells_slideS[^/]+\.tif</code> | ✓ | grayscale T-cell masks |
+| <code>HuBMAP_Seg_and_quant/quantification/region[^/]*/quant_slideS[^/]+\.csv</code> | ✓ | Comma separated quantification files |
+| <code>HuBMAP_Seg_and_quant/rgb_T_cells/region[^/]*/mask_T_cells_slideS[^/]+\.tif</code> | ✓ | rgb T-cell masks |
+| <code>HuBMAP_Seg_and_quant/segmentation/region[^/]*/dapi_slide_slideS[^/]+\.tif</code> | ✓ | segmentation (dapi slides) |
+| <code>vHE/S[^/]+\.ome\.tif</code> | ✓ | vHE slides |
+| <code>HuBMAP_OME/move_images.bat</code> |  | moves files |
+| <code>HuBMAP_Seg_and_quant/*/move_images.bat</code> |  | moves files |
+| <code>HuBMAP_OME/make_folders.bat</code> |  | creates directories |
+| <code>HuBMAP_Seg_and_quant/*/make_folders.bat</code> |  | creates directories |
 | <code>extras/.*</code> |  | Free-form descriptive information supplied by the TMC |
 
 ## Metadata schema

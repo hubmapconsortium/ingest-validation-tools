@@ -13,7 +13,8 @@ Related files:
 
 
 
-## Directory schema
+## Directory schemas
+### v0
 
 | pattern | required? | description |
 | --- | --- | --- |

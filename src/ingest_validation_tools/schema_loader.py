@@ -40,18 +40,16 @@ def get_field_enum(field_name, schema):
     return fields[0]['constraints']['enum']
 
 
-def get_schema_version_from_row(path, row):
+def get_table_schema_version_from_row(path, row):
     '''
-    >>> try:
-    ...     get_schema_version_from_row('empty', {'bad-column': 'bad-value'})
-    ... except Exception as e:
-    ...     print(e)
+    >>> try: get_table_schema_version_from_row('empty', {'bad-column': 'bad-value'})
+    ... except Exception as e: print(e)
     empty does not contain "assay_type". Column headers: bad-column
 
-    >>> get_schema_version_from_row('v0', {'assay_type': 'PAS microscopy'})
+    >>> get_table_schema_version_from_row('v0', {'assay_type': 'PAS microscopy'})
     SchemaVersion(schema_name='stained', version=0)
 
-    >>> get_schema_version_from_row('v42', {'assay_type': 'PAS microscopy', 'version': 42})
+    >>> get_table_schema_version_from_row('v42', {'assay_type': 'PAS microscopy', 'version': 42})
     SchemaVersion(schema_name='stained', version=42)
 
     '''
@@ -134,28 +132,55 @@ def _assay_to_schema_name(assay_type, source_project):
     raise PreflightError(message)
 
 
-def list_schema_versions():
+def list_table_schema_versions():
     '''
-    >>> list_schema_versions()[0]
+    >>> list_table_schema_versions()[0]
     SchemaVersion(schema_name='af', version='0')
 
     '''
     schema_paths = list((_table_schemas_path / 'assays').iterdir()) + \
         list((_table_schemas_path / 'others').iterdir())
-    stems = sorted(p.stem for p in schema_paths)
+    stems = sorted(p.stem for p in schema_paths if p.suffix == '.yaml')
     return [
         SchemaVersion(*re.match(r'(.+)-v(\d+)', stem).groups()) for stem in stems
     ]
 
 
-def dict_schema_versions():
+def dict_table_schema_versions():
     '''
-    >>> sorted(dict_schema_versions()['af'])
+    >>> sorted(dict_table_schema_versions()['af'])
     ['0', '1']
     '''
 
     dict_of_sets = defaultdict(set)
-    for sv in list_schema_versions():
+    for sv in list_table_schema_versions():
+        dict_of_sets[sv.schema_name].add(sv.version)
+    return dict_of_sets
+
+
+def list_directory_schema_versions():
+    '''
+    >>> list_directory_schema_versions()[0]
+    SchemaVersion(schema_name='af', version='0')
+
+    '''
+    schema_paths = list(_directory_schemas_path.iterdir())
+    stems = sorted(p.stem for p in schema_paths if p.suffix == '.yaml')
+    return [
+        SchemaVersion(*re.match(r'(.+)-v(\d+)', stem).groups()) for stem in stems
+    ]
+
+
+def get_all_directory_schema_versions(schema_name):
+    return [
+        version for version in list_directory_schema_versions()
+        if version.schema_name == schema_name
+    ]
+
+
+def dict_directory_schema_versions():
+    dict_of_sets = defaultdict(set)
+    for sv in list_directory_schema_versions():
         dict_of_sets[sv.schema_name].add(sv.version)
     return dict_of_sets
 
@@ -209,9 +234,13 @@ def get_table_schema(schema_name, version, optional_fields=[], offline=None, kee
     return schema
 
 
-def get_directory_schema(directory_type):
-    schema = load_yaml(_directory_schemas_path / f'{directory_type}.yaml')
-    schema += [
+def get_directory_schema(directory_type, schema_version):
+    directory_schema_path = _directory_schemas_path / \
+        _get_schema_filename(directory_type, schema_version)
+    if not directory_schema_path.exists():
+        return None
+    schema = load_yaml(directory_schema_path)
+    schema['files'] += [
         {
             'pattern': r'extras/.*',
             'description': 'Free-form descriptive information supplied by the TMC',

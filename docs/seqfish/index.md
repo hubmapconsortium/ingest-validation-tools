@@ -13,12 +13,7 @@ Related files:
 
 This schema is for spatial sequencing by fluorescence in situ hybridization (seqFISH).
 
-## Directory schema
 
-| pattern | required? | description |
-| --- | --- | --- |
-| <code>TODO</code> | ✓ | Directory structure not yet specified. https://github.com/hubmapconsortium/ingest-validation-tools/issues/453 |
-| <code>extras/.*</code> |  | Free-form descriptive information supplied by the TMC |
 
 ## Metadata schema
 

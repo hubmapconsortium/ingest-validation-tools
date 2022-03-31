@@ -87,7 +87,7 @@ def _enrich_description(field):
 
 
 def generate_readme_md(
-        table_schemas, pipeline_infos, directory_schema, schema_name, is_assay=True):
+        table_schemas, pipeline_infos, directory_schemas, schema_name, is_assay=True):
     int_keys = [int(k) for k in table_schemas.keys()]
     max_version = max(int_keys)
     min_version = min(int_keys)
@@ -108,8 +108,8 @@ def generate_readme_md(
         'hubmapconsortium/ingest-validation-tools/main/docs'
 
     optional_dir_description_md = (
-        f'## Directory schema\n{_make_dir_description(directory_schema, pipeline_infos)}'
-        if directory_schema else ''
+        f'## Directory schemas\n{_make_dir_descriptions(directory_schemas, pipeline_infos)}'
+        if directory_schemas else ''
     )
 
     optional_doc_link_md = (
@@ -400,84 +400,122 @@ def _make_toc(md):
     return f'<blockquote markdown="1">\n\n{joined_mds}\n\n</blockquote>\n'
 
 
-def _make_dir_description(dir_schema, pipeline_infos=[]):
+def _make_dir_descriptions(dir_schemas, pipeline_infos):
+    '''
+    >>> dir_schema = {
+    ...     'files': [
+    ...         {'pattern': 'required\\.txt', 'description': 'Required!'}
+    ...     ]
+    ... }
+    >>> pipeline_infos = [{
+    ...     "name": "Fake Pipeline",
+    ...     "repo_url": "https://github.com/hubmapconsortium/fake",
+    ...     "version_tag": "v1.2.3"
+    ... }]
+    >>> print(_make_dir_descriptions({'0': dir_schema}, pipeline_infos))
+    The HIVE will process each dataset with
+    [Fake Pipeline v1.2.3](https://github.com/hubmapconsortium/fake/releases/tag/v1.2.3).
+    ### v0
+    <BLANKLINE>
+    | pattern | required? | description |
+    | --- | --- | --- |
+    | <code>required\\.txt</code> | ✓ | Required! |
+    '''
+    pipeline_infos_md = ' and '.join(make_pipeline_link(info) for info in pipeline_infos)
+    pipeline_blurb = \
+        f'The HIVE will process each dataset with\n{pipeline_infos_md}.\n' \
+        if pipeline_infos else ''
+
+    sorted_items = sorted(dir_schemas.items(), key=lambda item: item[0], reverse=True)
+    return pipeline_blurb + '\n'.join(
+        f'### v{v}\n' + _make_dir_description(schema['files'], schema.get('deprecated', False))
+        for v, schema in sorted_items
+    )
+
+
+def _make_dir_description(files, is_deprecated=False):
     '''
     QA and Required flags are handled:
 
-    >>> dir_schema = [
+    >>> files = [
     ...   { 'pattern': 'required\\.txt', 'description': 'Required!',
     ...     'is_qa_qc': True },
     ...   { 'pattern': 'optional\\.txt', 'description': 'Optional!',
     ...     'required': False }
     ... ]
-    >>> print(_make_dir_description(dir_schema))
+    >>> print(_make_dir_description(files))
     <BLANKLINE>
     | pattern | required? | description |
     | --- | --- | --- |
     | <code>required\\.txt</code> | ✓ | **[QA/QC]** Required! |
     | <code>optional\\.txt</code> |  | Optional! |
 
-    Examples add an extra column:
+    Deprecated is handled:
 
-    >>> dir_schema = [
-    ...   { 'pattern': '[A-Z]+\\d+', 'description': 'letters numbers', 'example': 'ABC123'},
-    ...   { 'pattern': '[A-Z]', 'description': 'one letter, no example'},
+    >>> files = [
+    ...   { 'pattern': 'optional\\.txt', 'description': 'Optional!',
+    ...     'required': False }
     ... ]
-    >>> print(_make_dir_description(dir_schema))
+    >>> print(_make_dir_description(files, True))
+    <details markdown="1"><summary>Deprecated</summary>
     <BLANKLINE>
     | pattern | required? | description |
     | --- | --- | --- |
+    | <code>optional\\.txt</code> |  | Optional! |
+    <BLANKLINE>
+    </details>
+
+    Examples add an extra column:
+
+    >>> files = [
+    ...   { 'pattern': '[A-Z]+\\d+', 'description': 'letters numbers', 'example': 'ABC123'},
+    ...   { 'pattern': '[A-Z]', 'description': 'one letter, no example'},
+    ... ]
+    >>> print(_make_dir_description(files))
+    <BLANKLINE>
+    | pattern | example | required? | description |
+    | --- | --- | --- | --- |
     | <code>[A-Z]+\\d+</code> (example: <code>ABC123</code>) | ✓ | letters numbers |
     | <code>[A-Z]</code> | ✓ | one letter, no example |
 
     Bad examples cause errors:
 
-    >>> dir_schema = [
+    >>> files = [
     ...   { 'pattern': '[A-Z]\\d', 'description': '1 letter 1 number', 'example': 'ABC123'},
     ... ]
-    >>> _make_dir_description(dir_schema)
+    >>> _make_dir_description(files)
     Traceback (most recent call last):
     ...
     AssertionError: Example "ABC123" does not match pattern "[A-Z]\\d"
 
     Unexpected flags cause error:
 
-    >>> dir_schema = [
+    >>> files = [
     ...   { 'bad': 'schema' }
     ... ]
-    >>> _make_dir_description(dir_schema)
+    >>> _make_dir_description(files)
     Traceback (most recent call last):
     ...
     AssertionError: Unexpected key "bad" in {'bad': 'schema'}
-
-    Pipeline info added, if available:
-
-    >>> dir_schema = [
-    ...   { 'pattern': 'required\\.txt', 'description': 'Required!'}
-    ... ]
-    >>> pipeline_infos = [{
-    ...     "name": "Fake Pipeline",
-    ...     "repo_url": "https://github.com/hubmapconsortium/fake",
-    ...     "version_tag": "v1.2.3"
-    ... }]
-    >>> print(_make_dir_description(dir_schema, pipeline_infos))
-    The HIVE will process each dataset with
-    [Fake Pipeline v1.2.3](https://github.com/hubmapconsortium/fake/releases/tag/v1.2.3).
-    <BLANKLINE>
-    | pattern | required? | description |
-    | --- | --- | --- |
-    | <code>required\\.txt</code> | ✓ | Required! |
     '''
-    for line in dir_schema:
+    for line in files:
         for k in line.keys():
             assert k in {'pattern', 'required', 'description', 'example', 'is_qa_qc'}, \
                 f'Unexpected key "{k}" in {line}'
 
-    output = ['''
-| pattern | required? | description |
-| --- | --- | --- |''']
+    has_examples = any('example' in line for line in files)
 
-    for line in dir_schema:
+    output = []
+    if has_examples:
+        output.append('''
+| pattern | example | required? | description |
+| --- | --- | --- | --- |''')
+    else:
+        output.append('''
+| pattern | required? | description |
+| --- | --- | --- |''')
+
+    for line in files:
         row = []
 
         pattern = line['pattern']
@@ -498,11 +536,10 @@ def _make_dir_description(dir_schema, pipeline_infos=[]):
 
         output.append('| ' + ' | '.join(row) + ' |')
     table = '\n'.join(output)
-    pipeline_infos_md = ' and '.join(make_pipeline_link(info) for info in pipeline_infos)
-    pipeline_blurb = \
-        f'The HIVE will process each dataset with\n{pipeline_infos_md}.\n' \
-        if pipeline_infos else ''
-    return f"{pipeline_blurb}{table}"
+
+    if is_deprecated:
+        return f'<details markdown="1"><summary>Deprecated</summary>\n{table}\n\n</details>'
+    return table
 
 
 def make_pipeline_link(info):

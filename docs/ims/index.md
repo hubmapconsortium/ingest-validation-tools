@@ -13,7 +13,8 @@ Related files:
 
 This schema is for imaging mass spectrometry (IMS).
 
-## Directory schema
+## Directory schemas
+### v0
 
 | pattern | required? | description |
 | --- | --- | --- |

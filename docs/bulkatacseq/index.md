@@ -13,7 +13,8 @@ Related files:
 
 This schema is for Assay for Transposase-Accessible Chromatin by sequencing (ATACseq)of bulk sample.
 
-## Directory schema
+## Directory schemas
+### v0
 
 | pattern | required? | description |
 | --- | --- | --- |

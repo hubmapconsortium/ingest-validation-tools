@@ -14,10 +14,11 @@ Related files:
 This schema is for CO-Detection by indEXing (CODEX). CODEX uploads require metadata on the antibodies used in the assay to be provided in an Antibodies TSV. For CODEX, in that TSV, the `channel_id` is a cycle#/channel# combination linked to a given image file (of the form `Cycle[0-9]_CH[0-9]`). Each TIF file in a CODEX dataset contains image data captured from a single channel in a single cycle, identified and connected to the `channel_id` by its location in the upload directory (of the form `src_*/cyc*_reg*_*/*_*_Z*_CH*.tif`). For an example of a CODEX dataset & directory, see this example  [CODEX dataset](https://portal.hubmapconsortium.org/browse/dataset/053544cd63125fc25f6a71a8f444bafc#files) and click the Globus link.
 The other fields function the same way for all assays using antibodies. For more information, see the [Antibodies TSV documentation](../antibodies).
 
-## Directory schema
+## Directory schemas
+### v0
 
-| pattern | required? | description |
-| --- | --- | --- |
+| pattern | example | required? | description |
+| --- | --- | --- | --- |
 | <code>[^/]*NAV[^/]*\.tif</code> (example: <code>NAV.tif</code>) |  | Navigational Image showing Region of Interest (Keyance Microscope only) |
 | <code>[^/]*\.pdf</code> (example: <code>summary.pdf</code>) |  | **[QA/QC]** PDF export of Powerpoint slide deck containing the Image Analysis Report |
 | <code>(raw&#124;processed)/config\.txt&#124;(src_[^/]*&#124;drv_[^/]*&#124;extras)/[sS]egmentation\.json</code> |  | Sanity check that verifies the existence of at least one of these files. This is required for the HuBMAP processing pipeline |

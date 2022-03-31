@@ -1,16 +1,17 @@
 import logging
 from csv import DictReader
 from pathlib import Path
+from json import dumps
 
 from ingest_validation_tools.schema_loader import (
     get_table_schema, get_other_schema,
-    get_directory_schema)
+    get_directory_schema, get_all_directory_schema_versions)
 from ingest_validation_tools.directory_validator import (
     validate_directory, DirectoryValidationErrors)
 from ingest_validation_tools.table_validator import (
     get_table_errors)
 from ingest_validation_tools.schema_loader import (
-    get_schema_version_from_row, PreflightError
+    get_table_schema_version_from_row, PreflightError
 )
 
 
@@ -24,7 +25,7 @@ def dict_reader_wrapper(path, encoding):
     return rows
 
 
-def get_schema_version(path, encoding):
+def get_table_schema_version(path, encoding):
     try:
         rows = dict_reader_wrapper(path, encoding)
     except UnicodeDecodeError as e:
@@ -33,21 +34,93 @@ def get_schema_version(path, encoding):
         raise PreflightError(f'Expected a TSV, found a directory at {path}.')
     if not rows:
         raise PreflightError(f'{path} has no data rows.')
-    return get_schema_version_from_row(path, rows[0])
+    return get_table_schema_version_from_row(path, rows[0])
+
+
+def _get_best_directory_schema_version(schema_name, data_path, dataset_ignore_globs):
+    '''
+    Read all schemas, and return the one with the fewest errors.
+    (Having an explicit indication of the version of the submission was proposed and rejected.)
+    '''
+    # Get all directory schemas:
+    all_directory_schema_versions = get_all_directory_schema_versions(schema_name)
+
+    # Validate with each:
+    all_directory_schemas_errors = [
+        (directory_schema_version, _get_data_dir_errors_for_version(
+            schema_name, data_path, dataset_ignore_globs, directory_schema_version.version))
+        for directory_schema_version in all_directory_schema_versions
+    ]
+
+    # Sort for simpler errors at the top:
+    all_directory_schemas_errors.sort(key=_get_ugliness)
+
+    # Return the best:
+    return all_directory_schemas_errors[0][0]
+
+
+def _get_ugliness(schema_error):
+    '''
+    Quantify the ugliness of errors:
+    Assume that the least ugly error corresponds to the best schema to validate against.
+
+    >>> good = ({}, None)
+    >>> bad = ({}, {'something': 'bad'})
+    >>> worse = ({}, {'something': ['worse']})
+    >>> worst = ({}, 'Deprecated')
+    >>> assert _get_ugliness(good) < _get_ugliness(bad)
+    >>> assert _get_ugliness(bad) < _get_ugliness(worse)
+    >>> assert _get_ugliness(worse) < _get_ugliness(worst)
+    '''
+    (_schema, error) = schema_error
+    if error is None:
+        return 0
+    as_json = dumps(schema_error, indent=0)
+    if 'Deprecated' in as_json:
+        # TODO: Improve this logic.
+        return 999
+    return len(as_json.split('\n'))
 
 
 def get_data_dir_errors(schema_name, data_path, dataset_ignore_globs=[]):
     '''
     Validate a single data_path.
     '''
-    schema = get_directory_schema(schema_name)
+    directory_schema_version = _get_best_directory_schema_version(
+        schema_name, data_path, dataset_ignore_globs).version
+    return _get_data_dir_errors_for_version(
+        schema_name, data_path, dataset_ignore_globs, directory_schema_version)
+
+
+def _get_data_dir_errors_for_version(
+        schema_name, data_path, dataset_ignore_globs, directory_schema_version):
+    schema = get_directory_schema(schema_name, directory_schema_version)
+    schema_label = f'{schema_name}-v{directory_schema_version}'
+
+    if schema is None:
+        return {'Undefined directory schema': schema_label}
+
+    schema_warning = {'Deprecated directory schema': schema_label} \
+        if schema.get('deprecated', False) else None
+
     try:
         validate_directory(
-            data_path, schema, dataset_ignore_globs=dataset_ignore_globs)
+            data_path, schema['files'], dataset_ignore_globs=dataset_ignore_globs)
     except DirectoryValidationErrors as e:
+        # If there are DirectoryValidationErrors and the schema is deprecated...
+        #    schema deprecation is more important.
+        if schema_warning:
+            return schema_warning
         return e.errors
     except OSError as e:
+        # If there are OSErrors and the schema is deprecated...
+        #    the OSErrors are more important.
         return {e.strerror: e.filename}
+    if schema_warning:
+        return schema_warning
+
+    # No problems!
+    return None
 
 
 def get_context_of_decode_error(e):

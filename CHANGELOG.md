@@ -1,5 +1,6 @@
 # Changelog
 ## v0.0.14 - in progress
+- Implement versioning for directory schemas.
 - Dependabot upgrade to Nokogiri.
 - Remove reference to old Travis envvar, so post-merge CI run will pass.
 - Explain the distinction between the 10X kit versions.
@@ -76,6 +77,8 @@
 - Sample was being skipped in doc generation. Fix that.
 - Add to enums for `perfusion_solutions` and `ms_source`.
 - Upgrade from dependabot.
+- CLEANUP-sc_isolation_entity
+- cleanup resolution_z_unit
 
 ## v0.0.12 - 2021-07-23
 - Catch unrecognized keys in dir schema.

@@ -13,11 +13,12 @@ Related files:
 
 This schema is for multiplex immunofluorescence microscopy (MxIF).
 
-## Directory schema
+## Directory schemas
+### v0
 
 | pattern | required? | description |
 | --- | --- | --- |
-| <code>TODO</code> | ✓ | Directory structure not yet specified. https://github.com/hubmapconsortium/ingest-validation-tools/issues/449 |
+| <code>TODO</code> | ✓ | Directory structure not yet specified. |
 | <code>extras/.*</code> |  | Free-form descriptive information supplied by the TMC |
 
 ## Metadata schema
