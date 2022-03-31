@@ -169,7 +169,7 @@ fields:
     forbid_na: true
   type: string
 - name: sc_isolation_entity
-  description: The type of single cell entity derived from isolation protocol.
+  description: The type of single cell entity derived from isolation protocol
   constraints:
     enum:
     - whole cell
@@ -200,8 +200,7 @@ fields:
 - name: sc_isolation_quality_metric
   description: A quality metric by visual inspection prior to cell lysis or defined
     by known parameters such as wells with several cells or no cells. This can be
-    captured at a high level. "OK" or "not OK", or with more specificity such as "debris",
-    "clump", "low clump".
+    captured at a high level.
   constraints:
     required: true
   custom_constraints:

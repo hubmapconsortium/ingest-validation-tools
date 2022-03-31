@@ -13,7 +13,13 @@ Related files:
 
 This schema is for spatial sequencing by fluorescence in situ hybridization (seqFISH).
 
+## Directory schemas
+### v0
 
+| pattern | required? | description |
+| --- | --- | --- |
+| <code>TODO</code> | ✓ | Directory structure not yet specified. |
+| <code>extras/.*</code> |  | Free-form descriptive information supplied by the TMC |
 
 ## Metadata schema
 
