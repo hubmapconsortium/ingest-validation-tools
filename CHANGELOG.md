@@ -1,5 +1,6 @@
 # Changelog
 ## v0.0.14 - in progress
+- Pin transitive dependencies.
 - Dependabot upgrade to Nokogiri.
 - Remove reference to old Travis envvar, so post-merge CI run will pass.
 - Explain the distinction between the 10X kit versions.
