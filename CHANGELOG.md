@@ -1,6 +1,9 @@
 # Changelog
 ## v0.0.14 - in progress
 - New sample metadata schemas
+- Darker shade of blue, to be consistent with portal.
+- Dependabot upgrade to Nokogiri.
+- Remove reference to old Travis envvar, so post-merge CI run will pass.
 - Explain the distinction between the 10X kit versions.
 - Updated CODEX directory structure schema.
 - Added MIBI directory structure schema.

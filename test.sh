@@ -30,9 +30,11 @@ for TEST in tests/test-*; do
   fi
 done
 
-start changelog
-if [ "$TRAVIS_BRANCH" != 'main' ]; then
-  diff CHANGELOG.md <(curl -s https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/main/CHANGELOG.md) \
-    && die 'Update CHANGELOG.md'
+if [ "$GITHUB_REF_NAME" != 'main' ]; then
+  start changelog
+    diff CHANGELOG.md <(curl -s https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/main/CHANGELOG.md) \
+      && die 'Update CHANGELOG.md'
+  end changelog
 fi
-end changelog
+
+env | grep GITHUB
