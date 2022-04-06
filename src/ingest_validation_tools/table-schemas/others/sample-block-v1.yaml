@@ -1,0 +1,10 @@
+fields:
+# include: ../includes/sample-field-groups/header-fields.yaml
+# include: ../includes/sample-fields/type.yaml
+  constraints:
+    enum: ['block']
+# include: ../includes/sample-field-groups/source-fields.yaml
+# include: ../includes/sample-field-groups/block-fields.yaml
+# include: ../includes/sample-field-groups/prep-proc-storage-fields.yaml
+# include: ../includes/sample-fields/histological_report.yaml
+# include: ../includes/sample-fields/notes.yaml

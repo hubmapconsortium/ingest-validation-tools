@@ -1,0 +1,4 @@
+- name: suspension_enriched_target
+  description: 'If the suspension was enriched, then this is the target of the enrichment.'
+  constraints:
+    required: false

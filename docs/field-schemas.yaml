@@ -109,6 +109,12 @@ area_normalized_ion_dose_unit:
 - mibi
 area_normalized_ion_dose_value:
 - mibi
+area_unit:
+- sample-section
+- sample-suspension
+area_value:
+- sample-section
+- sample-suspension
 assay_category:
 - af
 - bulkatacseq
@@ -384,6 +390,9 @@ height_unit:
 - donor
 height_value:
 - donor
+histological_report:
+- sample-block
+- sample-section
 increment_z_unit:
 - lightsheet
 increment_z_value:
@@ -605,6 +614,10 @@ mz_resolving_power:
 - lcms
 name:
 - contributors
+notes:
+- sample-block
+- sample-section
+- sample-suspension
 number_of_antibodies:
 - celldive
 - codex
@@ -699,6 +712,8 @@ overall_protocols_io_doi:
 - stained
 pathologist_report:
 - sample
+pathology_distance_value:
+- sample-block
 perfusion_solution:
 - sample
 pi:
@@ -781,6 +796,14 @@ preparation_instrument_vendor:
 - seqfish
 preparation_maldi_matrix:
 - ims
+preparation_media:
+- sample-block
+- sample-section
+- sample-suspension
+preparation_temperature:
+- sample-block
+- sample-section
+- sample-suspension
 preparation_type:
 - ims
 primary_ion:
@@ -801,6 +824,14 @@ processing_search:
 - cems
 - gcms
 - lcms
+processing_time_unit:
+- sample-block
+- sample-section
+- sample-suspension
+processing_time_value:
+- sample-block
+- sample-section
+- sample-suspension
 protocols_io_doi:
 - af
 - bulkatacseq
@@ -826,6 +857,10 @@ protocols_io_doi:
 - wgs
 puck_id:
 - slideseq
+quality_criteria:
+- sample-block
+- sample-section
+- sample-suspension
 race:
 - donor
 range_z_unit:
@@ -931,6 +966,9 @@ rr_id:
 - antibodies
 sample_id:
 - sample
+- sample-block
+- sample-section
+- sample-suspension
 sample_quality_metric:
 - bulkatacseq
 sc_isolation_cell_number:
@@ -957,6 +995,9 @@ sc_isolation_tissue_dissociation:
 - scatacseq
 - scrnaseq
 - scrnaseq-hca
+section_index_number:
+- sample-section
+- sample-suspension
 section_prep_protocols_io_doi:
 - cems
 - codex
@@ -969,6 +1010,12 @@ section_prep_protocols_io_doi:
 - mxif
 - seqfish
 - stained
+section_thickness_unit:
+- sample-section
+- sample-suspension
+section_thickness_value:
+- sample-section
+- sample-suspension
 segment_data_format:
 - imc
 - imc3d
@@ -1013,6 +1060,14 @@ signal_type:
 - mibi
 source_project:
 - scrnaseq-hca
+source_storage_time_unit:
+- sample-block
+- sample-section
+- sample-suspension
+source_storage_time_value:
+- sample-block
+- sample-section
+- sample-suspension
 spatial_sampling_type:
 - cems
 - gcms
@@ -1040,6 +1095,14 @@ start_datetime:
 - mibi
 step_z_value:
 - lightsheet
+storage_media:
+- sample-block
+- sample-section
+- sample-suspension
+storage_temperature:
+- sample-block
+- sample-section
+- sample-suspension
 tissue_id:
 - af
 - bulkatacseq
@@ -1074,6 +1137,10 @@ transposition_method:
 transposition_transposase_source:
 - bulkatacseq
 - scatacseq
+type:
+- sample-block
+- sample-section
+- sample-suspension
 umi_offset:
 - scrnaseq
 umi_read:
@@ -1100,6 +1167,9 @@ version:
 - mibi
 - mxif
 - nano
+- sample-block
+- sample-section
+- sample-suspension
 - scatacseq
 - scrnaseq
 - seqfish
@@ -1108,12 +1178,18 @@ version:
 - wgs
 vital_state:
 - sample
+volume_unit:
+- sample-block
+volume_value:
+- sample-block
 warm_ischemia_time_unit:
 - sample
 warm_ischemia_time_value:
 - sample
 weight_unit:
 - donor
+- sample-block
 weight_value:
 - donor
+- sample-block
 
