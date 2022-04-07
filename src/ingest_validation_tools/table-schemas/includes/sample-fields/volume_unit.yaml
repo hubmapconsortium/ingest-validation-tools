@@ -1,0 +1,7 @@
+- name: volume_unit
+  description: 'Volume unit'
+  constraints:
+    required: false
+    enum:
+      - mm^3
+      - um^3

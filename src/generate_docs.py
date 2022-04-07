@@ -62,8 +62,11 @@ def main():
         schema = table_schemas[v]
         first_field = get_fields_wo_headers(schema)[0]
         if first_field['name'] == 'version':
-            assert first_field['constraints']['enum'] == [v], \
-                f'Wrong version constraint in {args.type}-v{v}.yaml'
+            expected = [v]
+            actual = first_field['constraints']['enum']
+            assert actual == expected, \
+                f'Wrong version constraint in {args.type}-v{v}.yaml; ' \
+                f'Expected {expected}; Actual {actual}'
         assert schema['fields'][0]
         with open(Path(args.target) / f'v{v}.yaml', 'w') as f:
             f.write(

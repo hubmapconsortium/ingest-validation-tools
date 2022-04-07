@@ -1,0 +1,4 @@
+- name: histological_report
+  description: 'histopathological reporting of key variables that are important for the tissue (absence of necrosis, comment on composition, significant pathology description, high level inflammation/fibrosis assessment etc'
+  constraints:
+    required: false

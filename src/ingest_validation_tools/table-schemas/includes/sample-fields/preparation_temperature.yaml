@@ -1,0 +1,12 @@
+- name: preparation_temperature
+  description: 'The temperature for the preparation process.'
+  constraints:
+    enum:
+      - Liquid Nitrogen
+      - Liquid Nitrogen Vapor
+      - Dry Ice
+      - -80 Celsius
+      - -20 Celsius
+      - 4 Celsius
+      - 24 Celsius (Room Temperature)
+      - 37 Celsius

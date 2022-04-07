@@ -1,0 +1,233 @@
+# Generated YAML: PRs should not start here!
+fields:
+- name: version
+  description: The version of the sample metadata specification used in the submission.
+  constraints:
+    enum:
+    - '1'
+    required: true
+  custom_constraints:
+    sequence_limit: 3
+    forbid_na: true
+- name: sample_id
+  description: The unique Submission ID for the sample assigned by the ingest portal.
+    An example value might be "VAN0010-LK-152-162".
+  constraints:
+    required: true
+  custom_constraints:
+    sequence_limit: 3
+    forbid_na: true
+- name: type
+  description: Denotes the type of sample, used to validate the field entries.
+  constraints:
+    enum:
+    - section
+    required: true
+  custom_constraints:
+    sequence_limit: 3
+    forbid_na: true
+- name: source_storage_time_value
+  description: The amount of time that elapsed between when the source was generated
+    and this sample was derived from the source. This would, for example, include
+    how long the source was stored in a freezer.
+  constraints:
+    required: true
+  custom_constraints:
+    sequence_limit: 3
+    forbid_na: true
+  type: number
+- name: source_storage_time_unit
+  description: Time unit
+  constraints:
+    enum:
+    - min
+    - hours
+    - days
+    - years
+    required: false
+  custom_constraints:
+    sequence_limit: 3
+    forbid_na: true
+    units_for: source_storage_time_value
+- name: preparation_media
+  description: The media used during preparation of the sample.
+  constraints:
+    enum:
+    - PFA (4%)
+    - Buffered Formalin (10% NBF)
+    - Non-Buffered Formalin (FOR)
+    - 1 x PBS
+    - OCT
+    - CMC
+    - MACS Tissue Storage Solution
+    - RNAlater
+    - Methanol
+    - Non-aldehyde based without acetic acid (NAA)
+    - Non-aldehyde with acetic acid (ACA)
+    - PAXgene tissue (PXT)
+    - Allprotect tissue reagent (ALL)
+    - None
+    required: true
+  custom_constraints:
+    sequence_limit: 3
+    forbid_na: true
+- name: preparation_temperature
+  description: The temperature for the preparation process.
+  constraints:
+    enum:
+    - Liquid Nitrogen
+    - Liquid Nitrogen Vapor
+    - Dry Ice
+    - -80 Celsius
+    - -20 Celsius
+    - 4 Celsius
+    - 24 Celsius (Room Temperature)
+    - 37 Celsius
+    required: true
+  custom_constraints:
+    sequence_limit: 3
+    forbid_na: true
+- name: processing_time_value
+  description: The amount of time that elapsed from beginning of sampling to the first
+    preservation (time from when received in lab to preservation). This would, for
+    example, represent how long it took to cut the tissue and freeze it.
+  constraints:
+    required: false
+  custom_constraints:
+    sequence_limit: 3
+    forbid_na: true
+  type: number
+- name: processing_time_unit
+  description: Time unit
+  constraints:
+    required: false
+    enum:
+    - min
+    - hours
+    - days
+  custom_constraints:
+    sequence_limit: 3
+    forbid_na: true
+    units_for: processing_time_value
+- name: storage_media
+  description: What was the sample preserved in.
+  constraints:
+    enum:
+    - PFA (4%)
+    - Buffered Formalin (10% NBF)
+    - Non-Buffered Formalin (FOR)
+    - 1 x PBS
+    - OCT Embedded
+    - CMC Embedded
+    - OCT Embedded Cryoprotected (sucrose)
+    - Paraffin Embedded
+    - MACS Tissue Storage Solution
+    - RNAlater
+    - Methanol
+    - Tris-EDTA
+    - 70% ethanol
+    - Serum + DMSO
+    - DMSO (no serum)
+    - PAXgene Tissue Kit (PXT)
+    - Allprotect Tissue Reagent (ALL)
+    - Sucrose Cryoprotection Solution
+    - Carboxymethylcellulose (CMC)
+    - None
+    required: true
+  custom_constraints:
+    sequence_limit: 3
+    forbid_na: true
+- name: storage_temperature
+  description: The temperature during storage, after preparation and before the assay
+    is performed.
+  constraints:
+    enum:
+    - Liquid Nitrogen (Unspecified)
+    - Liquid Nitrogen (Cryotube)
+    - Liquid Nitrogen (Straw)
+    - Liquid Nitrogen Vapor
+    - Dry Ice
+    - -80 Celsius (Unspecified)
+    - -80 Celsius (Cryotube)
+    - -80 Celsius (Straw)
+    - -20 Celsius
+    - 4 Celsius
+    - 24 Celsius (Room Temperature)
+    - 37 Celsius
+    required: true
+  custom_constraints:
+    sequence_limit: 3
+    forbid_na: true
+- name: quality_criteria
+  description: 'For example, RIN: 8.7. For suspensions, measured by visual inspection
+    prior to cell lysis or defined by known parameters such as wells with several
+    cells or no cells. This can be captured at a high level. "OK" or "not OK", or
+    with more specificity such as "debris", "clump", "low clump".'
+  constraints:
+    required: false
+  custom_constraints:
+    sequence_limit: 3
+    forbid_na: true
+- name: histological_report
+  description: histopathological reporting of key variables that are important for
+    the tissue (absence of necrosis, comment on composition, significant pathology
+    description, high level inflammation/fibrosis assessment etc
+  constraints:
+    required: false
+  custom_constraints:
+    sequence_limit: 3
+    forbid_na: true
+- name: section_thickness_value
+  description: Thickness of the section
+  constraints:
+    required: true
+  custom_constraints:
+    sequence_limit: 3
+    forbid_na: true
+  type: number
+- name: section_thickness_unit
+  description: Thickness unit
+  constraints:
+    enum:
+    - um
+    - mm
+    - cm
+    required: false
+  custom_constraints:
+    sequence_limit: 3
+    forbid_na: true
+    units_for: section_thickness_value
+- name: section_index_number
+  description: The index number for the section if the sample is a single section.
+  type: integer
+  constraints:
+    required: true
+  custom_constraints:
+    sequence_limit: 3
+    forbid_na: true
+- name: area_value
+  description: The area of a tissue section.
+  constraints:
+    required: false
+  custom_constraints:
+    sequence_limit: 3
+    forbid_na: true
+  type: number
+- name: area_unit
+  description: Area unit
+  constraints:
+    required: false
+    enum:
+    - mm^2
+    - um^2
+  custom_constraints:
+    sequence_limit: 3
+    forbid_na: true
+    units_for: area_value
+- name: notes
+  description: Notes
+  constraints:
+    required: false
+  custom_constraints:
+    sequence_limit: 3
+    forbid_na: true

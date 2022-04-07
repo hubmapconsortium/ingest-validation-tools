@@ -28,6 +28,8 @@ antibody_name: Anti-(target name) antibody. Not validated or used down-stream.
 area_normalized_ion_dose_unit: Area normalized ion dose unit
 area_normalized_ion_dose_value: Number of primary ions delivered to the sample per
   unit area
+area_unit: Area unit
+area_value: The area of a tissue section.
 assay_category: 'Each assay is placed into one of the following 4 general categories:
   generation of images of microscopic entities, identification & quantitation of molecules
   by mass spectrometry, imaging mass spectrometry, and determination of nucleotide
@@ -127,6 +129,9 @@ health_status: "Patient's baseline physical condition prior to immediate event l
 height_unit: Unit for height measurement.
 height_value: The vertical measurement or distance from the base to the top of a subject
   or participant.
+histological_report: histopathological reporting of key variables that are important
+  for the tissue (absence of necrosis, comment on composition, significant pathology
+  description, high level inflammation/fibrosis assessment etc
 increment_z_unit: The units of increment z value.
 increment_z_value: The distance between sequential optical sections.
 internal_standard: Specifies if internal standard was utilized and designates what
@@ -216,6 +221,7 @@ mz_range_high_value: The high value of the scanned mass range for MS1. (unitless
 mz_range_low_value: The low value of the scanned mass range for MS1. (unitless)
 mz_resolving_power: The peak (m/z) used to calculate the resolving power.
 name: Name for display
+notes: Notes
 number_of_antibodies: Number of antibodies
 number_of_barcode_probes: Number of barcode probes targeting mRNAs (eg. 24,000 barcode
   probes = 24,000 mRNAs - 1 per mRNA of interest)
@@ -239,6 +245,8 @@ orcid_id: ORCID ID of contributor
 organ_condition: Health status of the organ at the time of sample recovery.
 overall_protocols_io_doi: DOI for protocols.io for the overall process.
 pathologist_report: Further details on organ level QC checks.
+pathology_distance_value: If surgical sample, how far from the pathology was the sample
+  obtained. Typically a number of centimeters. Leave blank if not applicable or unknown.
 perfusion_solution: Type of solution that was used to perfuse the organ.
 pi: Name of the principal investigator responsible for the data.
 pi_email: Email address for the principal investigator.
@@ -258,6 +266,8 @@ preparation_instrument_vendor: The manufacturer of the instrument used to prepar
 preparation_maldi_matrix: The matrix is a compound of crystallized molecules that
   acts like a buffer between the sample and the laser. It also helps ionize the sample,
   carrying it along the flight tube so it can be detected.
+preparation_media: The media used during preparation of the sample.
+preparation_temperature: The temperature for the preparation process.
 preparation_type: Common methods of depositing matrix for MALDI imaging include robotic
   spotting, electrospray deposition, and spray-coating with an airbrush.
 primary_ion: Primary ion.
@@ -266,10 +276,18 @@ primary_ion_current_value: Primary ion current value.
 procedure_date: Date of procedure to procure organ.
 processing_protocols_io_doi: DOI for analysis protocols.io for this assay.
 processing_search: Software for analyzing and searching LC-MS/MS omics data
+processing_time_unit: Time unit
+processing_time_value: The amount of time that elapsed from beginning of sampling
+  to the first preservation (time from when received in lab to preservation). This
+  would, for example, represent how long it took to cut the tissue and freeze it.
 protocols_io_doi: DOI for protocols.io referring to the protocol for this assay.
 puck_id: Slide-seq captures RNA sequence data on spatially barcoded arrays of beads.
   Beads are fixed to a slide in a region shaped like a round puck. Each puck has a
   unique puck_id.
+quality_criteria: 'For example, RIN: 8.7. For suspensions, measured by visual inspection
+  prior to cell lysis or defined by known parameters such as wells with several cells
+  or no cells. This can be captured at a high level. "OK" or "not OK", or with more
+  specificity such as "debris", "clump", "low clump".'
 race: A grouping of humans based on shared physical characteristics or social/ethnic
   identity generally viewed as distinct.
 range_z_unit: The unit of range_z_value.
@@ -310,8 +328,11 @@ sc_isolation_quality_metric: A quality metric by visual inspection prior to cell
   can be captured at a high level.
 sc_isolation_tissue_dissociation: The method by which tissues are dissociated into
   single cells in suspension.
+section_index_number: The index number for the section if the sample is a single section.
 section_prep_protocols_io_doi: DOI for protocols.io referring to the protocol for
   preparing tissue sections for the assay.
+section_thickness_unit: Thickness unit
+section_thickness_value: Thickness of the section
 segment_data_format: This refers to the data type, which is a "float" for the IMC
   counts.
 sequencing_phix_percent: Percent PhiX loaded to the run
@@ -324,6 +345,10 @@ sex: 'Biological sex at birth: male or female or other.'
 signal_type: Type of signal measured per channel (usually dual counts)
 source_project: External source (outside of HuBMAP) of the project, eg. HCA (The Human
   Cell Atlas Consortium).
+source_storage_time_unit: Time unit
+source_storage_time_value: The amount of time that elapsed between when the source
+  was generated and this sample was derived from the source. This would, for example,
+  include how long the source was stored in a freezer.
 spatial_sampling_type: Specifies whether or not the analysis was performed in a spatially
   targeted manner. Spatial profiling experiments target specific tissue foci but do
   not necessarily generate images. Spatial imaging expriments collect data from a
@@ -347,12 +372,16 @@ stain: Chemical stains (dyes) applied to histology samples to highlight importan
   features of the tissue as well as to enhance the tissue contrast.
 start_datetime: Time stamp indicating start of ablation for ROI
 step_z_value: The number of optical sections in z axis range.
+storage_media: What was the sample preserved in.
+storage_temperature: The temperature during storage, after preparation and before
+  the assay is performed.
 tissue_id: HuBMAP Display ID of the assayed tissue.
 transposition_input: Number of cell/nuclei input to the assay.
 transposition_kit_number: If Tn5 came from a kit, provide the catalog number.
 transposition_method: Modality of capturing accessible chromatin molecules.
 transposition_transposase_source: The source of the Tn5 transposase and transposon
   used for capturing accessible chromatin.
+type: Denotes the type of sample, used to validate the field entries.
 umi_offset: Position in the read at which the umi barcode starts.
 umi_read: Which read file(s) contains the UMI (unique molecular identifier) barcode.
 umi_size: Length of the umi barcode in base pairs.
@@ -360,10 +389,11 @@ uniprot_accession_number: The uniprot_accession_number is a unique identifier fo
   proteins in the UniProt database (https://www.uniprot.org).
 version: Version of the schema to use when validating this metadata.
 vital_state: Identify the vital state of the donor.
+volume_unit: Volume unit
+volume_value: The volume of a tissue block.
 warm_ischemia_time_unit: Time unit
 warm_ischemia_time_value: Time interval between cessation of blood flow and cooling
   to 4C.
-weight_unit: Unit for weight measurement.
-weight_value: A measurement that describes the vertical force exerted by a mass of
-  the patient as a result of gravity.
+weight_unit: Weight unit
+weight_value: Weight of a tissue block
 

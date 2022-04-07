@@ -1,0 +1,3 @@
+- name: section_index_number
+  description: 'The index number for the section if the sample is a single section.'
+  type: integer

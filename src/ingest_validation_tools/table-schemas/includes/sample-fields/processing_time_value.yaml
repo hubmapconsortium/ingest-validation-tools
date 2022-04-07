@@ -1,0 +1,4 @@
+- name: processing_time_value
+  description: 'The amount of time that elapsed from beginning of sampling to the first preservation (time from when received in lab to preservation). This would, for example, represent how long it took to cut the tissue and freeze it.'
+  constraints:
+    required: false
