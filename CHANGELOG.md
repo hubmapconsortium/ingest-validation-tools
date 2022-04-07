@@ -1,5 +1,6 @@
 # Changelog
 ## v0.0.14 - in progress
+- Pin transitive dependencies.
 - New sample metadata schemas
 - Darker shade of blue, to be consistent with portal.
 - Dependabot upgrade to Nokogiri.
