@@ -712,6 +712,8 @@ overall_protocols_io_doi:
 - stained
 pathologist_report:
 - sample
+pathology_distance_unit:
+- sample-block
 pathology_distance_value:
 - sample-block
 perfusion_solution:

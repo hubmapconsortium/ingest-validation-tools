@@ -35,6 +35,7 @@ Related files:
 [`volume_value`](#volume_value)<br>
 [`volume_unit`](#volume_unit)<br>
 [`pathology_distance_value`](#pathology_distance_value)<br>
+[`pathology_distance_unit`](#pathology_distance_unit)<br>
 [`preparation_media`](#preparation_media)<br>
 [`preparation_temperature`](#preparation_temperature)<br>
 [`processing_time_value`](#processing_time_value)<br>
@@ -138,6 +139,16 @@ If surgical sample, how far from the pathology was the sample obtained. Typicall
 | --- | --- |
 | type | `number` |
 | required | `False` |
+
+<a name="pathology_distance_unit"></a>
+##### [`pathology_distance_unit`](#pathology_distance_unit)
+Distance unit. Leave blank if not applicable.
+
+| constraint | value |
+| --- | --- |
+| enum | `mm` or `cm` |
+| required | `False` |
+| units for | `pathology_distance_value` |
 
 <a name="preparation_media"></a>
 ##### [`preparation_media`](#preparation_media)

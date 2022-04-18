@@ -151,6 +151,7 @@ orcid_id: string
 organ_condition: string
 overall_protocols_io_doi: string
 pathologist_report: string
+pathology_distance_unit: string
 pathology_distance_value: number
 perfusion_solution: string
 pi: string

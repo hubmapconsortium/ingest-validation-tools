@@ -304,6 +304,8 @@ overall_protocols_io_doi:
 - dataset
 pathologist_report:
 - sample
+pathology_distance_unit:
+- sample
 pathology_distance_value:
 - sample
 perfusion_solution:
