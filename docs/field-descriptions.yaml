@@ -245,6 +245,7 @@ orcid_id: ORCID ID of contributor
 organ_condition: Health status of the organ at the time of sample recovery.
 overall_protocols_io_doi: DOI for protocols.io for the overall process.
 pathologist_report: Further details on organ level QC checks.
+pathology_distance_unit: Distance unit
 pathology_distance_value: If surgical sample, how far from the pathology was the sample
   obtained. Typically a number of centimeters. Leave blank if not applicable or unknown.
 perfusion_solution: Type of solution that was used to perfuse the organ.

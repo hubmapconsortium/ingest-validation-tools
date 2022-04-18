@@ -97,6 +97,17 @@ fields:
     sequence_limit: 3
     forbid_na: true
   type: number
+- name: pathology_distance_unit
+  description: Distance unit
+  constraints:
+    enum:
+    - mm
+    - cm
+    required: false
+  custom_constraints:
+    sequence_limit: 3
+    forbid_na: true
+    units_for: pathology_distance_value
 - name: preparation_media
   description: The media used during preparation of the sample.
   constraints:
