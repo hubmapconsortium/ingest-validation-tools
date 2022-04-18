@@ -25,7 +25,7 @@ for TEST in tests/test-*; do
   if [[ -z $CONTINUE_FROM ]] || [[ $CONTINUE_FROM = $TEST ]]; then
     CONTINUE_FROM=''
     start $TEST
-    eval $TEST
+    eval $TEST || die "To continue from here: ./test.sh $TEST"
     end $TEST
   fi
 done
