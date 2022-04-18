@@ -3,7 +3,7 @@ from string import Template
 from pathlib import Path
 from sys import stderr
 import json
-from typing import List, Callable, Dict, Any
+from typing import List, Callable, Dict
 
 import frictionless
 import requests

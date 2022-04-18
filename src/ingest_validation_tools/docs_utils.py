@@ -7,11 +7,11 @@ from typing import Dict, Any
 from ingest_validation_tools.schema_loader import get_field_enum, get_fields_wo_headers
 
 
-def get_tsv_name(type: str, is_assay: bool=True) -> str:
+def get_tsv_name(type: str, is_assay: bool = True) -> str:
     return f'{type}{"-metadata" if is_assay else ""}.tsv'
 
 
-def get_xlsx_name(type: str, is_assay: bool=True) -> str:
+def get_xlsx_name(type: str, is_assay: bool = True) -> str:
     return f'{type}{"-metadata" if is_assay else ""}.xlsx'
 
 
@@ -154,7 +154,7 @@ def generate_readme_md(
                 max_version_table_schema,
                 f'Version {max_version} (current{optional_release_date})',
                 is_open=True
-            ),
+        ),
         'previous_versions_md':
             '\n\n'.join([
                 _make_fields_md(table_schemas[str(v)], f'Version {v}')

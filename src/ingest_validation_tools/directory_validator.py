@@ -10,7 +10,8 @@ class DirectoryValidationErrors(Exception):
         self.errors = errors
 
 
-def validate_directory(path: Path, schema_files: List[Dict], dataset_ignore_globs: List[str] = []) -> None:
+def validate_directory(
+        path: Path, schema_files: List[Dict], dataset_ignore_globs: List[str] = []) -> None:
     '''
     Given a directory path, and a directory schema,
     raise DirectoryValidationErrors if there are errors.
