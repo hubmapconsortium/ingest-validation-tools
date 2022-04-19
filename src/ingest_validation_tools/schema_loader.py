@@ -136,7 +136,7 @@ def _assay_to_schema_name(assay_type: str, source_project: str) -> str:
     raise PreflightError(message)
 
 
-def list_table_schema_versions():
+def list_table_schema_versions() -> List[SchemaVersion]:
     '''
     >>> list_table_schema_versions()[0]
     SchemaVersion(schema_name='af', version='0')
@@ -145,9 +145,10 @@ def list_table_schema_versions():
     schema_paths = list((_table_schemas_path / 'assays').iterdir()) + \
         list((_table_schemas_path / 'others').iterdir())
     stems = sorted(p.stem for p in schema_paths if p.suffix == '.yaml')
-    return [
-        SchemaVersion(*re.match(r'(.+)-v(\d+)', stem).groups()) for stem in stems
-    ]
+    v_matches = [re.match(r'(.+)-v(\d+)', stem) for stem in stems]
+    if not all(v_matches):
+        raise Exception('All YAML should have version: {stems}')
+    return [SchemaVersion(*v_match.groups()) for v_match in v_matches if v_match]
 
 
 def dict_table_schema_versions():
