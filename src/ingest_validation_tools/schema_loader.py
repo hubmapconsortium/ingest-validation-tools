@@ -338,7 +338,7 @@ def _validate_level_1_enum(field: dict) -> None:
             f'Allowed: {sorted(allowed)}'
 
 
-def _add_constraints(field: dict, optional_fields: List[str], offline=None, names: List[str]=[]):
+def _add_constraints(field: dict, optional_fields: List[str], offline=None, names: List[str]=[]) -> None:
     '''
     Modifies field in-place, adding implicit constraints
     based on the field name.
