@@ -2,7 +2,7 @@ from pathlib import Path
 from collections import (defaultdict, namedtuple)
 from copy import deepcopy
 import re
-from typing import List, Dict, Any
+from typing import List, Dict, Any, Set, Sequence, Optional
 
 from ingest_validation_tools.yaml_include_loader import load_yaml
 from ingest_validation_tools.enums import shared_enums
@@ -151,7 +151,7 @@ def list_table_schema_versions() -> List[SchemaVersion]:
     return [SchemaVersion(*v_match.groups()) for v_match in v_matches if v_match]
 
 
-def dict_table_schema_versions():
+def dict_table_schema_versions() -> Dict[str, Set[str]]:
     '''
     >>> sorted(dict_table_schema_versions()['af'])
     ['0', '1']
@@ -163,7 +163,7 @@ def dict_table_schema_versions():
     return dict_of_sets
 
 
-def list_directory_schema_versions():
+def list_directory_schema_versions() -> List[SchemaVersion]:
     '''
     >>> list_directory_schema_versions()[0]
     SchemaVersion(schema_name='af', version='0')
@@ -176,35 +176,39 @@ def list_directory_schema_versions():
     ]
 
 
-def _parse_schema_version(stem):
+def _parse_schema_version(stem: str) -> Sequence[str]:
     '''
     >>> _parse_schema_version('abc-v0')
     ('abc', '0')
     >>> _parse_schema_version('xyz-v99-is the_best!')
     ('xyz', '99-is the_best!')
     '''
-    return re.match(r'(.+)-v(\d+.*)', stem).groups()
+    v_match = re.match(r'(.+)-v(\d+.*)', stem)
+    if not v_match:
+        raise Exception(f'No v match in "{stem}"')
+    return v_match.groups()
 
 
-def get_all_directory_schema_versions(schema_name):
+def get_all_directory_schema_versions(schema_name: str) -> List[SchemaVersion]:
     return [
         version for version in list_directory_schema_versions()
         if version.schema_name == schema_name
     ]
 
 
-def dict_directory_schema_versions():
+def dict_directory_schema_versions() -> Dict[str, Set[str]]:
     dict_of_sets = defaultdict(set)
     for sv in list_directory_schema_versions():
         dict_of_sets[sv.schema_name].add(sv.version)
     return dict_of_sets
 
 
-def _get_schema_filename(schema_name, version):
+def _get_schema_filename(schema_name: str, version: str) -> str:
     return f'{schema_name}-v{version}.yaml'
 
 
-def get_other_schema(schema_name, version, offline=None, keep_headers=False):
+def get_other_schema(schema_name: str, version: str, offline=None,
+                     keep_headers: bool = False) -> dict:
     schema = load_yaml(
         _table_schemas_path / 'others' /
         _get_schema_filename(schema_name, version))
@@ -220,12 +224,18 @@ def get_other_schema(schema_name, version, offline=None, keep_headers=False):
     return schema
 
 
-def get_is_assay(schema_name):
+def get_is_assay(schema_name: str) -> bool:
     # TODO: read from file system... but larger refactor may make it redundant.
     return schema_name not in ['donor', 'sample', 'antibodies', 'contributors']
 
 
-def get_table_schema(schema_name, version, optional_fields=[], offline=None, keep_headers=False):
+def get_table_schema(
+    schema_name: str,
+    version: str,
+    optional_fields: List[str] = [],
+    offline=None,
+    keep_headers: bool = False
+) -> dict:
     schema = load_yaml(
         _table_schemas_path / 'assays' /
         _get_schema_filename(schema_name, version))
@@ -249,7 +259,7 @@ def get_table_schema(schema_name, version, optional_fields=[], offline=None, kee
     return schema
 
 
-def get_directory_schema(directory_type, schema_version):
+def get_directory_schema(directory_type: str, schema_version: str) -> Optional[dict]:
     directory_schema_path = _directory_schemas_path / \
         _get_schema_filename(directory_type, schema_version)
     if not directory_schema_path.exists():
@@ -265,12 +275,12 @@ def get_directory_schema(directory_type, schema_version):
     return schema
 
 
-def _validate_field(field):
+def _validate_field(field: dict) -> None:
     if field['name'].endswith('_unit') and 'enum' not in field['constraints']:
         raise Exception('"_unit" fields must have enum constraints', field)
 
 
-def _add_level_1_description(field):
+def _add_level_1_description(field: dict) -> None:
     if 'description' in field:
         return
     descriptions = {
@@ -286,7 +296,7 @@ def _add_level_1_description(field):
         field['description'] = descriptions[name]
 
 
-def _validate_level_1_enum(field):
+def _validate_level_1_enum(field: dict) -> None:
     '''
     >>> field = {'name': 'assay_category'}
     >>> _validate_level_1_enum(field)
@@ -328,7 +338,7 @@ def _validate_level_1_enum(field):
             f'Allowed: {sorted(allowed)}'
 
 
-def _add_constraints(field, optional_fields, offline=None, names=None):
+def _add_constraints(field: dict, optional_fields: List[str], offline=None, names: List[str]=[]):
     '''
     Modifies field in-place, adding implicit constraints
     based on the field name.
