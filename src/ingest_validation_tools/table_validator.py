@@ -1,6 +1,6 @@
 import csv
 from pathlib import Path
-from typing import List
+from typing import List, Optional
 
 import frictionless
 
@@ -36,7 +36,7 @@ def get_table_errors(tsv: str, schema: dict) -> List[str]:
     ]
 
 
-def _get_pre_flight_errors(tsv_path, schema):
+def _get_pre_flight_errors(tsv_path: Path, schema: dict) -> Optional[List[str]]:
     try:
         dialect = csv.Sniffer().sniff(tsv_path.read_text())
     except csv.Error as e:
@@ -49,7 +49,7 @@ def _get_pre_flight_errors(tsv_path, schema):
     # Re-reading the file is ugly, but creating a stream seems gratuitous.
     with tsv_path.open() as tsv_handle:
         reader = csv.DictReader(tsv_handle, dialect=dialect)
-        fields = reader.fieldnames
+        fields = reader.fieldnames or []
         expected_fields = [f['name'] for f in schema['fields']]
         if fields != expected_fields:
             errors = []
