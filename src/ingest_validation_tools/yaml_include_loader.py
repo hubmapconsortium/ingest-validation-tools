@@ -11,16 +11,18 @@
 # rather than after the YAML parse.
 
 import re
+from pathlib import Path
+from typing import Callable
 
 import yaml
 
 
-def load_yaml(path):
+def load_yaml(path: Path) -> dict:
     expanded_text = _load_includes(path)
     return yaml.safe_load(expanded_text)
 
 
-def _load_includes(path, indent=0):
+def _load_includes(path: Path, indent: int = 0) -> str:
     text = path.read_text()
     if re.match(r'\s', text[0]):
         raise Exception(f'Unexpected padding in the first column: {path}')
@@ -42,7 +44,7 @@ def _load_includes(path, indent=0):
     return indented_expanded_text
 
 
-def _expand_match_generator(parent_dir):
+def _expand_match_generator(parent_dir: Path) -> Callable:
     def _expand_match(match):
         expanded = _load_includes(
             parent_dir / match.group(2),
