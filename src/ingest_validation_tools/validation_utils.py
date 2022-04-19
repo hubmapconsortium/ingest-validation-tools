@@ -1,9 +1,11 @@
 import logging
 from csv import DictReader
 from pathlib import Path
+from typing import List, Optional
+from collections import OrderedDict
 
 from ingest_validation_tools.schema_loader import (
-    get_table_schema, get_other_schema,
+    SchemaVersion, get_table_schema, get_other_schema,
     get_directory_schema)
 from ingest_validation_tools.directory_validator import (
     validate_directory, DirectoryValidationErrors)
@@ -18,13 +20,13 @@ class TableValidationErrors(Exception):
     pass
 
 
-def dict_reader_wrapper(path, encoding):
+def dict_reader_wrapper(path, encoding: str) -> List[OrderedDict]:
     with open(path, encoding=encoding) as f:
         rows = list(DictReader(f, dialect='excel-tab'))
     return rows
 
 
-def get_table_schema_version(path, encoding):
+def get_table_schema_version(path, encoding: str) -> SchemaVersion:
     try:
         rows = dict_reader_wrapper(path, encoding)
     except UnicodeDecodeError as e:
@@ -36,7 +38,7 @@ def get_table_schema_version(path, encoding):
     return get_table_schema_version_from_row(path, rows[0])
 
 
-def _get_directory_schema_version(data_path):
+def _get_directory_schema_version(data_path: Path) -> str:
     prefix = 'dir-schema-v'
     version_hints = [path.name for path in (data_path / 'extras').glob(f'{prefix}*')]
     len_hints = len(version_hints)
@@ -48,7 +50,8 @@ def _get_directory_schema_version(data_path):
         raise Exception(f'Expect 0 or 1 hints, not {len_hints}: {version_hints}')
 
 
-def get_data_dir_errors(schema_name, data_path, dataset_ignore_globs=[]):
+def get_data_dir_errors(schema_name: str, data_path: Path,
+                        dataset_ignore_globs: List[str] = []) -> Optional[dict]:
     '''
     Validate a single data_path.
     '''
@@ -58,7 +61,11 @@ def get_data_dir_errors(schema_name, data_path, dataset_ignore_globs=[]):
 
 
 def _get_data_dir_errors_for_version(
-        schema_name, data_path, dataset_ignore_globs, directory_schema_version):
+        schema_name: str,
+        data_path: Path,
+        dataset_ignore_globs: List[str],
+        directory_schema_version: str
+) -> Optional[dict]:
     schema = get_directory_schema(schema_name, directory_schema_version)
     schema_label = f'{schema_name}-v{directory_schema_version}'
 
@@ -88,7 +95,7 @@ def _get_data_dir_errors_for_version(
     return None
 
 
-def get_context_of_decode_error(e):
+def get_context_of_decode_error(e: UnicodeDecodeError) -> str:
     '''
     >>> try:
     ...   b'\\xFF'.decode('ascii')
@@ -120,8 +127,8 @@ def get_context_of_decode_error(e):
 
 
 def get_tsv_errors(
-        tsv_path, schema_name, optional_fields=[],
-        offline=None, encoding=None, ignore_deprecation=False):
+        tsv_path: str, schema_name: str, optional_fields: List[str] = [],
+        offline=None, encoding: str = 'utf-8', ignore_deprecation: bool = False):
     '''
     Validate the TSV.
 
