@@ -1,3 +1,6 @@
+from typing import Dict, List
+
+
 '''
 >>> import requests
 >>> local_names = shared_enums['assay_type']
@@ -17,7 +20,7 @@
 #       _validate_level_1_enum() can be renabled in schema_loader.py.
 #       https://github.com/hubmapconsortium/ingest-validation-tools/issues/1023
 
-shared_enums = {
+shared_enums: Dict[str, List[str]] = {
     'assay_category': [
         'imaging',
         'mass_spectrometry',

@@ -16,7 +16,7 @@ Row = Dict[str, Any]
 Check = Callable[[Row], ErrorIterator]
 
 
-def make_checks(schema) -> List[Callable]:
+def make_checks(schema) -> List[Check]:
     factory = _CheckFactory(schema)
     return [
         factory.make_url_check(),

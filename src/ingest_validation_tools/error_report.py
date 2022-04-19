@@ -3,6 +3,7 @@ from yaml import Dumper, dump
 from webbrowser import open_new_tab
 from pathlib import Path
 from yattag import Doc, indent
+from typing import List
 
 from ingest_validation_tools.message_munger import munge
 
@@ -28,25 +29,25 @@ class ErrorReport:
         )
         return f'No errors! {schema_versions}\n'
 
-    def _as_list(self):
+    def _as_list(self) -> List[str]:
         return [munge(m) for m in _build_list(self.errors)]
 
-    def as_text_list(self):
+    def as_text_list(self) -> str:
         return '\n'.join(self._as_list()) or self._no_errors()
 
-    def as_yaml(self):
+    def as_yaml(self) -> str:
         return dump(self.errors, sort_keys=False)
 
-    def as_text(self):
+    def as_text(self) -> str:
         if not self.errors:
             return self._no_errors()
         else:
             return self.as_yaml()
 
-    def as_md(self):
+    def as_md(self) -> str:
         return f'```\n{self.as_text()}```'
 
-    def as_html_fragment(self):
+    def as_html_fragment(self) -> str:
         '''
         >>> print(ErrorReport({}).as_html_fragment().strip())
         No errors!
@@ -67,7 +68,7 @@ class ErrorReport:
         _build_doc(tag, line, self.errors)
         return indent(doc.getvalue())
 
-    def as_html_doc(self):
+    def as_html_doc(self) -> str:
         doc, tag, text, line = Doc().ttl()
         for_each = "Array.from(document.getElementsByTagName('details')).forEach"
         with tag('html'):
@@ -90,7 +91,7 @@ ul {
                 _build_doc(tag, line, self.errors)
         return '<!DOCTYPE html>\n' + indent(doc.getvalue())
 
-    def as_browser(self):
+    def as_browser(self) -> str:
         if not self.errors:
             return self.as_text()
         html = self.as_html_doc()
@@ -102,7 +103,7 @@ ul {
         return f'See {url}'
 
 
-def _build_list(anything, path=None):
+def _build_list(anything, path=None) -> List[str]:
     '''
     >>> flat = _build_list({
     ...     'nested dict': {

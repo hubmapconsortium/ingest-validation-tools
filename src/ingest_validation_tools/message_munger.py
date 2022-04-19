@@ -1,7 +1,7 @@
 from re import sub
 
 
-def munge(message):
+def munge(message: str) -> str:
     '''
     Make the error message less informative.
 

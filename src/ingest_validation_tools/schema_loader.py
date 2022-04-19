@@ -2,6 +2,7 @@ from pathlib import Path
 from collections import (defaultdict, namedtuple)
 from copy import deepcopy
 import re
+from typing import List, Dict, Any
 
 from ingest_validation_tools.yaml_include_loader import load_yaml
 from ingest_validation_tools.enums import shared_enums
@@ -12,7 +13,7 @@ _directory_schemas_path = Path(__file__).parent / 'directory-schemas'
 _pipeline_infos_path = Path(__file__).parent / 'pipeline-infos/pipeline-infos.yaml'
 
 
-def get_pipeline_infos(name):
+def get_pipeline_infos(name: str) -> List[str]:
     infos = load_yaml(_pipeline_infos_path)
     return infos.get(name, [])
 
@@ -24,11 +25,11 @@ class PreflightError(Exception):
 SchemaVersion = namedtuple('SchemaVersion', ['schema_name', 'version'])
 
 
-def get_fields_wo_headers(schema):
+def get_fields_wo_headers(schema: dict) -> List[dict]:
     return [field for field in schema['fields'] if not isinstance(field, str)]
 
 
-def get_field_enum(field_name, schema):
+def get_field_enum(field_name: str, schema: dict) -> List[str]:
     fields_wo_headers = get_fields_wo_headers(schema)
     fields = [
         field for field in fields_wo_headers
@@ -40,7 +41,7 @@ def get_field_enum(field_name, schema):
     return fields[0]['constraints']['enum']
 
 
-def get_table_schema_version_from_row(path, row):
+def get_table_schema_version_from_row(path: str, row: Dict[str, Any]) -> SchemaVersion:
     '''
     >>> try: get_table_schema_version_from_row('empty', {'bad-column': 'bad-value'})
     ... except Exception as e: print(e)
@@ -71,7 +72,7 @@ def get_table_schema_version_from_row(path, row):
     return SchemaVersion(schema_name, version)
 
 
-def _assay_to_schema_name(assay_type, source_project):
+def _assay_to_schema_name(assay_type: str, source_project: str) -> str:
     '''
     Given an assay name, and a source_project (may be None),
     read all the schemas until one matches.
@@ -124,7 +125,10 @@ def _assay_to_schema_name(assay_type, source_project):
             if source_project not in source_project_enum:
                 continue
 
-        return re.match(r'.+(?=-v\d+)', path.stem)[0]
+        v_match = re.match(r'.+(?=-v\d+)', path.stem)
+        if not v_match:
+            raise PreflightError(f'No version in {path}')
+        return v_match[0]
 
     message = f"No schema where '{assay_type}' is assay_type"
     if source_project is not None:
