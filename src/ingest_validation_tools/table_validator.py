@@ -1,6 +1,6 @@
 import csv
 from pathlib import Path
-from typing import List, Optional
+from typing import List, Optional, Dict
 
 import frictionless
 
@@ -72,7 +72,7 @@ def _get_pre_flight_errors(tsv_path: Path, schema: dict) -> Optional[List[str]]:
     return None
 
 
-def _get_message(error):
+def _get_message(error: Dict[str, str]) -> str:
     '''
     >>> print(_get_message({
     ...     'cell': 'bad-id',
