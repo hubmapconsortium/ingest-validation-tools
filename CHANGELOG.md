@@ -1,5 +1,6 @@
 # Changelog
 ## v0.0.14 - in progress
+- After failure, explain how to continue testing from last error.
 - Add `pathology_distance_unit` in place.
 - Pin transitive dependencies.
 - New sample metadata schemas
