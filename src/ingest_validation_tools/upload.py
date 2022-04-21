@@ -64,7 +64,7 @@ class Upload:
     #
     #####################
 
-    def get_errors(self, **kwargs):
+    def get_errors(self, **kwargs) -> dict:
         # This creates a deeply nested dict.
         # Keys are present only if there is actually an error to report.
         # plugin_kwargs are passed to the plugin validators.
@@ -104,7 +104,7 @@ class Upload:
     #
     ###################################
 
-    def _get_tsv_errors(self):
+    def _get_tsv_errors(self) -> dict:
         if not self.effective_tsv_paths:
             return {'Missing': 'There are no effective TSVs.'}
 
@@ -135,7 +135,7 @@ class Upload:
                 errors[f'{path} (as {schema_name})'] = single_tsv_errors
         return errors
 
-    def _get_reference_errors(self):
+    def _get_reference_errors(self) -> dict:
         errors = {}
         no_ref_errors = self.__get_no_ref_errors()
         try:
@@ -148,7 +148,7 @@ class Upload:
             errors['Multiple References'] = multi_ref_errors
         return errors
 
-    def _get_plugin_errors(self, **kwargs):
+    def _get_plugin_errors(self, **kwargs) -> dict:
         plugin_path = self.plugin_directory
         if not plugin_path:
             return None
@@ -170,7 +170,7 @@ class Upload:
     #
     ##############################
 
-    def __get_ref_errors(self, ref_type, path, assay_type):
+    def __get_ref_errors(self, ref_type: str, path: Path, assay_type: str) -> dict:
         if ref_type == 'data':
             return get_data_dir_errors(
                 assay_type, path, dataset_ignore_globs=self.dataset_ignore_globs)
@@ -180,14 +180,14 @@ class Upload:
                 offline=self.offline, encoding=self.encoding,
                 ignore_deprecation=self.ignore_deprecation)
 
-    def __get_assay_tsv_errors(self, assay_type, path):
+    def __get_assay_tsv_errors(self, assay_type: str, path: Path) -> dict:
         return get_tsv_errors(
             schema_name=assay_type, tsv_path=path,
             offline=self.offline, encoding=self.encoding,
             optional_fields=self.optional_fields,
             ignore_deprecation=self.ignore_deprecation)
 
-    def __get_assay_reference_errors(self, assay_type, path):
+    def __get_assay_reference_errors(self, assay_type: str, path: Path) -> dict:
         try:
             rows = dict_reader_wrapper(path, self.encoding)
         except UnicodeDecodeError as e:
@@ -213,7 +213,7 @@ class Upload:
 
         return errors
 
-    def __get_no_ref_errors(self):
+    def __get_no_ref_errors(self) -> dict:
         if not self.directory_path:
             return {}
         referenced_data_paths = set(self.__get_data_references().keys()) \
@@ -237,7 +237,7 @@ class Upload:
             errors['Files'] = unreferenced_file_paths
         return errors
 
-    def __get_multi_ref_errors(self):
+    def __get_multi_ref_errors(self) -> dict:
         errors = {}
         data_references = self.__get_data_references()
         for path, references in data_references.items():
@@ -245,16 +245,16 @@ class Upload:
                 errors[path] = references
         return errors
 
-    def __get_data_references(self):
+    def __get_data_references(self) -> dict:
         return self.__get_references('data_path')
 
-    def __get_antibodies_references(self):
+    def __get_antibodies_references(self) -> dict:
         return self.__get_references('antibodies_path')
 
-    def __get_contributors_references(self):
+    def __get_contributors_references(self) -> dict:
         return self.__get_references('contributors_path')
 
-    def __get_references(self, col_name):
+    def __get_references(self, col_name) -> dict:
         references = defaultdict(list)
         for tsv_path in self.effective_tsv_paths.keys():
             for i, row in enumerate(dict_reader_wrapper(tsv_path, self.encoding)):

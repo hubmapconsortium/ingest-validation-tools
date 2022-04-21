@@ -1,5 +1,6 @@
 # Changelog
 ## v0.0.14 - in progress
+- Add type hints.
 - Implement versioning for directory schemas.
 - Dependabot upgrade to Nokogiri.
 - Remove reference to old Travis envvar, so post-merge CI run will pass.

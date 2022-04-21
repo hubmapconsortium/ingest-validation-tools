@@ -2,19 +2,20 @@ import re
 from string import Template
 from pathlib import Path
 import html
+from typing import Dict, Any
 
 from ingest_validation_tools.schema_loader import get_field_enum, get_fields_wo_headers
 
 
-def get_tsv_name(type, is_assay=True):
+def get_tsv_name(type: str, is_assay: bool = True) -> str:
     return f'{type}{"-metadata" if is_assay else ""}.tsv'
 
 
-def get_xlsx_name(type, is_assay=True):
+def get_xlsx_name(type: str, is_assay: bool = True) -> str:
     return f'{type}{"-metadata" if is_assay else ""}.xlsx'
 
 
-def generate_template_tsv(table_schema):
+def generate_template_tsv(table_schema: Dict) -> str:
     '''
     >>> schema = {'fields': [{
     ...   'name': 'fake',
@@ -41,7 +42,7 @@ def generate_template_tsv(table_schema):
     return '\n'.join([header_row, enums_row])
 
 
-def _enrich_description(field):
+def _enrich_description(field: Dict[str, Any]) -> str:
     '''
     >>> good_field = {
     ...   'name': 'good-example',
@@ -153,7 +154,7 @@ def generate_readme_md(
                 max_version_table_schema,
                 f'Version {max_version} (current{optional_release_date})',
                 is_open=True
-            ),
+        ),
         'previous_versions_md':
             '\n\n'.join([
                 _make_fields_md(table_schemas[str(v)], f'Version {v}')
