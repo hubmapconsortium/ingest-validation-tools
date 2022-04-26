@@ -1,0 +1,5 @@
+files:
+  -
+    pattern: '[^/]+\.fastq\.gz'
+    description: 'Compressed FastQ file'
+    required: True

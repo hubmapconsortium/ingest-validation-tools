@@ -13,7 +13,8 @@ Related files:
 
 This schema is for gas chromatography - mass spectrophotometry (GCMS).
 
-## Directory schema
+## Directory schemas
+### v0
 
 | pattern | required? | description |
 | --- | --- | --- |

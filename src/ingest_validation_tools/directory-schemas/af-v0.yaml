@@ -1,0 +1,20 @@
+files:
+  # A dataset consists of a single autofluorescence microscopy run, and
+  # a set of transformation files that are useful for other
+  # related datasets. (Vanderbilt)
+
+  -
+    pattern: '(processedMicroscopy|processed_microscopy)/[^/]+_images/[^/]+\.ome\.(tif|tiff)'
+    description: 'OME TIFF files (multichannel, multi-layered, image pyramids) produced by the autofluorescence microscopy'
+  -
+    pattern: '(processedMicroscopy|processed_microscopy)/[^/]+_transformations/[^/]+\.txt'
+    description: 'Transformations to IMS (related) data'
+    required: False
+  -
+    pattern: '(rawMicroscopy|raw_microscopy)/[^/]+\.xml'
+    description: 'XML metadata file from the autofluorescence microscopy experiments'
+  # Note: extension might change depending on the microscope used. This is just for Zeiss
+  # which is the only type that we are currently receiving.
+  -
+    pattern: '(rawMicroscopy|raw_microscopy)/[^/]+\.czi'
+    description: 'Raw microscope file for the experiment'

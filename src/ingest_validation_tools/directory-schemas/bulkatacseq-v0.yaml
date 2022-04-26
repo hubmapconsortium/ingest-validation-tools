@@ -1,0 +1,5 @@
+files:
+  -
+    pattern: '.*\.fastq\.gz'
+    description: 'TODO: https://github.com/hubmapconsortium/ingest-validation-tools/issues/445'
+

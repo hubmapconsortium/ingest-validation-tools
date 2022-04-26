@@ -1,6 +1,8 @@
 import os
 import re
 from fnmatch import fnmatch
+from typing import List, Dict, Tuple
+from pathlib import Path
 
 
 class DirectoryValidationErrors(Exception):
@@ -8,17 +10,16 @@ class DirectoryValidationErrors(Exception):
         self.errors = errors
 
 
-def validate_directory(path, paths_dict, dataset_ignore_globs=[]):
+def validate_directory(
+        path: Path, schema_files: List[Dict], dataset_ignore_globs: List[str] = []) -> None:
     '''
-    Given a directory path, and a dict representing valid path globs,
+    Given a directory path, and a directory schema,
     raise DirectoryValidationErrors if there are errors.
     '''
-    required_patterns, allowed_patterns = _get_required_allowed(paths_dict)
+    required_patterns, allowed_patterns = _get_required_allowed(schema_files)
     required_missing_errors, not_allowed_errors = ([], [])
     if not path.exists():
-        raise DirectoryValidationErrors({
-            'No such file or directory': str(path)
-        })
+        raise FileNotFoundError(0, 'No such file or directory', str(path))
     actual_paths = []
     for triple in os.walk(path):
         (dir_path, _dir_names, file_names) = triple
@@ -52,7 +53,7 @@ def validate_directory(path, paths_dict, dataset_ignore_globs=[]):
         raise DirectoryValidationErrors(errors)
 
 
-def _get_required_allowed(dir_schema):
+def _get_required_allowed(dir_schema: List[Dict]) -> Tuple[List[str], List[str]]:
     '''
     Given a directory_schema, return a pair of regex lists:
     Those regexes which are required, and those which are allowed.

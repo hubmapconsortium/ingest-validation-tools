@@ -13,7 +13,8 @@ Related files:
 
 This schema is for single cell RNA sequencing (scRNAseq). v3 adds `umi_*` fields.
 
-## Directory schema
+## Directory schemas
+### v0
 
 | pattern | required? | description |
 | --- | --- | --- |

@@ -14,7 +14,8 @@ Related files:
 This schema is for Multiplex Ion Beam Imaging (MIBI). For MIBI, the channel_id (in the Antibodies TSV) is the name of the metal tag on the corresponding antibody.  The other fields function the same way for all assays using antibodies.  For more information, see the [Antibodies TSV documentation](../antibodies).
 
 
-## Directory schema
+## Directory schemas
+### v0
 
 | pattern | required? | description |
 | --- | --- | --- |

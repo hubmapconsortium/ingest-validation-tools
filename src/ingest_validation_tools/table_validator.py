@@ -1,5 +1,6 @@
 import csv
 from pathlib import Path
+from typing import List, Optional, Dict
 
 import frictionless
 
@@ -7,7 +8,7 @@ import frictionless
 from ingest_validation_tools.check_factory import make_checks
 
 
-def get_table_errors(tsv, schema):
+def get_table_errors(tsv: str, schema: dict) -> List[str]:
     tsv_path = Path(tsv)
     pre_flight_errors = _get_pre_flight_errors(tsv_path, schema=schema)
     if pre_flight_errors:
@@ -35,7 +36,7 @@ def get_table_errors(tsv, schema):
     ]
 
 
-def _get_pre_flight_errors(tsv_path, schema):
+def _get_pre_flight_errors(tsv_path: Path, schema: dict) -> Optional[List[str]]:
     try:
         dialect = csv.Sniffer().sniff(tsv_path.read_text())
     except csv.Error as e:
@@ -48,7 +49,7 @@ def _get_pre_flight_errors(tsv_path, schema):
     # Re-reading the file is ugly, but creating a stream seems gratuitous.
     with tsv_path.open() as tsv_handle:
         reader = csv.DictReader(tsv_handle, dialect=dialect)
-        fields = reader.fieldnames
+        fields = reader.fieldnames or []
         expected_fields = [f['name'] for f in schema['fields']]
         if fields != expected_fields:
             errors = []
@@ -71,7 +72,7 @@ def _get_pre_flight_errors(tsv_path, schema):
     return None
 
 
-def _get_message(error):
+def _get_message(error: Dict[str, str]) -> str:
     '''
     >>> print(_get_message({
     ...     'cell': 'bad-id',

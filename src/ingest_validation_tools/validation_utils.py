@@ -1,16 +1,18 @@
 import logging
 from csv import DictReader
 from pathlib import Path
+from typing import List, Optional
+from collections import OrderedDict
 
 from ingest_validation_tools.schema_loader import (
-    get_table_schema, get_other_schema,
+    SchemaVersion, get_table_schema, get_other_schema,
     get_directory_schema)
 from ingest_validation_tools.directory_validator import (
     validate_directory, DirectoryValidationErrors)
 from ingest_validation_tools.table_validator import (
     get_table_errors)
 from ingest_validation_tools.schema_loader import (
-    get_schema_version_from_row, PreflightError
+    get_table_schema_version_from_row, PreflightError
 )
 
 
@@ -18,13 +20,13 @@ class TableValidationErrors(Exception):
     pass
 
 
-def dict_reader_wrapper(path, encoding):
+def dict_reader_wrapper(path, encoding: str) -> List[OrderedDict]:
     with open(path, encoding=encoding) as f:
         rows = list(DictReader(f, dialect='excel-tab'))
     return rows
 
 
-def get_schema_version(path, encoding):
+def get_table_schema_version(path, encoding: str) -> SchemaVersion:
     try:
         rows = dict_reader_wrapper(path, encoding)
     except UnicodeDecodeError as e:
@@ -33,24 +35,67 @@ def get_schema_version(path, encoding):
         raise PreflightError(f'Expected a TSV, found a directory at {path}.')
     if not rows:
         raise PreflightError(f'{path} has no data rows.')
-    return get_schema_version_from_row(path, rows[0])
+    return get_table_schema_version_from_row(path, rows[0])
 
 
-def get_data_dir_errors(schema_name, data_path, dataset_ignore_globs=[]):
+def _get_directory_schema_version(data_path: Path) -> str:
+    prefix = 'dir-schema-v'
+    version_hints = [path.name for path in (data_path / 'extras').glob(f'{prefix}*')]
+    len_hints = len(version_hints)
+    if len_hints == 0:
+        return '0'
+    elif len_hints == 1:
+        return version_hints[0].replace(prefix, '')
+    else:
+        raise Exception(f'Expect 0 or 1 hints, not {len_hints}: {version_hints}')
+
+
+def get_data_dir_errors(schema_name: str, data_path: Path,
+                        dataset_ignore_globs: List[str] = []) -> Optional[dict]:
     '''
     Validate a single data_path.
     '''
-    schema = get_directory_schema(schema_name)
+    directory_schema_version = _get_directory_schema_version(data_path)
+    return _get_data_dir_errors_for_version(
+        schema_name, data_path, dataset_ignore_globs, directory_schema_version)
+
+
+def _get_data_dir_errors_for_version(
+        schema_name: str,
+        data_path: Path,
+        dataset_ignore_globs: List[str],
+        directory_schema_version: str
+) -> Optional[dict]:
+    schema = get_directory_schema(schema_name, directory_schema_version)
+    schema_label = f'{schema_name}-v{directory_schema_version}'
+
+    if schema is None:
+        return {'Undefined directory schema': schema_label}
+
+    schema_warning = {'Deprecated directory schema': schema_label} \
+        if schema.get('deprecated', False) else None
+
     try:
         validate_directory(
-            data_path, schema, dataset_ignore_globs=dataset_ignore_globs)
+            data_path, schema['files'], dataset_ignore_globs=dataset_ignore_globs)
     except DirectoryValidationErrors as e:
+        # If there are DirectoryValidationErrors and the schema is deprecated...
+        #    schema deprecation is more important.
+        if schema_warning:
+            return schema_warning
         return e.errors
     except OSError as e:
+        # If there are OSErrors and the schema is deprecated...
+        #    the OSErrors are more important.
         return {e.strerror: e.filename}
+    if schema_warning:
+        return schema_warning
+
+    # No problems!
+    return None
 
 
-def get_context_of_decode_error(e):
+def get_context_of_decode_error(e: UnicodeDecodeError) -> str:
     '''
     >>> try:
     ...   b'\\xFF'.decode('ascii')
@@ -82,8 +127,8 @@ def get_context_of_decode_error(e):
 
 
 def get_tsv_errors(
-        tsv_path, schema_name, optional_fields=[],
-        offline=None, encoding=None, ignore_deprecation=False):
+        tsv_path: str, schema_name: str, optional_fields: List[str] = [],
+        offline=None, encoding: str = 'utf-8', ignore_deprecation: bool = False):
     '''
     Validate the TSV.
 

@@ -1,0 +1,20 @@
+files:
+  # Assay descriptions:
+  # https://portal.hubmapconsortium.org/docs/assays/atacseq
+  # https://portal.hubmapconsortium.org/docs/assays/rnaseq
+
+  # This directory structure schema applies to these assay-types
+  # - SNARE-seq2
+  # - scATACseq
+  # - sciATACseq
+  # - snATACseq
+  # - scRNAseq-10xGenomics
+  # - scRNAseq
+  # - sciRNAseq
+  # - snRNAseq
+  # - SNARE2-RNAseq
+
+  -
+    pattern: '[^/]+\.fastq\.gz'
+    description: 'Compressed FastQ file'
+    required: True

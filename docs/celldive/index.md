@@ -14,7 +14,8 @@ Related files:
 CellDIVE uploads require metadata on the antibodies used in the assay to be provided in an Antibodies TSV. For CellDIVE, the `channel_id` is represented as a cycle#/channel# combination (of the form `Cycle[0-9]_CH[0-9]`) linked to a given image file in the directory.
 The other fields function the same way for all assays using antibodies. For more information, see the [Antibodies TSV documentation](../antibodies).
 
-## Directory schema
+## Directory schemas
+### v0
 
 | pattern | required? | description |
 | --- | --- | --- |
