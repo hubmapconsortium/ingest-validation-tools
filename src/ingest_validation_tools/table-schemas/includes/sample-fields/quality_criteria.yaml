@@ -1,0 +1,4 @@
+- name: quality_criteria
+  description: 'For example, RIN: 8.7. For suspensions, measured by visual inspection prior to cell lysis or defined by known parameters such as wells with several cells or no cells. This can be captured at a high level. "OK" or "not OK", or with more specificity such as "debris", "clump", "low clump".'
+  constraints:
+    required: false

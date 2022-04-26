@@ -1,0 +1,4 @@
+- name: pathology_distance_value
+  description: 'If surgical sample, how far from the pathology was the sample obtained. Typically a number of centimeters. Leave blank if not applicable or unknown.'
+  constraints:
+    required: false

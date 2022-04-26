@@ -1,0 +1,3 @@
+- name: suspension_entity_number
+  description: 'Total number of cell/nuclei yielded post dissociation and enrichment.'
+  type: integer

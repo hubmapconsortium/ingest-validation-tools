@@ -1,0 +1,2 @@
+version	sample_id	type	source_storage_time_value	source_storage_time_unit	weight_value	weight_unit	volume_value	volume_unit	pathology_distance_value	pathology_distance_unit	preparation_media	preparation_temperature	processing_time_value	processing_time_unit	storage_media	storage_temperature	quality_criteria	histological_report	notes
+1	anything is ok	block	42	min	42	kg	42	mm^3	42	cm	Methanol	Dry Ice		min	Methanol	Dry Ice			

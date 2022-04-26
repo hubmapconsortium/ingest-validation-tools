@@ -103,28 +103,6 @@ class TypeMapper(Mapper):
         self.default_value = 'string'
 
 
-class EntityMapper(Mapper):
-    '''
-    >>> mapper = EntityMapper()
-    >>> mapper.add({'name': 'version'}, schema_name='will_skip')
-    >>> mapper.add({'name': 'dataset_field'}, schema_name='default_is_dataset')
-    >>> mapper.add({'name': 'sample_field'}, schema_name='sample')
-    >>> print(mapper.dump_yaml().strip())
-    dataset_field: dataset
-    sample_field: sample
-    '''
-
-    def _skip_field(self, name, attr_value):
-        # The version field is unique in that it occurs under multiple
-        # entity types: Seems easiest just to skip it,
-        # rather than changing value from string to set or list
-        return name == 'version'
-
-    def _get_name_value(self, field, schema_name=None, schema=None):
-        name = field['name']
-        return name, 'dataset' if get_is_assay(schema_name) else schema_name
-
-
 class AbstractSetValuedMapper(Mapper):
     def _skip_field(self, name, attr_value):
         return len(attr_value) == 0
@@ -134,6 +112,27 @@ class AbstractSetValuedMapper(Mapper):
 
     def dump_yaml(self):
         return dump_yaml({k: sorted(list(v)) for k, v in self.mapping.items()})
+
+
+class EntityMapper(AbstractSetValuedMapper):
+    '''
+    >>> mapper = EntityMapper()
+    >>> mapper.add({'name': 'dataset_field'}, schema_name='default_is_dataset')
+    >>> mapper.add({'name': 'sample_field'}, schema_name='sample')
+    >>> mapper.add({'name': 'sample_block_field'}, schema_name='sample-block')
+    >>> print(mapper.dump_yaml().strip())
+    dataset_field:
+    - dataset
+    sample_block_field:
+    - sample
+    sample_field:
+    - sample
+    '''
+
+    def _get_name_value(self, field, schema_name=None, schema=None):
+        name = field['name']
+        entity = 'dataset' if get_is_assay(schema_name) else schema_name.split('-')[0]
+        return name, set([entity])
 
 
 class AssayMapper(AbstractSetValuedMapper):

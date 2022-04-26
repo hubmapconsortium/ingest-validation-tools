@@ -1,0 +1,4 @@
+# include: ../sample-fields/suspension_entity.yaml
+# include: ../sample-fields/suspension_entity_number.yaml
+# include: ../sample-fields/suspension_enriched.yaml
+# include: ../sample-fields/suspension_enriched_target.yaml

@@ -2,6 +2,11 @@
 ## v0.0.14 - in progress
 - Add type hints.
 - Implement versioning for directory schemas.
+- After failure, explain how to continue testing from last error.
+- Add `pathology_distance_unit` in place.
+- Pin transitive dependencies.
+- New sample metadata schemas
+- Darker shade of blue, to be consistent with portal.
 - Dependabot upgrade to Nokogiri.
 - Remove reference to old Travis envvar, so post-merge CI run will pass.
 - Explain the distinction between the 10X kit versions.

@@ -28,7 +28,9 @@ Exit status codes:
         help='TSV path')
     parser.add_argument(
         '--schema', required=True,
-        choices=['sample', 'antibodies', 'contributors', 'metadata'])
+        choices=[
+            'sample', 'sample-block', 'sample-suspension', 'sample-section',
+            'antibodies', 'contributors', 'metadata'])
     error_report_methods = [
         name for (name, type) in inspect.getmembers(ErrorReport)
         if name.startswith('as_')

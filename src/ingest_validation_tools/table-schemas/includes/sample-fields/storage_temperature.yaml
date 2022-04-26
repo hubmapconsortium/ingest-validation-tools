@@ -1,0 +1,16 @@
+- name: storage_temperature
+  description: 'The temperature during storage, after preparation and before the assay is performed.'
+  constraints:
+    enum:
+      - Liquid Nitrogen (Unspecified)
+      - Liquid Nitrogen (Cryotube)
+      - Liquid Nitrogen (Straw)
+      - Liquid Nitrogen Vapor
+      - Dry Ice
+      - -80 Celsius (Unspecified)
+      - -80 Celsius (Cryotube)
+      - -80 Celsius (Straw)
+      - -20 Celsius
+      - 4 Celsius
+      - 24 Celsius (Room Temperature)
+      - 37 Celsius
