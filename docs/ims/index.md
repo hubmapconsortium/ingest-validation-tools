@@ -14,6 +14,19 @@ Related files:
 This schema is for imaging mass spectrometry (IMS).
 
 ## Directory schemas
+### v1
+
+| pattern | required? | description |
+| --- | --- | --- |
+| <code>csv/[^/]+\.csv</code> |  | Intensities M/Z values with Pixel location |
+| <code>imzML/[^/]+\.ibd</code> | ✓ | Mass spec data saved in a binary format. |
+| <code>imzML/[^/]+\.imzML</code> | ✓ | Mass spec metadata saved in XML format. Index to .ibd file. |
+| <code>metadata/[^/]+_LipidAssignments\.xlsx</code> |  | Microsoft Excel file containing the m/z, assignment, lipid class, etc. |
+| <code>metadata/[^/]+_meta\.json</code> |  | JSON file containing the machine parameters/settings |
+| <code>metadata/[^/]+_microscopy\.txt</code> |  | Transformations/map back to autofluorescence microscopy (related) data |
+| <code>ometiffs/[^/]+_multilayer\.ome\.tiff</code> | ✓ | Aligned multilayer OME TIFF file of the IMS data |
+| <code>ometiffs/separate/[^/]+_mz[^/]+\.ome\.tiff</code> |  | Each file is a different M/Z value. |
+| <code>extras/.*</code> |  | Free-form descriptive information supplied by the TMC |
 ### v0
 
 | pattern | required? | description |

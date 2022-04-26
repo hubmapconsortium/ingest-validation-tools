@@ -18,7 +18,11 @@ Related files:
 
 | pattern | required? | description |
 | --- | --- | --- |
-| <code>TODO</code> | ✓ | Directory structure not yet specified. |
+| <code>Van[^/]</code> | ✓ | Main. |
+| <code>Raw data.imzML</code> | ✓ | imzML file containing all linscans information. |
+| <code>Peak assignment.csv</code> | ✓ | **[QA/QC]** CSV containing all identified peaks and their IDs. |
+| <code>Autofluorescence image.tif</code> | ✓ | A tif file of the autofluorescence image. |
+| <code>ion images</code> | ✓ | Folder containing PNG files. |
 | <code>extras/.*</code> |  | Free-form descriptive information supplied by the TMC |
 
 ## Metadata schema

@@ -1,5 +1,6 @@
 # Changelog
 ## v0.0.14 - in progress
+- Updated IMS directory structure schema.
 - Add type hints.
 - Implement versioning for directory schemas.
 - After failure, explain how to continue testing from last error.
