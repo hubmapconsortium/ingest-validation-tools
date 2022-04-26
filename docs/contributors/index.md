@@ -2,19 +2,23 @@
 title: contributors
 schema_name: contributors
 category: Other TSVs
+all_versions_deprecated: False
 layout: default
 ---
 
 Related files:
 
-- [📝 Excel template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/master/docs/contributors/contributors.xlsx): For metadata entry.
-- [📝 TSV template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/master/docs/contributors/contributors.tsv): Alternative for metadata entry.
+- [📝 Excel template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/main/docs/contributors/contributors.xlsx): For metadata entry.
+- [📝 TSV template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/main/docs/contributors/contributors.tsv): Alternative for metadata entry.
 
 
 
 
 
 ## Metadata schema
+
+### Field types
+- *Boolean* fields can be given as `TRUE`/`FALSE`, `True`/`False`, `true`/`false`, or `1`/`0`.  
 
 
 <details markdown="1" open="true"><summary><b>Version 1 (current)</b></summary>
@@ -87,9 +91,9 @@ ORCID ID of contributor. Example: `0000-0002-8928-741X`.
 
 | constraint | value |
 | --- | --- |
-| pattern (regular expression) | `\d{4}-\d{4}-\d{4}-\d{3}[0-9X]` |
+| pattern (regular expression) | <code>\d{4}-\d{4}-\d{4}-\d{3}[0-9X]</code> |
 | required | `True` |
-| url | prefix: `https://orcid.org/` |
+| url | prefix: <code>https://pub.orcid.org/v3.0/</code> |
 
 <a name="is_contact"></a>
 ##### [`is_contact`](#is_contact)
@@ -103,7 +107,7 @@ Is this individual a contact for DOI purposes?
 </details>
 
 
-<details markdown="1" ><summary><b>Version 0</b></summary>
+<details markdown="1" ><summary><s>Version 0</s> (deprecated)</summary>
 
 
 <a name="affiliation"></a>
@@ -152,8 +156,8 @@ ORCID ID of contributor. Example: `0000-0002-8928-741X`.
 
 | constraint | value |
 | --- | --- |
-| pattern (regular expression) | `\d{4}-\d{4}-\d{4}-\d{3}[0-9X]` |
+| pattern (regular expression) | <code>\d{4}-\d{4}-\d{4}-\d{3}[0-9X]</code> |
 | required | `True` |
-| url | prefix: `https://orcid.org/` |
+| url | prefix: <code>https://pub.orcid.org/v3.0/</code> |
 
 </details>

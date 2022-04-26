@@ -2,9 +2,9 @@
 
 import argparse
 import sys
-from glob import glob
 from pathlib import Path
 import inspect
+from datetime import datetime
 
 from ingest_validation_tools.error_report import ErrorReport
 from ingest_validation_tools.upload import Upload
@@ -21,13 +21,10 @@ directory_schemas = sorted({
 def make_parser():
     parser = argparse.ArgumentParser(
         description='''
-Validate a HuBMAP upload, both the metadata TSVs, and the datasets,
-either local or remote, or a combination of the two.''',
+Validate a HuBMAP upload, both the metadata TSVs and the datasets.
+If you only want to validate a TSV in isolation, look at validate_tsv.py.''',
         epilog=f'''
 Typical usage:
-  --tsv_paths: Used to validate Sample metadata TSVs. (Because it does
-  not check references, should not be used to validate Dataset metadata TSVs.)
-
   --local_directory: Used by lab before upload, and on Globus after upload.
 
   --local_directory + --dataset_ignore_globs + --upload_ignore_globs:
@@ -66,6 +63,10 @@ Exit status codes:
         '--clear_cache', action='store_true',
         help='Clear cache of network check responses.'
     )
+    parser.add_argument(
+        '--ignore_deprecation', action='store_true',
+        help='Allow validation against deprecated versions of metadata schemas.'
+    )
 
     default_ignore = '.*'
     parser.add_argument(
@@ -77,7 +78,7 @@ Exit status codes:
     parser.add_argument(
         '--upload_ignore_globs', nargs='+',
         metavar='GLOB',
-        help='Matching sub-directories in the upload will be ignored.'
+        help='Matching files and subdirectories in the upload will be ignored.'
     )
 
     default_encoding = 'ascii'
@@ -103,6 +104,9 @@ Exit status codes:
 
     parser.add_argument('--add_notes', action='store_true',
                         help='Append a context note to error reports.')
+    parser.add_argument('--save_report', action='store_true',
+                        help='Save the report; Adding "--upload_ignore_globs '
+                        '\'report-*.txt\'" is necessary to revalidate.')
 
     return parser
 
@@ -113,18 +117,24 @@ Exit status codes:
 parser = make_parser()
 
 
+def _save_report(upload, report):
+    timestamp = datetime.today().strftime('%Y-%m-%d_%H-%M-%S')
+    report_path = upload.directory_path / f'report-{timestamp}.txt'
+    report_path.write_text(report.as_text_list())
+
+
 def main():
     args = parser.parse_args()
 
     if args.clear_cache:
-        for path in glob(f'{cache_path}*'):
-            Path(path).unlink()
+        cache_path.unlink()
 
     upload_args = {
         'add_notes': args.add_notes,
         'encoding': args.encoding,
         'offline': args.offline,
-        'optional_fields': args.optional_fields
+        'optional_fields': args.optional_fields,
+        'ignore_deprecation': args.ignore_deprecation
     }
 
     if args.local_directory:
@@ -142,8 +152,10 @@ def main():
 
     upload = Upload(**upload_args)
     errors = upload.get_errors()
-    report = ErrorReport(errors)
+    report = ErrorReport(errors, effective_tsv_paths=upload.effective_tsv_paths)
     print(getattr(report, args.output)())
+    if args.save_report:
+        _save_report(upload, report)
     return exit_codes.INVALID if errors else exit_codes.VALID
 
 

@@ -3,6 +3,7 @@ from yaml import Dumper, dump
 from webbrowser import open_new_tab
 from pathlib import Path
 from yattag import Doc, indent
+from typing import List
 
 from ingest_validation_tools.message_munger import munge
 
@@ -13,34 +14,42 @@ Dumper.ignore_aliases = lambda *args: True
 
 
 class ErrorReport:
-    def __init__(self, errors_dict):
+    def __init__(self, errors_dict, effective_tsv_paths={}):
         self.errors = errors_dict
+        self.effective_tsv_paths = effective_tsv_paths
         if self.errors:
             self.errors['Hint'] = \
                 'If validation fails because of extra whitespace in the TSV, try:\n' \
                 'src/cleanup_whitespace.py --tsv_in original.tsv --tsv_out clean.tsv'
 
-    def _as_list(self):
+    def _no_errors(self):
+        schema_versions = ' and '.join(
+            f'{sv.schema_name}-v{sv.version} ({Path(path).name})'
+            for path, sv in self.effective_tsv_paths.items()
+        )
+        return f'No errors! {schema_versions}\n'
+
+    def _as_list(self) -> List[str]:
         return [munge(m) for m in _build_list(self.errors)]
 
-    def as_text_list(self):
-        return '\n'.join(self._as_list()) or 'No errors!\n'
+    def as_text_list(self) -> str:
+        return '\n'.join(self._as_list()) or self._no_errors()
 
-    def as_yaml(self):
+    def as_yaml(self) -> str:
         return dump(self.errors, sort_keys=False)
 
-    def as_text(self):
+    def as_text(self) -> str:
         if not self.errors:
-            return 'No errors!\n'
+            return self._no_errors()
         else:
             return self.as_yaml()
 
-    def as_md(self):
+    def as_md(self) -> str:
         return f'```\n{self.as_text()}```'
 
-    def as_html_fragment(self):
+    def as_html_fragment(self) -> str:
         '''
-        >>> print(ErrorReport({}).as_html_fragment())
+        >>> print(ErrorReport({}).as_html_fragment().strip())
         No errors!
 
         >>> report = ErrorReport({'really': 'simple'})
@@ -54,12 +63,12 @@ class ErrorReport:
         </dl>
         '''
         if not self.errors:
-            return 'No errors!'
+            return self._no_errors()
         doc, tag, _, line = Doc().ttl()
         _build_doc(tag, line, self.errors)
         return indent(doc.getvalue())
 
-    def as_html_doc(self):
+    def as_html_doc(self) -> str:
         doc, tag, text, line = Doc().ttl()
         for_each = "Array.from(document.getElementsByTagName('details')).forEach"
         with tag('html'):
@@ -82,7 +91,7 @@ ul {
                 _build_doc(tag, line, self.errors)
         return '<!DOCTYPE html>\n' + indent(doc.getvalue())
 
-    def as_browser(self):
+    def as_browser(self) -> str:
         if not self.errors:
             return self.as_text()
         html = self.as_html_doc()
@@ -94,7 +103,7 @@ ul {
         return f'See {url}'
 
 
-def _build_list(anything, path=None):
+def _build_list(anything, path=None) -> List[str]:
     '''
     >>> flat = _build_list({
     ...     'nested dict': {

@@ -1,5 +1,6 @@
 doc_url: https://portal.hubmapconsortium.org/docs/assays/rnaseq
 fields:
+- Shared by all types
 # include: ../includes/v0/all_assays.yaml
 - name: assay_category
   constraints:
@@ -9,6 +10,8 @@ fields:
   constraints:
     enum:
       - scRNAseq-10xGenomics
+      - snRNAseq-10xGenomics-v2
+      - snRNAseq-10xGenomics-v3
       - scRNAseq
       - sciRNAseq
       - snRNAseq
@@ -18,9 +21,11 @@ fields:
     enum:
       - RNA
 # include: ../includes/v0/is_targeted.yaml
+# include: ../includes/v0/acquisition_instrument.yaml
 
 # Level 2 fields:
-# include: ../includes/v0/acquisition_instrument.yaml
+- Unique to this type
+
 - name: sc_isolation_protocols_io_doi
   description: "Link to a protocols document answering the question: How were single cells separated into a single-cell suspension?"
 - name: sc_isolation_entity
@@ -34,10 +39,11 @@ fields:
   description: A quality metric by visual inspection prior to cell lysis or defined by known parameters such as wells with several cells or no cells. This can be captured at a high level.
 - name: sc_isolation_cell_number
   description: Total number of cell/nuclei yielded post dissociation and enrichment
+  type: integer
 - name: rnaseq_assay_input
+  type: integer
   description: Number of cell/nuclei input to the assay
-- name: rnaseq_assay_method
-  description: The kit used for the RNA sequencing assay
+# include: ../includes/fields/rnaseq_assay_method.yaml
 - name: library_construction_protocols_io_doi
   description: A link to the protocol document containing the library construction method (including version) that was used, e.g. "Smart-Seq2", "Drop-Seq", "10X v3".
 # include: ../includes/fields/library_layout.yaml
@@ -55,12 +61,13 @@ fields:
   description: Length of the cell barcode in base pairs
 - name: library_pcr_cycles
   description: Number of PCR cycles to amplify cDNA
+  type: integer
 - name: library_pcr_cycles_for_sample_index
   description: Number of PCR cycles performed for library indexing
+  type: integer
 # include: ../includes/fields/library_final_yield_value_unit.yaml
-- name: library_average_fragment_size
-  description: Average size of sequencing library fragments estimated via gel electrophoresis or bioanalyzer/tapestation.
 
+# include: ../includes/fields/library_average_fragment_size.yaml
 # include: ../includes/v0/sequencing.yaml
 
 # include: ../includes/v0/paths.yaml

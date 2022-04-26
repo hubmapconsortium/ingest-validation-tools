@@ -1,26 +1,30 @@
 ---
-title: scRNAseq-10xGenomics-v2 / scRNAseq-10xGenomics-v3 / scRNAseq / sciRNAseq / snRNAseq / SNARE2-RNAseq (HCA)
+title: scRNAseq-10xGenomics-v2 / scRNAseq-10xGenomics-v3 / snRNAseq-10xGenomics-v2 / scRNAseq / sciRNAseq / snRNAseq / SNARE2-RNAseq (HCA)
 schema_name: scrnaseq-hca
 category: Sequence assays
+all_versions_deprecated: False
 layout: default
 ---
 
 Related files:
 - [🔬 Background doc](https://portal.hubmapconsortium.org/docs/assays/rnaseq): More details about this type.
-- [📝 Excel template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/master/docs/scrnaseq-hca/scrnaseq-hca-metadata.xlsx): For metadata entry.
-- [📝 TSV template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/master/docs/scrnaseq-hca/scrnaseq-hca-metadata.tsv): Alternative for metadata entry.
+- [📝 Excel template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/main/docs/scrnaseq-hca/scrnaseq-hca-metadata.xlsx): For metadata entry.
+- [📝 TSV template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/main/docs/scrnaseq-hca/scrnaseq-hca-metadata.tsv): Alternative for metadata entry.
 
 
 
-## Directory schema
+## Directory schemas
+### v0
 
 | pattern | required? | description |
 | --- | --- | --- |
-| `[^/]+\.fastq\.gz` | ✓ | Compressed FastQ file |
-| `extras/.*` |  | Free-form descriptive information supplied by the TMC |
-| `extras/thumbnail\.(png\|jpg)` |  | Optional thumbnail image which may be shown in search interface |
+| <code>[^/]+\.fastq\.gz</code> | ✓ | Compressed FastQ file |
+| <code>extras/.*</code> |  | Free-form descriptive information supplied by the TMC |
 
 ## Metadata schema
+
+### Field types
+- *Boolean* fields can be given as `TRUE`/`FALSE`, `True`/`False`, `true`/`false`, or `1`/`0`.  
 
 
 <details markdown="1" open="true"><summary><b>Version 0 (current)</b></summary>
@@ -42,12 +46,12 @@ Related files:
 [`assay_type`](#assay_type)<br>
 [`analyte_class`](#analyte_class)<br>
 [`is_targeted`](#is_targeted)<br>
+[`acquisition_instrument_vendor`](#acquisition_instrument_vendor)<br>
+[`acquisition_instrument_model`](#acquisition_instrument_model)<br>
 
 </details>
 <details markdown="1"><summary>Unique to this type</summary>
 
-[`acquisition_instrument_vendor`](#acquisition_instrument_vendor)<br>
-[`acquisition_instrument_model`](#acquisition_instrument_model)<br>
 [`sc_isolation_protocols_io_doi`](#sc_isolation_protocols_io_doi)<br>
 [`sc_isolation_entity`](#sc_isolation_entity)<br>
 [`sc_isolation_tissue_dissociation`](#sc_isolation_tissue_dissociation)<br>
@@ -122,9 +126,9 @@ DOI for protocols.io referring to the protocol for this assay.
 
 | constraint | value |
 | --- | --- |
-| pattern (regular expression) | `10\.17504/.*` |
+| pattern (regular expression) | <code>10\.17504/.*</code> |
 | required | `True` |
-| url | prefix: `https://dx.doi.org/` |
+| url | prefix: <code>https://dx.doi.org/</code> |
 
 <a name="operator"></a>
 ##### [`operator`](#operator)
@@ -162,7 +166,7 @@ Email address for the principal investigator. Leave blank if not applicable.
 
 <a name="assay_category"></a>
 ##### [`assay_category`](#assay_category)
-Each assay is placed into one of the following 3 general categories: generation of images of microscopic entities, identification & quantitation of molecules by mass spectrometry, and determination of nucleotide sequence.
+Each assay is placed into one of the following 4 general categories: generation of images of microscopic entities, identification & quantitation of molecules by mass spectrometry, imaging mass spectrometry, and determination of nucleotide sequence.
 
 | constraint | value |
 | --- | --- |
@@ -175,7 +179,7 @@ The specific type of assay being executed.
 
 | constraint | value |
 | --- | --- |
-| enum | `scRNAseq-10xGenomics-v2`, `scRNAseq-10xGenomics-v3`, `scRNAseq`, `sciRNAseq`, `snRNAseq`, or `SNARE2-RNAseq` |
+| enum | `scRNAseq-10xGenomics-v2`, `scRNAseq-10xGenomics-v3`, `snRNAseq-10xGenomics-v2`, `scRNAseq`, `sciRNAseq`, `snRNAseq`, or `SNARE2-RNAseq` |
 | required | `True` |
 
 <a name="analyte_class"></a>
@@ -196,8 +200,6 @@ Specifies whether or not a specific molecule(s) is/are targeted for detection/me
 | type | `boolean` |
 | required | `True` |
 
-### Unique to this type
-
 <a name="acquisition_instrument_vendor"></a>
 ##### [`acquisition_instrument_vendor`](#acquisition_instrument_vendor)
 An acquisition instrument is the device that contains the signal detection hardware and signal processing software. Assays generate signals such as light of various intensities or color or signals representing the molecular mass.
@@ -214,15 +216,17 @@ Manufacturers of an acquisition instrument may offer various versions (models) o
 | --- | --- |
 | required | `True` |
 
+### Unique to this type
+
 <a name="sc_isolation_protocols_io_doi"></a>
 ##### [`sc_isolation_protocols_io_doi`](#sc_isolation_protocols_io_doi)
 Link to a protocols document answering the question: How were single cells separated into a single-cell suspension?
 
 | constraint | value |
 | --- | --- |
-| pattern (regular expression) | `10\.17504/.*` |
+| pattern (regular expression) | <code>10\.17504/.*</code> |
 | required | `True` |
-| url | prefix: `https://dx.doi.org/` |
+| url | prefix: <code>https://dx.doi.org/</code> |
 
 <a name="sc_isolation_entity"></a>
 ##### [`sc_isolation_entity`](#sc_isolation_entity)
@@ -262,6 +266,7 @@ Total number of cell/nuclei yielded post dissociation and enrichment. Leave blan
 
 | constraint | value |
 | --- | --- |
+| type | `integer` |
 | required | `False` |
 
 <a name="rnaseq_assay_input"></a>
@@ -270,6 +275,7 @@ Number of cell/nuclei input to the assay. Leave blank if not applicable.
 
 | constraint | value |
 | --- | --- |
+| type | `integer` |
 | required | `False` |
 
 <a name="rnaseq_assay_method"></a>
@@ -286,9 +292,9 @@ A link to the protocol document containing the library construction method (incl
 
 | constraint | value |
 | --- | --- |
-| pattern (regular expression) | `10\.17504/.*` |
+| pattern (regular expression) | <code>10\.17504/.*</code> |
 | required | `True` |
-| url | prefix: `https://dx.doi.org/` |
+| url | prefix: <code>https://dx.doi.org/</code> |
 
 <a name="library_layout"></a>
 ##### [`library_layout`](#library_layout)
@@ -353,6 +359,7 @@ Number of PCR cycles to amplify cDNA. Leave blank if not applicable.
 
 | constraint | value |
 | --- | --- |
+| type | `integer` |
 | required | `False` |
 
 <a name="library_pcr_cycles_for_sample_index"></a>
@@ -361,6 +368,7 @@ Number of PCR cycles performed for library indexing. Leave blank if not applicab
 
 | constraint | value |
 | --- | --- |
+| type | `integer` |
 | required | `False` |
 
 <a name="library_final_yield_value"></a>
@@ -384,10 +392,11 @@ Units of final library yield. Leave blank if not applicable.
 
 <a name="library_average_fragment_size"></a>
 ##### [`library_average_fragment_size`](#library_average_fragment_size)
-Average size of sequencing library fragments estimated via gel electrophoresis or bioanalyzer/tapestation. Leave blank if not applicable.
+Average size in basepairs (bp) of sequencing library fragments estimated via gel electrophoresis or bioanalyzer/tapestation. Leave blank if not applicable.
 
 | constraint | value |
 | --- | --- |
+| type | `integer` |
 | required | `False` |
 
 <a name="sequencing_reagent_kit"></a>
@@ -404,7 +413,7 @@ Slash-delimited list of the number of sequencing cycles for, for example, Read1,
 
 | constraint | value |
 | --- | --- |
-| pattern (regular expression) | `\d+(/\d+)+` |
+| pattern (regular expression) | <code>\d+(/\d+)+</code> |
 | required | `False` |
 
 <a name="sequencing_read_percent_q30"></a>

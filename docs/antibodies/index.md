@@ -2,13 +2,14 @@
 title: antibodies
 schema_name: antibodies
 category: Other TSVs
+all_versions_deprecated: False
 layout: default
 ---
 
 Related files:
 
-- [📝 Excel template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/master/docs/antibodies/antibodies.xlsx): For metadata entry.
-- [📝 TSV template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/master/docs/antibodies/antibodies.tsv): Alternative for metadata entry.
+- [📝 Excel template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/main/docs/antibodies/antibodies.xlsx): For metadata entry.
+- [📝 TSV template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/main/docs/antibodies/antibodies.tsv): Alternative for metadata entry.
 
 Changes:
 - v1: Version number added.
@@ -17,6 +18,9 @@ Changes:
 
 
 ## Metadata schema
+
+### Field types
+- *Boolean* fields can be given as `TRUE`/`FALSE`, `True`/`False`, `true`/`false`, or `1`/`0`.  
 
 
 <details markdown="1" open="true"><summary><b>Version 2 (current)</b></summary>
@@ -68,9 +72,9 @@ The rr_id is a unique antibody identifier that comes from the Antibody Registry 
 
 | constraint | value |
 | --- | --- |
-| pattern (regular expression) | `AB_\d+` |
+| pattern (regular expression) | <code>AB_\d+</code> |
 | required | `True` |
-| url | prefix: `https://scicrunch.org/resolver/RRID:` |
+| url | prefix: <code>https://scicrunch.org/resolver/RRID:</code> |
 
 <a name="uniprot_accession_number"></a>
 ##### [`uniprot_accession_number`](#uniprot_accession_number)
@@ -79,7 +83,7 @@ The uniprot_accession_number is a unique identifier for proteins in the UniProt 
 | constraint | value |
 | --- | --- |
 | required | `True` |
-| url | prefix: `https://www.uniprot.org/uniprot/` |
+| url | prefix: <code>https://www.uniprot.org/uniprot/</code> |
 
 <a name="lot_number"></a>
 ##### [`lot_number`](#lot_number)
@@ -96,7 +100,7 @@ Antibody solutions may be diluted according to the experimental protocol. Leave 
 | constraint | value |
 | --- | --- |
 | required | `False` |
-| pattern (regular expression) | `1/\d+` |
+| pattern (regular expression) | <code>1/\d+</code> |
 
 <a name="concentration_value"></a>
 ##### [`concentration_value`](#concentration_value)
@@ -170,9 +174,9 @@ The rr_id is a unique antibody identifier that comes from the Antibody Registry 
 
 | constraint | value |
 | --- | --- |
-| pattern (regular expression) | `AB_\d+` |
+| pattern (regular expression) | <code>AB_\d+</code> |
 | required | `True` |
-| url | prefix: `https://scicrunch.org/resolver/RRID:` |
+| url | prefix: <code>https://scicrunch.org/resolver/RRID:</code> |
 
 <a name="uniprot_accession_number"></a>
 ##### [`uniprot_accession_number`](#uniprot_accession_number)
@@ -181,7 +185,7 @@ The uniprot_accession_number is a unique identifier for proteins in the UniProt 
 | constraint | value |
 | --- | --- |
 | required | `True` |
-| url | prefix: `https://www.uniprot.org/uniprot/` |
+| url | prefix: <code>https://www.uniprot.org/uniprot/</code> |
 
 <a name="lot_number"></a>
 ##### [`lot_number`](#lot_number)
@@ -198,7 +202,7 @@ Antibody solutions may be diluted according to the experimental protocol. Leave 
 | constraint | value |
 | --- | --- |
 | required | `False` |
-| pattern (regular expression) | `1/\d+` |
+| pattern (regular expression) | <code>1/\d+</code> |
 
 <a name="conjugated_cat_number"></a>
 ##### [`conjugated_cat_number`](#conjugated_cat_number)
@@ -245,9 +249,9 @@ The rr_id is a unique antibody identifier that comes from the Antibody Registry 
 
 | constraint | value |
 | --- | --- |
-| pattern (regular expression) | `AB_\d+` |
+| pattern (regular expression) | <code>AB_\d+</code> |
 | required | `True` |
-| url | prefix: `https://scicrunch.org/resolver/RRID:` |
+| url | prefix: <code>https://scicrunch.org/resolver/RRID:</code> |
 
 <a name="uniprot_accession_number"></a>
 ##### [`uniprot_accession_number`](#uniprot_accession_number)
@@ -256,7 +260,7 @@ The uniprot_accession_number is a unique identifier for proteins in the UniProt 
 | constraint | value |
 | --- | --- |
 | required | `True` |
-| url | prefix: `https://www.uniprot.org/uniprot/` |
+| url | prefix: <code>https://www.uniprot.org/uniprot/</code> |
 
 <a name="lot_number"></a>
 ##### [`lot_number`](#lot_number)
@@ -273,7 +277,7 @@ Antibody solutions may be diluted according to the experimental protocol. Leave 
 | constraint | value |
 | --- | --- |
 | required | `False` |
-| pattern (regular expression) | `1/\d+` |
+| pattern (regular expression) | <code>1/\d+</code> |
 
 <a name="conjugated_cat_number"></a>
 ##### [`conjugated_cat_number`](#conjugated_cat_number)

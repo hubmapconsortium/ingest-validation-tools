@@ -1,6 +1,118 @@
 # Changelog
+## v0.0.14 - in progress
+- Add type hints.
+- Implement versioning for directory schemas.
+- After failure, explain how to continue testing from last error.
+- Add `pathology_distance_unit` in place.
+- Pin transitive dependencies.
+- New sample metadata schemas
+- Darker shade of blue, to be consistent with portal.
+- Dependabot upgrade to Nokogiri.
+- Remove reference to old Travis envvar, so post-merge CI run will pass.
+- Explain the distinction between the 10X kit versions.
+- Updated CODEX directory structure schema.
+- Added MIBI directory structure schema.
+- add snRNAseq-10xGenomics-v3
+- Make backward incompatible changes to ims-v2 in place, without a new version.
+- Preserve the key order in generated YAML, for readability.
+- Add 'Multiplex Ion Beam Imaging' assay name
+- Permanently remove snRNA and scATACseq assay names
+- add snRNAseq-10xGenomics-v2 to the scrnaseq assays
+- Move "Unique to this type" below the acquisition instrument fields.
+- Add CLI option to allow the use of deprecated schemas.
+- Allowing trailing slashes on dataset directories in metadata TSV.
+- Add acquisition instrument fields to MIBI that were left out by mistake.
+- Just use pytest to run doctests
+- Headers are no longer properties of fields.
+- Remove mention of `extras/thumbnail.jpg`.
+- Add release date to schema.
+- Add UMI fields to scrnaseq schema.
+- Add Excel sheet describing which fields show up in which schemas.
+- Add field descriptions to spreadsheet.
+- Temporarily disable checking the assay names in schemas against the global list.
+  Entries in the global list are now commented out, and Joel will progressively
+  uncomment them.
 
-## v0.0.12 - in progress
+## v0.0.13 - 2022-01-07
+- Make more fields explicitly numeric
+- Add more donor field descriptions.
+- Deprecate contributors-v0.
+- Add MIBI schema.
+- Add fields for LCMS v3.
+- Consistent rendering of code blocks in github pages and github preview.
+- Warn about trailing slashes in paths.
+- Optionally, dump validation report at the top of the upload.
+- In the report notes, record the version of the checkout.
+- Improve testing of `generate_field_yaml.py`.
+- Provides map in docs/ from fields to the entities and assays they are used in.
+- Give schema and version in success message.
+- Generate `field-types.yaml`.
+- Update assay list.
+- Added WGS directory structure schema.
+- Fixed regex on directory structure schema.
+- Check that assay terms match approved list. (Right now, they don't.)
+- Level 1 description of assay_category: Updated "3" assay categories to "4". Added imaging mass spec.
+- work around mypy importlib type hinting problem
+- Cleaned up LC-MS directory structure schema.
+- Added links to examples in the portal for 5 assays.
+- Make LC fields optional.
+- Present directory path examples in same column.
+- Updated LC-MS directory structure schema.
+- Work around mypy importlib type hinting problem.
+- Longer assay description for LCMS, and supporting machinery.
+- In CI, pin to older Ubuntu version to avoid SSL problems with Uniprot.
+- Level 1 description of assay_category: Updated "3" assay categories to "4". 
+- Added imaging mass spec.
+- Work around mypy importlib type hinting problem.
+- Antibodies validation is broken; Move test out the way.
+- Make email validation effective.
+- Add a test to confirm that backslashes aren't ignored during validation.
+- Explain allowed values for booleans.
+- Update the lcms schema field "lc_temp_value" optional
+- Switch to Github CI.
+- `cell_barcode_read` description: comma-delimitted. 
+- Update the lcms schema field "lc_temp_value" optional.
+- Hit a different URL for ORCID, that will not give us soft 404s.
+- In bash scripts, make python3 explicit.
+- Update the flowchart to reflect the roles of Bill and PK.
+- Add pipeline info.
+- Hotfix on CellDive directory to reflect changes to dataset.
+- Updated CellDive directory structure.
+- Updated CODEX directory structure.
+- Non-assay schema docs were not be update. Fix that.
+- Sample was being skipped in doc generation. Fix that.
+- Add to enums for `perfusion_solutions` and `ms_source`.
+- Upgrade from dependabot.
+
+## v0.0.12 - 2021-07-23
+- Catch unrecognized keys in dir schema.
+- Ammend LCMS docs.
+- Fix CI: point to right branch.
+- Document Donor and Sample Metadata process.
+- Make the network cache file JSON, for portability.
+- Dependabot update.
+- Fix typo.
+- Explain acronyms.
+- Add kwarg to pass-through to tests.
+- Update `validate_upload.py` docs.
+- Add new LCMS version, and clean up reused fields.
+- Make barcode fields optional.
+- User donor as a test-bed for ontology-enums.
+- Add a warning on pages where every version has been deprecated.
+- Add gcms.
+- Make some scatacseq fields optional.
+- Create CE-MS.
+- New version of IMS.
+- Add a warning on pages where every version has been deprecated.
+- Doc test for deprecated schemas.
+- Add 10X multiome to scatacseq.
+- Deprecated flag can now be added to schema.
+- CLEANUP rnaseq_assay_method.
+- cleanup resolution_z_unit.
+- Network problems in report, instead of quitting with stack trace.
+- New lightsheet schema, with description of changes.
+- Introduced Lightsheet directory schema.
+- Ensure that version numbers match the constraint inside the file.
 - `maldiims` to `ims`: Only touches URLs; doesn't affect validation.
 - Add script to validate any TSV.
 - Factor out exit status codes.

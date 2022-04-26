@@ -2,6 +2,7 @@
 title: ${title}
 schema_name: ${schema_name}
 category: ${category}
+all_versions_deprecated: ${all_versions_deprecated}
 layout: default
 ---
 
@@ -15,6 +16,9 @@ ${optional_description_md}
 ${optional_dir_description_md}
 
 ## Metadata schema
+
+### Field types
+- *Boolean* fields can be given as `TRUE`/`FALSE`, `True`/`False`, `true`/`false`, or `1`/`0`.  
 
 ${current_version_md}
 ${previous_versions_md}

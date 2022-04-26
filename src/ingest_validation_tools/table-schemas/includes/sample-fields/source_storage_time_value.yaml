@@ -1,0 +1,2 @@
+- name: source_storage_time_value
+  description: 'The amount of time that elapsed between when the source was generated and this sample was derived from the source. This would, for example, include how long the source was stored in a freezer.'

@@ -1,0 +1,64 @@
+doc_url: https://portal.hubmapconsortium.org/docs/assays/lightsheet
+description_md: >-
+  Lightsheet uploads require metadata on the antibodies used in the assay
+  to be provided in an Antibodies TSV. For Lightsheet, the `channel_id` is the
+  name of the fluorophore tag on the antibody. For an example of a lightsheet dataset & directory, see this 
+  [example lightsheet dataset](https://portal.hubmapconsortium.org/browse/dataset/b6eba6afe660a8a85c2648e368b0cf9f#files) 
+  and click the Globus link. 
+  
+  Version 2 has 5 new fields for metadata describing the Z-dimension specifically relevant to lightsheet.
+  These values provide the total number of image sections captured, the incremental value and unit of distance
+  between the sections and the value and unit of the total distance captured.
+
+  The other fields function the same way for all assays using antibodies.
+  For more information, see the [Antibodies TSV documentation](../antibodies).
+fields:
+- Shared by all types
+- name: version
+  description: Version of the schema to use when validating this metadata.
+  constraints:
+    enum:
+      - '2'
+# include: ../includes/vA/all_assays_wo_version.yaml
+- name: assay_category
+  constraints:
+    enum:
+      - imaging
+- name: assay_type
+  constraints:
+    enum:
+      - Light Sheet
+- name: analyte_class
+  constraints:
+    enum:
+      - protein
+# include: ../includes/v0/is_targeted.yaml
+# include: ../includes/v0/acquisition_instrument.yaml
+
+# Level 2 fields:
+- Unique to this type
+
+# include: ../includes/v0/x_y.yaml
+
+- name: range_z_value
+  description: The total range of the z axis.
+- name: range_z_unit
+  description: The unit of range_z_value.
+  constraints:
+    enum:
+      - nm
+      - um
+- name: step_z_value
+  description: The number of optical sections in z axis range.
+- name: increment_z_value
+  description: The distance between sequential optical sections.
+- name: increment_z_unit
+  description: The units of increment z value.
+  constraints:
+    enum:
+      - nm
+      - um
+# include: ../includes/v0/antibodies_channels.yaml
+
+# include: ../includes/fields/antibodies_path.yaml
+# include: ../includes/v0/paths.yaml

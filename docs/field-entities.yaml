@@ -1,0 +1,508 @@
+ablation_distance_between_shots_x_units:
+- dataset
+ablation_distance_between_shots_x_value:
+- dataset
+ablation_distance_between_shots_y_units:
+- dataset
+ablation_distance_between_shots_y_value:
+- dataset
+ablation_frequency_unit:
+- dataset
+ablation_frequency_value:
+- dataset
+acquisition_id:
+- dataset
+acquisition_instrument_model:
+- dataset
+acquisition_instrument_vendor:
+- dataset
+affiliation:
+- contributors
+age_unit:
+- donor
+age_value:
+- donor
+analyte_class:
+- dataset
+antibodies_path:
+- dataset
+antibody_name:
+- antibodies
+area_normalized_ion_dose_unit:
+- dataset
+area_normalized_ion_dose_value:
+- dataset
+area_unit:
+- sample
+area_value:
+- sample
+assay_category:
+- dataset
+assay_type:
+- dataset
+bead_barcode_offset:
+- dataset
+bead_barcode_read:
+- dataset
+bead_barcode_size:
+- dataset
+blood_type:
+- donor
+body_mass_index_value:
+- donor
+bulk_atac_cell_isolation_protocols_io_doi:
+- dataset
+bulk_rna_isolation_protocols_io_doi:
+- dataset
+bulk_rna_isolation_quality_metric_value:
+- dataset
+bulk_rna_yield_units_per_tissue_unit:
+- dataset
+bulk_rna_yield_value:
+- dataset
+bulk_transposition_input_number_nuclei:
+- dataset
+cause_of_death:
+- donor
+ce_background_electrolyte:
+- dataset
+ce_capillary_coating:
+- dataset
+ce_electroosmotic_flow:
+- dataset
+ce_instrument_model:
+- dataset
+ce_instrument_vendor:
+- dataset
+ce_interface:
+- dataset
+cell_barcode_offset:
+- dataset
+cell_barcode_read:
+- dataset
+cell_barcode_size:
+- dataset
+channel_id:
+- antibodies
+cold_ischemia_time_unit:
+- sample
+cold_ischemia_time_value:
+- sample
+column_length_unit:
+- dataset
+column_length_value:
+- dataset
+column_model:
+- dataset
+column_temp_unit:
+- dataset
+column_temp_value:
+- dataset
+column_vendor:
+- dataset
+concentration_unit:
+- antibodies
+concentration_value:
+- antibodies
+conjugated_cat_number:
+- antibodies
+conjugated_tag:
+- antibodies
+contributors_path:
+- dataset
+data_collection_mode:
+- dataset
+data_path:
+- dataset
+data_precision_bytes:
+- dataset
+description:
+- dataset
+desi_solvent:
+- dataset
+desi_solvent_flow_rate:
+- dataset
+desi_solvent_flow_rate_unit:
+- dataset
+dilution:
+- antibodies
+dms:
+- dataset
+dna_assay_input_unit:
+- dataset
+dna_assay_input_value:
+- dataset
+donor_id:
+- dataset
+dual_count_start:
+- dataset
+end_datetime:
+- dataset
+execution_datetime:
+- dataset
+expected_cell_count:
+- dataset
+first_name:
+- contributors
+gdna_fragmentation_quality_assurance:
+- dataset
+guard_column:
+- dataset
+health_status:
+- sample
+height_unit:
+- donor
+height_value:
+- donor
+histological_report:
+- sample
+increment_z_unit:
+- dataset
+increment_z_value:
+- dataset
+internal_standard:
+- dataset
+ion_mobility:
+- dataset
+ion_source:
+- dataset
+is_contact:
+- contributors
+is_targeted:
+- dataset
+is_technical_replicate:
+- dataset
+kidney_donor_profile_index_value:
+- donor
+label_name:
+- dataset
+labeling:
+- dataset
+last_name:
+- contributors
+lc_column_model:
+- dataset
+lc_column_vendor:
+- dataset
+lc_flow_rate_unit:
+- dataset
+lc_flow_rate_value:
+- dataset
+lc_gradient:
+- dataset
+lc_id_unit:
+- dataset
+lc_id_value:
+- dataset
+lc_instrument_model:
+- dataset
+lc_instrument_vendor:
+- dataset
+lc_length_unit:
+- dataset
+lc_length_value:
+- dataset
+lc_mobile_phase_a:
+- dataset
+lc_mobile_phase_b:
+- dataset
+lc_resin:
+- dataset
+lc_temp_unit:
+- dataset
+lc_temp_value:
+- dataset
+library_adapter_sequence:
+- dataset
+library_average_fragment_size:
+- dataset
+library_concentration_unit:
+- dataset
+library_concentration_value:
+- dataset
+library_construction_method:
+- dataset
+library_construction_protocols_io_doi:
+- dataset
+library_creation_date:
+- dataset
+library_final_yield:
+- dataset
+library_final_yield_unit:
+- dataset
+library_final_yield_value:
+- dataset
+library_id:
+- dataset
+library_layout:
+- dataset
+library_pcr_cycles:
+- dataset
+library_pcr_cycles_for_sample_index:
+- dataset
+library_preparation_kit:
+- dataset
+lot_number:
+- antibodies
+mass_resolving_power:
+- dataset
+max_x_width_unit:
+- dataset
+max_x_width_value:
+- dataset
+max_y_height_unit:
+- dataset
+max_y_height_value:
+- dataset
+mechanism_of_injury:
+- donor
+medical_history:
+- donor
+middle_name_or_initial:
+- contributors
+ms_scan_mode:
+- dataset
+ms_source:
+- dataset
+mz_range_high_value:
+- dataset
+mz_range_low_value:
+- dataset
+mz_resolving_power:
+- dataset
+name:
+- contributors
+notes:
+- sample
+number_of_antibodies:
+- dataset
+number_of_barcode_probes:
+- dataset
+number_of_barcode_regions_per_barcode_probe:
+- dataset
+number_of_channels:
+- dataset
+number_of_cycles:
+- dataset
+number_of_imaging_rounds:
+- dataset
+number_of_pseudocolors_per_channel:
+- dataset
+number_of_readout_probes_per_channel:
+- dataset
+number_of_sections:
+- dataset
+operator:
+- dataset
+operator_email:
+- dataset
+orcid_id:
+- contributors
+organ_condition:
+- sample
+overall_protocols_io_doi:
+- dataset
+pathologist_report:
+- sample
+pathology_distance_unit:
+- sample
+pathology_distance_value:
+- sample
+perfusion_solution:
+- sample
+pi:
+- dataset
+pi_email:
+- dataset
+pixel_dwell_time_unit:
+- dataset
+pixel_dwell_time_value:
+- dataset
+pixel_size_x_unit:
+- dataset
+pixel_size_x_value:
+- dataset
+pixel_size_y_unit:
+- dataset
+pixel_size_y_value:
+- dataset
+polarity:
+- dataset
+preparation_instrument_model:
+- dataset
+preparation_instrument_vendor:
+- dataset
+preparation_maldi_matrix:
+- dataset
+preparation_media:
+- sample
+preparation_temperature:
+- sample
+preparation_type:
+- dataset
+primary_ion:
+- dataset
+primary_ion_current_unit:
+- dataset
+primary_ion_current_value:
+- dataset
+procedure_date:
+- sample
+processing_protocols_io_doi:
+- dataset
+processing_search:
+- dataset
+processing_time_unit:
+- sample
+processing_time_value:
+- sample
+protocols_io_doi:
+- dataset
+puck_id:
+- dataset
+quality_criteria:
+- sample
+race:
+- donor
+range_z_unit:
+- dataset
+range_z_value:
+- dataset
+reagent_prep_protocols_io_doi:
+- dataset
+resolution_x_unit:
+- dataset
+resolution_x_value:
+- dataset
+resolution_y_unit:
+- dataset
+resolution_y_value:
+- dataset
+resolution_z_unit:
+- dataset
+resolution_z_value:
+- dataset
+rnaseq_assay_input:
+- dataset
+rnaseq_assay_input_unit:
+- dataset
+rnaseq_assay_input_value:
+- dataset
+rnaseq_assay_method:
+- dataset
+roi_description:
+- dataset
+roi_id:
+- dataset
+rr_id:
+- antibodies
+sample_id:
+- sample
+sample_quality_metric:
+- dataset
+sc_isolation_cell_number:
+- dataset
+sc_isolation_enrichment:
+- dataset
+sc_isolation_entity:
+- dataset
+sc_isolation_protocols_io_doi:
+- dataset
+sc_isolation_quality_metric:
+- dataset
+sc_isolation_tissue_dissociation:
+- dataset
+section_index_number:
+- sample
+section_prep_protocols_io_doi:
+- dataset
+section_thickness_unit:
+- sample
+section_thickness_value:
+- sample
+segment_data_format:
+- dataset
+sequencing_phix_percent:
+- dataset
+sequencing_read_format:
+- dataset
+sequencing_read_percent_q30:
+- dataset
+sequencing_reagent_kit:
+- dataset
+sex:
+- donor
+signal_type:
+- dataset
+source_project:
+- dataset
+source_storage_time_unit:
+- sample
+source_storage_time_value:
+- sample
+spatial_sampling_type:
+- dataset
+spatial_target:
+- dataset
+spatial_type:
+- dataset
+specimen_preservation_temperature:
+- sample
+specimen_quality_criteria:
+- sample
+specimen_tumor_distance_unit:
+- sample
+specimen_tumor_distance_value:
+- sample
+stain:
+- dataset
+start_datetime:
+- dataset
+step_z_value:
+- dataset
+storage_media:
+- sample
+storage_temperature:
+- sample
+tissue_id:
+- dataset
+transposition_input:
+- dataset
+transposition_kit_number:
+- dataset
+transposition_method:
+- dataset
+transposition_transposase_source:
+- dataset
+type:
+- sample
+umi_offset:
+- dataset
+umi_read:
+- dataset
+umi_size:
+- dataset
+uniprot_accession_number:
+- antibodies
+version:
+- antibodies
+- contributors
+- dataset
+- sample
+vital_state:
+- sample
+volume_unit:
+- sample
+volume_value:
+- sample
+warm_ischemia_time_unit:
+- sample
+warm_ischemia_time_value:
+- sample
+weight_unit:
+- donor
+- sample
+weight_value:
+- donor
+- sample
+

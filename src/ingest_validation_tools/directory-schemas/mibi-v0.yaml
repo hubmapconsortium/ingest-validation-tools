@@ -1,0 +1,46 @@
+files:
+  -
+    pattern: 'mcd/[^/]+_HuBMAP_[^/]+_slide[^/]+\.zip'
+    description: 'Zipped CSV containing labels for sections as well as whether or not they were included in the 3D model.'
+    required: False
+  -
+    pattern: 'mcd/section_report\.csv'
+    description: 'Contains tissue id, acquisition id, 3D image ordering, MCD image ordering, and boolean if used for 3D model.'
+    required: False
+  -
+    pattern: 'mcd/channelnames_report\.csv'
+    description: 'Contains antibodies names used and whether they were detected sufficiently or not.'
+    required: True
+  -
+    pattern: '3D_image_stack\.ome\.tiff'
+    description: 'OME.tiff file comprising all slices and channels.'
+    required: True
+  -
+    pattern: 'SingleCellData/cells\.csv'
+    description: 'Contains one csv file per tissue with marker intensities (untransformed, range normalized to 99th percentile), phenograph cluster label and cell type label per single cell.'
+    required: True
+  -
+    pattern: 'SingleCellData/cellsinfo\.txt'
+    description: 'Text file containing formatting information about cellsorgan.csv.'
+    required: False
+  -
+    pattern: 'Mapping/cluster_labels_image\.tif'
+    description: 'Cell image labeled by cell type.'
+    required: True
+  -
+    pattern: 'processed/umap_phenograph\.pdf'
+    description: 'tSNE phenograph. File is optional.'
+    required: False
+  -
+    pattern: 'processed/CellTypeComposition_perTissue\.pdf'
+    description: 'Cell type composition bar graph per tissue. File is optional.'
+    required: False
+  -
+    pattern: 'processed/Densityplots_perMarker\.pdf'
+    description: 'Density plots of marker intensity, separated by marker. File is optional.'
+    is_qa_qc: True
+    required: False
+  -
+    pattern: 'processed/celltypes\.pdf'
+    description: 'Heatmap of marker expression per cluster, annotated by assigned cell type. File is optional.'
+    required: False

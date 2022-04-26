@@ -1,9 +1,0 @@
-language: python
-python:
-  - '3.6' # The Red Hat version used by IEC doesn't support anything more recent. :(
-cache: pip
-install:
-  - pip install -r requirements.txt
-  - pip install -r requirements-dev.txt
-script:
-  - ./test.sh

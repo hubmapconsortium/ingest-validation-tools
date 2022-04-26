@@ -1,17 +1,22 @@
 import re
 from string import Template
-import shelve
 from pathlib import Path
 from sys import stderr
+import json
+from typing import List, Callable, Dict, Any, Iterator
 
 import frictionless
 import requests
 
 
-cache_path = str(Path(__file__).parent / 'url-status-cache')
+cache_path = Path(__file__).parent / 'url-status-cache.json'
+
+ErrorIterator = Iterator[frictionless.errors.CellError]
+Row = Dict[str, Any]
+Check = Callable[[Row], ErrorIterator]
 
 
-def make_checks(schema):
+def make_checks(schema) -> List[Check]:
     factory = _CheckFactory(schema)
     return [
         factory.make_url_check(),
@@ -26,23 +31,33 @@ class _CheckFactory():
         self.schema = schema
         self._prev_value_run_length = {}
 
-    def _get_constrained_fields(self, constraint):
+    def _get_constrained_fields(self, constraint: str) -> Dict[str, List]:
         c_c = 'custom_constraints'
         return {
             f['name']: f[c_c][constraint] for f in self.schema['fields']
             if c_c in f and constraint in f[c_c]
         }
 
-    def _check_url_status_cache(self, url):
-        with shelve.open(cache_path) as url_status_cache:
-            if url not in url_status_cache:
-                print(f'Fetching un-cached url: {url}', file=stderr)
+    def _check_url_status_cache(self, url: str) -> str:
+        if not cache_path.exists():
+            cache_path.write_text('{}')
+        url_status_cache = json.loads(cache_path.read_text())
+        if url not in url_status_cache:
+            print(f'Fetching un-cached url: {url}', file=stderr)
+            try:
                 response = requests.get(url)
                 url_status_cache[url] = response.status_code
-            return url_status_cache[url]
+            except Exception as e:
+                url_status_cache[url] = str(e)
+            cache_path.write_text(json.dumps(
+                url_status_cache,
+                sort_keys=True,
+                indent=2
+            ))
+        return url_status_cache[url]
 
     def make_url_check(self, template=Template(
-            'URL returned $status: "$url"')):
+            'URL returned $status: "$url"')) -> Check:
         url_constrained_fields = self._get_constrained_fields('url')
 
         def url_check(row):
@@ -60,7 +75,7 @@ class _CheckFactory():
 
     def make_sequence_limit_check(self, template=Template(
             'there is a run of $run_length sequential items: Limit is $limit. '
-            'If correct, reorder rows.')):
+            'If correct, reorder rows.')) -> Check:
         sequence_limit_fields = self._get_constrained_fields('sequence_limit')
 
         def sequence_limit_check(row):
@@ -104,7 +119,7 @@ class _CheckFactory():
         return sequence_limit_check
 
     def make_units_check(self, template=Template(
-            'Required when $units_for is filled')):
+            'Required when $units_for is filled')) -> Check:
         units_constrained_fields = self._get_constrained_fields('units_for')
 
         def units_check(row):
@@ -117,7 +132,7 @@ class _CheckFactory():
         return units_check
 
     def make_forbid_na_check(self, template=Template(
-            '"N/A" fields should just be left empty')):
+            '"N/A" fields should just be left empty')) -> Check:
         forbid_na_constrained_fields = self._get_constrained_fields('forbid_na')
 
         def forbid_na_check(row):

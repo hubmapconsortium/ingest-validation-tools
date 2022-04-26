@@ -1,0 +1,8 @@
+- name: weight_unit
+  description: 'Weight unit'
+  constraints:
+    required: false
+    enum:
+      - mg
+      - g
+      - kg

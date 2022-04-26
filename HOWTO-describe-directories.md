@@ -48,7 +48,7 @@ In general:
 - Use formats which are easier to reuse: Instead of a PDF report, consider HTML.
 - For a CSV or TSV, what are the columns?
 - For JSON or XML, is there a schema or other outside reference?
-- Use `ome.tiff` for raster data. If you have a preview image, provide it at `extras/thumbnail.{png,jpg}`.
+- Use `ome.tiff` for raster data.
 - Don't use spaces in filenames.
 - Don't use mixed case in filenames.
 - For `.zip` or `.gz`, include the original extension along with the new one. For example, `data.csv.gz`, and not just `data.gz`.

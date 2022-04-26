@@ -1,11 +1,12 @@
 doc_url: https://portal.hubmapconsortium.org/docs/assays/rnaseq
+description_md: This schema is for single cell RNA sequencing (scRNAseq).
 fields:
+- Shared by all types
 - name: version
-  heading: Shared by all types
   description: Version of the schema to use when validating this metadata.
   constraints:
     enum:
-      - '1'
+      - '2'
 # include: ../includes/vA/all_assays_wo_version.yaml
 - name: assay_category
   constraints:
@@ -16,6 +17,8 @@ fields:
     enum:
       - scRNAseq-10xGenomics-v2
       - scRNAseq-10xGenomics-v3
+      - snRNAseq-10xGenomics-v2
+      - snRNAseq-10xGenomics-v3
       - scRNAseq
       - sciRNAseq
       - snRNAseq
@@ -25,9 +28,11 @@ fields:
     enum:
       - RNA
 # include: ../includes/v0/is_targeted.yaml
+# include: ../includes/v0/acquisition_instrument.yaml
 
 # Level 2 fields:
-# include: ../includes/v0/acquisition_instrument.yaml
+- Unique to this type
+
 - name: sc_isolation_protocols_io_doi
   description: "Link to a protocols document answering the question: How were single cells separated into a single-cell suspension?"
 - name: sc_isolation_entity
@@ -49,10 +54,11 @@ fields:
   description: A quality metric by visual inspection prior to cell lysis or defined by known parameters such as wells with several cells or no cells. This can be captured at a high level.
 - name: sc_isolation_cell_number
   description: Total number of cell/nuclei yielded post dissociation and enrichment
+  type: integer
 - name: rnaseq_assay_input
+  type: integer
   description: Number of cell/nuclei input to the assay
-- name: rnaseq_assay_method
-  description: The kit used for the RNA sequencing assay
+# include: ../includes/fields/rnaseq_assay_method.yaml
 - name: library_construction_protocols_io_doi
   description: A link to the protocol document containing the library construction method (including version) that was used, e.g. "Smart-Seq2", "Drop-Seq", "10X v3".
 # include: ../includes/fields/library_layout.yaml
@@ -62,17 +68,21 @@ fields:
     pattern: '[ATCG]+(\+[ATCG]+)?'
 # include: ../includes/fields/library_id.yaml
 - name: is_technical_replicate
-  description: Is the sequencing reaction run in repliucate, TRUE or FALSE
+  description: Is the sequencing reaction run in replicate, TRUE or FALSE
   type: boolean
 - name: cell_barcode_read
-  description: Which read file contains the cell barcode
+  description: Which read file(s) contains the cell barcode. Multiple cell_barcode_read files must be provided as a comma-delimited list (e.g. file1,file2,file3).
+  constraints:
+    required: FALSE
 - name: cell_barcode_offset
   description: Position(s) in the read at which the cell barcode starts.
   constraints:
+    required: FALSE
     pattern: '\d+(,\d+)*'
 - name: cell_barcode_size
   description: Length of the cell barcode in base pairs
   constraints:
+    required: FALSE
     pattern: '\d+(,\d+)*'
 # include: ../includes/fields/expected_cell_count.yaml
 - name: library_pcr_cycles
@@ -82,9 +92,7 @@ fields:
   description: Number of PCR cycles performed for library indexing
   type: integer
 # include: ../includes/fields/library_final_yield_value_unit.yaml
-- name: library_average_fragment_size
-  description: Average size of sequencing library fragments estimated via gel electrophoresis or bioanalyzer/tapestation.
-
+# include: ../includes/fields/library_average_fragment_size.yaml
 # include: ../includes/v0/sequencing.yaml
 
 # include: ../includes/v0/paths.yaml

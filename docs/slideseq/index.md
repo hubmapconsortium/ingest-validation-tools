@@ -2,36 +2,40 @@
 title: Slide-seq
 schema_name: slideseq
 category: Sequence assays
+all_versions_deprecated: False
 layout: default
 ---
 
 Related files:
 
-- [📝 Excel template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/master/docs/slideseq/slideseq-metadata.xlsx): For metadata entry.
-- [📝 TSV template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/master/docs/slideseq/slideseq-metadata.tsv): Alternative for metadata entry.
+- [📝 Excel template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/main/docs/slideseq/slideseq-metadata.xlsx): For metadata entry.
+- [📝 TSV template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/main/docs/slideseq/slideseq-metadata.tsv): Alternative for metadata entry.
 
 
 
-## Directory schema
+## Directory schemas
+### v0
 
 | pattern | required? | description |
 | --- | --- | --- |
-| `[^/]+/alignment/Puck_[^/]+\.bam` | ✓ | aligned sequencing data from Slide-seq experiments against reference HG38 |
-| `[^/]+/alignment/Puck_[^/]+_mapping_rate\.txt` | ✓ | mapping rate summary (~ 10 number of mapping statistics per puck) |
-| `[^/]+/alignment/Puck_[^/]+_alignment_quality\.pdf` | ✓ | mapping quality plots (has unique and multiple alignment ratio, alignment scores alignment mismatch) |
-| `[^/]+/alignment/Puck_[^/]+\.digital_expression\.txt\.gz` | ✓ | bead x gene expression matrix (csv file) |
-| `[^/]+/alignment/Puck_[^/]+\.exonic\+intronic\.pdf` | ✓ | post alignment plots (qa/qc), plots of sequencing data, alignment and barcode matching |
-| `[^/]+/barcode_matching/BeadBarcodes\.txt` | ✓ | barcodes of all sequenced beads (Many of these barcodes will not be in the matched_bead_barcodes files) |
-| `[^/]+/barcode_matching/BeadLocations\.txt` | ✓ | spatial coordinates of all sequenced beads (1 to 1 correspondence with BeadBarcodes) |
-| `[^/]+/barcode_matching/Puck_[^/]+_unique_matched_illumina_barcodes\.txt` | ✓ | matched Illumina barcodes (used by illumina sequencer) |
-| `[^/]+/barcode_matching/Puck_[^/]+_matched_bead_barcodes\.txt` | ✓ | matched bead barcodes (these are the barcodes that matched bead on the puck) |
-| `[^/]+/barcode_matching/Puck_[^/]+_matched_bead_locations\.txt` | ✓ | matched bead coordinates (these are the location of the barcodes that matched bead on the puck) |
-| `[^/]+/fastq/Puck_[^/]\.read1\.fastq\.gz` | ✓ | each puck will have 2 fastq files, this file contains the first set of paired reads |
-| `[^/]+/fastq/Puck_[^/]+\.read2\.fastq\.gz` | ✓ | each puck will have 2 fastq files, this file contains the second set of paired reads |
-| `extras/.*` |  | Free-form descriptive information supplied by the TMC |
-| `extras/thumbnail\.(png\|jpg)` |  | Optional thumbnail image which may be shown in search interface |
+| <code>[^/]+/alignment/Puck_[^/]+\.bam</code> | ✓ | aligned sequencing data from Slide-seq experiments against reference HG38 |
+| <code>[^/]+/alignment/Puck_[^/]+_mapping_rate\.txt</code> | ✓ | mapping rate summary (~ 10 number of mapping statistics per puck) |
+| <code>[^/]+/alignment/Puck_[^/]+_alignment_quality\.pdf</code> | ✓ | mapping quality plots (has unique and multiple alignment ratio, alignment scores alignment mismatch) |
+| <code>[^/]+/alignment/Puck_[^/]+\.digital_expression\.txt\.gz</code> | ✓ | bead x gene expression matrix (csv file) |
+| <code>[^/]+/alignment/Puck_[^/]+\.exonic\+intronic\.pdf</code> | ✓ | post alignment plots (qa/qc), plots of sequencing data, alignment and barcode matching |
+| <code>[^/]+/barcode_matching/BeadBarcodes\.txt</code> | ✓ | barcodes of all sequenced beads (Many of these barcodes will not be in the matched_bead_barcodes files) |
+| <code>[^/]+/barcode_matching/BeadLocations\.txt</code> | ✓ | spatial coordinates of all sequenced beads (1 to 1 correspondence with BeadBarcodes) |
+| <code>[^/]+/barcode_matching/Puck_[^/]+_unique_matched_illumina_barcodes\.txt</code> | ✓ | matched Illumina barcodes (used by illumina sequencer) |
+| <code>[^/]+/barcode_matching/Puck_[^/]+_matched_bead_barcodes\.txt</code> | ✓ | matched bead barcodes (these are the barcodes that matched bead on the puck) |
+| <code>[^/]+/barcode_matching/Puck_[^/]+_matched_bead_locations\.txt</code> | ✓ | matched bead coordinates (these are the location of the barcodes that matched bead on the puck) |
+| <code>[^/]+/fastq/Puck_[^/]+\.read1\.fastq\.gz</code> | ✓ | each puck will have 2 fastq files, this file contains the first set of paired reads |
+| <code>[^/]+/fastq/Puck_[^/]+\.read2\.fastq\.gz</code> | ✓ | each puck will have 2 fastq files, this file contains the second set of paired reads |
+| <code>extras/.*</code> |  | Free-form descriptive information supplied by the TMC |
 
 ## Metadata schema
+
+### Field types
+- *Boolean* fields can be given as `TRUE`/`FALSE`, `True`/`False`, `true`/`false`, or `1`/`0`.  
 
 
 <details markdown="1" open="true"><summary><b>Version 1 (current)</b></summary>
@@ -54,12 +58,12 @@ Related files:
 [`assay_type`](#assay_type)<br>
 [`analyte_class`](#analyte_class)<br>
 [`is_targeted`](#is_targeted)<br>
+[`acquisition_instrument_vendor`](#acquisition_instrument_vendor)<br>
+[`acquisition_instrument_model`](#acquisition_instrument_model)<br>
 
 </details>
 <details markdown="1"><summary>Unique to this type</summary>
 
-[`acquisition_instrument_vendor`](#acquisition_instrument_vendor)<br>
-[`acquisition_instrument_model`](#acquisition_instrument_model)<br>
 [`rnaseq_assay_method`](#rnaseq_assay_method)<br>
 [`library_construction_protocols_io_doi`](#library_construction_protocols_io_doi)<br>
 [`library_layout`](#library_layout)<br>
@@ -109,7 +113,7 @@ HuBMAP Display ID of the donor of the assayed tissue. Example: `ABC123`.
 
 | constraint | value |
 | --- | --- |
-| pattern (regular expression) | `[A-Z]+[0-9]+` |
+| pattern (regular expression) | <code>[A-Z]+[0-9]+</code> |
 | required | `True` |
 
 <a name="tissue_id"></a>
@@ -118,7 +122,7 @@ HuBMAP Display ID of the assayed tissue. Example: `ABC123-BL-1-2-3_456`.
 
 | constraint | value |
 | --- | --- |
-| pattern (regular expression) | `([A-Z]+[0-9]+)-[A-Z]{2}\d*(-\d+)+(_\d+)?` |
+| pattern (regular expression) | <code>([A-Z]+[0-9]+)-[A-Z]{2}\d*(-\d+)+(_\d+)?</code> |
 | required | `True` |
 
 <a name="execution_datetime"></a>
@@ -138,8 +142,8 @@ DOI for protocols.io referring to the protocol for this assay.
 | constraint | value |
 | --- | --- |
 | required | `True` |
-| pattern (regular expression) | `10\.17504/.*` |
-| url | prefix: `https://dx.doi.org/` |
+| pattern (regular expression) | <code>10\.17504/.*</code> |
+| url | prefix: <code>https://dx.doi.org/</code> |
 
 <a name="operator"></a>
 ##### [`operator`](#operator)
@@ -177,7 +181,7 @@ Email address for the principal investigator.
 
 <a name="assay_category"></a>
 ##### [`assay_category`](#assay_category)
-Each assay is placed into one of the following 3 general categories: generation of images of microscopic entities, identification & quantitation of molecules by mass spectrometry, and determination of nucleotide sequence.
+Each assay is placed into one of the following 4 general categories: generation of images of microscopic entities, identification & quantitation of molecules by mass spectrometry, imaging mass spectrometry, and determination of nucleotide sequence.
 
 | constraint | value |
 | --- | --- |
@@ -204,14 +208,12 @@ Analytes are the target molecules being measured with the assay.
 
 <a name="is_targeted"></a>
 ##### [`is_targeted`](#is_targeted)
-Specifies whether or not a specific molecule(s) is/are targeted for detection/measurement by the assay. The CODEX analyte is protein.
+Specifies whether or not a specific molecule(s) is/are targeted for detection/measurement by the assay.
 
 | constraint | value |
 | --- | --- |
 | type | `boolean` |
 | required | `True` |
-
-### Unique to this type
 
 <a name="acquisition_instrument_vendor"></a>
 ##### [`acquisition_instrument_vendor`](#acquisition_instrument_vendor)
@@ -229,6 +231,8 @@ Manufacturers of an acquisition instrument may offer various versions (models) o
 | --- | --- |
 | required | `True` |
 
+### Unique to this type
+
 <a name="rnaseq_assay_method"></a>
 ##### [`rnaseq_assay_method`](#rnaseq_assay_method)
 The kit used for the RNA sequencing assay.
@@ -244,8 +248,8 @@ A link to the protocol document containing the library construction method (incl
 | constraint | value |
 | --- | --- |
 | required | `True` |
-| pattern (regular expression) | `10\.17504/.*` |
-| url | prefix: `https://dx.doi.org/` |
+| pattern (regular expression) | <code>10\.17504/.*</code> |
+| url | prefix: <code>https://dx.doi.org/</code> |
 
 <a name="library_layout"></a>
 ##### [`library_layout`](#library_layout)
@@ -311,6 +315,7 @@ Number of PCR cycles to amplify cDNA.
 
 | constraint | value |
 | --- | --- |
+| type | `integer` |
 | required | `True` |
 
 <a name="library_pcr_cycles_for_sample_index"></a>
@@ -319,6 +324,7 @@ Number of PCR cycles performed for library indexing.
 
 | constraint | value |
 | --- | --- |
+| type | `integer` |
 | required | `True` |
 
 <a name="library_final_yield_value"></a>
@@ -342,10 +348,11 @@ Units of final library yield. Leave blank if not applicable.
 
 <a name="library_average_fragment_size"></a>
 ##### [`library_average_fragment_size`](#library_average_fragment_size)
-Average size of sequencing library fragments estimated via gel electrophoresis or bioanalyzer/tapestation.
+Average size in basepairs (bp) of sequencing library fragments estimated via gel electrophoresis or bioanalyzer/tapestation.
 
 | constraint | value |
 | --- | --- |
+| type | `integer` |
 | required | `True` |
 
 <a name="sequencing_reagent_kit"></a>
@@ -362,7 +369,7 @@ Slash-delimited list of the number of sequencing cycles for, for example, Read1,
 
 | constraint | value |
 | --- | --- |
-| pattern (regular expression) | `\d+(/\d+)+` |
+| pattern (regular expression) | <code>\d+(/\d+)+</code> |
 | required | `True` |
 
 <a name="sequencing_read_percent_q30"></a>
@@ -417,7 +424,7 @@ HuBMAP Display ID of the donor of the assayed tissue. Example: `ABC123`.
 
 | constraint | value |
 | --- | --- |
-| pattern (regular expression) | `[A-Z]+[0-9]+` |
+| pattern (regular expression) | <code>[A-Z]+[0-9]+</code> |
 | required | `True` |
 
 <a name="tissue_id"></a>
@@ -426,7 +433,7 @@ HuBMAP Display ID of the assayed tissue. Example: `ABC123-BL-1-2-3_456`.
 
 | constraint | value |
 | --- | --- |
-| pattern (regular expression) | `([A-Z]+[0-9]+)-[A-Z]{2}\d*(-\d+)+(_\d+)?` |
+| pattern (regular expression) | <code>([A-Z]+[0-9]+)-[A-Z]{2}\d*(-\d+)+(_\d+)?</code> |
 | required | `True` |
 
 <a name="execution_datetime"></a>
@@ -446,8 +453,8 @@ DOI for protocols.io referring to the protocol for this assay.
 | constraint | value |
 | --- | --- |
 | required | `True` |
-| pattern (regular expression) | `10\.17504/.*` |
-| url | prefix: `https://dx.doi.org/` |
+| pattern (regular expression) | <code>10\.17504/.*</code> |
+| url | prefix: <code>https://dx.doi.org/</code> |
 
 <a name="operator"></a>
 ##### [`operator`](#operator)
@@ -485,7 +492,7 @@ Email address for the principal investigator.
 
 <a name="assay_category"></a>
 ##### [`assay_category`](#assay_category)
-Each assay is placed into one of the following 3 general categories: generation of images of microscopic entities, identification & quantitation of molecules by mass spectrometry, and determination of nucleotide sequence.
+Each assay is placed into one of the following 4 general categories: generation of images of microscopic entities, identification & quantitation of molecules by mass spectrometry, imaging mass spectrometry, and determination of nucleotide sequence.
 
 | constraint | value |
 | --- | --- |
@@ -512,14 +519,12 @@ Analytes are the target molecules being measured with the assay.
 
 <a name="is_targeted"></a>
 ##### [`is_targeted`](#is_targeted)
-Specifies whether or not a specific molecule(s) is/are targeted for detection/measurement by the assay. The CODEX analyte is protein.
+Specifies whether or not a specific molecule(s) is/are targeted for detection/measurement by the assay.
 
 | constraint | value |
 | --- | --- |
 | type | `boolean` |
 | required | `True` |
-
-### Unique to this type
 
 <a name="acquisition_instrument_vendor"></a>
 ##### [`acquisition_instrument_vendor`](#acquisition_instrument_vendor)
@@ -537,6 +542,8 @@ Manufacturers of an acquisition instrument may offer various versions (models) o
 | --- | --- |
 | required | `True` |
 
+### Unique to this type
+
 <a name="rnaseq_assay_method"></a>
 ##### [`rnaseq_assay_method`](#rnaseq_assay_method)
 The kit used for the RNA sequencing assay.
@@ -552,8 +559,8 @@ A link to the protocol document containing the library construction method (incl
 | constraint | value |
 | --- | --- |
 | required | `True` |
-| pattern (regular expression) | `10\.17504/.*` |
-| url | prefix: `https://dx.doi.org/` |
+| pattern (regular expression) | <code>10\.17504/.*</code> |
+| url | prefix: <code>https://dx.doi.org/</code> |
 
 <a name="library_layout"></a>
 ##### [`library_layout`](#library_layout)
@@ -619,6 +626,7 @@ Number of PCR cycles to amplify cDNA.
 
 | constraint | value |
 | --- | --- |
+| type | `integer` |
 | required | `True` |
 
 <a name="library_pcr_cycles_for_sample_index"></a>
@@ -627,6 +635,7 @@ Number of PCR cycles performed for library indexing.
 
 | constraint | value |
 | --- | --- |
+| type | `integer` |
 | required | `True` |
 
 <a name="library_final_yield_value"></a>
@@ -650,10 +659,11 @@ Units of final library yield. Leave blank if not applicable.
 
 <a name="library_average_fragment_size"></a>
 ##### [`library_average_fragment_size`](#library_average_fragment_size)
-Average size of sequencing library fragments estimated via gel electrophoresis or bioanalyzer/tapestation.
+Average size in basepairs (bp) of sequencing library fragments estimated via gel electrophoresis or bioanalyzer/tapestation.
 
 | constraint | value |
 | --- | --- |
+| type | `integer` |
 | required | `True` |
 
 <a name="sequencing_reagent_kit"></a>
@@ -670,7 +680,7 @@ Slash-delimited list of the number of sequencing cycles for, for example, Read1,
 
 | constraint | value |
 | --- | --- |
-| pattern (regular expression) | `\d+(/\d+)+` |
+| pattern (regular expression) | <code>\d+(/\d+)+</code> |
 | required | `True` |
 
 <a name="sequencing_read_percent_q30"></a>

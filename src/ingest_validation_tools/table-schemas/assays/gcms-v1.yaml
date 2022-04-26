@@ -1,0 +1,80 @@
+description_md: This schema is for gas chromatography - mass spectrophotometry (GCMS).
+fields:
+- Shared by all types
+# include: ../includes/vA/all_assays.yaml
+- name: assay_category
+  constraints:
+    enum:
+      - mass_spectrometry
+- name: assay_type
+  constraints:
+    enum:
+      - GC-MS
+- name: analyte_class
+  constraints:
+    enum:
+      - metabolites
+      - lipids
+# include: ../includes/v0/is_targeted.yaml
+# include: ../includes/v0/acquisition_instrument.yaml
+
+# Level 2:
+- Unique to this type
+
+
+- name: ms_source
+  description: The ion source type used for surface sampling.
+  constraints:
+    enum:
+      - MALDI
+      - MALDI-2
+      - DESI
+      - SIMS
+      - nESI
+      - EI
+# include: ../includes/fields/polarity.yaml
+# include: ../includes/fields/mz_range_low_value.yaml
+# include: ../includes/fields/mz_range_high_value.yaml
+# include: ../includes/fields/mass_resolving_power.yaml
+# include: ../includes/fields/mz_resolving_power.yaml
+# include: ../includes/fields/ion_mobility.yaml
+# include: ../includes/fields/data_collection_mode.yaml
+# include: ../includes/fields/ms_scan_mode.yaml
+# include: ../includes/fields/labeling.yaml
+# include: ../includes/v0/doi/section_prep.yaml
+
+- name: column_vendor
+  description: The manufacturer of the GC column
+- name: column_model
+  description: The model of the GC column used
+- name: column_length_value
+  description: GC column length
+- name: column_length_unit
+  description: Unit for GC column length
+  constraints:
+    enum:
+      - cm
+- name: column_temp_value
+  description: GC column temperature 
+- name: column_temp_unit
+  description: Units for GC column temperature
+  constraints:
+    enum:
+      - C
+- name: internal_standard
+  description: Specifies if internal standard was utilized and designates what standard was used. Leave blank if not applicable.
+- name: ion_source
+  description: Specifies the ion source used 
+- name: guard_column
+  description: Specifies if guard column was used
+
+# include: ../includes/fields/spatial_type.yaml
+# include: ../includes/fields/spatial_sampling_type.yaml
+# include: ../includes/fields/spatial_target.yaml
+# include: ../includes/v0/x_y_optional.yaml
+# include: ../includes/fields/processing_search.yaml
+
+# include: ../includes/v0/doi/section_prep.yaml
+# include: ../includes/v0/doi/overall.yaml
+
+# include: ../includes/v0/paths.yaml

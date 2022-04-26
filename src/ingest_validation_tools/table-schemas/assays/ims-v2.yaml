@@ -1,0 +1,119 @@
+doc_url: https://portal.hubmapconsortium.org/docs/assays/maldi-ims
+description_md: This schema is for imaging mass spectrometry (IMS).
+fields:
+- Shared by all types
+- name: version
+  description: Version of the schema to use when validating this metadata.
+  constraints:
+    enum:
+      - '2'
+# include: ../includes/vA/all_assays_wo_version.yaml
+- name: assay_category
+  constraints:
+    enum:
+      - mass_spectrometry_imaging
+- name: assay_type
+  constraints:
+    enum:
+      - MALDI-IMS
+      - SIMS-IMS
+      - NanoDESI
+      - DESI
+- name: analyte_class
+  constraints:
+    enum:
+      - protein # NOTE: "proteins" specified, but singular is used elsewhere.
+      - metabolites
+      - lipids
+      - peptides
+      - phosphopeptides
+      - glycans
+
+# include: ../includes/v0/is_targeted.yaml
+# include: ../includes/v0/acquisition_instrument.yaml
+
+# Level 2:
+- Unique to this type
+
+- name: ms_source
+  description: The ion source type used for surface sampling (MALDI, MALDI-2, DESI, nanoDESI or SIMS).
+  constraints:
+    enum:
+      - MALDI
+      - MALDI-2
+      - LDI
+      - LA
+      - SIMS-C60
+      - SIMS-H2O
+      - nanoDESI
+# include: ../includes/fields/polarity.yaml
+# include: ../includes/fields/mz_range_low_value.yaml
+# include: ../includes/fields/mz_range_high_value.yaml
+# include: ../includes/fields/mass_resolving_power.yaml
+    required: true
+# include: ../includes/fields/mz_resolving_power.yaml
+    required: true
+# include: ../includes/fields/ion_mobility.yaml
+- name: ms_scan_mode
+  description: Scan mode refers to the number of steps in the separation of fragments.
+  constraints:
+    enum:
+      - MS
+      - MS/MS
+      - MS3
+
+# include: ../includes/v0/x_y.yaml
+
+- name: preparation_type
+  description: Common methods of depositing matrix for MALDI imaging include robotic
+    spotting, electrospray deposition, and spray-coating with an airbrush.
+  constraints:
+    required: False
+- name: preparation_instrument_vendor
+  description: The manufacturer of the instrument used to prepare the sample for the
+    assay.
+  constraints:
+    required: False
+- name: preparation_instrument_model
+  description: The model number/name of the instrument used to prepare the sample
+    for the assay
+  constraints:
+    required: False  
+- name: preparation_maldi_matrix
+  description: The matrix is a compound of crystallized molecules that acts like a
+    buffer between the sample and the laser. It also helps ionize the sample, carrying
+    it along the flight tube so it can be detected.
+  constraints:
+    enum:
+      - CHB
+      - DHB
+      - SA
+    required: false
+
+- name: desi_solvent
+  description: Solvent composition for conducting nanospray desorption electrospray ionization (nanoDESI) or desorption electrospray ionization (DESI).
+  constraints:
+    required: False
+- name: desi_solvent_flow_rate
+  description: The rate of flow of the solvent into a spray.
+  type: number
+  constraints:
+    required: False
+- name: desi_solvent_flow_rate_unit
+  description: Units of the rate of solvent flow.
+  constraints:
+    required: False
+    enum:
+      - uL/minute
+
+
+# include: ../includes/v0/doi/section_prep.yaml
+
+- name: processing_protocols_io_doi
+  description: DOI for analysis protocols.io for this assay.
+  constraints:
+    required: False
+
+# include: ../includes/v0/doi/overall.yaml
+
+# include: ../includes/v0/paths.yaml

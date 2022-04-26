@@ -1,13 +1,13 @@
 fields:
+- IDs
 -
-  heading: IDs
   name: sample_id
   description: (No description for this field was supplied.)
   constraints:
     required: True
     pattern: '([A-Z]+[0-9]+)-[A-Z]{2}\d*(-\d+)+(_\d+)?'
+- Donor
 -
-  heading: Donor
   name: vital_state
   constraints:
     required: True
@@ -27,8 +27,8 @@ fields:
     is collected, the subject will be deemed “relatively healthy”.   Likewise, a relatively healthy subject may have
     experienced trauma leading to brain death.  As a result of organ donation, a sample is collected.  In this scenario,
     the subject is deemed “relatively healthy.”
+- Medical Procedure
 -
-  heading: Medical Procedure
   name: organ_condition
   constraints:
     required: True
@@ -52,6 +52,7 @@ fields:
       - HTK
       - Belzer MPS/KPS
       - Formalin
+      - Perfadex
       - Unknown
       - None
   description: Type of solution that was used to perfuse the organ.
@@ -81,8 +82,8 @@ fields:
     required: True
     enum:
       - minutes
+- Biospecimen
 -
-  heading: Biospecimen
   name: specimen_preservation_temperature
   constraints:
     required: True

@@ -2,19 +2,23 @@
 title: sample
 schema_name: sample
 category: Other TSVs
+all_versions_deprecated: False
 layout: default
 ---
 
 Related files:
 
-- [📝 Excel template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/master/docs/sample/sample.xlsx): For metadata entry.
-- [📝 TSV template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/master/docs/sample/sample.tsv): Alternative for metadata entry.
+- [📝 Excel template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/main/docs/sample/sample.xlsx): For metadata entry.
+- [📝 TSV template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/main/docs/sample/sample.tsv): Alternative for metadata entry.
 
 
 
 
 
 ## Metadata schema
+
+### Field types
+- *Boolean* fields can be given as `TRUE`/`FALSE`, `True`/`False`, `true`/`false`, or `1`/`0`.  
 
 
 <details markdown="1" open="true"><summary><b>Version 0 (current)</b></summary>
@@ -63,7 +67,7 @@ Related files:
 | constraint | value |
 | --- | --- |
 | required | `True` |
-| pattern (regular expression) | `([A-Z]+[0-9]+)-[A-Z]{2}\d*(-\d+)+(_\d+)?` |
+| pattern (regular expression) | <code>([A-Z]+[0-9]+)-[A-Z]{2}\d*(-\d+)+(_\d+)?</code> |
 
 ### Donor
 
@@ -113,7 +117,7 @@ Type of solution that was used to perfuse the organ.
 | constraint | value |
 | --- | --- |
 | required | `True` |
-| enum | `UWS`, `HTK`, `Belzer MPS/KPS`, `Formalin`, `Unknown`, or `None` |
+| enum | `UWS`, `HTK`, `Belzer MPS/KPS`, `Formalin`, `Perfadex`, `Unknown`, or `None` |
 
 <a name="pathologist_report"></a>
 ##### [`pathologist_report`](#pathologist_report)

@@ -1,14 +1,16 @@
 doc_url: https://portal.hubmapconsortium.org/docs/assays/codex
 description_md: >-
-  CODEX uploads require metadata on the antibodies used in the assay to be provided in an Antibodies TSV.
+  This schema is for CO-Detection by indEXing (CODEX). CODEX uploads require metadata on the antibodies used in the assay to be provided in an Antibodies TSV.
   For CODEX, in that TSV, the `channel_id` is a cycle#/channel# combination linked to a given image file (of the form `Cycle[0-9]_CH[0-9]`).
   Each TIF file in a CODEX dataset contains image data captured from a single channel in a single cycle,
   identified and connected to the `channel_id` by its location in the upload directory
-  (of the form `src_*/cyc*_reg*_*/*_*_Z*_CH*.tif`).
+  (of the form `src_*/cyc*_reg*_*/*_*_Z*_CH*.tif`). For an example of a CODEX dataset & directory, see this example 
+  [CODEX dataset](https://portal.hubmapconsortium.org/browse/dataset/053544cd63125fc25f6a71a8f444bafc#files) and click the Globus link.
 
   The other fields function the same way for all assays using antibodies.
   For more information, see the [Antibodies TSV documentation](../antibodies).
 fields:
+- Shared by all types
 # include: ../includes/vA/all_assays.yaml
 - name: assay_category
   constraints:
@@ -24,9 +26,7 @@ fields:
       - protein
 # include: ../includes/v0/is_targeted.yaml
 
-# Level 2 fields:
 - name: acquisition_instrument_vendor
-  heading: Unique to this type
   description: An acquisition_instrument is the device that contains the signal detection hardware and signal processing software. Assays generate signals such as light of various intensities or color or signals representing molecular mass.
   constraints:
     enum: ['Keyence','Zeiss']
@@ -34,6 +34,10 @@ fields:
   description: Manufacturers of an acquisition instrument may offer various versions (models) of that instrument with different features or sensitivities. Differences in features or sensitivities may be relevant to processing or interpretation of the data.
   constraints:
     enum: ['BZ-X800','BZ-X710','Axio Observer Z1']
+
+# Level 2 fields:
+- Unique to this type
+
 # include: ../includes/fields/resolution_x_value.yaml
 # include: ../includes/fields/resolution_x_unit.yaml
 # include: ../includes/fields/resolution_y_value.yaml
@@ -42,10 +46,7 @@ fields:
   description: 'Optional if assay does not have multiple z-levels. Note that this is resolution within a given sample: z-pitch (resolution_z_value) is the increment distance between image slices (for Akoya, z-pitch=1.5um) ie. the microscope stage is moved up or down in increments of 1.5um to capture images of several focal planes. The best one will be used & the rest discarded. The thickness of the sample itself is sample metadata.'
   constraints:
     required: False
-- name: resolution_z_unit
-  description: The unit of incremental distance between image slices.(um)
-  constraints:
-    enum: ['mm', 'um', 'nm']
+# include: ../includes/fields/resolution_z_unit.yaml
 - name: preparation_instrument_vendor
   description: The manufacturer of the instrument used to prepare the sample for the assay.
   constraints:

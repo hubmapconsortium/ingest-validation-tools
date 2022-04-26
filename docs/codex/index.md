@@ -2,39 +2,62 @@
 title: CODEX
 schema_name: codex
 category: Imaging assays
+all_versions_deprecated: False
 layout: default
 ---
 
 Related files:
 - [🔬 Background doc](https://portal.hubmapconsortium.org/docs/assays/codex): More details about this type.
-- [📝 Excel template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/master/docs/codex/codex-metadata.xlsx): For metadata entry.
-- [📝 TSV template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/master/docs/codex/codex-metadata.tsv): Alternative for metadata entry.
+- [📝 Excel template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/main/docs/codex/codex-metadata.xlsx): For metadata entry.
+- [📝 TSV template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/main/docs/codex/codex-metadata.tsv): Alternative for metadata entry.
 
-CODEX uploads require metadata on the antibodies used in the assay to be provided in an Antibodies TSV. For CODEX, in that TSV, the `channel_id` is a cycle#/channel# combination linked to a given image file (of the form `Cycle[0-9]_CH[0-9]`). Each TIF file in a CODEX dataset contains image data captured from a single channel in a single cycle, identified and connected to the `channel_id` by its location in the upload directory (of the form `src_*/cyc*_reg*_*/*_*_Z*_CH*.tif`).
+This schema is for CO-Detection by indEXing (CODEX). CODEX uploads require metadata on the antibodies used in the assay to be provided in an Antibodies TSV. For CODEX, in that TSV, the `channel_id` is a cycle#/channel# combination linked to a given image file (of the form `Cycle[0-9]_CH[0-9]`). Each TIF file in a CODEX dataset contains image data captured from a single channel in a single cycle, identified and connected to the `channel_id` by its location in the upload directory (of the form `src_*/cyc*_reg*_*/*_*_Z*_CH*.tif`). For an example of a CODEX dataset & directory, see this example  [CODEX dataset](https://portal.hubmapconsortium.org/browse/dataset/053544cd63125fc25f6a71a8f444bafc#files) and click the Globus link.
 The other fields function the same way for all assays using antibodies. For more information, see the [Antibodies TSV documentation](../antibodies).
 
-## Directory schema
+## Directory schemas
+### v1-with-dataset-json
 
-| pattern | example | required? | description |
-| --- | --- | --- | --- |
-| `[^/]*NAV[^/]*\.tif` |  |  | Navigational Image showing Region of Interest (Keyance Microscope only) |
-| `.+\.pdf` | `summary.pdf` | ✓ | **[QA/QC]** PDF export of Powerpoint slide deck containing the Image Analysis Report |
-| `drv_[^/]+/channelNames\.txt` |  | ✓ | Text file produced by the Akoya software which contains the (linearized) channel number and the Name/ID/Target of the channel (required for HuBMAP pipeline) |
-| `src_[^/]+/experiment\.json` |  | ✓ | JSON file produced by the Akoya software which contains the metadata for the experiment, including the software version used, microscope parameters, channel names, pixel dimensions, etc. (required for HuBMAP pipeline) |
-| `drv_[^/]+/experiment\.json` |  |  | JSON file produced by the Akoya software which contains the metadata for the experiment, including the software version used, microscope parameters, channel names, pixel dimensions, etc. (required for HuBMAP pipeline) |
-| `src_[^/]+/exposure_times\.txt` |  | ✓ | Comma separated text file used for background subtraction that contains valid exposure times for all cycles [e.g: Cycle,CH1,CH2,CH3,CH4]. |
-| `drv_[^/]+/exposure_times\.txt` |  |  | Comma separated text file used for background subtraction that contains valid exposure times for all cycles [e.g: Cycle,CH1,CH2,CH3,CH4]. |
-| `src_[^/]+/segmentation\.(json\|txt)` |  | ✓ | JSON file produced by the Akoya software which contains the parameters used for segmentation. (required for HuBMAP pipeline) |
-| `drv_[^/]+/segmentation\.(json\|txt)` |  |  | JSON file produced by the Akoya software which contains the parameters used for segmentation. (required for HuBMAP pipeline) |
-| `drv_[^/]+/processed_[^/]+/.*` |  | ✓ | processed files produced by the Akoya software, not used by the HIVE |
-| `src_[^/]+/channelnames_report\.csv` |  | ✓ | Two column CSV: The first column is a name or target; The second column is boolean: "FALSE" channels are excluded from processing. (required for HuBMAP pipeline) |
-| `src_[^/]+/channelnames\.txt` |  | ✓ | Text file produced by the Akoya software which contains the (linearized) channel number and the Name/ID/Target of the channel (required for HuBMAP pipeline) |
-| `src_[^/]+/cyc.*_reg.*_.*/.*_.*_Z.*_CH.*\.tif` |  | ✓ | TIFF files produced by the experiment. General folder format: Cycle(n)_Region(n)_date; General file format: name_tileNumber(n)_zplaneNumber(n)_channelNumber(n) |
-| `src_[^/]+/cyc.*_reg.*_.*/.*\.gci` |  |  | Group Capture Information File (Keyance Microscope only) |
-| `extras/.*` |  |  | Free-form descriptive information supplied by the TMC |
-| `extras/thumbnail\.(png\|jpg)` |  |  | Optional thumbnail image which may be shown in search interface |
+| pattern | required? | description |
+| --- | --- | --- |
+| <code>[^/]*NAV[^/]*\.tif</code> (example: <code>NAV.tif</code>) |  | Navigational Image showing Region of Interest (Keyance Microscope only) |
+| <code>[^/]*\.pdf</code> (example: <code>summary.pdf</code>) |  | **[QA/QC]** PDF export of Powerpoint slide deck containing the Image Analysis Report |
+| <code>(raw&#124;processed)/config\.txt&#124;(src_[^/]*&#124;drv_[^/]*&#124;extras)/[sS]egmentation\.json</code> |  | Sanity check that verifies the existence of at least one of these files. This is required for the HuBMAP processing pipeline |
+| <code>raw/reg_[^/]*\.png</code> (example: <code>raw/reg_00.png</code>) |  | Region overviews |
+| <code>(raw&#124;src_[^/]*)/[Ee]xperiment\.json</code> |  | JSON file produced by the Akoya software which contains the metadata for the experiment, including the software version used, microscope parameters, channel names, pixel dimensions, etc. (required for HuBMAP pipeline) |
+| <code>dataset\.json</code> (example: <code>dataset.json</code>) | ✓ | Additional CODEX specific metadata file |
+| <code>processed/HandE\.tif</code> |  | HandE image |
+| <code>processed/HandE_RGB\.tif</code> |  | HandE RGB image |
+| <code>processed/HandE_RGB_thumbnail.jpg</code> |  | HandE RGB thumbnail |
+| <code>(raw&#124;processed)/config\.txt</code> |  | Configuration file with information needed for the HuBMAP processing pipeline |
+| <code>(raw&#124;src_.*)/[cC]yc.*_reg.*/.*_Z.*_CH.*\.tif</code> | ✓ | TIFF files produced by the experiment. General folder format: Cycle(n)_Region(n)_date; General file format: name_tileNumber(n)_zplaneNumber(n)_channelNumber(n) |
+| <code>src_.*/cyc.*_reg.*_.*/.*\.gci</code> |  | Group Capture Information File (Keyance Microscope only) |
+| <code>(raw&#124;src_.*)/.*</code> | ✓ | Raw data directory. |
+| <code>(processed&#124;drv_[^/]*)/.*</code> | ✓ | Processed files produced by the Akoya software or alternative software. |
+| <code>extras/dir-schema-v1-with-dataset-json</code> | ✓ | Empty file whose presence indicates the version of the directory schema in use |
+| <code>extras/.*</code> |  | Free-form descriptive information supplied by the TMC |
+### v0
+
+| pattern | required? | description |
+| --- | --- | --- |
+| <code>[^/]*NAV[^/]*\.tif</code> (example: <code>NAV.tif</code>) |  | Navigational Image showing Region of Interest (Keyance Microscope only) |
+| <code>[^/]*\.pdf</code> (example: <code>summary.pdf</code>) |  | **[QA/QC]** PDF export of Powerpoint slide deck containing the Image Analysis Report |
+| <code>(raw&#124;processed)/config\.txt&#124;(src_[^/]*&#124;drv_[^/]*&#124;extras)/[sS]egmentation\.json</code> |  | Sanity check that verifies the existence of at least one of these files. This is required for the HuBMAP processing pipeline |
+| <code>raw/reg_[^/]*\.png</code> (example: <code>raw/reg_00.png</code>) |  | Region overviews |
+| <code>(raw&#124;src_[^/]*)/[Ee]xperiment\.json</code> | ✓ | JSON file produced by the Akoya software which contains the metadata for the experiment, including the software version used, microscope parameters, channel names, pixel dimensions, etc. (required for HuBMAP pipeline) |
+| <code>processed/HandE\.tif</code> |  | HandE image |
+| <code>processed/HandE_RGB\.tif</code> |  | HandE RGB image |
+| <code>processed/HandE_RGB_thumbnail.jpg</code> |  | HandE RGB thumbnail |
+| <code>(raw&#124;processed)/config\.txt</code> |  | Configuration file with information needed for the HuBMAP processing pipeline |
+| <code>(raw&#124;src_.*)/[cC]yc.*_reg.*/.*_Z.*_CH.*\.tif</code> | ✓ | TIFF files produced by the experiment. General folder format: Cycle(n)_Region(n)_date; General file format: name_tileNumber(n)_zplaneNumber(n)_channelNumber(n) |
+| <code>src_.*/cyc.*_reg.*_.*/.*\.gci</code> |  | Group Capture Information File (Keyance Microscope only) |
+| <code>(raw&#124;src_.*)/.*</code> | ✓ | Raw data directory. |
+| <code>(processed&#124;drv_[^/]*)/.*</code> | ✓ | Processed files produced by the Akoya software or alternative software. |
+| <code>extras/.*</code> |  | Free-form descriptive information supplied by the TMC |
 
 ## Metadata schema
+
+### Field types
+- *Boolean* fields can be given as `TRUE`/`FALSE`, `True`/`False`, `true`/`false`, or `1`/`0`.  
 
 
 <details markdown="1" open="true"><summary><b>Version 1 (current)</b></summary>
@@ -57,12 +80,12 @@ The other fields function the same way for all assays using antibodies. For more
 [`assay_type`](#assay_type)<br>
 [`analyte_class`](#analyte_class)<br>
 [`is_targeted`](#is_targeted)<br>
+[`acquisition_instrument_vendor`](#acquisition_instrument_vendor)<br>
+[`acquisition_instrument_model`](#acquisition_instrument_model)<br>
 
 </details>
 <details markdown="1"><summary>Unique to this type</summary>
 
-[`acquisition_instrument_vendor`](#acquisition_instrument_vendor)<br>
-[`acquisition_instrument_model`](#acquisition_instrument_model)<br>
 [`resolution_x_value`](#resolution_x_value)<br>
 [`resolution_x_unit`](#resolution_x_unit)<br>
 [`resolution_y_value`](#resolution_y_value)<br>
@@ -108,7 +131,7 @@ HuBMAP Display ID of the donor of the assayed tissue. Example: `ABC123`.
 
 | constraint | value |
 | --- | --- |
-| pattern (regular expression) | `[A-Z]+[0-9]+` |
+| pattern (regular expression) | <code>[A-Z]+[0-9]+</code> |
 | required | `True` |
 
 <a name="tissue_id"></a>
@@ -117,7 +140,7 @@ HuBMAP Display ID of the assayed tissue. Example: `ABC123-BL-1-2-3_456`.
 
 | constraint | value |
 | --- | --- |
-| pattern (regular expression) | `([A-Z]+[0-9]+)-[A-Z]{2}\d*(-\d+)+(_\d+)?` |
+| pattern (regular expression) | <code>([A-Z]+[0-9]+)-[A-Z]{2}\d*(-\d+)+(_\d+)?</code> |
 | required | `True` |
 
 <a name="execution_datetime"></a>
@@ -137,8 +160,8 @@ DOI for protocols.io referring to the protocol for this assay.
 | constraint | value |
 | --- | --- |
 | required | `True` |
-| pattern (regular expression) | `10\.17504/.*` |
-| url | prefix: `https://dx.doi.org/` |
+| pattern (regular expression) | <code>10\.17504/.*</code> |
+| url | prefix: <code>https://dx.doi.org/</code> |
 
 <a name="operator"></a>
 ##### [`operator`](#operator)
@@ -176,7 +199,7 @@ Email address for the principal investigator.
 
 <a name="assay_category"></a>
 ##### [`assay_category`](#assay_category)
-Each assay is placed into one of the following 3 general categories: generation of images of microscopic entities, identification & quantitation of molecules by mass spectrometry, and determination of nucleotide sequence.
+Each assay is placed into one of the following 4 general categories: generation of images of microscopic entities, identification & quantitation of molecules by mass spectrometry, imaging mass spectrometry, and determination of nucleotide sequence.
 
 | constraint | value |
 | --- | --- |
@@ -203,14 +226,12 @@ Analytes are the target molecules being measured with the assay.
 
 <a name="is_targeted"></a>
 ##### [`is_targeted`](#is_targeted)
-Specifies whether or not a specific molecule(s) is/are targeted for detection/measurement by the assay. The CODEX analyte is protein.
+Specifies whether or not a specific molecule(s) is/are targeted for detection/measurement by the assay.
 
 | constraint | value |
 | --- | --- |
 | type | `boolean` |
 | required | `True` |
-
-### Unique to this type
 
 <a name="acquisition_instrument_vendor"></a>
 ##### [`acquisition_instrument_vendor`](#acquisition_instrument_vendor)
@@ -229,6 +250,8 @@ Manufacturers of an acquisition instrument may offer various versions (models) o
 | --- | --- |
 | enum | `BZ-X800`, `BZ-X710`, or `Axio Observer Z1` |
 | required | `True` |
+
+### Unique to this type
 
 <a name="resolution_x_value"></a>
 ##### [`resolution_x_value`](#resolution_x_value)
@@ -279,7 +302,7 @@ Optional if assay does not have multiple z-levels. Note that this is resolution 
 
 <a name="resolution_z_unit"></a>
 ##### [`resolution_z_unit`](#resolution_z_unit)
-The unit of incremental distance between image slices.(um) Leave blank if not applicable.
+The unit of incremental distance between image slices. Leave blank if not applicable.
 
 | constraint | value |
 | --- | --- |
@@ -339,8 +362,8 @@ DOI for protocols.io referring to the protocol for preparing tissue sections for
 | constraint | value |
 | --- | --- |
 | required | `True` |
-| pattern (regular expression) | `10\.17504/.*` |
-| url | prefix: `https://dx.doi.org/` |
+| pattern (regular expression) | <code>10\.17504/.*</code> |
+| url | prefix: <code>https://dx.doi.org/</code> |
 
 <a name="reagent_prep_protocols_io_doi"></a>
 ##### [`reagent_prep_protocols_io_doi`](#reagent_prep_protocols_io_doi)
@@ -349,8 +372,8 @@ DOI for protocols.io referring to the protocol for preparing reagents for the as
 | constraint | value |
 | --- | --- |
 | required | `True` |
-| pattern (regular expression) | `10\.17504/.*` |
-| url | prefix: `https://dx.doi.org/` |
+| pattern (regular expression) | <code>10\.17504/.*</code> |
+| url | prefix: <code>https://dx.doi.org/</code> |
 
 <a name="antibodies_path"></a>
 ##### [`antibodies_path`](#antibodies_path)
@@ -390,7 +413,7 @@ HuBMAP Display ID of the donor of the assayed tissue. Example: `ABC123`.
 
 | constraint | value |
 | --- | --- |
-| pattern (regular expression) | `[A-Z]+[0-9]+` |
+| pattern (regular expression) | <code>[A-Z]+[0-9]+</code> |
 | required | `True` |
 
 <a name="tissue_id"></a>
@@ -399,7 +422,7 @@ HuBMAP Display ID of the assayed tissue. Example: `ABC123-BL-1-2-3_456`.
 
 | constraint | value |
 | --- | --- |
-| pattern (regular expression) | `([A-Z]+[0-9]+)-[A-Z]{2}\d*(-\d+)+(_\d+)?` |
+| pattern (regular expression) | <code>([A-Z]+[0-9]+)-[A-Z]{2}\d*(-\d+)+(_\d+)?</code> |
 | required | `True` |
 
 <a name="execution_datetime"></a>
@@ -419,8 +442,8 @@ DOI for protocols.io referring to the protocol for this assay.
 | constraint | value |
 | --- | --- |
 | required | `True` |
-| pattern (regular expression) | `10\.17504/.*` |
-| url | prefix: `https://dx.doi.org/` |
+| pattern (regular expression) | <code>10\.17504/.*</code> |
+| url | prefix: <code>https://dx.doi.org/</code> |
 
 <a name="operator"></a>
 ##### [`operator`](#operator)
@@ -458,7 +481,7 @@ Email address for the principal investigator.
 
 <a name="assay_category"></a>
 ##### [`assay_category`](#assay_category)
-Each assay is placed into one of the following 3 general categories: generation of images of microscopic entities, identification & quantitation of molecules by mass spectrometry, and determination of nucleotide sequence.
+Each assay is placed into one of the following 4 general categories: generation of images of microscopic entities, identification & quantitation of molecules by mass spectrometry, imaging mass spectrometry, and determination of nucleotide sequence.
 
 | constraint | value |
 | --- | --- |
@@ -485,14 +508,12 @@ Analytes are the target molecules being measured with the assay.
 
 <a name="is_targeted"></a>
 ##### [`is_targeted`](#is_targeted)
-Specifies whether or not a specific molecule(s) is/are targeted for detection/measurement by the assay. The CODEX analyte is protein.
+Specifies whether or not a specific molecule(s) is/are targeted for detection/measurement by the assay.
 
 | constraint | value |
 | --- | --- |
 | type | `boolean` |
 | required | `True` |
-
-### Unique to this type
 
 <a name="acquisition_instrument_vendor"></a>
 ##### [`acquisition_instrument_vendor`](#acquisition_instrument_vendor)
@@ -511,6 +532,8 @@ Manufacturers of an acquisition instrument may offer various versions (models) o
 | --- | --- |
 | enum | `BZ-X800`, `BZ-X710`, or `Axio Observer Z1` |
 | required | `True` |
+
+### Unique to this type
 
 <a name="resolution_x_value"></a>
 ##### [`resolution_x_value`](#resolution_x_value)
@@ -561,7 +584,7 @@ Optional if assay does not have multiple z-levels. Note that this is resolution 
 
 <a name="resolution_z_unit"></a>
 ##### [`resolution_z_unit`](#resolution_z_unit)
-The unit of incremental distance between image slices.(um) Leave blank if not applicable.
+The unit of incremental distance between image slices. Leave blank if not applicable.
 
 | constraint | value |
 | --- | --- |
@@ -623,8 +646,8 @@ DOI for protocols.io referring to the protocol for preparing tissue sections for
 | constraint | value |
 | --- | --- |
 | required | `True` |
-| pattern (regular expression) | `10\.17504/.*` |
-| url | prefix: `https://dx.doi.org/` |
+| pattern (regular expression) | <code>10\.17504/.*</code> |
+| url | prefix: <code>https://dx.doi.org/</code> |
 
 <a name="reagent_prep_protocols_io_doi"></a>
 ##### [`reagent_prep_protocols_io_doi`](#reagent_prep_protocols_io_doi)
@@ -633,8 +656,8 @@ DOI for protocols.io referring to the protocol for preparing reagents for the as
 | constraint | value |
 | --- | --- |
 | required | `True` |
-| pattern (regular expression) | `10\.17504/.*` |
-| url | prefix: `https://dx.doi.org/` |
+| pattern (regular expression) | <code>10\.17504/.*</code> |
+| url | prefix: <code>https://dx.doi.org/</code> |
 
 <a name="antibodies_path"></a>
 ##### [`antibodies_path`](#antibodies_path)

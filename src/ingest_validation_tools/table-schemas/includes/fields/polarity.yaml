@@ -1,0 +1,7 @@
+- name: polarity
+  description: The polarity of the mass analysis (positive or negative ion modes)
+  constraints:
+    enum:
+      - negative ion mode
+      - positive ion mode
+      - negative and positive ion mode

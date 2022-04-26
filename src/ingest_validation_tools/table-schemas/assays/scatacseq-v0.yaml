@@ -1,5 +1,6 @@
 doc_url: https://portal.hubmapconsortium.org/docs/assays/atacseq
 fields:
+- Shared by all types
 # include: ../includes/v0/all_assays.yaml
 - name: assay_category
   constraints:
@@ -9,7 +10,6 @@ fields:
   constraints:
     enum:
       - SNARE-seq2
-      - scATACseq
       - sciATACseq
       - snATACseq
 - name: analyte_class
@@ -17,9 +17,11 @@ fields:
     enum:
       - DNA
 # include: ../includes/v0/is_targeted.yaml
+# include: ../includes/v0/acquisition_instrument.yaml
 
 # Level 2 fields:
-# include: ../includes/v0/acquisition_instrument.yaml
+- Unique to this type
+
 - name: is_technical_replicate
   description: If TRUE, fastq files in dataset need to be merged.
 # include: ../includes/fields/library_id.yaml
@@ -51,7 +53,6 @@ fields:
   constraints:
     enum:
       - SNARE-Seq2-AC
-      - scATACseq
       - bulkATACseq
       - snATACseq
       - sciATACseq
@@ -94,9 +95,7 @@ fields:
   constraints:
     enum:
       - ng
-- name: library_average_fragment_size
-  description: Average size of sequencing library fragments estimated via gel electrophoresis or bioanalyzer/tapestation. Numeric value in bp.
-  type: number
+# include: ../includes/fields/library_average_fragment_size.yaml
 # include: ../includes/fields/sequencing_reagent_kit.yaml
 # include: ../includes/fields/sequencing_read_format.yaml
 # include: ../includes/fields/sequencing_read_percent_q30.yaml

@@ -1,0 +1,2 @@
+- name: mz_range_low_value
+  description: The low value of the scanned mass range for MS1. (unitless)

@@ -1,5 +1,6 @@
 # doc_url: TODO https://github.com/hubmapconsortium/ingest-validation-tools/issues/482
 fields:
+- Shared by all types
 # include: ../includes/v0/all_assays.yaml
 - name: assay_category
   constraints:
@@ -14,11 +15,12 @@ fields:
     enum:
       - RNA
 # include: ../includes/v0/is_targeted.yaml
+# include: ../includes/v0/acquisition_instrument.yaml
 
 # Level 2 fields:
-# include: ../includes/v0/acquisition_instrument.yaml
-- name: rnaseq_assay_method
-  description: The kit used for the RNA sequencing assay
+- Unique to this type
+
+# include: ../includes/fields/rnaseq_assay_method.yaml
 - name: library_construction_protocols_io_doi
   description: A link to the protocol document containing the library construction method (including version) that was used, e.g. "Smart-Seq2", "Drop-Seq", "10X v3".
 # include: ../includes/fields/library_layout.yaml
@@ -33,12 +35,12 @@ fields:
 # include: ../includes/fields/bead_barcode_size.yaml
 - name: library_pcr_cycles
   description: Number of PCR cycles to amplify cDNA
+  type: integer
 - name: library_pcr_cycles_for_sample_index
   description: Number of PCR cycles performed for library indexing
+  type: integer
 # include: ../includes/fields/library_final_yield_value_unit.yaml
-- name: library_average_fragment_size
-  description: Average size of sequencing library fragments estimated via gel electrophoresis or bioanalyzer/tapestation.
-
+# include: ../includes/fields/library_average_fragment_size.yaml
 # include: ../includes/v0/sequencing.yaml
 
 # include: ../includes/v0/paths.yaml

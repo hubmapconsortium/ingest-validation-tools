@@ -2,28 +2,32 @@
 title: PAS microscopy
 schema_name: stained
 category: Imaging assays
+all_versions_deprecated: False
 layout: default
 ---
 
 Related files:
 - [🔬 Background doc](https://portal.hubmapconsortium.org/docs/assays/pas): More details about this type.
-- [📝 Excel template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/master/docs/stained/stained-metadata.xlsx): For metadata entry.
-- [📝 TSV template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/master/docs/stained/stained-metadata.tsv): Alternative for metadata entry.
+- [📝 Excel template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/main/docs/stained/stained-metadata.xlsx): For metadata entry.
+- [📝 TSV template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/main/docs/stained/stained-metadata.tsv): Alternative for metadata entry.
 
+This schema is for microscopy of tissue treated with periodic acid–Schiff stain (stained). For an example of a PAS (Periodic acid-Schiff) dataset & directory, see this [example PAS stained dataset](https://portal.hubmapconsortium.org/browse/dataset/7308530b92438fdbe258b501aeb86069#files) and click the Globus link.
 
-
-## Directory schema
+## Directory schemas
+### v0
 
 | pattern | required? | description |
 | --- | --- | --- |
-| `(processedMicroscopy\|processed_microscopy)/[^/]+_images/[^/]+ome\.(tif\|tiff)` | ✓ | OME TIFF files (multichannel, multi-layered, image pyramids) produced by the PAS microscopy experiment |
-| `(processedMicroscopy\|processed_microscopy)/[^/]+_transformations/[^/]+\.txt` |  | Transformations to PAS (related) data |
-| `(rawMicroscopy\|raw_microscopy)/[^/]+\.xml` | ✓ | XML metadata file from the autofluorescence microscopy experiments |
-| `(rawMicroscopy\|raw_microscopy)/[^/]+\.scn` | ✓ | Raw microscope file for the experiment |
-| `extras/.*` |  | Free-form descriptive information supplied by the TMC |
-| `extras/thumbnail\.(png\|jpg)` |  | Optional thumbnail image which may be shown in search interface |
+| <code>(processedMicroscopy&#124;processed_microscopy)/[^/]+_images/[^/]+ome\.(tif&#124;tiff)</code> | ✓ | OME TIFF files (multichannel, multi-layered, image pyramids) produced by the PAS microscopy experiment |
+| <code>(processedMicroscopy&#124;processed_microscopy)/[^/]+_transformations/[^/]+\.txt</code> |  | Transformations to PAS (related) data |
+| <code>(rawMicroscopy&#124;raw_microscopy)/[^/]+\.xml</code> | ✓ | XML metadata file from the autofluorescence microscopy experiments |
+| <code>(rawMicroscopy&#124;raw_microscopy)/[^/]+\.scn</code> | ✓ | Raw microscope file for the experiment |
+| <code>extras/.*</code> |  | Free-form descriptive information supplied by the TMC |
 
 ## Metadata schema
+
+### Field types
+- *Boolean* fields can be given as `TRUE`/`FALSE`, `True`/`False`, `true`/`false`, or `1`/`0`.  
 
 
 <details markdown="1" open="true"><summary><b>Version 1 (current)</b></summary>
@@ -46,12 +50,12 @@ Related files:
 [`assay_type`](#assay_type)<br>
 [`analyte_class`](#analyte_class)<br>
 [`is_targeted`](#is_targeted)<br>
+[`acquisition_instrument_vendor`](#acquisition_instrument_vendor)<br>
+[`acquisition_instrument_model`](#acquisition_instrument_model)<br>
 
 </details>
 <details markdown="1"><summary>Unique to this type</summary>
 
-[`acquisition_instrument_vendor`](#acquisition_instrument_vendor)<br>
-[`acquisition_instrument_model`](#acquisition_instrument_model)<br>
 [`resolution_x_value`](#resolution_x_value)<br>
 [`resolution_x_unit`](#resolution_x_unit)<br>
 [`resolution_y_value`](#resolution_y_value)<br>
@@ -92,7 +96,7 @@ HuBMAP Display ID of the donor of the assayed tissue. Example: `ABC123`.
 
 | constraint | value |
 | --- | --- |
-| pattern (regular expression) | `[A-Z]+[0-9]+` |
+| pattern (regular expression) | <code>[A-Z]+[0-9]+</code> |
 | required | `True` |
 
 <a name="tissue_id"></a>
@@ -101,7 +105,7 @@ HuBMAP Display ID of the assayed tissue. Example: `ABC123-BL-1-2-3_456`.
 
 | constraint | value |
 | --- | --- |
-| pattern (regular expression) | `([A-Z]+[0-9]+)-[A-Z]{2}\d*(-\d+)+(_\d+)?` |
+| pattern (regular expression) | <code>([A-Z]+[0-9]+)-[A-Z]{2}\d*(-\d+)+(_\d+)?</code> |
 | required | `True` |
 
 <a name="execution_datetime"></a>
@@ -121,8 +125,8 @@ DOI for protocols.io referring to the protocol for this assay.
 | constraint | value |
 | --- | --- |
 | required | `True` |
-| pattern (regular expression) | `10\.17504/.*` |
-| url | prefix: `https://dx.doi.org/` |
+| pattern (regular expression) | <code>10\.17504/.*</code> |
+| url | prefix: <code>https://dx.doi.org/</code> |
 
 <a name="operator"></a>
 ##### [`operator`](#operator)
@@ -160,7 +164,7 @@ Email address for the principal investigator.
 
 <a name="assay_category"></a>
 ##### [`assay_category`](#assay_category)
-Each assay is placed into one of the following 3 general categories: generation of images of microscopic entities, identification & quantitation of molecules by mass spectrometry, and determination of nucleotide sequence.
+Each assay is placed into one of the following 4 general categories: generation of images of microscopic entities, identification & quantitation of molecules by mass spectrometry, imaging mass spectrometry, and determination of nucleotide sequence.
 
 | constraint | value |
 | --- | --- |
@@ -186,14 +190,12 @@ Analytes are the target molecules being measured with the assay. Leave blank if 
 
 <a name="is_targeted"></a>
 ##### [`is_targeted`](#is_targeted)
-Specifies whether or not a specific molecule(s) is/are targeted for detection/measurement by the assay. The CODEX analyte is protein.
+Specifies whether or not a specific molecule(s) is/are targeted for detection/measurement by the assay.
 
 | constraint | value |
 | --- | --- |
 | type | `boolean` |
 | required | `True` |
-
-### Unique to this type
 
 <a name="acquisition_instrument_vendor"></a>
 ##### [`acquisition_instrument_vendor`](#acquisition_instrument_vendor)
@@ -210,6 +212,8 @@ Manufacturers of an acquisition instrument may offer various versions (models) o
 | constraint | value |
 | --- | --- |
 | required | `True` |
+
+### Unique to this type
 
 <a name="resolution_x_value"></a>
 ##### [`resolution_x_value`](#resolution_x_value)
@@ -264,7 +268,7 @@ The unit of incremental distance between image slices. Leave blank if not applic
 
 | constraint | value |
 | --- | --- |
-| enum | `nm` or `um` |
+| enum | `mm`, `um`, or `nm` |
 | required | `False` |
 | units for | `resolution_z_value` |
 
@@ -283,8 +287,8 @@ DOI for protocols.io referring to the protocol for preparing tissue sections for
 | constraint | value |
 | --- | --- |
 | required | `True` |
-| pattern (regular expression) | `10\.17504/.*` |
-| url | prefix: `https://dx.doi.org/` |
+| pattern (regular expression) | <code>10\.17504/.*</code> |
+| url | prefix: <code>https://dx.doi.org/</code> |
 
 <a name="overall_protocols_io_doi"></a>
 ##### [`overall_protocols_io_doi`](#overall_protocols_io_doi)
@@ -293,8 +297,8 @@ DOI for protocols.io for the overall process.
 | constraint | value |
 | --- | --- |
 | required | `True` |
-| pattern (regular expression) | `10\.17504/.*` |
-| url | prefix: `https://dx.doi.org/` |
+| pattern (regular expression) | <code>10\.17504/.*</code> |
+| url | prefix: <code>https://dx.doi.org/</code> |
 
 <a name="contributors_path"></a>
 ##### [`contributors_path`](#contributors_path)
@@ -326,7 +330,7 @@ HuBMAP Display ID of the donor of the assayed tissue. Example: `ABC123`.
 
 | constraint | value |
 | --- | --- |
-| pattern (regular expression) | `[A-Z]+[0-9]+` |
+| pattern (regular expression) | <code>[A-Z]+[0-9]+</code> |
 | required | `True` |
 
 <a name="tissue_id"></a>
@@ -335,7 +339,7 @@ HuBMAP Display ID of the assayed tissue. Example: `ABC123-BL-1-2-3_456`.
 
 | constraint | value |
 | --- | --- |
-| pattern (regular expression) | `([A-Z]+[0-9]+)-[A-Z]{2}\d*(-\d+)+(_\d+)?` |
+| pattern (regular expression) | <code>([A-Z]+[0-9]+)-[A-Z]{2}\d*(-\d+)+(_\d+)?</code> |
 | required | `True` |
 
 <a name="execution_datetime"></a>
@@ -355,8 +359,8 @@ DOI for protocols.io referring to the protocol for this assay.
 | constraint | value |
 | --- | --- |
 | required | `True` |
-| pattern (regular expression) | `10\.17504/.*` |
-| url | prefix: `https://dx.doi.org/` |
+| pattern (regular expression) | <code>10\.17504/.*</code> |
+| url | prefix: <code>https://dx.doi.org/</code> |
 
 <a name="operator"></a>
 ##### [`operator`](#operator)
@@ -394,7 +398,7 @@ Email address for the principal investigator.
 
 <a name="assay_category"></a>
 ##### [`assay_category`](#assay_category)
-Each assay is placed into one of the following 3 general categories: generation of images of microscopic entities, identification & quantitation of molecules by mass spectrometry, and determination of nucleotide sequence.
+Each assay is placed into one of the following 4 general categories: generation of images of microscopic entities, identification & quantitation of molecules by mass spectrometry, imaging mass spectrometry, and determination of nucleotide sequence.
 
 | constraint | value |
 | --- | --- |
@@ -420,14 +424,12 @@ Analytes are the target molecules being measured with the assay. Leave blank if 
 
 <a name="is_targeted"></a>
 ##### [`is_targeted`](#is_targeted)
-Specifies whether or not a specific molecule(s) is/are targeted for detection/measurement by the assay. The CODEX analyte is protein.
+Specifies whether or not a specific molecule(s) is/are targeted for detection/measurement by the assay.
 
 | constraint | value |
 | --- | --- |
 | type | `boolean` |
 | required | `True` |
-
-### Unique to this type
 
 <a name="acquisition_instrument_vendor"></a>
 ##### [`acquisition_instrument_vendor`](#acquisition_instrument_vendor)
@@ -444,6 +446,8 @@ Manufacturers of an acquisition instrument may offer various versions (models) o
 | constraint | value |
 | --- | --- |
 | required | `True` |
+
+### Unique to this type
 
 <a name="resolution_x_value"></a>
 ##### [`resolution_x_value`](#resolution_x_value)
@@ -498,7 +502,7 @@ The unit of incremental distance between image slices. Leave blank if not applic
 
 | constraint | value |
 | --- | --- |
-| enum | `nm` or `um` |
+| enum | `mm`, `um`, or `nm` |
 | required | `False` |
 | units for | `resolution_z_value` |
 
@@ -517,8 +521,8 @@ DOI for protocols.io referring to the protocol for preparing tissue sections for
 | constraint | value |
 | --- | --- |
 | required | `True` |
-| pattern (regular expression) | `10\.17504/.*` |
-| url | prefix: `https://dx.doi.org/` |
+| pattern (regular expression) | <code>10\.17504/.*</code> |
+| url | prefix: <code>https://dx.doi.org/</code> |
 
 <a name="overall_protocols_io_doi"></a>
 ##### [`overall_protocols_io_doi`](#overall_protocols_io_doi)
@@ -527,8 +531,8 @@ DOI for protocols.io for the overall process.
 | constraint | value |
 | --- | --- |
 | required | `True` |
-| pattern (regular expression) | `10\.17504/.*` |
-| url | prefix: `https://dx.doi.org/` |
+| pattern (regular expression) | <code>10\.17504/.*</code> |
+| url | prefix: <code>https://dx.doi.org/</code> |
 
 <a name="contributors_path"></a>
 ##### [`contributors_path`](#contributors_path)

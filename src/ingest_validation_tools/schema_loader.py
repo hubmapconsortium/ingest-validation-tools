@@ -1,12 +1,21 @@
 from pathlib import Path
 from collections import (defaultdict, namedtuple)
+from copy import deepcopy
 import re
+from typing import List, Dict, Any, Set, Sequence, Optional
 
 from ingest_validation_tools.yaml_include_loader import load_yaml
+from ingest_validation_tools.enums import shared_enums
 
 
 _table_schemas_path = Path(__file__).parent / 'table-schemas'
 _directory_schemas_path = Path(__file__).parent / 'directory-schemas'
+_pipeline_infos_path = Path(__file__).parent / 'pipeline-infos/pipeline-infos.yaml'
+
+
+def get_pipeline_infos(name: str) -> List[str]:
+    infos = load_yaml(_pipeline_infos_path)
+    return infos.get(name, [])
 
 
 class PreflightError(Exception):
@@ -16,9 +25,14 @@ class PreflightError(Exception):
 SchemaVersion = namedtuple('SchemaVersion', ['schema_name', 'version'])
 
 
-def get_field_enum(field_name, schema):
+def get_fields_wo_headers(schema: dict) -> List[dict]:
+    return [field for field in schema['fields'] if not isinstance(field, str)]
+
+
+def get_field_enum(field_name: str, schema: dict) -> List[str]:
+    fields_wo_headers = get_fields_wo_headers(schema)
     fields = [
-        field for field in schema['fields']
+        field for field in fields_wo_headers
         if field['name'] == field_name
     ]
     if not fields:
@@ -27,17 +41,16 @@ def get_field_enum(field_name, schema):
     return fields[0]['constraints']['enum']
 
 
-def get_schema_version_from_row(path, row):
+def get_table_schema_version_from_row(path: str, row: Dict[str, Any]) -> SchemaVersion:
     '''
-    >>> get_schema_version_from_row('empty', {'bad-column': 'bad-value'})
-    Traceback (most recent call last):
-    ...
-    schema_loader.PreflightError: empty does not contain "assay_type". Column headers: bad-column
+    >>> try: get_table_schema_version_from_row('empty', {'bad-column': 'bad-value'})
+    ... except Exception as e: print(e)
+    empty does not contain "assay_type". Column headers: bad-column
 
-    >>> get_schema_version_from_row('v0', {'assay_type': 'PAS microscopy'})
+    >>> get_table_schema_version_from_row('v0', {'assay_type': 'PAS microscopy'})
     SchemaVersion(schema_name='stained', version=0)
 
-    >>> get_schema_version_from_row('v42', {'assay_type': 'PAS microscopy', 'version': 42})
+    >>> get_table_schema_version_from_row('v42', {'assay_type': 'PAS microscopy', 'version': 42})
     SchemaVersion(schema_name='stained', version=42)
 
     '''
@@ -59,7 +72,7 @@ def get_schema_version_from_row(path, row):
     return SchemaVersion(schema_name, version)
 
 
-def _assay_to_schema_name(assay_type, source_project):
+def _assay_to_schema_name(assay_type: str, source_project: str) -> str:
     '''
     Given an assay name, and a source_project (may be None),
     read all the schemas until one matches.
@@ -112,7 +125,10 @@ def _assay_to_schema_name(assay_type, source_project):
             if source_project not in source_project_enum:
                 continue
 
-        return re.match(r'.+(?=-v\d+)', path.stem)[0]
+        v_match = re.match(r'.+(?=-v\d+)', path.stem)
+        if not v_match:
+            raise PreflightError(f'No version in {path}')
+        return v_match[0]
 
     message = f"No schema where '{assay_type}' is assay_type"
     if source_project is not None:
@@ -120,60 +136,125 @@ def _assay_to_schema_name(assay_type, source_project):
     raise PreflightError(message)
 
 
-def list_schema_versions():
+def list_table_schema_versions() -> List[SchemaVersion]:
     '''
-    >>> list_schema_versions()[0]
+    >>> list_table_schema_versions()[0]
     SchemaVersion(schema_name='af', version='0')
 
     '''
     schema_paths = list((_table_schemas_path / 'assays').iterdir()) + \
         list((_table_schemas_path / 'others').iterdir())
-    stems = sorted(p.stem for p in schema_paths)
-    return [
-        SchemaVersion(*re.match(r'(.+)-v(\d+)', stem).groups()) for stem in stems
-    ]
+    stems = sorted(p.stem for p in schema_paths if p.suffix == '.yaml')
+    v_matches = [re.match(r'(.+)-v(\d+)', stem) for stem in stems]
+    if not all(v_matches):
+        raise Exception('All YAML should have version: {stems}')
+    return [SchemaVersion(*v_match.groups()) for v_match in v_matches if v_match]
 
 
-def dict_schema_versions():
+def dict_table_schema_versions() -> Dict[str, Set[str]]:
     '''
-    >>> sorted(dict_schema_versions()['af'])
+    >>> sorted(dict_table_schema_versions()['af'])
     ['0', '1']
     '''
 
     dict_of_sets = defaultdict(set)
-    for sv in list_schema_versions():
+    for sv in list_table_schema_versions():
         dict_of_sets[sv.schema_name].add(sv.version)
     return dict_of_sets
 
 
-def _get_schema_filename(schema_name, version):
+def list_directory_schema_versions() -> List[SchemaVersion]:
+    '''
+    >>> list_directory_schema_versions()[0]
+    SchemaVersion(schema_name='af', version='0')
+
+    '''
+    schema_paths = list(_directory_schemas_path.iterdir())
+    stems = sorted(p.stem for p in schema_paths if p.suffix == '.yaml')
+    return [
+        SchemaVersion(*_parse_schema_version(stem)) for stem in stems
+    ]
+
+
+def _parse_schema_version(stem: str) -> Sequence[str]:
+    '''
+    >>> _parse_schema_version('abc-v0')
+    ('abc', '0')
+    >>> _parse_schema_version('xyz-v99-is the_best!')
+    ('xyz', '99-is the_best!')
+    '''
+    v_match = re.match(r'(.+)-v(\d+.*)', stem)
+    if not v_match:
+        raise Exception(f'No v match in "{stem}"')
+    return v_match.groups()
+
+
+def get_all_directory_schema_versions(schema_name: str) -> List[SchemaVersion]:
+    return [
+        version for version in list_directory_schema_versions()
+        if version.schema_name == schema_name
+    ]
+
+
+def dict_directory_schema_versions() -> Dict[str, Set[str]]:
+    dict_of_sets = defaultdict(set)
+    for sv in list_directory_schema_versions():
+        dict_of_sets[sv.schema_name].add(sv.version)
+    return dict_of_sets
+
+
+def _get_schema_filename(schema_name: str, version: str) -> str:
     return f'{schema_name}-v{version}.yaml'
 
 
-def get_other_schema(schema_name, version, offline=None):
+def get_other_schema(schema_name: str, version: str, offline=None,
+                     keep_headers: bool = False) -> dict:
     schema = load_yaml(
         _table_schemas_path / 'others' /
         _get_schema_filename(schema_name, version))
-    names = [field['name'] for field in schema['fields']]
+    fields_wo_headers = get_fields_wo_headers(schema)
+    if not keep_headers:
+        schema['fields'] = fields_wo_headers
+
+    names = [field['name'] for field in fields_wo_headers]
     for field in schema['fields']:
+        if isinstance(field, str):
+            continue
         _add_constraints(field, optional_fields=[], offline=offline, names=names)
     return schema
 
 
-def get_is_assay(schema_name):
+def get_is_assay(schema_name: str) -> bool:
     # TODO: read from file system... but larger refactor may make it redundant.
-    return schema_name not in ['donor', 'sample', 'antibodies', 'contributors']
+    return schema_name not in [
+        'donor', 'sample', 'antibodies', 'contributors',
+        'sample-block', 'sample-section', 'sample-suspension'
+    ]
 
 
-def get_table_schema(schema_name, version, optional_fields=[], offline=None):
+def get_table_schema(
+    schema_name: str,
+    version: str,
+    optional_fields: List[str] = [],
+    offline=None,
+    keep_headers: bool = False
+) -> dict:
     schema = load_yaml(
         _table_schemas_path / 'assays' /
         _get_schema_filename(schema_name, version))
+    fields_wo_headers = get_fields_wo_headers(schema)
+    if not keep_headers:
+        schema['fields'] = fields_wo_headers
 
-    names = [field['name'] for field in schema['fields']]
+    names = [field['name'] for field in fields_wo_headers]
     for field in schema['fields']:
+        if isinstance(field, str):
+            continue
         _add_level_1_description(field)
-        _validate_level_1_enum(field)
+        # TODO: Re-enable when all assay names used in the schemas are recognized
+        #       by the assay service, and the list in enums.py has been uncommented.
+        #       https://github.com/hubmapconsortium/ingest-validation-tools/issues/1023
+        # _validate_level_1_enum(field)
 
         _add_constraints(field, optional_fields, offline=offline, names=names)
         _validate_field(field)
@@ -181,33 +262,35 @@ def get_table_schema(schema_name, version, optional_fields=[], offline=None):
     return schema
 
 
-def get_directory_schema(directory_type):
-    schema = load_yaml(_directory_schemas_path / f'{directory_type}.yaml')
-    schema += [
+def get_directory_schema(directory_type: str, schema_version: str) -> Optional[dict]:
+    directory_schema_path = _directory_schemas_path / \
+        _get_schema_filename(directory_type, schema_version)
+    if not directory_schema_path.exists():
+        return None
+    schema = load_yaml(directory_schema_path)
+    schema['files'] += [
         {
             'pattern': r'extras/.*',
             'description': 'Free-form descriptive information supplied by the TMC',
-            'required': False
-        },
-        {
-            'pattern': r'extras/thumbnail\.(png|jpg)',
-            'description': 'Optional thumbnail image which may be shown in search interface',
             'required': False
         }
     ]
     return schema
 
 
-def _validate_field(field):
+def _validate_field(field: dict) -> None:
     if field['name'].endswith('_unit') and 'enum' not in field['constraints']:
         raise Exception('"_unit" fields must have enum constraints', field)
 
 
-def _add_level_1_description(field):
+def _add_level_1_description(field: dict) -> None:
+    if 'description' in field:
+        return
     descriptions = {
-        'assay_category': 'Each assay is placed into one of the following 3 general categories: '
+        'assay_category': 'Each assay is placed into one of the following 4 general categories: '
         'generation of images of microscopic entities, identification & quantitation of molecules '
-        'by mass spectrometry, and determination of nucleotide sequence.',
+        'by mass spectrometry, imaging mass spectrometry, and determination of nucleotide '
+        'sequence.',
         'assay_type': 'The specific type of assay being executed.',
         'analyte_class': 'Analytes are the target molecules being measured with the assay.',
     }
@@ -216,7 +299,7 @@ def _add_level_1_description(field):
         field['description'] = descriptions[name]
 
 
-def _validate_level_1_enum(field):
+def _validate_level_1_enum(field: dict) -> None:
     '''
     >>> field = {'name': 'assay_category'}
     >>> _validate_level_1_enum(field)
@@ -245,73 +328,21 @@ def _validate_level_1_enum(field):
     Allowed: ['imaging', 'mass_spectrometry', 'mass_spectrometry_imaging', 'sequence']
     '''
 
-    enums = {
-        'assay_category': [
-            'imaging',
-            'mass_spectrometry',
-            'mass_spectrometry_imaging',
-            'sequence'
-        ],
-        'assay_type': [
-            '3D Imaging Mass Cytometry',
-            'scRNA-Seq(10xGenomics)',
-            'AF',
-            'bulk RNA',
-            'bulkATACseq',
-            'Cell DIVE',
-            'CODEX',
-            'Imaging Mass Cytometry',
-            'LC-MS (metabolomics)',
-            'LC-MS/MS (label-free proteomics)',
-            'Light Sheet',
-            'MxIF',
-            'MALDI-IMS',
-            'MS (shotgun lipidomics)',
-            'NanoDESI',
-            'NanoPOTS',
-            'PAS microscopy',
-            'scATACseq',
-            'sciATACseq',
-            'sciRNAseq',
-            'seqFISH',
-            'SNARE-seq2',
-            'snATACseq',
-            'snRNA',
-            'SPLiT-Seq',
-            'TMT (proteomics)',
-            'WGS',
-            'SNARE2-RNAseq',
-            'snRNAseq',
-            'scRNAseq-10xGenomics',  # Only needed for scrnaseq-v0.yaml.
-            'scRNAseq-10xGenomics-v2',
-            'scRNAseq-10xGenomics-v3',
-            'scRNAseq',
-            'Slide-seq'
-        ],
-        'analyte_class': [
-            'DNA',
-            'RNA',
-            'protein',
-            'lipids',
-            'metabolites',
-            'polysaccharides',
-            'metabolites_and_lipids'
-        ]
-    }
     name = field['name']
-    if name in enums:
+    if name in shared_enums:
         optional = not field['constraints'].get('required', True)  # Default: required = True
         actual = set(field['constraints'].get(
             'enum',
             [] if optional else None
             # Only optional fields are allowed to skip the enum.
         ))
-        allowed = set(enums[name])
+        allowed = set(shared_enums[name])
         assert actual <= allowed, f'Unexpected enums for {name}: {actual - allowed}\n' \
             f'Allowed: {sorted(allowed)}'
 
 
-def _add_constraints(field, optional_fields, offline=None, names=None):
+def _add_constraints(
+        field: dict, optional_fields: List[str], offline=None, names: List[str] = []) -> None:
     '''
     Modifies field in-place, adding implicit constraints
     based on the field name.
@@ -376,6 +407,7 @@ def _add_constraints(field, optional_fields, offline=None, names=None):
         field['custom_constraints']['url'] = {'prefix': 'https://dx.doi.org/'}
     if field['name'].endswith('_email'):
         field['format'] = 'email'
+        field['type'] = 'string'
 
     # In the src schemas, set to False to avoid limit on sequences...
     if field['custom_constraints'].get('sequence_limit', True):
@@ -423,3 +455,73 @@ def _add_constraints(field, optional_fields, offline=None, names=None):
         c_c = 'custom_constraints'
         if c_c in field and 'url' in field[c_c]:
             del field[c_c]['url']
+
+
+def enum_maps_to_lists(schema, add_none_of_the_above=False, add_suggested=False):
+    '''
+    >>> schema = {
+    ...     'whatever': 'is preserved',
+    ...     'fields': [
+    ...         {'name': 'ice_cream',
+    ...          'constraints': {
+    ...                 'enum': {
+    ...                     'vanilla': 'http://example.com/vanil',
+    ...                     'chocolate': 'http://example.com/choco'}}},
+    ...         {'name': 'mood',
+    ...          'constraints': {
+    ...                 'enum': ['happy', 'sad']}},
+    ...         {'name': 'no_enum', 'constraints': {}},
+    ...         {'name': 'no_constraints'},
+    ...     ]}
+    >>> from pprint import pprint
+    >>> pprint(enum_maps_to_lists(schema))
+    {'fields': [{'constraints': {'enum': ['vanilla', 'chocolate']},
+                 'name': 'ice_cream'},
+                {'constraints': {'enum': ['happy', 'sad']}, 'name': 'mood'},
+                {'constraints': {}, 'name': 'no_enum'},
+                {'name': 'no_constraints'}],
+     'whatever': 'is preserved'}
+
+    >>> pprint(enum_maps_to_lists(schema, add_none_of_the_above=True))
+    {'fields': [{'constraints': {'enum': ['vanilla',
+                                          'chocolate',
+                                          'Submitter Suggestion']},
+                 'name': 'ice_cream'},
+                {'constraints': {'enum': ['happy', 'sad']}, 'name': 'mood'},
+                {'constraints': {}, 'name': 'no_enum'},
+                {'name': 'no_constraints'}],
+     'whatever': 'is preserved'}
+
+    >>> pprint(enum_maps_to_lists(schema, add_none_of_the_above=True, add_suggested=True))
+    {'fields': [{'constraints': {'enum': ['vanilla',
+                                          'chocolate',
+                                          'Submitter Suggestion']},
+                 'name': 'ice_cream'},
+                {'description': 'Desired value for ice_cream',
+                 'name': 'ice_cream_suggested'},
+                {'constraints': {'enum': ['happy', 'sad']}, 'name': 'mood'},
+                {'constraints': {}, 'name': 'no_enum'},
+                {'name': 'no_constraints'}],
+     'whatever': 'is preserved'}
+    '''
+    schema_copy = deepcopy(schema)
+    schema_copy['fields'], original_fields = \
+        [], schema_copy['fields']
+    for field in original_fields:
+        extra_field = None
+        if 'constraints' in field:
+            constraints = field['constraints']
+            if 'enum' in constraints:
+                if isinstance(constraints['enum'], dict):
+                    constraints['enum'] = list(constraints['enum'].keys())
+                    if add_none_of_the_above:
+                        constraints['enum'].append('Submitter Suggestion')
+                    if add_suggested:
+                        extra_field = {
+                            'name': f"{field['name']}_suggested",
+                            'description': f"Desired value for {field['name']}"
+                        }
+        schema_copy['fields'].append(field)
+        if extra_field:
+            schema_copy['fields'].append(extra_field)
+    return schema_copy

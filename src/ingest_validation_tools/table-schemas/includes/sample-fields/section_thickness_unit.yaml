@@ -1,0 +1,7 @@
+- name: section_thickness_unit
+  description: 'Thickness unit'
+  constraints:
+    enum:
+      - um
+      - mm
+      - cm

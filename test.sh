@@ -1,12 +1,9 @@
 #!/usr/bin/env bash
 set -o errexit
 
-red=`tput setaf 1`
-green=`tput setaf 2`
-reset=`tput sgr0`
-start() { [[ -z $CI ]] || echo travis_fold':'start:$1; echo $green$1$reset; }
-end() { [[ -z $CI ]] || echo travis_fold':'end:$1; }
-die() { set +v; echo "$red$*$reset" 1>&2 ; exit 1; }
+start() { echo "::group::$1"; }
+end() { echo "::endgroup::"; }
+die() { set +v; echo "$*" 1>&2 ; sleep 1; exit 1; }
 
 CONTINUE_FROM="$1"
 
@@ -18,20 +15,26 @@ if [[ -z $CONTINUE_FROM ]]; then
   start mypy
   mypy
   end mypy
+
+  start pytest
+  pytest --doctest-modules
+  end pytest
 fi
 
 for TEST in tests/test-*; do
   if [[ -z $CONTINUE_FROM ]] || [[ $CONTINUE_FROM = $TEST ]]; then
     CONTINUE_FROM=''
     start $TEST
-    eval $TEST
+    eval $TEST || die "To continue from here: ./test.sh $TEST"
     end $TEST
   fi
 done
 
-start changelog
-if [ "$TRAVIS_BRANCH" != 'master' ]; then
-  diff CHANGELOG.md <(curl -s https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/master/CHANGELOG.md) \
-    && die 'Update CHANGELOG.md'
+if [ "$GITHUB_REF_NAME" != 'main' ]; then
+  start changelog
+    diff CHANGELOG.md <(curl -s https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/main/CHANGELOG.md) \
+      && die 'Update CHANGELOG.md'
+  end changelog
 fi
-end changelog
+
+env | grep GITHUB

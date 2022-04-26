@@ -1,0 +1,109 @@
+doc_url: https://portal.hubmapconsortium.org/docs/assays/rnaseq
+description_md: This schema is for single cell RNA sequencing (scRNAseq). v3 adds `umi_*` fields.
+fields:
+- Shared by all types
+- name: version
+  description: Version of the schema to use when validating this metadata.
+  constraints:
+    enum:
+      - '3'
+# include: ../includes/vA/all_assays_wo_version.yaml
+- name: assay_category
+  constraints:
+    enum:
+      - sequence
+- name: assay_type
+  description: The UMI sequence length in the 10xGenomics-v2 kit is 10 base pairs and the length in the 10xGenomics-v3 kit is 12 base pairs.
+  constraints:
+    enum:
+      - scRNAseq-10xGenomics-v2
+      - scRNAseq-10xGenomics-v3
+      - snRNAseq-10xGenomics-v2
+      - snRNAseq-10xGenomics-v3
+      - scRNAseq
+      - sciRNAseq
+      - snRNAseq
+      - SNARE2-RNAseq
+- name: analyte_class
+  constraints:
+    enum:
+      - RNA
+# include: ../includes/v0/is_targeted.yaml
+# include: ../includes/v0/acquisition_instrument.yaml
+
+# Level 2 fields:
+- Unique to this type
+
+- name: sc_isolation_protocols_io_doi
+  description: "Link to a protocols document answering the question: How were single cells separated into a single-cell suspension?"
+- name: sc_isolation_entity
+  description: The type of single cell entity derived from isolation protocol
+  constraints:
+    enum:
+      - whole cell
+      - nucleus
+      - cell-cell multimer
+      - spatially encoded cell barcoding
+# include: ../includes/fields/sc_isolation_tissue_dissociation.yaml
+- name: sc_isolation_enrichment
+  description: The method by which specific cell populations are sorted or enriched.
+  constraints:
+    enum:
+      - none
+      - FACS
+- name: sc_isolation_quality_metric
+  description: A quality metric by visual inspection prior to cell lysis or defined by known parameters such as wells with several cells or no cells. This can be captured at a high level.
+- name: sc_isolation_cell_number
+  description: Total number of cell/nuclei yielded post dissociation and enrichment
+  type: integer
+- name: rnaseq_assay_input
+  type: integer
+  description: Number of cell/nuclei input to the assay
+# include: ../includes/fields/rnaseq_assay_method.yaml
+- name: library_construction_protocols_io_doi
+  description: A link to the protocol document containing the library construction method (including version) that was used, e.g. "Smart-Seq2", "Drop-Seq", "10X v3".
+# include: ../includes/fields/library_layout.yaml
+- name: library_adapter_sequence
+  description: Adapter sequence to be used for adapter trimming
+  constraints:
+    pattern: '[ATCG]+(\+[ATCG]+)?'
+# include: ../includes/fields/library_id.yaml
+- name: is_technical_replicate
+  description: Is the sequencing reaction run in replicate, TRUE or FALSE
+  type: boolean
+- name: cell_barcode_read
+  description: Which read file(s) contains the cell barcode. Multiple cell_barcode_read files must be provided as a comma-delimited list (e.g. file1,file2,file3).
+  constraints:
+    required: FALSE
+- name: umi_read
+  description: Which read file(s) contains the UMI (unique molecular identifier) barcode.
+  constraints:
+    pattern: '[^/]+'
+- name: umi_offset
+  description: Position in the read at which the umi barcode starts.
+  type: integer
+- name: umi_size
+  description: Length of the umi barcode in base pairs.
+  type: integer
+- name: cell_barcode_offset
+  description: Position(s) in the read at which the cell barcode starts.
+  constraints:
+    required: FALSE
+    pattern: '\d+(,\d+)*'
+- name: cell_barcode_size
+  description: Length of the cell barcode in base pairs
+  constraints:
+    required: FALSE
+    pattern: '\d+(,\d+)*'
+# include: ../includes/fields/expected_cell_count.yaml
+- name: library_pcr_cycles
+  description: Number of PCR cycles to amplify cDNA
+  type: integer
+- name: library_pcr_cycles_for_sample_index
+  description: Number of PCR cycles performed for library indexing
+  type: integer
+# include: ../includes/fields/library_final_yield_value_unit.yaml
+# include: ../includes/fields/library_average_fragment_size.yaml
+# include: ../includes/v0/sequencing.yaml
+
+# include: ../includes/v0/paths.yaml

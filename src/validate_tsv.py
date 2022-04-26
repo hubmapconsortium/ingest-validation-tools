@@ -8,7 +8,7 @@ from ingest_validation_tools.error_report import ErrorReport
 from ingest_validation_tools.cli_utils import ShowUsageException, exit_codes
 from ingest_validation_tools.schema_loader import PreflightError
 from ingest_validation_tools.validation_utils import (
-    get_tsv_errors, get_schema_version
+    get_tsv_errors, get_table_schema_version
 )
 
 
@@ -28,7 +28,9 @@ Exit status codes:
         help='TSV path')
     parser.add_argument(
         '--schema', required=True,
-        choices=['sample', 'antibodies', 'contributors', 'metadata'])
+        choices=[
+            'sample', 'sample-block', 'sample-suspension', 'sample-section',
+            'antibodies', 'contributors', 'metadata'])
     error_report_methods = [
         name for (name, type) in inspect.getmembers(ErrorReport)
         if name.startswith('as_')
@@ -49,7 +51,7 @@ def main():
     try:
         schema_name = (
             args.schema if args.schema != 'metadata'
-            else get_schema_version(args.path, 'ascii').schema_name
+            else get_table_schema_version(args.path, 'ascii').schema_name
         )
     except PreflightError as e:
         errors = {'Preflight': str(e)}

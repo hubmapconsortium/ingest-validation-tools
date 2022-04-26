@@ -50,19 +50,18 @@ Metadata TSV Errors:
         - exposure_times.txt
         - segmentation.json
         Required but missing:
-        - .+\.pdf
-        - drv_[^/]+/channelNames\.txt
-        - drv_[^/]+/processed_[^/]+/.*
-        - src_[^/]+/channelnames\.txt
-        - src_[^/]+/channelnames_report\.csv
-        - src_[^/]+/cyc.*_reg.*_.*/.*_.*_Z.*_CH.*\.tif
-        - src_[^/]+/experiment\.json
-        - src_[^/]+/exposure_times\.txt
-        - src_[^/]+/segmentation\.(json|txt)
+        - (processed|drv_[^/]*)/.*
+        - (raw|src_.*)/.*
+        - (raw|src_.*)/[cC]yc.*_reg.*/.*_Z.*_CH.*\.tif
+        - (raw|src_[^/]*)/[Ee]xperiment\.json
       row 2, contributors examples/dataset-examples/bad-tsv-formats/upload/contributors.tsv: File
         has no data rows.
       row 2, antibodies examples/dataset-examples/bad-tsv-formats/upload/antibodies.tsv: File
         does not exist
+Reference Errors:
+  No References:
+    Files:
+    - dataset-1
 Hint: 'If validation fails because of extra whitespace in the TSV, try:
 
   src/cleanup_whitespace.py --tsv_in original.tsv --tsv_out clean.tsv'

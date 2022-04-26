@@ -1,26 +1,32 @@
 ---
-title: SNARE-seq2 / scATACseq / sciATACseq / snATACseq
+title: SNARE-seq2 / sciATACseq / snATACseq
 schema_name: scatacseq
 category: Sequence assays
+all_versions_deprecated: False
 layout: default
 ---
 
 Related files:
 - [🔬 Background doc](https://portal.hubmapconsortium.org/docs/assays/atacseq): More details about this type.
-- [📝 Excel template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/master/docs/scatacseq/scatacseq-metadata.xlsx): For metadata entry.
-- [📝 TSV template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/master/docs/scatacseq/scatacseq-metadata.tsv): Alternative for metadata entry.
+- [📝 Excel template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/main/docs/scatacseq/scatacseq-metadata.xlsx): For metadata entry.
+- [📝 TSV template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/main/docs/scatacseq/scatacseq-metadata.tsv): Alternative for metadata entry.
 
+This schema is for the single nucleus Assay for Transposase Accessible Chromatin by sequencing (snATACseq).
 
-
-## Directory schema
+## Directory schemas
+The HIVE will process each dataset with
+[scATACseq Pipeline 1.4.3](https://github.com/hubmapconsortium/sc-atac-seq-pipeline/releases/tag/1.4.3).
+### v0
 
 | pattern | required? | description |
 | --- | --- | --- |
-| `[^/]+\.fastq\.gz` | ✓ | Compressed FastQ file |
-| `extras/.*` |  | Free-form descriptive information supplied by the TMC |
-| `extras/thumbnail\.(png\|jpg)` |  | Optional thumbnail image which may be shown in search interface |
+| <code>[^/]+\.fastq\.gz</code> | ✓ | Compressed FastQ file |
+| <code>extras/.*</code> |  | Free-form descriptive information supplied by the TMC |
 
 ## Metadata schema
+
+### Field types
+- *Boolean* fields can be given as `TRUE`/`FALSE`, `True`/`False`, `true`/`false`, or `1`/`0`.  
 
 
 <details markdown="1" open="true"><summary><b>Version 1 (current)</b></summary>
@@ -43,12 +49,12 @@ Related files:
 [`assay_type`](#assay_type)<br>
 [`analyte_class`](#analyte_class)<br>
 [`is_targeted`](#is_targeted)<br>
+[`acquisition_instrument_vendor`](#acquisition_instrument_vendor)<br>
+[`acquisition_instrument_model`](#acquisition_instrument_model)<br>
 
 </details>
 <details markdown="1"><summary>Unique to this type</summary>
 
-[`acquisition_instrument_vendor`](#acquisition_instrument_vendor)<br>
-[`acquisition_instrument_model`](#acquisition_instrument_model)<br>
 [`is_technical_replicate`](#is_technical_replicate)<br>
 [`library_id`](#library_id)<br>
 [`sc_isolation_protocols_io_doi`](#sc_isolation_protocols_io_doi)<br>
@@ -107,7 +113,7 @@ HuBMAP Display ID of the donor of the assayed tissue. Example: `ABC123`.
 
 | constraint | value |
 | --- | --- |
-| pattern (regular expression) | `[A-Z]+[0-9]+` |
+| pattern (regular expression) | <code>[A-Z]+[0-9]+</code> |
 | required | `True` |
 
 <a name="tissue_id"></a>
@@ -116,7 +122,7 @@ HuBMAP Display ID of the assayed tissue. Example: `ABC123-BL-1-2-3_456`.
 
 | constraint | value |
 | --- | --- |
-| pattern (regular expression) | `([A-Z]+[0-9]+)-[A-Z]{2}\d*(-\d+)+(_\d+)?` |
+| pattern (regular expression) | <code>([A-Z]+[0-9]+)-[A-Z]{2}\d*(-\d+)+(_\d+)?</code> |
 | required | `True` |
 
 <a name="execution_datetime"></a>
@@ -136,8 +142,8 @@ DOI for protocols.io referring to the protocol for this assay.
 | constraint | value |
 | --- | --- |
 | required | `True` |
-| pattern (regular expression) | `10\.17504/.*` |
-| url | prefix: `https://dx.doi.org/` |
+| pattern (regular expression) | <code>10\.17504/.*</code> |
+| url | prefix: <code>https://dx.doi.org/</code> |
 
 <a name="operator"></a>
 ##### [`operator`](#operator)
@@ -175,7 +181,7 @@ Email address for the principal investigator.
 
 <a name="assay_category"></a>
 ##### [`assay_category`](#assay_category)
-Each assay is placed into one of the following 3 general categories: generation of images of microscopic entities, identification & quantitation of molecules by mass spectrometry, and determination of nucleotide sequence.
+Each assay is placed into one of the following 4 general categories: generation of images of microscopic entities, identification & quantitation of molecules by mass spectrometry, imaging mass spectrometry, and determination of nucleotide sequence.
 
 | constraint | value |
 | --- | --- |
@@ -188,7 +194,7 @@ The specific type of assay being executed.
 
 | constraint | value |
 | --- | --- |
-| enum | `SNARE-seq2`, `scATACseq`, `sciATACseq`, or `snATACseq` |
+| enum | `SNARE-seq2`, `sciATACseq`, or `snATACseq` |
 | required | `True` |
 
 <a name="analyte_class"></a>
@@ -202,14 +208,12 @@ Analytes are the target molecules being measured with the assay.
 
 <a name="is_targeted"></a>
 ##### [`is_targeted`](#is_targeted)
-Specifies whether or not a specific molecule(s) is/are targeted for detection/measurement by the assay. The CODEX analyte is protein.
+Specifies whether or not a specific molecule(s) is/are targeted for detection/measurement by the assay.
 
 | constraint | value |
 | --- | --- |
 | type | `boolean` |
 | required | `True` |
-
-### Unique to this type
 
 <a name="acquisition_instrument_vendor"></a>
 ##### [`acquisition_instrument_vendor`](#acquisition_instrument_vendor)
@@ -226,6 +230,8 @@ Manufacturers of an acquisition instrument may offer various versions (models) o
 | constraint | value |
 | --- | --- |
 | required | `True` |
+
+### Unique to this type
 
 <a name="is_technical_replicate"></a>
 ##### [`is_technical_replicate`](#is_technical_replicate)
@@ -251,8 +257,8 @@ Link to a protocols document answering the question: How were single cells separ
 | constraint | value |
 | --- | --- |
 | required | `True` |
-| pattern (regular expression) | `10\.17504/.*` |
-| url | prefix: `https://dx.doi.org/` |
+| pattern (regular expression) | <code>10\.17504/.*</code> |
+| url | prefix: <code>https://dx.doi.org/</code> |
 
 <a name="sc_isolation_entity"></a>
 ##### [`sc_isolation_entity`](#sc_isolation_entity)
@@ -312,7 +318,7 @@ Modality of capturing accessible chromatin molecules.
 
 | constraint | value |
 | --- | --- |
-| enum | `SNARE-Seq2-AC`, `scATACseq`, `bulkATACseq`, `snATACseq`, or `sciATACseq` |
+| enum | `SNARE-Seq2-AC`, `bulkATACseq`, `snATACseq`, or `sciATACseq` |
 | required | `True` |
 
 <a name="transposition_transposase_source"></a>
@@ -321,7 +327,7 @@ The source of the Tn5 transposase and transposon used for capturing accessible c
 
 | constraint | value |
 | --- | --- |
-| enum | `10X snATAC`, `In-house`, or `Nextera` |
+| enum | `10X snATAC`, `In-house`, `Nextera`, or `10X multiome` |
 | required | `True` |
 
 <a name="transposition_kit_number"></a>
@@ -339,8 +345,8 @@ A link to the protocol document containing the library construction method (incl
 | constraint | value |
 | --- | --- |
 | required | `True` |
-| pattern (regular expression) | `10\.17504/.*` |
-| url | prefix: `https://dx.doi.org/` |
+| pattern (regular expression) | <code>10\.17504/.*</code> |
+| url | prefix: <code>https://dx.doi.org/</code> |
 
 <a name="library_layout"></a>
 ##### [`library_layout`](#library_layout)
@@ -357,33 +363,33 @@ Adapter sequence to be used for adapter trimming.
 
 | constraint | value |
 | --- | --- |
-| pattern (regular expression) | `[ATCG]+(\+[ATCG]+)?` |
+| pattern (regular expression) | <code>[ATCG]+(\+[ATCG]+)?</code> |
 | required | `True` |
 
 <a name="cell_barcode_read"></a>
 ##### [`cell_barcode_read`](#cell_barcode_read)
-Which read file contains the cell barcode.
+Which read file(s) contains the cell barcode. Multiple cell_barcode_read files must be provided as a comma-delimited list (e.g. file1,file2,file3). This field is not required for barcoding by single-cell combinatorial indexing. Leave blank if not applicable.
 
 | constraint | value |
 | --- | --- |
-| required | `True` |
+| required | `False` |
 
 <a name="cell_barcode_offset"></a>
 ##### [`cell_barcode_offset`](#cell_barcode_offset)
-Positions in the read at which the cell barcodes start. Cell barcodes are, for example, 3 x 8 bp sequences that are spaced by constant sequences (the offsets). First barcode at position 0, then 38, then 76. (Does not apply to SNARE-seq and BulkATAC.)
+Positions in the read at which the cell barcodes start. Cell barcodes are, for example, 3 x 8 bp sequences that are spaced by constant sequences (the offsets). First barcode at position 0, then 38, then 76. (Does not apply to sciATACseq, SNARE-seq and BulkATAC.)
 
 | constraint | value |
 | --- | --- |
-| pattern (regular expression) | `\d+(,\d+)*` |
+| pattern (regular expression) | <code>\d+(,\d+)*</code> |
 | required | `True` |
 
 <a name="cell_barcode_size"></a>
 ##### [`cell_barcode_size`](#cell_barcode_size)
-Length of the cell barcode in base pairs. Cell barcodes are, for example, 3 x 8 bp sequences that are spaced by constant sequences, the offsets. (Does not apply to SNARE-seq and BulkATAC.)
+Length of the cell barcode in base pairs. Cell barcodes are, for example, 3 x 8 bp sequences that are spaced by constant sequences, the offsets. (Does not apply to sciATACseq, SNARE-seq and BulkATAC.)
 
 | constraint | value |
 | --- | --- |
-| pattern (regular expression) | `\d+(,\d+)*` |
+| pattern (regular expression) | <code>\d+(,\d+)*</code> |
 | required | `True` |
 
 <a name="library_pcr_cycles"></a>
@@ -425,11 +431,11 @@ Units for library_final_yield. Leave blank if not applicable.
 
 <a name="library_average_fragment_size"></a>
 ##### [`library_average_fragment_size`](#library_average_fragment_size)
-Average size of sequencing library fragments estimated via gel electrophoresis or bioanalyzer/tapestation. Numeric value in bp.
+Average size in basepairs (bp) of sequencing library fragments estimated via gel electrophoresis or bioanalyzer/tapestation.
 
 | constraint | value |
 | --- | --- |
-| type | `number` |
+| type | `integer` |
 | required | `True` |
 
 <a name="sequencing_reagent_kit"></a>
@@ -446,7 +452,7 @@ Slash-delimited list of the number of sequencing cycles for, for example, Read1,
 
 | constraint | value |
 | --- | --- |
-| pattern (regular expression) | `\d+(/\d+)+` |
+| pattern (regular expression) | <code>\d+(/\d+)+</code> |
 | required | `True` |
 
 <a name="sequencing_read_percent_q30"></a>
@@ -501,7 +507,7 @@ HuBMAP Display ID of the donor of the assayed tissue. Example: `ABC123`.
 
 | constraint | value |
 | --- | --- |
-| pattern (regular expression) | `[A-Z]+[0-9]+` |
+| pattern (regular expression) | <code>[A-Z]+[0-9]+</code> |
 | required | `True` |
 
 <a name="tissue_id"></a>
@@ -510,7 +516,7 @@ HuBMAP Display ID of the assayed tissue. Example: `ABC123-BL-1-2-3_456`.
 
 | constraint | value |
 | --- | --- |
-| pattern (regular expression) | `([A-Z]+[0-9]+)-[A-Z]{2}\d*(-\d+)+(_\d+)?` |
+| pattern (regular expression) | <code>([A-Z]+[0-9]+)-[A-Z]{2}\d*(-\d+)+(_\d+)?</code> |
 | required | `True` |
 
 <a name="execution_datetime"></a>
@@ -530,8 +536,8 @@ DOI for protocols.io referring to the protocol for this assay.
 | constraint | value |
 | --- | --- |
 | required | `True` |
-| pattern (regular expression) | `10\.17504/.*` |
-| url | prefix: `https://dx.doi.org/` |
+| pattern (regular expression) | <code>10\.17504/.*</code> |
+| url | prefix: <code>https://dx.doi.org/</code> |
 
 <a name="operator"></a>
 ##### [`operator`](#operator)
@@ -569,7 +575,7 @@ Email address for the principal investigator.
 
 <a name="assay_category"></a>
 ##### [`assay_category`](#assay_category)
-Each assay is placed into one of the following 3 general categories: generation of images of microscopic entities, identification & quantitation of molecules by mass spectrometry, and determination of nucleotide sequence.
+Each assay is placed into one of the following 4 general categories: generation of images of microscopic entities, identification & quantitation of molecules by mass spectrometry, imaging mass spectrometry, and determination of nucleotide sequence.
 
 | constraint | value |
 | --- | --- |
@@ -582,7 +588,7 @@ The specific type of assay being executed.
 
 | constraint | value |
 | --- | --- |
-| enum | `SNARE-seq2`, `scATACseq`, `sciATACseq`, or `snATACseq` |
+| enum | `SNARE-seq2`, `sciATACseq`, or `snATACseq` |
 | required | `True` |
 
 <a name="analyte_class"></a>
@@ -596,14 +602,12 @@ Analytes are the target molecules being measured with the assay.
 
 <a name="is_targeted"></a>
 ##### [`is_targeted`](#is_targeted)
-Specifies whether or not a specific molecule(s) is/are targeted for detection/measurement by the assay. The CODEX analyte is protein.
+Specifies whether or not a specific molecule(s) is/are targeted for detection/measurement by the assay.
 
 | constraint | value |
 | --- | --- |
 | type | `boolean` |
 | required | `True` |
-
-### Unique to this type
 
 <a name="acquisition_instrument_vendor"></a>
 ##### [`acquisition_instrument_vendor`](#acquisition_instrument_vendor)
@@ -620,6 +624,8 @@ Manufacturers of an acquisition instrument may offer various versions (models) o
 | constraint | value |
 | --- | --- |
 | required | `True` |
+
+### Unique to this type
 
 <a name="is_technical_replicate"></a>
 ##### [`is_technical_replicate`](#is_technical_replicate)
@@ -645,8 +651,8 @@ Link to a protocols document answering the question: How were single cells separ
 | constraint | value |
 | --- | --- |
 | required | `True` |
-| pattern (regular expression) | `10\.17504/.*` |
-| url | prefix: `https://dx.doi.org/` |
+| pattern (regular expression) | <code>10\.17504/.*</code> |
+| url | prefix: <code>https://dx.doi.org/</code> |
 
 <a name="sc_isolation_entity"></a>
 ##### [`sc_isolation_entity`](#sc_isolation_entity)
@@ -706,7 +712,7 @@ Modality of capturing accessible chromatin molecules.
 
 | constraint | value |
 | --- | --- |
-| enum | `SNARE-Seq2-AC`, `scATACseq`, `bulkATACseq`, `snATACseq`, or `sciATACseq` |
+| enum | `SNARE-Seq2-AC`, `bulkATACseq`, `snATACseq`, or `sciATACseq` |
 | required | `True` |
 
 <a name="transposition_transposase_source"></a>
@@ -733,8 +739,8 @@ A link to the protocol document containing the library construction method (incl
 | constraint | value |
 | --- | --- |
 | required | `True` |
-| pattern (regular expression) | `10\.17504/.*` |
-| url | prefix: `https://dx.doi.org/` |
+| pattern (regular expression) | <code>10\.17504/.*</code> |
+| url | prefix: <code>https://dx.doi.org/</code> |
 
 <a name="library_layout"></a>
 ##### [`library_layout`](#library_layout)
@@ -751,7 +757,7 @@ Adapter sequence to be used for adapter trimming.
 
 | constraint | value |
 | --- | --- |
-| pattern (regular expression) | `[ATCG]+(\+[ATCG]+)?` |
+| pattern (regular expression) | <code>[ATCG]+(\+[ATCG]+)?</code> |
 | required | `True` |
 
 <a name="cell_barcode_read"></a>
@@ -768,7 +774,7 @@ Positions in the read at which the cell barcodes start. Cell barcodes are, for e
 
 | constraint | value |
 | --- | --- |
-| pattern (regular expression) | `\d+(,\d+)*` |
+| pattern (regular expression) | <code>\d+(,\d+)*</code> |
 | required | `True` |
 
 <a name="cell_barcode_size"></a>
@@ -777,7 +783,7 @@ Length of the cell barcode in base pairs. Cell barcodes are, for example, 3 x 8 
 
 | constraint | value |
 | --- | --- |
-| pattern (regular expression) | `\d+(,\d+)*` |
+| pattern (regular expression) | <code>\d+(,\d+)*</code> |
 | required | `True` |
 
 <a name="library_pcr_cycles"></a>
@@ -819,11 +825,11 @@ Units for library_final_yield. Leave blank if not applicable.
 
 <a name="library_average_fragment_size"></a>
 ##### [`library_average_fragment_size`](#library_average_fragment_size)
-Average size of sequencing library fragments estimated via gel electrophoresis or bioanalyzer/tapestation. Numeric value in bp.
+Average size in basepairs (bp) of sequencing library fragments estimated via gel electrophoresis or bioanalyzer/tapestation.
 
 | constraint | value |
 | --- | --- |
-| type | `number` |
+| type | `integer` |
 | required | `True` |
 
 <a name="sequencing_reagent_kit"></a>
@@ -840,7 +846,7 @@ Slash-delimited list of the number of sequencing cycles for, for example, Read1,
 
 | constraint | value |
 | --- | --- |
-| pattern (regular expression) | `\d+(/\d+)+` |
+| pattern (regular expression) | <code>\d+(/\d+)+</code> |
 | required | `True` |
 
 <a name="sequencing_read_percent_q30"></a>

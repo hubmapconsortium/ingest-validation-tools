@@ -2,11 +2,11 @@
 doc_url: https://portal.hubmapconsortium.org/docs/assays/rnaseq
 fields:
 # include: ../includes/fields/source_project.yaml
+- Shared by all types
 - name: donor_id
   constraints:
     required: false
   description: HuBMAP Display ID of the donor of the assayed tissue.
-  heading: Shared by all types
   type: string
   custom_constraints:
     sequence_limit: False
@@ -58,14 +58,12 @@ fields:
     enum:
     - sequence
     required: true
-  description: 'Each assay is placed into one of the following 3 general categories:
-    generation of images of microscopic entities, identification & quantitation of
-    molecules by mass spectrometry, and determination of nucleotide sequence.'
 - name: assay_type
   constraints:
     enum:
     - scRNAseq-10xGenomics-v2
     - scRNAseq-10xGenomics-v3
+    - snRNAseq-10xGenomics-v2
     - scRNAseq
     - sciRNAseq
     - snRNAseq
@@ -90,7 +88,6 @@ fields:
   description: An acquisition instrument is the device that contains the signal detection
     hardware and signal processing software. Assays generate signals such as light
     of various intensities or color or signals representing the molecular mass.
-  heading: Unique to this type
 - name: acquisition_instrument_model
   constraints:
     required: true
@@ -98,6 +95,7 @@ fields:
     (models) of that instrument with different features or sensitivities. Differences
     in features or sensitivities may be relevant to processing or interpretation of
     the data.
+- Unique to this type
 - name: sc_isolation_protocols_io_doi
   constraints:
     pattern: 10\.17504/.*
@@ -127,14 +125,13 @@ fields:
   constraints:
     required: false
   description: Total number of cell/nuclei yielded post dissociation and enrichment
+  type: integer
 - name: rnaseq_assay_input
+  type: integer
   constraints:
     required: false
   description: Number of cell/nuclei input to the assay
-- name: rnaseq_assay_method
-  constraints:
-    required: true
-  description: The kit used for the RNA sequencing assay
+# include: ../includes/fields/rnaseq_assay_method.yaml
 - name: library_construction_protocols_io_doi
   constraints:
     pattern: 10\.17504/.*
@@ -179,10 +176,12 @@ fields:
   constraints:
     required: false
   description: Number of PCR cycles to amplify cDNA
+  type: integer
 - name: library_pcr_cycles_for_sample_index
   constraints:
     required: false
   description: Number of PCR cycles performed for library indexing
+  type: integer
 - name: library_final_yield_value
   constraints:
     required: false
@@ -195,11 +194,10 @@ fields:
     - ng
     required: false
   description: Units of final library yield
-- name: library_average_fragment_size
+
+# include: ../includes/fields/library_average_fragment_size.yaml
   constraints:
     required: false
-  description: Average size of sequencing library fragments estimated via gel electrophoresis
-    or bioanalyzer/tapestation.
 # include: ../includes/fields/sequencing_reagent_kit.yaml
   constraints:
     required: false

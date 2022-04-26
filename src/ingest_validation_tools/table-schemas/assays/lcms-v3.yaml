@@ -1,0 +1,102 @@
+doc_url: https://portal.hubmapconsortium.org/docs/assays/lcms
+description_md: 
+  This schema is for liquid chromatography mass spectrometry (LCMS).
+  
+  v2 adds `mass_resolving_power`, `mz_resolving_power`, `ion_mobility`,
+  `spatial_type`, `spatial_sampling_type`, `spatial_target`, and `resolution_{x/y}_{value/unit}`. In the case of datasets in which more
+  than one `analyte_type` was interrogated (e.g. lipids plus metabolytes), those datasets should be split into one dataset per analyte.
+
+  v3 adds `dms` and `label_name` fields, and `negative and positive ion mode` as a polarity option. 
+
+release_date: 2021-12-06
+fields:
+- Shared by all types
+- name: version
+  description: Version of the schema to use when validating this metadata.
+  constraints:
+    enum:
+      - '3'
+# include: ../includes/vA/all_assays_wo_version.yaml
+- name: assay_category
+  constraints:
+    enum:
+      - mass_spectrometry
+- name: assay_type
+  description:
+    Bottom-up refers to analyzing proteins in a sample by digesting them to peptides.
+    Top-down refers to analyzing whole proteins without digestion. LC-MS and MS are for lipids/metabolites.
+    LC-MS Bottom-Up and MS Bottom-Up are for peptides. LC-MS Top-Down and MS Top-Down are for proteins.
+  constraints:
+    enum:
+      - LC-MS
+      - MS
+      - LC-MS Bottom-Up
+      - MS Bottom-Up
+      - LC-MS Top-Down
+      - MS Top-Down
+- name: analyte_class
+  constraints:
+    enum:
+      - protein
+      - metabolites
+      - lipids
+      - peptides
+      - phosphopeptides
+      - glycans
+    required: False
+# include: ../includes/v0/is_targeted.yaml
+# include: ../includes/v0/acquisition_instrument.yaml
+
+# Level 2 fields:
+- Unique to this type
+
+# include: ../includes/fields/dms.yaml
+- name: ms_source
+  description: The ion source type used for surface sampling.
+  constraints:
+    enum:
+      - ESI
+# include: ../includes/fields/polarity.yaml
+# include: ../includes/fields/mz_range_low_value.yaml
+# include: ../includes/fields/mz_range_high_value.yaml
+# include: ../includes/fields/mass_resolving_power.yaml
+# include: ../includes/fields/mz_resolving_power.yaml
+# include: ../includes/fields/ion_mobility.yaml
+# include: ../includes/fields/data_collection_mode.yaml
+# include: ../includes/fields/ms_scan_mode.yaml
+# include: ../includes/fields/labeling.yaml
+# include: ../includes/fields/label_name.yaml
+# include: ../includes/v0/doi/section_prep.yaml
+# include: ../includes/fields/lc_instrument_vendor.yaml
+# include: ../includes/fields/lc_instrument_model.yaml
+# include: ../includes/fields/lc_column_vendor.yaml
+# include: ../includes/fields/lc_column_model.yaml
+# include: ../includes/fields/lc_resin.yaml
+# include: ../includes/fields/lc_length_value.yaml
+# include: ../includes/fields/lc_length_unit.yaml
+# include: ../includes/fields/lc_temp_value.yaml
+# include: ../includes/fields/lc_temp_unit.yaml
+# include: ../includes/fields/lc_id_value.yaml
+# include: ../includes/fields/lc_id_unit.yaml
+# include: ../includes/fields/lc_flow_rate_value.yaml
+# include: ../includes/fields/lc_flow_rate_unit.yaml
+# include: ../includes/fields/lc_gradient.yaml
+# include: ../includes/fields/lc_mobile_phase_a.yaml
+# include: ../includes/fields/lc_mobile_phase_b.yaml
+
+# include: ../includes/fields/spatial_type.yaml
+# include: ../includes/fields/spatial_sampling_type.yaml
+# include: ../includes/fields/spatial_target.yaml
+# include: ../includes/v0/x_y_optional.yaml
+
+# include: ../includes/fields/processing_search.yaml
+- name: processing_protocols_io_doi
+  description: DOI for analysis protocols.io for this assay.
+  constraints:
+    required: False
+- name: overall_protocols_io_doi
+  description: DOI for protocols.io for the overall process for this assay.
+  constraints:
+    required: False
+
+# include: ../includes/v0/paths.yaml

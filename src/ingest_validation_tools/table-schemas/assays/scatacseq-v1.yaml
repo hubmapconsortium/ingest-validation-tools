@@ -1,5 +1,7 @@
 doc_url: https://portal.hubmapconsortium.org/docs/assays/atacseq
+description_md: This schema is for the single nucleus Assay for Transposase Accessible Chromatin by sequencing (snATACseq).
 fields:
+- Shared by all types
 # include: ../includes/vA/all_assays.yaml
 - name: assay_category
   constraints:
@@ -9,7 +11,6 @@ fields:
   constraints:
     enum:
       - SNARE-seq2
-      - scATACseq
       - sciATACseq
       - snATACseq
 - name: analyte_class
@@ -17,9 +18,11 @@ fields:
     enum:
       - DNA
 # include: ../includes/v0/is_targeted.yaml
+# include: ../includes/v0/acquisition_instrument.yaml
 
 # Level 2 fields:
-# include: ../includes/v0/acquisition_instrument.yaml
+- Unique to this type
+
 - name: is_technical_replicate
   description: If TRUE, fastq files in dataset need to be merged.
 # include: ../includes/fields/library_id.yaml
@@ -51,7 +54,6 @@ fields:
   constraints:
     enum:
       - SNARE-Seq2-AC
-      - scATACseq
       - bulkATACseq
       - snATACseq
       - sciATACseq
@@ -62,6 +64,7 @@ fields:
       - 10X snATAC
       - In-house
       - Nextera
+      - 10X multiome
 # include: ../includes/fields/transposition_kit_number.yaml
 - name: library_construction_protocols_io_doi
   description: A link to the protocol document containing the library construction method (including version) that was used, e.g. "Smart-Seq2", "Drop-Seq", "10X v3". DOI for protocols.io referring to the protocol for this assay.
@@ -71,13 +74,19 @@ fields:
   constraints:
     pattern: '[ATCG]+(\+[ATCG]+)?'
 - name: cell_barcode_read
-  description: Which read file contains the cell barcode.
+  constraints:
+    required: False
+  description: Which read file(s) contains the cell barcode. Multiple cell_barcode_read files must be provided as a comma-delimited list (e.g. file1,file2,file3). This field is not required for barcoding by single-cell combinatorial indexing.
 - name: cell_barcode_offset
-  description: Positions in the read at which the cell barcodes start. Cell barcodes are, for example, 3 x 8 bp sequences that are spaced by constant sequences (the offsets). First barcode at position 0, then 38, then 76. (Does not apply to SNARE-seq and BulkATAC.)
+  constraints:
+    required: FALSE
+  description: Positions in the read at which the cell barcodes start. Cell barcodes are, for example, 3 x 8 bp sequences that are spaced by constant sequences (the offsets). First barcode at position 0, then 38, then 76. (Does not apply to sciATACseq, SNARE-seq and BulkATAC.)
   constraints:
     pattern: '\d+(,\d+)*'
 - name: cell_barcode_size
-  description: Length of the cell barcode in base pairs. Cell barcodes are, for example, 3 x 8 bp sequences that are spaced by constant sequences, the offsets. (Does not apply to SNARE-seq and BulkATAC.)
+  constraints:
+    required: FALSE
+  description: Length of the cell barcode in base pairs. Cell barcodes are, for example, 3 x 8 bp sequences that are spaced by constant sequences, the offsets. (Does not apply to sciATACseq, SNARE-seq and BulkATAC.)
   constraints:
     pattern: '\d+(,\d+)*'
 - name: library_pcr_cycles
@@ -94,9 +103,8 @@ fields:
   constraints:
     enum:
       - ng
-- name: library_average_fragment_size
-  description: Average size of sequencing library fragments estimated via gel electrophoresis or bioanalyzer/tapestation. Numeric value in bp.
-  type: number
+
+# include: ../includes/fields/library_average_fragment_size.yaml
 # include: ../includes/fields/sequencing_reagent_kit.yaml
 # include: ../includes/fields/sequencing_read_format.yaml
 # include: ../includes/fields/sequencing_read_percent_q30.yaml

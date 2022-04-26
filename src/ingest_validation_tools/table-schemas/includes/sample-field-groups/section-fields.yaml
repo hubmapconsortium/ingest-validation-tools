@@ -1,0 +1,5 @@
+# include: ../sample-fields/section_thickness_value.yaml
+# include: ../sample-fields/section_thickness_unit.yaml
+# include: ../sample-fields/section_index_number.yaml
+# include: ../sample-fields/area_value.yaml
+# include: ../sample-fields/area_unit.yaml

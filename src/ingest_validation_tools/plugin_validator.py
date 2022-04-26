@@ -36,7 +36,7 @@ class Validator(object):
             raise ValidatorError(f'{self.path} is not a directory')
         self.assay_type = assay_type
 
-    def collect_errors(self) -> List[str]:
+    def collect_errors(self, **kwargs) -> List[str]:
         """
         Returns a list of strings, each of which is a
         human-readable error message.
@@ -49,7 +49,8 @@ class Validator(object):
 
 
 def run_plugin_validators_iter(metadata_path: PathOrStr,
-                               plugin_dir: PathOrStr) -> Iterator[KeyValuePair]:
+                               plugin_dir: PathOrStr,
+                               **kwargs) -> Iterator[KeyValuePair]:
     """
     Given a metadata.tsv file and a path to a directory of Validator plugins, iterate through the
     results of applying each plugin to each row of the metadata.tsv file.  The 'assay_type' field
@@ -85,14 +86,15 @@ def run_plugin_validators_iter(metadata_path: PathOrStr,
             data_path = Path(row['data_path'])
             if not data_path.is_absolute():
                 data_path = (metadata_path.parent / data_path).resolve()
-            for k, v in validation_error_iter(data_path, assay_type, plugin_dir):
+            for k, v in validation_error_iter(data_path, assay_type, plugin_dir,
+                                              **kwargs):
                 yield k, v
     else:
         raise ValidatorError(f'{metadata_path} has no "data_path" column')
 
 
 def validation_error_iter(base_dir: PathOrStr, assay_type: str,
-                          plugin_dir: PathOrStr) -> Iterator[KeyValuePair]:
+                          plugin_dir: PathOrStr, **kwargs) -> Iterator[KeyValuePair]:
     """
     Given a base directory pointing to a tree of upload data files and a
     path to a directory of Validator plugins, iterate over the results of
@@ -120,6 +122,8 @@ def validation_error_iter(base_dir: PathOrStr, assay_type: str,
             mod = sys.modules[mod_nm]
         else:
             spec = util.spec_from_file_location(mod_nm, fpath)
+            if spec is None:
+                raise ValidatorError(f'bad plugin test {fpath}')
             mod = util.module_from_spec(spec)
             sys.modules[mod_nm] = mod
             spec.loader.exec_module(mod)  # type: ignore
@@ -129,5 +133,5 @@ def validation_error_iter(base_dir: PathOrStr, assay_type: str,
     sort_me.sort()
     for cost, description, cls in sort_me:
         validator = cls(base_dir, assay_type)
-        for err in validator.collect_errors():
+        for err in validator.collect_errors(**kwargs):
             yield description, err

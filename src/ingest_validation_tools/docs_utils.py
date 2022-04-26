@@ -1,19 +1,21 @@
 import re
 from string import Template
 from pathlib import Path
+import html
+from typing import Dict, Any
 
-from ingest_validation_tools.schema_loader import get_field_enum
+from ingest_validation_tools.schema_loader import get_field_enum, get_fields_wo_headers
 
 
-def get_tsv_name(type, is_assay=True):
+def get_tsv_name(type: str, is_assay: bool = True) -> str:
     return f'{type}{"-metadata" if is_assay else ""}.tsv'
 
 
-def get_xlsx_name(type, is_assay=True):
+def get_xlsx_name(type: str, is_assay: bool = True) -> str:
     return f'{type}{"-metadata" if is_assay else ""}.xlsx'
 
 
-def generate_template_tsv(table_schema):
+def generate_template_tsv(table_schema: Dict) -> str:
     '''
     >>> schema = {'fields': [{
     ...   'name': 'fake',
@@ -25,7 +27,7 @@ def generate_template_tsv(table_schema):
     'fake\\na / b / c'
     '''
 
-    names = [field['name'] for field in table_schema['fields']]
+    names = [field['name'] for field in get_fields_wo_headers(table_schema)]
     header_row = '\t'.join(names)
 
     enums = [
@@ -40,7 +42,7 @@ def generate_template_tsv(table_schema):
     return '\n'.join([header_row, enums_row])
 
 
-def _enrich_description(field):
+def _enrich_description(field: Dict[str, Any]) -> str:
     '''
     >>> good_field = {
     ...   'name': 'good-example',
@@ -86,9 +88,11 @@ def _enrich_description(field):
 
 
 def generate_readme_md(
-        table_schemas, directory_schema, schema_name, is_assay=True):
-    max_version = max(table_schemas.keys())
-    max_version_table_schema = table_schemas[max_version]
+        table_schemas, pipeline_infos, directory_schemas, schema_name, is_assay=True):
+    int_keys = [int(k) for k in table_schemas.keys()]
+    max_version = max(int_keys)
+    min_version = min(int_keys)
+    max_version_table_schema = table_schemas[str(max_version)]
 
     assay_type_enum = get_field_enum('assay_type', max_version_table_schema)
     assay_category_enum = get_field_enum('assay_category', max_version_table_schema)
@@ -102,11 +106,11 @@ def generate_readme_md(
         if source_project_enum else ''
 
     raw_base_url = 'https://raw.githubusercontent.com/' \
-        'hubmapconsortium/ingest-validation-tools/master/docs'
+        'hubmapconsortium/ingest-validation-tools/main/docs'
 
     optional_dir_description_md = (
-        f'## Directory schema\n{_make_dir_description(directory_schema)}'
-        if directory_schema else ''
+        f'## Directory schemas\n{_make_dir_descriptions(directory_schemas, pipeline_infos)}'
+        if directory_schemas else ''
     )
 
     optional_doc_link_md = (
@@ -114,9 +118,15 @@ def generate_readme_md(
         'More details about this type.'
         if 'doc_url' in max_version_table_schema else ''
     )
+
     optional_description_md = (
         max_version_table_schema['description_md']
         if 'description_md' in max_version_table_schema else ''
+    )
+
+    optional_release_date = (
+        f", release date {max_version_table_schema['release_date']}"
+        if 'release_date' in max_version_table_schema else ''
     )
 
     template = Template(
@@ -133,20 +143,22 @@ def generate_readme_md(
             'other': 'Other TSVs'
         }[category],
         'max_version': max_version,
+        'all_versions_deprecated':
+            all(schema.get('deprecated') for schema in table_schemas.values()),
 
         'tsv_url': f'{raw_base_url}/{schema_name}/{get_tsv_name(schema_name, is_assay=is_assay)}',
         'xlsx_url': f'{raw_base_url}/{schema_name}/{get_xlsx_name(schema_name, is_assay=is_assay)}',
 
         'current_version_md':
             _make_fields_md(
-                table_schemas[max_version], f'Version {max_version} (current)', is_open=True
+                max_version_table_schema,
+                f'Version {max_version} (current{optional_release_date})',
+                is_open=True
         ),
         'previous_versions_md':
             '\n\n'.join([
-                _make_fields_md(
-                    table_schemas[str(v)], f'Version {v}'
-                )
-                for v in reversed(range(int(max_version)))
+                _make_fields_md(table_schemas[str(v)], f'Version {v}')
+                for v in range(max_version - 1, min_version - 1, -1)
             ]),
 
         'optional_dir_description_md': optional_dir_description_md,
@@ -158,11 +170,13 @@ def generate_readme_md(
 
 def _make_fields_md(table_schema, title, is_open=False):
     '''
-    >>> schema = {'fields': [{
-    ...   'heading': 'A head',
-    ...   'name': 'a_name',
-    ...   'description': 'A description'
-    ... }]}
+    >>> schema = {'fields': [
+    ...   'A head',
+    ...   {
+    ...     'name': 'a_name',
+    ...     'description': 'A description'
+    ...   }
+    ... ]}
     >>> print(_clean(_make_fields_md(schema, 'A title')))
     <details markdown="1" ><summary><b>A title</b></summary>
     ### A head
@@ -170,12 +184,20 @@ def _make_fields_md(table_schema, title, is_open=False):
     ##### [`a_name`](#a_name)
     A description.
     </details>
+
+    >>> schema = {'deprecated': True, 'fields': []}
+    >>> print(_clean(_make_fields_md(schema, 'A title', is_open=True)))
+    <details markdown="1" open="true"><summary><s>A title</s> (deprecated)</summary>
+    <blockquote markdown="1">
+    </blockquote>
+    </details>
     '''
 
     fields_md_list = []
     for field in table_schema['fields']:
-        if 'heading' in field:
-            fields_md_list.append(f"### {field['heading']}")
+        if isinstance(field, str):
+            fields_md_list.append(f"### {field}")
+            continue
         table_md = _make_constraints_table(field)
         name = field['name']
         fields_md_list.append('\n'.join([
@@ -185,8 +207,12 @@ def _make_fields_md(table_schema, title, is_open=False):
             table_md
         ]))
     joined_list = '\n\n'.join(fields_md_list)
+    if table_schema.get('deprecated'):
+        title_html = f'<s>{title}</s> (deprecated)'
+    else:
+        title_html = f'<b>{title}</b>'
     return f'''
-<details markdown="1" {'open="true"' if is_open else ''}><summary><b>{title}</b></summary>
+<details markdown="1" {'open="true"' if is_open else ''}><summary>{title_html}</summary>
 
 {_make_toc(joined_list) if is_open else ''}
 {joined_list}
@@ -239,7 +265,20 @@ def _make_constraints_table(field):
     if len(table_md_rows) < 3:
         # Empty it, if there is no data.
         table_md_rows = []
-    return '\n' + '\n'.join(table_md_rows)
+    main_table_md = '\n'.join(table_md_rows)
+
+    ontology_table_md = _make_ontology_table(field['constraints']['enum']) \
+        if 'constraints' in field and 'enum' in field['constraints'] else ''
+    return '\n' + main_table_md + ontology_table_md
+
+
+def _make_ontology_table(enum):
+    if not isinstance(enum, dict):
+        return ''
+    table_md_rows = ['| term | URI |', '| --- | --- |']
+    for term, uri in enum.items():
+        table_md_rows.append(f'| {term} | `{uri}` |')
+    return '\n\nOntology terms:\n\n' + '\n'.join(table_md_rows)
 
 
 def _make_key_md(key, value):
@@ -270,10 +309,10 @@ def _make_value_md(key, value):
     `A`, `B`, or `C`
 
     >>> print(_make_value_md('pattern', '^some|reg_?ex\\.$'))
-    `^some\\|reg_?ex\\.$`
+    <code>^some&#124;reg_?ex\\.$</code>
 
     >>> print(_make_value_md('url', {'prefix': 'http://example.com/'}))
-    prefix: `http://example.com/`
+    prefix: <code>http://example.com/</code>
 
     '''
     if key == 'enum':
@@ -283,18 +322,29 @@ def _make_value_md(key, value):
         backtick_list[-1] = f'or {backtick_list[-1]}'
         return ', '.join(backtick_list)
     if key == 'pattern':
-        return f'`{_md_escape_re(value)}`'
+        return _html_code(value)
     if key == 'url':
-        return f'prefix: `{_md_escape_re(value["prefix"])}`'
+        return f'prefix: {_html_code(value["prefix"])}'
     return f'`{value}`'
 
 
-def _md_escape_re(re_string):
+def _html_code(re_string):
     '''
-    >>> print(_md_escape_re('a|b'))
-    a\\|b
+    In Github pages, '`a|b`' can be used in a table,
+    but in Github markdown preview, it will cause table cells to split.
+    Instead, use HTML and a character entity.
+
+    >>> original = 'gt >|lt <|amp &'
+    >>> wrapped = _html_code(original)
+    >>> print(wrapped)
+    <code>gt &gt;&#124;lt &lt;&#124;amp &amp;</code>
+
+    >>> unwrapped = html.unescape(wrapped.replace('<code>','').replace('</code>',''))
+    >>> assert unwrapped == original
     '''
-    return re.sub(r'([|])', r'\\\1', re_string)
+    escaped = html.escape(re_string)
+    pipe_escaped = escaped.replace('|', '&#124;')
+    return f'<code>{pipe_escaped}</code>'
 
 
 def _clean(s):
@@ -351,75 +401,124 @@ def _make_toc(md):
     return f'<blockquote markdown="1">\n\n{joined_mds}\n\n</blockquote>\n'
 
 
-def _make_dir_description(dir_schema):
+def _make_dir_descriptions(dir_schemas, pipeline_infos):
+    '''
+    >>> dir_schema = {
+    ...     'files': [
+    ...         {'pattern': 'required\\.txt', 'description': 'Required!'}
+    ...     ]
+    ... }
+    >>> pipeline_infos = [{
+    ...     "name": "Fake Pipeline",
+    ...     "repo_url": "https://github.com/hubmapconsortium/fake",
+    ...     "version_tag": "v1.2.3"
+    ... }]
+    >>> print(_make_dir_descriptions({'0': dir_schema}, pipeline_infos))
+    The HIVE will process each dataset with
+    [Fake Pipeline v1.2.3](https://github.com/hubmapconsortium/fake/releases/tag/v1.2.3).
+    ### v0
+    <BLANKLINE>
+    | pattern | required? | description |
+    | --- | --- | --- |
+    | <code>required\\.txt</code> | ✓ | Required! |
+    '''
+    pipeline_infos_md = ' and '.join(make_pipeline_link(info) for info in pipeline_infos)
+    pipeline_blurb = \
+        f'The HIVE will process each dataset with\n{pipeline_infos_md}.\n' \
+        if pipeline_infos else ''
+
+    sorted_items = sorted(dir_schemas.items(), key=lambda item: item[0], reverse=True)
+    return pipeline_blurb + '\n'.join(
+        f'### v{v}\n' + _make_dir_description(schema['files'], schema.get('deprecated', False))
+        for v, schema in sorted_items
+    )
+
+
+def _make_dir_description(files, is_deprecated=False):
     '''
     QA and Required flags are handled:
 
-    >>> dir_schema = [
+    >>> files = [
     ...   { 'pattern': 'required\\.txt', 'description': 'Required!',
     ...     'is_qa_qc': True },
     ...   { 'pattern': 'optional\\.txt', 'description': 'Optional!',
     ...     'required': False }
     ... ]
-    >>> print(_make_dir_description(dir_schema))
+    >>> print(_make_dir_description(files))
     <BLANKLINE>
     | pattern | required? | description |
     | --- | --- | --- |
-    | `required\\.txt` | ✓ | **[QA/QC]** Required! |
-    | `optional\\.txt` |  | Optional! |
+    | <code>required\\.txt</code> | ✓ | **[QA/QC]** Required! |
+    | <code>optional\\.txt</code> |  | Optional! |
+
+    Deprecated is handled:
+
+    >>> files = [
+    ...   { 'pattern': 'optional\\.txt', 'description': 'Optional!',
+    ...     'required': False }
+    ... ]
+    >>> print(_make_dir_description(files, True))
+    <details markdown="1"><summary>Deprecated</summary>
+    <BLANKLINE>
+    | pattern | required? | description |
+    | --- | --- | --- |
+    | <code>optional\\.txt</code> |  | Optional! |
+    <BLANKLINE>
+    </details>
 
     Examples add an extra column:
 
-    >>> dir_schema = [
+    >>> files = [
     ...   { 'pattern': '[A-Z]+\\d+', 'description': 'letters numbers', 'example': 'ABC123'},
     ...   { 'pattern': '[A-Z]', 'description': 'one letter, no example'},
     ... ]
-    >>> print(_make_dir_description(dir_schema))
+    >>> print(_make_dir_description(files))
     <BLANKLINE>
-    | pattern | example | required? | description |
-    | --- | --- | --- | --- |
-    | `[A-Z]+\\d+` | `ABC123` | ✓ | letters numbers |
-    | `[A-Z]` |  | ✓ | one letter, no example |
+    | pattern | required? | description |
+    | --- | --- | --- |
+    | <code>[A-Z]+\\d+</code> (example: <code>ABC123</code>) | ✓ | letters numbers |
+    | <code>[A-Z]</code> | ✓ | one letter, no example |
 
     Bad examples cause errors:
 
-    >>> dir_schema = [
+    >>> files = [
     ...   { 'pattern': '[A-Z]\\d', 'description': '1 letter 1 number', 'example': 'ABC123'},
     ... ]
-    >>> _make_dir_description(dir_schema)
+    >>> _make_dir_description(files)
     Traceback (most recent call last):
     ...
-    Exception: Example "ABC123" does not match pattern "[A-Z]\\d"
+    AssertionError: Example "ABC123" does not match pattern "[A-Z]\\d"
 
+    Unexpected flags cause error:
+
+    >>> files = [
+    ...   { 'bad': 'schema' }
+    ... ]
+    >>> _make_dir_description(files)
+    Traceback (most recent call last):
+    ...
+    AssertionError: Unexpected key "bad" in {'bad': 'schema'}
     '''
-    has_examples = any('example' in line for line in dir_schema)
+    for line in files:
+        for k in line.keys():
+            assert k in {'pattern', 'required', 'description', 'example', 'is_qa_qc'}, \
+                f'Unexpected key "{k}" in {line}'
 
-    output = []
-    if has_examples:
-        output.append('''
-| pattern | example | required? | description |
-| --- | --- | --- | --- |''')
-    else:
-        output.append('''
+    output = ['''
 | pattern | required? | description |
-| --- | --- | --- |''')
+| --- | --- | --- |''']
 
-    for line in dir_schema:
+    for line in files:
         row = []
 
         pattern = line['pattern']
-        pattern_md = f'`{_md_escape_re(pattern)}`'
+        pattern_md = _html_code(pattern)
+        if 'example' in line:
+            example = line['example']
+            assert re.fullmatch(pattern, example), \
+                f'Example "{example}" does not match pattern "{pattern}"'
+            pattern_md += f' (example: {_html_code(example)})'
         row.append(pattern_md)
-
-        if has_examples:
-            if 'example' not in line:
-                row.append('')
-            else:
-                example = line['example']
-                if not re.fullmatch(pattern, example):
-                    raise Exception(f'Example "{example}" does not match pattern "{pattern}"')
-                example_md = f'`{_md_escape_re(example)}`'
-                row.append(example_md)
 
         required_md = '' if 'required' in line and not line['required'] else '✓'
         row.append(required_md)
@@ -429,4 +528,23 @@ def _make_dir_description(dir_schema):
         row.append(description_md)
 
         output.append('| ' + ' | '.join(row) + ' |')
-    return '\n'.join(output)
+    table = '\n'.join(output)
+
+    if is_deprecated:
+        return f'<details markdown="1"><summary>Deprecated</summary>\n{table}\n\n</details>'
+    return table
+
+
+def make_pipeline_link(info):
+    '''
+    >>> info = {
+    ...     "name": "Fake Pipeline",
+    ...     "repo_url": "https://github.com/hubmapconsortium/fake",
+    ...     "version_tag": "v1.2.3"
+    ... }
+    >>> print(make_pipeline_link(info))
+    [Fake Pipeline v1.2.3](https://github.com/hubmapconsortium/fake/releases/tag/v1.2.3)
+    '''
+    text = f"{info['name']} {info['version_tag']}"
+    href = f"{info['repo_url']}/releases/tag/{info['version_tag']}"
+    return f"[{text}]({href})"

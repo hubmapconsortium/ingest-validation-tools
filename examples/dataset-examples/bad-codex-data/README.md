@@ -2,6 +2,10 @@
 Metadata TSV Errors:
   examples/dataset-examples/bad-codex-data/upload/codex-metadata.tsv (as codex):
     Internal:
+    - On row 2, column "protocols_io_doi", value "10\.17504/protocols.io.menc3de"
+      fails because constraint "pattern" is "10\.17504/.*"
+    - On row 2, column "operator_email", value "no-at.example.com" fails because type
+      is "string/email"
     - On row 2, column "resolution_z_unit", value "None" fails because Required when
       resolution_z_value is filled
     External:
@@ -13,15 +17,10 @@ Metadata TSV Errors:
         - exposure_times.txt
         - segmentation.json
         Required but missing:
-        - .+\.pdf
-        - drv_[^/]+/channelNames\.txt
-        - drv_[^/]+/processed_[^/]+/.*
-        - src_[^/]+/channelnames\.txt
-        - src_[^/]+/channelnames_report\.csv
-        - src_[^/]+/cyc.*_reg.*_.*/.*_.*_Z.*_CH.*\.tif
-        - src_[^/]+/experiment\.json
-        - src_[^/]+/exposure_times\.txt
-        - src_[^/]+/segmentation\.(json|txt)
+        - (processed|drv_[^/]*)/.*
+        - (raw|src_.*)/.*
+        - (raw|src_.*)/[cC]yc.*_reg.*/.*_Z.*_CH.*\.tif
+        - (raw|src_[^/]*)/[Ee]xperiment\.json
       row 2, contributors examples/dataset-examples/bad-codex-data/upload/contributors.tsv:
       - On row 2, column "orcid_id", value "bad-id" fails because constraint "pattern"
         is "\d{4}-\d{4}-\d{4}-\d{3}[0-9X]"

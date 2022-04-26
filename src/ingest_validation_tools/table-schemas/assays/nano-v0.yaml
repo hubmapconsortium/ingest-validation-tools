@@ -1,5 +1,7 @@
 # doc_url: TODO https://github.com/hubmapconsortium/ingest-validation-tools/issues/481
+deprecated: True
 fields:
+- Shared by all types
 # include: ../includes/v0/all_assays.yaml
 
 - name: assay_category
@@ -16,10 +18,11 @@ fields:
     enum:
       - metabolites_and_lipids
 # include: ../includes/v0/is_targeted.yaml
+# include: ../includes/v0/acquisition_instrument.yaml
 
 # Level 2:
+- Unique to this type
 
-# include: ../includes/v0/acquisition_instrument.yaml
 - name: ms_source
   description: The ion source type used for surface sampling (MALDI, MALDI-2, DESI, or SIMS) or LC-MS/MS data acquisition (nESI)
   constraints:
@@ -29,17 +32,9 @@ fields:
       - DESI
       - SIMS
       - nESI
-- name: polarity
-  description: The polarity of the mass analysis (positive or negative ion modes)
-  constraints:
-    enum:
-      - Positive
-      - Negative
-- name: mz_range_low_value
-  description: A number representing the mass:charge ratio
-- name: mz_range_high_value
-  description: A number representing the mass:charge ratio
-
+# include: ../includes/fields/polarity.yaml
+# include: ../includes/fields/mz_range_low_value.yaml
+# include: ../includes/fields/mz_range_high_value.yaml
 # include: ../includes/v0/x_y.yaml
 
 - name: processing_protocols_io_doi
