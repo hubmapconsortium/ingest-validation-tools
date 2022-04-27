@@ -15,6 +15,7 @@ Related files:
 
 ## Directory schemas
 ### v0
+<details markdown="1"><summary>Deprecated</summary>
 
 | pattern | required? | description |
 | --- | --- | --- |
@@ -24,6 +25,8 @@ Related files:
 | <code>Autofluorescence image.tif</code> | ✓ | A tif file of the autofluorescence image. |
 | <code>ion images</code> | ✓ | Folder containing PNG files. |
 | <code>extras/.*</code> |  | Free-form descriptive information supplied by the TMC |
+
+</details>
 
 ## Metadata schema
 
