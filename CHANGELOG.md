@@ -1,5 +1,6 @@
 # Changelog
 ## v0.0.14 - in progress
+- Add Clinical Imaging schemas.
 - Add type hints.
 - Implement versioning for directory schemas.
 - After failure, explain how to continue testing from last error.
