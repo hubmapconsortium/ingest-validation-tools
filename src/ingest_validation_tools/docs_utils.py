@@ -403,9 +403,14 @@ def _make_toc(md):
 
 def _make_dir_descriptions(dir_schemas, pipeline_infos):
     '''
-    >>> dir_schema = {
+    >>> dir_schema_0 = {
     ...     'files': [
     ...         {'pattern': 'required\\.txt', 'description': 'Required!'}
+    ...     ]
+    ... }
+    >>> dir_schema_1 = {
+    ...     'files': [
+    ...         {'pattern': 'optional\\.txt', 'description': 'Optional!', 'required': False}
     ...     ]
     ... }
     >>> pipeline_infos = [{
@@ -413,9 +418,14 @@ def _make_dir_descriptions(dir_schemas, pipeline_infos):
     ...     "repo_url": "https://github.com/hubmapconsortium/fake",
     ...     "version_tag": "v1.2.3"
     ... }]
-    >>> print(_make_dir_descriptions({'0': dir_schema}, pipeline_infos))
+    >>> print(_make_dir_descriptions({'0': dir_schema_0, '1': dir_schema_1}, pipeline_infos))
     The HIVE will process each dataset with
     [Fake Pipeline v1.2.3](https://github.com/hubmapconsortium/fake/releases/tag/v1.2.3).
+    ### v1
+    <BLANKLINE>
+    | pattern | required? | description |
+    | --- | --- | --- |
+    | <code>optional\.txt</code> |  | Optional! |
     ### v0
     <BLANKLINE>
     | pattern | required? | description |
