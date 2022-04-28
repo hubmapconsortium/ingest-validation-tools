@@ -22,6 +22,7 @@ acquisition_id:
 - mibi
 acquisition_instrument_model:
 - af
+- bodyct
 - bulkatacseq
 - bulkrnaseq
 - celldive
@@ -34,17 +35,22 @@ acquisition_instrument_model:
 - lcms
 - lightsheet
 - mibi
+- microct
+- mri
 - mxif
 - nano
+- oct
 - scatacseq
 - scrnaseq
 - scrnaseq-hca
 - seqfish
 - slideseq
 - stained
+- ultrasound
 - wgs
 acquisition_instrument_vendor:
 - af
+- bodyct
 - bulkatacseq
 - bulkrnaseq
 - celldive
@@ -57,15 +63,23 @@ acquisition_instrument_vendor:
 - lcms
 - lightsheet
 - mibi
+- microct
+- mri
 - mxif
 - nano
+- oct
 - scatacseq
 - scrnaseq
 - scrnaseq-hca
 - seqfish
 - slideseq
 - stained
+- ultrasound
 - wgs
+acquisition_matrix_size_in_frequency_encoding_direction:
+- mri
+acquisition_matrix_size_in_phase_encoding_direction:
+- mri
 affiliation:
 - contributors
 age_unit:
@@ -117,6 +131,7 @@ area_value:
 - sample-suspension
 assay_category:
 - af
+- bodyct
 - bulkatacseq
 - bulkrnaseq
 - celldive
@@ -129,17 +144,22 @@ assay_category:
 - lcms
 - lightsheet
 - mibi
+- microct
+- mri
 - mxif
 - nano
+- oct
 - scatacseq
 - scrnaseq
 - scrnaseq-hca
 - seqfish
 - slideseq
 - stained
+- ultrasound
 - wgs
 assay_type:
 - af
+- bodyct
 - bulkatacseq
 - bulkrnaseq
 - celldive
@@ -152,14 +172,18 @@ assay_type:
 - lcms
 - lightsheet
 - mibi
+- microct
+- mri
 - mxif
 - nano
+- oct
 - scatacseq
 - scrnaseq
 - scrnaseq-hca
 - seqfish
 - slideseq
 - stained
+- ultrasound
 - wgs
 bead_barcode_offset:
 - slideseq
@@ -211,6 +235,8 @@ cell_barcode_size:
 - scrnaseq-hca
 channel_id:
 - antibodies
+coil:
+- mri
 cold_ischemia_time_unit:
 - sample
 cold_ischemia_time_value:
@@ -227,6 +253,8 @@ column_temp_value:
 - gcms
 column_vendor:
 - gcms
+compound_imaging:
+- ultrasound
 concentration_unit:
 - antibodies
 concentration_value:
@@ -237,6 +265,7 @@ conjugated_tag:
 - antibodies
 contributors_path:
 - af
+- bodyct
 - bulkatacseq
 - bulkrnaseq
 - celldive
@@ -249,21 +278,30 @@ contributors_path:
 - lcms
 - lightsheet
 - mibi
+- microct
+- mri
 - mxif
 - nano
+- oct
 - scatacseq
 - scrnaseq
 - scrnaseq-hca
 - seqfish
 - slideseq
 - stained
+- ultrasound
 - wgs
+current_unit:
+- microct
+current_value:
+- microct
 data_collection_mode:
 - cems
 - gcms
 - lcms
 data_path:
 - af
+- bodyct
 - bulkatacseq
 - bulkrnaseq
 - celldive
@@ -276,20 +314,25 @@ data_path:
 - lcms
 - lightsheet
 - mibi
+- microct
+- mri
 - mxif
 - nano
+- oct
 - scatacseq
 - scrnaseq
 - scrnaseq-hca
 - seqfish
 - slideseq
 - stained
+- ultrasound
 - wgs
 data_precision_bytes:
 - imc
 - mibi
 description:
 - af
+- bodyct
 - bulkatacseq
 - bulkrnaseq
 - celldive
@@ -302,13 +345,17 @@ description:
 - lcms
 - lightsheet
 - mibi
+- microct
+- mri
 - mxif
 - nano
+- oct
 - scatacseq
 - scrnaseq
 - seqfish
 - slideseq
 - stained
+- ultrasound
 - wgs
 desi_solvent:
 - ims
@@ -326,6 +373,7 @@ dna_assay_input_value:
 - wgs
 donor_id:
 - af
+- bodyct
 - bulkatacseq
 - bulkrnaseq
 - celldive
@@ -338,23 +386,34 @@ donor_id:
 - lcms
 - lightsheet
 - mibi
+- microct
+- mri
 - mxif
 - nano
+- oct
 - scatacseq
 - scrnaseq
 - scrnaseq-hca
 - seqfish
 - slideseq
 - stained
+- ultrasound
 - wgs
 dual_count_start:
 - imc
 - mibi
+dynamic_contrast:
+- ultrasound
+echo_time:
+- mri
+echo_train_length:
+- mri
 end_datetime:
 - imc
 - mibi
 execution_datetime:
 - af
+- bodyct
 - bulkatacseq
 - bulkrnaseq
 - celldive
@@ -367,23 +426,43 @@ execution_datetime:
 - lcms
 - lightsheet
 - mibi
+- microct
+- mri
 - mxif
 - nano
+- oct
 - scatacseq
 - scrnaseq
 - scrnaseq-hca
 - seqfish
 - slideseq
 - stained
+- ultrasound
 - wgs
 expected_cell_count:
 - scrnaseq
+field_strength_unit:
+- mri
+field_strength_value:
+- mri
+filter:
+- microct
 first_name:
 - contributors
+flip_angle:
+- mri
+frequency_unit:
+- mri
+- ultrasound
+frequency_value:
+- mri
+- ultrasound
 gdna_fragmentation_quality_assurance:
 - wgs
 guard_column:
 - gcms
+harmonics:
+- ultrasound
 health_status:
 - sample
 height_unit:
@@ -393,6 +472,10 @@ height_value:
 histological_report:
 - sample-block
 - sample-section
+imaging_threshold_unit_value:
+- microct
+imaging_threshold_value:
+- microct
 increment_z_unit:
 - lightsheet
 increment_z_value:
@@ -563,21 +646,41 @@ mass_resolving_power:
 - ims
 - lcms
 max_x_width_unit:
+- bodyct
 - imc
 - imc3d
 - mibi
+- microct
+- mri
+- oct
+- ultrasound
 max_x_width_value:
+- bodyct
 - imc
 - imc3d
 - mibi
+- microct
+- mri
+- oct
+- ultrasound
 max_y_height_unit:
+- bodyct
 - imc
 - imc3d
 - mibi
+- microct
+- mri
+- oct
+- ultrasound
 max_y_height_value:
+- bodyct
 - imc
 - imc3d
 - mibi
+- microct
+- mri
+- oct
+- ultrasound
 mechanism_of_injury:
 - donor
 medical_history:
@@ -623,6 +726,8 @@ number_of_antibodies:
 - codex
 - lightsheet
 - mibi
+number_of_averages:
+- mri
 number_of_barcode_probes:
 - seqfish
 number_of_barcode_regions_per_barcode_probe:
@@ -642,6 +747,16 @@ number_of_cycles:
 - codex
 - mxif
 - seqfish
+number_of_image_columns:
+- mri
+number_of_image_rows:
+- mri
+number_of_images:
+- bodyct
+- microct
+- mri
+- oct
+- ultrasound
 number_of_imaging_rounds:
 - celldive
 number_of_pseudocolors_per_channel:
@@ -652,6 +767,7 @@ number_of_sections:
 - imc3d
 operator:
 - af
+- bodyct
 - bulkatacseq
 - bulkrnaseq
 - celldive
@@ -664,17 +780,22 @@ operator:
 - lcms
 - lightsheet
 - mibi
+- microct
+- mri
 - mxif
 - nano
+- oct
 - scatacseq
 - scrnaseq
 - scrnaseq-hca
 - seqfish
 - slideseq
 - stained
+- ultrasound
 - wgs
 operator_email:
 - af
+- bodyct
 - bulkatacseq
 - bulkrnaseq
 - celldive
@@ -687,14 +808,18 @@ operator_email:
 - lcms
 - lightsheet
 - mibi
+- microct
+- mri
 - mxif
 - nano
+- oct
 - scatacseq
 - scrnaseq
 - scrnaseq-hca
 - seqfish
 - slideseq
 - stained
+- ultrasound
 - wgs
 orcid_id:
 - contributors
@@ -720,6 +845,7 @@ perfusion_solution:
 - sample
 pi:
 - af
+- bodyct
 - bulkatacseq
 - bulkrnaseq
 - celldive
@@ -732,17 +858,22 @@ pi:
 - lcms
 - lightsheet
 - mibi
+- microct
+- mri
 - mxif
 - nano
+- oct
 - scatacseq
 - scrnaseq
 - scrnaseq-hca
 - seqfish
 - slideseq
 - stained
+- ultrasound
 - wgs
 pi_email:
 - af
+- bodyct
 - bulkatacseq
 - bulkrnaseq
 - celldive
@@ -755,14 +886,18 @@ pi_email:
 - lcms
 - lightsheet
 - mibi
+- microct
+- mri
 - mxif
 - nano
+- oct
 - scatacseq
 - scrnaseq
 - scrnaseq-hca
 - seqfish
 - slideseq
 - stained
+- ultrasound
 - wgs
 pixel_dwell_time_unit:
 - mibi
@@ -776,6 +911,18 @@ pixel_size_y_unit:
 - mibi
 pixel_size_y_value:
 - mibi
+pixel_size_z_unit:
+- bodyct
+- microct
+- mri
+- oct
+- ultrasound
+pixel_size_z_value:
+- bodyct
+- microct
+- mri
+- oct
+- ultrasound
 polarity:
 - cems
 - gcms
@@ -814,6 +961,8 @@ primary_ion_current_unit:
 - mibi
 primary_ion_current_value:
 - mibi
+probe:
+- ultrasound
 procedure_date:
 - sample
 processing_protocols_io_doi:
@@ -836,6 +985,7 @@ processing_time_value:
 - sample-suspension
 protocols_io_doi:
 - af
+- bodyct
 - bulkatacseq
 - bulkrnaseq
 - celldive
@@ -848,14 +998,18 @@ protocols_io_doi:
 - lcms
 - lightsheet
 - mibi
+- microct
+- mri
 - mxif
 - nano
+- oct
 - scatacseq
 - scrnaseq
 - scrnaseq-hca
 - seqfish
 - slideseq
 - stained
+- ultrasound
 - wgs
 puck_id:
 - slideseq
@@ -863,6 +1017,8 @@ quality_criteria:
 - sample-block
 - sample-section
 - sample-suspension
+quality_view:
+- ultrasound
 race:
 - donor
 range_z_unit:
@@ -876,8 +1032,11 @@ reagent_prep_protocols_io_doi:
 - mibi
 - mxif
 - seqfish
+repetition_time:
+- mri
 resolution_x_unit:
 - af
+- bodyct
 - celldive
 - cems
 - codex
@@ -886,12 +1045,17 @@ resolution_x_unit:
 - lcms
 - lightsheet
 - mibi
+- microct
+- mri
 - mxif
 - nano
+- oct
 - seqfish
 - stained
+- ultrasound
 resolution_x_value:
 - af
+- bodyct
 - celldive
 - cems
 - codex
@@ -900,12 +1064,17 @@ resolution_x_value:
 - lcms
 - lightsheet
 - mibi
+- microct
+- mri
 - mxif
 - nano
+- oct
 - seqfish
 - stained
+- ultrasound
 resolution_y_unit:
 - af
+- bodyct
 - celldive
 - cems
 - codex
@@ -914,12 +1083,17 @@ resolution_y_unit:
 - lcms
 - lightsheet
 - mibi
+- microct
+- mri
 - mxif
 - nano
+- oct
 - seqfish
 - stained
+- ultrasound
 resolution_y_value:
 - af
+- bodyct
 - celldive
 - cems
 - codex
@@ -928,22 +1102,36 @@ resolution_y_value:
 - lcms
 - lightsheet
 - mibi
+- microct
+- mri
 - mxif
 - nano
+- oct
 - seqfish
 - stained
+- ultrasound
 resolution_z_unit:
 - af
+- bodyct
 - codex
 - lightsheet
+- microct
+- mri
+- oct
 - seqfish
 - stained
+- ultrasound
 resolution_z_value:
 - af
+- bodyct
 - codex
 - lightsheet
+- microct
+- mri
+- oct
 - seqfish
 - stained
+- ultrasound
 rnaseq_assay_input:
 - scrnaseq
 - scrnaseq-hca
@@ -957,13 +1145,23 @@ rnaseq_assay_method:
 - scrnaseq-hca
 - slideseq
 roi_description:
+- bodyct
 - imc
 - imc3d
 - mibi
+- microct
+- mri
+- oct
+- ultrasound
 roi_id:
+- bodyct
 - imc
 - imc3d
 - mibi
+- microct
+- mri
+- oct
+- ultrasound
 rr_id:
 - antibodies
 sample_id:
@@ -997,6 +1195,8 @@ sc_isolation_tissue_dissociation:
 - scatacseq
 - scrnaseq
 - scrnaseq-hca
+scanning_sequence:
+- mri
 section_index_number:
 - sample-section
 - sample-suspension
@@ -1022,6 +1222,8 @@ segment_data_format:
 - imc
 - imc3d
 - mibi
+sequence_variant:
+- mri
 sequencing_phix_percent:
 - bulkatacseq
 - bulkrnaseq
@@ -1060,6 +1262,16 @@ signal_type:
 - imc
 - imc3d
 - mibi
+single_file_export_format:
+- bodyct
+- microct
+- mri
+- oct
+- ultrasound
+sn_quality:
+- oct
+sn_quality_unit:
+- oct
 source_project:
 - scrnaseq-hca
 source_storage_time_unit:
@@ -1090,6 +1302,8 @@ specimen_tumor_distance_unit:
 - sample
 specimen_tumor_distance_value:
 - sample
+speckle_reduction_imaging:
+- ultrasound
 stain:
 - stained
 start_datetime:
@@ -1107,6 +1321,7 @@ storage_temperature:
 - sample-suspension
 tissue_id:
 - af
+- bodyct
 - bulkatacseq
 - bulkrnaseq
 - celldive
@@ -1119,15 +1334,22 @@ tissue_id:
 - lcms
 - lightsheet
 - mibi
+- microct
+- mri
 - mxif
 - nano
+- oct
 - scatacseq
 - scrnaseq
 - scrnaseq-hca
 - seqfish
 - slideseq
 - stained
+- ultrasound
 - wgs
+total_sections_analyzed:
+- microct
+- oct
 transposition_input:
 - scatacseq
 transposition_kit_number:
@@ -1154,6 +1376,7 @@ uniprot_accession_number:
 version:
 - af
 - antibodies
+- bodyct
 - bulkatacseq
 - bulkrnaseq
 - celldive
@@ -1167,8 +1390,11 @@ version:
 - lcms
 - lightsheet
 - mibi
+- microct
+- mri
 - mxif
 - nano
+- oct
 - sample-block
 - sample-section
 - sample-suspension
@@ -1177,9 +1403,16 @@ version:
 - seqfish
 - slideseq
 - stained
+- ultrasound
 - wgs
 vital_state:
 - sample
+voltage_unit:
+- microct
+voltage_value:
+- microct
+volume_export_format:
+- oct
 volume_unit:
 - sample-block
 volume_value:
@@ -1188,6 +1421,10 @@ warm_ischemia_time_unit:
 - sample
 warm_ischemia_time_value:
 - sample
+wavelength_unit:
+- oct
+wavelength_value:
+- oct
 weight_unit:
 - donor
 - sample-block
