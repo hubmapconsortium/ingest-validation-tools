@@ -1,0 +1,17 @@
+- name: total_sections_analyzed
+  description: "The number of sections used for analyzing microCT images"
+
+- name: wavelength_value
+  description: "The value of the wavelength used to acquire OCT images (Example: 787)"
+
+- name: wavelength_unit
+  description: "The unit of the wavelength value used to acquire OCT images (nm)"
+
+- name: volume_export_format
+  description: "The format of the volume export of OCT images (Example: tiff)"
+
+- name: sn_quality
+  description: "An integer describing the signal to noise quality of an OCT image (Example: 30)"
+
+- name: sn_quality_unit
+  description: "The unit of the integer describing the signal to noise quality of an OCT image (Example: dB)"

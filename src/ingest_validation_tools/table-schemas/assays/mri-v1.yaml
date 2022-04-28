@@ -23,10 +23,10 @@ fields:
 
 - Shared by all clinical imaging assays
 
-# TODO
+# include: ../includes/clinical-imaging/shared-v1.yaml
 
 - Unique to this type
 
-# TODO
+# include: ../includes/clinical-imaging/mri-v1.yaml
 
 # include: ../includes/v0/paths.yaml

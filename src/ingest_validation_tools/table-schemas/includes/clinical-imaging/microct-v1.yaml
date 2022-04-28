@@ -1,0 +1,23 @@
+- name: voltage_value
+  description: "The voltage used to acquire images"
+
+- name: voltage_unit
+  description: "The unit of the voltage used to acquire microCT images. Example: volt"
+
+- name: current_value
+  description: "The current used to acquire microCT images"
+
+- name: current_unit
+  description: "The unit of the current used to acquire microCT images. Example: amp"
+
+- name: filter
+  description: "The filter used to acquire microCT images"
+
+- name: imaging_threshold_value
+  description: "The threshold used for analyzing microCT images"
+
+- name: imaging_threshold_unit
+  description: "The threshold unit used for analyzing microCT images (unitless)"
+
+- name: total_sections_analyzed
+  description: "The number of sections used for analyzing microCT images"

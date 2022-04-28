@@ -1,0 +1,47 @@
+- name: frequency
+  description: "Frequency at which the imaging device is operating."
+
+- name: frequency_unit
+  description: "Unit of frequency at which the imaging device is operating. Example: Hz, kHz, MHz"
+
+- name: coil
+  description: "Receiver coil name used to collect MRI data. Example: 32 channel body coil"
+
+- name: field_strength_value
+  description: "MRI scanner magnetic field strength value"
+
+- name: field_strength_unit
+  description: "MRI scanner magnetic field strength in units of Tesla [T]"
+
+- name: scanning_sequence
+  description: "Pulse sequence used to collect MRI data"
+
+- name: sequence_variant
+  description: "Variant of the Scanning Sequence"
+
+- name: echo_time 
+  description: "Time in msec between the middle of the excitation pulse and the peak of the echo produced (kx=0). In the case of segmented k-space, the TE(eff) is the time between the middle of the excitation pulse to the peak of the echo that is used to cover the center of k-space (i.e., -kx=0, ky=0). "
+
+- name: repetition_time 
+  description: "The period of time in msec between the beginning of a pulse sequence and the beginning of the succeeding (essentially identical) pulse sequence. "
+
+- name: flip_angle
+  description: "Steady state angle in degrees to which the magnetic vector is flipped from the magnetic vector of the primary field. "
+
+- name: echo_train_length
+  description: "Number of lines in k-space acquired per excitation per image. "
+
+- name: acquisition_matrix_size_in_frequency_encoding_direction
+  description: "Dimensions of the acquired frequency data before reconstruction."
+
+- name: acquisition_matrix_size_in_phase_encoding_direction
+  description: "Dimensions of the acquired phase data before reconstruction, per image."
+
+- name: number_of_image_rows
+  description: "Number of rows of the reconstructed data, per image."
+
+- name: number_of_image_columns
+  description: "Number of columns of the reconstructed data. "
+
+- name: number_of_averages
+  description: "Number of times a given pulse sequence is repeated in the collection of a single image or volume."
