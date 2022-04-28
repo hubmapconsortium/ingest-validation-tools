@@ -21,10 +21,12 @@ fields:
       - FALSE
 # include: ../includes/v0/acquisition_instrument.yaml
 
-- Shared by all clinincal imaging assays
+- Shared by all clinical imaging assays
 
 # TODO
 
 - Unique to this type
 
 # TODO
+
+# include: ../includes/v0/paths.yaml
