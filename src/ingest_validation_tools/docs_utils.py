@@ -446,7 +446,7 @@ def _make_dir_descriptions(dir_schemas, pipeline_infos):
         + _make_dir_description(
             schema['files'],
             schema.get('deprecated', False))
-        + '\n\n'  # Trailing blankline important needed for correct gh-pages rendering.
+        + '\n\n'  # Trailing blankline needed for correct gh-pages rendering.
         for v, schema in sorted_items
     )
 
