@@ -16,8 +16,4 @@
 - name: harmonics
   description: "Multiples of the fundamental or transmitted frequency used to help optimize an ultrasound image. Examples: None, Low, Medium or High"
 
-- name: frequency
-  description: "Frequency at which the imaging device is operating."
-
-- name: frequency_unit
-  description: "Unit of frequency at which the imaging device is operating. Example: Hz, kHz, MHz"
+# include: ./frequency-v1.yaml
