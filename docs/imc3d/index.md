@@ -360,7 +360,7 @@ Multiple images (1-n) are acquired from regions of interest (ROI1, ROI2, ROI3, e
 
 | constraint | value |
 | --- | --- |
-| type | `number` |
+| type | `integer` |
 | required | `True` |
 
 <a name="acquisition_id"></a>
@@ -708,7 +708,7 @@ Multiple images (1-n) are acquired from regions of interest (ROI1, ROI2, ROI3, e
 
 | constraint | value |
 | --- | --- |
-| type | `number` |
+| type | `integer` |
 | required | `True` |
 
 <a name="acquisition_id"></a>
