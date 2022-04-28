@@ -30,9 +30,8 @@
   constraints:
     required: False
 
-- name: imaging_threshold_unit
+- name: imaging_threshold_unit_value # TODO: Confirm that adding "_value" is ok, to make it more clear that this is not an enum.
   description: "The threshold unit used for analyzing microCT images (unitless)"
-  type: number # TODO: Confirm this doesn't need to be restricted to integers
   constraints:
     required: False
 
