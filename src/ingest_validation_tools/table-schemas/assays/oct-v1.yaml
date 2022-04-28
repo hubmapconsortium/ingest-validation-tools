@@ -5,20 +5,11 @@ fields:
 - name: assay_category
   constraints:
     enum:
-      - TODO
+      - imaging
 - name: assay_type
   constraints:
     enum:
-      - TODO
-- name: analyte_class
-  constraints:
-    enum:
-      - TODO
-- name: is_targeted
-  description: Specifies whether or not a specific molecule(s) is/are targeted for detection/measurement by the assay.
-  constraints:
-    enum:
-      - FALSE
+      - OCT
 # include: ../includes/v0/acquisition_instrument.yaml
 
 - Shared by all clinical imaging assays
