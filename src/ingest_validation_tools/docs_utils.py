@@ -425,12 +425,15 @@ def _make_dir_descriptions(dir_schemas, pipeline_infos):
     <BLANKLINE>
     | pattern | required? | description |
     | --- | --- | --- |
-    | <code>optional\.txt</code> |  | Optional! |
+    | <code>optional\\.txt</code> |  | Optional! |
+    <BLANKLINE>
     ### v0
     <BLANKLINE>
     | pattern | required? | description |
     | --- | --- | --- |
     | <code>required\\.txt</code> | ✓ | Required! |
+    <BLANKLINE>
+    <BLANKLINE>
     '''
     pipeline_infos_md = ' and '.join(make_pipeline_link(info) for info in pipeline_infos)
     pipeline_blurb = \
@@ -438,8 +441,12 @@ def _make_dir_descriptions(dir_schemas, pipeline_infos):
         if pipeline_infos else ''
 
     sorted_items = sorted(dir_schemas.items(), key=lambda item: item[0], reverse=True)
-    return pipeline_blurb + '\n'.join(
-        f'### v{v}\n' + _make_dir_description(schema['files'], schema.get('deprecated', False))
+    return pipeline_blurb + ''.join(
+        f'### v{v}\n'
+        + _make_dir_description(
+            schema['files'],
+            schema.get('deprecated', False))
+        + '\n\n'  # Trailing blankline important needed for correct gh-pages rendering.
         for v, schema in sorted_items
     )
 
