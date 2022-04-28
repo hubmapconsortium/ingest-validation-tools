@@ -1,4 +1,6 @@
 doc_url: TODO
+description_md: TODO
+
 fields:
 - Shared by all types
 # include: ../includes/vA/all_assays.yaml
