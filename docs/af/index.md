@@ -24,6 +24,8 @@ This schema is for autofluorescence (AF). For an example of an AF dataset & dire
 | <code>(rawMicroscopy&#124;raw_microscopy)/[^/]+\.czi</code> | ✓ | Raw microscope file for the experiment |
 | <code>extras/.*</code> |  | Free-form descriptive information supplied by the TMC |
 
+
+
 ## Metadata schema
 
 ### Field types

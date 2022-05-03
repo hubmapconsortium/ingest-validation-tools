@@ -21,6 +21,8 @@ This schema is for Assay for Transposase-Accessible Chromatin by sequencing (ATA
 | <code>.*\.fastq\.gz</code> | ✓ | TODO: https://github.com/hubmapconsortium/ingest-validation-tools/issues/445 |
 | <code>extras/.*</code> |  | Free-form descriptive information supplied by the TMC |
 
+
+
 ## Metadata schema
 
 ### Field types

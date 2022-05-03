@@ -25,6 +25,8 @@ The other fields function the same way for all assays using antibodies. For more
 | <code>HuBMAP_rounds/round_info_\d+\.dat</code> (example: <code>HuBMAP_rounds/round_info_002.dat</code>) | ✓ | Metadata file for the capture item-value tab separated format |
 | <code>extras/.*</code> |  | Free-form descriptive information supplied by the TMC |
 
+
+
 ## Metadata schema
 
 ### Field types
