@@ -22,6 +22,8 @@ The other fields function the same way for all assays using antibodies. For more
 | <code>TODO</code> | ✓ | Directory structure not yet specified. |
 | <code>extras/.*</code> |  | Free-form descriptive information supplied by the TMC |
 
+
+
 ## Metadata schema
 
 ### Field types
