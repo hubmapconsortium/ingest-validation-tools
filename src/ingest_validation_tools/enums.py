@@ -14,11 +14,10 @@ from typing import Dict, List
 >>> print('\\n'.join(remote_mismatch))
 <BLANKLINE>
 '''
-# The list above should be empty: That means that all the assays
+# TODO: The list above should be empty: That means that all the assays
 # listed below are recognized by the assay service.
-# TODO: Joel will progressively uncomment names below, and when that is done
-#       _validate_level_1_enum() can be renabled in schema_loader.py.
-#       https://github.com/hubmapconsortium/ingest-validation-tools/issues/1023
+# Joel will progressively uncomment names below.
+# https://github.com/hubmapconsortium/ingest-validation-tools/issues/1023
 
 shared_enums: Dict[str, List[str]] = {
     'assay_category': [
@@ -31,28 +30,28 @@ shared_enums: Dict[str, List[str]] = {
         '3D Imaging Mass Cytometry',
         'scRNA-Seq(10xGenomics)',
         'AF',
-        # 'bulk RNA',
+        'bulk RNA',
         'bulkATACseq',
         'Cell DIVE',
-        # 'CE-MS',
+        'CE-MS',
         'CODEX',
-        # 'DESI',
-        # 'GC-MS',
+        'DESI',
+        'GC-MS',
         'Imaging Mass Cytometry',
-        # 'LC-MS (metabolomics)',
+        'LC-MS (metabolomics)',
         'LC-MS/MS (label-free proteomics)',
         'Light Sheet',
         'MxIF',
         'MALDI-IMS',
-        # 'MS (shotgun lipidomics)',
+        'MS (shotgun lipidomics)',
         'Multiplex Ion Beam Imaging',
-        # 'NanoDESI',
-        # 'NanoPOTS',
+        'NanoDESI',
+        'NanoPOTS',
         'PAS microscopy',
         'sciATACseq',
         'sciRNAseq',
         'seqFISH',
-        # 'SIMS-IMS',
+        'SIMS-IMS',
         'SNARE-seq2',
         'snATACseq',
         # 'SPLiT-Seq',
@@ -65,14 +64,14 @@ shared_enums: Dict[str, List[str]] = {
         'scRNAseq-10xGenomics-v3',
         'snRNAseq-10xGenomics-v2',
         'snRNAseq-10xGenomics-v3',
-        # 'scRNAseq',
+        'scRNAseq',
         'Slide-seq',
-        # 'MS Bottom-Up',
-        # 'MS Top-Down',
-        # 'LC-MS Top-Down',
-        # 'LC-MS',
-        # 'LC-MS Bottom-Up',
-        # 'MS'
+        'MS Bottom-Up',
+        'MS Top-Down',
+        'LC-MS Top-Down',
+        'LC-MS',
+        'LC-MS Bottom-Up',
+        'MS'
     ],
     'analyte_class': [
         'DNA',

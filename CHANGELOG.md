@@ -1,5 +1,6 @@
 # Changelog
 ## v0.0.14 - in progress
+- Turn validation of enums back on.
 - Fix rendering bug on CODEX page by adding linebreaks.
 - Add type hints.
 - Implement versioning for directory schemas.
