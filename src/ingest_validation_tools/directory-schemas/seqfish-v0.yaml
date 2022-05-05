@@ -1,6 +1,6 @@
 files:
   -
-    pattern: 'codebook/barcodes\.(tsv|csv)'
+    pattern: 'codebook/channel_[0-9]+\.(tsv|csv)'
     description: 'Barcodes.'
     required: True
     is_qa_qc: False    
@@ -11,8 +11,8 @@ files:
     required: True
     is_qa_qc: True
   -
-    example: 'initial/MMStack_Pos11.ome.tif'
-    pattern: 'initial/MMStack_Pos[0-9]+\.ome\.tif'
+    example: 'initial_background/MMStack_Pos11.ome.tif'
+    pattern: 'initial_background/MMStack_Pos[0-9]+\.ome\.tif'
     description: 'Raw OME-TIFF image of image without probes before imaging hybridizations; used for background and autofluorescence removal.'
     required: True
     is_qa_qc: True
@@ -45,17 +45,17 @@ files:
     required: False
     is_qa_qc: False
   -
-    pattern: 'extras/SlideExplorer.tif'
+    pattern: 'extras/SlideExplorer\.tif'
     description: 'Overview TIFF image for all field of views.'
     required: False
     is_qa_qc: False
   -
-    pattern: 'position.pos'
+    pattern: 'position\.pos'
     description: 'Micromanager coordinates of each field of view tile.'
     required: True
     is_qa_qc: False
   -
-    pattern: 'fovinfo.csv'
+    pattern: 'fovinfo\.csv'
     description: 'Upperleft coordinates for each field of view in the file extras/SlideExplorer.tif.'
     required: True
     is_qa_qc: False
