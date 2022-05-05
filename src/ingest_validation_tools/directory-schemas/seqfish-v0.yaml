@@ -1,6 +1,6 @@
 files:
   -
-    pattern: 'codebook/barcodes\.(tsv|csv)'
+    pattern: 'codebook/channel_[0-9]+\.(tsv|csv)'
     description: 'Barcodes.'
     required: True
     is_qa_qc: False    
