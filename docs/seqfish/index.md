@@ -18,17 +18,17 @@ This schema is for spatial sequencing by fluorescence in situ hybridization (seq
 
 | pattern | required? | description |
 | --- | --- | --- |
-| <code>codebook/barcodes\.(tsv&#124;csv)</code> | ✓ | Barcodes. |
-| <code>HybCycle_[0-9]+/MMStack_Pos[0-9]+\.ome\.tif</code> (example: <code>HybCycle_10/MMStack_Pos12.ome.tif</code>) | ✓ | **[QA/QC]** Raw OME-TIFF images with a variable number of field of views, and slices per tissue. |
-| <code>initial/MMStack_Pos[0-9]+\.ome\.tif</code> (example: <code>initial/MMStack_Pos11.ome.tif</code>) | ✓ | **[QA/QC]** Raw OME-TIFF image of image without probes before imaging hybridizations; used for background and autofluorescence removal. |
-| <code>final_background/MMStack_Pos[0-9]+\.ome\.tif</code> (example: <code>final_background/MMStack_Pos11.ome.tif</code>) | ✓ | **[QA/QC]** Raw OME-TIFF image of image without probes after all other hbyridizations; used for background and autofluorescence removal. |
-| <code>segmentation/seg_mask_pos[0-9]+\.tif</code> (example: <code>segmentation/seg_mask_pos3.tif</code>) | ✓ | Labels TIFF image for segmentation. |
-| <code>segmentation/raw_images/dapi_pos[0-9]+\.tif</code> (example: <code>segmentation/raw_images/dapi_pos19.tif</code>) | ✓ | DAPI TIFF image. |
-| <code>segmentation/raw_images/membrane_pos[0-9]+\.tif</code> (example: <code>segmentation/raw_images/membrane_pos52.tif</code>) | ✓ | Membrane TIFF image. |
+| <code>codebook/channel_[0-9]+\.(tsv&#124;csv)</code> | ✓ | Barcodes. |
+| <code>HybCycle_[0-9]+/MMStack_Pos[0-9]+\.ome\.(tif&#124;tiff)</code> (example: <code>HybCycle_10/MMStack_Pos12.ome.tif</code>) | ✓ | **[QA/QC]** Raw OME-TIFF images with a variable number of field of views, and slices per tissue. |
+| <code>initial_background/MMStack_Pos[0-9]+\.ome\.tif</code> (example: <code>initial_background/MMStack_Pos11.ome.tif</code>) | ✓ | **[QA/QC]** Raw OME-TIFF image of image without probes before imaging hybridizations; used for background and autofluorescence removal. |
+| <code>final_background/MMStack_Pos[0-9]+\.ome\.(tif&#124;tiff)</code> (example: <code>final_background/MMStack_Pos11.ome.tif</code>) | ✓ | **[QA/QC]** Raw OME-TIFF image of image without probes after all other hybridizations; used for background and autofluorescence removal. |
+| <code>segmentation/MMStack_Pos[0-9]+\.ome\.(tif&#124;tiff)</code> (example: <code>segmentation/MMStack_Pos3.ome.tif</code>) | ✓ | Labels TIFF image for segmentation. |
+| <code>segmentation/raw_images/dapi_Pos[0-9]+\.(tif&#124;tiff)</code> (example: <code>segmentation/raw_images/dapi_Pos19.tif</code>) | ✓ | DAPI TIFF image. |
+| <code>segmentation/raw_images/membrane_Pos[0-9]+\.(tif&#124;tiff)</code> (example: <code>segmentation/raw_images/membrane_Pos52.tif</code>) |  | Membrane TIFF image. |
 | <code>omexml</code> |  | Folder containing metadata for each image. |
-| <code>extras/SlideExplorer.tif</code> |  | Overview TIFF image for all field of views. |
-| <code>position.pos</code> | ✓ | Micromanager coordinates of each field of view tile. |
-| <code>fovinfo.csv</code> | ✓ | Upperleft coordinates for each field of view in the file extras/SlideExplorer.tif. |
+| <code>extras/SlideExplorer\.tif</code> (example: <code>extras/SlideExplorer.tif</code>) |  | Overview TIFF image for all field of views. |
+| <code>positions\.pos</code> (example: <code>positions.pos</code>) | ✓ | Micromanager coordinates of each field of view tile. |
+| <code>fovinfo\.csv</code> (example: <code>fovinfo.csv</code>) | ✓ | Upperleft coordinates for each field of view in the file extras/SlideExplorer.tif. |
 | <code>extras/.*</code> |  | Free-form descriptive information supplied by the TMC |
 
 
