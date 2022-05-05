@@ -23,20 +23,20 @@ files:
     required: True
     is_qa_qc: True
   -
-    example: 'segmentation/seg_mask_pos3.tif'
-    pattern: 'segmentation/seg_mask_pos[0-9]+\.tif'
+    example: 'segmentation/MMStack_Pos3.tif'
+    pattern: 'segmentation/MMStack_Pos[0-9]+\.tif'
     description: 'Labels TIFF image for segmentation.'
     required: True
     is_qa_qc: False
   -
-    example: 'segmentation/raw_images/dapi_pos19.tif'
-    pattern: 'segmentation/raw_images/dapi_pos[0-9]+\.tif'
+    example: 'segmentation/raw_images/dapi_Pos19.tif'
+    pattern: 'segmentation/raw_images/dapi_Pos[0-9]+\.tif'
     description: 'DAPI TIFF image.'
     required: True
     is_qa_qc: False
   -
-    example: 'segmentation/raw_images/membrane_pos52.tif'
-    pattern: 'segmentation/raw_images/membrane_pos[0-9]+\.tif'
+    example: 'segmentation/raw_images/membrane_Pos52.tif'
+    pattern: 'segmentation/raw_images/membrane_Pos[0-9]+\.tif'
     description: 'Membrane TIFF image.'
     required: True
   -
@@ -50,7 +50,7 @@ files:
     required: False
     is_qa_qc: False
   -
-    pattern: 'position.pos'
+    pattern: 'positions.pos'
     description: 'Micromanager coordinates of each field of view tile.'
     required: True
     is_qa_qc: False
