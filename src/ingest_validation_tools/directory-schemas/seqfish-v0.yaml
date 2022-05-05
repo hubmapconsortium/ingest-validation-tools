@@ -38,7 +38,8 @@ files:
     example: 'segmentation/raw_images/membrane_Pos52.tif'
     pattern: 'segmentation/raw_images/membrane_Pos[0-9]+\.(tif|tiff)'
     description: 'Membrane TIFF image.'
-    required: True
+    required: False
+    is_qa_qc: False
   -
     pattern: 'omexml'
     description: 'Folder containing metadata for each image.'
