@@ -24,7 +24,7 @@ files:
     is_qa_qc: True
   -
     example: 'segmentation/MMStack_Pos3.ome.tif'
-    pattern: 'segmentation/MMStack_Pos[0-9]+\.ome.\tif'
+    pattern: 'segmentation/MMStack_Pos[0-9]+\.ome\.tif'
     description: 'Labels TIFF image for segmentation.'
     required: True
     is_qa_qc: False
