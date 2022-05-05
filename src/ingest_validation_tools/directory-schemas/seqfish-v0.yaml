@@ -6,7 +6,7 @@ files:
     is_qa_qc: False    
   -
     example: 'HybCycle_10/MMStack_Pos12.ome.tif'
-    pattern: 'HybCycle_[0-9]+/MMStack_Pos[0-9]+\.ome\.tif'
+    pattern: 'HybCycle_[0-9]+/MMStack_Pos[0-9]+\.ome\.(tif|tiff)'
     description: 'Raw OME-TIFF images with a variable number of field of views, and slices per tissue.'
     required: True
     is_qa_qc: True
@@ -18,25 +18,25 @@ files:
     is_qa_qc: True
   -
     example: 'final_background/MMStack_Pos11.ome.tif'
-    pattern: 'final_background/MMStack_Pos[0-9]+\.ome\.tif'
-    description: 'Raw OME-TIFF image of image without probes after all other hbyridizations; used for background and autofluorescence removal.'
+    pattern: 'final_background/MMStack_Pos[0-9]+\.ome\.(tif|tiff)'
+    description: 'Raw OME-TIFF image of image without probes after all other hybridizations; used for background and autofluorescence removal.'
     required: True
     is_qa_qc: True
   -
-    example: 'segmentation/seg_mask_pos3.tif'
-    pattern: 'segmentation/seg_mask_pos[0-9]+\.tif'
+    example: 'segmentation/MMStack_Pos3.ome.tif'
+    pattern: 'segmentation/MMStack_Pos[0-9]+\.ome\.(tif|tiff)'
     description: 'Labels TIFF image for segmentation.'
     required: True
     is_qa_qc: False
   -
-    example: 'segmentation/raw_images/dapi_pos19.tif'
-    pattern: 'segmentation/raw_images/dapi_pos[0-9]+\.tif'
+    example: 'segmentation/raw_images/dapi_Pos19.tif'
+    pattern: 'segmentation/raw_images/dapi_Pos[0-9]+\.(tif|tiff)'
     description: 'DAPI TIFF image.'
     required: True
     is_qa_qc: False
   -
-    example: 'segmentation/raw_images/membrane_pos52.tif'
-    pattern: 'segmentation/raw_images/membrane_pos[0-9]+\.tif'
+    example: 'segmentation/raw_images/membrane_Pos52.tif'
+    pattern: 'segmentation/raw_images/membrane_Pos[0-9]+\.(tif|tiff)'
     description: 'Membrane TIFF image.'
     required: True
   -
@@ -45,16 +45,19 @@ files:
     required: False
     is_qa_qc: False
   -
+    example: 'extras/SlideExplorer.tif'
     pattern: 'extras/SlideExplorer\.tif'
     description: 'Overview TIFF image for all field of views.'
     required: False
     is_qa_qc: False
   -
-    pattern: 'position\.pos'
+    example: 'positions.pos'
+    pattern: 'positions\.pos'
     description: 'Micromanager coordinates of each field of view tile.'
     required: True
     is_qa_qc: False
   -
+    example: 'fovinfo.csv'
     pattern: 'fovinfo\.csv'
     description: 'Upperleft coordinates for each field of view in the file extras/SlideExplorer.tif.'
     required: True

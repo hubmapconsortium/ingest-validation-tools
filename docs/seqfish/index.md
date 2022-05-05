@@ -31,6 +31,8 @@ This schema is for spatial sequencing by fluorescence in situ hybridization (seq
 | <code>fovinfo.csv</code> | ✓ | Upperleft coordinates for each field of view in the file extras/SlideExplorer.tif. |
 | <code>extras/.*</code> |  | Free-form descriptive information supplied by the TMC |
 
+
+
 ## Metadata schema
 
 ### Field types
