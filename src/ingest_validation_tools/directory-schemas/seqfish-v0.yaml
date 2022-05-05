@@ -29,14 +29,14 @@ files:
     required: True
     is_qa_qc: False
   -
-    example: 'segmentation/raw_images/dapi_Pos19.ome.tif'
-    pattern: 'segmentation/raw_images/dapi_Pos[0-9]+\.ome.\tif'
+    example: 'segmentation/raw_images/dapi_Pos19.tif'
+    pattern: 'segmentation/raw_images/dapi_Pos[0-9]+.\tif'
     description: 'DAPI TIFF image.'
     required: True
     is_qa_qc: False
   -
-    example: 'segmentation/raw_images/membrane_Pos52.ome.tif'
-    pattern: 'segmentation/raw_images/membrane_Pos[0-9]+\.ome.\tif'
+    example: 'segmentation/raw_images/membrane_Pos52.tif'
+    pattern: 'segmentation/raw_images/membrane_Pos[0-9]+.\tif'
     description: 'Membrane TIFF image.'
     required: True
   -
