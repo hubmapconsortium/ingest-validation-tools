@@ -19,7 +19,7 @@ files:
   -
     example: 'final_background/MMStack_Pos11.ome.tif'
     pattern: 'final_background/MMStack_Pos[0-9]+\.ome\.tif'
-    description: 'Raw OME-TIFF image of image without probes after all other hbyridizations; used for background and autofluorescence removal.'
+    description: 'Raw OME-TIFF image of image without probes after all other hybridizations; used for background and autofluorescence removal.'
     required: True
     is_qa_qc: True
   -
