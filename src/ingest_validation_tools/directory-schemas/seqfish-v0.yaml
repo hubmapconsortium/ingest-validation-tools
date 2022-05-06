@@ -47,12 +47,6 @@ files:
     required: False
     is_qa_qc: False
   -
-    example: 'extras/SlideExplorer.tif'
-    pattern: 'extras/SlideExplorer\.tif'
-    description: 'Overview TIFF image for all field of views.'
-    required: False
-    is_qa_qc: False
-  -
     example: 'positions.pos'
     pattern: 'positions\.pos'
     description: 'Micromanager coordinates of each field of view tile.'
@@ -63,4 +57,10 @@ files:
     pattern: 'fovinfo\.csv'
     description: 'Upperleft coordinates for each field of view in the file extras/SlideExplorer.tif.'
     required: True
+    is_qa_qc: False
+  -
+    example: 'extras/SlideExplorer.tif'
+    pattern: 'extras/SlideExplorer\.tif'
+    description: 'Overview TIFF image for all field of views.'
+    required: False
     is_qa_qc: False
