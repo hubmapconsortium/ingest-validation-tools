@@ -1,6 +1,7 @@
 # Changelog
 ## v0.0.14 - in progress
 - Added SeqFISH directory structure schema.
+- Cosmetic updates to the Slide-seq directory structure schema.
 - Fix rendering bug on CODEX page by adding linebreaks.
 - Add type hints.
 - Implement versioning for directory schemas.
