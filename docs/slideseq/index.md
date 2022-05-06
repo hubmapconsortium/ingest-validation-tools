@@ -32,6 +32,8 @@ Related files:
 | <code>[^/]+/fastq/Puck_[^/]+\.read2\.fastq\.gz</code> | ✓ | Each puck will have 2 fastq files, this file contains the second set of paired reads. |
 | <code>extras/.*</code> |  | Free-form descriptive information supplied by the TMC |
 
+
+
 ## Metadata schema
 
 ### Field types

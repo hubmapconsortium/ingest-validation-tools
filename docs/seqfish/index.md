@@ -21,6 +21,8 @@ This schema is for spatial sequencing by fluorescence in situ hybridization (seq
 | <code>TODO</code> | ✓ | Directory structure not yet specified. |
 | <code>extras/.*</code> |  | Free-form descriptive information supplied by the TMC |
 
+
+
 ## Metadata schema
 
 ### Field types
