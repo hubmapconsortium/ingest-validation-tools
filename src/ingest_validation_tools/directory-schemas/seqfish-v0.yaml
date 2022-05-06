@@ -1,42 +1,43 @@
 files:
   -
+    example: 'codebook/channel_1.tsv'
     pattern: 'codebook/channel_[0-9]+\.(tsv|csv)'
     description: 'Barcodes.'
     required: True
     is_qa_qc: False    
   -
     example: 'HybCycle_10/MMStack_Pos12.ome.tif'
-    pattern: 'HybCycle_[0-9]+/MMStack_Pos[0-9]+\.ome\.(tif|tiff)'
+    pattern: 'HybCycle_\d+/MMStack_Pos\d+\.ome\.tiff?'
     description: 'Raw OME-TIFF images with a variable number of field of views, and slices per tissue.'
     required: True
     is_qa_qc: True
   -
     example: 'initial_background/MMStack_Pos11.ome.tif'
-    pattern: 'initial_background/MMStack_Pos[0-9]+\.ome\.tif'
+    pattern: 'initial_background/MMStack_Pos\d+\.ome\.tiff?'
     description: 'Raw OME-TIFF image of image without probes before imaging hybridizations; used for background and autofluorescence removal.'
     required: True
     is_qa_qc: True
   -
     example: 'final_background/MMStack_Pos11.ome.tif'
-    pattern: 'final_background/MMStack_Pos[0-9]+\.ome\.(tif|tiff)'
+    pattern: 'final_background/MMStack_Pos\d+\.ome\.tiff?'
     description: 'Raw OME-TIFF image of image without probes after all other hybridizations; used for background and autofluorescence removal.'
     required: True
     is_qa_qc: True
   -
     example: 'segmentation/MMStack_Pos3.ome.tif'
-    pattern: 'segmentation/MMStack_Pos[0-9]+\.ome\.(tif|tiff)'
+    pattern: 'segmentation/MMStack_Pos\d+\.ome\.tiff?'
     description: 'Labels TIFF image for segmentation.'
     required: True
     is_qa_qc: False
   -
     example: 'segmentation/raw_images/dapi_Pos19.tif'
-    pattern: 'segmentation/raw_images/dapi_Pos[0-9]+\.(tif|tiff)'
+    pattern: 'segmentation/raw_images/dapi_Pos\d+\.tif'
     description: 'DAPI TIFF image.'
     required: True
     is_qa_qc: False
   -
     example: 'segmentation/raw_images/membrane_Pos52.tif'
-    pattern: 'segmentation/raw_images/membrane_Pos[0-9]+\.(tif|tiff)'
+    pattern: 'segmentation/raw_images/membrane_Pos\d+\.tif'
     description: 'Membrane TIFF image.'
     required: False
     is_qa_qc: False
