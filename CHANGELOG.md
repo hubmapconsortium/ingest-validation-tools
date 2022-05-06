@@ -1,5 +1,6 @@
 # Changelog
 ## v0.0.14 - in progress
+- Test under both Python 3.6 and Python 3.10
 - Fix rendering bug on CODEX page by adding linebreaks.
 - Add type hints.
 - Implement versioning for directory schemas.
