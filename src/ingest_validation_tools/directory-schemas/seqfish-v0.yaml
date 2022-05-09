@@ -61,6 +61,6 @@ files:
   -
     example: 'extras/SlideExplorer.tif'
     pattern: 'extras/SlideExplorer\.tif'
-    description: 'Overview TIFF image for all field of views.'
+    description: 'Overview TIFF image for all fields of view.'
     required: False
     is_qa_qc: False
