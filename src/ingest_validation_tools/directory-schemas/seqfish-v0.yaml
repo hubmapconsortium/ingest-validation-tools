@@ -49,7 +49,7 @@ files:
   -
     example: 'positions.pos'
     pattern: 'positions\.pos'
-    description: 'Micromanager coordinates of each field of view tile.'
+    description: 'Micro-Manager coordinates of each field of view tile.'
     required: True
     is_qa_qc: False
   -
