@@ -26,9 +26,9 @@ This schema is for spatial sequencing by fluorescence in situ hybridization (seq
 | <code>segmentation/raw_images/dapi_Pos\d+\.tif</code> (example: <code>segmentation/raw_images/dapi_Pos19.tif</code>) | ✓ | DAPI TIFF image. |
 | <code>segmentation/raw_images/membrane_Pos\d+\.tif</code> (example: <code>segmentation/raw_images/membrane_Pos52.tif</code>) |  | Membrane TIFF image. |
 | <code>omexml/.*</code> |  | Folder containing metadata for each image. |
-| <code>positions\.pos</code> (example: <code>positions.pos</code>) | ✓ | Micromanager coordinates of each field of view tile. |
+| <code>positions\.pos</code> (example: <code>positions.pos</code>) | ✓ | Micro-Manager coordinates of each field of view tile. |
 | <code>fovinfo\.csv</code> (example: <code>fovinfo.csv</code>) | ✓ | Upperleft coordinates for each field of view in the file extras/SlideExplorer.tif. |
-| <code>extras/SlideExplorer\.tif</code> (example: <code>extras/SlideExplorer.tif</code>) |  | Overview TIFF image for all field of views. |
+| <code>extras/SlideExplorer\.tif</code> (example: <code>extras/SlideExplorer.tif</code>) |  | Overview TIFF image for all fields of view. |
 | <code>extras/.*</code> |  | Free-form descriptive information supplied by the TMC |
 
 
