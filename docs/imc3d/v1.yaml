@@ -278,7 +278,7 @@ fields:
   description: Multiple images (1-n) are acquired from regions of interest (ROI1,
     ROI2, ROI3, etc) on a slide. The roi_id is a number from 1-n representing the
     ROI captured on a slide.
-  type: number
+  type: integer
   constraints:
     required: true
   custom_constraints:

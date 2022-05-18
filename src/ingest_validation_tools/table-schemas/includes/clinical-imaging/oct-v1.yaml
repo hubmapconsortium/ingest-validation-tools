@@ -1,0 +1,30 @@
+# include: ./total_sections_analyzed-v1.yaml
+
+- name: wavelength_value
+  description: "The value of the wavelength used to acquire OCT images (Example: 787)"
+  constraints:
+    required: False
+
+- name: wavelength_unit
+  description: "The unit of the wavelength value used to acquire OCT images (nm)"
+  constraints:
+    required: False
+    enum: ['nm']
+
+- name: volume_export_format
+  description: "The format of the volume export of OCT images (Example: tiff)"
+  constraints:
+    required: False
+    enum: ['tiff', 'avi']
+
+- name: sn_quality
+  description: "An integer describing the signal to noise quality of an OCT image (Example: 30)"
+  type: integer
+  constraints:
+    required: False
+    
+- name: sn_quality_unit
+  description: "The unit of the integer describing the signal to noise quality of an OCT image (Example: dB)"
+  constraints:
+    required: False
+    enum: ['dB']

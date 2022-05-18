@@ -1,10 +1,6 @@
 # Generated YAML: PRs should not start here!
-description_md: 'This schema is for Multiplex Ion Beam Imaging (MIBI). For MIBI, the
-  channel_id (in the Antibodies TSV) is the name of the metal tag on the corresponding
-  antibody.  The other fields function the same way for all assays using antibodies.  For
-  more information, see the [Antibodies TSV documentation](../antibodies).
-
-  '
+description_md: This schema is for clinical imaging using magnetic resonance imaging
+  (MRI).
 fields:
 - Shared by all types
 - name: version
@@ -99,7 +95,7 @@ fields:
 - name: assay_category
   constraints:
     enum:
-    - mass_spectrometry_imaging
+    - clinical_imaging
     required: true
   description: 'Each assay is placed into one of the following 4 general categories:
     generation of images of microscopic entities, identification & quantitation of
@@ -111,30 +107,12 @@ fields:
 - name: assay_type
   constraints:
     enum:
-    - Multiplex Ion Beam Imaging
+    - MRI
     required: true
   description: The specific type of assay being executed.
   custom_constraints:
     sequence_limit: 3
     forbid_na: true
-- name: analyte_class
-  constraints:
-    enum:
-    - protein
-    required: true
-  description: Analytes are the target molecules being measured with the assay.
-  custom_constraints:
-    sequence_limit: 3
-    forbid_na: true
-- name: is_targeted
-  description: Specifies whether or not a specific molecule(s) is/are targeted for
-    detection/measurement by the assay.
-  constraints:
-    required: true
-  custom_constraints:
-    sequence_limit: 3
-    forbid_na: true
-  type: boolean
 - name: acquisition_instrument_vendor
   description: An acquisition instrument is the device that contains the signal detection
     hardware and signal processing software. Assays generate signals such as light
@@ -154,76 +132,29 @@ fields:
   custom_constraints:
     sequence_limit: 3
     forbid_na: true
-- Unique to this type
-- name: number_of_antibodies
-  description: Number of antibodies
+- Shared by all clinical imaging assays
+- name: single_file_export_format
+  description: 'The format in which each single imaging file will be exported. (Example:
+    DICOM, tiff, avi, etc.)'
   constraints:
     required: true
   custom_constraints:
     sequence_limit: 3
     forbid_na: true
-  type: integer
-- name: number_of_channels
-  description: Number of fluorescent channels imaged during each cycle.
-  constraints:
-    required: true
-  custom_constraints:
-    sequence_limit: 3
-    forbid_na: true
-  type: integer
-- name: resolution_x_value
-  description: The width of a pixel. (Akoya pixel is 377nm square)
-  constraints:
-    required: true
-  custom_constraints:
-    sequence_limit: 3
-    forbid_na: true
-  type: number
-- name: resolution_x_unit
-  description: The unit of measurement of width of a pixel.(nm)
-  constraints:
-    enum:
-    - mm
-    - um
-    - nm
-    required: false
-  custom_constraints:
-    sequence_limit: 3
-    forbid_na: true
-    units_for: resolution_x_value
-- name: resolution_y_value
-  description: The height of a pixel. (Akoya pixel is 377nm square)
-  constraints:
-    required: true
-  custom_constraints:
-    sequence_limit: 3
-    forbid_na: true
-  type: number
-- name: resolution_y_unit
-  description: The unit of measurement of height of a pixel. (nm)
-  constraints:
-    enum:
-    - mm
-    - um
-    - nm
-    required: false
-  custom_constraints:
-    sequence_limit: 3
-    forbid_na: true
-    units_for: resolution_y_value
 - name: max_x_width_value
   description: Image width value of the ROI acquisition
-  type: number
   constraints:
     required: true
   custom_constraints:
     sequence_limit: 3
     forbid_na: true
+  type: number
 - name: max_x_width_unit
   description: Units of image width of the ROI acquisition
   constraints:
     enum:
     - um
+    - mm
     required: false
   custom_constraints:
     sequence_limit: 3
@@ -231,17 +162,18 @@ fields:
     units_for: max_x_width_value
 - name: max_y_height_value
   description: Image height value of the ROI acquisition
-  type: number
   constraints:
     required: true
   custom_constraints:
     sequence_limit: 3
     forbid_na: true
+  type: number
 - name: max_y_height_unit
   description: Units of image height of the ROI acquisition
   constraints:
     enum:
     - um
+    - mm
     required: false
   custom_constraints:
     sequence_limit: 3
@@ -260,228 +192,255 @@ fields:
     ROI captured on a slide.
   type: integer
   constraints:
-    required: true
-  custom_constraints:
-    sequence_limit: 3
-    forbid_na: true
-- name: acquisition_id
-  description: The acquisition_id refers to the directory containing the ROI images
-    for a slide. Together, the acquisition_id and the roi_id indicate the slide-ROI
-    represented in the image.
-  constraints:
-    required: true
-  custom_constraints:
-    sequence_limit: 3
-    forbid_na: true
-- name: area_normalized_ion_dose_unit
-  description: Area normalized ion dose unit
-  constraints:
-    enum:
-    - nA*hr/mm2
     required: false
+    minimum: 1
   custom_constraints:
     sequence_limit: 3
     forbid_na: true
-    units_for: area_normalized_ion_dose_value
-- name: area_normalized_ion_dose_value
-  description: Number of primary ions delivered to the sample per unit area
-  type: number
-  constraints:
-    required: true
-  custom_constraints:
-    sequence_limit: 3
-    forbid_na: true
-- name: data_precision_bytes
-  description: Numerical data precision in bytes
-  type: number
-  constraints:
-    required: true
-  custom_constraints:
-    sequence_limit: 3
-    forbid_na: true
-- name: dual_count_start
-  description: Threshold for dual counting.
-  type: number
-  constraints:
-    required: true
-  custom_constraints:
-    sequence_limit: 3
-    forbid_na: true
-- name: end_datetime
-  description: Time stamp indicating end of ablation for ROI
-  type: datetime
-  format: '%Y-%m-%d %H:%M'
-  constraints:
-    required: true
-  custom_constraints:
-    sequence_limit: 3
-    forbid_na: true
-- name: pixel_dwell_time_value
-  description: Resident time of primary ion beam on each pixel.
+- name: resolution_x_value
+  description: The width of a pixel.
   constraints:
     required: true
   custom_constraints:
     sequence_limit: 3
     forbid_na: true
   type: number
-- name: pixel_dwell_time_unit
-  description: Pixel dwell time unit.
-  constraints:
-    enum:
-    - ms
-    required: false
-  custom_constraints:
-    sequence_limit: 3
-    forbid_na: true
-    units_for: pixel_dwell_time_value
-- name: pixel_size_x_value
-  description: Width value of the pixel or voxel measurement (distinct from the image
-    resolution_x_value).
-  constraints:
-    required: true
-  custom_constraints:
-    sequence_limit: 3
-    forbid_na: true
-  type: number
-- name: pixel_size_x_unit
-  description: Width unit of the pixel or voxel measurement.
+- name: resolution_x_unit
+  description: The unit of measurement of the width of a pixel.
   constraints:
     enum:
     - nm
+    - um
+    - mm
     required: false
   custom_constraints:
     sequence_limit: 3
     forbid_na: true
-    units_for: pixel_size_x_value
-- name: pixel_size_y_value
-  description: Length value of the pixel or voxel measurement (distinct from the image
-    resolution_y_value).
+    units_for: resolution_x_value
+- name: resolution_y_value
+  description: The height of a pixel
   constraints:
     required: true
   custom_constraints:
     sequence_limit: 3
     forbid_na: true
   type: number
-- name: pixel_size_y_unit
-  description: Length unit of the pixel or voxel measurement.
+- name: resolution_y_unit
+  description: The unit of measurement of the height of a pixel.
   constraints:
     enum:
     - nm
+    - um
+    - mm
     required: false
   custom_constraints:
     sequence_limit: 3
     forbid_na: true
-    units_for: pixel_size_y_value
-- name: preparation_instrument_vendor
-  description: The manufacturer of the instrument used to prepare the sample for the
-    assay.
+    units_for: resolution_y_value
+- name: resolution_z_value
+  description: 'Optional if assay does not have multiple z-levels. Note that this
+    is resolution within a given sample: z-pitch (resolution_z_value) is the increment
+    distance between image slices, ie. the microscope stage is moved up or down in
+    increments to capture images of several focal planes.'
   constraints:
-    enum:
-    - Custom
-    - Ionpath
-    required: true
-  custom_constraints:
-    sequence_limit: 3
-    forbid_na: true
-- name: preparation_instrument_model
-  description: The model number/name of the instrument used to prepare the sample
-    for the assay
-  constraints:
-    enum:
-    - Custom
-    - MIBIscope 1
-    - MIBIscope 2
-    required: true
-  custom_constraints:
-    sequence_limit: 3
-    forbid_na: true
-- name: primary_ion
-  description: Primary ion.
-  constraints:
-    enum:
-    - Xe
-    required: true
-  custom_constraints:
-    sequence_limit: 3
-    forbid_na: true
-- name: primary_ion_current_value
-  description: Primary ion current value.
-  constraints:
-    required: true
+    required: false
   custom_constraints:
     sequence_limit: 3
     forbid_na: true
   type: number
-- name: primary_ion_current_unit
-  description: Primary ion current unit, typically nA or pA
+- name: resolution_z_unit
+  description: The unit of incremental distance between image slices.(um)
   constraints:
     enum:
-    - nA
-    - pA
+    - nm
+    - um
+    - mm
     required: false
   custom_constraints:
     sequence_limit: 3
     forbid_na: true
-    units_for: primary_ion_current_value
-- name: reagent_prep_protocols_io_doi
-  description: DOI for protocols.io referring to the protocol for preparing reagents
-    for the assay.
+    units_for: resolution_z_value
+- name: pixel_size_z_value
+  description: Depth value of the pixel or voxel measurement (distinct from the image
+    resolution_z_value).
   constraints:
-    required: true
-    pattern: 10\.17504/.*
+    required: false
   custom_constraints:
-    url:
-      prefix: https://dx.doi.org/
     sequence_limit: 3
     forbid_na: true
-  type: string
-- name: section_prep_protocols_io_doi
-  description: DOI for protocols.io referring to the protocol for preparing tissue
-    sections for the assay.
-  constraints:
-    required: true
-    pattern: 10\.17504/.*
-  custom_constraints:
-    url:
-      prefix: https://dx.doi.org/
-    sequence_limit: 3
-    forbid_na: true
-  type: string
-- name: segment_data_format
-  description: This refers to the data type, which is a "float" for the IMC counts.
+  type: number
+- name: pixel_size_z_unit
+  description: Depth unit of the pixel or voxel measurement.
   constraints:
     enum:
-    - float
-    - integer
-    - string
+    - nm
+    - um
+    - mm
+    required: false
+  custom_constraints:
+    sequence_limit: 3
+    forbid_na: true
+    units_for: pixel_size_z_value
+- name: number_of_images
+  description: The total number of images in the dataset.
+  type: integer
+  constraints:
     required: true
   custom_constraints:
     sequence_limit: 3
     forbid_na: true
-- name: signal_type
-  description: Type of signal measured per channel (usually dual counts)
+- Unique to this type
+- name: frequency_value
+  description: Frequency at which the imaging device is operating.
   constraints:
+    required: false
+  custom_constraints:
+    sequence_limit: 3
+    forbid_na: true
+  type: number
+- name: frequency_unit
+  description: 'Unit of frequency at which the imaging device is operating. Example:
+    Hz, kHz, MHz'
+  constraints:
+    required: false
     enum:
-    - dual count
-    - pulse count
-    - intensity value
-    required: true
+    - Hz
+    - kHz
+    - MHz
   custom_constraints:
     sequence_limit: 3
     forbid_na: true
-- name: start_datetime
-  description: Time stamp indicating start of ablation for ROI
-  type: datetime
-  format: '%Y-%m-%d %H:%M'
+    units_for: frequency_value
+- name: coil
+  description: 'Receiver coil name used to collect MRI data. Example: 32 channel body
+    coil'
   constraints:
-    required: true
+    required: false
   custom_constraints:
     sequence_limit: 3
     forbid_na: true
-- name: antibodies_path
-  description: Relative path to file with antibody information for this dataset.
+- name: field_strength_value
+  description: MRI scanner magnetic field strength value
   constraints:
-    required: true
+    required: false
+  custom_constraints:
+    sequence_limit: 3
+    forbid_na: true
+  type: number
+- name: field_strength_unit
+  description: MRI scanner magnetic field strength in units of Tesla [T]
+  constraints:
+    required: false
+    enum:
+    - Tesla
+  custom_constraints:
+    sequence_limit: 3
+    forbid_na: true
+    units_for: field_strength_value
+- name: scanning_sequence
+  description: Pulse sequence used to collect MRI data
+  constraints:
+    required: false
+    enum:
+    - spin echo
+    - inversion recovery
+    - gradient echo
+    - echo planar
+    - research mode
+  custom_constraints:
+    sequence_limit: 3
+    forbid_na: true
+- name: sequence_variant
+  description: Variant of the Scanning Sequence
+  constraints:
+    required: false
+    enum:
+    - segmented k-space
+    - magnetization transfer contrast
+    - steady state
+    - time reversed steady state
+    - spoiled
+    - magnetization prepared
+    - oversampling phase
+    - no sequence variant
+  custom_constraints:
+    sequence_limit: 3
+    forbid_na: true
+- name: echo_time
+  description: 'Time in msec between the middle of the excitation pulse and the peak
+    of the echo produced (kx=0). In the case of segmented k-space, the TE(eff) is
+    the time between the middle of the excitation pulse to the peak of the echo that
+    is used to cover the center of k-space (i.e., -kx=0, ky=0). '
+  type: number
+  constraints:
+    required: false
+  custom_constraints:
+    sequence_limit: 3
+    forbid_na: true
+- name: repetition_time
+  description: 'The period of time in msec between the beginning of a pulse sequence
+    and the beginning of the succeeding (essentially identical) pulse sequence. '
+  type: number
+  constraints:
+    required: false
+  custom_constraints:
+    sequence_limit: 3
+    forbid_na: true
+- name: flip_angle
+  description: 'Steady state angle in degrees to which the magnetic vector is flipped
+    from the magnetic vector of the primary field. '
+  type: integer
+  constraints:
+    required: false
+  custom_constraints:
+    sequence_limit: 3
+    forbid_na: true
+- name: echo_train_length
+  description: 'Number of lines in k-space acquired per excitation per image. '
+  type: integer
+  constraints:
+    required: false
+  custom_constraints:
+    sequence_limit: 3
+    forbid_na: true
+- name: acquisition_matrix_size_in_frequency_encoding_direction
+  description: Dimensions of the acquired frequency data before reconstruction.
+  type: integer
+  constraints:
+    required: false
+  custom_constraints:
+    sequence_limit: 3
+    forbid_na: true
+- name: acquisition_matrix_size_in_phase_encoding_direction
+  description: Dimensions of the acquired phase data before reconstruction, per image.
+  type: integer
+  constraints:
+    required: false
+  custom_constraints:
+    sequence_limit: 3
+    forbid_na: true
+- name: number_of_image_rows
+  description: Number of rows of the reconstructed data, per image.
+  type: integer
+  constraints:
+    required: false
+  custom_constraints:
+    sequence_limit: 3
+    forbid_na: true
+- name: number_of_image_columns
+  description: 'Number of columns of the reconstructed data. '
+  type: integer
+  constraints:
+    required: false
+  custom_constraints:
+    sequence_limit: 3
+    forbid_na: true
+- name: number_of_averages
+  type: integer
+  description: Number of times a given pulse sequence is repeated in the collection
+    of a single image or volume.
+  constraints:
+    required: false
   custom_constraints:
     sequence_limit: 3
     forbid_na: true
