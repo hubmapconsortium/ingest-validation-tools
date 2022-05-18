@@ -2,7 +2,6 @@ import logging
 from csv import DictReader
 from pathlib import Path
 from typing import List, Optional
-from collections import OrderedDict
 
 from ingest_validation_tools.schema_loader import (
     SchemaVersion, get_table_schema, get_other_schema,
@@ -20,7 +19,7 @@ class TableValidationErrors(Exception):
     pass
 
 
-def dict_reader_wrapper(path, encoding: str) -> List[OrderedDict]:
+def dict_reader_wrapper(path, encoding: str) -> list:
     with open(path, encoding=encoding) as f:
         rows = list(DictReader(f, dialect='excel-tab'))
     return rows

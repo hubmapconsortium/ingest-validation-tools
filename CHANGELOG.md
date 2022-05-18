@@ -1,6 +1,8 @@
 # Changelog
 ## v0.0.14 - in progress
 - Add Clinical Imaging schemas.
+- Test under both Python 3.6 and Python 3.10
+- Cosmetic updates to the Slide-seq directory structure schema.
 - Fix rendering bug on CODEX page by adding linebreaks.
 - Add type hints.
 - Implement versioning for directory schemas.
