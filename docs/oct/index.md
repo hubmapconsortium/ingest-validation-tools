@@ -1,7 +1,7 @@
 ---
 title: OCT
 schema_name: oct
-category: Imaging assays
+category: Clinical imaging modalities
 all_versions_deprecated: False
 layout: default
 ---
@@ -174,7 +174,7 @@ Each assay is placed into one of the following 4 general categories: generation 
 
 | constraint | value |
 | --- | --- |
-| enum | `imaging` |
+| enum | `clinical_imaging` |
 | required | `True` |
 
 <a name="assay_type"></a>

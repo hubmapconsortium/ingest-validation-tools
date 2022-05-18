@@ -94,7 +94,7 @@ fields:
 - name: assay_category
   constraints:
     enum:
-    - imaging
+    - clinical_imaging
     required: true
   description: 'Each assay is placed into one of the following 4 general categories:
     generation of images of microscopic entities, identification & quantitation of

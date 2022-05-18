@@ -6,7 +6,7 @@ fields:
 - name: assay_category
   constraints:
     enum:
-      - clinical imaging
+      - clinical_imaging
 - name: assay_type
   constraints:
     enum:
