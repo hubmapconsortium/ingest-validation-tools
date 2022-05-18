@@ -7,11 +7,11 @@ layout: default
 ---
 
 Related files:
-- [🔬 Background doc](TODO): More details about this type.
+
 - [📝 Excel template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/main/docs/microct/microct-metadata.xlsx): For metadata entry.
 - [📝 TSV template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/main/docs/microct/microct-metadata.tsv): Alternative for metadata entry.
 
-TODO
+This schema is for clinical imaging using micro computed tomography (Micro CT).
 
 
 
@@ -208,7 +208,7 @@ Manufacturers of an acquisition instrument may offer various versions (models) o
 
 <a name="single_file_export_format"></a>
 ##### [`single_file_export_format`](#single_file_export_format)
-TODO.
+The format in which each single imaging file will be exported. (Example: DICOM, tiff, avi, etc.)
 
 | constraint | value |
 | --- | --- |
@@ -368,11 +368,11 @@ The voltage used to acquire images. Leave blank if not applicable.
 
 <a name="voltage_unit"></a>
 ##### [`voltage_unit`](#voltage_unit)
-The unit of the voltage used to acquire microCT images. Example: volt. Leave blank if not applicable.
+The unit of the voltage used to acquire microCT images. Example: V. Leave blank if not applicable.
 
 | constraint | value |
 | --- | --- |
-| enum | `V` or `kVa` |
+| enum | `V` or `kV` |
 | required | `False` |
 | units for | `voltage_value` |
 
@@ -387,11 +387,11 @@ The current used to acquire microCT images. Leave blank if not applicable.
 
 <a name="current_unit"></a>
 ##### [`current_unit`](#current_unit)
-The unit of the current used to acquire microCT images. Example: amp. Leave blank if not applicable.
+The unit of the current used to acquire microCT images. Example: mA. Leave blank if not applicable.
 
 | constraint | value |
 | --- | --- |
-| enum | `mAmp`, `microAmp`, or `Amp` |
+| enum | `mA`, `microA`, or `A` |
 | required | `False` |
 | units for | `current_value` |
 
@@ -423,7 +423,7 @@ The threshold unit used for analyzing microCT images (unitless) Leave blank if n
 
 <a name="total_sections_analyzed"></a>
 ##### [`total_sections_analyzed`](#total_sections_analyzed)
-The number of sections used for analyzing microCT images. Leave blank if not applicable.
+The number of sections used for analyzing microCT or OCT images. Leave blank if not applicable.
 
 | constraint | value |
 | --- | --- |

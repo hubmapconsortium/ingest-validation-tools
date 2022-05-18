@@ -7,11 +7,11 @@ layout: default
 ---
 
 Related files:
-- [🔬 Background doc](TODO): More details about this type.
+
 - [📝 Excel template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/main/docs/oct/oct-metadata.xlsx): For metadata entry.
 - [📝 TSV template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/main/docs/oct/oct-metadata.tsv): Alternative for metadata entry.
 
-TODO
+This schema is for clinical imaging using optical coherence tomography (OCT).
 
 
 
@@ -206,7 +206,7 @@ Manufacturers of an acquisition instrument may offer various versions (models) o
 
 <a name="single_file_export_format"></a>
 ##### [`single_file_export_format`](#single_file_export_format)
-TODO.
+The format in which each single imaging file will be exported. (Example: DICOM, tiff, avi, etc.)
 
 | constraint | value |
 | --- | --- |
@@ -357,7 +357,7 @@ The total number of images in the dataset.
 
 <a name="total_sections_analyzed"></a>
 ##### [`total_sections_analyzed`](#total_sections_analyzed)
-The number of sections used for analyzing microCT images. Leave blank if not applicable.
+The number of sections used for analyzing microCT or OCT images. Leave blank if not applicable.
 
 | constraint | value |
 | --- | --- |

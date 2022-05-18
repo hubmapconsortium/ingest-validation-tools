@@ -1,6 +1,5 @@
 - name: total_sections_analyzed
-  description: The number of sections used for analyzing microCT images
-  # TODO: This field is also used in OCT: Is the description appropriate?
+  description: The number of sections used for analyzing microCT or OCT images
   type: integer
   constraints:
     required: False

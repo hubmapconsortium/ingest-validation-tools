@@ -4,9 +4,9 @@
     required: False
 
 - name: voltage_unit
-  description: "The unit of the voltage used to acquire microCT images. Example: volt"
+  description: "The unit of the voltage used to acquire microCT images. Example: V"
   constraints:
-    enum: ['V', 'kVa'] # TODO: Confirm that "kVa" is correct? and "Volt" doesn't need to be spelled out?
+    enum: ['V', 'kV']
     required: False
 
 - name: current_value
@@ -15,9 +15,9 @@
     required: False
 
 - name: current_unit
-  description: "The unit of the current used to acquire microCT images. Example: amp"
+  description: "The unit of the current used to acquire microCT images. Example: mA"
   constraints:
-    enum: ['mAmp', 'microAmp',  'Amp'] # TODO: Should this just be "A"? and "uA"
+    enum: ['mA', 'microA',  'A']
     required: False
 
 - name: filter

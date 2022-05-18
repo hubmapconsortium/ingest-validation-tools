@@ -79,7 +79,7 @@
     required: False
 
 - name: number_of_averages
-  type: integer  # TODO: Given as float in spreadsheet: Confirm that integer is intended.
+  type: number
   description: "Number of times a given pulse sequence is repeated in the collection of a single image or volume."
   constraints:
     required: False

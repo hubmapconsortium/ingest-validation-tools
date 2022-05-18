@@ -7,11 +7,11 @@ layout: default
 ---
 
 Related files:
-- [🔬 Background doc](TODO): More details about this type.
+
 - [📝 Excel template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/main/docs/bodyct/bodyct-metadata.xlsx): For metadata entry.
 - [📝 TSV template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/main/docs/bodyct/bodyct-metadata.tsv): Alternative for metadata entry.
 
-TODO
+This schema is for clinical imaging using body computed tomography (Body CT).
 
 
 
@@ -200,7 +200,7 @@ Manufacturers of an acquisition instrument may offer various versions (models) o
 
 <a name="single_file_export_format"></a>
 ##### [`single_file_export_format`](#single_file_export_format)
-TODO.
+The format in which each single imaging file will be exported. (Example: DICOM, tiff, avi, etc.)
 
 | constraint | value |
 | --- | --- |

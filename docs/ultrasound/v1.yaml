@@ -1,6 +1,5 @@
 # Generated YAML: PRs should not start here!
-doc_url: TODO
-description_md: TODO
+description_md: This schema is for clinical imaging using ultrasound.
 fields:
 - Shared by all types
 - name: version
@@ -134,7 +133,8 @@ fields:
     forbid_na: true
 - Shared by all clinical imaging assays
 - name: single_file_export_format
-  description: TODO
+  description: 'The format in which each single imaging file will be exported. (Example:
+    DICOM, tiff, avi, etc.)'
   constraints:
     required: true
   custom_constraints:
@@ -294,7 +294,9 @@ fields:
   constraints:
     required: false
     enum:
-    - high
+    - high confidence/optimal
+    - low confidence/sub-optimal
+    - no confidence
   custom_constraints:
     sequence_limit: 3
     forbid_na: true

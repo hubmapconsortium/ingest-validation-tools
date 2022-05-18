@@ -1,6 +1,6 @@
 # Generated YAML: PRs should not start here!
-doc_url: TODO
-description_md: TODO
+description_md: This schema is for clinical imaging using optical coherence tomography
+  (OCT).
 fields:
 - Shared by all types
 - name: version
@@ -134,7 +134,8 @@ fields:
     forbid_na: true
 - Shared by all clinical imaging assays
 - name: single_file_export_format
-  description: TODO
+  description: 'The format in which each single imaging file will be exported. (Example:
+    DICOM, tiff, avi, etc.)'
   constraints:
     required: true
   custom_constraints:
@@ -290,7 +291,7 @@ fields:
     forbid_na: true
 - Unique to this type
 - name: total_sections_analyzed
-  description: The number of sections used for analyzing microCT images
+  description: The number of sections used for analyzing microCT or OCT images
   type: integer
   constraints:
     required: false

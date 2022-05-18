@@ -2,7 +2,7 @@
   description: "The quality of the acquired ultrasound images."
   constraints:
     required: False
-    enum: ['high'] # TODO: Is it correct that there is only one allowed value? 
+    enum: ['high confidence/optimal', 'low confidence/sub-optimal', 'no confidence']
 
 - name: probe
   description: "The specific ultrasound device used to produce sound waves (String -free text). Examples: C1-5-D, C4-8-D, AB2-7-D, RIC5-9-D, RAB6-D, RAB4-8-D, 4C-D, RM6C"
