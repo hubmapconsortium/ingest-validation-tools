@@ -1,5 +1,5 @@
-doc_url: TODO
-description_md: TODO
+# doc_url: TODO
+description_md: This schema is for clinical imaging using magnetic resonance imaging (MRI).
 
 fields:
 - Shared by all types
