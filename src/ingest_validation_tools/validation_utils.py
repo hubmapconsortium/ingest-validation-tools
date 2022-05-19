@@ -37,7 +37,7 @@ def get_table_schema_version(path, encoding: str) -> SchemaVersion:
     return get_table_schema_version_from_row(path, rows[0])
 
 
-def _get_directory_schema_version(data_path: Path) -> str:
+def get_directory_schema_version(data_path: Path) -> str:
     prefix = 'dir-schema-v'
     version_hints = [path.name for path in (data_path / 'extras').glob(f'{prefix}*')]
     len_hints = len(version_hints)
@@ -54,7 +54,7 @@ def get_data_dir_errors(schema_name: str, data_path: Path,
     '''
     Validate a single data_path.
     '''
-    directory_schema_version = _get_directory_schema_version(data_path)
+    directory_schema_version = get_directory_schema_version(data_path)
     return _get_data_dir_errors_for_version(
         schema_name, data_path, dataset_ignore_globs, directory_schema_version)
 

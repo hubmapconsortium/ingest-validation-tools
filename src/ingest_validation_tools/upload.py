@@ -71,17 +71,19 @@ class Upload:
             stderr=subprocess.STDOUT
         ).strip()
 
+        effective_tsvs = {
+            Path(path).name: {
+                'Schema': sv.schema_name,
+                'Version': sv.version
+            }
+            for path, sv in self.effective_tsv_paths.items()
+        }
+
         return {
             'Time': datetime.now(),
             'Git version': git_version,
             'Directory': str(self.directory_path),
-            'Effective TSVs': {
-                Path(path).name: {
-                    'Schema': sv.schema_name,
-                    'Version': sv.version
-                }
-                for path, sv in self.effective_tsv_paths.items()
-            }
+            'Effective TSVs': effective_tsvs
         }
 
     def get_errors(self, **kwargs) -> dict:
