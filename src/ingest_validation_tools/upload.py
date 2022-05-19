@@ -60,9 +60,29 @@ class Upload:
 
     #####################
     #
-    # One public method:
+    # Two public methods:
     #
     #####################
+
+    def get_info(self) -> dict:
+        git_version = subprocess.check_output(
+            'git rev-parse --short HEAD'.split(' '),
+            encoding='ascii',
+            stderr=subprocess.STDOUT
+        ).strip()
+
+        return {
+            'Time': datetime.now(),
+            'Git version': git_version,
+            'Directory': str(self.directory_path),
+            'Effective TSVs': {
+                Path(path).name: {
+                    'Schema': sv.schema_name,
+                    'Version': sv.version
+                }
+                for path, sv in self.effective_tsv_paths.items()
+            }
+        }
 
     def get_errors(self, **kwargs) -> dict:
         # This creates a deeply nested dict.
@@ -84,6 +104,7 @@ class Upload:
         if plugin_errors:
             errors['Plugin Errors'] = plugin_errors
 
+        # TODO: Remove; Now handled by get_info()
         if self.add_notes:
             git_version = subprocess.check_output(
                 'git rev-parse --short HEAD'.split(' '),
