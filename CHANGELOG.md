@@ -36,6 +36,7 @@
 - Temporarily disable checking the assay names in schemas against the global list.
   Entries in the global list are now commented out, and Joel will progressively
   uncomment them.
+- Moved `dataset.json` to `raw` or `src_*` directory for CODEX datasets.
 
 ## v0.0.13 - 2022-01-07
 - Make more fields explicitly numeric
