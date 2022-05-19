@@ -37,7 +37,7 @@ def get_table_schema_version(path, encoding: str) -> SchemaVersion:
     return get_table_schema_version_from_row(path, rows[0])
 
 
-def get_directory_schema_versions(path, encoding: str) -> set:
+def get_directory_schema_versions(path, encoding: str) -> list:
     try:
         rows = dict_reader_wrapper(path, encoding)
     except UnicodeDecodeError as e:
@@ -46,12 +46,14 @@ def get_directory_schema_versions(path, encoding: str) -> set:
         raise PreflightError(f'Expected a TSV, found a directory at {path}.')
     if not rows:
         raise PreflightError(f'{path} has no data rows.')
-    return set(_get_directory_schema_version(Path(r['data_path'])) for r in rows)
+    return list(set(_get_directory_schema_version(r.get('data_path')) for r in rows))
 
 
-def _get_directory_schema_version(data_path: Path) -> str:
+def _get_directory_schema_version(data_path) -> str:
+    if data_path is None:
+        return None
     prefix = 'dir-schema-v'
-    version_hints = [path.name for path in (data_path / 'extras').glob(f'{prefix}*')]
+    version_hints = [path.name for path in (Path(data_path) / 'extras').glob(f'{prefix}*')]
     len_hints = len(version_hints)
     if len_hints == 0:
         return '0'

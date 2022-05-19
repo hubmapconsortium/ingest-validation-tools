@@ -76,7 +76,8 @@ class Upload:
             Path(path).name: {
                 'Schema': sv.schema_name,
                 'Metadata schema version': sv.version,
-                'Directory schema versions': get_directory_schema_versions(path)
+                'Directory schema versions':
+                    get_directory_schema_versions(path, encoding='ascii')
             }
             for path, sv in self.effective_tsv_paths.items()
         }

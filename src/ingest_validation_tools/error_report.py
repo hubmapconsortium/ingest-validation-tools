@@ -1,8 +1,4 @@
-from datetime import datetime
 from yaml import Dumper, dump
-from webbrowser import open_new_tab
-from pathlib import Path
-from yattag import Doc, indent
 from typing import List
 
 from ingest_validation_tools.message_munger import munge
