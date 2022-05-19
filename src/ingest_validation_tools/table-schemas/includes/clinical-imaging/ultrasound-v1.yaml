@@ -1,0 +1,37 @@
+- name: quality_view
+  description: "The quality of the acquired ultrasound images."
+  constraints:
+    required: False
+    enum: ['high confidence/optimal', 'low confidence/sub-optimal', 'no confidence']
+
+- name: probe
+  description: "The specific ultrasound device used to produce sound waves (String -free text). Examples: C1-5-D, C4-8-D, AB2-7-D, RIC5-9-D, RAB6-D, RAB4-8-D, 4C-D, RM6C"
+  constraints:
+    required: False
+
+- name: dynamic_contrast
+  description: "Level of echo intensity on an ultrasound. Examples: none (blank) or 1-10."
+  type: integer
+  constraints:
+    required: False
+
+- name: speckle_reduction_imaging
+  description: "Level used to reduce speckle noise in ultrasound images. Examples: numbers ranging from 0-5"
+  type: integer
+  constraints:
+    required: False
+    enum: [0, 1, 2, 3, 4, 5]
+
+- name: compound_imaging
+  description: "Level used to increase image resolution in ultrasounds by using multiple lines of site to eliminate artifacts, shadows, and increase edge detail (aka crossbeam). Examples: Either none or 0-5"
+  type: integer
+  constraints:
+    required: False
+
+- name: harmonics
+  description: "Multiples of the fundamental or transmitted frequency used to help optimize an ultrasound image. Examples: None, Low, Medium or High"
+  constraints:
+    required: False
+    enum: ['None', 'Low', 'Medium', 'High']
+
+# include: ./frequency-v1.yaml

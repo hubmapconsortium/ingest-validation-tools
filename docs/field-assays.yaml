@@ -23,6 +23,7 @@ acquisition_id:
 acquisition_instrument_model:
 - 3D Imaging Mass Cytometry
 - AF
+- Body CT
 - CE-MS
 - CODEX
 - Cell DIVE
@@ -36,19 +37,23 @@ acquisition_instrument_model:
 - LC-MS/MS (label-free proteomics)
 - Light Sheet
 - MALDI-IMS
+- MRI
 - MS
 - MS (shotgun lipidomics)
 - MS Bottom-Up
 - MS Top-Down
+- Micro CT
 - Multiplex Ion Beam Imaging
 - MxIF
 - NanoDESI
 - NanoPOTS
+- OCT
 - PAS microscopy
 - SIMS-IMS
 - SNARE-seq2
 - SNARE2-RNAseq
 - Slide-seq
+- Ultrasound
 - WGS
 - bulk RNA
 - bulkATACseq
@@ -66,6 +71,7 @@ acquisition_instrument_model:
 acquisition_instrument_vendor:
 - 3D Imaging Mass Cytometry
 - AF
+- Body CT
 - CE-MS
 - CODEX
 - Cell DIVE
@@ -79,19 +85,23 @@ acquisition_instrument_vendor:
 - LC-MS/MS (label-free proteomics)
 - Light Sheet
 - MALDI-IMS
+- MRI
 - MS
 - MS (shotgun lipidomics)
 - MS Bottom-Up
 - MS Top-Down
+- Micro CT
 - Multiplex Ion Beam Imaging
 - MxIF
 - NanoDESI
 - NanoPOTS
+- OCT
 - PAS microscopy
 - SIMS-IMS
 - SNARE-seq2
 - SNARE2-RNAseq
 - Slide-seq
+- Ultrasound
 - WGS
 - bulk RNA
 - bulkATACseq
@@ -106,6 +116,10 @@ acquisition_instrument_vendor:
 - snRNAseq
 - snRNAseq-10xGenomics-v2
 - snRNAseq-10xGenomics-v3
+acquisition_matrix_size_in_frequency_encoding_direction:
+- MRI
+acquisition_matrix_size_in_phase_encoding_direction:
+- MRI
 analyte_class:
 - 3D Imaging Mass Cytometry
 - AF
@@ -164,6 +178,7 @@ area_normalized_ion_dose_value:
 assay_category:
 - 3D Imaging Mass Cytometry
 - AF
+- Body CT
 - CE-MS
 - CODEX
 - Cell DIVE
@@ -177,19 +192,23 @@ assay_category:
 - LC-MS/MS (label-free proteomics)
 - Light Sheet
 - MALDI-IMS
+- MRI
 - MS
 - MS (shotgun lipidomics)
 - MS Bottom-Up
 - MS Top-Down
+- Micro CT
 - Multiplex Ion Beam Imaging
 - MxIF
 - NanoDESI
 - NanoPOTS
+- OCT
 - PAS microscopy
 - SIMS-IMS
 - SNARE-seq2
 - SNARE2-RNAseq
 - Slide-seq
+- Ultrasound
 - WGS
 - bulk RNA
 - bulkATACseq
@@ -207,6 +226,7 @@ assay_category:
 assay_type:
 - 3D Imaging Mass Cytometry
 - AF
+- Body CT
 - CE-MS
 - CODEX
 - Cell DIVE
@@ -220,19 +240,23 @@ assay_type:
 - LC-MS/MS (label-free proteomics)
 - Light Sheet
 - MALDI-IMS
+- MRI
 - MS
 - MS (shotgun lipidomics)
 - MS Bottom-Up
 - MS Top-Down
+- Micro CT
 - Multiplex Ion Beam Imaging
 - MxIF
 - NanoDESI
 - NanoPOTS
+- OCT
 - PAS microscopy
 - SIMS-IMS
 - SNARE-seq2
 - SNARE2-RNAseq
 - Slide-seq
+- Ultrasound
 - WGS
 - bulk RNA
 - bulkATACseq
@@ -316,6 +340,8 @@ cell_barcode_size:
 - snRNAseq
 - snRNAseq-10xGenomics-v2
 - snRNAseq-10xGenomics-v3
+coil:
+- MRI
 column_length_unit:
 - GC-MS
 column_length_value:
@@ -328,9 +354,12 @@ column_temp_value:
 - GC-MS
 column_vendor:
 - GC-MS
+compound_imaging:
+- Ultrasound
 contributors_path:
 - 3D Imaging Mass Cytometry
 - AF
+- Body CT
 - CE-MS
 - CODEX
 - Cell DIVE
@@ -344,19 +373,23 @@ contributors_path:
 - LC-MS/MS (label-free proteomics)
 - Light Sheet
 - MALDI-IMS
+- MRI
 - MS
 - MS (shotgun lipidomics)
 - MS Bottom-Up
 - MS Top-Down
+- Micro CT
 - Multiplex Ion Beam Imaging
 - MxIF
 - NanoDESI
 - NanoPOTS
+- OCT
 - PAS microscopy
 - SIMS-IMS
 - SNARE-seq2
 - SNARE2-RNAseq
 - Slide-seq
+- Ultrasound
 - WGS
 - bulk RNA
 - bulkATACseq
@@ -371,6 +404,10 @@ contributors_path:
 - snRNAseq
 - snRNAseq-10xGenomics-v2
 - snRNAseq-10xGenomics-v3
+current_unit:
+- Micro CT
+current_value:
+- Micro CT
 data_collection_mode:
 - CE-MS
 - GC-MS
@@ -386,6 +423,7 @@ data_collection_mode:
 data_path:
 - 3D Imaging Mass Cytometry
 - AF
+- Body CT
 - CE-MS
 - CODEX
 - Cell DIVE
@@ -399,19 +437,23 @@ data_path:
 - LC-MS/MS (label-free proteomics)
 - Light Sheet
 - MALDI-IMS
+- MRI
 - MS
 - MS (shotgun lipidomics)
 - MS Bottom-Up
 - MS Top-Down
+- Micro CT
 - Multiplex Ion Beam Imaging
 - MxIF
 - NanoDESI
 - NanoPOTS
+- OCT
 - PAS microscopy
 - SIMS-IMS
 - SNARE-seq2
 - SNARE2-RNAseq
 - Slide-seq
+- Ultrasound
 - WGS
 - bulk RNA
 - bulkATACseq
@@ -432,6 +474,7 @@ data_precision_bytes:
 description:
 - 3D Imaging Mass Cytometry
 - AF
+- Body CT
 - CE-MS
 - CODEX
 - Cell DIVE
@@ -445,19 +488,23 @@ description:
 - LC-MS/MS (label-free proteomics)
 - Light Sheet
 - MALDI-IMS
+- MRI
 - MS
 - MS (shotgun lipidomics)
 - MS Bottom-Up
 - MS Top-Down
+- Micro CT
 - Multiplex Ion Beam Imaging
 - MxIF
 - NanoDESI
 - NanoPOTS
+- OCT
 - PAS microscopy
 - SIMS-IMS
 - SNARE-seq2
 - SNARE2-RNAseq
 - Slide-seq
+- Ultrasound
 - WGS
 - bulk RNA
 - bulkATACseq
@@ -501,6 +548,7 @@ dna_assay_input_value:
 donor_id:
 - 3D Imaging Mass Cytometry
 - AF
+- Body CT
 - CE-MS
 - CODEX
 - Cell DIVE
@@ -514,19 +562,23 @@ donor_id:
 - LC-MS/MS (label-free proteomics)
 - Light Sheet
 - MALDI-IMS
+- MRI
 - MS
 - MS (shotgun lipidomics)
 - MS Bottom-Up
 - MS Top-Down
+- Micro CT
 - Multiplex Ion Beam Imaging
 - MxIF
 - NanoDESI
 - NanoPOTS
+- OCT
 - PAS microscopy
 - SIMS-IMS
 - SNARE-seq2
 - SNARE2-RNAseq
 - Slide-seq
+- Ultrasound
 - WGS
 - bulk RNA
 - bulkATACseq
@@ -544,12 +596,19 @@ donor_id:
 dual_count_start:
 - Imaging Mass Cytometry
 - Multiplex Ion Beam Imaging
+dynamic_contrast:
+- Ultrasound
+echo_time:
+- MRI
+echo_train_length:
+- MRI
 end_datetime:
 - Imaging Mass Cytometry
 - Multiplex Ion Beam Imaging
 execution_datetime:
 - 3D Imaging Mass Cytometry
 - AF
+- Body CT
 - CE-MS
 - CODEX
 - Cell DIVE
@@ -563,19 +622,23 @@ execution_datetime:
 - LC-MS/MS (label-free proteomics)
 - Light Sheet
 - MALDI-IMS
+- MRI
 - MS
 - MS (shotgun lipidomics)
 - MS Bottom-Up
 - MS Top-Down
+- Micro CT
 - Multiplex Ion Beam Imaging
 - MxIF
 - NanoDESI
 - NanoPOTS
+- OCT
 - PAS microscopy
 - SIMS-IMS
 - SNARE-seq2
 - SNARE2-RNAseq
 - Slide-seq
+- Ultrasound
 - WGS
 - bulk RNA
 - bulkATACseq
@@ -599,10 +662,30 @@ expected_cell_count:
 - snRNAseq
 - snRNAseq-10xGenomics-v2
 - snRNAseq-10xGenomics-v3
+field_strength_unit:
+- MRI
+field_strength_value:
+- MRI
+filter:
+- Micro CT
+flip_angle:
+- MRI
+frequency_unit:
+- MRI
+- Ultrasound
+frequency_value:
+- MRI
+- Ultrasound
 gdna_fragmentation_quality_assurance:
 - WGS
 guard_column:
 - GC-MS
+harmonics:
+- Ultrasound
+imaging_threshold_unit_value:
+- Micro CT
+imaging_threshold_value:
+- Micro CT
 increment_z_unit:
 - Light Sheet
 increment_z_value:
@@ -1033,20 +1116,40 @@ mass_resolving_power:
 - SIMS-IMS
 max_x_width_unit:
 - 3D Imaging Mass Cytometry
+- Body CT
 - Imaging Mass Cytometry
+- MRI
+- Micro CT
 - Multiplex Ion Beam Imaging
+- OCT
+- Ultrasound
 max_x_width_value:
 - 3D Imaging Mass Cytometry
+- Body CT
 - Imaging Mass Cytometry
+- MRI
+- Micro CT
 - Multiplex Ion Beam Imaging
+- OCT
+- Ultrasound
 max_y_height_unit:
 - 3D Imaging Mass Cytometry
+- Body CT
 - Imaging Mass Cytometry
+- MRI
+- Micro CT
 - Multiplex Ion Beam Imaging
+- OCT
+- Ultrasound
 max_y_height_value:
 - 3D Imaging Mass Cytometry
+- Body CT
 - Imaging Mass Cytometry
+- MRI
+- Micro CT
 - Multiplex Ion Beam Imaging
+- OCT
+- Ultrasound
 ms_scan_mode:
 - CE-MS
 - DESI
@@ -1132,6 +1235,8 @@ number_of_antibodies:
 - Cell DIVE
 - Light Sheet
 - Multiplex Ion Beam Imaging
+number_of_averages:
+- MRI
 number_of_barcode_probes:
 - seqFISH
 number_of_barcode_regions_per_barcode_probe:
@@ -1151,6 +1256,16 @@ number_of_cycles:
 - Cell DIVE
 - MxIF
 - seqFISH
+number_of_image_columns:
+- MRI
+number_of_image_rows:
+- MRI
+number_of_images:
+- Body CT
+- MRI
+- Micro CT
+- OCT
+- Ultrasound
 number_of_imaging_rounds:
 - Cell DIVE
 number_of_pseudocolors_per_channel:
@@ -1162,6 +1277,7 @@ number_of_sections:
 operator:
 - 3D Imaging Mass Cytometry
 - AF
+- Body CT
 - CE-MS
 - CODEX
 - Cell DIVE
@@ -1175,19 +1291,23 @@ operator:
 - LC-MS/MS (label-free proteomics)
 - Light Sheet
 - MALDI-IMS
+- MRI
 - MS
 - MS (shotgun lipidomics)
 - MS Bottom-Up
 - MS Top-Down
+- Micro CT
 - Multiplex Ion Beam Imaging
 - MxIF
 - NanoDESI
 - NanoPOTS
+- OCT
 - PAS microscopy
 - SIMS-IMS
 - SNARE-seq2
 - SNARE2-RNAseq
 - Slide-seq
+- Ultrasound
 - WGS
 - bulk RNA
 - bulkATACseq
@@ -1205,6 +1325,7 @@ operator:
 operator_email:
 - 3D Imaging Mass Cytometry
 - AF
+- Body CT
 - CE-MS
 - CODEX
 - Cell DIVE
@@ -1218,19 +1339,23 @@ operator_email:
 - LC-MS/MS (label-free proteomics)
 - Light Sheet
 - MALDI-IMS
+- MRI
 - MS
 - MS (shotgun lipidomics)
 - MS Bottom-Up
 - MS Top-Down
+- Micro CT
 - Multiplex Ion Beam Imaging
 - MxIF
 - NanoDESI
 - NanoPOTS
+- OCT
 - PAS microscopy
 - SIMS-IMS
 - SNARE-seq2
 - SNARE2-RNAseq
 - Slide-seq
+- Ultrasound
 - WGS
 - bulk RNA
 - bulkATACseq
@@ -1269,6 +1394,7 @@ overall_protocols_io_doi:
 pi:
 - 3D Imaging Mass Cytometry
 - AF
+- Body CT
 - CE-MS
 - CODEX
 - Cell DIVE
@@ -1282,19 +1408,23 @@ pi:
 - LC-MS/MS (label-free proteomics)
 - Light Sheet
 - MALDI-IMS
+- MRI
 - MS
 - MS (shotgun lipidomics)
 - MS Bottom-Up
 - MS Top-Down
+- Micro CT
 - Multiplex Ion Beam Imaging
 - MxIF
 - NanoDESI
 - NanoPOTS
+- OCT
 - PAS microscopy
 - SIMS-IMS
 - SNARE-seq2
 - SNARE2-RNAseq
 - Slide-seq
+- Ultrasound
 - WGS
 - bulk RNA
 - bulkATACseq
@@ -1312,6 +1442,7 @@ pi:
 pi_email:
 - 3D Imaging Mass Cytometry
 - AF
+- Body CT
 - CE-MS
 - CODEX
 - Cell DIVE
@@ -1325,19 +1456,23 @@ pi_email:
 - LC-MS/MS (label-free proteomics)
 - Light Sheet
 - MALDI-IMS
+- MRI
 - MS
 - MS (shotgun lipidomics)
 - MS Bottom-Up
 - MS Top-Down
+- Micro CT
 - Multiplex Ion Beam Imaging
 - MxIF
 - NanoDESI
 - NanoPOTS
+- OCT
 - PAS microscopy
 - SIMS-IMS
 - SNARE-seq2
 - SNARE2-RNAseq
 - Slide-seq
+- Ultrasound
 - WGS
 - bulk RNA
 - bulkATACseq
@@ -1364,6 +1499,18 @@ pixel_size_y_unit:
 - Multiplex Ion Beam Imaging
 pixel_size_y_value:
 - Multiplex Ion Beam Imaging
+pixel_size_z_unit:
+- Body CT
+- MRI
+- Micro CT
+- OCT
+- Ultrasound
+pixel_size_z_value:
+- Body CT
+- MRI
+- Micro CT
+- OCT
+- Ultrasound
 polarity:
 - CE-MS
 - DESI
@@ -1417,6 +1564,8 @@ primary_ion_current_unit:
 - Multiplex Ion Beam Imaging
 primary_ion_current_value:
 - Multiplex Ion Beam Imaging
+probe:
+- Ultrasound
 processing_protocols_io_doi:
 - CE-MS
 - Cell DIVE
@@ -1449,6 +1598,7 @@ processing_search:
 protocols_io_doi:
 - 3D Imaging Mass Cytometry
 - AF
+- Body CT
 - CE-MS
 - CODEX
 - Cell DIVE
@@ -1462,19 +1612,23 @@ protocols_io_doi:
 - LC-MS/MS (label-free proteomics)
 - Light Sheet
 - MALDI-IMS
+- MRI
 - MS
 - MS (shotgun lipidomics)
 - MS Bottom-Up
 - MS Top-Down
+- Micro CT
 - Multiplex Ion Beam Imaging
 - MxIF
 - NanoDESI
 - NanoPOTS
+- OCT
 - PAS microscopy
 - SIMS-IMS
 - SNARE-seq2
 - SNARE2-RNAseq
 - Slide-seq
+- Ultrasound
 - WGS
 - bulk RNA
 - bulkATACseq
@@ -1491,6 +1645,8 @@ protocols_io_doi:
 - snRNAseq-10xGenomics-v3
 puck_id:
 - Slide-seq
+quality_view:
+- Ultrasound
 range_z_unit:
 - Light Sheet
 range_z_value:
@@ -1502,8 +1658,11 @@ reagent_prep_protocols_io_doi:
 - Multiplex Ion Beam Imaging
 - MxIF
 - seqFISH
+repetition_time:
+- MRI
 resolution_x_unit:
 - AF
+- Body CT
 - CE-MS
 - CODEX
 - Cell DIVE
@@ -1514,18 +1673,23 @@ resolution_x_unit:
 - LC-MS Top-Down
 - Light Sheet
 - MALDI-IMS
+- MRI
 - MS
 - MS Bottom-Up
 - MS Top-Down
+- Micro CT
 - Multiplex Ion Beam Imaging
 - MxIF
 - NanoDESI
 - NanoPOTS
+- OCT
 - PAS microscopy
 - SIMS-IMS
+- Ultrasound
 - seqFISH
 resolution_x_value:
 - AF
+- Body CT
 - CE-MS
 - CODEX
 - Cell DIVE
@@ -1536,18 +1700,23 @@ resolution_x_value:
 - LC-MS Top-Down
 - Light Sheet
 - MALDI-IMS
+- MRI
 - MS
 - MS Bottom-Up
 - MS Top-Down
+- Micro CT
 - Multiplex Ion Beam Imaging
 - MxIF
 - NanoDESI
 - NanoPOTS
+- OCT
 - PAS microscopy
 - SIMS-IMS
+- Ultrasound
 - seqFISH
 resolution_y_unit:
 - AF
+- Body CT
 - CE-MS
 - CODEX
 - Cell DIVE
@@ -1558,18 +1727,23 @@ resolution_y_unit:
 - LC-MS Top-Down
 - Light Sheet
 - MALDI-IMS
+- MRI
 - MS
 - MS Bottom-Up
 - MS Top-Down
+- Micro CT
 - Multiplex Ion Beam Imaging
 - MxIF
 - NanoDESI
 - NanoPOTS
+- OCT
 - PAS microscopy
 - SIMS-IMS
+- Ultrasound
 - seqFISH
 resolution_y_value:
 - AF
+- Body CT
 - CE-MS
 - CODEX
 - Cell DIVE
@@ -1580,27 +1754,41 @@ resolution_y_value:
 - LC-MS Top-Down
 - Light Sheet
 - MALDI-IMS
+- MRI
 - MS
 - MS Bottom-Up
 - MS Top-Down
+- Micro CT
 - Multiplex Ion Beam Imaging
 - MxIF
 - NanoDESI
 - NanoPOTS
+- OCT
 - PAS microscopy
 - SIMS-IMS
+- Ultrasound
 - seqFISH
 resolution_z_unit:
 - AF
+- Body CT
 - CODEX
 - Light Sheet
+- MRI
+- Micro CT
+- OCT
 - PAS microscopy
+- Ultrasound
 - seqFISH
 resolution_z_value:
 - AF
+- Body CT
 - CODEX
 - Light Sheet
+- MRI
+- Micro CT
+- OCT
 - PAS microscopy
+- Ultrasound
 - seqFISH
 rnaseq_assay_input:
 - SNARE2-RNAseq
@@ -1630,12 +1818,22 @@ rnaseq_assay_method:
 - snRNAseq-10xGenomics-v3
 roi_description:
 - 3D Imaging Mass Cytometry
+- Body CT
 - Imaging Mass Cytometry
+- MRI
+- Micro CT
 - Multiplex Ion Beam Imaging
+- OCT
+- Ultrasound
 roi_id:
 - 3D Imaging Mass Cytometry
+- Body CT
 - Imaging Mass Cytometry
+- MRI
+- Micro CT
 - Multiplex Ion Beam Imaging
+- OCT
+- Ultrasound
 sample_quality_metric:
 - bulkATACseq
 sc_isolation_cell_number:
@@ -1716,6 +1914,8 @@ sc_isolation_tissue_dissociation:
 - snRNAseq
 - snRNAseq-10xGenomics-v2
 - snRNAseq-10xGenomics-v3
+scanning_sequence:
+- MRI
 section_prep_protocols_io_doi:
 - 3D Imaging Mass Cytometry
 - CE-MS
@@ -1743,6 +1943,8 @@ segment_data_format:
 - 3D Imaging Mass Cytometry
 - Imaging Mass Cytometry
 - Multiplex Ion Beam Imaging
+sequence_variant:
+- MRI
 sequencing_phix_percent:
 - SNARE-seq2
 - SNARE2-RNAseq
@@ -1815,6 +2017,16 @@ signal_type:
 - 3D Imaging Mass Cytometry
 - Imaging Mass Cytometry
 - Multiplex Ion Beam Imaging
+single_file_export_format:
+- Body CT
+- MRI
+- Micro CT
+- OCT
+- Ultrasound
+sn_quality:
+- OCT
+sn_quality_unit:
+- OCT
 source_project:
 - SNARE2-RNAseq
 - scRNAseq
@@ -1850,6 +2062,8 @@ spatial_type:
 - MS
 - MS Bottom-Up
 - MS Top-Down
+speckle_reduction_imaging:
+- Ultrasound
 stain:
 - PAS microscopy
 start_datetime:
@@ -1860,6 +2074,7 @@ step_z_value:
 tissue_id:
 - 3D Imaging Mass Cytometry
 - AF
+- Body CT
 - CE-MS
 - CODEX
 - Cell DIVE
@@ -1873,19 +2088,23 @@ tissue_id:
 - LC-MS/MS (label-free proteomics)
 - Light Sheet
 - MALDI-IMS
+- MRI
 - MS
 - MS (shotgun lipidomics)
 - MS Bottom-Up
 - MS Top-Down
+- Micro CT
 - Multiplex Ion Beam Imaging
 - MxIF
 - NanoDESI
 - NanoPOTS
+- OCT
 - PAS microscopy
 - SIMS-IMS
 - SNARE-seq2
 - SNARE2-RNAseq
 - Slide-seq
+- Ultrasound
 - WGS
 - bulk RNA
 - bulkATACseq
@@ -1900,6 +2119,9 @@ tissue_id:
 - snRNAseq
 - snRNAseq-10xGenomics-v2
 - snRNAseq-10xGenomics-v3
+total_sections_analyzed:
+- Micro CT
+- OCT
 transposition_input:
 - SNARE-seq2
 - sciATACseq
@@ -1949,6 +2171,7 @@ umi_size:
 version:
 - 3D Imaging Mass Cytometry
 - AF
+- Body CT
 - CE-MS
 - CODEX
 - Cell DIVE
@@ -1962,19 +2185,23 @@ version:
 - LC-MS/MS (label-free proteomics)
 - Light Sheet
 - MALDI-IMS
+- MRI
 - MS
 - MS (shotgun lipidomics)
 - MS Bottom-Up
 - MS Top-Down
+- Micro CT
 - Multiplex Ion Beam Imaging
 - MxIF
 - NanoDESI
 - NanoPOTS
+- OCT
 - PAS microscopy
 - SIMS-IMS
 - SNARE-seq2
 - SNARE2-RNAseq
 - Slide-seq
+- Ultrasound
 - WGS
 - bulk RNA
 - bulkATACseq
@@ -1989,4 +2216,14 @@ version:
 - snRNAseq
 - snRNAseq-10xGenomics-v2
 - snRNAseq-10xGenomics-v3
+voltage_unit:
+- Micro CT
+voltage_value:
+- Micro CT
+volume_export_format:
+- OCT
+wavelength_unit:
+- OCT
+wavelength_value:
+- OCT
 

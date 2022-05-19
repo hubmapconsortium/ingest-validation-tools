@@ -137,6 +137,7 @@ def generate_readme_md(
         'schema_name': schema_name,
         'category': {
             'imaging': 'Imaging assays',
+            'clinical_imaging': 'Clinical imaging modalities',
             'mass_spectrometry': 'Mass spectrometry',
             'mass_spectrometry_imaging': 'Imaging mass spectrometry',
             'sequence': 'Sequence assays',
@@ -403,9 +404,14 @@ def _make_toc(md):
 
 def _make_dir_descriptions(dir_schemas, pipeline_infos):
     '''
-    >>> dir_schema = {
+    >>> dir_schema_0 = {
     ...     'files': [
     ...         {'pattern': 'required\\.txt', 'description': 'Required!'}
+    ...     ]
+    ... }
+    >>> dir_schema_1 = {
+    ...     'files': [
+    ...         {'pattern': 'optional\\.txt', 'description': 'Optional!', 'required': False}
     ...     ]
     ... }
     >>> pipeline_infos = [{
@@ -413,14 +419,22 @@ def _make_dir_descriptions(dir_schemas, pipeline_infos):
     ...     "repo_url": "https://github.com/hubmapconsortium/fake",
     ...     "version_tag": "v1.2.3"
     ... }]
-    >>> print(_make_dir_descriptions({'0': dir_schema}, pipeline_infos))
+    >>> print(_make_dir_descriptions({'0': dir_schema_0, '1': dir_schema_1}, pipeline_infos))
     The HIVE will process each dataset with
     [Fake Pipeline v1.2.3](https://github.com/hubmapconsortium/fake/releases/tag/v1.2.3).
+    ### v1
+    <BLANKLINE>
+    | pattern | required? | description |
+    | --- | --- | --- |
+    | <code>optional\\.txt</code> |  | Optional! |
+    <BLANKLINE>
     ### v0
     <BLANKLINE>
     | pattern | required? | description |
     | --- | --- | --- |
     | <code>required\\.txt</code> | ✓ | Required! |
+    <BLANKLINE>
+    <BLANKLINE>
     '''
     pipeline_infos_md = ' and '.join(make_pipeline_link(info) for info in pipeline_infos)
     pipeline_blurb = \
@@ -428,8 +442,12 @@ def _make_dir_descriptions(dir_schemas, pipeline_infos):
         if pipeline_infos else ''
 
     sorted_items = sorted(dir_schemas.items(), key=lambda item: item[0], reverse=True)
-    return pipeline_blurb + '\n'.join(
-        f'### v{v}\n' + _make_dir_description(schema['files'], schema.get('deprecated', False))
+    return pipeline_blurb + ''.join(
+        f'### v{v}\n'
+        + _make_dir_description(
+            schema['files'],
+            schema.get('deprecated', False))
+        + '\n\n'  # Trailing blankline needed for correct gh-pages rendering.
         for v, schema in sorted_items
     )
 

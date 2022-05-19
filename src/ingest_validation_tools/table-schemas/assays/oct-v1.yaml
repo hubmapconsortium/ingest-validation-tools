@@ -1,0 +1,25 @@
+# doc_url: TODO
+description_md: This schema is for clinical imaging using optical coherence tomography (OCT).
+
+fields:
+- Shared by all types
+# include: ../includes/vA/all_assays.yaml
+- name: assay_category
+  constraints:
+    enum:
+      - clinical_imaging
+- name: assay_type
+  constraints:
+    enum:
+      - OCT
+# include: ../includes/v0/acquisition_instrument.yaml
+
+- Shared by all clinical imaging assays
+
+# include: ../includes/clinical-imaging/shared-v1.yaml
+
+- Unique to this type
+
+# include: ../includes/clinical-imaging/oct-v1.yaml
+
+# include: ../includes/v0/paths.yaml

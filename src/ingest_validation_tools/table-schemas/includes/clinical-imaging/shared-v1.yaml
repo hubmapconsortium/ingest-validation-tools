@@ -1,0 +1,70 @@
+- name: single_file_export_format
+  description: 'The format in which each single imaging file will be exported. (Example: DICOM, tiff, avi, etc.)'
+
+- name: max_x_width_value
+  description: "Image width value of the ROI acquisition"
+
+- name: max_x_width_unit
+  description: "Units of image width of the ROI acquisition"
+  constraints:
+    enum: ["um", "mm"]
+
+- name: max_y_height_value
+  description: "Image height value of the ROI acquisition"
+
+- name: max_y_height_unit
+  description: "Units of image height of the ROI acquisition"
+  constraints:
+    enum: ["um", "mm"]
+
+- name: roi_description
+  description: "A description of the region of interest (ROI) captured in the image."
+
+- name: roi_id
+  description: "Multiple images (1-n) are acquired from regions of interest (ROI1, ROI2, ROI3, etc) on a slide. The roi_id is a number from 1-n representing the ROI captured on a slide."
+  type: integer
+  constraints:
+    required: False
+    minimum: 1
+
+- name: resolution_x_value
+  description: "The width of a pixel."
+
+- name: resolution_x_unit
+  description: "The unit of measurement of the width of a pixel."
+  constraints:
+    enum: ["nm", "um", "mm"]
+
+- name: resolution_y_value
+  description: "The height of a pixel"
+
+- name: resolution_y_unit
+  description: "The unit of measurement of the height of a pixel."
+  constraints:
+    enum: ["nm", "um", "mm"]
+
+- name: resolution_z_value
+  description: "Optional if assay does not have multiple z-levels. Note that this is resolution within a given sample: z-pitch (resolution_z_value) is the increment distance between image slices, ie. the microscope stage is moved up or down in increments to capture images of several focal planes."
+  constraints:
+    required: False
+
+- name: resolution_z_unit
+  description: "The unit of incremental distance between image slices.(um)"
+  constraints:
+    enum: ["nm", "um", "mm"]
+    required: False
+
+- name: pixel_size_z_value
+  description: "Depth value of the pixel or voxel measurement (distinct from the image resolution_z_value)."
+  constraints:
+    required: False
+
+- name: pixel_size_z_unit
+  description: "Depth unit of the pixel or voxel measurement."
+  constraints:
+    enum: ["nm", "um", "mm"]
+    required: False
+
+- name: number_of_images
+  description: "The total number of images in the dataset."
+  type: integer

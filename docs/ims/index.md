@@ -28,6 +28,8 @@ This schema is for imaging mass spectrometry (IMS).
 | <code>ometiffs/separate/[^/]+_mz[^/]+\.ome\.tiff</code> |  | Each file is a different M/Z value. |
 | <code>extras/.*</code> |  | Free-form descriptive information supplied by the TMC |
 
+
+
 ## Metadata schema
 
 ### Field types

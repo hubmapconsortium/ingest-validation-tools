@@ -23,6 +23,8 @@ The HIVE will process each dataset with
 | <code>[^/]+\.fastq\.gz</code> | ✓ | Compressed FastQ file |
 | <code>extras/.*</code> |  | Free-form descriptive information supplied by the TMC |
 
+
+
 ## Metadata schema
 
 ### Field types

@@ -32,6 +32,8 @@ This schema is for Multiplex Ion Beam Imaging (MIBI). For MIBI, the channel_id (
 | <code>processed/celltypes\.pdf</code> |  | Heatmap of marker expression per cluster, annotated by assigned cell type. File is optional. |
 | <code>extras/.*</code> |  | Free-form descriptive information supplied by the TMC |
 
+
+
 ## Metadata schema
 
 ### Field types
@@ -358,7 +360,7 @@ Multiple images (1-n) are acquired from regions of interest (ROI1, ROI2, ROI3, e
 
 | constraint | value |
 | --- | --- |
-| type | `number` |
+| type | `integer` |
 | required | `True` |
 
 <a name="acquisition_id"></a>

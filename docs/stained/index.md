@@ -24,6 +24,8 @@ This schema is for microscopy of tissue treated with periodic acid–Schiff stai
 | <code>(rawMicroscopy&#124;raw_microscopy)/[^/]+\.scn</code> | ✓ | Raw microscope file for the experiment |
 | <code>extras/.*</code> |  | Free-form descriptive information supplied by the TMC |
 
+
+
 ## Metadata schema
 
 ### Field types
