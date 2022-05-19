@@ -151,8 +151,9 @@ def main():
             args.plugin_directory
 
     upload = Upload(**upload_args)
+    info = upload.get_info()
     errors = upload.get_errors()
-    report = ErrorReport(errors, effective_tsv_paths=upload.effective_tsv_paths)
+    report = ErrorReport(info=info, errors=errors, effective_tsv_paths=upload.effective_tsv_paths)
     print(getattr(report, args.output)())
     if args.save_report:
         _save_report(upload, report)
