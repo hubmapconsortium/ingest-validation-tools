@@ -58,7 +58,9 @@ def main():
     else:
         errors = get_tsv_errors(args.path, schema_name=schema_name)
         errors = {f'{schema_name} TSV errors': errors} if errors else {}
-    report = ErrorReport(errors)
+    report = ErrorReport(
+        info={},  # Until we know it's needed, don't bother filling this in.
+        errors=errors)
     print(getattr(report, args.output)())
     return exit_codes.INVALID if errors else exit_codes.VALID
 
