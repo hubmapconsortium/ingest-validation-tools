@@ -24,7 +24,7 @@ The other fields function the same way for all assays using antibodies. For more
 | <code>(raw&#124;processed)/config\.txt&#124;(src_[^/]*&#124;drv_[^/]*&#124;extras)/[sS]egmentation\.json</code> |  | Sanity check that verifies the existence of at least one of these files. This is required for the HuBMAP processing pipeline |
 | <code>raw/reg_[^/]*\.png</code> (example: <code>raw/reg_00.png</code>) |  | Region overviews |
 | <code>(raw&#124;src_[^/]*)/[Ee]xperiment\.json</code> |  | JSON file produced by the Akoya software which contains the metadata for the experiment, including the software version used, microscope parameters, channel names, pixel dimensions, etc. (required for HuBMAP pipeline) |
-| <code>dataset\.json</code> (example: <code>dataset.json</code>) | ✓ | Additional CODEX specific metadata file |
+| <code>(raw&#124;src_[^/]*)/dataset\.json</code> (example: <code>raw/dataset.json</code>) | ✓ | Additional CODEX specific metadata file |
 | <code>processed/HandE\.tif</code> |  | HandE image |
 | <code>processed/HandE_RGB\.tif</code> |  | HandE RGB image |
 | <code>processed/HandE_RGB_thumbnail.jpg</code> |  | HandE RGB thumbnail |

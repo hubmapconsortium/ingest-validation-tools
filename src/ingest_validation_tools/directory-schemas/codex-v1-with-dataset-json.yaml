@@ -25,8 +25,8 @@ files:
     description: 'JSON file produced by the Akoya software which contains the metadata for the experiment, including the software version used, microscope parameters, channel names, pixel dimensions, etc. (required for HuBMAP pipeline)'
     required: False
   -
-    example: 'dataset.json'
-    pattern: 'dataset\.json'
+    example: 'raw/dataset.json'
+    pattern: '(raw|src_[^/]*)/dataset\.json'
     description: 'Additional CODEX specific metadata file'
     required: True
   -
