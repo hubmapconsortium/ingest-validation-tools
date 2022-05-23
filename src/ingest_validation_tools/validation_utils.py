@@ -46,12 +46,11 @@ def get_directory_schema_versions(path, encoding: str) -> list:
         raise PreflightError(f'Expected a TSV, found a directory at {path}.')
     if not rows:
         raise PreflightError(f'{path} has no data rows.')
-    return list(set(_get_directory_schema_version(r.get('data_path')) for r in rows))
+    data_paths = [r.get('data_path') for r in rows]
+    return list(set(_get_directory_schema_version(path) for path in data_paths if path))
 
 
 def _get_directory_schema_version(data_path) -> str:
-    if data_path is None:
-        return None
     prefix = 'dir-schema-v'
     version_hints = [path.name for path in (Path(data_path) / 'extras').glob(f'{prefix}*')]
     len_hints = len(version_hints)
