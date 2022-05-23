@@ -1,25 +1,5 @@
 from typing import Dict, List
 
-
-'''
->>> import requests
->>> local_names = shared_enums['assay_type']
->>> remote_mismatch = []
->>> for name in local_names:
-...     response = requests.post(
-...         'https://search.api.hubmapconsortium.org/assayname',
-...         json={'name':name}, headers={'Content-Type': 'application/json'}).json()
-...     if 'error' in response:
-...         remote_mismatch.append(name)
->>> print('\\n'.join(remote_mismatch))
-<BLANKLINE>
-'''
-# The list above should be empty: That means that all the assays
-# listed below are recognized by the assay service.
-# TODO: Joel will progressively uncomment names below, and when that is done
-#       _validate_level_1_enum() can be renabled in schema_loader.py.
-#       https://github.com/hubmapconsortium/ingest-validation-tools/issues/1023
-
 shared_enums: Dict[str, List[str]] = {
     'assay_category': [
         'imaging',
@@ -67,12 +47,12 @@ shared_enums: Dict[str, List[str]] = {
         'snRNAseq-10xGenomics-v3',
         # 'scRNAseq',
         'Slide-seq',
-        # 'MS Bottom-Up',
-        # 'MS Top-Down',
-        # 'LC-MS Top-Down',
-        # 'LC-MS',
-        # 'LC-MS Bottom-Up',
-        # 'MS'
+        'MS Bottom-Up',
+        'MS Top-Down',
+        'LC-MS Top-Down',
+        'LC-MS',
+        'LC-MS Bottom-Up',
+        'MS'
     ],
     'analyte_class': [
         'DNA',
@@ -87,3 +67,27 @@ shared_enums: Dict[str, List[str]] = {
         'phosphopeptides'
     ]
 }
+
+def _test_assay_name_compatibility():
+    """
+    >>> import requests
+    >>> local_names = shared_enums['assay_type']
+    >>> remote_mismatch = []
+    >>> for name in local_names:
+    ...     response = requests.post(
+    ...         'https://search.api.hubmapconsortium.org/assayname',
+    ...         json={'name':name}, headers={'Content-Type': 'application/json'}).json()
+    ...     if 'error' in response:
+    ...         remote_mismatch.append(name)
+    >>> print('\\n'.join(remote_mismatch))
+    <BLANKLINE>
+    """
+    # The list above should be empty: That means that all the assays
+    # listed below are recognized by the assay service.
+    # TODO: Joel will progressively uncomment names below, and when that is done
+    #       _validate_level_1_enum() can be renabled in schema_loader.py.
+    #       https://github.com/hubmapconsortium/ingest-validation-tools/issues/1023
+    pass
+
+if __name__ == "__main__":
+    main()
