@@ -2,7 +2,6 @@ from datetime import datetime
 from yaml import Dumper, dump
 from webbrowser import open_new_tab
 from pathlib import Path
-from yattag import Doc, indent
 from typing import List
 
 from ingest_validation_tools.message_munger import munge
@@ -46,61 +45,6 @@ class ErrorReport:
 
     def as_md(self) -> str:
         return f'```\n{self.as_text()}```'
-
-    def as_html_fragment(self) -> str:
-        '''
-        >>> print(ErrorReport({}).as_html_fragment().strip())
-        No errors!
-
-        >>> report = ErrorReport({'really': 'simple'})
-        >>> print(report.as_html_fragment())
-        <dl>
-          <dt>really</dt>
-          <dd>simple</dd>
-          <dt>Hint</dt>
-          <dd>If validation fails because of extra whitespace in the TSV, try:
-        src/cleanup_whitespace.py --tsv_in original.tsv --tsv_out clean.tsv</dd>
-        </dl>
-        '''
-        if not self.errors:
-            return self._no_errors()
-        doc, tag, _, line = Doc().ttl()
-        _build_doc(tag, line, self.errors)
-        return indent(doc.getvalue())
-
-    def as_html_doc(self) -> str:
-        doc, tag, text, line = Doc().ttl()
-        for_each = "Array.from(document.getElementsByTagName('details')).forEach"
-        with tag('html'):
-            with tag('head'):
-                with tag('style', type='text/css'):
-                    text('''
-details {
-    padding-left: 1em;
-}
-ul {
-    margin: 0;
-}''')
-            with tag('body'):
-                line(
-                    'button', 'Open all',
-                    onclick=f"{for_each}((node)=>{{node.setAttribute('open','')}})")
-                line(
-                    'button', 'Close all',
-                    onclick=f"{for_each}((node)=>{{node.removeAttribute('open')}})")
-                _build_doc(tag, line, self.errors)
-        return '<!DOCTYPE html>\n' + indent(doc.getvalue())
-
-    def as_browser(self) -> str:
-        if not self.errors:
-            return self.as_text()
-        html = self.as_html_doc()
-        filename = f"{str(datetime.now()).replace(' ', '_')}.html"
-        path = Path(__file__).parent / 'error-reports' / filename
-        path.write_text(html)
-        url = f'file://{path.resolve()}'
-        open_new_tab(url)
-        return f'See {url}'
 
 
 def _build_list(anything, path=None) -> List[str]:
