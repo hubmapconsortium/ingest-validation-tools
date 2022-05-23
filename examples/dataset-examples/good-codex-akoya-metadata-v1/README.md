@@ -8,6 +8,6 @@ TSVs:
     Schema: codex
     Metadata schema version: '1'
     Directory schema versions:
-    - '0'
+    - 1-with-dataset-json
 
 ```
