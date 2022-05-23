@@ -30,10 +30,10 @@ def get_table_schema_version(path, encoding: str) -> SchemaVersion:
     return get_table_schema_version_from_row(path, rows[0])
 
 
-def get_directory_schema_versions(path, encoding: str) -> list:
-    rows = _read_rows(path, encoding)
-    data_paths = [r.get('data_path') for r in rows]
-    return list(set(_get_directory_schema_version(path) for path in data_paths if path))
+def get_directory_schema_versions(tsv_path, encoding: str) -> list:
+    parent = Path(tsv_path).parent
+    data_paths = [r.get('data_path') for r in _read_rows(tsv_path, encoding)]
+    return list(set(_get_directory_schema_version(parent / path) for path in data_paths if path))
 
 
 def _read_rows(path, encoding: str):
