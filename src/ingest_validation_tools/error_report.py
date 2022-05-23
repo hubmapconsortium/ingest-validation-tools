@@ -1,6 +1,4 @@
-from datetime import datetime
 from yaml import Dumper, dump
-from webbrowser import open_new_tab
 from pathlib import Path
 from typing import List
 
@@ -87,55 +85,3 @@ def _build_list(anything, path=None) -> List[str]:
             return to_return
     else:
         return [f'{prefix}{anything}']
-
-
-def _build_doc(tag, line, anything):
-    '''
-    >>> doc, tag, text, line = Doc().ttl()
-    >>> _build_doc(tag, line, {
-    ...     'nested dict': {
-    ...         'like': 'this'
-    ...     },
-    ...     'nested array': [
-    ...         'like',
-    ...         'this'
-    ...     ]
-    ... })
-    >>> print(indent(doc.getvalue()))
-    <details>
-      <summary>nested dict</summary>
-      <dl>
-        <dt>like</dt>
-        <dd>this</dd>
-      </dl>
-    </details>
-    <details>
-      <summary>nested array</summary>
-      <ul>
-        <li>like</li>
-        <li>this</li>
-      </ul>
-    </details>
-
-    '''
-    if isinstance(anything, dict):
-        if all(isinstance(v, (float, int, str)) for v in anything.values()):
-            with tag('dl'):
-                for k, v in anything.items():
-                    line('dt', k)
-                    line('dd', v)
-        else:
-            for k, v in anything.items():
-                with tag('details'):
-                    line('summary', k)
-                    _build_doc(tag, line, v)
-    elif isinstance(anything, list):
-        if all(isinstance(v, (float, int, str)) for v in anything):
-            with tag('ul'):
-                for v in anything:
-                    line('li', v)
-        else:
-            for v in anything:
-                _build_doc(tag, line, v)
-    else:
-        line('div', anything)
