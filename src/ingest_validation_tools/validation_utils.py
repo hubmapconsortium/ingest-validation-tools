@@ -26,18 +26,17 @@ def dict_reader_wrapper(path, encoding: str) -> list:
 
 
 def get_table_schema_version(path, encoding: str) -> SchemaVersion:
-    try:
-        rows = dict_reader_wrapper(path, encoding)
-    except UnicodeDecodeError as e:
-        raise PreflightError(get_context_of_decode_error(e))
-    except IsADirectoryError:
-        raise PreflightError(f'Expected a TSV, found a directory at {path}.')
-    if not rows:
-        raise PreflightError(f'{path} has no data rows.')
+    rows = _read_rows(path, encoding)
     return get_table_schema_version_from_row(path, rows[0])
 
 
 def get_directory_schema_versions(path, encoding: str) -> list:
+    rows = _read_rows(path, encoding)
+    data_paths = [r.get('data_path') for r in rows]
+    return list(set(_get_directory_schema_version(path) for path in data_paths if path))
+
+
+def _read_rows(path, encoding: str):
     try:
         rows = dict_reader_wrapper(path, encoding)
     except UnicodeDecodeError as e:
@@ -46,8 +45,7 @@ def get_directory_schema_versions(path, encoding: str) -> list:
         raise PreflightError(f'Expected a TSV, found a directory at {path}.')
     if not rows:
         raise PreflightError(f'{path} has no data rows.')
-    data_paths = [r.get('data_path') for r in rows]
-    return list(set(_get_directory_schema_version(path) for path in data_paths if path))
+    return rows
 
 
 def _get_directory_schema_version(data_path) -> str:
