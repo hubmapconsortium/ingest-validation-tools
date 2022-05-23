@@ -89,5 +89,3 @@ def _test_assay_name_compatibility():
     #       https://github.com/hubmapconsortium/ingest-validation-tools/issues/1023
     pass
 
-if __name__ == "__main__":
-    main()
