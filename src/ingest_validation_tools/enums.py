@@ -18,7 +18,7 @@ from typing import Dict, List
 '''
 # The list above should be empty: There should be no mismatches;
 # ie: All the assays listed below are recognized by the assay service.
-# 
+#
 # The assay_type list is *all* the values which have ever been used,
 # including schemas which are currently deprecated.
 # Each schema lists the particular values which are valid for it.
@@ -88,6 +88,7 @@ shared_enums: Dict[str, List[str]] = {
         'phosphopeptides'
     ],
     'assay_category': [
+        'clinical_imaging',
         'imaging',
         'mass_spectrometry',
         'mass_spectrometry_imaging',
