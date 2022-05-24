@@ -8,16 +8,22 @@ from typing import Dict, List
 >>> for name in local_names:
 ...     response = requests.post(
 ...         'https://search.api.hubmapconsortium.org/assayname',
-...         json={'name':name}, headers={'Content-Type': 'application/json'}).json()
+...         json={'name': name},
+...         headers={'Content-Type': 'application/json'}
+...     ).json()
 ...     if 'error' in response:
 ...         remote_mismatch.append(name)
->>> print('\\n'.join(remote_mismatch))
-<BLANKLINE>
+>>> print(remote_mismatch)
+[]
 '''
-# TODO: The list above should be empty: That means that all the assays
-# listed below are recognized by the assay service.
-# Joel will progressively uncomment names below.
-# https://github.com/hubmapconsortium/ingest-validation-tools/issues/1023
+# The list above should be empty: There should be no mismatches;
+# ie: All the assays listed below are recognized by the assay service.
+# 
+# The assay_type list is *all* the values which have ever been used,
+# including schemas which are currently deprecated.
+# Each schema lists the particular values which are valid for it.
+# This redundant list catches mistakes like a typo being introduced
+# when an existing schema is versioned.
 
 shared_enums: Dict[str, List[str]] = {
     'assay_category': [
@@ -54,8 +60,6 @@ shared_enums: Dict[str, List[str]] = {
         'SIMS-IMS',
         'SNARE-seq2',
         'snATACseq',
-        # 'SPLiT-Seq',
-        # 'TMT (proteomics)',
         'WGS',
         'SNARE2-RNAseq',
         'snRNAseq',  # equivalent to snRNAseq-10xGenomics-v3
