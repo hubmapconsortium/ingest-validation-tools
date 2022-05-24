@@ -328,6 +328,7 @@ Mode of data collection in tandem MS assays. Either DDA (Data-dependent acquisit
 
 | constraint | value |
 | --- | --- |
+| enum | `DDA` or `DIA` |
 | required | `True` |
 
 <a name="ms_scan_mode"></a>
@@ -832,6 +833,7 @@ Mode of data collection in tandem MS assays. Either DDA (Data-dependent acquisit
 
 | constraint | value |
 | --- | --- |
+| enum | `DDA` or `DIA` |
 | required | `True` |
 
 <a name="ms_scan_mode"></a>
@@ -1301,6 +1303,7 @@ Mode of data collection in tandem MS assays. Either DDA (Data-dependent acquisit
 
 | constraint | value |
 | --- | --- |
+| enum | `DDA` or `DIA` |
 | required | `True` |
 
 <a name="ms_scan_mode"></a>
@@ -1689,6 +1692,7 @@ Mode of data collection in tandem MS assays. Either DDA (Data-dependent acquisit
 
 | constraint | value |
 | --- | --- |
+| enum | `DDA` or `DIA` |
 | required | `True` |
 
 <a name="ms_scan_mode"></a>
