@@ -1,6 +1,12 @@
 - name: data_collection_mode
-  description: Mode of data collection in tandem MS assays. Either DDA (Data-dependent acquisition) or DIA (Data-independent acquisition).
+  description: Mode of data collection in tandem MS assays.
+    Either DDA (Data-dependent acquisition),
+    DIA (Data-independent acquisition),
+    MRM (multiple reaction monitoring),
+    or PRM (parallel reaction monitoring).
   constraints:
     enum:
       - DDA
       - DIA
+      - MRM
+      - PRM
