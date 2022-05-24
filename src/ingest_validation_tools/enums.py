@@ -26,12 +26,6 @@ from typing import Dict, List
 # when an existing schema is versioned.
 
 shared_enums: Dict[str, List[str]] = {
-    'assay_category': [
-        'imaging',
-        'mass_spectrometry',
-        'mass_spectrometry_imaging',
-        'sequence'
-    ],
     'assay_type': [
         '3D Imaging Mass Cytometry',
         'scRNA-Seq(10xGenomics)',
@@ -88,5 +82,11 @@ shared_enums: Dict[str, List[str]] = {
         'glycans',
         'peptides',
         'phosphopeptides'
-    ]
+    ],
+    'assay_category': [
+        'imaging',
+        'mass_spectrometry',
+        'mass_spectrometry_imaging',
+        'sequence'
+    ],
 }
