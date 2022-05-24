@@ -318,11 +318,16 @@ def _validate_level_1_enum(field: dict) -> None:
     >>> del field['constraints']['required']
 
     >>> field['constraints']['enum'] = ['fake']
-    >>> _validate_level_1_enum(field)
-    Traceback (most recent call last):
-    ...
-    AssertionError: Unexpected enums for assay_category: {'fake'}
-    Allowed: ['imaging', 'mass_spectrometry', 'mass_spectrometry_imaging', 'sequence']
+    >>> try:
+    ...     _validate_level_1_enum(field)
+    ... except AssertionError as e:
+    ...     print(',\\n'.join(str(e).split(',')))
+    Unexpected enums for assay_category: {'fake'}
+    Allowed: ['clinical_imaging',
+     'imaging',
+     'mass_spectrometry',
+     'mass_spectrometry_imaging',
+     'sequence']
     '''
 
     name = field['name']
