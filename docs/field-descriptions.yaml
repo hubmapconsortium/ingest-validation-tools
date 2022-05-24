@@ -103,7 +103,8 @@ contributors_path: Relative path to file with ORCID IDs for contributors for thi
 current_unit: 'The unit of the current used to acquire microCT images. Example: mA'
 current_value: The current used to acquire microCT images
 data_collection_mode: Mode of data collection in tandem MS assays. Either DDA (Data-dependent
-  acquisition) or DIA (Data-independent acquisition).
+  acquisition), DIA (Data-independent acquisition), MRM (multiple reaction monitoring),
+  or PRM (parallel reaction monitoring).
 data_path: Relative path to file or directory with instrument data. Downstream processing
   will depend on filename extension conventions.
 data_precision_bytes: Numerical data precision in bytes
