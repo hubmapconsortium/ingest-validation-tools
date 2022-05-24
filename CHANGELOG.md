@@ -1,6 +1,10 @@
 # Changelog
 ## v0.0.14 - in progress
 - Turn validation of enums back on.
+- Updated IMS directory structure schema.
+- Add Clinical Imaging schemas.
+- Test under both Python 3.6 and Python 3.10
+- Cosmetic updates to the Slide-seq directory structure schema.
 - Fix rendering bug on CODEX page by adding linebreaks.
 - Add type hints.
 - Implement versioning for directory schemas.
@@ -34,6 +38,7 @@
 - Temporarily disable checking the assay names in schemas against the global list.
   Entries in the global list are now commented out, and Joel will progressively
   uncomment them.
+- Moved `dataset.json` to `raw` or `src_*` directory for CODEX datasets.
 
 ## v0.0.13 - 2022-01-07
 - Make more fields explicitly numeric

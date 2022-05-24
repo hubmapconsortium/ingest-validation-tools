@@ -1,0 +1,10 @@
+- name: frequency_value
+  description: "Frequency at which the imaging device is operating."
+  constraints:
+    required: False
+
+- name: frequency_unit
+  description: "Unit of frequency at which the imaging device is operating. Example: Hz, kHz, MHz"
+  constraints:
+    required: False
+    enum: ['Hz', 'kHz', 'MHz']

@@ -137,6 +137,7 @@ def generate_readme_md(
         'schema_name': schema_name,
         'category': {
             'imaging': 'Imaging assays',
+            'clinical_imaging': 'Clinical imaging modalities',
             'mass_spectrometry': 'Mass spectrometry',
             'mass_spectrometry_imaging': 'Imaging mass spectrometry',
             'sequence': 'Sequence assays',

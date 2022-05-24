@@ -1,5 +1,28 @@
+deprecated: True
 files:
   -
-    pattern: 'TODO'
-    description: 'Directory structure not yet specified.'
-    required: True
+   pattern: 'Van[^/]'
+   description: 'Main.'
+   is_qa_qc: False
+   required: True
+  -
+   pattern: 'Raw data.imzML'
+   description: 'imzML file containing all linscans information.'
+   is_qa_qc: False
+   required: True
+  -
+   pattern: 'Peak assignment.csv'
+   description: 'CSV containing all identified peaks and their IDs.'
+   is_qa_qc: True
+   required: True
+  -
+   pattern: 'Autofluorescence image.tif'
+   description: 'A tif file of the autofluorescence image.'
+   is_qa_qc: False
+   required: True
+  - 
+   pattern: 'ion images'
+   description: 'Folder containing PNG files.'
+   is_qa_qc: False
+   required: True
+ 
