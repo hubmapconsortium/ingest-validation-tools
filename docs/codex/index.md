@@ -1,5 +1,5 @@
 ---
-title: CODEX
+title: CODEX / CODEX2
 schema_name: codex
 category: Imaging assays
 all_versions_deprecated: False
@@ -215,7 +215,7 @@ The specific type of assay being executed.
 
 | constraint | value |
 | --- | --- |
-| enum | `CODEX` |
+| enum | `CODEX` or `CODEX2` |
 | required | `True` |
 
 <a name="analyte_class"></a>

@@ -26,6 +26,7 @@ acquisition_instrument_model:
 - Body CT
 - CE-MS
 - CODEX
+- CODEX2
 - Cell DIVE
 - DESI
 - GC-MS
@@ -74,6 +75,7 @@ acquisition_instrument_vendor:
 - Body CT
 - CE-MS
 - CODEX
+- CODEX2
 - Cell DIVE
 - DESI
 - GC-MS
@@ -125,6 +127,7 @@ analyte_class:
 - AF
 - CE-MS
 - CODEX
+- CODEX2
 - Cell DIVE
 - DESI
 - GC-MS
@@ -166,6 +169,7 @@ analyte_class:
 antibodies_path:
 - 3D Imaging Mass Cytometry
 - CODEX
+- CODEX2
 - Cell DIVE
 - Imaging Mass Cytometry
 - Light Sheet
@@ -181,6 +185,7 @@ assay_category:
 - Body CT
 - CE-MS
 - CODEX
+- CODEX2
 - Cell DIVE
 - DESI
 - GC-MS
@@ -229,6 +234,7 @@ assay_type:
 - Body CT
 - CE-MS
 - CODEX
+- CODEX2
 - Cell DIVE
 - DESI
 - GC-MS
@@ -362,6 +368,7 @@ contributors_path:
 - Body CT
 - CE-MS
 - CODEX
+- CODEX2
 - Cell DIVE
 - DESI
 - GC-MS
@@ -426,6 +433,7 @@ data_path:
 - Body CT
 - CE-MS
 - CODEX
+- CODEX2
 - Cell DIVE
 - DESI
 - GC-MS
@@ -477,6 +485,7 @@ description:
 - Body CT
 - CE-MS
 - CODEX
+- CODEX2
 - Cell DIVE
 - DESI
 - GC-MS
@@ -551,6 +560,7 @@ donor_id:
 - Body CT
 - CE-MS
 - CODEX
+- CODEX2
 - Cell DIVE
 - DESI
 - GC-MS
@@ -611,6 +621,7 @@ execution_datetime:
 - Body CT
 - CE-MS
 - CODEX
+- CODEX2
 - Cell DIVE
 - DESI
 - GC-MS
@@ -712,6 +723,7 @@ is_targeted:
 - AF
 - CE-MS
 - CODEX
+- CODEX2
 - Cell DIVE
 - DESI
 - GC-MS
@@ -1232,6 +1244,7 @@ mz_resolving_power:
 - SIMS-IMS
 number_of_antibodies:
 - CODEX
+- CODEX2
 - Cell DIVE
 - Light Sheet
 - Multiplex Ion Beam Imaging
@@ -1245,6 +1258,7 @@ number_of_channels:
 - 3D Imaging Mass Cytometry
 - AF
 - CODEX
+- CODEX2
 - Cell DIVE
 - Imaging Mass Cytometry
 - Light Sheet
@@ -1253,6 +1267,7 @@ number_of_channels:
 - seqFISH
 number_of_cycles:
 - CODEX
+- CODEX2
 - Cell DIVE
 - MxIF
 - seqFISH
@@ -1280,6 +1295,7 @@ operator:
 - Body CT
 - CE-MS
 - CODEX
+- CODEX2
 - Cell DIVE
 - DESI
 - GC-MS
@@ -1328,6 +1344,7 @@ operator_email:
 - Body CT
 - CE-MS
 - CODEX
+- CODEX2
 - Cell DIVE
 - DESI
 - GC-MS
@@ -1397,6 +1414,7 @@ pi:
 - Body CT
 - CE-MS
 - CODEX
+- CODEX2
 - Cell DIVE
 - DESI
 - GC-MS
@@ -1445,6 +1463,7 @@ pi_email:
 - Body CT
 - CE-MS
 - CODEX
+- CODEX2
 - Cell DIVE
 - DESI
 - GC-MS
@@ -1531,6 +1550,7 @@ polarity:
 preparation_instrument_model:
 - 3D Imaging Mass Cytometry
 - CODEX
+- CODEX2
 - DESI
 - Imaging Mass Cytometry
 - MALDI-IMS
@@ -1541,6 +1561,7 @@ preparation_instrument_model:
 preparation_instrument_vendor:
 - 3D Imaging Mass Cytometry
 - CODEX
+- CODEX2
 - DESI
 - Imaging Mass Cytometry
 - MALDI-IMS
@@ -1601,6 +1622,7 @@ protocols_io_doi:
 - Body CT
 - CE-MS
 - CODEX
+- CODEX2
 - Cell DIVE
 - DESI
 - GC-MS
@@ -1654,6 +1676,7 @@ range_z_value:
 reagent_prep_protocols_io_doi:
 - 3D Imaging Mass Cytometry
 - CODEX
+- CODEX2
 - Imaging Mass Cytometry
 - Multiplex Ion Beam Imaging
 - MxIF
@@ -1665,6 +1688,7 @@ resolution_x_unit:
 - Body CT
 - CE-MS
 - CODEX
+- CODEX2
 - Cell DIVE
 - DESI
 - GC-MS
@@ -1692,6 +1716,7 @@ resolution_x_value:
 - Body CT
 - CE-MS
 - CODEX
+- CODEX2
 - Cell DIVE
 - DESI
 - GC-MS
@@ -1719,6 +1744,7 @@ resolution_y_unit:
 - Body CT
 - CE-MS
 - CODEX
+- CODEX2
 - Cell DIVE
 - DESI
 - GC-MS
@@ -1746,6 +1772,7 @@ resolution_y_value:
 - Body CT
 - CE-MS
 - CODEX
+- CODEX2
 - Cell DIVE
 - DESI
 - GC-MS
@@ -1772,6 +1799,7 @@ resolution_z_unit:
 - AF
 - Body CT
 - CODEX
+- CODEX2
 - Light Sheet
 - MRI
 - Micro CT
@@ -1783,6 +1811,7 @@ resolution_z_value:
 - AF
 - Body CT
 - CODEX
+- CODEX2
 - Light Sheet
 - MRI
 - Micro CT
@@ -1920,6 +1949,7 @@ section_prep_protocols_io_doi:
 - 3D Imaging Mass Cytometry
 - CE-MS
 - CODEX
+- CODEX2
 - DESI
 - GC-MS
 - Imaging Mass Cytometry
@@ -2077,6 +2107,7 @@ tissue_id:
 - Body CT
 - CE-MS
 - CODEX
+- CODEX2
 - Cell DIVE
 - DESI
 - GC-MS
@@ -2174,6 +2205,7 @@ version:
 - Body CT
 - CE-MS
 - CODEX
+- CODEX2
 - Cell DIVE
 - DESI
 - GC-MS
