@@ -23,7 +23,7 @@ from typing import Dict, List
 # including schemas which are currently deprecated.
 # Each schema lists the particular values which are valid for it.
 # This redundant list catches mistakes like a typo being introduced
-# when an existing schema is versioned.
+# when an existing schema is copied, pasted, and tweaked to make a new version.
 
 shared_enums: Dict[str, List[str]] = {
     'assay_type': [
@@ -68,7 +68,12 @@ shared_enums: Dict[str, List[str]] = {
         'LC-MS Top-Down',
         'LC-MS',
         'LC-MS Bottom-Up',
-        'MS'
+        'MS',
+        'Body CT',
+        'Micro CT',
+        'OCT',
+        'MRI',
+        'Ultrasound',
     ],
     'analyte_class': [
         'DNA',
