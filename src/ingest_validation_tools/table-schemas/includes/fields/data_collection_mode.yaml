@@ -1,2 +1,6 @@
 - name: data_collection_mode
   description: Mode of data collection in tandem MS assays. Either DDA (Data-dependent acquisition) or DIA (Data-independent acquisition).
+  constraints:
+    enum:
+      - DDA
+      - DIA
