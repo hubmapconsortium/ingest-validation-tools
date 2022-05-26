@@ -1,5 +1,6 @@
 # Changelog
 ## v0.0.14 - in progress
+- Updated LC-MS directory structure schema.
 - Remove HTML reporting options.
 - Updated IMS directory structure schema.
 - Add Clinical Imaging schemas.
