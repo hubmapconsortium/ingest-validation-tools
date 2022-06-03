@@ -116,6 +116,7 @@ def validation_error_iter(base_dir: PathOrStr, assay_type: str,
         raise ValidatorError(f'{plugin_dir}/*.py does not match any validation plugins')
 
     sort_me = []
+    sys.path.insert(0, str(plugin_dir))
     for fpath in plugin_dir.glob('*.py'):
         mod_nm = fpath.stem
         if mod_nm in sys.modules:
@@ -130,6 +131,7 @@ def validation_error_iter(base_dir: PathOrStr, assay_type: str,
         for name, obj in inspect.getmembers(mod):
             if inspect.isclass(obj) and obj != Validator and issubclass(obj, Validator):
                 sort_me.append((obj.cost, obj.description, obj))
+    sys.path.pop(0)
     sort_me.sort()
     for cost, description, cls in sort_me:
         validator = cls(base_dir, assay_type)
