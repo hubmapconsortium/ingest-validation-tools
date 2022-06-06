@@ -6,7 +6,7 @@ usage: validate_upload.py [-h] --local_directory PATH
                           [--upload_ignore_globs GLOB [GLOB ...]]
                           [--encoding ENCODING]
                           [--plugin_directory PLUGIN_DIRECTORY]
-                          [--output {as_browser,as_html_doc,as_html_fragment,as_md,as_text,as_text_list,as_yaml}]
+                          [--output {as_md,as_text,as_text_list,as_yaml}]
                           [--add_notes] [--save_report]
 
 Validate a HuBMAP upload, both the metadata TSVs and the datasets.
@@ -35,7 +35,7 @@ optional arguments:
                         tools/issues/494
   --plugin_directory PLUGIN_DIRECTORY
                         Directory of plugin tests.
-  --output {as_browser,as_html_doc,as_html_fragment,as_md,as_text,as_text_list,as_yaml}
+  --output {as_md,as_text,as_text_list,as_yaml}
   --add_notes           Append a context note to error reports.
   --save_report         Save the report; Adding "--upload_ignore_globs
                         'report-*.txt'" is necessary to revalidate.

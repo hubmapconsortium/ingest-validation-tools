@@ -1,6 +1,8 @@
 # Changelog
 ## v0.0.14 - in progress
 - Deprecate older LCMS schemas.
+- Updated LC-MS directory structure schema.
+- Remove HTML reporting options.
 - Updated IMS directory structure schema.
 - Add Clinical Imaging schemas.
 - Test under both Python 3.6 and Python 3.10
