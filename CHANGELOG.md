@@ -1,6 +1,8 @@
 # Changelog
 ## v0.0.14 - in progress
 - Add new data_collection_mode values for MS assays.
+- Deprecate older LCMS schemas.
+- Updated LC-MS directory structure schema.
 - Remove HTML reporting options.
 - Updated IMS directory structure schema.
 - Add Clinical Imaging schemas.
