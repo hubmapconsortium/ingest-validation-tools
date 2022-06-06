@@ -1112,7 +1112,7 @@ Relative path to file or directory with instrument data. Downstream processing w
 
 
 
-<details markdown="1" ><summary><b>Version 1</b></summary>
+<details markdown="1" ><summary><s>Version 1</s> (deprecated)</summary>
 
 
 ### Shared by all types
@@ -1517,7 +1517,7 @@ Relative path to file or directory with instrument data. Downstream processing w
 
 
 
-<details markdown="1" ><summary><b>Version 0</b></summary>
+<details markdown="1" ><summary><s>Version 0</s> (deprecated)</summary>
 
 
 ### Shared by all types
