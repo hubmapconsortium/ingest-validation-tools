@@ -1,5 +1,6 @@
 # Changelog
 ## v0.0.14 - in progress
+- Add "CODEX2" assay type.
 - Deprecate older LCMS schemas.
 - Updated LC-MS directory structure schema.
 - Remove HTML reporting options.
