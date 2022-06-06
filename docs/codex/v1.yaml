@@ -119,6 +119,7 @@ fields:
   constraints:
     enum:
     - CODEX
+    - CODEX2
     required: true
   description: The specific type of assay being executed.
   custom_constraints:
