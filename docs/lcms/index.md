@@ -324,10 +324,11 @@ Specifies whether or not ion mobility spectrometry was performed and which techn
 
 <a name="data_collection_mode"></a>
 ##### [`data_collection_mode`](#data_collection_mode)
-Mode of data collection in tandem MS assays. Either DDA (Data-dependent acquisition) or DIA (Data-independent acquisition).
+Mode of data collection in tandem MS assays. Either DDA (Data-dependent acquisition), DIA (Data-independent acquisition), MRM (multiple reaction monitoring), or PRM (parallel reaction monitoring).
 
 | constraint | value |
 | --- | --- |
+| enum | `DDA`, `DIA`, `MRM`, or `PRM` |
 | required | `True` |
 
 <a name="ms_scan_mode"></a>
@@ -828,10 +829,11 @@ Specifies whether or not ion mobility spectrometry was performed and which techn
 
 <a name="data_collection_mode"></a>
 ##### [`data_collection_mode`](#data_collection_mode)
-Mode of data collection in tandem MS assays. Either DDA (Data-dependent acquisition) or DIA (Data-independent acquisition).
+Mode of data collection in tandem MS assays. Either DDA (Data-dependent acquisition), DIA (Data-independent acquisition), MRM (multiple reaction monitoring), or PRM (parallel reaction monitoring).
 
 | constraint | value |
 | --- | --- |
+| enum | `DDA`, `DIA`, `MRM`, or `PRM` |
 | required | `True` |
 
 <a name="ms_scan_mode"></a>
@@ -1297,10 +1299,11 @@ The high value of the scanned mass range for MS1. (unitless)
 
 <a name="data_collection_mode"></a>
 ##### [`data_collection_mode`](#data_collection_mode)
-Mode of data collection in tandem MS assays. Either DDA (Data-dependent acquisition) or DIA (Data-independent acquisition).
+Mode of data collection in tandem MS assays. Either DDA (Data-dependent acquisition), DIA (Data-independent acquisition), MRM (multiple reaction monitoring), or PRM (parallel reaction monitoring).
 
 | constraint | value |
 | --- | --- |
+| enum | `DDA`, `DIA`, `MRM`, or `PRM` |
 | required | `True` |
 
 <a name="ms_scan_mode"></a>
@@ -1685,10 +1688,11 @@ The high value of the scanned mass range for MS1. (unitless)
 
 <a name="data_collection_mode"></a>
 ##### [`data_collection_mode`](#data_collection_mode)
-Mode of data collection in tandem MS assays. Either DDA (Data-dependent acquisition) or DIA (Data-independent acquisition).
+Mode of data collection in tandem MS assays. Either DDA (Data-dependent acquisition), DIA (Data-independent acquisition), MRM (multiple reaction monitoring), or PRM (parallel reaction monitoring).
 
 | constraint | value |
 | --- | --- |
+| enum | `DDA`, `DIA`, `MRM`, or `PRM` |
 | required | `True` |
 
 <a name="ms_scan_mode"></a>
