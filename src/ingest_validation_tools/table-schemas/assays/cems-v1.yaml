@@ -38,12 +38,7 @@ fields:
 # include: ../includes/fields/mass_resolving_power.yaml
 # include: ../includes/fields/mz_resolving_power.yaml
 # include: ../includes/fields/ion_mobility.yaml
-- name: data_collection_mode
-  description: Mode of data collection in tandem MS assays. Either DDA (Data-dependent acquisition) or DIA (Data-independent acquisition).
-  constraints:
-    enum:
-      - DDA
-      - DIA
+# include: ../includes/fields/data_collection_mode.yaml
 - name: ms_scan_mode
   description: Indicates whether the data were generated using MS, MS/MS or MS3.
   constraints:

@@ -20,6 +20,7 @@ fields:
   constraints:
     enum:
       - CODEX
+      - CODEX2
 - name: analyte_class
   constraints:
     enum:

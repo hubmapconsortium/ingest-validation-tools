@@ -1,6 +1,11 @@
 # Changelog
 ## v0.0.14 - in progress
 - Return directory schema version and refactor.
+- Add new data_collection_mode values for MS assays.
+- Add "CODEX2" assay type.
+- Deprecate older LCMS schemas.
+- Updated LC-MS directory structure schema.
+- Remove HTML reporting options.
 - Updated IMS directory structure schema.
 - Add Clinical Imaging schemas.
 - Test under both Python 3.6 and Python 3.10
