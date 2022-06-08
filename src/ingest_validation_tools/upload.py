@@ -10,7 +10,8 @@ from ingest_validation_tools.validation_utils import (
     get_data_dir_errors,
     dict_reader_wrapper,
     get_context_of_decode_error,
-    get_table_schema_version
+    get_table_schema_version,
+    get_directory_schema_versions
 )
 
 from ingest_validation_tools.plugin_validator import (
@@ -60,9 +61,33 @@ class Upload:
 
     #####################
     #
-    # One public method:
+    # Two public methods:
     #
     #####################
+
+    def get_info(self) -> dict:
+        git_version = subprocess.check_output(
+            'git rev-parse --short HEAD'.split(' '),
+            encoding='ascii',
+            stderr=subprocess.STDOUT
+        ).strip()
+
+        effective_tsvs = {
+            Path(path).name: {
+                'Schema': sv.schema_name,
+                'Metadata schema version': sv.version,
+                'Directory schema versions':
+                    get_directory_schema_versions(path, encoding='ascii')
+            }
+            for path, sv in self.effective_tsv_paths.items()
+        }
+
+        return {
+            'Time': datetime.now(),
+            'Git version': git_version,
+            'Directory': str(self.directory_path),
+            'TSVs': effective_tsvs
+        }
 
     def get_errors(self, **kwargs) -> dict:
         # This creates a deeply nested dict.
@@ -84,6 +109,7 @@ class Upload:
         if plugin_errors:
             errors['Plugin Errors'] = plugin_errors
 
+        # TODO: Remove; Now handled by get_info()
         if self.add_notes:
             git_version = subprocess.check_output(
                 'git rev-parse --short HEAD'.split(' '),
