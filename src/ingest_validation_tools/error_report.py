@@ -1,5 +1,4 @@
 from yaml import Dumper, dump
-from pathlib import Path
 from typing import List
 
 from ingest_validation_tools.message_munger import munge
@@ -11,20 +10,16 @@ Dumper.ignore_aliases = lambda *args: True
 
 
 class ErrorReport:
-    def __init__(self, errors_dict, effective_tsv_paths={}):
-        self.errors = errors_dict
-        self.effective_tsv_paths = effective_tsv_paths
+    def __init__(self, info=None, errors=None):
+        self.info = info
+        self.errors = errors
         if self.errors:
             self.errors['Hint'] = \
                 'If validation fails because of extra whitespace in the TSV, try:\n' \
                 'src/cleanup_whitespace.py --tsv_in original.tsv --tsv_out clean.tsv'
 
     def _no_errors(self):
-        schema_versions = ' and '.join(
-            f'{sv.schema_name}-v{sv.version} ({Path(path).name})'
-            for path, sv in self.effective_tsv_paths.items()
-        )
-        return f'No errors! {schema_versions}\n'
+        return f'No errors!\n{dump(self.info, sort_keys=False)}\n'
 
     def _as_list(self) -> List[str]:
         return [munge(m) for m in _build_list(self.errors)]

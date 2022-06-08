@@ -1,5 +1,6 @@
 # Changelog
 ## v0.0.14 - in progress
+- Return directory schema version and refactor.
 - Add new data_collection_mode values for MS assays.
 - Add "CODEX2" assay type.
 - Deprecate older LCMS schemas.

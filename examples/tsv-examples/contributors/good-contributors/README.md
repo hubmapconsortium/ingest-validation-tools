@@ -1,3 +1,5 @@
 ```
-No errors! 
+No errors!
+{}
+
 ```
