@@ -34,7 +34,8 @@ shared_enums: Dict[str, List[str]] = {
         'Cell DIVE',
         'CE-MS',
         'CODEX',
-        'CODEX2',  # TODO: Temporary: https://github.com/hubmapconsortium/ingest-validation-tools/issues/1107
+        'CODEX2',  # TODO: Temporary; will be removed.
+        # https://github.com/hubmapconsortium/ingest-validation-tools/issues/1107
         'DESI',
         'GC-MS',
         'Imaging Mass Cytometry',
