@@ -12,6 +12,24 @@ PathOrStr = Union[str, Path]
 KeyValuePair = Tuple[str, str]
 
 
+class add_path():
+    """
+    Add an element to sys.path using a context. 
+    Thanks to Eugene Yarmash https://stackoverflow.com/a/39855753
+    """
+    def __init__(self, path):
+        self.path = path
+
+    def __enter__(self):
+        sys.path.insert(0, self.path)
+
+    def __exit__(self, exc_type, exc_value, traceback):
+        try:
+            sys.path.remove(self.path)
+        except ValueError:
+            pass
+
+
 class ValidatorError(Exception):
     pass
 
@@ -116,22 +134,21 @@ def validation_error_iter(base_dir: PathOrStr, assay_type: str,
         raise ValidatorError(f'{plugin_dir}/*.py does not match any validation plugins')
 
     sort_me = []
-    sys.path.insert(0, str(plugin_dir))
-    for fpath in plugin_dir.glob('*.py'):
-        mod_nm = fpath.stem
-        if mod_nm in sys.modules:
-            mod = sys.modules[mod_nm]
-        else:
-            spec = util.spec_from_file_location(mod_nm, fpath)
-            if spec is None:
-                raise ValidatorError(f'bad plugin test {fpath}')
-            mod = util.module_from_spec(spec)
-            sys.modules[mod_nm] = mod
-            spec.loader.exec_module(mod)  # type: ignore
-        for name, obj in inspect.getmembers(mod):
-            if inspect.isclass(obj) and obj != Validator and issubclass(obj, Validator):
-                sort_me.append((obj.cost, obj.description, obj))
-    sys.path.pop(0)
+    with add_path(str(plugin_dir)):
+        for fpath in plugin_dir.glob('*.py'):
+            mod_nm = fpath.stem
+            if mod_nm in sys.modules:
+                mod = sys.modules[mod_nm]
+            else:
+                spec = util.spec_from_file_location(mod_nm, fpath)
+                if spec is None:
+                    raise ValidatorError(f'bad plugin test {fpath}')
+                mod = util.module_from_spec(spec)
+                sys.modules[mod_nm] = mod
+                spec.loader.exec_module(mod)  # type: ignore
+            for name, obj in inspect.getmembers(mod):
+                if inspect.isclass(obj) and obj != Validator and issubclass(obj, Validator):
+                    sort_me.append((obj.cost, obj.description, obj))
     sort_me.sort()
     for cost, description, cls in sort_me:
         validator = cls(base_dir, assay_type)
