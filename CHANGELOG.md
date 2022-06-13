@@ -1,6 +1,10 @@
 # Changelog
 ## v0.0.14 - in progress
 - Mods to plugin validator to fix import problems.
+- Return directory schema version and refactor.
+- Add new data_collection_mode values for MS assays.
+- Add "CODEX2" assay type.
+- Deprecate older LCMS schemas.
 - Updated LC-MS directory structure schema.
 - Remove HTML reporting options.
 - Updated IMS directory structure schema.
