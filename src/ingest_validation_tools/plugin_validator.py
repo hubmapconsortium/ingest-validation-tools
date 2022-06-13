@@ -14,7 +14,7 @@ KeyValuePair = Tuple[str, str]
 
 class add_path():
     """
-    Add an element to sys.path using a context. 
+    Add an element to sys.path using a context.
     Thanks to Eugene Yarmash https://stackoverflow.com/a/39855753
     """
     def __init__(self, path):
