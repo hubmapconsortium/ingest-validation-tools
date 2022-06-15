@@ -1,5 +1,6 @@
 # Changelog
 ## v0.0.14 - in progress
+- Turn validation of enums back on.
 - Mods to plugin validator to fix import problems.
 - Return directory schema version and refactor.
 - Add new data_collection_mode values for MS assays.

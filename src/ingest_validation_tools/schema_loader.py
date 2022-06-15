@@ -251,10 +251,7 @@ def get_table_schema(
         if isinstance(field, str):
             continue
         _add_level_1_description(field)
-        # TODO: Re-enable when all assay names used in the schemas are recognized
-        #       by the assay service, and the list in enums.py has been uncommented.
-        #       https://github.com/hubmapconsortium/ingest-validation-tools/issues/1023
-        # _validate_level_1_enum(field)
+        _validate_level_1_enum(field)
 
         _add_constraints(field, optional_fields, offline=offline, names=names)
         _validate_field(field)
@@ -321,11 +318,16 @@ def _validate_level_1_enum(field: dict) -> None:
     >>> del field['constraints']['required']
 
     >>> field['constraints']['enum'] = ['fake']
-    >>> _validate_level_1_enum(field)
-    Traceback (most recent call last):
-    ...
-    AssertionError: Unexpected enums for assay_category: {'fake'}
-    Allowed: ['imaging', 'mass_spectrometry', 'mass_spectrometry_imaging', 'sequence']
+    >>> try:
+    ...     _validate_level_1_enum(field)
+    ... except AssertionError as e:
+    ...     print(',\\n'.join(str(e).split(',')))
+    Unexpected enums for assay_category: {'fake'}
+    Allowed: ['clinical_imaging',
+     'imaging',
+     'mass_spectrometry',
+     'mass_spectrometry_imaging',
+     'sequence']
     '''
 
     name = field['name']
