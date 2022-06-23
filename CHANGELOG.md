@@ -1,5 +1,6 @@
 # Changelog
 ## v0.0.15 - in progress
+- Add a reminder that TSV validation is not sufficient.
 
 ## v0.0.14 - 2022-06-23
 - Turn validation of enums back on.
