@@ -1,5 +1,7 @@
 # Changelog
-## v0.0.14 - in progress
+## v0.0.15 - in progress
+
+## v0.0.14 - 2022-06-23
 - Turn validation of enums back on.
 - Mods to plugin validator to fix import problems.
 - Return directory schema version and refactor.
