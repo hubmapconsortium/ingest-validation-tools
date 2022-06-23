@@ -66,14 +66,12 @@ def main():
 
 
 if __name__ == "__main__":
-    reminder = 'REMINDER: Besides running validate_tsv.py, ' \
-        'you should also run validate_upload.py before submission.'
-    print(reminder)
+    print('REMINDER: Besides running validate_tsv.py, '
+          'you should also run validate_upload.py before submission.\n')
     try:
         exit_status = main()
     except ShowUsageException as e:
         print(parser.format_usage(), file=sys.stderr)
         print(e, file=sys.stderr)
         exit_status = exit_codes.ERROR
-    print(reminder)
     sys.exit(exit_status)
