@@ -11,8 +11,10 @@ from ingest_validation_tools.validation_utils import (
     get_tsv_errors, get_table_schema_version
 )
 
+
 reminder = 'REMINDER: Besides running validate_tsv.py, ' \
     'you should also run validate_upload.py before submission.'
+
 
 def make_parser():
     parser = argparse.ArgumentParser(
