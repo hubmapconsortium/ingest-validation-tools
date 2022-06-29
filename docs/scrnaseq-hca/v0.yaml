@@ -359,9 +359,9 @@ fields:
     forbid_na: true
   type: number
 - name: contributors_path
-  constraints:
-    required: false
   description: Relative path to file with ORCID IDs for contributors for this dataset.
+  constraints:
+    required: true
   custom_constraints:
     sequence_limit: 3
     forbid_na: true
