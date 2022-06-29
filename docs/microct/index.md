@@ -3,6 +3,7 @@ title: Micro CT
 schema_name: microct
 category: Clinical imaging modalities
 all_versions_deprecated: False
+exclude_from_index: False
 layout: default
 ---
 
