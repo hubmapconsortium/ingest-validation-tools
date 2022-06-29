@@ -210,8 +210,6 @@ fields:
   constraints:
     required: false
 - name: contributors_path
-  constraints:
-    required: false
   description: Relative path to file with ORCID IDs for contributors for this dataset.
 - name: data_path
   constraints:
