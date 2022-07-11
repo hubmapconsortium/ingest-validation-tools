@@ -14,7 +14,7 @@ files:
   - 
     pattern: '(raw|processed)/config\.txt|(src_[^/]*|drv_[^/]*|extras)/[sS]egmentation\.json' 
     description: 'Sanity check that verifies the existence of at least one of these files. This is required for the HuBMAP processing pipeline' 
-    required: False 
+    required: True
   -
     example: 'raw/reg_00.png'
     pattern: 'raw/reg_[^/]*\.png'
