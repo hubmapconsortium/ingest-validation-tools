@@ -1,5 +1,5 @@
-# Generated YAML: PRs should not start here!
 doc_url: https://portal.hubmapconsortium.org/docs/assays/rnaseq
+
 fields:
 # include: ../includes/fields/source_project.yaml
 - Shared by all types

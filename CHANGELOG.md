@@ -1,5 +1,6 @@
 # Changelog
 ## v0.0.15 - in progress
+- Remove HCA from the main table of contents.
 
 ## v0.0.14 - 2022-06-23
 - Turn validation of enums back on.

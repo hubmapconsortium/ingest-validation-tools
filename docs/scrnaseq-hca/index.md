@@ -2,7 +2,7 @@
 title: scRNAseq-10xGenomics-v2 / scRNAseq-10xGenomics-v3 / snRNAseq-10xGenomics-v2 / scRNAseq / sciRNAseq / snRNAseq / SNARE2-RNAseq (HCA)
 schema_name: scrnaseq-hca
 category: Sequence assays
-all_versions_deprecated: False
+exclude_from_index: True
 layout: default
 ---
 
