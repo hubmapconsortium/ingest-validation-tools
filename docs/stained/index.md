@@ -26,6 +26,8 @@ This schema is for microscopy of tissue treated with periodic acid–Schiff stai
 
 
 
+In the portal: [PAS Stained Microscopy](https://portal.hubmapconsortium.org/search?mapped_data_types%5B0%5D=PAS+Stained+Microscopy&entity_type%5B0%5D=Dataset)
+
 ## Metadata schema
 
 ### Field types

@@ -15,6 +15,8 @@ This schema is for clinical imaging using magnetic resonance imaging (MRI).
 
 
 
+In the portal: MRI not in Portal
+
 ## Metadata schema
 
 ### Field types

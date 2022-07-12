@@ -3,6 +3,9 @@ from string import Template
 from pathlib import Path
 import html
 from typing import Dict, Any
+from urllib.parse import urlencode
+
+import requests
 
 from ingest_validation_tools.schema_loader import get_field_enum, get_fields_wo_headers
 
@@ -87,6 +90,34 @@ def _enrich_description(field: Dict[str, Any]) -> str:
     return description.strip()
 
 
+def _get_portal_name(assay_type):
+    response = requests.post(
+        'https://search.api.hubmapconsortium.org/assayname',
+        json={'name': assay_type},
+        headers={'Content-Type': 'application/json'}
+    ).json()
+    try:
+        return response['description']
+    except KeyError as e:
+        return None
+
+
+def _get_portal_names_md(assay_types):
+    links = []
+    for assay_type in assay_types:
+        portal_name = _get_portal_name(assay_type)
+        if portal_name is None:
+            links.append(f'{assay_type} not in Portal')
+            continue
+        query = urlencode({
+            'mapped_data_types[0]': portal_name,
+            'entity_type[0]': 'Dataset'
+        })
+        url = f'https://portal.hubmapconsortium.org/search?{query}'
+        links.append(f'[{portal_name}]({url})')
+    return f'In the portal: {" / ".join(links)}'
+
+
 def generate_readme_md(
         table_schemas, pipeline_infos, directory_schemas, schema_name, is_assay=True):
     int_keys = [int(k) for k in table_schemas.keys()]
@@ -107,6 +138,8 @@ def generate_readme_md(
 
     raw_base_url = 'https://raw.githubusercontent.com/' \
         'hubmapconsortium/ingest-validation-tools/main/docs'
+
+    optional_portal_names_md = _get_portal_names_md(assay_type_enum) if assay_type_enum else ''
 
     optional_dir_description_md = (
         f'## Directory schemas\n{_make_dir_descriptions(directory_schemas, pipeline_infos)}'
@@ -162,6 +195,7 @@ def generate_readme_md(
                 for v in range(max_version - 1, min_version - 1, -1)
             ]),
 
+        'optional_portal_names_md': optional_portal_names_md,
         'optional_dir_description_md': optional_dir_description_md,
 
         'optional_doc_link_md': optional_doc_link_md,
