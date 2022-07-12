@@ -98,7 +98,7 @@ def _get_portal_name(assay_type):
     ).json()
     try:
         return response['description']
-    except KeyError as e:
+    except KeyError:
         return None
 
 
