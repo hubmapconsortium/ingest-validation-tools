@@ -42,10 +42,9 @@ jobs:
         python-version: ${{ matrix.version }}
         architecture: 'x64'
 
-    - run: |>
-      apt get install parallel
-      pip install -r requirements.txt
-      pip install -r requirements-dev.txt
+    - run: apt get install parallel
+    - run: pip install -r requirements.txt
+    - run: pip install -r requirements-dev.txt
 
     - name: Run test script
       run: ./test.sh
