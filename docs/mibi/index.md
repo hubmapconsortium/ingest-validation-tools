@@ -34,6 +34,8 @@ This schema is for Multiplex Ion Beam Imaging (MIBI). For MIBI, the channel_id (
 
 
 
+In the portal: [Multiplex Ion Beam Imaging](https://portal.hubmapconsortium.org/search?mapped_data_types%5B0%5D=Multiplex+Ion+Beam+Imaging&entity_type%5B0%5D=Dataset)
+
 ## Metadata schema
 
 ### Field types
