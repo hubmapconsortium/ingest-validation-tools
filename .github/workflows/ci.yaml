@@ -42,7 +42,7 @@ jobs:
         python-version: ${{ matrix.version }}
         architecture: 'x64'
 
-    - run: apt get install parallel
+    - run: sudo apt-get install parallel
     - run: pip install -r requirements.txt
     - run: pip install -r requirements-dev.txt
 
