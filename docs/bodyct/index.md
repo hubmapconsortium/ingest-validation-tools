@@ -15,6 +15,8 @@ This schema is for clinical imaging using body computed tomography (Body CT).
 
 
 
+In the portal: Body CT not in Portal
+
 ## Metadata schema
 
 ### Field types

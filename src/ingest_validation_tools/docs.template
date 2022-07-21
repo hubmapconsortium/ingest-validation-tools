@@ -15,6 +15,8 @@ ${optional_description_md}
 
 ${optional_dir_description_md}
 
+${optional_portal_names_md}
+
 ## Metadata schema
 
 ### Field types

@@ -15,6 +15,8 @@ This schema is for clinical imaging using ultrasound.
 
 
 
+In the portal: Ultrasound not in Portal
+
 ## Metadata schema
 
 ### Field types
