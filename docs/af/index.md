@@ -235,7 +235,7 @@ The unit of measurement of the width of a pixel. Leave blank if not applicable.
 | --- | --- |
 | enum | `nm` or `um` |
 | required | `False` |
-| units for | `resolution_x_value` |
+| required if | `resolution_x_value` present |
 
 <a name="resolution_y_value"></a>
 ##### [`resolution_y_value`](#resolution_y_value)
@@ -254,7 +254,7 @@ The unit of measurement of the height of a pixel. Leave blank if not applicable.
 | --- | --- |
 | enum | `nm` or `um` |
 | required | `False` |
-| units for | `resolution_y_value` |
+| required if | `resolution_y_value` present |
 
 <a name="resolution_z_value"></a>
 ##### [`resolution_z_value`](#resolution_z_value)
@@ -273,7 +273,7 @@ The unit of incremental distance between image slices. Leave blank if not applic
 | --- | --- |
 | enum | `mm`, `um`, or `nm` |
 | required | `False` |
-| units for | `resolution_z_value` |
+| required if | `resolution_z_value` present |
 
 <a name="number_of_channels"></a>
 ##### [`number_of_channels`](#number_of_channels)
@@ -460,7 +460,7 @@ The unit of measurement of the width of a pixel. Leave blank if not applicable.
 | --- | --- |
 | enum | `nm` or `um` |
 | required | `False` |
-| units for | `resolution_x_value` |
+| required if | `resolution_x_value` present |
 
 <a name="resolution_y_value"></a>
 ##### [`resolution_y_value`](#resolution_y_value)
@@ -479,7 +479,7 @@ The unit of measurement of the height of a pixel. Leave blank if not applicable.
 | --- | --- |
 | enum | `nm` or `um` |
 | required | `False` |
-| units for | `resolution_y_value` |
+| required if | `resolution_y_value` present |
 
 <a name="resolution_z_value"></a>
 ##### [`resolution_z_value`](#resolution_z_value)
@@ -498,7 +498,7 @@ The unit of incremental distance between image slices. Leave blank if not applic
 | --- | --- |
 | enum | `mm`, `um`, or `nm` |
 | required | `False` |
-| units for | `resolution_z_value` |
+| required if | `resolution_z_value` present |
 
 <a name="number_of_channels"></a>
 ##### [`number_of_channels`](#number_of_channels)

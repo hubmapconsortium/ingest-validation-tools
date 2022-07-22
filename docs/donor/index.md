@@ -52,7 +52,7 @@ Unit for age measurement. Leave blank if not applicable.
 | constraint | value |
 | --- | --- |
 | required | `False` |
-| units for | `age_value` |
+| required if | `age_value` present |
 
 <a name="age_value"></a>
 ##### [`age_value`](#age_value)
@@ -105,7 +105,7 @@ Unit for height measurement. Leave blank if not applicable.
 | constraint | value |
 | --- | --- |
 | required | `False` |
-| units for | `height_value` |
+| required if | `height_value` present |
 
 <a name="height_value"></a>
 ##### [`height_value`](#height_value)
@@ -164,7 +164,7 @@ Unit for weight measurement. Leave blank if not applicable.
 | constraint | value |
 | --- | --- |
 | required | `False` |
-| units for | `weight_value` |
+| required if | `weight_value` present |
 
 <a name="weight_value"></a>
 ##### [`weight_value`](#weight_value)

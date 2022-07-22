@@ -292,7 +292,7 @@ Unit of library_concentration_value. Leave blank if not applicable.
 | --- | --- |
 | enum | `nM` |
 | required | `False` |
-| units for | `library_concentration_value` |
+| required if | `library_concentration_value` present |
 
 <a name="library_construction_protocols_io_doi"></a>
 ##### [`library_construction_protocols_io_doi`](#library_construction_protocols_io_doi)
@@ -331,7 +331,7 @@ Units of final library yield. Leave blank if not applicable.
 | --- | --- |
 | enum | `ng` |
 | required | `False` |
-| units for | `library_final_yield_value` |
+| required if | `library_final_yield_value` present |
 
 <a name="library_id"></a>
 ##### [`library_id`](#library_id)
@@ -649,7 +649,7 @@ Unit of library_concentration_value. Leave blank if not applicable.
 | --- | --- |
 | enum | `nM` |
 | required | `False` |
-| units for | `library_concentration_value` |
+| required if | `library_concentration_value` present |
 
 <a name="library_construction_protocols_io_doi"></a>
 ##### [`library_construction_protocols_io_doi`](#library_construction_protocols_io_doi)
@@ -688,7 +688,7 @@ Units of final library yield. Leave blank if not applicable.
 | --- | --- |
 | enum | `ng` |
 | required | `False` |
-| units for | `library_final_yield_value` |
+| required if | `library_final_yield_value` present |
 
 <a name="library_id"></a>
 ##### [`library_id`](#library_id)

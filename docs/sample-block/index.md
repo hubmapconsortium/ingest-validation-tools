@@ -93,7 +93,7 @@ Time unit. Leave blank if not applicable.
 | --- | --- |
 | enum | `min`, `hours`, `days`, or `years` |
 | required | `False` |
-| units for | `source_storage_time_value` |
+| required if | `source_storage_time_value` present |
 
 <a name="weight_value"></a>
 ##### [`weight_value`](#weight_value)
@@ -112,7 +112,7 @@ Weight unit. Leave blank if not applicable.
 | --- | --- |
 | required | `False` |
 | enum | `mg`, `g`, or `kg` |
-| units for | `weight_value` |
+| required if | `weight_value` present |
 
 <a name="volume_value"></a>
 ##### [`volume_value`](#volume_value)
@@ -131,7 +131,7 @@ Volume unit. Leave blank if not applicable.
 | --- | --- |
 | required | `False` |
 | enum | `mm^3` or `um^3` |
-| units for | `volume_value` |
+| required if | `volume_value` present |
 
 <a name="pathology_distance_value"></a>
 ##### [`pathology_distance_value`](#pathology_distance_value)
@@ -150,7 +150,7 @@ Distance unit. Leave blank if not applicable.
 | --- | --- |
 | enum | `mm` or `cm` |
 | required | `False` |
-| units for | `pathology_distance_value` |
+| required if | `pathology_distance_value` present |
 
 <a name="preparation_media"></a>
 ##### [`preparation_media`](#preparation_media)
@@ -187,7 +187,7 @@ Time unit. Leave blank if not applicable.
 | --- | --- |
 | required | `False` |
 | enum | `min`, `hours`, or `days` |
-| units for | `processing_time_value` |
+| required if | `processing_time_value` present |
 
 <a name="storage_media"></a>
 ##### [`storage_media`](#storage_media)
