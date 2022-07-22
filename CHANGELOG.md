@@ -1,5 +1,6 @@
 # Changelog
 ## v0.0.15 - in progress
+- Parallelize tests.
 - Use the assay service to describe how assays are represented in the Portal.
 
 ## v0.0.14 - 2022-06-23
