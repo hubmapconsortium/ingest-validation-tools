@@ -3,6 +3,7 @@ title: sample-block
 schema_name: sample-block
 category: Other TSVs
 all_versions_deprecated: False
+exclude_from_index: False
 layout: default
 ---
 

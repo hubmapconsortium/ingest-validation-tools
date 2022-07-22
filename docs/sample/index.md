@@ -3,6 +3,7 @@ title: sample
 schema_name: sample
 category: Other TSVs
 all_versions_deprecated: False
+exclude_from_index: False
 layout: default
 ---
 
