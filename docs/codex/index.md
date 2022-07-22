@@ -58,6 +58,8 @@ The other fields function the same way for all assays using antibodies. For more
 
 
 
+In the portal: [CODEX](https://portal.hubmapconsortium.org/search?mapped_data_types%5B0%5D=CODEX&entity_type%5B0%5D=Dataset) / [CODEX (CODEX2 assay type)](https://portal.hubmapconsortium.org/search?mapped_data_types%5B0%5D=CODEX+%28CODEX2+assay+type%29&entity_type%5B0%5D=Dataset)
+
 ## Metadata schema
 
 ### Field types

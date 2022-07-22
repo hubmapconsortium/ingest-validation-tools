@@ -24,6 +24,8 @@ This schema is for multiplex immunofluorescence microscopy (MxIF).
 
 
 
+In the portal: [Multiplexed IF Microscopy](https://portal.hubmapconsortium.org/search?mapped_data_types%5B0%5D=Multiplexed+IF+Microscopy&entity_type%5B0%5D=Dataset)
+
 ## Metadata schema
 
 ### Field types

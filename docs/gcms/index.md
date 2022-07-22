@@ -24,6 +24,8 @@ This schema is for gas chromatography - mass spectrophotometry (GCMS).
 
 
 
+In the portal: GC-MS not in Portal
+
 ## Metadata schema
 
 ### Field types

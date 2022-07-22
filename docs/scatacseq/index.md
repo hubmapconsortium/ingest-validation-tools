@@ -26,6 +26,8 @@ The HIVE will process each dataset with
 
 
 
+In the portal: [snATACseq (SNARE-seq2)](https://portal.hubmapconsortium.org/search?mapped_data_types%5B0%5D=snATACseq+%28SNARE-seq2%29&entity_type%5B0%5D=Dataset) / [sciATAC-seq](https://portal.hubmapconsortium.org/search?mapped_data_types%5B0%5D=sciATAC-seq&entity_type%5B0%5D=Dataset) / [snATAC-seq](https://portal.hubmapconsortium.org/search?mapped_data_types%5B0%5D=snATAC-seq&entity_type%5B0%5D=Dataset)
+
 ## Metadata schema
 
 ### Field types

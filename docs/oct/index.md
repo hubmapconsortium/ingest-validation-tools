@@ -16,6 +16,8 @@ This schema is for clinical imaging using optical coherence tomography (OCT).
 
 
 
+In the portal: OCT not in Portal
+
 ## Metadata schema
 
 ### Field types

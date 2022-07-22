@@ -38,6 +38,8 @@ The other fields function the same way for all assays using antibodies. For more
 
 
 
+In the portal: [Lightsheet Microscopy](https://portal.hubmapconsortium.org/search?mapped_data_types%5B0%5D=Lightsheet+Microscopy&entity_type%5B0%5D=Dataset)
+
 ## Metadata schema
 
 ### Field types

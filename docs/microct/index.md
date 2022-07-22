@@ -16,6 +16,8 @@ This schema is for clinical imaging using micro computed tomography (Micro CT).
 
 
 
+In the portal: Micro CT not in Portal
+
 ## Metadata schema
 
 ### Field types
