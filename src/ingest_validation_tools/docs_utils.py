@@ -328,6 +328,8 @@ def _make_key_md(key, value):
     '''
     if key == 'pattern':
         return 'pattern (regular expression)'
+    if key == 'units_for':
+        return 'required if'
     return key.replace('_', ' ')
 
 
@@ -362,6 +364,8 @@ def _make_value_md(key, value):
         return _html_code(value)
     if key == 'url':
         return f'prefix: {_html_code(value["prefix"])}'
+    if key == 'units_for':
+        return f'`{value}` present'
     return f'`{value}`'
 
 
