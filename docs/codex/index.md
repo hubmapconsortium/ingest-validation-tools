@@ -3,6 +3,7 @@ title: CODEX / CODEX2
 schema_name: codex
 category: Imaging assays
 all_versions_deprecated: False
+exclude_from_index: False
 layout: default
 ---
 

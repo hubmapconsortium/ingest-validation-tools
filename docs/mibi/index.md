@@ -3,6 +3,7 @@ title: Multiplex Ion Beam Imaging
 schema_name: mibi
 category: Imaging mass spectrometry
 all_versions_deprecated: False
+exclude_from_index: False
 layout: default
 ---
 

@@ -3,6 +3,7 @@ title: MRI
 schema_name: mri
 category: Clinical imaging modalities
 all_versions_deprecated: False
+exclude_from_index: False
 layout: default
 ---
 

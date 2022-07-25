@@ -3,6 +3,7 @@ title: antibodies
 schema_name: antibodies
 category: Other TSVs
 all_versions_deprecated: False
+exclude_from_index: False
 layout: default
 ---
 

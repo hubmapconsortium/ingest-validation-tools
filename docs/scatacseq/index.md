@@ -3,6 +3,7 @@ title: SNARE-seq2 / sciATACseq / snATACseq
 schema_name: scatacseq
 category: Sequence assays
 all_versions_deprecated: False
+exclude_from_index: False
 layout: default
 ---
 

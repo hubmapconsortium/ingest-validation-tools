@@ -3,6 +3,7 @@ title: scRNAseq-10xGenomics-v2 / scRNAseq-10xGenomics-v3 / snRNAseq-10xGenomics-
 schema_name: scrnaseq-hca
 category: Sequence assays
 all_versions_deprecated: False
+exclude_from_index: True
 layout: default
 ---
 
@@ -20,6 +21,8 @@ Related files:
 | --- | --- | --- |
 | <code>[^/]+\.fastq\.gz</code> | ✓ | Compressed FastQ file |
 | <code>extras/.*</code> |  | Free-form descriptive information supplied by the TMC |
+
+
 
 ## Metadata schema
 
@@ -440,11 +443,11 @@ Percent PhiX loaded to the run. Leave blank if not applicable.
 
 <a name="contributors_path"></a>
 ##### [`contributors_path`](#contributors_path)
-Relative path to file with ORCID IDs for contributors for this dataset. Leave blank if not applicable.
+Relative path to file with ORCID IDs for contributors for this dataset.
 
 | constraint | value |
 | --- | --- |
-| required | `False` |
+| required | `True` |
 
 <a name="data_path"></a>
 ##### [`data_path`](#data_path)

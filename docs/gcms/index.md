@@ -3,6 +3,7 @@ title: GC-MS
 schema_name: gcms
 category: Mass spectrometry
 all_versions_deprecated: False
+exclude_from_index: False
 layout: default
 ---
 
