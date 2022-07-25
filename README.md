@@ -117,7 +117,8 @@ To make contributions, checkout the project, cd, venv, and then:
 ```
 pip install -r requirements.txt
 pip install -r requirements-dev.txt
-brew install parallel # On macOS
+brew install parallel    # On macOS
+apt-get install parallel # On Ubuntu
 ./test.sh
 ```
 

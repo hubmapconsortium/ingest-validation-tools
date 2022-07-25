@@ -1,5 +1,6 @@
 # Changelog
 ## v0.0.15 - in progress
+- Clearer presentation of unit fields in generated docs.
 - Make `contributors_path` required for HCA.
 - Parallelize tests.
 - Use the assay service to describe how assays are represented in the Portal.

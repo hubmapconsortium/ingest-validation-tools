@@ -122,7 +122,7 @@ The concentration units of the antibody preparation. Leave blank if not applicab
 | --- | --- |
 | enum | `ug/ml` |
 | required | `False` |
-| units for | `concentration_value` |
+| required if | `concentration_value` present |
 
 <a name="conjugated_cat_number"></a>
 ##### [`conjugated_cat_number`](#conjugated_cat_number)

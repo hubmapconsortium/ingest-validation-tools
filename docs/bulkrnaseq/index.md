@@ -283,7 +283,7 @@ Units of RNA input amount to the assay. Leave blank if not applicable.
 | --- | --- |
 | enum | `ug` |
 | required | `False` |
-| units for | `rnaseq_assay_input_value` |
+| required if | `rnaseq_assay_input_value` present |
 
 <a name="rnaseq_assay_method"></a>
 ##### [`rnaseq_assay_method`](#rnaseq_assay_method)
@@ -347,7 +347,7 @@ Units of final library yield. Leave blank if not applicable.
 | --- | --- |
 | enum | `ng` |
 | required | `False` |
-| units for | `library_final_yield_value` |
+| required if | `library_final_yield_value` present |
 
 <a name="library_average_fragment_size"></a>
 ##### [`library_average_fragment_size`](#library_average_fragment_size)
@@ -603,7 +603,7 @@ Units of RNA input amount to the assay. Leave blank if not applicable.
 | --- | --- |
 | enum | `ug` |
 | required | `False` |
-| units for | `rnaseq_assay_input_value` |
+| required if | `rnaseq_assay_input_value` present |
 
 <a name="rnaseq_assay_method"></a>
 ##### [`rnaseq_assay_method`](#rnaseq_assay_method)
@@ -667,7 +667,7 @@ Units of final library yield. Leave blank if not applicable.
 | --- | --- |
 | enum | `ng` |
 | required | `False` |
-| units for | `library_final_yield_value` |
+| required if | `library_final_yield_value` present |
 
 <a name="library_average_fragment_size"></a>
 ##### [`library_average_fragment_size`](#library_average_fragment_size)

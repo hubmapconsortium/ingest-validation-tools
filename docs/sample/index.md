@@ -147,7 +147,7 @@ Time unit. Leave blank if not applicable.
 | --- | --- |
 | required | `False` |
 | enum | `minutes` |
-| units for | `warm_ischemia_time_value` |
+| required if | `warm_ischemia_time_value` present |
 
 <a name="cold_ischemia_time_value"></a>
 ##### [`cold_ischemia_time_value`](#cold_ischemia_time_value)
@@ -166,7 +166,7 @@ Time unit. Leave blank if not applicable.
 | --- | --- |
 | required | `False` |
 | enum | `minutes` |
-| units for | `cold_ischemia_time_value` |
+| required if | `cold_ischemia_time_value` present |
 
 ### Biospecimen
 
@@ -204,7 +204,7 @@ Distance unit. Leave blank if not applicable.
 | --- | --- |
 | required | `False` |
 | enum | `cm` |
-| units for | `specimen_tumor_distance_value` |
+| required if | `specimen_tumor_distance_value` present |
 
 </details>
 

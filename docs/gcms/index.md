@@ -370,7 +370,7 @@ Unit for GC column length. Leave blank if not applicable.
 | --- | --- |
 | enum | `cm` |
 | required | `False` |
-| units for | `column_length_value` |
+| required if | `column_length_value` present |
 
 <a name="column_temp_value"></a>
 ##### [`column_temp_value`](#column_temp_value)
@@ -389,7 +389,7 @@ Units for GC column temperature. Leave blank if not applicable.
 | --- | --- |
 | enum | `C` |
 | required | `False` |
-| units for | `column_temp_value` |
+| required if | `column_temp_value` present |
 
 <a name="internal_standard"></a>
 ##### [`internal_standard`](#internal_standard)
@@ -458,7 +458,7 @@ The unit of measurement of the width of a pixel. Leave blank if not applicable.
 | --- | --- |
 | enum | `nm` or `um` |
 | required | `False` |
-| units for | `resolution_x_value` |
+| required if | `resolution_x_value` present |
 
 <a name="resolution_y_value"></a>
 ##### [`resolution_y_value`](#resolution_y_value)
@@ -477,7 +477,7 @@ The unit of measurement of the height of a pixel. Leave blank if not applicable.
 | --- | --- |
 | enum | `nm` or `um` |
 | required | `False` |
-| units for | `resolution_y_value` |
+| required if | `resolution_y_value` present |
 
 <a name="processing_search"></a>
 ##### [`processing_search`](#processing_search)
