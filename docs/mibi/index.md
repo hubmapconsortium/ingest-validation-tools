@@ -3,6 +3,7 @@ title: Multiplex Ion Beam Imaging
 schema_name: mibi
 category: Imaging mass spectrometry
 all_versions_deprecated: False
+exclude_from_index: False
 layout: default
 ---
 
@@ -33,6 +34,8 @@ This schema is for Multiplex Ion Beam Imaging (MIBI). For MIBI, the channel_id (
 | <code>extras/.*</code> |  | Free-form descriptive information supplied by the TMC |
 
 
+
+In the portal: [Multiplex Ion Beam Imaging](https://portal.hubmapconsortium.org/search?mapped_data_types%5B0%5D=Multiplex+Ion+Beam+Imaging&entity_type%5B0%5D=Dataset)
 
 ## Metadata schema
 
@@ -287,7 +290,7 @@ The unit of measurement of width of a pixel.(nm) Leave blank if not applicable.
 | --- | --- |
 | enum | `mm`, `um`, or `nm` |
 | required | `False` |
-| units for | `resolution_x_value` |
+| required if | `resolution_x_value` present |
 
 <a name="resolution_y_value"></a>
 ##### [`resolution_y_value`](#resolution_y_value)
@@ -306,7 +309,7 @@ The unit of measurement of height of a pixel. (nm) Leave blank if not applicable
 | --- | --- |
 | enum | `mm`, `um`, or `nm` |
 | required | `False` |
-| units for | `resolution_y_value` |
+| required if | `resolution_y_value` present |
 
 <a name="max_x_width_value"></a>
 ##### [`max_x_width_value`](#max_x_width_value)
@@ -325,7 +328,7 @@ Units of image width of the ROI acquisition. Leave blank if not applicable.
 | --- | --- |
 | enum | `um` |
 | required | `False` |
-| units for | `max_x_width_value` |
+| required if | `max_x_width_value` present |
 
 <a name="max_y_height_value"></a>
 ##### [`max_y_height_value`](#max_y_height_value)
@@ -344,7 +347,7 @@ Units of image height of the ROI acquisition. Leave blank if not applicable.
 | --- | --- |
 | enum | `um` |
 | required | `False` |
-| units for | `max_y_height_value` |
+| required if | `max_y_height_value` present |
 
 <a name="roi_description"></a>
 ##### [`roi_description`](#roi_description)
@@ -379,7 +382,7 @@ Area normalized ion dose unit. Leave blank if not applicable.
 | --- | --- |
 | enum | `nA*hr/mm2` |
 | required | `False` |
-| units for | `area_normalized_ion_dose_value` |
+| required if | `area_normalized_ion_dose_value` present |
 
 <a name="area_normalized_ion_dose_value"></a>
 ##### [`area_normalized_ion_dose_value`](#area_normalized_ion_dose_value)
@@ -435,7 +438,7 @@ Pixel dwell time unit. Leave blank if not applicable.
 | --- | --- |
 | enum | `ms` |
 | required | `False` |
-| units for | `pixel_dwell_time_value` |
+| required if | `pixel_dwell_time_value` present |
 
 <a name="pixel_size_x_value"></a>
 ##### [`pixel_size_x_value`](#pixel_size_x_value)
@@ -454,7 +457,7 @@ Width unit of the pixel or voxel measurement. Leave blank if not applicable.
 | --- | --- |
 | enum | `nm` |
 | required | `False` |
-| units for | `pixel_size_x_value` |
+| required if | `pixel_size_x_value` present |
 
 <a name="pixel_size_y_value"></a>
 ##### [`pixel_size_y_value`](#pixel_size_y_value)
@@ -473,7 +476,7 @@ Length unit of the pixel or voxel measurement. Leave blank if not applicable.
 | --- | --- |
 | enum | `nm` |
 | required | `False` |
-| units for | `pixel_size_y_value` |
+| required if | `pixel_size_y_value` present |
 
 <a name="preparation_instrument_vendor"></a>
 ##### [`preparation_instrument_vendor`](#preparation_instrument_vendor)
@@ -519,7 +522,7 @@ Primary ion current unit, typically nA or pA. Leave blank if not applicable.
 | --- | --- |
 | enum | `nA` or `pA` |
 | required | `False` |
-| units for | `primary_ion_current_value` |
+| required if | `primary_ion_current_value` present |
 
 <a name="reagent_prep_protocols_io_doi"></a>
 ##### [`reagent_prep_protocols_io_doi`](#reagent_prep_protocols_io_doi)

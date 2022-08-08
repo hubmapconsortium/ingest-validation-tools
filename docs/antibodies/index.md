@@ -3,6 +3,7 @@ title: antibodies
 schema_name: antibodies
 category: Other TSVs
 all_versions_deprecated: False
+exclude_from_index: False
 layout: default
 ---
 
@@ -14,6 +15,8 @@ Related files:
 Changes:
 - v1: Version number added.
 - v2: Add concentration fields.
+
+
 
 
 
@@ -119,7 +122,7 @@ The concentration units of the antibody preparation. Leave blank if not applicab
 | --- | --- |
 | enum | `ug/ml` |
 | required | `False` |
-| units for | `concentration_value` |
+| required if | `concentration_value` present |
 
 <a name="conjugated_cat_number"></a>
 ##### [`conjugated_cat_number`](#conjugated_cat_number)

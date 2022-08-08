@@ -3,6 +3,7 @@ title: scRNAseq-10xGenomics-v2 / scRNAseq-10xGenomics-v3 / snRNAseq-10xGenomics-
 schema_name: scrnaseq
 category: Sequence assays
 all_versions_deprecated: False
+exclude_from_index: False
 layout: default
 ---
 
@@ -22,6 +23,8 @@ This schema is for single cell RNA sequencing (scRNAseq). v3 adds `umi_*` fields
 | <code>extras/.*</code> |  | Free-form descriptive information supplied by the TMC |
 
 
+
+In the portal: [scRNA-seq (10x Genomics v2)](https://portal.hubmapconsortium.org/search?mapped_data_types%5B0%5D=scRNA-seq+%2810x+Genomics+v2%29&entity_type%5B0%5D=Dataset) / [scRNA-seq (10x Genomics v3)](https://portal.hubmapconsortium.org/search?mapped_data_types%5B0%5D=scRNA-seq+%2810x+Genomics+v3%29&entity_type%5B0%5D=Dataset) / [snRNA-seq (10x Genomics v2)](https://portal.hubmapconsortium.org/search?mapped_data_types%5B0%5D=snRNA-seq+%2810x+Genomics+v2%29&entity_type%5B0%5D=Dataset) / [snRNA-seq (10x Genomics v3)](https://portal.hubmapconsortium.org/search?mapped_data_types%5B0%5D=snRNA-seq+%2810x+Genomics+v3%29&entity_type%5B0%5D=Dataset) / scRNAseq not in Portal / [sciRNA-seq](https://portal.hubmapconsortium.org/search?mapped_data_types%5B0%5D=sciRNA-seq&entity_type%5B0%5D=Dataset) / [snRNA-seq (10x Genomics v3)](https://portal.hubmapconsortium.org/search?mapped_data_types%5B0%5D=snRNA-seq+%2810x+Genomics+v3%29&entity_type%5B0%5D=Dataset) / [snRNAseq (SNARE-seq2)](https://portal.hubmapconsortium.org/search?mapped_data_types%5B0%5D=snRNAseq+%28SNARE-seq2%29&entity_type%5B0%5D=Dataset)
 
 ## Metadata schema
 
@@ -447,7 +450,7 @@ Units of final library yield. Leave blank if not applicable.
 | --- | --- |
 | enum | `ng` |
 | required | `False` |
-| units for | `library_final_yield_value` |
+| required if | `library_final_yield_value` present |
 
 <a name="library_average_fragment_size"></a>
 ##### [`library_average_fragment_size`](#library_average_fragment_size)
@@ -849,7 +852,7 @@ Units of final library yield. Leave blank if not applicable.
 | --- | --- |
 | enum | `ng` |
 | required | `False` |
-| units for | `library_final_yield_value` |
+| required if | `library_final_yield_value` present |
 
 <a name="library_average_fragment_size"></a>
 ##### [`library_average_fragment_size`](#library_average_fragment_size)
@@ -1243,7 +1246,7 @@ Units of final library yield. Leave blank if not applicable.
 | --- | --- |
 | enum | `ng` |
 | required | `False` |
-| units for | `library_final_yield_value` |
+| required if | `library_final_yield_value` present |
 
 <a name="library_average_fragment_size"></a>
 ##### [`library_average_fragment_size`](#library_average_fragment_size)
@@ -1615,7 +1618,7 @@ Units of final library yield. Leave blank if not applicable.
 | --- | --- |
 | enum | `ng` |
 | required | `False` |
-| units for | `library_final_yield_value` |
+| required if | `library_final_yield_value` present |
 
 <a name="library_average_fragment_size"></a>
 ##### [`library_average_fragment_size`](#library_average_fragment_size)

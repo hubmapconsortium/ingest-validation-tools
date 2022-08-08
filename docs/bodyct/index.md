@@ -3,6 +3,7 @@ title: Body CT
 schema_name: bodyct
 category: Clinical imaging modalities
 all_versions_deprecated: False
+exclude_from_index: False
 layout: default
 ---
 
@@ -14,6 +15,8 @@ Related files:
 This schema is for clinical imaging using body computed tomography (Body CT).
 
 
+
+In the portal: Body CT not in Portal
 
 ## Metadata schema
 
@@ -223,7 +226,7 @@ Units of image width of the ROI acquisition. Leave blank if not applicable.
 | --- | --- |
 | enum | `um` or `mm` |
 | required | `False` |
-| units for | `max_x_width_value` |
+| required if | `max_x_width_value` present |
 
 <a name="max_y_height_value"></a>
 ##### [`max_y_height_value`](#max_y_height_value)
@@ -242,7 +245,7 @@ Units of image height of the ROI acquisition. Leave blank if not applicable.
 | --- | --- |
 | enum | `um` or `mm` |
 | required | `False` |
-| units for | `max_y_height_value` |
+| required if | `max_y_height_value` present |
 
 <a name="roi_description"></a>
 ##### [`roi_description`](#roi_description)
@@ -279,7 +282,7 @@ The unit of measurement of the width of a pixel. Leave blank if not applicable.
 | --- | --- |
 | enum | `nm`, `um`, or `mm` |
 | required | `False` |
-| units for | `resolution_x_value` |
+| required if | `resolution_x_value` present |
 
 <a name="resolution_y_value"></a>
 ##### [`resolution_y_value`](#resolution_y_value)
@@ -298,7 +301,7 @@ The unit of measurement of the height of a pixel. Leave blank if not applicable.
 | --- | --- |
 | enum | `nm`, `um`, or `mm` |
 | required | `False` |
-| units for | `resolution_y_value` |
+| required if | `resolution_y_value` present |
 
 <a name="resolution_z_value"></a>
 ##### [`resolution_z_value`](#resolution_z_value)
@@ -317,7 +320,7 @@ The unit of incremental distance between image slices.(um) Leave blank if not ap
 | --- | --- |
 | enum | `nm`, `um`, or `mm` |
 | required | `False` |
-| units for | `resolution_z_value` |
+| required if | `resolution_z_value` present |
 
 <a name="pixel_size_z_value"></a>
 ##### [`pixel_size_z_value`](#pixel_size_z_value)
@@ -336,7 +339,7 @@ Depth unit of the pixel or voxel measurement. Leave blank if not applicable.
 | --- | --- |
 | enum | `nm`, `um`, or `mm` |
 | required | `False` |
-| units for | `pixel_size_z_value` |
+| required if | `pixel_size_z_value` present |
 
 <a name="number_of_images"></a>
 ##### [`number_of_images`](#number_of_images)

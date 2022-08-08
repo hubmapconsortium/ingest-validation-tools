@@ -42,11 +42,9 @@ jobs:
         python-version: ${{ matrix.version }}
         architecture: 'x64'
 
-    - name: Install python main dependencies
-      run: pip install -r requirements.txt
-
-    - name: Install python dev dependencies
-      run: pip install -r requirements-dev.txt
+    - run: sudo apt-get install parallel
+    - run: pip install -r requirements.txt
+    - run: pip install -r requirements-dev.txt
 
     - name: Run test script
       run: ./test.sh

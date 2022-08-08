@@ -3,6 +3,7 @@ title: sample-section
 schema_name: sample-section
 category: Other TSVs
 all_versions_deprecated: False
+exclude_from_index: False
 layout: default
 ---
 
@@ -10,6 +11,8 @@ Related files:
 
 - [📝 Excel template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/main/docs/sample-section/sample-section.xlsx): For metadata entry.
 - [📝 TSV template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/main/docs/sample-section/sample-section.tsv): Alternative for metadata entry.
+
+
 
 
 
@@ -90,7 +93,7 @@ Time unit. Leave blank if not applicable.
 | --- | --- |
 | enum | `min`, `hours`, `days`, or `years` |
 | required | `False` |
-| units for | `source_storage_time_value` |
+| required if | `source_storage_time_value` present |
 
 <a name="preparation_media"></a>
 ##### [`preparation_media`](#preparation_media)
@@ -127,7 +130,7 @@ Time unit. Leave blank if not applicable.
 | --- | --- |
 | required | `False` |
 | enum | `min`, `hours`, or `days` |
-| units for | `processing_time_value` |
+| required if | `processing_time_value` present |
 
 <a name="storage_media"></a>
 ##### [`storage_media`](#storage_media)
@@ -180,7 +183,7 @@ Thickness unit. Leave blank if not applicable.
 | --- | --- |
 | enum | `um`, `mm`, or `cm` |
 | required | `False` |
-| units for | `section_thickness_value` |
+| required if | `section_thickness_value` present |
 
 <a name="section_index_number"></a>
 ##### [`section_index_number`](#section_index_number)
@@ -208,7 +211,7 @@ Area unit. Leave blank if not applicable.
 | --- | --- |
 | required | `False` |
 | enum | `mm^2` or `um^2` |
-| units for | `area_value` |
+| required if | `area_value` present |
 
 <a name="notes"></a>
 ##### [`notes`](#notes)

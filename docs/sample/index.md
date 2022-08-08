@@ -3,6 +3,7 @@ title: sample
 schema_name: sample
 category: Other TSVs
 all_versions_deprecated: False
+exclude_from_index: False
 layout: default
 ---
 
@@ -10,6 +11,8 @@ Related files:
 
 - [📝 Excel template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/main/docs/sample/sample.xlsx): For metadata entry.
 - [📝 TSV template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/main/docs/sample/sample.tsv): Alternative for metadata entry.
+
+
 
 
 
@@ -144,7 +147,7 @@ Time unit. Leave blank if not applicable.
 | --- | --- |
 | required | `False` |
 | enum | `minutes` |
-| units for | `warm_ischemia_time_value` |
+| required if | `warm_ischemia_time_value` present |
 
 <a name="cold_ischemia_time_value"></a>
 ##### [`cold_ischemia_time_value`](#cold_ischemia_time_value)
@@ -163,7 +166,7 @@ Time unit. Leave blank if not applicable.
 | --- | --- |
 | required | `False` |
 | enum | `minutes` |
-| units for | `cold_ischemia_time_value` |
+| required if | `cold_ischemia_time_value` present |
 
 ### Biospecimen
 
@@ -201,7 +204,7 @@ Distance unit. Leave blank if not applicable.
 | --- | --- |
 | required | `False` |
 | enum | `cm` |
-| units for | `specimen_tumor_distance_value` |
+| required if | `specimen_tumor_distance_value` present |
 
 </details>
 

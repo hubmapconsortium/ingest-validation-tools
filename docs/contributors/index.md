@@ -3,6 +3,7 @@ title: contributors
 schema_name: contributors
 category: Other TSVs
 all_versions_deprecated: False
+exclude_from_index: False
 layout: default
 ---
 
@@ -10,6 +11,8 @@ Related files:
 
 - [📝 Excel template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/main/docs/contributors/contributors.xlsx): For metadata entry.
 - [📝 TSV template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/main/docs/contributors/contributors.tsv): Alternative for metadata entry.
+
+
 
 
 
