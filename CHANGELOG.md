@@ -478,3 +478,4 @@ If other patterns are given, dot-files must be explicitly ignored.
 - Define path fields only in one place.
 - Remove timezone offset.
 - Autogenerate parts of table schema.
+- New note to clarify git is required.
