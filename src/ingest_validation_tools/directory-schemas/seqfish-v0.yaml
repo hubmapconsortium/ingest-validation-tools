@@ -64,3 +64,13 @@ files:
     description: 'Overview TIFF image for all fields of view.'
     required: False
     is_qa_qc: False
+  -
+    pattern: 'codebook.csv'
+    description: ''
+    required: True
+    is_qa_qc: False
+  -
+    pattern: 'metadata.json'
+    description: ''
+    required: True
+    is_qa_qc: False
