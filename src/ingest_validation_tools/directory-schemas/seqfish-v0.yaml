@@ -66,11 +66,11 @@ files:
     is_qa_qc: False
   -
     pattern: 'codebook.csv'
-    description: ''
+    description: 'Barcodes.'
     required: True
     is_qa_qc: False
   -
     pattern: 'metadata.json'
-    description: ''
+    description: 'Additional dataset metadata needed for the processing pipeline.'
     required: True
     is_qa_qc: False
