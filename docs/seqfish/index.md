@@ -30,8 +30,8 @@ This schema is for spatial sequencing by fluorescence in situ hybridization (seq
 | <code>positions\.pos</code> (example: <code>positions.pos</code>) | ✓ | Micro-Manager coordinates of each field of view tile. |
 | <code>fovinfo\.csv</code> (example: <code>fovinfo.csv</code>) | ✓ | Upperleft coordinates for each field of view in the file extras/SlideExplorer.tif. |
 | <code>extras/SlideExplorer\.tif</code> (example: <code>extras/SlideExplorer.tif</code>) |  | Overview TIFF image for all fields of view. |
-| <code>codebook.csv</code> | ✓ |  |
-| <code>metadata.json</code> | ✓ |  |
+| <code>codebook.csv</code> | ✓ | Barcodes. |
+| <code>metadata.json</code> | ✓ | Additional dataset metadata needed for the processing pipeline. |
 | <code>extras/.*</code> |  | Free-form descriptive information supplied by the TMC |
 
 
