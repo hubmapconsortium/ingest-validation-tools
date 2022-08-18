@@ -3,6 +3,7 @@ title: LC-MS / MS / LC-MS Bottom-Up / MS Bottom-Up / LC-MS Top-Down / MS Top-Dow
 schema_name: lcms
 category: Mass spectrometry
 all_versions_deprecated: False
+exclude_from_index: False
 layout: default
 ---
 
@@ -20,13 +21,15 @@ v3 adds `dms` and `label_name` fields, and `negative and positive ion mode` as a
 
 | pattern | required? | description |
 | --- | --- | --- |
-| <code>raw_data/[^/]+\.(raw&#124;mzML)</code> (example: <code>raw_data/20200707_rmi049_75umPLRPS_Kidney_GF10pc_VAN0003LK32_biorep05_techrep02.raw</code>) | ✓ | Raw mass spectrometry data from an assay of LC-MS, MS, LC-MS Bottom-Up, MS Bottom-Up, LC-MS Top-Down, or MS Top-Down that describes an analyte class of protein, metabolites, lipids, peptides, phosphopeptides, or glycans. |
+| <code>raw_data/[^/]+\.(raw&#124;mzML&#124;d)</code> (example: <code>raw_data/20200707_rmi049_75umPLRPS_Kidney_GF10pc_VAN0003LK32_biorep05_techrep02.raw</code>) | ✓ | Raw mass spectrometry data from an assay of LC-MS, MS, LC-MS Bottom-Up, MS Bottom-Up, LC-MS Top-Down, or MS Top-Down that describes an analyte class of protein, metabolites, lipids, peptides, phosphopeptides, or glycans. |
 | <code>ID_search_results/[^/]+\.(txt&#124;csv)</code> | ✓ | Identification results. Annotated data describing (qualitative or quantitative) the proteins, metabolites, lipids, peptides, phosphopeptides, or glycans identified from the corresponding raw data. |
-| <code>ID_metadata/[^/]+\.xml</code> |  | Identification search parameters / metadata. Software settings used during the analyte identification process (e.g., from MaxQuant or Proteome Discoverer). |
+| <code>ID_metadata/[^/]+\.(csv&#124;tsv&#124;txt&#124;xml)</code> | ✓ | Identification search parameters/metadata. Software settings used during the analyte identification process (e.g., from MaxQuant or Proteome Discoverer). |
 | <code>QC_results/[^/]+\.(xml&#124;txt&#124;html&#124;pdf&#124;log&#124;yaml)</code> |  | Output file resulting from QC analysis. A list of metrics with the score of the current dataset that shows the quality of data collection. |
 | <code>extras/.*</code> |  | Free-form descriptive information supplied by the TMC |
 
 
+
+In the portal: [LC-MS](https://portal.hubmapconsortium.org/search?mapped_data_types%5B0%5D=LC-MS&entity_type%5B0%5D=Dataset) / [MS](https://portal.hubmapconsortium.org/search?mapped_data_types%5B0%5D=MS&entity_type%5B0%5D=Dataset) / [LC-MS Bottom Up](https://portal.hubmapconsortium.org/search?mapped_data_types%5B0%5D=LC-MS+Bottom+Up&entity_type%5B0%5D=Dataset) / [MS Bottom Up](https://portal.hubmapconsortium.org/search?mapped_data_types%5B0%5D=MS+Bottom+Up&entity_type%5B0%5D=Dataset) / [LC-MS Top Down](https://portal.hubmapconsortium.org/search?mapped_data_types%5B0%5D=LC-MS+Top+Down&entity_type%5B0%5D=Dataset) / [MS Top Down](https://portal.hubmapconsortium.org/search?mapped_data_types%5B0%5D=MS+Top+Down&entity_type%5B0%5D=Dataset)
 
 ## Metadata schema
 
@@ -324,10 +327,11 @@ Specifies whether or not ion mobility spectrometry was performed and which techn
 
 <a name="data_collection_mode"></a>
 ##### [`data_collection_mode`](#data_collection_mode)
-Mode of data collection in tandem MS assays. Either DDA (Data-dependent acquisition) or DIA (Data-independent acquisition).
+Mode of data collection in tandem MS assays. Either DDA (Data-dependent acquisition), DIA (Data-independent acquisition), MRM (multiple reaction monitoring), or PRM (parallel reaction monitoring).
 
 | constraint | value |
 | --- | --- |
+| enum | `DDA`, `DIA`, `MRM`, or `PRM` |
 | required | `True` |
 
 <a name="ms_scan_mode"></a>
@@ -421,7 +425,7 @@ units for LC column length (typically cm) Leave blank if not applicable.
 | --- | --- |
 | enum | `um`, `mm`, or `cm` |
 | required | `False` |
-| units for | `lc_length_value` |
+| required if | `lc_length_value` present |
 
 <a name="lc_temp_value"></a>
 ##### [`lc_temp_value`](#lc_temp_value)
@@ -440,7 +444,7 @@ units for LC temperature. Leave blank if not applicable.
 | --- | --- |
 | enum | `C` |
 | required | `False` |
-| units for | `lc_temp_value` |
+| required if | `lc_temp_value` present |
 
 <a name="lc_id_value"></a>
 ##### [`lc_id_value`](#lc_id_value)
@@ -459,7 +463,7 @@ units of LC column inner diameter (typically microns) Leave blank if not applica
 | --- | --- |
 | enum | `um`, `mm`, or `cm` |
 | required | `False` |
-| units for | `lc_id_value` |
+| required if | `lc_id_value` present |
 
 <a name="lc_flow_rate_value"></a>
 ##### [`lc_flow_rate_value`](#lc_flow_rate_value)
@@ -478,7 +482,7 @@ Units of flow rate. Leave blank if not applicable.
 | --- | --- |
 | required | `False` |
 | enum | `nL/min` or `mL/min` |
-| units for | `lc_flow_rate_value` |
+| required if | `lc_flow_rate_value` present |
 
 <a name="lc_gradient"></a>
 ##### [`lc_gradient`](#lc_gradient)
@@ -547,7 +551,7 @@ The unit of measurement of the width of a pixel. Leave blank if not applicable.
 | --- | --- |
 | enum | `nm` or `um` |
 | required | `False` |
-| units for | `resolution_x_value` |
+| required if | `resolution_x_value` present |
 
 <a name="resolution_y_value"></a>
 ##### [`resolution_y_value`](#resolution_y_value)
@@ -566,7 +570,7 @@ The unit of measurement of the height of a pixel. Leave blank if not applicable.
 | --- | --- |
 | enum | `nm` or `um` |
 | required | `False` |
-| units for | `resolution_y_value` |
+| required if | `resolution_y_value` present |
 
 <a name="processing_search"></a>
 ##### [`processing_search`](#processing_search)
@@ -828,10 +832,11 @@ Specifies whether or not ion mobility spectrometry was performed and which techn
 
 <a name="data_collection_mode"></a>
 ##### [`data_collection_mode`](#data_collection_mode)
-Mode of data collection in tandem MS assays. Either DDA (Data-dependent acquisition) or DIA (Data-independent acquisition).
+Mode of data collection in tandem MS assays. Either DDA (Data-dependent acquisition), DIA (Data-independent acquisition), MRM (multiple reaction monitoring), or PRM (parallel reaction monitoring).
 
 | constraint | value |
 | --- | --- |
+| enum | `DDA`, `DIA`, `MRM`, or `PRM` |
 | required | `True` |
 
 <a name="ms_scan_mode"></a>
@@ -917,7 +922,7 @@ units for LC column length (typically cm) Leave blank if not applicable.
 | --- | --- |
 | enum | `um`, `mm`, or `cm` |
 | required | `False` |
-| units for | `lc_length_value` |
+| required if | `lc_length_value` present |
 
 <a name="lc_temp_value"></a>
 ##### [`lc_temp_value`](#lc_temp_value)
@@ -936,7 +941,7 @@ units for LC temperature. Leave blank if not applicable.
 | --- | --- |
 | enum | `C` |
 | required | `False` |
-| units for | `lc_temp_value` |
+| required if | `lc_temp_value` present |
 
 <a name="lc_id_value"></a>
 ##### [`lc_id_value`](#lc_id_value)
@@ -955,7 +960,7 @@ units of LC column inner diameter (typically microns) Leave blank if not applica
 | --- | --- |
 | enum | `um`, `mm`, or `cm` |
 | required | `False` |
-| units for | `lc_id_value` |
+| required if | `lc_id_value` present |
 
 <a name="lc_flow_rate_value"></a>
 ##### [`lc_flow_rate_value`](#lc_flow_rate_value)
@@ -974,7 +979,7 @@ Units of flow rate. Leave blank if not applicable.
 | --- | --- |
 | required | `False` |
 | enum | `nL/min` or `mL/min` |
-| units for | `lc_flow_rate_value` |
+| required if | `lc_flow_rate_value` present |
 
 <a name="lc_gradient"></a>
 ##### [`lc_gradient`](#lc_gradient)
@@ -1043,7 +1048,7 @@ The unit of measurement of the width of a pixel. Leave blank if not applicable.
 | --- | --- |
 | enum | `nm` or `um` |
 | required | `False` |
-| units for | `resolution_x_value` |
+| required if | `resolution_x_value` present |
 
 <a name="resolution_y_value"></a>
 ##### [`resolution_y_value`](#resolution_y_value)
@@ -1062,7 +1067,7 @@ The unit of measurement of the height of a pixel. Leave blank if not applicable.
 | --- | --- |
 | enum | `nm` or `um` |
 | required | `False` |
-| units for | `resolution_y_value` |
+| required if | `resolution_y_value` present |
 
 <a name="processing_search"></a>
 ##### [`processing_search`](#processing_search)
@@ -1112,7 +1117,7 @@ Relative path to file or directory with instrument data. Downstream processing w
 
 
 
-<details markdown="1" ><summary><b>Version 1</b></summary>
+<details markdown="1" ><summary><s>Version 1</s> (deprecated)</summary>
 
 
 ### Shared by all types
@@ -1297,10 +1302,11 @@ The high value of the scanned mass range for MS1. (unitless)
 
 <a name="data_collection_mode"></a>
 ##### [`data_collection_mode`](#data_collection_mode)
-Mode of data collection in tandem MS assays. Either DDA (Data-dependent acquisition) or DIA (Data-independent acquisition).
+Mode of data collection in tandem MS assays. Either DDA (Data-dependent acquisition), DIA (Data-independent acquisition), MRM (multiple reaction monitoring), or PRM (parallel reaction monitoring).
 
 | constraint | value |
 | --- | --- |
+| enum | `DDA`, `DIA`, `MRM`, or `PRM` |
 | required | `True` |
 
 <a name="ms_scan_mode"></a>
@@ -1386,7 +1392,7 @@ units for LC column length (typically cm) Leave blank if not applicable.
 | --- | --- |
 | enum | `um`, `mm`, or `cm` |
 | required | `False` |
-| units for | `lc_length_value` |
+| required if | `lc_length_value` present |
 
 <a name="lc_temp_value"></a>
 ##### [`lc_temp_value`](#lc_temp_value)
@@ -1405,7 +1411,7 @@ units for LC temperature. Leave blank if not applicable.
 | --- | --- |
 | enum | `C` |
 | required | `False` |
-| units for | `lc_temp_value` |
+| required if | `lc_temp_value` present |
 
 <a name="lc_id_value"></a>
 ##### [`lc_id_value`](#lc_id_value)
@@ -1424,7 +1430,7 @@ units of LC column inner diameter (typically microns) Leave blank if not applica
 | --- | --- |
 | enum | `um`, `mm`, or `cm` |
 | required | `False` |
-| units for | `lc_id_value` |
+| required if | `lc_id_value` present |
 
 <a name="lc_flow_rate_value"></a>
 ##### [`lc_flow_rate_value`](#lc_flow_rate_value)
@@ -1443,7 +1449,7 @@ Units of flow rate. Leave blank if not applicable.
 | --- | --- |
 | required | `False` |
 | enum | `nL/min` or `mL/min` |
-| units for | `lc_flow_rate_value` |
+| required if | `lc_flow_rate_value` present |
 
 <a name="lc_gradient"></a>
 ##### [`lc_gradient`](#lc_gradient)
@@ -1517,7 +1523,7 @@ Relative path to file or directory with instrument data. Downstream processing w
 
 
 
-<details markdown="1" ><summary><b>Version 0</b></summary>
+<details markdown="1" ><summary><s>Version 0</s> (deprecated)</summary>
 
 
 ### Shared by all types
@@ -1685,10 +1691,11 @@ The high value of the scanned mass range for MS1. (unitless)
 
 <a name="data_collection_mode"></a>
 ##### [`data_collection_mode`](#data_collection_mode)
-Mode of data collection in tandem MS assays. Either DDA (Data-dependent acquisition) or DIA (Data-independent acquisition).
+Mode of data collection in tandem MS assays. Either DDA (Data-dependent acquisition), DIA (Data-independent acquisition), MRM (multiple reaction monitoring), or PRM (parallel reaction monitoring).
 
 | constraint | value |
 | --- | --- |
+| enum | `DDA`, `DIA`, `MRM`, or `PRM` |
 | required | `True` |
 
 <a name="ms_scan_mode"></a>
@@ -1774,7 +1781,7 @@ units for LC column length (typically cm) Leave blank if not applicable.
 | --- | --- |
 | enum | `um`, `mm`, or `cm` |
 | required | `False` |
-| units for | `lc_length_value` |
+| required if | `lc_length_value` present |
 
 <a name="lc_temp_value"></a>
 ##### [`lc_temp_value`](#lc_temp_value)
@@ -1793,7 +1800,7 @@ units for LC temperature. Leave blank if not applicable.
 | --- | --- |
 | enum | `C` |
 | required | `False` |
-| units for | `lc_temp_value` |
+| required if | `lc_temp_value` present |
 
 <a name="lc_id_value"></a>
 ##### [`lc_id_value`](#lc_id_value)
@@ -1812,7 +1819,7 @@ units of LC column inner diameter (typically microns) Leave blank if not applica
 | --- | --- |
 | enum | `um`, `mm`, or `cm` |
 | required | `False` |
-| units for | `lc_id_value` |
+| required if | `lc_id_value` present |
 
 <a name="lc_flow_rate_value"></a>
 ##### [`lc_flow_rate_value`](#lc_flow_rate_value)
@@ -1831,7 +1838,7 @@ Units of flow rate. Leave blank if not applicable.
 | --- | --- |
 | required | `False` |
 | enum | `nL/min` or `mL/min` |
-| units for | `lc_flow_rate_value` |
+| required if | `lc_flow_rate_value` present |
 
 <a name="lc_gradient"></a>
 ##### [`lc_gradient`](#lc_gradient)

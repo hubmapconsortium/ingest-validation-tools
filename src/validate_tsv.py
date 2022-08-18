@@ -12,9 +12,13 @@ from ingest_validation_tools.validation_utils import (
 )
 
 
+reminder = 'REMINDER: Besides running validate_tsv.py, ' \
+    'you should also run validate_upload.py before submission.'
+
+
 def make_parser():
     parser = argparse.ArgumentParser(
-        description='Validate a HuBMAP TSV.',
+        description=f'Validate a HuBMAP TSV. {reminder}',
         epilog=f'''
 Exit status codes:
   {exit_codes.VALID}: Validation passed
@@ -58,7 +62,9 @@ def main():
     else:
         errors = get_tsv_errors(args.path, schema_name=schema_name)
         errors = {f'{schema_name} TSV errors': errors} if errors else {}
-    report = ErrorReport(errors)
+    report = ErrorReport(
+        info={},  # Until we know it's needed, don't bother filling this in.
+        errors=errors)
     print(getattr(report, args.output)())
     return exit_codes.INVALID if errors else exit_codes.VALID
 
@@ -70,4 +76,5 @@ if __name__ == "__main__":
         print(parser.format_usage(), file=sys.stderr)
         print(e, file=sys.stderr)
         exit_status = exit_codes.ERROR
+    print(reminder)
     sys.exit(exit_status)

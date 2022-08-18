@@ -1,4 +1,5 @@
 # Generated YAML: PRs should not start here!
+exclude_from_index: true
 doc_url: https://portal.hubmapconsortium.org/docs/assays/rnaseq
 fields:
 - name: source_project
@@ -359,9 +360,9 @@ fields:
     forbid_na: true
   type: number
 - name: contributors_path
-  constraints:
-    required: false
   description: Relative path to file with ORCID IDs for contributors for this dataset.
+  constraints:
+    required: true
   custom_constraints:
     sequence_limit: 3
     forbid_na: true

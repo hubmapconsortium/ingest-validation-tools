@@ -16,6 +16,10 @@ acquisition_instrument_model:
 - dataset
 acquisition_instrument_vendor:
 - dataset
+acquisition_matrix_size_in_frequency_encoding_direction:
+- dataset
+acquisition_matrix_size_in_phase_encoding_direction:
+- dataset
 affiliation:
 - contributors
 age_unit:
@@ -84,6 +88,8 @@ cell_barcode_size:
 - dataset
 channel_id:
 - antibodies
+coil:
+- dataset
 cold_ischemia_time_unit:
 - sample
 cold_ischemia_time_value:
@@ -100,6 +106,8 @@ column_temp_value:
 - dataset
 column_vendor:
 - dataset
+compound_imaging:
+- dataset
 concentration_unit:
 - antibodies
 concentration_value:
@@ -109,6 +117,10 @@ conjugated_cat_number:
 conjugated_tag:
 - antibodies
 contributors_path:
+- dataset
+current_unit:
+- dataset
+current_value:
 - dataset
 data_collection_mode:
 - dataset
@@ -136,17 +148,37 @@ donor_id:
 - dataset
 dual_count_start:
 - dataset
+dynamic_contrast:
+- dataset
+echo_time:
+- dataset
+echo_train_length:
+- dataset
 end_datetime:
 - dataset
 execution_datetime:
 - dataset
 expected_cell_count:
 - dataset
+field_strength_unit:
+- dataset
+field_strength_value:
+- dataset
+filter:
+- dataset
 first_name:
 - contributors
+flip_angle:
+- dataset
+frequency_unit:
+- dataset
+frequency_value:
+- dataset
 gdna_fragmentation_quality_assurance:
 - dataset
 guard_column:
+- dataset
+harmonics:
 - dataset
 health_status:
 - sample
@@ -156,6 +188,10 @@ height_value:
 - donor
 histological_report:
 - sample
+imaging_threshold_unit_value:
+- dataset
+imaging_threshold_value:
+- dataset
 increment_z_unit:
 - dataset
 increment_z_value:
@@ -276,6 +312,8 @@ notes:
 - sample
 number_of_antibodies:
 - dataset
+number_of_averages:
+- dataset
 number_of_barcode_probes:
 - dataset
 number_of_barcode_regions_per_barcode_probe:
@@ -283,6 +321,12 @@ number_of_barcode_regions_per_barcode_probe:
 number_of_channels:
 - dataset
 number_of_cycles:
+- dataset
+number_of_image_columns:
+- dataset
+number_of_image_rows:
+- dataset
+number_of_images:
 - dataset
 number_of_imaging_rounds:
 - dataset
@@ -326,6 +370,10 @@ pixel_size_y_unit:
 - dataset
 pixel_size_y_value:
 - dataset
+pixel_size_z_unit:
+- dataset
+pixel_size_z_value:
+- dataset
 polarity:
 - dataset
 preparation_instrument_model:
@@ -346,6 +394,8 @@ primary_ion_current_unit:
 - dataset
 primary_ion_current_value:
 - dataset
+probe:
+- dataset
 procedure_date:
 - sample
 processing_protocols_io_doi:
@@ -362,6 +412,8 @@ puck_id:
 - dataset
 quality_criteria:
 - sample
+quality_view:
+- dataset
 race:
 - donor
 range_z_unit:
@@ -369,6 +421,8 @@ range_z_unit:
 range_z_value:
 - dataset
 reagent_prep_protocols_io_doi:
+- dataset
+repetition_time:
 - dataset
 resolution_x_unit:
 - dataset
@@ -412,6 +466,8 @@ sc_isolation_quality_metric:
 - dataset
 sc_isolation_tissue_dissociation:
 - dataset
+scanning_sequence:
+- dataset
 section_index_number:
 - sample
 section_prep_protocols_io_doi:
@@ -421,6 +477,8 @@ section_thickness_unit:
 section_thickness_value:
 - sample
 segment_data_format:
+- dataset
+sequence_variant:
 - dataset
 sequencing_phix_percent:
 - dataset
@@ -433,6 +491,12 @@ sequencing_reagent_kit:
 sex:
 - donor
 signal_type:
+- dataset
+single_file_export_format:
+- dataset
+sn_quality:
+- dataset
+sn_quality_unit:
 - dataset
 source_project:
 - dataset
@@ -454,6 +518,8 @@ specimen_tumor_distance_unit:
 - sample
 specimen_tumor_distance_value:
 - sample
+speckle_reduction_imaging:
+- dataset
 stain:
 - dataset
 start_datetime:
@@ -465,6 +531,8 @@ storage_media:
 storage_temperature:
 - sample
 tissue_id:
+- dataset
+total_sections_analyzed:
 - dataset
 transposition_input:
 - dataset
@@ -491,6 +559,12 @@ version:
 - sample
 vital_state:
 - sample
+voltage_unit:
+- dataset
+voltage_value:
+- dataset
+volume_export_format:
+- dataset
 volume_unit:
 - sample
 volume_value:
@@ -499,6 +573,10 @@ warm_ischemia_time_unit:
 - sample
 warm_ischemia_time_value:
 - sample
+wavelength_unit:
+- dataset
+wavelength_value:
+- dataset
 weight_unit:
 - donor
 - sample

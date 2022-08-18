@@ -20,7 +20,7 @@ for SUITE in examples/dataset-examples examples/dataset-iec-examples; do
 
   for EXAMPLE in $SUITE/*; do
     echo "Testing $EXAMPLE ..."
-    CMD="src/validate_upload.py --local_directory $EXAMPLE/upload $OPTS "
+    CMD="src/validate_upload.py --local_directory $EXAMPLE/upload $OPTS | perl -pne 's/(Time|Git version): .*/\1: WILL_CHANGE/'"
     echo "$CMD"
     README="$EXAMPLE/README.md"
     diff $README <( eval "$CMD" ) \

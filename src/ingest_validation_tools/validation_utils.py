@@ -2,7 +2,6 @@ import logging
 from csv import DictReader
 from pathlib import Path
 from typing import List, Optional
-from collections import OrderedDict
 
 from ingest_validation_tools.schema_loader import (
     SchemaVersion, get_table_schema, get_other_schema,
@@ -20,13 +19,24 @@ class TableValidationErrors(Exception):
     pass
 
 
-def dict_reader_wrapper(path, encoding: str) -> List[OrderedDict]:
+def dict_reader_wrapper(path, encoding: str) -> list:
     with open(path, encoding=encoding) as f:
         rows = list(DictReader(f, dialect='excel-tab'))
     return rows
 
 
 def get_table_schema_version(path, encoding: str) -> SchemaVersion:
+    rows = _read_rows(path, encoding)
+    return get_table_schema_version_from_row(path, rows[0])
+
+
+def get_directory_schema_versions(tsv_path, encoding: str) -> list:
+    parent = Path(tsv_path).parent
+    data_paths = [r.get('data_path') for r in _read_rows(tsv_path, encoding)]
+    return list(set(_get_directory_schema_version(parent / path) for path in data_paths if path))
+
+
+def _read_rows(path, encoding: str):
     try:
         rows = dict_reader_wrapper(path, encoding)
     except UnicodeDecodeError as e:
@@ -35,12 +45,12 @@ def get_table_schema_version(path, encoding: str) -> SchemaVersion:
         raise PreflightError(f'Expected a TSV, found a directory at {path}.')
     if not rows:
         raise PreflightError(f'{path} has no data rows.')
-    return get_table_schema_version_from_row(path, rows[0])
+    return rows
 
 
-def _get_directory_schema_version(data_path: Path) -> str:
+def _get_directory_schema_version(data_path) -> str:
     prefix = 'dir-schema-v'
-    version_hints = [path.name for path in (data_path / 'extras').glob(f'{prefix}*')]
+    version_hints = [path.name for path in (Path(data_path) / 'extras').glob(f'{prefix}*')]
     len_hints = len(version_hints)
     if len_hints == 0:
         return '0'

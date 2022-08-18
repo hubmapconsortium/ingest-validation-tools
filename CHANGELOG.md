@@ -1,6 +1,24 @@
 # Changelog
-## v0.0.14 - in progress
+## v0.0.15 - in progress
 - Added SeqFISH directory structure schema.
+- Add a reminder that TSV validation is not sufficient.
+- Clearer presentation of unit fields in generated docs.
+- Make `contributors_path` required for HCA.
+- Parallelize tests.
+- Use the assay service to describe how assays are represented in the Portal.
+
+## v0.0.14 - 2022-06-23
+- Turn validation of enums back on.
+- Mods to plugin validator to fix import problems.
+- Return directory schema version and refactor.
+- Add new data_collection_mode values for MS assays.
+- Add "CODEX2" assay type.
+- Deprecate older LCMS schemas.
+- Updated LC-MS directory structure schema.
+- Remove HTML reporting options.
+- Updated IMS directory structure schema.
+- Add Clinical Imaging schemas.
+- Test under both Python 3.6 and Python 3.10
 - Cosmetic updates to the Slide-seq directory structure schema.
 - Fix rendering bug on CODEX page by adding linebreaks.
 - Add type hints.
@@ -35,6 +53,7 @@
 - Temporarily disable checking the assay names in schemas against the global list.
   Entries in the global list are now commented out, and Joel will progressively
   uncomment them.
+- Moved `dataset.json` to `raw` or `src_*` directory for CODEX datasets.
 
 ## v0.0.13 - 2022-01-07
 - Make more fields explicitly numeric
@@ -460,3 +479,4 @@ If other patterns are given, dot-files must be explicitly ignored.
 - Define path fields only in one place.
 - Remove timezone offset.
 - Autogenerate parts of table schema.
+- New note to clarify git is required.

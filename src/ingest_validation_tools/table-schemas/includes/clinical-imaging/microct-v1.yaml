@@ -1,0 +1,38 @@
+- name: voltage_value
+  description: "The voltage used to acquire images"
+  constraints:
+    required: False
+
+- name: voltage_unit
+  description: "The unit of the voltage used to acquire microCT images. Example: V"
+  constraints:
+    enum: ['V', 'kV']
+    required: False
+
+- name: current_value
+  description: "The current used to acquire microCT images"
+  constraints:
+    required: False
+
+- name: current_unit
+  description: "The unit of the current used to acquire microCT images. Example: mA"
+  constraints:
+    enum: ['mA', 'microA',  'A']
+    required: False
+
+- name: filter
+  description: "The filter used to acquire microCT images"
+  constraints:
+    required: False
+
+- name: imaging_threshold_value
+  description: "The threshold used for analyzing microCT images"
+  constraints:
+    required: False
+
+- name: imaging_threshold_unit_value # TODO: Confirm that adding "_value" is ok, to make it more clear that this is not an enum.
+  description: "The threshold unit used for analyzing microCT images (unitless)"
+  constraints:
+    required: False
+
+# include: ./total_sections_analyzed-v1.yaml

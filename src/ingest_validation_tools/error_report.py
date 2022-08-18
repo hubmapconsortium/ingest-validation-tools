@@ -1,8 +1,4 @@
-from datetime import datetime
 from yaml import Dumper, dump
-from webbrowser import open_new_tab
-from pathlib import Path
-from yattag import Doc, indent
 from typing import List
 
 from ingest_validation_tools.message_munger import munge
@@ -14,20 +10,16 @@ Dumper.ignore_aliases = lambda *args: True
 
 
 class ErrorReport:
-    def __init__(self, errors_dict, effective_tsv_paths={}):
-        self.errors = errors_dict
-        self.effective_tsv_paths = effective_tsv_paths
+    def __init__(self, info=None, errors=None):
+        self.info = info
+        self.errors = errors
         if self.errors:
             self.errors['Hint'] = \
                 'If validation fails because of extra whitespace in the TSV, try:\n' \
                 'src/cleanup_whitespace.py --tsv_in original.tsv --tsv_out clean.tsv'
 
     def _no_errors(self):
-        schema_versions = ' and '.join(
-            f'{sv.schema_name}-v{sv.version} ({Path(path).name})'
-            for path, sv in self.effective_tsv_paths.items()
-        )
-        return f'No errors! {schema_versions}\n'
+        return f'No errors!\n{dump(self.info, sort_keys=False)}\n'
 
     def _as_list(self) -> List[str]:
         return [munge(m) for m in _build_list(self.errors)]
@@ -46,61 +38,6 @@ class ErrorReport:
 
     def as_md(self) -> str:
         return f'```\n{self.as_text()}```'
-
-    def as_html_fragment(self) -> str:
-        '''
-        >>> print(ErrorReport({}).as_html_fragment().strip())
-        No errors!
-
-        >>> report = ErrorReport({'really': 'simple'})
-        >>> print(report.as_html_fragment())
-        <dl>
-          <dt>really</dt>
-          <dd>simple</dd>
-          <dt>Hint</dt>
-          <dd>If validation fails because of extra whitespace in the TSV, try:
-        src/cleanup_whitespace.py --tsv_in original.tsv --tsv_out clean.tsv</dd>
-        </dl>
-        '''
-        if not self.errors:
-            return self._no_errors()
-        doc, tag, _, line = Doc().ttl()
-        _build_doc(tag, line, self.errors)
-        return indent(doc.getvalue())
-
-    def as_html_doc(self) -> str:
-        doc, tag, text, line = Doc().ttl()
-        for_each = "Array.from(document.getElementsByTagName('details')).forEach"
-        with tag('html'):
-            with tag('head'):
-                with tag('style', type='text/css'):
-                    text('''
-details {
-    padding-left: 1em;
-}
-ul {
-    margin: 0;
-}''')
-            with tag('body'):
-                line(
-                    'button', 'Open all',
-                    onclick=f"{for_each}((node)=>{{node.setAttribute('open','')}})")
-                line(
-                    'button', 'Close all',
-                    onclick=f"{for_each}((node)=>{{node.removeAttribute('open')}})")
-                _build_doc(tag, line, self.errors)
-        return '<!DOCTYPE html>\n' + indent(doc.getvalue())
-
-    def as_browser(self) -> str:
-        if not self.errors:
-            return self.as_text()
-        html = self.as_html_doc()
-        filename = f"{str(datetime.now()).replace(' ', '_')}.html"
-        path = Path(__file__).parent / 'error-reports' / filename
-        path.write_text(html)
-        url = f'file://{path.resolve()}'
-        open_new_tab(url)
-        return f'See {url}'
 
 
 def _build_list(anything, path=None) -> List[str]:
@@ -143,55 +80,3 @@ def _build_list(anything, path=None) -> List[str]:
             return to_return
     else:
         return [f'{prefix}{anything}']
-
-
-def _build_doc(tag, line, anything):
-    '''
-    >>> doc, tag, text, line = Doc().ttl()
-    >>> _build_doc(tag, line, {
-    ...     'nested dict': {
-    ...         'like': 'this'
-    ...     },
-    ...     'nested array': [
-    ...         'like',
-    ...         'this'
-    ...     ]
-    ... })
-    >>> print(indent(doc.getvalue()))
-    <details>
-      <summary>nested dict</summary>
-      <dl>
-        <dt>like</dt>
-        <dd>this</dd>
-      </dl>
-    </details>
-    <details>
-      <summary>nested array</summary>
-      <ul>
-        <li>like</li>
-        <li>this</li>
-      </ul>
-    </details>
-
-    '''
-    if isinstance(anything, dict):
-        if all(isinstance(v, (float, int, str)) for v in anything.values()):
-            with tag('dl'):
-                for k, v in anything.items():
-                    line('dt', k)
-                    line('dd', v)
-        else:
-            for k, v in anything.items():
-                with tag('details'):
-                    line('summary', k)
-                    _build_doc(tag, line, v)
-    elif isinstance(anything, list):
-        if all(isinstance(v, (float, int, str)) for v in anything):
-            with tag('ul'):
-                for v in anything:
-                    line('li', v)
-        else:
-            for v in anything:
-                _build_doc(tag, line, v)
-    else:
-        line('div', anything)

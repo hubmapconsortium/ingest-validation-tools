@@ -3,6 +3,7 @@ title: donor
 schema_name: donor
 category: Other TSVs
 all_versions_deprecated: False
+exclude_from_index: False
 layout: default
 ---
 
@@ -13,6 +14,8 @@ Related files:
 
 This file is really only here to provide descriptions of fields in portal-ui. The full description of Donor metadata is at https://portal.hubmapconsortium.org/docs/donor
 Most definitions taken from https://ncit.nci.nih.gov/ncitbrowser/pages/home.jsf?version=20.11e
+
+
 
 
 
@@ -50,7 +53,7 @@ Unit for age measurement. Leave blank if not applicable.
 | constraint | value |
 | --- | --- |
 | required | `False` |
-| units for | `age_value` |
+| required if | `age_value` present |
 
 <a name="age_value"></a>
 ##### [`age_value`](#age_value)
@@ -103,7 +106,7 @@ Unit for height measurement. Leave blank if not applicable.
 | constraint | value |
 | --- | --- |
 | required | `False` |
-| units for | `height_value` |
+| required if | `height_value` present |
 
 <a name="height_value"></a>
 ##### [`height_value`](#height_value)
@@ -162,7 +165,7 @@ Unit for weight measurement. Leave blank if not applicable.
 | constraint | value |
 | --- | --- |
 | required | `False` |
-| units for | `weight_value` |
+| required if | `weight_value` present |
 
 <a name="weight_value"></a>
 ##### [`weight_value`](#weight_value)

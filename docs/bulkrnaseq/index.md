@@ -3,6 +3,7 @@ title: bulk RNA
 schema_name: bulkrnaseq
 category: Sequence assays
 all_versions_deprecated: False
+exclude_from_index: False
 layout: default
 ---
 
@@ -22,6 +23,8 @@ Related files:
 | <code>extras/.*</code> |  | Free-form descriptive information supplied by the TMC |
 
 
+
+In the portal: [Bulk RNA-seq](https://portal.hubmapconsortium.org/search?mapped_data_types%5B0%5D=Bulk+RNA-seq&entity_type%5B0%5D=Dataset)
 
 ## Metadata schema
 
@@ -280,7 +283,7 @@ Units of RNA input amount to the assay. Leave blank if not applicable.
 | --- | --- |
 | enum | `ug` |
 | required | `False` |
-| units for | `rnaseq_assay_input_value` |
+| required if | `rnaseq_assay_input_value` present |
 
 <a name="rnaseq_assay_method"></a>
 ##### [`rnaseq_assay_method`](#rnaseq_assay_method)
@@ -344,7 +347,7 @@ Units of final library yield. Leave blank if not applicable.
 | --- | --- |
 | enum | `ng` |
 | required | `False` |
-| units for | `library_final_yield_value` |
+| required if | `library_final_yield_value` present |
 
 <a name="library_average_fragment_size"></a>
 ##### [`library_average_fragment_size`](#library_average_fragment_size)
@@ -600,7 +603,7 @@ Units of RNA input amount to the assay. Leave blank if not applicable.
 | --- | --- |
 | enum | `ug` |
 | required | `False` |
-| units for | `rnaseq_assay_input_value` |
+| required if | `rnaseq_assay_input_value` present |
 
 <a name="rnaseq_assay_method"></a>
 ##### [`rnaseq_assay_method`](#rnaseq_assay_method)
@@ -664,7 +667,7 @@ Units of final library yield. Leave blank if not applicable.
 | --- | --- |
 | enum | `ng` |
 | required | `False` |
-| units for | `library_final_yield_value` |
+| required if | `library_final_yield_value` present |
 
 <a name="library_average_fragment_size"></a>
 ##### [`library_average_fragment_size`](#library_average_fragment_size)

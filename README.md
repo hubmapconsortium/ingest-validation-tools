@@ -50,6 +50,8 @@ src/validate_upload.py --help
 
 You should see [the documention for `validate_upload.py`](script-docs/README-validate_upload.py.md)
 
+**Note**: you need to have _git_ installed in your system.
+
 Now run it against one of the included examples, giving the path to an upload directory:
 ```
 src/validate_upload.py \
@@ -117,6 +119,8 @@ To make contributions, checkout the project, cd, venv, and then:
 ```
 pip install -r requirements.txt
 pip install -r requirements-dev.txt
+brew install parallel    # On macOS
+apt-get install parallel # On Ubuntu
 ./test.sh
 ```
 

@@ -3,6 +3,7 @@ title: Imaging Mass Cytometry
 schema_name: imc
 category: Imaging mass spectrometry
 all_versions_deprecated: False
+exclude_from_index: False
 layout: default
 ---
 
@@ -23,6 +24,8 @@ The other fields function the same way for all assays using antibodies. For more
 | <code>extras/.*</code> |  | Free-form descriptive information supplied by the TMC |
 
 
+
+In the portal: [Imaging Mass Cytometry (2D)](https://portal.hubmapconsortium.org/search?mapped_data_types%5B0%5D=Imaging+Mass+Cytometry+%282D%29&entity_type%5B0%5D=Dataset)
 
 ## Metadata schema
 
@@ -328,7 +331,7 @@ Frequency unit of laser ablation. Leave blank if not applicable.
 | --- | --- |
 | enum | `Hz` |
 | required | `False` |
-| units for | `ablation_frequency_value` |
+| required if | `ablation_frequency_value` present |
 
 <a name="roi_description"></a>
 ##### [`roi_description`](#roi_description)
@@ -344,7 +347,7 @@ Multiple images (1-n) are acquired from regions of interest (ROI1, ROI2, ROI3, e
 
 | constraint | value |
 | --- | --- |
-| type | `number` |
+| type | `integer` |
 | required | `True` |
 
 <a name="acquisition_id"></a>
@@ -381,7 +384,7 @@ Units of image width of the ROI acquisition. Leave blank if not applicable.
 | --- | --- |
 | enum | `um` |
 | required | `False` |
-| units for | `max_x_width_value` |
+| required if | `max_x_width_value` present |
 
 <a name="max_y_height_value"></a>
 ##### [`max_y_height_value`](#max_y_height_value)
@@ -400,7 +403,7 @@ Units of image height of the ROI acquisition. Leave blank if not applicable.
 | --- | --- |
 | enum | `um` |
 | required | `False` |
-| units for | `max_y_height_value` |
+| required if | `max_y_height_value` present |
 
 <a name="segment_data_format"></a>
 ##### [`segment_data_format`](#segment_data_format)
@@ -685,7 +688,7 @@ Frequency unit of laser ablation. Leave blank if not applicable.
 | --- | --- |
 | enum | `Hz` |
 | required | `False` |
-| units for | `ablation_frequency_value` |
+| required if | `ablation_frequency_value` present |
 
 <a name="roi_description"></a>
 ##### [`roi_description`](#roi_description)
@@ -701,7 +704,7 @@ Multiple images (1-n) are acquired from regions of interest (ROI1, ROI2, ROI3, e
 
 | constraint | value |
 | --- | --- |
-| type | `number` |
+| type | `integer` |
 | required | `True` |
 
 <a name="acquisition_id"></a>
@@ -748,7 +751,7 @@ Units of image width of the ROI acquisition. Leave blank if not applicable.
 | --- | --- |
 | enum | `um` |
 | required | `False` |
-| units for | `max_x_width_value` |
+| required if | `max_x_width_value` present |
 
 <a name="max_y_height_value"></a>
 ##### [`max_y_height_value`](#max_y_height_value)
@@ -767,7 +770,7 @@ Units of image height of the ROI acquisition. Leave blank if not applicable.
 | --- | --- |
 | enum | `um` |
 | required | `False` |
-| units for | `max_y_height_value` |
+| required if | `max_y_height_value` present |
 
 <a name="segment_data_format"></a>
 ##### [`segment_data_format`](#segment_data_format)

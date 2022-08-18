@@ -3,7 +3,7 @@
 - name: roi_id
   description: Multiple images (1-n) are acquired from regions of interest (ROI1, ROI2, ROI3, etc) on a slide.
     The roi_id is a number from 1-n representing the ROI captured on a slide.
-  type: number
+  type: integer
 - name: acquisition_id
   description: The acquisition_id refers to the directory containing the ROI images for a slide. Together, the acquisition_id and the roi_id
     indicate the slide-ROI represented in the image.

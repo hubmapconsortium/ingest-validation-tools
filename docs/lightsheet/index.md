@@ -3,6 +3,7 @@ title: Light Sheet
 schema_name: lightsheet
 category: Imaging assays
 all_versions_deprecated: False
+exclude_from_index: False
 layout: default
 ---
 
@@ -36,6 +37,8 @@ The other fields function the same way for all assays using antibodies. For more
 | <code>extras/.*</code> |  | Free-form descriptive information supplied by the TMC |
 
 
+
+In the portal: [Lightsheet Microscopy](https://portal.hubmapconsortium.org/search?mapped_data_types%5B0%5D=Lightsheet+Microscopy&entity_type%5B0%5D=Dataset)
 
 ## Metadata schema
 
@@ -249,7 +252,7 @@ The unit of measurement of the width of a pixel. Leave blank if not applicable.
 | --- | --- |
 | enum | `nm` or `um` |
 | required | `False` |
-| units for | `resolution_x_value` |
+| required if | `resolution_x_value` present |
 
 <a name="resolution_y_value"></a>
 ##### [`resolution_y_value`](#resolution_y_value)
@@ -268,7 +271,7 @@ The unit of measurement of the height of a pixel. Leave blank if not applicable.
 | --- | --- |
 | enum | `nm` or `um` |
 | required | `False` |
-| units for | `resolution_y_value` |
+| required if | `resolution_y_value` present |
 
 <a name="range_z_value"></a>
 ##### [`range_z_value`](#range_z_value)
@@ -287,7 +290,7 @@ The unit of range_z_value. Leave blank if not applicable.
 | --- | --- |
 | enum | `nm` or `um` |
 | required | `False` |
-| units for | `range_z_value` |
+| required if | `range_z_value` present |
 
 <a name="step_z_value"></a>
 ##### [`step_z_value`](#step_z_value)
@@ -315,7 +318,7 @@ The units of increment z value. Leave blank if not applicable.
 | --- | --- |
 | enum | `nm` or `um` |
 | required | `False` |
-| units for | `increment_z_value` |
+| required if | `increment_z_value` present |
 
 <a name="number_of_antibodies"></a>
 ##### [`number_of_antibodies`](#number_of_antibodies)
@@ -527,7 +530,7 @@ The unit of measurement of the width of a pixel. Leave blank if not applicable.
 | --- | --- |
 | enum | `nm` or `um` |
 | required | `False` |
-| units for | `resolution_x_value` |
+| required if | `resolution_x_value` present |
 
 <a name="resolution_y_value"></a>
 ##### [`resolution_y_value`](#resolution_y_value)
@@ -546,7 +549,7 @@ The unit of measurement of the height of a pixel. Leave blank if not applicable.
 | --- | --- |
 | enum | `nm` or `um` |
 | required | `False` |
-| units for | `resolution_y_value` |
+| required if | `resolution_y_value` present |
 
 <a name="resolution_z_value"></a>
 ##### [`resolution_z_value`](#resolution_z_value)
@@ -565,7 +568,7 @@ The unit of distance at which two objects along the detection z-axis can be dist
 | --- | --- |
 | enum | `mm`, `um`, or `nm` |
 | required | `False` |
-| units for | `resolution_z_value` |
+| required if | `resolution_z_value` present |
 
 <a name="number_of_antibodies"></a>
 ##### [`number_of_antibodies`](#number_of_antibodies)
@@ -761,7 +764,7 @@ The unit of measurement of the width of a pixel. Leave blank if not applicable.
 | --- | --- |
 | enum | `nm` or `um` |
 | required | `False` |
-| units for | `resolution_x_value` |
+| required if | `resolution_x_value` present |
 
 <a name="resolution_y_value"></a>
 ##### [`resolution_y_value`](#resolution_y_value)
@@ -780,7 +783,7 @@ The unit of measurement of the height of a pixel. Leave blank if not applicable.
 | --- | --- |
 | enum | `nm` or `um` |
 | required | `False` |
-| units for | `resolution_y_value` |
+| required if | `resolution_y_value` present |
 
 <a name="resolution_z_value"></a>
 ##### [`resolution_z_value`](#resolution_z_value)
@@ -799,7 +802,7 @@ The unit of distance at which two objects along the detection z-axis can be dist
 | --- | --- |
 | enum | `mm`, `um`, or `nm` |
 | required | `False` |
-| units for | `resolution_z_value` |
+| required if | `resolution_z_value` present |
 
 <a name="number_of_antibodies"></a>
 ##### [`number_of_antibodies`](#number_of_antibodies)

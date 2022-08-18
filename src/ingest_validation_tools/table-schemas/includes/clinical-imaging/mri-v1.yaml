@@ -1,0 +1,85 @@
+# include: ./frequency-v1.yaml
+
+- name: coil
+  description: "Receiver coil name used to collect MRI data. Example: 32 channel body coil"
+  constraints:
+    required: False
+
+- name: field_strength_value
+  description: "MRI scanner magnetic field strength value"
+  constraints:
+    required: False
+
+- name: field_strength_unit
+  description: "MRI scanner magnetic field strength in units of Tesla [T]"
+  constraints:
+    required: False
+    enum: ['Tesla']
+
+- name: scanning_sequence
+  description: "Pulse sequence used to collect MRI data"
+  constraints:
+    required: False
+    enum: ['spin echo', 'inversion recovery', 'gradient echo', 'echo planar', 'research mode']
+
+- name: sequence_variant
+  description: "Variant of the Scanning Sequence"
+  constraints:
+    required: False
+    enum: ['segmented k-space',  'magnetization transfer contrast', 'steady state', 'time reversed steady state', 'spoiled', 'magnetization prepared', 'oversampling phase', 'no sequence variant']
+
+- name: echo_time 
+  description: "Time in msec between the middle of the excitation pulse and the peak of the echo produced (kx=0). In the case of segmented k-space, the TE(eff) is the time between the middle of the excitation pulse to the peak of the echo that is used to cover the center of k-space (i.e., -kx=0, ky=0). "
+  type: number
+  constraints:
+    required: False
+    # TODO: explicit unit?
+
+- name: repetition_time 
+  description: "The period of time in msec between the beginning of a pulse sequence and the beginning of the succeeding (essentially identical) pulse sequence. "
+  type: number
+  constraints:
+    required: False
+    # TODO: explicit unit?
+
+- name: flip_angle
+  description: "Steady state angle in degrees to which the magnetic vector is flipped from the magnetic vector of the primary field. "
+  type: integer
+  constraints:
+    required: False
+
+- name: echo_train_length
+  description: "Number of lines in k-space acquired per excitation per image. "
+  type: integer
+  constraints:
+    required: False
+
+- name: acquisition_matrix_size_in_frequency_encoding_direction
+  description: "Dimensions of the acquired frequency data before reconstruction."
+  type: integer
+  constraints:
+    required: False
+
+- name: acquisition_matrix_size_in_phase_encoding_direction
+  description: "Dimensions of the acquired phase data before reconstruction, per image."
+  type: integer
+  constraints:
+    required: False
+
+- name: number_of_image_rows
+  description: "Number of rows of the reconstructed data, per image."
+  type: integer
+  constraints:
+    required: False
+
+- name: number_of_image_columns
+  description: "Number of columns of the reconstructed data. "
+  type: integer
+  constraints:
+    required: False
+
+- name: number_of_averages
+  type: number
+  description: "Number of times a given pulse sequence is repeated in the collection of a single image or volume."
+  constraints:
+    required: False

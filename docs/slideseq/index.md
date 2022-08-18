@@ -3,6 +3,7 @@ title: Slide-seq
 schema_name: slideseq
 category: Sequence assays
 all_versions_deprecated: False
+exclude_from_index: False
 layout: default
 ---
 
@@ -33,6 +34,8 @@ Related files:
 | <code>extras/.*</code> |  | Free-form descriptive information supplied by the TMC |
 
 
+
+In the portal: [Slide-seq](https://portal.hubmapconsortium.org/search?mapped_data_types%5B0%5D=Slide-seq&entity_type%5B0%5D=Dataset)
 
 ## Metadata schema
 
@@ -346,7 +349,7 @@ Units of final library yield. Leave blank if not applicable.
 | --- | --- |
 | enum | `ng` |
 | required | `False` |
-| units for | `library_final_yield_value` |
+| required if | `library_final_yield_value` present |
 
 <a name="library_average_fragment_size"></a>
 ##### [`library_average_fragment_size`](#library_average_fragment_size)
@@ -657,7 +660,7 @@ Units of final library yield. Leave blank if not applicable.
 | --- | --- |
 | enum | `ng` |
 | required | `False` |
-| units for | `library_final_yield_value` |
+| required if | `library_final_yield_value` present |
 
 <a name="library_average_fragment_size"></a>
 ##### [`library_average_fragment_size`](#library_average_fragment_size)
