@@ -43,7 +43,7 @@ The other fields function the same way for all assays using antibodies. For more
 | --- | --- | --- |
 | <code>[^/]*NAV[^/]*\.tif</code> (example: <code>NAV.tif</code>) |  | Navigational Image showing Region of Interest (Keyance Microscope only) |
 | <code>[^/]*\.pdf</code> (example: <code>summary.pdf</code>) |  | **[QA/QC]** PDF export of Powerpoint slide deck containing the Image Analysis Report |
-| <code>(raw&#124;processed)/config\.txt&#124;(src_[^/]*&#124;drv_[^/]*&#124;extras)/[sS]egmentation\.json</code> |  | Sanity check that verifies the existence of at least one of these files. This is required for the HuBMAP processing pipeline |
+| <code>(raw&#124;processed)/config\.txt&#124;(src_[^/]*&#124;drv_[^/]*&#124;extras)/[sS]egmentation\.json</code> | ✓ | Sanity check that verifies the existence of at least one of these files. This is required for the HuBMAP processing pipeline |
 | <code>raw/reg_[^/]*\.png</code> (example: <code>raw/reg_00.png</code>) |  | Region overviews |
 | <code>(raw&#124;src_[^/]*)/[Ee]xperiment\.json</code> | ✓ | JSON file produced by the Akoya software which contains the metadata for the experiment, including the software version used, microscope parameters, channel names, pixel dimensions, etc. (required for HuBMAP pipeline) |
 | <code>processed/HandE\.tif</code> |  | HandE image |
