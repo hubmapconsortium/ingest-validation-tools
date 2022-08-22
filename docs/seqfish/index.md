@@ -30,8 +30,8 @@ This schema is for spatial sequencing by fluorescence in situ hybridization (seq
 | <code>positions\.pos</code> (example: <code>positions.pos</code>) | ✓ | Micro-Manager coordinates of each field of view tile. |
 | <code>fovinfo\.csv</code> (example: <code>fovinfo.csv</code>) | ✓ | Upperleft coordinates for each field of view in the file extras/SlideExplorer.tif. |
 | <code>extras/SlideExplorer\.tif</code> (example: <code>extras/SlideExplorer.tif</code>) |  | Overview TIFF image for all fields of view. |
-| <code>codebook.csv</code> | ✓ | Barcodes. |
-| <code>metadata.json</code> | ✓ | Additional dataset metadata needed for the processing pipeline. |
+| <code>codebook.csv</code> | ✓ | CSV containing codebook information for the experiment. Rows are barcodes and columns are imaging rounds. The first column is the barcode target, and the following column IDs are expected to be sequential, and round identifiers are expected to be integers (not roman numerals). |
+| <code>metadata.json</code> | ✓ | Contains parameters needed to run spatial-transcriptomics-pipeline, including a description of the input data layout, image processing steps, and the decoding method to be used. |
 | <code>extras/.*</code> |  | Free-form descriptive information supplied by the TMC |
 
 
