@@ -1,5 +1,6 @@
 # Changelog
 ## v0.0.15 - in progress
+- Added SeqFISH directory structure schema.
 - Add a reminder that TSV validation is not sufficient.
 - Clearer presentation of unit fields in generated docs.
 - Make `contributors_path` required for HCA.
