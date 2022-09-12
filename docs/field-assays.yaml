@@ -58,6 +58,7 @@ acquisition_instrument_model:
 - WGS
 - bulk RNA
 - bulkATACseq
+- cell-dive
 - scRNAseq
 - scRNAseq-10xGenomics
 - scRNAseq-10xGenomics-v2
@@ -107,6 +108,7 @@ acquisition_instrument_vendor:
 - WGS
 - bulk RNA
 - bulkATACseq
+- cell-dive
 - scRNAseq
 - scRNAseq-10xGenomics
 - scRNAseq-10xGenomics-v2
@@ -155,6 +157,7 @@ analyte_class:
 - WGS
 - bulk RNA
 - bulkATACseq
+- cell-dive
 - scRNAseq
 - scRNAseq-10xGenomics
 - scRNAseq-10xGenomics-v2
@@ -175,6 +178,7 @@ antibodies_path:
 - Light Sheet
 - Multiplex Ion Beam Imaging
 - MxIF
+- cell-dive
 area_normalized_ion_dose_unit:
 - Multiplex Ion Beam Imaging
 area_normalized_ion_dose_value:
@@ -217,6 +221,7 @@ assay_category:
 - WGS
 - bulk RNA
 - bulkATACseq
+- cell-dive
 - scRNAseq
 - scRNAseq-10xGenomics
 - scRNAseq-10xGenomics-v2
@@ -266,6 +271,7 @@ assay_type:
 - WGS
 - bulk RNA
 - bulkATACseq
+- cell-dive
 - scRNAseq
 - scRNAseq-10xGenomics
 - scRNAseq-10xGenomics-v2
@@ -400,6 +406,7 @@ contributors_path:
 - WGS
 - bulk RNA
 - bulkATACseq
+- cell-dive
 - scRNAseq
 - scRNAseq-10xGenomics
 - scRNAseq-10xGenomics-v2
@@ -465,6 +472,7 @@ data_path:
 - WGS
 - bulk RNA
 - bulkATACseq
+- cell-dive
 - scRNAseq
 - scRNAseq-10xGenomics
 - scRNAseq-10xGenomics-v2
@@ -517,6 +525,7 @@ description:
 - WGS
 - bulk RNA
 - bulkATACseq
+- cell-dive
 - scRNAseq
 - scRNAseq-10xGenomics
 - scRNAseq-10xGenomics-v2
@@ -592,6 +601,7 @@ donor_id:
 - WGS
 - bulk RNA
 - bulkATACseq
+- cell-dive
 - scRNAseq
 - scRNAseq-10xGenomics
 - scRNAseq-10xGenomics-v2
@@ -653,6 +663,7 @@ execution_datetime:
 - WGS
 - bulk RNA
 - bulkATACseq
+- cell-dive
 - scRNAseq
 - scRNAseq-10xGenomics
 - scRNAseq-10xGenomics-v2
@@ -751,6 +762,7 @@ is_targeted:
 - WGS
 - bulk RNA
 - bulkATACseq
+- cell-dive
 - scRNAseq
 - scRNAseq-10xGenomics
 - scRNAseq-10xGenomics-v2
@@ -1248,6 +1260,7 @@ number_of_antibodies:
 - Cell DIVE
 - Light Sheet
 - Multiplex Ion Beam Imaging
+- cell-dive
 number_of_averages:
 - MRI
 number_of_barcode_probes:
@@ -1264,12 +1277,14 @@ number_of_channels:
 - Light Sheet
 - Multiplex Ion Beam Imaging
 - MxIF
+- cell-dive
 - seqFISH
 number_of_cycles:
 - CODEX
 - CODEX2
 - Cell DIVE
 - MxIF
+- cell-dive
 - seqFISH
 number_of_image_columns:
 - MRI
@@ -1283,6 +1298,7 @@ number_of_images:
 - Ultrasound
 number_of_imaging_rounds:
 - Cell DIVE
+- cell-dive
 number_of_pseudocolors_per_channel:
 - seqFISH
 number_of_readout_probes_per_channel:
@@ -1327,6 +1343,7 @@ operator:
 - WGS
 - bulk RNA
 - bulkATACseq
+- cell-dive
 - scRNAseq
 - scRNAseq-10xGenomics
 - scRNAseq-10xGenomics-v2
@@ -1376,6 +1393,7 @@ operator_email:
 - WGS
 - bulk RNA
 - bulkATACseq
+- cell-dive
 - scRNAseq
 - scRNAseq-10xGenomics
 - scRNAseq-10xGenomics-v2
@@ -1408,6 +1426,7 @@ overall_protocols_io_doi:
 - NanoPOTS
 - PAS microscopy
 - SIMS-IMS
+- cell-dive
 pi:
 - 3D Imaging Mass Cytometry
 - AF
@@ -1446,6 +1465,7 @@ pi:
 - WGS
 - bulk RNA
 - bulkATACseq
+- cell-dive
 - scRNAseq
 - scRNAseq-10xGenomics
 - scRNAseq-10xGenomics-v2
@@ -1495,6 +1515,7 @@ pi_email:
 - WGS
 - bulk RNA
 - bulkATACseq
+- cell-dive
 - scRNAseq
 - scRNAseq-10xGenomics
 - scRNAseq-10xGenomics-v2
@@ -1604,6 +1625,7 @@ processing_protocols_io_doi:
 - NanoDESI
 - NanoPOTS
 - SIMS-IMS
+- cell-dive
 processing_search:
 - CE-MS
 - GC-MS
@@ -1654,6 +1676,7 @@ protocols_io_doi:
 - WGS
 - bulk RNA
 - bulkATACseq
+- cell-dive
 - scRNAseq
 - scRNAseq-10xGenomics
 - scRNAseq-10xGenomics-v2
@@ -1710,6 +1733,7 @@ resolution_x_unit:
 - PAS microscopy
 - SIMS-IMS
 - Ultrasound
+- cell-dive
 - seqFISH
 resolution_x_value:
 - AF
@@ -1738,6 +1762,7 @@ resolution_x_value:
 - PAS microscopy
 - SIMS-IMS
 - Ultrasound
+- cell-dive
 - seqFISH
 resolution_y_unit:
 - AF
@@ -1766,6 +1791,7 @@ resolution_y_unit:
 - PAS microscopy
 - SIMS-IMS
 - Ultrasound
+- cell-dive
 - seqFISH
 resolution_y_value:
 - AF
@@ -1794,6 +1820,7 @@ resolution_y_value:
 - PAS microscopy
 - SIMS-IMS
 - Ultrasound
+- cell-dive
 - seqFISH
 resolution_z_unit:
 - AF
@@ -2139,6 +2166,7 @@ tissue_id:
 - WGS
 - bulk RNA
 - bulkATACseq
+- cell-dive
 - scRNAseq
 - scRNAseq-10xGenomics
 - scRNAseq-10xGenomics-v2
@@ -2237,6 +2265,7 @@ version:
 - WGS
 - bulk RNA
 - bulkATACseq
+- cell-dive
 - scRNAseq
 - scRNAseq-10xGenomics
 - scRNAseq-10xGenomics-v2
