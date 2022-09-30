@@ -138,3 +138,6 @@ dmypy.json
 
 # cache file
 url-status-cache
+
+# PyCharm
+*.idea

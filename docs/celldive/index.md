@@ -1,5 +1,5 @@
 ---
-title: Cell DIVE
+title: Cell DIVE / cell-dive
 schema_name: celldive
 category: Imaging assays
 all_versions_deprecated: False
@@ -28,7 +28,7 @@ The other fields function the same way for all assays using antibodies. For more
 
 
 
-In the portal: [Cell DIVE](https://portal.hubmapconsortium.org/search?mapped_data_types%5B0%5D=Cell+DIVE&entity_type%5B0%5D=Dataset)
+In the portal: [Cell DIVE](https://portal.hubmapconsortium.org/search?mapped_data_types%5B0%5D=Cell+DIVE&entity_type%5B0%5D=Dataset) / [Cell DIVE](https://portal.hubmapconsortium.org/search?mapped_data_types%5B0%5D=Cell+DIVE&entity_type%5B0%5D=Dataset)
 
 ## Metadata schema
 
@@ -185,7 +185,7 @@ The specific type of assay being executed.
 
 | constraint | value |
 | --- | --- |
-| enum | `Cell DIVE` |
+| enum | `Cell DIVE` or `cell-dive` |
 | required | `True` |
 
 <a name="analyte_class"></a>
