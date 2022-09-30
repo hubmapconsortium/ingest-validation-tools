@@ -8,7 +8,9 @@
 - Make `contributors_path` required for HCA.
 - Parallelize tests.
 - Use the assay service to describe how assays are represented in the Portal.
+- Update assay type for Cell DIVE.
 - Updated suspension-fields.yaml and associated files in /docs/sample-suspension.
+
 
 ## v0.0.14 - 2022-06-23
 - Turn validation of enums back on.
