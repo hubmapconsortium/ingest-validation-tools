@@ -125,10 +125,8 @@ area_normalized_ion_dose_value:
 - mibi
 area_unit:
 - sample-section
-- sample-suspension
 area_value:
 - sample-section
-- sample-suspension
 assay_category:
 - af
 - bodyct
@@ -1199,7 +1197,6 @@ scanning_sequence:
 - mri
 section_index_number:
 - sample-section
-- sample-suspension
 section_prep_protocols_io_doi:
 - cems
 - codex
@@ -1214,10 +1211,8 @@ section_prep_protocols_io_doi:
 - stained
 section_thickness_unit:
 - sample-section
-- sample-suspension
 section_thickness_value:
 - sample-section
-- sample-suspension
 segment_data_format:
 - imc
 - imc3d
@@ -1318,6 +1313,14 @@ storage_media:
 storage_temperature:
 - sample-block
 - sample-section
+- sample-suspension
+suspension_enriched:
+- sample-suspension
+suspension_enriched_target:
+- sample-suspension
+suspension_entity:
+- sample-suspension
+suspension_entity_number:
 - sample-suspension
 tissue_id:
 - af

@@ -2,5 +2,5 @@
   description: 'Was the cell/nuclei population enriched?'
   constraints:
     enum:
-      - yes
-      - no
+      - 'yes'
+      - 'no'
