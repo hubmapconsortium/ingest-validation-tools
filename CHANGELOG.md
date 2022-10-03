@@ -1,5 +1,6 @@
 # Changelog
 ## v0.0.15 - in progress
+- Added Lightsheet version 1.
 - Updated CODEX version 0.
 - Added Bulk RNA-seq directory structure schema.
 - Added SeqFISH directory structure schema.
