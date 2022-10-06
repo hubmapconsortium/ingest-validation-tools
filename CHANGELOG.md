@@ -1,6 +1,14 @@
 # Changelog
 ## v0.0.15 - in progress
-- Remove HCA from the main table of contents.
+- Updated CODEX version 0.
+- Added Bulk RNA-seq directory structure schema.
+- Added SeqFISH directory structure schema.
+- Add a reminder that TSV validation is not sufficient.
+- Clearer presentation of unit fields in generated docs.
+- Make `contributors_path` required for HCA.
+- Parallelize tests.
+- Use the assay service to describe how assays are represented in the Portal.
+- Update assay type for Cell DIVE.
 
 ## v0.0.14 - 2022-06-23
 - Turn validation of enums back on.
@@ -474,3 +482,4 @@ If other patterns are given, dot-files must be explicitly ignored.
 - Define path fields only in one place.
 - Remove timezone offset.
 - Autogenerate parts of table schema.
+- New note to clarify git is required.

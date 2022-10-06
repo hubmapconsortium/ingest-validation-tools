@@ -32,6 +32,7 @@ shared_enums: Dict[str, List[str]] = {
         'bulk RNA',
         'bulkATACseq',
         'Cell DIVE',
+        'cell-dive',
         'CE-MS',
         'CODEX',
         'CODEX2',  # TODO: Temporary; will be removed.

@@ -1,8 +1,9 @@
 ---
-title: Cell DIVE
+title: Cell DIVE / cell-dive
 schema_name: celldive
 category: Imaging assays
 all_versions_deprecated: False
+exclude_from_index: False
 layout: default
 ---
 
@@ -26,6 +27,8 @@ The other fields function the same way for all assays using antibodies. For more
 | <code>extras/.*</code> |  | Free-form descriptive information supplied by the TMC |
 
 
+
+In the portal: [Cell DIVE](https://portal.hubmapconsortium.org/search?mapped_data_types%5B0%5D=Cell+DIVE&entity_type%5B0%5D=Dataset) / [Cell DIVE](https://portal.hubmapconsortium.org/search?mapped_data_types%5B0%5D=Cell+DIVE&entity_type%5B0%5D=Dataset)
 
 ## Metadata schema
 
@@ -182,7 +185,7 @@ The specific type of assay being executed.
 
 | constraint | value |
 | --- | --- |
-| enum | `Cell DIVE` |
+| enum | `Cell DIVE` or `cell-dive` |
 | required | `True` |
 
 <a name="analyte_class"></a>
@@ -274,7 +277,7 @@ The unit of measurement of the width of a pixel. Leave blank if not applicable.
 | --- | --- |
 | enum | `nm` or `um` |
 | required | `False` |
-| units for | `resolution_x_value` |
+| required if | `resolution_x_value` present |
 
 <a name="resolution_y_value"></a>
 ##### [`resolution_y_value`](#resolution_y_value)
@@ -293,7 +296,7 @@ The unit of measurement of the height of a pixel. Leave blank if not applicable.
 | --- | --- |
 | enum | `nm` or `um` |
 | required | `False` |
-| units for | `resolution_y_value` |
+| required if | `resolution_y_value` present |
 
 <a name="processing_protocols_io_doi"></a>
 ##### [`processing_protocols_io_doi`](#processing_protocols_io_doi)
@@ -526,7 +529,7 @@ The unit of measurement of the width of a pixel. Leave blank if not applicable.
 | --- | --- |
 | enum | `nm` or `um` |
 | required | `False` |
-| units for | `resolution_x_value` |
+| required if | `resolution_x_value` present |
 
 <a name="resolution_y_value"></a>
 ##### [`resolution_y_value`](#resolution_y_value)
@@ -545,7 +548,7 @@ The unit of measurement of the height of a pixel. Leave blank if not applicable.
 | --- | --- |
 | enum | `nm` or `um` |
 | required | `False` |
-| units for | `resolution_y_value` |
+| required if | `resolution_y_value` present |
 
 <a name="processing_protocols_io_doi"></a>
 ##### [`processing_protocols_io_doi`](#processing_protocols_io_doi)

@@ -1,5 +1,1 @@
-files:
-  -
-    pattern: 'TODO'
-    description: 'Directory structure not yet specified.'
-    required: True
+fastq-v0.yaml

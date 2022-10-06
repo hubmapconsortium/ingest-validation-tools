@@ -3,6 +3,7 @@ title: WGS
 schema_name: wgs
 category: Sequence assays
 all_versions_deprecated: False
+exclude_from_index: False
 layout: default
 ---
 
@@ -22,6 +23,8 @@ Related files:
 | <code>extras/.*</code> |  | Free-form descriptive information supplied by the TMC |
 
 
+
+In the portal: [Whole Genome Sequencing](https://portal.hubmapconsortium.org/search?mapped_data_types%5B0%5D=Whole+Genome+Sequencing&entity_type%5B0%5D=Dataset)
 
 ## Metadata schema
 
@@ -246,7 +249,7 @@ Units of DNA input into library preparation. Leave blank if not applicable.
 | --- | --- |
 | enum | `ug` |
 | required | `False` |
-| units for | `dna_assay_input_value` |
+| required if | `dna_assay_input_value` present |
 
 <a name="library_construction_method"></a>
 ##### [`library_construction_method`](#library_construction_method)
@@ -301,7 +304,7 @@ Total units of library after final pcr amplification step. Leave blank if not ap
 | --- | --- |
 | enum | `ng` |
 | required | `False` |
-| units for | `library_final_yield` |
+| required if | `library_final_yield` present |
 
 <a name="library_average_fragment_size"></a>
 ##### [`library_average_fragment_size`](#library_average_fragment_size)
@@ -527,7 +530,7 @@ Units of DNA input into library preparation. Leave blank if not applicable.
 | --- | --- |
 | enum | `ug` |
 | required | `False` |
-| units for | `dna_assay_input_value` |
+| required if | `dna_assay_input_value` present |
 
 <a name="library_construction_method"></a>
 ##### [`library_construction_method`](#library_construction_method)
@@ -582,7 +585,7 @@ Total units of library after final pcr amplification step. Leave blank if not ap
 | --- | --- |
 | enum | `ng` |
 | required | `False` |
-| units for | `library_final_yield` |
+| required if | `library_final_yield` present |
 
 <a name="library_average_fragment_size"></a>
 ##### [`library_average_fragment_size`](#library_average_fragment_size)

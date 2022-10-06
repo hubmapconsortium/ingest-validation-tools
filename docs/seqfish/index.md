@@ -3,6 +3,7 @@ title: seqFISH
 schema_name: seqfish
 category: Imaging assays
 all_versions_deprecated: False
+exclude_from_index: False
 layout: default
 ---
 
@@ -18,10 +19,24 @@ This schema is for spatial sequencing by fluorescence in situ hybridization (seq
 
 | pattern | required? | description |
 | --- | --- | --- |
-| <code>TODO</code> | ✓ | Directory structure not yet specified. |
+| <code>codebook/channel_[0-9]+\.(tsv&#124;csv)</code> (example: <code>codebook/channel_1.tsv</code>) | ✓ | Barcodes. |
+| <code>HybCycle_\d+/MMStack_Pos\d+\.ome\.tiff?</code> (example: <code>HybCycle_10/MMStack_Pos12.ome.tif</code>) | ✓ | **[QA/QC]** Raw OME-TIFF images with a variable number of field of views, and slices per tissue. |
+| <code>initial_background/MMStack_Pos\d+\.ome\.tiff?</code> (example: <code>initial_background/MMStack_Pos11.ome.tif</code>) | ✓ | **[QA/QC]** Raw OME-TIFF image of image without probes before imaging hybridizations; used for background and autofluorescence removal. |
+| <code>final_background/MMStack_Pos\d+\.ome\.tiff?</code> (example: <code>final_background/MMStack_Pos11.ome.tif</code>) | ✓ | **[QA/QC]** Raw OME-TIFF image of image without probes after all other hybridizations; used for background and autofluorescence removal. |
+| <code>segmentation/MMStack_Pos\d+\.ome\.tiff?</code> (example: <code>segmentation/MMStack_Pos3.ome.tif</code>) | ✓ | Labels TIFF image for segmentation. |
+| <code>segmentation/raw_images/dapi_Pos\d+\.tif</code> (example: <code>segmentation/raw_images/dapi_Pos19.tif</code>) | ✓ | DAPI TIFF image. |
+| <code>segmentation/raw_images/membrane_Pos\d+\.tif</code> (example: <code>segmentation/raw_images/membrane_Pos52.tif</code>) |  | Membrane TIFF image. |
+| <code>omexml/.*</code> |  | Folder containing metadata for each image. |
+| <code>positions\.pos</code> (example: <code>positions.pos</code>) | ✓ | Micro-Manager coordinates of each field of view tile. |
+| <code>fovinfo\.csv</code> (example: <code>fovinfo.csv</code>) | ✓ | Upperleft coordinates for each field of view in the file extras/SlideExplorer.tif. |
+| <code>extras/SlideExplorer\.tif</code> (example: <code>extras/SlideExplorer.tif</code>) |  | Overview TIFF image for all fields of view. |
+| <code>codebook.csv</code> | ✓ | CSV containing codebook information for the experiment. Rows are barcodes and columns are imaging rounds. The first column is the barcode target, and the following column IDs are expected to be sequential, and round identifiers are expected to be integers (not roman numerals). |
+| <code>metadata.json</code> | ✓ | Contains parameters needed to run spatial-transcriptomics-pipeline, including a description of the input data layout, image processing steps, and the decoding method to be used. |
 | <code>extras/.*</code> |  | Free-form descriptive information supplied by the TMC |
 
 
+
+In the portal: [seqFISH](https://portal.hubmapconsortium.org/search?mapped_data_types%5B0%5D=seqFISH&entity_type%5B0%5D=Dataset)
 
 ## Metadata schema
 
@@ -239,7 +254,7 @@ The unit of measurement of the width of a pixel. Leave blank if not applicable.
 | --- | --- |
 | enum | `nm` or `um` |
 | required | `False` |
-| units for | `resolution_x_value` |
+| required if | `resolution_x_value` present |
 
 <a name="resolution_y_value"></a>
 ##### [`resolution_y_value`](#resolution_y_value)
@@ -258,7 +273,7 @@ The unit of measurement of the height of a pixel. Leave blank if not applicable.
 | --- | --- |
 | enum | `nm` or `um` |
 | required | `False` |
-| units for | `resolution_y_value` |
+| required if | `resolution_y_value` present |
 
 <a name="resolution_z_value"></a>
 ##### [`resolution_z_value`](#resolution_z_value)
@@ -277,7 +292,7 @@ The unit of incremental distance between image slices. Leave blank if not applic
 | --- | --- |
 | enum | `mm`, `um`, or `nm` |
 | required | `False` |
-| units for | `resolution_z_value` |
+| required if | `resolution_z_value` present |
 
 <a name="preparation_instrument_vendor"></a>
 ##### [`preparation_instrument_vendor`](#preparation_instrument_vendor)
@@ -536,7 +551,7 @@ The unit of measurement of the width of a pixel. Leave blank if not applicable.
 | --- | --- |
 | enum | `nm` or `um` |
 | required | `False` |
-| units for | `resolution_x_value` |
+| required if | `resolution_x_value` present |
 
 <a name="resolution_y_value"></a>
 ##### [`resolution_y_value`](#resolution_y_value)
@@ -555,7 +570,7 @@ The unit of measurement of the height of a pixel. Leave blank if not applicable.
 | --- | --- |
 | enum | `nm` or `um` |
 | required | `False` |
-| units for | `resolution_y_value` |
+| required if | `resolution_y_value` present |
 
 <a name="resolution_z_value"></a>
 ##### [`resolution_z_value`](#resolution_z_value)
@@ -574,7 +589,7 @@ The unit of incremental distance between image slices. Leave blank if not applic
 | --- | --- |
 | enum | `mm`, `um`, or `nm` |
 | required | `False` |
-| units for | `resolution_z_value` |
+| required if | `resolution_z_value` present |
 
 <a name="preparation_instrument_vendor"></a>
 ##### [`preparation_instrument_vendor`](#preparation_instrument_vendor)

@@ -3,6 +3,7 @@ title: SNARE-seq2 / sciATACseq / snATACseq
 schema_name: scatacseq
 category: Sequence assays
 all_versions_deprecated: False
+exclude_from_index: False
 layout: default
 ---
 
@@ -24,6 +25,8 @@ The HIVE will process each dataset with
 | <code>extras/.*</code> |  | Free-form descriptive information supplied by the TMC |
 
 
+
+In the portal: [snATACseq (SNARE-seq2)](https://portal.hubmapconsortium.org/search?mapped_data_types%5B0%5D=snATACseq+%28SNARE-seq2%29&entity_type%5B0%5D=Dataset) / [sciATAC-seq](https://portal.hubmapconsortium.org/search?mapped_data_types%5B0%5D=sciATAC-seq&entity_type%5B0%5D=Dataset) / [snATAC-seq](https://portal.hubmapconsortium.org/search?mapped_data_types%5B0%5D=snATAC-seq&entity_type%5B0%5D=Dataset)
 
 ## Metadata schema
 
@@ -429,7 +432,7 @@ Units for library_final_yield. Leave blank if not applicable.
 | --- | --- |
 | enum | `ng` |
 | required | `False` |
-| units for | `library_final_yield` |
+| required if | `library_final_yield` present |
 
 <a name="library_average_fragment_size"></a>
 ##### [`library_average_fragment_size`](#library_average_fragment_size)
@@ -823,7 +826,7 @@ Units for library_final_yield. Leave blank if not applicable.
 | --- | --- |
 | enum | `ng` |
 | required | `False` |
-| units for | `library_final_yield` |
+| required if | `library_final_yield` present |
 
 <a name="library_average_fragment_size"></a>
 ##### [`library_average_fragment_size`](#library_average_fragment_size)

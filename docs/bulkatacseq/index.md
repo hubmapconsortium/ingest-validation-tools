@@ -3,6 +3,7 @@ title: bulkATACseq
 schema_name: bulkatacseq
 category: Sequence assays
 all_versions_deprecated: False
+exclude_from_index: False
 layout: default
 ---
 
@@ -22,6 +23,8 @@ This schema is for Assay for Transposase-Accessible Chromatin by sequencing (ATA
 | <code>extras/.*</code> |  | Free-form descriptive information supplied by the TMC |
 
 
+
+In the portal: [Bulk ATAC-seq](https://portal.hubmapconsortium.org/search?mapped_data_types%5B0%5D=Bulk+ATAC-seq&entity_type%5B0%5D=Dataset)
 
 ## Metadata schema
 
@@ -290,7 +293,7 @@ Unit of library_concentration_value. Leave blank if not applicable.
 | --- | --- |
 | enum | `nM` |
 | required | `False` |
-| units for | `library_concentration_value` |
+| required if | `library_concentration_value` present |
 
 <a name="library_construction_protocols_io_doi"></a>
 ##### [`library_construction_protocols_io_doi`](#library_construction_protocols_io_doi)
@@ -329,7 +332,7 @@ Units of final library yield. Leave blank if not applicable.
 | --- | --- |
 | enum | `ng` |
 | required | `False` |
-| units for | `library_final_yield_value` |
+| required if | `library_final_yield_value` present |
 
 <a name="library_id"></a>
 ##### [`library_id`](#library_id)
@@ -647,7 +650,7 @@ Unit of library_concentration_value. Leave blank if not applicable.
 | --- | --- |
 | enum | `nM` |
 | required | `False` |
-| units for | `library_concentration_value` |
+| required if | `library_concentration_value` present |
 
 <a name="library_construction_protocols_io_doi"></a>
 ##### [`library_construction_protocols_io_doi`](#library_construction_protocols_io_doi)
@@ -686,7 +689,7 @@ Units of final library yield. Leave blank if not applicable.
 | --- | --- |
 | enum | `ng` |
 | required | `False` |
-| units for | `library_final_yield_value` |
+| required if | `library_final_yield_value` present |
 
 <a name="library_id"></a>
 ##### [`library_id`](#library_id)

@@ -3,6 +3,7 @@ title: CE-MS
 schema_name: cems
 category: Mass spectrometry
 all_versions_deprecated: False
+exclude_from_index: False
 layout: default
 ---
 
@@ -22,6 +23,8 @@ Related files:
 | <code>extras/.*</code> |  | Free-form descriptive information supplied by the TMC |
 
 
+
+In the portal: CE-MS not in Portal
 
 ## Metadata schema
 
@@ -425,7 +428,7 @@ The unit of measurement of the width of a pixel. Leave blank if not applicable.
 | --- | --- |
 | enum | `nm` or `um` |
 | required | `False` |
-| units for | `resolution_x_value` |
+| required if | `resolution_x_value` present |
 
 <a name="resolution_y_value"></a>
 ##### [`resolution_y_value`](#resolution_y_value)
@@ -444,7 +447,7 @@ The unit of measurement of the height of a pixel. Leave blank if not applicable.
 | --- | --- |
 | enum | `nm` or `um` |
 | required | `False` |
-| units for | `resolution_y_value` |
+| required if | `resolution_y_value` present |
 
 <a name="processing_search"></a>
 ##### [`processing_search`](#processing_search)
