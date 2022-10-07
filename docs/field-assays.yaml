@@ -1,488 +1,2261 @@
-ablation_distance_between_shots_x_units: [3D Imaging Mass Cytometry, Imaging Mass
-    Cytometry]
-ablation_distance_between_shots_x_value: [3D Imaging Mass Cytometry, Imaging Mass
-    Cytometry]
-ablation_distance_between_shots_y_units: [3D Imaging Mass Cytometry, Imaging Mass
-    Cytometry]
-ablation_distance_between_shots_y_value: [3D Imaging Mass Cytometry, Imaging Mass
-    Cytometry]
-ablation_frequency_unit: [3D Imaging Mass Cytometry, Imaging Mass Cytometry]
-ablation_frequency_value: [3D Imaging Mass Cytometry, Imaging Mass Cytometry]
-acquisition_id: [3D Imaging Mass Cytometry, Imaging Mass Cytometry, Multiplex Ion
-    Beam Imaging]
-acquisition_instrument_model: [3D Imaging Mass Cytometry, AF, Body CT, CE-MS, CODEX,
-  CODEX2, Cell DIVE, DESI, GC-MS, Imaging Mass Cytometry, LC-MS, LC-MS (metabolomics),
-  LC-MS Bottom-Up, LC-MS Top-Down, LC-MS/MS (label-free proteomics), Light Sheet,
-  MALDI-IMS, MRI, MS, MS (shotgun lipidomics), MS Bottom-Up, MS Top-Down, Micro CT,
-  Multiplex Ion Beam Imaging, MxIF, NanoDESI, NanoPOTS, OCT, PAS microscopy, SIMS-IMS,
-  SNARE-seq2, SNARE2-RNAseq, Slide-seq, Ultrasound, WGS, bulk RNA, bulkATACseq, scRNAseq,
-  scRNAseq-10xGenomics, scRNAseq-10xGenomics-v2, scRNAseq-10xGenomics-v3, sciATACseq,
-  sciRNAseq, seqFISH, snATACseq, snRNAseq, snRNAseq-10xGenomics-v2, snRNAseq-10xGenomics-v3]
-acquisition_instrument_vendor: [3D Imaging Mass Cytometry, AF, Body CT, CE-MS, CODEX,
-  CODEX2, Cell DIVE, DESI, GC-MS, Imaging Mass Cytometry, LC-MS, LC-MS (metabolomics),
-  LC-MS Bottom-Up, LC-MS Top-Down, LC-MS/MS (label-free proteomics), Light Sheet,
-  MALDI-IMS, MRI, MS, MS (shotgun lipidomics), MS Bottom-Up, MS Top-Down, Micro CT,
-  Multiplex Ion Beam Imaging, MxIF, NanoDESI, NanoPOTS, OCT, PAS microscopy, SIMS-IMS,
-  SNARE-seq2, SNARE2-RNAseq, Slide-seq, Ultrasound, WGS, bulk RNA, bulkATACseq, scRNAseq,
-  scRNAseq-10xGenomics, scRNAseq-10xGenomics-v2, scRNAseq-10xGenomics-v3, sciATACseq,
-  sciRNAseq, seqFISH, snATACseq, snRNAseq, snRNAseq-10xGenomics-v2, snRNAseq-10xGenomics-v3]
-acquisition_matrix_size_in_frequency_encoding_direction: [MRI]
-acquisition_matrix_size_in_phase_encoding_direction: [MRI]
-analyte_class: [3D Imaging Mass Cytometry, AF, CE-MS, CODEX, CODEX2, Cell DIVE, DESI,
-  GC-MS, Imaging Mass Cytometry, LC-MS, LC-MS (metabolomics), LC-MS Bottom-Up, LC-MS
-    Top-Down, LC-MS/MS (label-free proteomics), Light Sheet, MALDI-IMS, MS, MS (shotgun
-    lipidomics), MS Bottom-Up, MS Top-Down, Multiplex Ion Beam Imaging, MxIF, NanoDESI,
-  NanoPOTS, PAS microscopy, SIMS-IMS, SNARE-seq2, SNARE2-RNAseq, Slide-seq, WGS, bulk
-    RNA, bulkATACseq, scRNAseq, scRNAseq-10xGenomics, scRNAseq-10xGenomics-v2, scRNAseq-10xGenomics-v3,
-  sciATACseq, sciRNAseq, seqFISH, snATACseq, snRNAseq, snRNAseq-10xGenomics-v2, snRNAseq-10xGenomics-v3]
-antibodies_path: [3D Imaging Mass Cytometry, CODEX, CODEX2, Cell DIVE, Imaging Mass
-    Cytometry, Light Sheet, Multiplex Ion Beam Imaging, MxIF]
-area_normalized_ion_dose_unit: [Multiplex Ion Beam Imaging]
-area_normalized_ion_dose_value: [Multiplex Ion Beam Imaging]
-assay_category: [3D Imaging Mass Cytometry, AF, Body CT, CE-MS, CODEX, CODEX2, Cell
-    DIVE, DESI, GC-MS, Imaging Mass Cytometry, LC-MS, LC-MS (metabolomics), LC-MS
-    Bottom-Up, LC-MS Top-Down, LC-MS/MS (label-free proteomics), Light Sheet, MALDI-IMS,
-  MRI, MS, MS (shotgun lipidomics), MS Bottom-Up, MS Top-Down, Micro CT, Multiplex
-    Ion Beam Imaging, MxIF, NanoDESI, NanoPOTS, OCT, PAS microscopy, SIMS-IMS, SNARE-seq2,
-  SNARE2-RNAseq, Slide-seq, Ultrasound, WGS, bulk RNA, bulkATACseq, scRNAseq, scRNAseq-10xGenomics,
-  scRNAseq-10xGenomics-v2, scRNAseq-10xGenomics-v3, sciATACseq, sciRNAseq, seqFISH,
-  snATACseq, snRNAseq, snRNAseq-10xGenomics-v2, snRNAseq-10xGenomics-v3]
-assay_type: [3D Imaging Mass Cytometry, AF, Body CT, CE-MS, CODEX, CODEX2, Cell DIVE,
-  DESI, GC-MS, Imaging Mass Cytometry, LC-MS, LC-MS (metabolomics), LC-MS Bottom-Up,
-  LC-MS Top-Down, LC-MS/MS (label-free proteomics), Light Sheet, MALDI-IMS, MRI, MS,
-  MS (shotgun lipidomics), MS Bottom-Up, MS Top-Down, Micro CT, Multiplex Ion Beam
-    Imaging, MxIF, NanoDESI, NanoPOTS, OCT, PAS microscopy, SIMS-IMS, SNARE-seq2,
-  SNARE2-RNAseq, Slide-seq, Ultrasound, WGS, bulk RNA, bulkATACseq, scRNAseq, scRNAseq-10xGenomics,
-  scRNAseq-10xGenomics-v2, scRNAseq-10xGenomics-v3, sciATACseq, sciRNAseq, seqFISH,
-  snATACseq, snRNAseq, snRNAseq-10xGenomics-v2, snRNAseq-10xGenomics-v3]
-bead_barcode_offset: [Slide-seq]
-bead_barcode_read: [Slide-seq]
-bead_barcode_size: [Slide-seq]
-bulk_atac_cell_isolation_protocols_io_doi: [bulkATACseq]
-bulk_rna_isolation_protocols_io_doi: [bulk RNA]
-bulk_rna_isolation_quality_metric_value: [bulk RNA]
-bulk_rna_yield_units_per_tissue_unit: [bulk RNA]
-bulk_rna_yield_value: [bulk RNA]
-bulk_transposition_input_number_nuclei: [bulkATACseq]
-ce_background_electrolyte: [CE-MS]
-ce_capillary_coating: [CE-MS]
-ce_electroosmotic_flow: [CE-MS]
-ce_instrument_model: [CE-MS]
-ce_instrument_vendor: [CE-MS]
-ce_interface: [CE-MS]
-cell_barcode_offset: [SNARE-seq2, SNARE2-RNAseq, scRNAseq, scRNAseq-10xGenomics, scRNAseq-10xGenomics-v2,
-  scRNAseq-10xGenomics-v3, sciATACseq, sciRNAseq, snATACseq, snRNAseq, snRNAseq-10xGenomics-v2,
-  snRNAseq-10xGenomics-v3]
-cell_barcode_read: [SNARE-seq2, SNARE2-RNAseq, scRNAseq, scRNAseq-10xGenomics, scRNAseq-10xGenomics-v2,
-  scRNAseq-10xGenomics-v3, sciATACseq, sciRNAseq, snATACseq, snRNAseq, snRNAseq-10xGenomics-v2,
-  snRNAseq-10xGenomics-v3]
-cell_barcode_size: [SNARE-seq2, SNARE2-RNAseq, scRNAseq, scRNAseq-10xGenomics, scRNAseq-10xGenomics-v2,
-  scRNAseq-10xGenomics-v3, sciATACseq, sciRNAseq, snATACseq, snRNAseq, snRNAseq-10xGenomics-v2,
-  snRNAseq-10xGenomics-v3]
-coil: [MRI]
-column_length_unit: [GC-MS]
-column_length_value: [GC-MS]
-column_model: [GC-MS]
-column_temp_unit: [GC-MS]
-column_temp_value: [GC-MS]
-column_vendor: [GC-MS]
-compound_imaging: [Ultrasound]
-contributors_path: [3D Imaging Mass Cytometry, AF, Body CT, CE-MS, CODEX, CODEX2,
-  Cell DIVE, DESI, GC-MS, Imaging Mass Cytometry, LC-MS, LC-MS (metabolomics), LC-MS
-    Bottom-Up, LC-MS Top-Down, LC-MS/MS (label-free proteomics), Light Sheet, MALDI-IMS,
-  MRI, MS, MS (shotgun lipidomics), MS Bottom-Up, MS Top-Down, Micro CT, Multiplex
-    Ion Beam Imaging, MxIF, NanoDESI, NanoPOTS, OCT, PAS microscopy, SIMS-IMS, SNARE-seq2,
-  SNARE2-RNAseq, Slide-seq, Ultrasound, WGS, bulk RNA, bulkATACseq, scRNAseq, scRNAseq-10xGenomics,
-  scRNAseq-10xGenomics-v2, scRNAseq-10xGenomics-v3, sciATACseq, sciRNAseq, seqFISH,
-  snATACseq, snRNAseq, snRNAseq-10xGenomics-v2, snRNAseq-10xGenomics-v3]
-current_unit: [Micro CT]
-current_value: [Micro CT]
-data_collection_mode: [CE-MS, GC-MS, LC-MS, LC-MS (metabolomics), LC-MS Bottom-Up,
-  LC-MS Top-Down, LC-MS/MS (label-free proteomics), MS, MS (shotgun lipidomics), MS
-    Bottom-Up, MS Top-Down]
-data_path: [3D Imaging Mass Cytometry, AF, Body CT, CE-MS, CODEX, CODEX2, Cell DIVE,
-  DESI, GC-MS, Imaging Mass Cytometry, LC-MS, LC-MS (metabolomics), LC-MS Bottom-Up,
-  LC-MS Top-Down, LC-MS/MS (label-free proteomics), Light Sheet, MALDI-IMS, MRI, MS,
-  MS (shotgun lipidomics), MS Bottom-Up, MS Top-Down, Micro CT, Multiplex Ion Beam
-    Imaging, MxIF, NanoDESI, NanoPOTS, OCT, PAS microscopy, SIMS-IMS, SNARE-seq2,
-  SNARE2-RNAseq, Slide-seq, Ultrasound, WGS, bulk RNA, bulkATACseq, scRNAseq, scRNAseq-10xGenomics,
-  scRNAseq-10xGenomics-v2, scRNAseq-10xGenomics-v3, sciATACseq, sciRNAseq, seqFISH,
-  snATACseq, snRNAseq, snRNAseq-10xGenomics-v2, snRNAseq-10xGenomics-v3]
-data_precision_bytes: [Imaging Mass Cytometry, Multiplex Ion Beam Imaging]
-description: [3D Imaging Mass Cytometry, AF, Body CT, CE-MS, CODEX, CODEX2, Cell DIVE,
-  DESI, GC-MS, Imaging Mass Cytometry, LC-MS, LC-MS (metabolomics), LC-MS Bottom-Up,
-  LC-MS Top-Down, LC-MS/MS (label-free proteomics), Light Sheet, MALDI-IMS, MRI, MS,
-  MS (shotgun lipidomics), MS Bottom-Up, MS Top-Down, Micro CT, Multiplex Ion Beam
-    Imaging, MxIF, NanoDESI, NanoPOTS, OCT, PAS microscopy, SIMS-IMS, SNARE-seq2,
-  SNARE2-RNAseq, Slide-seq, Ultrasound, WGS, bulk RNA, bulkATACseq, scRNAseq, scRNAseq-10xGenomics,
-  scRNAseq-10xGenomics-v2, scRNAseq-10xGenomics-v3, sciATACseq, sciRNAseq, seqFISH,
-  snATACseq, snRNAseq, snRNAseq-10xGenomics-v2, snRNAseq-10xGenomics-v3]
-desi_solvent: [DESI, MALDI-IMS, NanoDESI, SIMS-IMS]
-desi_solvent_flow_rate: [DESI, MALDI-IMS, NanoDESI, SIMS-IMS]
-desi_solvent_flow_rate_unit: [DESI, MALDI-IMS, NanoDESI, SIMS-IMS]
-dms: [LC-MS, LC-MS Bottom-Up, LC-MS Top-Down, MS, MS Bottom-Up, MS Top-Down]
-dna_assay_input_unit: [WGS]
-dna_assay_input_value: [WGS]
-donor_id: [3D Imaging Mass Cytometry, AF, Body CT, CE-MS, CODEX, CODEX2, Cell DIVE,
-  DESI, GC-MS, Imaging Mass Cytometry, LC-MS, LC-MS (metabolomics), LC-MS Bottom-Up,
-  LC-MS Top-Down, LC-MS/MS (label-free proteomics), Light Sheet, MALDI-IMS, MRI, MS,
-  MS (shotgun lipidomics), MS Bottom-Up, MS Top-Down, Micro CT, Multiplex Ion Beam
-    Imaging, MxIF, NanoDESI, NanoPOTS, OCT, PAS microscopy, SIMS-IMS, SNARE-seq2,
-  SNARE2-RNAseq, Slide-seq, Ultrasound, WGS, bulk RNA, bulkATACseq, scRNAseq, scRNAseq-10xGenomics,
-  scRNAseq-10xGenomics-v2, scRNAseq-10xGenomics-v3, sciATACseq, sciRNAseq, seqFISH,
-  snATACseq, snRNAseq, snRNAseq-10xGenomics-v2, snRNAseq-10xGenomics-v3]
-dual_count_start: [Imaging Mass Cytometry, Multiplex Ion Beam Imaging]
-dynamic_contrast: [Ultrasound]
-echo_time: [MRI]
-echo_train_length: [MRI]
-end_datetime: [Imaging Mass Cytometry, Multiplex Ion Beam Imaging]
-execution_datetime: [3D Imaging Mass Cytometry, AF, Body CT, CE-MS, CODEX, CODEX2,
-  Cell DIVE, DESI, GC-MS, Imaging Mass Cytometry, LC-MS, LC-MS (metabolomics), LC-MS
-    Bottom-Up, LC-MS Top-Down, LC-MS/MS (label-free proteomics), Light Sheet, MALDI-IMS,
-  MRI, MS, MS (shotgun lipidomics), MS Bottom-Up, MS Top-Down, Micro CT, Multiplex
-    Ion Beam Imaging, MxIF, NanoDESI, NanoPOTS, OCT, PAS microscopy, SIMS-IMS, SNARE-seq2,
-  SNARE2-RNAseq, Slide-seq, Ultrasound, WGS, bulk RNA, bulkATACseq, scRNAseq, scRNAseq-10xGenomics,
-  scRNAseq-10xGenomics-v2, scRNAseq-10xGenomics-v3, sciATACseq, sciRNAseq, seqFISH,
-  snATACseq, snRNAseq, snRNAseq-10xGenomics-v2, snRNAseq-10xGenomics-v3]
-expected_cell_count: [SNARE2-RNAseq, scRNAseq, scRNAseq-10xGenomics-v2, scRNAseq-10xGenomics-v3,
-  sciRNAseq, snRNAseq, snRNAseq-10xGenomics-v2, snRNAseq-10xGenomics-v3]
-field_strength_unit: [MRI]
-field_strength_value: [MRI]
-filter: [Micro CT]
-flip_angle: [MRI]
-frequency_unit: [MRI, Ultrasound]
-frequency_value: [MRI, Ultrasound]
-gdna_fragmentation_quality_assurance: [WGS]
-guard_column: [GC-MS]
-harmonics: [Ultrasound]
-imaging_threshold_unit_value: [Micro CT]
-imaging_threshold_value: [Micro CT]
-increment_z_unit: [Light Sheet]
-increment_z_value: [Light Sheet]
-internal_standard: [GC-MS]
-ion_mobility: [CE-MS, DESI, GC-MS, LC-MS, LC-MS Bottom-Up, LC-MS Top-Down, MALDI-IMS,
-  MS, MS Bottom-Up, MS Top-Down, NanoDESI, SIMS-IMS]
-ion_source: [GC-MS]
-is_targeted: [3D Imaging Mass Cytometry, AF, CE-MS, CODEX, CODEX2, Cell DIVE, DESI,
-  GC-MS, Imaging Mass Cytometry, LC-MS, LC-MS (metabolomics), LC-MS Bottom-Up, LC-MS
-    Top-Down, LC-MS/MS (label-free proteomics), Light Sheet, MALDI-IMS, MS, MS (shotgun
-    lipidomics), MS Bottom-Up, MS Top-Down, Multiplex Ion Beam Imaging, MxIF, NanoDESI,
-  NanoPOTS, PAS microscopy, SIMS-IMS, SNARE-seq2, SNARE2-RNAseq, Slide-seq, WGS, bulk
-    RNA, bulkATACseq, scRNAseq, scRNAseq-10xGenomics, scRNAseq-10xGenomics-v2, scRNAseq-10xGenomics-v3,
-  sciATACseq, sciRNAseq, seqFISH, snATACseq, snRNAseq, snRNAseq-10xGenomics-v2, snRNAseq-10xGenomics-v3]
-is_technical_replicate: [SNARE-seq2, SNARE2-RNAseq, Slide-seq, bulkATACseq, scRNAseq,
-  scRNAseq-10xGenomics, scRNAseq-10xGenomics-v2, scRNAseq-10xGenomics-v3, sciATACseq,
-  sciRNAseq, snATACseq, snRNAseq, snRNAseq-10xGenomics-v2, snRNAseq-10xGenomics-v3]
-label_name: [LC-MS, LC-MS Bottom-Up, LC-MS Top-Down, MS, MS Bottom-Up, MS Top-Down]
-labeling: [CE-MS, GC-MS, LC-MS, LC-MS (metabolomics), LC-MS Bottom-Up, LC-MS Top-Down,
-  LC-MS/MS (label-free proteomics), MS, MS (shotgun lipidomics), MS Bottom-Up, MS
-    Top-Down]
-lc_column_model: [LC-MS, LC-MS (metabolomics), LC-MS Bottom-Up, LC-MS Top-Down, LC-MS/MS
-    (label-free proteomics), MS, MS (shotgun lipidomics), MS Bottom-Up, MS Top-Down]
-lc_column_vendor: [LC-MS, LC-MS (metabolomics), LC-MS Bottom-Up, LC-MS Top-Down, LC-MS/MS
-    (label-free proteomics), MS, MS (shotgun lipidomics), MS Bottom-Up, MS Top-Down]
-lc_flow_rate_unit: [LC-MS, LC-MS (metabolomics), LC-MS Bottom-Up, LC-MS Top-Down,
-  LC-MS/MS (label-free proteomics), MS, MS (shotgun lipidomics), MS Bottom-Up, MS
-    Top-Down]
-lc_flow_rate_value: [LC-MS, LC-MS (metabolomics), LC-MS Bottom-Up, LC-MS Top-Down,
-  LC-MS/MS (label-free proteomics), MS, MS (shotgun lipidomics), MS Bottom-Up, MS
-    Top-Down]
-lc_gradient: [LC-MS, LC-MS (metabolomics), LC-MS Bottom-Up, LC-MS Top-Down, LC-MS/MS
-    (label-free proteomics), MS, MS (shotgun lipidomics), MS Bottom-Up, MS Top-Down]
-lc_id_unit: [LC-MS, LC-MS (metabolomics), LC-MS Bottom-Up, LC-MS Top-Down, LC-MS/MS
-    (label-free proteomics), MS, MS (shotgun lipidomics), MS Bottom-Up, MS Top-Down]
-lc_id_value: [LC-MS, LC-MS (metabolomics), LC-MS Bottom-Up, LC-MS Top-Down, LC-MS/MS
-    (label-free proteomics), MS, MS (shotgun lipidomics), MS Bottom-Up, MS Top-Down]
-lc_instrument_model: [LC-MS, LC-MS (metabolomics), LC-MS Bottom-Up, LC-MS Top-Down,
-  LC-MS/MS (label-free proteomics), MS, MS (shotgun lipidomics), MS Bottom-Up, MS
-    Top-Down]
-lc_instrument_vendor: [LC-MS, LC-MS (metabolomics), LC-MS Bottom-Up, LC-MS Top-Down,
-  LC-MS/MS (label-free proteomics), MS, MS (shotgun lipidomics), MS Bottom-Up, MS
-    Top-Down]
-lc_length_unit: [LC-MS, LC-MS (metabolomics), LC-MS Bottom-Up, LC-MS Top-Down, LC-MS/MS
-    (label-free proteomics), MS, MS (shotgun lipidomics), MS Bottom-Up, MS Top-Down]
-lc_length_value: [LC-MS, LC-MS (metabolomics), LC-MS Bottom-Up, LC-MS Top-Down, LC-MS/MS
-    (label-free proteomics), MS, MS (shotgun lipidomics), MS Bottom-Up, MS Top-Down]
-lc_mobile_phase_a: [LC-MS, LC-MS (metabolomics), LC-MS Bottom-Up, LC-MS Top-Down,
-  LC-MS/MS (label-free proteomics), MS, MS (shotgun lipidomics), MS Bottom-Up, MS
-    Top-Down]
-lc_mobile_phase_b: [LC-MS, LC-MS (metabolomics), LC-MS Bottom-Up, LC-MS Top-Down,
-  LC-MS/MS (label-free proteomics), MS, MS (shotgun lipidomics), MS Bottom-Up, MS
-    Top-Down]
-lc_resin: [LC-MS, LC-MS (metabolomics), LC-MS Bottom-Up, LC-MS Top-Down, LC-MS/MS
-    (label-free proteomics), MS, MS (shotgun lipidomics), MS Bottom-Up, MS Top-Down]
-lc_temp_unit: [LC-MS, LC-MS (metabolomics), LC-MS Bottom-Up, LC-MS Top-Down, LC-MS/MS
-    (label-free proteomics), MS, MS (shotgun lipidomics), MS Bottom-Up, MS Top-Down]
-lc_temp_value: [LC-MS, LC-MS (metabolomics), LC-MS Bottom-Up, LC-MS Top-Down, LC-MS/MS
-    (label-free proteomics), MS, MS (shotgun lipidomics), MS Bottom-Up, MS Top-Down]
-library_adapter_sequence: [SNARE-seq2, SNARE2-RNAseq, Slide-seq, WGS, bulk RNA, bulkATACseq,
-  scRNAseq, scRNAseq-10xGenomics, scRNAseq-10xGenomics-v2, scRNAseq-10xGenomics-v3,
-  sciATACseq, sciRNAseq, snATACseq, snRNAseq, snRNAseq-10xGenomics-v2, snRNAseq-10xGenomics-v3]
-library_average_fragment_size: [SNARE-seq2, SNARE2-RNAseq, Slide-seq, WGS, bulk RNA,
-  bulkATACseq, scRNAseq, scRNAseq-10xGenomics, scRNAseq-10xGenomics-v2, scRNAseq-10xGenomics-v3,
-  sciATACseq, sciRNAseq, snATACseq, snRNAseq, snRNAseq-10xGenomics-v2, snRNAseq-10xGenomics-v3]
-library_concentration_unit: [bulkATACseq]
-library_concentration_value: [bulkATACseq]
-library_construction_method: [WGS]
-library_construction_protocols_io_doi: [SNARE-seq2, SNARE2-RNAseq, Slide-seq, WGS,
-  bulk RNA, bulkATACseq, scRNAseq, scRNAseq-10xGenomics, scRNAseq-10xGenomics-v2,
-  scRNAseq-10xGenomics-v3, sciATACseq, sciRNAseq, snATACseq, snRNAseq, snRNAseq-10xGenomics-v2,
-  snRNAseq-10xGenomics-v3]
-library_creation_date: [bulkATACseq]
-library_final_yield: [SNARE-seq2, WGS, sciATACseq, snATACseq]
-library_final_yield_unit: [SNARE-seq2, SNARE2-RNAseq, Slide-seq, WGS, bulk RNA, bulkATACseq,
-  scRNAseq, scRNAseq-10xGenomics, scRNAseq-10xGenomics-v2, scRNAseq-10xGenomics-v3,
-  sciATACseq, sciRNAseq, snATACseq, snRNAseq, snRNAseq-10xGenomics-v2, snRNAseq-10xGenomics-v3]
-library_final_yield_value: [SNARE2-RNAseq, Slide-seq, bulk RNA, bulkATACseq, scRNAseq,
-  scRNAseq-10xGenomics, scRNAseq-10xGenomics-v2, scRNAseq-10xGenomics-v3, sciRNAseq,
-  snRNAseq, snRNAseq-10xGenomics-v2, snRNAseq-10xGenomics-v3]
-library_id: [SNARE-seq2, SNARE2-RNAseq, bulkATACseq, scRNAseq, scRNAseq-10xGenomics,
-  scRNAseq-10xGenomics-v2, scRNAseq-10xGenomics-v3, sciATACseq, sciRNAseq, snATACseq,
-  snRNAseq, snRNAseq-10xGenomics-v2, snRNAseq-10xGenomics-v3]
-library_layout: [SNARE-seq2, SNARE2-RNAseq, Slide-seq, WGS, bulk RNA, bulkATACseq,
-  scRNAseq, scRNAseq-10xGenomics, scRNAseq-10xGenomics-v2, scRNAseq-10xGenomics-v3,
-  sciATACseq, sciRNAseq, snATACseq, snRNAseq, snRNAseq-10xGenomics-v2, snRNAseq-10xGenomics-v3]
-library_pcr_cycles: [SNARE-seq2, SNARE2-RNAseq, Slide-seq, bulkATACseq, scRNAseq,
-  scRNAseq-10xGenomics, scRNAseq-10xGenomics-v2, scRNAseq-10xGenomics-v3, sciATACseq,
-  sciRNAseq, snATACseq, snRNAseq, snRNAseq-10xGenomics-v2, snRNAseq-10xGenomics-v3]
-library_pcr_cycles_for_sample_index: [SNARE-seq2, SNARE2-RNAseq, Slide-seq, bulk RNA,
-  scRNAseq, scRNAseq-10xGenomics, scRNAseq-10xGenomics-v2, scRNAseq-10xGenomics-v3,
-  sciATACseq, sciRNAseq, snATACseq, snRNAseq, snRNAseq-10xGenomics-v2, snRNAseq-10xGenomics-v3]
-library_preparation_kit: [bulkATACseq]
-mass_resolving_power: [CE-MS, DESI, GC-MS, LC-MS, LC-MS Bottom-Up, LC-MS Top-Down,
-  MALDI-IMS, MS, MS Bottom-Up, MS Top-Down, NanoDESI, SIMS-IMS]
-max_x_width_unit: [3D Imaging Mass Cytometry, Body CT, Imaging Mass Cytometry, MRI,
-  Micro CT, Multiplex Ion Beam Imaging, OCT, Ultrasound]
-max_x_width_value: [3D Imaging Mass Cytometry, Body CT, Imaging Mass Cytometry, MRI,
-  Micro CT, Multiplex Ion Beam Imaging, OCT, Ultrasound]
-max_y_height_unit: [3D Imaging Mass Cytometry, Body CT, Imaging Mass Cytometry, MRI,
-  Micro CT, Multiplex Ion Beam Imaging, OCT, Ultrasound]
-max_y_height_value: [3D Imaging Mass Cytometry, Body CT, Imaging Mass Cytometry, MRI,
-  Micro CT, Multiplex Ion Beam Imaging, OCT, Ultrasound]
-ms_scan_mode: [CE-MS, DESI, GC-MS, LC-MS, LC-MS (metabolomics), LC-MS Bottom-Up, LC-MS
-    Top-Down, LC-MS/MS (label-free proteomics), MALDI-IMS, MS, MS (shotgun lipidomics),
-  MS Bottom-Up, MS Top-Down, NanoDESI, SIMS-IMS]
-ms_source: [CE-MS, DESI, GC-MS, LC-MS, LC-MS (metabolomics), LC-MS Bottom-Up, LC-MS
-    Top-Down, LC-MS/MS (label-free proteomics), MALDI-IMS, MS, MS (shotgun lipidomics),
-  MS Bottom-Up, MS Top-Down, NanoDESI, NanoPOTS, SIMS-IMS]
-mz_range_high_value: [CE-MS, DESI, GC-MS, LC-MS, LC-MS (metabolomics), LC-MS Bottom-Up,
-  LC-MS Top-Down, LC-MS/MS (label-free proteomics), MALDI-IMS, MS, MS (shotgun lipidomics),
-  MS Bottom-Up, MS Top-Down, NanoDESI, NanoPOTS, SIMS-IMS]
-mz_range_low_value: [CE-MS, DESI, GC-MS, LC-MS, LC-MS (metabolomics), LC-MS Bottom-Up,
-  LC-MS Top-Down, LC-MS/MS (label-free proteomics), MALDI-IMS, MS, MS (shotgun lipidomics),
-  MS Bottom-Up, MS Top-Down, NanoDESI, NanoPOTS, SIMS-IMS]
-mz_resolving_power: [CE-MS, DESI, GC-MS, LC-MS, LC-MS Bottom-Up, LC-MS Top-Down, MALDI-IMS,
-  MS, MS Bottom-Up, MS Top-Down, NanoDESI, SIMS-IMS]
-number_of_antibodies: [CODEX, CODEX2, Cell DIVE, Light Sheet, Multiplex Ion Beam Imaging]
-number_of_averages: [MRI]
-number_of_barcode_probes: [seqFISH]
-number_of_barcode_regions_per_barcode_probe: [seqFISH]
-number_of_channels: [3D Imaging Mass Cytometry, AF, CODEX, CODEX2, Cell DIVE, Imaging
-    Mass Cytometry, Light Sheet, Multiplex Ion Beam Imaging, MxIF, seqFISH]
-number_of_cycles: [CODEX, CODEX2, Cell DIVE, MxIF, seqFISH]
-number_of_image_columns: [MRI]
-number_of_image_rows: [MRI]
-number_of_images: [Body CT, MRI, Micro CT, OCT, Ultrasound]
-number_of_imaging_rounds: [Cell DIVE]
-number_of_pseudocolors_per_channel: [seqFISH]
-number_of_readout_probes_per_channel: [seqFISH]
-number_of_sections: [3D Imaging Mass Cytometry]
-operator: [3D Imaging Mass Cytometry, AF, Body CT, CE-MS, CODEX, CODEX2, Cell DIVE,
-  DESI, GC-MS, Imaging Mass Cytometry, LC-MS, LC-MS (metabolomics), LC-MS Bottom-Up,
-  LC-MS Top-Down, LC-MS/MS (label-free proteomics), Light Sheet, MALDI-IMS, MRI, MS,
-  MS (shotgun lipidomics), MS Bottom-Up, MS Top-Down, Micro CT, Multiplex Ion Beam
-    Imaging, MxIF, NanoDESI, NanoPOTS, OCT, PAS microscopy, SIMS-IMS, SNARE-seq2,
-  SNARE2-RNAseq, Slide-seq, Ultrasound, WGS, bulk RNA, bulkATACseq, scRNAseq, scRNAseq-10xGenomics,
-  scRNAseq-10xGenomics-v2, scRNAseq-10xGenomics-v3, sciATACseq, sciRNAseq, seqFISH,
-  snATACseq, snRNAseq, snRNAseq-10xGenomics-v2, snRNAseq-10xGenomics-v3]
-operator_email: [3D Imaging Mass Cytometry, AF, Body CT, CE-MS, CODEX, CODEX2, Cell
-    DIVE, DESI, GC-MS, Imaging Mass Cytometry, LC-MS, LC-MS (metabolomics), LC-MS
-    Bottom-Up, LC-MS Top-Down, LC-MS/MS (label-free proteomics), Light Sheet, MALDI-IMS,
-  MRI, MS, MS (shotgun lipidomics), MS Bottom-Up, MS Top-Down, Micro CT, Multiplex
-    Ion Beam Imaging, MxIF, NanoDESI, NanoPOTS, OCT, PAS microscopy, SIMS-IMS, SNARE-seq2,
-  SNARE2-RNAseq, Slide-seq, Ultrasound, WGS, bulk RNA, bulkATACseq, scRNAseq, scRNAseq-10xGenomics,
-  scRNAseq-10xGenomics-v2, scRNAseq-10xGenomics-v3, sciATACseq, sciRNAseq, seqFISH,
-  snATACseq, snRNAseq, snRNAseq-10xGenomics-v2, snRNAseq-10xGenomics-v3]
-overall_protocols_io_doi: [AF, CE-MS, Cell DIVE, DESI, GC-MS, LC-MS, LC-MS (metabolomics),
-  LC-MS Bottom-Up, LC-MS Top-Down, LC-MS/MS (label-free proteomics), MALDI-IMS, MS,
-  MS (shotgun lipidomics), MS Bottom-Up, MS Top-Down, MxIF, NanoDESI, NanoPOTS, PAS
-    microscopy, SIMS-IMS]
-pi: [3D Imaging Mass Cytometry, AF, Body CT, CE-MS, CODEX, CODEX2, Cell DIVE, DESI,
-  GC-MS, Imaging Mass Cytometry, LC-MS, LC-MS (metabolomics), LC-MS Bottom-Up, LC-MS
-    Top-Down, LC-MS/MS (label-free proteomics), Light Sheet, MALDI-IMS, MRI, MS, MS
-    (shotgun lipidomics), MS Bottom-Up, MS Top-Down, Micro CT, Multiplex Ion Beam
-    Imaging, MxIF, NanoDESI, NanoPOTS, OCT, PAS microscopy, SIMS-IMS, SNARE-seq2,
-  SNARE2-RNAseq, Slide-seq, Ultrasound, WGS, bulk RNA, bulkATACseq, scRNAseq, scRNAseq-10xGenomics,
-  scRNAseq-10xGenomics-v2, scRNAseq-10xGenomics-v3, sciATACseq, sciRNAseq, seqFISH,
-  snATACseq, snRNAseq, snRNAseq-10xGenomics-v2, snRNAseq-10xGenomics-v3]
-pi_email: [3D Imaging Mass Cytometry, AF, Body CT, CE-MS, CODEX, CODEX2, Cell DIVE,
-  DESI, GC-MS, Imaging Mass Cytometry, LC-MS, LC-MS (metabolomics), LC-MS Bottom-Up,
-  LC-MS Top-Down, LC-MS/MS (label-free proteomics), Light Sheet, MALDI-IMS, MRI, MS,
-  MS (shotgun lipidomics), MS Bottom-Up, MS Top-Down, Micro CT, Multiplex Ion Beam
-    Imaging, MxIF, NanoDESI, NanoPOTS, OCT, PAS microscopy, SIMS-IMS, SNARE-seq2,
-  SNARE2-RNAseq, Slide-seq, Ultrasound, WGS, bulk RNA, bulkATACseq, scRNAseq, scRNAseq-10xGenomics,
-  scRNAseq-10xGenomics-v2, scRNAseq-10xGenomics-v3, sciATACseq, sciRNAseq, seqFISH,
-  snATACseq, snRNAseq, snRNAseq-10xGenomics-v2, snRNAseq-10xGenomics-v3]
-pixel_dwell_time_unit: [Multiplex Ion Beam Imaging]
-pixel_dwell_time_value: [Multiplex Ion Beam Imaging]
-pixel_size_x_unit: [Multiplex Ion Beam Imaging]
-pixel_size_x_value: [Multiplex Ion Beam Imaging]
-pixel_size_y_unit: [Multiplex Ion Beam Imaging]
-pixel_size_y_value: [Multiplex Ion Beam Imaging]
-pixel_size_z_unit: [Body CT, MRI, Micro CT, OCT, Ultrasound]
-pixel_size_z_value: [Body CT, MRI, Micro CT, OCT, Ultrasound]
-polarity: [CE-MS, DESI, GC-MS, LC-MS, LC-MS (metabolomics), LC-MS Bottom-Up, LC-MS
-    Top-Down, LC-MS/MS (label-free proteomics), MALDI-IMS, MS, MS (shotgun lipidomics),
-  MS Bottom-Up, MS Top-Down, NanoDESI, NanoPOTS, SIMS-IMS]
-preparation_instrument_model: [3D Imaging Mass Cytometry, CODEX, CODEX2, DESI, Imaging
-    Mass Cytometry, MALDI-IMS, Multiplex Ion Beam Imaging, NanoDESI, SIMS-IMS, seqFISH]
-preparation_instrument_vendor: [3D Imaging Mass Cytometry, CODEX, CODEX2, DESI, Imaging
-    Mass Cytometry, MALDI-IMS, Multiplex Ion Beam Imaging, NanoDESI, SIMS-IMS, seqFISH]
-preparation_maldi_matrix: [DESI, MALDI-IMS, NanoDESI, SIMS-IMS]
-preparation_type: [DESI, MALDI-IMS, NanoDESI, SIMS-IMS]
-primary_ion: [Multiplex Ion Beam Imaging]
-primary_ion_current_unit: [Multiplex Ion Beam Imaging]
-primary_ion_current_value: [Multiplex Ion Beam Imaging]
-probe: [Ultrasound]
-processing_protocols_io_doi: [CE-MS, Cell DIVE, DESI, LC-MS, LC-MS (metabolomics),
-  LC-MS Bottom-Up, LC-MS Top-Down, LC-MS/MS (label-free proteomics), MALDI-IMS, MS,
-  MS (shotgun lipidomics), MS Bottom-Up, MS Top-Down, NanoDESI, NanoPOTS, SIMS-IMS]
-processing_search: [CE-MS, GC-MS, LC-MS, LC-MS (metabolomics), LC-MS Bottom-Up, LC-MS
-    Top-Down, LC-MS/MS (label-free proteomics), MS, MS (shotgun lipidomics), MS Bottom-Up,
-  MS Top-Down]
-protocols_io_doi: [3D Imaging Mass Cytometry, AF, Body CT, CE-MS, CODEX, CODEX2, Cell
-    DIVE, DESI, GC-MS, Imaging Mass Cytometry, LC-MS, LC-MS (metabolomics), LC-MS
-    Bottom-Up, LC-MS Top-Down, LC-MS/MS (label-free proteomics), Light Sheet, MALDI-IMS,
-  MRI, MS, MS (shotgun lipidomics), MS Bottom-Up, MS Top-Down, Micro CT, Multiplex
-    Ion Beam Imaging, MxIF, NanoDESI, NanoPOTS, OCT, PAS microscopy, SIMS-IMS, SNARE-seq2,
-  SNARE2-RNAseq, Slide-seq, Ultrasound, WGS, bulk RNA, bulkATACseq, scRNAseq, scRNAseq-10xGenomics,
-  scRNAseq-10xGenomics-v2, scRNAseq-10xGenomics-v3, sciATACseq, sciRNAseq, seqFISH,
-  snATACseq, snRNAseq, snRNAseq-10xGenomics-v2, snRNAseq-10xGenomics-v3]
-puck_id: [Slide-seq]
-quality_view: [Ultrasound]
-range_z_unit: [Light Sheet]
-range_z_value: [Light Sheet]
-reagent_prep_protocols_io_doi: [3D Imaging Mass Cytometry, CODEX, CODEX2, Imaging
-    Mass Cytometry, Multiplex Ion Beam Imaging, MxIF, seqFISH]
-repetition_time: [MRI]
-resolution_x_unit: [AF, Body CT, CE-MS, CODEX, CODEX2, Cell DIVE, DESI, GC-MS, LC-MS,
-  LC-MS Bottom-Up, LC-MS Top-Down, Light Sheet, MALDI-IMS, MRI, MS, MS Bottom-Up,
-  MS Top-Down, Micro CT, Multiplex Ion Beam Imaging, MxIF, NanoDESI, NanoPOTS, OCT,
-  PAS microscopy, SIMS-IMS, Ultrasound, seqFISH]
-resolution_x_value: [AF, Body CT, CE-MS, CODEX, CODEX2, Cell DIVE, DESI, GC-MS, LC-MS,
-  LC-MS Bottom-Up, LC-MS Top-Down, Light Sheet, MALDI-IMS, MRI, MS, MS Bottom-Up,
-  MS Top-Down, Micro CT, Multiplex Ion Beam Imaging, MxIF, NanoDESI, NanoPOTS, OCT,
-  PAS microscopy, SIMS-IMS, Ultrasound, seqFISH]
-resolution_y_unit: [AF, Body CT, CE-MS, CODEX, CODEX2, Cell DIVE, DESI, GC-MS, LC-MS,
-  LC-MS Bottom-Up, LC-MS Top-Down, Light Sheet, MALDI-IMS, MRI, MS, MS Bottom-Up,
-  MS Top-Down, Micro CT, Multiplex Ion Beam Imaging, MxIF, NanoDESI, NanoPOTS, OCT,
-  PAS microscopy, SIMS-IMS, Ultrasound, seqFISH]
-resolution_y_value: [AF, Body CT, CE-MS, CODEX, CODEX2, Cell DIVE, DESI, GC-MS, LC-MS,
-  LC-MS Bottom-Up, LC-MS Top-Down, Light Sheet, MALDI-IMS, MRI, MS, MS Bottom-Up,
-  MS Top-Down, Micro CT, Multiplex Ion Beam Imaging, MxIF, NanoDESI, NanoPOTS, OCT,
-  PAS microscopy, SIMS-IMS, Ultrasound, seqFISH]
-resolution_z_unit: [AF, Body CT, CODEX, CODEX2, Light Sheet, MRI, Micro CT, OCT, PAS
-    microscopy, Ultrasound, seqFISH]
-resolution_z_value: [AF, Body CT, CODEX, CODEX2, Light Sheet, MRI, Micro CT, OCT,
-  PAS microscopy, Ultrasound, seqFISH]
-rnaseq_assay_input: [SNARE2-RNAseq, scRNAseq, scRNAseq-10xGenomics, scRNAseq-10xGenomics-v2,
-  scRNAseq-10xGenomics-v3, sciRNAseq, snRNAseq, snRNAseq-10xGenomics-v2, snRNAseq-10xGenomics-v3]
-rnaseq_assay_input_unit: [bulk RNA]
-rnaseq_assay_input_value: [bulk RNA]
-rnaseq_assay_method: [SNARE2-RNAseq, Slide-seq, bulk RNA, scRNAseq, scRNAseq-10xGenomics,
-  scRNAseq-10xGenomics-v2, scRNAseq-10xGenomics-v3, sciRNAseq, snRNAseq, snRNAseq-10xGenomics-v2,
-  snRNAseq-10xGenomics-v3]
-roi_description: [3D Imaging Mass Cytometry, Body CT, Imaging Mass Cytometry, MRI,
-  Micro CT, Multiplex Ion Beam Imaging, OCT, Ultrasound]
-roi_id: [3D Imaging Mass Cytometry, Body CT, Imaging Mass Cytometry, MRI, Micro CT,
-  Multiplex Ion Beam Imaging, OCT, Ultrasound]
-sample_quality_metric: [bulkATACseq]
-sc_isolation_cell_number: [SNARE-seq2, SNARE2-RNAseq, scRNAseq, scRNAseq-10xGenomics,
-  scRNAseq-10xGenomics-v2, scRNAseq-10xGenomics-v3, sciATACseq, sciRNAseq, snATACseq,
-  snRNAseq, snRNAseq-10xGenomics-v2, snRNAseq-10xGenomics-v3]
-sc_isolation_enrichment: [SNARE-seq2, SNARE2-RNAseq, scRNAseq, scRNAseq-10xGenomics,
-  scRNAseq-10xGenomics-v2, scRNAseq-10xGenomics-v3, sciATACseq, sciRNAseq, snATACseq,
-  snRNAseq, snRNAseq-10xGenomics-v2, snRNAseq-10xGenomics-v3]
-sc_isolation_entity: [SNARE-seq2, SNARE2-RNAseq, scRNAseq, scRNAseq-10xGenomics, scRNAseq-10xGenomics-v2,
-  scRNAseq-10xGenomics-v3, sciATACseq, sciRNAseq, snATACseq, snRNAseq, snRNAseq-10xGenomics-v2,
-  snRNAseq-10xGenomics-v3]
-sc_isolation_protocols_io_doi: [SNARE-seq2, SNARE2-RNAseq, scRNAseq, scRNAseq-10xGenomics,
-  scRNAseq-10xGenomics-v2, scRNAseq-10xGenomics-v3, sciATACseq, sciRNAseq, snATACseq,
-  snRNAseq, snRNAseq-10xGenomics-v2, snRNAseq-10xGenomics-v3]
-sc_isolation_quality_metric: [SNARE-seq2, SNARE2-RNAseq, scRNAseq, scRNAseq-10xGenomics,
-  scRNAseq-10xGenomics-v2, scRNAseq-10xGenomics-v3, sciATACseq, sciRNAseq, snATACseq,
-  snRNAseq, snRNAseq-10xGenomics-v2, snRNAseq-10xGenomics-v3]
-sc_isolation_tissue_dissociation: [SNARE-seq2, SNARE2-RNAseq, scRNAseq, scRNAseq-10xGenomics,
-  scRNAseq-10xGenomics-v2, scRNAseq-10xGenomics-v3, sciATACseq, sciRNAseq, snATACseq,
-  snRNAseq, snRNAseq-10xGenomics-v2, snRNAseq-10xGenomics-v3]
-scanning_sequence: [MRI]
-section_prep_protocols_io_doi: [3D Imaging Mass Cytometry, CE-MS, CODEX, CODEX2, DESI,
-  GC-MS, Imaging Mass Cytometry, LC-MS, LC-MS (metabolomics), LC-MS Bottom-Up, LC-MS
-    Top-Down, LC-MS/MS (label-free proteomics), MALDI-IMS, MS, MS (shotgun lipidomics),
-  MS Bottom-Up, MS Top-Down, Multiplex Ion Beam Imaging, MxIF, NanoDESI, PAS microscopy,
-  SIMS-IMS, seqFISH]
-segment_data_format: [3D Imaging Mass Cytometry, Imaging Mass Cytometry, Multiplex
-    Ion Beam Imaging]
-sequence_variant: [MRI]
-sequencing_phix_percent: [SNARE-seq2, SNARE2-RNAseq, Slide-seq, WGS, bulk RNA, bulkATACseq,
-  scRNAseq, scRNAseq-10xGenomics, scRNAseq-10xGenomics-v2, scRNAseq-10xGenomics-v3,
-  sciATACseq, sciRNAseq, snATACseq, snRNAseq, snRNAseq-10xGenomics-v2, snRNAseq-10xGenomics-v3]
-sequencing_read_format: [SNARE-seq2, SNARE2-RNAseq, Slide-seq, WGS, bulk RNA, bulkATACseq,
-  scRNAseq, scRNAseq-10xGenomics, scRNAseq-10xGenomics-v2, scRNAseq-10xGenomics-v3,
-  sciATACseq, sciRNAseq, snATACseq, snRNAseq, snRNAseq-10xGenomics-v2, snRNAseq-10xGenomics-v3]
-sequencing_read_percent_q30: [SNARE-seq2, SNARE2-RNAseq, Slide-seq, WGS, bulk RNA,
-  bulkATACseq, scRNAseq, scRNAseq-10xGenomics, scRNAseq-10xGenomics-v2, scRNAseq-10xGenomics-v3,
-  sciATACseq, sciRNAseq, snATACseq, snRNAseq, snRNAseq-10xGenomics-v2, snRNAseq-10xGenomics-v3]
-sequencing_reagent_kit: [SNARE-seq2, SNARE2-RNAseq, Slide-seq, WGS, bulk RNA, bulkATACseq,
-  scRNAseq, scRNAseq-10xGenomics, scRNAseq-10xGenomics-v2, scRNAseq-10xGenomics-v3,
-  sciATACseq, sciRNAseq, snATACseq, snRNAseq, snRNAseq-10xGenomics-v2, snRNAseq-10xGenomics-v3]
-signal_type: [3D Imaging Mass Cytometry, Imaging Mass Cytometry, Multiplex Ion Beam
-    Imaging]
-single_file_export_format: [Body CT, MRI, Micro CT, OCT, Ultrasound]
-sn_quality: [OCT]
-sn_quality_unit: [OCT]
-source_project: [SNARE2-RNAseq, scRNAseq, scRNAseq-10xGenomics-v2, scRNAseq-10xGenomics-v3,
-  sciRNAseq, snRNAseq, snRNAseq-10xGenomics-v2]
-spatial_sampling_type: [CE-MS, GC-MS, LC-MS, LC-MS Bottom-Up, LC-MS Top-Down, MS,
-  MS Bottom-Up, MS Top-Down]
-spatial_target: [CE-MS, GC-MS, LC-MS, LC-MS Bottom-Up, LC-MS Top-Down, MS, MS Bottom-Up,
-  MS Top-Down]
-spatial_type: [CE-MS, GC-MS, LC-MS, LC-MS Bottom-Up, LC-MS Top-Down, MS, MS Bottom-Up,
-  MS Top-Down]
-speckle_reduction_imaging: [Ultrasound]
-stain: [PAS microscopy]
-start_datetime: [Imaging Mass Cytometry, Multiplex Ion Beam Imaging]
-step_z_value: [Light Sheet]
-tissue_id: [3D Imaging Mass Cytometry, AF, Body CT, CE-MS, CODEX, CODEX2, Cell DIVE,
-  DESI, GC-MS, Imaging Mass Cytometry, LC-MS, LC-MS (metabolomics), LC-MS Bottom-Up,
-  LC-MS Top-Down, LC-MS/MS (label-free proteomics), Light Sheet, MALDI-IMS, MRI, MS,
-  MS (shotgun lipidomics), MS Bottom-Up, MS Top-Down, Micro CT, Multiplex Ion Beam
-    Imaging, MxIF, NanoDESI, NanoPOTS, OCT, PAS microscopy, SIMS-IMS, SNARE-seq2,
-  SNARE2-RNAseq, Slide-seq, Ultrasound, WGS, bulk RNA, bulkATACseq, scRNAseq, scRNAseq-10xGenomics,
-  scRNAseq-10xGenomics-v2, scRNAseq-10xGenomics-v3, sciATACseq, sciRNAseq, seqFISH,
-  snATACseq, snRNAseq, snRNAseq-10xGenomics-v2, snRNAseq-10xGenomics-v3]
-total_sections_analyzed: [Micro CT, OCT]
-transposition_input: [SNARE-seq2, sciATACseq, snATACseq]
-transposition_kit_number: [SNARE-seq2, bulkATACseq, sciATACseq, snATACseq]
-transposition_method: [SNARE-seq2, bulkATACseq, sciATACseq, snATACseq]
-transposition_transposase_source: [SNARE-seq2, bulkATACseq, sciATACseq, snATACseq]
-umi_offset: [SNARE2-RNAseq, scRNAseq, scRNAseq-10xGenomics-v2, scRNAseq-10xGenomics-v3,
-  sciRNAseq, snRNAseq, snRNAseq-10xGenomics-v2, snRNAseq-10xGenomics-v3]
-umi_read: [SNARE2-RNAseq, scRNAseq, scRNAseq-10xGenomics-v2, scRNAseq-10xGenomics-v3,
-  sciRNAseq, snRNAseq, snRNAseq-10xGenomics-v2, snRNAseq-10xGenomics-v3]
-umi_size: [SNARE2-RNAseq, scRNAseq, scRNAseq-10xGenomics-v2, scRNAseq-10xGenomics-v3,
-  sciRNAseq, snRNAseq, snRNAseq-10xGenomics-v2, snRNAseq-10xGenomics-v3]
-version: [3D Imaging Mass Cytometry, AF, Body CT, CE-MS, CODEX, CODEX2, Cell DIVE,
-  DESI, GC-MS, Imaging Mass Cytometry, LC-MS, LC-MS (metabolomics), LC-MS Bottom-Up,
-  LC-MS Top-Down, LC-MS/MS (label-free proteomics), Light Sheet, MALDI-IMS, MRI, MS,
-  MS (shotgun lipidomics), MS Bottom-Up, MS Top-Down, Micro CT, Multiplex Ion Beam
-    Imaging, MxIF, NanoDESI, NanoPOTS, OCT, PAS microscopy, SIMS-IMS, SNARE-seq2,
-  SNARE2-RNAseq, Slide-seq, Ultrasound, WGS, bulk RNA, bulkATACseq, scRNAseq, scRNAseq-10xGenomics,
-  scRNAseq-10xGenomics-v2, scRNAseq-10xGenomics-v3, sciATACseq, sciRNAseq, seqFISH,
-  snATACseq, snRNAseq, snRNAseq-10xGenomics-v2, snRNAseq-10xGenomics-v3]
-voltage_unit: [Micro CT]
-voltage_value: [Micro CT]
-volume_export_format: [OCT]
-wavelength_unit: [OCT]
-wavelength_value: [OCT]
+ablation_distance_between_shots_x_units:
+- 3D Imaging Mass Cytometry
+- Imaging Mass Cytometry
+ablation_distance_between_shots_x_value:
+- 3D Imaging Mass Cytometry
+- Imaging Mass Cytometry
+ablation_distance_between_shots_y_units:
+- 3D Imaging Mass Cytometry
+- Imaging Mass Cytometry
+ablation_distance_between_shots_y_value:
+- 3D Imaging Mass Cytometry
+- Imaging Mass Cytometry
+ablation_frequency_unit:
+- 3D Imaging Mass Cytometry
+- Imaging Mass Cytometry
+ablation_frequency_value:
+- 3D Imaging Mass Cytometry
+- Imaging Mass Cytometry
+acquisition_id:
+- 3D Imaging Mass Cytometry
+- Imaging Mass Cytometry
+- Multiplex Ion Beam Imaging
+acquisition_instrument_model:
+- 3D Imaging Mass Cytometry
+- AF
+- Body CT
+- CE-MS
+- CODEX
+- CODEX2
+- Cell DIVE
+- DESI
+- GC-MS
+- Imaging Mass Cytometry
+- LC-MS
+- LC-MS (metabolomics)
+- LC-MS Bottom-Up
+- LC-MS Top-Down
+- LC-MS/MS (label-free proteomics)
+- Light Sheet
+- MALDI-IMS
+- MRI
+- MS
+- MS (shotgun lipidomics)
+- MS Bottom-Up
+- MS Top-Down
+- Micro CT
+- Multiplex Ion Beam Imaging
+- MxIF
+- NanoDESI
+- NanoPOTS
+- OCT
+- PAS microscopy
+- SIMS-IMS
+- SNARE-seq2
+- SNARE2-RNAseq
+- Slide-seq
+- Ultrasound
+- WGS
+- bulk RNA
+- bulkATACseq
+- scRNAseq
+- scRNAseq-10xGenomics
+- scRNAseq-10xGenomics-v2
+- scRNAseq-10xGenomics-v3
+- sciATACseq
+- sciRNAseq
+- seqFISH
+- snATACseq
+- snRNAseq
+- snRNAseq-10xGenomics-v2
+- snRNAseq-10xGenomics-v3
+acquisition_instrument_vendor:
+- 3D Imaging Mass Cytometry
+- AF
+- Body CT
+- CE-MS
+- CODEX
+- CODEX2
+- Cell DIVE
+- DESI
+- GC-MS
+- Imaging Mass Cytometry
+- LC-MS
+- LC-MS (metabolomics)
+- LC-MS Bottom-Up
+- LC-MS Top-Down
+- LC-MS/MS (label-free proteomics)
+- Light Sheet
+- MALDI-IMS
+- MRI
+- MS
+- MS (shotgun lipidomics)
+- MS Bottom-Up
+- MS Top-Down
+- Micro CT
+- Multiplex Ion Beam Imaging
+- MxIF
+- NanoDESI
+- NanoPOTS
+- OCT
+- PAS microscopy
+- SIMS-IMS
+- SNARE-seq2
+- SNARE2-RNAseq
+- Slide-seq
+- Ultrasound
+- WGS
+- bulk RNA
+- bulkATACseq
+- scRNAseq
+- scRNAseq-10xGenomics
+- scRNAseq-10xGenomics-v2
+- scRNAseq-10xGenomics-v3
+- sciATACseq
+- sciRNAseq
+- seqFISH
+- snATACseq
+- snRNAseq
+- snRNAseq-10xGenomics-v2
+- snRNAseq-10xGenomics-v3
+acquisition_matrix_size_in_frequency_encoding_direction:
+- MRI
+acquisition_matrix_size_in_phase_encoding_direction:
+- MRI
+analyte_class:
+- 3D Imaging Mass Cytometry
+- AF
+- CE-MS
+- CODEX
+- CODEX2
+- Cell DIVE
+- DESI
+- GC-MS
+- Imaging Mass Cytometry
+- LC-MS
+- LC-MS (metabolomics)
+- LC-MS Bottom-Up
+- LC-MS Top-Down
+- LC-MS/MS (label-free proteomics)
+- Light Sheet
+- MALDI-IMS
+- MS
+- MS (shotgun lipidomics)
+- MS Bottom-Up
+- MS Top-Down
+- Multiplex Ion Beam Imaging
+- MxIF
+- NanoDESI
+- NanoPOTS
+- PAS microscopy
+- SIMS-IMS
+- SNARE-seq2
+- SNARE2-RNAseq
+- Slide-seq
+- WGS
+- bulk RNA
+- bulkATACseq
+- scRNAseq
+- scRNAseq-10xGenomics
+- scRNAseq-10xGenomics-v2
+- scRNAseq-10xGenomics-v3
+- sciATACseq
+- sciRNAseq
+- seqFISH
+- snATACseq
+- snRNAseq
+- snRNAseq-10xGenomics-v2
+- snRNAseq-10xGenomics-v3
+antibodies_path:
+- 3D Imaging Mass Cytometry
+- CODEX
+- CODEX2
+- Cell DIVE
+- Imaging Mass Cytometry
+- Light Sheet
+- Multiplex Ion Beam Imaging
+- MxIF
+area_normalized_ion_dose_unit:
+- Multiplex Ion Beam Imaging
+area_normalized_ion_dose_value:
+- Multiplex Ion Beam Imaging
+assay_category:
+- 3D Imaging Mass Cytometry
+- AF
+- Body CT
+- CE-MS
+- CODEX
+- CODEX2
+- Cell DIVE
+- DESI
+- GC-MS
+- Imaging Mass Cytometry
+- LC-MS
+- LC-MS (metabolomics)
+- LC-MS Bottom-Up
+- LC-MS Top-Down
+- LC-MS/MS (label-free proteomics)
+- Light Sheet
+- MALDI-IMS
+- MRI
+- MS
+- MS (shotgun lipidomics)
+- MS Bottom-Up
+- MS Top-Down
+- Micro CT
+- Multiplex Ion Beam Imaging
+- MxIF
+- NanoDESI
+- NanoPOTS
+- OCT
+- PAS microscopy
+- SIMS-IMS
+- SNARE-seq2
+- SNARE2-RNAseq
+- Slide-seq
+- Ultrasound
+- WGS
+- bulk RNA
+- bulkATACseq
+- scRNAseq
+- scRNAseq-10xGenomics
+- scRNAseq-10xGenomics-v2
+- scRNAseq-10xGenomics-v3
+- sciATACseq
+- sciRNAseq
+- seqFISH
+- snATACseq
+- snRNAseq
+- snRNAseq-10xGenomics-v2
+- snRNAseq-10xGenomics-v3
+assay_type:
+- 3D Imaging Mass Cytometry
+- AF
+- Body CT
+- CE-MS
+- CODEX
+- CODEX2
+- Cell DIVE
+- DESI
+- GC-MS
+- Imaging Mass Cytometry
+- LC-MS
+- LC-MS (metabolomics)
+- LC-MS Bottom-Up
+- LC-MS Top-Down
+- LC-MS/MS (label-free proteomics)
+- Light Sheet
+- MALDI-IMS
+- MRI
+- MS
+- MS (shotgun lipidomics)
+- MS Bottom-Up
+- MS Top-Down
+- Micro CT
+- Multiplex Ion Beam Imaging
+- MxIF
+- NanoDESI
+- NanoPOTS
+- OCT
+- PAS microscopy
+- SIMS-IMS
+- SNARE-seq2
+- SNARE2-RNAseq
+- Slide-seq
+- Ultrasound
+- WGS
+- bulk RNA
+- bulkATACseq
+- scRNAseq
+- scRNAseq-10xGenomics
+- scRNAseq-10xGenomics-v2
+- scRNAseq-10xGenomics-v3
+- sciATACseq
+- sciRNAseq
+- seqFISH
+- snATACseq
+- snRNAseq
+- snRNAseq-10xGenomics-v2
+- snRNAseq-10xGenomics-v3
+bead_barcode_offset:
+- Slide-seq
+bead_barcode_read:
+- Slide-seq
+bead_barcode_size:
+- Slide-seq
+bulk_atac_cell_isolation_protocols_io_doi:
+- bulkATACseq
+bulk_rna_isolation_protocols_io_doi:
+- bulk RNA
+bulk_rna_isolation_quality_metric_value:
+- bulk RNA
+bulk_rna_yield_units_per_tissue_unit:
+- bulk RNA
+bulk_rna_yield_value:
+- bulk RNA
+bulk_transposition_input_number_nuclei:
+- bulkATACseq
+ce_background_electrolyte:
+- CE-MS
+ce_capillary_coating:
+- CE-MS
+ce_electroosmotic_flow:
+- CE-MS
+ce_instrument_model:
+- CE-MS
+ce_instrument_vendor:
+- CE-MS
+ce_interface:
+- CE-MS
+cell_barcode_offset:
+- SNARE-seq2
+- SNARE2-RNAseq
+- scRNAseq
+- scRNAseq-10xGenomics
+- scRNAseq-10xGenomics-v2
+- scRNAseq-10xGenomics-v3
+- sciATACseq
+- sciRNAseq
+- snATACseq
+- snRNAseq
+- snRNAseq-10xGenomics-v2
+- snRNAseq-10xGenomics-v3
+cell_barcode_read:
+- SNARE-seq2
+- SNARE2-RNAseq
+- scRNAseq
+- scRNAseq-10xGenomics
+- scRNAseq-10xGenomics-v2
+- scRNAseq-10xGenomics-v3
+- sciATACseq
+- sciRNAseq
+- snATACseq
+- snRNAseq
+- snRNAseq-10xGenomics-v2
+- snRNAseq-10xGenomics-v3
+cell_barcode_size:
+- SNARE-seq2
+- SNARE2-RNAseq
+- scRNAseq
+- scRNAseq-10xGenomics
+- scRNAseq-10xGenomics-v2
+- scRNAseq-10xGenomics-v3
+- sciATACseq
+- sciRNAseq
+- snATACseq
+- snRNAseq
+- snRNAseq-10xGenomics-v2
+- snRNAseq-10xGenomics-v3
+coil:
+- MRI
+column_length_unit:
+- GC-MS
+column_length_value:
+- GC-MS
+column_model:
+- GC-MS
+column_temp_unit:
+- GC-MS
+column_temp_value:
+- GC-MS
+column_vendor:
+- GC-MS
+compound_imaging:
+- Ultrasound
+contributors_path:
+- 3D Imaging Mass Cytometry
+- AF
+- Body CT
+- CE-MS
+- CODEX
+- CODEX2
+- Cell DIVE
+- DESI
+- GC-MS
+- Imaging Mass Cytometry
+- LC-MS
+- LC-MS (metabolomics)
+- LC-MS Bottom-Up
+- LC-MS Top-Down
+- LC-MS/MS (label-free proteomics)
+- Light Sheet
+- MALDI-IMS
+- MRI
+- MS
+- MS (shotgun lipidomics)
+- MS Bottom-Up
+- MS Top-Down
+- Micro CT
+- Multiplex Ion Beam Imaging
+- MxIF
+- NanoDESI
+- NanoPOTS
+- OCT
+- PAS microscopy
+- SIMS-IMS
+- SNARE-seq2
+- SNARE2-RNAseq
+- Slide-seq
+- Ultrasound
+- WGS
+- bulk RNA
+- bulkATACseq
+- scRNAseq
+- scRNAseq-10xGenomics
+- scRNAseq-10xGenomics-v2
+- scRNAseq-10xGenomics-v3
+- sciATACseq
+- sciRNAseq
+- seqFISH
+- snATACseq
+- snRNAseq
+- snRNAseq-10xGenomics-v2
+- snRNAseq-10xGenomics-v3
+current_unit:
+- Micro CT
+current_value:
+- Micro CT
+data_collection_mode:
+- CE-MS
+- GC-MS
+- LC-MS
+- LC-MS (metabolomics)
+- LC-MS Bottom-Up
+- LC-MS Top-Down
+- LC-MS/MS (label-free proteomics)
+- MS
+- MS (shotgun lipidomics)
+- MS Bottom-Up
+- MS Top-Down
+data_path:
+- 3D Imaging Mass Cytometry
+- AF
+- Body CT
+- CE-MS
+- CODEX
+- CODEX2
+- Cell DIVE
+- DESI
+- GC-MS
+- Imaging Mass Cytometry
+- LC-MS
+- LC-MS (metabolomics)
+- LC-MS Bottom-Up
+- LC-MS Top-Down
+- LC-MS/MS (label-free proteomics)
+- Light Sheet
+- MALDI-IMS
+- MRI
+- MS
+- MS (shotgun lipidomics)
+- MS Bottom-Up
+- MS Top-Down
+- Micro CT
+- Multiplex Ion Beam Imaging
+- MxIF
+- NanoDESI
+- NanoPOTS
+- OCT
+- PAS microscopy
+- SIMS-IMS
+- SNARE-seq2
+- SNARE2-RNAseq
+- Slide-seq
+- Ultrasound
+- WGS
+- bulk RNA
+- bulkATACseq
+- scRNAseq
+- scRNAseq-10xGenomics
+- scRNAseq-10xGenomics-v2
+- scRNAseq-10xGenomics-v3
+- sciATACseq
+- sciRNAseq
+- seqFISH
+- snATACseq
+- snRNAseq
+- snRNAseq-10xGenomics-v2
+- snRNAseq-10xGenomics-v3
+data_precision_bytes:
+- Imaging Mass Cytometry
+- Multiplex Ion Beam Imaging
+description:
+- 3D Imaging Mass Cytometry
+- AF
+- Body CT
+- CE-MS
+- CODEX
+- CODEX2
+- Cell DIVE
+- DESI
+- GC-MS
+- Imaging Mass Cytometry
+- LC-MS
+- LC-MS (metabolomics)
+- LC-MS Bottom-Up
+- LC-MS Top-Down
+- LC-MS/MS (label-free proteomics)
+- Light Sheet
+- MALDI-IMS
+- MRI
+- MS
+- MS (shotgun lipidomics)
+- MS Bottom-Up
+- MS Top-Down
+- Micro CT
+- Multiplex Ion Beam Imaging
+- MxIF
+- NanoDESI
+- NanoPOTS
+- OCT
+- PAS microscopy
+- SIMS-IMS
+- SNARE-seq2
+- SNARE2-RNAseq
+- Slide-seq
+- Ultrasound
+- WGS
+- bulk RNA
+- bulkATACseq
+- scRNAseq
+- scRNAseq-10xGenomics
+- scRNAseq-10xGenomics-v2
+- scRNAseq-10xGenomics-v3
+- sciATACseq
+- sciRNAseq
+- seqFISH
+- snATACseq
+- snRNAseq
+- snRNAseq-10xGenomics-v2
+- snRNAseq-10xGenomics-v3
+desi_solvent:
+- DESI
+- MALDI-IMS
+- NanoDESI
+- SIMS-IMS
+desi_solvent_flow_rate:
+- DESI
+- MALDI-IMS
+- NanoDESI
+- SIMS-IMS
+desi_solvent_flow_rate_unit:
+- DESI
+- MALDI-IMS
+- NanoDESI
+- SIMS-IMS
+dms:
+- LC-MS
+- LC-MS Bottom-Up
+- LC-MS Top-Down
+- MS
+- MS Bottom-Up
+- MS Top-Down
+dna_assay_input_unit:
+- WGS
+dna_assay_input_value:
+- WGS
+donor_id:
+- 3D Imaging Mass Cytometry
+- AF
+- Body CT
+- CE-MS
+- CODEX
+- CODEX2
+- Cell DIVE
+- DESI
+- GC-MS
+- Imaging Mass Cytometry
+- LC-MS
+- LC-MS (metabolomics)
+- LC-MS Bottom-Up
+- LC-MS Top-Down
+- LC-MS/MS (label-free proteomics)
+- Light Sheet
+- MALDI-IMS
+- MRI
+- MS
+- MS (shotgun lipidomics)
+- MS Bottom-Up
+- MS Top-Down
+- Micro CT
+- Multiplex Ion Beam Imaging
+- MxIF
+- NanoDESI
+- NanoPOTS
+- OCT
+- PAS microscopy
+- SIMS-IMS
+- SNARE-seq2
+- SNARE2-RNAseq
+- Slide-seq
+- Ultrasound
+- WGS
+- bulk RNA
+- bulkATACseq
+- scRNAseq
+- scRNAseq-10xGenomics
+- scRNAseq-10xGenomics-v2
+- scRNAseq-10xGenomics-v3
+- sciATACseq
+- sciRNAseq
+- seqFISH
+- snATACseq
+- snRNAseq
+- snRNAseq-10xGenomics-v2
+- snRNAseq-10xGenomics-v3
+dual_count_start:
+- Imaging Mass Cytometry
+- Multiplex Ion Beam Imaging
+dynamic_contrast:
+- Ultrasound
+echo_time:
+- MRI
+echo_train_length:
+- MRI
+end_datetime:
+- Imaging Mass Cytometry
+- Multiplex Ion Beam Imaging
+execution_datetime:
+- 3D Imaging Mass Cytometry
+- AF
+- Body CT
+- CE-MS
+- CODEX
+- CODEX2
+- Cell DIVE
+- DESI
+- GC-MS
+- Imaging Mass Cytometry
+- LC-MS
+- LC-MS (metabolomics)
+- LC-MS Bottom-Up
+- LC-MS Top-Down
+- LC-MS/MS (label-free proteomics)
+- Light Sheet
+- MALDI-IMS
+- MRI
+- MS
+- MS (shotgun lipidomics)
+- MS Bottom-Up
+- MS Top-Down
+- Micro CT
+- Multiplex Ion Beam Imaging
+- MxIF
+- NanoDESI
+- NanoPOTS
+- OCT
+- PAS microscopy
+- SIMS-IMS
+- SNARE-seq2
+- SNARE2-RNAseq
+- Slide-seq
+- Ultrasound
+- WGS
+- bulk RNA
+- bulkATACseq
+- scRNAseq
+- scRNAseq-10xGenomics
+- scRNAseq-10xGenomics-v2
+- scRNAseq-10xGenomics-v3
+- sciATACseq
+- sciRNAseq
+- seqFISH
+- snATACseq
+- snRNAseq
+- snRNAseq-10xGenomics-v2
+- snRNAseq-10xGenomics-v3
+expected_cell_count:
+- SNARE2-RNAseq
+- scRNAseq
+- scRNAseq-10xGenomics-v2
+- scRNAseq-10xGenomics-v3
+- sciRNAseq
+- snRNAseq
+- snRNAseq-10xGenomics-v2
+- snRNAseq-10xGenomics-v3
+field_strength_unit:
+- MRI
+field_strength_value:
+- MRI
+filter:
+- Micro CT
+flip_angle:
+- MRI
+frequency_unit:
+- MRI
+- Ultrasound
+frequency_value:
+- MRI
+- Ultrasound
+gdna_fragmentation_quality_assurance:
+- WGS
+guard_column:
+- GC-MS
+harmonics:
+- Ultrasound
+imaging_threshold_unit_value:
+- Micro CT
+imaging_threshold_value:
+- Micro CT
+increment_z_unit:
+- Light Sheet
+increment_z_value:
+- Light Sheet
+internal_standard:
+- GC-MS
+ion_mobility:
+- CE-MS
+- DESI
+- GC-MS
+- LC-MS
+- LC-MS Bottom-Up
+- LC-MS Top-Down
+- MALDI-IMS
+- MS
+- MS Bottom-Up
+- MS Top-Down
+- NanoDESI
+- SIMS-IMS
+ion_source:
+- GC-MS
+is_targeted:
+- 3D Imaging Mass Cytometry
+- AF
+- CE-MS
+- CODEX
+- CODEX2
+- Cell DIVE
+- DESI
+- GC-MS
+- Imaging Mass Cytometry
+- LC-MS
+- LC-MS (metabolomics)
+- LC-MS Bottom-Up
+- LC-MS Top-Down
+- LC-MS/MS (label-free proteomics)
+- Light Sheet
+- MALDI-IMS
+- MS
+- MS (shotgun lipidomics)
+- MS Bottom-Up
+- MS Top-Down
+- Multiplex Ion Beam Imaging
+- MxIF
+- NanoDESI
+- NanoPOTS
+- PAS microscopy
+- SIMS-IMS
+- SNARE-seq2
+- SNARE2-RNAseq
+- Slide-seq
+- WGS
+- bulk RNA
+- bulkATACseq
+- scRNAseq
+- scRNAseq-10xGenomics
+- scRNAseq-10xGenomics-v2
+- scRNAseq-10xGenomics-v3
+- sciATACseq
+- sciRNAseq
+- seqFISH
+- snATACseq
+- snRNAseq
+- snRNAseq-10xGenomics-v2
+- snRNAseq-10xGenomics-v3
+is_technical_replicate:
+- SNARE-seq2
+- SNARE2-RNAseq
+- Slide-seq
+- bulkATACseq
+- scRNAseq
+- scRNAseq-10xGenomics
+- scRNAseq-10xGenomics-v2
+- scRNAseq-10xGenomics-v3
+- sciATACseq
+- sciRNAseq
+- snATACseq
+- snRNAseq
+- snRNAseq-10xGenomics-v2
+- snRNAseq-10xGenomics-v3
+label_name:
+- LC-MS
+- LC-MS Bottom-Up
+- LC-MS Top-Down
+- MS
+- MS Bottom-Up
+- MS Top-Down
+labeling:
+- CE-MS
+- GC-MS
+- LC-MS
+- LC-MS (metabolomics)
+- LC-MS Bottom-Up
+- LC-MS Top-Down
+- LC-MS/MS (label-free proteomics)
+- MS
+- MS (shotgun lipidomics)
+- MS Bottom-Up
+- MS Top-Down
+lc_column_model:
+- LC-MS
+- LC-MS (metabolomics)
+- LC-MS Bottom-Up
+- LC-MS Top-Down
+- LC-MS/MS (label-free proteomics)
+- MS
+- MS (shotgun lipidomics)
+- MS Bottom-Up
+- MS Top-Down
+lc_column_vendor:
+- LC-MS
+- LC-MS (metabolomics)
+- LC-MS Bottom-Up
+- LC-MS Top-Down
+- LC-MS/MS (label-free proteomics)
+- MS
+- MS (shotgun lipidomics)
+- MS Bottom-Up
+- MS Top-Down
+lc_flow_rate_unit:
+- LC-MS
+- LC-MS (metabolomics)
+- LC-MS Bottom-Up
+- LC-MS Top-Down
+- LC-MS/MS (label-free proteomics)
+- MS
+- MS (shotgun lipidomics)
+- MS Bottom-Up
+- MS Top-Down
+lc_flow_rate_value:
+- LC-MS
+- LC-MS (metabolomics)
+- LC-MS Bottom-Up
+- LC-MS Top-Down
+- LC-MS/MS (label-free proteomics)
+- MS
+- MS (shotgun lipidomics)
+- MS Bottom-Up
+- MS Top-Down
+lc_gradient:
+- LC-MS
+- LC-MS (metabolomics)
+- LC-MS Bottom-Up
+- LC-MS Top-Down
+- LC-MS/MS (label-free proteomics)
+- MS
+- MS (shotgun lipidomics)
+- MS Bottom-Up
+- MS Top-Down
+lc_id_unit:
+- LC-MS
+- LC-MS (metabolomics)
+- LC-MS Bottom-Up
+- LC-MS Top-Down
+- LC-MS/MS (label-free proteomics)
+- MS
+- MS (shotgun lipidomics)
+- MS Bottom-Up
+- MS Top-Down
+lc_id_value:
+- LC-MS
+- LC-MS (metabolomics)
+- LC-MS Bottom-Up
+- LC-MS Top-Down
+- LC-MS/MS (label-free proteomics)
+- MS
+- MS (shotgun lipidomics)
+- MS Bottom-Up
+- MS Top-Down
+lc_instrument_model:
+- LC-MS
+- LC-MS (metabolomics)
+- LC-MS Bottom-Up
+- LC-MS Top-Down
+- LC-MS/MS (label-free proteomics)
+- MS
+- MS (shotgun lipidomics)
+- MS Bottom-Up
+- MS Top-Down
+lc_instrument_vendor:
+- LC-MS
+- LC-MS (metabolomics)
+- LC-MS Bottom-Up
+- LC-MS Top-Down
+- LC-MS/MS (label-free proteomics)
+- MS
+- MS (shotgun lipidomics)
+- MS Bottom-Up
+- MS Top-Down
+lc_length_unit:
+- LC-MS
+- LC-MS (metabolomics)
+- LC-MS Bottom-Up
+- LC-MS Top-Down
+- LC-MS/MS (label-free proteomics)
+- MS
+- MS (shotgun lipidomics)
+- MS Bottom-Up
+- MS Top-Down
+lc_length_value:
+- LC-MS
+- LC-MS (metabolomics)
+- LC-MS Bottom-Up
+- LC-MS Top-Down
+- LC-MS/MS (label-free proteomics)
+- MS
+- MS (shotgun lipidomics)
+- MS Bottom-Up
+- MS Top-Down
+lc_mobile_phase_a:
+- LC-MS
+- LC-MS (metabolomics)
+- LC-MS Bottom-Up
+- LC-MS Top-Down
+- LC-MS/MS (label-free proteomics)
+- MS
+- MS (shotgun lipidomics)
+- MS Bottom-Up
+- MS Top-Down
+lc_mobile_phase_b:
+- LC-MS
+- LC-MS (metabolomics)
+- LC-MS Bottom-Up
+- LC-MS Top-Down
+- LC-MS/MS (label-free proteomics)
+- MS
+- MS (shotgun lipidomics)
+- MS Bottom-Up
+- MS Top-Down
+lc_resin:
+- LC-MS
+- LC-MS (metabolomics)
+- LC-MS Bottom-Up
+- LC-MS Top-Down
+- LC-MS/MS (label-free proteomics)
+- MS
+- MS (shotgun lipidomics)
+- MS Bottom-Up
+- MS Top-Down
+lc_temp_unit:
+- LC-MS
+- LC-MS (metabolomics)
+- LC-MS Bottom-Up
+- LC-MS Top-Down
+- LC-MS/MS (label-free proteomics)
+- MS
+- MS (shotgun lipidomics)
+- MS Bottom-Up
+- MS Top-Down
+lc_temp_value:
+- LC-MS
+- LC-MS (metabolomics)
+- LC-MS Bottom-Up
+- LC-MS Top-Down
+- LC-MS/MS (label-free proteomics)
+- MS
+- MS (shotgun lipidomics)
+- MS Bottom-Up
+- MS Top-Down
+library_adapter_sequence:
+- SNARE-seq2
+- SNARE2-RNAseq
+- Slide-seq
+- WGS
+- bulk RNA
+- bulkATACseq
+- scRNAseq
+- scRNAseq-10xGenomics
+- scRNAseq-10xGenomics-v2
+- scRNAseq-10xGenomics-v3
+- sciATACseq
+- sciRNAseq
+- snATACseq
+- snRNAseq
+- snRNAseq-10xGenomics-v2
+- snRNAseq-10xGenomics-v3
+library_average_fragment_size:
+- SNARE-seq2
+- SNARE2-RNAseq
+- Slide-seq
+- WGS
+- bulk RNA
+- bulkATACseq
+- scRNAseq
+- scRNAseq-10xGenomics
+- scRNAseq-10xGenomics-v2
+- scRNAseq-10xGenomics-v3
+- sciATACseq
+- sciRNAseq
+- snATACseq
+- snRNAseq
+- snRNAseq-10xGenomics-v2
+- snRNAseq-10xGenomics-v3
+library_concentration_unit:
+- bulkATACseq
+library_concentration_value:
+- bulkATACseq
+library_construction_method:
+- WGS
+library_construction_protocols_io_doi:
+- SNARE-seq2
+- SNARE2-RNAseq
+- Slide-seq
+- WGS
+- bulk RNA
+- bulkATACseq
+- scRNAseq
+- scRNAseq-10xGenomics
+- scRNAseq-10xGenomics-v2
+- scRNAseq-10xGenomics-v3
+- sciATACseq
+- sciRNAseq
+- snATACseq
+- snRNAseq
+- snRNAseq-10xGenomics-v2
+- snRNAseq-10xGenomics-v3
+library_creation_date:
+- bulkATACseq
+library_final_yield:
+- SNARE-seq2
+- WGS
+- sciATACseq
+- snATACseq
+library_final_yield_unit:
+- SNARE-seq2
+- SNARE2-RNAseq
+- Slide-seq
+- WGS
+- bulk RNA
+- bulkATACseq
+- scRNAseq
+- scRNAseq-10xGenomics
+- scRNAseq-10xGenomics-v2
+- scRNAseq-10xGenomics-v3
+- sciATACseq
+- sciRNAseq
+- snATACseq
+- snRNAseq
+- snRNAseq-10xGenomics-v2
+- snRNAseq-10xGenomics-v3
+library_final_yield_value:
+- SNARE2-RNAseq
+- Slide-seq
+- bulk RNA
+- bulkATACseq
+- scRNAseq
+- scRNAseq-10xGenomics
+- scRNAseq-10xGenomics-v2
+- scRNAseq-10xGenomics-v3
+- sciRNAseq
+- snRNAseq
+- snRNAseq-10xGenomics-v2
+- snRNAseq-10xGenomics-v3
+library_id:
+- SNARE-seq2
+- SNARE2-RNAseq
+- bulkATACseq
+- scRNAseq
+- scRNAseq-10xGenomics
+- scRNAseq-10xGenomics-v2
+- scRNAseq-10xGenomics-v3
+- sciATACseq
+- sciRNAseq
+- snATACseq
+- snRNAseq
+- snRNAseq-10xGenomics-v2
+- snRNAseq-10xGenomics-v3
+library_layout:
+- SNARE-seq2
+- SNARE2-RNAseq
+- Slide-seq
+- WGS
+- bulk RNA
+- bulkATACseq
+- scRNAseq
+- scRNAseq-10xGenomics
+- scRNAseq-10xGenomics-v2
+- scRNAseq-10xGenomics-v3
+- sciATACseq
+- sciRNAseq
+- snATACseq
+- snRNAseq
+- snRNAseq-10xGenomics-v2
+- snRNAseq-10xGenomics-v3
+library_pcr_cycles:
+- SNARE-seq2
+- SNARE2-RNAseq
+- Slide-seq
+- bulkATACseq
+- scRNAseq
+- scRNAseq-10xGenomics
+- scRNAseq-10xGenomics-v2
+- scRNAseq-10xGenomics-v3
+- sciATACseq
+- sciRNAseq
+- snATACseq
+- snRNAseq
+- snRNAseq-10xGenomics-v2
+- snRNAseq-10xGenomics-v3
+library_pcr_cycles_for_sample_index:
+- SNARE-seq2
+- SNARE2-RNAseq
+- Slide-seq
+- bulk RNA
+- scRNAseq
+- scRNAseq-10xGenomics
+- scRNAseq-10xGenomics-v2
+- scRNAseq-10xGenomics-v3
+- sciATACseq
+- sciRNAseq
+- snATACseq
+- snRNAseq
+- snRNAseq-10xGenomics-v2
+- snRNAseq-10xGenomics-v3
+library_preparation_kit:
+- bulkATACseq
+mass_resolving_power:
+- CE-MS
+- DESI
+- GC-MS
+- LC-MS
+- LC-MS Bottom-Up
+- LC-MS Top-Down
+- MALDI-IMS
+- MS
+- MS Bottom-Up
+- MS Top-Down
+- NanoDESI
+- SIMS-IMS
+max_x_width_unit:
+- 3D Imaging Mass Cytometry
+- Body CT
+- Imaging Mass Cytometry
+- MRI
+- Micro CT
+- Multiplex Ion Beam Imaging
+- OCT
+- Ultrasound
+max_x_width_value:
+- 3D Imaging Mass Cytometry
+- Body CT
+- Imaging Mass Cytometry
+- MRI
+- Micro CT
+- Multiplex Ion Beam Imaging
+- OCT
+- Ultrasound
+max_y_height_unit:
+- 3D Imaging Mass Cytometry
+- Body CT
+- Imaging Mass Cytometry
+- MRI
+- Micro CT
+- Multiplex Ion Beam Imaging
+- OCT
+- Ultrasound
+max_y_height_value:
+- 3D Imaging Mass Cytometry
+- Body CT
+- Imaging Mass Cytometry
+- MRI
+- Micro CT
+- Multiplex Ion Beam Imaging
+- OCT
+- Ultrasound
+ms_scan_mode:
+- CE-MS
+- DESI
+- GC-MS
+- LC-MS
+- LC-MS (metabolomics)
+- LC-MS Bottom-Up
+- LC-MS Top-Down
+- LC-MS/MS (label-free proteomics)
+- MALDI-IMS
+- MS
+- MS (shotgun lipidomics)
+- MS Bottom-Up
+- MS Top-Down
+- NanoDESI
+- SIMS-IMS
+ms_source:
+- CE-MS
+- DESI
+- GC-MS
+- LC-MS
+- LC-MS (metabolomics)
+- LC-MS Bottom-Up
+- LC-MS Top-Down
+- LC-MS/MS (label-free proteomics)
+- MALDI-IMS
+- MS
+- MS (shotgun lipidomics)
+- MS Bottom-Up
+- MS Top-Down
+- NanoDESI
+- NanoPOTS
+- SIMS-IMS
+mz_range_high_value:
+- CE-MS
+- DESI
+- GC-MS
+- LC-MS
+- LC-MS (metabolomics)
+- LC-MS Bottom-Up
+- LC-MS Top-Down
+- LC-MS/MS (label-free proteomics)
+- MALDI-IMS
+- MS
+- MS (shotgun lipidomics)
+- MS Bottom-Up
+- MS Top-Down
+- NanoDESI
+- NanoPOTS
+- SIMS-IMS
+mz_range_low_value:
+- CE-MS
+- DESI
+- GC-MS
+- LC-MS
+- LC-MS (metabolomics)
+- LC-MS Bottom-Up
+- LC-MS Top-Down
+- LC-MS/MS (label-free proteomics)
+- MALDI-IMS
+- MS
+- MS (shotgun lipidomics)
+- MS Bottom-Up
+- MS Top-Down
+- NanoDESI
+- NanoPOTS
+- SIMS-IMS
+mz_resolving_power:
+- CE-MS
+- DESI
+- GC-MS
+- LC-MS
+- LC-MS Bottom-Up
+- LC-MS Top-Down
+- MALDI-IMS
+- MS
+- MS Bottom-Up
+- MS Top-Down
+- NanoDESI
+- SIMS-IMS
+number_of_antibodies:
+- CODEX
+- CODEX2
+- Cell DIVE
+- Light Sheet
+- Multiplex Ion Beam Imaging
+number_of_averages:
+- MRI
+number_of_barcode_probes:
+- seqFISH
+number_of_barcode_regions_per_barcode_probe:
+- seqFISH
+number_of_channels:
+- 3D Imaging Mass Cytometry
+- AF
+- CODEX
+- CODEX2
+- Cell DIVE
+- Imaging Mass Cytometry
+- Light Sheet
+- Multiplex Ion Beam Imaging
+- MxIF
+- seqFISH
+number_of_cycles:
+- CODEX
+- CODEX2
+- Cell DIVE
+- MxIF
+- seqFISH
+number_of_image_columns:
+- MRI
+number_of_image_rows:
+- MRI
+number_of_images:
+- Body CT
+- MRI
+- Micro CT
+- OCT
+- Ultrasound
+number_of_imaging_rounds:
+- Cell DIVE
+number_of_pseudocolors_per_channel:
+- seqFISH
+number_of_readout_probes_per_channel:
+- seqFISH
+number_of_sections:
+- 3D Imaging Mass Cytometry
+operator:
+- 3D Imaging Mass Cytometry
+- AF
+- Body CT
+- CE-MS
+- CODEX
+- CODEX2
+- Cell DIVE
+- DESI
+- GC-MS
+- Imaging Mass Cytometry
+- LC-MS
+- LC-MS (metabolomics)
+- LC-MS Bottom-Up
+- LC-MS Top-Down
+- LC-MS/MS (label-free proteomics)
+- Light Sheet
+- MALDI-IMS
+- MRI
+- MS
+- MS (shotgun lipidomics)
+- MS Bottom-Up
+- MS Top-Down
+- Micro CT
+- Multiplex Ion Beam Imaging
+- MxIF
+- NanoDESI
+- NanoPOTS
+- OCT
+- PAS microscopy
+- SIMS-IMS
+- SNARE-seq2
+- SNARE2-RNAseq
+- Slide-seq
+- Ultrasound
+- WGS
+- bulk RNA
+- bulkATACseq
+- scRNAseq
+- scRNAseq-10xGenomics
+- scRNAseq-10xGenomics-v2
+- scRNAseq-10xGenomics-v3
+- sciATACseq
+- sciRNAseq
+- seqFISH
+- snATACseq
+- snRNAseq
+- snRNAseq-10xGenomics-v2
+- snRNAseq-10xGenomics-v3
+operator_email:
+- 3D Imaging Mass Cytometry
+- AF
+- Body CT
+- CE-MS
+- CODEX
+- CODEX2
+- Cell DIVE
+- DESI
+- GC-MS
+- Imaging Mass Cytometry
+- LC-MS
+- LC-MS (metabolomics)
+- LC-MS Bottom-Up
+- LC-MS Top-Down
+- LC-MS/MS (label-free proteomics)
+- Light Sheet
+- MALDI-IMS
+- MRI
+- MS
+- MS (shotgun lipidomics)
+- MS Bottom-Up
+- MS Top-Down
+- Micro CT
+- Multiplex Ion Beam Imaging
+- MxIF
+- NanoDESI
+- NanoPOTS
+- OCT
+- PAS microscopy
+- SIMS-IMS
+- SNARE-seq2
+- SNARE2-RNAseq
+- Slide-seq
+- Ultrasound
+- WGS
+- bulk RNA
+- bulkATACseq
+- scRNAseq
+- scRNAseq-10xGenomics
+- scRNAseq-10xGenomics-v2
+- scRNAseq-10xGenomics-v3
+- sciATACseq
+- sciRNAseq
+- seqFISH
+- snATACseq
+- snRNAseq
+- snRNAseq-10xGenomics-v2
+- snRNAseq-10xGenomics-v3
+overall_protocols_io_doi:
+- AF
+- CE-MS
+- Cell DIVE
+- DESI
+- GC-MS
+- LC-MS
+- LC-MS (metabolomics)
+- LC-MS Bottom-Up
+- LC-MS Top-Down
+- LC-MS/MS (label-free proteomics)
+- MALDI-IMS
+- MS
+- MS (shotgun lipidomics)
+- MS Bottom-Up
+- MS Top-Down
+- MxIF
+- NanoDESI
+- NanoPOTS
+- PAS microscopy
+- SIMS-IMS
+pi:
+- 3D Imaging Mass Cytometry
+- AF
+- Body CT
+- CE-MS
+- CODEX
+- CODEX2
+- Cell DIVE
+- DESI
+- GC-MS
+- Imaging Mass Cytometry
+- LC-MS
+- LC-MS (metabolomics)
+- LC-MS Bottom-Up
+- LC-MS Top-Down
+- LC-MS/MS (label-free proteomics)
+- Light Sheet
+- MALDI-IMS
+- MRI
+- MS
+- MS (shotgun lipidomics)
+- MS Bottom-Up
+- MS Top-Down
+- Micro CT
+- Multiplex Ion Beam Imaging
+- MxIF
+- NanoDESI
+- NanoPOTS
+- OCT
+- PAS microscopy
+- SIMS-IMS
+- SNARE-seq2
+- SNARE2-RNAseq
+- Slide-seq
+- Ultrasound
+- WGS
+- bulk RNA
+- bulkATACseq
+- scRNAseq
+- scRNAseq-10xGenomics
+- scRNAseq-10xGenomics-v2
+- scRNAseq-10xGenomics-v3
+- sciATACseq
+- sciRNAseq
+- seqFISH
+- snATACseq
+- snRNAseq
+- snRNAseq-10xGenomics-v2
+- snRNAseq-10xGenomics-v3
+pi_email:
+- 3D Imaging Mass Cytometry
+- AF
+- Body CT
+- CE-MS
+- CODEX
+- CODEX2
+- Cell DIVE
+- DESI
+- GC-MS
+- Imaging Mass Cytometry
+- LC-MS
+- LC-MS (metabolomics)
+- LC-MS Bottom-Up
+- LC-MS Top-Down
+- LC-MS/MS (label-free proteomics)
+- Light Sheet
+- MALDI-IMS
+- MRI
+- MS
+- MS (shotgun lipidomics)
+- MS Bottom-Up
+- MS Top-Down
+- Micro CT
+- Multiplex Ion Beam Imaging
+- MxIF
+- NanoDESI
+- NanoPOTS
+- OCT
+- PAS microscopy
+- SIMS-IMS
+- SNARE-seq2
+- SNARE2-RNAseq
+- Slide-seq
+- Ultrasound
+- WGS
+- bulk RNA
+- bulkATACseq
+- scRNAseq
+- scRNAseq-10xGenomics
+- scRNAseq-10xGenomics-v2
+- scRNAseq-10xGenomics-v3
+- sciATACseq
+- sciRNAseq
+- seqFISH
+- snATACseq
+- snRNAseq
+- snRNAseq-10xGenomics-v2
+- snRNAseq-10xGenomics-v3
+pixel_dwell_time_unit:
+- Multiplex Ion Beam Imaging
+pixel_dwell_time_value:
+- Multiplex Ion Beam Imaging
+pixel_size_x_unit:
+- Multiplex Ion Beam Imaging
+pixel_size_x_value:
+- Multiplex Ion Beam Imaging
+pixel_size_y_unit:
+- Multiplex Ion Beam Imaging
+pixel_size_y_value:
+- Multiplex Ion Beam Imaging
+pixel_size_z_unit:
+- Body CT
+- MRI
+- Micro CT
+- OCT
+- Ultrasound
+pixel_size_z_value:
+- Body CT
+- MRI
+- Micro CT
+- OCT
+- Ultrasound
+polarity:
+- CE-MS
+- DESI
+- GC-MS
+- LC-MS
+- LC-MS (metabolomics)
+- LC-MS Bottom-Up
+- LC-MS Top-Down
+- LC-MS/MS (label-free proteomics)
+- MALDI-IMS
+- MS
+- MS (shotgun lipidomics)
+- MS Bottom-Up
+- MS Top-Down
+- NanoDESI
+- NanoPOTS
+- SIMS-IMS
+preparation_instrument_model:
+- 3D Imaging Mass Cytometry
+- CODEX
+- CODEX2
+- DESI
+- Imaging Mass Cytometry
+- MALDI-IMS
+- Multiplex Ion Beam Imaging
+- NanoDESI
+- SIMS-IMS
+- seqFISH
+preparation_instrument_vendor:
+- 3D Imaging Mass Cytometry
+- CODEX
+- CODEX2
+- DESI
+- Imaging Mass Cytometry
+- MALDI-IMS
+- Multiplex Ion Beam Imaging
+- NanoDESI
+- SIMS-IMS
+- seqFISH
+preparation_maldi_matrix:
+- DESI
+- MALDI-IMS
+- NanoDESI
+- SIMS-IMS
+preparation_type:
+- DESI
+- MALDI-IMS
+- NanoDESI
+- SIMS-IMS
+primary_ion:
+- Multiplex Ion Beam Imaging
+primary_ion_current_unit:
+- Multiplex Ion Beam Imaging
+primary_ion_current_value:
+- Multiplex Ion Beam Imaging
+probe:
+- Ultrasound
+processing_protocols_io_doi:
+- CE-MS
+- Cell DIVE
+- DESI
+- LC-MS
+- LC-MS (metabolomics)
+- LC-MS Bottom-Up
+- LC-MS Top-Down
+- LC-MS/MS (label-free proteomics)
+- MALDI-IMS
+- MS
+- MS (shotgun lipidomics)
+- MS Bottom-Up
+- MS Top-Down
+- NanoDESI
+- NanoPOTS
+- SIMS-IMS
+processing_search:
+- CE-MS
+- GC-MS
+- LC-MS
+- LC-MS (metabolomics)
+- LC-MS Bottom-Up
+- LC-MS Top-Down
+- LC-MS/MS (label-free proteomics)
+- MS
+- MS (shotgun lipidomics)
+- MS Bottom-Up
+- MS Top-Down
+protocols_io_doi:
+- 3D Imaging Mass Cytometry
+- AF
+- Body CT
+- CE-MS
+- CODEX
+- CODEX2
+- Cell DIVE
+- DESI
+- GC-MS
+- Imaging Mass Cytometry
+- LC-MS
+- LC-MS (metabolomics)
+- LC-MS Bottom-Up
+- LC-MS Top-Down
+- LC-MS/MS (label-free proteomics)
+- Light Sheet
+- MALDI-IMS
+- MRI
+- MS
+- MS (shotgun lipidomics)
+- MS Bottom-Up
+- MS Top-Down
+- Micro CT
+- Multiplex Ion Beam Imaging
+- MxIF
+- NanoDESI
+- NanoPOTS
+- OCT
+- PAS microscopy
+- SIMS-IMS
+- SNARE-seq2
+- SNARE2-RNAseq
+- Slide-seq
+- Ultrasound
+- WGS
+- bulk RNA
+- bulkATACseq
+- scRNAseq
+- scRNAseq-10xGenomics
+- scRNAseq-10xGenomics-v2
+- scRNAseq-10xGenomics-v3
+- sciATACseq
+- sciRNAseq
+- seqFISH
+- snATACseq
+- snRNAseq
+- snRNAseq-10xGenomics-v2
+- snRNAseq-10xGenomics-v3
+puck_id:
+- Slide-seq
+quality_view:
+- Ultrasound
+range_z_unit:
+- Light Sheet
+range_z_value:
+- Light Sheet
+reagent_prep_protocols_io_doi:
+- 3D Imaging Mass Cytometry
+- CODEX
+- CODEX2
+- Imaging Mass Cytometry
+- Multiplex Ion Beam Imaging
+- MxIF
+- seqFISH
+repetition_time:
+- MRI
+resolution_x_unit:
+- AF
+- Body CT
+- CE-MS
+- CODEX
+- CODEX2
+- Cell DIVE
+- DESI
+- GC-MS
+- LC-MS
+- LC-MS Bottom-Up
+- LC-MS Top-Down
+- Light Sheet
+- MALDI-IMS
+- MRI
+- MS
+- MS Bottom-Up
+- MS Top-Down
+- Micro CT
+- Multiplex Ion Beam Imaging
+- MxIF
+- NanoDESI
+- NanoPOTS
+- OCT
+- PAS microscopy
+- SIMS-IMS
+- Ultrasound
+- seqFISH
+resolution_x_value:
+- AF
+- Body CT
+- CE-MS
+- CODEX
+- CODEX2
+- Cell DIVE
+- DESI
+- GC-MS
+- LC-MS
+- LC-MS Bottom-Up
+- LC-MS Top-Down
+- Light Sheet
+- MALDI-IMS
+- MRI
+- MS
+- MS Bottom-Up
+- MS Top-Down
+- Micro CT
+- Multiplex Ion Beam Imaging
+- MxIF
+- NanoDESI
+- NanoPOTS
+- OCT
+- PAS microscopy
+- SIMS-IMS
+- Ultrasound
+- seqFISH
+resolution_y_unit:
+- AF
+- Body CT
+- CE-MS
+- CODEX
+- CODEX2
+- Cell DIVE
+- DESI
+- GC-MS
+- LC-MS
+- LC-MS Bottom-Up
+- LC-MS Top-Down
+- Light Sheet
+- MALDI-IMS
+- MRI
+- MS
+- MS Bottom-Up
+- MS Top-Down
+- Micro CT
+- Multiplex Ion Beam Imaging
+- MxIF
+- NanoDESI
+- NanoPOTS
+- OCT
+- PAS microscopy
+- SIMS-IMS
+- Ultrasound
+- seqFISH
+resolution_y_value:
+- AF
+- Body CT
+- CE-MS
+- CODEX
+- CODEX2
+- Cell DIVE
+- DESI
+- GC-MS
+- LC-MS
+- LC-MS Bottom-Up
+- LC-MS Top-Down
+- Light Sheet
+- MALDI-IMS
+- MRI
+- MS
+- MS Bottom-Up
+- MS Top-Down
+- Micro CT
+- Multiplex Ion Beam Imaging
+- MxIF
+- NanoDESI
+- NanoPOTS
+- OCT
+- PAS microscopy
+- SIMS-IMS
+- Ultrasound
+- seqFISH
+resolution_z_unit:
+- AF
+- Body CT
+- CODEX
+- CODEX2
+- Light Sheet
+- MRI
+- Micro CT
+- OCT
+- PAS microscopy
+- Ultrasound
+- seqFISH
+resolution_z_value:
+- AF
+- Body CT
+- CODEX
+- CODEX2
+- Light Sheet
+- MRI
+- Micro CT
+- OCT
+- PAS microscopy
+- Ultrasound
+- seqFISH
+rnaseq_assay_input:
+- SNARE2-RNAseq
+- scRNAseq
+- scRNAseq-10xGenomics
+- scRNAseq-10xGenomics-v2
+- scRNAseq-10xGenomics-v3
+- sciRNAseq
+- snRNAseq
+- snRNAseq-10xGenomics-v2
+- snRNAseq-10xGenomics-v3
+rnaseq_assay_input_unit:
+- bulk RNA
+rnaseq_assay_input_value:
+- bulk RNA
+rnaseq_assay_method:
+- SNARE2-RNAseq
+- Slide-seq
+- bulk RNA
+- scRNAseq
+- scRNAseq-10xGenomics
+- scRNAseq-10xGenomics-v2
+- scRNAseq-10xGenomics-v3
+- sciRNAseq
+- snRNAseq
+- snRNAseq-10xGenomics-v2
+- snRNAseq-10xGenomics-v3
+roi_description:
+- 3D Imaging Mass Cytometry
+- Body CT
+- Imaging Mass Cytometry
+- MRI
+- Micro CT
+- Multiplex Ion Beam Imaging
+- OCT
+- Ultrasound
+roi_id:
+- 3D Imaging Mass Cytometry
+- Body CT
+- Imaging Mass Cytometry
+- MRI
+- Micro CT
+- Multiplex Ion Beam Imaging
+- OCT
+- Ultrasound
+sample_quality_metric:
+- bulkATACseq
+sc_isolation_cell_number:
+- SNARE-seq2
+- SNARE2-RNAseq
+- scRNAseq
+- scRNAseq-10xGenomics
+- scRNAseq-10xGenomics-v2
+- scRNAseq-10xGenomics-v3
+- sciATACseq
+- sciRNAseq
+- snATACseq
+- snRNAseq
+- snRNAseq-10xGenomics-v2
+- snRNAseq-10xGenomics-v3
+sc_isolation_enrichment:
+- SNARE-seq2
+- SNARE2-RNAseq
+- scRNAseq
+- scRNAseq-10xGenomics
+- scRNAseq-10xGenomics-v2
+- scRNAseq-10xGenomics-v3
+- sciATACseq
+- sciRNAseq
+- snATACseq
+- snRNAseq
+- snRNAseq-10xGenomics-v2
+- snRNAseq-10xGenomics-v3
+sc_isolation_entity:
+- SNARE-seq2
+- SNARE2-RNAseq
+- scRNAseq
+- scRNAseq-10xGenomics
+- scRNAseq-10xGenomics-v2
+- scRNAseq-10xGenomics-v3
+- sciATACseq
+- sciRNAseq
+- snATACseq
+- snRNAseq
+- snRNAseq-10xGenomics-v2
+- snRNAseq-10xGenomics-v3
+sc_isolation_protocols_io_doi:
+- SNARE-seq2
+- SNARE2-RNAseq
+- scRNAseq
+- scRNAseq-10xGenomics
+- scRNAseq-10xGenomics-v2
+- scRNAseq-10xGenomics-v3
+- sciATACseq
+- sciRNAseq
+- snATACseq
+- snRNAseq
+- snRNAseq-10xGenomics-v2
+- snRNAseq-10xGenomics-v3
+sc_isolation_quality_metric:
+- SNARE-seq2
+- SNARE2-RNAseq
+- scRNAseq
+- scRNAseq-10xGenomics
+- scRNAseq-10xGenomics-v2
+- scRNAseq-10xGenomics-v3
+- sciATACseq
+- sciRNAseq
+- snATACseq
+- snRNAseq
+- snRNAseq-10xGenomics-v2
+- snRNAseq-10xGenomics-v3
+sc_isolation_tissue_dissociation:
+- SNARE-seq2
+- SNARE2-RNAseq
+- scRNAseq
+- scRNAseq-10xGenomics
+- scRNAseq-10xGenomics-v2
+- scRNAseq-10xGenomics-v3
+- sciATACseq
+- sciRNAseq
+- snATACseq
+- snRNAseq
+- snRNAseq-10xGenomics-v2
+- snRNAseq-10xGenomics-v3
+scanning_sequence:
+- MRI
+section_prep_protocols_io_doi:
+- 3D Imaging Mass Cytometry
+- CE-MS
+- CODEX
+- CODEX2
+- DESI
+- GC-MS
+- Imaging Mass Cytometry
+- LC-MS
+- LC-MS (metabolomics)
+- LC-MS Bottom-Up
+- LC-MS Top-Down
+- LC-MS/MS (label-free proteomics)
+- MALDI-IMS
+- MS
+- MS (shotgun lipidomics)
+- MS Bottom-Up
+- MS Top-Down
+- Multiplex Ion Beam Imaging
+- MxIF
+- NanoDESI
+- PAS microscopy
+- SIMS-IMS
+- seqFISH
+segment_data_format:
+- 3D Imaging Mass Cytometry
+- Imaging Mass Cytometry
+- Multiplex Ion Beam Imaging
+sequence_variant:
+- MRI
+sequencing_phix_percent:
+- SNARE-seq2
+- SNARE2-RNAseq
+- Slide-seq
+- WGS
+- bulk RNA
+- bulkATACseq
+- scRNAseq
+- scRNAseq-10xGenomics
+- scRNAseq-10xGenomics-v2
+- scRNAseq-10xGenomics-v3
+- sciATACseq
+- sciRNAseq
+- snATACseq
+- snRNAseq
+- snRNAseq-10xGenomics-v2
+- snRNAseq-10xGenomics-v3
+sequencing_read_format:
+- SNARE-seq2
+- SNARE2-RNAseq
+- Slide-seq
+- WGS
+- bulk RNA
+- bulkATACseq
+- scRNAseq
+- scRNAseq-10xGenomics
+- scRNAseq-10xGenomics-v2
+- scRNAseq-10xGenomics-v3
+- sciATACseq
+- sciRNAseq
+- snATACseq
+- snRNAseq
+- snRNAseq-10xGenomics-v2
+- snRNAseq-10xGenomics-v3
+sequencing_read_percent_q30:
+- SNARE-seq2
+- SNARE2-RNAseq
+- Slide-seq
+- WGS
+- bulk RNA
+- bulkATACseq
+- scRNAseq
+- scRNAseq-10xGenomics
+- scRNAseq-10xGenomics-v2
+- scRNAseq-10xGenomics-v3
+- sciATACseq
+- sciRNAseq
+- snATACseq
+- snRNAseq
+- snRNAseq-10xGenomics-v2
+- snRNAseq-10xGenomics-v3
+sequencing_reagent_kit:
+- SNARE-seq2
+- SNARE2-RNAseq
+- Slide-seq
+- WGS
+- bulk RNA
+- bulkATACseq
+- scRNAseq
+- scRNAseq-10xGenomics
+- scRNAseq-10xGenomics-v2
+- scRNAseq-10xGenomics-v3
+- sciATACseq
+- sciRNAseq
+- snATACseq
+- snRNAseq
+- snRNAseq-10xGenomics-v2
+- snRNAseq-10xGenomics-v3
+signal_type:
+- 3D Imaging Mass Cytometry
+- Imaging Mass Cytometry
+- Multiplex Ion Beam Imaging
+single_file_export_format:
+- Body CT
+- MRI
+- Micro CT
+- OCT
+- Ultrasound
+sn_quality:
+- OCT
+sn_quality_unit:
+- OCT
+source_project:
+- SNARE2-RNAseq
+- scRNAseq
+- scRNAseq-10xGenomics-v2
+- scRNAseq-10xGenomics-v3
+- sciRNAseq
+- snRNAseq
+- snRNAseq-10xGenomics-v2
+spatial_sampling_type:
+- CE-MS
+- GC-MS
+- LC-MS
+- LC-MS Bottom-Up
+- LC-MS Top-Down
+- MS
+- MS Bottom-Up
+- MS Top-Down
+spatial_target:
+- CE-MS
+- GC-MS
+- LC-MS
+- LC-MS Bottom-Up
+- LC-MS Top-Down
+- MS
+- MS Bottom-Up
+- MS Top-Down
+spatial_type:
+- CE-MS
+- GC-MS
+- LC-MS
+- LC-MS Bottom-Up
+- LC-MS Top-Down
+- MS
+- MS Bottom-Up
+- MS Top-Down
+speckle_reduction_imaging:
+- Ultrasound
+stain:
+- PAS microscopy
+start_datetime:
+- Imaging Mass Cytometry
+- Multiplex Ion Beam Imaging
+step_z_value:
+- Light Sheet
+tissue_id:
+- 3D Imaging Mass Cytometry
+- AF
+- Body CT
+- CE-MS
+- CODEX
+- CODEX2
+- Cell DIVE
+- DESI
+- GC-MS
+- Imaging Mass Cytometry
+- LC-MS
+- LC-MS (metabolomics)
+- LC-MS Bottom-Up
+- LC-MS Top-Down
+- LC-MS/MS (label-free proteomics)
+- Light Sheet
+- MALDI-IMS
+- MRI
+- MS
+- MS (shotgun lipidomics)
+- MS Bottom-Up
+- MS Top-Down
+- Micro CT
+- Multiplex Ion Beam Imaging
+- MxIF
+- NanoDESI
+- NanoPOTS
+- OCT
+- PAS microscopy
+- SIMS-IMS
+- SNARE-seq2
+- SNARE2-RNAseq
+- Slide-seq
+- Ultrasound
+- WGS
+- bulk RNA
+- bulkATACseq
+- scRNAseq
+- scRNAseq-10xGenomics
+- scRNAseq-10xGenomics-v2
+- scRNAseq-10xGenomics-v3
+- sciATACseq
+- sciRNAseq
+- seqFISH
+- snATACseq
+- snRNAseq
+- snRNAseq-10xGenomics-v2
+- snRNAseq-10xGenomics-v3
+total_sections_analyzed:
+- Micro CT
+- OCT
+transposition_input:
+- SNARE-seq2
+- sciATACseq
+- snATACseq
+transposition_kit_number:
+- SNARE-seq2
+- bulkATACseq
+- sciATACseq
+- snATACseq
+transposition_method:
+- SNARE-seq2
+- bulkATACseq
+- sciATACseq
+- snATACseq
+transposition_transposase_source:
+- SNARE-seq2
+- bulkATACseq
+- sciATACseq
+- snATACseq
+umi_offset:
+- SNARE2-RNAseq
+- scRNAseq
+- scRNAseq-10xGenomics-v2
+- scRNAseq-10xGenomics-v3
+- sciRNAseq
+- snRNAseq
+- snRNAseq-10xGenomics-v2
+- snRNAseq-10xGenomics-v3
+umi_read:
+- SNARE2-RNAseq
+- scRNAseq
+- scRNAseq-10xGenomics-v2
+- scRNAseq-10xGenomics-v3
+- sciRNAseq
+- snRNAseq
+- snRNAseq-10xGenomics-v2
+- snRNAseq-10xGenomics-v3
+umi_size:
+- SNARE2-RNAseq
+- scRNAseq
+- scRNAseq-10xGenomics-v2
+- scRNAseq-10xGenomics-v3
+- sciRNAseq
+- snRNAseq
+- snRNAseq-10xGenomics-v2
+- snRNAseq-10xGenomics-v3
+version:
+- 3D Imaging Mass Cytometry
+- AF
+- Body CT
+- CE-MS
+- CODEX
+- CODEX2
+- Cell DIVE
+- DESI
+- GC-MS
+- Imaging Mass Cytometry
+- LC-MS
+- LC-MS (metabolomics)
+- LC-MS Bottom-Up
+- LC-MS Top-Down
+- LC-MS/MS (label-free proteomics)
+- Light Sheet
+- MALDI-IMS
+- MRI
+- MS
+- MS (shotgun lipidomics)
+- MS Bottom-Up
+- MS Top-Down
+- Micro CT
+- Multiplex Ion Beam Imaging
+- MxIF
+- NanoDESI
+- NanoPOTS
+- OCT
+- PAS microscopy
+- SIMS-IMS
+- SNARE-seq2
+- SNARE2-RNAseq
+- Slide-seq
+- Ultrasound
+- WGS
+- bulk RNA
+- bulkATACseq
+- scRNAseq
+- scRNAseq-10xGenomics
+- scRNAseq-10xGenomics-v2
+- scRNAseq-10xGenomics-v3
+- sciATACseq
+- sciRNAseq
+- seqFISH
+- snATACseq
+- snRNAseq
+- snRNAseq-10xGenomics-v2
+- snRNAseq-10xGenomics-v3
+voltage_unit:
+- Micro CT
+voltage_value:
+- Micro CT
+volume_export_format:
+- OCT
+wavelength_unit:
+- OCT
+wavelength_value:
+- OCT
 

@@ -1,354 +1,462 @@
-{ablation_distance_between_shots_x_units: Units of x resolution distance between laser
-    ablation shots., ablation_distance_between_shots_x_value: x resolution. Distance
-    between laser ablation shots in the X-dimension., ablation_distance_between_shots_y_units: Units
-    of y resolution distance between laser ablation shots., ablation_distance_between_shots_y_value: y
-    resolution. Distance between laser ablation shots in the Y-dimension., ablation_frequency_unit: Frequency
-    unit of laser ablation, ablation_frequency_value: Frequency value of laser ablation
-    (in Hz), acquisition_id: 'The acquisition_id refers to the directory containing
-    the ROI images for a slide. Together, the acquisition_id and the roi_id indicate
-    the slide-ROI represented in the image.', acquisition_instrument_model: Manufacturers
-    of an acquisition instrument may offer various versions (models) of that instrument
-    with different features or sensitivities. Differences in features or sensitivities
-    may be relevant to processing or interpretation of the data., acquisition_instrument_vendor: An
-    acquisition_instrument is the device that contains the signal detection hardware
-    and signal processing software. Assays generate signals such as light of various
-    intensities or color or signals representing molecular mass., acquisition_matrix_size_in_frequency_encoding_direction: Dimensions
-    of the acquired frequency data before reconstruction., acquisition_matrix_size_in_phase_encoding_direction: 'Dimensions
-    of the acquired phase data before reconstruction, per image.', affiliation: Institutional
-    affiliation, age_unit: Unit for age measurement., age_value: The time elapsed
-    since birth., analyte_class: Analytes are the target molecules being measured
-    with the assay., antibodies_path: Relative path to file with antibody information
-    for this dataset., antibody_name: Anti-(target name) antibody. Not validated or
-    used down-stream., area_normalized_ion_dose_unit: Area normalized ion dose unit,
-  area_normalized_ion_dose_value: Number of primary ions delivered to the sample per
-    unit area, area_unit: Area unit, area_value: The area of a tissue section., assay_category: 'Each
-    assay is placed into one of the following 4 general categories: generation of
-    images of microscopic entities, identification & quantitation of molecules by
-    mass spectrometry, imaging mass spectrometry, and determination of nucleotide
-    sequence.', assay_type: The specific type of assay being executed., bead_barcode_offset: Position(s)
-    in the read at which the bead barcode starts, bead_barcode_read: Which read file
-    contains the bead barcode, bead_barcode_size: Length of the bead barcode in base
-    pairs, blood_type: ABO blood type or "serotype" refers to the presence/absence
-    of the either/both A & B blood antigens., body_mass_index_value: An individual's
-    weight in kilograms divided by the square of the height in meters., bulk_atac_cell_isolation_protocols_io_doi: 'Link
-    to a protocols document answering the question: How was tissue stored and processed
-    for cell/nuclei isolation', bulk_rna_isolation_protocols_io_doi: 'Link to a protocols
-    document answering the question: How was tissue stored and processed for RNA isolation
-    RNA_isolation_protocols_io_doi', bulk_rna_isolation_quality_metric_value: RIN
-    value, bulk_rna_yield_units_per_tissue_unit: RNA amount per Tissue input amount.
-    Valid values should be weight/weight (ng/mg)., bulk_rna_yield_value: 'RNA (ng)
-    per Weight of Tissue (mg). Answer the question: How much RNA in ng was isolated?
-    How much tissue in mg was initially used for isolating RNA? Calculate the yield
-    by dividing total RNA isolated by amount of tissue used to isolate RNA from (ng/mg).',
-  bulk_transposition_input_number_nuclei: A number (no comma separators), cause_of_death: The
-    circumstance or condition that caused death., ce_background_electrolyte: Chemical
-    composition of the background electrolyte that fills the separation capillary
-    (e.g. "3% acetic acid")., ce_capillary_coating: Treatment of surface of separation
-    capillary. Capillary coating affects the absorption of analytes on capillary inner
-    walls and regulates electroosmotic flow. Entries should indicate the charge of
-    the coating and chemical composition (e.g. "Neutral; Polyacrylamide" or "Positive;
-    Polyethyleneimine" or "Uncoated")., ce_electroosmotic_flow: 'Properties of the
-    electroosmotic flow (EOF). Normal EOF is defined as flow towards the cathode,
-    reversed EOF is defined as flow towards the anode, and suppressed EOF involves
-    marginal to almost no flow (e.g. when a neutral coating is used).', ce_instrument_model: The
-    model name of the instrument used for capillary zone electrophoresis., ce_instrument_vendor: The
-    manufacturer of the instrument used for capillary zone electrophoresis. Capillary
-    electrophoresis is used to separate complex biological mixtures prior to performing
-    MS-based analyses. Separations are performed based the analytes migrate through
-    an electrolyte solution in the presence of an electric field., ce_interface: Method
-    by which the separation capillary interfaces with mass spectrometer and enables
-    electrospray ionization while completing the separation circuit. The two most
-    prevalent commercial interfaces are sheathless and sheath-flow., cell_barcode_offset: Position(s)
-    in the read at which the cell barcode starts., cell_barcode_read: Which read file
-    contains the cell barcode, cell_barcode_size: Length of the cell barcode in base
-    pairs, channel_id: Structure of channel_id depends on assay type., coil: 'Receiver
-    coil name used to collect MRI data. Example: 32 channel body coil', cold_ischemia_time_unit: Time
-    unit, cold_ischemia_time_value: Time interval on ice to the start of preservation
-    protocol., column_length_unit: Unit for GC column length, column_length_value: GC
-    column length, column_model: The model of the GC column used, column_temp_unit: Units
-    for GC column temperature, column_temp_value: GC column temperature, column_vendor: The
-    manufacturer of the GC column, compound_imaging: 'Level used to increase image
-    resolution in ultrasounds by using multiple lines of site to eliminate artifacts,
-    shadows, and increase edge detail (aka crossbeam). Examples: Either none or 0-5',
-  concentration_unit: The concentration units of the antibody preparation., concentration_value: The
-    concentration value of the antibody preparation., conjugated_cat_number: An antibody
-    may be conjugated to a fluorescent tag or a metal tag for detection. Conjugated
-    antibodies may be purchased from commercial providers., conjugated_tag: The name
-    of the entity conjugated to the antibody., contributors_path: Relative path to
-    file with ORCID IDs for contributors for this dataset., current_unit: 'The unit
-    of the current used to acquire microCT images. Example: mA', current_value: The
-    current used to acquire microCT images, data_collection_mode: 'Mode of data collection
-    in tandem MS assays. Either DDA (Data-dependent acquisition), DIA (Data-independent
-    acquisition), MRM (multiple reaction monitoring), or PRM (parallel reaction monitoring).',
-  data_path: Relative path to file or directory with instrument data. Downstream processing
-    will depend on filename extension conventions., data_precision_bytes: Numerical
-    data precision in bytes, description: Free-text description of this assay., desi_solvent: Solvent
-    composition for conducting nanospray desorption electrospray ionization (nanoDESI)
-    or desorption electrospray ionization (DESI)., desi_solvent_flow_rate: The rate
-    of flow of the solvent into a spray., desi_solvent_flow_rate_unit: Units of the
-    rate of solvent flow., dilution: Antibody solutions may be diluted according to
-    the experimental protocol., dms: 'Was differential mobility spectrometry used
-    in this assay?', dna_assay_input_unit: Units of DNA input into library preparation,
-  dna_assay_input_value: Amount of DNA input into library preparation, donor_id: HuBMAP
-    Display ID of the donor of the assayed tissue., dual_count_start: Threshold for
-    dual counting., dynamic_contrast: 'Level of echo intensity on an ultrasound. Examples:
-    none (blank) or 1-10.', echo_time: 'Time in msec between the middle of the excitation
-    pulse and the peak of the echo produced (kx=0). In the case of segmented k-space,
-    the TE(eff) is the time between the middle of the excitation pulse to the peak
-    of the echo that is used to cover the center of k-space (i.e., -kx=0, ky=0). ',
-  echo_train_length: 'Number of lines in k-space acquired per excitation per image. ',
-  end_datetime: Time stamp indicating end of ablation for ROI, execution_datetime: 'Start
-    date and time of assay, typically a date-time stamped folder generated by the
-    acquisition instrument. YYYY-MM-DD hh:mm, where YYYY is the year, MM is the month
-    with leading 0s, and DD is the day with leading 0s, hh is the hour with leading
-    zeros, mm are the minutes with leading zeros.', expected_cell_count: 'How many
-    cells are expected? This may be used in downstream pipelines to guide selection
-    of cell barcodes or segmentation parameters.', field_strength_unit: 'MRI scanner
-    magnetic field strength in units of Tesla [T]', field_strength_value: MRI scanner
-    magnetic field strength value, filter: The filter used to acquire microCT images,
-  first_name: First name, flip_angle: 'Steady state angle in degrees to which the
-    magnetic vector is flipped from the magnetic vector of the primary field. ', frequency_unit: 'Unit
-    of frequency at which the imaging device is operating. Example: Hz, kHz, MHz',
-  frequency_value: Frequency at which the imaging device is operating., gdna_fragmentation_quality_assurance: 'Is
-    the gDNA integrity good enough for WGS? This is usually checked through running
-    a gel.', guard_column: Specifies if guard column was used, harmonics: 'Multiples
-    of the fundamental or transmitted frequency used to help optimize an ultrasound
-    image. Examples: None, Low, Medium or High', health_status: "Patient's baseline\
-    \ physical condition prior to immediate event leading to organ/tissue acquisition.\
-    \ For example, if a relatively healthy patient suffers trauma, and as a result\
-    \ of reparative surgery, a tissue sample is collected, the subject will be deemed\
-    \ \u201Crelatively healthy\u201D.   Likewise, a relatively healthy subject may\
-    \ have experienced trauma leading to brain death.  As a result of organ donation,\
-    \ a sample is collected.  In this scenario, the subject is deemed \u201Crelatively\
-    \ healthy.\u201D", height_unit: Unit for height measurement., height_value: The
-    vertical measurement or distance from the base to the top of a subject or participant.,
-  histological_report: 'histopathological reporting of key variables that are important
-    for the tissue (absence of necrosis, comment on composition, significant pathology
-    description, high level inflammation/fibrosis assessment etc', imaging_threshold_unit_value: The
-    threshold unit used for analyzing microCT images (unitless), imaging_threshold_value: The
-    threshold used for analyzing microCT images, increment_z_unit: The units of increment
-    z value., increment_z_value: The distance between sequential optical sections.,
-  internal_standard: Specifies if internal standard was utilized and designates what
-    standard was used. Leave blank if not applicable., ion_mobility: 'Specifies whether
-    or not ion mobility spectrometry was performed and which technology was used.
-    Technologies for measuring ion mobility: Traveling Wave Ion Mobility Spectrometry
-    (TWIMS), Trapped Ion Mobility Spectrometry (TIMS), High Field Asymmetric waveform
-    ion Mobility Spectrometry (FAIMS), Drift Tube Ion Mobility Spectrometry (DTIMS,
-    Structures for Lossless Ion Manipulations (SLIM).', ion_source: Specifies the
-    ion source used, is_contact: 'Is this individual a contact for DOI purposes?',
-  is_targeted: Specifies whether or not a specific molecule(s) is/are targeted for
-    detection/measurement by the assay., is_technical_replicate: 'Is this a sequencing
-    replicate?', kidney_donor_profile_index_value: 'The Kidney Donor Profle Index
-    (KDPI) is a numerical measure that combines ten donor factors, including clinical
-    parameters and demographics, to summarize into a single number the quality of
-    deceased donor kidneys relative to other recovered kidneys. The KDPI is derived
-    by frst calculating the Kidney Donor Risk Index (KDRI) for a deceased donor. Kidneys
-    from a donor with a KDPI of 90%, for example, have a KDRI (which indicates relative
-    risk of graft failure) greater than 90% of recovered kidneys. The KDPI is simply
-    a mapping of the KDRI from a relative risk scale to a cumulative percentage scale.
-    The reference population used for this mapping is all deceased donors in the United
-    States with a kidney recovered for the purpose of transplantation in the prior
-    calendar year. Lower KDPI values are associated with increased donor quality and
-    expected longevity. https://optn.transplant.hrsa.gov/media/1512/guide_to_calculating_interpreting_kdpi.pdf
+ablation_distance_between_shots_x_units: Units of x resolution distance between laser
+  ablation shots.
+ablation_distance_between_shots_x_value: x resolution. Distance between laser ablation
+  shots in the X-dimension.
+ablation_distance_between_shots_y_units: Units of y resolution distance between laser
+  ablation shots.
+ablation_distance_between_shots_y_value: y resolution. Distance between laser ablation
+  shots in the Y-dimension.
+ablation_frequency_unit: Frequency unit of laser ablation
+ablation_frequency_value: Frequency value of laser ablation (in Hz)
+acquisition_id: The acquisition_id refers to the directory containing the ROI images
+  for a slide. Together, the acquisition_id and the roi_id indicate the slide-ROI
+  represented in the image.
+acquisition_instrument_model: Manufacturers of an acquisition instrument may offer
+  various versions (models) of that instrument with different features or sensitivities.
+  Differences in features or sensitivities may be relevant to processing or interpretation
+  of the data.
+acquisition_instrument_vendor: An acquisition_instrument is the device that contains
+  the signal detection hardware and signal processing software. Assays generate signals
+  such as light of various intensities or color or signals representing molecular
+  mass.
+acquisition_matrix_size_in_frequency_encoding_direction: Dimensions of the acquired
+  frequency data before reconstruction.
+acquisition_matrix_size_in_phase_encoding_direction: Dimensions of the acquired phase
+  data before reconstruction, per image.
+affiliation: Institutional affiliation
+age_unit: Unit for age measurement.
+age_value: The time elapsed since birth.
+analyte_class: Analytes are the target molecules being measured with the assay.
+antibodies_path: Relative path to file with antibody information for this dataset.
+antibody_name: Anti-(target name) antibody. Not validated or used down-stream.
+area_normalized_ion_dose_unit: Area normalized ion dose unit
+area_normalized_ion_dose_value: Number of primary ions delivered to the sample per
+  unit area
+area_unit: Area unit
+area_value: The area of a tissue section.
+assay_category: 'Each assay is placed into one of the following 4 general categories:
+  generation of images of microscopic entities, identification & quantitation of molecules
+  by mass spectrometry, imaging mass spectrometry, and determination of nucleotide
+  sequence.'
+assay_type: The specific type of assay being executed.
+bead_barcode_offset: Position(s) in the read at which the bead barcode starts
+bead_barcode_read: Which read file contains the bead barcode
+bead_barcode_size: Length of the bead barcode in base pairs
+blood_type: ABO blood type or "serotype" refers to the presence/absence of the either/both
+  A & B blood antigens.
+body_mass_index_value: An individual's weight in kilograms divided by the square of
+  the height in meters.
+bulk_atac_cell_isolation_protocols_io_doi: 'Link to a protocols document answering
+  the question: How was tissue stored and processed for cell/nuclei isolation'
+bulk_rna_isolation_protocols_io_doi: 'Link to a protocols document answering the question:
+  How was tissue stored and processed for RNA isolation RNA_isolation_protocols_io_doi'
+bulk_rna_isolation_quality_metric_value: RIN value
+bulk_rna_yield_units_per_tissue_unit: RNA amount per Tissue input amount. Valid values
+  should be weight/weight (ng/mg).
+bulk_rna_yield_value: 'RNA (ng) per Weight of Tissue (mg). Answer the question: How
+  much RNA in ng was isolated? How much tissue in mg was initially used for isolating
+  RNA? Calculate the yield by dividing total RNA isolated by amount of tissue used
+  to isolate RNA from (ng/mg).'
+bulk_transposition_input_number_nuclei: A number (no comma separators)
+cause_of_death: The circumstance or condition that caused death.
+ce_background_electrolyte: Chemical composition of the background electrolyte that
+  fills the separation capillary (e.g. "3% acetic acid").
+ce_capillary_coating: Treatment of surface of separation capillary. Capillary coating
+  affects the absorption of analytes on capillary inner walls and regulates electroosmotic
+  flow. Entries should indicate the charge of the coating and chemical composition
+  (e.g. "Neutral; Polyacrylamide" or "Positive; Polyethyleneimine" or "Uncoated").
+ce_electroosmotic_flow: Properties of the electroosmotic flow (EOF). Normal EOF is
+  defined as flow towards the cathode, reversed EOF is defined as flow towards the
+  anode, and suppressed EOF involves marginal to almost no flow (e.g. when a neutral
+  coating is used).
+ce_instrument_model: The model name of the instrument used for capillary zone electrophoresis.
+ce_instrument_vendor: The manufacturer of the instrument used for capillary zone electrophoresis.
+  Capillary electrophoresis is used to separate complex biological mixtures prior
+  to performing MS-based analyses. Separations are performed based the analytes migrate
+  through an electrolyte solution in the presence of an electric field.
+ce_interface: Method by which the separation capillary interfaces with mass spectrometer
+  and enables electrospray ionization while completing the separation circuit. The
+  two most prevalent commercial interfaces are sheathless and sheath-flow.
+cell_barcode_offset: Position(s) in the read at which the cell barcode starts.
+cell_barcode_read: Which read file contains the cell barcode
+cell_barcode_size: Length of the cell barcode in base pairs
+channel_id: Structure of channel_id depends on assay type.
+coil: 'Receiver coil name used to collect MRI data. Example: 32 channel body coil'
+cold_ischemia_time_unit: Time unit
+cold_ischemia_time_value: Time interval on ice to the start of preservation protocol.
+column_length_unit: Unit for GC column length
+column_length_value: GC column length
+column_model: The model of the GC column used
+column_temp_unit: Units for GC column temperature
+column_temp_value: GC column temperature
+column_vendor: The manufacturer of the GC column
+compound_imaging: 'Level used to increase image resolution in ultrasounds by using
+  multiple lines of site to eliminate artifacts, shadows, and increase edge detail
+  (aka crossbeam). Examples: Either none or 0-5'
+concentration_unit: The concentration units of the antibody preparation.
+concentration_value: The concentration value of the antibody preparation.
+conjugated_cat_number: An antibody may be conjugated to a fluorescent tag or a metal
+  tag for detection. Conjugated antibodies may be purchased from commercial providers.
+conjugated_tag: The name of the entity conjugated to the antibody.
+contributors_path: Relative path to file with ORCID IDs for contributors for this
+  dataset.
+current_unit: 'The unit of the current used to acquire microCT images. Example: mA'
+current_value: The current used to acquire microCT images
+data_collection_mode: Mode of data collection in tandem MS assays. Either DDA (Data-dependent
+  acquisition), DIA (Data-independent acquisition), MRM (multiple reaction monitoring),
+  or PRM (parallel reaction monitoring).
+data_path: Relative path to file or directory with instrument data. Downstream processing
+  will depend on filename extension conventions.
+data_precision_bytes: Numerical data precision in bytes
+description: Free-text description of this assay.
+desi_solvent: Solvent composition for conducting nanospray desorption electrospray
+  ionization (nanoDESI) or desorption electrospray ionization (DESI).
+desi_solvent_flow_rate: The rate of flow of the solvent into a spray.
+desi_solvent_flow_rate_unit: Units of the rate of solvent flow.
+dilution: Antibody solutions may be diluted according to the experimental protocol.
+dms: Was differential mobility spectrometry used in this assay?
+dna_assay_input_unit: Units of DNA input into library preparation
+dna_assay_input_value: Amount of DNA input into library preparation
+donor_id: HuBMAP Display ID of the donor of the assayed tissue.
+dual_count_start: Threshold for dual counting.
+dynamic_contrast: 'Level of echo intensity on an ultrasound. Examples: none (blank)
+  or 1-10.'
+echo_time: 'Time in msec between the middle of the excitation pulse and the peak of
+  the echo produced (kx=0). In the case of segmented k-space, the TE(eff) is the time
+  between the middle of the excitation pulse to the peak of the echo that is used
+  to cover the center of k-space (i.e., -kx=0, ky=0). '
+echo_train_length: 'Number of lines in k-space acquired per excitation per image. '
+end_datetime: Time stamp indicating end of ablation for ROI
+execution_datetime: Start date and time of assay, typically a date-time stamped folder
+  generated by the acquisition instrument. YYYY-MM-DD hh:mm, where YYYY is the year,
+  MM is the month with leading 0s, and DD is the day with leading 0s, hh is the hour
+  with leading zeros, mm are the minutes with leading zeros.
+expected_cell_count: How many cells are expected? This may be used in downstream pipelines
+  to guide selection of cell barcodes or segmentation parameters.
+field_strength_unit: MRI scanner magnetic field strength in units of Tesla [T]
+field_strength_value: MRI scanner magnetic field strength value
+filter: The filter used to acquire microCT images
+first_name: First name
+flip_angle: 'Steady state angle in degrees to which the magnetic vector is flipped
+  from the magnetic vector of the primary field. '
+frequency_unit: 'Unit of frequency at which the imaging device is operating. Example:
+  Hz, kHz, MHz'
+frequency_value: Frequency at which the imaging device is operating.
+gdna_fragmentation_quality_assurance: Is the gDNA integrity good enough for WGS? This
+  is usually checked through running a gel.
+guard_column: Specifies if guard column was used
+harmonics: 'Multiples of the fundamental or transmitted frequency used to help optimize
+  an ultrasound image. Examples: None, Low, Medium or High'
+health_status: "Patient's baseline physical condition prior to immediate event leading\
+  \ to organ/tissue acquisition. For example, if a relatively healthy patient suffers\
+  \ trauma, and as a result of reparative surgery, a tissue sample is collected, the\
+  \ subject will be deemed \u201Crelatively healthy\u201D.   Likewise, a relatively\
+  \ healthy subject may have experienced trauma leading to brain death.  As a result\
+  \ of organ donation, a sample is collected.  In this scenario, the subject is deemed\
+  \ \u201Crelatively healthy.\u201D"
+height_unit: Unit for height measurement.
+height_value: The vertical measurement or distance from the base to the top of a subject
+  or participant.
+histological_report: histopathological reporting of key variables that are important
+  for the tissue (absence of necrosis, comment on composition, significant pathology
+  description, high level inflammation/fibrosis assessment etc
+imaging_threshold_unit_value: The threshold unit used for analyzing microCT images
+  (unitless)
+imaging_threshold_value: The threshold used for analyzing microCT images
+increment_z_unit: The units of increment z value.
+increment_z_value: The distance between sequential optical sections.
+internal_standard: Specifies if internal standard was utilized and designates what
+  standard was used. Leave blank if not applicable.
+ion_mobility: 'Specifies whether or not ion mobility spectrometry was performed and
+  which technology was used. Technologies for measuring ion mobility: Traveling Wave
+  Ion Mobility Spectrometry (TWIMS), Trapped Ion Mobility Spectrometry (TIMS), High
+  Field Asymmetric waveform ion Mobility Spectrometry (FAIMS), Drift Tube Ion Mobility
+  Spectrometry (DTIMS, Structures for Lossless Ion Manipulations (SLIM).'
+ion_source: Specifies the ion source used
+is_contact: Is this individual a contact for DOI purposes?
+is_targeted: Specifies whether or not a specific molecule(s) is/are targeted for detection/measurement
+  by the assay.
+is_technical_replicate: Is this a sequencing replicate?
+kidney_donor_profile_index_value: 'The Kidney Donor Profle Index (KDPI) is a numerical
+  measure that combines ten donor factors, including clinical parameters and demographics,
+  to summarize into a single number the quality of deceased donor kidneys relative
+  to other recovered kidneys. The KDPI is derived by frst calculating the Kidney Donor
+  Risk Index (KDRI) for a deceased donor. Kidneys from a donor with a KDPI of 90%,
+  for example, have a KDRI (which indicates relative risk of graft failure) greater
+  than 90% of recovered kidneys. The KDPI is simply a mapping of the KDRI from a relative
+  risk scale to a cumulative percentage scale. The reference population used for this
+  mapping is all deceased donors in the United States with a kidney recovered for
+  the purpose of transplantation in the prior calendar year. Lower KDPI values are
+  associated with increased donor quality and expected longevity. https://optn.transplant.hrsa.gov/media/1512/guide_to_calculating_interpreting_kdpi.pdf
 
-    ', label_name: 'If the samples were labeled (e.g. TMT), provide the name/ID of
-    the label on this sample.', labeling: 'Indicates whether samples were labeled
-    prior to MS analysis (e.g., TMT)', last_name: Last name, lc_column_model: 'The
-    model number/name of the LC Column - IF custom self-packed, pulled tip calillary
-    is used enter "Pulled tip capilary"', lc_column_vendor: 'OPTIONAL: The manufacturer
-    of the LC Column unless self-packed, pulled tip capilary is used', lc_flow_rate_unit: Units
-    of flow rate., lc_flow_rate_value: Value of flow rate., lc_gradient: LC gradient,
-  lc_id_unit: units of LC column inner diameter (typically microns), lc_id_value: LC
-    column inner diameter (microns), lc_instrument_model: The model number/name of
-    the instrument used for LC, lc_instrument_vendor: The manufacturer of the instrument
-    used for LC, lc_length_unit: units for LC column length (typically cm), lc_length_value: LC
-    column length, lc_mobile_phase_a: Composition of mobile phase A, lc_mobile_phase_b: Composition
-    of mobile phase B, lc_resin: 'Details of the resin used for lc, including vendor,
-    particle size, pore size', lc_temp_unit: units for LC temperature, lc_temp_value: LC
-    temperature, library_adapter_sequence: Adapter sequence to be used for adapter
-    trimming, library_average_fragment_size: Average size in basepairs (bp) of sequencing
-    library fragments estimated via gel electrophoresis or bioanalyzer/tapestation.,
-  library_concentration_unit: Unit of library_concentration_value, library_concentration_value: The
-    concentration value of the pooled library samples submitted for sequencing., library_construction_method: 'Describes
-    DNA library preparation kit. Modality of isolating gDNA, Fragmentation and generating
-    sequencing libraries.', library_construction_protocols_io_doi: A link to the protocol
-    document containing the library construction method (including version) that was
-    used., library_creation_date: 'date and time of library creation. YYYY-MM-DD,
-    where YYYY is the year, MM is the month with leading 0s, and DD is the day with
-    leading 0s.', library_final_yield: Total ng of library after final pcr amplification
-    step., library_final_yield_unit: Units of final library yield, library_final_yield_value: Total
-    number of ng of library after final pcr amplification step. This is the concentration
-    (ng/ul) * volume (ul), library_id: An id for the library. The id may be text and/or
-    numbers, library_layout: Whether the library was generated for single-end or paired
-    end sequencing, library_pcr_cycles: Number of PCR cycles to amplify cDNA, library_pcr_cycles_for_sample_index: Number
-    of PCR cycles performed for library indexing, library_preparation_kit: Reagent
-    kit used for library preparation, lot_number: 'The lot# is specific to the vendor.
-    (eg: Abcam lot# GR3238979-1)', mass_resolving_power: "The MS1 resolving power\
-    \ defined as m/\u2206m where \u2206m is the FWHM for a given peak with a specified\
-    \ m/z (m). (unitless)", max_x_width_unit: Units of image width of the ROI acquisition,
-  max_x_width_value: Image width value of the ROI acquisition, max_y_height_unit: Units
-    of image height of the ROI acquisition, max_y_height_value: Image height value
-    of the ROI acquisition, mechanism_of_injury: 'Mechanism of injury may be, for
-    example: fall, impact (eg: auto accident), weapon (eg: firearm), etc.', medical_history: A
-    record of a patient's background regarding health and the occurrence of disease
-    events of the individual., middle_name_or_initial: Middle name or initial, ms_scan_mode: 'Indicates
-    whether the data were generated using MS, MS/MS or MS3.', ms_source: The ion source
-    type used for surface sampling., mz_range_high_value: The high value of the scanned
-    mass range for MS1. (unitless), mz_range_low_value: The low value of the scanned
-    mass range for MS1. (unitless), mz_resolving_power: The peak (m/z) used to calculate
-    the resolving power., name: Name for display, notes: Notes, number_of_antibodies: Number
-    of antibodies, number_of_averages: Number of times a given pulse sequence is repeated
-    in the collection of a single image or volume., number_of_barcode_probes: 'Number
-    of barcode probes targeting mRNAs (eg. 24,000 barcode probes = 24,000 mRNAs -
-    1 per mRNA of interest)', number_of_barcode_regions_per_barcode_probe: Number
-    of barcode regions on each mRNA barcode probe (the paper describes mRNA probes
-    with 4 barcoded regions), number_of_channels: Number of mass channels measured,
-  number_of_cycles: 'Number of cycles of 1. oligo application, 2. fluor application,
-    3. washes', number_of_image_columns: 'Number of columns of the reconstructed data. ',
-  number_of_image_rows: 'Number of rows of the reconstructed data, per image.', number_of_images: The
-    total number of images in the dataset., number_of_imaging_rounds: the total number
-    of acquisitions performed on microscope to collect autofluorescence/background
-    or stained signal., number_of_pseudocolors_per_channel: Number of pseudocolors
-    that can be assigned to each fluorescent channel (the paper describes 20 pseudocolors
-    per channel (x 3 channels -> total = 60), number_of_readout_probes_per_channel: Number
-    of readout probes that can be interrogated per channel per cycle (the paper describes
-    20 readout probes per channel (x 3 channels -> total = 60)), number_of_sections: Number
-    of sections, operator: Name of the person responsible for executing the assay.,
-  operator_email: Email address for the operator., orcid_id: ORCID ID of contributor,
-  organ_condition: Health status of the organ at the time of sample recovery., overall_protocols_io_doi: DOI
-    for protocols.io for the overall process., pathologist_report: Further details
-    on organ level QC checks., pathology_distance_unit: Distance unit, pathology_distance_value: 'If
-    surgical sample, how far from the pathology was the sample obtained. Typically
-    a number of centimeters. Leave blank if not applicable or unknown.', perfusion_solution: Type
-    of solution that was used to perfuse the organ., pi: Name of the principal investigator
-    responsible for the data., pi_email: Email address for the principal investigator.,
-  pixel_dwell_time_unit: Pixel dwell time unit., pixel_dwell_time_value: Resident
-    time of primary ion beam on each pixel., pixel_size_x_unit: Width unit of the
-    pixel or voxel measurement., pixel_size_x_value: Width value of the pixel or voxel
-    measurement (distinct from the image resolution_x_value)., pixel_size_y_unit: Length
-    unit of the pixel or voxel measurement., pixel_size_y_value: Length value of the
-    pixel or voxel measurement (distinct from the image resolution_y_value)., pixel_size_z_unit: Depth
-    unit of the pixel or voxel measurement., pixel_size_z_value: Depth value of the
-    pixel or voxel measurement (distinct from the image resolution_z_value)., polarity: The
-    polarity of the mass analysis (positive or negative ion modes), preparation_instrument_model: The
-    model number/name of the instrument used to prepare the sample for the assay,
-  preparation_instrument_vendor: The manufacturer of the instrument used to prepare
-    the sample for the assay., preparation_maldi_matrix: 'The matrix is a compound
-    of crystallized molecules that acts like a buffer between the sample and the laser.
-    It also helps ionize the sample, carrying it along the flight tube so it can be
-    detected.', preparation_media: The media used during preparation of the sample.,
-  preparation_temperature: The temperature for the preparation process., preparation_type: 'Common
-    methods of depositing matrix for MALDI imaging include robotic spotting, electrospray
-    deposition, and spray-coating with an airbrush.', primary_ion: Primary ion., primary_ion_current_unit: 'Primary
-    ion current unit, typically nA or pA', primary_ion_current_value: Primary ion
-    current value., probe: 'The specific ultrasound device used to produce sound waves
-    (String -free text). Examples: C1-5-D, C4-8-D, AB2-7-D, RIC5-9-D, RAB6-D, RAB4-8-D,
-    4C-D, RM6C', procedure_date: Date of procedure to procure organ., processing_protocols_io_doi: DOI
-    for analysis protocols.io for this assay., processing_search: Software for analyzing
-    and searching LC-MS/MS omics data, processing_time_unit: Time unit, processing_time_value: 'The
-    amount of time that elapsed from beginning of sampling to the first preservation
-    (time from when received in lab to preservation). This would, for example, represent
-    how long it took to cut the tissue and freeze it.', protocols_io_doi: DOI for
-    protocols.io referring to the protocol for this assay., puck_id: Slide-seq captures
-    RNA sequence data on spatially barcoded arrays of beads. Beads are fixed to a
-    slide in a region shaped like a round puck. Each puck has a unique puck_id., quality_criteria: 'For
-    example, RIN: 8.7. For suspensions, measured by visual inspection prior to cell
-    lysis or defined by known parameters such as wells with several cells or no cells.
-    This can be captured at a high level. "OK" or "not OK", or with more specificity
-    such as "debris", "clump", "low clump".', quality_view: The quality of the acquired
-    ultrasound images., race: A grouping of humans based on shared physical characteristics
-    or social/ethnic identity generally viewed as distinct., range_z_unit: The unit
-    of range_z_value., range_z_value: The total range of the z axis., reagent_prep_protocols_io_doi: DOI
-    for protocols.io referring to the protocol for preparing reagents for the assay.,
-  repetition_time: 'The period of time in msec between the beginning of a pulse sequence
-    and the beginning of the succeeding (essentially identical) pulse sequence. ',
-  resolution_x_unit: The unit of measurement of the width of a pixel., resolution_x_value: The
-    width of a pixel., resolution_y_unit: The unit of measurement of the height of
-    a pixel., resolution_y_value: The height of a pixel, resolution_z_unit: The unit
-    of incremental distance between image slices., resolution_z_value: The distance
-    at which two objects along the detection z-axis can be distinguished (resolved
-    as 2 objects)., rnaseq_assay_input: Number of cell/nuclei input to the assay,
-  rnaseq_assay_input_unit: Units of RNA input amount to the assay, rnaseq_assay_input_value: RNA
-    input amount value to the assay, rnaseq_assay_method: The kit used for the RNA
-    sequencing assay, roi_description: A description of the region of interest (ROI)
-    captured in the image., roi_id: 'Multiple images (1-n) are acquired from regions
-    of interest (ROI1, ROI2, ROI3, etc) on a slide. The roi_id is a number from 1-n
-    representing the ROI captured on a slide.', rr_id: 'The rr_id is a unique antibody
-    identifier that comes from the Antibody Registry (https://antibodyregistry.org).',
-  sample_id: (No description for this field was supplied.), sample_quality_metric: "This\
-    \ is a quality metric by visual inspection. This should answer the question: Are\
-    \ the nuclei intact and are the nuclei free of significant amounts of debris?\
-    \ This can be captured at a high level, \u201COK\u201D or \u201Cnot OK\u201D.",
-  sc_isolation_cell_number: Total number of cell/nuclei yielded post dissociation
-    and enrichment, sc_isolation_enrichment: The method by which specific cell populations
-    are sorted or enriched., sc_isolation_entity: The type of single cell entity derived
-    from isolation protocol, sc_isolation_protocols_io_doi: 'Link to a protocols document
-    answering the question: How were single cells separated into a single-cell suspension?',
-  sc_isolation_quality_metric: A quality metric by visual inspection prior to cell
-    lysis or defined by known parameters such as wells with several cells or no cells.
-    This can be captured at a high level., sc_isolation_tissue_dissociation: The method
-    by which tissues are dissociated into single cells in suspension., scanning_sequence: Pulse
-    sequence used to collect MRI data, section_index_number: The index number for
-    the section if the sample is a single section., section_prep_protocols_io_doi: DOI
-    for protocols.io referring to the protocol for preparing tissue sections for the
-    assay., section_thickness_unit: Thickness unit, section_thickness_value: Thickness
-    of the section, segment_data_format: 'This refers to the data type, which is a
-    "float" for the IMC counts.', sequence_variant: Variant of the Scanning Sequence,
-  sequencing_phix_percent: Percent PhiX loaded to the run, sequencing_read_format: 'Slash-delimited
-    list of the number of sequencing cycles for, for example, Read1, i7 index, i5
-    index, and Read2.', sequencing_read_percent_q30: 'Q30 is the weighted average
-    of all the reads (e.g. # bases UMI * q30 UMI + # bases R2 * q30 R2 + ...)', sequencing_reagent_kit: Reagent
-    kit used for sequencing, sex: 'Biological sex at birth: male or female or other.',
-  signal_type: Type of signal measured per channel (usually dual counts), single_file_export_format: 'The
-    format in which each single imaging file will be exported. (Example: DICOM, tiff,
-    avi, etc.)', sn_quality: 'An integer describing the signal to noise quality of
-    an OCT image (Example: 30)', sn_quality_unit: 'The unit of the integer describing
-    the signal to noise quality of an OCT image (Example: dB)', source_project: 'External
-    source (outside of HuBMAP) of the project, eg. HCA (The Human Cell Atlas Consortium).',
-  source_storage_time_unit: Time unit, source_storage_time_value: 'The amount of time
-    that elapsed between when the source was generated and this sample was derived
-    from the source. This would, for example, include how long the source was stored
-    in a freezer.', spatial_sampling_type: Specifies whether or not the analysis was
-    performed in a spatially targeted manner. Spatial profiling experiments target
-    specific tissue foci but do not necessarily generate images. Spatial imaging expriments
-    collect data from a regular array (pixels) that can be visualized as heat maps
-    of ion intensity at each location (molecular images). Leave blank if data are
-    derived from bulk analysis., spatial_target: Specifies the cell-type or functional
-    tissue unit (FTU) that is targeted in the spatial profiling experiment. Leave
-    blank if data are generated in imaging mode without a specific target structure.,
-  spatial_type: 'Specifies whether or not the analysis was performed in a spatialy
-    targeted manner and the technique used for spatial sampling. For example, Laser-capture
-    microdissection (LCM), Liquid Extraction Surface Analysis (LESA), Nanodroplet
-    Processing in One pot for Trace Samples (nanoPOTS).', specimen_preservation_temperature: The
-    temperature of the medium during the preservation process., specimen_quality_criteria: 'For
-    example, RIN: 8.7.', specimen_tumor_distance_unit: Distance unit, specimen_tumor_distance_value: 'If
-    surgical sample, how far from the tumor was the sample obtained from. Typically
-    a number of centimeters. Leave blank if not applicable or unknown.', speckle_reduction_imaging: 'Level
-    used to reduce speckle noise in ultrasound images. Examples: numbers ranging from
-    0-5', stain: Chemical stains (dyes) applied to histology samples to highlight
-    important features of the tissue as well as to enhance the tissue contrast., start_datetime: Time
-    stamp indicating start of ablation for ROI, step_z_value: The number of optical
-    sections in z axis range., storage_media: What was the sample preserved in., storage_temperature: 'The
-    temperature during storage, after preparation and before the assay is performed.',
-  tissue_id: HuBMAP Display ID of the assayed tissue., total_sections_analyzed: The
-    number of sections used for analyzing microCT or OCT images, transposition_input: Number
-    of cell/nuclei input to the assay., transposition_kit_number: 'If Tn5 came from
-    a kit, provide the catalog number.', transposition_method: Modality of capturing
-    accessible chromatin molecules., transposition_transposase_source: The source
-    of the Tn5 transposase and transposon used for capturing accessible chromatin.,
-  type: 'Denotes the type of sample, used to validate the field entries.', umi_offset: Position
-    in the read at which the umi barcode starts., umi_read: Which read file(s) contains
-    the UMI (unique molecular identifier) barcode., umi_size: Length of the umi barcode
-    in base pairs., uniprot_accession_number: 'The uniprot_accession_number is a unique
-    identifier for proteins in the UniProt database (https://www.uniprot.org).', version: Version
-    of the schema to use when validating this metadata., vital_state: Identify the
-    vital state of the donor., voltage_unit: 'The unit of the voltage used to acquire
-    microCT images. Example: V', voltage_value: The voltage used to acquire images,
-  volume_export_format: 'The format of the volume export of OCT images (Example: tiff)',
-  volume_unit: Volume unit, volume_value: The volume of a tissue block., warm_ischemia_time_unit: Time
-    unit, warm_ischemia_time_value: Time interval between cessation of blood flow
-    and cooling to 4C., wavelength_unit: The unit of the wavelength value used to
-    acquire OCT images (nm), wavelength_value: 'The value of the wavelength used to
-    acquire OCT images (Example: 787)', weight_unit: Weight unit, weight_value: Weight
-    of a tissue block}
+  '
+label_name: If the samples were labeled (e.g. TMT), provide the name/ID of the label
+  on this sample.
+labeling: Indicates whether samples were labeled prior to MS analysis (e.g., TMT)
+last_name: Last name
+lc_column_model: The model number/name of the LC Column - IF custom self-packed, pulled
+  tip calillary is used enter "Pulled tip capilary"
+lc_column_vendor: 'OPTIONAL: The manufacturer of the LC Column unless self-packed,
+  pulled tip capilary is used'
+lc_flow_rate_unit: Units of flow rate.
+lc_flow_rate_value: Value of flow rate.
+lc_gradient: LC gradient
+lc_id_unit: units of LC column inner diameter (typically microns)
+lc_id_value: LC column inner diameter (microns)
+lc_instrument_model: The model number/name of the instrument used for LC
+lc_instrument_vendor: The manufacturer of the instrument used for LC
+lc_length_unit: units for LC column length (typically cm)
+lc_length_value: LC column length
+lc_mobile_phase_a: Composition of mobile phase A
+lc_mobile_phase_b: Composition of mobile phase B
+lc_resin: Details of the resin used for lc, including vendor, particle size, pore
+  size
+lc_temp_unit: units for LC temperature
+lc_temp_value: LC temperature
+library_adapter_sequence: Adapter sequence to be used for adapter trimming
+library_average_fragment_size: Average size in basepairs (bp) of sequencing library
+  fragments estimated via gel electrophoresis or bioanalyzer/tapestation.
+library_concentration_unit: Unit of library_concentration_value
+library_concentration_value: The concentration value of the pooled library samples
+  submitted for sequencing.
+library_construction_method: Describes DNA library preparation kit. Modality of isolating
+  gDNA, Fragmentation and generating sequencing libraries.
+library_construction_protocols_io_doi: A link to the protocol document containing
+  the library construction method (including version) that was used.
+library_creation_date: date and time of library creation. YYYY-MM-DD, where YYYY is
+  the year, MM is the month with leading 0s, and DD is the day with leading 0s.
+library_final_yield: Total ng of library after final pcr amplification step.
+library_final_yield_unit: Units of final library yield
+library_final_yield_value: Total number of ng of library after final pcr amplification
+  step. This is the concentration (ng/ul) * volume (ul)
+library_id: An id for the library. The id may be text and/or numbers
+library_layout: Whether the library was generated for single-end or paired end sequencing
+library_pcr_cycles: Number of PCR cycles to amplify cDNA
+library_pcr_cycles_for_sample_index: Number of PCR cycles performed for library indexing
+library_preparation_kit: Reagent kit used for library preparation
+lot_number: 'The lot# is specific to the vendor. (eg: Abcam lot# GR3238979-1)'
+mass_resolving_power: "The MS1 resolving power defined as m/\u2206m where \u2206m\
+  \ is the FWHM for a given peak with a specified m/z (m). (unitless)"
+max_x_width_unit: Units of image width of the ROI acquisition
+max_x_width_value: Image width value of the ROI acquisition
+max_y_height_unit: Units of image height of the ROI acquisition
+max_y_height_value: Image height value of the ROI acquisition
+mechanism_of_injury: 'Mechanism of injury may be, for example: fall, impact (eg: auto
+  accident), weapon (eg: firearm), etc.'
+medical_history: A record of a patient's background regarding health and the occurrence
+  of disease events of the individual.
+middle_name_or_initial: Middle name or initial
+ms_scan_mode: Indicates whether the data were generated using MS, MS/MS or MS3.
+ms_source: The ion source type used for surface sampling.
+mz_range_high_value: The high value of the scanned mass range for MS1. (unitless)
+mz_range_low_value: The low value of the scanned mass range for MS1. (unitless)
+mz_resolving_power: The peak (m/z) used to calculate the resolving power.
+name: Name for display
+notes: Notes
+number_of_antibodies: Number of antibodies
+number_of_averages: Number of times a given pulse sequence is repeated in the collection
+  of a single image or volume.
+number_of_barcode_probes: Number of barcode probes targeting mRNAs (eg. 24,000 barcode
+  probes = 24,000 mRNAs - 1 per mRNA of interest)
+number_of_barcode_regions_per_barcode_probe: Number of barcode regions on each mRNA
+  barcode probe (the paper describes mRNA probes with 4 barcoded regions)
+number_of_channels: Number of mass channels measured
+number_of_cycles: Number of cycles of 1. oligo application, 2. fluor application,
+  3. washes
+number_of_image_columns: 'Number of columns of the reconstructed data. '
+number_of_image_rows: Number of rows of the reconstructed data, per image.
+number_of_images: The total number of images in the dataset.
+number_of_imaging_rounds: the total number of acquisitions performed on microscope
+  to collect autofluorescence/background or stained signal.
+number_of_pseudocolors_per_channel: Number of pseudocolors that can be assigned to
+  each fluorescent channel (the paper describes 20 pseudocolors per channel (x 3 channels
+  -> total = 60)
+number_of_readout_probes_per_channel: Number of readout probes that can be interrogated
+  per channel per cycle (the paper describes 20 readout probes per channel (x 3 channels
+  -> total = 60))
+number_of_sections: Number of sections
+operator: Name of the person responsible for executing the assay.
+operator_email: Email address for the operator.
+orcid_id: ORCID ID of contributor
+organ_condition: Health status of the organ at the time of sample recovery.
+overall_protocols_io_doi: DOI for protocols.io for the overall process.
+pathologist_report: Further details on organ level QC checks.
+pathology_distance_unit: Distance unit
+pathology_distance_value: If surgical sample, how far from the pathology was the sample
+  obtained. Typically a number of centimeters. Leave blank if not applicable or unknown.
+perfusion_solution: Type of solution that was used to perfuse the organ.
+pi: Name of the principal investigator responsible for the data.
+pi_email: Email address for the principal investigator.
+pixel_dwell_time_unit: Pixel dwell time unit.
+pixel_dwell_time_value: Resident time of primary ion beam on each pixel.
+pixel_size_x_unit: Width unit of the pixel or voxel measurement.
+pixel_size_x_value: Width value of the pixel or voxel measurement (distinct from the
+  image resolution_x_value).
+pixel_size_y_unit: Length unit of the pixel or voxel measurement.
+pixel_size_y_value: Length value of the pixel or voxel measurement (distinct from
+  the image resolution_y_value).
+pixel_size_z_unit: Depth unit of the pixel or voxel measurement.
+pixel_size_z_value: Depth value of the pixel or voxel measurement (distinct from the
+  image resolution_z_value).
+polarity: The polarity of the mass analysis (positive or negative ion modes)
+preparation_instrument_model: The model number/name of the instrument used to prepare
+  the sample for the assay
+preparation_instrument_vendor: The manufacturer of the instrument used to prepare
+  the sample for the assay.
+preparation_maldi_matrix: The matrix is a compound of crystallized molecules that
+  acts like a buffer between the sample and the laser. It also helps ionize the sample,
+  carrying it along the flight tube so it can be detected.
+preparation_media: The media used during preparation of the sample.
+preparation_temperature: The temperature for the preparation process.
+preparation_type: Common methods of depositing matrix for MALDI imaging include robotic
+  spotting, electrospray deposition, and spray-coating with an airbrush.
+primary_ion: Primary ion.
+primary_ion_current_unit: Primary ion current unit, typically nA or pA
+primary_ion_current_value: Primary ion current value.
+probe: 'The specific ultrasound device used to produce sound waves (String -free text).
+  Examples: C1-5-D, C4-8-D, AB2-7-D, RIC5-9-D, RAB6-D, RAB4-8-D, 4C-D, RM6C'
+procedure_date: Date of procedure to procure organ.
+processing_protocols_io_doi: DOI for analysis protocols.io for this assay.
+processing_search: Software for analyzing and searching LC-MS/MS omics data
+processing_time_unit: Time unit
+processing_time_value: The amount of time that elapsed from beginning of sampling
+  to the first preservation (time from when received in lab to preservation). This
+  would, for example, represent how long it took to cut the tissue and freeze it.
+protocols_io_doi: DOI for protocols.io referring to the protocol for this assay.
+puck_id: Slide-seq captures RNA sequence data on spatially barcoded arrays of beads.
+  Beads are fixed to a slide in a region shaped like a round puck. Each puck has a
+  unique puck_id.
+quality_criteria: 'For example, RIN: 8.7. For suspensions, measured by visual inspection
+  prior to cell lysis or defined by known parameters such as wells with several cells
+  or no cells. This can be captured at a high level. "OK" or "not OK", or with more
+  specificity such as "debris", "clump", "low clump".'
+quality_view: The quality of the acquired ultrasound images.
+race: A grouping of humans based on shared physical characteristics or social/ethnic
+  identity generally viewed as distinct.
+range_z_unit: The unit of range_z_value.
+range_z_value: The total range of the z axis.
+reagent_prep_protocols_io_doi: DOI for protocols.io referring to the protocol for
+  preparing reagents for the assay.
+repetition_time: 'The period of time in msec between the beginning of a pulse sequence
+  and the beginning of the succeeding (essentially identical) pulse sequence. '
+resolution_x_unit: The unit of measurement of the width of a pixel.
+resolution_x_value: The width of a pixel.
+resolution_y_unit: The unit of measurement of the height of a pixel.
+resolution_y_value: The height of a pixel
+resolution_z_unit: The unit of incremental distance between image slices.
+resolution_z_value: The distance at which two objects along the detection z-axis can
+  be distinguished (resolved as 2 objects).
+rnaseq_assay_input: Number of cell/nuclei input to the assay
+rnaseq_assay_input_unit: Units of RNA input amount to the assay
+rnaseq_assay_input_value: RNA input amount value to the assay
+rnaseq_assay_method: The kit used for the RNA sequencing assay
+roi_description: A description of the region of interest (ROI) captured in the image.
+roi_id: Multiple images (1-n) are acquired from regions of interest (ROI1, ROI2, ROI3,
+  etc) on a slide. The roi_id is a number from 1-n representing the ROI captured on
+  a slide.
+rr_id: The rr_id is a unique antibody identifier that comes from the Antibody Registry
+  (https://antibodyregistry.org).
+sample_id: (No description for this field was supplied.)
+sample_quality_metric: "This is a quality metric by visual inspection. This should\
+  \ answer the question: Are the nuclei intact and are the nuclei free of significant\
+  \ amounts of debris? This can be captured at a high level, \u201COK\u201D or \u201C\
+  not OK\u201D."
+sc_isolation_cell_number: Total number of cell/nuclei yielded post dissociation and
+  enrichment
+sc_isolation_enrichment: The method by which specific cell populations are sorted
+  or enriched.
+sc_isolation_entity: The type of single cell entity derived from isolation protocol
+sc_isolation_protocols_io_doi: 'Link to a protocols document answering the question:
+  How were single cells separated into a single-cell suspension?'
+sc_isolation_quality_metric: A quality metric by visual inspection prior to cell lysis
+  or defined by known parameters such as wells with several cells or no cells. This
+  can be captured at a high level.
+sc_isolation_tissue_dissociation: The method by which tissues are dissociated into
+  single cells in suspension.
+scanning_sequence: Pulse sequence used to collect MRI data
+section_index_number: The index number for the section if the sample is a single section.
+section_prep_protocols_io_doi: DOI for protocols.io referring to the protocol for
+  preparing tissue sections for the assay.
+section_thickness_unit: Thickness unit
+section_thickness_value: Thickness of the section
+segment_data_format: This refers to the data type, which is a "float" for the IMC
+  counts.
+sequence_variant: Variant of the Scanning Sequence
+sequencing_phix_percent: Percent PhiX loaded to the run
+sequencing_read_format: Slash-delimited list of the number of sequencing cycles for,
+  for example, Read1, i7 index, i5 index, and Read2.
+sequencing_read_percent_q30: 'Q30 is the weighted average of all the reads (e.g. #
+  bases UMI * q30 UMI + # bases R2 * q30 R2 + ...)'
+sequencing_reagent_kit: Reagent kit used for sequencing
+sex: 'Biological sex at birth: male or female or other.'
+signal_type: Type of signal measured per channel (usually dual counts)
+single_file_export_format: 'The format in which each single imaging file will be exported.
+  (Example: DICOM, tiff, avi, etc.)'
+sn_quality: 'An integer describing the signal to noise quality of an OCT image (Example:
+  30)'
+sn_quality_unit: 'The unit of the integer describing the signal to noise quality of
+  an OCT image (Example: dB)'
+source_project: External source (outside of HuBMAP) of the project, eg. HCA (The Human
+  Cell Atlas Consortium).
+source_storage_time_unit: Time unit
+source_storage_time_value: The amount of time that elapsed between when the source
+  was generated and this sample was derived from the source. This would, for example,
+  include how long the source was stored in a freezer.
+spatial_sampling_type: Specifies whether or not the analysis was performed in a spatially
+  targeted manner. Spatial profiling experiments target specific tissue foci but do
+  not necessarily generate images. Spatial imaging expriments collect data from a
+  regular array (pixels) that can be visualized as heat maps of ion intensity at each
+  location (molecular images). Leave blank if data are derived from bulk analysis.
+spatial_target: Specifies the cell-type or functional tissue unit (FTU) that is targeted
+  in the spatial profiling experiment. Leave blank if data are generated in imaging
+  mode without a specific target structure.
+spatial_type: Specifies whether or not the analysis was performed in a spatialy targeted
+  manner and the technique used for spatial sampling. For example, Laser-capture microdissection
+  (LCM), Liquid Extraction Surface Analysis (LESA), Nanodroplet Processing in One
+  pot for Trace Samples (nanoPOTS).
+specimen_preservation_temperature: The temperature of the medium during the preservation
+  process.
+specimen_quality_criteria: 'For example, RIN: 8.7.'
+specimen_tumor_distance_unit: Distance unit
+specimen_tumor_distance_value: If surgical sample, how far from the tumor was the
+  sample obtained from. Typically a number of centimeters. Leave blank if not applicable
+  or unknown.
+speckle_reduction_imaging: 'Level used to reduce speckle noise in ultrasound images.
+  Examples: numbers ranging from 0-5'
+stain: Chemical stains (dyes) applied to histology samples to highlight important
+  features of the tissue as well as to enhance the tissue contrast.
+start_datetime: Time stamp indicating start of ablation for ROI
+step_z_value: The number of optical sections in z axis range.
+storage_media: What was the sample preserved in.
+storage_temperature: The temperature during storage, after preparation and before
+  the assay is performed.
+tissue_id: HuBMAP Display ID of the assayed tissue.
+total_sections_analyzed: The number of sections used for analyzing microCT or OCT
+  images
+transposition_input: Number of cell/nuclei input to the assay.
+transposition_kit_number: If Tn5 came from a kit, provide the catalog number.
+transposition_method: Modality of capturing accessible chromatin molecules.
+transposition_transposase_source: The source of the Tn5 transposase and transposon
+  used for capturing accessible chromatin.
+type: Denotes the type of sample, used to validate the field entries.
+umi_offset: Position in the read at which the umi barcode starts.
+umi_read: Which read file(s) contains the UMI (unique molecular identifier) barcode.
+umi_size: Length of the umi barcode in base pairs.
+uniprot_accession_number: The uniprot_accession_number is a unique identifier for
+  proteins in the UniProt database (https://www.uniprot.org).
+version: Version of the schema to use when validating this metadata.
+vital_state: Identify the vital state of the donor.
+voltage_unit: 'The unit of the voltage used to acquire microCT images. Example: V'
+voltage_value: The voltage used to acquire images
+volume_export_format: 'The format of the volume export of OCT images (Example: tiff)'
+volume_unit: Volume unit
+volume_value: The volume of a tissue block.
+warm_ischemia_time_unit: Time unit
+warm_ischemia_time_value: Time interval between cessation of blood flow and cooling
+  to 4C.
+wavelength_unit: The unit of the wavelength value used to acquire OCT images (nm)
+wavelength_value: 'The value of the wavelength used to acquire OCT images (Example:
+  787)'
+weight_unit: Weight unit
+weight_value: Weight of a tissue block
 
