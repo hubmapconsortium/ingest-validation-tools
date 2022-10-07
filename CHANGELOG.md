@@ -8,7 +8,9 @@
 - Make `contributors_path` required for HCA.
 - Parallelize tests.
 - Use the assay service to describe how assays are represented in the Portal.
+- Adding Comma Separated File support for tissue_id
 - Update assay type for Cell DIVE.
+
 
 ## v0.0.14 - 2022-06-23
 - Turn validation of enums back on.
