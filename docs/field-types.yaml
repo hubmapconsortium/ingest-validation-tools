@@ -1,291 +1,88 @@
-ablation_distance_between_shots_x_units: string
-ablation_distance_between_shots_x_value: number
-ablation_distance_between_shots_y_units: string
-ablation_distance_between_shots_y_value: number
-ablation_frequency_unit: string
-ablation_frequency_value: number
-acquisition_id: string
-acquisition_instrument_model: string
-acquisition_instrument_vendor: string
-acquisition_matrix_size_in_frequency_encoding_direction: integer
-acquisition_matrix_size_in_phase_encoding_direction: integer
-affiliation: string
-age_unit: string
-age_value: number
-analyte_class: string
-antibodies_path: string
-antibody_name: string
-area_normalized_ion_dose_unit: string
-area_normalized_ion_dose_value: number
-area_unit: string
-area_value: number
-assay_category: string
-assay_type: string
-bead_barcode_offset: string
-bead_barcode_read: string
-bead_barcode_size: string
-blood_type: string
-body_mass_index_value: number
-bulk_atac_cell_isolation_protocols_io_doi: string
-bulk_rna_isolation_protocols_io_doi: string
-bulk_rna_isolation_quality_metric_value: number
-bulk_rna_yield_units_per_tissue_unit: string
-bulk_rna_yield_value: number
-bulk_transposition_input_number_nuclei: string
-cause_of_death: string
-ce_background_electrolyte: string
-ce_capillary_coating: string
-ce_electroosmotic_flow: string
-ce_instrument_model: string
-ce_instrument_vendor: string
-ce_interface: string
-cell_barcode_offset: string
-cell_barcode_read: string
-cell_barcode_size: string
-channel_id: string
-coil: string
-cold_ischemia_time_unit: string
-cold_ischemia_time_value: number
-column_length_unit: string
-column_length_value: number
-column_model: string
-column_temp_unit: string
-column_temp_value: number
-column_vendor: string
-compound_imaging: integer
-concentration_unit: string
-concentration_value: number
-conjugated_cat_number: string
-conjugated_tag: string
-contributors_path: string
-current_unit: string
-current_value: number
-data_collection_mode: string
-data_path: string
-data_precision_bytes: number
-description: string
-desi_solvent: string
-desi_solvent_flow_rate: number
-desi_solvent_flow_rate_unit: string
-dilution: string
-dms: boolean
-dna_assay_input_unit: string
-dna_assay_input_value: number
-donor_id: string
-dual_count_start: number
-dynamic_contrast: integer
-echo_time: number
-echo_train_length: integer
-end_datetime: datetime
-execution_datetime: datetime
-expected_cell_count: integer
-field_strength_unit: string
-field_strength_value: number
-filter: string
-first_name: string
-flip_angle: integer
-frequency_unit: string
-frequency_value: number
-gdna_fragmentation_quality_assurance: string
-guard_column: string
-harmonics: string
-health_status: string
-height_unit: string
-height_value: number
-histological_report: string
-imaging_threshold_unit_value: number
-imaging_threshold_value: number
-increment_z_unit: string
-increment_z_value: number
-internal_standard: string
-ion_mobility: string
-ion_source: string
-is_contact: boolean
-is_targeted: boolean
-is_technical_replicate: boolean
-kidney_donor_profile_index_value: number
-label_name: string
-labeling: string
-last_name: string
-lc_column_model: string
-lc_column_vendor: string
-lc_flow_rate_unit: string
-lc_flow_rate_value: number
-lc_gradient: string
-lc_id_unit: string
-lc_id_value: number
-lc_instrument_model: string
-lc_instrument_vendor: string
-lc_length_unit: string
-lc_length_value: number
-lc_mobile_phase_a: string
-lc_mobile_phase_b: string
-lc_resin: string
-lc_temp_unit: string
-lc_temp_value: number
-library_adapter_sequence: string
-library_average_fragment_size: integer
-library_concentration_unit: string
-library_concentration_value: number
-library_construction_method: string
-library_construction_protocols_io_doi: string
-library_creation_date: string
-library_final_yield: number
-library_final_yield_unit: string
-library_final_yield_value: number
-library_id: string
-library_layout: string
-library_pcr_cycles: integer
-library_pcr_cycles_for_sample_index: integer
-library_preparation_kit: string
-lot_number: string
-mass_resolving_power: number
-max_x_width_unit: string
-max_x_width_value: number
-max_y_height_unit: string
-max_y_height_value: number
-mechanism_of_injury: string
-medical_history: string
-middle_name_or_initial: string
-ms_scan_mode: string
-ms_source: string
-mz_range_high_value: number
-mz_range_low_value: number
-mz_resolving_power: number
-name: string
-notes: string
-number_of_antibodies: integer
-number_of_averages: integer
-number_of_barcode_probes: integer
-number_of_barcode_regions_per_barcode_probe: integer
-number_of_channels: integer
-number_of_cycles: integer
-number_of_image_columns: integer
-number_of_image_rows: integer
-number_of_images: integer
-number_of_imaging_rounds: integer
-number_of_pseudocolors_per_channel: integer
-number_of_readout_probes_per_channel: integer
-number_of_sections: integer
-operator: string
-operator_email: string
-orcid_id: string
-organ_condition: string
-overall_protocols_io_doi: string
-pathologist_report: string
-pathology_distance_unit: string
-pathology_distance_value: number
-perfusion_solution: string
-pi: string
-pi_email: string
-pixel_dwell_time_unit: string
-pixel_dwell_time_value: number
-pixel_size_x_unit: string
-pixel_size_x_value: number
-pixel_size_y_unit: string
-pixel_size_y_value: number
-pixel_size_z_unit: string
-pixel_size_z_value: number
-polarity: string
-preparation_instrument_model: string
-preparation_instrument_vendor: string
-preparation_maldi_matrix: string
-preparation_media: string
-preparation_temperature: string
-preparation_type: string
-primary_ion: string
-primary_ion_current_unit: string
-primary_ion_current_value: number
-probe: string
-procedure_date: date
-processing_protocols_io_doi: string
-processing_search: string
-processing_time_unit: string
-processing_time_value: number
-protocols_io_doi: string
-puck_id: string
-quality_criteria: string
-quality_view: string
-race: string
-range_z_unit: string
-range_z_value: number
-reagent_prep_protocols_io_doi: string
-repetition_time: number
-resolution_x_unit: string
-resolution_x_value: number
-resolution_y_unit: string
-resolution_y_value: number
-resolution_z_unit: string
-resolution_z_value: number
-rnaseq_assay_input: integer
-rnaseq_assay_input_unit: string
-rnaseq_assay_input_value: number
-rnaseq_assay_method: string
-roi_description: string
-roi_id: integer
-rr_id: string
-sample_id: string
-sample_quality_metric: string
-sc_isolation_cell_number: integer
-sc_isolation_enrichment: string
-sc_isolation_entity: string
-sc_isolation_protocols_io_doi: string
-sc_isolation_quality_metric: string
-sc_isolation_tissue_dissociation: string
-scanning_sequence: string
-section_index_number: integer
-section_prep_protocols_io_doi: string
-section_thickness_unit: string
-section_thickness_value: number
-segment_data_format: string
-sequence_variant: string
-sequencing_phix_percent: number
-sequencing_read_format: string
-sequencing_read_percent_q30: number
-sequencing_reagent_kit: string
-sex: string
-signal_type: string
-single_file_export_format: string
-sn_quality: integer
-sn_quality_unit: string
-source_project: string
-source_storage_time_unit: string
-source_storage_time_value: number
-spatial_sampling_type: string
-spatial_target: string
-spatial_type: string
-specimen_preservation_temperature: string
-specimen_quality_criteria: string
-specimen_tumor_distance_unit: string
-specimen_tumor_distance_value: number
-speckle_reduction_imaging: integer
-stain: string
-start_datetime: datetime
-step_z_value: number
-storage_media: string
-storage_temperature: string
-tissue_id: string
-total_sections_analyzed: integer
-transposition_input: number
-transposition_kit_number: string
-transposition_method: string
-transposition_transposase_source: string
-type: string
-umi_offset: integer
-umi_read: string
-umi_size: integer
-uniprot_accession_number: string
-version: string
-vital_state: string
-voltage_unit: string
-voltage_value: number
-volume_export_format: string
-volume_unit: string
-volume_value: number
-warm_ischemia_time_unit: string
-warm_ischemia_time_value: number
-wavelength_unit: string
-wavelength_value: number
-weight_unit: string
-weight_value: number
+{ablation_distance_between_shots_x_units: string, ablation_distance_between_shots_x_value: number,
+  ablation_distance_between_shots_y_units: string, ablation_distance_between_shots_y_value: number,
+  ablation_frequency_unit: string, ablation_frequency_value: number, acquisition_id: string,
+  acquisition_instrument_model: string, acquisition_instrument_vendor: string, acquisition_matrix_size_in_frequency_encoding_direction: integer,
+  acquisition_matrix_size_in_phase_encoding_direction: integer, affiliation: string,
+  age_unit: string, age_value: number, analyte_class: string, antibodies_path: string,
+  antibody_name: string, area_normalized_ion_dose_unit: string, area_normalized_ion_dose_value: number,
+  area_unit: string, area_value: number, assay_category: string, assay_type: string,
+  bead_barcode_offset: string, bead_barcode_read: string, bead_barcode_size: string,
+  blood_type: string, body_mass_index_value: number, bulk_atac_cell_isolation_protocols_io_doi: string,
+  bulk_rna_isolation_protocols_io_doi: string, bulk_rna_isolation_quality_metric_value: number,
+  bulk_rna_yield_units_per_tissue_unit: string, bulk_rna_yield_value: number, bulk_transposition_input_number_nuclei: string,
+  cause_of_death: string, ce_background_electrolyte: string, ce_capillary_coating: string,
+  ce_electroosmotic_flow: string, ce_instrument_model: string, ce_instrument_vendor: string,
+  ce_interface: string, cell_barcode_offset: string, cell_barcode_read: string, cell_barcode_size: string,
+  channel_id: string, coil: string, cold_ischemia_time_unit: string, cold_ischemia_time_value: number,
+  column_length_unit: string, column_length_value: number, column_model: string, column_temp_unit: string,
+  column_temp_value: number, column_vendor: string, compound_imaging: integer, concentration_unit: string,
+  concentration_value: number, conjugated_cat_number: string, conjugated_tag: string,
+  contributors_path: string, current_unit: string, current_value: number, data_collection_mode: string,
+  data_path: string, data_precision_bytes: number, description: string, desi_solvent: string,
+  desi_solvent_flow_rate: number, desi_solvent_flow_rate_unit: string, dilution: string,
+  dms: boolean, dna_assay_input_unit: string, dna_assay_input_value: number, donor_id: string,
+  dual_count_start: number, dynamic_contrast: integer, echo_time: number, echo_train_length: integer,
+  end_datetime: datetime, execution_datetime: datetime, expected_cell_count: integer,
+  field_strength_unit: string, field_strength_value: number, filter: string, first_name: string,
+  flip_angle: integer, frequency_unit: string, frequency_value: number, gdna_fragmentation_quality_assurance: string,
+  guard_column: string, harmonics: string, health_status: string, height_unit: string,
+  height_value: number, histological_report: string, imaging_threshold_unit_value: number,
+  imaging_threshold_value: number, increment_z_unit: string, increment_z_value: number,
+  internal_standard: string, ion_mobility: string, ion_source: string, is_contact: boolean,
+  is_targeted: boolean, is_technical_replicate: boolean, kidney_donor_profile_index_value: number,
+  label_name: string, labeling: string, last_name: string, lc_column_model: string,
+  lc_column_vendor: string, lc_flow_rate_unit: string, lc_flow_rate_value: number,
+  lc_gradient: string, lc_id_unit: string, lc_id_value: number, lc_instrument_model: string,
+  lc_instrument_vendor: string, lc_length_unit: string, lc_length_value: number, lc_mobile_phase_a: string,
+  lc_mobile_phase_b: string, lc_resin: string, lc_temp_unit: string, lc_temp_value: number,
+  library_adapter_sequence: string, library_average_fragment_size: integer, library_concentration_unit: string,
+  library_concentration_value: number, library_construction_method: string, library_construction_protocols_io_doi: string,
+  library_creation_date: string, library_final_yield: number, library_final_yield_unit: string,
+  library_final_yield_value: number, library_id: string, library_layout: string, library_pcr_cycles: integer,
+  library_pcr_cycles_for_sample_index: integer, library_preparation_kit: string, lot_number: string,
+  mass_resolving_power: number, max_x_width_unit: string, max_x_width_value: number,
+  max_y_height_unit: string, max_y_height_value: number, mechanism_of_injury: string,
+  medical_history: string, middle_name_or_initial: string, ms_scan_mode: string, ms_source: string,
+  mz_range_high_value: number, mz_range_low_value: number, mz_resolving_power: number,
+  name: string, notes: string, number_of_antibodies: integer, number_of_averages: integer,
+  number_of_barcode_probes: integer, number_of_barcode_regions_per_barcode_probe: integer,
+  number_of_channels: integer, number_of_cycles: integer, number_of_image_columns: integer,
+  number_of_image_rows: integer, number_of_images: integer, number_of_imaging_rounds: integer,
+  number_of_pseudocolors_per_channel: integer, number_of_readout_probes_per_channel: integer,
+  number_of_sections: integer, operator: string, operator_email: string, orcid_id: string,
+  organ_condition: string, overall_protocols_io_doi: string, pathologist_report: string,
+  pathology_distance_unit: string, pathology_distance_value: number, perfusion_solution: string,
+  pi: string, pi_email: string, pixel_dwell_time_unit: string, pixel_dwell_time_value: number,
+  pixel_size_x_unit: string, pixel_size_x_value: number, pixel_size_y_unit: string,
+  pixel_size_y_value: number, pixel_size_z_unit: string, pixel_size_z_value: number,
+  polarity: string, preparation_instrument_model: string, preparation_instrument_vendor: string,
+  preparation_maldi_matrix: string, preparation_media: string, preparation_temperature: string,
+  preparation_type: string, primary_ion: string, primary_ion_current_unit: string,
+  primary_ion_current_value: number, probe: string, procedure_date: date, processing_protocols_io_doi: string,
+  processing_search: string, processing_time_unit: string, processing_time_value: number,
+  protocols_io_doi: string, puck_id: string, quality_criteria: string, quality_view: string,
+  race: string, range_z_unit: string, range_z_value: number, reagent_prep_protocols_io_doi: string,
+  repetition_time: number, resolution_x_unit: string, resolution_x_value: number,
+  resolution_y_unit: string, resolution_y_value: number, resolution_z_unit: string,
+  resolution_z_value: number, rnaseq_assay_input: integer, rnaseq_assay_input_unit: string,
+  rnaseq_assay_input_value: number, rnaseq_assay_method: string, roi_description: string,
+  roi_id: integer, rr_id: string, sample_id: string, sample_quality_metric: string,
+  sc_isolation_cell_number: integer, sc_isolation_enrichment: string, sc_isolation_entity: string,
+  sc_isolation_protocols_io_doi: string, sc_isolation_quality_metric: string, sc_isolation_tissue_dissociation: string,
+  scanning_sequence: string, section_index_number: integer, section_prep_protocols_io_doi: string,
+  section_thickness_unit: string, section_thickness_value: number, segment_data_format: string,
+  sequence_variant: string, sequencing_phix_percent: number, sequencing_read_format: string,
+  sequencing_read_percent_q30: number, sequencing_reagent_kit: string, sex: string,
+  signal_type: string, single_file_export_format: string, sn_quality: integer, sn_quality_unit: string,
+  source_project: string, source_storage_time_unit: string, source_storage_time_value: number,
+  spatial_sampling_type: string, spatial_target: string, spatial_type: string, specimen_preservation_temperature: string,
+  specimen_quality_criteria: string, specimen_tumor_distance_unit: string, specimen_tumor_distance_value: number,
+  speckle_reduction_imaging: integer, stain: string, start_datetime: datetime, step_z_value: number,
+  storage_media: string, storage_temperature: string, tissue_id: string, total_sections_analyzed: integer,
+  transposition_input: number, transposition_kit_number: string, transposition_method: string,
+  transposition_transposase_source: string, type: string, umi_offset: integer, umi_read: string,
+  umi_size: integer, uniprot_accession_number: string, version: string, vital_state: string,
+  voltage_unit: string, voltage_value: number, volume_export_format: string, volume_unit: string,
+  volume_value: number, warm_ischemia_time_unit: string, warm_ischemia_time_value: number,
+  wavelength_unit: string, wavelength_value: number, weight_unit: string, weight_value: number}
 
