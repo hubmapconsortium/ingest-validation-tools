@@ -32,7 +32,7 @@ class Upload:
                  optional_fields=[], add_notes=True,
                  dataset_ignore_globs=[], upload_ignore_globs=[],
                  plugin_directory=None, encoding=None, offline=None,
-                 ignore_deprecation=False):
+                 ignore_deprecation=False, extra_parameters={}):
         self.directory_path = directory_path
         self.optional_fields = optional_fields
         self.dataset_ignore_globs = dataset_ignore_globs
@@ -44,6 +44,7 @@ class Upload:
         self.ignore_deprecation = ignore_deprecation
         self.errors = {}
         self.effective_tsv_paths = {}
+        self.extra_parameters = extra_parameters
         try:
             unsorted_effective_tsv_paths = {
                 str(path): get_table_schema_version(path, self.encoding)
@@ -93,6 +94,8 @@ class Upload:
         # This creates a deeply nested dict.
         # Keys are present only if there is actually an error to report.
         # plugin_kwargs are passed to the plugin validators.
+
+        kwargs.update(self.extra_parameters)
         if self.errors:
             return self.errors
 
