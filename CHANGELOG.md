@@ -10,7 +10,7 @@
 - Use the assay service to describe how assays are represented in the Portal.
 - Adding Comma Separated File support for tissue_id.
 - Update assay type for Cell DIVE.
-- Creating extra_parameter on upload for future dynamic adding.
+- Created extra_parameter on upload for future dynamic adding.
 - Updated ErrorReport class to be backwards compatible with external calls.
 
 
