@@ -10,7 +10,7 @@ Dumper.ignore_aliases = lambda *args: True
 
 
 class ErrorReport:
-    def __init__(self, info=None, errors=None):
+    def __init__(self, errors=None, info=None):
         self.info = info
         self.errors = errors
         if self.errors:
