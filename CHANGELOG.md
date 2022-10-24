@@ -12,6 +12,7 @@
 - Update assay type for Cell DIVE.
 - Creating extra_parameter on upload for future dynamic adding.
 - Updated ErrorReport class to be backwards compatible with external calls.
+- Added geoMX directory structure schema.
 
 
 ## v0.0.14 - 2022-06-23
