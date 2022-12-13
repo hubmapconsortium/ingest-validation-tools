@@ -11,7 +11,7 @@ files:
     required: False
     is_qa_qc: False
   -
-    pattern: 'Level0/merged/MergedChannel[^/]+/[^/]+\.czi'
+    pattern: 'Level0/Merged/MergedChannel[^/]+/[^/]+\.czi'
     description: 'Merged Zeiss raw image file.'
     required: False
     is_qa_qc: False
@@ -21,7 +21,7 @@ files:
     required: True
     is_qa_qc: False
   -
-    pattern: 'Level0/merged/MergedChannel[^/]+/[^/]+\.ome.tiff'
+    pattern: 'Level0/Merged/MergedChannel[^/]+/[^/]+\.ome.tiff'
     description: 'Merged raw image file.'
     required: True
     is_qa_qc: False
@@ -33,7 +33,7 @@ files:
     required: False
     is_qa_qc: False
   -
-    pattern: 'Level1/merged/MergedChannel[^/]+/[^/]+\.tif'
+    pattern: 'Level1/Merged/MergedChannel[^/]+/[^/]+\.tif'
     description: 'Merged stitched image.'
     required: False
     is_qa_qc: False
@@ -65,7 +65,7 @@ files:
     required: False
     is_qa_qc: False
   -
-    pattern: 'Level2/merged/MergedChannel[^/]+/[^/]+\.ome.tiff'
+    pattern: 'Level2/Merged/MergedChannel[^/]+/[^/]+\.ome.tiff'
     description: 'Merged segmentation mask.'
     required: False
     is_qa_qc: False
@@ -92,7 +92,7 @@ files:
     required: False
     is_qa_qc: False
   -
-    pattern: 'Level3/merged/MergedChannel[^/]+/[^/]+\.ome.tiff'
+    pattern: 'Level3/Merged/MergedChannel[^/]+/[^/]+\.ome.tiff'
     description: 'Merged image file.'
     required: False
     is_qa_qc: False
