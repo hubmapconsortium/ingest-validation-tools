@@ -35,7 +35,7 @@ The other fields function the same way for all assays using antibodies. For more
 
 
 
-In the portal: [Imaging Mass Cytometry (3D)](https://portal.hubmapconsortium.org/search?mapped_data_types%5B0%5D=Imaging+Mass+Cytometry+%283D%29&entity_type%5B0%5D=Dataset)
+In the portal: 3D Imaging Mass Cytometry not in Portal
 
 ## Metadata schema
 

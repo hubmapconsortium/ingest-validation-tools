@@ -24,7 +24,7 @@ Related files:
 
 
 
-In the portal: [Bulk RNA-seq](https://portal.hubmapconsortium.org/search?mapped_data_types%5B0%5D=Bulk+RNA-seq&entity_type%5B0%5D=Dataset)
+In the portal: bulk RNA not in Portal
 
 ## Metadata schema
 

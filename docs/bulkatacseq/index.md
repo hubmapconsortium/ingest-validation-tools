@@ -24,7 +24,7 @@ This schema is for Assay for Transposase-Accessible Chromatin by sequencing (ATA
 
 
 
-In the portal: [Bulk ATAC-seq](https://portal.hubmapconsortium.org/search?mapped_data_types%5B0%5D=Bulk+ATAC-seq&entity_type%5B0%5D=Dataset)
+In the portal: bulkATACseq not in Portal
 
 ## Metadata schema
 

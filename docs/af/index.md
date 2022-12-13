@@ -27,7 +27,7 @@ This schema is for autofluorescence (AF). For an example of an AF dataset & dire
 
 
 
-In the portal: [Autofluorescence Microscopy](https://portal.hubmapconsortium.org/search?mapped_data_types%5B0%5D=Autofluorescence+Microscopy&entity_type%5B0%5D=Dataset)
+In the portal: AF not in Portal
 
 ## Metadata schema
 
