@@ -19,6 +19,7 @@
 
 
 ## v0.0.14 - 2022-06-23
+- bump tzingo -> 1.2.10 (dependabot)
 - Turn validation of enums back on.
 - Mods to plugin validator to fix import problems.
 - Return directory schema version and refactor.
