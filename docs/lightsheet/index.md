@@ -23,22 +23,22 @@ The other fields function the same way for all assays using antibodies. For more
 | --- | --- | --- |
 | <code>Level0/Channel[^/]+/[^/]+\.csv</code> | ✓ | **[QA/QC]** Contains metadata and channel info. |
 | <code>Level0/Channel[^/]+/[^/]+\.czi</code> |  | Zeiss raw image file. |
-| <code>Level0/merged/Channel[^/]+/[^/]+\.czi</code> |  | Merged Zeiss raw image file. |
+| <code>Level0/merged/MergedChannel[^/]+/[^/]+\.czi</code> |  | Merged Zeiss raw image file. |
 | <code>Level0/Channel[^/]+/[^/]+\.ome.tiff</code> | ✓ | Raw image file. |
-| <code>Level0/merged/Channel[^/]+/[^/]+\.ome.tiff</code> | ✓ | Merged raw image file. |
+| <code>Level0/merged/MergedChannel[^/]+/[^/]+\.ome.tiff</code> | ✓ | Merged raw image file. |
 | <code>Level1/Channel[^/]+/[^/]+\.tif</code> |  | Stitched image. |
-| <code>Level1/merged/Channel[^/]+/[^/]+\.tif</code> |  | Merged stitched image. |
+| <code>Level1/merged/MergedChannel[^/]+/[^/]+\.tif</code> |  | Merged stitched image. |
 | <code>Level1/Channel[^/]+/[^/]+\.mp4</code> |  | Stitched image. |
 | <code>Level2/Channel[^/]+/[^/]+\.csv</code> |  | **[QA/QC]** Contains file, parent and bounds. Required when level 2 is populated. File is optional. |
 | <code>Level2/Channel[^/]+/[^/]+\.obj</code> |  | Segmentation mask. |
 | <code>Level2/Channel[^/]+/[^/]+\.stl</code> |  | Segmentation mask. |
 | <code>Level2/Channel[^/]+/[^/]+\.ome.tiff</code> |  | Segmentation mask. |
-| <code>Level2/merged/Channel[^/]+/[^/]+\.ome.tiff</code> |  | Merged segmentation mask. |
+| <code>Level2/merged/MergedChannel[^/]+/[^/]+\.ome.tiff</code> |  | Merged segmentation mask. |
 | <code>Level3/Channel[^/]+/[^/]+\.csv</code> |  | **[QA/QC]** Contains file, parent and bounds. Required when level 3 is populated. File is optional. |
 | <code>Level3/Channel[^/]+/[^/]+\.obj</code> |  | Annotation file. |
 | <code>Level3/Channel[^/]+/[^/]+\.stl</code> |  | Annotation file. |
 | <code>Level3/Channel[^/]+/[^/]+\.ome.tiff</code> |  | Image file. |
-| <code>Level3/merged/Channel[^/]+/[^/]+\.ome.tiff</code> |  | Merged image file. |
+| <code>Level3/merged/MergedChannel[^/]+/[^/]+\.ome.tiff</code> |  | Merged image file. |
 | <code>extras/.*</code> |  | Free-form descriptive information supplied by the TMC |
 
 ### v0
