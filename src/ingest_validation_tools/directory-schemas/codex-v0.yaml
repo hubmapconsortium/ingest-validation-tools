@@ -12,7 +12,7 @@ files:
     is_qa_qc: True
     required: False
   - 
-    pattern: '(raw|processed)/config\.txt|(src_[^/]*|drv_[^/]*|extras)/[sS]egmentation\.json' 
+    pattern: '(raw|processed)/config\.txt|(src_[^/]*|drv_[^/]*)/[sS]egmentation\.json' 
     description: 'Sanity check that verifies the existence of at least one of these files. This is required for the HuBMAP processing pipeline' 
     required: True
   -
