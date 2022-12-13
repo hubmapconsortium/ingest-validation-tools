@@ -179,6 +179,8 @@ def generate_readme_md(
         'max_version': max_version,
         'all_versions_deprecated':
             all(schema.get('deprecated') for schema in table_schemas.values()),
+        'exclude_from_index':
+            all(schema.get('exclude_from_index') for schema in table_schemas.values()),
 
         'tsv_url': f'{raw_base_url}/{schema_name}/{get_tsv_name(schema_name, is_assay=is_assay)}',
         'xlsx_url': f'{raw_base_url}/{schema_name}/{get_xlsx_name(schema_name, is_assay=is_assay)}',
@@ -259,13 +261,14 @@ def _make_fields_md(table_schema, title, is_open=False):
 def _make_constraints_table(field):
     '''
     >>> field = {
-    ...   'name': 'field',
+    ...   'name': 'fake_field_units',
     ...   'type': 'fake type',
     ...   'constraints': {
-    ...     'enum': ['a', 'b']
+    ...     'enum': ['a', 'b'],
     ...   },
     ...   'custom_constraints': {
     ...     'custom': 'fake',
+    ...     'units_for': 'fake_field'
     ...   }
     ... }
     >>> print(_make_constraints_table(field))
@@ -275,6 +278,7 @@ def _make_constraints_table(field):
     | type | `fake type` |
     | enum | `a` or `b` |
     | custom | `fake` |
+    | required if | `fake_field` present |
     '''
 
     table_md_rows = ['| constraint | value |', '| --- | --- |']
@@ -326,6 +330,8 @@ def _make_key_md(key, value):
     '''
     if key == 'pattern':
         return 'pattern (regular expression)'
+    if key == 'units_for':
+        return 'required if'
     return key.replace('_', ' ')
 
 
@@ -360,6 +366,8 @@ def _make_value_md(key, value):
         return _html_code(value)
     if key == 'url':
         return f'prefix: {_html_code(value["prefix"])}'
+    if key == 'units_for':
+        return f'`{value}` present'
     return f'`{value}`'
 
 

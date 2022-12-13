@@ -3,6 +3,7 @@ title: CODEX / CODEX2
 schema_name: codex
 category: Imaging assays
 all_versions_deprecated: False
+exclude_from_index: False
 layout: default
 ---
 
@@ -42,7 +43,7 @@ The other fields function the same way for all assays using antibodies. For more
 | --- | --- | --- |
 | <code>[^/]*NAV[^/]*\.tif</code> (example: <code>NAV.tif</code>) |  | Navigational Image showing Region of Interest (Keyance Microscope only) |
 | <code>[^/]*\.pdf</code> (example: <code>summary.pdf</code>) |  | **[QA/QC]** PDF export of Powerpoint slide deck containing the Image Analysis Report |
-| <code>(raw&#124;processed)/config\.txt&#124;(src_[^/]*&#124;drv_[^/]*&#124;extras)/[sS]egmentation\.json</code> |  | Sanity check that verifies the existence of at least one of these files. This is required for the HuBMAP processing pipeline |
+| <code>(raw&#124;processed)/config\.txt&#124;(src_[^/]*&#124;drv_[^/]*)/[sS]egmentation\.json</code> | ✓ | Sanity check that verifies the existence of at least one of these files. This is required for the HuBMAP processing pipeline |
 | <code>raw/reg_[^/]*\.png</code> (example: <code>raw/reg_00.png</code>) |  | Region overviews |
 | <code>(raw&#124;src_[^/]*)/[Ee]xperiment\.json</code> | ✓ | JSON file produced by the Akoya software which contains the metadata for the experiment, including the software version used, microscope parameters, channel names, pixel dimensions, etc. (required for HuBMAP pipeline) |
 | <code>processed/HandE\.tif</code> |  | HandE image |
@@ -145,7 +146,7 @@ HuBMAP Display ID of the assayed tissue. Example: `ABC123-BL-1-2-3_456`.
 
 | constraint | value |
 | --- | --- |
-| pattern (regular expression) | <code>([A-Z]+[0-9]+)-[A-Z]{2}\d*(-\d+)+(_\d+)?</code> |
+| pattern (regular expression) | <code>(([A-Z]+[0-9]+)-[A-Z]{2}\d*(-\d+)+(_\d+)?)(,([A-Z]+[0-9]+)-[A-Z]{2}\d*(-\d+)+(_\d+)?)*</code> |
 | required | `True` |
 
 <a name="execution_datetime"></a>
@@ -275,7 +276,7 @@ The unit of measurement of width of a pixel.(nm) Leave blank if not applicable.
 | --- | --- |
 | enum | `mm`, `um`, or `nm` |
 | required | `False` |
-| units for | `resolution_x_value` |
+| required if | `resolution_x_value` present |
 
 <a name="resolution_y_value"></a>
 ##### [`resolution_y_value`](#resolution_y_value)
@@ -294,7 +295,7 @@ The unit of measurement of height of a pixel. (nm) Leave blank if not applicable
 | --- | --- |
 | enum | `mm`, `um`, or `nm` |
 | required | `False` |
-| units for | `resolution_y_value` |
+| required if | `resolution_y_value` present |
 
 <a name="resolution_z_value"></a>
 ##### [`resolution_z_value`](#resolution_z_value)
@@ -313,7 +314,7 @@ The unit of incremental distance between image slices. Leave blank if not applic
 | --- | --- |
 | enum | `mm`, `um`, or `nm` |
 | required | `False` |
-| units for | `resolution_z_value` |
+| required if | `resolution_z_value` present |
 
 <a name="preparation_instrument_vendor"></a>
 ##### [`preparation_instrument_vendor`](#preparation_instrument_vendor)
@@ -557,7 +558,7 @@ The unit of measurement of width of a pixel.(nm) Leave blank if not applicable.
 | --- | --- |
 | enum | `mm`, `um`, or `nm` |
 | required | `False` |
-| units for | `resolution_x_value` |
+| required if | `resolution_x_value` present |
 
 <a name="resolution_y_value"></a>
 ##### [`resolution_y_value`](#resolution_y_value)
@@ -576,7 +577,7 @@ The unit of measurement of height of a pixel. (nm) Leave blank if not applicable
 | --- | --- |
 | enum | `mm`, `um`, or `nm` |
 | required | `False` |
-| units for | `resolution_y_value` |
+| required if | `resolution_y_value` present |
 
 <a name="resolution_z_value"></a>
 ##### [`resolution_z_value`](#resolution_z_value)
@@ -595,7 +596,7 @@ The unit of incremental distance between image slices. Leave blank if not applic
 | --- | --- |
 | enum | `mm`, `um`, or `nm` |
 | required | `False` |
-| units for | `resolution_z_value` |
+| required if | `resolution_z_value` present |
 
 ### Level 3
 

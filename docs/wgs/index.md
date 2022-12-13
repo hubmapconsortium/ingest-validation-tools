@@ -3,6 +3,7 @@ title: WGS
 schema_name: wgs
 category: Sequence assays
 all_versions_deprecated: False
+exclude_from_index: False
 layout: default
 ---
 
@@ -111,7 +112,7 @@ HuBMAP Display ID of the assayed tissue. Example: `ABC123-BL-1-2-3_456`.
 
 | constraint | value |
 | --- | --- |
-| pattern (regular expression) | <code>([A-Z]+[0-9]+)-[A-Z]{2}\d*(-\d+)+(_\d+)?</code> |
+| pattern (regular expression) | <code>(([A-Z]+[0-9]+)-[A-Z]{2}\d*(-\d+)+(_\d+)?)(,([A-Z]+[0-9]+)-[A-Z]{2}\d*(-\d+)+(_\d+)?)*</code> |
 | required | `True` |
 
 <a name="execution_datetime"></a>
@@ -248,7 +249,7 @@ Units of DNA input into library preparation. Leave blank if not applicable.
 | --- | --- |
 | enum | `ug` |
 | required | `False` |
-| units for | `dna_assay_input_value` |
+| required if | `dna_assay_input_value` present |
 
 <a name="library_construction_method"></a>
 ##### [`library_construction_method`](#library_construction_method)
@@ -303,7 +304,7 @@ Total units of library after final pcr amplification step. Leave blank if not ap
 | --- | --- |
 | enum | `ng` |
 | required | `False` |
-| units for | `library_final_yield` |
+| required if | `library_final_yield` present |
 
 <a name="library_average_fragment_size"></a>
 ##### [`library_average_fragment_size`](#library_average_fragment_size)
@@ -529,7 +530,7 @@ Units of DNA input into library preparation. Leave blank if not applicable.
 | --- | --- |
 | enum | `ug` |
 | required | `False` |
-| units for | `dna_assay_input_value` |
+| required if | `dna_assay_input_value` present |
 
 <a name="library_construction_method"></a>
 ##### [`library_construction_method`](#library_construction_method)
@@ -584,7 +585,7 @@ Total units of library after final pcr amplification step. Leave blank if not ap
 | --- | --- |
 | enum | `ng` |
 | required | `False` |
-| units for | `library_final_yield` |
+| required if | `library_final_yield` present |
 
 <a name="library_average_fragment_size"></a>
 ##### [`library_average_fragment_size`](#library_average_fragment_size)

@@ -3,6 +3,7 @@ title: bulkATACseq
 schema_name: bulkatacseq
 category: Sequence assays
 all_versions_deprecated: False
+exclude_from_index: False
 layout: default
 ---
 
@@ -120,7 +121,7 @@ HuBMAP Display ID of the assayed tissue. Example: `ABC123-BL-1-2-3_456`.
 
 | constraint | value |
 | --- | --- |
-| pattern (regular expression) | <code>([A-Z]+[0-9]+)-[A-Z]{2}\d*(-\d+)+(_\d+)?</code> |
+| pattern (regular expression) | <code>(([A-Z]+[0-9]+)-[A-Z]{2}\d*(-\d+)+(_\d+)?)(,([A-Z]+[0-9]+)-[A-Z]{2}\d*(-\d+)+(_\d+)?)*</code> |
 | required | `True` |
 
 <a name="execution_datetime"></a>
@@ -292,7 +293,7 @@ Unit of library_concentration_value. Leave blank if not applicable.
 | --- | --- |
 | enum | `nM` |
 | required | `False` |
-| units for | `library_concentration_value` |
+| required if | `library_concentration_value` present |
 
 <a name="library_construction_protocols_io_doi"></a>
 ##### [`library_construction_protocols_io_doi`](#library_construction_protocols_io_doi)
@@ -331,7 +332,7 @@ Units of final library yield. Leave blank if not applicable.
 | --- | --- |
 | enum | `ng` |
 | required | `False` |
-| units for | `library_final_yield_value` |
+| required if | `library_final_yield_value` present |
 
 <a name="library_id"></a>
 ##### [`library_id`](#library_id)
@@ -649,7 +650,7 @@ Unit of library_concentration_value. Leave blank if not applicable.
 | --- | --- |
 | enum | `nM` |
 | required | `False` |
-| units for | `library_concentration_value` |
+| required if | `library_concentration_value` present |
 
 <a name="library_construction_protocols_io_doi"></a>
 ##### [`library_construction_protocols_io_doi`](#library_construction_protocols_io_doi)
@@ -688,7 +689,7 @@ Units of final library yield. Leave blank if not applicable.
 | --- | --- |
 | enum | `ng` |
 | required | `False` |
-| units for | `library_final_yield_value` |
+| required if | `library_final_yield_value` present |
 
 <a name="library_id"></a>
 ##### [`library_id`](#library_id)

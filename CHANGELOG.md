@@ -1,6 +1,22 @@
 # Changelog
 ## v0.0.15 - in progress
+- Updated CODEX version 0 and documentation.
+- Provide an iterator over plugin test classes
+- Updated CODEX version 0.
+- Added Bulk RNA-seq directory structure schema.
+- Added SeqFISH directory structure schema.
+- Add a reminder that TSV validation is not sufficient.
+- Clearer presentation of unit fields in generated docs.
+- Make `contributors_path` required for HCA.
+- Parallelize tests.
 - Use the assay service to describe how assays are represented in the Portal.
+- Adding Comma Separated File support for tissue_id.
+- Update assay type for Cell DIVE.
+- Updated suspension-fields.yaml and associated files in /docs/sample-suspension.
+- Created extra_parameter on upload for future dynamic adding.
+- Updated ErrorReport class to be backwards compatible with external calls.
+- Added geoMX directory structure schema.
+
 
 ## v0.0.14 - 2022-06-23
 - bump tzingo -> 1.2.10 (dependabot)
@@ -475,3 +491,4 @@ If other patterns are given, dot-files must be explicitly ignored.
 - Define path fields only in one place.
 - Remove timezone offset.
 - Autogenerate parts of table schema.
+- New note to clarify git is required.

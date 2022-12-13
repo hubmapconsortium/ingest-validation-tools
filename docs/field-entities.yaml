@@ -530,6 +530,14 @@ storage_media:
 - sample
 storage_temperature:
 - sample
+suspension_enriched:
+- sample
+suspension_enriched_target:
+- sample
+suspension_entity:
+- sample
+suspension_entity_number:
+- sample
 tissue_id:
 - dataset
 total_sections_analyzed:

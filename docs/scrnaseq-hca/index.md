@@ -3,6 +3,7 @@ title: scRNAseq-10xGenomics-v2 / scRNAseq-10xGenomics-v3 / snRNAseq-10xGenomics-
 schema_name: scrnaseq-hca
 category: Sequence assays
 all_versions_deprecated: False
+exclude_from_index: True
 layout: default
 ---
 
@@ -20,6 +21,10 @@ Related files:
 | --- | --- | --- |
 | <code>[^/]+\.fastq\.gz</code> | ✓ | Compressed FastQ file |
 | <code>extras/.*</code> |  | Free-form descriptive information supplied by the TMC |
+
+
+
+In the portal: scRNAseq-10xGenomics-v2 not in Portal / scRNAseq-10xGenomics-v3 not in Portal / snRNAseq-10xGenomics-v2 not in Portal / scRNAseq not in Portal / sciRNAseq not in Portal / snRNAseq not in Portal / SNARE2-RNAseq not in Portal
 
 ## Metadata schema
 
@@ -388,7 +393,7 @@ Units of final library yield. Leave blank if not applicable.
 | --- | --- |
 | enum | `ng` |
 | required | `False` |
-| units for | `library_final_yield_value` |
+| required if | `library_final_yield_value` present |
 
 <a name="library_average_fragment_size"></a>
 ##### [`library_average_fragment_size`](#library_average_fragment_size)
@@ -440,11 +445,11 @@ Percent PhiX loaded to the run. Leave blank if not applicable.
 
 <a name="contributors_path"></a>
 ##### [`contributors_path`](#contributors_path)
-Relative path to file with ORCID IDs for contributors for this dataset. Leave blank if not applicable.
+Relative path to file with ORCID IDs for contributors for this dataset.
 
 | constraint | value |
 | --- | --- |
-| required | `False` |
+| required | `True` |
 
 <a name="data_path"></a>
 ##### [`data_path`](#data_path)

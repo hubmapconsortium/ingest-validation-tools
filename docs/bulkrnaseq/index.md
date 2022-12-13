@@ -3,6 +3,7 @@ title: bulk RNA
 schema_name: bulkrnaseq
 category: Sequence assays
 all_versions_deprecated: False
+exclude_from_index: False
 layout: default
 ---
 
@@ -18,7 +19,7 @@ Related files:
 
 | pattern | required? | description |
 | --- | --- | --- |
-| <code>TODO</code> | ✓ | Directory structure not yet specified. |
+| <code>[^/]+\.fastq\.gz</code> | ✓ | Compressed FastQ file |
 | <code>extras/.*</code> |  | Free-form descriptive information supplied by the TMC |
 
 
@@ -115,7 +116,7 @@ HuBMAP Display ID of the assayed tissue. Example: `ABC123-BL-1-2-3_456`.
 
 | constraint | value |
 | --- | --- |
-| pattern (regular expression) | <code>([A-Z]+[0-9]+)-[A-Z]{2}\d*(-\d+)+(_\d+)?</code> |
+| pattern (regular expression) | <code>(([A-Z]+[0-9]+)-[A-Z]{2}\d*(-\d+)+(_\d+)?)(,([A-Z]+[0-9]+)-[A-Z]{2}\d*(-\d+)+(_\d+)?)*</code> |
 | required | `True` |
 
 <a name="execution_datetime"></a>
@@ -282,7 +283,7 @@ Units of RNA input amount to the assay. Leave blank if not applicable.
 | --- | --- |
 | enum | `ug` |
 | required | `False` |
-| units for | `rnaseq_assay_input_value` |
+| required if | `rnaseq_assay_input_value` present |
 
 <a name="rnaseq_assay_method"></a>
 ##### [`rnaseq_assay_method`](#rnaseq_assay_method)
@@ -346,7 +347,7 @@ Units of final library yield. Leave blank if not applicable.
 | --- | --- |
 | enum | `ng` |
 | required | `False` |
-| units for | `library_final_yield_value` |
+| required if | `library_final_yield_value` present |
 
 <a name="library_average_fragment_size"></a>
 ##### [`library_average_fragment_size`](#library_average_fragment_size)
@@ -602,7 +603,7 @@ Units of RNA input amount to the assay. Leave blank if not applicable.
 | --- | --- |
 | enum | `ug` |
 | required | `False` |
-| units for | `rnaseq_assay_input_value` |
+| required if | `rnaseq_assay_input_value` present |
 
 <a name="rnaseq_assay_method"></a>
 ##### [`rnaseq_assay_method`](#rnaseq_assay_method)
@@ -666,7 +667,7 @@ Units of final library yield. Leave blank if not applicable.
 | --- | --- |
 | enum | `ng` |
 | required | `False` |
-| units for | `library_final_yield_value` |
+| required if | `library_final_yield_value` present |
 
 <a name="library_average_fragment_size"></a>
 ##### [`library_average_fragment_size`](#library_average_fragment_size)

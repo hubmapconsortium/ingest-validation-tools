@@ -36,7 +36,7 @@ fields:
 - name: tissue_id
   description: HuBMAP Display ID of the assayed tissue.
   constraints:
-    pattern: ([A-Z]+[0-9]+)-[A-Z]{2}\d*(-\d+)+(_\d+)?
+    pattern: (([A-Z]+[0-9]+)-[A-Z]{2}\d*(-\d+)+(_\d+)?)(,([A-Z]+[0-9]+)-[A-Z]{2}\d*(-\d+)+(_\d+)?)*
     required: true
   example: ABC123-BL-1-2-3_456
   custom_constraints:
@@ -113,6 +113,7 @@ fields:
   constraints:
     enum:
     - Cell DIVE
+    - cell-dive
     required: true
   description: The specific type of assay being executed.
   custom_constraints:

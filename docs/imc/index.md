@@ -3,6 +3,7 @@ title: Imaging Mass Cytometry
 schema_name: imc
 category: Imaging mass spectrometry
 all_versions_deprecated: False
+exclude_from_index: False
 layout: default
 ---
 
@@ -121,7 +122,7 @@ HuBMAP Display ID of the assayed tissue. Example: `ABC123-BL-1-2-3_456`.
 
 | constraint | value |
 | --- | --- |
-| pattern (regular expression) | <code>([A-Z]+[0-9]+)-[A-Z]{2}\d*(-\d+)+(_\d+)?</code> |
+| pattern (regular expression) | <code>(([A-Z]+[0-9]+)-[A-Z]{2}\d*(-\d+)+(_\d+)?)(,([A-Z]+[0-9]+)-[A-Z]{2}\d*(-\d+)+(_\d+)?)*</code> |
 | required | `True` |
 
 <a name="execution_datetime"></a>
@@ -330,7 +331,7 @@ Frequency unit of laser ablation. Leave blank if not applicable.
 | --- | --- |
 | enum | `Hz` |
 | required | `False` |
-| units for | `ablation_frequency_value` |
+| required if | `ablation_frequency_value` present |
 
 <a name="roi_description"></a>
 ##### [`roi_description`](#roi_description)
@@ -383,7 +384,7 @@ Units of image width of the ROI acquisition. Leave blank if not applicable.
 | --- | --- |
 | enum | `um` |
 | required | `False` |
-| units for | `max_x_width_value` |
+| required if | `max_x_width_value` present |
 
 <a name="max_y_height_value"></a>
 ##### [`max_y_height_value`](#max_y_height_value)
@@ -402,7 +403,7 @@ Units of image height of the ROI acquisition. Leave blank if not applicable.
 | --- | --- |
 | enum | `um` |
 | required | `False` |
-| units for | `max_y_height_value` |
+| required if | `max_y_height_value` present |
 
 <a name="segment_data_format"></a>
 ##### [`segment_data_format`](#segment_data_format)
@@ -687,7 +688,7 @@ Frequency unit of laser ablation. Leave blank if not applicable.
 | --- | --- |
 | enum | `Hz` |
 | required | `False` |
-| units for | `ablation_frequency_value` |
+| required if | `ablation_frequency_value` present |
 
 <a name="roi_description"></a>
 ##### [`roi_description`](#roi_description)
@@ -750,7 +751,7 @@ Units of image width of the ROI acquisition. Leave blank if not applicable.
 | --- | --- |
 | enum | `um` |
 | required | `False` |
-| units for | `max_x_width_value` |
+| required if | `max_x_width_value` present |
 
 <a name="max_y_height_value"></a>
 ##### [`max_y_height_value`](#max_y_height_value)
@@ -769,7 +770,7 @@ Units of image height of the ROI acquisition. Leave blank if not applicable.
 | --- | --- |
 | enum | `um` |
 | required | `False` |
-| units for | `max_y_height_value` |
+| required if | `max_y_height_value` present |
 
 <a name="segment_data_format"></a>
 ##### [`segment_data_format`](#segment_data_format)

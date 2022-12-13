@@ -18,6 +18,7 @@ fields:
   constraints:
     enum:
       - Cell DIVE
+      - cell-dive
 - name: analyte_class
   constraints:
     enum:

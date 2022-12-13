@@ -3,6 +3,7 @@ title: LC-MS / MS / LC-MS Bottom-Up / MS Bottom-Up / LC-MS Top-Down / MS Top-Dow
 schema_name: lcms
 category: Mass spectrometry
 all_versions_deprecated: False
+exclude_from_index: False
 layout: default
 ---
 
@@ -141,7 +142,7 @@ HuBMAP Display ID of the assayed tissue. Example: `ABC123-BL-1-2-3_456`.
 
 | constraint | value |
 | --- | --- |
-| pattern (regular expression) | <code>([A-Z]+[0-9]+)-[A-Z]{2}\d*(-\d+)+(_\d+)?</code> |
+| pattern (regular expression) | <code>(([A-Z]+[0-9]+)-[A-Z]{2}\d*(-\d+)+(_\d+)?)(,([A-Z]+[0-9]+)-[A-Z]{2}\d*(-\d+)+(_\d+)?)*</code> |
 | required | `True` |
 
 <a name="execution_datetime"></a>
@@ -424,7 +425,7 @@ units for LC column length (typically cm) Leave blank if not applicable.
 | --- | --- |
 | enum | `um`, `mm`, or `cm` |
 | required | `False` |
-| units for | `lc_length_value` |
+| required if | `lc_length_value` present |
 
 <a name="lc_temp_value"></a>
 ##### [`lc_temp_value`](#lc_temp_value)
@@ -443,7 +444,7 @@ units for LC temperature. Leave blank if not applicable.
 | --- | --- |
 | enum | `C` |
 | required | `False` |
-| units for | `lc_temp_value` |
+| required if | `lc_temp_value` present |
 
 <a name="lc_id_value"></a>
 ##### [`lc_id_value`](#lc_id_value)
@@ -462,7 +463,7 @@ units of LC column inner diameter (typically microns) Leave blank if not applica
 | --- | --- |
 | enum | `um`, `mm`, or `cm` |
 | required | `False` |
-| units for | `lc_id_value` |
+| required if | `lc_id_value` present |
 
 <a name="lc_flow_rate_value"></a>
 ##### [`lc_flow_rate_value`](#lc_flow_rate_value)
@@ -481,7 +482,7 @@ Units of flow rate. Leave blank if not applicable.
 | --- | --- |
 | required | `False` |
 | enum | `nL/min` or `mL/min` |
-| units for | `lc_flow_rate_value` |
+| required if | `lc_flow_rate_value` present |
 
 <a name="lc_gradient"></a>
 ##### [`lc_gradient`](#lc_gradient)
@@ -550,7 +551,7 @@ The unit of measurement of the width of a pixel. Leave blank if not applicable.
 | --- | --- |
 | enum | `nm` or `um` |
 | required | `False` |
-| units for | `resolution_x_value` |
+| required if | `resolution_x_value` present |
 
 <a name="resolution_y_value"></a>
 ##### [`resolution_y_value`](#resolution_y_value)
@@ -569,7 +570,7 @@ The unit of measurement of the height of a pixel. Leave blank if not applicable.
 | --- | --- |
 | enum | `nm` or `um` |
 | required | `False` |
-| units for | `resolution_y_value` |
+| required if | `resolution_y_value` present |
 
 <a name="processing_search"></a>
 ##### [`processing_search`](#processing_search)
@@ -655,7 +656,7 @@ HuBMAP Display ID of the assayed tissue. Example: `ABC123-BL-1-2-3_456`.
 
 | constraint | value |
 | --- | --- |
-| pattern (regular expression) | <code>([A-Z]+[0-9]+)-[A-Z]{2}\d*(-\d+)+(_\d+)?</code> |
+| pattern (regular expression) | <code>(([A-Z]+[0-9]+)-[A-Z]{2}\d*(-\d+)+(_\d+)?)(,([A-Z]+[0-9]+)-[A-Z]{2}\d*(-\d+)+(_\d+)?)*</code> |
 | required | `True` |
 
 <a name="execution_datetime"></a>
@@ -921,7 +922,7 @@ units for LC column length (typically cm) Leave blank if not applicable.
 | --- | --- |
 | enum | `um`, `mm`, or `cm` |
 | required | `False` |
-| units for | `lc_length_value` |
+| required if | `lc_length_value` present |
 
 <a name="lc_temp_value"></a>
 ##### [`lc_temp_value`](#lc_temp_value)
@@ -940,7 +941,7 @@ units for LC temperature. Leave blank if not applicable.
 | --- | --- |
 | enum | `C` |
 | required | `False` |
-| units for | `lc_temp_value` |
+| required if | `lc_temp_value` present |
 
 <a name="lc_id_value"></a>
 ##### [`lc_id_value`](#lc_id_value)
@@ -959,7 +960,7 @@ units of LC column inner diameter (typically microns) Leave blank if not applica
 | --- | --- |
 | enum | `um`, `mm`, or `cm` |
 | required | `False` |
-| units for | `lc_id_value` |
+| required if | `lc_id_value` present |
 
 <a name="lc_flow_rate_value"></a>
 ##### [`lc_flow_rate_value`](#lc_flow_rate_value)
@@ -978,7 +979,7 @@ Units of flow rate. Leave blank if not applicable.
 | --- | --- |
 | required | `False` |
 | enum | `nL/min` or `mL/min` |
-| units for | `lc_flow_rate_value` |
+| required if | `lc_flow_rate_value` present |
 
 <a name="lc_gradient"></a>
 ##### [`lc_gradient`](#lc_gradient)
@@ -1047,7 +1048,7 @@ The unit of measurement of the width of a pixel. Leave blank if not applicable.
 | --- | --- |
 | enum | `nm` or `um` |
 | required | `False` |
-| units for | `resolution_x_value` |
+| required if | `resolution_x_value` present |
 
 <a name="resolution_y_value"></a>
 ##### [`resolution_y_value`](#resolution_y_value)
@@ -1066,7 +1067,7 @@ The unit of measurement of the height of a pixel. Leave blank if not applicable.
 | --- | --- |
 | enum | `nm` or `um` |
 | required | `False` |
-| units for | `resolution_y_value` |
+| required if | `resolution_y_value` present |
 
 <a name="processing_search"></a>
 ##### [`processing_search`](#processing_search)
@@ -1153,7 +1154,7 @@ HuBMAP Display ID of the assayed tissue. Example: `ABC123-BL-1-2-3_456`.
 
 | constraint | value |
 | --- | --- |
-| pattern (regular expression) | <code>([A-Z]+[0-9]+)-[A-Z]{2}\d*(-\d+)+(_\d+)?</code> |
+| pattern (regular expression) | <code>(([A-Z]+[0-9]+)-[A-Z]{2}\d*(-\d+)+(_\d+)?)(,([A-Z]+[0-9]+)-[A-Z]{2}\d*(-\d+)+(_\d+)?)*</code> |
 | required | `True` |
 
 <a name="execution_datetime"></a>
@@ -1391,7 +1392,7 @@ units for LC column length (typically cm) Leave blank if not applicable.
 | --- | --- |
 | enum | `um`, `mm`, or `cm` |
 | required | `False` |
-| units for | `lc_length_value` |
+| required if | `lc_length_value` present |
 
 <a name="lc_temp_value"></a>
 ##### [`lc_temp_value`](#lc_temp_value)
@@ -1410,7 +1411,7 @@ units for LC temperature. Leave blank if not applicable.
 | --- | --- |
 | enum | `C` |
 | required | `False` |
-| units for | `lc_temp_value` |
+| required if | `lc_temp_value` present |
 
 <a name="lc_id_value"></a>
 ##### [`lc_id_value`](#lc_id_value)
@@ -1429,7 +1430,7 @@ units of LC column inner diameter (typically microns) Leave blank if not applica
 | --- | --- |
 | enum | `um`, `mm`, or `cm` |
 | required | `False` |
-| units for | `lc_id_value` |
+| required if | `lc_id_value` present |
 
 <a name="lc_flow_rate_value"></a>
 ##### [`lc_flow_rate_value`](#lc_flow_rate_value)
@@ -1448,7 +1449,7 @@ Units of flow rate. Leave blank if not applicable.
 | --- | --- |
 | required | `False` |
 | enum | `nL/min` or `mL/min` |
-| units for | `lc_flow_rate_value` |
+| required if | `lc_flow_rate_value` present |
 
 <a name="lc_gradient"></a>
 ##### [`lc_gradient`](#lc_gradient)
@@ -1780,7 +1781,7 @@ units for LC column length (typically cm) Leave blank if not applicable.
 | --- | --- |
 | enum | `um`, `mm`, or `cm` |
 | required | `False` |
-| units for | `lc_length_value` |
+| required if | `lc_length_value` present |
 
 <a name="lc_temp_value"></a>
 ##### [`lc_temp_value`](#lc_temp_value)
@@ -1799,7 +1800,7 @@ units for LC temperature. Leave blank if not applicable.
 | --- | --- |
 | enum | `C` |
 | required | `False` |
-| units for | `lc_temp_value` |
+| required if | `lc_temp_value` present |
 
 <a name="lc_id_value"></a>
 ##### [`lc_id_value`](#lc_id_value)
@@ -1818,7 +1819,7 @@ units of LC column inner diameter (typically microns) Leave blank if not applica
 | --- | --- |
 | enum | `um`, `mm`, or `cm` |
 | required | `False` |
-| units for | `lc_id_value` |
+| required if | `lc_id_value` present |
 
 <a name="lc_flow_rate_value"></a>
 ##### [`lc_flow_rate_value`](#lc_flow_rate_value)
@@ -1837,7 +1838,7 @@ Units of flow rate. Leave blank if not applicable.
 | --- | --- |
 | required | `False` |
 | enum | `nL/min` or `mL/min` |
-| units for | `lc_flow_rate_value` |
+| required if | `lc_flow_rate_value` present |
 
 <a name="lc_gradient"></a>
 ##### [`lc_gradient`](#lc_gradient)

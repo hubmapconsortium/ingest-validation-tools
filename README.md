@@ -4,7 +4,7 @@ Assay documentation is on [Github Pages](https://hubmapconsortium.github.io/inge
 
 HuBMAP has three distinct metadata processes:
 - **Donor** metadata is handled by Jonathan Silverstein on an adhoc basis: He works with whatever format the TMC can provide, and aligns it with controlled vocabularies. 
-- **Sample** metadata is handled by Chris Briggs and Bill Shirey. [The standard operating procedure is outlined here.](https://docs.google.com/document/d/1K-PvBaduhrN-aU-vzWd9gZqeGvhGF3geTwRR0ww74Jo/edit)
+- **Sample** metadata is handled by Brendan Honick and Bill Shirey. [The standard operating procedure is outlined here.](https://docs.google.com/document/d/1K-PvBaduhrN-aU-vzWd9gZqeGvhGF3geTwRR0ww74Jo/edit)
 - **Dataset** uploads should be validated first by the TMCs. Dataset upload validation is the focus of this repo. [Details below.](#upload-process-and-upload-directory-structure)
 
 ## For assay type working groups:
@@ -49,6 +49,8 @@ src/validate_upload.py --help
 ```
 
 You should see [the documention for `validate_upload.py`](script-docs/README-validate_upload.py.md)
+
+**Note**: you need to have _git_ installed in your system.
 
 Now run it against one of the included examples, giving the path to an upload directory:
 ```
@@ -117,6 +119,8 @@ To make contributions, checkout the project, cd, venv, and then:
 ```
 pip install -r requirements.txt
 pip install -r requirements-dev.txt
+brew install parallel    # On macOS
+apt-get install parallel # On Ubuntu
 ./test.sh
 ```
 
