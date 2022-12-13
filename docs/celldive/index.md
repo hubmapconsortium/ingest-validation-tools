@@ -28,7 +28,7 @@ The other fields function the same way for all assays using antibodies. For more
 
 
 
-In the portal: [Cell DIVE](https://portal.hubmapconsortium.org/search?mapped_data_types%5B0%5D=Cell+DIVE&entity_type%5B0%5D=Dataset) / [Cell DIVE](https://portal.hubmapconsortium.org/search?mapped_data_types%5B0%5D=Cell+DIVE&entity_type%5B0%5D=Dataset)
+In the portal: Cell DIVE not in Portal / cell-dive not in Portal
 
 ## Metadata schema
 
@@ -113,7 +113,7 @@ HuBMAP Display ID of the assayed tissue. Example: `ABC123-BL-1-2-3_456`.
 
 | constraint | value |
 | --- | --- |
-| pattern (regular expression) | <code>([A-Z]+[0-9]+)-[A-Z]{2}\d*(-\d+)+(_\d+)?</code> |
+| pattern (regular expression) | <code>(([A-Z]+[0-9]+)-[A-Z]{2}\d*(-\d+)+(_\d+)?)(,([A-Z]+[0-9]+)-[A-Z]{2}\d*(-\d+)+(_\d+)?)*</code> |
 | required | `True` |
 
 <a name="execution_datetime"></a>

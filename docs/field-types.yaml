@@ -264,6 +264,10 @@ start_datetime: datetime
 step_z_value: number
 storage_media: string
 storage_temperature: string
+suspension_enriched: string
+suspension_enriched_target: string
+suspension_entity: string
+suspension_entity_number: integer
 tissue_id: string
 total_sections_analyzed: integer
 transposition_input: number

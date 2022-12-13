@@ -24,7 +24,7 @@ This schema is for multiplex immunofluorescence microscopy (MxIF).
 
 
 
-In the portal: [Multiplexed IF Microscopy](https://portal.hubmapconsortium.org/search?mapped_data_types%5B0%5D=Multiplexed+IF+Microscopy&entity_type%5B0%5D=Dataset)
+In the portal: MxIF not in Portal
 
 ## Metadata schema
 
@@ -108,7 +108,7 @@ HuBMAP Display ID of the assayed tissue. Example: `ABC123-BL-1-2-3_456`.
 
 | constraint | value |
 | --- | --- |
-| pattern (regular expression) | <code>([A-Z]+[0-9]+)-[A-Z]{2}\d*(-\d+)+(_\d+)?</code> |
+| pattern (regular expression) | <code>(([A-Z]+[0-9]+)-[A-Z]{2}\d*(-\d+)+(_\d+)?)(,([A-Z]+[0-9]+)-[A-Z]{2}\d*(-\d+)+(_\d+)?)*</code> |
 | required | `True` |
 
 <a name="execution_datetime"></a>

@@ -31,7 +31,7 @@ This schema is for imaging mass spectrometry (IMS).
 
 
 
-In the portal: [MALDI IMS](https://portal.hubmapconsortium.org/search?mapped_data_types%5B0%5D=MALDI+IMS&entity_type%5B0%5D=Dataset) / SIMS-IMS not in Portal / [NanoDESI](https://portal.hubmapconsortium.org/search?mapped_data_types%5B0%5D=NanoDESI&entity_type%5B0%5D=Dataset) / DESI not in Portal
+In the portal: MALDI-IMS not in Portal / SIMS-IMS not in Portal / NanoDESI not in Portal / DESI not in Portal
 
 ## Metadata schema
 
@@ -127,7 +127,7 @@ HuBMAP Display ID of the assayed tissue. Example: `ABC123-BL-1-2-3_456`.
 
 | constraint | value |
 | --- | --- |
-| pattern (regular expression) | <code>([A-Z]+[0-9]+)-[A-Z]{2}\d*(-\d+)+(_\d+)?</code> |
+| pattern (regular expression) | <code>(([A-Z]+[0-9]+)-[A-Z]{2}\d*(-\d+)+(_\d+)?)(,([A-Z]+[0-9]+)-[A-Z]{2}\d*(-\d+)+(_\d+)?)*</code> |
 | required | `True` |
 
 <a name="execution_datetime"></a>
@@ -494,7 +494,7 @@ HuBMAP Display ID of the assayed tissue. Example: `ABC123-BL-1-2-3_456`.
 
 | constraint | value |
 | --- | --- |
-| pattern (regular expression) | <code>([A-Z]+[0-9]+)-[A-Z]{2}\d*(-\d+)+(_\d+)?</code> |
+| pattern (regular expression) | <code>(([A-Z]+[0-9]+)-[A-Z]{2}\d*(-\d+)+(_\d+)?)(,([A-Z]+[0-9]+)-[A-Z]{2}\d*(-\d+)+(_\d+)?)*</code> |
 | required | `True` |
 
 <a name="execution_datetime"></a>
