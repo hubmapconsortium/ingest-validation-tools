@@ -1,5 +1,6 @@
 # Changelog
 ## v0.0.15 - in progress
+- bump nokogiri -> 1.13.9 (dependabot)
 - Add front-matter to exclude HCA from toc
 - Updated CODEX version 0 and documentation.
 - Provide an iterator over plugin test classes
