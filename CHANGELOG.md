@@ -1,6 +1,8 @@
 # Changelog
 ## v0.0.15 - in progress
 - Updated CODEX version 0 and documentation.
+- Provide an iterator over plugin test classes
+- Updated CODEX version 0.
 - Added Bulk RNA-seq directory structure schema.
 - Added SeqFISH directory structure schema.
 - Add a reminder that TSV validation is not sufficient.
