@@ -1,5 +1,6 @@
 exclude_from_index: True
 doc_url: https://portal.hubmapconsortium.org/docs/assays/rnaseq
+
 fields:
 # include: ../includes/fields/source_project.yaml
 - Shared by all types

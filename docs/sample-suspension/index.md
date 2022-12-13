@@ -40,11 +40,10 @@ Related files:
 [`storage_media`](#storage_media)<br>
 [`storage_temperature`](#storage_temperature)<br>
 [`quality_criteria`](#quality_criteria)<br>
-[`section_thickness_value`](#section_thickness_value)<br>
-[`section_thickness_unit`](#section_thickness_unit)<br>
-[`section_index_number`](#section_index_number)<br>
-[`area_value`](#area_value)<br>
-[`area_unit`](#area_unit)<br>
+[`suspension_entity`](#suspension_entity)<br>
+[`suspension_entity_number`](#suspension_entity_number)<br>
+[`suspension_enriched`](#suspension_enriched)<br>
+[`suspension_enriched_target`](#suspension_enriched_target)<br>
 [`notes`](#notes)<br>
 
 </blockquote>
@@ -157,52 +156,40 @@ For example, RIN: 8.7. For suspensions, measured by visual inspection prior to c
 | --- | --- |
 | required | `False` |
 
-<a name="section_thickness_value"></a>
-##### [`section_thickness_value`](#section_thickness_value)
-Thickness of the section.
+<a name="suspension_entity"></a>
+##### [`suspension_entity`](#suspension_entity)
+The type of single cell entity derived from isolation protocol.
 
 | constraint | value |
 | --- | --- |
-| type | `number` |
+| enum | `cell` or `nuclei` |
 | required | `True` |
 
-<a name="section_thickness_unit"></a>
-##### [`section_thickness_unit`](#section_thickness_unit)
-Thickness unit. Leave blank if not applicable.
-
-| constraint | value |
-| --- | --- |
-| enum | `um`, `mm`, or `cm` |
-| required | `False` |
-| required if | `section_thickness_value` present |
-
-<a name="section_index_number"></a>
-##### [`section_index_number`](#section_index_number)
-The index number for the section if the sample is a single section.
+<a name="suspension_entity_number"></a>
+##### [`suspension_entity_number`](#suspension_entity_number)
+Total number of cell/nuclei yielded post dissociation and enrichment.
 
 | constraint | value |
 | --- | --- |
 | type | `integer` |
 | required | `True` |
 
-<a name="area_value"></a>
-##### [`area_value`](#area_value)
-The area of a tissue section. Leave blank if not applicable.
+<a name="suspension_enriched"></a>
+##### [`suspension_enriched`](#suspension_enriched)
+Was the cell/nuclei population enriched?
 
 | constraint | value |
 | --- | --- |
-| type | `number` |
-| required | `False` |
+| enum | `yes` or `no` |
+| required | `True` |
 
-<a name="area_unit"></a>
-##### [`area_unit`](#area_unit)
-Area unit. Leave blank if not applicable.
+<a name="suspension_enriched_target"></a>
+##### [`suspension_enriched_target`](#suspension_enriched_target)
+If the suspension was enriched, then this is the target of the enrichment. Leave blank if not applicable.
 
 | constraint | value |
 | --- | --- |
 | required | `False` |
-| enum | `mm^2` or `um^2` |
-| required if | `area_value` present |
 
 <a name="notes"></a>
 ##### [`notes`](#notes)

@@ -1,6 +1,9 @@
 # Changelog
 ## v0.0.15 - in progress
 - bump nokogiri -> 1.13.9 (dependabot)
+- Add front-matter to exclude HCA from toc
+- Updated CODEX version 0 and documentation.
+- Provide an iterator over plugin test classes
 - Updated CODEX version 0.
 - Added Bulk RNA-seq directory structure schema.
 - Added SeqFISH directory structure schema.
@@ -11,11 +14,14 @@
 - Use the assay service to describe how assays are represented in the Portal.
 - Adding Comma Separated File support for tissue_id.
 - Update assay type for Cell DIVE.
+- Updated suspension-fields.yaml and associated files in /docs/sample-suspension.
 - Created extra_parameter on upload for future dynamic adding.
 - Updated ErrorReport class to be backwards compatible with external calls.
+- Added geoMX directory structure schema.
 
 
 ## v0.0.14 - 2022-06-23
+- bump tzingo -> 1.2.10 (dependabot)
 - Turn validation of enums back on.
 - Mods to plugin validator to fix import problems.
 - Return directory schema version and refactor.
