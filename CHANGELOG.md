@@ -1,6 +1,8 @@
 # Changelog
 ## v0.0.15 - in progress
 - Added Lightsheet version 1.
+- bump nokogiri -> 1.13.9 (dependabot)
+- Add front-matter to exclude HCA from toc
 - Updated CODEX version 0 and documentation.
 - Provide an iterator over plugin test classes
 - Updated CODEX version 0.
@@ -19,6 +21,7 @@
 - Added geoMX directory structure schema.
 
 ## v0.0.14 - 2022-06-23
+- bump tzingo -> 1.2.10 (dependabot)
 - Turn validation of enums back on.
 - Mods to plugin validator to fix import problems.
 - Return directory schema version and refactor.
