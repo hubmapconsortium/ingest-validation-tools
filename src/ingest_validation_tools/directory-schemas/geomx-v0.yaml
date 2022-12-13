@@ -1,0 +1,14 @@
+files:
+  -
+    example: 'DSP-0000000000000-A-A01.dcc'
+    pattern: '[^/]*[^/]*\.dcc'
+    description: 'Digital counts file containing sample by probe counts.'
+    required: True
+  -
+    pattern: '[^/]*\.pkc'
+    description: 'JSON file which contains mapping from probe IDs to gene IDs.'
+    required: True
+  -
+    pattern: '[^/]*\.xlsx'
+    description: 'Excel formatted file containing experimental metadata output by experimental platform.'
+    required: True
