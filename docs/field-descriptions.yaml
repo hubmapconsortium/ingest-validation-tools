@@ -430,6 +430,12 @@ step_z_value: The number of optical sections in z axis range.
 storage_media: What was the sample preserved in.
 storage_temperature: The temperature during storage, after preparation and before
   the assay is performed.
+suspension_enriched: Was the cell/nuclei population enriched?
+suspension_enriched_target: If the suspension was enriched, then this is the target
+  of the enrichment.
+suspension_entity: The type of single cell entity derived from isolation protocol.
+suspension_entity_number: Total number of cell/nuclei yielded post dissociation and
+  enrichment.
 tissue_id: HuBMAP Display ID of the assayed tissue.
 total_sections_analyzed: The number of sections used for analyzing microCT or OCT
   images

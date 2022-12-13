@@ -1,7 +1,7 @@
 import sys
 from importlib import util
 import inspect
-from typing import List, Union, Tuple, Iterator
+from typing import List, Union, Tuple, Iterator, Type
 from pathlib import Path
 from csv import Error as CsvError
 
@@ -111,28 +111,17 @@ def run_plugin_validators_iter(metadata_path: PathOrStr,
         raise ValidatorError(f'{metadata_path} has no "data_path" column')
 
 
-def validation_error_iter(base_dir: PathOrStr, assay_type: str,
-                          plugin_dir: PathOrStr, **kwargs) -> Iterator[KeyValuePair]:
+def validation_class_iter(plugin_dir: PathOrStr) -> Iterator[Type[Validator]]:
     """
-    Given a base directory pointing to a tree of upload data files and a
-    path to a directory of Validator plugins, iterate over the results of
-    applying all the plugin validators to the directory tree.
+    Given a directory of Validator plugins, return the validator types
+    in order of increasing cost.
 
-    base_dir: the root of a directory tree of upload data files
-    assay_type: the assay type which produced the data in the directory tree
     plugin_dir: path to a directory containing classes derived from Validator
-
-    returns an iterator the values of which are key value pairs representing
-    error messages
     """
-    base_dir = Path(base_dir)
     plugin_dir = Path(plugin_dir)
-    if not base_dir.is_dir():
-        raise ValidatorError(f'{base_dir} should be the base directory of a dataset')
     plugins = list(plugin_dir.glob('*.py'))
     if not plugins:
         raise ValidatorError(f'{plugin_dir}/*.py does not match any validation plugins')
-
     sort_me = []
     with add_path(str(plugin_dir)):
         for fpath in plugin_dir.glob('*.py'):
@@ -151,6 +140,27 @@ def validation_error_iter(base_dir: PathOrStr, assay_type: str,
                     sort_me.append((obj.cost, obj.description, obj))
     sort_me.sort()
     for cost, description, cls in sort_me:
+        yield cls
+
+
+def validation_error_iter(base_dir: PathOrStr, assay_type: str,
+                          plugin_dir: PathOrStr, **kwargs) -> Iterator[KeyValuePair]:
+    """
+    Given a base directory pointing to a tree of upload data files and a
+    path to a directory of Validator plugins, iterate over the results of
+    applying all the plugin validators to the directory tree.
+
+    base_dir: the root of a directory tree of upload data files
+    assay_type: the assay type which produced the data in the directory tree
+    plugin_dir: path to a directory containing classes derived from Validator
+
+    returns an iterator the values of which are key value pairs representing
+    error messages
+    """
+    base_dir = Path(base_dir)
+    if not base_dir.is_dir():
+        raise ValidatorError(f'{base_dir} should be the base directory of a dataset')
+    for cls in validation_class_iter(plugin_dir):
         validator = cls(base_dir, assay_type)
         for err in validator.collect_errors(**kwargs):
-            yield description, err
+            yield cls.description, err
