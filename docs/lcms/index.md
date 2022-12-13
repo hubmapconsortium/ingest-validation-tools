@@ -28,7 +28,7 @@ v3 adds `dms` and `label_name` fields, and `negative and positive ion mode` as a
 
 
 
-In the portal: [LC-MS](https://portal.hubmapconsortium.org/search?mapped_data_types%5B0%5D=LC-MS&entity_type%5B0%5D=Dataset) / [MS](https://portal.hubmapconsortium.org/search?mapped_data_types%5B0%5D=MS&entity_type%5B0%5D=Dataset) / [LC-MS Bottom Up](https://portal.hubmapconsortium.org/search?mapped_data_types%5B0%5D=LC-MS+Bottom+Up&entity_type%5B0%5D=Dataset) / [MS Bottom Up](https://portal.hubmapconsortium.org/search?mapped_data_types%5B0%5D=MS+Bottom+Up&entity_type%5B0%5D=Dataset) / [LC-MS Top Down](https://portal.hubmapconsortium.org/search?mapped_data_types%5B0%5D=LC-MS+Top+Down&entity_type%5B0%5D=Dataset) / [MS Top Down](https://portal.hubmapconsortium.org/search?mapped_data_types%5B0%5D=MS+Top+Down&entity_type%5B0%5D=Dataset)
+In the portal: LC-MS not in Portal / MS not in Portal / LC-MS Bottom-Up not in Portal / MS Bottom-Up not in Portal / LC-MS Top-Down not in Portal / MS Top-Down not in Portal
 
 ## Metadata schema
 

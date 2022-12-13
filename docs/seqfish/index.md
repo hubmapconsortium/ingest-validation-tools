@@ -23,7 +23,7 @@ This schema is for spatial sequencing by fluorescence in situ hybridization (seq
 
 
 
-In the portal: [seqFISH](https://portal.hubmapconsortium.org/search?mapped_data_types%5B0%5D=seqFISH&entity_type%5B0%5D=Dataset)
+In the portal: seqFISH not in Portal
 
 ## Metadata schema
 

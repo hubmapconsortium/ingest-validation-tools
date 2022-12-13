@@ -30,7 +30,7 @@ Related files:
 
 
 
-In the portal: [NanoDESI](https://portal.hubmapconsortium.org/search?mapped_data_types%5B0%5D=NanoDESI&entity_type%5B0%5D=Dataset) / [NanoPOTS](https://portal.hubmapconsortium.org/search?mapped_data_types%5B0%5D=NanoPOTS&entity_type%5B0%5D=Dataset)
+In the portal: NanoDESI not in Portal / NanoPOTS not in Portal
 
 ## Metadata schema
 

@@ -23,7 +23,7 @@ Related files:
 
 
 
-In the portal: [Whole Genome Sequencing](https://portal.hubmapconsortium.org/search?mapped_data_types%5B0%5D=Whole+Genome+Sequencing&entity_type%5B0%5D=Dataset)
+In the portal: WGS not in Portal
 
 ## Metadata schema
 
