@@ -1,5 +1,6 @@
 # Changelog
 ## v0.0.15 - in progress
+- Added Lightsheet version 1.
 - bump nokogiri -> 1.13.9 (dependabot)
 - Add front-matter to exclude HCA from toc
 - Updated CODEX version 0 and documentation.
@@ -18,7 +19,6 @@
 - Created extra_parameter on upload for future dynamic adding.
 - Updated ErrorReport class to be backwards compatible with external calls.
 - Added geoMX directory structure schema.
-
 
 ## v0.0.14 - 2022-06-23
 - bump tzingo -> 1.2.10 (dependabot)

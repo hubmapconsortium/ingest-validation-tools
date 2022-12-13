@@ -1,0 +1,98 @@
+files:
+  # Level0/
+  -
+    pattern: 'Level0/Channel[^/]+/[^/]+\.csv'
+    description: 'Contains metadata and channel info.'
+    required: True
+    is_qa_qc: True
+  -
+    pattern: 'Level0/Channel[^/]+/[^/]+\.czi'
+    description: 'Zeiss raw image file.'
+    required: False
+    is_qa_qc: False
+  -
+    pattern: 'Level0/Merged/MergedChannel[^/]+/[^/]+\.czi'
+    description: 'Merged Zeiss raw image file.'
+    required: False
+    is_qa_qc: False
+  -
+    pattern: 'Level0/Channel[^/]+/[^/]+\.ome.tiff'
+    description: 'Raw image file.'
+    required: True
+    is_qa_qc: False
+  -
+    pattern: 'Level0/Merged/MergedChannel[^/]+/[^/]+\.ome.tiff'
+    description: 'Merged raw image file.'
+    required: True
+    is_qa_qc: False
+
+  # Level1/
+  -
+    pattern: 'Level1/Channel[^/]+/[^/]+\.tif'
+    description: 'Stitched image.'
+    required: False
+    is_qa_qc: False
+  -
+    pattern: 'Level1/Merged/MergedChannel[^/]+/[^/]+\.tif'
+    description: 'Merged stitched image.'
+    required: False
+    is_qa_qc: False
+  -
+    pattern: 'Level1/Channel[^/]+/[^/]+\.mp4'
+    description: 'Stitched image.'
+    required: False
+    is_qa_qc: False
+
+  # Level2/
+  -
+    pattern: 'Level2/Channel[^/]+/[^/]+\.csv'
+    description: 'Contains file, parent and bounds. Required when level 2 is populated. File is optional.'
+    required: False
+    is_qa_qc: True
+  -
+    pattern: 'Level2/Channel[^/]+/[^/]+\.obj'
+    description: 'Segmentation mask.'
+    required: False
+    is_qa_qc: False
+  -
+    pattern: 'Level2/Channel[^/]+/[^/]+\.stl'
+    description: 'Segmentation mask.'
+    required: False
+    is_qa_qc: False
+  -
+    pattern: 'Level2/Channel[^/]+/[^/]+\.ome.tiff'
+    description: 'Segmentation mask.'
+    required: False
+    is_qa_qc: False
+  -
+    pattern: 'Level2/Merged/MergedChannel[^/]+/[^/]+\.ome.tiff'
+    description: 'Merged segmentation mask.'
+    required: False
+    is_qa_qc: False
+
+  # Level3/
+  -
+    pattern: 'Level3/Channel[^/]+/[^/]+\.csv'
+    description: 'Contains file, parent and bounds. Required when level 3 is populated. File is optional.'
+    required: False
+    is_qa_qc: True
+  -
+    pattern: 'Level3/Channel[^/]+/[^/]+\.obj'
+    description: 'Annotation file.'
+    required: False
+    is_qa_qc: False
+  -
+    pattern: 'Level3/Channel[^/]+/[^/]+\.stl'
+    description: 'Annotation file.'
+    required: False
+    is_qa_qc: False
+  -
+    pattern: 'Level3/Channel[^/]+/[^/]+\.ome.tiff'
+    description: 'Image file.'
+    required: False
+    is_qa_qc: False
+  -
+    pattern: 'Level3/Merged/MergedChannel[^/]+/[^/]+\.ome.tiff'
+    description: 'Merged image file.'
+    required: False
+    is_qa_qc: False
