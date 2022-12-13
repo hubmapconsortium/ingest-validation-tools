@@ -1,5 +1,6 @@
 # Changelog
 ## v0.0.15 - in progress
+- bump nokogiri -> 1.13.9 (dependabot)
 - Updated CODEX version 0.
 - Added Bulk RNA-seq directory structure schema.
 - Added SeqFISH directory structure schema.
