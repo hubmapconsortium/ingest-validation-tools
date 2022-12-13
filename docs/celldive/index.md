@@ -28,7 +28,7 @@ The other fields function the same way for all assays using antibodies. For more
 
 
 
-In the portal: Cell DIVE not in Portal
+In the portal: Cell DIVE not in Portal / cell-dive not in Portal
 
 ## Metadata schema
 
