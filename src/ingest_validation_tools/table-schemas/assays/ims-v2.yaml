@@ -84,11 +84,8 @@ fields:
     buffer between the sample and the laser. It also helps ionize the sample, carrying
     it along the flight tube so it can be detected.
   constraints:
-    enum:
-      - CHB
-      - DHB
-      - SA
     required: false
+  type: string
 
 - name: desi_solvent
   description: Solvent composition for conducting nanospray desorption electrospray ionization (nanoDESI) or desorption electrospray ionization (DESI).
