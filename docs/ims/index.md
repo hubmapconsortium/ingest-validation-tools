@@ -378,7 +378,6 @@ The matrix is a compound of crystallized molecules that acts like a buffer betwe
 
 | constraint | value |
 | --- | --- |
-| enum | `CHB`, `DHB`, or `SA` |
 | required | `False` |
 
 <a name="desi_solvent"></a>

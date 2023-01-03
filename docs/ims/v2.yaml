@@ -314,11 +314,8 @@ fields:
     buffer between the sample and the laser. It also helps ionize the sample, carrying
     it along the flight tube so it can be detected.
   constraints:
-    enum:
-    - CHB
-    - DHB
-    - SA
     required: false
+  type: string
   custom_constraints:
     sequence_limit: 3
     forbid_na: true
