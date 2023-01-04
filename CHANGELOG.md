@@ -20,6 +20,7 @@
 - Updated ErrorReport class to be backwards compatible with external calls.
 - Added geoMX directory structure schema.
 - Update `preparation_maldi_matrix` in imaging MS schema to from enum to open string field.
+- Replaced enum `Multiplexed Ion Beam Imaging` with `MIBI` in src
 
 ## v0.0.14 - 2022-06-23
 - bump tzingo -> 1.2.10 (dependabot)

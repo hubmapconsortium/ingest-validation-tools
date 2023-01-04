@@ -15,7 +15,7 @@ fields:
 - name: assay_type
   constraints:
     enum:
-      - Multiplex Ion Beam Imaging
+      - MIBI
 - name: analyte_class
   constraints:
     enum:

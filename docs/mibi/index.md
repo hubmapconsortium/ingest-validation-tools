@@ -1,5 +1,5 @@
 ---
-title: Multiplex Ion Beam Imaging
+title: MIBI
 schema_name: mibi
 category: Imaging mass spectrometry
 all_versions_deprecated: False
@@ -35,7 +35,7 @@ This schema is for Multiplex Ion Beam Imaging (MIBI). For MIBI, the channel_id (
 
 
 
-In the portal: Multiplex Ion Beam Imaging not in Portal
+In the portal: MIBI not in Portal
 
 ## Metadata schema
 
@@ -216,7 +216,7 @@ The specific type of assay being executed.
 
 | constraint | value |
 | --- | --- |
-| enum | `Multiplex Ion Beam Imaging` |
+| enum | `MIBI` |
 | required | `True` |
 
 <a name="analyte_class"></a>

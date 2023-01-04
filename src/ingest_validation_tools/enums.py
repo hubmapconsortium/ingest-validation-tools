@@ -46,7 +46,7 @@ shared_enums: Dict[str, List[str]] = {
         'MxIF',
         'MALDI-IMS',
         'MS (shotgun lipidomics)',
-        'Multiplex Ion Beam Imaging',
+        'MIBI',
         'NanoDESI',
         'NanoPOTS',
         'PAS microscopy',
