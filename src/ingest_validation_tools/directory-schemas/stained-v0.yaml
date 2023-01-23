@@ -17,5 +17,5 @@ files:
   # Leica .scn which is a container with tiled scan images (bigtiff)
   # which is the only type that we are currently receiving.
   -
-    pattern: '(rawMicroscopy|raw_microscopy)/[^/]+\.scn'
+    pattern: '(rawMicroscopy|raw_microscopy)/[^/]+\.(scn|czi|tif|tiff)'
     description: 'Raw microscope file for the experiment'

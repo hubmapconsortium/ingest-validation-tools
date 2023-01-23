@@ -22,7 +22,7 @@ This schema is for microscopy of tissue treated with periodic acid–Schiff stai
 | <code>(processedMicroscopy&#124;processed_microscopy)/[^/]+_images/[^/]+ome\.(tif&#124;tiff)</code> | ✓ | OME TIFF files (multichannel, multi-layered, image pyramids) produced by the PAS microscopy experiment |
 | <code>(processedMicroscopy&#124;processed_microscopy)/[^/]+_transformations/[^/]+\.txt</code> |  | Transformations to PAS (related) data |
 | <code>(rawMicroscopy&#124;raw_microscopy)/[^/]+\.xml</code> | ✓ | XML metadata file from the autofluorescence microscopy experiments |
-| <code>(rawMicroscopy&#124;raw_microscopy)/[^/]+\.scn</code> | ✓ | Raw microscope file for the experiment |
+| <code>(rawMicroscopy&#124;raw_microscopy)/[^/]+\.(scn&#124;czi&#124;tif&#124;tiff)</code> | ✓ | Raw microscope file for the experiment |
 | <code>extras/.*</code> |  | Free-form descriptive information supplied by the TMC |
 
 
