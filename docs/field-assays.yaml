@@ -19,7 +19,7 @@ ablation_frequency_value:
 acquisition_id:
 - 3D Imaging Mass Cytometry
 - Imaging Mass Cytometry
-- Multiplex Ion Beam Imaging
+- MIBI
 acquisition_instrument_model:
 - 3D Imaging Mass Cytometry
 - AF
@@ -38,13 +38,13 @@ acquisition_instrument_model:
 - LC-MS/MS (label-free proteomics)
 - Light Sheet
 - MALDI-IMS
+- MIBI
 - MRI
 - MS
 - MS (shotgun lipidomics)
 - MS Bottom-Up
 - MS Top-Down
 - Micro CT
-- Multiplex Ion Beam Imaging
 - MxIF
 - NanoDESI
 - NanoPOTS
@@ -88,13 +88,13 @@ acquisition_instrument_vendor:
 - LC-MS/MS (label-free proteomics)
 - Light Sheet
 - MALDI-IMS
+- MIBI
 - MRI
 - MS
 - MS (shotgun lipidomics)
 - MS Bottom-Up
 - MS Top-Down
 - Micro CT
-- Multiplex Ion Beam Imaging
 - MxIF
 - NanoDESI
 - NanoPOTS
@@ -141,11 +141,11 @@ analyte_class:
 - LC-MS/MS (label-free proteomics)
 - Light Sheet
 - MALDI-IMS
+- MIBI
 - MS
 - MS (shotgun lipidomics)
 - MS Bottom-Up
 - MS Top-Down
-- Multiplex Ion Beam Imaging
 - MxIF
 - NanoDESI
 - NanoPOTS
@@ -176,13 +176,13 @@ antibodies_path:
 - Cell DIVE
 - Imaging Mass Cytometry
 - Light Sheet
-- Multiplex Ion Beam Imaging
+- MIBI
 - MxIF
 - cell-dive
 area_normalized_ion_dose_unit:
-- Multiplex Ion Beam Imaging
+- MIBI
 area_normalized_ion_dose_value:
-- Multiplex Ion Beam Imaging
+- MIBI
 assay_category:
 - 3D Imaging Mass Cytometry
 - AF
@@ -201,13 +201,13 @@ assay_category:
 - LC-MS/MS (label-free proteomics)
 - Light Sheet
 - MALDI-IMS
+- MIBI
 - MRI
 - MS
 - MS (shotgun lipidomics)
 - MS Bottom-Up
 - MS Top-Down
 - Micro CT
-- Multiplex Ion Beam Imaging
 - MxIF
 - NanoDESI
 - NanoPOTS
@@ -251,13 +251,13 @@ assay_type:
 - LC-MS/MS (label-free proteomics)
 - Light Sheet
 - MALDI-IMS
+- MIBI
 - MRI
 - MS
 - MS (shotgun lipidomics)
 - MS Bottom-Up
 - MS Top-Down
 - Micro CT
-- Multiplex Ion Beam Imaging
 - MxIF
 - NanoDESI
 - NanoPOTS
@@ -386,13 +386,13 @@ contributors_path:
 - LC-MS/MS (label-free proteomics)
 - Light Sheet
 - MALDI-IMS
+- MIBI
 - MRI
 - MS
 - MS (shotgun lipidomics)
 - MS Bottom-Up
 - MS Top-Down
 - Micro CT
-- Multiplex Ion Beam Imaging
 - MxIF
 - NanoDESI
 - NanoPOTS
@@ -452,13 +452,13 @@ data_path:
 - LC-MS/MS (label-free proteomics)
 - Light Sheet
 - MALDI-IMS
+- MIBI
 - MRI
 - MS
 - MS (shotgun lipidomics)
 - MS Bottom-Up
 - MS Top-Down
 - Micro CT
-- Multiplex Ion Beam Imaging
 - MxIF
 - NanoDESI
 - NanoPOTS
@@ -486,7 +486,7 @@ data_path:
 - snRNAseq-10xGenomics-v3
 data_precision_bytes:
 - Imaging Mass Cytometry
-- Multiplex Ion Beam Imaging
+- MIBI
 description:
 - 3D Imaging Mass Cytometry
 - AF
@@ -505,13 +505,13 @@ description:
 - LC-MS/MS (label-free proteomics)
 - Light Sheet
 - MALDI-IMS
+- MIBI
 - MRI
 - MS
 - MS (shotgun lipidomics)
 - MS Bottom-Up
 - MS Top-Down
 - Micro CT
-- Multiplex Ion Beam Imaging
 - MxIF
 - NanoDESI
 - NanoPOTS
@@ -581,13 +581,13 @@ donor_id:
 - LC-MS/MS (label-free proteomics)
 - Light Sheet
 - MALDI-IMS
+- MIBI
 - MRI
 - MS
 - MS (shotgun lipidomics)
 - MS Bottom-Up
 - MS Top-Down
 - Micro CT
-- Multiplex Ion Beam Imaging
 - MxIF
 - NanoDESI
 - NanoPOTS
@@ -615,7 +615,7 @@ donor_id:
 - snRNAseq-10xGenomics-v3
 dual_count_start:
 - Imaging Mass Cytometry
-- Multiplex Ion Beam Imaging
+- MIBI
 dynamic_contrast:
 - Ultrasound
 echo_time:
@@ -624,7 +624,7 @@ echo_train_length:
 - MRI
 end_datetime:
 - Imaging Mass Cytometry
-- Multiplex Ion Beam Imaging
+- MIBI
 execution_datetime:
 - 3D Imaging Mass Cytometry
 - AF
@@ -643,13 +643,13 @@ execution_datetime:
 - LC-MS/MS (label-free proteomics)
 - Light Sheet
 - MALDI-IMS
+- MIBI
 - MRI
 - MS
 - MS (shotgun lipidomics)
 - MS Bottom-Up
 - MS Top-Down
 - Micro CT
-- Multiplex Ion Beam Imaging
 - MxIF
 - NanoDESI
 - NanoPOTS
@@ -746,11 +746,11 @@ is_targeted:
 - LC-MS/MS (label-free proteomics)
 - Light Sheet
 - MALDI-IMS
+- MIBI
 - MS
 - MS (shotgun lipidomics)
 - MS Bottom-Up
 - MS Top-Down
-- Multiplex Ion Beam Imaging
 - MxIF
 - NanoDESI
 - NanoPOTS
@@ -1142,36 +1142,36 @@ max_x_width_unit:
 - 3D Imaging Mass Cytometry
 - Body CT
 - Imaging Mass Cytometry
+- MIBI
 - MRI
 - Micro CT
-- Multiplex Ion Beam Imaging
 - OCT
 - Ultrasound
 max_x_width_value:
 - 3D Imaging Mass Cytometry
 - Body CT
 - Imaging Mass Cytometry
+- MIBI
 - MRI
 - Micro CT
-- Multiplex Ion Beam Imaging
 - OCT
 - Ultrasound
 max_y_height_unit:
 - 3D Imaging Mass Cytometry
 - Body CT
 - Imaging Mass Cytometry
+- MIBI
 - MRI
 - Micro CT
-- Multiplex Ion Beam Imaging
 - OCT
 - Ultrasound
 max_y_height_value:
 - 3D Imaging Mass Cytometry
 - Body CT
 - Imaging Mass Cytometry
+- MIBI
 - MRI
 - Micro CT
-- Multiplex Ion Beam Imaging
 - OCT
 - Ultrasound
 ms_scan_mode:
@@ -1259,7 +1259,7 @@ number_of_antibodies:
 - CODEX2
 - Cell DIVE
 - Light Sheet
-- Multiplex Ion Beam Imaging
+- MIBI
 - cell-dive
 number_of_averages:
 - MRI
@@ -1275,7 +1275,7 @@ number_of_channels:
 - Cell DIVE
 - Imaging Mass Cytometry
 - Light Sheet
-- Multiplex Ion Beam Imaging
+- MIBI
 - MxIF
 - cell-dive
 - seqFISH
@@ -1323,13 +1323,13 @@ operator:
 - LC-MS/MS (label-free proteomics)
 - Light Sheet
 - MALDI-IMS
+- MIBI
 - MRI
 - MS
 - MS (shotgun lipidomics)
 - MS Bottom-Up
 - MS Top-Down
 - Micro CT
-- Multiplex Ion Beam Imaging
 - MxIF
 - NanoDESI
 - NanoPOTS
@@ -1373,13 +1373,13 @@ operator_email:
 - LC-MS/MS (label-free proteomics)
 - Light Sheet
 - MALDI-IMS
+- MIBI
 - MRI
 - MS
 - MS (shotgun lipidomics)
 - MS Bottom-Up
 - MS Top-Down
 - Micro CT
-- Multiplex Ion Beam Imaging
 - MxIF
 - NanoDESI
 - NanoPOTS
@@ -1445,13 +1445,13 @@ pi:
 - LC-MS/MS (label-free proteomics)
 - Light Sheet
 - MALDI-IMS
+- MIBI
 - MRI
 - MS
 - MS (shotgun lipidomics)
 - MS Bottom-Up
 - MS Top-Down
 - Micro CT
-- Multiplex Ion Beam Imaging
 - MxIF
 - NanoDESI
 - NanoPOTS
@@ -1495,13 +1495,13 @@ pi_email:
 - LC-MS/MS (label-free proteomics)
 - Light Sheet
 - MALDI-IMS
+- MIBI
 - MRI
 - MS
 - MS (shotgun lipidomics)
 - MS Bottom-Up
 - MS Top-Down
 - Micro CT
-- Multiplex Ion Beam Imaging
 - MxIF
 - NanoDESI
 - NanoPOTS
@@ -1528,17 +1528,17 @@ pi_email:
 - snRNAseq-10xGenomics-v2
 - snRNAseq-10xGenomics-v3
 pixel_dwell_time_unit:
-- Multiplex Ion Beam Imaging
+- MIBI
 pixel_dwell_time_value:
-- Multiplex Ion Beam Imaging
+- MIBI
 pixel_size_x_unit:
-- Multiplex Ion Beam Imaging
+- MIBI
 pixel_size_x_value:
-- Multiplex Ion Beam Imaging
+- MIBI
 pixel_size_y_unit:
-- Multiplex Ion Beam Imaging
+- MIBI
 pixel_size_y_value:
-- Multiplex Ion Beam Imaging
+- MIBI
 pixel_size_z_unit:
 - Body CT
 - MRI
@@ -1575,7 +1575,7 @@ preparation_instrument_model:
 - DESI
 - Imaging Mass Cytometry
 - MALDI-IMS
-- Multiplex Ion Beam Imaging
+- MIBI
 - NanoDESI
 - SIMS-IMS
 - seqFISH
@@ -1586,7 +1586,7 @@ preparation_instrument_vendor:
 - DESI
 - Imaging Mass Cytometry
 - MALDI-IMS
-- Multiplex Ion Beam Imaging
+- MIBI
 - NanoDESI
 - SIMS-IMS
 - seqFISH
@@ -1601,11 +1601,11 @@ preparation_type:
 - NanoDESI
 - SIMS-IMS
 primary_ion:
-- Multiplex Ion Beam Imaging
+- MIBI
 primary_ion_current_unit:
-- Multiplex Ion Beam Imaging
+- MIBI
 primary_ion_current_value:
-- Multiplex Ion Beam Imaging
+- MIBI
 probe:
 - Ultrasound
 processing_protocols_io_doi:
@@ -1656,13 +1656,13 @@ protocols_io_doi:
 - LC-MS/MS (label-free proteomics)
 - Light Sheet
 - MALDI-IMS
+- MIBI
 - MRI
 - MS
 - MS (shotgun lipidomics)
 - MS Bottom-Up
 - MS Top-Down
 - Micro CT
-- Multiplex Ion Beam Imaging
 - MxIF
 - NanoDESI
 - NanoPOTS
@@ -1701,7 +1701,7 @@ reagent_prep_protocols_io_doi:
 - CODEX
 - CODEX2
 - Imaging Mass Cytometry
-- Multiplex Ion Beam Imaging
+- MIBI
 - MxIF
 - seqFISH
 repetition_time:
@@ -1720,12 +1720,12 @@ resolution_x_unit:
 - LC-MS Top-Down
 - Light Sheet
 - MALDI-IMS
+- MIBI
 - MRI
 - MS
 - MS Bottom-Up
 - MS Top-Down
 - Micro CT
-- Multiplex Ion Beam Imaging
 - MxIF
 - NanoDESI
 - NanoPOTS
@@ -1749,12 +1749,12 @@ resolution_x_value:
 - LC-MS Top-Down
 - Light Sheet
 - MALDI-IMS
+- MIBI
 - MRI
 - MS
 - MS Bottom-Up
 - MS Top-Down
 - Micro CT
-- Multiplex Ion Beam Imaging
 - MxIF
 - NanoDESI
 - NanoPOTS
@@ -1778,12 +1778,12 @@ resolution_y_unit:
 - LC-MS Top-Down
 - Light Sheet
 - MALDI-IMS
+- MIBI
 - MRI
 - MS
 - MS Bottom-Up
 - MS Top-Down
 - Micro CT
-- Multiplex Ion Beam Imaging
 - MxIF
 - NanoDESI
 - NanoPOTS
@@ -1807,12 +1807,12 @@ resolution_y_value:
 - LC-MS Top-Down
 - Light Sheet
 - MALDI-IMS
+- MIBI
 - MRI
 - MS
 - MS Bottom-Up
 - MS Top-Down
 - Micro CT
-- Multiplex Ion Beam Imaging
 - MxIF
 - NanoDESI
 - NanoPOTS
@@ -1876,18 +1876,18 @@ roi_description:
 - 3D Imaging Mass Cytometry
 - Body CT
 - Imaging Mass Cytometry
+- MIBI
 - MRI
 - Micro CT
-- Multiplex Ion Beam Imaging
 - OCT
 - Ultrasound
 roi_id:
 - 3D Imaging Mass Cytometry
 - Body CT
 - Imaging Mass Cytometry
+- MIBI
 - MRI
 - Micro CT
-- Multiplex Ion Beam Imaging
 - OCT
 - Ultrasound
 sample_quality_metric:
@@ -1986,11 +1986,11 @@ section_prep_protocols_io_doi:
 - LC-MS Top-Down
 - LC-MS/MS (label-free proteomics)
 - MALDI-IMS
+- MIBI
 - MS
 - MS (shotgun lipidomics)
 - MS Bottom-Up
 - MS Top-Down
-- Multiplex Ion Beam Imaging
 - MxIF
 - NanoDESI
 - PAS microscopy
@@ -1999,7 +1999,7 @@ section_prep_protocols_io_doi:
 segment_data_format:
 - 3D Imaging Mass Cytometry
 - Imaging Mass Cytometry
-- Multiplex Ion Beam Imaging
+- MIBI
 sequence_variant:
 - MRI
 sequencing_phix_percent:
@@ -2073,7 +2073,7 @@ sequencing_reagent_kit:
 signal_type:
 - 3D Imaging Mass Cytometry
 - Imaging Mass Cytometry
-- Multiplex Ion Beam Imaging
+- MIBI
 single_file_export_format:
 - Body CT
 - MRI
@@ -2125,7 +2125,7 @@ stain:
 - PAS microscopy
 start_datetime:
 - Imaging Mass Cytometry
-- Multiplex Ion Beam Imaging
+- MIBI
 step_z_value:
 - Light Sheet
 tissue_id:
@@ -2146,13 +2146,13 @@ tissue_id:
 - LC-MS/MS (label-free proteomics)
 - Light Sheet
 - MALDI-IMS
+- MIBI
 - MRI
 - MS
 - MS (shotgun lipidomics)
 - MS Bottom-Up
 - MS Top-Down
 - Micro CT
-- Multiplex Ion Beam Imaging
 - MxIF
 - NanoDESI
 - NanoPOTS
@@ -2245,13 +2245,13 @@ version:
 - LC-MS/MS (label-free proteomics)
 - Light Sheet
 - MALDI-IMS
+- MIBI
 - MRI
 - MS
 - MS (shotgun lipidomics)
 - MS Bottom-Up
 - MS Top-Down
 - Micro CT
-- Multiplex Ion Beam Imaging
 - MxIF
 - NanoDESI
 - NanoPOTS

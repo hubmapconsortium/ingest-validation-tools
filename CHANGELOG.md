@@ -21,6 +21,7 @@
 - Added geoMX directory structure schema.
 - Update `preparation_maldi_matrix` in imaging MS schema to from enum to open string field.
 - Expand file types for stained to not be vendor locked to Leica's `.scn`. Include vendor-neutral `.tiff`.
+- Replaced enum `Multiplexed Ion Beam Imaging` with `MIBI` in src
 
 ## v0.0.14 - 2022-06-23
 - bump tzingo -> 1.2.10 (dependabot)
