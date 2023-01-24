@@ -19,7 +19,11 @@ This schema is for multiplex immunofluorescence microscopy (MxIF).
 
 | pattern | required? | description |
 | --- | --- | --- |
-| <code>TODO</code> | ✓ | Directory structure not yet specified. |
+| <code>(Level0&#124;level0)_raw\/cyc_[\d]+\.(tif&#124;tiff)</code> | ✓ | **[QA/QC]** MXiF raw tile data by cycle and channel. |
+| <code>(Level0&#124;level0)_lab_pre-processing\/cyc_[\d]+\/tile_layout\.json</code> | ✓ | MXiF tile layout in pixel coordinates in x and y. |
+| <code>(Level1&#124;level1)\/cyc_[\d]+\.ome\.(tif&#124;tiff)</code> | ✓ | Pre-processed stitched image files, but not registered across cycles. |
+| <code>(Level2&#124;level2)\/ome\.(tif&#124;tiff)</code> | ✓ | **[QA/QC]** Full lab processed data, stitched, registered, and saved in pyramidal OME-TIFF. |
+| <code>(Level2&#124;level2)_lab_final-processing\.pdf</code> | ✓ | **[QA/QC]** Description of the lab-processed data. |
 | <code>extras/.*</code> |  | Free-form descriptive information supplied by the TMC |
 
 
