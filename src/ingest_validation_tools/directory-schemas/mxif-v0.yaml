@@ -2,14 +2,18 @@ files:
   # Level0/
   -
     pattern: '(Level0|level0)_raw\/cyc_[\d]+\.(tif|tiff)'
-    description: 'MXiF raw tile data by cycle and channel.'
+    description: 'MxiF raw tile data by cycle and channel.'
     required: True
     is_qa_qc: True
   -
-    pattern: '(Level0|level0)_lab_pre-processing\/cyc_[\d]+\/tile_layout\.json'
-    description: 'MXiF tile layout in pixel coordinates in x and y.'
+    pattern: '(Level0|level0)_raw\/cyc_[\d]+\/tile_layout\.json'
+    description: 'MxiF tile layout in pixel coordinates in x and y.'
     required: True
     is_qa_qc: False
+  -
+    pattern: '(Level0|level0)_raw\/dataset\.json'
+    description: 'Additional specific metadata.'
+    required: True
 
   # Level1/
   -
