@@ -1,6 +1,7 @@
 # Changelog
 ## v0.0.15 - in progress
 - Versioned directory structure schema
+- Added MxIF directory structure schema.
 - Added Lightsheet version 1.
 - bump nokogiri -> 1.13.9 (dependabot)
 - Add front-matter to exclude HCA from toc

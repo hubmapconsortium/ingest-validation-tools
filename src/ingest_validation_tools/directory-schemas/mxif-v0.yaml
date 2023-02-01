@@ -1,5 +1,35 @@
 files:
+  # Level0/
   -
-    pattern: 'TODO'
-    description: 'Directory structure not yet specified.'
+    pattern: '(Level0|level0)_raw\/cyc_[\d]+\.(tif|tiff)'
+    description: 'MxiF raw tile data by cycle and channel.'
     required: True
+    is_qa_qc: True
+  -
+    pattern: '(Level0|level0)_raw\/cyc_[\d]+\/tile_layout\.json'
+    description: 'MxiF tile layout in pixel coordinates in x and y.'
+    required: True
+    is_qa_qc: False
+  -
+    pattern: '(Level0|level0)_raw\/dataset\.json'
+    description: 'Additional specific metadata.'
+    required: True
+
+  # Level1/
+  -
+    pattern: '(Level1|level1)\/cyc_[\d]+\.ome\.(tif|tiff)'
+    description: 'Pre-processed stitched image files, but not registered across cycles.'
+    required: True
+    is_qa_qc: False
+
+  # Level2/
+  -
+    pattern: '(Level2|level2)\/ome\.(tif|tiff)'
+    description: 'Full lab processed data, stitched, registered, and saved in pyramidal OME-TIFF.'
+    required: True
+    is_qa_qc: True
+  - 
+    pattern: '(Level2|level2)_lab_final-processing\.pdf'
+    description: 'Description of the lab-processed data.'
+    required: True
+    is_qa_qc: True
