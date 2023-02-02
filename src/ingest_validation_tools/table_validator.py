@@ -34,16 +34,10 @@ def get_table_errors(tsv: str, schema: dict, report_type: str = ReportType.STR_F
     task = tasks[0]
     assert 'errors' in task, f'"tasks" missing "errors": {report}'
 
-    if report_type is ReportType.STR_FORMATTED:
-        return [
-            _get_message(error)
-            for error in task['errors']
-        ]
-    else:
-        return [
-            _get_message_json(error)
-            for error in task['errors']
-        ]
+    return [
+        _get_message(error, report_type)
+        for error in task['errors']
+    ]
 
 
 def _get_pre_flight_errors(tsv_path: Path, schema: dict) -> Optional[List[str]]:
@@ -82,7 +76,7 @@ def _get_pre_flight_errors(tsv_path: Path, schema: dict) -> Optional[List[str]]:
     return None
 
 
-def _get_message(error: Dict[str, str]) -> str:
+def _get_message(error: Dict[str, str], report_type: str = ReportType.STR_FORMATTED) -> str:
     '''
     >>> print(_get_message({
     ...     'cell': 'bad-id',
@@ -98,23 +92,16 @@ def _get_message(error: Dict[str, str]) -> str:
     On row 2, column "orcid_id", value "bad-id" fails because constraint "pattern" is "fake-re"
 
     '''
-    if 'code' in error and error['code'] == 'missing-label':
-        return 'Bug: Should have been caught pre-flight. File an issue.'
-    if 'rowPosition' in error and 'fieldName' in error and 'cell' in error and 'note' in error:
-        return (
-            f'On row {error["rowPosition"]}, column "{error["fieldName"]}", '
-            f'value "{error["cell"]}" fails because {error["note"]}'
-        )
-    return error['message']
 
-
-def _get_message_json(error: Dict[str, str]) -> Dict[str, str]:
+    return_str = report_type is ReportType.STR_FORMATTED
     if 'code' in error and error['code'] == 'missing-label':
-        return _get_json('Bug: Should have been caught pre-flight. File an issue.')
+        msg = 'Bug: Should have been caught pre-flight. File an issue.'
+        return msg if return_str else _get_json(msg)
     if 'rowPosition' in error and 'fieldName' in error and 'cell' in error and 'note' in error:
-        return _get_json(f'value "{error["cell"]}" fails because {error["note"]}',
-                         error["rowPosition"], error["fieldName"])
-    return _get_json(error['message'])
+        msg = f'value "{error["cell"]}" fails because {error["note"]}'
+        full_msg = f'On row {error["rowPosition"]}, column "{error["fieldName"]}", {msg}'
+        return full_msg if return_str else _get_json(msg, error["rowPosition"], error["fieldName"])
+    return error['message'] if return_str else _get_json(error['message'])
 
 
 def _get_json(error: str, row: str = None, column: str = None) -> Dict[str, str]:
