@@ -141,3 +141,4 @@ url-status-cache
 
 # PyCharm
 *.idea
+*.DS_Store
