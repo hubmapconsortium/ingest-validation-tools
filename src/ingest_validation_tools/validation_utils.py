@@ -9,7 +9,7 @@ from ingest_validation_tools.schema_loader import (
 from ingest_validation_tools.directory_validator import (
     validate_directory, DirectoryValidationErrors)
 from ingest_validation_tools.table_validator import (
-    get_table_errors)
+    get_table_errors, ReportType)
 from ingest_validation_tools.schema_loader import (
     get_table_schema_version_from_row, PreflightError
 )
@@ -138,7 +138,7 @@ def get_context_of_decode_error(e: UnicodeDecodeError) -> str:
 
 def get_tsv_errors(
         tsv_path: str, schema_name: str, optional_fields: List[str] = [],
-        offline=None, encoding: str = 'utf-8', ignore_deprecation: bool = False):
+        offline=None, encoding: str = 'utf-8', ignore_deprecation: bool = False, report_type: str = ReportType.STR_FORMATTED):
     '''
     Validate the TSV.
 
@@ -219,4 +219,4 @@ def get_tsv_errors(
     if schema.get('deprecated') and not ignore_deprecation:
         return {'Schema version is deprecated': f'{schema_name}-v{version}'}
 
-    return get_table_errors(tsv_path, schema)
+    return get_table_errors(tsv_path, schema, report_type)

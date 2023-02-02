@@ -1,14 +1,18 @@
 import csv
 from pathlib import Path
 from typing import List, Optional, Dict
+from enum import Enum
 
 import frictionless
 
 
 from ingest_validation_tools.check_factory import make_checks
 
+class ReportType(Enum):
+    STR_FORMATTED = 1
+    JSON = 2
 
-def get_table_errors(tsv: str, schema: dict) -> List[str]:
+def get_table_errors(tsv: str, schema: dict, report_type: str = ReportType.STR_FORMATTED) -> List:
     tsv_path = Path(tsv)
     pre_flight_errors = _get_pre_flight_errors(tsv_path, schema=schema)
     if pre_flight_errors:
@@ -30,10 +34,16 @@ def get_table_errors(tsv: str, schema: dict) -> List[str]:
     task = tasks[0]
     assert 'errors' in task, f'"tasks" missing "errors": {report}'
 
-    return [
-        _get_message(error)
-        for error in task['errors']
-    ]
+    if report_type is ReportType.STR_FORMATTED:
+        return [
+            _get_message(error)
+            for error in task['errors']
+        ]
+    else:
+        return [
+            _get_message_json(error)
+            for error in task['errors']
+        ]
 
 
 def _get_pre_flight_errors(tsv_path: Path, schema: dict) -> Optional[List[str]]:
@@ -97,6 +107,22 @@ def _get_message(error: Dict[str, str]) -> str:
         )
     return error['message']
 
+
+def _get_message_json(error: Dict[str, str]) -> Dict[str, str]:
+    if 'code' in error and error['code'] == 'missing-label':
+        return _get_json('Bug: Should have been caught pre-flight. File an issue.')
+    if 'rowPosition' in error and 'fieldName' in error and 'cell' in error and 'note' in error:
+        return _get_json(f'value "{error["cell"]}" fails because {error["note"]}',
+                         error["rowPosition"], error["fieldName"])
+    return _get_json(error['message'])
+
+
+def _get_json(error: str, row: str = None, column: str = None) -> Dict[str, str]:
+    return {
+        'column': column,
+        'error': error,
+        'row': row,
+    }
 
 if __name__ == "__main__":
     import argparse
