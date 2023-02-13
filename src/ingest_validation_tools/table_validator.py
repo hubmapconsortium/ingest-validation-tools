@@ -9,10 +9,10 @@ import frictionless
 from ingest_validation_tools.check_factory import make_checks
 
 class ReportType(Enum):
-    STR_FORMATTED = 1
+    STR = 1
     JSON = 2
 
-def get_table_errors(tsv: str, schema: dict, report_type: str = ReportType.STR_FORMATTED) -> List:
+def get_table_errors(tsv: str, schema: dict, report_type: str = ReportType.STR) -> List:
     tsv_path = Path(tsv)
     pre_flight_errors = _get_pre_flight_errors(tsv_path, schema=schema)
     if pre_flight_errors:
@@ -76,7 +76,7 @@ def _get_pre_flight_errors(tsv_path: Path, schema: dict) -> Optional[List[str]]:
     return None
 
 
-def _get_message(error: Dict[str, str], report_type: str = ReportType.STR_FORMATTED) -> str:
+def _get_message(error: Dict[str, str], report_type: str = ReportType.STR) -> str:
     '''
     >>> print(_get_message({
     ...     'cell': 'bad-id',
@@ -93,7 +93,7 @@ def _get_message(error: Dict[str, str], report_type: str = ReportType.STR_FORMAT
 
     '''
 
-    return_str = report_type is ReportType.STR_FORMATTED
+    return_str = report_type is ReportType.STR
     if 'code' in error and error['code'] == 'missing-label':
         msg = 'Bug: Should have been caught pre-flight. File an issue.'
         return msg if return_str else _get_json(msg)
