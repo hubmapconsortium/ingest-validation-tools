@@ -1,4 +1,7 @@
 # Changelog
+## v0.0.16 - 2023-02-14
+- Added ability to specify report type, whether str or json. Default is str.
+
 ## v0.0.15 - in progress
 - Added Lightsheet version 1.
 - bump nokogiri -> 1.13.9 (dependabot)
