@@ -1,6 +1,6 @@
 import csv
 from pathlib import Path
-from typing import List, Optional, Dict
+from typing import List, Optional, Dict, Union
 from enum import Enum
 
 import frictionless
@@ -14,7 +14,7 @@ class ReportType(Enum):
     JSON = 2
 
 
-def get_table_errors(tsv: str, schema: dict, report_type: str = ReportType.STR) -> List:
+def get_table_errors(tsv: str, schema: dict, report_type: ReportType = ReportType.STR) -> List:
     tsv_path = Path(tsv)
     pre_flight_errors = _get_pre_flight_errors(tsv_path, schema=schema)
     if pre_flight_errors:
@@ -78,7 +78,7 @@ def _get_pre_flight_errors(tsv_path: Path, schema: dict) -> Optional[List[str]]:
     return None
 
 
-def _get_message(error: Dict[str, str], report_type: str = ReportType.STR) -> str:
+def _get_message(error: Dict[str, str], report_type: ReportType = ReportType.STR) -> Union[str, Dict]:
     '''
     >>> print(_get_message({
     ...     'cell': 'bad-id',
@@ -106,7 +106,7 @@ def _get_message(error: Dict[str, str], report_type: str = ReportType.STR) -> st
     return error['message'] if return_str else _get_json(error['message'])
 
 
-def _get_json(error: str, row: str = None, column: str = None) -> Dict[str, str]:
+def _get_json(error: str, row: str = None, column: str = None) -> Dict[str, Optional[str]]:
     return {
         'column': column,
         'error': error,

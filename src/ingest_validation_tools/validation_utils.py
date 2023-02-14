@@ -139,7 +139,7 @@ def get_context_of_decode_error(e: UnicodeDecodeError) -> str:
 def get_tsv_errors(
         tsv_path: str, schema_name: str, optional_fields: List[str] = [],
         offline=None, encoding: str = 'utf-8', ignore_deprecation: bool = False,
-        report_type: str = ReportType.STR):
+        report_type: ReportType = ReportType.STR):
     '''
     Validate the TSV.
 
