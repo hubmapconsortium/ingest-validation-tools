@@ -8,9 +8,11 @@ import frictionless
 
 from ingest_validation_tools.check_factory import make_checks
 
+
 class ReportType(Enum):
     STR = 1
     JSON = 2
+
 
 def get_table_errors(tsv: str, schema: dict, report_type: str = ReportType.STR) -> List:
     tsv_path = Path(tsv)
@@ -110,6 +112,7 @@ def _get_json(error: str, row: str = None, column: str = None) -> Dict[str, str]
         'error': error,
         'row': row,
     }
+
 
 if __name__ == "__main__":
     import argparse
