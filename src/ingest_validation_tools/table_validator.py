@@ -78,7 +78,8 @@ def _get_pre_flight_errors(tsv_path: Path, schema: dict) -> Optional[List[str]]:
     return None
 
 
-def _get_message(error: Dict[str, str], report_type: ReportType = ReportType.STR) -> Union[str, Dict]:
+def _get_message(error: Dict[str, str],
+                 report_type: ReportType = ReportType.STR) -> Union[str, Dict]:
     '''
     >>> print(_get_message({
     ...     'cell': 'bad-id',
