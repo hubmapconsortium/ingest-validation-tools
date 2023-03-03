@@ -1,4 +1,8 @@
 # Changelog
+## v0.0.17 - 2023-03-03
+- Fixed formatting of listed enums in donor-v0.yaml to allow validation to run without 500 error
+- Update to frictionless 4.40.9 for better error message formatting
+
 ## v0.0.16 - 2023-02-14
 - Added ability to specify report type, whether str or json. Default is str.
 

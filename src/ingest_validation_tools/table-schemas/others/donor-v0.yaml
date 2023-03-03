@@ -15,12 +15,16 @@ fields:
 - name: blood_type
   description:  'ABO blood type or "serotype" refers to the presence/absence of the either/both A & B blood antigens.' 
   # Because nothing depends on it, we'll use this as a place to develop the ontology machinery.
+  # A: http://purl.bioontology.org/ontology/SNOMEDCT/49790006
+  # B: http://purl.bioontology.org/ontology/SNOMEDCT/21221007
+  # AB: http://purl.bioontology.org/ontology/SNOMEDCT/103868007
+  # O: http://purl.bioontology.org/ontology/SNOMEDCT/113036007
   constraints:
     enum:
-      A: http://purl.bioontology.org/ontology/SNOMEDCT/49790006
-      B: http://purl.bioontology.org/ontology/SNOMEDCT/21221007
-      AB: http://purl.bioontology.org/ontology/SNOMEDCT/103868007
-      O: http://purl.bioontology.org/ontology/SNOMEDCT/113036007
+      - A
+      - B
+      - AB
+      - O
 
 # -
 #   name: body_mass_index_unit
