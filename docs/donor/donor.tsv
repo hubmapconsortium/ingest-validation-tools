@@ -1,2 +1,2 @@
-age_unit	age_value	blood_type	blood_type_suggested	body_mass_index_value	cause_of_death	height_unit	height_value	kidney_donor_profile_index_value	mechanism_of_injury	medical_history	race	sex	weight_unit	weight_value
-		A / B / AB / O / Submitter Suggestion												
+age_unit	age_value	blood_type	body_mass_index_value	cause_of_death	height_unit	height_value	kidney_donor_profile_index_value	mechanism_of_injury	medical_history	race	sex	weight_unit	weight_value
+		A / B / AB / O											

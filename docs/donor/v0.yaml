@@ -25,10 +25,10 @@ fields:
     either/both A & B blood antigens.
   constraints:
     enum:
-      A: http://purl.bioontology.org/ontology/SNOMEDCT/49790006
-      B: http://purl.bioontology.org/ontology/SNOMEDCT/21221007
-      AB: http://purl.bioontology.org/ontology/SNOMEDCT/103868007
-      O: http://purl.bioontology.org/ontology/SNOMEDCT/113036007
+    - A
+    - B
+    - AB
+    - O
     required: true
   custom_constraints:
     sequence_limit: 3

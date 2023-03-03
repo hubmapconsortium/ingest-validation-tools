@@ -73,15 +73,6 @@ ABO blood type or "serotype" refers to the presence/absence of the either/both A
 | enum | `A`, `B`, `AB`, or `O` |
 | required | `True` |
 
-Ontology terms:
-
-| term | URI |
-| --- | --- |
-| A | `http://purl.bioontology.org/ontology/SNOMEDCT/49790006` |
-| B | `http://purl.bioontology.org/ontology/SNOMEDCT/21221007` |
-| AB | `http://purl.bioontology.org/ontology/SNOMEDCT/103868007` |
-| O | `http://purl.bioontology.org/ontology/SNOMEDCT/113036007` |
-
 <a name="body_mass_index_value"></a>
 ##### [`body_mass_index_value`](#body_mass_index_value)
 An individual's weight in kilograms divided by the square of the height in meters.
