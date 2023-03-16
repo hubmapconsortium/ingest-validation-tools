@@ -7,7 +7,7 @@ pat_reps = [
     (r'^Metadata TSV Errors: \S+/',
      'In '),
 
-    (r'(row \d+), data ([^:]+): ([^:]+): (.+)',
+    (r'.*: External: (row \d+), data ([^:]+): ([^:]+): (.+)',
      r'In the dataset \2 referenced on \1, the file "\4" is \3.'),
 
     (r' \(as \S+\): External: Warning: File has no data rows',
@@ -24,9 +24,6 @@ pat_reps = [
 
     (r'Metadata TSV Errors: Missing: ',
      ''),
-
-    (r'is not type "integer" and format "default"',
-     r'is not an integer'),
 
     (r'is not type "(\w+)" and format "default"',
      r'is not a \1'),
@@ -90,19 +87,8 @@ def munge(message: str) -> str:
 
 def recursive_munge(message_collection):
     if isinstance(message_collection, dict):
-        if all(isinstance(v, (float, int, str)) for v in message_collection.values()):
-            return [munge(v) for v in message_collection.values()]
-        else:
-            for k, v in message_collection.items():
-                message_collection[k] = recursive_munge(v)
-            return message_collection
+        return {k: recursive_munge(v) for k, v in message_collection.items()}
     elif isinstance(message_collection, list):
-        if all(isinstance(v, (float, int, str)) for v in message_collection):
-            return [munge(v) for v in message_collection]
-        else:
-            to_return = []
-            for v in message_collection:
-                to_return += recursive_munge(v)
-            return to_return
+        return [recursive_munge(v) for v in message_collection]
     else:
         return munge(message_collection)
