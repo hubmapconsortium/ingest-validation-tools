@@ -37,8 +37,6 @@ pat_reps = [
     (r'constraint "enum" is "\[(.*)\]"',
      r'it is not one of these: \1'),
 
-# 'On row 2, column "acquisition_instrument_vendor", value "acquisition_instrument_vendor" fails because constraint "enum" is "[\'Keyence\', \'Zeiss\']"'
-
     (r'is no such file or directory',
      r'does not exist'),
 
@@ -75,6 +73,7 @@ pat_reps = [
     (r'constraint "required" .*',
      r'it must be filled out.'),
 ]
+
 
 def munge(message: str) -> str:
     '''
