@@ -30,8 +30,10 @@ def get_table_errors(tsv: str, schema: dict) -> List[str]:
     task = tasks[0]
     assert 'errors' in task, f'"tasks" missing "errors": {report}'
 
+    schema_fields_dict = {field['name']: field for field in schema['fields']}
+
     return [
-        _get_message(error)
+        _get_message(error, schema_fields_dict)
         for error in task['errors']
     ]
 
@@ -72,7 +74,7 @@ def _get_pre_flight_errors(tsv_path: Path, schema: dict) -> Optional[List[str]]:
     return None
 
 
-def _get_message(error: Dict[str, str]) -> str:
+def _get_message(error: Dict[str, str], schema_fields: Dict[str, dict]) -> str:
     '''
     >>> print(_get_message({
     ...     'cell': 'bad-id',
@@ -88,12 +90,16 @@ def _get_message(error: Dict[str, str]) -> str:
     On row 2, column "orcid_id", value "bad-id" fails because constraint "pattern" is "fake-re"
 
     '''
+
+    example = schema_fields.get(error.get("fieldName", ""), {}).get("example", "")
+
     if 'code' in error and error['code'] == 'missing-label':
         return 'Bug: Should have been caught pre-flight. File an issue.'
     if 'rowPosition' in error and 'fieldName' in error and 'cell' in error and 'note' in error:
         return (
             f'On row {error["rowPosition"]}, column "{error["fieldName"]}", '
             f'value "{error["cell"]}" fails because {error["note"]}'
+            f'{f". Example: {example}" if example else example}'
         )
     return error['message']
 
