@@ -76,7 +76,8 @@ def _get_pre_flight_errors(tsv_path: Path, schema: dict) -> Optional[List[str]]:
 
 def _get_message(error: Dict[str, str], schema_fields: Dict[str, dict]) -> str:
     '''
-    >>> print(_get_message({
+    >>> print(_get_message(
+    ... {
     ...     'cell': 'bad-id',
     ...     'fieldName': 'orcid_id',
     ...     'fieldNumber': 6,
@@ -86,8 +87,15 @@ def _get_message(error: Dict[str, str], schema_fields: Dict[str, dict]) -> str:
     ...     'note': 'constraint "pattern" is "fake-re"',
     ...     'message': 'The message from the library is a bit confusing!',
     ...     'description': 'A field value does not conform to a constraint.'
+    ... },
+    ... {
+    ...     'orcid_id': {
+    ...         'name': 'orcid_id',
+    ...         'example': 'real-re'
+    ...     }
     ... }))
-    On row 2, column "orcid_id", value "bad-id" fails because constraint "pattern" is "fake-re"
+    On row 2, column "orcid_id", value "bad-id" fails because\
+ constraint "pattern" is "fake-re". Example: real-re
 
     '''
 
