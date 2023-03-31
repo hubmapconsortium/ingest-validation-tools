@@ -1,7 +1,7 @@
 from yaml import Dumper, dump
 from typing import List
 
-from ingest_validation_tools.message_munger import munge, recursive_munge
+from ingest_validation_tools.message_munger import munge
 
 
 # Force dump not to use alias syntax.
@@ -28,7 +28,7 @@ class ErrorReport:
         return '\n'.join(self._as_list()) or self._no_errors()
 
     def as_yaml(self) -> str:
-        return dump(recursive_munge(self.errors), sort_keys=False)
+        return dump(self.errors, sort_keys=False)
 
     def as_text(self) -> str:
         if not self.errors:
