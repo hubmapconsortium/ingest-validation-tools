@@ -119,7 +119,7 @@ class _CheckFactory():
         return sequence_limit_check
 
     def make_units_check(self, template=Template(
-            'Required when $units_for is filled')) -> Check:
+            'it requires a value when $units_for is filled')) -> Check:
         units_constrained_fields = self._get_constrained_fields('units_for')
 
         def units_check(row):

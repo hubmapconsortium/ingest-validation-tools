@@ -4,5 +4,5 @@ Preflight: 'examples/dataset-examples/bad-no-assay-type/upload/bad-metadata.tsv 
   TSV expected.'
 Hint: 'If validation fails because of extra whitespace in the TSV, try:
 
-  src/cleanup_whitespace.py --tsv_in original.tsv --tsv_out clean.tsv'
+  src/cleanup_whitespace.py --tsv_in original.tsv --tsv_out clean.tsv.'
 ```
