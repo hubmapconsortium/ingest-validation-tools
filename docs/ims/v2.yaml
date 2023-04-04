@@ -170,6 +170,7 @@ fields:
     - LA
     - SIMS-C60
     - SIMS-H2O
+    - DESI
     - nanoDESI
     required: true
   custom_constraints:

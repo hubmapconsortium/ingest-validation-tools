@@ -26,6 +26,7 @@
 - Replaced enum `Multiplexed Ion Beam Imaging` with `MIBI` in src
 - Added `raw` as a potential directory to look for `segmentation.json` file for `CODEX`
 - Updated error messages to be less programmer centric.
+- Updated ims-v2 spec to include DESI as an acceptable enumeration for ms_source.
 
 ## v0.0.14 - 2022-06-23
 - bump tzingo -> 1.2.10 (dependabot)
