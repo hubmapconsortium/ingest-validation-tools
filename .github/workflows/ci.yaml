@@ -16,7 +16,6 @@ jobs:
     # https://github.com/ebi-uniprot/uniprot-rest-api/issues/23
     # https://github.com/Ensembl/ensembl-rest/issues/427
     runs-on: ubuntu-22.04
-
     strategy:
       matrix:
         version:
