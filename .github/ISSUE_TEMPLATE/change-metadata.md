@@ -8,6 +8,3 @@ assignees: bhonick
 - Does this change have buy-in from other groups providing the same kind of data?
 - Can you quote or reference any outside documentation that motivates this change?
 - Is this change backward compatible, or does it make validation more stringent?
-
-@bhonick will evaluate this request, and if it can move forward,
-will file a PR for @sunset666 to review and ensure that tests pass before merging.
