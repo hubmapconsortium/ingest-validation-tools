@@ -11,4 +11,4 @@ assignees: icaoberg
 
 @icaoberg will evaluate this request, and if it can move forward,
 will file a PR for @pdblood to review,
-and @mccalluc will make sure tests pass before merging.
+and @sunset666 will make sure tests pass before merging.
