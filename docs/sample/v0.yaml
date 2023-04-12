@@ -6,7 +6,7 @@ fields:
   constraints:
     required: true
     pattern: ([A-Z]+[0-9]+)-[A-Z]{2}\d*(-\d+)+(_\d+)?
-  example: `VAN0010-LK-152-162`
+  example: 'VAN0010-LK-152-162'
   custom_constraints:
     sequence_limit: 3
     forbid_na: true
