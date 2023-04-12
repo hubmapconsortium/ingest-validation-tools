@@ -260,6 +260,7 @@ fields:
   constraints:
     pattern: '[ATCG]+(\+[ATCG]+)?'
     required: true
+  example: CTGTCTCTTATACACATCT
   custom_constraints:
     sequence_limit: 3
     forbid_na: true
@@ -293,6 +294,7 @@ fields:
   constraints:
     required: false
     pattern: \d+(,\d+)*
+  example: 0,0,38,76
   custom_constraints:
     sequence_limit: 3
     forbid_na: true
@@ -302,19 +304,11 @@ fields:
   constraints:
     required: false
     pattern: \d+(,\d+)*
+  example: 16,8,8,8
   custom_constraints:
     sequence_limit: 3
     forbid_na: true
   type: string
-- name: expected_cell_count
-  description: How many cells are expected? This may be used in downstream pipelines
-    to guide selection of cell barcodes or segmentation parameters.
-  type: integer
-  constraints:
-    required: false
-  custom_constraints:
-    sequence_limit: 3
-    forbid_na: true
 - name: library_pcr_cycles
   description: Number of PCR cycles to amplify cDNA
   type: integer

@@ -329,7 +329,7 @@ State whether the library was generated for single-end or paired end sequencing.
 
 <a name="library_adapter_sequence"></a>
 ##### [`library_adapter_sequence`](#library_adapter_sequence)
-Adapter sequence to be used for adapter trimming.
+Adapter sequence to be used for adapter trimming. Example: `CTGTCTCTTATACACATCT`.
 
 | constraint | value |
 | --- | --- |
@@ -363,7 +363,7 @@ Which read file(s) contains the cell barcode. Multiple cell_barcode_read files m
 
 <a name="umi_read"></a>
 ##### [`umi_read`](#umi_read)
-Which read file(s) contains the UMI (unique molecular identifier) barcode.
+Which read file(s) contains the UMI (unique molecular identifier) barcode. Example: `R1`.
 
 | constraint | value |
 | --- | --- |
@@ -390,7 +390,7 @@ Length of the umi barcode in base pairs.
 
 <a name="cell_barcode_offset"></a>
 ##### [`cell_barcode_offset`](#cell_barcode_offset)
-Position(s) in the read at which the cell barcode starts. Leave blank if not applicable.
+Position(s) in the read at which the cell barcode starts. Leave blank if not applicable. Example: `0,0,38,76`.
 
 | constraint | value |
 | --- | --- |
@@ -399,7 +399,7 @@ Position(s) in the read at which the cell barcode starts. Leave blank if not app
 
 <a name="cell_barcode_size"></a>
 ##### [`cell_barcode_size`](#cell_barcode_size)
-Length of the cell barcode in base pairs. Leave blank if not applicable.
+Length of the cell barcode in base pairs. Leave blank if not applicable. Example: `16,8,8,8`.
 
 | constraint | value |
 | --- | --- |
@@ -758,7 +758,7 @@ State whether the library was generated for single-end or paired end sequencing.
 
 <a name="library_adapter_sequence"></a>
 ##### [`library_adapter_sequence`](#library_adapter_sequence)
-Adapter sequence to be used for adapter trimming.
+Adapter sequence to be used for adapter trimming. Example: `CTGTCTCTTATACACATCT`.
 
 | constraint | value |
 | --- | --- |
@@ -792,7 +792,7 @@ Which read file(s) contains the cell barcode. Multiple cell_barcode_read files m
 
 <a name="cell_barcode_offset"></a>
 ##### [`cell_barcode_offset`](#cell_barcode_offset)
-Position(s) in the read at which the cell barcode starts. Leave blank if not applicable.
+Position(s) in the read at which the cell barcode starts. Leave blank if not applicable. Example: `0,0,38,76`.
 
 | constraint | value |
 | --- | --- |
@@ -801,21 +801,12 @@ Position(s) in the read at which the cell barcode starts. Leave blank if not app
 
 <a name="cell_barcode_size"></a>
 ##### [`cell_barcode_size`](#cell_barcode_size)
-Length of the cell barcode in base pairs. Leave blank if not applicable.
+Length of the cell barcode in base pairs. Leave blank if not applicable. Example: `16,8,8,8`.
 
 | constraint | value |
 | --- | --- |
 | required | `False` |
 | pattern (regular expression) | <code>\d+(,\d+)*</code> |
-
-<a name="expected_cell_count"></a>
-##### [`expected_cell_count`](#expected_cell_count)
-How many cells are expected? This may be used in downstream pipelines to guide selection of cell barcodes or segmentation parameters. Leave blank if not applicable.
-
-| constraint | value |
-| --- | --- |
-| type | `integer` |
-| required | `False` |
 
 <a name="library_pcr_cycles"></a>
 ##### [`library_pcr_cycles`](#library_pcr_cycles)
@@ -1161,7 +1152,7 @@ State whether the library was generated for single-end or paired end sequencing.
 
 <a name="library_adapter_sequence"></a>
 ##### [`library_adapter_sequence`](#library_adapter_sequence)
-Adapter sequence to be used for adapter trimming.
+Adapter sequence to be used for adapter trimming. Example: `CTGTCTCTTATACACATCT`.
 
 | constraint | value |
 | --- | --- |
@@ -1195,7 +1186,7 @@ Which read file contains the cell barcode.
 
 <a name="cell_barcode_offset"></a>
 ##### [`cell_barcode_offset`](#cell_barcode_offset)
-Position(s) in the read at which the cell barcode starts.
+Position(s) in the read at which the cell barcode starts. Example: `0,0,38,76`.
 
 | constraint | value |
 | --- | --- |
@@ -1204,7 +1195,7 @@ Position(s) in the read at which the cell barcode starts.
 
 <a name="cell_barcode_size"></a>
 ##### [`cell_barcode_size`](#cell_barcode_size)
-Length of the cell barcode in base pairs.
+Length of the cell barcode in base pairs. Example: `16,8,8,8`.
 
 | constraint | value |
 | --- | --- |

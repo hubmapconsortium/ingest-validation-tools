@@ -26,6 +26,7 @@
 - Replaced enum `Multiplexed Ion Beam Imaging` with `MIBI` in src
 - Added `raw` as a potential directory to look for `segmentation.json` file for `CODEX`
 - Updated error messages to be less programmer centric
+- Added examples for fields with pattern constraint
 
 ## v0.0.14 - 2022-06-23
 - bump tzingo -> 1.2.10 (dependabot)
