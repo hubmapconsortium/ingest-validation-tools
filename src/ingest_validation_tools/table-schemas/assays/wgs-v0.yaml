@@ -32,7 +32,7 @@ fields:
   description: The adapter sequence to be used for adapter trimming starting with the 5' end. (eg. 5-ATCCTGAGAA)
   constraints:
     pattern: '5-[GATCU]+'
-  example: 5-AATGATACGGCGACCACCGAGATCTACACTCTTTCCCTACACGACGCTCTTCCGATCT
+  example: '5-AATGATACGGCGACCACCGAGATCTACACTCTTTCCCTACACGACGCTCTTCCGATCT'
 - name: library_final_yield
   description: Total amount of library after final pcr amplification step
   type: number
