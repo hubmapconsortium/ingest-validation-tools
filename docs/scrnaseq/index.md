@@ -114,7 +114,7 @@ Free-text description of this assay.
 
 <a name="donor_id"></a>
 ##### [`donor_id`](#donor_id)
-HuBMAP Display ID of the donor of the assayed tissue. Example: `ABC123`.
+HuBMAP Display ID of the donor of the assayed tissue. Example: 'ABC123'.
 
 | constraint | value |
 | --- | --- |
@@ -123,7 +123,7 @@ HuBMAP Display ID of the donor of the assayed tissue. Example: `ABC123`.
 
 <a name="tissue_id"></a>
 ##### [`tissue_id`](#tissue_id)
-HuBMAP Display ID of the assayed tissue. Example: `ABC123-BL-1-2-3_456`.
+HuBMAP Display ID of the assayed tissue. Example: 'ABC123-BL-1-2-3_456'.
 
 | constraint | value |
 | --- | --- |
@@ -329,7 +329,7 @@ State whether the library was generated for single-end or paired end sequencing.
 
 <a name="library_adapter_sequence"></a>
 ##### [`library_adapter_sequence`](#library_adapter_sequence)
-Adapter sequence to be used for adapter trimming. Example: `CTGTCTCTTATACACATCT`.
+Adapter sequence to be used for adapter trimming. Example: 'CTGTCTCTTATACACATCT'.
 
 | constraint | value |
 | --- | --- |
@@ -363,7 +363,7 @@ Which read file(s) contains the cell barcode. Multiple cell_barcode_read files m
 
 <a name="umi_read"></a>
 ##### [`umi_read`](#umi_read)
-Which read file(s) contains the UMI (unique molecular identifier) barcode. Example: `R1`.
+Which read file(s) contains the UMI (unique molecular identifier) barcode. Example: 'R1'.
 
 | constraint | value |
 | --- | --- |
@@ -390,7 +390,7 @@ Length of the umi barcode in base pairs.
 
 <a name="cell_barcode_offset"></a>
 ##### [`cell_barcode_offset`](#cell_barcode_offset)
-Position(s) in the read at which the cell barcode starts. Leave blank if not applicable. Example: `0,0,38,76`.
+Position(s) in the read at which the cell barcode starts. Leave blank if not applicable. Example: '0,0,38,76'.
 
 | constraint | value |
 | --- | --- |
@@ -399,7 +399,7 @@ Position(s) in the read at which the cell barcode starts. Leave blank if not app
 
 <a name="cell_barcode_size"></a>
 ##### [`cell_barcode_size`](#cell_barcode_size)
-Length of the cell barcode in base pairs. Leave blank if not applicable. Example: `16,8,8,8`.
+Length of the cell barcode in base pairs. Leave blank if not applicable. Example: '16,8,8,8'.
 
 | constraint | value |
 | --- | --- |
@@ -471,7 +471,7 @@ Reagent kit used for sequencing.
 
 <a name="sequencing_read_format"></a>
 ##### [`sequencing_read_format`](#sequencing_read_format)
-Slash-delimited list of the number of sequencing cycles for, for example, Read1, i7 index, i5 index, and Read2. Example: `12/34/56`.
+Slash-delimited list of the number of sequencing cycles for, for example, Read1, i7 index, i5 index, and Read2. Example: '12/34/56'.
 
 | constraint | value |
 | --- | --- |
@@ -543,7 +543,7 @@ Free-text description of this assay.
 
 <a name="donor_id"></a>
 ##### [`donor_id`](#donor_id)
-HuBMAP Display ID of the donor of the assayed tissue. Example: `ABC123`.
+HuBMAP Display ID of the donor of the assayed tissue. Example: 'ABC123'.
 
 | constraint | value |
 | --- | --- |
@@ -552,7 +552,7 @@ HuBMAP Display ID of the donor of the assayed tissue. Example: `ABC123`.
 
 <a name="tissue_id"></a>
 ##### [`tissue_id`](#tissue_id)
-HuBMAP Display ID of the assayed tissue. Example: `ABC123-BL-1-2-3_456`.
+HuBMAP Display ID of the assayed tissue. Example: 'ABC123-BL-1-2-3_456'.
 
 | constraint | value |
 | --- | --- |
@@ -758,7 +758,7 @@ State whether the library was generated for single-end or paired end sequencing.
 
 <a name="library_adapter_sequence"></a>
 ##### [`library_adapter_sequence`](#library_adapter_sequence)
-Adapter sequence to be used for adapter trimming. Example: `CTGTCTCTTATACACATCT`.
+Adapter sequence to be used for adapter trimming. Example: 'CTGTCTCTTATACACATCT'.
 
 | constraint | value |
 | --- | --- |
@@ -792,7 +792,7 @@ Which read file(s) contains the cell barcode. Multiple cell_barcode_read files m
 
 <a name="cell_barcode_offset"></a>
 ##### [`cell_barcode_offset`](#cell_barcode_offset)
-Position(s) in the read at which the cell barcode starts. Leave blank if not applicable. Example: `0,0,38,76`.
+Position(s) in the read at which the cell barcode starts. Leave blank if not applicable. Example: '0,0,38,76'.
 
 | constraint | value |
 | --- | --- |
@@ -801,7 +801,7 @@ Position(s) in the read at which the cell barcode starts. Leave blank if not app
 
 <a name="cell_barcode_size"></a>
 ##### [`cell_barcode_size`](#cell_barcode_size)
-Length of the cell barcode in base pairs. Leave blank if not applicable. Example: `16,8,8,8`.
+Length of the cell barcode in base pairs. Leave blank if not applicable. Example: '16,8,8,8'.
 
 | constraint | value |
 | --- | --- |
@@ -864,7 +864,7 @@ Reagent kit used for sequencing.
 
 <a name="sequencing_read_format"></a>
 ##### [`sequencing_read_format`](#sequencing_read_format)
-Slash-delimited list of the number of sequencing cycles for, for example, Read1, i7 index, i5 index, and Read2. Example: `12/34/56`.
+Slash-delimited list of the number of sequencing cycles for, for example, Read1, i7 index, i5 index, and Read2. Example: '12/34/56'.
 
 | constraint | value |
 | --- | --- |
@@ -937,7 +937,7 @@ Free-text description of this assay.
 
 <a name="donor_id"></a>
 ##### [`donor_id`](#donor_id)
-HuBMAP Display ID of the donor of the assayed tissue. Example: `ABC123`.
+HuBMAP Display ID of the donor of the assayed tissue. Example: 'ABC123'.
 
 | constraint | value |
 | --- | --- |
@@ -946,7 +946,7 @@ HuBMAP Display ID of the donor of the assayed tissue. Example: `ABC123`.
 
 <a name="tissue_id"></a>
 ##### [`tissue_id`](#tissue_id)
-HuBMAP Display ID of the assayed tissue. Example: `ABC123-BL-1-2-3_456`.
+HuBMAP Display ID of the assayed tissue. Example: 'ABC123-BL-1-2-3_456'.
 
 | constraint | value |
 | --- | --- |
@@ -1152,7 +1152,7 @@ State whether the library was generated for single-end or paired end sequencing.
 
 <a name="library_adapter_sequence"></a>
 ##### [`library_adapter_sequence`](#library_adapter_sequence)
-Adapter sequence to be used for adapter trimming. Example: `CTGTCTCTTATACACATCT`.
+Adapter sequence to be used for adapter trimming. Example: 'CTGTCTCTTATACACATCT'.
 
 | constraint | value |
 | --- | --- |
@@ -1186,7 +1186,7 @@ Which read file contains the cell barcode.
 
 <a name="cell_barcode_offset"></a>
 ##### [`cell_barcode_offset`](#cell_barcode_offset)
-Position(s) in the read at which the cell barcode starts. Example: `0,0,38,76`.
+Position(s) in the read at which the cell barcode starts. Example: '0,0,38,76'.
 
 | constraint | value |
 | --- | --- |
@@ -1195,7 +1195,7 @@ Position(s) in the read at which the cell barcode starts. Example: `0,0,38,76`.
 
 <a name="cell_barcode_size"></a>
 ##### [`cell_barcode_size`](#cell_barcode_size)
-Length of the cell barcode in base pairs. Example: `16,8,8,8`.
+Length of the cell barcode in base pairs. Example: '16,8,8,8'.
 
 | constraint | value |
 | --- | --- |
@@ -1258,7 +1258,7 @@ Reagent kit used for sequencing.
 
 <a name="sequencing_read_format"></a>
 ##### [`sequencing_read_format`](#sequencing_read_format)
-Slash-delimited list of the number of sequencing cycles for, for example, Read1, i7 index, i5 index, and Read2. Example: `12/34/56`.
+Slash-delimited list of the number of sequencing cycles for, for example, Read1, i7 index, i5 index, and Read2. Example: '12/34/56'.
 
 | constraint | value |
 | --- | --- |
@@ -1314,7 +1314,7 @@ Relative path to file or directory with instrument data. Downstream processing w
 
 <a name="donor_id"></a>
 ##### [`donor_id`](#donor_id)
-HuBMAP Display ID of the donor of the assayed tissue. Example: `ABC123`.
+HuBMAP Display ID of the donor of the assayed tissue. Example: 'ABC123'.
 
 | constraint | value |
 | --- | --- |
@@ -1323,7 +1323,7 @@ HuBMAP Display ID of the donor of the assayed tissue. Example: `ABC123`.
 
 <a name="tissue_id"></a>
 ##### [`tissue_id`](#tissue_id)
-HuBMAP Display ID of the assayed tissue. Example: `ABC123-BL-1-2-3_456`.
+HuBMAP Display ID of the assayed tissue. Example: 'ABC123-BL-1-2-3_456'.
 
 | constraint | value |
 | --- | --- |
@@ -1630,7 +1630,7 @@ Reagent kit used for sequencing.
 
 <a name="sequencing_read_format"></a>
 ##### [`sequencing_read_format`](#sequencing_read_format)
-Slash-delimited list of the number of sequencing cycles for, for example, Read1, i7 index, i5 index, and Read2. Example: `12/34/56`.
+Slash-delimited list of the number of sequencing cycles for, for example, Read1, i7 index, i5 index, and Read2. Example: '12/34/56'.
 
 | constraint | value |
 | --- | --- |
