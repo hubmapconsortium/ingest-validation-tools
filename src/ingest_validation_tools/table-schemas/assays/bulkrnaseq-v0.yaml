@@ -36,7 +36,8 @@ fields:
 - name: library_adapter_sequence
   description: Adapter sequence to be used for adapter trimming.
   constraints:
-   pattern: 5-[GATCU]+
+    pattern: 5-[GATCU]+
+  example: AGATCGGAAGAGC
 - name: library_pcr_cycles_for_sample_index
   description: Number of PCR cycles performed for library indexing
   type: integer

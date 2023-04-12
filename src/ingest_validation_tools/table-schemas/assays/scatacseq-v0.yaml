@@ -71,6 +71,7 @@ fields:
   description: Adapter sequence to be used for adapter trimming.
   constraints:
     pattern: '[ATCG]+(\+[ATCG]+)?'
+  example: AGATCGGAAGAGC
 - name: cell_barcode_read
   description: Which read file contains the cell barcode.
 - name: cell_barcode_offset

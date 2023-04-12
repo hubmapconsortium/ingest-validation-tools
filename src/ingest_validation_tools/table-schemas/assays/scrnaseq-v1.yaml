@@ -59,6 +59,7 @@ fields:
   description: Adapter sequence to be used for adapter trimming
   constraints:
     pattern: '[ATCG]+(\+[ATCG]+)?'
+  example: AGATCGGAAGAGC
 # include: ../includes/fields/library_id.yaml
 - name: is_technical_replicate
   description: Is the sequencing reaction run in repliucate, TRUE or FALSE
@@ -69,10 +70,12 @@ fields:
   description: Position(s) in the read at which the cell barcode starts.
   constraints:
     pattern: '\d+(,\d+)*'
+  example: 0,0,38,76
 - name: cell_barcode_size
   description: Length of the cell barcode in base pairs
   constraints:
     pattern: '\d+(,\d+)*'
+  example: 16,8,8,8
 - name: library_pcr_cycles
   description: Number of PCR cycles to amplify cDNA
   type: integer
