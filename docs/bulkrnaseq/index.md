@@ -314,7 +314,7 @@ State whether the library was generated for single-end or paired end sequencing.
 
 <a name="library_adapter_sequence"></a>
 ##### [`library_adapter_sequence`](#library_adapter_sequence)
-Adapter sequence to be used for adapter trimming.
+Adapter sequence to be used for adapter trimming. Example: `5-AATGATACGGCGACCACCGAGATCTACACTCTTTCCCTACACGACGCTCTTCCGATCT`.
 
 | constraint | value |
 | --- | --- |
@@ -634,7 +634,7 @@ State whether the library was generated for single-end or paired end sequencing.
 
 <a name="library_adapter_sequence"></a>
 ##### [`library_adapter_sequence`](#library_adapter_sequence)
-Adapter sequence to be used for adapter trimming.
+Adapter sequence to be used for adapter trimming. Example: `5-AATGATACGGCGACCACCGAGATCTACACTCTTTCCCTACACGACGCTCTTCCGATCT`.
 
 | constraint | value |
 | --- | --- |
