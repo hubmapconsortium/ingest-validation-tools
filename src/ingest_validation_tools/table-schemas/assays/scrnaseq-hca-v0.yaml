@@ -36,7 +36,7 @@ fields:
       prefix: https://dx.doi.org/
   description: DOI for protocols.io referring to the protocol for this assay.
   type: string
-  example: `10.17504/protocols.io.86khzcw`
+  example: '10.17504/protocols.io.86khzcw'
 - name: operator
   constraints:
     required: false
@@ -108,7 +108,7 @@ fields:
   description: 'Link to a protocols document answering the question: How were single
     cells separated into a single-cell suspension?'
   type: string
-  example: `10.17504/protocols.io.ufketkw`
+  example: '10.17504/protocols.io.ufketkw'
 - name: sc_isolation_entity
   constraints:
     required: true
@@ -146,7 +146,7 @@ fields:
     method (including version) that was used, e.g. "Smart-Seq2", "Drop-Seq", "10X
     v3".
   type: string
-  example: `10.17504/protocols.io.be5gjg3w`
+  example: '10.17504/protocols.io.be5gjg3w'
 - name: library_layout
   constraints:
     required: true
