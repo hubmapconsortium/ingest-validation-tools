@@ -1,6 +1,7 @@
 # Changelog
 ## v0.0.16 - in progress
 -updated issue templates.
+-removed donor metadata spec (had not been in use)
 
 ## v0.0.15 - 2023-04-04
 - Versioned directory structure schema
