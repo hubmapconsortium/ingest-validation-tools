@@ -1,5 +1,9 @@
 # Changelog
-## v0.0.15 - in progress
+## v0.0.16 - in progress
+-updated issue templates.
+- Added examples for fields with pattern constraint
+
+## v0.0.15 - 2023-04-04
 - Versioned directory structure schema
 - Added MxIF directory structure schema.
 - Added Lightsheet version 1.
@@ -24,9 +28,10 @@
 - Update `preparation_maldi_matrix` in imaging MS schema to from enum to open string field.
 - Expand file types for stained to not be vendor locked to Leica's `.scn`. Include vendor-neutral `.tiff`.
 - Replaced enum `Multiplexed Ion Beam Imaging` with `MIBI` in src
-- Added `raw` as a potential directory to look for `segmentation.json` file for `CODEX`
-- Updated error messages to be less programmer centric
-- Added examples for fields with pattern constraint
+- Added `raw` as a potential directory to look for `segmentation.json` file for `CODEX`.
+- Updated error messages to be less programmer centric.
+- Updated ims-v2 spec to include DESI as an acceptable enumeration for ms_source.
+- Upgraded CI python definition to 3.9.
 
 ## v0.0.14 - 2022-06-23
 - bump tzingo -> 1.2.10 (dependabot)
