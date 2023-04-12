@@ -99,7 +99,7 @@ Free-text description of this assay.
 
 <a name="donor_id"></a>
 ##### [`donor_id`](#donor_id)
-HuBMAP Display ID of the donor of the assayed tissue. Example: 'ABC123'.
+HuBMAP Display ID of the donor of the assayed tissue. Example: `ABC123`.
 
 | constraint | value |
 | --- | --- |
@@ -108,7 +108,7 @@ HuBMAP Display ID of the donor of the assayed tissue. Example: 'ABC123'.
 
 <a name="tissue_id"></a>
 ##### [`tissue_id`](#tissue_id)
-HuBMAP Display ID of the assayed tissue. Example: 'ABC123-BL-1-2-3_456'.
+HuBMAP Display ID of the assayed tissue. Example: `ABC123-BL-1-2-3_456`.
 
 | constraint | value |
 | --- | --- |
@@ -280,7 +280,7 @@ State whether the library was generated for single-end or paired end sequencing.
 
 <a name="library_adapter_sequence"></a>
 ##### [`library_adapter_sequence`](#library_adapter_sequence)
-The adapter sequence to be used for adapter trimming starting with the 5' end. (eg. 5-ATCCTGAGAA) Example: '5-AATGATACGGCGACCACCGAGATCTACACTCTTTCCCTACACGACGCTCTTCCGATCT'.
+The adapter sequence to be used for adapter trimming starting with the 5' end. (eg. 5-ATCCTGAGAA) Example: `5-AATGATACGGCGACCACCGAGATCTACACTCTTTCCCTACACGACGCTCTTCCGATCT`.
 
 | constraint | value |
 | --- | --- |
@@ -325,7 +325,7 @@ Reagent kit used for sequencing.
 
 <a name="sequencing_read_format"></a>
 ##### [`sequencing_read_format`](#sequencing_read_format)
-Slash-delimited list of the number of sequencing cycles for, for example, Read1, i7 index, i5 index, and Read2. Example: '12/34/56'.
+Slash-delimited list of the number of sequencing cycles for, for example, Read1, i7 index, i5 index, and Read2. Example: `12/34/56`.
 
 | constraint | value |
 | --- | --- |
@@ -380,7 +380,7 @@ Relative path to file or directory with instrument data. Downstream processing w
 
 <a name="donor_id"></a>
 ##### [`donor_id`](#donor_id)
-HuBMAP Display ID of the donor of the assayed tissue. Example: 'ABC123'.
+HuBMAP Display ID of the donor of the assayed tissue. Example: `ABC123`.
 
 | constraint | value |
 | --- | --- |
@@ -389,7 +389,7 @@ HuBMAP Display ID of the donor of the assayed tissue. Example: 'ABC123'.
 
 <a name="tissue_id"></a>
 ##### [`tissue_id`](#tissue_id)
-HuBMAP Display ID of the assayed tissue. Example: 'ABC123-BL-1-2-3_456'.
+HuBMAP Display ID of the assayed tissue. Example: `ABC123-BL-1-2-3_456`.
 
 | constraint | value |
 | --- | --- |
@@ -561,7 +561,7 @@ State whether the library was generated for single-end or paired end sequencing.
 
 <a name="library_adapter_sequence"></a>
 ##### [`library_adapter_sequence`](#library_adapter_sequence)
-The adapter sequence to be used for adapter trimming starting with the 5' end. (eg. 5-ATCCTGAGAA) Example: '5-AATGATACGGCGACCACCGAGATCTACACTCTTTCCCTACACGACGCTCTTCCGATCT'.
+The adapter sequence to be used for adapter trimming starting with the 5' end. (eg. 5-ATCCTGAGAA) Example: `5-AATGATACGGCGACCACCGAGATCTACACTCTTTCCCTACACGACGCTCTTCCGATCT`.
 
 | constraint | value |
 | --- | --- |
@@ -606,7 +606,7 @@ Reagent kit used for sequencing.
 
 <a name="sequencing_read_format"></a>
 ##### [`sequencing_read_format`](#sequencing_read_format)
-Slash-delimited list of the number of sequencing cycles for, for example, Read1, i7 index, i5 index, and Read2. Example: '12/34/56'.
+Slash-delimited list of the number of sequencing cycles for, for example, Read1, i7 index, i5 index, and Read2. Example: `12/34/56`.
 
 | constraint | value |
 | --- | --- |

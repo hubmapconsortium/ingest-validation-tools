@@ -24,7 +24,7 @@ fields:
   constraints:
     pattern: '[A-Z]+[0-9]+'
     required: true
-  example: 'ABC123'
+  example: ABC123
   custom_constraints:
     forbid_na: true
   type: string
@@ -33,7 +33,7 @@ fields:
   constraints:
     pattern: (([A-Z]+[0-9]+)-[A-Z]{2}\d*(-\d+)+(_\d+)?)(,([A-Z]+[0-9]+)-[A-Z]{2}\d*(-\d+)+(_\d+)?)*
     required: true
-  example: 'ABC123-BL-1-2-3_456'
+  example: ABC123-BL-1-2-3_456
   custom_constraints:
     forbid_na: true
   type: string
@@ -260,7 +260,7 @@ fields:
   constraints:
     pattern: '[ATCG]+(\+[ATCG]+)?'
     required: true
-  example: 'CTGTCTCTTATACACATCT'
+  example: CTGTCTCTTATACACATCT
   custom_constraints:
     sequence_limit: 3
     forbid_na: true
@@ -294,7 +294,7 @@ fields:
   constraints:
     required: false
     pattern: \d+(,\d+)*
-  example: '0,0,38,76'
+  example: 0,0,38,76
   custom_constraints:
     sequence_limit: 3
     forbid_na: true
@@ -304,7 +304,7 @@ fields:
   constraints:
     required: false
     pattern: \d+(,\d+)*
-  example: '16,8,8,8'
+  example: 16,8,8,8
   custom_constraints:
     sequence_limit: 3
     forbid_na: true
@@ -372,7 +372,7 @@ fields:
 - name: sequencing_read_format
   description: Slash-delimited list of the number of sequencing cycles for, for example,
     Read1, i7 index, i5 index, and Read2.
-  example: '12/34/56'
+  example: 12/34/56
   constraints:
     pattern: \d+(/\d+)+
     required: true

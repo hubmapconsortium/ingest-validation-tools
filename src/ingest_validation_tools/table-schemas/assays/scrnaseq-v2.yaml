@@ -87,7 +87,7 @@ fields:
     required: FALSE
     pattern: '\d+(,\d+)*'
   example: '16,8,8,8'
- # include: ../includes/fields/expected_cell_count.yaml
+# include: ../includes/fields/expected_cell_count.yaml
 - name: library_pcr_cycles
   description: Number of PCR cycles to amplify cDNA
   type: integer
