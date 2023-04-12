@@ -73,7 +73,7 @@ fields:
   description: Adapter sequence to be used for adapter trimming.
   constraints:
     pattern: '[ATCG]+(\+[ATCG]+)?'
-  example: CTGTCTCTTATACACATCT
+  example: 'CTGTCTCTTATACACATCT'
 - name: cell_barcode_read
   constraints:
     required: False
@@ -83,13 +83,13 @@ fields:
     required: FALSE
     pattern: '\d+(,\d+)*'
   description: Positions in the read at which the cell barcodes start. Cell barcodes are, for example, 3 x 8 bp sequences that are spaced by constant sequences (the offsets). First barcode at position 0, then 38, then 76. (Does not apply to sciATACseq, SNARE-seq and BulkATAC.)
-  example: 0,0,38,76
+  example: '0,0,38,76'
 - name: cell_barcode_size
   constraints:
     required: FALSE
     pattern: '\d+(,\d+)*'
   description: Length of the cell barcode in base pairs. Cell barcodes are, for example, 3 x 8 bp sequences that are spaced by constant sequences, the offsets. (Does not apply to sciATACseq, SNARE-seq and BulkATAC.)
-  example: 16,8,8,8
+  example: '16,8,8,8'
 - name: library_pcr_cycles
   description: Number of PCR cycles to enrich for accessible chromatin fragments.
   type: integer
