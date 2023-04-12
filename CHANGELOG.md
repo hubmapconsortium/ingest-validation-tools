@@ -1,6 +1,7 @@
 # Changelog
 ## v0.0.16 - in progress
 -updated issue templates.
+- Added examples for fields with pattern constraint
 
 ## v0.0.15 - 2023-04-04
 - Versioned directory structure schema

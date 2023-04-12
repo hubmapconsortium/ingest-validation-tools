@@ -262,6 +262,7 @@ fields:
   constraints:
     pattern: '[ATCG]+(\+[ATCG]+)?'
     required: true
+  example: CTGTCTCTTATACACATCT
   custom_constraints:
     sequence_limit: 3
     forbid_na: true
@@ -295,6 +296,7 @@ fields:
   constraints:
     pattern: '[^/]+'
     required: true
+  example: R1
   custom_constraints:
     sequence_limit: 3
     forbid_na: true
@@ -320,6 +322,7 @@ fields:
   constraints:
     required: false
     pattern: \d+(,\d+)*
+  example: 0,0,38,76
   custom_constraints:
     sequence_limit: 3
     forbid_na: true
@@ -329,6 +332,7 @@ fields:
   constraints:
     required: false
     pattern: \d+(,\d+)*
+  example: 16,8,8,8
   custom_constraints:
     sequence_limit: 3
     forbid_na: true

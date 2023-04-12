@@ -364,7 +364,7 @@ State whether the library was generated for single-end or paired end sequencing.
 
 <a name="library_adapter_sequence"></a>
 ##### [`library_adapter_sequence`](#library_adapter_sequence)
-Adapter sequence to be used for adapter trimming.
+Adapter sequence to be used for adapter trimming. Example: `CTGTCTCTTATACACATCT`.
 
 | constraint | value |
 | --- | --- |
@@ -381,21 +381,21 @@ Which read file(s) contains the cell barcode. Multiple cell_barcode_read files m
 
 <a name="cell_barcode_offset"></a>
 ##### [`cell_barcode_offset`](#cell_barcode_offset)
-Positions in the read at which the cell barcodes start. Cell barcodes are, for example, 3 x 8 bp sequences that are spaced by constant sequences (the offsets). First barcode at position 0, then 38, then 76. (Does not apply to sciATACseq, SNARE-seq and BulkATAC.)
+Positions in the read at which the cell barcodes start. Cell barcodes are, for example, 3 x 8 bp sequences that are spaced by constant sequences (the offsets). First barcode at position 0, then 38, then 76. (Does not apply to sciATACseq, SNARE-seq and BulkATAC.) Leave blank if not applicable. Example: `0,0,38,76`.
 
 | constraint | value |
 | --- | --- |
+| required | `False` |
 | pattern (regular expression) | <code>\d+(,\d+)*</code> |
-| required | `True` |
 
 <a name="cell_barcode_size"></a>
 ##### [`cell_barcode_size`](#cell_barcode_size)
-Length of the cell barcode in base pairs. Cell barcodes are, for example, 3 x 8 bp sequences that are spaced by constant sequences, the offsets. (Does not apply to sciATACseq, SNARE-seq and BulkATAC.)
+Length of the cell barcode in base pairs. Cell barcodes are, for example, 3 x 8 bp sequences that are spaced by constant sequences, the offsets. (Does not apply to sciATACseq, SNARE-seq and BulkATAC.) Leave blank if not applicable. Example: `16,8,8,8`.
 
 | constraint | value |
 | --- | --- |
+| required | `False` |
 | pattern (regular expression) | <code>\d+(,\d+)*</code> |
-| required | `True` |
 
 <a name="library_pcr_cycles"></a>
 ##### [`library_pcr_cycles`](#library_pcr_cycles)
@@ -758,7 +758,7 @@ State whether the library was generated for single-end or paired end sequencing.
 
 <a name="library_adapter_sequence"></a>
 ##### [`library_adapter_sequence`](#library_adapter_sequence)
-Adapter sequence to be used for adapter trimming.
+Adapter sequence to be used for adapter trimming. Example: `CTGTCTCTTATACACATCT`.
 
 | constraint | value |
 | --- | --- |
@@ -775,7 +775,7 @@ Which read file contains the cell barcode.
 
 <a name="cell_barcode_offset"></a>
 ##### [`cell_barcode_offset`](#cell_barcode_offset)
-Positions in the read at which the cell barcodes start. Cell barcodes are, for example, 3 x 8 bp sequences that are spaced by constant sequences (the offsets). First barcode at position 0, then 38, then 76. (Does not apply to SNARE-seq and BulkATAC.)
+Positions in the read at which the cell barcodes start. Cell barcodes are, for example, 3 x 8 bp sequences that are spaced by constant sequences (the offsets). First barcode at position 0, then 38, then 76. (Does not apply to SNARE-seq and BulkATAC.) Example: `0,0,38,76`.
 
 | constraint | value |
 | --- | --- |
@@ -784,7 +784,7 @@ Positions in the read at which the cell barcodes start. Cell barcodes are, for e
 
 <a name="cell_barcode_size"></a>
 ##### [`cell_barcode_size`](#cell_barcode_size)
-Length of the cell barcode in base pairs. Cell barcodes are, for example, 3 x 8 bp sequences that are spaced by constant sequences, the offsets. (Does not apply to SNARE-seq and BulkATAC.)
+Length of the cell barcode in base pairs. Cell barcodes are, for example, 3 x 8 bp sequences that are spaced by constant sequences, the offsets. (Does not apply to SNARE-seq and BulkATAC.) Example: `16,8,8,8`.
 
 | constraint | value |
 | --- | --- |

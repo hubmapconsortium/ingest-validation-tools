@@ -6,6 +6,7 @@ fields:
   constraints:
     required: True
     pattern: '([A-Z]+[0-9]+)-[A-Z]{2}\d*(-\d+)+(_\d+)?'
+  example: 'VAN0010-LK-152-162'
 - Donor
 -
   name: vital_state
