@@ -1,0 +1,11 @@
+- name: preparation_condition
+  description: 'The condition under which the preparation occurred, such as whether the sample was placed in dry ice during the preparation.'
+  constraints:
+    enum:
+      - frozen in liquid nitrogen
+      - frozen in liquid nitrogen vapor
+      - frozen in ice
+      - frozen in dry ice
+      - frozen at -20 C
+      - ambient temperature
+      - unknown
