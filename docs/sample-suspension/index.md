@@ -34,11 +34,11 @@ Related files:
 [`source_storage_time_value`](#source_storage_time_value)<br>
 [`source_storage_time_unit`](#source_storage_time_unit)<br>
 [`preparation_media`](#preparation_media)<br>
-[`preparation_temperature`](#preparation_temperature)<br>
+[`preparation_condition`](#preparation_condition)<br>
 [`processing_time_value`](#processing_time_value)<br>
 [`processing_time_unit`](#processing_time_unit)<br>
 [`storage_media`](#storage_media)<br>
-[`storage_temperature`](#storage_temperature)<br>
+[`storage_method`](#storage_method)<br>
 [`quality_criteria`](#quality_criteria)<br>
 [`suspension_entity`](#suspension_entity)<br>
 [`suspension_entity_number`](#suspension_entity_number)<br>
@@ -102,13 +102,13 @@ The media used during preparation of the sample.
 | enum | `PFA (4%)`, `Buffered Formalin (10% NBF)`, `Non-Buffered Formalin (FOR)`, `1 x PBS`, `OCT`, `CMC`, `MACS Tissue Storage Solution`, `RNAlater`, `Methanol`, `Non-aldehyde based without acetic acid (NAA)`, `Non-aldehyde with acetic acid (ACA)`, `PAXgene tissue (PXT)`, `Allprotect tissue reagent (ALL)`, or `None` |
 | required | `True` |
 
-<a name="preparation_temperature"></a>
-##### [`preparation_temperature`](#preparation_temperature)
-The temperature for the preparation process.
+<a name="preparation_condition"></a>
+##### [`preparation_condition`](#preparation_condition)
+The condition under which the preparation occurred, such as whether the sample was placed in dry ice during the preparation.
 
 | constraint | value |
 | --- | --- |
-| enum | `Liquid Nitrogen`, `Liquid Nitrogen Vapor`, `Dry Ice`, `-80 Celsius`, `-20 Celsius`, `4 Celsius`, `24 Celsius (Room Temperature)`, or `37 Celsius` |
+| enum | `frozen in liquid nitrogen`, `frozen in liquid nitrogen vapor`, `frozen in ice`, `frozen in dry ice`, `frozen at -20 C`, `ambient temperature`, or `unknown` |
 | required | `True` |
 
 <a name="processing_time_value"></a>
@@ -139,13 +139,13 @@ What was the sample preserved in.
 | enum | `PFA (4%)`, `Buffered Formalin (10% NBF)`, `Non-Buffered Formalin (FOR)`, `1 x PBS`, `OCT Embedded`, `CMC Embedded`, `OCT Embedded Cryoprotected (sucrose)`, `Paraffin Embedded`, `MACS Tissue Storage Solution`, `RNAlater`, `Methanol`, `Tris-EDTA`, `70% ethanol`, `Serum + DMSO`, `DMSO (no serum)`, `PAXgene Tissue Kit (PXT)`, `Allprotect Tissue Reagent (ALL)`, `Sucrose Cryoprotection Solution`, `Carboxymethylcellulose (CMC)`, or `None` |
 | required | `True` |
 
-<a name="storage_temperature"></a>
-##### [`storage_temperature`](#storage_temperature)
-The temperature during storage, after preparation and before the assay is performed.
+<a name="storage_method"></a>
+##### [`storage_method`](#storage_method)
+The method by which the sample was stored, after preparation and before the assay was performed.
 
 | constraint | value |
 | --- | --- |
-| enum | `Liquid Nitrogen (Unspecified)`, `Liquid Nitrogen (Cryotube)`, `Liquid Nitrogen (Straw)`, `Liquid Nitrogen Vapor`, `Dry Ice`, `-80 Celsius (Unspecified)`, `-80 Celsius (Cryotube)`, `-80 Celsius (Straw)`, `-20 Celsius`, `4 Celsius`, `24 Celsius (Room Temperature)`, or `37 Celsius` |
+| enum | `frozen in liquid nitrogen`, `frozen in liquid nitrogen vapor`, `frozen in ice`, `frozen in dry ice`, `frozen at -80 C`, `frozen at -20 C`, `refrigerator`, `ambient temperature`, `incubated at 37 C`, `none`, or `unknown` |
 | required | `True` |
 
 <a name="quality_criteria"></a>

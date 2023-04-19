@@ -356,6 +356,8 @@ pixel_size_z_value:
 - dataset
 polarity:
 - dataset
+preparation_condition:
+- sample
 preparation_instrument_model:
 - dataset
 preparation_instrument_vendor:
@@ -363,8 +365,6 @@ preparation_instrument_vendor:
 preparation_maldi_matrix:
 - dataset
 preparation_media:
-- sample
-preparation_temperature:
 - sample
 preparation_type:
 - dataset
@@ -504,7 +504,7 @@ step_z_value:
 - dataset
 storage_media:
 - sample
-storage_temperature:
+storage_method:
 - sample
 suspension_enriched:
 - sample

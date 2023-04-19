@@ -272,6 +272,8 @@ pixel_size_z_unit: Depth unit of the pixel or voxel measurement.
 pixel_size_z_value: Depth value of the pixel or voxel measurement (distinct from the
   image resolution_z_value).
 polarity: The polarity of the mass analysis (positive or negative ion modes)
+preparation_condition: The condition under which the preparation occurred, such as
+  whether the sample was placed in dry ice during the preparation.
 preparation_instrument_model: The model number/name of the instrument used to prepare
   the sample for the assay
 preparation_instrument_vendor: The manufacturer of the instrument used to prepare
@@ -280,7 +282,6 @@ preparation_maldi_matrix: The matrix is a compound of crystallized molecules tha
   acts like a buffer between the sample and the laser. It also helps ionize the sample,
   carrying it along the flight tube so it can be detected.
 preparation_media: The media used during preparation of the sample.
-preparation_temperature: The temperature for the preparation process.
 preparation_type: Common methods of depositing matrix for MALDI imaging include robotic
   spotting, electrospray deposition, and spray-coating with an airbrush.
 primary_ion: Primary ion.
@@ -398,8 +399,8 @@ stain: Chemical stains (dyes) applied to histology samples to highlight importan
 start_datetime: Time stamp indicating start of ablation for ROI
 step_z_value: The number of optical sections in z axis range.
 storage_media: What was the sample preserved in.
-storage_temperature: The temperature during storage, after preparation and before
-  the assay is performed.
+storage_method: The method by which the sample was stored, after preparation and before
+  the assay was performed.
 suspension_enriched: Was the cell/nuclei population enriched?
 suspension_enriched_target: If the suspension was enriched, then this is the target
   of the enrichment.

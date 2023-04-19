@@ -71,18 +71,18 @@ fields:
   custom_constraints:
     sequence_limit: 3
     forbid_na: true
-- name: preparation_temperature
-  description: The temperature for the preparation process.
+- name: preparation_condition
+  description: The condition under which the preparation occurred, such as whether
+    the sample was placed in dry ice during the preparation.
   constraints:
     enum:
-    - Liquid Nitrogen
-    - Liquid Nitrogen Vapor
-    - Dry Ice
-    - -80 Celsius
-    - -20 Celsius
-    - 4 Celsius
-    - 24 Celsius (Room Temperature)
-    - 37 Celsius
+    - frozen in liquid nitrogen
+    - frozen in liquid nitrogen vapor
+    - frozen in ice
+    - frozen in dry ice
+    - frozen at -20 C
+    - ambient temperature
+    - unknown
     required: true
   custom_constraints:
     sequence_limit: 3
@@ -137,23 +137,22 @@ fields:
   custom_constraints:
     sequence_limit: 3
     forbid_na: true
-- name: storage_temperature
-  description: The temperature during storage, after preparation and before the assay
-    is performed.
+- name: storage_method
+  description: The method by which the sample was stored, after preparation and before
+    the assay was performed.
   constraints:
     enum:
-    - Liquid Nitrogen (Unspecified)
-    - Liquid Nitrogen (Cryotube)
-    - Liquid Nitrogen (Straw)
-    - Liquid Nitrogen Vapor
-    - Dry Ice
-    - -80 Celsius (Unspecified)
-    - -80 Celsius (Cryotube)
-    - -80 Celsius (Straw)
-    - -20 Celsius
-    - 4 Celsius
-    - 24 Celsius (Room Temperature)
-    - 37 Celsius
+    - frozen in liquid nitrogen
+    - frozen in liquid nitrogen vapor
+    - frozen in ice
+    - frozen in dry ice
+    - frozen at -80 C
+    - frozen at -20 C
+    - refrigerator
+    - ambient temperature
+    - incubated at 37 C
+    - none
+    - unknown
     required: true
   custom_constraints:
     sequence_limit: 3
