@@ -907,6 +907,10 @@ polarity:
 - ims
 - lcms
 - nano
+preparation_condition:
+- sample-block
+- sample-section
+- sample-suspension
 preparation_instrument_model:
 - codex
 - imc
@@ -924,10 +928,6 @@ preparation_instrument_vendor:
 preparation_maldi_matrix:
 - ims
 preparation_media:
-- sample-block
-- sample-section
-- sample-suspension
-preparation_temperature:
 - sample-block
 - sample-section
 - sample-suspension
@@ -1286,7 +1286,7 @@ storage_media:
 - sample-block
 - sample-section
 - sample-suspension
-storage_temperature:
+storage_method:
 - sample-block
 - sample-section
 - sample-suspension

@@ -3,6 +3,8 @@
 -updated issue templates.
 -removed donor metadata spec (had not been in use)
 - Added examples for fields with pattern constraint
+- Replaced `preparation_temperature` with `preparation_condition` and updated associated enumerations in the sample-section, sample-block, and sample-suspension schemas
+- Replaced `storage_temperature` with `storage_method` and updated associated enumerations in the sample-section, sample-block, and sample-suspension schemas
 
 ## v0.0.15 - 2023-04-04
 - Versioned directory structure schema

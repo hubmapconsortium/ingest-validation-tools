@@ -177,11 +177,11 @@ pixel_size_y_value: number
 pixel_size_z_unit: string
 pixel_size_z_value: number
 polarity: string
+preparation_condition: string
 preparation_instrument_model: string
 preparation_instrument_vendor: string
 preparation_maldi_matrix: string
 preparation_media: string
-preparation_temperature: string
 preparation_type: string
 primary_ion: string
 primary_ion_current_unit: string
@@ -251,7 +251,7 @@ stain: string
 start_datetime: datetime
 step_z_value: number
 storage_media: string
-storage_temperature: string
+storage_method: string
 suspension_enriched: string
 suspension_enriched_target: string
 suspension_entity: string
