@@ -80,10 +80,6 @@ channel_id:
 - antibodies
 coil:
 - dataset
-cold_ischemia_time_unit:
-- sample
-cold_ischemia_time_value:
-- sample
 column_length_unit:
 - dataset
 column_length_value:
@@ -170,8 +166,6 @@ guard_column:
 - dataset
 harmonics:
 - dataset
-health_status:
-- sample
 histological_report:
 - sample
 imaging_threshold_unit_value:
@@ -322,17 +316,11 @@ operator_email:
 - dataset
 orcid_id:
 - contributors
-organ_condition:
-- sample
 overall_protocols_io_doi:
 - dataset
-pathologist_report:
-- sample
 pathology_distance_unit:
 - sample
 pathology_distance_value:
-- sample
-perfusion_solution:
 - sample
 pi:
 - dataset
@@ -376,8 +364,6 @@ primary_ion_current_value:
 - dataset
 probe:
 - dataset
-procedure_date:
-- sample
 processing_protocols_io_doi:
 - dataset
 processing_search:
@@ -486,14 +472,6 @@ spatial_target:
 - dataset
 spatial_type:
 - dataset
-specimen_preservation_temperature:
-- sample
-specimen_quality_criteria:
-- sample
-specimen_tumor_distance_unit:
-- sample
-specimen_tumor_distance_value:
-- sample
 speckle_reduction_imaging:
 - dataset
 stain:
@@ -541,8 +519,6 @@ version:
 - contributors
 - dataset
 - sample
-vital_state:
-- sample
 voltage_unit:
 - dataset
 voltage_value:
@@ -552,10 +528,6 @@ volume_export_format:
 volume_unit:
 - sample
 volume_value:
-- sample
-warm_ischemia_time_unit:
-- sample
-warm_ischemia_time_value:
 - sample
 wavelength_unit:
 - dataset

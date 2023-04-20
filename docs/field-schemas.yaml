@@ -225,10 +225,6 @@ channel_id:
 - antibodies
 coil:
 - mri
-cold_ischemia_time_unit:
-- sample
-cold_ischemia_time_value:
-- sample
 column_length_unit:
 - gcms
 column_length_value:
@@ -451,8 +447,6 @@ guard_column:
 - gcms
 harmonics:
 - ultrasound
-health_status:
-- sample
 histological_report:
 - sample-block
 - sample-section
@@ -801,8 +795,6 @@ operator_email:
 - wgs
 orcid_id:
 - contributors
-organ_condition:
-- sample
 overall_protocols_io_doi:
 - af
 - celldive
@@ -813,14 +805,10 @@ overall_protocols_io_doi:
 - mxif
 - nano
 - stained
-pathologist_report:
-- sample
 pathology_distance_unit:
 - sample-block
 pathology_distance_value:
 - sample-block
-perfusion_solution:
-- sample
 pi:
 - af
 - bodyct
@@ -941,8 +929,6 @@ primary_ion_current_value:
 - mibi
 probe:
 - ultrasound
-procedure_date:
-- sample
 processing_protocols_io_doi:
 - celldive
 - cems
@@ -1141,7 +1127,6 @@ roi_id:
 rr_id:
 - antibodies
 sample_id:
-- sample
 - sample-block
 - sample-section
 - sample-suspension
@@ -1265,14 +1250,6 @@ spatial_type:
 - cems
 - gcms
 - lcms
-specimen_preservation_temperature:
-- sample
-specimen_quality_criteria:
-- sample
-specimen_tumor_distance_unit:
-- sample
-specimen_tumor_distance_value:
-- sample
 speckle_reduction_imaging:
 - ultrasound
 stain:
@@ -1384,8 +1361,6 @@ version:
 - stained
 - ultrasound
 - wgs
-vital_state:
-- sample
 voltage_unit:
 - microct
 voltage_value:
@@ -1396,10 +1371,6 @@ volume_unit:
 - sample-block
 volume_value:
 - sample-block
-warm_ischemia_time_unit:
-- sample
-warm_ischemia_time_value:
-- sample
 wavelength_unit:
 - oct
 wavelength_value:

@@ -75,8 +75,6 @@ cell_barcode_read: Which read file contains the cell barcode
 cell_barcode_size: Length of the cell barcode in base pairs
 channel_id: Structure of channel_id depends on assay type.
 coil: 'Receiver coil name used to collect MRI data. Example: 32 channel body coil'
-cold_ischemia_time_unit: Time unit
-cold_ischemia_time_value: Time interval on ice to the start of preservation protocol.
 column_length_unit: Unit for GC column length
 column_length_value: GC column length
 column_model: The model of the GC column used
@@ -140,13 +138,6 @@ gdna_fragmentation_quality_assurance: Is the gDNA integrity good enough for WGS?
 guard_column: Specifies if guard column was used
 harmonics: 'Multiples of the fundamental or transmitted frequency used to help optimize
   an ultrasound image. Examples: None, Low, Medium or High'
-health_status: "Patient's baseline physical condition prior to immediate event leading\
-  \ to organ/tissue acquisition. For example, if a relatively healthy patient suffers\
-  \ trauma, and as a result of reparative surgery, a tissue sample is collected, the\
-  \ subject will be deemed \u201Crelatively healthy\u201D.   Likewise, a relatively\
-  \ healthy subject may have experienced trauma leading to brain death.  As a result\
-  \ of organ donation, a sample is collected.  In this scenario, the subject is deemed\
-  \ \u201Crelatively healthy.\u201D"
 histological_report: histopathological reporting of key variables that are important
   for the tissue (absence of necrosis, comment on composition, significant pathology
   description, high level inflammation/fibrosis assessment etc
@@ -251,13 +242,10 @@ number_of_sections: Number of sections
 operator: Name of the person responsible for executing the assay.
 operator_email: Email address for the operator.
 orcid_id: ORCID ID of contributor
-organ_condition: Health status of the organ at the time of sample recovery.
 overall_protocols_io_doi: DOI for protocols.io for the overall process.
-pathologist_report: Further details on organ level QC checks.
 pathology_distance_unit: Distance unit
 pathology_distance_value: If surgical sample, how far from the pathology was the sample
   obtained. Typically a number of centimeters. Leave blank if not applicable or unknown.
-perfusion_solution: Type of solution that was used to perfuse the organ.
 pi: Name of the principal investigator responsible for the data.
 pi_email: Email address for the principal investigator.
 pixel_dwell_time_unit: Pixel dwell time unit.
@@ -289,7 +277,6 @@ primary_ion_current_unit: Primary ion current unit, typically nA or pA
 primary_ion_current_value: Primary ion current value.
 probe: 'The specific ultrasound device used to produce sound waves (String -free text).
   Examples: C1-5-D, C4-8-D, AB2-7-D, RIC5-9-D, RAB6-D, RAB4-8-D, 4C-D, RM6C'
-procedure_date: Date of procedure to procure organ.
 processing_protocols_io_doi: DOI for analysis protocols.io for this assay.
 processing_search: Software for analyzing and searching LC-MS/MS omics data
 processing_time_unit: Time unit
@@ -328,7 +315,8 @@ roi_id: Multiple images (1-n) are acquired from regions of interest (ROI1, ROI2,
   a slide.
 rr_id: The rr_id is a unique antibody identifier that comes from the Antibody Registry
   (https://antibodyregistry.org).
-sample_id: (No description for this field was supplied.)
+sample_id: The unique Submission ID for the sample assigned by the ingest portal.
+  An example value might be "VAN0010-LK-152-162".
 sample_quality_metric: "This is a quality metric by visual inspection. This should\
   \ answer the question: Are the nuclei intact and are the nuclei free of significant\
   \ amounts of debris? This can be captured at a high level, \u201COK\u201D or \u201C\
@@ -385,13 +373,6 @@ spatial_type: Specifies whether or not the analysis was performed in a spatialy 
   manner and the technique used for spatial sampling. For example, Laser-capture microdissection
   (LCM), Liquid Extraction Surface Analysis (LESA), Nanodroplet Processing in One
   pot for Trace Samples (nanoPOTS).
-specimen_preservation_temperature: The temperature of the medium during the preservation
-  process.
-specimen_quality_criteria: 'For example, RIN: 8.7.'
-specimen_tumor_distance_unit: Distance unit
-specimen_tumor_distance_value: If surgical sample, how far from the tumor was the
-  sample obtained from. Typically a number of centimeters. Leave blank if not applicable
-  or unknown.
 speckle_reduction_imaging: 'Level used to reduce speckle noise in ultrasound images.
   Examples: numbers ranging from 0-5'
 stain: Chemical stains (dyes) applied to histology samples to highlight important
@@ -422,15 +403,11 @@ umi_size: Length of the umi barcode in base pairs.
 uniprot_accession_number: The uniprot_accession_number is a unique identifier for
   proteins in the UniProt database (https://www.uniprot.org).
 version: Version of the schema to use when validating this metadata.
-vital_state: Identify the vital state of the donor.
 voltage_unit: 'The unit of the voltage used to acquire microCT images. Example: V'
 voltage_value: The voltage used to acquire images
 volume_export_format: 'The format of the volume export of OCT images (Example: tiff)'
 volume_unit: Volume unit
 volume_value: The volume of a tissue block.
-warm_ischemia_time_unit: Time unit
-warm_ischemia_time_value: Time interval between cessation of blood flow and cooling
-  to 4C.
 wavelength_unit: The unit of the wavelength value used to acquire OCT images (nm)
 wavelength_value: 'The value of the wavelength used to acquire OCT images (Example:
   787)'
