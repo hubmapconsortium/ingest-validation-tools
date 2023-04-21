@@ -1,0 +1,20 @@
+fields:
+  -
+    name: version
+    description: Current version of metadata schema. Template provides the correct value.
+    constraints:
+      enum:
+        - '0'
+      required: True
+  -
+    name: assay_type
+    description: The specific type of assay being executed.
+    constraints:
+      enum:
+        - Publications
+      required: True
+  -
+    name: contributors_path
+    description: Relative path to file with ORCID IDs for contributors for this dataset.
+    constraints:
+      required: True
