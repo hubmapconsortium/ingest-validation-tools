@@ -11,7 +11,7 @@ fields:
     description: The specific type of assay being executed.
     constraints:
       enum:
-        - Publications
+        - publication
       required: True
   -
     name: contributors_path
