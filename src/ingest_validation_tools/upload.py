@@ -1,32 +1,34 @@
-from datetime import datetime
-from collections import defaultdict
-from fnmatch import fnmatch
-from collections import Counter
+from __future__ import annotations
+
 import json
 import logging
-import pandas as pd
-from pathlib import Path
-import requests
+import os
 import subprocess
+from collections import Counter, defaultdict
+from datetime import datetime
+from fnmatch import fnmatch
+from pathlib import Path
 
-from ingest_validation_tools.validation_utils import (
-    get_tsv_errors,
-    get_data_dir_errors,
-    dict_reader_wrapper,
-    get_context_of_decode_error,
-    get_table_schema_version,
-    get_directory_schema_versions,
-)
+import pandas as pd
+import requests
+from requests.auth import HTTPBasicAuth
 
 from ingest_validation_tools.plugin_validator import (
-    run_plugin_validators_iter,
     ValidatorError as PluginValidatorError,
 )
-
+from ingest_validation_tools.plugin_validator import run_plugin_validators_iter
 from ingest_validation_tools.schema_loader import PreflightError
-
+from ingest_validation_tools.validation_utils import (
+    dict_reader_wrapper,
+    get_context_of_decode_error,
+    get_data_dir_errors,
+    get_directory_schema_versions,
+    get_table_schema_version,
+    get_tsv_errors,
+)
 
 TSV_SUFFIX = "metadata.tsv"
+API_KEY_SECRET = ""
 
 
 class Upload:
@@ -114,9 +116,11 @@ class Upload:
 
         if tsv_errors := self._check_tsvs():
             errors["Metadata TSV Errors"] = tsv_errors
+        for path, schema_version in self.effective_tsv_paths.items():
+            print(path, schema_version)
         else:
             if True:
-                errors = self.cedar_validation_routine(tsv_file)
+                errors = self.cedar_validation_routine()
             else:
                 errors = self.local_validation_routine()
 
@@ -130,9 +134,7 @@ class Upload:
 
         return errors
 
-    def cedar_validation_routine(self, tsv_file):
-        for path, schema_version in self.effective_tsv_paths.items():
-            print(path, schema_version)
+    def cedar_validation_routine(self):
         # for path, schema_version in self.effective_tsv_paths.items():
         #     schema_name = schema_version.schema_name
         #
