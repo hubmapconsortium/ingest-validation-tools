@@ -263,6 +263,7 @@ assay_type:
 - NanoPOTS
 - OCT
 - PAS microscopy
+- Publication
 - SIMS-IMS
 - SNARE-seq2
 - SNARE2-RNAseq
@@ -272,6 +273,7 @@ assay_type:
 - bulk RNA
 - bulkATACseq
 - cell-dive
+- publication
 - scRNAseq
 - scRNAseq-10xGenomics
 - scRNAseq-10xGenomics-v2
@@ -398,6 +400,7 @@ contributors_path:
 - NanoPOTS
 - OCT
 - PAS microscopy
+- Publication
 - SIMS-IMS
 - SNARE-seq2
 - SNARE2-RNAseq
@@ -407,6 +410,7 @@ contributors_path:
 - bulk RNA
 - bulkATACseq
 - cell-dive
+- publication
 - scRNAseq
 - scRNAseq-10xGenomics
 - scRNAseq-10xGenomics-v2
@@ -464,6 +468,7 @@ data_path:
 - NanoPOTS
 - OCT
 - PAS microscopy
+- Publication
 - SIMS-IMS
 - SNARE-seq2
 - SNARE2-RNAseq
@@ -473,6 +478,7 @@ data_path:
 - bulk RNA
 - bulkATACseq
 - cell-dive
+- publication
 - scRNAseq
 - scRNAseq-10xGenomics
 - scRNAseq-10xGenomics-v2
@@ -2257,6 +2263,7 @@ version:
 - NanoPOTS
 - OCT
 - PAS microscopy
+- Publication
 - SIMS-IMS
 - SNARE-seq2
 - SNARE2-RNAseq
@@ -2266,6 +2273,7 @@ version:
 - bulk RNA
 - bulkATACseq
 - cell-dive
+- publication
 - scRNAseq
 - scRNAseq-10xGenomics
 - scRNAseq-10xGenomics-v2

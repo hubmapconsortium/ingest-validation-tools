@@ -171,6 +171,7 @@ assay_type:
 - mxif
 - nano
 - oct
+- publication
 - scatacseq
 - scrnaseq
 - scrnaseq-hca
@@ -271,6 +272,7 @@ contributors_path:
 - mxif
 - nano
 - oct
+- publication
 - scatacseq
 - scrnaseq
 - scrnaseq-hca
@@ -307,6 +309,7 @@ data_path:
 - mxif
 - nano
 - oct
+- publication
 - scatacseq
 - scrnaseq
 - scrnaseq-hca
@@ -1374,6 +1377,7 @@ version:
 - mxif
 - nano
 - oct
+- publication
 - sample-block
 - sample-section
 - sample-suspension
