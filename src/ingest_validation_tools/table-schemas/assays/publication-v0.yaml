@@ -10,6 +10,7 @@ fields:
   constraints:
     enum:
       - Publication
+      - publication
     required: True
 
 # include: ../includes/v0/paths.yaml

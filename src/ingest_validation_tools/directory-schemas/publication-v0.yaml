@@ -6,12 +6,7 @@ files:
     required: True
   -
     example: 'vignettes/vignette_01/file1.json'
-    pattern: '(Vignettes|vignettes)/(Vignette|vignette)_\d+/.+\.json'
-    description: 'Vitessce visualization files'
-    required: False
-  -
-    example: 'vignettes/vignette_01/mysubdir/file2.json'
-    pattern: '(Vignettes|vignettes)/(Vignette|vignette)_\d+/.+/.+\.json'
+    pattern: '(Vignettes|vignettes)/(Vignette|vignette)_\d+/[^/]+\.json'
     description: 'Vitessce visualization files'
     required: False
   -
