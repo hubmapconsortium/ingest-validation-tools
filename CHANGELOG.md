@@ -1,5 +1,6 @@
 # Changelog
 ## v0.0.16 - in progress
+-add support for Publication type
 -updated issue templates.
 -removed donor metadata spec (had not been in use)
 - Added examples for fields with pattern constraint
