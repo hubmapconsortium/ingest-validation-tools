@@ -298,6 +298,7 @@ fields:
   constraints:
     pattern: '[ATCG]+(\+[ATCG]+)?'
     required: true
+  example: CTGTCTCTTATACACATCT
   custom_constraints:
     sequence_limit: 3
     forbid_na: true
@@ -313,23 +314,25 @@ fields:
     forbid_na: true
 - name: cell_barcode_offset
   constraints:
+    required: false
     pattern: \d+(,\d+)*
-    required: true
   description: Positions in the read at which the cell barcodes start. Cell barcodes
     are, for example, 3 x 8 bp sequences that are spaced by constant sequences (the
     offsets). First barcode at position 0, then 38, then 76. (Does not apply to sciATACseq,
     SNARE-seq and BulkATAC.)
+  example: 0,0,38,76
   custom_constraints:
     sequence_limit: 3
     forbid_na: true
   type: string
 - name: cell_barcode_size
   constraints:
+    required: false
     pattern: \d+(,\d+)*
-    required: true
   description: Length of the cell barcode in base pairs. Cell barcodes are, for example,
     3 x 8 bp sequences that are spaced by constant sequences, the offsets. (Does not
     apply to sciATACseq, SNARE-seq and BulkATAC.)
+  example: 16,8,8,8
   custom_constraints:
     sequence_limit: 3
     forbid_na: true

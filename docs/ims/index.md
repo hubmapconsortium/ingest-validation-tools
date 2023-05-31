@@ -244,7 +244,7 @@ The ion source type used for surface sampling (MALDI, MALDI-2, DESI, nanoDESI or
 
 | constraint | value |
 | --- | --- |
-| enum | `MALDI`, `MALDI-2`, `LDI`, `LA`, `SIMS-C60`, `SIMS-H2O`, or `nanoDESI` |
+| enum | `MALDI`, `MALDI-2`, `LDI`, `LA`, `SIMS-C60`, `SIMS-H2O`, `DESI`, or `nanoDESI` |
 | required | `True` |
 
 <a name="polarity"></a>

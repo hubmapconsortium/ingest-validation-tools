@@ -15,13 +15,11 @@ jobs:
     # More details:
     # https://github.com/ebi-uniprot/uniprot-rest-api/issues/23
     # https://github.com/Ensembl/ensembl-rest/issues/427
-    runs-on: ubuntu-18.04
-
+    runs-on: ubuntu-22.04
     strategy:
       matrix:
         version:
-          - '3.9' # The Red Hat version used by IEC doesn't support anything more recent. :(
-          # - '3.10' # ... but this repo should also work in modern environments!
+          - '3.9'
 
           # TODO: Python 3.10 doesn't work for me, locally:
           # 'pip install requirements-dev.txt' fails...

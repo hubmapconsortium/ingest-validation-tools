@@ -82,10 +82,6 @@ acquisition_matrix_size_in_phase_encoding_direction:
 - mri
 affiliation:
 - contributors
-age_unit:
-- donor
-age_value:
-- donor
 analyte_class:
 - af
 - bulkatacseq
@@ -189,10 +185,6 @@ bead_barcode_read:
 - slideseq
 bead_barcode_size:
 - slideseq
-blood_type:
-- donor
-body_mass_index_value:
-- donor
 bulk_atac_cell_isolation_protocols_io_doi:
 - bulkatacseq
 bulk_rna_isolation_protocols_io_doi:
@@ -205,8 +197,6 @@ bulk_rna_yield_value:
 - bulkrnaseq
 bulk_transposition_input_number_nuclei:
 - bulkatacseq
-cause_of_death:
-- donor
 ce_background_electrolyte:
 - cems
 ce_capillary_coating:
@@ -463,10 +453,6 @@ harmonics:
 - ultrasound
 health_status:
 - sample
-height_unit:
-- donor
-height_value:
-- donor
 histological_report:
 - sample-block
 - sample-section
@@ -518,8 +504,6 @@ is_technical_replicate:
 - scrnaseq
 - scrnaseq-hca
 - slideseq
-kidney_donor_profile_index_value:
-- donor
 label_name:
 - lcms
 labeling:
@@ -679,10 +663,6 @@ max_y_height_value:
 - mri
 - oct
 - ultrasound
-mechanism_of_injury:
-- donor
-medical_history:
-- donor
 middle_name_or_initial:
 - contributors
 ms_scan_mode:
@@ -927,6 +907,10 @@ polarity:
 - ims
 - lcms
 - nano
+preparation_condition:
+- sample-block
+- sample-section
+- sample-suspension
 preparation_instrument_model:
 - codex
 - imc
@@ -944,10 +928,6 @@ preparation_instrument_vendor:
 preparation_maldi_matrix:
 - ims
 preparation_media:
-- sample-block
-- sample-section
-- sample-suspension
-preparation_temperature:
 - sample-block
 - sample-section
 - sample-suspension
@@ -1017,8 +997,6 @@ quality_criteria:
 - sample-suspension
 quality_view:
 - ultrasound
-race:
-- donor
 range_z_unit:
 - lightsheet
 range_z_value:
@@ -1251,8 +1229,6 @@ sequencing_reagent_kit:
 - scrnaseq-hca
 - slideseq
 - wgs
-sex:
-- donor
 signal_type:
 - imc
 - imc3d
@@ -1310,7 +1286,7 @@ storage_media:
 - sample-block
 - sample-section
 - sample-suspension
-storage_temperature:
+storage_method:
 - sample-block
 - sample-section
 - sample-suspension
@@ -1429,9 +1405,7 @@ wavelength_unit:
 wavelength_value:
 - oct
 weight_unit:
-- donor
 - sample-block
 weight_value:
-- donor
 - sample-block
 

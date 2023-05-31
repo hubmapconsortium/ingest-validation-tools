@@ -1,0 +1,15 @@
+- name: storage_method
+  description: 'The method by which the sample was stored, after preparation and before the assay was performed.'
+  constraints:
+    enum:
+      - frozen in liquid nitrogen
+      - frozen in liquid nitrogen vapor
+      - frozen in ice
+      - frozen in dry ice
+      - frozen at -80 C
+      - frozen at -20 C
+      - refrigerator
+      - ambient temperature
+      - incubated at 37 C
+      - none
+      - unknown

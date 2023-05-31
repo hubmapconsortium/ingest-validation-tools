@@ -280,7 +280,7 @@ State whether the library was generated for single-end or paired end sequencing.
 
 <a name="library_adapter_sequence"></a>
 ##### [`library_adapter_sequence`](#library_adapter_sequence)
-The adapter sequence to be used for adapter trimming starting with the 5' end. (eg. 5-ATCCTGAGAA)
+The adapter sequence to be used for adapter trimming starting with the 5' end. (eg. 5-ATCCTGAGAA) Example: `5-AATGATACGGCGACCACCGAGATCTACACTCTTTCCCTACACGACGCTCTTCCGATCT`.
 
 | constraint | value |
 | --- | --- |
@@ -561,7 +561,7 @@ State whether the library was generated for single-end or paired end sequencing.
 
 <a name="library_adapter_sequence"></a>
 ##### [`library_adapter_sequence`](#library_adapter_sequence)
-The adapter sequence to be used for adapter trimming starting with the 5' end. (eg. 5-ATCCTGAGAA)
+The adapter sequence to be used for adapter trimming starting with the 5' end. (eg. 5-ATCCTGAGAA) Example: `5-AATGATACGGCGACCACCGAGATCTACACTCTTTCCCTACACGACGCTCTTCCGATCT`.
 
 | constraint | value |
 | --- | --- |

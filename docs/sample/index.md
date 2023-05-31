@@ -65,7 +65,7 @@ Related files:
 
 <a name="sample_id"></a>
 ##### [`sample_id`](#sample_id)
-(No description for this field was supplied.)
+(No description for this field was supplied.) Example: `VAN0010-LK-152-162`.
 
 | constraint | value |
 | --- | --- |
