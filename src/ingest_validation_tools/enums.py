@@ -50,6 +50,8 @@ shared_enums: Dict[str, List[str]] = {
         'NanoDESI',
         'NanoPOTS',
         'PAS microscopy',
+        'Publication',
+        'publication',
         'sciATACseq',
         'sciRNAseq',
         'seqFISH',
