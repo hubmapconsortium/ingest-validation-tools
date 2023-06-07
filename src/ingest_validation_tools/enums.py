@@ -29,7 +29,7 @@ shared_enums: Dict[str, List[str]] = {
     'assay_type': [
         '3D Imaging Mass Cytometry',
         'AF',
-        'bulk RNA',
+        'bulk-RNA',
         'bulkATACseq',
         'Cell DIVE',
         'cell-dive',
