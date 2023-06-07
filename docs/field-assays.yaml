@@ -56,7 +56,7 @@ acquisition_instrument_model:
 - Slide-seq
 - Ultrasound
 - WGS
-- bulk RNA
+- bulk-RNA
 - bulkATACseq
 - cell-dive
 - scRNAseq
@@ -106,7 +106,7 @@ acquisition_instrument_vendor:
 - Slide-seq
 - Ultrasound
 - WGS
-- bulk RNA
+- bulk-RNA
 - bulkATACseq
 - cell-dive
 - scRNAseq
@@ -155,7 +155,7 @@ analyte_class:
 - SNARE2-RNAseq
 - Slide-seq
 - WGS
-- bulk RNA
+- bulk-RNA
 - bulkATACseq
 - cell-dive
 - scRNAseq
@@ -219,7 +219,7 @@ assay_category:
 - Slide-seq
 - Ultrasound
 - WGS
-- bulk RNA
+- bulk-RNA
 - bulkATACseq
 - cell-dive
 - scRNAseq
@@ -270,7 +270,7 @@ assay_type:
 - Slide-seq
 - Ultrasound
 - WGS
-- bulk RNA
+- bulk-RNA
 - bulkATACseq
 - cell-dive
 - publication
@@ -294,13 +294,13 @@ bead_barcode_size:
 bulk_atac_cell_isolation_protocols_io_doi:
 - bulkATACseq
 bulk_rna_isolation_protocols_io_doi:
-- bulk RNA
+- bulk-RNA
 bulk_rna_isolation_quality_metric_value:
-- bulk RNA
+- bulk-RNA
 bulk_rna_yield_units_per_tissue_unit:
-- bulk RNA
+- bulk-RNA
 bulk_rna_yield_value:
-- bulk RNA
+- bulk-RNA
 bulk_transposition_input_number_nuclei:
 - bulkATACseq
 ce_background_electrolyte:
@@ -407,7 +407,7 @@ contributors_path:
 - Slide-seq
 - Ultrasound
 - WGS
-- bulk RNA
+- bulk-RNA
 - bulkATACseq
 - cell-dive
 - publication
@@ -475,7 +475,7 @@ data_path:
 - Slide-seq
 - Ultrasound
 - WGS
-- bulk RNA
+- bulk-RNA
 - bulkATACseq
 - cell-dive
 - publication
@@ -529,7 +529,7 @@ description:
 - Slide-seq
 - Ultrasound
 - WGS
-- bulk RNA
+- bulk-RNA
 - bulkATACseq
 - cell-dive
 - scRNAseq
@@ -605,7 +605,7 @@ donor_id:
 - Slide-seq
 - Ultrasound
 - WGS
-- bulk RNA
+- bulk-RNA
 - bulkATACseq
 - cell-dive
 - scRNAseq
@@ -667,7 +667,7 @@ execution_datetime:
 - Slide-seq
 - Ultrasound
 - WGS
-- bulk RNA
+- bulk-RNA
 - bulkATACseq
 - cell-dive
 - scRNAseq
@@ -766,7 +766,7 @@ is_targeted:
 - SNARE2-RNAseq
 - Slide-seq
 - WGS
-- bulk RNA
+- bulk-RNA
 - bulkATACseq
 - cell-dive
 - scRNAseq
@@ -979,7 +979,7 @@ library_adapter_sequence:
 - SNARE2-RNAseq
 - Slide-seq
 - WGS
-- bulk RNA
+- bulk-RNA
 - bulkATACseq
 - scRNAseq
 - scRNAseq-10xGenomics
@@ -996,7 +996,7 @@ library_average_fragment_size:
 - SNARE2-RNAseq
 - Slide-seq
 - WGS
-- bulk RNA
+- bulk-RNA
 - bulkATACseq
 - scRNAseq
 - scRNAseq-10xGenomics
@@ -1019,7 +1019,7 @@ library_construction_protocols_io_doi:
 - SNARE2-RNAseq
 - Slide-seq
 - WGS
-- bulk RNA
+- bulk-RNA
 - bulkATACseq
 - scRNAseq
 - scRNAseq-10xGenomics
@@ -1043,7 +1043,7 @@ library_final_yield_unit:
 - SNARE2-RNAseq
 - Slide-seq
 - WGS
-- bulk RNA
+- bulk-RNA
 - bulkATACseq
 - scRNAseq
 - scRNAseq-10xGenomics
@@ -1058,7 +1058,7 @@ library_final_yield_unit:
 library_final_yield_value:
 - SNARE2-RNAseq
 - Slide-seq
-- bulk RNA
+- bulk-RNA
 - bulkATACseq
 - scRNAseq
 - scRNAseq-10xGenomics
@@ -1087,7 +1087,7 @@ library_layout:
 - SNARE2-RNAseq
 - Slide-seq
 - WGS
-- bulk RNA
+- bulk-RNA
 - bulkATACseq
 - scRNAseq
 - scRNAseq-10xGenomics
@@ -1118,7 +1118,7 @@ library_pcr_cycles_for_sample_index:
 - SNARE-seq2
 - SNARE2-RNAseq
 - Slide-seq
-- bulk RNA
+- bulk-RNA
 - scRNAseq
 - scRNAseq-10xGenomics
 - scRNAseq-10xGenomics-v2
@@ -1347,7 +1347,7 @@ operator:
 - Slide-seq
 - Ultrasound
 - WGS
-- bulk RNA
+- bulk-RNA
 - bulkATACseq
 - cell-dive
 - scRNAseq
@@ -1397,7 +1397,7 @@ operator_email:
 - Slide-seq
 - Ultrasound
 - WGS
-- bulk RNA
+- bulk-RNA
 - bulkATACseq
 - cell-dive
 - scRNAseq
@@ -1469,7 +1469,7 @@ pi:
 - Slide-seq
 - Ultrasound
 - WGS
-- bulk RNA
+- bulk-RNA
 - bulkATACseq
 - cell-dive
 - scRNAseq
@@ -1519,7 +1519,7 @@ pi_email:
 - Slide-seq
 - Ultrasound
 - WGS
-- bulk RNA
+- bulk-RNA
 - bulkATACseq
 - cell-dive
 - scRNAseq
@@ -1680,7 +1680,7 @@ protocols_io_doi:
 - Slide-seq
 - Ultrasound
 - WGS
-- bulk RNA
+- bulk-RNA
 - bulkATACseq
 - cell-dive
 - scRNAseq
@@ -1863,13 +1863,13 @@ rnaseq_assay_input:
 - snRNAseq-10xGenomics-v2
 - snRNAseq-10xGenomics-v3
 rnaseq_assay_input_unit:
-- bulk RNA
+- bulk-RNA
 rnaseq_assay_input_value:
-- bulk RNA
+- bulk-RNA
 rnaseq_assay_method:
 - SNARE2-RNAseq
 - Slide-seq
-- bulk RNA
+- bulk-RNA
 - scRNAseq
 - scRNAseq-10xGenomics
 - scRNAseq-10xGenomics-v2
@@ -2013,7 +2013,7 @@ sequencing_phix_percent:
 - SNARE2-RNAseq
 - Slide-seq
 - WGS
-- bulk RNA
+- bulk-RNA
 - bulkATACseq
 - scRNAseq
 - scRNAseq-10xGenomics
@@ -2030,7 +2030,7 @@ sequencing_read_format:
 - SNARE2-RNAseq
 - Slide-seq
 - WGS
-- bulk RNA
+- bulk-RNA
 - bulkATACseq
 - scRNAseq
 - scRNAseq-10xGenomics
@@ -2047,7 +2047,7 @@ sequencing_read_percent_q30:
 - SNARE2-RNAseq
 - Slide-seq
 - WGS
-- bulk RNA
+- bulk-RNA
 - bulkATACseq
 - scRNAseq
 - scRNAseq-10xGenomics
@@ -2064,7 +2064,7 @@ sequencing_reagent_kit:
 - SNARE2-RNAseq
 - Slide-seq
 - WGS
-- bulk RNA
+- bulk-RNA
 - bulkATACseq
 - scRNAseq
 - scRNAseq-10xGenomics
@@ -2170,7 +2170,7 @@ tissue_id:
 - Slide-seq
 - Ultrasound
 - WGS
-- bulk RNA
+- bulk-RNA
 - bulkATACseq
 - cell-dive
 - scRNAseq
@@ -2270,7 +2270,7 @@ version:
 - Slide-seq
 - Ultrasound
 - WGS
-- bulk RNA
+- bulk-RNA
 - bulkATACseq
 - cell-dive
 - publication
