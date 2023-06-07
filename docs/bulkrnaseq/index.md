@@ -1,5 +1,5 @@
 ---
-title: bulk RNA
+title: bulk-RNA
 schema_name: bulkrnaseq
 category: Sequence assays
 all_versions_deprecated: False
@@ -24,7 +24,7 @@ Related files:
 
 
 
-In the portal: bulk RNA not in Portal
+In the portal: bulk-RNA not in Portal
 
 ## Metadata schema
 
@@ -188,7 +188,7 @@ The specific type of assay being executed.
 
 | constraint | value |
 | --- | --- |
-| enum | `bulk RNA` |
+| enum | `bulk-RNA` |
 | required | `True` |
 
 <a name="analyte_class"></a>
@@ -508,7 +508,7 @@ The specific type of assay being executed.
 
 | constraint | value |
 | --- | --- |
-| enum | `bulk RNA` |
+| enum | `bulk-RNA` |
 | required | `True` |
 
 <a name="analyte_class"></a>

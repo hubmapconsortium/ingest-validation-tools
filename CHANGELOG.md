@@ -1,11 +1,12 @@
 # Changelog
 ## v0.0.16 - in progress
--add support for Publication type
--updated issue templates.
--removed donor metadata spec (had not been in use)
+- add support for Publication type
+- updated issue templates.
+- removed donor metadata spec (had not been in use)
 - Added examples for fields with pattern constraint
 - Replaced `preparation_temperature` with `preparation_condition` and updated associated enumerations in the sample-section, sample-block, and sample-suspension schemas
 - Replaced `storage_temperature` with `storage_method` and updated associated enumerations in the sample-section, sample-block, and sample-suspension schemas
+- Updated enum 'bulk RNA' assay type to be 'bulk-RNA' across tools
 
 ## v0.0.15 - 2023-04-04
 - Versioned directory structure schema
