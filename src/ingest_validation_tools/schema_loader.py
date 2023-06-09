@@ -227,7 +227,7 @@ def get_other_schema(schema_name: str, version: str, offline=None,
 def get_is_assay(schema_name: str) -> bool:
     # TODO: read from file system... but larger refactor may make it redundant.
     return schema_name not in [
-        'donor', 'sample', 'antibodies', 'contributors',
+        'donor', 'organ', 'sample', 'antibodies', 'contributors',
         'sample-block', 'sample-section', 'sample-suspension'
     ]
 
