@@ -230,10 +230,6 @@ cold_ischemia_time_unit:
 - sample
 cold_ischemia_time_value:
 - sample
-cold_ischemic_time_unit:
-- organ
-cold_ischemic_time_value:
-- organ
 column_length_unit:
 - gcms
 column_length_value:
@@ -460,10 +456,6 @@ harmonics:
 - ultrasound
 health_status:
 - sample
-height_unit:
-- organ
-height_value:
-- organ
 histological_report:
 - sample-block
 - sample-section
@@ -515,8 +507,6 @@ is_technical_replicate:
 - scrnaseq
 - scrnaseq-hca
 - slideseq
-lab_id:
-- organ
 label_name:
 - lcms
 labeling:
@@ -525,8 +515,6 @@ labeling:
 - lcms
 last_name:
 - contributors
-laterality:
-- organ
 lc_column_model:
 - lcms
 lc_column_vendor:
@@ -559,10 +547,6 @@ lc_temp_unit:
 - lcms
 lc_temp_value:
 - lcms
-length_unit:
-- organ
-length_value:
-- organ
 library_adapter_sequence:
 - bulkatacseq
 - bulkrnaseq
@@ -821,10 +805,7 @@ operator_email:
 orcid_id:
 - contributors
 organ_condition:
-- organ
 - sample
-organ_id:
-- organ
 overall_protocols_io_doi:
 - af
 - celldive
@@ -841,10 +822,7 @@ pathology_distance_unit:
 - sample-block
 pathology_distance_value:
 - sample-block
-pathology_report:
-- organ
 perfusion_solution:
-- organ
 - sample
 pi:
 - af
@@ -1351,15 +1329,9 @@ tissue_id:
 - stained
 - ultrasound
 - wgs
-total_ischemic_time_unit:
-- organ
-total_ischemic_time_value:
-- organ
 total_sections_analyzed:
 - microct
 - oct
-transport_solution:
-- organ
 transposition_input:
 - scatacseq
 transposition_kit_number:
@@ -1427,28 +1399,17 @@ volume_export_format:
 volume_unit:
 - sample-block
 volume_value:
-- organ
 - sample-block
 warm_ischemia_time_unit:
 - sample
 warm_ischemia_time_value:
 - sample
-warm_ischemic_time_unit:
-- organ
-warm_ischemic_time_value:
-- organ
 wavelength_unit:
 - oct
 wavelength_value:
 - oct
 weight_unit:
-- organ
 - sample-block
 weight_value:
-- organ
 - sample-block
-width_unit:
-- organ
-width_value:
-- organ
 
