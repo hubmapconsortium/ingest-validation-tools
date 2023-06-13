@@ -386,6 +386,7 @@ donor_id:
 - mxif
 - nano
 - oct
+- organ
 - scatacseq
 - scrnaseq
 - scrnaseq-hca
@@ -460,6 +461,10 @@ harmonics:
 - ultrasound
 health_status:
 - sample
+height_unit:
+- organ
+height_value:
+- organ
 histological_report:
 - sample-block
 - sample-section
@@ -555,6 +560,10 @@ lc_temp_unit:
 - lcms
 lc_temp_value:
 - lcms
+length_unit:
+- organ
+length_value:
+- organ
 library_adapter_sequence:
 - bulkatacseq
 - bulkrnaseq
@@ -812,28 +821,12 @@ operator_email:
 - wgs
 orcid_id:
 - contributors
+organ:
+- organ
 organ_condition:
 - organ
 - sample
-organ_height_unit:
-- organ
-organ_height_value:
-- organ
 organ_id:
-- organ
-organ_length_unit:
-- organ
-organ_length_value:
-- organ
-organ_volume_unit:
-- organ
-organ_volume_value:
-- organ
-organ_weight_value:
-- organ
-organ_width_unit:
-- organ
-organ_width_value:
 - organ
 overall_protocols_io_doi:
 - af
@@ -1437,6 +1430,7 @@ volume_export_format:
 volume_unit:
 - sample-block
 volume_value:
+- organ
 - sample-block
 warm_ischemia_time_unit:
 - sample
@@ -1454,5 +1448,10 @@ weight_unit:
 - organ
 - sample-block
 weight_value:
+- organ
 - sample-block
+width_unit:
+- organ
+width_value:
+- organ
 

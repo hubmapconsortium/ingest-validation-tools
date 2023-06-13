@@ -84,6 +84,10 @@ cold_ischemia_time_unit:
 - sample
 cold_ischemia_time_value:
 - sample
+cold_ischemic_time_unit:
+- organ
+cold_ischemic_time_value:
+- organ
 column_length_unit:
 - dataset
 column_length_value:
@@ -194,12 +198,16 @@ is_targeted:
 - dataset
 is_technical_replicate:
 - dataset
+lab_id:
+- organ
 label_name:
 - dataset
 labeling:
 - dataset
 last_name:
 - contributors
+laterality:
+- organ
 lc_column_model:
 - dataset
 lc_column_vendor:
@@ -323,7 +331,28 @@ operator_email:
 orcid_id:
 - contributors
 organ_condition:
+- organ
 - sample
+organ_height_unit:
+- organ
+organ_height_value:
+- organ
+organ_id:
+- organ
+organ_length_unit:
+- organ
+organ_length_value:
+- organ
+organ_volume_unit:
+- organ
+organ_volume_value:
+- organ
+organ_weight_value:
+- organ
+organ_width_unit:
+- organ
+organ_width_value:
+- organ
 overall_protocols_io_doi:
 - dataset
 pathologist_report:
@@ -332,7 +361,10 @@ pathology_distance_unit:
 - sample
 pathology_distance_value:
 - sample
+pathology_report:
+- organ
 perfusion_solution:
+- organ
 - sample
 pi:
 - dataset
@@ -516,8 +548,14 @@ suspension_entity_number:
 - sample
 tissue_id:
 - dataset
+total_ischemic_time_unit:
+- organ
+total_ischemic_time_value:
+- organ
 total_sections_analyzed:
 - dataset
+transport_solution:
+- organ
 transposition_input:
 - dataset
 transposition_kit_number:
@@ -557,11 +595,16 @@ warm_ischemia_time_unit:
 - sample
 warm_ischemia_time_value:
 - sample
+warm_ischemic_time_unit:
+- organ
+warm_ischemic_time_value:
+- organ
 wavelength_unit:
 - dataset
 wavelength_value:
 - dataset
 weight_unit:
+- organ
 - sample
 weight_value:
 - sample
