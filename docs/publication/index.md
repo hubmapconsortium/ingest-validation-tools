@@ -1,5 +1,5 @@
 ---
-title: Publication / publication
+title: publication
 schema_name: publication
 category: Other TSVs
 all_versions_deprecated: False
@@ -26,7 +26,7 @@ Related files:
 
 
 
-In the portal: Publication not in Portal / publication not in Portal
+In the portal: publication not in Portal
 
 ## Metadata schema
 
@@ -60,7 +60,7 @@ The specific type of assay being executed.
 
 | constraint | value |
 | --- | --- |
-| enum | `Publication` or `publication` |
+| enum | `publication` |
 | required | `True` |
 
 <a name="contributors_path"></a>
