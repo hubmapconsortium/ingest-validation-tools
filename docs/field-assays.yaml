@@ -263,7 +263,6 @@ assay_type:
 - NanoPOTS
 - OCT
 - PAS microscopy
-- Publication
 - SIMS-IMS
 - SNARE-seq2
 - SNARE2-RNAseq
@@ -400,7 +399,6 @@ contributors_path:
 - NanoPOTS
 - OCT
 - PAS microscopy
-- Publication
 - SIMS-IMS
 - SNARE-seq2
 - SNARE2-RNAseq
@@ -468,7 +466,6 @@ data_path:
 - NanoPOTS
 - OCT
 - PAS microscopy
-- Publication
 - SIMS-IMS
 - SNARE-seq2
 - SNARE2-RNAseq
@@ -2263,7 +2260,6 @@ version:
 - NanoPOTS
 - OCT
 - PAS microscopy
-- Publication
 - SIMS-IMS
 - SNARE-seq2
 - SNARE2-RNAseq

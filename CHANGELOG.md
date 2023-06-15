@@ -9,6 +9,7 @@
 - Updated enum 'bulk RNA' assay type to be 'bulk-RNA' across tools
 - Adding organ v2 schema
 - Added publication docs
+- Removed double publication enum (P/p)
 
 ## v0.0.15 - 2023-04-04
 - Versioned directory structure schema
