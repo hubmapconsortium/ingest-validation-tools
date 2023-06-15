@@ -8,7 +8,6 @@
 - Replaced `storage_temperature` with `storage_method` and updated associated enumerations in the sample-section, sample-block, and sample-suspension schemas
 - Updated enum 'bulk RNA' assay type to be 'bulk-RNA' across tools
 - Adding organ v2 schema
-- Adding publication type
 
 ## v0.0.15 - 2023-04-04
 - Versioned directory structure schema
