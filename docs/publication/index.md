@@ -1,0 +1,83 @@
+---
+title: Publication / publication
+schema_name: publication
+category: Other TSVs
+all_versions_deprecated: False
+exclude_from_index: False
+layout: default
+---
+
+Related files:
+
+- [📝 Excel template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/main/docs/publication/publication-metadata.xlsx): For metadata entry.
+- [📝 TSV template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/main/docs/publication/publication-metadata.tsv): Alternative for metadata entry.
+
+
+
+## Directory schemas
+### v0
+
+| pattern | required? | description |
+| --- | --- | --- |
+| <code>(Data&#124;data)/.+</code> (example: <code>data/file1.ext</code>) | ✓ | Analyzed data files, including all files references by the Vitessce configurations in the vignettes |
+| <code>(Vignettes&#124;vignettes)/(Vignette&#124;vignette)_\d+/[^/]+\.json</code> (example: <code>vignettes/vignette_01/file1.json</code>) |  | Vitessce visualization files |
+| <code>(Vignettes&#124;vignettes)/(Vignette&#124;vignette)_\d+/(Description&#124;description)\.md</code> (example: <code>vignettes/vignette_02/description.md</code>) | ✓ | Description of the visualization files (vignette and figures) |
+| <code>extras/.*</code> |  | Free-form descriptive information supplied by the TMC |
+
+
+
+In the portal: Publication not in Portal / publication not in Portal
+
+## Metadata schema
+
+### Field types
+- *Boolean* fields can be given as `TRUE`/`FALSE`, `True`/`False`, `true`/`false`, or `1`/`0`.  
+
+
+<details markdown="1" open="true"><summary><b>Version 0 (current)</b></summary>
+
+<blockquote markdown="1">
+
+[`version`](#version)<br>
+[`assay_type`](#assay_type)<br>
+[`contributors_path`](#contributors_path)<br>
+[`data_path`](#data_path)<br>
+
+</blockquote>
+
+<a name="version"></a>
+##### [`version`](#version)
+Current version of metadata schema. Template provides the correct value.
+
+| constraint | value |
+| --- | --- |
+| enum | `0` |
+| required | `True` |
+
+<a name="assay_type"></a>
+##### [`assay_type`](#assay_type)
+The specific type of assay being executed.
+
+| constraint | value |
+| --- | --- |
+| enum | `Publication` or `publication` |
+| required | `True` |
+
+<a name="contributors_path"></a>
+##### [`contributors_path`](#contributors_path)
+Relative path to file with ORCID IDs for contributors for this dataset.
+
+| constraint | value |
+| --- | --- |
+| required | `True` |
+
+<a name="data_path"></a>
+##### [`data_path`](#data_path)
+Relative path to file or directory with instrument data. Downstream processing will depend on filename extension conventions.
+
+| constraint | value |
+| --- | --- |
+| required | `True` |
+
+</details>
+
