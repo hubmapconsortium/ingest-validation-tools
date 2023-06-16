@@ -19,10 +19,10 @@ Related files:
 
 | pattern | required? | description |
 | --- | --- | --- |
-| <code>(data)/.+</code> (example: <code>data/file1.ext</code>) | ✓ | Analyzed data files, including all files references by the Vitessce configurations in the vignettes |
+| <code>(data)/.+</code> (example: <code>data/file1.ext</code>) | ✓ | Supplementary data files for the publication. All files referenced by the Vitessce visualization configurations in the vignettes must be included in this directory. |
 | <code>(vignettes)/.+</code> | ✓ | Subdirectory containing Vitessce visualization files and a description of those files. |
-| <code>(vignettes)/(vignette)_\d+/[^/]+\.json</code> (example: <code>vignettes/vignette_01/file1.json</code>) |  | Vitessce visualization files |
-| <code>(vignettes)/(vignette)_\d+/(description)\.md</code> (example: <code>vignettes/vignette_02/description.md</code>) |  | Description of the visualization files (vignette and figures) |
+| <code>(vignettes)/(vignette)_\d+/[^/]+\.json</code> (example: <code>vignettes/vignette_01/file1.json</code>) |  | Vitessce visualization configuration files. One or more visualization configurations can be provided per vignette. |
+| <code>(vignettes)/(vignette)_\d+/(description)\.md</code> (example: <code>vignettes/vignette_02/description.md</code>) |  | Description of the vignette and titles for the visualization configuration files. |
 | <code>extras/.*</code> |  | Free-form descriptive information supplied by the TMC |
 
 
