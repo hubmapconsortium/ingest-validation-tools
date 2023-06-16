@@ -1,17 +1,20 @@
 files:
   -
     example: 'data/file1.ext'
-    pattern: '(Data|data)/.+'
+    pattern: '(data)/.+'
     description: 'Analyzed data files, including all files references by the Vitessce configurations in the vignettes'
     required: True
   -
+    pattern: '(vignettes)/.+'
+    description: 'Subdirectory containing Vitessce visualization files and a description of those files.'
+    required: True
+  -
     example: 'vignettes/vignette_01/file1.json'
-    pattern: '(Vignettes|vignettes)/(Vignette|vignette)_\d+/[^/]+\.json'
+    pattern: '(vignettes)/(vignette)_\d+/[^/]+\.json'
     description: 'Vitessce visualization files'
     required: False
   -
     example: 'vignettes/vignette_02/description.md'
-    pattern: '(Vignettes|vignettes)/(Vignette|vignette)_\d+/(Description|description)\.md'
+    pattern: '(vignettes)/(vignette)_\d+/(description)\.md'
     description: 'Description of the visualization files (vignette and figures)'
-    required: True
-
+    required: False
