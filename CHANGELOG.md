@@ -16,7 +16,8 @@
 - Release new assays with links
 - Fix in place to avoid assay conflicts with new assays
 - Rework wording for CEDAR updates
-- Updated upload.py to integrate CEDAR validation
+- Updated upload.py to integrate CEDAR validation, replaced walrus operators
+- Updated CEDAR validation routine based on changes to Spreadsheet Validator
 
 ## v0.0.15 - 2023-04-04
 - Versioned directory structure schema
