@@ -78,24 +78,30 @@ def main():
             assert actual == expected, \
                 f'Wrong version constraint in {args.type}-v{v}.yaml; ' \
                 f'Expected {expected}; Actual {actual}'
+
+        # Need to determine how to check the is_cedar field.
         assert schema['fields'][0]
-        with open(Path(args.target) / f'v{v}.yaml', 'w') as f:
-            f.write(
-                '# Generated YAML: PRs should not start here!\n'
-                + dump_yaml(schema, sort_keys=False)
-            )
+
+        if type(schema['fields'][0]) != dict or \
+                schema['fields'][0].get('name', '') != 'is_cedar':
+            with open(Path(args.target) / f'v{v}.yaml', 'w') as f:
+                f.write(
+                    '# Generated YAML: PRs should not start here!\n'
+                    + dump_yaml(schema, sort_keys=False)
+                )
 
     # Data entry templates:
     max_schema = enum_maps_to_lists(table_schemas[max_version],
                                     add_none_of_the_above=True, add_suggested=True)
     max_schema['fields'] = get_fields_wo_headers(max_schema)
-    with open(Path(args.target) / get_tsv_name(args.type, is_assay=is_assay), 'w') as f:
-        f.write(generate_template_tsv(max_schema))
-    create_xlsx(
-        max_schema, Path(args.target) / get_xlsx_name(args.type, is_assay=is_assay),
-        idempotent=True,
-        sheet_name='Export as TSV'
-    )
+    if max_schema['fields'][0]['name'] != 'is_cedar':
+        with open(Path(args.target) / get_tsv_name(args.type, is_assay=is_assay), 'w') as f:
+            f.write(generate_template_tsv(max_schema))
+        create_xlsx(
+            max_schema, Path(args.target) / get_xlsx_name(args.type, is_assay=is_assay),
+            idempotent=True,
+            sheet_name='Export as TSV'
+        )
 
 
 if __name__ == "__main__":
