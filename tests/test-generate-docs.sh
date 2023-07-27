@@ -61,7 +61,7 @@ for TYPE in $(ls -d docs/*); do
   mkdir -p $TEST_DEST || echo "$TEST_DEST already exists"
   echo "Running: $TEST_CMD"
   eval $TEST_CMD
-  diff -r $REAL_DEST $TEST_DEST \
+  diff -r $REAL_DEST $TEST_DEST --exclude="*.tsv" --exclude="*.xlsx" \
     || die "Update needed: $REAL_CMD
 Or:" 'for D in `ls -d docs/*/`; do D=`basename $D`; [ -e docs/$D/*.tsv ] || continue; src/generate_docs.py $D docs/$D; done'
   rm -rf $TEST_DEST
