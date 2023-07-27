@@ -168,6 +168,7 @@ ion_mobility: 'Specifies whether or not ion mobility spectrometry was performed 
   Field Asymmetric waveform ion Mobility Spectrometry (FAIMS), Drift Tube Ion Mobility
   Spectrometry (DTIMS, Structures for Lossless Ion Manipulations (SLIM).'
 ion_source: Specifies the ion source used
+is_cedar: Identifies whether the version is hosted by CEDAR
 is_contact: Is this individual a contact for DOI purposes?
 is_targeted: Specifies whether or not a specific molecule(s) is/are targeted for detection/measurement
   by the assay.

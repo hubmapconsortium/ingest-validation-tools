@@ -192,6 +192,10 @@ ion_mobility:
 - dataset
 ion_source:
 - dataset
+is_cedar:
+- dataset
+- organ
+- sample
 is_contact:
 - contributors
 is_targeted:

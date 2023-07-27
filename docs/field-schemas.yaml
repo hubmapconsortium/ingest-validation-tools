@@ -480,6 +480,12 @@ ion_mobility:
 - lcms
 ion_source:
 - gcms
+is_cedar:
+- histology
+- organ
+- sample-block
+- sample-section
+- sample-suspension
 is_contact:
 - contributors
 is_targeted:
