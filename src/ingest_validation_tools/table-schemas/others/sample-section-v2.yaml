@@ -1,4 +1,4 @@
 fields:
 - name: is_cedar
   description: 'Identifies whether the version is hosted by CEDAR'
-  example: '8377b9ba-97bb-4b26-a2ac-2b88d756450f'
+  example: '1f3d4b00-f6f2-48a4-8795-755be215f546'
