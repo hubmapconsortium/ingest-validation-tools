@@ -231,30 +231,44 @@ def _make_fields_md(table_schema, title, is_open=False):
     '''
 
     fields_md_list = []
-    for field in table_schema['fields']:
-        if isinstance(field, str):
-            fields_md_list.append(f"### {field}")
-            continue
-        table_md = _make_constraints_table(field)
-        name = field['name']
-        fields_md_list.append('\n'.join([
-            f'<a name="{name}"></a>',
-            f"##### [`{name}`](#{name})",
-            _enrich_description(field),
-            table_md
-        ]))
-    joined_list = '\n\n'.join(fields_md_list)
+
+    is_cedar = len(table_schema['fields']) > 0 and \
+        type(table_schema['fields'][0]) == dict and \
+        table_schema['fields'][0].get('name', '') == 'is_cedar'
+
     if table_schema.get('deprecated'):
         title_html = f'<s>{title}</s> (deprecated)'
     else:
         title_html = f'<b>{title}</b>'
-    return f'''
+
+    if not is_cedar:
+        for field in table_schema['fields']:
+            if isinstance(field, str):
+                fields_md_list.append(f"### {field}")
+                continue
+            table_md = _make_constraints_table(field)
+            name = field['name']
+            fields_md_list.append('\n'.join([
+                f'<a name="{name}"></a>',
+                f"##### [`{name}`](#{name})",
+                _enrich_description(field),
+                table_md
+            ]))
+        joined_list = '\n\n'.join(fields_md_list)
+        return f'''
 <details markdown="1" {'open="true"' if is_open else ''}><summary>{title_html}</summary>
 
 {_make_toc(joined_list) if is_open else ''}
 {joined_list}
 
 </details>
+'''
+    else:
+        cedar_irl = table_schema['fields'][0]['example']
+        full_irl = f'https://openview.metadatacenter.org/templates/' \
+                   f'https:%2F%2Frepo.metadatacenter.org%2Ftemplates%2F{cedar_irl}'
+        return f'''
+<summary><a href="{full_irl}">{title_html}</a></summary>
 '''
 
 
