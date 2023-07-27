@@ -24,29 +24,11 @@ Related files:
 - *Boolean* fields can be given as `TRUE`/`FALSE`, `True`/`False`, `true`/`false`, or `1`/`0`.  
 
 
-<details markdown="1" open="true"><summary><b>Version 1 (current)</b></summary>
+<summary><a href="https://openview.metadatacenter.org/templates/https:%2F%2Frepo.metadatacenter.org%2Ftemplates%2F507d47ea-d71d-41ea-b0f3-86b569d4934c"><b>Version 2 (current)</b></a></summary>
 
-<blockquote markdown="1">
 
-[`version`](#version)<br>
-[`sample_id`](#sample_id)<br>
-[`type`](#type)<br>
-[`source_storage_time_value`](#source_storage_time_value)<br>
-[`source_storage_time_unit`](#source_storage_time_unit)<br>
-[`preparation_media`](#preparation_media)<br>
-[`preparation_condition`](#preparation_condition)<br>
-[`processing_time_value`](#processing_time_value)<br>
-[`processing_time_unit`](#processing_time_unit)<br>
-[`storage_media`](#storage_media)<br>
-[`storage_method`](#storage_method)<br>
-[`quality_criteria`](#quality_criteria)<br>
-[`suspension_entity`](#suspension_entity)<br>
-[`suspension_entity_number`](#suspension_entity_number)<br>
-[`suspension_enriched`](#suspension_enriched)<br>
-[`suspension_enriched_target`](#suspension_enriched_target)<br>
-[`notes`](#notes)<br>
+<details markdown="1" ><summary><b>Version 1</b></summary>
 
-</blockquote>
 
 <a name="version"></a>
 ##### [`version`](#version)
@@ -200,4 +182,3 @@ Notes. Leave blank if not applicable.
 | required | `False` |
 
 </details>
-
