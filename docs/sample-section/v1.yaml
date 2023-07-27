@@ -1,5 +1,4 @@
 # Generated YAML: PRs should not start here!
-deprecated: null
 fields:
 - name: version
   description: The version of the sample metadata specification used in the submission.

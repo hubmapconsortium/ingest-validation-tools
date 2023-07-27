@@ -1,5 +1,4 @@
 # Generated YAML: PRs should not start here!
-deprecated: null
 fields:
 - name: organ_id
   description: Unique HuBMAP identifier for the organ. This can be found in the Submission
