@@ -1,4 +1,3 @@
-deprecated:
 fields:
 - name: organ_id
   description: Unique HuBMAP identifier for the organ. This can be found in the Submission ID section of a registered donor on the Ingest UI.

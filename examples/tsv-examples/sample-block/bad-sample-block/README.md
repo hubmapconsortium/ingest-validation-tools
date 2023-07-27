@@ -1,6 +1,6 @@
 ```
 sample-block TSV errors:
-- On row 2, column "sample_id", value "" fails because it must be filled out.
+  Schema version is deprecated: sample-block-v1.
 Hint: 'If validation fails because of extra whitespace in the TSV, try:
 
   src/cleanup_whitespace.py --tsv_in original.tsv --tsv_out clean.tsv.'
