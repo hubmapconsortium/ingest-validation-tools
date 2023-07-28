@@ -239,7 +239,7 @@ def _make_fields_md(table_schema, title, is_open=False):
     if table_schema.get('deprecated'):
         title_html = f'<s>{title}</s> (deprecated)'
     elif table_schema.get('draft'):
-        title_html = f'<s>{title}</s> (draft)'
+        title_html = f'<b>{title}</b> (draft)'
     else:
         title_html = f'<b>{title}</b>'
 
