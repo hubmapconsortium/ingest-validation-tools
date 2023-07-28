@@ -154,7 +154,7 @@ def list_table_schema_versions() -> List[SchemaVersion]:
 def dict_table_schema_versions() -> Dict[str, Set[str]]:
     '''
     >>> sorted(dict_table_schema_versions()['af'])
-    ['0', '1']
+    ['0', '1', '2']
     '''
 
     dict_of_sets = defaultdict(set)
