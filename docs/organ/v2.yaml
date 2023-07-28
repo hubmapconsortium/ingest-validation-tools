@@ -1,0 +1,259 @@
+# Generated YAML: PRs should not start here!
+fields:
+- name: organ_id
+  description: Unique HuBMAP identifier for the organ. This can be found in the Submission
+    ID section of a registered donor on the Ingest UI.
+  type: string
+  constraints:
+    required: true
+    pattern: ([A-Z]+[0-9]+)-[A-Z]{2}
+  example: TEST0001-RK
+  custom_constraints:
+    sequence_limit: 3
+    forbid_na: true
+- name: lab_id
+  description: "An internal field labs can use it to add whatever ID(s) they want\
+    \ or need for dataset validation and tracking. This could be a single ID (e.g.,\
+    \ \"Visium_9OLC_A4_S1\") or a delimited list of IDs (e.g., \u201C9OL; 9OLC.A2;\
+    \ Visium_9OLC_A4_S1\u201D). This field will not be accessible to anyone outside\
+    \ of the consortium and no effort will be made to check if IDs provided by one\
+    \ data provider are also used by another."
+  type: string
+  constraints:
+    required: false
+  custom_constraints:
+    sequence_limit: 3
+    forbid_na: true
+- name: laterality
+  description: The side of the body from which the organ came. This would be 'N/A'
+    for blood, whereas an organ like the uterus would have a value of 'midline'.
+  type: string
+  constraints:
+    required: true
+    enum:
+    - Left
+    - Right
+    - Midline
+    - N/A
+  custom_constraints:
+    sequence_limit: 3
+    forbid_na: true
+- name: organ_condition
+  description: Health status of the organ at the time of sample recovery.
+  type: string
+  constraints:
+    required: true
+    enum:
+    - Healthy
+    - Diseased
+  custom_constraints:
+    sequence_limit: 3
+    forbid_na: true
+- name: perfusion_solution
+  description: Type of solution that was used to perfuse the organ.
+  type: string
+  constraints:
+    required: false
+    enum:
+    - Miltenyi Tissue Preservation Buffer
+    - UWS
+    - HTK
+    - Belzer MPS/KPS
+    - None
+    - Unknown
+  custom_constraints:
+    sequence_limit: 3
+    forbid_na: true
+- name: transport_solution
+  description: Type of solution used during transport.
+  type: string
+  constraints:
+    required: false
+    enum:
+    - RPMI
+    - PBS (1x)
+    - Miltenyi Tissue Preservation Buffer
+    - UWS
+    - HTK
+    - Belzer MPS/KPS
+    - Saline (Buffered)
+    - DMEM
+    - None
+    - Unknown
+  custom_constraints:
+    sequence_limit: 3
+    forbid_na: true
+- name: warm_ischemic_time_value
+  description: 'Time interval from interruption of blood supply of tissue to cooling
+    to 4C: For organ donor: cessation of blood flow to perfusion of organ (cooled
+    to 4C) For surgical specimen/biopsy: cessation of blood flow to specimen (time
+    biopsy taken or blood supply is interrupted) to cooling of specimen to 4C.'
+  type: number
+  constraints:
+    required: true
+  custom_constraints:
+    sequence_limit: 3
+    forbid_na: true
+- name: warm_ischemic_time_unit
+  description: Time unit for the previous element.
+  type: string
+  constraints:
+    required: false
+    enum:
+    - hours
+    - minutes
+  custom_constraints:
+    sequence_limit: 3
+    forbid_na: true
+    units_for: warm_ischemic_time_value
+- name: cold_ischemic_time_value
+  description: 'Time interval from cooling to 4C to final preservation. For organ
+    donor: organ preservation flush (cooled to 4C) to final preservation (freezing
+    or fixation). For surgical specimen/biopsy: time specimen is placed at 4C to final
+    preservation (freezing or fixation.'
+  type: number
+  constraints:
+    required: true
+  custom_constraints:
+    sequence_limit: 3
+    forbid_na: true
+- name: cold_ischemic_time_unit
+  description: Time unit for the previous element.
+  type: string
+  constraints:
+    required: false
+    enum:
+    - hours
+    - minutes
+  custom_constraints:
+    sequence_limit: 3
+    forbid_na: true
+    units_for: cold_ischemic_time_value
+- name: total_ischemic_time_value
+  description: Total time prior to tissue dissection.
+  type: number
+  constraints:
+    required: true
+  custom_constraints:
+    sequence_limit: 3
+    forbid_na: true
+- name: total_ischemic_time_unit
+  description: Time unit for the previous element.
+  type: string
+  constraints:
+    required: false
+    enum:
+    - hours
+    - minutes
+  custom_constraints:
+    sequence_limit: 3
+    forbid_na: true
+    units_for: total_ischemic_time_value
+- name: pathology_report
+  description: General pathologist report. Further details on organ level QC checks.
+  type: string
+  constraints:
+    required: true
+  custom_constraints:
+    sequence_limit: 3
+    forbid_na: true
+- name: organ_weight_value
+  description: The total organ weight
+  type: number
+  constraints:
+    required: false
+  custom_constraints:
+    sequence_limit: 3
+    forbid_na: true
+- name: weight_unit
+  description: Weight unit.
+  type: string
+  constraints:
+    required: false
+    enum:
+    - g
+    - kg
+  custom_constraints:
+    sequence_limit: 3
+    forbid_na: true
+- name: organ_height_value
+  description: The height value of the organ.
+  type: number
+  constraints:
+    required: false
+  custom_constraints:
+    sequence_limit: 3
+    forbid_na: true
+- name: organ_height_unit
+  description: Height unit.
+  type: string
+  constraints:
+    required: false
+    enum:
+    - cm
+    - mm
+  custom_constraints:
+    sequence_limit: 3
+    forbid_na: true
+    units_for: organ_height_value
+- name: organ_width_value
+  description: The width value of the organ.
+  type: number
+  constraints:
+    required: false
+  custom_constraints:
+    sequence_limit: 3
+    forbid_na: true
+- name: organ_width_unit
+  description: Width unit.
+  type: string
+  constraints:
+    required: false
+    enum:
+    - cm
+    - mm
+  custom_constraints:
+    sequence_limit: 3
+    forbid_na: true
+    units_for: organ_width_value
+- name: organ_length_value
+  description: The length value of the organ.
+  type: number
+  constraints:
+    required: false
+  custom_constraints:
+    sequence_limit: 3
+    forbid_na: true
+- name: organ_length_unit
+  description: Length unit.
+  type: string
+  constraints:
+    required: false
+    enum:
+    - cm
+    - mm
+  custom_constraints:
+    sequence_limit: 3
+    forbid_na: true
+    units_for: organ_length_value
+- name: organ_volume_value
+  description: A measure of the organ volume via buffer/water displacement by submerging
+    the organ to reflect the volume of the organ. (May reflect gas trapping in lung
+    with obstructed airways.)
+  type: number
+  constraints:
+    required: false
+  custom_constraints:
+    sequence_limit: 3
+    forbid_na: true
+- name: organ_volume_unit
+  description: Volume unit.
+  type: string
+  constraints:
+    required: false
+    enum:
+    - ml
+  custom_constraints:
+    sequence_limit: 3
+    forbid_na: true
+    units_for: organ_volume_value
