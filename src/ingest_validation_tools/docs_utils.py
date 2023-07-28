@@ -238,6 +238,8 @@ def _make_fields_md(table_schema, title, is_open=False):
 
     if table_schema.get('deprecated'):
         title_html = f'<s>{title}</s> (deprecated)'
+    elif table_schema.get('draft'):
+        title_html = f'<s>{title}</s> (draft)'
     else:
         title_html = f'<b>{title}</b>'
 
@@ -265,10 +267,8 @@ def _make_fields_md(table_schema, title, is_open=False):
 '''
     else:
         cedar_irl = table_schema['fields'][0]['example']
-        full_irl = f'https://openview.metadatacenter.org/templates/' \
-                   f'https:%2F%2Frepo.metadatacenter.org%2Ftemplates%2F{cedar_irl}'
         return f'''
-<summary><a href="{full_irl}">{title_html}</a></summary>
+<summary><a href="{cedar_irl}">{title_html}</a></summary>
 '''
 
 
