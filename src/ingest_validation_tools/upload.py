@@ -1,6 +1,5 @@
 from __future__ import annotations
 
-import json
 import logging
 import os
 
@@ -18,7 +17,7 @@ from ingest_validation_tools.plugin_validator import (
     ValidatorError as PluginValidatorError,
 )
 from ingest_validation_tools.plugin_validator import run_plugin_validators_iter
-from ingest_validation_tools.schema_loader import PreflightError
+from ingest_validation_tools.schema_loader import PreflightError, SchemaVersion
 from ingest_validation_tools.validation_utils import (
     dict_reader_wrapper,
     get_context_of_decode_error,
@@ -191,47 +190,44 @@ class Upload:
 
     def validation_routine(self) -> dict:
         errors = {}
-        local_validation = {}
+        local_validated = {}
+        api_validated = {}
         for tsv_path, schema_name in self.effective_tsv_paths.items():
-            tsv_errors = {}
+            if not type(tsv_path) == Path:
+                try:
+                    tsv_path = Path(tsv_path)
+                except TypeError as e:
+                    raise TypeError(
+                        f"Path {tsv_path} is of invalid type {type(tsv_path)}. Exception: {e}"
+                    )
             df = pd.read_csv(tsv_path, delimiter="\t")
             if df.get(["metadata_schema_id"]) is None:
                 logging.info(
                     f"""TSV {tsv_path} does not contain a metadata_schema_id,
                     sending for local validation"""
                 )
-                local_validation[tsv_path] = schema_name
-                continue
-            response = self.cedar_api_call(tsv_path)
-            # pretty_json = json.dumps(response.json(), indent=2)
-            # logging.info(
-            #     f"""
-            #         CEDAR validator returned {response.status_code} for TSV {tsv_path}:
-            #         {pretty_json}
-            #         """
-            # )
-            if response.status_code != 200:
-                tsv_errors["Request Errors"] = response
-            elif response.json()["reporting"] and len(response.json()["reporting"]) > 0:
-                # Capturing for logging; if this key is returned, we want to gather the problematic
-                # filename(s) and tell the data provider to check them in the Spreadsheet Validator
-                # This is backwards though; we want top-level CEDAR Validation Errors key with
-                # path:error dict underneath
-                tsv_errors["CEDAR Validation Errors"] = response.json()["reporting"]
-            if tsv_errors:
-                errors[f"{tsv_path} Errors"] = tsv_errors
-                logging.info(f"Errors for {tsv_path}: {tsv_errors}")
-        if local_validation:
-            errors["Local Validation Errors"] = self.local_validation_routine(
-                local_validation
-            )
+                local_errors = self._get_tsv_errors(tsv_path, schema_name)
+                if local_errors:
+                    local_validated[tsv_path] = local_errors
+            else:
+                api_errors = self.api_validation(tsv_path)
+                if api_errors:
+                    api_validated[f"{tsv_path}"] = api_errors
+        if local_validated:
+            errors["Local Validation Errors"] = local_validated
+        if api_validated:
+            errors["CEDAR Validation Errors"] = api_validated
         return errors
 
-    def local_validation_routine(self, tsvs: dict) -> dict:
+    def api_validation(self, tsv_path: Path):
         errors = {}
-        tsv_errors = self._get_tsv_errors(tsvs)
-        if tsv_errors:
-            errors["Metadata TSV Errors"] = tsv_errors
+        response = self.cedar_api_call(tsv_path)
+        if response.status_code != 200:
+            errors["Request Errors"] = response
+        elif response.json()["reporting"] and len(response.json()["reporting"]) > 0:
+            errors["Error Report"] = response.json()["reporting"]
+        if errors:
+            logging.info(f"CEDAR Spreadsheet Validator errors for {tsv_path}: {errors}")
         return errors
 
     ###################################
@@ -255,23 +251,19 @@ class Upload:
                 "Repeated": f'There is more than one TSV for this type: {", ".join(repeated)}'
             }
 
-    def _get_tsv_errors(self, tsvs: dict) -> dict:
+    def _get_tsv_errors(self, path: Path, schema_version: SchemaVersion) -> dict:
         errors = {}
-        for path, schema_version in tsvs:
-            schema_name = schema_version.schema_name
+        schema_name = schema_version.schema_name
 
-            single_tsv_internal_errors = self.__get_assay_tsv_errors(schema_name, path)
-            single_tsv_external_errors = self.__get_assay_reference_errors(
-                schema_name, path
-            )
+        single_tsv_internal_errors = self.__get_assay_tsv_errors(schema_name, path)
+        single_tsv_external_errors = self.__get_assay_reference_errors(
+            schema_name, path
+        )
 
-            single_tsv_errors = {}
-            if single_tsv_internal_errors:
-                single_tsv_errors["Internal"] = single_tsv_internal_errors
-            if single_tsv_external_errors:
-                single_tsv_errors["External"] = single_tsv_external_errors
-            if single_tsv_errors:
-                errors[f"{path} (as {schema_name})"] = single_tsv_errors
+        if single_tsv_internal_errors:
+            errors["Internal"] = single_tsv_internal_errors
+        if single_tsv_external_errors:
+            errors["External"] = single_tsv_external_errors
         return errors
 
     def _get_reference_errors(self) -> dict:
