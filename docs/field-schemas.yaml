@@ -482,12 +482,25 @@ ion_source:
 - gcms
 is_cedar:
 - af
+- bulkatacseq
+- bulkrnaseq
+- celldive
+- codex
 - histology
+- ims
+- lcms
+- mibi
+- mxif
 - organ
 - sample-block
 - sample-section
 - sample-suspension
+- scatacseq
+- scrnaseq
+- scrnaseq-hca
+- slideseq
 - stained
+- wgs
 is_contact:
 - contributors
 is_targeted:

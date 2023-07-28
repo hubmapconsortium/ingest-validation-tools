@@ -1,20 +1,18 @@
 ---
-title: LC-MS / MS / LC-MS Bottom-Up / MS Bottom-Up / LC-MS Top-Down / MS Top-Down
+title: lcms
 schema_name: lcms
-category: Mass spectrometry
+category: Other TSVs
 all_versions_deprecated: False
 exclude_from_index: False
 layout: default
 ---
 
 Related files:
-- [🔬 Background doc](https://portal.hubmapconsortium.org/docs/assays/lcms): More details about this type.
+
 - [📝 Excel template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/main/docs/lcms/lcms-metadata.xlsx): For metadata entry.
 - [📝 TSV template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/main/docs/lcms/lcms-metadata.tsv): Alternative for metadata entry.
 
-This schema is for liquid chromatography mass spectrometry (LCMS).
-v2 adds `mass_resolving_power`, `mz_resolving_power`, `ion_mobility`, `spatial_type`, `spatial_sampling_type`, `spatial_target`, and `resolution_{x/y}_{value/unit}`. In the case of datasets in which more than one `analyte_type` was interrogated (e.g. lipids plus metabolytes), those datasets should be split into one dataset per analyte.
-v3 adds `dms` and `label_name` fields, and `negative and positive ion mode` as a polarity option.
+
 
 ## Directory schemas
 ### v0
@@ -29,7 +27,7 @@ v3 adds `dms` and `label_name` fields, and `negative and positive ion mode` as a
 
 
 
-In the portal: LC-MS not in Portal / MS not in Portal / LC-MS Bottom-Up not in Portal / MS Bottom-Up not in Portal / LC-MS Top-Down not in Portal / MS Top-Down not in Portal
+
 
 ## Metadata schema
 
@@ -37,76 +35,11 @@ In the portal: LC-MS not in Portal / MS not in Portal / LC-MS Bottom-Up not in P
 - *Boolean* fields can be given as `TRUE`/`FALSE`, `True`/`False`, `true`/`false`, or `1`/`0`.  
 
 
-<details markdown="1" open="true"><summary><b>Version 3 (current, release date 2021-12-06)</b></summary>
+<summary><a href="https://docs.google.com/spreadsheets/d/1MBrWsl5VwTSJ2b5YG6raW-GMy_E4GA2XuRgq1exfb0c/"><b>Version 4 (current)</b> (draft)</a></summary>
 
-<blockquote markdown="1">
 
-<details markdown="1"><summary>Shared by all types</summary>
+<details markdown="1" ><summary><b>Version 3</b></summary>
 
-[`version`](#version)<br>
-[`description`](#description)<br>
-[`donor_id`](#donor_id)<br>
-[`tissue_id`](#tissue_id)<br>
-[`execution_datetime`](#execution_datetime)<br>
-[`protocols_io_doi`](#protocols_io_doi)<br>
-[`operator`](#operator)<br>
-[`operator_email`](#operator_email)<br>
-[`pi`](#pi)<br>
-[`pi_email`](#pi_email)<br>
-[`assay_category`](#assay_category)<br>
-[`assay_type`](#assay_type)<br>
-[`analyte_class`](#analyte_class)<br>
-[`is_targeted`](#is_targeted)<br>
-[`acquisition_instrument_vendor`](#acquisition_instrument_vendor)<br>
-[`acquisition_instrument_model`](#acquisition_instrument_model)<br>
-
-</details>
-<details markdown="1"><summary>Unique to this type</summary>
-
-[`dms`](#dms)<br>
-[`ms_source`](#ms_source)<br>
-[`polarity`](#polarity)<br>
-[`mz_range_low_value`](#mz_range_low_value)<br>
-[`mz_range_high_value`](#mz_range_high_value)<br>
-[`mass_resolving_power`](#mass_resolving_power)<br>
-[`mz_resolving_power`](#mz_resolving_power)<br>
-[`ion_mobility`](#ion_mobility)<br>
-[`data_collection_mode`](#data_collection_mode)<br>
-[`ms_scan_mode`](#ms_scan_mode)<br>
-[`labeling`](#labeling)<br>
-[`label_name`](#label_name)<br>
-[`section_prep_protocols_io_doi`](#section_prep_protocols_io_doi)<br>
-[`lc_instrument_vendor`](#lc_instrument_vendor)<br>
-[`lc_instrument_model`](#lc_instrument_model)<br>
-[`lc_column_vendor`](#lc_column_vendor)<br>
-[`lc_column_model`](#lc_column_model)<br>
-[`lc_resin`](#lc_resin)<br>
-[`lc_length_value`](#lc_length_value)<br>
-[`lc_length_unit`](#lc_length_unit)<br>
-[`lc_temp_value`](#lc_temp_value)<br>
-[`lc_temp_unit`](#lc_temp_unit)<br>
-[`lc_id_value`](#lc_id_value)<br>
-[`lc_id_unit`](#lc_id_unit)<br>
-[`lc_flow_rate_value`](#lc_flow_rate_value)<br>
-[`lc_flow_rate_unit`](#lc_flow_rate_unit)<br>
-[`lc_gradient`](#lc_gradient)<br>
-[`lc_mobile_phase_a`](#lc_mobile_phase_a)<br>
-[`lc_mobile_phase_b`](#lc_mobile_phase_b)<br>
-[`spatial_type`](#spatial_type)<br>
-[`spatial_sampling_type`](#spatial_sampling_type)<br>
-[`spatial_target`](#spatial_target)<br>
-[`resolution_x_value`](#resolution_x_value)<br>
-[`resolution_x_unit`](#resolution_x_unit)<br>
-[`resolution_y_value`](#resolution_y_value)<br>
-[`resolution_y_unit`](#resolution_y_unit)<br>
-[`processing_search`](#processing_search)<br>
-[`processing_protocols_io_doi`](#processing_protocols_io_doi)<br>
-[`overall_protocols_io_doi`](#overall_protocols_io_doi)<br>
-[`contributors_path`](#contributors_path)<br>
-[`data_path`](#data_path)<br>
-</details>
-
-</blockquote>
 
 ### Shared by all types
 
@@ -617,6 +550,7 @@ Relative path to file or directory with instrument data. Downstream processing w
 | required | `True` |
 
 </details>
+
 
 
 <details markdown="1" ><summary><b>Version 2</b></summary>
