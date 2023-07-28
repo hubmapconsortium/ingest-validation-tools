@@ -24,10 +24,10 @@ Related files:
 - *Boolean* fields can be given as `TRUE`/`FALSE`, `True`/`False`, `true`/`false`, or `1`/`0`.  
 
 
-<summary><a href="https://openview.metadatacenter.org/templates/https:%2F%2Frepo.metadatacenter.org%2Ftemplates%2F8377b9ba-97bb-4b26-a2ac-2b88d756450f"><b>Version 2 (current)</b></a></summary>
+<summary><a href="https://openview.metadatacenter.org/templates/https:%2F%2Frepo.metadatacenter.org%2Ftemplates%2F8377b9ba-97bb-4b26-a2ac-2b88d756450f"><b>Version 3 (current)</b></a></summary>
 
 
-<details markdown="1" ><summary><b>Version 1</b></summary>
+<details markdown="1" ><summary><b>Version 2</b></summary>
 
 
 <a name="organ_id"></a>
