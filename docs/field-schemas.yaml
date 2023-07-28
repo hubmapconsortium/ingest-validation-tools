@@ -481,11 +481,13 @@ ion_mobility:
 ion_source:
 - gcms
 is_cedar:
+- af
 - histology
 - organ
 - sample-block
 - sample-section
 - sample-suspension
+- stained
 is_contact:
 - contributors
 is_targeted:
