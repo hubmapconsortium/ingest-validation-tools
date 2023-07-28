@@ -266,9 +266,9 @@ def _make_fields_md(table_schema, title, is_open=False):
 </details>
 '''
     else:
-        cedar_irl = table_schema['fields'][0]['example']
+        cedar_iri = table_schema['fields'][0]['example']
         return f'''
-<summary><a href="{cedar_irl}">{title_html}</a></summary>
+<summary><a href="{cedar_iri}">{title_html}</a></summary>
 '''
 
 
