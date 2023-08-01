@@ -14,6 +14,10 @@ Related files:
 
 
 
+## Directory schemas
+### v0
+<summary><a href="https://docs.google.com/spreadsheets/d/1_fMJrZVgx8g80uduxfr1HcIHz52_fpRfwFWFrA40tlg">Draft</a></summary>
+
 
 
 

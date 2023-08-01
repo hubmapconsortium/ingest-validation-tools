@@ -17,6 +17,9 @@ Related files:
 ## Directory schemas
 The HIVE will process each dataset with
 [scATACseq Pipeline 1.4.3](https://github.com/hubmapconsortium/sc-atac-seq-pipeline/releases/tag/1.4.3).
+### v1
+<summary><a href="https://docs.google.com/spreadsheets/d/10Om2iinTwfLn1ySWtovmcm35cQnyg0Pm-rRd0a-eMjc">Draft</a></summary>
+
 ### v0
 
 | pattern | required? | description |

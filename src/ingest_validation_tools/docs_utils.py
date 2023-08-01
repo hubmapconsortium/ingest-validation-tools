@@ -502,13 +502,14 @@ def _make_dir_descriptions(dir_schemas, pipeline_infos):
         f'### v{v}\n'
         + _make_dir_description(
             schema['files'],
-            schema.get('deprecated', False))
+            schema.get('deprecated', False),
+            schema.get('draft', False))
         + '\n\n'  # Trailing blankline needed for correct gh-pages rendering.
         for v, schema in sorted_items
     )
 
 
-def _make_dir_description(files, is_deprecated=False):
+def _make_dir_description(files, is_deprecated=False, is_draft=False):
     '''
     QA and Required flags are handled:
 
@@ -573,6 +574,10 @@ def _make_dir_description(files, is_deprecated=False):
     ...
     AssertionError: Unexpected key "bad" in {'bad': 'schema'}
     '''
+
+    if is_draft and files[0].get("draft_link", None):
+        return f'<summary><a href="{files[0].get("draft_link")}">Draft</a></summary>'
+
     for line in files:
         for k in line.keys():
             assert k in {'pattern', 'required', 'description', 'example', 'is_qa_qc'}, \

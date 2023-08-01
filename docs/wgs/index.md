@@ -15,6 +15,9 @@ Related files:
 
 
 ## Directory schemas
+### v1
+<summary><a href="https://docs.google.com/spreadsheets/d/10Om2iinTwfLn1ySWtovmcm35cQnyg0Pm-rRd0a-eMjc/edit#gid=37240204">Draft</a></summary>
+
 ### v0
 
 | pattern | required? | description |
