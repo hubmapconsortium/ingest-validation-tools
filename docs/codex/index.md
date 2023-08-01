@@ -16,7 +16,7 @@ Related files:
 
 ## Directory schemas
 ### v2
-<summary><a href="https://docs.google.com/spreadsheets/d/1pZD2e51e4QkxzIk6xjHPPu1RBZpx5mzoykMmlaDK8rA/edit#gid=158547256">Draft</a></summary>
+<summary><a href="https://docs.google.com/spreadsheets/d/1pZD2e51e4QkxzIk6xjHPPu1RBZpx5mzoykMmlaDK8rA">Draft</a></summary>
 
 ### v1-with-dataset-json
 
