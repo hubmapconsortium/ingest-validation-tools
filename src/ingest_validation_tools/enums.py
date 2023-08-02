@@ -29,6 +29,7 @@ shared_enums: Dict[str, List[str]] = {
     'assay_type': [
         '10x Multiome',
         '3D Imaging Mass Cytometry',
+        '3D Imaging Mass Cytometry (To Be Deprecated)',
         'AF',
         'bulk-RNA',
         'bulkATACseq',
@@ -51,6 +52,8 @@ shared_enums: Dict[str, List[str]] = {
         'Histology',
         'hrsTP-seq (DBiTSeq)',
         'Imaging Mass Cytometry',
+        'Imaging Mass Cytometry (To Be Deprecated)',
+        'IMS (To Be Deprecated)',
         'LC-MS (metabolomics)',
         'LC-MS/MS (label-free proteomics)',
         'Light Sheet',
