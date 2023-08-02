@@ -95,9 +95,12 @@ shared_enums: Dict[str, List[str]] = {
     'assay_category': [
         'clinical_imaging',
         'imaging',
+        'histology',
         'mass_spectrometry',
         'mass_spectrometry_imaging',
+        'mxfbe',
         'sequence',
-        'single_cycle_fluorescence_microscopy'
+        'single_cycle_fluorescence_microscopy',
+        'spatial_transcriptomics'
     ],
 }
