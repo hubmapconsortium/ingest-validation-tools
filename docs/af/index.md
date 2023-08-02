@@ -1,7 +1,7 @@
 ---
-title: af
+title: AF
 schema_name: af
-category: Other TSVs
+category: Imaging assays
 all_versions_deprecated: False
 exclude_from_index: False
 layout: default
@@ -9,10 +9,10 @@ layout: default
 
 Related files:
 
-- [📝 Excel template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/main/docs/af/af-metadata.xlsx): For metadata entry.
-- [📝 TSV template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/main/docs/af/af-metadata.tsv): Alternative for metadata entry.
+- [📝 Excel template](): For metadata entry.
+- [📝 TSV template](): Alternative for metadata entry.
 
-
+This schema is for autofluorescence (AF). For an example of an AF dataset & directory, see this [example autofluorescence dataset](https://portal.hubmapconsortium.org/browse/dataset/dc289471333309925e46ceb9bafafaf4#files) and click the Globus link.
 
 ## Directory schemas
 ### v2
@@ -30,7 +30,7 @@ Related files:
 
 
 
-
+In the portal: AF not in Portal
 
 ## Metadata schema
 
