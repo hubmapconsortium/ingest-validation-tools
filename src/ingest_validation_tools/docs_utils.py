@@ -137,6 +137,7 @@ def generate_readme_md(
         if source_project_enum else ''
 
     is_cedar = (max_version_table_schema.get('fields', [])[0] and
+                type(max_version_table_schema.get('fields', [])[0]) == dict and
                 max_version_table_schema.get('fields', [])[0].get('name', '') == 'is_cedar')
     is_draft = max_version_table_schema.get('draft', False)
 
