@@ -1,5 +1,5 @@
 ---
-title: CyCIF / MxIF (Deprecated)
+title: CyCIF / MxIF
 schema_name: mxif
 category: MxFBE
 all_versions_deprecated: False
@@ -32,7 +32,7 @@ Related files:
 
 
 
-In the portal: CyCIF not in Portal / MxIF (Deprecated) not in Portal
+In the portal: CyCIF not in Portal / MxIF not in Portal
 
 ## Metadata schema
 

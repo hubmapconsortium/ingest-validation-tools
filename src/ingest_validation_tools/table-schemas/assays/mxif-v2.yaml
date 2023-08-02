@@ -11,4 +11,4 @@ fields:
   constraints:
     enum:
       - CyCIF
-      - MxIF (Deprecated)
+      - MxIF

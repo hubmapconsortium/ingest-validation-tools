@@ -56,7 +56,6 @@ shared_enums: Dict[str, List[str]] = {
         'LC-MS/MS (label-free proteomics)',
         'Light Sheet',
         'MxIF',
-        'MxIF (Deprecated)',
         'MALDI',
         'MALDI-IMS',
         'MS (shotgun lipidomics)',
