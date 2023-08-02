@@ -1,7 +1,7 @@
 ---
-title: phenocycler
+title: PhenoCycler
 schema_name: phenocycler
-category: Other TSVs
+category: MxFBE
 all_versions_deprecated: False
 exclude_from_index: False
 layout: default
@@ -9,8 +9,8 @@ layout: default
 
 Related files:
 
-- [📝 Excel template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/main/docs/phenocycler/phenocycler-metadata.xlsx): For metadata entry.
-- [📝 TSV template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/main/docs/phenocycler/phenocycler-metadata.tsv): Alternative for metadata entry.
+- [📝 Excel template](): For metadata entry.
+- [📝 TSV template](): Alternative for metadata entry.
 
 
 
@@ -20,7 +20,7 @@ Related files:
 
 
 
-
+In the portal: PhenoCycler not in Portal
 
 ## Metadata schema
 

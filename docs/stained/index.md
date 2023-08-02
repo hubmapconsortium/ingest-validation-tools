@@ -1,7 +1,7 @@
 ---
-title: stained
+title: PAS microscopy / Histology
 schema_name: stained
-category: Other TSVs
+category: Histology
 all_versions_deprecated: False
 exclude_from_index: False
 layout: default
@@ -9,8 +9,8 @@ layout: default
 
 Related files:
 
-- [📝 Excel template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/main/docs/stained/stained-metadata.xlsx): For metadata entry.
-- [📝 TSV template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/main/docs/stained/stained-metadata.tsv): Alternative for metadata entry.
+- [📝 Excel template](https://raw.githubusercontent.com/hubmapconsortium//dataset-metadata-spreadsheet/main/stained/stained-latest.xlsx): For metadata entry.
+- [📝 TSV template](https://raw.githubusercontent.com/hubmapconsortium//dataset-metadata-spreadsheet/main/stained/stained-latest.tsv): Alternative for metadata entry.
 
 
 
@@ -40,7 +40,7 @@ Related files:
 
 
 
-
+In the portal: PAS microscopy not in Portal / Histology not in Portal
 
 ## Metadata schema
 

@@ -1,7 +1,7 @@
 ---
-title: scatacseq
+title: SNARE-seq2 / sciATACseq / snATACseq
 schema_name: scatacseq
-category: Other TSVs
+category: Sequence Assays
 all_versions_deprecated: False
 exclude_from_index: False
 layout: default
@@ -9,8 +9,8 @@ layout: default
 
 Related files:
 
-- [📝 Excel template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/main/docs/scatacseq/scatacseq-metadata.xlsx): For metadata entry.
-- [📝 TSV template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/main/docs/scatacseq/scatacseq-metadata.tsv): Alternative for metadata entry.
+- [📝 Excel template](): For metadata entry.
+- [📝 TSV template](): Alternative for metadata entry.
 
 
 
@@ -29,7 +29,7 @@ The HIVE will process each dataset with
 
 
 
-
+In the portal: SNARE-seq2 not in Portal / sciATACseq not in Portal / snATACseq not in Portal
 
 ## Metadata schema
 

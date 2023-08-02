@@ -1,7 +1,7 @@
 ---
-title: tsm-mxif
+title: Thick Section Multiphoton MxIF
 schema_name: tsm-mxif
-category: Other TSVs
+category: Single-cycle Fluorescence Microscopy (SFM)
 all_versions_deprecated: False
 exclude_from_index: False
 layout: default
@@ -9,8 +9,8 @@ layout: default
 
 Related files:
 
-- [📝 Excel template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/main/docs/tsm-mxif/tsm-mxif-metadata.xlsx): For metadata entry.
-- [📝 TSV template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/main/docs/tsm-mxif/tsm-mxif-metadata.tsv): Alternative for metadata entry.
+- [📝 Excel template](): For metadata entry.
+- [📝 TSV template](): Alternative for metadata entry.
 
 
 
@@ -20,7 +20,7 @@ Related files:
 
 
 
-
+In the portal: Thick Section Multiphoton MxIF not in Portal
 
 ## Metadata schema
 

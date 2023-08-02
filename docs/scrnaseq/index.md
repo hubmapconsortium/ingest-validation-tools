@@ -1,7 +1,7 @@
 ---
-title: scrnaseq
+title: scRNAseq-10xGenomics-v2 / scRNAseq-10xGenomics-v3 / snRNAseq-10xGenomics-v2 / snRNAseq-10xGenomics-v3 / scRNAseq / sciRNAseq / snRNAseq / SNARE2-RNAseq
 schema_name: scrnaseq
-category: Other TSVs
+category: Sequence Assays
 all_versions_deprecated: False
 exclude_from_index: False
 layout: default
@@ -9,8 +9,8 @@ layout: default
 
 Related files:
 
-- [📝 Excel template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/main/docs/scrnaseq/scrnaseq-metadata.xlsx): For metadata entry.
-- [📝 TSV template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/main/docs/scrnaseq/scrnaseq-metadata.tsv): Alternative for metadata entry.
+- [📝 Excel template](): For metadata entry.
+- [📝 TSV template](): Alternative for metadata entry.
 
 
 
@@ -27,7 +27,7 @@ Related files:
 
 
 
-
+In the portal: scRNAseq-10xGenomics-v2 not in Portal / scRNAseq-10xGenomics-v3 not in Portal / snRNAseq-10xGenomics-v2 not in Portal / snRNAseq-10xGenomics-v3 not in Portal / scRNAseq not in Portal / sciRNAseq not in Portal / snRNAseq not in Portal / SNARE2-RNAseq not in Portal
 
 ## Metadata schema
 

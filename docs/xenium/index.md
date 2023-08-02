@@ -1,7 +1,7 @@
 ---
-title: xenium
+title: Xenium
 schema_name: xenium
-category: Other TSVs
+category: Spatial Transcriptomics
 all_versions_deprecated: False
 exclude_from_index: False
 layout: default
@@ -20,7 +20,7 @@ Related files:
 
 
 
-
+In the portal: Xenium not in Portal
 
 ## Metadata schema
 
