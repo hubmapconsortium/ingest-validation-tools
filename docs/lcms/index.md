@@ -1,7 +1,7 @@
 ---
-title: lcms
+title: LC-MS
 schema_name: lcms
-category: Other TSVs
+category: Mass Spectrometry
 all_versions_deprecated: False
 exclude_from_index: False
 layout: default
@@ -9,8 +9,8 @@ layout: default
 
 Related files:
 
-- [📝 Excel template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/main/docs/lcms/lcms-metadata.xlsx): For metadata entry.
-- [📝 TSV template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/main/docs/lcms/lcms-metadata.tsv): Alternative for metadata entry.
+- [📝 Excel template](): For metadata entry.
+- [📝 TSV template](): Alternative for metadata entry.
 
 
 
@@ -34,7 +34,7 @@ Related files:
 
 
 
-
+In the portal: LC-MS not in Portal
 
 ## Metadata schema
 
