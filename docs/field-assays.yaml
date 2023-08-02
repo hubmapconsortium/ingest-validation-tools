@@ -184,22 +184,36 @@ area_normalized_ion_dose_unit:
 area_normalized_ion_dose_value:
 - MIBI
 assay_category:
+- 10x Multiome
 - 3D Imaging Mass Cytometry
+- 3D Imaging Mass Cytometry (To Be Deprecated)
 - AF
 - Body CT
 - CE-MS
 - CODEX
 - CODEX2
 - Cell DIVE
+- Cell Dive
+- Confocal
+- CosMx
+- CyCIF
 - DESI
+- Enhanced SRS
 - GC-MS
+- GeoMx (RNA)
+- GeoMx (protein)
+- HiFi
+- Histology
+- IMS (To Be Deprecated)
 - Imaging Mass Cytometry
+- Imaging Mass Cytometry (To Be Deprecated)
 - LC-MS
 - LC-MS (metabolomics)
 - LC-MS Bottom-Up
 - LC-MS Top-Down
 - LC-MS/MS (label-free proteomics)
 - Light Sheet
+- MALDI
 - MALDI-IMS
 - MIBI
 - MRI
@@ -208,20 +222,32 @@ assay_category:
 - MS Bottom-Up
 - MS Top-Down
 - Micro CT
+- Molecular Cartography
 - MxIF
+- MxIF (Deprecated)
 - NanoDESI
 - NanoPOTS
 - OCT
 - PAS microscopy
+- PhenoCycler
+- RNAseq (GeoMx)
+- RNAseq (Visium)
+- SHG
+- SIMS
 - SIMS-IMS
 - SNARE-seq2
 - SNARE2-RNAseq
 - Slide-seq
+- Slide-seq (To Be Deprecated)
+- Thick Section Multiphoton MxIF
 - Ultrasound
+- Visium
 - WGS
+- Xenium
 - bulk-RNA
 - bulkATACseq
 - cell-dive
+- hrsTP-seq (DBiTSeq)
 - scRNAseq
 - scRNAseq-10xGenomics
 - scRNAseq-10xGenomics-v2
@@ -234,22 +260,36 @@ assay_category:
 - snRNAseq-10xGenomics-v2
 - snRNAseq-10xGenomics-v3
 assay_type:
+- 10x Multiome
 - 3D Imaging Mass Cytometry
+- 3D Imaging Mass Cytometry (To Be Deprecated)
 - AF
 - Body CT
 - CE-MS
 - CODEX
 - CODEX2
 - Cell DIVE
+- Cell Dive
+- Confocal
+- CosMx
+- CyCIF
 - DESI
+- Enhanced SRS
 - GC-MS
+- GeoMx (RNA)
+- GeoMx (protein)
+- HiFi
+- Histology
+- IMS (To Be Deprecated)
 - Imaging Mass Cytometry
+- Imaging Mass Cytometry (To Be Deprecated)
 - LC-MS
 - LC-MS (metabolomics)
 - LC-MS Bottom-Up
 - LC-MS Top-Down
 - LC-MS/MS (label-free proteomics)
 - Light Sheet
+- MALDI
 - MALDI-IMS
 - MIBI
 - MRI
@@ -258,20 +298,33 @@ assay_type:
 - MS Bottom-Up
 - MS Top-Down
 - Micro CT
+- Molecular Cartography
 - MxIF
+- MxIF (Deprecated)
 - NanoDESI
 - NanoPOTS
 - OCT
 - PAS microscopy
+- PhenoCycler
+- Publication
+- RNAseq (GeoMx)
+- RNAseq (Visium)
+- SHG
+- SIMS
 - SIMS-IMS
 - SNARE-seq2
 - SNARE2-RNAseq
 - Slide-seq
+- Slide-seq (To Be Deprecated)
+- Thick Section Multiphoton MxIF
 - Ultrasound
+- Visium
 - WGS
+- Xenium
 - bulk-RNA
 - bulkATACseq
 - cell-dive
+- hrsTP-seq (DBiTSeq)
 - publication
 - scRNAseq
 - scRNAseq-10xGenomics
@@ -280,6 +333,7 @@ assay_type:
 - sciATACseq
 - sciRNAseq
 - seqFISH
+- seqFISH (To Be Deprecated)
 - snATACseq
 - snRNAseq
 - snRNAseq-10xGenomics-v2
@@ -732,6 +786,64 @@ ion_mobility:
 - SIMS-IMS
 ion_source:
 - GC-MS
+is_cedar:
+- 10x Multiome
+- 3D Imaging Mass Cytometry (To Be Deprecated)
+- AF
+- Body CT
+- CE-MS
+- CODEX
+- Cell Dive
+- Confocal
+- CosMx
+- CyCIF
+- DESI
+- Enhanced SRS
+- GC-MS
+- GeoMx (RNA)
+- GeoMx (protein)
+- HiFi
+- Histology
+- IMS (To Be Deprecated)
+- Imaging Mass Cytometry (To Be Deprecated)
+- LC-MS
+- Light Sheet
+- MALDI
+- MIBI
+- MRI
+- Micro CT
+- Molecular Cartography
+- MxIF (Deprecated)
+- NanoDESI
+- OCT
+- PAS microscopy
+- PhenoCycler
+- Publication
+- RNAseq (GeoMx)
+- RNAseq (Visium)
+- SHG
+- SIMS
+- SNARE-seq2
+- SNARE2-RNAseq
+- Slide-seq (To Be Deprecated)
+- Thick Section Multiphoton MxIF
+- Ultrasound
+- Visium
+- WGS
+- Xenium
+- bulk-RNA
+- bulkATACseq
+- hrsTP-seq (DBiTSeq)
+- scRNAseq
+- scRNAseq-10xGenomics-v2
+- scRNAseq-10xGenomics-v3
+- sciATACseq
+- sciRNAseq
+- seqFISH (To Be Deprecated)
+- snATACseq
+- snRNAseq
+- snRNAseq-10xGenomics-v2
+- snRNAseq-10xGenomics-v3
 is_targeted:
 - 3D Imaging Mass Cytometry
 - AF
