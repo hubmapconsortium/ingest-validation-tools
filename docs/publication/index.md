@@ -1,5 +1,5 @@
 ---
-title: publication
+title: Publication
 schema_name: publication
 category: Other TSVs
 all_versions_deprecated: False
@@ -34,7 +34,7 @@ Related files:
 
 
 
-In the portal: publication not in Portal
+In the portal: Publication not in Portal
 
 ## Metadata schema
 
