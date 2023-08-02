@@ -10,4 +10,4 @@ fields:
 - name: assay_type
   constraints:
     enum:
-      - Slide-seq (To Be Deprecated)
+      - Slide-seq

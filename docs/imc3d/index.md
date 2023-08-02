@@ -1,5 +1,5 @@
 ---
-title: 3D Imaging Mass Cytometry (To Be Deprecated)
+title: 3D Imaging Mass Cytometry
 schema_name: imc3d
 category: Imaging Mass Spectrometry (IMS)
 all_versions_deprecated: False
@@ -34,7 +34,7 @@ Related files:
 
 
 
-In the portal: 3D Imaging Mass Cytometry (To Be Deprecated) not in Portal
+In the portal: 3D Imaging Mass Cytometry not in Portal
 
 ## Metadata schema
 

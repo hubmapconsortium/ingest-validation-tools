@@ -11,4 +11,4 @@ fields:
 - name: assay_type
   constraints:
     enum:
-      - Imaging Mass Cytometry (To Be Deprecated)
+      - Imaging Mass Cytometry

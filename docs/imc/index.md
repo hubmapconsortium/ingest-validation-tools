@@ -1,5 +1,5 @@
 ---
-title: Imaging Mass Cytometry (To Be Deprecated)
+title: Imaging Mass Cytometry
 schema_name: imc
 category: Imaging Mass Spectrometry (IMS)
 all_versions_deprecated: False
@@ -24,7 +24,7 @@ Related files:
 
 
 
-In the portal: Imaging Mass Cytometry (To Be Deprecated) not in Portal
+In the portal: Imaging Mass Cytometry not in Portal
 
 ## Metadata schema
 

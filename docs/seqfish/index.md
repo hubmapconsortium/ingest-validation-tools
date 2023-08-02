@@ -1,5 +1,5 @@
 ---
-title: seqFISH (To Be Deprecated)
+title: seqFISH
 schema_name: seqfish
 category: Other TSVs
 all_versions_deprecated: False
@@ -36,7 +36,7 @@ Related files:
 
 
 
-In the portal: seqFISH (To Be Deprecated) not in Portal
+In the portal: seqFISH not in Portal
 
 ## Metadata schema
 

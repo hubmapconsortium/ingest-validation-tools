@@ -1,5 +1,5 @@
 ---
-title: Slide-seq (To Be Deprecated)
+title: Slide-seq
 schema_name: slideseq
 category: Sequence Assays
 all_versions_deprecated: False
@@ -35,7 +35,7 @@ Related files:
 
 
 
-In the portal: Slide-seq (To Be Deprecated) not in Portal
+In the portal: Slide-seq not in Portal
 
 ## Metadata schema
 

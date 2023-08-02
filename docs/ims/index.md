@@ -1,5 +1,5 @@
 ---
-title: IMS (To Be Deprecated)
+title: IMS
 schema_name: ims
 category: Imaging Mass Spectrometry (IMS)
 all_versions_deprecated: False
@@ -31,7 +31,7 @@ Related files:
 
 
 
-In the portal: IMS (To Be Deprecated) not in Portal
+In the portal: IMS not in Portal
 
 ## Metadata schema
 
