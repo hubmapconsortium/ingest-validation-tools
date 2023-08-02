@@ -1,7 +1,7 @@
 ---
-title: hifi-slide
+title: HiFi
 schema_name: hifi-slide
-category: Other TSVs
+category: Spatial Transcriptomics
 all_versions_deprecated: False
 exclude_from_index: False
 layout: default
@@ -9,8 +9,8 @@ layout: default
 
 Related files:
 
-- [📝 Excel template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/main/docs/hifi-slide/hifi-slide-metadata.xlsx): For metadata entry.
-- [📝 TSV template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/main/docs/hifi-slide/hifi-slide-metadata.tsv): Alternative for metadata entry.
+- [📝 Excel template](): For metadata entry.
+- [📝 TSV template](): Alternative for metadata entry.
 
 
 
@@ -20,7 +20,7 @@ Related files:
 
 
 
-
+In the portal: HiFi not in Portal
 
 ## Metadata schema
 

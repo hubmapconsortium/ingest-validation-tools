@@ -1,7 +1,7 @@
 ---
 title: CyCIF / MxIF (Deprecated)
 schema_name: mxif
-category: Imaging
+category: MxFBE
 all_versions_deprecated: False
 exclude_from_index: False
 layout: default

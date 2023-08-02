@@ -1,7 +1,7 @@
 ---
 title: CE-MS
 schema_name: cems
-category: Other TSVs
+category: Mass Spectrometry
 all_versions_deprecated: False
 exclude_from_index: False
 layout: default

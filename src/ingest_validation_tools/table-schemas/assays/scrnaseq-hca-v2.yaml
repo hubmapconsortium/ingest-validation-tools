@@ -3,3 +3,19 @@ fields:
 - name: is_cedar
   description: 'Identifies whether the version is hosted by CEDAR'
   example: ''
+- name: assay_category
+  constraints:
+    enum:
+    - sequence
+    required: true
+- name: assay_type
+  constraints:
+    enum:
+    - scRNAseq-10xGenomics-v2
+    - scRNAseq-10xGenomics-v3
+    - snRNAseq-10xGenomics-v2
+    - scRNAseq
+    - sciRNAseq
+    - snRNAseq
+    - SNARE2-RNAseq
+    required: true
