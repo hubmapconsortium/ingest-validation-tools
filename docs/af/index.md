@@ -1,7 +1,7 @@
 ---
 title: AF
 schema_name: af
-category: Single-cycle Fluorescence Microscopy
+category: Single-cycle Fluorescence Microscopy (SFM)
 all_versions_deprecated: False
 exclude_from_index: False
 layout: default
