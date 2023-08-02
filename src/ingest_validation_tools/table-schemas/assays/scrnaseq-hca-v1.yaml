@@ -20,3 +20,4 @@ fields:
     - snRNAseq
     - SNARE2-RNAseq
     required: true
+# include: ../includes/fields/source_project.yaml
