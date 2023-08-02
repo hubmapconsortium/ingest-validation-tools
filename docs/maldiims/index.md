@@ -1,7 +1,7 @@
 ---
 title: MALDI-IMS
 schema_name: maldiims
-category: Imaging mass spectrometry
+category: Imaging Mass Spectrometry
 layout: default
 exclude_from_index: True
 ---
