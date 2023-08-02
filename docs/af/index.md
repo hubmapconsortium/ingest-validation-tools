@@ -1,7 +1,7 @@
 ---
 title: AF
 schema_name: af
-category: Imaging assays
+category: Single-cycle Fluorescence Microscopy
 all_versions_deprecated: False
 exclude_from_index: False
 layout: default

@@ -192,6 +192,7 @@ def generate_readme_md(
             'mass_spectrometry': 'Mass spectrometry',
             'mass_spectrometry_imaging': 'Imaging mass spectrometry',
             'sequence': 'Sequence assays',
+            'single_cycle_fluorescence_microscopy': 'Single-cycle Fluorescence Microscopy',
             'other': 'Other TSVs'
         }[category],
         'max_version': max_version,

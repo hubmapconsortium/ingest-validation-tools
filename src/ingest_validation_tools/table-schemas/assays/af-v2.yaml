@@ -7,7 +7,7 @@ fields:
 - name: assay_category
   constraints:
     enum:
-      - imaging
+      - single_cycle_fluorescence_microscopy
 - name: assay_type
   constraints:
     enum:
