@@ -9,8 +9,8 @@ layout: default
 
 Related files:
 
-- [📝 Excel template](): For metadata entry.
-- [📝 TSV template](): Alternative for metadata entry.
+- [📝 Excel template](https://raw.githubusercontent.com/hubmapconsortium//dataset-metadata-spreadsheet/main/imc/imc-latest.xlsx): For metadata entry.
+- [📝 TSV template](https://raw.githubusercontent.com/hubmapconsortium//dataset-metadata-spreadsheet/main/imc/imc-latest.tsv): Alternative for metadata entry.
 
 
 
@@ -32,7 +32,7 @@ In the portal: Imaging Mass Cytometry (To Be Deprecated) not in Portal
 - *Boolean* fields can be given as `TRUE`/`FALSE`, `True`/`False`, `true`/`false`, or `1`/`0`.  
 
 
-<summary><b>Version 2 (current)</b> (draft) (TBD)</summary>
+<summary><s>Version 2 (current)</s> (deprecated) (TBD)</summary>
 
 
 <details markdown="1" ><summary><b>Version 1</b></summary>

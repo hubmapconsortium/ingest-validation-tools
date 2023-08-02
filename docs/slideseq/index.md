@@ -9,15 +9,12 @@ layout: default
 
 Related files:
 
-- [📝 Excel template](): For metadata entry.
-- [📝 TSV template](): Alternative for metadata entry.
+- [📝 Excel template](https://raw.githubusercontent.com/hubmapconsortium//dataset-metadata-spreadsheet/main/slideseq/slideseq-latest.xlsx): For metadata entry.
+- [📝 TSV template](https://raw.githubusercontent.com/hubmapconsortium//dataset-metadata-spreadsheet/main/slideseq/slideseq-latest.tsv): Alternative for metadata entry.
 
 
 
 ## Directory schemas
-### v1
-<summary><a href="https://docs.google.com/spreadsheets/d/1LE-iyY2E6eP4E8jhgP6rhsvjESrdHXWYrMwKTvNkI5Y">Draft</a></summary>
-
 ### v0
 
 | pattern | required? | description |
@@ -46,7 +43,7 @@ In the portal: Slide-seq (To Be Deprecated) not in Portal
 - *Boolean* fields can be given as `TRUE`/`FALSE`, `True`/`False`, `true`/`false`, or `1`/`0`.  
 
 
-<summary><b>Version 2 (current)</b> (draft) (TBD)</summary>
+<summary><s>Version 2 (current)</s> (deprecated) (TBD)</summary>
 
 
 <details markdown="1" ><summary><b>Version 1</b></summary>

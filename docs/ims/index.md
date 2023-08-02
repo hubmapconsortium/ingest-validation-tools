@@ -9,15 +9,12 @@ layout: default
 
 Related files:
 
-- [📝 Excel template](): For metadata entry.
-- [📝 TSV template](): Alternative for metadata entry.
+- [📝 Excel template](https://raw.githubusercontent.com/hubmapconsortium//dataset-metadata-spreadsheet/main/ims/ims-latest.xlsx): For metadata entry.
+- [📝 TSV template](https://raw.githubusercontent.com/hubmapconsortium//dataset-metadata-spreadsheet/main/ims/ims-latest.tsv): Alternative for metadata entry.
 
 
 
 ## Directory schemas
-### v1
-<summary><a href="https://docs.google.com/spreadsheets/d/1I2aXIpOQHBjeLbKsVn0qJTOH7vtByeQ9t_1EnlTAPL4">Draft</a></summary>
-
 ### v0
 
 | pattern | required? | description |
@@ -42,7 +39,7 @@ In the portal: IMS (To Be Deprecated) not in Portal
 - *Boolean* fields can be given as `TRUE`/`FALSE`, `True`/`False`, `true`/`false`, or `1`/`0`.  
 
 
-<summary><b>Version 3 (current)</b> (draft) (TBD)</summary>
+<summary><s>Version 3 (current)</s> (deprecated) (TBD)</summary>
 
 
 <details markdown="1" ><summary><b>Version 2</b></summary>
