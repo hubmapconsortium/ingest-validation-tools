@@ -186,7 +186,6 @@ area_normalized_ion_dose_value:
 assay_category:
 - 10x Multiome
 - 3D Imaging Mass Cytometry
-- 3D Imaging Mass Cytometry (To Be Deprecated)
 - AF
 - Body CT
 - CE-MS
@@ -204,9 +203,8 @@ assay_category:
 - GeoMx (protein)
 - HiFi
 - Histology
-- IMS (To Be Deprecated)
+- IMS
 - Imaging Mass Cytometry
-- Imaging Mass Cytometry (To Be Deprecated)
 - LC-MS
 - LC-MS (metabolomics)
 - LC-MS Bottom-Up
@@ -224,7 +222,6 @@ assay_category:
 - Micro CT
 - Molecular Cartography
 - MxIF
-- MxIF (Deprecated)
 - NanoDESI
 - NanoPOTS
 - OCT
@@ -238,7 +235,6 @@ assay_category:
 - SNARE-seq2
 - SNARE2-RNAseq
 - Slide-seq
-- Slide-seq (To Be Deprecated)
 - Thick Section Multiphoton MxIF
 - Ultrasound
 - Visium
@@ -262,7 +258,6 @@ assay_category:
 assay_type:
 - 10x Multiome
 - 3D Imaging Mass Cytometry
-- 3D Imaging Mass Cytometry (To Be Deprecated)
 - AF
 - Body CT
 - CE-MS
@@ -280,9 +275,8 @@ assay_type:
 - GeoMx (protein)
 - HiFi
 - Histology
-- IMS (To Be Deprecated)
+- IMS
 - Imaging Mass Cytometry
-- Imaging Mass Cytometry (To Be Deprecated)
 - LC-MS
 - LC-MS (metabolomics)
 - LC-MS Bottom-Up
@@ -300,7 +294,6 @@ assay_type:
 - Micro CT
 - Molecular Cartography
 - MxIF
-- MxIF (Deprecated)
 - NanoDESI
 - NanoPOTS
 - OCT
@@ -315,7 +308,6 @@ assay_type:
 - SNARE-seq2
 - SNARE2-RNAseq
 - Slide-seq
-- Slide-seq (To Be Deprecated)
 - Thick Section Multiphoton MxIF
 - Ultrasound
 - Visium
@@ -333,7 +325,6 @@ assay_type:
 - sciATACseq
 - sciRNAseq
 - seqFISH
-- seqFISH (To Be Deprecated)
 - snATACseq
 - snRNAseq
 - snRNAseq-10xGenomics-v2
@@ -788,7 +779,7 @@ ion_source:
 - GC-MS
 is_cedar:
 - 10x Multiome
-- 3D Imaging Mass Cytometry (To Be Deprecated)
+- 3D Imaging Mass Cytometry
 - AF
 - Body CT
 - CE-MS
@@ -804,8 +795,8 @@ is_cedar:
 - GeoMx (protein)
 - HiFi
 - Histology
-- IMS (To Be Deprecated)
-- Imaging Mass Cytometry (To Be Deprecated)
+- IMS
+- Imaging Mass Cytometry
 - LC-MS
 - Light Sheet
 - MALDI
@@ -813,7 +804,7 @@ is_cedar:
 - MRI
 - Micro CT
 - Molecular Cartography
-- MxIF (Deprecated)
+- MxIF
 - NanoDESI
 - OCT
 - PAS microscopy
@@ -825,7 +816,7 @@ is_cedar:
 - SIMS
 - SNARE-seq2
 - SNARE2-RNAseq
-- Slide-seq (To Be Deprecated)
+- Slide-seq
 - Thick Section Multiphoton MxIF
 - Ultrasound
 - Visium
@@ -839,7 +830,7 @@ is_cedar:
 - scRNAseq-10xGenomics-v3
 - sciATACseq
 - sciRNAseq
-- seqFISH (To Be Deprecated)
+- seqFISH
 - snATACseq
 - snRNAseq
 - snRNAseq-10xGenomics-v2
