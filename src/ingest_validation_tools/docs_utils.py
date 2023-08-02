@@ -136,8 +136,12 @@ def generate_readme_md(
     title += f" ({' / '.join(source_project_enum)})" \
         if source_project_enum else ''
 
-    raw_base_url = 'https://raw.githubusercontent.com/' \
-        'hubmapconsortium/ingest-validation-tools/main/docs'
+    is_cedar = (max_version_table_schema.get('fields', [])[0] and max_version_table_schema.get('fields', [])[0].get('name', '') == 'is_cedar')
+    is_draft = max_version_table_schema.get('draft', False)
+
+    raw_base_url = f'https://raw.githubusercontent.com/hubmapconsortium/' + \
+                   ('ingest-validation-tools/main/docs' if not is_cedar
+                    else '/dataset-metadata-spreadsheet/main')
 
     optional_portal_names_md = _get_portal_names_md(assay_type_enum) if assay_type_enum else ''
 
@@ -165,6 +169,19 @@ def generate_readme_md(
     template = Template(
         (Path(__file__).parent / 'docs.template').read_text()
     )
+
+    # If it is a draft, no link
+    if is_draft:
+        tsv_url = ''
+        xlsx_url = ''
+    # If it is a cedar template, link to the
+    elif is_cedar:
+        tsv_url = f'{raw_base_url}/{schema_name}/{schema_name}-latest.tsv'
+        xlsx_url = f'{raw_base_url}/{schema_name}/{schema_name}-latest.xlsx'
+    else:
+        tsv_url = f'{raw_base_url}/{schema_name}/{get_tsv_name(schema_name, is_assay=is_assay)}'
+        xlsx_url = f'{raw_base_url}/{schema_name}/{get_xlsx_name(schema_name, is_assay=is_assay)}'
+
     return template.substitute({
         'title': title,
         'schema_name': schema_name,
@@ -182,8 +199,8 @@ def generate_readme_md(
         'exclude_from_index':
             all(schema.get('exclude_from_index') for schema in table_schemas.values()),
 
-        'tsv_url': f'{raw_base_url}/{schema_name}/{get_tsv_name(schema_name, is_assay=is_assay)}',
-        'xlsx_url': f'{raw_base_url}/{schema_name}/{get_xlsx_name(schema_name, is_assay=is_assay)}',
+        'tsv_url': tsv_url,
+        'xlsx_url': xlsx_url,
 
         'current_version_md':
             _make_fields_md(
