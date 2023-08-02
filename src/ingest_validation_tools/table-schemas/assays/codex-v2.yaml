@@ -6,7 +6,7 @@ fields:
 - name: assay_category
   constraints:
     enum:
-      - imaging
+      - mxfbe
 - name: assay_type
   constraints:
     enum:
