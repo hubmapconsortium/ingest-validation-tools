@@ -267,8 +267,13 @@ def _make_fields_md(table_schema, title, is_open=False):
 '''
     else:
         cedar_iri = table_schema['fields'][0]['example']
-        return f'''
+        if cedar_iri:
+            return f'''
 <summary><a href="{cedar_iri}">{title_html}</a></summary>
+'''
+        else:
+            return f'''
+<summary>{title_html} (TBD)</summary>
 '''
 
 

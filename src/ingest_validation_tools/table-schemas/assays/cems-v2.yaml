@@ -2,4 +2,4 @@ draft: true
 fields:
 - name: is_cedar
   description: 'Identifies whether the version is hosted by CEDAR'
-  example: 'https://docs.google.com/spreadsheets/d/1X9o6Ged_aHhItKVrH3THNM0Zpz8LGj-jCprLdVIAkNo/'
+  example: ''
