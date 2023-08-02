@@ -15,7 +15,7 @@ Related files:
 
 
 ## Directory schemas
-### v1
+### v2
 <summary><a href="https://docs.google.com/spreadsheets/d/10Om2iinTwfLn1ySWtovmcm35cQnyg0Pm-rRd0a-eMjc">Draft</a></summary>
 
 ### v0
@@ -35,7 +35,7 @@ Related files:
 - *Boolean* fields can be given as `TRUE`/`FALSE`, `True`/`False`, `true`/`false`, or `1`/`0`.  
 
 
-<summary><a href="https://docs.google.com/spreadsheets/d/1YNyMWvDTZzuj8m4fgdwLI6Wht1C3zb_s2kTONEVkZmo/"><b>Version 2 (current)</b> (draft)</a></summary>
+<summary><a href="https://docs.google.com/spreadsheets/d/1YNyMWvDTZzuj8m4fgdwLI6Wht1C3zb_s2kTONEVkZmo"><b>Version 2 (current)</b> (draft)</a></summary>
 
 
 <details markdown="1" ><summary><b>Version 1</b></summary>

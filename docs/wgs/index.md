@@ -15,8 +15,12 @@ Related files:
 
 
 ## Directory schemas
-### v1
-<summary><a href="https://docs.google.com/spreadsheets/d/10Om2iinTwfLn1ySWtovmcm35cQnyg0Pm-rRd0a-eMjc">Draft</a></summary>
+### v2
+
+| pattern | required? | description |
+| --- | --- | --- |
+| <code>TODO</code> | ✓ | Directory structure not yet specified. |
+| <code>extras/.*</code> |  | Free-form descriptive information supplied by the TMC |
 
 ### v0
 
@@ -35,7 +39,7 @@ Related files:
 - *Boolean* fields can be given as `TRUE`/`FALSE`, `True`/`False`, `true`/`false`, or `1`/`0`.  
 
 
-<summary><a href="https://docs.google.com/spreadsheets/d/1YNyMWvDTZzuj8m4fgdwLI6Wht1C3zb_s2kTONEVkZmo/"><b>Version 2 (current)</b> (draft)</a></summary>
+<summary><b>Version 2 (current)</b> (draft) (TBD)</summary>
 
 
 <details markdown="1" ><summary><b>Version 1</b></summary>

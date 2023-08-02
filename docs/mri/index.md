@@ -1,7 +1,7 @@
 ---
-title: MRI
+title: mri
 schema_name: mri
-category: Clinical imaging modalities
+category: Other TSVs
 all_versions_deprecated: False
 exclude_from_index: False
 layout: default
@@ -12,11 +12,19 @@ Related files:
 - [📝 Excel template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/main/docs/mri/mri-metadata.xlsx): For metadata entry.
 - [📝 TSV template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/main/docs/mri/mri-metadata.tsv): Alternative for metadata entry.
 
-This schema is for clinical imaging using magnetic resonance imaging (MRI).
+
+
+## Directory schemas
+### v2
+
+| pattern | required? | description |
+| --- | --- | --- |
+| <code>TODO</code> | ✓ | Directory structure not yet specified. |
+| <code>extras/.*</code> |  | Free-form descriptive information supplied by the TMC |
 
 
 
-In the portal: MRI not in Portal
+
 
 ## Metadata schema
 
@@ -24,71 +32,11 @@ In the portal: MRI not in Portal
 - *Boolean* fields can be given as `TRUE`/`FALSE`, `True`/`False`, `true`/`false`, or `1`/`0`.  
 
 
-<details markdown="1" open="true"><summary><b>Version 1 (current)</b></summary>
+<summary><a href="https://docs.google.com/spreadsheets/d/114DmeiACGQzA8C5ZY3mWh-338XNe7Zy7"><b>Version 2 (current)</b> (draft)</a></summary>
 
-<blockquote markdown="1">
 
-<details markdown="1"><summary>Shared by all types</summary>
+<details markdown="1" ><summary><b>Version 1</b></summary>
 
-[`version`](#version)<br>
-[`description`](#description)<br>
-[`donor_id`](#donor_id)<br>
-[`tissue_id`](#tissue_id)<br>
-[`execution_datetime`](#execution_datetime)<br>
-[`protocols_io_doi`](#protocols_io_doi)<br>
-[`operator`](#operator)<br>
-[`operator_email`](#operator_email)<br>
-[`pi`](#pi)<br>
-[`pi_email`](#pi_email)<br>
-[`assay_category`](#assay_category)<br>
-[`assay_type`](#assay_type)<br>
-[`acquisition_instrument_vendor`](#acquisition_instrument_vendor)<br>
-[`acquisition_instrument_model`](#acquisition_instrument_model)<br>
-
-</details>
-<details markdown="1"><summary>Shared by all clinical imaging assays</summary>
-
-[`single_file_export_format`](#single_file_export_format)<br>
-[`max_x_width_value`](#max_x_width_value)<br>
-[`max_x_width_unit`](#max_x_width_unit)<br>
-[`max_y_height_value`](#max_y_height_value)<br>
-[`max_y_height_unit`](#max_y_height_unit)<br>
-[`roi_description`](#roi_description)<br>
-[`roi_id`](#roi_id)<br>
-[`resolution_x_value`](#resolution_x_value)<br>
-[`resolution_x_unit`](#resolution_x_unit)<br>
-[`resolution_y_value`](#resolution_y_value)<br>
-[`resolution_y_unit`](#resolution_y_unit)<br>
-[`resolution_z_value`](#resolution_z_value)<br>
-[`resolution_z_unit`](#resolution_z_unit)<br>
-[`pixel_size_z_value`](#pixel_size_z_value)<br>
-[`pixel_size_z_unit`](#pixel_size_z_unit)<br>
-[`number_of_images`](#number_of_images)<br>
-
-</details>
-<details markdown="1"><summary>Unique to this type</summary>
-
-[`frequency_value`](#frequency_value)<br>
-[`frequency_unit`](#frequency_unit)<br>
-[`coil`](#coil)<br>
-[`field_strength_value`](#field_strength_value)<br>
-[`field_strength_unit`](#field_strength_unit)<br>
-[`scanning_sequence`](#scanning_sequence)<br>
-[`sequence_variant`](#sequence_variant)<br>
-[`echo_time`](#echo_time)<br>
-[`repetition_time`](#repetition_time)<br>
-[`flip_angle`](#flip_angle)<br>
-[`echo_train_length`](#echo_train_length)<br>
-[`acquisition_matrix_size_in_frequency_encoding_direction`](#acquisition_matrix_size_in_frequency_encoding_direction)<br>
-[`acquisition_matrix_size_in_phase_encoding_direction`](#acquisition_matrix_size_in_phase_encoding_direction)<br>
-[`number_of_image_rows`](#number_of_image_rows)<br>
-[`number_of_image_columns`](#number_of_image_columns)<br>
-[`number_of_averages`](#number_of_averages)<br>
-[`contributors_path`](#contributors_path)<br>
-[`data_path`](#data_path)<br>
-</details>
-
-</blockquote>
 
 ### Shared by all types
 
@@ -530,4 +478,3 @@ Relative path to file or directory with instrument data. Downstream processing w
 | required | `True` |
 
 </details>
-
