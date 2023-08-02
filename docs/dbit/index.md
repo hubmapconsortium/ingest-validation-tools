@@ -1,7 +1,7 @@
 ---
-title: dbit
+title: hrsTP-seq (DBiTSeq)
 schema_name: dbit
-category: Other TSVs
+category: Spatial Transcriptomics
 all_versions_deprecated: False
 exclude_from_index: False
 layout: default
@@ -9,8 +9,8 @@ layout: default
 
 Related files:
 
-- [📝 Excel template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/main/docs/dbit/dbit-metadata.xlsx): For metadata entry.
-- [📝 TSV template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/main/docs/dbit/dbit-metadata.tsv): Alternative for metadata entry.
+- [📝 Excel template](): For metadata entry.
+- [📝 TSV template](): Alternative for metadata entry.
 
 
 
@@ -20,7 +20,7 @@ Related files:
 
 
 
-
+In the portal: hrsTP-seq (DBiTSeq) not in Portal
 
 ## Metadata schema
 

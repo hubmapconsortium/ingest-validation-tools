@@ -39,8 +39,15 @@ shared_enums: Dict[str, List[str]] = {
         'CODEX',
         'CODEX2',  # TODO: Temporary; will be removed.
         # https://github.com/hubmapconsortium/ingest-validation-tools/issues/1107
+        'Confocal',
+        'CosMx',
         'DESI',
         'GC-MS',
+        'GeoMx (RNA)',
+        'GeoMx (protein)',
+        'HiFi',
+        'Histology',
+        'hrsTP-seq (DBiTSeq)',
         'Imaging Mass Cytometry',
         'LC-MS (metabolomics)',
         'LC-MS/MS (label-free proteomics)',

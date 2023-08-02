@@ -1,7 +1,7 @@
 ---
-title: gcms
+title: GC-MS
 schema_name: gcms
-category: Other TSVs
+category: Mass Spectrometry
 all_versions_deprecated: False
 exclude_from_index: False
 layout: default
@@ -9,8 +9,8 @@ layout: default
 
 Related files:
 
-- [📝 Excel template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/main/docs/gcms/gcms-metadata.xlsx): For metadata entry.
-- [📝 TSV template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/main/docs/gcms/gcms-metadata.tsv): Alternative for metadata entry.
+- [📝 Excel template](): For metadata entry.
+- [📝 TSV template](): Alternative for metadata entry.
 
 
 
@@ -24,7 +24,7 @@ Related files:
 
 
 
-
+In the portal: GC-MS not in Portal
 
 ## Metadata schema
 

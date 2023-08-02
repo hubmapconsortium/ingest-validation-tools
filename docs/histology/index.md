@@ -1,7 +1,7 @@
 ---
-title: histology
+title: Histology
 schema_name: histology
-category: Other TSVs
+category: Histology
 all_versions_deprecated: False
 exclude_from_index: False
 layout: default
@@ -9,8 +9,8 @@ layout: default
 
 Related files:
 
-- [📝 Excel template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/main/docs/histology/histology-metadata.xlsx): For metadata entry.
-- [📝 TSV template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/main/docs/histology/histology-metadata.tsv): Alternative for metadata entry.
+- [📝 Excel template](https://raw.githubusercontent.com/hubmapconsortium//dataset-metadata-spreadsheet/main/histology/histology-latest.xlsx): For metadata entry.
+- [📝 TSV template](https://raw.githubusercontent.com/hubmapconsortium//dataset-metadata-spreadsheet/main/histology/histology-latest.tsv): Alternative for metadata entry.
 
 
 
@@ -20,7 +20,7 @@ Related files:
 
 
 
-
+In the portal: Histology not in Portal
 
 ## Metadata schema
 

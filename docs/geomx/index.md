@@ -1,7 +1,7 @@
 ---
-title: geomx
+title: GeoMx (RNA) / GeoMx (protein)
 schema_name: geomx
-category: Other TSVs
+category: Spatial Transcriptomics
 all_versions_deprecated: False
 exclude_from_index: False
 layout: default
@@ -9,8 +9,8 @@ layout: default
 
 Related files:
 
-- [📝 Excel template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/main/docs/geomx/geomx-metadata.xlsx): For metadata entry.
-- [📝 TSV template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/main/docs/geomx/geomx-metadata.tsv): Alternative for metadata entry.
+- [📝 Excel template](): For metadata entry.
+- [📝 TSV template](): Alternative for metadata entry.
 
 
 
@@ -29,7 +29,7 @@ Related files:
 
 
 
-
+In the portal: GeoMx (RNA) not in Portal / GeoMx (protein) not in Portal
 
 ## Metadata schema
 
