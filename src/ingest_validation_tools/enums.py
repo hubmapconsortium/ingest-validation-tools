@@ -27,11 +27,13 @@ from typing import Dict, List
 
 shared_enums: Dict[str, List[str]] = {
     'assay_type': [
+        '10x Multiome',
         '3D Imaging Mass Cytometry',
         'AF',
         'bulk-RNA',
         'bulkATACseq',
         'Cell DIVE',
+        'Cell Dive',
         'cell-dive',
         'CE-MS',
         'CODEX',

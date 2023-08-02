@@ -1,7 +1,7 @@
 ---
-title: bulkatacseq
+title: bulkATACseq
 schema_name: bulkatacseq
-category: Other TSVs
+category: Sequence Assays
 all_versions_deprecated: False
 exclude_from_index: False
 layout: default
@@ -9,8 +9,8 @@ layout: default
 
 Related files:
 
-- [📝 Excel template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/main/docs/bulkatacseq/bulkatacseq-metadata.xlsx): For metadata entry.
-- [📝 TSV template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/main/docs/bulkatacseq/bulkatacseq-metadata.tsv): Alternative for metadata entry.
+- [📝 Excel template](): For metadata entry.
+- [📝 TSV template](): Alternative for metadata entry.
 
 
 
@@ -27,7 +27,7 @@ Related files:
 
 
 
-
+In the portal: bulkATACseq not in Portal
 
 ## Metadata schema
 

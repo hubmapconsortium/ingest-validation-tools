@@ -3,3 +3,11 @@ fields:
 - name: is_cedar
   description: 'Identifies whether the version is hosted by CEDAR'
   example: 'https://docs.google.com/spreadsheets/d/1YNyMWvDTZzuj8m4fgdwLI6Wht1C3zb_s2kTONEVkZmo'
+- name: assay_category
+  constraints:
+    enum:
+      - sequence
+- name: assay_type
+  constraints:
+    enum:
+      - bulk-RNA
