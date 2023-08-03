@@ -1,5 +1,5 @@
 ---
-title: MALDI-IMS / SIMS-IMS / NanoDESI / DESI
+title: IMS
 schema_name: ims
 category: Imaging Mass Spectrometry (IMS)
 all_versions_deprecated: False
@@ -8,11 +8,11 @@ layout: default
 ---
 
 Related files:
-- [🔬 Background doc](https://portal.hubmapconsortium.org/docs/assays/maldi-ims): More details about this type.
-- [📝 Excel template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/main/docs/ims/ims-metadata.xlsx): For metadata entry.
-- [📝 TSV template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/main/docs/ims/ims-metadata.tsv): Alternative for metadata entry.
 
-This schema is for imaging mass spectrometry (IMS).
+- [📝 Excel template](): For metadata entry.
+- [📝 TSV template](): Alternative for metadata entry.
+
+
 
 ## Metadata schema
 
@@ -20,59 +20,13 @@ This schema is for imaging mass spectrometry (IMS).
 - *Boolean* fields can be given as `TRUE`/`FALSE`, `True`/`False`, `true`/`false`, or `1`/`0`.  
 
 
-<details markdown="1" open="true"><summary><b>Version 2 (current)</b></summary>
-
-<blockquote markdown="1">
-
-<details markdown="1"><summary>Shared by all types</summary>
-
-[`version`](#version)<br>
-[`description`](#description)<br>
-[`donor_id`](#donor_id)<br>
-[`tissue_id`](#tissue_id)<br>
-[`execution_datetime`](#execution_datetime)<br>
-[`protocols_io_doi`](#protocols_io_doi)<br>
-[`operator`](#operator)<br>
-[`operator_email`](#operator_email)<br>
-[`pi`](#pi)<br>
-[`pi_email`](#pi_email)<br>
-[`assay_category`](#assay_category)<br>
-[`assay_type`](#assay_type)<br>
-[`analyte_class`](#analyte_class)<br>
-[`is_targeted`](#is_targeted)<br>
-[`acquisition_instrument_vendor`](#acquisition_instrument_vendor)<br>
-[`acquisition_instrument_model`](#acquisition_instrument_model)<br>
-
-</details>
-<details markdown="1"><summary>Unique to this type</summary>
-
-[`ms_source`](#ms_source)<br>
-[`polarity`](#polarity)<br>
-[`mz_range_low_value`](#mz_range_low_value)<br>
-[`mz_range_high_value`](#mz_range_high_value)<br>
-[`mass_resolving_power`](#mass_resolving_power)<br>
-[`mz_resolving_power`](#mz_resolving_power)<br>
-[`ion_mobility`](#ion_mobility)<br>
-[`ms_scan_mode`](#ms_scan_mode)<br>
-[`resolution_x_value`](#resolution_x_value)<br>
-[`resolution_x_unit`](#resolution_x_unit)<br>
-[`resolution_y_value`](#resolution_y_value)<br>
-[`resolution_y_unit`](#resolution_y_unit)<br>
-[`preparation_type`](#preparation_type)<br>
-[`preparation_instrument_vendor`](#preparation_instrument_vendor)<br>
-[`preparation_instrument_model`](#preparation_instrument_model)<br>
-[`preparation_maldi_matrix`](#preparation_maldi_matrix)<br>
-[`desi_solvent`](#desi_solvent)<br>
-[`desi_solvent_flow_rate`](#desi_solvent_flow_rate)<br>
-[`desi_solvent_flow_rate_unit`](#desi_solvent_flow_rate_unit)<br>
-[`section_prep_protocols_io_doi`](#section_prep_protocols_io_doi)<br>
-[`processing_protocols_io_doi`](#processing_protocols_io_doi)<br>
-[`overall_protocols_io_doi`](#overall_protocols_io_doi)<br>
-[`contributors_path`](#contributors_path)<br>
-[`data_path`](#data_path)<br>
+<details markdown="1" open="true"><summary><b>Version 3 (current)</b></summary>
+No further updates to this assay schema are expected as we do not expect to receive additional data.
 </details>
 
-</blockquote>
+
+<details markdown="1" ><summary><b>Version 2</b></summary>
+
 
 ### Shared by all types
 
@@ -435,6 +389,7 @@ Relative path to file or directory with instrument data. Downstream processing w
 | required | `True` |
 
 </details>
+
 
 
 <details markdown="1" ><summary><b>Version 1</b></summary>

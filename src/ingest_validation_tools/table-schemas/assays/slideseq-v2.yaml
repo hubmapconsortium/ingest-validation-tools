@@ -1,0 +1,12 @@
+fields:
+- name: is_cedar
+  description: 'Identifies whether the version is hosted by CEDAR'
+  example: ''
+- name: assay_category
+  constraints:
+    enum:
+      - sequence
+- name: assay_type
+  constraints:
+    enum:
+      - Slide-seq

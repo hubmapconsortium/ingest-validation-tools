@@ -1,0 +1,13 @@
+exclude_from_index: True
+fields:
+- name: is_cedar
+  description: 'Identifies whether the version is hosted by CEDAR'
+  example: ''
+- name: assay_category
+  constraints:
+    enum:
+      - mass_spectrometry_imaging
+- name: assay_type
+  constraints:
+    enum:
+      - IMS
