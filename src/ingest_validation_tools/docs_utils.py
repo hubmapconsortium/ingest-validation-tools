@@ -171,7 +171,8 @@ def generate_readme_md(
     )
 
     # If it is a draft, no link
-    if is_draft or (is_cedar and max_version_table_schema.get('fields', [])[0].get('example', '') == ''):
+    if is_draft or (is_cedar and
+                    max_version_table_schema.get('fields', [])[0].get('example', '') == ''):
         tsv_url = ''
         xlsx_url = ''
     # If it is a cedar template, link to the dataset-metadata-spreadsheet repo
