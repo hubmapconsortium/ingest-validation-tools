@@ -1,7 +1,7 @@
 ---
-title: sample-section
+title: Sample
 schema_name: sample-section
-category: Other TSVs
+category: Sample
 all_versions_deprecated: False
 exclude_from_index: False
 layout: default
@@ -14,9 +14,7 @@ Related files:
 
 
 
-
-
-
+In the portal: Sample not in Portal
 
 ## Metadata schema
 
@@ -202,3 +200,7 @@ Notes. Leave blank if not applicable.
 | required | `False` |
 
 </details>
+
+
+<br>
+

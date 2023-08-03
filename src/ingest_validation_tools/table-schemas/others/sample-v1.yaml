@@ -1,0 +1,17 @@
+description_md: This schema has been replaced by the individual [Block](https://hubmapconsortium.github.io/ingest-validation-tools/sample-block/),
+  [Section](https://hubmapconsortium.github.io/ingest-validation-tools/sample-section/), and 
+  [Suspension](https://hubmapconsortium.github.io/ingest-validation-tools/sample-suspensino/) schemas. 
+  Please use these moving forward.
+deprecated: True
+fields:
+- name: is_cedar
+  description: 'Identifies whether the version is hosted by CEDAR'
+  example: ''
+- name: assay_category
+  constraints:
+    enum:
+      - sample
+- name: assay_type
+  constraints:
+    enum:
+      - Sample
