@@ -14,19 +14,6 @@ Related files:
 
 
 
-## Directory schemas
-### v2
-<summary><a href="https://docs.google.com/spreadsheets/d/10Om2iinTwfLn1ySWtovmcm35cQnyg0Pm-rRd0a-eMjc">Draft</a></summary>
-
-### v0
-
-| pattern | required? | description |
-| --- | --- | --- |
-| <code>.*\.fastq\.gz</code> | ✓ | TODO: https://github.com/hubmapconsortium/ingest-validation-tools/issues/445 |
-| <code>extras/.*</code> |  | Free-form descriptive information supplied by the TMC |
-
-
-
 In the portal: bulkATACseq not in Portal
 
 ## Metadata schema
@@ -768,3 +755,18 @@ Relative path to file or directory with instrument data. Downstream processing w
 | required | `True` |
 
 </details>
+
+
+<br>
+
+## Directory schemas
+### v2
+<summary><a href="https://docs.google.com/spreadsheets/d/10Om2iinTwfLn1ySWtovmcm35cQnyg0Pm-rRd0a-eMjc">Draft</a></summary>
+
+### v0
+
+| pattern | required? | description |
+| --- | --- | --- |
+| <code>.*\.fastq\.gz</code> | ✓ | TODO: https://github.com/hubmapconsortium/ingest-validation-tools/issues/445 |
+| <code>extras/.*</code> |  | Free-form descriptive information supplied by the TMC |
+

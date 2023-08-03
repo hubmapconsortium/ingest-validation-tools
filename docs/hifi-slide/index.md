@@ -14,12 +14,6 @@ Related files:
 
 
 
-## Directory schemas
-### v2
-<summary><a href="https://docs.google.com/spreadsheets/d/1LE-iyY2E6eP4E8jhgP6rhsvjESrdHXWYrMwKTvNkI5Y">Draft</a></summary>
-
-
-
 In the portal: HiFi not in Portal
 
 ## Metadata schema
@@ -29,4 +23,12 @@ In the portal: HiFi not in Portal
 
 
 <summary><a href="https://docs.google.com/spreadsheets/d/1kd1UQ2il-eW-MTM4iEotyAxa8M_hcwn8yQJTU_II-F8"><b>Version 2 (current)</b> (draft)</a></summary>
+
+
+
+<br>
+
+## Directory schemas
+### v2
+<summary><a href="https://docs.google.com/spreadsheets/d/1LE-iyY2E6eP4E8jhgP6rhsvjESrdHXWYrMwKTvNkI5Y">Draft</a></summary>
 

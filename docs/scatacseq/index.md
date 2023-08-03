@@ -14,21 +14,6 @@ Related files:
 
 
 
-## Directory schemas
-The HIVE will process each dataset with
-[scATACseq Pipeline 1.4.3](https://github.com/hubmapconsortium/sc-atac-seq-pipeline/releases/tag/1.4.3).
-### v2
-<summary><a href="https://docs.google.com/spreadsheets/d/10Om2iinTwfLn1ySWtovmcm35cQnyg0Pm-rRd0a-eMjc">Draft</a></summary>
-
-### v0
-
-| pattern | required? | description |
-| --- | --- | --- |
-| <code>[^/]+\.fastq\.gz</code> | ✓ | Compressed FastQ file |
-| <code>extras/.*</code> |  | Free-form descriptive information supplied by the TMC |
-
-
-
 In the portal: SNARE-seq2 not in Portal / sciATACseq not in Portal / snATACseq not in Portal
 
 ## Metadata schema
@@ -844,3 +829,20 @@ Relative path to file or directory with instrument data. Downstream processing w
 | required | `True` |
 
 </details>
+
+
+<br>
+
+## Directory schemas
+The HIVE will process each dataset with
+[scATACseq Pipeline 1.4.3](https://github.com/hubmapconsortium/sc-atac-seq-pipeline/releases/tag/1.4.3).
+### v2
+<summary><a href="https://docs.google.com/spreadsheets/d/10Om2iinTwfLn1ySWtovmcm35cQnyg0Pm-rRd0a-eMjc">Draft</a></summary>
+
+### v0
+
+| pattern | required? | description |
+| --- | --- | --- |
+| <code>[^/]+\.fastq\.gz</code> | ✓ | Compressed FastQ file |
+| <code>extras/.*</code> |  | Free-form descriptive information supplied by the TMC |
+

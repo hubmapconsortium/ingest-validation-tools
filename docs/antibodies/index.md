@@ -18,8 +18,6 @@ Changes:
 
 
 
-
-
 ## Metadata schema
 
 ### Field types
@@ -299,3 +297,7 @@ The name of the entity conjugated to the antibody. Leave blank if not applicable
 | required | `False` |
 
 </details>
+
+
+<br>
+

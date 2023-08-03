@@ -14,12 +14,6 @@ Related files:
 
 
 
-## Directory schemas
-### v2
-<summary><a href="https://docs.google.com/spreadsheets/d/1I2aXIpOQHBjeLbKsVn0qJTOH7vtByeQ9t_1EnlTAPL4">Draft</a></summary>
-
-
-
 In the portal: NanoDESI not in Portal
 
 ## Metadata schema
@@ -29,4 +23,12 @@ In the portal: NanoDESI not in Portal
 
 
 <summary><a href="https://docs.google.com/spreadsheets/d/1X9o6Ged_aHhItKVrH3THNM0Zpz8LGj-jCprLdVIAkNo"><b>Version 2 (current)</b> (draft)</a></summary>
+
+
+
+<br>
+
+## Directory schemas
+### v2
+<summary><a href="https://docs.google.com/spreadsheets/d/1I2aXIpOQHBjeLbKsVn0qJTOH7vtByeQ9t_1EnlTAPL4">Draft</a></summary>
 

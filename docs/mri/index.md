@@ -14,16 +14,6 @@ Related files:
 
 
 
-## Directory schemas
-### v2
-
-| pattern | required? | description |
-| --- | --- | --- |
-| <code>TODO</code> | ✓ | Directory structure not yet specified. |
-| <code>extras/.*</code> |  | Free-form descriptive information supplied by the TMC |
-
-
-
 In the portal: MRI not in Portal
 
 ## Metadata schema
@@ -478,3 +468,15 @@ Relative path to file or directory with instrument data. Downstream processing w
 | required | `True` |
 
 </details>
+
+
+<br>
+
+## Directory schemas
+### v2
+
+| pattern | required? | description |
+| --- | --- | --- |
+| <code>TODO</code> | ✓ | Directory structure not yet specified. |
+| <code>extras/.*</code> |  | Free-form descriptive information supplied by the TMC |
+

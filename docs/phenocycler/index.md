@@ -14,12 +14,6 @@ Related files:
 
 
 
-## Directory schemas
-### v2
-<summary><a href="https://docs.google.com/spreadsheets/d/1pZD2e51e4QkxzIk6xjHPPu1RBZpx5mzoykMmlaDK8rA">Draft</a></summary>
-
-
-
 In the portal: PhenoCycler not in Portal
 
 ## Metadata schema
@@ -29,4 +23,12 @@ In the portal: PhenoCycler not in Portal
 
 
 <summary><a href="https://docs.google.com/spreadsheets/d/1GKh4x8HIoQ3eKi2WWtWa2eWann3FG1pfaqxGKkUK1Wo"><b>Version 2 (current)</b> (draft)</a></summary>
+
+
+
+<br>
+
+## Directory schemas
+### v2
+<summary><a href="https://docs.google.com/spreadsheets/d/1pZD2e51e4QkxzIk6xjHPPu1RBZpx5mzoykMmlaDK8rA">Draft</a></summary>
 

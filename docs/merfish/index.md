@@ -9,18 +9,8 @@ layout: default
 
 Related files:
 
-- [📝 Excel template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/main/docs/merfish/merfish-metadata.xlsx): For metadata entry.
-- [📝 TSV template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/main/docs/merfish/merfish-metadata.tsv): Alternative for metadata entry.
-
-
-
-## Directory schemas
-### v2
-
-| pattern | required? | description |
-| --- | --- | --- |
-| <code>TODO</code> | ✓ | Directory structure not yet specified. |
-| <code>extras/.*</code> |  | Free-form descriptive information supplied by the TMC |
+- [📝 Excel template](): For metadata entry.
+- [📝 TSV template](): Alternative for metadata entry.
 
 
 
@@ -33,4 +23,16 @@ Related files:
 
 
 <summary><b>Version 2 (current)</b> (draft) (TBD)</summary>
+
+
+
+<br>
+
+## Directory schemas
+### v2
+
+| pattern | required? | description |
+| --- | --- | --- |
+| <code>TODO</code> | ✓ | Directory structure not yet specified. |
+| <code>extras/.*</code> |  | Free-form descriptive information supplied by the TMC |
 

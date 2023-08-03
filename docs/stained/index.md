@@ -1,5 +1,5 @@
 ---
-title: PAS microscopy / Histology
+title: PAS microscopy
 schema_name: stained
 category: Histology
 all_versions_deprecated: False
@@ -8,13 +8,13 @@ layout: default
 ---
 
 Related files:
-- [🔬 Background doc](https://portal.hubmapconsortium.org/docs/assays/pas): More details about this type.
+
 - [📝 Excel template](https://raw.githubusercontent.com/hubmapconsortium//dataset-metadata-spreadsheet/main/stained/stained-latest.xlsx): For metadata entry.
 - [📝 TSV template](https://raw.githubusercontent.com/hubmapconsortium//dataset-metadata-spreadsheet/main/stained/stained-latest.tsv): Alternative for metadata entry.
 
-This schema has been incorporated into the histology schema which can be seen [here](https://hubmapconsortium.github.io/ingest-validation-tools/histology/).
+This schema has been incorporated into the histology schema which can be accessed [here](https://hubmapconsortium.github.io/ingest-validation-tools/histology/).
 
-In the portal: PAS microscopy not in Portal / Histology not in Portal
+In the portal: PAS microscopy not in Portal
 
 ## Metadata schema
 

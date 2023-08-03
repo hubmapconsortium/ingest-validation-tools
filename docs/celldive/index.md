@@ -14,22 +14,6 @@ Related files:
 
 
 
-## Directory schemas
-### v2
-<summary><a href="https://docs.google.com/spreadsheets/d/1pZD2e51e4QkxzIk6xjHPPu1RBZpx5mzoykMmlaDK8rA">Draft</a></summary>
-
-### v0
-
-| pattern | required? | description |
-| --- | --- | --- |
-| <code>channel_list\.txt</code> | ✓ | Information about the capture channels and tags (comma separated) |
-| <code>slide_list\.txt</code> | ✓ | Information about the slides used by the experiment- each line corresponds to a slide name (begins with S - e.g. S20030077) - used in filenames |
-| <code>HuBMAP_OME/region_\d+/S\d+_region_\d+\.ome\.tif</code> (example: <code>HuBMAP_OME/region_011/S20030092_region_011.ome.tif</code>) | ✓ | OME TIFF Files for the corresponding region (e.g. region_001) by slide (e.g S20030077) |
-| <code>HuBMAP_rounds/round_info_\d+\.dat</code> (example: <code>HuBMAP_rounds/round_info_002.dat</code>) | ✓ | Metadata file for the capture item-value tab separated format |
-| <code>extras/.*</code> |  | Free-form descriptive information supplied by the TMC |
-
-
-
 In the portal: Cell Dive not in Portal
 
 ## Metadata schema
@@ -561,3 +545,21 @@ Relative path to file or directory with instrument data. Downstream processing w
 | required | `True` |
 
 </details>
+
+
+<br>
+
+## Directory schemas
+### v2
+<summary><a href="https://docs.google.com/spreadsheets/d/1pZD2e51e4QkxzIk6xjHPPu1RBZpx5mzoykMmlaDK8rA">Draft</a></summary>
+
+### v0
+
+| pattern | required? | description |
+| --- | --- | --- |
+| <code>channel_list\.txt</code> | ✓ | Information about the capture channels and tags (comma separated) |
+| <code>slide_list\.txt</code> | ✓ | Information about the slides used by the experiment- each line corresponds to a slide name (begins with S - e.g. S20030077) - used in filenames |
+| <code>HuBMAP_OME/region_\d+/S\d+_region_\d+\.ome\.tif</code> (example: <code>HuBMAP_OME/region_011/S20030092_region_011.ome.tif</code>) | ✓ | OME TIFF Files for the corresponding region (e.g. region_001) by slide (e.g S20030077) |
+| <code>HuBMAP_rounds/round_info_\d+\.dat</code> (example: <code>HuBMAP_rounds/round_info_002.dat</code>) | ✓ | Metadata file for the capture item-value tab separated format |
+| <code>extras/.*</code> |  | Free-form descriptive information supplied by the TMC |
+

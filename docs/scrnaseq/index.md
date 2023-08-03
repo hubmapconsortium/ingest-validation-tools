@@ -14,19 +14,6 @@ Related files:
 
 
 
-## Directory schemas
-### v2
-<summary><a href="https://docs.google.com/spreadsheets/d/10Om2iinTwfLn1ySWtovmcm35cQnyg0Pm-rRd0a-eMjc">Draft</a></summary>
-
-### v0
-
-| pattern | required? | description |
-| --- | --- | --- |
-| <code>[^/]+\.fastq\.gz</code> | ✓ | Compressed FastQ file |
-| <code>extras/.*</code> |  | Free-form descriptive information supplied by the TMC |
-
-
-
 In the portal: scRNAseq-10xGenomics-v2 not in Portal / scRNAseq-10xGenomics-v3 not in Portal / snRNAseq-10xGenomics-v2 not in Portal / snRNAseq-10xGenomics-v3 not in Portal / scRNAseq not in Portal / sciRNAseq not in Portal / snRNAseq not in Portal / SNARE2-RNAseq not in Portal
 
 ## Metadata schema
@@ -1634,3 +1621,18 @@ Relative path to file or directory with instrument data. Downstream processing w
 | required | `True` |
 
 </details>
+
+
+<br>
+
+## Directory schemas
+### v2
+<summary><a href="https://docs.google.com/spreadsheets/d/10Om2iinTwfLn1ySWtovmcm35cQnyg0Pm-rRd0a-eMjc">Draft</a></summary>
+
+### v0
+
+| pattern | required? | description |
+| --- | --- | --- |
+| <code>[^/]+\.fastq\.gz</code> | ✓ | Compressed FastQ file |
+| <code>extras/.*</code> |  | Free-form descriptive information supplied by the TMC |
+
