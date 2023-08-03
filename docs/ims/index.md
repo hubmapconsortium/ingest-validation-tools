@@ -14,8 +14,6 @@ Related files:
 
 This schema is for imaging mass spectrometry (IMS).
 
-In the portal: MALDI-IMS not in Portal / SIMS-IMS not in Portal / NanoDESI not in Portal / DESI not in Portal
-
 ## Metadata schema
 
 ### Field types
@@ -1012,7 +1010,7 @@ Relative path to file or directory with instrument data. Downstream processing w
 <br>
 
 ## Directory schemas
-### v0
+### Version 0
 
 | pattern | required? | description |
 | --- | --- | --- |

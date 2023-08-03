@@ -14,8 +14,6 @@ Related files:
 
 
 
-In the portal: OCT not in Portal
-
 ## Metadata schema
 
 ### Field types
@@ -384,7 +382,7 @@ Relative path to file or directory with instrument data. Downstream processing w
 <br>
 
 ## Directory schemas
-### v2
+### Version 2
 
 | pattern | required? | description |
 | --- | --- | --- |

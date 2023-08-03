@@ -14,8 +14,6 @@ Related files:
 
 
 
-In the portal: hrsTP-seq (DBiTSeq) not in Portal
-
 ## Metadata schema
 
 ### Field types
@@ -29,6 +27,5 @@ In the portal: hrsTP-seq (DBiTSeq) not in Portal
 <br>
 
 ## Directory schemas
-### v2
-<summary><a href="https://docs.google.com/spreadsheets/d/1LE-iyY2E6eP4E8jhgP6rhsvjESrdHXWYrMwKTvNkI5Y">Draft</a></summary>
+### [Version 2](https://docs.google.com/spreadsheets/d/1LE-iyY2E6eP4E8jhgP6rhsvjESrdHXWYrMwKTvNkI5Y) (draft)
 

@@ -14,8 +14,6 @@ Related files:
 
 
 
-In the portal: bulk-RNA not in Portal
-
 ## Metadata schema
 
 ### Field types
@@ -686,10 +684,9 @@ Relative path to file or directory with instrument data. Downstream processing w
 <br>
 
 ## Directory schemas
-### v2
-<summary><a href="https://docs.google.com/spreadsheets/d/10Om2iinTwfLn1ySWtovmcm35cQnyg0Pm-rRd0a-eMjc">Draft</a></summary>
+### [Version 2](https://docs.google.com/spreadsheets/d/10Om2iinTwfLn1ySWtovmcm35cQnyg0Pm-rRd0a-eMjc) (draft)
 
-### v0
+### Version 0
 
 | pattern | required? | description |
 | --- | --- | --- |

@@ -9,12 +9,10 @@ layout: default
 
 Related files:
 
-- [📝 Excel template](https://raw.githubusercontent.com/hubmapconsortium//dataset-metadata-spreadsheet/main/stained/stained-latest.xlsx): For metadata entry.
-- [📝 TSV template](https://raw.githubusercontent.com/hubmapconsortium//dataset-metadata-spreadsheet/main/stained/stained-latest.tsv): Alternative for metadata entry.
+- [📝 Excel template](https://raw.githubusercontent.com/hubmapconsortium//dataset-metadata-spreadsheet/main/stained/latest/stained.xlsx): For metadata entry.
+- [📝 TSV template](https://raw.githubusercontent.com/hubmapconsortium//dataset-metadata-spreadsheet/main/stained/latest/stained.tsv): Alternative for metadata entry.
 
 This schema has been incorporated into the histology schema which can be accessed [here](https://hubmapconsortium.github.io/ingest-validation-tools/histology/).
-
-In the portal: PAS microscopy not in Portal
 
 ## Metadata schema
 
@@ -514,10 +512,9 @@ Relative path to file or directory with instrument data. Downstream processing w
 <br>
 
 ## Directory schemas
-### v2
-<summary><a href="https://docs.google.com/spreadsheets/d/1_fMJrZVgx8g80uduxfr1HcIHz52_fpRfwFWFrA40tlg">Draft</a></summary>
+### [Version 2](https://docs.google.com/spreadsheets/d/1_fMJrZVgx8g80uduxfr1HcIHz52_fpRfwFWFrA40tlg) (draft)
 
-### v1
+### Version 1
 
 | pattern | required? | description |
 | --- | --- | --- |
@@ -527,7 +524,7 @@ Relative path to file or directory with instrument data. Downstream processing w
 | <code>(rawMicroscopy&#124;raw_microscopy)/[^/]+\.(scn&#124;czi&#124;tif&#124;tiff)</code> | ✓ | Raw microscope file for the experiment |
 | <code>extras/.*</code> |  | Free-form descriptive information supplied by the TMC |
 
-### v0
+### Version 0
 
 | pattern | required? | description |
 | --- | --- | --- |

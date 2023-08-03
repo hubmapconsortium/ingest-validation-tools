@@ -16,8 +16,6 @@ Changes:
 - v1: Version number added.
 - v2: Add concentration fields.
 
-
-
 ## Metadata schema
 
 ### Field types

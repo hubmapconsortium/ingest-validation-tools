@@ -14,8 +14,6 @@ Related files:
 
 
 
-In the portal: NanoDESI not in Portal / NanoPOTS not in Portal
-
 ## Metadata schema
 
 ### Field types
@@ -569,7 +567,7 @@ Relative path to file or directory with instrument data. Downstream processing w
 <br>
 
 ## Directory schemas
-### v0
+### Version 0
 <details markdown="1"><summary>Deprecated</summary>
 
 | pattern | required? | description |

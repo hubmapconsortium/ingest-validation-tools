@@ -14,8 +14,6 @@ Related files:
 
 
 
-In the portal: scRNAseq-10xGenomics-v2 not in Portal / scRNAseq-10xGenomics-v3 not in Portal / snRNAseq-10xGenomics-v2 not in Portal / scRNAseq not in Portal / sciRNAseq not in Portal / snRNAseq not in Portal / SNARE2-RNAseq not in Portal
-
 ## Metadata schema
 
 ### Field types
@@ -405,14 +403,14 @@ Relative path to file or directory with instrument data. Downstream processing w
 <br>
 
 ## Directory schemas
-### v2
+### Version 2
 
 | pattern | required? | description |
 | --- | --- | --- |
 | <code>TODO</code> | ✓ | Directory structure not yet specified. |
 | <code>extras/.*</code> |  | Free-form descriptive information supplied by the TMC |
 
-### v0
+### Version 0
 
 | pattern | required? | description |
 | --- | --- | --- |

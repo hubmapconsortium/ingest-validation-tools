@@ -14,15 +14,13 @@ Related files:
 
 This schema is for autofluorescence (AF). For an example of an AF dataset & directory, see this [example autofluorescence dataset](https://portal.hubmapconsortium.org/browse/dataset/dc289471333309925e46ceb9bafafaf4#files) and click the Globus link.
 
-In the portal: AF not in Portal
-
 ## Metadata schema
 
 ### Field types
 - *Boolean* fields can be given as `TRUE`/`FALSE`, `True`/`False`, `true`/`false`, or `1`/`0`.  
 
 
-<summary><a href="https://docs.google.com/spreadsheets/d/1DZXmlygxGE3jxJ0p5Gvd4O6Zes3PRu3AJDYu9uhRiBc"><b>Version 2 (current)</b> (draft)</a></summary>
+<summary><a href="https://openview.metadatacenter.org/templates/https:%2F%2Frepo.metadatacenter.org%2Ftemplates%2Fa7f2b6ae-5a0c-4b2f-acf0-80a0878d2bbf"><b>Version 2 (current)</b> (draft)</a></summary>
 
 
 <details markdown="1" ><summary><b>Version 1</b></summary>
@@ -496,10 +494,9 @@ Relative path to file or directory with instrument data. Downstream processing w
 <br>
 
 ## Directory schemas
-### v2
-<summary><a href="https://docs.google.com/spreadsheets/d/1KLY5iXZbbb_5RNR_lZgGSqHiAKBbe34YrtrywSuUC3M">Draft</a></summary>
+### [Version 2](https://docs.google.com/spreadsheets/d/1KLY5iXZbbb_5RNR_lZgGSqHiAKBbe34YrtrywSuUC3M) (draft)
 
-### v0
+### Version 0
 
 | pattern | required? | description |
 | --- | --- | --- |

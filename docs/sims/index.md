@@ -14,8 +14,6 @@ Related files:
 
 
 
-In the portal: SIMS not in Portal
-
 ## Metadata schema
 
 ### Field types
@@ -29,6 +27,5 @@ In the portal: SIMS not in Portal
 <br>
 
 ## Directory schemas
-### v2
-<summary><a href="https://docs.google.com/spreadsheets/d/1I2aXIpOQHBjeLbKsVn0qJTOH7vtByeQ9t_1EnlTAPL4">Draft</a></summary>
+### [Version 2](https://docs.google.com/spreadsheets/d/1I2aXIpOQHBjeLbKsVn0qJTOH7vtByeQ9t_1EnlTAPL4) (draft)
 

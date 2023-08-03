@@ -14,8 +14,6 @@ Related files:
 
 
 
-In the portal: Light Sheet not in Portal
-
 ## Metadata schema
 
 ### Field types
@@ -791,10 +789,9 @@ Relative path to file or directory with instrument data. Downstream processing w
 <br>
 
 ## Directory schemas
-### v2
-<summary><a href="https://docs.google.com/spreadsheets/d/1KLY5iXZbbb_5RNR_lZgGSqHiAKBbe34YrtrywSuUC3M">Draft</a></summary>
+### [Version 2](https://docs.google.com/spreadsheets/d/1KLY5iXZbbb_5RNR_lZgGSqHiAKBbe34YrtrywSuUC3M) (draft)
 
-### v1
+### Version 1
 
 | pattern | required? | description |
 | --- | --- | --- |
@@ -818,7 +815,7 @@ Relative path to file or directory with instrument data. Downstream processing w
 | <code>Level3/Merged/MergedChannel[^/]+/[^/]+\.ome.tiff</code> |  | Merged image file. |
 | <code>extras/.*</code> |  | Free-form descriptive information supplied by the TMC |
 
-### v0
+### Version 0
 
 | pattern | required? | description |
 | --- | --- | --- |

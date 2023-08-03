@@ -14,8 +14,6 @@ Related files:
 
 
 
-In the portal: Slide-seq not in Portal
-
 ## Metadata schema
 
 ### Field types
@@ -711,7 +709,7 @@ Relative path to file or directory with instrument data. Downstream processing w
 <br>
 
 ## Directory schemas
-### v0
+### Version 0
 
 | pattern | required? | description |
 | --- | --- | --- |

@@ -9,12 +9,10 @@ layout: default
 
 Related files:
 
-- [📝 Excel template](https://raw.githubusercontent.com/hubmapconsortium//dataset-metadata-spreadsheet/main/sample/sample-latest.xlsx): For metadata entry.
-- [📝 TSV template](https://raw.githubusercontent.com/hubmapconsortium//dataset-metadata-spreadsheet/main/sample/sample-latest.tsv): Alternative for metadata entry.
+- [📝 Excel template](https://raw.githubusercontent.com/hubmapconsortium//dataset-metadata-spreadsheet/main/sample/latest/sample.xlsx): For metadata entry.
+- [📝 TSV template](https://raw.githubusercontent.com/hubmapconsortium//dataset-metadata-spreadsheet/main/sample/latest/sample.tsv): Alternative for metadata entry.
 
-This schema has been replaced by the individual [Block](https://hubmapconsortium.github.io/ingest-validation-tools/sample-block/), [Section](https://hubmapconsortium.github.io/ingest-validation-tools/sample-section/), and [Suspension](https://hubmapconsortium.github.io/ingest-validation-tools/sample-suspensino/) schemas. Please use these moving forward.
-
-In the portal: Sample not in Portal
+This schema has been replaced by the individual [Block](https://hubmapconsortium.github.io/ingest-validation-tools/sample-block/), [Section](https://hubmapconsortium.github.io/ingest-validation-tools/sample-section/), and [Suspension](https://hubmapconsortium.github.io/ingest-validation-tools/sample-suspensino/) schemas. Please use these moving forward. For more information, please refer to [this document](https://docs.google.com/document/d/1KEo-34Rjf6gS3ZM3DEenIejtb35txPLsbpdjBmbKauo/).
 
 ## Metadata schema
 
@@ -22,7 +20,9 @@ In the portal: Sample not in Portal
 - *Boolean* fields can be given as `TRUE`/`FALSE`, `True`/`False`, `true`/`false`, or `1`/`0`.  
 
 
-<summary><s>Version 1 (current)</s> (deprecated) (TBD)</summary>
+<details markdown="1" open="true"><summary><s>Version 1 (current)</s> (deprecated)</summary>
+No further updates to this assay schema are expected as we do not expect to receive additional data.
+</details>
 
 
 <details markdown="1" ><summary><b>Version 0</b></summary>

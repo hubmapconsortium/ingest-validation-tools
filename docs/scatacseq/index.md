@@ -14,8 +14,6 @@ Related files:
 
 
 
-In the portal: SNARE-seq2 not in Portal / sciATACseq not in Portal / snATACseq not in Portal
-
 ## Metadata schema
 
 ### Field types
@@ -836,10 +834,9 @@ Relative path to file or directory with instrument data. Downstream processing w
 ## Directory schemas
 The HIVE will process each dataset with
 [scATACseq Pipeline 1.4.3](https://github.com/hubmapconsortium/sc-atac-seq-pipeline/releases/tag/1.4.3).
-### v2
-<summary><a href="https://docs.google.com/spreadsheets/d/10Om2iinTwfLn1ySWtovmcm35cQnyg0Pm-rRd0a-eMjc">Draft</a></summary>
+### [Version 2](https://docs.google.com/spreadsheets/d/10Om2iinTwfLn1ySWtovmcm35cQnyg0Pm-rRd0a-eMjc) (draft)
 
-### v0
+### Version 0
 
 | pattern | required? | description |
 | --- | --- | --- |

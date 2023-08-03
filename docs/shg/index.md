@@ -1,5 +1,5 @@
 ---
-title: SHG
+title: Second Harmonic Generation
 schema_name: shg
 category: Single-cycle Fluorescence Microscopy (SFM)
 all_versions_deprecated: False
@@ -14,21 +14,18 @@ Related files:
 
 
 
-In the portal: SHG not in Portal
-
 ## Metadata schema
 
 ### Field types
 - *Boolean* fields can be given as `TRUE`/`FALSE`, `True`/`False`, `true`/`false`, or `1`/`0`.  
 
 
-<summary><a href="https://docs.google.com/spreadsheets/d/1DZXmlygxGE3jxJ0p5Gvd4O6Zes3PRu3AJDYu9uhRiBc"><b>Version 2 (current)</b> (draft)</a></summary>
+<summary><a href="https://openview.metadatacenter.org/templates/https:%2F%2Frepo.metadatacenter.org%2Ftemplates%2Fb21f206d-6fbe-4217-975a-da3a940fbdaa"><b>Version 2 (current)</b> (draft)</a></summary>
 
 
 
 <br>
 
 ## Directory schemas
-### v2
-<summary><a href="https://docs.google.com/spreadsheets/d/1KLY5iXZbbb_5RNR_lZgGSqHiAKBbe34YrtrywSuUC3M">Draft</a></summary>
+### [Version 2](https://docs.google.com/spreadsheets/d/1KLY5iXZbbb_5RNR_lZgGSqHiAKBbe34YrtrywSuUC3M) (draft)
 

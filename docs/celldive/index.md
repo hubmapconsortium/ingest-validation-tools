@@ -1,7 +1,7 @@
 ---
 title: Cell Dive
 schema_name: celldive
-category: MxFBE
+category: Multiplex Fluorescence Based Experiment (MxFBE)
 all_versions_deprecated: False
 exclude_from_index: False
 layout: default
@@ -14,15 +14,13 @@ Related files:
 
 
 
-In the portal: Cell Dive not in Portal
-
 ## Metadata schema
 
 ### Field types
 - *Boolean* fields can be given as `TRUE`/`FALSE`, `True`/`False`, `true`/`false`, or `1`/`0`.  
 
 
-<summary><a href="https://docs.google.com/spreadsheets/d/1GKh4x8HIoQ3eKi2WWtWa2eWann3FG1pfaqxGKkUK1Wo"><b>Version 2 (current)</b> (draft)</a></summary>
+<summary><a href="https://openview.metadatacenter.org/templates/https:%2F%2Frepo.metadatacenter.org%2Ftemplates%2F2d2c70c3-4735-4844-9542-832b8ddaee52"><b>Version 2 (current)</b> (draft)</a></summary>
 
 
 <details markdown="1" ><summary><b>Version 1</b></summary>
@@ -550,10 +548,9 @@ Relative path to file or directory with instrument data. Downstream processing w
 <br>
 
 ## Directory schemas
-### v2
-<summary><a href="https://docs.google.com/spreadsheets/d/1pZD2e51e4QkxzIk6xjHPPu1RBZpx5mzoykMmlaDK8rA">Draft</a></summary>
+### [Version 2](https://docs.google.com/spreadsheets/d/1pZD2e51e4QkxzIk6xjHPPu1RBZpx5mzoykMmlaDK8rA) (draft)
 
-### v0
+### Version 0
 
 | pattern | required? | description |
 | --- | --- | --- |
