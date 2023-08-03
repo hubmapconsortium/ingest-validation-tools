@@ -14,8 +14,6 @@ ${optional_doc_link_md}
 
 ${optional_description_md}
 
-${optional_portal_names_md}
-
 ## Metadata schema
 
 ### Field types
