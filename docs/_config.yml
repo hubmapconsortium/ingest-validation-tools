@@ -12,6 +12,20 @@ url: "https://hubmapconsortium.github.io" # the base hostname & protocol for you
 # Build settings
 markdown: kramdown
 theme: minima
+categories-order:
+ - organ
+ - sample
+ - clinical_imaging
+ - fish
+ - histology
+ - imaging
+ - mass_spectrometry_imaging
+ - mass_spectrometry
+ - mxfbe
+ - sequence
+ - single_cycle_fluorescence_microscopy
+ - spatial_transcriptomics
+ - other
 
 # Exclude from processing.
 # The following items will not be processed, by default. Create a custom list
