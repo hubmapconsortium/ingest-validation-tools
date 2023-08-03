@@ -610,10 +610,9 @@ Relative path to file or directory with instrument data. Downstream processing w
 <br>
 
 ## Directory schemas
-### v2
-<summary><a href="https://docs.google.com/spreadsheets/d/1pZD2e51e4QkxzIk6xjHPPu1RBZpx5mzoykMmlaDK8rA">Draft</a></summary>
+### [Version 2](https://docs.google.com/spreadsheets/d/1pZD2e51e4QkxzIk6xjHPPu1RBZpx5mzoykMmlaDK8rA)
 
-### v1-with-dataset-json
+### Version 1-with-dataset-json
 
 | pattern | required? | description |
 | --- | --- | --- |
@@ -634,7 +633,7 @@ Relative path to file or directory with instrument data. Downstream processing w
 | <code>extras/dir-schema-v1-with-dataset-json</code> | ✓ | Empty file whose presence indicates the version of the directory schema in use |
 | <code>extras/.*</code> |  | Free-form descriptive information supplied by the TMC |
 
-### v0
+### Version 0
 
 | pattern | required? | description |
 | --- | --- | --- |
