@@ -230,7 +230,6 @@ assay_category:
 - PhenoCycler
 - RNAseq (GeoMx)
 - RNAseq (Visium)
-- SHG
 - SIMS
 - SIMS-IMS
 - SNARE-seq2
@@ -239,6 +238,7 @@ assay_category:
 - Sample Block
 - Sample Section
 - Sample Suspension
+- Second Harmonic Generation
 - Slide-seq
 - Thick Section Multiphoton MxIF
 - Ultrasound
@@ -308,7 +308,6 @@ assay_type:
 - Publication
 - RNAseq (GeoMx)
 - RNAseq (Visium)
-- SHG
 - SIMS
 - SIMS-IMS
 - SNARE-seq2
@@ -317,6 +316,7 @@ assay_type:
 - Sample Block
 - Sample Section
 - Sample Suspension
+- Second Harmonic Generation
 - Slide-seq
 - Thick Section Multiphoton MxIF
 - Ultrasound
@@ -821,7 +821,6 @@ is_cedar:
 - Publication
 - RNAseq (GeoMx)
 - RNAseq (Visium)
-- SHG
 - SIMS
 - SNARE-seq2
 - SNARE2-RNAseq
@@ -829,6 +828,7 @@ is_cedar:
 - Sample Block
 - Sample Section
 - Sample Suspension
+- Second Harmonic Generation
 - Thick Section Multiphoton MxIF
 - Ultrasound
 - Visium
