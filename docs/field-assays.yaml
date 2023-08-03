@@ -224,6 +224,7 @@ assay_category:
 - NanoDESI
 - NanoPOTS
 - OCT
+- Organ
 - PAS microscopy
 - PhenoCycler
 - RNAseq (GeoMx)
@@ -233,6 +234,10 @@ assay_category:
 - SIMS-IMS
 - SNARE-seq2
 - SNARE2-RNAseq
+- Sample
+- Sample Block
+- Sample Section
+- Sample Suspension
 - Slide-seq
 - Thick Section Multiphoton MxIF
 - Ultrasound
@@ -295,6 +300,7 @@ assay_type:
 - NanoDESI
 - NanoPOTS
 - OCT
+- Organ
 - PAS microscopy
 - PhenoCycler
 - Publication
@@ -305,6 +311,10 @@ assay_type:
 - SIMS-IMS
 - SNARE-seq2
 - SNARE2-RNAseq
+- Sample
+- Sample Block
+- Sample Section
+- Sample Suspension
 - Slide-seq
 - Thick Section Multiphoton MxIF
 - Ultrasound
@@ -802,6 +812,7 @@ is_cedar:
 - MxIF
 - NanoDESI
 - OCT
+- Organ
 - PAS microscopy
 - PhenoCycler
 - Publication
@@ -811,6 +822,10 @@ is_cedar:
 - SIMS
 - SNARE-seq2
 - SNARE2-RNAseq
+- Sample
+- Sample Block
+- Sample Section
+- Sample Suspension
 - Thick Section Multiphoton MxIF
 - Ultrasound
 - Visium

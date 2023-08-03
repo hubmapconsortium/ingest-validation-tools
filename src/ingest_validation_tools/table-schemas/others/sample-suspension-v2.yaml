@@ -3,10 +3,12 @@ fields:
   description: 'Identifies whether the version is hosted by CEDAR'
   example: 'https://openview.metadatacenter.org/templates/https:%2F%2Frepo.metadatacenter.org%2Ftemplates%2F507d47ea-d71d-41ea-b0f3-86b569d4934c'
 - name: assay_category
+  description: 'Each assay is placed into one of the following 4 general categories: generation of images of microscopic entities, identification & quantitation of molecules by mass spectrometry, imaging mass spectrometry, and determination of nucleotide sequence.'
   constraints:
     enum:
       - sample
 - name: assay_type
+  description: 'The specific type of assay being executed.'
   constraints:
     enum:
       - Sample Suspension
