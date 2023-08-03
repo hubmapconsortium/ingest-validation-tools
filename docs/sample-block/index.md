@@ -1,5 +1,5 @@
 ---
-title: Sample
+title: Sample Block
 schema_name: sample-block
 category: Sample
 all_versions_deprecated: False
@@ -14,7 +14,7 @@ Related files:
 
 
 
-In the portal: Sample not in Portal
+In the portal: Sample Block not in Portal
 
 ## Metadata schema
 
