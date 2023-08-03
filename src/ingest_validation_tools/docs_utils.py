@@ -145,8 +145,6 @@ def generate_readme_md(
                    ('ingest-validation-tools/main/docs' if not is_cedar
                     else '/dataset-metadata-spreadsheet/main')
 
-    optional_portal_names_md = _get_portal_names_md(assay_type_enum) if assay_type_enum else ''
-
     optional_dir_description_md = (
         f'## Directory schemas\n{_make_dir_descriptions(directory_schemas, pipeline_infos)}'
         if directory_schemas else ''
@@ -188,6 +186,7 @@ def generate_readme_md(
         'title': title,
         'schema_name': schema_name,
         'category': {
+            'fish': 'FISH',
             'imaging': 'Imaging',
             'clinical_imaging': 'Clinical Imaging Modalities',
             'histology': 'Histology',
@@ -222,7 +221,6 @@ def generate_readme_md(
                 for v in range(max_version - 1, min_version - 1, -1)
             ]),
 
-        'optional_portal_names_md': optional_portal_names_md,
         'optional_dir_description_md': optional_dir_description_md,
 
         'optional_doc_link_md': optional_doc_link_md,
@@ -296,9 +294,15 @@ def _make_fields_md(table_schema, title, is_open=False):
             return f'''
 <summary><a href="{cedar_iri}">{title_html}</a></summary>
 '''
-        else:
+        elif cedar_iri == '' and table_schema.get('draft'):
             return f'''
 <summary>{title_html} (TBD)</summary>
+'''
+        else:
+            return f'''
+<details markdown="1" {'open="true"' if is_open else ''}<summary>{title_html}</summary>
+No further updates to this assay schema are expected as we do not expect to receive additional data.
+</details>
 '''
 
 
