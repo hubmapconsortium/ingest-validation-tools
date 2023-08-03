@@ -2,7 +2,7 @@ draft: true
 fields:
 - name: is_cedar
   description: 'Identifies whether the version is hosted by CEDAR'
-  example: 'https://docs.google.com/spreadsheets/d/1DZXmlygxGE3jxJ0p5Gvd4O6Zes3PRu3AJDYu9uhRiBc'
+  example: 'https://openview.metadatacenter.org/templates/https:%2F%2Frepo.metadatacenter.org%2Ftemplates%2Fb21f206d-6fbe-4217-975a-da3a940fbdaa'
 - name: assay_category
   constraints:
     enum:
@@ -10,4 +10,4 @@ fields:
 - name: assay_type
   constraints:
     enum:
-      - SHG
+      - Second Harmonic Generation
