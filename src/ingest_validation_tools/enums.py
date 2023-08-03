@@ -58,6 +58,7 @@ shared_enums: Dict[str, List[str]] = {
         'MxIF',
         'MALDI',
         'MALDI-IMS',
+        'MERFISH',
         'MS (shotgun lipidomics)',
         'MIBI',
         'Molecular Cartography',
@@ -116,6 +117,7 @@ shared_enums: Dict[str, List[str]] = {
     ],
     'assay_category': [
         'clinical_imaging',
+        'fish',
         'imaging',
         'histology',
         'mass_spectrometry',
