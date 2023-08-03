@@ -14,22 +14,6 @@ Related files:
 
 This schema is for autofluorescence (AF). For an example of an AF dataset & directory, see this [example autofluorescence dataset](https://portal.hubmapconsortium.org/browse/dataset/dc289471333309925e46ceb9bafafaf4#files) and click the Globus link.
 
-## Directory schemas
-### v2
-<summary><a href="https://docs.google.com/spreadsheets/d/1KLY5iXZbbb_5RNR_lZgGSqHiAKBbe34YrtrywSuUC3M">Draft</a></summary>
-
-### v0
-
-| pattern | required? | description |
-| --- | --- | --- |
-| <code>(processedMicroscopy&#124;processed_microscopy)/[^/]+_images/[^/]+\.ome\.(tif&#124;tiff)</code> | ✓ | OME TIFF files (multichannel, multi-layered, image pyramids) produced by the autofluorescence microscopy |
-| <code>(processedMicroscopy&#124;processed_microscopy)/[^/]+_transformations/[^/]+\.txt</code> |  | Transformations to IMS (related) data |
-| <code>(rawMicroscopy&#124;raw_microscopy)/[^/]+\.xml</code> | ✓ | XML metadata file from the autofluorescence microscopy experiments |
-| <code>(rawMicroscopy&#124;raw_microscopy)/[^/]+\.czi</code> | ✓ | Raw microscope file for the experiment |
-| <code>extras/.*</code> |  | Free-form descriptive information supplied by the TMC |
-
-
-
 In the portal: AF not in Portal
 
 ## Metadata schema
@@ -507,3 +491,19 @@ Relative path to file or directory with instrument data. Downstream processing w
 | required | `True` |
 
 </details>
+
+
+## Directory schemas
+### v2
+<summary><a href="https://docs.google.com/spreadsheets/d/1KLY5iXZbbb_5RNR_lZgGSqHiAKBbe34YrtrywSuUC3M">Draft</a></summary>
+
+### v0
+
+| pattern | required? | description |
+| --- | --- | --- |
+| <code>(processedMicroscopy&#124;processed_microscopy)/[^/]+_images/[^/]+\.ome\.(tif&#124;tiff)</code> | ✓ | OME TIFF files (multichannel, multi-layered, image pyramids) produced by the autofluorescence microscopy |
+| <code>(processedMicroscopy&#124;processed_microscopy)/[^/]+_transformations/[^/]+\.txt</code> |  | Transformations to IMS (related) data |
+| <code>(rawMicroscopy&#124;raw_microscopy)/[^/]+\.xml</code> | ✓ | XML metadata file from the autofluorescence microscopy experiments |
+| <code>(rawMicroscopy&#124;raw_microscopy)/[^/]+\.czi</code> | ✓ | Raw microscope file for the experiment |
+| <code>extras/.*</code> |  | Free-form descriptive information supplied by the TMC |
+
