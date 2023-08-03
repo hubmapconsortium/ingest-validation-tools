@@ -17,7 +17,6 @@ Assay types and their schemas are linked below.
 {% assign categories = site.pages | group_by: "category" %}
 {{ site.categories-order }}
 
-[//]: # ({% for category in site.categories-order %})
 {% for category in categories %}
 {% unless category.name == "" %}
 
