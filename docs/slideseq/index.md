@@ -9,8 +9,8 @@ layout: default
 
 Related files:
 
-- [📝 Excel template](https://raw.githubusercontent.com/hubmapconsortium//dataset-metadata-spreadsheet/main/slideseq/slideseq-latest.xlsx): For metadata entry.
-- [📝 TSV template](https://raw.githubusercontent.com/hubmapconsortium//dataset-metadata-spreadsheet/main/slideseq/slideseq-latest.tsv): Alternative for metadata entry.
+- [📝 Excel template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/main/docs/slideseq/slideseq-metadata.xlsx): For metadata entry.
+- [📝 TSV template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/main/docs/slideseq/slideseq-metadata.tsv): Alternative for metadata entry.
 
 
 
@@ -43,11 +43,55 @@ In the portal: Slide-seq not in Portal
 - *Boolean* fields can be given as `TRUE`/`FALSE`, `True`/`False`, `true`/`false`, or `1`/`0`.  
 
 
-<summary><s>Version 2 (current)</s> (deprecated) (TBD)</summary>
+<details markdown="1" open="true"><summary><b>Version 1 (current)</b></summary>
 
+<blockquote markdown="1">
 
-<details markdown="1" ><summary><b>Version 1</b></summary>
+<details markdown="1"><summary>Shared by all types</summary>
 
+[`version`](#version)<br>
+[`description`](#description)<br>
+[`donor_id`](#donor_id)<br>
+[`tissue_id`](#tissue_id)<br>
+[`execution_datetime`](#execution_datetime)<br>
+[`protocols_io_doi`](#protocols_io_doi)<br>
+[`operator`](#operator)<br>
+[`operator_email`](#operator_email)<br>
+[`pi`](#pi)<br>
+[`pi_email`](#pi_email)<br>
+[`assay_category`](#assay_category)<br>
+[`assay_type`](#assay_type)<br>
+[`analyte_class`](#analyte_class)<br>
+[`is_targeted`](#is_targeted)<br>
+[`acquisition_instrument_vendor`](#acquisition_instrument_vendor)<br>
+[`acquisition_instrument_model`](#acquisition_instrument_model)<br>
+
+</details>
+<details markdown="1"><summary>Unique to this type</summary>
+
+[`rnaseq_assay_method`](#rnaseq_assay_method)<br>
+[`library_construction_protocols_io_doi`](#library_construction_protocols_io_doi)<br>
+[`library_layout`](#library_layout)<br>
+[`library_adapter_sequence`](#library_adapter_sequence)<br>
+[`puck_id`](#puck_id)<br>
+[`is_technical_replicate`](#is_technical_replicate)<br>
+[`bead_barcode_read`](#bead_barcode_read)<br>
+[`bead_barcode_offset`](#bead_barcode_offset)<br>
+[`bead_barcode_size`](#bead_barcode_size)<br>
+[`library_pcr_cycles`](#library_pcr_cycles)<br>
+[`library_pcr_cycles_for_sample_index`](#library_pcr_cycles_for_sample_index)<br>
+[`library_final_yield_value`](#library_final_yield_value)<br>
+[`library_final_yield_unit`](#library_final_yield_unit)<br>
+[`library_average_fragment_size`](#library_average_fragment_size)<br>
+[`sequencing_reagent_kit`](#sequencing_reagent_kit)<br>
+[`sequencing_read_format`](#sequencing_read_format)<br>
+[`sequencing_read_percent_q30`](#sequencing_read_percent_q30)<br>
+[`sequencing_phix_percent`](#sequencing_phix_percent)<br>
+[`contributors_path`](#contributors_path)<br>
+[`data_path`](#data_path)<br>
+</details>
+
+</blockquote>
 
 ### Shared by all types
 
@@ -372,7 +416,6 @@ Relative path to file or directory with instrument data. Downstream processing w
 | required | `True` |
 
 </details>
-
 
 
 <details markdown="1" ><summary><b>Version 0</b></summary>

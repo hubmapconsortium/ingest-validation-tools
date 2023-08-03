@@ -8,11 +8,12 @@ layout: default
 ---
 
 Related files:
+- [🔬 Background doc](https://portal.hubmapconsortium.org/docs/assays/imc): More details about this type.
+- [📝 Excel template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/main/docs/imc3d/imc3d-metadata.xlsx): For metadata entry.
+- [📝 TSV template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/main/docs/imc3d/imc3d-metadata.tsv): Alternative for metadata entry.
 
-- [📝 Excel template](https://raw.githubusercontent.com/hubmapconsortium//dataset-metadata-spreadsheet/main/imc3d/imc3d-latest.xlsx): For metadata entry.
-- [📝 TSV template](https://raw.githubusercontent.com/hubmapconsortium//dataset-metadata-spreadsheet/main/imc3d/imc3d-latest.tsv): Alternative for metadata entry.
-
-
+This schema is for 3 dimensional imaging mass cytometry (IMC 3D). 3D IMC uploads require metadata on the antibodies used in the assay to be provided in an Antibodies TSV. For 3D IMC, the `channel_id` is the name of the metal tag on the corresponding antibody.
+The other fields function the same way for all assays using antibodies. For more information, see the [Antibodies TSV documentation](../antibodies).
 
 ## Directory schemas
 ### v0
@@ -42,11 +43,59 @@ In the portal: 3D Imaging Mass Cytometry not in Portal
 - *Boolean* fields can be given as `TRUE`/`FALSE`, `True`/`False`, `true`/`false`, or `1`/`0`.  
 
 
-<summary><s>Version 2 (current)</s> (deprecated) (TBD)</summary>
+<details markdown="1" open="true"><summary><b>Version 1 (current)</b></summary>
 
+<blockquote markdown="1">
 
-<details markdown="1" ><summary><b>Version 1</b></summary>
+<details markdown="1"><summary>Shared by all types</summary>
 
+[`version`](#version)<br>
+[`description`](#description)<br>
+[`donor_id`](#donor_id)<br>
+[`tissue_id`](#tissue_id)<br>
+[`execution_datetime`](#execution_datetime)<br>
+[`protocols_io_doi`](#protocols_io_doi)<br>
+[`operator`](#operator)<br>
+[`operator_email`](#operator_email)<br>
+[`pi`](#pi)<br>
+[`pi_email`](#pi_email)<br>
+[`assay_category`](#assay_category)<br>
+[`assay_type`](#assay_type)<br>
+[`analyte_class`](#analyte_class)<br>
+[`is_targeted`](#is_targeted)<br>
+[`acquisition_instrument_vendor`](#acquisition_instrument_vendor)<br>
+[`acquisition_instrument_model`](#acquisition_instrument_model)<br>
+
+</details>
+<details markdown="1"><summary>Unique to this type</summary>
+
+[`preparation_instrument_vendor`](#preparation_instrument_vendor)<br>
+[`preparation_instrument_model`](#preparation_instrument_model)<br>
+[`section_prep_protocols_io_doi`](#section_prep_protocols_io_doi)<br>
+[`reagent_prep_protocols_io_doi`](#reagent_prep_protocols_io_doi)<br>
+[`number_of_channels`](#number_of_channels)<br>
+[`number_of_sections`](#number_of_sections)<br>
+[`ablation_distance_between_shots_x_value`](#ablation_distance_between_shots_x_value)<br>
+[`ablation_distance_between_shots_x_units`](#ablation_distance_between_shots_x_units)<br>
+[`ablation_distance_between_shots_y_value`](#ablation_distance_between_shots_y_value)<br>
+[`ablation_distance_between_shots_y_units`](#ablation_distance_between_shots_y_units)<br>
+[`ablation_frequency_value`](#ablation_frequency_value)<br>
+[`ablation_frequency_unit`](#ablation_frequency_unit)<br>
+[`roi_description`](#roi_description)<br>
+[`roi_id`](#roi_id)<br>
+[`acquisition_id`](#acquisition_id)<br>
+[`max_x_width_value`](#max_x_width_value)<br>
+[`max_x_width_unit`](#max_x_width_unit)<br>
+[`max_y_height_value`](#max_y_height_value)<br>
+[`max_y_height_unit`](#max_y_height_unit)<br>
+[`segment_data_format`](#segment_data_format)<br>
+[`signal_type`](#signal_type)<br>
+[`antibodies_path`](#antibodies_path)<br>
+[`contributors_path`](#contributors_path)<br>
+[`data_path`](#data_path)<br>
+</details>
+
+</blockquote>
 
 ### Shared by all types
 
@@ -408,7 +457,6 @@ Relative path to file or directory with instrument data. Downstream processing w
 | required | `True` |
 
 </details>
-
 
 
 <details markdown="1" ><summary><b>Version 0</b></summary>
