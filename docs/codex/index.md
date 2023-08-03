@@ -1,7 +1,7 @@
 ---
 title: CODEX
 schema_name: codex
-category: MxFBE
+category: Multiplex Fluorescence Based Experiment (MxFBE)
 all_versions_deprecated: False
 exclude_from_index: False
 layout: default
@@ -13,8 +13,6 @@ Related files:
 - [📝 TSV template](): Alternative for metadata entry.
 
 
-
-In the portal: CODEX not in Portal
 
 ## Metadata schema
 
