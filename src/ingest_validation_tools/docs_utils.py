@@ -143,7 +143,7 @@ def generate_readme_md(
 
     raw_base_url = f'https://raw.githubusercontent.com/hubmapconsortium/' + \
                    ('ingest-validation-tools/main/docs' if not is_cedar
-                    else '/dataset-metadata-spreadsheet/main')
+                    else 'dataset-metadata-spreadsheet/main')
 
     optional_dir_description_md = (
         f'## Directory schemas\n{_make_dir_descriptions(directory_schemas, pipeline_infos)}'
