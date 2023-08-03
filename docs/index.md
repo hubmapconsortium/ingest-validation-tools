@@ -15,7 +15,10 @@ Assay types and their schemas are linked below.
 - For more information, see the [`ingest-validation-tools` repo](https://github.com/hubmapconsortium/ingest-validation-tools#readme).
 
 {% assign categories = site.pages | group_by: "category" %}
-{% for category in site.categories-order %}
+{{ site.categories-order }}
+
+[//]: # ({% for category in site.categories-order %})
+{% for category in categories %}
 {% unless category.name == "" %}
 
 ## {{category.name}}
