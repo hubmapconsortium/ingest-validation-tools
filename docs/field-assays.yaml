@@ -203,6 +203,7 @@ assay_category:
 - GeoMx (protein)
 - HiFi
 - Histology
+- IMS
 - Imaging Mass Cytometry
 - LC-MS
 - LC-MS (metabolomics)
@@ -280,6 +281,7 @@ assay_type:
 - GeoMx (protein)
 - HiFi
 - Histology
+- IMS
 - Imaging Mass Cytometry
 - LC-MS
 - LC-MS (metabolomics)
@@ -789,6 +791,7 @@ ion_source:
 - GC-MS
 is_cedar:
 - 10x Multiome
+- 3D Imaging Mass Cytometry
 - AF
 - Body CT
 - CE-MS
@@ -804,6 +807,8 @@ is_cedar:
 - GeoMx (protein)
 - HiFi
 - Histology
+- IMS
+- Imaging Mass Cytometry
 - LC-MS
 - Light Sheet
 - MALDI
@@ -829,6 +834,7 @@ is_cedar:
 - Sample Section
 - Sample Suspension
 - Second Harmonic Generation
+- Slide-seq
 - Thick Section Multiphoton MxIF
 - Ultrasound
 - Visium
