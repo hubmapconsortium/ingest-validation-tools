@@ -512,13 +512,13 @@ def _make_dir_descriptions(dir_schemas, pipeline_infos):
     >>> print(_make_dir_descriptions({'0': dir_schema_0, '1': dir_schema_1}, pipeline_infos))
     The HIVE will process each dataset with
     [Fake Pipeline v1.2.3](https://github.com/hubmapconsortium/fake/releases/tag/v1.2.3).
-    ### v1
+    ### Version 1
     <BLANKLINE>
     | pattern | required? | description |
     | --- | --- | --- |
     | <code>optional\\.txt</code> |  | Optional! |
     <BLANKLINE>
-    ### v0
+    ### Version 0
     <BLANKLINE>
     | pattern | required? | description |
     | --- | --- | --- |

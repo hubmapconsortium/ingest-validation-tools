@@ -324,6 +324,7 @@ def _validate_level_1_enum(field: dict) -> None:
     ...     print(',\\n'.join(str(e).split(',')))
     Unexpected enums for assay_category: {'fake'}
     Allowed: ['clinical_imaging',
+     'fish',
      'histology',
      'imaging',
      'mass_spectrometry',
