@@ -1,7 +1,7 @@
 ---
 title: seqFISH
 schema_name: seqfish
-category: FISH
+category: Fluorescence In Situ Hybridization (FISH)
 all_versions_deprecated: False
 exclude_from_index: False
 layout: default
@@ -20,7 +20,7 @@ Related files:
 - *Boolean* fields can be given as `TRUE`/`FALSE`, `True`/`False`, `true`/`false`, or `1`/`0`.  
 
 
-<details markdown="1" open="true"<summary><b>Version 2 (current)</b></summary>
+<details markdown="1" open="true"><summary><b>Version 2 (current)</b></summary>
 No further updates to this assay schema are expected as we do not expect to receive additional data.
 </details>
 

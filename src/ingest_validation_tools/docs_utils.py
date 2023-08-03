@@ -300,7 +300,7 @@ def _make_fields_md(table_schema, title, is_open=False):
 '''
         else:
             return f'''
-<details markdown="1" {'open="true"' if is_open else ''}<summary>{title_html}</summary>
+<details markdown="1" {'open="true"' if is_open else ''}><summary>{title_html}</summary>
 No further updates to this assay schema are expected as we do not expect to receive additional data.
 </details>
 '''

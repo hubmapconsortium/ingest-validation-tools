@@ -147,6 +147,7 @@ assay_category:
 - lightsheet
 - maldi
 - mc
+- merfish
 - mibi
 - microct
 - mri
@@ -200,6 +201,7 @@ assay_type:
 - lightsheet
 - maldi
 - mc
+- merfish
 - mibi
 - microct
 - mri
@@ -570,6 +572,7 @@ is_cedar:
 - scatacseq
 - scrnaseq
 - scrnaseq-hca
+- seqfish
 - shg
 - sims
 - srs
