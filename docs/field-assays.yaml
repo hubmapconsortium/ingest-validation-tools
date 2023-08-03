@@ -212,6 +212,7 @@ assay_category:
 - Light Sheet
 - MALDI
 - MALDI-IMS
+- MERFISH
 - MIBI
 - MRI
 - MS
@@ -224,15 +225,20 @@ assay_category:
 - NanoDESI
 - NanoPOTS
 - OCT
+- Organ
 - PAS microscopy
 - PhenoCycler
 - RNAseq (GeoMx)
 - RNAseq (Visium)
-- SHG
 - SIMS
 - SIMS-IMS
 - SNARE-seq2
 - SNARE2-RNAseq
+- Sample
+- Sample Block
+- Sample Section
+- Sample Suspension
+- Second Harmonic Generation
 - Slide-seq
 - Thick Section Multiphoton MxIF
 - Ultrasound
@@ -283,6 +289,7 @@ assay_type:
 - Light Sheet
 - MALDI
 - MALDI-IMS
+- MERFISH
 - MIBI
 - MRI
 - MS
@@ -295,16 +302,21 @@ assay_type:
 - NanoDESI
 - NanoPOTS
 - OCT
+- Organ
 - PAS microscopy
 - PhenoCycler
 - Publication
 - RNAseq (GeoMx)
 - RNAseq (Visium)
-- SHG
 - SIMS
 - SIMS-IMS
 - SNARE-seq2
 - SNARE2-RNAseq
+- Sample
+- Sample Block
+- Sample Section
+- Sample Suspension
+- Second Harmonic Generation
 - Slide-seq
 - Thick Section Multiphoton MxIF
 - Ultrasound
@@ -795,6 +807,7 @@ is_cedar:
 - LC-MS
 - Light Sheet
 - MALDI
+- MERFISH
 - MIBI
 - MRI
 - Micro CT
@@ -802,15 +815,20 @@ is_cedar:
 - MxIF
 - NanoDESI
 - OCT
+- Organ
 - PAS microscopy
 - PhenoCycler
 - Publication
 - RNAseq (GeoMx)
 - RNAseq (Visium)
-- SHG
 - SIMS
 - SNARE-seq2
 - SNARE2-RNAseq
+- Sample
+- Sample Block
+- Sample Section
+- Sample Suspension
+- Second Harmonic Generation
 - Thick Section Multiphoton MxIF
 - Ultrasound
 - Visium
@@ -824,6 +842,7 @@ is_cedar:
 - scRNAseq-10xGenomics-v3
 - sciATACseq
 - sciRNAseq
+- seqFISH
 - snATACseq
 - snRNAseq
 - snRNAseq-10xGenomics-v2

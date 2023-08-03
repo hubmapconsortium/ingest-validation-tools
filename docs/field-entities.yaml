@@ -38,8 +38,12 @@ area_value:
 - sample
 assay_category:
 - dataset
+- organ
+- sample
 assay_type:
 - dataset
+- organ
+- sample
 bead_barcode_offset:
 - dataset
 bead_barcode_read:

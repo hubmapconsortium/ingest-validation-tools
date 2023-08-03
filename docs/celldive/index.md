@@ -1,7 +1,7 @@
 ---
 title: Cell Dive
 schema_name: celldive
-category: MxFBE
+category: Multiplex Fluorescence Based Experiment (MxFBE)
 all_versions_deprecated: False
 exclude_from_index: False
 layout: default
@@ -14,31 +14,13 @@ Related files:
 
 
 
-## Directory schemas
-### v2
-<summary><a href="https://docs.google.com/spreadsheets/d/1pZD2e51e4QkxzIk6xjHPPu1RBZpx5mzoykMmlaDK8rA">Draft</a></summary>
-
-### v0
-
-| pattern | required? | description |
-| --- | --- | --- |
-| <code>channel_list\.txt</code> | ✓ | Information about the capture channels and tags (comma separated) |
-| <code>slide_list\.txt</code> | ✓ | Information about the slides used by the experiment- each line corresponds to a slide name (begins with S - e.g. S20030077) - used in filenames |
-| <code>HuBMAP_OME/region_\d+/S\d+_region_\d+\.ome\.tif</code> (example: <code>HuBMAP_OME/region_011/S20030092_region_011.ome.tif</code>) | ✓ | OME TIFF Files for the corresponding region (e.g. region_001) by slide (e.g S20030077) |
-| <code>HuBMAP_rounds/round_info_\d+\.dat</code> (example: <code>HuBMAP_rounds/round_info_002.dat</code>) | ✓ | Metadata file for the capture item-value tab separated format |
-| <code>extras/.*</code> |  | Free-form descriptive information supplied by the TMC |
-
-
-
-In the portal: Cell Dive not in Portal
-
 ## Metadata schema
 
 ### Field types
 - *Boolean* fields can be given as `TRUE`/`FALSE`, `True`/`False`, `true`/`false`, or `1`/`0`.  
 
 
-<summary><a href="https://docs.google.com/spreadsheets/d/1GKh4x8HIoQ3eKi2WWtWa2eWann3FG1pfaqxGKkUK1Wo"><b>Version 2 (current)</b> (draft)</a></summary>
+<summary><a href="https://openview.metadatacenter.org/templates/https:%2F%2Frepo.metadatacenter.org%2Ftemplates%2F2d2c70c3-4735-4844-9542-832b8ddaee52"><b>Version 2 (current)</b> (draft)</a></summary>
 
 
 <details markdown="1" ><summary><b>Version 1</b></summary>
@@ -561,3 +543,20 @@ Relative path to file or directory with instrument data. Downstream processing w
 | required | `True` |
 
 </details>
+
+
+<br>
+
+## Directory schemas
+### [Version 2](https://docs.google.com/spreadsheets/d/1pZD2e51e4QkxzIk6xjHPPu1RBZpx5mzoykMmlaDK8rA) (draft)
+
+### Version 0
+
+| pattern | required? | description |
+| --- | --- | --- |
+| <code>channel_list\.txt</code> | ✓ | Information about the capture channels and tags (comma separated) |
+| <code>slide_list\.txt</code> | ✓ | Information about the slides used by the experiment- each line corresponds to a slide name (begins with S - e.g. S20030077) - used in filenames |
+| <code>HuBMAP_OME/region_\d+/S\d+_region_\d+\.ome\.tif</code> (example: <code>HuBMAP_OME/region_011/S20030092_region_011.ome.tif</code>) | ✓ | OME TIFF Files for the corresponding region (e.g. region_001) by slide (e.g S20030077) |
+| <code>HuBMAP_rounds/round_info_\d+\.dat</code> (example: <code>HuBMAP_rounds/round_info_002.dat</code>) | ✓ | Metadata file for the capture item-value tab separated format |
+| <code>extras/.*</code> |  | Free-form descriptive information supplied by the TMC |
+

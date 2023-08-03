@@ -14,10 +14,6 @@ Related files:
 
 
 
-
-
-
-
 ## Metadata schema
 
 ### Field types
@@ -164,3 +160,7 @@ ORCID ID of contributor. Example: `0000-0002-8928-741X`.
 | url | prefix: <code>https://pub.orcid.org/v3.0/</code> |
 
 </details>
+
+
+<br>
+

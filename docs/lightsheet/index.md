@@ -14,57 +14,6 @@ Related files:
 
 
 
-## Directory schemas
-### v2
-<summary><a href="https://docs.google.com/spreadsheets/d/1KLY5iXZbbb_5RNR_lZgGSqHiAKBbe34YrtrywSuUC3M">Draft</a></summary>
-
-### v1
-
-| pattern | required? | description |
-| --- | --- | --- |
-| <code>Level0/Channel[^/]+/[^/]+\.csv</code> | ✓ | **[QA/QC]** Contains metadata and channel info. |
-| <code>Level0/Channel[^/]+/[^/]+\.czi</code> |  | Zeiss raw image file. |
-| <code>Level0/Merged/MergedChannel[^/]+/[^/]+\.czi</code> |  | Merged Zeiss raw image file. |
-| <code>Level0/Channel[^/]+/[^/]+\.ome.tiff</code> | ✓ | Raw image file. |
-| <code>Level0/Merged/MergedChannel[^/]+/[^/]+\.ome.tiff</code> | ✓ | Merged raw image file. |
-| <code>Level1/Channel[^/]+/[^/]+\.tif</code> |  | Stitched image. |
-| <code>Level1/Merged/MergedChannel[^/]+/[^/]+\.tif</code> |  | Merged stitched image. |
-| <code>Level1/Channel[^/]+/[^/]+\.mp4</code> |  | Stitched image. |
-| <code>Level2/Channel[^/]+/[^/]+\.csv</code> |  | **[QA/QC]** Contains file, parent and bounds. Required when level 2 is populated. File is optional. |
-| <code>Level2/Channel[^/]+/[^/]+\.obj</code> |  | Segmentation mask. |
-| <code>Level2/Channel[^/]+/[^/]+\.stl</code> |  | Segmentation mask. |
-| <code>Level2/Channel[^/]+/[^/]+\.ome.tiff</code> |  | Segmentation mask. |
-| <code>Level2/Merged/MergedChannel[^/]+/[^/]+\.ome.tiff</code> |  | Merged segmentation mask. |
-| <code>Level3/Channel[^/]+/[^/]+\.csv</code> |  | **[QA/QC]** Contains file, parent and bounds. Required when level 3 is populated. File is optional. |
-| <code>Level3/Channel[^/]+/[^/]+\.obj</code> |  | Annotation file. |
-| <code>Level3/Channel[^/]+/[^/]+\.stl</code> |  | Annotation file. |
-| <code>Level3/Channel[^/]+/[^/]+\.ome.tiff</code> |  | Image file. |
-| <code>Level3/Merged/MergedChannel[^/]+/[^/]+\.ome.tiff</code> |  | Merged image file. |
-| <code>extras/.*</code> |  | Free-form descriptive information supplied by the TMC |
-
-### v0
-
-| pattern | required? | description |
-| --- | --- | --- |
-| <code>Level0/Channel[^/]+/[^/]+\.csv</code> | ✓ | **[QA/QC]** Contains metadata and channel info. |
-| <code>Level0/Channel[^/]+/[^/]+\.czi</code> |  | Zeiss raw image file. File is optional. |
-| <code>Level0/Channel[^/]+/[^/]+\.ome.tiff</code> | ✓ | Raw image file. |
-| <code>Level1/Channel[^/]+/[^/]+\.tif</code> |  | Stitched image. File is optional. |
-| <code>Level1/Channel[^/]+/[^/]+\.mp4</code> |  | Stitched image. File is optional. |
-| <code>Level2/Channel[^/]+/[^/]+\.csv</code> |  | **[QA/QC]** Contains file, parent and bounds. Required when level 2 is populated. File is optional. |
-| <code>Level2/Channel[^/]+/[^/]+\.obj</code> |  | Segmentation mask. File is optional. |
-| <code>Level2/Channel[^/]+/[^/]+\.stl</code> |  | Segmentation mask. File is optional. |
-| <code>Level2/Channel[^/]+/[^/]+\.ome.tiff</code> |  | Segmentation mask. File is optional. |
-| <code>Level3/Channel[^/]+/[^/]+\.csv</code> |  | **[QA/QC]** Contains file, parent and bounds. Required when level 3 is populated. File is optional. |
-| <code>Level3/Channel[^/]+/[^/]+\.obj</code> |  | Annotation file. File is optional. |
-| <code>Level3/Channel[^/]+/[^/]+\.stl</code> |  | Annotation file. File is optional. |
-| <code>Level3/Channel[^/]+/[^/]+\.ome.tiff</code> |  | Annotation file. File is optional. |
-| <code>extras/.*</code> |  | Free-form descriptive information supplied by the TMC |
-
-
-
-In the portal: Light Sheet not in Portal
-
 ## Metadata schema
 
 ### Field types
@@ -835,3 +784,53 @@ Relative path to file or directory with instrument data. Downstream processing w
 | required | `True` |
 
 </details>
+
+
+<br>
+
+## Directory schemas
+### [Version 2](https://docs.google.com/spreadsheets/d/1KLY5iXZbbb_5RNR_lZgGSqHiAKBbe34YrtrywSuUC3M) (draft)
+
+### Version 1
+
+| pattern | required? | description |
+| --- | --- | --- |
+| <code>Level0/Channel[^/]+/[^/]+\.csv</code> | ✓ | **[QA/QC]** Contains metadata and channel info. |
+| <code>Level0/Channel[^/]+/[^/]+\.czi</code> |  | Zeiss raw image file. |
+| <code>Level0/Merged/MergedChannel[^/]+/[^/]+\.czi</code> |  | Merged Zeiss raw image file. |
+| <code>Level0/Channel[^/]+/[^/]+\.ome.tiff</code> | ✓ | Raw image file. |
+| <code>Level0/Merged/MergedChannel[^/]+/[^/]+\.ome.tiff</code> | ✓ | Merged raw image file. |
+| <code>Level1/Channel[^/]+/[^/]+\.tif</code> |  | Stitched image. |
+| <code>Level1/Merged/MergedChannel[^/]+/[^/]+\.tif</code> |  | Merged stitched image. |
+| <code>Level1/Channel[^/]+/[^/]+\.mp4</code> |  | Stitched image. |
+| <code>Level2/Channel[^/]+/[^/]+\.csv</code> |  | **[QA/QC]** Contains file, parent and bounds. Required when level 2 is populated. File is optional. |
+| <code>Level2/Channel[^/]+/[^/]+\.obj</code> |  | Segmentation mask. |
+| <code>Level2/Channel[^/]+/[^/]+\.stl</code> |  | Segmentation mask. |
+| <code>Level2/Channel[^/]+/[^/]+\.ome.tiff</code> |  | Segmentation mask. |
+| <code>Level2/Merged/MergedChannel[^/]+/[^/]+\.ome.tiff</code> |  | Merged segmentation mask. |
+| <code>Level3/Channel[^/]+/[^/]+\.csv</code> |  | **[QA/QC]** Contains file, parent and bounds. Required when level 3 is populated. File is optional. |
+| <code>Level3/Channel[^/]+/[^/]+\.obj</code> |  | Annotation file. |
+| <code>Level3/Channel[^/]+/[^/]+\.stl</code> |  | Annotation file. |
+| <code>Level3/Channel[^/]+/[^/]+\.ome.tiff</code> |  | Image file. |
+| <code>Level3/Merged/MergedChannel[^/]+/[^/]+\.ome.tiff</code> |  | Merged image file. |
+| <code>extras/.*</code> |  | Free-form descriptive information supplied by the TMC |
+
+### Version 0
+
+| pattern | required? | description |
+| --- | --- | --- |
+| <code>Level0/Channel[^/]+/[^/]+\.csv</code> | ✓ | **[QA/QC]** Contains metadata and channel info. |
+| <code>Level0/Channel[^/]+/[^/]+\.czi</code> |  | Zeiss raw image file. File is optional. |
+| <code>Level0/Channel[^/]+/[^/]+\.ome.tiff</code> | ✓ | Raw image file. |
+| <code>Level1/Channel[^/]+/[^/]+\.tif</code> |  | Stitched image. File is optional. |
+| <code>Level1/Channel[^/]+/[^/]+\.mp4</code> |  | Stitched image. File is optional. |
+| <code>Level2/Channel[^/]+/[^/]+\.csv</code> |  | **[QA/QC]** Contains file, parent and bounds. Required when level 2 is populated. File is optional. |
+| <code>Level2/Channel[^/]+/[^/]+\.obj</code> |  | Segmentation mask. File is optional. |
+| <code>Level2/Channel[^/]+/[^/]+\.stl</code> |  | Segmentation mask. File is optional. |
+| <code>Level2/Channel[^/]+/[^/]+\.ome.tiff</code> |  | Segmentation mask. File is optional. |
+| <code>Level3/Channel[^/]+/[^/]+\.csv</code> |  | **[QA/QC]** Contains file, parent and bounds. Required when level 3 is populated. File is optional. |
+| <code>Level3/Channel[^/]+/[^/]+\.obj</code> |  | Annotation file. File is optional. |
+| <code>Level3/Channel[^/]+/[^/]+\.stl</code> |  | Annotation file. File is optional. |
+| <code>Level3/Channel[^/]+/[^/]+\.ome.tiff</code> |  | Annotation file. File is optional. |
+| <code>extras/.*</code> |  | Free-form descriptive information supplied by the TMC |
+

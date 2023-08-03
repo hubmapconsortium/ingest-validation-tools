@@ -1,7 +1,7 @@
 ---
-title: organ
+title: Organ
 schema_name: organ
-category: Other TSVs
+category: Organ
 all_versions_deprecated: False
 exclude_from_index: False
 layout: default
@@ -9,12 +9,8 @@ layout: default
 
 Related files:
 
-- [📝 Excel template](https://raw.githubusercontent.com/hubmapconsortium//dataset-metadata-spreadsheet/main/organ/organ-latest.xlsx): For metadata entry.
-- [📝 TSV template](https://raw.githubusercontent.com/hubmapconsortium//dataset-metadata-spreadsheet/main/organ/organ-latest.tsv): Alternative for metadata entry.
-
-
-
-
+- [📝 Excel template](https://raw.githubusercontent.com/hubmapconsortium//dataset-metadata-spreadsheet/main/organ/latest/organ.xlsx): For metadata entry.
+- [📝 TSV template](https://raw.githubusercontent.com/hubmapconsortium//dataset-metadata-spreadsheet/main/organ/latest/organ.tsv): Alternative for metadata entry.
 
 
 
@@ -243,3 +239,7 @@ Volume unit. Leave blank if not applicable.
 | required if | `organ_volume_value` present |
 
 </details>
+
+
+<br>
+

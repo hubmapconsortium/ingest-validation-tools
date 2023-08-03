@@ -1,7 +1,7 @@
 ---
-title: sample
+title: Sample
 schema_name: sample
-category: Other TSVs
+category: Sample
 all_versions_deprecated: False
 exclude_from_index: False
 layout: default
@@ -9,14 +9,10 @@ layout: default
 
 Related files:
 
-- [📝 Excel template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/main/docs/sample/sample.xlsx): For metadata entry.
-- [📝 TSV template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/main/docs/sample/sample.tsv): Alternative for metadata entry.
+- [📝 Excel template](https://raw.githubusercontent.com/hubmapconsortium//dataset-metadata-spreadsheet/main/sample/latest/sample.xlsx): For metadata entry.
+- [📝 TSV template](https://raw.githubusercontent.com/hubmapconsortium//dataset-metadata-spreadsheet/main/sample/latest/sample.tsv): Alternative for metadata entry.
 
-
-
-
-
-
+This schema has been replaced by the individual [Block](https://hubmapconsortium.github.io/ingest-validation-tools/sample-block/), [Section](https://hubmapconsortium.github.io/ingest-validation-tools/sample-section/), and [Suspension](https://hubmapconsortium.github.io/ingest-validation-tools/sample-suspensino/) schemas. Please use these moving forward. For more information, please refer to [this document](https://docs.google.com/document/d/1KEo-34Rjf6gS3ZM3DEenIejtb35txPLsbpdjBmbKauo/).
 
 ## Metadata schema
 
@@ -24,42 +20,13 @@ Related files:
 - *Boolean* fields can be given as `TRUE`/`FALSE`, `True`/`False`, `true`/`false`, or `1`/`0`.  
 
 
-<details markdown="1" open="true"><summary><b>Version 0 (current)</b></summary>
-
-<blockquote markdown="1">
-
-<details markdown="1"><summary>IDs</summary>
-
-[`sample_id`](#sample_id)<br>
-
-</details>
-<details markdown="1"><summary>Donor</summary>
-
-[`vital_state`](#vital_state)<br>
-[`health_status`](#health_status)<br>
-
-</details>
-<details markdown="1"><summary>Medical Procedure</summary>
-
-[`organ_condition`](#organ_condition)<br>
-[`procedure_date`](#procedure_date)<br>
-[`perfusion_solution`](#perfusion_solution)<br>
-[`pathologist_report`](#pathologist_report)<br>
-[`warm_ischemia_time_value`](#warm_ischemia_time_value)<br>
-[`warm_ischemia_time_unit`](#warm_ischemia_time_unit)<br>
-[`cold_ischemia_time_value`](#cold_ischemia_time_value)<br>
-[`cold_ischemia_time_unit`](#cold_ischemia_time_unit)<br>
-
-</details>
-<details markdown="1"><summary>Biospecimen</summary>
-
-[`specimen_preservation_temperature`](#specimen_preservation_temperature)<br>
-[`specimen_quality_criteria`](#specimen_quality_criteria)<br>
-[`specimen_tumor_distance_value`](#specimen_tumor_distance_value)<br>
-[`specimen_tumor_distance_unit`](#specimen_tumor_distance_unit)<br>
+<details markdown="1" open="true"><summary><s>Version 1 (current)</s> (deprecated)</summary>
+No further updates to this assay schema are expected as we do not expect to receive additional data.
 </details>
 
-</blockquote>
+
+<details markdown="1" ><summary><b>Version 0</b></summary>
+
 
 ### IDs
 
@@ -207,4 +174,7 @@ Distance unit. Leave blank if not applicable.
 | required if | `specimen_tumor_distance_value` present |
 
 </details>
+
+
+<br>
 

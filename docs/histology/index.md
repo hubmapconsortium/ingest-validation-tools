@@ -9,18 +9,10 @@ layout: default
 
 Related files:
 
-- [📝 Excel template](https://raw.githubusercontent.com/hubmapconsortium//dataset-metadata-spreadsheet/main/histology/histology-latest.xlsx): For metadata entry.
-- [📝 TSV template](https://raw.githubusercontent.com/hubmapconsortium//dataset-metadata-spreadsheet/main/histology/histology-latest.tsv): Alternative for metadata entry.
+- [📝 Excel template](https://raw.githubusercontent.com/hubmapconsortium//dataset-metadata-spreadsheet/main/histology/latest/histology.xlsx): For metadata entry.
+- [📝 TSV template](https://raw.githubusercontent.com/hubmapconsortium//dataset-metadata-spreadsheet/main/histology/latest/histology.tsv): Alternative for metadata entry.
 
 
-
-## Directory schemas
-### v2
-<summary><a href="https://docs.google.com/spreadsheets/d/1_fMJrZVgx8g80uduxfr1HcIHz52_fpRfwFWFrA40tlg">Draft</a></summary>
-
-
-
-In the portal: Histology not in Portal
 
 ## Metadata schema
 
@@ -29,4 +21,11 @@ In the portal: Histology not in Portal
 
 
 <summary><a href="https://openview.metadatacenter.org/templates/https:%2F%2Frepo.metadatacenter.org%2Ftemplates%2F2263a3e3-819b-4639-a3db-3dbc0e46cda1"><b>Version 2 (current)</b></a></summary>
+
+
+
+<br>
+
+## Directory schemas
+### [Version 2](https://docs.google.com/spreadsheets/d/1_fMJrZVgx8g80uduxfr1HcIHz52_fpRfwFWFrA40tlg) (draft)
 

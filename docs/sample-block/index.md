@@ -1,7 +1,7 @@
 ---
-title: sample-block
+title: Sample Block
 schema_name: sample-block
-category: Other TSVs
+category: Sample
 all_versions_deprecated: False
 exclude_from_index: False
 layout: default
@@ -9,12 +9,8 @@ layout: default
 
 Related files:
 
-- [📝 Excel template](https://raw.githubusercontent.com/hubmapconsortium//dataset-metadata-spreadsheet/main/sample-block/sample-block-latest.xlsx): For metadata entry.
-- [📝 TSV template](https://raw.githubusercontent.com/hubmapconsortium//dataset-metadata-spreadsheet/main/sample-block/sample-block-latest.tsv): Alternative for metadata entry.
-
-
-
-
+- [📝 Excel template](https://raw.githubusercontent.com/hubmapconsortium//dataset-metadata-spreadsheet/main/sample-block/latest/sample-block.xlsx): For metadata entry.
+- [📝 TSV template](https://raw.githubusercontent.com/hubmapconsortium//dataset-metadata-spreadsheet/main/sample-block/latest/sample-block.tsv): Alternative for metadata entry.
 
 
 
@@ -212,3 +208,7 @@ Notes. Leave blank if not applicable.
 | required | `False` |
 
 </details>
+
+
+<br>
+

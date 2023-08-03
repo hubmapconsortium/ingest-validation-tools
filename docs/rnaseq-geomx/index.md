@@ -14,14 +14,6 @@ Related files:
 
 
 
-## Directory schemas
-### v2
-<summary><a href="https://docs.google.com/spreadsheets/d/10Om2iinTwfLn1ySWtovmcm35cQnyg0Pm-rRd0a-eMjc">Draft</a></summary>
-
-
-
-In the portal: RNAseq (GeoMx) not in Portal
-
 ## Metadata schema
 
 ### Field types
@@ -29,4 +21,11 @@ In the portal: RNAseq (GeoMx) not in Portal
 
 
 <summary><a href="https://docs.google.com/spreadsheets/d/1YNyMWvDTZzuj8m4fgdwLI6Wht1C3zb_s2kTONEVkZmo"><b>Version 2 (current)</b> (draft)</a></summary>
+
+
+
+<br>
+
+## Directory schemas
+### [Version 2](https://docs.google.com/spreadsheets/d/10Om2iinTwfLn1ySWtovmcm35cQnyg0Pm-rRd0a-eMjc) (draft)
 

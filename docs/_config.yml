@@ -12,6 +12,19 @@ url: "https://hubmapconsortium.github.io" # the base hostname & protocol for you
 # Build settings
 markdown: kramdown
 theme: minima
+categories-order:
+ - Organ
+ - Sample
+ - Clinical Imaging Modalities
+ - Fluorescence In Situ Hybridization (FISH)
+ - Histology
+ - Imaging Mass Spectrometry (IMS)
+ - Mass Spectrometry
+ - Multiplex Fluorescence Based Experiment (MxFBE)
+ - Sequence Assays
+ - Single-cycle Fluorescence Microscopy (SFM)
+ - Spatial Transcriptomics
+ - Other TSVs
 
 # Exclude from processing.
 # The following items will not be processed, by default. Create a custom list

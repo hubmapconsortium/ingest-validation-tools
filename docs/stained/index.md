@@ -1,5 +1,5 @@
 ---
-title: PAS microscopy / Histology
+title: PAS microscopy
 schema_name: stained
 category: Histology
 all_versions_deprecated: False
@@ -9,38 +9,10 @@ layout: default
 
 Related files:
 
-- [📝 Excel template](https://raw.githubusercontent.com/hubmapconsortium//dataset-metadata-spreadsheet/main/stained/stained-latest.xlsx): For metadata entry.
-- [📝 TSV template](https://raw.githubusercontent.com/hubmapconsortium//dataset-metadata-spreadsheet/main/stained/stained-latest.tsv): Alternative for metadata entry.
+- [📝 Excel template](https://raw.githubusercontent.com/hubmapconsortium//dataset-metadata-spreadsheet/main/stained/latest/stained.xlsx): For metadata entry.
+- [📝 TSV template](https://raw.githubusercontent.com/hubmapconsortium//dataset-metadata-spreadsheet/main/stained/latest/stained.tsv): Alternative for metadata entry.
 
-
-
-## Directory schemas
-### v2
-<summary><a href="https://docs.google.com/spreadsheets/d/1_fMJrZVgx8g80uduxfr1HcIHz52_fpRfwFWFrA40tlg">Draft</a></summary>
-
-### v1
-
-| pattern | required? | description |
-| --- | --- | --- |
-| <code>(processedMicroscopy&#124;processed_microscopy)/[^/]+_images/[^/]+ome\.(tif&#124;tiff)</code> | ✓ | OME TIFF files (multichannel, multi-layered, image pyramids) produced by the PAS microscopy experiment |
-| <code>(processedMicroscopy&#124;processed_microscopy)/[^/]+_transformations/[^/]+\.txt</code> |  | Transformations to PAS (related) data |
-| <code>(rawMicroscopy&#124;raw_microscopy)/[^/]+\.xml</code> | ✓ | XML metadata file from the autofluorescence microscopy experiments |
-| <code>(rawMicroscopy&#124;raw_microscopy)/[^/]+\.(scn&#124;czi&#124;tif&#124;tiff)</code> | ✓ | Raw microscope file for the experiment |
-| <code>extras/.*</code> |  | Free-form descriptive information supplied by the TMC |
-
-### v0
-
-| pattern | required? | description |
-| --- | --- | --- |
-| <code>(processedMicroscopy&#124;processed_microscopy)/[^/]+_images/[^/]+ome\.(tif&#124;tiff)</code> | ✓ | OME TIFF files (multichannel, multi-layered, image pyramids) produced by the PAS microscopy experiment |
-| <code>(processedMicroscopy&#124;processed_microscopy)/[^/]+_transformations/[^/]+\.txt</code> |  | Transformations to PAS (related) data |
-| <code>(rawMicroscopy&#124;raw_microscopy)/[^/]+\.xml</code> | ✓ | XML metadata file from the autofluorescence microscopy experiments |
-| <code>(rawMicroscopy&#124;raw_microscopy)/[^/]+\.scn</code> | ✓ | Raw microscope file for the experiment |
-| <code>extras/.*</code> |  | Free-form descriptive information supplied by the TMC |
-
-
-
-In the portal: PAS microscopy not in Portal / Histology not in Portal
+This schema has been incorporated into the histology schema which can be accessed [here](https://hubmapconsortium.github.io/ingest-validation-tools/histology/).
 
 ## Metadata schema
 
@@ -535,3 +507,30 @@ Relative path to file or directory with instrument data. Downstream processing w
 | required | `True` |
 
 </details>
+
+
+<br>
+
+## Directory schemas
+### [Version 2](https://docs.google.com/spreadsheets/d/1_fMJrZVgx8g80uduxfr1HcIHz52_fpRfwFWFrA40tlg) (draft)
+
+### Version 1
+
+| pattern | required? | description |
+| --- | --- | --- |
+| <code>(processedMicroscopy&#124;processed_microscopy)/[^/]+_images/[^/]+ome\.(tif&#124;tiff)</code> | ✓ | OME TIFF files (multichannel, multi-layered, image pyramids) produced by the PAS microscopy experiment |
+| <code>(processedMicroscopy&#124;processed_microscopy)/[^/]+_transformations/[^/]+\.txt</code> |  | Transformations to PAS (related) data |
+| <code>(rawMicroscopy&#124;raw_microscopy)/[^/]+\.xml</code> | ✓ | XML metadata file from the autofluorescence microscopy experiments |
+| <code>(rawMicroscopy&#124;raw_microscopy)/[^/]+\.(scn&#124;czi&#124;tif&#124;tiff)</code> | ✓ | Raw microscope file for the experiment |
+| <code>extras/.*</code> |  | Free-form descriptive information supplied by the TMC |
+
+### Version 0
+
+| pattern | required? | description |
+| --- | --- | --- |
+| <code>(processedMicroscopy&#124;processed_microscopy)/[^/]+_images/[^/]+ome\.(tif&#124;tiff)</code> | ✓ | OME TIFF files (multichannel, multi-layered, image pyramids) produced by the PAS microscopy experiment |
+| <code>(processedMicroscopy&#124;processed_microscopy)/[^/]+_transformations/[^/]+\.txt</code> |  | Transformations to PAS (related) data |
+| <code>(rawMicroscopy&#124;raw_microscopy)/[^/]+\.xml</code> | ✓ | XML metadata file from the autofluorescence microscopy experiments |
+| <code>(rawMicroscopy&#124;raw_microscopy)/[^/]+\.scn</code> | ✓ | Raw microscope file for the experiment |
+| <code>extras/.*</code> |  | Free-form descriptive information supplied by the TMC |
+

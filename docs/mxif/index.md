@@ -1,7 +1,7 @@
 ---
 title: CyCIF / MxIF
 schema_name: mxif
-category: MxFBE
+category: Multiplex Fluorescence Based Experiment (MxFBE)
 all_versions_deprecated: False
 exclude_from_index: False
 layout: default
@@ -14,33 +14,13 @@ Related files:
 
 
 
-## Directory schemas
-### v2
-<summary><a href="https://docs.google.com/spreadsheets/d/1pZD2e51e4QkxzIk6xjHPPu1RBZpx5mzoykMmlaDK8rA">Draft</a></summary>
-
-### v0
-
-| pattern | required? | description |
-| --- | --- | --- |
-| <code>(Level0&#124;level0)_raw\/cyc_[\d]+\.(tif&#124;tiff)</code> | ✓ | **[QA/QC]** MxiF raw tile data by cycle and channel. |
-| <code>(Level0&#124;level0)_raw\/cyc_[\d]+\/tile_layout\.json</code> | ✓ | MxiF tile layout in pixel coordinates in x and y. |
-| <code>(Level0&#124;level0)_raw\/dataset\.json</code> | ✓ | Additional specific metadata. |
-| <code>(Level1&#124;level1)\/cyc_[\d]+\.ome\.(tif&#124;tiff)</code> | ✓ | Pre-processed stitched image files, but not registered across cycles. |
-| <code>(Level2&#124;level2)\/ome\.(tif&#124;tiff)</code> | ✓ | **[QA/QC]** Full lab processed data, stitched, registered, and saved in pyramidal OME-TIFF. |
-| <code>(Level2&#124;level2)_lab_final-processing\.pdf</code> | ✓ | **[QA/QC]** Description of the lab-processed data. |
-| <code>extras/.*</code> |  | Free-form descriptive information supplied by the TMC |
-
-
-
-In the portal: CyCIF not in Portal / MxIF not in Portal
-
 ## Metadata schema
 
 ### Field types
 - *Boolean* fields can be given as `TRUE`/`FALSE`, `True`/`False`, `true`/`false`, or `1`/`0`.  
 
 
-<summary><a href="https://docs.google.com/spreadsheets/d/1GKh4x8HIoQ3eKi2WWtWa2eWann3FG1pfaqxGKkUK1Wo"><b>Version 2 (current)</b> (draft)</a></summary>
+<summary><a href="https://openview.metadatacenter.org/templates/https:%2F%2Frepo.metadatacenter.org%2Ftemplates%2F82345485-5fe4-4373-8e96-cff2361ff8ab"><b>Version 2 (current)</b> (draft)</a></summary>
 
 
 <details markdown="1" ><summary><b>Version 1</b></summary>
@@ -547,3 +527,22 @@ Relative path to file or directory with instrument data. Downstream processing w
 | required | `True` |
 
 </details>
+
+
+<br>
+
+## Directory schemas
+### [Version 2](https://docs.google.com/spreadsheets/d/1pZD2e51e4QkxzIk6xjHPPu1RBZpx5mzoykMmlaDK8rA) (draft)
+
+### Version 0
+
+| pattern | required? | description |
+| --- | --- | --- |
+| <code>(Level0&#124;level0)_raw\/cyc_[\d]+\.(tif&#124;tiff)</code> | ✓ | **[QA/QC]** MxiF raw tile data by cycle and channel. |
+| <code>(Level0&#124;level0)_raw\/cyc_[\d]+\/tile_layout\.json</code> | ✓ | MxiF tile layout in pixel coordinates in x and y. |
+| <code>(Level0&#124;level0)_raw\/dataset\.json</code> | ✓ | Additional specific metadata. |
+| <code>(Level1&#124;level1)\/cyc_[\d]+\.ome\.(tif&#124;tiff)</code> | ✓ | Pre-processed stitched image files, but not registered across cycles. |
+| <code>(Level2&#124;level2)\/ome\.(tif&#124;tiff)</code> | ✓ | **[QA/QC]** Full lab processed data, stitched, registered, and saved in pyramidal OME-TIFF. |
+| <code>(Level2&#124;level2)_lab_final-processing\.pdf</code> | ✓ | **[QA/QC]** Description of the lab-processed data. |
+| <code>extras/.*</code> |  | Free-form descriptive information supplied by the TMC |
+

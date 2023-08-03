@@ -14,12 +14,6 @@ Related files:
 
 
 
-## Directory schemas
-### v2
-<summary><a href="https://docs.google.com/spreadsheets/d/10Om2iinTwfLn1ySWtovmcm35cQnyg0Pm-rRd0a-eMjc">Draft</a></summary>
-
-
-
 In the portal: RNAseq (Visium) not in Portal
 
 ## Metadata schema
@@ -29,4 +23,12 @@ In the portal: RNAseq (Visium) not in Portal
 
 
 <summary><a href="https://docs.google.com/spreadsheets/d/1YNyMWvDTZzuj8m4fgdwLI6Wht1C3zb_s2kTONEVkZmo"><b>Version 2 (current)</b> (draft)</a></summary>
+
+
+
+<br>
+
+## Directory schemas
+### v2
+<summary><a href="https://docs.google.com/spreadsheets/d/10Om2iinTwfLn1ySWtovmcm35cQnyg0Pm-rRd0a-eMjc">Draft</a></summary>
 

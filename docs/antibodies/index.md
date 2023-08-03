@@ -16,10 +16,6 @@ Changes:
 - v1: Version number added.
 - v2: Add concentration fields.
 
-
-
-
-
 ## Metadata schema
 
 ### Field types
@@ -299,3 +295,7 @@ The name of the entity conjugated to the antibody. Leave blank if not applicable
 | required | `False` |
 
 </details>
+
+
+<br>
+

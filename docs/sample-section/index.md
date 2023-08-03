@@ -1,7 +1,7 @@
 ---
-title: sample-section
+title: Sample Section
 schema_name: sample-section
-category: Other TSVs
+category: Sample
 all_versions_deprecated: False
 exclude_from_index: False
 layout: default
@@ -9,12 +9,8 @@ layout: default
 
 Related files:
 
-- [📝 Excel template](https://raw.githubusercontent.com/hubmapconsortium//dataset-metadata-spreadsheet/main/sample-section/sample-section-latest.xlsx): For metadata entry.
-- [📝 TSV template](https://raw.githubusercontent.com/hubmapconsortium//dataset-metadata-spreadsheet/main/sample-section/sample-section-latest.tsv): Alternative for metadata entry.
-
-
-
-
+- [📝 Excel template](https://raw.githubusercontent.com/hubmapconsortium//dataset-metadata-spreadsheet/main/sample-section/latest/sample-section.xlsx): For metadata entry.
+- [📝 TSV template](https://raw.githubusercontent.com/hubmapconsortium//dataset-metadata-spreadsheet/main/sample-section/latest/sample-section.tsv): Alternative for metadata entry.
 
 
 
@@ -202,3 +198,7 @@ Notes. Leave blank if not applicable.
 | required | `False` |
 
 </details>
+
+
+<br>
+

@@ -1,7 +1,7 @@
 ---
-title: sample-suspension
+title: Sample Suspension
 schema_name: sample-suspension
-category: Other TSVs
+category: Sample
 all_versions_deprecated: False
 exclude_from_index: False
 layout: default
@@ -9,12 +9,8 @@ layout: default
 
 Related files:
 
-- [📝 Excel template](https://raw.githubusercontent.com/hubmapconsortium//dataset-metadata-spreadsheet/main/sample-suspension/sample-suspension-latest.xlsx): For metadata entry.
-- [📝 TSV template](https://raw.githubusercontent.com/hubmapconsortium//dataset-metadata-spreadsheet/main/sample-suspension/sample-suspension-latest.tsv): Alternative for metadata entry.
-
-
-
-
+- [📝 Excel template](https://raw.githubusercontent.com/hubmapconsortium//dataset-metadata-spreadsheet/main/sample-suspension/latest/sample-suspension.xlsx): For metadata entry.
+- [📝 TSV template](https://raw.githubusercontent.com/hubmapconsortium//dataset-metadata-spreadsheet/main/sample-suspension/latest/sample-suspension.tsv): Alternative for metadata entry.
 
 
 
@@ -182,3 +178,7 @@ Notes. Leave blank if not applicable.
 | required | `False` |
 
 </details>
+
+
+<br>
+

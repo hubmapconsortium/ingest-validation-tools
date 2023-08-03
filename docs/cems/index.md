@@ -14,18 +14,6 @@ Related files:
 
 
 
-## Directory schemas
-### v0
-
-| pattern | required? | description |
-| --- | --- | --- |
-| <code>TODO</code> | ✓ | Directory structure not yet specified. |
-| <code>extras/.*</code> |  | Free-form descriptive information supplied by the TMC |
-
-
-
-In the portal: CE-MS not in Portal
-
 ## Metadata schema
 
 ### Field types
@@ -441,3 +429,15 @@ Relative path to file or directory with instrument data. Downstream processing w
 | required | `True` |
 
 </details>
+
+
+<br>
+
+## Directory schemas
+### Version 0
+
+| pattern | required? | description |
+| --- | --- | --- |
+| <code>TODO</code> | ✓ | Directory structure not yet specified. |
+| <code>extras/.*</code> |  | Free-form descriptive information supplied by the TMC |
+

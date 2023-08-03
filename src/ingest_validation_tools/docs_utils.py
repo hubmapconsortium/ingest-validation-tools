@@ -145,8 +145,6 @@ def generate_readme_md(
                    ('ingest-validation-tools/main/docs' if not is_cedar
                     else '/dataset-metadata-spreadsheet/main')
 
-    optional_portal_names_md = _get_portal_names_md(assay_type_enum) if assay_type_enum else ''
-
     optional_dir_description_md = (
         f'## Directory schemas\n{_make_dir_descriptions(directory_schemas, pipeline_infos)}'
         if directory_schemas else ''
@@ -176,10 +174,10 @@ def generate_readme_md(
     if is_draft:
         tsv_url = ''
         xlsx_url = ''
-    # If it is a cedar template, link to the
+    # If it is a cedar template, link to the dataset-metadata-spreadsheet repo
     elif is_cedar:
-        tsv_url = f'{raw_base_url}/{schema_name}/{schema_name}-latest.tsv'
-        xlsx_url = f'{raw_base_url}/{schema_name}/{schema_name}-latest.xlsx'
+        tsv_url = f'{raw_base_url}/{schema_name}/latest/{schema_name}.tsv'
+        xlsx_url = f'{raw_base_url}/{schema_name}/latest/{schema_name}.xlsx'
     else:
         tsv_url = f'{raw_base_url}/{schema_name}/{get_tsv_name(schema_name, is_assay=is_assay)}'
         xlsx_url = f'{raw_base_url}/{schema_name}/{get_xlsx_name(schema_name, is_assay=is_assay)}'
@@ -188,12 +186,15 @@ def generate_readme_md(
         'title': title,
         'schema_name': schema_name,
         'category': {
+            'fish': 'Fluorescence In Situ Hybridization (FISH)',
             'imaging': 'Imaging',
             'clinical_imaging': 'Clinical Imaging Modalities',
             'histology': 'Histology',
             'mass_spectrometry': 'Mass Spectrometry',
             'mass_spectrometry_imaging': 'Imaging Mass Spectrometry (IMS)',
-            'mxfbe': 'MxFBE',
+            'mxfbe': 'Multiplex Fluorescence Based Experiment (MxFBE)',
+            'organ': 'Organ',
+            'sample': 'Sample',
             'sequence': 'Sequence Assays',
             'single_cycle_fluorescence_microscopy': 'Single-cycle Fluorescence Microscopy (SFM)',
             'spatial_transcriptomics': 'Spatial Transcriptomics',
@@ -220,7 +221,6 @@ def generate_readme_md(
                 for v in range(max_version - 1, min_version - 1, -1)
             ]),
 
-        'optional_portal_names_md': optional_portal_names_md,
         'optional_dir_description_md': optional_dir_description_md,
 
         'optional_doc_link_md': optional_doc_link_md,
@@ -294,9 +294,15 @@ def _make_fields_md(table_schema, title, is_open=False):
             return f'''
 <summary><a href="{cedar_iri}">{title_html}</a></summary>
 '''
-        else:
+        elif cedar_iri == '' and table_schema.get('draft'):
             return f'''
 <summary>{title_html} (TBD)</summary>
+'''
+        else:
+            return f'''
+<details markdown="1" {'open="true"' if is_open else ''}><summary>{title_html}</summary>
+No further updates to this assay schema are expected as we do not expect to receive additional data.
+</details>
 '''
 
 
@@ -506,13 +512,13 @@ def _make_dir_descriptions(dir_schemas, pipeline_infos):
     >>> print(_make_dir_descriptions({'0': dir_schema_0, '1': dir_schema_1}, pipeline_infos))
     The HIVE will process each dataset with
     [Fake Pipeline v1.2.3](https://github.com/hubmapconsortium/fake/releases/tag/v1.2.3).
-    ### v1
+    ### Version 1
     <BLANKLINE>
     | pattern | required? | description |
     | --- | --- | --- |
     | <code>optional\\.txt</code> |  | Optional! |
     <BLANKLINE>
-    ### v0
+    ### Version 0
     <BLANKLINE>
     | pattern | required? | description |
     | --- | --- | --- |
@@ -526,18 +532,22 @@ def _make_dir_descriptions(dir_schemas, pipeline_infos):
         if pipeline_infos else ''
 
     sorted_items = sorted(dir_schemas.items(), key=lambda item: item[0], reverse=True)
-    return pipeline_blurb + ''.join(
-        f'### v{v}\n'
-        + _make_dir_description(
-            schema['files'],
-            schema.get('deprecated', False),
-            schema.get('draft', False))
-        + '\n\n'  # Trailing blankline needed for correct gh-pages rendering.
-        for v, schema in sorted_items
-    )
+
+    directory_descriptions = ''
+    for v, schema in sorted_items:
+        if schema.get('draft', False):
+            draft_link = schema.get('files', [])[0].get("draft_link", None)
+            directory_descriptions += f'### [Version {v}]({draft_link}) (draft)\n\n'
+        else:
+            directory_descriptions += (f'### Version {v}\n' + _make_dir_description(
+                schema['files'],
+                schema.get('deprecated', False)
+            ) + '\n\n')
+
+    return pipeline_blurb + directory_descriptions
 
 
-def _make_dir_description(files, is_deprecated=False, is_draft=False):
+def _make_dir_description(files, is_deprecated=False):
     '''
     QA and Required flags are handled:
 
@@ -602,9 +612,6 @@ def _make_dir_description(files, is_deprecated=False, is_draft=False):
     ...
     AssertionError: Unexpected key "bad" in {'bad': 'schema'}
     '''
-
-    if is_draft and files[0].get("draft_link", None):
-        return f'<summary><a href="{files[0].get("draft_link")}">Draft</a></summary>'
 
     for line in files:
         for k in line.keys():
