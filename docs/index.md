@@ -6,11 +6,9 @@ title: HuBMAP Data Upload Guidelines
 Well-defined schemas ensure that HuBMAP data and metadata are reusable.
 If you are starting work on a new assay type, review the
 [guidelines for directory schemas](https://github.com/hubmapconsortium/ingest-validation-tools/blob/master/HOWTO-describe-directories.md#readme).
-If you have an upload prepared, it can be validated with
-[`validate_upload.py`](https://github.com/hubmapconsortium/ingest-validation-tools/blob/master/script-docs/README-validate_upload.py.md#readme),
-or if you only have an individual TSV, use [`validate_tsv.py`](https://github.com/hubmapconsortium/ingest-validation-tools/blob/master/script-docs/README-validate_tsv.py.md#readme).
-[Examples](https://github.com/hubmapconsortium/ingest-validation-tools/tree/master/examples#dataset-examples) of both good and bad uploads,
-and the validation messages they produce, are available.
+If you have an upload prepared, follow the instructions in 
+the [Metadata Validation Workflow](https://docs.google.com/document/d/1lfgiDGbyO4K4Hz1FMsJjmJd9RdwjShtJqFYNwKpbcZY/) 
+document to validate your upload.
 
 Assay types and their schemas are linked below.
 - [An Excel file](field-schemas.xlsx) listing all the schemas and their fields is available.
