@@ -121,6 +121,8 @@ shared_enums: Dict[str, List[str]] = {
         'mass_spectrometry',
         'mass_spectrometry_imaging',
         'mxfbe',
+        'organ',
+        'sample',
         'sequence',
         'single_cycle_fluorescence_microscopy',
         'spatial_transcriptomics'

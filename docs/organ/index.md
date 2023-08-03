@@ -1,7 +1,7 @@
 ---
-title: organ
+title: Organ
 schema_name: organ
-category: Other TSVs
+category: Organ
 all_versions_deprecated: False
 exclude_from_index: False
 layout: default
@@ -14,9 +14,7 @@ Related files:
 
 
 
-
-
-
+In the portal: Organ not in Portal
 
 ## Metadata schema
 
@@ -243,3 +241,7 @@ Volume unit. Leave blank if not applicable.
 | required if | `organ_volume_value` present |
 
 </details>
+
+
+<br>
+

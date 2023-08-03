@@ -194,6 +194,8 @@ def generate_readme_md(
             'mass_spectrometry': 'Mass Spectrometry',
             'mass_spectrometry_imaging': 'Imaging Mass Spectrometry (IMS)',
             'mxfbe': 'MxFBE',
+            'organ': 'Organ',
+            'sample': 'Sample',
             'sequence': 'Sequence Assays',
             'single_cycle_fluorescence_microscopy': 'Single-cycle Fluorescence Microscopy (SFM)',
             'spatial_transcriptomics': 'Spatial Transcriptomics',
