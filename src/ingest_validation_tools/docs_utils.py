@@ -174,10 +174,10 @@ def generate_readme_md(
     if is_draft:
         tsv_url = ''
         xlsx_url = ''
-    # If it is a cedar template, link to the
+    # If it is a cedar template, link to the dataset-metadata-spreadsheet repo
     elif is_cedar:
-        tsv_url = f'{raw_base_url}/{schema_name}/{schema_name}-latest.tsv'
-        xlsx_url = f'{raw_base_url}/{schema_name}/{schema_name}-latest.xlsx'
+        tsv_url = f'{raw_base_url}/{schema_name}/latest/{schema_name}.tsv'
+        xlsx_url = f'{raw_base_url}/{schema_name}/latest/{schema_name}.xlsx'
     else:
         tsv_url = f'{raw_base_url}/{schema_name}/{get_tsv_name(schema_name, is_assay=is_assay)}'
         xlsx_url = f'{raw_base_url}/{schema_name}/{get_xlsx_name(schema_name, is_assay=is_assay)}'
