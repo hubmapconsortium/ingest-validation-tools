@@ -1,0 +1,11 @@
+draft: true
+fields:
+- name: is_cedar
+  description: 'Identifies whether the version is hosted by CEDAR'
+  example: ''
+- name: assay_type
+  description: The specific type of assay being executed.
+  constraints:
+    enum:
+      - Publication
+    required: True

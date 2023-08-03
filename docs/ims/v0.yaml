@@ -1,4 +1,5 @@
 # Generated YAML: PRs should not start here!
+exclude_from_index: true
 doc_url: https://portal.hubmapconsortium.org/docs/assays/maldi-ims
 fields:
 - Shared by all types

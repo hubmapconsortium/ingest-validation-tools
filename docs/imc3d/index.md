@@ -1,7 +1,7 @@
 ---
 title: 3D Imaging Mass Cytometry
 schema_name: imc3d
-category: Imaging mass spectrometry
+category: Imaging Mass Spectrometry (IMS)
 all_versions_deprecated: False
 exclude_from_index: False
 layout: default

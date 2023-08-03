@@ -1,0 +1,13 @@
+draft: true
+fields:
+- name: is_cedar
+  description: 'Identifies whether the version is hosted by CEDAR'
+  example: 'https://docs.google.com/spreadsheets/d/1B3UiHbxPSoRQoYSqCAZwyQfm2lxPd86yQnyg80J7lgI/'
+- name: assay_category
+  constraints:
+    enum:
+      - mass_spectrometry_imaging
+- name: assay_type
+  constraints:
+    enum:
+      - MIBI

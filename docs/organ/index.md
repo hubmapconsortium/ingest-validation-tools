@@ -9,8 +9,8 @@ layout: default
 
 Related files:
 
-- [📝 Excel template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/main/docs/organ/organ.xlsx): For metadata entry.
-- [📝 TSV template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/main/docs/organ/organ.tsv): Alternative for metadata entry.
+- [📝 Excel template](https://raw.githubusercontent.com/hubmapconsortium//dataset-metadata-spreadsheet/main/organ/organ-latest.xlsx): For metadata entry.
+- [📝 TSV template](https://raw.githubusercontent.com/hubmapconsortium//dataset-metadata-spreadsheet/main/organ/organ-latest.tsv): Alternative for metadata entry.
 
 
 
@@ -24,35 +24,11 @@ Related files:
 - *Boolean* fields can be given as `TRUE`/`FALSE`, `True`/`False`, `true`/`false`, or `1`/`0`.  
 
 
-<details markdown="1" open="true"><summary><b>Version 2 (current)</b></summary>
+<summary><a href="https://openview.metadatacenter.org/templates/https:%2F%2Frepo.metadatacenter.org%2Ftemplates%2F8377b9ba-97bb-4b26-a2ac-2b88d756450f"><b>Version 3 (current)</b></a></summary>
 
-<blockquote markdown="1">
 
-[`organ_id`](#organ_id)<br>
-[`lab_id`](#lab_id)<br>
-[`laterality`](#laterality)<br>
-[`organ_condition`](#organ_condition)<br>
-[`perfusion_solution`](#perfusion_solution)<br>
-[`transport_solution`](#transport_solution)<br>
-[`warm_ischemic_time_value`](#warm_ischemic_time_value)<br>
-[`warm_ischemic_time_unit`](#warm_ischemic_time_unit)<br>
-[`cold_ischemic_time_value`](#cold_ischemic_time_value)<br>
-[`cold_ischemic_time_unit`](#cold_ischemic_time_unit)<br>
-[`total_ischemic_time_value`](#total_ischemic_time_value)<br>
-[`total_ischemic_time_unit`](#total_ischemic_time_unit)<br>
-[`pathology_report`](#pathology_report)<br>
-[`organ_weight_value`](#organ_weight_value)<br>
-[`weight_unit`](#weight_unit)<br>
-[`organ_height_value`](#organ_height_value)<br>
-[`organ_height_unit`](#organ_height_unit)<br>
-[`organ_width_value`](#organ_width_value)<br>
-[`organ_width_unit`](#organ_width_unit)<br>
-[`organ_length_value`](#organ_length_value)<br>
-[`organ_length_unit`](#organ_length_unit)<br>
-[`organ_volume_value`](#organ_volume_value)<br>
-[`organ_volume_unit`](#organ_volume_unit)<br>
+<details markdown="1" ><summary><b>Version 2</b></summary>
 
-</blockquote>
 
 <a name="organ_id"></a>
 ##### [`organ_id`](#organ_id)
@@ -267,4 +243,3 @@ Volume unit. Leave blank if not applicable.
 | required if | `organ_volume_value` present |
 
 </details>
-

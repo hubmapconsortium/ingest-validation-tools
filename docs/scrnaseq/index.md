@@ -1,20 +1,23 @@
 ---
 title: scRNAseq-10xGenomics-v2 / scRNAseq-10xGenomics-v3 / snRNAseq-10xGenomics-v2 / snRNAseq-10xGenomics-v3 / scRNAseq / sciRNAseq / snRNAseq / SNARE2-RNAseq
 schema_name: scrnaseq
-category: Sequence assays
+category: Sequence Assays
 all_versions_deprecated: False
 exclude_from_index: False
 layout: default
 ---
 
 Related files:
-- [🔬 Background doc](https://portal.hubmapconsortium.org/docs/assays/rnaseq): More details about this type.
-- [📝 Excel template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/main/docs/scrnaseq/scrnaseq-metadata.xlsx): For metadata entry.
-- [📝 TSV template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/main/docs/scrnaseq/scrnaseq-metadata.tsv): Alternative for metadata entry.
 
-This schema is for single cell RNA sequencing (scRNAseq). v3 adds `umi_*` fields.
+- [📝 Excel template](): For metadata entry.
+- [📝 TSV template](): Alternative for metadata entry.
+
+
 
 ## Directory schemas
+### v2
+<summary><a href="https://docs.google.com/spreadsheets/d/10Om2iinTwfLn1ySWtovmcm35cQnyg0Pm-rRd0a-eMjc">Draft</a></summary>
+
 ### v0
 
 | pattern | required? | description |
@@ -32,66 +35,11 @@ In the portal: scRNAseq-10xGenomics-v2 not in Portal / scRNAseq-10xGenomics-v3 n
 - *Boolean* fields can be given as `TRUE`/`FALSE`, `True`/`False`, `true`/`false`, or `1`/`0`.  
 
 
-<details markdown="1" open="true"><summary><b>Version 3 (current)</b></summary>
+<summary><a href="https://docs.google.com/spreadsheets/d/1YNyMWvDTZzuj8m4fgdwLI6Wht1C3zb_s2kTONEVkZmo"><b>Version 4 (current)</b> (draft)</a></summary>
 
-<blockquote markdown="1">
 
-<details markdown="1"><summary>Shared by all types</summary>
+<details markdown="1" ><summary><b>Version 3</b></summary>
 
-[`version`](#version)<br>
-[`description`](#description)<br>
-[`donor_id`](#donor_id)<br>
-[`tissue_id`](#tissue_id)<br>
-[`execution_datetime`](#execution_datetime)<br>
-[`protocols_io_doi`](#protocols_io_doi)<br>
-[`operator`](#operator)<br>
-[`operator_email`](#operator_email)<br>
-[`pi`](#pi)<br>
-[`pi_email`](#pi_email)<br>
-[`assay_category`](#assay_category)<br>
-[`assay_type`](#assay_type)<br>
-[`analyte_class`](#analyte_class)<br>
-[`is_targeted`](#is_targeted)<br>
-[`acquisition_instrument_vendor`](#acquisition_instrument_vendor)<br>
-[`acquisition_instrument_model`](#acquisition_instrument_model)<br>
-
-</details>
-<details markdown="1"><summary>Unique to this type</summary>
-
-[`sc_isolation_protocols_io_doi`](#sc_isolation_protocols_io_doi)<br>
-[`sc_isolation_entity`](#sc_isolation_entity)<br>
-[`sc_isolation_tissue_dissociation`](#sc_isolation_tissue_dissociation)<br>
-[`sc_isolation_enrichment`](#sc_isolation_enrichment)<br>
-[`sc_isolation_quality_metric`](#sc_isolation_quality_metric)<br>
-[`sc_isolation_cell_number`](#sc_isolation_cell_number)<br>
-[`rnaseq_assay_input`](#rnaseq_assay_input)<br>
-[`rnaseq_assay_method`](#rnaseq_assay_method)<br>
-[`library_construction_protocols_io_doi`](#library_construction_protocols_io_doi)<br>
-[`library_layout`](#library_layout)<br>
-[`library_adapter_sequence`](#library_adapter_sequence)<br>
-[`library_id`](#library_id)<br>
-[`is_technical_replicate`](#is_technical_replicate)<br>
-[`cell_barcode_read`](#cell_barcode_read)<br>
-[`umi_read`](#umi_read)<br>
-[`umi_offset`](#umi_offset)<br>
-[`umi_size`](#umi_size)<br>
-[`cell_barcode_offset`](#cell_barcode_offset)<br>
-[`cell_barcode_size`](#cell_barcode_size)<br>
-[`expected_cell_count`](#expected_cell_count)<br>
-[`library_pcr_cycles`](#library_pcr_cycles)<br>
-[`library_pcr_cycles_for_sample_index`](#library_pcr_cycles_for_sample_index)<br>
-[`library_final_yield_value`](#library_final_yield_value)<br>
-[`library_final_yield_unit`](#library_final_yield_unit)<br>
-[`library_average_fragment_size`](#library_average_fragment_size)<br>
-[`sequencing_reagent_kit`](#sequencing_reagent_kit)<br>
-[`sequencing_read_format`](#sequencing_read_format)<br>
-[`sequencing_read_percent_q30`](#sequencing_read_percent_q30)<br>
-[`sequencing_phix_percent`](#sequencing_phix_percent)<br>
-[`contributors_path`](#contributors_path)<br>
-[`data_path`](#data_path)<br>
-</details>
-
-</blockquote>
 
 ### Shared by all types
 
@@ -517,6 +465,7 @@ Relative path to file or directory with instrument data. Downstream processing w
 | required | `True` |
 
 </details>
+
 
 
 <details markdown="1" ><summary><b>Version 2</b></summary>

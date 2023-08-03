@@ -139,7 +139,7 @@ def _assay_to_schema_name(assay_type: str, source_project: str) -> str:
 def list_table_schema_versions() -> List[SchemaVersion]:
     '''
     >>> list_table_schema_versions()[0]
-    SchemaVersion(schema_name='af', version='0')
+    SchemaVersion(schema_name='10x-multiome', version='2')
 
     '''
     schema_paths = list((_table_schemas_path / 'assays').iterdir()) + \
@@ -154,7 +154,7 @@ def list_table_schema_versions() -> List[SchemaVersion]:
 def dict_table_schema_versions() -> Dict[str, Set[str]]:
     '''
     >>> sorted(dict_table_schema_versions()['af'])
-    ['0', '1']
+    ['0', '1', '2']
     '''
 
     dict_of_sets = defaultdict(set)
@@ -166,7 +166,7 @@ def dict_table_schema_versions() -> Dict[str, Set[str]]:
 def list_directory_schema_versions() -> List[SchemaVersion]:
     '''
     >>> list_directory_schema_versions()[0]
-    SchemaVersion(schema_name='af', version='0')
+    SchemaVersion(schema_name='10x-multiome', version='2')
 
     '''
     schema_paths = list(_directory_schemas_path.iterdir())
@@ -324,10 +324,14 @@ def _validate_level_1_enum(field: dict) -> None:
     ...     print(',\\n'.join(str(e).split(',')))
     Unexpected enums for assay_category: {'fake'}
     Allowed: ['clinical_imaging',
+     'histology',
      'imaging',
      'mass_spectrometry',
      'mass_spectrometry_imaging',
-     'sequence']
+     'mxfbe',
+     'sequence',
+     'single_cycle_fluorescence_microscopy',
+     'spatial_transcriptomics']
     '''
 
     name = field['name']

@@ -1,6 +1,7 @@
 # Generated YAML: PRs should not start here!
 doc_url: https://portal.hubmapconsortium.org/docs/assays/maldi-ims
 description_md: This schema is for imaging mass spectrometry (IMS).
+exclude_from_index: true
 fields:
 - Shared by all types
 - name: version

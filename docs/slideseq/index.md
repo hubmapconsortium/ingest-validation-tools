@@ -1,7 +1,7 @@
 ---
 title: Slide-seq
 schema_name: slideseq
-category: Sequence assays
+category: Sequence Assays
 all_versions_deprecated: False
 exclude_from_index: False
 layout: default

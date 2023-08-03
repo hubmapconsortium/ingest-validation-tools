@@ -1,0 +1,14 @@
+description_md: This schema is for autofluorescence (AF). For an example of an AF dataset & directory, see this [example autofluorescence dataset](https://portal.hubmapconsortium.org/browse/dataset/dc289471333309925e46ceb9bafafaf4#files) and click the Globus link.
+draft: true
+fields:
+- name: is_cedar
+  description: 'Identifies whether the version is hosted by CEDAR'
+  example: 'https://docs.google.com/spreadsheets/d/1DZXmlygxGE3jxJ0p5Gvd4O6Zes3PRu3AJDYu9uhRiBc'
+- name: assay_category
+  constraints:
+    enum:
+      - single_cycle_fluorescence_microscopy
+- name: assay_type
+  constraints:
+    enum:
+      - AF

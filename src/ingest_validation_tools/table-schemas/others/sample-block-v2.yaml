@@ -1,0 +1,4 @@
+fields:
+- name: is_cedar
+  description: 'Identifies whether the version is hosted by CEDAR'
+  example: 'https://openview.metadatacenter.org/templates/https:%2F%2Frepo.metadatacenter.org%2Ftemplates%2F22bc762a-5020-419d-b170-24253ed9e8d9'

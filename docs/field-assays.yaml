@@ -184,6 +184,7 @@ area_normalized_ion_dose_unit:
 area_normalized_ion_dose_value:
 - MIBI
 assay_category:
+- 10x Multiome
 - 3D Imaging Mass Cytometry
 - AF
 - Body CT
@@ -191,8 +192,17 @@ assay_category:
 - CODEX
 - CODEX2
 - Cell DIVE
+- Cell Dive
+- Confocal
+- CosMx
+- CyCIF
 - DESI
+- Enhanced SRS
 - GC-MS
+- GeoMx (RNA)
+- GeoMx (protein)
+- HiFi
+- Histology
 - Imaging Mass Cytometry
 - LC-MS
 - LC-MS (metabolomics)
@@ -200,6 +210,7 @@ assay_category:
 - LC-MS Top-Down
 - LC-MS/MS (label-free proteomics)
 - Light Sheet
+- MALDI
 - MALDI-IMS
 - MIBI
 - MRI
@@ -208,20 +219,30 @@ assay_category:
 - MS Bottom-Up
 - MS Top-Down
 - Micro CT
+- Molecular Cartography
 - MxIF
 - NanoDESI
 - NanoPOTS
 - OCT
 - PAS microscopy
+- PhenoCycler
+- RNAseq (GeoMx)
+- RNAseq (Visium)
+- SHG
+- SIMS
 - SIMS-IMS
 - SNARE-seq2
 - SNARE2-RNAseq
 - Slide-seq
+- Thick Section Multiphoton MxIF
 - Ultrasound
+- Visium
 - WGS
+- Xenium
 - bulk-RNA
 - bulkATACseq
 - cell-dive
+- hrsTP-seq (DBiTSeq)
 - scRNAseq
 - scRNAseq-10xGenomics
 - scRNAseq-10xGenomics-v2
@@ -234,6 +255,7 @@ assay_category:
 - snRNAseq-10xGenomics-v2
 - snRNAseq-10xGenomics-v3
 assay_type:
+- 10x Multiome
 - 3D Imaging Mass Cytometry
 - AF
 - Body CT
@@ -241,8 +263,17 @@ assay_type:
 - CODEX
 - CODEX2
 - Cell DIVE
+- Cell Dive
+- Confocal
+- CosMx
+- CyCIF
 - DESI
+- Enhanced SRS
 - GC-MS
+- GeoMx (RNA)
+- GeoMx (protein)
+- HiFi
+- Histology
 - Imaging Mass Cytometry
 - LC-MS
 - LC-MS (metabolomics)
@@ -250,6 +281,7 @@ assay_type:
 - LC-MS Top-Down
 - LC-MS/MS (label-free proteomics)
 - Light Sheet
+- MALDI
 - MALDI-IMS
 - MIBI
 - MRI
@@ -258,20 +290,31 @@ assay_type:
 - MS Bottom-Up
 - MS Top-Down
 - Micro CT
+- Molecular Cartography
 - MxIF
 - NanoDESI
 - NanoPOTS
 - OCT
 - PAS microscopy
+- PhenoCycler
+- Publication
+- RNAseq (GeoMx)
+- RNAseq (Visium)
+- SHG
+- SIMS
 - SIMS-IMS
 - SNARE-seq2
 - SNARE2-RNAseq
 - Slide-seq
+- Thick Section Multiphoton MxIF
 - Ultrasound
+- Visium
 - WGS
+- Xenium
 - bulk-RNA
 - bulkATACseq
 - cell-dive
+- hrsTP-seq (DBiTSeq)
 - publication
 - scRNAseq
 - scRNAseq-10xGenomics
@@ -732,6 +775,59 @@ ion_mobility:
 - SIMS-IMS
 ion_source:
 - GC-MS
+is_cedar:
+- 10x Multiome
+- AF
+- Body CT
+- CE-MS
+- CODEX
+- Cell Dive
+- Confocal
+- CosMx
+- CyCIF
+- DESI
+- Enhanced SRS
+- GC-MS
+- GeoMx (RNA)
+- GeoMx (protein)
+- HiFi
+- Histology
+- LC-MS
+- Light Sheet
+- MALDI
+- MIBI
+- MRI
+- Micro CT
+- Molecular Cartography
+- MxIF
+- NanoDESI
+- OCT
+- PAS microscopy
+- PhenoCycler
+- Publication
+- RNAseq (GeoMx)
+- RNAseq (Visium)
+- SHG
+- SIMS
+- SNARE-seq2
+- SNARE2-RNAseq
+- Thick Section Multiphoton MxIF
+- Ultrasound
+- Visium
+- WGS
+- Xenium
+- bulk-RNA
+- bulkATACseq
+- hrsTP-seq (DBiTSeq)
+- scRNAseq
+- scRNAseq-10xGenomics-v2
+- scRNAseq-10xGenomics-v3
+- sciATACseq
+- sciRNAseq
+- snATACseq
+- snRNAseq
+- snRNAseq-10xGenomics-v2
+- snRNAseq-10xGenomics-v3
 is_targeted:
 - 3D Imaging Mass Cytometry
 - AF

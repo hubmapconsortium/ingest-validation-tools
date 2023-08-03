@@ -1,5 +1,5 @@
 ---
-title: publication
+title: Publication
 schema_name: publication
 category: Other TSVs
 all_versions_deprecated: False
@@ -9,12 +9,19 @@ layout: default
 
 Related files:
 
-- [📝 Excel template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/main/docs/publication/publication-metadata.xlsx): For metadata entry.
-- [📝 TSV template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/main/docs/publication/publication-metadata.tsv): Alternative for metadata entry.
+- [📝 Excel template](): For metadata entry.
+- [📝 TSV template](): Alternative for metadata entry.
 
 
 
 ## Directory schemas
+### v2
+
+| pattern | required? | description |
+| --- | --- | --- |
+| <code>TODO</code> | ✓ | Directory structure not yet specified. |
+| <code>extras/.*</code> |  | Free-form descriptive information supplied by the TMC |
+
 ### v0
 
 | pattern | required? | description |
@@ -27,7 +34,7 @@ Related files:
 
 
 
-In the portal: publication not in Portal
+In the portal: Publication not in Portal
 
 ## Metadata schema
 
@@ -35,16 +42,11 @@ In the portal: publication not in Portal
 - *Boolean* fields can be given as `TRUE`/`FALSE`, `True`/`False`, `true`/`false`, or `1`/`0`.  
 
 
-<details markdown="1" open="true"><summary><b>Version 0 (current)</b></summary>
+<summary><b>Version 1 (current)</b> (draft) (TBD)</summary>
 
-<blockquote markdown="1">
 
-[`version`](#version)<br>
-[`assay_type`](#assay_type)<br>
-[`contributors_path`](#contributors_path)<br>
-[`data_path`](#data_path)<br>
+<details markdown="1" ><summary><b>Version 0</b></summary>
 
-</blockquote>
 
 <a name="version"></a>
 ##### [`version`](#version)
@@ -81,4 +83,3 @@ Relative path to file or directory with instrument data. Downstream processing w
 | required | `True` |
 
 </details>
-

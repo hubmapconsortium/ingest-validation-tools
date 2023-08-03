@@ -95,6 +95,7 @@ increment_z_value: number
 internal_standard: string
 ion_mobility: string
 ion_source: string
+is_cedar: boolean
 is_contact: boolean
 is_targeted: boolean
 is_technical_replicate: boolean

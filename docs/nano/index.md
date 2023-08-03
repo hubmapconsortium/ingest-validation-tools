@@ -1,7 +1,7 @@
 ---
 title: NanoDESI / NanoPOTS
 schema_name: nano
-category: Imaging mass spectrometry
+category: Imaging Mass Spectrometry (IMS)
 all_versions_deprecated: True
 exclude_from_index: False
 layout: default

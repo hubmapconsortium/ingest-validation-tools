@@ -1,0 +1,13 @@
+draft: true
+fields:
+- name: is_cedar
+  description: 'Identifies whether the version is hosted by CEDAR'
+  example: 'https://docs.google.com/spreadsheets/d/1GKh4x8HIoQ3eKi2WWtWa2eWann3FG1pfaqxGKkUK1Wo'
+- name: assay_category
+  constraints:
+    enum:
+      - mxfbe
+- name: assay_type
+  constraints:
+    enum:
+      - PhenoCycler

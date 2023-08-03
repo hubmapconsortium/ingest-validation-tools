@@ -136,8 +136,14 @@ def generate_readme_md(
     title += f" ({' / '.join(source_project_enum)})" \
         if source_project_enum else ''
 
-    raw_base_url = 'https://raw.githubusercontent.com/' \
-        'hubmapconsortium/ingest-validation-tools/main/docs'
+    is_cedar = (max_version_table_schema.get('fields', [])[0] and
+                type(max_version_table_schema.get('fields', [])[0]) == dict and
+                max_version_table_schema.get('fields', [])[0].get('name', '') == 'is_cedar')
+    is_draft = max_version_table_schema.get('draft', False)
+
+    raw_base_url = f'https://raw.githubusercontent.com/hubmapconsortium/' + \
+                   ('ingest-validation-tools/main/docs' if not is_cedar
+                    else '/dataset-metadata-spreadsheet/main')
 
     optional_portal_names_md = _get_portal_names_md(assay_type_enum) if assay_type_enum else ''
 
@@ -165,15 +171,32 @@ def generate_readme_md(
     template = Template(
         (Path(__file__).parent / 'docs.template').read_text()
     )
+
+    # If it is a draft, no link
+    if is_draft:
+        tsv_url = ''
+        xlsx_url = ''
+    # If it is a cedar template, link to the
+    elif is_cedar:
+        tsv_url = f'{raw_base_url}/{schema_name}/{schema_name}-latest.tsv'
+        xlsx_url = f'{raw_base_url}/{schema_name}/{schema_name}-latest.xlsx'
+    else:
+        tsv_url = f'{raw_base_url}/{schema_name}/{get_tsv_name(schema_name, is_assay=is_assay)}'
+        xlsx_url = f'{raw_base_url}/{schema_name}/{get_xlsx_name(schema_name, is_assay=is_assay)}'
+
     return template.substitute({
         'title': title,
         'schema_name': schema_name,
         'category': {
-            'imaging': 'Imaging assays',
-            'clinical_imaging': 'Clinical imaging modalities',
-            'mass_spectrometry': 'Mass spectrometry',
-            'mass_spectrometry_imaging': 'Imaging mass spectrometry',
-            'sequence': 'Sequence assays',
+            'imaging': 'Imaging',
+            'clinical_imaging': 'Clinical Imaging Modalities',
+            'histology': 'Histology',
+            'mass_spectrometry': 'Mass Spectrometry',
+            'mass_spectrometry_imaging': 'Imaging Mass Spectrometry (IMS)',
+            'mxfbe': 'MxFBE',
+            'sequence': 'Sequence Assays',
+            'single_cycle_fluorescence_microscopy': 'Single-cycle Fluorescence Microscopy (SFM)',
+            'spatial_transcriptomics': 'Spatial Transcriptomics',
             'other': 'Other TSVs'
         }[category],
         'max_version': max_version,
@@ -182,8 +205,8 @@ def generate_readme_md(
         'exclude_from_index':
             all(schema.get('exclude_from_index') for schema in table_schemas.values()),
 
-        'tsv_url': f'{raw_base_url}/{schema_name}/{get_tsv_name(schema_name, is_assay=is_assay)}',
-        'xlsx_url': f'{raw_base_url}/{schema_name}/{get_xlsx_name(schema_name, is_assay=is_assay)}',
+        'tsv_url': tsv_url,
+        'xlsx_url': xlsx_url,
 
         'current_version_md':
             _make_fields_md(
@@ -231,30 +254,49 @@ def _make_fields_md(table_schema, title, is_open=False):
     '''
 
     fields_md_list = []
-    for field in table_schema['fields']:
-        if isinstance(field, str):
-            fields_md_list.append(f"### {field}")
-            continue
-        table_md = _make_constraints_table(field)
-        name = field['name']
-        fields_md_list.append('\n'.join([
-            f'<a name="{name}"></a>',
-            f"##### [`{name}`](#{name})",
-            _enrich_description(field),
-            table_md
-        ]))
-    joined_list = '\n\n'.join(fields_md_list)
+
+    is_cedar = len(table_schema['fields']) > 0 and \
+        type(table_schema['fields'][0]) == dict and \
+        table_schema['fields'][0].get('name', '') == 'is_cedar'
+
     if table_schema.get('deprecated'):
         title_html = f'<s>{title}</s> (deprecated)'
+    elif table_schema.get('draft'):
+        title_html = f'<b>{title}</b> (draft)'
     else:
         title_html = f'<b>{title}</b>'
-    return f'''
+
+    if not is_cedar:
+        for field in table_schema['fields']:
+            if isinstance(field, str):
+                fields_md_list.append(f"### {field}")
+                continue
+            table_md = _make_constraints_table(field)
+            name = field['name']
+            fields_md_list.append('\n'.join([
+                f'<a name="{name}"></a>',
+                f"##### [`{name}`](#{name})",
+                _enrich_description(field),
+                table_md
+            ]))
+        joined_list = '\n\n'.join(fields_md_list)
+        return f'''
 <details markdown="1" {'open="true"' if is_open else ''}><summary>{title_html}</summary>
 
 {_make_toc(joined_list) if is_open else ''}
 {joined_list}
 
 </details>
+'''
+    else:
+        cedar_iri = table_schema['fields'][0]['example']
+        if cedar_iri:
+            return f'''
+<summary><a href="{cedar_iri}">{title_html}</a></summary>
+'''
+        else:
+            return f'''
+<summary>{title_html} (TBD)</summary>
 '''
 
 
@@ -488,13 +530,14 @@ def _make_dir_descriptions(dir_schemas, pipeline_infos):
         f'### v{v}\n'
         + _make_dir_description(
             schema['files'],
-            schema.get('deprecated', False))
+            schema.get('deprecated', False),
+            schema.get('draft', False))
         + '\n\n'  # Trailing blankline needed for correct gh-pages rendering.
         for v, schema in sorted_items
     )
 
 
-def _make_dir_description(files, is_deprecated=False):
+def _make_dir_description(files, is_deprecated=False, is_draft=False):
     '''
     QA and Required flags are handled:
 
@@ -559,6 +602,10 @@ def _make_dir_description(files, is_deprecated=False):
     ...
     AssertionError: Unexpected key "bad" in {'bad': 'schema'}
     '''
+
+    if is_draft and files[0].get("draft_link", None):
+        return f'<summary><a href="{files[0].get("draft_link")}">Draft</a></summary>'
+
     for line in files:
         for k in line.keys():
             assert k in {'pattern', 'required', 'description', 'example', 'is_qa_qc'}, \

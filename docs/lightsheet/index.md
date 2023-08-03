@@ -1,22 +1,23 @@
 ---
 title: Light Sheet
 schema_name: lightsheet
-category: Imaging assays
+category: Single-cycle Fluorescence Microscopy (SFM)
 all_versions_deprecated: False
 exclude_from_index: False
 layout: default
 ---
 
 Related files:
-- [🔬 Background doc](https://portal.hubmapconsortium.org/docs/assays/lightsheet): More details about this type.
-- [📝 Excel template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/main/docs/lightsheet/lightsheet-metadata.xlsx): For metadata entry.
-- [📝 TSV template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/main/docs/lightsheet/lightsheet-metadata.tsv): Alternative for metadata entry.
 
-Lightsheet uploads require metadata on the antibodies used in the assay to be provided in an Antibodies TSV. For Lightsheet, the `channel_id` is the name of the fluorophore tag on the antibody. For an example of a lightsheet dataset & directory, see this  [example lightsheet dataset](https://portal.hubmapconsortium.org/browse/dataset/b6eba6afe660a8a85c2648e368b0cf9f#files)  and click the Globus link. 
-Version 2 has 5 new fields for metadata describing the Z-dimension specifically relevant to lightsheet. These values provide the total number of image sections captured, the incremental value and unit of distance between the sections and the value and unit of the total distance captured.
-The other fields function the same way for all assays using antibodies. For more information, see the [Antibodies TSV documentation](../antibodies).
+- [📝 Excel template](): For metadata entry.
+- [📝 TSV template](): Alternative for metadata entry.
+
+
 
 ## Directory schemas
+### v2
+<summary><a href="https://docs.google.com/spreadsheets/d/1KLY5iXZbbb_5RNR_lZgGSqHiAKBbe34YrtrywSuUC3M">Draft</a></summary>
+
 ### v1
 
 | pattern | required? | description |
@@ -70,49 +71,11 @@ In the portal: Light Sheet not in Portal
 - *Boolean* fields can be given as `TRUE`/`FALSE`, `True`/`False`, `true`/`false`, or `1`/`0`.  
 
 
-<details markdown="1" open="true"><summary><b>Version 2 (current)</b></summary>
+<summary><a href="https://docs.google.com/spreadsheets/d/1DZXmlygxGE3jxJ0p5Gvd4O6Zes3PRu3AJDYu9uhRiBc"><b>Version 3 (current)</b> (draft)</a></summary>
 
-<blockquote markdown="1">
 
-<details markdown="1"><summary>Shared by all types</summary>
+<details markdown="1" ><summary><b>Version 2</b></summary>
 
-[`version`](#version)<br>
-[`description`](#description)<br>
-[`donor_id`](#donor_id)<br>
-[`tissue_id`](#tissue_id)<br>
-[`execution_datetime`](#execution_datetime)<br>
-[`protocols_io_doi`](#protocols_io_doi)<br>
-[`operator`](#operator)<br>
-[`operator_email`](#operator_email)<br>
-[`pi`](#pi)<br>
-[`pi_email`](#pi_email)<br>
-[`assay_category`](#assay_category)<br>
-[`assay_type`](#assay_type)<br>
-[`analyte_class`](#analyte_class)<br>
-[`is_targeted`](#is_targeted)<br>
-[`acquisition_instrument_vendor`](#acquisition_instrument_vendor)<br>
-[`acquisition_instrument_model`](#acquisition_instrument_model)<br>
-
-</details>
-<details markdown="1"><summary>Unique to this type</summary>
-
-[`resolution_x_value`](#resolution_x_value)<br>
-[`resolution_x_unit`](#resolution_x_unit)<br>
-[`resolution_y_value`](#resolution_y_value)<br>
-[`resolution_y_unit`](#resolution_y_unit)<br>
-[`range_z_value`](#range_z_value)<br>
-[`range_z_unit`](#range_z_unit)<br>
-[`step_z_value`](#step_z_value)<br>
-[`increment_z_value`](#increment_z_value)<br>
-[`increment_z_unit`](#increment_z_unit)<br>
-[`number_of_antibodies`](#number_of_antibodies)<br>
-[`number_of_channels`](#number_of_channels)<br>
-[`antibodies_path`](#antibodies_path)<br>
-[`contributors_path`](#contributors_path)<br>
-[`data_path`](#data_path)<br>
-</details>
-
-</blockquote>
 
 ### Shared by all types
 
@@ -387,6 +350,7 @@ Relative path to file or directory with instrument data. Downstream processing w
 | required | `True` |
 
 </details>
+
 
 
 <details markdown="1" ><summary><b>Version 1</b></summary>
