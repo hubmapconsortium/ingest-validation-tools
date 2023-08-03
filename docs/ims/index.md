@@ -3,7 +3,7 @@ title: MALDI-IMS / SIMS-IMS / NanoDESI / DESI
 schema_name: ims
 category: Imaging Mass Spectrometry (IMS)
 all_versions_deprecated: False
-exclude_from_index: False
+exclude_from_index: True
 layout: default
 ---
 
