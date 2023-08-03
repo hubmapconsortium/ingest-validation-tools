@@ -532,18 +532,22 @@ def _make_dir_descriptions(dir_schemas, pipeline_infos):
         if pipeline_infos else ''
 
     sorted_items = sorted(dir_schemas.items(), key=lambda item: item[0], reverse=True)
-    return pipeline_blurb + ''.join(
-        f'### v{v}\n'
-        + _make_dir_description(
-            schema['files'],
-            schema.get('deprecated', False),
-            schema.get('draft', False))
-        + '\n\n'  # Trailing blankline needed for correct gh-pages rendering.
-        for v, schema in sorted_items
-    )
+
+    directory_descriptions = ''
+    for v, schema in sorted_items:
+        if schema.get('draft', False):
+            draft_link = schema.get('files', [])[0].get("draft_link", None)
+            directory_descriptions += f'### [Version {v}]({draft_link}) (draft)\n\n'
+        else:
+            directory_descriptions += (f'### Version {v}\n' + _make_dir_description(
+                schema['files'],
+                schema.get('deprecated', False)
+            ) + '\n\n')
+
+    return pipeline_blurb + directory_descriptions
 
 
-def _make_dir_description(files, is_deprecated=False, is_draft=False):
+def _make_dir_description(files, is_deprecated=False):
     '''
     QA and Required flags are handled:
 
@@ -608,9 +612,6 @@ def _make_dir_description(files, is_deprecated=False, is_draft=False):
     ...
     AssertionError: Unexpected key "bad" in {'bad': 'schema'}
     '''
-
-    if is_draft and files[0].get("draft_link", None):
-        return f'<summary><a href="{files[0].get("draft_link")}">Draft</a></summary>'
 
     for line in files:
         for k in line.keys():
