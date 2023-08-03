@@ -1,20 +1,18 @@
 ---
 title: seqFISH
 schema_name: seqfish
-category: Imaging
+category: FISH
 all_versions_deprecated: False
 exclude_from_index: False
 layout: default
 ---
 
 Related files:
-- [🔬 Background doc](https://portal.hubmapconsortium.org/docs/assays/seqfish): More details about this type.
-- [📝 Excel template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/main/docs/seqfish/seqfish-metadata.xlsx): For metadata entry.
-- [📝 TSV template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/main/docs/seqfish/seqfish-metadata.tsv): Alternative for metadata entry.
 
-This schema is for spatial sequencing by fluorescence in situ hybridization (seqFISH).
+- [📝 Excel template](https://raw.githubusercontent.com/hubmapconsortium//dataset-metadata-spreadsheet/main/seqfish/seqfish-latest.xlsx): For metadata entry.
+- [📝 TSV template](https://raw.githubusercontent.com/hubmapconsortium//dataset-metadata-spreadsheet/main/seqfish/seqfish-latest.tsv): Alternative for metadata entry.
 
-In the portal: seqFISH not in Portal
+
 
 ## Metadata schema
 
@@ -22,53 +20,13 @@ In the portal: seqFISH not in Portal
 - *Boolean* fields can be given as `TRUE`/`FALSE`, `True`/`False`, `true`/`false`, or `1`/`0`.  
 
 
-<details markdown="1" open="true"><summary><b>Version 1 (current)</b></summary>
-
-<blockquote markdown="1">
-
-<details markdown="1"><summary>Shared by all types</summary>
-
-[`version`](#version)<br>
-[`description`](#description)<br>
-[`donor_id`](#donor_id)<br>
-[`tissue_id`](#tissue_id)<br>
-[`execution_datetime`](#execution_datetime)<br>
-[`protocols_io_doi`](#protocols_io_doi)<br>
-[`operator`](#operator)<br>
-[`operator_email`](#operator_email)<br>
-[`pi`](#pi)<br>
-[`pi_email`](#pi_email)<br>
-[`assay_category`](#assay_category)<br>
-[`assay_type`](#assay_type)<br>
-[`analyte_class`](#analyte_class)<br>
-[`is_targeted`](#is_targeted)<br>
-[`acquisition_instrument_vendor`](#acquisition_instrument_vendor)<br>
-[`acquisition_instrument_model`](#acquisition_instrument_model)<br>
-
-</details>
-<details markdown="1"><summary>Unique to this type</summary>
-
-[`resolution_x_value`](#resolution_x_value)<br>
-[`resolution_x_unit`](#resolution_x_unit)<br>
-[`resolution_y_value`](#resolution_y_value)<br>
-[`resolution_y_unit`](#resolution_y_unit)<br>
-[`resolution_z_value`](#resolution_z_value)<br>
-[`resolution_z_unit`](#resolution_z_unit)<br>
-[`preparation_instrument_vendor`](#preparation_instrument_vendor)<br>
-[`preparation_instrument_model`](#preparation_instrument_model)<br>
-[`number_of_barcode_probes`](#number_of_barcode_probes)<br>
-[`number_of_barcode_regions_per_barcode_probe`](#number_of_barcode_regions_per_barcode_probe)<br>
-[`number_of_readout_probes_per_channel`](#number_of_readout_probes_per_channel)<br>
-[`number_of_pseudocolors_per_channel`](#number_of_pseudocolors_per_channel)<br>
-[`number_of_channels`](#number_of_channels)<br>
-[`number_of_cycles`](#number_of_cycles)<br>
-[`section_prep_protocols_io_doi`](#section_prep_protocols_io_doi)<br>
-[`reagent_prep_protocols_io_doi`](#reagent_prep_protocols_io_doi)<br>
-[`contributors_path`](#contributors_path)<br>
-[`data_path`](#data_path)<br>
+<details markdown="1" open="true"<summary><b>Version 2 (current)</b></summary>
+No further updates to this assay schema are expected as we do not expect to receive additional data.
 </details>
 
-</blockquote>
+
+<details markdown="1" ><summary><b>Version 1</b></summary>
+
 
 ### Shared by all types
 
@@ -379,6 +337,7 @@ Relative path to file or directory with instrument data. Downstream processing w
 | required | `True` |
 
 </details>
+
 
 
 <details markdown="1" ><summary><b>Version 0</b></summary>

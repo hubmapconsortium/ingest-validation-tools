@@ -1,7 +1,7 @@
 ---
-title: merfish
+title: MERFISH
 schema_name: merfish
-category: Other TSVs
+category: FISH
 all_versions_deprecated: False
 exclude_from_index: False
 layout: default
@@ -11,8 +11,6 @@ Related files:
 
 - [📝 Excel template](): For metadata entry.
 - [📝 TSV template](): Alternative for metadata entry.
-
-
 
 
 
