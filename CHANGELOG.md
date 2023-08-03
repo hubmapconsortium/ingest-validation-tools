@@ -13,6 +13,7 @@
 - Updated publication directory schema 20230616
 - Changes for CEDAR docs
 - Tweaks for CEDAR release
+- Release new assays with links
 
 ## v0.0.15 - 2023-04-04
 - Versioned directory structure schema

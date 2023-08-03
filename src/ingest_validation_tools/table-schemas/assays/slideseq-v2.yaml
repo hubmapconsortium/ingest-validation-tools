@@ -1,12 +1,12 @@
 fields:
 - name: is_cedar
   description: 'Identifies whether the version is hosted by CEDAR'
-  example: 'https://openview.metadatacenter.org/templates/https:%2F%2Frepo.metadatacenter.org%2Ftemplates%2F2d2c70c3-4735-4844-9542-832b8ddaee52'
+  example: ''
 - name: assay_category
   constraints:
     enum:
-      - mxfbe
+      - sequence
 - name: assay_type
   constraints:
     enum:
-      - Cell Dive
+      - Slide-seq

@@ -143,7 +143,7 @@ def generate_readme_md(
 
     raw_base_url = f'https://raw.githubusercontent.com/hubmapconsortium/' + \
                    ('ingest-validation-tools/main/docs' if not is_cedar
-                    else '/dataset-metadata-spreadsheet/main')
+                    else 'dataset-metadata-spreadsheet/main')
 
     optional_dir_description_md = (
         f'## Directory schemas\n{_make_dir_descriptions(directory_schemas, pipeline_infos)}'
@@ -171,7 +171,8 @@ def generate_readme_md(
     )
 
     # If it is a draft, no link
-    if is_draft:
+    if is_draft or (is_cedar and
+                    max_version_table_schema.get('fields', [])[0].get('example', '') == ''):
         tsv_url = ''
         xlsx_url = ''
     # If it is a cedar template, link to the dataset-metadata-spreadsheet repo

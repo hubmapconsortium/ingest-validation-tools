@@ -549,6 +549,9 @@ is_cedar:
 - geomx
 - hifi-slide
 - histology
+- imc
+- imc3d
+- ims
 - lcms
 - lightsheet
 - maldi
@@ -575,6 +578,7 @@ is_cedar:
 - seqfish
 - shg
 - sims
+- slideseq
 - srs
 - stained
 - tsm-mxif
