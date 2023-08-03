@@ -493,6 +493,8 @@ Relative path to file or directory with instrument data. Downstream processing w
 </details>
 
 
+<br>
+
 ## Directory schemas
 ### v2
 <summary><a href="https://docs.google.com/spreadsheets/d/1KLY5iXZbbb_5RNR_lZgGSqHiAKBbe34YrtrywSuUC3M">Draft</a></summary>
