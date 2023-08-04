@@ -9,8 +9,8 @@ layout: default
 
 Related files:
 
-- [📝 Excel template](https://raw.githubusercontent.com/hubmapconsortium/dataset-metadata-spreadsheet/main/stained/latest/stained.xlsx): For metadata entry.
-- [📝 TSV template](https://raw.githubusercontent.com/hubmapconsortium/dataset-metadata-spreadsheet/main/stained/latest/stained.tsv): Alternative for metadata entry.
+- [📝 Excel template](): For metadata entry.
+- [📝 TSV template](): Alternative for metadata entry.
 
 This schema has been incorporated into the histology schema which can be accessed [here](https://hubmapconsortium.github.io/ingest-validation-tools/histology/).
 
@@ -20,7 +20,9 @@ This schema has been incorporated into the histology schema which can be accesse
 - *Boolean* fields can be given as `TRUE`/`FALSE`, `True`/`False`, `true`/`false`, or `1`/`0`.  
 
 
-<summary><a href="https://openview.metadatacenter.org/templates/https:%2F%2Frepo.metadatacenter.org%2Ftemplates%2F2263a3e3-819b-4639-a3db-3dbc0e46cda1"><b>Version 2 (current)</b></a></summary>
+<details markdown="1" open="true"><summary><b>Version 2 (current)</b></summary>
+No further updates to this assay schema are expected as we do not expect to receive additional data.
+</details>
 
 
 <details markdown="1" ><summary><b>Version 1</b></summary>
