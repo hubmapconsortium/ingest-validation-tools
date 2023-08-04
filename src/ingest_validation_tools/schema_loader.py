@@ -92,25 +92,28 @@ def _assay_to_schema_name(assay_type: str, source_project: str) -> str:
 
     >>> try:  _assay_to_schema_name('PAS microscopy', 'HCA')
     ... except PreflightError as e: print(e)
-    No schema where 'PAS microscopy' is assay_type and 'HCA' is source_project
+    No non-deprecated schema where 'PAS microscopy' is assay_type and 'HCA' is source_project
 
     >>> try: _assay_to_schema_name('snRNAseq', 'Bad Project')
     ... except PreflightError as e: print(e)
-    No schema where 'snRNAseq' is assay_type and 'Bad Project' is source_project
+    No non-deprecated schema where 'snRNAseq' is assay_type and 'Bad Project' is source_project
 
     >>> try: _assay_to_schema_name('Bad assay', None)
     ... except PreflightError as e: print(e)
-    No schema where 'Bad assay' is assay_type
+    No non-deprecated schema where 'Bad assay' is assay_type
 
     >>> try: _assay_to_schema_name('Bad assay', 'HCA')
     ... except PreflightError as e: print(e)
-    No schema where 'Bad assay' is assay_type and 'HCA' is source_project
+    No non-deprecated schema where 'Bad assay' is assay_type and 'HCA' is source_project
 
     '''
     for path in (Path(__file__).parent / 'table-schemas' / 'assays').glob('*.yaml'):
         schema = load_yaml(path)
         assay_type_enum = get_field_enum('assay_type', schema)
         source_project_enum = get_field_enum('source_project', schema)
+
+        if schema.get('deprecated', False):
+            continue
 
         if assay_type not in assay_type_enum:
             continue
@@ -125,12 +128,20 @@ def _assay_to_schema_name(assay_type: str, source_project: str) -> str:
             if source_project not in source_project_enum:
                 continue
 
+        is_cedar = False
+        for field in schema.get('fields', []):
+            if type(field) == dict and field.get('name', '') == 'is_cedar':
+                is_cedar = True
+
+        if is_cedar:
+            continue
+
         v_match = re.match(r'.+(?=-v\d+)', path.stem)
         if not v_match:
             raise PreflightError(f'No version in {path}')
         return v_match[0]
 
-    message = f"No schema where '{assay_type}' is assay_type"
+    message = f"No non-deprecated schema where '{assay_type}' is assay_type"
     if source_project is not None:
         message += f" and '{source_project}' is source_project"
     raise PreflightError(message)
