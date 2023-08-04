@@ -9,8 +9,7 @@ layout: default
 
 Related files:
 ${optional_doc_link_md}
-- [📝 Excel template](${xlsx_url}): For metadata entry.
-- [📝 TSV template](${tsv_url}): Alternative for metadata entry.
+${related_files_section_md}
 
 ${optional_description_md}
 

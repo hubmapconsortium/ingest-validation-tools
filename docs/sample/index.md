@@ -9,8 +9,7 @@ layout: default
 
 Related files:
 
-- [📝 Excel template](): For metadata entry.
-- [📝 TSV template](): Alternative for metadata entry.
+Excel and TSV templates for this schema will be available when the draft next-generation schema, to be used in all future submissions, is finalized (no later than Sept. 30).
 
 This schema has been replaced by the individual [Block](https://hubmapconsortium.github.io/ingest-validation-tools/sample-block/), [Section](https://hubmapconsortium.github.io/ingest-validation-tools/sample-section/), and [Suspension](https://hubmapconsortium.github.io/ingest-validation-tools/sample-suspensino/) schemas. Please use these moving forward. For more information, please refer to [this document](https://docs.google.com/document/d/1KEo-34Rjf6gS3ZM3DEenIejtb35txPLsbpdjBmbKauo/).
 
@@ -20,8 +19,8 @@ This schema has been replaced by the individual [Block](https://hubmapconsortium
 - *Boolean* fields can be given as `TRUE`/`FALSE`, `True`/`False`, `true`/`false`, or `1`/`0`.  
 
 
-<details markdown="1" open="true"><summary><b>Version 1 (current)</b></summary>
-No further updates to this assay schema are expected as we do not expect to receive additional data.
+<details markdown="1" open="true"><summary><s>Version 1 (current)</s> (deprecated)</summary>
+<b>DO NOT USE FOR FUTURE SUBMISSIONS</b>
 </details>
 
 

@@ -1,3 +1,4 @@
+deprecated: True
 description_md: This schema has been incorporated into the cycif schema which can be 
   accessed [here](https://hubmapconsortium.github.io/ingest-validation-tools/cycif/).
 fields:

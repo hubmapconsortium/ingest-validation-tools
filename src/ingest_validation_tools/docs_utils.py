@@ -136,6 +136,7 @@ def generate_readme_md(
     title += f" ({' / '.join(source_project_enum)})" \
         if source_project_enum else ''
 
+    is_deprecated = max_version_table_schema.get('deprecated', False)
     is_cedar = (max_version_table_schema.get('fields', [])[0] and
                 type(max_version_table_schema.get('fields', [])[0]) == dict and
                 max_version_table_schema.get('fields', [])[0].get('name', '') == 'is_cedar')
@@ -183,6 +184,13 @@ def generate_readme_md(
         tsv_url = f'{raw_base_url}/{schema_name}/{get_tsv_name(schema_name, is_assay=is_assay)}'
         xlsx_url = f'{raw_base_url}/{schema_name}/{get_xlsx_name(schema_name, is_assay=is_assay)}'
 
+    related_files_section_md = f'''
+- [📝 Excel template]({xlsx_url}): For metadata entry.
+- [📝 TSV template]({tsv_url}): Alternative for metadata entry.
+''' if tsv_url and xlsx_url else 'Excel and TSV templates for this schema will be available ' \
+                                 'when the draft next-generation schema, to be used in all ' \
+                                 'future submissions, is finalized (no later than Sept. 30).'
+
     return template.substitute({
         'title': title,
         'schema_name': schema_name,
@@ -207,13 +215,13 @@ def generate_readme_md(
         'exclude_from_index':
             all(schema.get('exclude_from_index') for schema in table_schemas.values()),
 
-        'tsv_url': tsv_url,
-        'xlsx_url': xlsx_url,
+        'related_files_section_md': related_files_section_md,
 
         'current_version_md':
             _make_fields_md(
                 max_version_table_schema,
-                f'Version {max_version} (current{optional_release_date})',
+                f'Version {max_version} '
+                f'{f"(use this one{optional_release_date})" if not is_deprecated else f"(current)"}',
                 is_open=True
         ),
         'previous_versions_md':
@@ -263,7 +271,7 @@ def _make_fields_md(table_schema, title, is_open=False):
     if table_schema.get('deprecated'):
         title_html = f'<s>{title}</s> (deprecated)'
     elif table_schema.get('draft'):
-        title_html = f'<b>{title}</b> (draft)'
+        title_html = f'<b>{title}</b> (draft submission of data prepared using this schema will be supported by Sept. 30)'
     else:
         title_html = f'<b>{title}</b>'
 
@@ -302,7 +310,7 @@ def _make_fields_md(table_schema, title, is_open=False):
         else:
             return f'''
 <details markdown="1" {'open="true"' if is_open else ''}><summary>{title_html}</summary>
-No further updates to this assay schema are expected as we do not expect to receive additional data.
+<b>DO NOT USE FOR FUTURE SUBMISSIONS</b>
 </details>
 '''
 
