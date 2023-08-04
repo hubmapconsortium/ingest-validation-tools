@@ -172,7 +172,7 @@ def generate_readme_md(
     )
 
     # If it is a draft, no link
-    if is_draft or (is_cedar and
+    if is_deprecated or is_draft or (is_cedar and
                     max_version_table_schema.get('fields', [])[0].get('example', '') == ''):
         tsv_url = ''
         xlsx_url = ''
@@ -190,6 +190,9 @@ def generate_readme_md(
 ''' if tsv_url and xlsx_url else 'Excel and TSV templates for this schema will be available ' \
                                  'when the draft next-generation schema, to be used in all ' \
                                  'future submissions, is finalized (no later than Sept. 30).'
+
+    if is_deprecated:
+        related_files_section_md = ''
 
     return template.substitute({
         'title': title,

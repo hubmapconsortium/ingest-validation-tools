@@ -9,7 +9,7 @@ layout: default
 
 Related files:
 
-Excel and TSV templates for this schema will be available when the draft next-generation schema, to be used in all future submissions, is finalized (no later than Sept. 30).
+
 
 This schema has been replaced by the individual [Block](https://hubmapconsortium.github.io/ingest-validation-tools/sample-block/), [Section](https://hubmapconsortium.github.io/ingest-validation-tools/sample-section/), and [Suspension](https://hubmapconsortium.github.io/ingest-validation-tools/sample-suspensino/) schemas. Please use these moving forward. For more information, please refer to [this document](https://docs.google.com/document/d/1KEo-34Rjf6gS3ZM3DEenIejtb35txPLsbpdjBmbKauo/).
 

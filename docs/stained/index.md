@@ -9,7 +9,7 @@ layout: default
 
 Related files:
 
-Excel and TSV templates for this schema will be available when the draft next-generation schema, to be used in all future submissions, is finalized (no later than Sept. 30).
+
 
 This schema has been incorporated into the histology schema which can be accessed [here](https://hubmapconsortium.github.io/ingest-validation-tools/histology/).
 
