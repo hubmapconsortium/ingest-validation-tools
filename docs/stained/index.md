@@ -514,8 +514,6 @@ Relative path to file or directory with instrument data. Downstream processing w
 <br>
 
 ## Directory schemas
-### [Version 2](https://docs.google.com/spreadsheets/d/1_fMJrZVgx8g80uduxfr1HcIHz52_fpRfwFWFrA40tlg) (draft)
-
 ### Version 1
 
 | pattern | required? | description |
