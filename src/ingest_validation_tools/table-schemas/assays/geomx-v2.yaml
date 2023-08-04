@@ -12,3 +12,4 @@ fields:
     enum:
       - GeoMx (RNA)
       - GeoMx (protein)
+      - GeoMx

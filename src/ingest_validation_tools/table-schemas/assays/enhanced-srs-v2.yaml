@@ -9,4 +9,4 @@ fields:
 - name: assay_type
   constraints:
     enum:
-      - Enhanced SRS
+      - Enhanced Stimulated Raman Spectroscopy (SRS)

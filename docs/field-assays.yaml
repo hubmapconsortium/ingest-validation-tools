@@ -187,12 +187,13 @@ assay_category:
 - 10x Multiome
 - 3D Imaging Mass Cytometry
 - AF
+- ATACseq (bulk)
+- Auto-fluorescence
 - Body CT
 - CE-MS
 - CODEX
 - CODEX2
 - Cell DIVE
-- Cell Dive
 - Confocal
 - CosMx
 - CyCIF
@@ -231,6 +232,7 @@ assay_category:
 - PhenoCycler
 - RNAseq (GeoMx)
 - RNAseq (Visium)
+- RNAseq (bulk)
 - SIMS
 - SIMS-IMS
 - SNARE-seq2
@@ -265,12 +267,13 @@ assay_type:
 - 10x Multiome
 - 3D Imaging Mass Cytometry
 - AF
+- ATACseq (bulk)
+- Auto-fluorescence
 - Body CT
 - CE-MS
 - CODEX
 - CODEX2
 - Cell DIVE
-- Cell Dive
 - Confocal
 - CosMx
 - CyCIF
@@ -310,6 +313,7 @@ assay_type:
 - Publication
 - RNAseq (GeoMx)
 - RNAseq (Visium)
+- RNAseq (bulk)
 - SIMS
 - SIMS-IMS
 - SNARE-seq2
@@ -793,10 +797,12 @@ is_cedar:
 - 10x Multiome
 - 3D Imaging Mass Cytometry
 - AF
+- ATACseq (bulk)
+- Auto-fluorescence
 - Body CT
 - CE-MS
 - CODEX
-- Cell Dive
+- Cell DIVE
 - Confocal
 - CosMx
 - CyCIF
@@ -826,6 +832,7 @@ is_cedar:
 - Publication
 - RNAseq (GeoMx)
 - RNAseq (Visium)
+- RNAseq (bulk)
 - SIMS
 - SNARE-seq2
 - SNARE2-RNAseq

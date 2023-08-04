@@ -9,8 +9,7 @@ layout: default
 
 Related files:
 
-- [📝 Excel template](): For metadata entry.
-- [📝 TSV template](): Alternative for metadata entry.
+
 
 This schema has been incorporated into the cycif schema which can be accessed [here](https://hubmapconsortium.github.io/ingest-validation-tools/cycif/).
 
@@ -20,8 +19,8 @@ This schema has been incorporated into the cycif schema which can be accessed [h
 - *Boolean* fields can be given as `TRUE`/`FALSE`, `True`/`False`, `true`/`false`, or `1`/`0`.  
 
 
-<details markdown="1" open="true"><summary><b>Version 2 (current)</b></summary>
-No further updates to this assay schema are expected as we do not expect to receive additional data.
+<details markdown="1" open="true"><summary><s>Version 2 (current)</s> (deprecated)</summary>
+<b>DO NOT USE FOR FUTURE SUBMISSIONS</b>
 </details>
 
 

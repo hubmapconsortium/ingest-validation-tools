@@ -9,8 +9,10 @@ layout: default
 
 Related files:
 
+
 - [📝 Excel template](https://raw.githubusercontent.com/hubmapconsortium/dataset-metadata-spreadsheet/main/histology/latest/histology.xlsx): For metadata entry.
 - [📝 TSV template](https://raw.githubusercontent.com/hubmapconsortium/dataset-metadata-spreadsheet/main/histology/latest/histology.tsv): Alternative for metadata entry.
+
 
 
 
@@ -20,7 +22,7 @@ Related files:
 - *Boolean* fields can be given as `TRUE`/`FALSE`, `True`/`False`, `true`/`false`, or `1`/`0`.  
 
 
-<summary><a href="https://openview.metadatacenter.org/templates/https:%2F%2Frepo.metadatacenter.org%2Ftemplates%2F2263a3e3-819b-4639-a3db-3dbc0e46cda1"><b>Version 2 (current)</b></a></summary>
+<summary><a href="https://openview.metadatacenter.org/templates/https:%2F%2Frepo.metadatacenter.org%2Ftemplates%2F2263a3e3-819b-4639-a3db-3dbc0e46cda1"><b>Version 2 (use this one)</b></a></summary>
 
 
 

@@ -9,8 +9,10 @@ layout: default
 
 Related files:
 
+
 - [📝 Excel template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/main/docs/contributors/contributors.xlsx): For metadata entry.
 - [📝 TSV template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/main/docs/contributors/contributors.tsv): Alternative for metadata entry.
+
 
 
 
@@ -20,7 +22,7 @@ Related files:
 - *Boolean* fields can be given as `TRUE`/`FALSE`, `True`/`False`, `true`/`false`, or `1`/`0`.  
 
 
-<details markdown="1" open="true"><summary><b>Version 1 (current)</b></summary>
+<details markdown="1" open="true"><summary><b>Version 1 (use this one)</b></summary>
 
 <blockquote markdown="1">
 
