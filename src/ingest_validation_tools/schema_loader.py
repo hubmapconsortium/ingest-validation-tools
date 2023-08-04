@@ -50,8 +50,10 @@ def get_table_schema_version_from_row(path: str, row: Dict[str, Any]) -> SchemaV
     >>> get_table_schema_version_from_row('v0', {'assay_type': 'PAS microscopy'})
     SchemaVersion(schema_name='stained', version=0)
 
-    >>> get_table_schema_version_from_row('v42', {'assay_type': 'PAS microscopy', 'version': 42})
-    SchemaVersion(schema_name='stained', version=42)
+    >>> try: get_table_schema_version_from_row('v42',
+    ... {'assay_type': 'PAS microscopy', 'version': 42})
+    ... except PreflightError as e: print(e)
+    No schema where 'PAS microscopy' is assay_type and 42 is version
 
     '''
     if 'assay_type' not in row:
@@ -66,26 +68,36 @@ def get_table_schema_version_from_row(path: str, row: Dict[str, Any]) -> SchemaV
 
     assay = row['assay_type']
     source_project = row['source_project'] if 'source_project' in row else None
-    schema_name = _assay_to_schema_name(assay, source_project)
 
     version = row['version'] if 'version' in row else 0
-    return SchemaVersion(schema_name, version)
+
+    schema_names = _assay_to_schema_name(assay, source_project)
+
+    for schema_name in schema_names:
+        if Path(
+            _table_schemas_path / 'assays' /
+            _get_schema_filename(schema_name, version)
+        ).exists():
+            return SchemaVersion(schema_name, version)
+
+    message = f"No schema where '{assay}' is assay_type and {version} is version"
+    raise PreflightError(message)
 
 
-def _assay_to_schema_name(assay_type: str, source_project: str) -> str:
+def _assay_to_schema_name(assay_type: str, source_project: str) -> List[str]:
     '''
     Given an assay name, and a source_project (may be None),
     read all the schemas until one matches.
     Return the schema name, but not the version.
 
     >>> _assay_to_schema_name('PAS microscopy', None)
-    'stained'
+    ['stained']
 
     >>> _assay_to_schema_name('snRNAseq', None)
-    'scrnaseq'
+    ['scrnaseq']
 
     >>> _assay_to_schema_name('snRNAseq', 'HCA')
-    'scrnaseq-hca'
+    ['scrnaseq-hca']
 
 
     Or, if a match can not be found (try-except just for shorter lines):
@@ -107,6 +119,7 @@ def _assay_to_schema_name(assay_type: str, source_project: str) -> str:
     No schema where 'Bad assay' is assay_type and 'HCA' is source_project
 
     '''
+    assay_names = []
     for path in (Path(__file__).parent / 'table-schemas' / 'assays').glob('*.yaml'):
         schema = load_yaml(path)
         assay_type_enum = get_field_enum('assay_type', schema)
@@ -125,10 +138,21 @@ def _assay_to_schema_name(assay_type: str, source_project: str) -> str:
             if source_project not in source_project_enum:
                 continue
 
+        is_cedar = False
+        for field in schema.get('fields', []):
+            if type(field) == dict and field.get('name', '') == 'is_cedar':
+                is_cedar = True
+
+        if is_cedar:
+            continue
+
         v_match = re.match(r'.+(?=-v\d+)', path.stem)
         if not v_match:
             raise PreflightError(f'No version in {path}')
-        return v_match[0]
+        assay_names.append(v_match[0])
+
+    if assay_names:
+        return list(set(assay_names))
 
     message = f"No schema where '{assay_type}' is assay_type"
     if source_project is not None:
