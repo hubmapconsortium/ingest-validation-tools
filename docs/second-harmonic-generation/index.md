@@ -1,6 +1,6 @@
 ---
 title: Second Harmonic Generation
-schema_name: shg
+schema_name: second-harmonic-generation
 category: Single-cycle Fluorescence Microscopy (SFM)
 all_versions_deprecated: False
 exclude_from_index: False
@@ -9,8 +9,8 @@ layout: default
 
 Related files:
 
-- [📝 Excel template](https://raw.githubusercontent.com/hubmapconsortium/dataset-metadata-spreadsheet/main/shg/latest/shg.xlsx): For metadata entry.
-- [📝 TSV template](https://raw.githubusercontent.com/hubmapconsortium/dataset-metadata-spreadsheet/main/shg/latest/shg.tsv): Alternative for metadata entry.
+- [📝 Excel template](https://raw.githubusercontent.com/hubmapconsortium/dataset-metadata-spreadsheet/main/second-harmonic-generation/latest/second-harmonic-generation.xlsx): For metadata entry.
+- [📝 TSV template](https://raw.githubusercontent.com/hubmapconsortium/dataset-metadata-spreadsheet/main/second-harmonic-generation/latest/second-harmonic-generation.tsv): Alternative for metadata entry.
 
 
 

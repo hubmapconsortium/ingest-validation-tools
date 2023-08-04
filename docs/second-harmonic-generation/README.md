@@ -1,0 +1,1 @@
+Moved to [github pages](https://hubmapconsortium.github.io/ingest-validation-tools/second-harmonic-generation/).

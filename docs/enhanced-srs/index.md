@@ -1,6 +1,6 @@
 ---
 title: Enhanced SRS
-schema_name: srs
+schema_name: enhanced-srs
 category: Single-cycle Fluorescence Microscopy (SFM)
 all_versions_deprecated: False
 exclude_from_index: False
@@ -9,8 +9,8 @@ layout: default
 
 Related files:
 
-- [📝 Excel template](https://raw.githubusercontent.com/hubmapconsortium/dataset-metadata-spreadsheet/main/srs/latest/srs.xlsx): For metadata entry.
-- [📝 TSV template](https://raw.githubusercontent.com/hubmapconsortium/dataset-metadata-spreadsheet/main/srs/latest/srs.tsv): Alternative for metadata entry.
+- [📝 Excel template](https://raw.githubusercontent.com/hubmapconsortium/dataset-metadata-spreadsheet/main/enhanced-srs/latest/enhanced-srs.xlsx): For metadata entry.
+- [📝 TSV template](https://raw.githubusercontent.com/hubmapconsortium/dataset-metadata-spreadsheet/main/enhanced-srs/latest/enhanced-srs.tsv): Alternative for metadata entry.
 
 
 

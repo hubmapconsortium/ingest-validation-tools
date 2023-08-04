@@ -1,6 +1,6 @@
 ---
 title: Thick Section Multiphoton MxIF
-schema_name: tsm-mxif
+schema_name: thick-section-multiphoton-mxif
 category: Single-cycle Fluorescence Microscopy (SFM)
 all_versions_deprecated: False
 exclude_from_index: False
@@ -9,8 +9,8 @@ layout: default
 
 Related files:
 
-- [📝 Excel template](https://raw.githubusercontent.com/hubmapconsortium/dataset-metadata-spreadsheet/main/tsm-mxif/latest/tsm-mxif.xlsx): For metadata entry.
-- [📝 TSV template](https://raw.githubusercontent.com/hubmapconsortium/dataset-metadata-spreadsheet/main/tsm-mxif/latest/tsm-mxif.tsv): Alternative for metadata entry.
+- [📝 Excel template](https://raw.githubusercontent.com/hubmapconsortium/dataset-metadata-spreadsheet/main/thick-section-multiphoton-mxif/latest/thick-section-multiphoton-mxif.xlsx): For metadata entry.
+- [📝 TSV template](https://raw.githubusercontent.com/hubmapconsortium/dataset-metadata-spreadsheet/main/thick-section-multiphoton-mxif/latest/thick-section-multiphoton-mxif.tsv): Alternative for metadata entry.
 
 
 
