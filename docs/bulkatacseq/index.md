@@ -1,5 +1,5 @@
 ---
-title: bulkATACseq
+title: ATACseq (bulk) / bulkATACseq
 schema_name: bulkatacseq
 category: Sequence Assays
 all_versions_deprecated: False

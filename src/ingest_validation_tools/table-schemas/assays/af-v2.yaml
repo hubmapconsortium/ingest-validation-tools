@@ -10,4 +10,5 @@ fields:
 - name: assay_type
   constraints:
     enum:
+      - Auto-fluorescence
       - AF

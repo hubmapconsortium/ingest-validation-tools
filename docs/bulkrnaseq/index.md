@@ -1,5 +1,5 @@
 ---
-title: bulk-RNA
+title: RNAseq (bulk) / bulk-RNA
 schema_name: bulkrnaseq
 category: Sequence Assays
 all_versions_deprecated: False

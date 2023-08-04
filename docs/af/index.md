@@ -1,5 +1,5 @@
 ---
-title: AF
+title: Auto-fluorescence / AF
 schema_name: af
 category: Single-cycle Fluorescence Microscopy (SFM)
 all_versions_deprecated: False

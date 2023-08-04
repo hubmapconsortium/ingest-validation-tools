@@ -1,5 +1,5 @@
 ---
-title: Cell Dive
+title: Cell DIVE
 schema_name: celldive
 category: Multiplex Fluorescence Based Experiment (MxFBE)
 all_versions_deprecated: False
