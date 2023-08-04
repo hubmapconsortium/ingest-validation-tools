@@ -80,7 +80,8 @@ def get_table_schema_version_from_row(path: str, row: Dict[str, Any]) -> SchemaV
             _get_schema_filename(schema_name, version)
         ).exists():
             # TODO: Load the right schema
-            # If the file we received has metadata_schema_id field, only check for is_cedar and that the ids match
+            # If the file we received has metadata_schema_id field,
+            # only check for is_cedar and that the ids match
             # If the file does not have that field, then we check for not is_cedar
             return SchemaVersion(schema_name, version)
 

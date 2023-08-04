@@ -173,7 +173,8 @@ def generate_readme_md(
 
     # If it is a draft, no link
     if is_deprecated or is_draft or (is_cedar and
-                    max_version_table_schema.get('fields', [])[0].get('example', '') == ''):
+                                     max_version_table_schema.get('fields', [])[0]
+                                     .get('example', '') == ''):
         tsv_url = ''
         xlsx_url = ''
     # If it is a cedar template, link to the dataset-metadata-spreadsheet repo
@@ -224,7 +225,7 @@ def generate_readme_md(
             _make_fields_md(
                 max_version_table_schema,
                 f'Version {max_version} '
-                f'{f"(use this one{optional_release_date})" if not is_deprecated else f"(current)"}',
+                f'({f"use this one{optional_release_date}" if not is_deprecated else f"current"})',
                 is_open=True
         ),
         'previous_versions_md':
@@ -274,7 +275,8 @@ def _make_fields_md(table_schema, title, is_open=False):
     if table_schema.get('deprecated'):
         title_html = f'<s>{title}</s> (deprecated)'
     elif table_schema.get('draft'):
-        title_html = f'<b>{title}</b> (draft submission of data prepared using this schema will be supported by Sept. 30)'
+        title_html = f'<b>{title}</b> (draft submission of data' \
+                     f' prepared using this schema will be supported by Sept. 30)'
     else:
         title_html = f'<b>{title}</b>'
 

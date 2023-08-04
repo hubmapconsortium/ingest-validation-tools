@@ -197,12 +197,14 @@ assay_category:
 - Confocal
 - CosMx
 - CyCIF
+- DBiT
 - DESI
-- Enhanced SRS
+- Enhanced Stimulated Raman Spectroscopy (SRS)
 - GC-MS
+- GeoMx
 - GeoMx (RNA)
 - GeoMx (protein)
-- HiFi
+- HiFi-Slide
 - Histology
 - IMS
 - Imaging Mass Cytometry
@@ -223,6 +225,7 @@ assay_category:
 - MS Top-Down
 - Micro CT
 - Molecular Cartography
+- Multiplex Ion Beam Imaging
 - MxIF
 - NanoDESI
 - NanoPOTS
@@ -251,7 +254,8 @@ assay_category:
 - bulk-RNA
 - bulkATACseq
 - cell-dive
-- hrsTP-seq (DBiTSeq)
+- scATAC-seq
+- scRNA-seq
 - scRNAseq
 - scRNAseq-10xGenomics
 - scRNAseq-10xGenomics-v2
@@ -277,12 +281,14 @@ assay_type:
 - Confocal
 - CosMx
 - CyCIF
+- DBiT
 - DESI
-- Enhanced SRS
+- Enhanced Stimulated Raman Spectroscopy (SRS)
 - GC-MS
+- GeoMx
 - GeoMx (RNA)
 - GeoMx (protein)
-- HiFi
+- HiFi-Slide
 - Histology
 - IMS
 - Imaging Mass Cytometry
@@ -303,6 +309,7 @@ assay_type:
 - MS Top-Down
 - Micro CT
 - Molecular Cartography
+- Multiplex Ion Beam Imaging
 - MxIF
 - NanoDESI
 - NanoPOTS
@@ -332,8 +339,9 @@ assay_type:
 - bulk-RNA
 - bulkATACseq
 - cell-dive
-- hrsTP-seq (DBiTSeq)
 - publication
+- scATAC-seq
+- scRNA-seq
 - scRNAseq
 - scRNAseq-10xGenomics
 - scRNAseq-10xGenomics-v2
@@ -806,12 +814,14 @@ is_cedar:
 - Confocal
 - CosMx
 - CyCIF
+- DBiT
 - DESI
-- Enhanced SRS
+- Enhanced Stimulated Raman Spectroscopy (SRS)
 - GC-MS
+- GeoMx
 - GeoMx (RNA)
 - GeoMx (protein)
-- HiFi
+- HiFi-Slide
 - Histology
 - IMS
 - Imaging Mass Cytometry
@@ -819,10 +829,10 @@ is_cedar:
 - Light Sheet
 - MALDI
 - MERFISH
-- MIBI
 - MRI
 - Micro CT
 - Molecular Cartography
+- Multiplex Ion Beam Imaging
 - MxIF
 - NanoDESI
 - OCT
@@ -849,7 +859,8 @@ is_cedar:
 - Xenium
 - bulk-RNA
 - bulkATACseq
-- hrsTP-seq (DBiTSeq)
+- scATAC-seq
+- scRNA-seq
 - scRNAseq
 - scRNAseq-10xGenomics-v2
 - scRNAseq-10xGenomics-v3
