@@ -1,7 +1,30 @@
 ```
-Metadata TSV Errors:
-  examples/dataset-examples/bad-tsv-formats/upload/codex-metadata.tsv (as codex):
-    Internal:
+Upload Errors:
+  TSV Errors:
+    examples/dataset-examples/bad-tsv-formats/upload/contributors.tsv (as codex):
+      row 2, contributors examples/dataset-examples/bad-tsv-formats/upload/contributors.tsv: File
+        has no data rows.
+    examples/dataset-examples/bad-tsv-formats/upload/antibodies.tsv (as codex):
+      row 2, antibodies examples/dataset-examples/bad-tsv-formats/upload/antibodies.tsv: File
+        does not exist.
+  Directory Errors:
+    examples/dataset-examples/bad-tsv-formats/upload/dataset-1 (as codex):
+      row 2, data examples/dataset-examples/bad-tsv-formats/upload/dataset-1:
+        Not allowed:
+        - channelnames.txt.
+        - cyc002_reg001_200216_112537/1_00001_Z001_CH1.tif.
+        - experiment.json.
+        - exposure_times.txt.
+        - segmentation.json.
+        Required but missing:
+        - (processed|drv_[^/]*)/.*.
+        - (raw|processed)/config\.txt|(raw|src_[^/]*|drv_[^/]*)/[sS]egmentation\.json.
+        - (raw|src_.*)/.*.
+        - (raw|src_.*)/[cC]yc.*_reg.*/.*_Z.*_CH.*\.tif.
+        - (raw|src_[^/]*)/[Ee]xperiment\.json.
+Metadata TSV Validation Errors:
+  Local Validation Errors:
+    examples/dataset-examples/bad-tsv-formats/upload/codex-metadata.tsv (as codex):
     - 'On row 2, column "donor_id", value "not-uuid" fails because it does not match
       the expected pattern. Example: ABC123.'
     - 'On row 2, column "tissue_id", value "not-uuid" fails because it does not match
@@ -45,24 +68,6 @@ Metadata TSV Errors:
       it does not match the expected pattern.
     - On row 2, column "reagent_prep_protocols_io_doi", value "not-doi" fails because
       it does not match the expected pattern.
-    External:
-      row 2, data examples/dataset-examples/bad-tsv-formats/upload/dataset-1:
-        Not allowed:
-        - channelnames.txt.
-        - cyc002_reg001_200216_112537/1_00001_Z001_CH1.tif.
-        - experiment.json.
-        - exposure_times.txt.
-        - segmentation.json.
-        Required but missing:
-        - (processed|drv_[^/]*)/.*.
-        - (raw|processed)/config\.txt|(raw|src_[^/]*|drv_[^/]*)/[sS]egmentation\.json.
-        - (raw|src_.*)/.*.
-        - (raw|src_.*)/[cC]yc.*_reg.*/.*_Z.*_CH.*\.tif.
-        - (raw|src_[^/]*)/[Ee]xperiment\.json.
-      row 2, contributors examples/dataset-examples/bad-tsv-formats/upload/contributors.tsv: File
-        has no data rows.
-      row 2, antibodies examples/dataset-examples/bad-tsv-formats/upload/antibodies.tsv: File
-        does not exist.
 Reference Errors:
   No References:
     Files:
