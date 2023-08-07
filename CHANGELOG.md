@@ -46,6 +46,7 @@
 - Updated error messages to be less programmer centric.
 - Updated ims-v2 spec to include DESI as an acceptable enumeration for ms_source.
 - Upgraded CI python definition to 3.9.
+- Update Cell DIVE with CEDAR UUID
 
 ## v0.0.14 - 2022-06-23
 - bump tzingo -> 1.2.10 (dependabot)
