@@ -275,7 +275,7 @@ def _make_fields_md(table_schema, title, is_open=False):
     if table_schema.get('deprecated'):
         title_html = f'<s>{title}</s> (deprecated)'
     elif table_schema.get('draft'):
-        title_html = f'<b>{title}</b> (draft submission of data' \
+        title_html = f'<b>{title}</b> (draft - submission of data' \
                      f' prepared using this schema will be supported by Sept. 30)'
     else:
         title_html = f'<b>{title}</b>'
@@ -526,7 +526,7 @@ def _make_dir_descriptions(dir_schemas, pipeline_infos):
     >>> print(_make_dir_descriptions({'0': dir_schema_0, '1': dir_schema_1}, pipeline_infos))
     The HIVE will process each dataset with
     [Fake Pipeline v1.2.3](https://github.com/hubmapconsortium/fake/releases/tag/v1.2.3).
-    ### Version 1
+    ### Version 1 (use this one)
     <BLANKLINE>
     | pattern | required? | description |
     | --- | --- | --- |
@@ -548,15 +548,23 @@ def _make_dir_descriptions(dir_schemas, pipeline_infos):
     sorted_items = sorted(dir_schemas.items(), key=lambda item: item[0], reverse=True)
 
     directory_descriptions = ''
+
+    current_version = True
+
     for v, schema in sorted_items:
         if schema.get('draft', False):
             draft_link = schema.get('files', [])[0].get("draft_link", None)
-            directory_descriptions += f'### [Version {v}]({draft_link}) (draft)\n\n'
+            directory_descriptions += f'### [Version {v}]({draft_link})' \
+                                      f'{" (use this one) " if current_version else " "}' \
+                                      f'(draft - submission of data prepared using this' \
+                                      f' schema will be supported by Sept. 30)\n\n'
         else:
-            directory_descriptions += (f'### Version {v}\n' + _make_dir_description(
-                schema['files'],
-                schema.get('deprecated', False)
-            ) + '\n\n')
+            directory_descriptions += (f'### Version {v}'
+                                       f'{" (use this one)" if current_version else ""}'
+                                       f'\n' + _make_dir_description(schema['files'],
+                                                                     schema.get('deprecated', False)
+                                                                     ) + '\n\n')
+        current_version = False
 
     return pipeline_blurb + directory_descriptions
 

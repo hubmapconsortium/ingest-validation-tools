@@ -513,7 +513,7 @@ Relative path to file or directory with instrument data. Downstream processing w
 <br>
 
 ## Directory schemas
-### Version 1
+### Version 1 (use this one)
 
 | pattern | required? | description |
 | --- | --- | --- |

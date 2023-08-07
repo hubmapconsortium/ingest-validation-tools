@@ -771,7 +771,7 @@ Relative path to file or directory with instrument data. Downstream processing w
 <br>
 
 ## Directory schemas
-### Version 0
+### Version 0 (use this one)
 
 | pattern | required? | description |
 | --- | --- | --- |
