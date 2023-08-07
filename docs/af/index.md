@@ -1,5 +1,5 @@
 ---
-title: AF
+title: Auto-fluorescence / AF
 schema_name: af
 category: Single-cycle Fluorescence Microscopy (SFM)
 all_versions_deprecated: False
@@ -9,8 +9,10 @@ layout: default
 
 Related files:
 
+
 - [📝 Excel template](https://raw.githubusercontent.com/hubmapconsortium/dataset-metadata-spreadsheet/main/af/latest/af.xlsx): For metadata entry.
 - [📝 TSV template](https://raw.githubusercontent.com/hubmapconsortium/dataset-metadata-spreadsheet/main/af/latest/af.tsv): Alternative for metadata entry.
+
 
 This schema is for autofluorescence (AF). For an example of an AF dataset & directory, see this [example autofluorescence dataset](https://portal.hubmapconsortium.org/browse/dataset/dc289471333309925e46ceb9bafafaf4#files) and click the Globus link.
 
@@ -20,7 +22,7 @@ This schema is for autofluorescence (AF). For an example of an AF dataset & dire
 - *Boolean* fields can be given as `TRUE`/`FALSE`, `True`/`False`, `true`/`false`, or `1`/`0`.  
 
 
-<summary><a href="https://openview.metadatacenter.org/templates/https:%2F%2Frepo.metadatacenter.org%2Ftemplates%2Fa7f2b6ae-5a0c-4b2f-acf0-80a0878d2bbf"><b>Version 2 (current)</b></a></summary>
+<summary><a href="https://openview.metadatacenter.org/templates/https:%2F%2Frepo.metadatacenter.org%2Ftemplates%2Fa7f2b6ae-5a0c-4b2f-acf0-80a0878d2bbf"><b>Version 2 (use this one)</b></a></summary>
 
 
 <details markdown="1" ><summary><b>Version 1</b></summary>
@@ -494,7 +496,7 @@ Relative path to file or directory with instrument data. Downstream processing w
 <br>
 
 ## Directory schemas
-### [Version 2](https://docs.google.com/spreadsheets/d/1KLY5iXZbbb_5RNR_lZgGSqHiAKBbe34YrtrywSuUC3M) (draft)
+### [Version 2](https://docs.google.com/spreadsheets/d/1KLY5iXZbbb_5RNR_lZgGSqHiAKBbe34YrtrywSuUC3M) (use this one) (draft - submission of data prepared using this schema will be supported by Sept. 30)
 
 ### Version 0
 

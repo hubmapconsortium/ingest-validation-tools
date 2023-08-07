@@ -13,3 +13,4 @@ fields:
       - SNARE-seq2
       - sciATACseq
       - snATACseq
+      - scATAC-seq

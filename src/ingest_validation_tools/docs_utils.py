@@ -136,6 +136,7 @@ def generate_readme_md(
     title += f" ({' / '.join(source_project_enum)})" \
         if source_project_enum else ''
 
+    is_deprecated = max_version_table_schema.get('deprecated', False)
     is_cedar = (max_version_table_schema.get('fields', [])[0] and
                 type(max_version_table_schema.get('fields', [])[0]) == dict and
                 max_version_table_schema.get('fields', [])[0].get('name', '') == 'is_cedar')
@@ -171,8 +172,9 @@ def generate_readme_md(
     )
 
     # If it is a draft, no link
-    if is_draft or (is_cedar and
-                    max_version_table_schema.get('fields', [])[0].get('example', '') == ''):
+    if is_deprecated or is_draft or (is_cedar and
+                                     max_version_table_schema.get('fields', [])[0]
+                                     .get('example', '') == ''):
         tsv_url = ''
         xlsx_url = ''
     # If it is a cedar template, link to the dataset-metadata-spreadsheet repo
@@ -182,6 +184,16 @@ def generate_readme_md(
     else:
         tsv_url = f'{raw_base_url}/{schema_name}/{get_tsv_name(schema_name, is_assay=is_assay)}'
         xlsx_url = f'{raw_base_url}/{schema_name}/{get_xlsx_name(schema_name, is_assay=is_assay)}'
+
+    related_files_section_md = f'''
+- [📝 Excel template]({xlsx_url}): For metadata entry.
+- [📝 TSV template]({tsv_url}): Alternative for metadata entry.
+''' if tsv_url and xlsx_url else 'Excel and TSV templates for this schema will be available ' \
+                                 'when the draft next-generation schema, to be used in all ' \
+                                 'future submissions, is finalized (no later than Sept. 30).'
+
+    if is_deprecated:
+        related_files_section_md = ''
 
     return template.substitute({
         'title': title,
@@ -207,13 +219,13 @@ def generate_readme_md(
         'exclude_from_index':
             all(schema.get('exclude_from_index') for schema in table_schemas.values()),
 
-        'tsv_url': tsv_url,
-        'xlsx_url': xlsx_url,
+        'related_files_section_md': related_files_section_md,
 
         'current_version_md':
             _make_fields_md(
                 max_version_table_schema,
-                f'Version {max_version} (current{optional_release_date})',
+                f'Version {max_version} '
+                f'({f"use this one{optional_release_date}" if not is_deprecated else f"current"})',
                 is_open=True
         ),
         'previous_versions_md':
@@ -263,7 +275,8 @@ def _make_fields_md(table_schema, title, is_open=False):
     if table_schema.get('deprecated'):
         title_html = f'<s>{title}</s> (deprecated)'
     elif table_schema.get('draft'):
-        title_html = f'<b>{title}</b> (draft)'
+        title_html = f'<b>{title}</b> (draft - submission of data' \
+                     f' prepared using this schema will be supported by Sept. 30)'
     else:
         title_html = f'<b>{title}</b>'
 
@@ -302,7 +315,7 @@ def _make_fields_md(table_schema, title, is_open=False):
         else:
             return f'''
 <details markdown="1" {'open="true"' if is_open else ''}><summary>{title_html}</summary>
-No further updates to this assay schema are expected as we do not expect to receive additional data.
+<b>DO NOT USE FOR FUTURE SUBMISSIONS</b>
 </details>
 '''
 
@@ -513,7 +526,7 @@ def _make_dir_descriptions(dir_schemas, pipeline_infos):
     >>> print(_make_dir_descriptions({'0': dir_schema_0, '1': dir_schema_1}, pipeline_infos))
     The HIVE will process each dataset with
     [Fake Pipeline v1.2.3](https://github.com/hubmapconsortium/fake/releases/tag/v1.2.3).
-    ### Version 1
+    ### Version 1 (use this one)
     <BLANKLINE>
     | pattern | required? | description |
     | --- | --- | --- |
@@ -535,15 +548,23 @@ def _make_dir_descriptions(dir_schemas, pipeline_infos):
     sorted_items = sorted(dir_schemas.items(), key=lambda item: item[0], reverse=True)
 
     directory_descriptions = ''
+
+    current_version = True
+
     for v, schema in sorted_items:
         if schema.get('draft', False):
             draft_link = schema.get('files', [])[0].get("draft_link", None)
-            directory_descriptions += f'### [Version {v}]({draft_link}) (draft)\n\n'
+            directory_descriptions += f'### [Version {v}]({draft_link})' \
+                                      f'{" (use this one) " if current_version else " "}' \
+                                      f'(draft - submission of data prepared using this' \
+                                      f' schema will be supported by Sept. 30)\n\n'
         else:
-            directory_descriptions += (f'### Version {v}\n' + _make_dir_description(
-                schema['files'],
-                schema.get('deprecated', False)
-            ) + '\n\n')
+            directory_descriptions += (f'### Version {v}'
+                                       f'{" (use this one)" if current_version else ""}'
+                                       f'\n' + _make_dir_description(schema['files'],
+                                                                     schema.get('deprecated', False)
+                                                                     ) + '\n\n')
+        current_version = False
 
     return pipeline_blurb + directory_descriptions
 

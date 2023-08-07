@@ -66,6 +66,7 @@ def get_table_schema_version_from_row(path: str, row: Dict[str, Any]) -> SchemaV
             message += f'Column headers: {", ".join(row.keys())}'
         raise PreflightError(message)
 
+    # TODO: CEDAR Template uses dataset_type, not assay_type
     assay = row['assay_type']
     source_project = row['source_project'] if 'source_project' in row else None
 
@@ -78,6 +79,10 @@ def get_table_schema_version_from_row(path: str, row: Dict[str, Any]) -> SchemaV
             _table_schemas_path / 'assays' /
             _get_schema_filename(schema_name, version)
         ).exists():
+            # TODO: Load the right schema
+            # If the file we received has metadata_schema_id field,
+            # only check for is_cedar and that the ids match
+            # If the file does not have that field, then we check for not is_cedar
             return SchemaVersion(schema_name, version)
 
     message = f"No schema where '{assay}' is assay_type and {version} is version"

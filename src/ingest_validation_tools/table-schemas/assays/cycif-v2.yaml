@@ -1,0 +1,12 @@
+fields:
+- name: is_cedar
+  description: 'Identifies whether the version is hosted by CEDAR'
+  example: 'https://openview.metadatacenter.org/templates/https:%2F%2Frepo.metadatacenter.org%2Ftemplates%2F82345485-5fe4-4373-8e96-cff2361ff8ab'
+- name: assay_category
+  constraints:
+    enum:
+      - mxfbe
+- name: assay_type
+  constraints:
+    enum:
+      - CyCIF

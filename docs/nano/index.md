@@ -9,8 +9,7 @@ layout: default
 
 Related files:
 
-- [📝 Excel template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/main/docs/nano/nano-metadata.xlsx): For metadata entry.
-- [📝 TSV template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/main/docs/nano/nano-metadata.tsv): Alternative for metadata entry.
+
 
 
 
@@ -567,7 +566,7 @@ Relative path to file or directory with instrument data. Downstream processing w
 <br>
 
 ## Directory schemas
-### Version 0
+### Version 0 (use this one)
 <details markdown="1"><summary>Deprecated</summary>
 
 | pattern | required? | description |

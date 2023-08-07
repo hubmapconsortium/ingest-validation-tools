@@ -1,5 +1,5 @@
 ---
-title: CyCIF / MxIF
+title: MxIF
 schema_name: mxif
 category: Multiplex Fluorescence Based Experiment (MxFBE)
 all_versions_deprecated: False
@@ -9,10 +9,9 @@ layout: default
 
 Related files:
 
-- [📝 Excel template](https://raw.githubusercontent.com/hubmapconsortium/dataset-metadata-spreadsheet/main/mxif/latest/mxif.xlsx): For metadata entry.
-- [📝 TSV template](https://raw.githubusercontent.com/hubmapconsortium/dataset-metadata-spreadsheet/main/mxif/latest/mxif.tsv): Alternative for metadata entry.
 
 
+This schema has been incorporated into the cycif schema which can be accessed [here](https://hubmapconsortium.github.io/ingest-validation-tools/cycif/).
 
 ## Metadata schema
 
@@ -20,7 +19,9 @@ Related files:
 - *Boolean* fields can be given as `TRUE`/`FALSE`, `True`/`False`, `true`/`false`, or `1`/`0`.  
 
 
-<summary><a href="https://openview.metadatacenter.org/templates/https:%2F%2Frepo.metadatacenter.org%2Ftemplates%2F82345485-5fe4-4373-8e96-cff2361ff8ab"><b>Version 2 (current)</b></a></summary>
+<details markdown="1" open="true"><summary><s>Version 2 (current)</s> (deprecated)</summary>
+<b>DO NOT USE FOR FUTURE SUBMISSIONS</b>
+</details>
 
 
 <details markdown="1" ><summary><b>Version 1</b></summary>
@@ -532,9 +533,7 @@ Relative path to file or directory with instrument data. Downstream processing w
 <br>
 
 ## Directory schemas
-### [Version 2](https://docs.google.com/spreadsheets/d/1pZD2e51e4QkxzIk6xjHPPu1RBZpx5mzoykMmlaDK8rA) (draft)
-
-### Version 0
+### Version 0 (use this one)
 
 | pattern | required? | description |
 | --- | --- | --- |

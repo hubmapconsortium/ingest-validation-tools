@@ -1,5 +1,5 @@
 ---
-title: scRNAseq-10xGenomics-v2 / scRNAseq-10xGenomics-v3 / snRNAseq-10xGenomics-v2 / snRNAseq-10xGenomics-v3 / scRNAseq / sciRNAseq / snRNAseq / SNARE2-RNAseq
+title: scRNAseq-10xGenomics-v2 / scRNAseq-10xGenomics-v3 / snRNAseq-10xGenomics-v2 / snRNAseq-10xGenomics-v3 / scRNAseq / sciRNAseq / snRNAseq / SNARE2-RNAseq / scRNA-seq
 schema_name: scrnaseq
 category: Sequence Assays
 all_versions_deprecated: False
@@ -9,8 +9,7 @@ layout: default
 
 Related files:
 
-- [📝 Excel template](): For metadata entry.
-- [📝 TSV template](): Alternative for metadata entry.
+Excel and TSV templates for this schema will be available when the draft next-generation schema, to be used in all future submissions, is finalized (no later than Sept. 30).
 
 
 
@@ -20,7 +19,7 @@ Related files:
 - *Boolean* fields can be given as `TRUE`/`FALSE`, `True`/`False`, `true`/`false`, or `1`/`0`.  
 
 
-<summary><a href="https://docs.google.com/spreadsheets/d/1YNyMWvDTZzuj8m4fgdwLI6Wht1C3zb_s2kTONEVkZmo"><b>Version 4 (current)</b> (draft)</a></summary>
+<summary><a href="https://docs.google.com/spreadsheets/d/1YNyMWvDTZzuj8m4fgdwLI6Wht1C3zb_s2kTONEVkZmo"><b>Version 4 (use this one)</b> (draft - submission of data prepared using this schema will be supported by Sept. 30)</a></summary>
 
 
 <details markdown="1" ><summary><b>Version 3</b></summary>
@@ -1624,7 +1623,7 @@ Relative path to file or directory with instrument data. Downstream processing w
 <br>
 
 ## Directory schemas
-### [Version 2](https://docs.google.com/spreadsheets/d/10Om2iinTwfLn1ySWtovmcm35cQnyg0Pm-rRd0a-eMjc) (draft)
+### [Version 2](https://docs.google.com/spreadsheets/d/10Om2iinTwfLn1ySWtovmcm35cQnyg0Pm-rRd0a-eMjc) (use this one) (draft - submission of data prepared using this schema will be supported by Sept. 30)
 
 ### Version 0
 

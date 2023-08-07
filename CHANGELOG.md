@@ -15,6 +15,7 @@
 - Tweaks for CEDAR release
 - Release new assays with links
 - Fix in place to avoid assay conflicts with new assays
+- Rework wording for CEDAR updates
 
 ## v0.0.15 - 2023-04-04
 - Versioned directory structure schema

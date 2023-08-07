@@ -1,7 +1,10 @@
+deprecated: True
+description_md: This schema has been incorporated into the cycif schema which can be 
+  accessed [here](https://hubmapconsortium.github.io/ingest-validation-tools/cycif/).
 fields:
 - name: is_cedar
   description: 'Identifies whether the version is hosted by CEDAR'
-  example: 'https://openview.metadatacenter.org/templates/https:%2F%2Frepo.metadatacenter.org%2Ftemplates%2F82345485-5fe4-4373-8e96-cff2361ff8ab'
+  example: ''
 - name: assay_category
   constraints:
     enum:
@@ -9,5 +12,4 @@ fields:
 - name: assay_type
   constraints:
     enum:
-      - CyCIF
       - MxIF

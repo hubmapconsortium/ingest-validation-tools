@@ -187,21 +187,24 @@ assay_category:
 - 10x Multiome
 - 3D Imaging Mass Cytometry
 - AF
+- ATACseq (bulk)
+- Auto-fluorescence
 - Body CT
 - CE-MS
 - CODEX
 - CODEX2
 - Cell DIVE
-- Cell Dive
 - Confocal
 - CosMx
 - CyCIF
+- DBiT
 - DESI
-- Enhanced SRS
+- Enhanced Stimulated Raman Spectroscopy (SRS)
 - GC-MS
+- GeoMx
 - GeoMx (RNA)
 - GeoMx (protein)
-- HiFi
+- HiFi-Slide
 - Histology
 - IMS
 - Imaging Mass Cytometry
@@ -222,6 +225,7 @@ assay_category:
 - MS Top-Down
 - Micro CT
 - Molecular Cartography
+- Multiplex Ion Beam Imaging
 - MxIF
 - NanoDESI
 - NanoPOTS
@@ -231,6 +235,7 @@ assay_category:
 - PhenoCycler
 - RNAseq (GeoMx)
 - RNAseq (Visium)
+- RNAseq (bulk)
 - SIMS
 - SIMS-IMS
 - SNARE-seq2
@@ -249,7 +254,8 @@ assay_category:
 - bulk-RNA
 - bulkATACseq
 - cell-dive
-- hrsTP-seq (DBiTSeq)
+- scATAC-seq
+- scRNA-seq
 - scRNAseq
 - scRNAseq-10xGenomics
 - scRNAseq-10xGenomics-v2
@@ -265,21 +271,24 @@ assay_type:
 - 10x Multiome
 - 3D Imaging Mass Cytometry
 - AF
+- ATACseq (bulk)
+- Auto-fluorescence
 - Body CT
 - CE-MS
 - CODEX
 - CODEX2
 - Cell DIVE
-- Cell Dive
 - Confocal
 - CosMx
 - CyCIF
+- DBiT
 - DESI
-- Enhanced SRS
+- Enhanced Stimulated Raman Spectroscopy (SRS)
 - GC-MS
+- GeoMx
 - GeoMx (RNA)
 - GeoMx (protein)
-- HiFi
+- HiFi-Slide
 - Histology
 - IMS
 - Imaging Mass Cytometry
@@ -300,6 +309,7 @@ assay_type:
 - MS Top-Down
 - Micro CT
 - Molecular Cartography
+- Multiplex Ion Beam Imaging
 - MxIF
 - NanoDESI
 - NanoPOTS
@@ -310,6 +320,7 @@ assay_type:
 - Publication
 - RNAseq (GeoMx)
 - RNAseq (Visium)
+- RNAseq (bulk)
 - SIMS
 - SIMS-IMS
 - SNARE-seq2
@@ -328,8 +339,9 @@ assay_type:
 - bulk-RNA
 - bulkATACseq
 - cell-dive
-- hrsTP-seq (DBiTSeq)
 - publication
+- scATAC-seq
+- scRNA-seq
 - scRNAseq
 - scRNAseq-10xGenomics
 - scRNAseq-10xGenomics-v2
@@ -793,19 +805,23 @@ is_cedar:
 - 10x Multiome
 - 3D Imaging Mass Cytometry
 - AF
+- ATACseq (bulk)
+- Auto-fluorescence
 - Body CT
 - CE-MS
 - CODEX
-- Cell Dive
+- Cell DIVE
 - Confocal
 - CosMx
 - CyCIF
+- DBiT
 - DESI
-- Enhanced SRS
+- Enhanced Stimulated Raman Spectroscopy (SRS)
 - GC-MS
+- GeoMx
 - GeoMx (RNA)
 - GeoMx (protein)
-- HiFi
+- HiFi-Slide
 - Histology
 - IMS
 - Imaging Mass Cytometry
@@ -813,10 +829,10 @@ is_cedar:
 - Light Sheet
 - MALDI
 - MERFISH
-- MIBI
 - MRI
 - Micro CT
 - Molecular Cartography
+- Multiplex Ion Beam Imaging
 - MxIF
 - NanoDESI
 - OCT
@@ -826,6 +842,7 @@ is_cedar:
 - Publication
 - RNAseq (GeoMx)
 - RNAseq (Visium)
+- RNAseq (bulk)
 - SIMS
 - SNARE-seq2
 - SNARE2-RNAseq
@@ -842,7 +859,8 @@ is_cedar:
 - Xenium
 - bulk-RNA
 - bulkATACseq
-- hrsTP-seq (DBiTSeq)
+- scATAC-seq
+- scRNA-seq
 - scRNAseq
 - scRNAseq-10xGenomics-v2
 - scRNAseq-10xGenomics-v3

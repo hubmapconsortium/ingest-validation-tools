@@ -27,6 +27,8 @@ def dict_reader_wrapper(path, encoding: str) -> list:
 
 def get_table_schema_version(path, encoding: str) -> SchemaVersion:
     rows = _read_rows(path, encoding)
+    # TODO: We will have row data here, so we can call the
+    #  appropriate subtree of CEDAR/Non-CEDAR functions
     return get_table_schema_version_from_row(path, rows[0])
 
 

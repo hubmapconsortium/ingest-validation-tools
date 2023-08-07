@@ -19,3 +19,4 @@ fields:
       - sciRNAseq
       - snRNAseq
       - SNARE2-RNAseq
+      - scRNA-seq

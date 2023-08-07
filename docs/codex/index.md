@@ -9,8 +9,7 @@ layout: default
 
 Related files:
 
-- [📝 Excel template](): For metadata entry.
-- [📝 TSV template](): Alternative for metadata entry.
+Excel and TSV templates for this schema will be available when the draft next-generation schema, to be used in all future submissions, is finalized (no later than Sept. 30).
 
 
 
@@ -20,7 +19,7 @@ Related files:
 - *Boolean* fields can be given as `TRUE`/`FALSE`, `True`/`False`, `true`/`false`, or `1`/`0`.  
 
 
-<summary><a href="https://docs.google.com/spreadsheets/d/1GKh4x8HIoQ3eKi2WWtWa2eWann3FG1pfaqxGKkUK1Wo"><b>Version 2 (current)</b> (draft)</a></summary>
+<summary><a href="https://docs.google.com/spreadsheets/d/1GKh4x8HIoQ3eKi2WWtWa2eWann3FG1pfaqxGKkUK1Wo"><b>Version 2 (use this one)</b> (draft - submission of data prepared using this schema will be supported by Sept. 30)</a></summary>
 
 
 <details markdown="1" ><summary><b>Version 1</b></summary>
@@ -610,7 +609,7 @@ Relative path to file or directory with instrument data. Downstream processing w
 <br>
 
 ## Directory schemas
-### [Version 2](https://docs.google.com/spreadsheets/d/1pZD2e51e4QkxzIk6xjHPPu1RBZpx5mzoykMmlaDK8rA) (draft)
+### [Version 2](https://docs.google.com/spreadsheets/d/1pZD2e51e4QkxzIk6xjHPPu1RBZpx5mzoykMmlaDK8rA) (use this one) (draft - submission of data prepared using this schema will be supported by Sept. 30)
 
 ### Version 1-with-dataset-json
 

@@ -1,9 +1,10 @@
+deprecated: True
 description_md: This schema has been incorporated into the histology schema which can be 
   accessed [here](https://hubmapconsortium.github.io/ingest-validation-tools/histology/).
 fields:
 - name: is_cedar
   description: 'Identifies whether the version is hosted by CEDAR'
-  example: 'https://openview.metadatacenter.org/templates/https:%2F%2Frepo.metadatacenter.org%2Ftemplates%2F2263a3e3-819b-4639-a3db-3dbc0e46cda1'
+  example: ''
 - name: assay_category
   constraints:
     enum:
