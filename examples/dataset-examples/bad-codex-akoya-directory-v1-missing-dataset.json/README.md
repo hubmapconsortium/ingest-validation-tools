@@ -1,8 +1,7 @@
 ```
-Metadata TSV Errors:
-  ? examples/dataset-examples/bad-codex-akoya-directory-v1-missing-dataset.json/upload/name-just-needs-to-end-with-metadata.tsv
-    (as codex)
-  : External:
+Upload Errors:
+  Directory Errors:
+    examples/dataset-examples/bad-codex-akoya-directory-v1-missing-dataset.json/upload/dataset-1 (as codex):
       row 2, data examples/dataset-examples/bad-codex-akoya-directory-v1-missing-dataset.json/upload/dataset-1:
         Required but missing:
         - (raw|src_[^/]*)/dataset\.json.

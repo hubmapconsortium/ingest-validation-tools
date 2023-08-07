@@ -18,6 +18,7 @@
 - Rework wording for CEDAR updates
 - Updated upload.py to integrate CEDAR validation, replaced walrus operators, removed unused import
 - Updated CEDAR validation routine based on changes to Spreadsheet Validator
+- Updated tests based on changes to local validation error dict structure
 
 ## v0.0.15 - 2023-04-04
 - Versioned directory structure schema

@@ -1,6 +1,7 @@
 ```
-Metadata TSV Errors:
-  Missing: There are no effective TSVs.
+Upload Errors:
+  TSV Errors:
+    Missing: There are no effective TSVs.
 Reference Errors:
   No References:
     Files:

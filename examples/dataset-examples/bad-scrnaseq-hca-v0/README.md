@@ -1,7 +1,7 @@
 ```
-Metadata TSV Errors:
-  examples/dataset-examples/bad-scrnaseq-hca-v0/upload/metadata.tsv (as scrnaseq-hca):
-    External:
+Upload Errors:
+  Directory Errors:
+    examples/dataset-examples/bad-scrnaseq-hca-v0/upload/data (as scrnaseq-hca):
       row 2, data examples/dataset-examples/bad-scrnaseq-hca-v0/upload/data:
         No such file or directory: examples/dataset-examples/bad-scrnaseq-hca-v0/upload/data.
 Hint: 'If validation fails because of extra whitespace in the TSV, try:
