@@ -2,10 +2,12 @@ files:
   -
     pattern: microscope_hardware\.json
     required: True
+    description: Description of the hardware components of an example microscope
     is_qa_qc: True
   -
     pattern: microscope_settings\.json
     required: True
+    description: Description of the settings that were used to acquire the example image data file
     is_qa_qc: True
   -
     pattern: extras\/.*
