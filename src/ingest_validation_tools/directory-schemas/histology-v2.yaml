@@ -44,7 +44,7 @@ files:
     required: True
     description: OME-TIFF files (multichannel, multi-layered) produced by the microscopy experiment. If compressed, must use loss-less compression algorithm. [HuBMAP ID should be prepended to file name.]
     is_qa_qc: False
-    example: lab_processed\/images\/HBM892.MDXS.293.ome.tiff
+    example: lab_processed/images/HBM892.MDXS.293.ome.tiff
   -
     pattern: lab_processed\/images\/[^\/]+\.ome-tiff\.channels\.csv
     required: True
