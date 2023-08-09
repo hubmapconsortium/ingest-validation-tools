@@ -630,7 +630,7 @@ Relative path to file or directory with instrument data. Downstream processing w
 | <code>(raw&#124;src_.*)/.*</code> | ✓ | Raw data directory. |
 | <code>(processed&#124;drv_[^/]*)/.*</code> | ✓ | Processed files produced by the Akoya software or alternative software. |
 | <code>extras/dir-schema-v1-with-dataset-json</code> | ✓ | Empty file whose presence indicates the version of the directory schema in use |
-| <code>extras/.*</code> |  | Free-form descriptive information supplied by the TMC |
+| <code>extras/.*</code> |  | Folder for general lab-specific files related to the dataset. [Exists in all assays] |
 
 ### Version 0
 
@@ -649,5 +649,5 @@ Relative path to file or directory with instrument data. Downstream processing w
 | <code>src_.*/cyc.*_reg.*_.*/.*\.gci</code> |  | Group Capture Information File (Keyance Microscope only) |
 | <code>(raw&#124;src_.*)/.*</code> | ✓ | Raw data directory. |
 | <code>(processed&#124;drv_[^/]*)/.*</code> | ✓ | Processed files produced by the Akoya software or alternative software. |
-| <code>extras/.*</code> |  | Free-form descriptive information supplied by the TMC |
+| <code>extras/.*</code> |  | Folder for general lab-specific files related to the dataset. [Exists in all assays] |
 

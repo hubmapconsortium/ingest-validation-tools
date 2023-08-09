@@ -407,12 +407,12 @@ Relative path to file or directory with instrument data. Downstream processing w
 | pattern | required? | description |
 | --- | --- | --- |
 | <code>TODO</code> | ✓ | Directory structure not yet specified. |
-| <code>extras/.*</code> |  | Free-form descriptive information supplied by the TMC |
+| <code>extras/.*</code> |  | Folder for general lab-specific files related to the dataset. [Exists in all assays] |
 
 ### Version 0
 
 | pattern | required? | description |
 | --- | --- | --- |
 | <code>[^/]+\.fastq\.gz</code> | ✓ | Compressed FastQ file |
-| <code>extras/.*</code> |  | Free-form descriptive information supplied by the TMC |
+| <code>extras/.*</code> |  | Folder for general lab-specific files related to the dataset. [Exists in all assays] |
 
