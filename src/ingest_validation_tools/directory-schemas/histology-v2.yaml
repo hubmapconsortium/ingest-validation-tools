@@ -1,4 +1,111 @@
-draft: true
 files:
   -
-    draft_link: 'https://docs.google.com/spreadsheets/d/1_fMJrZVgx8g80uduxfr1HcIHz52_fpRfwFWFrA40tlg'
+    pattern: microscope_hardware\.json
+    required: True
+    description: Description of the hardware components of an example microscope
+    is_qa_qc: True
+  -
+    pattern: microscope_settings\.json
+    required: True
+    description: Description of the settings that were used to acquire the example image data file
+    is_qa_qc: True
+  -
+    pattern: extras\/.*
+    required: True
+    description: Folder for general lab-specific files related to the dataset. [Exists in all assays]
+  -
+    pattern: raw\/.*
+    required: True
+    description: Raw data files for the experiment.
+  -  
+    pattern: raw\/images\/.*
+    required: True
+    description: Raw image files. Using this subdirectory allows for harmonization with other more complex assays, like Visium that includes both raw imaging and sequencing data. [This directory must include at least one raw file.] 
+  -
+    pattern: raw\/images\/[^\/]+\.xml
+    required: True
+    description: XML metadata file from the autofluorescence microscopy experiments
+    is_qa_qc: False
+  -
+    pattern: raw\/images\/[^\/]+\.(?:scn|vsi|ndpi|svs|czi|tiff)
+    required: True
+    description: Raw microscope file for the experiment
+    is_qa_qc: False
+  -
+    pattern: lab_processed\/.*
+    required: True
+    description: Experiment files that were processed by the lab generating the data.
+  -
+    pattern: lab_processed\/images\/.*
+    required: True
+    description: Processed image files
+  -
+    pattern: lab_processed\/images\/[^\/]+\.ome\.tiff
+    required: True
+    description: OME-TIFF files (multichannel, multi-layered) produced by the microscopy experiment. If compressed, must use loss-less compression algorithm. [HuBMAP ID should be prepended to file name.]
+    is_qa_qc: False
+    example: lab_processed/images/HBM892.MDXS.293.ome.tiff
+  -
+    pattern: lab_processed\/images\/[^\/]+\.ome-tiff\.channels\.csv
+    required: True
+    description: This file should describe any processing that was done to generate the images in each channel of the accommpanying OME TIFF. The file should contain one row per OME TIFF channel and the first field should be the number of the channel.
+  -
+    pattern: lab_processed\/images\/tissue-region\.geojson
+    required: False
+    description: A GeoJSON file that contains the geometric coordinates of the tissue region within the image.
+  -
+    pattern: lab_processed\/images\/regions-of-concern\.csv
+    required: False
+    description: This file and the associated GeoJSON file can be used to denote any regions in the image that may contain QA/QC concerns. For example, if there are folds in the tissue, the region of the fold can be highlighted. This file should contain one row per region and include documentation about the region and why it's being flagged.
+  -
+    pattern: lab_processed\/images\/regions-of-concern\.geojson
+    required: False
+    description: This file and the associated CSV file can be used to denote any regions in the image that may contain QA/QC concerns. For example, if there are folds in the tissue, the region of the fold can be highlighted. This file should contain the geometric coordinates of each region being flagged.
+  -
+    pattern: lab_processed\/transformations\/.*
+    required: False
+    description: This directory contains transformation matrices that capture how each modality is aligned with the other and can be used to visualize overlays of multimodal data. This is needed to overlay images from the exact same tissue section (e.g., MALDI imaging mass spec, autofluorescence microscopy, MxIF, histological stains). In these cases data type may have different pixel sizes and slightly different orientations (i.e., one may be rotated relative to another).
+  -
+    pattern: lab_processed\/transformations\/[^\/]+transformations\.txt
+    required: False
+    description: Transformation matrices used to overlay images from the exact same tissue section (e.g., MALDI imaging mass spec, autofluorescence microscopy, MxIF, histological stains). 
+    is_qa_qc: False
+  -
+    pattern: lab_processed\/annotations\/.*
+    required: False
+    description: Directory containing annotations
+  -
+    pattern: lab_processed\/annotations\/segmentations\.ome\.tiff
+    required: False
+    description: The segmentation masks should be stored as multi-channel pyramidal OME TIFF bitmasks with one channel per mask, where a single mask contains all instances of a type of object (e.g., all cells, a class of FTUs, etc). The class of objects contained in the mask is documented in the segmentation-masks.csv file. Each individual object in a mask should be represented by a unique integer pixel value starting at 1, with 0 meaning background (e.g., all pixels belonging to the first instance of a T-cell have a value of 1, the pixels for the second instance of a T-cell have a value of 2, etc). The pixel values should be unique within a mask. FTUs and other structural elements should be captured the same way as cells with segmentation masks and the appropriate channel feature definitions.
+    is_qa_qc: False
+  -
+    pattern: lab_processed\/annotations\/segmentation-masks\.csv
+    required: False
+    description: This file contains details about each mask, with one row per mask. Each column in this file contains details describing the mask (e.g., channel number, mask name, ontological ID, etc). Each mask is stored as a channel in the segmentations.ome.tiff file and the mask name should be ontologically based and linked to the ASCT+B table where possible. The number of rows in this file should equal the number of channels in the segmentations.ome.tiff. For example, one row in this file would ontologically describe cells, if the segmentations.ome.tiff file contained a mask of all cells. A minimum set of fields (required and optional) is included below. Required if a segmentations.ome.tiff is provided.
+    is_qa_qc: False
+  -
+    pattern: lab_processed\/annotations\/[^\/]+-objects\.csv
+    required: False
+    description: This is a matrix where each row describes an individual object (e.g., one row per cell in the case where a mask contains all cells) and columns are features (i.e., object type, marker intensity, classification strategies, etc). One file should be created per mask with the name of the mask prepended to the file name. For example, if there is a cell segmentation map called "cells" then you would include a file called "cells-objects.csv" and that file would contain one row per cell in the "cells" mask and one column per feature, such as marker intensity and/or cell type. A minimum set of fields (required and optional) is included below. Required if a segmentations.ome.tiff is provided.
+    is_qa_qc: False
+  -
+    pattern: lab_processed\/annotations\/[^\/]+\.geojson
+    required: False
+    description: A GeoJSON file(s) containing the geometries of each object within a mask. For example, if the mask contains multiple FTUs, multiple cells, etc, each of the objects in the mask would be independently documented in the GeoJSON file. There would be a single GeoJSON file per mask and the name of the file should be the name of the mask. If this file is generated by QuPath, the coordinates will be in pixel units with the origin (0, 0) as the top left corner of the full-resolution image.
+    is_qa_qc: False
+  -
+    pattern: lab_processed\/annotations\/tissue-boundary\.geojson
+    required: False
+    description: If the boundaries of the tissue have been identified (e.g., by manual efforts), then the boundary geometry can be included as a GeoJSON file named “tissue-boundary.geojson”.
+    is_qa_qc: True
+  -
+    pattern: lab_processed\/probabilities\/.*
+    required: False
+    description: Directory containing probabilities pertaining to lab processed data (e.g., from Ilastik pixel classification).
+  -
+    pattern: lab_processed\/probabilities\/[^\/]+\.tiff
+    required: False
+    description: A TIFF file that contains pixel probabilities.
+    is_qa_qc: True
+    
