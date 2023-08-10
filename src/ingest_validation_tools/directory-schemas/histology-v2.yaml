@@ -10,10 +10,6 @@ files:
     description: Description of the settings that were used to acquire the example image data file
     is_qa_qc: True
   -
-    pattern: extras\/.*
-    required: True
-    description: Folder for general lab-specific files related to the dataset. [Exists in all assays]
-  -
     pattern: raw\/.*
     required: True
     description: Raw data files for the experiment.
