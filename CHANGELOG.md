@@ -48,6 +48,7 @@
 - Upgraded CI python definition to 3.9.
 - Update Cell DIVE with CEDAR UUID
 - Add Histology directory schemas
+- Fix Histology schema
 
 ## v0.0.14 - 2022-06-23
 - bump tzingo -> 1.2.10 (dependabot)
