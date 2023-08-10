@@ -2,4 +2,8 @@ files:
   -
     pattern: '.*\.fastq\.gz'
     description: 'TODO: https://github.com/hubmapconsortium/ingest-validation-tools/issues/445'
+  -
+    pattern: extras\/.*
+    required: False
+    description: Folder for general lab-specific files related to the dataset. [Exists in all assays]
 
