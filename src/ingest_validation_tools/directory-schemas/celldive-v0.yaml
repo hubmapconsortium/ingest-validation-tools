@@ -18,3 +18,7 @@ files:
     pattern: 'HuBMAP_rounds/round_info_\d+\.dat'
     description: 'Metadata file for the capture item-value tab separated format'
     required: True
+  -
+    pattern: extras\/.*
+    required: False
+    description: Folder for general lab-specific files related to the dataset. [Exists in all assays]
