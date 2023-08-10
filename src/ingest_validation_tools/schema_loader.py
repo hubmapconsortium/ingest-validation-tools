@@ -299,7 +299,7 @@ def get_directory_schema(directory_type: str, schema_version: str) -> Optional[d
             'pattern': r'extras/.*',
             'description': 'Folder for general lab-specific files related to the dataset. '
                            '[Exists in all assays]',
-            'required': False
+            'required': True
         }
     ]
     return schema
