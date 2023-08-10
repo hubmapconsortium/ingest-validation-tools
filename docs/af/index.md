@@ -506,5 +506,5 @@ Relative path to file or directory with instrument data. Downstream processing w
 | <code>(processedMicroscopy&#124;processed_microscopy)/[^/]+_transformations/[^/]+\.txt</code> |  | Transformations to IMS (related) data |
 | <code>(rawMicroscopy&#124;raw_microscopy)/[^/]+\.xml</code> | ✓ | XML metadata file from the autofluorescence microscopy experiments |
 | <code>(rawMicroscopy&#124;raw_microscopy)/[^/]+\.czi</code> | ✓ | Raw microscope file for the experiment |
-| <code>extras/.*</code> |  | Folder for general lab-specific files related to the dataset. [Exists in all assays] |
+| <code>extras/.*</code> | ✓ | Folder for general lab-specific files related to the dataset. [Exists in all assays] |
 

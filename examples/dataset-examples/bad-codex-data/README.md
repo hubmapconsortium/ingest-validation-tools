@@ -22,6 +22,7 @@ Metadata TSV Errors:
         - (raw|src_.*)/.*.
         - (raw|src_.*)/[cC]yc.*_reg.*/.*_Z.*_CH.*\.tif.
         - (raw|src_[^/]*)/[Ee]xperiment\.json.
+        - extras/.*.
       row 2, contributors examples/dataset-examples/bad-codex-data/upload/contributors.tsv:
       - 'On row 2, column "orcid_id", value "bad-id" fails because it does not match
         the expected pattern. Example: 0000-0002-8928-741X.'

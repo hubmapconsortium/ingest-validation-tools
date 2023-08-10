@@ -840,5 +840,5 @@ The HIVE will process each dataset with
 | pattern | required? | description |
 | --- | --- | --- |
 | <code>[^/]+\.fastq\.gz</code> | ✓ | Compressed FastQ file |
-| <code>extras/.*</code> |  | Folder for general lab-specific files related to the dataset. [Exists in all assays] |
+| <code>extras/.*</code> | ✓ | Folder for general lab-specific files related to the dataset. [Exists in all assays] |
 

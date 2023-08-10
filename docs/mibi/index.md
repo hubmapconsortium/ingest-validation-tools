@@ -522,7 +522,7 @@ Relative path to file or directory with instrument data. Downstream processing w
 | pattern | required? | description |
 | --- | --- | --- |
 | <code>TODO</code> | ✓ | Directory structure not yet specified. |
-| <code>extras/.*</code> |  | Folder for general lab-specific files related to the dataset. [Exists in all assays] |
+| <code>extras/.*</code> | ✓ | Folder for general lab-specific files related to the dataset. [Exists in all assays] |
 
 ### Version 0
 
@@ -539,5 +539,5 @@ Relative path to file or directory with instrument data. Downstream processing w
 | <code>processed/CellTypeComposition_perTissue\.pdf</code> |  | Cell type composition bar graph per tissue. File is optional. |
 | <code>processed/Densityplots_perMarker\.pdf</code> |  | **[QA/QC]** Density plots of marker intensity, separated by marker. File is optional. |
 | <code>processed/celltypes\.pdf</code> |  | Heatmap of marker expression per cluster, annotated by assigned cell type. File is optional. |
-| <code>extras/.*</code> |  | Folder for general lab-specific files related to the dataset. [Exists in all assays] |
+| <code>extras/.*</code> | ✓ | Folder for general lab-specific files related to the dataset. [Exists in all assays] |
 
