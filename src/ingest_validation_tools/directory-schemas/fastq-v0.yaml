@@ -18,3 +18,7 @@ files:
     pattern: '[^/]+\.fastq\.gz'
     description: 'Compressed FastQ file'
     required: True
+  -
+    pattern: extras\/.*
+    required: False
+    description: Folder for general lab-specific files related to the dataset. [Exists in all assays]
