@@ -35,7 +35,6 @@ Related files:
 | --- | --- | --- |
 | <code>microscope_hardware\.json</code> | ✓ | **[QA/QC]** Description of the hardware components of an example microscope |
 | <code>microscope_settings\.json</code> | ✓ | **[QA/QC]** Description of the settings that were used to acquire the example image data file |
-| <code>extras\/.*</code> | ✓ | Folder for general lab-specific files related to the dataset. [Exists in all assays] |
 | <code>raw\/.*</code> | ✓ | Raw data files for the experiment. |
 | <code>raw\/images\/.*</code> | ✓ | Raw image files. Using this subdirectory allows for harmonization with other more complex assays, like Visium that includes both raw imaging and sequencing data. [This directory must include at least one raw file.] |
 | <code>raw\/images\/[^\/]+\.xml</code> | ✓ | XML metadata file from the autofluorescence microscopy experiments |
@@ -57,5 +56,5 @@ Related files:
 | <code>lab_processed\/annotations\/tissue-boundary\.geojson</code> |  | **[QA/QC]** If the boundaries of the tissue have been identified (e.g., by manual efforts), then the boundary geometry can be included as a GeoJSON file named “tissue-boundary.geojson”. |
 | <code>lab_processed\/probabilities\/.*</code> |  | Directory containing probabilities pertaining to lab processed data (e.g., from Ilastik pixel classification). |
 | <code>lab_processed\/probabilities\/[^\/]+\.tiff</code> |  | **[QA/QC]** A TIFF file that contains pixel probabilities. |
-| <code>extras/.*</code> |  | Folder for general lab-specific files related to the dataset. [Exists in all assays] |
+| <code>extras/.*</code> | ✓ | Folder for general lab-specific files related to the dataset. [Exists in all assays] |
 
