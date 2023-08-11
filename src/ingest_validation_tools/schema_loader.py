@@ -294,14 +294,7 @@ def get_directory_schema(directory_type: str, schema_version: str) -> Optional[d
     if not directory_schema_path.exists():
         return None
     schema = load_yaml(directory_schema_path)
-    schema['files'] += [
-        {
-            'pattern': r'extras/.*',
-            'description': 'Folder for general lab-specific files related to the dataset. '
-                           '[Exists in all assays]',
-            'required': True
-        }
-    ]
+    schema['files'] += []
     return schema
 
 
