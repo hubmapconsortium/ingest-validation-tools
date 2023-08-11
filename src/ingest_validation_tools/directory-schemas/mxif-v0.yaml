@@ -33,3 +33,7 @@ files:
     description: 'Description of the lab-processed data.'
     required: True
     is_qa_qc: True
+  -
+    pattern: extras\/.*
+    required: False
+    description: Folder for general lab-specific files related to the dataset. [Exists in all assays]
