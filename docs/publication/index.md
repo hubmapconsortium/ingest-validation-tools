@@ -70,7 +70,7 @@ Relative path to file or directory with instrument data. Downstream processing w
 | pattern | required? | description |
 | --- | --- | --- |
 | <code>TODO</code> | ✓ | Directory structure not yet specified. |
-| <code>extras/.*</code> | ✓ | Folder for general lab-specific files related to the dataset. [Exists in all assays] |
+| <code>extras\/.*</code> | ✓ | Folder for general lab-specific files related to the dataset. [Exists in all assays] |
 
 ### Version 0
 
@@ -80,5 +80,5 @@ Relative path to file or directory with instrument data. Downstream processing w
 | <code>(vignettes)/.+</code> | ✓ | Subdirectory containing Vitessce visualization files and a description of those files. |
 | <code>(vignettes)/(vignette)_\d+/[^/]+\.json</code> (example: <code>vignettes/vignette_01/file1.json</code>) |  | Vitessce visualization configuration files. One or more visualization configurations can be provided per vignette. |
 | <code>(vignettes)/(vignette)_\d+/(description)\.md</code> (example: <code>vignettes/vignette_02/description.md</code>) |  | Description of the vignette and titles for the visualization configuration files. |
-| <code>extras/.*</code> | ✓ | Folder for general lab-specific files related to the dataset. [Exists in all assays] |
+| <code>extras\/.*</code> |  | Folder for general lab-specific files related to the dataset. [Exists in all assays] |
 

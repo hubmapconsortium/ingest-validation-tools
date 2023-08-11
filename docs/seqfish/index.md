@@ -656,5 +656,5 @@ Relative path to file or directory with instrument data. Downstream processing w
 | <code>extras/SlideExplorer\.tif</code> (example: <code>extras/SlideExplorer.tif</code>) |  | Overview TIFF image for all fields of view. |
 | <code>codebook.csv</code> | ✓ | CSV containing codebook information for the experiment. Rows are barcodes and columns are imaging rounds. The first column is the barcode target, and the following column IDs are expected to be sequential, and round identifiers are expected to be integers (not roman numerals). |
 | <code>metadata.json</code> | ✓ | Contains parameters needed to run spatial-transcriptomics-pipeline, including a description of the input data layout, image processing steps, and the decoding method to be used. |
-| <code>extras/.*</code> | ✓ | Folder for general lab-specific files related to the dataset. [Exists in all assays] |
+| <code>extras\/.*</code> |  | Folder for general lab-specific files related to the dataset. [Exists in all assays] |
 

@@ -543,5 +543,5 @@ Relative path to file or directory with instrument data. Downstream processing w
 | <code>(Level1&#124;level1)\/cyc_[\d]+\.ome\.(tif&#124;tiff)</code> | ✓ | Pre-processed stitched image files, but not registered across cycles. |
 | <code>(Level2&#124;level2)\/ome\.(tif&#124;tiff)</code> | ✓ | **[QA/QC]** Full lab processed data, stitched, registered, and saved in pyramidal OME-TIFF. |
 | <code>(Level2&#124;level2)_lab_final-processing\.pdf</code> | ✓ | **[QA/QC]** Description of the lab-processed data. |
-| <code>extras/.*</code> | ✓ | Folder for general lab-specific files related to the dataset. [Exists in all assays] |
+| <code>extras\/.*</code> |  | Folder for general lab-specific files related to the dataset. [Exists in all assays] |
 
