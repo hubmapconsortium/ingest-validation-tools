@@ -31,3 +31,7 @@ files:
     pattern: 'ometiffs/separate/[^/]+_mz[^/]+\.ome\.tiff'
     description: 'Each file is a different M/Z value.'
     required: False
+  -
+    pattern: extras\/.*
+    required: False
+    description: Folder for general lab-specific files related to the dataset. [Exists in all assays]
