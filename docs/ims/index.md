@@ -976,5 +976,5 @@ Relative path to file or directory with instrument data. Downstream processing w
 | <code>metadata/[^/]+_microscopy\.txt</code> |  | Transformations/map back to autofluorescence microscopy (related) data |
 | <code>ometiffs/[^/]+_multilayer\.ome\.tiff</code> | ✓ | Aligned multilayer OME TIFF file of the IMS data |
 | <code>ometiffs/separate/[^/]+_mz[^/]+\.ome\.tiff</code> |  | Each file is a different M/Z value. |
-| <code>extras/.*</code> |  | Folder for general lab-specific files related to the dataset. [Exists in all assays] |
+| <code>extras\/.*</code> |  | Folder for general lab-specific files related to the dataset. [Exists in all assays] |
 

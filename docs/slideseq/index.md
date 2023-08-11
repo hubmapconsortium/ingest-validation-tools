@@ -683,5 +683,5 @@ Relative path to file or directory with instrument data. Downstream processing w
 | <code>[^/]+/barcode_matching/Puck_[^/]+_matched_bead_locations\.txt</code> | ✓ | Matched bead coordinates (these are the location of the barcodes that matched bead on the puck). |
 | <code>[^/]+/fastq/Puck_[^/]+\.read1\.fastq\.gz</code> | ✓ | Each puck will have 2 fastq files, this file contains the first set of paired reads. |
 | <code>[^/]+/fastq/Puck_[^/]+\.read2\.fastq\.gz</code> | ✓ | Each puck will have 2 fastq files, this file contains the second set of paired reads. |
-| <code>extras/.*</code> |  | Folder for general lab-specific files related to the dataset. [Exists in all assays] |
+| <code>extras\/.*</code> |  | Folder for general lab-specific files related to the dataset. [Exists in all assays] |
 

@@ -815,7 +815,7 @@ Relative path to file or directory with instrument data. Downstream processing w
 | <code>Level3/Channel[^/]+/[^/]+\.stl</code> |  | Annotation file. |
 | <code>Level3/Channel[^/]+/[^/]+\.ome.tiff</code> |  | Image file. |
 | <code>Level3/Merged/MergedChannel[^/]+/[^/]+\.ome.tiff</code> |  | Merged image file. |
-| <code>extras/.*</code> |  | Folder for general lab-specific files related to the dataset. [Exists in all assays] |
+| <code>extras\/.*</code> |  | Folder for general lab-specific files related to the dataset. [Exists in all assays] |
 
 ### Version 0
 
@@ -834,5 +834,5 @@ Relative path to file or directory with instrument data. Downstream processing w
 | <code>Level3/Channel[^/]+/[^/]+\.obj</code> |  | Annotation file. File is optional. |
 | <code>Level3/Channel[^/]+/[^/]+\.stl</code> |  | Annotation file. File is optional. |
 | <code>Level3/Channel[^/]+/[^/]+\.ome.tiff</code> |  | Annotation file. File is optional. |
-| <code>extras/.*</code> |  | Folder for general lab-specific files related to the dataset. [Exists in all assays] |
+| <code>extras\/.*</code> |  | Folder for general lab-specific files related to the dataset. [Exists in all assays] |
 

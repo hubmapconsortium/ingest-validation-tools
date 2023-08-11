@@ -64,3 +64,7 @@ files:
   -
     pattern: 'extras/dir-schema-v1-with-dataset-json'
     description: 'Empty file whose presence indicates the version of the directory schema in use'
+  -
+    pattern: extras\/.*
+    required: False
+    description: Folder for general lab-specific files related to the dataset. [Exists in all assays]

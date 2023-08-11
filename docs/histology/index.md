@@ -57,5 +57,4 @@ Related files:
 | <code>lab_processed\/annotations\/tissue-boundary\.geojson</code> |  | **[QA/QC]** If the boundaries of the tissue have been identified (e.g., by manual efforts), then the boundary geometry can be included as a GeoJSON file named “tissue-boundary.geojson”. |
 | <code>lab_processed\/probabilities\/.*</code> |  | Directory containing probabilities pertaining to lab processed data (e.g., from Ilastik pixel classification). |
 | <code>lab_processed\/probabilities\/[^\/]+\.tiff</code> |  | **[QA/QC]** A TIFF file that contains pixel probabilities. |
-| <code>extras/.*</code> |  | Folder for general lab-specific files related to the dataset. [Exists in all assays] |
 

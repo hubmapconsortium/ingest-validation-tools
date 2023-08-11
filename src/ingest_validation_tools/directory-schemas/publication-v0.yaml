@@ -18,3 +18,7 @@ files:
     pattern: '(vignettes)/(vignette)_\d+/(description)\.md'
     description: 'Description of the vignette and titles for the visualization configuration files.'
     required: False
+  -
+    pattern: extras\/.*
+    required: False
+    description: Folder for general lab-specific files related to the dataset. [Exists in all assays]

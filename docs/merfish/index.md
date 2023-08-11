@@ -31,5 +31,5 @@ Excel and TSV templates for this schema will be available when the draft next-ge
 | pattern | required? | description |
 | --- | --- | --- |
 | <code>TODO</code> | ✓ | Directory structure not yet specified. |
-| <code>extras/.*</code> |  | Folder for general lab-specific files related to the dataset. [Exists in all assays] |
+| <code>extras\/.*</code> | ✓ | Folder for general lab-specific files related to the dataset. [Exists in all assays] |
 

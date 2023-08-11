@@ -12,3 +12,7 @@ files:
     pattern: '[^/]*\.xlsx'
     description: 'Excel formatted file containing experimental metadata output by experimental platform.'
     required: True
+  -
+    pattern: extras\/.*
+    required: False
+    description: Folder for general lab-specific files related to the dataset. [Exists in all assays]

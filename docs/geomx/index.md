@@ -35,5 +35,5 @@ Excel and TSV templates for this schema will be available when the draft next-ge
 | <code>[^/]*[^/]*\.dcc</code> (example: <code>DSP-0000000000000-A-A01.dcc</code>) | ✓ | Digital counts file containing sample by probe counts. |
 | <code>[^/]*\.pkc</code> | ✓ | JSON file which contains mapping from probe IDs to gene IDs. |
 | <code>[^/]*\.xlsx</code> | ✓ | Excel formatted file containing experimental metadata output by experimental platform. |
-| <code>extras/.*</code> |  | Folder for general lab-specific files related to the dataset. [Exists in all assays] |
+| <code>extras\/.*</code> |  | Folder for general lab-specific files related to the dataset. [Exists in all assays] |
 

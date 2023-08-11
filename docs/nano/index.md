@@ -576,7 +576,6 @@ Relative path to file or directory with instrument data. Downstream processing w
 | <code>Peak assignment.csv</code> | ✓ | **[QA/QC]** CSV containing all identified peaks and their IDs. |
 | <code>Autofluorescence image.tif</code> | ✓ | A tif file of the autofluorescence image. |
 | <code>ion images</code> | ✓ | Folder containing PNG files. |
-| <code>extras/.*</code> |  | Folder for general lab-specific files related to the dataset. [Exists in all assays] |
 
 </details>
 

@@ -56,3 +56,8 @@ files:
     pattern: '(processed|drv_[^/]*)/.*'
     description: 'Processed files produced by the Akoya software or alternative software.'
     required: True
+  -
+    pattern: extras\/.*
+    required: False
+    description: Folder for general lab-specific files related to the dataset. [Exists in all assays]
+

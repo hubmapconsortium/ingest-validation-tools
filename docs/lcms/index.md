@@ -1837,7 +1837,7 @@ Relative path to file or directory with instrument data. Downstream processing w
 | pattern | required? | description |
 | --- | --- | --- |
 | <code>TODO</code> | ✓ | Directory structure not yet specified. |
-| <code>extras/.*</code> |  | Folder for general lab-specific files related to the dataset. [Exists in all assays] |
+| <code>extras\/.*</code> | ✓ | Folder for general lab-specific files related to the dataset. [Exists in all assays] |
 
 ### Version 0
 
@@ -1847,5 +1847,5 @@ Relative path to file or directory with instrument data. Downstream processing w
 | <code>ID_search_results/[^/]+\.(txt&#124;csv)</code> | ✓ | Identification results. Annotated data describing (qualitative or quantitative) the proteins, metabolites, lipids, peptides, phosphopeptides, or glycans identified from the corresponding raw data. |
 | <code>ID_metadata/[^/]+\.(csv&#124;tsv&#124;txt&#124;xml)</code> | ✓ | Identification search parameters/metadata. Software settings used during the analyte identification process (e.g., from MaxQuant or Proteome Discoverer). |
 | <code>QC_results/[^/]+\.(xml&#124;txt&#124;html&#124;pdf&#124;log&#124;yaml)</code> |  | Output file resulting from QC analysis. A list of metrics with the score of the current dataset that shows the quality of data collection. |
-| <code>extras/.*</code> |  | Folder for general lab-specific files related to the dataset. [Exists in all assays] |
+| <code>extras\/.*</code> |  | Folder for general lab-specific files related to the dataset. [Exists in all assays] |
 
