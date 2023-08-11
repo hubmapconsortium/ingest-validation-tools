@@ -96,3 +96,7 @@ files:
     description: 'Merged image file.'
     required: False
     is_qa_qc: False
+  -
+    pattern: extras\/.*
+    required: False
+    description: Folder for general lab-specific files related to the dataset. [Exists in all assays]
