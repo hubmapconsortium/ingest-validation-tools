@@ -74,3 +74,7 @@ files:
     description: 'Contains parameters needed to run spatial-transcriptomics-pipeline, including a description of the input data layout, image processing steps, and the decoding method to be used.'
     required: True
     is_qa_qc: False
+  -
+    pattern: extras\/.*
+    required: False
+    description: Folder for general lab-specific files related to the dataset. [Exists in all assays]
