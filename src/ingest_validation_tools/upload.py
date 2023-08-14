@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import logging
+
 import os
 
 import subprocess
@@ -197,7 +198,7 @@ class Upload:
     ###################################
 
     def _get_local_tsv_errors(self) -> dict | None:
-        errors = defaultdict()
+        errors = {}
         if not self.effective_tsv_paths:
             errors["Missing"] = "There are no effective TSVs."
             return errors
@@ -258,10 +259,12 @@ class Upload:
     def _cedar_api_call(self, tsv_path: str | Path) -> requests.Response:
         auth = HTTPBasicAuth("apikey", os.environ[API_KEY_SECRET])
         file = {"input_file": open(tsv_path, "rb")}
+        headers = {"content_type": "multipart/form-data"}
         try:
             response = requests.post(
                 "https://api.metadatavalidator.metadatacenter.org/service/validate-tsv",
                 auth=auth,
+                headers=headers,
                 files=file,
             )
         except Exception as e:
@@ -307,11 +310,9 @@ class Upload:
         errors = {}
         response = self._cedar_api_call(tsv_path)
         if response.status_code != 200:
-            errors["Request Errors"] = response
+            errors["Request Errors"] = response.json()
         elif response.json()["reporting"] and len(response.json()["reporting"]) > 0:
-            errors["Error Report"] = response.json()["reporting"]
-        if errors:
-            logging.info(f"CEDAR Spreadsheet Validator errors for {tsv_path}: {errors}")
+            errors["Validation Errors"] = response.json()["reporting"]
         return errors
 
     def _get_rows_from_tsv(self, path: str | Path) -> dict | list:
