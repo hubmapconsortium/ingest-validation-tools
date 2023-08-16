@@ -33,8 +33,8 @@ pat_reps = [
         r'the file "([^"]+)" is required but missing',
         r'a file matching "\1" is required but missing',
     ),
-    # TODO: this messes up output of CEDAR validation when the result is a number.
-    # (r"([^.])$", r"\1."),
+    # Quick and dirty fix to stop message munger from adding period following ints
+    (r"([^.\d])$", r"\1."),
     (r'type is "datetime/.*"', r"it is not in the format YYYY-MM-DD Hour:Minute"),
     (r'type is "boolean/default"', r"it is neither true nor false"),
     (r'type is "number/default"', r"it is not in numerical form"),
@@ -50,7 +50,7 @@ pat_reps = [
 ]
 
 
-def munge(message: str) -> str | int:
+def munge(message: str | int) -> str | int:
     """
     Make the error message less informative.
 

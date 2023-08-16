@@ -26,9 +26,9 @@ Metadata TSV Validation Errors:
   Local Validation Errors:
     examples/dataset-examples/bad-tsv-formats/upload/codex-metadata.tsv (as codex):
     - 'On row 2, column "donor_id", value "not-uuid" fails because it does not match
-      the expected pattern. Example: ABC123.'
+      the expected pattern. Example: ABC123'
     - 'On row 2, column "tissue_id", value "not-uuid" fails because it does not match
-      the expected pattern. Example: ABC123-BL-1-2-3_456.'
+      the expected pattern. Example: ABC123-BL-1-2-3_456'
     - On row 2, column "execution_datetime", value "not-time" fails because it is
       not in the format YYYY-MM-DD Hour:Minute.
     - On row 2, column "protocols_io_doi", value "10\.17504/protocols.io.menc3de"
@@ -71,7 +71,7 @@ Metadata TSV Validation Errors:
 Reference Errors:
   No References:
     Files:
-    - dataset-1.
+    - dataset-1
 Hint: 'If validation fails because of extra whitespace in the TSV, try:
 
   src/cleanup_whitespace.py --tsv_in original.tsv --tsv_out clean.tsv.'

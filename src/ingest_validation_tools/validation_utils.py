@@ -32,9 +32,10 @@ def dict_reader_wrapper(path, encoding: str) -> list:
 
 def get_table_schema_version(path, encoding: str) -> SchemaVersion:
     rows = _read_rows(path, encoding)
-    # TODO: We will have row data here, so we can call the
-    #  appropriate subtree of CEDAR/Non-CEDAR functions
-    if not (cedar_validation := rows[0].get("metadata_schema_id")):
+    try:
+        assert "metadata_schema_id" in rows[0]
+        cedar_validation = True
+    except AssertionError:
         cedar_validation = False
     return get_table_schema_version_from_row(
         path, rows[0], cedar_validation=cedar_validation
@@ -76,14 +77,18 @@ def _get_directory_schema_version(data_path) -> str:
 
 
 def get_data_dir_errors(
-    schema_name: str, data_path: Path, dataset_ignore_globs: List[str] = []
+    schema_name: str,
+    data_path: Path,
+    schema_version: str,
+    dataset_ignore_globs: List[str] = [],
 ) -> Optional[dict]:
     """
     Validate a single data_path.
     """
-    directory_schema_version = _get_directory_schema_version(data_path)
+    if (Path(data_path) / "extras").exists():
+        schema_version = _get_directory_schema_version(data_path)
     return _get_data_dir_errors_for_version(
-        schema_name, data_path, dataset_ignore_globs, directory_schema_version
+        schema_name, data_path, dataset_ignore_globs, schema_version
     )
 
 
@@ -99,9 +104,12 @@ def _get_data_dir_errors_for_version(
     if schema is None:
         return {"Undefined directory schema": schema_label}
 
+    schema_warning_fields = [
+        field for field in schema if field in ["deprecated", "draft"]
+    ]
     schema_warning = (
-        {"Deprecated directory schema": schema_label}
-        if schema.get("deprecated", False)
+        {f"{schema_warning_fields[0].title()} directory schema": schema_label}
+        if schema_warning_fields
         else None
     )
 
@@ -110,13 +118,13 @@ def _get_data_dir_errors_for_version(
             data_path, schema["files"], dataset_ignore_globs=dataset_ignore_globs
         )
     except DirectoryValidationErrors as e:
-        # If there are DirectoryValidationErrors and the schema is deprecated...
-        #    schema deprecation is more important.
+        # If there are DirectoryValidationErrors and the schema is deprecated/draft...
+        #    schema deprecation/draft status is more important.
         if schema_warning:
             return schema_warning
         return e.errors
     except OSError as e:
-        # If there are OSErrors and the schema is deprecated...
+        # If there are OSErrors and the schema is deprecated/draft...
         #    the OSErrors are more important.
         return {e.strerror: e.filename}
     if schema_warning:
