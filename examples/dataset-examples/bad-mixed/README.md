@@ -31,10 +31,10 @@ Metadata TSV Validation Errors:
   Local Validation Errors:
     examples/dataset-examples/bad-mixed/upload/codex-metadata.tsv (as codex):
     - 'On row 2, column "donor_id", value "-INVALID-" fails because it does not match
-      the expected pattern. Example: ABC123.'
+      the expected pattern. Example: ABC123'
     examples/dataset-examples/bad-mixed/upload/scatacseq-metadata.tsv (as scatacseq):
     - 'On row 2, column "donor_id", value "-INVALID-" fails because it does not match
-      the expected pattern. Example: ABC123.'
+      the expected pattern. Example: ABC123'
     - On row 2, column "sc_isolation_protocols_io_doi", value "" fails because it
       must be filled out.
     - On row 2, column "library_construction_protocols_io_doi", value "" fails because

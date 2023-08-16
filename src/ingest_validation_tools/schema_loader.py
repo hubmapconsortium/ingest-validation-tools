@@ -23,7 +23,10 @@ class PreflightError(Exception):
     pass
 
 
-SchemaVersion = namedtuple("SchemaVersion", ["schema_name", "version"])
+# TODO: why not a dataclass?
+SchemaVersion = namedtuple(
+    "SchemaVersion", ["schema_name", "version", "is_assay"], defaults=(True,)
+)
 
 
 def get_fields_wo_headers(schema: dict) -> List[dict]:
@@ -45,39 +48,51 @@ def get_table_schema_version_from_row(
     """
     >>> try: get_table_schema_version_from_row('empty', {'bad-column': 'bad-value'})
     ... except Exception as e: print(e)
-    empty does not contain "assay_type". Column headers: bad-column
+    empty does not contain "assay_type" or "dataset_type". Column headers: bad-column
 
-    >>> get_table_schema_version_from_row('v0', {'assay_type': 'PAS microscopy'})
-    SchemaVersion(schema_name='stained', version=0)
+    >>> get_table_schema_version_from_row( \
+            'v0', \
+            {'assay_type': 'PAS microscopy'}, \
+            cedar_validation=False \
+        )
+    SchemaVersion(schema_name='stained', version='0', is_assay=True)
 
-    >>> try: get_table_schema_version_from_row('v42',
-    ... {'assay_type': 'PAS microscopy', 'version': 42})
+    >>> try: get_table_schema_version_from_row('v42', \
+                {'assay_type': 'PAS microscopy', 'version': 42}, \
+                cedar_validation=False \
+                )
     ... except PreflightError as e: print(e)
     No schema where 'PAS microscopy' is assay_type and 42 is version
 
     """
     assay = row["assay_type"] if "assay_type" in row else row.get("dataset_type")
-    if not assay:
-        message = f'{path} does not contain "assay_type" or "dataset_type". '
-        if "channel_id" in row:
-            message += (
-                'Has "channel_id": Antibodies TSV found where metadata TSV expected.'
-            )
-        elif "orcid_id" in row:
-            message += (
-                'Has "orcid_id": Contributors TSV found where metadata TSV expected.'
-            )
-        else:
-            message += f'Column headers: {", ".join(row.keys())}'
-        raise PreflightError(message)
-
+    # TODO: loads of "other" schemas begin with "sample", prematurely adding plain "sample" here
+    other_schema = (
+        "Organ" if "organ_id" in row else "Sample" if "sample_id" in row else None
+    )
     source_project = row["source_project"] if "source_project" in row else None
-    # TODO: how are we handling CEDAR template versioning, again?
+    dir = "assays"
+    is_assay = True
+    if not assay:
+        if other_schema:
+            is_assay = False
+            assay = other_schema
+            dir = "others"
+        else:
+            message = f'{path} does not contain "assay_type" or "dataset_type". '
+            if "channel_id" in row:
+                message += 'Has "channel_id": Antibodies TSV found where metadata TSV expected.'
+            elif "orcid_id" in row:
+                message += 'Has "orcid_id": Contributors TSV found where metadata TSV expected.'
+            else:
+                message += f'Column headers: {", ".join(row.keys())}'
+            raise PreflightError(message)
+
     if not cedar_validation:
-        version = str(row["version"]) if "version" in row else "0"
+        version = row["version"] if "version" in row else "0"
     else:
         version = "cedar"
-    schema_names = _assay_to_schema_name(assay, source_project)
+    schema_names = _assay_to_schema_name(assay, version, source_project, dir)
 
     for schema_name in schema_names:
         if not cedar_validation:
@@ -87,102 +102,121 @@ def get_table_schema_version_from_row(
                 / _get_schema_filename(schema_name, version)
             )
             if Path(schema_path).exists():
-                return SchemaVersion(schema_name, version)
+                return SchemaVersion(schema_name, version, is_assay)
         else:
-            # TODO: Load the right schema
-            # If the file we received has metadata_schema_id field,
-            # only check for is_cedar and that the ids match
-            # If the file does not have that field, then we check for not is_cedar
-            dir_path = _table_schemas_path / "assays"
-            schema_files = [
-                f"{dir_path}/{schema_file}"
-                for schema_file in os.listdir(dir_path)
-                if schema_file.startswith(schema_name)
-            ]
-            for schema_path in schema_files:
-                schema = load_yaml(Path(schema_path))
-                fields = get_fields_wo_headers(schema)
-                cedar_field = [field for field in fields if field["name"] == "is_cedar"]
-                if not cedar_field:
-                    continue
-                assay_type_enums = [
-                    field["constraints"]["enum"]
-                    for field in fields
-                    if field["name"] == "assay_type"
-                ][0]
-                assert (
-                    assay in assay_type_enums
-                ), f"""
-                Assay type '{assay}' does not match any assay type in enum '{assay_type_enums}'
-                for schema {schema_path} for TSV with CEDAR IRI {version}
-                """
-                return SchemaVersion(schema_name, version)
+            cedar_schema = _get_cedar_schema(schema_name, assay, version)
+            if cedar_schema:
+                return cedar_schema
     message = f"No schema where '{assay}' is assay_type and {version} is version"
     raise PreflightError(message)
 
 
-def _assay_to_schema_name(assay_type: str, source_project: str | None) -> List[str]:
+def _get_cedar_schema(
+    schema_name: str, assay: str, version: str | int
+) -> SchemaVersion | None:
+    if schema_name in ["Organ", "Sample"]:
+        dir_path = _table_schemas_path / "others"
+        is_assay = False
+    else:
+        dir_path = _table_schemas_path / "assays"
+        is_assay = True
+    schema_files = [
+        f"{dir_path}/{schema_file}"
+        for schema_file in os.listdir(dir_path)
+        if schema_file.startswith(schema_name.lower())
+    ]
+    for schema_path in schema_files:
+        schema = load_yaml(Path(schema_path))
+        fields = get_fields_wo_headers(schema)
+        cedar_field = [field for field in fields if field["name"] == "is_cedar"]
+        if not cedar_field:
+            continue
+        filename = Path(schema_path).name
+        version_regex = re.compile(r"\d+")
+        version_group = version_regex.search(filename)
+        if version_group:
+            version = version_group[0]
+        assay_type_enums = [
+            field["constraints"]["enum"]
+            for field in fields
+            if field["name"] == "assay_type"
+        ][0]
+        # TODO: is "assay" the right language for organ/sample?
+        assert (
+            assay in assay_type_enums
+        ), f"""
+            Assay type '{assay}' does not match any assay type in
+            enum '{assay_type_enums}' for schema {schema_path}
+            """
+        return SchemaVersion(schema_name, version, is_assay)
+    return None
+
+
+def _assay_to_schema_name(
+    assay_type: str, version: str, source_project: str | None, dir: str = "assays"
+) -> List[str]:
     """
     Given an assay name, and a source_project (may be None),
     read all the schemas until one matches.
     Return the schema name, but not the version.
 
-    >>> _assay_to_schema_name('PAS microscopy', None)
+    >>> _assay_to_schema_name('PAS microscopy', '1', None)
     ['stained']
 
-    >>> _assay_to_schema_name('snRNAseq', None)
+    >>> _assay_to_schema_name('snRNAseq', '1', None)
     ['scrnaseq']
 
-    >>> _assay_to_schema_name('snRNAseq', 'HCA')
+    >>> _assay_to_schema_name('snRNAseq', '1', 'HCA')
     ['scrnaseq-hca']
 
 
     Or, if a match can not be found (try-except just for shorter lines):
 
-    >>> try:  _assay_to_schema_name('PAS microscopy', 'HCA')
+    >>> try:  _assay_to_schema_name('PAS microscopy', '1', 'HCA')
     ... except PreflightError as e: print(e)
     No schema where 'PAS microscopy' is assay_type and 'HCA' is source_project
 
-    >>> try: _assay_to_schema_name('snRNAseq', 'Bad Project')
+    >>> try: _assay_to_schema_name('snRNAseq', '1', 'Bad Project')
     ... except PreflightError as e: print(e)
     No schema where 'snRNAseq' is assay_type and 'Bad Project' is source_project
 
-    >>> try: _assay_to_schema_name('Bad assay', None)
+    >>> try: _assay_to_schema_name('Bad assay', '1', None)
     ... except PreflightError as e: print(e)
     No schema where 'Bad assay' is assay_type
 
-    >>> try: _assay_to_schema_name('Bad assay', 'HCA')
+    >>> try: _assay_to_schema_name('Bad assay', '1', 'HCA')
     ... except PreflightError as e: print(e)
     No schema where 'Bad assay' is assay_type and 'HCA' is source_project
 
     """
     assay_names = []
-    for path in (Path(__file__).parent / "table-schemas" / "assays").glob("*.yaml"):
+    for path in (Path(__file__).parent / "table-schemas" / dir).glob("*.yaml"):
         schema = load_yaml(path)
         assay_type_enum = get_field_enum("assay_type", schema)
-        source_project_enum = get_field_enum("source_project", schema)
 
         if assay_type not in assay_type_enum:
             continue
-
-        if source_project_enum:
-            if not source_project:
-                continue
-
-        if source_project:
-            if not source_project_enum:
-                continue
-            if source_project not in source_project_enum:
-                continue
 
         is_cedar = False
         for field in schema.get("fields", []):
             if type(field) == dict and field.get("name", "") == "is_cedar":
                 is_cedar = True
 
-        if is_cedar:
+        if is_cedar and version == "cedar":
             assay_names.append(assay_type)
         else:
+            source_project_enum = get_field_enum("source_project", schema)
+
+            if source_project_enum:
+                if not source_project:
+                    continue
+
+            if source_project:
+                if not source_project_enum:
+                    continue
+                if source_project not in source_project_enum:
+                    continue
+
             v_match = re.match(r".+(?=-v\d+)", path.stem)
             if not v_match:
                 raise PreflightError(f"No version in {path}")
@@ -200,7 +234,7 @@ def _assay_to_schema_name(assay_type: str, source_project: str | None) -> List[s
 def list_table_schema_versions() -> List[SchemaVersion]:
     """
     >>> list_table_schema_versions()[0]
-    SchemaVersion(schema_name='10x-multiome', version='2')
+    SchemaVersion(schema_name='10x-multiome', version='2', is_assay=True)
 
     """
     schema_paths = list((_table_schemas_path / "assays").iterdir()) + list(
@@ -228,7 +262,7 @@ def dict_table_schema_versions() -> Dict[str, Set[str]]:
 def list_directory_schema_versions() -> List[SchemaVersion]:
     """
     >>> list_directory_schema_versions()[0]
-    SchemaVersion(schema_name='10x-multiome', version='2')
+    SchemaVersion(schema_name='10x-multiome', version='2', is_assay=True)
 
     """
     schema_paths = list(_directory_schemas_path.iterdir())
@@ -331,8 +365,14 @@ def get_directory_schema(directory_type: str, schema_version: str) -> Optional[d
     directory_schema_path = _directory_schemas_path / _get_schema_filename(
         directory_type, schema_version
     )
+    # Roll backward to latest directory schema version if numbers don't match
+    # This does not account for the directory schema number being higher...
     if not directory_schema_path.exists():
-        return None
+        new_schema_version = int(schema_version) - 1
+        if new_schema_version >= 0:
+            return get_directory_schema(directory_type, str(new_schema_version))
+        else:
+            return None
     schema = load_yaml(directory_schema_path)
     schema["files"] += []
     return schema

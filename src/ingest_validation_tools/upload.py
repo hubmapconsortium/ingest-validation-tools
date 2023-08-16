@@ -29,7 +29,7 @@ from ingest_validation_tools.validation_utils import (
 )
 
 TSV_SUFFIX = "metadata.tsv"
-API_KEY_SECRET = ""
+API_KEY_SECRET = "d72052d0b8c37b286cb8ddfab63e8fad4069766fc6229af33e675f799b76a6d4"
 
 
 class ErrorDictException(Exception):
@@ -215,6 +215,8 @@ class Upload:
                 ] = f'There is more than one TSV for this type: {", ".join(repeated)}'
                 raise ErrorDictException(errors)
         for path, schema_version in self.effective_tsv_paths.items():
+            if not schema_version.is_assay:
+                continue
             schema_name = schema_version.schema_name
             rows = self._get_rows_from_tsv(path)
             if type(rows) != list:
@@ -227,7 +229,9 @@ class Upload:
                         if not row.get(field):
                             continue
                         path = self.directory_path / row[field]
-                        ref_error = self._check_path(i, path, ref, schema_name)
+                        ref_error = self._check_path(
+                            i, path, ref, schema_name, schema_version.version
+                        )
                         if ref_error and errors.get(f"{path} (as {schema_name})"):
                             errors[f"{path} (as {schema_name})"].update(ref_error)
                         elif ref_error:
@@ -239,6 +243,8 @@ class Upload:
         if not self.directory_path:
             return errors
         for path, schema_version in self.effective_tsv_paths.items():
+            if not schema_version.is_assay:
+                continue
             schema_name = schema_version.schema_name
             rows = self._get_rows_from_tsv(path)
             if type(rows) != list:
@@ -249,7 +255,9 @@ class Upload:
                     if not row.get("data_path"):
                         continue
                     path = self.directory_path / row["data_path"]
-                    dir_error = self._check_path(i, path, "data", schema_name)
+                    dir_error = self._check_path(
+                        i, path, "data", schema_name.lower(), schema_version.version
+                    )
                     if dir_error and errors.get(f"{path} (as {schema_name})"):
                         errors[f"{path} (as {schema_name})"].update(dir_error)
                     elif dir_error:
@@ -257,7 +265,9 @@ class Upload:
         return errors
 
     def _cedar_api_call(self, tsv_path: str | Path) -> requests.Response:
-        auth = HTTPBasicAuth("apikey", os.environ[API_KEY_SECRET])
+        auth = HTTPBasicAuth(
+            "apikey", API_KEY_SECRET if API_KEY_SECRET else os.environ[API_KEY_SECRET]
+        )
         file = {"input_file": open(tsv_path, "rb")}
         headers = {"content_type": "multipart/form-data"}
         try:
@@ -289,7 +299,9 @@ class Upload:
         if not plugin_path:
             return None
         errors = defaultdict(list)
-        for metadata_path in self.effective_tsv_paths.keys():
+        for metadata_path, schema_version in self.effective_tsv_paths.items():
+            if not schema_version.is_assay:
+                continue
             try:
                 for k, v in run_plugin_validators_iter(
                     metadata_path, plugin_path, **kwargs
@@ -313,6 +325,8 @@ class Upload:
             errors["Request Errors"] = response.json()
         elif response.json()["reporting"] and len(response.json()["reporting"]) > 0:
             errors["Validation Errors"] = response.json()["reporting"]
+        else:
+            logging.info(f"No errors found during CEDAR validation for {tsv_path}!")
         return errors
 
     def _get_rows_from_tsv(self, path: str | Path) -> dict | list:
@@ -331,13 +345,21 @@ class Upload:
             errors["Path Errors"] = f"Expected a TSV, found a directory at {path}."
         return errors
 
-    def _check_path(self, i: int, path: Path, ref: str, schema_name: str) -> dict:
+    def _check_path(
+        self,
+        i: int,
+        path: Path,
+        ref: str,
+        schema_name: str,
+        schema_version: str,
+    ) -> dict:
         errors = {}
         row_number = f"row {i+2}"
         if ref == "data":
             ref_errors = get_data_dir_errors(
                 schema_name,
                 path,
+                schema_version,
                 dataset_ignore_globs=self.dataset_ignore_globs,
             )
         else:
@@ -409,7 +431,9 @@ class Upload:
 
     def __get_references(self, col_name) -> dict:
         references = defaultdict(list)
-        for tsv_path in self.effective_tsv_paths.keys():
+        for tsv_path, schema_version in self.effective_tsv_paths.items():
+            if not schema_version.is_assay:
+                continue
             for i, row in enumerate(dict_reader_wrapper(tsv_path, self.encoding)):
                 if col_name in row:
                     reference = f"{tsv_path} (row {i+2})"
