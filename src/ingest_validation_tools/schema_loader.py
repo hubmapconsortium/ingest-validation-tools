@@ -1,9 +1,11 @@
+from __future__ import annotations
+
 import os
 from pathlib import Path
 from collections import defaultdict, namedtuple
 from copy import deepcopy
 import re
-from typing import List, Dict, Any, Set, Sequence, Optional
+from typing import List, Dict, Any, Set, Sequence, Optional, Union
 
 from ingest_validation_tools.yaml_include_loader import load_yaml
 from ingest_validation_tools.enums import shared_enums
@@ -112,8 +114,8 @@ def get_table_schema_version_from_row(
 
 
 def _get_cedar_schema(
-    schema_name: str, assay: str, version: str | int
-) -> SchemaVersion | None:
+    schema_name: str, assay: str, version: Union[str, int]
+) -> Union[SchemaVersion, None]:
     if schema_name in ["Organ", "Sample"]:
         dir_path = _table_schemas_path / "others"
         is_assay = False
@@ -153,7 +155,7 @@ def _get_cedar_schema(
 
 
 def _assay_to_schema_name(
-    assay_type: str, version: str, source_project: str | None, dir: str = "assays"
+    assay_type: str, version: str, source_project: Union[str, None], dir: str = "assays"
 ) -> List[str]:
     """
     Given an assay name, and a source_project (may be None),
