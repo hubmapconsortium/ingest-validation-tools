@@ -276,6 +276,49 @@ class Upload:
                     errors[f"{path} (as {schema_name})"] = dir_errors
         return errors
 
+    def _get_directory_errors(self) -> dict:
+        errors = defaultdict()
+        if not self.directory_path:
+            return errors
+        for path, schema_version in self.effective_tsv_paths.items():
+            if not schema_version.is_assay:
+                continue
+            schema_name = schema_version.schema_name
+            rows = self._get_rows_from_tsv(path)
+            if type(rows) != list:
+                errors[f"{path} (as {schema_name})"] = rows
+            else:
+                for i, row in enumerate(rows):
+                    # could break this find row value out
+                    if not row.get("data_path"):
+                        continue
+                    path = self.directory_path / row["data_path"]
+                    dir_error = self._check_path(
+                        i, path, "data", schema_name.lower(), schema_version.version
+                    )
+                    if dir_error and errors.get(f"{path} (as {schema_name})"):
+                        errors[f"{path} (as {schema_name})"].update(dir_error)
+                    elif dir_error:
+                        errors[f"{path} (as {schema_name})"] = dir_error
+        return errors
+
+    def _cedar_api_call(self, tsv_path: str | Path) -> requests.Response:
+        auth = HTTPBasicAuth(
+            "apikey", API_KEY_SECRET if API_KEY_SECRET else os.environ[API_KEY_SECRET]
+        )
+        file = {"input_file": open(tsv_path, "rb")}
+        headers = {"content_type": "multipart/form-data"}
+        try:
+            response = requests.post(
+                "https://api.metadatavalidator.metadatacenter.org/service/validate-tsv",
+                auth=auth,
+                headers=headers,
+                files=file,
+            )
+        except Exception as e:
+            raise Exception(f"CEDAR API request for {tsv_path} failed! Exception: {e}")
+        return response
+
     def _get_reference_errors(self) -> dict:
         errors = {}
         no_ref_errors = self.__get_no_ref_errors()
