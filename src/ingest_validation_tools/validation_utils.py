@@ -1,7 +1,7 @@
 import logging
 from csv import DictReader
 from pathlib import Path
-from typing import List, Optional
+from typing import List, Optional, Union
 
 from ingest_validation_tools.schema_loader import (
     SchemaVersion,
@@ -166,7 +166,7 @@ def get_context_of_decode_error(e: UnicodeDecodeError) -> str:
 
 
 def get_tsv_errors(
-    tsv_path: str,
+    tsv_path: Union[str, Path],
     schema_name: str,
     optional_fields: List[str] = [],
     offline=None,
@@ -224,7 +224,8 @@ def get_tsv_errors(
 
     logging.info(f"Validating {schema_name} TSV...")
     if not Path(tsv_path).exists():
-        return "File does not exist"
+        # TODO: formatting is funky
+        return f"File does not exist: {tsv_path}."
 
     try:
         rows = dict_reader_wrapper(tsv_path, encoding=encoding)

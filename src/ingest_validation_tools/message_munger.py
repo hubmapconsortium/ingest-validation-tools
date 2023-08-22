@@ -9,8 +9,12 @@ pat_reps = [
     (
         r".*: External: (row \d+), data ([^:]+): ([^:]+): (.+)",
         r'In the dataset \2 referenced on \1, the file "\4" is \3.',
+        # TODO: updating patterns
+        # r"(row \d+), field ([^:]+): '([^:]+): (.+)'",
+        # r'In the field \2 referenced on \1, the file "\4" \3.',
     ),
     (
+        # TODO: outdated
         r" \(as \S+\): External: Warning: File has no data rows",
         r", the file is just a header with no data rows",
     ),

@@ -146,16 +146,6 @@ class Upload:
 
         return errors
 
-    def check_upload(self) -> dict:
-        upload_errors = {}
-        tsv_errors = self._get_local_tsv_errors()
-        if tsv_errors:
-            upload_errors["TSV Errors"] = tsv_errors
-        dir_errors = self._get_directory_errors()
-        if dir_errors:
-            upload_errors["Directory Errors"] = dir_errors
-        return upload_errors
-
     def validation_routine(self) -> dict:
         errors = {}
         local_validated = {}
@@ -197,6 +187,16 @@ class Upload:
     #
     ###################################
 
+    def check_upload(self) -> dict:
+        upload_errors = {}
+        tsv_errors = self._get_local_tsv_errors()
+        if tsv_errors:
+            upload_errors["TSV Errors"] = tsv_errors
+        dir_errors = self._get_directory_errors()
+        if dir_errors:
+            upload_errors["Directory Errors"] = dir_errors
+        return upload_errors
+
     def _get_local_tsv_errors(self) -> dict | None:
         errors = {}
         if not self.effective_tsv_paths:
@@ -223,19 +223,25 @@ class Upload:
                 errors[f"{path} (as {schema_name})"] = rows
             else:
                 for ref in ["contributors", "antibodies"]:
+                    ref_errors = []
                     for i, row in enumerate(rows):
                         # could break this find row value out
                         field = f"{ref}_path"
                         if not row.get(field):
                             continue
-                        path = self.directory_path / row[field]
+                        data_path = self.directory_path / row[field]
                         ref_error = self._check_path(
-                            i, path, ref, schema_name, schema_version.version
+                            i,
+                            data_path,
+                            ref,
+                            field,
+                            schema_name,
+                            schema_version.version,
                         )
-                        if ref_error and errors.get(f"{path} (as {schema_name})"):
-                            errors[f"{path} (as {schema_name})"].update(ref_error)
-                        elif ref_error:
-                            errors[f"{path} (as {schema_name})"] = ref_error
+                        if ref_error:
+                            ref_errors.append(ref_error)
+                    if ref_errors:
+                        errors[f"{path} (as {schema_name})"] = ref_errors
         return errors
 
     def _get_directory_errors(self) -> dict:
@@ -250,36 +256,25 @@ class Upload:
             if type(rows) != list:
                 errors[f"{path} (as {schema_name})"] = rows
             else:
+                dir_errors = []
                 for i, row in enumerate(rows):
                     # could break this find row value out
                     if not row.get("data_path"):
                         continue
-                    path = self.directory_path / row["data_path"]
+                    data_path = self.directory_path / row["data_path"]
                     dir_error = self._check_path(
-                        i, path, "data", schema_name.lower(), schema_version.version
+                        i,
+                        data_path,
+                        "data",
+                        "data_path",
+                        schema_name.lower(),
+                        schema_version.version,
                     )
-                    if dir_error and errors.get(f"{path} (as {schema_name})"):
-                        errors[f"{path} (as {schema_name})"].update(dir_error)
-                    elif dir_error:
-                        errors[f"{path} (as {schema_name})"] = dir_error
+                    if dir_error:
+                        dir_errors.append(dir_error)
+                if dir_errors:
+                    errors[f"{path} (as {schema_name})"] = dir_errors
         return errors
-
-    def _cedar_api_call(self, tsv_path: str | Path) -> requests.Response:
-        auth = HTTPBasicAuth(
-            "apikey", API_KEY_SECRET if API_KEY_SECRET else os.environ[API_KEY_SECRET]
-        )
-        file = {"input_file": open(tsv_path, "rb")}
-        headers = {"content_type": "multipart/form-data"}
-        try:
-            response = requests.post(
-                "https://api.metadatavalidator.metadatacenter.org/service/validate-tsv",
-                auth=auth,
-                headers=headers,
-                files=file,
-            )
-        except Exception as e:
-            raise Exception(f"CEDAR API request for {tsv_path} failed! Exception: {e}")
-        return response
 
     def _get_reference_errors(self) -> dict:
         errors = {}
@@ -350,6 +345,7 @@ class Upload:
         i: int,
         path: Path,
         ref: str,
+        field: str,
         schema_name: str,
         schema_version: str,
     ) -> dict:
@@ -371,10 +367,10 @@ class Upload:
                 ignore_deprecation=self.ignore_deprecation,
             )
         if ref_errors:
-            errors[f"{row_number}, {ref} {path}"] = ref_errors
+            errors[f"{row_number}, field '{field}'"] = ref_errors
         return errors
 
-    def __get_assay_tsv_errors(self, assay_type: str, path: Path) -> dict:
+    def __get_assay_tsv_errors(self, assay_type: str, path: Path):
         return get_tsv_errors(
             schema_name=assay_type,
             tsv_path=path,
@@ -383,6 +379,23 @@ class Upload:
             optional_fields=self.optional_fields,
             ignore_deprecation=self.ignore_deprecation,
         )
+
+    def _cedar_api_call(self, tsv_path: str | Path) -> requests.Response:
+        auth = HTTPBasicAuth(
+            "apikey", API_KEY_SECRET if API_KEY_SECRET else os.environ[API_KEY_SECRET]
+        )
+        file = {"input_file": open(tsv_path, "rb")}
+        headers = {"content_type": "multipart/form-data"}
+        try:
+            response = requests.post(
+                "https://api.metadatavalidator.metadatacenter.org/service/validate-tsv",
+                auth=auth,
+                headers=headers,
+                files=file,
+            )
+        except Exception as e:
+            raise Exception(f"CEDAR API request for {tsv_path} failed! Exception: {e}")
+        return response
 
     def __get_no_ref_errors(self) -> dict:
         if not self.directory_path:
