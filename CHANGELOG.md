@@ -98,6 +98,7 @@
   Entries in the global list are now commented out, and Joel will progressively
   uncomment them.
 - Moved `dataset.json` to `raw` or `src_*` directory for CODEX datasets.
+- Modify IMC docs
 
 ## v0.0.13 - 2022-01-07
 - Make more fields explicitly numeric
