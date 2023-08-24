@@ -315,7 +315,8 @@ def _make_fields_md(table_schema, title, is_open=False):
         else:
             return f'''
 <details markdown="1" {'open="true"' if is_open else ''}><summary>{title_html}</summary>
-<b>DO NOT USE FOR FUTURE SUBMISSIONS</b>
+We do not expect to receive any new data of this assay type. If you are planning to submit new data of this assay type, 
+please reach out to the help desk at help@hubmapconsortium.org.
 </details>
 '''
 

@@ -20,7 +20,8 @@ This schema has been incorporated into the histology schema which can be accesse
 
 
 <details markdown="1" open="true"><summary><s>Version 2 (current)</s> (deprecated)</summary>
-<b>DO NOT USE FOR FUTURE SUBMISSIONS</b>
+We do not expect to receive any new data of this assay type. If you are planning to submit new data of this assay type, 
+please reach out to the help desk at help@hubmapconsortium.org.
 </details>
 
 
