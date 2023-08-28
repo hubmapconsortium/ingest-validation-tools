@@ -36,7 +36,7 @@ Exit status codes:
             'sample', 'sample-block', 'sample-suspension', 'sample-section',
             'antibodies', 'contributors', 'metadata'])
     error_report_methods = [
-        name for (name, type) in inspect.getmembers(ErrorReport)
+        name for (name, _) in inspect.getmembers(ErrorReport)
         if name.startswith('as_')
     ]
     parser.add_argument('--output', choices=error_report_methods,

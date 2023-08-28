@@ -25,10 +25,7 @@ class PreflightError(Exception):
     pass
 
 
-# TODO: why not a dataclass?
-SchemaVersion = namedtuple(
-    "SchemaVersion", ["schema_name", "version", "is_assay"], defaults=(True,)
-)
+SchemaVersion = namedtuple("SchemaVersion", ["schema_name", "version"])
 
 
 def get_fields_wo_headers(schema: dict) -> List[dict]:
@@ -47,6 +44,8 @@ def get_field_enum(field_name: str, schema: dict) -> List[str]:
 def get_table_schema_version_from_row(
     path: str, row: Dict[str, Any], cedar_validation: bool = True
 ) -> SchemaVersion:
+    from ingest_validation_tools.validation_utils import get_other_names
+
     """
     >>> try: get_table_schema_version_from_row('empty', {'bad-column': 'bad-value'})
     ... except Exception as e: print(e)
@@ -57,7 +56,7 @@ def get_table_schema_version_from_row(
             {'assay_type': 'PAS microscopy'}, \
             cedar_validation=False \
         )
-    SchemaVersion(schema_name='stained', version='0', is_assay=True)
+    SchemaVersion(schema_name='stained', version='0')
 
     >>> try: get_table_schema_version_from_row('v42', \
                 {'assay_type': 'PAS microscopy', 'version': 42}, \
@@ -68,45 +67,47 @@ def get_table_schema_version_from_row(
 
     """
     assay = row["assay_type"] if "assay_type" in row else row.get("dataset_type")
-    # TODO: loads of "other" schemas begin with "sample", prematurely adding plain "sample" here
-    other_schema = (
-        "Organ" if "organ_id" in row else "Sample" if "sample_id" in row else None
-    )
     source_project = row["source_project"] if "source_project" in row else None
     dir = "assays"
-    is_assay = True
-    if not assay:
-        if other_schema:
-            is_assay = False
-            assay = other_schema
-            dir = "others"
-        else:
-            message = f'{path} does not contain "assay_type" or "dataset_type". '
-            if "channel_id" in row:
-                message += 'Has "channel_id": Antibodies TSV found where metadata TSV expected.'
-            elif "orcid_id" in row:
-                message += 'Has "orcid_id": Contributors TSV found where metadata TSV expected.'
-            else:
-                message += f'Column headers: {", ".join(row.keys())}'
-            raise PreflightError(message)
 
     if not cedar_validation:
         version = row["version"] if "version" in row else "0"
     else:
         version = "cedar"
-    schema_names = _assay_to_schema_name(assay, version, source_project, dir)
+
+    other_type = [
+        other_type
+        for other_type in get_other_names()
+        if f"{other_type}_id" in row.keys()
+    ]
+    if other_type:
+        assay = other_type[0]
+        dir = "others"
+    elif not assay:
+        message = f'{path} does not contain "assay_type" or "dataset_type". '
+        if "channel_id" in row:
+            message += (
+                'Has "channel_id": Antibodies TSV found where metadata TSV expected.'
+            )
+        elif "orcid_id" in row:
+            message += (
+                'Has "orcid_id": Contributors TSV found where metadata TSV expected.'
+            )
+        else:
+            message += f'Column headers: {", ".join(row.keys())}'
+        raise PreflightError(message)
+
+    schema_names = _assay_to_schema_name(assay, version, source_project, dir=dir)
 
     for schema_name in schema_names:
         if not cedar_validation:
             schema_path = (
-                _table_schemas_path
-                / "assays"
-                / _get_schema_filename(schema_name, version)
+                _table_schemas_path / dir / _get_schema_filename(schema_name, version)
             )
             if Path(schema_path).exists():
-                return SchemaVersion(schema_name, version, is_assay)
+                return SchemaVersion(schema_name, version)
         else:
-            cedar_schema = _get_cedar_schema(schema_name, assay, version)
+            cedar_schema = _get_cedar_schema(schema_name, assay, version, dir=dir)
             if cedar_schema:
                 return cedar_schema
     message = f"No schema where '{assay}' is assay_type and {version} is version"
@@ -114,14 +115,12 @@ def get_table_schema_version_from_row(
 
 
 def _get_cedar_schema(
-    schema_name: str, assay: str, version: Union[str, int]
+    schema_name: str, assay: str, version: Union[str, int], dir: str
 ) -> Union[SchemaVersion, None]:
-    if schema_name in ["Organ", "Sample"]:
-        dir_path = _table_schemas_path / "others"
-        is_assay = False
-    else:
-        dir_path = _table_schemas_path / "assays"
-        is_assay = True
+    """
+    This will return the highest numbered schema matching is_cedar.
+    """
+    dir_path = _table_schemas_path / dir
     schema_files = [
         f"{dir_path}/{schema_file}"
         for schema_file in os.listdir(dir_path)
@@ -143,14 +142,13 @@ def _get_cedar_schema(
             for field in fields
             if field["name"] == "assay_type"
         ][0]
-        # TODO: is "assay" the right language for organ/sample?
-        assert (
-            assay in assay_type_enums
-        ), f"""
+        assert assay.lower() in [
+            enum.lower() for enum in assay_type_enums
+        ], f"""
             Assay type '{assay}' does not match any assay type in
             enum '{assay_type_enums}' for schema {schema_path}
             """
-        return SchemaVersion(schema_name, version, is_assay)
+        return SchemaVersion(schema_name, version)
     return None
 
 
@@ -196,7 +194,8 @@ def _assay_to_schema_name(
         schema = load_yaml(path)
         assay_type_enum = get_field_enum("assay_type", schema)
 
-        if assay_type not in assay_type_enum:
+        # TODO: idiosyncratic handling of case for matching with enums
+        if assay_type.lower() not in [assay.lower() for assay in assay_type_enum]:
             continue
 
         is_cedar = False
@@ -236,7 +235,7 @@ def _assay_to_schema_name(
 def list_table_schema_versions() -> List[SchemaVersion]:
     """
     >>> list_table_schema_versions()[0]
-    SchemaVersion(schema_name='10x-multiome', version='2', is_assay=True)
+    SchemaVersion(schema_name='10x-multiome', version='2')
 
     """
     schema_paths = list((_table_schemas_path / "assays").iterdir()) + list(
@@ -264,7 +263,7 @@ def dict_table_schema_versions() -> Dict[str, Set[str]]:
 def list_directory_schema_versions() -> List[SchemaVersion]:
     """
     >>> list_directory_schema_versions()[0]
-    SchemaVersion(schema_name='10x-multiome', version='2', is_assay=True)
+    SchemaVersion(schema_name='10x-multiome', version='2')
 
     """
     schema_paths = list(_directory_schemas_path.iterdir())
@@ -301,7 +300,7 @@ def dict_directory_schema_versions() -> Dict[str, Set[str]]:
 
 
 def _get_schema_filename(schema_name: str, version: str) -> str:
-    return f"{schema_name}-v{version}.yaml"
+    return f"{schema_name.lower()}-v{version}.yaml"
 
 
 def get_other_schema(

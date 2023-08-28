@@ -9,6 +9,7 @@ from collections import Counter, defaultdict
 from datetime import datetime
 from fnmatch import fnmatch
 from pathlib import Path
+from typing import Union
 
 import pandas as pd
 import requests
@@ -18,18 +19,22 @@ from ingest_validation_tools.plugin_validator import (
     ValidatorError as PluginValidatorError,
 )
 from ingest_validation_tools.plugin_validator import run_plugin_validators_iter
-from ingest_validation_tools.schema_loader import PreflightError
+from ingest_validation_tools.schema_loader import (
+    PreflightError,
+    SchemaVersion,
+)
 from ingest_validation_tools.validation_utils import (
     dict_reader_wrapper,
     get_context_of_decode_error,
     get_data_dir_errors,
     get_directory_schema_versions,
+    get_other_names,
+
     get_table_schema_version,
     get_tsv_errors,
 )
 
 TSV_SUFFIX = "metadata.tsv"
-API_KEY_SECRET = "d72052d0b8c37b286cb8ddfab63e8fad4069766fc6229af33e675f799b76a6d4"
 
 
 class ErrorDictException(Exception):
@@ -45,17 +50,17 @@ class ErrorDictException(Exception):
 class Upload:
     def __init__(
         self,
-        directory_path=None,
-        tsv_paths=[],
-        optional_fields=[],
-        add_notes=True,
-        dataset_ignore_globs=[],
-        upload_ignore_globs=[],
-        plugin_directory=None,
+        directory_path: Path,
+        tsv_paths: list = [],
+        optional_fields: list = [],
+        add_notes: bool = True,
+        dataset_ignore_globs: list = [],
+        upload_ignore_globs: list = [],
+        plugin_directory: Union[Path, None] = None,
         encoding: str = "utf-8",
-        offline=None,
-        ignore_deprecation=False,
-        extra_parameters={},
+        offline: bool = False,
+        ignore_deprecation: bool = False,
+        extra_parameters: Union[dict, None] = None,
     ):
         self.directory_path = directory_path
         self.optional_fields = optional_fields
@@ -68,7 +73,8 @@ class Upload:
         self.ignore_deprecation = ignore_deprecation
         self.errors = {}
         self.effective_tsv_paths = {}
-        self.extra_parameters = extra_parameters
+        self.extra_parameters = extra_parameters if extra_parameters else {}
+
         try:
             unsorted_effective_tsv_paths = {
                 str(path): get_table_schema_version(path, self.encoding)
@@ -125,6 +131,22 @@ class Upload:
 
         errors = {}
 
+        others = get_other_names()
+        others.remove("antibodies")
+        others.remove("contributors")
+        for tsv_path, schema_version in self.effective_tsv_paths.items():
+            if schema_version.schema_name in others:
+                error = self._validate(tsv_path, schema_version)
+                if error:
+                    errors[f"{tsv_path} (as {schema_version.schema_name})"] = error
+        self.effective_tsv_paths = {
+            k: v
+            for k, v in self.effective_tsv_paths.items()
+            if v.schema_name not in others
+        }
+        if not self.effective_tsv_paths:
+            return errors
+
         try:
             upload_errors = self.check_upload()
             if upload_errors:
@@ -144,41 +166,6 @@ class Upload:
         except ErrorDictException as e:
             return errors | e.errors
 
-        return errors
-
-    def validation_routine(self) -> dict:
-        errors = {}
-        local_validated = {}
-        api_validated = {}
-        for tsv_path, schema_version in self.effective_tsv_paths.items():
-            if not type(tsv_path) == Path:
-                try:
-                    tsv_path = Path(tsv_path)
-                except TypeError as e:
-                    raise TypeError(
-                        f"Path {tsv_path} is of invalid type {type(tsv_path)}. Exception: {e}"
-                    )
-            df = pd.read_csv(tsv_path, delimiter="\t")
-            if df.get(["metadata_schema_id"]) is None:
-                logging.info(
-                    f"""TSV {tsv_path} does not contain a metadata_schema_id,
-                    sending for local validation"""
-                )
-                local_errors = self.__get_assay_tsv_errors(
-                    schema_version.schema_name, tsv_path
-                )
-                if local_errors:
-                    local_validated[
-                        f"{tsv_path} (as {schema_version.schema_name})"
-                    ] = local_errors
-            else:
-                api_errors = self._api_validation(tsv_path)
-                if api_errors:
-                    api_validated[f"{tsv_path}"] = api_errors
-        if local_validated:
-            errors["Local Validation Errors"] = local_validated
-        if api_validated:
-            errors["CEDAR Validation Errors"] = api_validated
         return errors
 
     ###################################
@@ -215,131 +202,91 @@ class Upload:
                 ] = f'There is more than one TSV for this type: {", ".join(repeated)}'
                 raise ErrorDictException(errors)
         for path, schema_version in self.effective_tsv_paths.items():
-            if not schema_version.is_assay:
-                continue
             schema_name = schema_version.schema_name
             rows = self._get_rows_from_tsv(path)
             if type(rows) != list:
                 errors[f"{path} (as {schema_name})"] = rows
+                return errors
             else:
                 for ref in ["contributors", "antibodies"]:
-                    ref_errors = []
-                    for i, row in enumerate(rows):
-                        # could break this find row value out
-                        field = f"{ref}_path"
-                        if not row.get(field):
-                            continue
-                        data_path = self.directory_path / row[field]
-                        ref_error = self._check_path(
-                            i,
-                            data_path,
-                            ref,
-                            field,
-                            schema_name,
-                            schema_version.version,
-                        )
-                        if ref_error:
-                            ref_errors.append(ref_error)
+                    ref_errors = self._get_ref_errors(rows, ref, schema_version)
                     if ref_errors:
                         errors[f"{path} (as {schema_name})"] = ref_errors
         return errors
 
     def _get_directory_errors(self) -> dict:
-        errors = defaultdict()
-        if not self.directory_path:
-            return errors
+        errors = {}
         for path, schema_version in self.effective_tsv_paths.items():
-            if not schema_version.is_assay:
-                continue
             schema_name = schema_version.schema_name
             rows = self._get_rows_from_tsv(path)
             if type(rows) != list:
                 errors[f"{path} (as {schema_name})"] = rows
             else:
-                dir_errors = []
-                for i, row in enumerate(rows):
-                    # could break this find row value out
-                    if not row.get("data_path"):
-                        continue
-                    data_path = self.directory_path / row["data_path"]
-                    dir_error = self._check_path(
-                        i,
-                        data_path,
-                        "data",
-                        "data_path",
-                        schema_name.lower(),
-                        schema_version.version,
-                    )
-                    if dir_error:
-                        dir_errors.append(dir_error)
+                dir_errors = self._get_ref_errors(rows, "data", schema_version)
                 if dir_errors:
-                    errors[f"{path} (as {schema_name})"] = dir_errors
+                    # errors[f"{path} (as {schema_name})"] = dir_errors
+                    errors[f"(as {schema_name})"] = dir_errors
         return errors
 
-    def _get_directory_errors(self) -> dict:
-        errors = defaultdict()
-        if not self.directory_path:
-            return errors
-        for path, schema_version in self.effective_tsv_paths.items():
-            if not schema_version.is_assay:
-                continue
-            schema_name = schema_version.schema_name
-            rows = self._get_rows_from_tsv(path)
-            if type(rows) != list:
-                errors[f"{path} (as {schema_name})"] = rows
-            else:
-                for i, row in enumerate(rows):
-                    # could break this find row value out
-                    if not row.get("data_path"):
-                        continue
-                    path = self.directory_path / row["data_path"]
-                    dir_error = self._check_path(
-                        i, path, "data", schema_name.lower(), schema_version.version
+    def validation_routine(self) -> dict:
+        errors = {}
+        for tsv_path, schema_version in self.effective_tsv_paths.items():
+            if not type(tsv_path) == Path:
+                try:
+                    tsv_path = Path(tsv_path)
+                except TypeError as e:
+                    raise TypeError(
+                        f"Path {tsv_path} is of invalid type {type(tsv_path)}. Exception: {e}"
                     )
-                    if dir_error and errors.get(f"{path} (as {schema_name})"):
-                        errors[f"{path} (as {schema_name})"].update(dir_error)
-                    elif dir_error:
-                        errors[f"{path} (as {schema_name})"] = dir_error
+            path_errors = self._validate(tsv_path, schema_version)
+            if path_errors:
+                errors.update(path_errors)
         return errors
 
-    def _cedar_api_call(self, tsv_path: str | Path) -> requests.Response:
-        auth = HTTPBasicAuth(
-            "apikey", API_KEY_SECRET if API_KEY_SECRET else os.environ[API_KEY_SECRET]
-        )
-        file = {"input_file": open(tsv_path, "rb")}
-        headers = {"content_type": "multipart/form-data"}
-        try:
-            response = requests.post(
-                "https://api.metadatavalidator.metadatacenter.org/service/validate-tsv",
-                auth=auth,
-                headers=headers,
-                files=file,
+    def _validate(self, tsv_path, schema_version):
+        errors = {}
+        local_validated = {}
+        api_validated = {}
+        df = pd.read_csv(tsv_path, delimiter="\t")
+        if df.get(["metadata_schema_id"]) is None:
+            logging.info(
+                f"""TSV {tsv_path} does not contain a metadata_schema_id,
+                sending for local validation"""
             )
-        except Exception as e:
-            raise Exception(f"CEDAR API request for {tsv_path} failed! Exception: {e}")
-        return response
+            local_errors = self.__get_assay_tsv_errors(
+                schema_version.schema_name, Path(tsv_path)
+            )
+            if local_errors:
+                local_validated[f"{tsv_path}"] = local_errors
+        else:
+            api_errors = self._api_validation(Path(tsv_path))
+            if api_errors:
+                api_validated[f"{tsv_path}"] = api_errors
+        if local_validated:
+            errors["Local Validation Errors"] = local_validated
+        if api_validated:
+            errors["CEDAR Validation Errors"] = api_validated
+        return errors
 
     def _get_reference_errors(self) -> dict:
         errors = {}
         no_ref_errors = self.__get_no_ref_errors()
         try:
             multi_ref_errors = self.__get_multi_ref_errors()
+            if no_ref_errors:
+                errors["No References"] = no_ref_errors
+            if multi_ref_errors:
+                errors["Multiple References"] = multi_ref_errors
         except UnicodeDecodeError as e:
-            return get_context_of_decode_error(e)
-        if no_ref_errors:
-            errors["No References"] = no_ref_errors
-        if multi_ref_errors:
-            errors["Multiple References"] = multi_ref_errors
+            errors["Decode Error"] = get_context_of_decode_error(e)
         return errors
 
     def _get_plugin_errors(self, **kwargs) -> dict:
         plugin_path = self.plugin_directory
         if not plugin_path:
-            return None
+            return {}
         errors = defaultdict(list)
-        for metadata_path, schema_version in self.effective_tsv_paths.items():
-            if not schema_version.is_assay:
-                continue
+        for metadata_path in self.effective_tsv_paths.keys():
             try:
                 for k, v in run_plugin_validators_iter(
                     metadata_path, plugin_path, **kwargs
@@ -347,7 +294,7 @@ class Upload:
                     errors[k].append(v)
             except PluginValidatorError as e:
                 # We are ok with just returning a single error, rather than all.
-                errors["Unexpected Plugin Error"] = str(e)
+                errors["Unexpected Plugin Error"] = [e]
         return dict(errors)  # get rid of defaultdict
 
     ##############################
@@ -366,6 +313,21 @@ class Upload:
         else:
             logging.info(f"No errors found during CEDAR validation for {tsv_path}!")
         return errors
+
+    def _cedar_api_call(self, tsv_path: str | Path) -> requests.Response:
+        auth = HTTPBasicAuth("apikey", os.environ["API_KEY_SECRET"])
+        file = {"input_file": open(tsv_path, "rb")}
+        headers = {"content_type": "multipart/form-data"}
+        try:
+            response = requests.post(
+                "https://api.metadatavalidator.metadatacenter.org/service/validate-tsv",
+                auth=auth,
+                headers=headers,
+                files=file,
+            )
+        except Exception as e:
+            raise Exception(f"CEDAR API request for {tsv_path} failed! Exception: {e}")
+        return response
 
     def _get_rows_from_tsv(self, path: str | Path) -> dict | list:
         errors = {}
@@ -404,7 +366,7 @@ class Upload:
         else:
             ref_errors = get_tsv_errors(
                 schema_name=ref,
-                tsv_path=str(path),
+                tsv_path=path,
                 offline=self.offline,
                 encoding=self.encoding,
                 ignore_deprecation=self.ignore_deprecation,
@@ -423,26 +385,26 @@ class Upload:
             ignore_deprecation=self.ignore_deprecation,
         )
 
-    def _cedar_api_call(self, tsv_path: str | Path) -> requests.Response:
-        auth = HTTPBasicAuth(
-            "apikey", API_KEY_SECRET if API_KEY_SECRET else os.environ[API_KEY_SECRET]
-        )
-        file = {"input_file": open(tsv_path, "rb")}
-        headers = {"content_type": "multipart/form-data"}
-        try:
-            response = requests.post(
-                "https://api.metadatavalidator.metadatacenter.org/service/validate-tsv",
-                auth=auth,
-                headers=headers,
-                files=file,
+    def _get_ref_errors(self, rows: list, ref: str, schema: SchemaVersion):
+        ref_errors = []
+        for i, row in enumerate(rows):
+            field = f"{ref}_path"
+            if not row.get(field):
+                continue
+            data_path = self.directory_path / row[field]
+            ref_error = self._check_path(
+                i,
+                data_path,
+                ref,
+                field,
+                schema.schema_name,
+                schema.version,
             )
-        except Exception as e:
-            raise Exception(f"CEDAR API request for {tsv_path} failed! Exception: {e}")
-        return response
+            if ref_error:
+                ref_errors.append(ref_error)
+        return ref_errors
 
     def __get_no_ref_errors(self) -> dict:
-        if not self.directory_path:
-            return {}
         referenced_data_paths = (
             set(self.__get_data_references().keys())
             | set(self.__get_contributors_references().keys())
@@ -487,9 +449,7 @@ class Upload:
 
     def __get_references(self, col_name) -> dict:
         references = defaultdict(list)
-        for tsv_path, schema_version in self.effective_tsv_paths.items():
-            if not schema_version.is_assay:
-                continue
+        for tsv_path in self.effective_tsv_paths.keys():
             for i, row in enumerate(dict_reader_wrapper(tsv_path, self.encoding)):
                 if col_name in row:
                     reference = f"{tsv_path} (row {i+2})"

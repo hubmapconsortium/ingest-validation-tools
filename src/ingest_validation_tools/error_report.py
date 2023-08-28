@@ -1,5 +1,5 @@
 from yaml import Dumper, dump
-from typing import List
+from typing import List, Union
 
 from ingest_validation_tools.message_munger import munge, recursive_munge
 
@@ -21,11 +21,11 @@ class ErrorReport:
     def _no_errors(self):
         return f'No errors!\n{dump(self.info, sort_keys=False)}\n'
 
-    def _as_list(self) -> List[str]:
+    def _as_list(self) -> List[Union[str, int]]:
         return [munge(m) for m in _build_list(self.errors)]
 
     def as_text_list(self) -> str:
-        return '\n'.join(self._as_list()) or self._no_errors()
+        return "\n".join(str(error) for error in self._as_list()) or self._no_errors()
 
     def as_yaml(self) -> str:
         return dump(recursive_munge(self.errors), sort_keys=False)

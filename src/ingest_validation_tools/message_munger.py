@@ -42,6 +42,7 @@ pat_reps = [
     ),
     # Quick and dirty fix to stop message munger from adding period following ints,
     # because that messes with CEDAR validation report
+    # TODO: this actually makes a lot of stuff worse, is it better to remove?
     (r"([^.\d])$", r"\1."),
     (r'type is "datetime/.*"', r"it is not in the format YYYY-MM-DD Hour:Minute"),
     (r'type is "boolean/default"', r"it is neither true nor false"),
@@ -55,6 +56,7 @@ pat_reps = [
     (r"\'", '"'),
     (r'type is "string/email"', r"it is not a valid email"),
     (r'constraint "required" .*', r"it must be filled out."),
+    (r"\<.*?\>", ""),
 ]
 
 
@@ -67,7 +69,9 @@ def munge(message: Union[str, int]) -> Union[str, int]:
 
     """
     for pattern, replacement in pat_reps:
-        if type(message) == int:
+        if message is None:
+            message = ""
+        elif type(message) == int:
             message = int(sub(pattern, replacement, str(message)))
         else:
             message = sub(pattern, replacement, message)

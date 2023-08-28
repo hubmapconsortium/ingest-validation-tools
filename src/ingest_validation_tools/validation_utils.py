@@ -165,6 +165,13 @@ def get_context_of_decode_error(e: UnicodeDecodeError) -> str:
     return f'Invalid {e.encoding} because {e.reason}: "{in_context}"'
 
 
+def get_other_names():
+    return [
+        p.stem.split("-v")[0]
+        for p in (Path(__file__).parent / "table-schemas/others").iterdir()
+    ]
+
+
 def get_tsv_errors(
     tsv_path: Union[str, Path],
     schema_name: str,
@@ -239,10 +246,7 @@ def get_tsv_errors(
 
     version = rows[0]["version"] if "version" in rows[0] else "0"
     try:
-        others = [
-            p.stem.split("-v")[0]
-            for p in (Path(__file__).parent / "table-schemas/others").iterdir()
-        ]
+        others = get_other_names()
         if schema_name in others:
             schema = get_other_schema(schema_name, version, offline=offline)
         else:
