@@ -29,9 +29,9 @@ from ingest_validation_tools.validation_utils import (
     get_data_dir_errors,
     get_directory_schema_versions,
     get_other_names,
-
     get_table_schema_version,
     get_tsv_errors,
+    print_path,
 )
 
 TSV_SUFFIX = "metadata.tsv"
@@ -138,7 +138,9 @@ class Upload:
             if schema_version.schema_name in others:
                 error = self._validate(tsv_path, schema_version)
                 if error:
-                    errors[f"{tsv_path} (as {schema_version.schema_name})"] = error
+                    errors[
+                        f"{print_path(tsv_path)} (as {schema_version.schema_name})"
+                    ] = error
         self.effective_tsv_paths = {
             k: v
             for k, v in self.effective_tsv_paths.items()
@@ -185,10 +187,9 @@ class Upload:
         return upload_errors
 
     def _get_local_tsv_errors(self) -> dict | None:
-        errors = {}
+        errors = defaultdict(list)
         if not self.effective_tsv_paths:
-            errors["Missing"] = "There are no effective TSVs."
-            return errors
+            return {"Missing": "There are no effective TSVs."}
         else:
             types_counter = Counter(
                 [v.schema_name for v in self.effective_tsv_paths.values()]
@@ -197,21 +198,22 @@ class Upload:
                 assay_type for assay_type, count in types_counter.items() if count > 1
             ]
             if repeated:
-                errors[
-                    "Repeated"
-                ] = f'There is more than one TSV for this type: {", ".join(repeated)}'
-                raise ErrorDictException(errors)
+                raise ErrorDictException(
+                    {
+                        "Repeated": f"""There is more than one TSV \
+                                for this type: {', '.join(repeated)}"""
+                    }
+                )
         for path, schema_version in self.effective_tsv_paths.items():
             schema_name = schema_version.schema_name
             rows = self._get_rows_from_tsv(path)
             if type(rows) != list:
-                errors[f"{path} (as {schema_name})"] = rows
-                return errors
+                return {f"{path} (as {schema_name})": rows}
             else:
                 for ref in ["contributors", "antibodies"]:
-                    ref_errors = self._get_ref_errors(rows, ref, schema_version)
+                    ref_errors = self._get_ref_errors(rows, ref, schema_version, path)
                     if ref_errors:
-                        errors[f"{path} (as {schema_name})"] = ref_errors
+                        errors.update(ref_errors)
         return errors
 
     def _get_directory_errors(self) -> dict:
@@ -220,12 +222,20 @@ class Upload:
             schema_name = schema_version.schema_name
             rows = self._get_rows_from_tsv(path)
             if type(rows) != list:
-                errors[f"{path} (as {schema_name})"] = rows
+                return {f"{path} (as {schema_name})": rows}
             else:
-                dir_errors = self._get_ref_errors(rows, "data", schema_version)
+                dir_errors = self._get_ref_errors(rows, "data", schema_version, path)
                 if dir_errors:
-                    # errors[f"{path} (as {schema_name})"] = dir_errors
-                    errors[f"(as {schema_name})"] = dir_errors
+                    """
+                    TODO: there's an issue here (and any other places setting a key
+                    that might be long) where the YAML dumper converts this to a
+                    complex key and adds a ? at the front and inserts a line break
+                    at the next instance of whitespace (in this case, leading
+                    (as x) to be on a following line
+                    Wrote validation_utils > print_path to try to address this
+                    issue, but needed to deprioritize.
+                    """
+                    errors.update(dir_errors)
         return errors
 
     def validation_routine(self) -> dict:
@@ -257,7 +267,9 @@ class Upload:
                 schema_version.schema_name, Path(tsv_path)
             )
             if local_errors:
-                local_validated[f"{tsv_path}"] = local_errors
+                local_validated[
+                    f"{tsv_path} (as {schema_version.schema_name}-v{schema_version.version})"
+                ] = local_errors
         else:
             api_errors = self._api_validation(Path(tsv_path))
             if api_errors:
@@ -350,19 +362,22 @@ class Upload:
         i: int,
         path: Path,
         ref: str,
-        field: str,
         schema_name: str,
         schema_version: str,
+        metadata_path: Union[str, Path],
     ) -> dict:
         errors = {}
-        row_number = f"row {i+2}"
         if ref == "data":
+            # TODO: This does not currently contain info about the row/column
+            # where the error occurred
             ref_errors = get_data_dir_errors(
                 schema_name,
                 path,
                 schema_version,
                 dataset_ignore_globs=self.dataset_ignore_globs,
             )
+            if ref_errors:
+                errors[f"{path} (as {schema_name}-v{schema_version})"] = ref_errors
         else:
             ref_errors = get_tsv_errors(
                 schema_name=ref,
@@ -371,8 +386,12 @@ class Upload:
                 encoding=self.encoding,
                 ignore_deprecation=self.ignore_deprecation,
             )
-        if ref_errors:
-            errors[f"{row_number}, field '{field}'"] = ref_errors
+            # TSV located and read, errors found
+            if ref_errors and isinstance(ref_errors, list):
+                errors[f"{path}"] = ref_errors
+            # Problem with TSV
+            elif ref_errors and isinstance(ref_errors, dict):
+                errors[f"{metadata_path} row {i+2}, column '{ref}_path'"] = ref_errors
         return errors
 
     def __get_assay_tsv_errors(self, assay_type: str, path: Path):
@@ -385,8 +404,14 @@ class Upload:
             ignore_deprecation=self.ignore_deprecation,
         )
 
-    def _get_ref_errors(self, rows: list, ref: str, schema: SchemaVersion):
-        ref_errors = []
+    def _get_ref_errors(
+        self,
+        rows: list,
+        ref: str,
+        schema: SchemaVersion,
+        metadata_path: Union[str, Path],
+    ):
+        ref_errors = defaultdict(list)
         for i, row in enumerate(rows):
             field = f"{ref}_path"
             if not row.get(field):
@@ -396,12 +421,12 @@ class Upload:
                 i,
                 data_path,
                 ref,
-                field,
                 schema.schema_name,
                 schema.version,
+                metadata_path,
             )
             if ref_error:
-                ref_errors.append(ref_error)
+                ref_errors.update(ref_error)
         return ref_errors
 
     def __get_no_ref_errors(self) -> dict:

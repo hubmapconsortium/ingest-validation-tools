@@ -3,15 +3,14 @@ from __future__ import annotations
 from re import sub
 from typing import Union
 
+# TODO: are the patterns that rely on specific keys even being used?
+# The message does not include keys.
 pat_reps = [
     (r'constraint "pattern" is (".*")', "it does not match the expected pattern"),
     (r"^Metadata TSV Errors: \S+/", "In "),
     (
-        r".*: External: (row \d+), data ([^:]+): ([^:]+): (.+)",
-        r'In the dataset \2 referenced on \1, the file "\4" is \3.',
-        # TODO: updating patterns
-        # r"(row \d+), field ([^:]+): '([^:]+): (.+)'",
-        # r'In the field \2 referenced on \1, the file "\4" \3.',
+        r"^.*Directory Errors: (\S*) \(as \S*\): (row \d+), field (\S*): (.*): (.*)",
+        r'In the dataset \1, in field \3 referenced on \2, the file "\5" is \4.',
     ),
     (
         # TODO: outdated
@@ -64,8 +63,8 @@ def munge(message: Union[str, int]) -> Union[str, int]:
     """
     Make the error message less informative.
 
-    >>> munge('In md.tsv (as fake): External: row 2, data fake/ds: Not allowed: nope.txt')
-    'In the dataset fake/ds referenced on row 2, the file "nope.txt" is not allowed.'
+    >>> munge('Directory Errors: examples/dataset/fake (as fake): row 2, field fake_path: Not allowed: nope.txt')  # noqa E501
+    'In the dataset examples/dataset/fake, in field fake_path referenced on row 2, the file "nope.txt" is not allowed.'
 
     """
     for pattern, replacement in pat_reps:

@@ -1,6 +1,6 @@
 import logging
 from csv import DictReader
-from pathlib import Path
+from pathlib import Path, PurePath
 from typing import List, Optional, Union
 
 from ingest_validation_tools.schema_loader import (
@@ -179,7 +179,7 @@ def get_tsv_errors(
     offline=None,
     encoding: str = "utf-8",
     ignore_deprecation: bool = False,
-):
+) -> Union[dict[str, str], list[str]]:
     """
     Validate the TSV.
 
@@ -187,19 +187,19 @@ def get_tsv_errors(
     >>> from pathlib import Path
 
     >>> get_tsv_errors('no-such.tsv', 'fake')
-    'File does not exist'
+    {'File does not exist': 'no-such.tsv'}
 
     >>> with tempfile.TemporaryDirectory() as dir:
     ...     tsv_path = Path(dir)
-    ...     get_tsv_errors(tsv_path, 'fake')
-    'Expected a TSV, but found a directory'
+    ...     errors = get_tsv_errors(tsv_path, 'fake')
+    ...     assert errors['Expected a TSV, but found a directory'] == str(tsv_path)
 
     >>> with tempfile.TemporaryDirectory() as dir:
     ...     tsv_path = Path(dir) / 'fake.tsv'
     ...     tsv_path.write_bytes(b'\\xff')
     ...     get_tsv_errors(tsv_path, 'fake')
     1
-    'Invalid utf-8 because invalid start byte: " [ ÿ ] "'
+    {'Decode Error': 'Invalid utf-8 because invalid start byte: " [ ÿ ] "'}
 
     >>> def test_tsv(content, assay_type='fake'):
     ...     with tempfile.TemporaryDirectory() as dir:
@@ -207,8 +207,9 @@ def get_tsv_errors(
     ...         tsv_path.write_text(content)
     ...         return get_tsv_errors(tsv_path, assay_type)
 
-    >>> test_tsv('just_a_header_not_enough')
-    'File has no data rows.'
+    >>> test = test_tsv('just_a_header_not_enough')
+    >>> print(test, tsv_path)
+    >>> assert test['File has no data rows'] == str(tsv_path)
 
     >>> test_tsv('fake_head\\nfake_data')
     {'No such file or directory': 'fake-v0.yaml'}
@@ -231,18 +232,17 @@ def get_tsv_errors(
 
     logging.info(f"Validating {schema_name} TSV...")
     if not Path(tsv_path).exists():
-        # TODO: formatting is funky
-        return f"File does not exist: {tsv_path}."
+        return {"File does not exist": f"{tsv_path}"}
 
     try:
         rows = dict_reader_wrapper(tsv_path, encoding=encoding)
     except IsADirectoryError:
-        return "Expected a TSV, but found a directory"
+        return {"Expected a TSV, but found a directory": f"{tsv_path}"}
     except UnicodeDecodeError as e:
-        return get_context_of_decode_error(e)
+        return {"Decode Error": get_context_of_decode_error(e)}
 
     if not rows:
-        return "File has no data rows."
+        return {"File has no data rows": f"{tsv_path}"}
 
     version = rows[0]["version"] if "version" in rows[0] else "0"
     try:
@@ -260,3 +260,16 @@ def get_tsv_errors(
         return {"Schema version is deprecated": f"{schema_name}-v{version}"}
 
     return get_table_errors(tsv_path, schema)
+
+
+def print_path(path):
+    """
+    Attempts to solve issue of YAML dump formatting
+    adding ? and breaking keys across multiple lines
+    when a path is too long.
+    """
+    if len(path) > 122:
+        new_path = PurePath(path)
+        parts = new_path.parts[-3:]
+        path = "File .../" + "/".join(str(part) for part in parts)
+    return str(path)
