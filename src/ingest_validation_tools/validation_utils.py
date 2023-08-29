@@ -1,7 +1,7 @@
 import logging
 from csv import DictReader
 from pathlib import Path, PurePath
-from typing import List, Optional, Union
+from typing import Dict, List, Optional, Union
 
 from ingest_validation_tools.schema_loader import (
     SchemaVersion,
@@ -185,7 +185,7 @@ def get_tsv_errors(
     offline=None,
     encoding: str = "utf-8",
     ignore_deprecation: bool = False,
-) -> Union[dict[str, str], list[str]]:
+) -> Union[Dict[str, str], List[str]]:
     """
     Validate the TSV.
 
