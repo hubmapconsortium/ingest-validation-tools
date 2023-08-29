@@ -1,5 +1,4 @@
 from __future__ import annotations
-
 import logging
 
 import os
@@ -29,6 +28,7 @@ from ingest_validation_tools.validation_utils import (
     get_data_dir_errors,
     get_directory_schema_versions,
     get_other_names,
+    get_schema_with_constraints,
     get_table_schema_version,
     get_tsv_errors,
 )
@@ -228,6 +228,10 @@ class Upload:
             rows = self._get_rows_from_tsv(path)
             if type(rows) != list:
                 return {f"{path} (as {schema_name})": rows}
+            if "data_path" not in rows[0] or "contributors_path" not in rows[0]:
+                errors[
+                    "Path Errors"
+                ] = "File is missing data_path or contributors_path."
             else:
                 dir_errors = self._get_ref_errors(rows, "data", schema_version, path)
                 if dir_errors:
@@ -246,22 +250,13 @@ class Upload:
     def validation_routine(self) -> dict:
         errors = defaultdict(dict)
         for tsv_path, schema_version in self.effective_tsv_paths.items():
-            if not type(tsv_path) == Path:
-                try:
-                    tsv_path = Path(tsv_path)
-                except TypeError as e:
-                    raise TypeError(
-                        f"Path {tsv_path} is of invalid type {type(tsv_path)}. Exception: {e}"
-                    )
             path_errors = self._validate(tsv_path, schema_version)
             if path_errors:
                 for key, value in path_errors.items():
                     errors[key].update(value)
         return errors
 
-    def _validate(
-        self, tsv_path: Union[str, Path], schema_version: SchemaVersion
-    ) -> dict:
+    def _validate(self, tsv_path: str, schema_version: SchemaVersion) -> dict:
         errors = {}
         local_validated = {}
         api_validated = {}
@@ -279,9 +274,10 @@ class Upload:
                     f"{tsv_path} (as {schema_version.schema_name}-v{schema_version.version})"
                 ] = local_errors
         else:
+            url_errors = self._cedar_url_checks(tsv_path, schema_version)
             api_errors = self._api_validation(Path(tsv_path))
-            if api_errors:
-                api_validated[f"{tsv_path}"] = api_errors
+            if url_errors or api_errors:
+                api_validated[f"{tsv_path}"] = url_errors | api_errors
         if local_validated:
             errors["Local Validation Errors"] = local_validated
         if api_validated:
@@ -349,16 +345,56 @@ class Upload:
             raise Exception(f"CEDAR API request for {tsv_path} failed! Exception: {e}")
         return response
 
+    """TODO: this should work if the schema includes fields
+    that need to be checked; it does not validate prefixes"""
+
+    def _cedar_url_checks(self, tsv_path: str, schema_version: SchemaVersion):
+        errors = {}
+        try:
+            schema = get_schema_with_constraints(
+                schema_version.schema_name, schema_version.version
+            )
+        except OSError as e:
+            return {e.strerror: Path(e.filename).name}
+        constrained_fields = [
+            f["name"]
+            for f in schema["fields"]
+            if f.get("custom_constraints")
+            and "url" in f.get("custom_constraints").keys()
+        ]
+        if not constrained_fields:
+            return errors
+        url_errors = self._check_matching_urls(tsv_path, constrained_fields)
+        if url_errors:
+            errors["URL Errors"] = url_errors
+        return errors
+
+    def _check_matching_urls(self, tsv_path: str, constrained_fields: list):
+        rows = self._get_rows_from_tsv(tsv_path)
+        if isinstance(rows, dict):
+            return rows
+        fields = rows[0].keys()
+        missing_fields = [field for field in constrained_fields if field not in fields]
+        if missing_fields:
+            return {f"Missing fields: {missing_fields}"}
+        url_errors = []
+        for i, row in enumerate(rows):
+            check = {k: v for k, v in row.items() if k in constrained_fields}
+            for field, url in check.items():
+                try:
+                    response = requests.get(url)
+                    response.raise_for_status()
+                except Exception as e:
+                    url_errors.append(
+                        f"Row {i+2}, field '{field}' with value '{url}': {e}"
+                    )
+        return url_errors
+
     def _get_rows_from_tsv(self, path: str | Path) -> dict | list:
         errors = {}
         try:
             rows = dict_reader_wrapper(path, self.encoding)
-            if "data_path" not in rows[0] or "contributors_path" not in rows[0]:
-                errors[
-                    "Path Errors"
-                ] = "File is missing data_path or contributors_path."
-            else:
-                return rows
+            return rows
         except UnicodeDecodeError as e:
             errors["Decode Errors"] = get_context_of_decode_error(e)
         except IsADirectoryError:

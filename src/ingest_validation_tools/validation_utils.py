@@ -182,7 +182,7 @@ def get_tsv_errors(
     tsv_path: Union[str, Path],
     schema_name: str,
     optional_fields: List[str] = [],
-    offline=None,
+    offline: bool = False,
     encoding: str = "utf-8",
     ignore_deprecation: bool = False,
 ) -> Union[Dict[str, str], List[str]]:
@@ -253,13 +253,9 @@ def get_tsv_errors(
 
     version = rows[0]["version"] if "version" in rows[0] else "0"
     try:
-        others = get_other_names()
-        if schema_name in others:
-            schema = get_other_schema(schema_name, version, offline=offline)
-        else:
-            schema = get_table_schema(
-                schema_name, version, offline=offline, optional_fields=optional_fields
-            )
+        schema = get_schema_with_constraints(
+            schema_name, version, offline, optional_fields
+        )
     except OSError as e:
         return {e.strerror: Path(e.filename).name}
 
@@ -267,6 +263,22 @@ def get_tsv_errors(
         return {"Schema version is deprecated": f"{schema_name}-v{version}"}
 
     return get_table_errors(tsv_path, schema)
+
+
+def get_schema_with_constraints(
+    schema_name: str,
+    version: str,
+    offline: bool = False,
+    optional_fields: List[str] = [],
+) -> dict:
+    others = get_other_names()
+    if schema_name in others:
+        schema = get_other_schema(schema_name, version, offline=offline)
+    else:
+        schema = get_table_schema(
+            schema_name, version, offline=offline, optional_fields=optional_fields
+        )
+    return schema
 
 
 def print_path(path):
