@@ -31,7 +31,6 @@ from ingest_validation_tools.validation_utils import (
     get_other_names,
     get_table_schema_version,
     get_tsv_errors,
-    print_path,
 )
 
 TSV_SUFFIX = "metadata.tsv"
@@ -129,27 +128,19 @@ class Upload:
         if self.errors:
             return self.errors
 
-        errors = {}
-
-        others = get_other_names()
-        others.remove("antibodies")
-        others.remove("contributors")
-        for tsv_path, schema_version in self.effective_tsv_paths.items():
-            if schema_version.schema_name in others:
-                error = self._validate(tsv_path, schema_version)
-                if error:
-                    errors[
-                        f"{print_path(tsv_path)} (as {schema_version.schema_name})"
-                    ] = error
-        self.effective_tsv_paths = {
-            k: v
-            for k, v in self.effective_tsv_paths.items()
-            if v.schema_name not in others
-        }
         if not self.effective_tsv_paths:
-            return errors
+            return {"Missing": "There are no effective TSVs."}
 
+        errors = {}
         try:
+            other_errors = self.check_other_schemas()
+            if other_errors and not self.effective_tsv_paths:
+                return other_errors
+            elif self.effective_tsv_paths:
+                errors.update(other_errors)
+            else:
+                return {}
+
             upload_errors = self.check_upload()
             if upload_errors:
                 errors["Upload Errors"] = upload_errors
@@ -176,6 +167,24 @@ class Upload:
     #
     ###################################
 
+    def check_other_schemas(self):
+        errors = {}
+        others = get_other_names()
+        # Antibodies and contributors are handled elsewhere
+        others.remove("antibodies")
+        others.remove("contributors")
+        for tsv_path, schema_version in self.effective_tsv_paths.items():
+            if schema_version.schema_name in others:
+                error = self._validate(tsv_path, schema_version)
+                if error:
+                    errors[f"{tsv_path} (as {schema_version.schema_name})"] = error
+        self.effective_tsv_paths = {
+            k: v
+            for k, v in self.effective_tsv_paths.items()
+            if v.schema_name not in others
+        }
+        return errors
+
     def check_upload(self) -> dict:
         upload_errors = {}
         tsv_errors = self._get_local_tsv_errors()
@@ -188,22 +197,18 @@ class Upload:
 
     def _get_local_tsv_errors(self) -> dict | None:
         errors = defaultdict(list)
-        if not self.effective_tsv_paths:
-            return {"Missing": "There are no effective TSVs."}
-        else:
-            types_counter = Counter(
-                [v.schema_name for v in self.effective_tsv_paths.values()]
+        types_counter = Counter(
+            [v.schema_name for v in self.effective_tsv_paths.values()]
+        )
+        repeated = [
+            assay_type for assay_type, count in types_counter.items() if count > 1
+        ]
+        if repeated:
+            raise ErrorDictException(
+                {
+                    "Repeated": f"There is more than one TSV for this type: {', '.join(repeated)}"
+                }
             )
-            repeated = [
-                assay_type for assay_type, count in types_counter.items() if count > 1
-            ]
-            if repeated:
-                raise ErrorDictException(
-                    {
-                        "Repeated": f"""There is more than one TSV \
-                                for this type: {', '.join(repeated)}"""
-                    }
-                )
         for path, schema_version in self.effective_tsv_paths.items():
             schema_name = schema_version.schema_name
             rows = self._get_rows_from_tsv(path)
@@ -239,7 +244,7 @@ class Upload:
         return errors
 
     def validation_routine(self) -> dict:
-        errors = {}
+        errors = defaultdict(dict)
         for tsv_path, schema_version in self.effective_tsv_paths.items():
             if not type(tsv_path) == Path:
                 try:
@@ -250,10 +255,13 @@ class Upload:
                     )
             path_errors = self._validate(tsv_path, schema_version)
             if path_errors:
-                errors.update(path_errors)
+                for key, value in path_errors.items():
+                    errors[key].update(value)
         return errors
 
-    def _validate(self, tsv_path, schema_version):
+    def _validate(
+        self, tsv_path: Union[str, Path], schema_version: SchemaVersion
+    ) -> dict:
         errors = {}
         local_validated = {}
         api_validated = {}
@@ -368,8 +376,6 @@ class Upload:
     ) -> dict:
         errors = {}
         if ref == "data":
-            # TODO: This does not currently contain info about the row/column
-            # where the error occurred
             ref_errors = get_data_dir_errors(
                 schema_name,
                 path,
@@ -377,7 +383,9 @@ class Upload:
                 dataset_ignore_globs=self.dataset_ignore_globs,
             )
             if ref_errors:
-                errors[f"{path} (as {schema_name}-v{schema_version})"] = ref_errors
+                # TODO: quote field name to match TSV error output;
+                # will break tests
+                errors[f"{metadata_path}, row {i+2}, column {ref}_path"] = ref_errors
         else:
             ref_errors = get_tsv_errors(
                 schema_name=ref,

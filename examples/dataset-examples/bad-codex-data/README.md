@@ -10,19 +10,20 @@ Upload Errors:
       Decode Error: "Invalid ascii because ordinal not in range(128): \"mber\tconjugated_tag\n\
         \ [ \xF0 ] \x9F\x98\x83\t\tbad-value\t\t\tinv\"."
   Directory Errors:
-    examples/dataset-examples/bad-codex-data/upload/dataset-1 (as codex-v0):
-      Not allowed:
-      - channelnames.txt.
-      - cyc002_reg001_200216_112537/bad.
-      - experiment.json.
-      - exposure_times.txt.
-      - segmentation.json.
-      Required but missing:
-      - (processed|drv_[^/]*)/.*.
-      - (raw|processed)/config\.txt|(raw|src_[^/]*|drv_[^/]*)/[sS]egmentation\.json.
-      - (raw|src_.*)/.*.
-      - (raw|src_.*)/[cC]yc.*_reg.*/.*_Z.*_CH.*\.tif.
-      - (raw|src_[^/]*)/[Ee]xperiment\.json.
+    examples/dataset-examples/bad-codex-data/upload/codex-metadata.tsv, row 2, column data_path:
+      examples/dataset-examples/bad-codex-data/upload/dataset-1 (as codex-v0):
+        Not allowed:
+        - channelnames.txt.
+        - cyc002_reg001_200216_112537/bad.
+        - experiment.json.
+        - exposure_times.txt.
+        - segmentation.json.
+        Required but missing:
+        - (processed|drv_[^/]*)/.*.
+        - (raw|processed)/config\.txt|(raw|src_[^/]*|drv_[^/]*)/[sS]egmentation\.json.
+        - (raw|src_.*)/.*.
+        - (raw|src_.*)/[cC]yc.*_reg.*/.*_Z.*_CH.*\.tif.
+        - (raw|src_[^/]*)/[Ee]xperiment\.json.
 Metadata TSV Validation Errors:
   Local Validation Errors:
     examples/dataset-examples/bad-codex-data/upload/codex-metadata.tsv (as codex-v0):

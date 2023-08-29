@@ -10,8 +10,9 @@ Upload Errors:
     examples/dataset-examples/bad-missing-data/upload/codex-metadata.tsv row 3, column 'antibodies_path':
       File does not exist: examples/dataset-examples/bad-missing-data/upload/antibodies-missing.tsv.
   Directory Errors:
-    examples/dataset-examples/bad-missing-data/upload/dataset-1 (as codex-v0):
-      No such file or directory: examples/dataset-examples/bad-missing-data/upload/dataset-1
+    examples/dataset-examples/bad-missing-data/upload/codex-metadata.tsv, row 2, column data_path:
+      examples/dataset-examples/bad-missing-data/upload/dataset-1 (as codex-v0):
+        No such file or directory: examples/dataset-examples/bad-missing-data/upload/dataset-1
 Metadata TSV Validation Errors:
   Local Validation Errors:
     examples/dataset-examples/bad-missing-data/upload/codex-metadata.tsv (as codex-v0):

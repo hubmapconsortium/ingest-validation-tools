@@ -1,15 +1,13 @@
 ```
 Upload Errors:
   TSV Errors:
-    examples/dataset-examples/bad-tsv-formats/upload/contributors.tsv (as codex):
-      row 2, contributors examples/dataset-examples/bad-tsv-formats/upload/contributors.tsv: File
-        has no data rows.
-    examples/dataset-examples/bad-tsv-formats/upload/antibodies.tsv (as codex):
-      row 2, antibodies examples/dataset-examples/bad-tsv-formats/upload/antibodies.tsv: File
-        does not exist.
+    examples/dataset-examples/bad-tsv-formats/upload/codex-metadata.tsv row 2, column 'contributors_path':
+      File has no data rows: examples/dataset-examples/bad-tsv-formats/upload/contributors.tsv.
+    examples/dataset-examples/bad-tsv-formats/upload/codex-metadata.tsv row 2, column 'antibodies_path':
+      File does not exist: examples/dataset-examples/bad-tsv-formats/upload/antibodies.tsv.
   Directory Errors:
-    examples/dataset-examples/bad-tsv-formats/upload/dataset-1 (as codex):
-      row 2, data examples/dataset-examples/bad-tsv-formats/upload/dataset-1:
+    examples/dataset-examples/bad-tsv-formats/upload/codex-metadata.tsv, row 2, column data_path:
+      examples/dataset-examples/bad-tsv-formats/upload/dataset-1 (as codex-v0):
         Not allowed:
         - channelnames.txt.
         - cyc002_reg001_200216_112537/1_00001_Z001_CH1.tif.
@@ -24,7 +22,7 @@ Upload Errors:
         - (raw|src_[^/]*)/[Ee]xperiment\.json.
 Metadata TSV Validation Errors:
   Local Validation Errors:
-    examples/dataset-examples/bad-tsv-formats/upload/codex-metadata.tsv (as codex):
+    examples/dataset-examples/bad-tsv-formats/upload/codex-metadata.tsv (as codex-v0):
     - 'On row 2, column "donor_id", value "not-uuid" fails because it does not match
       the expected pattern. Example: ABC123'
     - 'On row 2, column "tissue_id", value "not-uuid" fails because it does not match
