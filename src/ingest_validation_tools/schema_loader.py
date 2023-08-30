@@ -366,14 +366,8 @@ def get_directory_schema(directory_type: str, schema_version: str) -> Optional[d
     directory_schema_path = _directory_schemas_path / _get_schema_filename(
         directory_type, schema_version
     )
-    # Roll backward to latest directory schema version if numbers don't match
-    # This does not account for the directory schema number being higher...
     if not directory_schema_path.exists():
-        new_schema_version = int(schema_version) - 1
-        if new_schema_version >= 0:
-            return get_directory_schema(directory_type, str(new_schema_version))
-        else:
-            return None
+        return None
     schema = load_yaml(directory_schema_path)
     schema["files"] += []
     return schema

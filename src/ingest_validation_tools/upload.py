@@ -8,7 +8,7 @@ from collections import Counter, defaultdict
 from datetime import datetime
 from fnmatch import fnmatch
 from pathlib import Path
-from typing import List, Union
+from typing import Union
 
 import pandas as pd
 import requests
@@ -74,7 +74,8 @@ class Upload:
         self.errors = {}
         self.effective_tsv_paths = {}
         self.extra_parameters = extra_parameters if extra_parameters else {}
-        self.auth_tok = token
+        # self.auth_tok = token
+        self.auth_tok = os.environ["TOKEN"]
 
         try:
             unsorted_effective_tsv_paths = {
@@ -108,7 +109,7 @@ class Upload:
                 "Schema": sv.schema_name,
                 "Metadata schema version": sv.version,
                 "Directory schema versions": get_directory_schema_versions(
-                    path, encoding="ascii"
+                    path, sv.version, encoding="ascii"
                 ),
             }
             for path, sv in self.effective_tsv_paths.items()
@@ -382,7 +383,9 @@ class Upload:
         # TODO: not sure if a token is our best bet here; will all UUID/HMID
         # fields be accessible via the portal?
         if not self.auth_tok:
-            return {"No token: Can't check URL fields because no token was received."}
+            return {
+                "No token": "No token was received to check URL fields against Entity API."
+            }
         url_errors = []
         for i, row in enumerate(rows):
             check = {k: v for k, v in row.items() if k in constrained_fields}
