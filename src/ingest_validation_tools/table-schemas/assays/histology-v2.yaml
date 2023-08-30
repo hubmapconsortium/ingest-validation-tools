@@ -10,3 +10,7 @@ fields:
   constraints:
     enum:
       - Histology
+- name: parent_id
+  custom_constraints:
+    url:
+      prefix: "https://entity.api.hubmapconsortium.org/entities/"

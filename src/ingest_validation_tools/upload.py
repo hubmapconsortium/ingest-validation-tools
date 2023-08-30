@@ -8,7 +8,7 @@ from collections import Counter, defaultdict
 from datetime import datetime
 from fnmatch import fnmatch
 from pathlib import Path
-from typing import Union
+from typing import List, Union
 
 import pandas as pd
 import requests
@@ -60,6 +60,7 @@ class Upload:
         offline: bool = False,
         ignore_deprecation: bool = False,
         extra_parameters: Union[dict, None] = None,
+        token: str = "",
     ):
         self.directory_path = directory_path
         self.optional_fields = optional_fields
@@ -73,6 +74,7 @@ class Upload:
         self.errors = {}
         self.effective_tsv_paths = {}
         self.extra_parameters = extra_parameters if extra_parameters else {}
+        self.auth_tok = token
 
         try:
             unsorted_effective_tsv_paths = {
@@ -345,8 +347,8 @@ class Upload:
             raise Exception(f"CEDAR API request for {tsv_path} failed! Exception: {e}")
         return response
 
-    """TODO: this should work if the schema includes fields
-    that need to be checked; it does not validate prefixes"""
+    """TODO: this should work if the schema includes uuid fields
+    that need to be checked; it does not currently validate prefixes"""
 
     def _cedar_url_checks(self, tsv_path: str, schema_version: SchemaVersion):
         errors = {}
@@ -356,12 +358,12 @@ class Upload:
             )
         except OSError as e:
             return {e.strerror: Path(e.filename).name}
-        constrained_fields = [
-            f["name"]
+        constrained_fields = {
+            f["name"]: f["custom_constraints"]["url"].get("prefix", "")
             for f in schema["fields"]
             if f.get("custom_constraints")
             and "url" in f.get("custom_constraints").keys()
-        ]
+        }
         if not constrained_fields:
             return errors
         url_errors = self._check_matching_urls(tsv_path, constrained_fields)
@@ -369,20 +371,31 @@ class Upload:
             errors["URL Errors"] = url_errors
         return errors
 
-    def _check_matching_urls(self, tsv_path: str, constrained_fields: list):
+    def _check_matching_urls(self, tsv_path: str, constrained_fields: dict):
         rows = self._get_rows_from_tsv(tsv_path)
         if isinstance(rows, dict):
             return rows
         fields = rows[0].keys()
-        missing_fields = [field for field in constrained_fields if field not in fields]
+        missing_fields = [k for k in constrained_fields.keys() if k not in fields]
         if missing_fields:
             return {f"Missing fields: {missing_fields}"}
+        # TODO: not sure if a token is our best bet here; will all UUID/HMID
+        # fields be accessible via the portal?
+        if not self.auth_tok:
+            return {"No token: Can't check URL fields because no token was received."}
         url_errors = []
         for i, row in enumerate(rows):
             check = {k: v for k, v in row.items() if k in constrained_fields}
             for field, url in check.items():
                 try:
-                    response = requests.get(url)
+                    url = constrained_fields[field] + url
+                    response = requests.get(
+                        url,
+                        headers={
+                            "X-Hubmap-Application": "ingest-pipeline",
+                            "Authorization": f"Bearer {self.auth_tok}",
+                        },
+                    )
                     response.raise_for_status()
                 except Exception as e:
                     url_errors.append(
