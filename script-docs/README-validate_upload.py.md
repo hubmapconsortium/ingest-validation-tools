@@ -6,6 +6,7 @@ usage: validate_upload.py [-h] --local_directory PATH
                           [--upload_ignore_globs GLOB [GLOB ...]]
                           [--encoding ENCODING]
                           [--plugin_directory PLUGIN_DIRECTORY]
+                          [--token TOKEN]
                           [--output {as_md,as_text,as_text_list,as_yaml}]
                           [--add_notes] [--save_report]
 
@@ -35,6 +36,7 @@ optional arguments:
                         tools/issues/494
   --plugin_directory PLUGIN_DIRECTORY
                         Directory of plugin tests.
+  --token TOKEN         Token for URL checking using Entity API.
   --output {as_md,as_text,as_text_list,as_yaml}
   --add_notes           Append a context note to error reports.
   --save_report         Save the report; Adding "--upload_ignore_globs

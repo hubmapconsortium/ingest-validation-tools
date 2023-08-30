@@ -97,7 +97,7 @@ def get_data_dir_errors(
     """
     Validate a single data_path.
     """
-    schema_version = _get_directory_schema_version(data_path, schema_version)
+    schema_version = _get_directory_schema_version(str(data_path), schema_version)
     return _get_data_dir_errors_for_version(
         schema_name, data_path, dataset_ignore_globs, schema_version
     )

@@ -1547,6 +1547,8 @@ operator_email:
 - snRNAseq
 - snRNAseq-10xGenomics-v2
 - snRNAseq-10xGenomics-v3
+organ_id:
+- Organ
 overall_protocols_io_doi:
 - AF
 - CE-MS
@@ -1569,6 +1571,8 @@ overall_protocols_io_doi:
 - PAS microscopy
 - SIMS-IMS
 - cell-dive
+parent_id:
+- Histology
 pi:
 - 3D Imaging Mass Cytometry
 - AF

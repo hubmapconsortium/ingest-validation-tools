@@ -113,7 +113,6 @@ Exit status codes:
 
     parser.add_argument(
         "--token",
-        action="store",
         help="Token for URL checking using Entity API.",
     )
     # How should output be formatted?
