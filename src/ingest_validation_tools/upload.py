@@ -74,8 +74,7 @@ class Upload:
         self.errors = {}
         self.effective_tsv_paths = {}
         self.extra_parameters = extra_parameters if extra_parameters else {}
-        # self.auth_tok = token
-        self.auth_tok = os.environ["TOKEN"]
+        self.auth_tok = token
 
         try:
             unsorted_effective_tsv_paths = {
