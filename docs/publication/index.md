@@ -19,7 +19,7 @@ Excel and TSV templates for this schema will be available when the draft next-ge
 - *Boolean* fields can be given as `TRUE`/`FALSE`, `True`/`False`, `true`/`false`, or `1`/`0`.  
 
 
-<summary><b>Version 1 (use this one)</b> (draft - submission of data prepared using this schema will be supported by Sept. 30) (TBD)</summary>
+<summary><b>Version 2 (use this one)</b> (draft - submission of data prepared using this schema will be supported by Sept. 30) (TBD)</summary>
 
 
 <details markdown="1" ><summary><b>Version 0</b></summary>
