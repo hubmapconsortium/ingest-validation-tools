@@ -20,7 +20,8 @@ This schema has been replaced by the individual [Block](https://hubmapconsortium
 
 
 <details markdown="1" open="true"><summary><s>Version 1 (current)</s> (deprecated)</summary>
-<b>DO NOT USE FOR FUTURE SUBMISSIONS</b>
+We do not expect to receive any new data of this assay type.
+If you are planning to submit new data of this assay type, reach out to help@hubmapconsortium.org.
 </details>
 
 

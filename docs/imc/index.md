@@ -9,7 +9,7 @@ layout: default
 
 Related files:
 
-
+Excel and TSV templates for this schema will be available when the draft next-generation schema, to be used in all future submissions, is finalized (no later than Sept. 30).
 
 
 
@@ -19,9 +19,7 @@ Related files:
 - *Boolean* fields can be given as `TRUE`/`FALSE`, `True`/`False`, `true`/`false`, or `1`/`0`.  
 
 
-<details markdown="1" open="true"><summary><s>Version 2 (current)</s> (deprecated)</summary>
-<b>DO NOT USE FOR FUTURE SUBMISSIONS</b>
-</details>
+<summary><b>Version 2 (use this one)</b> (draft - submission of data prepared using this schema will be supported by Sept. 30) (TBD)</summary>
 
 
 <details markdown="1" ><summary><b>Version 1</b></summary>
@@ -771,7 +769,14 @@ Relative path to file or directory with instrument data. Downstream processing w
 <br>
 
 ## Directory schemas
-### Version 0 (use this one)
+### Version 2 (use this one)
+
+| pattern | required? | description |
+| --- | --- | --- |
+| <code>TODO</code> | ✓ | Directory structure not yet specified. |
+| <code>extras\/.*</code> |  | Folder for general lab-specific files related to the dataset. [Exists in all assays] |
+
+### Version 0
 
 | pattern | required? | description |
 | --- | --- | --- |
