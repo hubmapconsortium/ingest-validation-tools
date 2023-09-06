@@ -73,7 +73,7 @@ def munge(message: Union[str, int]) -> Union[str, int]:
         elif type(message) == int:
             message = int(sub(pattern, replacement, str(message)))
         else:
-            message = sub(pattern, replacement, message)
+            message = sub(pattern, replacement, str(message))
     return message
 
 

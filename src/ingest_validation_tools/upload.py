@@ -1,8 +1,6 @@
 from __future__ import annotations
 import logging
 
-import os
-
 import subprocess
 from collections import Counter, defaultdict
 from datetime import datetime
@@ -13,6 +11,8 @@ from typing import Union
 import pandas as pd
 import requests
 from requests.auth import HTTPBasicAuth
+
+from airflow.configuration import conf as airflow_conf
 
 from ingest_validation_tools.plugin_validator import (
     ValidatorError as PluginValidatorError,
@@ -242,7 +242,7 @@ class Upload:
                     that might be long) where the YAML dumper converts this to a
                     complex key and adds a ? at the front and inserts a line break
                     at the next instance of whitespace (in this case, leading
-                    (as x) to be on a following line
+                    (as x) to be on a following line)
                     Wrote validation_utils > print_path to try to address this
                     issue, but needed to deprioritize.
                     """
@@ -276,10 +276,15 @@ class Upload:
                     f"{tsv_path} (as {schema_version.schema_name}-v{schema_version.version})"
                 ] = local_errors
         else:
-            url_errors = self._cedar_url_checks(tsv_path, schema_version)
-            api_errors = self._api_validation(Path(tsv_path))
-            if url_errors or api_errors:
-                api_validated[f"{tsv_path}"] = url_errors | api_errors
+            if self.offline:
+                api_validated = {
+                    f"{tsv_path}": "Offline validation selected, cannot reach API."
+                }
+            else:
+                url_errors = self._cedar_url_checks(tsv_path, schema_version)
+                api_errors = self._api_validation(Path(tsv_path))
+                if url_errors or api_errors:
+                    api_validated[f"{tsv_path}"] = url_errors | api_errors
         if local_validated:
             errors["Local Validation Errors"] = local_validated
         if api_validated:
@@ -333,7 +338,8 @@ class Upload:
         return errors
 
     def _cedar_api_call(self, tsv_path: str | Path) -> requests.Response:
-        auth = HTTPBasicAuth("apikey", os.environ["API_KEY_SECRET"])
+        api_key = airflow_conf.as_dict()["connections"]["CEDAR_API_KEY"]
+        auth = HTTPBasicAuth("apikey", api_key)
         file = {"input_file": open(tsv_path, "rb")}
         headers = {"content_type": "multipart/form-data"}
         try:
@@ -347,10 +353,12 @@ class Upload:
             raise Exception(f"CEDAR API request for {tsv_path} failed! Exception: {e}")
         return response
 
-    """TODO: this should work if the schema includes uuid fields
-    that need to be checked; it does not currently validate prefixes"""
-
     def _cedar_url_checks(self, tsv_path: str, schema_version: SchemaVersion):
+        """
+        Check provided UUIDs/HuBMAP IDs for parent_id, sample_id, organ_id.
+        Not using get_table_errors because CEDAR schema fields do not match
+        the TSV fields, which makes frictionless confused and upset.
+        """
         errors = {}
         try:
             schema = get_schema_with_constraints(
