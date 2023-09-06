@@ -356,7 +356,7 @@ roi_id: Multiple images (1-n) are acquired from regions of interest (ROI1, ROI2,
   a slide.
 rr_id: The rr_id is a unique antibody identifier that comes from the Antibody Registry
   (https://antibodyregistry.org).
-sample_id: (No description for this field was supplied.)
+sample_id: UUID or HuBMAP ID of parent
 sample_quality_metric: "This is a quality metric by visual inspection. This should\
   \ answer the question: Are the nuclei intact and are the nuclei free of significant\
   \ amounts of debris? This can be captured at a high level, \u201COK\u201D or \u201C\

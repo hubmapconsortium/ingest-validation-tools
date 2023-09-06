@@ -244,6 +244,7 @@ def generate_readme_md(
                 [
                     _make_fields_md(table_schemas[str(v)], f"Version {v}")
                     for v in range(max_version - 1, min_version - 1, -1)
+                    if str(v) in table_schemas
                 ]
             ),
             "optional_dir_description_md": optional_dir_description_md,
