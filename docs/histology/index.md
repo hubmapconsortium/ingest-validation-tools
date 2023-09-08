@@ -18,9 +18,6 @@ Related files:
 
 ## Metadata schema
 
-### Field types
-- *Boolean* fields can be given as `TRUE`/`FALSE`, `True`/`False`, `true`/`false`, or `1`/`0`.  
-
 
 <summary><a href="https://openview.metadatacenter.org/templates/https:%2F%2Frepo.metadatacenter.org%2Ftemplates%2F2263a3e3-819b-4639-a3db-3dbc0e46cda1"><b>Version 2 (use this one)</b></a></summary>
 
@@ -29,7 +26,7 @@ Related files:
 <br>
 
 ## Directory schemas
-### Version 2 (use this one)
+<summary><b> Version 2 (use this one)</b></summary>
 
 | pattern | required? | description |
 | --- | --- | --- |
