@@ -555,14 +555,14 @@ def _make_dir_descriptions(dir_schemas, pipeline_infos):
     for v, schema in sorted_items:
         if schema.get('draft', False):
             draft_link = schema.get('files', [])[0].get("draft_link", None)
-            directory_descriptions += f'### [Version {v}]({draft_link})' \
-                                      f'{" (use this one) " if current_version else " "}' \
-                                      f'(draft - submission of data prepared using this' \
-                                      f' schema will be supported by Sept. 30)\n\n'
+            directory_descriptions += f'<summary><a href="{draft_link}"><b>Version {v}' \
+                                      f'{" (use this one)" if current_version else ""}' \
+                                      f'</b> (draft - submission of data prepared using this' \
+                                      f' schema will be supported by Sept. 30) </a></summary>\n\n'
         else:
-            directory_descriptions += (f'### Version {v}'
+            directory_descriptions += (f'<summary><b> Version {v}'
                                        f'{" (use this one)" if current_version else ""}'
-                                       f'\n' + _make_dir_description(schema['files'],
+                                       f'</b></summary>\n' + _make_dir_description(schema['files'],
                                                                      schema.get('deprecated', False)
                                                                      ) + '\n\n')
         current_version = False
