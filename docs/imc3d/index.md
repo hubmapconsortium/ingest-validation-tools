@@ -15,9 +15,6 @@ Related files:
 
 ## Metadata schema
 
-### Field types
-- *Boolean* fields can be given as `TRUE`/`FALSE`, `True`/`False`, `true`/`false`, or `1`/`0`.  
-
 
 <details markdown="1" open="true"><summary><s>Version 2 (current)</s> (deprecated)</summary>
 We do not expect to receive any new data of this assay type.
@@ -742,7 +739,7 @@ Relative path to file or directory with instrument data. Downstream processing w
 <br>
 
 ## Directory schemas
-### Version 0 (use this one)
+<summary><b>Version 0 (use this one)</b></summary>
 
 | pattern | required? | description |
 | --- | --- | --- |

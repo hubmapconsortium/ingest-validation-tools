@@ -15,9 +15,6 @@ This schema has been replaced by the individual [Block](https://hubmapconsortium
 
 ## Metadata schema
 
-### Field types
-- *Boolean* fields can be given as `TRUE`/`FALSE`, `True`/`False`, `true`/`false`, or `1`/`0`.  
-
 
 <details markdown="1" open="true"><summary><s>Version 1 (current)</s> (deprecated)</summary>
 We do not expect to receive any new data of this assay type.

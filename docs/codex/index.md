@@ -15,9 +15,6 @@ Excel and TSV templates for this schema will be available when the draft next-ge
 
 ## Metadata schema
 
-### Field types
-- *Boolean* fields can be given as `TRUE`/`FALSE`, `True`/`False`, `true`/`false`, or `1`/`0`.  
-
 
 <summary><a href="https://docs.google.com/spreadsheets/d/1GKh4x8HIoQ3eKi2WWtWa2eWann3FG1pfaqxGKkUK1Wo"><b>Version 2 (use this one)</b> (draft - submission of data prepared using this schema will be supported by Sept. 30)</a></summary>
 
@@ -609,9 +606,9 @@ Relative path to file or directory with instrument data. Downstream processing w
 <br>
 
 ## Directory schemas
-### [Version 2](https://docs.google.com/spreadsheets/d/1pZD2e51e4QkxzIk6xjHPPu1RBZpx5mzoykMmlaDK8rA) (use this one) (draft - submission of data prepared using this schema will be supported by Sept. 30)
+<summary><a href="https://docs.google.com/spreadsheets/d/1pZD2e51e4QkxzIk6xjHPPu1RBZpx5mzoykMmlaDK8rA"><b>Version 2 (use this one)</b> (draft - submission of data prepared using this schema will be supported by Sept. 30) </a></summary>
 
-### Version 1-with-dataset-json
+<summary><b>Version 1-with-dataset-json</b></summary>
 
 | pattern | required? | description |
 | --- | --- | --- |
@@ -632,7 +629,7 @@ Relative path to file or directory with instrument data. Downstream processing w
 | <code>extras/dir-schema-v1-with-dataset-json</code> | ✓ | Empty file whose presence indicates the version of the directory schema in use |
 | <code>extras\/.*</code> |  | Folder for general lab-specific files related to the dataset. [Exists in all assays] |
 
-### Version 0
+<summary><b>Version 0</b></summary>
 
 | pattern | required? | description |
 | --- | --- | --- |

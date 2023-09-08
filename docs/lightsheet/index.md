@@ -18,9 +18,6 @@ Related files:
 
 ## Metadata schema
 
-### Field types
-- *Boolean* fields can be given as `TRUE`/`FALSE`, `True`/`False`, `true`/`false`, or `1`/`0`.  
-
 
 <summary><a href="https://openview.metadatacenter.org/templates/https:%2F%2Frepo.metadatacenter.org%2Ftemplates%2F4e408be6-2b07-4ca1-b2d1-08d125416c02"><b>Version 3 (use this one)</b></a></summary>
 
@@ -791,9 +788,9 @@ Relative path to file or directory with instrument data. Downstream processing w
 <br>
 
 ## Directory schemas
-### [Version 2](https://docs.google.com/spreadsheets/d/1KLY5iXZbbb_5RNR_lZgGSqHiAKBbe34YrtrywSuUC3M) (use this one) (draft - submission of data prepared using this schema will be supported by Sept. 30)
+<summary><a href="https://docs.google.com/spreadsheets/d/1KLY5iXZbbb_5RNR_lZgGSqHiAKBbe34YrtrywSuUC3M"><b>Version 2 (use this one)</b> (draft - submission of data prepared using this schema will be supported by Sept. 30) </a></summary>
 
-### Version 1
+<summary><b>Version 1</b></summary>
 
 | pattern | required? | description |
 | --- | --- | --- |
@@ -817,7 +814,7 @@ Relative path to file or directory with instrument data. Downstream processing w
 | <code>Level3/Merged/MergedChannel[^/]+/[^/]+\.ome.tiff</code> |  | Merged image file. |
 | <code>extras\/.*</code> |  | Folder for general lab-specific files related to the dataset. [Exists in all assays] |
 
-### Version 0
+<summary><b>Version 0</b></summary>
 
 | pattern | required? | description |
 | --- | --- | --- |

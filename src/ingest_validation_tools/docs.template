@@ -15,9 +15,6 @@ ${optional_description_md}
 
 ## Metadata schema
 
-### Field types
-- *Boolean* fields can be given as `TRUE`/`FALSE`, `True`/`False`, `true`/`false`, or `1`/`0`.  
-
 ${current_version_md}
 ${previous_versions_md}
 
