@@ -832,7 +832,7 @@ The HIVE will process each dataset with
 [scATACseq Pipeline 1.4.3](https://github.com/hubmapconsortium/sc-atac-seq-pipeline/releases/tag/1.4.3).
 <summary><a href="https://docs.google.com/spreadsheets/d/10Om2iinTwfLn1ySWtovmcm35cQnyg0Pm-rRd0a-eMjc"><b>Version 2 (use this one)</b> (draft - submission of data prepared using this schema will be supported by Sept. 30) </a></summary>
 
-<summary><b> Version 0</b></summary>
+<summary><b>Version 0</b></summary>
 
 | pattern | required? | description |
 | --- | --- | --- |

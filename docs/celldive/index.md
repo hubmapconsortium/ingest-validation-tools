@@ -549,7 +549,7 @@ Relative path to file or directory with instrument data. Downstream processing w
 ## Directory schemas
 <summary><a href="https://docs.google.com/spreadsheets/d/1pZD2e51e4QkxzIk6xjHPPu1RBZpx5mzoykMmlaDK8rA"><b>Version 2 (use this one)</b> (draft - submission of data prepared using this schema will be supported by Sept. 30) </a></summary>
 
-<summary><b> Version 0</b></summary>
+<summary><b>Version 0</b></summary>
 
 | pattern | required? | description |
 | --- | --- | --- |

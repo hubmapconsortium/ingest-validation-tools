@@ -1622,7 +1622,7 @@ Relative path to file or directory with instrument data. Downstream processing w
 ## Directory schemas
 <summary><a href="https://docs.google.com/spreadsheets/d/10Om2iinTwfLn1ySWtovmcm35cQnyg0Pm-rRd0a-eMjc"><b>Version 2 (use this one)</b> (draft - submission of data prepared using this schema will be supported by Sept. 30) </a></summary>
 
-<summary><b> Version 0</b></summary>
+<summary><b>Version 0</b></summary>
 
 | pattern | required? | description |
 | --- | --- | --- |

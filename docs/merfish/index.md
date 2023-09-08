@@ -23,7 +23,7 @@ Excel and TSV templates for this schema will be available when the draft next-ge
 <br>
 
 ## Directory schemas
-<summary><b> Version 2 (use this one)</b></summary>
+<summary><b>Version 2 (use this one)</b></summary>
 
 | pattern | required? | description |
 | --- | --- | --- |

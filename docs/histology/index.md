@@ -26,7 +26,7 @@ Related files:
 <br>
 
 ## Directory schemas
-<summary><b> Version 2 (use this one)</b></summary>
+<summary><b>Version 2 (use this one)</b></summary>
 
 | pattern | required? | description |
 | --- | --- | --- |

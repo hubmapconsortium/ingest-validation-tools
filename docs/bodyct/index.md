@@ -322,7 +322,7 @@ Relative path to file or directory with instrument data. Downstream processing w
 <br>
 
 ## Directory schemas
-<summary><b> Version 2 (use this one)</b></summary>
+<summary><b>Version 2 (use this one)</b></summary>
 
 | pattern | required? | description |
 | --- | --- | --- |
