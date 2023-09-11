@@ -96,12 +96,12 @@ def run_plugin_validators_iter(
                 raise ValidatorError(
                     f"{metadata_path} contains more than one assay type"
                 )
-            elif all("dataset_type" in row for row in rows):
-                assay_type = rows[0]["dataset_type"]
-                if any(row["dataset_type"] != assay_type for row in rows):
-                    raise ValidatorError(
-                        f"{metadata_path} contains more than one dataset type"
-                    )
+        elif all("dataset_type" in row for row in rows):
+            assay_type = rows[0]["dataset_type"]
+            if any(row["dataset_type"] != assay_type for row in rows):
+                raise ValidatorError(
+                    f"{metadata_path} contains more than one dataset type"
+                )
 
         else:
             raise ValidatorError(f'{metadata_path} has no "assay_type" column')
