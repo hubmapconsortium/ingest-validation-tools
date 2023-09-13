@@ -23,6 +23,7 @@
 - Updated tests based on changes to error dict structure
 - Tested both CEDAR and local validation paths
 - Make changes to Histology based on feedback
+- Update documentation based on feedback
 
 ## v0.0.15 - 2023-04-04
 
