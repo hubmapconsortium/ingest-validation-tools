@@ -103,23 +103,26 @@ class Upload:
             stderr=subprocess.STDOUT,
         ).strip()
 
-        effective_tsvs = {
-            Path(path).name: {
-                "Schema": sv.schema_name,
-                "Metadata schema version": sv.version,
-                "Directory schema versions": get_directory_schema_versions(
-                    path, sv.version, encoding="ascii"
-                ),
+        try:
+            effective_tsvs = {
+                Path(path).name: {
+                    "Schema": sv.schema_name,
+                    "Metadata schema version": sv.version,
+                    "Directory schema versions": get_directory_schema_versions(
+                        path, sv.version, encoding="ascii"
+                    ),
+                }
+                for path, sv in self.effective_tsv_paths.items()
             }
-            for path, sv in self.effective_tsv_paths.items()
-        }
-
-        return {
-            "Time": datetime.now(),
-            "Git version": git_version,
-            "Directory": str(self.directory_path),
-            "TSVs": effective_tsvs,
-        }
+            return {
+                "Time": datetime.now(),
+                "Git version": git_version,
+                "Directory": str(self.directory_path),
+                "TSVs": effective_tsvs,
+            }
+        except PreflightError as e:
+            self.errors["Preflight"] = str(e)
+            return self.errors
 
     def get_errors(self, **kwargs) -> dict:
         # This creates a deeply nested dict.

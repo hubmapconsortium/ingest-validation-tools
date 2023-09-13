@@ -5,7 +5,10 @@ from typing import List, Union, Tuple, Iterator, Type
 from pathlib import Path
 from csv import Error as CsvError
 
-from ingest_validation_tools.validation_utils import dict_reader_wrapper
+from ingest_validation_tools.validation_utils import (
+    dict_reader_wrapper,
+    get_context_of_decode_error,
+)
 
 PathOrStr = Union[str, Path]
 
@@ -88,6 +91,8 @@ def run_plugin_validators_iter(
             # https://github.com/hubmapconsortium/ingest-validation-tools/issues/494
         except (CsvError, IOError):
             raise ValidatorError(f"{metadata_path} could not be parsed as a .tsv file")
+        except UnicodeDecodeError as e:
+            raise ValidatorError(get_context_of_decode_error(e))
         if not rows:
             raise ValidatorError(f"{metadata_path} has no data rows")
         if all("assay_type" in row for row in rows):
