@@ -12,8 +12,6 @@ import pandas as pd
 import requests
 from requests.auth import HTTPBasicAuth
 
-from airflow.configuration import conf as airflow_conf
-
 from ingest_validation_tools.plugin_validator import (
     ValidatorError as PluginValidatorError,
 )
@@ -61,6 +59,7 @@ class Upload:
         ignore_deprecation: bool = False,
         extra_parameters: Union[dict, None] = None,
         token: str = "",
+        cedar_api_key: str = "",
     ):
         self.directory_path = directory_path
         self.optional_fields = optional_fields
@@ -75,6 +74,7 @@ class Upload:
         self.effective_tsv_paths = {}
         self.extra_parameters = extra_parameters if extra_parameters else {}
         self.auth_tok = token
+        self.cedar_api_key = cedar_api_key
 
         try:
             unsorted_effective_tsv_paths = {
@@ -331,6 +331,10 @@ class Upload:
 
     def _api_validation(self, tsv_path: Path):
         errors = {}
+        if not self.cedar_api_key:
+            return {
+                "Request Errors": f"No CEDAR API key passed, cannot validate {tsv_path}!"
+            }
         response = self._cedar_api_call(tsv_path)
         if response.status_code != 200:
             errors["Request Errors"] = response.json()
@@ -341,8 +345,7 @@ class Upload:
         return errors
 
     def _cedar_api_call(self, tsv_path: str | Path) -> requests.Response:
-        api_key = airflow_conf.as_dict()["connections"]["CEDAR_API_KEY"]
-        auth = HTTPBasicAuth("apikey", api_key)
+        auth = HTTPBasicAuth("apikey", self.cedar_api_key)
         file = {"input_file": open(tsv_path, "rb")}
         headers = {"content_type": "multipart/form-data"}
         try:
