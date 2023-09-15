@@ -268,8 +268,7 @@ orcid_id: ORCID ID of contributor
 organ_condition: Health status of the organ at the time of sample recovery.
 organ_height_unit: Height unit.
 organ_height_value: The height value of the organ.
-organ_id: Unique HuBMAP identifier for the organ. This can be found in the Submission
-  ID section of a registered donor on the Ingest UI.
+organ_id: UUID or HuBMAP ID of organ
 organ_length_unit: Length unit.
 organ_length_value: The length value of the organ.
 organ_volume_unit: Volume unit.
@@ -280,6 +279,7 @@ organ_weight_value: The total organ weight
 organ_width_unit: Width unit.
 organ_width_value: The width value of the organ.
 overall_protocols_io_doi: DOI for protocols.io for the overall process.
+parent_id: UUID or HuBMAP ID of parent
 pathologist_report: Further details on organ level QC checks.
 pathology_distance_unit: Distance unit
 pathology_distance_value: If surgical sample, how far from the pathology was the sample
@@ -356,7 +356,7 @@ roi_id: Multiple images (1-n) are acquired from regions of interest (ROI1, ROI2,
   a slide.
 rr_id: The rr_id is a unique antibody identifier that comes from the Antibody Registry
   (https://antibodyregistry.org).
-sample_id: (No description for this field was supplied.)
+sample_id: UUID or HuBMAP ID of parent
 sample_quality_metric: "This is a quality metric by visual inspection. This should\
   \ answer the question: Are the nuclei intact and are the nuclei free of significant\
   \ amounts of debris? This can be captured at a high level, \u201COK\u201D or \u201C\

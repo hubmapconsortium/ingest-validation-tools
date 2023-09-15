@@ -1547,6 +1547,8 @@ operator_email:
 - snRNAseq
 - snRNAseq-10xGenomics-v2
 - snRNAseq-10xGenomics-v3
+organ_id:
+- Organ
 overall_protocols_io_doi:
 - AF
 - CE-MS
@@ -1569,6 +1571,68 @@ overall_protocols_io_doi:
 - PAS microscopy
 - SIMS-IMS
 - cell-dive
+parent_id:
+- 10x Multiome
+- AF
+- ATACseq (bulk)
+- Auto-fluorescence
+- Body CT
+- CE-MS
+- CODEX
+- Cell DIVE
+- Confocal
+- CosMx
+- CyCIF
+- DBiT
+- DESI
+- Enhanced Stimulated Raman Spectroscopy (SRS)
+- GC-MS
+- GeoMx
+- GeoMx (RNA)
+- GeoMx (protein)
+- HiFi-Slide
+- Histology
+- Imaging Mass Cytometry
+- LC-MS
+- Light Sheet
+- MALDI
+- MERFISH
+- MRI
+- Micro CT
+- Molecular Cartography
+- Multiplex Ion Beam Imaging
+- MxIF
+- NanoDESI
+- OCT
+- PhenoCycler
+- Publication
+- RNAseq (GeoMx)
+- RNAseq (Visium)
+- RNAseq (bulk)
+- SIMS
+- SNARE-seq2
+- SNARE2-RNAseq
+- Second Harmonic Generation
+- Slide-seq
+- Thick Section Multiphoton MxIF
+- Ultrasound
+- Visium
+- WGS
+- Xenium
+- bulk-RNA
+- bulkATACseq
+- scATAC-seq
+- scRNA-seq
+- scRNAseq
+- scRNAseq-10xGenomics-v2
+- scRNAseq-10xGenomics-v3
+- sciATACseq
+- sciRNAseq
+- seqFISH
+- snATACseq
+- snRNAseq
+- snRNAseq-10xGenomics-v2
+- snRNAseq-10xGenomics-v3
 pi:
 - 3D Imaging Mass Cytometry
 - AF
@@ -2032,6 +2096,10 @@ roi_id:
 - Micro CT
 - OCT
 - Ultrasound
+sample_id:
+- Sample Block
+- Sample Section
+- Sample Suspension
 sample_quality_metric:
 - bulkATACseq
 sc_isolation_cell_number:

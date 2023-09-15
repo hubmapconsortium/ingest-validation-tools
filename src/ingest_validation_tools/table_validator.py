@@ -1,6 +1,6 @@
 import csv
 from pathlib import Path
-from typing import List, Optional, Dict
+from typing import List, Optional, Dict, Union
 
 import frictionless
 
@@ -8,7 +8,7 @@ import frictionless
 from ingest_validation_tools.check_factory import make_checks
 
 
-def get_table_errors(tsv: str, schema: dict) -> List[str]:
+def get_table_errors(tsv: Union[Path, str], schema: dict) -> List[str]:
     tsv_path = Path(tsv)
     pre_flight_errors = _get_pre_flight_errors(tsv_path, schema=schema)
     if pre_flight_errors:
