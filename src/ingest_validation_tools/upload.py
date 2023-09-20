@@ -6,7 +6,7 @@ from collections import Counter, defaultdict
 from datetime import datetime
 from fnmatch import fnmatch
 from pathlib import Path
-from typing import Union
+from typing import Dict, Optional, Union
 
 import pandas as pd
 import requests
@@ -20,11 +20,13 @@ from ingest_validation_tools.schema_loader import (
     PreflightError,
     SchemaVersion,
 )
+from ingest_validation_tools.table_validator import ReportType
 from ingest_validation_tools.validation_utils import (
     dict_reader_wrapper,
     get_context_of_decode_error,
     get_data_dir_errors,
     get_directory_schema_versions,
+    get_json,
     get_other_names,
     get_schema_with_constraints,
     get_table_schema_version,
@@ -261,7 +263,11 @@ class Upload:
                     errors[key].update(value)
         return errors
 
-    def _validate(self, tsv_path: str, schema_version: SchemaVersion) -> dict:
+    def _validate(
+        self,
+        tsv_path: str,
+        schema_version: SchemaVersion,
+    ) -> dict:
         errors = {}
         local_validated = {}
         api_validated = {}
@@ -285,7 +291,7 @@ class Upload:
                 }
             else:
                 url_errors = self._cedar_url_checks(tsv_path, schema_version)
-                api_errors = self._api_validation(Path(tsv_path))
+                api_errors = self.api_validation(Path(tsv_path))
                 if url_errors or api_errors:
                     api_validated[f"{tsv_path}"] = url_errors | api_errors
         if local_validated:
@@ -323,13 +329,7 @@ class Upload:
                 errors["Unexpected Plugin Error"] = [e]
         return dict(errors)  # get rid of defaultdict
 
-    ##############################
-    #
-    # Supporting private methods:
-    #
-    ##############################
-
-    def _api_validation(self, tsv_path: Path):
+    def api_validation(self, tsv_path: Path, report_type: ReportType = ReportType.STR):
         errors = {}
         if not self.cedar_api_key:
             return {
@@ -339,10 +339,19 @@ class Upload:
         if response.status_code != 200:
             errors["Request Errors"] = response.json()
         elif response.json()["reporting"] and len(response.json()["reporting"]) > 0:
-            errors["Validation Errors"] = response.json()["reporting"]
+            errors["Validation Errors"] = [
+                self._get_message(error, report_type)
+                for error in response.json()["reporting"]
+            ]
         else:
             logging.info(f"No errors found during CEDAR validation for {tsv_path}!")
         return errors
+
+    ##############################
+    #
+    # Supporting private methods:
+    #
+    ##############################
 
     def _cedar_api_call(self, tsv_path: str | Path) -> requests.Response:
         auth = HTTPBasicAuth("apikey", self.cedar_api_key)
@@ -418,6 +427,46 @@ class Upload:
                         f"Row {i+2}, field '{field}' with value '{url}': {e}"
                     )
         return url_errors
+
+    def _get_message(
+        self,
+        error: Dict[str, str],
+        report_type: ReportType = ReportType.STR,
+    ) -> Union[str, Dict]:
+        """
+        >>> print(
+        ...     _get_message(
+        ...         {
+        ...             'errorType': 'notStandardTerm',
+        ...             'column': 'stain_name',
+        ...             'row': 1,
+        ...             'repairSuggestion': 'H&E',
+        ...             'value': 'H& E'}
+        ...         }
+        ...     )
+        ... )
+        On row 1, column "stain_name", value "H& E" fails because\
+        of error "notStandardTerm". Example: "H&E"
+
+        """
+
+        example = error.get("repairSuggestion", "")
+
+        return_str = report_type is ReportType.STR
+        if (
+            "errorType" in error
+            and "column" in error
+            and "row" in error
+            and "value" in error
+        ):
+            # This may need readability improvements
+            msg = (
+                f'On row {error["row"]}, column "{error["column"]}", '
+                f'value "{error["value"]}" fails because of error "{error["errorType"]}"'
+                f'{f". Example: {example}" if example else example}'
+            )
+            return msg if return_str else get_json(msg, error["row"], error["column"])
+        return error
 
     def _get_rows_from_tsv(self, path: str | Path) -> dict | list:
         errors = {}
