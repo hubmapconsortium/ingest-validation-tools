@@ -6,7 +6,7 @@ from collections import Counter, defaultdict
 from datetime import datetime
 from fnmatch import fnmatch
 from pathlib import Path
-from typing import Dict, Optional, Union
+from typing import Dict, Union
 
 import pandas as pd
 import requests

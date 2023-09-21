@@ -6,7 +6,6 @@ from enum import Enum
 import frictionless
 
 from ingest_validation_tools.check_factory import make_checks
-from ingest_validation_tools.validation_utils import get_json
 
 
 class ReportType(Enum):
@@ -112,6 +111,7 @@ def _get_message(
  constraint "pattern" is "fake-re". Example: real-re
 
     """
+    from ingest_validation_tools.validation_utils import get_json
 
     example = schema_fields.get(error.get("fieldName", ""), {}).get("example", "")
 
