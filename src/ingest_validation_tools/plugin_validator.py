@@ -184,5 +184,5 @@ def validation_error_iter(
         raise ValidatorError(f"{base_dir} should be the base directory of a dataset")
     for cls in validation_class_iter(plugin_dir):
         validator = cls(base_dir, assay_type)
-        for err in validator.collect_errors(**kwargs):
+        for err in validator.collect_errors(**kwargs):  # type: ignore
             yield cls.description, err

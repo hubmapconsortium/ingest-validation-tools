@@ -1,4 +1,3 @@
-from __future__ import annotations
 import logging
 
 import subprocess
@@ -6,9 +5,8 @@ from collections import Counter, defaultdict
 from datetime import datetime
 from fnmatch import fnmatch
 from pathlib import Path
-from typing import Dict, Union
+from typing import Any, Dict, Optional, Union, DefaultDict
 
-import pandas as pd
 import requests
 from requests.auth import HTTPBasicAuth
 
@@ -203,7 +201,7 @@ class Upload:
         return upload_errors
 
     def _get_local_tsv_errors(self) -> dict | None:
-        errors = defaultdict(list)
+        errors: DefaultDict[str, list] = defaultdict(list)
         types_counter = Counter(
             [v.schema_name for v in self.effective_tsv_paths.values()]
         )
@@ -255,7 +253,7 @@ class Upload:
         return errors
 
     def validation_routine(self) -> dict:
-        errors = defaultdict(dict)
+        errors: DefaultDict[str, dict] = defaultdict(dict)
         for tsv_path, schema_version in self.effective_tsv_paths.items():
             path_errors = self._validate(tsv_path, schema_version)
             if path_errors:
@@ -267,12 +265,14 @@ class Upload:
         self,
         tsv_path: str,
         schema_version: SchemaVersion,
-    ) -> dict:
-        errors = {}
+    ) -> Dict[str, Any]:
+        errors: Dict[str, Any] = {}
         local_validated = {}
         api_validated = {}
-        df = pd.read_csv(tsv_path, delimiter="\t")
-        if df.get(["metadata_schema_id"]) is None:
+        rows = self._get_rows_from_tsv(tsv_path)
+        if isinstance(rows, dict):
+            return errors | rows
+        if "metadata_schema_id" not in rows[0].keys():
             logging.info(
                 f"""TSV {tsv_path} does not contain a metadata_schema_id,
                 sending for local validation"""
@@ -301,7 +301,7 @@ class Upload:
         return errors
 
     def _get_reference_errors(self) -> dict:
-        errors = {}
+        errors: Dict[str, Any] = {}
         no_ref_errors = self.__get_no_ref_errors()
         try:
             multi_ref_errors = self.__get_multi_ref_errors()
@@ -317,7 +317,7 @@ class Upload:
         plugin_path = self.plugin_directory
         if not plugin_path:
             return {}
-        errors = defaultdict(list)
+        errors: DefaultDict[str, list] = defaultdict(list)
         for metadata_path in self.effective_tsv_paths.keys():
             try:
                 for k, v in run_plugin_validators_iter(
@@ -374,7 +374,7 @@ class Upload:
         Not using get_table_errors because CEDAR schema fields do not match
         the TSV fields, which makes frictionless confused and upset.
         """
-        errors = {}
+        errors: Dict = {}
         try:
             schema = get_schema_with_constraints(
                 schema_version.schema_name, schema_version.version
@@ -434,21 +434,20 @@ class Upload:
         report_type: ReportType = ReportType.STR,
     ) -> Union[str, Dict]:
         """
+        >>> u = Upload(Path("/test/dir"))
         >>> print(
-        ...     _get_message(
+        ...     u._get_message(
         ...         {
         ...             'errorType': 'notStandardTerm',
         ...             'column': 'stain_name',
         ...             'row': 1,
         ...             'repairSuggestion': 'H&E',
-        ...             'value': 'H& E'}
+        ...             'value': 'H& E'
         ...         }
         ...     )
         ... )
-        On row 1, column "stain_name", value "H& E" fails because\
-        of error "notStandardTerm". Example: "H&E"
-
-        """
+        On row 1, column "stain_name", value "H& E" fails because of error "notStandardTerm". Example: H&E
+        """  # noqa: E501
 
         example = error.get("repairSuggestion", "")
 
@@ -487,8 +486,10 @@ class Upload:
         schema_name: str,
         schema_version: str,
         metadata_path: Union[str, Path],
-    ) -> dict:
-        errors = {}
+    ) -> Optional[Dict]:
+        errors: Dict[
+            str, Union[list, dict]
+        ] = {}  # This is very ugly but makes mypy happy
         if ref == "data":
             ref_errors = get_data_dir_errors(
                 schema_name,
@@ -501,7 +502,7 @@ class Upload:
                 # will break tests
                 errors[f"{metadata_path}, row {i+2}, column {ref}_path"] = ref_errors
         else:
-            ref_errors = get_tsv_errors(
+            tsv_ref_errors = get_tsv_errors(
                 schema_name=ref,
                 tsv_path=path,
                 offline=self.offline,
@@ -509,11 +510,13 @@ class Upload:
                 ignore_deprecation=self.ignore_deprecation,
             )
             # TSV located and read, errors found
-            if ref_errors and isinstance(ref_errors, list):
-                errors[f"{path}"] = ref_errors
+            if tsv_ref_errors and isinstance(tsv_ref_errors, list):
+                errors[f"{path}"] = tsv_ref_errors
             # Problem with TSV
-            elif ref_errors and isinstance(ref_errors, dict):
-                errors[f"{metadata_path} row {i+2}, column '{ref}_path'"] = ref_errors
+            elif tsv_ref_errors and isinstance(tsv_ref_errors, dict):
+                errors[
+                    f"{metadata_path} row {i+2}, column '{ref}_path'"
+                ] = tsv_ref_errors
         return errors
 
     def __get_assay_tsv_errors(self, assay_type: str, path: Path):
@@ -533,7 +536,7 @@ class Upload:
         schema: SchemaVersion,
         metadata_path: Union[str, Path],
     ):
-        ref_errors = defaultdict(list)
+        ref_errors: DefaultDict[str, list] = defaultdict(list)
         for i, row in enumerate(rows):
             field = f"{ref}_path"
             if not row.get(field):
