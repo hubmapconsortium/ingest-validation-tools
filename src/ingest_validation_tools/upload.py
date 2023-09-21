@@ -6,10 +6,11 @@ from collections import Counter, defaultdict
 from datetime import datetime
 from fnmatch import fnmatch
 from pathlib import Path
-from typing import Any, Dict, Optional, Union, DefaultDict
+from typing import Any, Dict, List, Optional, Union, DefaultDict
 
 import requests
 from requests.auth import HTTPBasicAuth
+from requests.models import Response
 
 from ingest_validation_tools.plugin_validator import (
     ValidatorError as PluginValidatorError,
@@ -201,7 +202,7 @@ class Upload:
             upload_errors["Directory Errors"] = dir_errors
         return upload_errors
 
-    def _get_local_tsv_errors(self) -> dict | None:
+    def _get_local_tsv_errors(self) -> Optional[Dict]:
         errors: DefaultDict[str, list] = defaultdict(list)
         types_counter = Counter(
             [v.schema_name for v in self.effective_tsv_paths.values()]
@@ -272,7 +273,7 @@ class Upload:
         api_validated = {}
         rows = self._get_rows_from_tsv(tsv_path)
         if isinstance(rows, dict):
-            return errors | rows
+            return rows
         if "metadata_schema_id" not in rows[0].keys():
             logging.info(
                 f"""TSV {tsv_path} does not contain a metadata_schema_id,
@@ -354,7 +355,7 @@ class Upload:
     #
     ##############################
 
-    def _cedar_api_call(self, tsv_path: str | Path) -> requests.Response:
+    def _cedar_api_call(self, tsv_path: str | Path) -> Response:
         auth = HTTPBasicAuth("apikey", self.cedar_api_key)
         file = {"input_file": open(tsv_path, "rb")}
         headers = {"content_type": "multipart/form-data"}
@@ -468,7 +469,7 @@ class Upload:
             return msg if return_str else get_json(msg, error["row"], error["column"])
         return error
 
-    def _get_rows_from_tsv(self, path: str | Path) -> dict | list:
+    def _get_rows_from_tsv(self, path: str | Path) -> Union[Dict, List]:
         errors = {}
         try:
             rows = dict_reader_wrapper(path, self.encoding)
