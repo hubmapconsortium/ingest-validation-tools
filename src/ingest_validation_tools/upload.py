@@ -10,7 +10,6 @@ from typing import Any, Dict, List, Optional, Union, DefaultDict
 
 import requests
 from requests.auth import HTTPBasicAuth
-from requests.models import Response
 
 from ingest_validation_tools.plugin_validator import (
     ValidatorError as PluginValidatorError,
@@ -219,13 +218,12 @@ class Upload:
         for path, schema_version in self.effective_tsv_paths.items():
             schema_name = schema_version.schema_name
             rows = self._get_rows_from_tsv(path)
-            if type(rows) != list:
+            if not isinstance(rows, list):
                 return {f"{path} (as {schema_name})": rows}
-            else:
-                for ref in ["contributors", "antibodies"]:
-                    ref_errors = self._get_ref_errors(rows, ref, schema_version, path)
-                    if ref_errors:
-                        errors.update(ref_errors)
+            for ref in ["contributors", "antibodies"]:
+                ref_errors = self._get_ref_errors(rows, ref, schema_version, path)
+                if ref_errors:
+                    errors.update(ref_errors)
         return errors
 
     def _get_directory_errors(self) -> dict:
@@ -233,7 +231,7 @@ class Upload:
         for path, schema_version in self.effective_tsv_paths.items():
             schema_name = schema_version.schema_name
             rows = self._get_rows_from_tsv(path)
-            if type(rows) != list:
+            if not isinstance(rows, list):
                 return {f"{path} (as {schema_name})": rows}
             if "data_path" not in rows[0] or "contributors_path" not in rows[0]:
                 errors[
@@ -355,7 +353,7 @@ class Upload:
     #
     ##############################
 
-    def _cedar_api_call(self, tsv_path: str | Path) -> Response:
+    def _cedar_api_call(self, tsv_path: Union[str, Path]) -> requests.models.Response:
         auth = HTTPBasicAuth("apikey", self.cedar_api_key)
         file = {"input_file": open(tsv_path, "rb")}
         headers = {"content_type": "multipart/form-data"}
@@ -469,7 +467,7 @@ class Upload:
             return msg if return_str else get_json(msg, error["row"], error["column"])
         return error
 
-    def _get_rows_from_tsv(self, path: str | Path) -> Union[Dict, List]:
+    def _get_rows_from_tsv(self, path: Union[str, Path]) -> Union[Dict, List]:
         errors = {}
         try:
             rows = dict_reader_wrapper(path, self.encoding)
