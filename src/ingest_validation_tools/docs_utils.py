@@ -191,7 +191,8 @@ def generate_readme_md(
         tsv_url = f"{raw_base_url}/{schema_name}/latest/{schema_name}.tsv"
         xlsx_url = f"{raw_base_url}/{schema_name}/latest/{schema_name}.xlsx"
         cedar_validator_link = \
-            "Prepare your metadata based on the latest metadata schema using one of the template files below. " \
+            "Prepare your metadata based on the latest metadata schema " \
+            "using one of the template files below. " \
             "See the instructions in the " \
             "[Metadata Validation Workflow]" \
             "(https://docs.google.com/document/d/1lfgiDGbyO4K4Hz1FMsJjmJd9RdwjShtJqFYNwKpbcZY) " \
