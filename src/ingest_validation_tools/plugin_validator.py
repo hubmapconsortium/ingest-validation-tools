@@ -28,6 +28,7 @@ class add_path:
         sys.path.insert(0, self.path)
 
     def __exit__(self, exc_type, exc_value, traceback):
+        del exc_type, exc_value, traceback
         try:
             sys.path.remove(self.path)
         except ValueError:
@@ -58,7 +59,7 @@ class Validator(object):
             raise ValidatorError(f"{self.path} is not a directory")
         self.assay_type = assay_type
 
-    def collect_errors(self, **kwargs) -> List[str]:
+    def collect_errors(self) -> List[str]:
         """
         Returns a list of strings, each of which is a
         human-readable error message.
@@ -83,6 +84,7 @@ def run_plugin_validators_iter(
 
     returns an iterator the values of which are key value pairs representing error messages.
     """
+
     metadata_path = Path(metadata_path)
     if metadata_path.is_file():
         try:
@@ -150,7 +152,7 @@ def validation_class_iter(plugin_dir: PathOrStr) -> Iterator[Type[Validator]]:
                 mod = util.module_from_spec(spec)
                 sys.modules[mod_nm] = mod
                 spec.loader.exec_module(mod)  # type: ignore
-            for name, obj in inspect.getmembers(mod):
+            for _, obj in inspect.getmembers(mod):
                 if (
                     inspect.isclass(obj)
                     and obj != Validator
@@ -158,7 +160,7 @@ def validation_class_iter(plugin_dir: PathOrStr) -> Iterator[Type[Validator]]:
                 ):
                     sort_me.append((obj.cost, obj.description, obj))
     sort_me.sort()
-    for cost, description, cls in sort_me:
+    for _, _, cls in sort_me:
         yield cls
 
 
@@ -182,5 +184,5 @@ def validation_error_iter(
         raise ValidatorError(f"{base_dir} should be the base directory of a dataset")
     for cls in validation_class_iter(plugin_dir):
         validator = cls(base_dir, assay_type)
-        for err in validator.collect_errors(**kwargs):
+        for err in validator.collect_errors(**kwargs):  # type: ignore
             yield cls.description, err

@@ -13,7 +13,7 @@ from ingest_validation_tools.directory_validator import (
     validate_directory,
     DirectoryValidationErrors,
 )
-from ingest_validation_tools.table_validator import get_table_errors
+from ingest_validation_tools.table_validator import get_table_errors, ReportType
 from ingest_validation_tools.schema_loader import (
     get_table_schema_version_from_row,
     PreflightError,
@@ -196,6 +196,8 @@ def get_tsv_errors(
     offline: bool = False,
     encoding: str = "utf-8",
     ignore_deprecation: bool = False,
+    report_type: ReportType = ReportType.STR,
+    cedar_api_key: str = "",
 ) -> Union[Dict[str, str], List[str]]:
     """
     Validate the TSV.
@@ -262,6 +264,13 @@ def get_tsv_errors(
     if not rows:
         return {"File has no data rows": f"{tsv_path}"}
 
+    if rows[0].get("metadata_schema_id"):
+        from ingest_validation_tools.upload import Upload
+
+        return Upload(
+            Path(tsv_path).parent, cedar_api_key=cedar_api_key
+        ).api_validation(Path(tsv_path), report_type)
+
     version = rows[0]["version"] if "version" in rows[0] else "0"
     try:
         schema = get_schema_with_constraints(
@@ -273,7 +282,7 @@ def get_tsv_errors(
     if schema.get("deprecated") and not ignore_deprecation:
         return {"Schema version is deprecated": f"{schema_name}-v{version}"}
 
-    return get_table_errors(tsv_path, schema)
+    return get_table_errors(tsv_path, schema, report_type)
 
 
 def get_schema_with_constraints(
@@ -303,3 +312,13 @@ def print_path(path):
         parts = new_path.parts[-3:]
         path = "File .../" + "/".join(str(part) for part in parts)
     return str(path)
+
+
+def get_json(
+    error: str, row: Optional[str] = None, column: Optional[str] = None
+) -> Dict[str, Optional[str]]:
+    return {
+        "column": column,
+        "error": error,
+        "row": row,
+    }
