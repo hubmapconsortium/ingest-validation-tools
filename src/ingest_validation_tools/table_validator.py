@@ -9,6 +9,7 @@ from ingest_validation_tools.check_factory import make_checks
 from ingest_validation_tools.validation_utils import get_json
 
 
+
 class ReportType(Enum):
     STR = 1
     JSON = 2
