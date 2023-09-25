@@ -26,6 +26,7 @@
 - Update documentation based on feedback
 - Addtional changes to Histology
 - Adding SenNet display changes
+- Add contributor TSV CEDAR checking
 
 ## v0.0.15 - 2023-04-04
 
