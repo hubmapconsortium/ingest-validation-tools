@@ -278,7 +278,8 @@ def get_tsv_errors(
 
         upload = Upload(Path(tsv_path).parent, cedar_api_key=cedar_api_key)
         errors = upload.api_validation(Path(tsv_path), report_type)
-        return errors | upload._cedar_url_checks(tsv_path, version)
+        schema_version = SchemaVersion(schema_name, version)
+        return errors | upload._cedar_url_checks(str(tsv_path), schema_version)
 
     try:
         schema = get_schema_with_constraints(
