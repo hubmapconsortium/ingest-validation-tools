@@ -1,0 +1,10 @@
+fields:
+  - name: is_cedar
+    description: "Identifies whether the version is hosted by CEDAR"
+    example: 'https://openview.metadatacenter.org/templates/https:%2F%2Frepo.metadatacenter.org%2Ftemplates%2F94dae6f8-0756-4ab0-a47b-138e446a9501'
+  - name: orcid_id
+    description: ORCID ID of contributor
+    example: 0000-0002-8928-741X
+    custom_constraints:
+      url:
+        prefix: https://pub.orcid.org/v3.0/
