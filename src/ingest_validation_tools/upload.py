@@ -508,6 +508,7 @@ class Upload:
                 offline=self.offline,
                 encoding=self.encoding,
                 ignore_deprecation=self.ignore_deprecation,
+                cedar_api_key=self.cedar_api_key
             )
             # TSV located and read, errors found
             if tsv_ref_errors and isinstance(tsv_ref_errors, list):

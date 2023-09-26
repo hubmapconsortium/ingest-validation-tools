@@ -6,7 +6,7 @@ all_versions_deprecated: ${all_versions_deprecated}
 exclude_from_index: ${exclude_from_index}
 layout: default
 ---
-
+${cedar_validator_link}
 Related files:
 ${optional_doc_link_md}
 ${related_files_section_md}

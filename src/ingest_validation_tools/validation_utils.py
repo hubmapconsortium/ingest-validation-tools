@@ -264,14 +264,23 @@ def get_tsv_errors(
     if not rows:
         return {"File has no data rows": f"{tsv_path}"}
 
-    if rows[0].get("metadata_schema_id"):
+    is_cedar = rows[0].get("metadata_schema_id")
+
+    version = "0"
+    # TODO: Fix this because we can't force the version to be 2 forever.
+    if is_cedar:
+        version = "2"
+    elif "version" in rows[0]:
+        version = rows[0]["version"]
+
+    if is_cedar:
         from ingest_validation_tools.upload import Upload
 
-        return Upload(
-            Path(tsv_path).parent, cedar_api_key=cedar_api_key
-        ).api_validation(Path(tsv_path), report_type)
+        upload = Upload(Path(tsv_path).parent, cedar_api_key=cedar_api_key)
+        errors = upload.api_validation(Path(tsv_path), report_type)
+        schema_version = SchemaVersion(schema_name, version)
+        return errors | upload._cedar_url_checks(str(tsv_path), schema_version)
 
-    version = rows[0]["version"] if "version" in rows[0] else "0"
     try:
         schema = get_schema_with_constraints(
             schema_name, version, offline, optional_fields

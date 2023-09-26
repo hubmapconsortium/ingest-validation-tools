@@ -185,13 +185,23 @@ def generate_readme_md(
     ):
         tsv_url = ""
         xlsx_url = ""
+        cedar_validator_link = ""
     # If it is a cedar template, link to the dataset-metadata-spreadsheet repo
     elif is_cedar:
         tsv_url = f"{raw_base_url}/{schema_name}/latest/{schema_name}.tsv"
         xlsx_url = f"{raw_base_url}/{schema_name}/latest/{schema_name}.xlsx"
+        cedar_validator_link = \
+            "Prepare your metadata based on the latest metadata schema " \
+            "using one of the template files below. " \
+            "See the instructions in the " \
+            "[Metadata Validation Workflow]" \
+            "(https://docs.google.com/document/d/1lfgiDGbyO4K4Hz1FMsJjmJd9RdwjShtJqFYNwKpbcZY) " \
+            "document for more information on preparing " \
+            "and validating your metadata.tsv file prior to submission.\n"
     else:
         tsv_url = f"{raw_base_url}/{schema_name}/{get_tsv_name(schema_name, is_assay=is_assay)}"
         xlsx_url = f"{raw_base_url}/{schema_name}/{get_xlsx_name(schema_name, is_assay=is_assay)}"
+        cedar_validator_link = ""
 
     related_files_section_md = (
         f"""
@@ -250,6 +260,7 @@ def generate_readme_md(
             "optional_dir_description_md": optional_dir_description_md,
             "optional_doc_link_md": optional_doc_link_md,
             "optional_description_md": optional_description_md,
+            "cedar_validator_link": cedar_validator_link,
         }
     )
 

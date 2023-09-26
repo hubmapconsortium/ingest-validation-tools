@@ -6,6 +6,7 @@ all_versions_deprecated: False
 exclude_from_index: False
 layout: default
 ---
+Prepare your metadata based on the latest metadata schema using one of the template files below. See the instructions in the [Metadata Validation Workflow](https://docs.google.com/document/d/1lfgiDGbyO4K4Hz1FMsJjmJd9RdwjShtJqFYNwKpbcZY) document for more information on preparing and validating your metadata.tsv file prior to submission.
 
 Related files:
 
