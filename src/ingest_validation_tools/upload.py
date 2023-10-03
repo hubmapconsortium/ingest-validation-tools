@@ -59,7 +59,7 @@ class Upload:
         offline: bool = False,
         ignore_deprecation: bool = False,
         extra_parameters: Union[dict, None] = None,
-        token: str = "",
+        airflow_token: str = "",
         cedar_api_key: str = "",
     ):
         self.directory_path = directory_path
@@ -74,7 +74,7 @@ class Upload:
         self.errors = {}
         self.effective_tsv_paths = {}
         self.extra_parameters = extra_parameters if extra_parameters else {}
-        self.auth_tok = token
+        self.auth_tok = airflow_token
         self.cedar_api_key = cedar_api_key
 
         try:
@@ -285,10 +285,17 @@ class Upload:
                     f"{tsv_path} (as {schema_version.schema_name}-v{schema_version.version})"
                 ] = local_errors
         else:
+            """
+            Passing offline=True will skip all API/URL validation;
+            GitHub actions therefore do not test via the CEDAR
+            Spreadsheet Validator API, so tests must be run
+            manually (/code/ingest-validation-tools: ./test.sh)
+            """
             if self.offline:
-                api_validated = {
-                    f"{tsv_path}": "Offline validation selected, cannot reach API."
-                }
+                logging.info(
+                    f"{tsv_path}: Offline validation selected, cannot reach API."
+                )
+                return errors
             else:
                 url_errors = self._cedar_url_checks(tsv_path, schema_version)
                 api_errors = self.api_validation(Path(tsv_path))
@@ -399,7 +406,9 @@ class Upload:
         if isinstance(rows, dict):
             return rows
         fields = rows[0].keys()
-        missing_fields = [k for k in constrained_fields.keys() if k not in fields]
+        missing_fields = [
+            k for k in constrained_fields.keys() if k not in fields
+        ].sort()
         if missing_fields:
             return {f"Missing fields: {missing_fields}"}
         # TODO: not sure if a token is our best bet here; will all UUID/HMID
@@ -508,7 +517,7 @@ class Upload:
                 offline=self.offline,
                 encoding=self.encoding,
                 ignore_deprecation=self.ignore_deprecation,
-                cedar_api_key=self.cedar_api_key
+                cedar_api_key=self.cedar_api_key,
             )
             # TSV located and read, errors found
             if tsv_ref_errors and isinstance(tsv_ref_errors, list):
