@@ -973,7 +973,6 @@ parent_id:
 - gcms
 - geomx
 - hifi-slide
-- histology
 - imc
 - lcms
 - lightsheet
@@ -1002,6 +1001,8 @@ parent_id:
 - visium
 - wgs
 - xenium
+parent_sample_id:
+- histology
 pathologist_report:
 - sample
 pathology_distance_unit:

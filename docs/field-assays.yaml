@@ -1591,7 +1591,6 @@ parent_id:
 - GeoMx (RNA)
 - GeoMx (protein)
 - HiFi-Slide
-- Histology
 - Imaging Mass Cytometry
 - LC-MS
 - Light Sheet
@@ -1633,6 +1632,8 @@ parent_id:
 - snRNAseq
 - snRNAseq-10xGenomics-v2
 - snRNAseq-10xGenomics-v3
+parent_sample_id:
+- Histology
 pi:
 - 3D Imaging Mass Cytometry
 - AF
