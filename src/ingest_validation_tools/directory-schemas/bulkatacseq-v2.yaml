@@ -21,6 +21,10 @@ files:
     description: This is a GZip'd version of a fastq file from ATACseq sequencing.
     is_qa_qc: False
   -
+    pattern: lab_processed\/.*
+    required: False
+    description: Experiment files that were processed by the lab generating the data.
+  -
     pattern: lab_processed\/cellranger-atac\/.*
     required: False
     description: 
