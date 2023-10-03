@@ -411,8 +411,6 @@ class Upload:
         ].sort()
         if missing_fields:
             return {f"Missing fields: {missing_fields}"}
-        # TODO: not sure if a token is our best bet here; will all UUID/HMID
-        # fields be accessible via the portal?
         if not self.auth_tok:
             return {
                 "No token": "No token was received to check URL fields against Entity API."
@@ -420,9 +418,9 @@ class Upload:
         url_errors = []
         for i, row in enumerate(rows):
             check = {k: v for k, v in row.items() if k in constrained_fields}
-            for field, url in check.items():
+            for field, value in check.items():
                 try:
-                    url = constrained_fields[field] + url
+                    url = constrained_fields[field] + value
                     response = requests.get(
                         url,
                         headers={
@@ -433,7 +431,7 @@ class Upload:
                     response.raise_for_status()
                 except Exception as e:
                     url_errors.append(
-                        f"Row {i+2}, field '{field}' with value '{url}': {e}"
+                        f"Row {i+2}, field '{field}' with value '{value}': {e}"
                     )
         return url_errors
 

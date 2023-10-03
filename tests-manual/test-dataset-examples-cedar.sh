@@ -1,12 +1,13 @@
 #!/usr/bin/env bash
 # Tests are run in offline by default. To test CEDAR validation including API calls, run:
 # ./tests-manual/test-dataset-examples-cedar.sh <airflow_token> <cedar_api_token>
+# This means all examples with CEDAR API validation will need a README_ONLINE.md file; this will try to detect a missing but necessary file based on example names including the string "cedar"
 
 set -o errexit
 
 die() { set +v; echo "$*" 1>&2 ; sleep 1; exit 1; }
 
-for SUITE in examples/dataset-examples examples/dataset-iec-examples; do
+for SUITE in examples/dataset-examples; do
 
     case $SUITE in
         examples/dataset-examples)
@@ -17,12 +18,18 @@ for SUITE in examples/dataset-examples examples/dataset-iec-examples; do
     esac
 
     for EXAMPLE in $SUITE/*; do
-        echo "Testing $EXAMPLE ..."
-        CMD="src/validate_upload.py --local_directory $EXAMPLE/upload $OPTS | perl -pne 's/(Time|Git version): .*/\1: WILL_CHANGE/'"
-        echo "$CMD"
         README="$EXAMPLE/README_ONLINE.md"
-        diff $README <( eval "$CMD" ) \
-            || die "Update example: $CMD > $README"
+        if [ ! -e "$README" ]; then
+            if [[ "$EXAMPLE" == *cedar* ]];  then
+                die "CEDAR example $EXAMPLE does not have a README_ONLINE.md file."
+            fi
+        else
+            echo "Testing $EXAMPLE ..."
+            CMD="src/validate_upload.py --local_directory $EXAMPLE/upload $OPTS | perl -pne 's/(Time|Git version): .*/\1: WILL_CHANGE/'"
+            echo "$CMD"
+            diff $README <( eval "$CMD" ) \
+                || die "Update example: $CMD > $README"
+        fi
     done
 
     for GOOD in $SUITE/good-*/README.md; do
@@ -32,5 +39,7 @@ for SUITE in examples/dataset-examples examples/dataset-iec-examples; do
     for BAD in $SUITE/bad-*/README.md; do
         ! grep 'No errors!' $BAD || die "$BAD should be an error report."
     done
+
+    echo "Done! No errors!"
 
 done
