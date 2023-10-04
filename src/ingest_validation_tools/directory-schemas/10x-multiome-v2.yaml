@@ -27,7 +27,7 @@ files:
   -  
     pattern: raw\/fastq\/ATAC\/.*
     required: True
-    description: Directory containing fastq files pertaining to RNAseq sequencing.
+    description: Directory containing fastq files pertaining to ATACseq sequencing.
   -
     pattern: raw\/fastq\/ATAC\/[^\/]+\.fastq\.gz
     required: True
