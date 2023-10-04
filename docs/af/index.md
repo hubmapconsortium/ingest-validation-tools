@@ -20,7 +20,7 @@ This schema is for autofluorescence (AF). For an example of an AF dataset & dire
 ## Metadata schema
 
 
-<summary><a href="https://openview.metadatacenter.org/templates/https:%2F%2Frepo.metadatacenter.org%2Ftemplates%2Fa7f2b6ae-5a0c-4b2f-acf0-80a0878d2bbf"><b>Version 2 (use this one)</b></a></summary>
+<summary><a href="https://openview.metadatacenter.org/templates/https:%2F%2Frepo.metadatacenter.org%2Ftemplates%2Fc9c6a02b-010e-4217-96dc-f7ef71dd14c4"><b>Version 2 (use this one)</b></a></summary>
 
 
 <details markdown="1" ><summary><b>Version 1</b></summary>
