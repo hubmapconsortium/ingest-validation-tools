@@ -27,6 +27,7 @@
 - Addtional changes to Histology
 - Adding SenNet display changes
 - Add contributor TSV CEDAR checking
+- Update CEDAR links for set of assays
 
 ## v0.0.15 - 2023-04-04
 
