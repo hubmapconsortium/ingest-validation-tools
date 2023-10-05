@@ -27,6 +27,8 @@
 - Addtional changes to Histology
 - Adding SenNet display changes
 - Add contributor TSV CEDAR checking
+- Add next-gen directory schema for Single-cycle Fluorescence Microscopy assays
+- Add next-gen directory schema for Sequencing assays *except* SNARE-seq2
 
 ## v0.0.15 - 2023-04-04
 
