@@ -24,17 +24,3 @@ files:
     pattern: lab_processed\/.*
     required: False
     description: Experiment files that were processed by the lab generating the data.
-  -
-    pattern: lab_processed\/cellranger-atac\/.*
-    required: False
-    description: 
-  -
-    pattern: lab_processed\/cellranger-atac\/cloupe\.cloupe
-    required: False
-    description: 
-    is_qa_qc: False
-  -
-    pattern: lab_processed\/cellranger-atac\/web_summary\.html
-    required: False
-    description: 
-    is_qa_qc: True
