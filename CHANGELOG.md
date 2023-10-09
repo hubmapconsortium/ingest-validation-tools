@@ -28,6 +28,7 @@
 - Adding SenNet display changes
 - Add contributor TSV CEDAR checking
 - Update CEDAR links for set of assays
+- Split docs into current and deprecated
 
 ## v0.0.15 - 2023-04-04
 
