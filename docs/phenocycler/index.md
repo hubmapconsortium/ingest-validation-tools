@@ -20,7 +20,7 @@ Related files:
 ## Metadata schema
 
 
-<summary><a href="https://openview.metadatacenter.org/templates/https:%2F%2Frepo.metadatacenter.org%2Ftemplates%2Fba8c2dec-950e-49c7-9365-fd15fb9a84c9	"><b>Version 2 (use this one)</b></a></summary>
+<summary><a href="https://openview.metadatacenter.org/templates/https:%2F%2Frepo.metadatacenter.org%2Ftemplates%2Fba8c2dec-950e-49c7-9365-fd15fb9a84c9"><b>Version 2 (use this one)</b></a></summary>
 
 
 

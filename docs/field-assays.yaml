@@ -187,7 +187,7 @@ assay_category:
 - 10x Multiome
 - 3D Imaging Mass Cytometry
 - AF
-- ATACseq (bulk)
+- ATACseq
 - Auto-fluorescence
 - Body CT
 - CE-MS
@@ -233,9 +233,8 @@ assay_category:
 - Organ
 - PAS microscopy
 - PhenoCycler
+- RNAseq
 - RNAseq (GeoMx)
-- RNAseq (Visium)
-- RNAseq (bulk)
 - SIMS
 - SIMS-IMS
 - SNARE-seq2
@@ -254,8 +253,6 @@ assay_category:
 - bulk-RNA
 - bulkATACseq
 - cell-dive
-- scATAC-seq
-- scRNA-seq
 - scRNAseq
 - scRNAseq-10xGenomics
 - scRNAseq-10xGenomics-v2
@@ -271,7 +268,7 @@ assay_type:
 - 10x Multiome
 - 3D Imaging Mass Cytometry
 - AF
-- ATACseq (bulk)
+- ATACseq
 - Auto-fluorescence
 - Body CT
 - CE-MS
@@ -318,9 +315,8 @@ assay_type:
 - PAS microscopy
 - PhenoCycler
 - Publication
+- RNAseq
 - RNAseq (GeoMx)
-- RNAseq (Visium)
-- RNAseq (bulk)
 - SIMS
 - SIMS-IMS
 - SNARE-seq2
@@ -340,8 +336,6 @@ assay_type:
 - bulkATACseq
 - cell-dive
 - publication
-- scATAC-seq
-- scRNA-seq
 - scRNAseq
 - scRNAseq-10xGenomics
 - scRNAseq-10xGenomics-v2
@@ -805,7 +799,7 @@ is_cedar:
 - 10x Multiome
 - 3D Imaging Mass Cytometry
 - AF
-- ATACseq (bulk)
+- ATACseq
 - Auto-fluorescence
 - Body CT
 - CE-MS
@@ -840,12 +834,9 @@ is_cedar:
 - PAS microscopy
 - PhenoCycler
 - Publication
+- RNAseq
 - RNAseq (GeoMx)
-- RNAseq (Visium)
-- RNAseq (bulk)
 - SIMS
-- SNARE-seq2
-- SNARE2-RNAseq
 - Sample
 - Sample Block
 - Sample Section
@@ -857,20 +848,7 @@ is_cedar:
 - Visium
 - WGS
 - Xenium
-- bulk-RNA
-- bulkATACseq
-- scATAC-seq
-- scRNA-seq
-- scRNAseq
-- scRNAseq-10xGenomics-v2
-- scRNAseq-10xGenomics-v3
-- sciATACseq
-- sciRNAseq
 - seqFISH
-- snATACseq
-- snRNAseq
-- snRNAseq-10xGenomics-v2
-- snRNAseq-10xGenomics-v3
 is_targeted:
 - 3D Imaging Mass Cytometry
 - AF
@@ -1574,7 +1552,7 @@ overall_protocols_io_doi:
 parent_id:
 - 10x Multiome
 - AF
-- ATACseq (bulk)
+- ATACseq
 - Auto-fluorescence
 - Body CT
 - CE-MS
@@ -1606,12 +1584,9 @@ parent_id:
 - OCT
 - PhenoCycler
 - Publication
+- RNAseq
 - RNAseq (GeoMx)
-- RNAseq (Visium)
-- RNAseq (bulk)
 - SIMS
-- SNARE-seq2
-- SNARE2-RNAseq
 - Second Harmonic Generation
 - Slide-seq
 - Thick Section Multiphoton MxIF
@@ -1619,20 +1594,7 @@ parent_id:
 - Visium
 - WGS
 - Xenium
-- bulk-RNA
-- bulkATACseq
-- scATAC-seq
-- scRNA-seq
-- scRNAseq
-- scRNAseq-10xGenomics-v2
-- scRNAseq-10xGenomics-v3
-- sciATACseq
-- sciRNAseq
 - seqFISH
-- snATACseq
-- snRNAseq
-- snRNAseq-10xGenomics-v2
-- snRNAseq-10xGenomics-v3
 pi:
 - 3D Imaging Mass Cytometry
 - AF
