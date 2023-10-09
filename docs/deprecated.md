@@ -3,16 +3,25 @@ layout: default
 title: Deprecated Schemas
 ---
 
+{% assign categories = "" | split: ',' %}
+{% for page in site.pages %}
+{% if page.path contains "deprecated" %}
+{% assign categories = categories | push: page.category %}
+{% endif %}
+{% endfor %}
 
-{% for category-name in site.categories-order %}
+{% assign categories = categories | uniq %}
 
-## {{ category-name }}
+{% for category-name in categories %}
+{% if category-name %}
+
+## {{category-name}}
 
 {% assign pages = site.pages | where: "category",category-name | sort: "title" %}
 
 {% for page in pages %}
-
 {% unless page.exclude_from_index %}
+
 {% unless page.all_versions_deprecated %}
 {% if page.path contains "deprecated" %}
 
@@ -20,7 +29,9 @@ title: Deprecated Schemas
 
 {% endif %}
 {% endunless %}
+
 {% endunless %}
 {% endfor %}
 
+{% endif %}
 {% endfor %}
