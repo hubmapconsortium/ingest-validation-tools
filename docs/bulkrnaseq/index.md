@@ -1,5 +1,5 @@
 ---
-title: RNAseq (bulk) / bulk-RNA
+title: bulk-RNA
 schema_name: bulkrnaseq
 category: Sequence Assays
 all_versions_deprecated: False
@@ -8,19 +8,66 @@ layout: default
 ---
 
 Related files:
+- [🔬 Background doc](https://portal.hubmapconsortium.org/docs/assays/rnaseq): More details about this type.
 
-Excel and TSV templates for this schema will be available when the draft next-generation schema, to be used in all future submissions, is finalized (no later than Sept. 30).
+- [📝 Excel template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/main/docs/bulkrnaseq/bulkrnaseq-metadata.xlsx): For metadata entry.
+- [📝 TSV template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/main/docs/bulkrnaseq/bulkrnaseq-metadata.tsv): Alternative for metadata entry.
+
 
 
 
 ## Metadata schema
 
 
-<summary><a href="https://docs.google.com/spreadsheets/d/1YNyMWvDTZzuj8m4fgdwLI6Wht1C3zb_s2kTONEVkZmo"><b>Version 2 (use this one)</b> (draft - submission of data prepared using this schema will be supported by Sept. 30)</a></summary>
+<details markdown="1" open="true"><summary><b>Version 1 (use this one)</b></summary>
 
+<blockquote markdown="1">
 
-<details markdown="1" ><summary><b>Version 1</b></summary>
+<details markdown="1"><summary>Shared by all types</summary>
 
+[`version`](#version)<br>
+[`description`](#description)<br>
+[`donor_id`](#donor_id)<br>
+[`tissue_id`](#tissue_id)<br>
+[`execution_datetime`](#execution_datetime)<br>
+[`protocols_io_doi`](#protocols_io_doi)<br>
+[`operator`](#operator)<br>
+[`operator_email`](#operator_email)<br>
+[`pi`](#pi)<br>
+[`pi_email`](#pi_email)<br>
+[`assay_category`](#assay_category)<br>
+[`assay_type`](#assay_type)<br>
+[`analyte_class`](#analyte_class)<br>
+[`is_targeted`](#is_targeted)<br>
+[`acquisition_instrument_vendor`](#acquisition_instrument_vendor)<br>
+[`acquisition_instrument_model`](#acquisition_instrument_model)<br>
+
+</details>
+<details markdown="1"><summary>Unique to this type</summary>
+
+[`bulk_rna_isolation_protocols_io_doi`](#bulk_rna_isolation_protocols_io_doi)<br>
+[`bulk_rna_yield_value`](#bulk_rna_yield_value)<br>
+[`bulk_rna_yield_units_per_tissue_unit`](#bulk_rna_yield_units_per_tissue_unit)<br>
+[`bulk_rna_isolation_quality_metric_value`](#bulk_rna_isolation_quality_metric_value)<br>
+[`rnaseq_assay_input_value`](#rnaseq_assay_input_value)<br>
+[`rnaseq_assay_input_unit`](#rnaseq_assay_input_unit)<br>
+[`rnaseq_assay_method`](#rnaseq_assay_method)<br>
+[`library_construction_protocols_io_doi`](#library_construction_protocols_io_doi)<br>
+[`library_layout`](#library_layout)<br>
+[`library_adapter_sequence`](#library_adapter_sequence)<br>
+[`library_pcr_cycles_for_sample_index`](#library_pcr_cycles_for_sample_index)<br>
+[`library_final_yield_value`](#library_final_yield_value)<br>
+[`library_final_yield_unit`](#library_final_yield_unit)<br>
+[`library_average_fragment_size`](#library_average_fragment_size)<br>
+[`sequencing_reagent_kit`](#sequencing_reagent_kit)<br>
+[`sequencing_read_format`](#sequencing_read_format)<br>
+[`sequencing_read_percent_q30`](#sequencing_read_percent_q30)<br>
+[`sequencing_phix_percent`](#sequencing_phix_percent)<br>
+[`contributors_path`](#contributors_path)<br>
+[`data_path`](#data_path)<br>
+</details>
+
+</blockquote>
 
 ### Shared by all types
 
@@ -356,7 +403,6 @@ Relative path to file or directory with instrument data. Downstream processing w
 </details>
 
 
-
 <details markdown="1" ><summary><b>Version 0</b></summary>
 
 
@@ -680,9 +726,7 @@ Relative path to file or directory with instrument data. Downstream processing w
 <br>
 
 ## Directory schemas
-<summary><a href="https://docs.google.com/spreadsheets/d/10Om2iinTwfLn1ySWtovmcm35cQnyg0Pm-rRd0a-eMjc"><b>Version 2 (use this one)</b> (draft - submission of data prepared using this schema will be supported by Sept. 30) </a></summary>
-
-<summary><b>Version 0</b></summary>
+<summary><b>Version 0 (use this one)</b></summary>
 
 | pattern | required? | description |
 | --- | --- | --- |
