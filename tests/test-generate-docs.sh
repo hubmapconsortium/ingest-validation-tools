@@ -43,10 +43,12 @@ diff $REAL_DEST $TEST_DEST || die "Update needed: $REAL_CMD"
 for TYPE in $(ls -d docs/*); do
   # Skip directories that are unpopulated:
   TYPE=`basename $TYPE`
-  LOOKFOR_ASSAY="docs/$TYPE/$TYPE-metadata.tsv"
-  LOOKFOR_OTHER="docs/$TYPE/$TYPE.tsv"
-  if [ ! -e $LOOKFOR_ASSAY ] && [ ! -e $LOOKFOR_OTHER ]; then
-    echo "Skipping $TYPE. To add: 'touch $LOOKFOR_ASSAY' for assays, or 'touch $LOOKFOR_OTHER' for other."
+  LOOKFOR_CURRENT_ASSAY="docs/$TYPE/current/$TYPE-metadata.tsv"
+  LOOKFOR_CURRENT_OTHER="docs/$TYPE/current/$TYPE.tsv"
+  LOOKFOR_DEPRECATED_ASSAY="docs/$TYPE/deprecated/$TYPE-metadata.tsv"
+  LOOKFOR_DEPRECATED_OTHER="docs/$TYPE/deprecated/$TYPE.tsv"
+  if [ ! -e $LOOKFOR_CURRENT_ASSAY ] && [ ! -e $LOOKFOR_CURRENT_OTHER ] && [ ! -e $LOOKFOR_DEPRECATED_ASSAY ] && [ ! -e $LOOKFOR_DEPRECATED_OTHER ]; then
+    echo "Skipping $TYPE. To add: 'touch $LOOKFOR_CURRENT_ASSAY' for assays, or 'touch $LOOKFOR_CURRENT_OTHER' for other."
     continue
   fi
 
@@ -61,7 +63,10 @@ for TYPE in $(ls -d docs/*); do
   mkdir -p $TEST_DEST || echo "$TEST_DEST already exists"
   echo "Running: $TEST_CMD"
   eval $TEST_CMD
-  diff -r $REAL_DEST $TEST_DEST --exclude="*.tsv" --exclude="*.xlsx" \
+  diff -r $REAL_DEST/current $TEST_DEST/current --exclude="*.tsv" --exclude="*.xlsx" \
+    || die "Update needed: $REAL_CMD
+Or:" 'for D in `ls -d docs/*/`; do D=`basename $D`; [ -e docs/$D/*.tsv ] || continue; src/generate_docs.py $D docs/$D; done'
+  diff -r $REAL_DEST/deprecated $TEST_DEST/deprecated --exclude="*.tsv" --exclude="*.xlsx" \
     || die "Update needed: $REAL_CMD
 Or:" 'for D in `ls -d docs/*/`; do D=`basename $D`; [ -e docs/$D/*.tsv ] || continue; src/generate_docs.py $D docs/$D; done'
   rm -rf $TEST_DEST
