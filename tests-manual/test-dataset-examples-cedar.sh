@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # Tests are run in offline by default. To test CEDAR validation including API calls, run:
-# ./tests-manual/test-dataset-examples-cedar.sh <airflow_token> <cedar_api_token>
+# ./tests-manual/test-dataset-examples-cedar.sh <globus_token> <cedar_api_token>
 # This means all examples with CEDAR API validation will need a README_ONLINE.md file; this will try to detect a missing but necessary file based on example names including the string "cedar"
 
 set -o errexit
@@ -11,7 +11,7 @@ for SUITE in examples/dataset-examples; do
 
     case $SUITE in
         examples/dataset-examples)
-            OPTS="--dataset_ignore_globs 'ignore-*.tsv' '.*' --airflow_token $1 --cedar_api_key $2 --upload_ignore_globs 'drv_ignore_*' --output as_md"
+            OPTS="--dataset_ignore_globs 'ignore-*.tsv' '.*' --globus_token $1 --cedar_api_key $2 --upload_ignore_globs 'drv_ignore_*' --output as_md"
             ;;
         *)
             die "Unexpected $SUITE"

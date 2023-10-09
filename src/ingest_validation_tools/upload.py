@@ -59,7 +59,7 @@ class Upload:
         offline: bool = False,
         ignore_deprecation: bool = False,
         extra_parameters: Union[dict, None] = None,
-        airflow_token: str = "",
+        globus_token: str = "",
         cedar_api_key: str = "",
     ):
         self.directory_path = directory_path
@@ -74,7 +74,7 @@ class Upload:
         self.errors = {}
         self.effective_tsv_paths = {}
         self.extra_parameters = extra_parameters if extra_parameters else {}
-        self.auth_tok = airflow_token
+        self.auth_tok = globus_token
         self.cedar_api_key = cedar_api_key
 
         try:

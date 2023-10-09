@@ -111,7 +111,7 @@ Exit status codes:
 
     # Arguments for manual tests
     parser.add_argument(
-        "--airflow_token",
+        "--globus_token",
         help="Token for URL checking using Entity API.",
     )
     parser.add_argument(
@@ -166,7 +166,7 @@ def main():
         "add_notes": args.add_notes,
         "encoding": args.encoding,
         "offline": args.offline,
-        "airflow_token": args.airflow_token,
+        "globus_token": args.globus_token,
         "cedar_api_key": args.cedar_api_key,
         "optional_fields": args.optional_fields,
         "ignore_deprecation": args.ignore_deprecation,
@@ -181,8 +181,8 @@ def main():
         upload_args["upload_ignore_globs"] = args.upload_ignore_globs
     if args.plugin_directory:
         upload_args["plugin_directory"] = args.plugin_directory
-    if args.airflow_token:
-        upload_args["airflow_token"] = args.airflow_token
+    if args.globus_token:
+        upload_args["globus_token"] = args.globus_token
     if args.cedar_api_key:
         upload_args["cedar_api_key"] = args.cedar_api_key
 
