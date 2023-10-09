@@ -53,10 +53,19 @@ def main():
         directory_schemas = []
         pipeline_infos = []
 
+    # All the paths need to change.
+    # We need to check whether there is a cedar version for a page
+    # If there is, then we need to separate the docs into next-gen and deprecated
+    # README can be placed in both places without any issue
+
     # README.md:
     with open(Path(args.target) / 'README.md', 'w') as f:
         url = f'https://hubmapconsortium.github.io/ingest-validation-tools/{args.type}/'
         f.write(f'Moved to [github pages]({url}).')
+
+    # This is the actual content. We have to separate cedar and non-cedar schemas
+    # CEDAR schemas go into next-gen/index.md
+    # Non-CEDAR schemas go into deprecated/index.md
 
     # index.md:
     with open(Path(args.target) / 'index.md', 'w') as f:
@@ -84,11 +93,15 @@ def main():
 
         if type(schema['fields'][0]) != dict or \
                 schema['fields'][0].get('name', '') != 'is_cedar':
+            # Just need to change the path here
+            # since this is only relevant for non-CEDAR schemas
             with open(Path(args.target) / f'v{v}.yaml', 'w') as f:
                 f.write(
                     '# Generated YAML: PRs should not start here!\n'
                     + dump_yaml(schema, sort_keys=False)
                 )
+
+    # Need to separate between CEDAR and non-CEDAR. Only run this for the non-CEDAR templates.
 
     # Data entry templates:
     max_schema = enum_maps_to_lists(table_schemas[max_version],
