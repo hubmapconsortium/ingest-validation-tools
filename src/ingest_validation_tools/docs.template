@@ -5,6 +5,7 @@ category: ${category}
 all_versions_deprecated: ${all_versions_deprecated}
 exclude_from_index: ${exclude_from_index}
 layout: default
+${permalink}
 ---
 ${cedar_validator_link}
 Related files:

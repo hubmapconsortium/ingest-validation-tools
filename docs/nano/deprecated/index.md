@@ -5,6 +5,7 @@ category: Imaging Mass Spectrometry (IMS)
 all_versions_deprecated: True
 exclude_from_index: False
 layout: default
+permalink: /nano/
 ---
 
 Related files:

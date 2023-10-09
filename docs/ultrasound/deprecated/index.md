@@ -5,6 +5,7 @@ category: Clinical Imaging Modalities
 all_versions_deprecated: False
 exclude_from_index: False
 layout: default
+permalink: /ultrasound/
 ---
 
 Related files:

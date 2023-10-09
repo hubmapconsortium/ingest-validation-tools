@@ -5,6 +5,7 @@ category: Mass Spectrometry
 all_versions_deprecated: False
 exclude_from_index: False
 layout: default
+permalink: /gcms/
 ---
 
 Related files:

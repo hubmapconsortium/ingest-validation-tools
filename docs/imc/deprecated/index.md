@@ -5,6 +5,7 @@ category: Imaging Mass Spectrometry (IMS)
 all_versions_deprecated: False
 exclude_from_index: False
 layout: default
+permalink: /imc/
 ---
 
 Related files:

@@ -5,6 +5,7 @@ category: Imaging
 all_versions_deprecated: False
 exclude_from_index: False
 layout: default
+permalink: /lightsheet/
 ---
 
 Related files:
