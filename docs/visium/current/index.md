@@ -17,7 +17,7 @@ Excel and TSV templates for this schema will be available when the draft next-ge
 ## Metadata schema
 
 
-<summary><a href="https://docs.google.com/spreadsheets/d/1kd1UQ2il-eW-MTM4iEotyAxa8M_hcwn8yQJTU_II-F8"><b>Version 2 (use this one)</b> (draft - submission of data prepared using this schema will be supported by Sept. 30)</a></summary>
+<summary><a href="https://openview.metadatacenter.org/templates/https:%2F%2Frepo.metadatacenter.org%2Ftemplates%2Fec09b747-925d-4a7a-889e-d9f9d6d0dee4"><b>Version 2 (use this one)</b> (draft - submission of data prepared using this schema will be supported by Sept. 30)</a></summary>
 
 
 
