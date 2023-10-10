@@ -261,6 +261,7 @@ def generate_readme_md(
             "optional_doc_link_md": optional_doc_link_md,
             "optional_description_md": optional_description_md,
             "cedar_validator_link": cedar_validator_link,
+            "permalink": f"permalink: /{schema_name}/" if not is_cedar else ""
         }
     )
 

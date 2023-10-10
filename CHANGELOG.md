@@ -28,8 +28,7 @@
 - Adding SenNet display changes
 - Add contributor TSV CEDAR checking
 - Update CEDAR links for set of assays
-- Add next-gen directory schema for ATACseq, RNAseq, and 10x multiome
-- Update description for 10x
+- Split docs into current and deprecated
 
 ## v0.0.15 - 2023-04-04
 
