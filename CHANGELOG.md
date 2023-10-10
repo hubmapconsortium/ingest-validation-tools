@@ -30,6 +30,7 @@
 - Update CEDAR links for set of assays
 - Split docs into current and deprecated
 - Update Visium CEDAR template link
+- Remove Visium draft attribute
 
 ## v0.0.15 - 2023-04-04
 
