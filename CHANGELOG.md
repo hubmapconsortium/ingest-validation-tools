@@ -29,6 +29,7 @@
 - Add contributor TSV CEDAR checking
 - Update CEDAR links for set of assays
 - Split docs into current and deprecated
+- Update Visium CEDAR template link
 
 ## v0.0.15 - 2023-04-04
 
