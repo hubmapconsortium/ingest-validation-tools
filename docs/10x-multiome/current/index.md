@@ -16,7 +16,7 @@ Related files:
 - [📝 TSV template](https://raw.githubusercontent.com/hubmapconsortium/dataset-metadata-spreadsheet/main/10x-multiome/latest/10x-multiome.tsv): Alternative for metadata entry.
 
 
-REQUIRED - For this assay, you must also prepare and submit two additional metadata.tsv files following the metadata schemas linked here for [RNAseq](https://hubmapconsortium.github.io/ingest-validation-tools/rnaseq/) and [ATACseq](https://hubmapconsortium.github.io/ingest-validation-tools/atacseq/).
+REQUIRED - For this assay, you must also prepare and submit two additional metadata.tsv files following the metadata schemas linked here for [RNAseq](https://hubmapconsortium.github.io/ingest-validation-tools/rnaseq/current/) and [ATACseq](https://hubmapconsortium.github.io/ingest-validation-tools/atacseq/current/).
 
 ## Metadata schema
 
