@@ -587,6 +587,9 @@ class Upload:
         return errors
 
     def __get_multi_ref_errors(self) -> dict:
+        # TODO: This needs to be updated to include multi-assay logic
+        #  If - multi-assay dataset (and only that dataset is referenced) don't fail
+        #  Else - fail
         errors = {}
         data_references = self.__get_data_references()
         for path, references in data_references.items():
