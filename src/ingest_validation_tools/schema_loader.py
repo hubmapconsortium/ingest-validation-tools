@@ -198,30 +198,22 @@ def _assay_to_schema_name(
         if assay_type.lower() not in [assay.lower() for assay in assay_type_enum]:
             continue
 
-        is_cedar = False
-        for field in schema.get("fields", []):
-            if type(field) == dict and field.get("name", "") == "is_cedar":
-                is_cedar = True
+        source_project_enum = get_field_enum("source_project", schema)
 
-        if is_cedar and version == "cedar":
-            assay_names.append(assay_type)
-        else:
-            source_project_enum = get_field_enum("source_project", schema)
+        if source_project_enum:
+            if not source_project:
+                continue
 
-            if source_project_enum:
-                if not source_project:
-                    continue
+        if source_project:
+            if not source_project_enum:
+                continue
+            if source_project not in source_project_enum:
+                continue
 
-            if source_project:
-                if not source_project_enum:
-                    continue
-                if source_project not in source_project_enum:
-                    continue
-
-            v_match = re.match(r".+(?=-v\d+)", path.stem)
-            if not v_match:
-                raise PreflightError(f"No version in {path}")
-            assay_names.append(v_match[0])
+        v_match = re.match(r".+(?=-v\d+)", path.stem)
+        if not v_match:
+            raise PreflightError(f"No version in {path}")
+        assay_names.append(v_match[0])
 
     if assay_names:
         return list(set(assay_names))
