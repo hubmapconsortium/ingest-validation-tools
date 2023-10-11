@@ -561,8 +561,13 @@ class Upload:
             | set(self.__get_contributors_references().keys())
             | set(self.__get_antibodies_references().keys())
         )
+
+        referenced_data_paths = {
+            Path(path) for path in referenced_data_paths
+        }
+
         non_metadata_paths = {
-            path.name
+            Path(path.name)
             for path in self.directory_path.iterdir()
             if not path.name.endswith(TSV_SUFFIX)
             and not any([fnmatch(path.name, glob) for glob in self.upload_ignore_globs])
