@@ -27,7 +27,6 @@ from ingest_validation_tools.validation_utils import (
     get_directory_schema_versions,
     get_json,
     get_other_names,
-    get_schema_with_constraints,
     get_table_schema_version,
     get_tsv_errors,
 )
@@ -375,20 +374,25 @@ class Upload:
         the TSV fields, which makes frictionless confused and upset.
         """
         errors: Dict = {}
-        try:
-            schema = get_schema_with_constraints(
-                schema_version.schema_name, schema_version.version
-            )
-        except OSError as e:
-            return {e.strerror: Path(e.filename).name}
-        constrained_fields = {
-            f["name"]: f["custom_constraints"]["url"].get("prefix", "")
-            for f in schema["fields"]
-            if f.get("custom_constraints")
-            and "url" in f.get("custom_constraints").keys()
-        }
-        if not constrained_fields:
-            return errors
+
+        # assay -> parent_sample_id
+        # sample -> sample_id
+        # organ -> organ_id
+        # contributors -> orcid_id
+
+        constrained_fields = {}
+        schema_name = schema_version.schema_name
+
+        if "sample" in schema_name:
+            constrained_fields['sample_id'] = "https://entity.api.hubmapconsortium.org/entities/"
+        elif "organ" in schema_name:
+            constrained_fields['organ_id'] = "https://entity.api.hubmapconsortium.org/entities/"
+        elif "contributors" in schema_name:
+            constrained_fields['orcid_id'] = "https://pub.orcid.org/v3.0/"
+        else:
+            constrained_fields['parent_sample_id'] = \
+                "https://entity.api.hubmapconsortium.org/entities/"
+
         url_errors = self._check_matching_urls(tsv_path, constrained_fields)
         if url_errors:
             errors["URL Errors"] = url_errors
