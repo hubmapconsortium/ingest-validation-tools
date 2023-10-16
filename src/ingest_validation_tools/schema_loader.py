@@ -66,6 +66,8 @@ def get_table_schema_version_from_row(
     No schema where 'PAS microscopy' is assay_type and 42 is version
 
     """
+    # TODO: Replace all of this with the soft assay type checking.
+    # Shoot the row over to Ingest API (for now)
     assay = row["assay_type"] if "assay_type" in row else row.get("dataset_type")
     source_project = row["source_project"] if "source_project" in row else None
     dir = "assays"
