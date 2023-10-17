@@ -65,7 +65,7 @@
 - Update Cell DIVE with CEDAR UUID
 - Add Histology directory schemas
 - Fix Histology schema
-- Update MIBI, SIMS, and CODEX
+- Update MALDI, SIMS, and CODEX
 
 ## v0.0.14 - 2022-06-23
 
