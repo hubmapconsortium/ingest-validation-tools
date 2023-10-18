@@ -66,6 +66,7 @@
 - Add Histology directory schemas
 - Fix Histology schema
 - Update MALDI, SIMS, and CODEX
+- Support for conditional directory validation
 
 ## v0.0.14 - 2022-06-23
 
