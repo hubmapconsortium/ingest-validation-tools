@@ -1,6 +1,6 @@
 files:
   -
-    pattern: lab_processed\/annotations\/segmentations\.ome\.tiff
+    pattern: lab_processed\/annotations\/[^\/]+\.segmentations\.ome\.tiff
     required: True
     description: The segmentation masks should be stored as multi-channel pyramidal OME TIFF bitmasks with one channel per mask, where a single mask contains all instances of a type of object (e.g., all cells, a class of FTUs, etc). The class of objects contained in the mask is documented in the segmentation-masks.csv file. Each individual object in a mask should be represented by a unique integer pixel value starting at 1, with 0 meaning background (e.g., all pixels belonging to the first instance of a T-cell have a value of 1, the pixels for the second instance of a T-cell have a value of 2, etc). The pixel values should be unique within a mask. FTUs and other structural elements should be captured the same way as cells with segmentation masks and the appropriate channel feature definitions.
     is_qa_qc: False
