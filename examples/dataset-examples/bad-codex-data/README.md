@@ -31,6 +31,8 @@ Metadata TSV Validation Errors:
       fails because it does not match the expected pattern.
     - On row 2, column "operator_email", value "no-at.example.com" fails because it
       is not a valid email.
+    - On row 2, column "pi_email", value "extra-period-not-caught@example.com." fails
+      because it is not a valid email.
     - On row 2, column "resolution_z_unit", value "None" fails because it requires
       a value when resolution_z_value is filled.
 Hint: 'If validation fails because of extra whitespace in the TSV, try:
