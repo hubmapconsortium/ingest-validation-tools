@@ -200,7 +200,7 @@ def _assay_to_schema_name(
 
         is_cedar = False
         for field in schema.get("fields", []):
-            if type(field) == dict and field.get("name", "") == "is_cedar":
+            if isinstance(field, dict) and field.get("name", "") == "is_cedar":
                 is_cedar = True
 
         if is_cedar and version == "cedar":

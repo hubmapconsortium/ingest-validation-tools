@@ -295,7 +295,7 @@ def _make_fields_md(table_schema, title, is_open=False):
 
     is_cedar = (
         len(table_schema["fields"]) > 0
-        and type(table_schema["fields"][0]) == dict
+        and isinstance(table_schema["fields"][0], dict)
         and table_schema["fields"][0].get("name", "") == "is_cedar"
     )
 
