@@ -23,7 +23,8 @@ def validate_directory(
         dependencies = _get_dependencies(schema_files)
     except KeyError as e:
         raise DirectoryValidationErrors(f"Error finding patterns for {path}: {e}")
-    required_missing_errors, not_allowed_errors = ([], [])
+    required_missing_errors: List[str] = []
+    not_allowed_errors: List[str] = []
     if not path.exists():
         # TODO: this seems more like the content of the TSV errors section
         raise FileNotFoundError(0, "No such file or directory", str(path))
@@ -47,8 +48,10 @@ def validate_directory(
     # Iterate over the conditional paths and pop them from the actual_paths list
     for dependency in dependencies:
         dependency_pattern = dependency.get('pattern')
+        assert isinstance(dependency_pattern, str)
         # Check to see whether there's a match
-        matching_paths = [actual for actual in actual_paths if re.fullmatch(dependency_pattern, actual)]
+        matching_paths = [actual for actual in actual_paths
+                          if re.fullmatch(dependency_pattern, actual)]
         # If there's a match, then we have to check that the dependent items are also captured
         # Let's also short-circuit and get failures out of the way
         if dependency.get('required') and not matching_paths:
@@ -57,16 +60,20 @@ def validate_directory(
 
         dependency_items = dependency.get('dependency', {}).get('files')
 
-        dependency_required_patterns, dependency_allowed_patterns = _get_required_allowed(dependency_items)
+        dependency_required_patterns, dependency_allowed_patterns = \
+            _get_required_allowed(dependency_items)
 
         # We should iterate over the matching_paths first and make sure they're all allowed
-        not_allowed_errors.extend(_get_allowed_errors(matching_paths, dependency_allowed_patterns, dataset_ignore_globs))
-        required_missing_errors.extend(_get_required_errors(matching_paths, dependency_required_patterns))
+        not_allowed_errors.extend(_get_not_allowed_errors(
+            matching_paths, dependency_allowed_patterns, dataset_ignore_globs))
+        required_missing_errors.extend(_get_missing_required_errors(
+            matching_paths, dependency_required_patterns))
 
         actual_paths = list(set(actual_paths) - set(matching_paths))
 
-    not_allowed_errors.extend(_get_allowed_errors(actual_paths, allowed_patterns, dataset_ignore_globs))
-    required_missing_errors.extend(_get_required_errors(actual_paths, required_patterns))
+    not_allowed_errors.extend(_get_not_allowed_errors(
+        actual_paths, allowed_patterns, dataset_ignore_globs))
+    required_missing_errors.extend(_get_missing_required_errors(actual_paths, required_patterns))
 
     errors = {}
     if not_allowed_errors:
@@ -77,7 +84,8 @@ def validate_directory(
         raise DirectoryValidationErrors(errors)
 
 
-def _get_allowed_errors(paths: List[str], allowed_patterns: List[str], ignore_globs: List[str]) -> List[str]:
+def _get_not_allowed_errors(paths: List[str], allowed_patterns: List[str],
+                            ignore_globs: List[str]) -> List[str]:
     not_allowed_errors = []
     for path in paths:
         if any(fnmatch(path, glob) for glob in ignore_globs):
@@ -88,8 +96,9 @@ def _get_allowed_errors(paths: List[str], allowed_patterns: List[str], ignore_gl
     return not_allowed_errors
 
 
-def _get_required_errors(paths: List[str], required_patterns: List[str]) -> List[str]:
-    return [pattern for pattern in required_patterns if not any(re.fullmatch(pattern, path) for path in paths)]
+def _get_missing_required_errors(paths: List[str], required_patterns: List[str]) -> List[str]:
+    return [pattern for pattern in required_patterns
+            if not any(re.fullmatch(pattern, path) for path in paths)]
 
 
 def _get_required_allowed(dir_schema: List[Dict]) -> Tuple[List[str], List[str]]:
@@ -119,7 +128,8 @@ def _get_dependencies(dir_schema: List[Dict]) -> List[Dict]:
     for item in dir_schema:
         if item_dependency := item.get("dependency"):
             # Try to load the dependency.
-            dependency_path = (Path(__file__).parent / 'directory-schemas/dependencies' / f'{item_dependency}.yaml')
+            dependency_path = (Path(__file__).parent /
+                               'directory-schemas/dependencies' / f'{item_dependency}.yaml')
             dependency = load_yaml(dependency_path)
             item.update({'dependency': dependency})
             dependencies.append(item)
