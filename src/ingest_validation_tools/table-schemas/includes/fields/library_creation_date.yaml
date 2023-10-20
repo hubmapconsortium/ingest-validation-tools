@@ -3,4 +3,5 @@
     MM is the month with leading 0s, and DD is the day with leading 0s.
   type: datetime
   format: "%Y-%m-%d"
-  required: False
+  constraints:
+    required: False
