@@ -718,7 +718,8 @@ def _make_dir_description(files, is_deprecated=False):
 
         if "dependency" in line:
             # Load the dependency yaml file
-            dependency_path = (Path(__file__).parent / 'directory-schemas/dependencies' / f'{line.get("dependency")}.yaml')
+            dependency_path = (Path(__file__).parent / 'directory-schemas/dependencies' /
+                               f'{line.get("dependency")}.yaml')
             dependency = load_yaml(dependency_path)
 
             for dependency_line in dependency.get('files', []):
