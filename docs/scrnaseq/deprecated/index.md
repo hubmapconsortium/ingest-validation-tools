@@ -1678,7 +1678,16 @@ Relative path to file or directory with instrument data. Downstream processing w
 <br>
 
 ## Directory schemas
-<summary><b>Version 0 (use this one)</b></summary>
+<summary><a href="https://docs.google.com/spreadsheets/d/10Om2iinTwfLn1ySWtovmcm35cQnyg0Pm-rRd0a-eMjc"><b>Version 2 2 (use this one)</b> (draft - submission of data prepared using this schema will be supported by Sept. 30) </a></summary>
+
+<summary><b>Version 0 2</b></summary>
+
+| pattern | required? | description |
+| --- | --- | --- |
+| <code>[^/]+\.fastq\.gz</code> | ✓ | Compressed FastQ file |
+| <code>extras\/.*</code> |  | Folder for general lab-specific files related to the dataset. [Exists in all assays] |
+
+<summary><b>Version 0</b></summary>
 
 | pattern | required? | description |
 | --- | --- | --- |

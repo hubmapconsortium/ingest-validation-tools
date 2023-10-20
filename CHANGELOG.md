@@ -31,6 +31,7 @@
 - Split docs into current and deprecated
 - Update Visium CEDAR template link
 - Remove Visium draft attribute
+- Bugfix library_creation_time field
 
 ## v0.0.15 - 2023-04-04
 
