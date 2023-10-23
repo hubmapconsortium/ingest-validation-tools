@@ -68,6 +68,7 @@
 - Update Cell DIVE with CEDAR UUID
 - Add Histology directory schemas
 - Fix Histology schema
+- Modify validation routine to support multi-assay schemas
 - Update MALDI, SIMS, and CODEX
 - Update DESI and remove NanoDESI
 - Support for conditional directory validation

@@ -66,10 +66,6 @@ Metadata TSV Validation Errors:
       it does not match the expected pattern.
     - On row 2, column "reagent_prep_protocols_io_doi", value "not-doi" fails because
       it does not match the expected pattern.
-Reference Errors:
-  No References:
-    Files:
-    - dataset-1
 Hint: 'If validation fails because of extra whitespace in the TSV, try:
 
   src/cleanup_whitespace.py --tsv_in original.tsv --tsv_out clean.tsv.'

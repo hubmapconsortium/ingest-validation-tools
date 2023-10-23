@@ -27,7 +27,6 @@ from ingest_validation_tools.validation_utils import (
     get_directory_schema_versions,
     get_json,
     get_other_names,
-    get_schema_with_constraints,
     get_table_schema_version,
     get_tsv_errors,
 )
@@ -375,20 +374,25 @@ class Upload:
         the TSV fields, which makes frictionless confused and upset.
         """
         errors: Dict = {}
-        try:
-            schema = get_schema_with_constraints(
-                schema_version.schema_name, schema_version.version
-            )
-        except OSError as e:
-            return {e.strerror: Path(e.filename).name}
-        constrained_fields = {
-            f["name"]: f["custom_constraints"]["url"].get("prefix", "")
-            for f in schema["fields"]
-            if f.get("custom_constraints")
-            and "url" in f.get("custom_constraints").keys()
-        }
-        if not constrained_fields:
-            return errors
+
+        # assay -> parent_sample_id
+        # sample -> sample_id
+        # organ -> organ_id
+        # contributors -> orcid_id
+
+        constrained_fields = {}
+        schema_name = schema_version.schema_name
+
+        if "sample" in schema_name:
+            constrained_fields['sample_id'] = "https://entity.api.hubmapconsortium.org/entities/"
+        elif "organ" in schema_name:
+            constrained_fields['organ_id'] = "https://entity.api.hubmapconsortium.org/entities/"
+        elif "contributors" in schema_name:
+            constrained_fields['orcid_id'] = "https://pub.orcid.org/v3.0/"
+        else:
+            constrained_fields['parent_sample_id'] = \
+                "https://entity.api.hubmapconsortium.org/entities/"
+
         url_errors = self._check_matching_urls(tsv_path, constrained_fields)
         if url_errors:
             errors["URL Errors"] = url_errors
@@ -561,8 +565,13 @@ class Upload:
             | set(self.__get_contributors_references().keys())
             | set(self.__get_antibodies_references().keys())
         )
+
+        referenced_data_paths = {
+            Path(path) for path in referenced_data_paths
+        }
+
         non_metadata_paths = {
-            path.name
+            Path(path.name)
             for path in self.directory_path.iterdir()
             if not path.name.endswith(TSV_SUFFIX)
             and not any([fnmatch(path.name, glob) for glob in self.upload_ignore_globs])
@@ -582,6 +591,9 @@ class Upload:
         return errors
 
     def __get_multi_ref_errors(self) -> dict:
+        # TODO: This needs to be updated to include multi-assay logic
+        #  If - multi-assay dataset (and only that dataset is referenced) don't fail
+        #  Else - fail
         errors = {}
         data_references = self.__get_data_references()
         for path, references in data_references.items():
