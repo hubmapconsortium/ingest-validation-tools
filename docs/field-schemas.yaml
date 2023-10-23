@@ -156,6 +156,7 @@ assay_category:
 - mri
 - mxif
 - nano
+- nano-splits
 - oct
 - organ
 - phenocycler
@@ -211,6 +212,7 @@ assay_type:
 - mri
 - mxif
 - nano
+- nano-splits
 - oct
 - organ
 - phenocycler
@@ -565,6 +567,7 @@ is_cedar:
 - microct
 - mri
 - mxif
+- nano-splits
 - oct
 - organ
 - phenocycler
