@@ -31,6 +31,7 @@
 - Split docs into current and deprecated
 - Update Visium CEDAR template link
 - Remove Visium draft attribute
+- Bugfix datetime constraint in library_creation_date.yaml
 
 ## v0.0.15 - 2023-04-04
 
@@ -66,6 +67,9 @@
 - Add Histology directory schemas
 - Fix Histology schema
 - Modify validation routine to support multi-assay schemas
+- Update MALDI, SIMS, and CODEX
+- Update DESI and remove NanoDESI
+- Support for conditional directory validation
 
 ## v0.0.14 - 2022-06-23
 

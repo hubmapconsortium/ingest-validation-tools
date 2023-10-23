@@ -828,7 +828,6 @@ is_cedar:
 - Molecular Cartography
 - Multiplex Ion Beam Imaging
 - MxIF
-- NanoDESI
 - OCT
 - Organ
 - PAS microscopy
@@ -1580,7 +1579,6 @@ parent_id:
 - Molecular Cartography
 - Multiplex Ion Beam Imaging
 - MxIF
-- NanoDESI
 - OCT
 - PhenoCycler
 - Publication

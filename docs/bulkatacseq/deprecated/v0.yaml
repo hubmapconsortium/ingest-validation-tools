@@ -212,9 +212,9 @@ fields:
 - name: library_creation_date
   description: date and time of library creation. YYYY-MM-DD, where YYYY is the year,
     MM is the month with leading 0s, and DD is the day with leading 0s.
+  type: datetime
+  format: '%Y-%m-%d'
   constraints:
-    type: datetime
-    format: '%Y-%m-%d'
     required: false
   custom_constraints:
     sequence_limit: 3
