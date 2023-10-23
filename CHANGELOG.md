@@ -68,6 +68,7 @@
 - Fix Histology schema
 - Update MALDI, SIMS, and CODEX
 - Update DESI and remove NanoDESI
+- Support for conditional directory validation
 
 ## v0.0.14 - 2022-06-23
 

@@ -130,7 +130,7 @@ def main():
             # Need to determine how to check the is_cedar field.
             assert schema['fields'][0]
 
-            if type(schema['fields'][0]) != dict or \
+            if not isinstance(schema['fields'][0], dict) or \
                     schema['fields'][0].get('name', '') != 'is_cedar':
                 # Just need to change the path here
                 # since this is only relevant for non-CEDAR schemas
