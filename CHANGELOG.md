@@ -33,6 +33,7 @@
 - Remove Visium draft attribute
 - Bugfix datetime constraint in library_creation_date.yaml
 - Update LCMS and add NanoSplits
+- Update descriptions for segmentation masks
 
 ## v0.0.15 - 2023-04-04
 
