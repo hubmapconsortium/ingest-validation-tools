@@ -197,6 +197,7 @@ def get_tsv_errors(
     encoding: str = "utf-8",
     ignore_deprecation: bool = False,
     report_type: ReportType = ReportType.STR,
+    globus_token: str = "",
     cedar_api_key: str = "",
 ) -> Union[Dict[str, str], List[str]]:
     """
@@ -276,7 +277,9 @@ def get_tsv_errors(
     if is_cedar:
         from ingest_validation_tools.upload import Upload
 
-        upload = Upload(Path(tsv_path).parent, cedar_api_key=cedar_api_key)
+        upload = Upload(
+            Path(tsv_path).parent, token=globus_token, cedar_api_key=cedar_api_key
+        )
         errors = upload.api_validation(Path(tsv_path), report_type)
         schema_version = SchemaVersion(schema_name, version)
         return errors | upload._cedar_url_checks(str(tsv_path), schema_version)
