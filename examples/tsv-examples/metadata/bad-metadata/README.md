@@ -1,5 +1,5 @@
 ```
-codex TSV errors:
+codex-v0 TSV errors:
 - 'On row 2, column "donor_id", value "BAD" fails because it does not match the expected
   pattern. Example: ABC123'
 - 'On row 2, column "tissue_id", value "BAD" fails because it does not match the expected

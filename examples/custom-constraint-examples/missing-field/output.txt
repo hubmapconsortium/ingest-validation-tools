@@ -1,5 +1,5 @@
 Unexpected fields: {'surprise'}
-Missing fields: {'a_string'}
+Missing fields: ['a_string']
 In column 1, found "a_number", expected "a_string"
 In column 2, found "another_string", expected "a_number"
 In column 3, found "surprise", expected "another_string"

@@ -26,7 +26,6 @@ from ingest_validation_tools.validation_utils import (
     get_data_dir_errors,
     get_directory_schema_versions,
     get_json,
-    get_other_names,
     get_table_schema_version,
     get_tsv_errors,
 )
@@ -58,7 +57,7 @@ class Upload:
         offline: bool = False,
         ignore_deprecation: bool = False,
         extra_parameters: Union[dict, None] = None,
-        token: str = "",
+        globus_token: str = "",
         cedar_api_key: str = "",
     ):
         self.directory_path = directory_path
@@ -73,12 +72,16 @@ class Upload:
         self.errors = {}
         self.effective_tsv_paths = {}
         self.extra_parameters = extra_parameters if extra_parameters else {}
-        self.auth_tok = token
+        self.globus_token = globus_token
         self.cedar_api_key = cedar_api_key
+
+        # TODO: soft assay type endpoint calls happen here to weed out any bad multi-assay uploads
 
         try:
             unsorted_effective_tsv_paths = {
-                str(path): get_table_schema_version(path, self.encoding)
+                str(path): get_table_schema_version(
+                    path, self.encoding, self.globus_token
+                )
                 for path in (
                     tsv_paths if tsv_paths else directory_path.glob(f"*{TSV_SUFFIX}")
                 )
@@ -109,7 +112,9 @@ class Upload:
                     "Schema": sv.schema_name,
                     "Metadata schema version": sv.version,
                     "Directory schema versions": get_directory_schema_versions(
-                        path, sv.version, encoding="ascii"
+                        path,
+                        schema_version=sv.version,
+                        encoding="ascii",
                     ),
                 }
                 for path, sv in self.effective_tsv_paths.items()
@@ -173,11 +178,9 @@ class Upload:
     ###################################
 
     def check_other_schemas(self):
-        errors = {}
-        others = get_other_names()
         # Antibodies and contributors are handled elsewhere
-        others.remove("antibodies")
-        others.remove("contributors")
+        errors = {}
+        others = ["organ", "sample"]
         for tsv_path, schema_version in self.effective_tsv_paths.items():
             if schema_version.schema_name in others:
                 error = self._validate(tsv_path, schema_version)
@@ -215,10 +218,9 @@ class Upload:
                 }
             )
         for path, schema_version in self.effective_tsv_paths.items():
-            schema_name = schema_version.schema_name
             rows = self._get_rows_from_tsv(path)
             if not isinstance(rows, list):
-                return {f"{path} (as {schema_name})": rows}
+                return {f"{path} (as {schema_version.schema_name})": rows}
             for ref in ["contributors", "antibodies"]:
                 ref_errors = self._get_ref_errors(rows, ref, schema_version, path)
                 if ref_errors:
@@ -228,10 +230,9 @@ class Upload:
     def _get_directory_errors(self) -> dict:
         errors = {}
         for path, schema_version in self.effective_tsv_paths.items():
-            schema_name = schema_version.schema_name
             rows = self._get_rows_from_tsv(path)
             if not isinstance(rows, list):
-                return {f"{path} (as {schema_name})": rows}
+                return {f"{path} (as {schema_version.schema_name})": rows}
             if "data_path" not in rows[0] or "contributors_path" not in rows[0]:
                 errors[
                     "Path Errors"
@@ -384,14 +385,19 @@ class Upload:
         schema_name = schema_version.schema_name
 
         if "sample" in schema_name:
-            constrained_fields['sample_id'] = "https://entity.api.hubmapconsortium.org/entities/"
+            constrained_fields[
+                "sample_id"
+            ] = "https://entity.api.hubmapconsortium.org/entities/"
         elif "organ" in schema_name:
-            constrained_fields['organ_id'] = "https://entity.api.hubmapconsortium.org/entities/"
+            constrained_fields[
+                "organ_id"
+            ] = "https://entity.api.hubmapconsortium.org/entities/"
         elif "contributors" in schema_name:
-            constrained_fields['orcid_id'] = "https://pub.orcid.org/v3.0/"
+            constrained_fields["orcid_id"] = "https://pub.orcid.org/v3.0/"
         else:
-            constrained_fields['parent_sample_id'] = \
-                "https://entity.api.hubmapconsortium.org/entities/"
+            constrained_fields[
+                "parent_sample_id"
+            ] = "https://entity.api.hubmapconsortium.org/entities/"
 
         url_errors = self._check_matching_urls(tsv_path, constrained_fields)
         if url_errors:
@@ -405,10 +411,8 @@ class Upload:
         fields = rows[0].keys()
         missing_fields = [k for k in constrained_fields.keys() if k not in fields]
         if missing_fields:
-            return {f"Missing fields: {missing_fields}"}
-        # TODO: not sure if a token is our best bet here; will all UUID/HMID
-        # fields be accessible via the portal?
-        if not self.auth_tok:
+            return {f"Missing fields: {sorted(missing_fields)}"}
+        if not self.globus_token:
             return {
                 "No token": "No token was received to check URL fields against Entity API."
             }
@@ -422,7 +426,7 @@ class Upload:
                         url,
                         headers={
                             "X-Hubmap-Application": "ingest-pipeline",
-                            "Authorization": f"Bearer {self.auth_tok}",
+                            "Authorization": f"Bearer {self.globus_token}",
                         },
                     )
                     response.raise_for_status()
@@ -487,8 +491,7 @@ class Upload:
         i: int,
         path: Path,
         ref: str,
-        schema_name: str,
-        schema_version: str,
+        schema_version: SchemaVersion,
         metadata_path: Union[str, Path],
     ) -> Optional[Dict]:
         errors: Dict[
@@ -496,9 +499,8 @@ class Upload:
         ] = {}  # This is very ugly but makes mypy happy
         if ref == "data":
             ref_errors = get_data_dir_errors(
-                schema_name,
-                path,
                 schema_version,
+                path,
                 dataset_ignore_globs=self.dataset_ignore_globs,
             )
             if ref_errors:
@@ -512,7 +514,7 @@ class Upload:
                 offline=self.offline,
                 encoding=self.encoding,
                 ignore_deprecation=self.ignore_deprecation,
-                cedar_api_key=self.cedar_api_key
+                cedar_api_key=self.cedar_api_key,
             )
             # TSV located and read, errors found
             if tsv_ref_errors and isinstance(tsv_ref_errors, list):
@@ -551,8 +553,7 @@ class Upload:
                 i,
                 data_path,
                 ref,
-                schema.schema_name,
-                schema.version,
+                schema,
                 metadata_path,
             )
             if ref_error:
@@ -566,9 +567,7 @@ class Upload:
             | set(self.__get_antibodies_references().keys())
         )
 
-        referenced_data_paths = {
-            Path(path) for path in referenced_data_paths
-        }
+        referenced_data_paths = {Path(path) for path in referenced_data_paths}
 
         non_metadata_paths = {
             Path(path.name)
