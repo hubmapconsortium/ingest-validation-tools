@@ -16,7 +16,7 @@ Related files:
 - [📝 TSV template](https://raw.githubusercontent.com/hubmapconsortium/dataset-metadata-spreadsheet/main/codex/latest/codex.tsv): Alternative for metadata entry.
 
 
-
+**For the PhenoCycler specification, please click [here](https://hubmapconsortium.github.io/ingest-validation-tools/phenocycler/current/).**
 
 ## Metadata schema
 
