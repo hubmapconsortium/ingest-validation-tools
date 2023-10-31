@@ -68,19 +68,21 @@ def _read_rows(path, encoding: str):
     return rows
 
 
-def _get_directory_schema_version(data_path: str, schema_version: str) -> str:
+def _get_directory_schema_version(
+    data_path: str, schema_version: str, is_cedar: bool = False
+) -> str:
     prefix = "dir-schema-v"
     version_hints = [
         path.name for path in (Path(data_path) / "extras").glob(f"{prefix}*")
     ]
     len_hints = len(version_hints)
-    # CEDAR schemas are all v2+; if no hints are provided, default to
+    # CEDAR schemas: if no hints are provided, default to
     # data directory schema v2
-    if len_hints == 0 and int(schema_version) > 1:
+    if len_hints == 0 and is_cedar:
         return "2"
     # For non-CEDAR templates, default to data directory schema v0 if
     # no hints provided
-    elif len_hints == 0:
+    elif len_hints == 0 and not is_cedar:
         return "0"
     elif len_hints == 1:
         return version_hints[0].replace(prefix, "")
@@ -92,12 +94,15 @@ def get_data_dir_errors(
     schema_name: str,
     data_path: Path,
     schema_version: str,
+    is_cedar: bool,
     dataset_ignore_globs: List[str] = [],
 ) -> Optional[dict]:
     """
     Validate a single data_path.
     """
-    schema_version = _get_directory_schema_version(str(data_path), schema_version)
+    schema_version = _get_directory_schema_version(
+        str(data_path), schema_version, is_cedar
+    )
     return _get_data_dir_errors_for_version(
         schema_name, data_path, dataset_ignore_globs, schema_version
     )
