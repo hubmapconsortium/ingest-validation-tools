@@ -391,14 +391,19 @@ class Upload:
         schema_name = schema_version.schema_name
 
         if "sample" in schema_name:
-            constrained_fields['sample_id'] = "https://entity.api.hubmapconsortium.org/entities/"
+            constrained_fields[
+                "sample_id"
+            ] = "https://entity.api.hubmapconsortium.org/entities/"
         elif "organ" in schema_name:
-            constrained_fields['organ_id'] = "https://entity.api.hubmapconsortium.org/entities/"
+            constrained_fields[
+                "organ_id"
+            ] = "https://entity.api.hubmapconsortium.org/entities/"
         elif "contributors" in schema_name:
-            constrained_fields['orcid_id'] = "https://pub.orcid.org/v3.0/"
+            constrained_fields["orcid_id"] = "https://pub.orcid.org/v3.0/"
         else:
-            constrained_fields['parent_sample_id'] = \
-                "https://entity.api.hubmapconsortium.org/entities/"
+            constrained_fields[
+                "parent_sample_id"
+            ] = "https://entity.api.hubmapconsortium.org/entities/"
 
         url_errors = self._check_matching_urls(tsv_path, constrained_fields)
         if url_errors:
@@ -573,9 +578,7 @@ class Upload:
             | set(self.__get_antibodies_references().keys())
         )
 
-        referenced_data_paths = {
-            Path(path) for path in referenced_data_paths
-        }
+        referenced_data_paths = {Path(path) for path in referenced_data_paths}
 
         non_metadata_paths = {
             Path(path.name)

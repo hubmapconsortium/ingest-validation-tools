@@ -12,6 +12,8 @@ Metadata TSV Validation Errors:
         URL https://entity.api.hubmapconsortium.org/entities/wrong returned a 400
         Error.'
       Validation Errors:
+      - On row 0, column "parent_sample_id", value "wrong" fails because of error
+        "invalidValueFormat".
       - On row 1, column "contributors_path", value "" fails because of error "missingRequired".
 Hint: 'If validation fails because of extra whitespace in the TSV, try:
 
