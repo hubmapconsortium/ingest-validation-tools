@@ -70,7 +70,7 @@ def _get_pre_flight_errors(tsv_path: Path, schema: dict) -> Optional[List[str]]:
                 errors.append(f"Unexpected fields: {extra_fields}")
             missing_fields = expected_fields_set - fields_set
             if missing_fields:
-                errors.append(f"Missing fields: {missing_fields}")
+                errors.append(f"Missing fields: {sorted(missing_fields)}")
 
             for i_pair in enumerate(zip(fields, expected_fields)):
                 i, (actual, expected) = i_pair

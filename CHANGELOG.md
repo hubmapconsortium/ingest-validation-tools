@@ -27,6 +27,7 @@
 - Addtional changes to Histology
 - Adding SenNet display changes
 - Add contributor TSV CEDAR checking
+- Add CEDAR examples
 - Update CEDAR links for set of assays
 - Split docs into current and deprecated
 - Update Visium CEDAR template link

@@ -58,7 +58,7 @@ class Upload:
         offline: bool = False,
         ignore_deprecation: bool = False,
         extra_parameters: Union[dict, None] = None,
-        token: str = "",
+        globus_token: str = "",
         cedar_api_key: str = "",
     ):
         self.directory_path = directory_path
@@ -73,7 +73,7 @@ class Upload:
         self.errors = {}
         self.effective_tsv_paths = {}
         self.extra_parameters = extra_parameters if extra_parameters else {}
-        self.auth_tok = token
+        self.auth_tok = globus_token
         self.cedar_api_key = cedar_api_key
 
         try:
@@ -284,10 +284,17 @@ class Upload:
                     f"{tsv_path} (as {schema_version.schema_name}-v{schema_version.version})"
                 ] = local_errors
         else:
+            """
+            Passing offline=True will skip all API/URL validation;
+            GitHub actions therefore do not test via the CEDAR
+            Spreadsheet Validator API, so tests must be run
+            manually (/code/ingest-validation-tools: ./test.sh)
+            """
             if self.offline:
-                api_validated = {
-                    f"{tsv_path}": "Offline validation selected, cannot reach API."
-                }
+                logging.info(
+                    f"{tsv_path}: Offline validation selected, cannot reach API."
+                )
+                return errors
             else:
                 url_errors = self._cedar_url_checks(tsv_path, schema_version)
                 api_errors = self.api_validation(Path(tsv_path))
@@ -384,14 +391,19 @@ class Upload:
         schema_name = schema_version.schema_name
 
         if "sample" in schema_name:
-            constrained_fields['sample_id'] = "https://entity.api.hubmapconsortium.org/entities/"
+            constrained_fields[
+                "sample_id"
+            ] = "https://entity.api.hubmapconsortium.org/entities/"
         elif "organ" in schema_name:
-            constrained_fields['organ_id'] = "https://entity.api.hubmapconsortium.org/entities/"
+            constrained_fields[
+                "organ_id"
+            ] = "https://entity.api.hubmapconsortium.org/entities/"
         elif "contributors" in schema_name:
-            constrained_fields['orcid_id'] = "https://pub.orcid.org/v3.0/"
+            constrained_fields["orcid_id"] = "https://pub.orcid.org/v3.0/"
         else:
-            constrained_fields['parent_sample_id'] = \
-                "https://entity.api.hubmapconsortium.org/entities/"
+            constrained_fields[
+                "parent_sample_id"
+            ] = "https://entity.api.hubmapconsortium.org/entities/"
 
         url_errors = self._check_matching_urls(tsv_path, constrained_fields)
         if url_errors:
@@ -403,11 +415,11 @@ class Upload:
         if isinstance(rows, dict):
             return rows
         fields = rows[0].keys()
-        missing_fields = [k for k in constrained_fields.keys() if k not in fields]
+        missing_fields = [
+            k for k in constrained_fields.keys() if k not in fields
+        ].sort()
         if missing_fields:
             return {f"Missing fields: {missing_fields}"}
-        # TODO: not sure if a token is our best bet here; will all UUID/HMID
-        # fields be accessible via the portal?
         if not self.auth_tok:
             return {
                 "No token": "No token was received to check URL fields against Entity API."
@@ -415,9 +427,9 @@ class Upload:
         url_errors = []
         for i, row in enumerate(rows):
             check = {k: v for k, v in row.items() if k in constrained_fields}
-            for field, url in check.items():
+            for field, value in check.items():
                 try:
-                    url = constrained_fields[field] + url
+                    url = constrained_fields[field] + value
                     response = requests.get(
                         url,
                         headers={
@@ -428,7 +440,7 @@ class Upload:
                     response.raise_for_status()
                 except Exception as e:
                     url_errors.append(
-                        f"Row {i+2}, field '{field}' with value '{url}': {e}"
+                        f"Row {i+2}, field '{field}' with value '{value}': {e}"
                     )
         return url_errors
 
@@ -512,7 +524,7 @@ class Upload:
                 offline=self.offline,
                 encoding=self.encoding,
                 ignore_deprecation=self.ignore_deprecation,
-                cedar_api_key=self.cedar_api_key
+                cedar_api_key=self.cedar_api_key,
             )
             # TSV located and read, errors found
             if tsv_ref_errors and isinstance(tsv_ref_errors, list):
@@ -566,9 +578,7 @@ class Upload:
             | set(self.__get_antibodies_references().keys())
         )
 
-        referenced_data_paths = {
-            Path(path) for path in referenced_data_paths
-        }
+        referenced_data_paths = {Path(path) for path in referenced_data_paths}
 
         non_metadata_paths = {
             Path(path.name)

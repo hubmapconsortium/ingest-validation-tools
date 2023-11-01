@@ -24,6 +24,7 @@ an `input.tsv` to validate, and an `output.txt` with the error message produced.
 
 The core of `ingest-validation-tools` is Dataset upload validation.
 Each subdirectory here is an end-to-end test of upload validation: Each contains
+
 - a `upload` directory, containing one or more metadata TSVs, dataset directories, and contributors and antibodies TSVs,
 - and a `README.md` with the output when validating that directory.
 
@@ -38,11 +39,18 @@ and an empty `README.md`. Then run `tests/test-dataset-examples.sh`: It will fai
 and give you a command to run that will fix your example. Run this command, _but make sure the result makes sense!_
 The software can tell you what the result of validation is, but it can't know whether that result is actually correct.
 
+A few additional commandline options are required for CEDAR validation:
+
+- globus_token: you can find your personal Globus token by logging in to a site that requires Globus authentication (e.g. https://ingest.hubmapconsortium.org/) and looking at the Authorization header for your request in the Network tab of your browser. Omit the "Bearer " prefix.
+- cedar_api_key: you can obtain a personal API key by registering at https://cedar.metadatacenter.org/.
+
+See `/tests-manual/README.md` for more information about testing using the CEDAR API.
+
 ## `dataset-iec-examples/`
 
 After upload, TSVs are split up, and directory structures are re-arranged.
 These structures can still be validated, but it takes a slightly different set of options,
-and those options are tested here. 
+and those options are tested here.
 
 ## `sample-examples/`
 

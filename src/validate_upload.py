@@ -109,11 +109,14 @@ Exit status codes:
         "--plugin_directory", action="store", help="Directory of plugin tests."
     )
 
-    # Do we need a token for URL checking?
-
+    # Arguments for manual tests
     parser.add_argument(
-        "--token",
+        "--globus_token",
         help="Token for URL checking using Entity API.",
+    )
+    parser.add_argument(
+        "--cedar_api_key",
+        help="CEDAR Metadata Spreadsheet Validator API key.",
     )
     # How should output be formatted?
 
@@ -163,6 +166,8 @@ def main():
         "add_notes": args.add_notes,
         "encoding": args.encoding,
         "offline": args.offline,
+        "globus_token": args.globus_token,
+        "cedar_api_key": args.cedar_api_key,
         "optional_fields": args.optional_fields,
         "ignore_deprecation": args.ignore_deprecation,
     }
@@ -176,8 +181,10 @@ def main():
         upload_args["upload_ignore_globs"] = args.upload_ignore_globs
     if args.plugin_directory:
         upload_args["plugin_directory"] = args.plugin_directory
-    # if args.token:
-    #     upload_args["token"] = args.token
+    if args.globus_token:
+        upload_args["globus_token"] = args.globus_token
+    if args.cedar_api_key:
+        upload_args["cedar_api_key"] = args.cedar_api_key
 
     upload = Upload(**upload_args)
     info = upload.get_info()
