@@ -285,10 +285,17 @@ class Upload:
                     f"{tsv_path} (as {schema_version.schema_name}-v{schema_version.version})"
                 ] = local_errors
         else:
+            """
+            Passing offline=True will skip all API/URL validation;
+            GitHub actions therefore do not test via the CEDAR
+            Spreadsheet Validator API, so tests must be run
+            manually (/code/ingest-validation-tools: ./test.sh)
+            """
             if self.offline:
-                api_validated = {
-                    f"{tsv_path}": "Offline validation selected, cannot reach API."
-                }
+                logging.info(
+                    f"{tsv_path}: Offline validation selected, cannot reach API."
+                )
+                return errors
             else:
                 url_errors = self._cedar_url_checks(tsv_path, schema_version)
                 api_errors = self.api_validation(Path(tsv_path))
@@ -409,7 +416,9 @@ class Upload:
         if isinstance(rows, dict):
             return rows
         fields = rows[0].keys()
-        missing_fields = [k for k in constrained_fields.keys() if k not in fields]
+        missing_fields = [
+            k for k in constrained_fields.keys() if k not in fields
+        ].sort()
         if missing_fields:
             return {f"Missing fields: {sorted(missing_fields)}"}
         if not self.globus_token:
@@ -419,9 +428,9 @@ class Upload:
         url_errors = []
         for i, row in enumerate(rows):
             check = {k: v for k, v in row.items() if k in constrained_fields}
-            for field, url in check.items():
+            for field, value in check.items():
                 try:
-                    url = constrained_fields[field] + url
+                    url = constrained_fields[field] + value
                     response = requests.get(
                         url,
                         headers={
@@ -432,7 +441,7 @@ class Upload:
                     response.raise_for_status()
                 except Exception as e:
                     url_errors.append(
-                        f"Row {i+2}, field '{field}' with value '{url}': {e}"
+                        f"Row {i+2}, field '{field}' with value '{value}': {e}"
                     )
         return url_errors
 

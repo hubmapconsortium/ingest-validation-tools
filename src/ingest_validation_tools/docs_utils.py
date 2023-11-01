@@ -191,14 +191,15 @@ def generate_readme_md(
     elif is_cedar:
         tsv_url = f"{raw_base_url}/{schema_name}/latest/{schema_name}.tsv"
         xlsx_url = f"{raw_base_url}/{schema_name}/latest/{schema_name}.xlsx"
-        cedar_validator_link = \
-            "Prepare your metadata based on the latest metadata schema " \
-            "using one of the template files below. " \
-            "See the instructions in the " \
-            "[Metadata Validation Workflow]" \
-            "(https://docs.google.com/document/d/1lfgiDGbyO4K4Hz1FMsJjmJd9RdwjShtJqFYNwKpbcZY) " \
-            "document for more information on preparing " \
+        cedar_validator_link = (
+            "Prepare your metadata based on the latest metadata schema "
+            "using one of the template files below. "
+            "See the instructions in the "
+            "[Metadata Validation Workflow]"
+            "(https://docs.google.com/document/d/1lfgiDGbyO4K4Hz1FMsJjmJd9RdwjShtJqFYNwKpbcZY) "
+            "document for more information on preparing "
             "and validating your metadata.tsv file prior to submission.\n"
+        )
     else:
         tsv_url = f"{raw_base_url}/{schema_name}/{get_tsv_name(schema_name, is_assay=is_assay)}"
         xlsx_url = f"{raw_base_url}/{schema_name}/{get_xlsx_name(schema_name, is_assay=is_assay)}"
@@ -262,7 +263,7 @@ def generate_readme_md(
             "optional_doc_link_md": optional_doc_link_md,
             "optional_description_md": optional_description_md,
             "cedar_validator_link": cedar_validator_link,
-            "permalink": f"permalink: /{schema_name}/" if not is_cedar else ""
+            "permalink": f"permalink: /{schema_name}/" if not is_cedar else "",
         }
     )
 
@@ -595,21 +596,24 @@ def _make_dir_descriptions(dir_schemas, pipeline_infos):
     current_version = True
 
     for v, schema in sorted_items:
-
-        if schema.get('draft', False):
-            draft_link = schema.get('files', [])[0].get("draft_link", None)
-            directory_descriptions += f'<summary><a href="{draft_link}"><b>Version {v}' \
-                                      f'{" (use this one)" if current_version else ""}' \
-                                      f'</b> (draft - submission of data prepared using this' \
-                                      f' schema will be supported by Sept. 30) </a></summary>\n\n'
+        if schema.get("draft", False):
+            draft_link = schema.get("files", [])[0].get("draft_link", None)
+            directory_descriptions += (
+                f'<summary><a href="{draft_link}"><b>Version {v}'
+                f'{" (use this one)" if current_version else ""}'
+                f"</b> (draft - submission of data prepared using this"
+                f" schema will be supported by Sept. 30) </a></summary>\n\n"
+            )
         else:
             directory_descriptions += (
-                    f'<summary><b>Version {v}'
-                    f'{" (use this one)" if current_version else ""}'
-                    f'</b></summary>\n' + _make_dir_description(
-                        schema['files'],
-                        schema.get('deprecated', False)
-                    ) + '\n\n')
+                f"<summary><b>Version {v}"
+                f'{" (use this one)" if current_version else ""}'
+                f"</b></summary>\n"
+                + _make_dir_description(
+                    schema["files"], schema.get("deprecated", False)
+                )
+                + "\n\n"
+            )
         current_version = False
 
     return pipeline_blurb + directory_descriptions
@@ -692,11 +696,7 @@ def _make_dir_description(files, is_deprecated=False):
                 "dependency",
             }, f'Unexpected key "{k}" in {line}'
 
-    output = [
-        "",
-        "| pattern | required? | description |",
-        "| --- | --- | --- |"
-    ]
+    output = ["", "| pattern | required? | description |", "| --- | --- | --- |"]
 
     # First we need to see whether there are any entries with "dependency" listed.
     # If there is, we need to modify the output
@@ -712,19 +712,22 @@ def _make_dir_description(files, is_deprecated=False):
         row = _generate_dir_row(line)
 
         if has_dependency:
-            row.append('')
+            row.append("")
 
         output.append("| " + " | ".join(row) + " |")
 
         if "dependency" in line:
             # Load the dependency yaml file
-            dependency_path = (Path(__file__).parent / 'directory-schemas/dependencies' /
-                               f'{line.get("dependency")}.yaml')
+            dependency_path = (
+                Path(__file__).parent
+                / "directory-schemas/dependencies"
+                / f'{line.get("dependency")}.yaml'
+            )
             dependency = load_yaml(dependency_path)
 
-            for dependency_line in dependency.get('files', []):
+            for dependency_line in dependency.get("files", []):
                 dependency_row = _generate_dir_row(dependency_line)
-                dependency_row.append(line.get('pattern'))
+                dependency_row.append(line.get("pattern"))
                 output.append("| " + " | ".join(dependency_row) + " |")
 
     table = "\n".join(output)

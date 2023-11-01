@@ -1571,7 +1571,6 @@ parent_id:
 - GeoMx (RNA)
 - GeoMx (protein)
 - HiFi-Slide
-- Histology
 - Imaging Mass Cytometry
 - LC-MS
 - Light Sheet
@@ -1596,6 +1595,8 @@ parent_id:
 - WGS
 - Xenium
 - seqFISH
+parent_sample_id:
+- Histology
 pi:
 - 3D Imaging Mass Cytometry
 - AF

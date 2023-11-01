@@ -27,6 +27,7 @@
 - Addtional changes to Histology
 - Adding SenNet display changes
 - Add contributor TSV CEDAR checking
+- Add CEDAR examples
 - Update CEDAR links for set of assays
 - Split docs into current and deprecated
 - Update Visium CEDAR template link
@@ -34,6 +35,8 @@
 - Bugfix datetime constraint in library_creation_date.yaml
 - Update LCMS and add NanoSplits
 - Update descriptions for segmentation masks
+- Add description to codex doc page
+- Started implementing soft assay types for canonical assay names and dir structures
 
 ## v0.0.15 - 2023-04-04
 

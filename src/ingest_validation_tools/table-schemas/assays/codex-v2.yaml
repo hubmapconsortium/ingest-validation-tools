@@ -1,3 +1,4 @@
+description_md: '**For the PhenoCycler specification, please click [here](https://hubmapconsortium.github.io/ingest-validation-tools/phenocycler/current/).**'
 fields:
 - name: is_cedar
   description: 'Identifies whether the version is hosted by CEDAR'

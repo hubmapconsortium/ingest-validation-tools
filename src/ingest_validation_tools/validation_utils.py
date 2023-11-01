@@ -39,14 +39,15 @@ def get_table_schema_version(
 ) -> SchemaVersion:
     rows = _read_rows(path, encoding)
     assay_type_data = {}
-    schema_name = None
     other_type = get_other_schema_name(rows, str(path))
-    if "metadata_schema_id" in rows[0]:
+    metadata_schema_id = rows[0].get("metadata_schema_id")
+    if metadata_schema_id:
         version = (
             "2"  # TODO: Fix this because we can't force the version to be 2 forever.
         )
         is_cedar = True
         dataset_type = rows[0].get("dataset_type")
+        schema_name = dataset_type
     else:
         schema_version = get_table_schema_version_from_row(str(path), rows[0])
         schema_name = schema_version.schema_name
@@ -58,17 +59,24 @@ def get_table_schema_version(
         pass
     # Don't want to send sample/antibody to soft assay endpoint
     elif not other_type:
-        metadata_schema_id = rows[0].get("metadata_schema_id")
         assay_type_data = get_assaytype_data(
-            dataset_type,
+            dataset_type.lower(),
             globus_token,
+            metadata_schema_id=metadata_schema_id,
             is_cedar=is_cedar,
         )
+        if not assay_type_data:
+            raise Exception(
+                f"""
+                No assay type data found for path {path}.
+                Dataset type is {dataset_type}, is_cedar = {is_cedar}.
+                """
+            )
         if metadata_schema_id:
             schema_name = assay_type_data.get("assaytype")
     if schema_name:
         return SchemaVersion(
-            schema_name,
+            schema_name.lower(),
             version,
             path=path,
             rows=rows,

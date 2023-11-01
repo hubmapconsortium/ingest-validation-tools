@@ -10,7 +10,7 @@ fields:
   constraints:
     enum:
       - Histology
-- name: parent_id
+- name: parent_sample_id
   description: "UUID or HuBMAP ID of parent"
   example: "ec2ccf5a3436b11d0c7186b74ad4673d"
   custom_constraints:
