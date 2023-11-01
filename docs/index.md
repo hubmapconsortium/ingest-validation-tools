@@ -14,21 +14,6 @@ Assay types and their schemas are linked below.
 - [An Excel file](field-schemas.xlsx) listing all the schemas and their fields is available.
 - For more information, see the [`ingest-validation-tools` repo](https://github.com/hubmapconsortium/ingest-validation-tools#readme).
 
-{% for category-name in site.categories-order %}
-
-## {{ category-name }}
-
-{% assign pages = site.pages | where: "category",category-name | sort: "title" %}
-
-{% for page in pages %}
-
-{% unless page.exclude_from_index %}
-
-{% unless page.all_versions_deprecated %}
-- [{{ page.title }}]({{ page.schema_name }})
-{% endunless %}
-
-{% endunless %}
-{% endfor %}
-
-{% endfor %}
+List of schemas
+- [Current schemas](current)
+- [Deprecated schemas](deprecated)

@@ -1,0 +1,26 @@
+files:
+  -
+    pattern: extras\/.*
+    required: True
+    description: Folder for general lab-specific files related to the dataset.
+  -
+    pattern: raw\/.*
+    required: True
+    description: All raw data files for the experiment.
+  -
+    pattern: raw\/fastq\/.*
+    required: True
+    description: Raw sequencing files for the experiment.
+  -  
+    pattern: raw\/fastq\/ATAC\/.*
+    required: True
+    description: Directory containing fastq files pertaining to ATACseq sequencing.
+  -
+    pattern: raw\/fastq\/ATAC\/[^\/]+_R[^\/]+\.fastq\.gz
+    required: True
+    description: This is a GZip'd version of the fastq files containing the forward, reverse and barcode reads from ATACseq sequencing (R1, R2 and R3). Further, if the barcodes are in R3 (as with 10X) then the metadata field "barcode reads" would be set to "Read 2 (R2)" and the fastq file named "*_R2*fastq.gz" would be expected.
+    is_qa_qc: False
+  -
+    pattern: lab_processed\/.*
+    required: False
+    description: Experiment files that were processed by the lab generating the data.

@@ -8,6 +8,7 @@ from urllib.parse import urlencode
 import requests
 
 from ingest_validation_tools.schema_loader import get_field_enum, get_fields_wo_headers
+from ingest_validation_tools.yaml_include_loader import load_yaml
 
 
 def get_tsv_name(type: str, is_assay: bool = True) -> str:
@@ -262,6 +263,7 @@ def generate_readme_md(
             "optional_doc_link_md": optional_doc_link_md,
             "optional_description_md": optional_description_md,
             "cedar_validator_link": cedar_validator_link,
+            "permalink": f"permalink: /{schema_name}/" if not is_cedar else ""
         }
     )
 
@@ -295,7 +297,7 @@ def _make_fields_md(table_schema, title, is_open=False):
 
     is_cedar = (
         len(table_schema["fields"]) > 0
-        and type(table_schema["fields"][0]) == dict
+        and isinstance(table_schema["fields"][0], dict)
         and table_schema["fields"][0].get("name", "") == "is_cedar"
     )
 
@@ -691,40 +693,71 @@ def _make_dir_description(files, is_deprecated=False):
                 "description",
                 "example",
                 "is_qa_qc",
+                "dependency",
             }, f'Unexpected key "{k}" in {line}'
 
     output = [
-        """
-| pattern | required? | description |
-| --- | --- | --- |"""
+        "",
+        "| pattern | required? | description |",
+        "| --- | --- | --- |"
     ]
 
+    # First we need to see whether there are any entries with "dependency" listed.
+    # If there is, we need to modify the output
+    has_dependency = False
     for line in files:
-        row = []
+        if "dependency" in line:
+            output[1] += " dependent on |"
+            output[2] += " --- |"
+            has_dependency = True
+            break
 
-        pattern = line["pattern"]
-        pattern_md = _html_code(pattern)
-        if "example" in line:
-            example = line["example"]
-            assert re.fullmatch(
-                pattern, example
-            ), f'Example "{example}" does not match pattern "{pattern}"'
-            pattern_md += f" (example: {_html_code(example)})"
-        row.append(pattern_md)
+    for line in files:
+        row = _generate_dir_row(line)
 
-        required_md = "" if "required" in line and not line["required"] else "✓"
-        row.append(required_md)
-
-        qa_qc_md = "**[QA/QC]** " if "is_qa_qc" in line and line["is_qa_qc"] else ""
-        description_md = qa_qc_md + line["description"]
-        row.append(description_md)
+        if has_dependency:
+            row.append('')
 
         output.append("| " + " | ".join(row) + " |")
+
+        if "dependency" in line:
+            # Load the dependency yaml file
+            dependency_path = (Path(__file__).parent / 'directory-schemas/dependencies' /
+                               f'{line.get("dependency")}.yaml')
+            dependency = load_yaml(dependency_path)
+
+            for dependency_line in dependency.get('files', []):
+                dependency_row = _generate_dir_row(dependency_line)
+                dependency_row.append(line.get('pattern'))
+                output.append("| " + " | ".join(dependency_row) + " |")
+
     table = "\n".join(output)
 
     if is_deprecated:
         return f'<details markdown="1"><summary>Deprecated</summary>\n{table}\n\n</details>'
     return table
+
+
+def _generate_dir_row(line):
+    row = []
+    pattern = line["pattern"]
+    pattern_md = _html_code(pattern)
+    if "example" in line:
+        example = line["example"]
+        assert re.fullmatch(
+            pattern, example
+        ), f'Example "{example}" does not match pattern "{pattern}"'
+        pattern_md += f" (example: {_html_code(example)})"
+    row.append(pattern_md)
+
+    required_md = "" if "required" in line and not line["required"] else "✓"
+    row.append(required_md)
+
+    qa_qc_md = "**[QA/QC]** " if "is_qa_qc" in line and line["is_qa_qc"] else ""
+    description_md = qa_qc_md + line["description"]
+    row.append(description_md)
+
+    return row
 
 
 def make_pipeline_link(info):

@@ -1,0 +1,19 @@
+fields:
+- name: is_cedar
+  description: 'Identifies whether the version is hosted by CEDAR'
+  example: 'https://openview.metadatacenter.org/templates/https:%2F%2Frepo.metadatacenter.org%2Ftemplates%2F329f8a62-a468-4ba9-863d-fc0e328f896a'
+- name: assay_category
+  constraints:
+    enum:
+      - sequence
+- name: assay_type
+  description: The UMI sequence length in the 10xGenomics-v2 kit is 10 base pairs and the length in the 10xGenomics-v3 kit is 12 base pairs.
+  constraints:
+    enum:
+      - ATACseq
+- name: parent_id
+  description: "UUID or HuBMAP ID of parent"
+  example: "ec2ccf5a3436b11d0c7186b74ad4673d"
+  custom_constraints:
+    url:
+      prefix: "https://entity.api.hubmapconsortium.org/entities/"

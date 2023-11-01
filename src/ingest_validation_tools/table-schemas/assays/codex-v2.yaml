@@ -1,8 +1,8 @@
-draft: true
+description_md: '**For the PhenoCycler specification, please click [here](https://hubmapconsortium.github.io/ingest-validation-tools/phenocycler/current/).**'
 fields:
 - name: is_cedar
   description: 'Identifies whether the version is hosted by CEDAR'
-  example: 'https://docs.google.com/spreadsheets/d/1GKh4x8HIoQ3eKi2WWtWa2eWann3FG1pfaqxGKkUK1Wo'
+  example: 'https://openview.metadatacenter.org/templates/https:%2F%2Frepo.metadatacenter.org%2Ftemplates%2F47c6071a-2ec7-46c1-94d9-6b5e2d7ac982'
 - name: assay_category
   constraints:
     enum:

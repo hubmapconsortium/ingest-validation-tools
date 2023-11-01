@@ -126,7 +126,7 @@ library_concentration_unit: string
 library_concentration_value: number
 library_construction_method: string
 library_construction_protocols_io_doi: string
-library_creation_date: string
+library_creation_date: datetime
 library_final_yield: number
 library_final_yield_unit: string
 library_final_yield_value: number

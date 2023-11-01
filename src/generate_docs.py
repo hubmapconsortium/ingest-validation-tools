@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 
 import argparse
+import os
 from pathlib import Path
 import sys
 from yaml import dump as dump_yaml
@@ -31,7 +32,6 @@ def main():
 
     table_schema_versions = sorted(dict_table_schema_versions()[args.type])
     assert table_schema_versions, f'No versions for {args.type}'
-    max_version = max(table_schema_versions)
 
     is_assay = get_is_assay(args.type)
     if is_assay:
@@ -50,58 +50,111 @@ def main():
             v: get_other_schema(args.type, v, keep_headers=True)
             for v in table_schema_versions
         }
-        directory_schemas = []
+        directory_schemas = {}
         pipeline_infos = []
 
-    # README.md:
-    with open(Path(args.target) / 'README.md', 'w') as f:
-        url = f'https://hubmapconsortium.github.io/ingest-validation-tools/{args.type}/'
-        f.write(f'Moved to [github pages]({url}).')
+    # All the paths need to change.
+    # We need to separate the docs into current and deprecated
 
+    # Create deprecated and current directories
+    deprecated_path = Path(args.target) / 'deprecated'
+    current_path = Path(args.target) / 'current'
+
+    if not deprecated_path.exists():
+        os.mkdir(Path(args.target) / 'deprecated')
+    if not current_path.exists():
+        os.mkdir(Path(args.target) / 'current')
+
+    # Separate docs into current and deprecated
+    deprecated = {'metadata': {}, 'directories': {}}
+    current = {'metadata': {}, 'directories': {}}
+
+    for v, schema in table_schemas.items():
+        if not isinstance(schema['fields'][0], dict) or \
+                schema['fields'][0].get('name', '') != 'is_cedar':
+            deprecated['metadata'][v] = schema
+        else:
+            current['metadata'][v] = schema
+
+    for v, schema in directory_schemas.items():
+        if not v.isdigit() or int(v) < 2:
+            deprecated['directories'][v] = schema
+        else:
+            current['directories'][v] = schema
+
+    # README can be placed in both places without any issue
+    # README.md:
+    if deprecated['metadata']:
+        with open(deprecated_path / 'README.md', 'w') as f:
+            url = f'https://hubmapconsortium.github.io/ingest-validation-tools/{args.type}/'
+            f.write(f'Moved to [github pages]({url}).')
+    if current['metadata']:
+        with open(current_path / 'README.md', 'w') as f:
+            url = f'https://hubmapconsortium.github.io/ingest-validation-tools/{args.type}/'
+            f.write(f'Moved to [github pages]({url}).')
+
+    # This is the actual content. We have to separate cedar and non-cedar schemas
+    # CEDAR schemas go into current/index.md
+    # Non-CEDAR schemas go into deprecated/index.md
     # index.md:
-    with open(Path(args.target) / 'index.md', 'w') as f:
-        f.write(generate_readme_md(
-            table_schemas=table_schemas,
-            pipeline_infos=pipeline_infos,
-            directory_schemas=directory_schemas,
-            schema_name=args.type,
-            is_assay=is_assay
-        ))
+    if deprecated['metadata']:
+        with open(deprecated_path / 'index.md', 'w') as f:
+            f.write(generate_readme_md(
+                table_schemas=deprecated['metadata'],
+                pipeline_infos=pipeline_infos,
+                directory_schemas=deprecated['directories'],
+                schema_name=args.type,
+                is_assay=is_assay
+            ))
+    if current['metadata']:
+        with open(current_path / 'index.md', 'w') as f:
+            f.write(generate_readme_md(
+                table_schemas=current['metadata'],
+                pipeline_infos=pipeline_infos,
+                directory_schemas=current['directories'],
+                schema_name=args.type,
+                is_assay=is_assay
+            ))
 
     # YAML:
-    for v in table_schema_versions:
-        schema = table_schemas[v]
-        first_field = get_fields_wo_headers(schema)[0]
-        if first_field['name'] == 'version':
-            expected = [v]
-            actual = first_field['constraints']['enum']
-            assert actual == expected, \
-                f'Wrong version constraint in {args.type}-v{v}.yaml; ' \
-                f'Expected {expected}; Actual {actual}'
+    if deprecated['metadata']:
+        for v, schema in deprecated['metadata'].items():
+            first_field = get_fields_wo_headers(schema)[0]
+            if first_field['name'] == 'version':
+                expected = [v]
+                actual = first_field['constraints']['enum']
+                assert actual == expected, \
+                    f'Wrong version constraint in {args.type}-v{v}.yaml; ' \
+                    f'Expected {expected}; Actual {actual}'
 
-        # Need to determine how to check the is_cedar field.
-        assert schema['fields'][0]
+            # Need to determine how to check the is_cedar field.
+            assert schema['fields'][0]
 
-        if type(schema['fields'][0]) != dict or \
-                schema['fields'][0].get('name', '') != 'is_cedar':
-            with open(Path(args.target) / f'v{v}.yaml', 'w') as f:
-                f.write(
-                    '# Generated YAML: PRs should not start here!\n'
-                    + dump_yaml(schema, sort_keys=False)
-                )
+            if not isinstance(schema['fields'][0], dict) or \
+                    schema['fields'][0].get('name', '') != 'is_cedar':
+                # Just need to change the path here
+                # since this is only relevant for non-CEDAR schemas
+                with open(deprecated_path / f'v{v}.yaml', 'w') as f:
+                    f.write(
+                        '# Generated YAML: PRs should not start here!\n'
+                        + dump_yaml(schema, sort_keys=False)
+                    )
 
-    # Data entry templates:
-    max_schema = enum_maps_to_lists(table_schemas[max_version],
-                                    add_none_of_the_above=True, add_suggested=True)
-    max_schema['fields'] = get_fields_wo_headers(max_schema)
-    if max_schema['fields'][0]['name'] != 'is_cedar':
-        with open(Path(args.target) / get_tsv_name(args.type, is_assay=is_assay), 'w') as f:
-            f.write(generate_template_tsv(max_schema))
-        create_xlsx(
-            max_schema, Path(args.target) / get_xlsx_name(args.type, is_assay=is_assay),
-            idempotent=True,
-            sheet_name='Export as TSV'
-        )
+        # Need to separate between CEDAR and non-CEDAR. Only run this for the non-CEDAR templates.
+
+        # Data entry templates:
+        max_version = max(deprecated['metadata'].keys())
+        max_schema = enum_maps_to_lists(deprecated['metadata'][max_version],
+                                        add_none_of_the_above=True, add_suggested=True)
+        max_schema['fields'] = get_fields_wo_headers(max_schema)
+        if max_schema['fields'][0]['name'] != 'is_cedar':
+            with open(deprecated_path / get_tsv_name(args.type, is_assay=is_assay), 'w') as f:
+                f.write(generate_template_tsv(max_schema))
+            create_xlsx(
+                max_schema, deprecated_path / get_xlsx_name(args.type, is_assay=is_assay),
+                idempotent=True,
+                sheet_name='Export as TSV'
+            )
 
 
 if __name__ == "__main__":
