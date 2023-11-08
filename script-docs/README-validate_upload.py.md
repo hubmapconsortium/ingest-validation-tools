@@ -6,8 +6,7 @@ usage: validate_upload.py [-h] --local_directory PATH
                           [--upload_ignore_globs GLOB [GLOB ...]]
                           [--encoding ENCODING]
                           [--plugin_directory PLUGIN_DIRECTORY]
-                          [--skip_plugins_if_errors SKIP_PLUGINS_IF_ERRORS]
-                          [--globus_token GLOBUS_TOKEN]
+                          [--run_plugins] [--globus_token GLOBUS_TOKEN]
                           [--cedar_api_key CEDAR_API_KEY]
                           [--output {as_md,as_text,as_text_list,as_yaml}]
                           [--add_notes] [--save_report]
@@ -38,8 +37,8 @@ optional arguments:
                         tools/issues/494
   --plugin_directory PLUGIN_DIRECTORY
                         Directory of plugin tests.
-  --skip_plugins_if_errors SKIP_PLUGINS_IF_ERRORS
-                        If there are upstream errors, skip plugin validation.
+  --run_plugins         Run plugin validation even if there are upstream
+                        errors.
   --globus_token GLOBUS_TOKEN
                         Token for URL checking using Entity API.
   --cedar_api_key CEDAR_API_KEY
