@@ -159,10 +159,7 @@ class Upload:
 
             if errors:
                 raise ErrorDictException(
-                    f"""
-                                         Detected errors in upload metadata or directory structure.
-                                         Not moving on to plugin validation.
-                                         """
+                    f"Skipping plugins validation: errors in upload metadata or dir structure."
                 )
 
             plugin_errors = self._get_plugin_errors(**kwargs)
