@@ -38,7 +38,6 @@ class ErrorDictException(Exception):
     def __init__(self, errors):
         message = f"Halting compilation of errors after detecting the following errors: {errors}."
         super().__init__(message)
-        # This returns only the error that caused the exception.
         labeled_errors = {}
         labeled_errors["Fatal Exception"] = errors
         self.errors = labeled_errors
@@ -157,6 +156,14 @@ class Upload:
             reference_errors = self._get_reference_errors()
             if reference_errors:
                 errors["Reference Errors"] = reference_errors
+
+            if errors:
+                raise ErrorDictException(
+                    f"""
+                                         Detected errors in upload metadata or directory structure.
+                                         Not moving on to plugin validation.
+                                         """
+                )
 
             plugin_errors = self._get_plugin_errors(**kwargs)
             if plugin_errors:
