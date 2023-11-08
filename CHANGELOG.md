@@ -36,6 +36,7 @@
 - Update LCMS and add NanoSplits
 - Update descriptions for segmentation masks
 - Add description to codex doc page
+- Bail earlier in validation if there are errors in metadata/dir/refs
 
 ## v0.0.15 - 2023-04-04
 

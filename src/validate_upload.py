@@ -108,6 +108,11 @@ Exit status codes:
     parser.add_argument(
         "--plugin_directory", action="store", help="Directory of plugin tests."
     )
+    parser.add_argument(
+        "--skip_plugins_if_errors",
+        required=False,
+        help="If there are upstream errors, skip plugin validation.",
+    )
 
     # Arguments for manual tests
     parser.add_argument(
@@ -170,6 +175,7 @@ def main():
         "cedar_api_key": args.cedar_api_key,
         "optional_fields": args.optional_fields,
         "ignore_deprecation": args.ignore_deprecation,
+        "skip_plugins_if_errors": args.skip_plugins_if_errors,
     }
 
     if args.local_directory:
@@ -181,6 +187,8 @@ def main():
         upload_args["upload_ignore_globs"] = args.upload_ignore_globs
     if args.plugin_directory:
         upload_args["plugin_directory"] = args.plugin_directory
+    if args.skip_plugins_if_errors:
+        upload_args["skip_plugins_if_errors"] = args.skip_plugins_if_errors
     if args.globus_token:
         upload_args["globus_token"] = args.globus_token
     if args.cedar_api_key:

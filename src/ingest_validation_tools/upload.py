@@ -59,6 +59,7 @@ class Upload:
         extra_parameters: Union[dict, None] = None,
         globus_token: str = "",
         cedar_api_key: str = "",
+        skip_plugins_if_errors: bool = False,
     ):
         self.directory_path = directory_path
         self.optional_fields = optional_fields
@@ -74,6 +75,7 @@ class Upload:
         self.extra_parameters = extra_parameters if extra_parameters else {}
         self.auth_tok = globus_token
         self.cedar_api_key = cedar_api_key
+        self.skip_plugins_if_errors = skip_plugins_if_errors
 
         try:
             unsorted_effective_tsv_paths = {
@@ -157,9 +159,9 @@ class Upload:
             if reference_errors:
                 errors["Reference Errors"] = reference_errors
 
-            if errors:
+            if self.skip_plugins_if_errors and errors:
                 raise ErrorDictException(
-                    f"Skipping plugins validation: errors in upload metadata or dir structure."
+                    "Skipping plugins validation: errors in upload metadata or dir structure."
                 )
 
             plugin_errors = self._get_plugin_errors(**kwargs)
