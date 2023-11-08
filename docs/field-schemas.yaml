@@ -1,1609 +1,1605 @@
 ablation_distance_between_shots_x_units:
-- imc
-- imc3d
+  - imc
+  - imc3d
 ablation_distance_between_shots_x_value:
-- imc
-- imc3d
+  - imc
+  - imc3d
 ablation_distance_between_shots_y_units:
-- imc
-- imc3d
+  - imc
+  - imc3d
 ablation_distance_between_shots_y_value:
-- imc
-- imc3d
+  - imc
+  - imc3d
 ablation_frequency_unit:
-- imc
-- imc3d
+  - imc
+  - imc3d
 ablation_frequency_value:
-- imc
-- imc3d
+  - imc
+  - imc3d
 acquisition_id:
-- imc
-- imc3d
-- mibi
+  - imc
+  - imc3d
+  - mibi
 acquisition_instrument_model:
-- af
-- bodyct
-- bulkatacseq
-- bulkrnaseq
-- celldive
-- cems
-- codex
-- gcms
-- imc
-- imc3d
-- ims
-- lcms
-- lightsheet
-- mibi
-- microct
-- mri
-- mxif
-- nano
-- oct
-- scatacseq
-- scrnaseq
-- scrnaseq-hca
-- seqfish
-- slideseq
-- stained
-- ultrasound
-- wgs
+  - af
+  - bodyct
+  - bulkatacseq
+  - bulkrnaseq
+  - celldive
+  - cems
+  - codex
+  - gcms
+  - imc
+  - imc3d
+  - ims
+  - lcms
+  - lightsheet
+  - mibi
+  - microct
+  - mri
+  - mxif
+  - nano
+  - oct
+  - scatacseq
+  - scrnaseq
+  - scrnaseq-hca
+  - seqfish
+  - slideseq
+  - stained
+  - ultrasound
+  - wgs
 acquisition_instrument_vendor:
-- af
-- bodyct
-- bulkatacseq
-- bulkrnaseq
-- celldive
-- cems
-- codex
-- gcms
-- imc
-- imc3d
-- ims
-- lcms
-- lightsheet
-- mibi
-- microct
-- mri
-- mxif
-- nano
-- oct
-- scatacseq
-- scrnaseq
-- scrnaseq-hca
-- seqfish
-- slideseq
-- stained
-- ultrasound
-- wgs
+  - af
+  - bodyct
+  - bulkatacseq
+  - bulkrnaseq
+  - celldive
+  - cems
+  - codex
+  - gcms
+  - imc
+  - imc3d
+  - ims
+  - lcms
+  - lightsheet
+  - mibi
+  - microct
+  - mri
+  - mxif
+  - nano
+  - oct
+  - scatacseq
+  - scrnaseq
+  - scrnaseq-hca
+  - seqfish
+  - slideseq
+  - stained
+  - ultrasound
+  - wgs
 acquisition_matrix_size_in_frequency_encoding_direction:
-- mri
+  - mri
 acquisition_matrix_size_in_phase_encoding_direction:
-- mri
+  - mri
 affiliation:
-- contributors
+  - contributors
 analyte_class:
-- af
-- bulkatacseq
-- bulkrnaseq
-- celldive
-- cems
-- codex
-- gcms
-- imc
-- imc3d
-- ims
-- lcms
-- lightsheet
-- mibi
-- mxif
-- nano
-- scatacseq
-- scrnaseq
-- scrnaseq-hca
-- seqfish
-- slideseq
-- stained
-- wgs
+  - af
+  - bulkatacseq
+  - bulkrnaseq
+  - celldive
+  - cems
+  - codex
+  - gcms
+  - imc
+  - imc3d
+  - ims
+  - lcms
+  - lightsheet
+  - mibi
+  - mxif
+  - nano
+  - scatacseq
+  - scrnaseq
+  - scrnaseq-hca
+  - seqfish
+  - slideseq
+  - stained
+  - wgs
 antibodies_path:
-- celldive
-- codex
-- imc
-- imc3d
-- lightsheet
-- mibi
-- mxif
+  - celldive
+  - codex
+  - imc
+  - imc3d
+  - lightsheet
+  - mibi
+  - mxif
 antibody_name:
-- antibodies
+  - antibodies
 area_normalized_ion_dose_unit:
-- mibi
+  - mibi
 area_normalized_ion_dose_value:
-- mibi
+  - mibi
 area_unit:
-- sample-section
+  - sample-section
 area_value:
-- sample-section
+  - sample-section
 assay_category:
-- 10x-multiome
-- af
-- atacseq
-- bodyct
-- bulkatacseq
-- bulkrnaseq
-- celldive
-- cems
-- codex
-- confocal
-- cosmx
-- cycif
-- dbit
-- desi
-- enhanced-srs
-- gcms
-- geomx
-- hifi-slide
-- histology
-- imc
-- imc3d
-- ims
-- lcms
-- lightsheet
-- maldi
-- mc
-- merfish
-- mibi
-- microct
-- mri
-- mxif
-- nano
-- nano-splits
-- oct
-- organ
-- phenocycler
-- rnaseq
-- rnaseq-geomx
-- sample
-- sample-block
-- sample-section
-- sample-suspension
-- scatacseq
-- scrnaseq
-- scrnaseq-hca
-- second-harmonic-generation
-- seqfish
-- sims
-- slideseq
-- stained
-- thick-section-multiphoton-mxif
-- ultrasound
-- visium
-- wgs
-- xenium
+  - 10x-multiome
+  - af
+  - atacseq
+  - bodyct
+  - bulkatacseq
+  - bulkrnaseq
+  - celldive
+  - cems
+  - codex
+  - confocal
+  - cosmx
+  - cycif
+  - dbit
+  - desi
+  - enhanced-srs
+  - gcms
+  - geomx
+  - hifi-slide
+  - histology
+  - imc
+  - imc3d
+  - ims
+  - lcms
+  - lightsheet
+  - maldi
+  - mc
+  - merfish
+  - mibi
+  - microct
+  - mri
+  - mxif
+  - nano
+  - oct
+  - organ
+  - phenocycler
+  - rnaseq
+  - rnaseq-geomx
+  - sample
+  - sample-block
+  - sample-section
+  - sample-suspension
+  - scatacseq
+  - scrnaseq
+  - scrnaseq-hca
+  - second-harmonic-generation
+  - seqfish
+  - sims
+  - slideseq
+  - stained
+  - thick-section-multiphoton-mxif
+  - ultrasound
+  - visium
+  - wgs
+  - xenium
 assay_type:
-- 10x-multiome
-- af
-- atacseq
-- bodyct
-- bulkatacseq
-- bulkrnaseq
-- celldive
-- cems
-- codex
-- confocal
-- cosmx
-- cycif
-- dbit
-- desi
-- enhanced-srs
-- gcms
-- geomx
-- hifi-slide
-- histology
-- imc
-- imc3d
-- ims
-- lcms
-- lightsheet
-- maldi
-- mc
-- merfish
-- mibi
-- microct
-- mri
-- mxif
-- nano
-- nano-splits
-- oct
-- organ
-- phenocycler
-- publication
-- rnaseq
-- rnaseq-geomx
-- sample
-- sample-block
-- sample-section
-- sample-suspension
-- scatacseq
-- scrnaseq
-- scrnaseq-hca
-- second-harmonic-generation
-- seqfish
-- sims
-- slideseq
-- stained
-- thick-section-multiphoton-mxif
-- ultrasound
-- visium
-- wgs
-- xenium
+  - 10x-multiome
+  - af
+  - atacseq
+  - bodyct
+  - bulkatacseq
+  - bulkrnaseq
+  - celldive
+  - cems
+  - codex
+  - confocal
+  - cosmx
+  - cycif
+  - dbit
+  - desi
+  - enhanced-srs
+  - gcms
+  - geomx
+  - hifi-slide
+  - histology
+  - imc
+  - imc3d
+  - ims
+  - lcms
+  - lightsheet
+  - maldi
+  - mc
+  - merfish
+  - mibi
+  - microct
+  - mri
+  - mxif
+  - nano
+  - oct
+  - organ
+  - phenocycler
+  - publication
+  - rnaseq
+  - rnaseq-geomx
+  - sample
+  - sample-block
+  - sample-section
+  - sample-suspension
+  - scatacseq
+  - scrnaseq
+  - scrnaseq-hca
+  - second-harmonic-generation
+  - seqfish
+  - sims
+  - slideseq
+  - stained
+  - thick-section-multiphoton-mxif
+  - ultrasound
+  - visium
+  - wgs
+  - xenium
 bead_barcode_offset:
-- slideseq
+  - slideseq
 bead_barcode_read:
-- slideseq
+  - slideseq
 bead_barcode_size:
-- slideseq
+  - slideseq
 bulk_atac_cell_isolation_protocols_io_doi:
-- bulkatacseq
+  - bulkatacseq
 bulk_rna_isolation_protocols_io_doi:
-- bulkrnaseq
+  - bulkrnaseq
 bulk_rna_isolation_quality_metric_value:
-- bulkrnaseq
+  - bulkrnaseq
 bulk_rna_yield_units_per_tissue_unit:
-- bulkrnaseq
+  - bulkrnaseq
 bulk_rna_yield_value:
-- bulkrnaseq
+  - bulkrnaseq
 bulk_transposition_input_number_nuclei:
-- bulkatacseq
+  - bulkatacseq
 ce_background_electrolyte:
-- cems
+  - cems
 ce_capillary_coating:
-- cems
+  - cems
 ce_electroosmotic_flow:
-- cems
+  - cems
 ce_instrument_model:
-- cems
+  - cems
 ce_instrument_vendor:
-- cems
+  - cems
 ce_interface:
-- cems
+  - cems
 cell_barcode_offset:
-- scatacseq
-- scrnaseq
-- scrnaseq-hca
+  - scatacseq
+  - scrnaseq
+  - scrnaseq-hca
 cell_barcode_read:
-- scatacseq
-- scrnaseq
-- scrnaseq-hca
+  - scatacseq
+  - scrnaseq
+  - scrnaseq-hca
 cell_barcode_size:
-- scatacseq
-- scrnaseq
-- scrnaseq-hca
+  - scatacseq
+  - scrnaseq
+  - scrnaseq-hca
 channel_id:
-- antibodies
+  - antibodies
 coil:
-- mri
+  - mri
 cold_ischemia_time_unit:
-- sample
+  - sample
 cold_ischemia_time_value:
-- sample
+  - sample
 cold_ischemic_time_unit:
-- organ
+  - organ
 cold_ischemic_time_value:
-- organ
+  - organ
 column_length_unit:
-- gcms
+  - gcms
 column_length_value:
-- gcms
+  - gcms
 column_model:
-- gcms
+  - gcms
 column_temp_unit:
-- gcms
+  - gcms
 column_temp_value:
-- gcms
+  - gcms
 column_vendor:
-- gcms
+  - gcms
 compound_imaging:
-- ultrasound
+  - ultrasound
 concentration_unit:
-- antibodies
+  - antibodies
 concentration_value:
-- antibodies
+  - antibodies
 conjugated_cat_number:
-- antibodies
+  - antibodies
 conjugated_tag:
-- antibodies
+  - antibodies
 contributors_path:
-- af
-- bodyct
-- bulkatacseq
-- bulkrnaseq
-- celldive
-- cems
-- codex
-- gcms
-- imc
-- imc3d
-- ims
-- lcms
-- lightsheet
-- mibi
-- microct
-- mri
-- mxif
-- nano
-- oct
-- publication
-- scatacseq
-- scrnaseq
-- scrnaseq-hca
-- seqfish
-- slideseq
-- stained
-- ultrasound
-- wgs
+  - af
+  - bodyct
+  - bulkatacseq
+  - bulkrnaseq
+  - celldive
+  - cems
+  - codex
+  - gcms
+  - imc
+  - imc3d
+  - ims
+  - lcms
+  - lightsheet
+  - mibi
+  - microct
+  - mri
+  - mxif
+  - nano
+  - oct
+  - publication
+  - scatacseq
+  - scrnaseq
+  - scrnaseq-hca
+  - seqfish
+  - slideseq
+  - stained
+  - ultrasound
+  - wgs
 current_unit:
-- microct
+  - microct
 current_value:
-- microct
+  - microct
 data_collection_mode:
-- cems
-- gcms
-- lcms
+  - cems
+  - gcms
+  - lcms
 data_path:
-- af
-- bodyct
-- bulkatacseq
-- bulkrnaseq
-- celldive
-- cems
-- codex
-- gcms
-- imc
-- imc3d
-- ims
-- lcms
-- lightsheet
-- mibi
-- microct
-- mri
-- mxif
-- nano
-- oct
-- publication
-- scatacseq
-- scrnaseq
-- scrnaseq-hca
-- seqfish
-- slideseq
-- stained
-- ultrasound
-- wgs
+  - af
+  - bodyct
+  - bulkatacseq
+  - bulkrnaseq
+  - celldive
+  - cems
+  - codex
+  - gcms
+  - imc
+  - imc3d
+  - ims
+  - lcms
+  - lightsheet
+  - mibi
+  - microct
+  - mri
+  - mxif
+  - nano
+  - oct
+  - publication
+  - scatacseq
+  - scrnaseq
+  - scrnaseq-hca
+  - seqfish
+  - slideseq
+  - stained
+  - ultrasound
+  - wgs
 data_precision_bytes:
-- imc
-- mibi
+  - imc
+  - mibi
 description:
-- af
-- bodyct
-- bulkatacseq
-- bulkrnaseq
-- celldive
-- cems
-- codex
-- gcms
-- imc
-- imc3d
-- ims
-- lcms
-- lightsheet
-- mibi
-- microct
-- mri
-- mxif
-- nano
-- oct
-- scatacseq
-- scrnaseq
-- seqfish
-- slideseq
-- stained
-- ultrasound
-- wgs
+  - af
+  - bodyct
+  - bulkatacseq
+  - bulkrnaseq
+  - celldive
+  - cems
+  - codex
+  - gcms
+  - imc
+  - imc3d
+  - ims
+  - lcms
+  - lightsheet
+  - mibi
+  - microct
+  - mri
+  - mxif
+  - nano
+  - oct
+  - scatacseq
+  - scrnaseq
+  - seqfish
+  - slideseq
+  - stained
+  - ultrasound
+  - wgs
 desi_solvent:
-- ims
+  - ims
 desi_solvent_flow_rate:
-- ims
+  - ims
 desi_solvent_flow_rate_unit:
-- ims
+  - ims
 dilution:
-- antibodies
+  - antibodies
 dms:
-- lcms
+  - lcms
 dna_assay_input_unit:
-- wgs
+  - wgs
 dna_assay_input_value:
-- wgs
+  - wgs
 donor_id:
-- af
-- bodyct
-- bulkatacseq
-- bulkrnaseq
-- celldive
-- cems
-- codex
-- gcms
-- imc
-- imc3d
-- ims
-- lcms
-- lightsheet
-- mibi
-- microct
-- mri
-- mxif
-- nano
-- oct
-- scatacseq
-- scrnaseq
-- scrnaseq-hca
-- seqfish
-- slideseq
-- stained
-- ultrasound
-- wgs
+  - af
+  - bodyct
+  - bulkatacseq
+  - bulkrnaseq
+  - celldive
+  - cems
+  - codex
+  - gcms
+  - imc
+  - imc3d
+  - ims
+  - lcms
+  - lightsheet
+  - mibi
+  - microct
+  - mri
+  - mxif
+  - nano
+  - oct
+  - scatacseq
+  - scrnaseq
+  - scrnaseq-hca
+  - seqfish
+  - slideseq
+  - stained
+  - ultrasound
+  - wgs
 dual_count_start:
-- imc
-- mibi
+  - imc
+  - mibi
 dynamic_contrast:
-- ultrasound
+  - ultrasound
 echo_time:
-- mri
+  - mri
 echo_train_length:
-- mri
+  - mri
 end_datetime:
-- imc
-- mibi
+  - imc
+  - mibi
 execution_datetime:
-- af
-- bodyct
-- bulkatacseq
-- bulkrnaseq
-- celldive
-- cems
-- codex
-- gcms
-- imc
-- imc3d
-- ims
-- lcms
-- lightsheet
-- mibi
-- microct
-- mri
-- mxif
-- nano
-- oct
-- scatacseq
-- scrnaseq
-- scrnaseq-hca
-- seqfish
-- slideseq
-- stained
-- ultrasound
-- wgs
+  - af
+  - bodyct
+  - bulkatacseq
+  - bulkrnaseq
+  - celldive
+  - cems
+  - codex
+  - gcms
+  - imc
+  - imc3d
+  - ims
+  - lcms
+  - lightsheet
+  - mibi
+  - microct
+  - mri
+  - mxif
+  - nano
+  - oct
+  - scatacseq
+  - scrnaseq
+  - scrnaseq-hca
+  - seqfish
+  - slideseq
+  - stained
+  - ultrasound
+  - wgs
 expected_cell_count:
-- scrnaseq
+  - scrnaseq
 field_strength_unit:
-- mri
+  - mri
 field_strength_value:
-- mri
+  - mri
 filter:
-- microct
+  - microct
 first_name:
-- contributors
+  - contributors
 flip_angle:
-- mri
+  - mri
 frequency_unit:
-- mri
-- ultrasound
+  - mri
+  - ultrasound
 frequency_value:
-- mri
-- ultrasound
+  - mri
+  - ultrasound
 gdna_fragmentation_quality_assurance:
-- wgs
+  - wgs
 guard_column:
-- gcms
+  - gcms
 harmonics:
-- ultrasound
+  - ultrasound
 health_status:
-- sample
+  - sample
 histological_report:
-- sample-block
-- sample-section
+  - sample-block
+  - sample-section
 imaging_threshold_unit_value:
-- microct
+  - microct
 imaging_threshold_value:
-- microct
+  - microct
 increment_z_unit:
-- lightsheet
+  - lightsheet
 increment_z_value:
-- lightsheet
+  - lightsheet
 internal_standard:
-- gcms
+  - gcms
 ion_mobility:
-- cems
-- gcms
-- ims
-- lcms
+  - cems
+  - gcms
+  - ims
+  - lcms
 ion_source:
-- gcms
+  - gcms
 is_cedar:
-- 10x-multiome
-- af
-- atacseq
-- bodyct
-- celldive
-- cems
-- codex
-- confocal
-- contributors
-- cosmx
-- cycif
-- dbit
-- desi
-- enhanced-srs
-- gcms
-- geomx
-- hifi-slide
-- histology
-- imc
-- imc3d
-- ims
-- lcms
-- lightsheet
-- maldi
-- mc
-- merfish
-- mibi
-- microct
-- mri
-- mxif
-- nano-splits
-- oct
-- organ
-- phenocycler
-- publication
-- rnaseq
-- rnaseq-geomx
-- sample
-- sample-block
-- sample-section
-- sample-suspension
-- second-harmonic-generation
-- seqfish
-- sims
-- slideseq
-- stained
-- thick-section-multiphoton-mxif
-- ultrasound
-- visium
-- wgs
-- xenium
+  - 10x-multiome
+  - af
+  - atacseq
+  - bodyct
+  - celldive
+  - cems
+  - codex
+  - confocal
+  - contributors
+  - cosmx
+  - cycif
+  - dbit
+  - desi
+  - enhanced-srs
+  - gcms
+  - geomx
+  - hifi-slide
+  - histology
+  - imc
+  - imc3d
+  - ims
+  - lcms
+  - lightsheet
+  - maldi
+  - mc
+  - merfish
+  - mibi
+  - microct
+  - mri
+  - mxif
+  - oct
+  - organ
+  - phenocycler
+  - publication
+  - rnaseq
+  - rnaseq-geomx
+  - sample
+  - sample-block
+  - sample-section
+  - sample-suspension
+  - second-harmonic-generation
+  - seqfish
+  - sims
+  - slideseq
+  - stained
+  - thick-section-multiphoton-mxif
+  - ultrasound
+  - visium
+  - wgs
+  - xenium
 is_contact:
-- contributors
+  - contributors
 is_targeted:
-- af
-- bulkatacseq
-- bulkrnaseq
-- celldive
-- cems
-- codex
-- gcms
-- imc
-- imc3d
-- ims
-- lcms
-- lightsheet
-- mibi
-- mxif
-- nano
-- scatacseq
-- scrnaseq
-- scrnaseq-hca
-- seqfish
-- slideseq
-- stained
-- wgs
+  - af
+  - bulkatacseq
+  - bulkrnaseq
+  - celldive
+  - cems
+  - codex
+  - gcms
+  - imc
+  - imc3d
+  - ims
+  - lcms
+  - lightsheet
+  - mibi
+  - mxif
+  - nano
+  - scatacseq
+  - scrnaseq
+  - scrnaseq-hca
+  - seqfish
+  - slideseq
+  - stained
+  - wgs
 is_technical_replicate:
-- bulkatacseq
-- scatacseq
-- scrnaseq
-- scrnaseq-hca
-- slideseq
+  - bulkatacseq
+  - scatacseq
+  - scrnaseq
+  - scrnaseq-hca
+  - slideseq
 lab_id:
-- organ
+  - organ
 label_name:
-- lcms
+  - lcms
 labeling:
-- cems
-- gcms
-- lcms
+  - cems
+  - gcms
+  - lcms
 last_name:
-- contributors
+  - contributors
 laterality:
-- organ
+  - organ
 lc_column_model:
-- lcms
+  - lcms
 lc_column_vendor:
-- lcms
+  - lcms
 lc_flow_rate_unit:
-- lcms
+  - lcms
 lc_flow_rate_value:
-- lcms
+  - lcms
 lc_gradient:
-- lcms
+  - lcms
 lc_id_unit:
-- lcms
+  - lcms
 lc_id_value:
-- lcms
+  - lcms
 lc_instrument_model:
-- lcms
+  - lcms
 lc_instrument_vendor:
-- lcms
+  - lcms
 lc_length_unit:
-- lcms
+  - lcms
 lc_length_value:
-- lcms
+  - lcms
 lc_mobile_phase_a:
-- lcms
+  - lcms
 lc_mobile_phase_b:
-- lcms
+  - lcms
 lc_resin:
-- lcms
+  - lcms
 lc_temp_unit:
-- lcms
+  - lcms
 lc_temp_value:
-- lcms
+  - lcms
 library_adapter_sequence:
-- bulkatacseq
-- bulkrnaseq
-- scatacseq
-- scrnaseq
-- scrnaseq-hca
-- slideseq
-- wgs
+  - bulkatacseq
+  - bulkrnaseq
+  - scatacseq
+  - scrnaseq
+  - scrnaseq-hca
+  - slideseq
+  - wgs
 library_average_fragment_size:
-- bulkatacseq
-- bulkrnaseq
-- scatacseq
-- scrnaseq
-- scrnaseq-hca
-- slideseq
-- wgs
+  - bulkatacseq
+  - bulkrnaseq
+  - scatacseq
+  - scrnaseq
+  - scrnaseq-hca
+  - slideseq
+  - wgs
 library_concentration_unit:
-- bulkatacseq
+  - bulkatacseq
 library_concentration_value:
-- bulkatacseq
+  - bulkatacseq
 library_construction_method:
-- wgs
+  - wgs
 library_construction_protocols_io_doi:
-- bulkatacseq
-- bulkrnaseq
-- scatacseq
-- scrnaseq
-- scrnaseq-hca
-- slideseq
-- wgs
+  - bulkatacseq
+  - bulkrnaseq
+  - scatacseq
+  - scrnaseq
+  - scrnaseq-hca
+  - slideseq
+  - wgs
 library_creation_date:
-- bulkatacseq
+  - bulkatacseq
 library_final_yield:
-- scatacseq
-- wgs
+  - scatacseq
+  - wgs
 library_final_yield_unit:
-- bulkatacseq
-- bulkrnaseq
-- scatacseq
-- scrnaseq
-- scrnaseq-hca
-- slideseq
-- wgs
+  - bulkatacseq
+  - bulkrnaseq
+  - scatacseq
+  - scrnaseq
+  - scrnaseq-hca
+  - slideseq
+  - wgs
 library_final_yield_value:
-- bulkatacseq
-- bulkrnaseq
-- scrnaseq
-- scrnaseq-hca
-- slideseq
+  - bulkatacseq
+  - bulkrnaseq
+  - scrnaseq
+  - scrnaseq-hca
+  - slideseq
 library_id:
-- bulkatacseq
-- scatacseq
-- scrnaseq
-- scrnaseq-hca
+  - bulkatacseq
+  - scatacseq
+  - scrnaseq
+  - scrnaseq-hca
 library_layout:
-- bulkatacseq
-- bulkrnaseq
-- scatacseq
-- scrnaseq
-- scrnaseq-hca
-- slideseq
-- wgs
+  - bulkatacseq
+  - bulkrnaseq
+  - scatacseq
+  - scrnaseq
+  - scrnaseq-hca
+  - slideseq
+  - wgs
 library_pcr_cycles:
-- bulkatacseq
-- scatacseq
-- scrnaseq
-- scrnaseq-hca
-- slideseq
+  - bulkatacseq
+  - scatacseq
+  - scrnaseq
+  - scrnaseq-hca
+  - slideseq
 library_pcr_cycles_for_sample_index:
-- bulkrnaseq
-- scatacseq
-- scrnaseq
-- scrnaseq-hca
-- slideseq
+  - bulkrnaseq
+  - scatacseq
+  - scrnaseq
+  - scrnaseq-hca
+  - slideseq
 library_preparation_kit:
-- bulkatacseq
+  - bulkatacseq
 lot_number:
-- antibodies
+  - antibodies
 mass_resolving_power:
-- cems
-- gcms
-- ims
-- lcms
+  - cems
+  - gcms
+  - ims
+  - lcms
 max_x_width_unit:
-- bodyct
-- imc
-- imc3d
-- mibi
-- microct
-- mri
-- oct
-- ultrasound
+  - bodyct
+  - imc
+  - imc3d
+  - mibi
+  - microct
+  - mri
+  - oct
+  - ultrasound
 max_x_width_value:
-- bodyct
-- imc
-- imc3d
-- mibi
-- microct
-- mri
-- oct
-- ultrasound
+  - bodyct
+  - imc
+  - imc3d
+  - mibi
+  - microct
+  - mri
+  - oct
+  - ultrasound
 max_y_height_unit:
-- bodyct
-- imc
-- imc3d
-- mibi
-- microct
-- mri
-- oct
-- ultrasound
+  - bodyct
+  - imc
+  - imc3d
+  - mibi
+  - microct
+  - mri
+  - oct
+  - ultrasound
 max_y_height_value:
-- bodyct
-- imc
-- imc3d
-- mibi
-- microct
-- mri
-- oct
-- ultrasound
+  - bodyct
+  - imc
+  - imc3d
+  - mibi
+  - microct
+  - mri
+  - oct
+  - ultrasound
 middle_name_or_initial:
-- contributors
+  - contributors
 ms_scan_mode:
-- cems
-- gcms
-- ims
-- lcms
+  - cems
+  - gcms
+  - ims
+  - lcms
 ms_source:
-- cems
-- gcms
-- ims
-- lcms
-- nano
+  - cems
+  - gcms
+  - ims
+  - lcms
+  - nano
 mz_range_high_value:
-- cems
-- gcms
-- ims
-- lcms
-- nano
+  - cems
+  - gcms
+  - ims
+  - lcms
+  - nano
 mz_range_low_value:
-- cems
-- gcms
-- ims
-- lcms
-- nano
+  - cems
+  - gcms
+  - ims
+  - lcms
+  - nano
 mz_resolving_power:
-- cems
-- gcms
-- ims
-- lcms
+  - cems
+  - gcms
+  - ims
+  - lcms
 name:
-- contributors
+  - contributors
 notes:
-- sample-block
-- sample-section
-- sample-suspension
+  - sample-block
+  - sample-section
+  - sample-suspension
 number_of_antibodies:
-- celldive
-- codex
-- lightsheet
-- mibi
+  - celldive
+  - codex
+  - lightsheet
+  - mibi
 number_of_averages:
-- mri
+  - mri
 number_of_barcode_probes:
-- seqfish
+  - seqfish
 number_of_barcode_regions_per_barcode_probe:
-- seqfish
+  - seqfish
 number_of_channels:
-- af
-- celldive
-- codex
-- imc
-- imc3d
-- lightsheet
-- mibi
-- mxif
-- seqfish
+  - af
+  - celldive
+  - codex
+  - imc
+  - imc3d
+  - lightsheet
+  - mibi
+  - mxif
+  - seqfish
 number_of_cycles:
-- celldive
-- codex
-- mxif
-- seqfish
+  - celldive
+  - codex
+  - mxif
+  - seqfish
 number_of_image_columns:
-- mri
+  - mri
 number_of_image_rows:
-- mri
+  - mri
 number_of_images:
-- bodyct
-- microct
-- mri
-- oct
-- ultrasound
+  - bodyct
+  - microct
+  - mri
+  - oct
+  - ultrasound
 number_of_imaging_rounds:
-- celldive
+  - celldive
 number_of_pseudocolors_per_channel:
-- seqfish
+  - seqfish
 number_of_readout_probes_per_channel:
-- seqfish
+  - seqfish
 number_of_sections:
-- imc3d
+  - imc3d
 operator:
-- af
-- bodyct
-- bulkatacseq
-- bulkrnaseq
-- celldive
-- cems
-- codex
-- gcms
-- imc
-- imc3d
-- ims
-- lcms
-- lightsheet
-- mibi
-- microct
-- mri
-- mxif
-- nano
-- oct
-- scatacseq
-- scrnaseq
-- scrnaseq-hca
-- seqfish
-- slideseq
-- stained
-- ultrasound
-- wgs
+  - af
+  - bodyct
+  - bulkatacseq
+  - bulkrnaseq
+  - celldive
+  - cems
+  - codex
+  - gcms
+  - imc
+  - imc3d
+  - ims
+  - lcms
+  - lightsheet
+  - mibi
+  - microct
+  - mri
+  - mxif
+  - nano
+  - oct
+  - scatacseq
+  - scrnaseq
+  - scrnaseq-hca
+  - seqfish
+  - slideseq
+  - stained
+  - ultrasound
+  - wgs
 operator_email:
-- af
-- bodyct
-- bulkatacseq
-- bulkrnaseq
-- celldive
-- cems
-- codex
-- gcms
-- imc
-- imc3d
-- ims
-- lcms
-- lightsheet
-- mibi
-- microct
-- mri
-- mxif
-- nano
-- oct
-- scatacseq
-- scrnaseq
-- scrnaseq-hca
-- seqfish
-- slideseq
-- stained
-- ultrasound
-- wgs
+  - af
+  - bodyct
+  - bulkatacseq
+  - bulkrnaseq
+  - celldive
+  - cems
+  - codex
+  - gcms
+  - imc
+  - imc3d
+  - ims
+  - lcms
+  - lightsheet
+  - mibi
+  - microct
+  - mri
+  - mxif
+  - nano
+  - oct
+  - scatacseq
+  - scrnaseq
+  - scrnaseq-hca
+  - seqfish
+  - slideseq
+  - stained
+  - ultrasound
+  - wgs
 orcid_id:
-- contributors
+  - contributors
 organ_condition:
-- organ
-- sample
+  - organ
+  - sample
 organ_height_unit:
-- organ
+  - organ
 organ_height_value:
-- organ
+  - organ
 organ_id:
-- organ
+  - organ
 organ_length_unit:
-- organ
+  - organ
 organ_length_value:
-- organ
+  - organ
 organ_volume_unit:
-- organ
+  - organ
 organ_volume_value:
-- organ
+  - organ
 organ_weight_value:
-- organ
+  - organ
 organ_width_unit:
-- organ
+  - organ
 organ_width_value:
-- organ
+  - organ
 overall_protocols_io_doi:
-- af
-- celldive
-- cems
-- gcms
-- ims
-- lcms
-- mxif
-- nano
-- stained
+  - af
+  - celldive
+  - cems
+  - gcms
+  - ims
+  - lcms
+  - mxif
+  - nano
+  - stained
 parent_id:
-- 10x-multiome
-- af
-- atacseq
-- bodyct
-- celldive
-- cems
-- codex
-- confocal
-- cosmx
-- cycif
-- dbit
-- desi
-- enhanced-srs
-- gcms
-- geomx
-- hifi-slide
-- imc
-- lcms
-- lightsheet
-- maldi
-- mc
-- merfish
-- mibi
-- microct
-- mri
-- mxif
-- oct
-- phenocycler
-- publication
-- rnaseq
-- rnaseq-geomx
-- second-harmonic-generation
-- seqfish
-- sims
-- slideseq
-- thick-section-multiphoton-mxif
-- ultrasound
-- visium
-- wgs
-- xenium
+  - 10x-multiome
+  - af
+  - atacseq
+  - bodyct
+  - celldive
+  - cems
+  - codex
+  - confocal
+  - cosmx
+  - cycif
+  - dbit
+  - desi
+  - enhanced-srs
+  - gcms
+  - geomx
+  - hifi-slide
+  - imc
+  - lcms
+  - lightsheet
+  - maldi
+  - mc
+  - merfish
+  - mibi
+  - microct
+  - mri
+  - mxif
+  - oct
+  - phenocycler
+  - publication
+  - rnaseq
+  - rnaseq-geomx
+  - second-harmonic-generation
+  - seqfish
+  - sims
+  - slideseq
+  - thick-section-multiphoton-mxif
+  - ultrasound
+  - visium
+  - wgs
+  - xenium
 parent_sample_id:
-- histology
+  - histology
 pathologist_report:
-- sample
+  - sample
 pathology_distance_unit:
-- sample-block
+  - sample-block
 pathology_distance_value:
-- sample-block
+  - sample-block
 pathology_report:
-- organ
+  - organ
 perfusion_solution:
-- organ
-- sample
+  - organ
+  - sample
 pi:
-- af
-- bodyct
-- bulkatacseq
-- bulkrnaseq
-- celldive
-- cems
-- codex
-- gcms
-- imc
-- imc3d
-- ims
-- lcms
-- lightsheet
-- mibi
-- microct
-- mri
-- mxif
-- nano
-- oct
-- scatacseq
-- scrnaseq
-- scrnaseq-hca
-- seqfish
-- slideseq
-- stained
-- ultrasound
-- wgs
+  - af
+  - bodyct
+  - bulkatacseq
+  - bulkrnaseq
+  - celldive
+  - cems
+  - codex
+  - gcms
+  - imc
+  - imc3d
+  - ims
+  - lcms
+  - lightsheet
+  - mibi
+  - microct
+  - mri
+  - mxif
+  - nano
+  - oct
+  - scatacseq
+  - scrnaseq
+  - scrnaseq-hca
+  - seqfish
+  - slideseq
+  - stained
+  - ultrasound
+  - wgs
 pi_email:
-- af
-- bodyct
-- bulkatacseq
-- bulkrnaseq
-- celldive
-- cems
-- codex
-- gcms
-- imc
-- imc3d
-- ims
-- lcms
-- lightsheet
-- mibi
-- microct
-- mri
-- mxif
-- nano
-- oct
-- scatacseq
-- scrnaseq
-- scrnaseq-hca
-- seqfish
-- slideseq
-- stained
-- ultrasound
-- wgs
+  - af
+  - bodyct
+  - bulkatacseq
+  - bulkrnaseq
+  - celldive
+  - cems
+  - codex
+  - gcms
+  - imc
+  - imc3d
+  - ims
+  - lcms
+  - lightsheet
+  - mibi
+  - microct
+  - mri
+  - mxif
+  - nano
+  - oct
+  - scatacseq
+  - scrnaseq
+  - scrnaseq-hca
+  - seqfish
+  - slideseq
+  - stained
+  - ultrasound
+  - wgs
 pixel_dwell_time_unit:
-- mibi
+  - mibi
 pixel_dwell_time_value:
-- mibi
+  - mibi
 pixel_size_x_unit:
-- mibi
+  - mibi
 pixel_size_x_value:
-- mibi
+  - mibi
 pixel_size_y_unit:
-- mibi
+  - mibi
 pixel_size_y_value:
-- mibi
+  - mibi
 pixel_size_z_unit:
-- bodyct
-- microct
-- mri
-- oct
-- ultrasound
+  - bodyct
+  - microct
+  - mri
+  - oct
+  - ultrasound
 pixel_size_z_value:
-- bodyct
-- microct
-- mri
-- oct
-- ultrasound
+  - bodyct
+  - microct
+  - mri
+  - oct
+  - ultrasound
 polarity:
-- cems
-- gcms
-- ims
-- lcms
-- nano
+  - cems
+  - gcms
+  - ims
+  - lcms
+  - nano
 preparation_condition:
-- sample-block
-- sample-section
-- sample-suspension
+  - sample-block
+  - sample-section
+  - sample-suspension
 preparation_instrument_model:
-- codex
-- imc
-- imc3d
-- ims
-- mibi
-- seqfish
+  - codex
+  - imc
+  - imc3d
+  - ims
+  - mibi
+  - seqfish
 preparation_instrument_vendor:
-- codex
-- imc
-- imc3d
-- ims
-- mibi
-- seqfish
+  - codex
+  - imc
+  - imc3d
+  - ims
+  - mibi
+  - seqfish
 preparation_maldi_matrix:
-- ims
+  - ims
 preparation_media:
-- sample-block
-- sample-section
-- sample-suspension
+  - sample-block
+  - sample-section
+  - sample-suspension
 preparation_type:
-- ims
+  - ims
 primary_ion:
-- mibi
+  - mibi
 primary_ion_current_unit:
-- mibi
+  - mibi
 primary_ion_current_value:
-- mibi
+  - mibi
 probe:
-- ultrasound
+  - ultrasound
 procedure_date:
-- sample
+  - sample
 processing_protocols_io_doi:
-- celldive
-- cems
-- ims
-- lcms
-- nano
+  - celldive
+  - cems
+  - ims
+  - lcms
+  - nano
 processing_search:
-- cems
-- gcms
-- lcms
+  - cems
+  - gcms
+  - lcms
 processing_time_unit:
-- sample-block
-- sample-section
-- sample-suspension
+  - sample-block
+  - sample-section
+  - sample-suspension
 processing_time_value:
-- sample-block
-- sample-section
-- sample-suspension
+  - sample-block
+  - sample-section
+  - sample-suspension
 protocols_io_doi:
-- af
-- bodyct
-- bulkatacseq
-- bulkrnaseq
-- celldive
-- cems
-- codex
-- gcms
-- imc
-- imc3d
-- ims
-- lcms
-- lightsheet
-- mibi
-- microct
-- mri
-- mxif
-- nano
-- oct
-- scatacseq
-- scrnaseq
-- scrnaseq-hca
-- seqfish
-- slideseq
-- stained
-- ultrasound
-- wgs
+  - af
+  - bodyct
+  - bulkatacseq
+  - bulkrnaseq
+  - celldive
+  - cems
+  - codex
+  - gcms
+  - imc
+  - imc3d
+  - ims
+  - lcms
+  - lightsheet
+  - mibi
+  - microct
+  - mri
+  - mxif
+  - nano
+  - oct
+  - scatacseq
+  - scrnaseq
+  - scrnaseq-hca
+  - seqfish
+  - slideseq
+  - stained
+  - ultrasound
+  - wgs
 puck_id:
-- slideseq
+  - slideseq
 quality_criteria:
-- sample-block
-- sample-section
-- sample-suspension
+  - sample-block
+  - sample-section
+  - sample-suspension
 quality_view:
-- ultrasound
+  - ultrasound
 range_z_unit:
-- lightsheet
+  - lightsheet
 range_z_value:
-- lightsheet
+  - lightsheet
 reagent_prep_protocols_io_doi:
-- codex
-- imc
-- imc3d
-- mibi
-- mxif
-- seqfish
+  - codex
+  - imc
+  - imc3d
+  - mibi
+  - mxif
+  - seqfish
 repetition_time:
-- mri
+  - mri
 resolution_x_unit:
-- af
-- bodyct
-- celldive
-- cems
-- codex
-- gcms
-- ims
-- lcms
-- lightsheet
-- mibi
-- microct
-- mri
-- mxif
-- nano
-- oct
-- seqfish
-- stained
-- ultrasound
+  - af
+  - bodyct
+  - celldive
+  - cems
+  - codex
+  - gcms
+  - ims
+  - lcms
+  - lightsheet
+  - mibi
+  - microct
+  - mri
+  - mxif
+  - nano
+  - oct
+  - seqfish
+  - stained
+  - ultrasound
 resolution_x_value:
-- af
-- bodyct
-- celldive
-- cems
-- codex
-- gcms
-- ims
-- lcms
-- lightsheet
-- mibi
-- microct
-- mri
-- mxif
-- nano
-- oct
-- seqfish
-- stained
-- ultrasound
+  - af
+  - bodyct
+  - celldive
+  - cems
+  - codex
+  - gcms
+  - ims
+  - lcms
+  - lightsheet
+  - mibi
+  - microct
+  - mri
+  - mxif
+  - nano
+  - oct
+  - seqfish
+  - stained
+  - ultrasound
 resolution_y_unit:
-- af
-- bodyct
-- celldive
-- cems
-- codex
-- gcms
-- ims
-- lcms
-- lightsheet
-- mibi
-- microct
-- mri
-- mxif
-- nano
-- oct
-- seqfish
-- stained
-- ultrasound
+  - af
+  - bodyct
+  - celldive
+  - cems
+  - codex
+  - gcms
+  - ims
+  - lcms
+  - lightsheet
+  - mibi
+  - microct
+  - mri
+  - mxif
+  - nano
+  - oct
+  - seqfish
+  - stained
+  - ultrasound
 resolution_y_value:
-- af
-- bodyct
-- celldive
-- cems
-- codex
-- gcms
-- ims
-- lcms
-- lightsheet
-- mibi
-- microct
-- mri
-- mxif
-- nano
-- oct
-- seqfish
-- stained
-- ultrasound
+  - af
+  - bodyct
+  - celldive
+  - cems
+  - codex
+  - gcms
+  - ims
+  - lcms
+  - lightsheet
+  - mibi
+  - microct
+  - mri
+  - mxif
+  - nano
+  - oct
+  - seqfish
+  - stained
+  - ultrasound
 resolution_z_unit:
-- af
-- bodyct
-- codex
-- lightsheet
-- microct
-- mri
-- oct
-- seqfish
-- stained
-- ultrasound
+  - af
+  - bodyct
+  - codex
+  - lightsheet
+  - microct
+  - mri
+  - oct
+  - seqfish
+  - stained
+  - ultrasound
 resolution_z_value:
-- af
-- bodyct
-- codex
-- lightsheet
-- microct
-- mri
-- oct
-- seqfish
-- stained
-- ultrasound
+  - af
+  - bodyct
+  - codex
+  - lightsheet
+  - microct
+  - mri
+  - oct
+  - seqfish
+  - stained
+  - ultrasound
 rnaseq_assay_input:
-- scrnaseq
-- scrnaseq-hca
+  - scrnaseq
+  - scrnaseq-hca
 rnaseq_assay_input_unit:
-- bulkrnaseq
+  - bulkrnaseq
 rnaseq_assay_input_value:
-- bulkrnaseq
+  - bulkrnaseq
 rnaseq_assay_method:
-- bulkrnaseq
-- scrnaseq
-- scrnaseq-hca
-- slideseq
+  - bulkrnaseq
+  - scrnaseq
+  - scrnaseq-hca
+  - slideseq
 roi_description:
-- bodyct
-- imc
-- imc3d
-- mibi
-- microct
-- mri
-- oct
-- ultrasound
+  - bodyct
+  - imc
+  - imc3d
+  - mibi
+  - microct
+  - mri
+  - oct
+  - ultrasound
 roi_id:
-- bodyct
-- imc
-- imc3d
-- mibi
-- microct
-- mri
-- oct
-- ultrasound
+  - bodyct
+  - imc
+  - imc3d
+  - mibi
+  - microct
+  - mri
+  - oct
+  - ultrasound
 rr_id:
-- antibodies
+  - antibodies
 sample_id:
-- sample
-- sample-block
-- sample-section
-- sample-suspension
+  - sample
+  - sample-block
+  - sample-section
+  - sample-suspension
 sample_quality_metric:
-- bulkatacseq
+  - bulkatacseq
 sc_isolation_cell_number:
-- scatacseq
-- scrnaseq
-- scrnaseq-hca
+  - scatacseq
+  - scrnaseq
+  - scrnaseq-hca
 sc_isolation_enrichment:
-- scatacseq
-- scrnaseq
-- scrnaseq-hca
+  - scatacseq
+  - scrnaseq
+  - scrnaseq-hca
 sc_isolation_entity:
-- scatacseq
-- scrnaseq
-- scrnaseq-hca
+  - scatacseq
+  - scrnaseq
+  - scrnaseq-hca
 sc_isolation_protocols_io_doi:
-- scatacseq
-- scrnaseq
-- scrnaseq-hca
+  - scatacseq
+  - scrnaseq
+  - scrnaseq-hca
 sc_isolation_quality_metric:
-- scatacseq
-- scrnaseq
-- scrnaseq-hca
+  - scatacseq
+  - scrnaseq
+  - scrnaseq-hca
 sc_isolation_tissue_dissociation:
-- scatacseq
-- scrnaseq
-- scrnaseq-hca
+  - scatacseq
+  - scrnaseq
+  - scrnaseq-hca
 scanning_sequence:
-- mri
+  - mri
 section_index_number:
-- sample-section
+  - sample-section
 section_prep_protocols_io_doi:
-- cems
-- codex
-- gcms
-- imc
-- imc3d
-- ims
-- lcms
-- mibi
-- mxif
-- seqfish
-- stained
+  - cems
+  - codex
+  - gcms
+  - imc
+  - imc3d
+  - ims
+  - lcms
+  - mibi
+  - mxif
+  - seqfish
+  - stained
 section_thickness_unit:
-- sample-section
+  - sample-section
 section_thickness_value:
-- sample-section
+  - sample-section
 segment_data_format:
-- imc
-- imc3d
-- mibi
+  - imc
+  - imc3d
+  - mibi
 sequence_variant:
-- mri
+  - mri
 sequencing_phix_percent:
-- bulkatacseq
-- bulkrnaseq
-- scatacseq
-- scrnaseq
-- scrnaseq-hca
-- slideseq
-- wgs
+  - bulkatacseq
+  - bulkrnaseq
+  - scatacseq
+  - scrnaseq
+  - scrnaseq-hca
+  - slideseq
+  - wgs
 sequencing_read_format:
-- bulkatacseq
-- bulkrnaseq
-- scatacseq
-- scrnaseq
-- scrnaseq-hca
-- slideseq
-- wgs
+  - bulkatacseq
+  - bulkrnaseq
+  - scatacseq
+  - scrnaseq
+  - scrnaseq-hca
+  - slideseq
+  - wgs
 sequencing_read_percent_q30:
-- bulkatacseq
-- bulkrnaseq
-- scatacseq
-- scrnaseq
-- scrnaseq-hca
-- slideseq
-- wgs
+  - bulkatacseq
+  - bulkrnaseq
+  - scatacseq
+  - scrnaseq
+  - scrnaseq-hca
+  - slideseq
+  - wgs
 sequencing_reagent_kit:
-- bulkatacseq
-- bulkrnaseq
-- scatacseq
-- scrnaseq
-- scrnaseq-hca
-- slideseq
-- wgs
+  - bulkatacseq
+  - bulkrnaseq
+  - scatacseq
+  - scrnaseq
+  - scrnaseq-hca
+  - slideseq
+  - wgs
 signal_type:
-- imc
-- imc3d
-- mibi
+  - imc
+  - imc3d
+  - mibi
 single_file_export_format:
-- bodyct
-- microct
-- mri
-- oct
-- ultrasound
+  - bodyct
+  - microct
+  - mri
+  - oct
+  - ultrasound
 sn_quality:
-- oct
+  - oct
 sn_quality_unit:
-- oct
+  - oct
 source_project:
-- scrnaseq-hca
+  - scrnaseq-hca
 source_storage_time_unit:
-- sample-block
-- sample-section
-- sample-suspension
+  - sample-block
+  - sample-section
+  - sample-suspension
 source_storage_time_value:
-- sample-block
-- sample-section
-- sample-suspension
+  - sample-block
+  - sample-section
+  - sample-suspension
 spatial_sampling_type:
-- cems
-- gcms
-- lcms
+  - cems
+  - gcms
+  - lcms
 spatial_target:
-- cems
-- gcms
-- lcms
+  - cems
+  - gcms
+  - lcms
 spatial_type:
-- cems
-- gcms
-- lcms
+  - cems
+  - gcms
+  - lcms
 specimen_preservation_temperature:
-- sample
+  - sample
 specimen_quality_criteria:
-- sample
+  - sample
 specimen_tumor_distance_unit:
-- sample
+  - sample
 specimen_tumor_distance_value:
-- sample
+  - sample
 speckle_reduction_imaging:
-- ultrasound
+  - ultrasound
 stain:
-- stained
+  - stained
 start_datetime:
-- imc
-- mibi
+  - imc
+  - mibi
 step_z_value:
-- lightsheet
+  - lightsheet
 storage_media:
-- sample-block
-- sample-section
-- sample-suspension
+  - sample-block
+  - sample-section
+  - sample-suspension
 storage_method:
-- sample-block
-- sample-section
-- sample-suspension
+  - sample-block
+  - sample-section
+  - sample-suspension
 suspension_enriched:
-- sample-suspension
+  - sample-suspension
 suspension_enriched_target:
-- sample-suspension
+  - sample-suspension
 suspension_entity:
-- sample-suspension
+  - sample-suspension
 suspension_entity_number:
-- sample-suspension
+  - sample-suspension
 tissue_id:
-- af
-- bodyct
-- bulkatacseq
-- bulkrnaseq
-- celldive
-- cems
-- codex
-- gcms
-- imc
-- imc3d
-- ims
-- lcms
-- lightsheet
-- mibi
-- microct
-- mri
-- mxif
-- nano
-- oct
-- scatacseq
-- scrnaseq
-- scrnaseq-hca
-- seqfish
-- slideseq
-- stained
-- ultrasound
-- wgs
+  - af
+  - bodyct
+  - bulkatacseq
+  - bulkrnaseq
+  - celldive
+  - cems
+  - codex
+  - gcms
+  - imc
+  - imc3d
+  - ims
+  - lcms
+  - lightsheet
+  - mibi
+  - microct
+  - mri
+  - mxif
+  - nano
+  - oct
+  - scatacseq
+  - scrnaseq
+  - scrnaseq-hca
+  - seqfish
+  - slideseq
+  - stained
+  - ultrasound
+  - wgs
 total_ischemic_time_unit:
-- organ
+  - organ
 total_ischemic_time_value:
-- organ
+  - organ
 total_sections_analyzed:
-- microct
-- oct
+  - microct
+  - oct
 transport_solution:
-- organ
+  - organ
 transposition_input:
-- scatacseq
+  - scatacseq
 transposition_kit_number:
-- bulkatacseq
-- scatacseq
+  - bulkatacseq
+  - scatacseq
 transposition_method:
-- bulkatacseq
-- scatacseq
+  - bulkatacseq
+  - scatacseq
 transposition_transposase_source:
-- bulkatacseq
-- scatacseq
+  - bulkatacseq
+  - scatacseq
 type:
-- sample-block
-- sample-section
-- sample-suspension
+  - sample-block
+  - sample-section
+  - sample-suspension
 umi_offset:
-- scrnaseq
+  - scrnaseq
 umi_read:
-- scrnaseq
+  - scrnaseq
 umi_size:
-- scrnaseq
+  - scrnaseq
 uniprot_accession_number:
-- antibodies
+  - antibodies
 version:
-- af
-- antibodies
-- bodyct
-- bulkatacseq
-- bulkrnaseq
-- celldive
-- cems
-- codex
-- contributors
-- gcms
-- imc
-- imc3d
-- ims
-- lcms
-- lightsheet
-- mibi
-- microct
-- mri
-- mxif
-- nano
-- oct
-- publication
-- sample-block
-- sample-section
-- sample-suspension
-- scatacseq
-- scrnaseq
-- seqfish
-- slideseq
-- stained
-- ultrasound
-- wgs
+  - af
+  - antibodies
+  - bodyct
+  - bulkatacseq
+  - bulkrnaseq
+  - celldive
+  - cems
+  - codex
+  - contributors
+  - gcms
+  - imc
+  - imc3d
+  - ims
+  - lcms
+  - lightsheet
+  - mibi
+  - microct
+  - mri
+  - mxif
+  - nano
+  - oct
+  - publication
+  - sample-block
+  - sample-section
+  - sample-suspension
+  - scatacseq
+  - scrnaseq
+  - seqfish
+  - slideseq
+  - stained
+  - ultrasound
+  - wgs
 vital_state:
-- sample
+  - sample
 voltage_unit:
-- microct
+  - microct
 voltage_value:
-- microct
+  - microct
 volume_export_format:
-- oct
+  - oct
 volume_unit:
-- sample-block
+  - sample-block
 volume_value:
-- sample-block
+  - sample-block
 warm_ischemia_time_unit:
-- sample
+  - sample
 warm_ischemia_time_value:
-- sample
+  - sample
 warm_ischemic_time_unit:
-- organ
+  - organ
 warm_ischemic_time_value:
-- organ
+  - organ
 wavelength_unit:
-- oct
+  - oct
 wavelength_value:
-- oct
+  - oct
 weight_unit:
-- organ
-- sample-block
+  - organ
+  - sample-block
 weight_value:
-- sample-block
-
+  - sample-block
