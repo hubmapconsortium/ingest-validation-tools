@@ -142,7 +142,6 @@ assay_category:
 - gcms
 - geomx
 - hifi-slide
-- histology
 - imc
 - imc3d
 - ims
@@ -198,7 +197,6 @@ assay_type:
 - gcms
 - geomx
 - hifi-slide
-- histology
 - imc
 - imc3d
 - ims
@@ -554,7 +552,6 @@ is_cedar:
 - gcms
 - geomx
 - hifi-slide
-- histology
 - imc
 - imc3d
 - ims
@@ -994,8 +991,6 @@ parent_id:
 - visium
 - wgs
 - xenium
-parent_sample_id:
-- histology
 pathologist_report:
 - sample
 pathology_distance_unit:

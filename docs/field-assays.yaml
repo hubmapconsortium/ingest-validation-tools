@@ -205,7 +205,6 @@ assay_category:
 - GeoMx (RNA)
 - GeoMx (protein)
 - HiFi-Slide
-- Histology
 - IMS
 - Imaging Mass Cytometry
 - LC-MS
@@ -287,7 +286,6 @@ assay_type:
 - GeoMx (RNA)
 - GeoMx (protein)
 - HiFi-Slide
-- Histology
 - IMS
 - Imaging Mass Cytometry
 - LC-MS
@@ -818,7 +816,6 @@ is_cedar:
 - GeoMx (RNA)
 - GeoMx (protein)
 - HiFi-Slide
-- Histology
 - IMS
 - Imaging Mass Cytometry
 - LC-MS
@@ -1595,8 +1592,6 @@ parent_id:
 - WGS
 - Xenium
 - seqFISH
-parent_sample_id:
-- Histology
 pi:
 - 3D Imaging Mass Cytometry
 - AF
