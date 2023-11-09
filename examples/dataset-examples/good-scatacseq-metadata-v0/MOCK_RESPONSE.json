@@ -1,0 +1,1 @@
+{"args": {"dataset_type": "snare-seq2", "metadata_schema_id": null, "is_cedar": false}, "response": {"assaytype": "SNARE-ATACseq2", "description": "snATACseq (SNARE-seq2)", "dir_schema": "scatacseq-v0", "vitessce_hints": []}}

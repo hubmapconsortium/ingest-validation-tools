@@ -1,0 +1,1 @@
+{"args": {"dataset_type": "maldi-ims", "metadata_schema_id": null, "is_cedar": false}, "response": {"assaytype": "MALDI-IMS", "description": "MALDI IMS", "dir_schema": "ims-v0", "vitessce_hints": ["maldi"]}}

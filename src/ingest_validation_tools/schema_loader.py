@@ -35,14 +35,22 @@ class SchemaVersion:
 
     schema_name: str
     version: str
+    directory_path: Optional[Path] = None
     schema_string: str = ""
     path: Optional[Union[Path, str]] = None
     rows: List = field(default_factory=list)
     soft_assay_data: Dict = field(default_factory=dict)
     is_cedar: bool = False
     dataset_type: str = ""
+    data_path: Optional[Union[Path, str]] = None
     vitessce_hints: List = field(default_factory=list)
     dir_schema: str = ""
+    dir_schema_version: str = ""
+    # TODO: this is not thought out yet
+    # multi_type: str = ""
+    # must_contain: List = field(default_factory=list)
+    # can_contain: List = field(default_factory=list)
+    # part_of_multi: bool = False
 
     def __post_init__(self):
         self.schema_string = self.schema_name + "-v" + self.version
@@ -57,10 +65,15 @@ class SchemaVersion:
                     """
                 )
         if self.rows:
+            data_path = self.rows[0].get("data_path")
+            if not data_path:
+                raise PreflightError(f"No data_path in TSV {self.path}.")
+            if self.directory_path:
+                self.data_path = self.directory_path / Path(data_path)
             assay_type = self.rows[0].get("assay_type")
             dataset_type = self.rows[0].get("dataset_type")
             if assay_type is not None and dataset_type is not None:
-                raise Exception(
+                raise PreflightError(
                     f"Found both assay_type and dataset_type for path {self.path}!"
                 )
             else:
@@ -68,6 +81,16 @@ class SchemaVersion:
         if self.soft_assay_data:
             self.vitessce_hints = self.soft_assay_data.get("vitessce_hints", [])
             self.dir_schema = self.soft_assay_data.get("dir_schema", "")
+            # self.must_contain = self.soft_assay_data.get("must_contain", [])
+            # self.can_contain = self.soft_assay_data.get("can_contain", [])
+        if self.dir_schema:
+            match = re.match(r".+-v(\d+)", self.dir_schema)
+            if match:
+                self.dir_schema_version = match[1]
+        # if self.must_contain:
+        #     self.multi_type = "must"
+        # elif self.can_contain:
+        #     self.multi_type = "can"
 
 
 def get_fields_wo_headers(schema: dict) -> List[dict]:

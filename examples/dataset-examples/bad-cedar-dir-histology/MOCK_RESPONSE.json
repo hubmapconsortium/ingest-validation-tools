@@ -1,0 +1,1 @@
+{"args": {"dataset_type": "histology", "metadata_schema_id": "e7475329-9a60-4088-8e34-19a3828e0b3b", "is_cedar": true}, "response": {"assaytype": "histology", "description": "Histology", "dir_schema": "histology-v2", "vitessce_hints": []}}

@@ -2,7 +2,6 @@ import json
 import logging
 from csv import DictReader
 from pathlib import Path, PurePath
-import re
 from typing import Dict, List, Optional, Union
 
 import requests
@@ -22,6 +21,10 @@ from ingest_validation_tools.schema_loader import (
     get_table_schema_version_from_row,
     PreflightError,
 )
+from ingest_validation_tools.test_validation_utils import (
+    compare_mock_with_response,
+    mock_response,
+)
 
 
 class TableValidationErrors(Exception):
@@ -35,7 +38,11 @@ def dict_reader_wrapper(path, encoding: str) -> list:
 
 
 def get_table_schema_version(
-    path: Path, encoding: str, globus_token: str
+    path: Path,
+    encoding: str,
+    globus_token: str,
+    directory_path: Optional[Path] = None,
+    # offline: bool = False,
 ) -> SchemaVersion:
     rows = _read_rows(path, encoding)
     assay_type_data = {}
@@ -54,16 +61,17 @@ def get_table_schema_version(
         version = schema_version.version
         is_cedar = False
         dataset_type = rows[0].get("assay_type")
-    # Can't hit endpoint without globus_token, just use whatever you got above
-    if not globus_token:
-        pass
     # Don't want to send sample/antibody to soft assay endpoint
-    elif not other_type:
+    if not other_type:
+        # if not globus_token:
+        #     offline = True
         assay_type_data = get_assaytype_data(
             dataset_type.lower(),
             globus_token,
+            path,
             metadata_schema_id=metadata_schema_id,
             is_cedar=is_cedar,
+            # offline=offline,
         )
         if not assay_type_data:
             raise Exception(
@@ -74,14 +82,22 @@ def get_table_schema_version(
             )
         if metadata_schema_id:
             schema_name = assay_type_data.get("assaytype")
+    # if assay_type_data.get("must_contain"):
+    #     multi_type = "must"
+    # elif assay_type_data.get("can_contain"):
+    #     multi_type = "can"
+    # else:
+    #     multi_type = ""
     if schema_name:
         return SchemaVersion(
             schema_name.lower(),
             version,
+            directory_path=directory_path,
             path=path,
             rows=rows,
             soft_assay_data=assay_type_data,
             is_cedar=is_cedar,
+            # multi_type=multi_type,
         )
     else:
         raise Exception(f"No assay type found for path {path}.")
@@ -103,6 +119,8 @@ def get_ingest_api_env(env: str) -> str:
         return f"https://ingest-api.{env}.hubmapconsortium.org/assaytype"
     elif env == "prod":
         return "https://ingest.api.hubmapconsortium.org/assaytype"
+    elif env == "local":
+        return "http://localhost:5000/assaytype"
     else:
         raise Exception(f"Environment {env} not found!")
 
@@ -110,10 +128,14 @@ def get_ingest_api_env(env: str) -> str:
 def get_assaytype_data(
     dataset_type: str,
     globus_token: str,
+    path: Path,
     metadata_schema_id: Optional[str] = None,
     is_cedar: bool = True,
-    env: str = "dev",
+    env: str = "local",
+    offline: bool = False,
 ) -> Dict:
+    if offline:
+        return mock_response(path, dataset_type, metadata_schema_id, is_cedar)
     url = get_ingest_api_env(env)
     headers = {
         "Authorization": "Bearer " + globus_token,
@@ -125,22 +147,25 @@ def get_assaytype_data(
         data = {"assay_type": dataset_type}
     response = requests.post(url, headers=headers, data=json.dumps(data))
     response.raise_for_status()
+    request_args = {
+        "dataset_type": dataset_type,
+        "metadata_schema_id": metadata_schema_id,
+        "is_cedar": is_cedar,
+    }
+    compare_mock_with_response(request_args, response.json(), path)
     return response.json()
 
 
 def get_directory_schema_versions(
     tsv_path: str,
-    schema_version: str,
+    schema_version: SchemaVersion,
     encoding: str,
-    schema_label: Optional[str] = None,
-) -> list:
+) -> List:
     parent = Path(tsv_path).parent
     data_paths = [r.get("data_path") for r in _read_rows(tsv_path, encoding)]
     return list(
         set(
-            _get_directory_schema_version(
-                parent / path, schema_label=schema_label, version=schema_version
-            )
+            _get_directory_schema_version(parent / path, schema_version=schema_version)
             for path in data_paths
             if path and schema_version
         )
@@ -160,26 +185,25 @@ def _read_rows(path, encoding: str):
 
 
 def _get_directory_schema_version(
-    path: str, schema_label: Optional[str] = "", version: Optional[str] = ""
+    data_path: str,
+    schema_version: SchemaVersion,
+    is_cedar: bool = False,
 ) -> str:
-    if schema_label:
-        v_match = re.match(r".+(?=-v\d+)", schema_label)
-        if not v_match:
-            raise Exception(f"No version in label {schema_label} for {path}")
-        return v_match[0]
-    elif version:
-        prefix = "dir-schema-v"
-        version_hints = [
-            path.name for path in (Path(path) / "extras").glob(f"{prefix}*")
-        ]
+    prefix = "dir-schema-v"
+    version_hints = [
+        path.name for path in (Path(data_path) / "extras").glob(f"{prefix}*")
+    ]
+    if schema_version.dir_schema_version and not version_hints:
+        return schema_version.dir_schema_version
+    elif version_hints:
         len_hints = len(version_hints)
         # CEDAR schemas are all v2+; if no hints are provided, default to
         # data directory schema v2
-        if len_hints == 0 and int(version) > 1:
+        if len_hints == 0 and is_cedar:
             return "2"
         # For non-CEDAR templates, default to data directory schema v0 if
         # no hints provided
-        elif len_hints == 0:
+        elif len_hints == 0 and not is_cedar:
             return "0"
         elif len_hints == 1:
             return version_hints[0].replace(prefix, "")
@@ -187,26 +211,30 @@ def _get_directory_schema_version(
             raise Exception(f"Expect 0 or 1 hints, not {len_hints}: {version_hints}")
     else:
         raise Exception(
-            f"Didn't receive schema_label/version for path {path}, can't find dir schema version."
+            f"""
+            Didn't receive schema_label/version for path {data_path},
+            can't find dir schema version.
+            """
         )
 
 
 def get_data_dir_errors(
     schema_version: SchemaVersion,
     data_path: Path,
+    is_cedar: bool,
     dataset_ignore_globs: List[str] = [],
 ) -> Optional[dict]:
     """
     Validate a single data_path.
+    Still using _get_directory_schema_version to return the version
+    here to accommodate (and privilege) remaining extras dirs in
+    local validation
     """
-    # TODO: we can dispense with getting the version once we're sure
-    # local validation is working properly; this will break generate_docs
     dir_schema_version = _get_directory_schema_version(
-        str(data_path),
-        schema_label=schema_version.dir_schema,
-        version=schema_version.version,
+        str(data_path), schema_version=schema_version, is_cedar=is_cedar
     )
-    if not schema_version.dir_schema:
+    if schema_version.dir_schema_version != dir_schema_version:
+        schema_version.dir_schema_version = dir_schema_version
         schema_version.dir_schema = (
             f"{schema_version.schema_name}-v{dir_schema_version}"
         )
@@ -317,7 +345,6 @@ def get_tsv_errors(
     encoding: str = "utf-8",
     ignore_deprecation: bool = False,
     report_type: ReportType = ReportType.STR,
-    cedar_api_key: str = "",
 ) -> Union[Dict[str, str], List[str]]:
     """
     Validate the TSV.
@@ -396,7 +423,7 @@ def get_tsv_errors(
     if is_cedar:
         from ingest_validation_tools.upload import Upload
 
-        upload = Upload(Path(tsv_path).parent, cedar_api_key=cedar_api_key)
+        upload = Upload(Path(tsv_path).parent)
         errors = upload.api_validation(Path(tsv_path), report_type)
         schema_version = SchemaVersion(schema_name, version)
         return errors | upload._cedar_url_checks(str(tsv_path), schema_version)

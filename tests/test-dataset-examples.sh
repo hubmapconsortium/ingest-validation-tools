@@ -7,7 +7,7 @@ for SUITE in examples/dataset-examples examples/dataset-iec-examples; do
 
     case $SUITE in
         examples/dataset-iec-examples)
-            OPTS="--dataset_ignore_globs 'metadata.tsv' --upload_ignore_globs '*'"
+            OPTS="--dataset_ignore_globs 'metadata.tsv' --upload_ignore_globs '*' --offline"
             ;;
         examples/dataset-examples)
             # To minimize dependence on outside resources, --offline used here,

@@ -1,0 +1,1 @@
+{"args": {"dataset_type": "scrnaseq-10xgenomics-v3", "metadata_schema_id": null, "is_cedar": false}, "response": {"assaytype": "scRNAseq-10xGenomics-v3", "description": "scRNA-seq (10x Genomics v3)", "dir_schema": "scrnaseq-v0", "vitessce_hints": []}}

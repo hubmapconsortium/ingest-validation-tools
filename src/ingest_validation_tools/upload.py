@@ -9,7 +9,6 @@ from pathlib import Path
 from typing import Any, Dict, List, Optional, Union, DefaultDict
 
 import requests
-from requests.auth import HTTPBasicAuth
 
 from ingest_validation_tools.plugin_validator import (
     ValidatorError as PluginValidatorError,
@@ -58,7 +57,6 @@ class Upload:
         ignore_deprecation: bool = False,
         extra_parameters: Union[dict, None] = None,
         globus_token: str = "",
-        cedar_api_key: str = "",
     ):
         self.directory_path = directory_path
         self.optional_fields = optional_fields
@@ -73,25 +71,65 @@ class Upload:
         self.effective_tsv_paths = {}
         self.extra_parameters = extra_parameters if extra_parameters else {}
         self.globus_token = globus_token
-        self.cedar_api_key = cedar_api_key
 
         # TODO: soft assay type endpoint calls happen here to weed out any bad multi-assay uploads
 
         try:
             unsorted_effective_tsv_paths = {
                 str(path): get_table_schema_version(
-                    path, self.encoding, self.globus_token
+                    path,
+                    self.encoding,
+                    self.globus_token,
+                    self.directory_path,
                 )
                 for path in (
                     tsv_paths if tsv_paths else directory_path.glob(f"*{TSV_SUFFIX}")
                 )
             }
+
             self.effective_tsv_paths = {
                 k: unsorted_effective_tsv_paths[k]
                 for k in sorted(unsorted_effective_tsv_paths.keys())
             }
+
         except PreflightError as e:
             self.errors["Preflight"] = str(e)
+
+    # def _check_multi_assay(self):
+    #     # This is not recursive, so if there are nested requirements it will not work
+    #     shared_data_paths = defaultdict(lambda: {"name": "", "components": []})
+    #     multi = [sv for sv in self.effective_tsv_paths.values() if sv.multi_type]
+    #     if len(multi) == 0:
+    #         return
+    #     elif len(multi) == 1:
+    #         MultiAssaySchema = namedtuple(
+    #             "MultiAssaySchema",
+    #             ["schema_name", "multi_type", "contains", "data_path"],
+    #         )
+    #         self.multi_assay_schema = MultiAssaySchema(
+    #             multi[0].schema_name,
+    #             multi[0].multi_type,
+    #             multi[0].must_contain + multi[0].can_contain,
+    #             multi[0].data_path,
+    #         )
+    #         shared_data_paths[multi[0].data_path]["name"] = multi[0].schema_name
+    #     else:
+    #         raise Exception
+    #     for sv in self.effective_tsv_paths.values():
+    #         if (
+    #             # TODO: is it the case that there will be a
+    #             # multi-assay type and multiple data paths?
+    #             sv.data_path == self.multi_assay_schema.data_path
+    #             and sv.schema_name in self.multi_assay_schema.contains
+    #         ):
+    #             shared_data_paths[sv.data_path]["contains"] = sv.schema_name
+    #         else:
+    #             raise Exception
+    #     if self.multi_assay_schema.multi_type == "must":
+    #         assert (
+    #             self.multi_assay_schema.contains
+    #             == shared_data_paths[self.multi_assay_schema.data_path]
+    #         ), ""
 
     #####################
     #
@@ -113,7 +151,7 @@ class Upload:
                     "Metadata schema version": sv.version,
                     "Directory schema versions": get_directory_schema_versions(
                         path,
-                        schema_version=sv.version,
+                        schema_version=sv,
                         encoding="ascii",
                     ),
                 }
@@ -338,10 +376,6 @@ class Upload:
 
     def api_validation(self, tsv_path: Path, report_type: ReportType = ReportType.STR):
         errors = {}
-        if not self.cedar_api_key:
-            return {
-                "Request Errors": f"No CEDAR API key passed, cannot validate {tsv_path}!"
-            }
         response = self._cedar_api_call(tsv_path)
         if response.status_code != 200:
             errors["Request Errors"] = response.json()
@@ -361,13 +395,11 @@ class Upload:
     ##############################
 
     def _cedar_api_call(self, tsv_path: Union[str, Path]) -> requests.models.Response:
-        auth = HTTPBasicAuth("apikey", self.cedar_api_key)
         file = {"input_file": open(tsv_path, "rb")}
         headers = {"content_type": "multipart/form-data"}
         try:
             response = requests.post(
                 "https://api.metadatavalidator.metadatacenter.org/service/validate-tsv",
-                auth=auth,
                 headers=headers,
                 files=file,
             )
@@ -502,6 +534,7 @@ class Upload:
         ref: str,
         schema_version: SchemaVersion,
         metadata_path: Union[str, Path],
+        is_cedar: bool = False,
     ) -> Optional[Dict]:
         errors: Dict[
             str, Union[list, dict]
@@ -511,6 +544,7 @@ class Upload:
                 schema_version,
                 path,
                 dataset_ignore_globs=self.dataset_ignore_globs,
+                is_cedar=is_cedar,
             )
             if ref_errors:
                 # TODO: quote field name to match TSV error output;
@@ -523,7 +557,6 @@ class Upload:
                 offline=self.offline,
                 encoding=self.encoding,
                 ignore_deprecation=self.ignore_deprecation,
-                cedar_api_key=self.cedar_api_key,
             )
             # TSV located and read, errors found
             if tsv_ref_errors and isinstance(tsv_ref_errors, list):
@@ -558,12 +591,12 @@ class Upload:
             if not row.get(field):
                 continue
             data_path = self.directory_path / row[field]
+            if "metadata_schema_id" in rows[0]:
+                is_cedar = True
+            else:
+                is_cedar = False
             ref_error = self._check_path(
-                i,
-                data_path,
-                ref,
-                schema,
-                metadata_path,
+                i, data_path, ref, schema, metadata_path, is_cedar=is_cedar
             )
             if ref_error:
                 ref_errors.update(ref_error)

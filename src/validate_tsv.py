@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 
 import argparse
+from pathlib import Path
 import sys
 import inspect
 
@@ -50,10 +51,6 @@ Exit status codes:
         default="",
         help="Token for URL checking using Entity API.",
     )
-    parser.add_argument(
-        "--cedar_api_key",
-        help="CEDAR Metadata Spreadsheet Validator API key.",
-    )
     error_report_methods = [
         name for (name, _) in inspect.getmembers(ErrorReport) if name.startswith("as_")
     ]
@@ -75,7 +72,7 @@ def main():
             errors_string = args.schema
         else:
             schema_version = get_table_schema_version(
-                args.path, "ascii", args.globus_token
+                Path(args.path), "ascii", args.globus_token
             )
             schema_name = schema_version.schema_name
             errors_string = f"{schema_version.schema_name}-v{schema_version.version}"
