@@ -7,20 +7,18 @@ from typing import Dict, List, Optional, Union
 import requests
 
 from ingest_validation_tools.schema_loader import (
+    PreflightError,
     SchemaVersion,
     get_table_schema,
     get_other_schema,
     get_directory_schema,
+    get_table_schema_version_from_row,
 )
 from ingest_validation_tools.directory_validator import (
     validate_directory,
     DirectoryValidationErrors,
 )
 from ingest_validation_tools.table_validator import get_table_errors, ReportType
-from ingest_validation_tools.schema_loader import (
-    get_table_schema_version_from_row,
-    PreflightError,
-)
 from ingest_validation_tools.test_validation_utils import (
     compare_mock_with_response,
     mock_response,
@@ -47,60 +45,36 @@ def get_table_schema_version(
     rows = _read_rows(path, encoding)
     assay_type_data = {}
     other_type = get_other_schema_name(rows, str(path))
-    metadata_schema_id = rows[0].get("metadata_schema_id")
-    if metadata_schema_id:
-        version = (
-            "2"  # TODO: Fix this because we can't force the version to be 2 forever.
-        )
-        is_cedar = True
-        dataset_type = rows[0].get("dataset_type")
-        schema_name = dataset_type
-    else:
-        schema_version = get_table_schema_version_from_row(str(path), rows[0])
-        schema_name = schema_version.schema_name
-        version = schema_version.version
-        is_cedar = False
-        dataset_type = rows[0].get("assay_type")
     # Don't want to send sample/antibody to soft assay endpoint
     if not other_type:
         if not globus_token:
             offline = True
         assay_type_data = get_assaytype_data(
-            dataset_type.lower(),
+            rows[0],
             globus_token,
             path,
-            metadata_schema_id=metadata_schema_id,
-            is_cedar=is_cedar,
             offline=offline,
         )
         if not assay_type_data:
             raise Exception(
                 f"""
-                No assay type data found for path {path}.
-                Dataset type is {dataset_type}, is_cedar = {is_cedar}.
+                No assay type data found for {path}.
                 """
             )
-        if metadata_schema_id:
-            schema_name = assay_type_data.get("assaytype")
-    # if assay_type_data.get("must_contain"):
-    #     multi_type = "must"
-    # elif assay_type_data.get("can_contain"):
-    #     multi_type = "can"
-    # else:
-    #     multi_type = ""
-    if schema_name:
-        return SchemaVersion(
-            schema_name.lower(),
-            version,
-            directory_path=directory_path,
-            path=path,
-            rows=rows,
-            soft_assay_data=assay_type_data,
-            is_cedar=is_cedar,
-            # multi_type=multi_type,
-        )
+    # TODO: schema_version can be excised once local validation is no longer supported
+    if not rows[0].get("metadata_schema_id"):
+        version = get_table_schema_version_from_row(str(path), rows[0]).version
     else:
-        raise Exception(f"No assay type found for path {path}.")
+        # TODO: Fix this because we can't force the version to be 2 forever.
+        version = "2"
+    return SchemaVersion(
+        assay_type_data["assaytype"].lower(),
+        version,
+        directory_path=directory_path,
+        path=path,
+        rows=rows,
+        soft_assay_data=assay_type_data,
+    )
 
 
 def get_other_schema_name(rows: List, path: str) -> Optional[str]:
@@ -126,33 +100,22 @@ def get_ingest_api_env(env: str) -> str:
 
 
 def get_assaytype_data(
-    dataset_type: str,
+    row: Dict,
     globus_token: str,
     path: Path,
-    metadata_schema_id: Optional[str] = None,
-    is_cedar: bool = True,
     env: str = "local",
     offline: bool = False,
 ) -> Dict:
     if offline:
-        return mock_response(path, dataset_type, metadata_schema_id, is_cedar)
+        return mock_response(path, row)
     url = get_ingest_api_env(env)
     headers = {
         "Authorization": "Bearer " + globus_token,
         "Content-Type": "application/json",
     }
-    if is_cedar:
-        data = {"metadata_schema_id": metadata_schema_id, "dataset_type": dataset_type}
-    else:
-        data = {"assay_type": dataset_type}
-    response = requests.post(url, headers=headers, data=json.dumps(data))
+    response = requests.post(url, headers=headers, data=json.dumps(row))
     response.raise_for_status()
-    request_args = {
-        "dataset_type": dataset_type,
-        "metadata_schema_id": metadata_schema_id,
-        "is_cedar": is_cedar,
-    }
-    compare_mock_with_response(request_args, response.json(), path)
+    compare_mock_with_response(row, response.json(), path)
     return response.json()
 
 

@@ -1,6 +1,6 @@
 import json
 from pathlib import Path
-from typing import Dict, Optional
+from typing import Dict, List
 
 
 class MockException(Exception):
@@ -8,9 +8,7 @@ class MockException(Exception):
         super().__init__(error)
 
 
-def mock_response(
-    path: Path, dataset_type: str, metadata_schema_id: Optional[str], is_cedar: bool
-) -> Dict:
+def mock_response(path: Path, row: Dict) -> Dict:
     response_dict = open_and_read_mock_file(path)
     if not response_dict:
         raise MockException(
@@ -19,14 +17,13 @@ def mock_response(
                 ./tests-manual/test-dataset-examples-cedar.sh <globus_token>
                 """
         )
-    request_args = [dataset_type, metadata_schema_id, is_cedar]
-    if not set(request_args).difference(response_dict.get("args", {}).values()):
+    if not set(row.values()).difference(response_dict.get("args", {}).values()):
         return response_dict["response"]
     else:
         raise MockException(
             f"""
             Not all expected args were passed for path {path}.
-            Args passed: {request_args}
+            Args passed: {row}
             Expected args: {list(response_dict.get("args", {}).values())}
             """
         )
@@ -41,18 +38,18 @@ def open_and_read_mock_file(path: Path) -> Dict:
         return {}
 
 
-def compare_mock_with_response(request_args: Dict, response: Dict, path: Path):
+def compare_mock_with_response(row: Dict, response: Dict, path: Path):
     mock_file = open_and_read_mock_file(path)
     # Messy method of creating mock response file if missing or outdated;
     # would be nicer for this to throw exception during testing and have
     # user create manually
-    if not request_args == mock_file.get("args") or not response == mock_file.get(
+    if not row.values() == mock_file.get("args") or not response == mock_file.get(
         "response"
     ):
-        update_mock_file(request_args, path, response)
+        update_mock_file(list(row.values()), path, response)
 
 
-def update_mock_file(request_args: Dict, path: Path, response: Dict, method: str = "w"):
+def update_mock_file(row: List, path: Path, response: Dict, method: str = "w"):
     metadata_dir = path.parents[1]
     with open(metadata_dir / "MOCK_RESPONSE.json", method) as mock_file:
-        json.dump({"args": request_args, "response": response}, mock_file)
+        json.dump({"args": row, "response": response}, mock_file)
