@@ -37,6 +37,7 @@
 - Update descriptions for segmentation masks
 - Add description to codex doc page
 - Started implementing soft assay types for canonical assay names and dir structures
+- Bail earlier in validation if there are errors in metadata/dir/refs
 
 ## v0.0.15 - 2023-04-04
 
