@@ -42,7 +42,7 @@ def get_table_schema_version(
     encoding: str,
     globus_token: str,
     directory_path: Optional[Path] = None,
-    # offline: bool = False,
+    offline: bool = False,
 ) -> SchemaVersion:
     rows = _read_rows(path, encoding)
     assay_type_data = {}
@@ -63,15 +63,15 @@ def get_table_schema_version(
         dataset_type = rows[0].get("assay_type")
     # Don't want to send sample/antibody to soft assay endpoint
     if not other_type:
-        # if not globus_token:
-        #     offline = True
+        if not globus_token:
+            offline = True
         assay_type_data = get_assaytype_data(
             dataset_type.lower(),
             globus_token,
             path,
             metadata_schema_id=metadata_schema_id,
             is_cedar=is_cedar,
-            # offline=offline,
+            offline=offline,
         )
         if not assay_type_data:
             raise Exception(
