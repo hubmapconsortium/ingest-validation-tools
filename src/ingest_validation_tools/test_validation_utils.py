@@ -17,7 +17,7 @@ def mock_response(path: Path, row: Dict) -> Dict:
                 ./tests-manual/test-dataset-examples-cedar.sh <globus_token>
                 """
         )
-    if not set(row.values()).difference(response_dict.get("args", {}).values()):
+    if not set(row.values()).difference(response_dict.get("args", [])):
         return response_dict["response"]
     else:
         raise MockException(

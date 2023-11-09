@@ -45,6 +45,11 @@ def get_table_schema_version(
     rows = _read_rows(path, encoding)
     assay_type_data = {}
     other_type = get_other_schema_name(rows, str(path))
+    if not rows[0].get("metadata_schema_id"):
+        version = get_table_schema_version_from_row(str(path), rows[0]).version
+    else:
+        # TODO: Fix this because we can't force the version to be 2 forever.
+        version = "2"
     # Don't want to send sample/antibody to soft assay endpoint
     if not other_type:
         if not globus_token:
@@ -56,17 +61,12 @@ def get_table_schema_version(
             offline=offline,
         )
         if not assay_type_data:
-            raise Exception(
+            raise PreflightError(
                 f"""
                 No assay type data found for {path}.
                 """
             )
     # TODO: schema_version can be excised once local validation is no longer supported
-    if not rows[0].get("metadata_schema_id"):
-        version = get_table_schema_version_from_row(str(path), rows[0]).version
-    else:
-        # TODO: Fix this because we can't force the version to be 2 forever.
-        version = "2"
     return SchemaVersion(
         assay_type_data["assaytype"].lower(),
         version,
