@@ -539,6 +539,7 @@ ion_source:
 is_cedar:
 - 10x-multiome
 - af
+- antibodies
 - atacseq
 - bodyct
 - celldive
