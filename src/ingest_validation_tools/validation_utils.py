@@ -1,6 +1,7 @@
 import json
 import logging
 from csv import DictReader
+import os
 from pathlib import Path, PurePath
 from typing import Dict, List, Optional, Union
 
@@ -12,7 +13,6 @@ from ingest_validation_tools.schema_loader import (
     get_table_schema,
     get_other_schema,
     get_directory_schema,
-    get_table_schema_version_from_row,
 )
 from ingest_validation_tools.directory_validator import (
     validate_directory,
@@ -45,28 +45,30 @@ def get_table_schema_version(
     rows = _read_rows(path, encoding)
     assay_type_data = {}
     other_type = get_other_schema_name(rows, str(path))
-    if not rows[0].get("metadata_schema_id"):
-        version = get_table_schema_version_from_row(str(path), rows[0]).version
-    else:
-        # TODO: Fix this because we can't force the version to be 2 forever.
-        version = "2"
+    # Note: schema_version can be excised once local validation is no longer supported;
+    # all next-gen schemas are assumed to be "2" for now
+    version = rows[0].get("version") if rows[0].get("version") else "2"
     # Don't want to send sample/antibody to soft assay endpoint
-    if not other_type:
-        if not globus_token:
-            offline = True
-        assay_type_data = get_assaytype_data(
-            rows[0],
-            globus_token,
-            path,
-            offline=offline,
+    if other_type:
+        return SchemaVersion(
+            other_type,
+            version,
+            directory_path=directory_path,
+            path=path,
+            rows=rows,
         )
-        if not assay_type_data:
-            raise PreflightError(
-                f"""
-                No assay type data found for {path}.
-                """
-            )
-    # TODO: schema_version can be excised once local validation is no longer supported
+    assay_type_data = get_assaytype_data(
+        rows[0],
+        globus_token,
+        path,
+        offline=offline,
+    )
+    if not assay_type_data:
+        raise PreflightError(
+            f"""
+            No assay type data found for {path}.
+            """
+        )
     return SchemaVersion(
         assay_type_data["assaytype"].lower(),
         version,
@@ -74,6 +76,7 @@ def get_table_schema_version(
         path=path,
         rows=rows,
         soft_assay_data=assay_type_data,
+        tbl_schema=assay_type_data.get("tbl_schema"),
     )
 
 
@@ -106,7 +109,7 @@ def get_assaytype_data(
     env: str = "local",
     offline: bool = False,
 ) -> Dict:
-    if offline:
+    if offline or not globus_token:
         return mock_response(path, row)
     url = get_ingest_api_env(env)
     headers = {
@@ -128,7 +131,7 @@ def get_directory_schema_versions(
     data_paths = [r.get("data_path") for r in _read_rows(tsv_path, encoding)]
     return list(
         set(
-            _get_directory_schema_version(parent / path, schema_version=schema_version)
+            _get_directory_schema_version(parent / path, schema_version)
             for path in data_paths
             if path and schema_version
         )
@@ -147,92 +150,81 @@ def _read_rows(path, encoding: str):
     return rows
 
 
-def _get_directory_schema_version(
-    data_path: str,
-    schema_version: SchemaVersion,
-    is_cedar: bool = False,
-) -> str:
-    prefix = "dir-schema-v"
-    version_hints = [
-        path.name for path in (Path(data_path) / "extras").glob(f"{prefix}*")
-    ]
-    if schema_version.dir_schema_version and not version_hints:
-        return schema_version.dir_schema_version
-    elif version_hints:
+def _get_dir_schema_version_from_extras(
+    data_path: Path,
+) -> Optional[str]:
+    if os.path.isdir(data_path / "extras"):
+        prefix = "dir-schema-v"
+        version_hints = [
+            path.name for path in (data_path / "extras").glob(f"{prefix}*")
+        ]
         len_hints = len(version_hints)
-        # CEDAR schemas are all v2+; if no hints are provided, default to
-        # data directory schema v2
-        if len_hints == 0 and is_cedar:
-            return "2"
-        # For non-CEDAR templates, default to data directory schema v0 if
-        # no hints provided
-        elif len_hints == 0 and not is_cedar:
-            return "0"
-        elif len_hints == 1:
+        if len_hints == 1:
             return version_hints[0].replace(prefix, "")
-        else:
+        elif len_hints > 1:
             raise Exception(f"Expect 0 or 1 hints, not {len_hints}: {version_hints}")
-    else:
-        raise Exception(
-            f"""
-            Didn't receive schema_label/version for path {data_path},
-            can't find dir schema version.
-            """
+    return None
+
+
+def _get_directory_schema_version(
+    data_path: Path,
+    schema_version: SchemaVersion,
+) -> str:
+    extras_version = _get_dir_schema_version_from_extras(data_path)
+    if extras_version:
+        return extras_version
+    # CEDAR schemas are all v2+; if no hints are provided, default to
+    # data directory schema v2
+    if schema_version.is_cedar:
+        return (
+            schema_version.dir_schema_version
+            if schema_version.dir_schema_version
+            else "2"
         )
+    # For non-CEDAR templates, default to data directory schema v0 if
+    # no hints provided
+    else:
+        return "0"
 
 
 def get_data_dir_errors(
     schema_version: SchemaVersion,
     data_path: Path,
-    is_cedar: bool,
     dataset_ignore_globs: List[str] = [],
 ) -> Optional[dict]:
     """
     Validate a single data_path.
-    Still using _get_directory_schema_version to return the version
-    here to accommodate (and privilege) remaining extras dirs in
-    local validation
+    TODO: Still using _get_directory_schema_version to return the version
+    here to accommodate (and privilege) hints in extras dirs in
+    legacy validation; will the practice of allowing different dir schemas
+    for different data_paths in the same TSV continue?
     """
-    dir_schema_version = _get_directory_schema_version(
-        str(data_path), schema_version=schema_version, is_cedar=is_cedar
-    )
+    dir_schema_version = _get_directory_schema_version(data_path, schema_version)
     if schema_version.dir_schema_version != dir_schema_version:
-        schema_version.dir_schema_version = dir_schema_version
-        schema_version.dir_schema = (
-            f"{schema_version.schema_name}-v{dir_schema_version}"
-        )
+        # TODO: check this, name might not match?
+        dir_schema_version = f"{schema_version.schema_name}-v{dir_schema_version}"
     return _get_data_dir_errors_for_version(
-        schema_version,
+        dir_schema_version,
         data_path,
         dataset_ignore_globs,
     )
 
 
 def _get_data_dir_errors_for_version(
-    schema_version: SchemaVersion,
+    dir_schema: str,
     data_path: Path,
     dataset_ignore_globs: List[str],
 ) -> Optional[dict]:
-    """
-    TODO: if we can assume that every SchemaVersion has a dir_schema and
-    we can omit the version number, that simplifies this function signature
-    to just take a SchemaVersion object as well as simplifying
-    validation_utils > get_directory_schema
-    """
-    schema = get_directory_schema(
-        schema_version.schema_name, schema_version=schema_version
-    )
+    schema = get_directory_schema(dir_schema=dir_schema)
 
     if schema is None:
-        return {"Undefined directory schema": schema_version.dir_schema}
+        return {"Undefined directory schema": dir_schema}
 
     schema_warning_fields = [
         field for field in schema if field in ["deprecated", "draft"]
     ]
     schema_warning = (
-        {
-            f"{schema_warning_fields[0].title()} directory schema": schema_version.dir_schema
-        }
+        {f"{schema_warning_fields[0].title()} directory schema": dir_schema}
         if schema_warning_fields
         else None
     )
@@ -247,14 +239,12 @@ def _get_data_dir_errors_for_version(
         if schema_warning:
             return schema_warning
         errors = {}
-        errors[f"{data_path} (as {schema_version.dir_schema})"] = e.errors
+        errors[f"{data_path} (as {dir_schema})"] = e.errors
         return errors
     except OSError as e:
         # If there are OSErrors and the schema is deprecated/draft...
         #    the OSErrors are more important.
-        return {
-            f"{data_path} (as {schema_version.dir_schema})": {e.strerror: e.filename}
-        }
+        return {f"{data_path} (as {dir_schema})": {e.strerror: e.filename}}
     if schema_warning:
         return schema_warning
 

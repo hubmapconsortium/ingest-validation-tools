@@ -45,7 +45,7 @@ def main():
         }
         directory_schema_versions = sorted(dict_directory_schema_versions()[args.type])
         directory_schemas = {
-            v: get_directory_schema(args.type, version_number=v)
+            v: get_directory_schema(directory_type=args.type, version_number=v)
             for v in directory_schema_versions
         }
         pipeline_infos = get_pipeline_infos(args.type)

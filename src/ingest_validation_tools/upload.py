@@ -332,7 +332,7 @@ class Upload:
             Passing offline=True will skip all API/URL validation;
             GitHub actions therefore do not test via the CEDAR
             Spreadsheet Validator API, so tests must be run
-            manually (/code/ingest-validation-tools: ./test.sh)
+            manually (see tests-manual/README.md)
             """
             if self.offline:
                 logging.info(
@@ -539,7 +539,6 @@ class Upload:
         ref: str,
         schema_version: SchemaVersion,
         metadata_path: Union[str, Path],
-        is_cedar: bool = False,
     ) -> Optional[Dict]:
         errors: Dict[
             str, Union[list, dict]
@@ -549,7 +548,6 @@ class Upload:
                 schema_version,
                 path,
                 dataset_ignore_globs=self.dataset_ignore_globs,
-                is_cedar=is_cedar,
             )
             if ref_errors:
                 # TODO: quote field name to match TSV error output;
@@ -596,13 +594,7 @@ class Upload:
             if not row.get(field):
                 continue
             data_path = self.directory_path / row[field]
-            if "metadata_schema_id" in rows[0]:
-                is_cedar = True
-            else:
-                is_cedar = False
-            ref_error = self._check_path(
-                i, data_path, ref, schema, metadata_path, is_cedar=is_cedar
-            )
+            ref_error = self._check_path(i, data_path, ref, schema, metadata_path)
             if ref_error:
                 ref_errors.update(ref_error)
         return ref_errors
