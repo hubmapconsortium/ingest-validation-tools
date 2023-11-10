@@ -1,0 +1,12 @@
+fields:
+- name: is_cedar
+  description: 'Identifies whether the version is hosted by CEDAR'
+  example: 'https://openview.metadatacenter.org/templates/https:%2F%2Frepo.metadatacenter.org%2Ftemplates%2Faffd7948-500e-4de2-bcac-3c56f4dd5977'
+- name: assay_category
+  constraints:
+    enum:
+      - mass_spectrometry
+- name: assay_type
+  constraints:
+    enum:
+      - NanoSplits
