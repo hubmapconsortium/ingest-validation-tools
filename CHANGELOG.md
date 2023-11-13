@@ -40,6 +40,7 @@
 - Update Antibodies
 - Remove NanoSplits
 - Update hifi, mibi, imc
+- Fix imc-2d docs
 
 ## v0.0.15 - 2023-04-04
 
