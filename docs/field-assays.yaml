@@ -229,7 +229,6 @@ assay_category:
 - MxIF
 - NanoDESI
 - NanoPOTS
-- NanoSplits
 - OCT
 - Organ
 - PAS microscopy
@@ -311,7 +310,6 @@ assay_type:
 - MxIF
 - NanoDESI
 - NanoPOTS
-- NanoSplits
 - OCT
 - Organ
 - PAS microscopy
@@ -830,7 +828,6 @@ is_cedar:
 - Molecular Cartography
 - Multiplex Ion Beam Imaging
 - MxIF
-- NanoSplits
 - OCT
 - Organ
 - PAS microscopy

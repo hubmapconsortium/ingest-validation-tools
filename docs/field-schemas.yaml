@@ -156,7 +156,6 @@ assay_category:
 - mri
 - mxif
 - nano
-- nano-splits
 - oct
 - organ
 - phenocycler
@@ -212,7 +211,6 @@ assay_type:
 - mri
 - mxif
 - nano
-- nano-splits
 - oct
 - organ
 - phenocycler
@@ -539,6 +537,7 @@ ion_source:
 is_cedar:
 - 10x-multiome
 - af
+- antibodies
 - atacseq
 - bodyct
 - celldive
@@ -567,7 +566,6 @@ is_cedar:
 - microct
 - mri
 - mxif
-- nano-splits
 - oct
 - organ
 - phenocycler
