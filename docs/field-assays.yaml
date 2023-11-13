@@ -185,6 +185,7 @@ area_normalized_ion_dose_value:
 - MIBI
 assay_category:
 - 10x Multiome
+- 2D Imaging Mass Cytometry
 - 3D Imaging Mass Cytometry
 - AF
 - ATACseq
@@ -266,6 +267,7 @@ assay_category:
 - snRNAseq-10xGenomics-v3
 assay_type:
 - 10x Multiome
+- 2D Imaging Mass Cytometry
 - 3D Imaging Mass Cytometry
 - AF
 - ATACseq
@@ -797,6 +799,7 @@ ion_source:
 - GC-MS
 is_cedar:
 - 10x Multiome
+- 2D Imaging Mass Cytometry
 - 3D Imaging Mass Cytometry
 - AF
 - ATACseq
@@ -818,7 +821,6 @@ is_cedar:
 - HiFi-Slide
 - Histology
 - IMS
-- Imaging Mass Cytometry
 - LC-MS
 - Light Sheet
 - MALDI
@@ -1550,6 +1552,7 @@ overall_protocols_io_doi:
 - cell-dive
 parent_id:
 - 10x Multiome
+- 2D Imaging Mass Cytometry
 - AF
 - ATACseq
 - Auto-fluorescence
@@ -1568,7 +1571,6 @@ parent_id:
 - GeoMx (RNA)
 - GeoMx (protein)
 - HiFi-Slide
-- Imaging Mass Cytometry
 - LC-MS
 - Light Sheet
 - MALDI
