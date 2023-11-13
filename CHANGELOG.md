@@ -41,6 +41,7 @@
 - Remove NanoSplits
 - Update hifi, mibi, imc
 - Fix imc-2d docs
+- Fix imc-2d dir docs
 
 ## v0.0.15 - 2023-04-04
 
