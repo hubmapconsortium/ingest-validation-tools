@@ -160,7 +160,6 @@ assay_category:
 - organ
 - phenocycler
 - rnaseq
-- rnaseq-geomx
 - sample
 - sample-block
 - sample-section
@@ -216,7 +215,6 @@ assay_type:
 - phenocycler
 - publication
 - rnaseq
-- rnaseq-geomx
 - sample
 - sample-block
 - sample-section
@@ -541,7 +539,6 @@ is_cedar:
 - atacseq
 - bodyct
 - celldive
-- cems
 - codex
 - confocal
 - contributors
@@ -550,7 +547,6 @@ is_cedar:
 - dbit
 - desi
 - enhanced-srs
-- gcms
 - geomx
 - hifi-slide
 - histology
@@ -571,7 +567,6 @@ is_cedar:
 - phenocycler
 - publication
 - rnaseq
-- rnaseq-geomx
 - sample
 - sample-block
 - sample-section
@@ -584,7 +579,6 @@ is_cedar:
 - thick-section-multiphoton-mxif
 - ultrasound
 - visium
-- wgs
 - xenium
 is_contact:
 - contributors
@@ -957,7 +951,6 @@ parent_id:
 - atacseq
 - bodyct
 - celldive
-- cems
 - codex
 - confocal
 - cosmx
@@ -965,7 +958,6 @@ parent_id:
 - dbit
 - desi
 - enhanced-srs
-- gcms
 - geomx
 - hifi-slide
 - imc
@@ -982,7 +974,6 @@ parent_id:
 - phenocycler
 - publication
 - rnaseq
-- rnaseq-geomx
 - second-harmonic-generation
 - seqfish
 - sims
@@ -990,7 +981,6 @@ parent_id:
 - thick-section-multiphoton-mxif
 - ultrasound
 - visium
-- wgs
 - xenium
 parent_sample_id:
 - histology
