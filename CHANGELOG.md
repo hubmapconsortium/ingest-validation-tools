@@ -38,6 +38,7 @@
 - Add description to codex doc page
 - Bail earlier in validation if there are errors in metadata/dir/refs
 - Update Antibodies
+- Remove NanoSplits
 
 ## v0.0.15 - 2023-04-04
 
