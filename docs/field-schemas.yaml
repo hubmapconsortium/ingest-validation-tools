@@ -144,6 +144,7 @@ assay_category:
 - hifi-slide
 - histology
 - imc
+- imc-2d
 - imc3d
 - ims
 - lcms
@@ -199,6 +200,7 @@ assay_type:
 - hifi-slide
 - histology
 - imc
+- imc-2d
 - imc3d
 - ims
 - lcms
@@ -554,7 +556,7 @@ is_cedar:
 - geomx
 - hifi-slide
 - histology
-- imc
+- imc-2d
 - imc3d
 - ims
 - lcms
@@ -968,7 +970,7 @@ parent_id:
 - gcms
 - geomx
 - hifi-slide
-- imc
+- imc-2d
 - lcms
 - lightsheet
 - maldi

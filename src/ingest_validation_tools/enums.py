@@ -54,6 +54,7 @@ shared_enums: Dict[str, List[str]] = {
         "HiFi-Slide",
         "Histology",
         "DBiT",
+        "2D Imaging Mass Cytometry",
         "Imaging Mass Cytometry",
         "IMS",
         "LC-MS (metabolomics)",

@@ -39,6 +39,7 @@
 - Bail earlier in validation if there are errors in metadata/dir/refs
 - Update Antibodies
 - Remove NanoSplits
+- Update hifi, mibi, imc
 
 ## v0.0.15 - 2023-04-04
 
