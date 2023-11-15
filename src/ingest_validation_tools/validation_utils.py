@@ -1,32 +1,32 @@
+from collections import defaultdict
 import json
 import logging
 from csv import DictReader
-import os
 from pathlib import Path, PurePath
-from typing import Dict, List, Optional, Union
+from typing import DefaultDict, Dict, List, Optional, Union
 
 import requests
 
 from ingest_validation_tools.schema_loader import (
     PreflightError,
     SchemaVersion,
-    get_table_schema,
-    get_other_schema,
+    get_directory_schema_version,
     get_directory_schema,
 )
 from ingest_validation_tools.directory_validator import (
     validate_directory,
     DirectoryValidationErrors,
 )
-from ingest_validation_tools.table_validator import get_table_errors, ReportType
+from ingest_validation_tools.table_validator import ReportType
 from ingest_validation_tools.test_validation_utils import (
     compare_mock_with_response,
     mock_response,
 )
 
 
-class TableValidationErrors(Exception):
-    pass
+class TSVError(Exception):
+    def __init__(self, error):
+        self.errors = f"{list(error.keys())[0]}: {list(error.values())[0]}"
 
 
 def dict_reader_wrapper(path, encoding: str) -> list:
@@ -35,28 +35,28 @@ def dict_reader_wrapper(path, encoding: str) -> list:
     return rows
 
 
-def get_table_schema_version(
+def get_schema_version(
     path: Path,
     encoding: str,
     globus_token: str,
     directory_path: Optional[Path] = None,
     offline: bool = False,
 ) -> SchemaVersion:
-    rows = _read_rows(path, encoding)
+    try:
+        rows = read_rows(path, encoding)
+    except TSVError as e:
+        raise PreflightError(e.errors)
     assay_type_data = {}
     other_type = get_other_schema_name(rows, str(path))
-    # Note: schema_version can be excised once local validation is no longer supported;
-    # all next-gen schemas are assumed to be "2" for now
-    version = rows[0].get("version") if rows[0].get("version") else "2"
-    # Don't want to send sample/antibody to soft assay endpoint
+    # Don't want to send contrib/organ/sample/antibody to soft assay endpoint
     if other_type:
-        return SchemaVersion(
+        sv = SchemaVersion(
             other_type,
-            version,
             directory_path=directory_path,
             path=path,
-            rows=rows,
+            raw_rows=rows,
         )
+        return sv
     assay_type_data = get_assaytype_data(
         rows[0],
         globus_token,
@@ -64,29 +64,65 @@ def get_table_schema_version(
         offline=offline,
     )
     if not assay_type_data:
-        raise PreflightError(
-            f"""
-            No assay type data found for {path}.
-            """
-        )
+        message = f"No assay data retrieved for {path}."
+        if "assay_type" not in rows[0].keys() and "dataset_type" not in rows[0].keys():
+            message += ' Does not contain "assay_type" or "dataset_type".'
+        elif "assay_type" in rows[0].keys():
+            message += f' Assay type: {rows[0].get("assay_type")}.'
+        elif "dataset_type" in rows[0].keys():
+            message += f' Dataset type: {rows[0].get("dataset_type")}.'
+        if "channel_id" in rows[0]:
+            message += (
+                ' Has "channel_id": Antibodies TSV found where metadata TSV expected.'
+            )
+        elif "orcid_id" in rows[0]:
+            message += (
+                ' Has "orcid_id": Contributors TSV found where metadata TSV expected.'
+            )
+        else:
+            message += f' Column headers in TSV: {", ".join(rows[0].keys())}'
+        raise PreflightError(message)
     return SchemaVersion(
         assay_type_data["assaytype"].lower(),
-        version,
         directory_path=directory_path,
         path=path,
-        rows=rows,
+        raw_rows=rows,
         soft_assay_data=assay_type_data,
-        tbl_schema=assay_type_data.get("tbl_schema"),
     )
 
 
 def get_other_schema_name(rows: List, path: str) -> Optional[str]:
-    other_types = {"organ": "organ_id", "sample": "sample_id"}
-    other_type = [key for key, value in other_types.items() if value in rows[0].keys()]
+    other_types = {
+        "organ": ["organ_id"],
+        "sample": ["sample_id"],
+        "sample-block": ["sample_id"],
+        "sample-suspension": ["sample_id"],
+        "sample-section": ["sample_id"],
+        "contributors": ["orcid", "orcid_id"],
+        "antibodies": ["antibody_rrid", "antibody_name"],
+    }
+    other_type: DefaultDict[str, list] = defaultdict(list)
+    for field in rows[0].keys():
+        if field == "sample_id":
+            if rows[0].get("type"):
+                other_type.update({f"sample-{rows[0]['type']}": ["sample_id"]})
+            else:
+                other_type.update({"sample": ["sample_id"]})
+        else:
+            match = {key: field for key, value in other_types.items() if field in value}
+            other_type.update(match)
+    if other_type and (
+        "assay_name" in rows[0].keys() or "dataset_type" in rows[0].keys()
+    ):
+        raise PreflightError(
+            f"Metadata TSV contains invalid field: {list(other_type.values())}"
+        )
     if len(other_type) == 1:
-        return other_type[0]
+        return list(other_type.keys())[0]
     elif len(other_type) > 1:
-        raise Exception(f"Multiple types found for path {path}. Types: {other_type}")
+        raise PreflightError(
+            f"Multiple types found for path {path} based on fields {list(other_type.values())}"
+        )
     else:
         return None
 
@@ -126,65 +162,38 @@ def get_directory_schema_versions(
     tsv_path: str,
     schema_version: SchemaVersion,
     encoding: str,
-) -> List:
+) -> Union[Dict, List]:
     parent = Path(tsv_path).parent
-    data_paths = [r.get("data_path") for r in _read_rows(tsv_path, encoding)]
+    try:
+        rows = read_rows(Path(tsv_path), encoding)
+    except TSVError as e:
+        raise PreflightError(e.errors)
+    data_paths = [r.get("data_path") for r in rows]
     return list(
         set(
-            _get_directory_schema_version(parent / path, schema_version)
+            get_directory_schema_version(parent / path, schema_version)
             for path in data_paths
             if path and schema_version
         )
     )
 
 
-def _read_rows(path, encoding: str):
+def read_rows(path: Path, encoding: str) -> List:
+    message = None
+    if not Path(path).exists():
+        message = {"File does not exist": f"{path}"}
+        raise TSVError(message)
     try:
         rows = dict_reader_wrapper(path, encoding)
-    except UnicodeDecodeError as e:
-        raise PreflightError(get_context_of_decode_error(e))
+        if not rows:
+            message = {"File has no data rows": f"{path}"}
+        else:
+            return rows
     except IsADirectoryError:
-        raise PreflightError(f"Expected a TSV, found a directory at {path}.")
-    if not rows:
-        raise PreflightError(f"{path} has no data rows.")
-    return rows
-
-
-def _get_dir_schema_version_from_extras(
-    data_path: Path,
-) -> Optional[str]:
-    if os.path.isdir(data_path / "extras"):
-        prefix = "dir-schema-v"
-        version_hints = [
-            path.name for path in (data_path / "extras").glob(f"{prefix}*")
-        ]
-        len_hints = len(version_hints)
-        if len_hints == 1:
-            return version_hints[0].replace(prefix, "")
-        elif len_hints > 1:
-            raise Exception(f"Expect 0 or 1 hints, not {len_hints}: {version_hints}")
-    return None
-
-
-def _get_directory_schema_version(
-    data_path: Path,
-    schema_version: SchemaVersion,
-) -> str:
-    extras_version = _get_dir_schema_version_from_extras(data_path)
-    if extras_version:
-        return extras_version
-    # CEDAR schemas are all v2+; if no hints are provided, default to
-    # data directory schema v2
-    if schema_version.is_cedar:
-        return (
-            schema_version.dir_schema_version
-            if schema_version.dir_schema_version
-            else "2"
-        )
-    # For non-CEDAR templates, default to data directory schema v0 if
-    # no hints provided
-    else:
-        return "0"
+        message = {"Expected a TSV, but found a directory": f"{path}"}
+    except UnicodeDecodeError as e:
+        message = {"Decode Error": get_context_of_decode_error(e)}
+    raise TSVError(message)
 
 
 def get_data_dir_errors(
@@ -194,15 +203,12 @@ def get_data_dir_errors(
 ) -> Optional[dict]:
     """
     Validate a single data_path.
-    TODO: Still using _get_directory_schema_version to return the version
+    TODO: Still using get_directory_schema_version to return the version
     here to accommodate (and privilege) hints in extras dirs in
     legacy validation; will the practice of allowing different dir schemas
     for different data_paths in the same TSV continue?
     """
-    dir_schema_version = _get_directory_schema_version(data_path, schema_version)
-    if schema_version.dir_schema_version != dir_schema_version:
-        # TODO: check this, name might not match?
-        dir_schema_version = f"{schema_version.schema_name}-v{dir_schema_version}"
+    dir_schema_version = get_directory_schema_version(data_path, schema_version)
     return _get_data_dir_errors_for_version(
         dir_schema_version,
         data_path,
@@ -295,24 +301,23 @@ def get_tsv_errors(
     schema_name: str,
     optional_fields: List[str] = [],
     offline: bool = False,
-    encoding: str = "utf-8",
     ignore_deprecation: bool = False,
     report_type: ReportType = ReportType.STR,
-) -> Union[Dict[str, str], List[str]]:
+) -> Dict[str, str]:
     """
     Validate the TSV.
 
     >>> import tempfile
     >>> from pathlib import Path
 
-    >>> get_tsv_errors('no-such.tsv', 'fake')
-    {'File does not exist': 'no-such.tsv'}
-
-    >>> with tempfile.TemporaryDirectory() as dir:
-    ...     tsv_path = Path(dir)
-    ...     errors = get_tsv_errors(tsv_path, 'fake')
-    ...     assert errors['Expected a TSV, but found a directory'] == str(tsv_path)
-
+    # >>> get_tsv_errors('no-such.tsv', 'fake')
+    # {'TSV Errors': {'File does not exist': 'no-such.tsv'}}
+    #
+    # >>> with tempfile.TemporaryDirectory() as dir:
+    # ...     tsv_path = Path(dir)
+    # ...     errors = get_tsv_errors(tsv_path, 'fake')
+    # ...     assert errors['Expected a TSV, but found a directory'] == str(tsv_path)
+    #
     # TODO: these are broken due to the addition of paths to error messages
     # >>> with tempfile.TemporaryDirectory() as dir:
     # ...     tsv_path = Path(dir) / 'fake.tsv'
@@ -349,65 +354,20 @@ def get_tsv_errors(
     # >>> errors = test_tsv('version\\tfake\\n1\\tfake', assay_type='codex')
     # >>> assert 'Unexpected fields' in errors[0]
     """
+    from ingest_validation_tools.upload import Upload
 
     logging.info(f"Validating {schema_name} TSV...")
-    if not Path(tsv_path).exists():
-        return {"File does not exist": f"{tsv_path}"}
 
-    try:
-        rows = dict_reader_wrapper(tsv_path, encoding=encoding)
-    except IsADirectoryError:
-        return {"Expected a TSV, but found a directory": f"{tsv_path}"}
-    except UnicodeDecodeError as e:
-        return {"Decode Error": get_context_of_decode_error(e)}
-
-    if not rows:
-        return {"File has no data rows": f"{tsv_path}"}
-
-    is_cedar = rows[0].get("metadata_schema_id")
-
-    version = "0"
-    # TODO: Fix this because we can't force the version to be 2 forever.
-    if is_cedar:
-        version = "2"
-    elif "version" in rows[0]:
-        version = rows[0]["version"]
-
-    if is_cedar:
-        from ingest_validation_tools.upload import Upload
-
-        upload = Upload(Path(tsv_path).parent)
-        errors = upload.api_validation(Path(tsv_path), report_type)
-        schema_version = SchemaVersion(schema_name, version)
-        return errors | upload._cedar_url_checks(str(tsv_path), schema_version)
-
-    try:
-        schema = get_schema_with_constraints(
-            schema_name, version, offline, optional_fields
-        )
-    except OSError as e:
-        return {e.strerror: Path(e.filename).name}
-
-    if schema.get("deprecated") and not ignore_deprecation:
-        return {"Schema version is deprecated": f"{schema_name}-v{version}"}
-
-    return get_table_errors(tsv_path, schema, report_type)
-
-
-def get_schema_with_constraints(
-    schema_name: str,
-    version: str,
-    offline: bool = False,
-    optional_fields: List[str] = [],
-) -> dict:
-    others = get_other_names()
-    if schema_name in others:
-        schema = get_other_schema(schema_name, version, offline=offline)
-    else:
-        schema = get_table_schema(
-            schema_name, version, offline=offline, optional_fields=optional_fields
-        )
-    return schema
+    # TODO: this is weird, because we're creating an upload for a single file...maybe subclass?
+    upload = Upload(
+        Path(tsv_path).parent,
+        tsv_paths=[Path(tsv_path)],
+        optional_fields=optional_fields,
+        offline=offline,
+        ignore_deprecation=ignore_deprecation,
+    )
+    errors = upload.validation_routine(report_type)
+    return errors
 
 
 def print_path(path):

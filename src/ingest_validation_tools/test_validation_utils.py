@@ -24,7 +24,7 @@ def mock_response(path: Path, row: Dict) -> Dict:
             f"""
             Not all expected args were passed for path {path}.
             Args passed: {row}
-            Expected args: {list(response_dict.get("args", {}).values())}
+            Expected args: {response_dict.get("args", [])}
             """
         )
 

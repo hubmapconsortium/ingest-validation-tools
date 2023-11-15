@@ -10,7 +10,7 @@ from ingest_validation_tools.cli_utils import ShowUsageException, exit_codes
 from ingest_validation_tools.schema_loader import PreflightError
 from ingest_validation_tools.validation_utils import (
     get_tsv_errors,
-    get_table_schema_version,
+    get_schema_version,
 )
 
 
@@ -67,15 +67,9 @@ parser = make_parser()
 def main():
     args = parser.parse_args()
     try:
-        if args.schema != "metadata":
-            schema_name = args.schema
-            errors_string = args.schema
-        else:
-            schema_version = get_table_schema_version(
-                Path(args.path), "ascii", args.globus_token
-            )
-            schema_name = schema_version.schema_name
-            errors_string = f"{schema_version.schema_name}-v{schema_version.version}"
+        schema_version = get_schema_version(Path(args.path), "ascii", args.globus_token)
+        schema_name = schema_version.schema_name
+        errors_string = f"{schema_version.schema_name}-v{schema_version.version}"
     except PreflightError as e:
         errors = {"Preflight": str(e)}
     else:

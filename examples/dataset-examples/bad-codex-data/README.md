@@ -1,14 +1,16 @@
 ```
 Upload Errors:
   TSV Errors:
-    examples/dataset-examples/bad-codex-data/upload/contributors.tsv:
-    - 'On row 2, column "orcid_id", value "bad-id" fails because it does not match
-      the expected pattern. Example: 0000-0002-8928-741X.'
-    - 'On row 4, column "affiliation", value "somewhere3" fails because there is a
-      run of 3 sequential items: Limit is 3. If correct, reorder rows.'
-    examples/dataset-examples/bad-codex-data/upload/codex-metadata.tsv row 2, column 'antibodies_path':
-      Decode Error: "Invalid ascii because ordinal not in range(128): \"mber\tconjugated_tag\n\
-        \ [ \xF0 ] \x9F\x98\x83\t\tbad-value\t\t\tinv\"."
+    examples/dataset-examples/bad-codex-data/upload/codex-metadata.tsv row 2, column 'contributors_path':
+      Local Validation Errors:
+        examples/dataset-examples/bad-codex-data/upload/contributors.tsv (as contributors-v1):
+        - 'On row 2, column "orcid_id", value "bad-id" fails because it does not match
+          the expected pattern. Example: 0000-0002-8928-741X.'
+        - 'On row 4, column "affiliation", value "somewhere3" fails because there
+          is a run of 3 sequential items: Limit is 3. If correct, reorder rows.'
+    examples/dataset-examples/bad-codex-data/upload/codex-metadata.tsv, row 2, column 'antibodies_path':
+    - "Decode Error: Invalid ascii because ordinal not in range(128): \"mber\tconjugated_tag\n\
+      \ [ \xF0 ] \x9F\x98\x83\t\tbad-value\t\t\tinv\"."
   Directory Errors:
     examples/dataset-examples/bad-codex-data/upload/codex-metadata.tsv, row 2, column data_path:
       examples/dataset-examples/bad-codex-data/upload/dataset-1 (as codex-v0):

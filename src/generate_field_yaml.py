@@ -6,7 +6,6 @@ import argparse
 from ingest_validation_tools.schema_loader import (
     list_table_schema_versions,
     get_table_schema,
-    get_other_schema,
     get_is_assay,
 )
 
@@ -25,16 +24,9 @@ def main():
 
     mapper = make_mapper(args.attr)
     for schema_version in list_table_schema_versions():
-        schema_name = schema_version.schema_name
-        get_schema = get_table_schema if get_is_assay(schema_name) else get_other_schema
-        schema = get_schema(
-            schema_version.dataset_type
-            if schema_version.dataset_type
-            else schema_version.schema_name,
-            schema_version.version,
-        )
+        schema = get_table_schema(schema_version)
         for field in schema["fields"]:
-            mapper.add(field, schema_name=schema_name, schema=schema)
+            mapper.add(field, schema_name=schema_version.schema_name, schema=schema)
     print(mapper.dump_yaml())
     return 0
 

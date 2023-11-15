@@ -11,7 +11,6 @@ from tableschema_to_template.create_xlsx import create_xlsx
 from ingest_validation_tools.schema_loader import (
     dict_table_schema_versions,
     get_table_schema,
-    get_other_schema,
     dict_directory_schema_versions,
     get_directory_schema,
     get_is_assay,
@@ -34,15 +33,14 @@ def main():
     parser.add_argument("target", type=dir_path, help="Directory to write output to")
     args = parser.parse_args()
 
-    table_schema_versions = sorted(dict_table_schema_versions()[args.type])
+    table_schema_versions = dict_table_schema_versions()[args.type]
     assert table_schema_versions, f"No versions for {args.type}"
 
     is_assay = get_is_assay(args.type)
+    table_schemas = {
+        v.version: get_table_schema(v, keep_headers=True) for v in table_schema_versions
+    }
     if is_assay:
-        table_schemas = {
-            v: get_table_schema(args.type, v, keep_headers=True)
-            for v in table_schema_versions
-        }
         directory_schema_versions = sorted(dict_directory_schema_versions()[args.type])
         directory_schemas = {
             v: get_directory_schema(directory_type=args.type, version_number=v)
@@ -50,10 +48,6 @@ def main():
         }
         pipeline_infos = get_pipeline_infos(args.type)
     else:
-        table_schemas = {
-            v: get_other_schema(args.type, v, keep_headers=True)
-            for v in table_schema_versions
-        }
         directory_schemas = {}
         pipeline_infos = []
 

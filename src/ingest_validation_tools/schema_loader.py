@@ -1,5 +1,6 @@
 from __future__ import annotations
 from dataclasses import dataclass, field
+import os
 
 from pathlib import Path
 from collections import defaultdict
@@ -22,7 +23,9 @@ def get_pipeline_infos(name: str) -> List[str]:
 
 
 class PreflightError(Exception):
-    pass
+    def __init__(self, errors: Optional[str] = None):
+        if errors:
+            self.errors = errors
 
 
 @dataclass
@@ -33,20 +36,23 @@ class SchemaVersion:
     could add a class method like https://stackoverflow.com/q/72013377
     """
 
+    # TODO: it would be great to be able to make more assumptions about
+    # rows/assayclassifier data being present
+    # TODO: variations between dataset_type in rows, canonical name
+    # from assayclassifier, and table_name need thinking through
     schema_name: str
-    version: str
+    version: str = ""
     directory_path: Optional[Path] = None
-    schema_string: str = ""
+    table_schema: str = ""
     path: Optional[Union[Path, str]] = None
     rows: List = field(default_factory=list)
+    raw_rows: List = field(default_factory=list)
     soft_assay_data: Dict = field(default_factory=dict)
-    tbl_schema: Optional[str] = None
     is_cedar: bool = False
     dataset_type: str = ""
-    data_path: Optional[Union[Path, str]] = None
     vitessce_hints: List = field(default_factory=list)
-    dir_schema: str = ""
-    dir_schema_version: str = ""
+    dir_schema: Optional[str] = None
+    metadata_type: str = "assays"
     # TODO: this is not thought out yet
     # multi_type: str = ""
     # must_contain: List = field(default_factory=list)
@@ -54,44 +60,115 @@ class SchemaVersion:
     # part_of_multi: bool = False
 
     def __post_init__(self):
-        self.schema_string = self.schema_name + "-v" + self.version
         if type(self.path) is str:
             try:
                 self.path = Path(self.path)
             except Exception as e:
                 raise Exception(
                     f"""
-                    SchemaVersion with name {self.schema_name} and version {self.version}
-                    was passed an invalid path: {self.path}. Error: {e}
+                    SchemaVersion with name {self.schema_name} was passed
+                    an invalid path: {self.path}. Error: {e}
                     """
                 )
-        if self.rows:
-            data_path = self.rows[0].get("data_path")
-            if not data_path:
-                raise PreflightError(f"No data_path in TSV {self.path}.")
-            if self.directory_path:
-                self.data_path = self.directory_path / Path(data_path)
-            assay_type = self.rows[0].get("assay_type")
-            dataset_type = self.rows[0].get("dataset_type")
-            if assay_type is not None and dataset_type is not None:
-                raise PreflightError(
-                    f"Found both assay_type and dataset_type for path {self.path}!"
-                )
-            else:
-                self.dataset_type = assay_type if assay_type else dataset_type
+        if get_is_assay(self.schema_name):
+            self.metadata_type = "assays"
+        else:
+            self.metadata_type = "others"
+        if self.raw_rows:
+            self.get_row_data()
         if self.soft_assay_data:
-            self.vitessce_hints = self.soft_assay_data.get("vitessce_hints", [])
-            self.dir_schema = self.soft_assay_data.get("dir_schema", "")
-            # self.must_contain = self.soft_assay_data.get("must_contain", [])
-            # self.can_contain = self.soft_assay_data.get("can_contain", [])
-        if self.dir_schema:
-            match = re.match(r".+-v(\d+)", self.dir_schema)
-            if match:
-                self.dir_schema_version = match[1]
+            self.get_assayclassifier_data()
+        if not self.version:
+            if self.is_cedar:
+                self.version = "2"
+            else:
+                self.version = "0"
+        if not self.table_schema:
+            self.table_schema = f"{self.schema_name}-v{self.version}"
         # if self.must_contain:
         #     self.multi_type = "must"
         # elif self.can_contain:
         #     self.multi_type = "can"
+
+    def get_row_data(self):
+        if self.raw_rows[0].get("metadata_schema_id"):
+            self.is_cedar = True
+        else:
+            self.is_cedar = False
+        self.version = self.raw_rows[0].get("version")
+        assay_type = self.raw_rows[0].get("assay_type")
+        dataset_type = self.raw_rows[0].get("dataset_type")
+        if assay_type is not None and dataset_type is not None:
+            raise PreflightError(
+                f"Found both assay_type and dataset_type for path {self.path}!"
+            )
+        else:
+            self.dataset_type = assay_type if assay_type else dataset_type
+        self.create_row_data()
+
+    def get_assayclassifier_data(self):
+        self.vitessce_hints = self.soft_assay_data.get("vitessce_hints", [])
+        self.dir_schema = self.soft_assay_data.get("dir_schema", "")
+        self.table_schema = self.soft_assay_data.get("tbl_schema", "")
+        match = re.match(r".+-v(\d+)", self.table_schema)
+        if match:
+            self.version = match[0]
+        # self.must_contain = self.soft_assay_data.get("must_contain", [])
+        # self.can_contain = self.soft_assay_data.get("can_contain", [])
+
+    # TODO: need legacy support for extras dir, but otherwise,
+    # all rows in a TSV should be assumed to have the same dir structure.
+    # Much simpler after we get rid of extras hints.
+    def create_row_data(self):
+        for i, row in enumerate(self.raw_rows):
+            self.rows.append(
+                SchemaRow(
+                    **{
+                        "row_number": i,
+                        "dir_schema": "",
+                        "parent": self,
+                        "directory_path": self.directory_path,
+                        "data_path": row.get("data_path"),
+                        # "contributors_path": "",
+                        # "antibodies_path": "",
+                    }
+                )
+            )
+
+
+@dataclass
+class DirSchemaVersion:
+    dir_schema_name: str
+    version: str
+    dir_schema_string: str = ""
+    assay_schema_name: str = ""
+    filename: Union[str, Path] = ""
+    path: Union[str, Path] = ""
+
+    def __post_init__(self):
+        self.dir_schema_string = self.dir_schema_name + "-v" + self.version
+
+
+@dataclass
+class SchemaRow:
+    row_number: int
+    dir_schema: str
+    parent: SchemaVersion
+    directory_path: Optional[Path] = None
+    data_path: Optional[str] = None
+    dir_schema_version: Optional[str] = None
+    # contributors_path: Optional[str] = None
+    # antibodies_path: Optional[str] = None
+
+    def __post_init__(self):
+        if self.data_path and self.directory_path:
+            self.dir_schema = get_directory_schema_version(
+                self.directory_path / self.data_path,
+                self.parent,
+            )
+            match = re.match(r".+-v(\d+)", self.dir_schema)
+            if match:
+                self.dir_schema_version = match[1]
 
 
 def get_fields_wo_headers(schema: dict) -> List[dict]:
@@ -105,6 +182,45 @@ def get_field_enum(field_name: str, schema: dict) -> List[str]:
         return []
     assert len(fields) == 1
     return fields[0]["constraints"]["enum"]
+
+
+def _get_dir_schema_version_from_extras(
+    data_path: Path,
+) -> Optional[str]:
+    if os.path.isdir(data_path / "extras"):
+        prefix = "dir-schema-v"
+        version_hints = [
+            path.name for path in (data_path / "extras").glob(f"{prefix}*")
+        ]
+        len_hints = len(version_hints)
+        if len_hints == 1:
+            return version_hints[0].replace(prefix, "")
+        elif len_hints > 1:
+            raise Exception(f"Expect 0 or 1 hints, not {len_hints}: {version_hints}")
+    return None
+
+
+def get_directory_schema_version(
+    data_path: Path,
+    schema_version: SchemaVersion,
+) -> str:
+    extras_version = _get_dir_schema_version_from_extras(data_path)
+    if extras_version:
+        return f"{schema_version.schema_name}-v{extras_version}"
+    # CEDAR schemas are all v2+; if no hints are provided, default to
+    # data directory schema v2
+    if schema_version.is_cedar:
+        v = "2"
+    # For non-CEDAR templates, default to data directory schema v0 if
+    # no hints provided
+    else:
+        v = "0"
+    # Privilege any dir_schema set from the assayclassifier endpoint
+    return (
+        schema_version.dir_schema
+        if schema_version.dir_schema
+        else f"{schema_version.schema_name}-v{v}"
+    )
 
 
 # def get_table_schema_version_from_row(path: str, row: Dict[str, Any]) -> SchemaVersion:
@@ -130,7 +246,7 @@ def get_field_enum(field_name: str, schema: dict) -> List[str]:
 #     No schema where 'PAS microscopy' is assay_type and 42 is version
 #
 #     """
-#     assay = row["assay_type"] if "assay_type" in row else row.get("dataset_type")
+#     assay = row["assay_type"] if "assay_type" in row els30 row.get("dataset_type")
 #     source_project = row["source_project"] if "source_project" in row else None
 #     dir = "assays"
 #
@@ -244,7 +360,7 @@ def get_field_enum(field_name: str, schema: dict) -> List[str]:
 
 def list_table_schema_versions() -> List[SchemaVersion]:
     """
-    >>> list_table_schema_versions()[0].schema_string
+    >>> list_table_schema_versions()[0].table_schema
     '10x-multiome-v2'
 
     """
@@ -258,28 +374,27 @@ def list_table_schema_versions() -> List[SchemaVersion]:
     return [SchemaVersion(v_match[1], v_match[2]) for v_match in v_matches if v_match]
 
 
-def dict_table_schema_versions() -> Dict[str, Set[str]]:
+def dict_table_schema_versions() -> Dict[str, List[SchemaVersion]]:
     """
-    >>> sorted(dict_table_schema_versions()['af'])
+    >>> sorted([v.version for v in dict_table_schema_versions()['af']])
     ['0', '1', '2']
     """
 
-    dict_of_sets = defaultdict(set)
+    dict_of_lists = defaultdict(list)
     for sv in list_table_schema_versions():
-        dict_of_sets[sv.schema_name].add(sv.version)
-    return dict_of_sets
+        dict_of_lists[sv.schema_name].append(sv)
+    return dict_of_lists
 
 
-# TODO: this is creating schema versions of dir schemas
-def list_directory_schema_versions() -> List[SchemaVersion]:
+def list_directory_schema_versions() -> List[DirSchemaVersion]:
     """
-    >>> list_directory_schema_versions()[0].schema_string
+    >>> list_directory_schema_versions()[0].dir_schema_string
     '10x-multiome-v2'
     """
     schema_paths = list(_directory_schemas_path.iterdir())
     stems = sorted(p.stem for p in schema_paths if p.suffix == ".yaml")
     parsed = [_parse_schema_version(stem) for stem in stems]
-    return [SchemaVersion(sv[0], sv[1]) for sv in parsed]
+    return [DirSchemaVersion(sv[0], sv[1]) for sv in parsed]
 
 
 def _parse_schema_version(stem: str) -> Sequence[str]:
@@ -295,30 +410,38 @@ def _parse_schema_version(stem: str) -> Sequence[str]:
     return v_match.groups()
 
 
-def get_all_directory_schema_versions(schema_name: str) -> List[SchemaVersion]:
+# TODO: is this used anywhere?
+def get_all_directory_schema_versions(schema_name: str) -> List[str]:
     return [
-        version
-        for version in list_directory_schema_versions()
-        if version.schema_name == schema_name
+        schema_version.version
+        for schema_version in list_directory_schema_versions()
+        if schema_version.assay_schema_name == schema_name
     ]
 
 
 def dict_directory_schema_versions() -> Dict[str, Set[str]]:
     dict_of_sets = defaultdict(set)
     for sv in list_directory_schema_versions():
-        dict_of_sets[sv.schema_name].add(sv.version)
+        dict_of_sets[sv.dir_schema_name].add(sv.version)
     return dict_of_sets
 
 
 def _get_schema_filename(schema_name: str, version: str) -> str:
-    return f"{schema_name.lower()}-v{version}.yaml"
+    return f"{schema_name.lower()}-v{version}"
 
 
-def get_other_schema(
-    schema_name: str, version: str, offline=None, keep_headers: bool = False
+def get_table_schema(
+    schema_version: SchemaVersion,
+    optional_fields: List[str] = [],
+    offline: bool = False,
+    keep_headers: bool = False,
 ) -> dict:
     schema = load_yaml(
-        _table_schemas_path / "others" / _get_schema_filename(schema_name, version)
+        Path(
+            _table_schemas_path
+            / schema_version.metadata_type
+            / f"{schema_version.table_schema}.yaml"
+        )
     )
     fields_wo_headers = get_fields_wo_headers(schema)
     if not keep_headers:
@@ -328,7 +451,13 @@ def get_other_schema(
     for schema_field in schema["fields"]:
         if isinstance(schema_field, str):
             continue
-        _add_constraints(schema_field, optional_fields=[], offline=offline, names=names)
+        if schema_version.metadata_type == "assays":
+            _add_level_1_description(schema_field)
+            _validate_level_1_enum(schema_field)
+        _add_constraints(schema_field, optional_fields, offline=offline, names=names)
+        if schema_version.metadata_type == "assays":
+            _validate_field(schema_field)
+
     return schema
 
 
@@ -346,39 +475,12 @@ def get_is_assay(schema_name: str) -> bool:
     ]
 
 
-def get_table_schema(
-    schema_name: str,
-    version: str,
-    optional_fields: List[str] = [],
-    offline=None,
-    keep_headers: bool = False,
-) -> dict:
-    schema = load_yaml(
-        _table_schemas_path / "assays" / _get_schema_filename(schema_name, version)
-    )
-    fields_wo_headers = get_fields_wo_headers(schema)
-    if not keep_headers:
-        schema["fields"] = fields_wo_headers
-
-    names = [field["name"] for field in fields_wo_headers]
-    for schema_field in schema["fields"]:
-        if isinstance(schema_field, str):
-            continue
-        _add_level_1_description(schema_field)
-        _validate_level_1_enum(schema_field)
-
-        _add_constraints(schema_field, optional_fields, offline=offline, names=names)
-        _validate_field(schema_field)
-
-    return schema
-
-
 def get_directory_schema(
     dir_schema: Optional[str] = None,
     directory_type: Optional[str] = None,
     version_number: Optional[str] = None,
 ) -> Optional[Dict]:
-    if directory_type and version_number:
+    if not dir_schema and (directory_type and version_number):
         dir_schema = _get_schema_filename(directory_type, version_number)
     if not dir_schema:
         raise Exception("Not enough information to retrieve directory schema.")

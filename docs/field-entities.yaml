@@ -197,6 +197,7 @@ ion_mobility:
 ion_source:
 - dataset
 is_cedar:
+- antibodies
 - contributors
 - dataset
 - organ

@@ -1,10 +1,10 @@
 ```
 Upload Errors:
   TSV Errors:
-    examples/dataset-examples/bad-tsv-formats/upload/codex-metadata.tsv row 2, column 'contributors_path':
-      File has no data rows: examples/dataset-examples/bad-tsv-formats/upload/contributors.tsv.
-    examples/dataset-examples/bad-tsv-formats/upload/codex-metadata.tsv row 2, column 'antibodies_path':
-      File does not exist: examples/dataset-examples/bad-tsv-formats/upload/antibodies.tsv.
+    examples/dataset-examples/bad-tsv-formats/upload/codex-metadata.tsv, row 2, column 'contributors_path':
+    - 'File has no data rows: examples/dataset-examples/bad-tsv-formats/upload/contributors.tsv.'
+    examples/dataset-examples/bad-tsv-formats/upload/codex-metadata.tsv, row 2, column 'antibodies_path':
+    - 'File does not exist: examples/dataset-examples/bad-tsv-formats/upload/antibodies.tsv.'
   Directory Errors:
     examples/dataset-examples/bad-tsv-formats/upload/codex-metadata.tsv, row 2, column data_path:
       examples/dataset-examples/bad-tsv-formats/upload/dataset-1 (as codex-v0):
