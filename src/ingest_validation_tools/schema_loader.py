@@ -436,13 +436,18 @@ def get_table_schema(
     offline: bool = False,
     keep_headers: bool = False,
 ) -> dict:
-    schema = load_yaml(
-        Path(
-            _table_schemas_path
-            / schema_version.metadata_type
-            / f"{schema_version.table_schema}.yaml"
+    try:
+        schema = load_yaml(
+            Path(
+                _table_schemas_path
+                / schema_version.metadata_type
+                / f"{schema_version.table_schema}.yaml"
+            )
         )
-    )
+    except FileNotFoundError:
+        raise FileNotFoundError(
+            f"No such file or directory: src/ingest_validation_tools/{schema_version.metadata_type}/{schema_version.table_schema}.yaml"  # noqa: E501
+        )
     fields_wo_headers = get_fields_wo_headers(schema)
     if not keep_headers:
         schema["fields"] = fields_wo_headers

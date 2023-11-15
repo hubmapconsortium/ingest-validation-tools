@@ -340,12 +340,8 @@ class Upload:
                     self.optional_fields,
                     self.offline,
                 )
-            except OSError as e:
-                return {
-                    f"{tsv_path} (as {schema_version.table_schema})": {
-                        e.strerror: e.filename
-                    }
-                }
+            except Exception as e:
+                return {f"{tsv_path} (as {schema_version.table_schema})": e}
 
             if schema.get("deprecated") and not self.ignore_deprecation:
                 return {
