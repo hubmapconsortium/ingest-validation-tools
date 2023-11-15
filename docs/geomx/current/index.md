@@ -12,7 +12,7 @@ Related files:
 
 Excel and TSV templates for this schema will be available when the draft next-generation schema, to be used in all future submissions, is finalized (no later than Sept. 30).
 
-
+See the following link for the set of fields that are required in the OME TIFF file XML header. https://docs.google.com/spreadsheets/d/1YnmdTAA0Z9MKN3OjR3Sca8pz-LNQll91wdQoRPSP6Q4/edit#gid=0
 
 ## Metadata schema
 
