@@ -42,6 +42,7 @@
 - Update hifi, mibi, imc
 - Fix imc-2d docs
 - Fix imc-2d dir docs
+- Add link to OME-Tiff docs
 
 ## v0.0.15 - 2023-04-04
 
