@@ -141,7 +141,7 @@ assay_category:
 - enhanced-srs
 - gcms
 - geomx
-- hifi-slide
+- hifi-slides
 - histology
 - imc
 - imc-2d
@@ -197,7 +197,7 @@ assay_type:
 - enhanced-srs
 - gcms
 - geomx
-- hifi-slide
+- hifi-slides
 - histology
 - imc
 - imc-2d
@@ -552,7 +552,7 @@ is_cedar:
 - desi
 - enhanced-srs
 - geomx
-- hifi-slide
+- hifi-slides
 - histology
 - imc-2d
 - imc3d
@@ -964,7 +964,7 @@ parent_id:
 - desi
 - enhanced-srs
 - geomx
-- hifi-slide
+- hifi-slides
 - imc-2d
 - lcms
 - lightsheet

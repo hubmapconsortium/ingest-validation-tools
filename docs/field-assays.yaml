@@ -205,7 +205,7 @@ assay_category:
 - GeoMx
 - GeoMx (RNA)
 - GeoMx (protein)
-- HiFi-Slide
+- HiFi-Slides
 - Histology
 - IMS
 - Imaging Mass Cytometry
@@ -287,7 +287,7 @@ assay_type:
 - GeoMx
 - GeoMx (RNA)
 - GeoMx (protein)
-- HiFi-Slide
+- HiFi-Slides
 - Histology
 - IMS
 - Imaging Mass Cytometry
@@ -816,7 +816,7 @@ is_cedar:
 - GeoMx
 - GeoMx (RNA)
 - GeoMx (protein)
-- HiFi-Slide
+- HiFi-Slides
 - Histology
 - IMS
 - LC-MS
@@ -1565,7 +1565,7 @@ parent_id:
 - GeoMx
 - GeoMx (RNA)
 - GeoMx (protein)
-- HiFi-Slide
+- HiFi-Slides
 - LC-MS
 - Light Sheet
 - MALDI
