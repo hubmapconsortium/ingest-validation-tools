@@ -39,6 +39,10 @@
 - Bail earlier in validation if there are errors in metadata/dir/refs
 - Update Antibodies
 - Remove NanoSplits
+- Update hifi, mibi, imc
+- Fix imc-2d docs
+- Fix imc-2d dir docs
+- Add link to OME-Tiff docs
 - Remove WGS, CE-MS, GC-MS, and RNAseq (GeoMx)
 
 ## v0.0.15 - 2023-04-04
