@@ -252,6 +252,7 @@ assay_category:
 - bulk-RNA
 - bulkATACseq
 - cell-dive
+- nanoSPLITS
 - scRNAseq
 - scRNAseq-10xGenomics
 - scRNAseq-10xGenomics-v2
@@ -333,6 +334,7 @@ assay_type:
 - bulk-RNA
 - bulkATACseq
 - cell-dive
+- nanoSPLITS
 - publication
 - scRNAseq
 - scRNAseq-10xGenomics
@@ -841,6 +843,7 @@ is_cedar:
 - Ultrasound
 - Visium
 - Xenium
+- nanoSPLITS
 - seqFISH
 is_targeted:
 - 3D Imaging Mass Cytometry
