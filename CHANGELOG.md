@@ -44,6 +44,7 @@
 - Fix imc-2d dir docs
 - Add link to OME-Tiff docs
 - Remove WGS, CE-MS, GC-MS, and RNAseq (GeoMx)
+- Update histology and segmentation mask directory schemas
 
 ## v0.0.15 - 2023-04-04
 
