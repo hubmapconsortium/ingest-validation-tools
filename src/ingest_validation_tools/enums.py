@@ -70,6 +70,7 @@ shared_enums: Dict[str, List[str]] = {
         "Molecular Cartography",
         "NanoDESI",
         "NanoPOTS",
+        "nanoSPLITS",
         "PAS microscopy",
         "PhenoCycler",
         "Publication",

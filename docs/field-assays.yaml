@@ -235,7 +235,6 @@ assay_category:
 - PAS microscopy
 - PhenoCycler
 - RNAseq
-- RNAseq (GeoMx)
 - SIMS
 - SIMS-IMS
 - SNARE-seq2
@@ -254,6 +253,7 @@ assay_category:
 - bulk-RNA
 - bulkATACseq
 - cell-dive
+- nanoSPLITS
 - scRNAseq
 - scRNAseq-10xGenomics
 - scRNAseq-10xGenomics-v2
@@ -318,7 +318,6 @@ assay_type:
 - PhenoCycler
 - Publication
 - RNAseq
-- RNAseq (GeoMx)
 - SIMS
 - SIMS-IMS
 - SNARE-seq2
@@ -337,6 +336,7 @@ assay_type:
 - bulk-RNA
 - bulkATACseq
 - cell-dive
+- nanoSPLITS
 - publication
 - scRNAseq
 - scRNAseq-10xGenomics
@@ -805,7 +805,6 @@ is_cedar:
 - ATACseq
 - Auto-fluorescence
 - Body CT
-- CE-MS
 - CODEX
 - Cell DIVE
 - Confocal
@@ -814,7 +813,6 @@ is_cedar:
 - DBiT
 - DESI
 - Enhanced Stimulated Raman Spectroscopy (SRS)
-- GC-MS
 - GeoMx
 - GeoMx (RNA)
 - GeoMx (protein)
@@ -836,7 +834,6 @@ is_cedar:
 - PhenoCycler
 - Publication
 - RNAseq
-- RNAseq (GeoMx)
 - SIMS
 - Sample
 - Sample Block
@@ -847,8 +844,8 @@ is_cedar:
 - Thick Section Multiphoton MxIF
 - Ultrasound
 - Visium
-- WGS
 - Xenium
+- nanoSPLITS
 - seqFISH
 is_targeted:
 - 3D Imaging Mass Cytometry
@@ -1557,7 +1554,6 @@ parent_id:
 - ATACseq
 - Auto-fluorescence
 - Body CT
-- CE-MS
 - CODEX
 - Cell DIVE
 - Confocal
@@ -1566,7 +1562,6 @@ parent_id:
 - DBiT
 - DESI
 - Enhanced Stimulated Raman Spectroscopy (SRS)
-- GC-MS
 - GeoMx
 - GeoMx (RNA)
 - GeoMx (protein)
@@ -1584,14 +1579,12 @@ parent_id:
 - PhenoCycler
 - Publication
 - RNAseq
-- RNAseq (GeoMx)
 - SIMS
 - Second Harmonic Generation
 - Slide-seq
 - Thick Section Multiphoton MxIF
 - Ultrasound
 - Visium
-- WGS
 - Xenium
 - seqFISH
 parent_sample_id:

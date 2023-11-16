@@ -14,6 +14,8 @@ Assay types and their schemas are linked below.
 - [An Excel file](field-schemas.xlsx) listing all the schemas and their fields is available.
 - For more information, see the [`ingest-validation-tools` repo](https://github.com/hubmapconsortium/ingest-validation-tools#readme).
 
+In 2023 the HuBMAP Consortium significantly revised and expanded our metadata specifications. Some specifications were deprecated, as part of these updates. The current and deprecated specifications have been separated below for clarity.
+
 List of schemas
 - [Current schemas](current)
 - [Deprecated schemas](deprecated)
