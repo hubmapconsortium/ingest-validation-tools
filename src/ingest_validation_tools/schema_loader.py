@@ -1,6 +1,5 @@
 from __future__ import annotations
 from dataclasses import dataclass, field
-import os
 
 from pathlib import Path
 from collections import defaultdict
@@ -43,13 +42,12 @@ class SchemaVersion:
     directory_path: Optional[Path] = None
     table_schema: str = ""
     path: Optional[Union[Path, str]] = None
-    rows: List = field(default_factory=list)
     raw_rows: List = field(default_factory=list)
     soft_assay_data: Dict = field(default_factory=dict)
     is_cedar: bool = False
     dataset_type: str = ""  # String from assay_type or dataset_type field in TSV
     vitessce_hints: List = field(default_factory=list)
-    dir_schema: Optional[str] = None
+    dir_schema: str = ""
     metadata_type: str = "assays"
     # TODO: this is not thought out yet
     # multi_type: str = ""
@@ -114,25 +112,6 @@ class SchemaVersion:
         # self.must_contain = self.soft_assay_data.get("must_contain", [])
         # self.can_contain = self.soft_assay_data.get("can_contain", [])
 
-    # TODO: need legacy support for extras dir, but otherwise,
-    # all rows in a TSV should be assumed to have the same dir structure.
-    # Much simpler after we get rid of extras hints.
-    # def create_row_data(self):
-    #     for i, row in enumerate(self.raw_rows):
-    #         self.rows.append(
-    #             SchemaRow(
-    #                 **{
-    #                     "row_number": i,
-    #                     "dir_schema": "",
-    #                     "parent": self,
-    #                     "directory_path": self.directory_path,
-    #                     "data_path": row.get("data_path"),
-    #                     "contributors_path": "",
-    #                     "antibodies_path": "",
-    #                 }
-    #             )
-    #         )
-
 
 @dataclass
 class DirSchemaVersion:
@@ -147,28 +126,6 @@ class DirSchemaVersion:
         self.dir_schema_string = self.dir_schema_name + "-v" + self.version
 
 
-@dataclass
-class SchemaRow:
-    row_number: int
-    dir_schema: str
-    parent: SchemaVersion
-    directory_path: Optional[Path] = None
-    data_path: Optional[str] = None
-    dir_schema_version: Optional[str] = None
-    # contributors_path: Optional[str] = None
-    # antibodies_path: Optional[str] = None
-
-    def __post_init__(self):
-        if self.data_path and self.directory_path:
-            self.dir_schema = get_directory_schema_version(
-                self.directory_path / self.data_path,
-                self.parent,
-            )
-            match = re.match(r".+-v(\d+)", self.dir_schema)
-            if match:
-                self.dir_schema_version = match[1]
-
-
 def get_fields_wo_headers(schema: dict) -> List[dict]:
     return [field for field in schema["fields"] if not isinstance(field, str)]
 
@@ -180,46 +137,6 @@ def get_field_enum(field_name: str, schema: dict) -> List[str]:
         return []
     assert len(fields) == 1
     return fields[0]["constraints"]["enum"]
-
-
-def _get_dir_schema_version_from_extras(
-    data_path: Path,
-) -> Optional[str]:
-    if os.path.isdir(data_path / "extras"):
-        prefix = "dir-schema-v"
-        version_hints = [
-            path.name for path in (data_path / "extras").glob(f"{prefix}*")
-        ]
-        len_hints = len(version_hints)
-        if len_hints == 1:
-            return version_hints[0].replace(prefix, "")
-        elif len_hints > 1:
-            raise Exception(f"Expect 0 or 1 hints, not {len_hints}: {version_hints}")
-    return None
-
-
-def get_directory_schema_version(
-    data_path: Path,
-    schema_version: SchemaVersion,
-) -> str:
-    # TODO: docstrings?
-    extras_version = _get_dir_schema_version_from_extras(data_path)
-    if extras_version:
-        return f"{schema_version.schema_name}-v{extras_version}"
-    # CEDAR schemas are all v2+; if no hints are provided, default to
-    # data directory schema v2
-    if schema_version.is_cedar:
-        v = "2"
-    # For non-CEDAR templates, default to data directory schema v0 if
-    # no hints provided
-    else:
-        v = "0"
-    # Privilege any dir_schema set from the assayclassifier endpoint
-    return (
-        schema_version.dir_schema
-        if schema_version.dir_schema
-        else f"{schema_version.schema_name}-v{v}"
-    )
 
 
 def list_table_schema_versions() -> List[SchemaVersion]:

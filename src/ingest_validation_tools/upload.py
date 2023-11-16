@@ -24,7 +24,6 @@ from ingest_validation_tools.validation_utils import (
     dict_reader_wrapper,
     get_context_of_decode_error,
     get_data_dir_errors,
-    get_directory_schema_versions,
     get_json,
     get_schema_version,
 )
@@ -145,16 +144,14 @@ class Upload:
         ).strip()
 
         try:
-            # TODO: is there a particular way this needs to display?
+            # TODO: this previously returned a list of dir schema versions;
+            # it has been converted to return a single dir_schema filename--
+            # is this problematic for any reason?
             effective_tsvs = {
                 Path(path).name: {
                     "Schema": sv.table_schema,
                     "Metadata schema version": sv.version,
-                    "Directory schema versions": get_directory_schema_versions(
-                        path,
-                        schema_version=sv,
-                        encoding="ascii",
-                    ),
+                    "Directory schema versions": sv.dir_schema,
                 }
                 for path, sv in self.effective_tsv_paths.items()
             }
@@ -384,6 +381,8 @@ class Upload:
         return errors
 
     def _get_plugin_errors(self, **kwargs) -> dict:
+        # TODO: needs to be updated to use canonical assay names;
+        # requires a look into ingest-validation-tests as well
         plugin_path = self.plugin_directory
         if not plugin_path:
             return {}
@@ -564,12 +563,17 @@ class Upload:
         schema_version: SchemaVersion,
         metadata_path: Union[str, Path],
     ) -> Optional[Dict]:
+        # TODO: it's weird that this method does two wildly different things; fix
         errors: Dict[
             str, Union[list, dict]
         ] = {}  # This is very ugly but makes mypy happy
         if ref == "data":
+            if not schema_version.dir_schema:
+                raise Exception(
+                    f"No directory schema found for data_path {path} in {metadata_path}!"
+                )
             ref_errors = get_data_dir_errors(
-                schema_version,
+                schema_version.dir_schema,
                 path,
                 dataset_ignore_globs=self.dataset_ignore_globs,
             )
@@ -607,7 +611,6 @@ class Upload:
         metadata_path: Union[str, Path],
     ):
         ref_errors: DefaultDict[str, list] = defaultdict(list)
-        # TODO: use row objects here if ref is "data"
         for i, row in enumerate(schema.raw_rows):
             field = f"{ref}_path"
             if not row.get(field):

@@ -10,7 +10,6 @@ import requests
 from ingest_validation_tools.schema_loader import (
     PreflightError,
     SchemaVersion,
-    get_directory_schema_version,
     get_directory_schema,
 )
 from ingest_validation_tools.directory_validator import (
@@ -158,26 +157,6 @@ def get_assaytype_data(
     return response.json()
 
 
-def get_directory_schema_versions(
-    tsv_path: str,
-    schema_version: SchemaVersion,
-    encoding: str,
-) -> Union[Dict, List]:
-    parent = Path(tsv_path).parent
-    try:
-        rows = read_rows(Path(tsv_path), encoding)
-    except TSVError as e:
-        raise PreflightError(e.errors)
-    data_paths = [r.get("data_path") for r in rows]
-    return list(
-        set(
-            get_directory_schema_version(parent / path, schema_version)
-            for path in data_paths
-            if path and schema_version
-        )
-    )
-
-
 def read_rows(path: Path, encoding: str) -> List:
     message = None
     if not Path(path).exists():
@@ -197,30 +176,13 @@ def read_rows(path: Path, encoding: str) -> List:
 
 
 def get_data_dir_errors(
-    schema_version: SchemaVersion,
+    dir_schema: str,
     data_path: Path,
     dataset_ignore_globs: List[str] = [],
 ) -> Optional[dict]:
     """
     Validate a single data_path.
-    TODO: Still using get_directory_schema_version to return the version
-    here to accommodate (and privilege) hints in extras dirs in
-    legacy validation; will the practice of allowing different dir schemas
-    for different data_paths in the same TSV continue?
     """
-    dir_schema_version = get_directory_schema_version(data_path, schema_version)
-    return _get_data_dir_errors_for_version(
-        dir_schema_version,
-        data_path,
-        dataset_ignore_globs,
-    )
-
-
-def _get_data_dir_errors_for_version(
-    dir_schema: str,
-    data_path: Path,
-    dataset_ignore_globs: List[str],
-) -> Optional[dict]:
     schema = get_directory_schema(dir_schema=dir_schema)
 
     if schema is None:
