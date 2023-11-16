@@ -38,9 +38,7 @@ class SchemaVersion:
 
     # TODO: it would be great to be able to make more assumptions about
     # rows/assayclassifier data being present
-    # TODO: variations between dataset_type in rows, canonical name
-    # from assayclassifier, and table_name need thinking through
-    schema_name: str
+    schema_name: str  # Valid values: canonical assay name OR other type
     version: str = ""
     directory_path: Optional[Path] = None
     table_schema: str = ""
@@ -49,7 +47,7 @@ class SchemaVersion:
     raw_rows: List = field(default_factory=list)
     soft_assay_data: Dict = field(default_factory=dict)
     is_cedar: bool = False
-    dataset_type: str = ""
+    dataset_type: str = ""  # String from assay_type or dataset_type field in TSV
     vitessce_hints: List = field(default_factory=list)
     dir_schema: Optional[str] = None
     metadata_type: str = "assays"
@@ -104,7 +102,7 @@ class SchemaVersion:
             )
         else:
             self.dataset_type = assay_type if assay_type else dataset_type
-        self.create_row_data()
+        # self.create_row_data()
 
     def get_assayclassifier_data(self):
         self.vitessce_hints = self.soft_assay_data.get("vitessce_hints", [])
@@ -119,21 +117,21 @@ class SchemaVersion:
     # TODO: need legacy support for extras dir, but otherwise,
     # all rows in a TSV should be assumed to have the same dir structure.
     # Much simpler after we get rid of extras hints.
-    def create_row_data(self):
-        for i, row in enumerate(self.raw_rows):
-            self.rows.append(
-                SchemaRow(
-                    **{
-                        "row_number": i,
-                        "dir_schema": "",
-                        "parent": self,
-                        "directory_path": self.directory_path,
-                        "data_path": row.get("data_path"),
-                        # "contributors_path": "",
-                        # "antibodies_path": "",
-                    }
-                )
-            )
+    # def create_row_data(self):
+    #     for i, row in enumerate(self.raw_rows):
+    #         self.rows.append(
+    #             SchemaRow(
+    #                 **{
+    #                     "row_number": i,
+    #                     "dir_schema": "",
+    #                     "parent": self,
+    #                     "directory_path": self.directory_path,
+    #                     "data_path": row.get("data_path"),
+    #                     "contributors_path": "",
+    #                     "antibodies_path": "",
+    #                 }
+    #             )
+    #         )
 
 
 @dataclass
@@ -204,6 +202,7 @@ def get_directory_schema_version(
     data_path: Path,
     schema_version: SchemaVersion,
 ) -> str:
+    # TODO: docstrings?
     extras_version = _get_dir_schema_version_from_extras(data_path)
     if extras_version:
         return f"{schema_version.schema_name}-v{extras_version}"
@@ -221,141 +220,6 @@ def get_directory_schema_version(
         if schema_version.dir_schema
         else f"{schema_version.schema_name}-v{v}"
     )
-
-
-# def get_table_schema_version_from_row(path: str, row: Dict[str, Any]) -> SchemaVersion:
-#     from ingest_validation_tools.validation_utils import get_other_names
-#
-#     """
-#     >>> try: get_table_schema_version_from_row('empty', {'bad-column': 'bad-value'})
-#     ... except Exception as e: print(e)
-#     empty does not contain "assay_type" or "dataset_type". Column headers: bad-column
-#
-#     >>> get_table_schema_version_from_row( \
-#             'v0', \
-#             {'assay_type': 'PAS microscopy'}, \
-#             cedar_validation=False \
-#         )
-#     SchemaVersion(schema_name='stained', version='0')
-#
-#     >>> try: get_table_schema_version_from_row('v42', \
-#                 {'assay_type': 'PAS microscopy', 'version': 42}, \
-#                 cedar_validation=False \
-#                 )
-#     ... except PreflightError as e: print(e)
-#     No schema where 'PAS microscopy' is assay_type and 42 is version
-#
-#     """
-#     assay = row["assay_type"] if "assay_type" in row els30 row.get("dataset_type")
-#     source_project = row["source_project"] if "source_project" in row else None
-#     dir = "assays"
-#
-#     version = row["version"] if "version" in row else "0"
-#
-#     other_type = [
-#         other_type
-#         for other_type in get_other_names()
-#         if f"{other_type}_id" in row.keys()
-#     ]
-#     if other_type:
-#         assay = other_type[0]
-#         dir = "others"
-#     elif not assay:
-#         message = f'{path} does not contain "assay_type" or "dataset_type". '
-#         if "channel_id" in row:
-#             message += (
-#                 'Has "channel_id": Antibodies TSV found where metadata TSV expected.'
-#             )
-#         elif "orcid_id" in row:
-#             message += (
-#                 'Has "orcid_id": Contributors TSV found where metadata TSV expected.'
-#             )
-#         else:
-#             message += f'Column headers: {", ".join(row.keys())}'
-#         raise PreflightError(message)
-#
-#     schema_names = _assay_to_schema_name(assay, source_project, dir=dir)
-#
-#     for schema_name in schema_names:
-#         schema_path = (
-#             _table_schemas_path / dir / _get_schema_filename(schema_name, version)
-#         )
-#         if Path(schema_path).exists():
-#             return SchemaVersion(schema_name, version)
-#     message = f"No schema where '{assay}' is assay_type and {version} is version"
-#     raise PreflightError(message)
-#
-#
-# def _assay_to_schema_name(
-#     assay_type: str, source_project: Optional[str], dir: str = "assays"
-# ) -> List[str]:
-#     """
-#     Given an assay name, and a source_project (may be None),
-#     read all the schemas until one matches.
-#     Return the schema name, but not the version.
-#
-#     >>> _assay_to_schema_name('PAS microscopy', None)
-#     ['stained']
-#
-#     >>> _assay_to_schema_name('snRNAseq', None)
-#     ['scrnaseq']
-#
-#     >>> _assay_to_schema_name('snRNAseq', 'HCA')
-#     ['scrnaseq-hca']
-#
-#
-#     Or, if a match can not be found (try-except just for shorter lines):
-#
-#     >>> try:  _assay_to_schema_name('PAS microscopy', 'HCA')
-#     ... except PreflightError as e: print(e)
-#     No schema where 'PAS microscopy' is assay_type and 'HCA' is source_project
-#
-#     >>> try: _assay_to_schema_name('snRNAseq', 'Bad Project')
-#     ... except PreflightError as e: print(e)
-#     No schema where 'snRNAseq' is assay_type and 'Bad Project' is source_project
-#
-#     >>> try: _assay_to_schema_name('Bad assay', None)
-#     ... except PreflightError as e: print(e)
-#     No schema where 'Bad assay' is assay_type
-#
-#     >>> try: _assay_to_schema_name('Bad assay', 'HCA')
-#     ... except PreflightError as e: print(e)
-#     No schema where 'Bad assay' is assay_type and 'HCA' is source_project
-#
-#     """
-#     assay_names = []
-#     for path in (Path(__file__).parent / "table-schemas" / dir).glob("*.yaml"):
-#         schema = load_yaml(path)
-#         assay_type_enum = get_field_enum("assay_type", schema)
-#
-#         # TODO: idiosyncratic handling of case for matching with enums
-#         if assay_type.lower() not in [assay.lower() for assay in assay_type_enum]:
-#             continue
-#
-#         source_project_enum = get_field_enum("source_project", schema)
-#
-#         if source_project_enum:
-#             if not source_project:
-#                 continue
-#
-#         if source_project:
-#             if not source_project_enum:
-#                 continue
-#             if source_project not in source_project_enum:
-#                 continue
-#
-#         v_match = re.match(r".+(?=-v\d+)", path.stem)
-#         if not v_match:
-#             raise PreflightError(f"No version in {path}")
-#         assay_names.append(v_match[0])
-#
-#     if assay_names:
-#         return list(set(assay_names))
-#
-#     message = f"No schema where '{assay_type}' is assay_type"
-#     if source_project is not None:
-#         message += f" and '{source_project}' is source_project"
-#     raise PreflightError(message)
 
 
 def list_table_schema_versions() -> List[SchemaVersion]:

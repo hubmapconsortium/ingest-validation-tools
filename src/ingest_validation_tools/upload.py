@@ -21,14 +21,12 @@ from ingest_validation_tools.schema_loader import (
 )
 from ingest_validation_tools.table_validator import ReportType, get_table_errors
 from ingest_validation_tools.validation_utils import (
-    TSVError,
     dict_reader_wrapper,
     get_context_of_decode_error,
     get_data_dir_errors,
     get_directory_schema_versions,
     get_json,
     get_schema_version,
-    read_rows,
 )
 
 TSV_SUFFIX = "metadata.tsv"
@@ -325,11 +323,7 @@ class Upload:
         errors: Dict[str, Any] = {}
         local_validated = {}
         api_validated = {}
-        try:
-            rows = read_rows(Path(tsv_path), encoding=self.encoding)
-        except TSVError as e:
-            return {"TSV Errors": e.errors}
-        if "metadata_schema_id" not in rows[0].keys():
+        if not schema_version.is_cedar:
             logging.info(
                 f"""TSV {tsv_path} does not contain a metadata_schema_id,
                 sending for local validation"""
@@ -613,6 +607,7 @@ class Upload:
         metadata_path: Union[str, Path],
     ):
         ref_errors: DefaultDict[str, list] = defaultdict(list)
+        # TODO: use row objects here if ref is "data"
         for i, row in enumerate(schema.raw_rows):
             field = f"{ref}_path"
             if not row.get(field):
