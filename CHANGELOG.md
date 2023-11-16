@@ -39,7 +39,13 @@
 - Bail earlier in validation if there are errors in metadata/dir/refs
 - Update Antibodies
 - Remove NanoSplits
-- Implemented soft assay types for canonical assay names and dir structures
+- Update hifi, mibi, imc
+- Fix imc-2d docs
+- Fix imc-2d dir docs
+- Add link to OME-Tiff docs
+- Remove WGS, CE-MS, GC-MS, and RNAseq (GeoMx)
+- Implemented soft assay types/assayclassifier endpoint for canonical assay names and dir structures
+- Added mock response test data for offline testing
 
 ## v0.0.15 - 2023-04-04
 

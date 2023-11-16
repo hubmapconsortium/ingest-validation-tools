@@ -367,6 +367,8 @@ overall_protocols_io_doi:
 - dataset
 parent_id:
 - dataset
+parent_sample_id:
+- dataset
 pathologist_report:
 - sample
 pathology_distance_unit:

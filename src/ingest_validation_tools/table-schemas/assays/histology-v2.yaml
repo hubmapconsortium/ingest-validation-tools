@@ -1,17 +1,17 @@
 description_md: 'See the following link for the set of fields that are required in the OME TIFF file XML header. https://docs.google.com/spreadsheets/d/1YnmdTAA0Z9MKN3OjR3Sca8pz-LNQll91wdQoRPSP6Q4/edit#gid=0'
 fields:
 - name: is_cedar
-  description: 'Identifies whether the version is hosted by CEDAR'
-  example: 'https://openview.metadatacenter.org/templates/https:%2F%2Frepo.metadatacenter.org%2Ftemplates%2F20f1b25a-49dd-419e-a15d-ec02d396b7f7'
+  description: "Identifies whether the version is hosted by CEDAR"
+  example: "https://openview.metadatacenter.org/templates/https:%2F%2Frepo.metadatacenter.org%2Ftemplates%2Fe7475329-9a60-4088-8e34-19a3828e0b3b"
 - name: assay_category
   constraints:
     enum:
-      - mxfbe
+      - histology
 - name: assay_type
   constraints:
     enum:
-      - CyCIF
-- name: parent_id
+      - Histology
+- name: parent_sample_id
   description: "UUID or HuBMAP ID of parent"
   example: "ec2ccf5a3436b11d0c7186b74ad4673d"
   custom_constraints:

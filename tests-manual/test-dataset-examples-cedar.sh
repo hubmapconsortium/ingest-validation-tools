@@ -4,7 +4,7 @@ set -o errexit
 die() { set +v; echo "$*" 1>&2 ; sleep 1; exit 1; }
 
 GLOBUS_TOKEN=${1:?"Error. You must supply a globus token."}
-START_INDEX=${2}
+START_INDEX=${2:-0}
 INDEX=0
 
 for SUITE in examples/dataset-examples examples/dataset-iec-examples; do

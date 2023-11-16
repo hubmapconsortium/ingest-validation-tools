@@ -280,6 +280,7 @@ organ_width_unit: Width unit.
 organ_width_value: The width value of the organ.
 overall_protocols_io_doi: DOI for protocols.io for the overall process.
 parent_id: UUID or HuBMAP ID of parent
+parent_sample_id: UUID or HuBMAP ID of parent
 pathologist_report: Further details on organ level QC checks.
 pathology_distance_unit: Distance unit
 pathology_distance_value: If surgical sample, how far from the pathology was the sample
