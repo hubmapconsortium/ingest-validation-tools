@@ -45,6 +45,7 @@
 - Add link to OME-Tiff docs
 - Remove WGS, CE-MS, GC-MS, and RNAseq (GeoMx)
 - Update histology and segmentation mask directory schemas
+- Update hifi-slide to hifi-slides
 
 ## v0.0.15 - 2023-04-04
 
