@@ -4,12 +4,14 @@ set -o errexit
 die() { set +v; echo "$*" 1>&2 ; sleep 1; exit 1; }
 
 GLOBUS_TOKEN=${1:?"Error. You must supply a globus token."}
+START_INDEX=${2}
+INDEX=0
 
 for SUITE in examples/dataset-examples examples/dataset-iec-examples; do
 
     case ${SUITE} in
         examples/dataset-iec-examples)
-            OPTS="--dataset_ignore_globs 'metadata.tsv' --upload_ignore_globs '*'"
+            OPTS="--dataset_ignore_globs 'metadata.tsv' --upload_ignore_globs '*' --run_plugins"
             ;;
         examples/dataset-examples)
             OPTS="--dataset_ignore_globs 'ignore-*.tsv' '.*' --run_plugins --globus_token ${GLOBUS_TOKEN} --upload_ignore_globs 'drv_ignore_*' --output as_md"
@@ -19,8 +21,13 @@ for SUITE in examples/dataset-examples examples/dataset-iec-examples; do
     esac
 
     for EXAMPLE in "${SUITE}"/*; do
+        ((INDEX=INDEX+1))
+        if [ "$INDEX" -lt "$START_INDEX" ]; then
+            echo "Skipping ${INDEX}: ${SUITE}/${EXAMPLE}"
+            continue
+        fi
         README="${EXAMPLE}/README_ONLINE.md"
-        echo "Testing ${EXAMPLE} ..."
+        echo "Testing ${INDEX}: ${EXAMPLE} ..."
         CMD="src/validate_upload.py --local_directory ${EXAMPLE}/upload ${OPTS} | perl -pne 's/(Time|Git version): .*/\1: WILL_CHANGE/'"
         echo "$CMD"
         if [ ! -e "${README}" ]; then
@@ -39,6 +46,6 @@ for SUITE in examples/dataset-examples examples/dataset-iec-examples; do
         ! grep 'No errors!' "${BAD}" || die "${BAD} should be an error report."
     done
 
-    echo "Done! No errors!"
+    echo "Done with ${SUITE}! No errors!"
 
 done

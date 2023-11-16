@@ -13,7 +13,7 @@ Upload Errors:
       \ [ \xF0 ] \x9F\x98\x83\t\tbad-value\t\t\tinv\"."
   Directory Errors:
     examples/dataset-examples/bad-codex-data/upload/codex-metadata.tsv, row 2, column data_path:
-      examples/dataset-examples/bad-codex-data/upload/dataset-1 (as codex-v0):
+      examples/dataset-examples/bad-codex-data/upload/dataset-1 (as codex-v1-with-dataset-json):
         Not allowed:
         - channelnames.txt.
         - cyc002_reg001_200216_112537/bad.
@@ -22,10 +22,10 @@ Upload Errors:
         - segmentation.json.
         Required but missing:
         - (processed|drv_[^/]*)/.*.
-        - (raw|processed)/config\.txt|(raw|src_[^/]*|drv_[^/]*)/[sS]egmentation\.json.
         - (raw|src_.*)/.*.
         - (raw|src_.*)/[cC]yc.*_reg.*/.*_Z.*_CH.*\.tif.
-        - (raw|src_[^/]*)/[Ee]xperiment\.json.
+        - (raw|src_[^/]*)/dataset\.json.
+        - extras/dir-schema-v1-with-dataset-json.
 Metadata TSV Validation Errors:
   Local Validation Errors:
     examples/dataset-examples/bad-codex-data/upload/codex-metadata.tsv (as codex-v0):

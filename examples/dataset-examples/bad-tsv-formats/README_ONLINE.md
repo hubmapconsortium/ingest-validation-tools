@@ -1,13 +1,13 @@
 ```
 Upload Errors:
   TSV Errors:
-    examples/dataset-examples/bad-tsv-formats/upload/codex-metadata.tsv row 2, column 'contributors_path':
-      File has no data rows: examples/dataset-examples/bad-tsv-formats/upload/contributors.tsv.
-    examples/dataset-examples/bad-tsv-formats/upload/codex-metadata.tsv row 2, column 'antibodies_path':
-      File does not exist: examples/dataset-examples/bad-tsv-formats/upload/antibodies.tsv.
+    examples/dataset-examples/bad-tsv-formats/upload/codex-metadata.tsv, row 2, column 'contributors_path':
+    - 'File has no data rows: examples/dataset-examples/bad-tsv-formats/upload/contributors.tsv.'
+    examples/dataset-examples/bad-tsv-formats/upload/codex-metadata.tsv, row 2, column 'antibodies_path':
+    - 'File does not exist: examples/dataset-examples/bad-tsv-formats/upload/antibodies.tsv.'
   Directory Errors:
     examples/dataset-examples/bad-tsv-formats/upload/codex-metadata.tsv, row 2, column data_path:
-      examples/dataset-examples/bad-tsv-formats/upload/dataset-1 (as codex-v0):
+      examples/dataset-examples/bad-tsv-formats/upload/dataset-1 (as codex-v1-with-dataset-json):
         Not allowed:
         - channelnames.txt.
         - cyc002_reg001_200216_112537/1_00001_Z001_CH1.tif.
@@ -16,10 +16,10 @@ Upload Errors:
         - segmentation.json.
         Required but missing:
         - (processed|drv_[^/]*)/.*.
-        - (raw|processed)/config\.txt|(raw|src_[^/]*|drv_[^/]*)/[sS]egmentation\.json.
         - (raw|src_.*)/.*.
         - (raw|src_.*)/[cC]yc.*_reg.*/.*_Z.*_CH.*\.tif.
-        - (raw|src_[^/]*)/[Ee]xperiment\.json.
+        - (raw|src_[^/]*)/dataset\.json.
+        - extras/dir-schema-v1-with-dataset-json.
 Metadata TSV Validation Errors:
   Local Validation Errors:
     examples/dataset-examples/bad-tsv-formats/upload/codex-metadata.tsv (as codex-v0):
