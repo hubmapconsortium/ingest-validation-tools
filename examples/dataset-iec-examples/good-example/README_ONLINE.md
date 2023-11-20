@@ -6,7 +6,6 @@ TSVs:
   metadata.tsv:
     Schema: scatacseq-v0
     Metadata schema version: scatacseq-v0
-    Directory schema versions:
-    - scatacseq-v0
+    Directory schema versions: scatacseq-v0
 
 

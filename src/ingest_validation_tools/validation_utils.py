@@ -141,9 +141,11 @@ def get_assaytype_data(
     row: Dict,
     globus_token: str,
     path: Path,
-    env: str = "local",
+    env: str = "dev",
     offline: bool = False,
 ) -> Dict:
+    if "version" in row.keys():
+        row["version"] = int(row["version"])
     if offline or not globus_token:
         return mock_response(path, row)
     url = get_ingest_api_env(env)

@@ -17,12 +17,14 @@ def mock_response(path: Path, row: Dict) -> Dict:
                 ./tests-manual/test-dataset-examples-cedar.sh <globus_token>
                 """
         )
-    if not set(row.values()).difference(response_dict.get("args", [])):
+    diff = set(row.values()).difference(response_dict.get("args", []))
+    if not diff:
         return response_dict["response"]
     else:
         raise MockException(
             f"""
             Not all expected args were passed for path {path}.
+            Diff: {diff}
             Args passed: {row}
             Expected args: {response_dict.get("args", [])}
             """
