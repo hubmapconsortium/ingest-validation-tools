@@ -147,6 +147,7 @@ def get_assaytype_data(
     if "version" in row.keys():
         row["version"] = int(row["version"])
     if offline or not globus_token:
+        # TODO: separate testing path from live code
         return mock_response(path, row)
     url = get_ingest_api_env(env)
     headers = {
