@@ -46,6 +46,7 @@
 - Remove WGS, CE-MS, GC-MS, and RNAseq (GeoMx)
 - Update histology and segmentation mask directory schemas
 - Update hifi-slide to hifi-slides
+- Fix changelog error
 
 ## v0.0.15 - 2023-04-04
 
