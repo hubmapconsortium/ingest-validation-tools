@@ -44,6 +44,8 @@
 - Fix imc-2d dir docs
 - Add link to OME-Tiff docs
 - Remove WGS, CE-MS, GC-MS, and RNAseq (GeoMx)
+- Update histology and segmentation mask directory schemas
+- Update hifi-slide to hifi-slides
 - Implemented soft assay types/assayclassifier endpoint for canonical assay names and dir structures
 - Added mock response test data for offline testing
 

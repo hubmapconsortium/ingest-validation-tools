@@ -22,12 +22,7 @@ files:
     required: True
     description: Raw image files. Using this subdirectory allows for harmonization with other more complex assays, like Visium that includes both raw imaging and sequencing data. [This directory must include at least one raw file.] 
   -
-    pattern: raw\/images\/[^\/]+\.xml
-    required: True
-    description: XML metadata file from the autofluorescence microscopy experiments
-    is_qa_qc: False
-  -
-    pattern: raw\/images\/[^\/]+\.(?:scn|vsi|ndpi|svs|czi|tiff)
+    pattern: raw\/images\/[^\/]+\.(?:xml|scn|vsi|ndpi|svs|czi|tiff)
     required: True
     description: Raw microscope file for the experiment
     is_qa_qc: False
@@ -48,7 +43,7 @@ files:
   -
     pattern: lab_processed\/images\/[^\/]+\.ome-tiff\.channels\.csv
     required: True
-    description: This file should describe any processing that was done to generate the images in each channel of the accommpanying OME TIFF. The file should contain one row per OME TIFF channel and the first field should be the number of the channel.
+    description: This file provides essential documentation pertaining to each channel of the accommpanying OME TIFF. The file should contain one row per OME TIFF channel. The required fields are detailed here https://docs.google.com/spreadsheets/d/1xEJSb0xn5C5fB3k62pj1CyHNybpt4-YtvUs5SUMS44o/edit#gid=0
   -
     pattern: lab_processed\/transformations\/.*
     required: False

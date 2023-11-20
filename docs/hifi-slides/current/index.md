@@ -1,6 +1,6 @@
 ---
-title: HiFi-Slide
-schema_name: hifi-slide
+title: HiFi-Slides
+schema_name: hifi-slides
 category: Spatial Transcriptomics
 all_versions_deprecated: False
 exclude_from_index: False
@@ -12,8 +12,8 @@ Prepare your metadata based on the latest metadata schema using one of the templ
 Related files:
 
 
-- [📝 Excel template](https://raw.githubusercontent.com/hubmapconsortium/dataset-metadata-spreadsheet/main/hifi-slide/latest/hifi-slide.xlsx): For metadata entry.
-- [📝 TSV template](https://raw.githubusercontent.com/hubmapconsortium/dataset-metadata-spreadsheet/main/hifi-slide/latest/hifi-slide.tsv): Alternative for metadata entry.
+- [📝 Excel template](https://raw.githubusercontent.com/hubmapconsortium/dataset-metadata-spreadsheet/main/hifi-slides/latest/hifi-slides.xlsx): For metadata entry.
+- [📝 TSV template](https://raw.githubusercontent.com/hubmapconsortium/dataset-metadata-spreadsheet/main/hifi-slides/latest/hifi-slides.tsv): Alternative for metadata entry.
 
 
 See the following link for the set of fields that are required in the OME TIFF file XML header. https://docs.google.com/spreadsheets/d/1YnmdTAA0Z9MKN3OjR3Sca8pz-LNQll91wdQoRPSP6Q4/edit#gid=0
