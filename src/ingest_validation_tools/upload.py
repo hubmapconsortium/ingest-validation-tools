@@ -9,7 +9,6 @@ from pathlib import Path
 from typing import Any, Dict, List, Optional, Union, DefaultDict
 
 import requests
-from requests.auth import HTTPBasicAuth
 
 from ingest_validation_tools.plugin_validator import (
     ValidatorError as PluginValidatorError,
@@ -58,7 +57,6 @@ class Upload:
         ignore_deprecation: bool = False,
         extra_parameters: Union[dict, None] = None,
         globus_token: str = "",
-        cedar_api_key: str = "",
         run_plugins: bool = False,
     ):
         self.directory_path = directory_path
@@ -74,7 +72,6 @@ class Upload:
         self.effective_tsv_paths = {}
         self.extra_parameters = extra_parameters if extra_parameters else {}
         self.auth_tok = globus_token
-        self.cedar_api_key = cedar_api_key
         self.run_plugins = run_plugins
 
         try:
@@ -343,10 +340,6 @@ class Upload:
 
     def api_validation(self, tsv_path: Path, report_type: ReportType = ReportType.STR):
         errors = {}
-        if not self.cedar_api_key:
-            return {
-                "Request Errors": f"No CEDAR API key passed, cannot validate {tsv_path}!"
-            }
         response = self._cedar_api_call(tsv_path)
         if response.status_code != 200:
             errors["Request Errors"] = response.json()
@@ -366,13 +359,11 @@ class Upload:
     ##############################
 
     def _cedar_api_call(self, tsv_path: Union[str, Path]) -> requests.models.Response:
-        auth = HTTPBasicAuth("apikey", self.cedar_api_key)
         file = {"input_file": open(tsv_path, "rb")}
         headers = {"content_type": "multipart/form-data"}
         try:
             response = requests.post(
                 "https://api.metadatavalidator.metadatacenter.org/service/validate-tsv",
-                auth=auth,
                 headers=headers,
                 files=file,
             )
@@ -530,7 +521,6 @@ class Upload:
                 offline=self.offline,
                 encoding=self.encoding,
                 ignore_deprecation=self.ignore_deprecation,
-                cedar_api_key=self.cedar_api_key,
             )
             # TSV located and read, errors found
             if tsv_ref_errors and isinstance(tsv_ref_errors, list):

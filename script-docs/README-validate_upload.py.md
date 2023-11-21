@@ -7,7 +7,6 @@ usage: validate_upload.py [-h] --local_directory PATH
                           [--encoding ENCODING]
                           [--plugin_directory PLUGIN_DIRECTORY]
                           [--run_plugins] [--globus_token GLOBUS_TOKEN]
-                          [--cedar_api_key CEDAR_API_KEY]
                           [--output {as_md,as_text,as_text_list,as_yaml}]
                           [--add_notes] [--save_report]
 
@@ -41,8 +40,6 @@ optional arguments:
                         errors.
   --globus_token GLOBUS_TOKEN
                         Token for URL checking using Entity API.
-  --cedar_api_key CEDAR_API_KEY
-                        CEDAR Metadata Spreadsheet Validator API key.
   --output {as_md,as_text,as_text_list,as_yaml}
   --add_notes           Append a context note to error reports.
   --save_report         Save the report; Adding "--upload_ignore_globs
