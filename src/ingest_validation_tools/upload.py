@@ -9,7 +9,6 @@ from pathlib import Path
 from typing import Any, Dict, List, Optional, Union, DefaultDict
 
 import requests
-from requests.auth import HTTPBasicAuth
 
 from ingest_validation_tools.plugin_validator import (
     ValidatorError as PluginValidatorError,
@@ -59,7 +58,6 @@ class Upload:
         ignore_deprecation: bool = False,
         extra_parameters: Union[dict, None] = None,
         token: str = "",
-        cedar_api_key: str = "",
     ):
         self.directory_path = directory_path
         self.optional_fields = optional_fields
@@ -74,7 +72,6 @@ class Upload:
         self.effective_tsv_paths = {}
         self.extra_parameters = extra_parameters if extra_parameters else {}
         self.auth_tok = token
-        self.cedar_api_key = cedar_api_key
 
         try:
             unsorted_effective_tsv_paths = {
@@ -330,10 +327,6 @@ class Upload:
 
     def api_validation(self, tsv_path: Path, report_type: ReportType = ReportType.STR):
         errors = {}
-        if not self.cedar_api_key:
-            return {
-                "Request Errors": f"No CEDAR API key passed, cannot validate {tsv_path}!"
-            }
         response = self._cedar_api_call(tsv_path)
         if response.status_code != 200:
             errors["Request Errors"] = response.json()
@@ -353,13 +346,11 @@ class Upload:
     ##############################
 
     def _cedar_api_call(self, tsv_path: Union[str, Path]) -> requests.models.Response:
-        auth = HTTPBasicAuth("apikey", self.cedar_api_key)
         file = {"input_file": open(tsv_path, "rb")}
         headers = {"content_type": "multipart/form-data"}
         try:
             response = requests.post(
                 "https://api.metadatavalidator.metadatacenter.org/service/validate-tsv",
-                auth=auth,
                 headers=headers,
                 files=file,
             )
@@ -384,14 +375,19 @@ class Upload:
         schema_name = schema_version.schema_name
 
         if "sample" in schema_name:
-            constrained_fields['sample_id'] = "https://entity.api.hubmapconsortium.org/entities/"
+            constrained_fields[
+                "sample_id"
+            ] = "https://entity.api.hubmapconsortium.org/entities/"
         elif "organ" in schema_name:
-            constrained_fields['organ_id'] = "https://entity.api.hubmapconsortium.org/entities/"
+            constrained_fields[
+                "organ_id"
+            ] = "https://entity.api.hubmapconsortium.org/entities/"
         elif "contributors" in schema_name:
-            constrained_fields['orcid_id'] = "https://pub.orcid.org/v3.0/"
+            constrained_fields["orcid_id"] = "https://pub.orcid.org/v3.0/"
         else:
-            constrained_fields['parent_sample_id'] = \
-                "https://entity.api.hubmapconsortium.org/entities/"
+            constrained_fields[
+                "parent_sample_id"
+            ] = "https://entity.api.hubmapconsortium.org/entities/"
 
         url_errors = self._check_matching_urls(tsv_path, constrained_fields)
         if url_errors:
@@ -512,7 +508,6 @@ class Upload:
                 offline=self.offline,
                 encoding=self.encoding,
                 ignore_deprecation=self.ignore_deprecation,
-                cedar_api_key=self.cedar_api_key
             )
             # TSV located and read, errors found
             if tsv_ref_errors and isinstance(tsv_ref_errors, list):
@@ -566,9 +561,7 @@ class Upload:
             | set(self.__get_antibodies_references().keys())
         )
 
-        referenced_data_paths = {
-            Path(path) for path in referenced_data_paths
-        }
+        referenced_data_paths = {Path(path) for path in referenced_data_paths}
 
         non_metadata_paths = {
             Path(path.name)

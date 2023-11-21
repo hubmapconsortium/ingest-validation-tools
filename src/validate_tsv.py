@@ -46,7 +46,6 @@ Exit status codes:
         ],
     )
     parser.add_argument("--globus_token", required=False, default="")
-    parser.add_argument("--cedar_api_key", required=False, default="")
     error_report_methods = [
         name for (name, _) in inspect.getmembers(ErrorReport) if name.startswith("as_")
     ]
@@ -75,7 +74,6 @@ def main():
             args.path,
             schema_name=schema_name,
             globus_token=args.globus_token,
-            cedar_api_key=args.cedar_api_key,
         )
         errors = {f"{schema_name} TSV errors": errors} if errors else {}
     report = ErrorReport(
