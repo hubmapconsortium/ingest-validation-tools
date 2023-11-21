@@ -48,6 +48,8 @@
 - Update hifi-slide to hifi-slides
 - Fix changelog error
 - Fix CI
+- Update MIBI and IMC2D directory schemas
+
 
 ## v0.0.15 - 2023-04-04
 
