@@ -4,13 +4,12 @@ set -o errexit
 die() { set +v; echo "$*" 1>&2 ; sleep 1; exit 1; }
 
 GLOBUS_TOKEN=${1:?"Error. You must supply a globus token."}
-CEDAR_API_KEY=${2:?"Error. You must supply a CEDAR API key."}
 
 for SUITE in examples/dataset-examples; do
 
     case ${SUITE} in
         examples/dataset-examples)
-            OPTS="--dataset_ignore_globs 'ignore-*.tsv' '.*' --run_plugins --globus_token ${GLOBUS_TOKEN} --cedar_api_key ${CEDAR_API_KEY} --upload_ignore_globs 'drv_ignore_*' --output as_md"
+            OPTS="--dataset_ignore_globs 'ignore-*.tsv' '.*' --run_plugins --globus_token ${GLOBUS_TOKEN} --upload_ignore_globs 'drv_ignore_*' --output as_md"
             ;;
         *)
             die "Unexpected ${SUITE}"
