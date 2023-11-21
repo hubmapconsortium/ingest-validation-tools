@@ -1,3 +1,4 @@
+description_md: 'See the following link for the set of fields that are required in the OME TIFF file XML header. https://docs.google.com/spreadsheets/d/1YnmdTAA0Z9MKN3OjR3Sca8pz-LNQll91wdQoRPSP6Q4/edit#gid=0'
 fields:
 - name: is_cedar
   description: "Identifies whether the version is hosted by CEDAR"
@@ -10,7 +11,7 @@ fields:
   constraints:
     enum:
       - Histology
-- name: parent_id
+- name: parent_sample_id
   description: "UUID or HuBMAP ID of parent"
   example: "ec2ccf5a3436b11d0c7186b74ad4673d"
   custom_constraints:

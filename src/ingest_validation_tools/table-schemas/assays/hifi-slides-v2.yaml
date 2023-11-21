@@ -1,0 +1,19 @@
+description_md: 'See the following link for the set of fields that are required in the OME TIFF file XML header. https://docs.google.com/spreadsheets/d/1YnmdTAA0Z9MKN3OjR3Sca8pz-LNQll91wdQoRPSP6Q4/edit#gid=0'
+fields:
+  - name: is_cedar
+    description: "Identifies whether the version is hosted by CEDAR"
+    example: "https://openview.metadatacenter.org/templates/https:%2F%2Frepo.metadatacenter.org%2Ftemplates%2F0310a026-4aed-49a5-a806-e3a281351d8a"
+  - name: assay_category
+    constraints:
+      enum:
+        - spatial_transcriptomics
+  - name: assay_type
+    constraints:
+      enum:
+        - HiFi-Slides
+  - name: parent_id
+    description: "UUID or HuBMAP ID of parent"
+    example: "ec2ccf5a3436b11d0c7186b74ad4673d"
+    custom_constraints:
+      url:
+        prefix: "https://entity.api.hubmapconsortium.org/entities/"

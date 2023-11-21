@@ -56,6 +56,10 @@ pat_reps = [
     (r'type is "string/email"', r"it is not a valid email"),
     (r'constraint "required" .*', r"it must be filled out."),
     (r"\<.*?\>", ""),
+    (
+        r"400 Client Error: Bad Request for url: (.*).",
+        r"Field value is not valid; URL \1 returned a 400 Error.",
+    ),
 ]
 
 

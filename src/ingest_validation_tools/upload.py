@@ -37,7 +37,6 @@ class ErrorDictException(Exception):
     def __init__(self, errors):
         message = f"Halting compilation of errors after detecting the following errors: {errors}."
         super().__init__(message)
-        # This returns only the error that caused the exception.
         labeled_errors = {}
         labeled_errors["Fatal Exception"] = errors
         self.errors = labeled_errors
@@ -57,7 +56,8 @@ class Upload:
         offline: bool = False,
         ignore_deprecation: bool = False,
         extra_parameters: Union[dict, None] = None,
-        token: str = "",
+        globus_token: str = "",
+        run_plugins: bool = False,
     ):
         self.directory_path = directory_path
         self.optional_fields = optional_fields
@@ -71,7 +71,8 @@ class Upload:
         self.errors = {}
         self.effective_tsv_paths = {}
         self.extra_parameters = extra_parameters if extra_parameters else {}
-        self.auth_tok = token
+        self.auth_tok = globus_token
+        self.run_plugins = run_plugins
 
         try:
             unsorted_effective_tsv_paths = {
@@ -154,6 +155,11 @@ class Upload:
             reference_errors = self._get_reference_errors()
             if reference_errors:
                 errors["Reference Errors"] = reference_errors
+
+            if errors and not self.run_plugins:
+                raise ErrorDictException(
+                    "Skipping plugins validation: errors in upload metadata or dir structure."
+                )
 
             plugin_errors = self._get_plugin_errors(**kwargs)
             if plugin_errors:
@@ -281,10 +287,17 @@ class Upload:
                     f"{tsv_path} (as {schema_version.schema_name}-v{schema_version.version})"
                 ] = local_errors
         else:
+            """
+            Passing offline=True will skip all API/URL validation;
+            GitHub actions therefore do not test via the CEDAR
+            Spreadsheet Validator API, so tests must be run
+            manually (/code/ingest-validation-tools: ./test.sh)
+            """
             if self.offline:
-                api_validated = {
-                    f"{tsv_path}": "Offline validation selected, cannot reach API."
-                }
+                logging.info(
+                    f"{tsv_path}: Offline validation selected, cannot reach API."
+                )
+                return errors
             else:
                 url_errors = self._cedar_url_checks(tsv_path, schema_version)
                 api_errors = self.api_validation(Path(tsv_path))
@@ -399,11 +412,11 @@ class Upload:
         if isinstance(rows, dict):
             return rows
         fields = rows[0].keys()
-        missing_fields = [k for k in constrained_fields.keys() if k not in fields]
+        missing_fields = [
+            k for k in constrained_fields.keys() if k not in fields
+        ].sort()
         if missing_fields:
             return {f"Missing fields: {missing_fields}"}
-        # TODO: not sure if a token is our best bet here; will all UUID/HMID
-        # fields be accessible via the portal?
         if not self.auth_tok:
             return {
                 "No token": "No token was received to check URL fields against Entity API."
@@ -411,9 +424,9 @@ class Upload:
         url_errors = []
         for i, row in enumerate(rows):
             check = {k: v for k, v in row.items() if k in constrained_fields}
-            for field, url in check.items():
+            for field, value in check.items():
                 try:
-                    url = constrained_fields[field] + url
+                    url = constrained_fields[field] + value
                     response = requests.get(
                         url,
                         headers={
@@ -424,7 +437,7 @@ class Upload:
                     response.raise_for_status()
                 except Exception as e:
                     url_errors.append(
-                        f"Row {i+2}, field '{field}' with value '{url}': {e}"
+                        f"Row {i+2}, field '{field}' with value '{value}': {e}"
                     )
         return url_errors
 

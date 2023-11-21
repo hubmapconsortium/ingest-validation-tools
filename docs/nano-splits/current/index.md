@@ -1,5 +1,5 @@
 ---
-title: NanoSplits
+title: nanoSPLITS
 schema_name: nano-splits
 category: Mass Spectrometry
 all_versions_deprecated: False

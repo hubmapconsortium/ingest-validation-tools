@@ -46,6 +46,6 @@ jobs:
 
     - name: Run test script
       run: ./test.sh
-      # env:
-      #   GH_ACTIONS_BRANCH: ${{ github.ref }}
+      env:
+        GITHUB_REF_NAME: ${{ github.ref_name }}
       #   GH_ACTIONS: true

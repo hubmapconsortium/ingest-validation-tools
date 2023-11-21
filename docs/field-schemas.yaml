@@ -141,9 +141,10 @@ assay_category:
 - enhanced-srs
 - gcms
 - geomx
-- hifi-slide
+- hifi-slides
 - histology
 - imc
+- imc-2d
 - imc3d
 - ims
 - lcms
@@ -161,7 +162,6 @@ assay_category:
 - organ
 - phenocycler
 - rnaseq
-- rnaseq-geomx
 - sample
 - sample-block
 - sample-section
@@ -197,9 +197,10 @@ assay_type:
 - enhanced-srs
 - gcms
 - geomx
-- hifi-slide
+- hifi-slides
 - histology
 - imc
+- imc-2d
 - imc3d
 - ims
 - lcms
@@ -218,7 +219,6 @@ assay_type:
 - phenocycler
 - publication
 - rnaseq
-- rnaseq-geomx
 - sample
 - sample-block
 - sample-section
@@ -539,10 +539,10 @@ ion_source:
 is_cedar:
 - 10x-multiome
 - af
+- antibodies
 - atacseq
 - bodyct
 - celldive
-- cems
 - codex
 - confocal
 - contributors
@@ -551,11 +551,10 @@ is_cedar:
 - dbit
 - desi
 - enhanced-srs
-- gcms
 - geomx
-- hifi-slide
+- hifi-slides
 - histology
-- imc
+- imc-2d
 - imc3d
 - ims
 - lcms
@@ -573,7 +572,6 @@ is_cedar:
 - phenocycler
 - publication
 - rnaseq
-- rnaseq-geomx
 - sample
 - sample-block
 - sample-section
@@ -586,7 +584,6 @@ is_cedar:
 - thick-section-multiphoton-mxif
 - ultrasound
 - visium
-- wgs
 - xenium
 is_contact:
 - contributors
@@ -959,7 +956,6 @@ parent_id:
 - atacseq
 - bodyct
 - celldive
-- cems
 - codex
 - confocal
 - cosmx
@@ -967,11 +963,9 @@ parent_id:
 - dbit
 - desi
 - enhanced-srs
-- gcms
 - geomx
-- hifi-slide
-- histology
-- imc
+- hifi-slides
+- imc-2d
 - lcms
 - lightsheet
 - maldi
@@ -985,7 +979,6 @@ parent_id:
 - phenocycler
 - publication
 - rnaseq
-- rnaseq-geomx
 - second-harmonic-generation
 - seqfish
 - sims
@@ -993,8 +986,9 @@ parent_id:
 - thick-section-multiphoton-mxif
 - ultrasound
 - visium
-- wgs
 - xenium
+parent_sample_id:
+- histology
 pathologist_report:
 - sample
 pathology_distance_unit:

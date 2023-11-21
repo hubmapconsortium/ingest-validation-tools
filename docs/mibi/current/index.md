@@ -7,17 +7,21 @@ exclude_from_index: False
 layout: default
 
 ---
+Prepare your metadata based on the latest metadata schema using one of the template files below. See the instructions in the [Metadata Validation Workflow](https://docs.google.com/document/d/1lfgiDGbyO4K4Hz1FMsJjmJd9RdwjShtJqFYNwKpbcZY) document for more information on preparing and validating your metadata.tsv file prior to submission.
 
 Related files:
 
-Excel and TSV templates for this schema will be available when the draft next-generation schema, to be used in all future submissions, is finalized (no later than Sept. 30).
+
+- [📝 Excel template](https://raw.githubusercontent.com/hubmapconsortium/dataset-metadata-spreadsheet/main/mibi/latest/mibi.xlsx): For metadata entry.
+- [📝 TSV template](https://raw.githubusercontent.com/hubmapconsortium/dataset-metadata-spreadsheet/main/mibi/latest/mibi.tsv): Alternative for metadata entry.
 
 
+See the following link for the set of fields that are required in the OME TIFF file XML header. https://docs.google.com/spreadsheets/d/1YnmdTAA0Z9MKN3OjR3Sca8pz-LNQll91wdQoRPSP6Q4/edit#gid=0
 
 ## Metadata schema
 
 
-<summary><a href="https://docs.google.com/spreadsheets/d/1B3UiHbxPSoRQoYSqCAZwyQfm2lxPd86yQnyg80J7lgI/"><b>Version 2 (use this one)</b> (draft - submission of data prepared using this schema will be supported by Sept. 30)</a></summary>
+<summary><a href="https://openview.metadatacenter.org/templates/https:%2F%2Frepo.metadatacenter.org%2Ftemplates%2F784cfaa7-4a73-4173-b639-b24e0ed76155"><b>Version 2 (use this one)</b></a></summary>
 
 
 
@@ -26,8 +30,24 @@ Excel and TSV templates for this schema will be available when the draft next-ge
 ## Directory schemas
 <summary><b>Version 2 (use this one)</b></summary>
 
-| pattern | required? | description |
-| --- | --- | --- |
-| <code>TODO</code> | ✓ | Directory structure not yet specified. |
-| <code>extras\/.*</code> | ✓ | Folder for general lab-specific files related to the dataset. [Exists in all assays] |
+| pattern | required? | description | dependent on |
+| --- | --- | --- | --- |
+| <code>extras\/.*</code> | ✓ | Folder for general lab-specific files related to the dataset. [Exists in all assays] |  |
+| <code>extras\/hardware\.json</code> | ✓ | JSON file containing the machine parameters/settings. This is akin to the microscope_environment.json file that's used to describe the imaging equipment. |  |
+| <code>raw\/.*</code> | ✓ | This is a directory containing raw data. |  |
+| <code>raw\/images\/.*</code> | ✓ | Raw image files. Using this subdirectory allows for harmonization with other more complex assays, like Visium that includes both raw imaging and sequencing data. |  |
+| <code>raw\/images\/[^\/]+\.ome\.tiff</code> | ✓ | Raw image file. |  |
+| <code>raw\/images\/tiles\.csv</code> |  | This file contains the approximate coordinates for each of the tiled raw images. |  |
+| <code>lab_processed\/.*</code> | ✓ | Experiment files that were processed by the lab generating the data. |  |
+| <code>lab_processed\/images\/.*</code> | ✓ | This is a directory containing processed image files |  |
+| <code>lab_processed\/images\/[^\/]+\.ome\.tiff</code> | ✓ | OME-TIFF file (multichannel, multi-layered) produced by the experiment. If compressed, must use loss-less compression algorithm. See the following link for the set of fields that are required in the OME TIFF file XML header. <https://docs.google.com/spreadsheets/d/1YnmdTAA0Z9MKN3OjR3Sca8pz-LNQll91wdQoRPSP6Q4/edit#gid=0> |  |
+| <code>lab_processed\/images\/[^\/]+\.OME-TIFF\.channels\.csv</code> | ✓ | This file provides essential documentation pertaining to each channel of the accommpanying OME TIFF. The file should contain one row per OME TIFF channel. The required fields are detailed <https://docs.google.com/spreadsheets/d/1xEJSb0xn5C5fB3k62pj1CyHNybpt4-YtvUs5SUMS44o/edit#gid=0> |  |
+| <code>lab_processed\/annotations\/.*</code> | ✓ | Directory containing segmentation masks. |  |
+| <code>lab_processed\/annotations\/[^\/]+\.segmentations\.ome\.tiff</code> |  | The segmentation masks should be stored as multi-channel pyramidal OME TIFF bitmasks with one channel per mask, where a single mask contains all instances of a type of object (e.g., all cells, a class of FTUs, etc). The class of objects contained in the mask is documented in the segmentation-masks.csv file. Each individual object in a mask should be represented by a unique integer pixel value starting at 1, with 0 meaning background (e.g., all pixels belonging to the first instance of a T-cell have a value of 1, the pixels for the second instance of a T-cell have a value of 2, etc). The pixel values should be unique within a mask. FTUs and other structural elements should be captured the same way as cells with segmentation masks and the appropriate channel feature definitions. | lab_processed\/annotations\/.* |
+| <code>lab_processed\/annotations\/segmentation-masks\.csv</code> |  | This file contains details about each mask, with one row per mask. Each column in this file contains details describing the mask (e.g., channel number, mask name, ontological ID, etc). Each mask is stored as a channel in the segmentations.ome.tiff file and the mask name should be ontologically based and linked to the ASCT+B table where possible. The number of rows in this file should equal the number of channels in the segmentations.ome.tiff. For example, one row in this file would ontologically describe cells, if the segmentations.ome.tiff file contained a mask of all cells. A minimum set of fields (required and optional) is included below. If multiple segmentations.ome.tiff files are used, this segmentation-masks.csv file should document the masks across all of the OME TIFF files. | lab_processed\/annotations\/.* |
+| <code>lab_processed\/annotations\/[^\/]+-objects\.csv</code> |  | This is a matrix where each row describes an individual object (e.g., one row per cell in the case where a mask contains all cells) and columns are features (i.e., object type, marker intensity, classification strategies, etc). One file should be created per mask with the name of the mask prepended to the file name. For example, if there’s a cell segmentation map called “cells” then you would include a file called “cells-objects.csv” and that file would contain one row per cell in the “cells” mask and one column per feature, such as marker intensity and/or cell type. A minimum set of fields (required and optional) is included below. | lab_processed\/annotations\/.* |
+| <code>lab_processed\/annotations\/[^\/]+\.geojson</code> |  | A GeoJSON file(s) containing the geometries of each object within a mask. For example, if the mask contains multiple FTUs, multiple cells, etc, each of the objects in the mask would be independently documented in the GeoJSON file. There would be a single GeoJSON file per mask and the name of the file should be the name of the mask. If this file is generated by QuPath, the coordinates will be in pixel units with the origin (0, 0) as the top left corner of the full-resolution image. | lab_processed\/annotations\/.* |
+| <code>lab_processed\/annotations\/tissue-boundary\.geojson</code> |  | **[QA/QC]** If the boundaries of the tissue have been identified (e.g., by manual efforts), then the boundary geometry can be included as a GeoJSON file named “tissue-boundary.geojson”. | lab_processed\/annotations\/.* |
+| <code>lab_processed\/annotations\/regions-of-concern\.csv</code> |  | This file and the associated GeoJSON file can be used to denote any regions in the image that may contain QA/QC concerns. For example, if there are folds in the tissue, the region of the fold can be highlighted. This file should contain one row per region and include documentation about the region and why it's being flagged. | lab_processed\/annotations\/.* |
+| <code>lab_processed\/annotations\/regions-of-concern\.geojson</code> |  | This file and the associated CSV file can be used to denote any regions in the image that may contain QA/QC concerns. For example, if there are folds in the tissue, the region of the fold can be highlighted. This file should contain the geometric coordinates of each region being flagged. | lab_processed\/annotations\/.* |
 

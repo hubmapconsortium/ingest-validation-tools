@@ -9,4 +9,4 @@ fields:
 - name: assay_type
   constraints:
     enum:
-      - NanoSplits
+      - nanoSPLITS

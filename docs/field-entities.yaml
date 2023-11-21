@@ -197,6 +197,7 @@ ion_mobility:
 ion_source:
 - dataset
 is_cedar:
+- antibodies
 - contributors
 - dataset
 - organ
@@ -365,6 +366,8 @@ organ_width_value:
 overall_protocols_io_doi:
 - dataset
 parent_id:
+- dataset
+parent_sample_id:
 - dataset
 pathologist_report:
 - sample

@@ -185,6 +185,7 @@ area_normalized_ion_dose_value:
 - MIBI
 assay_category:
 - 10x Multiome
+- 2D Imaging Mass Cytometry
 - 3D Imaging Mass Cytometry
 - AF
 - ATACseq
@@ -204,7 +205,7 @@ assay_category:
 - GeoMx
 - GeoMx (RNA)
 - GeoMx (protein)
-- HiFi-Slide
+- HiFi-Slides
 - Histology
 - IMS
 - Imaging Mass Cytometry
@@ -229,13 +230,11 @@ assay_category:
 - MxIF
 - NanoDESI
 - NanoPOTS
-- NanoSplits
 - OCT
 - Organ
 - PAS microscopy
 - PhenoCycler
 - RNAseq
-- RNAseq (GeoMx)
 - SIMS
 - SIMS-IMS
 - SNARE-seq2
@@ -254,6 +253,7 @@ assay_category:
 - bulk-RNA
 - bulkATACseq
 - cell-dive
+- nanoSPLITS
 - scRNAseq
 - scRNAseq-10xGenomics
 - scRNAseq-10xGenomics-v2
@@ -267,6 +267,7 @@ assay_category:
 - snRNAseq-10xGenomics-v3
 assay_type:
 - 10x Multiome
+- 2D Imaging Mass Cytometry
 - 3D Imaging Mass Cytometry
 - AF
 - ATACseq
@@ -286,7 +287,7 @@ assay_type:
 - GeoMx
 - GeoMx (RNA)
 - GeoMx (protein)
-- HiFi-Slide
+- HiFi-Slides
 - Histology
 - IMS
 - Imaging Mass Cytometry
@@ -311,14 +312,12 @@ assay_type:
 - MxIF
 - NanoDESI
 - NanoPOTS
-- NanoSplits
 - OCT
 - Organ
 - PAS microscopy
 - PhenoCycler
 - Publication
 - RNAseq
-- RNAseq (GeoMx)
 - SIMS
 - SIMS-IMS
 - SNARE-seq2
@@ -337,6 +336,7 @@ assay_type:
 - bulk-RNA
 - bulkATACseq
 - cell-dive
+- nanoSPLITS
 - publication
 - scRNAseq
 - scRNAseq-10xGenomics
@@ -799,12 +799,12 @@ ion_source:
 - GC-MS
 is_cedar:
 - 10x Multiome
+- 2D Imaging Mass Cytometry
 - 3D Imaging Mass Cytometry
 - AF
 - ATACseq
 - Auto-fluorescence
 - Body CT
-- CE-MS
 - CODEX
 - Cell DIVE
 - Confocal
@@ -813,14 +813,12 @@ is_cedar:
 - DBiT
 - DESI
 - Enhanced Stimulated Raman Spectroscopy (SRS)
-- GC-MS
 - GeoMx
 - GeoMx (RNA)
 - GeoMx (protein)
-- HiFi-Slide
+- HiFi-Slides
 - Histology
 - IMS
-- Imaging Mass Cytometry
 - LC-MS
 - Light Sheet
 - MALDI
@@ -830,14 +828,12 @@ is_cedar:
 - Molecular Cartography
 - Multiplex Ion Beam Imaging
 - MxIF
-- NanoSplits
 - OCT
 - Organ
 - PAS microscopy
 - PhenoCycler
 - Publication
 - RNAseq
-- RNAseq (GeoMx)
 - SIMS
 - Sample
 - Sample Block
@@ -848,8 +844,8 @@ is_cedar:
 - Thick Section Multiphoton MxIF
 - Ultrasound
 - Visium
-- WGS
 - Xenium
+- nanoSPLITS
 - seqFISH
 is_targeted:
 - 3D Imaging Mass Cytometry
@@ -1553,11 +1549,11 @@ overall_protocols_io_doi:
 - cell-dive
 parent_id:
 - 10x Multiome
+- 2D Imaging Mass Cytometry
 - AF
 - ATACseq
 - Auto-fluorescence
 - Body CT
-- CE-MS
 - CODEX
 - Cell DIVE
 - Confocal
@@ -1566,13 +1562,10 @@ parent_id:
 - DBiT
 - DESI
 - Enhanced Stimulated Raman Spectroscopy (SRS)
-- GC-MS
 - GeoMx
 - GeoMx (RNA)
 - GeoMx (protein)
-- HiFi-Slide
-- Histology
-- Imaging Mass Cytometry
+- HiFi-Slides
 - LC-MS
 - Light Sheet
 - MALDI
@@ -1586,16 +1579,16 @@ parent_id:
 - PhenoCycler
 - Publication
 - RNAseq
-- RNAseq (GeoMx)
 - SIMS
 - Second Harmonic Generation
 - Slide-seq
 - Thick Section Multiphoton MxIF
 - Ultrasound
 - Visium
-- WGS
 - Xenium
 - seqFISH
+parent_sample_id:
+- Histology
 pi:
 - 3D Imaging Mass Cytometry
 - AF
