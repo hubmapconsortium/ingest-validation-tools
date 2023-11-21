@@ -42,7 +42,6 @@ The software can tell you what the result of validation is, but it can't know wh
 A few additional commandline options are required for CEDAR validation:
 
 - globus_token: you can find your personal Globus token by logging in to a site that requires Globus authentication (e.g. https://ingest.hubmapconsortium.org/) and looking at the Authorization header for your request in the Network tab of your browser. Omit the "Bearer " prefix.
-- cedar_api_key: you can obtain a personal API key by registering at https://cedar.metadatacenter.org/.
 
 See `/tests-manual/README.md` for more information about testing using the CEDAR API.
 

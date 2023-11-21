@@ -276,7 +276,7 @@ def get_tsv_errors(
     if is_cedar:
         from ingest_validation_tools.upload import Upload
 
-        upload = Upload(Path(tsv_path).parent, token=globus_token)
+        upload = Upload(Path(tsv_path).parent, globus_token=globus_token)
         errors = upload.api_validation(Path(tsv_path), report_type)
         schema_version = SchemaVersion(schema_name, version)
         return errors | upload._cedar_url_checks(str(tsv_path), schema_version)
