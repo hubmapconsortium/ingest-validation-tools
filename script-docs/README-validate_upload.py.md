@@ -53,6 +53,9 @@ Typical usage:
   and one-line TSVs are put in each dataset directory. This structure needs
   extra parameters.
 
+  --run_plugins + --plugin_directory ../ingest-validation-tests/src/ingest_validation_tests/:
+  Additional plugin tests can be run to confirm that files in the upload directory are valid; requires cloning https://github.com/hubmapconsortium/ingest-validation-tests.
+
 Exit status codes:
   0: Validation passed
   1: Unexpected bug
