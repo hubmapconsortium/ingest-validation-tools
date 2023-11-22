@@ -1,5 +1,4 @@
 # ingest-validation-tools
-
 HuBMAP data upload guidelines and tools which check that uploads adhere to those guidelines.
 Assay documentation is on [Github Pages](https://hubmapconsortium.github.io/ingest-validation-tools/).
 
@@ -74,7 +73,6 @@ src/validate_upload.py \
   --local_directory examples/dataset-examples/good-codex-akoya-directory-v1-with-dataset.json/upload \
   --offline
 ```
-
 ```
 No errors!
 ```
@@ -112,11 +110,9 @@ upload = Upload(directory_path=path)
 report = ErrorReport(upload.get_errors())
 print(report.as_text())
 ```
-
 (If it would be useful for this to be installable with `pip`, please file an issue.)
 
 To make contributions, checkout the project, cd, venv, and then:
-
 ```
 pip install -r requirements.txt
 pip install -r requirements-dev.txt
@@ -135,7 +131,6 @@ $ git push origin v0.0.x
 ```
 
 ### Repo structure
-
 [![Repo structure](https://docs.google.com/drawings/d/e/2PACX-1vQ8gorGI8ceYBf0bIJQlw4HvI3ooVTvCfickHhCvGJU4yy5kViJI39oqQ7xB20WLYxv8FMRuBLGwmH-/pub?w=600)](https://docs.google.com/drawings/d/1UK81oUHTSHetGXRsA-YeSFS-kb6Nw2rNpnw8SBysYXU/edit)
 
 Checking in the built documentation is not the typical approach, but has worked well for this project:
