@@ -45,7 +45,6 @@ def get_schema_version(
         rows = read_rows(path, encoding)
     except TSVError as e:
         raise PreflightError(e.errors)
-    assay_type_data = {}
     other_type = get_other_schema_name(rows, str(path))
     # Don't want to send contrib/organ/sample/antibody to soft assay endpoint
     if other_type:
@@ -53,7 +52,7 @@ def get_schema_version(
             other_type,
             directory_path=directory_path,
             path=path,
-            raw_rows=rows,
+            rows=rows,
         )
         return sv
     assay_type_data = get_assaytype_data(
@@ -85,7 +84,7 @@ def get_schema_version(
         assay_type_data["assaytype"].lower(),
         directory_path=directory_path,
         path=path,
-        raw_rows=rows,
+        rows=rows,
         soft_assay_data=assay_type_data,
     )
 

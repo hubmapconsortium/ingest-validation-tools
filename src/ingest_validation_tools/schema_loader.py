@@ -42,7 +42,7 @@ class SchemaVersion:
     directory_path: Optional[Path] = None
     table_schema: str = ""
     path: Optional[Union[Path, str]] = None
-    raw_rows: List = field(default_factory=list)
+    rows: List = field(default_factory=list)
     soft_assay_data: Dict = field(default_factory=dict)
     is_cedar: bool = False
     dataset_type: str = ""  # String from assay_type or dataset_type field in TSV
@@ -70,7 +70,7 @@ class SchemaVersion:
             self.metadata_type = "assays"
         else:
             self.metadata_type = "others"
-        if self.raw_rows:
+        if self.rows:
             self.get_row_data()
         if self.soft_assay_data:
             self.get_assayclassifier_data()
@@ -87,13 +87,13 @@ class SchemaVersion:
         #     self.multi_type = "can"
 
     def get_row_data(self):
-        if self.raw_rows[0].get("metadata_schema_id"):
+        if self.rows[0].get("metadata_schema_id"):
             self.is_cedar = True
         else:
             self.is_cedar = False
-        self.version = self.raw_rows[0].get("version")
-        assay_type = self.raw_rows[0].get("assay_type")
-        dataset_type = self.raw_rows[0].get("dataset_type")
+        self.version = self.rows[0].get("version")
+        assay_type = self.rows[0].get("assay_type")
+        dataset_type = self.rows[0].get("dataset_type")
         if assay_type is not None and dataset_type is not None:
             raise PreflightError(
                 f"Found both assay_type and dataset_type for path {self.path}!"

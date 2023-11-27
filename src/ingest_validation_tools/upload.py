@@ -260,8 +260,8 @@ class Upload:
             )
         for path, schema in self.effective_tsv_paths.items():
             if (
-                "data_path" not in schema.raw_rows[0]
-                or "contributors_path" not in schema.raw_rows[0]
+                "data_path" not in schema.rows[0]
+                or "contributors_path" not in schema.rows[0]
             ):
                 errors.update(
                     {
@@ -387,10 +387,10 @@ class Upload:
         if not plugin_path:
             return {}
         errors: DefaultDict[str, list] = defaultdict(list)
-        for metadata_path in self.effective_tsv_paths.keys():
+        for metadata_path, sv in self.effective_tsv_paths.items():
             try:
                 for k, v in run_plugin_validators_iter(
-                    metadata_path, plugin_path, **kwargs
+                    metadata_path, sv, plugin_path, **kwargs
                 ):
                     errors[k].append(v)
             except PluginValidatorError as e:
@@ -611,7 +611,7 @@ class Upload:
         metadata_path: Union[str, Path],
     ):
         ref_errors: DefaultDict[str, list] = defaultdict(list)
-        for i, row in enumerate(schema.raw_rows):
+        for i, row in enumerate(schema.rows):
             field = f"{ref}_path"
             if not row.get(field):
                 continue
@@ -672,6 +672,7 @@ class Upload:
 
     def __get_references(self, col_name) -> dict:
         references = defaultdict(list)
+        # TODO: refactor
         for tsv_path in self.effective_tsv_paths.keys():
             for i, row in enumerate(dict_reader_wrapper(tsv_path, self.encoding)):
                 if col_name in row:
