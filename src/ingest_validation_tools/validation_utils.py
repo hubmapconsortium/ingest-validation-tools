@@ -102,8 +102,12 @@ def get_other_schema_name(rows: List, path: str) -> Optional[str]:
     other_type: DefaultDict[str, list] = defaultdict(list)
     for field in rows[0].keys():
         if field == "sample_id":
-            if rows[0].get("type"):
-                other_type.update({f"sample-{rows[0]['type']}": ["sample_id"]})
+            sample_type = rows[0].get("type")
+            if sample_type:
+                assert f"sample-{sample_type}" in other_types.keys(), PreflightError(
+                    f"Invalid sample type: {sample_type}"
+                )
+                other_type.update({f"sample-{sample_type}": ["sample_id"]})
             else:
                 other_type.update({"sample": ["sample_id"]})
         else:
