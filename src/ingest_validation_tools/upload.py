@@ -378,6 +378,8 @@ class Upload:
         the TSV fields, which makes frictionless confused and upset.
         """
         errors: Dict = {}
+        if self.offline:
+            return errors
 
         # assay -> parent_sample_id
         # sample -> sample_id
