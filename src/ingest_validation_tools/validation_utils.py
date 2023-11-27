@@ -267,6 +267,7 @@ def get_tsv_errors(
     offline: bool = False,
     ignore_deprecation: bool = False,
     report_type: ReportType = ReportType.STR,
+    globus_token: str = "",
 ) -> Dict[str, str]:
     """
     Validate the TSV.
@@ -327,6 +328,7 @@ def get_tsv_errors(
         Path(tsv_path).parent,
         tsv_paths=[Path(tsv_path)],
         optional_fields=optional_fields,
+        globus_token=globus_token,
         offline=offline,
         ignore_deprecation=ignore_deprecation,
     )

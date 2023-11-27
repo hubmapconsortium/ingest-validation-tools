@@ -49,6 +49,7 @@ Exit status codes:
     parser.add_argument(
         "--globus_token",
         default="",
+        required=False,
         help="Token for URL checking using Entity API.",
     )
     error_report_methods = [
