@@ -54,7 +54,8 @@ Typical usage:
   extra parameters.
 
   --run_plugins + --plugin_directory ../ingest-validation-tests/src/ingest_validation_tests/:
-  Additional plugin tests can be run to confirm that files in the upload directory are valid; requires cloning https://github.com/hubmapconsortium/ingest-validation-tests.
+  Additional plugin tests can be run to confirm that files in the upload directory are valid;
+  requires cloning https://github.com/hubmapconsortium/ingest-validation-tests.
 
 Exit status codes:
   0: Validation passed
