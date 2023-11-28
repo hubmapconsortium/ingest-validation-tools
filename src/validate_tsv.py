@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 
 import argparse
+from pathlib import Path
 import sys
 import inspect
 
@@ -9,7 +10,7 @@ from ingest_validation_tools.cli_utils import ShowUsageException, exit_codes
 from ingest_validation_tools.schema_loader import PreflightError
 from ingest_validation_tools.validation_utils import (
     get_tsv_errors,
-    get_table_schema_version,
+    get_schema_version,
 )
 
 
@@ -45,7 +46,12 @@ Exit status codes:
             "metadata",
         ],
     )
-    parser.add_argument("--globus_token", required=False, default="")
+    parser.add_argument(
+        "--globus_token",
+        default="",
+        required=False,
+        help="Token for URL checking using Entity API.",
+    )
     error_report_methods = [
         name for (name, _) in inspect.getmembers(ErrorReport) if name.startswith("as_")
     ]
@@ -62,20 +68,14 @@ parser = make_parser()
 def main():
     args = parser.parse_args()
     try:
-        schema_name = (
-            args.schema
-            if args.schema != "metadata"
-            else get_table_schema_version(args.path, "ascii").schema_name
-        )
+        schema_version = get_schema_version(Path(args.path), "ascii", args.globus_token)
+        schema_name = schema_version.schema_name
+        errors_string = f"{schema_version.schema_name}-v{schema_version.version}"
     except PreflightError as e:
         errors = {"Preflight": str(e)}
     else:
-        errors = get_tsv_errors(
-            args.path,
-            schema_name=schema_name,
-            globus_token=args.globus_token,
-        )
-        errors = {f"{schema_name} TSV errors": errors} if errors else {}
+        errors = get_tsv_errors(args.path, schema_name=schema_name)
+        errors = {f"{errors_string} TSV errors": errors} if errors else {}
     report = ErrorReport(
         info={},  # Until we know it's needed, don't bother filling this in.
         errors=errors,
