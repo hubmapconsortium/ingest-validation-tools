@@ -177,6 +177,8 @@ assay_category:
 - thick-section-multiphoton-mxif
 - ultrasound
 - visium
+- visium-no-probes
+- visium-with-probes
 - wgs
 - xenium
 assay_type:
@@ -234,6 +236,8 @@ assay_type:
 - thick-section-multiphoton-mxif
 - ultrasound
 - visium
+- visium-no-probes
+- visium-with-probes
 - wgs
 - xenium
 bead_barcode_offset:
@@ -584,6 +588,8 @@ is_cedar:
 - thick-section-multiphoton-mxif
 - ultrasound
 - visium
+- visium-no-probes
+- visium-with-probes
 - xenium
 is_contact:
 - contributors
@@ -986,6 +992,8 @@ parent_id:
 - thick-section-multiphoton-mxif
 - ultrasound
 - visium
+- visium-no-probes
+- visium-with-probes
 - xenium
 parent_sample_id:
 - histology

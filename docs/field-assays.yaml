@@ -248,6 +248,7 @@ assay_category:
 - Thick Section Multiphoton MxIF
 - Ultrasound
 - Visium
+- Visium (with probes)
 - WGS
 - Xenium
 - bulk-RNA
@@ -331,6 +332,7 @@ assay_type:
 - Thick Section Multiphoton MxIF
 - Ultrasound
 - Visium
+- Visium (with probes)
 - WGS
 - Xenium
 - bulk-RNA
@@ -844,6 +846,7 @@ is_cedar:
 - Thick Section Multiphoton MxIF
 - Ultrasound
 - Visium
+- Visium (with probes)
 - Xenium
 - nanoSPLITS
 - seqFISH
@@ -1585,6 +1588,7 @@ parent_id:
 - Thick Section Multiphoton MxIF
 - Ultrasound
 - Visium
+- Visium (with probes)
 - Xenium
 - seqFISH
 parent_sample_id:
