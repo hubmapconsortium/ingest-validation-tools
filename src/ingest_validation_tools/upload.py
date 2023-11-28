@@ -26,6 +26,7 @@ from ingest_validation_tools.validation_utils import (
     get_data_dir_errors,
     get_json,
     get_schema_version,
+    metadatavalidator_api_call,
 )
 
 TSV_SUFFIX = "metadata.tsv"
@@ -404,7 +405,7 @@ class Upload:
         report_type: ReportType,
     ):
         errors = {}
-        response = self._cedar_api_call(tsv_path)
+        response = metadatavalidator_api_call(tsv_path)
         if response.status_code != 200:
             errors["Request Errors"] = response.json()
         elif response.json()["reporting"] and len(response.json()["reporting"]) > 0:
@@ -421,19 +422,6 @@ class Upload:
     # Supporting private methods:
     #
     ##############################
-
-    def _cedar_api_call(self, tsv_path: Union[str, Path]) -> requests.models.Response:
-        file = {"input_file": open(tsv_path, "rb")}
-        headers = {"content_type": "multipart/form-data"}
-        try:
-            response = requests.post(
-                "https://api.metadatavalidator.metadatacenter.org/service/validate-tsv",
-                headers=headers,
-                files=file,
-            )
-        except Exception as e:
-            raise Exception(f"CEDAR API request for {tsv_path} failed! Exception: {e}")
-        return response
 
     def _cedar_url_checks(self, tsv_path: str, schema_version: SchemaVersion):
         """

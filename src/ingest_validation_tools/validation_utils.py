@@ -1,9 +1,8 @@
-from collections import defaultdict
 import json
 import logging
 from csv import DictReader
 from pathlib import Path, PurePath
-from typing import DefaultDict, Dict, List, Optional, Union
+from typing import Dict, List, Optional, Union
 
 import requests
 
@@ -45,9 +44,9 @@ def get_schema_version(
         rows = read_rows(path, encoding)
     except TSVError as e:
         raise PreflightError(e.errors)
-    other_type = get_other_schema_name(rows, str(path))
     # Don't want to send contrib/organ/sample/antibody to soft assay endpoint
-    if other_type:
+    if "dataset_type" not in rows[0] or "assay_type" not in rows[0]:
+        other_type = get_other_schema_name(str(path))
         sv = SchemaVersion(
             other_type,
             directory_path=directory_path,
@@ -62,23 +61,7 @@ def get_schema_version(
         offline=offline,
     )
     if not assay_type_data:
-        message = f"No assay data retrieved for {path}."
-        if "assay_type" not in rows[0].keys() and "dataset_type" not in rows[0].keys():
-            message += ' Does not contain "assay_type" or "dataset_type".'
-        elif "assay_type" in rows[0].keys():
-            message += f' Assay type: {rows[0].get("assay_type")}.'
-        elif "dataset_type" in rows[0].keys():
-            message += f' Dataset type: {rows[0].get("dataset_type")}.'
-        if "channel_id" in rows[0]:
-            message += (
-                ' Has "channel_id": Antibodies TSV found where metadata TSV expected.'
-            )
-        elif "orcid_id" in rows[0]:
-            message += (
-                ' Has "orcid_id": Contributors TSV found where metadata TSV expected.'
-            )
-        else:
-            message += f' Column headers in TSV: {", ".join(rows[0].keys())}'
+        message = get_assaytype_error(rows[0], str(path))
         raise PreflightError(message)
     return SchemaVersion(
         assay_type_data["assaytype"].lower(),
@@ -89,43 +72,58 @@ def get_schema_version(
     )
 
 
-def get_other_schema_name(rows: List, path: str) -> Optional[str]:
-    other_types = {
-        "organ": ["organ_id"],
-        "sample": ["sample_id"],
-        "sample-block": ["sample_id"],
-        "sample-suspension": ["sample_id"],
-        "sample-section": ["sample_id"],
-        "contributors": ["orcid", "orcid_id"],
-        "antibodies": ["antibody_rrid", "antibody_name"],
+def get_other_schema_name(path: str) -> str:
+    response = metadatavalidator_api_call(path)
+    if response.status_code != 200:
+        raise PreflightError(
+            f"""
+            Error retrieving schema info for {path}:
+            API returned {response.status_code}.
+            Response: {json.dumps(response.json(), indent=2)}
+            """
+        )
+    template_name = response.json().get("schema", {}).get("name")
+    # TODO: are these the canonical names? Should these be in the assayclassifier?
+    # CEDAR Metadata Center template name : canonical name
+    name_map = {
+        "sample block": "sample-block",
+        "sample suspension": "sample-suspension",
+        "sample section": "sample-section",
+        "antibodies": "antibodies",
+        "contributor": "contributors",
+        "organ": "organ",
     }
-    other_type: DefaultDict[str, list] = defaultdict(list)
-    for field in rows[0].keys():
-        if field == "sample_id":
-            sample_type = rows[0].get("type")
-            if sample_type:
-                if f"sample-{sample_type}" not in other_types.keys():
-                    raise PreflightError(f"Invalid sample type: {sample_type}")
-                other_type.update({f"sample-{sample_type}": ["sample_id"]})
-            else:
-                other_type.update({"sample": ["sample_id"]})
-        else:
-            match = {key: field for key, value in other_types.items() if field in value}
-            other_type.update(match)
-    if other_type and (
-        "assay_name" in rows[0].keys() or "dataset_type" in rows[0].keys()
-    ):
-        raise PreflightError(
-            f"Metadata TSV contains invalid field: {list(other_type.values())}"
-        )
-    if len(other_type) == 1:
-        return list(other_type.keys())[0]
-    elif len(other_type) > 1:
-        raise PreflightError(
-            f"Multiple types found for path {path} based on fields {list(other_type.values())}"
-        )
+    if template_name.lower() in name_map.keys():
+        return name_map[template_name]
     else:
-        return None
+        raise PreflightError(
+            f"Error retrieving schema info for {path}. Invalid template name: {template_name}."
+        )
+
+
+def get_assaytype_error(row: dict, path: str) -> str:
+    message = f"No assay data retrieved for {path}."
+    dataset_type = (
+        row.get("dataset_type") if row.get("dataset_type") else row.get("assay_type")
+    )
+    if dataset_type:
+        message += f" Datset type: {dataset_type}."
+    else:
+        message += ' Does not contain "assay_type" or "dataset_type".'
+    other_fields = [
+        "antibody_name",
+        "antibody_rrid",
+        "channel_id",
+        "orcid",
+        "orcid_id",
+        "organ_id",
+        "sample_id",
+    ]
+    found_fields = [field for field in other_fields if field in row]
+    if found_fields:
+        message += f" Found invalid field(s) for metadata TSV: {found_fields}"
+    message += f' Column headers in TSV: {", ".join(row.keys())}'
+    return message
 
 
 def get_ingest_api_env(env: str) -> str:
@@ -256,11 +254,18 @@ def get_context_of_decode_error(e: UnicodeDecodeError) -> str:
     return f'Invalid {e.encoding} because {e.reason}: "{in_context}"'
 
 
-def get_other_names():
-    return [
-        p.stem.split("-v")[0]
-        for p in (Path(__file__).parent / "table-schemas/others").iterdir()
-    ]
+def metadatavalidator_api_call(tsv_path: Union[str, Path]) -> requests.models.Response:
+    file = {"input_file": open(tsv_path, "rb")}
+    headers = {"content_type": "multipart/form-data"}
+    try:
+        response = requests.post(
+            "https://api.metadatavalidator.metadatacenter.org/service/validate-tsv",
+            headers=headers,
+            files=file,
+        )
+    except Exception as e:
+        raise Exception(f"CEDAR API request for {tsv_path} failed! Exception: {e}")
+    return response
 
 
 def get_tsv_errors(
