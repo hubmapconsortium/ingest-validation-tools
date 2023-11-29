@@ -6,7 +6,7 @@ from collections import Counter, defaultdict
 from datetime import datetime
 from fnmatch import fnmatch
 from pathlib import Path
-from typing import Any, Dict, List, Optional, Union, DefaultDict
+from typing import Any, Dict, Optional, Union, DefaultDict
 
 import requests
 
@@ -26,6 +26,7 @@ from ingest_validation_tools.validation_utils import (
     get_data_dir_errors,
     get_json,
     get_schema_version,
+    read_rows,
 )
 
 TSV_SUFFIX = "metadata.tsv"
@@ -70,7 +71,6 @@ class Upload:
         self.effective_tsv_paths = {}
         self.extra_parameters = extra_parameters if extra_parameters else {}
         self.globus_token = globus_token
-        # TODO: soft assay type endpoint calls happen here to weed out any bad multi-assay uploads
         self.run_plugins = run_plugins
 
         try:
@@ -91,48 +91,14 @@ class Upload:
                 for k in sorted(unsorted_effective_tsv_paths.keys())
             }
 
+            self._check_multi_assay()
+
         except PreflightError as e:
             self.errors["Preflight"] = e
 
-    # def _check_multi_assay(self):
-    #     # This is not recursive, so if there are nested requirements it will not work
-    #     shared_data_paths = defaultdict(lambda: {"name": "", "components": []})
-    #     multi = [sv for sv in self.effective_tsv_paths.values() if sv.multi_type]
-    #     if len(multi) == 0:
-    #         return
-    #     elif len(multi) == 1:
-    #         MultiAssaySchema = namedtuple(
-    #             "MultiAssaySchema",
-    #             ["schema_name", "multi_type", "contains", "data_path"],
-    #         )
-    #         self.multi_assay_schema = MultiAssaySchema(
-    #             multi[0].schema_name,
-    #             multi[0].multi_type,
-    #             multi[0].must_contain + multi[0].can_contain,
-    #             multi[0].data_path,
-    #         )
-    #         shared_data_paths[multi[0].data_path]["name"] = multi[0].schema_name
-    #     else:
-    #         raise Exception
-    #     for sv in self.effective_tsv_paths.values():
-    #         if (
-    #             # TODO: is it the case that there will be a
-    #             # multi-assay type and multiple data paths?
-    #             sv.data_path == self.multi_assay_schema.data_path
-    #             and sv.schema_name in self.multi_assay_schema.contains
-    #         ):
-    #             shared_data_paths[sv.data_path]["contains"] = sv.schema_name
-    #         else:
-    #             raise Exception
-    #     if self.multi_assay_schema.multi_type == "must":
-    #         assert (
-    #             self.multi_assay_schema.contains
-    #             == shared_data_paths[self.multi_assay_schema.data_path]
-    #         ), ""
-
     #####################
     #
-    # Two public methods:
+    # Public methods:
     #
     #####################
 
@@ -179,15 +145,7 @@ class Upload:
 
         errors = {}
         try:
-            # other_errors = self.check_other_schemas()
-            # if other_errors and not self.effective_tsv_paths:
-            #     return other_errors
-            # elif self.effective_tsv_paths:
-            #     errors.update(other_errors)
-            # else:
-            #     return {}
-
-            upload_errors = self.check_upload()
+            upload_errors = self._check_upload()
             if upload_errors:
                 errors["Upload Errors"] = upload_errors
 
@@ -212,29 +170,79 @@ class Upload:
 
         return errors
 
+    def validation_routine(
+        self,
+        report_type: ReportType = ReportType.STR,
+        tsv_paths: Dict[str, SchemaVersion] = {},
+    ) -> dict:
+        errors: DefaultDict[str, dict] = defaultdict(dict)
+        tsvs_to_evaluate = tsv_paths if tsv_paths else self.effective_tsv_paths
+        for tsv_path, schema_version in tsvs_to_evaluate.items():
+            path_errors = self._validate(tsv_path, schema_version, report_type)
+            if not path_errors:
+                return {}
+            for key, value in path_errors.items():
+                if type(value) is dict:
+                    errors[key].update(value)
+                else:
+                    errors.update({key: value})
+        return dict(errors)
+
     ###################################
     #
     # Top-level private methods:
     #
     ###################################
 
-    # def check_other_schemas(self):
-    #     # Antibodies and contributors are handled elsewhere
-    #     errors = {}
-    #     others = ["organ", "sample"]
-    #     for tsv_path, schema_version in self.effective_tsv_paths.items():
-    #         if schema_version.schema_name in others:
-    #             error = self._validate(tsv_path, schema_version)
-    #             if error:
-    #                 errors[f"{tsv_path} (as {schema_version.schema_name})"] = error
-    #     self.effective_tsv_paths = {
-    #         k: v
-    #         for k, v in self.effective_tsv_paths.items()
-    #         if v.schema_name not in others
-    #     }
-    #     return errors
+    def _check_multi_assay(self):
+        # This is not recursive, so if there are nested multi-assay types it will not work
+        shared_data_paths = defaultdict(list)
+        multi = [sv for sv in self.effective_tsv_paths.values() if sv.must_contain]
+        components = [
+            sv for sv in self.effective_tsv_paths.values() if not sv.must_contain
+        ]
+        if len(multi) == 0:
+            return True
+        elif len(multi) > 1:
+            raise PreflightError(
+                f"""
+                Upload contains multiple parent multi-assay types:
+                {[sv.schema_name for sv in multi]}
+                """
+            )
+        parent = multi[0]
+        not_allowed = []
+        for sv in components:
+            if sv.dataset_type not in parent.must_contain:
+                not_allowed.append(sv.dataset_type)
+            for row in sv.rows:
+                if row.get("data_path"):
+                    shared_data_paths[row["data_path"]].append(sv.dataset_type)
+        if not_allowed:
+            raise PreflightError(
+                f"Invalid child assay type for parent type {parent.dataset_type}: {not_allowed}"
+            )
+        multi_data_paths = [row.get("data_path") for row in parent.rows]
+        for path, components in shared_data_paths.items():
+            if path not in multi_data_paths or sorted(components) != sorted(
+                parent.must_contain
+            ):
+                raise PreflightError(
+                    f"""
+                    The following metadata TSVs contain the path {path} which is
+                    not in the parent {parent.dataset_type} multi-assay TSV: {components}
+                    """
+                )
+            multi_data_paths.remove(path)
+        if multi_data_paths:
+            raise PreflightError(
+                f"""
+                Multi-assay TSV {parent.path} contains data paths that are not present
+                in child assay TSVs. Data paths unique to parent: {multi_data_paths}
+                """
+            )
 
-    def check_upload(self) -> dict:
+    def _check_upload(self) -> dict:
         upload_errors = {}
         tsv_errors = self._get_local_tsv_errors()
         if tsv_errors:
@@ -293,24 +301,6 @@ class Upload:
                 errors.update(dir_errors)
         return errors
 
-    def validation_routine(
-        self,
-        report_type: ReportType = ReportType.STR,
-        tsv_paths: Dict[str, SchemaVersion] = {},
-    ) -> dict:
-        errors: DefaultDict[str, dict] = defaultdict(dict)
-        tsvs_to_evaluate = tsv_paths if tsv_paths else self.effective_tsv_paths
-        for tsv_path, schema_version in tsvs_to_evaluate.items():
-            path_errors = self._validate(tsv_path, schema_version, report_type)
-            if not path_errors:
-                return {}
-            for key, value in path_errors.items():
-                if type(value) is dict:
-                    errors[key].update(value)
-                else:
-                    errors.update({key: value})
-        return dict(errors)
-
     def _validate(
         self,
         tsv_path: str,
@@ -358,7 +348,7 @@ class Upload:
                 return errors
             else:
                 url_errors = self._cedar_url_checks(tsv_path, schema_version)
-                api_errors = self.api_validation(Path(tsv_path), report_type)
+                api_errors = self._api_validation(Path(tsv_path), report_type)
                 if url_errors or api_errors:
                     api_validated[f"{tsv_path}"] = url_errors | api_errors
         if local_validated:
@@ -398,7 +388,7 @@ class Upload:
                 errors["Unexpected Plugin Error"] = [e]
         return dict(errors)  # get rid of defaultdict
 
-    def api_validation(
+    def _api_validation(
         self,
         tsv_path: Path,
         report_type: ReportType,
@@ -472,7 +462,7 @@ class Upload:
         return errors
 
     def _check_matching_urls(self, tsv_path: str, constrained_fields: dict):
-        rows = self._get_rows_from_tsv(tsv_path)
+        rows = read_rows(Path(tsv_path), "ascii")
         fields = rows[0].keys()
         missing_fields = [
             k for k in constrained_fields.keys() if k not in fields
@@ -541,19 +531,6 @@ class Upload:
             )
             return msg if return_str else get_json(msg, error["row"], error["column"])
         return error
-
-    def _get_rows_from_tsv(self, path: Union[str, Path]) -> List:
-        errors: Dict[str, Any] = {}
-        try:
-            rows = dict_reader_wrapper(path, self.encoding)
-            if type(rows) is list:
-                return rows
-            errors["TSV Row Errors"] = rows
-        except UnicodeDecodeError as e:
-            errors["Decode Errors"] = get_context_of_decode_error(e)
-        except IsADirectoryError:
-            errors["Path Errors"] = f"Expected a TSV, found a directory at {path}."
-        raise ErrorDictException(errors)
 
     def _check_path(
         self,

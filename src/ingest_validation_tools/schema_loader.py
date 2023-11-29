@@ -49,9 +49,9 @@ class SchemaVersion:
     vitessce_hints: List = field(default_factory=list)
     dir_schema: str = ""
     metadata_type: str = "assays"
-    # TODO: this is not thought out yet
+    # TODO: can vs must not implemented, just working with "must" for test case
     # multi_type: str = ""
-    # must_contain: List = field(default_factory=list)
+    must_contain: List = field(default_factory=list)
     # can_contain: List = field(default_factory=list)
     # part_of_multi: bool = False
 
