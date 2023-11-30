@@ -55,6 +55,8 @@ def get_schema_version(
             rows=rows,
         )
         return sv
+    if not (rows[0].get("dataset_type") or rows[0].get("assay_type")):
+        raise PreflightError(f"No assay_type or dataset_type in {path}.")
     assay_type_data = get_assaytype_data(
         rows[0],
         globus_token,
@@ -62,12 +64,14 @@ def get_schema_version(
         offline=offline,
     )
     if not assay_type_data:
-        message = f"No assay data retrieved for {path}."
-        if "assay_type" not in rows[0].keys() and "dataset_type" not in rows[0].keys():
+        message = (
+            f"Assay data not retrieved from assayclassifier endpoint for TSV {path}."
+        )
+        if "assay_type" not in rows[0] and "dataset_type" not in rows[0]:
             message += ' Does not contain "assay_type" or "dataset_type".'
-        elif "assay_type" in rows[0].keys():
+        elif "assay_type" in rows[0]:
             message += f' Assay type: {rows[0].get("assay_type")}.'
-        elif "dataset_type" in rows[0].keys():
+        elif "dataset_type" in rows[0]:
             message += f' Dataset type: {rows[0].get("dataset_type")}.'
         if "channel_id" in rows[0]:
             message += (
@@ -129,6 +133,7 @@ def get_other_schema_name(rows: List, path: str) -> Optional[str]:
 
 
 def get_ingest_api_env(env: str) -> str:
+    # TODO: this should be obtained in another way
     if env in ["dev", "test", "stage"]:
         return f"https://ingest-api.{env}.hubmapconsortium.org/assaytype"
     elif env == "prod":
@@ -143,11 +148,9 @@ def get_assaytype_data(
     row: Dict,
     globus_token: str,
     path: Path,
-    env: str = "dev",
+    env: str = "local",
     offline: bool = False,
 ) -> Dict:
-    if "version" in row.keys():
-        row["version"] = int(row["version"])
     if offline or not globus_token:
         # TODO: separate testing path from live code
         return mock_response(path, row)

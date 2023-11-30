@@ -1,6 +1,6 @@
 import json
 from pathlib import Path
-from typing import Dict, List
+from typing import Dict
 
 
 class MockException(Exception):
@@ -17,16 +17,18 @@ def mock_response(path: Path, row: Dict) -> Dict:
                 ./tests-manual/test-dataset-examples-cedar.sh <globus_token>
                 """
         )
-    diff = set(row.values()).difference(response_dict.get("args", []))
+    dataset_type = _get_dataset_type_from_row(row)
+    response_args = response_dict.get(dataset_type, {}).get("args", [])
+    diff = set(row.values()).difference(response_args)
     if not diff:
-        return response_dict["response"]
+        return response_dict[dataset_type]["response"]
     else:
         raise MockException(
             f"""
             Not all expected args were passed for path {path}.
             Diff: {diff}
             Args passed: {row}
-            Expected args: {response_dict.get("args", [])}
+            Expected args: {response_args}
             """
         )
 
@@ -45,13 +47,27 @@ def compare_mock_with_response(row: Dict, response: Dict, path: Path):
     # Messy method of creating mock response file if missing or outdated;
     # would be nicer for this to throw exception during testing and have
     # user create manually
-    if not row.values() == mock_file.get("args") or not response == mock_file.get(
-        "response"
-    ):
-        update_mock_file(list(row.values()), path, response)
+    dataset_type = _get_dataset_type_from_row(row)
+    for dataset_type_key, mock in mock_file.items():
+        if dataset_type == dataset_type_key:
+            if row.values() == mock.get("args") and response == mock.get(response):
+                return
+    update_mock_file(row, path, response)
 
 
-def update_mock_file(row: List, path: Path, response: Dict, method: str = "w"):
+def update_mock_file(row: Dict, path: Path, response: Dict):
     metadata_dir = path.parents[1]
-    with open(metadata_dir / "MOCK_RESPONSE.json", method) as mock_file:
-        json.dump({"args": row, "response": response}, mock_file)
+    try:
+        with open(metadata_dir / "MOCK_RESPONSE.json", "r") as mock_file:
+            existing = json.load(mock_file)
+    except Exception:
+        existing = {}
+    # TODO: this will break if Other types get added to soft assay endpoint
+    dataset_type = _get_dataset_type_from_row(row)
+    existing[dataset_type] = {"args": list(row.values()), "response": response}
+    with open(metadata_dir / "MOCK_RESPONSE.json", "w") as f:
+        json.dump(existing, f)
+
+
+def _get_dataset_type_from_row(row: Dict):
+    return row.get("dataset_type") if row.get("dataset_type") else row.get("assay_type")

@@ -49,11 +49,7 @@ class SchemaVersion:
     vitessce_hints: List = field(default_factory=list)
     dir_schema: str = ""
     metadata_type: str = "assays"
-    # TODO: can vs must not implemented, just working with "must" for test case
-    # multi_type: str = ""
-    must_contain: List = field(default_factory=list)
-    # can_contain: List = field(default_factory=list)
-    # part_of_multi: bool = False
+    contains: List = field(default_factory=list)
 
     def __post_init__(self):
         if type(self.path) is str:
@@ -81,10 +77,6 @@ class SchemaVersion:
                 self.version = "0"
         if not self.table_schema:
             self.table_schema = f"{self.schema_name}-v{self.version}"
-        # if self.must_contain:
-        #     self.multi_type = "must"
-        # elif self.can_contain:
-        #     self.multi_type = "can"
 
     def get_row_data(self):
         if self.rows[0].get("metadata_schema_id"):
@@ -100,7 +92,6 @@ class SchemaVersion:
             )
         else:
             self.dataset_type = assay_type if assay_type else dataset_type
-        # self.create_row_data()
 
     def get_assayclassifier_data(self):
         self.vitessce_hints = self.soft_assay_data.get("vitessce_hints", [])
@@ -109,8 +100,7 @@ class SchemaVersion:
         match = re.match(r".+-v(\d+)", self.table_schema)
         if match:
             self.version = match[0]
-        # self.must_contain = self.soft_assay_data.get("must_contain", [])
-        # self.can_contain = self.soft_assay_data.get("can_contain", [])
+        self.contains = self.soft_assay_data.get("must_contain", [])
 
 
 @dataclass
