@@ -1,5 +1,5 @@
 ---
-title: Visium
+title: Visium (no probes)
 schema_name: visium-no-probes
 category: Spatial Transcriptomics
 all_versions_deprecated: False
@@ -21,8 +21,10 @@ REQUIRED - For this assay, you must also prepare and submit two additional metad
 ## Metadata schema
 
 
-<summary><a href="https://openview.metadatacenter.org/templates/https:%2F%2Frepo.metadatacenter.org%2Ftemplates%2Fbabf1e69-f0eb-479a-bdc5-b70199669675"><b>Version 2 (use this one)</b></a></summary>
+<summary><a href="https://openview.metadatacenter.org/templates/https:%2F%2Frepo.metadatacenter.org%2Ftemplates%2Fbabf1e69-f0eb-479a-bdc5-b70199669675"><b>Version 3 (use this one)</b></a></summary>
 
+
+<summary><a href="https://openview.metadatacenter.org/templates/https:%2F%2Frepo.metadatacenter.org%2Ftemplates%2Fec09b747-925d-4a7a-889e-d9f9d6d0dee4"><b>Version 2</b></a></summary>
 
 
 <br>

@@ -2,7 +2,7 @@ description_md: 'REQUIRED - For this assay, you must also prepare and submit two
 fields:
 - name: is_cedar
   description: 'Identifies whether the version is hosted by CEDAR'
-  example: 'https://openview.metadatacenter.org/templates/https:%2F%2Frepo.metadatacenter.org%2Ftemplates%2Fec09b747-925d-4a7a-889e-d9f9d6d0dee4'
+  example: 'https://openview.metadatacenter.org/templates/https:%2F%2Frepo.metadatacenter.org%2Ftemplates%2Fbabf1e69-f0eb-479a-bdc5-b70199669675'
 - name: assay_category
   constraints:
     enum:
@@ -10,10 +10,4 @@ fields:
 - name: assay_type
   constraints:
     enum:
-      - Visium
-- name: parent_id
-  description: "UUID or HuBMAP ID of parent"
-  example: "ec2ccf5a3436b11d0c7186b74ad4673d"
-  custom_constraints:
-    url:
-      prefix: "https://entity.api.hubmapconsortium.org/entities/"
+      - Visium (no probes)
