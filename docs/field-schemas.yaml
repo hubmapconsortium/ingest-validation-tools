@@ -179,7 +179,6 @@ assay_category:
 - stained
 - thick-section-multiphoton-mxif
 - ultrasound
-- visium
 - visium-no-probes
 - visium-with-probes
 - wgs
@@ -241,7 +240,6 @@ assay_type:
 - stained
 - thick-section-multiphoton-mxif
 - ultrasound
-- visium
 - visium-no-probes
 - visium-with-probes
 - wgs
@@ -596,7 +594,6 @@ is_cedar:
 - stained
 - thick-section-multiphoton-mxif
 - ultrasound
-- visium
 - visium-no-probes
 - visium-with-probes
 - xenium
@@ -999,8 +996,6 @@ parent_id:
 - slideseq
 - thick-section-multiphoton-mxif
 - ultrasound
-- visium
-- visium-no-probes
 - visium-with-probes
 - xenium
 parent_sample_id:

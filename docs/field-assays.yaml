@@ -250,7 +250,7 @@ assay_category:
 - Slide-seq
 - Thick Section Multiphoton MxIF
 - Ultrasound
-- Visium
+- Visium (no probes)
 - Visium (with probes)
 - WGS
 - Xenium
@@ -337,7 +337,7 @@ assay_type:
 - Slide-seq
 - Thick Section Multiphoton MxIF
 - Ultrasound
-- Visium
+- Visium (no probes)
 - Visium (with probes)
 - WGS
 - Xenium
@@ -854,7 +854,7 @@ is_cedar:
 - Slide-seq
 - Thick Section Multiphoton MxIF
 - Ultrasound
-- Visium
+- Visium (no probes)
 - Visium (with probes)
 - Xenium
 - nanoSPLITS
@@ -1595,7 +1595,6 @@ parent_id:
 - Slide-seq
 - Thick Section Multiphoton MxIF
 - Ultrasound
-- Visium
 - Visium (with probes)
 - Xenium
 - seqFISH
