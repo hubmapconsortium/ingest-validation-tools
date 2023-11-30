@@ -1,2 +1,2 @@
-version	affiliation
-1	Carnegie Mellon University
+version	affiliation	first_name	last_name	middle_name_or_initial	name	orcid_id
+1	will_not_detect_missing	Firstname	Lastname	M.	Firstname M. Lastname	0000-0002-8928-741X

@@ -3,12 +3,7 @@ from importlib import util
 import inspect
 from typing import List, Union, Tuple, Iterator, Type
 from pathlib import Path
-from csv import Error as CsvError
-
-from ingest_validation_tools.validation_utils import (
-    dict_reader_wrapper,
-    get_context_of_decode_error,
-)
+from ingest_validation_tools.schema_loader import SchemaVersion
 
 PathOrStr = Union[str, Path]
 
@@ -72,7 +67,7 @@ class Validator(object):
 
 
 def run_plugin_validators_iter(
-    metadata_path: PathOrStr, plugin_dir: PathOrStr, **kwargs
+    metadata_path: PathOrStr, sv: SchemaVersion, plugin_dir: PathOrStr, **kwargs
 ) -> Iterator[KeyValuePair]:
     """
     Given a metadata.tsv file and a path to a directory of Validator plugins, iterate through the
@@ -85,43 +80,20 @@ def run_plugin_validators_iter(
     returns an iterator the values of which are key value pairs representing error messages.
     """
 
-    metadata_path = Path(metadata_path)
-    if metadata_path.is_file():
-        try:
-            rows = dict_reader_wrapper(metadata_path, "ascii")
-            # TODO: Pass in encoding.
-            # https://github.com/hubmapconsortium/ingest-validation-tools/issues/494
-        except (CsvError, IOError):
-            raise ValidatorError(f"{metadata_path} could not be parsed as a .tsv file")
-        except UnicodeDecodeError as e:
-            raise ValidatorError(get_context_of_decode_error(e))
-        if not rows:
-            raise ValidatorError(f"{metadata_path} has no data rows")
-        if all("assay_type" in row for row in rows):
-            assay_type = rows[0]["assay_type"]
-            if any(row["assay_type"] != assay_type for row in rows):
+    for column_name in ["assay_type", "dataset_type"]:
+        if column_name in sv.rows[0]:
+            if any(row[column_name] != sv.dataset_type for row in sv.rows):
                 raise ValidatorError(
                     f"{metadata_path} contains more than one assay type"
                 )
-        elif all("dataset_type" in row for row in rows):
-            assay_type = rows[0]["dataset_type"]
-            if any(row["dataset_type"] != assay_type for row in rows):
-                raise ValidatorError(
-                    f"{metadata_path} contains more than one dataset type"
-                )
 
-        else:
-            raise ValidatorError(f'{metadata_path} has no "assay_type" column')
-    else:
-        raise ValidatorError(f"{metadata_path} does not exist or is not a file")
-
-    if all("data_path" in row for row in rows):
-        for row in rows:
+    if all("data_path" in row for row in sv.rows):
+        for row in sv.rows:
             data_path = Path(row["data_path"])
             if not data_path.is_absolute():
-                data_path = (metadata_path.parent / data_path).resolve()
+                data_path = (Path(metadata_path).parent / data_path).resolve()
             for k, v in validation_error_iter(
-                data_path, assay_type, plugin_dir, **kwargs
+                data_path, sv.dataset_type, plugin_dir, **kwargs
             ):
                 yield k, v
     else:

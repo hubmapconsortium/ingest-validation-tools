@@ -1,9 +1,10 @@
 ```
 Upload Errors:
   TSV Errors:
-    examples/dataset-examples/bad-cedar-assay-histology/upload/contributors.tsv:
-    - 'Missing fields: ["first_name", "is_contact", "last_name", "middle_name_or_initial",
-      "name", "orcid_id"].'
+    examples/dataset-examples/bad-cedar-assay-histology/upload/bad-histology-metadata.tsv row 2, column 'contributors_path':
+      Local Validation Errors:
+        examples/dataset-examples/bad-cedar-assay-histology/upload/contributors.tsv (as contributors-v1):
+        - 'Missing fields: ["is_contact"].'
 Metadata TSV Validation Errors:
   CEDAR Validation Errors:
     examples/dataset-examples/bad-cedar-assay-histology/upload/bad-histology-metadata.tsv:

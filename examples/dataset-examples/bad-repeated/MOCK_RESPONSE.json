@@ -1,0 +1,1 @@
+{"args": ["CODEX", "."], "response": {"assaytype": "CODEX", "description": "CODEX", "dir_schema": "codex-v1-with-dataset-json", "tbl_schema": "codex-v0", "vitessce_hints": []}}

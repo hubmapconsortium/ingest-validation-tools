@@ -52,6 +52,9 @@
 - Fix to support display of errors for CEDAR template metadata
 - Upate Auto-fluorescence, Confocal, and Light Sheet directory schemas
 - Additional updates to next-gen histology directory schema
+- Implemented soft assay types/assayclassifier endpoint for canonical assay names and dir structures
+- Added mock response test data for offline testing
+- Add more assays
 - Correct Auto-fluorescence lab_processed/annotations path description
 - Add Visium with probes next-gen directory schema
 

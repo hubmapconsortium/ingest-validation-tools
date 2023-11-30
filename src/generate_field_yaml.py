@@ -4,36 +4,40 @@ from yaml import dump as dump_yaml
 import argparse
 
 from ingest_validation_tools.schema_loader import (
-    list_table_schema_versions, get_table_schema, get_other_schema, get_is_assay
+    list_table_schema_versions,
+    get_table_schema,
+    get_is_assay,
 )
 
 
 def main():
     parser = argparse.ArgumentParser(
-        description='Outputs a YAML dict listing fields and their definitions, or their types.')
+        description="Outputs a YAML dict listing fields and their definitions, or their types."
+    )
     parser.add_argument(
-        '--attr', required=True, choices=['description', 'type', 'assay', 'entity', 'schema'],
-        help='Attribute to pull from schemas')
+        "--attr",
+        required=True,
+        choices=["description", "type", "assay", "entity", "schema"],
+        help="Attribute to pull from schemas",
+    )
     args = parser.parse_args()
 
     mapper = make_mapper(args.attr)
     for schema_version in list_table_schema_versions():
-        schema_name = schema_version.schema_name
-        get_schema = get_table_schema if get_is_assay(schema_name) else get_other_schema
-        schema = get_schema(schema_version.schema_name, schema_version.version)
-        for field in schema['fields']:
-            mapper.add(field, schema_name=schema_name, schema=schema)
+        schema = get_table_schema(schema_version)
+        for field in schema["fields"]:
+            mapper.add(field, schema_name=schema_version.schema_name, schema=schema)
     print(mapper.dump_yaml())
     return 0
 
 
 def make_mapper(attr):
     return {
-        'description': DescriptionMapper,
-        'type': TypeMapper,
-        'assay': AssayMapper,
-        'entity': EntityMapper,
-        'schema': SchemaMapper,
+        "description": DescriptionMapper,
+        "type": TypeMapper,
+        "assay": AssayMapper,
+        "entity": EntityMapper,
+        "schema": SchemaMapper,
     }[attr]()
 
 
@@ -43,7 +47,9 @@ class Mapper:
         self.default_value = None
 
     def add(self, field, schema_name=None, schema=None):
-        name, attr_value = self._get_name_value(field, schema_name=schema_name, schema=schema)
+        name, attr_value = self._get_name_value(
+            field, schema_name=schema_name, schema=schema
+        )
         if self._skip_field(name, attr_value):
             return
         if name in self.mapping and self.mapping[name] != attr_value:
@@ -52,7 +58,7 @@ class Mapper:
             self.mapping[name] = attr_value
 
     def _get_name_value(self, field, **kwargs):
-        name = field['name']
+        name = field["name"]
         attr_value = field.get(self.attr, self.default_value)
         return name, attr_value
 
@@ -61,25 +67,26 @@ class Mapper:
 
     def _handle_collision(self, name, attr_value):
         raise Exception(
-            f'{name} is inconsistent: "{self.mapping[name]}" != "{attr_value}"')
+            f'{name} is inconsistent: "{self.mapping[name]}" != "{attr_value}"'
+        )
 
     def dump_yaml(self):
         return dump_yaml(self.mapping)
 
 
 class DescriptionMapper(Mapper):
-    '''
+    """
     >>> mapper = DescriptionMapper()
     >>> mapper.add({'name': 'field_name', 'description': 'long description'})
     >>> mapper.add({'name': 'field_name', 'description': 'short desc'})
     >>> mapper.add({'name': 'field_name', 'description': 'longer description'})
     >>> print(mapper.dump_yaml().strip())
     field_name: short desc
-    '''
+    """
 
     def __init__(self):
         super().__init__()
-        self.attr = 'description'
+        self.attr = "description"
 
     def _handle_collision(self, name, attr_value):
         if len(attr_value) < len(self.mapping[name]):
@@ -88,19 +95,19 @@ class DescriptionMapper(Mapper):
 
 
 class TypeMapper(Mapper):
-    '''
+    """
     >>> mapper = TypeMapper()
     >>> mapper.add({'name': 'explicit', 'type': 'fake_type'})
     >>> mapper.add({'name': 'implicit'})
     >>> print(mapper.dump_yaml().strip())
     explicit: fake_type
     implicit: string
-    '''
+    """
 
     def __init__(self):
         super().__init__()
-        self.attr = 'type'
-        self.default_value = 'string'
+        self.attr = "type"
+        self.default_value = "string"
 
 
 class AbstractSetValuedMapper(Mapper):
@@ -115,7 +122,7 @@ class AbstractSetValuedMapper(Mapper):
 
 
 class EntityMapper(AbstractSetValuedMapper):
-    '''
+    """
     >>> mapper = EntityMapper()
     >>> mapper.add({'name': 'dataset_field'}, schema_name='default_is_dataset')
     >>> mapper.add({'name': 'sample_field'}, schema_name='sample')
@@ -127,16 +134,16 @@ class EntityMapper(AbstractSetValuedMapper):
     - sample
     sample_field:
     - sample
-    '''
+    """
 
     def _get_name_value(self, field, schema_name=None, schema=None):
-        name = field['name']
-        entity = 'dataset' if get_is_assay(schema_name) else schema_name.split('-')[0]
+        name = field["name"]
+        entity = "dataset" if get_is_assay(schema_name) else schema_name.split("-")[0]
         return name, set([entity])
 
 
 class AssayMapper(AbstractSetValuedMapper):
-    '''
+    """
     >>> mapper = AssayMapper()
     >>> schema_a = {
     ...     'fields': [{
@@ -160,22 +167,22 @@ class AssayMapper(AbstractSetValuedMapper):
     in_both:
     - A
     - B
-    '''
+    """
 
     def _get_name_value(self, field, schema_name=None, schema=None):
         assay_type_fields = [
-            field for field in schema['fields']
-            if field['name'] == 'assay_type'
+            field for field in schema["fields"] if field["name"] == "assay_type"
         ]
         value = (
-            assay_type_fields[0]['constraints']['enum']
-            if len(assay_type_fields) else []
+            assay_type_fields[0]["constraints"]["enum"]
+            if len(assay_type_fields)
+            else []
         )
-        return field['name'], set(value)
+        return field["name"], set(value)
 
 
 class SchemaMapper(AbstractSetValuedMapper):
-    '''
+    """
     >>> mapper = SchemaMapper()
     >>> mapper.add({'name': 'ab_field'}, schema_name='A')
     >>> mapper.add({'name': 'ab_field'}, schema_name='B')
@@ -186,10 +193,10 @@ class SchemaMapper(AbstractSetValuedMapper):
     - B
     c_field:
     - C
-    '''
+    """
 
     def _get_name_value(self, field, schema_name=None, schema=None):
-        return field['name'], {schema_name}
+        return field["name"], {schema_name}
 
 
 if __name__ == "__main__":

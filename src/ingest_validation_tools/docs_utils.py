@@ -263,7 +263,7 @@ def generate_readme_md(
             "optional_doc_link_md": optional_doc_link_md,
             "optional_description_md": optional_description_md,
             "cedar_validator_link": cedar_validator_link,
-            "permalink": f"permalink: /{schema_name}/" if not is_cedar else ""
+            "permalink": f"permalink: /{schema_name}/" if not is_cedar else "",
         }
     )
 
@@ -696,11 +696,7 @@ def _make_dir_description(files, is_deprecated=False):
                 "dependency",
             }, f'Unexpected key "{k}" in {line}'
 
-    output = [
-        "",
-        "| pattern | required? | description |",
-        "| --- | --- | --- |"
-    ]
+    output = ["", "| pattern | required? | description |", "| --- | --- | --- |"]
 
     # First we need to see whether there are any entries with "dependency" listed.
     # If there is, we need to modify the output
@@ -716,19 +712,22 @@ def _make_dir_description(files, is_deprecated=False):
         row = _generate_dir_row(line)
 
         if has_dependency:
-            row.append('')
+            row.append("")
 
         output.append("| " + " | ".join(row) + " |")
 
         if "dependency" in line:
             # Load the dependency yaml file
-            dependency_path = (Path(__file__).parent / 'directory-schemas/dependencies' /
-                               f'{line.get("dependency")}.yaml')
+            dependency_path = (
+                Path(__file__).parent
+                / "directory-schemas/dependencies"
+                / f'{line.get("dependency")}.yaml'
+            )
             dependency = load_yaml(dependency_path)
 
-            for dependency_line in dependency.get('files', []):
+            for dependency_line in dependency.get("files", []):
                 dependency_row = _generate_dir_row(dependency_line)
-                dependency_row.append(line.get('pattern'))
+                dependency_row.append(line.get("pattern"))
                 output.append("| " + " | ".join(dependency_row) + " |")
 
     table = "\n".join(output)
