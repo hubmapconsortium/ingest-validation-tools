@@ -203,9 +203,11 @@ assay_category:
 - Enhanced Stimulated Raman Spectroscopy (SRS)
 - GC-MS
 - GeoMx
+- GeoMx (NGS)
 - GeoMx (RNA)
+- GeoMx (nCounter)
 - GeoMx (protein)
-- HiFi-Slides
+- HiFi-Slide
 - Histology
 - IMS
 - Imaging Mass Cytometry
@@ -235,6 +237,7 @@ assay_category:
 - PAS microscopy
 - PhenoCycler
 - RNAseq
+- RNAseq (with probes)
 - SIMS
 - SIMS-IMS
 - SNARE-seq2
@@ -285,9 +288,11 @@ assay_type:
 - Enhanced Stimulated Raman Spectroscopy (SRS)
 - GC-MS
 - GeoMx
+- GeoMx (NGS)
 - GeoMx (RNA)
+- GeoMx (nCounter)
 - GeoMx (protein)
-- HiFi-Slides
+- HiFi-Slide
 - Histology
 - IMS
 - Imaging Mass Cytometry
@@ -318,6 +323,7 @@ assay_type:
 - PhenoCycler
 - Publication
 - RNAseq
+- RNAseq (with probes)
 - SIMS
 - SIMS-IMS
 - SNARE-seq2
@@ -814,9 +820,11 @@ is_cedar:
 - DESI
 - Enhanced Stimulated Raman Spectroscopy (SRS)
 - GeoMx
+- GeoMx (NGS)
 - GeoMx (RNA)
+- GeoMx (nCounter)
 - GeoMx (protein)
-- HiFi-Slides
+- HiFi-Slide
 - Histology
 - IMS
 - LC-MS
@@ -834,6 +842,7 @@ is_cedar:
 - PhenoCycler
 - Publication
 - RNAseq
+- RNAseq (with probes)
 - SIMS
 - Sample
 - Sample Block
@@ -1565,7 +1574,6 @@ parent_id:
 - GeoMx
 - GeoMx (RNA)
 - GeoMx (protein)
-- HiFi-Slides
 - LC-MS
 - Light Sheet
 - MALDI

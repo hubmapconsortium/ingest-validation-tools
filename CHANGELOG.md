@@ -52,6 +52,7 @@
 - Fix to support display of errors for CEDAR template metadata
 - Upate Auto-fluorescence, Confocal, and Light Sheet directory schemas
 - Additional updates to next-gen histology directory schema
+- Add more assays
 
 ## v0.0.15 - 2023-04-04
 

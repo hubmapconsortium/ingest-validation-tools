@@ -141,7 +141,9 @@ assay_category:
 - enhanced-srs
 - gcms
 - geomx
-- hifi-slides
+- geomx-ncounter
+- geomx-ngs
+- hifi-slide
 - histology
 - imc
 - imc-2d
@@ -162,6 +164,7 @@ assay_category:
 - organ
 - phenocycler
 - rnaseq
+- rnaseq-with-probes
 - sample
 - sample-block
 - sample-section
@@ -197,7 +200,9 @@ assay_type:
 - enhanced-srs
 - gcms
 - geomx
-- hifi-slides
+- geomx-ncounter
+- geomx-ngs
+- hifi-slide
 - histology
 - imc
 - imc-2d
@@ -219,6 +224,7 @@ assay_type:
 - phenocycler
 - publication
 - rnaseq
+- rnaseq-with-probes
 - sample
 - sample-block
 - sample-section
@@ -552,7 +558,9 @@ is_cedar:
 - desi
 - enhanced-srs
 - geomx
-- hifi-slides
+- geomx-ncounter
+- geomx-ngs
+- hifi-slide
 - histology
 - imc-2d
 - imc3d
@@ -572,6 +580,7 @@ is_cedar:
 - phenocycler
 - publication
 - rnaseq
+- rnaseq-with-probes
 - sample
 - sample-block
 - sample-section
@@ -964,7 +973,6 @@ parent_id:
 - desi
 - enhanced-srs
 - geomx
-- hifi-slides
 - imc-2d
 - lcms
 - lightsheet
