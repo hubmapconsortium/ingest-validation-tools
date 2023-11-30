@@ -1,0 +1,13 @@
+fields:
+- name: is_cedar
+  description: 'Identifies whether the version is hosted by CEDAR'
+  example: 'https://openview.metadatacenter.org/templates/https:%2F%2Frepo.metadatacenter.org%2Ftemplates%2Facafada7-78c0-4960-b2ca-d6eba9eb14fd'
+- name: assay_category
+  constraints:
+    enum:
+      - spatial_transcriptomics
+- name: assay_type
+  description: The UMI sequence length in the 10xGenomics-v2 kit is 10 base pairs and the length in the 10xGenomics-v3 kit is 12 base pairs.
+  constraints:
+    enum:
+      - GeoMx (nCounter)

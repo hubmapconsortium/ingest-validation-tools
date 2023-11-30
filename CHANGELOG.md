@@ -54,6 +54,7 @@
 - Additional updates to next-gen histology directory schema
 - Implemented soft assay types/assayclassifier endpoint for canonical assay names and dir structures
 - Added mock response test data for offline testing
+- Add more assays
 
 ## v0.0.15 - 2023-04-04
 
