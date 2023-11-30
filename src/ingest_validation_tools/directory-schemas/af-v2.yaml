@@ -90,6 +90,6 @@ files:
   -
     pattern: lab_processed\/annotations\/.*
     required: False
-    description: Directory containing annotations
+    description: Directory containing segmentation masks.
     dependency: segmentation-masks-v2
     

@@ -55,6 +55,8 @@
 - Implemented soft assay types/assayclassifier endpoint for canonical assay names and dir structures
 - Added mock response test data for offline testing
 - Add more assays
+- Correct Auto-fluorescence lab_processed/annotations path description
+- Add Visium with probes next-gen directory schema
 
 ## v0.0.15 - 2023-04-04
 

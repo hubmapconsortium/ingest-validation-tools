@@ -1,0 +1,13 @@
+description_md: 'REQUIRED - For this assay, you must also prepare and submit two additional metadata.tsv files following the metadata schemas linked here for [RNAseq](https://hubmapconsortium.github.io/ingest-validation-tools/rnaseq/current/) and [Histology](https://hubmapconsortium.github.io/ingest-validation-tools/histology/current/). See the following link for the set of fields that are required in the OME TIFF file XML header. https://docs.google.com/spreadsheets/d/1YnmdTAA0Z9MKN3OjR3Sca8pz-LNQll91wdQoRPSP6Q4/edit#gid=0'
+fields:
+- name: is_cedar
+  description: 'Identifies whether the version is hosted by CEDAR'
+  example: 'https://openview.metadatacenter.org/templates/https:%2F%2Frepo.metadatacenter.org%2Ftemplates%2Fbabf1e69-f0eb-479a-bdc5-b70199669675'
+- name: assay_category
+  constraints:
+    enum:
+      - spatial_transcriptomics
+- name: assay_type
+  constraints:
+    enum:
+      - Visium (no probes)

@@ -115,6 +115,8 @@ shared_enums: Dict[str, List[str]] = {
         "Ultrasound",
         "Thick Section Multiphoton MxIF",
         "Visium",
+        "Visium (with probes)",
+        "Visium (no probes)",
         "Xenium",
     ],
     "analyte_class": [
