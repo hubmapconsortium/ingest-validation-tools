@@ -118,14 +118,13 @@ Exit status codes:
     # Arguments for manual tests
     parser.add_argument(
         "--globus_token",
+        default="",
         help="Token for URL checking using Entity API.",
     )
     # How should output be formatted?
 
     error_report_methods = [
-        name
-        for (name, type) in inspect.getmembers(ErrorReport)
-        if name.startswith("as_")
+        name for (name, _) in inspect.getmembers(ErrorReport) if name.startswith("as_")
     ]
     parser.add_argument(
         "--output", choices=error_report_methods, default="as_text_list"

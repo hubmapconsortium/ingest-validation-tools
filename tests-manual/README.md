@@ -6,7 +6,8 @@ To test CEDAR validation including API calls, run the following from the top-lev
 
 # ./tests-manual/test-dataset-examples-cedar.sh <globus_token> <cedar_api_token>
 
-- globus_token: you can find your personal Globus token by logging in to a site that requires Globus authentication (e.g. https://ingest.hubmapconsortium.org/) and looking at the Authorization header for your request in the Network tab of your browser. Omit the "Bearer " prefix.
+- $1 = globus_token: you can find your personal Globus token by logging in to a site that requires Globus authentication (e.g. https://ingest.hubmapconsortium.org/) and looking at the Authorization header for your request in the Network tab of your browser. Omit the "Bearer " prefix.
+- $2 = start_index (optional): to avoid hitting APIs continuously when re-running tests, you can provide an index (starting at 1) (# TODO: should probably be 0) to start at a specific test.
 
 ## Creating Tests
 

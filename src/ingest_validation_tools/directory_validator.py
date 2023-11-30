@@ -26,7 +26,6 @@ def validate_directory(
     required_missing_errors: List[str] = []
     not_allowed_errors: List[str] = []
     if not path.exists():
-        # TODO: this seems more like the content of the TSV errors section
         raise FileNotFoundError(0, "No such file or directory", str(path))
     actual_paths = []
     for triple in os.walk(path):

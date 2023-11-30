@@ -1,17 +1,19 @@
 ```
 Upload Errors:
   TSV Errors:
-    examples/dataset-examples/bad-codex-data/upload/contributors.tsv:
-    - 'On row 2, column "orcid_id", value "bad-id" fails because it does not match
-      the expected pattern. Example: 0000-0002-8928-741X.'
-    - 'On row 4, column "affiliation", value "somewhere3" fails because there is a
-      run of 3 sequential items: Limit is 3. If correct, reorder rows.'
-    examples/dataset-examples/bad-codex-data/upload/codex-metadata.tsv row 2, column 'antibodies_path':
-      Decode Error: "Invalid ascii because ordinal not in range(128): \"mber\tconjugated_tag\n\
-        \ [ \xF0 ] \x9F\x98\x83\t\tbad-value\t\t\tinv\"."
+    examples/dataset-examples/bad-codex-data/upload/codex-metadata.tsv row 2, column 'contributors_path':
+      Local Validation Errors:
+        examples/dataset-examples/bad-codex-data/upload/contributors.tsv (as contributors-v1):
+        - 'On row 2, column "orcid_id", value "bad-id" fails because it does not match
+          the expected pattern. Example: 0000-0002-8928-741X.'
+        - 'On row 4, column "affiliation", value "somewhere3" fails because there
+          is a run of 3 sequential items: Limit is 3. If correct, reorder rows.'
+    examples/dataset-examples/bad-codex-data/upload/codex-metadata.tsv, row 2, column 'antibodies_path':
+    - "Decode Error: Invalid ascii because ordinal not in range(128): \"mber\tconjugated_tag\n\
+      \ [ \xF0 ] \x9F\x98\x83\t\tbad-value\t\t\tinv\"."
   Directory Errors:
     examples/dataset-examples/bad-codex-data/upload/codex-metadata.tsv, row 2, column data_path:
-      examples/dataset-examples/bad-codex-data/upload/dataset-1 (as codex-v0):
+      examples/dataset-examples/bad-codex-data/upload/dataset-1 (as codex-v1-with-dataset-json):
         Not allowed:
         - channelnames.txt.
         - cyc002_reg001_200216_112537/bad.
@@ -20,10 +22,10 @@ Upload Errors:
         - segmentation.json.
         Required but missing:
         - (processed|drv_[^/]*)/.*.
-        - (raw|processed)/config\.txt|(raw|src_[^/]*|drv_[^/]*)/[sS]egmentation\.json.
         - (raw|src_.*)/.*.
         - (raw|src_.*)/[cC]yc.*_reg.*/.*_Z.*_CH.*\.tif.
-        - (raw|src_[^/]*)/[Ee]xperiment\.json.
+        - (raw|src_[^/]*)/dataset\.json.
+        - extras/dir-schema-v1-with-dataset-json.
 Metadata TSV Validation Errors:
   Local Validation Errors:
     examples/dataset-examples/bad-codex-data/upload/codex-metadata.tsv (as codex-v0):

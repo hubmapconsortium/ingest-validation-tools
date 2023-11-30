@@ -1,11 +1,11 @@
 from __future__ import annotations
+from dataclasses import dataclass, field
 
-import os
 from pathlib import Path
-from collections import defaultdict, namedtuple
+from collections import defaultdict
 from copy import deepcopy
 import re
-from typing import List, Dict, Any, Set, Sequence, Optional, Union
+from typing import List, Dict, Set, Sequence, Optional, Union
 
 from ingest_validation_tools.yaml_include_loader import load_yaml
 from ingest_validation_tools.enums import shared_enums
@@ -22,10 +22,108 @@ def get_pipeline_infos(name: str) -> List[str]:
 
 
 class PreflightError(Exception):
-    pass
+    def __init__(self, errors: Optional[str] = None):
+        if errors:
+            self.errors = errors
 
 
-SchemaVersion = namedtuple("SchemaVersion", ["schema_name", "version"])
+@dataclass
+class SchemaVersion:
+    """
+    Create a SchemaVersion from soft assay types data.
+    This assumes keys are predictable. If the rules tend to vary, we
+    could add a class method like https://stackoverflow.com/q/72013377
+    """
+
+    # TODO: it would be great to be able to make more assumptions about
+    # rows/assayclassifier data being present
+    schema_name: str  # Valid values: canonical assay name OR other type
+    version: str = ""
+    directory_path: Optional[Path] = None
+    table_schema: str = ""
+    path: Optional[Union[Path, str]] = None
+    rows: List = field(default_factory=list)
+    soft_assay_data: Dict = field(default_factory=dict)
+    is_cedar: bool = False
+    dataset_type: str = ""  # String from assay_type or dataset_type field in TSV
+    vitessce_hints: List = field(default_factory=list)
+    dir_schema: str = ""
+    metadata_type: str = "assays"
+    # TODO: this is not thought out yet
+    # multi_type: str = ""
+    # must_contain: List = field(default_factory=list)
+    # can_contain: List = field(default_factory=list)
+    # part_of_multi: bool = False
+
+    def __post_init__(self):
+        if type(self.path) is str:
+            try:
+                self.path = Path(self.path)
+            except Exception as e:
+                raise Exception(
+                    f"""
+                    SchemaVersion with name {self.schema_name} was passed
+                    an invalid path: {self.path}. Error: {e}
+                    """
+                )
+        if get_is_assay(self.schema_name):
+            self.metadata_type = "assays"
+        else:
+            self.metadata_type = "others"
+        if self.rows:
+            self.get_row_data()
+        if self.soft_assay_data:
+            self.get_assayclassifier_data()
+        if not self.version:
+            if self.is_cedar:
+                self.version = "2"
+            else:
+                self.version = "0"
+        if not self.table_schema:
+            self.table_schema = f"{self.schema_name}-v{self.version}"
+        # if self.must_contain:
+        #     self.multi_type = "must"
+        # elif self.can_contain:
+        #     self.multi_type = "can"
+
+    def get_row_data(self):
+        if self.rows[0].get("metadata_schema_id"):
+            self.is_cedar = True
+        else:
+            self.is_cedar = False
+        self.version = self.rows[0].get("version")
+        assay_type = self.rows[0].get("assay_type")
+        dataset_type = self.rows[0].get("dataset_type")
+        if assay_type is not None and dataset_type is not None:
+            raise PreflightError(
+                f"Found both assay_type and dataset_type for path {self.path}!"
+            )
+        else:
+            self.dataset_type = assay_type if assay_type else dataset_type
+        # self.create_row_data()
+
+    def get_assayclassifier_data(self):
+        self.vitessce_hints = self.soft_assay_data.get("vitessce_hints", [])
+        self.dir_schema = self.soft_assay_data.get("dir_schema", "")
+        self.table_schema = self.soft_assay_data.get("tbl_schema", "")
+        match = re.match(r".+-v(\d+)", self.table_schema)
+        if match:
+            self.version = match[0]
+        # self.must_contain = self.soft_assay_data.get("must_contain", [])
+        # self.can_contain = self.soft_assay_data.get("can_contain", [])
+
+
+@dataclass
+class DirSchemaVersion:
+    dir_schema_name: str
+    version: str
+    dir_schema_string: str = ""
+    assay_schema_name: str = ""
+    filename: Union[str, Path] = ""
+    path: Union[str, Path] = ""
+
+    def __post_init__(self):
+        self.dir_schema_string = self.dir_schema_name + "-v" + self.version
 
 
 def get_fields_wo_headers(schema: dict) -> List[dict]:
@@ -41,193 +139,10 @@ def get_field_enum(field_name: str, schema: dict) -> List[str]:
     return fields[0]["constraints"]["enum"]
 
 
-def get_table_schema_version_from_row(
-    path: str, row: Dict[str, Any], cedar_validation: bool = True
-) -> SchemaVersion:
-    from ingest_validation_tools.validation_utils import get_other_names
-
-    """
-    >>> try: get_table_schema_version_from_row('empty', {'bad-column': 'bad-value'})
-    ... except Exception as e: print(e)
-    empty does not contain "assay_type" or "dataset_type". Column headers: bad-column
-
-    >>> get_table_schema_version_from_row( \
-            'v0', \
-            {'assay_type': 'PAS microscopy'}, \
-            cedar_validation=False \
-        )
-    SchemaVersion(schema_name='stained', version='0')
-
-    >>> try: get_table_schema_version_from_row('v42', \
-                {'assay_type': 'PAS microscopy', 'version': 42}, \
-                cedar_validation=False \
-                )
-    ... except PreflightError as e: print(e)
-    No schema where 'PAS microscopy' is assay_type and 42 is version
-
-    """
-    assay = row["assay_type"] if "assay_type" in row else row.get("dataset_type")
-    source_project = row["source_project"] if "source_project" in row else None
-    dir = "assays"
-
-    if not cedar_validation:
-        version = row["version"] if "version" in row else "0"
-    else:
-        version = "cedar"
-
-    other_type = [
-        other_type
-        for other_type in get_other_names()
-        if f"{other_type}_id" in row.keys()
-    ]
-    if other_type:
-        assay = other_type[0]
-        dir = "others"
-    elif not assay:
-        message = f'{path} does not contain "assay_type" or "dataset_type". '
-        if "channel_id" in row:
-            message += (
-                'Has "channel_id": Antibodies TSV found where metadata TSV expected.'
-            )
-        elif "orcid_id" in row:
-            message += (
-                'Has "orcid_id": Contributors TSV found where metadata TSV expected.'
-            )
-        else:
-            message += f'Column headers: {", ".join(row.keys())}'
-        raise PreflightError(message)
-
-    schema_names = _assay_to_schema_name(assay, version, source_project, dir=dir)
-
-    for schema_name in schema_names:
-        if not cedar_validation:
-            schema_path = (
-                _table_schemas_path / dir / _get_schema_filename(schema_name, version)
-            )
-            if Path(schema_path).exists():
-                return SchemaVersion(schema_name, version)
-        else:
-            cedar_schema = _get_cedar_schema(schema_name, assay, version, dir=dir)
-            if cedar_schema:
-                return cedar_schema
-    message = f"No schema where '{assay}' is assay_type and {version} is version"
-    raise PreflightError(message)
-
-
-def _get_cedar_schema(
-    schema_name: str, assay: str, version: Union[str, int], dir: str
-) -> Union[SchemaVersion, None]:
-    """
-    This will return the highest numbered schema matching is_cedar.
-    """
-    dir_path = _table_schemas_path / dir
-    schema_files = [
-        f"{dir_path}/{schema_file}"
-        for schema_file in os.listdir(dir_path)
-        if schema_file.startswith(schema_name.lower())
-    ]
-    for schema_path in schema_files:
-        schema = load_yaml(Path(schema_path))
-        fields = get_fields_wo_headers(schema)
-        cedar_field = [field for field in fields if field["name"] == "is_cedar"]
-        if not cedar_field:
-            continue
-        filename = Path(schema_path).name
-        version_regex = re.compile(r"\d+")
-        version_group = version_regex.search(filename)
-        if version_group:
-            version = version_group[0]
-        assay_type_enums = [
-            field["constraints"]["enum"]
-            for field in fields
-            if field["name"] == "assay_type"
-        ][0]
-        assert assay.lower() in [
-            enum.lower() for enum in assay_type_enums
-        ], f"""
-            Assay type '{assay}' does not match any assay type in
-            enum '{assay_type_enums}' for schema {schema_path}
-            """
-        return SchemaVersion(schema_name, version)
-    return None
-
-
-def _assay_to_schema_name(
-    assay_type: str, version: str, source_project: Union[str, None], dir: str = "assays"
-) -> List[str]:
-    """
-    Given an assay name, and a source_project (may be None),
-    read all the schemas until one matches.
-    Return the schema name, but not the version.
-
-    >>> _assay_to_schema_name('PAS microscopy', '1', None)
-    ['stained']
-
-    >>> _assay_to_schema_name('snRNAseq', '1', None)
-    ['scrnaseq']
-
-    >>> _assay_to_schema_name('snRNAseq', '1', 'HCA')
-    ['scrnaseq-hca']
-
-
-    Or, if a match can not be found (try-except just for shorter lines):
-
-    >>> try:  _assay_to_schema_name('PAS microscopy', '1', 'HCA')
-    ... except PreflightError as e: print(e)
-    No schema where 'PAS microscopy' is assay_type and 'HCA' is source_project
-
-    >>> try: _assay_to_schema_name('snRNAseq', '1', 'Bad Project')
-    ... except PreflightError as e: print(e)
-    No schema where 'snRNAseq' is assay_type and 'Bad Project' is source_project
-
-    >>> try: _assay_to_schema_name('Bad assay', '1', None)
-    ... except PreflightError as e: print(e)
-    No schema where 'Bad assay' is assay_type
-
-    >>> try: _assay_to_schema_name('Bad assay', '1', 'HCA')
-    ... except PreflightError as e: print(e)
-    No schema where 'Bad assay' is assay_type and 'HCA' is source_project
-
-    """
-    assay_names = []
-    for path in (Path(__file__).parent / "table-schemas" / dir).glob("*.yaml"):
-        schema = load_yaml(path)
-        assay_type_enum = get_field_enum("assay_type", schema)
-
-        # TODO: idiosyncratic handling of case for matching with enums
-        if assay_type.lower() not in [assay.lower() for assay in assay_type_enum]:
-            continue
-
-        source_project_enum = get_field_enum("source_project", schema)
-
-        if source_project_enum:
-            if not source_project:
-                continue
-
-        if source_project:
-            if not source_project_enum:
-                continue
-            if source_project not in source_project_enum:
-                continue
-
-        v_match = re.match(r".+(?=-v\d+)", path.stem)
-        if not v_match:
-            raise PreflightError(f"No version in {path}")
-        assay_names.append(v_match[0])
-
-    if assay_names:
-        return list(set(assay_names))
-
-    message = f"No schema where '{assay_type}' is assay_type"
-    if source_project is not None:
-        message += f" and '{source_project}' is source_project"
-    raise PreflightError(message)
-
-
 def list_table_schema_versions() -> List[SchemaVersion]:
     """
-    >>> list_table_schema_versions()[0]
-    SchemaVersion(schema_name='10x-multiome', version='2')
+    >>> list_table_schema_versions()[0].table_schema
+    '10x-multiome-v2'
 
     """
     schema_paths = list((_table_schemas_path / "assays").iterdir()) + list(
@@ -237,30 +152,30 @@ def list_table_schema_versions() -> List[SchemaVersion]:
     v_matches = [re.match(r"(.+)-v(\d+)", stem) for stem in stems]
     if not all(v_matches):
         raise Exception(f"All YAML should have version: {stems}")
-    return [SchemaVersion(*v_match.groups()) for v_match in v_matches if v_match]
+    return [SchemaVersion(v_match[1], v_match[2]) for v_match in v_matches if v_match]
 
 
-def dict_table_schema_versions() -> Dict[str, Set[str]]:
+def dict_table_schema_versions() -> Dict[str, List[SchemaVersion]]:
     """
-    >>> sorted(dict_table_schema_versions()['af'])
+    >>> sorted([v.version for v in dict_table_schema_versions()['af']])
     ['0', '1', '2']
     """
 
-    dict_of_sets = defaultdict(set)
+    dict_of_lists = defaultdict(list)
     for sv in list_table_schema_versions():
-        dict_of_sets[sv.schema_name].add(sv.version)
-    return dict_of_sets
+        dict_of_lists[sv.schema_name].append(sv)
+    return dict_of_lists
 
 
-def list_directory_schema_versions() -> List[SchemaVersion]:
+def list_directory_schema_versions() -> List[DirSchemaVersion]:
     """
-    >>> list_directory_schema_versions()[0]
-    SchemaVersion(schema_name='10x-multiome', version='2')
-
+    >>> list_directory_schema_versions()[0].dir_schema_string
+    '10x-multiome-v2'
     """
     schema_paths = list(_directory_schemas_path.iterdir())
     stems = sorted(p.stem for p in schema_paths if p.suffix == ".yaml")
-    return [SchemaVersion(*_parse_schema_version(stem)) for stem in stems]
+    parsed = [_parse_schema_version(stem) for stem in stems]
+    return [DirSchemaVersion(sv[0], sv[1]) for sv in parsed]
 
 
 def _parse_schema_version(stem: str) -> Sequence[str]:
@@ -276,40 +191,59 @@ def _parse_schema_version(stem: str) -> Sequence[str]:
     return v_match.groups()
 
 
-def get_all_directory_schema_versions(schema_name: str) -> List[SchemaVersion]:
+# TODO: is this used anywhere?
+def get_all_directory_schema_versions(schema_name: str) -> List[str]:
     return [
-        version
-        for version in list_directory_schema_versions()
-        if version.schema_name == schema_name
+        schema_version.version
+        for schema_version in list_directory_schema_versions()
+        if schema_version.assay_schema_name == schema_name
     ]
 
 
 def dict_directory_schema_versions() -> Dict[str, Set[str]]:
     dict_of_sets = defaultdict(set)
     for sv in list_directory_schema_versions():
-        dict_of_sets[sv.schema_name].add(sv.version)
+        dict_of_sets[sv.dir_schema_name].add(sv.version)
     return dict_of_sets
 
 
 def _get_schema_filename(schema_name: str, version: str) -> str:
-    return f"{schema_name.lower()}-v{version}.yaml"
+    return f"{schema_name.lower()}-v{version}"
 
 
-def get_other_schema(
-    schema_name: str, version: str, offline=None, keep_headers: bool = False
+def get_table_schema(
+    schema_version: SchemaVersion,
+    optional_fields: List[str] = [],
+    offline: bool = False,
+    keep_headers: bool = False,
 ) -> dict:
-    schema = load_yaml(
-        _table_schemas_path / "others" / _get_schema_filename(schema_name, version)
-    )
+    try:
+        schema = load_yaml(
+            Path(
+                _table_schemas_path
+                / schema_version.metadata_type
+                / f"{schema_version.table_schema}.yaml"
+            )
+        )
+    except FileNotFoundError:
+        raise FileNotFoundError(
+            f"No such file or directory: src/ingest_validation_tools/{schema_version.metadata_type}/{schema_version.table_schema}.yaml"  # noqa: E501
+        )
     fields_wo_headers = get_fields_wo_headers(schema)
     if not keep_headers:
         schema["fields"] = fields_wo_headers
 
     names = [field["name"] for field in fields_wo_headers]
-    for field in schema["fields"]:
-        if isinstance(field, str):
+    for schema_field in schema["fields"]:
+        if isinstance(schema_field, str):
             continue
-        _add_constraints(field, optional_fields=[], offline=offline, names=names)
+        if schema_version.metadata_type == "assays":
+            _add_level_1_description(schema_field)
+            _validate_level_1_enum(schema_field)
+        _add_constraints(schema_field, optional_fields, offline=offline, names=names)
+        if schema_version.metadata_type == "assays":
+            _validate_field(schema_field)
+
     return schema
 
 
@@ -327,37 +261,16 @@ def get_is_assay(schema_name: str) -> bool:
     ]
 
 
-def get_table_schema(
-    schema_name: str,
-    version: str,
-    optional_fields: List[str] = [],
-    offline=None,
-    keep_headers: bool = False,
-) -> dict:
-    schema = load_yaml(
-        _table_schemas_path / "assays" / _get_schema_filename(schema_name, version)
-    )
-    fields_wo_headers = get_fields_wo_headers(schema)
-    if not keep_headers:
-        schema["fields"] = fields_wo_headers
-
-    names = [field["name"] for field in fields_wo_headers]
-    for field in schema["fields"]:
-        if isinstance(field, str):
-            continue
-        _add_level_1_description(field)
-        _validate_level_1_enum(field)
-
-        _add_constraints(field, optional_fields, offline=offline, names=names)
-        _validate_field(field)
-
-    return schema
-
-
-def get_directory_schema(directory_type: str, schema_version: str) -> Optional[dict]:
-    directory_schema_path = _directory_schemas_path / _get_schema_filename(
-        directory_type, schema_version
-    )
+def get_directory_schema(
+    dir_schema: Optional[str] = None,
+    directory_type: Optional[str] = None,
+    version_number: Optional[str] = None,
+) -> Optional[Dict]:
+    if not dir_schema and (directory_type and version_number):
+        dir_schema = _get_schema_filename(directory_type, version_number)
+    if not dir_schema:
+        raise Exception("Not enough information to retrieve directory schema.")
+    directory_schema_path = _directory_schemas_path / f"{dir_schema}.yaml"
     if not directory_schema_path.exists():
         return None
     schema = load_yaml(directory_schema_path)
@@ -530,6 +443,7 @@ def _add_constraints(
         # Issues have been filed to make names more consistent:
         # https://github.com/hubmapconsortium/ingest-validation-tools/issues/645
         # https://github.com/hubmapconsortium/ingest-validation-tools/issues/646
+        target = None
         for suffix in ["_value", ""]:
             target = field["name"].replace("_unit", suffix)
             if target in names:
@@ -612,10 +526,10 @@ def enum_maps_to_lists(schema, add_none_of_the_above=False, add_suggested=False)
     """
     schema_copy = deepcopy(schema)
     schema_copy["fields"], original_fields = [], schema_copy["fields"]
-    for field in original_fields:
+    for original_field in original_fields:
         extra_field = None
-        if "constraints" in field:
-            constraints = field["constraints"]
+        if "constraints" in original_field:
+            constraints = original_field["constraints"]
             if "enum" in constraints:
                 if isinstance(constraints["enum"], dict):
                     constraints["enum"] = list(constraints["enum"].keys())
@@ -623,10 +537,10 @@ def enum_maps_to_lists(schema, add_none_of_the_above=False, add_suggested=False)
                         constraints["enum"].append("Submitter Suggestion")
                     if add_suggested:
                         extra_field = {
-                            "name": f"{field['name']}_suggested",
-                            "description": f"Desired value for {field['name']}",
+                            "name": f"{original_field['name']}_suggested",
+                            "description": f"Desired value for {original_field['name']}",
                         }
-        schema_copy["fields"].append(field)
+        schema_copy["fields"].append(original_field)
         if extra_field:
             schema_copy["fields"].append(extra_field)
     return schema_copy

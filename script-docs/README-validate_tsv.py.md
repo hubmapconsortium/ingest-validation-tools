@@ -11,6 +11,7 @@ optional arguments:
   --path PATH           TSV path
   --schema {sample,sample-block,sample-suspension,sample-section,antibodies,contributors,metadata}
   --globus_token GLOBUS_TOKEN
+                        Token for URL checking using Entity API.
   --output {as_md,as_text,as_text_list,as_yaml}
 
 Exit status codes:
