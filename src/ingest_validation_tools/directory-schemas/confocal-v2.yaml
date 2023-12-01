@@ -46,7 +46,7 @@ files:
     is_qa_qc: False
     example: lab_processed/images/HBM892.MDXS.293.ome.tiff
   -
-    pattern: lab_processed\/images\/[^\/]+\.ome-tiff\.channels\.csv
+    pattern: lab_processed\/images\/[^\/]*ome-tiff\.channels\.csv
     required: True
     description: This file provides essential documentation pertaining to each channel of the accommpanying OME TIFF. The file should contain one row per OME TIFF channel. The required fields are detailed <https://docs.google.com/spreadsheets/d/1xEJSb0xn5C5fB3k62pj1CyHNybpt4-YtvUs5SUMS44o/edit#gid=0>
     is_qa_qc: False
@@ -55,7 +55,7 @@ files:
     required: False
     description: This directory contains transformation matrices that capture how each modality is aligned with the other and can be used to visualize overlays of multimodal data. This is needed to overlay images from the exact same tissue section (e.g., MALDI imaging mass spec, autofluorescence microscopy, MxIF, histological stains). In these cases data type may have different pixel sizes and slightly different orientations (i.e., one may be rotated relative to another).
   -
-    pattern: lab_processed\/transformations\/[^\/]+\.txt
+    pattern: lab_processed\/transformations\/[^\/]*transformations\.txt
     required: False
     description: Transformation matrices used to overlay images from the exact same tissue section (e.g., MALDI imaging mass spec, autofluorescence microscopy, MxIF, histological stains).   
     is_qa_qc: False
