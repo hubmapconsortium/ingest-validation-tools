@@ -1,0 +1,2 @@
+first_name	last_name	middle_name_or_initial	display_name	affiliation	orcid	email	is_contact	is_principal_investigator	is_operator	metadata_schema_id
+Firstname	Lastname	M.	Firstname M. Lastname	Carnegie Mellon University	0000-0002-8928-741X	test@test.com	Yes	Yes	Yes	94dae6f8-0756-4ab0-a47b-138e446a9501

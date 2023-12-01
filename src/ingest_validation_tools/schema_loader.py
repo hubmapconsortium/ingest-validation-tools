@@ -100,7 +100,8 @@ class SchemaVersion:
         match = re.match(r".+-v(\d+)", self.table_schema)
         if match:
             self.version = match[0]
-        self.contains = self.soft_assay_data.get("must_contain", [])
+        contains = self.soft_assay_data.get("must_contain", [])
+        self.contains = [schema.lower() for schema in contains]
 
 
 @dataclass

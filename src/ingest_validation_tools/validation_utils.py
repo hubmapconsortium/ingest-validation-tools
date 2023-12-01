@@ -85,7 +85,7 @@ def get_schema_version(
             message += f' Column headers in TSV: {", ".join(rows[0].keys())}'
         raise PreflightError(message)
     return SchemaVersion(
-        assay_type_data["assaytype"].lower(),
+        assay_type_data["assaytype"],
         directory_path=directory_path,
         path=path,
         rows=rows,

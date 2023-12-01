@@ -178,7 +178,7 @@ class Upload:
         for tsv_path, schema_version in tsvs_to_evaluate.items():
             path_errors = self._validate(tsv_path, schema_version, report_type)
             if not path_errors:
-                return {}
+                continue
             for key, value in path_errors.items():
                 if type(value) is dict:
                     errors[key].update(value)
@@ -192,23 +192,28 @@ class Upload:
     #
     ###################################
 
+    # TODO: simplify/refactor
     def _check_multi_assay(self) -> Dict[str, Dict]:
         # This is not recursive, so if there are nested multi-assay types it will not work
-        shared_data_paths = defaultdict(dict)
-        contains = [sv for sv in self.effective_tsv_paths.values() if sv.contains]
-        if len(contains) == 0:
+        # TODO: "name" value is a list even though there can only be one because typing
+        # was being annoying
+        shared_data_paths = defaultdict(lambda: defaultdict(list))
+        multi_assay_parents = [
+            sv for sv in self.effective_tsv_paths.values() if sv.contains
+        ]
+        if len(multi_assay_parents) == 0:
             return {}
         components = [sv for sv in self.effective_tsv_paths.values() if not sv.contains]
-        if len(contains) > 1:
+        if len(multi_assay_parents) > 1:
             raise PreflightError(
-                f"Upload contains multiple parent multi-assay types: {contains}"
+                f"Upload contains multiple parent multi-assay types: {multi_assay_parents}"
             )
-        parent = contains[0]
+        parent = multi_assay_parents[0]
         not_allowed = []
         # Iterate through child dataset types, check that they are valid
         # components of parent multi-assay type
         for sv in components:
-            if sv.dataset_type not in parent.contains:
+            if sv.dataset_type.lower() not in parent.contains:
                 not_allowed.append(sv.dataset_type)
             for row in sv.rows:
                 if row.get("data_path"):
@@ -219,24 +224,21 @@ class Upload:
             )
         # Check parent multi-assay TSV data_path values against data_paths in child TSVs
         multi_data_paths = [row.get("data_path") for row in parent.rows]
-        for path, components in shared_data_paths.items():
+        for path, related_svs in shared_data_paths.items():
             # If component dataset types are missing from parent must_contain list
             # for a given data_path, error
-            if sorted([sv.dataset_type for sv in components]) != sorted(
-                parent.contains
-            ):
+            if sorted(
+                [sv.dataset_type.lower() for sv in related_svs["components"]]
+            ) != sorted(parent.contains):
                 raise PreflightError(
-                    f"""
-                    Multi-assay type {parent.dataset_type} requires {parent.contains}
-                    but only {components} share the data path {path}.
-                    """
+                    f"Multi-assay type '{parent.dataset_type}' requires {parent.contains} but only components {[c.dataset_type for c in components]} share the data path {path}."  # noqa: 501
                 )
             # If paths match between parent and components and all required components
             # are present, add parent dataset type to shared_data_paths, remove path
             # from multi_data_paths, and continue
             # This will also potentially create data path values in the dict without a "parent"
             # key, indicating a standalone dataset of a child type (for dir and ref checking)
-            shared_data_paths[path]["parent"] = parent
+            shared_data_paths[path]["parent"] = [parent]
             multi_data_paths.remove(path)
         # If a unique path is found in the parent TSV, error
         if multi_data_paths:
@@ -246,7 +248,12 @@ class Upload:
                 in child assay TSVs. Data paths unique to parent: {multi_data_paths}
                 """
             )
-        return shared_data_paths
+        converted_data_paths = {}
+        for path, related_sv in shared_data_paths.items():
+            if related_sv.get("parent"):
+                shared_data_paths[path]["parent"] = shared_data_paths[path]["parent"][0]
+            converted_data_paths[path] = dict(related_sv)
+        return converted_data_paths
 
     def _check_upload(self) -> dict:
         upload_errors = {}
@@ -297,19 +304,20 @@ class Upload:
                 dir_errors = self._get_multi_assay_dir_errors(path, dataset_types)
                 if dir_errors:
                     errors.update(dir_errors)
-        for path, schema in self.effective_tsv_paths.items():
-            dir_errors = self._get_ref_errors("data", schema, path)
-            if dir_errors:
-                """
-                TODO: there's an issue here (and any other places setting a key
-                that might be long) where the YAML dumper converts this to a
-                complex key and adds a ? at the front and inserts a line break
-                at the next instance of whitespace (in this case, leading
-                (as x) to be on a following line)
-                Wrote validation_utils > print_path to try to address this
-                issue, but needed to deprioritize.
-                """
-                errors.update(dir_errors)
+        else:
+            for path, schema in self.effective_tsv_paths.items():
+                dir_errors = self._get_ref_errors("data", schema, path)
+                if dir_errors:
+                    """
+                    TODO: there's an issue here (and any other places setting a key
+                    that might be long) where the YAML dumper converts this to a
+                    complex key and adds a ? at the front and inserts a line break
+                    at the next instance of whitespace (in this case, leading
+                    (as x) to be on a following line)
+                    Wrote validation_utils > print_path to try to address this
+                    issue, but needed to deprioritize.
+                    """
+                    errors.update(dir_errors)
         return errors
 
     def _get_multi_assay_dir_errors(
@@ -633,6 +641,9 @@ class Upload:
             if not row.get(field):
                 continue
             ref_path = self.directory_path / row[field]
+            # TODO: _check_path is really slamming the Metadata Validator API with the
+            # contributors.tsv; gather unique values from contributors/antibodies
+            # and validate once per?
             ref_error = self._check_path(i, ref_path, ref, schema, metadata_path)
             if ref_error:
                 ref_errors.update(ref_error)
