@@ -1,4 +1,5 @@
 from __future__ import annotations
+import json
 import logging
 
 import subprocess
@@ -210,43 +211,55 @@ class Upload:
             )
         parent = multi_assay_parents[0]
         not_allowed = []
+        necessary = parent.contains
         # Iterate through child dataset types, check that they are valid
-        # components of parent multi-assay type
+        # components of parent multi-assay type and that no components are missing
         for sv in components:
             if sv.dataset_type.lower() not in parent.contains:
                 not_allowed.append(sv.dataset_type)
-            for row in sv.rows:
-                if row.get("data_path"):
-                    shared_data_paths[row["data_path"]]["components"].append(sv)
+            else:
+                for row in sv.rows:
+                    if row.get("data_path"):
+                        shared_data_paths[row["data_path"]]["components"].append(sv)
+                necessary.remove(sv.dataset_type.lower())
+        if necessary:
+            raise PreflightError(
+                f"Multi-assay parent type {parent.dataset_type} missing required component(s) {necessary}."  # noqa: E501
+            )
         if not_allowed:
             raise PreflightError(
                 f"Invalid child assay type(s) for parent type {parent.dataset_type}: {not_allowed}"
             )
-        # Check parent multi-assay TSV data_path values against data_paths in child TSVs
+        # Add "parent" data to any data_paths in shared_data_paths that appear in the parent TSV
         multi_data_paths = [row.get("data_path") for row in parent.rows]
-        for path, related_svs in shared_data_paths.items():
-            # If component dataset types are missing from parent must_contain list
-            # for a given data_path, error
-            if sorted(
-                [sv.dataset_type.lower() for sv in related_svs["components"]]
-            ) != sorted(parent.contains):
-                raise PreflightError(
-                    f"Multi-assay type '{parent.dataset_type}' requires {parent.contains} but only components {[c.dataset_type for c in components]} share the data path {path}."  # noqa: 501
-                )
-            # If paths match between parent and components and all required components
-            # are present, add parent dataset type to shared_data_paths, remove path
-            # from multi_data_paths, and continue
-            # This will also potentially create data path values in the dict without a "parent"
-            # key, indicating a standalone dataset of a child type (for dir and ref checking)
+        for path in multi_data_paths:
             shared_data_paths[path]["parent"] = [parent]
-            multi_data_paths.remove(path)
-        # If a unique path is found in the parent TSV, error
+        # Check parent multi-assay TSV data_path values against data_paths in child TSVs
+        # Any data_paths with components but no parent are assumed to be standalone
+        # datasets and left alone
+        missing_components = defaultdict(list)
+        for path, related_svs in shared_data_paths.items():
+            if related_svs.get("parent"):
+                # If there is a parent but no components, continue without
+                # removing from multi_data_paths
+                if not related_svs.get("components"):
+                    continue
+                existing_components = {
+                    sv.dataset_type.lower() for sv in related_svs["components"]
+                }
+                # If there is a parent and all required components are not present, error
+                diff = set(parent.contains).difference(existing_components)
+                if diff:
+                    missing_components[path] = [*missing_components[path], *list(diff)]
+                else:
+                    multi_data_paths.remove(path)
+        if missing_components:
+            raise PreflightError(
+                f"Multi-assay type '{parent.dataset_type}' requires {parent.contains}. Data paths missing components: {list(missing_components.keys())}"
+            )
         if multi_data_paths:
             raise PreflightError(
-                f"""
-                Multi-assay TSV {parent.path} contains data paths that are not present
-                in child assay TSVs. Data paths unique to parent: {multi_data_paths}
-                """
+                f"Multi-assay TSV {parent.path} contains data paths that are not present in child assay TSVs. Data paths unique to parent: {multi_data_paths}"  # noqa: E501
             )
         converted_data_paths = {}
         for path, related_sv in shared_data_paths.items():

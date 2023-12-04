@@ -1,18 +1,6 @@
 ```
-Preflight: 'Assay data not retrieved from assayclassifier endpoint for TSV examples/dataset-examples/good-cedar-multi-assay-visium/upload/good-visium-rnaseq-metadata.tsv.
-  Dataset type: RNAseq. Column headers in TSV: metadata_schema_id, parent_sample_id,
-  lab_id, preparation_protocol_doi, dataset_type, analyte_class, is_targeted, acquisition_instrument_vendor,
-  acquisition_instrument_model, source_storage_duration_value, source_storage_duration_unit,
-  time_since_acquisition_instrument_calibration_value, time_since_acquisition_instrument_calibration_unit,
-  contributors_path, data_path, barcode_offset, barcode_read, barcode_size, umi_offset,
-  umi_read, umi_size, assay_input_entity, number_of_input_cells_or_nuclei, amount_of_input_analyte_value,
-  amount_of_input_analyte_unit, library_adapter_sequence, library_average_fragment_size,
-  library_input_amount_value, library_input_amount_unit, library_output_amount_value,
-  library_output_amount_unit, library_concentration_value, library_concentration_unit,
-  library_layout, number_of_iterations_of_cdna_amplification, number_of_pcr_cycles_for_indexing,
-  library_preparation_kit, sample_indexing_kit, sample_indexing_set, is_technical_replicate,
-  expected_entity_capture_count, sequencing_reagent_kit, sequencing_read_format, sequencing_batch_id,
-  capture_batch_id, preparation_instrument_vendor, preparation_instrument_model, preparation_instrument_kit.'
+Preflight: 'Invalid child assay type(s) for parent type Visium (no probes): ["RNAseq
+  (with probes)"].'
 Hint: 'If validation fails because of extra whitespace in the TSV, try:
 
   src/cleanup_whitespace.py --tsv_in original.tsv --tsv_out clean.tsv.'

@@ -1,10 +1,4 @@
 ```
-Upload Errors:
-  TSV Errors:
-    examples/dataset-examples/bad-cedar-assay-histology/upload/bad-histology-metadata.tsv row 2, column 'contributors_path':
-      Local Validation Errors:
-        examples/dataset-examples/bad-cedar-assay-histology/upload/contributors.tsv (as contributors-v1):
-        - 'Missing fields: ["is_contact"].'
 Metadata TSV Validation Errors:
   CEDAR Validation Errors:
     examples/dataset-examples/bad-cedar-assay-histology/upload/bad-histology-metadata.tsv:
