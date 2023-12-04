@@ -13,7 +13,7 @@ Upload Errors:
         - extras\/microscope_hardware\.json.
         - lab_processed\/.*.
         - lab_processed\/images\/.*.
-        - lab_processed\/images\/[^\/]+\.ome-tiff\.channels\.csv.
+        - lab_processed\/images\/[^\/]*ome-tiff\.channels\.csv.
         - lab_processed\/images\/[^\/]+\.ome\.tiff.
         - raw\/.*.
         - raw\/images\/.*.
