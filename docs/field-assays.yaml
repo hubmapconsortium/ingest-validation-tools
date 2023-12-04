@@ -203,9 +203,11 @@ assay_category:
 - Enhanced Stimulated Raman Spectroscopy (SRS)
 - GC-MS
 - GeoMx
+- GeoMx (NGS)
 - GeoMx (RNA)
+- GeoMx (nCounter)
 - GeoMx (protein)
-- HiFi-Slides
+- HiFi-Slide
 - Histology
 - IMS
 - Imaging Mass Cytometry
@@ -235,6 +237,7 @@ assay_category:
 - PAS microscopy
 - PhenoCycler
 - RNAseq
+- RNAseq (with probes)
 - SIMS
 - SIMS-IMS
 - SNARE-seq2
@@ -247,7 +250,8 @@ assay_category:
 - Slide-seq
 - Thick Section Multiphoton MxIF
 - Ultrasound
-- Visium
+- Visium (no probes)
+- Visium (with probes)
 - WGS
 - Xenium
 - bulk-RNA
@@ -285,9 +289,11 @@ assay_type:
 - Enhanced Stimulated Raman Spectroscopy (SRS)
 - GC-MS
 - GeoMx
+- GeoMx (NGS)
 - GeoMx (RNA)
+- GeoMx (nCounter)
 - GeoMx (protein)
-- HiFi-Slides
+- HiFi-Slide
 - Histology
 - IMS
 - Imaging Mass Cytometry
@@ -318,6 +324,7 @@ assay_type:
 - PhenoCycler
 - Publication
 - RNAseq
+- RNAseq (with probes)
 - SIMS
 - SIMS-IMS
 - SNARE-seq2
@@ -330,7 +337,8 @@ assay_type:
 - Slide-seq
 - Thick Section Multiphoton MxIF
 - Ultrasound
-- Visium
+- Visium (no probes)
+- Visium (with probes)
 - WGS
 - Xenium
 - bulk-RNA
@@ -814,9 +822,11 @@ is_cedar:
 - DESI
 - Enhanced Stimulated Raman Spectroscopy (SRS)
 - GeoMx
+- GeoMx (NGS)
 - GeoMx (RNA)
+- GeoMx (nCounter)
 - GeoMx (protein)
-- HiFi-Slides
+- HiFi-Slide
 - Histology
 - IMS
 - LC-MS
@@ -834,6 +844,7 @@ is_cedar:
 - PhenoCycler
 - Publication
 - RNAseq
+- RNAseq (with probes)
 - SIMS
 - Sample
 - Sample Block
@@ -843,7 +854,8 @@ is_cedar:
 - Slide-seq
 - Thick Section Multiphoton MxIF
 - Ultrasound
-- Visium
+- Visium (no probes)
+- Visium (with probes)
 - Xenium
 - nanoSPLITS
 - seqFISH
@@ -1565,7 +1577,6 @@ parent_id:
 - GeoMx
 - GeoMx (RNA)
 - GeoMx (protein)
-- HiFi-Slides
 - LC-MS
 - Light Sheet
 - MALDI
@@ -1584,7 +1595,7 @@ parent_id:
 - Slide-seq
 - Thick Section Multiphoton MxIF
 - Ultrasound
-- Visium
+- Visium (with probes)
 - Xenium
 - seqFISH
 parent_sample_id:

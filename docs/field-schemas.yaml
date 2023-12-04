@@ -141,7 +141,9 @@ assay_category:
 - enhanced-srs
 - gcms
 - geomx
-- hifi-slides
+- geomx-ncounter
+- geomx-ngs
+- hifi-slide
 - histology
 - imc
 - imc-2d
@@ -162,6 +164,7 @@ assay_category:
 - organ
 - phenocycler
 - rnaseq
+- rnaseq-with-probes
 - sample
 - sample-block
 - sample-section
@@ -176,7 +179,8 @@ assay_category:
 - stained
 - thick-section-multiphoton-mxif
 - ultrasound
-- visium
+- visium-no-probes
+- visium-with-probes
 - wgs
 - xenium
 assay_type:
@@ -197,7 +201,9 @@ assay_type:
 - enhanced-srs
 - gcms
 - geomx
-- hifi-slides
+- geomx-ncounter
+- geomx-ngs
+- hifi-slide
 - histology
 - imc
 - imc-2d
@@ -219,6 +225,7 @@ assay_type:
 - phenocycler
 - publication
 - rnaseq
+- rnaseq-with-probes
 - sample
 - sample-block
 - sample-section
@@ -233,7 +240,8 @@ assay_type:
 - stained
 - thick-section-multiphoton-mxif
 - ultrasound
-- visium
+- visium-no-probes
+- visium-with-probes
 - wgs
 - xenium
 bead_barcode_offset:
@@ -552,7 +560,9 @@ is_cedar:
 - desi
 - enhanced-srs
 - geomx
-- hifi-slides
+- geomx-ncounter
+- geomx-ngs
+- hifi-slide
 - histology
 - imc-2d
 - imc3d
@@ -572,6 +582,7 @@ is_cedar:
 - phenocycler
 - publication
 - rnaseq
+- rnaseq-with-probes
 - sample
 - sample-block
 - sample-section
@@ -583,7 +594,8 @@ is_cedar:
 - stained
 - thick-section-multiphoton-mxif
 - ultrasound
-- visium
+- visium-no-probes
+- visium-with-probes
 - xenium
 is_contact:
 - contributors
@@ -964,7 +976,6 @@ parent_id:
 - desi
 - enhanced-srs
 - geomx
-- hifi-slides
 - imc-2d
 - lcms
 - lightsheet
@@ -985,7 +996,7 @@ parent_id:
 - slideseq
 - thick-section-multiphoton-mxif
 - ultrasound
-- visium
+- visium-with-probes
 - xenium
 parent_sample_id:
 - histology

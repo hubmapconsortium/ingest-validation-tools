@@ -1,5 +1,4 @@
 from __future__ import annotations
-import json
 import logging
 
 import subprocess
@@ -222,14 +221,13 @@ class Upload:
                     if row.get("data_path"):
                         shared_data_paths[row["data_path"]]["components"].append(sv)
                 necessary.remove(sv.dataset_type.lower())
+        message = ""
         if necessary:
-            raise PreflightError(
-                f"Multi-assay parent type {parent.dataset_type} missing required component(s) {necessary}."  # noqa: E501
-            )
+            message += f"Multi-assay parent type {parent.dataset_type} missing required component(s) {necessary}."  # noqa: E501
         if not_allowed:
-            raise PreflightError(
-                f"Invalid child assay type(s) for parent type {parent.dataset_type}: {not_allowed}"
-            )
+            message += f" Invalid child assay type(s) for parent type {parent.dataset_type}: {not_allowed}"  # noqa: E501
+        if message:
+            raise PreflightError(message)
         # Add "parent" data to any data_paths in shared_data_paths that appear in the parent TSV
         multi_data_paths = [row.get("data_path") for row in parent.rows]
         for path in multi_data_paths:
@@ -255,7 +253,7 @@ class Upload:
                     multi_data_paths.remove(path)
         if missing_components:
             raise PreflightError(
-                f"Multi-assay type '{parent.dataset_type}' requires {parent.contains}. Data paths missing components: {list(missing_components.keys())}"
+                f"Multi-assay type '{parent.dataset_type}' requires {parent.contains}. Data paths missing components: {list(missing_components.keys())}"  # noqa:  E501
             )
         if multi_data_paths:
             raise PreflightError(

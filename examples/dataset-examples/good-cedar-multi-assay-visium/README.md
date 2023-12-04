@@ -1,16 +1,20 @@
 ```
-Upload Errors:
-  Directory Errors:
-    ? examples/dataset-examples/good-cedar-multi-assay-visium/upload/good-visium-assay-metadata.tsv,
-      column 'data_path', value ./Visium_9OLC_A4_S1
-    : Draft directory schema: visium-no-probes-v2
-    ? examples/dataset-examples/good-cedar-multi-assay-visium/upload/good-visium-assay-metadata.tsv,
-      column 'data_path', value ./Visium_9OLC_A4_S2
-    : Draft directory schema: visium-no-probes-v2
-    ? examples/dataset-examples/good-cedar-multi-assay-visium/upload/good-visium-assay-metadata.tsv,
-      column 'data_path', value ./Visium_9OLC_I4_S1
-    : Draft directory schema: visium-no-probes-v2
-Hint: 'If validation fails because of extra whitespace in the TSV, try:
+No errors!
+Time: WILL_CHANGE
+Git version: WILL_CHANGE
+Directory: examples/dataset-examples/good-cedar-multi-assay-visium/upload
+TSVs:
+  good-visium-assay-metadata.tsv:
+    Schema: visium_no_probes-v2
+    Metadata schema version: '2'
+    Directory schema versions: visium-no-probes-v2
+  good-visium-histology-metadata.tsv:
+    Schema: histology-v2
+    Metadata schema version: '2'
+    Directory schema versions: histology-v2
+  good-visium-rnaseq-metadata.tsv:
+    Schema: snRNAseq-10xGenomics-v3-v2
+    Metadata schema version: '2'
+    Directory schema versions: scrnaseq-v2
 
-  src/cleanup_whitespace.py --tsv_in original.tsv --tsv_out clean.tsv.'
 ```
