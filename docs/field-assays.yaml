@@ -837,7 +837,6 @@ is_cedar:
 - Micro CT
 - Molecular Cartography
 - Multiplex Ion Beam Imaging
-- MxIF
 - OCT
 - Organ
 - PAS microscopy
@@ -1585,7 +1584,6 @@ parent_id:
 - Micro CT
 - Molecular Cartography
 - Multiplex Ion Beam Imaging
-- MxIF
 - OCT
 - PhenoCycler
 - Publication

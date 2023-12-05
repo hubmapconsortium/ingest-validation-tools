@@ -575,7 +575,6 @@ is_cedar:
 - mibi
 - microct
 - mri
-- mxif
 - nano-splits
 - oct
 - organ
@@ -985,7 +984,6 @@ parent_id:
 - mibi
 - microct
 - mri
-- mxif
 - oct
 - phenocycler
 - publication
