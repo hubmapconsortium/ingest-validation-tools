@@ -38,7 +38,7 @@ files:
     is_qa_qc: False
     example: NAV.tif
   -
-    pattern: [^\/]+\.pdf
+    pattern: '[^\/]+\.pdf'
     required: False
     description: PDF export of Powerpoint slide deck containing the Image Analysis Report
     is_qa_qc: True
