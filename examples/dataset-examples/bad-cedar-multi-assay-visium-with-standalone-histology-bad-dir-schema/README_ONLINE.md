@@ -1,15 +1,6 @@
 ```
 Upload Errors:
   Directory Errors:
-    ? examples/dataset-examples/bad-cedar-multi-assay-visium-with-standalone-histology-bad-dir-schema/upload/good-visium-assay-metadata.tsv,
-      column 'data_path', value ./Visium_9OLC_A4_S1
-    : Draft directory schema: visium-no-probes-v2
-    ? examples/dataset-examples/bad-cedar-multi-assay-visium-with-standalone-histology-bad-dir-schema/upload/good-visium-assay-metadata.tsv,
-      column 'data_path', value ./Visium_9OLC_A4_S2
-    : Draft directory schema: visium-no-probes-v2
-    ? examples/dataset-examples/bad-cedar-multi-assay-visium-with-standalone-histology-bad-dir-schema/upload/good-visium-assay-metadata.tsv,
-      column 'data_path', value ./Visium_9OLC_I4_S1
-    : Draft directory schema: visium-no-probes-v2
     ? examples/dataset-examples/bad-cedar-multi-assay-visium-with-standalone-histology-bad-dir-schema/upload/good-visium-histology-metadata.tsv,
       column 'data_path', value ./dataset-1
     : ? examples/dataset-examples/bad-cedar-multi-assay-visium-with-standalone-histology-bad-dir-schema/upload/dataset-1
