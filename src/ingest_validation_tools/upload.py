@@ -6,7 +6,7 @@ from collections import Counter, defaultdict
 from datetime import datetime
 from fnmatch import fnmatch
 from pathlib import Path
-from typing import Any, Dict, Optional, Union, DefaultDict
+from typing import Any, Dict, List, Optional, Union, DefaultDict
 
 import requests
 
@@ -89,7 +89,7 @@ class Upload:
                 for k in sorted(unsorted_effective_tsv_paths.keys())
             }
 
-            self.multi_assay_structure = self._check_multi_assay()
+            self._check_multi_assay()
 
         except PreflightError as e:
             self.errors["Preflight"] = e
@@ -192,79 +192,24 @@ class Upload:
     #
     ###################################
 
-    # TODO: simplify/refactor
-    def _check_multi_assay(self) -> Dict[str, Dict]:
+    def _check_multi_assay(self):
         # This is not recursive, so if there are nested multi-assay types it will not work
-        # TODO: "name" value is a list even though there can only be one because typing
-        # was being annoying
-        shared_data_paths = defaultdict(lambda: defaultdict(list))
+        self.multi_assay_data_paths: DefaultDict[
+            str, DefaultDict[str, List[SchemaVersion]]
+        ] = defaultdict(lambda: defaultdict(list))
         multi_assay_parents = [
             sv for sv in self.effective_tsv_paths.values() if sv.contains
         ]
         if len(multi_assay_parents) == 0:
             return {}
-        components = [sv for sv in self.effective_tsv_paths.values() if not sv.contains]
         if len(multi_assay_parents) > 1:
             raise PreflightError(
                 f"Upload contains multiple parent multi-assay types: {multi_assay_parents}"
             )
-        parent = multi_assay_parents[0]
-        not_allowed = []
-        necessary = parent.contains
-        # Iterate through child dataset types, check that they are valid
-        # components of parent multi-assay type and that no components are missing
-        for sv in components:
-            if sv.dataset_type.lower() not in parent.contains:
-                not_allowed.append(sv.dataset_type)
-            else:
-                for row in sv.rows:
-                    if row.get("data_path"):
-                        shared_data_paths[row["data_path"]]["components"].append(sv)
-                necessary.remove(sv.dataset_type.lower())
-        message = ""
-        if necessary:
-            message += f"Multi-assay parent type {parent.dataset_type} missing required component(s) {necessary}."  # noqa: E501
-        if not_allowed:
-            message += f" Invalid child assay type(s) for parent type {parent.dataset_type}: {not_allowed}"  # noqa: E501
-        if message:
-            raise PreflightError(message)
-        # Add "parent" data to any data_paths in shared_data_paths that appear in the parent TSV
-        multi_data_paths = [row.get("data_path") for row in parent.rows]
-        for path in multi_data_paths:
-            shared_data_paths[path]["parent"] = [parent]
-        # Check parent multi-assay TSV data_path values against data_paths in child TSVs
-        # Any data_paths with components but no parent are assumed to be standalone
-        # datasets and left alone
-        missing_components = defaultdict(list)
-        for path, related_svs in shared_data_paths.items():
-            if related_svs.get("parent"):
-                # If there is a parent but no components, continue without
-                # removing from multi_data_paths
-                if not related_svs.get("components"):
-                    continue
-                existing_components = {
-                    sv.dataset_type.lower() for sv in related_svs["components"]
-                }
-                # If there is a parent and all required components are not present, error
-                diff = set(parent.contains).difference(existing_components)
-                if diff:
-                    missing_components[path] = [*missing_components[path], *list(diff)]
-                else:
-                    multi_data_paths.remove(path)
-        if missing_components:
-            raise PreflightError(
-                f"Multi-assay type '{parent.dataset_type}' requires {parent.contains}. Data paths missing components: {list(missing_components.keys())}"  # noqa:  E501
-            )
-        if multi_data_paths:
-            raise PreflightError(
-                f"Multi-assay TSV {parent.path} contains data paths that are not present in child assay TSVs. Data paths unique to parent: {multi_data_paths}"  # noqa: E501
-            )
-        converted_data_paths = {}
-        for path, related_sv in shared_data_paths.items():
-            if related_sv.get("parent"):
-                shared_data_paths[path]["parent"] = shared_data_paths[path]["parent"][0]
-            converted_data_paths[path] = dict(related_sv)
-        return converted_data_paths
+        components = [sv for sv in self.effective_tsv_paths.values() if not sv.contains]
+        self._check_multi_assay_children(multi_assay_parents[0], components)
+        self._check_data_paths_shared_with_parent(multi_assay_parents[0])
+        logging.info(f"Multi-assay data: {self._print_multi_assay_data()}")
 
     def _check_upload(self) -> dict:
         upload_errors = {}
@@ -310,8 +255,8 @@ class Upload:
 
     def _get_directory_errors(self) -> dict:
         errors = {}
-        if self.multi_assay_structure:
-            for path, dataset_types in self.multi_assay_structure.items():
+        if self.multi_assay_data_paths:
+            for path, dataset_types in self.multi_assay_data_paths.items():
                 dir_errors = self._get_multi_assay_dir_errors(path, dataset_types)
                 if dir_errors:
                     errors.update(dir_errors)
@@ -338,7 +283,7 @@ class Upload:
         parent = dataset_types.get("parent")
         # Validate against parent multi-assay type if data_path is in parent TSV
         if parent:
-            return self._multi_assay_dir_check(parent, data_path, path)
+            return self._multi_assay_dir_check(parent[0], data_path, path)
         # Validate against component structure otherwise
         elif dataset_types.get("components"):
             errors = {}
@@ -470,6 +415,87 @@ class Upload:
     # Supporting private methods:
     #
     ##############################
+
+    def _print_multi_assay_data(self):
+        """
+        Print only dataset types of multi_assay_data_paths
+        """
+        print_dict = {}
+        for path, multi_components in self.multi_assay_data_paths.items():
+            print_multi_components = {}
+            for key, value in multi_components.items():
+                if key == "parent":
+                    print_multi_components["parent"] = value[0].dataset_type
+                elif key == "components":
+                    print_components = []
+                    for component in value:
+                        print_components.append(component.dataset_type)
+                    print_multi_components["components"] = print_components
+            print_dict[path] = print_multi_components
+        return print_dict
+
+    def _check_multi_assay_children(
+        self, parent: SchemaVersion, components: List[SchemaVersion]
+    ):
+        """
+        Iterate through child dataset types, check that they are valid
+        components of parent multi-assay type and that no components are missing
+        """
+        not_allowed = []
+        necessary = parent.contains
+        for sv in components:
+            if sv.dataset_type.lower() not in parent.contains:
+                not_allowed.append(sv.dataset_type)
+            else:
+                for row in sv.rows:
+                    if row.get("data_path"):
+                        self.multi_assay_data_paths[row["data_path"]][
+                            "components"
+                        ].append(sv)
+                necessary.remove(sv.dataset_type.lower())
+        message = ""
+        if necessary:
+            message += f"Multi-assay parent type {parent.dataset_type} missing required component(s) {necessary}."  # noqa: E501
+        if not_allowed:
+            message += f" Invalid child assay type(s) for parent type {parent.dataset_type}: {not_allowed}"  # noqa: E501
+        if message:
+            raise PreflightError(message)
+
+    def _check_data_paths_shared_with_parent(self, parent: SchemaVersion):
+        """
+        Check parent multi-assay TSV data_path values against data_paths in child TSVs
+        Any data_paths with components but no parent are assumed to be standalone
+        datasets and left alone
+        """
+        # Add "parent" data to any data_paths in multi_assay_data_paths
+        # that appear in the parent TSV
+        multi_data_paths = [row.get("data_path") for row in parent.rows]
+        for path in multi_data_paths:
+            self.multi_assay_data_paths[path]["parent"] = [parent]
+        missing_components = defaultdict(list)
+        for path, related_svs in self.multi_assay_data_paths.items():
+            if related_svs.get("parent"):
+                # If there is a parent but no components, continue without
+                # removing from multi_data_paths
+                if not related_svs.get("components"):
+                    continue
+                existing_components = {
+                    sv.dataset_type.lower() for sv in related_svs["components"]
+                }
+                # If there is a parent and all required components are not present, error
+                diff = set(parent.contains).difference(existing_components)
+                if diff:
+                    missing_components[path] = [*missing_components[path], *list(diff)]
+                else:
+                    multi_data_paths.remove(path)
+        if missing_components:
+            raise PreflightError(
+                f"Multi-assay type '{parent.dataset_type}' requires {parent.contains}. Data paths missing components: {list(missing_components.keys())}"  # noqa:  E501
+            )
+        if multi_data_paths:
+            raise PreflightError(
+                f"Multi-assay TSV {parent.path} contains data paths that are not present in child assay TSVs. Data paths unique to parent: {multi_data_paths}"  # noqa: E501
+            )
 
     def _cedar_api_call(self, tsv_path: Union[str, Path]) -> requests.models.Response:
         file = {"input_file": open(tsv_path, "rb")}
@@ -696,7 +722,7 @@ class Upload:
         data_references = self.__get_data_references()
         multi_references = [
             path
-            for path, value in self.multi_assay_structure.items()
+            for path, value in self.multi_assay_data_paths.items()
             if value.get("parent")
         ]
         for path, references in data_references.items():
