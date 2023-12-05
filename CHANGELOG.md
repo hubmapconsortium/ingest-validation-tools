@@ -59,6 +59,8 @@
 - Add Visium with probes next-gen directory schema
 - Update MALDI, SIMS, DESI, Visium no probes, and HiFi-Slide directory schemas
 - Fix paths in Histology, MIBI, IMC2D, AF, Confocal, Light Sheet, and Visium with probes directory schemas
+- Add CODEX, Thick section Multiphoton MxIF, Second Harmonic Generation, and Enhanced Stimulated Raman Spectroscopy (SRS) next-gen directory schemas
+- Move Thick section Multiphoton MxIF next-gen directory schema to placeholder file
 - Added multi-assay support
 
 ## v0.0.15 - 2023-04-04
