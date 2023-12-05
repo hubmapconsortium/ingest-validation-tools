@@ -476,13 +476,14 @@ class Upload:
         for path, related_svs in self.multi_assay_data_paths.items():
             if related_svs.get("parent"):
                 # If there is a parent but no components, continue without
-                # removing from multi_data_paths
+                # removing from multi_data_paths to trigger error downstream
                 if not related_svs.get("components"):
                     continue
                 existing_components = {
                     sv.dataset_type.lower() for sv in related_svs["components"]
                 }
-                # If there is a parent and all required components are not present, error
+                # If there is a parent and all required components are not present,
+                # add to missing_components to trigger error downstream
                 diff = set(parent.contains).difference(existing_components)
                 if diff:
                     missing_components[path] = [*missing_components[path], *list(diff)]
