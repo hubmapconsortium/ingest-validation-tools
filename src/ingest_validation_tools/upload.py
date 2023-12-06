@@ -279,29 +279,27 @@ class Upload:
     def _get_multi_assay_dir_errors(
         self, path: str, dataset_types: Dict
     ) -> Optional[Dict]:
-        data_path = self.directory_path / path
         parent = dataset_types.get("parent")
         # Validate against parent multi-assay type if data_path is in parent TSV
         if parent:
-            return self._multi_assay_dir_check(parent[0], data_path, path)
+            return self._multi_assay_dir_check(parent[0], path)
         # Validate against component structure otherwise
         elif dataset_types.get("components"):
             errors = {}
             for component in dataset_types["components"]:
-                errors.update(self._multi_assay_dir_check(component, data_path, path))
+                errors.update(self._multi_assay_dir_check(component, path))
             return errors
 
-    def _multi_assay_dir_check(
-        self, schema: SchemaVersion, ref_path: Path, data_path: str
-    ) -> Dict:
+    def _multi_assay_dir_check(self, schema: SchemaVersion, data_path: str) -> Dict:
         errors = {}
+        abs_data_path = self.directory_path / data_path
         if not schema.dir_schema:
             raise Exception(
-                f"No directory schema found for data_path {ref_path} in {schema.path}!"
+                f"No directory schema found for data_path {abs_data_path} in {schema.path}!"
             )
         ref_errors = get_data_dir_errors(
             schema.dir_schema,
-            ref_path,
+            abs_data_path,
             dataset_ignore_globs=self.dataset_ignore_globs,
         )
         if ref_errors:
