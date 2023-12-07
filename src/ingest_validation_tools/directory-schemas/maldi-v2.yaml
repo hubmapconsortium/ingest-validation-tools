@@ -45,7 +45,7 @@ files:
     required: False
     description: Directory containing image transformations.
   -
-    pattern: lab_processed\/transformations\/[^\/]*transformations\.txt
+    pattern: lab_processed\/transformations\/[^\/]+\.txt
     required: False
     description: Transformations/map back to autofluorescence microscopy (related) data
   -
@@ -57,3 +57,4 @@ files:
     required: True
     description: TSV file containing the m/z, molecular assignment, etc.
  
+
