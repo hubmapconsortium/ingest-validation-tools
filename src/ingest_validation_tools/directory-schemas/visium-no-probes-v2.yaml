@@ -68,7 +68,7 @@ files:
     required: False
     description: This directory contains transformation matrices that capture how each modality is aligned with the other and can be used to visualize overlays of multimodal data. This is needed to overlay images from the exact same tissue section (e.g., MALDI imaging mass spec, autofluorescence microscopy, MxIF, histological stains). In these cases data type may have different pixel sizes and slightly different orientations (i.e., one may be rotated relative to another).
   -
-    pattern: lab_processed\/transformations\/[^\/]*transformations\.txt
+    pattern: lab_processed\/transformations\/[^\/]+\.txt
     required: False
     description: Transformation matrices used to overlay images from the exact same tissue section (e.g., MALDI imaging mass spec, autofluorescence microscopy, MxIF, histological stains). 
     is_qa_qc: False
@@ -77,4 +77,3 @@ files:
     required: False
     description: Directory containing segmentation masks.
     dependency: segmentation-masks-v2
-    
