@@ -43,7 +43,7 @@ See the following link for the set of fields that are required in the OME TIFF f
 | <code>lab_processed\/images\/[^\/]+\.ome\.tiff</code> | ✓ | OME-TIFF files (multichannel, multi-layered) produced by the microscopy experiment. If compressed, must use loss-less compression algorithm. See the following link for the set of fields that are required in the OME TIFF file XML header. <https://docs.google.com/spreadsheets/d/1YnmdTAA0Z9MKN3OjR3Sca8pz-LNQll91wdQoRPSP6Q4/edit#gid=0> |
 | <code>lab_processed\/images\/[^\/]*ome-tiff\.channels\.csv</code> | ✓ | This file provides essential documentation pertaining to each channel of the accommpanying OME TIFF. The file should contain one row per OME TIFF channel. The required fields are detailed <https://docs.google.com/spreadsheets/d/1xEJSb0xn5C5fB3k62pj1CyHNybpt4-YtvUs5SUMS44o/edit#gid=0> |
 | <code>lab_processed\/transformations\/.*</code> |  | Directory containing image transformations. |
-| <code>lab_processed\/transformations\/[^\/]*transformations\.txt</code> |  | Transformations/map back to autofluorescence microscopy (related) data |
+| <code>lab_processed\/transformations\/[^\/]+\.txt</code> |  | Transformations/map back to autofluorescence microscopy (related) data |
 | <code>lab_processed\/annotations\/.*</code> | ✓ | Directory containing annotations |
 | <code>lab_processed\/annotations\/[^\/]+_MolecularAssignments\.tsv</code> | ✓ | TSV file containing the m/z, molecular assignment, etc. |
 
