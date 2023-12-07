@@ -233,7 +233,6 @@ assay_category:
 - NanoDESI
 - NanoPOTS
 - OCT
-- Organ
 - PAS microscopy
 - PhenoCycler
 - RNAseq
@@ -319,7 +318,6 @@ assay_type:
 - NanoDESI
 - NanoPOTS
 - OCT
-- Organ
 - PAS microscopy
 - PhenoCycler
 - Publication
@@ -838,7 +836,6 @@ is_cedar:
 - Molecular Cartography
 - Multiplex Ion Beam Imaging
 - OCT
-- Organ
 - PAS microscopy
 - PhenoCycler
 - Publication
@@ -1534,8 +1531,6 @@ operator_email:
 - snRNAseq
 - snRNAseq-10xGenomics-v2
 - snRNAseq-10xGenomics-v3
-organ_id:
-- Organ
 overall_protocols_io_doi:
 - AF
 - CE-MS

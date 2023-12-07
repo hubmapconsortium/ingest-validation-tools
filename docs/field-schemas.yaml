@@ -161,7 +161,6 @@ assay_category:
 - nano
 - nano-splits
 - oct
-- organ
 - phenocycler
 - rnaseq
 - rnaseq-with-probes
@@ -221,7 +220,6 @@ assay_type:
 - nano
 - nano-splits
 - oct
-- organ
 - phenocycler
 - publication
 - rnaseq
@@ -577,7 +575,6 @@ is_cedar:
 - mri
 - nano-splits
 - oct
-- organ
 - phenocycler
 - publication
 - rnaseq
