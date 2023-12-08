@@ -268,7 +268,8 @@ orcid_id: ORCID ID of contributor
 organ_condition: Health status of the organ at the time of sample recovery.
 organ_height_unit: Height unit.
 organ_height_value: The height value of the organ.
-organ_id: UUID or HuBMAP ID of organ
+organ_id: Unique HuBMAP identifier for the organ. This can be found in the Submission
+  ID section of a registered donor on the Ingest UI.
 organ_length_unit: Length unit.
 organ_length_value: The length value of the organ.
 organ_volume_unit: Volume unit.
