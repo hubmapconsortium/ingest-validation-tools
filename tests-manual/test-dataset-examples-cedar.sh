@@ -11,7 +11,7 @@ for SUITE in examples/dataset-examples examples/dataset-iec-examples; do
 
     case ${SUITE} in
         examples/dataset-iec-examples)
-            OPTS="--dataset_ignore_globs 'metadata.tsv' --upload_ignore_globs '*' --run_plugins"
+            OPTS="--dataset_ignore_globs 'metadata.tsv' --globus_token ${GLOBUS_TOKEN} --upload_ignore_globs '*' --run_plugins"
             ;;
         examples/dataset-examples)
             OPTS="--dataset_ignore_globs 'ignore-*.tsv' '.*' --run_plugins --globus_token ${GLOBUS_TOKEN} --upload_ignore_globs 'drv_ignore_*' --output as_md"

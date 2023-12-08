@@ -64,6 +64,7 @@
 - Update file path in Visium no probes, Histology, AF, MxIF, SHG, SRS, Confocal, Light Sheet, MALDI, SIMS, DESI
 - Remove Organ CEDAR page
 - Draft next-gen directory schema for SNARE-seq2
+- Added multi-assay support
 
 ## v0.0.15 - 2023-04-04
 
@@ -102,7 +103,6 @@
 - Update MALDI, SIMS, and CODEX
 - Update DESI and remove NanoDESI
 - Support for conditional directory validation
-
 
 ## v0.0.14 - 2022-06-23
 

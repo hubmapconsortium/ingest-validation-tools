@@ -21,11 +21,10 @@ from ingest_validation_tools.schema_loader import (
 )
 from ingest_validation_tools.table_validator import ReportType, get_table_errors
 from ingest_validation_tools.validation_utils import (
-    dict_reader_wrapper,
-    get_context_of_decode_error,
     get_data_dir_errors,
     get_json,
     get_schema_version,
+    read_rows,
 )
 
 TSV_SUFFIX = "metadata.tsv"
@@ -70,7 +69,6 @@ class Upload:
         self.effective_tsv_paths = {}
         self.extra_parameters = extra_parameters if extra_parameters else {}
         self.globus_token = globus_token
-        # TODO: soft assay type endpoint calls happen here to weed out any bad multi-assay uploads
         self.run_plugins = run_plugins
 
         try:
@@ -91,48 +89,14 @@ class Upload:
                 for k in sorted(unsorted_effective_tsv_paths.keys())
             }
 
+            self._check_multi_assay()
+
         except PreflightError as e:
             self.errors["Preflight"] = e
 
-    # def _check_multi_assay(self):
-    #     # This is not recursive, so if there are nested requirements it will not work
-    #     shared_data_paths = defaultdict(lambda: {"name": "", "components": []})
-    #     multi = [sv for sv in self.effective_tsv_paths.values() if sv.multi_type]
-    #     if len(multi) == 0:
-    #         return
-    #     elif len(multi) == 1:
-    #         MultiAssaySchema = namedtuple(
-    #             "MultiAssaySchema",
-    #             ["schema_name", "multi_type", "contains", "data_path"],
-    #         )
-    #         self.multi_assay_schema = MultiAssaySchema(
-    #             multi[0].schema_name,
-    #             multi[0].multi_type,
-    #             multi[0].must_contain + multi[0].can_contain,
-    #             multi[0].data_path,
-    #         )
-    #         shared_data_paths[multi[0].data_path]["name"] = multi[0].schema_name
-    #     else:
-    #         raise Exception
-    #     for sv in self.effective_tsv_paths.values():
-    #         if (
-    #             # TODO: is it the case that there will be a
-    #             # multi-assay type and multiple data paths?
-    #             sv.data_path == self.multi_assay_schema.data_path
-    #             and sv.schema_name in self.multi_assay_schema.contains
-    #         ):
-    #             shared_data_paths[sv.data_path]["contains"] = sv.schema_name
-    #         else:
-    #             raise Exception
-    #     if self.multi_assay_schema.multi_type == "must":
-    #         assert (
-    #             self.multi_assay_schema.contains
-    #             == shared_data_paths[self.multi_assay_schema.data_path]
-    #         ), ""
-
     #####################
     #
-    # Two public methods:
+    # Public methods:
     #
     #####################
 
@@ -179,15 +143,7 @@ class Upload:
 
         errors = {}
         try:
-            # other_errors = self.check_other_schemas()
-            # if other_errors and not self.effective_tsv_paths:
-            #     return other_errors
-            # elif self.effective_tsv_paths:
-            #     errors.update(other_errors)
-            # else:
-            #     return {}
-
-            upload_errors = self.check_upload()
+            upload_errors = self._check_upload()
             if upload_errors:
                 errors["Upload Errors"] = upload_errors
 
@@ -212,29 +168,50 @@ class Upload:
 
         return errors
 
+    def validation_routine(
+        self,
+        report_type: ReportType = ReportType.STR,
+        tsv_paths: Dict[str, SchemaVersion] = {},
+    ) -> dict:
+        errors: DefaultDict[str, dict] = defaultdict(dict)
+        tsvs_to_evaluate = tsv_paths if tsv_paths else self.effective_tsv_paths
+        for tsv_path, schema_version in tsvs_to_evaluate.items():
+            path_errors = self._validate(tsv_path, schema_version, report_type)
+            if not path_errors:
+                continue
+            for key, value in path_errors.items():
+                if type(value) is dict:
+                    errors[key].update(value)
+                else:
+                    errors.update({key: value})
+        return dict(errors)
+
     ###################################
     #
     # Top-level private methods:
     #
     ###################################
 
-    # def check_other_schemas(self):
-    #     # Antibodies and contributors are handled elsewhere
-    #     errors = {}
-    #     others = ["organ", "sample"]
-    #     for tsv_path, schema_version in self.effective_tsv_paths.items():
-    #         if schema_version.schema_name in others:
-    #             error = self._validate(tsv_path, schema_version)
-    #             if error:
-    #                 errors[f"{tsv_path} (as {schema_version.schema_name})"] = error
-    #     self.effective_tsv_paths = {
-    #         k: v
-    #         for k, v in self.effective_tsv_paths.items()
-    #         if v.schema_name not in others
-    #     }
-    #     return errors
+    def _check_multi_assay(self):
+        # This is not recursive, so if there are nested multi-assay types it will not work
+        self.multi_assay_data_paths: DefaultDict[
+            str, DefaultDict[str, List[SchemaVersion]]
+        ] = defaultdict(lambda: defaultdict(list))
+        multi_assay_parents = [
+            sv for sv in self.effective_tsv_paths.values() if sv.contains
+        ]
+        if len(multi_assay_parents) == 0:
+            return {}
+        if len(multi_assay_parents) > 1:
+            raise PreflightError(
+                f"Upload contains multiple parent multi-assay types: {multi_assay_parents}"
+            )
+        components = [sv for sv in self.effective_tsv_paths.values() if not sv.contains]
+        self._check_multi_assay_children(multi_assay_parents[0], components)
+        self._check_data_paths_shared_with_parent(multi_assay_parents[0])
+        logging.info(f"Multi-assay data: {self._print_multi_assay_data()}")
 
-    def check_upload(self) -> dict:
+    def _check_upload(self) -> dict:
         upload_errors = {}
         tsv_errors = self._get_local_tsv_errors()
         if tsv_errors:
@@ -278,38 +255,56 @@ class Upload:
 
     def _get_directory_errors(self) -> dict:
         errors = {}
-        for path, schema in self.effective_tsv_paths.items():
-            dir_errors = self._get_ref_errors("data", schema, path)
-            if dir_errors:
-                """
-                TODO: there's an issue here (and any other places setting a key
-                that might be long) where the YAML dumper converts this to a
-                complex key and adds a ? at the front and inserts a line break
-                at the next instance of whitespace (in this case, leading
-                (as x) to be on a following line)
-                Wrote validation_utils > print_path to try to address this
-                issue, but needed to deprioritize.
-                """
-                errors.update(dir_errors)
+        if self.multi_assay_data_paths:
+            for path, dataset_types in self.multi_assay_data_paths.items():
+                dir_errors = self._get_multi_assay_dir_errors(path, dataset_types)
+                if dir_errors:
+                    errors.update(dir_errors)
+        else:
+            for path, schema in self.effective_tsv_paths.items():
+                dir_errors = self._get_ref_errors("data", schema, path)
+                if dir_errors:
+                    """
+                    TODO: there's an issue here (and any other places setting a key
+                    that might be long) where the YAML dumper converts this to a
+                    complex key and adds a ? at the front and inserts a line break
+                    at the next instance of whitespace (in this case, leading
+                    (as x) to be on a following line)
+                    Wrote validation_utils > print_path to try to address this
+                    issue, but needed to deprioritize.
+                    """
+                    errors.update(dir_errors)
         return errors
 
-    def validation_routine(
-        self,
-        report_type: ReportType = ReportType.STR,
-        tsv_paths: Dict[str, SchemaVersion] = {},
-    ) -> dict:
-        errors: DefaultDict[str, dict] = defaultdict(dict)
-        tsvs_to_evaluate = tsv_paths if tsv_paths else self.effective_tsv_paths
-        for tsv_path, schema_version in tsvs_to_evaluate.items():
-            path_errors = self._validate(tsv_path, schema_version, report_type)
-            if not path_errors:
-                return {}
-            for key, value in path_errors.items():
-                if type(value) is dict:
-                    errors[key].update(value)
-                else:
-                    errors.update({key: value})
-        return dict(errors)
+    def _get_multi_assay_dir_errors(
+        self, path: str, dataset_types: Dict
+    ) -> Optional[Dict]:
+        parent = dataset_types.get("parent")
+        # Validate against parent multi-assay type if data_path is in parent TSV
+        if parent:
+            return self._multi_assay_dir_check(parent[0], path)
+        # Validate against component structure otherwise
+        elif dataset_types.get("components"):
+            errors = {}
+            for component in dataset_types["components"]:
+                errors.update(self._multi_assay_dir_check(component, path))
+            return errors
+
+    def _multi_assay_dir_check(self, schema: SchemaVersion, data_path: str) -> Dict:
+        errors = {}
+        abs_data_path = self.directory_path / data_path
+        if not schema.dir_schema:
+            raise Exception(
+                f"No directory schema found for data_path {abs_data_path} in {schema.path}!"
+            )
+        ref_errors = get_data_dir_errors(
+            schema.dir_schema,
+            abs_data_path,
+            dataset_ignore_globs=self.dataset_ignore_globs,
+        )
+        if ref_errors:
+            errors[f"{schema.path}, column 'data_path', value {data_path}"] = ref_errors
+        return errors
 
     def _validate(
         self,
@@ -358,7 +353,7 @@ class Upload:
                 return errors
             else:
                 url_errors = self._cedar_url_checks(tsv_path, schema_version)
-                api_errors = self.api_validation(Path(tsv_path), report_type)
+                api_errors = self._api_validation(Path(tsv_path), report_type)
                 if url_errors or api_errors:
                     api_validated[f"{tsv_path}"] = url_errors | api_errors
         if local_validated:
@@ -370,14 +365,11 @@ class Upload:
     def _get_reference_errors(self) -> dict:
         errors: Dict[str, Any] = {}
         no_ref_errors = self.__get_no_ref_errors()
-        try:
-            multi_ref_errors = self.__get_multi_ref_errors()
-            if no_ref_errors:
-                errors["No References"] = no_ref_errors
-            if multi_ref_errors:
-                errors["Multiple References"] = multi_ref_errors
-        except UnicodeDecodeError as e:
-            errors["Decode Error"] = get_context_of_decode_error(e)
+        multi_ref_errors = self.__get_multi_ref_errors()
+        if no_ref_errors:
+            errors["No References"] = no_ref_errors
+        if multi_ref_errors:
+            errors["Multiple References"] = multi_ref_errors
         return errors
 
     def _get_plugin_errors(self, **kwargs) -> dict:
@@ -398,7 +390,7 @@ class Upload:
                 errors["Unexpected Plugin Error"] = [e]
         return dict(errors)  # get rid of defaultdict
 
-    def api_validation(
+    def _api_validation(
         self,
         tsv_path: Path,
         report_type: ReportType,
@@ -421,6 +413,88 @@ class Upload:
     # Supporting private methods:
     #
     ##############################
+
+    def _print_multi_assay_data(self):
+        """
+        Print only dataset types of multi_assay_data_paths
+        """
+        print_dict = {}
+        for path, multi_components in self.multi_assay_data_paths.items():
+            print_multi_components = {}
+            for key, value in multi_components.items():
+                if key == "parent":
+                    print_multi_components["parent"] = value[0].dataset_type
+                elif key == "components":
+                    print_components = []
+                    for component in value:
+                        print_components.append(component.dataset_type)
+                    print_multi_components["components"] = print_components
+            print_dict[path] = print_multi_components
+        return print_dict
+
+    def _check_multi_assay_children(
+        self, parent: SchemaVersion, components: List[SchemaVersion]
+    ):
+        """
+        Iterate through child dataset types, check that they are valid
+        components of parent multi-assay type and that no components are missing
+        """
+        not_allowed = []
+        necessary = parent.contains
+        for sv in components:
+            if sv.dataset_type.lower() not in parent.contains:
+                not_allowed.append(sv.dataset_type)
+            else:
+                for row in sv.rows:
+                    if row.get("data_path"):
+                        self.multi_assay_data_paths[row["data_path"]][
+                            "components"
+                        ].append(sv)
+                necessary.remove(sv.dataset_type.lower())
+        message = ""
+        if necessary:
+            message += f"Multi-assay parent type {parent.dataset_type} missing required component(s) {necessary}."  # noqa: E501
+        if not_allowed:
+            message += f" Invalid child assay type(s) for parent type {parent.dataset_type}: {not_allowed}"  # noqa: E501
+        if message:
+            raise PreflightError(message)
+
+    def _check_data_paths_shared_with_parent(self, parent: SchemaVersion):
+        """
+        Check parent multi-assay TSV data_path values against data_paths in child TSVs
+        Any data_paths with components but no parent are assumed to be standalone
+        datasets and left alone
+        """
+        # Add "parent" data to any data_paths in multi_assay_data_paths
+        # that appear in the parent TSV
+        multi_data_paths = [row.get("data_path") for row in parent.rows]
+        for path in multi_data_paths:
+            self.multi_assay_data_paths[path]["parent"] = [parent]
+        missing_components = defaultdict(list)
+        for path, related_svs in self.multi_assay_data_paths.items():
+            if related_svs.get("parent"):
+                # If there is a parent but no components, continue without
+                # removing from multi_data_paths to trigger error downstream
+                if not related_svs.get("components"):
+                    continue
+                existing_components = {
+                    sv.dataset_type.lower() for sv in related_svs["components"]
+                }
+                # If there is a parent and all required components are not present,
+                # add to missing_components to trigger error downstream
+                diff = set(parent.contains).difference(existing_components)
+                if diff:
+                    missing_components[path] = [*missing_components[path], *list(diff)]
+                else:
+                    multi_data_paths.remove(path)
+        if missing_components:
+            raise PreflightError(
+                f"Multi-assay type '{parent.dataset_type}' requires {parent.contains}. Data paths missing components: {list(missing_components.keys())}"  # noqa:  E501
+            )
+        if multi_data_paths:
+            raise PreflightError(
+                f"Multi-assay TSV {parent.path} contains data paths that are not present in child assay TSVs. Data paths unique to parent: {multi_data_paths}"  # noqa: E501
+            )
 
     def _cedar_api_call(self, tsv_path: Union[str, Path]) -> requests.models.Response:
         file = {"input_file": open(tsv_path, "rb")}
@@ -472,7 +546,7 @@ class Upload:
         return errors
 
     def _check_matching_urls(self, tsv_path: str, constrained_fields: dict):
-        rows = self._get_rows_from_tsv(tsv_path)
+        rows = read_rows(Path(tsv_path), "ascii")
         fields = rows[0].keys()
         missing_fields = [
             k for k in constrained_fields.keys() if k not in fields
@@ -542,19 +616,6 @@ class Upload:
             return msg if return_str else get_json(msg, error["row"], error["column"])
         return error
 
-    def _get_rows_from_tsv(self, path: Union[str, Path]) -> List:
-        errors: Dict[str, Any] = {}
-        try:
-            rows = dict_reader_wrapper(path, self.encoding)
-            if type(rows) is list:
-                return rows
-            errors["TSV Row Errors"] = rows
-        except UnicodeDecodeError as e:
-            errors["Decode Errors"] = get_context_of_decode_error(e)
-        except IsADirectoryError:
-            errors["Path Errors"] = f"Expected a TSV, found a directory at {path}."
-        raise ErrorDictException(errors)
-
     def _check_path(
         self,
         i: int,
@@ -616,6 +677,9 @@ class Upload:
             if not row.get(field):
                 continue
             ref_path = self.directory_path / row[field]
+            # TODO: _check_path is really slamming the Metadata Validator API with the
+            # contributors.tsv; gather unique values from contributors/antibodies
+            # and validate once per?
             ref_error = self._check_path(i, ref_path, ref, schema, metadata_path)
             if ref_error:
                 ref_errors.update(ref_error)
@@ -651,14 +715,19 @@ class Upload:
         return errors
 
     def __get_multi_ref_errors(self) -> dict:
-        # TODO: This needs to be updated to include multi-assay logic
         #  If - multi-assay dataset (and only that dataset is referenced) don't fail
         #  Else - fail
         errors = {}
         data_references = self.__get_data_references()
+        multi_references = [
+            path
+            for path, value in self.multi_assay_data_paths.items()
+            if value.get("parent")
+        ]
         for path, references in data_references.items():
-            if len(references) > 1:
-                errors[path] = references
+            if path not in multi_references:
+                if len(references) > 1:
+                    errors[path] = references
         return errors
 
     def __get_data_references(self) -> dict:
@@ -672,9 +741,8 @@ class Upload:
 
     def __get_references(self, col_name) -> dict:
         references = defaultdict(list)
-        # TODO: refactor
-        for tsv_path in self.effective_tsv_paths.keys():
-            for i, row in enumerate(dict_reader_wrapper(tsv_path, self.encoding)):
+        for tsv_path, schema in self.effective_tsv_paths.items():
+            for i, row in enumerate(schema.rows):
                 if col_name in row:
                     reference = f"{tsv_path} (row {i+2})"
                     references[row[col_name]].append(reference)

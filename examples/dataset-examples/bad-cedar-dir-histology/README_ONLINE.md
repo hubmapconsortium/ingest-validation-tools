@@ -10,11 +10,11 @@ Upload Errors:
         - not-allowed.
         Required but missing:
         - extras\/.*.
+        - extras\/microscope_hardware\.json.
         - lab_processed\/.*.
         - lab_processed\/images\/.*.
-        - lab_processed\/images\/[^\/]+\.ome-tiff\.channels\.csv.
+        - lab_processed\/images\/[^\/]*ome-tiff\.channels\.csv.
         - lab_processed\/images\/[^\/]+\.ome\.tiff.
-        - microscope_hardware\.json.
         - raw\/.*.
         - raw\/images\/.*.
         - raw\/images\/[^\/]+\.(?:xml|scn|vsi|ndpi|svs|czi|tiff).

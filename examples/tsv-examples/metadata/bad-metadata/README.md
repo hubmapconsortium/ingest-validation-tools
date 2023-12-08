@@ -1,5 +1,5 @@
 ```
-codex-v0 TSV errors:
+CODEX-vcodex-v0 TSV errors:
   Local Validation Errors:
     examples/tsv-examples/metadata/bad-metadata/upload/metadata.tsv (as codex-v0):
     - 'On row 2, column "donor_id", value "BAD" fails because it does not match the
