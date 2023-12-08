@@ -63,6 +63,7 @@
 - Move Thick section Multiphoton MxIF next-gen directory schema to placeholder file
 - Update file path in Visium no probes, Histology, AF, MxIF, SHG, SRS, Confocal, Light Sheet, MALDI, SIMS, DESI
 - Remove Organ CEDAR page
+- Draft next-gen directory schema for SNARE-seq2
 
 ## v0.0.15 - 2023-04-04
 
