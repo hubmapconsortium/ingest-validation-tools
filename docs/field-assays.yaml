@@ -842,6 +842,7 @@ is_cedar:
 - RNAseq
 - RNAseq (with probes)
 - SIMS
+- SNARE-seq2
 - Sample
 - Sample Block
 - Sample Section

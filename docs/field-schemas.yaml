@@ -175,6 +175,7 @@ assay_category:
 - seqfish
 - sims
 - slideseq
+- snareseq2
 - stained
 - thick-section-multiphoton-mxif
 - ultrasound
@@ -235,6 +236,7 @@ assay_type:
 - seqfish
 - sims
 - slideseq
+- snareseq2
 - stained
 - thick-section-multiphoton-mxif
 - ultrasound
@@ -587,6 +589,7 @@ is_cedar:
 - seqfish
 - sims
 - slideseq
+- snareseq2
 - stained
 - thick-section-multiphoton-mxif
 - ultrasound
