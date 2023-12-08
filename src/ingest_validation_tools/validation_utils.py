@@ -67,9 +67,7 @@ def get_schema_version(
         message = (
             f"Assay data not retrieved from assayclassifier endpoint for TSV {path}."
         )
-        if "assay_type" not in rows[0] and "dataset_type" not in rows[0]:
-            message += ' Does not contain "assay_type" or "dataset_type".'
-        elif "assay_type" in rows[0]:
+        if "assay_type" in rows[0]:
             message += f' Assay type: {rows[0].get("assay_type")}.'
         elif "dataset_type" in rows[0]:
             message += f' Dataset type: {rows[0].get("dataset_type")}.'
