@@ -140,7 +140,6 @@ assay_category:
 - desi
 - enhanced-srs
 - gcms
-- geomx
 - geomx-ncounter
 - geomx-ngs
 - hifi-slide
@@ -200,7 +199,6 @@ assay_type:
 - desi
 - enhanced-srs
 - gcms
-- geomx
 - geomx-ncounter
 - geomx-ngs
 - hifi-slide
@@ -559,7 +557,6 @@ is_cedar:
 - dbit
 - desi
 - enhanced-srs
-- geomx
 - geomx-ncounter
 - geomx-ngs
 - hifi-slide
@@ -974,7 +971,6 @@ parent_id:
 - dbit
 - desi
 - enhanced-srs
-- geomx
 - imc-2d
 - lcms
 - lightsheet

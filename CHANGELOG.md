@@ -65,6 +65,7 @@
 - Remove Organ CEDAR page
 - Draft next-gen directory schema for SNARE-seq2
 - Added multi-assay support
+- Delete GeoMX
 
 ## v0.0.15 - 2023-04-04
 
