@@ -69,6 +69,7 @@
 - Update soft typing to use hyphen, not underscore
 - Add SNARE-seq2 and RNAseq with probes next-gen directory schema
 - Remove the draft tag from SNARE-seq2
+- Regenerate docs for SNARE-seq2
 
 ## v0.0.15 - 2023-04-04
 
