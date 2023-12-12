@@ -94,13 +94,13 @@ class SchemaVersion:
             self.dataset_type = assay_type if assay_type else dataset_type
 
     def get_assayclassifier_data(self):
-        self.vitessce_hints = self.soft_assay_data.get("vitessce_hints", [])
-        self.dir_schema = self.soft_assay_data.get("dir_schema", "")
-        self.table_schema = self.soft_assay_data.get("tbl_schema", "")
+        self.vitessce_hints = self.soft_assay_data.get("vitessce-hints", [])
+        self.dir_schema = self.soft_assay_data.get("dir-schema", "")
+        self.table_schema = self.soft_assay_data.get("tbl-schema", "")
         match = re.match(r".+-v(\d+)", self.table_schema)
         if match:
             self.version = match[0]
-        contains = self.soft_assay_data.get("must_contain", [])
+        contains = self.soft_assay_data.get("must-contain", [])
         self.contains = [schema.lower() for schema in contains]
 
 

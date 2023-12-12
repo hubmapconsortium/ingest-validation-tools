@@ -1,4 +1,4 @@
-description_md: '**For the PhenoCycler specification, please click [here](https://hubmapconsortium.github.io/ingest-validation-tools/phenocycler/current/).** See the following link for the set of fields that are required in the OME TIFF file XML header. https://docs.google.com/spreadsheets/d/1YnmdTAA0Z9MKN3OjR3Sca8pz-LNQll91wdQoRPSP6Q4/edit#gid=0'
+description_md: '**For the PhenoCycler specification, please click [here](https://hubmapconsortium.github.io/ingest-validation-tools/phenocycler/current/).** [This link](https://docs.google.com/spreadsheets/d/1YnmdTAA0Z9MKN3OjR3Sca8pz-LNQll91wdQoRPSP6Q4/edit#gid=0) lists the set of fields that are required in the OME TIFF file XML header.'
 fields:
 - name: is_cedar
   description: 'Identifies whether the version is hosted by CEDAR'
