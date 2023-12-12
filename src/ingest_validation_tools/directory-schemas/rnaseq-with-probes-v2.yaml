@@ -1,4 +1,39 @@
-draft: true
 files:
   -
-    draft_link: 'https://docs.google.com/spreadsheets/d/10Om2iinTwfLn1ySWtovmcm35cQnyg0Pm-rRd0a-eMjc'
+    pattern: extras\/.*
+    required: True
+    description: Folder for general lab-specific files related to the dataset.
+  -
+    pattern: extras\/expected_cell_count\.txt
+    required: False
+    description: The expected cell count for the RNA sequencing dataset. This is an optional file that, if present, will be used by the HIVE's RNA sequencing analysis pipeline. With some datasets, knowing the expected cell count has improved the output of the HIVE analysis pipeline.
+  -
+    pattern: raw\/.*
+    required: True
+    description: All raw data files for the experiment.
+  -
+    pattern: raw\/custom_probe_set\.csv
+    required: False
+    description: This file should contain any custom probes used and must be included if the metadata field "is_custom_probes_used" is "Yes". The file should minimally include:target gene id, probe seq, probe id. The contents of this file are modeled after the 10x Genomics probe set file (see <https://support.10xgenomics.com/spatial-gene-expression-ffpe/probe-sets/probe-set-file-descriptions/probe-set-file-descriptions#probe_set_csv_file>).
+  -
+    pattern: raw\/additional_panels_used\.csv
+    required: False
+    description: If multiple commercial probe panels were used, then the primary probe panel should be selected in the "oligo_probe_panel" metadata field. The additional panels must be included in this file. Each panel record should include:manufacturer, model/name, product code.
+  -
+    pattern: raw\/fastq\/.*
+    required: True
+    description: Raw sequencing files for the experiment.
+  -  
+    pattern: raw\/fastq\/oligo\/.*
+    required: True
+    description: Directory containing fastq files pertaining to oligo sequencing.
+  -  
+    pattern: raw\/fastq\/oligo\/[^\/]+_R[^\/]+\.fastq\.gz
+    required: True
+    description: This is a gzip version of the fastq file. This file contains the cell barcode and unique molecular identifier (technical).
+    is_qa_qc: False
+  -
+    pattern: lab_processed\/.*
+    required: False
+    description: Experiment files that were processed by the lab generating the data.
+    
