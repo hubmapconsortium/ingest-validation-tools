@@ -28,5 +28,17 @@ Related files:
 <br>
 
 ## Directory schemas
-<summary><a href="https://docs.google.com/spreadsheets/d/10Om2iinTwfLn1ySWtovmcm35cQnyg0Pm-rRd0a-eMjc"><b>Version 2 (use this one)</b> (draft - submission of data prepared using this schema will be supported by Sept. 30) </a></summary>
+<summary><b>Version 2 (use this one)</b></summary>
+
+| pattern | required? | description |
+| --- | --- | --- |
+| <code>extras\/.*</code> | ✓ | Folder for general lab-specific files related to the dataset. |
+| <code>extras\/expected_cell_count\.txt</code> |  | The expected cell count for the RNA sequencing dataset. This is an optional file that, if present, will be used by the HIVE's RNA sequencing analysis pipeline. With some datasets, knowing the expected cell count has improved the output of the HIVE analysis pipeline. |
+| <code>raw\/.*</code> | ✓ | All raw data files for the experiment. |
+| <code>raw\/custom_probe_set\.csv</code> |  | This file should contain any custom probes used and must be included if the metadata field "is_custom_probes_used" is "Yes". The file should minimally include:target gene id, probe seq, probe id. The contents of this file are modeled after the 10x Genomics probe set file (see <https://support.10xgenomics.com/spatial-gene-expression-ffpe/probe-sets/probe-set-file-descriptions/probe-set-file-descriptions#probe_set_csv_file>). |
+| <code>raw\/additional_panels_used\.csv</code> |  | If multiple commercial probe panels were used, then the primary probe panel should be selected in the "oligo_probe_panel" metadata field. The additional panels must be included in this file. Each panel record should include:manufacturer, model/name, product code. |
+| <code>raw\/fastq\/.*</code> | ✓ | Raw sequencing files for the experiment. |
+| <code>raw\/fastq\/oligo\/.*</code> | ✓ | Directory containing fastq files pertaining to oligo sequencing. |
+| <code>raw\/fastq\/oligo\/[^\/]+_R[^\/]+\.fastq\.gz</code> | ✓ | This is a gzip version of the fastq file. This file contains the cell barcode and unique molecular identifier (technical). |
+| <code>lab_processed\/.*</code> |  | Experiment files that were processed by the lab generating the data. |
 
