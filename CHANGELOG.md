@@ -66,6 +66,7 @@
 - Draft next-gen directory schema for SNARE-seq2
 - Added multi-assay support
 - Delete GeoMX
+- Update soft typing to use hyphen, not underscore
 
 ## v0.0.15 - 2023-04-04
 
