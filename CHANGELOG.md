@@ -67,6 +67,7 @@
 - Added multi-assay support
 - Delete GeoMX
 - Update soft typing to use hyphen, not underscore
+- Add SNARE-seq2 and RNAseq with probes next-gen directory schema
 
 ## v0.0.15 - 2023-04-04
 
