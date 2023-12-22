@@ -1,7 +1,7 @@
 fields:
 - name: is_cedar
   description: 'Identifies whether the version is hosted by CEDAR'
-  example: 'https://openview.metadatacenter.org/templates/https:%2F%2Frepo.metadatacenter.org%2Ftemplates%2F329f8a62-a468-4ba9-863d-fc0e328f896a'
+  example: 'https://openview.metadatacenter.org/templates/https:%2F%2Frepo.metadatacenter.org%2Ftemplates%2Fdd5e8653-81cf-470b-b71b-15cab421bb84'
 - name: assay_category
   constraints:
     enum:

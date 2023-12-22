@@ -1,6 +1,9 @@
 # Changelog
 
-## v0.0.16 - in progress
+## v0.0.17 - in progress
+- Update atacseq cedar link
+
+## v0.0.16
 
 - add support for Publication type
 - updated issue templates.
