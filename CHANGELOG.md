@@ -2,6 +2,7 @@
 
 ## v0.0.17 - in progress
 - Update atacseq cedar link
+- Add Phenocycler next-gen directory schema
 
 ## v0.0.16
 
