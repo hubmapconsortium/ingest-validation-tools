@@ -1,10 +1,10 @@
 ```
 Upload Errors:
   TSV Errors:
-    examples/dataset-examples/bad-scatacseq-data/upload/scatacseq-metadata.tsv, row 2, column 'contributors_path':
+    examples/dataset-examples/bad-scatacseq-data/upload/scatacseq-metadata.tsv, column 'contributors_path', value '.':
     - 'Expected a TSV, but found a directory: examples/dataset-examples/bad-scatacseq-data/upload.'
   Directory Errors:
-    examples/dataset-examples/bad-scatacseq-data/upload/scatacseq-metadata.tsv, row 2, column data_path:
+    examples/dataset-examples/bad-scatacseq-data/upload/scatacseq-metadata.tsv, column 'data_path', value 'dataset-1':
       examples/dataset-examples/bad-scatacseq-data/upload/dataset-1 (as scatacseq-v0):
         Not allowed:
         - not-the-file-you-are-looking-for.txt.

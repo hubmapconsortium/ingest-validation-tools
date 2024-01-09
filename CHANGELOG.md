@@ -1,7 +1,9 @@
 # Changelog
 
 ## v0.0.17 - in progress
+
 - Update atacseq cedar link
+- Refactor Upload to avoid validating the same contributors.tsv multiple times / running plugins over files multiple times
 
 ## v0.0.16
 

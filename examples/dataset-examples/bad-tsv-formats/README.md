@@ -1,12 +1,12 @@
 ```
 Upload Errors:
   TSV Errors:
-    examples/dataset-examples/bad-tsv-formats/upload/codex-metadata.tsv, row 2, column 'contributors_path':
+    examples/dataset-examples/bad-tsv-formats/upload/codex-metadata.tsv, column 'contributors_path', value 'contributors.tsv':
     - 'File has no data rows: examples/dataset-examples/bad-tsv-formats/upload/contributors.tsv.'
-    examples/dataset-examples/bad-tsv-formats/upload/codex-metadata.tsv, row 2, column 'antibodies_path':
+    examples/dataset-examples/bad-tsv-formats/upload/codex-metadata.tsv, column 'antibodies_path', value 'antibodies.tsv':
     - 'File does not exist: examples/dataset-examples/bad-tsv-formats/upload/antibodies.tsv.'
   Directory Errors:
-    examples/dataset-examples/bad-tsv-formats/upload/codex-metadata.tsv, row 2, column data_path:
+    examples/dataset-examples/bad-tsv-formats/upload/codex-metadata.tsv, column 'data_path', value 'dataset-1/':
       examples/dataset-examples/bad-tsv-formats/upload/dataset-1 (as codex-v1-with-dataset-json):
         Not allowed:
         - channelnames.txt.
