@@ -1,10 +1,11 @@
 ```
 Upload Errors:
   Directory Errors:
-    examples/dataset-examples/bad-cedar-dir-histology/upload/bad-histology-metadata.tsv, row 2, column data_path:
-      examples/dataset-examples/bad-cedar-dir-histology/upload/dataset-1 (as histology-v2):
+    ? examples/dataset-examples/bad-cedar-dir-histology/upload/bad-histology-metadata.tsv,
+      column 'data_path', value './dataset-1'
+    : examples/dataset-examples/bad-cedar-dir-histology/upload/dataset-1 (as histology-v2):
         No such file or directory: examples/dataset-examples/bad-cedar-dir-histology/upload/dataset-1
-    examples/dataset-examples/bad-cedar-dir-histology/upload/bad-histology-metadata.tsv, row 3, column data_path:
+    examples/dataset-examples/bad-cedar-dir-histology/upload/bad-histology-metadata.tsv, column 'data_path', value './wrong':
       examples/dataset-examples/bad-cedar-dir-histology/upload/wrong (as histology-v2):
         Not allowed:
         - not-allowed.
