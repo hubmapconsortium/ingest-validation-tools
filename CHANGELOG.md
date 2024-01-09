@@ -5,6 +5,7 @@
 - Add Phenocycler next-gen directory schema
 - Update Histology next-gen directory schema
 - Add LC-MS next-gen directory schema
+- Add GeoMx NGS next-gen directory schema
 
 ## v0.0.16
 
