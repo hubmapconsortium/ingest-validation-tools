@@ -1,5 +1,5 @@
 files:
-  -
+   -
     pattern: extras\/.*
     required: True
     description: Folder for general lab-specific files related to the dataset.
@@ -44,6 +44,11 @@ files:
     pattern: lab_processed\/images\/[^\/]*ome-tiff\.channels\.csv
     required: True
     description: This file provides essential documentation pertaining to each channel of the accommpanying OME TIFF. The file should contain one row per OME TIFF channel. The required fields are detailed here <https://docs.google.com/spreadsheets/d/1xEJSb0xn5C5fB3k62pj1CyHNybpt4-YtvUs5SUMS44o/edit#gid=0>
+  -
+    pattern: lab_processed\/images\/[^\/]+\.tissue-boundary\.geojson
+    required: False
+    description: If the boundaries of the tissue have been identified (e.g., by manual efforts), then the boundary geometry can be included as a GeoJSON file named “*.tissue-boundary.geojson”.
+    is_qa_qc: True
   -
     pattern: lab_processed\/transformations\/.*
     required: False
