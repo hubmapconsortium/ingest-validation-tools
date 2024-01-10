@@ -2,7 +2,7 @@ description_md: '[This link](https://docs.google.com/spreadsheets/d/1YnmdTAA0Z9M
 fields:
 - name: is_cedar
   description: "Identifies whether the version is hosted by CEDAR"
-  example: "https://openview.metadatacenter.org/templates/https:%2F%2Frepo.metadatacenter.org%2Ftemplates%2Fe7475329-9a60-4088-8e34-19a3828e0b3b"
+  example: "https://openview.metadatacenter.org/templates/https:%2F%2Frepo.metadatacenter.org%2Ftemplates%2F907d89c7-6cf4-4ec6-9edd-63cf0441d689"
 - name: assay_category
   constraints:
     enum:
@@ -11,9 +11,3 @@ fields:
   constraints:
     enum:
       - Histology
-- name: parent_sample_id
-  description: "UUID or HuBMAP ID of parent"
-  example: "ec2ccf5a3436b11d0c7186b74ad4673d"
-  custom_constraints:
-    url:
-      prefix: "https://entity.api.hubmapconsortium.org/entities/"
