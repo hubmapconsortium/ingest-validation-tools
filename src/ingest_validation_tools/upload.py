@@ -385,8 +385,6 @@ class Upload:
         return errors
 
     def _get_plugin_errors(self, **kwargs) -> dict:
-        # TODO: needs to be updated to use canonical assay names;
-        # requires a look into ingest-validation-tests as well
         plugin_path = self.plugin_directory
         if not plugin_path:
             return {}
