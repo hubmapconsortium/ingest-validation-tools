@@ -3,6 +3,12 @@
 ## v0.0.17 - in progress
 
 - Update atacseq cedar link
+- Add Phenocycler next-gen directory schema
+- Update Histology next-gen directory schema
+- Add LC-MS next-gen directory schema
+- Add GeoMx NGS next-gen directory schema
+- Update PhenoCycler and Histology to 2.2.0
+- Update CEDAR links for PhenoCycler & Histology
 - Refactor Upload to avoid validating the same contributors.tsv multiple times / running plugins over files multiple times
 
 ## v0.0.16

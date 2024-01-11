@@ -21,7 +21,7 @@ Related files:
 ## Metadata schema
 
 
-<summary><a href="https://openview.metadatacenter.org/templates/https:%2F%2Frepo.metadatacenter.org%2Ftemplates%2Fe7475329-9a60-4088-8e34-19a3828e0b3b"><b>Version 2 (use this one)</b></a></summary>
+<summary><a href="https://openview.metadatacenter.org/templates/https:%2F%2Frepo.metadatacenter.org%2Ftemplates%2F907d89c7-6cf4-4ec6-9edd-63cf0441d689"><b>Version 2 (use this one)</b></a></summary>
 
 
 
@@ -42,6 +42,7 @@ Related files:
 | <code>lab_processed\/images\/.*</code> | ✓ | Processed image files |  |
 | <code>lab_processed\/images\/[^\/]+\.ome\.tiff</code> (example: <code>lab_processed/images/HBM892.MDXS.293.ome.tiff</code>) | ✓ | OME-TIFF files (multichannel, multi-layered) produced by the microscopy experiment. If compressed, must use loss-less compression algorithm. See the following link for the set of fields that are required in the OME TIFF file XML header. <https://docs.google.com/spreadsheets/d/1YnmdTAA0Z9MKN3OjR3Sca8pz-LNQll91wdQoRPSP6Q4/edit#gid=0> |  |
 | <code>lab_processed\/images\/[^\/]*ome-tiff\.channels\.csv</code> | ✓ | This file provides essential documentation pertaining to each channel of the accommpanying OME TIFF. The file should contain one row per OME TIFF channel. The required fields are detailed here <https://docs.google.com/spreadsheets/d/1xEJSb0xn5C5fB3k62pj1CyHNybpt4-YtvUs5SUMS44o/edit#gid=0> |  |
+| <code>lab_processed\/images\/[^\/]+\.tissue-boundary\.geojson</code> |  | **[QA/QC]** If the boundaries of the tissue have been identified (e.g., by manual efforts), then the boundary geometry can be included as a GeoJSON file named “*.tissue-boundary.geojson”. |  |
 | <code>lab_processed\/transformations\/.*</code> |  | This directory contains transformation matrices that capture how each modality is aligned with the other and can be used to visualize overlays of multimodal data. This is needed to overlay images from the exact same tissue section (e.g., MALDI imaging mass spec, autofluorescence microscopy, MxIF, histological stains). In these cases data type may have different pixel sizes and slightly different orientations (i.e., one may be rotated relative to another). |  |
 | <code>lab_processed\/transformations\/[^\/]+\.txt</code> |  | Transformation matrices used to overlay images from the exact same tissue section (e.g., MALDI imaging mass spec, autofluorescence microscopy, MxIF, histological stains). |  |
 | <code>lab_processed\/probabilities\/.*</code> |  | Directory containing probabilities pertaining to lab processed data (e.g., from Ilastik pixel classification). |  |

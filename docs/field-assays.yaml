@@ -1569,7 +1569,6 @@ parent_id:
 - Molecular Cartography
 - Multiplex Ion Beam Imaging
 - OCT
-- PhenoCycler
 - Publication
 - RNAseq
 - SIMS
@@ -1580,8 +1579,6 @@ parent_id:
 - Visium (with probes)
 - Xenium
 - seqFISH
-parent_sample_id:
-- Histology
 pi:
 - 3D Imaging Mass Cytometry
 - AF

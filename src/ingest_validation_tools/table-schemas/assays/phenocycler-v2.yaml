@@ -2,7 +2,7 @@ description_md: '[This link](https://docs.google.com/spreadsheets/d/1YnmdTAA0Z9M
 fields:
 - name: is_cedar
   description: 'Identifies whether the version is hosted by CEDAR'
-  example: 'https://openview.metadatacenter.org/templates/https:%2F%2Frepo.metadatacenter.org%2Ftemplates%2Fba8c2dec-950e-49c7-9365-fd15fb9a84c9'
+  example: 'https://openview.metadatacenter.org/templates/https:%2F%2Frepo.metadatacenter.org%2Ftemplates%2F62af6829-743d-423e-a701-204710e56beb'
 - name: assay_category
   constraints:
     enum:
@@ -11,9 +11,3 @@ fields:
   constraints:
     enum:
       - PhenoCycler
-- name: parent_id
-  description: "UUID or HuBMAP ID of parent"
-  example: "ec2ccf5a3436b11d0c7186b74ad4673d"
-  custom_constraints:
-    url:
-      prefix: "https://entity.api.hubmapconsortium.org/entities/"
