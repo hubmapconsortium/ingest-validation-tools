@@ -9,6 +9,11 @@ for EXAMPLE in examples/plugin-tests/*; do
     CMD="src/validate_upload.py --local_directory $EXAMPLE/upload $OPTS | perl -pne 's/(Time|Git version): .*/\1: WILL_CHANGE/'"
     echo "$CMD"
     README="$EXAMPLE/README.md"
-    diff $README <( eval "$CMD" ) \
+    [[ $(eval $CMD) =~ \`\`\`(.|\n)*\`\`\` ]]
+    TRUNC_CMD=${BASH_REMATCH[0]}
+    TRUNC_README=$(grep -Pzo '```(.|\n)+' $README | head -c-1)
+    diff <(echo "$TRUNC_README") <(echo "$TRUNC_CMD") \
         || die "Update example: $CMD > $README"
+
+    echo "No errors!"
 done

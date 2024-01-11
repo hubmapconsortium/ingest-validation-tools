@@ -407,6 +407,8 @@ class Upload:
             except PluginValidatorError as e:
                 # We are ok with just returning a single error, rather than all.
                 errors["Unexpected Plugin Error"] = [e]
+        for k, v in errors.items():
+            errors[k] = sorted(v)
         return dict(errors)  # get rid of defaultdict
 
     def _api_validation(
