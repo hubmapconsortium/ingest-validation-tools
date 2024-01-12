@@ -9,6 +9,7 @@ for EXAMPLE in examples/plugin-tests/*; do
     CMD="src/validate_upload.py --local_directory $EXAMPLE/upload $OPTS | perl -pne 's/(Time|Git version): .*/\1: WILL_CHANGE/'"
     echo "$CMD"
     README="$EXAMPLE/README.md"
+    # ingest-validation-tests spits out extra output that is inconsistent; these regex strings skip that bit and only check output
     [[ $(eval $CMD) =~ \`\`\`(.|\n)*\`\`\` ]]
     TRUNC_CMD=${BASH_REMATCH[0]}
     TRUNC_README=$(grep -Pzo '```(.|\n)+' $README | head -c-1)
