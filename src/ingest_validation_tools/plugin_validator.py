@@ -43,7 +43,7 @@ class Validator(object):
     """float: a rough measure of cost to run.  Lower is better.
     """
 
-    def __init__(self, base_path: PathOrStr, assay_type: str):
+    def __init__(self, base_path: PathOrStr, assay_type: str, contains: List = []):
         """
         base_path is expected to be a directory.
         This is the root path of the directory tree to be validated.
@@ -53,6 +53,7 @@ class Validator(object):
         if not self.path.is_dir():
             raise ValidatorError(f"{self.path} is not a directory")
         self.assay_type = assay_type
+        self.contains = contains
 
     def collect_errors(self) -> List[str]:
         """
@@ -93,11 +94,11 @@ def run_plugin_validators_iter(
             if not data_path.is_absolute():
                 data_path = (Path(metadata_path).parent / data_path).resolve()
             for k, v in validation_error_iter(
-                data_path, sv.dataset_type, plugin_dir, **kwargs
+                data_path, sv.dataset_type, plugin_dir, sv.contains, **kwargs
             ):
                 yield k, v
     else:
-        raise ValidatorError(f'{metadata_path} has no "data_path" column')
+        raise ValidatorError(f"{metadata_path} is missing values in 'data_path' column")
 
 
 def validation_class_iter(plugin_dir: PathOrStr) -> Iterator[Type[Validator]]:
@@ -137,7 +138,11 @@ def validation_class_iter(plugin_dir: PathOrStr) -> Iterator[Type[Validator]]:
 
 
 def validation_error_iter(
-    base_dir: PathOrStr, assay_type: str, plugin_dir: PathOrStr, **kwargs
+    base_dir: PathOrStr,
+    assay_type: str,
+    plugin_dir: PathOrStr,
+    contains: List,
+    **kwargs,
 ) -> Iterator[KeyValuePair]:
     """
     Given a base directory pointing to a tree of upload data files and a
@@ -147,6 +152,7 @@ def validation_error_iter(
     base_dir: the root of a directory tree of upload data files
     assay_type: the assay type which produced the data in the directory tree
     plugin_dir: path to a directory containing classes derived from Validator
+    contains: list of component assay types (empty if not multi-assay)
 
     returns an iterator the values of which are key value pairs representing
     error messages
@@ -155,6 +161,6 @@ def validation_error_iter(
     if not base_dir.is_dir():
         raise ValidatorError(f"{base_dir} should be the base directory of a dataset")
     for cls in validation_class_iter(plugin_dir):
-        validator = cls(base_dir, assay_type)
+        validator = cls(base_dir, assay_type, contains)
         for err in validator.collect_errors(**kwargs):  # type: ignore
             yield cls.description, err

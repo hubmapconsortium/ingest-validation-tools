@@ -1,8 +1,9 @@
 ```
 Upload Errors:
   TSV Errors:
-    examples/dataset-examples/bad-cedar-assay-histology/upload/bad-histology-metadata.tsv row 2, column 'contributors_path':
-      CEDAR Validation Errors:
+    ? examples/dataset-examples/bad-cedar-assay-histology/upload/bad-histology-metadata.tsv,
+      column 'contributors_path', value './contributors.tsv'
+    : CEDAR Validation Errors:
         examples/dataset-examples/bad-cedar-assay-histology/upload/contributors.tsv:
           Validation Errors:
           - On row 0, column "orcid", value "0000-0002-8928-abcd" fails because of
