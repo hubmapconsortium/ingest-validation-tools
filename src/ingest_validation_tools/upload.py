@@ -482,8 +482,6 @@ class Upload:
     def _check_data_paths_shared_with_parent(self):
         """
         Check parent multi-assay TSV data_path values against data_paths in child TSVs
-        Any data_paths with components but no parent are assumed to be standalone
-        datasets and left alone
         """
         assert (
             self.multi_parent and self.multi_components
@@ -495,21 +493,20 @@ class Upload:
             self.multi_assay_data_paths[path]["parent"] = [self.multi_parent]
         missing_components = defaultdict(list)
         for path, related_svs in self.multi_assay_data_paths.items():
-            if related_svs.get("parent"):
-                # If there is a parent but no components, continue without
-                # removing from multi_data_paths to trigger error downstream
-                if not related_svs.get("components"):
-                    continue
-                existing_components = {
-                    sv.dataset_type.lower() for sv in related_svs["components"]
-                }
-                # If there is a parent and all required components are not present,
-                # add to missing_components to trigger error downstream
-                diff = set(self.multi_parent.contains).difference(existing_components)
-                if diff:
-                    missing_components[path] = [*missing_components[path], *list(diff)]
-                else:
-                    multi_data_paths.remove(path)
+            # If not parent and components, continue without
+            # removing from multi_data_paths to trigger error downstream
+            if not related_svs.get("components") and not related_svs.get("parent"):
+                continue
+            existing_components = {
+                sv.dataset_type.lower() for sv in related_svs["components"]
+            }
+            # If all required components are not present, add to missing_components
+            # to trigger error downstream
+            diff = set(self.multi_parent.contains).difference(existing_components)
+            if diff:
+                missing_components[path] = [*missing_components[path], *list(diff)]
+            else:
+                multi_data_paths.remove(path)
         if missing_components:
             raise PreflightError(
                 f"Multi-assay type '{self.multi_parent.dataset_type}' requires {self.multi_parent.contains}. Data paths missing components: {list(missing_components.keys())}"  # noqa:  E501
