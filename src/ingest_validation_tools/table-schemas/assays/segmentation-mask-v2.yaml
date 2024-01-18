@@ -1,3 +1,4 @@
+description_md: For additional documentation on Segmentation Masks, please visit [here](https://docs.google.com/document/d/1TSQon8nTIoyA5bEKxd8IAKYO6nsDabGbbQ8uKN1gj4E).
 draft: true
 fields:
 - name: is_cedar

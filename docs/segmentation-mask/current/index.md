@@ -12,7 +12,7 @@ Related files:
 
 Excel and TSV templates for this schema will be available when the draft next-generation schema, to be used in all future submissions, is finalized (no later than Sept. 30).
 
-
+For additional documentation on Segmentation Masks, please visit [here](https://docs.google.com/document/d/1TSQon8nTIoyA5bEKxd8IAKYO6nsDabGbbQ8uKN1gj4E).
 
 ## Metadata schema
 
