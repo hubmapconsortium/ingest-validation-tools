@@ -12,7 +12,7 @@
 - Refactor Upload to avoid validating the same contributors.tsv multiple times / running plugins over files multiple times
 - Add entry for segmentation-mask
 - Modify directory schema validation such that it takes empty directories into account
-
+- Add Publication next-gen directory schema
 
 ## v0.0.16
 
