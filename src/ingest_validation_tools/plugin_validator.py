@@ -1,3 +1,5 @@
+from multiprocessing import Pool
+from os import cpu_count
 import sys
 from importlib import util
 import inspect
@@ -43,17 +45,21 @@ class Validator(object):
     """float: a rough measure of cost to run.  Lower is better.
     """
 
-    def __init__(self, base_path: PathOrStr, assay_type: str, contains: List = []):
+    def __init__(
+        self, base_path: List[Path], assay_type: str, contains: List = [], **kwargs
+    ):
         """
         base_path is expected to be a directory.
         This is the root path of the directory tree to be validated.
         assay_type is an assay type, one of a known set of strings.
         """
-        self.path = Path(base_path)
-        if not self.path.is_dir():
-            raise ValidatorError(f"{self.path} is not a directory")
+        self.paths = [Path(path) for path in base_path]
+        # if not self.path.is_dir():
+        #     raise ValidatorError(f"{self.path} is not a directory")
         self.assay_type = assay_type
         self.contains = contains
+        threads = kwargs.get("coreuse", None) or cpu_count() // 4 or 1
+        self.pool = Pool(threads)
 
     def collect_errors(self) -> List[str]:
         """
@@ -88,15 +94,21 @@ def run_plugin_validators_iter(
                     f"{metadata_path} contains more than one assay type"
                 )
 
+    data_paths = []
     if all("data_path" in row for row in sv.rows):
         for row in sv.rows:
             data_path = Path(row["data_path"])
             if not data_path.is_absolute():
                 data_path = (Path(metadata_path).parent / data_path).resolve()
-            for k, v in validation_error_iter(
-                data_path, sv.dataset_type, plugin_dir, sv.contains, **kwargs
-            ):
-                yield k, v
+            if not data_path.is_dir():
+                raise ValidatorError(
+                    f"{data_path} should be the base directory of a dataset"
+                )
+            data_paths.append(data_path)
+        for k, v in validation_error_iter(
+            data_paths, sv.dataset_type, plugin_dir, sv.contains, **kwargs
+        ):
+            yield k, v
     else:
         raise ValidatorError(f"{metadata_path} is missing values in 'data_path' column")
 
@@ -138,7 +150,7 @@ def validation_class_iter(plugin_dir: PathOrStr) -> Iterator[Type[Validator]]:
 
 
 def validation_error_iter(
-    base_dir: PathOrStr,
+    base_dir: List[Path],
     assay_type: str,
     plugin_dir: PathOrStr,
     contains: List,
@@ -157,9 +169,6 @@ def validation_error_iter(
     returns an iterator the values of which are key value pairs representing
     error messages
     """
-    base_dir = Path(base_dir)
-    if not base_dir.is_dir():
-        raise ValidatorError(f"{base_dir} should be the base directory of a dataset")
     for cls in validation_class_iter(plugin_dir):
         validator = cls(base_dir, assay_type, contains)
         for err in validator.collect_errors(**kwargs):  # type: ignore
