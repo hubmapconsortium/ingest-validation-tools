@@ -35,9 +35,14 @@ def validate_directory(
         if os.name == "nt":
             # Convert MS backslashes to forward slashes.
             prefix = prefix.replace("\\", "/")
-        actual_paths += (
-            [f"{prefix}/{name}" for name in file_names] if prefix else file_names
-        )
+        # If this is not the root of the path and is a leaf directory
+        if not file_names and prefix:
+            actual_paths += [f"{prefix}/"]
+        # Otherwise this should be a branch directory
+        else:
+            actual_paths += (
+                [f"{prefix}/{name}" for name in file_names] if prefix else file_names
+            )
 
     """TODO: message_munger adds periods at the end of these messages
     which is very confusing for regex! Also human readability of required_patterns
