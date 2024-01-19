@@ -243,6 +243,7 @@ assay_category:
 - Sample Section
 - Sample Suspension
 - Second Harmonic Generation
+- Segmentation Mask
 - Slide-seq
 - Thick Section Multiphoton MxIF
 - Ultrasound
@@ -326,6 +327,7 @@ assay_type:
 - Sample Section
 - Sample Suspension
 - Second Harmonic Generation
+- Segmentation Mask
 - Slide-seq
 - Thick Section Multiphoton MxIF
 - Ultrasound
@@ -839,6 +841,7 @@ is_cedar:
 - Sample Section
 - Sample Suspension
 - Second Harmonic Generation
+- Segmentation Mask
 - Slide-seq
 - Thick Section Multiphoton MxIF
 - Ultrasound

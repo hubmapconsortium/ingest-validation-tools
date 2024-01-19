@@ -10,6 +10,7 @@
 - Update PhenoCycler and Histology to 2.2.0
 - Update CEDAR links for PhenoCycler & Histology
 - Refactor Upload to avoid validating the same contributors.tsv multiple times / running plugins over files multiple times
+- Add entry for segmentation-mask
 
 ## v0.0.16
 

@@ -13,7 +13,6 @@ url: "https://hubmapconsortium.github.io" # the base hostname & protocol for you
 markdown: kramdown
 theme: minima
 categories-order:
- - Organ
  - Sample
  - Clinical Imaging Modalities
  - Fluorescence In Situ Hybridization (FISH)
@@ -24,6 +23,7 @@ categories-order:
  - Sequence Assays
  - Single-cycle Fluorescence Microscopy (SFM)
  - Spatial Transcriptomics
+ - Derived Datasets
  - Other TSVs
 
 # Exclude from processing.

@@ -25,7 +25,7 @@ files:
   -
     pattern: lab_processed\/images\/[^\/]*ome-tiff\.channels\.csv
     required: True
-    description: This file should describe any processing that was done to generate the images in each channel of the accommpanying OME TIFF. The file should contain one row per OME TIFF channel. Two columns should be booleans "is this a channel to use for nuclei segmentation"  and "is this a channel to use for cell segmentation".
+    description: This file should describe any processing that was done to generate the images in each channel of the accompanying OME TIFF. The file should contain one row per OME TIFF channel. Two columns should be booleans "is this a channel to use for nuclei segmentation"  and "is this a channel to use for cell segmentation".
   -
     pattern: lab_processed\/annotations\/.*
     required: False
