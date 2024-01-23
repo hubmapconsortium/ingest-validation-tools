@@ -1,0 +1,14 @@
+description_md: For additional documentation on Segmentation Masks, please visit [here](https://docs.google.com/document/d/1TSQon8nTIoyA5bEKxd8IAKYO6nsDabGbbQ8uKN1gj4E).
+draft: true
+fields:
+- name: is_cedar
+  description: 'Identifies whether the version is hosted by CEDAR'
+  example: 'https://docs.google.com/spreadsheets/d/1sMMyKtrxD_PO4TVj0JhOpeLF0fRYe2Fjmxnhp-fNzdM'
+- name: assay_category
+  constraints:
+    enum:
+      - derived_datasets
+- name: assay_type
+  constraints:
+    enum:
+      - Segmentation Mask
