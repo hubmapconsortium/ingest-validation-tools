@@ -58,8 +58,6 @@ class Validator(object):
         #     raise ValidatorError(f"{self.path} is not a directory")
         self.assay_type = assay_type
         self.contains = contains
-        self.threads = kwargs.get("coreuse", None) or cpu_count() // 4 or 1
-        self.pool = Pool(self.threads)
 
     def collect_errors(self) -> List[str]:
         """
