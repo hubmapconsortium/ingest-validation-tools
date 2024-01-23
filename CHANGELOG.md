@@ -13,6 +13,7 @@
 - Add entry for segmentation-mask
 - Modify directory schema validation such that it takes empty directories into account
 - Add Publication next-gen directory schema
+- Update ATAC/RNA/10X documentation
 
 ## v0.0.16
 
