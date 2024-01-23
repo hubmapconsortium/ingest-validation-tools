@@ -304,6 +304,7 @@ class Upload:
 
     def _multi_assay_dir_check(self, schema: SchemaVersion, data_path: str) -> Dict:
         errors = {}
+        # Choose whether data_paths should be shared or not
         abs_data_path = self.directory_path / data_path
         if not schema.dir_schema:
             raise Exception(
@@ -679,6 +680,7 @@ class Upload:
         self, schema_version: SchemaVersion, metadata_path: Path, path_value: str
     ):
         errors = {}
+        # Choose whether data_paths should be shared or not
         data_path = self.directory_path / path_value
         if not schema_version.dir_schema:
             raise Exception(
