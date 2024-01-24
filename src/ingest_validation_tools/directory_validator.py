@@ -12,7 +12,7 @@ class DirectoryValidationErrors(Exception):
 
 
 def validate_directory(
-    path: Path, schema_files: List[Dict], dataset_ignore_globs: List[str] = []
+    paths: list[Path], schema_files: List[Dict], dataset_ignore_globs: List[str] = []
 ) -> None:
     """
     Given a directory path, and a directory schema,
@@ -22,27 +22,30 @@ def validate_directory(
         required_patterns, allowed_patterns = _get_required_allowed(schema_files)
         dependencies = _get_dependencies(schema_files)
     except KeyError as e:
-        raise DirectoryValidationErrors(f"Error finding patterns for {path}: {e}")
+        raise DirectoryValidationErrors(f"Error finding patterns for {','.join(paths)}: {e}")
     required_missing_errors: List[str] = []
     not_allowed_errors: List[str] = []
-    if not path.exists():
-        raise FileNotFoundError(0, "No such file or directory", str(path))
     actual_paths = []
-    for triple in os.walk(path):
-        (dir_path, _, file_names) = triple
-        # [1:] removes leading '/', if any.
-        prefix = dir_path.replace(str(path), "")[1:]
-        if os.name == "nt":
-            # Convert MS backslashes to forward slashes.
-            prefix = prefix.replace("\\", "/")
-        # If this is not the root of the path and is a leaf directory
-        if not file_names and prefix:
-            actual_paths += [f"{prefix}/"]
-        # Otherwise this should be a branch directory
-        else:
-            actual_paths += (
-                [f"{prefix}/{name}" for name in file_names] if prefix else file_names
-            )
+
+    for path in paths:
+        if not path.exists():
+            raise FileNotFoundError(0, "No such file or directory", str(path))
+
+        for triple in os.walk(path):
+            (dir_path, _, file_names) = triple
+            # [1:] removes leading '/', if any.
+            prefix = dir_path.replace(str(path), "")[1:]
+            if os.name == "nt":
+                # Convert MS backslashes to forward slashes.
+                prefix = prefix.replace("\\", "/")
+            # If this is not the root of the path and is a leaf directory
+            if not file_names and prefix:
+                actual_paths += [f"{prefix}/"]
+            # Otherwise this should be a branch directory
+            else:
+                actual_paths += (
+                    [f"{prefix}/{name}" for name in file_names] if prefix else file_names
+                )
 
     """TODO: message_munger adds periods at the end of these messages
     which is very confusing for regex! Also human readability of required_patterns

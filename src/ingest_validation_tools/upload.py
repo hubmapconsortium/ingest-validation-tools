@@ -303,18 +303,22 @@ class Upload:
             return errors
 
     def _multi_assay_dir_check(self, schema: SchemaVersion, data_path: str) -> Dict:
+        data_dir_path = Path(data_path)
         errors = {}
-        # Choose whether data_paths should be shared or not
-        abs_data_path = self.directory_path / data_path
+
         if not schema.dir_schema:
             raise Exception(
-                f"No directory schema found for data_path {abs_data_path} in {schema.path}!"
+                f"No directory schema found for data_path {self.directory_path / data_path} "
+                f"in {schema.path}!"
             )
+
         ref_errors = get_data_dir_errors(
             schema.dir_schema,
-            abs_data_path,
+            root_path=self.directory_path,
+            data_dir_path=data_dir_path,
             dataset_ignore_globs=self.dataset_ignore_globs,
         )
+
         if ref_errors:
             errors[f"{schema.path}, column 'data_path', value {data_path}"] = ref_errors
         return errors
@@ -679,18 +683,22 @@ class Upload:
     def _check_data_path(
         self, schema_version: SchemaVersion, metadata_path: Path, path_value: str
     ):
+        data_path = Path(path_value)
         errors = {}
-        # Choose whether data_paths should be shared or not
-        data_path = self.directory_path / path_value
+
         if not schema_version.dir_schema:
             raise Exception(
-                f"No directory schema found for data_path {data_path} in {metadata_path}!"
+                f"No directory schema found for data_path "
+                f"{self.directory_path / data_path} in {metadata_path}!"
             )
+
         ref_errors = get_data_dir_errors(
             schema_version.dir_schema,
-            data_path,
+            root_path=self.directory_path,
+            data_dir_path=data_path,
             dataset_ignore_globs=self.dataset_ignore_globs,
         )
+
         if ref_errors:
             errors[
                 f"{str(metadata_path)}, column 'data_path', value '{path_value}'"
