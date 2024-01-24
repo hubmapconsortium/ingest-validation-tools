@@ -1,5 +1,3 @@
-from multiprocessing import Pool
-from os import cpu_count
 import sys
 from importlib import util
 import inspect
@@ -46,16 +44,24 @@ class Validator(object):
     """
 
     def __init__(
-        self, base_path: List[Path], assay_type: str, contains: List = [], **kwargs
+        self, base_paths: List[Path], assay_type: str, contains: List = [], **kwargs
     ):
         """
-        base_path is expected to be a directory.
-        This is the root path of the directory tree to be validated.
+        base_paths is expected to be a list of directories.
+        These are the root paths of the directory trees to be validated.
         assay_type is an assay type, one of a known set of strings.
         """
-        self.paths = [Path(path) for path in base_path]
-        # if not self.path.is_dir():
-        #     raise ValidatorError(f"{self.path} is not a directory")
+        del kwargs
+        if isinstance(base_paths, List):
+            self.paths = [Path(path) for path in base_paths]
+        elif isinstance(base_paths, Path):
+            self.paths = [base_paths]
+        elif isinstance(base_paths, str):
+            self.paths = [Path(base_paths)]
+        else:
+            raise Exception(
+                f"Validator init received base_paths arg as type {type(base_paths)}"
+            )
         self.assay_type = assay_type
         self.contains = contains
 
@@ -155,11 +161,11 @@ def validation_error_iter(
     **kwargs,
 ) -> Iterator[KeyValuePair]:
     """
-    Given a base directory pointing to a tree of upload data files and a
-    path to a directory of Validator plugins, iterate over the results of
-    applying all the plugin validators to the directory tree.
+    Given a list of base directories in the upload and a path to a directory
+    of Validator plugins, iterate over the results of applying all the plugin
+    validators to each directory tree.
 
-    base_dir: the root of a directory tree of upload data files
+    base_dir: a list of paths representing the datasets in an upload
     assay_type: the assay type which produced the data in the directory tree
     plugin_dir: path to a directory containing classes derived from Validator
     contains: list of component assay types (empty if not multi-assay)
