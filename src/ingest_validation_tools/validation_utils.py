@@ -190,7 +190,7 @@ def get_data_dir_errors(
     """
     Validate a single data_path.
     """
-    expected_shared_directories = {'global', 'non-global'}
+    expected_shared_directories = {'global', 'non_global'}
     # Create the most common data_path
     data_paths = [root_path / data_dir_path]
 
