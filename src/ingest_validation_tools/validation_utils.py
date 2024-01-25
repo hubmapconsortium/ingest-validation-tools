@@ -197,7 +197,10 @@ def get_data_dir_errors(
     # Check to see whether the shared upload directories exist
     shared_directories = {x for x in root_path.glob('*')
                           if x.is_dir() and x.name in expected_shared_directories}
-    if shared_directories == expected_shared_directories:
+
+    # Iterate over the set of paths and ensure that the names of those paths
+    # matches the set of expected shared directories above
+    if {x.name for x in shared_directories} == expected_shared_directories:
         # If they exist create a list of the paths
         data_paths = list(shared_directories)
     # Otherwise, do nothing we can just use the predefine data_path
