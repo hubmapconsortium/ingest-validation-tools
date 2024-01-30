@@ -1,6 +1,6 @@
 # Changelog
 
-## v0.0.17 - in progress
+## v0.0.17
 
 - Update atacseq cedar link
 - Add Phenocycler next-gen directory schema
