@@ -15,6 +15,7 @@
 - Add Publication next-gen directory schema
 - Update ATAC/RNA/10X documentation
 - Update Cell Dive documentation
+- Update to support passing list of data_paths to ingest-validation-tests plugins
 
 ## v0.0.16
 
