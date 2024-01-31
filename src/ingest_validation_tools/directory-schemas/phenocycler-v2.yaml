@@ -67,7 +67,7 @@ files:
   -
     pattern: lab_processed\/images\/[^\/]+\.ome\.tiff
     required: True
-    description: OME-TIFF file (multichannel, multi-layered) produced by the experiment. If compressed, must use loss-less compression algorithm. See the following link for the set of fields that are required in the OME TIFF file XML header. <https://docs.google.com/spreadsheets/d/1YnmdTAA0Z9MKN3OjR3Sca8pz-LNQll91wdQoRPSP6Q4/edit#gid=0>
+    description: OME-TIFF file (multichannel, multi-layered) produced by the experiment. If compressed, must use loss-less compression algorithm. See the following link for the set of fields that are required in the OME TIFF file XML header. <https://docs.google.com/spreadsheets/d/1YnmdTAA0Z9MKN3OjR3Sca8pz-LNQll91wdQoRPSP6Q4/edit#gid=0>. It is recommended that you confirm you're using the latest version of Bio-Formats, when generating the OME TIFF, as newer versions have improved XML handling.
     is_qa_qc: False
   -
     pattern: lab_processed\/images\/[^\/]*ome-tiff\.channels\.csv
