@@ -1,5 +1,8 @@
 # Changelog
 
+## v0.0.18 (in progress)
+- Update PhenoCycler directory schema
+
 ## v0.0.17
 
 - Update atacseq cedar link
