@@ -2,6 +2,7 @@
 
 ## v0.0.18 (in progress)
 - Update PhenoCycler directory schema
+- Directory validation changes for "shared" uploads
 
 ## v0.0.17
 
