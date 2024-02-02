@@ -35,9 +35,11 @@ def generate_template_tsv(table_schema: Dict) -> str:
     header_row = "\t".join(names)
 
     enums = [
-        " / ".join(str(e) for e in field["constraints"]["enum"])
-        if "constraints" in field and "enum" in field["constraints"]
-        else ""
+        (
+            " / ".join(str(e) for e in field["constraints"]["enum"])
+            if "constraints" in field and "enum" in field["constraints"]
+            else ""
+        )
         for field in table_schema["fields"]
     ]
     enums_row = "\t".join(enums)

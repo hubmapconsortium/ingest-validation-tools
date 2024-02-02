@@ -211,9 +211,9 @@ class Upload:
 
     def _check_multi_assay(self):
         # This is not recursive, so if there are nested multi-assay types it will not work
-        self.multi_assay_data_paths: DefaultDict[
-            str, DefaultDict[str, List[SchemaVersion]]
-        ] = defaultdict(lambda: defaultdict(list))
+        self.multi_assay_data_paths: DefaultDict[str, DefaultDict[str, List[SchemaVersion]]] = (
+            defaultdict(lambda: defaultdict(list))
+        )
         if self.multi_parent and self.multi_components:
             self._check_multi_assay_children()
             self._check_data_paths_shared_with_parent()
@@ -527,9 +527,9 @@ class Upload:
         elif "contributors" in schema_name:
             constrained_fields["orcid_id"] = "https://pub.orcid.org/v3.0/"
         else:
-            constrained_fields[
-                "parent_sample_id"
-            ] = "https://entity.api.hubmapconsortium.org/entities/"
+            constrained_fields["parent_sample_id"] = (
+                "https://entity.api.hubmapconsortium.org/entities/"
+            )
 
         url_errors = self._check_matching_urls(tsv_path, constrained_fields)
         if url_errors:

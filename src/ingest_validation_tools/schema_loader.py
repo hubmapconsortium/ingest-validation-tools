@@ -335,7 +335,7 @@ def _validate_level_1_enum(field: dict) -> None:
         actual = set(
             field["constraints"].get(
                 "enum",
-                [] if optional else None
+                [] if optional else None,
                 # Only optional fields are allowed to skip the enum.
             )
         )
