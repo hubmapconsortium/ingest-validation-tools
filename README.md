@@ -1,21 +1,25 @@
 # ingest-validation-tools
+
 HuBMAP data upload guidelines, and tools which check that uploads adhere to those guidelines.
 Assay documentation is on [Github Pages](https://hubmapconsortium.github.io/ingest-validation-tools/).
 
 HuBMAP has three distinct metadata processes:
-- **Donor** metadata is handled by Jonathan Silverstein on an adhoc basis: He works with whatever format the TMC can provide, and aligns it with controlled vocabularies. 
+
+- **Donor** metadata is handled by Jonathan Silverstein on an adhoc basis: He works with whatever format the TMC can provide, and aligns it with controlled vocabularies.
 - **Sample** metadata is handled by Brendan Honick and Bill Shirey. [The standard operating procedure is outlined here.](https://docs.google.com/document/d/1K-PvBaduhrN-aU-vzWd9gZqeGvhGF3geTwRR0ww74Jo/edit)
 - **Dataset** uploads should be validated first by the TMCs. Dataset upload validation is the focus of this repo. [Details below.](#upload-process-and-upload-directory-structure)
 
 ## For assay type working groups:
 
 Before we can write code to validate a particular assay type, there are some prerequisites:
+
 - A document describing the experimental techniques involved.
 - A list of the metadata fields for this type, along with descriptions and constraints.
 - A list of the files to be expected in each dataset directory, along with descriptions.
   [Suggestions for describing directories](HOWTO-describe-directories.md).
 
 When all the parts are finalized,
+
 - The document will be translated into markdown, and added [here](https://github.com/hubmapconsortium/portal-docs/tree/main/assays).
 - The list of fields will be translated into a table schema, like those [here](src/ingest_validation_tools/table-schemas).
 - The list of files will be translated into a directory schema, like those [here](src/ingest_validation_tools/directory-schemas).
@@ -39,6 +43,7 @@ contact Phil Blood (@pdblood).
 ## For data submitters and curators:
 
 Checkout the repo and install dependencies:
+
 ```
 python --version  # Should be Python3.
 git clone https://github.com/hubmapconsortium/ingest-validation-tools.git
@@ -53,6 +58,7 @@ You should see [the documention for `validate_upload.py`](script-docs/README-val
 **Note**: you need to have _git_ installed in your system.
 
 Now run it against one of the included examples, giving the path to an upload directory:
+
 ```
 src/validate_upload.py \
   --local_directory examples/dataset-examples/bad-tsv-formats/upload \
@@ -61,10 +67,12 @@ src/validate_upload.py \
 
 You should now see [this (extensive) error message](examples/dataset-examples/bad-tsv-formats/README.md).
 This example TSV has been constructed with a mistake in every column, just to demonstrate the checks which are available. Hopefully, more often your experience will be like this:
+
 ```
 src/validate_upload.py \
   --local_directory examples/dataset-examples/good-codex-akoya/upload
 ```
+
 ```
 No errors!
 ```
@@ -76,11 +84,13 @@ Addition help for certain common error messages is available [here](README-valid
 
 If you don't have an entire upload directory at hand, you can validate individual
 metadata, antibodies, contributors, or sample TSVs:
+
 ```
 src/validate_tsv.py \
   --schema metadata \
   --path examples/dataset-examples/good-scatacseq-v1/upload/metadata.tsv
 ```
+
 ```
 No errors!
 ```
@@ -108,14 +118,17 @@ src/validate_upload.py \
 ## For developers and contributors:
 
 A good example is of programatic usage is `validate-upload.py`; In a nutshell:
+
 ```python
 upload = Upload(directory_path=path)
 report = ErrorReport(upload.get_errors())
 print(report.as_text())
 ```
+
 (If it would be useful for this to be installable with `pip`, please file an issue.)
 
 To make contributions, checkout the project, cd, venv, and then:
+
 ```
 pip install -r requirements.txt
 pip install -r requirements-dev.txt
@@ -127,16 +140,33 @@ apt-get install parallel # On Ubuntu
 After making tweaks to the schema, you will need to regenerate the docs:
 The test error message will tell you what to do.
 
+### GitHub Actions
+
+This repo uses GitHub Actions to check formatting and linting of code using black, isort, and flake8. Especially before submitting a PR, make sure your code is compliant. Run the following from the base `ingest-validation-tools` directory:
+
+```
+black --line-length 99 .
+isort --profile black --multi-line 3 .
+flake8
+```
+
+Integrating [black](https://black.readthedocs.io/en/stable/integrations/editors.html) and potentially [isort](https://pycqa.github.io/isort/)/[flake8](https://flake8.pycqa.org/en/latest/index.html) with your editor may allow you to skip this step.
+
+### Releases
+
 For releases we're just using git tags:
+
 ```
 $ git tag v0.0.x
 $ git push origin v0.0.x
 ```
 
 ### Repo structure
+
 [![Repo structure](https://docs.google.com/drawings/d/e/2PACX-1vQ8gorGI8ceYBf0bIJQlw4HvI3ooVTvCfickHhCvGJU4yy5kViJI39oqQ7xB20WLYxv8FMRuBLGwmH-/pub?w=600)](https://docs.google.com/drawings/d/1UK81oUHTSHetGXRsA-YeSFS-kb6Nw2rNpnw8SBysYXU/edit)
 
 Checking in the built documentation is not the typical approach, but has worked well for this project:
+
 - It's a sanity check when making schema changes. Since the schema for an assay actually comes for multiple sources, having the result of include resolution checked in makes it possible to catch unintended changes.
 - It simplifies administration, since a separate static documentation site is not required.
 - It enables easy review of the history of a schema, since the usual git/github tools can be used.
@@ -144,6 +174,7 @@ Checking in the built documentation is not the typical approach, but has worked 
 ## Upload process and upload directory structure
 
 Data upload to HuBMAP is composed of discrete phases:
+
 - Upload preparation and validation
 - Upload and re-validation
 - Restructuring
@@ -152,6 +183,7 @@ Data upload to HuBMAP is composed of discrete phases:
 [![Upload process](https://docs.google.com/drawings/d/e/2PACX-1vSlMUKk0QU1bboxbT3x6gEMRawZDjZH_PWma2ZKVsnqlIDaCg3OFKq2zQg9dW_2ty8U3Z4UEENhUMvR/pub?w=1000)](https://docs.google.com/drawings/d/1fDhORYm8DYnCnbvpIrMMN0OxFQakHir_Ss071q2ySNc/edit)
 
 Uploads are based on directories containing at a minimum:
+
 - one or more `*-metadata.tsv` files.
 - top-level dataset directories in a 1-to-1 relationship with the rows of the TSVs.
 
