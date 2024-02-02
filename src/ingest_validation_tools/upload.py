@@ -1,32 +1,28 @@
 from __future__ import annotations
-from copy import copy
-import logging
 
+import logging
 import subprocess
 from collections import Counter, defaultdict
+from copy import copy
 from datetime import datetime
 from fnmatch import fnmatch
 from pathlib import Path
-from typing import Any, Dict, List, Optional, Union, DefaultDict
+from typing import Any, DefaultDict, Dict, List, Optional, Union
 
 import requests
 
-from ingest_validation_tools.plugin_validator import (
-    ValidatorError as PluginValidatorError,
-)
+from ingest_validation_tools.plugin_validator import \
+    ValidatorError as PluginValidatorError
 from ingest_validation_tools.plugin_validator import run_plugin_validators_iter
-from ingest_validation_tools.schema_loader import (
-    PreflightError,
-    SchemaVersion,
-    get_table_schema,
-)
-from ingest_validation_tools.table_validator import ReportType, get_table_errors
-from ingest_validation_tools.validation_utils import (
-    get_data_dir_errors,
-    get_json,
-    get_schema_version,
-    read_rows,
-)
+from ingest_validation_tools.schema_loader import (PreflightError,
+                                                   SchemaVersion,
+                                                   get_table_schema)
+from ingest_validation_tools.table_validator import (ReportType,
+                                                     get_table_errors)
+from ingest_validation_tools.validation_utils import (get_data_dir_errors,
+                                                      get_json,
+                                                      get_schema_version,
+                                                      read_rows)
 
 TSV_SUFFIX = "metadata.tsv"
 
@@ -91,6 +87,21 @@ class Upload:
             }
 
             self._check_multi_assay()
+            # TODO: check that we're only allowing one assay type per upload if not multi-assay,
+            # because that breaks a number of tests
+            if not self.multi_assay_data_paths:
+                if (
+                    len(
+                        {
+                            schema.dataset_type
+                            for schema in self.effective_tsv_paths.values()
+                        }
+                    )
+                    > 1
+                ):
+                    raise PreflightError(
+                        f"Found multiple dataset types in non-multi-assay upload! Paths: {', '.join([path for path in self.effective_tsv_paths.keys()])}"  # noqa: E501
+                    )
 
         except PreflightError as e:
             self.errors["Preflight"] = e
@@ -348,9 +359,9 @@ class Upload:
 
             local_errors = get_table_errors(tsv_path, schema, report_type)
             if local_errors:
-                local_validated[
-                    f"{tsv_path} (as {schema_version.table_schema})"
-                ] = local_errors
+                local_validated[f"{tsv_path} (as {schema_version.table_schema})"] = (
+                    local_errors
+                )
         else:
             """
             Passing offline=True will skip all API/URL validation;
@@ -493,9 +504,9 @@ class Upload:
             self.multi_assay_data_paths[path]["parent"] = [self.multi_parent]
         missing_components = defaultdict(list)
         for path, related_svs in self.multi_assay_data_paths.items():
-            # If not parent and components, continue without
+            # If not parent or not components, continue without
             # removing from multi_data_paths to trigger error downstream
-            if not related_svs.get("components") and not related_svs.get("parent"):
+            if not related_svs.get("components") or not related_svs.get("parent"):
                 continue
             existing_components = {
                 sv.dataset_type.lower() for sv in related_svs["components"]
@@ -546,19 +557,19 @@ class Upload:
         schema_name = schema_version.schema_name
 
         if "sample" in schema_name:
-            constrained_fields[
-                "sample_id"
-            ] = "https://entity.api.hubmapconsortium.org/entities/"
+            constrained_fields["sample_id"] = (
+                "https://entity.api.hubmapconsortium.org/entities/"
+            )
         elif "organ" in schema_name:
-            constrained_fields[
-                "organ_id"
-            ] = "https://entity.api.hubmapconsortium.org/entities/"
+            constrained_fields["organ_id"] = (
+                "https://entity.api.hubmapconsortium.org/entities/"
+            )
         elif "contributors" in schema_name:
             constrained_fields["orcid_id"] = "https://pub.orcid.org/v3.0/"
         else:
-            constrained_fields[
-                "parent_sample_id"
-            ] = "https://entity.api.hubmapconsortium.org/entities/"
+            constrained_fields["parent_sample_id"] = (
+                "https://entity.api.hubmapconsortium.org/entities/"
+            )
 
         url_errors = self._check_matching_urls(tsv_path, constrained_fields)
         if url_errors:
