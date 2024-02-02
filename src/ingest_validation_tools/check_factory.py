@@ -1,14 +1,15 @@
-import json
 import re
-from pathlib import Path
 from string import Template
+from pathlib import Path
 from sys import stderr
-from typing import Any, Callable, Dict, Iterator, List
+import json
+from typing import List, Callable, Dict, Any, Iterator
 
 import frictionless
 import requests
 
-cache_path = Path(__file__).parent / "url-status-cache.json"
+
+cache_path = Path(__file__).parent / 'url-status-cache.json'
 
 ErrorIterator = Iterator[frictionless.errors.CellError]
 Row = Dict[str, Any]
@@ -21,65 +22,64 @@ def make_checks(schema) -> List[Check]:
         factory.make_url_check(),
         factory.make_sequence_limit_check(),
         factory.make_units_check(),
-        factory.make_forbid_na_check(),
+        factory.make_forbid_na_check()
     ]
 
 
-class _CheckFactory:
+class _CheckFactory():
     def __init__(self, schema):
         self.schema = schema
         self._prev_value_run_length = {}
 
     def _get_constrained_fields(self, constraint: str) -> Dict[str, List]:
-        c_c = "custom_constraints"
+        c_c = 'custom_constraints'
         return {
-            f["name"]: f[c_c][constraint]
-            for f in self.schema["fields"]
+            f['name']: f[c_c][constraint] for f in self.schema['fields']
             if c_c in f and constraint in f[c_c]
         }
 
     def _check_url_status_cache(self, url: str) -> str:
         if not cache_path.exists():
-            cache_path.write_text("{}")
+            cache_path.write_text('{}')
         url_status_cache = json.loads(cache_path.read_text())
         if url not in url_status_cache:
-            print(f"Fetching un-cached url: {url}", file=stderr)
+            print(f'Fetching un-cached url: {url}', file=stderr)
             try:
                 response = requests.get(url)
                 url_status_cache[url] = response.status_code
             except Exception as e:
                 url_status_cache[url] = str(e)
-            cache_path.write_text(json.dumps(url_status_cache, sort_keys=True, indent=2))
+            cache_path.write_text(json.dumps(
+                url_status_cache,
+                sort_keys=True,
+                indent=2
+            ))
         return url_status_cache[url]
 
-    def make_url_check(self, template=Template('URL returned $status: "$url"')) -> Check:
-        url_constrained_fields = self._get_constrained_fields("url")
+    def make_url_check(self, template=Template(
+            'URL returned $status: "$url"')) -> Check:
+        url_constrained_fields = self._get_constrained_fields('url')
 
         def url_check(row):
             for k, v in row.items():
                 if v is None:
                     continue
                 if k in url_constrained_fields:
-                    prefix = url_constrained_fields[k]["prefix"]
-                    url = f"{prefix}{v}"
+                    prefix = url_constrained_fields[k]['prefix']
+                    url = f'{prefix}{v}'
                     status = self._check_url_status_cache(url)
                     if status != 200:
                         note = template.substitute(status=status, url=url)
                         yield frictionless.errors.CellError.from_row(row, note=note, field_name=k)
-
         return url_check
 
-    def make_sequence_limit_check(
-        self,
-        template=Template(
-            "there is a run of $run_length sequential items: Limit is $limit. "
-            "If correct, reorder rows."
-        ),
-    ) -> Check:
-        sequence_limit_fields = self._get_constrained_fields("sequence_limit")
+    def make_sequence_limit_check(self, template=Template(
+            'there is a run of $run_length sequential items: Limit is $limit. '
+            'If correct, reorder rows.')) -> Check:
+        sequence_limit_fields = self._get_constrained_fields('sequence_limit')
 
         def sequence_limit_check(row):
-            prefix_number_re = r"(?P<prefix>.*?)(?P<number>\d+)$"
+            prefix_number_re = r'(?P<prefix>.*?)(?P<number>\d+)$'
             for k, v in row.items():
                 # If the schema declares the field as datetime,
                 # "v" will be a python object, and regexes will error.
@@ -101,8 +101,8 @@ class _CheckFactory:
                 prev_value, run_length = self._prev_value_run_length[k]
                 prev_match = re.search(prefix_number_re, prev_value)
                 if (
-                    match.group("prefix") != prev_match.group("prefix")
-                    or int(match.group("number")) != int(prev_match.group("number")) + 1
+                    match.group('prefix') != prev_match.group('prefix') or
+                    int(match.group('number')) != int(prev_match.group('number')) + 1
                 ):
                     self._prev_value_run_length[k] = (v, 1)
                     continue
@@ -111,17 +111,16 @@ class _CheckFactory:
                 self._prev_value_run_length[k] = (v, run_length)
 
                 limit = sequence_limit_fields[k]
-                assert limit > 1, "The lowest allowed limit is 2"
+                assert limit > 1, 'The lowest allowed limit is 2'
                 if run_length >= limit:
                     note = template.substitute(run_length=run_length, limit=limit)
                     yield frictionless.errors.CellError.from_row(row, note=note, field_name=k)
 
         return sequence_limit_check
 
-    def make_units_check(
-        self, template=Template("it requires a value when $units_for is filled")
-    ) -> Check:
-        units_constrained_fields = self._get_constrained_fields("units_for")
+    def make_units_check(self, template=Template(
+            'it requires a value when $units_for is filled')) -> Check:
+        units_constrained_fields = self._get_constrained_fields('units_for')
 
         def units_check(row):
             for k, v in row.items():
@@ -130,22 +129,19 @@ class _CheckFactory:
                     if (row[units_for] or row[units_for] == 0) and not row[k]:
                         note = template.substitute(units_for=units_for)
                         yield frictionless.errors.CellError.from_row(row, note=note, field_name=k)
-
         return units_check
 
-    def make_forbid_na_check(
-        self, template=Template('"N/A" fields should just be left empty')
-    ) -> Check:
-        forbid_na_constrained_fields = self._get_constrained_fields("forbid_na")
+    def make_forbid_na_check(self, template=Template(
+            '"N/A" fields should just be left empty')) -> Check:
+        forbid_na_constrained_fields = self._get_constrained_fields('forbid_na')
 
         def forbid_na_check(row):
             for k, v in row.items():
                 if (
                     k in forbid_na_constrained_fields
                     and isinstance(v, str)
-                    and v.upper() in ["NA", "N/A"]
+                    and v.upper() in ['NA', 'N/A']
                 ):
                     note = template.substitute()
                     yield frictionless.errors.CellError.from_row(row, note=note, field_name=k)
-
         return forbid_na_check

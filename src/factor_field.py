@@ -1,33 +1,32 @@
 #!/usr/bin/env python3
 
-import argparse
-import fileinput
 import sys
-from collections import defaultdict
+import argparse
 from pathlib import Path
+import fileinput
+from collections import defaultdict
 
 
 def main():
-    parser = argparse.ArgumentParser(
-        description="""
+    parser = argparse.ArgumentParser(description='''
     Factor out all variants of a given field.
-    """
-    )
-    parser.add_argument("--field", metavar="NAME", required=True)
+    ''')
     parser.add_argument(
-        "--input_dir",
-        type=Path,
-        metavar="IN",
-        help="Directory to scan for instances of the field",
-        default="src/ingest_validation_tools/table-schemas/assays",
-    )
+        '--field',
+        metavar='NAME',
+        required=True)
     parser.add_argument(
-        "--output_dir",
+        '--input_dir',
         type=Path,
-        metavar="OUT",
-        help="Directory to write field extracts",
-        default="src/ingest_validation_tools/table-schemas/includes/fields",
-    )
+        metavar='IN',
+        help='Directory to scan for instances of the field',
+        default='src/ingest_validation_tools/table-schemas/assays')
+    parser.add_argument(
+        '--output_dir',
+        type=Path,
+        metavar='OUT',
+        help='Directory to write field extracts',
+        default='src/ingest_validation_tools/table-schemas/includes/fields')
     args = parser.parse_args()
 
     factor_field(args.field, args.input_dir, args.output_dir)
@@ -47,22 +46,18 @@ def pull(field_name, input_dir):
             lines=lines,
             get_file_name=lambda: str(fileinput.filename()),
             field_name=field_name,
-            definitions=definitions,
+            definitions=definitions
         )
     return definitions
 
 
 def push(field_name, definitions, output_dir):
-    options = (
-        [
-            f"# {'; '.join(sorted(files))}\n{definition}"
-            for definition, files in definitions.items()
-        ]
-        if len(definitions) > 1
-        else definitions.keys()
-    )
+    options = [
+        f"# {'; '.join(sorted(files))}\n{definition}"
+        for definition, files in definitions.items()
+    ] if len(definitions) > 1 else definitions.keys()
     if options:
-        (output_dir / f"{field_name}.yaml").write_text("\n".join(options))
+        (output_dir / f'{field_name}.yaml').write_text('\n'.join(options))
     else:
         print(f"Check spelling of field name: '{field_name}'")
         sys.exit(1)
@@ -98,18 +93,18 @@ def replace(lines, get_file_name, field_name, definitions):
     definition = None
     for line in lines:
         # This assumes the YAML has been cleaned up!
-        if f"name: {field_name}" in line:
+        if f'name: {field_name}' in line:
             inside = True
-            print(f"# include: ../includes/fields/{field_name}.yaml")
+            print(f'# include: ../includes/fields/{field_name}.yaml')
             definition = line
             continue
-        elif inside and line[0] not in ["-", "#"]:
+        elif inside and line[0] not in ['-', '#']:
             definition += line
             continue
         elif inside:
             definitions[definition].add(get_file_name())
             inside = False
-        print(line, end="")
+        print(line, end='')
 
 
 if __name__ == "__main__":

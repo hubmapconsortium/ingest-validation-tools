@@ -1,14 +1,15 @@
 from __future__ import annotations
+from dataclasses import dataclass, field
 
-import re
+from pathlib import Path
 from collections import defaultdict
 from copy import deepcopy
-from dataclasses import dataclass, field
-from pathlib import Path
-from typing import Dict, List, Optional, Sequence, Set, Union
+import re
+from typing import List, Dict, Set, Sequence, Optional, Union
 
-from ingest_validation_tools.enums import shared_enums
 from ingest_validation_tools.yaml_include_loader import load_yaml
+from ingest_validation_tools.enums import shared_enums
+
 
 _table_schemas_path = Path(__file__).parent / "table-schemas"
 _directory_schemas_path = Path(__file__).parent / "directory-schemas"
@@ -86,7 +87,9 @@ class SchemaVersion:
         assay_type = self.rows[0].get("assay_type")
         dataset_type = self.rows[0].get("dataset_type")
         if assay_type is not None and dataset_type is not None:
-            raise PreflightError(f"Found both assay_type and dataset_type for path {self.path}!")
+            raise PreflightError(
+                f"Found both assay_type and dataset_type for path {self.path}!"
+            )
         else:
             self.dataset_type = assay_type if assay_type else dataset_type
 
@@ -331,7 +334,9 @@ def _validate_level_1_enum(field: dict) -> None:
 
     name = field["name"]
     if name in shared_enums:
-        optional = not field["constraints"].get("required", True)  # Default: required = True
+        optional = not field["constraints"].get(
+            "required", True
+        )  # Default: required = True
         actual = set(
             field["constraints"].get(
                 "enum",
@@ -341,7 +346,8 @@ def _validate_level_1_enum(field: dict) -> None:
         )
         allowed = set(shared_enums[name])
         assert actual <= allowed, (
-            f"Unexpected enums for {name}: {actual - allowed}\n" f"Allowed: {sorted(allowed)}"
+            f"Unexpected enums for {name}: {actual - allowed}\n"
+            f"Allowed: {sorted(allowed)}"
         )
 
 

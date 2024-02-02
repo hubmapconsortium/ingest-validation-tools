@@ -1,8 +1,8 @@
+from yaml import Dumper, dump
 from typing import List, Union
 
-from yaml import Dumper, dump
-
 from ingest_validation_tools.message_munger import munge, recursive_munge
+
 
 # Force dump not to use alias syntax.
 # https://stackoverflow.com/questions/13518819/avoid-references-in-pyyaml

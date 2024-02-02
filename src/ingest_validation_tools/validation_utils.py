@@ -1,20 +1,20 @@
+from collections import defaultdict
 import json
 import logging
-from collections import defaultdict
 from csv import DictReader
 from pathlib import Path, PurePath
 from typing import DefaultDict, Dict, List, Optional, Union
 
 import requests
 
-from ingest_validation_tools.directory_validator import (
-    DirectoryValidationErrors,
-    validate_directory,
-)
 from ingest_validation_tools.schema_loader import (
     PreflightError,
     SchemaVersion,
     get_directory_schema,
+)
+from ingest_validation_tools.directory_validator import (
+    validate_directory,
+    DirectoryValidationErrors,
 )
 from ingest_validation_tools.table_validator import ReportType
 from ingest_validation_tools.test_validation_utils import (
@@ -64,15 +64,21 @@ def get_schema_version(
         offline=offline,
     )
     if not assay_type_data:
-        message = f"Assay data not retrieved from assayclassifier endpoint for TSV {path}."
+        message = (
+            f"Assay data not retrieved from assayclassifier endpoint for TSV {path}."
+        )
         if "assay_type" in rows[0]:
             message += f' Assay type: {rows[0].get("assay_type")}.'
         elif "dataset_type" in rows[0]:
             message += f' Dataset type: {rows[0].get("dataset_type")}.'
         if "channel_id" in rows[0]:
-            message += ' Has "channel_id": Antibodies TSV found where metadata TSV expected.'
+            message += (
+                ' Has "channel_id": Antibodies TSV found where metadata TSV expected.'
+            )
         elif "orcid_id" in rows[0]:
-            message += ' Has "orcid_id": Contributors TSV found where metadata TSV expected.'
+            message += (
+                ' Has "orcid_id": Contributors TSV found where metadata TSV expected.'
+            )
         else:
             message += f' Column headers in TSV: {", ".join(rows[0].keys())}'
         raise PreflightError(message)
@@ -108,8 +114,12 @@ def get_other_schema_name(rows: List, path: str) -> Optional[str]:
         else:
             match = {key: field for key, value in other_types.items() if field in value}
             other_type.update(match)
-    if other_type and ("assay_name" in rows[0].keys() or "dataset_type" in rows[0].keys()):
-        raise PreflightError(f"Metadata TSV contains invalid field: {list(other_type.values())}")
+    if other_type and (
+        "assay_name" in rows[0].keys() or "dataset_type" in rows[0].keys()
+    ):
+        raise PreflightError(
+            f"Metadata TSV contains invalid field: {list(other_type.values())}"
+        )
     if len(other_type) == 1:
         return list(other_type.keys())[0]
     elif len(other_type) > 1:
@@ -184,7 +194,9 @@ def get_data_dir_errors(
     if schema is None:
         return {"Undefined directory schema": dir_schema}
 
-    schema_warning_fields = [field for field in schema if field in ["deprecated", "draft"]]
+    schema_warning_fields = [
+        field for field in schema if field in ["deprecated", "draft"]
+    ]
     schema_warning = (
         {f"{schema_warning_fields[0].title()} directory schema": dir_schema}
         if schema_warning_fields
@@ -192,7 +204,9 @@ def get_data_dir_errors(
     )
 
     try:
-        validate_directory(data_path, schema["files"], dataset_ignore_globs=dataset_ignore_globs)
+        validate_directory(
+            data_path, schema["files"], dataset_ignore_globs=dataset_ignore_globs
+        )
     except DirectoryValidationErrors as e:
         # If there are DirectoryValidationErrors and the schema is deprecated/draft...
         #    schema deprecation/draft status is more important.
@@ -245,7 +259,8 @@ def get_context_of_decode_error(e: UnicodeDecodeError) -> str:
 
 def get_other_names():
     return [
-        p.stem.split("-v")[0] for p in (Path(__file__).parent / "table-schemas/others").iterdir()
+        p.stem.split("-v")[0]
+        for p in (Path(__file__).parent / "table-schemas/others").iterdir()
     ]
 
 
