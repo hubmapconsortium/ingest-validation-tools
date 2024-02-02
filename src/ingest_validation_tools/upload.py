@@ -56,6 +56,7 @@ class Upload:
         extra_parameters: Union[dict, None] = None,
         globus_token: str = "",
         run_plugins: bool = False,
+        shared_directories: Union[set, None] = False,
     ):
         self.directory_path = directory_path
         self.optional_fields = optional_fields
@@ -91,6 +92,12 @@ class Upload:
             }
 
             self._check_multi_assay()
+
+            self.shared_directories = {
+                x
+                for x in self.directory_path.glob("*global")
+                if x.is_dir() and x.name in ["global", "non_global"]
+            }
 
         except PreflightError as e:
             self.errors["Preflight"] = e
@@ -382,6 +389,7 @@ class Upload:
     def _get_reference_errors(self) -> dict:
         errors: Dict[str, Any] = {}
         no_ref_errors = self.__get_no_ref_errors()
+        # TODO: Ignore multi_ref_errors if its a shared upload
         multi_ref_errors = self.__get_multi_ref_errors()
         if no_ref_errors:
             errors["No References"] = no_ref_errors
@@ -774,7 +782,7 @@ class Upload:
         ]
         for path, references in data_references.items():
             if path not in multi_references:
-                if len(references) > 1:
+                if len(references) > 1 and not self.shared_directories:
                     errors[path] = references
         return errors
 
