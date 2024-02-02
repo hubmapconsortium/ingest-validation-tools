@@ -78,7 +78,7 @@ class Validator(object):
 
 
 def run_plugin_validators_iter(
-    metadata_path: PathOrStr, sv: SchemaVersion, plugin_dir: PathOrStr, **kwargs
+    metadata_path: PathOrStr, sv: SchemaVersion, plugin_dir: PathOrStr, is_shared_upload: bool, **kwargs
 ) -> Iterator[KeyValuePair]:
     """
     Given a metadata.tsv file and a path to a directory of Validator plugins, iterate through the
@@ -99,22 +99,28 @@ def run_plugin_validators_iter(
                 )
 
     data_paths = []
-    if all("data_path" in row for row in sv.rows):
-        for row in sv.rows:
-            data_path = Path(row["data_path"])
-            if not data_path.is_absolute():
-                data_path = (Path(metadata_path).parent / data_path).resolve()
-            if not data_path.is_dir():
-                raise ValidatorError(
-                    f"{data_path} should be the base directory of a dataset"
-                )
-            data_paths.append(data_path)
+    if is_shared_upload:
         for k, v in validation_error_iter(
-            data_paths, sv.dataset_type, plugin_dir, sv.contains, **kwargs
+                ['.'], sv.dataset_type, plugin_dir, sv.contains, **kwargs
         ):
             yield k, v
     else:
-        raise ValidatorError(f"{metadata_path} is missing values in 'data_path' column")
+        if all("data_path" in row for row in sv.rows):
+            for row in sv.rows:
+                data_path = Path(row["data_path"])
+                if not data_path.is_absolute():
+                    data_path = (Path(metadata_path).parent / data_path).resolve()
+                if not data_path.is_dir():
+                    raise ValidatorError(
+                        f"{data_path} should be the base directory of a dataset"
+                    )
+                data_paths.append(data_path)
+            for k, v in validation_error_iter(
+                data_paths, sv.dataset_type, plugin_dir, sv.contains, **kwargs
+            ):
+                yield k, v
+        else:
+            raise ValidatorError(f"{metadata_path} is missing values in 'data_path' column")
 
 
 def validation_class_iter(plugin_dir: PathOrStr) -> Iterator[Type[Validator]]:

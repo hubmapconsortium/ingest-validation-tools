@@ -412,7 +412,7 @@ class Upload:
                     sv.dataset_type == self.multi_parent.dataset_type
                 ):
                     for k, v in run_plugin_validators_iter(
-                        metadata_path, sv, plugin_path, **kwargs
+                        metadata_path, sv, plugin_path, bool(self.shared_directories), **kwargs
                     ):
                         errors[k].append(v)
             except PluginValidatorError as e:
