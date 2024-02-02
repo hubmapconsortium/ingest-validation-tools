@@ -1,8 +1,8 @@
-import re
-from string import Template
-from pathlib import Path
 import html
-from typing import Dict, Any
+import re
+from pathlib import Path
+from string import Template
+from typing import Any, Dict
 from urllib.parse import urlencode
 
 import requests
@@ -110,9 +110,7 @@ def _get_portal_names_md(assay_types):
         if portal_name is None:
             links.append(f"{assay_type} not in Portal")
             continue
-        query = urlencode(
-            {"mapped_data_types[0]": portal_name, "entity_type[0]": "Dataset"}
-        )
+        query = urlencode({"mapped_data_types[0]": portal_name, "entity_type[0]": "Dataset"})
         url = f"https://portal.hubmapconsortium.org/search?{query}"
         links.append(f"[{portal_name}]({url})")
     return f'In the portal: {" / ".join(links)}'
@@ -179,10 +177,7 @@ def generate_readme_md(
     if (
         is_deprecated
         or is_draft
-        or (
-            is_cedar
-            and max_version_table_schema.get("fields", [])[0].get("example", "") == ""
-        )
+        or (is_cedar and max_version_table_schema.get("fields", [])[0].get("example", "") == "")
     ):
         tsv_url = ""
         xlsx_url = ""
@@ -581,9 +576,7 @@ def _make_dir_descriptions(dir_schemas, pipeline_infos):
     <BLANKLINE>
     <BLANKLINE>
     """
-    pipeline_infos_md = " and ".join(
-        make_pipeline_link(info) for info in pipeline_infos
-    )
+    pipeline_infos_md = " and ".join(make_pipeline_link(info) for info in pipeline_infos)
     pipeline_blurb = (
         f"The HIVE will process each dataset with\n{pipeline_infos_md}.\n"
         if pipeline_infos
@@ -610,9 +603,7 @@ def _make_dir_descriptions(dir_schemas, pipeline_infos):
                 f"<summary><b>Version {v}"
                 f'{" (use this one)" if current_version else ""}'
                 f"</b></summary>\n"
-                + _make_dir_description(
-                    schema["files"], schema.get("deprecated", False)
-                )
+                + _make_dir_description(schema["files"], schema.get("deprecated", False))
                 + "\n\n"
             )
         current_version = False
