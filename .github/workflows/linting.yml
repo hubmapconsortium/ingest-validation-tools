@@ -23,10 +23,10 @@ jobs:
           pip install flake8 black isort
       - name: Flake8 Lint
         run: |
-          flake8 --ignore=E501,W503,E203 .
+          flake8 --ignore=E501,W503,E203 src
       - name: Black Lint
         run: |
-          black --line-length 99 --check --verbose .
+          black --line-length 99 --check --verbose src
       - name: isort Lint
         run: |
-          isort --profile black --check-only --diff .
+          isort --profile black --check-only --diff src
