@@ -78,7 +78,8 @@ class Validator(object):
 
 
 def run_plugin_validators_iter(
-    metadata_path: PathOrStr, sv: SchemaVersion, plugin_dir: PathOrStr, is_shared_upload: bool, **kwargs
+    metadata_path: PathOrStr, sv: SchemaVersion, plugin_dir: PathOrStr,
+        is_shared_upload: bool, **kwargs
 ) -> Iterator[KeyValuePair]:
     """
     Given a metadata.tsv file and a path to a directory of Validator plugins, iterate through the
@@ -101,7 +102,7 @@ def run_plugin_validators_iter(
     data_paths = []
     if is_shared_upload:
         for k, v in validation_error_iter(
-                ['.'], sv.dataset_type, plugin_dir, sv.contains, **kwargs
+                [Path('.')], sv.dataset_type, plugin_dir, sv.contains, **kwargs
         ):
             yield k, v
     else:
