@@ -389,7 +389,6 @@ class Upload:
     def _get_reference_errors(self) -> dict:
         errors: Dict[str, Any] = {}
         no_ref_errors = self.__get_no_ref_errors()
-        # TODO: Ignore multi_ref_errors if its a shared upload
         multi_ref_errors = self.__get_multi_ref_errors()
         if no_ref_errors:
             errors["No References"] = no_ref_errors
