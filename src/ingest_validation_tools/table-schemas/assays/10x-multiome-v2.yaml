@@ -1,4 +1,4 @@
-description_md: REQUIRED - For this assay, you must also prepare and submit two additional metadata.tsv files following the metadata schemas linked here for [RNAseq](https://hubmapconsortium.github.io/ingest-validation-tools/rnaseq/current/) and [ATACseq](https://hubmapconsortium.github.io/ingest-validation-tools/atacseq/current/).
+description_md: REQUIRED - For this assay, you must also prepare and submit two additional metadata.tsv files following the metadata schemas linked here for [RNAseq](https://hubmapconsortium.github.io/ingest-validation-tools/rnaseq/current/) and [ATACseq](https://hubmapconsortium.github.io/ingest-validation-tools/atacseq/current/). For additional documentation on this dataset type, please visit [here](https://docs.google.com/document/d/1cVX_uMA5ehz3TBjrlXSb9KkRo8_5kcFUFhJaWeW9JyU).
 fields:
 - name: is_cedar
   description: 'Identifies whether the version is hosted by CEDAR'

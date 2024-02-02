@@ -224,6 +224,7 @@ def generate_readme_md(
             "title": title,
             "schema_name": schema_name,
             "category": {
+                "derived_datasets": "Derived Datasets",
                 "fish": "Fluorescence In Situ Hybridization (FISH)",
                 "imaging": "Imaging",
                 "clinical_imaging": "Clinical Imaging Modalities",

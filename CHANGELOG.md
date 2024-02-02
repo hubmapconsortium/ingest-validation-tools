@@ -1,6 +1,9 @@
 # Changelog
 
-## v0.0.17 - in progress
+## v0.0.18 (in progress)
+- Update PhenoCycler directory schema
+
+## v0.0.17
 
 - Update atacseq cedar link
 - Add Phenocycler next-gen directory schema
@@ -10,6 +13,12 @@
 - Update PhenoCycler and Histology to 2.2.0
 - Update CEDAR links for PhenoCycler & Histology
 - Refactor Upload to avoid validating the same contributors.tsv multiple times / running plugins over files multiple times
+- Add entry for segmentation-mask
+- Modify directory schema validation such that it takes empty directories into account
+- Add Publication next-gen directory schema
+- Update ATAC/RNA/10X documentation
+- Update Cell Dive documentation
+- Update to support passing list of data_paths to ingest-validation-tests plugins
 
 ## v0.0.16
 
