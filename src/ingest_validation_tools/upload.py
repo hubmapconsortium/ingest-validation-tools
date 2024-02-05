@@ -390,10 +390,13 @@ class Upload:
         errors: Dict[str, Any] = {}
         no_ref_errors = self.__get_no_ref_errors()
         multi_ref_errors = self.__get_multi_ref_errors()
+        shared_dir_errors = self.__get_shared_dir_errors()
         if no_ref_errors:
             errors["No References"] = no_ref_errors
         if multi_ref_errors:
             errors["Multiple References"] = multi_ref_errors
+        if shared_dir_errors:
+            errors["Shared Directory References"] = shared_dir_errors
         return errors
 
     def _get_plugin_errors(self, **kwargs) -> dict:
@@ -769,6 +772,22 @@ class Upload:
             errors["Files"] = unreferenced_file_paths
         return errors
 
+    def __get_shared_dir_errors(self) -> dict:
+        errors = {}
+        all_non_global_files = self.__get_non_global_files_references()
+        if all_non_global_files:
+            for row_non_global_file, row_references in all_non_global_files.items():
+                full_path = (self.directory_path / "./non_global" / Path(row_non_global_file))
+                if not full_path.exists():
+                    errors[full_path] = "Does not exist in upload."
+        else:
+            # Catch case 2
+            if self.shared_directories:
+                errors["Upload Errors"] = "No non_global_files specified but " \
+                                          "upload has global & non_global directories"
+
+        return errors
+
     def __get_multi_ref_errors(self) -> dict:
         #  If - multi-assay dataset (and only that dataset is referenced) don't fail
         #  Else - fail
@@ -793,6 +812,9 @@ class Upload:
 
     def __get_contributors_references(self) -> dict:
         return self.__get_references("contributors_path")
+
+    def __get_non_global_files_references(self) -> dict:
+        return self.__get_references("non_global_files")
 
     def __get_references(self, col_name) -> dict:
         references = defaultdict(list)
