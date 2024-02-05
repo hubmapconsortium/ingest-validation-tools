@@ -776,10 +776,16 @@ class Upload:
         errors = {}
         all_non_global_files = self.__get_non_global_files_references()
         if all_non_global_files:
-            for row_non_global_file, row_references in all_non_global_files.items():
-                full_path = (self.directory_path / "./non_global" / Path(row_non_global_file))
-                if not full_path.exists():
-                    errors[full_path] = "Does not exist in upload."
+            for row_non_global_files, row_references in all_non_global_files.items():
+                row_non_global_files = {
+                    (self.directory_path / "./non_global" / Path(x.strip())): Path(x.strip())
+                    for x in row_non_global_files.split(";")
+                    if x.strip()
+                }
+
+                for row_non_global_file in row_non_global_files.keys():
+                    if not row_non_global_file.exists():
+                        errors[row_non_global_file] = "Does not exist in upload."
         else:
             # Catch case 2
             if self.shared_directories:
