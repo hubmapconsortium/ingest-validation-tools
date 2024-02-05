@@ -1,15 +1,14 @@
 from __future__ import annotations
-from dataclasses import dataclass, field
 
-from pathlib import Path
+import re
 from collections import defaultdict
 from copy import deepcopy
-import re
-from typing import List, Dict, Set, Sequence, Optional, Union
+from dataclasses import dataclass, field
+from pathlib import Path
+from typing import Dict, List, Optional, Sequence, Set, Union
 
-from ingest_validation_tools.yaml_include_loader import load_yaml
 from ingest_validation_tools.enums import shared_enums
-
+from ingest_validation_tools.yaml_include_loader import load_yaml
 
 _table_schemas_path = Path(__file__).parent / "table-schemas"
 _directory_schemas_path = Path(__file__).parent / "directory-schemas"
@@ -340,7 +339,7 @@ def _validate_level_1_enum(field: dict) -> None:
         actual = set(
             field["constraints"].get(
                 "enum",
-                [] if optional else None
+                [] if optional else None,
                 # Only optional fields are allowed to skip the enum.
             )
         )

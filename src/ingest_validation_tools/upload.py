@@ -484,15 +484,27 @@ class Upload:
         ), f"Cannot check shared data paths for multi-assay upload, missing parent and/or component values. Parent: {self.multi_parent.dataset_type if self.multi_parent else None} / Components: {[component.dataset_type for component in self.multi_components if self.multi_components]}"  # noqa: E501
         # Add "parent" data to any data_paths in multi_assay_data_paths
         # that appear in the parent TSV
-        multi_data_paths = [row.get("data_path") for row in self.multi_parent.rows]
+        multi_data_paths = {row.get("data_path") for row in self.multi_parent.rows}
+        # Make sure that components do not have any unique paths
+        errors = []
+        for component in self.multi_components:
+            component_paths = {row.get("data_path") for row in component.rows}
+            unique_in_component = component_paths.difference(multi_data_paths)
+            if unique_in_component:
+                errors.append(
+                    f"Path(s) in {component.dataset_type} metadata TSV not present in parent: {unique_in_component}."  # noqa: E501
+                )
+            unique_in_parent = multi_data_paths.difference(component_paths)
+            if unique_in_parent:
+                errors.append(
+                    f"Path(s) in {self.multi_parent.dataset_type} metadata TSV not present in component {component.dataset_type}: {unique_in_parent}."  # noqa: E501
+                )
+        if errors:
+            raise PreflightError(" ".join(error for error in errors))
         for path in multi_data_paths:
             self.multi_assay_data_paths[path]["parent"] = [self.multi_parent]
         missing_components = defaultdict(list)
         for path, related_svs in self.multi_assay_data_paths.items():
-            # If not parent or not components, continue without
-            # removing from multi_data_paths to trigger error downstream
-            if not related_svs.get("components") or not related_svs.get("parent"):
-                continue
             existing_components = {
                 sv.dataset_type.lower() for sv in related_svs["components"]
             }
@@ -509,7 +521,7 @@ class Upload:
             )
         if multi_data_paths:
             raise PreflightError(
-                f"Multi-assay TSV {self.multi_parent.path} contains data paths that are not present in child assay TSVs. Data paths unique to parent: {multi_data_paths}"  # noqa: E501
+                f"Unexpected error while checking shared data_paths. Errors on: {multi_data_paths}."
             )
 
     def _cedar_api_call(self, tsv_path: Union[str, Path]) -> requests.models.Response:
