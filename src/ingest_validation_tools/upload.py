@@ -87,21 +87,6 @@ class Upload:
             }
 
             self._check_multi_assay()
-            # TODO: check that we're only allowing one assay type per upload if not multi-assay,
-            # because that breaks a number of tests
-            if not self.multi_assay_data_paths:
-                if (
-                    len(
-                        {
-                            schema.dataset_type
-                            for schema in self.effective_tsv_paths.values()
-                        }
-                    )
-                    > 1
-                ):
-                    raise PreflightError(
-                        f"Found multiple dataset types in non-multi-assay upload! Paths: {', '.join([path for path in self.effective_tsv_paths.keys()])}"  # noqa: E501
-                    )
 
         except PreflightError as e:
             self.errors["Preflight"] = e
