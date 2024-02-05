@@ -101,8 +101,9 @@ def run_plugin_validators_iter(
 
     data_paths = []
     if is_shared_upload:
+        paths = [Path(metadata_path).parent / 'global', Path(metadata_path).parent / 'non_global']
         for k, v in validation_error_iter(
-                [Path('.')], sv.dataset_type, plugin_dir, sv.contains, **kwargs
+                paths, sv.dataset_type, plugin_dir, sv.contains, **kwargs
         ):
             yield k, v
     else:
