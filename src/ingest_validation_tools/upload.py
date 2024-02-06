@@ -55,7 +55,7 @@ class Upload:
         ignore_deprecation: bool = False,
         extra_parameters: Union[dict, None] = None,
         globus_token: str = "",
-        run_plugins: bool = False
+        run_plugins: bool = False,
     ):
         self.directory_path = directory_path
         self.optional_fields = optional_fields
@@ -217,9 +217,9 @@ class Upload:
 
     def _check_multi_assay(self):
         # This is not recursive, so if there are nested multi-assay types it will not work
-        self.multi_assay_data_paths: DefaultDict[str, DefaultDict[str, List[SchemaVersion]]] = (
-            defaultdict(lambda: defaultdict(list))
-        )
+        self.multi_assay_data_paths: DefaultDict[
+            str, DefaultDict[str, List[SchemaVersion]]
+        ] = defaultdict(lambda: defaultdict(list))
         if self.multi_parent and self.multi_components:
             self._check_multi_assay_children()
             self._check_data_paths_shared_with_parent()
@@ -541,9 +541,9 @@ class Upload:
         elif "contributors" in schema_name:
             constrained_fields["orcid_id"] = "https://pub.orcid.org/v3.0/"
         else:
-            constrained_fields["parent_sample_id"] = (
-                "https://entity.api.hubmapconsortium.org/entities/"
-            )
+            constrained_fields[
+                "parent_sample_id"
+            ] = "https://entity.api.hubmapconsortium.org/entities/"
 
         url_errors = self._check_matching_urls(tsv_path, constrained_fields)
         if url_errors:
@@ -727,16 +727,21 @@ class Upload:
                     if x.strip()
                 }
 
-                for full_path_row_non_global_file, rel_path_row_non_global_file in \
-                        row_non_global_files.items():
+                for (
+                    full_path_row_non_global_file,
+                    rel_path_row_non_global_file,
+                ) in row_non_global_files.items():
                     if not full_path_row_non_global_file.exists():
-                        errors[",".join(row_references)] = \
-                            f"{rel_path_row_non_global_file} not exist in upload."
+                        errors[
+                            ",".join(row_references)
+                        ] = f"{rel_path_row_non_global_file} not exist in upload."
         else:
             # Catch case 2
             if self.is_shared_upload:
-                errors["Upload Errors"] = "No non_global_files specified but " \
-                                          "upload has global & non_global directories"
+                errors["Upload Errors"] = (
+                    "No non_global_files specified but "
+                    "upload has global & non_global directories"
+                )
 
         return errors
 

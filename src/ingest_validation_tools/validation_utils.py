@@ -180,13 +180,14 @@ def get_data_dir_errors(
     """
     Validate a single data_path.
     """
-    expected_shared_directories = {'global', 'non_global'}
+    expected_shared_directories = {"global", "non_global"}
     # Create the most common data_path
     data_paths = [root_path / data_dir_path]
 
     # Check to see whether the shared upload directories exist
-    shared_directories = {x for x in root_path.glob('*')
-                          if x.is_dir() and x.name in expected_shared_directories}
+    shared_directories = {
+        x for x in root_path.glob("*") if x.is_dir() and x.name in expected_shared_directories
+    }
 
     # Iterate over the set of paths and ensure that the names of those paths
     # matches the set of expected shared directories above
@@ -210,9 +211,7 @@ def get_data_dir_errors(
     printable_data_paths = [x.as_posix() for x in data_paths]
 
     try:
-        validate_directory(
-            data_paths, schema["files"], dataset_ignore_globs=dataset_ignore_globs
-        )
+        validate_directory(data_paths, schema["files"], dataset_ignore_globs=dataset_ignore_globs)
     except DirectoryValidationErrors as e:
         # If there are DirectoryValidationErrors and the schema is deprecated/draft...
         #    schema deprecation/draft status is more important.

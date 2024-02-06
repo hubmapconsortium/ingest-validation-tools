@@ -75,8 +75,11 @@ class Validator(object):
 
 
 def run_plugin_validators_iter(
-    metadata_path: PathOrStr, sv: SchemaVersion, plugin_dir: PathOrStr,
-        is_shared_upload: bool, **kwargs
+    metadata_path: PathOrStr,
+    sv: SchemaVersion,
+    plugin_dir: PathOrStr,
+    is_shared_upload: bool,
+    **kwargs,
 ) -> Iterator[KeyValuePair]:
     """
     Given a metadata.tsv file and a path to a directory of Validator plugins, iterate through the
@@ -96,9 +99,9 @@ def run_plugin_validators_iter(
 
     data_paths = []
     if is_shared_upload:
-        paths = [Path(metadata_path).parent / 'global', Path(metadata_path).parent / 'non_global']
+        paths = [Path(metadata_path).parent / "global", Path(metadata_path).parent / "non_global"]
         for k, v in validation_error_iter(
-                paths, sv.dataset_type, plugin_dir, sv.contains, **kwargs
+            paths, sv.dataset_type, plugin_dir, sv.contains, **kwargs
         ):
             yield k, v
     else:
@@ -108,9 +111,7 @@ def run_plugin_validators_iter(
                 if not data_path.is_absolute():
                     data_path = (Path(metadata_path).parent / data_path).resolve()
                 if not data_path.is_dir():
-                    raise ValidatorError(
-                        f"{data_path} should be the base directory of a dataset"
-                    )
+                    raise ValidatorError(f"{data_path} should be the base directory of a dataset")
                 data_paths.append(data_path)
             for k, v in validation_error_iter(
                 data_paths, sv.dataset_type, plugin_dir, sv.contains, **kwargs
