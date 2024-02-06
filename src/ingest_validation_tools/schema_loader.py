@@ -86,9 +86,7 @@ class SchemaVersion:
         assay_type = self.rows[0].get("assay_type")
         dataset_type = self.rows[0].get("dataset_type")
         if assay_type is not None and dataset_type is not None:
-            raise PreflightError(
-                f"Found both assay_type and dataset_type for path {self.path}!"
-            )
+            raise PreflightError(f"Found both assay_type and dataset_type for path {self.path}!")
         else:
             self.dataset_type = assay_type if assay_type else dataset_type
 
@@ -333,9 +331,7 @@ def _validate_level_1_enum(field: dict) -> None:
 
     name = field["name"]
     if name in shared_enums:
-        optional = not field["constraints"].get(
-            "required", True
-        )  # Default: required = True
+        optional = not field["constraints"].get("required", True)  # Default: required = True
         actual = set(
             field["constraints"].get(
                 "enum",
@@ -345,8 +341,7 @@ def _validate_level_1_enum(field: dict) -> None:
         )
         allowed = set(shared_enums[name])
         assert actual <= allowed, (
-            f"Unexpected enums for {name}: {actual - allowed}\n"
-            f"Allowed: {sorted(allowed)}"
+            f"Unexpected enums for {name}: {actual - allowed}\n" f"Allowed: {sorted(allowed)}"
         )
 
 

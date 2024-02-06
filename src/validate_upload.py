@@ -1,22 +1,22 @@
 #!/usr/bin/env python3
 
 import argparse
-import sys
-from pathlib import Path
 import inspect
+import sys
 from datetime import datetime
+from pathlib import Path
 
+from ingest_validation_tools.check_factory import cache_path
+from ingest_validation_tools.cli_utils import ShowUsageException, dir_path, exit_codes
 from ingest_validation_tools.error_report import ErrorReport
 from ingest_validation_tools.upload import Upload
-from ingest_validation_tools.cli_utils import ShowUsageException, exit_codes, dir_path
-from ingest_validation_tools.check_factory import cache_path
 
 directory_schemas = sorted(
     {
         p.stem
-        for p in (
-            Path(__file__).parent / "ingest_validation_tools" / "directory-schemas"
-        ).glob("*.yaml")
+        for p in (Path(__file__).parent / "ingest_validation_tools" / "directory-schemas").glob(
+            "*.yaml"
+        )
     }
 )
 
@@ -105,9 +105,7 @@ Exit status codes:
 
     # Are there plugin validations?
 
-    parser.add_argument(
-        "--plugin_directory", action="store", help="Directory of plugin tests."
-    )
+    parser.add_argument("--plugin_directory", action="store", help="Directory of plugin tests.")
     parser.add_argument(
         "--run_plugins",
         required=False,
@@ -126,9 +124,7 @@ Exit status codes:
     error_report_methods = [
         name for (name, _) in inspect.getmembers(ErrorReport) if name.startswith("as_")
     ]
-    parser.add_argument(
-        "--output", choices=error_report_methods, default="as_text_list"
-    )
+    parser.add_argument("--output", choices=error_report_methods, default="as_text_list")
 
     parser.add_argument(
         "--add_notes",

@@ -1,12 +1,13 @@
 #!/usr/bin/env python3
-import sys
-from yaml import dump as dump_yaml
 import argparse
+import sys
+
+from yaml import dump as dump_yaml
 
 from ingest_validation_tools.schema_loader import (
-    list_table_schema_versions,
-    get_table_schema,
     get_is_assay,
+    get_table_schema,
+    list_table_schema_versions,
 )
 
 
@@ -47,9 +48,7 @@ class Mapper:
         self.default_value = None
 
     def add(self, field, schema_name=None, schema=None):
-        name, attr_value = self._get_name_value(
-            field, schema_name=schema_name, schema=schema
-        )
+        name, attr_value = self._get_name_value(field, schema_name=schema_name, schema=schema)
         if self._skip_field(name, attr_value):
             return
         if name in self.mapping and self.mapping[name] != attr_value:
@@ -66,9 +65,7 @@ class Mapper:
         return False
 
     def _handle_collision(self, name, attr_value):
-        raise Exception(
-            f'{name} is inconsistent: "{self.mapping[name]}" != "{attr_value}"'
-        )
+        raise Exception(f'{name} is inconsistent: "{self.mapping[name]}" != "{attr_value}"')
 
     def dump_yaml(self):
         return dump_yaml(self.mapping)
@@ -170,14 +167,8 @@ class AssayMapper(AbstractSetValuedMapper):
     """
 
     def _get_name_value(self, field, schema_name=None, schema=None):
-        assay_type_fields = [
-            field for field in schema["fields"] if field["name"] == "assay_type"
-        ]
-        value = (
-            assay_type_fields[0]["constraints"]["enum"]
-            if len(assay_type_fields)
-            else []
-        )
+        assay_type_fields = [field for field in schema["fields"] if field["name"] == "assay_type"]
+        value = assay_type_fields[0]["constraints"]["enum"] if len(assay_type_fields) else []
         return field["name"], set(value)
 
 

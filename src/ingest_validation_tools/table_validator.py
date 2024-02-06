@@ -1,7 +1,7 @@
 import csv
-from pathlib import Path
-from typing import List, Optional, Dict, Union
 from enum import Enum
+from pathlib import Path
+from typing import Dict, List, Optional, Union
 
 import frictionless
 
@@ -38,9 +38,7 @@ def get_table_errors(
 
     schema_fields_dict = {field["name"]: field for field in schema["fields"]}
 
-    return [
-        _get_message(error, schema_fields_dict, report_type) for error in task["errors"]
-    ]
+    return [_get_message(error, schema_fields_dict, report_type) for error in task["errors"]]
 
 
 def _get_pre_flight_errors(tsv_path: Path, schema: dict) -> Optional[List[str]]:
@@ -51,9 +49,7 @@ def _get_pre_flight_errors(tsv_path: Path, schema: dict) -> Optional[List[str]]:
     delimiter = dialect.delimiter
     expected_delimiter = "\t"
     if delimiter != expected_delimiter:
-        return [
-            f"Delimiter is {repr(delimiter)}, rather than expected {repr(expected_delimiter)}"
-        ]
+        return [f"Delimiter is {repr(delimiter)}, rather than expected {repr(expected_delimiter)}"]
 
     # Re-reading the file is ugly, but creating a stream seems gratuitous.
     with tsv_path.open() as tsv_handle:
@@ -75,9 +71,7 @@ def _get_pre_flight_errors(tsv_path: Path, schema: dict) -> Optional[List[str]]:
             for i_pair in enumerate(zip(fields, expected_fields)):
                 i, (actual, expected) = i_pair
                 if actual != expected:
-                    errors.append(
-                        f'In column {i+1}, found "{actual}", expected "{expected}"'
-                    )
+                    errors.append(f'In column {i+1}, found "{actual}", expected "{expected}"')
             return errors
 
     return None
@@ -119,27 +113,19 @@ def _get_message(
     if "code" in error and error["code"] == "missing-label":
         msg = "Bug: Should have been caught pre-flight. File an issue."
         return msg if return_str else get_json(msg)
-    if (
-        "rowPosition" in error
-        and "fieldName" in error
-        and "cell" in error
-        and "note" in error
-    ):
+    if "rowPosition" in error and "fieldName" in error and "cell" in error and "note" in error:
         msg = (
             f'On row {error["rowPosition"]}, column "{error["fieldName"]}", '
             f'value "{error["cell"]}" fails because {error["note"]}'
             f'{f". Example: {example}" if example else example}'
         )
-        return (
-            msg
-            if return_str
-            else get_json(msg, error["rowPosition"], error["fieldName"])
-        )
+        return msg if return_str else get_json(msg, error["rowPosition"], error["fieldName"])
     return error["message"]
 
 
 if __name__ == "__main__":
     import argparse
+
     from yaml import safe_load
 
     parser = argparse.ArgumentParser("CLI just for testing")
