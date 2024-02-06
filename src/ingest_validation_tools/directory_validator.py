@@ -22,7 +22,8 @@ def validate_directory(
         required_patterns, allowed_patterns = _get_required_allowed(schema_files)
         dependencies = _get_dependencies(schema_files)
     except KeyError as e:
-        raise DirectoryValidationErrors(f"Error finding patterns for {','.join([x.as_posix() for x in paths])}: {e}")
+        raise DirectoryValidationErrors(f"Error finding patterns"
+                                        f" for {','.join([x.as_posix() for x in paths])}: {e}")
     required_missing_errors: List[str] = []
     not_allowed_errors: List[str] = []
     actual_paths = []
