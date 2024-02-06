@@ -1,11 +1,11 @@
 #!/usr/bin/env python3
+import argparse
 import sys
 from csv import DictWriter
-import argparse
 
 from ingest_validation_tools.schema_loader import (
-    list_table_schema_versions,
     get_table_schema,
+    list_table_schema_versions,
 )
 
 

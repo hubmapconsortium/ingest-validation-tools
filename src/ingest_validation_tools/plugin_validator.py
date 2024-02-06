@@ -1,8 +1,9 @@
+import inspect
 import sys
 from importlib import util
-import inspect
-from typing import List, Union, Tuple, Iterator, Type
 from pathlib import Path
+from typing import Iterator, List, Tuple, Type, Union
+
 from ingest_validation_tools.schema_loader import SchemaVersion
 
 PathOrStr = Union[str, Path]
@@ -43,9 +44,7 @@ class Validator(object):
     """float: a rough measure of cost to run.  Lower is better.
     """
 
-    def __init__(
-        self, base_paths: List[Path], assay_type: str, contains: List = [], **kwargs
-    ):
+    def __init__(self, base_paths: List[Path], assay_type: str, contains: List = [], **kwargs):
         """
         base_paths is expected to be a list of directories.
         These are the root paths of the directory trees to be validated.
@@ -59,9 +58,7 @@ class Validator(object):
         elif isinstance(base_paths, str):
             self.paths = [Path(base_paths)]
         else:
-            raise Exception(
-                f"Validator init received base_paths arg as type {type(base_paths)}"
-            )
+            raise Exception(f"Validator init received base_paths arg as type {type(base_paths)}")
         self.assay_type = assay_type
         self.contains = contains
 
@@ -94,9 +91,7 @@ def run_plugin_validators_iter(
     for column_name in ["assay_type", "dataset_type"]:
         if column_name in sv.rows[0]:
             if any(row[column_name] != sv.dataset_type for row in sv.rows):
-                raise ValidatorError(
-                    f"{metadata_path} contains more than one assay type"
-                )
+                raise ValidatorError(f"{metadata_path} contains more than one assay type")
 
     data_paths = []
     if all("data_path" in row for row in sv.rows):
@@ -105,9 +100,7 @@ def run_plugin_validators_iter(
             if not data_path.is_absolute():
                 data_path = (Path(metadata_path).parent / data_path).resolve()
             if not data_path.is_dir():
-                raise ValidatorError(
-                    f"{data_path} should be the base directory of a dataset"
-                )
+                raise ValidatorError(f"{data_path} should be the base directory of a dataset")
             data_paths.append(data_path)
         for k, v in validation_error_iter(
             data_paths, sv.dataset_type, plugin_dir, sv.contains, **kwargs
@@ -142,11 +135,7 @@ def validation_class_iter(plugin_dir: PathOrStr) -> Iterator[Type[Validator]]:
                 sys.modules[mod_nm] = mod
                 spec.loader.exec_module(mod)  # type: ignore
             for _, obj in inspect.getmembers(mod):
-                if (
-                    inspect.isclass(obj)
-                    and obj != Validator
-                    and issubclass(obj, Validator)
-                ):
+                if inspect.isclass(obj) and obj != Validator and issubclass(obj, Validator):
                     sort_me.append((obj.cost, obj.description, obj))
     sort_me.sort()
     for _, _, cls in sort_me:
