@@ -40,7 +40,7 @@ class SchemaVersion:
     version: str = ""
     directory_path: Optional[Path] = None
     table_schema: str = ""
-    path: Optional[Union[Path, str]] = None
+    path: Union[Path, str] = ""
     rows: List = field(default_factory=list)
     soft_assay_data: Dict = field(default_factory=dict)
     is_cedar: bool = False

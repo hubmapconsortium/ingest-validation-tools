@@ -1,8 +1,9 @@
 import os
 import re
 from fnmatch import fnmatch
-from typing import List, Dict, Tuple
 from pathlib import Path
+from typing import Dict, List, Tuple
+
 from ingest_validation_tools.yaml_include_loader import load_yaml
 
 

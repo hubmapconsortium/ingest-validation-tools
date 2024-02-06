@@ -1,26 +1,20 @@
-from collections import defaultdict
 import json
 import logging
+from collections import defaultdict
 from csv import DictReader
 from pathlib import Path, PurePath
 from typing import DefaultDict, Dict, List, Optional, Union
 
 import requests
 
-from ingest_validation_tools.schema_loader import (
-    PreflightError,
-    SchemaVersion,
-    get_directory_schema,
-)
 from ingest_validation_tools.directory_validator import (
-    validate_directory,
-    DirectoryValidationErrors,
-)
+    DirectoryValidationErrors, validate_directory)
+from ingest_validation_tools.schema_loader import (PreflightError,
+                                                   SchemaVersion,
+                                                   get_directory_schema)
 from ingest_validation_tools.table_validator import ReportType
 from ingest_validation_tools.test_validation_utils import (
-    compare_mock_with_response,
-    mock_response,
-)
+    compare_mock_with_response, mock_response)
 
 
 class TSVError(Exception):
