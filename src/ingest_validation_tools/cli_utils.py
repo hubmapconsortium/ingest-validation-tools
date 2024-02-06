@@ -13,7 +13,4 @@ def dir_path(s):
         raise ShowUsageException(f'"{s}" is not a directory')
 
 
-exit_codes = namedtuple(
-    'ExitCode',
-    ['VALID', 'BUG', 'ERROR', 'INVALID']
-)(0, 1, 2, 3)
+exit_codes = namedtuple("ExitCode", ["VALID", "BUG", "ERROR", "INVALID"])(0, 1, 2, 3)

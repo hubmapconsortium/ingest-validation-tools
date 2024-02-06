@@ -3,6 +3,8 @@ import re
 from fnmatch import fnmatch
 from typing import List, Dict, Tuple
 from pathlib import Path
+from typing import Dict, List, Tuple
+
 from ingest_validation_tools.yaml_include_loader import load_yaml
 
 
@@ -59,9 +61,7 @@ def validate_directory(
         assert isinstance(dependency_pattern, str)
         # Check to see whether there's a match
         matching_paths = [
-            actual
-            for actual in actual_paths
-            if re.fullmatch(dependency_pattern, actual)
+            actual for actual in actual_paths if re.fullmatch(dependency_pattern, actual)
         ]
         # If there's a match, then we have to check that the dependent items are also captured
         # Let's also short-circuit and get failures out of the way
@@ -91,9 +91,7 @@ def validate_directory(
     not_allowed_errors.extend(
         _get_not_allowed_errors(actual_paths, allowed_patterns, dataset_ignore_globs)
     )
-    required_missing_errors.extend(
-        _get_missing_required_errors(actual_paths, required_patterns)
-    )
+    required_missing_errors.extend(_get_missing_required_errors(actual_paths, required_patterns))
 
     errors = {}
     if not_allowed_errors:
@@ -117,9 +115,7 @@ def _get_not_allowed_errors(
     return not_allowed_errors
 
 
-def _get_missing_required_errors(
-    paths: List[str], required_patterns: List[str]
-) -> List[str]:
+def _get_missing_required_errors(paths: List[str], required_patterns: List[str]) -> List[str]:
     return [
         pattern
         for pattern in required_patterns

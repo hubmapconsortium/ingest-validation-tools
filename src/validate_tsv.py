@@ -1,18 +1,14 @@
 #!/usr/bin/env python3
 
 import argparse
-from pathlib import Path
-import sys
 import inspect
+import sys
+from pathlib import Path
 
-from ingest_validation_tools.error_report import ErrorReport
 from ingest_validation_tools.cli_utils import ShowUsageException, exit_codes
+from ingest_validation_tools.error_report import ErrorReport
 from ingest_validation_tools.schema_loader import PreflightError
-from ingest_validation_tools.validation_utils import (
-    get_tsv_errors,
-    get_schema_version,
-)
-
+from ingest_validation_tools.validation_utils import get_schema_version, get_tsv_errors
 
 reminder = (
     "REMINDER: Besides running validate_tsv.py, "
