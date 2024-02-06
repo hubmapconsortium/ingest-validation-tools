@@ -55,8 +55,7 @@ class Upload:
         ignore_deprecation: bool = False,
         extra_parameters: Union[dict, None] = None,
         globus_token: str = "",
-        run_plugins: bool = False,
-        shared_directories: Union[set, None] = False,
+        run_plugins: bool = False
     ):
         self.directory_path = directory_path
         self.optional_fields = optional_fields
@@ -93,7 +92,7 @@ class Upload:
 
             self._check_multi_assay()
 
-            self.shared_directories = {
+            self.is_shared_upload = {"global", "non_global"} == {
                 x
                 for x in self.directory_path.glob("*global")
                 if x.is_dir() and x.name in ["global", "non_global"]
@@ -414,7 +413,7 @@ class Upload:
                     sv.dataset_type == self.multi_parent.dataset_type
                 ):
                     for k, v in run_plugin_validators_iter(
-                        metadata_path, sv, plugin_path, bool(self.shared_directories), **kwargs
+                        metadata_path, sv, plugin_path, self.is_shared_upload, **kwargs
                     ):
                         errors[k].append(v)
             except PluginValidatorError as e:
@@ -790,7 +789,7 @@ class Upload:
                             f"{rel_path_row_non_global_file} not exist in upload."
         else:
             # Catch case 2
-            if self.shared_directories:
+            if self.is_shared_upload:
                 errors["Upload Errors"] = "No non_global_files specified but " \
                                           "upload has global & non_global directories"
 
@@ -808,7 +807,7 @@ class Upload:
         ]
         for path, references in data_references.items():
             if path not in multi_references:
-                if len(references) > 1 and not self.shared_directories:
+                if len(references) > 1 and not self.is_shared_upload:
                     errors[path] = references
         return errors
 
