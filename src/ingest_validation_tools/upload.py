@@ -195,12 +195,12 @@ class Upload:
     ###################################
 
     def _check_single_assay(self):
-        types_counter = Counter([v.schema_name for v in self.effective_tsv_paths.values()])
+        types_counter = Counter([v.dataset_type for v in self.effective_tsv_paths.values()])
         if len(types_counter.keys()) > 1:
             raise PreflightError(
                 f"Found multiple dataset types in upload: {', '.join(types_counter.keys())}"
             )
-        repeated = [assay_type for assay_type, count in types_counter.items() if count > 1]
+        repeated = [dataset_type for dataset_type, count in types_counter.items() if count > 1]
         if repeated:
             raise PreflightError(
                 f"There is more than one TSV for this type: {', '.join(repeated)}"
