@@ -21,13 +21,14 @@ for SUITE in examples/dataset-examples examples/dataset-iec-examples; do
     esac
 
     for EXAMPLE in "${SUITE}"/*; do
-        ((INDEX=INDEX+1))
         if [ "$INDEX" -lt "$START_INDEX" ]; then
             echo "Skipping ${INDEX}: ${SUITE}/${EXAMPLE}"
+            ((INDEX=INDEX+1))
             continue
         fi
         README="${EXAMPLE}/README_ONLINE.md"
         echo "Testing ${INDEX}: ${EXAMPLE} ..."
+        ((INDEX=INDEX+1))
         CMD="src/validate_upload.py --local_directory ${EXAMPLE}/upload ${OPTS} | perl -pne 's/(Time|Git version): .*/\1: WILL_CHANGE/'"
         echo "$CMD"
         if [ ! -e "${README}" ]; then

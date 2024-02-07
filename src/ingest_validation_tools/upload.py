@@ -90,6 +90,8 @@ class Upload:
             }
 
             self._check_multi_assay()
+            if not self.is_multi_assay:
+                self._check_single_assay()
 
         except PreflightError as e:
             self.errors["Preflight"] = e
@@ -192,6 +194,18 @@ class Upload:
     #
     ###################################
 
+    def _check_single_assay(self):
+        types_counter = Counter([v.dataset_type for v in self.effective_tsv_paths.values()])
+        if len(types_counter.keys()) > 1:
+            raise PreflightError(
+                f"Found multiple dataset types in upload: {', '.join(types_counter.keys())}"
+            )
+        repeated = [dataset_type for dataset_type, count in types_counter.items() if count > 1]
+        if repeated:
+            raise PreflightError(
+                f"There is more than one TSV for this type: {', '.join(repeated)}"
+            )
+
     def _check_upload(self) -> dict:
         upload_errors = {}
         tsv_errors = self._get_local_tsv_errors()
@@ -204,12 +218,6 @@ class Upload:
 
     def _get_local_tsv_errors(self) -> Optional[Dict]:
         errors: DefaultDict[str, list] = defaultdict(list)
-        types_counter = Counter([v.schema_name for v in self.effective_tsv_paths.values()])
-        repeated = [assay_type for assay_type, count in types_counter.items() if count > 1]
-        if repeated:
-            raise ErrorDictException(
-                {"Repeated": f"There is more than one TSV for this type: {', '.join(repeated)}"}
-            )
         for path, schema in self.effective_tsv_paths.items():
             if "data_path" not in schema.rows[0] or "contributors_path" not in schema.rows[0]:
                 errors.update(

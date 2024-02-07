@@ -179,15 +179,6 @@ def _parse_schema_version(stem: str) -> Sequence[str]:
     return v_match.groups()
 
 
-# TODO: is this used anywhere?
-def get_all_directory_schema_versions(schema_name: str) -> List[str]:
-    return [
-        schema_version.version
-        for schema_version in list_directory_schema_versions()
-        if schema_version.assay_schema_name == schema_name
-    ]
-
-
 def dict_directory_schema_versions() -> Dict[str, Set[str]]:
     dict_of_sets = defaultdict(set)
     for sv in list_directory_schema_versions():
