@@ -1,6 +1,8 @@
 #!/usr/bin/env bash
 set -o errexit
 
+echo "Testing dataset examples in online mode..."
+
 die() { set +v; echo "$*" 1>&2 ; sleep 1; exit 1; }
 
 GLOBUS_TOKEN=${1:?"Error. You must supply a globus token."}

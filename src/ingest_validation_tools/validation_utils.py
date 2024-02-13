@@ -17,10 +17,6 @@ from ingest_validation_tools.schema_loader import (
     get_directory_schema,
 )
 from ingest_validation_tools.table_validator import ReportType
-from ingest_validation_tools.test_validation_utils import (
-    compare_mock_with_response,
-    mock_response,
-)
 
 
 class TSVError(Exception):
@@ -37,7 +33,7 @@ def dict_reader_wrapper(path, encoding: str) -> list:
 def get_schema_version(
     path: Path,
     encoding: str,
-    globus_token: str,
+    ingest_url: str,
     directory_path: Optional[Path] = None,
     offline: bool = False,
 ) -> SchemaVersion:
@@ -55,26 +51,26 @@ def get_schema_version(
             rows=rows,
         )
         return sv
-    if not (rows[0].get("dataset_type") or rows[0].get("assay_type")):
+    row = rows[0]
+    if not (row.get("dataset_type") or row.get("assay_type")):
         raise PreflightError(f"No assay_type or dataset_type in {path}.")
-    assay_type_data = get_assaytype_data(
-        rows[0],
-        globus_token,
-        path,
-        offline=offline,
-    )
+    elif offline:
+        raise PreflightError("Cannot retrieve assaytype data in offline mode!")
+    elif not ingest_url:
+        raise PreflightError("Cannot retrieve assaytype data: no ingest_url passed.")
+    assay_type_data = get_assaytype_data(row, ingest_url)
     if not assay_type_data:
         message = f"Assay data not retrieved from assayclassifier endpoint for TSV {path}."
-        if "assay_type" in rows[0]:
-            message += f' Assay type: {rows[0].get("assay_type")}.'
-        elif "dataset_type" in rows[0]:
-            message += f' Dataset type: {rows[0].get("dataset_type")}.'
-        if "channel_id" in rows[0]:
+        if "assay_type" in row:
+            message += f' Assay type: {row.get("assay_type")}.'
+        elif "dataset_type" in row:
+            message += f' Dataset type: {row.get("dataset_type")}.'
+        if "channel_id" in row:
             message += ' Has "channel_id": Antibodies TSV found where metadata TSV expected.'
-        elif "orcid_id" in rows[0]:
+        elif "orcid_id" in row:
             message += ' Has "orcid_id": Contributors TSV found where metadata TSV expected.'
         else:
-            message += f' Column headers in TSV: {", ".join(rows[0].keys())}'
+            message += f' Column headers in TSV: {", ".join(row.keys())}'
         raise PreflightError(message)
     return SchemaVersion(
         assay_type_data["assaytype"],
@@ -120,36 +116,19 @@ def get_other_schema_name(rows: List, path: str) -> Optional[str]:
         return None
 
 
-def get_ingest_api_env(env: str) -> str:
-    # TODO: this should be obtained in another way
-    if env in ["dev", "test", "stage"]:
-        return f"https://ingest-api.{env}.hubmapconsortium.org/assaytype"
-    elif env == "prod":
-        return "https://ingest.api.hubmapconsortium.org/assaytype"
-    elif env == "local":
-        return "http://localhost:5000/assaytype"
-    else:
-        raise Exception(f"Environment {env} not found!")
-
-
 def get_assaytype_data(
     row: Dict,
-    globus_token: str,
-    path: Path,
-    env: str = "dev",
-    offline: bool = False,
+    ingest_url: str,
 ) -> Dict:
-    if offline or not globus_token:
-        # TODO: separate testing path from live code
-        return mock_response(path, row)
-    url = get_ingest_api_env(env)
-    headers = {
-        "Authorization": "Bearer " + globus_token,
-        "Content-Type": "application/json",
-    }
-    response = requests.post(url, headers=headers, data=json.dumps(row))
-    response.raise_for_status()
-    compare_mock_with_response(row, response.json(), path)
+    try:
+        response = requests.post(
+            f"{ingest_url}/assaytype",
+            headers={"Content-Type": "application/json"},
+            data=json.dumps(row),
+        )
+        response.raise_for_status()
+    except Exception as e:
+        raise PreflightError(f"Error encountered while querying assaytype endpoint! {e}")
     return response.json()
 
 
@@ -257,6 +236,7 @@ def get_tsv_errors(
     ignore_deprecation: bool = False,
     report_type: ReportType = ReportType.STR,
     globus_token: str = "",
+    app_context: Union[dict, None] = None,
 ) -> Dict[str, str]:
     """
     Validate the TSV.
@@ -320,6 +300,7 @@ def get_tsv_errors(
         globus_token=globus_token,
         offline=offline,
         ignore_deprecation=ignore_deprecation,
+        app_context=app_context,
     )
     errors = upload.validation_routine(report_type)
     return errors
