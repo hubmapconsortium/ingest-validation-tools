@@ -1,8 +1,6 @@
 #!/usr/bin/env bash
 set -o errexit
 
-echo "Testing TSV examples..."
-
 die() { set +v; echo "$*" 1>&2 ; sleep 1; exit 1; }
 
 for SCHEMA in `ls examples/tsv-examples`; do

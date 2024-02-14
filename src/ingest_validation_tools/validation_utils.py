@@ -17,6 +17,10 @@ from ingest_validation_tools.schema_loader import (
     get_directory_schema,
 )
 from ingest_validation_tools.table_validator import ReportType
+from ingest_validation_tools.test_validation_utils import (
+    compare_mock_with_response,
+    mock_response,
+)
 
 
 class TSVError(Exception):
@@ -51,26 +55,26 @@ def get_schema_version(
             rows=rows,
         )
         return sv
-    row = rows[0]
-    if not (row.get("dataset_type") or row.get("assay_type")):
+    if not (rows[0].get("dataset_type") or rows[0].get("assay_type")):
         raise PreflightError(f"No assay_type or dataset_type in {path}.")
-    elif offline:
-        raise PreflightError("Cannot retrieve assaytype data in offline mode!")
-    elif not ingest_url:
-        raise PreflightError("Cannot retrieve assaytype data: no ingest_url passed.")
-    assay_type_data = get_assaytype_data(row, ingest_url)
+    assay_type_data = get_assaytype_data(
+        rows[0],
+        ingest_url,
+        path,
+        offline=offline,
+    )
     if not assay_type_data:
         message = f"Assay data not retrieved from assayclassifier endpoint for TSV {path}."
-        if "assay_type" in row:
-            message += f' Assay type: {row.get("assay_type")}.'
-        elif "dataset_type" in row:
-            message += f' Dataset type: {row.get("dataset_type")}.'
-        if "channel_id" in row:
+        if "assay_type" in rows[0]:
+            message += f' Assay type: {rows[0].get("assay_type")}.'
+        elif "dataset_type" in rows[0]:
+            message += f' Dataset type: {rows[0].get("dataset_type")}.'
+        if "channel_id" in rows[0]:
             message += ' Has "channel_id": Antibodies TSV found where metadata TSV expected.'
-        elif "orcid_id" in row:
+        elif "orcid_id" in rows[0]:
             message += ' Has "orcid_id": Contributors TSV found where metadata TSV expected.'
         else:
-            message += f' Column headers in TSV: {", ".join(row.keys())}'
+            message += f' Column headers in TSV: {", ".join(rows[0].keys())}'
         raise PreflightError(message)
     return SchemaVersion(
         assay_type_data["assaytype"],
@@ -119,16 +123,19 @@ def get_other_schema_name(rows: List, path: str) -> Optional[str]:
 def get_assaytype_data(
     row: Dict,
     ingest_url: str,
+    path: Path,
+    offline: bool = False,
 ) -> Dict:
-    try:
-        response = requests.post(
-            f"{ingest_url}/assaytype",
-            headers={"Content-Type": "application/json"},
-            data=json.dumps(row),
-        )
-        response.raise_for_status()
-    except Exception as e:
-        raise PreflightError(f"Error encountered while querying assaytype endpoint! {e}")
+    if offline:
+        # TODO: separate testing path from live code
+        return mock_response(path, row)
+    elif not ingest_url:
+        raise PreflightError("Cannot retrieve assaytype data: no ingest_url passed.")
+    response = requests.post(
+        ingest_url, headers={"Content-Type": "application/json"}, data=json.dumps(row)
+    )
+    response.raise_for_status()
+    compare_mock_with_response(row, response.json(), path)
     return response.json()
 
 
@@ -236,7 +243,7 @@ def get_tsv_errors(
     ignore_deprecation: bool = False,
     report_type: ReportType = ReportType.STR,
     globus_token: str = "",
-    app_context: Union[dict, None] = None,
+    app_context: Union[Dict, None] = None,
 ) -> Dict[str, str]:
     """
     Validate the TSV.
