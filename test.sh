@@ -1,4 +1,6 @@
 #!/usr/bin/env bash
 set -o errexit
 
-ls tests/* | parallel --halt now,fail=1 bash
+ls tests/*.sh | parallel --halt now,fail=1 bash
+PYTHONPATH=/ingest-validation-tools
+python -m unittest tests/test-dataset-examples.py
