@@ -64,13 +64,13 @@ parser = make_parser()
 def main():
     args = parser.parse_args()
     try:
-        schema_version = get_schema_version(Path(args.path), "ascii", args.globus_token)
+        schema_version = get_schema_version(Path(args.path), "ascii")
         schema_name = schema_version.schema_name
         errors_string = f"{schema_version.schema_name}-v{schema_version.version}"
     except PreflightError as e:
         errors = {"Preflight": str(e)}
     else:
-        errors = get_tsv_errors(args.path, schema_name=schema_name)
+        errors = get_tsv_errors(args.path, schema_name=schema_name, globus_token=args.globus_token)
         errors = {f"{errors_string} TSV errors": errors} if errors else {}
     report = ErrorReport(
         info={},  # Until we know it's needed, don't bother filling this in.

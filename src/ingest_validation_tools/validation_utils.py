@@ -37,7 +37,7 @@ def dict_reader_wrapper(path, encoding: str) -> list:
 def get_schema_version(
     path: Path,
     encoding: str,
-    globus_token: str,
+    ingest_url: str = "",
     directory_path: Optional[Path] = None,
     offline: bool = False,
 ) -> SchemaVersion:
@@ -59,7 +59,7 @@ def get_schema_version(
         raise PreflightError(f"No assay_type or dataset_type in {path}.")
     assay_type_data = get_assaytype_data(
         rows[0],
-        globus_token,
+        ingest_url,
         path,
         offline=offline,
     )
@@ -120,34 +120,22 @@ def get_other_schema_name(rows: List, path: str) -> Optional[str]:
         return None
 
 
-def get_ingest_api_env(env: str) -> str:
-    # TODO: this should be obtained in another way
-    if env in ["dev", "test", "stage"]:
-        return f"https://ingest-api.{env}.hubmapconsortium.org/assaytype"
-    elif env == "prod":
-        return "https://ingest.api.hubmapconsortium.org/assaytype"
-    elif env == "local":
-        return "http://localhost:5000/assaytype"
-    else:
-        raise Exception(f"Environment {env} not found!")
-
-
 def get_assaytype_data(
     row: Dict,
-    globus_token: str,
+    ingest_url: str,
     path: Path,
-    env: str = "dev",
     offline: bool = False,
 ) -> Dict:
-    if offline or not globus_token:
+    if offline:
         # TODO: separate testing path from live code
         return mock_response(path, row)
-    url = get_ingest_api_env(env)
-    headers = {
-        "Authorization": "Bearer " + globus_token,
-        "Content-Type": "application/json",
-    }
-    response = requests.post(url, headers=headers, data=json.dumps(row))
+    elif not ingest_url:
+        ingest_url = "https://ingest.api.hubmapconsortium.org/"
+    response = requests.post(
+        f"{ingest_url}/assaytype",
+        headers={"Content-Type": "application/json"},
+        data=json.dumps(row),
+    )
     response.raise_for_status()
     compare_mock_with_response(row, response.json(), path)
     return response.json()
@@ -257,6 +245,7 @@ def get_tsv_errors(
     ignore_deprecation: bool = False,
     report_type: ReportType = ReportType.STR,
     globus_token: str = "",
+    app_context: Dict = {},
 ) -> Dict[str, str]:
     """
     Validate the TSV.
@@ -320,6 +309,7 @@ def get_tsv_errors(
         globus_token=globus_token,
         offline=offline,
         ignore_deprecation=ignore_deprecation,
+        app_context=app_context,
     )
     errors = upload.validation_routine(report_type)
     return errors

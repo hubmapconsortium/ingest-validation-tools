@@ -381,6 +381,7 @@
 - Script to generate CSV for fields and enums.
 - Add version number to schemas.
 - Clarify guidelines for direction schemas.
+- Integrate SenNet app_context.
 
 ## v0.0.8 - 2021-02-10
 

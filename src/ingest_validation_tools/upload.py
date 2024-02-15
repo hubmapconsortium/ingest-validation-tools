@@ -56,6 +56,7 @@ class Upload:
         ignore_deprecation: bool = False,
         extra_parameters: Union[dict, None] = None,
         globus_token: str = "",
+        app_context: dict = {},
         run_plugins: bool = False,
     ):
         self.directory_path = directory_path
@@ -73,13 +74,16 @@ class Upload:
         self.globus_token = globus_token
         self.run_plugins = run_plugins
 
+        self.get_app_context(app_context)
+
         try:
             unsorted_effective_tsv_paths = {
                 str(path): get_schema_version(
                     path,
                     self.encoding,
-                    self.globus_token,
+                    self.app_context["ingest_url"],
                     self.directory_path,
+                    offline=self.offline,
                 )
                 for path in (tsv_paths if tsv_paths else directory_path.glob(f"*{TSV_SUFFIX}"))
             }
@@ -101,6 +105,21 @@ class Upload:
     # Public methods:
     #
     #####################
+
+    # TODO: this would be better in a config so it could be shared with
+    # validation_utils.get_assaytype_data / would not conflict with SenNet values
+    # For the moment, ingest_url is just hard-coded in get_assaytype_data
+    # to allow validate_tsv.py to run
+    def get_app_context(self, submitted_app_context: Dict):
+        default_app_context = {
+            "entities_url": "https://entity.api.hubmapconsortium.org/entities/",
+            "ingest_url": "https://ingest.api.hubmapconsortium.org/",
+            "request_header": {"X-Hubmap-Application": "ingest-pipeline"},
+        }
+        if {*default_app_context} - {*submitted_app_context}:
+            diff = {*default_app_context} - {*submitted_app_context}
+            submitted_app_context.update({key: default_app_context[key] for key in diff})
+        self.app_context = submitted_app_context
 
     def get_info(self) -> dict:
         git_version = subprocess.check_output(
@@ -492,15 +511,13 @@ class Upload:
         schema_name = schema_version.schema_name
 
         if "sample" in schema_name:
-            constrained_fields["sample_id"] = "https://entity.api.hubmapconsortium.org/entities/"
+            constrained_fields["sample_id"] = self.app_context.get("entities_url")
         elif "organ" in schema_name:
-            constrained_fields["organ_id"] = "https://entity.api.hubmapconsortium.org/entities/"
+            constrained_fields["organ_id"] = self.app_context.get("entities_url")
         elif "contributors" in schema_name:
             constrained_fields["orcid_id"] = "https://pub.orcid.org/v3.0/"
         else:
-            constrained_fields["parent_sample_id"] = (
-                "https://entity.api.hubmapconsortium.org/entities/"
-            )
+            constrained_fields["parent_sample_id"] = self.app_context.get("entities_url")
 
         url_errors = self._check_matching_urls(tsv_path, constrained_fields)
         if url_errors:
@@ -521,13 +538,9 @@ class Upload:
             for field, value in check.items():
                 try:
                     url = constrained_fields[field] + value
-                    response = requests.get(
-                        url,
-                        headers={
-                            "X-Hubmap-Application": "ingest-pipeline",
-                            "Authorization": f"Bearer {self.globus_token}",
-                        },
-                    )
+                    headers = self.app_context.get("request_header", {})
+                    headers["Authorization"] = f"Bearer {self.globus_token}"
+                    response = requests.get(url, headers=headers)
                     response.raise_for_status()
                 except Exception as e:
                     url_errors.append(f"Row {i+2}, field '{field}' with value '{value}': {e}")
@@ -626,8 +639,9 @@ class Upload:
             schema = get_schema_version(
                 other_path,
                 self.encoding,
-                self.globus_token,
+                self.app_context["ingest_url"],
                 self.directory_path,
+                offline=self.offline,
             )
         except Exception as e:
             errors[f"{metadata_path}, column '{path_type}_path', value '{other_path_value}'"] = [e]
