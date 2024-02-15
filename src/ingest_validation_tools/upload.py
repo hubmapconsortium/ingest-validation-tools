@@ -107,7 +107,7 @@ class Upload:
     #####################
 
     # TODO: this would be better in a config so it could be shared with
-    # validation_utils.get_assaytype_data
+    # validation_utils.get_assaytype_data / would not conflict with SenNet values
     # For the moment, ingest_url is just hard-coded in get_assaytype_data
     # to allow validate_tsv.py to run
     def get_app_context(self, submitted_app_context: Dict):

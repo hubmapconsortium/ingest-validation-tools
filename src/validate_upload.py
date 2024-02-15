@@ -119,7 +119,6 @@ Exit status codes:
         default="",
         help="Token for URL checking using Entity API.",
     )
-
     # How should output be formatted?
 
     error_report_methods = [
