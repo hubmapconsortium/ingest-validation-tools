@@ -7,7 +7,6 @@ usage: validate_upload.py [-h] --local_directory PATH
                           [--encoding ENCODING]
                           [--plugin_directory PLUGIN_DIRECTORY]
                           [--run_plugins] [--globus_token GLOBUS_TOKEN]
-                          [--app_context APP_CONTEXT]
                           [--output {as_md,as_text,as_text_list,as_yaml}]
                           [--add_notes] [--save_report]
 
@@ -41,9 +40,6 @@ optional arguments:
                         errors.
   --globus_token GLOBUS_TOKEN
                         Token for URL checking using Entity API.
-  --app_context APP_CONTEXT
-                        App context including any/all of 'entities_url',
-                        'ingest_url', 'request_header'
   --output {as_md,as_text,as_text_list,as_yaml}
   --add_notes           Append a context note to error reports.
   --save_report         Save the report; Adding "--upload_ignore_globs

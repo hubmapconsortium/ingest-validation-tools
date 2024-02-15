@@ -42,6 +42,12 @@ Exit status codes:
             "metadata",
         ],
     )
+    parser.add_argument(
+        "--globus_token",
+        default="",
+        required=False,
+        help="Token for URL checking using Entity API.",
+    )
     error_report_methods = [
         name for (name, _) in inspect.getmembers(ErrorReport) if name.startswith("as_")
     ]
@@ -64,7 +70,7 @@ def main():
     except PreflightError as e:
         errors = {"Preflight": str(e)}
     else:
-        errors = get_tsv_errors(args.path, schema_name=schema_name)
+        errors = get_tsv_errors(args.path, schema_name=schema_name, globus_token=args.globus_token)
         errors = {f"{errors_string} TSV errors": errors} if errors else {}
     report = ErrorReport(
         info={},  # Until we know it's needed, don't bother filling this in.

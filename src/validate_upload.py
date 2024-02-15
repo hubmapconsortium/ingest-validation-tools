@@ -120,10 +120,6 @@ Exit status codes:
         help="Token for URL checking using Entity API.",
     )
 
-    parser.add_argument(
-        "--app_context",
-        help="App context including any/all of 'entities_url', 'ingest_url', 'request_header'",
-    )
     # How should output be formatted?
 
     error_report_methods = [
@@ -169,7 +165,6 @@ def main():
         "encoding": args.encoding,
         "offline": args.offline,
         "globus_token": args.globus_token,
-        "app_context": args.app_context,
         "optional_fields": args.optional_fields,
         "ignore_deprecation": args.ignore_deprecation,
         "run_plugins": args.run_plugins,
@@ -188,8 +183,6 @@ def main():
         upload_args["run_plugins"] = args.run_plugins
     if args.globus_token:
         upload_args["globus_token"] = args.globus_token
-    if args.app_context:
-        upload_args["app_context"] = args.app_context
 
     upload = Upload(**upload_args)
     info = upload.get_info()
