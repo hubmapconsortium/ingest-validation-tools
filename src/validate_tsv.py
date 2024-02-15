@@ -42,11 +42,6 @@ Exit status codes:
             "metadata",
         ],
     )
-    parser.add_argument(
-        "--ingest_url",
-        default="",
-        help="URL for Ingest API",
-    )
     error_report_methods = [
         name for (name, _) in inspect.getmembers(ErrorReport) if name.startswith("as_")
     ]
@@ -63,7 +58,7 @@ parser = make_parser()
 def main():
     args = parser.parse_args()
     try:
-        schema_version = get_schema_version(Path(args.path), "ascii", args.ingest_url)
+        schema_version = get_schema_version(Path(args.path), "ascii")
         schema_name = schema_version.schema_name
         errors_string = f"{schema_version.schema_name}-v{schema_version.version}"
     except PreflightError as e:

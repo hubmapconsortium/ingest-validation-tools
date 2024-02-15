@@ -37,7 +37,7 @@ def dict_reader_wrapper(path, encoding: str) -> list:
 def get_schema_version(
     path: Path,
     encoding: str,
-    ingest_url: str,
+    ingest_url: str = "",
     directory_path: Optional[Path] = None,
     offline: bool = False,
 ) -> SchemaVersion:
@@ -130,9 +130,11 @@ def get_assaytype_data(
         # TODO: separate testing path from live code
         return mock_response(path, row)
     elif not ingest_url:
-        raise PreflightError("Cannot retrieve assaytype data: no ingest_url passed.")
+        ingest_url = "https://ingest.api.hubmapconsortium.org/"
     response = requests.post(
-        ingest_url, headers={"Content-Type": "application/json"}, data=json.dumps(row)
+        f"{ingest_url}/assaytype",
+        headers={"Content-Type": "application/json"},
+        data=json.dumps(row),
     )
     response.raise_for_status()
     compare_mock_with_response(row, response.json(), path)

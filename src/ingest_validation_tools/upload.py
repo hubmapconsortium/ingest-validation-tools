@@ -74,8 +74,10 @@ class Upload:
         self.globus_token = globus_token
         self.run_plugins = run_plugins
 
-        # TODO: still hardcoded strings, better way to set defaults?
-        # TODO: tests break with PROD Ingest API
+        # TODO: this would be better in a config so it could be shared with
+        # validation_utils.get_assaytype_data
+        # For the moment, ingest_url is just hard-coded in get_assaytype_data
+        # to allow validate_tsv.py to run
         if app_context is None:
             app_context = {
                 "entities_url": "https://entity.api.hubmapconsortium.org/entities/",
@@ -646,7 +648,7 @@ class Upload:
         try:
             schema = get_schema_version(
                 other_path,
-                "ascii",
+                self.encoding,
                 self.app_context["ingest_url"],
                 self.directory_path,
                 offline=self.offline,
