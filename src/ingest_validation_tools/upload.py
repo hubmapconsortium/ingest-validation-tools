@@ -56,7 +56,7 @@ class Upload:
         ignore_deprecation: bool = False,
         extra_parameters: Union[dict, None] = None,
         globus_token: str = "",
-        app_context: Union[dict, None] = None,
+        app_context: dict = {},
         run_plugins: bool = False,
     ):
         self.directory_path = directory_path
@@ -74,32 +74,7 @@ class Upload:
         self.globus_token = globus_token
         self.run_plugins = run_plugins
 
-        # TODO: this would be better in a config so it could be shared with
-        # validation_utils.get_assaytype_data
-        # For the moment, ingest_url is just hard-coded in get_assaytype_data
-        # to allow validate_tsv.py to run
-        if app_context is None:
-            app_context = {
-                "entities_url": "https://entity.api.hubmapconsortium.org/entities/",
-                "ingest_url": "https://ingest.api.hubmapconsortium.org/",
-                "request_header": {"X-Hubmap-Application": "ingest-pipeline"},
-            }
-        self.app_context = app_context
-
-        # TODO: interested in doing something like the following to address any missing keys
-        # def get_app_context(self, app_context):
-        #     # TODO: still hardcoded strings
-        #     default_app_context = {
-        #         "entities_url": "https://entity.api.hubmapconsortium.org/entities/",
-        #         "ingest_url": "https://ingest.api.hubmapconsortium.org/",
-        #         "request_header": {"X-Hubmap-Application": "ingest-pipeline"},
-        #     }
-        #     if app_context is None:
-        #         app_context = default_app_context
-        #     elif {*app_context} - {*default_app_context}:
-        #         diff = {*app_context} - {*default_app_context}
-        #         app_context.update({key: default_app_context[key] for key in diff})
-        #     self.app_context = app_context
+        self.get_app_context(app_context)
 
         try:
             unsorted_effective_tsv_paths = {
@@ -130,6 +105,21 @@ class Upload:
     # Public methods:
     #
     #####################
+
+    # TODO: this would be better in a config so it could be shared with
+    # validation_utils.get_assaytype_data
+    # For the moment, ingest_url is just hard-coded in get_assaytype_data
+    # to allow validate_tsv.py to run
+    def get_app_context(self, submitted_app_context: Dict):
+        default_app_context = {
+            "entities_url": "https://entity.api.hubmapconsortium.org/entities/",
+            "ingest_url": "https://ingest.api.hubmapconsortium.org/",
+            "request_header": {"X-Hubmap-Application": "ingest-pipeline"},
+        }
+        if {*default_app_context} - {*submitted_app_context}:
+            diff = {*default_app_context} - {*submitted_app_context}
+            submitted_app_context.update({key: default_app_context[key] for key in diff})
+        self.app_context = submitted_app_context
 
     def get_info(self) -> dict:
         git_version = subprocess.check_output(
