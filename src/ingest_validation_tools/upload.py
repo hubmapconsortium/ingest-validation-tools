@@ -284,8 +284,6 @@ class Upload:
         report_type: ReportType = ReportType.STR,
     ) -> Dict[str, Any]:
         errors: Dict[str, Any] = {}
-        local_validated = {}
-        api_validated = {}
         if not schema_version.is_cedar:
             logging.info(
                 f"""TSV {tsv_path} does not contain a metadata_schema_id,
@@ -305,7 +303,9 @@ class Upload:
 
             local_errors = get_table_errors(tsv_path, schema, report_type)
             if local_errors:
-                local_validated[f"{tsv_path} (as {schema_version.table_schema})"] = local_errors
+                errors["Local Validation Errors"][
+                    f"{tsv_path} (as {schema_version.table_schema})"
+                ] = local_errors
         else:
             """
             Passing offline=True will skip all API/URL validation;
@@ -317,15 +317,20 @@ class Upload:
                 logging.info(f"{tsv_path}: Offline validation selected, cannot reach API.")
                 return errors
             else:
-                url_errors = self._cedar_url_checks(tsv_path, schema_version)
-                api_errors = self._api_validation(Path(tsv_path), report_type)
-                if url_errors or api_errors:
-                    api_validated[f"{tsv_path}"] = url_errors | api_errors
-        if local_validated:
-            errors["Local Validation Errors"] = local_validated
-        if api_validated:
-            errors["CEDAR Validation Errors"] = api_validated
+                api_validated = self.online_checks(
+                    tsv_path, schema_version.schema_name, report_type
+                )
+                if api_validated:
+                    errors["CEDAR Validation Errors"] = api_validated
         return errors
+
+    def online_checks(
+        self, tsv_path: str, schema_name: str, report_type: ReportType
+    ) -> Optional[Dict]:
+        url_errors = self._url_checks(tsv_path, schema_name)
+        api_errors = self._api_validation(Path(tsv_path), report_type)
+        if url_errors or api_errors:
+            return {tsv_path: [url_errors | api_errors]}
 
     def _get_reference_errors(self) -> dict:
         errors: Dict[str, Any] = {}
@@ -494,7 +499,7 @@ class Upload:
             raise Exception(f"CEDAR API request for {tsv_path} failed! Exception: {e}")
         return response
 
-    def _cedar_url_checks(self, tsv_path: str, schema_version: SchemaVersion):
+    def _url_checks(self, tsv_path: str, schema_name: str):
         """
         Check provided UUIDs/HuBMAP IDs for parent_id, sample_id, organ_id.
         Not using get_table_errors because CEDAR schema fields do not match
@@ -508,7 +513,6 @@ class Upload:
         # contributors -> orcid_id
 
         constrained_fields = {}
-        schema_name = schema_version.schema_name
 
         if "sample" in schema_name:
             constrained_fields["sample_id"] = self.app_context.get("entities_url")
@@ -525,7 +529,7 @@ class Upload:
         return errors
 
     def _check_matching_urls(self, tsv_path: str, constrained_fields: dict):
-        rows = read_rows(Path(tsv_path), "ascii")
+        rows = read_rows(Path(tsv_path), self.encoding)
         fields = rows[0].keys()
         missing_fields = [k for k in constrained_fields.keys() if k not in fields].sort()
         if missing_fields:
@@ -538,8 +542,11 @@ class Upload:
             for field, value in check.items():
                 try:
                     url = constrained_fields[field] + value
-                    headers = self.app_context.get("request_header", {})
-                    headers["Authorization"] = f"Bearer {self.globus_token}"
+                    if field != "orcid_id":
+                        headers = self.app_context.get("request_header", {})
+                        headers["Authorization"] = f"Bearer {self.globus_token}"
+                    else:
+                        headers = {}
                     response = requests.get(url, headers=headers)
                     response.raise_for_status()
                 except Exception as e:

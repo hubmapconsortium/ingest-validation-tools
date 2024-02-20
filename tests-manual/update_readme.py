@@ -6,11 +6,16 @@ from typing import Dict, List
 
 from ingest_validation_tools.cli_utils import dir_path
 from ingest_validation_tools.error_report import ErrorReport
+from ingest_validation_tools.table_validator import ReportType
 from ingest_validation_tools.upload import Upload
-from ingest_validation_tools.validation_utils import get_schema_version, get_tsv_errors
+from ingest_validation_tools.validation_utils import (
+    get_schema_version,
+    get_tsv_errors,
+    read_rows,
+)
 
 
-def update_readme(
+def update_test_data(
     dir: str,
     globus_token: str,
     exclude: List = [],
@@ -43,23 +48,58 @@ def update_readme(
         else:
             print(f"{Path(f'{dir}/README.md')} excluded, not changed.")
 
-        if "MOCK_RESPONSE" not in exclude:
-            with open(f"{dir}/MOCK_RESPONSE.json", "w") as f:
-                new_data = {}
-                for _, schema in upload.effective_tsv_paths.items():
-                    new_data[schema.dataset_type] = schema.soft_assay_data
+        if "fixtures" not in exclude:
+            new_data = {}
+            with open(f"{dir}/fixtures.json", "w") as f:
+                new_assaytype_data = {}
+                new_validation_data = {}
+                for path, schema in upload.effective_tsv_paths.items():
+                    new_assaytype_data[schema.dataset_type] = schema.soft_assay_data
+                    for path, schema in upload.effective_tsv_paths.items():
+                        if schema.is_cedar:
+                            new_validation_data[schema.dataset_type] = upload.online_checks(
+                                path, schema.schema_name, ReportType.JSON
+                            )
+                other_files = [
+                    file
+                    for file in glob.glob(f"{dir}/upload/**")
+                    if any(
+                        substring in Path(file).name
+                        for substring in ["contributors", "antibodies"]
+                    )
+                ]
+                for file in other_files:
+                    other_type = (
+                        "contributors"
+                        if "contributors" in file
+                        else "antibodies" if "antibodies" in file else None
+                    )
+                    if other_type is None:
+                        continue
+                    is_cedar = bool(read_rows(Path(file), "ascii")[0].get("metadata_schema_id"))
+                    if is_cedar:
+                        new_validation_data[Path(file).stem] = upload.online_checks(
+                            file, other_type, ReportType.JSON
+                        )
+                new_data["assaytype"] = new_assaytype_data
+                new_data["validation"] = new_validation_data
                 if dry_run:
                     print(
                         f"""
-                        Would have written the following to {Path(f'{dir}/MOCK_RESPONSE.json')}:
+                        Would have written the following to {Path(f'{dir}/fixtures.json')}:
                         {new_data}
                         """
                     )
                 else:
-                    print(f"Writing to {Path(f'{dir}/MOCK_RESPONSE.json')}...")
+                    print(f"Writing to {Path(f'{dir}/fixtures.json')}...")
                     json.dump(new_data, f)
         else:
-            print(f"{Path(f'{dir}/MOCK_RESPONSE.md')} excluded, not changed.")
+            print(f"{Path(f'{dir}/fixtures.md')} excluded, not changed.")
+        # check_updated(dir)
+
+
+# def check_updated(dir: str):
+#
 
 
 def update_tsv_readme(
@@ -97,20 +137,20 @@ def update_tsv_readme(
     else:
         print(f"{Path(f'{dir}/README.md')} excluded, not changed.")
 
-    if "MOCK_RESPONSE" not in exclude:
+    if "fixtures" not in exclude:
         if dry_run:
             print(
                 f"""
-                Would have written the following to {Path(f'{dir}/MOCK_RESPONSE.json')}:
+                Would have written the following to {Path(f'{dir}/fixtures.json')}:
                 {schema_version.soft_assay_data}
                 """
             )
         else:
-            with open(f"{dir}/MOCK_RESPONSE.json", "w") as f:
-                print(f"Writing to {Path(f'{dir}/MOCK_RESPONSE.json')}...")
+            with open(f"{dir}/fixtures.json", "w") as f:
+                print(f"Writing to {Path(f'{dir}/fixtures.json')}...")
                 json.dump(schema_version.soft_assay_data, f)
     else:
-        print(f"{Path(f'{dir}/MOCK_RESPONSE.md')} excluded, not changed.")
+        print(f"{Path(f'{dir}/fixtures.md')} excluded, not changed.")
 
 
 class StoreDictKeyPair(argparse.Action):
@@ -127,13 +167,13 @@ class StoreDictKeyPair(argparse.Action):
 
 
 parser = argparse.ArgumentParser(
-    description="Update README.md and MOCK_RESPONSE.json files for a given example directory by passing the directory name (the parent of the upload directory) and a Globus token."
+    description="Update README.md and fixtures.json files for a given example directory by passing the directory name (the parent of the upload directory) and a Globus token."
 )
 parser.add_argument(
     "-t",
     "--target_dirs",
     help="""
-    The directory or directories containing the target README.md and MOCK_RESPONSE.json files to update. Can pass multiple directories, e.g. '-t examples/dataset-examples/a examples/dataset-examples/b'.
+    The directory or directories containing the target README.md and fixtures.json files to update. Can pass multiple directories, e.g. '-t examples/dataset-examples/a examples/dataset-examples/b'.
     Can also specify the following example directories to update all examples in each: 'examples/dataset-examples', 'examples/dataset-iec-examples', 'examples/tsv-examples'. Pass all with:
     -t examples/dataset-examples examples/dataset-iec-examples examples/tsv-examples'
     """,
@@ -166,9 +206,9 @@ parser.add_argument(
 parser.add_argument(
     "-e",
     "--exclude",
-    choices=["README", "MOCK_RESPONSE"],
+    choices=["README", "fixtures"],
     default=[],
-    help="Specify if you want to skip writing either README or MOCK_RESPONSE. Can only accept one argument; use --dry_run if you want to preview output.",
+    help="Specify if you want to skip writing either README or fixtures. Can only accept one argument; use --dry_run if you want to preview output.",
 )
 args = parser.parse_args()
 parent_dirs = [
@@ -179,7 +219,7 @@ for dir in args.target_dirs:
     if Path(dir).absolute() in parent_dirs:
         dirs = [example_dir for example_dir in glob.glob(f"{dir}/**")]
         for dir in dirs:
-            update_readme(
+            update_test_data(
                 dir, args.globus_token, opts=args.opts, dry_run=args.dry_run, exclude=args.exclude
             )
 
@@ -199,6 +239,6 @@ for dir in args.target_dirs:
                     opts=args.opts,
                     dry_run=args.dry_run,
                 )
-    update_readme(
+    update_test_data(
         dir, args.globus_token, opts=args.opts, dry_run=args.dry_run, exclude=args.exclude
     )
