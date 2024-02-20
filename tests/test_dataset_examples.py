@@ -122,7 +122,7 @@ def test_for_diff(test_dir: str, readme: TextIOWrapper, report: str, verbose: bo
                     env PYTHONPATH=src:$PYTHONPATH python -m tests-manual.update_test_data -t {test_dir} -g <globus_token>
 
                 For help / other options:
-                    env PYTHONPATH=src:$PYTHONPATH python -m tests-manual.update_readme --help
+                    env PYTHONPATH=src:$PYTHONPATH python -m tests-manual.update_test_data --help
                 """
     assert not new and not removed, msg
     print(f"PASSED: {test_dir}")
