@@ -13,6 +13,7 @@ from ingest_validation_tools.validation_utils import (
     get_tsv_errors,
     read_rows,
 )
+from tests_manual.test_dataset_examples import single_dataset_test
 
 
 def update_test_data(
@@ -95,11 +96,7 @@ def update_test_data(
                     json.dump(new_data, f)
         else:
             print(f"{Path(f'{dir}/fixtures.md')} excluded, not changed.")
-        # check_updated(dir)
-
-
-# def check_updated(dir: str):
-#
+        single_dataset_test(dir)
 
 
 def update_tsv_readme(
