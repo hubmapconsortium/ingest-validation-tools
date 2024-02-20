@@ -1,1 +1,0 @@
-{"MALDI-IMS": {"assaytype": "MALDI-IMS", "contains-pii": false, "dataset-type": "MALDI", "description": "MALDI IMS", "dir-schema": "ims-v0", "primary": true, "tbl-schema": "ims-v0", "vitessce-hints": ["maldi"]}}
