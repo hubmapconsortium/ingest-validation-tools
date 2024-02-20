@@ -26,13 +26,13 @@ for SUITE in examples/dataset-examples examples/dataset-iec-examples; do
             ((INDEX=INDEX+1))
             continue
         fi
-        README="${EXAMPLE}/README_ONLINE.md"
+        README="${EXAMPLE}/README.md"
         echo "Testing ${INDEX}: ${EXAMPLE} ..."
         ((INDEX=INDEX+1))
         CMD="src/validate_upload.py --local_directory ${EXAMPLE}/upload ${OPTS} | perl -pne 's/(Time|Git version): .*/\1: WILL_CHANGE/'"
         echo "$CMD"
         if [ ! -e "${README}" ]; then
-            echo "Example ${EXAMPLE} does not have a README_ONLINE.md file."
+            echo "Example ${EXAMPLE} does not have a README.md file."
             die "Update example: ${CMD} > ${README}"
         fi
         diff "${README}" <( eval "${CMD}" ) \

@@ -284,6 +284,8 @@ class Upload:
         report_type: ReportType = ReportType.STR,
     ) -> Dict[str, Any]:
         errors: Dict[str, Any] = {}
+        local_validated = {}
+        api_validated = {}
         if not schema_version.is_cedar:
             logging.info(
                 f"""TSV {tsv_path} does not contain a metadata_schema_id,
@@ -303,9 +305,7 @@ class Upload:
 
             local_errors = get_table_errors(tsv_path, schema, report_type)
             if local_errors:
-                errors["Local Validation Errors"][
-                    f"{tsv_path} (as {schema_version.table_schema})"
-                ] = local_errors
+                local_validated[f"{tsv_path} (as {schema_version.table_schema})"] = local_errors
         else:
             """
             Passing offline=True will skip all API/URL validation;
@@ -317,11 +317,13 @@ class Upload:
                 logging.info(f"{tsv_path}: Offline validation selected, cannot reach API.")
                 return errors
             else:
-                api_validated = self.online_checks(
-                    tsv_path, schema_version.schema_name, report_type
-                )
-                if api_validated:
-                    errors["CEDAR Validation Errors"] = api_validated
+                api_errors = self.online_checks(tsv_path, schema_version.schema_name, report_type)
+                if api_errors:
+                    api_validated[f"{tsv_path}"] = api_errors
+        if local_validated:
+            errors["Local Validation Errors"] = local_validated
+        if api_validated:
+            errors["CEDAR Validation Errors"] = api_validated
         return errors
 
     def online_checks(

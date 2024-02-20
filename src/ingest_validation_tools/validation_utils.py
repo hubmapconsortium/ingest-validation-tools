@@ -17,10 +17,6 @@ from ingest_validation_tools.schema_loader import (
     get_directory_schema,
 )
 from ingest_validation_tools.table_validator import ReportType
-from ingest_validation_tools.test_validation_utils import (
-    compare_mock_with_response,
-    mock_response,
-)
 
 
 class TSVError(Exception):
@@ -127,8 +123,7 @@ def get_assaytype_data(
     offline: bool = False,
 ) -> Dict:
     if offline:
-        # TODO: separate testing path from live code
-        return mock_response(path, row)
+        return {}
     elif not ingest_url:
         ingest_url = "https://ingest.api.hubmapconsortium.org/"
     response = requests.post(
@@ -137,7 +132,6 @@ def get_assaytype_data(
         data=json.dumps(row),
     )
     response.raise_for_status()
-    compare_mock_with_response(row, response.json(), path)
     return response.json()
 
 
