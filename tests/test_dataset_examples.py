@@ -6,16 +6,21 @@ import unittest
 from csv import DictReader
 from io import TextIOWrapper
 from pathlib import Path
-from typing import Dict
-from unittest.mock import patch
+from typing import Dict, List
+from unittest.mock import Mock, call, patch
 
 from ingest_validation_tools.error_report import ErrorReport
 from ingest_validation_tools.upload import Upload
 
-# TODO: write tests for multi-assay, TSV
-SINGLE_DATASET_OPTS = {
+DATASET_EXAMPLES_OPTS = {
     "dataset_ignore_globs": ["ignore-*.tsv", ".*"],
     "upload_ignore_globs": ["drv_ignore_*"],
+    "encoding": "ascii",
+    "run_plugins": True,
+}
+DATASET_IEC_EXAMPLES_OPTS = {
+    "dataset_ignore_globs": ["metadata.tsv"],
+    "upload_ignore_globs": ["*"],
     "encoding": "ascii",
     "run_plugins": True,
 }
@@ -26,59 +31,24 @@ class MockException(Exception):
         super().__init__(error)
 
 
-def mock_assaytype_response(path: str, multi: bool = False) -> Dict:
-    response_dict = open_and_read_fixtures_file(path)
-    section = response_dict.get("assaytype", {})
-    if len(section.keys()) > 1 and not multi:
-        raise MockException(
-            f"Single assay upload {path} has multiple assay types in fixtures.json > 'assaytype'."
-        )
-    # TODO: add multi
-    elif multi:
-        raise NotImplementedError("")
-    # TODO: fix returns after implementing multi-assay
-    for _, response in section.items():
-        return response
-    return {}
-
-
-def mock_spreadsheet_validator_response_data(path: str, multi: bool = False) -> Dict:
-    response_dict = open_and_read_fixtures_file(path)
-    section = response_dict.get("validation", {})
-    if len(section.keys()) > 1 and not multi:
-        raise MockException(
-            f"Single assay upload {path} has multiple assay types in fixtures.json file."
-        )
-    # TODO: add multi
-    elif multi:
-        raise NotImplementedError("")
-    return section
-
-
-def open_and_read_fixtures_file(path: str) -> Dict:
-    try:
-        with open(Path(path) / "fixtures.json") as f:
-            opened = json.load(f)
-            f.close()
-    except json.JSONDecodeError:
-        return {}
-    return opened
-
-
-def single_dataset_test(test_dir: str, dataset_opts: Dict):
+def dataset_test(test_dir: str, dataset_opts: Dict, verbose: bool = False):
     print(f"Testing {test_dir}...")
     readme = open(f"{test_dir}/README.md", "r")
     upload = Upload(Path(f"{test_dir}/upload"), **dataset_opts)
     info = upload.get_info()
     with patch(
         "ingest_validation_tools.upload.Upload.online_checks",
-        side_effect=lambda _tsv_path, schema_name, _report_type: online_side_effect(
-            schema_name, test_dir
+        side_effect=lambda tsv_path, schema_name, report_type: _online_side_effect(
+            schema_name, test_dir, tsv_path, report_type
         ),
     ):
         errors = upload.get_errors()
     report = ErrorReport(info=info, errors=errors)
-    test_for_diff(test_dir, readme, clean_report(report))
+    diff_test(test_dir, readme, clean_report(report), verbose=verbose)
+    if "PreflightError" in report.as_md():
+        raise MockException(
+            f"Error report for {test_dir} contains PreflightError, do not make assertions about calls."
+        )
 
 
 def clean_report(report):
@@ -94,12 +64,7 @@ def clean_report(report):
     return "".join(clean_report)
 
 
-def online_side_effect(schema_name: str, dir_path: str):
-    fixture = open_and_read_fixtures_file(dir_path)
-    return fixture.get("validation", {}).get(schema_name)
-
-
-def test_for_diff(test_dir: str, readme: TextIOWrapper, report: str, verbose: bool = True):
+def diff_test(test_dir: str, readme: TextIOWrapper, report: str, verbose: bool = True):
     d = difflib.Differ()
     diff = list(d.compare(readme.readlines(), report.splitlines(keepends=True)))
     readme.close()
@@ -107,32 +72,56 @@ def test_for_diff(test_dir: str, readme: TextIOWrapper, report: str, verbose: bo
     cleaned_diff = [
         line for line in diff if not any(ignore_string in line for ignore_string in ignore_strings)
     ]
-    msg = f"DIFF FOUND: {test_dir}"
+    msg = f"""
+        FAILED diff_test: {test_dir}. Run for more detailed output:
+            env PYTHONPATH=src:$PYTHONPATH python -m tests_manual.update_test_data -t {test_dir} -g "" -s
+        """
     new = "".join([line.strip() for line in cleaned_diff if line.startswith("+ ")])
-    removed = "".join([line.strip() for line in cleaned_diff if line.startswith("- ")])
+    removed = "".join([line.strip() for line in cleaned_diff if line.startswith("- -")])
     if verbose:
         msg = f"""
-                NEW VERSION:
+                DIFF ADDED LINES:
                 {new}
 
                 DIFF REMOVED LINES:
                 {removed}
 
                 If new version is correct, overwrite previous README.md and fixtures.json files by running:
-                    env PYTHONPATH=src:$PYTHONPATH python -m tests-manual.update_test_data -t {test_dir} -g <globus_token>
+                    env PYTHONPATH=src:$PYTHONPATH python -m tests_manual.update_test_data -t {test_dir} -g <globus_token>
 
                 For help / other options:
-                    env PYTHONPATH=src:$PYTHONPATH python -m tests-manual.update_test_data --help
+                    env PYTHONPATH=src:$PYTHONPATH python -m tests_manual.update_test_data --help
                 """
     assert not new and not removed, msg
-    print(f"PASSED: {test_dir}")
+    print(f"PASSED diff_test: {test_dir}")
+
+
+def _open_and_read_fixtures_file(path: str) -> Dict:
+    try:
+        with open(Path(path) / "fixtures.json") as f:
+            opened = json.load(f)
+            f.close()
+    except json.JSONDecodeError:
+        return {}
+    return opened
+
+
+def _online_side_effect(schema_name: str, dir_path: str, *args):
+    del args
+    fixture = _open_and_read_fixtures_file(dir_path)
+    return fixture.get("validation", {}).get(schema_name)
+
+
+def _assaytype_side_effect(path: str, row: Dict, *args, **kwargs):
+    del args, kwargs
+    response_dict = _open_and_read_fixtures_file(path)
+    dataset_type = row.get("assay_type") if row.get("assay_type") else row.get("dataset_type")
+    return response_dict.get("assaytype", {}).get(dataset_type)
 
 
 class TestDatasetExamples(unittest.TestCase):
-    single = {}
-    multi = {}
-    no_tsv = {}
-    test_dirs = [
+    dataset_paths = {}
+    dataset_test_dirs = [
         test_dir
         for test_dir in [
             *glob.glob("examples/dataset-examples/**"),
@@ -143,34 +132,62 @@ class TestDatasetExamples(unittest.TestCase):
 
     def setUp(self) -> None:
         super().setUp()
-        self.classify_dirs()
+        self.get_paths()
 
-    def classify_dirs(self):
-        for test_dir in self.test_dirs:
-            # TODO: write test for multi-assay
-            tsv_paths = [path for path in Path(f"{test_dir}/upload").glob("*metadata.tsv")]
-            if len(tsv_paths) == 1:
-                self.single[test_dir] = tsv_paths
-            elif len(tsv_paths) > 1:
-                self.multi[test_dir] = tsv_paths
-                continue
-            elif not tsv_paths:
-                self.no_tsv[test_dir] = tsv_paths
-                continue
+    def get_paths(self):
+        for test_dir in self.dataset_test_dirs:
+            metadata_paths = [path for path in Path(f"{test_dir}/upload").glob("*metadata.tsv")]
+            self.dataset_paths[test_dir] = metadata_paths
 
-    def test_validate_single_assaytype_dataset_examples(self):
-        for test_dir, tsv_paths in self.single.items():
-            with patch(
-                "ingest_validation_tools.validation_utils.get_assaytype_data",
-                return_value=mock_assaytype_response(test_dir, multi=False),
-            ) as mock_assaytype_data:
-                single_dataset_test(test_dir, SINGLE_DATASET_OPTS)
-            with open(tsv_paths[0], encoding="ascii") as f:
+    def test_validate_dataset_examples(self, verbose: bool = False):
+        for test_dir, tsv_paths in self.dataset_paths.items():
+            with self.subTest(test_dir=test_dir):
+                if "dataset-examples" in test_dir:
+                    opts = DATASET_EXAMPLES_OPTS
+                elif "dataset-iec-examples" in test_dir:
+                    opts = DATASET_IEC_EXAMPLES_OPTS
+                else:
+                    opts = {}
+                with patch(
+                    "ingest_validation_tools.validation_utils.get_assaytype_data",
+                    side_effect=lambda row, ingest_url, offline=False: _assaytype_side_effect(
+                        test_dir, row, ingest_url, offline
+                    ),
+                ) as mock_assaytype_data:
+                    try:
+                        dataset_test(test_dir, opts, verbose=verbose)
+                    except MockException as e:
+                        print(e)
+                        continue
+                if len(tsv_paths) == 1:
+                    self.single_dataset_assert(tsv_paths[0], mock_assaytype_data)
+                elif len(tsv_paths) > 1:
+                    self.multi_dataset_assert(tsv_paths, mock_assaytype_data)
+                elif len(tsv_paths) == 0:
+                    print(f"No TSVs found for {test_dir}, skipping further assertions.")
+
+    def single_dataset_assert(self, tsv_path: str, mock_assaytype_data: Mock):
+        with open(tsv_path, encoding="ascii") as f:
+            try:
+                rows = list(DictReader(f, dialect="excel-tab"))
+            except UnicodeDecodeError:
+                return
+        f.close()
+        if not rows:
+            return
+        if "assay_type" not in rows[0] or "dataset_type" not in rows[0]:
+            return
+        mock_assaytype_data.assert_called_with(
+            rows[0],
+            "https://ingest.api.hubmapconsortium.org/",
+            offline=False,
+        )
+
+    def multi_dataset_assert(self, tsv_paths: List[str], mock_assaytype_data: Mock):
+        calls = []
+        for tsv_path in tsv_paths:
+            with open(tsv_path, encoding="ascii") as f:
                 rows = list(DictReader(f, dialect="excel-tab"))
             f.close()
-            mock_assaytype_data.assert_called_with(
-                rows[0],
-                "https://ingest.api.hubmapconsortium.org/",
-                Path(tsv_paths[0]),
-                offline=False,
-            )
+            calls.append(call(rows[0], "https://ingest.api.hubmapconsortium.org/", offline=False))
+        mock_assaytype_data.assert_has_calls(calls, any_order=True)

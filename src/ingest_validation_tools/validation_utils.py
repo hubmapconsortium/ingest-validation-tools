@@ -56,11 +56,12 @@ def get_schema_version(
     assay_type_data = get_assaytype_data(
         rows[0],
         ingest_url,
-        path,
         offline=offline,
     )
     if not assay_type_data:
         message = f"Assay data not retrieved from assayclassifier endpoint for TSV {path}."
+        if offline:
+            message += " Running in offline mode."
         if "assay_type" in rows[0]:
             message += f' Assay type: {rows[0].get("assay_type")}.'
         elif "dataset_type" in rows[0]:
@@ -119,7 +120,6 @@ def get_other_schema_name(rows: List, path: str) -> Optional[str]:
 def get_assaytype_data(
     row: Dict,
     ingest_url: str,
-    path: Path,
     offline: bool = False,
 ) -> Dict:
     if offline:

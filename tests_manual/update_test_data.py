@@ -9,17 +9,14 @@ from ingest_validation_tools.cli_utils import dir_path
 from ingest_validation_tools.error_report import ErrorReport
 from ingest_validation_tools.table_validator import ReportType
 from ingest_validation_tools.upload import Upload
-from ingest_validation_tools.validation_utils import (
-    TSVError,
-    get_schema_version,
-    get_tsv_errors,
-    read_rows,
-)
+from ingest_validation_tools.validation_utils import TSVError, read_rows
 from tests.test_dataset_examples import (
-    SINGLE_DATASET_OPTS,
+    DATASET_EXAMPLES_OPTS,
+    DATASET_IEC_EXAMPLES_OPTS,
+    TestDatasetExamples,
     clean_report,
-    single_dataset_test,
-    test_for_diff,
+    dataset_test,
+    diff_test,
 )
 
 
@@ -38,159 +35,108 @@ def update_test_data(
             "encoding": "ascii",
             "run_plugins": True,
         }
-        upload = Upload(Path(f"{dir}/upload"), globus_token=globus_token, **opts)
-        info = upload.get_info()
-        errors = upload.get_errors()
-        report = ErrorReport(info=info, errors=errors)
-        if "fixtures" not in exclude:
-            new_data = {}
-            new_assaytype_data = {}
-            new_validation_data = {}
+    upload = Upload(Path(f"{dir}/upload"), globus_token=globus_token, **opts)
+    info = upload.get_info()
+    errors = upload.get_errors()
+    report = ErrorReport(info=info, errors=errors)
+    if "fixtures" not in exclude:
+        new_data = {}
+        new_assaytype_data = {}
+        new_validation_data = {}
+        for path, schema in upload.effective_tsv_paths.items():
+            new_assaytype_data[schema.dataset_type] = schema.soft_assay_data
             for path, schema in upload.effective_tsv_paths.items():
-                new_assaytype_data[schema.dataset_type] = schema.soft_assay_data
-                for path, schema in upload.effective_tsv_paths.items():
-                    if schema.is_cedar:
-                        new_validation_data[schema.dataset_type] = upload.online_checks(
-                            path, schema.schema_name, ReportType.JSON
-                        )
-            other_files = [
-                file
-                for file in glob.glob(f"{dir}/upload/**")
-                if any(
-                    substring in Path(file).name for substring in ["contributors", "antibodies"]
-                )
-            ]
-            for file in other_files:
-                other_type = (
-                    "contributors"
-                    if "contributors" in file
-                    else "antibodies" if "antibodies" in file else None
-                )
-                if other_type is None:
-                    continue
-                try:
-                    is_cedar = bool(read_rows(Path(file), "ascii")[0].get("metadata_schema_id"))
-                except TSVError:
-                    continue
-                if is_cedar:
-                    new_validation_data[Path(file).stem] = upload.online_checks(
-                        file, other_type, ReportType.STR
+                if schema.is_cedar:
+                    new_validation_data[schema.dataset_type] = upload.online_checks(
+                        path, schema.schema_name, ReportType.JSON
                     )
-            new_data["assaytype"] = new_assaytype_data
-            new_data["validation"] = new_validation_data
-            with open(f"{dir}/fixtures.json", "r") as f:
-                try:
-                    fixtures = json.load(f)
-                except JSONDecodeError:
-                    fixtures = {}
-                if fixtures == new_data:
-                    print(f"No diff found, skipping {dir}/fixtures.json...")
-                elif dry_run:
+        other_files = [
+            file
+            for file in glob.glob(f"{dir}/upload/**")
+            if any(substring in Path(file).name for substring in ["contributors", "antibodies"])
+        ]
+        for file in other_files:
+            other_type = (
+                "contributors"
+                if "contributors" in file
+                else "antibodies" if "antibodies" in file else None
+            )
+            if other_type is None:
+                continue
+            try:
+                is_cedar = bool(read_rows(Path(file), "ascii")[0].get("metadata_schema_id"))
+            except TSVError:
+                continue
+            if is_cedar:
+                new_validation_data[Path(file).stem] = upload.online_checks(
+                    file, other_type, ReportType.STR
+                )
+        new_data["assaytype"] = new_assaytype_data
+        new_data["validation"] = new_validation_data
+        if not Path(f"{dir}/fixtures.json").exists():
+            open(f"{dir}/fixtures.json", "w")
+        with open(f"{dir}/fixtures.json", "r") as f:
+            try:
+                fixtures = json.load(f)
+            except JSONDecodeError:
+                fixtures = {}
+            if fixtures == new_data:
+                print(f"No diff found, skipping {dir}/fixtures.json...")
+            elif dry_run:
+                if verbose:
+                    print(
+                        f"""
+                        Would have written the following to {dir}/fixtures.json:
+                        {new_data}
+                        """
+                    )
+                else:
+                    print(f"Would have updated {dir}/fixtures.json.")
+            else:
+                print(f"Writing to {dir}/fixtures.json...")
+                with open(f"{dir}/fixtures.json", "w") as f:
+                    json.dump(new_data, f)
+    else:
+        print(f"{dir}/fixtures.json excluded, not changed.")
+    if "README" not in exclude:
+        with open(f"{dir}/README.md", "r") as f:
+            try:
+                diff_test(dir, f, report.as_md(), verbose=verbose)
+                print(f"No diff found, skipping {dir}/README.md")
+            except AssertionError:
+                print(f"FAILED diff_test: {dir}/README.md...")
+                if dry_run:
                     if verbose:
                         print(
                             f"""
-                            Would have written the following to {dir}/fixtures.json:
-                            {new_data}
+                            Would have written the following report to {dir}/README.md:
+                            {clean_report(report)}
                             """
                         )
                     else:
-                        print(f"Would have updated {dir}/fixtures.json.")
-                else:
-                    print(f"Writing to {dir}/fixtures.json...")
-                    with open(f"{dir}/fixtures.json", "w") as f:
-                        json.dump(new_data, f)
-        else:
-            print(f"{dir}/fixtures.json excluded, not changed.")
-        if "README" not in exclude:
-            with open(f"{dir}/README.md", "r") as f:
-                try:
-                    test_for_diff(dir, f, report.as_md(), verbose=verbose)
-                    print(f"No diff found, skipping {dir}/README.md")
-                except AssertionError:
-                    print(f"FAILED: {dir}/README.md...")
-                    if dry_run:
-                        if verbose:
-                            print(
-                                f"""
-                                Would have written the following report to {dir}/README.md:
-                                {clean_report(report)}
-                                """
-                            )
-                        else:
-                            print(f"Would have updated {dir}/README.md.")
-                    if not dry_run:
-                        if verbose:
-                            print(
-                                f"""
-                                Writing the following report to {dir}/README.md:
-                                {clean_report(report)}
-                                """
-                            )
-                        else:
-                            print(f"Updating {dir}/README.md.")
-                        with open(f"{dir}/README.md", "w") as f:
-                            f.write(clean_report(report))
-                        single_dataset_test(dir, SINGLE_DATASET_OPTS)
-        else:
-            print(f"{dir}/README.md excluded, not changed.")
-
-
-def update_tsv_readme(
-    dir: str,
-    schema: str,
-    globus_token: str,
-    exclude: List = [],
-    opts: Dict = {},
-    dry_run: bool = False,
-    verbose: bool = False,
-):
-    tsv_path = Path(f"{dir}/upload/{schema}.tsv")
-    if not tsv_path.exists():
-        print(f"No TSVs found in {tsv_path}, is this an intentionally failing example?")
-        return
-    if not opts.get("ingest_url"):
-        opts["ingest_url"] = "https://ingest.api.hubmapconsortium.org/"
-    schema_version = get_schema_version(tsv_path, "utf-8", opts.get("ingest_url", ""))
-    schema_name = schema_version.schema_name
-    errors = get_tsv_errors(dir, schema_name=schema_name, globus_token=globus_token)
-    errors_string = f"{schema_version.schema_name}-v{schema_version.version}"
-    errors = {f"{errors_string} TSV errors": errors} if errors else {}
-    report = ErrorReport(info={}, errors=errors)
-    if "README" not in exclude:
-        if dry_run:
-            if verbose:
-                print(
-                    f"""
-                    Would have written the following report to {dir}/README.md:
-                    {report.as_md()}
-                    """
-                )
-            else:
-                print(f"Would have updated {dir}/README.md.")
-        else:
-            with open(f"{dir}/README.md", "w") as f:
-                print(f"Writing to {dir}/README.md...")
-                f.write(report.as_md())
+                        print(f"Would have updated {dir}/README.md.")
+                if not dry_run:
+                    if verbose:
+                        print(
+                            f"""
+                            Writing the following report to {dir}/README.md:
+                            {clean_report(report)}
+                            """
+                        )
+                    else:
+                        print(f"Updating {dir}/README.md.")
+                    with open(f"{dir}/README.md", "w") as f:
+                        f.write(clean_report(report))
+                    dataset_test(dir, opts)
     else:
         print(f"{dir}/README.md excluded, not changed.")
 
-    if "fixtures" not in exclude:
-        if dry_run:
-            if verbose:
-                print(
-                    f"""
-                    Would have written the following to {dir}/fixtures.json:
-                    {schema_version.soft_assay_data}
-                    """
-                )
-            else:
-                print(f"Would have updated {dir}/fixtures.json.")
-        else:
-            with open(f"{dir}/fixtures.json", "w") as f:
-                print(f"Writing to {dir}/fixtures.json...")
-                json.dump(schema_version.soft_assay_data, f)
-    else:
-        print(f"{dir}/fixtures.json excluded, not changed.")
+
+def single_test(test_dir: str):
+    test = TestDatasetExamples()
+    setattr(test, "dataset_test_dirs", test_dir)
+    test.get_paths()
+    test.test_validate_dataset_examples(verbose=True)
 
 
 class StoreDictKeyPair(argparse.Action):
@@ -214,8 +160,8 @@ parser.add_argument(
     "--target_dirs",
     help="""
     The directory or directories containing the target README.md and fixtures.json files to update. Can pass multiple directories, e.g. '-t examples/dataset-examples/a examples/dataset-examples/b'.
-    Can also specify the following example directories to update all examples in each: 'examples/dataset-examples', 'examples/dataset-iec-examples', 'examples/tsv-examples'. Pass all with:
-    -t examples/dataset-examples examples/dataset-iec-examples examples/tsv-examples'
+    Can also specify the following example directories to update all examples in each: 'examples/dataset-examples', 'examples/dataset-iec-examples'. Pass all with:
+    -t examples/dataset-examples examples/dataset-iec-examples
     """,
     nargs="+",
     required=True,
@@ -240,13 +186,13 @@ parser.add_argument(
 )
 parser.add_argument(
     "--dry_run",
-    help="Default is False. If specified, do not write data but instead print output.",
     action="store_true",
+    help="Default is False. If specified, do not write data but instead print output.",
 )
 parser.add_argument(
     "--verbose",
-    help="Default is False. If specified, prints more verbose output.",
     action="store_true",
+    help="Default is False. If specified, prints more verbose output.",
 )
 parser.add_argument(
     "-e",
@@ -255,46 +201,50 @@ parser.add_argument(
     default=[],
     help="Specify if you want to skip writing either README or fixtures. Can only accept one argument; use --dry_run if you want to preview output.",
 )
+parser.add_argument(
+    "-s",
+    "--single_test",
+    action="store_true",
+    help="Default is False. Used for investigating testing failures with more verbose output. Requires passing a test_dir. You can pass a blank Glubus ",
+)
 args = parser.parse_args()
 parent_dirs = [
     Path("examples/dataset-examples").absolute(),
     Path("examples/dataset-iec-examples").absolute(),
 ]
-for dir in args.target_dirs:
-    if Path(dir).absolute() in parent_dirs:
-        dirs = [example_dir for example_dir in glob.glob(f"{dir}/**")]
-        for dir in dirs:
+if args.single_test:
+    single_test(args.target_dirs)
+else:
+    if args.opts:
+        opts = args.opts
+    else:
+        opts = {}
+    for dir in args.target_dirs:
+        if Path(dir).absolute() in parent_dirs:
+            dirs = [example_dir for example_dir in glob.glob(f"{dir}/**")]
+            for dir in dirs:
+                if "dataset-examples" in dir:
+                    opts = DATASET_EXAMPLES_OPTS
+                elif "dataset-iec-examples" in dir:
+                    opts = DATASET_IEC_EXAMPLES_OPTS
+                update_test_data(
+                    dir,
+                    args.globus_token,
+                    opts=opts,
+                    dry_run=args.dry_run,
+                    verbose=args.verbose,
+                    exclude=args.exclude,
+                )
+        else:
+            if "dataset-examples" in dir:
+                opts = DATASET_EXAMPLES_OPTS
+            elif "dataset-iec-examples" in dir:
+                opts = DATASET_IEC_EXAMPLES_OPTS
             update_test_data(
                 dir,
                 args.globus_token,
-                opts=args.opts,
+                opts=opts,
                 dry_run=args.dry_run,
                 verbose=args.verbose,
                 exclude=args.exclude,
             )
-
-    elif Path(dir).absolute() == Path("examples/tsv-examples").absolute():
-        tsv_example_dirs = [tsv_dir for tsv_dir in glob.glob(f"{dir}/**")]
-        for tsv_sub_dir in tsv_example_dirs:
-            schema = Path(tsv_sub_dir).name
-            sub_dirs = [
-                sub_dir for sub_dir in glob.glob(f"{tsv_sub_dir}/**") if Path(sub_dir).is_dir()
-            ]
-            for sub_dir in sub_dirs:
-                update_tsv_readme(
-                    sub_dir,
-                    schema,
-                    args.globus_token,
-                    exclude=args.exclude,
-                    opts=args.opts,
-                    dry_run=args.dry_run,
-                    verbose=args.verbose,
-                )
-    update_test_data(
-        dir,
-        args.globus_token,
-        opts=args.opts,
-        dry_run=args.dry_run,
-        verbose=args.verbose,
-        exclude=args.exclude,
-    )

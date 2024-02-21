@@ -26,7 +26,7 @@ env PYTHONPATH=/ingest-validation-tools python -m tests_manual.update_test_data 
 Run the following command for more comprehensive documentation:
 
 ```
-env PYTHONPATH=/ingest-validation-tools python -m tests_manual.update_test_data
+env PYTHONPATH=/ingest-validation-tools python -m tests_manual.update_test_data --help
 ```
 
 ## Manual Testing for Plugins
