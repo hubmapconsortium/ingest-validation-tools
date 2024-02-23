@@ -5,6 +5,7 @@
 - Update PhenoCycler directory schema
 - Update to prevent standalone child datasets in multi-assay upload
 - Update to prevent multiple dataset types in a non-multi-assay upload
+- Update MIBI directory schema
 
 ## v0.0.17
 
