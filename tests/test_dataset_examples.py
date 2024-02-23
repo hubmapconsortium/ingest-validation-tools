@@ -83,33 +83,27 @@ def diff_test(
     ]
     new = "".join([line.strip() for line in cleaned_diff if line.startswith("+ ")])
     removed = "".join([line.strip() for line in cleaned_diff if line.startswith("- ")])
-    if new or removed:
-        if verbose:
-            print(
-                f"""
-                    DIFF ADDED LINES:
-                    {new}
+    if verbose:
+        msg = f"""
+                DIFF ADDED LINES:
+                {new}
 
-                    DIFF REMOVED LINES:
-                    {removed}
+                DIFF REMOVED LINES:
+                {removed}
 
-                    If new version is correct, overwrite previous README.md and fixtures.json files by running:
-                        env PYTHONPATH=src:$PYTHONPATH python -m tests-manual.update_test_data -t {test_dir} -g <globus_token>
+                If new version is correct, overwrite previous README.md and fixtures.json files by running:
+                    env PYTHONPATH=src:$PYTHONPATH python -m tests-manual.update_test_data -t {test_dir} -g <globus_token>
 
-                    For help / other options:
-                        env PYTHONPATH=src:$PYTHONPATH python -m tests-manual.update_test_data --help
-                    """
-            )
-        else:
-            print(
-                f"""
-        FAILED diff_test: {test_dir}. Run for more detailed output:
-            env PYTHONPATH=src:$PYTHONPATH python -m tests-manual.update_test_data -t {test_dir} --globus_token "" --manual_test --dry_run --verbose
-        """
-            )
-        raise MockException(f"Diff found for {test_dir} README.md.")
-    elif not new or not removed:
-        print(f"PASSED diff_test: {test_dir}")
+                For help / other options:
+                    env PYTHONPATH=src:$PYTHONPATH python -m tests-manual.update_test_data --help
+                """
+    else:
+        msg = f"""
+    FAILED diff_test: {test_dir}. Run for more detailed output:
+        env PYTHONPATH=src:$PYTHONPATH python -m tests-manual.update_test_data -t {test_dir} --globus_token "" --manual_test --dry_run --verbose
+    """
+    assert not new and not removed, msg
+    print(f"PASSED diff_test: {test_dir}")
 
 
 def _open_and_read_fixtures_file(path: str) -> Dict:
@@ -125,7 +119,7 @@ def _open_and_read_fixtures_file(path: str) -> Dict:
 def _online_side_effect(schema_name: str, dir_path: str, *args):
     del args
     fixture = _open_and_read_fixtures_file(dir_path)
-    return fixture.get("validation", {}).get(schema_name)
+    return fixture.get("validation", {}).get(schema_name, {})
 
 
 def _assaytype_side_effect(path: str, row: Dict, *args, **kwargs):

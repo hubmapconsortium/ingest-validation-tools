@@ -41,6 +41,8 @@ def update_test_data(
     info = upload.get_info()
     errors = upload.get_errors()
     report = ErrorReport(info=info, errors=errors)
+    if "Too many requests" in report.as_md():
+        raise Exception(f"Something went wrong with Spreadsheet Validator request for {dir}.")
     if "fixtures" not in exclude:
         new_data = {}
         new_assaytype_data = {}
@@ -50,21 +52,21 @@ def update_test_data(
         for path, schema in upload.effective_tsv_paths.items():
             new_assaytype_data[schema.dataset_type] = schema.soft_assay_data
             if schema.is_cedar:
-                new_validation_data[schema.dataset_type] = upload._url_checks(
-                    path, schema.schema_name
+                new_validation_data[schema.schema_name] = upload.online_checks(
+                    path, schema.schema_name, ReportType.STR
                 )
             contributors_paths = contributors_paths.union(schema.contributors_paths)
             antibodies_paths = antibodies_paths.union(schema.antibodies_paths)
             for path in [*schema.antibodies_paths, *schema.contributors_paths]:
                 if not bool(read_rows(Path(path), "ascii")[0].get("metadata_schema_id")):
                     continue
-                if path in [schema.antibodies_paths]:
+                if path in schema.antibodies_paths:
                     other_type = "antibodies"
-                elif path in [schema.contributors_paths]:
+                elif path in schema.contributors_paths:
                     other_type = "contributors"
                 else:
                     continue
-                new_validation_data[Path(path).name] = upload.online_checks(
+                new_validation_data[Path(path).stem] = upload.online_checks(
                     path, other_type, ReportType.STR
                 )
         new_data["assaytype"] = new_assaytype_data
