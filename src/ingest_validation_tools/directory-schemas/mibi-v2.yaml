@@ -40,9 +40,5 @@ files:
     pattern: lab_processed\/images\/[^\/]*ome-tiff\.channels\.csv
     required: True
     description: This file provides essential documentation pertaining to each channel of the accommpanying OME TIFF. The file should contain one row per OME TIFF channel. The required fields are detailed <https://docs.google.com/spreadsheets/d/1xEJSb0xn5C5fB3k62pj1CyHNybpt4-YtvUs5SUMS44o/edit#gid=0>
-  -
-    pattern: lab_processed\/annotations\/.*
-    required: True
-    description: Directory containing segmentation masks.
-    dependency: segmentation-masks-v2
+
  
