@@ -3,16 +3,17 @@ import glob
 import json
 from json.decoder import JSONDecodeError
 from pathlib import Path
-from typing import Dict, List
+from typing import Dict, List, Union
 
 from ingest_validation_tools.cli_utils import dir_path
 from ingest_validation_tools.error_report import ErrorReport
 from ingest_validation_tools.table_validator import ReportType
 from ingest_validation_tools.upload import Upload
-from ingest_validation_tools.validation_utils import TSVError, read_rows
+from ingest_validation_tools.validation_utils import read_rows
 from tests.test_dataset_examples import (
     DATASET_EXAMPLES_OPTS,
     DATASET_IEC_EXAMPLES_OPTS,
+    MockException,
     TestDatasetExamples,
     clean_report,
     dataset_test,
@@ -29,13 +30,14 @@ def update_test_data(
     verbose: bool = False,
 ):
     if not opts:
-        opts = {
-            "dataset_ignore_globs": ["ignore-*.tsv", ".*"],
-            "upload_ignore_globs": ["drv_ignore_*"],
-            "encoding": "ascii",
-            "run_plugins": True,
-        }
-    upload = Upload(Path(f"{dir}/upload"), globus_token=globus_token, **opts)
+        opts = DATASET_EXAMPLES_OPTS
+    if "plugin-tests" in dir:
+        upload_verbose = False
+    else:
+        upload_verbose = True
+    upload = Upload(
+        Path(f"{dir}/upload"), globus_token=globus_token, **opts, verbose=upload_verbose
+    )
     info = upload.get_info()
     errors = upload.get_errors()
     report = ErrorReport(info=info, errors=errors)
@@ -43,33 +45,27 @@ def update_test_data(
         new_data = {}
         new_assaytype_data = {}
         new_validation_data = {}
+        contributors_paths = set()
+        antibodies_paths = set()
         for path, schema in upload.effective_tsv_paths.items():
             new_assaytype_data[schema.dataset_type] = schema.soft_assay_data
-            for path, schema in upload.effective_tsv_paths.items():
-                if schema.is_cedar:
-                    new_validation_data[schema.dataset_type] = upload.online_checks(
-                        path, schema.schema_name, ReportType.JSON
-                    )
-        other_files = [
-            file
-            for file in glob.glob(f"{dir}/upload/**")
-            if any(substring in Path(file).name for substring in ["contributors", "antibodies"])
-        ]
-        for file in other_files:
-            other_type = (
-                "contributors"
-                if "contributors" in file
-                else "antibodies" if "antibodies" in file else None
-            )
-            if other_type is None:
-                continue
-            try:
-                is_cedar = bool(read_rows(Path(file), "ascii")[0].get("metadata_schema_id"))
-            except TSVError:
-                continue
-            if is_cedar:
-                new_validation_data[Path(file).stem] = upload.online_checks(
-                    file, other_type, ReportType.STR
+            if schema.is_cedar:
+                new_validation_data[schema.dataset_type] = upload._url_checks(
+                    path, schema.schema_name
+                )
+            contributors_paths = contributors_paths.union(schema.contributors_paths)
+            antibodies_paths = antibodies_paths.union(schema.antibodies_paths)
+            for path in [*schema.antibodies_paths, *schema.contributors_paths]:
+                if not bool(read_rows(Path(path), "ascii")[0].get("metadata_schema_id")):
+                    continue
+                if path in [schema.antibodies_paths]:
+                    other_type = "antibodies"
+                elif path in [schema.contributors_paths]:
+                    other_type = "contributors"
+                else:
+                    continue
+                new_validation_data[Path(path).name] = upload.online_checks(
+                    path, other_type, ReportType.STR
                 )
         new_data["assaytype"] = new_assaytype_data
         new_data["validation"] = new_validation_data
@@ -101,9 +97,9 @@ def update_test_data(
     if "README" not in exclude:
         with open(f"{dir}/README.md", "r") as f:
             try:
-                diff_test(dir, f, report.as_md(), verbose=verbose)
+                diff_test(dir, f, clean_report(report), verbose=verbose)
                 print(f"No diff found, skipping {dir}/README.md")
-            except AssertionError:
+            except MockException:
                 print(f"FAILED diff_test: {dir}/README.md...")
                 if dry_run:
                     if verbose:
@@ -126,17 +122,24 @@ def update_test_data(
                     else:
                         print(f"Updating {dir}/README.md.")
                     with open(f"{dir}/README.md", "w") as f:
+                        # TODO: issues with blank lines at end of report
                         f.write(clean_report(report))
                     dataset_test(dir, opts)
     else:
         print(f"{dir}/README.md excluded, not changed.")
 
 
-def single_test(test_dir: str):
+def manual_test(test_dir: Union[str, List], verbose: bool = False):
+    if type(test_dir) is str:
+        assert Path(
+            test_dir
+        ).resolve(), f"Arg {test_dir} passed to manual_test is not a directory!"
+    elif type(test_dir) is list:
+        test_dir = [dir for dir in test_dir if Path(dir).is_dir()]
     test = TestDatasetExamples()
     setattr(test, "dataset_test_dirs", test_dir)
     test.get_paths()
-    test.test_validate_dataset_examples(verbose=True)
+    test.test_validate_dataset_examples(verbose=verbose)
 
 
 class StoreDictKeyPair(argparse.Action):
@@ -160,8 +163,8 @@ parser.add_argument(
     "--target_dirs",
     help="""
     The directory or directories containing the target README.md and fixtures.json files to update. Can pass multiple directories, e.g. '-t examples/dataset-examples/a examples/dataset-examples/b'.
-    Can also specify the following example directories to update all examples in each: 'examples/dataset-examples', 'examples/dataset-iec-examples'. Pass all with:
-    -t examples/dataset-examples examples/dataset-iec-examples
+    Can also specify the following example directories to update all examples in each: 'examples/dataset-examples', 'examples/dataset-iec-examples', 'examples/plugin-tests'. Pass all with:
+    -t examples/dataset-examples examples/dataset-iec-examples examples/plugin-tests
     """,
     nargs="+",
     required=True,
@@ -190,6 +193,7 @@ parser.add_argument(
     help="Default is False. If specified, do not write data but instead print output.",
 )
 parser.add_argument(
+    "-v",
     "--verbose",
     action="store_true",
     help="Default is False. If specified, prints more verbose output.",
@@ -202,18 +206,26 @@ parser.add_argument(
     help="Specify if you want to skip writing either README or fixtures. Can only accept one argument; use --dry_run if you want to preview output.",
 )
 parser.add_argument(
-    "-s",
-    "--single_test",
+    "-m",
+    "--manual_test",
     action="store_true",
-    help="Default is False. Used for investigating testing failures with more verbose output. Requires passing a test_dir. You can pass a blank Glubus ",
+    help="Default is False. Used for investigating testing failures with more verbose output. Requires passing a test_dir. Pass a blank Globus token as this runs offline.",
 )
 args = parser.parse_args()
+# TODO: tsv-examples not currently integrated, could be if needed.
 parent_dirs = [
     Path("examples/dataset-examples").absolute(),
     Path("examples/dataset-iec-examples").absolute(),
+    Path("examples/plugin-tests").absolute(),
 ]
-if args.single_test:
-    single_test(args.target_dirs)
+if args.manual_test:
+    for dir in args.target_dirs:
+        if Path(dir).absolute() in parent_dirs:
+            sub_dirs = [example_dir for example_dir in glob.glob(f"{dir}/**")]
+            for dir in sub_dirs:
+                manual_test([dir], verbose=args.verbose)
+        else:
+            manual_test([dir], verbose=args.verbose)
 else:
     if args.opts:
         opts = args.opts
@@ -227,6 +239,10 @@ else:
                     opts = DATASET_EXAMPLES_OPTS
                 elif "dataset-iec-examples" in dir:
                     opts = DATASET_IEC_EXAMPLES_OPTS
+                elif "plugin-tests" in dir:
+                    opts = DATASET_IEC_EXAMPLES_OPTS | {
+                        "plugin_directory": "../../ingest-validation-tests/src/ingest_validation_tests"
+                    }
                 update_test_data(
                     dir,
                     args.globus_token,
@@ -240,6 +256,12 @@ else:
                 opts = DATASET_EXAMPLES_OPTS
             elif "dataset-iec-examples" in dir:
                 opts = DATASET_IEC_EXAMPLES_OPTS
+            elif "plugin-tests" in dir:
+                opts = DATASET_IEC_EXAMPLES_OPTS | {
+                    "plugin_directory": Path(
+                        "../ingest-validation-tests/src/ingest_validation_tests"
+                    ).resolve()
+                }
             update_test_data(
                 dir,
                 args.globus_token,

@@ -58,6 +58,7 @@ class Upload:
         globus_token: str = "",
         app_context: dict = {},
         run_plugins: bool = False,
+        verbose: bool = True,
     ):
         self.directory_path = directory_path
         self.optional_fields = optional_fields
@@ -73,6 +74,7 @@ class Upload:
         self.extra_parameters = extra_parameters if extra_parameters else {}
         self.globus_token = globus_token
         self.run_plugins = run_plugins
+        self.verbose = verbose
 
         self.get_app_context(app_context)
 
@@ -357,7 +359,7 @@ class Upload:
                 # non-parent dataset_types
                 if not self.multi_parent or (sv.dataset_type == self.multi_parent.dataset_type):
                     for k, v in run_plugin_validators_iter(
-                        metadata_path, sv, plugin_path, **kwargs
+                        metadata_path, sv, plugin_path, verbose=self.verbose, **kwargs
                     ):
                         errors[k].append(v)
             except PluginValidatorError as e:
@@ -617,6 +619,14 @@ class Upload:
             if not row.get(field):
                 continue
             unique_paths.add(row[field])
+        if ref == "contributors":
+            schema.contributors_paths = [
+                str(Path(Path(metadata_path).parent, path)) for path in unique_paths
+            ]
+        elif ref == "antibodies":
+            schema.antibodies_paths = [
+                str(Path(Path(metadata_path).parent, path)) for path in unique_paths
+            ]
         for path_value in sorted(unique_paths):
             ref_error = self._check_path(path_value, ref, schema, metadata_path)
             if ref_error:

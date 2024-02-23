@@ -44,7 +44,14 @@ class Validator(object):
     """float: a rough measure of cost to run.  Lower is better.
     """
 
-    def __init__(self, base_paths: List[Path], assay_type: str, contains: List = [], **kwargs):
+    def __init__(
+        self,
+        base_paths: List[Path],
+        assay_type: str,
+        contains: List = [],
+        verbose: bool = False,
+        **kwargs,
+    ):
         """
         base_paths is expected to be a list of directories.
         These are the root paths of the directory trees to be validated.
@@ -61,6 +68,12 @@ class Validator(object):
             raise Exception(f"Validator init received base_paths arg as type {type(base_paths)}")
         self.assay_type = assay_type
         self.contains = contains
+        self.verbose = verbose
+
+    def _log(self, message):
+        if self.verbose:
+            print(message)
+        return message
 
     def collect_errors(self) -> List[str]:
         """
@@ -75,7 +88,11 @@ class Validator(object):
 
 
 def run_plugin_validators_iter(
-    metadata_path: PathOrStr, sv: SchemaVersion, plugin_dir: PathOrStr, **kwargs
+    metadata_path: PathOrStr,
+    sv: SchemaVersion,
+    plugin_dir: PathOrStr,
+    verbose: bool = True,
+    **kwargs,
 ) -> Iterator[KeyValuePair]:
     """
     Given a metadata.tsv file and a path to a directory of Validator plugins, iterate through the
@@ -98,12 +115,12 @@ def run_plugin_validators_iter(
         for row in sv.rows:
             data_path = Path(row["data_path"])
             if not data_path.is_absolute():
-                data_path = (Path(metadata_path).parent / data_path).resolve()
+                data_path = Path(metadata_path).parent / data_path
             if not data_path.is_dir():
                 raise ValidatorError(f"{data_path} should be the base directory of a dataset")
             data_paths.append(data_path)
         for k, v in validation_error_iter(
-            data_paths, sv.dataset_type, plugin_dir, sv.contains, **kwargs
+            data_paths, sv.dataset_type, plugin_dir, sv.contains, verbose=verbose, **kwargs
         ):
             yield k, v
     else:
@@ -143,10 +160,11 @@ def validation_class_iter(plugin_dir: PathOrStr) -> Iterator[Type[Validator]]:
 
 
 def validation_error_iter(
-    base_dir: List[Path],
+    paths: List[Path],
     assay_type: str,
     plugin_dir: PathOrStr,
     contains: List,
+    verbose: bool = False,
     **kwargs,
 ) -> Iterator[KeyValuePair]:
     """
@@ -154,7 +172,7 @@ def validation_error_iter(
     of Validator plugins, iterate over the results of applying all the plugin
     validators to each directory tree.
 
-    base_dir: a list of paths representing the datasets in an upload
+    paths: a list of paths representing the datasets in an upload
     assay_type: the assay type which produced the data in the directory tree
     plugin_dir: path to a directory containing classes derived from Validator
     contains: list of component assay types (empty if not multi-assay)
@@ -163,6 +181,6 @@ def validation_error_iter(
     error messages
     """
     for cls in validation_class_iter(plugin_dir):
-        validator = cls(base_dir, assay_type, contains)
+        validator = cls(paths, assay_type, contains, verbose)
         for err in validator.collect_errors(**kwargs):  # type: ignore
             yield cls.description, err

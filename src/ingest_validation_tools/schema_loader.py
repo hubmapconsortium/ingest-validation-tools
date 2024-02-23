@@ -41,6 +41,9 @@ class SchemaVersion:
     directory_path: Optional[Path] = None
     table_schema: str = ""
     path: Union[Path, str] = ""
+    # TODO: testing these out to see if it streamlines anything
+    contributors_paths: List[str] = field(default_factory=list)
+    antibodies_paths: List[str] = field(default_factory=list)
     rows: List = field(default_factory=list)
     soft_assay_data: Dict = field(default_factory=dict)
     is_cedar: bool = False

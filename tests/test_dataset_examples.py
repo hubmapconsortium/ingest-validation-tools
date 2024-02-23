@@ -12,17 +12,20 @@ from unittest.mock import Mock, call, patch
 from ingest_validation_tools.error_report import ErrorReport
 from ingest_validation_tools.upload import Upload
 
-DATASET_EXAMPLES_OPTS = {
-    "dataset_ignore_globs": ["ignore-*.tsv", ".*"],
-    "upload_ignore_globs": ["drv_ignore_*"],
+SHARED_OPTS = {
     "encoding": "ascii",
     "run_plugins": True,
 }
-DATASET_IEC_EXAMPLES_OPTS = {
+DATASET_EXAMPLES_OPTS = SHARED_OPTS | {
+    "dataset_ignore_globs": ["ignore-*.tsv", ".*"],
+    "upload_ignore_globs": ["drv_ignore_*"],
+}
+DATASET_IEC_EXAMPLES_OPTS = SHARED_OPTS | {
     "dataset_ignore_globs": ["metadata.tsv"],
     "upload_ignore_globs": ["*"],
-    "encoding": "ascii",
-    "run_plugins": True,
+}
+PLUGIN_EXAMPLES_OPTS = DATASET_EXAMPLES_OPTS | {
+    "plugin_directory": "../ingest-validation-tests/src/ingest_validation_tests/"
 }
 
 
@@ -32,6 +35,7 @@ class MockException(Exception):
 
 
 def dataset_test(test_dir: str, dataset_opts: Dict, verbose: bool = False):
+    dataset_opts = dataset_opts | {"verbose": verbose}
     print(f"Testing {test_dir}...")
     readme = open(f"{test_dir}/README.md", "r")
     upload = Upload(Path(f"{test_dir}/upload"), **dataset_opts)
@@ -51,10 +55,10 @@ def dataset_test(test_dir: str, dataset_opts: Dict, verbose: bool = False):
         )
 
 
-def clean_report(report):
+def clean_report(report: ErrorReport):
     clean_report = []
     regex = re.compile(r"((Time|Git version): )(.*)")
-    for line in report.as_md().splitlines(keepends=True):
+    for line in report.as_md():
         match = regex.search(line)
         if match:
             new_line = line.replace(match.group(3), "WILL_CHANGE")
@@ -64,7 +68,12 @@ def clean_report(report):
     return "".join(clean_report)
 
 
-def diff_test(test_dir: str, readme: TextIOWrapper, report: str, verbose: bool = True):
+def diff_test(
+    test_dir: str,
+    readme: TextIOWrapper,
+    report: str,
+    verbose: bool = True,
+):
     d = difflib.Differ()
     diff = list(d.compare(readme.readlines(), report.splitlines(keepends=True)))
     readme.close()
@@ -72,28 +81,35 @@ def diff_test(test_dir: str, readme: TextIOWrapper, report: str, verbose: bool =
     cleaned_diff = [
         line for line in diff if not any(ignore_string in line for ignore_string in ignore_strings)
     ]
-    msg = f"""
-        FAILED diff_test: {test_dir}. Run for more detailed output:
-            env PYTHONPATH=src:$PYTHONPATH python -m tests_manual.update_test_data -t {test_dir} -g "" -s
-        """
     new = "".join([line.strip() for line in cleaned_diff if line.startswith("+ ")])
-    removed = "".join([line.strip() for line in cleaned_diff if line.startswith("- -")])
-    if verbose:
-        msg = f"""
-                DIFF ADDED LINES:
-                {new}
+    removed = "".join([line.strip() for line in cleaned_diff if line.startswith("- ")])
+    if new or removed:
+        if verbose:
+            print(
+                f"""
+                    DIFF ADDED LINES:
+                    {new}
 
-                DIFF REMOVED LINES:
-                {removed}
+                    DIFF REMOVED LINES:
+                    {removed}
 
-                If new version is correct, overwrite previous README.md and fixtures.json files by running:
-                    env PYTHONPATH=src:$PYTHONPATH python -m tests_manual.update_test_data -t {test_dir} -g <globus_token>
+                    If new version is correct, overwrite previous README.md and fixtures.json files by running:
+                        env PYTHONPATH=src:$PYTHONPATH python -m tests-manual.update_test_data -t {test_dir} -g <globus_token>
 
-                For help / other options:
-                    env PYTHONPATH=src:$PYTHONPATH python -m tests_manual.update_test_data --help
-                """
-    assert not new and not removed, msg
-    print(f"PASSED diff_test: {test_dir}")
+                    For help / other options:
+                        env PYTHONPATH=src:$PYTHONPATH python -m tests-manual.update_test_data --help
+                    """
+            )
+        else:
+            print(
+                f"""
+        FAILED diff_test: {test_dir}. Run for more detailed output:
+            env PYTHONPATH=src:$PYTHONPATH python -m tests-manual.update_test_data -t {test_dir} --globus_token "" --manual_test --dry_run --verbose
+        """
+            )
+        raise MockException(f"Diff found for {test_dir} README.md.")
+    elif not new or not removed:
+        print(f"PASSED diff_test: {test_dir}")
 
 
 def _open_and_read_fixtures_file(path: str) -> Dict:
@@ -146,6 +162,8 @@ class TestDatasetExamples(unittest.TestCase):
                     opts = DATASET_EXAMPLES_OPTS
                 elif "dataset-iec-examples" in test_dir:
                     opts = DATASET_IEC_EXAMPLES_OPTS
+                elif "plugin-tests" in test_dir:
+                    opts = PLUGIN_EXAMPLES_OPTS
                 else:
                     opts = {}
                 with patch(
