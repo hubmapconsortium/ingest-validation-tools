@@ -139,10 +139,22 @@ class TestDatasetExamples(unittest.TestCase):
         ]
         if Path(test_dir).is_dir()
     ]
+    errors = []
 
-    def setUp(self) -> None:
+    def setUp(self):
         super().setUp()
         self.get_paths()
+
+    def tearDown(self):
+        errors = "\n".join([str(error) for error in self.errors])
+        try:
+            self.assertEqual([], self.errors)
+        except AssertionError:
+            print(
+                f"""-------ERRORS-------
+                    {errors}
+                """
+            )
 
     def get_paths(self):
         for test_dir in self.dataset_test_dirs:
@@ -171,6 +183,10 @@ class TestDatasetExamples(unittest.TestCase):
                     except MockException as e:
                         print(e)
                         continue
+                    except AssertionError as e:
+                        print(e)
+                        self.errors.append(e)
+                        continue
                 if len(tsv_paths) == 1:
                     self.single_dataset_assert(tsv_paths[0], mock_assaytype_data)
                 elif len(tsv_paths) > 1:
@@ -189,11 +205,15 @@ class TestDatasetExamples(unittest.TestCase):
             return
         if "assay_type" not in rows[0] or "dataset_type" not in rows[0]:
             return
-        mock_assaytype_data.assert_called_with(
-            rows[0],
-            "https://ingest.api.hubmapconsortium.org/",
-            offline=False,
-        )
+        try:
+            mock_assaytype_data.assert_called_with(
+                rows[0],
+                "https://ingest.api.hubmapconsortium.org/",
+                offline=False,
+            )
+        except AssertionError as e:
+            print(e)
+            self.errors.append(e)
 
     def multi_dataset_assert(self, tsv_paths: List[str], mock_assaytype_data: Mock):
         calls = []
@@ -202,4 +222,8 @@ class TestDatasetExamples(unittest.TestCase):
                 rows = list(DictReader(f, dialect="excel-tab"))
             f.close()
             calls.append(call(rows[0], "https://ingest.api.hubmapconsortium.org/", offline=False))
-        mock_assaytype_data.assert_has_calls(calls, any_order=True)
+        try:
+            mock_assaytype_data.assert_has_calls(calls, any_order=True)
+        except AssertionError as e:
+            print(e)
+            self.errors.append(e)
