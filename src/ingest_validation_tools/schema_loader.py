@@ -40,7 +40,7 @@ class SchemaVersion:
     version: str = ""
     directory_path: Optional[Path] = None
     table_schema: str = ""
-    path: Optional[Union[Path, str]] = None
+    path: Union[Path, str] = ""
     rows: List = field(default_factory=list)
     soft_assay_data: Dict = field(default_factory=dict)
     is_cedar: bool = False
@@ -177,15 +177,6 @@ def _parse_schema_version(stem: str) -> Sequence[str]:
     if not v_match:
         raise Exception(f'No v match in "{stem}"')
     return v_match.groups()
-
-
-# TODO: is this used anywhere?
-def get_all_directory_schema_versions(schema_name: str) -> List[str]:
-    return [
-        schema_version.version
-        for schema_version in list_directory_schema_versions()
-        if schema_version.assay_schema_name == schema_name
-    ]
 
 
 def dict_directory_schema_versions() -> Dict[str, Set[str]]:

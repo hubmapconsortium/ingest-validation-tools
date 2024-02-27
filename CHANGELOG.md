@@ -1,7 +1,11 @@
 # Changelog
 
 ## v0.0.18 (in progress)
+
 - Update PhenoCycler directory schema
+- Update to prevent standalone child datasets in multi-assay upload
+- Update to prevent multiple dataset types in a non-multi-assay upload
+- Update MIBI directory schema
 - Directory validation changes for "shared" uploads
 
 ## v0.0.17
@@ -378,6 +382,7 @@
 - Script to generate CSV for fields and enums.
 - Add version number to schemas.
 - Clarify guidelines for direction schemas.
+- Integrate SenNet app_context.
 
 ## v0.0.8 - 2021-02-10
 
