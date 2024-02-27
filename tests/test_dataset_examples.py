@@ -40,12 +40,6 @@ def dataset_test(test_dir: str, dataset_opts: Dict, verbose: bool = False):
     readme = open(f"{test_dir}/README.md", "r")
     upload = Upload(Path(f"{test_dir}/upload"), **dataset_opts)
     info = upload.get_info()
-    with patch(
-        "ingest_validation_tools.upload.Upload.online_checks",
-        side_effect=lambda tsv_path, schema_name, report_type: _online_side_effect(
-            schema_name, test_dir, tsv_path, report_type
-        ),
-    ):
         errors = upload.get_errors()
     report = ErrorReport(info=info, errors=errors)
     diff_test(test_dir, readme, clean_report(report), verbose=verbose)
@@ -177,16 +171,22 @@ class TestDatasetExamples(unittest.TestCase):
                     side_effect=lambda row, ingest_url, offline=False: _assaytype_side_effect(
                         test_dir, row, ingest_url, offline
                     ),
-                ) as mock_assaytype_data:
-                    try:
-                        dataset_test(test_dir, opts, verbose=verbose)
-                    except MockException as e:
-                        print(e)
-                        continue
-                    except AssertionError as e:
-                        print(e)
-                        self.errors.append(e)
-                        continue
+                    ) as mock_assaytype_data:
+                    with patch(
+                        "ingest_validation_tools.upload.Upload.online_checks",
+                        side_effect=lambda tsv_path, schema_name, report_type: _online_side_effect(
+                            schema_name, test_dir, tsv_path, report_type
+                        ),
+                    ):
+                        try:
+                            dataset_test(test_dir, opts, verbose=verbose)
+                        except MockException as e:
+                            print(e)
+                            continue
+                        except AssertionError as e:
+                            print(e)
+                            self.errors.append(e)
+                            continue
                 if len(tsv_paths) == 1:
                     self.single_dataset_assert(tsv_paths[0], mock_assaytype_data)
                 elif len(tsv_paths) > 1:

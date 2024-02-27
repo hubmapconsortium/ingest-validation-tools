@@ -1,13 +1,13 @@
 ## Testing
 
-Automated testing (e.g. via GitHub action or by running `./test.sh`) does not hit the [CEDAR Metadata Center Spreadsheet Validator](https://metadatacenter.github.io/spreadsheet-validator-docs/api-reference/) or [assayclassifier](https://github.com/hubmapconsortium/ingest-api/tree/main/src/routes/assayclassifier) endpoint, nor does it perform any URL checking. This directory contains methods for a) live testing against examples using `test-dataset-examples-cedar.sh` and b) updating fixture data and README.md files for offline automated testing using `update_test_data.py`.
+Automated testing (e.g. via GitHub action or by running `./test.sh`) does not hit the [CEDAR Metadata Center Spreadsheet Validator](https://metadatacenter.github.io/spreadsheet-validator-docs/api-reference/) or [assayclassifier](https://github.com/hubmapconsortium/ingest-api/tree/main/src/routes/assayclassifier) endpoint, nor does it perform any URL checking. This directory contains methods for a) live testing against examples using `test-dataset-examples-online.sh` and b) updating fixture data and README.md files for offline automated testing using `update_test_data.py`.
 
 # Testing online
 
 Run the following from the top-level directory:
 
 ```
-./tests-manual/test-dataset-examples-cedar.sh <globus_token> <start_index>
+./tests-manual/test-dataset-examples-online.sh <globus_token> <start_index>
 ```
 
 This test mechanism calls validate_upload.py and does not update files. It is good for reliable manual online testing.
