@@ -40,7 +40,7 @@ def dataset_test(test_dir: str, dataset_opts: Dict, verbose: bool = False):
     readme = open(f"{test_dir}/README.md", "r")
     upload = Upload(Path(f"{test_dir}/upload"), **dataset_opts)
     info = upload.get_info()
-        errors = upload.get_errors()
+    errors = upload.get_errors()
     report = ErrorReport(info=info, errors=errors)
     diff_test(test_dir, readme, clean_report(report), verbose=verbose)
     if "PreflightError" in report.as_md():
@@ -171,7 +171,7 @@ class TestDatasetExamples(unittest.TestCase):
                     side_effect=lambda row, ingest_url, offline=False: _assaytype_side_effect(
                         test_dir, row, ingest_url, offline
                     ),
-                    ) as mock_assaytype_data:
+                ) as mock_assaytype_data:
                     with patch(
                         "ingest_validation_tools.upload.Upload.online_checks",
                         side_effect=lambda tsv_path, schema_name, report_type: _online_side_effect(
