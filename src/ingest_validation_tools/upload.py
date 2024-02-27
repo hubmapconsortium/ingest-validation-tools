@@ -712,9 +712,9 @@ class Upload:
                     rel_path_row_non_global_file,
                 ) in row_non_global_files.items():
                     if not full_path_row_non_global_file.exists():
-                        errors[
-                            ",".join(row_references)
-                        ] = f"{rel_path_row_non_global_file} not exist in upload."
+                        errors[",".join(row_references)] = (
+                            f"{rel_path_row_non_global_file} not exist in upload."
+                        )
         else:
             # Catch case 2
             if self.is_shared_upload:
