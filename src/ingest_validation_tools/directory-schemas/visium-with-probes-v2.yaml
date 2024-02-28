@@ -35,7 +35,7 @@ files:
     required: True
     description: Raw sequencing files for the experiment
   -
-    pattern: raw\/fastq\/oligo\/
+    pattern: raw\/fastq\/oligo\/.*
     required: True
     description: Directory containing fastq files pertaining to oligo sequencing.
   -
