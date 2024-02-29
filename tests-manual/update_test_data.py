@@ -6,6 +6,8 @@ from json.decoder import JSONDecodeError
 from pathlib import Path
 from typing import Dict, List, Optional, Union
 
+from deepdiff import DeepDiff
+
 from ingest_validation_tools.cli_utils import dir_path
 from ingest_validation_tools.error_report import ErrorReport
 from ingest_validation_tools.table_validator import ReportType
@@ -66,11 +68,15 @@ class UpdateData:
         if "fixtures" not in self.exclude:
             new_data = self.update_fixtures(report)
             fixtures = self.open_or_create_fixtures()
-            if fixtures == new_data:
+            diff = DeepDiff(fixtures, new_data, ignore_order=True, report_repetition=True)
+            if not diff:
                 print(f"No diff found, skipping {self.dir}/fixtures.json...")
             elif self.dry_run:
                 self.log(
                     f"""
+                        Diff:
+                        {diff}
+
                         Would have written the following to {self.dir}/fixtures.json:
                         {new_data}
                         """,
@@ -111,7 +117,7 @@ class UpdateData:
                         f"Updating {self.dir}/README.md.",
                     )
                     with open(f"{self.dir}/README.md", "w") as f:
-                        # TODO: issues with blank lines at end of report
+                        # TODO: potential issues with blank lines at end of report
                         f.write(clean_report(report))
                     dataset_test(self.dir, self.opts)
         else:
@@ -151,7 +157,7 @@ class UpdateData:
             return {Path(path).stem: self.upload.online_checks(path, other_type, ReportType.STR)}
         return {}
 
-    def open_or_create_fixtures(self):
+    def open_or_create_fixtures(self) -> Dict:
         if not Path(f"{self.dir}/fixtures.json").exists():
             open(f"{self.dir}/fixtures.json", "w")
         with open(f"{self.dir}/fixtures.json", "r") as f:
@@ -262,7 +268,7 @@ parser.add_argument(
 )
 
 args = parser.parse_args()
-# TODO: tsv-examples not currently integrated, could be if needed.
+# tsv-examples not currently integrated, could be if needed.
 parent_dirs = [
     Path("examples/dataset-examples").absolute(),
     Path("examples/dataset-iec-examples").absolute(),
