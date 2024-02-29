@@ -6,6 +6,7 @@
 - Update to prevent standalone child datasets in multi-assay upload
 - Update to prevent multiple dataset types in a non-multi-assay upload
 - Update MIBI directory schema
+- Update Visium (with probes) directory schema
 - Integrate SenNet app_context.
 - Updating testing.
 
