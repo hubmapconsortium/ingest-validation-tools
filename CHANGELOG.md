@@ -7,6 +7,12 @@
 - Update to prevent multiple dataset types in a non-multi-assay upload
 - Update MIBI directory schema
 - Update Visium (with probes) directory schema
+- Update Auto-fluorescence directory schema
+- Update Confocal directory schema
+- Update Enhanced SRS directory schema
+- Update Light Sheet directory schema
+- Update Second Harmonic Generation directory schema
+- Update Thick Section Multiphoton MxIF directory schema
 
 ## v0.0.17
 
