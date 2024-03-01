@@ -40,7 +40,7 @@ REQUIRED - For this assay, you must also prepare and submit two additional metad
 | <code>raw\/additional_panels_used\.csv</code> |  | If multiple commercial probe panels were used, then the primary probe panel should be selected in the "oligo_probe_panel" metadata field. The additional panels must be included in this file. Each panel record should include:manufacturer, model/name, product code. |  |
 | <code>raw\/custom_probe_set\.csv</code> |  | This file should contain any custom probes used and must be included if the metadata field "is_custom_probes_used" is "Yes". The file should minimally include:target gene id, probe seq, probe id. The contents of this file are modeled after the 10x Genomics probe set file (see <https://support.10xgenomics.com/spatial-gene-expression-ffpe/probe-sets/probe-set-file-descriptions/probe-set-file-descriptions#probe_set_csv_file>). |  |
 | <code>raw\/fastq\/.*</code> | ✓ | Raw sequencing files for the experiment |  |
-| <code>raw\/fastq\/oligo\/</code> | ✓ | Directory containing fastq files pertaining to oligo sequencing. |  |
+| <code>raw\/fastq\/oligo\/.*</code> | ✓ | Directory containing fastq files pertaining to oligo sequencing. |  |
 | <code>raw\/fastq\/oligo\/[^\/]+\.fastq\.gz</code> | ✓ | This is a gzip version of the fastq file. This file contains the cell barcode and unique molecular identifier (technical). |  |
 | <code>raw\/images\/.*</code> | ✓ | Directory containing raw image files. This directory should include at least one raw file. |  |
 | <code>raw\/images\/[^\/]+_tissue\.(?:tif&#124;tiff)</code> |  | Raw microscope file for the experiment. For 10X Visium CytAssist, this would be the high resolution image produced. |  |
