@@ -74,7 +74,7 @@ def get_schema_version(
             message.append(
                 f'Dataset type: {rows[0].get("dataset_type")}. Data Curator: check Pipeline Decision Rules to determine correct Assay Type and make sure metadata TSV matches the specification for that type.'
             )
-        raise PreflightError(", ".join([msg for msg in message]))
+        raise PreflightError(" ".join([msg for msg in message]))
     return SchemaVersion(
         assay_type_data["assaytype"],
         directory_path=directory_path,
