@@ -13,6 +13,8 @@
 - Update Light Sheet directory schema
 - Update Second Harmonic Generation directory schema
 - Update Thick Section Multiphoton MxIF directory schema
+- Integrate SenNet app_context.
+- Updating testing.
 
 ## v0.0.17
 
@@ -388,7 +390,6 @@
 - Script to generate CSV for fields and enums.
 - Add version number to schemas.
 - Clarify guidelines for direction schemas.
-- Integrate SenNet app_context.
 
 ## v0.0.8 - 2021-02-10
 
