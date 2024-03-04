@@ -173,11 +173,22 @@ class UpdateData:
         return open(f"{self.dir}/README.md", "r")
 
 
-def print_change_report(change_report: Dict):
+def print_change_report(change_report: Dict, verbose: bool):
     if change_report:
         print("-------CHANGE REPORT-------")
-        for dir, messages in change_report.items():
-            print(f"{dir}: {', '.join([msg for msg in messages])}")
+        if verbose:
+            for dir, messages in change_report.items():
+                print(f"{dir}: {', '.join([msg for msg in messages])}")
+            print(
+                f"""
+                To update all, run:
+                env PYTHONPATH=/ingest-validation-tools python -m tests-manual.update_test_data -t {' '.join([dir for dir in change_report.keys()])} --globus_token ""
+                """
+            )
+        else:
+            print("Dirs with errors:")
+            for dir, _ in change_report.items():
+                print(dir)
 
 
 def manual_test(test_dir: Union[str, List], verbose: bool = False):
@@ -297,4 +308,4 @@ else:
                 change_report.update(call_update(dir, args))
         else:
             change_report.update(call_update(dir, args))
-    print_change_report(change_report)
+    print_change_report(change_report, verbose=args.verbose)

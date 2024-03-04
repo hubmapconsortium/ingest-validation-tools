@@ -51,27 +51,26 @@ def get_schema_version(
             rows=rows,
         )
         return sv
+    message = ""
     if not (rows[0].get("dataset_type") or rows[0].get("assay_type")):
-        raise PreflightError(f"No assay_type or dataset_type in {path}.")
-    assay_type_data = get_assaytype_data(
-        rows[0],
-        ingest_url,
-        offline=offline,
-    )
-    if not assay_type_data:
-        message = f"Assay data not retrieved from assayclassifier endpoint for TSV {path}."
+        message += f"No assay_type or dataset_type in {path}."
         if offline:
             message += " Running in offline mode."
-        if "assay_type" in rows[0]:
-            message += f' Assay type: {rows[0].get("assay_type")}.'
-        elif "dataset_type" in rows[0]:
-            message += f' Dataset type: {rows[0].get("dataset_type")}.'
         if "channel_id" in rows[0]:
             message += ' Has "channel_id": Antibodies TSV found where metadata TSV expected.'
         elif "orcid_id" in rows[0]:
             message += ' Has "orcid_id": Contributors TSV found where metadata TSV expected.'
-        else:
-            message += f' Column headers in TSV: {", ".join(rows[0].keys())}'
+        raise PreflightError(message)
+    assay_type_data = get_assaytype_data(
+        rows[0],
+        ingest_url,
+    )
+    if not assay_type_data:
+        message = f"No match found in assayclassifier for TSV {path}."
+        if "assay_type" in rows[0]:
+            message += f' Assay type: {rows[0].get("assay_type")}.'
+        elif "dataset_type" in rows[0]:
+            message += f' Dataset type: {rows[0].get("dataset_type")}. Data Curator: check Pipeline Decision Rules to determine correct Assay Type and make sure metadata TSV matches the specification for that type.'
         raise PreflightError(message)
     return SchemaVersion(
         assay_type_data["assaytype"],
@@ -120,11 +119,8 @@ def get_other_schema_name(rows: List, path: str) -> Optional[str]:
 def get_assaytype_data(
     row: Dict,
     ingest_url: str,
-    offline: bool = False,
 ) -> Dict:
-    if offline:
-        return {}
-    elif not ingest_url:
+    if not ingest_url:
         ingest_url = "https://ingest.api.hubmapconsortium.org/"
     response = requests.post(
         f"{ingest_url}/assaytype",
