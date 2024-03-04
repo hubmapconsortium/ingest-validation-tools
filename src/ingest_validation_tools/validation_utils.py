@@ -51,27 +51,30 @@ def get_schema_version(
             rows=rows,
         )
         return sv
-    message = ""
+    message = []
+    if offline:
+        message.append("Running in offline mode, cannot reach assayclassifier.")
     if not (rows[0].get("dataset_type") or rows[0].get("assay_type")):
-        message += f"No assay_type or dataset_type in {path}."
-        if offline:
-            message += " Running in offline mode."
+        message.append(f"No assay_type or dataset_type in {path}.")
         if "channel_id" in rows[0]:
-            message += ' Has "channel_id": Antibodies TSV found where metadata TSV expected.'
+            message.append('Has "channel_id": Antibodies TSV found where metadata TSV expected.')
         elif "orcid_id" in rows[0]:
-            message += ' Has "orcid_id": Contributors TSV found where metadata TSV expected.'
-        raise PreflightError(message)
+            message.append('Has "orcid_id": Contributors TSV found where metadata TSV expected.')
+    if message:
+        raise PreflightError(" ".join([msg for msg in message]))
     assay_type_data = get_assaytype_data(
         rows[0],
         ingest_url,
     )
     if not assay_type_data:
-        message = f"No match found in assayclassifier for TSV {path}."
+        message.append(f"No match found in assayclassifier for TSV {path}.")
         if "assay_type" in rows[0]:
-            message += f' Assay type: {rows[0].get("assay_type")}.'
+            message.append(f'Assay type: {rows[0].get("assay_type")}.')
         elif "dataset_type" in rows[0]:
-            message += f' Dataset type: {rows[0].get("dataset_type")}. Data Curator: check Pipeline Decision Rules to determine correct Assay Type and make sure metadata TSV matches the specification for that type.'
-        raise PreflightError(message)
+            message.append(
+                f'Dataset type: {rows[0].get("dataset_type")}. Data Curator: check Pipeline Decision Rules to determine correct Assay Type and make sure metadata TSV matches the specification for that type.'
+            )
+        raise PreflightError(", ".join([msg for msg in message]))
     return SchemaVersion(
         assay_type_data["assaytype"],
         directory_path=directory_path,
