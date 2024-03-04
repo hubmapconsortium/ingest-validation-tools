@@ -168,8 +168,8 @@ class TestDatasetExamples(unittest.TestCase):
                     opts = {}
                 with patch(
                     "ingest_validation_tools.validation_utils.get_assaytype_data",
-                    side_effect=lambda row, ingest_url, offline=False: _assaytype_side_effect(
-                        test_dir, row, ingest_url, offline
+                    side_effect=lambda row, ingest_url: _assaytype_side_effect(
+                        test_dir, row, ingest_url
                     ),
                 ) as mock_assaytype_data:
                     with patch(

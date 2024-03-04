@@ -173,7 +173,7 @@ class UpdateData:
         return open(f"{self.dir}/README.md", "r")
 
 
-def print_change_report(change_report: Dict, verbose: bool):
+def print_change_report(change_report: Dict, verbose: bool, globus_token: str):
     if change_report:
         print("-------CHANGE REPORT-------")
         if verbose:
@@ -182,7 +182,7 @@ def print_change_report(change_report: Dict, verbose: bool):
             print(
                 f"""
                 To update all, run:
-                env PYTHONPATH=/ingest-validation-tools python -m tests-manual.update_test_data -t {' '.join([dir for dir in change_report.keys()])} --globus_token ""
+                env PYTHONPATH=/ingest-validation-tools python -m tests-manual.update_test_data -t {' '.join([dir for dir in change_report.keys()])} --globus_token {globus_token} --verbose
                 """
             )
         else:
@@ -308,4 +308,4 @@ else:
                 change_report.update(call_update(dir, args))
         else:
             change_report.update(call_update(dir, args))
-    print_change_report(change_report, verbose=args.verbose)
+    print_change_report(change_report, verbose=args.verbose, globus_token=args.globus_token)
