@@ -329,7 +329,10 @@ class Upload:
         return errors
 
     def online_checks(
-        self, tsv_path: str, schema_name: str, report_type: ReportType
+        self,
+        tsv_path: str,
+        schema_name: str,
+        report_type: ReportType = ReportType.STR,
     ) -> Optional[Dict]:
         url_errors = self._url_checks(tsv_path, schema_name)
         api_errors = self._api_validation(Path(tsv_path), report_type)

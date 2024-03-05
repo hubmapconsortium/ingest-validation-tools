@@ -168,8 +168,8 @@ class TestDatasetExamples(unittest.TestCase):
                     opts = {}
                 with patch(
                     "ingest_validation_tools.validation_utils.get_assaytype_data",
-                    side_effect=lambda row, ingest_url, offline=False: _assaytype_side_effect(
-                        test_dir, row, ingest_url, offline
+                    side_effect=lambda row, ingest_url: _assaytype_side_effect(
+                        test_dir, row, ingest_url
                     ),
                 ) as mock_assaytype_data:
                     with patch(
@@ -209,7 +209,6 @@ class TestDatasetExamples(unittest.TestCase):
             mock_assaytype_data.assert_called_with(
                 rows[0],
                 "https://ingest.api.hubmapconsortium.org/",
-                offline=False,
             )
         except AssertionError as e:
             print(e)
@@ -221,7 +220,7 @@ class TestDatasetExamples(unittest.TestCase):
             with open(tsv_path, encoding="ascii") as f:
                 rows = list(DictReader(f, dialect="excel-tab"))
             f.close()
-            calls.append(call(rows[0], "https://ingest.api.hubmapconsortium.org/", offline=False))
+            calls.append(call(rows[0], "https://ingest.api.hubmapconsortium.org/"))
         try:
             mock_assaytype_data.assert_has_calls(calls, any_order=True)
         except AssertionError as e:
