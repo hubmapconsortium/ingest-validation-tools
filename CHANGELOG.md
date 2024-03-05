@@ -16,6 +16,7 @@
 - Integrate SenNet app_context
 - Updating testing
 - Change to error messaging related to get_assaytype_data failures
+- Update Lightsheet directory schema
 
 ## v0.0.17
 
