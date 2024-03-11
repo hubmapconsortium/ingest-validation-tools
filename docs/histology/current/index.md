@@ -16,7 +16,7 @@ Related files:
 - [📝 TSV template](https://raw.githubusercontent.com/hubmapconsortium/dataset-metadata-spreadsheet/main/histology/latest/histology.tsv): Alternative for metadata entry.
 
 
-[This link](https://docs.google.com/spreadsheets/d/1YnmdTAA0Z9MKN3OjR3Sca8pz-LNQll91wdQoRPSP6Q4/edit#gid=0) lists the set of fields that are required in the OME TIFF file XML header.
+[This link](https://docs.google.com/spreadsheets/d/1YnmdTAA0Z9MKN3OjR3Sca8pz-LNQll91wdQoRPSP6Q4/edit#gid=0) lists the set of fields that are required in the OME TIFF file XML header. We require both the the raw image file as well as a lab-created image based on the raw one in the open source OME-TIFF format. Our processing pipeline uses the OME-TIFF image to generate an OME-TIFF pyramid for portal visualization. We recommend BioFormats for converting raw image files to OME-TIFF. A relevant guide for converting raw TIFF image files to OME-TIFF using BioFormats can be found here.
 
 ## Metadata schema
 
