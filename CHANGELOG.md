@@ -18,6 +18,7 @@
 - Change to error messaging related to get_assaytype_data failures
 - Update Lightsheet directory schema
 - Update Histology to include description on OME-TIFFs
+- Update Histology with links
 
 ## v0.0.17
 
