@@ -14,7 +14,7 @@ from ingest_validation_tools.directory_validator import (
 from ingest_validation_tools.schema_loader import (
     PreflightError,
     SchemaVersion,
-    get_directory_schema,
+    get_possible_directory_schemas,
 )
 from ingest_validation_tools.table_validator import ReportType
 
@@ -160,34 +160,41 @@ def get_data_dir_errors(
     """
     Validate a single data_path.
     """
-    schema = get_directory_schema(dir_schema=dir_schema)
+    possible_schemas = get_possible_directory_schemas(dir_schema)
 
-    if schema is None:
+    if possible_schemas is None:
         return {"Undefined directory schema": dir_schema}
 
-    schema_warning_fields = [field for field in schema if field in ["deprecated", "draft"]]
-    schema_warning = (
-        {f"{schema_warning_fields[0].title()} directory schema": dir_schema}
-        if schema_warning_fields
-        else None
-    )
+    # Collect errors, discard if schema validates against a minor version
+    errors = defaultdict(list)
 
-    try:
-        validate_directory(data_path, schema["files"], dataset_ignore_globs=dataset_ignore_globs)
-    except DirectoryValidationErrors as e:
-        # If there are DirectoryValidationErrors and the schema is deprecated/draft...
-        #    schema deprecation/draft status is more important.
+    for schema in possible_schemas:
+        schema_warning_fields = [field for field in schema if field in ["deprecated", "draft"]]
+        schema_warning = (
+            f"{schema_warning_fields[0].title()} directory schema: {dir_schema}"
+            if schema_warning_fields
+            else None
+        )
+
+        try:
+            validate_directory(
+                data_path, schema["files"], dataset_ignore_globs=dataset_ignore_globs
+            )
+        except DirectoryValidationErrors as e:
+            # If there are DirectoryValidationErrors and the schema is deprecated/draft...
+            #    schema deprecation/draft status is more important.
+            errors[f"{data_path} (as {dir_schema})"].extend(e.errors)
+            if schema_warning:
+                errors[f"{data_path} (as {dir_schema})"].append(schema_warning)
+            continue
+        except OSError as e:
+            # If there are OSErrors and the schema is deprecated/draft...
+            #    the OSErrors are more important.
+            errors[f"{data_path} (as {dir_schema})"].append(f"{e.strerror}: {e.filename}")
         if schema_warning:
-            return schema_warning
-        errors = {}
-        errors[f"{data_path} (as {dir_schema})"] = e.errors
-        return errors
-    except OSError as e:
-        # If there are OSErrors and the schema is deprecated/draft...
-        #    the OSErrors are more important.
-        return {f"{data_path} (as {dir_schema})": {e.strerror: e.filename}}
-    if schema_warning:
-        return schema_warning
+            errors[f"{data_path} (as {dir_schema})"].append(schema_warning)
+    if errors:
+        return dict(errors)
 
     # No problems!
     return None
