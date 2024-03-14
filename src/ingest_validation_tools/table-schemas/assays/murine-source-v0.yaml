@@ -30,7 +30,7 @@ fields:
 - name: date_of_birth_or_fertilization
   description: The date when the mouse/embryo was born/fertilized. If the hours/minutes are not known, use '00:00'.
   type: datetime
-  format: "%Y-%m-%d %H:%M"
+  format: '%Y-%m-%d %H:%M'
   constraints:
     required: True
 - name: is_deceased
