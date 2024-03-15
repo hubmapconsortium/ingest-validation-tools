@@ -6,7 +6,7 @@ Upload Errors:
   Directory Errors:
     examples/dataset-examples/bad-scatacseq-data/upload/scatacseq-metadata.tsv, column 'data_path', value 'dataset-1':
       examples/dataset-examples/bad-scatacseq-data/upload/dataset-1 (as scatacseq-v0):
-        Not allowed:
+      - Not allowed:
         - not-the-file-you-are-looking-for.txt.
         - unexpected-directory/place-holder.txt.
         Required but missing:

@@ -34,6 +34,7 @@ class UpdateData:
         opts: Dict = {},
         verbose: bool = False,
         dry_run: bool = True,
+        full_diff: bool = False,
     ):
         self.dir = dir
         self.globus_token = globus_token
@@ -42,6 +43,7 @@ class UpdateData:
         self.verbose = verbose
         self.upload_verbose = True if "plugin-tests" in dir else False
         self.dry_run = dry_run
+        self.full_diff = full_diff
 
     def log(self, verbose_message, short_message: Optional[str] = None):
         if self.verbose:
@@ -92,7 +94,13 @@ class UpdateData:
         if "README" not in self.exclude:
             readme = self.open_or_create_readme()
             try:
-                diff_test(self.dir, readme, clean_report(report), verbose=self.verbose)
+                diff_test(
+                    self.dir,
+                    readme,
+                    clean_report(report),
+                    verbose=self.verbose,
+                    full_diff=self.full_diff,
+                )
                 readme.close()
                 print(f"No diff found, skipping {self.dir}/README.md")
             except MockException:
@@ -109,6 +117,7 @@ class UpdateData:
                     )
                     self.change_report[self.dir].append("README diff found")
                 else:
+                    breakpoint()
                     self.log(
                         f"""
                             Writing the following report to {self.dir}/README.md:
@@ -117,7 +126,6 @@ class UpdateData:
                         f"Updating {self.dir}/README.md.",
                     )
                     with open(f"{self.dir}/README.md", "w") as f:
-                        # TODO: potential issues with blank lines at end of report
                         f.write(clean_report(report))
                     dataset_test(self.dir, self.opts)
         else:
@@ -227,6 +235,7 @@ def call_update(dir: str, args) -> Dict:
         dry_run=args.dry_run,
         verbose=args.verbose,
         exclude=args.exclude,
+        full_diff=args.full_diff,
     ).update_test_data()
     return change_report
 
@@ -276,6 +285,12 @@ parser.add_argument(
     "--manual_test",
     action="store_true",
     help="Default is False. Used for investigating testing failures with more verbose output. Requires passing a test_dir. Pass a blank Globus token as this runs offline.",
+)
+parser.add_argument(
+    "-f",
+    "--full_diff",
+    action="store_true",
+    help="Default is False. Show full and cleaned README diff.",
 )
 
 args = parser.parse_args()

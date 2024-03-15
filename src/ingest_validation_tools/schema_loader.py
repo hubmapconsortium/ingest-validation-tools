@@ -265,7 +265,7 @@ def get_possible_directory_schemas(dir_schema) -> Optional[List]:
     # TODO: check formatting of minor versions and tailor better;
     # deal with major version only
     directory_schema_minor_versions = sorted(
-        _directory_schemas_path.glob(dir_schema), reverse=True
+        _directory_schemas_path.glob(f"{dir_schema}*.yaml"), reverse=True
     )
     if not directory_schema_minor_versions:
         return None

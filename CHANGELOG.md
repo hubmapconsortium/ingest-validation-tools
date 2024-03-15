@@ -19,6 +19,7 @@
 - Update Lightsheet directory schema
 - Update Histology to include description on OME-TIFFs
 - Update Histology with links
+- Accommodate dir schema minor versions
 
 ## v0.0.17
 

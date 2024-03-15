@@ -67,7 +67,9 @@ def diff_test(
     readme: TextIOWrapper,
     report: str,
     verbose: bool = True,
+    full_diff: bool = False,
 ):
+    breakpoint()
     d = difflib.Differ()
     diff = list(d.compare(readme.readlines(), report.splitlines(keepends=True)))
     readme.close()
@@ -77,6 +79,16 @@ def diff_test(
     ]
     new = "".join([line.strip() for line in cleaned_diff if line.startswith("+ ")])
     removed = "".join([line.strip() for line in cleaned_diff if line.startswith("- ")])
+    if full_diff:
+        print(
+            f"""
+              FULL:
+              {diff}
+
+              CLEANED:
+              {cleaned_diff}
+              """
+        )
     if verbose:
         msg = f"""
                 DIFF ADDED LINES:

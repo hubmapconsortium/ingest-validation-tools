@@ -22,7 +22,7 @@ Upload Errors:
   Directory Errors:
     examples/dataset-examples/bad-codex-data/upload/codex-metadata.tsv, column 'data_path', value 'dataset-1':
       examples/dataset-examples/bad-codex-data/upload/dataset-1 (as codex-v1-with-dataset-json):
-        Not allowed:
+      - Not allowed:
         - channelnames.txt.
         - cyc002_reg001_200216_112537/bad.
         - experiment.json.
