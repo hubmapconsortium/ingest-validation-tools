@@ -525,6 +525,8 @@ class Upload:
             constrained_fields["sample_id"] = self.app_context.get("entities_url")
         elif "organ" in schema_name:
             constrained_fields["organ_id"] = self.app_context.get("entities_url")
+        elif "murine-source" in schema_name:
+            constrained_fields["source_id"] = self.app_context.get("entities_url")
         elif "contributors" in schema_name:
             constrained_fields["orcid_id"] = "https://pub.orcid.org/v3.0/"
         else:
