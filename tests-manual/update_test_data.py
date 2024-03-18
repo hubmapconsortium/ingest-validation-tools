@@ -63,7 +63,7 @@ class UpdateData:
         info = self.upload.get_info()
         errors = self.upload.get_errors()
         report = ErrorReport(info=info, errors=errors)
-        if "Too many requests" in report.as_md():
+        if "Too Many Requests" in report.as_md():
             raise Exception(
                 f"Something went wrong with Spreadsheet Validator request for {self.dir}."
             )
@@ -91,13 +91,14 @@ class UpdateData:
                     json.dump(new_data, f)
         else:
             print(f"{self.dir}/fixtures.json excluded, not changed.")
+        cleaned_report = clean_report(report)
         if "README" not in self.exclude:
             readme = self.open_or_create_readme()
             try:
                 diff_test(
                     self.dir,
                     readme,
-                    clean_report(report),
+                    cleaned_report,
                     verbose=self.verbose,
                     full_diff=self.full_diff,
                 )
@@ -111,23 +112,22 @@ class UpdateData:
                     self.log(
                         f"""
                             Would have written the following report to {self.dir}/README.md:
-                            {clean_report(report)}
+                            {cleaned_report}
                             """,
                         f"Would have updated {self.dir}/README.md.",
                     )
                     self.change_report[self.dir].append("README diff found")
                 else:
-                    breakpoint()
                     self.log(
                         f"""
                             Writing the following report to {self.dir}/README.md:
-                            {clean_report(report)}
+                            {cleaned_report}
                             """,
                         f"Updating {self.dir}/README.md.",
                     )
                     with open(f"{self.dir}/README.md", "w") as f:
-                        f.write(clean_report(report))
-                    dataset_test(self.dir, self.opts)
+                        f.write(cleaned_report)
+                    dataset_test(self.dir, self.opts | {"globus_token": self.globus_token})
         else:
             print(f"{self.dir}/README.md excluded, not changed.")
         return self.change_report

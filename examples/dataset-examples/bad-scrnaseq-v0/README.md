@@ -3,7 +3,7 @@ Upload Errors:
   Directory Errors:
     examples/dataset-examples/bad-scrnaseq-v0/upload/metadata.tsv, column 'data_path', value 'data':
       examples/dataset-examples/bad-scrnaseq-v0/upload/data (as scrnaseq-v0):
-        No such file or directory: examples/dataset-examples/bad-scrnaseq-v0/upload/data.
+      - 'No such file or directory: examples/dataset-examples/bad-scrnaseq-v0/upload/data.'
 Metadata TSV Validation Errors:
   Local Validation Errors:
     examples/dataset-examples/bad-scrnaseq-v0/upload/metadata.tsv (as scrnaseq-v0):

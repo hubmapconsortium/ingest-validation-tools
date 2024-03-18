@@ -10,7 +10,7 @@ Upload Errors:
   Directory Errors:
     examples/dataset-examples/bad-missing-data/upload/codex-metadata.tsv, column 'data_path', value 'dataset-1':
       examples/dataset-examples/bad-missing-data/upload/dataset-1 (as codex-v1-with-dataset-json):
-        No such file or directory: examples/dataset-examples/bad-missing-data/upload/dataset-1
+      - 'No such file or directory: examples/dataset-examples/bad-missing-data/upload/dataset-1'
 Metadata TSV Validation Errors:
   Local Validation Errors:
     examples/dataset-examples/bad-missing-data/upload/codex-metadata.tsv (as codex-v0):

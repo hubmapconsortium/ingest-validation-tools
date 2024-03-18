@@ -52,7 +52,7 @@ def dataset_test(test_dir: str, dataset_opts: Dict, verbose: bool = False):
 def clean_report(report: ErrorReport):
     clean_report = []
     regex = re.compile(r"((Time|Git version): )(.*)")
-    for line in report.as_md():
+    for line in report.as_md().splitlines(keepends=True):
         match = regex.search(line)
         if match:
             new_line = line.replace(match.group(3), "WILL_CHANGE")
@@ -69,7 +69,6 @@ def diff_test(
     verbose: bool = True,
     full_diff: bool = False,
 ):
-    breakpoint()
     d = difflib.Differ()
     diff = list(d.compare(readme.readlines(), report.splitlines(keepends=True)))
     readme.close()

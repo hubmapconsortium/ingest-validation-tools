@@ -6,7 +6,7 @@ Upload Errors:
   Directory Errors:
     examples/dataset-iec-examples/bad-example/upload/metadata.tsv, column 'data_path', value '.':
       examples/dataset-iec-examples/bad-example/upload (as scatacseq-v0):
-        Not allowed:
+      - Not allowed:
         - should-not-be-here.txt.
 Metadata TSV Validation Errors:
   Local Validation Errors:
