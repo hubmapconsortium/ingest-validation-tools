@@ -508,7 +508,7 @@ class Upload:
 
     def _url_checks(self, tsv_path: str, schema_name: str):
         """
-        Check provided UUIDs/HuBMAP IDs for parent_id, sample_id, organ_id.
+        Check provided UUIDs/HuBMAP IDs for parent_sample_id, sample_id, orcid/orcid_id.
         Not using get_table_errors because CEDAR schema fields do not match
         the TSV fields, which makes frictionless confused and upset.
         """
@@ -516,15 +516,12 @@ class Upload:
 
         # assay -> parent_sample_id
         # sample -> sample_id
-        # organ -> organ_id
         # contributors -> orcid_id
 
         constrained_fields = {}
 
         if "sample" in schema_name:
             constrained_fields["sample_id"] = self.app_context.get("entities_url")
-        elif "organ" in schema_name:
-            constrained_fields["organ_id"] = self.app_context.get("entities_url")
         elif "contributors" in schema_name:
             constrained_fields["orcid_id"] = "https://pub.orcid.org/v3.0/"
         else:

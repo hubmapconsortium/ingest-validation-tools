@@ -42,7 +42,7 @@ def get_schema_version(
     except TSVError as e:
         raise PreflightError(e.errors)
     other_type = get_other_schema_name(rows, str(path))
-    # Don't want to send contrib/organ/sample/antibody to soft assay endpoint
+    # Don't want to send contrib/sample/antibody to soft assay endpoint
     if other_type:
         sv = SchemaVersion(
             other_type,
@@ -104,6 +104,8 @@ def get_other_schema_name(rows: List, path: str) -> Optional[str]:
                 other_type.update({f"sample-{sample_type}": ["sample_id"]})
             else:
                 other_type.update({"sample": ["sample_id"]})
+        elif field == "organ_id":
+            raise PreflightError(f"Organ metadata TSVs are deprecated: {path}.")
         else:
             match = {key: field for key, value in other_types.items() if field in value}
             other_type.update(match)
