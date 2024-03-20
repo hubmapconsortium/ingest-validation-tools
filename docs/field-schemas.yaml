@@ -171,7 +171,6 @@ assay_category:
 - scrnaseq
 - scrnaseq-hca
 - second-harmonic-generation
-- segmentation-mask
 - seqfish
 - sims
 - slideseq
@@ -232,7 +231,6 @@ assay_type:
 - scrnaseq
 - scrnaseq-hca
 - second-harmonic-generation
-- segmentation-mask
 - seqfish
 - sims
 - slideseq
@@ -597,7 +595,6 @@ is_cedar:
 - sample-section
 - sample-suspension
 - second-harmonic-generation
-- segmentation-mask
 - seqfish
 - sims
 - slideseq
@@ -1004,6 +1001,7 @@ parent_id:
 - microct
 - mri
 - oct
+- phenocycler
 - publication
 - rnaseq
 - second-harmonic-generation
@@ -1014,6 +1012,8 @@ parent_id:
 - ultrasound
 - visium-with-probes
 - xenium
+parent_sample_id:
+- histology
 pathologist_report:
 - sample
 pathology_distance_unit:

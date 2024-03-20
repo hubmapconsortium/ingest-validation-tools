@@ -188,6 +188,7 @@ organ_width_unit: string
 organ_width_value: number
 overall_protocols_io_doi: string
 parent_id: string
+parent_sample_id: string
 pathologist_report: string
 pathology_distance_unit: string
 pathology_distance_value: number
