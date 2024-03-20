@@ -430,8 +430,6 @@ step_z_value: The number of optical sections in z axis range.
 storage_media: What was the sample preserved in.
 storage_method: The method by which the sample was stored, after preparation and before
   the assay was performed.
-strain_rrid: The Research Resource Identifier (RRID) (https://scicrunch.org/resources/data/source/nlx_154697-1/search)
-  for the strain. An example is 'RRID:MGI:3713213'
 suspension_enriched: Was the cell/nuclei population enriched?
 suspension_enriched_target: If the suspension was enriched, then this is the target
   of the enrichment.
