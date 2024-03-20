@@ -19,8 +19,8 @@
 - Update Lightsheet directory schema
 - Update Histology to include description on OME-TIFFs
 - Update Histology with links
-- Ported murine from SenNet
 - Update GeoMx NGS directory schema
+- Ported murine from SenNet
 
 ## v0.0.17
 
