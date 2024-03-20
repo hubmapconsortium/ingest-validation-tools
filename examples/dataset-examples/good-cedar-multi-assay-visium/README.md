@@ -13,7 +13,7 @@ TSVs:
     Metadata schema version: '2'
     Directory schema versions: histology-v2
   good-visium-rnaseq-metadata.tsv:
-    Schema: scRNAseq-10Genomics-v3-v2
+    Schema: scRNAseq-10xGenomics-v3-v2
     Metadata schema version: '2'
     Directory schema versions: rnaseq-v2
 
