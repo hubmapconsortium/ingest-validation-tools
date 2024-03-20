@@ -240,6 +240,7 @@ def get_is_assay(schema_name: str) -> bool:
         "sample-block",
         "sample-section",
         "sample-suspension",
+        "murine-source",
     ]
 
 

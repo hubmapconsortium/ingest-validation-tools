@@ -93,6 +93,7 @@ def get_other_schema_name(rows: List, path: str) -> Optional[str]:
         "sample-section": ["sample_id"],
         "contributors": ["orcid", "orcid_id"],
         "antibodies": ["antibody_rrid", "antibody_name"],
+        "murine-source": ["strain_rrid"],
     }
     other_type: DefaultDict[str, list] = defaultdict(list)
     for field in rows[0].keys():
