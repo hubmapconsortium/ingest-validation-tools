@@ -168,7 +168,8 @@ def get_data_dir_errors(
     # Collect errors, discard if schema validates against a minor version
     errors = []
 
-    for schema_name, schema in possible_schemas.items():
+    # Make sure possible_schemas is sorted by key (descending) to evaluate highest minor version first
+    for schema_name, schema in sorted(possible_schemas.items(), reverse=True):
         schema_errors = defaultdict(list)
         schema_warning_fields = [field for field in schema if field in ["deprecated", "draft"]]
         schema_warning = (
