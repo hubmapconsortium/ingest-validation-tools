@@ -156,7 +156,7 @@ def get_data_dir_errors(
     dir_schema: str,
     data_path: Path,
     dataset_ignore_globs: List[str] = [],
-) -> Optional[dict]:
+) -> Dict[str, Union[List[str], str]]:
     """
     Validate a single data_path.
     """
@@ -166,12 +166,13 @@ def get_data_dir_errors(
         return {"Undefined directory schema": dir_schema}
 
     # Collect errors, discard if schema validates against a minor version
-    errors = defaultdict(list)
+    errors = []
 
-    for schema in possible_schemas:
+    for schema_name, schema in possible_schemas.items():
+        schema_errors = defaultdict(list)
         schema_warning_fields = [field for field in schema if field in ["deprecated", "draft"]]
         schema_warning = (
-            f"{schema_warning_fields[0].title()} directory schema: {dir_schema}"
+            f"{schema_warning_fields[0].title()} directory schema: {schema_name}"
             if schema_warning_fields
             else None
         )
@@ -183,21 +184,25 @@ def get_data_dir_errors(
         except DirectoryValidationErrors as e:
             # If there are DirectoryValidationErrors and the schema is deprecated/draft...
             #    schema deprecation/draft status is more important.
-            errors[f"{data_path} (as {dir_schema})"].append(e.errors)
+            schema_errors[f"{data_path} (as {schema_name})"].append(e.errors)
             if schema_warning:
-                errors[f"{data_path} (as {dir_schema})"].append(schema_warning)
+                schema_errors[f"{data_path} (as {schema_name})"].append(schema_warning)
+            errors.append(schema_errors)
             continue
         except OSError as e:
             # If there are OSErrors and the schema is deprecated/draft...
             #    the OSErrors are more important.
-            errors[f"{data_path} (as {dir_schema})"].append(f"{e.strerror}: {e.filename}")
+            schema_errors[f"{data_path} (as {schema_name})"].append(f"{e.strerror}: {e.filename}")
         if schema_warning:
-            errors[f"{data_path} (as {dir_schema})"].append(schema_warning)
+            schema_errors[f"{data_path} (as {schema_name})"].append(schema_warning)
+        if schema_errors:
+            errors.append(schema_errors)
+            continue
+        # Found a schema with no problems!
+        return {schema_name: "No errors!"}
     if errors:
-        return dict(errors)
-
-    # No problems!
-    return None
+        return errors[0]
+    return {str(data_path): f"Unknown error validating directory schema for {data_path}"}
 
 
 def get_context_of_decode_error(e: UnicodeDecodeError) -> str:

@@ -60,8 +60,8 @@ class UpdateData:
             **self.opts,
             verbose=self.upload_verbose,
         )
-        info = self.upload.get_info()
         errors = self.upload.get_errors()
+        info = self.upload.get_info()
         report = ErrorReport(info=info, errors=errors)
         if "Too Many Requests" in report.as_md():
             raise Exception(

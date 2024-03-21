@@ -130,12 +130,14 @@ class Upload:
             stderr=subprocess.STDOUT,
         ).strip()
 
+        # If called before get_errors, will report dir schema major version only
+
         try:
             effective_tsvs = {
                 Path(path).name: {
                     "Schema": sv.table_schema,
                     "Metadata schema version": sv.version,
-                    "Directory schema versions": sv.dir_schema,
+                    "Directory schema version": sv.dir_schema,
                 }
                 for path, sv in self.effective_tsv_paths.items()
             }
@@ -649,9 +651,10 @@ class Upload:
             schema_version.dir_schema,
             data_path,
             dataset_ignore_globs=self.dataset_ignore_globs,
-        )
-        if ref_errors:
+        ).popitem()
+        if type(ref_errors[0]) is list:
             errors[f"{str(metadata_path)}, column 'data_path', value '{path_value}'"] = ref_errors
+        schema_version.dir_schema = ref_errors[0]
         return errors
 
     def _check_other_path(self, metadata_path: Path, other_path_value: str, path_type: str):

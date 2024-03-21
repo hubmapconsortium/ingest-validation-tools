@@ -260,11 +260,9 @@ def get_directory_schema(
     return schema
 
 
-def get_possible_directory_schemas(dir_schema: str) -> Optional[List]:
-    schemas = []
-    # TODO: check formatting of minor versions and tailor better;
-    # deal with whole number versions (e.g. if there is a v2, v2-1, and v2-2,
-    # is v2 properly v2.0 or is it the most current?)
+def get_possible_directory_schemas(dir_schema: str) -> Optional[Dict]:
+    schemas = {}
+    # this assumes that versions are numbered starting at x.0, no whole numbers
     directory_schema_minor_versions = sorted(
         _directory_schemas_path.glob(f"{dir_schema}*.yaml"), reverse=True
     )
@@ -273,7 +271,7 @@ def get_possible_directory_schemas(dir_schema: str) -> Optional[List]:
     for directory_schema_path in directory_schema_minor_versions:
         schema = load_yaml(directory_schema_path)
         schema["files"] += []
-        schemas.append(schema)
+        schemas[Path(directory_schema_path).stem] = schema
     return schemas
 
 

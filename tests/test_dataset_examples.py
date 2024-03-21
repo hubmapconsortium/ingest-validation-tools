@@ -39,8 +39,8 @@ def dataset_test(test_dir: str, dataset_opts: Dict, verbose: bool = False):
     print(f"Testing {test_dir}...")
     readme = open(f"{test_dir}/README.md", "r")
     upload = Upload(Path(f"{test_dir}/upload"), **dataset_opts)
-    info = upload.get_info()
     errors = upload.get_errors()
+    info = upload.get_info()
     report = ErrorReport(info=info, errors=errors)
     diff_test(test_dir, readme, clean_report(report), verbose=verbose)
     if "PreflightError" in report.as_md():
@@ -237,3 +237,44 @@ class TestDatasetExamples(unittest.TestCase):
         except AssertionError as e:
             print(e)
             self.errors.append(e)
+
+    def prep_upload(self, test_dir: str, opts: Dict):
+        with patch(
+            "ingest_validation_tools.validation_utils.get_assaytype_data",
+            side_effect=lambda row, ingest_url: _assaytype_side_effect(test_dir, row, ingest_url),
+        ):
+            with patch(
+                "ingest_validation_tools.upload.Upload.online_checks",
+                side_effect=lambda tsv_path, schema_name, report_type: _online_side_effect(
+                    schema_name, test_dir, tsv_path, report_type
+                ),
+            ):
+                upload = Upload(Path(f"{test_dir}/upload"), **opts)
+                upload.get_errors()
+                return upload
+
+    # @patch(
+    #     "ingest_validation_tools.schema_loader.get_possible_directory_schemas",
+    #     {"test-schema-v1.0": {}, "test-schema-v1.1": {}},
+    # )
+    # def test_data_dir_versions_highest_version(self):
+    #     # pick 1 good and 1 bad example dir; assert names (or numbers) of effective TSVs inside
+    #     test_dirs = []
+    #     for test_dir in test_dirs:
+    #         upload = self.prep_upload(test_dir, DATASET_EXAMPLES_OPTS)
+    #         dir_schemas = upload.get_dir_schema_versions()
+    #         expected_result = {upload.effective_tsv_paths.popitem()[0]: "test-schema-v1.1"}
+    #         self.assertEqual(dir_schemas, expected_result)
+    #
+    # @patch(
+    #     "ingest_validation_tools.schema_loader.get_possible_directory_schemas",
+    #     {"test-schema-v1.0": {}, "test-schema-v1.1": {}},
+    # )
+    # def test_data_dir_versions_lower_version(self):
+    #     # pick 1 good and 1 bad example dir; assert names (or numbers) of effective TSVs inside
+    #     test_dirs = []
+    #     for test_dir in test_dirs:
+    #         upload = self.prep_upload(test_dir, DATASET_EXAMPLES_OPTS)
+    #         dir_schemas = upload.get_dir_schema_versions()
+    #         expected_result = {upload.effective_tsv_paths.popitem()[0]: "test-schema-v1.0"}
+    #         self.assertEqual(dir_schemas, expected_result)
