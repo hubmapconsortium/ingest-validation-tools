@@ -21,6 +21,7 @@
 - Update Histology with links
 - Update GeoMx NGS directory schema
 - Ported murine from SenNet
+- Update Histology directory schema
 - Converted upload `_url_checks` to use `_get_method` for SenNet compatibility
 
 ## v0.0.17
