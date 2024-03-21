@@ -22,7 +22,7 @@ files:
     required: True
     description: Raw image files. Using this subdirectory allows for harmonization with other more complex assays, like Visium that includes both raw imaging and sequencing data. This directory should include at least one raw file.
   -
-    pattern: raw\/images\/[^\/]+\.(?:xml|scn|vsi|ndpi|svs|czi|tiff)
+    pattern: raw\/images\/[^\/]+\.(?:xml|scn|vsi|ndpi|svs|czi|tiff|qptiff)
     required: True
     description: Raw microscope file for the experiment
     is_qa_qc: False
