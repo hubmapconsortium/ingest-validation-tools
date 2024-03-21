@@ -22,6 +22,7 @@
 - Update GeoMx NGS directory schema
 - Ported murine from SenNet
 - Update Histology directory schema
+- Bugfix stripping trailing slash in ingest api url
 
 ## v0.0.17
 
