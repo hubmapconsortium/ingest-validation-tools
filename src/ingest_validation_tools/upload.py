@@ -652,8 +652,10 @@ class Upload:
             data_path,
             dataset_ignore_globs=self.dataset_ignore_globs,
         ).popitem()
-        if type(ref_errors[0]) is list:
-            errors[f"{str(metadata_path)}, column 'data_path', value '{path_value}'"] = ref_errors
+        if type(ref_errors[1]) is list:
+            errors[
+                f"{str(metadata_path)}, column 'data_path', value '{path_value}' (as {Path(ref_errors[0]).stem})"
+            ] = ref_errors[1]
         schema_version.dir_schema = ref_errors[0]
         return errors
 

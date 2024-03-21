@@ -184,17 +184,17 @@ def get_data_dir_errors(
         except DirectoryValidationErrors as e:
             # If there are DirectoryValidationErrors and the schema is deprecated/draft...
             #    schema deprecation/draft status is more important.
-            schema_errors[f"{data_path} (as {schema_name})"].append(e.errors)
+            schema_errors[schema_name].append(e.errors)
             if schema_warning:
-                schema_errors[f"{data_path} (as {schema_name})"].append(schema_warning)
+                schema_errors[schema_name].append(schema_warning)
             errors.append(schema_errors)
             continue
         except OSError as e:
             # If there are OSErrors and the schema is deprecated/draft...
             #    the OSErrors are more important.
-            schema_errors[f"{data_path} (as {schema_name})"].append(f"{e.strerror}: {e.filename}")
+            schema_errors[schema_name].append(f"{e.strerror}: {e.filename}")
         if schema_warning:
-            schema_errors[f"{data_path} (as {schema_name})"].append(schema_warning)
+            schema_errors[schema_name].append(schema_warning)
         if schema_errors:
             errors.append(schema_errors)
             continue

@@ -7,6 +7,6 @@ TSVs:
   metadata.tsv:
     Schema: ims-v0
     Metadata schema version: ims-v0
-    Directory schema versions: ims-v0
+    Directory schema version: ims-v0
 
 ```
