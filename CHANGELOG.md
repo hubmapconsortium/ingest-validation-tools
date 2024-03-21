@@ -1,6 +1,6 @@
 # Changelog
 
-## v0.0.18 (in progress)
+## v0.0.18
 
 - Update PhenoCycler directory schema
 - Update to prevent standalone child datasets in multi-assay upload
