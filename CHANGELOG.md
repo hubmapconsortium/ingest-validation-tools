@@ -21,6 +21,7 @@
 - Update Histology with links
 - Update GeoMx NGS directory schema
 - Ported murine from SenNet
+- Update Histology directory schema
 
 ## v0.0.17
 
