@@ -7,7 +7,7 @@ Upload Errors:
     - 'File does not exist: examples/dataset-examples/bad-tsv-formats/upload/antibodies.tsv.'
   Directory Errors:
     ? examples/dataset-examples/bad-tsv-formats/upload/codex-metadata.tsv, column
-      'data_path', value 'dataset-1/' (as codex-v1-with-dataset-json)
+      'data_path', value 'dataset-1/' (as codex-v1.1)
     : - Not allowed:
         - channelnames.txt.
         - cyc002_reg001_200216_112537/1_00001_Z001_CH1.tif.

@@ -207,7 +207,7 @@ def manual_test(test_dir: Union[str, List], verbose: bool = False):
         assert Path(
             test_dir
         ).resolve(), f"Arg {test_dir} passed to manual_test is not a directory!"
-    elif type(test_dir) is list:
+    elif type(test_dir) is list and len(test_dir) > 1:
         test_dir = [dir for dir in test_dir if Path(dir).is_dir()]
     test = TestDatasetExamples()
     setattr(test, "dataset_test_dirs", test_dir)

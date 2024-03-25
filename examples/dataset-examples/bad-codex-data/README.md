@@ -20,20 +20,19 @@ Upload Errors:
     - "Decode Error: Invalid ascii because ordinal not in range(128): \"mber\tconjugated_tag\n\
       \ [ \xF0 ] \x9F\x98\x83\t\tbad-value\t\t\tinv\"."
   Directory Errors:
-    ? examples/dataset-examples/bad-codex-data/upload/codex-metadata.tsv, column 'data_path',
-      value 'dataset-1' (as codex-v1-with-dataset-json)
-    : - Not allowed:
-        - channelnames.txt.
-        - cyc002_reg001_200216_112537/bad.
-        - experiment.json.
-        - exposure_times.txt.
-        - segmentation.json.
-        Required but missing:
-        - (processed|drv_[^/]*)/.*.
-        - (raw|src_.*)/.*.
-        - (raw|src_.*)/[cC]yc.*_reg.*/.*_Z.*_CH.*\.tif.
-        - (raw|src_[^/]*)/dataset\.json.
-        - extras/dir-schema-v1-with-dataset-json.
+    examples/dataset-examples/bad-codex-data/upload/codex-metadata.tsv, column 'data_path', value 'dataset-1' (as codex-v1.1):
+    - Not allowed:
+      - channelnames.txt.
+      - cyc002_reg001_200216_112537/bad.
+      - experiment.json.
+      - exposure_times.txt.
+      - segmentation.json.
+      Required but missing:
+      - (processed|drv_[^/]*)/.*.
+      - (raw|src_.*)/.*.
+      - (raw|src_.*)/[cC]yc.*_reg.*/.*_Z.*_CH.*\.tif.
+      - (raw|src_[^/]*)/dataset\.json.
+      - extras/dir-schema-v1-with-dataset-json.
 Metadata TSV Validation Errors:
   Local Validation Errors:
     examples/dataset-examples/bad-codex-data/upload/codex-metadata.tsv (as codex-v0):

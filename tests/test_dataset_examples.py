@@ -33,7 +33,6 @@ class MockException(Exception):
     def __init__(self, error):
         super().__init__(error)
 
-
 def dataset_test(test_dir: str, dataset_opts: Dict, verbose: bool = False):
     dataset_opts = dataset_opts | {"verbose": verbose}
     print(f"Testing {test_dir}...")
@@ -135,7 +134,6 @@ def _assaytype_side_effect(path: str, row: Dict, *args, **kwargs):
 
 
 class TestDatasetExamples(unittest.TestCase):
-    dataset_paths = {}
     dataset_test_dirs = [
         test_dir
         for test_dir in [
@@ -151,17 +149,23 @@ class TestDatasetExamples(unittest.TestCase):
         self.get_paths()
 
     def tearDown(self):
-        errors = "\n".join([str(error) for error in self.errors])
+        error_lines = "\n".join([str(error) for error in self.errors])
+        errors = " ".join([str(error) for error in self.errors])
         try:
             self.assertEqual([], self.errors)
         except AssertionError:
             print(
-                f"""-------ERRORS-------
-                    {errors}
+                f"""
+                -------ERRORS-------
+                {error_lines}
+
+                Run for more detailed output:
+                    env PYTHONPATH=src:$PYTHONPATH python -m tests-manual.update_test_data -t {errors} --verbose --globus_token "" --manual_test --dry_run
                 """
             )
 
     def get_paths(self):
+        self.dataset_paths = {}
         for test_dir in self.dataset_test_dirs:
             metadata_paths = [path for path in Path(f"{test_dir}/upload").glob("*metadata.tsv")]
             self.dataset_paths[test_dir] = metadata_paths
@@ -196,7 +200,7 @@ class TestDatasetExamples(unittest.TestCase):
                             continue
                         except AssertionError as e:
                             print(e)
-                            self.errors.append(e)
+                            self.errors.append(test_dir)
                             continue
                 if len(tsv_paths) == 1:
                     self.single_dataset_assert(tsv_paths[0], mock_assaytype_data)

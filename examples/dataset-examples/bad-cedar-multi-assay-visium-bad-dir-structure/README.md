@@ -2,7 +2,7 @@
 Upload Errors:
   Directory Errors:
     ? examples/dataset-examples/bad-cedar-multi-assay-visium-bad-dir-structure/upload/good-visium-assay-metadata.tsv,
-      column 'data_path', value './Visium_9OLC_A4_S1' (as visium-no-probes-v2)
+      column 'data_path', value './Visium_9OLC_A4_S1' (as visium-no-probes-v2.0)
     : - Required but missing:
         - lab_processed\/.*.
         - lab_processed\/images\/.*.
