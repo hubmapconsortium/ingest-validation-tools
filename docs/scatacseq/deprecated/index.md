@@ -886,7 +886,7 @@ Relative path to file or directory with instrument data. Downstream processing w
 ## Directory schemas
 The HIVE will process each dataset with
 [scATACseq Pipeline 1.4.3](https://github.com/hubmapconsortium/sc-atac-seq-pipeline/releases/tag/1.4.3).
-<summary><b>Version 0 (use this one)</b></summary>
+<summary><b>Version 0.0 (use this one)</b></summary>
 
 | pattern | required? | description |
 | --- | --- | --- |

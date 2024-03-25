@@ -67,13 +67,13 @@ for TYPE in $(ls -d docs/*); do
   if [ -e $REAL_DEST/current ] && [ -e $TEST_DEST/current ]; then
     diff -r $REAL_DEST/current $TEST_DEST/current --exclude="*.tsv" --exclude="*.xlsx" \
       || die "Update needed: $REAL_CMD
-  Or:" 'for D in `ls -d docs/*/`; do D=`basename $D`; [ -e docs/$D/*.tsv ] || continue; src/generate_docs.py $D docs/$D; done'
+  Or:" 'for D in `ls -d docs/*/`; do D=`basename $D`; src/generate_docs.py $D docs/$D; done'
   fi
 
   if [ -e $REAL_DEST/deprecated ] && [ -e $TEST_DEST/deprecated ]; then
     diff -r $REAL_DEST/deprecated $TEST_DEST/deprecated --exclude="*.tsv" --exclude="*.xlsx" \
       || die "Update needed: $REAL_CMD
-  Or:" 'for D in `ls -d docs/*/`; do D=`basename $D`; [ -e docs/$D/*.tsv ] || continue; src/generate_docs.py $D docs/$D; done'
+  Or:" 'for D in `ls -d docs/*/`; do D=`basename $D`; src/generate_docs.py $D docs/$D; done'
   fi
 
   rm -rf $TEST_DEST

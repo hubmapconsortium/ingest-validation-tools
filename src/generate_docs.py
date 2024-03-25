@@ -77,7 +77,10 @@ def main():
             current["metadata"][v] = schema
 
     for v, schema in directory_schemas.items():
-        if not v.isdigit() or int(v) < 2:
+        try:
+            a = float(v)
+            assert a >= 2.0
+        except AssertionError:
             deprecated["directories"][v] = schema
         else:
             current["directories"][v] = schema
