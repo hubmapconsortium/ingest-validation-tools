@@ -118,7 +118,9 @@ def _get_portal_names_md(assay_types):
     return f'In the portal: {" / ".join(links)}'
 
 
-def generate_readme_md(table_schemas, pipeline_infos, directory_schemas, schema_name, is_assay=True):
+def generate_readme_md(
+    table_schemas, pipeline_infos, directory_schemas, schema_name, is_assay=True
+):
     int_keys = [int(k) for k in table_schemas.keys()]
     max_version = max(int_keys)
     min_version = min(int_keys)
