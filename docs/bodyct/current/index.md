@@ -23,11 +23,3 @@ Excel and TSV templates for this schema will be available when the draft next-ge
 
 <br>
 
-## Directory schemas
-<summary><b>Version 2 (use this one)</b></summary>
-
-| pattern | required? | description |
-| --- | --- | --- |
-| <code>TODO</code> | ✓ | Directory structure not yet specified. |
-| <code>extras\/.*</code> | ✓ | Folder for general lab-specific files related to the dataset. [Exists in all assays] |
-
