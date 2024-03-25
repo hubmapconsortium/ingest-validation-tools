@@ -371,7 +371,12 @@ class Upload:
                 # non-parent dataset_types
                 if not self.multi_parent or (sv.dataset_type == self.multi_parent.dataset_type):
                     for k, v in run_plugin_validators_iter(
-                        metadata_path, sv, plugin_path, self.is_shared_upload, verbose=self.verbose, **kwargs
+                        metadata_path,
+                        sv,
+                        plugin_path,
+                        self.is_shared_upload,
+                        verbose=self.verbose,
+                        **kwargs,
                     ):
                         errors[k].append(v)
             except PluginValidatorError as e:
