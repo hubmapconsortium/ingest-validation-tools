@@ -7,6 +7,6 @@ TSVs:
   validated-histology-metadata.tsv:
     Schema: h-and-e-v2
     Metadata schema version: '2'
-    Directory schema version: histology-v2
+    Directory schema version: histology-v2.0
 
 ```

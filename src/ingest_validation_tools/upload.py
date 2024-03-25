@@ -263,6 +263,9 @@ class Upload:
                 dir_errors = self._check_data_path(
                     self.multi_parent, Path(self.multi_parent.path), data_path
                 )
+                for schema in self.effective_tsv_paths.values():
+                    if not schema.dataset_type == self.multi_parent.dataset_type:
+                        schema.dir_schema = self.multi_parent.dir_schema
                 if dir_errors:
                     errors.update(dir_errors)
         else:
