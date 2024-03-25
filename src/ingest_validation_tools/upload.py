@@ -99,6 +99,12 @@ class Upload:
             if not self.is_multi_assay:
                 self._check_single_assay()
 
+            self.is_shared_upload = {"global", "non_global"} == {
+                x
+                for x in self.directory_path.glob("*global")
+                if x.is_dir() and x.name in ["global", "non_global"]
+            }
+
         except PreflightError as e:
             self.errors["Preflight"] = e
 
@@ -343,10 +349,13 @@ class Upload:
         errors: Dict[str, Any] = {}
         no_ref_errors = self.__get_no_ref_errors()
         multi_ref_errors = self.__get_multi_ref_errors()
+        shared_dir_errors = self.__get_shared_dir_errors()
         if no_ref_errors:
             errors["No References"] = no_ref_errors
         if multi_ref_errors:
             errors["Multiple References"] = multi_ref_errors
+        if shared_dir_errors:
+            errors["Shared Directory References"] = shared_dir_errors
         return errors
 
     def _get_plugin_errors(self, **kwargs) -> dict:
@@ -362,7 +371,12 @@ class Upload:
                 # non-parent dataset_types
                 if not self.multi_parent or (sv.dataset_type == self.multi_parent.dataset_type):
                     for k, v in run_plugin_validators_iter(
-                        metadata_path, sv, plugin_path, verbose=self.verbose, **kwargs
+                        metadata_path,
+                        sv,
+                        plugin_path,
+                        self.is_shared_upload,
+                        verbose=self.verbose,
+                        **kwargs,
                     ):
                         errors[k].append(v)
             except PluginValidatorError as e:
@@ -654,17 +668,22 @@ class Upload:
     def _check_data_path(
         self, schema_version: SchemaVersion, metadata_path: Path, path_value: str
     ):
+        data_path = Path(path_value)
         errors = {}
-        data_path = self.directory_path / path_value
+
         if not schema_version.dir_schema:
             raise Exception(
-                f"No directory schema found for data_path {data_path} in {metadata_path}!"
+                f"No directory schema found for data_path "
+                f"{self.directory_path / data_path} in {metadata_path}!"
             )
+
         ref_errors = get_data_dir_errors(
             schema_version.dir_schema,
-            data_path,
+            root_path=self.directory_path,
+            data_dir_path=data_path,
             dataset_ignore_globs=self.dataset_ignore_globs,
         )
+
         if ref_errors:
             errors[f"{str(metadata_path)}, column 'data_path', value '{path_value}'"] = ref_errors
         return errors
@@ -719,6 +738,35 @@ class Upload:
             errors["Files"] = unreferenced_file_paths
         return errors
 
+    def __get_shared_dir_errors(self) -> dict:
+        errors = {}
+        all_non_global_files = self.__get_non_global_files_references()
+        if all_non_global_files:
+            for row_non_global_files, row_references in all_non_global_files.items():
+                row_non_global_files = {
+                    (self.directory_path / "./non_global" / Path(x.strip())): Path(x.strip())
+                    for x in row_non_global_files.split(";")
+                    if x.strip()
+                }
+
+                for (
+                    full_path_row_non_global_file,
+                    rel_path_row_non_global_file,
+                ) in row_non_global_files.items():
+                    if not full_path_row_non_global_file.exists():
+                        errors[",".join(row_references)] = (
+                            f"{rel_path_row_non_global_file} not exist in upload."
+                        )
+        else:
+            # Catch case 2
+            if self.is_shared_upload:
+                errors["Upload Errors"] = (
+                    "No non_global_files specified but "
+                    "upload has global & non_global directories"
+                )
+
+        return errors
+
     def __get_multi_ref_errors(self) -> dict:
         #  If - multi-assay dataset (and only that dataset is referenced) don't fail
         #  Else - fail
@@ -726,7 +774,7 @@ class Upload:
         data_references = self.__get_data_references()
         for path, references in data_references.items():
             if path not in self.multi_assay_data_paths:
-                if len(references) > 1:
+                if len(references) > 1 and not self.is_shared_upload:
                     errors[path] = references
         return errors
 
@@ -738,6 +786,9 @@ class Upload:
 
     def __get_contributors_references(self) -> dict:
         return self.__get_references("contributors_path")
+
+    def __get_non_global_files_references(self) -> dict:
+        return self.__get_references("non_global_files")
 
     def __get_references(self, col_name) -> dict:
         references = defaultdict(list)
