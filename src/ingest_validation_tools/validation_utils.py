@@ -163,7 +163,7 @@ def get_data_dir_errors(
     possible_schemas = get_possible_directory_schemas(dir_schema)
 
     if possible_schemas is None:
-        return {"Undefined directory schema": dir_schema}
+        return {dir_schema: ["No matching directory schemas found."]}
 
     # Collect errors, discard if schema validates against a minor version
     errors = []

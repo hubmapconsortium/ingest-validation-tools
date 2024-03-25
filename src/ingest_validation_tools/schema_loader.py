@@ -263,7 +263,7 @@ def get_directory_schema(
 def get_possible_directory_schemas(dir_schema: str) -> Optional[Dict]:
     schemas = {}
     # this assumes that versions are numbered starting at x.0, no whole numbers
-    directory_schema_minor_versions = _directory_schemas_path.glob(f"{dir_schema}*.yaml")
+    directory_schema_minor_versions = list(_directory_schemas_path.glob(f"{dir_schema}*.yaml"))
     if not directory_schema_minor_versions:
         return None
     for directory_schema_path in directory_schema_minor_versions:

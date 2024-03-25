@@ -657,7 +657,7 @@ class Upload:
         ).popitem()
         if type(ref_errors[1]) is list:
             errors[
-                f"{str(metadata_path)}, column 'data_path', value '{path_value}' (as {Path(ref_errors[0]).stem})"
+                f"{str(metadata_path)}, column 'data_path', value '{path_value}' (as {ref_errors[0]})"
             ] = ref_errors[1]
         schema_version.dir_schema = ref_errors[0]
         return errors
