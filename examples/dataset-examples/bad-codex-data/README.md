@@ -6,6 +6,14 @@ Upload Errors:
         examples/dataset-examples/bad-codex-data/upload/contributors.tsv (as contributors-v1):
         - 'On row 2, column "orcid_id", value "bad-id" fails because it does not match
           the expected pattern. Example: 0000-0002-8928-741X.'
+        - 'On row 2, column "orcid_id", value "bad-id" fails because URL returned
+          404: "https://pub.orcid.org/v3.0/bad-id". Example: 0000-0002-8928-741X.'
+        - 'On row 3, column "orcid_id", value "0000-0000-0000-0000" fails because
+          URL returned 404: "https://pub.orcid.org/v3.0/0000-0000-0000-0000". Example:
+          0000-0002-8928-741X.'
+        - 'On row 4, column "orcid_id", value "0000-0000-0000-0000" fails because
+          URL returned 404: "https://pub.orcid.org/v3.0/0000-0000-0000-0000". Example:
+          0000-0002-8928-741X.'
         - 'On row 4, column "affiliation", value "somewhere3" fails because there
           is a run of 3 sequential items: Limit is 3. If correct, reorder rows.'
     examples/dataset-examples/bad-codex-data/upload/codex-metadata.tsv, column 'antibodies_path', value 'antibodies.tsv':
@@ -33,6 +41,8 @@ Metadata TSV Validation Errors:
       fails because it does not match the expected pattern.
     - On row 2, column "operator_email", value "no-at.example.com" fails because it
       is not a valid email.
+    - On row 2, column "protocols_io_doi", value "10\.17504/protocols.io.menc3de"
+      fails because it is an invalid DOI.
     - On row 2, column "resolution_z_unit", value "None" fails because it requires
       a value when resolution_z_value is filled.
 Hint: 'If validation fails because of extra whitespace in the TSV, try:

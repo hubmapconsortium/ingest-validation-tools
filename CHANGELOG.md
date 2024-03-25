@@ -1,12 +1,31 @@
 # Changelog
 
-## v0.0.18 (in progress)
+## v0.0.19 (in progress)
+- Directory validation changes for "shared" uploads
+
+## v0.0.18
 
 - Update PhenoCycler directory schema
 - Update to prevent standalone child datasets in multi-assay upload
 - Update to prevent multiple dataset types in a non-multi-assay upload
 - Update MIBI directory schema
-- Directory validation changes for "shared" uploads
+- Update Visium (with probes) directory schema
+- Update Auto-fluorescence directory schema
+- Update Confocal directory schema
+- Update Enhanced SRS directory schema
+- Update Light Sheet directory schema
+- Update Second Harmonic Generation directory schema
+- Update Thick Section Multiphoton MxIF directory schema
+- Integrate SenNet app_context
+- Updating testing
+- Change to error messaging related to get_assaytype_data failures
+- Update Lightsheet directory schema
+- Update Histology to include description on OME-TIFFs
+- Update Histology with links
+- Update GeoMx NGS directory schema
+- Ported murine from SenNet
+- Update Histology directory schema
+- Bugfix stripping trailing slash in ingest api url
 
 ## v0.0.17
 
@@ -382,7 +401,6 @@
 - Script to generate CSV for fields and enums.
 - Add version number to schemas.
 - Clarify guidelines for direction schemas.
-- Integrate SenNet app_context.
 
 ## v0.0.8 - 2021-02-10
 

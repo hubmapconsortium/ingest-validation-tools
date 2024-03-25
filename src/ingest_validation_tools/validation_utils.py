@@ -17,10 +17,6 @@ from ingest_validation_tools.schema_loader import (
     get_directory_schema,
 )
 from ingest_validation_tools.table_validator import ReportType
-from ingest_validation_tools.test_validation_utils import (
-    compare_mock_with_response,
-    mock_response,
-)
 
 
 class TSVError(Exception):
@@ -55,27 +51,30 @@ def get_schema_version(
             rows=rows,
         )
         return sv
+    message = []
+    if offline:
+        message.append("Running in offline mode, cannot reach assayclassifier.")
     if not (rows[0].get("dataset_type") or rows[0].get("assay_type")):
-        raise PreflightError(f"No assay_type or dataset_type in {path}.")
+        message.append(f"No assay_type or dataset_type in {path}.")
+        if "channel_id" in rows[0]:
+            message.append('Has "channel_id": Antibodies TSV found where metadata TSV expected.')
+        elif "orcid_id" in rows[0]:
+            message.append('Has "orcid_id": Contributors TSV found where metadata TSV expected.')
+    if message:
+        raise PreflightError(" ".join([msg for msg in message]))
     assay_type_data = get_assaytype_data(
         rows[0],
         ingest_url,
-        path,
-        offline=offline,
     )
     if not assay_type_data:
-        message = f"Assay data not retrieved from assayclassifier endpoint for TSV {path}."
+        message.append(f"No match found in assayclassifier for TSV {path}.")
         if "assay_type" in rows[0]:
-            message += f' Assay type: {rows[0].get("assay_type")}.'
+            message.append(f'Assay type: {rows[0].get("assay_type")}.')
         elif "dataset_type" in rows[0]:
-            message += f' Dataset type: {rows[0].get("dataset_type")}.'
-        if "channel_id" in rows[0]:
-            message += ' Has "channel_id": Antibodies TSV found where metadata TSV expected.'
-        elif "orcid_id" in rows[0]:
-            message += ' Has "orcid_id": Contributors TSV found where metadata TSV expected.'
-        else:
-            message += f' Column headers in TSV: {", ".join(rows[0].keys())}'
-        raise PreflightError(message)
+            message.append(
+                f'Dataset type: {rows[0].get("dataset_type")}. Data Curator: check Pipeline Decision Rules to determine correct Assay Type and make sure metadata TSV matches the specification for that type.'
+            )
+        raise PreflightError(" ".join([msg for msg in message]))
     return SchemaVersion(
         assay_type_data["assaytype"],
         directory_path=directory_path,
@@ -94,6 +93,7 @@ def get_other_schema_name(rows: List, path: str) -> Optional[str]:
         "sample-section": ["sample_id"],
         "contributors": ["orcid", "orcid_id"],
         "antibodies": ["antibody_rrid", "antibody_name"],
+        "murine-source": ["strain_rrid"],
     }
     other_type: DefaultDict[str, list] = defaultdict(list)
     for field in rows[0].keys():
@@ -123,21 +123,15 @@ def get_other_schema_name(rows: List, path: str) -> Optional[str]:
 def get_assaytype_data(
     row: Dict,
     ingest_url: str,
-    path: Path,
-    offline: bool = False,
 ) -> Dict:
-    if offline:
-        # TODO: separate testing path from live code
-        return mock_response(path, row)
-    elif not ingest_url:
+    if not ingest_url:
         ingest_url = "https://ingest.api.hubmapconsortium.org/"
     response = requests.post(
-        f"{ingest_url}/assaytype",
+        f"""{ingest_url.strip("/")}/assaytype""",
         headers={"Content-Type": "application/json"},
         data=json.dumps(row),
     )
     response.raise_for_status()
-    compare_mock_with_response(row, response.json(), path)
     return response.json()
 
 

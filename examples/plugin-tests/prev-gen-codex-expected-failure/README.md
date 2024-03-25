@@ -1,12 +1,7 @@
-/home/gesina/code/ingest-validation-tools/examples/plugin-tests/prev-gen-codex-expected-failure/upload/dataset-1/src_something/cycX_regX_X/X_X_ZX_CHX.tif is not a valid TIFF file: not a TIFF file
-FOUND dataset.json; skipping further analysis
-Threading at 4
-Threading at 4
-Validating matching fastq files in /home/gesina/code/ingest-validation-tools/examples/plugin-tests/prev-gen-codex-expected-failure/upload/dataset-1
 ```
 Plugin Errors:
   Check CODEX JSON against schema:
-  - "/home/gesina/code/ingest-validation-tools/examples/plugin-tests/prev-gen-codex-expected-failure/upload/dataset-1/src_something/dataset.json:\
+  - "examples/plugin-tests/prev-gen-codex-expected-failure/upload/dataset-1/src_something/dataset.json:\
     \ \"Version\" is a required property\n\nFailed validating \"required\" in schema:\n\
     \    {\"$id\": \"http://example.com/example.json\",\n     \"$schema\": \"http://json-schema.org/draft-07/schema\"\
     ,\n     \"additionalProperties\": True,\n     \"default\": {},\n     \"description\"\
@@ -1204,7 +1199,7 @@ Plugin Errors:
     ],\n     \"title\": \"The root schema\",\n     \"type\": \"object\"}\n\nOn instance:\n\
     \    {}."
   Recursively test all tiff files that are not ome.tiffs for validity:
-  - '/home/gesina/code/ingest-validation-tools/examples/plugin-tests/prev-gen-codex-expected-failure/upload/dataset-1/src_something/cycX_regX_X/X_X_ZX_CHX.tif
+  - 'examples/plugin-tests/prev-gen-codex-expected-failure/upload/dataset-1/src_something/cycX_regX_X/X_X_ZX_CHX.tif
     is not a valid TIFF file: not a TIFF file.'
 Hint: 'If validation fails because of extra whitespace in the TSV, try:
 

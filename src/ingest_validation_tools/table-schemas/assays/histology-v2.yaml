@@ -1,4 +1,4 @@
-description_md: '[This link](https://docs.google.com/spreadsheets/d/1YnmdTAA0Z9MKN3OjR3Sca8pz-LNQll91wdQoRPSP6Q4/edit#gid=0) lists the set of fields that are required in the OME TIFF file XML header.'
+description_md: '[This link](https://docs.google.com/spreadsheets/d/1YnmdTAA0Z9MKN3OjR3Sca8pz-LNQll91wdQoRPSP6Q4/edit#gid=0) lists the set of fields that are required in the OME TIFF file XML header. We require both the the raw image file as well as a lab-created image based on the raw one in the open source OME-TIFF format. Our processing pipeline uses the OME-TIFF image to generate an [OME-TIFF pyramid](https://docs.openmicroscopy.org/ome-model/6.0.0/ome-tiff/specification.html) for portal visualization. We recommend [BioFormats](https://www.openmicroscopy.org/bio-formats/) for converting raw image files to OME-TIFF. A relevant guide for converting raw TIFF image files to OME-TIFF using BioFormats can be found [here](https://docs.facebase.org/docs/convert-tif/).'
 fields:
 - name: is_cedar
   description: "Identifies whether the version is hosted by CEDAR"

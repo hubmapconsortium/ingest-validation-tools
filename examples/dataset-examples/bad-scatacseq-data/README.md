@@ -18,6 +18,8 @@ Metadata TSV Validation Errors:
       must be filled out.
     - On row 2, column "library_construction_protocols_io_doi", value "" fails because
       it must be filled out.
+    - On row 2, column "protocols_io_doi", value "10.17504/fake" fails because it
+      is an invalid DOI.
 Hint: 'If validation fails because of extra whitespace in the TSV, try:
 
   src/cleanup_whitespace.py --tsv_in original.tsv --tsv_out clean.tsv.'
