@@ -1,6 +1,6 @@
 # Changelog
 
-## v0.0.18 (in progress)
+## v0.0.18
 
 - Update PhenoCycler directory schema
 - Update to prevent standalone child datasets in multi-assay upload
@@ -22,6 +22,7 @@
 - Update GeoMx NGS directory schema
 - Ported murine from SenNet
 - Update Histology directory schema
+- Bugfix stripping trailing slash in ingest api url
 - Converted upload `_url_checks` to use `_get_method` for SenNet compatibility
 
 ## v0.0.17

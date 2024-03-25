@@ -127,7 +127,7 @@ def get_assaytype_data(
     if not ingest_url:
         ingest_url = "https://ingest.api.hubmapconsortium.org/"
     response = requests.post(
-        f"{ingest_url}/assaytype",
+        f"""{ingest_url.strip("/")}/assaytype""",
         headers={"Content-Type": "application/json"},
         data=json.dumps(row),
     )
