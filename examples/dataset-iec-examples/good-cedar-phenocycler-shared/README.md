@@ -1,6 +1,7 @@
+```
 No errors!
-Time: WILL_CHANGE
-Git version: WILL_CHANGE
+Time: 2024-03-25 09:45:27.701080
+Git version: 97b824f
 Directory: examples/dataset-iec-examples/good-cedar-phenocycler-shared/upload
 TSVs:
   metadata.tsv:
@@ -8,4 +9,4 @@ TSVs:
     Metadata schema version: '2'
     Directory schema versions: phenocycler-v2
 
-
+```
