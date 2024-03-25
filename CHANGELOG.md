@@ -23,6 +23,7 @@
 - Ported murine from SenNet
 - Update Histology directory schema
 - Bugfix stripping trailing slash in ingest api url
+- Converted upload `_url_checks` to use `_get_method` for SenNet compatibility
 
 ## v0.0.17
 

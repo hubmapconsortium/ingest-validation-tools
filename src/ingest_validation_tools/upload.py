@@ -334,10 +334,10 @@ class Upload:
         schema_name: str,
         report_type: ReportType = ReportType.STR,
     ) -> Optional[Dict]:
-        url_errors = self._url_checks(tsv_path, schema_name)
+        url_errors = self._url_checks(tsv_path, schema_name, report_type)
         api_errors = self._api_validation(Path(tsv_path), report_type)
         if url_errors or api_errors:
-            return {tsv_path: [url_errors | api_errors]}
+            return url_errors | api_errors
 
     def _get_reference_errors(self) -> dict:
         errors: Dict[str, Any] = {}
@@ -506,7 +506,9 @@ class Upload:
             raise Exception(f"CEDAR API request for {tsv_path} failed! Exception: {e}")
         return response
 
-    def _url_checks(self, tsv_path: str, schema_name: str):
+    def _url_checks(
+        self, tsv_path: str, schema_name: str, report_type: ReportType = ReportType.STR
+    ):
         """
         Check provided UUIDs/HuBMAP IDs for parent_id, sample_id, organ_id.
         Not using get_table_errors because CEDAR schema fields do not match
@@ -532,12 +534,14 @@ class Upload:
         else:
             constrained_fields["parent_sample_id"] = self.app_context.get("entities_url")
 
-        url_errors = self._check_matching_urls(tsv_path, constrained_fields)
+        url_errors = self._check_matching_urls(tsv_path, constrained_fields, report_type)
         if url_errors:
             errors["URL Errors"] = url_errors
         return errors
 
-    def _check_matching_urls(self, tsv_path: str, constrained_fields: dict):
+    def _check_matching_urls(
+        self, tsv_path: str, constrained_fields: dict, report_type: ReportType = ReportType.STR
+    ):
         rows = read_rows(Path(tsv_path), self.encoding)
         fields = rows[0].keys()
         missing_fields = [k for k in constrained_fields.keys() if k not in fields].sort()
@@ -559,7 +563,14 @@ class Upload:
                     response = requests.get(url, headers=headers)
                     response.raise_for_status()
                 except Exception as e:
-                    url_errors.append(f"Row {i+2}, field '{field}' with value '{value}': {e}")
+                    error = {
+                        "errorType": type(e).__name__,
+                        "column": field,
+                        "row": i + 2,
+                        "value": value,
+                        "error_text": e.__str__(),
+                    }
+                    url_errors.append(self._get_message(error, report_type))
         return url_errors
 
     def _get_message(
@@ -584,6 +595,7 @@ class Upload:
         """  # noqa: E501
 
         example = error.get("repairSuggestion", "")
+        error_text = error.get("error_text", "")
 
         return_str = report_type is ReportType.STR
         if "errorType" in error and "column" in error and "row" in error and "value" in error:
@@ -591,6 +603,7 @@ class Upload:
             msg = (
                 f'On row {error["row"]}, column "{error["column"]}", '
                 f'value "{error["value"]}" fails because of error "{error["errorType"]}"'
+                f'{f": {error_text}" if error_text else error_text}'
                 f'{f". Example: {example}" if example else example}'
             )
             return msg if return_str else get_json(msg, error["row"], error["column"])
