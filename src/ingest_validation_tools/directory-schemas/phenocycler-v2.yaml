@@ -60,7 +60,7 @@ files:
     required: True
     description: This is a directory containing processed image files
   -
-    pattern: lab_processed\/images\/[^\/]+\.tissue-boundary\.geojson
+    pattern: lab_processed\/images\/[^\/]+tissue-boundary\.geojson
     required: False
     description: If the boundaries of the tissue have been identified (e.g., by manual efforts), then the boundary geometry can be included as a GeoJSON file named “*.tissue-boundary.geojson”.
     is_qa_qc: True
