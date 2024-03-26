@@ -28,7 +28,7 @@ For additional documentation on this dataset type, please visit [here](https://d
 <br>
 
 ## Directory schemas
-<summary><b>Version 2 (use this one)</b></summary>
+<summary><b>Version 2.0 (use this one)</b></summary>
 
 | pattern | required? | description |
 | --- | --- | --- |

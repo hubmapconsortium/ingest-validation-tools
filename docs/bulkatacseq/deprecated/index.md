@@ -806,7 +806,7 @@ Relative path to file or directory with instrument data. Downstream processing w
 <br>
 
 ## Directory schemas
-<summary><b>Version 0 (use this one)</b></summary>
+<summary><b>Version 0.0 (use this one)</b></summary>
 
 | pattern | required? | description |
 | --- | --- | --- |

@@ -546,7 +546,7 @@ Relative path to file or directory with instrument data. Downstream processing w
 <br>
 
 ## Directory schemas
-<summary><b>Version 1 (use this one)</b></summary>
+<summary><b>Version 1.0 (use this one)</b></summary>
 
 | pattern | required? | description |
 | --- | --- | --- |
@@ -556,7 +556,7 @@ Relative path to file or directory with instrument data. Downstream processing w
 | <code>(rawMicroscopy&#124;raw_microscopy)/[^/]+\.(scn&#124;czi&#124;tif&#124;tiff)</code> | ✓ | Raw microscope file for the experiment |
 | <code>extras\/.*</code> |  | Folder for general lab-specific files related to the dataset. [Exists in all assays] |
 
-<summary><b>Version 0</b></summary>
+<summary><b>Version 0.0</b></summary>
 
 | pattern | required? | description |
 | --- | --- | --- |

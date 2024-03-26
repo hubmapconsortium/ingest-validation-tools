@@ -261,6 +261,19 @@ def get_directory_schema(
     return schema
 
 
+def get_possible_directory_schemas(dir_schema: str) -> Optional[Dict]:
+    schemas = {}
+    # this assumes that versions are numbered starting at x.0, no whole numbers
+    directory_schema_minor_versions = list(_directory_schemas_path.glob(f"{dir_schema}*.yaml"))
+    if not directory_schema_minor_versions:
+        return None
+    for directory_schema_path in directory_schema_minor_versions:
+        schema = load_yaml(directory_schema_path)
+        schema["files"] += []
+        schemas[Path(directory_schema_path).stem] = schema
+    return schemas
+
+
 def _validate_field(field: dict) -> None:
     if field["name"].endswith("_unit") and "enum" not in field["constraints"]:
         raise Exception('"_unit" fields must have enum constraints', field)

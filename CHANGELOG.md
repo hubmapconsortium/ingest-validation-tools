@@ -2,6 +2,7 @@
 
 ## v0.0.19 (in progress)
 - Directory validation changes for "shared" uploads
+- Accommodate dir schema minor versions
 
 ## v0.0.18
 

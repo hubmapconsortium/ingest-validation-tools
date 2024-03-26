@@ -28,5 +28,5 @@ Related files:
 <br>
 
 ## Directory schemas
-<summary><a href="https://docs.google.com/spreadsheets/d/1eQrEby95rrvyCFMAgrrpqGOBZ7VAcA_nih-SnM47u44"><b>Version 2 (use this one)</b> (draft - submission of data prepared using this schema will be supported by Sept. 30) </a></summary>
+<summary><a href="https://docs.google.com/spreadsheets/d/1eQrEby95rrvyCFMAgrrpqGOBZ7VAcA_nih-SnM47u44"><b>Version 2.0 (use this one)</b> (draft - submission of data prepared using this schema will be supported by Sept. 30) </a></summary>
 
