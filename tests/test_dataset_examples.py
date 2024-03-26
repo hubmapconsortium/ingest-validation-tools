@@ -12,6 +12,13 @@ from unittest.mock import Mock, call, patch
 from ingest_validation_tools.error_report import ErrorReport
 from ingest_validation_tools.upload import Upload
 
+from .fixtures import (
+    SCATACSEQ_BOTH_VERSIONS_VALID,
+    SCATACSEQ_HIGHER_VERSION_VALID,
+    SCATACSEQ_LOWER_VERSION_VALID,
+    SCATACSEQ_NEITHER_VERSION_VALID,
+)
+
 SHARED_OPTS = {
     "encoding": "ascii",
     "run_plugins": True,
@@ -32,6 +39,7 @@ PLUGIN_EXAMPLES_OPTS = DATASET_EXAMPLES_OPTS | {
 class MockException(Exception):
     def __init__(self, error):
         super().__init__(error)
+
 
 def dataset_test(test_dir: str, dataset_opts: Dict, verbose: bool = False):
     dataset_opts = dataset_opts | {"verbose": verbose}
@@ -242,7 +250,7 @@ class TestDatasetExamples(unittest.TestCase):
             print(e)
             self.errors.append(e)
 
-    def prep_upload(self, test_dir: str, opts: Dict):
+    def prep_upload(self, test_dir: str, opts: Dict, patch_data: Dict):
         with patch(
             "ingest_validation_tools.validation_utils.get_assaytype_data",
             side_effect=lambda row, ingest_url: _assaytype_side_effect(test_dir, row, ingest_url),
@@ -253,32 +261,82 @@ class TestDatasetExamples(unittest.TestCase):
                     schema_name, test_dir, tsv_path, report_type
                 ),
             ):
-                upload = Upload(Path(f"{test_dir}/upload"), **opts)
-                upload.get_errors()
-                return upload
+                with patch(
+                    "ingest_validation_tools.validation_utils.get_possible_directory_schemas",
+                ) as dir_schemas_func_patch:
+                    dir_schemas_func_patch.return_value = patch_data
+                    upload = Upload(Path(f"{test_dir}/upload"), **opts)
+                    upload.get_errors()
+                    return upload
 
-    # @patch(
-    #     "ingest_validation_tools.schema_loader.get_possible_directory_schemas",
-    #     {"test-schema-v1.0": {}, "test-schema-v1.1": {}},
-    # )
-    # def test_data_dir_versions_highest_version(self):
-    #     # pick 1 good and 1 bad example dir; assert names (or numbers) of effective TSVs inside
-    #     test_dirs = []
-    #     for test_dir in test_dirs:
-    #         upload = self.prep_upload(test_dir, DATASET_EXAMPLES_OPTS)
-    #         dir_schemas = upload.get_dir_schema_versions()
-    #         expected_result = {upload.effective_tsv_paths.popitem()[0]: "test-schema-v1.1"}
-    #         self.assertEqual(dir_schemas, expected_result)
-    #
-    # @patch(
-    #     "ingest_validation_tools.schema_loader.get_possible_directory_schemas",
-    #     {"test-schema-v1.0": {}, "test-schema-v1.1": {}},
-    # )
-    # def test_data_dir_versions_lower_version(self):
-    #     # pick 1 good and 1 bad example dir; assert names (or numbers) of effective TSVs inside
-    #     test_dirs = []
-    #     for test_dir in test_dirs:
-    #         upload = self.prep_upload(test_dir, DATASET_EXAMPLES_OPTS)
-    #         dir_schemas = upload.get_dir_schema_versions()
-    #         expected_result = {upload.effective_tsv_paths.popitem()[0]: "test-schema-v1.0"}
-    #         self.assertEqual(dir_schemas, expected_result)
+    def test_data_dir_versions_highest_version(self):
+        test_dirs = [
+            "examples/dataset-examples/bad-scatacseq-data",
+            "examples/dataset-examples/good-scatacseq-metadata-v0",
+        ]
+        for test_dir in test_dirs:
+            upload = self.prep_upload(
+                test_dir, DATASET_EXAMPLES_OPTS, SCATACSEQ_HIGHER_VERSION_VALID
+            )
+            info = upload.get_info()
+            for path in upload.effective_tsv_paths.keys():
+                dir_schema_version = (
+                    info.get("TSVs", {}).get(Path(path).name, {}).get("Directory schema version")
+                )
+                self.assertEqual(dir_schema_version, "test-schema-v0.1")
+
+    def test_data_dir_versions_lower_version(self):
+        test_dirs = [
+            "examples/dataset-examples/bad-scatacseq-data",
+            "examples/dataset-examples/good-scatacseq-metadata-v0",
+        ]
+        test_dirs = []
+        for test_dir in test_dirs:
+            upload = self.prep_upload(
+                test_dir, DATASET_EXAMPLES_OPTS, SCATACSEQ_LOWER_VERSION_VALID
+            )
+            info = upload.get_info()
+            for path in upload.effective_tsv_paths.keys():
+                dir_schema_version = (
+                    info.get("TSVs", {}).get(Path(path).name, {}).get("Directory schema version")
+                )
+                self.assertEqual(dir_schema_version, "test-schema-v1.0")
+
+    def test_data_dir_versions_both_versions(self):
+        test_dirs = [
+            "examples/dataset-examples/bad-scatacseq-data",
+            "examples/dataset-examples/good-scatacseq-metadata-v0",
+        ]
+        test_dirs = []
+        for test_dir in test_dirs:
+            upload = self.prep_upload(
+                test_dir, DATASET_EXAMPLES_OPTS, SCATACSEQ_BOTH_VERSIONS_VALID
+            )
+            info = upload.get_info()
+            for path in upload.effective_tsv_paths.keys():
+                dir_schema_version = (
+                    info.get("TSVs", {}).get(Path(path).name, {}).get("Directory schema version")
+                )
+                self.assertEqual(dir_schema_version, "test-schema-v0.1")
+
+    def test_data_dir_versions_neither_version(self):
+        test_dirs = [
+            "examples/dataset-examples/bad-scatacseq-data",
+            "examples/dataset-examples/good-scatacseq-metadata-v0",
+        ]
+        test_dirs = []
+        for test_dir in test_dirs:
+            upload = self.prep_upload(
+                test_dir, DATASET_EXAMPLES_OPTS, SCATACSEQ_NEITHER_VERSION_VALID
+            )
+            info = upload.get_info()
+            for path in upload.effective_tsv_paths.keys():
+                dir_schema_version = (
+                    info.get("TSVs", {}).get(Path(path).name, {}).get("Directory schema version")
+                )
+                self.assertEqual(dir_schema_version, None)
+
+
+# if __name__ == "__main__":
+#     suite = unittest.TestLoader().loadTestsFromTestCase(TestDatasetExamples)
+#     suite.debug()
