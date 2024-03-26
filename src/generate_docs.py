@@ -78,9 +78,8 @@ def main():
 
     for v, schema in directory_schemas.items():
         try:
-            a = float(v)
-            assert a >= 2.0
-        except AssertionError:
+            assert float(v) >= 2.0
+        except (AssertionError, ValueError):
             deprecated["directories"][v] = schema
         else:
             current["directories"][v] = schema
