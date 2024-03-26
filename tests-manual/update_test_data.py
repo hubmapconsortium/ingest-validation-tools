@@ -67,6 +67,10 @@ class UpdateData:
             raise Exception(
                 f"Something went wrong with Spreadsheet Validator request for {self.dir}."
             )
+        elif "Unauthorized" in report.as_md():
+            raise Exception(
+                f"URL checking returned 'Unauthorized' in response while checking {self.dir}; did you forget a Globus token?"
+            )
         if "fixtures" not in self.exclude:
             new_data = self.update_fixtures(report)
             fixtures = self.open_or_create_fixtures()

@@ -1,0 +1,1 @@
+{"assaytype": {"PhenoCycler": {"assaytype": "phenocycler", "contains-pii": false, "dataset-type": "PhenoCycler", "description": "PhenoCycler", "dir-schema": "phenocycler-v2", "primary": true, "vitessce-hints": []}}, "validation": {"phenocycler": null, "antibodies": null, "contributors": null}}

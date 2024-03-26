@@ -99,6 +99,12 @@ class Upload:
             if not self.is_multi_assay:
                 self._check_single_assay()
 
+            self.is_shared_upload = {"global", "non_global"} == {
+                x
+                for x in self.directory_path.glob("*global")
+                if x.is_dir() and x.name in ["global", "non_global"]
+            }
+
         except PreflightError as e:
             self.errors["Preflight"] = e
 
@@ -339,19 +345,22 @@ class Upload:
         schema_name: str,
         report_type: ReportType = ReportType.STR,
     ) -> Optional[Dict]:
-        url_errors = self._url_checks(tsv_path, schema_name)
+        url_errors = self._url_checks(tsv_path, schema_name, report_type)
         api_errors = self._api_validation(Path(tsv_path), report_type)
         if url_errors or api_errors:
-            return {tsv_path: [url_errors | api_errors]}
+            return url_errors | api_errors
 
     def _get_reference_errors(self) -> dict:
         errors: Dict[str, Any] = {}
         no_ref_errors = self.__get_no_ref_errors()
         multi_ref_errors = self.__get_multi_ref_errors()
+        shared_dir_errors = self.__get_shared_dir_errors()
         if no_ref_errors:
             errors["No References"] = no_ref_errors
         if multi_ref_errors:
             errors["Multiple References"] = multi_ref_errors
+        if shared_dir_errors:
+            errors["Shared Directory References"] = shared_dir_errors
         return errors
 
     def _get_plugin_errors(self, **kwargs) -> dict:
@@ -367,7 +376,12 @@ class Upload:
                 # non-parent dataset_types
                 if not self.multi_parent or (sv.dataset_type == self.multi_parent.dataset_type):
                     for k, v in run_plugin_validators_iter(
-                        metadata_path, sv, plugin_path, verbose=self.verbose, **kwargs
+                        metadata_path,
+                        sv,
+                        plugin_path,
+                        self.is_shared_upload,
+                        verbose=self.verbose,
+                        **kwargs,
                     ):
                         errors[k].append(v)
             except PluginValidatorError as e:
@@ -511,7 +525,9 @@ class Upload:
             raise Exception(f"CEDAR API request for {tsv_path} failed! Exception: {e}")
         return response
 
-    def _url_checks(self, tsv_path: str, schema_name: str):
+    def _url_checks(
+        self, tsv_path: str, schema_name: str, report_type: ReportType = ReportType.STR
+    ):
         """
         Check provided UUIDs/HuBMAP IDs for parent_id, sample_id, organ_id.
         Not using get_table_errors because CEDAR schema fields do not match
@@ -530,17 +546,21 @@ class Upload:
             constrained_fields["sample_id"] = self.app_context.get("entities_url")
         elif "organ" in schema_name:
             constrained_fields["organ_id"] = self.app_context.get("entities_url")
+        elif "murine-source" in schema_name:
+            constrained_fields["source_id"] = self.app_context.get("entities_url")
         elif "contributors" in schema_name:
             constrained_fields["orcid_id"] = "https://pub.orcid.org/v3.0/"
         else:
             constrained_fields["parent_sample_id"] = self.app_context.get("entities_url")
 
-        url_errors = self._check_matching_urls(tsv_path, constrained_fields)
+        url_errors = self._check_matching_urls(tsv_path, constrained_fields, report_type)
         if url_errors:
             errors["URL Errors"] = url_errors
         return errors
 
-    def _check_matching_urls(self, tsv_path: str, constrained_fields: dict):
+    def _check_matching_urls(
+        self, tsv_path: str, constrained_fields: dict, report_type: ReportType = ReportType.STR
+    ):
         rows = read_rows(Path(tsv_path), self.encoding)
         fields = rows[0].keys()
         missing_fields = [k for k in constrained_fields.keys() if k not in fields].sort()
@@ -562,7 +582,14 @@ class Upload:
                     response = requests.get(url, headers=headers)
                     response.raise_for_status()
                 except Exception as e:
-                    url_errors.append(f"Row {i+2}, field '{field}' with value '{value}': {e}")
+                    error = {
+                        "errorType": type(e).__name__,
+                        "column": field,
+                        "row": i + 2,
+                        "value": value,
+                        "error_text": e.__str__(),
+                    }
+                    url_errors.append(self._get_message(error, report_type))
         return url_errors
 
     def _get_message(
@@ -587,6 +614,7 @@ class Upload:
         """  # noqa: E501
 
         example = error.get("repairSuggestion", "")
+        error_text = error.get("error_text", "")
 
         return_str = report_type is ReportType.STR
         if "errorType" in error and "column" in error and "row" in error and "value" in error:
@@ -594,6 +622,7 @@ class Upload:
             msg = (
                 f'On row {error["row"]}, column "{error["column"]}", '
                 f'value "{error["value"]}" fails because of error "{error["errorType"]}"'
+                f'{f": {error_text}" if error_text else error_text}'
                 f'{f". Example: {example}" if example else example}'
             )
             return msg if return_str else get_json(msg, error["row"], error["column"])
@@ -644,22 +673,29 @@ class Upload:
     def _check_data_path(
         self, schema_version: SchemaVersion, metadata_path: Path, path_value: str
     ):
+        data_path = Path(path_value)
         errors = {}
-        data_path = self.directory_path / path_value
+
         if not schema_version.dir_schema:
             raise Exception(
-                f"No directory schema found for data_path {data_path} in {metadata_path}!"
+                f"No directory schema found for data_path "
+                f"{self.directory_path / data_path} in {metadata_path}!"
             )
-        ref_errors = get_data_dir_errors(
-            schema_version.dir_schema,
-            data_path,
-            dataset_ignore_globs=self.dataset_ignore_globs,
-        ).popitem()
-        if type(ref_errors[1]) is list:
-            errors[
-                f"{str(metadata_path)}, column 'data_path', value '{path_value}' (as {ref_errors[0]})"
-            ] = ref_errors[1]
-        schema_version.dir_schema = ref_errors[0]
+
+        try:
+            ref_errors = get_data_dir_errors(
+                schema_version.dir_schema,
+                root_path=self.directory_path,
+                data_dir_path=data_path,
+                dataset_ignore_globs=self.dataset_ignore_globs,
+            ).popitem()
+            if type(ref_errors[1]) is list:
+                errors[
+                    f"{str(metadata_path)}, column 'data_path', value '{path_value}' (as {ref_errors[0]})"
+                ] = ref_errors[1]
+            schema_version.dir_schema = ref_errors[0]
+        except Exception as e:
+            errors[f"{str(metadata_path)}, column 'data_path', value '{path_value}'"] = e
         return errors
 
     def _check_other_path(self, metadata_path: Path, other_path_value: str, path_type: str):
@@ -712,6 +748,35 @@ class Upload:
             errors["Files"] = unreferenced_file_paths
         return errors
 
+    def __get_shared_dir_errors(self) -> dict:
+        errors = {}
+        all_non_global_files = self.__get_non_global_files_references()
+        if all_non_global_files:
+            for row_non_global_files, row_references in all_non_global_files.items():
+                row_non_global_files = {
+                    (self.directory_path / "./non_global" / Path(x.strip())): Path(x.strip())
+                    for x in row_non_global_files.split(";")
+                    if x.strip()
+                }
+
+                for (
+                    full_path_row_non_global_file,
+                    rel_path_row_non_global_file,
+                ) in row_non_global_files.items():
+                    if not full_path_row_non_global_file.exists():
+                        errors[",".join(row_references)] = (
+                            f"{rel_path_row_non_global_file} not exist in upload."
+                        )
+        else:
+            # Catch case 2
+            if self.is_shared_upload:
+                errors["Upload Errors"] = (
+                    "No non_global_files specified but "
+                    "upload has global & non_global directories"
+                )
+
+        return errors
+
     def __get_multi_ref_errors(self) -> dict:
         #  If - multi-assay dataset (and only that dataset is referenced) don't fail
         #  Else - fail
@@ -719,7 +784,7 @@ class Upload:
         data_references = self.__get_data_references()
         for path, references in data_references.items():
             if path not in self.multi_assay_data_paths:
-                if len(references) > 1:
+                if len(references) > 1 and not self.is_shared_upload:
                     errors[path] = references
         return errors
 
@@ -731,6 +796,9 @@ class Upload:
 
     def __get_contributors_references(self) -> dict:
         return self.__get_references("contributors_path")
+
+    def __get_non_global_files_references(self) -> dict:
+        return self.__get_references("non_global_files")
 
     def __get_references(self, col_name) -> dict:
         references = defaultdict(list)
