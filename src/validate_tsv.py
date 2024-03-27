@@ -71,7 +71,7 @@ def main():
     except PreflightError as e:
         errors = {"Preflight": str(e)}
     else:
-        errors = get_tsv_errors(args.path, schema_name=schema_name, globus_token=args.globus_token)
+        errors = get_tsv_errors(args.path, globus_token=args.globus_token)
         errors = {f"{errors_string} TSV errors": errors} if errors else {}
     report = ErrorReport(
         info={},  # Until we know it's needed, don't bother filling this in.

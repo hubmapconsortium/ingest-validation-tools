@@ -41,8 +41,13 @@ def get_schema_version(
         rows = read_rows(path, encoding)
     except TSVError as e:
         raise PreflightError(e.errors)
+    # get_schema_version is only called in two cases:
+    # a) when getting schemas for Upload.effective_tsv_paths, which should only be assay TSVs;
+    # we could maybe still do some catching here but shouldn't be constructing schemas for "other" type files
+    # b) by validate_tsv.py, which could pass in an "other" type;
+    # validate_tsv should be deprecated but we need to make sure it's not being used in any other repos
     other_type = get_other_schema_name(rows, str(path))
-    # Don't want to send contrib/sample/antibody to soft assay endpoint
+    # Don't want to send contrib/antibody to soft assay endpoint
     if other_type:
         sv = SchemaVersion(
             other_type,
@@ -51,6 +56,7 @@ def get_schema_version(
             rows=rows,
         )
         return sv
+
     message = []
     if offline:
         message.append("Running in offline mode, cannot reach assayclassifier.")
@@ -88,9 +94,9 @@ def get_other_schema_name(rows: List, path: str) -> Optional[str]:
     other_types = {
         "organ": ["organ_id"],
         "sample": ["sample_id"],
-        "sample-block": ["sample_id"],
-        "sample-suspension": ["sample_id"],
-        "sample-section": ["sample_id"],
+        # "sample-block": ["sample_id"],
+        # "sample-suspension": ["sample_id"],
+        # "sample-section": ["sample_id"],
         "contributors": ["orcid", "orcid_id"],
         "antibodies": ["antibody_rrid", "antibody_name"],
         "murine-source": ["strain_rrid"],
@@ -98,13 +104,14 @@ def get_other_schema_name(rows: List, path: str) -> Optional[str]:
     other_type: DefaultDict[str, list] = defaultdict(list)
     for field in rows[0].keys():
         if field == "sample_id":
-            sample_type = rows[0].get("type")
-            if sample_type:
-                if f"sample-{sample_type}" not in other_types.keys():
-                    raise PreflightError(f"Invalid sample type: {sample_type}")
-                other_type.update({f"sample-{sample_type}": ["sample_id"]})
-            else:
-                other_type.update({"sample": ["sample_id"]})
+            # sample_type = rows[0].get("type")
+            # if sample_type:
+            #     if f"sample-{sample_type}" not in other_types.keys():
+            #         raise PreflightError(f"Invalid sample type: {sample_type}")
+            #     other_type.update({f"sample-{sample_type}": ["sample_id"]})
+            # else:
+            #     other_type.update({"sample": ["sample_id"]})
+            raise PreflightError(f"Sample metadata TSV does not belong in Upload: {path}.")
         elif field == "organ_id":
             raise PreflightError(f"Organ metadata TSVs are deprecated: {path}.")
         else:
@@ -254,10 +261,6 @@ def get_other_names():
 
 def get_tsv_errors(
     tsv_path: Union[str, Path],
-    schema_name: str,
-    optional_fields: List[str] = [],
-    offline: bool = False,
-    ignore_deprecation: bool = False,
     report_type: ReportType = ReportType.STR,
     globus_token: str = "",
     app_context: Dict = {},
@@ -312,22 +315,18 @@ def get_tsv_errors(
     # >>> errors = test_tsv('version\\tfake\\n1\\tfake', assay_type='codex')
     # >>> assert 'Unexpected fields' in errors[0]
     """
-    from ingest_validation_tools.upload import Upload
+    from ingest_validation_tools.single_tsv import SingleTSV
 
-    logging.info(f"Validating {schema_name} TSV...")
+    logging.info(f"Validating TSV {tsv_path}...")
 
-    # TODO: this is weird, because we're creating an upload for a single file...maybe subclass?
-    upload = Upload(
-        Path(tsv_path).parent,
-        tsv_paths=[Path(tsv_path)],
-        optional_fields=optional_fields,
+    tsv_validator = SingleTSV(
+        tsv_path,
         globus_token=globus_token,
-        offline=offline,
-        ignore_deprecation=ignore_deprecation,
         app_context=app_context,
     )
-    errors = upload.validation_routine(report_type)
-    return errors
+    errors = tsv_validator.validation_routine(report_type)
+    formatted = tsv_validator.format_error(errors)
+    return formatted
 
 
 def print_path(path):

@@ -192,6 +192,7 @@ class Upload:
             plugin_errors = self._get_plugin_errors(**kwargs)
             if plugin_errors:
                 errors["Plugin Errors"] = plugin_errors
+
         except ErrorDictException as e:
             return errors | e.errors
 
