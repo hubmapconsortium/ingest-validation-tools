@@ -18,7 +18,7 @@ Upload Errors:
         - lab_processed\/images\/[^\/]+\.ome\.tiff.
         - raw\/.*.
         - raw\/images\/.*.
-        - raw\/images\/[^\/]+\.(?:xml|scn|vsi|ndpi|svs|czi|tiff).
+        - raw\/images\/[^\/]+\.(?:xml|scn|vsi|ndpi|svs|czi|tiff|qptiff).
 Reference Errors:
   No References:
     Files:

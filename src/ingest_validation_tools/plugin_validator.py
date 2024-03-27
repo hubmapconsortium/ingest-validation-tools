@@ -91,6 +91,7 @@ def run_plugin_validators_iter(
     metadata_path: PathOrStr,
     sv: SchemaVersion,
     plugin_dir: PathOrStr,
+    is_shared_upload: bool,
     verbose: bool = True,
     **kwargs,
 ) -> Iterator[KeyValuePair]:
@@ -111,20 +112,27 @@ def run_plugin_validators_iter(
                 raise ValidatorError(f"{metadata_path} contains more than one assay type")
 
     data_paths = []
-    if all("data_path" in row for row in sv.rows):
-        for row in sv.rows:
-            data_path = Path(row["data_path"])
-            if not data_path.is_absolute():
-                data_path = Path(metadata_path).parent / data_path
-            if not data_path.is_dir():
-                raise ValidatorError(f"{data_path} should be the base directory of a dataset")
-            data_paths.append(data_path)
+    if is_shared_upload:
+        paths = [Path(metadata_path).parent / "global", Path(metadata_path).parent / "non_global"]
         for k, v in validation_error_iter(
-            data_paths, sv.dataset_type, plugin_dir, sv.contains, verbose=verbose, **kwargs
+            paths, sv.dataset_type, plugin_dir, sv.contains, **kwargs
         ):
             yield k, v
     else:
-        raise ValidatorError(f"{metadata_path} is missing values in 'data_path' column")
+        if all("data_path" in row for row in sv.rows):
+            for row in sv.rows:
+                data_path = Path(row["data_path"])
+                if not data_path.is_absolute():
+                    data_path = Path(metadata_path).parent / data_path
+                if not data_path.is_dir():
+                    raise ValidatorError(f"{data_path} should be the base directory of a dataset")
+                data_paths.append(data_path)
+            for k, v in validation_error_iter(
+                data_paths, sv.dataset_type, plugin_dir, sv.contains, verbose=verbose, **kwargs
+            ):
+                yield k, v
+        else:
+            raise ValidatorError(f"{metadata_path} is missing values in 'data_path' column")
 
 
 def validation_class_iter(plugin_dir: PathOrStr) -> Iterator[Type[Validator]]:

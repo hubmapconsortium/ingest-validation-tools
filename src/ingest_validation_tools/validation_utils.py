@@ -93,6 +93,7 @@ def get_other_schema_name(rows: List, path: str) -> Optional[str]:
         "sample-section": ["sample_id"],
         "contributors": ["orcid", "orcid_id"],
         "antibodies": ["antibody_rrid", "antibody_name"],
+        "murine-source": ["strain_rrid"],
     }
     other_type: DefaultDict[str, list] = defaultdict(list)
     for field in rows[0].keys():
@@ -128,7 +129,7 @@ def get_assaytype_data(
     if not ingest_url:
         ingest_url = "https://ingest.api.hubmapconsortium.org/"
     response = requests.post(
-        f"{ingest_url}/assaytype",
+        f"""{ingest_url.strip("/")}/assaytype""",
         headers={"Content-Type": "application/json"},
         data=json.dumps(row),
     )
@@ -156,12 +157,29 @@ def read_rows(path: Path, encoding: str) -> List:
 
 def get_data_dir_errors(
     dir_schema: str,
-    data_path: Path,
+    root_path: Path,
+    data_dir_path: Path,
     dataset_ignore_globs: List[str] = [],
 ) -> Optional[dict]:
     """
     Validate a single data_path.
     """
+    expected_shared_directories = {"global", "non_global"}
+    # Create the most common data_path
+    data_paths = [root_path / data_dir_path]
+
+    # Check to see whether the shared upload directories exist
+    shared_directories = {
+        x for x in root_path.glob("*") if x.is_dir() and x.name in expected_shared_directories
+    }
+
+    # Iterate over the set of paths and ensure that the names of those paths
+    # matches the set of expected shared directories above
+    if {x.name for x in shared_directories} == expected_shared_directories:
+        # If they exist create a list of the paths
+        data_paths = list(shared_directories)
+    # Otherwise, do nothing we can just use the predefine data_path
+
     schema = get_directory_schema(dir_schema=dir_schema)
 
     if schema is None:
@@ -174,20 +192,22 @@ def get_data_dir_errors(
         else None
     )
 
+    printable_data_paths = [x.as_posix() for x in data_paths]
+
     try:
-        validate_directory(data_path, schema["files"], dataset_ignore_globs=dataset_ignore_globs)
+        validate_directory(data_paths, schema["files"], dataset_ignore_globs=dataset_ignore_globs)
     except DirectoryValidationErrors as e:
         # If there are DirectoryValidationErrors and the schema is deprecated/draft...
         #    schema deprecation/draft status is more important.
         if schema_warning:
             return schema_warning
         errors = {}
-        errors[f"{data_path} (as {dir_schema})"] = e.errors
+        errors[f"{','.join(printable_data_paths)} (as {dir_schema})"] = e.errors
         return errors
     except OSError as e:
         # If there are OSErrors and the schema is deprecated/draft...
         #    the OSErrors are more important.
-        return {f"{data_path} (as {dir_schema})": {e.strerror: e.filename}}
+        return {f"{','.join(printable_data_paths)} (as {dir_schema})": {e.strerror: e.filename}}
     if schema_warning:
         return schema_warning
 
