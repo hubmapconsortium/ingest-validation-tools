@@ -41,7 +41,7 @@ def dataset_test(test_dir: str, dataset_opts: Dict, verbose: bool = False):
     upload = Upload(Path(f"{test_dir}/upload"), **dataset_opts)
     info = upload.get_info()
     errors = upload.get_errors()
-    report = ErrorReport(info=info, errors=errors)
+    report = ErrorReport(errors=errors, info=info)
     diff_test(test_dir, readme, clean_report(report), verbose=verbose)
     if "PreflightError" in report.as_md():
         raise MockException(

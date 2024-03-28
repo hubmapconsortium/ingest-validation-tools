@@ -1,8 +1,9 @@
-from typing import List, Union
+from typing import List, Optional, Union
 
 from yaml import Dumper, dump
 
 from ingest_validation_tools.message_munger import munge, recursive_munge
+from ingest_validation_tools.upload import ErrorDict, InfoDict
 
 # Force dump not to use alias syntax.
 # https://stackoverflow.com/questions/13518819/avoid-references-in-pyyaml
@@ -10,14 +11,15 @@ Dumper.ignore_aliases = lambda *args: True
 
 
 class ErrorReport:
-    def __init__(self, errors=None, info=None):
-        self.info = info
-        self.errors = errors
-        if self.errors:
-            self.errors["Hint"] = (
-                "If validation fails because of extra whitespace in the TSV, try:\n"
-                "src/cleanup_whitespace.py --tsv_in original.tsv --tsv_out clean.tsv"
-            )
+    def __init__(self, errors: Optional[ErrorDict] = None, info: Optional[InfoDict] = None):
+        if errors:
+            self.errors = errors.as_dict()
+        else:
+            self.errors = None
+        if info:
+            self.info = info.as_dict()
+        else:
+            self.info = None
 
     def _no_errors(self):
         return f"No errors!\n{dump(self.info, sort_keys=False)}\n"

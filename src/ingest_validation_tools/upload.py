@@ -4,6 +4,7 @@ import logging
 import subprocess
 from collections import Counter, defaultdict
 from copy import copy
+from dataclasses import dataclass, field
 from datetime import datetime
 from fnmatch import fnmatch
 from functools import cached_property
@@ -32,13 +33,62 @@ from ingest_validation_tools.validation_utils import (
 TSV_SUFFIX = "metadata.tsv"
 
 
-class ErrorDictException(Exception):
-    def __init__(self, errors):
-        message = f"Halting compilation of errors after detecting the following errors: {errors}."
-        super().__init__(message)
-        labeled_errors = {}
-        labeled_errors["Fatal Exception"] = errors
-        self.errors = labeled_errors
+@dataclass
+class InfoDict:
+    time: datetime
+    git: str
+    dir: str
+    tsvs: Dict[str, Dict[str, str]]
+
+    def as_dict(self):
+        return {
+            "Time": self.time,
+            "Git version": self.git,
+            "Directory": self.dir,
+            "TSVs": self.tsvs,
+        }
+
+
+@dataclass
+class ErrorDict:
+    preflight: List[str] = field(default_factory=list)
+    upload: Dict[str, List] = field(default_factory=dict)
+    # upload_tsv: DefaultDict[str, List] = field(default_factory=lambda: defaultdict(list))
+    # upload_directory: DefaultDict[str, List] = field(default_factory=lambda: defaultdict(list))
+    metadata: Dict[str, List] = field(default_factory=dict)
+    # metadata_url: DefaultDict[str, List] = field(default_factory=lambda: defaultdict(list))
+    # metadata_request: DefaultDict[str, List] = field(default_factory=lambda: defaultdict(list))
+    # metadata_validation: DefaultDict[str, List] = field(default_factory=lambda: defaultdict(list))
+    reference: Dict[str, List] = field(default_factory=dict)
+    # reference_no_ref: DefaultDict[str, List] = field(default_factory=lambda: defaultdict(list))
+    # reference_multi_ref: DefaultDict[str, List] = field(default_factory=lambda: defaultdict(list))
+    plugin: Dict[str, List] = field(default_factory=dict)
+    plugin_skip: Optional[str] = None
+
+    def __bool__(self):
+        return bool(self.as_dict())
+
+    # def compile_sections(self):
+    #     self.upload = self.upload_tsv | self.upload_directory
+    #     self.metadata = self.metadata_url | self.metadata_request | self.metadata_validation
+    #     self.reference = self.reference_no_ref | self.reference_multi_ref
+
+    def as_dict(self):
+        errors = {}
+        # self.compile_sections()
+        if self.preflight:
+            errors["Preflight Errors"] = self.preflight
+        if self.upload:
+            errors["Upload Errors"] = self.upload
+        if self.metadata:
+            errors["Metadata TSV Errors"] = self.metadata
+        if self.reference:
+            errors["Reference Errors"] = self.reference
+        if self.plugin_skip:
+            errors["Fatal Exception"] = self.plugin_skip
+        elif self.plugin:
+            errors["Plugin Errors"] = self.plugin
+        return errors
 
 
 class Upload:
@@ -69,12 +119,13 @@ class Upload:
         self.offline = offline
         self.add_notes = add_notes
         self.ignore_deprecation = ignore_deprecation
-        self.errors = {}
         self.effective_tsv_paths = {}
         self.extra_parameters = extra_parameters if extra_parameters else {}
         self.globus_token = globus_token
         self.run_plugins = run_plugins
         self.verbose = verbose
+
+        self.errors = ErrorDict()
 
         self.get_app_context(app_context)
 
@@ -106,7 +157,7 @@ class Upload:
             }
 
         except PreflightError as e:
-            self.errors["Preflight"] = e
+            self.errors.preflight.append(str(e))
 
     #####################
     #
@@ -129,7 +180,7 @@ class Upload:
             submitted_app_context.update({key: default_app_context[key] for key in diff})
         self.app_context = submitted_app_context
 
-    def get_info(self) -> dict:
+    def get_info(self) -> Optional[InfoDict]:
         git_version = subprocess.check_output(
             "git rev-parse --short HEAD".split(" "),
             encoding="ascii",
@@ -137,7 +188,7 @@ class Upload:
         ).strip()
 
         try:
-            effective_tsvs = {
+            tsvs = {
                 Path(path).name: {
                     "Schema": sv.table_schema,
                     "Metadata schema version": sv.version,
@@ -145,57 +196,42 @@ class Upload:
                 }
                 for path, sv in self.effective_tsv_paths.items()
             }
-            return {
-                "Time": datetime.now(),
-                "Git version": git_version,
-                "Directory": str(self.directory_path),
-                "TSVs": effective_tsvs,
-            }
         except PreflightError as e:
-            self.errors["Preflight"] = e
-            return self.errors
+            self.errors.preflight.append(str(e))
+            return
 
-    def get_errors(self, **kwargs) -> dict:
-        # This creates a deeply nested dict.
-        # Keys are present only if there is actually an error to report.
-        # plugin_kwargs are passed to the plugin validators.
+        return InfoDict(
+            time=datetime.now(), git=git_version, dir=str(self.directory_path), tsvs=tsvs
+        )
+
+    def get_errors(self, **kwargs) -> ErrorDict:
+        # This creates an ErrorDict object
+        # When converted using ErrorDict.as_dict(), keys are
+        # present only if there is actually an error to report.
 
         kwargs.update(self.extra_parameters)
         if self.errors:
             return self.errors
 
         if not self.effective_tsv_paths:
-            return {"Missing": "There are no effective TSVs."}
+            self.errors.preflight.append("There are no effective TSVs.")
 
-        errors = {}
-        try:
-            upload_errors = self._check_upload()
-            if upload_errors:
-                errors["Upload Errors"] = upload_errors
+        self.errors.upload = self._check_upload()
+        self.errors.metadata = self.validation_routine()
+        self.errors.reference = self._get_reference_errors()
+        if self.errors and not self.run_plugins:
+            logging.info(
+                "Fatal: Skipping plugins validation: errors in upload metadata or dir structure."
+            )
+            self.errors.plugin_skip = (
+                "Skipping plugins validation: errors in upload metadata or dir structure."
+            )
+            return self.errors
+        elif self.run_plugins:
+            logging.info("Running plugin validation...")
+        self.errors.plugin = self._get_plugin_errors(**kwargs)
 
-            validation_errors = self.validation_routine()
-            if validation_errors:
-                errors["Metadata TSV Validation Errors"] = validation_errors
-
-            reference_errors = self._get_reference_errors()
-            if reference_errors:
-                errors["Reference Errors"] = reference_errors
-
-            if errors and not self.run_plugins:
-                raise ErrorDictException(
-                    "Skipping plugins validation: errors in upload metadata or dir structure."
-                )
-
-            elif self.run_plugins:
-                logging.info("Running plugin validation...")
-
-            plugin_errors = self._get_plugin_errors(**kwargs)
-            if plugin_errors:
-                errors["Plugin Errors"] = plugin_errors
-        except ErrorDictException as e:
-            return errors | e.errors
-
-        return errors
+        return self.errors
 
     def validation_routine(
         self,
@@ -292,8 +328,6 @@ class Upload:
         report_type: ReportType = ReportType.STR,
     ) -> Dict[str, Any]:
         errors: Dict[str, Any] = {}
-        local_validated = {}
-        api_validated = {}
         if not schema_version.is_cedar:
             logging.info(
                 f"""TSV {tsv_path} does not contain a metadata_schema_id,
@@ -305,6 +339,7 @@ class Upload:
                     self.optional_fields,
                     self.offline,
                 )
+            # TODO
             except Exception as e:
                 return {f"{tsv_path} (as {schema_version.table_schema})": e}
 
@@ -313,7 +348,9 @@ class Upload:
 
             local_errors = get_table_errors(tsv_path, schema, report_type)
             if local_errors:
-                local_validated[f"{tsv_path} (as {schema_version.table_schema})"] = local_errors
+                errors[f"{tsv_path}"] = {
+                    f"Local Validation Errors (as {schema_version.table_schema})": local_errors
+                }
         else:
             """
             Passing offline=True will skip all API/URL validation;
@@ -327,11 +364,7 @@ class Upload:
             else:
                 api_errors = self.online_checks(tsv_path, schema_version.schema_name, report_type)
                 if api_errors:
-                    api_validated[f"{tsv_path}"] = api_errors
-        if local_validated:
-            errors["Local Validation Errors"] = local_validated
-        if api_validated:
-            errors["CEDAR Validation Errors"] = api_validated
+                    errors[f"{tsv_path}"] = api_errors
         return errors
 
     def online_checks(
@@ -396,7 +429,7 @@ class Upload:
         if response.status_code != 200:
             errors["Request Errors"] = response.json()
         elif response.json()["reporting"] and len(response.json()["reporting"]) > 0:
-            errors["Validation Errors"] = [
+            errors["Spreadsheet Validator Errors"] = [
                 self._get_message(error, report_type) for error in response.json()["reporting"]
             ]
         else:
@@ -566,10 +599,10 @@ class Upload:
         url_errors = []
         for i, row in enumerate(rows):
             check = {k: v for k, v in row.items() if k in constrained_fields}
-            for field, value in check.items():
+            for constrained_field, value in check.items():
                 try:
-                    url = constrained_fields[field] + value
-                    if field != "orcid_id":
+                    url = constrained_fields[constrained_field] + value
+                    if constrained_field != "orcid_id":
                         headers = self.app_context.get("request_header", {})
                         headers["Authorization"] = f"Bearer {self.globus_token}"
                     else:
@@ -579,7 +612,7 @@ class Upload:
                 except Exception as e:
                     error = {
                         "errorType": type(e).__name__,
-                        "column": field,
+                        "column": constrained_field,
                         "row": i + 2,
                         "value": value,
                         "error_text": e.__str__(),
@@ -702,6 +735,7 @@ class Upload:
         except Exception as e:
             errors[f"{metadata_path}, column '{path_type}_path', value '{other_path_value}'"] = [e]
             return errors
+        # TODO: this is broken if you run the tests
         tsv_ref_errors = self.validation_routine(tsv_paths={str(other_path): schema})
         # TSV located and read, errors found
         if tsv_ref_errors and isinstance(tsv_ref_errors, list):
