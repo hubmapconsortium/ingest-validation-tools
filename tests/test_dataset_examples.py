@@ -50,15 +50,24 @@ def dataset_test(test_dir: str, dataset_opts: Dict, verbose: bool = False):
 
 
 def clean_report(report: ErrorReport):
+    token_issue = False
     clean_report = []
-    regex = re.compile(r"((Time|Git version): )(.*)")
+    will_change_regex = re.compile(r"((Time|Git version): )(.*)")
+    no_token_regex = re.compile(r"No token")
     for line in report.as_md():
-        match = regex.search(line)
-        if match:
-            new_line = line.replace(match.group(3), "WILL_CHANGE")
+        will_change_match = will_change_regex.search(line)
+        if will_change_match:
+            new_line = line.replace(will_change_match.group(3), "WILL_CHANGE")
             clean_report.append(new_line)
+        if no_token_regex:
+            token_issue = True
+            continue
         else:
             clean_report.append(line)
+    if token_issue:
+        raise Exception(
+            f"API token required to complete update, not writing. Non-token-related errors in report: {clean_report}"
+        )
     return "".join(clean_report)
 
 

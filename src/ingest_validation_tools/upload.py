@@ -52,36 +52,37 @@ class InfoDict:
 @dataclass
 class ErrorDict:
     preflight: List[str] = field(default_factory=list)
-    upload: Dict[str, List] = field(default_factory=dict)
-    # upload_tsv: DefaultDict[str, List] = field(default_factory=lambda: defaultdict(list))
-    # upload_directory: DefaultDict[str, List] = field(default_factory=lambda: defaultdict(list))
-    metadata: Dict[str, List] = field(default_factory=dict)
-    # metadata_url: DefaultDict[str, List] = field(default_factory=lambda: defaultdict(list))
-    # metadata_request: DefaultDict[str, List] = field(default_factory=lambda: defaultdict(list))
-    # metadata_validation: DefaultDict[str, List] = field(default_factory=lambda: defaultdict(list))
+    directory: Dict[str, List] = field(default_factory=dict)
+    upload_metadata: Dict[str, Dict[str, str]] = field(default_factory=lambda: defaultdict(dict))
+    metadata_validation_local: DefaultDict[str, List] = field(
+        default_factory=lambda: defaultdict(list)
+    )
+    metadata_validation_api: DefaultDict[str, Dict] = field(
+        default_factory=lambda: defaultdict(dict)
+    )
+    metadata_url_errors: DefaultDict[str, List] = field(default_factory=lambda: defaultdict(list))
     reference: Dict[str, List] = field(default_factory=dict)
-    # reference_no_ref: DefaultDict[str, List] = field(default_factory=lambda: defaultdict(list))
-    # reference_multi_ref: DefaultDict[str, List] = field(default_factory=lambda: defaultdict(list))
     plugin: Dict[str, List] = field(default_factory=dict)
     plugin_skip: Optional[str] = None
 
     def __bool__(self):
         return bool(self.as_dict())
 
-    # def compile_sections(self):
-    #     self.upload = self.upload_tsv | self.upload_directory
-    #     self.metadata = self.metadata_url | self.metadata_request | self.metadata_validation
-    #     self.reference = self.reference_no_ref | self.reference_multi_ref
-
     def as_dict(self):
         errors = {}
         # self.compile_sections()
         if self.preflight:
             errors["Preflight Errors"] = self.preflight
-        if self.upload:
-            errors["Upload Errors"] = self.upload
-        if self.metadata:
-            errors["Metadata TSV Errors"] = self.metadata
+        if self.directory:
+            errors["Directory Errors"] = self.directory
+        if self.upload_metadata:
+            errors["Antibodies/Contributors TSV Errors"] = self.upload_metadata
+        if self.metadata_validation_local:
+            errors["Local Validation Errors"] = self.metadata_validation_local
+        if self.metadata_validation_api:
+            errors["API Validation Errors"] = self.metadata_validation_api
+        if self.metadata_url_errors:
+            errors["URL Check Errors"] = self.metadata_url_errors
         if self.reference:
             errors["Reference Errors"] = self.reference
         if self.plugin_skip:
@@ -215,9 +216,11 @@ class Upload:
 
         if not self.effective_tsv_paths:
             self.errors.preflight.append("There are no effective TSVs.")
+            return self.errors
 
-        self.errors.upload = self._check_upload()
-        self.errors.metadata = self.validation_routine()
+        self._get_local_tsv_errors()
+        self._get_directory_errors()
+        self.validation_routine()
         self.errors.reference = self._get_reference_errors()
         if self.errors and not self.run_plugins:
             logging.info(
@@ -233,23 +236,15 @@ class Upload:
 
         return self.errors
 
+    # Optimization: this exists to support get_tsv_errors and contributors/antibodies validation; simplify path?
     def validation_routine(
         self,
         report_type: ReportType = ReportType.STR,
         tsv_paths: Dict[str, SchemaVersion] = {},
-    ) -> dict:
-        errors: DefaultDict[str, dict] = defaultdict(dict)
+    ):
         tsvs_to_evaluate = tsv_paths if tsv_paths else self.effective_tsv_paths
         for tsv_path, schema_version in tsvs_to_evaluate.items():
-            path_errors = self._validate(tsv_path, schema_version, report_type)
-            if not path_errors:
-                continue
-            for key, value in path_errors.items():
-                if type(value) is dict:
-                    errors[key].update(value)
-                else:
-                    errors.update({key: value})
-        return dict(errors)
+            self._validate(tsv_path, schema_version, report_type)
 
     ###################################
     #
@@ -269,32 +264,18 @@ class Upload:
                 f"There is more than one TSV for this type: {', '.join(repeated)}"
             )
 
-    def _check_upload(self) -> dict:
-        upload_errors = {}
-        tsv_errors = self._get_local_tsv_errors()
-        if tsv_errors:
-            upload_errors["TSV Errors"] = tsv_errors
-        dir_errors = self._get_directory_errors()
-        if dir_errors:
-            upload_errors["Directory Errors"] = dir_errors
-        return upload_errors
-
-    def _get_local_tsv_errors(self) -> Optional[Dict]:
-        errors: DefaultDict[str, list] = defaultdict(list)
+    def _get_local_tsv_errors(self):
         for path, schema in self.effective_tsv_paths.items():
             if "data_path" not in schema.rows[0] or "contributors_path" not in schema.rows[0]:
-                errors.update(
+                self.errors.upload_metadata[path].update(
                     {
-                        f"{path} (as {schema.table_schema})": [
-                            "File is missing data_path or contributors_path."
-                        ]
+                        f"{path} (as {schema.table_schema})": "File is missing data_path or contributors_path."
                     }
                 )
             for ref in ["contributors", "antibodies"]:
-                ref_errors = self._get_ref_errors(ref, schema, path)
-                if ref_errors:
-                    errors.update(ref_errors)
-        return errors
+                errors = self._get_ref_errors(ref, schema, path)
+                if errors:
+                    self.errors.upload_metadata[path].update(errors)
 
     def _get_directory_errors(self) -> dict:
         errors = {}
@@ -303,8 +284,7 @@ class Upload:
                 dir_errors = self._check_data_path(
                     self.multi_parent, Path(self.multi_parent.path), data_path
                 )
-                if dir_errors:
-                    errors.update(dir_errors)
+                self.errors.directory[data_path].append(dir_errors)
         else:
             for path, schema in self.effective_tsv_paths.items():
                 dir_errors = self._get_ref_errors("data", schema, path)
@@ -318,7 +298,7 @@ class Upload:
                     Wrote validation_utils > print_path to try to address this
                     issue, but needed to deprioritize.
                     """
-                    errors.update(dir_errors)
+                    self.errors.directory[path].append(dir_errors)
         return errors
 
     def _validate(
@@ -326,8 +306,7 @@ class Upload:
         tsv_path: str,
         schema_version: SchemaVersion,
         report_type: ReportType = ReportType.STR,
-    ) -> Dict[str, Any]:
-        errors: Dict[str, Any] = {}
+    ):
         if not schema_version.is_cedar:
             logging.info(
                 f"""TSV {tsv_path} does not contain a metadata_schema_id,
@@ -339,18 +318,22 @@ class Upload:
                     self.optional_fields,
                     self.offline,
                 )
-            # TODO
             except Exception as e:
-                return {f"{tsv_path} (as {schema_version.table_schema})": e}
+                self.errors.metadata_validation_local[tsv_path].append(
+                    {f"{tsv_path} (as {schema_version.table_schema})": e}
+                )
+                return
 
             if schema.get("deprecated") and not self.ignore_deprecation:
-                return {"Schema version is deprecated": f"{schema_version.table_schema}"}
+                self.errors.metadata_validation_local[tsv_path].append(
+                    f"Schema version is deprecated: {schema_version.table_schema}"
+                )
 
             local_errors = get_table_errors(tsv_path, schema, report_type)
             if local_errors:
-                errors[f"{tsv_path}"] = {
-                    f"Local Validation Errors (as {schema_version.table_schema})": local_errors
-                }
+                self.errors.metadata_validation_local[tsv_path].append(
+                    [{f"Local Validation Errors (as {schema_version.table_schema})": local_errors}]
+                )
         else:
             """
             Passing offline=True will skip all API/URL validation;
@@ -360,23 +343,22 @@ class Upload:
             """
             if self.offline:
                 logging.info(f"{tsv_path}: Offline validation selected, cannot reach API.")
-                return errors
+                return
             else:
-                api_errors = self.online_checks(tsv_path, schema_version.schema_name, report_type)
-                if api_errors:
-                    errors[f"{tsv_path}"] = api_errors
-        return errors
+                self.online_checks(tsv_path, schema_version.schema_name, report_type)
 
     def online_checks(
         self,
         tsv_path: str,
         schema_name: str,
         report_type: ReportType = ReportType.STR,
-    ) -> Optional[Dict]:
+    ):
         url_errors = self._url_checks(tsv_path, schema_name, report_type)
+        if url_errors:
+            self.errors.metadata_url_errors[tsv_path].append(url_errors)
         api_errors = self._api_validation(Path(tsv_path), report_type)
-        if url_errors or api_errors:
-            return url_errors | api_errors
+        if api_errors:
+            self.errors.metadata_validation_api[tsv_path].update(api_errors)
 
     def _get_reference_errors(self) -> dict:
         errors: Dict[str, Any] = {}
@@ -555,7 +537,7 @@ class Upload:
 
     def _url_checks(
         self, tsv_path: str, schema_name: str, report_type: ReportType = ReportType.STR
-    ):
+    ) -> Dict[str, List[Union[str, Dict]]]:
         """
         Check provided UUIDs/HuBMAP IDs for parent_id, sample_id, organ_id.
         Not using get_table_errors because CEDAR schema fields do not match
@@ -581,21 +563,25 @@ class Upload:
         else:
             constrained_fields["parent_sample_id"] = self.app_context.get("entities_url")
 
-        url_errors = self._check_matching_urls(tsv_path, constrained_fields, report_type)
-        if url_errors:
-            errors["URL Errors"] = url_errors
+        try:
+            url_errors = self._check_matching_urls(tsv_path, constrained_fields, report_type)
+        except Exception as e:
+            errors["URL Errors"] = e
+        else:
+            if url_errors:
+                errors["URL Errors"] = url_errors
         return errors
 
     def _check_matching_urls(
         self, tsv_path: str, constrained_fields: dict, report_type: ReportType = ReportType.STR
-    ):
+    ) -> List[Union[str, Dict]]:
         rows = read_rows(Path(tsv_path), self.encoding)
         fields = rows[0].keys()
         missing_fields = [k for k in constrained_fields.keys() if k not in fields].sort()
         if missing_fields:
-            return {f"Missing fields: {sorted(missing_fields)}"}
+            raise Exception(f"Missing fields: {sorted(missing_fields)}")
         if not self.globus_token:
-            return {"No token": "No token was received to check URL fields against Entity API."}
+            raise Exception("No token was received to check URL fields against Entity API.")
         url_errors = []
         for i, row in enumerate(rows):
             check = {k: v for k, v in row.items() if k in constrained_fields}
@@ -674,8 +660,8 @@ class Upload:
         ref: str,
         schema: SchemaVersion,
         metadata_path: Union[str, Path],
-    ):
-        ref_errors: DefaultDict[str, list] = defaultdict(list)
+    ) -> Dict[str, str]:
+        ref_errors: DefaultDict[str, str] = defaultdict(str)
         # We don't want to continuously validate shared paths, e.g. contributors.tsv,
         # so this ensures we only check unique paths in a single metadata TSV once
         unique_paths = set()
@@ -700,7 +686,7 @@ class Upload:
 
     def _check_data_path(
         self, schema_version: SchemaVersion, metadata_path: Path, path_value: str
-    ):
+    ) -> Dict[str, str]:
         data_path = Path(path_value)
         errors = {}
 
