@@ -52,10 +52,10 @@ class InfoDict:
 @dataclass
 class ErrorDict:
     preflight: List[str] = field(default_factory=list)
-    directory: Dict[str, List] = field(default_factory=dict)
+    directory: Dict[str, List] = field(default_factory=lambda: defaultdict(list))
     upload_metadata: Dict[str, Dict[str, str]] = field(default_factory=lambda: defaultdict(dict))
-    metadata_validation_local: DefaultDict[str, List] = field(
-        default_factory=lambda: defaultdict(list)
+    metadata_validation_local: DefaultDict[str, Dict] = field(
+        default_factory=lambda: defaultdict(dict)
     )
     metadata_validation_api: DefaultDict[str, Dict] = field(
         default_factory=lambda: defaultdict(dict)
@@ -319,20 +319,20 @@ class Upload:
                     self.offline,
                 )
             except Exception as e:
-                self.errors.metadata_validation_local[tsv_path].append(
+                self.errors.metadata_validation_local[tsv_path].update(
                     {f"{tsv_path} (as {schema_version.table_schema})": e}
                 )
                 return
 
             if schema.get("deprecated") and not self.ignore_deprecation:
-                self.errors.metadata_validation_local[tsv_path].append(
-                    f"Schema version is deprecated: {schema_version.table_schema}"
+                self.errors.metadata_validation_local[tsv_path].update(
+                    {"Schema version is deprecated": f"{schema_version.table_schema}"}
                 )
 
             local_errors = get_table_errors(tsv_path, schema, report_type)
             if local_errors:
-                self.errors.metadata_validation_local[tsv_path].append(
-                    [{f"Local Validation Errors (as {schema_version.table_schema})": local_errors}]
+                self.errors.metadata_validation_local[tsv_path].update(
+                    {f"Local Validation Errors (as {schema_version.table_schema})": local_errors}
                 )
         else:
             """

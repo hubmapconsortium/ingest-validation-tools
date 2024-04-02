@@ -34,6 +34,12 @@ class MockException(Exception):
         super().__init__(error)
 
 
+class TokenException(Exception):
+    def __init__(self, error: str, clean_report: List):
+        super().__init__(error)
+        self.clean_report = clean_report
+
+
 def dataset_test(test_dir: str, dataset_opts: Dict, verbose: bool = False):
     dataset_opts = dataset_opts | {"verbose": verbose}
     print(f"Testing {test_dir}...")
@@ -53,21 +59,20 @@ def clean_report(report: ErrorReport):
     token_issue = False
     clean_report = []
     will_change_regex = re.compile(r"((Time|Git version): )(.*)")
-    no_token_regex = re.compile(r"No token")
-    for line in report.as_md():
+    no_token_regex = re.compile("No token")
+    for line in report.as_md().splitlines(keepends=True):
         will_change_match = will_change_regex.search(line)
         if will_change_match:
             new_line = line.replace(will_change_match.group(3), "WILL_CHANGE")
             clean_report.append(new_line)
-        if no_token_regex:
+        no_token_regex_match = no_token_regex.search(line)
+        if no_token_regex_match:
             token_issue = True
             continue
         else:
             clean_report.append(line)
     if token_issue:
-        raise Exception(
-            f"API token required to complete update, not writing. Non-token-related errors in report: {clean_report}"
-        )
+        raise TokenException(f"API token required to complete update, not writing.", clean_report)
     return "".join(clean_report)
 
 

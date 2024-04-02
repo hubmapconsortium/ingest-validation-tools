@@ -18,6 +18,7 @@ from tests.test_dataset_examples import (
     DATASET_IEC_EXAMPLES_OPTS,
     MockException,
     TestDatasetExamples,
+    TokenException,
     clean_report,
     dataset_test,
     diff_test,
@@ -97,6 +98,10 @@ class UpdateData:
                 print(f"No diff found, skipping {self.dir}/README.md")
             except MockException:
                 return {}
+            except TokenException as e:
+                print(
+                    f"Token error for {self.dir}/README.md. Non-token-related diff: {e.clean_report}"
+                )
             except AssertionError:
                 print(f"FAILED diff_test: {self.dir}/README.md...")
                 if self.dry_run:
