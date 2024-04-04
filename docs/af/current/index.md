@@ -28,7 +28,7 @@ This schema is for autofluorescence (AF). For an example of an AF dataset & dire
 <br>
 
 ## Directory schemas
-<summary><b>Version 2 (use this one)</b></summary>
+<summary><b>Version 2.0 (use this one)</b></summary>
 
 | pattern | required? | description | dependent on |
 | --- | --- | --- | --- |

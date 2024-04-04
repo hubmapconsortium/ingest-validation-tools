@@ -3,6 +3,7 @@
 ## v0.0.19 (in progress)
 - Directory validation changes for "shared" uploads
 - Update Phenocycler directory schema
+- Accommodate dir schema minor versions
 - Change Upload error output to dataclass
 
 ## v0.0.18

@@ -30,7 +30,7 @@ REQUIRED - For this assay, you must also prepare and submit two additional metad
 <br>
 
 ## Directory schemas
-<summary><b>Version 2 (use this one)</b></summary>
+<summary><b>Version 2.0 (use this one)</b></summary>
 
 | pattern | required? | description | dependent on |
 | --- | --- | --- | --- |

@@ -1,1 +1,1 @@
-{"assaytype": {"CODEX": {"assaytype": "CODEX", "contains-pii": false, "dataset-type": "CODEX", "description": "CODEX", "dir-schema": "codex-v1-with-dataset-json", "primary": true, "tbl-schema": "codex-v0", "vitessce-hints": []}}, "validation": {}}
+{"assaytype": {"CODEX": {"assaytype": "CODEX", "contains-pii": false, "dataset-type": "CODEX", "description": "CODEX", "dir-schema": "codex-v1-with-dataset-json", "primary": true, "tbl-schema": "codex-v0", "vitessce-hints": []}}, "validation": {"CODEX": {}, "antibodies": {}, "contributors": {}}}

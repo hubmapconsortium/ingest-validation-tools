@@ -10,9 +10,7 @@ from deepdiff import DeepDiff
 
 from ingest_validation_tools.cli_utils import dir_path
 from ingest_validation_tools.error_report import ErrorReport
-from ingest_validation_tools.table_validator import ReportType
 from ingest_validation_tools.upload import Upload
-from ingest_validation_tools.validation_utils import TSVError, read_rows
 from tests.test_dataset_examples import (
     DATASET_EXAMPLES_OPTS,
     DATASET_IEC_EXAMPLES_OPTS,
@@ -35,14 +33,20 @@ class UpdateData:
         opts: Dict = {},
         verbose: bool = False,
         dry_run: bool = True,
+        full_diff: bool = False,
+        update_from_fixtures: bool = False,
+        ignore_online_exceptions: bool = False,
     ):
-        self.dir = dir
+        self.dir = dir if dir.endswith("/") else dir + "/"
         self.globus_token = globus_token
         self.exclude = exclude
         self.opts = opts if opts else DATASET_EXAMPLES_OPTS
         self.verbose = verbose
         self.upload_verbose = True if "plugin-tests" in dir else False
         self.dry_run = dry_run
+        self.full_diff = full_diff
+        self.update_from_fixtures = update_from_fixtures
+        self.ignore_online_exceptions = ignore_online_exceptions
 
     def log(self, verbose_message, short_message: Optional[str] = None):
         if self.verbose:
@@ -53,119 +57,134 @@ class UpdateData:
     def update_test_data(self) -> Dict[str, List]:
         print(f"Evaluating {self.dir}...")
         self.change_report = defaultdict(list)
-        self.upload = Upload(
-            Path(f"{self.dir}/upload"),
-            globus_token=self.globus_token,
-            **self.opts,
-            verbose=self.upload_verbose,
-        )
-        info = self.upload.get_info()
-        errors = self.upload.get_errors()
-        report = ErrorReport(info=info, errors=errors)
-        if "Too many requests" in report.as_md():
-            raise Exception(
-                f"Something went wrong with Spreadsheet Validator request for {self.dir}."
+        if self.update_from_fixtures:
+            upload = TestDatasetExamples.prep_offline_upload(self.dir, self.opts)
+        else:
+            upload = Upload(
+                Path(f"{self.dir}upload"),
+                globus_token=self.globus_token,
+                **self.opts,
+                verbose=self.upload_verbose,
             )
-        if "fixtures" not in self.exclude:
-            new_data = self.update_fixtures(report)
+        errors = upload.get_errors()
+        info = upload.get_info()
+        report = ErrorReport(info=info, errors=errors)
+        if "Too Many Requests" in report.as_md():
+            if not self.dry_run or not self.ignore_online_exceptions:
+                raise Exception(
+                    f"Something went wrong with Spreadsheet Validator request for {self.dir}."
+                )
+            print(f"Too many requests error: {self.dir}.")
+        elif "Unauthorized" in report.as_md():
+            if not self.dry_run or not self.ignore_online_exceptions:
+                raise Exception(
+                    f"URL checking returned 'Unauthorized' in response while checking {self.dir}; did you forget a Globus token?"
+                )
+            print(
+                f"URL checking returned 'Unauthorized' in response while checking {self.dir}; did you forget a Globus token?"
+            )
+        if self.update_from_fixtures:
+            print(f"Updating from fixture data, fixtures not changed for {self.dir}.")
+        elif "fixtures" not in self.exclude:
+            new_data = self.update_fixtures(upload)
             fixtures = self.open_or_create_fixtures()
             diff = DeepDiff(fixtures, new_data, ignore_order=True, report_repetition=True)
             if not diff:
-                print(f"No diff found, skipping {self.dir}/fixtures.json...")
+                print(f"No diff found, skipping {self.dir}fixtures.json...")
             elif self.dry_run:
                 self.log(
                     f"""
                         Diff:
                         {diff}
 
-                        Would have written the following to {self.dir}/fixtures.json:
+                        Would have written the following to {self.dir}fixtures.json:
                         {new_data}
                         """,
-                    short_message=f"Would have updated {self.dir}/fixtures.json.",
+                    short_message=f"Would have updated {self.dir}fixtures.json.",
                 )
                 self.change_report[self.dir].append("Fixtures diff found")
             else:
-                print(f"Writing to {self.dir}/fixtures.json...")
-                with open(f"{self.dir}/fixtures.json", "w") as f:
+                print(f"Writing to {self.dir}fixtures.json...")
+                with open(f"{self.dir}fixtures.json", "w") as f:
                     json.dump(new_data, f)
         else:
-            print(f"{self.dir}/fixtures.json excluded, not changed.")
+            print(f"{self.dir}fixtures.json excluded, not changed.")
+        cleaned_report = clean_report(report)
         if "README" not in self.exclude:
             readme = self.open_or_create_readme()
             try:
-                diff_test(self.dir, readme, clean_report(report), verbose=self.verbose)
+                diff_test(
+                    self.dir,
+                    readme,
+                    cleaned_report,
+                    verbose=self.verbose,
+                    full_diff=self.full_diff,
+                )
                 readme.close()
-                print(f"No diff found, skipping {self.dir}/README.md")
+                print(f"No diff found, skipping {self.dir}README.md")
             except MockException:
                 return {}
             except TokenException as e:
                 print(
-                    f"Token error for {self.dir}/README.md. Non-token-related diff: {e.clean_report}"
+                    f"Token error for {self.dir}README.md. Non-token-related diff: {e.clean_report}"
                 )
             except AssertionError:
-                print(f"FAILED diff_test: {self.dir}/README.md...")
+                print(f"FAILED diff_test: {self.dir}README.md...")
                 if self.dry_run:
                     self.log(
                         f"""
-                            Would have written the following report to {self.dir}/README.md:
-                            {clean_report(report)}
+                            Would have written the following report to {self.dir}README.md:
+                            {cleaned_report}
                             """,
-                        f"Would have updated {self.dir}/README.md.",
+                        f"Would have updated {self.dir}README.md.",
                     )
                     self.change_report[self.dir].append("README diff found")
                 else:
                     self.log(
                         f"""
-                            Writing the following report to {self.dir}/README.md:
-                            {clean_report(report)}
+                            Writing the following report to {self.dir}README.md:
+                            {cleaned_report}
                             """,
-                        f"Updating {self.dir}/README.md.",
+                        f"Updating {self.dir}README.md.",
                     )
-                    with open(f"{self.dir}/README.md", "w") as f:
-                        # TODO: potential issues with blank lines at end of report
-                        f.write(clean_report(report))
-                    dataset_test(self.dir, self.opts)
+                    with open(f"{self.dir}README.md", "w") as f:
+                        f.write(cleaned_report)
+                    dataset_test(
+                        self.dir,
+                        self.opts,
+                        globus_token=self.globus_token,
+                        offline=self.update_from_fixtures,
+                        use_online_check_fixtures=self.update_from_fixtures,
+                    )
         else:
-            print(f"{self.dir}/README.md excluded, not changed.")
+            print(f"{self.dir}README.md excluded, not changed.")
         return self.change_report
 
-    def update_fixtures(self, report: ErrorReport) -> Dict:
+    def update_fixtures(self, upload) -> Dict:
         new_data = {}
         new_assaytype_data = {}
-        new_validation_data = {}
-        for path, schema in self.upload.effective_tsv_paths.items():
+        new_validation_data = defaultdict(dict)
+        for schema in upload.effective_tsv_paths.values():
             new_assaytype_data[schema.dataset_type] = schema.soft_assay_data
-            if "Preflight" in report.as_md():
+            if upload.errors.preflight:
                 continue
-            if schema.is_cedar:
-                new_validation_data[schema.schema_name] = self.upload.online_checks(
-                    path, schema.schema_name, ReportType.STR
-                )
+            online_errors = upload.errors.tsv_only_errors_by_path(str(schema.path))
+            new_validation_data[schema.schema_name].update(online_errors)
             for other_type, paths in {
                 "antibodies": schema.antibodies_paths,
                 "contributors": schema.contributors_paths,
             }.items():
                 for path in paths:
-                    try:
-                        validation = self.other_type_online_checks(path, other_type)
-                    except TSVError:
-                        continue
-                    if validation:
-                        new_validation_data.update(validation)
+                    online_errors = upload.errors.tsv_only_errors_by_path(path)
+                    new_validation_data[other_type].update(online_errors)
         new_data["assaytype"] = new_assaytype_data
-        new_data["validation"] = new_validation_data
+        new_data["validation"] = dict(new_validation_data)
         return new_data
 
-    def other_type_online_checks(self, path: str, other_type: str) -> Dict:
-        metadata_schema_id = read_rows(Path(path), "ascii")[0].get("metadata_schema_id")
-        if metadata_schema_id:
-            return {Path(path).stem: self.upload.online_checks(path, other_type, ReportType.STR)}
-        return {}
-
     def open_or_create_fixtures(self) -> Dict:
-        if not Path(f"{self.dir}/fixtures.json").exists():
-            open(f"{self.dir}/fixtures.json", "w")
-        with open(f"{self.dir}/fixtures.json", "r") as f:
+        if not Path(f"{self.dir}fixtures.json").exists():
+            open(f"{self.dir}fixtures.json", "w")
+        with open(f"{self.dir}fixtures.json", "r") as f:
             try:
                 fixtures = json.load(f)
             except JSONDecodeError:
@@ -173,9 +192,9 @@ class UpdateData:
         return fixtures
 
     def open_or_create_readme(self):
-        if not Path(f"{self.dir}/README.md").exists():
-            open(f"{self.dir}/README.md", "w")
-        return open(f"{self.dir}/README.md", "r")
+        if not Path(f"{self.dir}README.md").exists():
+            open(f"{self.dir}README.md", "w")
+        return open(f"{self.dir}README.md", "r")
 
 
 def print_change_report(change_report: Dict, verbose: bool, globus_token: str):
@@ -196,7 +215,7 @@ def print_change_report(change_report: Dict, verbose: bool, globus_token: str):
                 print(dir)
 
 
-def manual_test(test_dir: Union[str, List], verbose: bool = False):
+def manual_test(test_dir: Union[str, List], verbose: bool = False, full_diff: bool = False):
     """
     Mimics unittest behavior at the level of a single directory.
     """
@@ -204,12 +223,12 @@ def manual_test(test_dir: Union[str, List], verbose: bool = False):
         assert Path(
             test_dir
         ).resolve(), f"Arg {test_dir} passed to manual_test is not a directory!"
-    elif type(test_dir) is list:
+    elif type(test_dir) is list and len(test_dir) > 1:
         test_dir = [dir for dir in test_dir if Path(dir).is_dir()]
     test = TestDatasetExamples()
     setattr(test, "dataset_test_dirs", test_dir)
     test.get_paths()
-    test.test_validate_dataset_examples(verbose=verbose)
+    test.test_validate_dataset_examples(verbose=verbose, full_diff=full_diff)
 
 
 def call_update(dir: str, args) -> Dict:
@@ -232,6 +251,9 @@ def call_update(dir: str, args) -> Dict:
         dry_run=args.dry_run,
         verbose=args.verbose,
         exclude=args.exclude,
+        full_diff=args.full_diff,
+        update_from_fixtures=args.update_from_fixtures,
+        ignore_online_exceptions=args.ignore_online_exceptions,
     ).update_test_data()
     return change_report
 
@@ -282,6 +304,23 @@ parser.add_argument(
     action="store_true",
     help="Default is False. Used for investigating testing failures with more verbose output. Requires passing a test_dir. Pass a blank Globus token as this runs offline.",
 )
+parser.add_argument(
+    "-f",
+    "--full_diff",
+    action="store_true",
+    help="Default is False. Show full and cleaned README diff.",
+)
+parser.add_argument(
+    "-i",
+    "--ignore_online_exceptions",
+    action="store_true",
+    help="Default is False. Print 'Too Many Requests' (Spreadsheet Validator error) and 'Unauthorized' (Globus token error) exceptions rather than raising.",
+)
+parser.add_argument(
+    "--update_from_fixtures",
+    action="store_true",
+    help="Default is False. Update based on fixture data rather than making online calls. Use only when certain of fixture data!",
+)
 
 args = parser.parse_args()
 # tsv-examples not currently integrated, could be if needed.
@@ -295,9 +334,9 @@ if args.manual_test:
         if Path(dir).absolute() in parent_dirs:
             sub_dirs = [example_dir for example_dir in glob.glob(f"{dir}/**")]
             for dir in sub_dirs:
-                manual_test([dir], verbose=args.verbose)
+                manual_test([dir], verbose=args.verbose, full_diff=args.full_diff)
         else:
-            manual_test([dir], verbose=args.verbose)
+            manual_test([dir], verbose=args.verbose, full_diff=args.full_diff)
 else:
     change_report = {}
     if args.target_dirs in [["examples/"], ["examples"]]:

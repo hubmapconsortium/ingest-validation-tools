@@ -12,14 +12,16 @@ Dumper.ignore_aliases = lambda *args: True
 
 class ErrorReport:
     def __init__(self, errors: Optional[ErrorDict] = None, info: Optional[InfoDict] = None):
+        self.raw_errors = None
+        self.raw_info = None
+        self.errors = None
+        self.info = None
         if errors:
+            self.raw_errors = errors
             self.errors = errors.as_dict()
-        else:
-            self.errors = None
         if info:
+            self.raw_info = info
             self.info = info.as_dict()
-        else:
-            self.info = None
 
     def _no_errors(self):
         return f"No errors!\n{dump(self.info, sort_keys=False)}\n"
