@@ -35,7 +35,7 @@ for SUITE in examples/dataset-examples examples/dataset-iec-examples; do
             echo "Example ${EXAMPLE} does not have a README.md file."
             die "Update example: ${CMD} > ${README}"
         fi
-        diff "${README}" <( eval "${CMD}" ) \
+        diff --ignore-all-space "${README}" <( eval "${CMD}" ) \
             || die "Update example: ${CMD} > ${README}"
     done
 

@@ -7,7 +7,7 @@ Automated testing (e.g. via GitHub action or by running `./test.sh`) does not hi
 Run the following from the top-level directory:
 
 ```
-./tests-manual/test-dataset-examples-online.sh <globus_token> <start_index>
+./tests-manual/test-dataset-examples-online.sh <globus_token> <optional:start_index>
 ```
 
 This test mechanism calls validate_upload.py and does not update files. It is good for reliable manual online testing.
