@@ -72,26 +72,22 @@ class UpdateData:
         errors = upload.get_errors()
         info = upload.get_info()
         report = ErrorReport(info=info, errors=errors)
-        if "Too Many Requests" in report.as_md():
-            if not self.dry_run or not self.ignore_online_exceptions:
-                raise Exception(
-                    f"Something went wrong with Spreadsheet Validator request for {self.dir}."
-                )
-            print(f"Too many requests error: {self.dir}.")
-        elif "Unauthorized" in report.as_md():
-            if not self.dry_run or not self.ignore_online_exceptions:
-                raise Exception(
-                    f"URL checking returned 'Unauthorized' in response while checking {self.dir}; did you forget a Globus token?"
-                )
-            print(
-                f"URL checking returned 'Unauthorized' in response while checking {self.dir}; did you forget a Globus token?"
-            )
+        for error in ["Too Many Requests", "Unauthorized", "500 Internal Server Error"]:
+            if error in report.as_md():
+                if error == "Unauthorized":
+                    msg = f"URL checking returned 'Unauthorized' in response while checking {self.dir}; did you forget a Globus token?"
+                else:
+                    msg = f"Something went wrong with Spreadsheet Validator request for {self.dir}: {error}"
+                if not self.dry_run or not self.ignore_online_exceptions:
+                    raise Exception(msg)
+                print(f"Error checking {self.dir}: {msg}.")
         if self.update_from_fixtures:
             print(f"Updating from fixture data, fixtures not changed for {self.dir}.")
         elif "fixtures" not in self.exclude:
             new_data = self.update_fixtures(upload)
             if self.env == "DEV":
-                for value in new_data.get("validation", {}).values() or {}:
+                cleaned_data = defaultdict(dict)
+                for key, value in new_data.get("validation", {}).items() or {}:
                     if value is not None:
                         new_url_data = [
                             dev_url_replace(v)
@@ -100,6 +96,8 @@ class UpdateData:
                         ]
                         if new_url_data:
                             value["URL Errors"] = new_url_data
+                    cleaned_data[key].update(value)
+                new_data["validation"] = dict(cleaned_data)
             fixtures = self.open_or_create_fixtures()
             diff = DeepDiff(
                 fixtures,

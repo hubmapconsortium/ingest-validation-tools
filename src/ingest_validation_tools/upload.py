@@ -615,7 +615,7 @@ class Upload:
         try:
             url_errors = self._check_matching_urls(tsv_path, constrained_fields, report_type)
         except ErrorDictException as e:
-            errors.append(e)
+            errors.append(str(e))
         else:
             if url_errors:
                 errors.extend(url_errors)

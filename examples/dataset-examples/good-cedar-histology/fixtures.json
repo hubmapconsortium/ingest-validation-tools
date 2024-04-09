@@ -1,1 +1,1 @@
-{"assaytype": {"Histology": {"assaytype": "h-and-e", "contains-pii": false, "dataset-type": "Histology", "description": "H&E Stained Microscopy", "dir-schema": "histology-v2", "primary": true, "vitessce-hints": []}}, "validation": {}}
+{"assaytype": {"Histology": {"assaytype": "h-and-e", "contains-pii": false, "dataset-type": "Histology", "description": "H&E Stained Microscopy", "dir-schema": "histology-v2", "primary": true, "vitessce-hints": []}}, "validation": {"h-and-e": {}, "contributors": {}}}

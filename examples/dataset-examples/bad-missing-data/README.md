@@ -1,7 +1,7 @@
 ```
 Directory Errors:
-  examples/dataset-examples/bad-missing-data/upload/dataset-1 (as codex-v1-with-dataset-json):
-  - No matching directory schemas found.
+  examples/dataset-examples/bad-missing-data/upload/codex-metadata.tsv:
+  - 'Value "dataset-1" in column "data_path" points to non-existent directory: "examples/dataset-examples/bad-missing-data/upload/dataset-1".'
 Antibodies/Contributors Errors:
   examples/dataset-examples/bad-missing-data/upload/codex-metadata.tsv:
   - 'Value "contributors-missing.tsv" in column "contributors_path" points to non-existent

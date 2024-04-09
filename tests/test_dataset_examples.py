@@ -107,23 +107,22 @@ def clean_report(report: ErrorReport):
     for line in report.as_md().splitlines(keepends=True):
         will_change_match = will_change_regex.search(line)
         if will_change_match:
-            new_line = line.replace(will_change_match.group(3), "WILL_CHANGE")
-            clean_report.append(new_line)
+            line = line.replace(will_change_match.group(3), "WILL_CHANGE")
         no_token_regex_match = no_token_regex.search(line)
         if no_token_regex_match:
             token_issue = True
             continue
-        else:
-            clean_report.append(line)
+        line = dev_url_replace(line)
+        clean_report.append(line)
     if token_issue:
         raise TokenException(f"API token required to complete update, not writing.", clean_report)
     return "".join(clean_report)
 
 
-def dev_url_replace(report: str):
+def dev_url_replace(original_str: str):
     dev_regex = re.compile(r"-api.dev")
-    report = re.sub(dev_regex, ".api", report)
-    return report
+    new_str = re.sub(dev_regex, ".api", original_str)
+    return new_str
 
 
 def diff_test(

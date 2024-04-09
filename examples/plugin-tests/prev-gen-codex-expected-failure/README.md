@@ -1,5 +1,5 @@
 ```
-Plugin Errors:
+Data File Errors:
   Check CODEX JSON against schema:
   - "examples/plugin-tests/prev-gen-codex-expected-failure/upload/dataset-1/src_something/dataset.json:\
     \ \"Version\" is a required property\n\nFailed validating \"required\" in schema:\n\
@@ -1201,7 +1201,4 @@ Plugin Errors:
   Recursively test all tiff files that are not ome.tiffs for validity:
   - 'examples/plugin-tests/prev-gen-codex-expected-failure/upload/dataset-1/src_something/cycX_regX_X/X_X_ZX_CHX.tif
     is not a valid TIFF file: not a TIFF file.'
-Hint: 'If validation fails because of extra whitespace in the TSV, try:
-
-  src/cleanup_whitespace.py --tsv_in original.tsv --tsv_out clean.tsv.'
 ```

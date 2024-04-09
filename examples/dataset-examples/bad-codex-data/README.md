@@ -13,10 +13,10 @@ Directory Errors:
     - (raw|src_.*)/[cC]yc.*_reg.*/.*_Z.*_CH.*\.tif.
     - (raw|src_[^/]*)/dataset\.json.
     - extras/dir-schema-v1-with-dataset-json.
-Antibodies/Contributors TSV Errors:
-  examples/dataset-examples/bad-codex-data/upload/codex-metadata.tsv: "Error opening\
-    \ or reading value \"antibodies.tsv\" from column \"antibodies_path\": Decode\
-    \ Error: Invalid ascii because ordinal not in range(128): \"mber\tconjugated_tag\n\
+Antibodies/Contributors Errors:
+  examples/dataset-examples/bad-codex-data/upload/codex-metadata.tsv:
+  - "Error opening or reading value \"antibodies.tsv\" from column \"antibodies_path\"\
+    : Decode Error: Invalid ascii because ordinal not in range(128): \"mber\tconjugated_tag\n\
     \ [ \xF0 ] \x9F\x98\x83\t\tbad-value\t\t\tinv\"."
 Local Validation Errors:
   examples/dataset-examples/bad-codex-data/upload/contributors.tsv (as contributors-v1):
