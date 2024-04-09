@@ -19,6 +19,7 @@ from tests.test_dataset_examples import (
     TokenException,
     clean_report,
     dataset_test,
+    dev_url_replace,
     diff_test,
 )
 
@@ -36,6 +37,7 @@ class UpdateData:
         full_diff: bool = False,
         update_from_fixtures: bool = False,
         ignore_online_exceptions: bool = False,
+        env: str = "PROD",
     ):
         self.dir = dir if dir.endswith("/") else dir + "/"
         self.globus_token = globus_token
@@ -47,6 +49,7 @@ class UpdateData:
         self.full_diff = full_diff
         self.update_from_fixtures = update_from_fixtures
         self.ignore_online_exceptions = ignore_online_exceptions
+        self.env = env
 
     def log(self, verbose_message, short_message: Optional[str] = None):
         if self.verbose:
@@ -87,8 +90,23 @@ class UpdateData:
             print(f"Updating from fixture data, fixtures not changed for {self.dir}.")
         elif "fixtures" not in self.exclude:
             new_data = self.update_fixtures(upload)
+            if self.env == "DEV":
+                for value in new_data.get("validation", {}).values() or {}:
+                    if value is not None:
+                        new_url_data = [
+                            dev_url_replace(v)
+                            for v in value.get("URL Errors", [])
+                            if value is not None
+                        ]
+                        if new_url_data:
+                            value["URL Errors"] = new_url_data
             fixtures = self.open_or_create_fixtures()
-            diff = DeepDiff(fixtures, new_data, ignore_order=True, report_repetition=True)
+            diff = DeepDiff(
+                fixtures,
+                new_data,
+                ignore_order=True,
+                report_repetition=True,
+            )
             if not diff:
                 print(f"No diff found, skipping {self.dir}fixtures.json...")
             elif self.dry_run:
@@ -119,6 +137,7 @@ class UpdateData:
                     cleaned_report,
                     verbose=self.verbose,
                     full_diff=self.full_diff,
+                    env=self.env,
                 )
                 readme.close()
                 print(f"No diff found, skipping {self.dir}README.md")
@@ -244,6 +263,14 @@ def call_update(dir: str, args) -> Dict:
         }
     else:
         opts = {}
+    if args.env == "DEV":
+        opts = opts | {
+            "app_context": {
+                "ingest_url": "https://ingest-api.dev.hubmapconsortium.org/",
+                "entities_url": "https://entity-api.dev.hubmapconsortium.org/entities/",
+                "request_header": {"X-Hubmap-Application": "ingest-pipeline"},
+            }
+        }
     change_report = UpdateData(
         dir,
         args.globus_token,
@@ -254,6 +281,7 @@ def call_update(dir: str, args) -> Dict:
         full_diff=args.full_diff,
         update_from_fixtures=args.update_from_fixtures,
         ignore_online_exceptions=args.ignore_online_exceptions,
+        env=args.env,
     ).update_test_data()
     return change_report
 
@@ -281,6 +309,7 @@ parser.add_argument(
     type=str,
 )
 parser.add_argument(
+    "-d",
     "--dry_run",
     action="store_true",
     help="Default is False. If specified, do not write data but instead print output.",
@@ -320,6 +349,13 @@ parser.add_argument(
     "--update_from_fixtures",
     action="store_true",
     help="Default is False. Update based on fixture data rather than making online calls. Use only when certain of fixture data!",
+)
+
+parser.add_argument(
+    "--env",
+    choices=["DEV", "PROD"],
+    default=["PROD"],
+    help="Run tests against an env other than PROD by passing dev-specific app_context.",
 )
 
 args = parser.parse_args()

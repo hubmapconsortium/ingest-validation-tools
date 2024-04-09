@@ -120,14 +120,23 @@ def clean_report(report: ErrorReport):
     return "".join(clean_report)
 
 
+def dev_url_replace(report: str):
+    dev_regex = re.compile(r"-api.dev")
+    report = re.sub(dev_regex, ".api", report)
+    return report
+
+
 def diff_test(
     test_dir: str,
     readme: TextIOWrapper,
     report: str,
     verbose: bool = True,
     full_diff: bool = False,
+    env: str = "PROD",
 ):
     d = difflib.Differ()
+    if env == "DEV":
+        report = dev_url_replace(report)
     diff = list(d.compare(readme.readlines(), report.splitlines(keepends=True)))
     readme.close()
     ignore_strings = ["Time:", "Git version:", "```"]

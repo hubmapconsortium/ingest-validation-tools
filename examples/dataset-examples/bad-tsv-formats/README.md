@@ -1,7 +1,5 @@
 ```
 Directory Errors:
-  examples/dataset-examples/bad-tsv-formats/upload/codex-metadata.tsv: 'Value "antibodies.tsv"
-    in column "antibodies_path" points to non-existent directory: examples/dataset-examples/bad-tsv-formats/upload/antibodies.tsv.'
   examples/dataset-examples/bad-tsv-formats/upload/dataset-1 (as codex-v1.1):
   - Not allowed:
     - channelnames.txt.
@@ -15,10 +13,12 @@ Directory Errors:
     - (raw|src_.*)/[cC]yc.*_reg.*/.*_Z.*_CH.*\.tif.
     - (raw|src_[^/]*)/dataset\.json.
     - extras/dir-schema-v1-with-dataset-json.
-Antibodies/Contributors TSV Errors:
-  examples/dataset-examples/bad-tsv-formats/upload/codex-metadata.tsv: 'Error opening
-    or reading value "contributors.tsv" from column "contributors_path": File has
-    no data rows: examples/dataset-examples/bad-tsv-formats/upload/contributors.tsv.'
+Antibodies/Contributors Errors:
+  examples/dataset-examples/bad-tsv-formats/upload/codex-metadata.tsv:
+  - 'Error opening or reading value "contributors.tsv" from column "contributors_path":
+    File has no data rows: examples/dataset-examples/bad-tsv-formats/upload/contributors.tsv.'
+  - 'Value "antibodies.tsv" in column "antibodies_path" points to non-existent file:
+    "examples/dataset-examples/bad-tsv-formats/upload/antibodies.tsv".'
 Local Validation Errors:
   examples/dataset-examples/bad-tsv-formats/upload/codex-metadata.tsv (as codex-v0):
   - 'On row 2, column "donor_id", value "not-uuid" fails because it does not match

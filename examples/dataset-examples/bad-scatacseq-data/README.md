@@ -6,10 +6,10 @@ Directory Errors:
     - unexpected-directory/place-holder.txt.
     Required but missing:
     - '[^/]+\.fastq\.gz.'
-Antibodies/Contributors TSV Errors:
-  examples/dataset-examples/bad-scatacseq-data/upload/scatacseq-metadata.tsv: 'Error
-    opening or reading value "." from column "contributors_path": Expected a TSV,
-    but found a directory: examples/dataset-examples/bad-scatacseq-data/upload.'
+Antibodies/Contributors Errors:
+  examples/dataset-examples/bad-scatacseq-data/upload/scatacseq-metadata.tsv:
+  - 'Error opening or reading value "." from column "contributors_path": Expected
+    a TSV, but found a directory: examples/dataset-examples/bad-scatacseq-data/upload.'
 Local Validation Errors:
   examples/dataset-examples/bad-scatacseq-data/upload/scatacseq-metadata.tsv (as scatacseq-v0):
   - On row 2, column "sc_isolation_protocols_io_doi", value "" fails because it must
