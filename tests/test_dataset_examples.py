@@ -58,15 +58,21 @@ def dataset_test(test_dir: str, dataset_opts: Dict, verbose: bool = False):
 
 def clean_report(report: ErrorReport):
     clean_report = []
-    regex = re.compile(r"((Time|Git version): )(.*)")
+    will_change_regex = re.compile(r"((Time|Git version): )(.*)")
     for line in report.as_md().splitlines(keepends=True):
-        match = regex.search(line)
-        if match:
-            new_line = line.replace(match.group(3), "WILL_CHANGE")
+        will_change_match = will_change_regex.search(line)
+        if will_change_match:
+            new_line = line.replace(will_change_match.group(3), "WILL_CHANGE")
             clean_report.append(new_line)
         else:
             clean_report.append(line)
     return "".join(clean_report)
+
+
+def dev_url_replace(report: str):
+    dev_regex = re.compile(r"-api.dev")
+    report = re.sub(dev_regex, ".api", report)
+    return report
 
 
 def diff_test(
@@ -75,8 +81,11 @@ def diff_test(
     report: str,
     verbose: bool = True,
     full_diff: bool = False,
+    env: str = "PROD",
 ):
     d = difflib.Differ()
+    if env == "DEV":
+        report = dev_url_replace(report)
     diff = list(d.compare(readme.readlines(), report.splitlines(keepends=True)))
     readme.close()
     ignore_strings = ["Time:", "Git version:", "```"]

@@ -13,7 +13,7 @@ TSVs:
     Metadata schema version: '2'
     Directory schema version: visium-no-probes-v2.0
   good-visium-rnaseq-metadata.tsv:
-    Schema: scRNAseq-10xGenomics-v3-v2
+    Schema: rnaseq-visium-no-probes-v2
     Metadata schema version: '2'
     Directory schema version: visium-no-probes-v2.0
 
