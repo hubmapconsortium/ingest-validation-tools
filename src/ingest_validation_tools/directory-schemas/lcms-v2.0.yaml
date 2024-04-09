@@ -48,11 +48,3 @@ files:
     pattern: lab_processed\/QC_results\/[^\/]+\.txt
     required: False
     description: A list of metrics with the score of the current dataset that shows the quality of data collection.
-  -
-    pattern: raw\/RNA\/.*
-    required: True
-    description: Directory containing fastq files pertaining to RNAseq sequencing.
-  -
-    pattern: raw\/RNA\/[^\/]+_R\.fastq\.gz
-    required: True
-    description: This is a GZip'd version of the forward and reverse fastq files from RNAseq sequencing (R1 and R2).

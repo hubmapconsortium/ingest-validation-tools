@@ -3,6 +3,7 @@
 ## v0.0.19 (in progress)
 - Directory validation changes for "shared" uploads
 - Update Phenocycler directory schema
+- Remove bad paths from LC-MS directory schema
 - Accommodate dir schema minor versions
 
 ## v0.0.18
