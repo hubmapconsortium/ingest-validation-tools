@@ -42,7 +42,7 @@ class MockException(Exception):
 
 
 class TokenException(Exception):
-    def __init__(self, error: str, clean_report: List):
+    def __init__(self, error: str, clean_report: str):
         super().__init__(error)
         self.clean_report = clean_report
 
@@ -115,7 +115,9 @@ def clean_report(report: ErrorReport):
         line = dev_url_replace(line)
         clean_report.append(line)
     if token_issue:
-        raise TokenException(f"API token required to complete update, not writing.", clean_report)
+        raise TokenException(
+            f"API token required to complete update, not writing.", "".join(clean_report)
+        )
     return "".join(clean_report)
 
 

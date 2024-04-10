@@ -125,7 +125,14 @@ class UpdateData:
                     json.dump(new_data, f)
         else:
             print(f"{self.dir}fixtures.json excluded, not changed.")
-        cleaned_report = clean_report(report)
+        try:
+            cleaned_report = clean_report(report)
+        except TokenException as e:
+            if self.ignore_online_exceptions:
+                print(e)
+                cleaned_report = e.clean_report
+            else:
+                raise TokenException(str(e), e.clean_report)
         if "README" not in self.exclude:
             readme = self.open_or_create_readme()
             try:

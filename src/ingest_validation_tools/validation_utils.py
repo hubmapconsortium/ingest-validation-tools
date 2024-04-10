@@ -35,7 +35,6 @@ def get_schema_version(
     encoding: str,
     ingest_url: str = "",
     directory_path: Optional[Path] = None,
-    offline: bool = False,
 ) -> SchemaVersion:
     try:
         rows = read_rows(path, encoding)
@@ -52,8 +51,6 @@ def get_schema_version(
         )
         return sv
     message = []
-    if offline:
-        message.append("Running in offline mode, cannot reach assayclassifier.")
     if not (rows[0].get("dataset_type") or rows[0].get("assay_type")):
         message.append(f"No assay_type or dataset_type in {path}.")
         if "channel_id" in rows[0]:
@@ -335,7 +332,7 @@ def get_tsv_errors(
 
     logging.info(f"Validating {schema_name} TSV...")
 
-    # TODO: this is weird, because we're creating an upload for a single file...maybe subclass?
+    # TODO: refactor into TSV class
     upload = Upload(
         Path(tsv_path).parent,
         tsv_paths=[Path(tsv_path)],
@@ -346,7 +343,7 @@ def get_tsv_errors(
         app_context=app_context,
     )
     upload.validation_routine(report_type)
-    return upload.errors.metadata_only_errors()
+    return upload.errors.tsv_only_errors_by_path(str(tsv_path))
 
 
 def print_path(path):
