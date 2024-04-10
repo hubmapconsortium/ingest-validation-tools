@@ -568,9 +568,9 @@ class Upload:
             check = {k: v for k, v in row.items() if k in constrained_fields}
             for field, value in check.items():
                 if field == "parent_sample_id":
-                    ids = value.split(", ")
+                    ids = value.split(",")
                     for id in ids:
-                        error = self._check_single_url(field, id, constrained_fields, i)
+                        error = self._check_single_url(field, id.strip(), constrained_fields, i)
                         if error:
                             url_errors.append(self._get_message(error, report_type))
                 else:
