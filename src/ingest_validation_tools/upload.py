@@ -524,9 +524,7 @@ class Upload:
         self, tsv_path: str, schema_name: str, report_type: ReportType = ReportType.STR
     ):
         """
-        Check provided UUIDs/HuBMAP IDs for parent_id, sample_id, organ_id.
-        Not using get_table_errors because CEDAR schema fields do not match
-        the TSV fields, which makes frictionless confused and upset.
+        Check provided UUIDs/HuBMAP IDs for parent_sample_id, orcid_id.
         """
         errors: Dict = {}
 
@@ -536,18 +534,31 @@ class Upload:
         # contributors -> orcid_id
 
         constrained_fields = {}
-
-        if "sample" in schema_name:
-            constrained_fields["sample_id"] = self.app_context.get("entities_url")
-        elif "organ" in schema_name:
-            constrained_fields["organ_id"] = self.app_context.get("entities_url")
-        elif "murine-source" in schema_name:
-            constrained_fields["source_id"] = self.app_context.get("entities_url")
-        elif "contributors" in schema_name:
-            constrained_fields["orcid_id"] = "https://pub.orcid.org/v3.0/"
-        else:
-            constrained_fields["parent_sample_id"] = self.app_context.get("entities_url")
-
+        constraints = {
+            "sample": {"field": "sample_id"},
+            "organ": {"field": "organ_id"},
+            "murine-source": {"field": "source_id"},
+            "contributors": {
+                "field": "orcid_id",
+                "url": "https://pub.orcid.org/v3.0/",
+                "headers": {},
+            },
+        }
+        defaults = {
+            "url": self.app_context.get("entities_url"),
+            "headers": {
+                **self.app_context.get("request_header", {}),
+                "Authorization": f"Bearer {self.globus_token}",
+            },
+        }
+        for schema, constraint_details in constraints.items():
+            if schema in schema_name:
+                schema_constraints = {
+                    k: v for k, v in defaults.items() if k not in constraint_details.items()
+                } | constraint_details
+                constrained_fields[constraint_details.pop("field")] = schema_constraints
+            else:
+                constrained_fields["parent_sample_id"] = defaults | {"delimiter": ", "}
         url_errors = self._check_matching_urls(tsv_path, constrained_fields, report_type)
         if url_errors:
             errors["URL Errors"] = url_errors
@@ -567,25 +578,39 @@ class Upload:
         for i, row in enumerate(rows):
             check = {k: v for k, v in row.items() if k in constrained_fields}
             for field, value in check.items():
-                try:
-                    url = constrained_fields[field] + value
-                    if field != "orcid_id":
-                        headers = self.app_context.get("request_header", {})
-                        headers["Authorization"] = f"Bearer {self.globus_token}"
-                    else:
-                        headers = {}
-                    response = requests.get(url, headers=headers)
-                    response.raise_for_status()
-                except Exception as e:
-                    error = {
-                        "errorType": type(e).__name__,
-                        "column": field,
-                        "row": i + 2,
-                        "value": value,
-                        "error_text": e.__str__(),
-                    }
-                    url_errors.append(self._get_message(error, report_type))
+                delimiter = constrained_fields[field].get("delimiter")
+                if delimiter:
+                    ids = value.split(delimiter)
+                    for id in ids:
+                        error = self._check_single_url(field, id, constrained_fields[field], i)
+                        if error:
+                            url_errors.append(self._get_message(error, report_type))
+                else:
+                    error = self._check_single_url(field, value, constrained_fields[field], i)
+                    if error:
+                        url_errors.append(self._get_message(error, report_type))
         return url_errors
+
+    def _check_single_url(
+        self,
+        field: str,
+        value: str,
+        constraints: Dict,
+        row_num: int,
+    ) -> Optional[Dict]:
+        try:
+            url = constraints.get("url", "") + value
+            response = requests.get(url, headers=constraints.get("headers", {}))
+            response.raise_for_status()
+        except Exception as e:
+            error = {
+                "errorType": type(e).__name__,
+                "column": field,
+                "row": row_num + 2,
+                "value": value,
+                "error_text": e.__str__(),
+            }
+            return error
 
     def _get_message(
         self,

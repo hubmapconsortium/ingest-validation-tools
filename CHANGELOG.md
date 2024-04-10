@@ -4,6 +4,7 @@
 - Directory validation changes for "shared" uploads
 - Update Phenocycler directory schema
 - Remove bad paths from LC-MS directory schema
+- Allow multiple comma-separated parent_sample_id values
 
 ## v0.0.18
 
