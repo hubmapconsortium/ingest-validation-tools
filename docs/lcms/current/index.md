@@ -44,6 +44,4 @@ Related files:
 | <code>lab_processed\/ID_metadata\/[^\/]+\.csv</code> | ✓ | Software settings used during the analyte identification process (e.g., from MaxQuant or Proteome Discoverer). |
 | <code>lab_processed\/QC_results\/.*</code> |  | Output file resulting from QC analysis. |
 | <code>lab_processed\/QC_results\/[^\/]+\.txt</code> |  | A list of metrics with the score of the current dataset that shows the quality of data collection. |
-| <code>raw\/RNA\/.*</code> | ✓ | Directory containing fastq files pertaining to RNAseq sequencing. |
-| <code>raw\/RNA\/[^\/]+_R\.fastq\.gz</code> | ✓ | This is a GZip'd version of the forward and reverse fastq files from RNAseq sequencing (R1 and R2). |
 

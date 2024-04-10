@@ -232,11 +232,12 @@ class Upload:
         present only if there is actually an error to report.
         """
 
-        if not self.effective_tsv_paths:
-            self.errors.preflight.append("There are no effective TSVs.")
-
         # Return if PreflightErrors found
         if self.errors:
+            return self.errors
+
+        if not self.effective_tsv_paths:
+            self.errors.preflight.append("There are no effective TSVs.")
             return self.errors
 
         # Collect errors
@@ -633,26 +634,46 @@ class Upload:
         url_errors = []
         for i, row in enumerate(rows):
             check = {k: v for k, v in row.items() if k in constrained_fields}
-            for constrained_field, value in check.items():
-                try:
-                    url = constrained_fields[constrained_field] + value
-                    if constrained_field != "orcid_id":
-                        headers = self.app_context.get("request_header", {})
-                        headers["Authorization"] = f"Bearer {self.globus_token}"
-                    else:
-                        headers = {}
-                    response = requests.get(url, headers=headers)
-                    response.raise_for_status()
-                except Exception as e:
-                    error = {
-                        "errorType": type(e).__name__,
-                        "column": constrained_field,
-                        "row": i + 2,
-                        "value": value,
-                        "error_text": e.__str__(),
-                    }
-                    url_errors.append(self._get_message(error, report_type))
+            for check_field, value in check.items():
+                if check_field == "parent_sample_id":
+                    ids = value.split(",")
+                    for id in ids:
+                        error = self._check_single_url(
+                            check_field, id.strip(), constrained_fields, i
+                        )
+                        if error:
+                            url_errors.append(self._get_message(error, report_type))
+                else:
+                    error = self._check_single_url(check_field, value, constrained_fields, i)
+                    if error:
+                        url_errors.append(self._get_message(error, report_type))
         return url_errors
+
+    def _check_single_url(
+        self,
+        field: str,
+        value: str,
+        constrained_fields: Dict[str, str],
+        row_num: int,
+    ) -> Optional[Dict]:
+        try:
+            url = constrained_fields[field] + value
+            if field != "orcid_id":
+                headers = self.app_context.get("request_header", {})
+                headers["Authorization"] = f"Bearer {self.globus_token}"
+            else:
+                headers = {}
+            response = requests.get(url, headers=headers)
+            response.raise_for_status()
+        except Exception as e:
+            error = {
+                "errorType": type(e).__name__,
+                "column": field,
+                "row": row_num + 2,
+                "value": value,
+                "error_text": e.__str__(),
+            }
+            return error
 
     def _get_message(
         self,

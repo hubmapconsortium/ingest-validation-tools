@@ -3,6 +3,8 @@
 ## v0.0.19 (in progress)
 - Directory validation changes for "shared" uploads
 - Update Phenocycler directory schema
+- Remove bad paths from LC-MS directory schema
+- Allow multiple comma-separated parent_sample_id values
 - Accommodate dir schema minor versions
 - Change Upload error output to dataclass
 
