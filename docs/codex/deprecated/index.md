@@ -650,7 +650,7 @@ Relative path to file or directory with instrument data. Downstream processing w
 <br>
 
 ## Directory schemas
-<summary><b>Version 1-with-dataset-json (use this one)</b></summary>
+<summary><b>Version 1.1 (use this one)</b></summary>
 
 | pattern | required? | description |
 | --- | --- | --- |
@@ -671,7 +671,7 @@ Relative path to file or directory with instrument data. Downstream processing w
 | <code>extras/dir-schema-v1-with-dataset-json</code> | ✓ | Empty file whose presence indicates the version of the directory schema in use |
 | <code>extras\/.*</code> |  | Folder for general lab-specific files related to the dataset. [Exists in all assays] |
 
-<summary><b>Version 0</b></summary>
+<summary><b>Version 0.0</b></summary>
 
 | pattern | required? | description |
 | --- | --- | --- |

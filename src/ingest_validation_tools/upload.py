@@ -136,12 +136,14 @@ class Upload:
             stderr=subprocess.STDOUT,
         ).strip()
 
+        # If called before get_errors, will report dir schema major version only
+
         try:
             effective_tsvs = {
                 Path(path).name: {
                     "Schema": sv.table_schema,
                     "Metadata schema version": sv.version,
-                    "Directory schema versions": sv.dir_schema,
+                    "Directory schema version": sv.dir_schema,
                 }
                 for path, sv in self.effective_tsv_paths.items()
             }
@@ -267,6 +269,9 @@ class Upload:
                 dir_errors = self._check_data_path(
                     self.multi_parent, Path(self.multi_parent.path), data_path
                 )
+                for schema in self.effective_tsv_paths.values():
+                    if not schema.dataset_type == self.multi_parent.dataset_type:
+                        schema.dir_schema = self.multi_parent.dir_schema
                 if dir_errors:
                     errors.update(dir_errors)
         else:
@@ -695,15 +700,20 @@ class Upload:
                 f"{self.directory_path / data_path} in {metadata_path}!"
             )
 
-        ref_errors = get_data_dir_errors(
-            schema_version.dir_schema,
-            root_path=self.directory_path,
-            data_dir_path=data_path,
-            dataset_ignore_globs=self.dataset_ignore_globs,
-        )
-
-        if ref_errors:
-            errors[f"{str(metadata_path)}, column 'data_path', value '{path_value}'"] = ref_errors
+        try:
+            ref_errors = get_data_dir_errors(
+                schema_version.dir_schema,
+                root_path=self.directory_path,
+                data_dir_path=data_path,
+                dataset_ignore_globs=self.dataset_ignore_globs,
+            ).popitem()
+            if type(ref_errors[1]) is list:
+                errors[
+                    f"{str(metadata_path)}, column 'data_path', value '{path_value}' (as {ref_errors[0]})"
+                ] = ref_errors[1]
+            schema_version.dir_schema = ref_errors[0]
+        except Exception as e:
+            errors[f"{str(metadata_path)}, column 'data_path', value '{path_value}'"] = e
         return errors
 
     def _check_other_path(self, metadata_path: Path, other_path_value: str, path_type: str):

@@ -20,6 +20,7 @@ from tests.test_dataset_examples import (
     TestDatasetExamples,
     clean_report,
     dataset_test,
+    dev_url_replace,
     diff_test,
 )
 
@@ -34,6 +35,8 @@ class UpdateData:
         opts: Dict = {},
         verbose: bool = False,
         dry_run: bool = True,
+        full_diff: bool = False,
+        env: str = "PROD",
     ):
         self.dir = dir
         self.globus_token = globus_token
@@ -42,6 +45,8 @@ class UpdateData:
         self.verbose = verbose
         self.upload_verbose = True if "plugin-tests" in dir else False
         self.dry_run = dry_run
+        self.full_diff = full_diff
+        self.env = env
 
     def log(self, verbose_message, short_message: Optional[str] = None):
         if self.verbose:
@@ -58,17 +63,36 @@ class UpdateData:
             **self.opts,
             verbose=self.upload_verbose,
         )
-        info = self.upload.get_info()
         errors = self.upload.get_errors()
+        info = self.upload.get_info()
         report = ErrorReport(info=info, errors=errors)
-        if "Too many requests" in report.as_md():
+        if "Too Many Requests" in report.as_md():
             raise Exception(
                 f"Something went wrong with Spreadsheet Validator request for {self.dir}."
             )
+        elif "Unauthorized" in report.as_md():
+            raise Exception(
+                f"URL checking returned 'Unauthorized' in response while checking {self.dir}; did you forget a Globus token?"
+            )
         if "fixtures" not in self.exclude:
             new_data = self.update_fixtures(report)
+            if self.env == "DEV":
+                for value in new_data.get("validation", {}).values() or {}:
+                    if value is not None:
+                        new_url_data = [
+                            dev_url_replace(v)
+                            for v in value.get("URL Errors", [])
+                            if value is not None
+                        ]
+                        if new_url_data:
+                            value["URL Errors"] = new_url_data
             fixtures = self.open_or_create_fixtures()
-            diff = DeepDiff(fixtures, new_data, ignore_order=True, report_repetition=True)
+            diff = DeepDiff(
+                fixtures,
+                new_data,
+                ignore_order=True,
+                report_repetition=True,
+            )
             if not diff:
                 print(f"No diff found, skipping {self.dir}/fixtures.json...")
             elif self.dry_run:
@@ -89,10 +113,18 @@ class UpdateData:
                     json.dump(new_data, f)
         else:
             print(f"{self.dir}/fixtures.json excluded, not changed.")
+        cleaned_report = clean_report(report)
         if "README" not in self.exclude:
             readme = self.open_or_create_readme()
             try:
-                diff_test(self.dir, readme, clean_report(report), verbose=self.verbose)
+                diff_test(
+                    self.dir,
+                    readme,
+                    cleaned_report,
+                    verbose=self.verbose,
+                    full_diff=self.full_diff,
+                    env=self.env,
+                )
                 readme.close()
                 print(f"No diff found, skipping {self.dir}/README.md")
             except MockException:
@@ -103,7 +135,7 @@ class UpdateData:
                     self.log(
                         f"""
                             Would have written the following report to {self.dir}/README.md:
-                            {clean_report(report)}
+                            {cleaned_report}
                             """,
                         f"Would have updated {self.dir}/README.md.",
                     )
@@ -112,14 +144,13 @@ class UpdateData:
                     self.log(
                         f"""
                             Writing the following report to {self.dir}/README.md:
-                            {clean_report(report)}
+                            {cleaned_report}
                             """,
                         f"Updating {self.dir}/README.md.",
                     )
                     with open(f"{self.dir}/README.md", "w") as f:
-                        # TODO: potential issues with blank lines at end of report
-                        f.write(clean_report(report))
-                    dataset_test(self.dir, self.opts)
+                        f.write(cleaned_report)
+                    dataset_test(self.dir, self.opts | {"globus_token": self.globus_token})
         else:
             print(f"{self.dir}/README.md excluded, not changed.")
         return self.change_report
@@ -199,7 +230,7 @@ def manual_test(test_dir: Union[str, List], verbose: bool = False):
         assert Path(
             test_dir
         ).resolve(), f"Arg {test_dir} passed to manual_test is not a directory!"
-    elif type(test_dir) is list:
+    elif type(test_dir) is list and len(test_dir) > 1:
         test_dir = [dir for dir in test_dir if Path(dir).is_dir()]
     test = TestDatasetExamples()
     setattr(test, "dataset_test_dirs", test_dir)
@@ -220,6 +251,14 @@ def call_update(dir: str, args) -> Dict:
         }
     else:
         opts = {}
+    if args.env == "DEV":
+        opts = opts | {
+            "app_context": {
+                "ingest_url": "https://ingest-api.dev.hubmapconsortium.org/",
+                "entities_url": "https://entity-api.dev.hubmapconsortium.org/entities/",
+                "request_header": {"X-Hubmap-Application": "ingest-pipeline"},
+            }
+        }
     change_report = UpdateData(
         dir,
         args.globus_token,
@@ -227,6 +266,8 @@ def call_update(dir: str, args) -> Dict:
         dry_run=args.dry_run,
         verbose=args.verbose,
         exclude=args.exclude,
+        full_diff=args.full_diff,
+        env=args.env,
     ).update_test_data()
     return change_report
 
@@ -254,6 +295,7 @@ parser.add_argument(
     type=str,
 )
 parser.add_argument(
+    "-d",
     "--dry_run",
     action="store_true",
     help="Default is False. If specified, do not write data but instead print output.",
@@ -276,6 +318,18 @@ parser.add_argument(
     "--manual_test",
     action="store_true",
     help="Default is False. Used for investigating testing failures with more verbose output. Requires passing a test_dir. Pass a blank Globus token as this runs offline.",
+)
+parser.add_argument(
+    "-f",
+    "--full_diff",
+    action="store_true",
+    help="Default is False. Show full and cleaned README diff.",
+)
+parser.add_argument(
+    "--env",
+    choices=["DEV", "PROD"],
+    default=["PROD"],
+    help="Run tests against an env other than PROD by passing dev-specific app_context.",
 )
 
 args = parser.parse_args()

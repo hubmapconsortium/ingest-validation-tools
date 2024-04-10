@@ -12,6 +12,13 @@ from unittest.mock import Mock, call, patch
 from ingest_validation_tools.error_report import ErrorReport
 from ingest_validation_tools.upload import Upload
 
+from .fixtures import (
+    SCATACSEQ_BOTH_VERSIONS_VALID,
+    SCATACSEQ_HIGHER_VERSION_VALID,
+    SCATACSEQ_LOWER_VERSION_VALID,
+    SCATACSEQ_NEITHER_VERSION_VALID,
+)
+
 SHARED_OPTS = {
     "encoding": "ascii",
     "run_plugins": True,
@@ -39,8 +46,8 @@ def dataset_test(test_dir: str, dataset_opts: Dict, verbose: bool = False):
     print(f"Testing {test_dir}...")
     readme = open(f"{test_dir}/README.md", "r")
     upload = Upload(Path(f"{test_dir}/upload"), **dataset_opts)
-    info = upload.get_info()
     errors = upload.get_errors()
+    info = upload.get_info()
     report = ErrorReport(info=info, errors=errors)
     diff_test(test_dir, readme, clean_report(report), verbose=verbose)
     if "PreflightError" in report.as_md():
@@ -51,15 +58,21 @@ def dataset_test(test_dir: str, dataset_opts: Dict, verbose: bool = False):
 
 def clean_report(report: ErrorReport):
     clean_report = []
-    regex = re.compile(r"((Time|Git version): )(.*)")
-    for line in report.as_md():
-        match = regex.search(line)
-        if match:
-            new_line = line.replace(match.group(3), "WILL_CHANGE")
+    will_change_regex = re.compile(r"((Time|Git version): )(.*)")
+    for line in report.as_md().splitlines(keepends=True):
+        will_change_match = will_change_regex.search(line)
+        if will_change_match:
+            new_line = line.replace(will_change_match.group(3), "WILL_CHANGE")
             clean_report.append(new_line)
         else:
             clean_report.append(line)
     return "".join(clean_report)
+
+
+def dev_url_replace(report: str):
+    dev_regex = re.compile(r"-api.dev")
+    report = re.sub(dev_regex, ".api", report)
+    return report
 
 
 def diff_test(
@@ -67,8 +80,12 @@ def diff_test(
     readme: TextIOWrapper,
     report: str,
     verbose: bool = True,
+    full_diff: bool = False,
+    env: str = "PROD",
 ):
     d = difflib.Differ()
+    if env == "DEV":
+        report = dev_url_replace(report)
     diff = list(d.compare(readme.readlines(), report.splitlines(keepends=True)))
     readme.close()
     ignore_strings = ["Time:", "Git version:", "```"]
@@ -77,6 +94,16 @@ def diff_test(
     ]
     new = "".join([line.strip() for line in cleaned_diff if line.startswith("+ ")])
     removed = "".join([line.strip() for line in cleaned_diff if line.startswith("- ")])
+    if full_diff:
+        print(
+            f"""
+              FULL:
+              {diff}
+
+              CLEANED:
+              {cleaned_diff}
+              """
+        )
     if verbose:
         msg = f"""
                 DIFF ADDED LINES:
@@ -124,7 +151,6 @@ def _assaytype_side_effect(path: str, row: Dict, *args, **kwargs):
 
 
 class TestDatasetExamples(unittest.TestCase):
-    dataset_paths = {}
     dataset_test_dirs = [
         test_dir
         for test_dir in [
@@ -140,17 +166,23 @@ class TestDatasetExamples(unittest.TestCase):
         self.get_paths()
 
     def tearDown(self):
-        errors = "\n".join([str(error) for error in self.errors])
+        error_lines = "\n".join([str(error) for error in self.errors])
+        errors = " ".join([str(error) for error in self.errors])
         try:
             self.assertEqual([], self.errors)
         except AssertionError:
             print(
-                f"""-------ERRORS-------
-                    {errors}
+                f"""
+                -------ERRORS-------
+                {error_lines}
+
+                Run for more detailed output:
+                    env PYTHONPATH=src:$PYTHONPATH python -m tests-manual.update_test_data -t {errors} --verbose --globus_token "" --manual_test --dry_run
                 """
             )
 
     def get_paths(self):
+        self.dataset_paths = {}
         for test_dir in self.dataset_test_dirs:
             metadata_paths = [path for path in Path(f"{test_dir}/upload").glob("*metadata.tsv")]
             self.dataset_paths[test_dir] = metadata_paths
@@ -185,7 +217,7 @@ class TestDatasetExamples(unittest.TestCase):
                             continue
                         except AssertionError as e:
                             print(e)
-                            self.errors.append(e)
+                            self.errors.append(test_dir)
                             continue
                 if len(tsv_paths) == 1:
                     self.single_dataset_assert(tsv_paths[0], mock_assaytype_data)
@@ -226,3 +258,94 @@ class TestDatasetExamples(unittest.TestCase):
         except AssertionError as e:
             print(e)
             self.errors.append(e)
+
+    def prep_upload(self, test_dir: str, opts: Dict, patch_data: Dict):
+        with patch(
+            "ingest_validation_tools.validation_utils.get_assaytype_data",
+            side_effect=lambda row, ingest_url: _assaytype_side_effect(test_dir, row, ingest_url),
+        ):
+            with patch(
+                "ingest_validation_tools.upload.Upload.online_checks",
+                side_effect=lambda tsv_path, schema_name, report_type: _online_side_effect(
+                    schema_name, test_dir, tsv_path, report_type
+                ),
+            ):
+                with patch(
+                    "ingest_validation_tools.validation_utils.get_possible_directory_schemas",
+                ) as dir_schemas_func_patch:
+                    dir_schemas_func_patch.return_value = patch_data
+                    upload = Upload(Path(f"{test_dir}/upload"), **opts)
+                    upload.get_errors()
+                    return upload
+
+    def test_data_dir_versions_highest_version(self):
+        test_dirs = [
+            "examples/dataset-examples/bad-scatacseq-data",
+            "examples/dataset-examples/good-scatacseq-metadata-v0",
+        ]
+        for test_dir in test_dirs:
+            upload = self.prep_upload(
+                test_dir, DATASET_EXAMPLES_OPTS, SCATACSEQ_HIGHER_VERSION_VALID
+            )
+            info = upload.get_info()
+            for path in upload.effective_tsv_paths.keys():
+                dir_schema_version = (
+                    info.get("TSVs", {}).get(Path(path).name, {}).get("Directory schema version")
+                )
+                self.assertEqual(dir_schema_version, "test-schema-v0.1")
+
+    def test_data_dir_versions_lower_version(self):
+        test_dirs = [
+            "examples/dataset-examples/bad-scatacseq-data",
+            "examples/dataset-examples/good-scatacseq-metadata-v0",
+        ]
+        test_dirs = []
+        for test_dir in test_dirs:
+            upload = self.prep_upload(
+                test_dir, DATASET_EXAMPLES_OPTS, SCATACSEQ_LOWER_VERSION_VALID
+            )
+            info = upload.get_info()
+            for path in upload.effective_tsv_paths.keys():
+                dir_schema_version = (
+                    info.get("TSVs", {}).get(Path(path).name, {}).get("Directory schema version")
+                )
+                self.assertEqual(dir_schema_version, "test-schema-v1.0")
+
+    def test_data_dir_versions_both_versions(self):
+        test_dirs = [
+            "examples/dataset-examples/bad-scatacseq-data",
+            "examples/dataset-examples/good-scatacseq-metadata-v0",
+        ]
+        test_dirs = []
+        for test_dir in test_dirs:
+            upload = self.prep_upload(
+                test_dir, DATASET_EXAMPLES_OPTS, SCATACSEQ_BOTH_VERSIONS_VALID
+            )
+            info = upload.get_info()
+            for path in upload.effective_tsv_paths.keys():
+                dir_schema_version = (
+                    info.get("TSVs", {}).get(Path(path).name, {}).get("Directory schema version")
+                )
+                self.assertEqual(dir_schema_version, "test-schema-v0.1")
+
+    def test_data_dir_versions_neither_version(self):
+        test_dirs = [
+            "examples/dataset-examples/bad-scatacseq-data",
+            "examples/dataset-examples/good-scatacseq-metadata-v0",
+        ]
+        test_dirs = []
+        for test_dir in test_dirs:
+            upload = self.prep_upload(
+                test_dir, DATASET_EXAMPLES_OPTS, SCATACSEQ_NEITHER_VERSION_VALID
+            )
+            info = upload.get_info()
+            for path in upload.effective_tsv_paths.keys():
+                dir_schema_version = (
+                    info.get("TSVs", {}).get(Path(path).name, {}).get("Directory schema version")
+                )
+                self.assertEqual(dir_schema_version, None)
+
+
+# if __name__ == "__main__":
+#     suite = unittest.TestLoader().loadTestsFromTestCase(TestDatasetExamples)
+#     suite.debug()

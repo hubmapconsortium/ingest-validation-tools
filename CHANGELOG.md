@@ -5,6 +5,7 @@
 - Update Phenocycler directory schema
 - Remove bad paths from LC-MS directory schema
 - Allow multiple comma-separated parent_sample_id values
+- Accommodate dir schema minor versions
 
 ## v0.0.18
 

@@ -4,10 +4,9 @@ Upload Errors:
     examples/dataset-iec-examples/bad-example/upload/metadata.tsv, column 'contributors_path', value 'extras/contributors.tsv':
       Schema version is deprecated: contributors-v0
   Directory Errors:
-    examples/dataset-iec-examples/bad-example/upload/metadata.tsv, column 'data_path', value '.':
-      examples/dataset-iec-examples/bad-example/upload (as scatacseq-v0):
-        Not allowed:
-        - should-not-be-here.txt.
+    examples/dataset-iec-examples/bad-example/upload/metadata.tsv, column 'data_path', value '.' (as scatacseq-v0.0):
+    - Not allowed:
+      - should-not-be-here.txt.
 Metadata TSV Validation Errors:
   Local Validation Errors:
     examples/dataset-iec-examples/bad-example/upload/metadata.tsv (as scatacseq-v0):
