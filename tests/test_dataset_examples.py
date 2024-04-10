@@ -50,7 +50,7 @@ class TokenException(Exception):
 def mutate_upload_errors_with_fixtures(upload: Upload, test_dir: str) -> Upload:
     for tsv_path, schema in upload.effective_tsv_paths.items():
         fixtures = get_online_check_fixtures(schema.schema_name, test_dir)
-        url_errors = fixtures.get("URL Errors", {})
+        url_errors = fixtures.get("URL Check Errors", {})
         if url_errors:
             upload.errors.metadata_url_errors[tsv_path] = url_errors
         api_errors = fixtures.get("API Validation Errors", {})
