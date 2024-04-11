@@ -1,13 +1,13 @@
 # ingest-validation-tools
 
-HuBMAP data upload guidelines, and tools which check that uploads adhere to those guidelines.
+HuBMAP data upload guidelines and instructions for checking that uploads adhere to those guidelines.
 Assay documentation is on [Github Pages](https://hubmapconsortium.github.io/ingest-validation-tools/).
 
 HuBMAP has three distinct metadata processes:
 
 - **Donor** metadata is handled by Jonathan Silverstein on an adhoc basis: He works with whatever format the TMC can provide, and aligns it with controlled vocabularies.
-- **Sample** metadata is handled by Brendan Honick and Bill Shirey. [The standard operating procedure is outlined here.](https://docs.google.com/document/d/1K-PvBaduhrN-aU-vzWd9gZqeGvhGF3geTwRR0ww74Jo/edit)
-- **Dataset** uploads should be validated first by the TMCs. Dataset upload validation is the focus of this repo. [Details below.](#upload-process-and-upload-directory-structure)
+- **Sample** metadata is ingested by the [HuBMAP Data Ingest Portal](https://ingest.hubmapconsortium.org/)--see "Upload Sample Metadata" at the top of the page.
+- **Dataset** uploads should be validated first by the TMCs. Dataset upload validation is the focus of this repo. [Details below.](#for-data-submitters-and-curators)
 
 ## For assay type working groups:
 
@@ -26,7 +26,7 @@ When all the parts are finalized,
 
 ### Stability
 
-Once approved, both the list of metadata fields (metadata schema)
+Once approved, both the CEDAR Metadata Template (metadata schema)
 and the list of files (directory schema) are fixed in a particular version.
 The metadata for a particular assay type needs to be consistent for all datasets,
 as does the set of files which comprise a dataset.
@@ -42,6 +42,12 @@ contact Phil Blood (@pdblood).
 
 ## For data submitters and curators:
 
+### Validate TSVs
+
+To validate your metadata TSV files, use the [HuBMAP Metadata Spreadsheet Validator](https://metadatavalidator.metadatacenter.org/). This tool is a web-based application that will categorize any errors in your spreadsheet and provide help fixing those errors. More detailed instructions about using the tool can be found in the [Spreadsheet Validator Documentation](https://metadatacenter.github.io/spreadsheet-validator-docs/).
+
+### Validate Directory Structure
+
 Checkout the repo and install dependencies:
 
 ```
@@ -55,22 +61,22 @@ src/validate_upload.py --help
 
 You should see [the documention for `validate_upload.py`](script-docs/README-validate_upload.py.md)
 
-**Note**: you need to have _git_ installed in your system.
-
 Now run it against one of the included examples, giving the path to an upload directory:
 
 ```
 src/validate_upload.py \
   --local_directory examples/dataset-examples/bad-tsv-formats/upload \
+  --no_url_checks \
   --output as_text
 ```
+**Note**: URL checking is not supported via `validate_upload.py` at this time, and is disabled with the use of the `--no_url_checks` flag. Please ensure that any fields containing a HuBMAP ID (such as `parent-sample_id`) or an ORCID (`orcid`) are accurate.
 
 You should now see [this (extensive) error message](examples/dataset-examples/bad-tsv-formats/README.md).
 This example TSV has been constructed with a mistake in every column, just to demonstrate the checks which are available. Hopefully, more often your experience will be like this:
 
 ```
 src/validate_upload.py \
-  --local_directory examples/dataset-examples/good-codex-akoya/upload
+  --local_directory examples/dataset-examples/good-codex-akoya-metadata-v1/upload
 ```
 
 ```
@@ -78,22 +84,7 @@ No errors!
 ```
 
 Documentation and metadata TSV templates for each assay type are [here](https://hubmapconsortium.github.io/ingest-validation-tools/).
-Addition help for certain common error messages is available [here](README-validate-upload-help.md)
-
-### Validating single TSVs:
-
-If you don't have an entire upload directory at hand, you can validate individual
-metadata, antibodies, contributors, or sample TSVs:
-
-```
-src/validate_tsv.py \
-  --schema metadata \
-  --path examples/dataset-examples/good-scatacseq-v1/upload/metadata.tsv
-```
-
-```
-No errors!
-```
+Additional help for certain common error messages is available [here](README-validate-upload-help.md)
 
 ### Running plugin tests:
 
@@ -101,27 +92,34 @@ Additional plugin tests can also be run.
 These additional tests confirm that the files themselves are valid, not just that the directory structures are correct.
 These additional tests are in a separate repo, and have their own dependencies.
 
+Starting from ingest-validation-tools...
 ```
-# Starting from ingest-validation-tools...
 cd ..
 git clone https://github.com/hubmapconsortium/ingest-validation-tests.git
 cd ingest-validation-tests
 pip install -r requirements.txt
+```
 
-# Back to ingest-validation-tools...
+Back to ingest-validation-tools...
+```
 cd ../ingest-validation-tools
+```
+
+Failing example, see [README.md](examples/plugin-tests/expected-failure/README.md)
+```
 src/validate_upload.py \
-  --local_directory examples/dataset-examples/good-codex-akoya/upload \
+  --local_directory examples/plugin-tests/expected-failure/upload \
+  --run_plugins \
   --plugin_directory ../ingest-validation-tests/src/ingest_validation_tests/
 ```
 
 ## For developers and contributors:
 
-A good example is of programatic usage is `validate-upload.py`; In a nutshell:
+An example of the core error-reporting functionality underlying `validate-upload.py`:
 
 ```python
 upload = Upload(directory_path=path)
-report = ErrorReport(upload.get_errors())
+report = ErrorReport(errors=upload.get_errors(), info=upload.get_info())
 print(report.as_text())
 ```
 

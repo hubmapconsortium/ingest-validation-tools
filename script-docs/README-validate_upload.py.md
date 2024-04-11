@@ -1,7 +1,8 @@
 ```text
 usage: validate_upload.py [-h] --local_directory PATH
-                          [--optional_fields FIELD [FIELD ...]] [--offline]
-                          [--clear_cache] [--ignore_deprecation]
+                          [--optional_fields FIELD [FIELD ...]]
+                          [--no_url_checks] [--clear_cache]
+                          [--ignore_deprecation]
                           [--dataset_ignore_globs GLOB [GLOB ...]]
                           [--upload_ignore_globs GLOB [GLOB ...]]
                           [--encoding ENCODING]
@@ -20,7 +21,8 @@ optional arguments:
   --optional_fields FIELD [FIELD ...]
                         The listed fields will be treated as optional. (But if
                         they are supplied in the TSV, they will be validated.)
-  --offline             Skip checks that require network access.
+  --no_url_checks       Skip URL checks (Spreadsheet Validator API checks
+                        still run).
   --clear_cache         Clear cache of network check responses.
   --ignore_deprecation  Allow validation against deprecated versions of
                         metadata schemas.

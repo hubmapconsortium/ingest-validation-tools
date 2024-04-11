@@ -10,6 +10,7 @@ from typing import Dict, List
 from unittest.mock import Mock, call, patch
 
 from ingest_validation_tools.error_report import ErrorReport
+from ingest_validation_tools.schema_loader import SchemaVersion
 from ingest_validation_tools.upload import Upload
 
 from .fixtures import (
@@ -137,10 +138,10 @@ def _open_and_read_fixtures_file(path: str) -> Dict:
     return opened
 
 
-def _online_side_effect(schema_name: str, dir_path: str, *args):
+def _online_side_effect(schema: SchemaVersion, dir_path: str, *args):
     del args
     fixture = _open_and_read_fixtures_file(dir_path)
-    return fixture.get("validation", {}).get(schema_name, {})
+    return fixture.get("validation", {}).get(schema.schema_name, {})
 
 
 def _assaytype_side_effect(path: str, row: Dict, *args, **kwargs):
@@ -206,8 +207,8 @@ class TestDatasetExamples(unittest.TestCase):
                 ) as mock_assaytype_data:
                     with patch(
                         "ingest_validation_tools.upload.Upload.online_checks",
-                        side_effect=lambda tsv_path, schema_name, report_type: _online_side_effect(
-                            schema_name, test_dir, tsv_path, report_type
+                        side_effect=lambda tsv_path, schema, report_type: _online_side_effect(
+                            schema, test_dir, tsv_path, report_type
                         ),
                     ):
                         try:

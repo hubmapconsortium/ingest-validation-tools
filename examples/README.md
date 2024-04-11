@@ -22,28 +22,20 @@ an `input.tsv` to validate, and an `output.txt` with the error message produced.
 
 ## `dataset-examples/`
 
-The core of `ingest-validation-tools` is Dataset upload validation.
-Each subdirectory here is an end-to-end test of upload validation: Each contains
+The core of `ingest-validation-tools` is dataset upload validation.
+Each subdirectory here is an end-to-end test of upload validation. Each contains:
 
-- a `upload` directory, containing one or more metadata TSVs, dataset directories, and contributors and antibodies TSVs,
+- an `upload` directory, containing one or more metadata TSVs, dataset directories, and contributors and antibodies TSVs,
 - and a `README.md` with the output when validating that directory.
 
 Examples which are expected to produce errors are prefixed with `bad-`, those that are good, `good-`.
-
-In `test-dataset-examples.sh`, validation is run with several commandline options which may differ
-from those used by end-users. This exercises less common options,
-minimizes dependence on network resources during tests (`--offline`) and formats the output (`--output as_md`)
 
 To add a new test, create a new subdirectory with a `good-` or `bad-` name, add your `upload` subdirectory,
 and an empty `README.md`. Then run `tests/test-dataset-examples.sh`: It will fail on your example,
 and give you a command to run that will fix your example. Run this command, _but make sure the result makes sense!_
 The software can tell you what the result of validation is, but it can't know whether that result is actually correct.
 
-A few additional commandline options are required for CEDAR validation:
-
-- globus_token: you can find your personal Globus token by logging in to a site that requires Globus authentication (e.g. https://ingest.hubmapconsortium.org/) and looking at the Authorization header for your request in the Network tab of your browser. Omit the "Bearer " prefix.
-
-See `/tests-manual/README.md` for more information about testing using the CEDAR API.
+Validation is run offline by the tests in the `tests` directory. Online validation can be run manually; see [tests-manual/README.md](tests-manual/README.md).
 
 ## `dataset-iec-examples/`
 
@@ -51,7 +43,6 @@ After upload, TSVs are split up, and directory structures are re-arranged.
 These structures can still be validated, but it takes a slightly different set of options,
 and those options are tested here.
 
-## `sample-examples/`
+## `plugin-tests`
 
-Distinct from `validate_upload.py`, `validate_samples.py` validates Sample TSVs.
-These are much simpler than Dataset uploads, so we only need a single good and bad example.
+Plugins are turned off by default for testing, as they require an additional repo: [ingest-validation-tests](https://github.com/hubmapconsortium/ingest-validation-tests). See [tests-manual/README.md](tests-manual/README.md) for more information about plugin tests.
