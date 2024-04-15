@@ -319,7 +319,7 @@ class Upload:
             if local_errors:
                 local_validated[f"{tsv_path} (as {schema_version.table_schema})"] = local_errors
         else:
-            api_errors = self.online_checks(tsv_path, schema_version, report_type)
+            api_errors = self.online_checks(tsv_path, schema_version.schema_name, report_type)
             if api_errors:
                 api_validated[f"{tsv_path}"] = api_errors
         if local_validated:
@@ -331,10 +331,10 @@ class Upload:
     def online_checks(
         self,
         tsv_path: str,
-        schema: SchemaVersion,
+        schema_name: str,
         report_type: ReportType = ReportType.STR,
     ) -> Optional[Dict]:
-        url_errors = self._url_checks(tsv_path, schema, report_type)
+        url_errors = self._url_checks(tsv_path, schema_name, report_type)
         api_errors = self._api_validation(Path(tsv_path), report_type)
         if url_errors or api_errors:
             return url_errors | api_errors
@@ -515,7 +515,7 @@ class Upload:
         return response
 
     def _url_checks(
-        self, tsv_path: str, schema: SchemaVersion, report_type: ReportType = ReportType.STR
+        self, tsv_path: str, schema_name: str, report_type: ReportType = ReportType.STR
     ):
         """
         Check provided values for parent_sample_id and orcid_id; additionally
@@ -529,10 +529,9 @@ class Upload:
         # assay -> parent_sample_id
         # sample -> sample_id
         # organ -> organ_id
-        # contributors -> orcid (new) / orcid_id (old)
+        # contributors -> orcid_id
 
         constrained_fields = {}
-        schema_name = schema.schema_name
 
         if "sample" in schema_name:
             constrained_fields["sample_id"] = self.app_context.get("entities_url")
@@ -541,10 +540,7 @@ class Upload:
         elif "murine-source" in schema_name:
             constrained_fields["source_id"] = self.app_context.get("entities_url")
         elif "contributors" in schema_name:
-            if schema.is_cedar:
-                constrained_fields["orcid"] = "https://pub.orcid.org/v3.0/"
-            else:
-                constrained_fields["orcid_id"] = "https://pub.orcid.org/v3.0/"
+            constrained_fields["orcid_id"] = "https://pub.orcid.org/v3.0/"
         else:
             constrained_fields["parent_sample_id"] = self.app_context.get("entities_url")
 
