@@ -172,7 +172,7 @@ class UpdateData:
         new_data["assaytype"] = new_assaytype_data
         new_data["validation"] = dict(new_validation_data)
         if no_token_error:
-            raise TokenException(f"", new_data)
+            raise TokenException("No token passed, cannot update fixtures", new_data)
         return new_data
 
     ###################################
@@ -264,12 +264,17 @@ class UpdateData:
         if the --ignore_online_exceptions flag is passed. Otherwise,
         provide context for error.
             "Too Many Requests": CEDAR API is overloaded
-            "Unauthorized": Globus token not provided to entity-api for URL checks
+            "Unauthorized"/"No token": Globus token not provided to entity-api for URL checks
             "500": unknown error
         """
-        for error in ["Too Many Requests", "Unauthorized", "500 Internal Server Error"]:
+        for error in [
+            "Too Many Requests",
+            "Unauthorized",
+            "No token",
+            "500 Internal Server Error",
+        ]:
             if error in report.as_md():
-                if error == "Unauthorized":
+                if error in ["Unauthorized", "No token"]:
                     msg = f"URL checking returned 'Unauthorized' in response while checking {self.dir}; did you forget a Globus token?"
                 else:
                     msg = f"Something went wrong with Spreadsheet Validator request for {self.dir}: {error}"
