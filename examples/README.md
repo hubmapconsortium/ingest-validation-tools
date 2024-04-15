@@ -1,5 +1,7 @@
 # `examples/`
 
+Validation is run offline by the tests in the `tests` directory. Online validation can be run manually; see [tests-manual/README.md](tests-manual/README.md).
+
 This directory contains example inputs and outputs of different components of this system.
 Adding more examples is one way to test new schemas or new code...
 but it's possible to have too much of a good thing:
@@ -41,8 +43,6 @@ env PYTHONPATH=/ingest-validation-tools python -m tests-manual.update_test_data 
 
 Note: You can find your personal Globus token by logging in to a site that requires Globus authentication (e.g. https://ingest.hubmapconsortium.org/) and looking at the Authorization header for your request in the Network tab of your browser. Omit the "Bearer " prefix.
 - Make sure the result makes sense! The software can tell you what the result of validation is, but it can't know whether that result is actually correct.
-
-Validation is run offline by the tests in the `tests` directory. Online validation can be run manually; see [tests-manual/README.md](tests-manual/README.md).
 
 ## `dataset-iec-examples/`
 

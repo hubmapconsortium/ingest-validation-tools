@@ -76,7 +76,8 @@ This example TSV has been constructed with a mistake in every column, just to de
 
 ```
 src/validate_upload.py \
-  --local_directory examples/dataset-examples/good-codex-akoya-metadata-v1/upload
+  --local_directory examples/dataset-examples/good-codex-akoya-metadata-v1/upload \
+  --no_url_checks
 ```
 
 ```
@@ -109,6 +110,7 @@ Failing example, see [README.md](examples/plugin-tests/expected-failure/README.m
 src/validate_upload.py \
   --local_directory examples/plugin-tests/expected-failure/upload \
   --run_plugins \
+  --no_url_checks \
   --plugin_directory ../ingest-validation-tests/src/ingest_validation_tests/
 ```
 
