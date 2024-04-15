@@ -10,7 +10,6 @@ from deepdiff import DeepDiff
 
 from ingest_validation_tools.cli_utils import dir_path
 from ingest_validation_tools.error_report import ErrorReport
-from ingest_validation_tools.schema_loader import SchemaVersion
 from ingest_validation_tools.table_validator import ReportType
 from ingest_validation_tools.upload import Upload
 from ingest_validation_tools.validation_utils import TSVError, read_rows
@@ -71,12 +70,7 @@ class UpdateData:
             raise Exception(
                 f"Something went wrong with Spreadsheet Validator request for {self.dir}."
             )
-        # Necessary to avoid including 'Unauthorized' in output when no Globus token is provided,
-        # but only relevant for entity-api links.
-        elif (
-            "No token" in report.as_md()
-            or "Unauthorized for url: https://entity.api" in report.as_md()
-        ):
+        elif "Unauthorized" in report.as_md():
             raise Exception(
                 f"URL checking returned 'Unauthorized' in response while checking {self.dir}; did you forget a Globus token?"
             )
@@ -171,7 +165,7 @@ class UpdateData:
                 continue
             if schema.is_cedar:
                 new_validation_data[schema.schema_name] = self.upload.online_checks(
-                    path, schema, ReportType.STR
+                    path, schema.schema_name, ReportType.STR
                 )
             for other_type, paths in {
                 "antibodies": schema.antibodies_paths,
@@ -191,11 +185,7 @@ class UpdateData:
     def other_type_online_checks(self, path: str, other_type: str) -> Dict:
         metadata_schema_id = read_rows(Path(path), "ascii")[0].get("metadata_schema_id")
         if metadata_schema_id:
-            return {
-                Path(path).stem: self.upload.online_checks(
-                    path, SchemaVersion(schema_name=other_type, is_cedar=True), ReportType.STR
-                )
-            }
+            return {Path(path).stem: self.upload.online_checks(path, other_type, ReportType.STR)}
         return {}
 
     def open_or_create_fixtures(self) -> Dict:

@@ -26,19 +26,14 @@ The core of `ingest-validation-tools` is dataset upload validation.
 Each subdirectory here is an end-to-end test of upload validation. Each contains:
 
 - an `upload` directory, containing one or more metadata TSVs, dataset directories, and contributors and antibodies TSVs,
-- a `fixtures.json` file, containing responses from the assayclassifier endpoint and Spreadsheet Validator that are used as fixture data in offline testing,
 - and a `README.md` with the output when validating that directory.
 
 Examples which are expected to produce errors are prefixed with `bad-`, those that are good, `good-`.
 
-To add a new test:
-- Create a new subdirectory with a `good-` or `bad-` name and add your `upload` subdirectory.
-- Run the following command to create the `README.md` and `fixtures.json` files:
-```
-env PYTHONPATH=/ingest-validation-tools python -m tests-manual.update_test_data -t examples/<path_to_your_example_dir>/upload --globus_token <globus_token>
-```
-Note: You can find your personal Globus token by logging in to a site that requires Globus authentication (e.g. https://ingest.hubmapconsortium.org/) and looking at the Authorization header for your request in the Network tab of your browser. Omit the "Bearer " prefix.
-- Make sure the result makes sense! The software can tell you what the result of validation is, but it can't know whether that result is actually correct.
+To add a new test, create a new subdirectory with a `good-` or `bad-` name, add your `upload` subdirectory,
+and an empty `README.md`. Then run `tests/test-dataset-examples.sh`: It will fail on your example,
+and give you a command to run that will fix your example. Run this command, _but make sure the result makes sense!_
+The software can tell you what the result of validation is, but it can't know whether that result is actually correct.
 
 Validation is run offline by the tests in the `tests` directory. Online validation can be run manually; see [tests-manual/README.md](tests-manual/README.md).
 

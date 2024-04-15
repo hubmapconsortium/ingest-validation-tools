@@ -542,9 +542,9 @@ class Upload:
             constrained_fields["source_id"] = self.app_context.get("entities_url")
         elif "contributors" in schema_name:
             if schema.is_cedar:
-                constrained_fields["orcid"] = "https://orcid.org/"
+                constrained_fields["orcid"] = "https://pub.orcid.org/v3.0/"
             else:
-                constrained_fields["orcid_id"] = "https://orcid.org/"
+                constrained_fields["orcid_id"] = "https://pub.orcid.org/v3.0/"
         else:
             constrained_fields["parent_sample_id"] = self.app_context.get("entities_url")
 

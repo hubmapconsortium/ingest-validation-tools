@@ -84,6 +84,7 @@ No errors!
 ```
 
 Documentation and metadata TSV templates for each assay type are [here](https://hubmapconsortium.github.io/ingest-validation-tools/).
+Additional help for certain common error messages is available [here](README-validate-upload-help.md)
 
 ### Running plugin tests:
 
