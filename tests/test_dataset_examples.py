@@ -3,10 +3,11 @@ import glob
 import json
 import re
 import unittest
+from collections import defaultdict
 from csv import DictReader
 from io import TextIOWrapper
 from pathlib import Path
-from typing import Dict, List
+from typing import Dict, List, Union
 from unittest.mock import Mock, call, patch
 
 from ingest_validation_tools.error_report import ErrorReport
@@ -42,7 +43,7 @@ class MockException(Exception):
 
 
 class TokenException(Exception):
-    def __init__(self, error: str, clean_report: str):
+    def __init__(self, error: str, clean_report: Union[str, Dict]):
         super().__init__(error)
         self.clean_report = clean_report
 
@@ -101,7 +102,7 @@ def dataset_test(
 
 def clean_report(report: ErrorReport):
     token_issue = False
-    clean_report = []
+    cleaned_report = []
     will_change_regex = re.compile(r"((Time|Git version): )(.*)")
     no_token_regex = re.compile("No token")
     for line in report.as_md().splitlines(keepends=True):
@@ -113,12 +114,17 @@ def clean_report(report: ErrorReport):
             token_issue = True
             continue
         line = dev_url_replace(line)
-        clean_report.append(line)
+        cleaned_report.append(line)
     if token_issue:
+        if report.raw_errors:
+            report.raw_errors.metadata_url_errors = defaultdict(list)
+            report.errors = report.raw_errors.as_dict()
+            cleaned_report = clean_report(report)
         raise TokenException(
-            f"API token required to complete update, not writing.", "".join(clean_report)
+            f"WARNING: API token required to complete update, not writing, skipping URL Check Errors.",
+            "".join(cleaned_report),
         )
-    return "".join(clean_report)
+    return "".join(cleaned_report)
 
 
 def dev_url_replace(original_str: str):
