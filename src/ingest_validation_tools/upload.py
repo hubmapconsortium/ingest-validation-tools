@@ -551,9 +551,13 @@ class Upload:
             constrained_fields["source_id"] = self.app_context.get("entities_url")
         elif "contributors" in schema_name:
             if schema.is_cedar:
-                constrained_fields["orcid"] = "https://orcid.org/"
+                constrained_fields["orcid"] = (
+                    "https://pub.orcid.org/v3.0/expanded-search/?q=orcid:"
+                )
             else:
-                constrained_fields["orcid_id"] = "https://orcid.org/"
+                constrained_fields["orcid_id"] = (
+                    "https://pub.orcid.org/v3.0/expanded-search/?q=orcid:"
+                )
         else:
             constrained_fields["parent_sample_id"] = self.app_context.get("entities_url")
 
@@ -597,13 +601,21 @@ class Upload:
     ) -> Optional[Dict]:
         try:
             url = constrained_fields[field] + value
-            if field != "orcid_id":
+            if field not in ["orcid_id", "orcid"]:
                 headers = self.app_context.get("request_header", {})
                 headers["Authorization"] = f"Bearer {self.globus_token}"
+                response = requests.get(url, headers=headers)
+                response.raise_for_status()
             else:
-                headers = {}
-            response = requests.get(url, headers=headers)
-            response.raise_for_status()
+                headers = {"Accept": "application/json"}
+                response = requests.get(url, headers=headers)
+                num_found = response.json().get("num-found")
+                if num_found == 1:
+                    return
+                elif num_found == 0:
+                    raise Exception(f"ORCID {value} does not exist.")
+                else:
+                    raise Exception(f"Found {num_found} matches for ORCID {value}.")
         except Exception as e:
             error = {
                 "errorType": type(e).__name__,
