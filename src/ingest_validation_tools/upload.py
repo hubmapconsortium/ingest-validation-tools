@@ -4,15 +4,15 @@ import logging
 import subprocess
 from collections import Counter, defaultdict
 from copy import copy
-from dataclasses import dataclass, field, fields
 from datetime import datetime
 from fnmatch import fnmatch
 from functools import cached_property
 from pathlib import Path
-from typing import Any, DefaultDict, Dict, List, Optional, Union
+from typing import DefaultDict, Dict, List, Optional, Union
 
 import requests
 
+from ingest_validation_tools.error_report import ErrorDict, ErrorDictException, InfoDict
 from ingest_validation_tools.plugin_validator import (
     ValidatorError as PluginValidatorError,
 )
@@ -31,112 +31,6 @@ from ingest_validation_tools.validation_utils import (
 )
 
 TSV_SUFFIX = "metadata.tsv"
-
-
-class ErrorDictException(Exception):
-    def __init__(self, error: str):
-        super().__init__(error)
-        self.error = error
-
-
-@dataclass
-class InfoDict:
-    time: datetime
-    git: str
-    dir: str
-    tsvs: Dict[str, Dict[str, str]]
-
-    def as_dict(self):
-        return {
-            "Time": self.time,
-            "Git version": self.git,
-            "Directory": self.dir,
-            # "Directory schema version": self.dir_schema,
-            "TSVs": self.tsvs,
-        }
-
-
-@dataclass
-class ErrorDict:
-    """
-    Has fields for each major validation type, which can be accessed directly or
-    compiled using self.as_dict().
-    """
-
-    preflight: List[str] = field(default_factory=list)
-    directory: DefaultDict[str, List[str]] = field(default_factory=lambda: defaultdict(list))
-    upload_metadata: DefaultDict[str, List[str]] = field(default_factory=lambda: defaultdict(list))
-    metadata_validation_local: DefaultDict[str, List[str]] = field(
-        default_factory=lambda: defaultdict(list)
-    )
-    metadata_validation_api: DefaultDict[str, List] = field(
-        default_factory=lambda: defaultdict(list)
-    )
-    metadata_url_errors: DefaultDict[str, List] = field(default_factory=lambda: defaultdict(list))
-    reference: Dict[str, List[str]] = field(default_factory=dict)
-    plugin: Dict[str, List[str]] = field(default_factory=dict)
-    plugin_skip: Optional[str] = None
-
-    def __bool__(self):
-        """
-        Return true if any field has errors.
-        """
-        return bool(self.as_dict())
-
-    @property
-    def field_map(self):
-        """
-        Single source of truth for top-level error dict key names.
-        """
-        return {
-            "preflight": "Preflight Errors",
-            "directory": "Directory Errors",
-            "upload_metadata": "Antibodies/Contributors Errors",
-            "metadata_validation_local": "Local Validation Errors",
-            "metadata_validation_api": "API Validation Errors",
-            "metadata_url_errors": "URL Check Errors",
-            "reference": "Reference Errors",
-            "plugin": "Data File Errors",
-            "plugin_skip": "Fatal Errors",
-        }
-
-    def tsv_only_errors_by_path(self, path: str, local_allowed=False):
-        """
-        For use in front-end single TSV validation.
-        """
-        errors = {}
-        for metadata_field in [
-            "metadata_validation_local",
-            "metadata_url_errors",
-            "metadata_validation_api",
-        ]:
-            if metadata_field == "metadata_validation_local" and not local_allowed:
-                continue
-            for key, value in getattr(self, metadata_field).items():
-                if Path(key) == Path(path):
-                    errors[self.field_map.get(metadata_field)] = self.sort_val(value)
-                    break
-        return errors
-
-    def as_dict(self):
-        """
-        Compiles all fields with errors into a dict.
-        """
-        errors = {}
-        for error_field in fields(self):
-            value = getattr(self, error_field.name)
-            if value:
-                value = self.sort_val(value)
-                errors[self.field_map.get(error_field.name)] = value
-        return errors
-
-    def sort_val(self, value):
-        """
-        Recursively sort all dicts by keys for consistency of testing and output.
-        """
-        if type(value) in [dict, defaultdict]:
-            value = {k: self.sort_val(v) for k, v in sorted(value.items())}
-        return value
 
 
 class Upload:
@@ -244,7 +138,7 @@ class Upload:
         self._get_local_tsv_errors()
         self._get_directory_errors()
         self.validation_routine()
-        self.errors.reference = self._get_reference_errors()
+        self._get_reference_errors()
 
         # Plugin error checking is costly, by default this bails
         # if other errors have been found already
@@ -318,7 +212,7 @@ class Upload:
     def _check_single_assay(self):
         # TODO: is this necessary?
         # Is there a case where there should be more than one effective_tsv_path for a non-multi assay upload?
-        # The upload could probably carry props like assay_type, dir_schema, and main_assay_tsv.
+        # If not, the upload itself could probably have props like assay_type, dir_schema, and main_assay_tsv.
         types_counter = Counter([v.dataset_type for v in self.effective_tsv_paths.values()])
         if len(types_counter.keys()) > 1:
             raise PreflightError(
@@ -442,18 +336,16 @@ class Upload:
                 errors.extend(url_errors)
         return errors
 
-    def _get_reference_errors(self) -> dict:
-        errors: Dict[str, Any] = {}
+    def _get_reference_errors(self):
         no_ref_errors = self.__get_no_ref_errors()
         multi_ref_errors = self.__get_multi_ref_errors()
         shared_dir_errors = self.__get_shared_dir_errors()
         if no_ref_errors:
-            errors["No References"] = no_ref_errors
+            self.errors.reference.update({"No References": no_ref_errors})
         if multi_ref_errors:
-            errors["Multiple References"] = multi_ref_errors
+            self.errors.reference.update({"Multiple References": multi_ref_errors})
         if shared_dir_errors:
-            errors["Shared Directory References"] = shared_dir_errors
-        return errors
+            self.errors.reference.update({"Shared Directory References": shared_dir_errors})
 
     def _get_plugin_errors(self, **kwargs) -> dict:
         plugin_path = self.plugin_directory
