@@ -450,15 +450,14 @@ args = parser.parse_args()
 
 
 parent_dirs = [
-    Path("examples/dataset-examples").absolute(),
-    Path("examples/dataset-iec-examples").absolute(),
-    Path("examples/plugin-tests").absolute(),
+    "examples/dataset-examples",
+    "examples/dataset-iec-examples",
+    "examples/plugin-tests",
 ]
 
 
 def get_sub_dirs(target_dir: str) -> List:
-    # tsv-examples not currently integrated, could be if needed.
-    if Path(target_dir).absolute() in parent_dirs:
+    if Path(target_dir).absolute() in [Path(path).absolute() for path in parent_dirs]:
         return [
             example_dir
             for example_dir in glob.glob(f"{target_dir}/**")
