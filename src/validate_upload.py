@@ -23,9 +23,7 @@ directory_schemas = sorted(
 
 def make_parser():
     parser = argparse.ArgumentParser(
-        description="""
-Validate a HuBMAP upload, both the metadata TSVs and the datasets.
-If you only want to validate a TSV in isolation, look at validate_tsv.py.""",
+        description="Validate a HuBMAP upload, both the metadata TSVs and the datasets.",
         epilog=f"""
 Typical usage:
   --local_directory: Used by lab before upload, and on Globus after upload.
