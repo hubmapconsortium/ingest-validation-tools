@@ -441,9 +441,9 @@ class Upload:
                 necessary.remove(sv.dataset_type.lower())
         message = ""
         if necessary:
-            message += f"Multi-assay parent type {self.multi_parent.dataset_type} missing required component(s) {necessary}."  # noqa: E501
+            message += f"Multi-assay parent type {self.multi_parent.dataset_type} missing required component(s): {', '.join(necessary)}."  # noqa: E501
         if not_allowed:
-            message += f" Invalid child assay type(s) for parent type {self.multi_parent.dataset_type}: {not_allowed}"  # noqa: E501
+            message += f" Invalid child assay type(s) for parent type {self.multi_parent.dataset_type}: {', '.join(not_allowed)}"  # noqa: E501
         if message:
             raise PreflightError(message)
 
@@ -463,15 +463,15 @@ class Upload:
             unique_in_component = component_paths.difference(self.multi_assay_data_paths)
             if unique_in_component:
                 errors.append(
-                    f"Path(s) in {component.dataset_type} metadata TSV not present in parent: {unique_in_component}."  # noqa: E501
+                    f"Path(s) in {component.dataset_type} metadata TSV not present in parent: {', '.join(unique_in_component)}."  # noqa: E501
                 )
             unique_in_parent = set(self.multi_assay_data_paths).difference(component_paths)
             if unique_in_parent:
                 errors.append(
-                    f"Path(s) in {self.multi_parent.dataset_type} metadata TSV not present in component {component.dataset_type}: {unique_in_parent}."  # noqa: E501
+                    f"Path(s) in {self.multi_parent.dataset_type} metadata TSV not present in component {component.dataset_type}: {', '.join(unique_in_parent)}."  # noqa: E501
                 )
         if errors:
-            raise PreflightError(" ".join(error for error in errors))
+            raise PreflightError(" ".join(errors))
 
     ##############################
     #
