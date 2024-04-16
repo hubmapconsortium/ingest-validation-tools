@@ -319,7 +319,7 @@ class Upload:
             if local_errors:
                 local_validated[f"{tsv_path} (as {schema_version.table_schema})"] = local_errors
         else:
-            api_errors = self.online_checks(tsv_path, schema_version.schema_name, report_type)
+            api_errors = self.online_checks(tsv_path, schema_version, report_type)
             if api_errors:
                 api_validated[f"{tsv_path}"] = api_errors
         if local_validated:
