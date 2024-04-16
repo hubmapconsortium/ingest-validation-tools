@@ -528,10 +528,6 @@ class Upload:
         missing_fields = [k for k in constrained_fields.keys() if k not in fields].sort()
         if missing_fields:
             raise ErrorDictException(f"Missing fields: {sorted(missing_fields)}")
-        if not self.globus_token:
-            raise ErrorDictException(
-                "No token was received to check URL fields against Entity API."
-            )
         url_errors = []
         for i, row in enumerate(rows):
             check = {k: v for k, v in row.items() if k in constrained_fields}
@@ -558,6 +554,13 @@ class Upload:
         row_num: int,
     ) -> Optional[Dict]:
         try:
+            if (
+                field in ["parent_sample_id", "source_id", "organ_id", "sample_id"]
+                and not self.globus_token
+            ):
+                raise ErrorDictException(
+                    "No token received to check URL fields against Entity API."
+                )
             url = constrained_fields[field] + value
             if field not in ["orcid_id", "orcid"]:
                 headers = self.app_context.get("request_header", {})

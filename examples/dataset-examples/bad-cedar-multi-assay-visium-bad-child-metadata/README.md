@@ -1,5 +1,5 @@
 ```
-API Validation Errors:
+Spreadsheet Validator Errors:
   examples/dataset-examples/bad-cedar-multi-assay-visium-bad-child-metadata/upload/bad-visium-rnaseq-metadata.tsv:
   - On row 1, column "parent_sample_id", value "" fails because of error "missingRequired".
   - On row 2, column "preparation_protocol_doi", value "wrong" fails because of error

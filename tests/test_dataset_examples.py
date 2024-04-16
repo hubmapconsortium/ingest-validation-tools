@@ -10,7 +10,7 @@ from pathlib import Path
 from typing import Dict, List, Union
 from unittest.mock import Mock, call, patch
 
-from ingest_validation_tools.error_report import ErrorReport
+from ingest_validation_tools.error_report import ErrorDict, ErrorReport
 from ingest_validation_tools.upload import Upload
 
 from .fixtures import (
@@ -54,7 +54,7 @@ def mutate_upload_errors_with_fixtures(upload: Upload, test_dir: str) -> Upload:
         url_errors = fixtures.get("URL Check Errors", {})
         if url_errors:
             upload.errors.metadata_url_errors[tsv_path] = url_errors
-        api_errors = fixtures.get("API Validation Errors", {})
+        api_errors = fixtures.get("Spreadsheet Validator Errors", {})
         if api_errors:
             upload.errors.metadata_validation_api[tsv_path] = api_errors
         for other_type, paths in {
@@ -66,7 +66,7 @@ def mutate_upload_errors_with_fixtures(upload: Upload, test_dir: str) -> Upload:
                 other_url_errors = other_fixtures.get("URL Errors", {})
                 if other_url_errors:
                     upload.errors.metadata_url_errors[path] = other_url_errors
-                other_api_errors = other_fixtures.get("API Validation Errors", {})
+                other_api_errors = other_fixtures.get("Spreadsheet Validator Errors", {})
                 if other_api_errors:
                     upload.errors.metadata_validation_api[path] = other_api_errors
     return upload
@@ -112,19 +112,32 @@ def clean_report(report: ErrorReport):
         no_token_regex_match = no_token_regex.search(line)
         if no_token_regex_match:
             token_issue = True
-            continue
         line = dev_url_replace(line)
         cleaned_report.append(line)
     if token_issue:
         if report.raw_errors:
-            report.raw_errors.metadata_url_errors = defaultdict(list)
+            report.raw_errors = get_non_token_errors(report.raw_errors)
             report.errors = report.raw_errors.as_dict()
-            cleaned_report = clean_report(report)
+        cleaned_report = clean_report(report)
         raise TokenException(
             f"WARNING: API token required to complete update, not writing, skipping URL Check Errors.",
             "".join(cleaned_report),
         )
     return "".join(cleaned_report)
+
+
+def get_non_token_errors(errors: ErrorDict) -> ErrorDict:
+    new_url_error_val = defaultdict(list)
+    for path, error_list in errors.metadata_url_errors.items():
+        non_token_url_errors = [error for error in error_list if not "No token" in error]
+        if non_token_url_errors:
+            new_url_error_val[path] = non_token_url_errors
+        if set(error_list) - set(non_token_url_errors):
+            print(
+                f"WARNING: output about URL errors for {path} is incorrect. Use for testing purposes only."
+            )
+    errors.metadata_url_errors = new_url_error_val
+    return errors
 
 
 def dev_url_replace(original_str: str):

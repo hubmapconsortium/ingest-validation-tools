@@ -21,6 +21,7 @@ from tests.test_dataset_examples import (
     dataset_test,
     dev_url_replace,
     diff_test,
+    get_non_token_errors,
 )
 
 
@@ -66,7 +67,6 @@ class UpdateData:
         report = ErrorReport(errors=upload.get_errors(), info=upload.get_info())
         self.check_maybe_write_fixtures(report, upload)
 
-        ignored_exceptions = False
         try:
             cleaned_report = clean_report(report)
         except TokenException as e:
@@ -78,7 +78,7 @@ class UpdateData:
                 cleaned_report = e.clean_report
             else:
                 raise TokenException(str(e), e.clean_report)
-        self.check_maybe_write_readme(cleaned_report, ignored_exceptions=ignored_exceptions)
+        self.check_maybe_write_readme(cleaned_report)
 
         return self.change_report
 
@@ -99,12 +99,12 @@ class UpdateData:
         return fixtures
 
     def check_maybe_write_fixtures(self, report: ErrorReport, upload: Upload):
-        self.raise_or_print_fatal_errors(report)
         if self.update_from_fixtures:
             print(f"Updating from fixture data, fixtures not changed for {self.dir}.")
         elif "fixtures" in self.exclude:
             print(f"{self.dir}fixtures.json excluded, not changed.")
         else:
+            self.raise_or_print_fatal_errors(report)
             fixtures = self.open_or_create_fixtures()
             try:
                 new_data = self.update_fixtures(upload)
@@ -156,10 +156,7 @@ class UpdateData:
             if upload.errors.preflight:
                 continue
             if upload.errors.metadata_url_errors:
-                for path, errors in upload.errors.metadata_url_errors.items():
-                    if "No token" in errors:
-                        no_token_error = True
-                        upload.errors.metadata_url_errors[path] = {}
+                upload.errors = get_non_token_errors(upload.errors)
             online_errors = upload.errors.tsv_only_errors_by_path(str(schema.path))
             new_validation_data[schema.schema_name].update(online_errors)
             for other_type, paths in {
@@ -186,13 +183,13 @@ class UpdateData:
             open(f"{self.dir}README.md", "w")
         return open(f"{self.dir}README.md", "r")
 
-    def check_maybe_write_readme(self, cleaned_report: str, ignored_exceptions: bool = False):
+    def check_maybe_write_readme(self, cleaned_report: str):
         if "README" in self.exclude:
             print(f"{self.dir}README.md excluded, not changed.")
         else:
             readme = self.open_or_create_readme()
             if self.readme_diff(readme, cleaned_report):
-                self.write_readme(cleaned_report, ignored_exceptions)
+                self.write_readme(cleaned_report)
                 if not self.ignore_online_exceptions:
                     dataset_test(
                         self.dir,
@@ -202,9 +199,7 @@ class UpdateData:
                         use_online_check_fixtures=self.update_from_fixtures,
                     )
 
-    def write_readme(self, cleaned_report: str, ignored_exceptions: bool = False):
-        if ignored_exceptions:
-            print(f"WARNING: Online exception ignored, not writing.")
+    def write_readme(self, cleaned_report: str):
         if self.dry_run or self.ignore_online_exceptions:
             self.log(
                 f"""
@@ -278,7 +273,7 @@ class UpdateData:
                     msg = f"URL checking returned 'Unauthorized' in response while checking {self.dir}; did you forget a Globus token?"
                 else:
                     msg = f"Something went wrong with Spreadsheet Validator request for {self.dir}: {error}"
-                if not self.dry_run or not self.ignore_online_exceptions:
+                if not (self.dry_run or self.ignore_online_exceptions):
                     raise Exception(msg)
                 print(f"Error checking {self.dir}: {msg}.")
 

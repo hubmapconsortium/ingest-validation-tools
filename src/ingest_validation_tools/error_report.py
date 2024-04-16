@@ -73,7 +73,7 @@ class ErrorDict:
             "directory": "Directory Errors",
             "upload_metadata": "Antibodies/Contributors Errors",
             "metadata_validation_local": "Local Validation Errors",
-            "metadata_validation_api": "API Validation Errors",
+            "metadata_validation_api": "Spreadsheet Validator Errors",
             "metadata_url_errors": "URL Check Errors",
             "reference": "Reference Errors",
             "plugin": "Data File Errors",

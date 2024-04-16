@@ -1,5 +1,5 @@
 ```
-API Validation Errors:
+Spreadsheet Validator Errors:
   examples/dataset-examples/bad-cedar-assay-histology/upload/bad-histology-metadata.tsv:
   - On row 0, column "parent_sample_id", value "wrong" fails because of error "invalidValueFormat".
   - On row 1, column "contributors_path", value "" fails because of error "missingRequired".
