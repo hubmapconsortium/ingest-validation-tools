@@ -313,7 +313,7 @@ class Upload:
         response = self._cedar_api_call(tsv_path)
         if response.status_code != 200:
             raise Exception(response.json())
-        elif response.json()["reporting"] and len(response.json()["reporting"]) > 0:
+        elif response.json().get("reporting") and len(response.json().get("reporting")) > 0:
             errors.extend(
                 [self._get_message(error, report_type) for error in response.json()["reporting"]]
             )
@@ -494,6 +494,7 @@ class Upload:
                 headers=headers,
                 files=file,
             )
+            logging.info(f"Response: {response.json()}")
         except Exception as e:
             raise Exception(f"CEDAR API request for {tsv_path} failed! Exception: {e}")
         return response
