@@ -331,10 +331,10 @@ class Upload:
     def online_checks(
         self,
         tsv_path: str,
-        schema_name: str,
+        schema: SchemaVersion,
         report_type: ReportType = ReportType.STR,
     ) -> Optional[Dict]:
-        url_errors = self._url_checks(tsv_path, schema_name, report_type)
+        url_errors = self._url_checks(tsv_path, schema, report_type)
         api_errors = self._api_validation(Path(tsv_path), report_type)
         if url_errors or api_errors:
             return url_errors | api_errors
@@ -515,7 +515,7 @@ class Upload:
         return response
 
     def _url_checks(
-        self, tsv_path: str, schema_name: str, report_type: ReportType = ReportType.STR
+        self, tsv_path: str, schema: SchemaVersion, report_type: ReportType = ReportType.STR
     ):
         """
         Check provided values for parent_sample_id and orcid_id; additionally
@@ -529,9 +529,10 @@ class Upload:
         # assay -> parent_sample_id
         # sample -> sample_id
         # organ -> organ_id
-        # contributors -> orcid_id
+        # contributors -> orcid (new) / orcid_id (old)
 
         constrained_fields = {}
+        schema_name = schema.schema_name
 
         if "sample" in schema_name:
             constrained_fields["sample_id"] = self.app_context.get("entities_url")
@@ -540,7 +541,14 @@ class Upload:
         elif "murine-source" in schema_name:
             constrained_fields["source_id"] = self.app_context.get("entities_url")
         elif "contributors" in schema_name:
-            constrained_fields["orcid_id"] = "https://pub.orcid.org/v3.0/"
+            if schema.is_cedar:
+                constrained_fields["orcid"] = (
+                    "https://pub.orcid.org/v3.0/expanded-search/?q=orcid:"
+                )
+            else:
+                constrained_fields["orcid_id"] = (
+                    "https://pub.orcid.org/v3.0/expanded-search/?q=orcid:"
+                )
         else:
             constrained_fields["parent_sample_id"] = self.app_context.get("entities_url")
 
@@ -584,13 +592,21 @@ class Upload:
     ) -> Optional[Dict]:
         try:
             url = constrained_fields[field] + value
-            if field != "orcid_id":
+            if field not in ["orcid_id", "orcid"]:
                 headers = self.app_context.get("request_header", {})
                 headers["Authorization"] = f"Bearer {self.globus_token}"
+                response = requests.get(url, headers=headers)
+                response.raise_for_status()
             else:
-                headers = {}
-            response = requests.get(url, headers=headers)
-            response.raise_for_status()
+                headers = {"Accept": "application/json"}
+                response = requests.get(url, headers=headers)
+                num_found = response.json().get("num-found")
+                if num_found == 1:
+                    return
+                elif num_found == 0:
+                    raise Exception(f"ORCID {value} does not exist.")
+                else:
+                    raise Exception(f"Found {num_found} matches for ORCID {value}.")
         except Exception as e:
             error = {
                 "errorType": type(e).__name__,

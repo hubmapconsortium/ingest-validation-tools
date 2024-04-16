@@ -5,6 +5,9 @@ Upload Errors:
       column 'contributors_path', value './contributors.tsv'
     : CEDAR Validation Errors:
         examples/dataset-examples/bad-cedar-assay-histology/upload/contributors.tsv:
+          URL Errors:
+          - 'On row 2, column "orcid", value "0000-0002-8928-abcd" fails because of
+            error "Exception": ORCID 0000-0002-8928-abcd does not exist.'
           Validation Errors:
           - On row 0, column "orcid", value "0000-0002-8928-abcd" fails because of
             error "invalidValueFormat".
