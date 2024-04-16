@@ -175,10 +175,10 @@ class Upload:
     def online_checks(
         self,
         tsv_path: str,
-        schema_name: str,
+        schema: SchemaVersion,
         report_type: ReportType = ReportType.STR,
     ):
-        url_errors = self._url_checks(tsv_path, schema_name, report_type)
+        url_errors = self._url_checks(tsv_path, schema, report_type)
         if url_errors:
             self.errors.metadata_url_errors[tsv_path].extend(url_errors)
         try:
@@ -266,7 +266,7 @@ class Upload:
             )
             self._local_validation(tsv_path, schema_version, report_type)
         else:
-            self.online_checks(tsv_path, schema_version.schema_name, report_type)
+            self.online_checks(tsv_path, schema_version, report_type)
 
     def _local_validation(
         self, tsv_path: str, schema_version: SchemaVersion, report_type: ReportType
@@ -316,7 +316,7 @@ class Upload:
         return errors
 
     def _url_checks(
-        self, tsv_path: str, schema_name: str, report_type: ReportType = ReportType.STR
+        self, tsv_path: str, schema: SchemaVersion, report_type: ReportType = ReportType.STR
     ) -> List:
         """
         Check provided UUIDs/HuBMAP IDs for parent_id, sample_id, organ_id.
@@ -325,7 +325,7 @@ class Upload:
         """
         errors = []
 
-        constrained_fields = self._get_constrained_fields(schema_name)
+        constrained_fields = self._get_constrained_fields(schema)
 
         try:
             url_errors = self._check_matching_urls(tsv_path, constrained_fields, report_type)
@@ -492,13 +492,15 @@ class Upload:
             raise Exception(f"CEDAR API request for {tsv_path} failed! Exception: {e}")
         return response
 
-    def _get_constrained_fields(self, schema_name: str):
+    def _get_constrained_fields(self, schema: SchemaVersion):
         # assay -> parent_sample_id
         # sample -> sample_id
         # organ -> organ_id
-        # contributors -> orcid_id
+        # contributors -> orcid (new) / orcid_id (old)
 
         constrained_fields = {}
+        schema_name = schema.schema_name
+
         if "sample" in schema_name:
             constrained_fields["sample_id"] = self.app_context.get("entities_url")
         elif "organ" in schema_name:
@@ -506,7 +508,14 @@ class Upload:
         elif "murine-source" in schema_name:
             constrained_fields["source_id"] = self.app_context.get("entities_url")
         elif "contributors" in schema_name:
-            constrained_fields["orcid_id"] = "https://pub.orcid.org/v3.0/"
+            if schema.is_cedar:
+                constrained_fields["orcid"] = (
+                    "https://pub.orcid.org/v3.0/expanded-search/?q=orcid:"
+                )
+            else:
+                constrained_fields["orcid_id"] = (
+                    "https://pub.orcid.org/v3.0/expanded-search/?q=orcid:"
+                )
         else:
             constrained_fields["parent_sample_id"] = self.app_context.get("entities_url")
         return constrained_fields
@@ -550,13 +559,21 @@ class Upload:
     ) -> Optional[Dict]:
         try:
             url = constrained_fields[field] + value
-            if field != "orcid_id":
+            if field not in ["orcid_id", "orcid"]:
                 headers = self.app_context.get("request_header", {})
                 headers["Authorization"] = f"Bearer {self.globus_token}"
+                response = requests.get(url, headers=headers)
+                response.raise_for_status()
             else:
-                headers = {}
-            response = requests.get(url, headers=headers)
-            response.raise_for_status()
+                headers = {"Accept": "application/json"}
+                response = requests.get(url, headers=headers)
+                num_found = response.json().get("num-found")
+                if num_found == 1:
+                    return
+                elif num_found == 0:
+                    raise Exception(f"ORCID {value} does not exist.")
+                else:
+                    raise Exception(f"Found {num_found} matches for ORCID {value}.")
         except Exception as e:
             error = {
                 "errorType": type(e).__name__,

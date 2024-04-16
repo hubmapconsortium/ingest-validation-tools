@@ -342,7 +342,7 @@ class TestDatasetExamples(unittest.TestCase):
                 return_value=patch_data,
             ) as dir_schemas_func_patch:
                 with patch("ingest_validation_tools.upload.Upload.online_checks"):
-                    # dir_schemas_func_patch.return_value = patch_data
+                    dir_schemas_func_patch.return_value = patch_data
                     upload = Upload(Path(f"{test_dir}/upload"), **opts)
                     upload.get_errors()
                     upload = mutate_upload_errors_with_fixtures(upload, test_dir)
