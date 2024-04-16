@@ -39,12 +39,14 @@ class Upload:
         directory_path: Path,
         tsv_paths: list = [],
         optional_fields: list = [],
+        add_notes: bool = True,
         dataset_ignore_globs: list = [],
         upload_ignore_globs: list = [],
         plugin_directory: Union[Path, None] = None,
         encoding: str = "utf-8",
         offline: bool = False,
         ignore_deprecation: bool = False,
+        extra_parameters: Union[dict, None] = None,
         globus_token: str = "",
         app_context: dict = {},
         run_plugins: bool = False,
@@ -56,8 +58,10 @@ class Upload:
         self.upload_ignore_globs = upload_ignore_globs
         self.plugin_directory = plugin_directory
         self.encoding = encoding
+        self.add_notes = add_notes
         self.offline = offline
         self.ignore_deprecation = ignore_deprecation
+        self.extra_parameters = extra_parameters if extra_parameters else {}
         self.effective_tsv_paths = {}
         self.globus_token = globus_token
         self.run_plugins = run_plugins
@@ -125,6 +129,8 @@ class Upload:
         When converted using ErrorDict.as_dict(), keys are
         present only if there is actually an error to report.
         """
+        # plugin_kwargs are passed to the plugin validators via extra_parameters
+        kwargs.update(self.extra_parameters)
 
         # Return if PreflightErrors found
         if self.errors:
