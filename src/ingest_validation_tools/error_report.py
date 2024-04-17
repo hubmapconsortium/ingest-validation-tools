@@ -80,11 +80,12 @@ class ErrorDict:
             "plugin_skip": "Fatal Errors",
         }
 
-    def tsv_only_errors_by_path(self, path: str, local_allowed=False):
+    def tsv_only_errors_by_path(self, path: str, local_allowed=True):
         """
         For use in front-end single TSV validation.
+        Turn off support for local validation by passing local_allowed=False
         """
-        errors = {}
+        errors = []
         for metadata_field in [
             "metadata_validation_local",
             "metadata_url_errors",
@@ -94,7 +95,7 @@ class ErrorDict:
                 continue
             for key, value in getattr(self, metadata_field).items():
                 if Path(key) == Path(path):
-                    errors[self.field_map.get(metadata_field)] = self.sort_val(value)
+                    errors.extend(value)
                     break
         return errors
 
