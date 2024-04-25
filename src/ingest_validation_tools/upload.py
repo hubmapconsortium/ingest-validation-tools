@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import json
 import logging
 import subprocess
 from collections import Counter, defaultdict
@@ -24,6 +25,8 @@ from ingest_validation_tools.schema_loader import (
 )
 from ingest_validation_tools.table_validator import ReportType, get_table_errors
 from ingest_validation_tools.validation_utils import (
+    OTHER_TYPES_MAP,
+    cedar_api_call,
     get_data_dir_errors,
     get_json,
     get_schema_version,
@@ -309,7 +312,7 @@ class Upload:
         report_type: ReportType,
     ) -> List[Union[str, Dict]]:
         errors = []
-        response = self._cedar_api_call(tsv_path)
+        response = cedar_api_call(tsv_path)
         if response.status_code != 200:
             raise Exception(response.json())
         elif response.json().get("reporting") and len(response.json().get("reporting")) > 0:
@@ -337,7 +340,9 @@ class Upload:
         constrained_fields = self._get_constrained_fields(schema)
 
         try:
-            url_errors = self._check_matching_urls(tsv_path, constrained_fields, report_type)
+            url_errors = self._check_matching_urls(
+                tsv_path, constrained_fields, schema, report_type
+            )
         except ErrorDictException as e:
             errors.append(str(e))
         else:
@@ -491,20 +496,6 @@ class Upload:
     #
     ##############################
 
-    def _cedar_api_call(self, tsv_path: Union[str, Path]) -> requests.models.Response:
-        file = {"input_file": open(tsv_path, "rb")}
-        headers = {"content_type": "multipart/form-data"}
-        try:
-            response = requests.post(
-                "https://api.metadatavalidator.metadatacenter.org/service/validate-tsv",
-                headers=headers,
-                files=file,
-            )
-            logging.info(f"Response: {response.json()}")
-        except Exception as e:
-            raise Exception(f"CEDAR API request for {tsv_path} failed! Exception: {e}")
-        return response
-
     def _get_constrained_fields(self, schema: SchemaVersion):
         # assay -> parent_sample_id
         # sample -> sample_id
@@ -534,7 +525,11 @@ class Upload:
         return constrained_fields
 
     def _check_matching_urls(
-        self, tsv_path: str, constrained_fields: dict, report_type: ReportType = ReportType.STR
+        self,
+        tsv_path: str,
+        constrained_fields: dict,
+        schema: SchemaVersion,
+        report_type: ReportType = ReportType.STR,
     ) -> List[Union[str, Dict]]:
         rows = read_rows(Path(tsv_path), self.encoding)
         fields = rows[0].keys()
@@ -549,12 +544,14 @@ class Upload:
                     ids = value.split(",")
                     for id in ids:
                         error = self._check_single_url(
-                            check_field, id.strip(), constrained_fields, i
+                            check_field, id.strip(), constrained_fields, i, schema
                         )
                         if error:
                             url_errors.append(self._get_message(error, report_type))
                 else:
-                    error = self._check_single_url(check_field, value, constrained_fields, i)
+                    error = self._check_single_url(
+                        check_field, value, constrained_fields, i, schema
+                    )
                     if error:
                         url_errors.append(self._get_message(error, report_type))
         return url_errors
@@ -565,22 +562,27 @@ class Upload:
         value: str,
         constrained_fields: Dict[str, str],
         row_num: int,
+        schema: SchemaVersion,
     ) -> Optional[Dict]:
+        entity_fields = ["parent_sample_id", "source_id", "organ_id", "sample_id"]
         try:
-            if (
-                field in ["parent_sample_id", "source_id", "organ_id", "sample_id"]
-                and not self.globus_token
-            ):
+            if field in entity_fields and not self.globus_token:
                 raise ErrorDictException(
                     "No token received to check URL fields against Entity API."
                 )
             url = constrained_fields[field] + value
-            if field not in ["orcid_id", "orcid"]:
+            if field in entity_fields:
                 headers = self.app_context.get("request_header", {})
                 headers["Authorization"] = f"Bearer {self.globus_token}"
                 response = requests.get(url, headers=headers)
                 response.raise_for_status()
-            else:
+                self._check_entity_constraint(response, schema)
+                breakpoint()
+                # TODO: this is where we get the response entity_type value;
+                # check against constraints to make sure that type of TSV this
+                # comes from (currently not available here) is a valid
+                # descendant of the response entity_type
+            elif field in ["orcid_id", "orcid"]:
                 headers = {"Accept": "application/json"}
                 response = requests.get(url, headers=headers)
                 num_found = response.json().get("num-found")
@@ -590,6 +592,9 @@ class Upload:
                     raise Exception(f"ORCID {value} does not exist.")
                 else:
                     raise Exception(f"Found {num_found} matches for ORCID {value}.")
+            else:
+                response = requests.get(url)
+                response.raise_for_status()
         except Exception as e:
             error = {
                 "errorType": type(e).__name__,
@@ -599,6 +604,27 @@ class Upload:
                 "error_text": e.__str__(),
             }
             return error
+
+    def _check_entity_constraint(self, response: Dict, schema: SchemaVersion):
+        schema_type = schema.schema_name
+        if schema_type not in OTHER_TYPES_MAP.keys():
+            descendant_entity_type = "dataset"
+            sub_type = None
+        elif schema_type.startswith("sample-"):
+            descendant_entity_type = "sample"
+            sub_type = schema_type.split("-")[1]
+        valid_ancestors = self._get_entity_ancestor_constraints(descendant_entity_type, sub_type)
+        field_entity_type = response.get("entity_type")
+        # Make sure that field_entity_type is a valid direct ancestor of schema_type
+
+    def _get_entity_ancestor_constraints(self, entity_type: str, sub_type: Optional[str] = None):
+        url = "https://entity.api.sennetconsortium.org/constraints"
+        data = json.dumps([{"ancestors": [{"entity_type": "", "sub_type": [""]}]}])
+        headers = {
+            "Authorization": f"Bearer {self.globus_token}",
+            "Content-Type": "application/json",
+        }
+        response = requests.request("POST", url, headers=headers, data=data)
 
     def _get_message(
         self,

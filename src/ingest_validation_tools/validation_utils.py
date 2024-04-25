@@ -18,6 +18,17 @@ from ingest_validation_tools.schema_loader import (
 )
 from ingest_validation_tools.table_validator import ReportType
 
+OTHER_TYPES_MAP = {
+    "organ": ["organ_id"],
+    "sample": ["sample_id"],
+    "sample-block": ["sample_id"],
+    "sample-suspension": ["sample_id"],
+    "sample-section": ["sample_id"],
+    "contributors": ["orcid", "orcid_id"],
+    "antibodies": ["antibody_rrid", "antibody_name"],
+    "murine-source": ["strain_rrid"],
+}
+
 
 class TSVError(Exception):
     def __init__(self, error):
@@ -82,28 +93,13 @@ def get_schema_version(
 
 
 def get_other_schema_name(rows: List, path: str) -> Optional[str]:
-    other_types = {
-        "organ": ["organ_id"],
-        "sample": ["sample_id"],
-        "sample-block": ["sample_id"],
-        "sample-suspension": ["sample_id"],
-        "sample-section": ["sample_id"],
-        "contributors": ["orcid", "orcid_id"],
-        "antibodies": ["antibody_rrid", "antibody_name"],
-        "murine-source": ["strain_rrid"],
-    }
     other_type: DefaultDict[str, list] = defaultdict(list)
     for field in rows[0].keys():
         if field == "sample_id":
-            sample_type = rows[0].get("type")
-            if sample_type:
-                if f"sample-{sample_type}" not in other_types.keys():
-                    raise PreflightError(f"Invalid sample type: {sample_type}")
-                other_type.update({f"sample-{sample_type}": ["sample_id"]})
-            else:
-                other_type.update({"sample": ["sample_id"]})
+            sample_type = get_sample_type_from_template(field, path)
+            other_type.update({f"sample-{sample_type}": [field]})
         else:
-            match = {key: field for key, value in other_types.items() if field in value}
+            match = {key: field for key, value in OTHER_TYPES_MAP.items() if field in value}
             other_type.update(match)
     if other_type and ("assay_name" in rows[0].keys() or "dataset_type" in rows[0].keys()):
         raise PreflightError(f"Metadata TSV contains invalid field: {list(other_type.values())}")
@@ -341,6 +337,33 @@ def get_tsv_errors(
     )
     upload.validation_routine(report_type)
     return upload.errors.tsv_only_errors_by_path(str(tsv_path))
+
+
+def get_sample_type_from_template(tsv_path: str, field: str) -> str:
+    response = cedar_api_call(tsv_path)
+    schema_name = response.json().get("schema", {}).get("name", "")
+    entity_types = ["block", "suspension", "section"]
+    for entity_type in entity_types:
+        if entity_type in schema_name.lower():
+            return entity_type
+    raise Exception(
+        f"Field '{field}' is present in {tsv_path} but CEDAR API query did not return a valid type. Response: {response.json()}"
+    )
+
+
+def cedar_api_call(tsv_path: Union[str, Path]) -> requests.models.Response:
+    file = {"input_file": open(tsv_path, "rb")}
+    headers = {"content_type": "multipart/form-data"}
+    try:
+        response = requests.post(
+            "https://api.metadatavalidator.metadatacenter.org/service/validate-tsv",
+            headers=headers,
+            files=file,
+        )
+        logging.info(f"Response: {response.json()}")
+    except Exception as e:
+        raise Exception(f"CEDAR API request for {tsv_path} failed! Exception: {e}")
+    return response
 
 
 def print_path(path):
