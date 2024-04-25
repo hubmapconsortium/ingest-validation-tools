@@ -10,6 +10,7 @@
 - Add MUSIC next-gen directory schema
 - Updating documentation
 - Change Upload error output to dataclass
+- Revert deprecation of field YAML files
 
 ## v0.0.18
 
