@@ -9,6 +9,7 @@
 - Fix ORCID URL checking
 - Add MUSIC next-gen directory schema
 - Updating documentation
+- Change Upload error output to dataclass
 
 ## v0.0.18
 

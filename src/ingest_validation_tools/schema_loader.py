@@ -22,8 +22,7 @@ def get_pipeline_infos(name: str) -> List[str]:
 
 class PreflightError(Exception):
     def __init__(self, errors: Optional[str] = None):
-        if errors:
-            self.errors = errors
+        self.errors = errors
 
 
 @dataclass

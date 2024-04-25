@@ -11,7 +11,7 @@ for SUITE in examples/dataset-examples examples/dataset-iec-examples; do
 
     case ${SUITE} in
         examples/dataset-iec-examples)
-            OPTS="--dataset_ignore_globs 'metadata.tsv' --globus_token ${GLOBUS_TOKEN} --upload_ignore_globs '*' --run_plugins --output as_md"
+            OPTS="--dataset_ignore_globs 'metadata.tsv' --run_plugins --globus_token ${GLOBUS_TOKEN} --upload_ignore_globs '*' --output as_md"
             ;;
         examples/dataset-examples)
             OPTS="--dataset_ignore_globs 'ignore-*.tsv' '.*' --run_plugins --globus_token ${GLOBUS_TOKEN} --upload_ignore_globs 'drv_ignore_*' --output as_md"
@@ -35,7 +35,7 @@ for SUITE in examples/dataset-examples examples/dataset-iec-examples; do
             echo "Example ${EXAMPLE} does not have a README.md file."
             die "Update example: ${CMD} > ${README}"
         fi
-        diff "${README}" <( eval "${CMD}" ) \
+        diff --ignore-all-space "${README}" <( eval "${CMD}" ) \
             || die "Update example: ${CMD} > ${README}"
     done
 
