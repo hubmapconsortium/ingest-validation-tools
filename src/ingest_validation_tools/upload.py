@@ -48,7 +48,7 @@ class Upload:
         ignore_deprecation: bool = False,
         extra_parameters: Union[dict, None] = None,
         globus_token: str = "",
-        run_plugins: bool = False,
+        run_plugins: bool = True,
         app_context: dict = {},
         verbose: bool = True,
     ):
@@ -147,7 +147,8 @@ class Upload:
         self._get_reference_errors()
 
         # Plugin error checking is costly, by default this bails
-        # if other errors have been found already
+        # if other errors have been found already and runs plugins if not.
+        # Pass in run_plugins=False to skip plugins even if no errors found.
         if self.errors:
             self.errors.plugin_skip = (
                 "Skipping plugins validation: errors in upload metadata or dir structure."
