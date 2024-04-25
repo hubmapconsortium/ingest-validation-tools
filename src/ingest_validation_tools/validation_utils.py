@@ -175,9 +175,6 @@ def get_data_dir_errors(
         data_paths = list(shared_directories)
     # Otherwise, do nothing we can just use the predefined data_path
 
-    for data_path in data_paths:
-        assert Path(data_path).exists, f"data_path {data_path} does not exist!"
-
     possible_schemas = get_possible_directory_schemas(dir_schema)
 
     if possible_schemas is None:
@@ -277,7 +274,7 @@ def get_tsv_errors(
     report_type: ReportType = ReportType.STR,
     globus_token: str = "",
     app_context: Dict = {},
-) -> Dict:
+) -> List:
     """
     Validate the TSV.
 

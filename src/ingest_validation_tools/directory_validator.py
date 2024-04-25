@@ -16,7 +16,7 @@ def validate_directory(
     paths: list[Path], schema_files: List[Dict], dataset_ignore_globs: List[str] = []
 ) -> None:
     """
-    Given a directory path, and a directory schema,
+    Given a list of directory paths, and a directory schema,
     raise DirectoryValidationErrors if there are errors.
     """
     try:

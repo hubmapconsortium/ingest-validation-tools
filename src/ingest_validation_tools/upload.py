@@ -157,15 +157,15 @@ class Upload:
         return self.errors
 
     def get_app_context(self, submitted_app_context: Dict):
-        default_app_context = {
+        """
+        Ensure that all default values are present, but privilege any
+        submitted values.
+        """
+        self.app_context = {
             "entities_url": "https://entity.api.hubmapconsortium.org/entities/",
             "ingest_url": "https://ingest.api.hubmapconsortium.org/",
             "request_header": {"X-Hubmap-Application": "ingest-pipeline"},
-        }
-        if {*default_app_context} - {*submitted_app_context}:
-            diff = {*default_app_context} - {*submitted_app_context}
-            submitted_app_context.update({key: default_app_context[key] for key in diff})
-        self.app_context = submitted_app_context
+        } | submitted_app_context
 
     def validation_routine(
         self,
@@ -199,6 +199,9 @@ class Upload:
     ###################################
 
     def _get_effective_tsvs(self, tsv_paths: List[str]):
+        # TODO: in most/all(?) cases, an upload should only have one assay_type/dir_schema
+        # (pending decisions about epics); in that case, the upload itself could probably have props
+        # like assay_type, dir_schema, and main_assay_tsv.
         unsorted_effective_tsv_paths = {
             str(path): get_schema_version(
                 Path(path),
@@ -214,9 +217,6 @@ class Upload:
         }
 
     def _check_single_assay(self):
-        # TODO: is this necessary?
-        # Is there a case where there should be more than one effective_tsv_path for a non-multi assay upload?
-        # If not, the upload itself could probably have props like assay_type, dir_schema, and main_assay_tsv.
         types_counter = Counter([v.dataset_type for v in self.effective_tsv_paths.values()])
         if len(types_counter.keys()) > 1:
             raise PreflightError(
@@ -242,7 +242,6 @@ class Upload:
     def _get_directory_errors(self):
         if self.is_multi_assay and self.multi_parent:
             for data_path in self.multi_assay_data_paths:
-                assert Path(data_path).exists, f"Shared data path {data_path} does not exist!"
                 dir_errors = self._check_data_path(
                     self.multi_parent, Path(self.multi_parent.path), data_path
                 )
@@ -419,12 +418,15 @@ class Upload:
     def _check_multi_assay(self):
         # This is not recursive, so if there are nested multi-assay types it will not work
         if self.multi_parent and self.multi_components:
-            self._check_multi_assay_children()
-            self._check_data_paths_shared_with_parent()
-            logging.info(f"Multi-assay parent: {self.multi_parent.dataset_type}")
-            logging.info(
-                f"Multi-assay components: {', '.join([component.dataset_type for component in self.multi_components])}"  # noqa: E501
-            )
+            try:
+                self._check_multi_assay_children()
+                self._check_data_paths_shared_with_parent()
+                logging.info(f"Multi-assay parent: {self.multi_parent.dataset_type}")
+                logging.info(
+                    f"Multi-assay components: {', '.join([component.dataset_type for component in self.multi_components])}"  # noqa: E501
+                )
+            except AssertionError as e:
+                raise PreflightError(str(e))
         else:
             logging.info("Not a multi-assay upload.")
 
