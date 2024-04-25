@@ -269,7 +269,9 @@ class UpdateData:
             "500 Internal Server Error",
         ]:
             if error in report.as_md():
-                if error in ["Unauthorized", "No token"]:
+                # Necessary to avoid including 'Unauthorized' in output when no Globus token is provided,
+                # but only relevant for entity-api links
+                if error in ["Unauthorized for url: https://entity.api", "No token"]:
                     msg = f"URL checking returned 'Unauthorized' in response while checking {self.dir}; did you forget a Globus token?"
                 else:
                     msg = f"Something went wrong with Spreadsheet Validator request for {self.dir}: {error}"

@@ -44,7 +44,7 @@ class Upload:
         upload_ignore_globs: list = [],
         plugin_directory: Union[Path, None] = None,
         encoding: str = "utf-8",
-        offline: bool = False,
+        no_url_checks: bool = False,
         ignore_deprecation: bool = False,
         extra_parameters: Union[dict, None] = None,
         globus_token: str = "",
@@ -58,8 +58,8 @@ class Upload:
         self.upload_ignore_globs = upload_ignore_globs
         self.plugin_directory = plugin_directory
         self.encoding = encoding
+        self.no_url_checks = no_url_checks
         self.add_notes = add_notes
-        self.offline = offline
         self.ignore_deprecation = ignore_deprecation
         self.extra_parameters = extra_parameters if extra_parameters else {}
         self.effective_tsv_paths = {}
@@ -73,7 +73,6 @@ class Upload:
 
         try:
             self._get_effective_tsvs(tsv_paths)
-
             self._check_multi_assay()
             if not self.is_multi_assay:
                 self._check_single_assay()
@@ -281,7 +280,7 @@ class Upload:
             schema = get_table_schema(
                 schema_version,
                 self.optional_fields,
-                self.offline,
+                self.no_url_checks,
             )
         except Exception as e:
             self.errors.metadata_validation_local.update(
@@ -319,17 +318,21 @@ class Upload:
             )
         else:
             logging.info(f"No errors found during CEDAR validation for {tsv_path}!")
+            logging.info(f"Response: {response.json()}.")
         return errors
 
     def _url_checks(
         self, tsv_path: str, schema: SchemaVersion, report_type: ReportType = ReportType.STR
     ) -> List:
         """
-        Check provided UUIDs/HuBMAP IDs for parent_id, sample_id, organ_id.
-        Not using get_table_errors because CEDAR schema fields do not match
-        the TSV fields, which makes frictionless confused and upset.
+        Check provided values for parent_sample_id and orcid_id; additionally
+        check sample_id, organ_id, and source_id values in single TSV validation
+        via validation_utils.get_tsv_errors.
         """
         errors = []
+
+        if self.no_url_checks:
+            return errors
 
         constrained_fields = self._get_constrained_fields(schema)
 

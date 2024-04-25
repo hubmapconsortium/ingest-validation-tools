@@ -269,7 +269,7 @@ def get_tsv_errors(
     tsv_path: Union[str, Path],
     schema_name: str,
     optional_fields: List[str] = [],
-    offline: bool = False,
+    no_url_checks: bool = False,
     ignore_deprecation: bool = False,
     report_type: ReportType = ReportType.STR,
     globus_token: str = "",
@@ -335,7 +335,7 @@ def get_tsv_errors(
         tsv_paths=[Path(tsv_path)],
         optional_fields=optional_fields,
         globus_token=globus_token,
-        offline=offline,
+        no_url_checks=no_url_checks,
         ignore_deprecation=ignore_deprecation,
         app_context=app_context,
     )
