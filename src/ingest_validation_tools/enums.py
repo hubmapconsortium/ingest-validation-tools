@@ -67,6 +67,7 @@ shared_enums: Dict[str, List[str]] = {
         "MERFISH",
         "MS (shotgun lipidomics)",
         "MIBI",
+        "MUSIC",
         "Multiplex Ion Beam Imaging",
         "Molecular Cartography",
         "NanoDESI",

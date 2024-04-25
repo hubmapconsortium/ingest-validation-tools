@@ -1,0 +1,21 @@
+files:
+  -
+    pattern: extras\/.*
+    required: True
+    description: Folder for general lab-specific files related to the dataset.
+  -  
+    pattern: raw\/fastq\/[^\/]+_R[^\/]+\.fastq\.gz
+    required: True
+    description: The raw un-multiplexed fastq files.
+    is_qa_qc: False
+  -
+    pattern: lab_processed\/fastq\/DNA\/[^\/]+_R[^\/]+\.fastq\.gz
+    required: True
+    description: This is a GZip'd version of the fastq files from whole genome sequencing. 
+    is_qa_qc: False
+  -
+    pattern: lab_processed\/fastq\/RNA\/[^\/]+_R[^\/]+\.fastq\.gz
+    required: True
+    description: This is a GZip'd version of the forward and reverse fastq files from RNAseq sequencing (R1 and R2).
+    is_qa_qc: False
+    

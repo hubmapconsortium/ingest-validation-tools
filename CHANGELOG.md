@@ -7,6 +7,7 @@
 - Allow multiple comma-separated parent_sample_id values
 - Accommodate dir schema minor versions
 - Fix ORCID URL checking
+- Add MUSIC next-gen directory schema
 - Change Upload error output to dataclass
 
 ## v0.0.18
