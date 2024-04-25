@@ -576,7 +576,7 @@ class Upload:
                 headers["Authorization"] = f"Bearer {self.globus_token}"
                 response = requests.get(url, headers=headers)
                 response.raise_for_status()
-                self._check_entity_constraint(response, schema)
+                self._check_entity_constraint(response.json(), schema)
                 breakpoint()
                 # TODO: this is where we get the response entity_type value;
                 # check against constraints to make sure that type of TSV this
@@ -613,18 +613,34 @@ class Upload:
         elif schema_type.startswith("sample-"):
             descendant_entity_type = "sample"
             sub_type = schema_type.split("-")[1]
+        else:
+            # TODO
+            raise Exception
         valid_ancestors = self._get_entity_ancestor_constraints(descendant_entity_type, sub_type)
         field_entity_type = response.get("entity_type")
         # Make sure that field_entity_type is a valid direct ancestor of schema_type
+        if not field_entity_type in valid_ancestors.keys():
+            # TODO: logic here is unfinished, need to figure out how samples work and test
+            raise Exception
 
     def _get_entity_ancestor_constraints(self, entity_type: str, sub_type: Optional[str] = None):
+        # TODO: does not work in HuBMAP currently
         url = "https://entity.api.sennetconsortium.org/constraints"
-        data = json.dumps([{"ancestors": [{"entity_type": "", "sub_type": [""]}]}])
+        if sub_type:
+            data = json.dumps(
+                [{"ancestors": [{"entity_type": entity_type, "sub_type": [sub_type]}]}]
+            )
+        else:
+            data = json.dumps([{"ancestors": [{"entity_type": entity_type}]}])
         headers = {
             "Authorization": f"Bearer {self.globus_token}",
             "Content-Type": "application/json",
         }
         response = requests.request("POST", url, headers=headers, data=data)
+        ancestor_data = response.json().get("description", {}).get("description", [])
+        return {
+            ancestor.get("entity_type"): ancestor.get("sub_type") for ancestor in ancestor_data
+        }
 
     def _get_message(
         self,
