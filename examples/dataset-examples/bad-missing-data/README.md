@@ -15,4 +15,5 @@ Local Validation Errors:
   - 'On row 3, column "donor_id", value "missing-datapath" fails because it does not
     match the expected pattern. Example: ABC123'
   - On row 3, column "data_path", value "" fails because it must be filled out.
+Fatal Errors: 'Skipping plugins validation: errors in upload metadata or dir structure.'
 ```

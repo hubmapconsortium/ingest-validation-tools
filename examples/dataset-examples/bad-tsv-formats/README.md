@@ -69,4 +69,5 @@ Local Validation Errors:
     it is an invalid DOI.
   - On row 2, column "reagent_prep_protocols_io_doi", value "not-doi" fails because
     it is an invalid DOI.
+Fatal Errors: 'Skipping plugins validation: errors in upload metadata or dir structure.'
 ```

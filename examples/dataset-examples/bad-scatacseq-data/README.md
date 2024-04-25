@@ -18,4 +18,5 @@ Local Validation Errors:
     it must be filled out.
   - On row 2, column "protocols_io_doi", value "10.17504/fake" fails because it is
     an invalid DOI.
+Fatal Errors: 'Skipping plugins validation: errors in upload metadata or dir structure.'
 ```

@@ -22,7 +22,6 @@ from .fixtures import (
 
 SHARED_OPTS = {
     "encoding": "ascii",
-    "run_plugins": True,
 }
 DATASET_EXAMPLES_OPTS = SHARED_OPTS | {
     "dataset_ignore_globs": ["ignore-*.tsv", ".*"],
@@ -49,12 +48,14 @@ class TokenException(Exception):
 
 
 def mutate_upload_errors_with_fixtures(upload: Upload, test_dir: str) -> Upload:
+    url_errors_field_name = ErrorDict.field_map["metadata_url_errors"]
+    api_errors_field_name = ErrorDict.field_map["metadata_validation_api"]
     for tsv_path, schema in upload.effective_tsv_paths.items():
         fixtures = get_online_check_fixtures(schema.schema_name, test_dir)
-        url_errors = fixtures.get("URL Check Errors", {})
+        url_errors = fixtures.get(url_errors_field_name, {})
         if url_errors:
             upload.errors.metadata_url_errors[tsv_path] = url_errors
-        api_errors = fixtures.get("Spreadsheet Validator Errors", {})
+        api_errors = fixtures.get(api_errors_field_name, {})
         if api_errors:
             upload.errors.metadata_validation_api[tsv_path] = api_errors
         for other_type, paths in {
@@ -63,10 +64,10 @@ def mutate_upload_errors_with_fixtures(upload: Upload, test_dir: str) -> Upload:
         }.items():
             for path in paths:
                 other_fixtures = get_online_check_fixtures(other_type, test_dir)
-                other_url_errors = other_fixtures.get("URL Errors", {})
+                other_url_errors = other_fixtures.get(url_errors_field_name, {})
                 if other_url_errors:
                     upload.errors.metadata_url_errors[path] = other_url_errors
-                other_api_errors = other_fixtures.get("Spreadsheet Validator Errors", {})
+                other_api_errors = other_fixtures.get(api_errors_field_name, {})
                 if other_api_errors:
                     upload.errors.metadata_validation_api[path] = other_api_errors
     return upload
@@ -77,6 +78,7 @@ def dataset_test(
     dataset_opts: Dict,
     verbose: bool = False,
     globus_token: str = "",
+    # TODO: do we need both of these params
     offline: bool = False,
     use_online_check_fixtures: bool = False,
     full_diff: bool = False,
@@ -87,7 +89,7 @@ def dataset_test(
     if offline:
         upload = TestDatasetExamples.prep_offline_upload(test_dir, dataset_opts)
     else:
-        upload = Upload(Path(f"{test_dir}/upload"), **dataset_opts, globus_token=globus_token)
+        upload = Upload(Path(f"{test_dir}/upload"), globus_token=globus_token, **dataset_opts)
     errors = upload.get_errors()
     info = upload.get_info()
     if use_online_check_fixtures:

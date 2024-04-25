@@ -49,7 +49,6 @@ class Upload:
         extra_parameters: Union[dict, None] = None,
         globus_token: str = "",
         app_context: dict = {},
-        run_plugins: bool = False,
         verbose: bool = True,
     ):
         self.directory_path = directory_path
@@ -64,7 +63,6 @@ class Upload:
         self.extra_parameters = extra_parameters if extra_parameters else {}
         self.effective_tsv_paths = {}
         self.globus_token = globus_token
-        self.run_plugins = run_plugins
         self.verbose = verbose
 
         self.errors = ErrorDict()
@@ -146,13 +144,13 @@ class Upload:
         self.validation_routine()
         self._get_reference_errors()
 
-        # Plugin error checking is costly, by default this bails
+        # Plugin error checking is costly, this bails
         # if other errors have been found already
-        if self.errors and not self.run_plugins:
+        if self.errors:
             self.errors.plugin_skip = (
                 "Skipping plugins validation: errors in upload metadata or dir structure."
             )
-        elif self.run_plugins:
+        else:
             logging.info("Running plugin validation...")
             self.errors.plugin = self._get_plugin_errors(**kwargs)
 

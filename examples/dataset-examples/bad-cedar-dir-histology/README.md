@@ -19,4 +19,5 @@ Reference Errors:
   No References:
     Files:
     - unreferenced_file.
+Fatal Errors: 'Skipping plugins validation: errors in upload metadata or dir structure.'
 ```

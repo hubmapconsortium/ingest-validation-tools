@@ -10,4 +10,5 @@ Local Validation Errors:
     it is an invalid DOI.
   - On row 2, column "library_construction_protocols_io_doi", value "10.17504/123"
     fails because it is an invalid DOI.
+Fatal Errors: 'Skipping plugins validation: errors in upload metadata or dir structure.'
 ```

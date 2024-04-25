@@ -7,4 +7,5 @@ Directory Errors:
       - lab_processed\/images\/.*.
       - lab_processed\/images\/[^\/]*ome-tiff\.channels\.csv.
       - lab_processed\/images\/[^\/]+\.ome\.tiff.
+Fatal Errors: 'Skipping plugins validation: errors in upload metadata or dir structure.'
 ```

@@ -39,4 +39,5 @@ Local Validation Errors:
     404: "https://pub.orcid.org/v3.0/0000-0000-0000-0000". Example: 0000-0002-8928-741X.'
   - 'On row 4, column "affiliation", value "somewhere3" fails because there is a run
     of 3 sequential items: Limit is 3. If correct, reorder rows.'
+Fatal Errors: 'Skipping plugins validation: errors in upload metadata or dir structure.'
 ```

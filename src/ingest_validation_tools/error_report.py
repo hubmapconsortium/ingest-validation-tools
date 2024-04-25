@@ -2,7 +2,7 @@ from collections import defaultdict
 from dataclasses import dataclass, field, fields
 from datetime import datetime
 from pathlib import Path
-from typing import DefaultDict, Dict, List, Optional, Union
+from typing import ClassVar, DefaultDict, Dict, List, Optional, Union
 
 from yaml import Dumper, dump
 
@@ -57,46 +57,58 @@ class ErrorDict:
     plugin: Dict[str, List[str]] = field(default_factory=dict)
     plugin_skip: Optional[str] = None
 
+    # Single source of truth for top-level error dict key names,
+    # use instead of string matching on keys even outside of ErrorDict
+    field_map: ClassVar[Dict[str, str]] = {
+        "preflight": "Preflight Errors",
+        "directory": "Directory Errors",
+        "upload_metadata": "Antibodies/Contributors Errors",
+        "metadata_validation_local": "Local Validation Errors",
+        "metadata_validation_api": "Spreadsheet Validator Errors",
+        "metadata_url_errors": "URL Check Errors",
+        "reference": "Reference Errors",
+        "plugin": "Data File Errors",
+        "plugin_skip": "Fatal Errors",
+    }
+
     def __bool__(self):
         """
         Return true if any field has errors.
         """
         return bool(self.as_dict())
 
-    @property
-    def field_map(self):
-        """
-        Single source of truth for top-level error dict key names.
-        """
-        return {
-            "preflight": "Preflight Errors",
-            "directory": "Directory Errors",
-            "upload_metadata": "Antibodies/Contributors Errors",
-            "metadata_validation_local": "Local Validation Errors",
-            "metadata_validation_api": "Spreadsheet Validator Errors",
-            "metadata_url_errors": "URL Check Errors",
-            "reference": "Reference Errors",
-            "plugin": "Data File Errors",
-            "plugin_skip": "Fatal Errors",
-        }
+    def errors_by_path(self, path: str, selected_fields: Optional[List[str]] = None) -> Dict:
+        errors = {}
+        if not selected_fields:
+            selected_fields = [getattr(self, error_field.name) for error_field in fields(self)]
+        for metadata_field in selected_fields:
+            field_errors = getattr(self, metadata_field)
+            if metadata_field == "preflight":
+                errors[self.field_map[metadata_field]] = field_errors
+            elif metadata_field == "plugin_skip":
+                errors[self.field_map[metadata_field]] = field_errors
+            else:
+                for key, value in field_errors.items():
+                    if (Path(key) == Path(path)) or (path in key):
+                        errors[self.field_map[metadata_field]] = value
+                        break
+        return errors
 
-    def tsv_only_errors_by_path(self, path: str, local_allowed=True):
+    def online_only_errors_by_path(self, path: str):
+        return self.errors_by_path(path, ["metadata_url_errors", "metadata_validation_api"])
+
+    def tsv_only_errors_by_path(self, path: str, local_allowed=True) -> List[str]:
         """
         For use in front-end single TSV validation.
         Turn off support for local validation by passing local_allowed=False
         """
         errors = []
-        for metadata_field in [
-            "metadata_validation_local",
-            "metadata_url_errors",
-            "metadata_validation_api",
-        ]:
-            if metadata_field == "metadata_validation_local" and not local_allowed:
-                continue
-            for key, value in getattr(self, metadata_field).items():
-                if Path(key) == Path(path):
-                    errors.extend(value)
-                    break
+        selected_fields = ["metadata_url_errors", "metadata_validation_api"]
+        if local_allowed:
+            selected_fields.append("metadata_validation_local")
+        path_errors = self.errors_by_path(path, selected_fields)
+        for value in path_errors.values():
+            errors.extend(value)
         return errors
 
     def as_dict(self):

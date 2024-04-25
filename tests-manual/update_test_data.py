@@ -61,8 +61,8 @@ class UpdateData:
             upload = Upload(
                 Path(f"{self.dir}upload"),
                 globus_token=self.globus_token,
-                **self.opts,
                 verbose=self.upload_verbose,
+                **self.opts,
             )
         report = ErrorReport(errors=upload.get_errors(), info=upload.get_info())
         self.check_maybe_write_fixtures(report, upload)
@@ -157,14 +157,14 @@ class UpdateData:
                 continue
             if upload.errors.metadata_url_errors:
                 upload.errors = get_non_token_errors(upload.errors)
-            online_errors = upload.errors.tsv_only_errors_by_path(str(schema.path))
+            online_errors = upload.errors.online_only_errors_by_path(str(schema.path))
             new_validation_data[schema.schema_name].update(online_errors)
             for other_type, paths in {
                 "antibodies": schema.antibodies_paths,
                 "contributors": schema.contributors_paths,
             }.items():
                 for path in paths:
-                    online_errors = upload.errors.tsv_only_errors_by_path(path)
+                    online_errors = upload.errors.online_only_errors_by_path(path)
                     new_validation_data[other_type].update(online_errors)
         new_data["assaytype"] = new_assaytype_data
         new_data["validation"] = dict(new_validation_data)
