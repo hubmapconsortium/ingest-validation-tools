@@ -35,7 +35,6 @@ def get_schema_version(
     encoding: str,
     ingest_url: str = "",
     directory_path: Optional[Path] = None,
-    offline: bool = False,
 ) -> SchemaVersion:
     try:
         rows = read_rows(path, encoding)
@@ -52,8 +51,6 @@ def get_schema_version(
         )
         return sv
     message = []
-    if offline:
-        message.append("Running in offline mode, cannot reach assayclassifier.")
     if not (rows[0].get("dataset_type") or rows[0].get("assay_type")):
         message.append(f"No assay_type or dataset_type in {path}.")
         if "channel_id" in rows[0]:
@@ -270,7 +267,7 @@ def get_tsv_errors(
     tsv_path: Union[str, Path],
     schema_name: str,
     optional_fields: List[str] = [],
-    offline: bool = False,
+    no_url_checks: bool = False,
     ignore_deprecation: bool = False,
     report_type: ReportType = ReportType.STR,
     globus_token: str = "",
@@ -336,7 +333,7 @@ def get_tsv_errors(
         tsv_paths=[Path(tsv_path)],
         optional_fields=optional_fields,
         globus_token=globus_token,
-        offline=offline,
+        no_url_checks=no_url_checks,
         ignore_deprecation=ignore_deprecation,
         app_context=app_context,
     )

@@ -52,7 +52,7 @@ class Upload:
         upload_ignore_globs: list = [],
         plugin_directory: Union[Path, None] = None,
         encoding: str = "utf-8",
-        offline: bool = False,
+        no_url_checks: bool = False,
         ignore_deprecation: bool = False,
         extra_parameters: Union[dict, None] = None,
         globus_token: str = "",
@@ -66,7 +66,7 @@ class Upload:
         self.upload_ignore_globs = upload_ignore_globs
         self.plugin_directory = plugin_directory
         self.encoding = encoding
-        self.offline = offline
+        self.no_url_checks = no_url_checks
         self.add_notes = add_notes
         self.ignore_deprecation = ignore_deprecation
         self.errors = {}
@@ -85,7 +85,6 @@ class Upload:
                     self.encoding,
                     self.app_context["ingest_url"],
                     self.directory_path,
-                    offline=self.offline,
                 )
                 for path in (tsv_paths if tsv_paths else directory_path.glob(f"*{TSV_SUFFIX}"))
             }
@@ -308,7 +307,7 @@ class Upload:
                 schema = get_table_schema(
                     schema_version,
                     self.optional_fields,
-                    self.offline,
+                    self.no_url_checks,
                 )
             except Exception as e:
                 return {f"{tsv_path} (as {schema_version.table_schema})": e}
@@ -320,19 +319,9 @@ class Upload:
             if local_errors:
                 local_validated[f"{tsv_path} (as {schema_version.table_schema})"] = local_errors
         else:
-            """
-            Passing offline=True will skip all API/URL validation;
-            GitHub actions therefore do not test via the CEDAR
-            Spreadsheet Validator API, so tests must be run
-            manually (see tests-manual/README.md)
-            """
-            if self.offline:
-                logging.info(f"{tsv_path}: Offline validation selected, cannot reach API.")
-                return errors
-            else:
-                api_errors = self.online_checks(tsv_path, schema_version, report_type)
-                if api_errors:
-                    api_validated[f"{tsv_path}"] = api_errors
+            api_errors = self.online_checks(tsv_path, schema_version, report_type)
+            if api_errors:
+                api_validated[f"{tsv_path}"] = api_errors
         if local_validated:
             errors["Local Validation Errors"] = local_validated
         if api_validated:
@@ -535,6 +524,8 @@ class Upload:
         """
         errors: Dict = {}
 
+        if self.no_url_checks:
+            return errors
         # assay -> parent_sample_id
         # sample -> sample_id
         # organ -> organ_id
@@ -741,7 +732,6 @@ class Upload:
                 self.encoding,
                 self.app_context["ingest_url"],
                 self.directory_path,
-                offline=self.offline,
             )
         except Exception as e:
             errors[f"{metadata_path}, column '{path_type}_path', value '{other_path_value}'"] = [e]
