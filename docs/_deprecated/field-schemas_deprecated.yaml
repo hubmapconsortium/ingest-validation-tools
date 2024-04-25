@@ -156,6 +156,7 @@ assay_category:
 - mibi
 - microct
 - mri
+- music
 - mxif
 - nano
 - nano-splits
@@ -216,6 +217,7 @@ assay_type:
 - mibi
 - microct
 - mri
+- music
 - mxif
 - nano
 - nano-splits
@@ -586,6 +588,7 @@ is_cedar:
 - mibi
 - microct
 - mri
+- music
 - nano-splits
 - oct
 - phenocycler
