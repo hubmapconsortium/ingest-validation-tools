@@ -619,7 +619,7 @@ class Upload:
         valid_ancestors = self._get_entity_ancestor_constraints(descendant_entity_type, sub_type)
         field_entity_type = response.get("entity_type")
         # Make sure that field_entity_type is a valid direct ancestor of schema_type
-        if not field_entity_type in valid_ancestors.keys():
+        if field_entity_type not in valid_ancestors.keys():
             # TODO: logic here is unfinished, need to figure out how samples work and test
             raise Exception
 
