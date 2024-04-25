@@ -10,6 +10,7 @@
 - Add MUSIC next-gen directory schema
 - Updating documentation
 - Change Upload error output to dataclass
+- Revert deprecation of field YAML files
 
 ## v0.0.18
 
@@ -35,6 +36,7 @@
 - Update Histology directory schema
 - Bugfix stripping trailing slash in ingest api url
 - Converted upload `_url_checks` to use `_get_method` for SenNet compatibility
+- Add CEDAR template for murine-source
 
 ## v0.0.17
 
