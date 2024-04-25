@@ -22,6 +22,7 @@ from .fixtures import (
 
 SHARED_OPTS = {
     "encoding": "ascii",
+    "run_plugins": True,
 }
 DATASET_EXAMPLES_OPTS = SHARED_OPTS | {
     "dataset_ignore_globs": ["ignore-*.tsv", ".*"],
