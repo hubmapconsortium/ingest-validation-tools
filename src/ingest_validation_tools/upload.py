@@ -26,6 +26,7 @@ from ingest_validation_tools.schema_loader import (
 from ingest_validation_tools.table_validator import ReportType, get_table_errors
 from ingest_validation_tools.validation_utils import (
     OTHER_TYPES_MAP,
+    OtherTypes,
     cedar_api_call,
     get_data_dir_errors,
     get_json,
@@ -576,7 +577,8 @@ class Upload:
                 headers["Authorization"] = f"Bearer {self.globus_token}"
                 response = requests.get(url, headers=headers)
                 response.raise_for_status()
-                self._check_entity_constraint(response.json(), schema)
+                response_entity_type = response.json().get("entity_type")
+                self._check_entity_constraint(response_entity_type, schema)
                 breakpoint()
                 # TODO: this is where we get the response entity_type value;
                 # check against constraints to make sure that type of TSV this
@@ -605,23 +607,37 @@ class Upload:
             }
             return error
 
-    def _check_entity_constraint(self, response: Dict, schema: SchemaVersion):
-        schema_type = schema.schema_name
-        if schema_type not in OTHER_TYPES_MAP.keys():
-            descendant_entity_type = "dataset"
-            sub_type = None
-        elif schema_type.startswith("sample-"):
+    # TODO: review against constraint endpoint documentation
+    # def _check_entity_constraint(self, response_entity_type: str, schema: SchemaVersion):
+    #     """
+    #     Match TSV schema with appropriate descendant_entity_type / subtype string.
+    #     Get entity type of a given HuBMAP/SenNet ID from the response param.
+    #     Get valid ancestors for the descendant_entity_type and make sure the type
+    #     of the submitted TSV is in that list.
+    #     """
+    #     schema_type = schema.schema_name
+    #     schema_entity_type, schema_sub_type = self._get_entity_endpoint_vals(schema_type)
+    #     field_entity_type, field_sub_type = self._get_entity_endpoint_vals(response_entity_type)
+    #     valid_ancestors = self._get_entity_ancestor_constraints(
+    #         schema_entity_type, schema_sub_type
+    #     )
+    #     # Make sure that field_entity_type is a valid direct ancestor of schema_type
+    #     if field_entity_type not in valid_ancestors.keys():
+    #         # TODO: logic here is unfinished, need to figure out how samples work and test
+    #         raise Exception
+
+    def _get_entity_endpoint_vals(self, entity_type: str) -> Tuple(str, Optional[str]):
+        sub_type = None
+        if entity_type.startswith("sample-"):
             descendant_entity_type = "sample"
-            sub_type = schema_type.split("-")[1]
+            sub_type = entity_type.split("-")[1]
+        elif entity_type not in OtherTypes:
+            descendant_entity_type = "dataset"
+        elif entity_type == OtherTypes.MURINE_SOURCE:
+            descendant_entity_type = "source"
         else:
-            # TODO
-            raise Exception
-        valid_ancestors = self._get_entity_ancestor_constraints(descendant_entity_type, sub_type)
-        field_entity_type = response.get("entity_type")
-        # Make sure that field_entity_type is a valid direct ancestor of schema_type
-        if field_entity_type not in valid_ancestors.keys():
-            # TODO: logic here is unfinished, need to figure out how samples work and test
-            raise Exception
+            descendant_entity_type = entity_type
+        return descendant_entity_type, sub_type
 
     def _get_entity_ancestor_constraints(self, entity_type: str, sub_type: Optional[str] = None):
         # TODO: does not work in HuBMAP currently

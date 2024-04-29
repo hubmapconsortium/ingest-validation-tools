@@ -2,6 +2,7 @@ import json
 import logging
 from collections import defaultdict
 from csv import DictReader
+from enum import StrEnum
 from pathlib import Path, PurePath
 from typing import DefaultDict, Dict, List, Optional, Union
 
@@ -18,15 +19,24 @@ from ingest_validation_tools.schema_loader import (
 )
 from ingest_validation_tools.table_validator import ReportType
 
+
+class OtherTypes(StrEnum):
+    ANTIBODIES = "antibodies"
+    CONTRIBUTORS = "contributors"
+    MURINE_SOURCE = "murine-souce"
+    ORGAN = "organ"
+    SAMPLE = "sample"
+    # SAMPLE_BLOCK = "sample-block"
+    # SAMPLE_SUSPENSION = "sample-suspension"
+    # SAMPLE_SECTION = "sample-section"
+
+
 OTHER_TYPES_MAP = {
-    "organ": ["organ_id"],
-    "sample": ["sample_id"],
-    "sample-block": ["sample_id"],
-    "sample-suspension": ["sample_id"],
-    "sample-section": ["sample_id"],
-    "contributors": ["orcid", "orcid_id"],
-    "antibodies": ["antibody_rrid", "antibody_name"],
-    "murine-source": ["strain_rrid"],
+    OtherTypes.ANTIBODIES: ["antibody_rrid", "antibody_name"],
+    OtherTypes.CONTRIBUTORS: ["orcid", "orcid_id"],
+    OtherTypes.MURINE_SOURCE: ["strain_rrid"],
+    OtherTypes.ORGAN: ["organ_id"],
+    OtherTypes.SAMPLE: ["sample_id"],
 }
 
 
@@ -99,7 +109,11 @@ def get_other_schema_name(rows: List, path: str) -> Optional[str]:
             sample_type = get_sample_type_from_template(field, path)
             other_type.update({f"sample-{sample_type}": [field]})
         else:
-            match = {key: field for key, value in OTHER_TYPES_MAP.items() if field in value}
+            match = {
+                enum_key.value: field
+                for enum_key, value in OTHER_TYPES_MAP.items()
+                if field in value
+            }
             other_type.update(match)
     if other_type and ("assay_name" in rows[0].keys() or "dataset_type" in rows[0].keys()):
         raise PreflightError(f"Metadata TSV contains invalid field: {list(other_type.values())}")
@@ -362,7 +376,7 @@ def cedar_api_call(tsv_path: Union[str, Path]) -> requests.models.Response:
         )
         logging.info(f"Response: {response.json()}")
     except Exception as e:
-        raise Exception(f"CEDAR API request for {tsv_path} failed! Exception: {e}")
+        raise Exception(f"Spreadsheet Validator API request for {tsv_path} failed! Exception: {e}")
     return response
 
 
