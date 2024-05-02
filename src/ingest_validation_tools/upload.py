@@ -26,7 +26,6 @@ from ingest_validation_tools.schema_loader import (
 from ingest_validation_tools.table_validator import ReportType, get_table_errors
 from ingest_validation_tools.validation_utils import (
     OTHER_TYPES_MAP,
-    OtherTypes,
     cedar_api_call,
     get_data_dir_errors,
     get_json,
@@ -71,6 +70,7 @@ class Upload:
         self.run_plugins = run_plugins
         self.verbose = verbose
 
+        self.entity_fields = ["parent_sample_id", "source_id", "organ_id", "sample_id"]
         self.errors = ErrorDict()
 
         self.get_app_context(app_context)
@@ -171,6 +171,8 @@ class Upload:
             "entities_url": "https://entity.api.hubmapconsortium.org/entities/",
             "ingest_url": "https://ingest.api.hubmapconsortium.org/",
             "request_header": {"X-Hubmap-Application": "ingest-pipeline"},
+            # TODO: does not work in HuBMAP currently
+            "constraints_url": "https://entity.api.sennetconsortium.org/constraints/",
         } | submitted_app_context
 
     def validation_routine(
@@ -188,7 +190,7 @@ class Upload:
         schema: SchemaVersion,
         report_type: ReportType = ReportType.STR,
     ):
-        url_errors = self._url_checks(tsv_path, schema, report_type)
+        url_errors = self._get_url_errors(tsv_path, schema, report_type)
         if url_errors:
             self.errors.metadata_url_errors[tsv_path].extend(url_errors)
         try:
@@ -197,6 +199,12 @@ class Upload:
             api_errors = [e]
         if api_errors:
             self.errors.metadata_validation_api[tsv_path].extend(api_errors)
+        try:
+            constraint_errors = self._constraint_checks(schema)
+        except Exception as e:
+            constraint_errors = [e]
+        if constraint_errors:
+            self.errors.metadata_constraint_errors[tsv_path].extend(constraint_errors)
 
     ###################################
     #
@@ -325,8 +333,8 @@ class Upload:
             logging.info(f"Response: {response.json()}.")
         return errors
 
-    def _url_checks(
-        self, tsv_path: str, schema: SchemaVersion, report_type: ReportType = ReportType.STR
+    def _get_url_errors(
+        self, tsv_path: str, schema: SchemaVersion, report_type: ReportType
     ) -> List:
         """
         Check provided values for parent_sample_id and orcid_id; additionally
@@ -340,15 +348,34 @@ class Upload:
 
         constrained_fields = self._get_constrained_fields(schema)
 
-        try:
-            url_errors = self._check_matching_urls(
-                tsv_path, constrained_fields, schema, report_type
-            )
-        except ErrorDictException as e:
-            errors.append(str(e))
-        else:
-            if url_errors:
-                errors.extend(url_errors)
+        rows = read_rows(Path(tsv_path), self.encoding)
+        fields = rows[0].keys()
+        if missing_fields := [k for k in constrained_fields.keys() if k not in fields].sort():
+            raise ErrorDictException(f"Missing fields: {missing_fields}")
+        url_errors = self._find_and_check_url_fields(rows, constrained_fields, schema, report_type)
+        return url_errors
+
+    def _find_and_check_url_fields(
+        self, rows: List, constrained_fields: Dict, schema: SchemaVersion, report_type: ReportType
+    ) -> List[Dict[str, str]]:
+        errors = []
+        for i, row in enumerate(rows):
+            url_fields = self._get_url_fields(row, constrained_fields)
+            for field_name, field_value in url_fields.items():
+                for value in field_value:
+                    try:
+                        entity_type = self._check_url(field_name, value, constrained_fields)
+                        if entity_type:
+                            schema.ancestor_entities.update(entity_type)
+                    except Exception as e:
+                        error = {
+                            "errorType": type(e).__name__,
+                            "column": field_name,
+                            "row": i + 2,
+                            "value": field_value,
+                            "error_text": e.__str__(),
+                        }
+                        errors.extend(self._get_message(error, report_type))
         return errors
 
     def _get_reference_errors(self):
@@ -525,87 +552,92 @@ class Upload:
             constrained_fields["parent_sample_id"] = self.app_context.get("entities_url")
         return constrained_fields
 
-    def _check_matching_urls(
+    def _get_url_fields(
         self,
-        tsv_path: str,
+        row: Dict,
         constrained_fields: dict,
-        schema: SchemaVersion,
-        report_type: ReportType = ReportType.STR,
-    ) -> List[Union[str, Dict]]:
-        rows = read_rows(Path(tsv_path), self.encoding)
-        fields = rows[0].keys()
-        missing_fields = [k for k in constrained_fields.keys() if k not in fields].sort()
-        if missing_fields:
-            raise ErrorDictException(f"Missing fields: {sorted(missing_fields)}")
-        url_errors = []
-        for i, row in enumerate(rows):
-            check = {k: v for k, v in row.items() if k in constrained_fields}
-            for check_field, value in check.items():
-                if check_field == "parent_sample_id":
-                    ids = value.split(",")
-                    for id in ids:
-                        error = self._check_single_url(
-                            check_field, id.strip(), constrained_fields, i, schema
-                        )
-                        if error:
-                            url_errors.append(self._get_message(error, report_type))
-                else:
-                    error = self._check_single_url(
-                        check_field, value, constrained_fields, i, schema
-                    )
-                    if error:
-                        url_errors.append(self._get_message(error, report_type))
-        return url_errors
-
-    def _check_single_url(
-        self,
-        field: str,
-        value: str,
-        constrained_fields: Dict[str, str],
-        row_num: int,
-        schema: SchemaVersion,
-    ) -> Optional[Dict]:
-        entity_fields = ["parent_sample_id", "source_id", "organ_id", "sample_id"]
-        try:
-            if field in entity_fields and not self.globus_token:
+    ) -> Dict[str, List[str]]:
+        url_fields = {}
+        check = {k: v for k, v in row.items() if k in constrained_fields}
+        for check_field, value in check.items():
+            if check_field in self.entity_fields and not self.globus_token:
                 raise ErrorDictException(
                     "No token received to check URL fields against Entity API."
                 )
-            url = constrained_fields[field] + value
-            if field in entity_fields:
-                headers = self.app_context.get("request_header", {})
-                headers["Authorization"] = f"Bearer {self.globus_token}"
-                response = requests.get(url, headers=headers)
-                response.raise_for_status()
-                response_entity_type = response.json().get("entity_type")
-                self._check_entity_constraint(response_entity_type, schema)
-                breakpoint()
-                # TODO: this is where we get the response entity_type value;
-                # check against constraints to make sure that type of TSV this
-                # comes from (currently not available here) is a valid
-                # descendant of the response entity_type
-            elif field in ["orcid_id", "orcid"]:
-                headers = {"Accept": "application/json"}
-                response = requests.get(url, headers=headers)
-                num_found = response.json().get("num-found")
-                if num_found == 1:
-                    return
-                elif num_found == 0:
-                    raise Exception(f"ORCID {value} does not exist.")
-                else:
-                    raise Exception(f"Found {num_found} matches for ORCID {value}.")
+            # TODO: could just split if there's a comma in the field
+            elif check_field == "parent_sample_id":
+                url_fields["parent_sample_id"] = value.split(",")
             else:
-                response = requests.get(url)
-                response.raise_for_status()
-        except Exception as e:
-            error = {
-                "errorType": type(e).__name__,
-                "column": field,
-                "row": row_num + 2,
-                "value": value,
-                "error_text": e.__str__(),
-            }
-            return error
+                url_fields[check_field] = [value]
+        return url_fields
+
+    def _check_url(self, field: str, value: str, constrained_fields: Dict) -> Optional[Dict]:
+        """
+        Returns entity_type if checking a field in entity_fields.
+        """
+        url = constrained_fields[field] + value
+        if field in self.entity_fields:
+            headers = self.app_context.get("request_header", {})
+            headers["Authorization"] = f"Bearer {self.globus_token}"
+            response = requests.get(url, headers=headers)
+            response.raise_for_status()
+            return {value: self._get_entity_endpoint_vals(response.json().get("entity_type", ""))}
+        elif field in ["orcid_id", "orcid"]:
+            headers = {"Accept": "application/json"}
+            response = requests.get(url, headers=headers)
+            num_found = response.json().get("num-found")
+            if num_found == 1:
+                return
+            elif num_found == 0:
+                raise Exception(f"ORCID {value} does not exist.")
+            else:
+                raise Exception(f"Found {num_found} matches for ORCID {value}.")
+        else:
+            response = requests.get(url)
+            response.raise_for_status()
+
+    def _construct_constraint_check(self, schema: SchemaVersion) -> List[Dict]:
+        payload = []
+        ancestor_entities = list(schema.ancestor_entities.values())
+        tsv_entity = self._get_entity_endpoint_vals(schema.schema_name)
+        for ancestor_entity in ancestor_entities:
+            payload.append({"ancestors": ancestor_entity, "descendants": tsv_entity})
+        return payload
+
+    def _constraint_checks(self, schema: SchemaVersion):
+        payload = self._construct_constraint_check(schema)
+        data = json.dumps(payload)
+        headers = {
+            # "Authorization": f"Bearer {self.globus_token}",
+            "Content-Type": "application/json",
+        }
+        response = requests.request(
+            "POST", self.app_context["constraints_url"], headers=headers, data=data
+        )
+        try:
+            response.raise_for_status()
+        except Exception:
+            breakpoint()
+            problem_entities = self._get_constraint_check_errors(response, payload)
+            raise Exception(problem_entities)
+
+    def _get_constraint_check_errors(
+        self, response: requests.Response, payload: List
+    ) -> List[str]:
+        problem_entities = []
+        if response.status_code == 400:
+            for i, entity_check in enumerate(response.json().get("description", [])):
+                if entity_check["code"] != 200:
+                    problem_entities.append(
+                        f"""
+                        Invalid descendant type for ancestor.
+                        Descendant TSV data:
+                            {payload[i].get('descendants', {})}
+                        Valid ancestors:
+                            {entity_check.get("description", [])}
+                        """
+                    )
+        return problem_entities
 
     # TODO: review against constraint endpoint documentation
     # def _check_entity_constraint(self, response_entity_type: str, schema: SchemaVersion):
@@ -626,36 +658,24 @@ class Upload:
     #         # TODO: logic here is unfinished, need to figure out how samples work and test
     #         raise Exception
 
-    def _get_entity_endpoint_vals(self, entity_type: str) -> Tuple(str, Optional[str]):
-        sub_type = None
-        if entity_type.startswith("sample-"):
-            descendant_entity_type = "sample"
-            sub_type = entity_type.split("-")[1]
-        elif entity_type not in OtherTypes:
-            descendant_entity_type = "dataset"
-        elif entity_type == OtherTypes.MURINE_SOURCE:
-            descendant_entity_type = "source"
-        else:
-            descendant_entity_type = entity_type
-        return descendant_entity_type, sub_type
-
-    def _get_entity_ancestor_constraints(self, entity_type: str, sub_type: Optional[str] = None):
-        # TODO: does not work in HuBMAP currently
-        url = "https://entity.api.sennetconsortium.org/constraints"
-        if sub_type:
-            data = json.dumps(
-                [{"ancestors": [{"entity_type": entity_type, "sub_type": [sub_type]}]}]
-            )
-        else:
-            data = json.dumps([{"ancestors": [{"entity_type": entity_type}]}])
-        headers = {
-            "Authorization": f"Bearer {self.globus_token}",
-            "Content-Type": "application/json",
+    def _get_entity_endpoint_vals(self, entity_type: str) -> Dict:
+        entity_map = {
+            "sample-block": ("Sample", "block", None),
+            "sample-section": ("Sample", "section", None),
+            "sample-suspension": ("Sample", "suspension", None),
+            "organ": ("Sample", "organ", None),
+            "murine-source": ("Source", "", None),
         }
-        response = requests.request("POST", url, headers=headers, data=data)
-        ancestor_data = response.json().get("description", {}).get("description", [])
+        if entity_type not in OTHER_TYPES_MAP:
+            type_vals = ("Dataset", "", None)
+        else:
+            type_vals = entity_map.get(entity_type)
+            if not type_vals:
+                raise Exception(f"Unknown entity_type: {entity_type}")
         return {
-            ancestor.get("entity_type"): ancestor.get("sub_type") for ancestor in ancestor_data
+            "entity_type": type_vals[0],
+            "sub_type": type_vals[1],
+            "sub_type_val": type_vals[2],
         }
 
     def _get_message(

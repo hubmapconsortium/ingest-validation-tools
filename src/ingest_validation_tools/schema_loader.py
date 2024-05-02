@@ -40,7 +40,6 @@ class SchemaVersion:
     directory_path: Optional[Path] = None
     table_schema: str = ""
     path: Union[Path, str] = ""
-    # TODO: testing these out to see if it streamlines anything
     contributors_paths: List[str] = field(default_factory=list)
     antibodies_paths: List[str] = field(default_factory=list)
     rows: List = field(default_factory=list)
@@ -51,6 +50,7 @@ class SchemaVersion:
     dir_schema: str = ""
     metadata_type: str = "assays"
     contains: List = field(default_factory=list)
+    ancestor_entities: Dict = field(default_factory=dict)
 
     def __post_init__(self):
         if type(self.path) is str:

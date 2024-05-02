@@ -2,7 +2,7 @@ import json
 import logging
 from collections import defaultdict
 from csv import DictReader
-from enum import StrEnum
+from enum import Enum
 from pathlib import Path, PurePath
 from typing import DefaultDict, Dict, List, Optional, Union
 
@@ -20,7 +20,7 @@ from ingest_validation_tools.schema_loader import (
 from ingest_validation_tools.table_validator import ReportType
 
 
-class OtherTypes(StrEnum):
+class OtherTypes(str, Enum):
     ANTIBODIES = "antibodies"
     CONTRIBUTORS = "contributors"
     MURINE_SOURCE = "murine-souce"
