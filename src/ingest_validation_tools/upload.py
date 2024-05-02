@@ -70,7 +70,12 @@ class Upload:
         self.run_plugins = run_plugins
         self.verbose = verbose
 
-        self.entity_fields = ["parent_sample_id", "source_id", "organ_id", "sample_id"]
+        self.entity_fields = {
+                "dataset": "parent_sample_id",
+                "murine-source": "source_id",
+                "organ": "organ_id",
+                "sample": "sample_id"
+            }
         self.errors = ErrorDict()
 
         self.get_app_context(app_context)
@@ -372,10 +377,10 @@ class Upload:
                             "errorType": type(e).__name__,
                             "column": field_name,
                             "row": i + 2,
-                            "value": field_value,
+                            "value": value,
                             "error_text": e.__str__(),
                         }
-                        errors.extend(self._get_message(error, report_type))
+                        errors.append(self._get_message(error, report_type))
         return errors
 
     def _get_reference_errors(self):
@@ -560,7 +565,7 @@ class Upload:
         url_fields = {}
         check = {k: v for k, v in row.items() if k in constrained_fields}
         for check_field, value in check.items():
-            if check_field in self.entity_fields and not self.globus_token:
+            if check_field in self.entity_fields.values() and not self.globus_token:
                 raise ErrorDictException(
                     "No token received to check URL fields against Entity API."
                 )
@@ -576,7 +581,7 @@ class Upload:
         Returns entity_type if checking a field in entity_fields.
         """
         url = constrained_fields[field] + value
-        if field in self.entity_fields:
+        if field in self.entity_fields.values():
             headers = self.app_context.get("request_header", {})
             headers["Authorization"] = f"Bearer {self.globus_token}"
             response = requests.get(url, headers=headers)
@@ -600,11 +605,13 @@ class Upload:
         payload = []
         ancestor_entities = list(schema.ancestor_entities.values())
         tsv_entity = self._get_entity_endpoint_vals(schema.schema_name)
-        for ancestor_entity in ancestor_entities:
-            payload.append({"ancestors": ancestor_entity, "descendants": tsv_entity})
+        if tsv_entity.get("entity_type") in self.entity_fields.keys():
+            for ancestor_entity in ancestor_entities:
+                payload.append({"ancestors": ancestor_entity, "descendants": tsv_entity})
         return payload
 
     def _constraint_checks(self, schema: SchemaVersion):
+        breakpoint()
         payload = self._construct_constraint_check(schema)
         data = json.dumps(payload)
         headers = {
@@ -617,7 +624,6 @@ class Upload:
         try:
             response.raise_for_status()
         except Exception:
-            breakpoint()
             problem_entities = self._get_constraint_check_errors(response, payload)
             raise Exception(problem_entities)
 
@@ -660,22 +666,22 @@ class Upload:
 
     def _get_entity_endpoint_vals(self, entity_type: str) -> Dict:
         entity_map = {
-            "sample-block": ("Sample", "block", None),
-            "sample-section": ("Sample", "section", None),
-            "sample-suspension": ("Sample", "suspension", None),
-            "organ": ("Sample", "organ", None),
-            "murine-source": ("Source", "", None),
+            "sample-block": ("sample", "block", None),
+            "sample-section": ("sample", "section", None),
+            "sample-suspension": ("sample", "suspension", None),
+            "organ": ("sample", "organ", None),
+            "murine-source": ("source", "", None),
         }
-        if entity_type not in OTHER_TYPES_MAP:
-            type_vals = ("Dataset", "", None)
+        if entity_type not in OTHER_TYPES_MAP.values():
+            type_vals = ("dataset", "", None)
         else:
             type_vals = entity_map.get(entity_type)
             if not type_vals:
                 raise Exception(f"Unknown entity_type: {entity_type}")
         return {
             "entity_type": type_vals[0],
-            "sub_type": type_vals[1],
-            "sub_type_val": type_vals[2],
+            "sub_type": [type_vals[1]],
+            "sub_type_val": [type_vals[2]] if type_vals[2] else None,
         }
 
     def _get_message(
