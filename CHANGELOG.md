@@ -7,6 +7,7 @@
 - Allow multiple comma-separated parent_sample_id values
 - Accommodate dir schema minor versions
 - Fix ORCID URL checking
+- Add semantic version to plugin test base class
 
 ## v0.0.18
 
