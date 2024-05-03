@@ -25,7 +25,7 @@ files:
     required: True
     description: Directory containing fastq files pertaining to whole genome sequencing.
   -
-    pattern: lab_processed\/fastq\/DNA\/[^\/]+_R[^\/]+\.fastq\.gz
+    pattern: lab_processed\/fastq\/DNA\/[^\/]+\.fastq\.gz
     required: True
     description: This is a GZip'd version of the fastq files from whole genome sequencing. 
     is_qa_qc: False
@@ -34,8 +34,7 @@ files:
     required: True
     description: Directory containing fastq files pertaining to RNAseq sequencing.
   -
-    pattern: lab_processed\/fastq\/RNA\/[^\/]+_R[^\/]+\.fastq\.gz
+    pattern: lab_processed\/fastq\/RNA\/[^\/]+\.fastq\.gz
     required: True
     description: This is a GZip'd version of the forward and reverse fastq files from RNAseq sequencing (R1 and R2).
     is_qa_qc: False
-    
