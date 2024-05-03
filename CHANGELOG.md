@@ -11,6 +11,7 @@
 - Updating documentation
 - Change Upload error output to dataclass
 - Revert deprecation of field YAML files
+- Update MUSIC directory schema
 
 ## v0.0.18
 
