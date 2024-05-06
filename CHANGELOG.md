@@ -12,6 +12,7 @@
 - Change Upload error output to dataclass
 - Revert deprecation of field YAML files
 - Update MUSIC directory schema
+- Add semantic version to plugin test base class
 
 ## v0.0.18
 

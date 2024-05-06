@@ -44,6 +44,10 @@ class Validator(object):
     """float: a rough measure of cost to run.  Lower is better.
     """
 
+    version = ""
+    """string: in derived classes, a valid semantic version string.
+    """
+
     def __init__(
         self,
         base_paths: List[Path],
