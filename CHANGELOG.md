@@ -7,6 +7,11 @@
 - Allow multiple comma-separated parent_sample_id values
 - Accommodate dir schema minor versions
 - Fix ORCID URL checking
+- Add MUSIC next-gen directory schema
+- Updating documentation
+- Change Upload error output to dataclass
+- Revert deprecation of field YAML files
+- Update MUSIC directory schema
 - Add semantic version to plugin test base class
 
 ## v0.0.18
@@ -33,6 +38,7 @@
 - Update Histology directory schema
 - Bugfix stripping trailing slash in ingest api url
 - Converted upload `_url_checks` to use `_get_method` for SenNet compatibility
+- Add CEDAR template for murine-source
 
 ## v0.0.17
 

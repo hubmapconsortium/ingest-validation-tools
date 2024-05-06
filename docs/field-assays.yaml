@@ -223,6 +223,7 @@ assay_category:
 - MS (shotgun lipidomics)
 - MS Bottom-Up
 - MS Top-Down
+- MUSIC
 - Micro CT
 - Molecular Cartography
 - Multiplex Ion Beam Imaging
@@ -306,6 +307,7 @@ assay_type:
 - MS (shotgun lipidomics)
 - MS Bottom-Up
 - MS Top-Down
+- MUSIC
 - Micro CT
 - Molecular Cartography
 - Multiplex Ion Beam Imaging
@@ -825,6 +827,7 @@ is_cedar:
 - MALDI
 - MERFISH
 - MRI
+- MUSIC
 - Micro CT
 - Molecular Cartography
 - Multiplex Ion Beam Imaging

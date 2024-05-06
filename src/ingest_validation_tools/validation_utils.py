@@ -35,7 +35,6 @@ def get_schema_version(
     encoding: str,
     ingest_url: str = "",
     directory_path: Optional[Path] = None,
-    offline: bool = False,
 ) -> SchemaVersion:
     try:
         rows = read_rows(path, encoding)
@@ -52,8 +51,6 @@ def get_schema_version(
         )
         return sv
     message = []
-    if offline:
-        message.append("Running in offline mode, cannot reach assayclassifier.")
     if not (rows[0].get("dataset_type") or rows[0].get("assay_type")):
         message.append(f"No assay_type or dataset_type in {path}.")
         if "channel_id" in rows[0]:
@@ -158,7 +155,7 @@ def get_data_dir_errors(
     root_path: Path,
     data_dir_path: Path,
     dataset_ignore_globs: List[str] = [],
-) -> Dict[str, Union[List[str], str]]:
+) -> Dict[str, Union[str, List[str]]]:
     """
     Validate a single data_path.
     """
@@ -176,7 +173,7 @@ def get_data_dir_errors(
     if {x.name for x in shared_directories} == expected_shared_directories:
         # If they exist create a list of the paths
         data_paths = list(shared_directories)
-    # Otherwise, do nothing we can just use the predefine data_path
+    # Otherwise, do nothing we can just use the predefined data_path
 
     possible_schemas = get_possible_directory_schemas(dir_schema)
 
@@ -210,6 +207,8 @@ def get_data_dir_errors(
         except OSError as e:
             # If there are OSErrors and the schema is deprecated/draft...
             #    the OSErrors are more important.
+            if isinstance(e, FileNotFoundError):
+                raise FileNotFoundError()
             schema_errors[schema_name].append(f"{e.strerror}: {e.filename}")
         if schema_errors:
             errors.append(schema_errors)
@@ -270,12 +269,12 @@ def get_tsv_errors(
     tsv_path: Union[str, Path],
     schema_name: str,
     optional_fields: List[str] = [],
-    offline: bool = False,
+    no_url_checks: bool = False,
     ignore_deprecation: bool = False,
     report_type: ReportType = ReportType.STR,
     globus_token: str = "",
     app_context: Dict = {},
-) -> Dict[str, str]:
+) -> List:
     """
     Validate the TSV.
 
@@ -330,18 +329,18 @@ def get_tsv_errors(
 
     logging.info(f"Validating {schema_name} TSV...")
 
-    # TODO: this is weird, because we're creating an upload for a single file...maybe subclass?
+    # TODO: refactor into TSV class
     upload = Upload(
         Path(tsv_path).parent,
         tsv_paths=[Path(tsv_path)],
         optional_fields=optional_fields,
         globus_token=globus_token,
-        offline=offline,
+        no_url_checks=no_url_checks,
         ignore_deprecation=ignore_deprecation,
         app_context=app_context,
     )
-    errors = upload.validation_routine(report_type)
-    return errors
+    upload.validation_routine(report_type)
+    return upload.errors.tsv_only_errors_by_path(str(tsv_path))
 
 
 def print_path(path):

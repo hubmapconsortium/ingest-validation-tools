@@ -33,6 +33,8 @@ def main():
     parser.add_argument("target", type=dir_path, help="Directory to write output to")
     args = parser.parse_args()
 
+    if str(args.type).startswith("_"):
+        return
     table_schema_versions = dict_table_schema_versions()[args.type]
     assert table_schema_versions, f"No versions for {args.type}"
 

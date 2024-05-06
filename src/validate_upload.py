@@ -65,9 +65,9 @@ Exit status codes:
         "(But if they are supplied in the TSV, they will be validated.)",
     )
     parser.add_argument(
-        "--offline",
+        "--no_url_checks",
         action="store_true",
-        help="Skip checks that require network access.",
+        help="Skip URL checks (Spreadsheet Validator API checks still run).",
     )
     parser.add_argument(
         "--clear_cache",
@@ -162,7 +162,7 @@ def main():
     upload_args = {
         "add_notes": args.add_notes,
         "encoding": args.encoding,
-        "offline": args.offline,
+        "no_url_checks": args.no_url_checks,
         "globus_token": args.globus_token,
         "optional_fields": args.optional_fields,
         "ignore_deprecation": args.ignore_deprecation,
