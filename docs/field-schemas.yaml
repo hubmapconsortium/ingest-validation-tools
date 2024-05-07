@@ -82,6 +82,10 @@ acquisition_matrix_size_in_phase_encoding_direction:
 - mri
 affiliation:
 - contributors
+age_unit:
+- donor
+age_value:
+- donor
 analyte_class:
 - af
 - bulkatacseq
@@ -252,8 +256,10 @@ bead_barcode_read:
 - slideseq
 bead_barcode_size:
 - slideseq
-bedding:
-- murine-source
+blood_type:
+- donor
+body_mass_index_value:
+- donor
 bulk_atac_cell_isolation_protocols_io_doi:
 - bulkatacseq
 bulk_rna_isolation_protocols_io_doi:
@@ -266,8 +272,8 @@ bulk_rna_yield_value:
 - bulkrnaseq
 bulk_transposition_input_number_nuclei:
 - bulkatacseq
-cage_enhancements:
-- murine-source
+cause_of_death:
+- donor
 ce_background_electrolyte:
 - cems
 ce_capillary_coating:
@@ -395,10 +401,6 @@ data_path:
 data_precision_bytes:
 - imc
 - mibi
-date_of_birth_or_fertilization:
-- murine-source
-date_of_death:
-- murine-source
 description:
 - af
 - bodyct
@@ -432,8 +434,6 @@ desi_solvent_flow_rate:
 - ims
 desi_solvent_flow_rate_unit:
 - ims
-diet:
-- murine-source
 dilution:
 - antibodies
 dms:
@@ -482,8 +482,6 @@ echo_train_length:
 end_datetime:
 - imc
 - mibi
-euthanization_method:
-- murine-source
 execution_datetime:
 - af
 - bodyct
@@ -538,6 +536,10 @@ harmonics:
 - ultrasound
 health_status:
 - sample
+height_unit:
+- donor
+height_value:
+- donor
 histological_report:
 - sample-block
 - sample-section
@@ -613,10 +615,6 @@ is_cedar:
 - xenium
 is_contact:
 - contributors
-is_deceased:
-- murine-source
-is_embryo:
-- murine-source
 is_targeted:
 - af
 - bulkatacseq
@@ -646,6 +644,8 @@ is_technical_replicate:
 - scrnaseq
 - scrnaseq-hca
 - slideseq
+kidney_donor_profile_index_value:
+- donor
 lab_id:
 - organ
 label_name:
@@ -766,10 +766,6 @@ library_pcr_cycles_for_sample_index:
 - slideseq
 library_preparation_kit:
 - bulkatacseq
-light_cycle:
-- murine-source
-local_lifespan_data:
-- murine-source
 lot_number:
 - antibodies
 mass_resolving_power:
@@ -813,6 +809,10 @@ max_y_height_value:
 - mri
 - oct
 - ultrasound
+mechanism_of_injury:
+- donor
+medical_history:
+- donor
 middle_name_or_initial:
 - contributors
 ms_scan_mode:
@@ -1204,8 +1204,8 @@ quality_criteria:
 - sample-suspension
 quality_view:
 - ultrasound
-rack_setup:
-- murine-source
+race:
+- donor
 range_z_unit:
 - lightsheet
 range_z_value:
@@ -1347,10 +1347,6 @@ roi_id:
 - mri
 - oct
 - ultrasound
-room_health_status:
-- murine-source
-room_temperature:
-- murine-source
 rr_id:
 - antibodies
 sample_id:
@@ -1443,7 +1439,7 @@ sequencing_reagent_kit:
 - slideseq
 - wgs
 sex:
-- murine-source
+- donor
 signal_type:
 - imc
 - imc3d
@@ -1458,8 +1454,6 @@ sn_quality:
 - oct
 sn_quality_unit:
 - oct
-source_id:
-- murine-source
 source_project:
 - scrnaseq-hca
 source_storage_time_unit:
@@ -1507,10 +1501,6 @@ storage_method:
 - sample-block
 - sample-section
 - sample-suspension
-strain:
-- murine-source
-strain_rrid:
-- murine-source
 suspension_enriched:
 - sample-suspension
 suspension_enriched_target:
@@ -1632,15 +1622,15 @@ warm_ischemic_time_unit:
 - organ
 warm_ischemic_time_value:
 - organ
-water_source:
-- murine-source
 wavelength_unit:
 - oct
 wavelength_value:
 - oct
 weight_unit:
+- donor
 - organ
 - sample-block
 weight_value:
+- donor
 - sample-block
 

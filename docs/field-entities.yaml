@@ -22,6 +22,10 @@ acquisition_matrix_size_in_phase_encoding_direction:
 - dataset
 affiliation:
 - contributors
+age_unit:
+- donor
+age_value:
+- donor
 analyte_class:
 - dataset
 antibodies_path:
@@ -48,8 +52,10 @@ bead_barcode_read:
 - dataset
 bead_barcode_size:
 - dataset
-bedding:
-- murine
+blood_type:
+- donor
+body_mass_index_value:
+- donor
 bulk_atac_cell_isolation_protocols_io_doi:
 - dataset
 bulk_rna_isolation_protocols_io_doi:
@@ -62,8 +68,8 @@ bulk_rna_yield_value:
 - dataset
 bulk_transposition_input_number_nuclei:
 - dataset
-cage_enhancements:
-- murine
+cause_of_death:
+- donor
 ce_background_electrolyte:
 - dataset
 ce_capillary_coating:
@@ -128,10 +134,6 @@ data_path:
 - dataset
 data_precision_bytes:
 - dataset
-date_of_birth_or_fertilization:
-- murine
-date_of_death:
-- murine
 description:
 - dataset
 desi_solvent:
@@ -140,8 +142,6 @@ desi_solvent_flow_rate:
 - dataset
 desi_solvent_flow_rate_unit:
 - dataset
-diet:
-- murine
 dilution:
 - antibodies
 dms:
@@ -162,8 +162,6 @@ echo_train_length:
 - dataset
 end_datetime:
 - dataset
-euthanization_method:
-- murine
 execution_datetime:
 - dataset
 expected_cell_count:
@@ -190,6 +188,10 @@ harmonics:
 - dataset
 health_status:
 - sample
+height_unit:
+- donor
+height_value:
+- donor
 histological_report:
 - sample
 imaging_threshold_unit_value:
@@ -213,14 +215,12 @@ is_cedar:
 - sample
 is_contact:
 - contributors
-is_deceased:
-- murine
-is_embryo:
-- murine
 is_targeted:
 - dataset
 is_technical_replicate:
 - dataset
+kidney_donor_profile_index_value:
+- donor
 lab_id:
 - organ
 label_name:
@@ -293,10 +293,6 @@ library_pcr_cycles_for_sample_index:
 - dataset
 library_preparation_kit:
 - dataset
-light_cycle:
-- murine
-local_lifespan_data:
-- murine
 lot_number:
 - antibodies
 mass_resolving_power:
@@ -309,6 +305,10 @@ max_y_height_unit:
 - dataset
 max_y_height_value:
 - dataset
+mechanism_of_injury:
+- donor
+medical_history:
+- donor
 middle_name_or_initial:
 - contributors
 ms_scan_mode:
@@ -455,8 +455,8 @@ quality_criteria:
 - sample
 quality_view:
 - dataset
-rack_setup:
-- murine
+race:
+- donor
 range_z_unit:
 - dataset
 range_z_value:
@@ -489,10 +489,6 @@ roi_description:
 - dataset
 roi_id:
 - dataset
-room_health_status:
-- murine
-room_temperature:
-- murine
 rr_id:
 - antibodies
 sample_id:
@@ -534,7 +530,7 @@ sequencing_read_percent_q30:
 sequencing_reagent_kit:
 - dataset
 sex:
-- murine
+- donor
 signal_type:
 - dataset
 single_file_export_format:
@@ -543,8 +539,6 @@ sn_quality:
 - dataset
 sn_quality_unit:
 - dataset
-source_id:
-- murine
 source_project:
 - dataset
 source_storage_time_unit:
@@ -577,10 +571,6 @@ storage_media:
 - sample
 storage_method:
 - sample
-strain:
-- murine
-strain_rrid:
-- murine
 suspension_enriched:
 - sample
 suspension_enriched_target:
@@ -642,15 +632,15 @@ warm_ischemic_time_unit:
 - organ
 warm_ischemic_time_value:
 - organ
-water_source:
-- murine
 wavelength_unit:
 - dataset
 wavelength_value:
 - dataset
 weight_unit:
+- donor
 - organ
 - sample
 weight_value:
+- donor
 - sample
 
