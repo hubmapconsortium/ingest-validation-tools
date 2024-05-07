@@ -26,7 +26,6 @@ bead_barcode_read: string
 bead_barcode_size: string
 blood_type: string
 body_mass_index_value: number
-bedding: string
 bulk_atac_cell_isolation_protocols_io_doi: string
 bulk_rna_isolation_protocols_io_doi: string
 bulk_rna_isolation_quality_metric_value: number
@@ -34,7 +33,6 @@ bulk_rna_yield_units_per_tissue_unit: string
 bulk_rna_yield_value: number
 bulk_transposition_input_number_nuclei: string
 cause_of_death: string
-cage_enhancements: string
 ce_background_electrolyte: string
 ce_capillary_coating: string
 ce_electroosmotic_flow: string
@@ -67,13 +65,10 @@ current_value: number
 data_collection_mode: string
 data_path: string
 data_precision_bytes: number
-date_of_birth_or_fertilization: datetime
-date_of_death: datetime
 description: string
 desi_solvent: string
 desi_solvent_flow_rate: number
 desi_solvent_flow_rate_unit: string
-diet: string
 dilution: string
 dms: boolean
 dna_assay_input_unit: string
@@ -84,7 +79,6 @@ dynamic_contrast: integer
 echo_time: number
 echo_train_length: integer
 end_datetime: datetime
-euthanization_method: string
 execution_datetime: datetime
 expected_cell_count: integer
 field_strength_unit: string
@@ -110,8 +104,6 @@ ion_mobility: string
 ion_source: string
 is_cedar: boolean
 is_contact: boolean
-is_deceased: boolean
-is_embryo: boolean
 is_targeted: boolean
 is_technical_replicate: boolean
 kidney_donor_profile_index_value: number
@@ -151,8 +143,6 @@ library_layout: string
 library_pcr_cycles: integer
 library_pcr_cycles_for_sample_index: integer
 library_preparation_kit: string
-light_cycle: string
-local_lifespan_data: string
 lot_number: string
 mass_resolving_power: number
 max_x_width_unit: string
@@ -234,7 +224,6 @@ puck_id: string
 quality_criteria: string
 quality_view: string
 race: string
-rack_setup: string
 range_z_unit: string
 range_z_value: number
 reagent_prep_protocols_io_doi: string
@@ -251,8 +240,6 @@ rnaseq_assay_input_value: number
 rnaseq_assay_method: string
 roi_description: string
 roi_id: integer
-room_health_status: string
-room_temperature: number
 rr_id: string
 sample_id: string
 sample_quality_metric: string
@@ -278,7 +265,6 @@ signal_type: string
 single_file_export_format: string
 sn_quality: integer
 sn_quality_unit: string
-source_id: string
 source_project: string
 source_storage_time_unit: string
 source_storage_time_value: number
@@ -295,8 +281,6 @@ start_datetime: datetime
 step_z_value: number
 storage_media: string
 storage_method: string
-strain: string
-strain_rrid: string
 suspension_enriched: string
 suspension_enriched_target: string
 suspension_entity: string
@@ -326,7 +310,6 @@ warm_ischemia_time_unit: string
 warm_ischemia_time_value: number
 warm_ischemic_time_unit: string
 warm_ischemic_time_value: number
-water_source: string
 wavelength_unit: string
 wavelength_value: number
 weight_unit: string
