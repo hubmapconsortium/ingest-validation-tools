@@ -24,6 +24,8 @@ acquisition_matrix_size_in_frequency_encoding_direction: Dimensions of the acqui
 acquisition_matrix_size_in_phase_encoding_direction: Dimensions of the acquired phase
   data before reconstruction, per image.
 affiliation: Institutional affiliation
+age_unit: Unit for age measurement.
+age_value: The time elapsed since birth.
 analyte_class: Analytes are the target molecules being measured with the assay.
 antibodies_path: Relative path to file with antibody information for this dataset.
 antibody_name: Anti-(target name) antibody. Not validated or used down-stream.
@@ -40,6 +42,10 @@ assay_type: The specific type of assay being executed.
 bead_barcode_offset: Position(s) in the read at which the bead barcode starts
 bead_barcode_read: Which read file contains the bead barcode
 bead_barcode_size: Length of the bead barcode in base pairs
+blood_type: ABO blood type or "serotype" refers to the presence/absence of the either/both
+  A & B blood antigens.
+body_mass_index_value: An individual's weight in kilograms divided by the square of
+  the height in meters.
 bedding: The type of cage bedding in the cage where the source is housed.
 bulk_atac_cell_isolation_protocols_io_doi: 'Link to a protocols document answering
   the question: How was tissue stored and processed for cell/nuclei isolation'
@@ -53,6 +59,7 @@ bulk_rna_yield_value: 'RNA (ng) per Weight of Tissue (mg). Answer the question: 
   RNA? Calculate the yield by dividing total RNA isolated by amount of tissue used
   to isolate RNA from (ng/mg).'
 bulk_transposition_input_number_nuclei: A number (no comma separators)
+cause_of_death: The circumstance or condition that caused death.
 cage_enhancements: "Environmental enrichments present in the source\u2019s cage."
 ce_background_electrolyte: Chemical composition of the background electrolyte that
   fills the separation capillary (e.g. "3% acetic acid").
@@ -160,6 +167,9 @@ health_status: "Patient's baseline physical condition prior to immediate event l
   \ healthy subject may have experienced trauma leading to brain death.  As a result\
   \ of organ donation, a sample is collected.  In this scenario, the subject is deemed\
   \ \u201Crelatively healthy.\u201D"
+height_unit: Unit for height measurement.
+height_value: The vertical measurement or distance from the base to the top of a subject
+  or participant.
 histological_report: histopathological reporting of key variables that are important
   for the tissue (absence of necrosis, comment on composition, significant pathology
   description, high level inflammation/fibrosis assessment etc
@@ -183,6 +193,18 @@ is_embryo: Is the source an embryo? Use either 'True' or 'False'.
 is_targeted: Specifies whether or not a specific molecule(s) is/are targeted for detection/measurement
   by the assay.
 is_technical_replicate: Is this a sequencing replicate?
+kidney_donor_profile_index_value: 'The Kidney Donor Profle Index (KDPI) is a numerical
+  measure that combines ten donor factors, including clinical parameters and demographics,
+  to summarize into a single number the quality of deceased donor kidneys relative
+  to other recovered kidneys. The KDPI is derived by frst calculating the Kidney Donor
+  Risk Index (KDRI) for a deceased donor. Kidneys from a donor with a KDPI of 90%,
+  for example, have a KDRI (which indicates relative risk of graft failure) greater
+  than 90% of recovered kidneys. The KDPI is simply a mapping of the KDRI from a relative
+  risk scale to a cumulative percentage scale. The reference population used for this
+  mapping is all deceased donors in the United States with a kidney recovered for
+  the purpose of transplantation in the prior calendar year. Lower KDPI values are
+  associated with increased donor quality and expected longevity. https://optn.transplant.hrsa.gov/media/1512/guide_to_calculating_interpreting_kdpi.pdf
+  '
 lab_id: "An internal field labs can use it to add whatever ID(s) they want or need\
   \ for dataset validation and tracking. This could be a single ID (e.g., \"Visium_9OLC_A4_S1\"\
   ) or a delimited list of IDs (e.g., \u201C9OL; 9OLC.A2; Visium_9OLC_A4_S1\u201D\
@@ -250,6 +272,10 @@ max_x_width_unit: Units of image width of the ROI acquisition
 max_x_width_value: Image width value of the ROI acquisition
 max_y_height_unit: Units of image height of the ROI acquisition
 max_y_height_value: Image height value of the ROI acquisition
+mechanism_of_injury: 'Mechanism of injury may be, for example: fall, impact (eg: auto
+  accident), weapon (eg: firearm), etc.'
+medical_history: A record of a patient's background regarding health and the occurrence
+  of disease events of the individual.
 middle_name_or_initial: Middle name or initial
 ms_scan_mode: Indicates whether the data were generated using MS, MS/MS or MS3.
 ms_source: The ion source type used for surface sampling.
@@ -352,6 +378,8 @@ quality_criteria: 'For example, RIN: 8.7. For suspensions, measured by visual in
   or no cells. This can be captured at a high level. "OK" or "not OK", or with more
   specificity such as "debris", "clump", "low clump".'
 quality_view: The quality of the acquired ultrasound images.
+race: A grouping of humans based on shared physical characteristics or social/ethnic
+  identity generally viewed as distinct.
 rack_setup: The rack setup type in which the source is housed.
 range_z_unit: The unit of range_z_value.
 range_z_value: The total range of the z axis.
@@ -412,7 +440,7 @@ sequencing_read_format: Slash-delimited list of the number of sequencing cycles 
 sequencing_read_percent_q30: 'Q30 is the weighted average of all the reads (e.g. #
   bases UMI * q30 UMI + # bases R2 * q30 R2 + ...)'
 sequencing_reagent_kit: Reagent kit used for sequencing
-sex: The sex of the mouse.
+sex: 'Biological sex at birth: male or female or other.'
 signal_type: Type of signal measured per channel (usually dual counts)
 single_file_export_format: 'The format in which each single imaging file will be exported.
   (Example: DICOM, tiff, avi, etc.)'

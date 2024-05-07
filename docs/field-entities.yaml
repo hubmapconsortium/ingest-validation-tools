@@ -22,6 +22,10 @@ acquisition_matrix_size_in_phase_encoding_direction:
 - dataset
 affiliation:
 - contributors
+age_unit:
+- donor
+age_value:
+- donor
 analyte_class:
 - dataset
 antibodies_path:
@@ -48,6 +52,10 @@ bead_barcode_read:
 - dataset
 bead_barcode_size:
 - dataset
+blood_type:
+- donor
+body_mass_index_value:
+- donor
 bedding:
 - murine
 bulk_atac_cell_isolation_protocols_io_doi:
@@ -62,6 +70,8 @@ bulk_rna_yield_value:
 - dataset
 bulk_transposition_input_number_nuclei:
 - dataset
+cause_of_death:
+- donor
 cage_enhancements:
 - murine
 ce_background_electrolyte:
@@ -190,6 +200,10 @@ harmonics:
 - dataset
 health_status:
 - sample
+height_unit:
+- donor
+height_value:
+- donor
 histological_report:
 - sample
 imaging_threshold_unit_value:
@@ -221,6 +235,8 @@ is_targeted:
 - dataset
 is_technical_replicate:
 - dataset
+kidney_donor_profile_index_value:
+- donor
 lab_id:
 - organ
 label_name:
@@ -309,6 +325,10 @@ max_y_height_unit:
 - dataset
 max_y_height_value:
 - dataset
+mechanism_of_injury:
+- donor
+medical_history:
+- donor
 middle_name_or_initial:
 - contributors
 ms_scan_mode:
@@ -455,6 +475,8 @@ quality_criteria:
 - sample
 quality_view:
 - dataset
+race:
+- donor
 rack_setup:
 - murine
 range_z_unit:
@@ -534,7 +556,7 @@ sequencing_read_percent_q30:
 sequencing_reagent_kit:
 - dataset
 sex:
-- murine
+- donor
 signal_type:
 - dataset
 single_file_export_format:
@@ -649,8 +671,10 @@ wavelength_unit:
 wavelength_value:
 - dataset
 weight_unit:
+- donor
 - organ
 - sample
 weight_value:
+- donor
 - sample
 

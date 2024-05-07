@@ -10,6 +10,8 @@ acquisition_instrument_vendor: string
 acquisition_matrix_size_in_frequency_encoding_direction: integer
 acquisition_matrix_size_in_phase_encoding_direction: integer
 affiliation: string
+age_unit: string
+age_value: number
 analyte_class: string
 antibodies_path: string
 antibody_name: string
@@ -22,6 +24,8 @@ assay_type: string
 bead_barcode_offset: string
 bead_barcode_read: string
 bead_barcode_size: string
+blood_type: string
+body_mass_index_value: number
 bedding: string
 bulk_atac_cell_isolation_protocols_io_doi: string
 bulk_rna_isolation_protocols_io_doi: string
@@ -29,6 +33,7 @@ bulk_rna_isolation_quality_metric_value: number
 bulk_rna_yield_units_per_tissue_unit: string
 bulk_rna_yield_value: number
 bulk_transposition_input_number_nuclei: string
+cause_of_death: string
 cage_enhancements: string
 ce_background_electrolyte: string
 ce_capillary_coating: string
@@ -93,6 +98,8 @@ gdna_fragmentation_quality_assurance: string
 guard_column: string
 harmonics: string
 health_status: string
+height_unit: string
+height_value: number
 histological_report: string
 imaging_threshold_unit_value: number
 imaging_threshold_value: number
@@ -107,6 +114,7 @@ is_deceased: boolean
 is_embryo: boolean
 is_targeted: boolean
 is_technical_replicate: boolean
+kidney_donor_profile_index_value: number
 lab_id: string
 label_name: string
 labeling: string
@@ -151,6 +159,8 @@ max_x_width_unit: string
 max_x_width_value: number
 max_y_height_unit: string
 max_y_height_value: number
+mechanism_of_injury: string
+medical_history: string
 middle_name_or_initial: string
 ms_scan_mode: string
 ms_source: string
@@ -223,6 +233,7 @@ protocols_io_doi: string
 puck_id: string
 quality_criteria: string
 quality_view: string
+race: string
 rack_setup: string
 range_z_unit: string
 range_z_value: number

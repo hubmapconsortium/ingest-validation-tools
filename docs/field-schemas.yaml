@@ -82,6 +82,10 @@ acquisition_matrix_size_in_phase_encoding_direction:
 - mri
 affiliation:
 - contributors
+age_unit:
+- donor
+age_value:
+- donor
 analyte_class:
 - af
 - bulkatacseq
@@ -252,6 +256,10 @@ bead_barcode_read:
 - slideseq
 bead_barcode_size:
 - slideseq
+blood_type:
+- donor
+body_mass_index_value:
+- donor
 bedding:
 - murine-source
 bulk_atac_cell_isolation_protocols_io_doi:
@@ -266,6 +274,8 @@ bulk_rna_yield_value:
 - bulkrnaseq
 bulk_transposition_input_number_nuclei:
 - bulkatacseq
+cause_of_death:
+- donor
 cage_enhancements:
 - murine-source
 ce_background_electrolyte:
@@ -538,6 +548,10 @@ harmonics:
 - ultrasound
 health_status:
 - sample
+height_unit:
+- donor
+height_value:
+- donor
 histological_report:
 - sample-block
 - sample-section
@@ -646,6 +660,8 @@ is_technical_replicate:
 - scrnaseq
 - scrnaseq-hca
 - slideseq
+kidney_donor_profile_index_value:
+- donor
 lab_id:
 - organ
 label_name:
@@ -813,6 +829,10 @@ max_y_height_value:
 - mri
 - oct
 - ultrasound
+mechanism_of_injury:
+- donor
+medical_history:
+- donor
 middle_name_or_initial:
 - contributors
 ms_scan_mode:
@@ -1204,6 +1224,8 @@ quality_criteria:
 - sample-suspension
 quality_view:
 - ultrasound
+race:
+- donor
 rack_setup:
 - murine-source
 range_z_unit:
@@ -1443,7 +1465,7 @@ sequencing_reagent_kit:
 - slideseq
 - wgs
 sex:
-- murine-source
+- donor
 signal_type:
 - imc
 - imc3d
@@ -1639,8 +1661,10 @@ wavelength_unit:
 wavelength_value:
 - oct
 weight_unit:
+- donor
 - organ
 - sample-block
 weight_value:
+- donor
 - sample-block
 
