@@ -71,11 +71,11 @@ class Upload:
         self.verbose = verbose
 
         self.entity_fields = {
-                "dataset": "parent_sample_id",
-                "murine-source": "source_id",
-                "organ": "organ_id",
-                "sample": "sample_id"
-            }
+            "dataset": "parent_sample_id",
+            "murine-source": "source_id",
+            "organ": "organ_id",
+            "sample": "sample_id",
+        }
         self.errors = ErrorDict()
 
         self.get_app_context(app_context)
@@ -611,8 +611,10 @@ class Upload:
         return payload
 
     def _constraint_checks(self, schema: SchemaVersion):
-        breakpoint()
         payload = self._construct_constraint_check(schema)
+        if not payload:
+            print(f"No constraint checks made for schema {schema.schema_name}.")
+            return
         data = json.dumps(payload)
         headers = {
             # "Authorization": f"Bearer {self.globus_token}",
@@ -621,11 +623,28 @@ class Upload:
         response = requests.request(
             "POST", self.app_context["constraints_url"], headers=headers, data=data
         )
+        if self.verbose:
+            print("Ancestor-Descendant pairs sent:")
+            self._print_constraint_pairs(payload)
         try:
             response.raise_for_status()
         except Exception:
             problem_entities = self._get_constraint_check_errors(response, payload)
             raise Exception(problem_entities)
+
+    def _print_constraint_pairs(self, constraint_list):
+        for row in constraint_list:
+            row_output = []
+            for v in row.values():
+                entity_type = v.get("entity_type")
+                sub_type = v.get("sub_type")
+                if type(sub_type) is list:
+                    sub_type = ", ".join(sub_type)
+                sub_type_val = v.get("sub_type_val")
+                if type(sub_type_val) is list:
+                    sub_type_val = ", ".join(sub_type_val)
+                row_output.append(f"{entity_type}{f'/{sub_type}' if sub_type else ''}{f'/{sub_type_val}' if sub_type_val else ''}")
+            print(" - ".join(row_output))
 
     def _get_constraint_check_errors(
         self, response: requests.Response, payload: List
@@ -645,26 +664,8 @@ class Upload:
                     )
         return problem_entities
 
-    # TODO: review against constraint endpoint documentation
-    # def _check_entity_constraint(self, response_entity_type: str, schema: SchemaVersion):
-    #     """
-    #     Match TSV schema with appropriate descendant_entity_type / subtype string.
-    #     Get entity type of a given HuBMAP/SenNet ID from the response param.
-    #     Get valid ancestors for the descendant_entity_type and make sure the type
-    #     of the submitted TSV is in that list.
-    #     """
-    #     schema_type = schema.schema_name
-    #     schema_entity_type, schema_sub_type = self._get_entity_endpoint_vals(schema_type)
-    #     field_entity_type, field_sub_type = self._get_entity_endpoint_vals(response_entity_type)
-    #     valid_ancestors = self._get_entity_ancestor_constraints(
-    #         schema_entity_type, schema_sub_type
-    #     )
-    #     # Make sure that field_entity_type is a valid direct ancestor of schema_type
-    #     if field_entity_type not in valid_ancestors.keys():
-    #         # TODO: logic here is unfinished, need to figure out how samples work and test
-    #         raise Exception
-
     def _get_entity_endpoint_vals(self, entity_type: str) -> Dict:
+        # TODO: This does not account for organ/BD or dataset/lightsheet
         entity_map = {
             "sample-block": ("sample", "block", None),
             "sample-section": ("sample", "section", None),
@@ -673,7 +674,9 @@ class Upload:
             "murine-source": ("source", "", None),
         }
         if entity_type not in OTHER_TYPES_MAP.values():
+            # Probably check for lightsheet here
             type_vals = ("dataset", "", None)
+        # Probably include an elif for organ with type BD/blood
         else:
             type_vals = entity_map.get(entity_type)
             if not type_vals:

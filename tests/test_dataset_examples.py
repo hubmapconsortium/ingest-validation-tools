@@ -355,7 +355,6 @@ class TestDatasetExamples(unittest.TestCase):
         ):
             with patch(
                 "ingest_validation_tools.validation_utils.get_possible_directory_schemas",
-                return_value=patch_data,
             ) as dir_schemas_func_patch:
                 with patch("ingest_validation_tools.upload.Upload.online_checks"):
                     dir_schemas_func_patch.return_value = patch_data
