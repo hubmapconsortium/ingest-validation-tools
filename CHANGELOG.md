@@ -39,6 +39,7 @@
 - Bugfix stripping trailing slash in ingest api url
 - Converted upload `_url_checks` to use `_get_method` for SenNet compatibility
 - Add CEDAR template for murine-source
+- Add donor field descriptions back, remove murine-source descriptions
 
 ## v0.0.17
 
