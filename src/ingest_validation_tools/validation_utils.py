@@ -48,6 +48,7 @@ class TSVError(Exception):
 def dict_reader_wrapper(path, encoding: str) -> list:
     with open(path, encoding=encoding) as f:
         rows = list(DictReader(f, dialect="excel-tab"))
+        f.close()
     return rows
 
 
@@ -349,11 +350,14 @@ def get_tsv_errors(
         ignore_deprecation=ignore_deprecation,
         app_context=app_context,
     )
-    upload.validation_routine(report_type)
+    if schema_name in OTHER_TYPES_MAP.keys() or "sample" in schema_name:
+        upload._check_other_path(str(tsv_path))
+    else:
+        upload.validation_routine(report_type)
     return upload.errors.tsv_only_errors_by_path(str(tsv_path))
 
 
-def get_sample_type_from_template(tsv_path: str, field: str) -> str:
+def get_sample_type_from_template(field: str, tsv_path: str) -> str:
     response = cedar_api_call(tsv_path)
     schema_name = response.json().get("schema", {}).get("name", "")
     entity_types = ["block", "suspension", "section"]

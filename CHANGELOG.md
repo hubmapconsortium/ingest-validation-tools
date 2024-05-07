@@ -11,6 +11,8 @@
 - Updating documentation
 - Change Upload error output to dataclass
 - Revert deprecation of field YAML files
+- Update MUSIC directory schema
+- Add semantic version to plugin test base class
 - Adding entity constraints check
 
 ## v0.0.18
@@ -38,6 +40,7 @@
 - Bugfix stripping trailing slash in ingest api url
 - Converted upload `_url_checks` to use `_get_method` for SenNet compatibility
 - Add CEDAR template for murine-source
+- Add donor field descriptions back, remove murine-source descriptions
 
 ## v0.0.17
 

@@ -26,6 +26,7 @@ from ingest_validation_tools.schema_loader import (
 from ingest_validation_tools.table_validator import ReportType, get_table_errors
 from ingest_validation_tools.validation_utils import (
     OTHER_TYPES_MAP,
+    OtherTypes,
     cedar_api_call,
     get_data_dir_errors,
     get_json,
@@ -586,7 +587,15 @@ class Upload:
             headers["Authorization"] = f"Bearer {self.globus_token}"
             response = requests.get(url, headers=headers)
             response.raise_for_status()
-            return {value: self._get_entity_endpoint_vals(response.json().get("entity_type", ""))}
+            entity_type = response.json().get("entity_type", "")
+            if entity_type == OtherTypes.SAMPLE:
+                # TODO: Need additional check for sample/organ for sub_type_val
+                entity_sub_type = response.json().get("sample_category", "")
+                endpoint_vals = self._get_entity_endpoint_vals(entity_type, entity_sub_type)
+            # TODO: Need another check for datasets here to support light sheet constraint
+            else:
+                endpoint_vals = self._get_entity_endpoint_vals(entity_type)
+            return {value: endpoint_vals}
         elif field in ["orcid_id", "orcid"]:
             headers = {"Accept": "application/json"}
             response = requests.get(url, headers=headers)
@@ -620,8 +629,8 @@ class Upload:
             # "Authorization": f"Bearer {self.globus_token}",
             "Content-Type": "application/json",
         }
-        response = requests.request(
-            "POST", self.app_context["constraints_url"], headers=headers, data=data
+        response = requests.post(
+            self.app_context["constraints_url"], headers=headers, data=data
         )
         if self.verbose:
             print("Ancestor-Descendant pairs sent:")
@@ -664,8 +673,8 @@ class Upload:
                     )
         return problem_entities
 
-    def _get_entity_endpoint_vals(self, entity_type: str) -> Dict:
-        # TODO: This does not account for organ/BD or dataset/lightsheet
+    def _get_entity_endpoint_vals(self, entity_type: str, entity_sub_type: Optional[str] = None, entity_sub_type_val: Optional[str] = None) -> Dict:
+        # TODO: This does not account for dataset/lightsheet
         entity_map = {
             "sample-block": ("sample", "block", None),
             "sample-section": ("sample", "section", None),
@@ -673,10 +682,13 @@ class Upload:
             "organ": ("sample", "organ", None),
             "murine-source": ("source", "", None),
         }
-        if entity_type not in OTHER_TYPES_MAP.values():
+        if entity_type == OtherTypes.SAMPLE:
+            if not entity_sub_type:
+                raise Exception(f"Sample entities must include sub_type (block, section, suspension, organ).")
+            type_vals = (entity_type, entity_sub_type, entity_sub_type_val)
+        elif entity_type not in OTHER_TYPES_MAP.keys():
             # Probably check for lightsheet here
             type_vals = ("dataset", "", None)
-        # Probably include an elif for organ with type BD/blood
         else:
             type_vals = entity_map.get(entity_type)
             if not type_vals:
