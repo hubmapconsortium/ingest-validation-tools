@@ -2,7 +2,7 @@ import json
 import logging
 from collections import defaultdict
 from csv import DictReader
-from enum import Enum
+from enum import Enum, unique
 from pathlib import Path, PurePath
 from typing import DefaultDict, Dict, List, Optional, Union
 
@@ -20,22 +20,47 @@ from ingest_validation_tools.schema_loader import (
 from ingest_validation_tools.table_validator import ReportType
 
 
+@unique
+class Sample(str, Enum):
+    BLOCK = "sample-block"
+    SUSPENSION = "sample-suspension"
+    SECTION = "sample-section"
+    ORGAN = "organ"
+
+    # TODO: I believe this can be streamlined with the StrEnum class added in 3.11
+    @classmethod
+    def value_list(cls) -> list[str]:
+        return [sample_type.value for sample_type in cls]
+
+    @classmethod
+    def key_list(cls) -> list[str]:
+        return [sample_type.name.lower() for sample_type in cls]
+
+    @classmethod
+    def get_key_from_val(cls, val) -> str:
+        match = [sample_type.name for sample_type in cls if sample_type.value == val]
+        if not match:
+            return ""
+        return match[0]
+
+
+@unique
 class OtherTypes(str, Enum):
     ANTIBODIES = "antibodies"
     CONTRIBUTORS = "contributors"
-    MURINE_SOURCE = "murine-souce"
-    ORGAN = "organ"
+    MURINE_SOURCE = "murine-source"
     SAMPLE = "sample"
-    # SAMPLE_BLOCK = "sample-block"
-    # SAMPLE_SUSPENSION = "sample-suspension"
-    # SAMPLE_SECTION = "sample-section"
+
+    @classmethod
+    def value_list(cls):
+        return [other_type.value for other_type in cls]
 
 
-OTHER_TYPES_MAP = {
+OTHER_TYPES_UNIQUE_FIELDS_MAP = {
     OtherTypes.ANTIBODIES: ["antibody_rrid", "antibody_name"],
     OtherTypes.CONTRIBUTORS: ["orcid", "orcid_id"],
     OtherTypes.MURINE_SOURCE: ["strain_rrid"],
-    OtherTypes.ORGAN: ["organ_id"],
+    # OtherTypes.ORGAN: ["organ_id"],  # Deprecated?
     OtherTypes.SAMPLE: ["sample_id"],
 }
 
@@ -107,12 +132,12 @@ def get_other_schema_name(rows: List, path: str) -> Optional[str]:
     other_type: DefaultDict[str, list] = defaultdict(list)
     for field in rows[0].keys():
         if field == "sample_id":
-            sample_type = get_sample_type_from_template(field, path)
+            sample_type = get_entity_type_from_cedar_template(field, path, Sample.key_list())
             other_type.update({f"sample-{sample_type}": [field]})
         else:
             match = {
                 enum_key.value: field
-                for enum_key, value in OTHER_TYPES_MAP.items()
+                for enum_key, value in OTHER_TYPES_UNIQUE_FIELDS_MAP.items()
                 if field in value
             }
             other_type.update(match)
@@ -350,18 +375,39 @@ def get_tsv_errors(
         ignore_deprecation=ignore_deprecation,
         app_context=app_context,
     )
-    if schema_name in OTHER_TYPES_MAP.keys() or "sample" in schema_name:
+    if schema_name in OtherTypes.value_list() or Sample.value_list():
         upload._check_other_path(str(tsv_path))
     else:
         upload.validation_routine(report_type)
     return upload.errors.tsv_only_errors_by_path(str(tsv_path))
 
 
-def get_sample_type_from_template(field: str, tsv_path: str) -> str:
+def get_entity_type_from_cedar_template(
+    field: str,
+    tsv_path: str,
+    entity_type_options: Optional[list] = None,
+) -> str:
+    """
+    Non-exhaustive list of possible entity_type_options:
+    - "antibodies"
+    - "contributors"
+    - "murine"
+    - "sample" or sub-types "section", "block", "suspension", "organ"
+    - specific dataset type ("Light Sheet"); does not work for returning the "dataset" type generally
+    """
     response = cedar_api_call(tsv_path)
     schema_name = response.json().get("schema", {}).get("name", "")
-    entity_types = ["block", "suspension", "section"]
-    for entity_type in entity_types:
+    if not entity_type_options:
+        entity_type_options = [
+            "antibodies",
+            "contributors",
+            "murine",
+            "block",
+            "section",
+            "suspension",
+            "organ",
+        ]
+    for entity_type in entity_type_options:
         if entity_type in schema_name.lower():
             return entity_type
     raise Exception(
@@ -370,17 +416,20 @@ def get_sample_type_from_template(field: str, tsv_path: str) -> str:
 
 
 def cedar_api_call(tsv_path: Union[str, Path]) -> requests.models.Response:
-    file = {"input_file": open(tsv_path, "rb")}
-    headers = {"content_type": "multipart/form-data"}
-    try:
-        response = requests.post(
-            "https://api.metadatavalidator.metadatacenter.org/service/validate-tsv",
-            headers=headers,
-            files=file,
-        )
-        logging.info(f"Response: {response.json()}")
-    except Exception as e:
-        raise Exception(f"Spreadsheet Validator API request for {tsv_path} failed! Exception: {e}")
+    with open(tsv_path, "rb") as f:
+        file = {"input_file": f}
+        headers = {"content_type": "multipart/form-data"}
+        try:
+            response = requests.post(
+                "https://api.metadatavalidator.metadatacenter.org/service/validate-tsv",
+                headers=headers,
+                files=file,
+            )
+            logging.info(f"Response: {response.json()}")
+        except Exception as e:
+            raise Exception(
+                f"Spreadsheet Validator API request for {tsv_path} failed! Exception: {e}"
+            )
     return response
 
 

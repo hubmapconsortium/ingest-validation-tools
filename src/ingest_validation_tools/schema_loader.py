@@ -51,6 +51,9 @@ class SchemaVersion:
     metadata_type: str = "assays"
     contains: List = field(default_factory=list)
     ancestor_entities: Dict = field(default_factory=dict)
+    entity_type_info: Dict = field(
+        default_factory=dict
+    )  # entity_type, entity_sub_type, entity_sub_type_val; for constraint checking
 
     def __post_init__(self):
         if type(self.path) is str:
