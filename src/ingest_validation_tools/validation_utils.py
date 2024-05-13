@@ -90,14 +90,16 @@ def dict_reader_wrapper(path, encoding: str) -> list:
 def get_schema_version(
     path: Path,
     encoding: str,
+    entity_url: str = "",
     ingest_url: str = "",
+    globus_token: str = "",
     directory_path: Optional[Path] = None,
 ) -> SchemaVersion:
     try:
         rows = read_rows(path, encoding)
     except TSVError as e:
         raise PreflightError(e.errors)
-    other_type = get_other_schema_name(rows, str(path))
+    other_type = get_other_schema_name(rows, str(path), entity_url, globus_token)
     # Don't want to send contrib/organ/sample/antibody to soft assay endpoint
     if other_type:
         sv = SchemaVersion(
@@ -138,17 +140,12 @@ def get_schema_version(
     )
 
 
-def get_other_schema_name(rows: List, path: str) -> Optional[str]:
+def get_other_schema_name(rows: List, path: str, url: str, globus_token: str) -> Optional[str]:
     other_type: DefaultDict[str, list] = defaultdict(list)
-    # determine broad type based on presence of unique fields
-    # drill down to sub_type/sub_type_val for samples
     for field in rows[0].keys():
         if field in OTHER_TYPES_UNIQUE_FIELDS_MAP[OtherTypes.SAMPLE]:
-            # TODO: replace with entity_api call; requires signature change
-            # response = get_entity_api_data(url, globus_token)
-            sample_type = get_entity_type_from_cedar_template(
-                field, path, Sample.just_subtypes_list()
-            )
+            response = get_entity_api_data(url, globus_token)
+            sample_type = response.json().get("sub_type", "")
             other_type.update({f"sample-{sample_type}": [field]})
         else:
             match = {
@@ -396,39 +393,6 @@ def get_tsv_errors(
     else:
         upload.validation_routine(report_type)
     return upload.errors.tsv_only_errors_by_path(str(tsv_path))
-
-
-def get_entity_type_from_cedar_template(
-    field: str,
-    tsv_path: str,
-    entity_type_options: Optional[list] = None,
-) -> str:
-    """
-    Non-exhaustive list of possible entity_type_options:
-    - "antibodies"
-    - "contributors"
-    - "murine"
-    - "sample" or sub-types "section", "block", "suspension", "organ"
-    - specific dataset type ("Light Sheet"); does not work for returning the "dataset" type generally
-    """
-    response = cedar_api_call(tsv_path)
-    schema_name = response.json().get("schema", {}).get("name", "")
-    if not entity_type_options:
-        entity_type_options = [
-            "antibodies",
-            "contributors",
-            "murine",
-            "block",
-            "section",
-            "suspension",
-            "organ",
-        ]
-    for entity_type in entity_type_options:
-        if entity_type in schema_name.lower():
-            return entity_type
-    raise Exception(
-        f"Field '{field}' is present in {tsv_path} but CEDAR API query did not return a valid type. Response: {response.json()}"
-    )
 
 
 def cedar_api_call(tsv_path: Union[str, Path]) -> requests.models.Response:

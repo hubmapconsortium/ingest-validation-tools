@@ -21,10 +21,10 @@ from ingest_validation_tools.schema_loader import (
     enum_maps_to_lists,
     get_directory_schema,
     get_fields_wo_headers,
-    get_is_assay,
     get_pipeline_infos,
     get_table_schema,
 )
+from ingest_validation_tools.validation_utils import OtherTypes
 
 
 def main():
@@ -38,7 +38,7 @@ def main():
     table_schema_versions = dict_table_schema_versions()[args.type]
     assert table_schema_versions, f"No versions for {args.type}"
 
-    is_assay = get_is_assay(args.type)
+    is_assay = args.type not in OtherTypes.value_list()
     table_schemas = {
         v.version: get_table_schema(v, keep_headers=True) for v in table_schema_versions
     }

@@ -231,21 +231,6 @@ def get_table_schema(
     return schema
 
 
-def get_is_assay(schema_name: str) -> bool:
-    # TODO: read from file system... but larger refactor may make it redundant.
-    return schema_name not in [
-        "donor",
-        "organ",
-        "sample",
-        "antibodies",
-        "contributors",
-        "sample-block",
-        "sample-section",
-        "sample-suspension",
-        "murine-source",
-    ]
-
-
 def get_directory_schema(
     dir_schema: Optional[str] = None,
     directory_type: Optional[str] = None,
