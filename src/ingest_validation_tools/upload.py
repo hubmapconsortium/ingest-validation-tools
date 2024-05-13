@@ -25,19 +25,18 @@ from ingest_validation_tools.schema_loader import (
 )
 from ingest_validation_tools.table_validator import ReportType, get_table_errors
 from ingest_validation_tools.validation_utils import (
-    OTHER_TYPES_UNIQUE_FIELDS_MAP,
-    OtherTypes,
     Sample,
     cedar_api_call,
+    format_constraint_check_data,
     get_data_dir_errors,
-    get_entity_type_from_cedar_template,
+    get_entity_api_data,
+    get_entity_info_from_entity_api,
     get_json,
     get_schema_version,
     read_rows,
 )
 
 TSV_SUFFIX = "metadata.tsv"
-# TODO: standardize use of this constant instead of strings
 CONSTRAINTS_CHECK_METHOD = "ancestors"
 
 
@@ -181,7 +180,7 @@ class Upload:
             "ingest_url": "https://ingest.api.hubmapconsortium.org/",
             "request_header": {"X-Hubmap-Application": "ingest-pipeline"},
             # TODO: does not work in HuBMAP currently
-            "constraints_url": "https://entity.api.sennetconsortium.org/constraints/",
+            "constraints_url": None,
         } | submitted_app_context
 
     def validation_routine(
@@ -208,10 +207,7 @@ class Upload:
             api_errors = [e]
         if api_errors:
             self.errors.metadata_validation_api[tsv_path].extend(api_errors)
-        try:
-            constraint_errors = self.constraint_checks(schema)
-        except Exception as e:
-            constraint_errors = [str(e)]
+        constraint_errors = self.constraint_checks(schema)
         if constraint_errors:
             self.errors.metadata_constraint_errors[tsv_path].extend(constraint_errors)
 
@@ -333,7 +329,8 @@ class Upload:
         response = cedar_api_call(schema.path)
         if response.status_code != 200:
             raise Exception(response.json())
-        schema.entity_type_info = self.get_entity_info_from_tsv(schema)
+        # TODO
+        # schema.entity_type_info = get_entity_info_from_tsv(schema)
         if response.json().get("reporting") and len(response.json().get("reporting")) > 0:
             errors.extend(
                 [self._get_message(error, report_type) for error in response.json()["reporting"]]
@@ -593,13 +590,15 @@ class Upload:
         url = constrained_fields[field] + value
         if field in self.check_fields:
             headers = self.app_context.get("request_header", {})
-            headers["Authorization"] = f"Bearer {self.globus_token}"
-            response = requests.get(url, headers=headers)
-            response.raise_for_status()
-            if schema_name not in Sample.value_list() or (
-                schema_name in Sample.value_list() and field != "sample_id"
+            response = get_entity_api_data(url, headers)
+            if schema_name not in Sample.full_names_list() or (
+                schema_name in Sample.full_names_list() and field != "sample_id"
             ):
-                return {value: self.get_entity_info_from_entity_api(response.json())}
+                return {
+                    value: get_entity_info_from_entity_api(
+                        url, self.globus_token, self.app_context.get("request_header", {})
+                    )
+                }
         elif field in ["orcid_id", "orcid"]:
             headers = {"Accept": "application/json"}
             response = requests.get(url, headers=headers)
@@ -614,64 +613,67 @@ class Upload:
             response = requests.get(url)
             response.raise_for_status()
 
-    def get_entity_info_from_entity_api(self, response: Dict) -> Dict:
-        entity_type = response.get("entity_type", "").lower()
-        entity_sub_type = None
-        entity_sub_type_val = None
-        if entity_type == OtherTypes.SAMPLE:
-            entity_sub_type = response.get("sample_category", "").lower()
-            if entity_sub_type == "organ":
-                entity_sub_type_val = response.get("organ", "").lower()
-        elif entity_type == "dataset":
-            entity_sub_type = response.get("dataset_type", "")
-        endpoint_vals = self.get_entity_endpoint_vals(
-            entity_type, entity_sub_type, entity_sub_type_val
-        )
-        return endpoint_vals
-
-    def get_entity_info_from_tsv(self, schema: SchemaVersion) -> dict:
-        entity_types = {}
-        # Should only ever be one matching fieldname
-        for entity_type, fieldnames in OTHER_TYPES_UNIQUE_FIELDS_MAP.items():
-            matched_field = set(fieldnames).intersection(set(schema.rows[0].keys()))
-            if matched_field and len(matched_field) == 1:
-                entity_types[entity_type] = matched_field.pop()
-                break
-            elif len(matched_field) > 1:
-                # TODO
-                raise Exception(f"")
-        if not entity_types:
-            # TODO
-            raise Exception(f"")
-        entity_type = list(entity_types.keys())[0]
-        field = entity_types[entity_type]
-        entity_sub_type = None
-        entity_sub_type_val = None
-        # Sample type is not included in TSV, requires an outside check
-        if entity_type == OtherTypes.SAMPLE:
-            entity_sub_type = get_entity_type_from_cedar_template(
-                field,
-                str(schema.path),
-                Sample.key_list(),
-            )
-            # if entity_sub_type == OtherTypes.ORGAN:
-            # TODO: it looks like different organ types can be included in the same bulk registration, whereas this logic treats a TSV as a single type...
-        elif entity_type == "dataset":
-            # TODO: might want schema.schema_name here, starting with what's actually in the TSV though
-            entity_sub_type = schema.dataset_type
-        return self.get_entity_endpoint_vals(entity_type, entity_sub_type, entity_sub_type_val)
+    # I think this was the wrong approach, will delete; we should be able to query entity-api for "other" types
+    # def get_entity_info_from_tsv(self, schema: SchemaVersion) -> dict:
+    #     entity_types = {}
+    #     # Should only ever be one matching fieldname
+    #     for entity_type, fieldnames in OTHER_TYPES_UNIQUE_FIELDS_MAP.items():
+    #         matched_field = set(fieldnames).intersection(set(schema.rows[0].keys()))
+    #         if matched_field and len(matched_field) == 1:
+    #             entity_types[entity_type] = matched_field.pop()
+    #             break
+    #         elif len(matched_field) > 1:
+    #             # TODO
+    #             raise Exception(f"")
+    #     if not entity_types:
+    #         # TODO
+    #         raise Exception(f"")
+    #     entity_type = list(entity_types.keys())[0]
+    #     field = entity_types[entity_type]
+    #     entity_sub_type = None
+    #     entity_sub_type_val = None
+    #     # Sample type is not included in TSV, requires an outside check
+    #     if entity_type == OtherTypes.SAMPLE:
+    #         entity_sub_type = get_entity_type_from_cedar_template(
+    #             field,
+    #             str(schema.path),
+    #             Sample.key_list(),
+    #         )
+    #         # if entity_sub_type == OtherTypes.ORGAN:
+    #     elif entity_type == "dataset":
+    #         # TODO: might want schema.schema_name here, starting with what's actually in the TSV though
+    #         entity_sub_type = schema.dataset_type
+    #     return self.get_entity_endpoint_vals(entity_type, entity_sub_type, entity_sub_type_val)
 
     def _construct_constraint_check(self, schema: SchemaVersion) -> dict[str, dict]:
         payload = {}
+        # In a metadata.tsv, all rows will have type dataset and same subtype
         if schema.metadata_type == "assays":
-            tsv_entity = self.get_entity_endpoint_vals("dataset", schema.dataset_type, None)
+            tsv_entity = format_constraint_check_data("dataset", schema.dataset_type)
         else:
-            tsv_entity = self.get_entity_info_from_tsv(schema)
+            return {}
+        # In a bulk murine upload TSV, all rows will have type murine and no subtype
+        # elif schema.schema_name == "source":
+        #     tsv_entity = format_constraint_check_data("source")
+        # TODO: if we're using this for samples, I believe we will have to go row-by-row
+        # rather than treating a TSV like a single type/subtype
+        # elif schema.schema_name in [*Sample.full_names_list(), OtherTypes.SAMPLE]:
+        #     url = ??
+        #     tsv_entity = get_entity_info_from_entity_api(
+        #         url, self.globus_token, self.app_context.get("request_header", {})
+        #     )
+        # else:
+        #     tsv_entity = format_constraint_check_data(schema.schema_name)
         for entity_id, ancestor_entity in schema.ancestor_entities.items():
             payload[entity_id] = {"ancestors": ancestor_entity, "descendants": tsv_entity}
         return payload
 
+    # TODO: confirm this is not used for individual sample/organ/source registration
+    # TODO: will we be using this to validate Other types at all?
     def constraint_checks(self, schema: SchemaVersion):
+        # HuBMAP does not have constraints endpoint, SenNet can pass it in explicitly
+        if not self.app_context["constraints_url"]:
+            return
         constraints_by_entity_id = self._construct_constraint_check(schema)
         payload = list(constraints_by_entity_id.values())
         if not payload:
@@ -679,6 +681,7 @@ class Upload:
             return
         data = json.dumps(payload)
         headers = {
+            # TODO: turn back on
             # "Authorization": f"Bearer {self.globus_token}",
             "Content-Type": "application/json",
         }
@@ -690,8 +693,9 @@ class Upload:
         try:
             response.raise_for_status()
         except Exception:
-            problem_entities = self._get_constraint_check_errors(response, payload, list(constraints_by_entity_id.keys()))
-            raise Exception(problem_entities)
+            return self._get_constraint_check_errors(
+                response, payload, list(constraints_by_entity_id.keys())
+            )
 
     def _print_constraint_pairs(self, constraint_list):
         for row in constraint_list:
@@ -710,22 +714,18 @@ class Upload:
             print(" - ".join(row_output))
 
     def _get_constraint_check_errors(
-            self, response: requests.Response, payload: List, entity_ids: List
+        self, response: requests.Response, payload: List, entity_ids: List
     ) -> List[str]:
         problem_entities = []
         if response.status_code == 400:
             for i, entity_check in enumerate(response.json().get("description", [])):
-                # TODO: use _get_message? make it so error val is not a list
                 if entity_check["code"] != 200:
                     descendants = self._format_constraint_type_error(
                         payload[i].get("descendants", {})
                     )
                     ancestors = self._format_constraint_type_error(payload[i].get("ancestors", {}))
-                    valid_relationships = self._format_valid_relationships_from_constraints(
-                        entity_check.get("description", [])
-                    )
                     problem_entities.append(
-                        f"Invalid ancestor type for TSV type {descendants}. Ancestor type data sent for entity {entity_ids[i]}: {ancestors}. Valid {CONSTRAINTS_CHECK_METHOD.lower()} from constraints endpoint: {valid_relationships}."
+                        f"Invalid ancestor type for TSV type {descendants}. Data sent for ancestor {entity_ids[i]}: {ancestors}."
                     )
         return problem_entities
 
@@ -744,36 +744,6 @@ class Upload:
         for valid_type in description:
             valid_type_strs.append(self._format_constraint_type_error(valid_type))
         return ", ".join(valid_type_strs)
-
-    def get_entity_endpoint_vals(
-        self,
-        entity_type: str,
-        entity_sub_type: Optional[str] = None,
-        entity_sub_type_val: Optional[str] = None,
-    ) -> Dict:
-        entity_type = entity_type.lower()
-        if entity_type in [OtherTypes.SAMPLE, "dataset"]:
-            if not entity_sub_type:
-                raise Exception(f"Entity of type {entity_type} must have a sub_type.")
-            type_vals = (entity_type, entity_sub_type, entity_sub_type_val)
-        # Perhaps overcautiously, this accommodates the more specific sample value strings
-        elif entity_type in Sample.value_list():
-            if entity_type == Sample.ORGAN:
-                entity_type = OtherTypes.SAMPLE
-            else:
-                entity_sub_type = Sample.get_key_from_val(entity_type)
-                entity_type = OtherTypes.SAMPLE
-            type_vals = (entity_type, entity_sub_type, entity_sub_type_val)
-        # TODO: check murine info, confused about whether it's "murine-source", "source", "source-murine", etc.
-        elif entity_type in OtherTypes.MURINE_SOURCE:
-            type_vals = ("source", "", None)
-        else:
-            type_vals = (entity_type, "", None)
-        return {
-            "entity_type": type_vals[0],
-            "sub_type": [type_vals[1]],
-            "sub_type_val": [type_vals[2]] if type_vals[2] else None,
-        }
 
     def _get_message(
         self,

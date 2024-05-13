@@ -29,11 +29,11 @@ class Sample(str, Enum):
 
     # TODO: I believe this can be streamlined with the StrEnum class added in 3.11
     @classmethod
-    def value_list(cls) -> list[str]:
+    def full_names_list(cls) -> list[str]:
         return [sample_type.value for sample_type in cls]
 
     @classmethod
-    def key_list(cls) -> list[str]:
+    def just_subtypes_list(cls) -> list[str]:
         return [sample_type.name.lower() for sample_type in cls]
 
     @classmethod
@@ -50,17 +50,27 @@ class OtherTypes(str, Enum):
     CONTRIBUTORS = "contributors"
     MURINE_SOURCE = "murine-source"
     SAMPLE = "sample"
+    ORGAN = "organ"
+    DONOR = "donor"
 
     @classmethod
     def value_list(cls):
         return [other_type.value for other_type in cls]
+
+    @classmethod
+    def get_sample_types(cls):
+        return Sample.just_subtypes_list()
+
+    @classmethod
+    def get_sample_types_full_names(cls):
+        return Sample.full_names_list()
 
 
 OTHER_TYPES_UNIQUE_FIELDS_MAP = {
     OtherTypes.ANTIBODIES: ["antibody_rrid", "antibody_name"],
     OtherTypes.CONTRIBUTORS: ["orcid", "orcid_id"],
     OtherTypes.MURINE_SOURCE: ["strain_rrid"],
-    # OtherTypes.ORGAN: ["organ_id"],  # Deprecated?
+    OtherTypes.ORGAN: ["organ_id"],  # Deprecated?
     OtherTypes.SAMPLE: ["sample_id"],
 }
 
@@ -130,9 +140,15 @@ def get_schema_version(
 
 def get_other_schema_name(rows: List, path: str) -> Optional[str]:
     other_type: DefaultDict[str, list] = defaultdict(list)
+    # determine broad type based on presence of unique fields
+    # drill down to sub_type/sub_type_val for samples
     for field in rows[0].keys():
-        if field == "sample_id":
-            sample_type = get_entity_type_from_cedar_template(field, path, Sample.key_list())
+        if field in OTHER_TYPES_UNIQUE_FIELDS_MAP[OtherTypes.SAMPLE]:
+            # TODO: replace with entity_api call; requires signature change
+            # response = get_entity_api_data(url, globus_token)
+            sample_type = get_entity_type_from_cedar_template(
+                field, path, Sample.just_subtypes_list()
+            )
             other_type.update({f"sample-{sample_type}": [field]})
         else:
             match = {
@@ -375,7 +391,7 @@ def get_tsv_errors(
         ignore_deprecation=ignore_deprecation,
         app_context=app_context,
     )
-    if schema_name in OtherTypes.value_list() or Sample.value_list():
+    if schema_name in OtherTypes.value_list() or Sample.full_names_list():
         upload._check_other_path(str(tsv_path))
     else:
         upload.validation_routine(report_type)
@@ -431,6 +447,78 @@ def cedar_api_call(tsv_path: Union[str, Path]) -> requests.models.Response:
                 f"Spreadsheet Validator API request for {tsv_path} failed! Exception: {e}"
             )
     return response
+
+
+def get_entity_api_data(
+    url: str,
+    globus_token: str,
+    headers: Optional[dict] = None,
+) -> requests.Response:
+    if not headers:
+        headers = {}
+    headers["Authorization"] = f"Bearer {globus_token}"
+    response = requests.get(url, headers=headers)
+    response.raise_for_status()
+    return response
+
+
+def get_entity_info_from_entity_api(
+    url: str,
+    globus_token: str,
+    headers: Optional[dict] = None,
+) -> Dict:
+    """
+    Make an entity-api call and from the response, get
+    entity_type, subtype data (e.g. "block" for sample), and
+    any sub_type_val values (currently just organ codes, e.g. "BD")
+    and return as a dict in the format expected by the constraints endpoint.
+    """
+    response = get_entity_api_data(url, globus_token, headers).json()
+    entity_type = response.get("entity_type", "").lower()
+    entity_sub_type = None
+    entity_sub_type_val = None
+    if entity_type == OtherTypes.SAMPLE:
+        entity_sub_type = response.get("sample_category", "").lower()
+        if entity_sub_type == "organ":
+            entity_sub_type_val = response.get("organ", "").lower()
+    elif entity_type == "dataset":
+        entity_sub_type = response.get("dataset_type", "")
+    endpoint_vals = format_constraint_check_data(entity_type, entity_sub_type, entity_sub_type_val)
+    return endpoint_vals
+
+
+def format_constraint_check_data(
+    entity_type: str,
+    entity_sub_type: Optional[str] = None,
+    entity_sub_type_val: Optional[str] = None,
+) -> Dict:
+    """
+    Formats data about an entity so that it can be sent as
+    part of the payload to the constraints endpoint.
+    """
+    entity_type = entity_type.lower()
+    if entity_type in [OtherTypes.SAMPLE, "dataset"]:
+        if not entity_sub_type:
+            raise Exception(f"Entity of type {entity_type} must have a sub_type.")
+        type_vals = (entity_type, entity_sub_type, entity_sub_type_val)
+    # Perhaps overcautiously, this accommodates the more specific sample value strings
+    elif entity_type in Sample.full_names_list():
+        if entity_type == Sample.ORGAN:
+            entity_type = OtherTypes.SAMPLE
+        else:
+            entity_sub_type = Sample.get_key_from_val(entity_type)
+            entity_type = OtherTypes.SAMPLE
+        type_vals = (entity_type, entity_sub_type, entity_sub_type_val)
+    # TODO: check murine info, confused about whether it's "murine-source", "source", "source-murine", etc.
+    elif entity_type in OtherTypes.MURINE_SOURCE:
+        type_vals = ("source", "", None)
+    else:
+        type_vals = (entity_type, "", None)
+    return {
+        "entity_type": type_vals[0],
+        "sub_type": [type_vals[1]],
+        "sub_type_val": [type_vals[2]] if type_vals[2] else None,
+    }
 
 
 def print_path(path):

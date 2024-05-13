@@ -10,15 +10,26 @@ from pathlib import Path
 from typing import Dict, List, Union
 from unittest.mock import Mock, call, patch
 
+import requests
+
 from ingest_validation_tools.error_report import ErrorDict, ErrorReport
 from ingest_validation_tools.upload import Upload
 
 from .fixtures import (
+    BAD_DATASET_CONSTRAINTS_RESPONSE,
+    BAD_DATASET_EXPECTED_CONSTRAINTS_PAYLOAD,
+    BAD_DATASET_SCHEMA_WITH_ANCESTORS,
+    GOOD_DATASET_CONSTRAINTS_RESPONSE,
+    GOOD_DATASET_EXPECTED_CONSTRAINTS_PAYLOAD,
+    GOOD_DATASET_SCHEMA_WITH_ANCESTORS,
     SCATACSEQ_BOTH_VERSIONS_VALID,
     SCATACSEQ_HIGHER_VERSION_VALID,
     SCATACSEQ_LOWER_VERSION_VALID,
     SCATACSEQ_NEITHER_VERSION_VALID,
 )
+
+CONSTRAINTS_URL = "http://constraints_test"
+ENTITIES_URL = "http://entities_test"
 
 SHARED_OPTS = {
     "encoding": "ascii",
@@ -450,6 +461,50 @@ class TestDatasetExamples(unittest.TestCase):
                     .get("Directory schema version")
                 )
                 self.assertEqual(dir_schema_version, None)
+
+    def test_bad_constraints_payload(self):
+        upload = Upload(Path("."), **DATASET_EXAMPLES_OPTS)
+        payload = upload._construct_constraint_check(BAD_DATASET_SCHEMA_WITH_ANCESTORS)
+        assert payload == BAD_DATASET_EXPECTED_CONSTRAINTS_PAYLOAD
+
+    def test_good_constraints_payload(self):
+        upload = Upload(Path("."), **DATASET_EXAMPLES_OPTS)
+        payload = upload._construct_constraint_check(GOOD_DATASET_SCHEMA_WITH_ANCESTORS)
+        assert payload == GOOD_DATASET_EXPECTED_CONSTRAINTS_PAYLOAD
+
+    def get_mock_response(self, good: bool, response_data: bytes):
+        mock_resp = requests.models.Response()
+        mock_resp.url = CONSTRAINTS_URL
+        mock_resp.status_code = 200 if good else 400
+        mock_resp.reason = "OK" if good else "Bad Request"
+        mock_resp._content = response_data
+        return mock_resp
+
+    @patch("ingest_validation_tools.upload.requests.post")
+    def test_constraints_good(self, mock_request):
+        upload = Upload(directory_path=Path("fake"))
+        upload.app_context = {
+            "constraints_url": CONSTRAINTS_URL,
+            "entities_url": ENTITIES_URL,
+        }
+        upload.verbose = False
+        upload.globus_token = "test"
+        mock_request.return_value = self.get_mock_response(True, GOOD_DATASET_CONSTRAINTS_RESPONSE)
+        upload.constraint_checks(GOOD_DATASET_SCHEMA_WITH_ANCESTORS)
+
+    @patch("ingest_validation_tools.upload.requests.post")
+    def test_constraints_bad(self, mock_request):
+        upload = Upload(directory_path=Path("fake"))
+        upload.app_context = {
+            "constraints_url": CONSTRAINTS_URL,
+            "entities_url": ENTITIES_URL,
+        }
+        upload.verbose = False
+        upload.globus_token = "test"
+        mock_request.return_value = self.get_mock_response(False, BAD_DATASET_CONSTRAINTS_RESPONSE)
+        assert upload.constraint_checks(BAD_DATASET_SCHEMA_WITH_ANCESTORS) == [
+            "Invalid ancestor type for TSV type dataset/histology. Data sent for ancestor test_id_2: sample/organ."
+        ]
 
 
 if __name__ == "__main__":

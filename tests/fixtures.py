@@ -1,3 +1,5 @@
+from ingest_validation_tools.schema_loader import SchemaVersion
+
 SCATACSEQ_HIGHER_VERSION_VALID = {
     "test-schema-v0.0": {
         "files": [
@@ -135,3 +137,66 @@ SAMPLE_BLOCK_PARTIAL_CEDAR_RESPONSE_GOOD = (
 SAMPLE_BLOCK_PARTIAL_ENTITY_API_RESPONSE = b'{"entity_type":"sample","sample_category":"block"}'
 
 SAMPLE_ORGAN_PARTIAL_ENTITY_API_RESPONSE = b'{"entity_type":"sample","sample_category":"organ"}'
+
+# ancestor_entities created in Upload._find_and_check_url_fields
+# from entity-api responses
+# dataset-histology as ancestor of dataset-histology might be gibberish
+# but as far as the rules are concerned it is valid
+GOOD_DATASET_SCHEMA_WITH_ANCESTORS = SchemaVersion(
+    schema_name="histology",
+    metadata_type="assays",
+    rows=[{"parent_sample_id": "doesn't_matter", "dataset_type": "histology"}],
+    ancestor_entities={
+        "test_id_0": {
+            "entity_type": "dataset",
+            "sub_type": ["histology"],
+            "sub_type_val": None,
+        },
+        "test_id_1": {
+            "entity_type": "dataset",
+            "sub_type": ["histology"],
+            "sub_type_val": None,
+        },
+    },
+)
+# bad case: publication cannot be ancestor of dataset
+BAD_DATASET_SCHEMA_WITH_ANCESTORS = SchemaVersion(
+    schema_name="histology",
+    metadata_type="assays",
+    rows=[{"parent_sample_id": "doesn't_matter", "dataset_type": "histology"}],
+    ancestor_entities={
+        "test_id_1": {
+            "entity_type": "dataset",
+            "sub_type": ["histology"],
+            "sub_type_val": None,
+        },
+        "test_id_2": {"entity_type": "sample", "sub_type": ["organ"], "sub_type_val": None},
+    },
+)
+# Expected payloads from Upload._construct_constraint_check
+GOOD_DATASET_EXPECTED_CONSTRAINTS_PAYLOAD = {
+    "test_id_0": {
+        "ancestors": {"entity_type": "dataset", "sub_type": ["histology"], "sub_type_val": None},
+        "descendants": {"entity_type": "dataset", "sub_type": ["histology"], "sub_type_val": None},
+    },
+    "test_id_1": {
+        "ancestors": {"entity_type": "dataset", "sub_type": ["histology"], "sub_type_val": None},
+        "descendants": {"entity_type": "dataset", "sub_type": ["histology"], "sub_type_val": None},
+    },
+}
+
+# bad case: sample/organ cannot be ancestor of dataset
+BAD_DATASET_EXPECTED_CONSTRAINTS_PAYLOAD = {
+    "test_id_1": {
+        "ancestors": {"entity_type": "dataset", "sub_type": ["histology"], "sub_type_val": None},
+        "descendants": {"entity_type": "dataset", "sub_type": ["histology"], "sub_type_val": None},
+    },
+    "test_id_2": {
+        "ancestors": {"entity_type": "sample", "sub_type": ["organ"], "sub_type_val": None},
+        "descendants": {"entity_type": "dataset", "sub_type": ["histology"], "sub_type_val": None},
+    },
+}
+
+GOOD_DATASET_CONSTRAINTS_RESPONSE = b'{"code":200,"description":[{"code":200,"description":[{"entity_type":"dataset","sub_type":null,"sub_type_val":null},{"entity_type":"Publication","sub_type":null,"sub_type_val":null}],"name":"OK"},{"code":200,"description":[{"entity_type":"dataset","sub_type":null,"sub_type_val":null},{"entity_type":"Publication","sub_type":null,"sub_type_val":null}],"name":"OK"}],"name":"OK"}'
+
+BAD_DATASET_CONSTRAINTS_RESPONSE = b'{"code":400,"description":[{"code":200,"description":[{"entity_type":"dataset","sub_type":null,"sub_type_val":null},{"entity_type":"Publication","sub_type":null,"sub_type_val":null}],"name":"OK"},{"code":404,"description":[{"entity_type":"Sample","sub_type":["Suspension"],"sub_type_val":null}],"name":"This `Sample` `organ` cannot be associated with the provided `ancestors` due to entity constraints. Click the link to view valid entity types that can be `descendants`"}],"name":"Bad Request"}'
