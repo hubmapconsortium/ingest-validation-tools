@@ -1,3 +1,4 @@
+from enum import Enum, unique
 from typing import Dict, List
 
 """
@@ -148,3 +149,49 @@ shared_enums: Dict[str, List[str]] = {
         "derived_datasets",
     ],
 }
+
+
+@unique
+class Sample(str, Enum):
+    BLOCK = "sample-block"
+    SUSPENSION = "sample-suspension"
+    SECTION = "sample-section"
+    ORGAN = "organ"
+
+    # TODO: I believe this can be streamlined with the StrEnum class added in 3.11
+    @classmethod
+    def full_names_list(cls) -> list[str]:
+        return [sample_type.value for sample_type in cls]
+
+    @classmethod
+    def just_subtypes_list(cls) -> list[str]:
+        return [sample_type.name.lower() for sample_type in cls]
+
+    @classmethod
+    def get_key_from_val(cls, val) -> str:
+        match = [sample_type.name for sample_type in cls if sample_type.value == val]
+        if not match:
+            return ""
+        return match[0]
+
+
+@unique
+class OtherTypes(str, Enum):
+    ANTIBODIES = "antibodies"
+    CONTRIBUTORS = "contributors"
+    MURINE_SOURCE = "murine-source"
+    SAMPLE = "sample"
+    ORGAN = "organ"
+    DONOR = "donor"
+
+    @classmethod
+    def value_list(cls):
+        return [other_type.value for other_type in cls]
+
+    @classmethod
+    def get_sample_types(cls):
+        return Sample.just_subtypes_list()
+
+    @classmethod
+    def get_sample_types_full_names(cls):
+        return Sample.full_names_list()

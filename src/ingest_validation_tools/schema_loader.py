@@ -7,8 +7,7 @@ from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Dict, List, Optional, Sequence, Set, Union
 
-from ingest_validation_tools.enums import shared_enums
-from ingest_validation_tools.validation_utils import OtherTypes
+from ingest_validation_tools.enums import OtherTypes, shared_enums
 from ingest_validation_tools.yaml_include_loader import load_yaml
 
 _table_schemas_path = Path(__file__).parent / "table-schemas"
