@@ -134,7 +134,7 @@ def clean_report(report: ErrorReport):
             report.errors = report.raw_errors.as_dict()
         cleaned_report = clean_report(report)
         raise TokenException(
-            f"WARNING: API token required to complete update, not writing, skipping URL Check Errors.",
+            "WARNING: API token required to complete update, not writing, skipping URL Check Errors.",
             "".join(cleaned_report),
         )
     return "".join(cleaned_report)
@@ -143,7 +143,7 @@ def clean_report(report: ErrorReport):
 def get_non_token_errors(errors: ErrorDict) -> ErrorDict:
     new_url_error_val = defaultdict(list)
     for path, error_list in errors.metadata_url_errors.items():
-        non_token_url_errors = [error for error in error_list if not "No token" in error]
+        non_token_url_errors = [error for error in error_list if "No token" not in error]
         if non_token_url_errors:
             new_url_error_val[path] = non_token_url_errors
         if set(error_list) - set(non_token_url_errors):
@@ -386,7 +386,7 @@ class TestDatasetExamples(unittest.TestCase):
             )
             info = upload.get_info()
             if info is None:
-                raise Exception(f"Info should not be none")
+                raise Exception("Info should not be none")
             for path in upload.effective_tsv_paths.keys():
                 dir_schema_version = (
                     info.as_dict()
@@ -408,7 +408,7 @@ class TestDatasetExamples(unittest.TestCase):
             )
             info = upload.get_info()
             if info is None:
-                raise Exception(f"Info should not be none")
+                raise Exception("Info should not be none")
             for path in upload.effective_tsv_paths.keys():
                 dir_schema_version = (
                     info.as_dict()
@@ -430,7 +430,7 @@ class TestDatasetExamples(unittest.TestCase):
             )
             info = upload.get_info()
             if info is None:
-                raise Exception(f"Info should not be none")
+                raise Exception("Info should not be none")
             for path in upload.effective_tsv_paths.keys():
                 dir_schema_version = (
                     info.as_dict()
@@ -452,7 +452,7 @@ class TestDatasetExamples(unittest.TestCase):
             )
             info = upload.get_info()
             if info is None:
-                raise Exception(f"Info should not be none")
+                raise Exception("Info should not be none")
             for path in upload.effective_tsv_paths.keys():
                 dir_schema_version = (
                     info.as_dict()

@@ -8,6 +8,7 @@ from pathlib import Path
 from typing import Dict, List, Optional, Sequence, Set, Union
 
 from ingest_validation_tools.enums import shared_enums
+from ingest_validation_tools.validation_utils import OtherTypes
 from ingest_validation_tools.yaml_include_loader import load_yaml
 
 _table_schemas_path = Path(__file__).parent / "table-schemas"
@@ -66,7 +67,7 @@ class SchemaVersion:
                     an invalid path: {self.path}. Error: {e}
                     """
                 )
-        if get_is_assay(self.schema_name):
+        if self.schema_name not in OtherTypes.value_list():
             self.metadata_type = "assays"
         else:
             self.metadata_type = "others"
