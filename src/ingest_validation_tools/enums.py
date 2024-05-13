@@ -160,11 +160,11 @@ class Sample(str, Enum):
 
     # TODO: I believe this can be streamlined with the StrEnum class added in 3.11
     @classmethod
-    def full_names_list(cls) -> list[str]:
+    def full_names_list(cls) -> List[str]:
         return [sample_type.value for sample_type in cls]
 
     @classmethod
-    def just_subtypes_list(cls) -> list[str]:
+    def just_subtypes_list(cls) -> List[str]:
         return [sample_type.name.lower() for sample_type in cls]
 
     @classmethod
