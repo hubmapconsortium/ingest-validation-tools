@@ -30,7 +30,7 @@ from ingest_validation_tools.validation_utils import (
     format_constraint_check_data,
     get_data_dir_errors,
     get_entity_api_data,
-    get_entity_info_from_entity_api,
+    get_entity_type_vals,
     get_json,
     get_schema_version,
     read_rows,
@@ -225,7 +225,7 @@ class Upload:
             str(path): get_schema_version(
                 Path(path),
                 self.encoding,
-                self.app_context["entity_url"],
+                self.app_context["entities_url"],
                 self.app_context["ingest_url"],
                 self.globus_token,
                 self.directory_path,
@@ -362,8 +362,6 @@ class Upload:
         url_errors = self._find_and_check_url_fields(rows, constrained_fields, schema, report_type)
         return url_errors
 
-    # TODO: confirm this is not used for individual sample/organ/source registration
-    # TODO: will we be using this to validate Other types at all?
     def _constraint_checks(self, schema: SchemaVersion):
         # HuBMAP does not have constraints endpoint, SenNet can pass it in explicitly
         if not self.app_context["constraints_url"]:
@@ -375,10 +373,11 @@ class Upload:
             return
         data = json.dumps(payload)
         headers = {
-            "Authorization": f"Bearer {self.globus_token}",
+            # TODO: turn back on
+            # "Authorization": f"Bearer {self.globus_token}",
             "Content-Type": "application/json",
         }
-        url = f"{self.app_context['constraints_url']}/match=True&order={CONSTRAINTS_CHECK_METHOD}"
+        url = f"{self.app_context['constraints_url']}match=True&order={CONSTRAINTS_CHECK_METHOD}"
         response = requests.post(url, headers=headers, data=data)
         if self.verbose:
             print("Ancestor-Descendant pairs sent:")
@@ -623,9 +622,7 @@ class Upload:
                 schema_name in Sample.full_names_list() and field != "sample_id"
             ):
                 return {
-                    value: get_entity_info_from_entity_api(
-                        url, self.globus_token, self.app_context.get("request_header", {})
-                    )
+                    value: format_constraint_check_data(*get_entity_type_vals(response.json()))
                 }
         elif field in ["orcid_id", "orcid"]:
             headers = {"Accept": "application/json"}
@@ -643,16 +640,11 @@ class Upload:
 
     def _construct_constraint_check(self, schema: SchemaVersion) -> dict[str, dict]:
         payload = {}
-        # In a metadata.tsv, all rows will have type dataset and same subtype
-        if schema.metadata_type == "assays":
-            tsv_entity = format_constraint_check_data("dataset", schema.dataset_type)
-        else:
-            return {}
-        # TODO: if we're using this for bulk samples, I believe we will have to go row-by-row
-        # rather than treating a TSV like a single type/subtype; murine seems easy though,
-        # all descendants in a TSV can be treated as a single type with no subtype
         for entity_id, ancestor_entity in schema.ancestor_entities.items():
-            payload[entity_id] = {"ancestors": ancestor_entity, "descendants": tsv_entity}
+            payload[entity_id] = {
+                "ancestors": ancestor_entity,
+                "descendants": schema.entity_type_info,
+            }
         return payload
 
     def _print_constraint_pairs(self, constraint_list):
@@ -819,7 +811,7 @@ class Upload:
         schema = get_schema_version(
             Path(other_path),
             self.encoding,
-            self.app_context["entity_url"],
+            self.app_context["entities_url"],
             self.app_context["ingest_url"],
             self.globus_token,
             self.directory_path,

@@ -38,7 +38,7 @@ def main():
     table_schema_versions = dict_table_schema_versions()[args.type]
     assert table_schema_versions, f"No versions for {args.type}"
 
-    is_assay = args.type not in OtherTypes.value_list()
+    is_assay = args.type not in OtherTypes.with_sample_subtypes()
     table_schemas = {
         v.version: get_table_schema(v, keep_headers=True) for v in table_schema_versions
     }

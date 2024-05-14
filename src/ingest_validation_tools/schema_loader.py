@@ -66,7 +66,7 @@ class SchemaVersion:
                     an invalid path: {self.path}. Error: {e}
                     """
                 )
-        if self.schema_name not in OtherTypes.value_list():
+        if self.schema_name not in OtherTypes.with_sample_subtypes():
             self.metadata_type = "assays"
         else:
             self.metadata_type = "others"

@@ -175,6 +175,10 @@ class Sample(str, Enum):
         return match[0]
 
 
+class DatasetType(str, Enum):
+    DATASET = "dataset"
+
+
 @unique
 class OtherTypes(str, Enum):
     ANTIBODIES = "antibodies"
@@ -195,3 +199,8 @@ class OtherTypes(str, Enum):
     @classmethod
     def get_sample_types_full_names(cls):
         return Sample.full_names_list()
+
+    @classmethod
+    def with_sample_subtypes(cls):
+        all_types = [*cls.value_list(), *cls.get_sample_types_full_names()]
+        return all_types
