@@ -75,6 +75,7 @@ class TestSingleTsv(unittest.TestCase):
             ],
         )
         data = [value for value in BAD_DATASET_EXPECTED_PAYLOAD.values()]
+        breakpoint()
         mock_request.assert_any_call(
             CONSTRAINTS_URL + CONSTRAINTS_URL_PARAMS,
             headers={"Content-Type": "application/json"},

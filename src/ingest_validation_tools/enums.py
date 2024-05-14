@@ -183,7 +183,7 @@ class DatasetType(str, Enum):
 class OtherTypes(str, Enum):
     ANTIBODIES = "antibodies"
     CONTRIBUTORS = "contributors"
-    MURINE_SOURCE = "murine-source"
+    SOURCE = "source"
     SAMPLE = "sample"
     ORGAN = "organ"
     DONOR = "donor"

@@ -41,7 +41,7 @@ Exit status codes:
             "antibodies",
             "contributors",
             "metadata",
-            "murine-source",
+            "source",
         ],
     )
     parser.add_argument(

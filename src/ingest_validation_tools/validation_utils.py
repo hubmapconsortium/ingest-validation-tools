@@ -24,7 +24,7 @@ UNIQUE_FIELDS_MAP = {
     OtherTypes.ANTIBODIES: {"antibody_rrid", "antibody_name"},
     OtherTypes.CONTRIBUTORS: {"orcid", "orcid_id"},
     DatasetType.DATASET: {"assay_type", "dataset_type"},
-    OtherTypes.MURINE_SOURCE: {"strain_rrid"},
+    OtherTypes.SOURCE: {"strain_rrid"},
     OtherTypes.ORGAN: {"organ_id"},  # Deprecated?
     OtherTypes.SAMPLE: {"sample_id"},
 }
@@ -466,9 +466,6 @@ def format_constraint_check_data(
             entity_sub_type = Sample.get_key_from_val(entity_type)
             entity_type = OtherTypes.SAMPLE
         type_vals = (entity_type, entity_sub_type, entity_sub_type_val)
-    # TODO: check murine info, confused about whether it's "murine-source", "source", "source-murine", etc.
-    elif entity_type in OtherTypes.MURINE_SOURCE:
-        type_vals = ("source", "", None)
     else:
         type_vals = (entity_type, "", None)
     return {

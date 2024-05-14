@@ -373,11 +373,11 @@ class Upload:
             return
         data = json.dumps(payload)
         headers = {
-            # TODO: turn back on
-            # "Authorization": f"Bearer {self.globus_token}",
+            "Authorization": f"Bearer {self.globus_token}",
             "Content-Type": "application/json",
         }
         url = f"{self.app_context['constraints_url']}match=True&order={CONSTRAINTS_CHECK_METHOD}"
+        breakpoint()
         response = requests.post(url, headers=headers, data=data)
         if self.verbose:
             print("Ancestor-Descendant pairs sent:")
@@ -574,7 +574,7 @@ class Upload:
             constrained_fields["source_id"] = self.app_context.get("entities_url")
         elif "organ" in schema_name:
             constrained_fields["organ_id"] = self.app_context.get("entities_url")
-        elif "murine-source" in schema_name:
+        elif "source" in schema_name:
             constrained_fields["source_id"] = self.app_context.get("entities_url")
         elif "contributors" in schema_name:
             if schema.is_cedar:
