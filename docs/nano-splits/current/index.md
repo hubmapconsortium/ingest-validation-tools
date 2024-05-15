@@ -3,7 +3,7 @@ title: nanoSPLITS
 schema_name: nano-splits
 category: Mass Spectrometry
 all_versions_deprecated: False
-exclude_from_index: False
+exclude_from_index: True
 layout: default
 
 ---
