@@ -13,6 +13,7 @@
 - Revert deprecation of field YAML files
 - Update MUSIC directory schema
 - Add semantic version to plugin test base class
+- Fix row number mismatch between validation and spreadsheet validator response
 
 ## v0.0.18
 

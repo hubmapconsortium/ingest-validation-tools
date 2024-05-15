@@ -313,9 +313,10 @@ class Upload:
         if response.status_code != 200:
             raise Exception(response.json())
         elif response.json().get("reporting") and len(response.json().get("reporting")) > 0:
-            errors.extend(
-                [self._get_message(error, report_type) for error in response.json()["reporting"]]
-            )
+            for error in response.json()["reporting"]:
+                normalized_row = error.get("row") + 1
+                error["row"] = normalized_row
+                errors.append(self._get_message(error, report_type))
         else:
             logging.info(f"No errors found during CEDAR validation for {tsv_path}!")
             logging.info(f"Response: {response.json()}.")
@@ -594,7 +595,7 @@ class Upload:
             error = {
                 "errorType": type(e).__name__,
                 "column": field,
-                "row": row_num + 2,
+                "row": row_num + 1,
                 "value": value,
                 "error_text": e.__str__(),
             }
