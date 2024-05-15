@@ -3,7 +3,7 @@ title: Cell DIVE
 schema_name: celldive
 category: Multiplex Fluorescence Based Experiment (MxFBE)
 all_versions_deprecated: False
-exclude_from_index: False
+exclude_from_index: True
 layout: default
 
 ---

@@ -3,7 +3,7 @@ title: MERFISH
 schema_name: merfish
 category: Fluorescence In Situ Hybridization (FISH)
 all_versions_deprecated: False
-exclude_from_index: False
+exclude_from_index: True
 layout: default
 
 ---
