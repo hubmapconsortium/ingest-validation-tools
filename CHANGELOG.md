@@ -40,6 +40,7 @@
 - Converted upload `_url_checks` to use `_get_method` for SenNet compatibility
 - Add CEDAR template for murine-source
 - Add donor field descriptions back, remove murine-source descriptions
+- Temporarily exclude certain assays from the documentation
 
 ## v0.0.17
 
