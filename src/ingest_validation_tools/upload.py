@@ -595,7 +595,7 @@ class Upload:
             error = {
                 "errorType": type(e).__name__,
                 "column": field,
-                "row": row_num + 2,
+                "row": row_num + 1,
                 "value": value,
                 "error_text": e.__str__(),
             }
