@@ -377,7 +377,6 @@ class Upload:
             "Content-Type": "application/json",
         }
         url = f"{self.app_context['constraints_url']}match=True&order={CONSTRAINTS_CHECK_METHOD}"
-        breakpoint()
         response = requests.post(url, headers=headers, data=data)
         if self.verbose:
             print("Ancestor-Descendant pairs sent:")
