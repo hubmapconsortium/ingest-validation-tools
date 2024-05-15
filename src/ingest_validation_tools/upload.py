@@ -616,7 +616,7 @@ class Upload:
         url = constrained_fields[field] + value
         if field in self.check_fields:
             headers = self.app_context.get("request_header", {})
-            response = get_entity_api_data(url, headers)
+            response = get_entity_api_data(url, self.globus_token, headers)
             if schema_name not in Sample.full_names_list() or (
                 schema_name in Sample.full_names_list() and field != "sample_id"
             ):
