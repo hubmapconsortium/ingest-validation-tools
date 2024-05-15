@@ -453,52 +453,6 @@ class TestDatasetExamples(unittest.TestCase):
                 )
                 self.assertEqual(dir_schema_version, None)
 
-    # TODO: should make sure this is working for uploads too, requires example upload
-    # def test_bad_constraints_payload(self):
-    #     upload = Upload(Path("."), **DATASET_EXAMPLES_OPTS)
-    #     payload = upload._construct_constraint_check(BAD_DATASET_SCHEMA_WITH_ANCESTORS)
-    #     breakpoint()
-    #     assert payload == BAD_DATASET_EXPECTED_CONSTRAINTS_PAYLOAD
-    #
-    # def test_good_constraints_payload(self):
-    #     upload = Upload(Path("."), **DATASET_EXAMPLES_OPTS)
-    #     payload = upload._construct_constraint_check(GOOD_DATASET_SCHEMA_WITH_ANCESTORS)
-    #     assert payload == GOOD_DATASET_EXPECTED_CONSTRAINTS_PAYLOAD
-    #
-    # def get_mock_response(self, good: bool, response_data: bytes):
-    #     mock_resp = requests.models.Response()
-    #     mock_resp.url = CONSTRAINTS_URL
-    #     mock_resp.status_code = 200 if good else 400
-    #     mock_resp.reason = "OK" if good else "Bad Request"
-    #     mock_resp._content = response_data
-    #     return mock_resp
-    #
-    # @patch("ingest_validation_tools.upload.requests.post")
-    # def test_constraints_good(self, mock_request):
-    #     upload = Upload(directory_path=Path("fake"))
-    #     upload.app_context = {
-    #         "constraints_url": CONSTRAINTS_URL,
-    #         "entities_url": ENTITIES_URL,
-    #     }
-    #     upload.verbose = False
-    #     upload.globus_token = "test"
-    #     mock_request.return_value = self.get_mock_response(True, GOOD_DATASET_CONSTRAINTS_RESPONSE)
-    #     upload._constraint_checks(GOOD_DATASET_SCHEMA_WITH_ANCESTORS)
-    #
-    # @patch("ingest_validation_tools.upload.requests.post")
-    # def test_constraints_bad(self, mock_request):
-    #     upload = Upload(directory_path=Path("fake"))
-    #     upload.app_context = {
-    #         "constraints_url": CONSTRAINTS_URL,
-    #         "entities_url": ENTITIES_URL,
-    #     }
-    #     upload.verbose = False
-    #     upload.globus_token = "test"
-    #     mock_request.return_value = self.get_mock_response(False, BAD_DATASET_CONSTRAINTS_RESPONSE)
-    #     assert upload._constraint_checks(BAD_DATASET_SCHEMA_WITH_ANCESTORS) == [
-    #         "Invalid ancestor type for TSV type dataset/histology. Data sent for ancestor test_id_2: sample/organ."
-    #     ]
-
 
 # if __name__ == "__main__":
 #     suite = unittest.TestLoader().loadTestsFromTestCase(TestDatasetExamples)
