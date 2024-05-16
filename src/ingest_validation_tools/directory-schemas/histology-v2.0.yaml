@@ -17,7 +17,7 @@ files:
     pattern: raw\/.*
     required: True
     description: Raw data files for the experiment.
-  -
+  -  
     pattern: raw\/images\/.*
     required: True
     description: Raw image files. Using this subdirectory allows for harmonization with other more complex assays, like Visium that includes both raw imaging and sequencing data. This directory should include at least one raw file.
@@ -56,7 +56,7 @@ files:
   -
     pattern: lab_processed\/transformations\/[^\/]+\.txt
     required: False
-    description: Transformation matrices used to overlay images from the exact same tissue section (e.g., MALDI imaging mass spec, autofluorescence microscopy, MxIF, histological stains).
+    description: Transformation matrices used to overlay images from the exact same tissue section (e.g., MALDI imaging mass spec, autofluorescence microscopy, MxIF, histological stains). 
     is_qa_qc: False
   -
     pattern: lab_processed\/probabilities\/.*
@@ -67,8 +67,3 @@ files:
     required: False
     description: A TIFF file that contains pixel probabilities.
     is_qa_qc: True
-  -
-    pattern: lab_processed\/annotations\/.*
-    required: False
-    description: Directory containing segmentation masks.
-    dependency: segmentation-masks-v2
