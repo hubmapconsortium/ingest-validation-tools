@@ -377,7 +377,7 @@ class Upload:
                         verbose=self.verbose,
                         **kwargs,
                     ):
-                        errors[k].append(v)
+                        errors[k.description].append(v)
             except PluginValidatorError as e:
                 # We are ok with just returning a single error, rather than all.
                 errors["Unexpected Plugin Error"] = [e]

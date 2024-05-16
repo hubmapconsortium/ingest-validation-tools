@@ -195,4 +195,4 @@ def validation_error_iter(
     for cls in validation_class_iter(plugin_dir):
         validator = cls(paths, assay_type, contains, verbose)
         for err in validator.collect_errors(**kwargs):  # type: ignore
-            yield cls.description, err
+            yield cls, err
