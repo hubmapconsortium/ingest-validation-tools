@@ -14,6 +14,7 @@
 - Update MUSIC directory schema
 - Add semantic version to plugin test base class
 - Fix row number mismatch between validation and spreadsheet validator response
+- Remove segmentation masks from Histology directory schema
 
 ## v0.0.18
 
