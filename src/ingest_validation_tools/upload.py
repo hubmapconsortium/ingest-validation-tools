@@ -13,6 +13,7 @@ from typing import DefaultDict, Dict, List, Optional, Union
 
 import requests
 
+from ingest_validation_tools.enums import OtherTypes
 from ingest_validation_tools.error_report import ErrorDict, ErrorDictException, InfoDict
 from ingest_validation_tools.plugin_validator import (
     ValidatorError as PluginValidatorError,
@@ -617,8 +618,9 @@ class Upload:
         if field in self.check_fields:
             headers = self.app_context.get("request_header", {})
             response = get_entity_api_data(url, self.globus_token, headers)
-            if schema_name not in Sample.full_names_list() or (
-                schema_name in Sample.full_names_list() and field != "sample_id"
+            breakpoint()
+            if schema_name != OtherTypes.SAMPLE or (
+                schema_name == OtherTypes.SAMPLE and field != "sample_id"
             ):
                 return {
                     value: format_constraint_check_data(*get_entity_type_vals(response.json()))
