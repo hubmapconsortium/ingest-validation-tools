@@ -618,7 +618,6 @@ class Upload:
         if field in self.check_fields:
             headers = self.app_context.get("request_header", {})
             response = get_entity_api_data(url, self.globus_token, headers)
-            breakpoint()
             if schema_name != OtherTypes.SAMPLE or (
                 schema_name == OtherTypes.SAMPLE and field != "sample_id"
             ):
