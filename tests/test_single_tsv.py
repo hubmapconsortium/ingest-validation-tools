@@ -22,7 +22,7 @@ from tests.fixtures import (
     TEST_GET_TSV_ERRORS_PARAMS,
 )
 
-CONSTRAINTS_URL_PARAMS = "match=True&order=ancestors"
+CONSTRAINTS_URL_PARAMS = "?match=True&order=ancestors"
 CONSTRAINTS_URL = "http://constraints_test/"
 ENTITIES_URL = "http://entities_test/"
 
