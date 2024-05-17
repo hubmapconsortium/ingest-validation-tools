@@ -105,12 +105,14 @@ def get_schema_version(
                 f'Dataset type: {rows[0].get("dataset_type")}. Data Curator: check Pipeline Decision Rules to determine correct Assay Type and make sure metadata TSV matches the specification for that type.'
             )
         raise PreflightError(" ".join([msg for msg in message]))
+    dataset_type = assay_type_data["assaytype"]
     return SchemaVersion(
-        assay_type_data["assaytype"],
+        dataset_type,
         directory_path=directory_path,
         path=path,
         rows=rows,
         soft_assay_data=assay_type_data,
+        entity_type_info=format_constraint_check_data("dataset", dataset_type),
     )
 
 
@@ -121,6 +123,7 @@ def get_other_type_schema(
     globus_token: str,
     directory_path: Optional[Path] = None,
 ) -> Optional[SchemaVersion]:
+    # Assumes that an entire TSV only represents a single entity_type.
     match_pair = match_field_in_unique_fields(rows[0].keys(), path, dataset=False)
     if match_pair:
         other_type_info = get_other_schema_data(

@@ -26,7 +26,6 @@ from ingest_validation_tools.schema_loader import (
 )
 from ingest_validation_tools.table_validator import ReportType, get_table_errors
 from ingest_validation_tools.validation_utils import (
-    Sample,
     cedar_api_call,
     format_constraint_check_data,
     get_data_dir_errors,
