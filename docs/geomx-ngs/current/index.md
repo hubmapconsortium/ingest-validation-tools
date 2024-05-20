@@ -3,7 +3,7 @@ title: GeoMx (NGS)
 schema_name: geomx-ngs
 category: Spatial Transcriptomics
 all_versions_deprecated: False
-exclude_from_index: False
+exclude_from_index: True
 layout: default
 
 ---

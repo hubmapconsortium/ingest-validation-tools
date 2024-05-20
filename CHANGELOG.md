@@ -13,6 +13,7 @@
 - Revert deprecation of field YAML files
 - Update MUSIC directory schema
 - Add semantic version to plugin test base class
+- Fix row number mismatch between validation and spreadsheet validator response
 - Adding entity constraints check
 
 ## v0.0.18
@@ -41,6 +42,7 @@
 - Converted upload `_url_checks` to use `_get_method` for SenNet compatibility
 - Add CEDAR template for murine-source
 - Add donor field descriptions back, remove murine-source descriptions
+- Temporarily exclude certain assays from the documentation
 
 ## v0.0.17
 

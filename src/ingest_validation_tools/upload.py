@@ -331,10 +331,11 @@ class Upload:
         response = cedar_api_call(schema.path)
         if response.status_code != 200:
             raise Exception(response.json())
-        if response.json().get("reporting") and len(response.json().get("reporting")) > 0:
-            errors.extend(
-                [self._get_message(error, report_type) for error in response.json()["reporting"]]
-            )
+        elif response.json().get("reporting") and len(response.json().get("reporting")) > 0:
+            for error in response.json()["reporting"]:
+                normalized_row = error.get("row") + 1
+                error["row"] = normalized_row
+                errors.append(self._get_message(error, report_type))
         else:
             logging.info(f"No errors found during CEDAR validation for {schema.path}!")
             logging.info(f"Response: {response.json()}.")

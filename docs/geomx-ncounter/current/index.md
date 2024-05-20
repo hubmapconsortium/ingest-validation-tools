@@ -3,7 +3,7 @@ title: GeoMx (nCounter)
 schema_name: geomx-ncounter
 category: Spatial Transcriptomics
 all_versions_deprecated: False
-exclude_from_index: False
+exclude_from_index: True
 layout: default
 
 ---
