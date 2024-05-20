@@ -7,7 +7,7 @@ from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Dict, List, Optional, Sequence, Set, Union
 
-from ingest_validation_tools.enums import shared_enums
+from ingest_validation_tools.enums import OtherTypes, shared_enums
 from ingest_validation_tools.yaml_include_loader import load_yaml
 
 _table_schemas_path = Path(__file__).parent / "table-schemas"
@@ -40,7 +40,6 @@ class SchemaVersion:
     directory_path: Optional[Path] = None
     table_schema: str = ""
     path: Union[Path, str] = ""
-    # TODO: testing these out to see if it streamlines anything
     contributors_paths: List[str] = field(default_factory=list)
     antibodies_paths: List[str] = field(default_factory=list)
     rows: List = field(default_factory=list)
@@ -51,6 +50,10 @@ class SchemaVersion:
     dir_schema: str = ""
     metadata_type: str = "assays"
     contains: List = field(default_factory=list)
+    ancestor_entities: Dict = field(default_factory=dict)
+    entity_type_info: Dict = field(
+        default_factory=dict
+    )  # entity_type, entity_sub_type, entity_sub_type_val; for constraint checking
 
     def __post_init__(self):
         if type(self.path) is str:
@@ -63,7 +66,7 @@ class SchemaVersion:
                     an invalid path: {self.path}. Error: {e}
                     """
                 )
-        if get_is_assay(self.schema_name):
+        if self.schema_name not in OtherTypes.with_sample_subtypes():
             self.metadata_type = "assays"
         else:
             self.metadata_type = "others"
@@ -226,21 +229,6 @@ def get_table_schema(
             _validate_field(schema_field)
 
     return schema
-
-
-def get_is_assay(schema_name: str) -> bool:
-    # TODO: read from file system... but larger refactor may make it redundant.
-    return schema_name not in [
-        "donor",
-        "organ",
-        "sample",
-        "antibodies",
-        "contributors",
-        "sample-block",
-        "sample-section",
-        "sample-suspension",
-        "murine-source",
-    ]
 
 
 def get_directory_schema(

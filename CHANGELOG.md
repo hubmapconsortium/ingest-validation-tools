@@ -14,6 +14,7 @@
 - Update MUSIC directory schema
 - Add semantic version to plugin test base class
 - Fix row number mismatch between validation and spreadsheet validator response
+- Adding entity constraints check
 
 ## v0.0.18
 

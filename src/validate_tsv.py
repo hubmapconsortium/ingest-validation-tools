@@ -1,18 +1,19 @@
 #!/usr/bin/env python3
 
 import argparse
-import inspect
 import sys
 from pathlib import Path
 
+from yaml import dump
+
 from ingest_validation_tools.cli_utils import ShowUsageException, exit_codes
-from ingest_validation_tools.error_report import ErrorReport
+from ingest_validation_tools.message_munger import recursive_munge
 from ingest_validation_tools.schema_loader import PreflightError
 from ingest_validation_tools.validation_utils import get_schema_version, get_tsv_errors
 
 reminder = (
-    "REMINDER: Besides running validate_tsv.py, "
-    "you should also run validate_upload.py before submission."
+    "REMINDER: Use of validate_tsv.py is deprecated; use the HuBMAP Metadata Spreadsheet Validator"
+    " to validate single TSVs instead (https://metadatavalidator.metadatacenter.org)."
 )
 
 
@@ -40,7 +41,7 @@ Exit status codes:
             "antibodies",
             "contributors",
             "metadata",
-            "murine-source",
+            "source",
         ],
     )
     parser.add_argument(
@@ -49,10 +50,7 @@ Exit status codes:
         required=False,
         help="Token for URL checking using Entity API.",
     )
-    error_report_methods = [
-        name for (name, _) in inspect.getmembers(ErrorReport) if name.startswith("as_")
-    ]
-    parser.add_argument("--output", choices=error_report_methods, default="as_text")
+    parser.add_argument("--output", choices=["as_text", "as_md"], default="as_text")
     return parser
 
 
@@ -60,6 +58,16 @@ Exit status codes:
 # to be able to show the usage string if it catches a ShowUsageException.
 # Defining this at the top level makes that possible.
 parser = make_parser()
+
+
+def as_text(errors) -> str:
+    if errors:
+        return dump(recursive_munge(errors), sort_keys=False)
+    return "No errors!\n"
+
+
+def as_md(errors) -> str:
+    return f"```\n{as_text(errors)}```"
 
 
 def main():
@@ -73,11 +81,7 @@ def main():
     else:
         errors = get_tsv_errors(args.path, schema_name=schema_name, globus_token=args.globus_token)
         errors = {f"{errors_string} TSV errors": errors} if errors else {}
-    report = ErrorReport(
-        info={},  # Until we know it's needed, don't bother filling this in.
-        errors=errors,
-    )
-    print(getattr(report, args.output)())
+    print(eval(args.output)(errors))
     return exit_codes.INVALID if errors else exit_codes.VALID
 
 

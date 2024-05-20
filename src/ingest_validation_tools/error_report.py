@@ -53,6 +53,9 @@ class ErrorDict:
         default_factory=lambda: defaultdict(list)
     )
     metadata_url_errors: DefaultDict[str, List] = field(default_factory=lambda: defaultdict(list))
+    metadata_constraint_errors: DefaultDict[str, List] = field(
+        default_factory=lambda: defaultdict(list)
+    )
     reference: DefaultDict[str, Dict] = field(default_factory=lambda: defaultdict(dict))
     plugin: Dict[str, List[str]] = field(default_factory=dict)
     plugin_skip: Optional[str] = None
@@ -66,6 +69,7 @@ class ErrorDict:
         "metadata_validation_local": "Local Validation Errors",
         "metadata_validation_api": "Spreadsheet Validator Errors",
         "metadata_url_errors": "URL Check Errors",
+        "metadata_constraint_errors": "Entity Constraint Errors",
         "reference": "Reference Errors",
         "plugin": "Data File Errors",
         "plugin_skip": "Fatal Errors",
@@ -95,7 +99,9 @@ class ErrorDict:
         return errors
 
     def online_only_errors_by_path(self, path: str):
-        return self.errors_by_path(path, ["metadata_url_errors", "metadata_validation_api"])
+        return self.errors_by_path(
+            path, ["metadata_url_errors", "metadata_validation_api", "metadata_constraint_errors"]
+        )
 
     def tsv_only_errors_by_path(self, path: str, local_allowed=True) -> List[str]:
         """
@@ -103,7 +109,11 @@ class ErrorDict:
         Turn off support for local validation by passing local_allowed=False
         """
         errors = []
-        selected_fields = ["metadata_url_errors", "metadata_validation_api"]
+        selected_fields = [
+            "metadata_url_errors",
+            "metadata_validation_api",
+            "metadata_constraint_errors",
+        ]
         if local_allowed:
             selected_fields.append("metadata_validation_local")
         path_errors = self.errors_by_path(path, selected_fields)
