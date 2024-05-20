@@ -233,7 +233,7 @@ class UpdateData:
             readme.close()
             print(f"No diff found, skipping {self.dir}README.md")
         except MockException:
-            print(f"Expected exception found for test, continuing.")
+            print("Expected exception found for test, continuing.")
         except TokenException as e:
             print(f"Token error for {self.dir}README.md. Non-token-related diff: {e.clean_report}")
         except AssertionError:
