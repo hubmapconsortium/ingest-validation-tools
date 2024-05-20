@@ -217,8 +217,8 @@ TEST_GET_TSV_ERRORS_PARAMS = [
         "./tests/fixtures/sample-block-bad.tsv",
         "sample-block",
         [
-            'On row 0, column "processing_time_unit", value "min" fails because of error "notStandardTerm". Example: minute',
-            'On row 0, column "source_storage_duration_unit", value "min" fails because of error "notStandardTerm". Example: minute',
+            'On row 1, column "processing_time_unit", value "min" fails because of error "notStandardTerm". Example: minute',
+            'On row 1, column "source_storage_duration_unit", value "min" fails because of error "notStandardTerm". Example: minute',
             "Invalid ancestor type for TSV type sample/block. Data sent for ancestor HBM733.HSZF.798: sample/organ.",
         ],
     ),
