@@ -330,8 +330,6 @@ class Upload:
             raise Exception(response.json())
         elif response.json().get("reporting") and len(response.json().get("reporting")) > 0:
             for error in response.json()["reporting"]:
-                normalized_row = error.get("row") + 1
-                error["row"] = normalized_row
                 errors.append(self._get_message(error))
         else:
             logging.info(f"No errors found during CEDAR validation for {schema.path}!")
@@ -399,7 +397,7 @@ class Upload:
                         error = {
                             "errorType": type(e).__name__,
                             "column": field_name,
-                            "row": i + 2,
+                            "row": i,
                             "value": value,
                             "error_text": e.__str__(),
                         }
@@ -709,6 +707,8 @@ class Upload:
 
         return_str = self.report_type is ReportType.STR
         if "errorType" in error and "column" in error and "row" in error and "value" in error:
+            assert type(error["row"]) is int
+            error["row"] = error["row"] + 2
             # This may need readability improvements
             msg = (
                 f'On row {error["row"]}, column "{error["column"]}", '

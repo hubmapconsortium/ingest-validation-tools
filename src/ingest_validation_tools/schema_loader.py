@@ -117,9 +117,11 @@ class EntityTypeInfo:
     entity_sub_type_val: Optional[str] = ""
 
     def __post_init__(self):
-        if self.entity_type in [OtherTypes.SAMPLE, DatasetType.DATASET]:
-            if not self.entity_sub_type:
-                raise Exception(f"Entity of type {self.entity_type} must have a sub_type.")
+        if (
+            self.entity_type in [OtherTypes.SAMPLE, DatasetType.DATASET]
+            and not self.entity_sub_type
+        ):
+            raise Exception(f"Entity of type {self.entity_type} must have a sub_type.")
         # If a member of the Sample enum is passed in as the entity_type,
         # this extracts the entity_type and entity_sub_type from that value
         # and mutates the instance accordingly
@@ -127,6 +129,10 @@ class EntityTypeInfo:
         if isinstance(self.entity_type, Sample):
             self.entity_sub_type = self.entity_type.name.lower()
             self.entity_type = OtherTypes.SAMPLE
+        if self.entity_sub_type == Sample.ORGAN and not self.entity_sub_type_val:
+            raise Exception(
+                f"Entity of type {self.entity_type}/{self.entity_sub_type} must have a sub_type_val."
+            )
 
     def format_constraint_check_data(self) -> Dict:
         """
