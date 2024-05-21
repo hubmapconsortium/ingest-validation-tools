@@ -12,6 +12,7 @@ from ingest_validation_tools.table_validator import ReportType
 from ingest_validation_tools.upload import Upload
 from ingest_validation_tools.validation_utils import get_schema_version, get_tsv_errors
 from tests.fixtures import (
+    BAD_DATASET_CONSTRAINTS_RESPONSE,
     BAD_DATASET_EXPECTED_PAYLOAD,
     BAD_DATASET_SCHEMA_WITH_ANCESTORS,
     GOOD_DATASET_EXPECTED_PAYLOAD,
@@ -21,6 +22,7 @@ from tests.fixtures import (
     SAMPLE_BLOCK_PARTIAL_CEDAR_RESPONSE_GOOD,
     SAMPLE_BLOCK_PARTIAL_ENTITY_API_RESPONSE,
     SAMPLE_ORGAN_PARTIAL_ENTITY_API_RESPONSE,
+    SAMPLE_SECTION_PARTIAL_ENTITY_API_RESPONSE,
     TEST_GET_TSV_ERRORS_PARAMS,
 )
 
@@ -66,13 +68,13 @@ class TestSingleTsv(unittest.TestCase):
 
     @patch("ingest_validation_tools.upload.requests.post")
     def test_constraints_bad(self, mock_request):
-        mock_request.return_value = get_mock_response(False, SAMPLE_BLOCK_CONSTRAINTS_RESPONSE_BAD)
+        mock_request.return_value = get_mock_response(False, BAD_DATASET_CONSTRAINTS_RESPONSE)
         self.assertEqual(
             self.upload._constraint_checks(BAD_DATASET_SCHEMA_WITH_ANCESTORS),
             [
-                'On row 2, column "source_id", value "test_id_1" fails because of error '
+                'On row 3, column "source_id", value "test_id_1" fails because of error '
                 '"Invalid Ancestor": Invalid ancestor type for TSV type dataset/histology. '
-                "Data sent for ancestor test_id_1: sample/organ."
+                "Data sent for ancestor test_id_1: sample/organ/rk."
             ],
         )
         mock_request.assert_any_call(
@@ -111,9 +113,11 @@ class TestSingleTsv(unittest.TestCase):
     @property
     def entity_api_response_map(self) -> dict[str, bytes]:
         return {
-            f"{ENTITIES_URL}HBM233.CGGG.482": SAMPLE_BLOCK_PARTIAL_ENTITY_API_RESPONSE,
+            f"{ENTITIES_URL}HBM233.CGGG.482": SAMPLE_SECTION_PARTIAL_ENTITY_API_RESPONSE,
             f"{ENTITIES_URL}HBM724.ZQKX.379": SAMPLE_BLOCK_PARTIAL_ENTITY_API_RESPONSE,
+            f"{ENTITIES_URL}HBM427.JWVV.723": SAMPLE_BLOCK_PARTIAL_ENTITY_API_RESPONSE,
             f"{ENTITIES_URL}HBM733.HSZF.798": SAMPLE_ORGAN_PARTIAL_ENTITY_API_RESPONSE,
+            f"{ENTITIES_URL}HBM673.ZRWW.589": SAMPLE_BLOCK_PARTIAL_ENTITY_API_RESPONSE,
         }
 
     @parameterized.expand(TEST_GET_TSV_ERRORS_PARAMS)
@@ -158,9 +162,20 @@ class TestSingleTsv(unittest.TestCase):
                             assert errors in expected_errors_list
 
     def test_entity_type_info(self):
-        good_organ_entity = EntityTypeInfo(entity_type=Sample.ORGAN)
+        good_section_entity = EntityTypeInfo(entity_type=Sample.SECTION)
+        data = good_section_entity.format_constraint_check_data()
+        assert data == {"entity_type": "sample", "sub_type": ["section"], "sub_type_val": None}
+        good_organ_entity_fullname = EntityTypeInfo(
+            entity_type=Sample.ORGAN, entity_sub_type_val="BD"
+        )
+        data = good_organ_entity_fullname.format_constraint_check_data()
+        assert data == {"entity_type": "sample", "sub_type": ["organ"], "sub_type_val": ["BD"]}
+        good_organ_entity = EntityTypeInfo(
+            entity_type=OtherTypes.SAMPLE, entity_sub_type=Sample.ORGAN, entity_sub_type_val="BD"
+        )
         data = good_organ_entity.format_constraint_check_data()
-        assert data == {"entity_type": "sample", "sub_type": ["organ"], "sub_type_val": None}
+        assert data == {"entity_type": "sample", "sub_type": ["organ"], "sub_type_val": ["BD"]}
+
         dataset_entity = EntityTypeInfo(
             entity_type=DatasetType.DATASET, entity_sub_type="light sheet"
         )
@@ -173,6 +188,9 @@ class TestSingleTsv(unittest.TestCase):
         # Samples must have sub_type
         with self.assertRaises(Exception):
             EntityTypeInfo(entity_type=OtherTypes.SAMPLE)
+        # Organs must have sub_type_val
+        with self.assertRaises(Exception):
+            EntityTypeInfo(entity_type=Sample.ORGAN)
 
 
 # if __name__ == "__main__":
