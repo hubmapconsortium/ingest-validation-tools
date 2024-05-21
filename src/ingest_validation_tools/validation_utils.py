@@ -377,11 +377,12 @@ def get_tsv_errors(
         no_url_checks=no_url_checks,
         ignore_deprecation=ignore_deprecation,
         app_context=app_context,
+        report_type=report_type,
     )
     if schema_name in OtherTypes.value_list() or Sample.full_names_list():
         upload._check_other_path(str(tsv_path))
     else:
-        upload.validation_routine(report_type)
+        upload.validation_routine()
     return upload.errors.tsv_only_errors_by_path(str(tsv_path))
 
 

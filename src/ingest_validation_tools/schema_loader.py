@@ -139,6 +139,13 @@ class EntityTypeInfo:
             "sub_type_val": [self.entity_sub_type_val] if self.entity_sub_type_val else None,
         }
 
+    def format_constraint_check_error(self):
+        data_entity_sub_type = f"/{self.entity_sub_type.lower()}" if self.entity_sub_type else ""
+        data_entity_sub_type_val = (
+            f"/{self.entity_sub_type_val.lower()}" if self.entity_sub_type_val else ""
+        )
+        return self.entity_type + data_entity_sub_type + data_entity_sub_type_val
+
 
 @dataclass
 class AncestorTypeInfo(EntityTypeInfo):

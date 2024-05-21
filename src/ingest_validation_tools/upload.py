@@ -59,6 +59,7 @@ class Upload:
         run_plugins: bool = True,
         app_context: dict = {},
         verbose: bool = True,
+        report_type: ReportType = ReportType.STR,
     ):
         self.directory_path = directory_path
         self.optional_fields = optional_fields
@@ -74,6 +75,7 @@ class Upload:
         self.globus_token = globus_token
         self.run_plugins = run_plugins
         self.verbose = verbose
+        self.report_type = report_type
 
         self.check_fields = [
             "parent_sample_id",
@@ -186,24 +188,22 @@ class Upload:
 
     def validation_routine(
         self,
-        report_type: ReportType = ReportType.STR,
         tsv_paths: Dict[str, SchemaVersion] = {},
     ):
         tsvs_to_evaluate = tsv_paths if tsv_paths else self.effective_tsv_paths
         for tsv_path, schema_version in tsvs_to_evaluate.items():
-            self._validate(tsv_path, schema_version, report_type)
+            self._validate(tsv_path, schema_version)
 
     def online_checks(
         self,
         tsv_path: str,
         schema: SchemaVersion,
-        report_type: ReportType = ReportType.STR,
     ):
-        url_errors = self._get_url_errors(tsv_path, schema, report_type)
+        url_errors = self._get_url_errors(tsv_path, schema)
         if url_errors:
             self.errors.metadata_url_errors[tsv_path].extend(url_errors)
         try:
-            api_errors = self._api_validation(schema, report_type)
+            api_errors = self._api_validation(schema)
         except Exception as e:
             api_errors = [e]
         if api_errors:
@@ -282,20 +282,17 @@ class Upload:
         self,
         tsv_path: str,
         schema_version: SchemaVersion,
-        report_type: ReportType = ReportType.STR,
     ):
         if not schema_version.is_cedar:
             logging.info(
                 f"""TSV {tsv_path} does not contain a metadata_schema_id,
                 sending for local validation"""
             )
-            self._local_validation(tsv_path, schema_version, report_type)
+            self._local_validation(tsv_path, schema_version)
         else:
-            self.online_checks(tsv_path, schema_version, report_type)
+            self.online_checks(tsv_path, schema_version)
 
-    def _local_validation(
-        self, tsv_path: str, schema_version: SchemaVersion, report_type: ReportType
-    ):
+    def _local_validation(self, tsv_path: str, schema_version: SchemaVersion):
         try:
             schema = get_table_schema(
                 schema_version,
@@ -317,7 +314,7 @@ class Upload:
             )
             return
 
-        local_errors = get_table_errors(tsv_path, schema, report_type)
+        local_errors = get_table_errors(tsv_path, schema)
         if local_errors:
             self.errors.metadata_validation_local.update(
                 {f"{tsv_path} (as {schema_version.table_schema})": local_errors}
@@ -326,7 +323,6 @@ class Upload:
     def _api_validation(
         self,
         schema: SchemaVersion,
-        report_type: ReportType,
     ) -> List[Union[str, Dict]]:
         errors = []
         response = cedar_api_call(schema.path)
@@ -336,15 +332,13 @@ class Upload:
             for error in response.json()["reporting"]:
                 normalized_row = error.get("row") + 1
                 error["row"] = normalized_row
-                errors.append(self._get_message(error, report_type))
+                errors.append(self._get_message(error))
         else:
             logging.info(f"No errors found during CEDAR validation for {schema.path}!")
             logging.info(f"Response: {response.json()}.")
         return errors
 
-    def _get_url_errors(
-        self, tsv_path: str, schema: SchemaVersion, report_type: ReportType
-    ) -> List:
+    def _get_url_errors(self, tsv_path: str, schema: SchemaVersion) -> List:
         """
         Check provided values for parent_sample_id and orcid_id; additionally
         check sample_id, organ_id, and source_id values in single TSV validation
@@ -361,15 +355,14 @@ class Upload:
         fields = rows[0].keys()
         if missing_fields := [k for k in constrained_fields.keys() if k not in fields].sort():
             raise ErrorDictException(f"Missing fields: {missing_fields}")
-        url_errors = self._find_and_check_url_fields(rows, constrained_fields, schema, report_type)
+        url_errors = self._find_and_check_url_fields(rows, constrained_fields, schema)
         return url_errors
 
     def _constraint_checks(self, schema: SchemaVersion):
         # HuBMAP does not have constraints endpoint, SenNet can pass it in explicitly
         if not self.app_context["constraints_url"]:
             return
-        constraints_by_entity_id = self._construct_constraint_check(schema)
-        payload = list(constraints_by_entity_id.values())
+        payload = self._construct_constraint_check(schema)
         if not payload:
             print(f"No constraint checks made for schema {schema.schema_name}.")
             return
@@ -386,12 +379,10 @@ class Upload:
         try:
             response.raise_for_status()
         except Exception:
-            return self._get_constraint_check_errors(
-                response, payload, list(constraints_by_entity_id.keys())
-            )
+            return self._get_constraint_check_errors(response, schema)
 
     def _find_and_check_url_fields(
-        self, rows: List, constrained_fields: Dict, schema: SchemaVersion, report_type: ReportType
+        self, rows: List, constrained_fields: Dict, schema: SchemaVersion
     ) -> List[Dict[str, str]]:
         errors = []
         for i, row in enumerate(rows):
@@ -412,7 +403,7 @@ class Upload:
                             "value": value,
                             "error_text": e.__str__(),
                         }
-                        errors.append(self._get_message(error, report_type))
+                        errors.append(self._get_message(error))
         return errors
 
     def _get_reference_errors(self):
@@ -641,16 +632,19 @@ class Upload:
             response = requests.get(url)
             response.raise_for_status()
 
-    def _construct_constraint_check(self, schema: SchemaVersion) -> dict[str, dict]:
-        payload = {}
+    def _construct_constraint_check(self, schema: SchemaVersion) -> list[dict]:
+        payload = []
         assert isinstance(schema.entity_type_info, EntityTypeInfo), Exception(
             f"Entity type info not present in {schema.schema_name} schema."
         )
+        descendant_data = schema.entity_type_info.format_constraint_check_data()
         for ancestor_entity in schema.ancestor_entities:
-            payload[ancestor_entity.entity_id] = {
-                "ancestors": ancestor_entity.format_constraint_check_data(),
-                "descendants": schema.entity_type_info.format_constraint_check_data(),
-            }
+            payload.append(
+                {
+                    "ancestors": ancestor_entity.format_constraint_check_data(),
+                    "descendants": descendant_data,
+                }
+            )
         return payload
 
     def _print_constraint_pairs(self, constraint_list):
@@ -670,35 +664,29 @@ class Upload:
             print(" - ".join(row_output))
 
     def _get_constraint_check_errors(
-        self, response: requests.Response, payload: List, entity_ids: List
+        self,
+        response: requests.Response,
+        schema: SchemaVersion,
     ) -> List[str]:
         problem_entities = []
+        assert schema.entity_type_info
         if response.status_code == 400:
             for i, entity_check in enumerate(response.json().get("description", [])):
                 if entity_check["code"] != 200:
-                    descendants = self._format_constraint_type_error(
-                        payload[i].get("descendants", {})
-                    )
-                    ancestors = self._format_constraint_type_error(payload[i].get("ancestors", {}))
-                    problem_entities.append(
-                        f"Invalid ancestor type for TSV type {descendants}. Data sent for ancestor {entity_ids[i]}: {ancestors}."
-                    )
+                    ancestors = schema.ancestor_entities[i].format_constraint_check_error()
+                    error = {
+                        "errorType": "Invalid Ancestor",
+                        "column": schema.ancestor_entities[i].column,
+                        "row": schema.ancestor_entities[i].row,
+                        "value": schema.ancestor_entities[i].entity_id,
+                        "error_text": f"Invalid ancestor type for TSV type {schema.entity_type_info.format_constraint_check_error()}. Data sent for ancestor {schema.ancestor_entities[i].entity_id}: {ancestors}.",
+                    }
+                    problem_entities.append(self._get_message(error))
         return problem_entities
-
-    def _format_constraint_type_error(self, section: dict):
-        data_entity_type = section.get("entity_type", "").lower()
-        data_entity_sub_type = (
-            f"/{section['sub_type'][0].lower()}" if len(section.get("sub_type", [])) == 1 else ""
-        )
-        data_entity_sub_type_val = (
-            f"/{section['sub_type_val'][0].lower()}" if section.get("sub_type_val") else ""
-        )
-        return data_entity_type + data_entity_sub_type + data_entity_sub_type_val
 
     def _get_message(
         self,
         error: Dict[str, str],
-        report_type: ReportType = ReportType.STR,
     ) -> Union[str, Dict]:
         """
         >>> u = Upload(Path("/test/dir"))
@@ -719,7 +707,7 @@ class Upload:
         example = error.get("repairSuggestion", "")
         error_text = error.get("error_text", "")
 
-        return_str = report_type is ReportType.STR
+        return_str = self.report_type is ReportType.STR
         if "errorType" in error and "column" in error and "row" in error and "value" in error:
             # This may need readability improvements
             msg = (

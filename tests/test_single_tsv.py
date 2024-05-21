@@ -70,14 +70,15 @@ class TestSingleTsv(unittest.TestCase):
         self.assertEqual(
             self.upload._constraint_checks(BAD_DATASET_SCHEMA_WITH_ANCESTORS),
             [
-                "Invalid ancestor type for TSV type dataset/histology. Data sent for ancestor test_id_1: sample/organ."
+                'On row 2, column "source_id", value "test_id_1" fails because of error '
+                '"Invalid Ancestor": Invalid ancestor type for TSV type dataset/histology. '
+                "Data sent for ancestor test_id_1: sample/organ."
             ],
         )
-        data = [value for value in BAD_DATASET_EXPECTED_PAYLOAD.values()]
         mock_request.assert_any_call(
             CONSTRAINTS_URL + CONSTRAINTS_URL_PARAMS,
             headers={"Authorization": "Bearer test", "Content-Type": "application/json"},
-            data=json.dumps(data),
+            data=json.dumps(BAD_DATASET_EXPECTED_PAYLOAD),
         )
 
     @patch("ingest_validation_tools.upload.requests.post")
@@ -85,11 +86,10 @@ class TestSingleTsv(unittest.TestCase):
         mock_request.return_value = get_mock_response(True, SAMPLE_BLOCK_CONSTRAINTS_RESPONSE_GOOD)
         # Shouldn't return anything
         self.upload._constraint_checks(GOOD_DATASET_SCHEMA_WITH_ANCESTORS)
-        data = [value for value in GOOD_DATASET_EXPECTED_PAYLOAD.values()]
         mock_request.assert_any_call(
             CONSTRAINTS_URL + CONSTRAINTS_URL_PARAMS,
             headers={"Authorization": "Bearer test", "Content-Type": "application/json"},
-            data=json.dumps(data),
+            data=json.dumps(GOOD_DATASET_EXPECTED_PAYLOAD),
         )
 
     @patch("ingest_validation_tools.upload.requests.post")
@@ -103,7 +103,7 @@ class TestSingleTsv(unittest.TestCase):
         )
         path = Path("./tests/fixtures/sample-block-good.tsv").absolute()
         schema = get_schema_version(path, "ascii")
-        self.upload._get_url_errors(str(path), schema, report_type=ReportType.STR)
+        self.upload._get_url_errors(str(path), schema)
         assert len(schema.ancestor_entities) == 2
         assert schema.ancestor_entities[1].entity_sub_type == Sample.BLOCK.name.lower()
         assert schema.ancestor_entities[0].entity_type == OtherTypes.SAMPLE
@@ -124,7 +124,7 @@ class TestSingleTsv(unittest.TestCase):
         cedar_response: bytes,
         path: str,
         schema_name: str,
-        expected_errors: list,
+        expected_errors_list: list[list],
     ):
         with patch("ingest_validation_tools.upload.requests.post") as mock_constraints_response:
             with patch("ingest_validation_tools.upload.cedar_api_call") as mock_cedar_call:
@@ -144,17 +144,18 @@ class TestSingleTsv(unittest.TestCase):
                         mock_constraints_response.return_value = get_mock_response(
                             good, constraint_checks_response
                         )
-                        errors = get_tsv_errors(
-                            Path(path).absolute(),
-                            schema_name,
-                            globus_token="test",
-                            app_context={
-                                "entities_url": ENTITIES_URL,
-                                "constraints_url": CONSTRAINTS_URL,
-                            },
-                            report_type=ReportType.JSON,
-                        )
-                        assert errors == expected_errors
+                        for report_type in [ReportType.JSON, ReportType.STR]:
+                            errors = get_tsv_errors(
+                                Path(path).absolute(),
+                                schema_name,
+                                globus_token="test",
+                                app_context={
+                                    "entities_url": ENTITIES_URL,
+                                    "constraints_url": CONSTRAINTS_URL,
+                                },
+                                report_type=report_type,
+                            )
+                            assert errors in expected_errors_list
 
     def test_entity_type_info(self):
         good_organ_entity = EntityTypeInfo(entity_type=Sample.ORGAN)
