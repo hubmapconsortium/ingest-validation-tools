@@ -6,14 +6,16 @@ from unittest.mock import patch
 import requests
 from parameterized import parameterized
 
+from ingest_validation_tools.enums import DatasetType, OtherTypes, Sample
+from ingest_validation_tools.schema_loader import EntityTypeInfo
 from ingest_validation_tools.table_validator import ReportType
 from ingest_validation_tools.upload import Upload
 from ingest_validation_tools.validation_utils import get_schema_version, get_tsv_errors
 from tests.fixtures import (
     BAD_DATASET_EXPECTED_PAYLOAD,
-    BAD_DATASET_SCHEMA,
+    BAD_DATASET_SCHEMA_WITH_ANCESTORS,
     GOOD_DATASET_EXPECTED_PAYLOAD,
-    GOOD_DATASET_SCHEMA,
+    GOOD_DATASET_SCHEMA_WITH_ANCESTORS,
     SAMPLE_BLOCK_CONSTRAINTS_RESPONSE_BAD,
     SAMPLE_BLOCK_CONSTRAINTS_RESPONSE_GOOD,
     SAMPLE_BLOCK_PARTIAL_CEDAR_RESPONSE_GOOD,
@@ -44,7 +46,7 @@ def get_mock_response(good: bool, response_data: bytes):
 class TestSingleTsv(unittest.TestCase):
 
     @property
-    def get_upload(self):
+    def upload(self):
         upload = Upload(directory_path=Path("."))
         upload.app_context = {
             "constraints_url": CONSTRAINTS_URL,
@@ -55,23 +57,20 @@ class TestSingleTsv(unittest.TestCase):
         return upload
 
     def test_bad_payload(self):
-        upload = self.get_upload
-        payload = upload._construct_constraint_check(BAD_DATASET_SCHEMA)
+        payload = self.upload._construct_constraint_check(BAD_DATASET_SCHEMA_WITH_ANCESTORS)
         assert payload == BAD_DATASET_EXPECTED_PAYLOAD
 
     def test_good_payload(self):
-        upload = self.get_upload
-        payload = upload._construct_constraint_check(GOOD_DATASET_SCHEMA)
+        payload = self.upload._construct_constraint_check(GOOD_DATASET_SCHEMA_WITH_ANCESTORS)
         assert payload == GOOD_DATASET_EXPECTED_PAYLOAD
 
     @patch("ingest_validation_tools.upload.requests.post")
     def test_constraints_bad(self, mock_request):
-        upload = self.get_upload
         mock_request.return_value = get_mock_response(False, SAMPLE_BLOCK_CONSTRAINTS_RESPONSE_BAD)
         self.assertEqual(
-            upload._constraint_checks(BAD_DATASET_SCHEMA),
+            self.upload._constraint_checks(BAD_DATASET_SCHEMA_WITH_ANCESTORS),
             [
-                "Invalid ancestor type for TSV type dataset/histology. Data sent for ancestor test_id_1: publication/."
+                "Invalid ancestor type for TSV type dataset/histology. Data sent for ancestor test_id_1: sample/organ."
             ],
         )
         data = [value for value in BAD_DATASET_EXPECTED_PAYLOAD.values()]
@@ -83,10 +82,9 @@ class TestSingleTsv(unittest.TestCase):
 
     @patch("ingest_validation_tools.upload.requests.post")
     def test_constraints_good(self, mock_request):
-        upload = self.get_upload
         mock_request.return_value = get_mock_response(True, SAMPLE_BLOCK_CONSTRAINTS_RESPONSE_GOOD)
         # Shouldn't return anything
-        upload._constraint_checks(GOOD_DATASET_SCHEMA)
+        self.upload._constraint_checks(GOOD_DATASET_SCHEMA_WITH_ANCESTORS)
         data = [value for value in GOOD_DATASET_EXPECTED_PAYLOAD.values()]
         mock_request.assert_any_call(
             CONSTRAINTS_URL + CONSTRAINTS_URL_PARAMS,
@@ -97,31 +95,6 @@ class TestSingleTsv(unittest.TestCase):
     @patch("ingest_validation_tools.upload.requests.post")
     @patch("ingest_validation_tools.upload.requests.get")
     def test_expected_ancestor_entities_creation(self, mock_entity_api, mock_cedar_api):
-        expected_ancestor_entities = [
-            {
-                "entity_type": "sample",
-                "sub_type": ["block"],
-                "sub_type_val": None,
-            },
-            {
-                "entity_type": "sample",
-                "sub_type": ["block"],
-                "sub_type_val": None,
-            },
-        ]
-        wrong_ancestor_entities = [
-            {
-                "entity_type": "sample",
-                "sub_type": ["block"],
-                "sub_type_val": None,
-            },
-            {
-                "entity_type": "sample",
-                "sub_type": ["suspension"],
-                "sub_type_val": None,
-            },
-        ]
-        upload = self.get_upload
         mock_entity_api.return_value = get_mock_response(
             True, SAMPLE_BLOCK_PARTIAL_ENTITY_API_RESPONSE
         )
@@ -130,9 +103,10 @@ class TestSingleTsv(unittest.TestCase):
         )
         path = Path("./tests/fixtures/sample-block-good.tsv").absolute()
         schema = get_schema_version(path, "ascii")
-        upload._get_url_errors(str(path), schema, report_type=ReportType.STR)
-        assert list(schema.ancestor_entities.values()) == expected_ancestor_entities
-        assert list(schema.ancestor_entities.values()) != wrong_ancestor_entities
+        self.upload._get_url_errors(str(path), schema, report_type=ReportType.STR)
+        assert len(schema.ancestor_entities) == 2
+        assert schema.ancestor_entities[1].entity_sub_type == Sample.BLOCK.name.lower()
+        assert schema.ancestor_entities[0].entity_type == OtherTypes.SAMPLE
 
     @property
     def entity_api_response_map(self) -> dict[str, bytes]:
@@ -181,6 +155,23 @@ class TestSingleTsv(unittest.TestCase):
                             report_type=ReportType.JSON,
                         )
                         assert errors == expected_errors
+
+    def test_entity_type_info(self):
+        good_organ_entity = EntityTypeInfo(entity_type=Sample.ORGAN)
+        data = good_organ_entity.format_constraint_check_data()
+        assert data == {"entity_type": "sample", "sub_type": ["organ"], "sub_type_val": None}
+        dataset_entity = EntityTypeInfo(
+            entity_type=DatasetType.DATASET, entity_sub_type="light sheet"
+        )
+        data = dataset_entity.format_constraint_check_data()
+        assert data == {
+            "entity_type": "dataset",
+            "sub_type": ["light sheet"],
+            "sub_type_val": None,
+        }
+        # Samples must have sub_type
+        with self.assertRaises(Exception):
+            EntityTypeInfo(entity_type=OtherTypes.SAMPLE)
 
 
 # if __name__ == "__main__":

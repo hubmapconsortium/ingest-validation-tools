@@ -13,13 +13,15 @@ from typing import DefaultDict, Dict, List, Optional, Union
 
 import requests
 
-from ingest_validation_tools.enums import OtherTypes
+from ingest_validation_tools.enums import OtherTypes, Sample
 from ingest_validation_tools.error_report import ErrorDict, ErrorDictException, InfoDict
 from ingest_validation_tools.plugin_validator import (
     ValidatorError as PluginValidatorError,
 )
 from ingest_validation_tools.plugin_validator import run_plugin_validators_iter
 from ingest_validation_tools.schema_loader import (
+    AncestorTypeInfo,
+    EntityTypeInfo,
     PreflightError,
     SchemaVersion,
     get_table_schema,
@@ -27,7 +29,6 @@ from ingest_validation_tools.schema_loader import (
 from ingest_validation_tools.table_validator import ReportType, get_table_errors
 from ingest_validation_tools.validation_utils import (
     cedar_api_call,
-    format_constraint_check_data,
     get_data_dir_errors,
     get_entity_api_data,
     get_entity_type_vals,
@@ -399,10 +400,10 @@ class Upload:
                 for value in field_value:
                     try:
                         entity_type = self._check_url(
-                            field_name, value, constrained_fields, schema.schema_name
+                            field_name, i, value, constrained_fields, schema
                         )
                         if entity_type:
-                            schema.ancestor_entities.update(entity_type)
+                            schema.ancestor_entities.append(entity_type)
                     except Exception as e:
                         error = {
                             "errorType": type(e).__name__,
@@ -569,12 +570,12 @@ class Upload:
         constrained_fields = {}
         schema_name = schema.schema_name
 
-        if "sample" in schema_name:
+        if OtherTypes.SAMPLE in schema_name:
             constrained_fields["sample_id"] = self.app_context.get("entities_url")
             constrained_fields["source_id"] = self.app_context.get("entities_url")
-        elif "organ" in schema_name:
+        elif Sample.ORGAN in schema_name:
             constrained_fields["organ_id"] = self.app_context.get("entities_url")
-        elif "source" in schema_name:
+        elif OtherTypes.SOURCE in schema_name:
             constrained_fields["source_id"] = self.app_context.get("entities_url")
         elif "contributors" in schema_name:
             if schema.is_cedar:
@@ -609,8 +610,8 @@ class Upload:
         return url_fields
 
     def _check_url(
-        self, field: str, value: str, constrained_fields: Dict, schema_name: str
-    ) -> Optional[Dict]:
+        self, field: str, row: int, value: str, constrained_fields: Dict, schema: SchemaVersion
+    ) -> Optional[AncestorTypeInfo]:
         """
         Returns entity_type if checking a field in check_fields.
         """
@@ -618,12 +619,14 @@ class Upload:
         if field in self.check_fields:
             headers = self.app_context.get("request_header", {})
             response = get_entity_api_data(url, self.globus_token, headers)
-            if schema_name != OtherTypes.SAMPLE or (
-                schema_name == OtherTypes.SAMPLE and field != "sample_id"
-            ):
-                return {
-                    value: format_constraint_check_data(*get_entity_type_vals(response.json()))
-                }
+            if not (schema.schema_name == OtherTypes.SAMPLE and field == "sample_id"):
+                return AncestorTypeInfo(
+                    entity_id=value,
+                    source_schema=schema,
+                    row=row,
+                    column=field,
+                    *get_entity_type_vals(response.json()),
+                )
         elif field in ["orcid_id", "orcid"]:
             headers = {"Accept": "application/json"}
             response = requests.get(url, headers=headers)
@@ -640,10 +643,13 @@ class Upload:
 
     def _construct_constraint_check(self, schema: SchemaVersion) -> dict[str, dict]:
         payload = {}
-        for entity_id, ancestor_entity in schema.ancestor_entities.items():
-            payload[entity_id] = {
-                "ancestors": ancestor_entity,
-                "descendants": schema.entity_type_info,
+        assert isinstance(schema.entity_type_info, EntityTypeInfo), Exception(
+            f"Entity type info not present in {schema.schema_name} schema."
+        )
+        for ancestor_entity in schema.ancestor_entities:
+            payload[ancestor_entity.entity_id] = {
+                "ancestors": ancestor_entity.format_constraint_check_data(),
+                "descendants": schema.entity_type_info.format_constraint_check_data(),
             }
         return payload
 

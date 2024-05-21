@@ -152,35 +152,15 @@ shared_enums: Dict[str, List[str]] = {
 
 
 @unique
-class Sample(str, Enum):
-    BLOCK = "sample-block"
-    SUSPENSION = "sample-suspension"
-    SECTION = "sample-section"
-    ORGAN = "organ"
-
-    # TODO: I believe this can be streamlined with the StrEnum class added in 3.11
-    @classmethod
-    def full_names_list(cls) -> List[str]:
-        return [sample_type.value for sample_type in cls]
-
-    @classmethod
-    def just_subtypes_list(cls) -> List[str]:
-        return [sample_type.name.lower() for sample_type in cls]
-
-    @classmethod
-    def get_key_from_val(cls, val) -> str:
-        match = [sample_type.name for sample_type in cls if sample_type.value == val]
-        if not match:
-            return ""
-        return match[0]
+class EntityTypes(str, Enum):
+    pass
 
 
-class DatasetType(str, Enum):
+class DatasetType(EntityTypes):
     DATASET = "dataset"
 
 
-@unique
-class OtherTypes(str, Enum):
+class OtherTypes(EntityTypes):
     ANTIBODIES = "antibodies"
     CONTRIBUTORS = "contributors"
     SOURCE = "source"
@@ -204,3 +184,26 @@ class OtherTypes(str, Enum):
     def with_sample_subtypes(cls):
         all_types = [*cls.value_list(), *cls.get_sample_types_full_names()]
         return all_types
+
+
+class Sample(EntityTypes):
+    BLOCK = "sample-block"
+    SUSPENSION = "sample-suspension"
+    SECTION = "sample-section"
+    ORGAN = "organ"
+
+    # TODO: I believe this can be streamlined with the StrEnum class added in 3.11
+    @classmethod
+    def full_names_list(cls) -> List[str]:
+        return [sample_type.value for sample_type in cls]
+
+    @classmethod
+    def just_subtypes_list(cls) -> List[str]:
+        return [sample_type.name.lower() for sample_type in cls]
+
+    @classmethod
+    def get_key_from_val(cls, val) -> str:
+        match = [sample_type.name for sample_type in cls if sample_type.value == val]
+        if not match:
+            return ""
+        return match[0]

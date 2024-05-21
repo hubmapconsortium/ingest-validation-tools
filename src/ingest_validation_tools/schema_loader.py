@@ -7,7 +7,13 @@ from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Dict, List, Optional, Sequence, Set, Union
 
-from ingest_validation_tools.enums import OtherTypes, shared_enums
+from ingest_validation_tools.enums import (
+    DatasetType,
+    EntityTypes,
+    OtherTypes,
+    Sample,
+    shared_enums,
+)
 from ingest_validation_tools.yaml_include_loader import load_yaml
 
 _table_schemas_path = Path(__file__).parent / "table-schemas"
@@ -50,10 +56,8 @@ class SchemaVersion:
     dir_schema: str = ""
     metadata_type: str = "assays"
     contains: List = field(default_factory=list)
-    ancestor_entities: Dict = field(default_factory=dict)
-    entity_type_info: Dict = field(
-        default_factory=dict
-    )  # entity_type, entity_sub_type, entity_sub_type_val; for constraint checking
+    entity_type_info: Optional[EntityTypeInfo] = None
+    ancestor_entities: List[AncestorTypeInfo] = field(default_factory=list)
 
     def __post_init__(self):
         if type(self.path) is str:
@@ -104,6 +108,44 @@ class SchemaVersion:
             self.version = match[0]
         contains = self.soft_assay_data.get("must-contain", [])
         self.contains = [schema.lower() for schema in contains]
+
+
+@dataclass
+class EntityTypeInfo:
+    entity_type: EntityTypes
+    entity_sub_type: Optional[str] = ""
+    entity_sub_type_val: Optional[str] = ""
+
+    def __post_init__(self):
+        if self.entity_type in [OtherTypes.SAMPLE, DatasetType.DATASET]:
+            if not self.entity_sub_type:
+                raise Exception(f"Entity of type {self.entity_type} must have a sub_type.")
+        # If a member of the Sample enum is passed in as the entity_type,
+        # this extracts the entity_type and entity_sub_type from that value
+        # and mutates the instance accordingly
+        # e.g. self.entity_type == <Sample.BLOCK: "sample-block">
+        if isinstance(self.entity_type, Sample):
+            self.entity_sub_type = self.entity_type.name.lower()
+            self.entity_type = OtherTypes.SAMPLE
+
+    def format_constraint_check_data(self) -> Dict:
+        """
+        Formats data about an entity so that it can be sent as
+        part of the payload to the constraints endpoint.
+        """
+        return {
+            "entity_type": self.entity_type.value,
+            "sub_type": [self.entity_sub_type],
+            "sub_type_val": [self.entity_sub_type_val] if self.entity_sub_type_val else None,
+        }
+
+
+@dataclass
+class AncestorTypeInfo(EntityTypeInfo):
+    entity_id: Optional[str] = None
+    source_schema: Optional[SchemaVersion] = None
+    row: Optional[int] = None
+    column: Optional[str] = None
 
 
 @dataclass
