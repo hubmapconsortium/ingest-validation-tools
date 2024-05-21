@@ -13,7 +13,7 @@ from typing import DefaultDict, Dict, List, Optional, Union
 
 import requests
 
-from ingest_validation_tools.enums import OtherTypes, Sample
+from ingest_validation_tools.enums import OtherTypes
 from ingest_validation_tools.error_report import ErrorDict, ErrorDictException, InfoDict
 from ingest_validation_tools.plugin_validator import (
     ValidatorError as PluginValidatorError,
@@ -256,7 +256,7 @@ class Upload:
                 self.errors.upload_metadata[f"{path} (as {schema.table_schema})"].append(
                     "File is missing data_path or contributors_path."
                 )
-            for ref in ["contributors", "antibodies"]:
+            for ref in [OtherTypes.CONTRIBUTORS, OtherTypes.ANTIBODIES]:
                 errors = self._get_ref_errors(ref, schema, path)
                 if errors:
                     self.errors.upload_metadata.update(errors)
@@ -559,14 +559,13 @@ class Upload:
         constrained_fields = {}
         schema_name = schema.schema_name
 
-        if OtherTypes.SAMPLE in schema_name:
-            constrained_fields["sample_id"] = self.app_context.get("entities_url")
+        if schema_name in [OtherTypes.SAMPLE, OtherTypes.SOURCE, *OtherTypes.get_sample_types_full_names()]:
             constrained_fields["source_id"] = self.app_context.get("entities_url")
-        elif Sample.ORGAN in schema_name:
+            if schema_name in [OtherTypes.SAMPLE, *OtherTypes.get_sample_types_full_names()]:
+                constrained_fields["sample_id"] = self.app_context.get("entities_url")
+        elif schema_name in OtherTypes.ORGAN:  # Deprecated, included for backward-compatibility
             constrained_fields["organ_id"] = self.app_context.get("entities_url")
-        elif OtherTypes.SOURCE in schema_name:
-            constrained_fields["source_id"] = self.app_context.get("entities_url")
-        elif "contributors" in schema_name:
+        elif schema_name == OtherTypes.CONTRIBUTORS:
             if schema.is_cedar:
                 constrained_fields["orcid"] = (
                     "https://pub.orcid.org/v3.0/expanded-search/?q=orcid:"
@@ -760,11 +759,11 @@ class Upload:
             if not row.get(field):
                 continue
             unique_paths.add(row[field])
-        if ref == "contributors":
+        if ref == OtherTypes.CONTRIBUTORS:
             schema.contributors_paths = [
                 str(Path(Path(metadata_path).parent, path)) for path in unique_paths
             ]
-        elif ref == "antibodies":
+        elif ref == OtherTypes.ANTIBODIES:
             schema.antibodies_paths = [
                 str(Path(Path(metadata_path).parent, path)) for path in unique_paths
             ]
