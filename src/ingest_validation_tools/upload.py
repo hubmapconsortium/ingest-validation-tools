@@ -559,7 +559,11 @@ class Upload:
         constrained_fields = {}
         schema_name = schema.schema_name
 
-        if schema_name in [OtherTypes.SAMPLE, OtherTypes.SOURCE, *OtherTypes.get_sample_types_full_names()]:
+        if schema_name in [
+            OtherTypes.SAMPLE,
+            OtherTypes.SOURCE,
+            *OtherTypes.get_sample_types_full_names(),
+        ]:
             constrained_fields["source_id"] = self.app_context.get("entities_url")
             if schema_name in [OtherTypes.SAMPLE, *OtherTypes.get_sample_types_full_names()]:
                 constrained_fields["sample_id"] = self.app_context.get("entities_url")
