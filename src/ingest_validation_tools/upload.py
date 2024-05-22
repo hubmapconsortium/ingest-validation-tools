@@ -13,7 +13,7 @@ from typing import DefaultDict, Dict, List, Optional, Union
 
 import requests
 
-from ingest_validation_tools.enums import OtherTypes
+from ingest_validation_tools.enums import OtherTypes, Sample
 from ingest_validation_tools.error_report import ErrorDict, ErrorDictException, InfoDict
 from ingest_validation_tools.plugin_validator import (
     ValidatorError as PluginValidatorError,
@@ -560,12 +560,11 @@ class Upload:
         schema_name = schema.schema_name
 
         if schema_name in [
-            OtherTypes.SAMPLE,
             OtherTypes.SOURCE,
-            *OtherTypes.get_sample_types_full_names(),
+            *Sample.with_parent_type(),
         ]:
             constrained_fields["source_id"] = self.app_context.get("entities_url")
-            if schema_name in [OtherTypes.SAMPLE, *OtherTypes.get_sample_types_full_names()]:
+            if schema_name in Sample.with_parent_type():
                 constrained_fields["sample_id"] = self.app_context.get("entities_url")
         elif schema_name in OtherTypes.ORGAN:  # Deprecated, included for backward-compatibility
             constrained_fields["organ_id"] = self.app_context.get("entities_url")

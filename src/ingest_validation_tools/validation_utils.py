@@ -379,7 +379,7 @@ def get_tsv_errors(
         app_context=app_context,
         report_type=report_type,
     )
-    if schema_name in OtherTypes.value_list() or Sample.full_names_list():
+    if schema_name in OtherTypes.with_sample_subtypes():
         upload._check_other_path(str(tsv_path))
     else:
         upload.validation_routine()
@@ -434,17 +434,18 @@ def get_entity_info_from_entity_api(
 
 
 def get_entity_type_vals(response: dict) -> tuple:
-    entity_type = response.get("entity_type", "").lower()
+    raw_entity_type = response.get("entity_type", "").lower()
     entity_sub_type = None
     entity_sub_type_val = None
-    if entity_type == OtherTypes.SAMPLE:
-        entity_type = OtherTypes.SAMPLE
-        entity_sub_type = response.get("sample_category", "").lower()
-        if entity_sub_type == Sample.ORGAN:
-            entity_sub_type_val = response.get("organ", "").lower()
-    elif entity_type == DatasetType.DATASET:
+    if raw_entity_type == DatasetType.DATASET:
         entity_type = DatasetType.DATASET
         entity_sub_type = response.get("dataset_type", "")
+    else:
+        entity_type = OtherTypes.get_enum_from_val(raw_entity_type)
+        if entity_type == OtherTypes.SAMPLE:
+            entity_sub_type = response.get("sample_category", "").lower()
+            if entity_sub_type == Sample.ORGAN:
+                entity_sub_type_val = response.get("organ", "").lower()
     return entity_type, entity_sub_type, entity_sub_type_val
 
 
