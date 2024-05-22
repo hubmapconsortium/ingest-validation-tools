@@ -610,7 +610,10 @@ class Upload:
         if field in self.check_fields:
             headers = self.app_context.get("request_header", {})
             response = get_entity_api_data(url, self.globus_token, headers)
-            if not (schema.schema_name == OtherTypes.SAMPLE and field == "sample_id"):
+            if (
+                not (schema.schema_name == OtherTypes.SAMPLE and field == "sample_id")
+                and not schema.schema_name == OtherTypes.SOURCE
+            ):
                 return AncestorTypeInfo(
                     entity_id=value,
                     source_schema=schema,
