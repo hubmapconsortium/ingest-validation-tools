@@ -14,7 +14,12 @@ from typing import DefaultDict, Dict, List, Optional, Union
 import requests
 
 from ingest_validation_tools.enums import OtherTypes
-from ingest_validation_tools.error_report import ErrorDict, ErrorDictException, InfoDict
+from ingest_validation_tools.error_report import (
+    ErrorDict,
+    ErrorDictException,
+    ErrorReport,
+    InfoDict,
+)
 from ingest_validation_tools.plugin_validator import (
     ValidatorError as PluginValidatorError,
 )
@@ -105,14 +110,26 @@ class Upload:
     #
     #####################
 
+    def create_report(self):
+        """
+        Returns an ErrorReport object with all necessary info.
+        ErrorDict and InfoDict can still be accessed using the
+        ErrorReport.raw_errors and ErrorReport.raw_info attributes.
+        """
+        return ErrorReport(errors=self.get_errors(), info=self.get_info())
+
     def get_info(self) -> InfoDict:
         """
-        If called before get_errors, will report dir schema major version only.
-        TODO: create a method that calls get_errors and then get_info as a unified
-        way of retrieving all necessary info about the upload
+        If called before get_errors, this will be missing some data.
+        Using Upload.create_report is suggested instead.
         """
         self.info.time = datetime.now()
         self.info.dir = str(self.directory_path)
+        self.info.upload_type = (
+            self.multi_parent.schema_name
+            if self.multi_parent
+            else ", ".join([value.schema_name for value in self.effective_tsv_paths.values()])
+        )
 
         git_version = subprocess.check_output(
             "git rev-parse --short HEAD".split(" "),
@@ -124,8 +141,10 @@ class Upload:
         try:
             tsvs = {
                 Path(path).name: {
-                    "Schema": sv.table_schema,
+                    "Metadata schema": sv.table_schema,
                     "Metadata schema version": sv.version,
+                    # TODO: this may be redundant if it can be assumed that
+                    # an upload will only validate against a single dir_schema.
                     "Directory schema version": sv.dir_schema,
                 }
                 for path, sv in self.effective_tsv_paths.items()
@@ -181,7 +200,7 @@ class Upload:
             "entities_url": "https://entity.api.hubmapconsortium.org/entities/",
             "ingest_url": "https://ingest.api.hubmapconsortium.org/",
             "request_header": {"X-Hubmap-Application": "ingest-pipeline"},
-            # TODO: does not work in HuBMAP currently
+            # Does not work in HuBMAP currently
             "constraints_url": None,
         } | submitted_app_context
 
@@ -220,9 +239,6 @@ class Upload:
     ###################################
 
     def _get_effective_tsvs(self, tsv_paths: List[str]):
-        # TODO: in most/all(?) cases, an upload should only have one assay_type/dir_schema
-        # (pending decisions about epics); in that case, the upload itself could probably have props
-        # like assay_type, dir_schema, and main_assay_tsv.
         unsorted_effective_tsv_paths = {
             str(path): get_schema_version(
                 Path(path),
@@ -273,11 +289,16 @@ class Upload:
                         schema.dir_schema = self.multi_parent.dir_schema
                 if dir_errors:
                     self.errors.directory.update(dir_errors)
+            self.info.dir_schema = self.multi_parent.dir_schema
         else:
+            # Should only be one dir_schema, but want to keep track if not
+            dir_schemas = []
             for path, schema in self.effective_tsv_paths.items():
                 dir_errors = self._get_ref_errors("data", schema, path)
                 if dir_errors:
                     self.errors.directory.update(dir_errors)
+                dir_schemas.append(schema.dir_schema)
+            self.info.dir_schema = ", ".join(dir_schemas)
 
     def _validate(
         self,
@@ -606,7 +627,7 @@ class Upload:
                 raise ErrorDictException(
                     "No token received to check URL fields against Entity API."
                 )
-            # TODO: could just split if there's a comma in the field
+            # Improvement?: could just split if there's a comma in the field
             elif check_field == "parent_sample_id":
                 url_fields["parent_sample_id"] = value.split(",")
             else:

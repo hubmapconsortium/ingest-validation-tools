@@ -76,11 +76,14 @@ class SchemaVersion:
             self.get_assayclassifier_data()
         if not self.version:
             if self.is_cedar:
-                self.version = "2"
+                self.version = self.rows[0]["metadata_schema_id"]
             else:
                 self.version = "0"
         if not self.table_schema:
-            self.table_schema = f"{self.schema_name}-v{self.version}"
+            if self.is_cedar:
+                self.table_schema = self.schema_name
+            else:
+                self.table_schema = f"{self.schema_name}-v{self.version}"
 
     def get_row_data(self):
         if self.rows[0].get("metadata_schema_id"):

@@ -24,20 +24,35 @@ class InfoDict:
     time: Optional[datetime] = None
     git: Optional[str] = None
     dir: Optional[str] = None
+    dir_schema: Optional[str] = None
+    main_assay_tsv: Optional[str] = None
+    upload_type: Optional[str] = None
     tsvs: Dict[str, Dict[str, str]] = field(default_factory=dict)
     successful_plugins: list[str] = field(default_factory=list)
 
+    field_map: ClassVar[Dict[str, str]] = {
+        "time": "Time",
+        "git": "Git version",
+        "dir": "Directory",
+        "dir_schema": "Directory schema",
+        "upload_type": "Upload type",
+        "tsvs": "TSVs",
+        "successful_plugins": "Successful plugins",
+    }
+
+    # Always want to report these fields, should not be None
+    core_fields = {"time", "git", "dir", "tsvs"}
+
     def as_dict(self):
-        as_dict = {
-            "Time": self.time,
-            "Git version": self.git,
-            "Directory": self.dir,
-            # "Directory schema version": self.dir_schema,
-            "TSVs": self.tsvs,
-        }
-        if self.successful_plugins:
-            as_dict["Successful Plugins"] = self.successful_plugins
-        return as_dict
+        """
+        Compiles all fields into a dict.
+        """
+        info = {}
+        for info_field in fields(self):
+            value = getattr(self, info_field.name)
+            if info_field in self.core_fields or value:
+                info[self.field_map.get(info_field.name)] = value
+        return info
 
 
 @dataclass
