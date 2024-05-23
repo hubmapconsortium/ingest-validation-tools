@@ -1,3 +1,6 @@
+from pathlib import Path
+
+from ingest_validation_tools.error_report import InfoDict
 from ingest_validation_tools.schema_loader import SchemaVersion
 
 SCATACSEQ_HIGHER_VERSION_VALID = {
@@ -328,4 +331,43 @@ BAD_DATASET_EXPECTED_PAYLOAD = {
             "sub_type_val": None,
         },
     },
+}
+
+PLUGIN_DIR_MAP = {
+    Path("examples/plugin-tests/expected-failure").absolute(): InfoDict(
+        time=None,
+        git="WILL_CHANGE",
+        dir="examples/plugin-tests/expected-failure/upload",
+        tsvs={
+            "good-visium-assay-metadata.tsv": {
+                "Schema": "visium-no-probes-v2",
+                "Metadata schema version": "2",
+                "Directory schema version": "visium-no-probes-v2.0",
+            },
+            "good-visium-histology-metadata.tsv": {
+                "Schema": "h-and-e-v2",
+                "Metadata schema version": "2",
+                "Directory schema version": "visium-no-probes-v2.0",
+            },
+            "good-visium-rnaseq-metadata.tsv": {
+                "Schema": "rnaseq-visium-no-probes-v2",
+                "Metadata schema version": "2",
+                "Directory schema version": "visium-no-probes-v2.0",
+            },
+        },
+        successful_plugins=["GZValidator"],
+    ),
+    Path("examples/plugin-tests/prev-gen-codex-expected-failure").absolute(): InfoDict(
+        time=None,
+        git="WILL_CHANGE",
+        dir="examples/plugin-tests/prev-gen-codex-expected-failure/upload",
+        tsvs={
+            "name-just-needs-to-end-with-metadata.tsv": {
+                "Schema": "codex-v1",
+                "Metadata schema version": "codex-v1",
+                "Directory schema version": "codex-v1.1",
+            }
+        },
+        successful_plugins=["CodexCommonErrorsValidator"],
+    ),
 }

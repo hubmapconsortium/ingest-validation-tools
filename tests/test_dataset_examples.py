@@ -5,14 +5,17 @@ import re
 import unittest
 from collections import defaultdict
 from csv import DictReader
+from datetime import datetime
 from io import TextIOWrapper
+from os import walk
 from pathlib import Path
 from typing import Dict, List, Union
 from unittest.mock import Mock, call, patch
 
-from ingest_validation_tools.error_report import ErrorDict, ErrorReport
+from ingest_validation_tools.error_report import ErrorDict, ErrorReport, InfoDict
 from ingest_validation_tools.upload import Upload
 from tests.fixtures import (
+    PLUGIN_DIR_MAP,
     SCATACSEQ_BOTH_VERSIONS_VALID,
     SCATACSEQ_HIGHER_VERSION_VALID,
     SCATACSEQ_LOWER_VERSION_VALID,
@@ -350,7 +353,7 @@ class TestDatasetExamples(unittest.TestCase):
                 upload = mutate_upload_errors_with_fixtures(upload, test_dir)
                 return upload
 
-    def prep_upload(self, test_dir: str, opts: Dict, patch_data: Dict) -> Upload:
+    def prep_dir_schema_upload(self, test_dir: str, opts: Dict, patch_data: Dict) -> Upload:
         with patch(
             "ingest_validation_tools.validation_utils.get_assaytype_data",
             side_effect=lambda row, ingest_url: _assaytype_side_effect(test_dir, row, ingest_url),
@@ -372,7 +375,7 @@ class TestDatasetExamples(unittest.TestCase):
             "examples/dataset-examples/good-scatacseq-metadata-v0",
         ]
         for test_dir in test_dirs:
-            upload = self.prep_upload(
+            upload = self.prep_dir_schema_upload(
                 test_dir, DATASET_EXAMPLES_OPTS, SCATACSEQ_HIGHER_VERSION_VALID
             )
             info = upload.get_info()
@@ -394,7 +397,7 @@ class TestDatasetExamples(unittest.TestCase):
         ]
         test_dirs = []
         for test_dir in test_dirs:
-            upload = self.prep_upload(
+            upload = self.prep_dir_schema_upload(
                 test_dir, DATASET_EXAMPLES_OPTS, SCATACSEQ_LOWER_VERSION_VALID
             )
             info = upload.get_info()
@@ -416,7 +419,7 @@ class TestDatasetExamples(unittest.TestCase):
         ]
         test_dirs = []
         for test_dir in test_dirs:
-            upload = self.prep_upload(
+            upload = self.prep_dir_schema_upload(
                 test_dir, DATASET_EXAMPLES_OPTS, SCATACSEQ_BOTH_VERSIONS_VALID
             )
             info = upload.get_info()
@@ -438,7 +441,7 @@ class TestDatasetExamples(unittest.TestCase):
         ]
         test_dirs = []
         for test_dir in test_dirs:
-            upload = self.prep_upload(
+            upload = self.prep_dir_schema_upload(
                 test_dir, DATASET_EXAMPLES_OPTS, SCATACSEQ_NEITHER_VERSION_VALID
             )
             info = upload.get_info()
@@ -452,6 +455,29 @@ class TestDatasetExamples(unittest.TestCase):
                     .get("Directory schema version")
                 )
                 self.assertEqual(dir_schema_version, None)
+
+    def test_info_reporting(self):
+        with patch(
+            "ingest_validation_tools.validation_utils.get_assaytype_data",
+            side_effect=lambda row, ingest_url: _assaytype_side_effect(test_dir, row, ingest_url),
+        ):
+            with patch("ingest_validation_tools.upload.Upload.online_checks"):
+                fake_now = datetime.now()
+                for test_dir in glob.glob(f"examples/plugin-tests/**"):
+                    upload = Upload(
+                        Path(f"{test_dir}/upload"), **PLUGIN_EXAMPLES_OPTS, verbose=False
+                    )
+                    upload.get_errors()
+                    info = upload.get_info()
+                    if info is None:
+                        raise Exception("Info should not be none.")
+                    assert info.git
+                    assert info.time
+                    info.git = "WILL_CHANGE"
+                    info.time = fake_now
+                    info_dict = PLUGIN_DIR_MAP[Path(test_dir).absolute()]
+                    info_dict.time = fake_now
+                    self.assertEqual(info_dict, info)
 
 
 # if __name__ == "__main__":
