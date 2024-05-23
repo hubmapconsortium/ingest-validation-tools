@@ -1,14 +1,13 @@
 import inspect
 import sys
+from collections.abc import Iterator
 from importlib import util
 from pathlib import Path
-from typing import Iterator, List, Tuple, Type, Union
+from typing import List, Optional, Tuple, Type, Union
 
 from ingest_validation_tools.schema_loader import SchemaVersion
 
 PathOrStr = Union[str, Path]
-
-KeyValuePair = Tuple[str, str]
 
 
 class add_path:
@@ -79,7 +78,7 @@ class Validator(object):
             print(message)
         return message
 
-    def collect_errors(self) -> List[str]:
+    def collect_errors(self, **kwargs) -> List[str]:
         """
         Returns a list of strings, each of which is a
         human-readable error message.
@@ -89,6 +88,9 @@ class Validator(object):
         just return an empty list.
         """
         raise NotImplementedError()
+
+
+KeyValuePair = Tuple[Type[Validator], Optional[str]]
 
 
 def run_plugin_validators_iter(
@@ -194,5 +196,5 @@ def validation_error_iter(
     """
     for cls in validation_class_iter(plugin_dir):
         validator = cls(paths, assay_type, contains, verbose)
-        for err in validator.collect_errors(**kwargs):  # type: ignore
+        for err in validator.collect_errors(**kwargs):
             yield cls, err
