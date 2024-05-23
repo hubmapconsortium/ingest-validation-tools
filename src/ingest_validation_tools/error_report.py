@@ -25,7 +25,6 @@ class InfoDict:
     git: Optional[str] = None
     dir: Optional[str] = None
     dir_schema: Optional[str] = None
-    main_assay_tsv: Optional[str] = None
     upload_type: Optional[str] = None
     tsvs: Dict[str, Dict[str, str]] = field(default_factory=dict)
     successful_plugins: list[str] = field(default_factory=list)
