@@ -2,8 +2,9 @@ import json
 import logging
 from collections import defaultdict
 from csv import DictReader
+from enum import Enum
 from pathlib import Path, PurePath
-from typing import DefaultDict, Dict, List, Optional, Union
+from typing import Dict, List, Optional, Union
 
 import requests
 
@@ -11,12 +12,47 @@ from ingest_validation_tools.directory_validator import (
     DirectoryValidationErrors,
     validate_directory,
 )
+from ingest_validation_tools.enums import DatasetType, OtherTypes, Sample
 from ingest_validation_tools.schema_loader import (
     PreflightError,
     SchemaVersion,
     get_possible_directory_schemas,
 )
 from ingest_validation_tools.table_validator import ReportType
+
+UNIQUE_FIELDS_MAP = {
+    OtherTypes.ANTIBODIES: {"antibody_rrid", "antibody_name"},
+    OtherTypes.CONTRIBUTORS: {"orcid", "orcid_id"},
+    DatasetType.DATASET: {"assay_type", "dataset_type"},
+    OtherTypes.SOURCE: {"strain_rrid"},
+    OtherTypes.ORGAN: {"organ_id"},  # Deprecated?
+    OtherTypes.SAMPLE: {"sample_id"},
+}
+OTHER_FIELDS_UNIQUE_FIELDS_MAP = {
+    k: v for k, v in UNIQUE_FIELDS_MAP.items() if not k == DatasetType.DATASET
+}
+
+
+def match_field_in_unique_fields(
+    match_fields: list, path: str, dataset=True
+) -> Optional[tuple[Enum, str]]:
+    match_dict = UNIQUE_FIELDS_MAP
+    if not dataset:
+        match_dict = OTHER_FIELDS_UNIQUE_FIELDS_MAP
+    matches = {}
+    for entity_type, unique_fields in match_dict.items():
+        match = {
+            entity_type: fieldname for fieldname in match_fields if fieldname in unique_fields
+        }
+        if match:
+            matches.update(match)
+    if len(matches) > 1:
+        raise Exception(
+            f"Multiple entity type fields found in {path}: {', '.join([val for (_, val) in matches])}."
+        )
+    elif len(matches) == 0:
+        return None
+    return list(matches.items())[0]
 
 
 class TSVError(Exception):
@@ -27,31 +63,28 @@ class TSVError(Exception):
 def dict_reader_wrapper(path, encoding: str) -> list:
     with open(path, encoding=encoding) as f:
         rows = list(DictReader(f, dialect="excel-tab"))
+        f.close()
     return rows
 
 
 def get_schema_version(
     path: Path,
     encoding: str,
+    entity_url: str = "",
     ingest_url: str = "",
+    globus_token: str = "",
     directory_path: Optional[Path] = None,
 ) -> SchemaVersion:
     try:
         rows = read_rows(path, encoding)
     except TSVError as e:
         raise PreflightError(e.errors)
-    other_type = get_other_schema_name(rows, str(path))
     # Don't want to send contrib/organ/sample/antibody to soft assay endpoint
+    other_type = get_other_type_schema(rows, str(path), entity_url, globus_token, directory_path)
     if other_type:
-        sv = SchemaVersion(
-            other_type,
-            directory_path=directory_path,
-            path=path,
-            rows=rows,
-        )
-        return sv
+        return other_type
     message = []
-    if not (rows[0].get("dataset_type") or rows[0].get("assay_type")):
+    if not [field for field in UNIQUE_FIELDS_MAP[DatasetType.DATASET] if field in rows[0].keys()]:
         message.append(f"No assay_type or dataset_type in {path}.")
         if "channel_id" in rows[0]:
             message.append('Has "channel_id": Antibodies TSV found where metadata TSV expected.')
@@ -72,49 +105,55 @@ def get_schema_version(
                 f'Dataset type: {rows[0].get("dataset_type")}. Data Curator: check Pipeline Decision Rules to determine correct Assay Type and make sure metadata TSV matches the specification for that type.'
             )
         raise PreflightError(" ".join([msg for msg in message]))
+    dataset_type = assay_type_data["assaytype"]
     return SchemaVersion(
-        assay_type_data["assaytype"],
+        dataset_type,
         directory_path=directory_path,
         path=path,
         rows=rows,
         soft_assay_data=assay_type_data,
+        entity_type_info=format_constraint_check_data("dataset", dataset_type),
     )
 
 
-def get_other_schema_name(rows: List, path: str) -> Optional[str]:
-    other_types = {
-        "organ": ["organ_id"],
-        "sample": ["sample_id"],
-        "sample-block": ["sample_id"],
-        "sample-suspension": ["sample_id"],
-        "sample-section": ["sample_id"],
-        "contributors": ["orcid", "orcid_id"],
-        "antibodies": ["antibody_rrid", "antibody_name"],
-        "murine-source": ["strain_rrid"],
-    }
-    other_type: DefaultDict[str, list] = defaultdict(list)
-    for field in rows[0].keys():
-        if field == "sample_id":
-            sample_type = rows[0].get("type")
-            if sample_type:
-                if f"sample-{sample_type}" not in other_types.keys():
-                    raise PreflightError(f"Invalid sample type: {sample_type}")
-                other_type.update({f"sample-{sample_type}": ["sample_id"]})
-            else:
-                other_type.update({"sample": ["sample_id"]})
-        else:
-            match = {key: field for key, value in other_types.items() if field in value}
-            other_type.update(match)
-    if other_type and ("assay_name" in rows[0].keys() or "dataset_type" in rows[0].keys()):
-        raise PreflightError(f"Metadata TSV contains invalid field: {list(other_type.values())}")
-    if len(other_type) == 1:
-        return list(other_type.keys())[0]
-    elif len(other_type) > 1:
-        raise PreflightError(
-            f"Multiple types found for path {path} based on fields {list(other_type.values())}"
+def get_other_type_schema(
+    rows: list,
+    path: str,
+    entity_url: str,
+    globus_token: str,
+    directory_path: Optional[Path] = None,
+) -> Optional[SchemaVersion]:
+    # Assumes that an entire TSV only represents a single entity_type.
+    match_pair = match_field_in_unique_fields(rows[0].keys(), path, dataset=False)
+    if match_pair:
+        other_type_info = get_other_schema_data(
+            rows[0], path, entity_url, globus_token, match_pair
         )
+        if other_type_info:
+            # Samples are sent as generic "sample" type, subtype is in entity_type_info
+            sv = SchemaVersion(
+                other_type_info["entity_type"],
+                directory_path=directory_path,
+                path=path,
+                rows=rows,
+                entity_type_info=other_type_info,
+            )
+            return sv
+
+
+def get_other_schema_data(
+    row: dict, path: str, url: str, globus_token: str, entity_field_pair: tuple[Enum, str]
+) -> dict:
+    entity_type = entity_field_pair[0]
+    unique_field = entity_field_pair[1]
+    # Double check this is not a badly-formatted metadata.tsv
+    if set(row.keys()).intersection(UNIQUE_FIELDS_MAP[DatasetType.DATASET]):
+        raise PreflightError(f"Metadata TSV {path} contains invalid field: {unique_field}")
+    if entity_type == OtherTypes.SAMPLE:
+        # Sample types require additional data
+        return get_entity_info_from_entity_api(url + row[unique_field], globus_token)
     else:
-        return None
+        return format_constraint_check_data(entity_type.name)
 
 
 def get_assaytype_data(
@@ -339,8 +378,104 @@ def get_tsv_errors(
         ignore_deprecation=ignore_deprecation,
         app_context=app_context,
     )
-    upload.validation_routine(report_type)
+    if schema_name in OtherTypes.value_list() or Sample.full_names_list():
+        upload._check_other_path(str(tsv_path))
+    else:
+        upload.validation_routine(report_type)
     return upload.errors.tsv_only_errors_by_path(str(tsv_path))
+
+
+def cedar_api_call(tsv_path: Union[str, Path]) -> requests.models.Response:
+    with open(tsv_path, "rb") as f:
+        file = {"input_file": f}
+        headers = {"content_type": "multipart/form-data"}
+        try:
+            response = requests.post(
+                "https://api.metadatavalidator.metadatacenter.org/service/validate-tsv",
+                headers=headers,
+                files=file,
+            )
+            logging.info(f"Response: {response.json()}")
+        except Exception as e:
+            raise Exception(
+                f"Spreadsheet Validator API request for {tsv_path} failed! Exception: {e}"
+            )
+    return response
+
+
+def get_entity_api_data(
+    url: str,
+    globus_token: str,
+    headers: Optional[dict] = None,
+) -> requests.Response:
+    if not headers:
+        headers = {}
+    headers["Authorization"] = f"Bearer {globus_token}"
+    response = requests.get(url, headers=headers)
+    response.raise_for_status()
+    return response
+
+
+def get_entity_info_from_entity_api(
+    url: str,
+    globus_token: str,
+    headers: Optional[dict] = None,
+) -> Dict:
+    """
+    Make an entity-api call and from the response, get
+    entity_type, subtype data (e.g. "block" for sample), and
+    any sub_type_val values (currently just organ codes, e.g. "BD")
+    and return as a dict in the format expected by the constraints endpoint.
+    """
+    response = get_entity_api_data(url, globus_token, headers)
+    entity_type, entity_sub_type, entity_sub_type_val = get_entity_type_vals(response.json())
+    endpoint_vals = format_constraint_check_data(entity_type, entity_sub_type, entity_sub_type_val)
+    return endpoint_vals
+
+
+def get_entity_type_vals(response: dict) -> tuple:
+    entity_type = response.get("entity_type", "").lower()
+    entity_sub_type = None
+    entity_sub_type_val = None
+    if entity_type == OtherTypes.SAMPLE:
+        entity_sub_type = response.get("sample_category", "").lower()
+        if entity_sub_type == "organ":
+            entity_sub_type_val = response.get("organ", "").lower()
+    elif entity_type == "dataset":
+        entity_sub_type = response.get("dataset_type", "")
+    return entity_type, entity_sub_type, entity_sub_type_val
+
+
+def format_constraint_check_data(
+    entity_type: str,
+    entity_sub_type: Optional[str] = None,
+    entity_sub_type_val: Optional[str] = None,
+) -> Dict:
+    """
+    Formats data about an entity so that it can be sent as
+    part of the payload to the constraints endpoint.
+    """
+    entity_type = entity_type.lower()
+    if entity_type in [OtherTypes.SAMPLE, "dataset"]:
+        if not entity_sub_type:
+            raise Exception(f"Entity of type {entity_type} must have a sub_type.")
+        type_vals = (entity_type, entity_sub_type, entity_sub_type_val)
+    # Perhaps overcautiously, this accommodates the more specific sample value strings
+    elif entity_type in Sample.full_names_list():
+        if entity_type == Sample.ORGAN:
+            entity_type = OtherTypes.SAMPLE
+            entity_sub_type = Sample.ORGAN
+        else:
+            entity_sub_type = Sample.get_key_from_val(entity_type)
+            entity_type = OtherTypes.SAMPLE
+        type_vals = (entity_type, entity_sub_type, entity_sub_type_val)
+    else:
+        type_vals = (entity_type, "", None)
+    return {
+        "entity_type": type_vals[0],
+        "sub_type": [type_vals[1]],
+        "sub_type_val": [type_vals[2]] if type_vals[2] else None,
+    }
 
 
 def print_path(path):
