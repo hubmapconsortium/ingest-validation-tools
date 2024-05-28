@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 
 import argparse
-import json
 import sys
 from pathlib import Path
 
@@ -52,12 +51,6 @@ Exit status codes:
         help="Token for URL checking using Entity API.",
     )
     parser.add_argument("--output", choices=["as_text", "as_md"], default="as_text")
-    parser.add_argument(
-        "--app_context",
-        default='{"request_header": {"X-HuBMAP-Application": "ingest-api"}, "entities_url": "https://entity.api.hubmapconsortium.org/entities/", "constraints_url": None, "ingest_url": "https://ingest.api.hubmapconsortium.org"}',
-        required=False,
-        help="App context values.",
-    )
     return parser
 
 
@@ -79,26 +72,14 @@ def as_md(errors) -> str:
 
 def main():
     args = parser.parse_args()
-    app_context = json.loads(args.app_context)
     try:
-        schema_version = get_schema_version(
-            Path(args.path),
-            "ascii",
-            entity_url=app_context["entities_url"],
-            ingest_url=app_context["ingest_url"],
-            globus_token=args.globus_token,
-        )
+        schema_version = get_schema_version(Path(args.path), "ascii")
         schema_name = schema_version.schema_name
         errors_string = f"{schema_version.schema_name}-v{schema_version.version}"
     except PreflightError as e:
         errors = {"Preflight": str(e)}
     else:
-        errors = get_tsv_errors(
-            args.path,
-            schema_name=schema_name,
-            globus_token=args.globus_token,
-            app_context=app_context,
-        )
+        errors = get_tsv_errors(args.path, schema_name=schema_name, globus_token=args.globus_token)
         errors = {f"{errors_string} TSV errors": errors} if errors else {}
     print(eval(args.output)(errors))
     return exit_codes.INVALID if errors else exit_codes.VALID

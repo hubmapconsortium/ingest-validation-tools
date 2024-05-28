@@ -152,30 +152,35 @@ shared_enums: Dict[str, List[str]] = {
 
 
 @unique
-class EntityTypes(str, Enum):
+class Sample(str, Enum):
+    BLOCK = "sample-block"
+    SUSPENSION = "sample-suspension"
+    SECTION = "sample-section"
+    ORGAN = "organ"
 
     # TODO: I believe this can be streamlined with the StrEnum class added in 3.11
     @classmethod
-    def value_list(cls) -> List[str]:
-        return [entity_type.value for entity_type in cls]
+    def full_names_list(cls) -> List[str]:
+        return [sample_type.value for sample_type in cls]
 
     @classmethod
-    def key_list(cls) -> List[str]:
-        return [entity_type.name.lower() for entity_type in cls]
+    def just_subtypes_list(cls) -> List[str]:
+        return [sample_type.name.lower() for sample_type in cls]
 
     @classmethod
-    def get_enum_from_val(cls, val) -> str:
-        match = [entity_type for entity_type in cls if entity_type.value == val]
+    def get_key_from_val(cls, val) -> str:
+        match = [sample_type.name for sample_type in cls if sample_type.value == val]
         if not match:
             return ""
         return match[0]
 
 
-class DatasetType(EntityTypes):
+class DatasetType(str, Enum):
     DATASET = "dataset"
 
 
-class OtherTypes(EntityTypes):
+@unique
+class OtherTypes(str, Enum):
     ANTIBODIES = "antibodies"
     CONTRIBUTORS = "contributors"
     SOURCE = "source"
@@ -184,27 +189,18 @@ class OtherTypes(EntityTypes):
     DONOR = "donor"
 
     @classmethod
+    def value_list(cls):
+        return [other_type.value for other_type in cls]
+
+    @classmethod
     def get_sample_types(cls):
-        return Sample.key_list()
+        return Sample.just_subtypes_list()
 
     @classmethod
     def get_sample_types_full_names(cls):
-        return Sample.value_list()
+        return Sample.full_names_list()
 
     @classmethod
-    def with_sample_subtypes(cls, with_sample=True):
-        all_types = [entity_type for entity_type in [*cls, *Sample]]
-        if not with_sample:
-            all_types.remove(OtherTypes.SAMPLE)
+    def with_sample_subtypes(cls):
+        all_types = [*cls.value_list(), *cls.get_sample_types_full_names()]
         return all_types
-
-
-class Sample(EntityTypes):
-    BLOCK = "sample-block"
-    SUSPENSION = "sample-suspension"
-    SECTION = "sample-section"
-    ORGAN = "organ"
-
-    @classmethod
-    def with_parent_type(cls):
-        return [*[entity_type for entity_type in cls], OtherTypes.SAMPLE]

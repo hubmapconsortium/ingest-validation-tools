@@ -6,23 +6,19 @@ from unittest.mock import patch
 import requests
 from parameterized import parameterized
 
-from ingest_validation_tools.enums import DatasetType, OtherTypes, Sample
-from ingest_validation_tools.schema_loader import EntityTypeInfo
 from ingest_validation_tools.table_validator import ReportType
 from ingest_validation_tools.upload import Upload
 from ingest_validation_tools.validation_utils import get_schema_version, get_tsv_errors
 from tests.fixtures import (
-    BAD_DATASET_CONSTRAINTS_RESPONSE,
     BAD_DATASET_EXPECTED_PAYLOAD,
-    BAD_DATASET_SCHEMA_WITH_ANCESTORS,
+    BAD_DATASET_SCHEMA,
     GOOD_DATASET_EXPECTED_PAYLOAD,
-    GOOD_DATASET_SCHEMA_WITH_ANCESTORS,
+    GOOD_DATASET_SCHEMA,
     SAMPLE_BLOCK_CONSTRAINTS_RESPONSE_BAD,
     SAMPLE_BLOCK_CONSTRAINTS_RESPONSE_GOOD,
     SAMPLE_BLOCK_PARTIAL_CEDAR_RESPONSE_GOOD,
     SAMPLE_BLOCK_PARTIAL_ENTITY_API_RESPONSE,
     SAMPLE_ORGAN_PARTIAL_ENTITY_API_RESPONSE,
-    SAMPLE_SECTION_PARTIAL_ENTITY_API_RESPONSE,
     TEST_GET_TSV_ERRORS_PARAMS,
 )
 
@@ -48,7 +44,7 @@ def get_mock_response(good: bool, response_data: bytes):
 class TestSingleTsv(unittest.TestCase):
 
     @property
-    def upload(self):
+    def get_upload(self):
         upload = Upload(directory_path=Path("."))
         upload.app_context = {
             "constraints_url": CONSTRAINTS_URL,
@@ -59,44 +55,73 @@ class TestSingleTsv(unittest.TestCase):
         return upload
 
     def test_bad_payload(self):
-        payload = self.upload._construct_constraint_check(BAD_DATASET_SCHEMA_WITH_ANCESTORS)
+        upload = self.get_upload
+        payload = upload._construct_constraint_check(BAD_DATASET_SCHEMA)
         assert payload == BAD_DATASET_EXPECTED_PAYLOAD
 
     def test_good_payload(self):
-        payload = self.upload._construct_constraint_check(GOOD_DATASET_SCHEMA_WITH_ANCESTORS)
+        upload = self.get_upload
+        payload = upload._construct_constraint_check(GOOD_DATASET_SCHEMA)
         assert payload == GOOD_DATASET_EXPECTED_PAYLOAD
 
     @patch("ingest_validation_tools.upload.requests.post")
     def test_constraints_bad(self, mock_request):
-        mock_request.return_value = get_mock_response(False, BAD_DATASET_CONSTRAINTS_RESPONSE)
+        upload = self.get_upload
+        mock_request.return_value = get_mock_response(False, SAMPLE_BLOCK_CONSTRAINTS_RESPONSE_BAD)
         self.assertEqual(
-            self.upload._constraint_checks(BAD_DATASET_SCHEMA_WITH_ANCESTORS),
+            upload._constraint_checks(BAD_DATASET_SCHEMA),
             [
-                'On row 3, column "source_id", value "test_id_1" fails because of error '
-                '"Invalid Ancestor": Invalid ancestor type for TSV type dataset/histology. '
-                "Data sent for ancestor test_id_1: sample/organ/rk."
+                "Invalid ancestor type for TSV type dataset/histology. Data sent for ancestor test_id_1: publication/."
             ],
         )
+        data = [value for value in BAD_DATASET_EXPECTED_PAYLOAD.values()]
         mock_request.assert_any_call(
             CONSTRAINTS_URL + CONSTRAINTS_URL_PARAMS,
             headers={"Authorization": "Bearer test", "Content-Type": "application/json"},
-            data=json.dumps(BAD_DATASET_EXPECTED_PAYLOAD),
+            data=json.dumps(data),
         )
 
     @patch("ingest_validation_tools.upload.requests.post")
     def test_constraints_good(self, mock_request):
+        upload = self.get_upload
         mock_request.return_value = get_mock_response(True, SAMPLE_BLOCK_CONSTRAINTS_RESPONSE_GOOD)
         # Shouldn't return anything
-        self.upload._constraint_checks(GOOD_DATASET_SCHEMA_WITH_ANCESTORS)
+        upload._constraint_checks(GOOD_DATASET_SCHEMA)
+        data = [value for value in GOOD_DATASET_EXPECTED_PAYLOAD.values()]
         mock_request.assert_any_call(
             CONSTRAINTS_URL + CONSTRAINTS_URL_PARAMS,
             headers={"Authorization": "Bearer test", "Content-Type": "application/json"},
-            data=json.dumps(GOOD_DATASET_EXPECTED_PAYLOAD),
+            data=json.dumps(data),
         )
 
     @patch("ingest_validation_tools.upload.requests.post")
     @patch("ingest_validation_tools.upload.requests.get")
     def test_expected_ancestor_entities_creation(self, mock_entity_api, mock_cedar_api):
+        expected_ancestor_entities = [
+            {
+                "entity_type": "sample",
+                "sub_type": ["block"],
+                "sub_type_val": None,
+            },
+            {
+                "entity_type": "sample",
+                "sub_type": ["block"],
+                "sub_type_val": None,
+            },
+        ]
+        wrong_ancestor_entities = [
+            {
+                "entity_type": "sample",
+                "sub_type": ["block"],
+                "sub_type_val": None,
+            },
+            {
+                "entity_type": "sample",
+                "sub_type": ["suspension"],
+                "sub_type_val": None,
+            },
+        ]
+        upload = self.get_upload
         mock_entity_api.return_value = get_mock_response(
             True, SAMPLE_BLOCK_PARTIAL_ENTITY_API_RESPONSE
         )
@@ -105,19 +130,16 @@ class TestSingleTsv(unittest.TestCase):
         )
         path = Path("./tests/fixtures/sample-block-good.tsv").absolute()
         schema = get_schema_version(path, "ascii")
-        self.upload._get_url_errors(str(path), schema)
-        assert len(schema.ancestor_entities) == 2
-        assert schema.ancestor_entities[1].entity_sub_type == Sample.BLOCK.name.lower()
-        assert schema.ancestor_entities[0].entity_type == OtherTypes.SAMPLE
+        upload._get_url_errors(str(path), schema, report_type=ReportType.STR)
+        assert list(schema.ancestor_entities.values()) == expected_ancestor_entities
+        assert list(schema.ancestor_entities.values()) != wrong_ancestor_entities
 
     @property
     def entity_api_response_map(self) -> dict[str, bytes]:
         return {
-            f"{ENTITIES_URL}HBM233.CGGG.482": SAMPLE_SECTION_PARTIAL_ENTITY_API_RESPONSE,
+            f"{ENTITIES_URL}HBM233.CGGG.482": SAMPLE_BLOCK_PARTIAL_ENTITY_API_RESPONSE,
             f"{ENTITIES_URL}HBM724.ZQKX.379": SAMPLE_BLOCK_PARTIAL_ENTITY_API_RESPONSE,
-            f"{ENTITIES_URL}HBM427.JWVV.723": SAMPLE_BLOCK_PARTIAL_ENTITY_API_RESPONSE,
             f"{ENTITIES_URL}HBM733.HSZF.798": SAMPLE_ORGAN_PARTIAL_ENTITY_API_RESPONSE,
-            f"{ENTITIES_URL}HBM673.ZRWW.589": SAMPLE_BLOCK_PARTIAL_ENTITY_API_RESPONSE,
         }
 
     @parameterized.expand(TEST_GET_TSV_ERRORS_PARAMS)
@@ -128,7 +150,7 @@ class TestSingleTsv(unittest.TestCase):
         cedar_response: bytes,
         path: str,
         schema_name: str,
-        expected_errors_list: list[list],
+        expected_errors: list,
     ):
         with patch("ingest_validation_tools.upload.requests.post") as mock_constraints_response:
             with patch("ingest_validation_tools.upload.cedar_api_call") as mock_cedar_call:
@@ -148,49 +170,17 @@ class TestSingleTsv(unittest.TestCase):
                         mock_constraints_response.return_value = get_mock_response(
                             good, constraint_checks_response
                         )
-                        for report_type in [ReportType.JSON, ReportType.STR]:
-                            errors = get_tsv_errors(
-                                Path(path).absolute(),
-                                schema_name,
-                                globus_token="test",
-                                app_context={
-                                    "entities_url": ENTITIES_URL,
-                                    "constraints_url": CONSTRAINTS_URL,
-                                },
-                                report_type=report_type,
-                            )
-                            assert errors in expected_errors_list
-
-    def test_entity_type_info(self):
-        good_section_entity = EntityTypeInfo(entity_type=Sample.SECTION)
-        data = good_section_entity.format_constraint_check_data()
-        assert data == {"entity_type": "sample", "sub_type": ["section"], "sub_type_val": None}
-        good_organ_entity_fullname = EntityTypeInfo(
-            entity_type=Sample.ORGAN, entity_sub_type_val="BD"
-        )
-        data = good_organ_entity_fullname.format_constraint_check_data()
-        assert data == {"entity_type": "sample", "sub_type": ["organ"], "sub_type_val": ["BD"]}
-        good_organ_entity = EntityTypeInfo(
-            entity_type=OtherTypes.SAMPLE, entity_sub_type=Sample.ORGAN, entity_sub_type_val="BD"
-        )
-        data = good_organ_entity.format_constraint_check_data()
-        assert data == {"entity_type": "sample", "sub_type": ["organ"], "sub_type_val": ["BD"]}
-
-        dataset_entity = EntityTypeInfo(
-            entity_type=DatasetType.DATASET, entity_sub_type="light sheet"
-        )
-        data = dataset_entity.format_constraint_check_data()
-        assert data == {
-            "entity_type": "dataset",
-            "sub_type": ["light sheet"],
-            "sub_type_val": None,
-        }
-        # Samples must have sub_type
-        with self.assertRaises(Exception):
-            EntityTypeInfo(entity_type=OtherTypes.SAMPLE)
-        # Organs must have sub_type_val
-        with self.assertRaises(Exception):
-            EntityTypeInfo(entity_type=Sample.ORGAN)
+                        errors = get_tsv_errors(
+                            Path(path).absolute(),
+                            schema_name,
+                            globus_token="test",
+                            app_context={
+                                "entities_url": ENTITIES_URL,
+                                "constraints_url": CONSTRAINTS_URL,
+                            },
+                            report_type=ReportType.JSON,
+                        )
+                        assert errors == expected_errors
 
 
 # if __name__ == "__main__":

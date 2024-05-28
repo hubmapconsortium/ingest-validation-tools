@@ -2,6 +2,7 @@ import json
 import logging
 from collections import defaultdict
 from csv import DictReader
+from enum import Enum
 from pathlib import Path, PurePath
 from typing import Dict, List, Optional, Union
 
@@ -11,9 +12,8 @@ from ingest_validation_tools.directory_validator import (
     DirectoryValidationErrors,
     validate_directory,
 )
-from ingest_validation_tools.enums import DatasetType, EntityTypes, OtherTypes, Sample
+from ingest_validation_tools.enums import DatasetType, OtherTypes, Sample
 from ingest_validation_tools.schema_loader import (
-    EntityTypeInfo,
     PreflightError,
     SchemaVersion,
     get_possible_directory_schemas,
@@ -35,7 +35,7 @@ OTHER_FIELDS_UNIQUE_FIELDS_MAP = {
 
 def match_field_in_unique_fields(
     match_fields: list, path: str, dataset=True
-) -> Optional[tuple[EntityTypes, str]]:
+) -> Optional[tuple[Enum, str]]:
     match_dict = UNIQUE_FIELDS_MAP
     if not dataset:
         match_dict = OTHER_FIELDS_UNIQUE_FIELDS_MAP
@@ -112,7 +112,7 @@ def get_schema_version(
         path=path,
         rows=rows,
         soft_assay_data=assay_type_data,
-        entity_type_info=EntityTypeInfo(DatasetType.DATASET, dataset_type),
+        entity_type_info=format_constraint_check_data("dataset", dataset_type),
     )
 
 
@@ -132,7 +132,7 @@ def get_other_type_schema(
         if other_type_info:
             # Samples are sent as generic "sample" type, subtype is in entity_type_info
             sv = SchemaVersion(
-                other_type_info.entity_type,
+                other_type_info["entity_type"],
                 directory_path=directory_path,
                 path=path,
                 rows=rows,
@@ -142,8 +142,8 @@ def get_other_type_schema(
 
 
 def get_other_schema_data(
-    row: dict, path: str, url: str, globus_token: str, entity_field_pair: tuple[EntityTypes, str]
-) -> EntityTypeInfo:
+    row: dict, path: str, url: str, globus_token: str, entity_field_pair: tuple[Enum, str]
+) -> dict:
     entity_type = entity_field_pair[0]
     unique_field = entity_field_pair[1]
     # Double check this is not a badly-formatted metadata.tsv
@@ -153,7 +153,7 @@ def get_other_schema_data(
         # Sample types require additional data
         return get_entity_info_from_entity_api(url + row[unique_field], globus_token)
     else:
-        return EntityTypeInfo(entity_type)
+        return format_constraint_check_data(entity_type.name)
 
 
 def get_assaytype_data(
@@ -377,12 +377,11 @@ def get_tsv_errors(
         no_url_checks=no_url_checks,
         ignore_deprecation=ignore_deprecation,
         app_context=app_context,
-        report_type=report_type,
     )
-    if schema_name in OtherTypes.with_sample_subtypes():
+    if schema_name in OtherTypes.value_list() or Sample.full_names_list():
         upload._check_other_path(str(tsv_path))
     else:
-        upload.validation_routine()
+        upload.validation_routine(report_type)
     return upload.errors.tsv_only_errors_by_path(str(tsv_path))
 
 
@@ -421,7 +420,7 @@ def get_entity_info_from_entity_api(
     url: str,
     globus_token: str,
     headers: Optional[dict] = None,
-) -> EntityTypeInfo:
+) -> Dict:
     """
     Make an entity-api call and from the response, get
     entity_type, subtype data (e.g. "block" for sample), and
@@ -430,23 +429,53 @@ def get_entity_info_from_entity_api(
     """
     response = get_entity_api_data(url, globus_token, headers)
     entity_type, entity_sub_type, entity_sub_type_val = get_entity_type_vals(response.json())
-    return EntityTypeInfo(entity_type, entity_sub_type, entity_sub_type_val)
+    endpoint_vals = format_constraint_check_data(entity_type, entity_sub_type, entity_sub_type_val)
+    return endpoint_vals
 
 
 def get_entity_type_vals(response: dict) -> tuple:
-    raw_entity_type = response.get("entity_type", "").lower()
+    entity_type = response.get("entity_type", "").lower()
     entity_sub_type = None
     entity_sub_type_val = None
-    if raw_entity_type == DatasetType.DATASET:
-        entity_type = DatasetType.DATASET
+    if entity_type == OtherTypes.SAMPLE:
+        entity_sub_type = response.get("sample_category", "").lower()
+        if entity_sub_type == "organ":
+            entity_sub_type_val = response.get("organ", "").lower()
+    elif entity_type == "dataset":
         entity_sub_type = response.get("dataset_type", "")
-    else:
-        entity_type = OtherTypes.get_enum_from_val(raw_entity_type)
-        if entity_type == OtherTypes.SAMPLE:
-            entity_sub_type = response.get("sample_category", "").lower()
-            if entity_sub_type == Sample.ORGAN:
-                entity_sub_type_val = response.get("organ", "").lower()
     return entity_type, entity_sub_type, entity_sub_type_val
+
+
+def format_constraint_check_data(
+    entity_type: str,
+    entity_sub_type: Optional[str] = None,
+    entity_sub_type_val: Optional[str] = None,
+) -> Dict:
+    """
+    Formats data about an entity so that it can be sent as
+    part of the payload to the constraints endpoint.
+    """
+    entity_type = entity_type.lower()
+    if entity_type in [OtherTypes.SAMPLE, "dataset"]:
+        if not entity_sub_type:
+            raise Exception(f"Entity of type {entity_type} must have a sub_type.")
+        type_vals = (entity_type, entity_sub_type, entity_sub_type_val)
+    # Perhaps overcautiously, this accommodates the more specific sample value strings
+    elif entity_type in Sample.full_names_list():
+        if entity_type == Sample.ORGAN:
+            entity_type = OtherTypes.SAMPLE
+            entity_sub_type = Sample.ORGAN
+        else:
+            entity_sub_type = Sample.get_key_from_val(entity_type)
+            entity_type = OtherTypes.SAMPLE
+        type_vals = (entity_type, entity_sub_type, entity_sub_type_val)
+    else:
+        type_vals = (entity_type, "", None)
+    return {
+        "entity_type": type_vals[0],
+        "sub_type": [type_vals[1]],
+        "sub_type_val": [type_vals[2]] if type_vals[2] else None,
+    }
 
 
 def print_path(path):
