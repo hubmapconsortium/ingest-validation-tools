@@ -21,19 +21,23 @@ class ErrorDictException(Exception):
 
 @dataclass
 class InfoDict:
-    time: datetime
-    git: str
-    dir: str
-    tsvs: Dict[str, Dict[str, str]]
+    time: Optional[datetime] = None
+    git: Optional[str] = None
+    dir: Optional[str] = None
+    tsvs: Dict[str, Dict[str, str]] = field(default_factory=dict)
+    successful_plugins: list[str] = field(default_factory=list)
 
     def as_dict(self):
-        return {
+        as_dict = {
             "Time": self.time,
             "Git version": self.git,
             "Directory": self.dir,
             # "Directory schema version": self.dir_schema,
             "TSVs": self.tsvs,
         }
+        if self.successful_plugins:
+            as_dict["Successful Plugins"] = self.successful_plugins
+        return as_dict
 
 
 @dataclass

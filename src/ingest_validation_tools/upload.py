@@ -83,6 +83,7 @@ class Upload:
             "sample_id",
         ]
         self.errors = ErrorDict()
+        self.info = InfoDict()
 
         self.get_app_context(app_context)
 
@@ -107,15 +108,21 @@ class Upload:
     #
     #####################
 
-    def get_info(self) -> Optional[InfoDict]:
+    def get_info(self) -> InfoDict:
         """
-        If called before get_errors, will report dir schema major version only
+        If called before get_errors, will report dir schema major version only.
+        TODO: create a method that calls get_errors and then get_info as a unified
+        way of retrieving all necessary info about the upload
         """
+        self.info.time = datetime.now()
+        self.info.dir = str(self.directory_path)
+
         git_version = subprocess.check_output(
             "git rev-parse --short HEAD".split(" "),
             encoding="ascii",
             stderr=subprocess.STDOUT,
         ).strip()
+        self.info.git = git_version
 
         try:
             tsvs = {
@@ -126,16 +133,11 @@ class Upload:
                 }
                 for path, sv in self.effective_tsv_paths.items()
             }
+            self.info.tsvs = tsvs
         except PreflightError as e:
             self.errors.preflight.append(str(e))
-            return
 
-        return InfoDict(
-            time=datetime.now(),
-            git=git_version,
-            dir=str(self.directory_path),
-            tsvs=tsvs,
-        )
+        return self.info
 
     def get_errors(self, **kwargs) -> ErrorDict:
         """
@@ -435,7 +437,10 @@ class Upload:
                         verbose=self.verbose,
                         **kwargs,
                     ):
-                        errors[k].append(v)
+                        if v is None:
+                            self.info.successful_plugins.append(k.__name__)
+                        else:
+                            errors[k.description].append(v)
             except PluginValidatorError as e:
                 # We are ok with just returning a single error, rather than all.
                 errors["Unexpected Plugin Error"] = [e]

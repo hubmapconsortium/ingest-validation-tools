@@ -22,6 +22,7 @@
 - Add semantic version to plugin test base class
 - Fix row number mismatch between validation and spreadsheet validator response
 - Adding entity constraints check
+- Adding ability to report names of successfully run plugins
 
 ## v0.0.18
 
