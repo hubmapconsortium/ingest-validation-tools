@@ -221,7 +221,7 @@ def get_online_check_fixtures(schema_name: str, dir_path: str) -> Dict:
     return value
 
 
-def _assaytype_side_effect(path: str, row: Dict, *args, **kwargs):
+def assaytype_side_effect(path: str, row: Dict, *args, **kwargs):
     del args, kwargs
     response_dict = _open_and_read_fixtures_file(path)
     dataset_type = row.get("assay_type") if row.get("assay_type") else row.get("dataset_type")
@@ -278,7 +278,7 @@ class TestDatasetExamples(unittest.TestCase):
                     opts = {}
                 with patch(
                     "ingest_validation_tools.validation_utils.get_assaytype_data",
-                    side_effect=lambda row, ingest_url: _assaytype_side_effect(
+                    side_effect=lambda row, ingest_url: assaytype_side_effect(
                         test_dir, row, ingest_url
                     ),
                 ) as mock_assaytype_data:
@@ -342,7 +342,7 @@ class TestDatasetExamples(unittest.TestCase):
     def prep_offline_upload(test_dir: str, opts: Dict) -> Upload:
         with patch(
             "ingest_validation_tools.validation_utils.get_assaytype_data",
-            side_effect=lambda row, ingest_url: _assaytype_side_effect(test_dir, row, ingest_url),
+            side_effect=lambda row, ingest_url: assaytype_side_effect(test_dir, row, ingest_url),
         ):
             with patch("ingest_validation_tools.upload.Upload.online_checks"):
                 upload = Upload(Path(f"{test_dir}/upload"), **opts)
@@ -350,10 +350,10 @@ class TestDatasetExamples(unittest.TestCase):
                 upload = mutate_upload_errors_with_fixtures(upload, test_dir)
                 return upload
 
-    def prep_upload(self, test_dir: str, opts: Dict, patch_data: Dict) -> Upload:
+    def prep_dir_schema_upload(self, test_dir: str, opts: Dict, patch_data: Dict) -> Upload:
         with patch(
             "ingest_validation_tools.validation_utils.get_assaytype_data",
-            side_effect=lambda row, ingest_url: _assaytype_side_effect(test_dir, row, ingest_url),
+            side_effect=lambda row, ingest_url: assaytype_side_effect(test_dir, row, ingest_url),
         ):
             with patch(
                 "ingest_validation_tools.validation_utils.get_possible_directory_schemas",
@@ -372,7 +372,7 @@ class TestDatasetExamples(unittest.TestCase):
             "examples/dataset-examples/good-scatacseq-metadata-v0",
         ]
         for test_dir in test_dirs:
-            upload = self.prep_upload(
+            upload = self.prep_dir_schema_upload(
                 test_dir, DATASET_EXAMPLES_OPTS, SCATACSEQ_HIGHER_VERSION_VALID
             )
             info = upload.get_info()
@@ -394,7 +394,7 @@ class TestDatasetExamples(unittest.TestCase):
         ]
         test_dirs = []
         for test_dir in test_dirs:
-            upload = self.prep_upload(
+            upload = self.prep_dir_schema_upload(
                 test_dir, DATASET_EXAMPLES_OPTS, SCATACSEQ_LOWER_VERSION_VALID
             )
             info = upload.get_info()
@@ -416,7 +416,7 @@ class TestDatasetExamples(unittest.TestCase):
         ]
         test_dirs = []
         for test_dir in test_dirs:
-            upload = self.prep_upload(
+            upload = self.prep_dir_schema_upload(
                 test_dir, DATASET_EXAMPLES_OPTS, SCATACSEQ_BOTH_VERSIONS_VALID
             )
             info = upload.get_info()
@@ -438,7 +438,7 @@ class TestDatasetExamples(unittest.TestCase):
         ]
         test_dirs = []
         for test_dir in test_dirs:
-            upload = self.prep_upload(
+            upload = self.prep_dir_schema_upload(
                 test_dir, DATASET_EXAMPLES_OPTS, SCATACSEQ_NEITHER_VERSION_VALID
             )
             info = upload.get_info()

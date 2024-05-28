@@ -56,8 +56,9 @@ Plugins live in [https://github.com/hubmapconsortium/ingest-validation-tests](ht
 Then, run the following from the top-level directory:
 
 ```
-./tests-manual/test-plugins.sh
+python -m unittest tests-manual/test-plugins.py
 ```
+Note: you may need to prepend `env PYTHONPATH=/ingest-validation-tools` to this command. 
 
 ## Creating Tests
 

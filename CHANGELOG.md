@@ -1,6 +1,13 @@
 # Changelog
 
-## v0.0.19 (in progress)
+## v0.0.21
+- Fix the changelog to reflect the current version.
+- Fix row number mismatch between validation and spreadsheet validator response
+
+## v0.0.20
+- Fix row number mismatch between validation and spreadsheet validator response
+
+## v0.0.19
 - Directory validation changes for "shared" uploads
 - Update Phenocycler directory schema
 - Remove bad paths from LC-MS directory schema
@@ -15,6 +22,7 @@
 - Add semantic version to plugin test base class
 - Fix row number mismatch between validation and spreadsheet validator response
 - Adding entity constraints check
+- Adding ability to report names of successfully run plugins
 
 ## v0.0.18
 
