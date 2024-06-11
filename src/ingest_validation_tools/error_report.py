@@ -180,6 +180,32 @@ class ErrorReport:
     def as_md(self) -> str:
         return f"```\n{self.as_text()}```"
 
+    def classify_errors(self) -> list[str]:
+        errors = []
+        if self.raw_errors:
+            if self.raw_errors.preflight:
+                errors.append("Fatal Errors")
+            if self.raw_errors.directory:
+                errors.append("Directory Errors")
+            if self.raw_errors.upload_metadata:
+                errors.append("Antibodies/Contributors Errors")
+            if self.raw_errors.metadata_validation_api:
+                errors.append("Spreadsheet Validator Errors")
+            if self.raw_errors.metadata_validation_local:
+                errors.append("Local Validation Errors")
+            if self.raw_errors.metadata_url_errors:
+                errors.append("URL Errors")
+            if self.raw_errors.metadata_constraint_errors:
+                errors.append("Constraint Errors")
+            if self.raw_errors.reference:
+                errors.append("Reference Errors")
+            if self.raw_errors.plugin:
+                errors.append("Data File Errors")
+        return errors
+
+    def classified_errors(self) -> str:
+        return ", ".join(self.classify_errors())
+
 
 def _build_list(anything, path=None) -> List[str]:
     """
