@@ -159,6 +159,21 @@ class ErrorReport:
             self.raw_info = info
             self.info = info.as_dict()
 
+    @property
+    def counts(self):
+        if not self.errors:
+            return
+        counts = {
+            key: str(len(value))
+            for key, value in self.errors
+            if isinstance(value, list) and len(value) is not 0
+        }
+        if self.raw_errors and self.raw_errors.plugin:
+            plugin_counts = [len(value) for value in self.raw_errors.plugin.values()]
+            plugin_error_str = f"{sum(plugin_counts)} errors in {len(plugin_counts)} plugins"
+            counts["Data File Errors"] = plugin_error_str
+        return counts
+
     def _no_errors(self):
         return f"No errors!\n{dump(self.info, sort_keys=False)}\n"
 
