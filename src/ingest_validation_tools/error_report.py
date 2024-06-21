@@ -166,7 +166,7 @@ class ErrorReport:
         counts = {
             key: str(len(value))
             for key, value in self.errors
-            if isinstance(value, list) and len(value) is not 0
+            if isinstance(value, list) and len(value) != 0
         }
         if self.raw_errors and self.raw_errors.plugin:
             plugin_counts = [len(value) for value in self.raw_errors.plugin.values()]
