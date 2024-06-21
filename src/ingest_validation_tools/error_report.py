@@ -162,12 +162,23 @@ class ErrorReport:
     @property
     def counts(self):
         if not self.errors:
-            return
-        counts = {
-            key: str(len(value))
-            for key, value in self.errors
-            if isinstance(value, list) and len(value) != 0
-        }
+            return {}
+        # TODO: error strings should probably be enums
+        counts = {}
+        for error_str, file_errors in self.errors.items():
+            # TODO: preflight errors are a list
+            # Report fatal errors directly
+            if type(file_errors) is str:
+                counts[error_str] = file_errors
+                continue
+            errors_for_category = 0
+            for errors in file_errors.values():
+                # TODO: reference errors are nested one more layer down
+                if isinstance(errors, list):
+                    errors_for_category += len(errors)
+            if errors_for_category:
+                counts[error_str] = errors_for_category
+        print(counts)
         if self.raw_errors and self.raw_errors.plugin:
             plugin_counts = [len(value) for value in self.raw_errors.plugin.values()]
             plugin_error_str = f"{sum(plugin_counts)} errors in {len(plugin_counts)} plugins"
