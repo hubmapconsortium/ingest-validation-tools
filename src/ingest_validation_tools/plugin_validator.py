@@ -133,6 +133,7 @@ def run_plugin_validators_iter(
                 if not data_path.is_dir():
                     raise ValidatorError(f"{data_path} should be the base directory of a dataset")
                 data_paths.append(data_path)
+            print(f"Data paths being passed to plugins: {data_paths}")
             for k, v in validation_error_iter(
                 data_paths, sv.dataset_type, plugin_dir, sv.contains, verbose=verbose, **kwargs
             ):
