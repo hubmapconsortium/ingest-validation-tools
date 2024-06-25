@@ -461,7 +461,7 @@ class Upload:
             return
         if len(multi_assay_parents) > 1:
             raise PreflightError(
-                f"Upload contains multiple parent multi-assay types: {multi_assay_parents}"
+                f"Upload contains multiple parent multi-assay types: {', '.join([parent.schema_name for parent in multi_assay_parents])}"
             )
         return multi_assay_parents[0]
 
