@@ -3,6 +3,7 @@
 ## v0.0.21
 - Fix the changelog to reflect the current version.
 - Fix row number mismatch between validation and spreadsheet validator response
+- Add optional lab_processed/images/*.json to Visium with probes and Visium no probes
 
 ## v0.0.20
 - Fix row number mismatch between validation and spreadsheet validator response
