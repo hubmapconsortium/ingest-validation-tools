@@ -11,6 +11,7 @@ from typing import Dict, List, Union
 from unittest.mock import Mock, call, patch
 
 from ingest_validation_tools.error_report import ErrorDict, ErrorReport
+from ingest_validation_tools.schema_loader import PreflightError, SchemaVersion
 from ingest_validation_tools.upload import Upload
 from tests.fixtures import (
     SCATACSEQ_BOTH_VERSIONS_VALID,
@@ -452,6 +453,54 @@ class TestDatasetExamples(unittest.TestCase):
                     .get("Directory schema version")
                 )
                 self.assertEqual(dir_schema_version, None)
+
+    def get_schema_side_effect(
+        self, tsv_path, encoding, entities_url, ingest_url, globus_token, directory_path
+    ):
+        del encoding, entities_url, ingest_url, globus_token, directory_path
+        schema_map = {
+            "repeated_parent_fake_path_1": SchemaVersion(
+                schema_name="visium-no-probes", contains=["histology", "rnaseq"]
+            ),
+            "repeated_parent_fake_path_2": SchemaVersion(
+                schema_name="visium-no-probes", contains=["histology", "rnaseq"]
+            ),
+            "unique_parent_fake_path_1": SchemaVersion(
+                schema_name="visium-no-probes", contains=["histology", "rnaseq"]
+            ),
+            "unique_parent_fake_path_2": SchemaVersion(schema_name="histology"),
+        }
+        return schema_map.get(str(tsv_path))
+
+    def test_bad_multi_assay_parents(self):
+        with patch(
+            "ingest_validation_tools.validation_utils.get_assaytype_data",
+        ):
+            with patch("ingest_validation_tools.upload.Upload.online_checks"):
+                with patch(
+                    "ingest_validation_tools.upload.get_schema_version",
+                    side_effect=lambda tsv_path, encoding, entities_url, ingest_url, globus_token, directory_path: self.get_schema_side_effect(
+                        tsv_path, encoding, entities_url, ingest_url, globus_token, directory_path
+                    ),
+                ):
+                    bad_upload = Upload(
+                        Path(f"test_path"),
+                        tsv_paths=["repeated_parent_fake_path_1", "repeated_parent_fake_path_2"],
+                        **DATASET_EXAMPLES_OPTS,
+                    )
+                    with self.assertRaises(PreflightError):
+                        bad_upload.multi_parent
+                    good_upload = Upload(
+                        Path(f"test_path"),
+                        tsv_paths=["unique_parent_fake_path_1", "unique_parent_fake_path_2"],
+                        **DATASET_EXAMPLES_OPTS,
+                    )
+                    self.assertEqual(
+                        good_upload.multi_parent,
+                        SchemaVersion(
+                            schema_name="visium-no-probes", contains=["histology", "rnaseq"]
+                        ),
+                    )
 
 
 # if __name__ == "__main__":
