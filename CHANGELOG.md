@@ -4,6 +4,8 @@
 - Fix the changelog to reflect the current version.
 - Fix row number mismatch between validation and spreadsheet validator response
 - Fix logging length issue in Upload.multi_parent
+- Minor change to Visium with probes directory schema
+- Minor change to Visium no probes directory schema
 
 ## v0.0.20
 - Fix row number mismatch between validation and spreadsheet validator response
