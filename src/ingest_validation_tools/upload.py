@@ -583,11 +583,11 @@ class Upload:
         elif schema_name == OtherTypes.CONTRIBUTORS:
             if schema.is_cedar:
                 constrained_fields["orcid"] = (
-                    "https://pub.orcid.org/v3.0/expanded-search/?q=orcid:"
+                    "https://pub.orcid.org/v3.0/expanded-search/"
                 )
             else:
                 constrained_fields["orcid_id"] = (
-                    "https://pub.orcid.org/v3.0/expanded-search/?q=orcid:"
+                    "https://pub.orcid.org/v3.0/expanded-search/"
                 )
         else:
             constrained_fields["parent_sample_id"] = entities_url
@@ -634,6 +634,7 @@ class Upload:
                     *get_entity_type_vals(response.json()),
                 )
         elif field in ["orcid_id", "orcid"]:
+            url = urljoin(constrained_fields[field], f"?q=orcid:{value}")
             headers = {"Accept": "application/json"}
             response = requests.get(url, headers=headers)
             num_found = response.json().get("num-found")

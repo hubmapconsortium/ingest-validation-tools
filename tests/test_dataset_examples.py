@@ -222,8 +222,8 @@ def get_online_check_fixtures(schema_name: str, dir_path: str) -> Dict:
     return value
 
 
-def assaytype_side_effect(path: str, row: Dict, globus_token: str, *args, **kwargs):
-    del globus_token, args, kwargs
+def assaytype_side_effect(path: str, row: Dict, *args, **kwargs):
+    del args, kwargs
     response_dict = _open_and_read_fixtures_file(path)
     dataset_type = row.get("assay_type") if row.get("assay_type") else row.get("dataset_type")
     return response_dict.get("assaytype", {}).get(dataset_type)
@@ -332,7 +332,7 @@ class TestDatasetExamples(unittest.TestCase):
             with open(tsv_path, encoding="ascii") as f:
                 rows = list(DictReader(f, dialect="excel-tab"))
             f.close()
-            calls.append(call(rows[0], "https://ingest.api.hubmapconsortium.org/"))
+            calls.append(call(rows[0], "https://ingest.api.hubmapconsortium.org/", ""))
         try:
             mock_assaytype_data.assert_has_calls(calls, any_order=True)
         except AssertionError as e:
