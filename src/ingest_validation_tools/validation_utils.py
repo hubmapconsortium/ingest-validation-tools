@@ -4,6 +4,7 @@ from collections import defaultdict
 from csv import DictReader
 from pathlib import Path, PurePath
 from typing import Dict, List, Optional, Union
+from urllib.parse import urljoin
 
 import requests
 
@@ -92,10 +93,7 @@ def get_schema_version(
             message.append('Has "orcid_id": Contributors TSV found where metadata TSV expected.')
     if message:
         raise PreflightError(" ".join([msg for msg in message]))
-    assay_type_data = get_assaytype_data(
-        rows[0],
-        ingest_url,
-    )
+    assay_type_data = get_assaytype_data(rows[0], ingest_url, globus_token)
     if not assay_type_data:
         message.append(f"No match found in assayclassifier for TSV {path}.")
         if "assay_type" in rows[0]:
@@ -151,20 +149,17 @@ def get_other_schema_data(
         raise PreflightError(f"Metadata TSV {path} contains invalid field: {unique_field}")
     if entity_type == OtherTypes.SAMPLE:
         # Sample types require additional data
-        return get_entity_info_from_entity_api(url + row[unique_field], globus_token)
+        return get_entity_info_from_entity_api(urljoin(url, row[unique_field]), globus_token)
     else:
         return EntityTypeInfo(entity_type)
 
 
-def get_assaytype_data(
-    row: Dict,
-    ingest_url: str,
-) -> Dict:
+def get_assaytype_data(row: Dict, ingest_url: str, globus_token: str) -> Dict:
     if not ingest_url:
         ingest_url = "https://ingest.api.hubmapconsortium.org/"
     response = requests.post(
-        f"""{ingest_url.strip("/")}/assaytype""",
-        headers={"Content-Type": "application/json"},
+        urljoin(ingest_url, "assaytype"),
+        headers={"Content-Type": "application/json", "Authorization": f"Bearer {globus_token}"},
         data=json.dumps(row),
     )
     response.raise_for_status()
