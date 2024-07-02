@@ -10,7 +10,7 @@ from fnmatch import fnmatch
 from functools import cached_property
 from pathlib import Path
 from typing import DefaultDict, Dict, List, Optional, Union
-from urllib.parse import urlencode, urljoin, urlsplit
+from urllib.parse import urljoin, urlsplit
 
 import requests
 
@@ -378,9 +378,10 @@ class Upload:
             "Authorization": f"Bearer {self.globus_token}",
             "Content-Type": "application/json",
         }
-        params = urlencode({"match": True, "order": CONSTRAINTS_CHECK_METHOD})
-        url = urljoin(self.app_context["constraints_url"], f"?{params}")
-        response = requests.post(url, headers=headers, data=data)
+        params = {"match": True, "order": CONSTRAINTS_CHECK_METHOD}
+        response = requests.post(
+            self.app_context["constraints_url"], headers=headers, data=data, params=params
+        )
         if self.verbose:
             print("Ancestor-Descendant pairs sent:")
             self._print_constraint_pairs(payload)
@@ -632,9 +633,10 @@ class Upload:
                     *get_entity_type_vals(response.json()),
                 )
         elif field in ["orcid_id", "orcid"]:
-            url = urljoin(constrained_fields[field], f"?q=orcid:{value}")
             headers = {"Accept": "application/json"}
-            response = requests.get(url, headers=headers)
+            response = requests.get(
+                constrained_fields[field], headers=headers, params={"q": f"orcid:{value}"}
+            )
             num_found = response.json().get("num-found")
             if num_found == 1:
                 return
