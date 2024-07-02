@@ -279,8 +279,8 @@ class TestDatasetExamples(unittest.TestCase):
                     opts = {}
                 with patch(
                     "ingest_validation_tools.validation_utils.get_assaytype_data",
-                    side_effect=lambda row, ingest_url: assaytype_side_effect(
-                        test_dir, row, ingest_url
+                    side_effect=lambda row, ingest_url, globus_token: assaytype_side_effect(
+                        test_dir, row, ingest_url, globus_token
                     ),
                 ) as mock_assaytype_data:
                     with patch("ingest_validation_tools.upload.Upload.online_checks"):
@@ -332,7 +332,7 @@ class TestDatasetExamples(unittest.TestCase):
             with open(tsv_path, encoding="ascii") as f:
                 rows = list(DictReader(f, dialect="excel-tab"))
             f.close()
-            calls.append(call(rows[0], "https://ingest.api.hubmapconsortium.org/"))
+            calls.append(call(rows[0], "https://ingest.api.hubmapconsortium.org/", ""))
         try:
             mock_assaytype_data.assert_has_calls(calls, any_order=True)
         except AssertionError as e:
@@ -343,7 +343,9 @@ class TestDatasetExamples(unittest.TestCase):
     def prep_offline_upload(test_dir: str, opts: Dict) -> Upload:
         with patch(
             "ingest_validation_tools.validation_utils.get_assaytype_data",
-            side_effect=lambda row, ingest_url: assaytype_side_effect(test_dir, row, ingest_url),
+            side_effect=lambda row, ingest_url, globus_token: assaytype_side_effect(
+                test_dir, row, ingest_url, globus_token
+            ),
         ):
             with patch("ingest_validation_tools.upload.Upload.online_checks"):
                 upload = Upload(Path(f"{test_dir}/upload"), **opts)
@@ -354,7 +356,9 @@ class TestDatasetExamples(unittest.TestCase):
     def prep_dir_schema_upload(self, test_dir: str, opts: Dict, patch_data: Dict) -> Upload:
         with patch(
             "ingest_validation_tools.validation_utils.get_assaytype_data",
-            side_effect=lambda row, ingest_url: assaytype_side_effect(test_dir, row, ingest_url),
+            side_effect=lambda row, ingest_url, globus_token: assaytype_side_effect(
+                test_dir, row, ingest_url, globus_token
+            ),
         ):
             with patch(
                 "ingest_validation_tools.validation_utils.get_possible_directory_schemas",
@@ -484,14 +488,14 @@ class TestDatasetExamples(unittest.TestCase):
                     ),
                 ):
                     bad_upload = Upload(
-                        Path(f"test_path"),
+                        Path("test_path"),
                         tsv_paths=["repeated_parent_fake_path_1", "repeated_parent_fake_path_2"],
                         **DATASET_EXAMPLES_OPTS,
                     )
                     with self.assertRaises(PreflightError):
                         bad_upload.multi_parent
                     good_upload = Upload(
-                        Path(f"test_path"),
+                        Path("test_path"),
                         tsv_paths=["unique_parent_fake_path_1", "unique_parent_fake_path_2"],
                         **DATASET_EXAMPLES_OPTS,
                     )
