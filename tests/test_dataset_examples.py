@@ -222,8 +222,8 @@ def get_online_check_fixtures(schema_name: str, dir_path: str) -> Dict:
     return value
 
 
-def assaytype_side_effect(path: str, row: Dict, *args, **kwargs):
-    del args, kwargs
+def assaytype_side_effect(path: str, row: Dict, globus_token: str, *args, **kwargs):
+    del globus_token, args, kwargs
     response_dict = _open_and_read_fixtures_file(path)
     dataset_type = row.get("assay_type") if row.get("assay_type") else row.get("dataset_type")
     return response_dict.get("assaytype", {}).get(dataset_type)
@@ -279,8 +279,8 @@ class TestDatasetExamples(unittest.TestCase):
                     opts = {}
                 with patch(
                     "ingest_validation_tools.validation_utils.get_assaytype_data",
-                    side_effect=lambda row, ingest_url: assaytype_side_effect(
-                        test_dir, row, ingest_url
+                    side_effect=lambda row, ingest_url, globus_token: assaytype_side_effect(
+                        test_dir, row, ingest_url, globus_token
                     ),
                 ) as mock_assaytype_data:
                     with patch("ingest_validation_tools.upload.Upload.online_checks"):
@@ -343,7 +343,9 @@ class TestDatasetExamples(unittest.TestCase):
     def prep_offline_upload(test_dir: str, opts: Dict) -> Upload:
         with patch(
             "ingest_validation_tools.validation_utils.get_assaytype_data",
-            side_effect=lambda row, ingest_url: assaytype_side_effect(test_dir, row, ingest_url),
+            side_effect=lambda row, ingest_url, globus_token: assaytype_side_effect(
+                test_dir, row, ingest_url, globus_token
+            ),
         ):
             with patch("ingest_validation_tools.upload.Upload.online_checks"):
                 upload = Upload(Path(f"{test_dir}/upload"), **opts)
@@ -354,7 +356,9 @@ class TestDatasetExamples(unittest.TestCase):
     def prep_dir_schema_upload(self, test_dir: str, opts: Dict, patch_data: Dict) -> Upload:
         with patch(
             "ingest_validation_tools.validation_utils.get_assaytype_data",
-            side_effect=lambda row, ingest_url: assaytype_side_effect(test_dir, row, ingest_url),
+            side_effect=lambda row, ingest_url, globus_token: assaytype_side_effect(
+                test_dir, row, ingest_url, globus_token
+            ),
         ):
             with patch(
                 "ingest_validation_tools.validation_utils.get_possible_directory_schemas",

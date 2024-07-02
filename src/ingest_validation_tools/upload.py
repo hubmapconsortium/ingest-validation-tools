@@ -375,7 +375,7 @@ class Upload:
         headers = {
             "Authorization": f"Bearer {self.globus_token}",
             "Content-Type": "application/json",
-            }
+        }
         params = urlencode({'match': True, 'order': CONSTRAINTS_CHECK_METHOD})
         url = urljoin(self.app_context['constraints_url'], f"?{params}")
         response = requests.post(url, headers=headers, data=data)
