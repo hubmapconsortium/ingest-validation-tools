@@ -10,6 +10,7 @@ from fnmatch import fnmatch
 from functools import cached_property
 from pathlib import Path
 from typing import DefaultDict, Dict, List, Optional, Union
+from urllib.parse import urljoin, urlsplit
 
 import requests
 
@@ -178,8 +179,14 @@ class Upload:
     def get_app_context(self, submitted_app_context: Dict):
         """
         Ensure that all default values are present, but privilege any
-        submitted values.
+        submitted values (after making a basic validity check).
         """
+        for url_type in ["entities_url", "ingest_url", "constraints_url"]:
+            if submitted_app_context.get(url_type):
+                split_url = urlsplit(submitted_app_context[url_type])
+                assert (
+                    split_url.scheme and split_url.netloc
+                ), f"{url_type} URL is incomplete: {submitted_app_context[url_type]}"
         self.app_context = {
             "entities_url": "https://entity.api.hubmapconsortium.org/entities/",
             "ingest_url": "https://ingest.api.hubmapconsortium.org/",
@@ -371,8 +378,10 @@ class Upload:
             "Authorization": f"Bearer {self.globus_token}",
             "Content-Type": "application/json",
         }
-        url = f"{self.app_context['constraints_url']}?match=True&order={CONSTRAINTS_CHECK_METHOD}"
-        response = requests.post(url, headers=headers, data=data)
+        params = {"match": True, "order": CONSTRAINTS_CHECK_METHOD}
+        response = requests.post(
+            self.app_context["constraints_url"], headers=headers, data=data, params=params
+        )
         if self.verbose:
             print("Ancestor-Descendant pairs sent:")
             self._print_constraint_pairs(payload)
@@ -563,27 +572,24 @@ class Upload:
 
         constrained_fields = {}
         schema_name = schema.schema_name
+        entities_url = self.app_context.get("entities_url")
 
         if schema_name in [
             OtherTypes.SOURCE,
             *Sample.with_parent_type(),
         ]:
-            constrained_fields["source_id"] = self.app_context.get("entities_url")
+            constrained_fields["source_id"] = entities_url
             if schema_name in Sample.with_parent_type():
-                constrained_fields["sample_id"] = self.app_context.get("entities_url")
+                constrained_fields["sample_id"] = entities_url
         elif schema_name in OtherTypes.ORGAN:  # Deprecated, included for backward-compatibility
-            constrained_fields["organ_id"] = self.app_context.get("entities_url")
+            constrained_fields["organ_id"] = entities_url
         elif schema_name == OtherTypes.CONTRIBUTORS:
             if schema.is_cedar:
-                constrained_fields["orcid"] = (
-                    "https://pub.orcid.org/v3.0/expanded-search/?q=orcid:"
-                )
+                constrained_fields["orcid"] = "https://pub.orcid.org/v3.0/expanded-search/"
             else:
-                constrained_fields["orcid_id"] = (
-                    "https://pub.orcid.org/v3.0/expanded-search/?q=orcid:"
-                )
+                constrained_fields["orcid_id"] = "https://pub.orcid.org/v3.0/expanded-search/"
         else:
-            constrained_fields["parent_sample_id"] = self.app_context.get("entities_url")
+            constrained_fields["parent_sample_id"] = entities_url
         return constrained_fields
 
     def _get_url_fields(
@@ -611,7 +617,7 @@ class Upload:
         """
         Returns entity_type if checking a field in check_fields.
         """
-        url = constrained_fields[field] + value
+        url = urljoin(constrained_fields[field], value)
         if field in self.check_fields:
             headers = self.app_context.get("request_header", {})
             response = get_entity_api_data(url, self.globus_token, headers)
@@ -628,7 +634,9 @@ class Upload:
                 )
         elif field in ["orcid_id", "orcid"]:
             headers = {"Accept": "application/json"}
-            response = requests.get(url, headers=headers)
+            response = requests.get(
+                constrained_fields[field], headers=headers, params={"q": f"orcid:{value}"}
+            )
             num_found = response.json().get("num-found")
             if num_found == 1:
                 return

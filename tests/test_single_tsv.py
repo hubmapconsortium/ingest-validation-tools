@@ -17,7 +17,6 @@ from tests.fixtures import (
     BAD_DATASET_SCHEMA_WITH_ANCESTORS,
     GOOD_DATASET_EXPECTED_PAYLOAD,
     GOOD_DATASET_SCHEMA_WITH_ANCESTORS,
-    SAMPLE_BLOCK_CONSTRAINTS_RESPONSE_BAD,
     SAMPLE_BLOCK_CONSTRAINTS_RESPONSE_GOOD,
     SAMPLE_BLOCK_PARTIAL_CEDAR_RESPONSE_GOOD,
     SAMPLE_BLOCK_PARTIAL_ENTITY_API_RESPONSE,
@@ -26,7 +25,7 @@ from tests.fixtures import (
     TEST_GET_TSV_ERRORS_PARAMS,
 )
 
-CONSTRAINTS_URL_PARAMS = "?match=True&order=ancestors"
+CONSTRAINTS_URL_PARAMS = {"match": True, "order": "ancestors"}
 CONSTRAINTS_URL = "http://constraints_test/"
 ENTITIES_URL = "http://entities_test/"
 
@@ -78,9 +77,10 @@ class TestSingleTsv(unittest.TestCase):
             ],
         )
         mock_request.assert_any_call(
-            CONSTRAINTS_URL + CONSTRAINTS_URL_PARAMS,
+            CONSTRAINTS_URL,
             headers={"Authorization": "Bearer test", "Content-Type": "application/json"},
             data=json.dumps(BAD_DATASET_EXPECTED_PAYLOAD),
+            params=CONSTRAINTS_URL_PARAMS,
         )
 
     @patch("ingest_validation_tools.upload.requests.post")
@@ -89,9 +89,10 @@ class TestSingleTsv(unittest.TestCase):
         # Shouldn't return anything
         self.upload._constraint_checks(GOOD_DATASET_SCHEMA_WITH_ANCESTORS)
         mock_request.assert_any_call(
-            CONSTRAINTS_URL + CONSTRAINTS_URL_PARAMS,
+            CONSTRAINTS_URL,
             headers={"Authorization": "Bearer test", "Content-Type": "application/json"},
             data=json.dumps(GOOD_DATASET_EXPECTED_PAYLOAD),
+            params=CONSTRAINTS_URL_PARAMS,
         )
 
     @patch("ingest_validation_tools.upload.requests.post")
