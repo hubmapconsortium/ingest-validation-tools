@@ -184,7 +184,9 @@ class Upload:
         for url_type in ["entities_url", "ingest_url", "constraints_url"]:
             if submitted_app_context.get(url_type):
                 split_url = urlsplit(submitted_app_context[url_type])
-                assert split_url.scheme and split_url.netloc, f"{url_type} URL is incomplete: {submitted_app_context[url_type]}"
+                assert (
+                    split_url.scheme and split_url.netloc
+                ), f"{url_type} URL is incomplete: {submitted_app_context[url_type]}"
         self.app_context = {
             "entities_url": "https://entity.api.hubmapconsortium.org/entities/",
             "ingest_url": "https://ingest.api.hubmapconsortium.org/",
@@ -376,8 +378,8 @@ class Upload:
             "Authorization": f"Bearer {self.globus_token}",
             "Content-Type": "application/json",
         }
-        params = urlencode({'match': True, 'order': CONSTRAINTS_CHECK_METHOD})
-        url = urljoin(self.app_context['constraints_url'], f"?{params}")
+        params = urlencode({"match": True, "order": CONSTRAINTS_CHECK_METHOD})
+        url = urljoin(self.app_context["constraints_url"], f"?{params}")
         response = requests.post(url, headers=headers, data=data)
         if self.verbose:
             print("Ancestor-Descendant pairs sent:")
@@ -582,13 +584,9 @@ class Upload:
             constrained_fields["organ_id"] = entities_url
         elif schema_name == OtherTypes.CONTRIBUTORS:
             if schema.is_cedar:
-                constrained_fields["orcid"] = (
-                    "https://pub.orcid.org/v3.0/expanded-search/"
-                )
+                constrained_fields["orcid"] = "https://pub.orcid.org/v3.0/expanded-search/"
             else:
-                constrained_fields["orcid_id"] = (
-                    "https://pub.orcid.org/v3.0/expanded-search/"
-                )
+                constrained_fields["orcid_id"] = "https://pub.orcid.org/v3.0/expanded-search/"
         else:
             constrained_fields["parent_sample_id"] = entities_url
         return constrained_fields

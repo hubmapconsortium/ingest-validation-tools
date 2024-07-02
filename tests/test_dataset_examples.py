@@ -488,14 +488,14 @@ class TestDatasetExamples(unittest.TestCase):
                     ),
                 ):
                     bad_upload = Upload(
-                        Path(f"test_path"),
+                        Path("test_path"),
                         tsv_paths=["repeated_parent_fake_path_1", "repeated_parent_fake_path_2"],
                         **DATASET_EXAMPLES_OPTS,
                     )
                     with self.assertRaises(PreflightError):
                         bad_upload.multi_parent
                     good_upload = Upload(
-                        Path(f"test_path"),
+                        Path("test_path"),
                         tsv_paths=["unique_parent_fake_path_1", "unique_parent_fake_path_2"],
                         **DATASET_EXAMPLES_OPTS,
                     )

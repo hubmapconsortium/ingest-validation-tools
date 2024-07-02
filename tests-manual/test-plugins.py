@@ -17,7 +17,7 @@ class TestPlugins(unittest.TestCase):
         ):
             with patch("ingest_validation_tools.upload.Upload.online_checks"):
                 fake_now = datetime.now()
-                for test_dir in glob.glob(f"examples/plugin-tests/**"):
+                for test_dir in glob.glob("examples/plugin-tests/**"):
                     upload = Upload(
                         Path(f"{test_dir}/upload"), **PLUGIN_EXAMPLES_OPTS, verbose=False
                     )
