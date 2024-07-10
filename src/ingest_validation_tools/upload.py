@@ -101,7 +101,7 @@ class Upload:
             }
 
         except PreflightError as e:
-            self.errors.preflight.append(str(e))
+            self.errors.preflight = str(e)
 
     #####################
     #
@@ -135,8 +135,9 @@ class Upload:
                 for path, sv in self.effective_tsv_paths.items()
             }
             self.info.tsvs = tsvs
+        # TODO: inappropriate as preflight error since this gets called after get_errors
         except PreflightError as e:
-            self.errors.preflight.append(str(e))
+            self.errors.preflight = str(e)
 
         return self.info
 
@@ -154,7 +155,7 @@ class Upload:
             return self.errors
 
         if not self.effective_tsv_paths:
-            self.errors.preflight.append("There are no effective TSVs.")
+            self.errors.preflight = "There are no effective TSVs."
             return self.errors
 
         # Collect errors
