@@ -506,6 +506,26 @@ class TestDatasetExamples(unittest.TestCase):
                         ),
                     )
 
+    def test_counts(self):
+        test_dirs = {
+            "examples/dataset-examples/bad-cedar-assay-histology": {
+                "Spreadsheet Validator Errors": 3,
+                "URL Check Errors": 2,
+                "Reference Errors": 1,
+                "Plugins Skipped": True,
+            },
+            "examples/dataset-examples/good-scatacseq-metadata-v0": {},
+            "examples/dataset-examples/bad-mixed": {
+                "Preflight Errors": "Found multiple dataset types in upload: CODEX, SNARE-seq2"
+            },
+        }
+        for test_dir, expected_counts in test_dirs.items():
+            upload = self.prep_offline_upload(test_dir, DATASET_EXAMPLES_OPTS)
+            errors = upload.get_errors()
+            info = upload.get_info()
+            report = ErrorReport(errors=errors, info=info)
+            self.assertEqual(report.counts, expected_counts)
+
 
 # if __name__ == "__main__":
 #     suite = unittest.TestLoader().loadTestsFromTestCase(TestDatasetExamples)

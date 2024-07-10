@@ -204,13 +204,13 @@ class ErrorReport:
 
     @property
     def counts(self) -> Optional[dict[str, Union[int, str]]]:
-        # Should this work with just errors dict?
+        # Could work with self.errors, just needs to use ErrorStrings for matching
         if not self.raw_errors:
             return {}
         counts = {}
         if self.raw_errors.preflight:
-            return {ErrorStrings.PREFLIGHT: self.raw_errors.preflight}
-        for error_type, errors in self.raw_errors.as_dict(attr_keys=True):
+            return {ErrorStrings.PREFLIGHT.value: self.raw_errors.preflight}
+        for error_type, errors in self.raw_errors.as_dict(attr_keys=True).items():
             if error_type in [ErrorAttrs.PREFLIGHT, ErrorAttrs.PLUGIN_SKIP, ErrorAttrs.PLUGIN]:
                 continue
             errors = getattr(self.raw_errors, error_type)
@@ -220,13 +220,13 @@ class ErrorReport:
             elif isinstance(errors, dict):
                 errors_for_category += sum([len(nested_error) for nested_error in errors.values()])
             if errors_for_category:
-                counts[FIELD_MAP[error_type]] = errors_for_category
+                counts[FIELD_MAP[error_type].value] = errors_for_category
         if self.raw_errors.plugin:
             plugin_counts = [len(value) for value in self.raw_errors.plugin.values()]
             plugin_error_str = f"{sum(plugin_counts)} errors in {len(plugin_counts)} plugins"
-            counts[ErrorStrings.PLUGIN] = plugin_error_str
+            counts[ErrorStrings.PLUGIN.value] = plugin_error_str
         if self.raw_errors.plugin_skip:
-            counts[ErrorStrings.PLUGIN_SKIP] = True
+            counts["Plugins Skipped"] = True
         return counts
 
     def _no_errors(self):
