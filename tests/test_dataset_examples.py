@@ -10,7 +10,13 @@ from pathlib import Path
 from typing import Dict, List, Union
 from unittest.mock import Mock, call, patch
 
-from ingest_validation_tools.error_report import FIELD_MAP, ErrorDict, ErrorReport
+from ingest_validation_tools.error_report import (
+    FIELD_MAP,
+    ErrorAttrs,
+    ErrorDict,
+    ErrorReport,
+)
+from ingest_validation_tools.schema_loader import PreflightError, SchemaVersion
 from ingest_validation_tools.upload import Upload
 from tests.fixtures import (
     SCATACSEQ_BOTH_VERSIONS_VALID,
@@ -51,8 +57,8 @@ class TokenException(Exception):
 
 
 def mutate_upload_errors_with_fixtures(upload: Upload, test_dir: str) -> Upload:
-    url_errors_field_name = FIELD_MAP["metadata_url_errors"]
-    api_errors_field_name = FIELD_MAP["metadata_validation_api"]
+    url_errors_field_name = FIELD_MAP[ErrorAttrs.METADATA_URL_ERRORS]
+    api_errors_field_name = FIELD_MAP[ErrorAttrs.METADATA_VALIDATION_API]
     for tsv_path, schema in upload.effective_tsv_paths.items():
         fixtures = get_online_check_fixtures(schema.schema_name, test_dir)
         url_errors = fixtures.get(url_errors_field_name, {})
@@ -278,8 +284,8 @@ class TestDatasetExamples(unittest.TestCase):
                     opts = {}
                 with patch(
                     "ingest_validation_tools.validation_utils.get_assaytype_data",
-                    side_effect=lambda row, ingest_url: assaytype_side_effect(
-                        test_dir, row, ingest_url
+                    side_effect=lambda row, ingest_url, globus_token: assaytype_side_effect(
+                        test_dir, row, ingest_url, globus_token
                     ),
                 ) as mock_assaytype_data:
                     with patch("ingest_validation_tools.upload.Upload.online_checks"):
@@ -331,7 +337,7 @@ class TestDatasetExamples(unittest.TestCase):
             with open(tsv_path, encoding="ascii") as f:
                 rows = list(DictReader(f, dialect="excel-tab"))
             f.close()
-            calls.append(call(rows[0], "https://ingest.api.hubmapconsortium.org/"))
+            calls.append(call(rows[0], "https://ingest.api.hubmapconsortium.org/", ""))
         try:
             mock_assaytype_data.assert_has_calls(calls, any_order=True)
         except AssertionError as e:
@@ -342,7 +348,9 @@ class TestDatasetExamples(unittest.TestCase):
     def prep_offline_upload(test_dir: str, opts: Dict) -> Upload:
         with patch(
             "ingest_validation_tools.validation_utils.get_assaytype_data",
-            side_effect=lambda row, ingest_url: assaytype_side_effect(test_dir, row, ingest_url),
+            side_effect=lambda row, ingest_url, globus_token: assaytype_side_effect(
+                test_dir, row, ingest_url, globus_token
+            ),
         ):
             with patch("ingest_validation_tools.upload.Upload.online_checks"):
                 upload = Upload(Path(f"{test_dir}/upload"), **opts)
@@ -353,7 +361,9 @@ class TestDatasetExamples(unittest.TestCase):
     def prep_dir_schema_upload(self, test_dir: str, opts: Dict, patch_data: Dict) -> Upload:
         with patch(
             "ingest_validation_tools.validation_utils.get_assaytype_data",
-            side_effect=lambda row, ingest_url: assaytype_side_effect(test_dir, row, ingest_url),
+            side_effect=lambda row, ingest_url, globus_token: assaytype_side_effect(
+                test_dir, row, ingest_url, globus_token
+            ),
         ):
             with patch(
                 "ingest_validation_tools.validation_utils.get_possible_directory_schemas",
@@ -472,6 +482,54 @@ class TestDatasetExamples(unittest.TestCase):
             info = upload.get_info()
             report = ErrorReport(errors=errors, info=info)
             self.assertEqual(report.counts, expected_counts)
+
+    def get_schema_side_effect(
+        self, tsv_path, encoding, entities_url, ingest_url, globus_token, directory_path
+    ):
+        del encoding, entities_url, ingest_url, globus_token, directory_path
+        schema_map = {
+            "repeated_parent_fake_path_1": SchemaVersion(
+                schema_name="visium-no-probes", contains=["histology", "rnaseq"]
+            ),
+            "repeated_parent_fake_path_2": SchemaVersion(
+                schema_name="visium-no-probes", contains=["histology", "rnaseq"]
+            ),
+            "unique_parent_fake_path_1": SchemaVersion(
+                schema_name="visium-no-probes", contains=["histology", "rnaseq"]
+            ),
+            "unique_parent_fake_path_2": SchemaVersion(schema_name="histology"),
+        }
+        return schema_map.get(str(tsv_path))
+
+    def test_bad_multi_assay_parents(self):
+        with patch(
+            "ingest_validation_tools.validation_utils.get_assaytype_data",
+        ):
+            with patch("ingest_validation_tools.upload.Upload.online_checks"):
+                with patch(
+                    "ingest_validation_tools.upload.get_schema_version",
+                    side_effect=lambda tsv_path, encoding, entities_url, ingest_url, globus_token, directory_path: self.get_schema_side_effect(
+                        tsv_path, encoding, entities_url, ingest_url, globus_token, directory_path
+                    ),
+                ):
+                    bad_upload = Upload(
+                        Path("test_path"),
+                        tsv_paths=["repeated_parent_fake_path_1", "repeated_parent_fake_path_2"],
+                        **DATASET_EXAMPLES_OPTS,
+                    )
+                    with self.assertRaises(PreflightError):
+                        bad_upload.multi_parent
+                    good_upload = Upload(
+                        Path("test_path"),
+                        tsv_paths=["unique_parent_fake_path_1", "unique_parent_fake_path_2"],
+                        **DATASET_EXAMPLES_OPTS,
+                    )
+                    self.assertEqual(
+                        good_upload.multi_parent,
+                        SchemaVersion(
+                            schema_name="visium-no-probes", contains=["histology", "rnaseq"]
+                        ),
+                    )
 
 
 # if __name__ == "__main__":

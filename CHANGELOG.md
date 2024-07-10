@@ -1,9 +1,18 @@
 # Changelog
 
+## v0.0.23
+- Add token to validation_utils.get_assaytype_data, replace URL string concatenation with urllib
+- Adding error count reporting to ErrorReport
+
+## v0.0.22
+- Fix logging length issue in Upload.multi_parent
+- Minor change to Visium with probes directory schema
+- Minor change to Visium no probes directory schema
+- Update docs for Visium directories
+
 ## v0.0.21
 - Fix the changelog to reflect the current version.
 - Fix row number mismatch between validation and spreadsheet validator response
-- Adding error count reporting to ErrorReport
 
 ## v0.0.20
 - Fix row number mismatch between validation and spreadsheet validator response
