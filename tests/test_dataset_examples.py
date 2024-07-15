@@ -10,7 +10,12 @@ from pathlib import Path
 from typing import Dict, List, Union
 from unittest.mock import Mock, call, patch
 
-from ingest_validation_tools.error_report import FIELD_MAP, ErrorDict, ErrorReport
+from ingest_validation_tools.error_report import (
+    FIELD_MAP,
+    ErrorAttrs,
+    ErrorDict,
+    ErrorReport,
+)
 from ingest_validation_tools.schema_loader import PreflightError, SchemaVersion
 from ingest_validation_tools.upload import Upload
 from tests.fixtures import (
@@ -52,8 +57,8 @@ class TokenException(Exception):
 
 
 def mutate_upload_errors_with_fixtures(upload: Upload, test_dir: str) -> Upload:
-    url_errors_field_name = FIELD_MAP["metadata_url_errors"]
-    api_errors_field_name = FIELD_MAP["metadata_validation_api"]
+    url_errors_field_name = FIELD_MAP[ErrorAttrs.METADATA_URL_ERRORS]
+    api_errors_field_name = FIELD_MAP[ErrorAttrs.METADATA_VALIDATION_API]
     for tsv_path, schema in upload.effective_tsv_paths.items():
         fixtures = get_online_check_fixtures(schema.schema_name, test_dir)
         url_errors = fixtures.get(url_errors_field_name, {})

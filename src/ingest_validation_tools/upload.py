@@ -125,19 +125,15 @@ class Upload:
         ).strip()
         self.info.git = git_version
 
-        try:
-            tsvs = {
-                Path(path).name: {
-                    "Schema": sv.table_schema,
-                    "Metadata schema version": sv.version,
-                    "Directory schema version": sv.dir_schema,
-                }
-                for path, sv in self.effective_tsv_paths.items()
+        tsvs = {
+            Path(path).name: {
+                "Schema": sv.table_schema,
+                "Metadata schema version": sv.version,
+                "Directory schema version": sv.dir_schema,
             }
-            self.info.tsvs = tsvs
-        # TODO: inappropriate as preflight error since this gets called after get_errors
-        except PreflightError as e:
-            self.errors.preflight = str(e)
+            for path, sv in self.effective_tsv_paths.items()
+        }
+        self.info.tsvs = tsvs
 
         return self.info
 
