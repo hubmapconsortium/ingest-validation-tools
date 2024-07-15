@@ -4,6 +4,7 @@
 - Release MERFISH
 - Add MERFISH directory schema
 - Fix documentation issue for MERFISH
+- Add CEDAR link for MERFISH
 
 ## v0.0.23
 - Add token to validation_utils.get_assaytype_data, replace URL string concatenation with urllib
