@@ -7,6 +7,7 @@
 - Add CEDAR link for MERFISH
 - Update MERFISH directory schema
 - Update Phenocycler docs
+- Update MERFISH directory schema
 
 ## v0.0.23
 - Add token to validation_utils.get_assaytype_data, replace URL string concatenation with urllib
