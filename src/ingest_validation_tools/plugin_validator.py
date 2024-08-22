@@ -142,8 +142,8 @@ def run_plugin_validators_iter(
                     raise ValidatorError(f"{data_path} should be the base directory of a dataset")
                 data_paths.append(data_path)
             for k, v in validation_error_iter(
-                    data_paths, sv.dataset_type, plugin_dir, sv.contains, verbose=verbose, metadata_tsv=sv,
-                    globus_token=globus_token, app_context=app_context, **kwargs
+                    data_paths, sv.dataset_type, plugin_dir, sv.contains, verbose=verbose,
+                    metadata_tsv=sv, globus_token=globus_token, app_context=app_context, **kwargs
             ):
                 yield k, v
         else:
@@ -207,6 +207,7 @@ def validation_error_iter(
     error messages
     """
     for cls in validation_class_iter(plugin_dir):
-        validator = cls(paths, assay_type, contains, verbose, metadata_tsv, globus_token, app_context)
+        validator = cls(paths, assay_type, contains, verbose, metadata_tsv, globus_token,
+                        app_context)
         for err in validator.collect_errors(**kwargs):
             yield cls, err
