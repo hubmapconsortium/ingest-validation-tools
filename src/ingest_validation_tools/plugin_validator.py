@@ -3,7 +3,7 @@ import sys
 from collections.abc import Iterator
 from importlib import util
 from pathlib import Path
-from typing import List, Optional, Tuple, Type, Union, Dict
+from typing import Dict, List, Optional, Tuple, Type, Union
 
 from ingest_validation_tools.schema_loader import SchemaVersion
 
