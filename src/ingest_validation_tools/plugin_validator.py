@@ -143,8 +143,8 @@ def run_plugin_validators_iter(
                 data_paths.append(data_path)
             print(f"Data paths being passed to plugins: {data_paths}")
             for k, v in validation_error_iter(
-                    data_paths, sv.dataset_type, plugin_dir, sv.contains, verbose=verbose, metadata_tsv=sv,
-                    globus_token=globus_token, app_context=app_context, **kwargs
+                    data_paths, sv.dataset_type, plugin_dir, sv.contains, verbose=verbose,
+                    metadata_tsv=sv, globus_token=globus_token, app_context=app_context, **kwargs
             ):
                 yield k, v
         else:
@@ -208,7 +208,8 @@ def validation_error_iter(
     error messages
     """
     for cls in validation_class_iter(plugin_dir):
-        validator = cls(paths, assay_type, contains, verbose, metadata_tsv, globus_token, app_context)
+        validator = cls(paths, assay_type, contains, verbose, metadata_tsv, globus_token,
+                        app_context)
         kwargs["verbose"] = verbose
         for err in validator.collect_errors(**kwargs):
             yield cls, err
