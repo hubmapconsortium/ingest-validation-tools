@@ -8,6 +8,7 @@
 - Update MERFISH directory schema
 - Update Phenocycler docs
 - Update MERFISH directory schema
+- Adding support for EPIC's new plugin
 
 ## v0.0.23
 - Add token to validation_utils.get_assaytype_data, replace URL string concatenation with urllib
