@@ -3,7 +3,7 @@ import sys
 from collections.abc import Iterator
 from importlib import util
 from pathlib import Path
-from typing import List, Optional, Tuple, Type, Union
+from typing import List, Optional, Tuple, Type, Union, Dict
 
 from ingest_validation_tools.schema_loader import SchemaVersion
 
@@ -53,6 +53,9 @@ class Validator(object):
         assay_type: str,
         contains: List = [],
         verbose: bool = False,
+        metadata_tsv: SchemaVersion = None,
+        globus_token: str = None,
+        app_context: Dict[str, str] = {},
         **kwargs,
     ):
         """
@@ -72,6 +75,9 @@ class Validator(object):
         self.assay_type = assay_type
         self.contains = contains
         self.verbose = verbose
+        self.metadata_tsv = metadata_tsv
+        self.token = globus_token
+        self.app_context = app_context
 
     def _log(self, message):
         if self.verbose:
@@ -99,6 +105,8 @@ def run_plugin_validators_iter(
     plugin_dir: PathOrStr,
     is_shared_upload: bool,
     verbose: bool = True,
+    globus_token: str = None,
+    app_context: Dict[str, str] = {},
     **kwargs,
 ) -> Iterator[KeyValuePair]:
     """
@@ -135,7 +143,8 @@ def run_plugin_validators_iter(
                 data_paths.append(data_path)
             print(f"Data paths being passed to plugins: {data_paths}")
             for k, v in validation_error_iter(
-                data_paths, sv.dataset_type, plugin_dir, sv.contains, verbose=verbose, **kwargs
+                data_paths, sv.dataset_type, plugin_dir, sv.contains, verbose=verbose, metadata_tsv=sv,
+                globus_token=globus_token, app_context=app_context, **kwargs
             ):
                 yield k, v
         else:
@@ -180,6 +189,9 @@ def validation_error_iter(
     plugin_dir: PathOrStr,
     contains: List,
     verbose: bool = False,
+    metadata_tsv: SchemaVersion = None,
+    globus_token: str = None,
+    app_context: Dict[str, str] = {},
     **kwargs,
 ) -> Iterator[KeyValuePair]:
     """
@@ -196,7 +208,7 @@ def validation_error_iter(
     error messages
     """
     for cls in validation_class_iter(plugin_dir):
-        validator = cls(paths, assay_type, contains, verbose)
+        validator = cls(paths, assay_type, contains, verbose, metadata_tsv, globus_token, app_context)
         kwargs["verbose"] = verbose
         for err in validator.collect_errors(**kwargs):
             yield cls, err
