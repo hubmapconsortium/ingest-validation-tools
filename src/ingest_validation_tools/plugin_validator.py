@@ -48,15 +48,15 @@ class Validator(object):
     """
 
     def __init__(
-            self,
-            base_paths: List[Path],
-            assay_type: str,
-            contains: List = [],
-            verbose: bool = False,
-            metadata_tsv: SchemaVersion = None,
-            globus_token: str = None,
-            app_context: Dict[str, str] = {},
-            **kwargs,
+        self,
+        base_paths: List[Path],
+        assay_type: str,
+        contains: List = [],
+        verbose: bool = False,
+        metadata_tsv: SchemaVersion = None,
+        globus_token: str = None,
+        app_context: Dict[str, str] = {},
+        **kwargs,
     ):
         """
         base_paths is expected to be a list of directories.
@@ -100,14 +100,14 @@ KeyValuePair = Tuple[Type[Validator], Optional[str]]
 
 
 def run_plugin_validators_iter(
-        metadata_path: PathOrStr,
-        sv: SchemaVersion,
-        plugin_dir: PathOrStr,
-        is_shared_upload: bool,
-        verbose: bool = True,
-        globus_token: str = None,
-        app_context: Dict[str, str] = {},
-        **kwargs,
+    metadata_path: PathOrStr,
+    sv: SchemaVersion,
+    plugin_dir: PathOrStr,
+    is_shared_upload: bool,
+    verbose: bool = True,
+    globus_token: str = None,
+    app_context: Dict[str, str] = {},
+    **kwargs,
 ) -> Iterator[KeyValuePair]:
     """
     Given a metadata.tsv file and a path to a directory of Validator plugins, iterate through the
@@ -129,7 +129,7 @@ def run_plugin_validators_iter(
     if is_shared_upload:
         paths = [Path(metadata_path).parent / "global", Path(metadata_path).parent / "non_global"]
         for k, v in validation_error_iter(
-                paths, sv.dataset_type, plugin_dir, sv.contains, **kwargs
+            paths, sv.dataset_type, plugin_dir, sv.contains, **kwargs
         ):
             yield k, v
     else:
@@ -142,8 +142,15 @@ def run_plugin_validators_iter(
                     raise ValidatorError(f"{data_path} should be the base directory of a dataset")
                 data_paths.append(data_path)
             for k, v in validation_error_iter(
-                    data_paths, sv.dataset_type, plugin_dir, sv.contains, verbose=verbose,
-                    metadata_tsv=sv, globus_token=globus_token, app_context=app_context, **kwargs
+                data_paths,
+                sv.dataset_type,
+                plugin_dir,
+                sv.contains,
+                verbose=verbose,
+                metadata_tsv=sv,
+                globus_token=globus_token,
+                app_context=app_context,
+                **kwargs,
             ):
                 yield k, v
         else:
@@ -183,15 +190,15 @@ def validation_class_iter(plugin_dir: PathOrStr) -> Iterator[Type[Validator]]:
 
 
 def validation_error_iter(
-        paths: List[Path],
-        assay_type: str,
-        plugin_dir: PathOrStr,
-        contains: List,
-        verbose: bool = False,
-        metadata_tsv: SchemaVersion = None,
-        globus_token: str = None,
-        app_context: Dict[str, str] = {},
-        **kwargs,
+    paths: List[Path],
+    assay_type: str,
+    plugin_dir: PathOrStr,
+    contains: List,
+    verbose: bool = False,
+    metadata_tsv: SchemaVersion = None,
+    globus_token: str = None,
+    app_context: Dict[str, str] = {},
+    **kwargs,
 ) -> Iterator[KeyValuePair]:
     """
     Given a list of base directories in the upload and a path to a directory
@@ -207,7 +214,8 @@ def validation_error_iter(
     error messages
     """
     for cls in validation_class_iter(plugin_dir):
-        validator = cls(paths, assay_type, contains, verbose, metadata_tsv, globus_token,
-                        app_context)
+        validator = cls(
+            paths, assay_type, contains, verbose, metadata_tsv, globus_token, app_context
+        )
         for err in validator.collect_errors(**kwargs):
             yield cls, err
