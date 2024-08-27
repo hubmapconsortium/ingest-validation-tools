@@ -8,6 +8,7 @@
 - Update MERFISH directory schema
 - Update Phenocycler docs
 - Update MERFISH directory schema
+- Add next-gen Cell DIVE directory schema
 - Update MIBI directory schema
 - Update Visium no probes directory schema
 
