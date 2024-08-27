@@ -26,7 +26,7 @@ files:
     required: True
     description: Metadata file for the capture item-value tab separated format. This contains various instrument and acquisition details for each acquisition cycle.
     is_qa_qc: False
-    example: raw/round_info_002.dat
+    example: raw/images/round_info_002.dat
   -
     pattern: lab_processed\/.*
     required: True
