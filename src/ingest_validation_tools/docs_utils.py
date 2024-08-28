@@ -687,42 +687,14 @@ def _make_dir_description(files, is_deprecated=False):
                 "description",
                 "example",
                 "is_qa_qc",
-                "dependency",
             }, f'Unexpected key "{k}" in {line}'
 
     output = ["", "| pattern | required? | description |", "| --- | --- | --- |"]
 
-    # First we need to see whether there are any entries with "dependency" listed.
-    # If there is, we need to modify the output
-    has_dependency = False
-    for line in files:
-        if "dependency" in line:
-            output[1] += " dependent on |"
-            output[2] += " --- |"
-            has_dependency = True
-            break
-
     for line in files:
         row = _generate_dir_row(line)
 
-        if has_dependency:
-            row.append("")
-
         output.append("| " + " | ".join(row) + " |")
-
-        if "dependency" in line:
-            # Load the dependency yaml file
-            dependency_path = (
-                Path(__file__).parent
-                / "directory-schemas/dependencies"
-                / f'{line.get("dependency")}.yaml'
-            )
-            dependency = load_yaml(dependency_path)
-
-            for dependency_line in dependency.get("files", []):
-                dependency_row = _generate_dir_row(dependency_line)
-                dependency_row.append(line.get("pattern"))
-                output.append("| " + " | ".join(dependency_row) + " |")
 
     table = "\n".join(output)
 
