@@ -4,8 +4,6 @@ from fnmatch import fnmatch
 from pathlib import Path
 from typing import Dict, List, Tuple
 
-from ingest_validation_tools.yaml_include_loader import load_yaml
-
 
 class DirectoryValidationErrors(Exception):
     def __init__(self, errors):

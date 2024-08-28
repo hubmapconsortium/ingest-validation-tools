@@ -8,7 +8,6 @@ from urllib.parse import urlencode
 import requests
 
 from ingest_validation_tools.schema_loader import get_field_enum, get_fields_wo_headers
-from ingest_validation_tools.yaml_include_loader import load_yaml
 
 
 def get_tsv_name(type: str, is_assay: bool = True) -> str:
