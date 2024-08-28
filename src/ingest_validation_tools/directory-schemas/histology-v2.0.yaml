@@ -67,8 +67,3 @@ files:
     required: False
     description: A TIFF file that contains pixel probabilities.
     is_qa_qc: True
-  -
-    pattern: lab_processed\/annotations\/.*
-    required: False
-    description: Directory containing segmentation masks.
-    dependency: segmentation-masks-v2

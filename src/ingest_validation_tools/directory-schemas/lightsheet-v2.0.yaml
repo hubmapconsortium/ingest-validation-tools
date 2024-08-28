@@ -91,8 +91,3 @@ files:
     pattern: qa_qc\/illumination_report\/[^\/]+\.pdf
     required: False
     description: This file is a pdf from a vendor preventative maintenance visit or illumination check tool demonstrating illumination intensity.
-  -
-    pattern: lab_processed\/annotations\/.*
-    required: False
-    description: Directory containing segmentation masks.
-    dependency: segmentation-masks-v2
