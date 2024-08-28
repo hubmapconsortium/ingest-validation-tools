@@ -102,8 +102,6 @@ def _get_required_allowed(dir_schema: List[Dict]) -> Tuple[List[str], List[str]]
     """
     allowed = [item["pattern"] for item in dir_schema]
     required = [
-        item["pattern"]
-        for item in dir_schema
-        if ("required" not in item or item["required"])
+        item["pattern"] for item in dir_schema if ("required" not in item or item["required"])
     ]
     return required, allowed
