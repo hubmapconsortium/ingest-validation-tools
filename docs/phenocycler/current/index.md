@@ -16,7 +16,7 @@ Related files:
 - [📝 TSV template](https://raw.githubusercontent.com/hubmapconsortium/dataset-metadata-spreadsheet/main/phenocycler/latest/phenocycler.tsv): Alternative for metadata entry.
 
 
-[This link](https://docs.google.com/spreadsheets/d/1YnmdTAA0Z9MKN3OjR3Sca8pz-LNQll91wdQoRPSP6Q4/edit#gid=0) lists the set of fields that are required in the OME TIFF file XML header.
+
 
 ## Metadata schema
 

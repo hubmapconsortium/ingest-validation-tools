@@ -50,9 +50,17 @@ files:
     required: True
     description: Necessary image definitions
   -
-    pattern: raw\/[^\/]+\.DAX
+    pattern: raw\/data\/.*
+    required: True
+    description: All raw stack data files for the MERFISH experiment.
+  -
+    pattern: raw\/data\/[^\/]+\.dax
     required: True
     description: The raw image stack.
+  -
+    pattern: raw\/data\/[^\/]+\.inf
+    required: True
+    description: Information file with dax image format specifications. Variable expected for downstream processing with PIPEFISH are frame dimensions, number of frames, little/big endian, stage X and Y locations, lock target, scalemin, and scalemax.
   -
     pattern: raw\/images\/.*
     required: True

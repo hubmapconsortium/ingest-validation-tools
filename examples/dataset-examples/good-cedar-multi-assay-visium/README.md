@@ -7,14 +7,14 @@ TSVs:
   good-visium-assay-metadata.tsv:
     Schema: visium-no-probes-v2
     Metadata schema version: '2'
-    Directory schema version: visium-no-probes-v2.1
+    Directory schema version: visium-no-probes-v2.2
   good-visium-histology-metadata.tsv:
     Schema: h-and-e-v2
     Metadata schema version: '2'
-    Directory schema version: visium-no-probes-v2.1
+    Directory schema version: visium-no-probes-v2.2
   good-visium-rnaseq-metadata.tsv:
     Schema: rnaseq-visium-no-probes-v2
     Metadata schema version: '2'
-    Directory schema version: visium-no-probes-v2.1
+    Directory schema version: visium-no-probes-v2.2
 
 ```

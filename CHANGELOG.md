@@ -1,6 +1,17 @@
 # Changelog
 
-## v0.0.24
+## v0.0.24 (in progress)
+- Release MERFISH
+- Add MERFISH directory schema
+- Fix documentation issue for MERFISH
+- Add CEDAR link for MERFISH
+- Update MERFISH directory schema
+- Update Phenocycler docs
+- Update MERFISH directory schema
+- Add next-gen Cell DIVE directory schema
+- Update MIBI directory schema
+- Update Visium no probes directory schema
+- Add Cell DIVE to index
 - Change to EntityTypeInfo constraint format to support constraints endpoint
 
 ## v0.0.23
