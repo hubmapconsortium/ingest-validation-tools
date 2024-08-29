@@ -15,6 +15,8 @@
 - Update Segmentation Masks directory schema
 - Update Visium with probes directory schema
 - Update Visium no probes directory schema
+- Update Visium with probes directory schema
+- Update Visium no probes directory schema
 
 ## v0.0.23
 - Add token to validation_utils.get_assaytype_data, replace URL string concatenation with urllib
