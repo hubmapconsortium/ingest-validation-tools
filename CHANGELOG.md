@@ -1,6 +1,6 @@
 # Changelog
 
-## v0.0.24 (in progress)
+## v0.0.24
 - Release MERFISH
 - Add MERFISH directory schema
 - Fix documentation issue for MERFISH
@@ -17,6 +17,7 @@
 - Update Visium no probes directory schema
 - Update Visium with probes directory schema
 - Update Visium no probes directory schema
+- Change to EntityTypeInfo constraint format to support constraints endpoint
 
 ## v0.0.23
 - Add token to validation_utils.get_assaytype_data, replace URL string concatenation with urllib

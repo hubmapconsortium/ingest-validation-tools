@@ -26,7 +26,7 @@ files:
     pattern: raw\/fastq\/.*
     required: True
     description: Raw sequencing files for the experiment
-  -  
+  -
     pattern: raw\/fastq\/RNA\/.*
     required: True
     description: Directory containing fastq files pertaining to RNAseq sequencing.
@@ -74,5 +74,5 @@ files:
   -
     pattern: lab_processed\/transformations\/[^\/]+\.txt
     required: False
-    description: Transformation matrices used to overlay images from the exact same tissue section (e.g., MALDI imaging mass spec, autofluorescence microscopy, MxIF, histological stains). 
+    description: Transformation matrices used to overlay images from the exact same tissue section (e.g., MALDI imaging mass spec, autofluorescence microscopy, MxIF, histological stains).
     is_qa_qc: False
