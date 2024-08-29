@@ -1,6 +1,6 @@
 # Changelog
 
-## v0.0.24 (in progress)
+## v0.0.24
 - Release MERFISH
 - Add MERFISH directory schema
 - Fix documentation issue for MERFISH
