@@ -12,6 +12,11 @@
 - Update MIBI directory schema
 - Update Visium no probes directory schema
 - Add Cell DIVE to index
+- Update Segmentation Masks directory schema
+- Update Visium with probes directory schema
+- Update Visium no probes directory schema
+- Update Visium with probes directory schema
+- Update Visium no probes directory schema
 - Change to EntityTypeInfo constraint format to support constraints endpoint
 
 ## v0.0.23
