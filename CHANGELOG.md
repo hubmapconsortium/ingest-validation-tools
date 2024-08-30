@@ -18,6 +18,7 @@
 - Update Visium with probes directory schema
 - Update Visium no probes directory schema
 - Change to EntityTypeInfo constraint format to support constraints endpoint
+- Added EPIC dataset field derived_dataset_type to UNIQUE_FIELDS_MAP
 
 ## v0.0.23
 - Add token to validation_utils.get_assaytype_data, replace URL string concatenation with urllib
