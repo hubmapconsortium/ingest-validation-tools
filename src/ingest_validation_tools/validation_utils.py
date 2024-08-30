@@ -154,6 +154,9 @@ def get_other_schema_data(
 def get_assaytype_data(row: Dict, ingest_url: str, globus_token: str) -> Dict:
     if not ingest_url:
         ingest_url = "https://ingest.api.hubmapconsortium.org/"
+    # The assaytype endpoint checks sample IDs but will not return a verbose error if one is invalid
+    if row.get("parent_sample_id"):
+        row.pop("parent_sample_id")
     response = requests.post(
         urljoin(ingest_url, "assaytype"),
         headers={"Content-Type": "application/json", "Authorization": f"Bearer {globus_token}"},
