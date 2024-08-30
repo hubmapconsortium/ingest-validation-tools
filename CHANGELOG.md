@@ -87,6 +87,9 @@
 - Update GeoMx NGS directory schema
 - Added EPIC dataset field derived_dataset_type to UNIQUE_FIELDS_MAP
 
+## v0.0.25
+- Added EPIC dataset field derived_dataset_type to UNIQUE_FIELDS_MAP
+
 ## v0.0.24
 - Release MERFISH
 - Add MERFISH directory schema
