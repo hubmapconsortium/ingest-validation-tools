@@ -104,7 +104,7 @@ def get_schema_version(
     message = []
     if not [field for field in UNIQUE_FIELDS_MAP[DatasetType.DATASET] if field in rows[0].keys()]:
         message.append(
-            f"Required dataset field not present in {path}. One of the following is required: {', '.join(UNIQUE_FIELDS_MAP[DatasetType.DATASET])}"
+            f"Required dataset field not present in {path}. One of the following is required: {', '.join(sorted(UNIQUE_FIELDS_MAP[DatasetType.DATASET]))}"
         )
         if "channel_id" in rows[0]:
             message.append('Has "channel_id": Antibodies TSV found where metadata TSV expected.')
