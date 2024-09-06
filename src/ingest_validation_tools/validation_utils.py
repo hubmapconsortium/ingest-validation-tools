@@ -88,7 +88,9 @@ def get_schema_version(
         return other_type
     message = []
     if not [field for field in UNIQUE_FIELDS_MAP[DatasetType.DATASET] if field in rows[0].keys()]:
-        message.append(f"No assay_type or dataset_type in {path}.")
+        message.append(
+            f"Required dataset field not present in {path}. One of the following is required: {', '.join(UNIQUE_FIELDS_MAP[DatasetType.DATASET])}"
+        )
         if "channel_id" in rows[0]:
             message.append('Has "channel_id": Antibodies TSV found where metadata TSV expected.')
         elif "orcid_id" in rows[0]:
