@@ -215,9 +215,9 @@ class Sample(EntityTypes):
 UNIQUE_FIELDS_MAP = {
     OtherTypes.ANTIBODIES: {"antibody_rrid", "antibody_name"},
     OtherTypes.CONTRIBUTORS: {"orcid", "orcid_id"},
-    DatasetType.DATASET: {"assay_type", "dataset_type"},
+    DatasetType.DATASET: {"assay_type", "dataset_type", "derived_dataset_type"},
     OtherTypes.SOURCE: {"strain_rrid"},
-    OtherTypes.ORGAN: {"organ_id"},  # Deprecated?
+    OtherTypes.ORGAN: {"organ_id"},  # Deprecated
     OtherTypes.SAMPLE: {"sample_id"},
 }
 OTHER_FIELDS_UNIQUE_FIELDS_MAP = {
