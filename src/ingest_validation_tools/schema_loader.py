@@ -122,6 +122,19 @@ class SchemaVersion:
                 f"No table_schema for upload at {self.directory_path}. Schema: {self.schema_name}. Version: {self.version}."
             )
 
+    def get_dataset_type_value(self):
+        dataset_fields = {
+            k: v for k, v in self.rows[0].items() if k in UNIQUE_FIELDS_MAP[DatasetType.DATASET]
+        }
+        values_found = list(dataset_fields.values())
+        if len(values_found) == 0:
+            return
+        elif len(values_found) > 1:
+            raise PreflightError(
+                f"Found multiple dataset fields for path {self.path}: {dataset_fields}"
+            )
+        self.dataset_type = values_found[0]
+
 
 @dataclass
 class EntityTypeInfo:

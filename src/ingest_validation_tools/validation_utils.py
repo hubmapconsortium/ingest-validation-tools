@@ -36,20 +36,6 @@ CEDAR_VERSIONS_URL_BASE = "https://resource.metadatacenter.org/templates/"
 # Single template base URL
 CEDAR_SINGLE_TEMPLATE_URL_BASE = "https://repo.metadatacenter.org/templates/"
 
-# These should all be considered to be mutually exclusive,
-# even within the same type
-UNIQUE_FIELDS_MAP = {
-    OtherTypes.ANTIBODIES: {"antibody_rrid", "antibody_name"},
-    OtherTypes.CONTRIBUTORS: {"orcid", "orcid_id"},
-    DatasetType.DATASET: {"assay_type", "dataset_type", "derived_dataset_type"},
-    OtherTypes.SOURCE: {"strain_rrid"},
-    OtherTypes.ORGAN: {"organ_id"},  # Deprecated
-    OtherTypes.SAMPLE: {"sample_id"},
-}
-OTHER_FIELDS_UNIQUE_FIELDS_MAP = {
-    k: v for k, v in UNIQUE_FIELDS_MAP.items() if not k == DatasetType.DATASET
-}
-
 
 def match_field_in_unique_fields(
     match_fields: list, path: str, dataset=True
