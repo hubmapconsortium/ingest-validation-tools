@@ -1,5 +1,24 @@
 # Changelog
 
+## v0.0.24
+- Release MERFISH
+- Add MERFISH directory schema
+- Fix documentation issue for MERFISH
+- Add CEDAR link for MERFISH
+- Update MERFISH directory schema
+- Update Phenocycler docs
+- Update MERFISH directory schema
+- Add next-gen Cell DIVE directory schema
+- Update MIBI directory schema
+- Update Visium no probes directory schema
+- Add Cell DIVE to index
+- Update Segmentation Masks directory schema
+- Update Visium with probes directory schema
+- Update Visium no probes directory schema
+- Update Visium with probes directory schema
+- Update Visium no probes directory schema
+- Change to EntityTypeInfo constraint format to support constraints endpoint
+
 ## v0.0.23
 - Add token to validation_utils.get_assaytype_data, replace URL string concatenation with urllib
 

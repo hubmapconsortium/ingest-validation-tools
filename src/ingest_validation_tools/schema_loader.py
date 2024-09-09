@@ -141,7 +141,7 @@ class EntityTypeInfo:
         """
         return {
             "entity_type": self.entity_type.value,
-            "sub_type": [self.entity_sub_type if self.entity_sub_type else ""],
+            "sub_type": [self.entity_sub_type] if self.entity_sub_type else None,
             "sub_type_val": [self.entity_sub_type_val] if self.entity_sub_type_val else None,
         }
 
