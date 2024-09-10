@@ -1,4 +1,3 @@
-exclude_from_index: True
 fields:
 - name: is_cedar
   description: 'Identifies whether the version is hosted by CEDAR'

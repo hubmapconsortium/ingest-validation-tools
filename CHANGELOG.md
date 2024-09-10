@@ -1,6 +1,7 @@
 # Changelog
 
 ## v0.0.25
+- Update GeoMx NGS directory schema
 - Added EPIC dataset field derived_dataset_type to UNIQUE_FIELDS_MAP
 
 ## v0.0.24
