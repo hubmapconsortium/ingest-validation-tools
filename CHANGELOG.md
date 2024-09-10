@@ -1,5 +1,8 @@
 # Changelog
 
+## v0.0.25 (in progress)
+- Update GeoMx NGS directory schema
+
 ## v0.0.24
 - Release MERFISH
 - Add MERFISH directory schema
