@@ -27,11 +27,6 @@ files:
     required: True
     description: This file should describe any processing that was done to generate the images in each channel of the accompanying OME TIFF. The file should contain one row per OME TIFF channel. Two columns should be booleans "is this a channel to use for nuclei segmentation"  and "is this a channel to use for cell segmentation".
   -
-    pattern: lab_processed\/annotations\/.*
-    required: False
-    description: Directory containing segmentation masks.
-    dependency: segmentation-masks-v2
-  -
     pattern: '[^\/]*NAV[^\/]*\.tif'
     required: False
     description: Navigational Image showing Region of Interest (Keyance Microscope only)

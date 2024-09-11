@@ -4,8 +4,6 @@ from fnmatch import fnmatch
 from pathlib import Path
 from typing import Dict, List, Tuple
 
-from ingest_validation_tools.yaml_include_loader import load_yaml
-
 
 class DirectoryValidationErrors(Exception):
     def __init__(self, errors):
@@ -21,7 +19,6 @@ def validate_directory(
     """
     try:
         required_patterns, allowed_patterns = _get_required_allowed(schema_files)
-        dependencies = _get_dependencies(schema_files)
     except KeyError as e:
         raise DirectoryValidationErrors(
             f"Error finding patterns" f" for {','.join([x.as_posix() for x in paths])}: {e}"
@@ -54,39 +51,6 @@ def validate_directory(
     which is very confusing for regex! Also human readability of required_patterns
     is extremely poor.
     """
-
-    # Iterate over the conditional paths and pop them from the actual_paths list
-    for dependency in dependencies:
-        dependency_pattern = dependency.get("pattern")
-        assert isinstance(dependency_pattern, str)
-        # Check to see whether there's a match
-        matching_paths = [
-            actual for actual in actual_paths if re.fullmatch(dependency_pattern, actual)
-        ]
-        # If there's a match, then we have to check that the dependent items are also captured
-        # Let's also short-circuit and get failures out of the way
-        if dependency.get("required") and not matching_paths:
-            required_missing_errors.append(dependency_pattern)
-            continue
-
-        dependency_items = dependency.get("dependency", {}).get("files")
-
-        (
-            dependency_required_patterns,
-            dependency_allowed_patterns,
-        ) = _get_required_allowed(dependency_items)
-
-        # We should iterate over the matching_paths first and make sure they're all allowed
-        not_allowed_errors.extend(
-            _get_not_allowed_errors(
-                matching_paths, dependency_allowed_patterns, dataset_ignore_globs
-            )
-        )
-        required_missing_errors.extend(
-            _get_missing_required_errors(matching_paths, dependency_required_patterns)
-        )
-
-        actual_paths = list(set(actual_paths) - set(matching_paths))
 
     not_allowed_errors.extend(
         _get_not_allowed_errors(actual_paths, allowed_patterns, dataset_ignore_globs)
@@ -136,28 +100,8 @@ def _get_required_allowed(dir_schema: List[Dict]) -> Tuple[List[str], List[str]]
     (['this_is_required'], ['this_is_required', 'this_is_optional'])
 
     """
-    allowed = [item["pattern"] for item in dir_schema if "dependency" not in item]
+    allowed = [item["pattern"] for item in dir_schema]
     required = [
-        item["pattern"]
-        for item in dir_schema
-        if ("required" not in item or item["required"]) and "dependency" not in item
+        item["pattern"] for item in dir_schema if ("required" not in item or item["required"])
     ]
     return required, allowed
-
-
-def _get_dependencies(dir_schema: List[Dict]) -> List[Dict]:
-    dependencies = []
-    for item in dir_schema:
-        item_dependency = item.get("dependency")
-        if item_dependency:
-            # Try to load the dependency.
-            dependency_path = (
-                Path(__file__).parent
-                / "directory-schemas/dependencies"
-                / f"{item_dependency}.yaml"
-            )
-            dependency = load_yaml(dependency_path)
-            item.update({"dependency": dependency})
-            dependencies.append(item)
-
-    return dependencies

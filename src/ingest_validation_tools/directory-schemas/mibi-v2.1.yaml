@@ -22,11 +22,13 @@ files:
     required: True
     description: Raw image files. Using this subdirectory allows for harmonization with other more complex assays, like Visium that includes both raw imaging and sequencing data.
   -
-    pattern: raw\/images\/round_info_[^\/]+\.dat
-    required: True
-    description: Metadata file for the capture item-value tab separated format. This contains various instrument and acquisition details for each acquisition cycle.
-    is_qa_qc: False
-    example: raw/images/round_info_002.dat
+    pattern: raw\/images\/[^\/]+\.ome\.tiff
+    required: False
+    description: Raw image file.
+  -
+    pattern: raw\/images\/tiles\.csv
+    required: False
+    description: This file contains the approximate coordinates for each of the tiled raw images.
   -
     pattern: lab_processed\/.*
     required: True
@@ -36,36 +38,11 @@ files:
     required: True
     description: This is a directory containing processed image files
   -
-    pattern: lab_processed\/images\/region_[^\/]+\/[^\/]+_region_[^\/]+\.ome\.(?:tif|tiff)
+    pattern: lab_processed\/images\/[^\/]+\.ome\.tiff
     required: True
-    description: OME TIFF Files for the corresponding region (e.g. region_001) by slide (e.g S20030077), organized into subdirectories based on their region.
+    description: OME-TIFF file (multichannel, multi-layered) produced by the experiment. If compressed, must use loss-less compression algorithm. See the following link for the set of fields that are required in the OME TIFF file XML header. <https://docs.google.com/spreadsheets/d/1YnmdTAA0Z9MKN3OjR3Sca8pz-LNQll91wdQoRPSP6Q4/edit#gid=0>
     is_qa_qc: False
-    example: lab_processed/images/region_001/S20030092_region_011.ome.tif
   -
-    pattern: lab_processed\/images\/region_[^\/]+\/[^\/]*ome-tiff\.channels\.csv
+    pattern: lab_processed\/images\/[^\/]*ome-tiff\.channels\.csv
     required: True
     description: This file provides essential documentation pertaining to each channel of the accommpanying OME TIFF. The file should contain one row per OME TIFF channel. The required fields are detailed <https://docs.google.com/spreadsheets/d/1xEJSb0xn5C5fB3k62pj1CyHNybpt4-YtvUs5SUMS44o/edit#gid=0>
-  -
-    pattern: lab_processed\/annotations\/.*
-    required: True
-    description: This is a directory containing annotations.
-  -
-    pattern: lab_processed\/annotations\/slide_list\.txt
-    required: True
-    description: Information about the slides used by the experiment- each line corresponds to a slide name (begins with S - e.g. S20030077) - used in filenames.
-  -
-    pattern: lab_processed\/virtual_histology\/.*
-    required: True
-    description: This is a directory containing annotations for virtual histology images
-  -
-    pattern: lab_processed\/virtual_histology\/HandE_RGB_thumbnail\.jpg
-    required: True
-    description: Virtual H&E RGB thumbnail
-  -
-    pattern: lab_processed\/virtual_histology\/HandE_RGB\.tif
-    required: True
-    description: Virtual H&E RGB image
-  -
-    pattern: lab_processed\/virtual_histology\/[^\/]+_VHE_region_[^\/]+\.tif
-    required: True
-    description: Virtual H&E image

@@ -72,8 +72,3 @@ files:
     required: False
     description: Transformation matrices used to overlay images from the exact same tissue section (e.g., MALDI imaging mass spec, autofluorescence microscopy, MxIF, histological stains). 
     is_qa_qc: False
-  -
-    pattern: lab_processed\/annotations\/.*
-    required: False
-    description: Directory containing segmentation masks.
-    dependency: segmentation-masks-v2

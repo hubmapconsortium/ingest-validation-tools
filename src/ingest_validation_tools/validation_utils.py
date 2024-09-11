@@ -21,12 +21,14 @@ from ingest_validation_tools.schema_loader import (
 )
 from ingest_validation_tools.table_validator import ReportType
 
+# These should all be considered to be mutually exclusive,
+# even within the same type
 UNIQUE_FIELDS_MAP = {
     OtherTypes.ANTIBODIES: {"antibody_rrid", "antibody_name"},
     OtherTypes.CONTRIBUTORS: {"orcid", "orcid_id"},
-    DatasetType.DATASET: {"assay_type", "dataset_type"},
+    DatasetType.DATASET: {"assay_type", "dataset_type", "derived_dataset_type"},
     OtherTypes.SOURCE: {"strain_rrid"},
-    OtherTypes.ORGAN: {"organ_id"},  # Deprecated?
+    OtherTypes.ORGAN: {"organ_id"},  # Deprecated
     OtherTypes.SAMPLE: {"sample_id"},
 }
 OTHER_FIELDS_UNIQUE_FIELDS_MAP = {

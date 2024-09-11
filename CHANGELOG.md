@@ -1,6 +1,9 @@
 # Changelog
 
-## v0.0.24 (in progress)
+## v0.0.25
+- Added EPIC dataset field derived_dataset_type to UNIQUE_FIELDS_MAP
+
+## v0.0.24
 - Release MERFISH
 - Add MERFISH directory schema
 - Fix documentation issue for MERFISH
@@ -8,6 +11,16 @@
 - Update MERFISH directory schema
 - Update Phenocycler docs
 - Update MERFISH directory schema
+- Add next-gen Cell DIVE directory schema
+- Update MIBI directory schema
+- Update Visium no probes directory schema
+- Add Cell DIVE to index
+- Update Segmentation Masks directory schema
+- Update Visium with probes directory schema
+- Update Visium no probes directory schema
+- Update Visium with probes directory schema
+- Update Visium no probes directory schema
+- Change to EntityTypeInfo constraint format to support constraints endpoint
 - Adding support for EPIC's new plugin
 
 ## v0.0.23
