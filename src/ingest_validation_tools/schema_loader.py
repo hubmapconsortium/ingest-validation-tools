@@ -8,6 +8,7 @@ from pathlib import Path
 from typing import Dict, List, Optional, Sequence, Set, Union
 
 from ingest_validation_tools.enums import (
+    UNIQUE_FIELDS_MAP,
     DatasetType,
     EntityTypes,
     OtherTypes,
@@ -91,13 +92,8 @@ class SchemaVersion:
             self.is_cedar = True
         else:
             self.is_cedar = False
+        self.get_dataset_type_value()
         self.version = self.rows[0].get("version")
-        assay_type = self.rows[0].get("assay_type")
-        dataset_type = self.rows[0].get("dataset_type")
-        if assay_type is not None and dataset_type is not None:
-            raise PreflightError(f"Found both assay_type and dataset_type for path {self.path}!")
-        else:
-            self.dataset_type = assay_type if assay_type else dataset_type
 
     def get_assayclassifier_data(self):
         self.vitessce_hints = self.soft_assay_data.get("vitessce-hints", [])
@@ -108,6 +104,19 @@ class SchemaVersion:
             self.version = match[0]
         contains = self.soft_assay_data.get("must-contain", [])
         self.contains = [schema.lower() for schema in contains]
+
+    def get_dataset_type_value(self):
+        dataset_fields = {
+            k: v for k, v in self.rows[0].items() if k in UNIQUE_FIELDS_MAP[DatasetType.DATASET]
+        }
+        values_found = list(dataset_fields.values())
+        if len(values_found) == 0:
+            return
+        elif len(values_found) > 1:
+            raise PreflightError(
+                f"Found multiple dataset fields for path {self.path}: {dataset_fields}"
+            )
+        self.dataset_type = values_found[0]
 
 
 @dataclass

@@ -208,3 +208,18 @@ class Sample(EntityTypes):
     @classmethod
     def with_parent_type(cls):
         return [*[entity_type for entity_type in cls], OtherTypes.SAMPLE]
+
+
+# These should all be considered to be mutually exclusive,
+# even within the same type
+UNIQUE_FIELDS_MAP = {
+    OtherTypes.ANTIBODIES: {"antibody_rrid", "antibody_name"},
+    OtherTypes.CONTRIBUTORS: {"orcid", "orcid_id"},
+    DatasetType.DATASET: {"assay_type", "dataset_type", "derived_dataset_type"},
+    OtherTypes.SOURCE: {"strain_rrid"},
+    OtherTypes.ORGAN: {"organ_id"},  # Deprecated
+    OtherTypes.SAMPLE: {"sample_id"},
+}
+OTHER_FIELDS_UNIQUE_FIELDS_MAP = {
+    k: v for k, v in UNIQUE_FIELDS_MAP.items() if not k == DatasetType.DATASET
+}
