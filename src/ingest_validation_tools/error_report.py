@@ -1,9 +1,9 @@
 from collections import defaultdict
+from collections.abc import MutableMapping
 from dataclasses import dataclass, field, fields
 from datetime import datetime
-from enum import Enum
 from pathlib import Path
-from typing import DefaultDict, Dict, List, Optional, Union
+from typing import DefaultDict, Dict, List, Optional, Sequence, Type, Union
 
 from yaml import Dumper, dump
 
@@ -18,48 +18,6 @@ class ErrorDictException(Exception):
     def __init__(self, error: str):
         super().__init__(error)
         self.error = error
-
-
-# Human readable error type strings.
-class ErrorStrings(str, Enum):
-    PREFLIGHT = "Preflight Errors"
-    DIRECTORY = "Directory Errors"
-    UPLOAD_METADATA = "Antibodies/Contributors Errors"
-    METADATA_VALIDATION_LOCAL = "Local Validation Errors"
-    METADATA_VALIDATION_API = "Spreadsheet Validator Errors"
-    METADATA_URL_ERRORS = "URL Check Errors"
-    METADATA_CONSTRAINT_ERRORS = "Entity Constraint Errors"
-    REFERENCE = "Reference Errors"
-    PLUGIN = "Data File Errors"
-    PLUGIN_SKIP = "Fatal Errors"
-
-
-# String versions of ErrorDict attribute names.
-class ErrorAttrs(str, Enum):
-    PREFLIGHT = "preflight"
-    DIRECTORY = "directory"
-    UPLOAD_METADATA = "upload_metadata"
-    METADATA_VALIDATION_LOCAL = "metadata_validation_local"
-    METADATA_VALIDATION_API = "metadata_validation_api"
-    METADATA_CONSTRAINT_ERRORS = "metadata_constraint_errors"
-    METADATA_URL_ERRORS = "metadata_url_errors"
-    REFERENCE = "reference"
-    PLUGIN = "plugin"
-    PLUGIN_SKIP = "plugin_skip"
-
-
-FIELD_MAP: Dict[ErrorAttrs, ErrorStrings] = {
-    ErrorAttrs.PREFLIGHT: ErrorStrings.PREFLIGHT,
-    ErrorAttrs.DIRECTORY: ErrorStrings.DIRECTORY,
-    ErrorAttrs.UPLOAD_METADATA: ErrorStrings.UPLOAD_METADATA,
-    ErrorAttrs.METADATA_VALIDATION_LOCAL: ErrorStrings.METADATA_VALIDATION_LOCAL,
-    ErrorAttrs.METADATA_VALIDATION_API: ErrorStrings.METADATA_VALIDATION_API,
-    ErrorAttrs.METADATA_URL_ERRORS: ErrorStrings.METADATA_URL_ERRORS,
-    ErrorAttrs.METADATA_CONSTRAINT_ERRORS: ErrorStrings.METADATA_CONSTRAINT_ERRORS,
-    ErrorAttrs.REFERENCE: ErrorStrings.REFERENCE,
-    ErrorAttrs.PLUGIN: ErrorStrings.PLUGIN,
-    ErrorAttrs.PLUGIN_SKIP: ErrorStrings.PLUGIN_SKIP,
-}
 
 
 @dataclass
@@ -84,28 +42,96 @@ class InfoDict:
 
 
 @dataclass
+class DictErrorType(MutableMapping):
+    name: str = ""
+    display_name: str = ""
+    path: Optional[str] = None
+    default_factory: Type = list
+    value: DefaultDict = field(default_factory=lambda: defaultdict())
+
+    def __post_init__(self):
+        self.value = defaultdict(self.default_factory)
+
+    def __missing__(self, key):
+        self.value[key] = self.default_factory()
+        return self.value[key]
+
+    def __getitem__(self, key):
+        return self.value[key]
+
+    def __setitem__(self, key, value):
+        self.value[key] = value
+
+    def __delitem__(self, key):
+        del self.value[key]
+
+    def __iter__(self):
+        return iter(self.value)
+
+    def __len__(self):
+        return len(self.value)
+
+
+@dataclass
+class StrErrorType:
+    name: str = ""
+    display_name: str = ""
+    path: Optional[str] = None
+    value: Optional[str] = None
+
+
+ErrorType = Union[StrErrorType, DictErrorType]
+
+
+@dataclass
 class ErrorDict:
     """
     Has fields for each major validation type, which can be accessed directly or
     compiled using self.as_dict().
     """
 
-    preflight: Optional[str] = None
-    directory: DefaultDict[str, List[str]] = field(default_factory=lambda: defaultdict(list))
-    upload_metadata: DefaultDict[str, List[str]] = field(default_factory=lambda: defaultdict(list))
-    metadata_validation_local: DefaultDict[str, List[str]] = field(
-        default_factory=lambda: defaultdict(list)
+    preflight: StrErrorType = field(
+        default_factory=lambda: StrErrorType(name="preflight", display_name="Preflight Errors")
     )
-    metadata_validation_api: DefaultDict[str, List] = field(
-        default_factory=lambda: defaultdict(list)
+    directory: DictErrorType = field(
+        default_factory=lambda: DictErrorType(name="directory", display_name="Directory Errors")
     )
-    metadata_url_errors: DefaultDict[str, List] = field(default_factory=lambda: defaultdict(list))
-    metadata_constraint_errors: DefaultDict[str, List] = field(
-        default_factory=lambda: defaultdict(list)
+    upload_metadata: DictErrorType = field(
+        default_factory=lambda: DictErrorType(
+            name="upload_metadata", display_name="Antibodies/Contributors Errors"
+        )
     )
-    reference: DefaultDict[str, Dict] = field(default_factory=lambda: defaultdict(dict))
-    plugin: Dict[str, List[str]] = field(default_factory=dict)
-    plugin_skip: Optional[str] = None
+    metadata_validation_local: DictErrorType = field(
+        default_factory=lambda: DictErrorType(
+            name="metadata_validation_local", display_name="Local Validation Errors"
+        )
+    )
+    metadata_validation_api: DictErrorType = field(
+        default_factory=lambda: DictErrorType(
+            name="metadata_validation_api", display_name="Spreadsheet Validator Errors"
+        )
+    )
+    metadata_url_errors: DictErrorType = field(
+        default_factory=lambda: DictErrorType(
+            name="metadata_url_errors", display_name="URL Check Errors"
+        )
+    )
+    metadata_constraint_errors: DictErrorType = field(
+        default_factory=lambda: DictErrorType(
+            name="metadata_constraint_errors", display_name="Entity Constraint Errors"
+        )
+    )
+    reference: DictErrorType = field(
+        default_factory=lambda: DictErrorType(
+            name="reference", display_name="Reference Errors", default_factory=dict
+        )
+    )
+    plugin: DictErrorType = field(
+        default_factory=lambda: DictErrorType(name="plugin", display_name="Data File Errors")
+    )
+    plugin_skip: StrErrorType = field(
+        default_factory=lambda: StrErrorType(name="plugin_skip", display_name="Fatal Errors")
+    )
 
     def __bool__(self):
         """
@@ -113,20 +139,25 @@ class ErrorDict:
         """
         return bool(self.as_dict())
 
-    def errors_by_path(
-        self, path: str, selected_fields: Optional[List[ErrorAttrs]] = None
-    ) -> Dict:
+    def errors_by_path(self, path: str, selected_fields: list = []) -> Dict[str, str]:
         errors = {}
         if not selected_fields:
-            selected_fields = [getattr(self, error_field.name) for error_field in fields(self)]
-        for metadata_field in selected_fields:
-            field_errors = getattr(self, metadata_field)
-            if type(field_errors) is str:
-                errors[FIELD_MAP[metadata_field]] = field_errors
-            else:
-                for key, value in field_errors.items():
-                    if (Path(key) == Path(path)) or (path in key):
-                        errors[FIELD_MAP[metadata_field]] = value
+            selected_fields = [error_field for error_field in fields(self)]
+        selected_error_type_fields = [
+            field
+            for field in selected_fields
+            if field.type.__name__ in ["StrErrorType", "DictErrorType"]
+        ]
+        for field in selected_error_type_fields:
+            error_field = getattr(self, field.name)
+            if not error_field.value:
+                continue
+            if type(error_field) is StrErrorType:
+                errors[error_field.display_name] = error_field.value
+            elif type(error_field) is DictErrorType:
+                for key, value in error_field.items():
+                    if (Path(key) == Path(path)) or (str(path) in key):
+                        errors[error_field.display_name] = value
                         break
         return errors
 
@@ -134,9 +165,9 @@ class ErrorDict:
         return self.errors_by_path(
             path,
             [
-                ErrorAttrs.METADATA_URL_ERRORS,
-                ErrorAttrs.METADATA_VALIDATION_API,
-                ErrorAttrs.METADATA_CONSTRAINT_ERRORS,
+                self.metadata_url_errors,
+                self.metadata_validation_api,
+                self.metadata_constraint_errors,
             ],
         )
 
@@ -147,12 +178,12 @@ class ErrorDict:
         """
         errors = []
         selected_fields = [
-            ErrorAttrs.METADATA_URL_ERRORS,
-            ErrorAttrs.METADATA_VALIDATION_API,
-            ErrorAttrs.METADATA_CONSTRAINT_ERRORS,
+            self.metadata_url_errors,
+            self.metadata_validation_api,
+            self.metadata_constraint_errors,
         ]
         if local_allowed:
-            selected_fields.append(ErrorAttrs.METADATA_VALIDATION_LOCAL)
+            selected_fields.append(self.metadata_validation_local)
         path_errors = self.errors_by_path(path, selected_fields)
         for value in path_errors.values():
             errors.extend(value)
@@ -166,18 +197,15 @@ class ErrorDict:
         keys in FIELD_MAP.
         """
         errors = {}
-        for error_field in fields(self):
-            value = getattr(self, error_field.name)
-            if value:
-                value = self.sort_val(value)
-                if attr_keys:
-                    errors[error_field.name] = value
-                else:
-                    # TODO: clunky; should be able to refactor with addition of StrEnum in 3.11
-                    error_enum = getattr(ErrorAttrs, error_field.name.upper())
-                    error_name = FIELD_MAP.get(error_enum)
-                    if error_name:
-                        errors[error_name.value] = value
+        for field in fields(self):
+            error_field = getattr(self, field.name)
+            if not error_field.value:
+                continue
+            value = self.sort_val(error_field.value)
+            if attr_keys:
+                errors[error_field.name] = value
+            else:
+                errors[error_field.display_name] = value
         return errors
 
     def sort_val(self, value):
@@ -203,28 +231,30 @@ class ErrorReport:
             self.info = info.as_dict()
 
     @property
-    def counts(self) -> Optional[dict[str, Union[int, str]]]:
-        # Could work with self.errors, just needs to use ErrorStrings for matching
+    def counts(self) -> Dict[str, Union[int, str]]:
+        breakpoint()
         if not self.raw_errors:
             return {}
         counts = {}
-        if self.raw_errors.preflight:
-            return {ErrorStrings.PREFLIGHT.value: self.raw_errors.preflight}
-        for error_type, errors in self.raw_errors.as_dict(attr_keys=True).items():
-            if error_type in [ErrorAttrs.PREFLIGHT, ErrorAttrs.PLUGIN_SKIP, ErrorAttrs.PLUGIN]:
+        for field in fields(self.raw_errors):
+            error_field = getattr(self.raw_errors, field.name)
+            if isinstance(error_field, StrErrorType) or error_field.name == "plugin":
                 continue
-            errors = getattr(self.raw_errors, error_type)
-            errors_for_category = 0
-            if isinstance(errors, list):
-                errors_for_category += len(errors)
-            elif isinstance(errors, dict):
-                errors_for_category += sum([len(nested_error) for nested_error in errors.values()])
-            if errors_for_category:
-                counts[FIELD_MAP[error_type].value] = errors_for_category
+            elif isinstance(error_field, DictErrorType):
+                errors_for_category = 0
+                for errors in error_field.values():
+                    if isinstance(errors, list):
+                        errors_for_category += len(errors)
+                    elif isinstance(errors, dict):
+                        errors_for_category += sum(
+                            [len(nested_error) for nested_error in errors.values()]
+                        )
+                if errors_for_category:
+                    counts[error_field.display_name] = errors_for_category
         if self.raw_errors.plugin:
             plugin_counts = [len(value) for value in self.raw_errors.plugin.values()]
             plugin_error_str = f"{sum(plugin_counts)} errors in {len(plugin_counts)} plugins"
-            counts[ErrorStrings.PLUGIN.value] = plugin_error_str
+            counts[self.raw_errors.plugin.display_name] = plugin_error_str
         if self.raw_errors.plugin_skip:
             counts["Plugins Skipped"] = True
         return counts

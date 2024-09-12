@@ -3,19 +3,13 @@ import glob
 import json
 import re
 import unittest
-from collections import defaultdict
 from csv import DictReader
 from io import TextIOWrapper
 from pathlib import Path
 from typing import Dict, List, Union
 from unittest.mock import Mock, call, patch
 
-from ingest_validation_tools.error_report import (
-    FIELD_MAP,
-    ErrorAttrs,
-    ErrorDict,
-    ErrorReport,
-)
+from ingest_validation_tools.error_report import DictErrorType, ErrorDict, ErrorReport
 from ingest_validation_tools.schema_loader import PreflightError, SchemaVersion
 from ingest_validation_tools.upload import Upload
 from tests.fixtures import (
@@ -57,8 +51,8 @@ class TokenException(Exception):
 
 
 def mutate_upload_errors_with_fixtures(upload: Upload, test_dir: str) -> Upload:
-    url_errors_field_name = FIELD_MAP[ErrorAttrs.METADATA_URL_ERRORS]
-    api_errors_field_name = FIELD_MAP[ErrorAttrs.METADATA_VALIDATION_API]
+    url_errors_field_name = upload.errors.metadata_url_errors.display_name
+    api_errors_field_name = upload.errors.metadata_validation_api.display_name
     for tsv_path, schema in upload.effective_tsv_paths.items():
         fixtures = get_online_check_fixtures(schema.schema_name, test_dir)
         url_errors = fixtures.get(url_errors_field_name, {})
@@ -138,7 +132,9 @@ def clean_report(report: ErrorReport):
 
 
 def get_non_token_errors(errors: ErrorDict) -> ErrorDict:
-    new_url_error_val = defaultdict(list)
+    new_url_error_val = DictErrorType(
+        name=errors.metadata_url_errors.name, display_name=errors.metadata_url_errors.display_name
+    )
     for path, error_list in errors.metadata_url_errors.items():
         non_token_url_errors = [error for error in error_list if "No token" not in error]
         if non_token_url_errors:

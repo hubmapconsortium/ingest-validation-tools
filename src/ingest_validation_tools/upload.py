@@ -101,7 +101,7 @@ class Upload:
             }
 
         except PreflightError as e:
-            self.errors.preflight = str(e)
+            self.errors.preflight.value = str(e)
 
     #####################
     #
@@ -151,7 +151,7 @@ class Upload:
             return self.errors
 
         if not self.effective_tsv_paths:
-            self.errors.preflight = "There are no effective TSVs."
+            self.errors.preflight.value = "There are no effective TSVs."
             return self.errors
 
         # Collect errors
@@ -164,12 +164,12 @@ class Upload:
         # if other errors have been found already and runs plugins if not.
         # Pass in run_plugins=False to skip plugins even if no errors found.
         if self.errors:
-            self.errors.plugin_skip = (
+            self.errors.plugin_skip.value = (
                 "Skipping plugins validation: errors in upload metadata or dir structure."
             )
         elif self.run_plugins:
             logging.info("Running plugin validation...")
-            self.errors.plugin = self._get_plugin_errors(**kwargs)
+            self._get_plugin_errors(**kwargs)
 
         return self.errors
 
@@ -423,7 +423,7 @@ class Upload:
         if shared_dir_errors:
             self.errors.reference.update({"Shared Directory References": shared_dir_errors})
 
-    def _get_plugin_errors(self, **kwargs) -> dict:
+    def _get_plugin_errors(self, **kwargs):
         plugin_path = self.plugin_directory
         if not plugin_path:
             return {}
@@ -451,8 +451,7 @@ class Upload:
                 # We are ok with just returning a single error, rather than all.
                 errors["Unexpected Plugin Error"] = [e]
         for k, v in errors.items():
-            errors[k] = sorted(v)
-        return dict(errors)  # get rid of defaultdict
+            self.errors.plugin[k] = sorted(v)
 
     #################################
     #
