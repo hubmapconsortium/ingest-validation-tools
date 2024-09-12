@@ -1,6 +1,7 @@
 # Changelog
 
 ## v0.0.26 (in progress)
+- Update GeoMx NGS directory schema
 - Update MERFISH directory schema
 
 ## v0.0.25
