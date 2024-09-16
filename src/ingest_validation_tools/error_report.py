@@ -3,7 +3,7 @@ from collections.abc import MutableMapping
 from dataclasses import dataclass, field, fields
 from datetime import datetime
 from pathlib import Path
-from typing import DefaultDict, Dict, List, Optional, Sequence, Type, Union
+from typing import DefaultDict, Dict, List, Optional, Type, Union
 
 from yaml import Dumper, dump
 
@@ -14,38 +14,14 @@ from ingest_validation_tools.message_munger import munge, recursive_munge
 Dumper.ignore_aliases = lambda *args: True
 
 
-class ErrorDictException(Exception):
-    def __init__(self, error: str):
-        super().__init__(error)
-        self.error = error
-
-
-@dataclass
-class InfoDict:
-    time: Optional[datetime] = None
-    git: Optional[str] = None
-    dir: Optional[str] = None
-    tsvs: Dict[str, Dict[str, str]] = field(default_factory=dict)
-    successful_plugins: list[str] = field(default_factory=list)
-
-    def as_dict(self):
-        as_dict = {
-            "Time": self.time,
-            "Git version": self.git,
-            "Directory": self.dir,
-            # "Directory schema version": self.dir_schema,
-            "TSVs": self.tsvs,
-        }
-        if self.successful_plugins:
-            as_dict["Successful Plugins"] = self.successful_plugins
-        return as_dict
-
-
 @dataclass
 class DictErrorType(MutableMapping):
+    """
+    Dataclass that acts like a defaultdict using self.value.
+    """
+
     name: str = ""
     display_name: str = ""
-    path: Optional[str] = None
     default_factory: Type = list
     value: DefaultDict = field(default_factory=lambda: defaultdict())
 
@@ -71,16 +47,56 @@ class DictErrorType(MutableMapping):
     def __len__(self):
         return len(self.value)
 
+    def __bool__(self):
+        return bool(self.value)
+
+    @property
+    def counts(self) -> dict:
+        errors_for_category = 0
+        for errors in self.value.values():
+            if self.default_factory == list:
+                errors_for_category += len(errors)
+            elif self.default_factory == dict:
+                errors_for_category += sum([len(nested_error) for nested_error in errors.values()])
+        return {self.display_name: errors_for_category} if errors_for_category else {}
+
 
 @dataclass
 class StrErrorType:
     name: str = ""
     display_name: str = ""
-    path: Optional[str] = None
     value: Optional[str] = None
+
+    def __bool__(self):
+        return bool(self.value)
+
+    @property
+    def counts(self) -> dict:
+        return {self.display_name: self.value} if self.value else {}
 
 
 ErrorType = Union[StrErrorType, DictErrorType]
+
+
+@dataclass
+class InfoDict:
+    time: Optional[datetime] = None
+    git: Optional[str] = None
+    dir: Optional[str] = None
+    tsvs: Dict[str, Dict[str, str]] = field(default_factory=dict)
+    successful_plugins: list[str] = field(default_factory=list)
+
+    def as_dict(self):
+        as_dict = {
+            "Time": self.time,
+            "Git version": self.git,
+            "Directory": self.dir,
+            # "Directory schema version": self.dir_schema,
+            "TSVs": self.tsvs,
+        }
+        if self.successful_plugins:
+            as_dict["Successful Plugins"] = self.successful_plugins
+        return as_dict
 
 
 @dataclass
@@ -133,6 +149,10 @@ class ErrorDict:
         default_factory=lambda: StrErrorType(name="plugin_skip", display_name="Fatal Errors")
     )
 
+    def __iter__(self):
+        for attr_field in fields(self):
+            yield getattr(self, attr_field.name)
+
     def __bool__(self):
         """
         Return true if any field has errors.
@@ -143,14 +163,10 @@ class ErrorDict:
         errors = {}
         if not selected_fields:
             selected_fields = [error_field for error_field in fields(self)]
-        selected_error_type_fields = [
-            field
-            for field in selected_fields
-            if field.type.__name__ in ["StrErrorType", "DictErrorType"]
-        ]
-        for field in selected_error_type_fields:
-            error_field = getattr(self, field.name)
-            if not error_field.value:
+        selected_error_type_fields = [field for field in selected_fields]
+        for error_type_field in selected_error_type_fields:
+            error_field = getattr(self, error_type_field.name, None)
+            if not error_field or not error_field.value:
                 continue
             if type(error_field) is StrErrorType:
                 errors[error_field.display_name] = error_field.value
@@ -193,13 +209,12 @@ class ErrorDict:
         """
         Compiles all fields with errors into a dict.
         By default uses human-readable keys, but passing
-        attr_keys=True will use the attribute names matching the
-        keys in FIELD_MAP.
+        attr_keys=True will use the attribute names.
         """
         errors = {}
-        for field in fields(self):
-            error_field = getattr(self, field.name)
-            if not error_field.value:
+        for errordict_field in fields(self):
+            error_field = getattr(self, errordict_field.name)
+            if not error_field or not error_field.value:
                 continue
             value = self.sort_val(error_field.value)
             if attr_keys:
@@ -219,44 +234,34 @@ class ErrorDict:
 
 class ErrorReport:
     def __init__(self, errors: Optional[ErrorDict] = None, info: Optional[InfoDict] = None):
-        self.raw_errors = None
-        self.raw_info = None
-        self.errors = None
-        self.info = None
-        if errors:
-            self.raw_errors = errors
-            self.errors = errors.as_dict()
-        if info:
-            self.raw_info = info
-            self.info = info.as_dict()
+        self.raw_errors = errors if errors else None
+        self.raw_info = info if info else None
+        self.errors = errors.as_dict() if errors else None
+        self.info = info.as_dict() if info else None
 
     @property
     def counts(self) -> Dict[str, Union[int, str]]:
-        breakpoint()
+        """
+        Count errors per category. Requires raw_errors (ErrorDict object).
+        ErrorType fields have a `counts` property, but fields related to
+        plugins need some pre-processing.
+        """
         if not self.raw_errors:
             return {}
         counts = {}
-        for field in fields(self.raw_errors):
-            error_field = getattr(self.raw_errors, field.name)
-            if isinstance(error_field, StrErrorType) or error_field.name == "plugin":
+        for raw_error_field in fields(self.raw_errors):
+            error_field = getattr(self.raw_errors, raw_error_field.name)
+            if not error_field or not error_field.value:
                 continue
-            elif isinstance(error_field, DictErrorType):
-                errors_for_category = 0
-                for errors in error_field.values():
-                    if isinstance(errors, list):
-                        errors_for_category += len(errors)
-                    elif isinstance(errors, dict):
-                        errors_for_category += sum(
-                            [len(nested_error) for nested_error in errors.values()]
-                        )
-                if errors_for_category:
-                    counts[error_field.display_name] = errors_for_category
-        if self.raw_errors.plugin:
-            plugin_counts = [len(value) for value in self.raw_errors.plugin.values()]
-            plugin_error_str = f"{sum(plugin_counts)} errors in {len(plugin_counts)} plugins"
-            counts[self.raw_errors.plugin.display_name] = plugin_error_str
-        if self.raw_errors.plugin_skip:
-            counts["Plugins Skipped"] = True
+            if error_field.name == "plugin":
+                plugin_counts = [len(value) for value in self.raw_errors.plugin.values()]
+                counts[self.raw_errors.plugin.display_name] = (
+                    f"{sum(plugin_counts)} errors in {len(plugin_counts)} plugins"
+                )
+            elif error_field.name == "plugin_skip":
+                counts["Plugins Skipped"] = True
+            elif getattr(error_field, "counts"):
+                counts.update(error_field.counts)
         return counts
 
     def _no_errors(self):

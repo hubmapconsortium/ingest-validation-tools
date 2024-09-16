@@ -510,8 +510,8 @@ class TestDatasetExamples(unittest.TestCase):
     def test_counts(self):
         test_dirs = {
             "examples/dataset-examples/bad-cedar-assay-histology": {
-                "Spreadsheet Validator Errors": 3,
-                "URL Check Errors": 2,
+                "Spreadsheet Validator Errors": 2,
+                "URL Check Errors": 1,
                 "Reference Errors": 1,
                 "Plugins Skipped": True,
             },

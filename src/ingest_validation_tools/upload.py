@@ -15,7 +15,7 @@ from urllib.parse import urljoin, urlsplit
 import requests
 
 from ingest_validation_tools.enums import OtherTypes, Sample
-from ingest_validation_tools.error_report import ErrorDict, ErrorDictException, InfoDict
+from ingest_validation_tools.error_report import ErrorDict, InfoDict
 from ingest_validation_tools.plugin_validator import (
     ValidatorError as PluginValidatorError,
 )
@@ -358,7 +358,7 @@ class Upload:
         rows = read_rows(Path(tsv_path), self.encoding)
         fields = rows[0].keys()
         if missing_fields := [k for k in constrained_fields.keys() if k not in fields].sort():
-            raise ErrorDictException(f"Missing fields: {missing_fields}")
+            raise Exception(f"Missing fields: {missing_fields}")
         url_errors = self._find_and_check_url_fields(rows, constrained_fields, schema)
         return url_errors
 
@@ -597,9 +597,7 @@ class Upload:
         check = {k: v for k, v in row.items() if k in constrained_fields}
         for check_field, value in check.items():
             if check_field in self.check_fields and not self.globus_token:
-                raise ErrorDictException(
-                    "No token received to check URL fields against Entity API."
-                )
+                raise Exception("No token received to check URL fields against Entity API.")
             # TODO: could just split if there's a comma in the field
             elif check_field == "parent_sample_id":
                 url_fields["parent_sample_id"] = value.split(",")
