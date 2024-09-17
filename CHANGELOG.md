@@ -3,6 +3,7 @@
 ## v0.0.26 (in progress)
 - Update GeoMx NGS directory schema
 - Update MERFISH directory schema
+- Update LC-MS directory schema
 
 ## v0.0.25
 - Update GeoMx NGS directory schema
