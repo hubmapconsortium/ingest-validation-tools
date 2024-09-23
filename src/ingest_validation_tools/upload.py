@@ -600,12 +600,8 @@ class Upload:
         url_fields = {}
         check = {k: v for k, v in row.items() if k in constrained_fields}
         for check_field, value in check.items():
-            if check_field in self.check_fields and not self.globus_token:
-                raise ErrorDictException(
-                    "No token received to check URL fields against Entity API."
-                )
             # TODO: could just split if there's a comma in the field
-            elif check_field == "parent_sample_id":
+            if check_field in ["parent_sample_id", "parent_dataset_id"]:
                 url_fields["parent_sample_id"] = value.split(",")
             else:
                 url_fields[check_field] = [value]

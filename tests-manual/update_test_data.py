@@ -57,6 +57,7 @@ class UpdateData:
         self.change_report = defaultdict(list)
         if self.update_from_fixtures:
             upload = TestDatasetExamples.prep_offline_upload(self.dir, self.opts)
+            report = ErrorReport(errors=upload.errors, info=upload.info)
         else:
             upload = Upload(
                 Path(f"{self.dir}upload"),
@@ -64,7 +65,7 @@ class UpdateData:
                 verbose=self.upload_verbose,
                 **self.opts,
             )
-        report = ErrorReport(errors=upload.get_errors(), info=upload.get_info())
+            report = ErrorReport(errors=upload.get_errors(), info=upload.get_info())
         self.check_maybe_write_fixtures(report, upload)
 
         try:

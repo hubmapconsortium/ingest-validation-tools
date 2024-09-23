@@ -404,6 +404,8 @@ def get_entity_api_data(
     globus_token: str,
     headers: Optional[dict] = None,
 ) -> requests.Response:
+    if not globus_token:
+        raise Exception("No token received to check URL fields against Entity API.")
     if not headers:
         headers = {}
     headers["Authorization"] = f"Bearer {globus_token}"

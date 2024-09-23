@@ -347,10 +347,11 @@ class TestDatasetExamples(unittest.TestCase):
                 test_dir, row, ingest_url, globus_token
             ),
         ):
-            with patch("ingest_validation_tools.upload.Upload.online_checks"):
+            with patch("ingest_validation_tools.validation_utils.get_entity_api_data"):
                 upload = Upload(Path(f"{test_dir}/upload"), **opts)
                 upload.get_errors()
                 upload = mutate_upload_errors_with_fixtures(upload, test_dir)
+                upload.get_info()
                 return upload
 
     def prep_dir_schema_upload(self, test_dir: str, opts: Dict, patch_data: Dict) -> Upload:

@@ -54,7 +54,7 @@ Exit status codes:
     parser.add_argument("--output", choices=["as_text", "as_md"], default="as_text")
     parser.add_argument(
         "--app_context",
-        default='{"request_header": {"X-HuBMAP-Application": "ingest-api"}, "entities_url": "https://entity.api.hubmapconsortium.org/entities/", "constraints_url": None, "ingest_url": "https://ingest.api.hubmapconsortium.org"}',
+        default='{"request_header": {"X-HuBMAP-Application": "ingest-api"}, "entities_url": "https://entity.api.hubmapconsortium.org/entities/", "constraints_url": null, "ingest_url": "https://ingest.api.hubmapconsortium.org"}',
         required=False,
         help="App context values.",
     )
