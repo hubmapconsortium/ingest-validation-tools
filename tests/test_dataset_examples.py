@@ -512,7 +512,7 @@ class TestDatasetExamples(unittest.TestCase):
             "examples/dataset-examples/bad-cedar-assay-histology": {
                 "Spreadsheet Validator Errors": 2,
                 "URL Check Errors": 1,
-                "Reference Errors": 1,
+                "No References": 1,
                 "Plugins Skipped": True,
             },
             "examples/dataset-examples/good-scatacseq-metadata-v0": {},

@@ -1,5 +1,14 @@
 # Changelog
 
+## v0.0.26 (in progress)
+- Update GeoMx NGS directory schema
+- Update MERFISH directory schema
+- Update LC-MS directory schema
+
+## v0.0.25
+- Update GeoMx NGS directory schema
+- Added EPIC dataset field derived_dataset_type to UNIQUE_FIELDS_MAP
+
 ## v0.0.24
 - Release MERFISH
 - Add MERFISH directory schema

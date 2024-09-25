@@ -26,7 +26,8 @@ class DictErrorType(MutableMapping):
     value: DefaultDict = field(default_factory=lambda: defaultdict())
 
     def __post_init__(self):
-        self.value = defaultdict(self.default_factory)
+        if type(self.default_factory) is not list:
+            self.value = defaultdict(self.default_factory)
 
     def __missing__(self, key):
         self.value[key] = self.default_factory()
@@ -52,13 +53,32 @@ class DictErrorType(MutableMapping):
 
     @property
     def counts(self) -> dict:
+        if self.default_factory == list:
+            return self.list_type_counts()
+        elif self.default_factory == dict:
+            return self.dict_type_counts()
+        else:
+            print(f"Counts method for defaultdict({self.default_factory}) not defined.")
+            return {}
+
+    def list_type_counts(self):
         errors_for_category = 0
         for errors in self.value.values():
-            if self.default_factory == list:
-                errors_for_category += len(errors)
-            elif self.default_factory == dict:
-                errors_for_category += sum([len(nested_error) for nested_error in errors.values()])
+            errors_for_category += len(errors)
         return {self.display_name: errors_for_category} if errors_for_category else {}
+
+    def dict_type_counts(self):
+        counts_by_sub_category = {}
+        for error_type, errors in self.value.items():
+            for error_sub_type, error in errors.items():
+                if type(error) is list:
+                    value = len(error)
+                    counts_by_sub_category[error_type] = value
+                else:
+                    print(
+                        f"Counting for {error_type} error '{error_sub_type}' of type {type(error)} not defined."
+                    )
+        return counts_by_sub_category
 
 
 @dataclass
