@@ -253,11 +253,17 @@ class ErrorDict:
 
 
 class ErrorReport:
-    def __init__(self, errors: Optional[ErrorDict] = None, info: Optional[InfoDict] = None):
-        self.raw_errors = errors if errors else None
-        self.raw_info = info if info else None
-        self.errors = errors.as_dict() if errors else None
-        self.info = info.as_dict() if info else None
+    def __init__(self, upload):
+        if not upload.get_errors_called:
+            self.raw_errors = upload.get_errors()
+        else:
+            self.raw_errors = upload.errors
+        if not upload.get_info_called:
+            self.raw_info = upload.get_info()
+        else:
+            self.raw_info = upload.info
+        self.errors = upload.errors.as_dict()
+        self.info = upload.info.as_dict()
 
     @property
     def counts(self) -> Dict[str, Union[int, str]]:

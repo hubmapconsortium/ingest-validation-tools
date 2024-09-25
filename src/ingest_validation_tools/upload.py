@@ -85,6 +85,8 @@ class Upload:
         ]
         self.errors = ErrorDict()
         self.info = InfoDict()
+        self.get_errors_called: bool = False
+        self.get_info_called: bool = False
 
         self.get_app_context(app_context)
 
@@ -135,6 +137,7 @@ class Upload:
         }
         self.info.tsvs = tsvs
 
+        self.get_info_called = True
         return self.info
 
     def get_errors(self, **kwargs) -> ErrorDict:
@@ -171,6 +174,7 @@ class Upload:
             logging.info("Running plugin validation...")
             self._get_plugin_errors(**kwargs)
 
+        self.get_errors_called = True
         return self.errors
 
     def get_app_context(self, submitted_app_context: Dict):

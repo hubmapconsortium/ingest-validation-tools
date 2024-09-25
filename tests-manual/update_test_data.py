@@ -64,7 +64,7 @@ class UpdateData:
                 verbose=self.upload_verbose,
                 **self.opts,
             )
-        report = ErrorReport(errors=upload.get_errors(), info=upload.get_info())
+        report = ErrorReport(upload)
         self.check_maybe_write_fixtures(report, upload)
 
         try:
