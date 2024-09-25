@@ -57,7 +57,7 @@ class Upload:
         ignore_deprecation: bool = False,
         extra_parameters: Union[dict, None] = None,
         globus_token: str = "",
-        run_plugins: bool = True,
+        run_plugins: Optional[bool] = None,
         app_context: dict = {},
         verbose: bool = True,
         report_type: ReportType = ReportType.STR,
@@ -163,16 +163,22 @@ class Upload:
         self.validation_routine()
         self._get_reference_errors()
 
-        # Plugin error checking is costly, by default this bails
+        # Plugin error checking is costly; by default this bails
         # if other errors have been found already and runs plugins if not.
-        # Pass in run_plugins=False to skip plugins even if no errors found.
-        if self.errors:
-            self.errors.plugin_skip = (
-                "Skipping plugins validation: errors in upload metadata or dir structure."
-            )
+        # Pass in run_plugins bool to modify behavior.
+        if self.run_plugins is None:  # default behavior
+            if self.errors:  # errors found, skip
+                self.errors.plugin_skip = (
+                    "Skipping plugins validation: errors in upload metadata or dir structure."
+                )
+            else:  # no errors, run plugins
+                logging.info("Running plugin validation...")
+                self.errors.plugin = self._get_plugin_errors(**kwargs)
         elif self.run_plugins:
             logging.info("Running plugin validation...")
             self.errors.plugin = self._get_plugin_errors(**kwargs)
+        else:
+            logging.info("Skipping plugin validation.")
 
         return self.errors
 

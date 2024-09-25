@@ -14,6 +14,7 @@ from ingest_validation_tools.upload import Upload
 from tests.test_dataset_examples import (
     DATASET_EXAMPLES_OPTS,
     DATASET_IEC_EXAMPLES_OPTS,
+    PLUGIN_EXAMPLES_OPTS,
     MockException,
     TestDatasetExamples,
     TokenException,
@@ -338,11 +339,7 @@ def get_opts(dir: str):
     elif "dataset-iec-examples" in dir:
         opts = DATASET_IEC_EXAMPLES_OPTS
     elif "plugin-tests" in dir:
-        opts = DATASET_IEC_EXAMPLES_OPTS | {
-            "plugin_directory": Path(
-                "../ingest-validation-tests/src/ingest_validation_tests"
-            ).resolve()
-        }
+        opts = PLUGIN_EXAMPLES_OPTS
     else:
         opts = {}
     if args.env == "DEV":
