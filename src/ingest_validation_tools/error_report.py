@@ -1,13 +1,18 @@
+from __future__ import annotations
+
 from collections import defaultdict
 from collections.abc import MutableMapping
 from dataclasses import dataclass, field, fields
 from datetime import datetime
 from pathlib import Path
-from typing import DefaultDict, Dict, List, Optional, Type, Union
+from typing import TYPE_CHECKING, DefaultDict, Dict, List, Optional, Type, Union
 
 from yaml import Dumper, dump
 
 from ingest_validation_tools.message_munger import munge, recursive_munge
+
+if TYPE_CHECKING:
+    from ingest_validation_tools.upload import Upload
 
 # Force dump not to use alias syntax.
 # https://stackoverflow.com/questions/13518819/avoid-references-in-pyyaml
@@ -253,17 +258,31 @@ class ErrorDict:
 
 
 class ErrorReport:
-    def __init__(self, upload):
-        if not upload.get_errors_called:
-            self.raw_errors = upload.get_errors()
+    def __init__(
+        self,
+        upload: Optional[Upload] = None,
+        errors: Optional[ErrorDict] = None,
+        info: Optional[InfoDict] = None,
+    ):
+        if upload:
+            if not upload.get_errors_called:
+                self.raw_errors = upload.get_errors()
+            else:
+                self.raw_errors = upload.errors
+            if not upload.get_info_called:
+                self.raw_info = upload.get_info()
+            else:
+                self.raw_info = upload.info
+            self.errors = upload.errors.as_dict()
+            self.info = upload.info.as_dict()
+        # Preserved for backward compatibility for now
         else:
-            self.raw_errors = upload.errors
-        if not upload.get_info_called:
-            self.raw_info = upload.get_info()
-        else:
-            self.raw_info = upload.info
-        self.errors = upload.errors.as_dict()
-        self.info = upload.info.as_dict()
+            if errors:
+                self.raw_errors = errors
+                self.errors = errors.as_dict()
+            if info:
+                self.raw_info = info
+                self.info = info.as_dict()
 
     @property
     def counts(self) -> Dict[str, Union[int, str]]:
