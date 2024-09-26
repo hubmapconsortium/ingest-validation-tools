@@ -184,13 +184,11 @@ def main():
         upload_args["globus_token"] = args.globus_token
 
     upload = Upload(**upload_args)
-    info = upload.get_info()
-    errors = upload.get_errors()
-    report = ErrorReport(info=info, errors=errors)
+    report = ErrorReport(upload)
     print(getattr(report, args.output)())
     if args.save_report:
         _save_report(upload, report)
-    return exit_codes.INVALID if errors else exit_codes.VALID
+    return exit_codes.INVALID if report.errors else exit_codes.VALID
 
 
 if __name__ == "__main__":

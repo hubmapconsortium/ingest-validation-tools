@@ -1,4 +1,3 @@
 ```
-Preflight Errors:
-- There are no effective TSVs.
+Preflight Errors: There are no effective TSVs.
 ```

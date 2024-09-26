@@ -15,7 +15,7 @@ from urllib.parse import urljoin, urlsplit
 import requests
 
 from ingest_validation_tools.enums import OtherTypes, Sample
-from ingest_validation_tools.error_report import ErrorDict, ErrorDictException, InfoDict
+from ingest_validation_tools.error_report import ErrorDict, InfoDict
 from ingest_validation_tools.plugin_validator import (
     ValidatorError as PluginValidatorError,
 )
@@ -85,6 +85,8 @@ class Upload:
         ]
         self.errors = ErrorDict()
         self.info = InfoDict()
+        self.get_errors_called: bool = False
+        self.get_info_called: bool = False
 
         self.get_app_context(app_context)
 
@@ -101,7 +103,7 @@ class Upload:
             }
 
         except PreflightError as e:
-            self.errors.preflight.append(str(e))
+            self.errors.preflight.value = str(e)
 
     #####################
     #
@@ -125,19 +127,17 @@ class Upload:
         ).strip()
         self.info.git = git_version
 
-        try:
-            tsvs = {
-                Path(path).name: {
-                    "Schema": sv.table_schema,
-                    "Metadata schema version": sv.version,
-                    "Directory schema version": sv.dir_schema,
-                }
-                for path, sv in self.effective_tsv_paths.items()
+        tsvs = {
+            Path(path).name: {
+                "Schema": sv.table_schema,
+                "Metadata schema version": sv.version,
+                "Directory schema version": sv.dir_schema,
             }
-            self.info.tsvs = tsvs
-        except PreflightError as e:
-            self.errors.preflight.append(str(e))
+            for path, sv in self.effective_tsv_paths.items()
+        }
+        self.info.tsvs = tsvs
 
+        self.get_info_called = True
         return self.info
 
     def get_errors(self, **kwargs) -> ErrorDict:
@@ -154,7 +154,7 @@ class Upload:
             return self.errors
 
         if not self.effective_tsv_paths:
-            self.errors.preflight.append("There are no effective TSVs.")
+            self.errors.preflight.value = "There are no effective TSVs."
             return self.errors
 
         # Collect errors
@@ -167,13 +167,14 @@ class Upload:
         # if other errors have been found already and runs plugins if not.
         # Pass in run_plugins=False to skip plugins even if no errors found.
         if self.errors:
-            self.errors.plugin_skip = (
+            self.errors.plugin_skip.value = (
                 "Skipping plugins validation: errors in upload metadata or dir structure."
             )
         elif self.run_plugins:
             logging.info("Running plugin validation...")
-            self.errors.plugin = self._get_plugin_errors(**kwargs)
+            self._get_plugin_errors(**kwargs)
 
+        self.get_errors_called = True
         return self.errors
 
     def get_app_context(self, submitted_app_context: Dict):
@@ -361,7 +362,7 @@ class Upload:
         rows = read_rows(Path(tsv_path), self.encoding)
         fields = rows[0].keys()
         if missing_fields := [k for k in constrained_fields.keys() if k not in fields].sort():
-            raise ErrorDictException(f"Missing fields: {missing_fields}")
+            raise Exception(f"Missing fields: {missing_fields}")
         url_errors = self._find_and_check_url_fields(rows, constrained_fields, schema)
         return url_errors
 
@@ -426,7 +427,7 @@ class Upload:
         if shared_dir_errors:
             self.errors.reference.update({"Shared Directory References": shared_dir_errors})
 
-    def _get_plugin_errors(self, **kwargs) -> dict:
+    def _get_plugin_errors(self, **kwargs):
         plugin_path = self.plugin_directory
         if not plugin_path:
             return {}
@@ -454,8 +455,7 @@ class Upload:
                 # We are ok with just returning a single error, rather than all.
                 errors["Unexpected Plugin Error"] = [e]
         for k, v in errors.items():
-            errors[k] = sorted(v)
-        return dict(errors)  # get rid of defaultdict
+            self.errors.plugin[k] = sorted(v)
 
     #################################
     #
@@ -601,9 +601,7 @@ class Upload:
         check = {k: v for k, v in row.items() if k in constrained_fields}
         for check_field, value in check.items():
             if check_field in self.check_fields and not self.globus_token:
-                raise ErrorDictException(
-                    "No token received to check URL fields against Entity API."
-                )
+                raise Exception("No token received to check URL fields against Entity API.")
             # TODO: could just split if there's a comma in the field
             elif check_field == "parent_sample_id":
                 url_fields["parent_sample_id"] = value.split(",")
