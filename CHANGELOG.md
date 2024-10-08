@@ -6,8 +6,9 @@
 - Update GeoMx NGS directory schema
 - Update MERFISH directory schema
 - Update LC-MS directory schema
-- Upate Visium with probes directory schema
-- Upate Visium with probes directory schema pt 2
+- Update Visium with probes directory schema
+- Update Visium with probes directory schema pt 2
+- Update Visium with probes directory schema pt 3
 
 ## v0.0.25
 - Update GeoMx NGS directory schema
