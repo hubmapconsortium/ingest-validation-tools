@@ -9,6 +9,7 @@
 - Update Visium with probes directory schema
 - Update Visium with probes directory schema pt 2
 - Update Visium with probes directory schema pt 3
+- Update Segmentation masks directory schema
 
 ## v0.0.25
 - Update GeoMx NGS directory schema
