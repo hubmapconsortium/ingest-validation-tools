@@ -246,8 +246,8 @@ def _make_fields_md(table_schema, title, is_open=False):
     ...     'description': 'A description'
     ...   }
     ... ]}
-    >>>def _clean(s):
-    ... return re.sub(r"\n+", "\n", s).strip()
+    >>> def _clean(s):
+    ...    return re.sub(r"\\n+", "\\n", s).strip()
 
     >>> print(_clean(_make_fields_md(schema, 'A title')))
     <details markdown="1" ><summary><b>A title</b></summary>
@@ -395,10 +395,10 @@ def _make_ontology_table(enum):
 
 def _make_key_md(key):
     """
-    >>> print(_make_key_md('pattern', 'some_reg_ex'))
+    >>> print(_make_key_md('pattern'))
     pattern (regular expression)
 
-    >>> print(_make_key_md('other_keys', 'other_values'))
+    >>> print(_make_key_md('other_keys'))
     other keys
     """
     if key == "pattern":
@@ -471,8 +471,8 @@ def _make_toc(md):
     """
     >>> md = '# Section A\\n## `Item 1`\\n# Section B'
 
-    >>>def _clean(s):
-    ... return re.sub(r"\n+", "\n", s).strip()
+    >>> def _clean(s):
+    ...    return re.sub(r"\\n+", "\\n", s).strip()
 
     >>> print(_clean(_make_toc(md)))
     <blockquote markdown="1">
@@ -636,7 +636,7 @@ def _make_dir_description(files, is_deprecated=False):
     >>> files = [
     ...   { 'pattern': '[A-Z]\\d', 'description': '1 letter 1 number', 'example': 'ABC123'},
     ... ]
-    >>> _make_dir_description(files)
+    >>> _make_dir_description(files) # doctest: +IGNORE_EXCEPTION_DETAIL
     Traceback (most recent call last):
     ...
     AssertionError: Example "ABC123" does not match pattern "[A-Z]\\d"
@@ -646,7 +646,7 @@ def _make_dir_description(files, is_deprecated=False):
     >>> files = [
     ...   { 'bad': 'schema' }
     ... ]
-    >>> _make_dir_description(files)
+    >>> _make_dir_description(files) # doctest: +IGNORE_EXCEPTION_DETAIL
     Traceback (most recent call last):
     ...
     AssertionError: Unexpected key "bad" in {'bad': 'schema'}
