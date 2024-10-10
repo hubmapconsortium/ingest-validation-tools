@@ -607,7 +607,6 @@ class Upload:
         url_fields = {}
         check = {k: v for k, v in row.items() if k in constrained_fields}
         for check_field, value in check.items():
-            # TODO: could just split if there's a comma in the field regardless of field name
             if check_field in ["parent_sample_id", "parent_dataset_id"]:
                 url_fields[check_field] = value.split(",")
             else:
