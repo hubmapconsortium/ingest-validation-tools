@@ -3,9 +3,6 @@ import re
 from pathlib import Path
 from string import Template
 from typing import Any, Dict
-from urllib.parse import urlencode
-
-import requests
 
 from ingest_validation_tools.schema_loader import get_field_enum, get_fields_wo_headers
 
@@ -90,31 +87,6 @@ def _enrich_description(field: Dict[str, Any]) -> str:
             )
         description += f' Example: `{field["example"]}`.'
     return description.strip()
-
-
-def _get_portal_name(assay_type):
-    response = requests.post(
-        "https://search.api.hubmapconsortium.org/assayname",
-        json={"name": assay_type},
-        headers={"Content-Type": "application/json"},
-    ).json()
-    try:
-        return response["description"]
-    except KeyError:
-        return None
-
-
-def _get_portal_names_md(assay_types):
-    links = []
-    for assay_type in assay_types:
-        portal_name = _get_portal_name(assay_type)
-        if portal_name is None:
-            links.append(f"{assay_type} not in Portal")
-            continue
-        query = urlencode({"mapped_data_types[0]": portal_name, "entity_type[0]": "Dataset"})
-        url = f"https://portal.hubmapconsortium.org/search?{query}"
-        links.append(f"[{portal_name}]({url})")
-    return f'In the portal: {" / ".join(links)}'
 
 
 def generate_readme_md(
@@ -274,6 +246,9 @@ def _make_fields_md(table_schema, title, is_open=False):
     ...     'description': 'A description'
     ...   }
     ... ]}
+    >>>def _clean(s):
+    ... return re.sub(r"\n+", "\n", s).strip()
+
     >>> print(_clean(_make_fields_md(schema, 'A title')))
     <details markdown="1" ><summary><b>A title</b></summary>
     ### A head
@@ -384,7 +359,7 @@ def _make_constraints_table(field):
             table_md_rows.append(f"| {key} | `{value}` |")
     if "constraints" in field:
         for key, value in field["constraints"].items():
-            key_md = _make_key_md(key, value)
+            key_md = _make_key_md(key)
             value_md = _make_value_md(key, value)
             table_md_rows.append(f"| {key_md} | {value_md} |")
     if "custom_constraints" in field:
@@ -393,7 +368,7 @@ def _make_constraints_table(field):
                 # Applied to every field,
                 # but we don't want to clutter the docs:
                 continue
-            key_md = _make_key_md(key, value)
+            key_md = _make_key_md(key)
             value_md = _make_value_md(key, value)
             table_md_rows.append(f"| {key_md} | {value_md} |")
     if len(table_md_rows) < 3:
@@ -418,7 +393,7 @@ def _make_ontology_table(enum):
     return "\n\nOntology terms:\n\n" + "\n".join(table_md_rows)
 
 
-def _make_key_md(key, value):
+def _make_key_md(key):
     """
     >>> print(_make_key_md('pattern', 'some_reg_ex'))
     pattern (regular expression)
@@ -488,10 +463,6 @@ def _html_code(re_string):
     return f"<code>{pipe_escaped}</code>"
 
 
-def _clean(s):
-    return re.sub(r"\n+", "\n", s).strip()
-
-
 def _make_toc(md):
     # Github should do this for us, but it doesn't.
     # Existing solutions expect a file, not a string,
@@ -499,6 +470,9 @@ def _make_toc(md):
     # This is not good.
     """
     >>> md = '# Section A\\n## `Item 1`\\n# Section B'
+
+    >>>def _clean(s):
+    ... return re.sub(r"\n+", "\n", s).strip()
 
     >>> print(_clean(_make_toc(md)))
     <blockquote markdown="1">

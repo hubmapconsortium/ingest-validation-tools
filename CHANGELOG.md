@@ -11,6 +11,7 @@
 - Update Visium with probes directory schema pt 3
 - Update Segmentation masks directory schema
 - Updating tests based on new dir schema major versions and assayclassifier responses
+- Removing references to deprecated Search API endpoint 'assayname'
 
 ## v0.0.25
 - Update GeoMx NGS directory schema
