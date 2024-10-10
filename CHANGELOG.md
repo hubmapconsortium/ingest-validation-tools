@@ -10,6 +10,7 @@
 - Update Visium with probes directory schema pt 2
 - Update Visium with probes directory schema pt 3
 - Update Segmentation masks directory schema
+- Updating tests based on new dir schema major versions and assayclassifier responses
 
 ## v0.0.25
 - Update GeoMx NGS directory schema
