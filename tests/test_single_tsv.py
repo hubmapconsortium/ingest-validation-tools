@@ -105,7 +105,7 @@ class TestSingleTsv(unittest.TestCase):
             True, SAMPLE_BLOCK_PARTIAL_CEDAR_RESPONSE_GOOD
         )
         path = Path("./tests/fixtures/sample-block-good.tsv").absolute()
-        schema = get_schema_version(path, "ascii")
+        schema = get_schema_version(path, "ascii", globus_token="test")
         self.upload._get_url_errors(str(path), schema)
         assert len(schema.ancestor_entities) == 2
         assert schema.ancestor_entities[1].entity_sub_type == Sample.BLOCK.name.lower()

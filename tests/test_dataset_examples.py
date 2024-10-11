@@ -23,9 +23,9 @@ ENTITIES_URL = "http://entities_test/"
 
 SHARED_OPTS = {
     "encoding": "ascii",
-    "run_plugins": True,
+    "globus_token": "test",
 }
-DATASET_EXAMPLES_OPTS = SHARED_OPTS | {
+DATASET_EXAMPLES_OPTS: dict = SHARED_OPTS | {
     "dataset_ignore_globs": ["ignore-*.tsv", ".*"],
     "upload_ignore_globs": ["drv_ignore_*"],
 }
@@ -34,7 +34,8 @@ DATASET_IEC_EXAMPLES_OPTS = SHARED_OPTS | {
     "upload_ignore_globs": ["*"],
 }
 PLUGIN_EXAMPLES_OPTS = DATASET_EXAMPLES_OPTS | {
-    "plugin_directory": "../ingest-validation-tests/src/ingest_validation_tests/"
+    "plugin_directory": "../ingest-validation-tests/src/ingest_validation_tests/",
+    "run_plugins": True,
 }
 
 
@@ -77,7 +78,7 @@ def mutate_upload_errors_with_fixtures(upload: Upload, test_dir: str) -> Upload:
 
 def dataset_test(
     test_dir: str,
-    dataset_opts: Dict,
+    dataset_opts: dict,
     verbose: bool = False,
     globus_token: str = "",
     # TODO: do we need both of these params
@@ -138,7 +139,7 @@ def get_non_token_errors(errors: ErrorDict) -> ErrorDict:
             new_url_error_val[path] = non_token_url_errors
         if set(error_list) - set(non_token_url_errors):
             print(
-                f"WARNING: output about URL errors for {path} is incorrect. Use for testing purposes only."
+                f"WARNING: output about URL errors for {path} is incomplete due to suppressed token errors. Use for testing purposes only."
             )
     errors.metadata_url_errors = new_url_error_val
     return errors
@@ -276,7 +277,7 @@ class TestDatasetExamples(unittest.TestCase):
                 else:
                     opts = {}
                 with patch("ingest_validation_tools.validation_utils.get_assaytype_data"):
-                    with patch("ingest_validation_tools.upload.Upload.online_checks"):
+                    with patch("ingest_validation_tools.upload.Upload._get_url_errors"):
                         try:
                             dataset_test(
                                 test_dir,
@@ -302,11 +303,13 @@ class TestDatasetExamples(unittest.TestCase):
                 test_dir, row, ingest_url, globus_token
             ),
         ):
-            with patch("ingest_validation_tools.upload.Upload.online_checks"):
-                upload = Upload(Path(f"{test_dir}/upload"), **opts)
-                upload.get_errors()
-                upload = mutate_upload_errors_with_fixtures(upload, test_dir)
-                return upload
+            with patch("ingest_validation_tools.validation_utils.get_entity_api_data"):
+                with patch("ingest_validation_tools.upload.Upload.online_checks"):
+                    upload = Upload(Path(f"{test_dir}/upload"), **opts)
+                    upload.get_errors()
+                    upload = mutate_upload_errors_with_fixtures(upload, test_dir)
+                    upload.get_info()
+                    return upload
 
     def prep_dir_schema_upload(self, test_dir: str, opts: Dict, patch_data: Dict) -> Upload:
         with patch(

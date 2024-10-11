@@ -197,5 +197,6 @@ def validation_error_iter(
     """
     for cls in validation_class_iter(plugin_dir):
         validator = cls(paths, assay_type, contains, verbose)
+        kwargs["verbose"] = verbose
         for err in validator.collect_errors(**kwargs):
             yield cls, err

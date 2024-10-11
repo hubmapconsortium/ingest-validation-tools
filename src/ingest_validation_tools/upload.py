@@ -57,7 +57,7 @@ class Upload:
         ignore_deprecation: bool = False,
         extra_parameters: Union[dict, None] = None,
         globus_token: str = "",
-        run_plugins: bool = True,
+        run_plugins: Optional[bool] = None,
         app_context: dict = {},
         verbose: bool = True,
         report_type: ReportType = ReportType.STR,
@@ -80,6 +80,7 @@ class Upload:
 
         self.check_fields = [
             "parent_sample_id",
+            "parent_dataset_id",
             "source_id",
             "sample_id",
         ]
@@ -163,16 +164,22 @@ class Upload:
         self.validation_routine()
         self._get_reference_errors()
 
-        # Plugin error checking is costly, by default this bails
+        # Plugin error checking is costly; by default this bails
         # if other errors have been found already and runs plugins if not.
-        # Pass in run_plugins=False to skip plugins even if no errors found.
-        if self.errors:
-            self.errors.plugin_skip.value = (
-                "Skipping plugins validation: errors in upload metadata or dir structure."
-            )
+        # Pass in run_plugins bool to modify behavior.
+        if self.run_plugins is None:  # default behavior
+            if self.errors:  # errors found, skip
+                self.errors.plugin_skip.value = (
+                    "Skipping plugins validation: errors in upload metadata or dir structure."
+                )
+            else:  # no errors, run plugins
+                logging.info("Running plugin validation...")
+                self._get_plugin_errors(**kwargs)
         elif self.run_plugins:
             logging.info("Running plugin validation...")
             self._get_plugin_errors(**kwargs)
+        else:
+            logging.info("Skipping plugin validation.")
 
         self.get_errors_called = True
         return self.errors
@@ -602,9 +609,8 @@ class Upload:
         for check_field, value in check.items():
             if check_field in self.check_fields and not self.globus_token:
                 raise Exception("No token received to check URL fields against Entity API.")
-            # TODO: could just split if there's a comma in the field
-            elif check_field == "parent_sample_id":
-                url_fields["parent_sample_id"] = value.split(",")
+            if check_field in ["parent_sample_id", "parent_dataset_id"]:
+                url_fields[check_field] = value.split(",")
             else:
                 url_fields[check_field] = [value]
         return url_fields

@@ -14,6 +14,7 @@ from ingest_validation_tools.upload import Upload
 from tests.test_dataset_examples import (
     DATASET_EXAMPLES_OPTS,
     DATASET_IEC_EXAMPLES_OPTS,
+    PLUGIN_EXAMPLES_OPTS,
     MockException,
     TestDatasetExamples,
     TokenException,
@@ -57,6 +58,7 @@ class UpdateData:
         self.change_report = defaultdict(list)
         if self.update_from_fixtures:
             upload = TestDatasetExamples.prep_offline_upload(self.dir, self.opts)
+            report = ErrorReport(errors=upload.errors, info=upload.info)
         else:
             upload = Upload(
                 Path(f"{self.dir}upload"),
@@ -335,11 +337,7 @@ def get_opts(dir: str):
     elif "dataset-iec-examples" in dir:
         opts = DATASET_IEC_EXAMPLES_OPTS
     elif "plugin-tests" in dir:
-        opts = DATASET_IEC_EXAMPLES_OPTS | {
-            "plugin_directory": Path(
-                "../ingest-validation-tests/src/ingest_validation_tests"
-            ).resolve()
-        }
+        opts = PLUGIN_EXAMPLES_OPTS
     else:
         opts = {}
     if args.env == "DEV":
@@ -376,7 +374,7 @@ parser.add_argument(
     "-t",
     "--target_dirs",
     help="""
-    The directory or directories containing the target README.md and fixtures.json files to update. Can pass multiple directories, e.g. '-t examples/dataset-examples/a examples/dataset-examples/b'.
+    [Required] The directory or directories containing the target README.md and fixtures.json files to update. Can pass multiple directories, e.g. '-t examples/dataset-examples/a examples/dataset-examples/b'.
     Can also specify the following example directories to update all examples in each: 'examples/dataset-examples', 'examples/dataset-iec-examples', 'examples/plugin-tests'. Pass all with:
     -t examples/dataset-examples examples/dataset-iec-examples examples/plugin-tests
     """,
@@ -387,7 +385,7 @@ parser.add_argument(
 parser.add_argument(
     "-g",
     "--globus_token",
-    help="Token obtained from Globus, e.g. can be found in the Authorization header when you are logged in to Ingest UI. Omit 'Bearer' portion.",
+    help="[Optional for manual_test] Token obtained from Globus, e.g. can be found in the Authorization header when you are logged in to Ingest UI. Omit 'Bearer' portion.",
     required=True,
     type=str,
 )
@@ -395,50 +393,57 @@ parser.add_argument(
     "-d",
     "--dry_run",
     action="store_true",
-    help="Default is False. If specified, do not write data but instead print output.",
+    help="[Optional] Default is False. If specified, do not write data but instead print output.",
 )
 parser.add_argument(
     "-v",
     "--verbose",
     action="store_true",
-    help="Default is False. If specified, prints more verbose output.",
+    help="[Optional] Default is False. If specified, prints more verbose output.",
 )
 parser.add_argument(
     "-e",
     "--exclude",
     choices=["README", "fixtures"],
     default=[],
-    help="Specify if you want to skip writing either README or fixtures. Can only accept one argument; use --dry_run if you want to preview output.",
+    help="[Optional] Specify if you want to skip writing either README or fixtures. Can only accept one argument; use --dry_run if you want to preview output.",
 )
 parser.add_argument(
     "-m",
     "--manual_test",
     action="store_true",
-    help="Default is False. Used for investigating testing failures with more verbose output. Requires passing a test_dir. Pass a blank Globus token as this runs offline.",
+    help="[Optional] Default is False. Used for investigating testing failures with more verbose output. Requires passing a test_dir. Pass a blank Globus token as this runs offline.",
 )
 parser.add_argument(
     "-f",
     "--full_diff",
     action="store_true",
-    help="Default is False. Show full and cleaned README diff.",
+    help="[Optional] Default is False. Show full and cleaned README diff.",
 )
 parser.add_argument(
     "-i",
     "--ignore_online_exceptions",
     action="store_true",
-    help="Default is False. Print 'Too Many Requests' (Spreadsheet Validator error) and 'Unauthorized' (Globus token error) exceptions rather than raising.",
+    help="[Optional] Default is False. Print 'Too Many Requests' (Spreadsheet Validator error) and 'Unauthorized' (Globus token error) exceptions rather than raising.",
 )
 parser.add_argument(
     "--update_from_fixtures",
     action="store_true",
-    help="Default is False. Update based on fixture data rather than making online calls. Use only when certain of fixture data!",
+    help="[Optional] Default is False. Update based on fixture data rather than making online calls. Use only when certain of fixture data!",
 )
 
 parser.add_argument(
     "--env",
     choices=["DEV", "PROD"],
     default=["PROD"],
-    help="Run tests against an env other than PROD by passing dev-specific app_context.",
+    help="[Optional] Run tests against an env other than PROD by passing dev-specific app_context.",
+)
+
+parser.add_argument(
+    "--start_index",
+    type=int,
+    default=0,
+    help="[Optional] Choose a test dir index to start at, skipping prior indices; used when testing is interrupted.",
 )
 
 args = parser.parse_args()
@@ -451,23 +456,29 @@ parent_dirs = [
 ]
 
 
-def get_sub_dirs(target_dir: str) -> List:
+def get_sub_dirs(target_dir: str) -> List[str]:
     if Path(target_dir).absolute() in [Path(path).absolute() for path in parent_dirs]:
-        return [
+        sub_dirs = [
             example_dir
             for example_dir in glob.glob(f"{target_dir}/**")
             if Path(example_dir).is_dir()
         ]
+        return sorted(sub_dirs)
     return [target_dir]
 
 
 def run_manual_test(target_dirs: List, args):
+    sub_dirs = []
     if target_dirs in [["examples/"], ["examples"]]:
         target_dirs = parent_dirs
     for dir in target_dirs:
-        sub_dirs = get_sub_dirs(dir)
-        for sub_dir in sub_dirs:
-            manual_test([sub_dir], verbose=args.verbose, full_diff=args.full_diff)
+        sub_dirs.extend(get_sub_dirs(dir))
+    for index, sub_dir in enumerate(sub_dirs):
+        if args.start_index and index < args.start_index:
+            print(f"Skipping {index}: {sub_dir}")
+            continue
+        print(f"{index}: {sub_dir}")
+        manual_test([sub_dir], verbose=args.verbose, full_diff=args.full_diff)
 
 
 def run_update(target_dirs: List, args):

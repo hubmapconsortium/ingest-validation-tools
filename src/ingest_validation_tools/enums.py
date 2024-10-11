@@ -1,24 +1,6 @@
 from enum import Enum, unique
 from typing import Dict, List
 
-"""
->>> import requests
->>> local_names = shared_enums['assay_type']
->>> remote_mismatch = []
->>> for name in local_names:
-...     response = requests.post(
-...         'https://search.api.hubmapconsortium.org/assayname',
-...         json={'name': name},
-...         headers={'Content-Type': 'application/json'}
-...     ).json()
-...     if 'error' in response:
-...         remote_mismatch.append(name)
->>> print(remote_mismatch)
-[]
-"""
-# The list above should be empty: There should be no mismatches;
-# ie: All the assays listed below are recognized by the assay service.
-#
 # The assay_type list is *all* the values which have ever been used,
 # including schemas which are currently deprecated.
 # Each schema lists the particular values which are valid for it.

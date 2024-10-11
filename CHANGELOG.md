@@ -1,9 +1,18 @@
 # Changelog
 
-## v0.0.26 (in progress)
+## v0.0.27 (in progress)
+- Update Visium with probes directory schema pt 3
+- Update Segmentation masks directory schema
+- Updating tests based on new dir schema major versions and assayclassifier responses
+- Removing references to deprecated Search API endpoint 'assayname'
+- Error reporting changes, addition of summarized counts
+
+## v0.0.26
 - Update GeoMx NGS directory schema
 - Update MERFISH directory schema
 - Update LC-MS directory schema
+- Update Visium with probes directory schema
+- Update Visium with probes directory schema pt 2
 
 ## v0.0.25
 - Update GeoMx NGS directory schema
