@@ -12,6 +12,7 @@
 - Update Segmentation masks directory schema
 - Updating tests based on new dir schema major versions and assayclassifier responses
 - Removing references to deprecated Search API endpoint 'assayname'
+- Update Phenocycler directory schema
 
 ## v0.0.25
 - Update GeoMx NGS directory schema
