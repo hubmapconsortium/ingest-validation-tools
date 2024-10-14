@@ -260,6 +260,8 @@ class ErrorDict:
 class ErrorReport:
     errors = {}
     info = {}
+    raw_errors = ErrorDict()
+    raw_info = InfoDict()
 
     def __init__(
         self,
