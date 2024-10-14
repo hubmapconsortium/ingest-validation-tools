@@ -6,6 +6,7 @@
 - Updating tests based on new dir schema major versions and assayclassifier responses
 - Removing references to deprecated Search API endpoint 'assayname'
 - Update Phenocycler directory schema
+- Update GeoMx NGS directory schema
 
 ## v0.0.26
 - Update GeoMx NGS directory schema
