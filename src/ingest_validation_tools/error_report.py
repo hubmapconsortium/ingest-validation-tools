@@ -258,6 +258,9 @@ class ErrorDict:
 
 
 class ErrorReport:
+    errors = {}
+    info = {}
+
     def __init__(
         self,
         upload: Optional[Upload] = None,
