@@ -1,6 +1,11 @@
 # Changelog
 
 ## v0.0.27 (in progress)
+- Update Visium with probes directory schema pt 3
+- Update Segmentation masks directory schema
+- Updating tests based on new dir schema major versions and assayclassifier responses
+- Removing references to deprecated Search API endpoint 'assayname'
+- Update Phenocycler directory schema
 
 ## v0.0.26
 - Update GeoMx NGS directory schema
@@ -8,11 +13,6 @@
 - Update LC-MS directory schema
 - Update Visium with probes directory schema
 - Update Visium with probes directory schema pt 2
-- Update Visium with probes directory schema pt 3
-- Update Segmentation masks directory schema
-- Updating tests based on new dir schema major versions and assayclassifier responses
-- Removing references to deprecated Search API endpoint 'assayname'
-- Update Phenocycler directory schema
 
 ## v0.0.25
 - Update GeoMx NGS directory schema
