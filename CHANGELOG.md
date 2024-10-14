@@ -8,6 +8,7 @@
 - Update Phenocycler directory schema
 - Update GeoMx NGS directory schema
 - Update shared upload check
+- Release Xenium
 
 ## v0.0.26
 - Update GeoMx NGS directory schema
