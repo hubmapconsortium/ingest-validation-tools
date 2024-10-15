@@ -9,6 +9,7 @@
 - Update GeoMx NGS directory schema
 - Update shared upload check
 - Release Xenium
+- Create Xenium directory schema
 
 ## v0.0.26
 - Update GeoMx NGS directory schema
