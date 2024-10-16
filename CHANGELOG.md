@@ -5,6 +5,11 @@
 - Update Segmentation masks directory schema
 - Updating tests based on new dir schema major versions and assayclassifier responses
 - Removing references to deprecated Search API endpoint 'assayname'
+- Update Phenocycler directory schema
+- Update GeoMx NGS directory schema
+- Update shared upload check
+- Release Xenium
+- Create Xenium directory schema
 - Error reporting changes, addition of summarized counts
 
 ## v0.0.26

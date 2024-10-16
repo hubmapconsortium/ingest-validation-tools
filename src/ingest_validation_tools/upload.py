@@ -98,7 +98,7 @@ class Upload:
                 self._check_single_assay()
 
             self.is_shared_upload = {"global", "non_global"} == {
-                x
+                x.name
                 for x in self.directory_path.glob("*global")
                 if x.is_dir() and x.name in ["global", "non_global"]
             }
