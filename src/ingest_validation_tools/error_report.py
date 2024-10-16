@@ -1,22 +1,106 @@
+from __future__ import annotations
+
 from collections import defaultdict
+from collections.abc import MutableMapping
 from dataclasses import dataclass, field, fields
 from datetime import datetime
 from pathlib import Path
-from typing import ClassVar, DefaultDict, Dict, List, Optional, Union
+from typing import TYPE_CHECKING, DefaultDict, Dict, List, Optional, Type, Union
 
 from yaml import Dumper, dump
 
 from ingest_validation_tools.message_munger import munge, recursive_munge
+
+if TYPE_CHECKING:
+    from ingest_validation_tools.upload import Upload
 
 # Force dump not to use alias syntax.
 # https://stackoverflow.com/questions/13518819/avoid-references-in-pyyaml
 Dumper.ignore_aliases = lambda *args: True
 
 
-class ErrorDictException(Exception):
-    def __init__(self, error: str):
-        super().__init__(error)
-        self.error = error
+@dataclass
+class DictErrorType(MutableMapping):
+    """
+    Dataclass that acts like a defaultdict using self.value.
+    """
+
+    name: str = ""
+    display_name: str = ""
+    default_factory: Type = list
+    value: DefaultDict = field(default_factory=lambda: defaultdict())
+
+    def __post_init__(self):
+        if type(self.default_factory) is not list:
+            self.value = defaultdict(self.default_factory)
+
+    def __missing__(self, key):
+        self.value[key] = self.default_factory()
+        return self.value[key]
+
+    def __getitem__(self, key):
+        return self.value[key]
+
+    def __setitem__(self, key, value):
+        self.value[key] = value
+
+    def __delitem__(self, key):
+        del self.value[key]
+
+    def __iter__(self):
+        return iter(self.value)
+
+    def __len__(self):
+        return len(self.value)
+
+    def __bool__(self):
+        return bool(self.value)
+
+    @property
+    def counts(self) -> dict:
+        if self.default_factory == list:
+            return self.list_type_counts()
+        elif self.default_factory == dict:
+            return self.dict_type_counts()
+        else:
+            print(f"Counts method for defaultdict({self.default_factory}) not defined.")
+            return {}
+
+    def list_type_counts(self):
+        errors_for_category = 0
+        for errors in self.value.values():
+            errors_for_category += len(errors)
+        return {self.display_name: errors_for_category} if errors_for_category else {}
+
+    def dict_type_counts(self):
+        counts_by_sub_category = {}
+        for error_type, errors in self.value.items():
+            for error_sub_type, error in errors.items():
+                if type(error) is list:
+                    value = len(error)
+                    counts_by_sub_category[error_type] = value
+                else:
+                    print(
+                        f"Counting for {error_type} error '{error_sub_type}' of type {type(error)} not defined."
+                    )
+        return counts_by_sub_category
+
+
+@dataclass
+class StrErrorType:
+    name: str = ""
+    display_name: str = ""
+    value: Optional[str] = None
+
+    def __bool__(self):
+        return bool(self.value)
+
+    @property
+    def counts(self) -> dict:
+        return {self.display_name: self.value} if self.value else {}
+
+
+ErrorType = Union[StrErrorType, DictErrorType]
 
 
 @dataclass
@@ -47,37 +131,52 @@ class ErrorDict:
     compiled using self.as_dict().
     """
 
-    preflight: List[str] = field(default_factory=list)
-    directory: DefaultDict[str, List[str]] = field(default_factory=lambda: defaultdict(list))
-    upload_metadata: DefaultDict[str, List[str]] = field(default_factory=lambda: defaultdict(list))
-    metadata_validation_local: DefaultDict[str, List[str]] = field(
-        default_factory=lambda: defaultdict(list)
+    preflight: StrErrorType = field(
+        default_factory=lambda: StrErrorType(name="preflight", display_name="Preflight Errors")
     )
-    metadata_validation_api: DefaultDict[str, List] = field(
-        default_factory=lambda: defaultdict(list)
+    directory: DictErrorType = field(
+        default_factory=lambda: DictErrorType(name="directory", display_name="Directory Errors")
     )
-    metadata_url_errors: DefaultDict[str, List] = field(default_factory=lambda: defaultdict(list))
-    metadata_constraint_errors: DefaultDict[str, List] = field(
-        default_factory=lambda: defaultdict(list)
+    upload_metadata: DictErrorType = field(
+        default_factory=lambda: DictErrorType(
+            name="upload_metadata", display_name="Antibodies/Contributors Errors"
+        )
     )
-    reference: DefaultDict[str, Dict] = field(default_factory=lambda: defaultdict(dict))
-    plugin: Dict[str, List[str]] = field(default_factory=dict)
-    plugin_skip: Optional[str] = None
+    metadata_validation_local: DictErrorType = field(
+        default_factory=lambda: DictErrorType(
+            name="metadata_validation_local", display_name="Local Validation Errors"
+        )
+    )
+    metadata_validation_api: DictErrorType = field(
+        default_factory=lambda: DictErrorType(
+            name="metadata_validation_api", display_name="Spreadsheet Validator Errors"
+        )
+    )
+    metadata_url_errors: DictErrorType = field(
+        default_factory=lambda: DictErrorType(
+            name="metadata_url_errors", display_name="URL Check Errors"
+        )
+    )
+    metadata_constraint_errors: DictErrorType = field(
+        default_factory=lambda: DictErrorType(
+            name="metadata_constraint_errors", display_name="Entity Constraint Errors"
+        )
+    )
+    reference: DictErrorType = field(
+        default_factory=lambda: DictErrorType(
+            name="reference", display_name="Reference Errors", default_factory=dict
+        )
+    )
+    plugin: DictErrorType = field(
+        default_factory=lambda: DictErrorType(name="plugin", display_name="Data File Errors")
+    )
+    plugin_skip: StrErrorType = field(
+        default_factory=lambda: StrErrorType(name="plugin_skip", display_name="Fatal Errors")
+    )
 
-    # Single source of truth for top-level error dict key names,
-    # use instead of string matching on keys even outside of ErrorDict
-    field_map: ClassVar[Dict[str, str]] = {
-        "preflight": "Preflight Errors",
-        "directory": "Directory Errors",
-        "upload_metadata": "Antibodies/Contributors Errors",
-        "metadata_validation_local": "Local Validation Errors",
-        "metadata_validation_api": "Spreadsheet Validator Errors",
-        "metadata_url_errors": "URL Check Errors",
-        "metadata_constraint_errors": "Entity Constraint Errors",
-        "reference": "Reference Errors",
-        "plugin": "Data File Errors",
-        "plugin_skip": "Fatal Errors",
-    }
+    def __iter__(self):
+        for attr_field in fields(self):
+            yield getattr(self, attr_field.name)
 
     def __bool__(self):
         """
@@ -85,26 +184,32 @@ class ErrorDict:
         """
         return bool(self.as_dict())
 
-    def errors_by_path(self, path: str, selected_fields: Optional[List[str]] = None) -> Dict:
+    def errors_by_path(self, path: str, selected_fields: list = []) -> Dict[str, str]:
         errors = {}
         if not selected_fields:
-            selected_fields = [getattr(self, error_field.name) for error_field in fields(self)]
-        for metadata_field in selected_fields:
-            field_errors = getattr(self, metadata_field)
-            if metadata_field == "preflight":
-                errors[self.field_map[metadata_field]] = field_errors
-            elif metadata_field == "plugin_skip":
-                errors[self.field_map[metadata_field]] = field_errors
-            else:
-                for key, value in field_errors.items():
-                    if (Path(key) == Path(path)) or (path in key):
-                        errors[self.field_map[metadata_field]] = value
+            selected_fields = [error_field for error_field in fields(self)]
+        selected_error_type_fields = [field for field in selected_fields]
+        for error_type_field in selected_error_type_fields:
+            error_field = getattr(self, error_type_field.name, None)
+            if not error_field or not error_field.value:
+                continue
+            if type(error_field) is StrErrorType:
+                errors[error_field.display_name] = error_field.value
+            elif type(error_field) is DictErrorType:
+                for key, value in error_field.items():
+                    if (Path(key) == Path(path)) or (str(path) in key):
+                        errors[error_field.display_name] = value
                         break
         return errors
 
     def online_only_errors_by_path(self, path: str):
         return self.errors_by_path(
-            path, ["metadata_url_errors", "metadata_validation_api", "metadata_constraint_errors"]
+            path,
+            [
+                self.metadata_url_errors,
+                self.metadata_validation_api,
+                self.metadata_constraint_errors,
+            ],
         )
 
     def tsv_only_errors_by_path(self, path: str, local_allowed=True) -> List[str]:
@@ -114,27 +219,33 @@ class ErrorDict:
         """
         errors = []
         selected_fields = [
-            "metadata_url_errors",
-            "metadata_validation_api",
-            "metadata_constraint_errors",
+            self.metadata_url_errors,
+            self.metadata_validation_api,
+            self.metadata_constraint_errors,
         ]
         if local_allowed:
-            selected_fields.append("metadata_validation_local")
+            selected_fields.append(self.metadata_validation_local)
         path_errors = self.errors_by_path(path, selected_fields)
         for value in path_errors.values():
             errors.extend(value)
         return errors
 
-    def as_dict(self):
+    def as_dict(self, attr_keys=False):
         """
         Compiles all fields with errors into a dict.
+        By default uses human-readable keys, but passing
+        attr_keys=True will use the attribute names.
         """
         errors = {}
-        for error_field in fields(self):
-            value = getattr(self, error_field.name)
-            if value:
-                value = self.sort_val(value)
-                errors[self.field_map.get(error_field.name)] = value
+        for errordict_field in fields(self):
+            error_field = getattr(self, errordict_field.name)
+            if not error_field or not error_field.value:
+                continue
+            value = self.sort_val(error_field.value)
+            if attr_keys:
+                errors[error_field.name] = value
+            else:
+                errors[error_field.display_name] = value
         return errors
 
     def sort_val(self, value):
@@ -147,17 +258,61 @@ class ErrorDict:
 
 
 class ErrorReport:
-    def __init__(self, errors: Optional[ErrorDict] = None, info: Optional[InfoDict] = None):
-        self.raw_errors = None
-        self.raw_info = None
-        self.errors = None
-        self.info = None
-        if errors:
-            self.raw_errors = errors
-            self.errors = errors.as_dict()
-        if info:
-            self.raw_info = info
-            self.info = info.as_dict()
+    errors = {}
+    info = {}
+    raw_errors = ErrorDict()
+    raw_info = InfoDict()
+
+    def __init__(
+        self,
+        upload: Optional[Upload] = None,
+        errors: Optional[ErrorDict] = None,
+        info: Optional[InfoDict] = None,
+    ):
+        if upload:
+            if not upload.get_errors_called:
+                self.raw_errors = upload.get_errors()
+            else:
+                self.raw_errors = upload.errors
+            if not upload.get_info_called:
+                self.raw_info = upload.get_info()
+            else:
+                self.raw_info = upload.info
+            self.errors = upload.errors.as_dict()
+            self.info = upload.info.as_dict()
+        # Preserved for backward compatibility for now
+        else:
+            if errors:
+                self.raw_errors = errors
+                self.errors = errors.as_dict()
+            if info:
+                self.raw_info = info
+                self.info = info.as_dict()
+
+    @property
+    def counts(self) -> Dict[str, Union[int, str]]:
+        """
+        Count errors per category. Requires raw_errors (ErrorDict object).
+        ErrorType fields have a `counts` property, but fields related to
+        plugins need some pre-processing.
+        """
+        if not self.raw_errors:
+            return {}
+        counts = {}
+        for raw_error_field in fields(self.raw_errors):
+            error_field = getattr(self.raw_errors, raw_error_field.name)
+            if not error_field or not error_field.value:
+                continue
+            if error_field.name == "plugin":
+                plugin_counts = [len(value) for value in self.raw_errors.plugin.values()]
+                counts[self.raw_errors.plugin.display_name] = (
+                    f"{sum(plugin_counts)} errors in {len(plugin_counts)} plugins"
+                )
+            elif error_field.name == "plugin_skip":
+                counts["Plugins Skipped"] = True
+            elif getattr(error_field, "counts"):
+                counts.update(error_field.counts)
+        return counts
 
     def _no_errors(self):
         return f"No errors!\n{dump(self.info, sort_keys=False)}\n"

@@ -66,7 +66,7 @@ class UpdateData:
                 verbose=self.upload_verbose,
                 **self.opts,
             )
-            report = ErrorReport(errors=upload.get_errors(), info=upload.get_info())
+        report = ErrorReport(upload)
         self.check_maybe_write_fixtures(report, upload)
 
         try:
@@ -155,8 +155,6 @@ class UpdateData:
         no_token_error = False
         for schema in upload.effective_tsv_paths.values():
             new_assaytype_data[schema.dataset_type] = schema.soft_assay_data
-            if upload.errors.preflight:
-                continue
             if upload.errors.metadata_url_errors:
                 upload.errors = get_non_token_errors(upload.errors)
             online_errors = upload.errors.online_only_errors_by_path(str(schema.path))

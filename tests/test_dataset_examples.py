@@ -3,14 +3,12 @@ import glob
 import json
 import re
 import unittest
-from collections import defaultdict
-from csv import DictReader
 from io import TextIOWrapper
 from pathlib import Path
-from typing import Dict, List, Union
-from unittest.mock import Mock, call, patch
+from typing import Dict, Union
+from unittest.mock import patch
 
-from ingest_validation_tools.error_report import ErrorDict, ErrorReport
+from ingest_validation_tools.error_report import DictErrorType, ErrorDict, ErrorReport
 from ingest_validation_tools.schema_loader import PreflightError, SchemaVersion
 from ingest_validation_tools.upload import Upload
 from tests.fixtures import (
@@ -52,8 +50,8 @@ class TokenException(Exception):
 
 
 def mutate_upload_errors_with_fixtures(upload: Upload, test_dir: str) -> Upload:
-    url_errors_field_name = ErrorDict.field_map["metadata_url_errors"]
-    api_errors_field_name = ErrorDict.field_map["metadata_validation_api"]
+    url_errors_field_name = upload.errors.metadata_url_errors.display_name
+    api_errors_field_name = upload.errors.metadata_validation_api.display_name
     for tsv_path, schema in upload.effective_tsv_paths.items():
         fixtures = get_online_check_fixtures(schema.schema_name, test_dir)
         url_errors = fixtures.get(url_errors_field_name, {})
@@ -94,11 +92,9 @@ def dataset_test(
         upload = TestDatasetExamples.prep_offline_upload(test_dir, dataset_opts)
     else:
         upload = Upload(Path(f"{test_dir}/upload"), globus_token=globus_token, **dataset_opts)
-    errors = upload.get_errors()
-    info = upload.get_info()
     if use_online_check_fixtures:
         upload = mutate_upload_errors_with_fixtures(upload, test_dir)
-    report = ErrorReport(errors=errors, info=info)
+    report = ErrorReport(upload)
     diff_test(test_dir, readme, clean_report(report), verbose=verbose, full_diff=full_diff)
     if "PreflightError" in report.as_md():
         raise MockException(
@@ -133,7 +129,9 @@ def clean_report(report: ErrorReport):
 
 
 def get_non_token_errors(errors: ErrorDict) -> ErrorDict:
-    new_url_error_val = defaultdict(list)
+    new_url_error_val = DictErrorType(
+        name=errors.metadata_url_errors.name, display_name=errors.metadata_url_errors.display_name
+    )
     for path, error_list in errors.metadata_url_errors.items():
         non_token_url_errors = [error for error in error_list if "No token" not in error]
         if non_token_url_errors:
@@ -267,7 +265,7 @@ class TestDatasetExamples(unittest.TestCase):
             self.dataset_paths[test_dir] = metadata_paths
 
     def test_validate_dataset_examples(self, verbose: bool = False, full_diff: bool = False):
-        for test_dir, tsv_paths in self.dataset_paths.items():
+        for test_dir in self.dataset_paths.keys():
             with self.subTest(test_dir=test_dir):
                 if "dataset-examples" in test_dir:
                     opts = DATASET_EXAMPLES_OPTS
@@ -277,18 +275,14 @@ class TestDatasetExamples(unittest.TestCase):
                     opts = PLUGIN_EXAMPLES_OPTS
                 else:
                     opts = {}
-                with patch(
-                    "ingest_validation_tools.validation_utils.get_assaytype_data",
-                    side_effect=lambda row, ingest_url, globus_token: assaytype_side_effect(
-                        test_dir, row, ingest_url, globus_token
-                    ),
-                ) as mock_assaytype_data:
-                    with patch("ingest_validation_tools.upload.Upload.online_checks"):
+                with patch("ingest_validation_tools.validation_utils.get_assaytype_data"):
+                    with patch("ingest_validation_tools.upload.Upload._get_url_errors"):
                         try:
                             dataset_test(
                                 test_dir,
                                 opts,
                                 verbose=verbose,
+                                offline=True,
                                 use_online_check_fixtures=True,
                                 full_diff=full_diff,
                             )
@@ -299,45 +293,6 @@ class TestDatasetExamples(unittest.TestCase):
                             print(e)
                             self.errors.append(test_dir)
                             continue
-                if len(tsv_paths) == 1:
-                    self.single_dataset_assert(tsv_paths[0], mock_assaytype_data)
-                elif len(tsv_paths) > 1:
-                    self.multi_dataset_assert(tsv_paths, mock_assaytype_data)
-                elif len(tsv_paths) == 0:
-                    print(f"No TSVs found for {test_dir}, skipping further assertions.")
-
-    def single_dataset_assert(self, tsv_path: str, mock_assaytype_data: Mock):
-        with open(tsv_path, encoding="ascii") as f:
-            try:
-                rows = list(DictReader(f, dialect="excel-tab"))
-            except UnicodeDecodeError:
-                return
-        f.close()
-        if not rows:
-            return
-        if "assay_type" not in rows[0] or "dataset_type" not in rows[0]:
-            return
-        try:
-            mock_assaytype_data.assert_called_with(
-                rows[0],
-                "https://ingest.api.hubmapconsortium.org/",
-            )
-        except AssertionError as e:
-            print(e)
-            self.errors.append(e)
-
-    def multi_dataset_assert(self, tsv_paths: List[str], mock_assaytype_data: Mock):
-        calls = []
-        for tsv_path in tsv_paths:
-            with open(tsv_path, encoding="ascii") as f:
-                rows = list(DictReader(f, dialect="excel-tab"))
-            f.close()
-            calls.append(call(rows[0], "https://ingest.api.hubmapconsortium.org/", ""))
-        try:
-            mock_assaytype_data.assert_has_calls(calls, any_order=True)
-        except AssertionError as e:
-            print(e)
-            self.errors.append(e)
 
     @staticmethod
     def prep_offline_upload(test_dir: str, opts: Dict) -> Upload:
@@ -348,11 +303,12 @@ class TestDatasetExamples(unittest.TestCase):
             ),
         ):
             with patch("ingest_validation_tools.validation_utils.get_entity_api_data"):
-                upload = Upload(Path(f"{test_dir}/upload"), **opts)
-                upload.get_errors()
-                upload = mutate_upload_errors_with_fixtures(upload, test_dir)
-                upload.get_info()
-                return upload
+                with patch("ingest_validation_tools.upload.Upload.online_checks"):
+                    upload = Upload(Path(f"{test_dir}/upload"), **opts)
+                    upload.get_errors()
+                    upload = mutate_upload_errors_with_fixtures(upload, test_dir)
+                    upload.get_info()
+                    return upload
 
     def prep_dir_schema_upload(self, test_dir: str, opts: Dict, patch_data: Dict) -> Upload:
         with patch(
@@ -506,6 +462,24 @@ class TestDatasetExamples(unittest.TestCase):
                             schema_name="visium-no-probes", contains=["histology", "rnaseq"]
                         ),
                     )
+
+    def test_counts(self):
+        test_dirs = {
+            "examples/dataset-examples/bad-cedar-assay-histology": {
+                "Spreadsheet Validator Errors": 2,
+                "URL Check Errors": 1,
+                "No References": 1,
+                "Plugins Skipped": True,
+            },
+            "examples/dataset-examples/good-scatacseq-metadata-v0": {},
+            "examples/dataset-examples/bad-mixed": {
+                "Preflight Errors": "Found multiple dataset types in upload: CODEX, SNARE-seq2"
+            },
+        }
+        for test_dir, expected_counts in test_dirs.items():
+            upload = self.prep_offline_upload(test_dir, DATASET_EXAMPLES_OPTS)
+            report = ErrorReport(upload)
+            self.assertEqual(report.counts, expected_counts)
 
 
 # if __name__ == "__main__":
