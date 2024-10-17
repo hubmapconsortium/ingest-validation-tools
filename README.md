@@ -120,7 +120,7 @@ An example of the core error-reporting functionality underlying `validate-upload
 
 ```python
 upload = Upload(directory_path=path)
-report = ErrorReport(errors=upload.get_errors(), info=upload.get_info())
+report = ErrorReport(upload)
 print(report.as_text())
 ```
 
