@@ -1,4 +1,4 @@
-description_md: For additional documentation on Segmentation Masks, please visit [here](https://docs.google.com/document/d/1TSQon8nTIoyA5bEKxd8IAKYO6nsDabGbbQ8uKN1gj4E).
+description_md: For additional documentation on Segmentation Masks, please visit [here](https://docs.google.com/document/d/1LgQ509UOoZsY-sZO1cBFtqxWbo3jLGyCVy-_mssBVMw).
 fields:
 - name: is_cedar
   description: 'Identifies whether the version is hosted by CEDAR'
