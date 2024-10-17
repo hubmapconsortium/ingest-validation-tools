@@ -16,7 +16,7 @@ Related files:
 - [📝 TSV template](https://raw.githubusercontent.com/hubmapconsortium/dataset-metadata-spreadsheet/main/segmentation-mask/latest/segmentation-mask.tsv): Alternative for metadata entry.
 
 
-For additional documentation on Segmentation Masks, please visit [here](https://docs.google.com/document/d/1TSQon8nTIoyA5bEKxd8IAKYO6nsDabGbbQ8uKN1gj4E).
+For additional documentation on Segmentation Masks, please visit [here](https://docs.google.com/document/d/1LgQ509UOoZsY-sZO1cBFtqxWbo3jLGyCVy-_mssBVMw).
 
 ## Metadata schema
 

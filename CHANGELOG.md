@@ -10,6 +10,7 @@
 - Update shared upload check
 - Release Xenium
 - Create Xenium directory schema
+- Update Segmentation Mask link
 
 ## v0.0.26
 - Update GeoMx NGS directory schema
