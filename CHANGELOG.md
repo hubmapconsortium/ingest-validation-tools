@@ -1,6 +1,7 @@
 # Changelog
+## v0.0.28 (in progress)
 
-## v0.0.27 (in progress)
+## v0.0.27
 - Update Visium with probes directory schema pt 3
 - Update Segmentation masks directory schema
 - Updating tests based on new dir schema major versions and assayclassifier responses
