@@ -13,6 +13,7 @@
 - Create Xenium directory schema
 - Error reporting changes, addition of summarized counts
 - Update Segmentation Mask link
+- Update Xenium directory schema
 
 ## v0.0.26
 - Update GeoMx NGS directory schema
