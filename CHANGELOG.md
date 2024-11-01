@@ -14,6 +14,7 @@
 - Error reporting changes, addition of summarized counts
 - Update Segmentation Mask link
 - Update Xenium directory schema
+- Update GeoMx NGS directory schema
 
 ## v0.0.26
 - Update GeoMx NGS directory schema
