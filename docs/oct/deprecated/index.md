@@ -11,8 +11,8 @@ permalink: /oct/
 Related files:
 
 
-- [📝 Excel template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/main/docs/oct/oct-metadata.xlsx): For metadata entry.
-- [📝 TSV template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/main/docs/oct/oct-metadata.tsv): Alternative for metadata entry.
+- [📝 Excel template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/main/docs/oct/deprecated/oct-metadata.xlsx): For metadata entry.
+- [📝 TSV template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/main/docs/oct/deprecated/oct-metadata.tsv): Alternative for metadata entry.
 
 
 This schema is for clinical imaging using optical coherence tomography (OCT).

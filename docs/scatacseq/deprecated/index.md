@@ -11,8 +11,8 @@ permalink: /scatacseq/
 Related files:
 - [🔬 Background doc](https://portal.hubmapconsortium.org/docs/assays/atacseq): More details about this type.
 
-- [📝 Excel template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/main/docs/scatacseq/scatacseq-metadata.xlsx): For metadata entry.
-- [📝 TSV template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/main/docs/scatacseq/scatacseq-metadata.tsv): Alternative for metadata entry.
+- [📝 Excel template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/main/docs/scatacseq/deprecated/scatacseq-metadata.xlsx): For metadata entry.
+- [📝 TSV template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/main/docs/scatacseq/deprecated/scatacseq-metadata.tsv): Alternative for metadata entry.
 
 
 This schema is for the single nucleus Assay for Transposase Accessible Chromatin by sequencing (snATACseq).

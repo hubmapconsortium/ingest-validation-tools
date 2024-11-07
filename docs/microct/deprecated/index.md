@@ -11,8 +11,8 @@ permalink: /microct/
 Related files:
 
 
-- [📝 Excel template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/main/docs/microct/microct-metadata.xlsx): For metadata entry.
-- [📝 TSV template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/main/docs/microct/microct-metadata.tsv): Alternative for metadata entry.
+- [📝 Excel template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/main/docs/microct/deprecated/microct-metadata.xlsx): For metadata entry.
+- [📝 TSV template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/main/docs/microct/deprecated/microct-metadata.tsv): Alternative for metadata entry.
 
 
 This schema is for clinical imaging using micro computed tomography (Micro CT).

@@ -11,8 +11,8 @@ permalink: /ims/
 Related files:
 - [🔬 Background doc](https://portal.hubmapconsortium.org/docs/assays/maldi-ims): More details about this type.
 
-- [📝 Excel template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/main/docs/ims/ims-metadata.xlsx): For metadata entry.
-- [📝 TSV template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/main/docs/ims/ims-metadata.tsv): Alternative for metadata entry.
+- [📝 Excel template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/main/docs/ims/deprecated/ims-metadata.xlsx): For metadata entry.
+- [📝 TSV template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/main/docs/ims/deprecated/ims-metadata.tsv): Alternative for metadata entry.
 
 
 This schema is for imaging mass spectrometry (IMS).

@@ -1,5 +1,6 @@
 # Changelog
 ## v0.0.28 (in progress)
+- Add CosMX metadata schema
 
 ## v0.0.27
 - Update Visium with probes directory schema pt 3

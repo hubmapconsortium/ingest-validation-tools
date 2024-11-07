@@ -11,8 +11,8 @@ permalink: /sample-suspension/
 Related files:
 
 
-- [📝 Excel template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/main/docs/sample-suspension/sample-suspension.xlsx): For metadata entry.
-- [📝 TSV template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/main/docs/sample-suspension/sample-suspension.tsv): Alternative for metadata entry.
+- [📝 Excel template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/main/docs/sample-suspension/deprecated/sample-suspension.xlsx): For metadata entry.
+- [📝 TSV template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/main/docs/sample-suspension/deprecated/sample-suspension.tsv): Alternative for metadata entry.
 
 
 

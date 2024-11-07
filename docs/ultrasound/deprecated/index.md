@@ -11,8 +11,8 @@ permalink: /ultrasound/
 Related files:
 
 
-- [📝 Excel template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/main/docs/ultrasound/ultrasound-metadata.xlsx): For metadata entry.
-- [📝 TSV template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/main/docs/ultrasound/ultrasound-metadata.tsv): Alternative for metadata entry.
+- [📝 Excel template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/main/docs/ultrasound/deprecated/ultrasound-metadata.xlsx): For metadata entry.
+- [📝 TSV template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/main/docs/ultrasound/deprecated/ultrasound-metadata.tsv): Alternative for metadata entry.
 
 
 This schema is for clinical imaging using ultrasound.

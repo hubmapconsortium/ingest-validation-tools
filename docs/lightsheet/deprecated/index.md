@@ -11,8 +11,8 @@ permalink: /lightsheet/
 Related files:
 - [🔬 Background doc](https://portal.hubmapconsortium.org/docs/assays/lightsheet): More details about this type.
 
-- [📝 Excel template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/main/docs/lightsheet/lightsheet-metadata.xlsx): For metadata entry.
-- [📝 TSV template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/main/docs/lightsheet/lightsheet-metadata.tsv): Alternative for metadata entry.
+- [📝 Excel template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/main/docs/lightsheet/deprecated/lightsheet-metadata.xlsx): For metadata entry.
+- [📝 TSV template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/main/docs/lightsheet/deprecated/lightsheet-metadata.tsv): Alternative for metadata entry.
 
 
 Lightsheet uploads require metadata on the antibodies used in the assay to be provided in an Antibodies TSV. For Lightsheet, the `channel_id` is the name of the fluorophore tag on the antibody. For an example of a lightsheet dataset & directory, see this  [example lightsheet dataset](https://portal.hubmapconsortium.org/browse/dataset/b6eba6afe660a8a85c2648e368b0cf9f#files)  and click the Globus link. 

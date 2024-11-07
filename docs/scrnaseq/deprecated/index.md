@@ -11,8 +11,8 @@ permalink: /scrnaseq/
 Related files:
 - [🔬 Background doc](https://portal.hubmapconsortium.org/docs/assays/rnaseq): More details about this type.
 
-- [📝 Excel template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/main/docs/scrnaseq/scrnaseq-metadata.xlsx): For metadata entry.
-- [📝 TSV template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/main/docs/scrnaseq/scrnaseq-metadata.tsv): Alternative for metadata entry.
+- [📝 Excel template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/main/docs/scrnaseq/deprecated/scrnaseq-metadata.xlsx): For metadata entry.
+- [📝 TSV template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/main/docs/scrnaseq/deprecated/scrnaseq-metadata.tsv): Alternative for metadata entry.
 
 
 This schema is for single cell RNA sequencing (scRNAseq). v3 adds `umi_*` fields.
