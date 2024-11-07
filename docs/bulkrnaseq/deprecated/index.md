@@ -11,8 +11,8 @@ permalink: /bulkrnaseq/
 Related files:
 - [🔬 Background doc](https://portal.hubmapconsortium.org/docs/assays/rnaseq): More details about this type.
 
-- [📝 Excel template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/main/docs/bulkrnaseq/bulkrnaseq-metadata.xlsx): For metadata entry.
-- [📝 TSV template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/main/docs/bulkrnaseq/bulkrnaseq-metadata.tsv): Alternative for metadata entry.
+- [📝 Excel template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/main/docs/bulkrnaseq/deprecated/bulkrnaseq-metadata.xlsx): For metadata entry.
+- [📝 TSV template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/main/docs/bulkrnaseq/deprecated/bulkrnaseq-metadata.tsv): Alternative for metadata entry.
 
 
 
