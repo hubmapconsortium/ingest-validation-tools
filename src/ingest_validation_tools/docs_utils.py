@@ -169,8 +169,8 @@ def generate_readme_md(
             "and validating your metadata.tsv file prior to submission.\n"
         )
     else:
-        tsv_url = f"{raw_base_url}/{schema_name}/{get_tsv_name(schema_name, is_assay=is_assay)}"
-        xlsx_url = f"{raw_base_url}/{schema_name}/{get_xlsx_name(schema_name, is_assay=is_assay)}"
+        tsv_url = f"{raw_base_url}/{schema_name}/deprecated/{get_tsv_name(schema_name, is_assay=is_assay)}"
+        xlsx_url = f"{raw_base_url}/{schema_name}/deprecated/{get_xlsx_name(schema_name, is_assay=is_assay)}"
         cedar_validator_link = ""
 
     related_files_section_md = (
