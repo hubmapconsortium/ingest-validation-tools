@@ -1,5 +1,7 @@
 # Changelog
-## v0.0.28 (in progress)
+## v0.0.29 (in progress)
+
+## v0.0.28
 - Update Xenium directory schema
 - Update GeoMx NGS directory schema
 - Add CosMX metadata schema
