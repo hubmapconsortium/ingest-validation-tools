@@ -1,5 +1,7 @@
 # Changelog
 ## v0.0.28 (in progress)
+- Update Xenium directory schema
+- Update GeoMx NGS directory schema
 - Add CosMX metadata schema
 
 ## v0.0.27
@@ -14,8 +16,6 @@
 - Create Xenium directory schema
 - Error reporting changes, addition of summarized counts
 - Update Segmentation Mask link
-- Update Xenium directory schema
-- Update GeoMx NGS directory schema
 
 ## v0.0.26
 - Update GeoMx NGS directory schema
