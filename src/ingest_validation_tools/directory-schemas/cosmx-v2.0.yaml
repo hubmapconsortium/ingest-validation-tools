@@ -20,7 +20,7 @@ files:
   -
     pattern: raw\/[^\/]*_exprMat_file\.csv
     required: True
-    description: Cell expression matrix with raw counts of genes for each identified cell. Apart from the gene specific columns, additional columns include: the origin of the cell (fov, unique cell id); negative probes; probes associated with the fiducial frame (SystemControl)
+    description: 'Cell expression matrix with raw counts of genes for each identified cell. Apart from the gene specific columns, additional columns include: the origin of the cell (fov, unique cell id); negative probes; probes associated with the fiducial frame (SystemControl)'
   -
     pattern: raw\/[^\/]*_fov_positions_file\.csv
     required: True
@@ -44,23 +44,23 @@ files:
   -
     pattern: raw\/additional_panels_used\.csv
     required: False
-    description: If multiple commercial probe panels were used, then the primary probe panel should be selected in the "oligo_probe_panel" metadata field. The additional panels must be included in this file. Each panel record should include: manufacturer, model/name, product code.
+    description: 'If multiple commercial probe panels were used, then the primary probe panel should be selected in the "oligo_probe_panel" metadata field. The additional panels must be included in this file. Each panel record should include: manufacturer, model/name, product code.'
   -
     pattern: raw\/gene_panel\.csv
     required: True
-    description: The list of target genes. The expected format is: gene_id (ensembl ID), gene_name.
+    description: 'The list of target genes. The expected format is: gene_id (ensembl ID), gene_name.'
   -
     pattern: raw\/custom_probe_set\.csv
     required: False
-    description: This file should contain any custom probes used and must be included if the metadata field "is_custom_probes_used" is "Yes". The file should minimally include: target gene id, probe seq, probe id. The contents of this file are modeled after the 10x Genomics probe set file (see <https://support.10xgenomics.com/spatial-gene-expression-ffpe/probe-sets/probe-set-file-descriptions/probe-set-file-descriptions#probe_set_csv_file>).
+    description: 'This file should contain any custom probes used and must be included if the metadata field "is_custom_probes_used" is "Yes". The file should minimally include: target gene id, probe seq, probe id. The contents of this file are modeled after the 10x Genomics probe set file (see <https://support.10xgenomics.com/spatial-gene-expression-ffpe/probe-sets/probe-set-file-descriptions/probe-set-file-descriptions#probe_set_csv_file>).'
   -
     pattern: raw\/transcript_locations\.csv
     required: True
-    description: The origin of the coordinate is 0,0 at the top left corner of the image. The file should include: gene name, x, y, z (optional), quality score (optional). It is expected that the first row in the file contains the column header.
+    description: 'The origin of the coordinate is 0,0 at the top left corner of the image. The file should include: gene name, x, y, z (optional), quality score (optional). It is expected that the first row in the file contains the column header.'
   -
     pattern: raw\/custom_gene_list\.csv
     required: False
-    description: This describes the target genes profiled by the assay. For advanced design, this can be probes sequences for splicing or other analysis for any target of interest. The format should minimally contain: gene name, ensemble ID
+    description: 'This describes the target genes profiled by the assay. For advanced design, this can be probes sequences for splicing or other analysis for any target of interest. The format should minimally contain: gene name, ensemble ID'
   -
     pattern: raw\/probes\.csv
     required: False
@@ -86,7 +86,7 @@ files:
     required: True
     description: OME-TIFF files (multichannel, multi-layered) produced by the microscopy experiment. If compressed, must use loss-less compression algorithm. For Visium this stitched file should only include the single capture area relevant to the current dataset. For GeoMx there will be one OME TIFF file per slide, with each slide including multiple AOIs. See the following link for the set of fields that are required in the OME TIFF file XML header. <https://docs.google.com/spreadsheets/d/1YnmdTAA0Z9MKN3OjR3Sca8pz-LNQll91wdQoRPSP6Q4/edit#gid=0>
     is_qa_qc: False
-    example: HBM892.MDXS.293.ome.tiff
+    example: lab_processed/images/HBM892.MDXS.293.ome.tiff
   -
     pattern: lab_processed\/images\/[^\/]*ome-tiff\.channels\.csv
     required: True
