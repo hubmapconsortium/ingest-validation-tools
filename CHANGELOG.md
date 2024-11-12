@@ -1,6 +1,7 @@
 # Changelog
 ## v0.0.29 (in progress)
 - Add CosMX directory schema
+- Update CosMX directory schema
 
 ## v0.0.28
 - Update Xenium directory schema
