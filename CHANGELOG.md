@@ -1,5 +1,7 @@
 # Changelog
-## v0.0.29 (in progress)
+## v0.0.30 (in progress)
+
+## v0.0.29
 - Add CosMX directory schema
 - Update CosMX directory schema
 - Update Segmentation masks directory schema
