@@ -2,6 +2,9 @@
 ## v0.0.29 (in progress)
 - Add CosMX directory schema
 - Update CosMX directory schema
+- Update Segmentation masks directory schema
+- Update Auto-fluorescence directory schema
+- Update CODEX directory schema
 
 ## v0.0.28
 - Update Xenium directory schema
