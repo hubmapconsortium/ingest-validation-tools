@@ -7,6 +7,7 @@
 - Update Segmentation masks directory schema
 - Update Auto-fluorescence directory schema
 - Update CODEX directory schema
+- Update CODEX directory schema
 
 ## v0.0.28
 - Update Xenium directory schema
