@@ -45,7 +45,7 @@ class SchemaVersion:
     schema_name: str  # Valid values: canonical assay name OR other type
     version: str = ""
     directory_path: Optional[Path] = None
-    table_schema: str = ""
+    table_schema: Optional[str] = ""  # legacy only
     path: Union[Path, str] = ""
     contributors_paths: List[str] = field(default_factory=list)
     antibodies_paths: List[str] = field(default_factory=list)
@@ -53,8 +53,7 @@ class SchemaVersion:
     soft_assay_data: Dict = field(default_factory=dict)
     is_cedar: bool = False
     dataset_type: str = ""  # String from assay_type or dataset_type field in TSV
-    vitessce_hints: List = field(default_factory=list)
-    dir_schema: str = ""
+    dir_schema: Optional[str] = None
     metadata_type: str = "assays"
     contains: List = field(default_factory=list)
     entity_type_info: Optional[EntityTypeInfo] = None
@@ -79,13 +78,6 @@ class SchemaVersion:
             self.get_row_data()
         if self.soft_assay_data:
             self.get_assayclassifier_data()
-        if not self.version:
-            if self.is_cedar:
-                self.version = "2"
-            else:
-                self.version = "0"
-        if not self.table_schema:
-            self.table_schema = f"{self.schema_name}-v{self.version}"
 
     def get_row_data(self):
         if self.rows[0].get("metadata_schema_id"):
@@ -93,17 +85,17 @@ class SchemaVersion:
         else:
             self.is_cedar = False
         self.get_dataset_type_value()
-        self.version = self.rows[0].get("version")
+        if self.is_cedar:
+            self.version = self.rows[0].get("metadata_schema_id")
+        else:
+            self.version = self.rows[0].get("version")
 
     def get_assayclassifier_data(self):
-        self.vitessce_hints = self.soft_assay_data.get("vitessce-hints", [])
-        self.dir_schema = self.soft_assay_data.get("dir-schema", "")
-        self.table_schema = self.soft_assay_data.get("tbl-schema", "")
-        match = re.match(r".+-v(\d+)", self.table_schema)
-        if match:
-            self.version = match[0]
-        contains = self.soft_assay_data.get("must-contain", [])
-        self.contains = [schema.lower() for schema in contains]
+        self.dir_schema = self.soft_assay_data.get("dir-schema")
+        self.table_schema = self.soft_assay_data.get("tbl-schema")
+        contains = self.soft_assay_data.get("must-contain")
+        if contains:
+            self.contains = [schema.lower() for schema in contains]
 
     def get_dataset_type_value(self):
         dataset_fields = {
