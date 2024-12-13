@@ -17,7 +17,7 @@ Related files:
 
 
 **Obj x feature table**
-1. **Download the Excel [obj x feature template](https://github.com/hubmapconsortium/dataset-metadata-spreadsheet/tree/main/epic/latest)**
+1. **Download the Excel [obj x feature template](https://github.com/hubmapconsortium/dataset-metadata-spreadsheet/raw/refs/heads/main/epic/latest/segmentation-mask-object-by-feature.xlsx)**
 2. **[Review documentation and examples](https://docs.google.com/document/d/1TSQon8nTIoyA5bEKxd8IAKYO6nsDabGbbQ8uKN1gj4E)**
 3. **Fill out the Excel obj x feature template for your dataset and submit.**
 
