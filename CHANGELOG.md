@@ -1,6 +1,21 @@
 # Changelog
+## v0.0.30 (in progress)
+- Update Seg Mask documentation
 
-## v0.0.27 (in progress)
+## v0.0.29
+- Add CosMX directory schema
+- Update CosMX directory schema
+- Update Segmentation masks directory schema
+- Update Auto-fluorescence directory schema
+- Update CODEX directory schema
+- Update CODEX directory schema
+
+## v0.0.28
+- Update Xenium directory schema
+- Update GeoMx NGS directory schema
+- Add CosMX metadata schema
+
+## v0.0.27
 - Update Visium with probes directory schema pt 3
 - Update Segmentation masks directory schema
 - Updating tests based on new dir schema major versions and assayclassifier responses
@@ -11,6 +26,7 @@
 - Release Xenium
 - Create Xenium directory schema
 - Error reporting changes, addition of summarized counts
+- Update Segmentation Mask link
 
 ## v0.0.26
 - Update GeoMx NGS directory schema
