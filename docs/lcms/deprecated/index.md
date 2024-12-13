@@ -11,8 +11,8 @@ permalink: /lcms/
 Related files:
 - [🔬 Background doc](https://portal.hubmapconsortium.org/docs/assays/lcms): More details about this type.
 
-- [📝 Excel template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/main/docs/lcms/lcms-metadata.xlsx): For metadata entry.
-- [📝 TSV template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/main/docs/lcms/lcms-metadata.tsv): Alternative for metadata entry.
+- [📝 Excel template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/main/docs/lcms/deprecated/lcms-metadata.xlsx): For metadata entry.
+- [📝 TSV template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/main/docs/lcms/deprecated/lcms-metadata.tsv): Alternative for metadata entry.
 
 
 This schema is for liquid chromatography mass spectrometry (LCMS).

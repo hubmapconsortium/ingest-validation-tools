@@ -11,8 +11,8 @@ permalink: /mibi/
 Related files:
 
 
-- [📝 Excel template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/main/docs/mibi/mibi-metadata.xlsx): For metadata entry.
-- [📝 TSV template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/main/docs/mibi/mibi-metadata.tsv): Alternative for metadata entry.
+- [📝 Excel template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/main/docs/mibi/deprecated/mibi-metadata.xlsx): For metadata entry.
+- [📝 TSV template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/main/docs/mibi/deprecated/mibi-metadata.tsv): Alternative for metadata entry.
 
 
 This schema is for Multiplex Ion Beam Imaging (MIBI). For MIBI, the channel_id (in the Antibodies TSV) is the name of the metal tag on the corresponding antibody.  The other fields function the same way for all assays using antibodies.  For more information, see the [Antibodies TSV documentation](../antibodies).

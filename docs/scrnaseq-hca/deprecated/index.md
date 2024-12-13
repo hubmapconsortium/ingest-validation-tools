@@ -11,8 +11,8 @@ permalink: /scrnaseq-hca/
 Related files:
 - [🔬 Background doc](https://portal.hubmapconsortium.org/docs/assays/rnaseq): More details about this type.
 
-- [📝 Excel template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/main/docs/scrnaseq-hca/scrnaseq-hca-metadata.xlsx): For metadata entry.
-- [📝 TSV template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/main/docs/scrnaseq-hca/scrnaseq-hca-metadata.tsv): Alternative for metadata entry.
+- [📝 Excel template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/main/docs/scrnaseq-hca/deprecated/scrnaseq-hca-metadata.xlsx): For metadata entry.
+- [📝 TSV template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/main/docs/scrnaseq-hca/deprecated/scrnaseq-hca-metadata.tsv): Alternative for metadata entry.
 
 
 

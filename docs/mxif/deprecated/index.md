@@ -11,8 +11,8 @@ permalink: /mxif/
 Related files:
 - [🔬 Background doc](https://portal.hubmapconsortium.org/docs/assays/mxif): More details about this type.
 
-- [📝 Excel template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/main/docs/mxif/mxif-metadata.xlsx): For metadata entry.
-- [📝 TSV template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/main/docs/mxif/mxif-metadata.tsv): Alternative for metadata entry.
+- [📝 Excel template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/main/docs/mxif/deprecated/mxif-metadata.xlsx): For metadata entry.
+- [📝 TSV template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/main/docs/mxif/deprecated/mxif-metadata.tsv): Alternative for metadata entry.
 
 
 This schema is for multiplex immunofluorescence microscopy (MxIF).

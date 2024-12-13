@@ -1,4 +1,4 @@
-description_md: "**Obj x feature table**\n1. **Download the Excel [obj x feature template](https://github.com/hubmapconsortium/dataset-metadata-spreadsheet/tree/main/epic/latest)**\n2. **[Review documentation and examples](https://docs.google.com/document/d/1TSQon8nTIoyA5bEKxd8IAKYO6nsDabGbbQ8uKN1gj4E)**\n3. **Fill out the Excel obj x feature template for your dataset and submit.**"
+description_md: "**Obj x feature table**\n1. **Download the Excel [obj x feature template](https://github.com/hubmapconsortium/dataset-metadata-spreadsheet/tree/main/epic/latest)**\n2. **[Review documentation and examples](https://docs.google.com/document/d/1LgQ509UOoZsY-sZO1cBFtqxWbo3jLGyCVy-_mssBVMw)**\n3. **Fill out the Excel obj x feature template for your dataset and submit.**"
 fields:
 - name: is_cedar
   description: 'Identifies whether the version is hosted by CEDAR'

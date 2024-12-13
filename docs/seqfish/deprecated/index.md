@@ -11,8 +11,8 @@ permalink: /seqfish/
 Related files:
 - [🔬 Background doc](https://portal.hubmapconsortium.org/docs/assays/seqfish): More details about this type.
 
-- [📝 Excel template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/main/docs/seqfish/seqfish-metadata.xlsx): For metadata entry.
-- [📝 TSV template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/main/docs/seqfish/seqfish-metadata.tsv): Alternative for metadata entry.
+- [📝 Excel template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/main/docs/seqfish/deprecated/seqfish-metadata.xlsx): For metadata entry.
+- [📝 TSV template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/main/docs/seqfish/deprecated/seqfish-metadata.tsv): Alternative for metadata entry.
 
 
 This schema is for spatial sequencing by fluorescence in situ hybridization (seqFISH).
