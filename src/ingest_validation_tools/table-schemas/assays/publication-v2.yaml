@@ -1,4 +1,5 @@
 draft: true
+description_md: "The original publication specification can be found [here](https://hubmapconsortium.github.io/ingest-validation-tools/publication/)"
 fields:
 - name: is_cedar
   description: 'Identifies whether the version is hosted by CEDAR'

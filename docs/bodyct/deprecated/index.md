@@ -11,8 +11,8 @@ permalink: /bodyct/
 Related files:
 
 
-- [📝 Excel template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/main/docs/bodyct/bodyct-metadata.xlsx): For metadata entry.
-- [📝 TSV template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/main/docs/bodyct/bodyct-metadata.tsv): Alternative for metadata entry.
+- [📝 Excel template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/main/docs/bodyct/deprecated/bodyct-metadata.xlsx): For metadata entry.
+- [📝 TSV template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/main/docs/bodyct/deprecated/bodyct-metadata.tsv): Alternative for metadata entry.
 
 
 This schema is for clinical imaging using body computed tomography (Body CT).

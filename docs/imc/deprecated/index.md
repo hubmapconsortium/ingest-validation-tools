@@ -11,8 +11,8 @@ permalink: /imc/
 Related files:
 - [🔬 Background doc](https://portal.hubmapconsortium.org/docs/assays/imc): More details about this type.
 
-- [📝 Excel template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/main/docs/imc/imc-metadata.xlsx): For metadata entry.
-- [📝 TSV template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/main/docs/imc/imc-metadata.tsv): Alternative for metadata entry.
+- [📝 Excel template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/main/docs/imc/deprecated/imc-metadata.xlsx): For metadata entry.
+- [📝 TSV template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/main/docs/imc/deprecated/imc-metadata.tsv): Alternative for metadata entry.
 
 
 This schema is for imaging mass cytometry (IMC). IMC uploads require metadata on the antibodies used in the assay to be provided in an Antibodies TSV. For IMC, the `channel_id` is the name of the metal tag on the corresponding antibody.

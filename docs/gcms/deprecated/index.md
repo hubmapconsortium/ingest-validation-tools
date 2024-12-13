@@ -11,8 +11,8 @@ permalink: /gcms/
 Related files:
 
 
-- [📝 Excel template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/main/docs/gcms/gcms-metadata.xlsx): For metadata entry.
-- [📝 TSV template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/main/docs/gcms/gcms-metadata.tsv): Alternative for metadata entry.
+- [📝 Excel template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/main/docs/gcms/deprecated/gcms-metadata.xlsx): For metadata entry.
+- [📝 TSV template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/main/docs/gcms/deprecated/gcms-metadata.tsv): Alternative for metadata entry.
 
 
 This schema is for gas chromatography - mass spectrophotometry (GCMS).

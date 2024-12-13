@@ -12,7 +12,7 @@ Related files:
 
 Excel and TSV templates for this schema will be available when the draft next-generation schema, to be used in all future submissions, is finalized (no later than Sept. 30).
 
-
+The original publication specification can be found [here](https://hubmapconsortium.github.io/ingest-validation-tools/publication/)
 
 ## Metadata schema
 
