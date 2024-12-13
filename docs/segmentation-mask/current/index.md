@@ -16,7 +16,10 @@ Related files:
 - [📝 TSV template](https://raw.githubusercontent.com/hubmapconsortium/dataset-metadata-spreadsheet/main/segmentation-mask/latest/segmentation-mask.tsv): Alternative for metadata entry.
 
 
-For additional documentation on Segmentation Masks, please visit [here](https://docs.google.com/document/d/1TSQon8nTIoyA5bEKxd8IAKYO6nsDabGbbQ8uKN1gj4E).
+**Obj x feature table**
+1. **Download the Excel [obj x feature template](https://github.com/hubmapconsortium/dataset-metadata-spreadsheet/tree/main/epic/latest)**
+2. **[Review documentation and examples](https://docs.google.com/document/d/1TSQon8nTIoyA5bEKxd8IAKYO6nsDabGbbQ8uKN1gj4E)**
+3. **Fill out the Excel obj x feature template for your dataset and submit.**
 
 ## Metadata schema
 
