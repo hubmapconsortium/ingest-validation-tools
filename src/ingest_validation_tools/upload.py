@@ -115,8 +115,6 @@ class Upload:
     def get_info(self) -> InfoDict:
         """
         If called before get_errors, will report dir schema major version only.
-        TODO: create a method that calls get_errors and then get_info as a unified
-        way of retrieving all necessary info about the upload
         """
         self.info.time = datetime.now()
         self.info.dir = str(self.directory_path)
@@ -130,8 +128,8 @@ class Upload:
 
         tsvs = {
             Path(path).name: {
-                "Schema": sv.table_schema,
-                "Metadata schema version": sv.version,
+                "Metadata type": sv.dataset_type if sv.is_cedar else sv.table_schema,
+                "Metadata version": sv.version,
                 "Directory schema version": sv.dir_schema,
             }
             for path, sv in self.effective_tsv_paths.items()

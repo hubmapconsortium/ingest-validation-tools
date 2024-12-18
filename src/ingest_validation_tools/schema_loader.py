@@ -40,8 +40,6 @@ class SchemaVersion:
     could add a class method like https://stackoverflow.com/q/72013377
     """
 
-    # TODO: it would be great to be able to make more assumptions about
-    # rows/assayclassifier data being present
     schema_name: str  # Valid values: canonical assay name OR other type
     version: str = ""
     directory_path: Optional[Path] = None
@@ -70,16 +68,16 @@ class SchemaVersion:
                     an invalid path: {self.path}. Error: {e}
                     """
                 )
-        if self.schema_name not in OtherTypes.with_sample_subtypes():
-            self.metadata_type = "assays"
-        else:
+        if self.schema_name in OtherTypes.with_sample_subtypes():
             self.metadata_type = "others"
-        if self.rows:
-            self.get_row_data()
-        if self.soft_assay_data:
-            self.get_assayclassifier_data()
+        self.get_row_data()
+        self.get_assayclassifier_data()
+        if not self.is_cedar:
+            self._get_table_schema_info()
 
     def get_row_data(self):
+        if not self.rows:
+            return
         if self.rows[0].get("metadata_schema_id"):
             self.is_cedar = True
         else:
@@ -88,11 +86,10 @@ class SchemaVersion:
         if self.is_cedar:
             self.version = self.rows[0].get("metadata_schema_id")
         else:
-            self.version = self.rows[0].get("version")
+            self.version = self.rows[0].get("version", "0")
 
     def get_assayclassifier_data(self):
         self.dir_schema = self.soft_assay_data.get("dir-schema")
-        self.table_schema = self.soft_assay_data.get("tbl-schema")
         contains = self.soft_assay_data.get("must-contain")
         if contains:
             self.contains = [schema.lower() for schema in contains]
@@ -109,6 +106,15 @@ class SchemaVersion:
                 f"Found multiple dataset fields for path {self.path}: {dataset_fields}"
             )
         self.dataset_type = values_found[0]
+
+    def _get_table_schema_info(self):
+        if self.is_cedar:
+            return
+        self.table_schema = self.soft_assay_data.get("tbl-schema")
+        if not self.table_schema:
+            self.table_schema = f"{self.schema_name}-v{self.version}"
+        elif self.table_schema.endswith("v"):
+            self.table_schema = self.table_schema + str(self.version)
 
 
 @dataclass
