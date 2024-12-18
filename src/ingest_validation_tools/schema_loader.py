@@ -35,7 +35,9 @@ class PreflightError(Exception):
 @dataclass
 class SchemaVersion:
     """
-    Create a SchemaVersion from soft assay types data.
+    Create a SchemaVersion from assayclassifier and TSV data;
+    if either component is missing, downstream functionality will
+    likely fail.
     This assumes keys are predictable. If the rules tend to vary, we
     could add a class method like https://stackoverflow.com/q/72013377
     """
