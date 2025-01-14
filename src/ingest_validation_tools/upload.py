@@ -152,10 +152,6 @@ class Upload:
         if self.errors:
             return self.errors
 
-        if not self.effective_tsv_paths:
-            self.errors.preflight.value = "There are no effective TSVs."
-            return self.errors
-
         # Collect errors
         self._get_local_tsv_errors()
         self._get_directory_errors()
@@ -252,6 +248,8 @@ class Upload:
         self.effective_tsv_paths = {
             k: unsorted_effective_tsv_paths[k] for k in sorted(unsorted_effective_tsv_paths.keys())
         }
+        if not self.effective_tsv_paths:
+            self.errors.preflight.value = "There are no effective TSVs."
 
     def _check_single_assay(self):
         types_counter = Counter([v.dataset_type for v in self.effective_tsv_paths.values()])
@@ -848,8 +846,12 @@ class Upload:
             and not any([fnmatch(path.name, glob) for glob in self.upload_ignore_globs])
         }
         unreferenced_paths = non_metadata_paths - referenced_data_paths
-        unreferenced_dir_paths = [path for path in unreferenced_paths if Path(path).is_dir()]
-        unreferenced_file_paths = [path for path in unreferenced_paths if not Path(path).is_dir()]
+        unreferenced_dir_paths = [
+            path for path in unreferenced_paths if Path(self.directory_path, path).is_dir()
+        ]
+        unreferenced_file_paths = [
+            path for path in unreferenced_paths if not Path(self.directory_path, path).is_dir()
+        ]
         errors = {}
         if unreferenced_dir_paths:
             errors["Directories"] = unreferenced_dir_paths

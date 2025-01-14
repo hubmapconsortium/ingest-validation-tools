@@ -117,6 +117,10 @@ class SchemaVersion:
             self.table_schema = f"{self.schema_name}-v{self.version}"
         elif self.table_schema.endswith("v"):
             self.table_schema = self.table_schema + str(self.version)
+        else:
+            raise PreflightError(
+                f"No table_schema for upload at {self.directory_path}. Schema: {self.schema_name}. Version: {self.version}."
+            )
 
 
 @dataclass
@@ -275,7 +279,7 @@ def get_table_schema(
         )
     except FileNotFoundError:
         raise FileNotFoundError(
-            f"No such file or directory: src/ingest_validation_tools/{schema_version.metadata_type}/{schema_version.table_schema}.yaml"  # noqa: E501
+            f"No such file or directory: {_table_schemas_path}/{schema_version.metadata_type}/{schema_version.table_schema}.yaml"  # noqa: E501
         )
     fields_wo_headers = get_fields_wo_headers(schema)
     if not keep_headers:

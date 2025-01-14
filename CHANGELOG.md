@@ -4,6 +4,7 @@
 - Handle null responses for keys from assayclassifier endpoint
 - Remove assumption of table_schema and version corresponding to table_schema from SchemaVersion
 - Update fixture data with new UBKG responses
+- Updates to examples, small cosmetic updates
 
 ## v0.0.29
 - Add CosMX directory schema
