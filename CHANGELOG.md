@@ -1,6 +1,7 @@
 # Changelog
 ## v0.0.30 (in progress)
 - Update Seg Mask documentation
+- Update CosMx directory schema
 
 ## v0.0.29
 - Add CosMX directory schema
