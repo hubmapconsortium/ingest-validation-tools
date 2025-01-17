@@ -298,6 +298,60 @@ def get_other_names():
         p.stem.split("-v")[0] for p in (Path(__file__).parent / "table-schemas/others").iterdir()
     ]
 
+def is_schema_latest_version(
+    schema_id: str,
+    latest_version_name: str = "isLatestVersion"
+) -> boolean:
+    """
+    Returns true/false if the provided schema version is the latest version.
+    Can accept an alternative `latest_version_name` that will check against a specific key. These can be:
+        isLatestVersion,
+        isLatestPublishedVersion,
+        isLatestDraftVersion
+    This function defaults to checking against `isLatestVersion`
+    """
+    try:
+        latest_version = get_latest_schema_version(schema_id, latest_version_name)
+        return schema_id == latest_version
+    except Exception as e:
+        return rest_server_err(e, True)
+
+
+def get_latest_schema_version(schema_id: str, latest_version_name: str) -> object:
+    latest_schema_version = ""
+    try:
+        schema_details = get_schema_details(schema_id)
+        if 'resources' not in schema_details:
+            return jsonify({
+                "error": f"Error occurred while gathering schemas for schema id {schema_id}. {schema_details['errorMessage']}"}), 500
+        for schema in schema_details['resources']:
+            if schema[latest_version_name]:
+                latest_schema_version = schema["@id"].strip("https://repo.metadatacenter.org/templates/")
+            break
+        return latest_schema_version
+
+    except Exception as e:
+        logger.exception(f"Exception while gathering schemas for schema id {schema_id}. {e}")
+        return Response(
+            f"Error occurred while gathering schemas for schema id {schema_id}: " + str(e), 500
+        )
+
+
+def get_schema_details(schema_id: str) -> object:
+    logger.debug(f"======get_schema_details: {schema_id}======")
+    # TODO: Need to set up CEDAR_API_URL and CEDAR_API_KEY
+    cedar_versions_url = current_app.config['CEDAR_API_URL'] + schema_id + "/versions"
+    response = requests.get(
+        url=f"{cedar_versions_url}",
+        headers={
+            'Accept': 'application/json',
+            'Authorization': 'apiKey ' + current_app.config['CEDAR_API_KEY'],
+        },
+        verify=self.ssl_verification_enabed
+    )
+    return response.json()
+
+
 
 def get_tsv_errors(
     tsv_path: Union[str, Path],
@@ -381,7 +435,7 @@ def get_tsv_errors(
     return upload.errors.tsv_only_errors_by_path(str(tsv_path))
 
 
-def cedar_api_call(tsv_path: Union[str, Path]) -> requests.models.Response:
+def cedar_validation_call(tsv_path: Union[str, Path]) -> requests.models.Response:
     with open(tsv_path, "rb") as f:
         file = {"input_file": f}
         headers = {"content_type": "multipart/form-data"}

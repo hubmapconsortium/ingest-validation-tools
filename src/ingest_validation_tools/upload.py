@@ -29,7 +29,7 @@ from ingest_validation_tools.schema_loader import (
 )
 from ingest_validation_tools.table_validator import ReportType, get_table_errors
 from ingest_validation_tools.validation_utils import (
-    cedar_api_call,
+    cedar_validation_call,
     get_data_dir_errors,
     get_entity_api_data,
     get_entity_type_vals,
@@ -342,7 +342,7 @@ class Upload:
         schema: SchemaVersion,
     ) -> List[Union[str, Dict]]:
         errors = []
-        response = cedar_api_call(schema.path)
+        response = cedar_validation_call(schema.path)
         if response.status_code != 200:
             raise Exception(response.json())
         elif response.json().get("reporting") and len(response.json().get("reporting")) > 0:
