@@ -5,8 +5,8 @@ Git version: WILL_CHANGE
 Directory: examples/dataset-iec-examples/good-example/upload
 TSVs:
   metadata.tsv:
-    Schema: scatacseq-v0
-    Metadata schema version: scatacseq-v0
+    Metadata type: scatacseq-v0
+    Metadata version: '0'
     Directory schema version: scatacseq-v0.0
 
 ```

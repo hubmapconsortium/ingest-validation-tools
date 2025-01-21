@@ -116,7 +116,6 @@ class InfoDict:
             "Time": self.time,
             "Git version": self.git,
             "Directory": self.dir,
-            # "Directory schema version": self.dir_schema,
             "TSVs": self.tsvs,
         }
         if self.successful_plugins:
