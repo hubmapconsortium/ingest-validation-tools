@@ -7,6 +7,6 @@ TSVs:
   validated-histology-metadata.tsv:
     Metadata type: Histology
     Metadata version: e7475329-9a60-4088-8e34-19a3828e0b3b
-    Directory schema version: histology-v2.0
+    Directory schema version: histology-v2.1
 
 ```
