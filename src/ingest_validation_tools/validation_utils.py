@@ -19,6 +19,7 @@ from ingest_validation_tools.enums import (
     EntityTypes,
     OtherTypes,
     Sample,
+    CedarSchemaVersionTypes
 )
 from ingest_validation_tools.schema_loader import (
     EntityTypeInfo,
@@ -27,6 +28,7 @@ from ingest_validation_tools.schema_loader import (
     get_possible_directory_schemas,
 )
 from ingest_validation_tools.table_validator import ReportType
+from lxml.xslt import message
 
 
 def match_field_in_unique_fields(
@@ -300,8 +302,8 @@ def get_other_names():
 
 def is_schema_latest_version(
     schema_id: str,
-    latest_version_name: str = "isLatestVersion"
-) -> boolean:
+    latest_version_name: str = CedarSchemaVersionTypes.IS_LATEST_VERSION
+) -> bool:
     """
     Returns true/false if the provided schema version is the latest version.
     Can accept an alternative `latest_version_name` that will check against a specific key. These can be:
@@ -311,10 +313,14 @@ def is_schema_latest_version(
     This function defaults to checking against `isLatestVersion`
     """
     try:
+        latest_version_name = CedarSchemaVersionTypes[latest_version_name]
         latest_version = get_latest_schema_version(schema_id, latest_version_name)
         return schema_id == latest_version
+    except KeyError as ke:
+        message = {f"Invalid latest_version_name {latest_version_name}": ke}
     except Exception as e:
-        return rest_server_err(e, True)
+        message = {f"Exception while gathering schemas for schema id {schema_id}": e}
+    raise TSVError(message)
 
 
 def get_latest_schema_version(schema_id: str, latest_version_name: str) -> object:
@@ -322,8 +328,8 @@ def get_latest_schema_version(schema_id: str, latest_version_name: str) -> objec
     try:
         schema_details = get_schema_details(schema_id)
         if 'resources' not in schema_details:
-            return jsonify({
-                "error": f"Error occurred while gathering schemas for schema id {schema_id}. {schema_details['errorMessage']}"}), 500
+            message = {f"Error occurred while gathering schemas for schema id {schema_id}":f"{schema_details['errorMessage']}"}
+            raise TSVError(message)
         for schema in schema_details['resources']:
             if schema[latest_version_name]:
                 latest_schema_version = schema["@id"].strip("https://repo.metadatacenter.org/templates/")
@@ -331,14 +337,13 @@ def get_latest_schema_version(schema_id: str, latest_version_name: str) -> objec
         return latest_schema_version
 
     except Exception as e:
-        logger.exception(f"Exception while gathering schemas for schema id {schema_id}. {e}")
-        return Response(
-            f"Error occurred while gathering schemas for schema id {schema_id}: " + str(e), 500
-        )
+        logging.exception(f"Exception while gathering schemas for schema id {schema_id}. {e}")
+        message = {f"Exception while gathering schemas for schema id {schema_id}": e}
+    raise TSVError(message)
 
 
 def get_schema_details(schema_id: str) -> object:
-    logger.debug(f"======get_schema_details: {schema_id}======")
+    logging.debug(f"======get_schema_details: {schema_id}======")
     # TODO: Need to set up CEDAR_API_URL and CEDAR_API_KEY
     cedar_versions_url = current_app.config['CEDAR_API_URL'] + schema_id + "/versions"
     response = requests.get(
