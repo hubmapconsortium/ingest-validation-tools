@@ -7,6 +7,6 @@ TSVs:
   metadata.tsv:
     Schema: phenocycler-v2
     Metadata schema version: '2'
-    Directory schema version: phenocycler-v2.0
+    Directory schema version: phenocycler-v2.1
 
 ```

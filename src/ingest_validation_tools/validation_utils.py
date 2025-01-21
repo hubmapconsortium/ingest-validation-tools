@@ -4,7 +4,7 @@ from collections import defaultdict
 from csv import DictReader
 from pathlib import Path, PurePath
 from typing import Dict, List, Optional, Union
-from urllib.parse import urljoin
+from urllib.parse import quote, urljoin
 
 import requests
 
@@ -15,11 +15,11 @@ from ingest_validation_tools.directory_validator import (
 from ingest_validation_tools.enums import (
     OTHER_FIELDS_UNIQUE_FIELDS_MAP,
     UNIQUE_FIELDS_MAP,
+    CedarSchemaVersionTypes,
     DatasetType,
     EntityTypes,
     OtherTypes,
     Sample,
-    CedarSchemaVersionTypes
 )
 from ingest_validation_tools.schema_loader import (
     EntityTypeInfo,
@@ -28,7 +28,13 @@ from ingest_validation_tools.schema_loader import (
     get_possible_directory_schemas,
 )
 from ingest_validation_tools.table_validator import ReportType
-from lxml.xslt import message
+
+# TSV Metadata Validator
+CEDAR_VALIDATION_URL = "https://api.metadatavalidator.metadatacenter.org/service/validate-tsv"
+# Base URL to use for version checking
+CEDAR_VERSIONS_URL_BASE = "https://resource.metadatacenter.org/templates/"
+# Single template base URL
+CEDAR_SINGLE_TEMPLATE_URL_BASE = "https://repo.metadatacenter.org/templates/"
 
 
 def match_field_in_unique_fields(
@@ -300,9 +306,11 @@ def get_other_names():
         p.stem.split("-v")[0] for p in (Path(__file__).parent / "table-schemas/others").iterdir()
     ]
 
+
 def is_schema_latest_version(
     schema_id: str,
-    latest_version_name: str = CedarSchemaVersionTypes.IS_LATEST_VERSION
+    cedar_api_key: str,
+    latest_version_name: str = CedarSchemaVersionTypes.IS_LATEST_VERSION._value_,
 ) -> bool:
     """
     Returns true/false if the provided schema version is the latest version.
@@ -313,8 +321,10 @@ def is_schema_latest_version(
     This function defaults to checking against `isLatestVersion`
     """
     try:
-        latest_version_name = CedarSchemaVersionTypes[latest_version_name]
-        latest_version = get_latest_schema_version(schema_id, latest_version_name)
+        assert CedarSchemaVersionTypes[
+            latest_version_name
+        ], "latest_version_name is not a member of CedarSchemaVersionTypes enum"
+        latest_version = get_latest_schema_version(schema_id, latest_version_name, cedar_api_key)
         return schema_id == latest_version
     except KeyError as ke:
         message = {f"Invalid latest_version_name {latest_version_name}": ke}
@@ -323,16 +333,18 @@ def is_schema_latest_version(
     raise TSVError(message)
 
 
-def get_latest_schema_version(schema_id: str, latest_version_name: str) -> object:
+def get_latest_schema_version(schema_id: str, cedar_api_key: str, latest_version_name: str) -> str:
     latest_schema_version = ""
     try:
-        schema_details = get_schema_details(schema_id)
-        if 'resources' not in schema_details:
-            message = {f"Error occurred while gathering schemas for schema id {schema_id}":f"{schema_details['errorMessage']}"}
+        schema_details = get_schema_details(schema_id, cedar_api_key)
+        if "resources" not in schema_details:
+            message = {
+                f"Error occurred while gathering schemas for schema id {schema_id}": f"{schema_details['errorMessage']}"
+            }
             raise TSVError(message)
-        for schema in schema_details['resources']:
+        for schema in schema_details["resources"]:
             if schema[latest_version_name]:
-                latest_schema_version = schema["@id"].strip("https://repo.metadatacenter.org/templates/")
+                latest_schema_version = schema["@id"].strip(CEDAR_SINGLE_TEMPLATE_URL_BASE)
             break
         return latest_schema_version
 
@@ -342,20 +354,17 @@ def get_latest_schema_version(schema_id: str, latest_version_name: str) -> objec
     raise TSVError(message)
 
 
-def get_schema_details(schema_id: str) -> object:
+def get_schema_details(schema_id: str, cedar_api_key: str) -> dict:
     logging.debug(f"======get_schema_details: {schema_id}======")
-    # TODO: Need to set up CEDAR_API_URL and CEDAR_API_KEY
-    cedar_versions_url = current_app.config['CEDAR_API_URL'] + schema_id + "/versions"
+    encoded_template_url = quote(f"{CEDAR_SINGLE_TEMPLATE_URL_BASE}{schema_id}", safe="")
     response = requests.get(
-        url=f"{cedar_versions_url}",
+        url=urljoin(CEDAR_VERSIONS_URL_BASE, f"{encoded_template_url}/versions"),
         headers={
-            'Accept': 'application/json',
-            'Authorization': 'apiKey ' + current_app.config['CEDAR_API_KEY'],
+            "Accept": "application/json",
+            "Authorization": f"apiKey {cedar_api_key}",
         },
-        verify=self.ssl_verification_enabed
     )
     return response.json()
-
 
 
 def get_tsv_errors(
@@ -446,7 +455,7 @@ def cedar_validation_call(tsv_path: Union[str, Path]) -> requests.models.Respons
         headers = {"content_type": "multipart/form-data"}
         try:
             response = requests.post(
-                "https://api.metadatavalidator.metadatacenter.org/service/validate-tsv",
+                CEDAR_VALIDATION_URL,
                 headers=headers,
                 files=file,
             )

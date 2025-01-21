@@ -1,4 +1,4 @@
-from enum import Enum, unique, StrEnum
+from enum import Enum, unique
 from typing import Dict, List
 
 # The assay_type list is *all* the values which have ever been used,
@@ -207,7 +207,7 @@ OTHER_FIELDS_UNIQUE_FIELDS_MAP = {
 }
 
 
-class CedarSchemaVersionTypes(StrEnum):
-    IS_LATEST_VERSION = 'isLatestVersion'
-    IS_LATEST_PUBLISHED_VERSION = 'isLatestPublishedVersion'
-    IS_LATEST_DRAFT_VERSION = 'isLatestDraftVersion'
+class CedarSchemaVersionTypes(Enum):
+    IS_LATEST_VERSION = "isLatestVersion"
+    IS_LATEST_PUBLISHED_VERSION = "isLatestPublishedVersion"
+    IS_LATEST_DRAFT_VERSION = "isLatestDraftVersion"
