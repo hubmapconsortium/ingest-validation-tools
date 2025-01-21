@@ -28,7 +28,24 @@ Related files:
 <br>
 
 ## Directory schemas
-<summary><b>Version 2.2 (use this one)</b></summary>
+<summary><b>Version 2.3 (use this one)</b></summary>
+
+| pattern | required? | description |
+| --- | --- | --- |
+| <code>extras\/.*</code> | ✓ | Folder for general lab-specific files related to the dataset. |
+| <code>extras\/mass-spec_environment\.(?:json&#124;tsv)$</code> |  | JSON or TSV file containing the machine parameters/settings. This is akin to the microscope_environment.json file that's used to describe the imaging equipment. |
+| <code>raw\/.*</code> | ✓ | Raw data files for the experiment. |
+| <code>raw\/[^\/]+\.raw$</code> (example: <code>raw/20200707_rmi049_75umPLRPS_Kidney_GF10pc_VAN0003LK32_biorep05_techrep02.raw</code>) | ✓ | Raw mass spectrometry data from an assay of LC-MS, MS, LC-MS Bottom-Up, MS Bottom-Up, LC-MS Top-Down, or MS Top-Down that describes an analyte class of protein, metabolites, lipids, peptides, phosphopeptides, or glycans. |
+| <code>raw\/[^\/]+\.(?:mzML&#124;d)$</code> | ✓ | Raw mass spectrometry data from an assay of LC-MS, MS, LC-MS Bottom-Up, MS Bottom-Up, LC-MS Top-Down, or MS Top-Down that describes an analyte class of protein, metabolites, lipids, peptides, phosphopeptides, or glycans. |
+| <code>lab_processed\/.*</code> |  | Lab processed files |
+| <code>lab_processed\/ID_search_results\/.*</code> |  | Identification results. |
+| <code>lab_processed\/ID_search_results\/[^\/]+\.csv$</code> |  | Annotated data describing (qualitative or quantitative) the proteins, metabolites, lipids, peptides, phosphopeptides, or glycans identified from the corresponding raw data. In the case of MS1 this file should include a list of features. |
+| <code>lab_processed\/ID_metadata\/.*</code> |  | Identification search parameters/metadata. |
+| <code>lab_processed\/ID_metadata\/[^\/]+\.csv$</code> |  | Software settings used during the analyte identification process (e.g., from MaxQuant or Proteome Discoverer). |
+| <code>lab_processed\/QC_results\/.*</code> |  | Output file resulting from QC analysis. |
+| <code>lab_processed\/QC_results\/[^\/]+\.txt$</code> |  | A list of metrics with the score of the current dataset that shows the quality of data collection. |
+
+<summary><b>Version 2.2</b></summary>
 
 | pattern | required? | description |
 | --- | --- | --- |

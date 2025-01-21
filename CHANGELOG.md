@@ -1,6 +1,8 @@
 # Changelog
 ## v0.0.30 (in progress)
 - Update Seg Mask documentation
+- Update CosMx directory schema
+- Constrain file patterns to end of line for all published directory schemas
 - Handle null responses for keys from assayclassifier endpoint
 - Remove assumption of table_schema and version corresponding to table_schema from SchemaVersion
 - Update fixture data with new UBKG responses

@@ -30,7 +30,18 @@ For additional documentation on this dataset type, please visit [here](https://d
 <br>
 
 ## Directory schemas
-<summary><b>Version 2.0 (use this one)</b></summary>
+<summary><b>Version 2.1 (use this one)</b></summary>
+
+| pattern | required? | description |
+| --- | --- | --- |
+| <code>extras\/expected_cell_count\.txt$</code> |  | The expected cell count for the RNA sequencing dataset. This is an optional file that, if present, will be used by the HIVE's RNA sequencing analysis pipeline. With some datasets, knowing the expected cell count has improved the output of the HIVE analysis pipeline. |
+| <code>raw\/.*</code> | ✓ | All raw data files for the experiment. |
+| <code>raw\/fastq\/.*</code> | ✓ | Raw sequencing files for the experiment. |
+| <code>raw\/fastq\/RNA\/.*</code> | ✓ | Directory containing fastq files pertaining to RNAseq sequencing. |
+| <code>raw\/fastq\/RNA\/[^\/]+_R[^\/]+\.fastq\.gz$</code> | ✓ | This is a GZip'd version of the forward and reverse fastq files from RNAseq sequencing (R1 and R2). |
+| <code>lab_processed\/.*</code> |  | Experiment files that were processed by the lab generating the data. |
+
+<summary><b>Version 2.0</b></summary>
 
 | pattern | required? | description |
 | --- | --- | --- |
