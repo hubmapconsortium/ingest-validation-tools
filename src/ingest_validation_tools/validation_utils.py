@@ -308,7 +308,7 @@ def get_other_names():
 
 
 def is_schema_latest_version(
-    schema_id: str,
+    schema_version: str,
     cedar_api_key: str,
     latest_version_name: str = CedarSchemaVersionTypes.IS_LATEST_VERSION._value_,
 ) -> bool:
@@ -324,22 +324,23 @@ def is_schema_latest_version(
         assert CedarSchemaVersionTypes[
             latest_version_name
         ], "latest_version_name is not a member of CedarSchemaVersionTypes enum"
-        latest_version = get_latest_schema_version(schema_id, latest_version_name, cedar_api_key)
-        return schema_id == latest_version
+        latest_version = get_latest_schema_version(schema_version, latest_version_name, cedar_api_key)
+        return schema_version == latest_version
+    # TODO: We probably don't need this exception handle
     except KeyError as ke:
         message = {f"Invalid latest_version_name {latest_version_name}": ke}
     except Exception as e:
-        message = {f"Exception while gathering schemas for schema id {schema_id}": e}
+        message = {f"Exception while gathering schemas for schema {schema_version}": e}
     raise TSVError(message)
 
 
-def get_latest_schema_version(schema_id: str, cedar_api_key: str, latest_version_name: str) -> str:
+def get_latest_schema_version(schema_version: str, cedar_api_key: str, latest_version_name: str) -> str:
     latest_schema_version = ""
     try:
-        schema_details = get_schema_details(schema_id, cedar_api_key)
+        schema_details = get_schema_details(schema_version, cedar_api_key)
         if "resources" not in schema_details:
             message = {
-                f"Error occurred while gathering schemas for schema id {schema_id}": f"{schema_details['errorMessage']}"
+                f"Error occurred while gathering schemas for schema {schema_version}": f"{schema_details['errorMessage']}"
             }
             raise TSVError(message)
         for schema in schema_details["resources"]:
@@ -349,14 +350,14 @@ def get_latest_schema_version(schema_id: str, cedar_api_key: str, latest_version
         return latest_schema_version
 
     except Exception as e:
-        logging.exception(f"Exception while gathering schemas for schema id {schema_id}. {e}")
-        message = {f"Exception while gathering schemas for schema id {schema_id}": e}
+        logging.exception(f"Exception while gathering schemas for schema {schema_version}. {e}")
+        message = {f"Exception while gathering schemas for schema {schema_version}": e}
     raise TSVError(message)
 
 
-def get_schema_details(schema_id: str, cedar_api_key: str) -> dict:
-    logging.debug(f"======get_schema_details: {schema_id}======")
-    encoded_template_url = quote(f"{CEDAR_SINGLE_TEMPLATE_URL_BASE}{schema_id}", safe="")
+def get_schema_details(schema_version: str, cedar_api_key: str) -> dict:
+    logging.debug(f"======get_schema_details: {schema_version}======")
+    encoded_template_url = quote(f"{CEDAR_SINGLE_TEMPLATE_URL_BASE}{schema_version}", safe="")
     response = requests.get(
         url=urljoin(CEDAR_VERSIONS_URL_BASE, f"{encoded_template_url}/versions"),
         headers={

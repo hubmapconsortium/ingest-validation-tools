@@ -115,8 +115,6 @@ class Upload:
     def get_info(self) -> InfoDict:
         """
         If called before get_errors, will report dir schema major version only.
-        TODO: create a method that calls get_errors and then get_info as a unified
-        way of retrieving all necessary info about the upload
         """
         self.info.time = datetime.now()
         self.info.dir = str(self.directory_path)
@@ -130,8 +128,8 @@ class Upload:
 
         tsvs = {
             Path(path).name: {
-                "Schema": sv.table_schema,
-                "Metadata schema version": sv.version,
+                "Metadata type": sv.dataset_type if sv.is_cedar else sv.table_schema,
+                "Metadata version": sv.version,
                 "Directory schema version": sv.dir_schema,
             }
             for path, sv in self.effective_tsv_paths.items()
@@ -152,10 +150,6 @@ class Upload:
 
         # Return if PreflightErrors found
         if self.errors:
-            return self.errors
-
-        if not self.effective_tsv_paths:
-            self.errors.preflight.value = "There are no effective TSVs."
             return self.errors
 
         # Collect errors
@@ -254,6 +248,8 @@ class Upload:
         self.effective_tsv_paths = {
             k: unsorted_effective_tsv_paths[k] for k in sorted(unsorted_effective_tsv_paths.keys())
         }
+        if not self.effective_tsv_paths:
+            self.errors.preflight.value = "There are no effective TSVs."
 
     def _check_single_assay(self):
         types_counter = Counter([v.dataset_type for v in self.effective_tsv_paths.values()])
@@ -850,8 +846,12 @@ class Upload:
             and not any([fnmatch(path.name, glob) for glob in self.upload_ignore_globs])
         }
         unreferenced_paths = non_metadata_paths - referenced_data_paths
-        unreferenced_dir_paths = [path for path in unreferenced_paths if Path(path).is_dir()]
-        unreferenced_file_paths = [path for path in unreferenced_paths if not Path(path).is_dir()]
+        unreferenced_dir_paths = [
+            path for path in unreferenced_paths if Path(self.directory_path, path).is_dir()
+        ]
+        unreferenced_file_paths = [
+            path for path in unreferenced_paths if not Path(self.directory_path, path).is_dir()
+        ]
         errors = {}
         if unreferenced_dir_paths:
             errors["Directories"] = unreferenced_dir_paths

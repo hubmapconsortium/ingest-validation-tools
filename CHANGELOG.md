@@ -1,8 +1,14 @@
 # Changelog
-## v0.0.30 (in progress)
+## v0.0.31 (in progress)
+- Adding new is_schema_latest_version method to check if provided Cedar spec is the latest
+
+## v0.0.30
 - Update Seg Mask documentation
 - Update CosMx directory schema
-- Adding new is_schema_latest_version method to check if provided Cedar spec is the latest
+- Constrain file patterns to end of line for all published directory schemas
+- Handle null responses for keys from assayclassifier endpoint
+- Remove assumption of table_schema and version corresponding to table_schema from SchemaVersion
+- Update fixture data with new UBKG responses
 
 ## v0.0.29
 - Add CosMX directory schema

@@ -190,7 +190,7 @@ class UpdateData:
             readme = self.open_or_create_readme()
             if self.readme_diff(readme, cleaned_report):
                 self.write_readme(cleaned_report)
-                if not self.ignore_online_exceptions:
+                if not self.dry_run:
                     dataset_test(
                         self.dir,
                         self.opts,

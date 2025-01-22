@@ -35,17 +35,17 @@ class PreflightError(Exception):
 @dataclass
 class SchemaVersion:
     """
-    Create a SchemaVersion from soft assay types data.
+    Create a SchemaVersion from assayclassifier and TSV data;
+    if either component is missing, downstream functionality will
+    likely fail.
     This assumes keys are predictable. If the rules tend to vary, we
     could add a class method like https://stackoverflow.com/q/72013377
     """
 
-    # TODO: it would be great to be able to make more assumptions about
-    # rows/assayclassifier data being present
     schema_name: str  # Valid values: canonical assay name OR other type
     version: str = ""
     directory_path: Optional[Path] = None
-    table_schema: str = ""
+    table_schema: Optional[str] = ""  # legacy only
     path: Union[Path, str] = ""
     contributors_paths: List[str] = field(default_factory=list)
     antibodies_paths: List[str] = field(default_factory=list)
@@ -53,8 +53,7 @@ class SchemaVersion:
     soft_assay_data: Dict = field(default_factory=dict)
     is_cedar: bool = False
     dataset_type: str = ""  # String from assay_type or dataset_type field in TSV
-    vitessce_hints: List = field(default_factory=list)
-    dir_schema: str = ""
+    dir_schema: Optional[str] = None
     metadata_type: str = "assays"
     contains: List = field(default_factory=list)
     entity_type_info: Optional[EntityTypeInfo] = None
@@ -71,39 +70,31 @@ class SchemaVersion:
                     an invalid path: {self.path}. Error: {e}
                     """
                 )
-        if self.schema_name not in OtherTypes.with_sample_subtypes():
-            self.metadata_type = "assays"
-        else:
+        if self.schema_name in OtherTypes.with_sample_subtypes():
             self.metadata_type = "others"
-        if self.rows:
-            self.get_row_data()
-        if self.soft_assay_data:
-            self.get_assayclassifier_data()
-        if not self.version:
-            if self.is_cedar:
-                self.version = "2"
-            else:
-                self.version = "0"
-        if not self.table_schema:
-            self.table_schema = f"{self.schema_name}-v{self.version}"
+        self.get_row_data()
+        self.get_assayclassifier_data()
+        if not self.is_cedar:
+            self._get_table_schema_info()
 
     def get_row_data(self):
+        if not self.rows:
+            return
         if self.rows[0].get("metadata_schema_id"):
             self.is_cedar = True
         else:
             self.is_cedar = False
         self.get_dataset_type_value()
-        self.version = self.rows[0].get("version")
+        if self.is_cedar:
+            self.version = self.rows[0].get("metadata_schema_id")
+        else:
+            self.version = self.rows[0].get("version", "0")
 
     def get_assayclassifier_data(self):
-        self.vitessce_hints = self.soft_assay_data.get("vitessce-hints", [])
-        self.dir_schema = self.soft_assay_data.get("dir-schema", "")
-        self.table_schema = self.soft_assay_data.get("tbl-schema", "")
-        match = re.match(r".+-v(\d+)", self.table_schema)
-        if match:
-            self.version = match[0]
-        contains = self.soft_assay_data.get("must-contain", [])
-        self.contains = [schema.lower() for schema in contains]
+        self.dir_schema = self.soft_assay_data.get("dir-schema")
+        contains = self.soft_assay_data.get("must-contain")
+        if contains:
+            self.contains = [schema.lower() for schema in contains]
 
     def get_dataset_type_value(self):
         dataset_fields = {
@@ -117,6 +108,19 @@ class SchemaVersion:
                 f"Found multiple dataset fields for path {self.path}: {dataset_fields}"
             )
         self.dataset_type = values_found[0]
+
+    def _get_table_schema_info(self):
+        if self.is_cedar:
+            return
+        self.table_schema = self.soft_assay_data.get("tbl-schema")
+        if not self.table_schema:
+            self.table_schema = f"{self.schema_name}-v{self.version}"
+        elif self.table_schema.endswith("v"):
+            self.table_schema = self.table_schema + str(self.version)
+        else:
+            raise PreflightError(
+                f"No table_schema for upload at {self.directory_path}. Schema: {self.schema_name}. Version: {self.version}."
+            )
 
 
 @dataclass
@@ -275,7 +279,7 @@ def get_table_schema(
         )
     except FileNotFoundError:
         raise FileNotFoundError(
-            f"No such file or directory: src/ingest_validation_tools/{schema_version.metadata_type}/{schema_version.table_schema}.yaml"  # noqa: E501
+            f"No such file or directory: {_table_schemas_path}/{schema_version.metadata_type}/{schema_version.table_schema}.yaml"  # noqa: E501
         )
     fields_wo_headers = get_fields_wo_headers(schema)
     if not keep_headers:

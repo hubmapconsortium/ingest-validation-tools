@@ -28,7 +28,21 @@ Related files:
 <br>
 
 ## Directory schemas
-<summary><b>Version 2.0 (use this one)</b></summary>
+<summary><b>Version 2.1 (use this one)</b></summary>
+
+| pattern | required? | description |
+| --- | --- | --- |
+| <code>extras\/.*</code> | ✓ | Folder for general lab-specific files related to the dataset. |
+| <code>raw\/.*</code> | ✓ | All raw data files for the experiment. |
+| <code>raw\/fastq\/.*</code> | ✓ | Raw sequencing files for the experiment. |
+| <code>raw\/fastq\/[^\/]+_R[^\/]+\.fastq\.gz$</code> | ✓ | The raw un-multiplexed fastq files. |
+| <code>lab_processed\/.*</code> | ✓ | Experiment files that were processed by the lab generating the data. |
+| <code>lab_processed\/fastq\/DNA\/.*</code> | ✓ | Directory containing fastq files pertaining to whole genome sequencing. |
+| <code>lab_processed\/fastq\/DNA\/[^\/]+\.fastq\.gz$</code> | ✓ | This is a GZip'd version of the fastq files from whole genome sequencing. |
+| <code>lab_processed\/fastq\/RNA\/.*</code> | ✓ | Directory containing fastq files pertaining to RNAseq sequencing. |
+| <code>lab_processed\/fastq\/RNA\/[^\/]+\.fastq\.gz$</code> | ✓ | This is a GZip'd version of the forward and reverse fastq files from RNAseq sequencing (R1 and R2). |
+
+<summary><b>Version 2.0</b></summary>
 
 | pattern | required? | description |
 | --- | --- | --- |

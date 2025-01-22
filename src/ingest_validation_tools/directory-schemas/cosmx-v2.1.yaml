@@ -52,7 +52,7 @@ files:
   -
     pattern: raw\/transcript_locations\.csv$
     required: False
-    description: 'Contains decription of the location of all decoded transcripts. The origin of the coordinate is 0,0 at the top left corner of the image. The file should include: gene name, x, y, z (optional), quality score (optional). It is expected that the first row in the file contains the column header.'
+    description: 'Contains description of the location of all decoded transcripts. The origin of the coordinate is 0,0 at the top left corner of the image. The file should include: gene name, x, y, z (optional), quality score (optional). It is expected that the first row in the file contains the column header.'
   -
     pattern: raw\/custom_gene_list\.csv$
     required: False
@@ -86,5 +86,5 @@ files:
   -
     pattern: lab_processed\/images\/[^\/]*ome-tiff\.channels\.csv$
     required: True
-    description: This file provides essential documentation pertaining to each channel of the accommpanying OME TIFF. The file should contain one row per OME TIFF channel. The required fields are detailed <https://docs.google.com/spreadsheets/d/1xEJSb0xn5C5fB3k62pj1CyHNybpt4-YtvUs5SUMS44o/edit#gid=0>
+    description: This file provides essential documentation pertaining to each channel of the accompanying OME TIFF. The file should contain one row per OME TIFF channel. The required fields are detailed <https://docs.google.com/spreadsheets/d/1xEJSb0xn5C5fB3k62pj1CyHNybpt4-YtvUs5SUMS44o/edit#gid=0>
     is_qa_qc: False

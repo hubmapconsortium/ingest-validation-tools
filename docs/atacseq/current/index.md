@@ -30,7 +30,18 @@ For additional documentation on this dataset type, please visit [here](https://d
 <br>
 
 ## Directory schemas
-<summary><b>Version 2.0 (use this one)</b></summary>
+<summary><b>Version 2.1 (use this one)</b></summary>
+
+| pattern | required? | description |
+| --- | --- | --- |
+| <code>extras\/.*</code> | ✓ | Folder for general lab-specific files related to the dataset. |
+| <code>raw\/.*</code> | ✓ | All raw data files for the experiment. |
+| <code>raw\/fastq\/.*</code> | ✓ | Raw sequencing files for the experiment. |
+| <code>raw\/fastq\/ATAC\/.*</code> | ✓ | Directory containing fastq files pertaining to ATACseq sequencing. |
+| <code>raw\/fastq\/ATAC\/[^\/]+_R[^\/]+\.fastq\.gz$</code> | ✓ | This is a GZip'd version of the fastq files containing the forward, reverse and barcode reads from ATACseq sequencing (R1, R2 and R3). Further, if the barcodes are in R3 (as with 10X) then the metadata field "barcode reads" would be set to "Read 2 (R2)" and the fastq file named "*_R2*fastq.gz" would be expected. |
+| <code>lab_processed\/.*</code> |  | Experiment files that were processed by the lab generating the data. |
+
+<summary><b>Version 2.0</b></summary>
 
 | pattern | required? | description |
 | --- | --- | --- |
