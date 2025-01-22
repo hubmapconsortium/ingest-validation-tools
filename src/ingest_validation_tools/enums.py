@@ -207,7 +207,7 @@ OTHER_FIELDS_UNIQUE_FIELDS_MAP = {
 }
 
 
-class CedarSchemaVersionTypes(Enum):
+class CedarSchemaVersionTypes(str, Enum):
     IS_LATEST_VERSION = "isLatestVersion"
     IS_LATEST_PUBLISHED_VERSION = "isLatestPublishedVersion"
     IS_LATEST_DRAFT_VERSION = "isLatestDraftVersion"

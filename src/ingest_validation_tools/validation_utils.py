@@ -310,7 +310,7 @@ def get_other_names():
 def is_schema_latest_version(
     schema_version: str,
     cedar_api_key: str,
-    latest_version_name: str = CedarSchemaVersionTypes.IS_LATEST_VERSION._value_,
+    latest_version_name: str = CedarSchemaVersionTypes.IS_LATEST_VERSION.value,
 ) -> bool:
     """
     Returns true/false if the provided schema version is the latest version.
@@ -321,12 +321,9 @@ def is_schema_latest_version(
     This function defaults to checking against `isLatestVersion`
     """
     try:
-        assert CedarSchemaVersionTypes[
-            latest_version_name
-        ], "latest_version_name is not a member of CedarSchemaVersionTypes enum"
-        latest_version = get_latest_schema_version(schema_version, latest_version_name, cedar_api_key)
+        latest_version_name = CedarSchemaVersionTypes(latest_version_name)
+        latest_version = get_latest_schema_version(schema_version, cedar_api_key, latest_version_name)
         return schema_version == latest_version
-    # TODO: We probably don't need this exception handle
     except KeyError as ke:
         message = {f"Invalid latest_version_name {latest_version_name}": ke}
     except Exception as e:
@@ -334,7 +331,7 @@ def is_schema_latest_version(
     raise TSVError(message)
 
 
-def get_latest_schema_version(schema_version: str, cedar_api_key: str, latest_version_name: str) -> str:
+def get_latest_schema_version(schema_version: str, cedar_api_key: str, latest_version_name: CedarSchemaVersionTypes) -> str:
     latest_schema_version = ""
     try:
         schema_details = get_schema_details(schema_version, cedar_api_key)
@@ -344,7 +341,7 @@ def get_latest_schema_version(schema_version: str, cedar_api_key: str, latest_ve
             }
             raise TSVError(message)
         for schema in schema_details["resources"]:
-            if schema[latest_version_name]:
+            if schema[latest_version_name.value]:
                 latest_schema_version = schema["@id"].strip(CEDAR_SINGLE_TEMPLATE_URL_BASE)
             break
         return latest_schema_version
