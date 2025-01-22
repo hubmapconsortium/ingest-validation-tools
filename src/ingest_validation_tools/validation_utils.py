@@ -30,7 +30,9 @@ from ingest_validation_tools.schema_loader import (
 from ingest_validation_tools.table_validator import ReportType
 
 # TSV Metadata Validator
-CEDAR_VALIDATION_URL = "https://api.metadatavalidator.metadatacenter.org/service/validate-tsv"
+CEDAR_VALIDATION_URL = (
+    "https://api.metadatavalidator.metadatacenter.org/service/validate-tsv"
+)
 # Base URL to use for version checking
 CEDAR_VERSIONS_URL_BASE = "https://resource.metadatacenter.org/templates/"
 # Single template base URL
@@ -46,7 +48,9 @@ def match_field_in_unique_fields(
     matches = {}
     for entity_type, unique_fields in match_dict.items():
         match = {
-            entity_type: fieldname for fieldname in match_fields if fieldname in unique_fields
+            entity_type: fieldname
+            for fieldname in match_fields
+            if fieldname in unique_fields
         }
         if match:
             matches.update(match)
@@ -84,18 +88,28 @@ def get_schema_version(
     except TSVError as e:
         raise PreflightError(e.errors)
     # Don't want to send contrib/organ/sample/antibody to soft assay endpoint
-    other_type = get_other_type_schema(rows, str(path), entity_url, globus_token, directory_path)
+    other_type = get_other_type_schema(
+        rows, str(path), entity_url, globus_token, directory_path
+    )
     if other_type:
         return other_type
     message = []
-    if not [field for field in UNIQUE_FIELDS_MAP[DatasetType.DATASET] if field in rows[0].keys()]:
+    if not [
+        field
+        for field in UNIQUE_FIELDS_MAP[DatasetType.DATASET]
+        if field in rows[0].keys()
+    ]:
         message.append(
             f"Required dataset field not present in {path}. One of the following is required: {', '.join(sorted(UNIQUE_FIELDS_MAP[DatasetType.DATASET]))}"
         )
         if "channel_id" in rows[0]:
-            message.append('Has "channel_id": Antibodies TSV found where metadata TSV expected.')
+            message.append(
+                'Has "channel_id": Antibodies TSV found where metadata TSV expected.'
+            )
         elif "orcid_id" in rows[0]:
-            message.append('Has "orcid_id": Contributors TSV found where metadata TSV expected.')
+            message.append(
+                'Has "orcid_id": Contributors TSV found where metadata TSV expected.'
+            )
     if message:
         raise PreflightError(" ".join([msg for msg in message]))
     assay_type_data = get_assaytype_data(rows[0], ingest_url, globus_token)
@@ -145,16 +159,24 @@ def get_other_type_schema(
 
 
 def get_other_schema_data(
-    row: dict, path: str, url: str, globus_token: str, entity_field_pair: tuple[EntityTypes, str]
+    row: dict,
+    path: str,
+    url: str,
+    globus_token: str,
+    entity_field_pair: tuple[EntityTypes, str],
 ) -> EntityTypeInfo:
     entity_type = entity_field_pair[0]
     unique_field = entity_field_pair[1]
     # Double check this is not a badly-formatted metadata.tsv
     if set(row.keys()).intersection(UNIQUE_FIELDS_MAP[DatasetType.DATASET]):
-        raise PreflightError(f"Metadata TSV {path} contains invalid field: {unique_field}")
+        raise PreflightError(
+            f"Metadata TSV {path} contains invalid field: {unique_field}"
+        )
     if entity_type == OtherTypes.SAMPLE:
         # Sample types require additional data
-        return get_entity_info_from_entity_api(urljoin(url, row[unique_field]), globus_token)
+        return get_entity_info_from_entity_api(
+            urljoin(url, row[unique_field]), globus_token
+        )
     else:
         return EntityTypeInfo(entity_type)
 
@@ -167,7 +189,10 @@ def get_assaytype_data(row: Dict, ingest_url: str, globus_token: str) -> Dict:
         row.pop("parent_sample_id")
     response = requests.post(
         urljoin(ingest_url, "assaytype"),
-        headers={"Content-Type": "application/json", "Authorization": f"Bearer {globus_token}"},
+        headers={
+            "Content-Type": "application/json",
+            "Authorization": f"Bearer {globus_token}",
+        },
         data=json.dumps(row),
     )
     response.raise_for_status()
@@ -207,7 +232,9 @@ def get_data_dir_errors(
 
     # Check to see whether the shared upload directories exist
     shared_directories = {
-        x for x in root_path.glob("*") if x.is_dir() and x.name in expected_shared_directories
+        x
+        for x in root_path.glob("*")
+        if x.is_dir() and x.name in expected_shared_directories
     }
 
     # Iterate over the set of paths and ensure that the names of those paths
@@ -228,7 +255,9 @@ def get_data_dir_errors(
     # Make sure possible_schemas is sorted by key (descending) to evaluate highest minor version first
     for schema_name, schema in sorted(possible_schemas.items(), reverse=True):
         schema_errors = defaultdict(list)
-        schema_warning_fields = [field for field in schema if field in ["deprecated", "draft"]]
+        schema_warning_fields = [
+            field for field in schema if field in ["deprecated", "draft"]
+        ]
         schema_warning = (
             f"{schema_warning_fields[0].title()} directory schema: {schema_name}"
             if schema_warning_fields
@@ -303,7 +332,8 @@ def get_context_of_decode_error(e: UnicodeDecodeError) -> str:
 
 def get_other_names():
     return [
-        p.stem.split("-v")[0] for p in (Path(__file__).parent / "table-schemas/others").iterdir()
+        p.stem.split("-v")[0]
+        for p in (Path(__file__).parent / "table-schemas/others").iterdir()
     ]
 
 
@@ -322,7 +352,9 @@ def is_schema_latest_version(
     """
     try:
         latest_version_name = CedarSchemaVersionTypes(latest_version_name)
-        latest_version = get_latest_schema_version(schema_version, cedar_api_key, latest_version_name)
+        latest_version = get_latest_schema_version(
+            schema_version, cedar_api_key, latest_version_name
+        )
         return schema_version == latest_version
     except KeyError as ke:
         message = {f"Invalid latest_version_name {latest_version_name}": ke}
@@ -331,7 +363,11 @@ def is_schema_latest_version(
     raise TSVError(message)
 
 
-def get_latest_schema_version(schema_version: str, cedar_api_key: str, latest_version_name: CedarSchemaVersionTypes) -> str:
+def get_latest_schema_version(
+    schema_version: str,
+    cedar_api_key: str,
+    latest_version_name: CedarSchemaVersionTypes,
+) -> str:
     latest_schema_version = ""
     try:
         schema_details = get_schema_details(schema_version, cedar_api_key)
@@ -342,19 +378,25 @@ def get_latest_schema_version(schema_version: str, cedar_api_key: str, latest_ve
             raise TSVError(message)
         for schema in schema_details["resources"]:
             if schema[latest_version_name.value]:
-                latest_schema_version = schema["@id"].strip(CEDAR_SINGLE_TEMPLATE_URL_BASE)
+                latest_schema_version = schema["@id"].strip(
+                    CEDAR_SINGLE_TEMPLATE_URL_BASE
+                )
             break
         return latest_schema_version
 
     except Exception as e:
-        logging.exception(f"Exception while gathering schemas for schema {schema_version}. {e}")
+        logging.exception(
+            f"Exception while gathering schemas for schema {schema_version}. {e}"
+        )
         message = {f"Exception while gathering schemas for schema {schema_version}": e}
     raise TSVError(message)
 
 
 def get_schema_details(schema_version: str, cedar_api_key: str) -> dict:
     logging.debug(f"======get_schema_details: {schema_version}======")
-    encoded_template_url = quote(f"{CEDAR_SINGLE_TEMPLATE_URL_BASE}{schema_version}", safe="")
+    encoded_template_url = quote(
+        f"{CEDAR_SINGLE_TEMPLATE_URL_BASE}{schema_version}", safe=""
+    )
     response = requests.get(
         url=urljoin(CEDAR_VERSIONS_URL_BASE, f"{encoded_template_url}/versions"),
         headers={
@@ -492,7 +534,9 @@ def get_entity_info_from_entity_api(
     and return as a dict in the format expected by the constraints endpoint.
     """
     response = get_entity_api_data(url, globus_token, headers)
-    entity_type, entity_sub_type, entity_sub_type_val = get_entity_type_vals(response.json())
+    entity_type, entity_sub_type, entity_sub_type_val = get_entity_type_vals(
+        response.json()
+    )
     return EntityTypeInfo(entity_type, entity_sub_type, entity_sub_type_val)
 
 
