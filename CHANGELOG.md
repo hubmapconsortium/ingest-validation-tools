@@ -1,5 +1,7 @@
 # Changelog
-## v0.0.30 (in progress)
+## v0.0.31 (in progress)
+
+## v0.0.30
 - Update Seg Mask documentation
 - Update CosMx directory schema
 - Constrain file patterns to end of line for all published directory schemas
