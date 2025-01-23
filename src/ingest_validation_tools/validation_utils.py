@@ -145,7 +145,11 @@ def get_other_type_schema(
 
 
 def get_other_schema_data(
-    row: dict, path: str, url: str, globus_token: str, entity_field_pair: tuple[EntityTypes, str]
+    row: dict,
+    path: str,
+    url: str,
+    globus_token: str,
+    entity_field_pair: tuple[EntityTypes, str],
 ) -> EntityTypeInfo:
     entity_type = entity_field_pair[0]
     unique_field = entity_field_pair[1]
@@ -167,7 +171,10 @@ def get_assaytype_data(row: Dict, ingest_url: str, globus_token: str) -> Dict:
         row.pop("parent_sample_id")
     response = requests.post(
         urljoin(ingest_url, "assaytype"),
-        headers={"Content-Type": "application/json", "Authorization": f"Bearer {globus_token}"},
+        headers={
+            "Content-Type": "application/json",
+            "Authorization": f"Bearer {globus_token}",
+        },
         data=json.dumps(row),
     )
     response.raise_for_status()
@@ -330,7 +337,11 @@ def is_schema_latest_version(
     return schema_version == latest_version
 
 
-def get_latest_schema_version(schema_version: str, cedar_api_key: str, latest_version_name: CedarSchemaVersionTypes) -> str:
+def get_latest_schema_version(
+    schema_version: str,
+    cedar_api_key: str,
+    latest_version_name: CedarSchemaVersionTypes,
+) -> str:
     latest_schema_version = ""
     try:
         schema_details = get_schema_details(schema_version, cedar_api_key)
