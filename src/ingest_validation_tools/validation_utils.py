@@ -322,13 +322,12 @@ def is_schema_latest_version(
     """
     try:
         latest_version_name = CedarSchemaVersionTypes(latest_version_name)
-        latest_version = get_latest_schema_version(schema_version, cedar_api_key, latest_version_name)
-        return schema_version == latest_version
     except KeyError as ke:
         message = {f"Invalid latest_version_name {latest_version_name}": ke}
-    except Exception as e:
-        message = {f"Exception while gathering schemas for schema {schema_version}": e}
-    raise TSVError(message)
+        raise TSVError(message)
+
+    latest_version = get_latest_schema_version(schema_version, cedar_api_key, latest_version_name)
+    return schema_version == latest_version
 
 
 def get_latest_schema_version(schema_version: str, cedar_api_key: str, latest_version_name: CedarSchemaVersionTypes) -> str:
@@ -346,10 +345,12 @@ def get_latest_schema_version(schema_version: str, cedar_api_key: str, latest_ve
             break
         return latest_schema_version
 
+    except TSVError as te:
+        raise te
     except Exception as e:
         logging.exception(f"Exception while gathering schemas for schema {schema_version}. {e}")
         message = {f"Exception while gathering schemas for schema {schema_version}": e}
-    raise TSVError(message)
+        raise TSVError(message)
 
 
 def get_schema_details(schema_version: str, cedar_api_key: str) -> dict:
