@@ -1,5 +1,6 @@
 # Changelog
 ## v0.0.31 (in progress)
+- Update Segmentation masks directory schema
 
 ## v0.0.30
 - Update Seg Mask documentation

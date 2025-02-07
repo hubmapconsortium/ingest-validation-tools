@@ -19,7 +19,9 @@ from ingest_validation_tools.error_report import ErrorDict, InfoDict
 from ingest_validation_tools.plugin_validator import (
     ValidatorError as PluginValidatorError,
 )
-from ingest_validation_tools.plugin_validator import run_plugin_validators_iter
+from ingest_validation_tools.plugin_validator import (
+    run_plugin_validators_iter,
+)
 from ingest_validation_tools.schema_loader import (
     AncestorTypeInfo,
     EntityTypeInfo,
