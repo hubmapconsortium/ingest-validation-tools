@@ -1,5 +1,6 @@
 # Changelog
 ## v0.0.31 (in progress)
+- Update Segmentation masks directory schema
 
 ## v0.0.30
 - Update Seg Mask documentation
@@ -8,7 +9,6 @@
 - Handle null responses for keys from assayclassifier endpoint
 - Remove assumption of table_schema and version corresponding to table_schema from SchemaVersion
 - Update fixture data with new UBKG responses
-- Update Segmentation masks directory schema
 
 ## v0.0.29
 - Add CosMX directory schema
