@@ -2,6 +2,7 @@
 ## v0.0.31 (in progress)
 - Update Segmentation masks directory schema
 - Update Cell DIVE directory schema
+- Bugfix shared upload non_global file error reporting
 
 ## v0.0.30
 - Update Seg Mask documentation
