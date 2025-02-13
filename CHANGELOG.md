@@ -1,6 +1,9 @@
 # Changelog
 ## v0.0.31 (in progress)
+- Update Segmentation masks directory schema
+- Update Cell DIVE directory schema
 - Adding new is_schema_latest_version method to check if provided Cedar spec is the latest
+- Fix issue with json response. On row {x}, column {fieldName} should NOT be concatenated with actual error message.
 
 ## v0.0.30
 - Update Seg Mask documentation
