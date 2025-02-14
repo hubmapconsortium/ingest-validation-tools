@@ -862,9 +862,9 @@ class Upload:
         return errors
 
     def __get_shared_dir_errors(self) -> dict:
-        errors = {}
         all_non_global_files = self.__get_non_global_files_references()
         if all_non_global_files:
+            errors = defaultdict(list)
             for row_non_global_files, row_references in all_non_global_files.items():
                 row_non_global_files = {
                     (self.directory_path / "./non_global" / Path(x.strip())): Path(x.strip())
@@ -877,11 +877,12 @@ class Upload:
                     rel_path_row_non_global_file,
                 ) in row_non_global_files.items():
                     if not full_path_row_non_global_file.exists():
-                        errors[",".join(row_references)] = (
-                            f"{rel_path_row_non_global_file} not exist in upload."
+                        errors[",".join(row_references)].append(
+                            f"{full_path_row_non_global_file} does not exist in upload; is {rel_path_row_non_global_file} in the non_global directory?"
                         )
         else:
             # Catch case 2
+            errors = {}
             if self.is_shared_upload:
                 errors["Upload Errors"] = (
                     "No non_global_files specified but "
