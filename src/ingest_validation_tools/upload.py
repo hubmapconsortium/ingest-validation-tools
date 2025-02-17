@@ -731,7 +731,7 @@ class Upload:
             error["row"] = error["row"] + 2
             # This may need readability improvements
             msg = (
-                f'value "{error["value"]}" fails because of error {error["errorType"]}'
+                f'value "{error["value"]}" fails because of error "{error["errorType"]}"'
                 f'{f": {error_text}" if error_text else error_text}'
                 f'{f". Example: {example}" if example else example}'
             )
