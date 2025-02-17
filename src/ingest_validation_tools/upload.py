@@ -731,12 +731,12 @@ class Upload:
             error["row"] = error["row"] + 2
             # This may need readability improvements
             msg = (
-                f'On row {error["row"]}, column "{error["column"]}", '
-                f'value "{error["value"]}" fails because of error "{error["errorType"]}"'
+                f'value "{error["value"]}" fails because of error {error["errorType"]}'
                 f'{f": {error_text}" if error_text else error_text}'
                 f'{f". Example: {example}" if example else example}'
             )
-            return msg if return_str else get_json(msg, error["row"], error["column"])
+            full_msg = f'On row {error["row"]}, column "{error["column"]}", {msg}'
+            return full_msg if return_str else get_json(msg, error["row"], error["column"])
         return error
 
     def _check_path(
