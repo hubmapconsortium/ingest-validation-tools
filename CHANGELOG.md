@@ -1,5 +1,8 @@
 # Changelog
-## v0.0.31 (in progress)
+## v0.0.32 (in progress)
+
+
+## v0.0.31
 - Update Segmentation masks directory schema
 - Update Cell DIVE directory schema
 - Bugfix shared upload non_global file error reporting
