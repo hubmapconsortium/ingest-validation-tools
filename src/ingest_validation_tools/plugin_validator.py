@@ -47,9 +47,13 @@ class Validator(object):
     """string: in derived classes, a valid semantic version string.
     """
 
+    required = []
+    """list[str]: list of dataset types a given plugin accepts
+    """
+
     def __init__(
         self,
-        base_paths: List[Path],
+        base_paths: Union[Path, List[Union[str, Path]]],
         assay_type: str,
         contains: List = [],
         verbose: bool = False,
@@ -77,6 +81,22 @@ class Validator(object):
         if self.verbose:
             print(message)
         return message
+
+    @property
+    def check_required(self) -> bool:
+        cls_name = type(self).__name__
+        print(f"Checking relevance of {cls_name}...")
+        if not self.required:
+            print(f"Running {cls_name}...")
+            return True
+        for dataset_type in self.required:
+            if dataset_type not in self.contains and self.assay_type.lower() != dataset_type:
+                continue
+            else:
+                print(f"Running {cls_name}...")
+                return True
+        print(f"{cls_name} not relevant.")
+        return False
 
     def collect_errors(self, **kwargs) -> List[str]:
         """
