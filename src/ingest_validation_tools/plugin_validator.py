@@ -53,7 +53,7 @@ class Validator(object):
 
     def __init__(
         self,
-        base_paths: Union[Path, List[Union[str, Path]]],
+        base_paths: List[Path],
         assay_type: str,
         contains: List = [],
         verbose: bool = False,
