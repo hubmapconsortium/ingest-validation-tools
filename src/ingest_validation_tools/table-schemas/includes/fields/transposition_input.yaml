@@ -1,3 +1,0 @@
-- name: transposition_input
-  description: Number of cell/nuclei input to the assay.
-  type: number

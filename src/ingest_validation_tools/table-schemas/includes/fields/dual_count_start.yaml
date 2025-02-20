@@ -1,3 +1,0 @@
-- name: dual_count_start
-  description: Threshold for dual counting.
-  type: number

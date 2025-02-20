@@ -1,3 +1,0 @@
-- name: dms
-  description: Was differential mobility spectrometry used in this assay?
-  type: boolean

@@ -1,9 +1,0 @@
-fields:
-# include: ../includes/sample-field-groups/header-fields.yaml
-# include: ../includes/sample-fields/type.yaml
-  constraints:
-    enum: ['suspension']
-# include: ../includes/sample-field-groups/source-fields.yaml
-# include: ../includes/sample-field-groups/prep-proc-storage-fields.yaml
-# include: ../includes/sample-field-groups/suspension-fields.yaml
-# include: ../includes/sample-fields/notes.yaml

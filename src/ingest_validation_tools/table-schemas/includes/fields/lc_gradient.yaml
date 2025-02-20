@@ -1,4 +1,0 @@
-- name: lc_gradient
-  description: LC gradient
-  constraints:
-    required: False

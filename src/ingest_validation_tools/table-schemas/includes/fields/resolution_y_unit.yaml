@@ -1,4 +1,0 @@
-- name: resolution_y_unit
-  description: The unit of measurement of height of a pixel. (nm)
-  constraints:
-    enum: ['mm', 'um', 'nm']

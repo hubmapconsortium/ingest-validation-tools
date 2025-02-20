@@ -1,4 +1,0 @@
-- name: lc_mobile_phase_a
-  description: Composition of mobile phase A
-  constraints:
-    required: False

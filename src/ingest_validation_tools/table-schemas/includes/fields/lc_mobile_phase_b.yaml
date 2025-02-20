@@ -1,4 +1,0 @@
-- name: lc_mobile_phase_b
-  description: Composition of mobile phase B
-  constraints:
-    required: False

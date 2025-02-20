@@ -1,2 +1,0 @@
-version	description	donor_id	tissue_id	execution_datetime	protocols_io_doi	operator	operator_email	pi	pi_email	assay_category	assay_type	analyte_class	is_targeted	acquisition_instrument_vendor	acquisition_instrument_model	resolution_x_value	resolution_x_unit	resolution_y_value	resolution_y_unit	range_z_value	range_z_unit	step_z_value	increment_z_value	increment_z_unit	number_of_antibodies	number_of_channels	antibodies_path	contributors_path	data_path
-2										imaging	Light Sheet	protein					nm / um		nm / um		nm / um			nm / um					

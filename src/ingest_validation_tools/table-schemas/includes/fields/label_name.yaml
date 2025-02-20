@@ -1,4 +1,0 @@
-- name: label_name
-  description: If the samples were labeled (e.g. TMT), provide the name/ID of the label on this sample.
-  constraints:
-    required: False

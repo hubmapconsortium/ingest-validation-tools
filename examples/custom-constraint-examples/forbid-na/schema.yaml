@@ -1,7 +1,0 @@
-fields:
-  - name: na_forbidden
-    type: string
-    custom_constraints:
-      forbid_na: True
-  - name: na_allowed
-    type: string

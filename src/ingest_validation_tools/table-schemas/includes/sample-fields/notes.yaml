@@ -1,4 +1,0 @@
-- name: notes
-  description: 'Notes'
-  constraints:
-    required: false

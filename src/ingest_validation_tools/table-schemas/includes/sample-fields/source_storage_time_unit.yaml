@@ -1,8 +1,0 @@
-- name: source_storage_time_unit
-  description: 'Time unit'
-  constraints:
-    enum:
-      - min
-      - hours
-      - days
-      - years

@@ -1,8 +1,0 @@
-- name: processing_time_unit
-  description: 'Time unit'
-  constraints:
-    required: false
-    enum:
-      - min
-      - hours
-      - days

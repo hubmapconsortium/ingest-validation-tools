@@ -1,6 +1,0 @@
-- name: lc_temp_unit
-  description: units for LC temperature
-  constraints:
-    enum:
-      - C
-    required: False

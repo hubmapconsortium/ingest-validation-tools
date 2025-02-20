@@ -1,4 +1,0 @@
-- name: lc_id_value
-  description: LC column inner diameter (microns)
-  constraints:
-    required: False

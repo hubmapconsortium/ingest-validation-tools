@@ -1,4 +1,0 @@
-- name: lc_instrument_model
-  description: The model number/name of the instrument used for LC
-  constraints:
-    required: False
