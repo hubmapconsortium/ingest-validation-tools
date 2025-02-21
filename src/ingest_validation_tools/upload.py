@@ -31,7 +31,7 @@ from ingest_validation_tools.schema_loader import (
 )
 from ingest_validation_tools.table_validator import ReportType, get_table_errors
 from ingest_validation_tools.validation_utils import (
-    cedar_api_call,
+    cedar_validation_call,
     get_data_dir_errors,
     get_entity_api_data,
     get_entity_type_vals,
@@ -340,7 +340,7 @@ class Upload:
         schema: SchemaVersion,
     ) -> List[Union[str, Dict]]:
         errors = []
-        response = cedar_api_call(schema.path)
+        response = cedar_validation_call(schema.path)
         if response.status_code != 200:
             raise Exception(response.json())
         elif response.json().get("reporting") and len(response.json().get("reporting")) > 0:
@@ -731,12 +731,12 @@ class Upload:
             error["row"] = error["row"] + 2
             # This may need readability improvements
             msg = (
-                f'On row {error["row"]}, column "{error["column"]}", '
                 f'value "{error["value"]}" fails because of error "{error["errorType"]}"'
                 f'{f": {error_text}" if error_text else error_text}'
                 f'{f". Example: {example}" if example else example}'
             )
-            return msg if return_str else get_json(msg, error["row"], error["column"])
+            full_msg = f'On row {error["row"]}, column "{error["column"]}", {msg}'
+            return full_msg if return_str else get_json(msg, error["row"], error["column"])
         return error
 
     def _check_path(

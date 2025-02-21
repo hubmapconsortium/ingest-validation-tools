@@ -132,7 +132,7 @@ class TestSingleTsv(unittest.TestCase):
         expected_errors_list: list[list],
     ):
         with patch("ingest_validation_tools.upload.requests.post") as mock_constraints_response:
-            with patch("ingest_validation_tools.upload.cedar_api_call") as mock_cedar_call:
+            with patch("ingest_validation_tools.upload.cedar_validation_call") as mock_cedar_call:
                 with patch(
                     "ingest_validation_tools.validation_utils.get_entity_api_data",
                     side_effect=lambda url, globus_token, headers=None: entity_api_side_effect(

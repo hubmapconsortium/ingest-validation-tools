@@ -205,3 +205,9 @@ UNIQUE_FIELDS_MAP = {
 OTHER_FIELDS_UNIQUE_FIELDS_MAP = {
     k: v for k, v in UNIQUE_FIELDS_MAP.items() if not k == DatasetType.DATASET
 }
+
+
+class CedarSchemaVersionTypes(str, Enum):
+    IS_LATEST_VERSION = "isLatestVersion"
+    IS_LATEST_PUBLISHED_VERSION = "isLatestPublishedVersion"
+    IS_LATEST_DRAFT_VERSION = "isLatestDraftVersion"

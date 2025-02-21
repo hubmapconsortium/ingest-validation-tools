@@ -115,11 +115,11 @@ def _get_message(
         return msg if return_str else get_json(msg)
     if "rowPosition" in error and "fieldName" in error and "cell" in error and "note" in error:
         msg = (
-            f'On row {error["rowPosition"]}, column "{error["fieldName"]}", '
             f'value "{error["cell"]}" fails because {error["note"]}'
             f'{f". Example: {example}" if example else example}'
         )
-        return msg if return_str else get_json(msg, error["rowPosition"], error["fieldName"])
+        full_msg = f'On row {error["rowPosition"]}, column "{error["fieldName"]}", {msg}'
+        return full_msg if return_str else get_json(msg, error["rowPosition"], error["fieldName"])
     return error["message"]
 
 
