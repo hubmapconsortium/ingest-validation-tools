@@ -1,5 +1,6 @@
 # Changelog
 ## v0.0.32 (in progress)
+- Update Xenium directory schema
 - Adding new is_schema_latest_version method to check if provided Cedar spec is the latest
 - Fix issue with json response. On row {x}, column {fieldName} should NOT be concatenated with actual error message.
 
