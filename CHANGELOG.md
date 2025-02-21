@@ -1,4 +1,7 @@
 # Changelog
+## v0.0.33 (in progress)
+- Update Xenium directory schema
+
 ## v0.0.32
 - Update Xenium directory schema
 - Adding new is_schema_latest_version method to check if provided Cedar spec is the latest
