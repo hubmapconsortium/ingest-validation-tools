@@ -6,6 +6,7 @@
 - Update Segmentation masks directory schema
 - Update Cell DIVE directory schema
 - Bugfix shared upload non_global file error reporting
+- Update Xenium directory schema
 
 ## v0.0.30
 - Update Seg Mask documentation
