@@ -1,5 +1,6 @@
 # Changelog
 ## v0.0.32 (in progress)
+- Update Xenium directory schema
 
 
 ## v0.0.31
