@@ -1,5 +1,7 @@
 # Changelog
-## v0.0.33 (in progress)
+## v0.0.34 (in progress)
+
+## v0.0.33
 - Update Xenium directory schema
 - Update Xenium directory schema
 - Update CosMx directory schema
