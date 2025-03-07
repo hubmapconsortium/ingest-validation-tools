@@ -1,5 +1,6 @@
 # Changelog
 ## v0.0.34 (in progress)
+ - Create Flow Cytometry directory schema
 
 ## v0.0.33
 - Update Xenium directory schema
