@@ -102,6 +102,7 @@ shared_enums: Dict[str, List[str]] = {
         "Visium (no probes)",
         "Xenium",
         "Segmentation Mask",
+        "CyTOF"
     ],
     "analyte_class": [
         "DNA",
