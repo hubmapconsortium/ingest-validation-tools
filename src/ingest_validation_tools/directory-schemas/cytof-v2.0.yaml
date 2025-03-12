@@ -1,0 +1,31 @@
+files:
+  -
+    pattern: extras\/.*
+    required: True
+    description: Folder for general lab-specific files related to the dataset.
+  -  
+    pattern: raw\/.*
+    required: True
+    description: This is a directory containing raw data.
+  -  
+    pattern: raw\/[^\/]+\.(?:xlsx|txt)$
+    required: False
+    description: Instrument calibration file
+  -  
+    pattern: raw\/[^\/]+\.imd$
+    required: False
+    description: The Integrated Mass Data (IMD) file contains raw, unprocessed data from a CyTOF mass cytometer, including the intensity measurements of each metal ion channel for every cell detected during a sample run, essentially providing the raw signal for each cell across all measured markers in a single file. This data is later converted into a more standard FCS file for analysis. 
+  -  
+    pattern: raw\/[^\/]+\.fcs$
+    required: False
+    description: Contains the raw data from a mass cytometry experiment in a matrix where each row represents a single cell and each column represents a different metal-labeled antibody channel, with the values in each cell signifying the ion count detected for that specific metal on that cell, allowing for the analysis of multiple cell surface markers on individual cells. 
+    is_qa_qc: False
+  -  
+    pattern: lab_processed\/.*
+    required: True
+    description: Experiment files that were processed by the lab generating the data.
+  -  
+    pattern: lab_processed\/[^\/]+\.fcs$
+    required: True
+    description: A lab normalized version of the raw FCS file described above.
+    is_qa_qc: True

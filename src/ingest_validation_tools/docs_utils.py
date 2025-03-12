@@ -194,6 +194,7 @@ def generate_readme_md(
             "category": {
                 "derived_datasets": "Derived Datasets",
                 "fish": "Fluorescence In Situ Hybridization (FISH)",
+                "flow_cytometry": "Flow Cytometry",
                 "imaging": "Imaging",
                 "clinical_imaging": "Clinical Imaging Modalities",
                 "histology": "Histology",

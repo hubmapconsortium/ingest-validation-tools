@@ -389,7 +389,9 @@ def _validate_level_1_enum(field: dict) -> None:
      'sample',
      'sequence',
      'single_cycle_fluorescence_microscopy',
-     'spatial_transcriptomics']
+     'spatial_transcriptomics',
+     'derived_datasets',
+     'flow_cytometry']
     """
 
     name = field["name"]
