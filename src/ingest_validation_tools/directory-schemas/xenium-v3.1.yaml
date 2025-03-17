@@ -66,7 +66,7 @@ files:
     required: True
     description: OME-TIFF files (multichannel, multi-layered) produced by the microscopy experiment. If compressed, must use loss-less compression algorithm. For Visium this stitched file should only include the single capture area relevant to the current dataset. For GeoMx there will be one OME TIFF file per slide, with each slide including multiple AOIs. See the following link for the set of fields that are required in the OME TIFF file XML header. <https://docs.google.com/spreadsheets/d/1YnmdTAA0Z9MKN3OjR3Sca8pz-LNQll91wdQoRPSP6Q4/edit#gid=0>
     is_qa_qc: False
-    example: HBM892.MDXS.293.ome.tiff
+    example: lab_processed/images/HBM892.MDXS.293.ome.tiff
   -
     pattern: lab_processed\/images\/[^\/]*ome-(?:tif|tiff)\.channels\.csv$
     required: True

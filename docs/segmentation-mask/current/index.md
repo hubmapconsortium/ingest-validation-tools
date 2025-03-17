@@ -13,6 +13,7 @@ Related files:
 
 
 - [📝 Excel template](https://raw.githubusercontent.com/hubmapconsortium/dataset-metadata-spreadsheet/main/segmentation-mask/latest/segmentation-mask.xlsx): For metadata entry.
+- [📝 TSV template](https://raw.githubusercontent.com/hubmapconsortium/dataset-metadata-spreadsheet/main/segmentation-mask/latest/segmentation-mask.tsv): Alternative for metadata entry.
 
 
 **Obj x feature table**
