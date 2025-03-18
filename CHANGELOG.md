@@ -23,6 +23,7 @@
  - Update Visium with probes directory schema
  - Update Xenium directory schema
  - Update Segmentation Mask directory schema
+ - Undo version 2.3 updates and keep version 2.4 updates to CosMx directory schema
 
 
 ## v0.0.33
