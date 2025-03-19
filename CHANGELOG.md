@@ -1,5 +1,7 @@
 # Changelog
-## v0.0.34 (in progress)
+## v0.0.35 (in progress)
+
+## v0.0.34
  - Create CyTOF directory schema
  - Update MERFISH directory schema
  - Update Histology directory schema
@@ -24,7 +26,6 @@
  - Update Xenium directory schema
  - Update Segmentation Mask directory schema
  - Undo version 2.3 updates and keep version 2.4 updates to CosMx directory schema
-
 
 ## v0.0.33
 - Update Xenium directory schema
