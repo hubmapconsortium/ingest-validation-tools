@@ -1,5 +1,6 @@
 # Changelog
 ## v0.0.35 (in progress)
+- Adding support for EPIC's new plugin
 
 ## v0.0.34
  - Create CyTOF directory schema
