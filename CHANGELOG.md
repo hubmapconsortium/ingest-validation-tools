@@ -1,5 +1,6 @@
 # Changelog
 ## v0.0.35 (in progress)
+ - Refactoring SchemaVersion/Upload
 
 ## v0.0.34
  - Create CyTOF directory schema

@@ -130,6 +130,11 @@ class ErrorDict:
     compiled using self.as_dict().
     """
 
+    # TODO: should be broken apart into serializer
+    # Error collection format (not for preflight, uncertain about plugins??):
+    # {Error.TYPE: {"path": str|Path, "errors": [{"column": int, "error": str|list|dict(?), "row": int}]}
+    # Serialize to something readable
+
     preflight: StrErrorType = field(
         default_factory=lambda: StrErrorType(name="preflight", display_name="Preflight Errors")
     )
