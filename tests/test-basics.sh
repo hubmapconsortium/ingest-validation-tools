@@ -7,7 +7,9 @@ flake8 src || die 'Try: autopep8 --in-place --aggressive -r .'
 mypy
 pytest --doctest-modules --ignore-glob="tests-manual/" "tests/test_dataset_examples.py"
 
-if [ "$GITHUB_REF_NAME" != 'main' ]; then
+LOCAL_BRANCH="$(git branch --show-current)"
+
+if [ "$GITHUB_REF_NAME" != 'main' ] && [ $LOCAL_BRANCH != 'main' ]; then
     diff CHANGELOG.md <(curl -s https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/main/CHANGELOG.md) \
         && die 'Update CHANGELOG.md'
 fi
