@@ -2,6 +2,7 @@ import inspect
 import sys
 from collections.abc import Iterator
 from importlib import util
+from os import cpu_count
 from pathlib import Path
 from typing import List, Optional, Tuple, Type, Union
 
@@ -97,6 +98,13 @@ class Validator(object):
                 return True
         print(f"{cls_name} not relevant.")
         return False
+
+    def get_threads(self, **kwargs):
+        threads = kwargs.get("coreuse", None)
+        if not threads and cpu_count():
+            threads = cpu_count() // 4  # type: ignore
+        elif not threads:
+            threads = 4
 
     def collect_errors(self, **kwargs) -> List[str]:
         """
