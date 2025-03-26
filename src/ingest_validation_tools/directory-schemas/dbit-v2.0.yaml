@@ -1,4 +1,21 @@
-draft: true
 files:
   -
-    draft_link: 'https://docs.google.com/spreadsheets/d/1LE-iyY2E6eP4E8jhgP6rhsvjESrdHXWYrMwKTvNkI5Y'
+    pattern: extras\/.*
+    required: True
+    description: Folder for general lab-specific files related to the dataset. 
+  -  
+    pattern: raw\/.*
+    required: True
+    description: This is a directory containing raw data.
+  -  
+    pattern: raw\/dbit_seq\/.*
+    required: False
+    description: This is a directory containing raw data exclusive to DBiT-seq.
+  -
+    pattern: lab_processed\/.*
+    required: True
+    description: Experiment files that were processed by the lab generating the data.
+  -
+    pattern: lab_processed\/dbit_seq\/.*
+    required: False
+    description: Experiment files that were processed by the lab generating the data exclusive to DBiT-seq.
