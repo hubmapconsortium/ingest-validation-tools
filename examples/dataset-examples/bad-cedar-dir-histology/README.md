@@ -2,7 +2,7 @@
 Directory Errors:
   examples/dataset-examples/bad-cedar-dir-histology/upload/bad-histology-metadata.tsv:
   - 'Value "./dataset-1" in column "data_path" points to non-existent directory: "examples/dataset-examples/bad-cedar-dir-histology/upload/dataset-1".'
-  examples/dataset-examples/bad-cedar-dir-histology/upload/wrong (as histology-v2.1):
+  examples/dataset-examples/bad-cedar-dir-histology/upload/wrong (as histology-v2.2):
   - Not allowed:
     - not-allowed.
     Required but missing:
@@ -10,11 +10,11 @@ Directory Errors:
     - extras\/microscope_hardware\.json$.
     - lab_processed\/.*.
     - lab_processed\/images\/.*.
-    - lab_processed\/images\/[^\/]*ome-tiff\.channels\.csv$.
-    - lab_processed\/images\/[^\/]+\.ome\.tiff$.
+    - lab_processed\/images\/[^\/]*ome-(?:tif|tiff)\.channels\.csv$.
+    - lab_processed\/images\/[^\/]+\.ome\.(?:tif|tiff)$.
     - raw\/.*.
     - raw\/images\/.*.
-    - raw\/images\/[^\/]+\.(?:xml|scn|vsi|ndpi|svs|czi|tiff|qptiff)$.
+    - raw\/images\/[^\/]+\.(?:xml|scn|vsi|ndpi|svs|czi|tif|tiff|qptif|qptiff)$.
 Reference Errors:
   No References:
     Files:
