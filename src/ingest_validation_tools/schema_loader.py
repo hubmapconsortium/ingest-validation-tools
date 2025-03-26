@@ -117,6 +117,8 @@ class SchemaVersion:
             self.table_schema = f"{self.schema_name}-v{self.version}"
         elif self.table_schema.endswith("v"):
             self.table_schema = self.table_schema + str(self.version)
+        elif self.table_schema:
+            return
         else:
             raise PreflightError(
                 f"No table_schema for upload at {self.directory_path}. Schema: {self.schema_name}. Version: {self.version}."
