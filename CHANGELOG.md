@@ -1,5 +1,6 @@
 # Changelog
 ## v0.0.35 (in progress)
+- Create DBiT-seq directory schema
 
 ## v0.0.34
  - Create CyTOF directory schema
