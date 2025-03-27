@@ -1,5 +1,6 @@
 # Changelog
 ## v0.0.35 (in progress)
+ - Ensure compatibility with Python 3.11
 
 ## v0.0.34
  - Create CyTOF directory schema

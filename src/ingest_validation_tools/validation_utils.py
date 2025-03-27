@@ -135,7 +135,7 @@ def get_other_type_schema(
         if other_type_info:
             # Samples are sent as generic "sample" type, subtype is in entity_type_info
             sv = SchemaVersion(
-                other_type_info.entity_type,
+                other_type_info.entity_type.value,
                 directory_path=directory_path,
                 path=path,
                 rows=rows,
@@ -306,12 +306,6 @@ def get_context_of_decode_error(e: UnicodeDecodeError) -> str:
     after = e.object[e.end : min(e.end + buffer, len(e.object))].decode(codec)  # noqa
     in_context = f"{before} [ {problem} ] {after}"
     return f'Invalid {e.encoding} because {e.reason}: "{in_context}"'
-
-
-def get_other_names():
-    return [
-        p.stem.split("-v")[0] for p in (Path(__file__).parent / "table-schemas/others").iterdir()
-    ]
 
 
 def is_schema_latest_version(

@@ -71,7 +71,7 @@ def _get_pre_flight_errors(tsv_path: Path, schema: dict) -> Optional[List[str]]:
             for i_pair in enumerate(zip(fields, expected_fields)):
                 i, (actual, expected) = i_pair
                 if actual != expected:
-                    errors.append(f'In column {i+1}, found "{actual}", expected "{expected}"')
+                    errors.append(f'In column {i + 1}, found "{actual}", expected "{expected}"')
             return errors
 
     return None
