@@ -1,5 +1,6 @@
 # Changelog
-## v0.0.35 (in progress) 
+## v0.0.35 (in progress)
+ - Adding support for EPIC's new plugin
  - Update MERFISH directory schema
  - Update Histology directory schema
  - Update 2D Imaging Mass Cytometry directory schema
@@ -22,7 +23,6 @@
  - Update Visium with probes directory schema
  - Update Xenium directory schema
  - Update Segmentation Mask directory schema
-
 
 ## v0.0.34
  - Create CyTOF directory schema
