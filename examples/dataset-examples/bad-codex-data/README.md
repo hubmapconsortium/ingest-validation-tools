@@ -24,8 +24,6 @@ Local Validation Errors:
     because it does not match the expected pattern.
   - On row 2, column "operator_email", value "no-at.example.com" fails because it
     is not a valid email.
-  - On row 2, column "pi_email", value "extra-period-caught@example.com." fails because
-    it is not a valid email.
   - On row 2, column "protocols_io_doi", value "10\.17504/protocols.io.menc3de" fails
     because it is an invalid DOI.
   - On row 2, column "resolution_z_unit", value "None" fails because it requires a
