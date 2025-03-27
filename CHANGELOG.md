@@ -1,5 +1,28 @@
 # Changelog
-## v0.0.35 (in progress)
+## v0.0.35 (in progress) 
+ - Update MERFISH directory schema
+ - Update Histology directory schema
+ - Update 2D Imaging Mass Cytometry directory schema
+ - Update DESI directory schema
+ - Update MALDI directory schema
+ - Update Multiplex Ion Beam Imaging directory schema
+ - Update SIMS directory schema
+ - Update CODEX directory schema
+ - Update Cell DIVE directory schema
+ - Update Phenocycler directory schema
+ - Update Auto-fluorescence directory schema
+ - Update Confocal directory schema
+ - Update Enhanced Stimulated Raman Spectroscopy directory schema
+ - Update Light Sheet directory schema
+ - Update Second Harmonic Generation directory schema
+ - Update Thick Section Multiphoton MxIF directory schema
+ - Update CosMX directory schema
+ - Update GeoMx NGS directory schema
+ - Update Visium no probes directory schema
+ - Update Visium with probes directory schema
+ - Update Xenium directory schema
+ - Update Segmentation Mask directory schema
+
 
 ## v0.0.34
  - Create CyTOF directory schema
