@@ -23,6 +23,7 @@
  - Update Visium with probes directory schema
  - Update Xenium directory schema
  - Update Segmentation Mask directory schema
+ - Add G4X directory schema
 
 ## v0.0.34
  - Create CyTOF directory schema

@@ -29,6 +29,7 @@ shared_enums: Dict[str, List[str]] = {
         "CyCIF",
         "DESI",
         "Enhanced Stimulated Raman Spectroscopy (SRS)",
+        "G4X",
         "GC-MS",
         "GeoMx",
         "GeoMx (RNA)",
