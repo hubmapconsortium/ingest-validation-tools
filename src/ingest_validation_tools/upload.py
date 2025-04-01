@@ -185,7 +185,7 @@ class Upload:
         Ensure that all default values are present, but privilege any
         submitted values (after making a basic validity check).
         """
-        for url_type in ["entities_url", "ingest_url", "constraints_url"]:
+        for url_type in ["entities_url", "ingest_url", "constraints_url", "uuid_url"]:
             if submitted_app_context.get(url_type):
                 split_url = urlsplit(submitted_app_context[url_type])
                 assert (
@@ -197,6 +197,7 @@ class Upload:
             "request_header": {"X-Hubmap-Application": "ingest-pipeline"},
             # TODO: does not work in HuBMAP currently
             "constraints_url": None,
+            "uuid_url": "https://uuid.api.hubmapconsortium.org/uuid/",
         } | submitted_app_context
 
     def validation_routine(
@@ -450,6 +451,8 @@ class Upload:
                         plugin_path,
                         self.is_shared_upload,
                         verbose=self.verbose,
+                        globus_token=self.globus_token,
+                        app_context=self.app_context,
                         **kwargs,
                     ):
                         if v is None:
