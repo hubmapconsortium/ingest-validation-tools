@@ -2,7 +2,7 @@ description_md: '[This link](https://docs.google.com/spreadsheets/d/1YnmdTAA0Z9M
 fields:
 - name: is_cedar
   description: 'Identifies whether the version is hosted by CEDAR'
-  example: 'blank_for_now'
+  example: 'https://openview.metadatacenter.org/templates/https:%2F%2Frepo.metadatacenter.org%2Ftemplates%2Fe4839f78-db5e-4480-9f1e-b4c57d812192'
 - name: assay_category
   constraints:
     enum:
