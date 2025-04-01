@@ -1,0 +1,21 @@
+files:
+  -
+    pattern: extras\/.*
+    required: True
+    description: Folder for general lab-specific files related to the dataset. 
+  -  
+    pattern: raw\/.*
+    required: True
+    description: This is a directory containing raw data.
+  -  
+    pattern: raw\/g4x\/.*
+    required: False
+    description: This is a directory containing raw data exclusive to G4X.
+  -
+    pattern: lab_processed\/.*
+    required: True
+    description: Experiment files that were processed by the lab generating the data.
+  -
+    pattern: lab_processed\/g4x\/.*
+    required: False
+    description: Experiment files that were processed by the lab generating the data exclusive to G4X.
