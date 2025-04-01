@@ -37,7 +37,7 @@ shared_enums: Dict[str, List[str]] = {
         "GeoMx (NGS)",
         "HiFi-Slide",
         "Histology",
-        "DBiT",
+        "DBiT-seq",
         "2D Imaging Mass Cytometry",
         "Imaging Mass Cytometry",
         "IMS",
