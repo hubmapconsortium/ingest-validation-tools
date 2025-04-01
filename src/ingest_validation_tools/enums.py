@@ -71,6 +71,7 @@ shared_enums: Dict[str, List[str]] = {
         "Second Harmonic Generation",
         "SIMS",
         "SIMS-IMS",
+        "Singular Genomics G4X",
         "SNARE-seq2",
         "snATACseq",
         "scATAC-seq",
