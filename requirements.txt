@@ -364,7 +364,9 @@ text-unidecode==1.3 \
 typer[all]==0.4.1 \
     --hash=sha256:5646aef0d936b2c761a10393f0384ee6b5c7fe0bb3e5cd710b17134ca1d99cff \
     --hash=sha256:e8467f0ebac0c81366c2168d6ad9f888efdfb6d4e1d3d5b4a004f46fa444b5c3
-    # via frictionless
+    # via
+    #   frictionless
+    #   typer
 types-pyyaml==6.0.12 \
     --hash=sha256:29228db9f82df4f1b7febee06bbfb601677882e98a3da98132e31c6874163e15 \
     --hash=sha256:f6f350418125872f3f0409d96a62a5a5ceb45231af5cc07ee0034ec48a3c82fa

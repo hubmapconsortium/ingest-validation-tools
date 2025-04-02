@@ -141,7 +141,7 @@ The test error message will tell you what to do.
 
 ### GitHub Actions
 
-This repo uses GitHub Actions to check formatting and linting of code using black, isort, and flake8. Especially before submitting a PR, make sure your code is compliant. Run the following from the base `ingest-validation-tools` directory:
+This repo uses GitHub Actions to check formatting and linting of code using black, isort, and flake8. Especially before submitting a PR, make sure your code is compliant per the versions specified in `requirements-dev.in`. Run the following from the base `ingest-validation-tools` directory:
 
 ```
 black --line-length 99 .
