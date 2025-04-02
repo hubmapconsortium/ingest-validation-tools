@@ -346,7 +346,7 @@ def get_latest_schema_version(
             raise TSVError(message)
         for schema in schema_details["resources"]:
             if schema[latest_version_name.value]:
-                latest_schema_version = schema["@id"].strip(CEDAR_SINGLE_TEMPLATE_URL_BASE)
+                latest_schema_version = schema["@id"].removeprefix(CEDAR_SINGLE_TEMPLATE_URL_BASE)
             break
         return latest_schema_version
 
