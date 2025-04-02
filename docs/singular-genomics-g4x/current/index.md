@@ -21,7 +21,7 @@ Related files:
 ## Metadata schema
 
 
-<summary><a href="https://openview.metadatacenter.org/templates/https:%2F%2Frepo.metadatacenter.org%2Ftemplates%2Fe4839f78-db5e-4480-9f1e-b4c57d812192"><b>Version 2 (use this one)</b></a></summary>
+<summary><a href="https://openview.metadatacenter.org/templates/https:%2F%2Frepo.metadatacenter.org%2Ftemplates%2F6c729815-18c7-4d9d-913e-fe08e2e2da76"><b>Version 2 (use this one)</b></a></summary>
 
 
 
