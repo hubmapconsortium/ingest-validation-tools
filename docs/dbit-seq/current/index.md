@@ -1,6 +1,6 @@
 ---
 title: DBiT-seq
-schema_name: dbitseq
+schema_name: dbit-seq
 category: Spatial Transcriptomics
 all_versions_deprecated: False
 exclude_from_index: False
@@ -12,8 +12,8 @@ Prepare your metadata based on the latest metadata schema using one of the templ
 Related files:
 
 
-- [📝 Excel template](https://raw.githubusercontent.com/hubmapconsortium/dataset-metadata-spreadsheet/main/dbitseq/latest/dbitseq.xlsx): For metadata entry.
-- [📝 TSV template](https://raw.githubusercontent.com/hubmapconsortium/dataset-metadata-spreadsheet/main/dbitseq/latest/dbitseq.tsv): Alternative for metadata entry.
+- [📝 Excel template](https://raw.githubusercontent.com/hubmapconsortium/dataset-metadata-spreadsheet/main/dbit-seq/latest/dbit-seq.xlsx): For metadata entry.
+- [📝 TSV template](https://raw.githubusercontent.com/hubmapconsortium/dataset-metadata-spreadsheet/main/dbit-seq/latest/dbit-seq.tsv): Alternative for metadata entry.
 
 
 [This link](https://docs.google.com/spreadsheets/d/1YnmdTAA0Z9MKN3OjR3Sca8pz-LNQll91wdQoRPSP6Q4/edit#gid=0) lists the set of fields that are required in the OME TIFF file XML header.
@@ -21,7 +21,7 @@ Related files:
 ## Metadata schema
 
 
-<summary><a href="https://openview.metadatacenter.org/templates/https:%2F%2Frepo.metadatacenter.org%2Ftemplates%2Fe4839f78-db5e-4480-9f1e-b4c57d812192"><b>Version 2 (use this one)</b></a></summary>
+<summary><a href="https://openview.metadatacenter.org/templates/https:%2F%2Frepo.metadatacenter.org%2Ftemplates%2Fef55657a-b052-4eae-ae1a-5bef4fdf688c"><b>Version 2 (use this one)</b></a></summary>
 
 
 

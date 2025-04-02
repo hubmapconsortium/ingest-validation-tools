@@ -25,6 +25,7 @@
  - Update Segmentation Mask directory schema
  - Create DBiT-seq directory schema
  - Add G4X directory schema
+ - Update docs for g4x & dbit-seq
 
 ## v0.0.34
  - Create CyTOF directory schema
