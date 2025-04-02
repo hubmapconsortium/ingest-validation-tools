@@ -53,8 +53,8 @@ class Validator(object):
         assay_type: str,
         contains: List = [],
         verbose: bool = False,
-        metadata_tsv: SchemaVersion = None,
-        globus_token: str = None,
+        metadata_tsv: Optional[SchemaVersion] = None,
+        globus_token: Optional[str] = None,
         app_context: Dict[str, str] = {},
         **kwargs,
     ):
@@ -105,7 +105,7 @@ def run_plugin_validators_iter(
     plugin_dir: PathOrStr,
     is_shared_upload: bool,
     verbose: bool = True,
-    globus_token: str = None,
+    globus_token: Optional[str] = None,
     app_context: Dict[str, str] = {},
     **kwargs,
 ) -> Iterator[KeyValuePair]:
@@ -196,8 +196,8 @@ def validation_error_iter(
     plugin_dir: PathOrStr,
     contains: List,
     verbose: bool = False,
-    metadata_tsv: SchemaVersion = None,
-    globus_token: str = None,
+    metadata_tsv: Optional[SchemaVersion] = None,
+    globus_token: Optional[str] = None,
     app_context: Dict[str, str] = {},
     **kwargs,
 ) -> Iterator[KeyValuePair]:

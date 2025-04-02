@@ -27,7 +27,6 @@ from tests.test_dataset_examples import (
 
 
 class UpdateData:
-
     def __init__(
         self,
         dir: str,
