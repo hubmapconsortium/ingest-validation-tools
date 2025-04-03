@@ -51,7 +51,7 @@ To validate your metadata TSV files, use the [HuBMAP Metadata Spreadsheet Valida
 Checkout the repo and install dependencies:
 
 ```
-python --version  # Should be Python3.
+python --version  # Should be Python3.9 or 3.11
 git clone https://github.com/hubmapconsortium/ingest-validation-tools.git
 cd ingest-validation-tools
 # Optionally, set up venv or conda, then:
@@ -141,7 +141,7 @@ The test error message will tell you what to do.
 
 ### GitHub Actions
 
-This repo uses GitHub Actions to check formatting and linting of code using black, isort, and flake8. Especially before submitting a PR, make sure your code is compliant. Run the following from the base `ingest-validation-tools` directory:
+This repo uses GitHub Actions to check formatting and linting of code using black, isort, and flake8. Especially before submitting a PR, make sure your code is compliant per the versions specified in `requirements-dev.in`. Run the following from the base `ingest-validation-tools` directory:
 
 ```
 black --line-length 99 .

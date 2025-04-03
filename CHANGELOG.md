@@ -26,6 +26,7 @@
  - Create DBiT-seq directory schema
  - Add G4X directory schema
  - Update docs for g4x & dbit-seq
+ - Ensure compatibility with Python 3.11
 
 ## v0.0.34
  - Create CyTOF directory schema

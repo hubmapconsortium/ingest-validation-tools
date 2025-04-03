@@ -45,7 +45,6 @@ def get_mock_response(good: bool, response_data: bytes):
 
 
 class TestSingleTsv(unittest.TestCase):
-
     @property
     def upload(self):
         upload = Upload(directory_path=Path("."))
