@@ -1,5 +1,7 @@
 # Changelog
-## v0.0.35 (in progress)
+## v0.0.36 (in progress)
+
+## v0.0.35
  - Adding support for EPIC's new plugin
  - Update MERFISH directory schema
  - Update Histology directory schema
