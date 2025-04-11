@@ -1,6 +1,7 @@
 # Changelog
 ## v0.0.36 (in progress)
 - Update Xenium directory schema
+- Update LC-MS directory schema
 
 ## v0.0.35
  - Adding support for EPIC's new plugin
