@@ -1,5 +1,6 @@
 # Changelog
 ## v0.0.36 (in progress)
+- Update Xenium directory schema
 
 ## v0.0.35
  - Adding support for EPIC's new plugin
