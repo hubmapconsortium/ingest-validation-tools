@@ -247,7 +247,7 @@ class TestDatasetExamples(unittest.TestCase):
         errors = " ".join([str(error) for error in self.errors])
         try:
             self.assertEqual([], self.errors)
-        except AssertionError:
+        except AssertionError as e:
             print(
                 f"""
                 -------ERRORS-------
@@ -257,6 +257,7 @@ class TestDatasetExamples(unittest.TestCase):
                     env PYTHONPATH=src:$PYTHONPATH python -m tests-manual.update_test_data -t {errors} --verbose --globus_token "" --manual_test --dry_run
                 """
             )
+            raise e
 
     def get_paths(self):
         self.dataset_paths = {}

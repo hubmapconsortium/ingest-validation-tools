@@ -771,13 +771,15 @@ class Upload:
 
     def _get_ref_errors(
         self,
-        ref: str,
+        ref: Union[str, OtherTypes],
         schema: SchemaVersion,
         metadata_path: Union[str, Path],
     ):
         # We don't want to continuously validate shared paths, e.g. contributors.tsv,
         # so this ensures we only check unique paths in a single metadata TSV once
         unique_paths = set()
+        if isinstance(ref, OtherTypes):
+            ref = ref.value
         for row in schema.rows:
             field = f"{ref}_path"
             if not row.get(field):
@@ -922,6 +924,6 @@ class Upload:
         for tsv_path, schema in self.effective_tsv_paths.items():
             for i, row in enumerate(schema.rows):
                 if col_name in row:
-                    reference = f"{tsv_path} (row {i+2})"
+                    reference = f"{tsv_path} (row {i + 2})"
                     references[row[col_name]].append(reference)
         return dict(references)
