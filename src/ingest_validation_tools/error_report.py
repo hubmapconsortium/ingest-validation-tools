@@ -1,377 +1,417 @@
 from __future__ import annotations
 
+import json
+import os
 from collections import defaultdict
-from collections.abc import MutableMapping
-from dataclasses import dataclass, field, fields
+from dataclasses import asdict, dataclass, field
 from datetime import datetime
+from enum import Enum
 from pathlib import Path
-from typing import TYPE_CHECKING, DefaultDict, Dict, List, Optional, Type, Union
+from typing import Dict, Literal, NamedTuple, Optional, Sequence, Union, overload
 
-from yaml import Dumper, dump
+from yaml import dump
 
-from ingest_validation_tools.message_munger import munge, recursive_munge
-
-if TYPE_CHECKING:
-    from ingest_validation_tools.upload import Upload
-
-# Force dump not to use alias syntax.
-# https://stackoverflow.com/questions/13518819/avoid-references-in-pyyaml
-Dumper.ignore_aliases = lambda *args: True
+from ingest_validation_tools.table_validator import ReportType
 
 
-@dataclass
-class DictErrorType(MutableMapping):
-    """
-    Dataclass that acts like a defaultdict using self.value.
-    """
+# TODO: move to enums
+class SerializeMode(Enum):
+    CATEGORY = "collect_errors_by_category"
+    FILE = "collect_errors_by_file"
+    CATEGORY_THEN_FILE = "collect_errors_by_category_and_file"
+    FILE_THEN_CATEGORY = "collect_errors_by_file_and_category"
+    FLAT = "format_errors"  # just a list of formatted error strings or Error object dicts
 
-    name: str = ""
-    display_name: str = ""
-    default_factory: Type = list
-    value: DefaultDict = field(default_factory=lambda: defaultdict())
 
-    def __post_init__(self):
-        if type(self.default_factory) is not list:
-            self.value = defaultdict(self.default_factory)
-
-    def __missing__(self, key):
-        self.value[key] = self.default_factory()
-        return self.value[key]
-
-    def __getitem__(self, key):
-        return self.value[key]
-
-    def __setitem__(self, key, value):
-        self.value[key] = value
-
-    def __delitem__(self, key):
-        del self.value[key]
-
-    def __iter__(self):
-        return iter(self.value)
-
-    def __len__(self):
-        return len(self.value)
-
-    def __bool__(self):
-        return bool(self.value)
-
-    @property
-    def counts(self) -> dict:
-        if self.default_factory == list:
-            return self.list_type_counts()
-        elif self.default_factory == dict:
-            return self.dict_type_counts()
-        else:
-            print(f"Counts method for defaultdict({self.default_factory}) not defined.")
-            return {}
-
-    def list_type_counts(self):
-        errors_for_category = 0
-        for errors in self.value.values():
-            errors_for_category += len(errors)
-        return {self.display_name: errors_for_category} if errors_for_category else {}
-
-    def dict_type_counts(self):
-        counts_by_sub_category = {}
-        for error_type, errors in self.value.items():
-            for error_sub_type, error in errors.items():
-                if type(error) is list:
-                    value = len(error)
-                    counts_by_sub_category[error_type] = value
-                else:
-                    print(
-                        f"Counting for {error_type} error '{error_sub_type}' of type {type(error)} not defined."
-                    )
-        return counts_by_sub_category
+class ErrorTypes(Enum):
+    PREFLIGHT = "Preflight"
+    DIRECTORY = "Directory Validation"
+    UPLOAD_METADATA = "Antibodies/Contributors"
+    METADATA_VALIDATION_API = "Spreadsheet Validator"
+    METADATA_VALIDATION_LOCAL = "Local Validation"
+    METADATA_VALIDATION_URLS = "URL Check"
+    METADATA_VALIDATION_CONSTRAINTS = "Entity Constraint"
+    REFERENCE = "Reference"
+    PLUGIN = "Data File"
 
 
 @dataclass
-class StrErrorType:
-    name: str = ""
-    display_name: str = ""
+class Error:
+    category: ErrorTypes
+    errorContent: Union[str, dict, list]
+    errorType: Optional[str] = None
+    file: Optional[Union[str, Path]] = None
+    schema: Optional[str] = None
+    column: Optional[str] = None
+    row: Optional[int] = None
     value: Optional[str] = None
 
-    def __bool__(self):
-        return bool(self.value)
+    @overload
+    def reformat(  # noqa: E704
+        self, format_type: Union[None, Literal[ReportType.STR]] = ReportType.STR
+    ) -> str: ...
+    @overload
+    def reformat(self, format_type: Literal[ReportType.JSON]) -> dict: ...  # noqa: E704
+    def reformat(self, format_type: Optional[ReportType] = ReportType.STR):  # noqa: E301
+        if format_type == ReportType.STR:
+            return self.format_leaf_nodes_to_str()
+        return self.format_to_json()
 
-    @property
-    def counts(self) -> dict:
-        return {self.display_name: self.value} if self.value else {}
+    def format_leaf_nodes_to_str(self, value: Optional[Union[dict, list]] = None):
+        obj_to_format = value if value else self.errorContent
+        if isinstance(obj_to_format, dict):
+            formatted_dict = {}
+            for key, value in obj_to_format.items():
+                formatted_dict[key] = self.format_leaf_nodes_to_str(value)
+            return formatted_dict
+        elif isinstance(obj_to_format, list):
+            formatted_list = []
+            for value in obj_to_format:
+                formatted_list.append(self.format_leaf_nodes_to_str(value))
+            return formatted_list
+        if self.row and self.column:
+            return f"Row {self.row}, column '{self.column}': {obj_to_format}"
+        else:
+            return obj_to_format
+
+    def format_to_json(self) -> dict:
+        return asdict(self)
 
 
-ErrorType = Union[StrErrorType, DictErrorType]
-
-
-@dataclass
-class InfoDict:
+class ValidationReport:
+    errors: list[Error] = []
+    validation_completed: bool = False
     time: Optional[datetime] = None
     git: Optional[str] = None
-    dir: Optional[str] = None
+    base_path: Optional[str] = None
     tsvs: Dict[str, Dict[str, str]] = field(default_factory=dict)
     successful_plugins: list[str] = field(default_factory=list)
 
-    def as_dict(self):
-        as_dict = {
-            "Time": self.time,
-            "Git version": self.git,
-            "Directory": self.dir,
-            "TSVs": self.tsvs,
-        }
-        if self.successful_plugins:
-            as_dict["Successful Plugins"] = self.successful_plugins
-        return as_dict
 
-
-@dataclass
-class ErrorDict:
-    """
-    Has fields for each major validation type, which can be accessed directly or
-    compiled using self.as_dict().
-    """
-
-    preflight: StrErrorType = field(
-        default_factory=lambda: StrErrorType(name="preflight", display_name="Preflight Errors")
-    )
-    directory: DictErrorType = field(
-        default_factory=lambda: DictErrorType(name="directory", display_name="Directory Errors")
-    )
-    upload_metadata: DictErrorType = field(
-        default_factory=lambda: DictErrorType(
-            name="upload_metadata", display_name="Antibodies/Contributors Errors"
-        )
-    )
-    metadata_validation_local: DictErrorType = field(
-        default_factory=lambda: DictErrorType(
-            name="metadata_validation_local", display_name="Local Validation Errors"
-        )
-    )
-    metadata_validation_api: DictErrorType = field(
-        default_factory=lambda: DictErrorType(
-            name="metadata_validation_api", display_name="Spreadsheet Validator Errors"
-        )
-    )
-    metadata_url_errors: DictErrorType = field(
-        default_factory=lambda: DictErrorType(
-            name="metadata_url_errors", display_name="URL Check Errors"
-        )
-    )
-    metadata_constraint_errors: DictErrorType = field(
-        default_factory=lambda: DictErrorType(
-            name="metadata_constraint_errors", display_name="Entity Constraint Errors"
-        )
-    )
-    reference: DictErrorType = field(
-        default_factory=lambda: DictErrorType(
-            name="reference", display_name="Reference Errors", default_factory=dict
-        )
-    )
-    plugin: DictErrorType = field(
-        default_factory=lambda: DictErrorType(name="plugin", display_name="Data File Errors")
-    )
-    plugin_skip: StrErrorType = field(
-        default_factory=lambda: StrErrorType(name="plugin_skip", display_name="Fatal Errors")
-    )
-
-    def __iter__(self):
-        for attr_field in fields(self):
-            yield getattr(self, attr_field.name)
-
-    def __bool__(self):
-        """
-        Return true if any field has errors.
-        """
-        return bool(self.as_dict())
-
-    def errors_by_path(self, path: str, selected_fields: list = []) -> Dict[str, str]:
-        errors = {}
-        if not selected_fields:
-            selected_fields = [error_field for error_field in fields(self)]
-        selected_error_type_fields = [field for field in selected_fields]
-        for error_type_field in selected_error_type_fields:
-            error_field = getattr(self, error_type_field.name, None)
-            if not error_field or not error_field.value:
-                continue
-            if type(error_field) is StrErrorType:
-                errors[error_field.display_name] = error_field.value
-            elif type(error_field) is DictErrorType:
-                for key, value in error_field.items():
-                    if (Path(key) == Path(path)) or (str(path) in key):
-                        errors[error_field.display_name] = value
-                        break
-        return errors
-
-    def online_only_errors_by_path(self, path: str):
-        return self.errors_by_path(
-            path,
-            [
-                self.metadata_url_errors,
-                self.metadata_validation_api,
-                self.metadata_constraint_errors,
-            ],
-        )
-
-    def tsv_only_errors_by_path(self, path: str, local_allowed=True) -> List[str]:
-        """
-        For use in front-end single TSV validation.
-        Turn off support for local validation by passing local_allowed=False
-        """
-        errors = []
-        selected_fields = [
-            self.metadata_url_errors,
-            self.metadata_validation_api,
-            self.metadata_constraint_errors,
-        ]
-        if local_allowed:
-            selected_fields.append(self.metadata_validation_local)
-        path_errors = self.errors_by_path(path, selected_fields)
-        for value in path_errors.values():
-            errors.extend(value)
-        return errors
-
-    def as_dict(self, attr_keys=False):
-        """
-        Compiles all fields with errors into a dict.
-        By default uses human-readable keys, but passing
-        attr_keys=True will use the attribute names.
-        """
-        errors = {}
-        for errordict_field in fields(self):
-            error_field = getattr(self, errordict_field.name)
-            if not error_field or not error_field.value:
-                continue
-            value = self.sort_val(error_field.value)
-            if attr_keys:
-                errors[error_field.name] = value
-            else:
-                errors[error_field.display_name] = value
-        return errors
-
-    def sort_val(self, value):
-        """
-        Recursively sort all dicts by keys for consistency of testing and output.
-        """
-        if type(value) in [dict, defaultdict]:
-            value = {k: self.sort_val(v) for k, v in sorted(value.items())}
-        return value
-
-
-class ErrorReport:
-    errors = {}
-    info = {}
-    raw_errors = ErrorDict()
-    raw_info = InfoDict()
+class ValidationSerializer:
 
     def __init__(
         self,
-        upload: Optional[Upload] = None,
-        errors: Optional[ErrorDict] = None,
-        info: Optional[InfoDict] = None,
+        validation_report: ValidationReport,
+        plugins_ran: bool = True,
+        serialize_mode: Optional[SerializeMode] = None,
+        format_type: ReportType = ReportType.STR,
+        include_schema: bool = True,
+        as_yaml: bool = False,
+        detailed_success_report: bool = False,
     ):
-        if upload:
-            if not upload.get_errors_called:
-                self.raw_errors = upload.get_errors()
-            else:
-                self.raw_errors = upload.errors
-            if not upload.get_info_called:
-                self.raw_info = upload.get_info()
-            else:
-                self.raw_info = upload.info
-            self.errors = upload.errors.as_dict()
-            self.info = upload.info.as_dict()
-        # Preserved for backward compatibility for now
-        else:
-            if errors:
-                self.raw_errors = errors
-                self.errors = errors.as_dict()
-            if info:
-                self.raw_info = info
-                self.info = info.as_dict()
+        """
+        Minimal instantiation:
+            ValidationSerializer(validation_report)
 
-    @property
-    def counts(self) -> Dict[str, Union[int, str]]:
+        Can fine-tune output with the following params, set
+        to defaults reflecting needs of HuBMAP ingest-pipeline:
+            plugins_ran     whether plugins ran during validation
+            serialize_mode  change organization of output
+            format_type     errors as STR or JSON
+            include_schema  format file path keys
+                                True: "path (as schema 'schema')"
+                                False: "path"
+            as_yaml         default is to return JSON
+            detailed_success_report
+                            report info about validation run, default
+                            is to return {} on successful validation
         """
-        Count errors per category. Requires raw_errors (ErrorDict object).
-        ErrorType fields have a `counts` property, but fields related to
-        plugins need some pre-processing.
+        self.report = validation_report
+        self.plugins_ran = plugins_ran
+        self.serialize_mode = (
+            serialize_mode if serialize_mode else SerializeMode.CATEGORY_THEN_FILE
+        )
+        self.format_type = format_type
+        self.include_schema = include_schema
+        self.as_yaml = as_yaml
+        self.detailed_success_report = detailed_success_report
+
+    ################
+    # Custom types #
+    ################
+
+    class FileSchema(NamedTuple):
+        filename: str
+        schema: str
+
+    FormattedErrorDict = dict[str, list[Union[str, dict]]]
+    UnformattedErrorDict = dict[Union[str, ErrorTypes, FileSchema], list[Error]]
+
+    ################
+    # Main methods #
+    ################
+
+    def serialize(
+        self,
+    ) -> Union[str, dict]:
+        if not self.report.validation_completed:
+            raise Exception("Validation not complete, cannot serialize result.")
+        # No errors, return validation report if requested.
+        if not self.report.errors:
+            if not self.detailed_success_report:
+                return {}
+            if self.as_yaml:
+                return dump(self.validation_report())
+            return self.validation_report()
+        # Errors exist, serialize to either JSON or YAML
+        serialize_func = getattr(
+            self, "_" + self.serialize_mode.value, getattr(self, "format_errors")
+        )
+        if self.as_yaml:
+            return dump(
+                {self.report.base_path: self.format(serialize_func(self.report.errors))},
+                sort_keys=False,
+            )
+        return json.dumps(
+            {self.report.base_path: self.format(serialize_func(self.report.errors))},
+            sort_keys=False,
+        )
+
+    def validation_report(self) -> dict:
+        as_dict = {
+            "Valid": bool(self.report.validation_completed and not self.report.errors),
+            "Time": self.report.time,
+            "Git version": self.report.git,
+            "Base path": self.report.base_path,
+            "TSVs": self.report.tsvs,
+        }
+        if self.report.successful_plugins:
+            as_dict["Successful Plugins"] = self.report.successful_plugins
+        return as_dict
+
+    ####################
+    # Reformat methods #
+    ####################
+
+    @overload
+    def format(self, unformatted_errors: dict) -> FormattedErrorDict: ...  # noqa: E704
+    @overload
+    def format(self, unformatted_errors: list) -> list[Union[str, dict]]: ...  # noqa: E704
+    def format(  # noqa: E301
+        self,
+        unformatted_errors: Union[dict, list],
+    ) -> Union[FormattedErrorDict, Sequence[Union[str, dict]]]:
+        formatted_errors = {}
+        if isinstance(unformatted_errors, list):
+            return self.format_errors(unformatted_errors)
+        for key, value in unformatted_errors.items():
+            key = self.format_key(key)
+            if isinstance(value, dict):
+                new_value = self.format(value)
+            elif isinstance(value, list):
+                new_value = self.format_errors(value)
+            else:
+                new_value = value
+            formatted_errors[key] = new_value
+        return formatted_errors
+
+    def format_errors(self, errors: list[Error]) -> list[Union[str, dict]]:
         """
-        if not self.raw_errors:
-            return {}
+        Serialize Error objects to str or dict based on format_type.
+
+        If self.format_type = ReportType.STR:
+            [Error1, Error2, Error3] ->
+            ["formatted_error1", "formatted_error2", "formatted_error3"]
+        elif self.format_type = ReportType.JSON:
+            [Error1, ...] ->
+            [{"category": "error1Category", "errorText": "I am text for Error1", "file": "filename",
+              "schema": None, "column": "column_name", "row": 1, "value": "value_str"}, ...]
+        """
+        formatted_errors = []
+        for error in errors:
+            if isinstance(error, str):
+                formatted_errors.append(error)
+            else:
+                formatted_errors.append(error.reformat(self.format_type))
+        return formatted_errors
+
+    def format_key(self, key: Union[FileSchema, ErrorTypes, str]) -> str:
+        """
+        Category and file keys remain unformatted until the final step. Standardize to strings.
+        """
+        if isinstance(key, self.FileSchema):
+            if self.include_schema:
+                return f"{self.trunc_path(key[0])} (as schema '{key[1]}')"
+            return self.trunc_path(key[0])
+        elif isinstance(key, ErrorTypes):
+            return key.value
+        else:
+            return key
+
+    ####################
+    # Structure errors #
+    ####################
+
+    def _collect_errors_by_category(self, error_list: list[Error]) -> UnformattedErrorDict:
+        """
+        Params:
+            error_list: list[Error]
+                        [Error1(category="Category1"), Error2(category="Category1"),
+                        Error3(category="Category2"), Error4(category="Category2")]
+        Return:
+                {"Category1": [Error1, Error2], "Category2": [Error3, Error4]}
+        """
+        categorized_errors = defaultdict(list)
+        for error in error_list:
+            categorized_errors[error.category.value].append(error)
+        return dict(categorized_errors)
+
+    def _collect_errors_by_file(
+        self, error_list: list[Error]
+    ) -> list[Union[UnformattedErrorDict, str]]:
+        """
+        Params:
+            error_list: list[Error]
+                        [Error1(file="File1"), Error2(file="File1"),
+                        Error3(file="File2"), Error4(file=None)]
+        Return:
+            {"File1": [Error1, Error2], "File2": [Error3], "Non-file errors": [Error4]}
+        """
+        errors = []
+        errors_by_file = defaultdict(list)
+        """
+                File1:
+                    Error1
+                Error2
+                Error3
+            """
+        for error in error_list:
+            if file := error.file:
+                errors_by_file[(file, error.schema)].append(error)
+            else:
+                errors.append(error)
+        if errors_by_file:
+            errors.append(dict(errors_by_file))
+        return errors
+
+    def _collect_errors_by_category_and_file(
+        self, error_list: list[Error]
+    ) -> dict[ErrorTypes, UnformattedErrorDict]:
+        categorized_errors = self._collect_errors_by_category(error_list)
+        categorized_errors_by_file = {}
+        for category, errors in categorized_errors.items():
+            categorized_errors_by_file[category] = self._collect_errors_by_file(errors)
+        return categorized_errors_by_file
+
+    def _single_file_validation_file_then_category(
+        self, error_list: list[Error]
+    ) -> dict[FileSchema, UnformattedErrorDict]:
+        """
+        For single-file validation only; discards any errors without a file attr.
+        """
+        errors_by_file = self._collect_errors_by_file(error_list)
+        errors_by_file_and_category = {}
+        for errors in errors_by_file:
+            if isinstance(errors, dict):
+                for key, value in errors.items():
+                    errors_by_file_and_category[key] = self._collect_errors_by_category(value)
+        return errors_by_file_and_category
+
+    ##########
+    # Counts #
+    ##########
+
+    def count_errors_by_category(self):
         counts = {}
-        for raw_error_field in fields(self.raw_errors):
-            error_field = getattr(self.raw_errors, raw_error_field.name)
-            if not error_field or not error_field.value:
-                continue
-            if error_field.name == "plugin":
-                plugin_counts = [len(value) for value in self.raw_errors.plugin.values()]
-                counts[self.raw_errors.plugin.display_name] = (
-                    f"{sum(plugin_counts)} errors in {len(plugin_counts)} plugins"
-                )
-            elif error_field.name == "plugin_skip":
-                counts["Plugins Skipped"] = True
-            elif getattr(error_field, "counts"):
-                counts.update(error_field.counts)
+        categorized_errors = self._collect_errors_by_category(self.report.errors)
+        for category, errors in categorized_errors.items():
+            if category == ErrorTypes.PLUGIN:
+                if not self.plugins_ran and self.report.errors:
+                    counts[category] = "Plugins skipped."
+                    continue
+            counts[category] = len(errors)
         return counts
 
-    def _no_errors(self):
-        return f"No errors!\n{dump(self.info, sort_keys=False)}\n"
+    def count_errors_by_file(self):
+        """
+        Discards any errors without a file attr.
+        """
+        counts = {}
+        errors_by_file = self._collect_errors_by_file(self.report.errors)
+        for errors in errors_by_file:
+            if isinstance(errors, dict):
+                for filename, error_list in errors.items():
+                    counts[filename] = len(error_list)
+        return counts
 
-    def _as_list(self) -> List[Union[str, int]]:
-        return [munge(m) for m in _build_list(self.errors)]
+    def trunc_path(self, path: Union[Path, str]):
+        return os.path.relpath(path, self.report.base_path)
 
-    def as_text_list(self) -> str:
-        return "\n".join(str(error) for error in self._as_list()) or self._no_errors()
+    # TODO: not sure if below is useful
+    # ###########
+    # # Filters #
+    # ###########
+    #
+    # def filter_by_path(
+    #     self,
+    #     paths: list[str],
+    #     categories: Optional[list[ErrorTypes]] = None,
+    #     format: bool = True,
+    # ) -> Union[UnformattedErrorDict, FormattedErrorDict]:
+    #     errors_by_specified_paths = {}
+    #     all_paths = self._collect_errors_by_file(self.report.errors)
+    #     for path_val, value in all_paths.items():
+    #         if isinstance(path_val, self.FileSchema) and path_val[0] in paths:
+    #             errors_by_specified_paths[path_val] = (
+    #                 value
+    #                 if not categories
+    #                 else self._errors_from_specified_categories(value, categories)
+    #             )
+    #     if not errors_by_specified_paths:
+    #         return {}
+    #     return errors_by_specified_paths if not format else self.format(errors_by_specified_paths)
+    #
+    # def filter_by_categories(
+    #     self,
+    #     categories: list[ErrorTypes],
+    #     paths: Optional[list[str]] = None,
+    #     format: bool = True,
+    # ) -> Union[UnformattedErrorDict, FormattedErrorDict]:
+    #     errors_by_specified_categories = {}
+    #     all_categories = self._collect_errors_by_category(self.report.errors)
+    #     for category, value in all_categories.items():
+    #         if category in categories:
+    #             errors_by_specified_categories[category] = (
+    #                 value if not paths else self._errors_from_specified_paths(value, paths)
+    #             )
+    #     if not errors_by_specified_categories:
+    #         return {}
+    #     return (
+    #         errors_by_specified_categories
+    #         if not format
+    #         else self.format(errors_by_specified_categories)
+    #     )
+    #
+    # def _errors_from_specified_paths(
+    #     self, errors: list[Error], paths: list[str]
+    # ) -> UnformattedErrorDict:
+    #     specified_paths = {}
+    #     errors_by_path = self._collect_errors_by_file(errors)
+    #     for fileschema, errors in errors_by_path.items():
+    #         if isinstance(fileschema, self.FileSchema) and fileschema[0] in paths:
+    #             specified_paths[fileschema] = errors
+    #     return specified_paths
+    #
+    # def _errors_from_specified_categories(
+    #     self, errors: list[Error], categories: list[ErrorTypes]
+    # ) -> UnformattedErrorDict:
+    #     specified_categories = {}
+    #     categorized_errors = self._collect_errors_by_category(errors)
+    #     for category, errors in categorized_errors.items():
+    #         if category in categories:
+    #             specified_categories[category] = errors
+    #     return specified_categories
+    #
+    # def tsv_only_errors_by_path(self, paths: list[str]) -> FormattedErrorDict:
+    #     tsv_error_types = [
+    #         ErrorTypes.METADATA_VALIDATION_URLS,
+    #         ErrorTypes.METADATA_VALIDATION_API,
+    #         ErrorTypes.METADATA_VALIDATION_CONSTRAINTS,
+    #         ErrorTypes.METADATA_VALIDATION_LOCAL,
+    #     ]
+    #     return self.format(self.filter_by_categories(tsv_error_types, paths))
+    #
 
-    def as_yaml(self) -> str:
-        return dump(recursive_munge(self.errors), sort_keys=False)
 
-    def as_text(self) -> str:
-        if not self.errors:
-            return self._no_errors()
-        else:
-            return self.as_yaml()
-
-    def as_md(self) -> str:
-        return f"```\n{self.as_text()}```"
-
-
-def _build_list(anything, path=None) -> List[str]:
-    """
-    >>> flat = _build_list({
-    ...     'nested dict': {
-    ...         'like': 'this'
-    ...     },
-    ...     'nested array': [
-    ...         'like',
-    ...         'this'
-    ...     ],
-    ...     'string': 'like this',
-    ...     'number': 42
-    ... })
-    >>> print('\\n'.join(flat))
-    nested dict: like: this
-    nested array: like
-    nested array: this
-    string: like this
-    number: 42
-
-    """
-    prefix = f"{path}: " if path else ""
-    if isinstance(anything, dict):
-        if all(isinstance(v, (float, int, str)) for v in anything.values()):
-            return [f"{prefix}{k}: {v}" for k, v in anything.items()]
-        else:
-            to_return = []
-            for k, v in anything.items():
-                to_return += _build_list(v, path=f"{prefix}{k}")
-            return to_return
-    elif isinstance(anything, list):
-        if all(isinstance(v, (float, int, str)) for v in anything):
-            return [f"{prefix}{v}" for v in anything]
-        else:
-            to_return = []
-            for v in anything:
-                to_return += _build_list(v, path=path)
-            return to_return
-    else:
-        return [f"{prefix}{anything}"]
+# TODO: testing

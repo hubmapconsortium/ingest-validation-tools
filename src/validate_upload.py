@@ -1,14 +1,12 @@
 #!/usr/bin/env python3
 
 import argparse
-import inspect
 import sys
 from datetime import datetime
 from pathlib import Path
 
 from ingest_validation_tools.check_factory import cache_path
 from ingest_validation_tools.cli_utils import ShowUsageException, dir_path, exit_codes
-from ingest_validation_tools.error_report import ErrorReport
 from ingest_validation_tools.upload import Upload
 
 directory_schemas = sorted(
@@ -121,11 +119,6 @@ Exit status codes:
     )
     # How should output be formatted?
 
-    error_report_methods = [
-        name for (name, _) in inspect.getmembers(ErrorReport) if name.startswith("as_")
-    ]
-    parser.add_argument("--output", choices=error_report_methods, default="as_text_list")
-
     parser.add_argument(
         "--add_notes",
         action="store_true",
@@ -184,11 +177,11 @@ def main():
         upload_args["globus_token"] = args.globus_token
 
     upload = Upload(**upload_args)
-    report = ErrorReport(upload)
-    print(getattr(report, args.output)())
+    report = upload.validate(as_yaml=True)
+    print(report)
     if args.save_report:
         _save_report(upload, report)
-    return exit_codes.INVALID if report.errors else exit_codes.VALID
+    return exit_codes.INVALID if report else exit_codes.VALID
 
 
 if __name__ == "__main__":
