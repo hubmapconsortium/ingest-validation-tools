@@ -1,5 +1,10 @@
 # Changelog
-## v0.0.35 (in progress)
+## v0.0.36 (in progress)
+- Update Xenium directory schema
+- Update LC-MS directory schema
+- Bugfix table_schema logic for legacy validation
+
+## v0.0.35
  - Adding support for EPIC's new plugin
  - Update MERFISH directory schema
  - Update Histology directory schema

@@ -112,17 +112,14 @@ class SchemaVersion:
     def _get_table_schema_info(self):
         if self.is_cedar:
             return
-        self.table_schema = self.soft_assay_data.get("tbl-schema")
-        if not self.table_schema:
-            self.table_schema = f"{self.schema_name}-v{self.version}"
-        elif self.table_schema.endswith("v"):
-            self.table_schema = self.table_schema + str(self.version)
-        elif self.table_schema:
-            return
-        else:
-            raise PreflightError(
-                f"No table_schema for upload at {self.directory_path}. Schema: {self.schema_name}. Version: {self.version}."
+        if table_schema := self.soft_assay_data.get("tbl-schema"):
+            self.table_schema = (
+                table_schema
+                if not table_schema.endswith("v")
+                else table_schema + str(self.version)
             )
+        else:
+            self.table_schema = f"{self.schema_name}-v{self.version}"
 
 
 @dataclass
