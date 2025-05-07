@@ -8,7 +8,6 @@ usage: validate_upload.py [-h] --local_directory PATH
                           [--encoding ENCODING]
                           [--plugin_directory PLUGIN_DIRECTORY]
                           [--run_plugins] [--globus_token GLOBUS_TOKEN]
-                          [--output {as_md,as_text,as_text_list,as_yaml}]
                           [--add_notes] [--save_report]
 
 Validate a HuBMAP upload, both the metadata TSVs and the datasets.
@@ -42,7 +41,6 @@ optional arguments:
                         errors.
   --globus_token GLOBUS_TOKEN
                         Token for URL checking using Entity API.
-  --output {as_md,as_text,as_text_list,as_yaml}
   --add_notes           Append a context note to error reports.
   --save_report         Save the report; Adding "--upload_ignore_globs
                         'report-*.txt'" is necessary to revalidate.

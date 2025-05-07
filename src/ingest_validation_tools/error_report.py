@@ -78,14 +78,17 @@ class Error:
         return asdict(self)
 
 
+@dataclass
 class ValidationReport:
-    errors: list[Error] = []
-    validation_completed: bool = False
     time: Optional[datetime] = None
     git: Optional[str] = None
     base_path: Optional[str] = None
     tsvs: Dict[str, Dict[str, str]] = field(default_factory=dict)
     successful_plugins: list[str] = field(default_factory=list)
+
+    def __post_init__(self):
+        self.errors = []
+        self.validation_completed = False
 
 
 class ValidationSerializer:
@@ -160,8 +163,10 @@ class ValidationSerializer:
         )
         if self.as_yaml:
             return dump(
-                {self.report.base_path: self.format(serialize_func(self.report.errors))},
+                self.format(serialize_func(self.report.errors)),
                 sort_keys=False,
+                default_style=None,
+                default_flow_style=False,
             )
         return json.dumps(
             {self.report.base_path: self.format(serialize_func(self.report.errors))},
@@ -194,16 +199,26 @@ class ValidationSerializer:
     ) -> Union[FormattedErrorDict, Sequence[Union[str, dict]]]:
         formatted_errors = {}
         if isinstance(unformatted_errors, list):
-            return self.format_errors(unformatted_errors)
-        for key, value in unformatted_errors.items():
-            key = self.format_key(key)
-            if isinstance(value, dict):
-                new_value = self.format(value)
-            elif isinstance(value, list):
-                new_value = self.format_errors(value)
+            if any([v for v in unformatted_errors if isinstance(v, Error)]):
+                return self.format_errors(unformatted_errors)
             else:
-                new_value = value
-            formatted_errors[key] = new_value
+                formatted_list_errors = []
+                for error in unformatted_errors:
+                    formatted_list_errors.append(self.format(error))
+                return formatted_list_errors
+        elif isinstance(unformatted_errors, dict):
+            for key, value in unformatted_errors.items():
+                key = self.format_key(key)
+                if isinstance(value, dict):
+                    new_value = self.format(value)
+                elif isinstance(value, list):
+                    if any([v for v in value if isinstance(v, Error)]):
+                        new_value = self.format_errors(value)
+                    else:
+                        new_value = self.format(value)
+                else:
+                    new_value = value
+                formatted_errors[key] = new_value
         return formatted_errors
 
     def format_errors(self, errors: list[Error]) -> list[Union[str, dict]]:
@@ -278,7 +293,7 @@ class ValidationSerializer:
             """
         for error in error_list:
             if file := error.file:
-                errors_by_file[(file, error.schema)].append(error)
+                errors_by_file[self.FileSchema(str(file), error.schema)].append(error)
             else:
                 errors.append(error)
         if errors_by_file:

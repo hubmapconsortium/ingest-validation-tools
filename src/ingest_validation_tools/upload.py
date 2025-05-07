@@ -108,7 +108,7 @@ class Upload:
             }
 
         except PreflightError as e:
-            self.report.errors.append(Error(ErrorTypes.PREFLIGHT, str(e)))
+            self.errors(ErrorTypes.PREFLIGHT, str(e))
 
         self._populate_validation_report_info()
 
@@ -124,7 +124,15 @@ class Upload:
         """
         self.validate(**kwargs)
 
-    def validate(self, **kwargs) -> Union[dict, str]:
+    # @overload
+    # def validate(self, as_yaml: Literal[True], **kwargs: Any) -> str:
+    #     ...  # mypy: ignore
+    #
+    # @overload
+    # def validate(self, as_yaml: Literal[False] = False, **kwargs: Any) -> dict:
+    #     ...  # mypy: ignore
+    #
+    def validate(self, as_yaml: bool = False, **kwargs):
         """
         Run validation and return serialized errors.
         Can pass kwargs to plugins and serializer.
@@ -132,27 +140,28 @@ class Upload:
         On success returns empty dict/str (or detailed info on run if
                                detailed_validation_report=True)
         """
-        # Return if PreflightErrors found
         if self.report.errors:
-            return ValidationSerializer(self.report, plugins_ran=False, **kwargs).serialize()
-
-        # Collect errors
-        self._get_local_tsv_errors()
-        self._get_directory_errors()
-        self.validation_routine()
-        self._get_reference_errors()
-        self._run_plugins(**kwargs)
+            # Preflight errors found, return early
+            plugins_ran = False
+        else:
+            # Collect errors
+            self._get_local_tsv_errors()
+            self._get_directory_errors()
+            self.validation_routine()
+            self._get_reference_errors()
+            self._run_plugins(**kwargs)
+            plugins_ran = bool(self.run_plugins)
 
         self.report.validation_completed = True
         return ValidationSerializer(
-            self.report, plugins_ran=bool(self.run_plugins), **kwargs
+            self.report, plugins_ran=plugins_ran, as_yaml=as_yaml, **kwargs
         ).serialize()
 
     ###########
     # Helpers #
     ###########
 
-    def errors(self, error_type: ErrorTypes, error_content: str, **kwargs):
+    def errors(self, error_type: ErrorTypes, error_content: Union[dict, list, str], **kwargs):
         """
         Helper method for adding to error report.
         Minimal call to add error: self.errors(ErrorTypes.TYPE, content)
@@ -427,13 +436,12 @@ class Upload:
         no_ref_errors = self.__get_no_ref_errors()
         multi_ref_errors = self.__get_multi_ref_errors()
         shared_dir_errors = self.__get_shared_dir_errors()
-        # TODO: thoroughly nested errors, fix
         if no_ref_errors:
             self.errors(ErrorTypes.REFERENCE, {"No References": no_ref_errors})
         if multi_ref_errors:
-            self.errors(ErrorTypes.REFERENCE, f"Multiple References: {multi_ref_errors}")
+            self.errors(ErrorTypes.REFERENCE, {"Multiple References": multi_ref_errors})
         if shared_dir_errors:
-            self.errors(ErrorTypes.REFERENCE, f"Shared Directory References: {shared_dir_errors}")
+            self.errors(ErrorTypes.REFERENCE, {"Shared Directory References": shared_dir_errors})
 
     def _get_plugin_errors(self, **kwargs):
         plugin_path = self.plugin_directory
@@ -844,7 +852,7 @@ class Upload:
                 for error in ref_errors[1]:
                     self.errors(
                         ErrorTypes.DIRECTORY,
-                        str(error),
+                        error,
                         schema=ref_errors[0],
                     )
             schema_version.dir_schema = ref_errors[0]
