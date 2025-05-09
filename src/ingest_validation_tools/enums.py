@@ -26,7 +26,6 @@ shared_enums: Dict[str, List[str]] = {
         # https://github.com/hubmapconsortium/ingest-validation-tools/issues/1107
         "Confocal",
         "CosMx",
-        "CyCIF",
         "DESI",
         "Enhanced Stimulated Raman Spectroscopy (SRS)",
         "GC-MS",
