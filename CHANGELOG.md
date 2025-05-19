@@ -4,6 +4,7 @@
 - Update LC-MS directory schema
 - Bugfix table_schema logic for legacy validation
 - Remove CyCIF
+- Update Xenium directory schema
 
 ## v0.0.35
  - Adding support for EPIC's new plugin
