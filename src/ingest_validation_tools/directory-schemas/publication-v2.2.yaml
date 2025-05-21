@@ -1,0 +1,24 @@
+files:
+  -
+    pattern: extras\/.*
+    required: True
+    description: Folder for general lab-specific files related to the dataset. [Exists in all assays]
+  -
+    pattern: data\/.*
+    required: True
+    description: Folder for supplementary data files for the publication. All files referenced by the Vitessce visualization configurations in the vignettes must be included in this directory.
+    example: data/file1.ext
+  -
+    pattern: vignettes\/.*
+    required: True
+    description: Subdirectory containing Vitessce visualization files and a description of those files.
+  -
+    pattern: vignettes\/vignette_\d+\/[^\/]+\.json$
+    required: False
+    description: Vitessce visualization configuration files. One or more visualization configurations can be provided per vignette.
+    example: vignettes/vignette_01/file1.json
+  -
+    pattern: vignettes\/vignette_\d+\/description\.md$
+    required: False
+    description: Description of the vignette and titles for the visualization configuration files.
+    example: vignettes/vignette_02/description.md
