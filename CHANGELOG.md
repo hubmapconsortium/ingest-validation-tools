@@ -2,6 +2,7 @@
 
 ## v0.0.37 (in progress)
 - Update Xenium directory schema
+- Update Publication directory schema
 
 ## v0.0.36
 - Update Xenium directory schema
