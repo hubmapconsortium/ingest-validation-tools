@@ -6,7 +6,7 @@ files:
   -
     pattern: data\/.*
     required: True
-    description: Supplementary data files for the publication. All files referenced by the Vitessce visualization configurations in the vignettes must be included in this directory.
+    description: Folder for supplementary data files for the publication. All files referenced by the Vitessce visualization configurations in the vignettes must be included in this directory.
     example: data/file1.ext
   -
     pattern: vignettes\/.*
