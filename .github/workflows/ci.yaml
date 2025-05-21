@@ -1,55 +1,36 @@
+# Available versions:
+# https://docs.github.com/en/free-pro-team@latest/actions/reference/workflow-syntax-for-github-actions#jobsjob_idruns-on
+#
 name: Portal CI
 
 on: [push, pull_request]
 
 jobs:
   build:
-
-    # Available versions:
-    # https://docs.github.com/en/free-pro-team@latest/actions/reference/workflow-syntax-for-github-actions#jobsjob_idruns-on
-      
-    # Uniprot's SSL setup is not sufficient for
-    # the latest Ubuntu security settings.
-    # So, use an older Ubuntu for now.
-    #
-    # More details:
-    # https://github.com/ebi-uniprot/uniprot-rest-api/issues/23
-    # https://github.com/Ensembl/ensembl-rest/issues/427
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-latest
     strategy:
       matrix:
-        version:
-          - '3.9'
-
-          # TODO: Python 3.10 doesn't work for me, locally:
-          # 'pip install requirements-dev.txt' fails...
-          # Something wrong with typed-ast?
-          # ... but if it works on CI, great!
-          #
-          # Python 3.9 does work for me locally:
-          # Will wait for someone else to have trouble with 3.10 before investing any time here.
+        python-version: ["3.9", "3.11"]
 
     steps:
-    - uses: actions/checkout@v2
-      # with:
-      #   submodules: 'recursive'
+    - uses: actions/checkout@v4
 
-    - name: Set up Python
-      uses: actions/setup-python@v2
+    - name: Set up Python ${{ matrix.python-version }}
+      uses: actions/setup-python@v5
       with:
-        python-version: ${{ matrix.version }}
+        python-version: ${{ matrix.python-version }}
         architecture: 'x64'
 
-    - run: sudo apt-get install parallel
+    - name: Install parallel
+      run: sudo apt-get install parallel
+
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
-        pip install requests parameterized
-    - run: pip install -r requirements.txt
-    - run: pip install -r requirements-dev.txt
+        pip install -r requirements.txt
+        pip install -r requirements-dev.txt
 
     - name: Run test script
       run: ./test.sh
       env:
         GITHUB_REF_NAME: ${{ github.ref_name }}
-      #   GH_ACTIONS: true
