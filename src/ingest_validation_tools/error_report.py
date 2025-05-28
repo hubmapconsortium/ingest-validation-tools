@@ -40,7 +40,7 @@ class Error:
     category: ErrorTypes
     errorContent: Union[str, dict, list]
     errorType: Optional[str] = None
-    file: Optional[Union[str, Path]] = None
+    path: Optional[Union[str, Path]] = None
     schema: Optional[str] = None
     column: Optional[str] = None
     row: Optional[int] = None
@@ -72,7 +72,7 @@ class Error:
         if self.row and self.column:
             return f"Row {self.row}, column '{self.column}': {obj_to_format}"
         else:
-            return obj_to_format
+            return str(obj_to_format)
 
     def format_to_json(self) -> dict:
         return asdict(self)
@@ -89,6 +89,7 @@ class ValidationReport:
     def __post_init__(self):
         self.errors = []
         self.validation_completed = False
+        self.valid = False
 
 
 class ValidationSerializer:
@@ -136,7 +137,7 @@ class ValidationSerializer:
 
     class FileSchema(NamedTuple):
         filename: str
-        schema: str
+        schema: Union[str, None]
 
     FormattedErrorDict = dict[str, list[Union[str, dict]]]
     UnformattedErrorDict = dict[Union[str, ErrorTypes, FileSchema], list[Error]]
@@ -152,7 +153,10 @@ class ValidationSerializer:
             raise Exception("Validation not complete, cannot serialize result.")
         # No errors, return validation report if requested.
         if not self.report.errors:
+            self.report.valid = True
             if not self.detailed_success_report:
+                if self.as_yaml:
+                    return ""
                 return {}
             if self.as_yaml:
                 return dump(self.validation_report())
@@ -230,7 +234,7 @@ class ValidationSerializer:
             ["formatted_error1", "formatted_error2", "formatted_error3"]
         elif self.format_type = ReportType.JSON:
             [Error1, ...] ->
-            [{"category": "error1Category", "errorText": "I am text for Error1", "file": "filename",
+            [{"category": "error1Category", "errorText": "I am text for Error1", "path": "filename",
               "schema": None, "column": "column_name", "row": 1, "value": "value_str"}, ...]
         """
         formatted_errors = []
@@ -250,7 +254,7 @@ class ValidationSerializer:
                 return f"{self.trunc_path(key[0])} (as schema '{key[1]}')"
             return self.trunc_path(key[0])
         elif isinstance(key, ErrorTypes):
-            return key.value
+            return f"{key.value} Errors"
         else:
             return key
 
@@ -269,7 +273,7 @@ class ValidationSerializer:
         """
         categorized_errors = defaultdict(list)
         for error in error_list:
-            categorized_errors[error.category.value].append(error)
+            categorized_errors[error.category.value + " Errors"].append(error)
         return dict(categorized_errors)
 
     def _collect_errors_by_file(
@@ -278,13 +282,13 @@ class ValidationSerializer:
         """
         Params:
             error_list: list[Error]
-                        [Error1(file="File1"), Error2(file="File1"),
-                        Error3(file="File2"), Error4(file=None)]
+                        [Error1(path="File1"), Error2(path="File1"),
+                        Error3(path="File2"), Error4(path=None)]
         Return:
             {"File1": [Error1, Error2], "File2": [Error3], "Non-file errors": [Error4]}
         """
         errors = []
-        errors_by_file = defaultdict(list)
+        errors_by_path = defaultdict(list)
         """
                 File1:
                     Error1
@@ -292,12 +296,12 @@ class ValidationSerializer:
                 Error3
             """
         for error in error_list:
-            if file := error.file:
-                errors_by_file[self.FileSchema(str(file), error.schema)].append(error)
+            if error.path:
+                errors_by_path[self.FileSchema(str(error.path), error.schema)].append(error)
             else:
                 errors.append(error)
-        if errors_by_file:
-            errors.append(dict(errors_by_file))
+        if errors_by_path:
+            errors.append(dict(errors_by_path))
         return errors
 
     def _collect_errors_by_category_and_file(

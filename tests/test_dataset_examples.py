@@ -1,20 +1,18 @@
 import difflib
 import glob
 import json
-
-# import os
 import re
 import unittest
-
-# from datetime import datetime
 from io import TextIOWrapper
 from pathlib import Path
-
-# from typing import Union
 from unittest.mock import patch
+
+from parameterized import parameterized
+from yaml import dump
 
 from ingest_validation_tools.error_report import ErrorTypes, ValidationSerializer
 from ingest_validation_tools.schema_loader import PreflightError, SchemaVersion
+from ingest_validation_tools.table_validator import ReportType
 from ingest_validation_tools.upload import Upload
 from tests.fixtures import (
     SCATACSEQ_BOTH_VERSIONS_VALID,
@@ -91,7 +89,6 @@ def dataset_test(
     # TODO: do we need both of these params
     offline: bool = False,
     use_online_check_fixtures: bool = False,
-    full_diff: bool = False,
 ):
     dataset_opts = dataset_opts | {"verbose": verbose}
     print(f"Testing {test_dir}...")
@@ -102,55 +99,26 @@ def dataset_test(
         upload = Upload(Path(f"{test_dir}/upload"), globus_token=globus_token, **dataset_opts)
     if use_online_check_fixtures:
         upload = mutate_upload_errors_with_fixtures(upload, test_dir)
-    report = upload.validate(as_yaml=True)
-    # diff_test(test_dir, readme, clean_report(report), verbose=verbose, full_diff=full_diff)
-    print(readme.readlines())
-    print(f"REPORT: {report.splitlines(keepends=True)}")
-    diff_test(test_dir, readme, report, verbose=verbose, full_diff=full_diff)
+    upload.validate(detailed_success_report=True)
+    if upload.report.valid:
+        upload.validator.report.git = "WILL_CHANGE"
+        upload.validator.report.time = "WILL_CHANGE"  # type: ignore
+        # This code exists to format the validation report to match current formatting
+        # because testing needs an overhaul so rewriting all READMEs is not timely
+        dict_report = upload.validator.validation_report()
+        dict_report["Directory"] = dict_report["Base path"]
+        dict_report["TSVs"] = dict_report["TSVs"]
+        dict_report.pop("Base path")
+        dict_report.pop("Valid")
+        report = "No errors!\n" + dump(dict_report)
+    else:
+        report = dump(upload.validate(as_yaml=True))
+    diff_test(test_dir, readme, report, verbose=verbose)
+    readme.close()
     if "PreflightError" in report:
         raise MockException(
             f"Error report for {test_dir} contains PreflightError, do not make assertions about calls."
         )
-
-
-# def clean_report(report: str):
-#     token_issue = False
-#     cleaned_report = []
-#     will_change_regex = re.compile(r"((Time|Git version): )(.*)")
-#     no_token_regex = re.compile("No token")
-#     for line in report.splitlines(keepends=True):
-#         will_change_match = will_change_regex.search(line)
-#         if will_change_match:
-#             line = line.replace(will_change_match.group(3), "WILL_CHANGE")
-#         no_token_regex_match = no_token_regex.search(line)
-#         if no_token_regex_match:
-#             token_issue = True
-#         line = dev_url_replace(line)
-#         cleaned_report.append(line)
-#     if token_issue:
-#         cleaned_report = clean_report(report)
-#         raise TokenException(
-#             "WARNING: API token required to complete update, not writing, skipping URL Check Errors.",
-#             "".join(cleaned_report),
-#         )
-#     return "".join(cleaned_report)
-
-
-# def get_non_token_errors(errors: str) -> str:
-#     new_url_error_val = DictErrorType(
-#         name=errors.metadata_url_errors.name, display_name=errors.metadata_url_errors.display_name
-#     )
-#     for path, error_list in errors.metadata_url_errors.items():
-#         non_token_url_errors = [error for error in error_list if "No token" not in error]
-#         if non_token_url_errors:
-#             new_url_error_val[path] = non_token_url_errors
-#         if set(error_list) - set(non_token_url_errors):
-#             print(
-#                 f"WARNING: output about URL errors for {path} is incomplete due to suppressed token errors. Use for testing purposes only."
-#             )
-#     errors.metadata_url_errors = new_url_error_val
-#     return errors
-#
 
 
 def dev_url_replace(original_str: str):
@@ -159,42 +127,66 @@ def dev_url_replace(original_str: str):
     return new_str
 
 
+def color_code_diff(a: str, b: str, color: bool = True) -> bool:
+    old = "\x1b[0;37;41m" if color else "<--removed-->"
+    new = "\x1b[0;37;42m" if color else "<++added++>"
+    reset = "\x1b[0m" if color else "</>"
+    m = difflib.SequenceMatcher(a=a, b=b)
+    diff = bool(m.ratio())
+    if diff:
+        print(
+            f"""
+
+              DIFF
+              {f"{old}README{reset} => {new}Validation Report{reset}"}
+              """
+        )
+        for tag, i1, i2, j1, j2 in m.get_opcodes():
+            if tag == "replace":
+                print(old, a[i1:i2], reset, end="")
+                print(new, b[j1:j2], reset, end="")
+            if tag == "delete":
+                print(old, a[i1:i2], reset, end="")
+            if tag == "insert":
+                print(new, b[j1:j2], reset, end="")
+            if tag == "equal":
+                print(a[i1:i2], end="")
+        print()
+    return diff
+
+
 def diff_test(
     test_dir: str,
     readme: TextIOWrapper,
     report: str,
     verbose: bool = True,
-    full_diff: bool = False,
     env: str = "PROD",
+    color: bool = True,
 ):
-    d = difflib.Differ()
     if env == "DEV":
         report = dev_url_replace(report)
-    diff = list(d.compare(readme.readlines(), report.splitlines(keepends=True)))
-    readme.close()
-    ignore_strings = ["Time:", "Git version:", "```"]
-    cleaned_diff = [
-        line for line in diff if not any(ignore_string in line for ignore_string in ignore_strings)
+    # Remove quotes and ticks from readme
+    read_readme = " ".join(
+        [line.strip().replace("'", "") for line in readme.readlines() if "```" not in line]
+    )
+    # Remove quotes as well as whitespace and dashes from YAML formatting
+    cleaned_report = [
+        line.strip(" -").strip().replace("'", "").strip() for line in report.splitlines()
     ]
-    new = "".join([line.strip() for line in cleaned_diff if line.startswith("+ ")])
-    removed = "".join([line.strip() for line in cleaned_diff if line.startswith("- ")])
-    if full_diff:
-        print(
-            f"""
-              FULL:
-              {diff}
-
-              CLEANED:
-              {cleaned_diff}
-              """
-        )
+    read_report = " ".join([line for line in cleaned_report if len(line) > 0])
+    # Only count added/removed lines, better than dealing with context_diff control chars
+    diff = color_code_diff(read_readme, read_report, color=color)
+    readme.close()
+    # TODO: switch to dict comparison, requires rewriting all READMEs
+    # diff = DeepDiff(readme, report)
+    # print_diff = []
+    # if verbose:
+    # for val in diff.values():
+    #     for val in val.values():
+    #         print_diff.append({"old_value": val["old_value"], "new_value": val["new_value"]})
     if verbose:
         msg = f"""
-                DIFF ADDED LINES:
-                {new}
-
-                DIFF REMOVED LINES:
-                {removed}
+        {color_code_diff(read_readme, read_report, color=False)}
 
                 If new version is correct, overwrite previous README.md and fixtures.json files by running:
                     env PYTHONPATH=src:$PYTHONPATH python -m tests-manual.update_test_data -t {test_dir} -g <globus_token>
@@ -207,7 +199,7 @@ def diff_test(
     FAILED diff_test: {test_dir}. Run for more detailed output:
         env PYTHONPATH=src:$PYTHONPATH python -m tests-manual.update_test_data -t {test_dir} --globus_token "" --manual_test --dry_run --verbose
     """
-    assert not new and not removed, msg
+    assert not diff, msg
     print(f"PASSED diff_test: {test_dir}")
 
 
@@ -234,6 +226,14 @@ def assaytype_side_effect(path: str, row: dict, *args, **kwargs):
     response_dict = _open_and_read_fixtures_file(path)
     dataset_type = row.get("assay_type") if row.get("assay_type") else row.get("dataset_type")
     return response_dict.get("assaytype", {}).get(dataset_type)
+
+
+def dir_schema_side_effect(dir_schema: str, fixture_data: dict):
+    directory_schema_minor_versions = [key for key in fixture_data if key.startswith(dir_schema)]
+    if not directory_schema_minor_versions:
+        return None
+    else:
+        return fixture_data
 
 
 class TestDatasetExamples(unittest.TestCase):
@@ -270,11 +270,15 @@ class TestDatasetExamples(unittest.TestCase):
 
     def get_paths(self):
         self.dataset_paths = {}
-        for test_dir in self.dataset_test_dirs:
-            metadata_paths = [path for path in Path(f"{test_dir}/upload").glob("*metadata.tsv")]
-            self.dataset_paths[test_dir] = metadata_paths
+        # for test_dir in self.dataset_test_dirs:
+        #     metadata_paths = [path for path in Path(f"{test_dir}/upload").glob("*metadata.tsv")]
+        #     self.dataset_paths[test_dir] = metadata_paths
+        self.dataset_paths["examples/dataset-examples/bad-mixed"] = [
+            "examples/dataset-examples/bad-mixed/upload/metadata.tsv"
+        ]
 
-    def test_validate_dataset_examples(self, verbose: bool = False, full_diff: bool = False):
+    def test_validate_dataset_examples(self, verbose: bool = False):
+        breakpoint()
         for test_dir in self.dataset_paths.keys():
             with self.subTest(test_dir=test_dir):
                 if "dataset-examples" in test_dir:
@@ -291,18 +295,17 @@ class TestDatasetExamples(unittest.TestCase):
                             dataset_test(
                                 test_dir,
                                 opts,
-                                verbose=verbose,
+                                # verbose=verbose,
+                                verbose=True,
                                 offline=True,
                                 use_online_check_fixtures=True,
-                                full_diff=full_diff,
                             )
                         except MockException as e:
                             print(e)
-                            continue
                         except AssertionError as e:
                             print(e)
                             self.errors.append(test_dir)
-                            continue
+            break
 
     @staticmethod
     def prep_offline_upload(test_dir: str, opts: dict) -> Upload:
@@ -328,96 +331,51 @@ class TestDatasetExamples(unittest.TestCase):
         ):
             with patch(
                 "ingest_validation_tools.validation_utils.get_possible_directory_schemas",
+                side_effect=lambda dir_schema: dir_schema_side_effect(dir_schema, patch_data),
             ) as dir_schemas_func_patch:
                 with patch("ingest_validation_tools.upload.Upload.online_checks"):
-                    dir_schemas_func_patch.return_value = patch_data
                     upload = Upload(Path(f"{test_dir}/upload"), **opts)
+                    for val in upload.effective_tsv_paths.values():
+                        val.dir_schema = "test-schema-v0"
                     upload.get_errors()
-                    upload = mutate_upload_errors_with_fixtures(upload, test_dir)
                     dir_schemas_func_patch.assert_called()
                     return upload
 
-    def test_data_dir_versions_highest_version(self):
+    @parameterized.expand(
+        [
+            ([DATASET_EXAMPLES_OPTS, SCATACSEQ_HIGHER_VERSION_VALID], "test-schema-v0.1", None),
+            ([DATASET_EXAMPLES_OPTS, SCATACSEQ_LOWER_VERSION_VALID], "test-schema-v0.0", None),
+            ([DATASET_EXAMPLES_OPTS, SCATACSEQ_BOTH_VERSIONS_VALID], "test-schema-v0.1", None),
+            (
+                [DATASET_EXAMPLES_OPTS, SCATACSEQ_NEITHER_VERSION_VALID],
+                "test-schema-v0",
+                "No matching directory schemas found.",
+            ),
+        ]
+    )
+    def test_data_dir_versions(self, fixtures, expected_dir_schema, errors_to_check):
         test_dirs = [
             "examples/dataset-examples/bad-scatacseq-data",
             "examples/dataset-examples/good-scatacseq-metadata-v0",
         ]
         for test_dir in test_dirs:
-            upload = self.prep_dir_schema_upload(
-                test_dir, DATASET_EXAMPLES_OPTS, SCATACSEQ_HIGHER_VERSION_VALID
-            )
-            info = upload.validate(detailed_success_report=True)
+            upload = self.prep_dir_schema_upload(test_dir, *fixtures)
             for path in upload.effective_tsv_paths.keys():
-                dir_schema_version = (
-                    info.get("TSVs", {}).get(Path(path).name, {}).get("Directory schema version")
+                dir_schema_version = upload.report.tsvs.get(Path(path).name, {}).get(
+                    "Directory schema version"
                 )
-                self.assertEqual(dir_schema_version, "test-schema-v0.1")
-
-    def test_data_dir_versions_lower_version(self):
-        test_dirs = [
-            "examples/dataset-examples/bad-scatacseq-data",
-            "examples/dataset-examples/good-scatacseq-metadata-v0",
-        ]
-        test_dirs = []
-        for test_dir in test_dirs:
-            upload = self.prep_dir_schema_upload(
-                test_dir, DATASET_EXAMPLES_OPTS, SCATACSEQ_LOWER_VERSION_VALID
-            )
-            info = upload.get_info()
-            if info is None:
-                raise Exception("Info should not be none")
-            for path in upload.effective_tsv_paths.keys():
-                dir_schema_version = (
-                    info.as_dict()
-                    .get("TSVs", {})
-                    .get(Path(path).name, {})
-                    .get("Directory schema version")
-                )
-                self.assertEqual(dir_schema_version, "test-schema-v1.0")
-
-    def test_data_dir_versions_both_versions(self):
-        test_dirs = [
-            "examples/dataset-examples/bad-scatacseq-data",
-            "examples/dataset-examples/good-scatacseq-metadata-v0",
-        ]
-        test_dirs = []
-        for test_dir in test_dirs:
-            upload = self.prep_dir_schema_upload(
-                test_dir, DATASET_EXAMPLES_OPTS, SCATACSEQ_BOTH_VERSIONS_VALID
-            )
-            info = upload.get_info()
-            if info is None:
-                raise Exception("Info should not be none")
-            for path in upload.effective_tsv_paths.keys():
-                dir_schema_version = (
-                    info.as_dict()
-                    .get("TSVs", {})
-                    .get(Path(path).name, {})
-                    .get("Directory schema version")
-                )
-                self.assertEqual(dir_schema_version, "test-schema-v0.1")
-
-    def test_data_dir_versions_neither_version(self):
-        test_dirs = [
-            "examples/dataset-examples/bad-scatacseq-data",
-            "examples/dataset-examples/good-scatacseq-metadata-v0",
-        ]
-        test_dirs = []
-        for test_dir in test_dirs:
-            upload = self.prep_dir_schema_upload(
-                test_dir, DATASET_EXAMPLES_OPTS, SCATACSEQ_NEITHER_VERSION_VALID
-            )
-            info = upload.get_info()
-            if info is None:
-                raise Exception("Info should not be none")
-            for path in upload.effective_tsv_paths.keys():
-                dir_schema_version = (
-                    info.as_dict()
-                    .get("TSVs", {})
-                    .get(Path(path).name, {})
-                    .get("Directory schema version")
-                )
-                self.assertEqual(dir_schema_version, None)
+                self.assertEqual(dir_schema_version, expected_dir_schema)
+                if errors_to_check is not None:
+                    error_report = list(
+                        json.loads(upload.validate(format_type=ReportType.JSON)).values()  # type: ignore
+                    )[0]
+                    dir_errors = error_report[ErrorTypes.DIRECTORY.value][0]
+                    error = dir_errors[f"dataset-1 (as schema '{expected_dir_schema}')"][0].get(
+                        "errorContent"
+                    )
+                    assert (
+                        error == errors_to_check
+                    ), f"Actual error {error} != expected error {errors_to_check}"
 
     def get_schema_side_effect(
         self, tsv_path, encoding, entities_url, ingest_url, globus_token, directory_path

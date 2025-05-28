@@ -1,6 +1,5 @@
 import json
 import logging
-from collections import defaultdict
 from csv import DictReader
 from pathlib import Path, PurePath
 from typing import Dict, List, Optional, Union
@@ -204,7 +203,7 @@ def get_data_dir_errors(
     root_path: Path,
     data_dir_path: Path,
     dataset_ignore_globs: List[str] = [],
-) -> Dict[str, Union[str, List[str]]]:
+) -> Union[str, Dict[str, dict[str, str]]]:
     """
     Validate a single data_path.
     """
@@ -226,15 +225,21 @@ def get_data_dir_errors(
 
     possible_schemas = get_possible_directory_schemas(dir_schema)
 
+    path = ", ".join(str(path) for path in data_paths)
+
     if possible_schemas is None:
-        return {dir_schema: ["No matching directory schemas found."]}
+        return {
+            dir_schema: {
+                "error_content": "No matching directory schemas found.",
+                "path": path,
+            }
+        }
 
     # Collect errors, discard if schema validates against a minor version
     errors = []
 
     # Make sure possible_schemas is sorted by key (descending) to evaluate highest minor version first
     for schema_name, schema in sorted(possible_schemas.items(), reverse=True):
-        schema_errors = defaultdict(list)
         schema_warning_fields = [field for field in schema if field in ["deprecated", "draft"]]
         schema_warning = (
             f"{schema_warning_fields[0].title()} directory schema: {schema_name}"
@@ -249,25 +254,30 @@ def get_data_dir_errors(
         except DirectoryValidationErrors as e:
             # If there are DirectoryValidationErrors and the schema is deprecated/draft...
             #    schema deprecation/draft status is more important.
-            if schema_warning:
-                schema_errors[schema_name].append(schema_warning)
-            else:
-                schema_errors[schema_name].append(e.errors)
+            errors.append(
+                {
+                    schema_name: {
+                        "error_content": schema_warning if schema_warning else e.errors,
+                        "path": path,
+                    }
+                }
+            )
+            continue
         except OSError as e:
             # If there are OSErrors and the schema is deprecated/draft...
             #    the OSErrors are more important.
             if isinstance(e, FileNotFoundError):
                 raise FileNotFoundError()
-            schema_errors[schema_name].append(f"{e.strerror}: {e.filename}")
-        if schema_errors:
-            errors.append(schema_errors)
+            errors.append(
+                {schema_name: {"error_content": f"{e.strerror}: {e.filename}", "path": path}}
+            )
             continue
-        elif schema_warning:
+        if schema_warning:
             errors.append({schema_name: schema_warning})
             continue
         # Found a schema with no problems!
         # Throw away any found errors.
-        return {schema_name: "No errors!"}
+        return schema_name
     # Did not find a schema that validated;
     # return first (highest) schema version errors.
     if errors:

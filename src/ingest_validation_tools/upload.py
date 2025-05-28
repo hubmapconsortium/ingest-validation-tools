@@ -9,7 +9,7 @@ from datetime import datetime
 from fnmatch import fnmatch
 from functools import cached_property
 from pathlib import Path
-from typing import Optional, Union
+from typing import Any, Literal, Optional, Union, overload
 from urllib.parse import urljoin, urlsplit
 
 import requests
@@ -93,6 +93,7 @@ class Upload:
         ]
 
         self.report = ValidationReport()
+        self.validation_result = None
         self.get_app_context(app_context)
 
         try:
@@ -110,8 +111,6 @@ class Upload:
         except PreflightError as e:
             self.errors(ErrorTypes.PREFLIGHT, str(e))
 
-        self._populate_validation_report_info()
-
     #####################
     #
     # Public methods:
@@ -124,14 +123,12 @@ class Upload:
         """
         self.validate(**kwargs)
 
-    # @overload
-    # def validate(self, as_yaml: Literal[True], **kwargs: Any) -> str:
-    #     ...  # mypy: ignore
-    #
-    # @overload
-    # def validate(self, as_yaml: Literal[False] = False, **kwargs: Any) -> dict:
-    #     ...  # mypy: ignore
-    #
+    @overload
+    def validate(self, as_yaml: Literal[True], **kwargs: Any) -> str: ...  # mypy: ignore
+
+    @overload
+    def validate(self, as_yaml: Literal[False] = False, **kwargs: Any) -> dict: ...  # mypy: ignore
+
     def validate(self, as_yaml: bool = False, **kwargs):
         """
         Run validation and return serialized errors.
@@ -153,21 +150,24 @@ class Upload:
             plugins_ran = bool(self.run_plugins)
 
         self.report.validation_completed = True
-        return ValidationSerializer(
+        self._populate_validation_report_info()
+        self.validator = ValidationSerializer(
             self.report, plugins_ran=plugins_ran, as_yaml=as_yaml, **kwargs
-        ).serialize()
+        )
+        self.validation_result = self.validator.serialize()
+        return self.validation_result
 
     ###########
     # Helpers #
     ###########
 
-    def errors(self, error_type: ErrorTypes, error_content: Union[dict, list, str], **kwargs):
+    def errors(self, error_type: ErrorTypes, error_content: Union[dict, list, str] = "", **kwargs):
         """
         Helper method for adding to error report.
         Minimal call to add error: self.errors(ErrorTypes.TYPE, content)
         Maximal call can also include the following kwargs:
             errorType: str
-            file: str | Path
+            path: str | Path
             schema: str
             column: str
             row: int
@@ -275,7 +275,7 @@ class Upload:
                 self.errors(
                     ErrorTypes.UPLOAD_METADATA,
                     "File is missing data_path or contributors_path.",
-                    file=path,
+                    path=path,
                     schema=schema.table_schema,
                 )
             for ref in [OtherTypes.CONTRIBUTORS, OtherTypes.ANTIBODIES]:
@@ -317,7 +317,7 @@ class Upload:
             self.errors(
                 ErrorTypes.METADATA_VALIDATION_LOCAL,
                 str(e),
-                file=tsv_path,
+                path=tsv_path,
                 schema=schema_version.table_schema,
             )
             return
@@ -325,7 +325,7 @@ class Upload:
             self.errors(
                 ErrorTypes.METADATA_VALIDATION_LOCAL,
                 "Schema version is deprecated",
-                file=tsv_path,
+                path=tsv_path,
                 schema=schema_version.table_schema,
             )
             return
@@ -336,7 +336,7 @@ class Upload:
                 self.errors(
                     ErrorTypes.METADATA_VALIDATION_LOCAL,
                     error,
-                    file=tsv_path,
+                    path=tsv_path,
                     schema=schema_version.table_schema,
                 )
 
@@ -355,7 +355,7 @@ class Upload:
                     ErrorTypes.METADATA_VALIDATION_API,
                     f"{error.get('error_message')} Example: {error.get('repairSuggestion')}",
                     errorType=error.get("errorType"),
-                    file=None,
+                    path=None,
                     column=error.get("column"),
                     row=error.get("row"),
                     value=error.get("value"),
@@ -426,7 +426,7 @@ class Upload:
                             ErrorTypes.METADATA_VALIDATION_URLS,
                             e.__str__(),
                             errorType=type(e).__name__,
-                            file=tsv_path,
+                            path=tsv_path,
                             column=field_name,
                             row=i,
                             value=value,
@@ -725,7 +725,7 @@ class Upload:
                         ErrorTypes.METADATA_VALIDATION_CONSTRAINTS,
                         f"Invalid ancestor type for TSV type {schema.entity_type_info.format_constraint_check_error()}. Data sent for ancestor {schema.ancestor_entities[i].entity_id}: {ancestors}.",
                         errorType="Invalid Ancestor",
-                        file=None,
+                        path=None,
                         column=schema.ancestor_entities[i].column,
                         row=schema.ancestor_entities[i].row,
                         value=schema.ancestor_entities[i].entity_id,
@@ -785,7 +785,7 @@ class Upload:
                 self.errors(
                     ErrorTypes.UPLOAD_METADATA,
                     f"Value '{path_value}' in column '{ref}_path' points to non-existent file: '{self.directory_path / path_value}'",
-                    file=metadata_path,
+                    path=metadata_path,
                     value=path_value,
                 )
                 return
@@ -795,7 +795,7 @@ class Upload:
                 self.errors(
                     ErrorTypes.UPLOAD_METADATA,
                     f"Error opening or reading value '{path_value}' from column '{ref}_path': {e.errors}",
-                    file=metadata_path,
+                    path=metadata_path,
                     column=f"{ref}_path",
                     value=path_value,
                 )
@@ -847,24 +847,30 @@ class Upload:
                 root_path=self.directory_path,
                 data_dir_path=data_path,
                 dataset_ignore_globs=self.dataset_ignore_globs,
-            ).popitem()
-            if type(ref_errors[1]) is list:
-                for error in ref_errors[1]:
-                    self.errors(
-                        ErrorTypes.DIRECTORY,
-                        error,
-                        schema=ref_errors[0],
-                    )
-            schema_version.dir_schema = ref_errors[0]
+            )
+            # errors = list(ref_errors.values())[0]
+            # if isinstance(errors, list):
+            #     for error in errors:
+            if isinstance(ref_errors, str):
+                schema_version.dir_schema = ref_errors
+                return
+            for key, value in ref_errors.items():
+                self.errors(
+                    ErrorTypes.DIRECTORY,
+                    **value,
+                    schema=key,
+                )
+
+            schema_version.dir_schema = list(ref_errors)[0]
         except FileNotFoundError:
             self.errors(
                 ErrorTypes.UPLOAD_METADATA,
                 f"Value '{path_value}' in column 'data_path' points to non-existent directory: '{self.directory_path / path_value}",
-                file=metadata_path,
+                path=metadata_path,
                 value=path_value,
             )
         except Exception as e:
-            self.errors(ErrorTypes.DIRECTORY, str(e), file=print_path)
+            self.errors(ErrorTypes.DIRECTORY, str(e), path=print_path)
 
     def _check_other_path(self, other_path: str):
         schema = get_schema_version(

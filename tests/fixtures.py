@@ -40,14 +40,9 @@ SCATACSEQ_LOWER_VERSION_VALID = {
     "test-schema-v0.0": {
         "files": [
             {
-                "pattern": "[^/]+\\.fastq\\.gz",
-                "description": "Compressed FastQ file",
-                "required": True,
-            },
-            {
-                "pattern": "extras\\/.*",
+                "pattern": ".*",
+                "description": "allow all",
                 "required": False,
-                "description": "Folder for general lab-specific files related to the dataset. [Exists in all assays]",
             },
         ]
     },
@@ -68,31 +63,21 @@ SCATACSEQ_LOWER_VERSION_VALID = {
 }
 
 SCATACSEQ_NEITHER_VERSION_VALID = {
-    "test-schema-v0.0": {
+    "test-schema-v1.0": {
         "files": [
             {
-                "pattern": "[^/]+\\.fastq\\.gz",
-                "description": "Compressed FastQ file",
+                "pattern": "NOT_A_REAL_FILE",
+                "description": "fail",
                 "required": True,
-            },
-            {
-                "pattern": "extras\\/.*",
-                "required": True,
-                "description": "Folder for general lab-specific files related to the dataset. [Exists in all assays]",
-            },
+            }
         ]
     },
-    "test-schema-v0.1": {
+    "test-schema-v1.1": {
         "files": [
             {
-                "pattern": "[^/]+\\.fastq\\.gz",
-                "description": "Compressed FastQ file",
+                "pattern": "NOT_A_REAL_FILE2",
+                "description": "fail",
                 "required": True,
-            },
-            {
-                "pattern": "extras\\/.*",
-                "required": True,
-                "description": "Folder for general lab-specific files related to the dataset. [Exists in all assays]",
             },
         ]
     },
