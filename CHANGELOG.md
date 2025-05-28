@@ -4,6 +4,7 @@
 - Update Xenium directory schema
 - Update Publication directory schema
 - Update Xenium directory schema
+- Update Validator param to refer to SchemaVersion rather than TSV
 
 ## v0.0.36
 - Update Xenium directory schema
