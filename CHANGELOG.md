@@ -2,6 +2,7 @@
 
 ## v0.0.37 (in progress)
 - Update Xenium directory schema
+- Check dataset ancestors to prevent registration against organs of type Other/OT
 
 ## v0.0.36
 - Update Xenium directory schema
