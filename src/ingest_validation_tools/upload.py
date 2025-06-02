@@ -633,9 +633,14 @@ class Upload:
                     origin_samples = response.json()["direct_ancestor"].get("origin_samples")
                 if origin_samples is not None and isinstance(origin_samples, list):
                     for origin_sample in origin_samples:
-                        if origin_sample.get("organ") == "OT" or origin_sample.get("organ") == "UBERON:0010000" or origin_sample.get("organ") is None:
+                        if (
+                            origin_sample.get("organ") == "OT"
+                            or origin_sample.get("organ") == "UBERON:0010000"
+                            or origin_sample.get("organ") is None
+                        ):
                             raise Exception(
-                                f"You are not allowed to register data against Sample {origin_sample.get('uuid')} with Organ Other. Please contact the respective help desk to ensure that appropriate support for your work can be provided.")
+                                f"You are not allowed to register data against Sample {origin_sample.get('uuid')} with Organ Other. Please contact the respective help desk to ensure that appropriate support for your work can be provided."
+                            )
 
             if (
                 not (schema.schema_name == OtherTypes.SAMPLE and field == "sample_id")
