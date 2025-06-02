@@ -85,6 +85,7 @@ shared_enums: Dict[str, List[str]] = {
         "scRNAseq",
         "scRNA-seq",
         "Slide-seq",
+        "Stereo-seq",
         "MS Bottom-Up",
         "MS Top-Down",
         "LC-MS Top-Down",

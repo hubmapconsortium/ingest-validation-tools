@@ -2,6 +2,10 @@
 
 ## v0.0.37 (in progress)
 - Update Xenium directory schema
+- Update Publication directory schema
+- Update Xenium directory schema
+- Update Validator param to refer to SchemaVersion rather than TSV
+- Add Stereo-seq directory schema
 
 ## v0.0.36
 - Update Xenium directory schema
@@ -36,6 +40,7 @@
  - Create DBiT-seq directory schema
  - Add G4X directory schema
  - Update docs for g4x & dbit-seq
+ - Ensure compatibility with Python 3.11
 
 ## v0.0.34
  - Create CyTOF directory schema
