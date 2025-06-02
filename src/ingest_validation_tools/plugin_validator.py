@@ -53,7 +53,7 @@ class Validator(object):
         assay_type: str,
         contains: List = [],
         verbose: bool = False,
-        metadata_tsv: Optional[SchemaVersion] = None,
+        schema: Optional[SchemaVersion] = None,
         globus_token: str = "",
         app_context: Dict[str, str] = {},
         **kwargs,
@@ -75,7 +75,7 @@ class Validator(object):
         self.assay_type = assay_type
         self.contains = contains
         self.verbose = verbose
-        self.metadata_tsv = metadata_tsv
+        self.schema = schema
         self.token = globus_token
         self.app_context = app_context
 
@@ -148,7 +148,7 @@ def run_plugin_validators_iter(
                 plugin_dir,
                 sv.contains,
                 verbose=verbose,
-                metadata_tsv=sv,
+                schema=sv,
                 globus_token=globus_token,
                 app_context=app_context,
                 **kwargs,
@@ -196,7 +196,7 @@ def validation_error_iter(
     plugin_dir: PathOrStr,
     contains: List,
     verbose: bool = False,
-    metadata_tsv: Optional[SchemaVersion] = None,
+    schema: Optional[SchemaVersion] = None,
     globus_token: str = "",
     app_context: Dict[str, str] = {},
     **kwargs,
@@ -215,9 +215,7 @@ def validation_error_iter(
     error messages
     """
     for cls in validation_class_iter(plugin_dir):
-        validator = cls(
-            paths, assay_type, contains, verbose, metadata_tsv, globus_token, app_context
-        )
+        validator = cls(paths, assay_type, contains, verbose, schema, globus_token, app_context)
         kwargs["verbose"] = verbose
         for err in validator.collect_errors(**kwargs):
             yield cls, err
