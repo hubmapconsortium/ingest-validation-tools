@@ -14,7 +14,7 @@ from urllib.parse import urljoin, urlsplit
 
 import requests
 
-from ingest_validation_tools.enums import OtherTypes, Sample
+from ingest_validation_tools.enums import DatasetType, OtherTypes, Sample
 from ingest_validation_tools.error_report import ErrorDict, InfoDict
 from ingest_validation_tools.plugin_validator import (
     ValidatorError as PluginValidatorError,
@@ -39,8 +39,6 @@ from ingest_validation_tools.validation_utils import (
     get_schema_version,
     read_rows,
 )
-
-from src.ingest_validation_tools.enums import DatasetType
 
 TSV_SUFFIX = "metadata.tsv"
 CONSTRAINTS_CHECK_METHOD = "ancestors"
@@ -630,14 +628,19 @@ class Upload:
             response = get_entity_api_data(url, self.globus_token, headers)
 
             if schema.schema_name == DatasetType.DATASET and field == "parent_sample_id":
-                origin_samples = response.get('origin_samples')
-                if origin_samples is None and 'direct_ancestor' in response:
-                    origin_samples = response['direct_ancestor'].get('origin_samples')
+                origin_samples = response.json().get("origin_samples")
+                if origin_samples is None and "direct_ancestor" in response.json():
+                    origin_samples = response.json()["direct_ancestor"].get("origin_samples")
                 if origin_samples is not None and isinstance(origin_samples, list):
                     for origin_sample in origin_samples:
-                        if origin_sample.get('organ') == 'OT' or  origin_sample.get('organ') == 'UBERON:0010000' or origin_sample.get('organ') is None:
+                        if (
+                            origin_sample.get("organ") == "OT"
+                            or origin_sample.get("organ") == "UBERON:0010000"
+                            or origin_sample.get("organ") is None
+                        ):
                             raise Exception(
-                                f"You are not allowed to register data against Sample {origin_sample.get('uuid')} with Organ Other. Please contact the respective help desk to ensure that appropriate support for your work can be provided.")
+                                f"You are not allowed to register data against Sample {origin_sample.get('uuid')} with Organ Other. Please contact the respective help desk to ensure that appropriate support for your work can be provided."
+                            )
 
             if (
                 not (schema.schema_name == OtherTypes.SAMPLE and field == "sample_id")
