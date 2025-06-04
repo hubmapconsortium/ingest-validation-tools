@@ -6,6 +6,7 @@
 - Update Xenium directory schema
 - Update Validator param to refer to SchemaVersion rather than TSV
 - Add Stereo-seq directory schema
+- Check dataset ancestors to prevent registration against organs of type Other
 
 ## v0.0.36
 - Update Xenium directory schema
@@ -40,7 +41,6 @@
  - Create DBiT-seq directory schema
  - Add G4X directory schema
  - Update docs for g4x & dbit-seq
- - Ensure compatibility with Python 3.11
 
 ## v0.0.34
  - Create CyTOF directory schema
