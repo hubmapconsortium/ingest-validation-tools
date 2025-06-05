@@ -2,7 +2,7 @@ exclude_from_index: True
 fields:
 - name: is_cedar
   description: 'Identifies whether the version is hosted by CEDAR'
-  example: 'https://openview.metadatacenter.org/templates/https:%2F%2Frepo.metadatacenter.org%2Ftemplates%2Facafada7-78c0-4960-b2ca-d6eba9eb14fd'
+  example: 'https://openview.metadatacenter.org/templates/https:%2F%2Frepo.metadatacenter.org%2Ftemplates%2F4fba86b9-b01e-4090-b862-08d759a1c83f'
 - name: assay_category
   constraints:
     enum:

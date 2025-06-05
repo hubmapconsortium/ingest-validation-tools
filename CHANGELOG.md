@@ -7,6 +7,7 @@
 - Update Validator param to refer to SchemaVersion rather than TSV
 - Add Stereo-seq directory schema
 - Check dataset ancestors to prevent registration against organs of type Other
+- Update geomx metadata docs
 
 ## v0.0.36
 - Update Xenium directory schema
