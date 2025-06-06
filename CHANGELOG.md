@@ -9,6 +9,7 @@
 - Check dataset ancestors to prevent registration against organs of type Other
 - Update geomx metadata docs
 - Update GeoMx directory schema
+- Update GeoMx dir schema
 
 ## v0.0.36
 - Update Xenium directory schema
