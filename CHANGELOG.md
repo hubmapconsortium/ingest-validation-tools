@@ -10,6 +10,7 @@
 - Update geomx metadata docs
 - Update GeoMx directory schema
 - Update GeoMx dir schema
+- Update GeoMx directory schema
 
 ## v0.0.36
 - Update Xenium directory schema
