@@ -11,6 +11,7 @@
 - Update GeoMx directory schema
 - Update GeoMx dir schema
 - Update GeoMx directory schema
+- Add support for CosMx Transcriptomics/Proteomics
 
 ## v0.0.36
 - Update Xenium directory schema
