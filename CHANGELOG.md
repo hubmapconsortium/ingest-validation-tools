@@ -8,6 +8,7 @@
 - Add Stereo-seq directory schema
 - Check dataset ancestors to prevent registration against organs of type Other
 - Update geomx metadata docs
+- Update GeoMx directory schema
 
 ## v0.0.36
 - Update Xenium directory schema
