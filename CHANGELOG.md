@@ -11,6 +11,7 @@
 - Update GeoMx directory schema
 - Update GeoMx dir schema
 - Update GeoMx directory schema
+- Update Auto-fluorescence directory schema
 
 ## v0.0.36
 - Update Xenium directory schema
