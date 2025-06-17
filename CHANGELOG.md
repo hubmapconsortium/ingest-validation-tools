@@ -15,7 +15,6 @@
 - Update Visium directory schema
 - Update Visium no probes directory schema
 - Update GeoMx NGS directory schema
-- Update CosMx directory schema
 - Update MERFISH directory schema
 
 ## v0.0.36
