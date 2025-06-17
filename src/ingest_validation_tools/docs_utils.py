@@ -559,7 +559,8 @@ def _make_dir_descriptions(dir_schemas, pipeline_infos):
         else ""
     )
 
-    sorted_items = sorted(dir_schemas.items(), key=lambda item: item[0], reverse=True)
+    # This sorts items so that x.10 is above x.9, otherwise x.10 gets placed between x.2 and x.1
+    sorted_items = sorted(dir_schemas.items(), key=lambda item: tuple(map(int, item[0].split('.'))), reverse=True)
 
     directory_descriptions = ""
 
