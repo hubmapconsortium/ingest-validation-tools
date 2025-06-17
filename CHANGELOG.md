@@ -12,6 +12,11 @@
 - Update GeoMx dir schema
 - Update GeoMx directory schema
 - Update Auto-fluorescence directory schema
+- Update Visium directory schema
+- Update Visium no probes directory schema
+- Update GeoMx NGS directory schema
+- Update CosMx directory schema
+- Update MERFISH directory schema
 
 ## v0.0.36
 - Update Xenium directory schema
