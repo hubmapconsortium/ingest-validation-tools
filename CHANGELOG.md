@@ -16,6 +16,7 @@
 - Update Visium no probes directory schema
 - Update GeoMx NGS directory schema
 - Update MERFISH directory schema
+- Add FACS passthrough dataset type
 
 ## v0.0.36
 - Update Xenium directory schema
