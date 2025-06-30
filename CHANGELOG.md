@@ -16,6 +16,7 @@
 - Update Visium no probes directory schema
 - Update GeoMx NGS directory schema
 - Update MERFISH directory schema
+- Add FACS directory schema
 
 ## v0.0.36
 - Update Xenium directory schema
