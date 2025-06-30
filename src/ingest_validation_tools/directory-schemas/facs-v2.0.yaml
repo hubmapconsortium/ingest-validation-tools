@@ -1,4 +1,61 @@
-draft: true
 files:
   -
-    draft_link: 'https://docs.google.com/spreadsheets/d/1LE-iyY2E6eP4E8jhgP6rhsvjESrdHXWYrMwKTvNkI5Y'
+    pattern: extras\/.*
+    required: True
+    description: Folder for general lab-specific files related to the dataset.
+  -
+    pattern: extras\/facs_hardware\.pdf$
+    required: True
+    description: File containing information about the configuration of the instrument, including:number of lasers, power, and wavelength of each; number of filters (if present) and band pass; number of detectors/PMTs.
+  -
+    pattern: extras\/facs_hardware\.xlsx$
+    required: False
+    description: File containing information about the configuration of the instrument, including:number of lasers, power, and wavelength of each; number of filters (if present) and band pass; number of detectors/PMTs.
+  -
+    pattern: raw\/.*
+    required: True
+    description: This is a directory containing raw data.
+  -  
+    pattern: raw\/[^\/]+\.fcs$
+    required: False
+    description: Contains the raw data from a mass cytometry experiment in a matrix where each row represents a single cell and each column represents a different metal-labeled antibody channel, with the values in each cell signifying the ion count detected for that specific metal on that cell, allowing for the analysis of multiple cell surface markers on individual cells.
+    is_qa_qc: False
+  -  
+    pattern: raw\/[^\/]+\.pdf$
+    required: False
+    description: instrument QC and calibration file
+  -  
+    pattern: raw\/[^\/]+\.expt$
+    required: False
+    description: Contains FACS experiment information (e.g., experiment template, sample names, metadata, etc)
+  -  
+    pattern: raw\/[^\/]+\.ust$
+    required: False
+    description: Contains FACS instrument information (e.g., laser power, detector voltages, flow rates, thresholds)
+  -  
+    pattern: raw\/[^\/]+\.wtml$
+    required: False
+    description: Contains FACS worksheets used using data acquisition/analysis
+  -  
+    pattern: raw\/[^\/]+\_bead_compensate\.wsp$
+    required: False
+    description: FlowJo workspace file created by running specific compensation beads through the flow cytometer, which is then applied to your main experiment data to correct for fluorescence spillover.
+    is_qa_qc: False
+  -  
+    pattern: raw\/[^\/]+\.csv$
+    required: False
+    description: Single file containing FACS vexperiment information from the instrument.
+    is_qa_qc: False
+  -  
+    pattern: raw\/facs\/.*
+    required: True
+    description: Contains the raw FCS file(s).
+  -  
+    pattern: lab_processed\/.*
+    required: True
+    description: Experiment files that were processed by the lab generating the data.
+  -  
+    pattern: lab_processed\/[^\/]+\.wsp$
+    required: True
+    description: FlowJo workspace file corrected for flourescence spillover via application of the compensation WSP file described above.
+    is_qa_qc: True
