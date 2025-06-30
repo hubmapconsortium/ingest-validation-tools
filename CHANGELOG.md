@@ -17,6 +17,7 @@
 - Update GeoMx NGS directory schema
 - Update MERFISH directory schema
 - Add FACS passthrough dataset type
+- Update FACS directory schema
 
 ## v0.0.36
 - Update Xenium directory schema
