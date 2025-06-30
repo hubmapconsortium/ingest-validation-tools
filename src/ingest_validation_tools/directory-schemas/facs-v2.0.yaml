@@ -6,15 +6,19 @@ files:
   -
     pattern: extras\/facs_hardware\.pdf$
     required: True
-    description: File containing information about the configuration of the instrument, including:number of lasers, power, and wavelength of each; number of filters (if present) and band pass; number of detectors/PMTs
+    description: File containing information about the configuration of the instrument, including:number of lasers, power, and wavelength of each; number of filters (if present) and band pass; number of detectors/PMTs.
   -
     pattern: extras\/facs_hardware\.xlsx$
     required: False
-    description: File containing information about the configuration of the instrument, including:number of lasers, power, and wavelength of each; number of filters (if present) and band pass; number of detectors/PMTs
+    description: File containing information about the configuration of the instrument, including:number of lasers, power, and wavelength of each; number of filters (if present) and band pass; number of detectors/PMTs.
+  -
+    pattern: raw\/.*
+    required: True
+    description: This is a directory containing raw data.
   -  
     pattern: raw\/[^\/]+\.fcs$
     required: False
-    description: Contains the raw data from a mass cytometry experiment in a matrix where each row represents a single cell and each column represents a different metal-labeled antibody channel, with the values in each cell signifying the ion count detected for that specific metal on that cell, allowing for the analysis of multiple cell surface markers on individual cells. .
+    description: Contains the raw data from a mass cytometry experiment in a matrix where each row represents a single cell and each column represents a different metal-labeled antibody channel, with the values in each cell signifying the ion count detected for that specific metal on that cell, allowing for the analysis of multiple cell surface markers on individual cells.
     is_qa_qc: False
   -  
     pattern: raw\/[^\/]+\.pdf$
@@ -41,6 +45,7 @@ files:
     pattern: raw\/[^\/]+\.csv$
     required: False
     description: Single file containing FACS vexperiment information from the instrument.
+    is_qa_qc: False
   -  
     pattern: raw\/facs\/.*
     required: True
