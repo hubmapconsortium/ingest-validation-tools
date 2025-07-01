@@ -1,8 +1,7 @@
-draft: true
 fields:
 - name: is_cedar
   description: 'Identifies whether the version is hosted by CEDAR'
-  example: 'https://docs.google.com/spreadsheets/d/114DmeiACGQzA8C5ZY3mWh-338XNe7Zy7'
+  example: 'https://openview.metadatacenter.org/templates/https:%2F%2Frepo.metadatacenter.org%2Ftemplates%2Fdf335a89-b470-4c2c-a4c9-e8db7f166d59'
 - name: assay_category
   constraints:
     enum:
