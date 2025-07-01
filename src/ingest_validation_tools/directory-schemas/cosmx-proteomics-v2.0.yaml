@@ -1,0 +1,9 @@
+files:
+  -
+    pattern: 'TODO'
+    description: 'Directory structure not yet specified.'
+    required: True
+  -
+    pattern: extras\/.*
+    required: True
+    description: Folder for general lab-specific files related to the dataset. [Exists in all assays]
