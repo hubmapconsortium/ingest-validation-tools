@@ -5,7 +5,7 @@ fields:
 - name: assay_category
   constraints:
     enum:
-      - single_cycle_fluorescence_microscopy
+      - mxfbe
 - name: assay_type
   constraints:
     enum:
