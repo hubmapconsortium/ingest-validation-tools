@@ -1,6 +1,6 @@
 ---
-title: CosMx
-schema_name: cosmx
+title: CosMx Transcriptomics
+schema_name: cosmx-transcriptomics
 category: Spatial Transcriptomics
 all_versions_deprecated: False
 exclude_from_index: False
@@ -12,8 +12,8 @@ Prepare your metadata based on the latest metadata schema using one of the templ
 Related files:
 
 
-- [📝 Excel template](https://raw.githubusercontent.com/hubmapconsortium/dataset-metadata-spreadsheet/main/cosmx/latest/cosmx.xlsx): For metadata entry.
-- [📝 TSV template](https://raw.githubusercontent.com/hubmapconsortium/dataset-metadata-spreadsheet/main/cosmx/latest/cosmx.tsv): Alternative for metadata entry.
+- [📝 Excel template](https://raw.githubusercontent.com/hubmapconsortium/dataset-metadata-spreadsheet/main/cosmx-transcriptomics/latest/cosmx-transcriptomics.xlsx): For metadata entry.
+- [📝 TSV template](https://raw.githubusercontent.com/hubmapconsortium/dataset-metadata-spreadsheet/main/cosmx-transcriptomics/latest/cosmx-transcriptomics.tsv): Alternative for metadata entry.
 
 
 
