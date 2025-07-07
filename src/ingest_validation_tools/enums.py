@@ -25,7 +25,8 @@ shared_enums: Dict[str, List[str]] = {
         "CODEX2",  # TODO: Temporary; will be removed.
         # https://github.com/hubmapconsortium/ingest-validation-tools/issues/1107
         "Confocal",
-        "CosMx",
+        "CosMx Transcriptomics",
+        "CosMx Proteomics",
         "DESI",
         "Enhanced Stimulated Raman Spectroscopy (SRS)",
         "FACS",
