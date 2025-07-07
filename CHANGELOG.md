@@ -21,8 +21,8 @@
 - Add support for CosMx Transcriptomics/Proteomics
 - Update CosMx Transcriptomics directory schema
 - Update CosMx Proteomics directory schema
-- Add CyCIF dataset
 - Update FACS directory schema
+- Add CyCIF dataset
 
 ## v0.0.36
 - Update Xenium directory schema
