@@ -18,6 +18,7 @@
 - Update MERFISH directory schema
 - Add FACS passthrough dataset type
 - Update FACS directory schema
+- Add CyCIF dataset
 
 ## v0.0.36
 - Update Xenium directory schema
