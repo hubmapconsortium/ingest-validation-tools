@@ -47,10 +47,6 @@ files:
     description: Single file containing FACS vexperiment information from the instrument.
     is_qa_qc: False
   -  
-    pattern: raw\/facs\/.*
-    required: True
-    description: Contains the raw FCS file(s).
-  -  
     pattern: lab_processed\/.*
     required: True
     description: Experiment files that were processed by the lab generating the data.
