@@ -23,6 +23,7 @@
 - Update CosMx Proteomics directory schema
 - Update FACS directory schema
 - Add CyCIF dataset
+- Create docs for FACS, Olink
 
 ## v0.0.36
 - Update Xenium directory schema
