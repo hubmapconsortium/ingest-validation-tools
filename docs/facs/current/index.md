@@ -43,7 +43,6 @@ Related files:
 | <code>raw\/[^\/]+\.wtml$</code> |  | Contains FACS worksheets used using data acquisition/analysis |
 | <code>raw\/[^\/]+\_bead_compensate\.wsp$</code> |  | FlowJo workspace file created by running specific compensation beads through the flow cytometer, which is then applied to your main experiment data to correct for fluorescence spillover. |
 | <code>raw\/[^\/]+\.csv$</code> |  | Single file containing FACS vexperiment information from the instrument. |
-| <code>raw\/facs\/.*</code> | ✓ | Contains the raw FCS file(s). |
 | <code>lab_processed\/.*</code> | ✓ | Experiment files that were processed by the lab generating the data. |
 | <code>lab_processed\/[^\/]+\.wsp$</code> | ✓ | **[QA/QC]** FlowJo workspace file corrected for flourescence spillover via application of the compensation WSP file described above. |
 

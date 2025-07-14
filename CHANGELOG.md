@@ -22,6 +22,7 @@
 - Update CosMx Transcriptomics directory schema
 - Update CosMx Proteomics directory schema
 - Update FACS directory schema
+- Create docs for FACS, Olink
 
 ## v0.0.36
 - Update Xenium directory schema
