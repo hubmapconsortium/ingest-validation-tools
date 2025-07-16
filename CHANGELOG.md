@@ -24,6 +24,7 @@
 - Update FACS directory schema
 - Add CyCIF dataset
 - Create docs for FACS
+- Update MERFISH directory schema
 
 ## v0.0.36
 - Update Xenium directory schema
