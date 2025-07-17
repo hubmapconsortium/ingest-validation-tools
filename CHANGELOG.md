@@ -22,6 +22,8 @@
 - Update CosMx Transcriptomics directory schema
 - Update CosMx Proteomics directory schema
 - Update FACS directory schema
+- Add CyCIF dataset
+- Create docs for FACS
 - Add Olink passthrough dataset type
 
 ## v0.0.36
