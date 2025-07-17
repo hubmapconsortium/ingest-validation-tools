@@ -202,6 +202,7 @@ def generate_readme_md(
                 "mass_spectrometry_imaging": "Imaging Mass Spectrometry (IMS)",
                 "mxfbe": "Multiplex Fluorescence Based Experiment (MxFBE)",
                 "organ": "Organ",
+                "proteomics": "Proteomics",
                 "sample": "Sample",
                 "sequence": "Sequence Assays",
                 "single_cycle_fluorescence_microscopy": "Single-cycle Fluorescence Microscopy (SFM)",  # noqa E501

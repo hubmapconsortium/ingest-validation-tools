@@ -130,6 +130,7 @@ shared_enums: Dict[str, List[str]] = {
         "mass_spectrometry_imaging",
         "mxfbe",
         "organ",
+        "proteomics",
         "sample",
         "sequence",
         "single_cycle_fluorescence_microscopy",
