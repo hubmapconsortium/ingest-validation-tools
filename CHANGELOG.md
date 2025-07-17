@@ -24,7 +24,8 @@
 - Update FACS directory schema
 - Add CyCIF dataset
 - Create docs for FACS
-- Fixed test for changelog
+- Add Olink passthrough dataset type
+- Update MERFISH directory schema
 
 ## v0.0.36
 - Update Xenium directory schema
