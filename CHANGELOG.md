@@ -24,6 +24,7 @@
 - Update FACS directory schema
 - Add CyCIF dataset
 - Create docs for FACS
+- Add Olink passthrough dataset type
 
 ## v0.0.36
 - Update Xenium directory schema
