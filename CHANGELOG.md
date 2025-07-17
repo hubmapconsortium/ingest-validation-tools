@@ -24,6 +24,7 @@
 - Update FACS directory schema
 - Add CyCIF dataset
 - Create docs for FACS
+- Fixed test for changelog
 
 ## v0.0.36
 - Update Xenium directory schema
