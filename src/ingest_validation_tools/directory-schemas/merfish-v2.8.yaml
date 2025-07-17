@@ -20,11 +20,11 @@ files:
   -
     pattern: raw\/additional_panels_used\.csv$
     required: False
-    description: If multiple commercial probe panels were used, then the primary probe panel should be selected in the "oligo_probe_panel" metadata field. The additional panels must be included in this file. Each panel record should include: manufacturer, model/name, product code.
+    description: 'If multiple commercial probe panels were used, then the primary probe panel should be selected in the "oligo_probe_panel" metadata field. The additional panels must be included in this file. Each panel record should include: manufacturer, model/name, product code.'
   -
     pattern: raw\/gene_panel\.csv$
     required: True
-    description: The list of target genes. The expected format is: gene_id (ensembl ID), gene_name.
+    description: 'The list of target genes. The expected format is: gene_id (ensembl ID), gene_name.'
   -
     pattern: raw\/custom_probe_set\.csv$
     required: False
@@ -60,7 +60,7 @@ files:
   -
     pattern: raw\/data\/[^\/]+\.inf$
     required: False
-    description: Information file with dax image format specifications for MERFISH v1. Variable expected for downstream processing with PIPEFISH are: frame dimensions, number of frames, little/big endian, stage X and Y locations, lock target, scalemin, and scalemax.
+    description: 'Information file with dax image format specifications for MERFISH v1. Variable expected for downstream processing with PIPEFISH are: frame dimensions, number of frames, little/big endian, stage X and Y locations, lock target, scalemin, and scalemax.'
   -
     pattern: raw\/data\/[^\/]+\.zip$
     required: False
