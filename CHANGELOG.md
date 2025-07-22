@@ -26,6 +26,7 @@
 - Create docs for FACS
 - Add Olink passthrough dataset type
 - Update MERFISH directory schema
+- Add proteomics docs category
 
 ## v0.0.36
 - Update Xenium directory schema
