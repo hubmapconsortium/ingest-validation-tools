@@ -27,6 +27,7 @@
 - Add Olink passthrough dataset type
 - Update MERFISH directory schema
 - Add proteomics docs category
+- Fixed test for changelog
 
 ## v0.0.36
 - Update Xenium directory schema
