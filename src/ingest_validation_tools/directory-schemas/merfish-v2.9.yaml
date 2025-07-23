@@ -35,7 +35,7 @@ files:
     description: Matrix used to transform from pixels to physical distance.
   -
     pattern: raw\/manifest\.json$
-    required: True
+    required: False
     description: This file contains stain by channel details and pixel details.
   -
     pattern: raw\/codebook\.csv$
