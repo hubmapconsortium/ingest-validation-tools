@@ -1,0 +1,12 @@
+fields:
+- name: is_cedar
+  description: 'Identifies whether the version is hosted by CEDAR'
+  example: 'https://openview.metadatacenter.org/templates/https:%2F%2Frepo.metadatacenter.org%2Ftemplates%2F24378678-d237-45ac-91c0-40e41d1e8a3e'
+- name: assay_category
+  constraints:
+    enum:
+      - spatial_transcriptomics
+- name: assay_type
+  constraints:
+    enum:
+      - Seq-Scope
