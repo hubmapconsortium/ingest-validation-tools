@@ -26,6 +26,8 @@
 - Create docs for FACS
 - Add Olink passthrough dataset type
 - Update MERFISH directory schema
+- Add proteomics docs category
+- Fixed test for changelog
 - Add Seq-Scope passthrough data type, directory schema
 
 ## v0.0.36

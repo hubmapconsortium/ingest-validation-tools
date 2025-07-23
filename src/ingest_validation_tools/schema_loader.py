@@ -385,6 +385,7 @@ def _validate_level_1_enum(field: dict) -> None:
      'mass_spectrometry_imaging',
      'mxfbe',
      'organ',
+     'proteomics',
      'sample',
      'sequence',
      'single_cycle_fluorescence_microscopy',
