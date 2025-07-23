@@ -43,11 +43,11 @@ files:
     description: CSV containing codebook information for the experiment. Rows are barcodes and columns are imaging rounds. The first column is the barcode target, and the following column IDs are expected to be sequential, and round identifiers are expected to be integers (not roman numerals).
   -
     pattern: raw\/positions\.csv$
-    required: False
+    required: True
     description: File that includes the top left coordinate of each tiled image. This is required to stitch the images. 
   -
     pattern: raw\/dataorganization\.csv$
-    required: False
+    required: True
     description: Necessary image definitions.
   -
     pattern: raw\/data\/.*
