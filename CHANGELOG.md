@@ -29,6 +29,7 @@
 - Add proteomics docs category
 - Fixed test for changelog
 - Update MERFISH directory schema
+- Add Seq-Scope passthrough data type, directory schema
 
 ## v0.0.36
 - Update Xenium directory schema
