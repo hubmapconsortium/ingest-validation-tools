@@ -30,6 +30,7 @@
 - Fixed test for changelog
 - Update MERFISH directory schema
 - Add Seq-Scope passthrough data type, directory schema
+- Update CosMx Transcriptomics directory schema
 
 ## v0.0.36
 - Update Xenium directory schema
