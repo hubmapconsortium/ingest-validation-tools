@@ -118,7 +118,7 @@ files:
     description: Contains morphology mip
     is_qa_qc: False
   -
-    pattern: lab_processed\/xenium_bundle\/morphology_focus[^\/]*\.ome\.tif$
+    pattern: lab_processed\/xenium_bundle\/morphology_focus\.ome\.tif$
     required: True
     description: Contains morphology focus
     is_qa_qc: False
