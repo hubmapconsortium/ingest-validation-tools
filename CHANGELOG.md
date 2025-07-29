@@ -1,6 +1,7 @@
 # Changelog
+## v0.0.38 (in progress)
 
-## v0.0.37 (in progress)
+## v0.0.37
 - Update Xenium directory schema
 - Update Publication directory schema
 - Update Xenium directory schema
