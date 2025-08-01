@@ -24,13 +24,13 @@ files:
   -  
     pattern: raw\/images\/round_info_[^\/]+\.dat$
     required: False
-    description: Metadata file for the capture item-value tab separated format. This contains various instrument and acquisition details for each acquisition cycle. This is equivalent to the round_info_*.xml file that some systems generate.
+    description: 'Metadata file for the capture item-value tab separated format. This contains various instrument and acquisition details for each acquisition cycle. This is equivalent to the round_info_*.xml file that some systems generate.'
     is_qa_qc: False
     example: raw/images/round_info_002.dat
   -  
     pattern: raw\/images\/round_info_[^\/]+\.xml$
     required: False
-    description: Metadata file for the capture item-value tab separated format. This contains various instrument and acquisition details for each acquisition cycle. This is equivalent to the round_info_*.dat file that some systems generate.
+    description: 'Metadata file for the capture item-value tab separated format. This contains various instrument and acquisition details for each acquisition cycle. This is equivalent to the round_info_*.dat file that some systems generate.'
     is_qa_qc: False
     example: raw/images/round_info_002.xml
   -
