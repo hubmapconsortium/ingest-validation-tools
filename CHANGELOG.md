@@ -2,6 +2,7 @@
 ## v0.0.38 (in progress)
 - Update Cell DIVE directory schema
 - Update Cell DIVE directory schema
+- Update legacy Cell DIVE directory schema
 
 ## v0.0.37
 - Update Xenium directory schema
