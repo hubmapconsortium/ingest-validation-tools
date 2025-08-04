@@ -1,5 +1,7 @@
 # Changelog
-## v0.0.38 (in progress)
+## v0.0.39 (in progress)
+
+## v0.0.38
 - Update Cell DIVE directory schema
 - Update Cell DIVE directory schema
 - Update legacy Cell DIVE directory schema
