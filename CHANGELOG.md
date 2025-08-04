@@ -1,6 +1,7 @@
 # Changelog
 ## v0.0.38 (in progress)
 - Update Cell DIVE directory schema
+- Update Cell DIVE directory schema
 
 ## v0.0.37
 - Update Xenium directory schema
@@ -34,7 +35,6 @@
 - Add Seq-Scope passthrough data type, directory schema
 - Update CosMx Transcriptomics directory schema
 - Update Xenium directory schema
-- Update Cell DIVE directory schema
 
 ## v0.0.36
 - Update Xenium directory schema
