@@ -585,7 +585,18 @@ Relative path to file or directory with instrument data. Downstream processing w
 <br>
 
 ## Directory schemas
-<summary><b>Version 0.0 (use this one)</b></summary>
+<summary><b>Version 0.1 (use this one)</b></summary>
+
+| pattern | required? | description |
+| --- | --- | --- |
+| <code>channel_list\.txt</code> | ✓ | Information about the capture channels and tags (comma separated) |
+| <code>slide_list\.txt</code> | ✓ | Information about the slides used by the experiment- each line corresponds to a slide name (begins with S - e.g. S20030077) - used in filenames |
+| <code>HuBMAP_OME\/*</code> | ✓ | Directory containing subdirectories of OME TIFF files by region |
+| <code>HuBMAP_OME/region_\d+/S\d+_region_\d+\.ome\.tif</code> (example: <code>HuBMAP_OME/region_011/S20030092_region_011.ome.tif</code>) | ✓ | OME TIFF Files for the corresponding region (e.g. region_001) by slide (e.g S20030077) |
+| <code>HuBMAP_rounds/round_info_\d+\.dat</code> (example: <code>HuBMAP_rounds/round_info_002.dat</code>) | ✓ | Metadata file for the capture item-value tab separated format |
+| <code>extras\/.*</code> |  | Folder for general lab-specific files related to the dataset. [Exists in all assays] |
+
+<summary><b>Version 0.0</b></summary>
 
 | pattern | required? | description |
 | --- | --- | --- |
