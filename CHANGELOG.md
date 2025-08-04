@@ -35,7 +35,6 @@
 - Update CosMx Transcriptomics directory schema
 - Update Xenium directory schema
 - Update Cell DIVE directory schema
-- Update Cell DIVE directory schema
 
 ## v0.0.36
 - Update Xenium directory schema
