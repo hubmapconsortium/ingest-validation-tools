@@ -1,5 +1,5 @@
 ---
-title: Segmentation Mask
+title: Object x Analyte
 schema_name: object-x-analyte
 category: Derived Datasets
 all_versions_deprecated: False
