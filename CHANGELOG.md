@@ -5,6 +5,7 @@
 - Update Cell DIVE directory schema
 - Update Cell DIVE directory schema
 - Update legacy Cell DIVE directory schema
+- Create Object-by-Analyte EPIC directory schema 
 
 ## v0.0.37
 - Update Xenium directory schema
