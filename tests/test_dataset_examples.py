@@ -278,22 +278,23 @@ class TestDatasetExamples(unittest.TestCase):
                     opts = {}
                 with patch("ingest_validation_tools.validation_utils.get_assaytype_data"):
                     with patch("ingest_validation_tools.upload.Upload._get_url_errors"):
-                        try:
-                            dataset_test(
-                                test_dir,
-                                opts,
-                                verbose=verbose,
-                                offline=True,
-                                use_online_check_fixtures=True,
-                                full_diff=full_diff,
-                            )
-                        except MockException as e:
-                            print(e)
-                            continue
-                        except AssertionError as e:
-                            print(e)
-                            self.errors.append(test_dir)
-                            continue
+                        with patch("ingest_validation_tools.upload.Upload._check_for_contact"):
+                            try:
+                                dataset_test(
+                                    test_dir,
+                                    opts,
+                                    verbose=verbose,
+                                    offline=True,
+                                    use_online_check_fixtures=True,
+                                    full_diff=full_diff,
+                                )
+                            except MockException as e:
+                                print(e)
+                                continue
+                            except AssertionError as e:
+                                print(e)
+                                self.errors.append(test_dir)
+                                continue
 
     @staticmethod
     def prep_offline_upload(test_dir: str, opts: Dict) -> Upload:
@@ -305,11 +306,12 @@ class TestDatasetExamples(unittest.TestCase):
         ):
             with patch("ingest_validation_tools.validation_utils.get_entity_api_data"):
                 with patch("ingest_validation_tools.upload.Upload.online_checks"):
-                    upload = Upload(Path(f"{test_dir}/upload"), **opts)
-                    upload.get_errors()
-                    upload = mutate_upload_errors_with_fixtures(upload, test_dir)
-                    upload.get_info()
-                    return upload
+                    with patch("ingest_validation_tools.upload.Upload._check_for_contact"):
+                        upload = Upload(Path(f"{test_dir}/upload"), **opts)
+                        upload.get_errors()
+                        upload = mutate_upload_errors_with_fixtures(upload, test_dir)
+                        upload.get_info()
+                        return upload
 
     def prep_dir_schema_upload(self, test_dir: str, opts: Dict, patch_data: Dict) -> Upload:
         with patch(
