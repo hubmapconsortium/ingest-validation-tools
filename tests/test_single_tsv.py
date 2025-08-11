@@ -7,7 +7,7 @@ import requests
 from parameterized import parameterized
 
 from ingest_validation_tools.enums import DatasetType, OtherTypes, Sample
-from ingest_validation_tools.schema_loader import EntityTypeInfo
+from ingest_validation_tools.schema_loader import EntityTypeInfo, SchemaVersion
 from ingest_validation_tools.table_validator import ReportType
 from ingest_validation_tools.upload import Upload
 from ingest_validation_tools.validation_utils import get_schema_version, get_tsv_errors
@@ -15,6 +15,10 @@ from tests.fixtures import (
     BAD_DATASET_CONSTRAINTS_RESPONSE,
     BAD_DATASET_EXPECTED_PAYLOAD,
     BAD_DATASET_SCHEMA_WITH_ANCESTORS,
+    CONTACT_TEST_UUID_BAD_NO_CONTACTS,
+    CONTACT_TEST_UUID_BAD_NO_EMAIL,
+    CONTACT_TEST_UUID_BAD_NO_PRIMARY,
+    CONTACT_TEST_UUID_GOOD,
     GOOD_DATASET_EXPECTED_PAYLOAD,
     GOOD_DATASET_SCHEMA_WITH_ANCESTORS,
     SAMPLE_BLOCK_CONSTRAINTS_RESPONSE_GOOD,
@@ -22,7 +26,7 @@ from tests.fixtures import (
     SAMPLE_BLOCK_PARTIAL_ENTITY_API_RESPONSE,
     SAMPLE_ORGAN_PARTIAL_ENTITY_API_RESPONSE,
     SAMPLE_SECTION_PARTIAL_ENTITY_API_RESPONSE,
-    TEST_GET_TSV_ERRORS_PARAMS,
+    TEST_GET_SAMPLE_TSV_ERRORS_PARAMS,
 )
 
 CONSTRAINTS_URL_PARAMS = {"match": True, "order": "ancestors"}
@@ -118,10 +122,36 @@ class TestSingleTsv(unittest.TestCase):
             f"{ENTITIES_URL}HBM427.JWVV.723": SAMPLE_BLOCK_PARTIAL_ENTITY_API_RESPONSE,
             f"{ENTITIES_URL}HBM733.HSZF.798": SAMPLE_ORGAN_PARTIAL_ENTITY_API_RESPONSE,
             f"{ENTITIES_URL}HBM673.ZRWW.589": SAMPLE_BLOCK_PARTIAL_ENTITY_API_RESPONSE,
+            f"{ENTITIES_URL}contact_test_uuid_good": CONTACT_TEST_UUID_GOOD,
+            f"{ENTITIES_URL}contact_test_uuid_bad_no_primary": CONTACT_TEST_UUID_BAD_NO_PRIMARY,
+            f"{ENTITIES_URL}contact_test_uuid_bad_no_contacts": CONTACT_TEST_UUID_BAD_NO_CONTACTS,
+            f"{ENTITIES_URL}contact_test_uuid_bad_no_email": CONTACT_TEST_UUID_BAD_NO_EMAIL,
         }
 
-    @parameterized.expand(TEST_GET_TSV_ERRORS_PARAMS)
-    def test_get_other_tsv_errors(
+    @parameterized.expand(
+        [
+            ("contact_test_uuid_good", None),
+            ("contact_test_uuid_bad_no_primary", "Missing primary contact"),
+            ("contact_test_uuid_bad_no_contacts", "Missing contacts"),
+            ("contact_test_uuid_bad_no_email", "Primary contact missing email"),
+        ]
+    )
+    def test_get_contact(self, test_name, error):
+        with patch("ingest_validation_tools.upload.get_entity_api_data") as mock_entity_data:
+            with patch("ingest_validation_tools.validation_utils.get_assaytype_data"):
+                with patch(
+                    "ingest_validation_tools.upload.Upload._get_effective_tsvs",
+                    side_effect=lambda tsv_paths: {"fake_path": SchemaVersion("test_sv")},
+                ):
+                    mock_entity_data.return_value = get_mock_response(
+                        True, eval(test_name.upper())
+                    )
+                    upload = Upload(Path(test_name))
+                    upload._check_for_contact()
+                    assert upload.errors.preflight.value == error
+
+    @parameterized.expand(TEST_GET_SAMPLE_TSV_ERRORS_PARAMS)
+    def test_get_sample_tsv_errors(
         self,
         good: bool,
         constraint_checks_response: bytes,

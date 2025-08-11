@@ -1,6 +1,7 @@
 # Changelog
 ## v0.0.39 (in progress)
 - Create Object-by-Analyte EPIC directory schema 
+- Add check for contact in entity metadata
 
 ## v0.0.38
 - Update Cell DIVE directory schema

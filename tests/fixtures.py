@@ -213,7 +213,7 @@ GOOD_DATASET_CONSTRAINTS_RESPONSE = b'{"code":200,"description":[{"code":200,"de
 
 BAD_DATASET_CONSTRAINTS_RESPONSE = b'{"code":400,"description":[{"code":200,"description":[{"entity_type":"dataset","sub_type":null,"sub_type_val":null},{"entity_type":"Publication","sub_type":null,"sub_type_val":null}],"name":"OK"},{"code":404,"description":[{"entity_type":"Sample","sub_type":["Suspension"],"sub_type_val":null}],"name":"This `Sample` `organ` cannot be associated with the provided `ancestors` due to entity constraints. Click the link to view valid entity types that can be `descendants`"}],"name":"Bad Request"}'
 
-TEST_GET_TSV_ERRORS_PARAMS = [
+TEST_GET_SAMPLE_TSV_ERRORS_PARAMS = [
     (
         True,
         SAMPLE_BLOCK_CONSTRAINTS_RESPONSE_GOOD,
@@ -250,6 +250,25 @@ TEST_GET_TSV_ERRORS_PARAMS = [
                     "error": 'value "HBM233.CGGG.482" fails because of error "Invalid Ancestor": Invalid ancestor type for TSV type sample/block. Data sent for ancestor HBM233.CGGG.482: sample/section.',
                     "row": 2,
                 },
+            ],
+        ],
+    ),
+    (
+        False,
+        SAMPLE_BLOCK_CONSTRAINTS_RESPONSE_BAD,
+        SAMPLE_BLOCK_PARTIAL_CEDAR_RESPONSE_GOOD,
+        "./tests/fixtures/sample-block-bad.tsv",
+        "sample-block",
+        [
+            [
+                {
+                    "column": "source_id",
+                    "error": 'value "HBM233.CGGG.482" fails because of error "Invalid Ancestor": Invalid ancestor type for TSV type sample/block. Data sent for ancestor HBM233.CGGG.482: sample/section.',
+                    "row": 2,
+                }
+            ],
+            [
+                'On row 2, column "source_id", value "HBM233.CGGG.482" fails because of error "Invalid Ancestor": Invalid ancestor type for TSV type sample/block. Data sent for ancestor HBM233.CGGG.482: sample/section.',
             ],
         ],
     ),
@@ -363,3 +382,11 @@ PLUGIN_DIR_MAP = {
         successful_plugins=["CodexCommonErrorsValidator"],
     ),
 }
+
+CONTACT_TEST_UUID_GOOD = b'{"contacts":[{"email":"test_not_contact@hubmapconsortium.org","is_contact":"No"},{"email":"test_contact@hubmapconsortium.org","is_contact":"Yes"}]}'
+
+CONTACT_TEST_UUID_BAD_NO_PRIMARY = b'{"contacts":[{"email":"test_not_contact@hubmapconsortium.org","is_contact":"No"},{"email":"test_also_not_contact@hubmapconsortium.org","is_contact":"No"}]}'
+
+CONTACT_TEST_UUID_BAD_NO_CONTACTS = b'{"contacts":[]}'
+
+CONTACT_TEST_UUID_BAD_NO_EMAIL = b'{"contacts":[{"email":null,"is_contact":"Yes"}]}'

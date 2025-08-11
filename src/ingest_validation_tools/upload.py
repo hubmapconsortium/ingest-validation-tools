@@ -157,6 +157,7 @@ class Upload:
         # Collect errors
         self._get_local_tsv_errors()
         self._get_directory_errors()
+        self._check_for_contact()
         self.validation_routine()
         self._get_reference_errors()
 
@@ -335,6 +336,26 @@ class Upload:
             self.errors.metadata_validation_local.update(
                 {f"{tsv_path} (as {schema_version.table_schema})": local_errors}
             )
+
+    def _check_for_contact(self):
+        url = urljoin(self.app_context["entities_url"], self.directory_path.name)
+        try:
+            entity_data = get_entity_api_data(url, self.globus_token)
+        except Exception:
+            self.errors.preflight.value = f"Error retrieving entity data from URL {url}"
+            return
+        contacts = entity_data.json().get("contacts")
+        contact_found = False
+        if len(contacts) > 0:
+            for contact in contacts:
+                if contact.get("is_contact") == "Yes":
+                    if not contact.get("email"):
+                        self.errors.preflight.value = "Primary contact missing email"
+                    contact_found = True
+            if not contact_found:
+                self.errors.preflight.value = "Missing primary contact"
+        else:
+            self.errors.preflight.value = "Missing contacts"
 
     def _api_validation(
         self,
