@@ -363,3 +363,61 @@ PLUGIN_DIR_MAP = {
         successful_plugins=["CodexCommonErrorsValidator"],
     ),
 }
+
+GOOD_CONTRIBS = [
+    {
+        "first_name": "Firstname",
+        "last_name": "Lastname",
+        "middle_name_or_initial": "M.",
+        "display_name": "Firstname M. Lastname",
+        "affiliation": "College",
+        "orcid": "0000-0002-8928-abcd",
+        "email": "test@test.com",
+        "is_contact": "Yes",
+        "is_principal_investigator": "Yes",
+        "is_operator": "Yes",
+        "metadata_schema_id": "94dae6f8-0756-4ab0-a47b-138e446a9501",
+    },
+    {
+        "first_name": "Firstname2",
+        "last_name": "Lastname2",
+        "middle_name_or_initial": "M.2",
+        "display_name": "Firstname M. Lastname2",
+        "affiliation": "College2",
+        "orcid": "0000-0002-8928-efgh",
+        "email": "test2@test.com",
+        "is_contact": "No",
+        "is_principal_investigator": "No",
+        "is_operator": "No",
+        "metadata_schema_id": "94dae6f8-0756-4ab0-a47b-138e446a9501",
+    },
+]
+
+BAD_CONTRIBS_NO_CONTACT = [
+    {
+        "first_name": "Firstname",
+        "last_name": "Lastname",
+        "middle_name_or_initial": "M.",
+        "display_name": "Firstname M. Lastname",
+        "affiliation": "College",
+        "orcid": "0000-0002-8928-abcd",
+        "email": "test@test.com",
+        "is_contact": "No",
+        "is_principal_investigator": "Yes",
+        "is_operator": "Yes",
+        "metadata_schema_id": "94dae6f8-0756-4ab0-a47b-138e446a9501",
+    },
+    {
+        "first_name": "Firstname2",
+        "last_name": "Lastname2",
+        "middle_name_or_initial": "M.2",
+        "display_name": "Firstname M. Lastname2",
+        "affiliation": "College2",
+        "orcid": "0000-0002-8928-efgh",
+        "email": "test2@test.com",
+        "is_contact": "No",
+        "is_principal_investigator": "No",
+        "is_operator": "No",
+        "metadata_schema_id": "94dae6f8-0756-4ab0-a47b-138e446a9501",
+    },
+]

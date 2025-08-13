@@ -3,10 +3,8 @@
 import argparse
 import inspect
 import sys
-from datetime import datetime
 from pathlib import Path
 
-from ingest_validation_tools.check_factory import cache_path
 from ingest_validation_tools.cli_utils import ShowUsageException, dir_path, exit_codes
 from ingest_validation_tools.error_report import ErrorReport
 from ingest_validation_tools.upload import Upload
@@ -23,17 +21,8 @@ directory_schemas = sorted(
 
 def make_parser():
     parser = argparse.ArgumentParser(
-        description="""
-Validate a HuBMAP upload, both the metadata TSVs and the datasets.
-If you only want to validate a TSV in isolation, look at validate_tsv.py.""",
+        description="Validate a HuBMAP upload, both the metadata TSVs and the datasets.",
         epilog=f"""
-Typical usage:
-  --local_directory: Used by lab before upload, and on Globus after upload.
-
-  --local_directory + --dataset_ignore_globs + --upload_ignore_globs:
-  After the initial validation on Globus, the metadata TSVs are broken up,
-  and one-line TSVs are put in each dataset directory. This structure needs
-  extra parameters.
 
 Exit status codes:
   {exit_codes.VALID}: Validation passed
@@ -54,25 +43,10 @@ Exit status codes:
         help="Local directory to validate",
     )
 
-    # Should validation be loosened?
-
     parser.add_argument(
-        "--optional_fields",
-        nargs="+",
-        metavar="FIELD",
-        default=[],
-        help="The listed fields will be treated as optional. "
-        "(But if they are supplied in the TSV, they will be validated.)",
-    )
-    parser.add_argument(
-        "--no_url_checks",
+        "--offline_only",
         action="store_true",
         help="Skip URL checks (Spreadsheet Validator API checks still run).",
-    )
-    parser.add_argument(
-        "--clear_cache",
-        action="store_true",
-        help="Clear cache of network check responses.",
     )
     parser.add_argument(
         "--ignore_deprecation",
@@ -103,8 +77,6 @@ Exit status codes:
         "Work-in-progress: https://github.com/hubmapconsortium/ingest-validation-tools/issues/494",
     )
 
-    # Are there plugin validations?
-
     parser.add_argument("--plugin_directory", action="store", help="Directory of plugin tests.")
     parser.add_argument(
         "--run_plugins",
@@ -119,24 +91,10 @@ Exit status codes:
         default="",
         help="Token for URL checking using Entity API.",
     )
-    # How should output be formatted?
-
     error_report_methods = [
         name for (name, _) in inspect.getmembers(ErrorReport) if name.startswith("as_")
     ]
     parser.add_argument("--output", choices=error_report_methods, default="as_text_list")
-
-    parser.add_argument(
-        "--add_notes",
-        action="store_true",
-        help="Append a context note to error reports.",
-    )
-    parser.add_argument(
-        "--save_report",
-        action="store_true",
-        help='Save the report; Adding "--upload_ignore_globs '
-        "'report-*.txt'\" is necessary to revalidate.",
-    )
 
     return parser
 
@@ -147,31 +105,19 @@ Exit status codes:
 parser = make_parser()
 
 
-def _save_report(upload, report):
-    timestamp = datetime.today().strftime("%Y-%m-%d_%H-%M-%S")
-    report_path = upload.directory_path / f"report-{timestamp}.txt"
-    report_path.write_text(report.as_text_list())
-
-
 def main():
     args = parser.parse_args()
 
-    if args.clear_cache:
-        cache_path.unlink()
-
     upload_args = {
-        "add_notes": args.add_notes,
         "encoding": args.encoding,
-        "no_url_checks": args.no_url_checks,
+        "offline_only": args.offline_only,
         "globus_token": args.globus_token,
-        "optional_fields": args.optional_fields,
         "ignore_deprecation": args.ignore_deprecation,
         "run_plugins": args.run_plugins,
     }
 
     if args.local_directory:
         upload_args["directory_path"] = Path(args.local_directory)
-
     if args.dataset_ignore_globs:
         upload_args["dataset_ignore_globs"] = args.dataset_ignore_globs
     if args.upload_ignore_globs:
@@ -186,8 +132,6 @@ def main():
     upload = Upload(**upload_args)
     report = ErrorReport(upload)
     print(getattr(report, args.output)())
-    if args.save_report:
-        _save_report(upload, report)
     return exit_codes.INVALID if report.errors else exit_codes.VALID
 
 

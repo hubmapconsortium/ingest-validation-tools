@@ -52,7 +52,7 @@ class TokenException(Exception):
 def mutate_upload_errors_with_fixtures(upload: Upload, test_dir: str) -> Upload:
     url_errors_field_name = upload.errors.metadata_url_errors.display_name
     api_errors_field_name = upload.errors.metadata_validation_api.display_name
-    for tsv_path, schema in upload.effective_tsv_paths.items():
+    for tsv_path, schema in upload.dataset_metadata.items():
         fixtures = get_online_check_fixtures(schema.schema_name, test_dir)
         url_errors = fixtures.get(url_errors_field_name, {})
         if url_errors:
@@ -60,18 +60,26 @@ def mutate_upload_errors_with_fixtures(upload: Upload, test_dir: str) -> Upload:
         api_errors = fixtures.get(api_errors_field_name, {})
         if api_errors:
             upload.errors.metadata_validation_api[tsv_path] = api_errors
+        antibodies_paths = set()
+        contributors_paths = set()
+        for row in schema.rows:
+            if antibodies_path := row.get("antibodies_path"):
+                antibodies_paths.add(antibodies_path)
+            if contributors_path := row.get("contributors_path"):
+                contributors_paths.add(contributors_path)
         for other_type, paths in {
-            "antibodies": schema.antibodies_paths,
-            "contributors": schema.contributors_paths,
+            "antibodies": antibodies_paths,
+            "contributors": contributors_paths,
         }.items():
             for path in paths:
+                full_path = upload.directory_path / path
                 other_fixtures = get_online_check_fixtures(other_type, test_dir)
                 other_url_errors = other_fixtures.get(url_errors_field_name, {})
                 if other_url_errors:
-                    upload.errors.metadata_url_errors[path] = other_url_errors
+                    upload.errors.metadata_url_errors[full_path] = other_url_errors
                 other_api_errors = other_fixtures.get(api_errors_field_name, {})
                 if other_api_errors:
-                    upload.errors.metadata_validation_api[path] = other_api_errors
+                    upload.errors.metadata_validation_api[full_path] = other_api_errors
     return upload
 
 
@@ -296,7 +304,7 @@ class TestDatasetExamples(unittest.TestCase):
                             continue
 
     @staticmethod
-    def prep_offline_upload(test_dir: str, opts: Dict) -> Upload:
+    def prep_offline_upload(test_dir: str, opts: dict) -> Upload:
         with patch(
             "ingest_validation_tools.validation_utils.get_assaytype_data",
             side_effect=lambda row, ingest_url, globus_token: assaytype_side_effect(
@@ -304,14 +312,14 @@ class TestDatasetExamples(unittest.TestCase):
             ),
         ):
             with patch("ingest_validation_tools.validation_utils.get_entity_api_data"):
-                with patch("ingest_validation_tools.upload.Upload.online_checks"):
+                with patch("ingest_validation_tools.upload.Upload._online_checks"):
                     upload = Upload(Path(f"{test_dir}/upload"), **opts)
                     upload.get_errors()
                     upload = mutate_upload_errors_with_fixtures(upload, test_dir)
                     upload.get_info()
                     return upload
 
-    def prep_dir_schema_upload(self, test_dir: str, opts: Dict, patch_data: Dict) -> Upload:
+    def prep_dir_schema_upload(self, test_dir: str, opts: dict, patch_data: dict) -> Upload:
         with patch(
             "ingest_validation_tools.validation_utils.get_assaytype_data",
             side_effect=lambda row, ingest_url, globus_token: assaytype_side_effect(
@@ -321,7 +329,7 @@ class TestDatasetExamples(unittest.TestCase):
             with patch(
                 "ingest_validation_tools.validation_utils.get_possible_directory_schemas",
             ) as dir_schemas_func_patch:
-                with patch("ingest_validation_tools.upload.Upload.online_checks"):
+                with patch("ingest_validation_tools.upload.Upload._online_checks"):
                     dir_schemas_func_patch.return_value = patch_data
                     upload = Upload(Path(f"{test_dir}/upload"), **opts)
                     upload.get_errors()
@@ -341,7 +349,7 @@ class TestDatasetExamples(unittest.TestCase):
             info = upload.get_info()
             if info is None:
                 raise Exception("Info should not be none")
-            for path in upload.effective_tsv_paths.keys():
+            for path in upload.dataset_metadata.keys():
                 dir_schema_version = (
                     info.as_dict()
                     .get("TSVs", {})
@@ -363,7 +371,7 @@ class TestDatasetExamples(unittest.TestCase):
             info = upload.get_info()
             if info is None:
                 raise Exception("Info should not be none")
-            for path in upload.effective_tsv_paths.keys():
+            for path in upload.dataset_metadata.keys():
                 dir_schema_version = (
                     info.as_dict()
                     .get("TSVs", {})
@@ -385,7 +393,7 @@ class TestDatasetExamples(unittest.TestCase):
             info = upload.get_info()
             if info is None:
                 raise Exception("Info should not be none")
-            for path in upload.effective_tsv_paths.keys():
+            for path in upload.dataset_metadata.keys():
                 dir_schema_version = (
                     info.as_dict()
                     .get("TSVs", {})
@@ -407,7 +415,7 @@ class TestDatasetExamples(unittest.TestCase):
             info = upload.get_info()
             if info is None:
                 raise Exception("Info should not be none")
-            for path in upload.effective_tsv_paths.keys():
+            for path in upload.dataset_metadata.keys():
                 dir_schema_version = (
                     info.as_dict()
                     .get("TSVs", {})
@@ -438,7 +446,7 @@ class TestDatasetExamples(unittest.TestCase):
         with patch(
             "ingest_validation_tools.validation_utils.get_assaytype_data",
         ):
-            with patch("ingest_validation_tools.upload.Upload.online_checks"):
+            with patch("ingest_validation_tools.upload.Upload._online_checks"):
                 with patch(
                     "ingest_validation_tools.upload.get_schema_version",
                     side_effect=lambda tsv_path, encoding, entities_url, ingest_url, globus_token, directory_path: self.get_schema_side_effect(
