@@ -70,9 +70,14 @@ class Upload:
         app_context: dict = {},
         verbose: bool = True,
         report_type: ReportType = ReportType.STR,
+        # TODO: remove add_notes from calls
+        **kwargs,  # prevent blowing up if passed deprecated kwarg
     ):
         self.directory_path = directory_path
+        # TODO: upstream seems to always pass in the following (with one exception), maybe make that the default
+        # ignore_globs = [uuid, "extras", "*metadata.tsv", "validation_report.txt"]
         self.dataset_ignore_globs = dataset_ignore_globs
+        # TODO: upstream seems to always pass in "*", maybe make that the default
         self.upload_ignore_globs = upload_ignore_globs
         self.plugin_directory = plugin_directory
         self.encoding = encoding
