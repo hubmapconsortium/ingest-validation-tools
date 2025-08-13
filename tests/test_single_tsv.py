@@ -7,14 +7,16 @@ import requests
 from parameterized import parameterized
 
 from ingest_validation_tools.enums import DatasetType, OtherTypes, Sample
-from ingest_validation_tools.schema_loader import EntityTypeInfo
-from ingest_validation_tools.table_validator import ReportType
+from ingest_validation_tools.local_validation.table_validator import ReportType
+from ingest_validation_tools.schema_loader import EntityTypeInfo, SchemaVersion
 from ingest_validation_tools.upload import Upload
 from ingest_validation_tools.validation_utils import get_schema_version, get_tsv_errors
 from tests.fixtures import (
+    BAD_CONTRIBS_NO_CONTACT,
     BAD_DATASET_CONSTRAINTS_RESPONSE,
     BAD_DATASET_EXPECTED_PAYLOAD,
     BAD_DATASET_SCHEMA_WITH_ANCESTORS,
+    GOOD_CONTRIBS,
     GOOD_DATASET_EXPECTED_PAYLOAD,
     GOOD_DATASET_SCHEMA_WITH_ANCESTORS,
     SAMPLE_BLOCK_CONSTRAINTS_RESPONSE_GOOD,
@@ -105,7 +107,7 @@ class TestSingleTsv(unittest.TestCase):
         )
         path = Path("./tests/fixtures/sample-block-good.tsv").absolute()
         schema = get_schema_version(path, "ascii", globus_token="test")
-        self.upload._get_url_errors(str(path), schema)
+        self.upload._get_url_errors(path, schema)
         assert len(schema.ancestor_entities) == 2
         assert schema.ancestor_entities[1].entity_sub_type == Sample.BLOCK.name.lower()
         assert schema.ancestor_entities[0].entity_type == OtherTypes.SAMPLE
@@ -191,6 +193,16 @@ class TestSingleTsv(unittest.TestCase):
         # Organs must have sub_type_val
         with self.assertRaises(Exception):
             EntityTypeInfo(entity_type=Sample.ORGAN)
+
+    def test_contributors_contact(self):
+        for contrib_rows, error in [
+            (GOOD_CONTRIBS, None),
+            (BAD_CONTRIBS_NO_CONTACT, "No primary contact."),
+        ]:
+            upload = Upload(directory_path=Path("."))
+            upload.other_metadata["contributors_path"] = SchemaVersion("test", rows=contrib_rows)
+            upload._check_for_contact()
+            assert upload.errors.upload_metadata.value.get("contributors_path") == error
 
 
 # if __name__ == "__main__":

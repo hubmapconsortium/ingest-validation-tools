@@ -249,10 +249,11 @@ class ErrorDict:
 
     def sort_val(self, value):
         """
-        Recursively sort all dicts by keys for consistency of testing and output.
+        Recursively stringify keys and sort all dicts by keys for consistency of testing and output.
         """
         if type(value) in [dict, defaultdict]:
-            value = {k: self.sort_val(v) for k, v in sorted(value.items())}
+            sorted_str_dict = dict(sorted({str(k): v for k, v in value.items()}.items()))
+            value = {k: self.sort_val(v) for k, v in sorted_str_dict.items()}
         return value
 
 

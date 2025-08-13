@@ -5,7 +5,7 @@ from typing import Dict, List, Optional, Union
 
 import frictionless
 
-from ingest_validation_tools.check_factory import make_checks
+from ingest_validation_tools.local_validation.check_factory import make_checks
 
 
 class ReportType(Enum):

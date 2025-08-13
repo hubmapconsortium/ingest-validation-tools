@@ -1,13 +1,14 @@
 ```
 Directory Errors:
   examples/dataset-examples/bad-missing-data/upload/codex-metadata.tsv:
-  - 'Value "dataset-1" in column "data_path" points to non-existent directory: "examples/dataset-examples/bad-missing-data/upload/dataset-1".'
+  - 'On row(s) 2, column "data_path", value "dataset-1" points to non-existent directory:
+    examples/dataset-examples/bad-missing-data/upload/dataset-1.'
 Antibodies/Contributors Errors:
   examples/dataset-examples/bad-missing-data/upload/codex-metadata.tsv:
-  - 'Value "contributors-missing.tsv" in column "contributors_path" points to non-existent
-    file: "examples/dataset-examples/bad-missing-data/upload/contributors-missing.tsv".'
-  - 'Value "antibodies-missing.tsv" in column "antibodies_path" points to non-existent
-    file: "examples/dataset-examples/bad-missing-data/upload/antibodies-missing.tsv".'
+  - 'On row(s) 2, 3, column "antibodies_path", value "antibodies-missing.tsv" points
+    to non-existent file: examples/dataset-examples/bad-missing-data/upload/antibodies-missing.tsv.'
+  - 'On row(s) 2, 3, column "contributors_path", value "contributors-missing.tsv"
+    points to non-existent file: examples/dataset-examples/bad-missing-data/upload/contributors-missing.tsv.'
 Local Validation Errors:
   examples/dataset-examples/bad-missing-data/upload/codex-metadata.tsv (as codex-v0):
   - On row 2, column "operator", value "n/a" fails because "N/A" fields should just
