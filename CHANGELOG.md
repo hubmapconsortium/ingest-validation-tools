@@ -2,6 +2,7 @@
 ## v0.0.39 (in progress)
 - Create Object-by-Analyte EPIC directory schema 
 - Update Xenium directory schema
+- Create Visium HD directory schema (provisional name)
 
 ## v0.0.38
 - Update Cell DIVE directory schema
