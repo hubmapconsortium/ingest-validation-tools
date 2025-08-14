@@ -379,16 +379,15 @@ class Upload:
             self.globus_token,
             self.directory_path,
         )
+        # Could break out into self.contributors / self.antibodies
         self.other_metadata[other_path] = schema
         self.validate_metadata(tsv_paths={other_path: schema})
 
     def _check_for_contact(self):
         for path, schema in self.other_metadata.items():
-            # If there is an is_contact field and a truthy
-            # value present, is valid.
-            if schema.rows[0].get("is_contact") and (
-                "Yes" in [row.get("is_contact") for row in schema.rows]
-            ):
+            if not schema.schema_name == "contributors":
+                continue
+            if "Yes" in [row.get("is_contact") for row in schema.rows]:
                 return
             self.errors.upload_metadata.update({path: "No primary contact."})
 
@@ -699,15 +698,9 @@ class Upload:
         if not dir_schema:
             self.errors.directory.update({schema_version.path: "No directory schema found"})
             return
+        # Check dir schema of every data_path value in TSV
         for data_path in data_paths:
-            errors = {}
-            dir = Path(self.directory_path)
-            if data_path in self.shared_upload_non_global_paths:
-                dir = Path(dir / "non_global")
-            elif self.is_shared_upload:
-                dir = Path(dir / "global")
-            print_path = str(dir / data_path)
-
+            print_path = self.get_error_path(data_path)
             try:
                 ref_errors = get_data_dir_errors(
                     dir_schema,
@@ -715,17 +708,30 @@ class Upload:
                     data_dir_path=data_path,
                     dataset_ignore_globs=self.dataset_ignore_globs,
                 ).popitem()
-                if type(ref_errors[1]) is list:
-                    errors[f"{print_path} (as {ref_errors[0]})"] = ref_errors[1]
-                schema_version.dir_schema = ref_errors[0]
             except FileNotFoundError:
                 self.errors.directory[str(metadata_path)].append(
                     f"On row {data_path_refs[data_path][0][1]}, column 'data_path', value '{data_path}' points to non-existent directory: {print_path}."
                 )
+                continue
+            # After this point dir can be assumed to exist, use actual path (print_path) for logging
             except Exception as e:
-                errors[print_path] = e
-            if errors:
-                self.errors.directory.update(errors)
+                self.errors.directory[print_path].append = e
+                continue
+            if ref_errors[1]:
+                self.errors.directory[f"{print_path} (as {ref_errors[0]})"] = ref_errors[1]
+            # TODO: Different dataset dirs within an upload could validate against
+            # different minor versions. Is this desirable? Logging as a curiosity for now,
+            # still only capturing final version.
+            print(f"Dir schema {ref_errors[0]} used for {print_path}")
+            schema_version.dir_schema = ref_errors[0]
+
+    def get_error_path(self, data_path: Path) -> str:
+        dir = self.directory_path
+        if data_path in self.shared_upload_non_global_paths:
+            dir = Path(dir / "non_global")
+        elif self.is_shared_upload:
+            dir = Path(dir / "global")
+        return str(dir / data_path)
 
     ###################################
     #
