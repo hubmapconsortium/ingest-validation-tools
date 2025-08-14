@@ -46,12 +46,6 @@ def validate_directory(
                 actual_paths += (
                     [f"{prefix}/{name}" for name in file_names] if prefix else file_names
                 )
-
-    """TODO: message_munger adds periods at the end of these messages
-    which is very confusing for regex! Also human readability of required_patterns
-    is extremely poor.
-    """
-
     not_allowed_errors.extend(
         _get_not_allowed_errors(actual_paths, allowed_patterns, dataset_ignore_globs)
     )

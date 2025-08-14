@@ -267,7 +267,7 @@ def get_data_dir_errors(
             continue
         # Found a schema with no problems!
         # Throw away any found errors.
-        return {schema_name: None}
+        return {schema_name: []}
     # Did not find a schema that validated;
     # return first (highest) schema version errors.
     if errors:
