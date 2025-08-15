@@ -2,6 +2,7 @@
 ## v0.0.39 (in progress)
 - Create Object-by-Analyte EPIC directory schema 
 - Update Xenium directory schema
+- Create Pixel-Seq v2 directory schema
 
 ## v0.0.38
 - Update Cell DIVE directory schema
