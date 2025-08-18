@@ -1,0 +1,19 @@
+description_md:
+fields:
+- name: is_cedar
+  description: 'Identifies whether the version is hosted by CEDAR'
+  example: 'https://openview.metadatacenter.org/templates/https:%2F%2Frepo.metadatacenter.org%2Ftemplates%2F2015a1c3-fcf8-458c-8572-0f65e89f2405'
+- name: assay_category
+  constraints:
+    enum:
+      - mass_spectrometry
+- name: assay_type
+  constraints:
+    enum:
+      - MPLEx
+- name: parent_id
+  description: "UUID or HuBMAP ID of parent"
+  example: "ec2ccf5a3436b11d0c7186b74ad4673d"
+  custom_constraints:
+    url:
+      prefix: "https://entity.api.hubmapconsortium.org/entities/"
