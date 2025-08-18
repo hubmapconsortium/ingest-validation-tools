@@ -1,5 +1,7 @@
 # Changelog
-## v0.0.39 (in progress)
+## v0.0.40 (in progress)
+
+## v0.0.39
 - Create Object-by-Analyte EPIC directory schema 
 - Update Xenium directory schema
 - Create Visium HD directory schema (provisional name)
