@@ -3,6 +3,7 @@
 - Create Object-by-Analyte EPIC directory schema 
 - Update Xenium directory schema
 - Create Visium HD directory schema (provisional name)
+- Create Pixel-Seq v2 directory schema
 
 ## v0.0.38
 - Update Cell DIVE directory schema
