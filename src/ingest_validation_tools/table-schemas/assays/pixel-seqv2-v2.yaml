@@ -1,0 +1,19 @@
+description_md:
+fields:
+- name: is_cedar
+  description: 'Identifies whether the version is hosted by CEDAR'
+  example: 'https://openview.metadatacenter.org/templates/https:%2F%2Frepo.metadatacenter.org%2Ftemplates%2F13220dec-6e9b-4b00-9cc3-a6348f709bfe'
+- name: assay_category
+  constraints:
+    enum:
+      - spatial_transcriptomics
+- name: assay_type
+  constraints:
+    enum:
+      - Pixel-seqV2
+- name: parent_id
+  description: "UUID or HuBMAP ID of parent"
+  example: "ec2ccf5a3436b11d0c7186b74ad4673d"
+  custom_constraints:
+    url:
+      prefix: "https://entity.api.hubmapconsortium.org/entities/"
