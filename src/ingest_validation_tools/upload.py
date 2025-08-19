@@ -73,6 +73,7 @@ class Upload:
         # TODO: remove add_notes from calls
         **kwargs,  # prevent blowing up if passed deprecated kwarg
     ):
+        del kwargs
         self.directory_path = directory_path
         # TODO: upstream seems to always pass in the following (with one exception), maybe make that the default
         # ignore_globs = [uuid, "extras", "*metadata.tsv", "validation_report.txt"]
@@ -90,7 +91,6 @@ class Upload:
         self.report_type = report_type
 
         self.dataset_metadata = {}
-        self.other_metadata = {}
         self.errors = ErrorDict()
         self.info = InfoDict()
         self.get_errors_called: bool = False
@@ -149,7 +149,6 @@ class Upload:
 
     def get_errors(self, **kwargs) -> ErrorDict:
         """
-        This creates an ErrorDict object
         When converted using ErrorDict.as_dict(), keys are
         present only if there is actually an error to report.
         """
@@ -178,14 +177,7 @@ class Upload:
         Locate all dataset metadata TSV files at the top level of the upload.
         """
         unsorted_tsv_paths = {
-            Path(path): get_schema_version(
-                Path(path),
-                self.encoding,
-                self.app_context["entities_url"],
-                self.app_context["ingest_url"],
-                self.globus_token,
-                self.directory_path,
-            )
+            Path(path): self.get_schema_from_path(Path(path))
             for path in (tsv_paths if tsv_paths else self.directory_path.glob(f"*{TSV_SUFFIX}"))
         }
 
@@ -194,14 +186,6 @@ class Upload:
         }
         if not self.dataset_metadata:
             self.errors.preflight.value = "There are no metadata TSVs."
-
-    @cached_property
-    def get_contributors(self):
-        pass
-
-    @cached_property
-    def get_antibodies(self):
-        pass
 
     def get_app_context(self, submitted_app_context: Dict):
         """
@@ -222,6 +206,16 @@ class Upload:
             "uuid_url": "https://uuid.api.hubmapconsortium.org/uuid/",
         } | submitted_app_context
 
+    def get_schema_from_path(self, path: Path):
+        return get_schema_version(
+            path,
+            self.encoding,
+            self.app_context["entities_url"],
+            self.app_context["ingest_url"],
+            self.globus_token,
+            self.directory_path,
+        )
+
     def get_upload_errors(self):
         """
         Check non-metadata/data dir elements required for uploads (contributors.tsv),
@@ -232,8 +226,10 @@ class Upload:
                 self.errors.upload_metadata[f"{path} (as {schema.table_schema})"].append(
                     "File is missing data_path or contributors_path."
                 )
-            self._check_for_contact()
-            self._check_other_tsvs(Path(path))
+            self._find_supporting_metadata(schema)
+            for supporting_type in [*schema.antibodies_schemas, *schema.contributors_schemas]:
+                if supporting_type:
+                    self.validate_metadata(tsv_paths={supporting_type.path: supporting_type})
 
     def validate_metadata(
         self,
@@ -299,7 +295,7 @@ class Upload:
         if self.run_plugins is None:  # default behavior
             if self.errors:  # errors found, skip
                 self.errors.plugin_skip.value = (
-                    "Skipping plugins validation: errors in upload metadata or dir structure."
+                    "Skipping plugin validation due to errors in upload metadata or dir structure."
                 )
             else:  # no errors, run plugins
                 logging.info("Running plugin validation...")
@@ -347,9 +343,9 @@ class Upload:
             non_global_paths[tsv] = files
         return non_global_paths
 
-    def _check_other_tsvs(self, metadata_path: Path):
+    def _find_supporting_metadata(self, parent_schema: SchemaVersion):
         """
-        Validate antibodies/contributors files referenced in metadata TSVs.
+        Locate antibodies/contributors files referenced in metadata TSV.
         """
         for other_type in ["antibodies_path", "contributors_path"]:
             referenced_paths = self.__get_referenced_paths(other_type)
@@ -359,37 +355,26 @@ class Upload:
                 try:
                     assert other_path.exists()
                 except AssertionError:
-                    self.errors.upload_metadata[str(metadata_path)].append(
-                        f"On row(s) {rows}, column '{other_type}', value '{path_value}' points to non-existent file: {other_path}"
+                    self.errors.upload_metadata[str(parent_schema.path)].append(
+                        f'On row(s) {rows}, column "{other_type}", value "{path_value}" points to non-existent file "{other_path}"'
                     )
                     continue
                 try:
-                    self._validate_non_metadata_tsv(other_path)
+                    self._get_supporting_metadata_schemas(parent_schema, other_path)
                 except PreflightError as e:
-                    self.errors.upload_metadata[str(metadata_path)].append(
-                        f"On row(s) {rows}, column '{other_type}', error opening or reading value '{path_value}': {e.errors}"
+                    self.errors.upload_metadata[str(parent_schema.path)].append(
+                        f'On row(s) {rows}, column "{other_type}", error opening or reading value "{path_value}". {e.errors}'
                     )
 
-    def _validate_non_metadata_tsv(self, other_path: Path):
-        schema = get_schema_version(
-            Path(other_path),
-            self.encoding,
-            self.app_context["entities_url"],
-            self.app_context["ingest_url"],
-            self.globus_token,
-            self.directory_path,
-        )
-        # Could break out into self.contributors / self.antibodies
-        self.other_metadata[other_path] = schema
-        self.validate_metadata(tsv_paths={other_path: schema})
-
-    def _check_for_contact(self):
-        for path, schema in self.other_metadata.items():
-            if not schema.schema_name == "contributors":
-                continue
-            if "Yes" in [row.get("is_contact") for row in schema.rows]:
-                return
-            self.errors.upload_metadata.update({path: "No primary contact."})
+    def _get_supporting_metadata_schemas(self, parent_schema: SchemaVersion, other_path: Path):
+        schema = self.get_schema_from_path(other_path)
+        if schema.schema_name == "contributors":
+            parent_schema.contributors_schemas.append(schema)
+            is_contact = [row.get("is_contact", "").lower() for row in schema.rows]
+            if not ("yes" in is_contact) and not ("true" in is_contact):
+                self.errors.upload_metadata.update({schema.path: "No primary contact."})
+        elif schema.schema_name == "antibodies":
+            parent_schema.antibodies_schemas.append(schema)
 
     ###################################
     #
@@ -402,9 +387,7 @@ class Upload:
         tsv_path: Path,
         schema: SchemaVersion,
     ):
-        url_errors = self._get_url_errors(tsv_path, schema)
-        if url_errors:
-            self.errors.metadata_url_errors[tsv_path].extend(url_errors)
+        self._get_url_errors(tsv_path, schema)
         try:
             api_errors = self._api_validation(schema)
         except Exception as e:
@@ -464,7 +447,7 @@ class Upload:
     #
     ###################################
 
-    def _get_url_errors(self, tsv_path: Path, schema: SchemaVersion) -> List:
+    def _get_url_errors(self, tsv_path: Path, schema: SchemaVersion):
         """
         Check provided values for parent_sample_id and orcid_id; additionally
         check sample_id, organ_id, and source_id values in single TSV validation
@@ -475,9 +458,10 @@ class Upload:
         rows = read_rows(Path(tsv_path), self.encoding)
         fields = rows[0].keys()
         if missing_fields := [k for k in constrained_fields.keys() if k not in fields].sort():
-            raise Exception(f"Missing fields: {missing_fields}")
-        url_errors = self._find_and_check_url_fields(rows, constrained_fields, schema)
-        return url_errors
+            self.errors.metadata_url_errors[tsv_path].append(f"Missing fields {missing_fields}")
+            return
+        if url_errors := self._find_and_check_url_fields(rows, constrained_fields, schema):
+            self.errors.metadata_url_errors[tsv_path].extend(url_errors)
 
     def _find_and_check_url_fields(
         self, rows: List, constrained_fields: Dict, schema: SchemaVersion
@@ -710,12 +694,12 @@ class Upload:
                 ).popitem()
             except FileNotFoundError:
                 self.errors.directory[str(metadata_path)].append(
-                    f"On row {data_path_refs[data_path][0][1]}, column 'data_path', value '{data_path}' points to non-existent directory: {print_path}."
+                    f'On row {data_path_refs[data_path][0][1]}, column "data_path", value "{data_path}" points to non-existent directory "{print_path}".'
                 )
                 continue
             # After this point dir can be assumed to exist, use actual path (print_path) for logging
             except Exception as e:
-                self.errors.directory[print_path].append = e
+                self.errors.directory[print_path] = e
                 continue
             if ref_errors[1]:
                 self.errors.directory[f"{print_path} (as {ref_errors[0]})"] = ref_errors[1]
@@ -781,7 +765,7 @@ class Upload:
         for path, references in data_references.items():
             if path not in self.multi_assay_data_paths:
                 if len(references) > 1:
-                    errors[path] = references
+                    errors[path] = self.__format_reference_output("data_path", references)
         return errors
 
     def __get_shared_dir_errors(self) -> dict:
@@ -789,6 +773,8 @@ class Upload:
         if all_non_global_files:
             errors = defaultdict(list)
             for row_non_global_files, row_references in all_non_global_files.items():
+                # TODO: this seems to be checking refs based on combined str of one or more filenames?
+                # Could allow multiple references to a single file in different fields. Check.
                 row_non_global_files = {
                     (self.directory_path / "./non_global" / Path(x.strip())): x.strip()
                     for x in row_non_global_files.split(";")
@@ -800,18 +786,19 @@ class Upload:
                     rel_path_row_non_global_file,
                 ) in row_non_global_files.items():
                     if not full_path_row_non_global_file.exists():
-                        row_refs = [
-                            f"{tsv}, column 'non_global_files', row {row}"
-                            for tsv, row in row_references
-                        ]
-                        errors[",".join(row_refs)].append(
-                            f"In {full_path_row_non_global_file} does not exist in upload; is {rel_path_row_non_global_file} in the non_global directory?"
+                        row_refs = self.__format_reference_output(
+                            "non_global_files", row_references
+                        )
+                        errors["Missing Shared Upload Files"].append(
+                            f'{"; ".join(row_refs)}, value "{rel_path_row_non_global_file}" does not exist. '
+                            'Expected path: {full_path_row_non_global_file}. Hint: files in TSV field "non_global_files" '
+                            "must be placed in the non_global directory."
                         )
         else:
             # Catch case 2
             errors = {}
             if self.is_shared_upload:
-                errors["Upload Errors"] = (
+                errors["Shared Upload Errors"] = (
                     "No non_global_files specified but "
                     "upload has global & non_global directories"
                 )
@@ -837,6 +824,20 @@ class Upload:
             if path_value := row.get(col_name):
                 references[path_value].append((tsv_path, i + 2))
         return dict(references)
+
+    def __format_reference_output(
+        self, column: str, references: list[tuple], with_tsv: bool = True
+    ) -> list[str]:
+        refs = defaultdict(list)
+        for tsv, row in references:
+            refs[tsv].append(str(row))
+
+        if with_tsv:
+            return [
+                f'{tsv}, row(s) {(", ").join(rows)}, column "{column}"'
+                for tsv, rows in refs.items()
+            ]
+        return [f'row(s) {(", ").join(rows)}, column "{column}"' for rows in refs.values()]
 
     ###################################
     #

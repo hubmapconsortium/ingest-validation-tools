@@ -9,7 +9,7 @@ from typing import Dict, List, Optional, Union
 from deepdiff import DeepDiff
 
 from ingest_validation_tools.cli_utils import dir_path
-from ingest_validation_tools.error_report import ErrorReport
+from ingest_validation_tools.error_report import ErrorDict, ErrorReport
 from ingest_validation_tools.upload import Upload
 from tests.test_dataset_examples import (
     DATASET_EXAMPLES_OPTS,
@@ -147,6 +147,16 @@ class UpdateData:
             self.change_report[self.dir].append("Fixtures diff found")
         return True
 
+    def online_only_errors_by_path(self, path: str, upload_errors: ErrorDict):
+        return upload_errors.errors_by_path(
+            path,
+            [
+                upload_errors.metadata_url_errors,
+                upload_errors.metadata_validation_api,
+                upload_errors.metadata_constraint_errors,
+            ],
+        )
+
     def update_fixtures(self, upload) -> Dict:
         new_data = {}
         new_assaytype_data = {}
@@ -156,22 +166,13 @@ class UpdateData:
             new_assaytype_data[schema.dataset_type] = schema.soft_assay_data
             if upload.errors.metadata_url_errors:
                 upload.errors = get_non_token_errors(upload.errors)
-            online_errors = upload.errors.online_only_errors_by_path(str(schema.path))
+            online_errors = self.online_only_errors_by_path(str(schema.path), upload.errors)
             new_validation_data[schema.schema_name].update(online_errors)
-            antibodies_paths = set()
-            contributors_paths = set()
-            for row in schema.rows:
-                if antibodies_path := row.get("antibodies_path"):
-                    antibodies_paths.add(antibodies_path)
-                if contributors_path := row.get("contributors_path"):
-                    contributors_paths.add(contributors_path)
-            for other_type, paths in {
-                "antibodies": antibodies_paths,
-                "contributors": contributors_paths,
-            }.items():
-                for path in paths:
-                    online_errors = upload.errors.online_only_errors_by_path(path)
-                    new_validation_data[other_type].update(online_errors)
+            for supporting_schema in [*schema.contributors_schemas, *schema.antibodies_schemas]:
+                online_errors = self.online_only_errors_by_path(
+                    supporting_schema.path, upload.errors
+                )
+                new_validation_data[supporting_schema.schema_name].update(online_errors)
         new_data["assaytype"] = new_assaytype_data
         new_data["validation"] = dict(new_validation_data)
         if no_token_error:

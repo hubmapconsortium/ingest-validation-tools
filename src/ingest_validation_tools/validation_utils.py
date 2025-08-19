@@ -1,6 +1,5 @@
 import json
 import logging
-from collections import defaultdict
 from csv import DictReader
 from pathlib import Path, PurePath
 from typing import Dict, List, Optional, Union
@@ -184,16 +183,16 @@ def get_assaytype_data(row: Dict, ingest_url: str, globus_token: str) -> Dict:
 def read_rows(path: Path, encoding: str) -> List:
     message = None
     if not Path(path).exists():
-        message = {"File does not exist": f"{path}"}
+        message = {"File does not exist": path}
         raise TSVError(message)
     try:
         rows = dict_reader_wrapper(path, encoding)
         if not rows:
-            message = {"File has no data rows": f"{path}"}
+            message = {"File has no data rows": path}
         else:
             return rows
     except IsADirectoryError:
-        message = {"Expected a TSV, but found a directory": f"{path}"}
+        message = {"Expected a TSV, but found a directory": path}
     except UnicodeDecodeError as e:
         message = {"Decode Error": get_context_of_decode_error(e)}
     raise TSVError(message)
@@ -204,7 +203,7 @@ def get_data_dir_errors(
     root_path: Path,
     data_dir_path: Path,
     dataset_ignore_globs: List[str] = [],
-) -> Dict[str, Optional[list[str]]]:
+) -> Dict[str, Union[dict, str]]:
     """
     Validate a single data_path.
     """
@@ -227,14 +226,13 @@ def get_data_dir_errors(
     possible_schemas = get_possible_directory_schemas(dir_schema)
 
     if possible_schemas is None:
-        return {dir_schema: ["No matching directory schemas found."]}
+        return {dir_schema: "No matching directory schemas found."}
 
     # Collect errors, discard if schema validates against a minor version
     errors = []
 
     # Make sure possible_schemas is sorted by key (descending) to evaluate highest minor version first
     for schema_name, schema in sorted(possible_schemas.items(), reverse=True):
-        schema_errors = defaultdict(list)
         schema_warning_fields = [field for field in schema if field in ["deprecated", "draft"]]
         schema_warning = (
             f"{schema_warning_fields[0].title()} directory schema: {schema_name}"
@@ -250,24 +248,20 @@ def get_data_dir_errors(
             # If there are DirectoryValidationErrors and the schema is deprecated/draft...
             #    schema deprecation/draft status is more important.
             if schema_warning:
-                schema_errors[schema_name].append(schema_warning)
+                errors.append({schema_name: schema_warning})
             else:
-                schema_errors[schema_name].append(e.errors)
+                errors.append({schema_name: e.errors})
+            continue
         except OSError as e:
             # If there are OSErrors and the schema is deprecated/draft...
             #    the OSErrors are more important.
             if isinstance(e, FileNotFoundError):
                 raise FileNotFoundError()
-            schema_errors[schema_name].append(f"{e.strerror}: {e.filename}")
-        if schema_errors:
-            errors.append(schema_errors)
-            continue
-        elif schema_warning:
-            errors.append({schema_name: schema_warning})
+            errors.append({schema_name: f"{e.strerror}: {e.filename}"})
             continue
         # Found a schema with no problems!
         # Throw away any found errors.
-        return {schema_name: []}
+        return {schema_name: {}}
     # Did not find a schema that validated;
     # return first (highest) schema version errors.
     if errors:
@@ -445,16 +439,19 @@ def get_tsv_errors(
         report_type=report_type,
     )
     if schema_name in OtherTypes.with_sample_subtypes():
-        upload._validate_non_metadata_tsv(Path(tsv_path))
+        schema = upload.get_schema_from_path(Path(tsv_path))
+        upload.validate_metadata(tsv_paths={schema.path: schema})
     else:
         upload.validate_metadata()
-    return upload.errors.tsv_only_errors_by_path(str(tsv_path))
+    return upload.errors.tsv_only_errors_by_path(str(tsv_path), report_type=report_type)
 
 
 def cedar_validation_call(tsv_path: Union[str, Path]) -> requests.models.Response:
     with open(tsv_path, "rb") as f:
         file = {"input_file": f}
-        headers = {"content_type": "multipart/form-data"}
+        headers = {
+            "content_type": "multipart/form-data",
+        }
         try:
             response = requests.post(
                 CEDAR_VALIDATION_URL,

@@ -1,30 +1,30 @@
 ```
 Directory Errors:
   examples/dataset-examples/bad-tsv-formats/upload/dataset-1 (as codex-v1.1):
-  - Not allowed:
-    - channelnames.txt.
-    - cyc002_reg001_200216_112537/1_00001_Z001_CH1.tif.
-    - experiment.json.
-    - exposure_times.txt.
-    - segmentation.json.
+    Not allowed:
+    - channelnames.txt
+    - cyc002_reg001_200216_112537/1_00001_Z001_CH1.tif
+    - experiment.json
+    - exposure_times.txt
+    - segmentation.json
     Required but missing:
-    - (processed|drv_[^/]*)/.*.
-    - (raw|src_.*)/.*.
-    - (raw|src_.*)/[cC]yc.*_reg.*/.*_Z.*_CH.*\.tif.
-    - (raw|src_[^/]*)/dataset\.json.
-    - extras/dir-schema-v1-with-dataset-json.
+    - (processed|drv_[^/]*)/.*
+    - (raw|src_.*)/.*
+    - (raw|src_.*)/[cC]yc.*_reg.*/.*_Z.*_CH.*\.tif
+    - (raw|src_[^/]*)/dataset\.json
+    - extras/dir-schema-v1-with-dataset-json
 Antibodies/Contributors Errors:
   examples/dataset-examples/bad-tsv-formats/upload/codex-metadata.tsv:
-  - 'Error opening or reading value "contributors.tsv" from column "contributors_path":
+  - On row(s) 2, column "antibodies_path", value "antibodies.tsv" points to non-existent
+    file "examples/dataset-examples/bad-tsv-formats/upload/antibodies.tsv".
+  - 'On row(s) 2, column "contributors_path", error opening or reading value "contributors.tsv".
     File has no data rows: examples/dataset-examples/bad-tsv-formats/upload/contributors.tsv.'
-  - 'Value "antibodies.tsv" in column "antibodies_path" points to non-existent file:
-    "examples/dataset-examples/bad-tsv-formats/upload/antibodies.tsv".'
 Local Validation Errors:
   examples/dataset-examples/bad-tsv-formats/upload/codex-metadata.tsv (as codex-v0):
   - 'On row 2, column "donor_id", value "not-uuid" fails because it does not match
-    the expected pattern. Example: ABC123'
+    the expected pattern. Example: ABC123.'
   - 'On row 2, column "tissue_id", value "not-uuid" fails because it does not match
-    the expected pattern. Example: ABC123-BL-1-2-3_456'
+    the expected pattern. Example: ABC123-BL-1-2-3_456.'
   - On row 2, column "execution_datetime", value "not-time" fails because it is not
     in the format YYYY-MM-DD Hour:Minute.
   - On row 2, column "protocols_io_doi", value "10\.17504/protocols.io.menc3de" fails
@@ -69,5 +69,5 @@ Local Validation Errors:
     it is an invalid DOI.
   - On row 2, column "reagent_prep_protocols_io_doi", value "not-doi" fails because
     it is an invalid DOI.
-Fatal Errors: 'Skipping plugins validation: errors in upload metadata or dir structure.'
+Fatal Errors: Skipping plugin validation due to errors in upload metadata or dir structure.
 ```

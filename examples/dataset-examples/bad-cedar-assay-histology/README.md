@@ -11,6 +11,6 @@ URL Check Errors:
 Reference Errors:
   No References:
     Files:
-    - unreferenced_file.
-Fatal Errors: 'Skipping plugins validation: errors in upload metadata or dir structure.'
+    - unreferenced_file
+Fatal Errors: Skipping plugin validation due to errors in upload metadata or dir structure.
 ```

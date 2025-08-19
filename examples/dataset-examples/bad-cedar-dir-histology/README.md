@@ -1,10 +1,10 @@
 ```
 Directory Errors:
   examples/dataset-examples/bad-cedar-dir-histology/upload/bad-histology-metadata.tsv:
-  - 'On row 2, column "data_path", value "./dataset-1" points to non-existent directory:
-    examples/dataset-examples/bad-cedar-dir-histology/upload/dataset-1.'
+  - On row 2, column "data_path", value "./dataset-1" points to non-existent directory
+    "examples/dataset-examples/bad-cedar-dir-histology/upload/dataset-1".
   examples/dataset-examples/bad-cedar-dir-histology/upload/wrong (as histology-v2.3):
-  - Not allowed:
+    Not allowed:
     - not-allowed
     Required but missing:
     - extras\/.*
@@ -17,9 +17,12 @@ Directory Errors:
     - raw\/images\/.*
     - raw\/images\/[^\/]+\.(?:xml|scn|vsi|ndpi|svs|czi|tiff|qptiff)
 Reference Errors:
+  Multiple References:
+    ./wrong:
+    - examples/dataset-examples/bad-cedar-dir-histology/upload/bad-histology-metadata.tsv,
+      row(s) 3, 4, column "data_path"
   No References:
     Files:
-    - !!python/object/apply:pathlib.PosixPath
-      - unreferenced_file
-Fatal Errors: 'Skipping plugins validation: errors in upload metadata or dir structure.'
+    - unreferenced_file
+Fatal Errors: Skipping plugin validation due to errors in upload metadata or dir structure.
 ```

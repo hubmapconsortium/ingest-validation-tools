@@ -1,2 +1,2 @@
-On row 3, column "a_unit", value "None" fails because it requires a value when a_value is filled
-On row 4, column "a_unit", value "None" fails because it requires a value when a_value is filled
+On row 3, column "a_unit", value "None" fails because it requires a value when a_value is filled.
+On row 4, column "a_unit", value "None" fails because it requires a value when a_value is filled.

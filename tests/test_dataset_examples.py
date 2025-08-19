@@ -482,7 +482,7 @@ class TestDatasetExamples(unittest.TestCase):
             },
             "examples/dataset-examples/good-scatacseq-metadata-v0": {},
             "examples/dataset-examples/bad-mixed": {
-                "Preflight Errors": "Found multiple dataset types in upload: CODEX, SNARE-seq2"
+                "Preflight Errors": "Found multiple dataset types in upload: CODEX, SNARE-seq2."
             },
         }
         for test_dir, expected_counts in test_dirs.items():

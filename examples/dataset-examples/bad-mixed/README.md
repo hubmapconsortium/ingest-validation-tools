@@ -1,3 +1,3 @@
 ```
-Preflight Errors: 'Found multiple dataset types in upload: CODEX, sNARE-seq2'
+Preflight Errors: 'Found multiple dataset types in upload: CODEX, SNARE-seq2.'
 ```

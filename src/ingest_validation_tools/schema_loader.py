@@ -47,6 +47,8 @@ class SchemaVersion:
     directory_path: Optional[Path] = None
     table_schema: Optional[str] = ""  # legacy only
     path: Path = Path()
+    contributors_schemas: List[SchemaVersion] = field(default_factory=list)
+    antibodies_schemas: List[SchemaVersion] = field(default_factory=list)
     rows: List = field(default_factory=list)
     soft_assay_data: Dict = field(default_factory=dict)
     is_cedar: bool = False

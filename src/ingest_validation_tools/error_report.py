@@ -5,10 +5,11 @@ from collections.abc import MutableMapping
 from dataclasses import dataclass, field, fields
 from datetime import datetime
 from pathlib import Path
-from re import sub
 from typing import TYPE_CHECKING, DefaultDict, Dict, List, Optional, Type, Union
 
 from yaml import Dumper, dump
+
+from ingest_validation_tools.local_validation.table_validator import ReportType
 
 if TYPE_CHECKING:
     from ingest_validation_tools.upload import Upload
@@ -28,6 +29,7 @@ class DictErrorType(MutableMapping):
     display_name: str = ""
     default_factory: Type = list
     value: DefaultDict = field(default_factory=lambda: defaultdict())
+    allow_aesthetic_cleanup: bool = True
 
     def __post_init__(self):
         if type(self.default_factory) is not list:
@@ -84,19 +86,63 @@ class DictErrorType(MutableMapping):
                     )
         return counts_by_sub_category
 
+    @property
+    def cleaned_value(self):
+        return self.recursive_cleanup(self.value)
+
+    def recursive_cleanup(self, message_collection):
+        """
+        Adapted from message_munger > recursive_munge,
+        but much less concerned with verbiage.
+        """
+        if isinstance(message_collection, dict):
+            return {str(k): self.recursive_cleanup(v) for k, v in message_collection.items()}
+        elif isinstance(message_collection, list):
+            return [self.recursive_cleanup(v) for v in message_collection]
+        else:
+            msg = str(message_collection)
+            if self.allow_aesthetic_cleanup:
+                return self.cleanup_terminal_nodes(msg)
+            return msg
+
+    def cleanup_terminal_nodes(self, message):
+        if message is None:
+            ret_message = ""
+        elif isinstance(message, str):
+            ret_message = message.replace("'", '"')
+            if not ret_message.endswith("."):
+                ret_message = ret_message + "."
+        else:
+            ret_message = str(message)
+        return ret_message
+
 
 @dataclass
 class StrErrorType:
     name: str = ""
     display_name: str = ""
     value: Optional[str] = None
+    allow_cleanup: bool = True
 
     def __bool__(self):
         return bool(self.value)
 
     @property
     def counts(self) -> dict:
-        return {self.display_name: self.value} if self.value else {}
+        if self.allow_cleanup:
+            value = self.cleaned_value
+        else:
+            value = self.value
+        return {self.display_name: value} if value else {}
+
+    @property
+    def cleaned_value(self):
+        if self.allow_cleanup and self.value:
+            ret_message = self.value
+            if not self.value.endswith("."):
+                ret_message = self.value + "."
+            return ret_message.replace("'", '"')
+        return self.value
 
 
 ErrorType = Union[StrErrorType, DictErrorType]
@@ -133,7 +179,11 @@ class ErrorDict:
         default_factory=lambda: StrErrorType(name="preflight", display_name="Preflight Errors")
     )
     directory: DictErrorType = field(
-        default_factory=lambda: DictErrorType(name="directory", display_name="Directory Errors")
+        default_factory=lambda: DictErrorType(
+            name="directory",
+            display_name="Directory Errors",
+            allow_aesthetic_cleanup=False,
+        )
     )
     upload_metadata: DictErrorType = field(
         default_factory=lambda: DictErrorType(
@@ -162,7 +212,10 @@ class ErrorDict:
     )
     reference: DictErrorType = field(
         default_factory=lambda: DictErrorType(
-            name="reference", display_name="Reference Errors", default_factory=dict
+            name="reference",
+            display_name="Reference Errors",
+            default_factory=dict,
+            allow_aesthetic_cleanup=False,
         )
     )
     plugin: DictErrorType = field(
@@ -182,7 +235,9 @@ class ErrorDict:
         """
         return bool(self.as_dict())
 
-    def errors_by_path(self, path: str, selected_fields: list = []) -> Dict[str, str]:
+    def errors_by_path(
+        self, path: str, selected_fields: list = [], report_type: ReportType = ReportType.STR
+    ) -> Dict[str, str]:
         errors = {}
         if not selected_fields:
             selected_fields = [error_field for error_field in fields(self)]
@@ -191,26 +246,21 @@ class ErrorDict:
             error_field = getattr(self, error_type_field.name, None)
             if not error_field or not error_field.value:
                 continue
+            error_values = (
+                error_field.cleaned_value if report_type == ReportType.STR else error_field
+            )
             if type(error_field) is StrErrorType:
-                errors[error_field.display_name] = error_field.value
+                errors[error_field.display_name] = error_values
             elif type(error_field) is DictErrorType:
-                for key, value in error_field.items():
-                    if (Path(key) == Path(path)) or (str(path) in key):
+                for key, value in error_values.items():  # type: ignore
+                    if (Path(path).resolve() == Path(key).resolve()) or (str(path) in str(key)):
                         errors[error_field.display_name] = value
                         break
         return errors
 
-    def online_only_errors_by_path(self, path: str):
-        return self.errors_by_path(
-            path,
-            [
-                self.metadata_url_errors,
-                self.metadata_validation_api,
-                self.metadata_constraint_errors,
-            ],
-        )
-
-    def tsv_only_errors_by_path(self, path: str, local_allowed=True) -> List[str]:
+    def tsv_only_errors_by_path(
+        self, path: str, report_type: ReportType = ReportType.STR, local_allowed=True
+    ) -> List[str]:
         """
         For use in front-end single TSV validation.
         Turn off support for local validation by passing local_allowed=False
@@ -223,12 +273,12 @@ class ErrorDict:
         ]
         if local_allowed:
             selected_fields.append(self.metadata_validation_local)
-        path_errors = self.errors_by_path(path, selected_fields)
+        path_errors = self.errors_by_path(path, selected_fields, report_type)
         for value in path_errors.values():
             errors.extend(value)
         return errors
 
-    def as_dict(self, attr_keys=False):
+    def as_dict(self, attr_keys=False, report_type: ReportType = ReportType.STR):
         """
         Compiles all fields with errors into a dict.
         By default uses human-readable keys, but passing
@@ -239,7 +289,9 @@ class ErrorDict:
             error_field = getattr(self, errordict_field.name)
             if not error_field or not error_field.value:
                 continue
-            value = self.sort_val(error_field.value)
+            value = self.sort_val(
+                error_field.cleaned_value if report_type == ReportType.STR else error_field
+            )
             if attr_keys:
                 errors[error_field.name] = value
             else:
@@ -278,7 +330,7 @@ class ErrorReport:
                 self.raw_info = upload.get_info()
             else:
                 self.raw_info = upload.info
-            self.errors = upload.errors.as_dict()
+            self.errors = upload.errors.as_dict(report_type=upload.report_type)
             self.info = upload.info.as_dict()
         # Preserved for backward compatibility for now
         else:
@@ -318,13 +370,13 @@ class ErrorReport:
         return f"No errors!\n{dump(self.info, sort_keys=False)}\n"
 
     def _as_list(self) -> List[str]:
-        return [self.cleanup(m) for m in _build_list(self.errors)]
+        return _build_list(self.errors)
 
     def as_text_list(self) -> str:
         return "\n".join(str(error) for error in self._as_list()) or self._no_errors()
 
     def as_yaml(self) -> str:
-        return dump(self.recursive_cleanup(self.errors), sort_keys=False)
+        return dump(self.errors, sort_keys=False)
 
     def as_text(self) -> str:
         if not self.errors:
@@ -334,41 +386,6 @@ class ErrorReport:
 
     def as_md(self) -> str:
         return f"```\n{self.as_text()}```"
-
-    def cleanup(self, message) -> str:
-        if message is None:
-            ret_message = ""
-        elif isinstance(message, (int, Path)):
-            ret_message = str(message)
-        elif isinstance(message, str):
-            ret_message = self.legacy_cleanup_strs(message)
-            ret_message = ret_message.replace("'", '"')
-        else:
-            ret_message = message
-        return ret_message
-
-    def recursive_cleanup(self, message_collection):
-        """
-        Adapted from previous message_munger > recursive_munge,
-        but much less concerned with verbiage.
-        """
-        if isinstance(message_collection, dict):
-            return {k: self.recursive_cleanup(v) for k, v in message_collection.items()}
-        elif isinstance(message_collection, list):
-            return [self.recursive_cleanup(v) for v in message_collection]
-        else:
-            return self.cleanup(message_collection)
-
-    def legacy_cleanup_strs(self, message: str) -> str:
-        # TODO: not working
-
-        pat_reps = [
-            (r'constraint "required" .*', r"it must be filled out."),
-            (r'constraint "pattern" is (".*")', "it does not match the expected pattern"),
-        ]
-        for pattern, replacement in pat_reps:
-            message = sub(pattern, replacement, str(message))
-        return message
 
 
 def _build_list(anything, path=None) -> List[str]:
