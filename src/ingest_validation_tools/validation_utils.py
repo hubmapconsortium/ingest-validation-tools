@@ -5,6 +5,7 @@ from pathlib import Path, PurePath
 from typing import Dict, List, Optional, Union
 from urllib.parse import quote, urljoin
 
+import pandas as pd
 import requests
 
 from ingest_validation_tools.directory_validator import (
@@ -569,3 +570,12 @@ def get_message(error: Dict[str, str], report_type: ReportType) -> Union[str, Di
         full_msg = f'On row {error["row"]}, column "{error["column"]}", {msg}'
         return full_msg if return_str else get_json(msg, error["row"], error["column"])
     return error
+
+
+def find_empty_tsv_columns(tsv_path: Path) -> list[Optional[int]]:
+    empty = []
+    df = pd.read_csv(tsv_path, sep="\t")
+    for index, column in enumerate(df.columns):
+        if "Unnamed" in column:
+            empty.append(index)
+    return empty

@@ -8,7 +8,7 @@ from parameterized import parameterized
 
 from ingest_validation_tools.enums import DatasetType, OtherTypes, Sample
 from ingest_validation_tools.local_validation.table_validator import ReportType
-from ingest_validation_tools.schema_loader import EntityTypeInfo
+from ingest_validation_tools.schema_loader import EntityTypeInfo, SchemaVersion
 from ingest_validation_tools.upload import Upload
 from ingest_validation_tools.validation_utils import get_schema_version, get_tsv_errors
 from tests.fixtures import (
@@ -207,6 +207,15 @@ class TestSingleTsv(unittest.TestCase):
             for schema in upload.dataset_metadata.values():
                 upload._get_supporting_metadata_schemas(schema, path)
             assert upload.errors.upload_metadata.value == error
+
+    def test_for_empty_columns(self):
+        upload = Upload(
+            directory_path=Path("."),
+            tsv_paths=[Path("./tests/fixtures/validated-histology-metadata.tsv")],
+        )
+        path = Path("./tests/fixtures/contributors_bad.tsv")
+        upload.validate_metadata({path: SchemaVersion("contributors")})
+        assert upload.errors.upload_metadata.value == {path: "Empty columns: 5, 12"}
 
 
 # if __name__ == "__main__":

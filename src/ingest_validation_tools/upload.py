@@ -36,6 +36,7 @@ from ingest_validation_tools.schema_loader import (
 )
 from ingest_validation_tools.validation_utils import (
     cedar_validation_call,
+    find_empty_tsv_columns,
     get_data_dir_errors,
     get_entity_api_data,
     get_entity_type_vals,
@@ -242,6 +243,10 @@ class Upload:
         """
         tsvs_to_evaluate = tsv_paths if tsv_paths else self.dataset_metadata
         for tsv_path, schema_version in tsvs_to_evaluate.items():
+            if empty := find_empty_tsv_columns(tsv_path):
+                self.errors.upload_metadata[tsv_path] = (
+                    f"Empty columns: {', '.join([str(i) for i in empty])}"
+                )
             if not schema_version.is_cedar:
                 logging.info(
                     f"""TSV {tsv_path} does not contain a metadata_schema_id,
