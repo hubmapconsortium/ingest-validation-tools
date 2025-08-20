@@ -25,8 +25,23 @@ def validate_directory(
         )
     required_missing_errors: List[str] = []
     not_allowed_errors: List[str] = []
-    actual_paths = []
+    actual_paths = get_files(paths)
+    not_allowed_errors.extend(
+        _get_not_allowed_errors(actual_paths, allowed_patterns, dataset_ignore_globs)
+    )
+    required_missing_errors.extend(_get_missing_required_errors(actual_paths, required_patterns))
 
+    errors = {}
+    if not_allowed_errors:
+        errors["Not allowed"] = sorted(not_allowed_errors)
+    if required_missing_errors:
+        errors["Required but missing"] = sorted(required_missing_errors)
+    if errors:
+        raise DirectoryValidationErrors(errors)
+
+
+def get_files(paths: list[Path]) -> list[str]:
+    actual_paths = []
     for path in paths:
         if not path.exists():
             raise FileNotFoundError(0, "No such file or directory", str(path))
@@ -46,18 +61,7 @@ def validate_directory(
                 actual_paths += (
                     [f"{prefix}/{name}" for name in file_names] if prefix else file_names
                 )
-    not_allowed_errors.extend(
-        _get_not_allowed_errors(actual_paths, allowed_patterns, dataset_ignore_globs)
-    )
-    required_missing_errors.extend(_get_missing_required_errors(actual_paths, required_patterns))
-
-    errors = {}
-    if not_allowed_errors:
-        errors["Not allowed"] = sorted(not_allowed_errors)
-    if required_missing_errors:
-        errors["Required but missing"] = sorted(required_missing_errors)
-    if errors:
-        raise DirectoryValidationErrors(errors)
+    return actual_paths
 
 
 def _get_not_allowed_errors(

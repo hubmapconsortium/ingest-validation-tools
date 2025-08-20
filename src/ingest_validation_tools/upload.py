@@ -14,6 +14,7 @@ from urllib.parse import urljoin, urlsplit
 
 import requests
 
+from ingest_validation_tools.directory_validator import get_files
 from ingest_validation_tools.enums import DatasetType, OtherTypes, Sample
 from ingest_validation_tools.error_report import ErrorDict, InfoDict
 from ingest_validation_tools.local_validation.table_validator import (
@@ -332,16 +333,18 @@ class Upload:
         }
 
     @cached_property
-    def shared_upload_non_global_paths(self) -> dict:
+    def shared_upload_non_global_paths(self) -> dict[str, list[tuple[str, str]]]:
+        """
+        Get relative path for all referenced non_global_files individually, by TSV.
+        Result: {non_global_file_relpath: [(tsv, row), (tsv, row)]}
+        """
         if not self.is_shared_upload:
             return {}
-        non_global_paths = {}
-        for tsv, schema in self.dataset_metadata.items():
-            files = []
-            for row in schema.rows:
-                files.append([file.strip() for file in row.get("non_global_files").split(";")])
-            non_global_paths[tsv] = files
-        return non_global_paths
+        shared_files = defaultdict(list)
+        all_non_global_files = self.__get_referenced_paths("non_global_files")
+        for files, refs in all_non_global_files.items():
+            shared_files.update({file.strip(): refs for file in files.split(";")})
+        return dict(shared_files)
 
     def _find_supporting_metadata(self, parent_schema: SchemaVersion):
         """
@@ -387,13 +390,12 @@ class Upload:
         tsv_path: Path,
         schema: SchemaVersion,
     ):
-        self._get_url_errors(tsv_path, schema)
         try:
-            api_errors = self._api_validation(schema)
+            if api_errors := self._api_validation(schema):
+                self.errors.metadata_validation_api[tsv_path].extend(api_errors)
         except Exception as e:
-            api_errors = [e]
-        if api_errors:
-            self.errors.metadata_validation_api[tsv_path].extend(api_errors)
+            self.errors.metadata_validation_api[tsv_path].extend([e])
+        self._get_url_errors(tsv_path, schema)
         constraint_errors = self._constraint_checks(schema)
         if constraint_errors:
             self.errors.metadata_constraint_errors[tsv_path].extend(constraint_errors)
@@ -769,44 +771,62 @@ class Upload:
         return errors
 
     def __get_shared_dir_errors(self) -> dict:
-        all_non_global_files = self.__get_referenced_paths("non_global_files")
-        if all_non_global_files:
-            errors = defaultdict(list)
-            for row_non_global_files, row_references in all_non_global_files.items():
-                # TODO: this seems to be checking refs based on combined str of one or more filenames?
-                # Could allow multiple references to a single file in different fields. Check.
-                row_non_global_files = {
-                    (self.directory_path / "./non_global" / Path(x.strip())): x.strip()
-                    for x in row_non_global_files.split(";")
-                    if x.strip()
-                }
-
-                for (
-                    full_path_row_non_global_file,
-                    rel_path_row_non_global_file,
-                ) in row_non_global_files.items():
-                    if not full_path_row_non_global_file.exists():
-                        row_refs = self.__format_reference_output(
-                            "non_global_files", row_references
-                        )
-                        errors["Missing Shared Upload Files"].append(
-                            f'{"; ".join(row_refs)}, value "{rel_path_row_non_global_file}" does not exist. '
-                            'Expected path: {full_path_row_non_global_file}. Hint: files in TSV field "non_global_files" '
-                            "must be placed in the non_global directory."
-                        )
-        else:
-            # Catch case 2
-            errors = {}
-            if self.is_shared_upload:
-                errors["Shared Upload Errors"] = (
+        if not self.is_shared_upload:
+            return {}
+        elif not self.shared_upload_non_global_paths:
+            return {
+                "Shared Upload Errors": (
                     "No non_global_files specified but "
-                    "upload has global & non_global directories"
+                    "upload has global & non_global directories."
                 )
-
+            }
+        errors = defaultdict(list)
+        non_global_dir = (self.directory_path).joinpath("non_global/")
+        if missing_refs := self.__get_shared_dir_missing_refs(non_global_dir):
+            errors["Missing non_global_files"] = missing_refs
+        if not_allowed := self.__get_shared_dir_not_allowed(non_global_dir):
+            errors["Extra files in non_global directory (not referenced in metadata TSV)"] = (
+                not_allowed
+            )
         return errors
 
-    def __get_referenced_paths(self, col_name: str) -> dict[str, list[tuple[Path, int]]]:
+    def __get_shared_dir_missing_refs(self, non_global_dir: Path) -> list:
+        # Check path exists for each individual non_global_file referenced in metadata TSV
+        errors = []
+        for (
+            rel_path,
+            row_references,
+        ) in self.shared_upload_non_global_paths.items():
+            full_path_row_non_global_file = (non_global_dir).joinpath(rel_path)
+            if not full_path_row_non_global_file.exists():
+                row_refs = self.__format_reference_output("non_global_files", row_references)
+                errors.append(
+                    f'{"; ".join(row_refs)}, value "{rel_path}" does not exist. '
+                    f'Expected path: {full_path_row_non_global_file}. Hint: files in TSV field "non_global_files" '
+                    "must be placed in the non_global directory."
+                )
+        return errors
 
+    def __get_shared_dir_not_allowed(self, non_global_dir: Path) -> list:
+        not_allowed = []
+        shared_paths = list(self.shared_upload_non_global_paths.keys())
+        # Remove dirs, directory validation should have caught any that don't belong
+        non_global_files = [
+            file
+            for file in get_files([non_global_dir])
+            if not (non_global_dir).joinpath(file).is_dir()
+        ]
+        # Check each file found in non_global dir to see if it has a match in the referenced files
+        for file in non_global_files:
+            if (
+                (file not in shared_paths)
+                and ("./" + file not in shared_paths)
+                and (non_global_dir).joinpath(file) not in shared_paths
+            ):
+                not_allowed.append(file)
+        return not_allowed
+
+    def __get_referenced_paths(self, col_name: str) -> dict[str, list[tuple[Path, int]]]:
         references = defaultdict(list)
         for tsv_path, schema in self.dataset_metadata.items():
             references.update(self.__referenced_paths_by_tsv(col_name, tsv_path, schema))
@@ -816,7 +836,7 @@ class Upload:
         self, col_name: str, tsv_path: Path, schema: SchemaVersion
     ) -> dict[Path, list[tuple[str, int]]]:
         """
-        Returns dict of path: [(referencing_tsv_path, row)]
+        Returns dict of {path: [(referencing_tsv_path, row)]}
         (col_name is already available wherever this was called)
         """
         references = defaultdict(list)
