@@ -1,5 +1,9 @@
 # Changelog
 ## v0.0.40 (in progress)
+- Refactor
+- Add checks for contact in contributors.tsv, empty columns in TSV
+- Fix shared upload check for unreferenced files
+- Fix shared upload error messaging to display correct paths
 
 ## v0.0.39
 - Create Object-by-Analyte EPIC directory schema 
