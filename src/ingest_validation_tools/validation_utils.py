@@ -5,7 +5,6 @@ from pathlib import Path, PurePath
 from typing import Dict, List, Optional, Union
 from urllib.parse import quote, urljoin
 
-import pandas as pd
 import requests
 
 from ingest_validation_tools.directory_validator import (
@@ -572,10 +571,17 @@ def get_message(error: Dict[str, str], report_type: ReportType) -> Union[str, Di
     return error
 
 
-def find_empty_tsv_columns(tsv_path: Path) -> list[Optional[int]]:
+def find_empty_tsv_columns(tsv_path: Path) -> list[str]:
     empty = []
-    df = pd.read_csv(tsv_path, sep="\t")
-    for index, column in enumerate(df.columns):
-        if "Unnamed" in column:
-            empty.append(index)
+    with open(tsv_path) as f:
+        try:
+            dr = DictReader(f, dialect="excel-tab")
+            assert dr.fieldnames
+        except Exception:
+            # Errors in TSV should have been caught already, but just to be safe.
+            return [f"Error opening {tsv_path}."]
+        for index, column in enumerate(dr.fieldnames):
+            if column in ["", " "]:
+                empty.append(str(index))
+        f.close()
     return empty

@@ -6,4 +6,3 @@ PyYAML==6.0.2
 requests==2.32.3
 tableschema-to-template==0.0.13
 types-PyYAML==6.0.12
-pandas==2.0.1
