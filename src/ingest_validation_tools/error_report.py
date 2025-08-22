@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import re
 from collections import defaultdict
 from collections.abc import MutableMapping
 from dataclasses import dataclass, field, fields
@@ -110,8 +111,11 @@ class DictErrorType(MutableMapping):
             ret_message = ""
         elif isinstance(message, str):
             ret_message = message.replace("'", '"')
-            if not ret_message.endswith("."):
-                ret_message = ret_message + "."
+            ending_url_regex = r"\s((http|https).+)$"
+            if re.search(ending_url_regex, ret_message):
+                ret_message += " "
+            elif not ret_message.endswith("."):
+                ret_message += "."
         else:
             ret_message = str(message)
         return ret_message
