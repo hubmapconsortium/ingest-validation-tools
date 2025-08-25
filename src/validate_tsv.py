@@ -8,7 +8,7 @@ from pathlib import Path
 from yaml import dump
 
 from ingest_validation_tools.cli_utils import ShowUsageException, exit_codes
-from ingest_validation_tools.message_munger import recursive_munge
+from ingest_validation_tools.local_validation.message_munger import recursive_munge
 from ingest_validation_tools.schema_loader import PreflightError
 from ingest_validation_tools.validation_utils import get_schema_version, get_tsv_errors
 

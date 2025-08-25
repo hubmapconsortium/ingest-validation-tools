@@ -1,2 +1,2 @@
-On row 2, column "na_forbidden", value "NA" fails because "N/A" fields should just be left empty
-On row 3, column "na_forbidden", value "n/a" fails because "N/A" fields should just be left empty
+On row 2, column "na_forbidden", value "NA" fails because "N/A" fields should just be left empty.
+On row 3, column "na_forbidden", value "n/a" fails because "N/A" fields should just be left empty.

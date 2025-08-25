@@ -1,6 +1,5 @@
 import json
 import logging
-from collections import defaultdict
 from csv import DictReader
 from pathlib import Path, PurePath
 from typing import Dict, List, Optional, Union
@@ -21,13 +20,13 @@ from ingest_validation_tools.enums import (
     OtherTypes,
     Sample,
 )
+from ingest_validation_tools.local_validation.table_validator import ReportType
 from ingest_validation_tools.schema_loader import (
     EntityTypeInfo,
     PreflightError,
     SchemaVersion,
     get_possible_directory_schemas,
 )
-from ingest_validation_tools.table_validator import ReportType
 
 # TSV Metadata Validator
 CEDAR_VALIDATION_URL = "https://api.metadatavalidator.metadatacenter.org/service/validate-tsv"
@@ -137,7 +136,7 @@ def get_other_type_schema(
             sv = SchemaVersion(
                 other_type_info.entity_type.value,
                 directory_path=directory_path,
-                path=path,
+                path=Path(path),
                 rows=rows,
                 entity_type_info=other_type_info,
             )
@@ -184,16 +183,16 @@ def get_assaytype_data(row: Dict, ingest_url: str, globus_token: str) -> Dict:
 def read_rows(path: Path, encoding: str) -> List:
     message = None
     if not Path(path).exists():
-        message = {"File does not exist": f"{path}"}
+        message = {"File does not exist": path}
         raise TSVError(message)
     try:
         rows = dict_reader_wrapper(path, encoding)
         if not rows:
-            message = {"File has no data rows": f"{path}"}
+            message = {"File has no data rows": path}
         else:
             return rows
     except IsADirectoryError:
-        message = {"Expected a TSV, but found a directory": f"{path}"}
+        message = {"Expected a TSV, but found a directory": path}
     except UnicodeDecodeError as e:
         message = {"Decode Error": get_context_of_decode_error(e)}
     raise TSVError(message)
@@ -204,7 +203,7 @@ def get_data_dir_errors(
     root_path: Path,
     data_dir_path: Path,
     dataset_ignore_globs: List[str] = [],
-) -> Dict[str, Union[str, List[str]]]:
+) -> Dict[str, Union[dict, str]]:
     """
     Validate a single data_path.
     """
@@ -227,14 +226,13 @@ def get_data_dir_errors(
     possible_schemas = get_possible_directory_schemas(dir_schema)
 
     if possible_schemas is None:
-        return {dir_schema: ["No matching directory schemas found."]}
+        return {dir_schema: "No matching directory schemas found."}
 
     # Collect errors, discard if schema validates against a minor version
     errors = []
 
     # Make sure possible_schemas is sorted by key (descending) to evaluate highest minor version first
     for schema_name, schema in sorted(possible_schemas.items(), reverse=True):
-        schema_errors = defaultdict(list)
         schema_warning_fields = [field for field in schema if field in ["deprecated", "draft"]]
         schema_warning = (
             f"{schema_warning_fields[0].title()} directory schema: {schema_name}"
@@ -250,24 +248,20 @@ def get_data_dir_errors(
             # If there are DirectoryValidationErrors and the schema is deprecated/draft...
             #    schema deprecation/draft status is more important.
             if schema_warning:
-                schema_errors[schema_name].append(schema_warning)
+                errors.append({schema_name: schema_warning})
             else:
-                schema_errors[schema_name].append(e.errors)
+                errors.append({schema_name: e.errors})
+            continue
         except OSError as e:
             # If there are OSErrors and the schema is deprecated/draft...
             #    the OSErrors are more important.
             if isinstance(e, FileNotFoundError):
                 raise FileNotFoundError()
-            schema_errors[schema_name].append(f"{e.strerror}: {e.filename}")
-        if schema_errors:
-            errors.append(schema_errors)
-            continue
-        elif schema_warning:
-            errors.append({schema_name: schema_warning})
+            errors.append({schema_name: f"{e.strerror}: {e.filename}"})
             continue
         # Found a schema with no problems!
         # Throw away any found errors.
-        return {schema_name: "No errors!"}
+        return {schema_name: {}}
     # Did not find a schema that validated;
     # return first (highest) schema version errors.
     if errors:
@@ -374,7 +368,6 @@ def get_schema_details(schema_version: str, cedar_api_key: str) -> dict:
 def get_tsv_errors(
     tsv_path: Union[str, Path],
     schema_name: str,
-    optional_fields: List[str] = [],
     no_url_checks: bool = False,
     ignore_deprecation: bool = False,
     report_type: ReportType = ReportType.STR,
@@ -439,24 +432,26 @@ def get_tsv_errors(
     upload = Upload(
         Path(tsv_path).parent,
         tsv_paths=[Path(tsv_path)],
-        optional_fields=optional_fields,
         globus_token=globus_token,
-        no_url_checks=no_url_checks,
+        offline_only=no_url_checks,
         ignore_deprecation=ignore_deprecation,
         app_context=app_context,
         report_type=report_type,
     )
     if schema_name in OtherTypes.with_sample_subtypes():
-        upload._check_other_path(str(tsv_path))
+        schema = upload.get_schema_from_path(Path(tsv_path))
+        upload.validate_metadata(tsv_paths={schema.path: schema})
     else:
-        upload.validation_routine()
-    return upload.errors.tsv_only_errors_by_path(str(tsv_path))
+        upload.validate_metadata()
+    return upload.errors.tsv_only_errors_by_path(str(tsv_path), report_type=report_type)
 
 
 def cedar_validation_call(tsv_path: Union[str, Path]) -> requests.models.Response:
     with open(tsv_path, "rb") as f:
         file = {"input_file": f}
-        headers = {"content_type": "multipart/form-data"}
+        headers = {
+            "content_type": "multipart/form-data",
+        }
         try:
             response = requests.post(
                 CEDAR_VALIDATION_URL,
@@ -539,3 +534,54 @@ def get_json(
         "error": error,
         "row": row,
     }
+
+
+def get_message(error: Dict[str, str], report_type: ReportType) -> Union[str, Dict]:
+    """
+    >>> u = Upload(Path("/test/dir"))
+    >>> print(
+    ...     u._get_message(
+    ...         {
+    ...             'errorType': 'notStandardTerm',
+    ...             'column': 'stain_name',
+    ...             'row': 1,
+    ...             'repairSuggestion': 'H&E',
+    ...             'value': 'H& E'
+    ...         }
+    ...     )
+    ... )
+    On row 1, column "stain_name", value "H& E" fails because of error "notStandardTerm". Example: H&E
+    """  # noqa: E501
+
+    example = error.get("repairSuggestion", "")
+    error_text = error.get("error_text", "")
+
+    return_str = report_type is ReportType.STR
+    if "errorType" in error and "column" in error and "row" in error and "value" in error:
+        assert type(error["row"]) is int
+        error["row"] = error["row"] + 2
+        # This may need readability improvements
+        msg = (
+            f'value "{error["value"]}" fails because of error "{error["errorType"]}"'
+            f'{f": {error_text}" if error_text else error_text}'
+            f'{f". Example: {example}" if example else example}'
+        )
+        full_msg = f'On row {error["row"]}, column "{error["column"]}", {msg}'
+        return full_msg if return_str else get_json(msg, error["row"], error["column"])
+    return error
+
+
+def find_empty_tsv_columns(tsv_path: Path) -> list[str]:
+    empty = []
+    with open(tsv_path) as f:
+        try:
+            dr = DictReader(f, dialect="excel-tab")
+            assert dr.fieldnames
+        except Exception:
+            # Errors in TSV should have been caught already, but just to be safe.
+            return [f"Error opening {tsv_path}."]
+        for index, column in enumerate(dr.fieldnames):
+            if column in ["", " "]:
+                empty.append(str(index))
+        f.close()
+    return empty

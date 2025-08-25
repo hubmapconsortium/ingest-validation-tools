@@ -46,9 +46,9 @@ class SchemaVersion:
     version: str = ""
     directory_path: Optional[Path] = None
     table_schema: Optional[str] = ""  # legacy only
-    path: Union[Path, str] = ""
-    contributors_paths: List[str] = field(default_factory=list)
-    antibodies_paths: List[str] = field(default_factory=list)
+    path: Path = Path()
+    contributors_schemas: List[SchemaVersion] = field(default_factory=list)
+    antibodies_schemas: List[SchemaVersion] = field(default_factory=list)
     rows: List = field(default_factory=list)
     soft_assay_data: Dict = field(default_factory=dict)
     is_cedar: bool = False
@@ -264,7 +264,6 @@ def _get_schema_filename(schema_name: str, version: str) -> str:
 
 def get_table_schema(
     schema_version: SchemaVersion,
-    optional_fields: List[str] = [],
     no_url_checks: bool = False,
     keep_headers: bool = False,
 ) -> dict:
@@ -291,7 +290,7 @@ def get_table_schema(
         if schema_version.metadata_type == "assays":
             _add_level_1_description(schema_field)
             _validate_level_1_enum(schema_field)
-        _add_constraints(schema_field, optional_fields, no_url_checks=no_url_checks, names=names)
+        _add_constraints(schema_field, no_url_checks=no_url_checks, names=names)
         if schema_version.metadata_type == "assays":
             _validate_field(schema_field)
 
@@ -410,9 +409,7 @@ def _validate_level_1_enum(field: dict) -> None:
         )
 
 
-def _add_constraints(
-    field: dict, optional_fields: List[str], no_url_checks=None, names: List[str] = []
-) -> None:
+def _add_constraints(field: dict, no_url_checks=None, names: List[str] = []) -> None:
     """
     Modifies field in-place, adding implicit constraints
     based on the field name.
@@ -516,10 +513,6 @@ def _add_constraints(
         field["constraints"]["maximum"] = 100
     if "pattern" in field["constraints"]:
         field["type"] = "string"
-
-    # Override:
-    if field["name"] in optional_fields:
-        field["constraints"]["required"] = False
 
     # Remove network checks if no_url_checks:
     if no_url_checks:

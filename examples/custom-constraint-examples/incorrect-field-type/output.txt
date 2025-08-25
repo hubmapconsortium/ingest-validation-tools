@@ -1,1 +1,1 @@
-On row 3, column "a_number", value "not-a-number!" fails because type is "number/default"
+On row 3, column "a_number", value "not-a-number!" fails because it is not in numerical form.

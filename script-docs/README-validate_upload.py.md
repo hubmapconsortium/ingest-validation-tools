@@ -1,7 +1,5 @@
 ```text
-usage: validate_upload.py [-h] --local_directory PATH
-                          [--optional_fields FIELD [FIELD ...]]
-                          [--no_url_checks] [--clear_cache]
+usage: validate_upload.py [-h] --local_directory PATH [--offline_only]
                           [--ignore_deprecation]
                           [--dataset_ignore_globs GLOB [GLOB ...]]
                           [--upload_ignore_globs GLOB [GLOB ...]]
@@ -9,21 +7,15 @@ usage: validate_upload.py [-h] --local_directory PATH
                           [--plugin_directory PLUGIN_DIRECTORY]
                           [--run_plugins] [--globus_token GLOBUS_TOKEN]
                           [--output {as_md,as_text,as_text_list,as_yaml}]
-                          [--add_notes] [--save_report]
 
 Validate a HuBMAP upload, both the metadata TSVs and the datasets.
-If you only want to validate a TSV in isolation, look at validate_tsv.py.
 
 optional arguments:
   -h, --help            show this help message and exit
   --local_directory PATH
                         Local directory to validate
-  --optional_fields FIELD [FIELD ...]
-                        The listed fields will be treated as optional. (But if
-                        they are supplied in the TSV, they will be validated.)
-  --no_url_checks       Skip URL checks (Spreadsheet Validator API checks
+  --offline_only        Skip URL checks (Spreadsheet Validator API checks
                         still run).
-  --clear_cache         Clear cache of network check responses.
   --ignore_deprecation  Allow validation against deprecated versions of
                         metadata schemas.
   --dataset_ignore_globs GLOB [GLOB ...]
@@ -43,17 +35,6 @@ optional arguments:
   --globus_token GLOBUS_TOKEN
                         Token for URL checking using Entity API.
   --output {as_md,as_text,as_text_list,as_yaml}
-  --add_notes           Append a context note to error reports.
-  --save_report         Save the report; Adding "--upload_ignore_globs
-                        'report-*.txt'" is necessary to revalidate.
-
-Typical usage:
-  --local_directory: Used by lab before upload, and on Globus after upload.
-
-  --local_directory + --dataset_ignore_globs + --upload_ignore_globs:
-  After the initial validation on Globus, the metadata TSVs are broken up,
-  and one-line TSVs are put in each dataset directory. This structure needs
-  extra parameters.
 
 Exit status codes:
   0: Validation passed

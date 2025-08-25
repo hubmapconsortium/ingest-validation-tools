@@ -3,8 +3,6 @@ from __future__ import annotations
 from re import sub
 from typing import Union
 
-# TODO: are the patterns that rely on specific keys even being used?
-# The message does not include keys.
 pat_reps = [
     (r'constraint "pattern" is (".*")', "it does not match the expected pattern"),
     (r"^Metadata TSV Errors: \S+/", "In "),
@@ -13,7 +11,6 @@ pat_reps = [
         r'In the dataset \1, in field \3 referenced on \2, the file "\5" is \4.',
     ),
     (
-        # TODO: outdated
         r" \(as \S+\): External: Warning: File has no data rows",
         r", the file is just a header with no data rows",
     ),
@@ -39,9 +36,6 @@ pat_reps = [
         r'the file "([^"]+)" is required but missing',
         r'a file matching "\1" is required but missing',
     ),
-    # Quick and dirty fix to stop message munger from adding period following ints,
-    # because that messes with CEDAR validation report
-    # TODO: this actually makes a lot of stuff worse, is it better to remove?
     (r"([^.\d])$", r"\1."),
     (r'type is "datetime/.*"', r"it is not in the format YYYY-MM-DD Hour:Minute"),
     (r'type is "boolean/default"', r"it is neither true nor false"),

@@ -230,8 +230,8 @@ TEST_GET_TSV_ERRORS_PARAMS = [
         "sample-block",
         [
             [
-                'On row 2, column "processing_time_unit", value "min" fails because of error "notStandardTerm". Example: minute',
-                'On row 2, column "source_storage_duration_unit", value "min" fails because of error "notStandardTerm". Example: minute',
+                'On row 2, column "processing_time_unit", value "min" fails because of error "notStandardTerm". Example: minute.',
+                'On row 2, column "source_storage_duration_unit", value "min" fails because of error "notStandardTerm". Example: minute.',
                 'On row 2, column "source_id", value "HBM233.CGGG.482" fails because of error "Invalid Ancestor": Invalid ancestor type for TSV type sample/block. Data sent for ancestor HBM233.CGGG.482: sample/section.',
             ],
             [

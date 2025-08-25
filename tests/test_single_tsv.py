@@ -7,8 +7,8 @@ import requests
 from parameterized import parameterized
 
 from ingest_validation_tools.enums import DatasetType, OtherTypes, Sample
-from ingest_validation_tools.schema_loader import EntityTypeInfo
-from ingest_validation_tools.table_validator import ReportType
+from ingest_validation_tools.local_validation.table_validator import ReportType
+from ingest_validation_tools.schema_loader import EntityTypeInfo, SchemaVersion
 from ingest_validation_tools.upload import Upload
 from ingest_validation_tools.validation_utils import get_schema_version, get_tsv_errors
 from tests.fixtures import (
@@ -105,7 +105,7 @@ class TestSingleTsv(unittest.TestCase):
         )
         path = Path("./tests/fixtures/sample-block-good.tsv").absolute()
         schema = get_schema_version(path, "ascii", globus_token="test")
-        self.upload._get_url_errors(str(path), schema)
+        self.upload._get_url_errors(path, schema)
         assert len(schema.ancestor_entities) == 2
         assert schema.ancestor_entities[1].entity_sub_type == Sample.BLOCK.name.lower()
         assert schema.ancestor_entities[0].entity_type == OtherTypes.SAMPLE
@@ -191,6 +191,31 @@ class TestSingleTsv(unittest.TestCase):
         # Organs must have sub_type_val
         with self.assertRaises(Exception):
             EntityTypeInfo(entity_type=Sample.ORGAN)
+
+    def test_contributors_contact(self):
+        for path, error in [
+            (Path("./tests/fixtures/contributors_good.tsv"), {}),
+            (
+                Path("./tests/fixtures/contributors_bad.tsv"),
+                {Path("./tests/fixtures/contributors_bad.tsv"): "No primary contact."},
+            ),
+        ]:
+            upload = Upload(
+                directory_path=Path("."),
+                tsv_paths=[Path("./tests/fixtures/validated-histology-metadata.tsv")],
+            )
+            for schema in upload.dataset_metadata.values():
+                upload._get_supporting_metadata_schemas(schema, path)
+            assert upload.errors.upload_metadata.value == error
+
+    def test_for_empty_columns(self):
+        upload = Upload(
+            directory_path=Path("."),
+            tsv_paths=[Path("./tests/fixtures/validated-histology-metadata.tsv")],
+        )
+        path = Path("./tests/fixtures/contributors_bad.tsv")
+        upload.validate_metadata({path: SchemaVersion("contributors")})
+        assert upload.errors.upload_metadata.value == {path: "Empty columns: 5, 12"}
 
 
 # if __name__ == "__main__":

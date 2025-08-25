@@ -5,7 +5,8 @@ from typing import Dict, List, Optional, Union
 
 import frictionless
 
-from ingest_validation_tools.check_factory import make_checks
+from ingest_validation_tools.local_validation.check_factory import make_checks
+from ingest_validation_tools.local_validation.message_munger import munge
 
 
 class ReportType(Enum):
@@ -81,7 +82,7 @@ def _get_message(
     error: Dict[str, str],
     schema_fields: Dict[str, dict],
     report_type: ReportType = ReportType.STR,
-) -> Union[str, Dict]:
+) -> Union[str, Dict, int]:
     """
     >>> print(_get_message(
     ... {
@@ -119,7 +120,11 @@ def _get_message(
             f'{f". Example: {example}" if example else example}'
         )
         full_msg = f'On row {error["rowPosition"]}, column "{error["fieldName"]}", {msg}'
-        return full_msg if return_str else get_json(msg, error["rowPosition"], error["fieldName"])
+        return (
+            munge(full_msg)
+            if return_str
+            else get_json(msg, error["rowPosition"], error["fieldName"])
+        )
     return error["message"]
 
 
