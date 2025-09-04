@@ -1,17 +1,12 @@
 import csv
-from enum import Enum
 from pathlib import Path
 from typing import Dict, List, Optional, Union
 
 import frictionless
 
+from ingest_validation_tools.enums import ReportType
 from ingest_validation_tools.local_validation.check_factory import make_checks
 from ingest_validation_tools.local_validation.message_munger import munge
-
-
-class ReportType(Enum):
-    STR = 1
-    JSON = 2
 
 
 def get_table_errors(

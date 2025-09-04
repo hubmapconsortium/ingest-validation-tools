@@ -1,6 +1,29 @@
+[build-system]
+requires = ["setuptools>=80.9.0", "setuptools-git-versioning>=2.0,<3"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools-git-versioning]
+enabled = true
+
+[project]
+name = "ingest-validation-tools"
+dynamic = ["version"]
+description = "Validation tools package for HuBMAP and SenNet"
+readme = "README.md"
+requires-python = ">=3.9"  # 3.9 to 3.11 currently supported
+
+[project.urls]
+Homepage = "https://hubmapconsortium.org"
+Repository = "https://github.com/hubmapconsortium/ingest-validation-tools"
+"Plugins Repository" = "https://github.com/hubmapconsortium/ingest-validation-tests"
+
 [tool.black]
 line-length = 99
 
 [tool.isort]
 profile = "black"
 multi_line_output = 3
+
+[tool.mypy]
+files = "src/ingest_validation_tools/plugin_validator.py"
+follow_imports = "skip"

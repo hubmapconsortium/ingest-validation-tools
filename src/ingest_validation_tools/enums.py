@@ -224,3 +224,8 @@ class CedarSchemaVersionTypes(str, Enum):
     IS_LATEST_VERSION = "isLatestVersion"
     IS_LATEST_PUBLISHED_VERSION = "isLatestPublishedVersion"
     IS_LATEST_DRAFT_VERSION = "isLatestDraftVersion"
+
+
+class ReportType(Enum):
+    STR = 1
+    JSON = 2

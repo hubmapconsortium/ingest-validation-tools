@@ -4,8 +4,7 @@ set -o errexit
 die() { set +v; echo "$*" 1>&2 ; exit 1; }
 
 echo "Testing style and typing..."
-flake8 src || die 'Try: autopep8 --in-place --aggressive -r .'
-mypy
+mypy --config-file=pyproject.toml
 pytest --doctest-modules --ignore-glob="tests-manual/" "tests/test_dataset_examples.py"
 
 BRANCH="$(git rev-parse --abbrev-ref HEAD)"

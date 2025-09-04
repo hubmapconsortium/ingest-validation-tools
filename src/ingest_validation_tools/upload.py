@@ -92,7 +92,7 @@ class Upload:
         self.verbose = verbose
         self.report_type = report_type
 
-        self.dataset_metadata = {}
+        self.dataset_metadata: dict[Path, SchemaVersion] = {}
         self.errors = ErrorDict()
         self.info = InfoDict()
         self.get_errors_called: bool = False
@@ -345,7 +345,7 @@ class Upload:
         """
         if not self.is_shared_upload:
             return {}
-        shared_files = defaultdict(list)
+        shared_files: DefaultDict[str, list] = defaultdict(list)
         all_non_global_files = self.__get_referenced_paths("non_global_files")
         for files, refs in all_non_global_files.items():
             shared_files.update({file.strip(): refs for file in files.split(";")})
@@ -545,9 +545,6 @@ class Upload:
                 raise Exception(f"ORCID {value} does not exist.")
             else:
                 raise Exception(f"Found {num_found} matches for ORCID {value}.")
-        else:
-            response = requests.get(url)
-            response.raise_for_status()
 
     def _get_url_fields(
         self,
@@ -658,7 +655,7 @@ class Upload:
         self,
         response: requests.Response,
         schema: SchemaVersion,
-    ) -> List[str]:
+    ) -> list[Union[str, int, dict]]:
         problem_entities = []
         assert schema.entity_type_info
         if response.status_code == 400:
@@ -832,14 +829,14 @@ class Upload:
         return not_allowed
 
     def __get_referenced_paths(self, col_name: str) -> dict[str, list[tuple[Path, int]]]:
-        references = defaultdict(list)
+        references: DefaultDict[str, list] = defaultdict(list)
         for tsv_path, schema in self.dataset_metadata.items():
             references.update(self.__referenced_paths_by_tsv(col_name, tsv_path, schema))
         return dict(references)
 
     def __referenced_paths_by_tsv(
         self, col_name: str, tsv_path: Path, schema: SchemaVersion
-    ) -> dict[Path, list[tuple[str, int]]]:
+    ) -> dict[str, list[tuple[str, int]]]:
         """
         Returns dict of {path: [(referencing_tsv_path, row)]}
         (col_name is already available wherever this was called)
@@ -870,10 +867,10 @@ class Upload:
     #
     ###################################
 
-    def _get_plugin_errors(self, **kwargs):
+    def _get_plugin_errors(self, **kwargs) -> None:
         plugin_path = self.plugin_directory
         if not plugin_path:
-            return {}
+            return
         errors: DefaultDict[str, list] = defaultdict(list)
         for metadata_path, sv in self.dataset_metadata.items():
             try:

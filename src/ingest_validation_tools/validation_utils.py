@@ -1,5 +1,6 @@
 import json
 import logging
+import sys
 from csv import DictReader
 from pathlib import Path, PurePath
 from typing import Dict, List, Optional, Union
@@ -585,3 +586,23 @@ def find_empty_tsv_columns(tsv_path: Path) -> list[str]:
                 empty.append(str(index))
         f.close()
     return empty
+
+
+class add_path:
+    """
+    Add an element to sys.path using a context.
+    Thanks to Eugene Yarmash https://stackoverflow.com/a/39855753
+    """
+
+    def __init__(self, path):
+        self.path = path
+
+    def __enter__(self):
+        sys.path.insert(0, self.path)
+
+    def __exit__(self, exc_type, exc_value, traceback):
+        del exc_type, exc_value, traceback
+        try:
+            sys.path.remove(self.path)
+        except ValueError:
+            pass
