@@ -3,8 +3,9 @@ set -o errexit
 
 die() { set +v; echo "$*" 1>&2 ; exit 1; }
 
-echo "Testing style and typing..."
+echo "Checking typing with mypy..."
 mypy --config-file=pyproject.toml
+echo "Running doctests with pytest..."
 pytest --doctest-modules --ignore-glob="tests-manual/" "tests/test_dataset_examples.py"
 
 BRANCH="$(git rev-parse --abbrev-ref HEAD)"

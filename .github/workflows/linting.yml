@@ -24,14 +24,17 @@ jobs:
         with:
           path: "requirements-dev.in"
 
+      # Should respect .flake8 config
       - name: Flake8 Lint
         run: |
-          flake8 --ignore=E501,W503,E203 src
+          flake8 src
 
+      # Should respect pyproject.toml config
       - name: Black Lint
         run: |
-          black --line-length 99 --check --verbose src
+          black --check --verbose src
 
+      # Should respect pyproject.toml config
       - name: isort Lint
         run: |
-          isort --profile black --check-only --diff src
+          isort --check-only --diff src
