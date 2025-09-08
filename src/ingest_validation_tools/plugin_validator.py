@@ -1,10 +1,13 @@
 from collections.abc import Iterator
 from pathlib import Path
-from typing import Optional, Union
+from typing import Optional, TypeVar, Union
 
 from ingest_validation_tools.schema_loader import SchemaVersion
 from ingest_validation_tools.validation_utils import add_path
 
+# KeyValuePair type hint is robust, but Validator is not available here; use generic
+ValidatorGeneric = TypeVar("ValidatorGeneric")
+KeyValuePair = Iterator[tuple[ValidatorGeneric, list[Union[str, None]]]]
 PathOrStr = Union[str, Path]
 
 
@@ -21,7 +24,7 @@ def run_plugin_validators_iter(
     globus_token: str = "",
     app_context: dict[str, str] = {},
     **kwargs,
-) -> Iterator[tuple]:
+) -> KeyValuePair:
     """
     Given a metadata.tsv file and a path to a directory of validator plugins, iterate through the
     results of applying each plugin to each row of the metadata.tsv file.  The 'assay_type' field
@@ -84,7 +87,7 @@ def validation_error_iter(
     globus_token: str = "",
     app_context: dict[str, str] = {},
     **kwargs,
-) -> Iterator[tuple]:
+) -> KeyValuePair:
     """
     Given a list of base directories in the upload and a path to a directory
     of validator plugins, iterate over the results of applying all the plugin

@@ -72,8 +72,15 @@ if [[ $ERROR == 1 ]]; then
     exit 1
 fi
 
-# Run test suite with appropriate args
+# Run test scripts, exit on first failure to avoid burying error messages
 echo "--------"
 ls tests/*.sh | parallel --halt now,fail=1 bash
+if [ $? -ne 0 ]; then
+    echo "Fix errors!"
+    exit
+fi
+
+# Run python tests
+echo "--------"
 PYTHONPATH=/ingest-validation-tools
 python -m unittest tests.test_single_tsv tests.test_dataset_examples
