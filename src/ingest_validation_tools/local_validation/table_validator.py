@@ -98,7 +98,7 @@ def _get_message(
     ...     }
     ... }))
     On row 2, column "orcid_id", value "bad-id" fails because\
- constraint "pattern" is "fake-re". Example: real-re
+ it does not match the expected pattern. Example: real-re.
 
     """
     from ingest_validation_tools.validation_utils import get_json

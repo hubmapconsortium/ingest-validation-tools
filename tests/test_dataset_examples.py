@@ -35,6 +35,7 @@ DATASET_IEC_EXAMPLES_OPTS = SHARED_OPTS | {
 PLUGIN_EXAMPLES_OPTS = DATASET_EXAMPLES_OPTS | {
     "plugin_directory": "../ingest-validation-tests/src/ingest_validation_tests/",
     "run_plugins": True,
+    "offline_only": True,
 }
 
 
@@ -196,15 +197,15 @@ def diff_test(
                 {removed}
 
                 If new version is correct, overwrite previous README.md and fixtures.json files by running:
-                    env PYTHONPATH=src:$PYTHONPATH python -m tests-manual.update_test_data -t {test_dir} -g <globus_token>
+                    env PYTHONPATH=src:$PYTHONPATH python -m tests.manual.update_test_data -t {test_dir} -g <globus_token>
 
                 For help / other options:
-                    env PYTHONPATH=src:$PYTHONPATH python -m tests-manual.update_test_data --help
+                    env PYTHONPATH=src:$PYTHONPATH python -m tests.manual.update_test_data --help
                 """
     else:
         msg = f"""
     FAILED diff_test: {test_dir}. Run for more detailed output:
-        env PYTHONPATH=src:$PYTHONPATH python -m tests-manual.update_test_data -t {test_dir} --globus_token "" --manual_test --dry_run --verbose
+        env PYTHONPATH=src:$PYTHONPATH python -m tests.manual.update_test_data -t {test_dir} --globus_token "" --manual_test --dry_run --verbose
     """
     assert not new and not removed, msg
     print(f"PASSED diff_test: {test_dir}")
@@ -235,15 +236,8 @@ def assaytype_side_effect(path: str, row: Dict, *args, **kwargs):
     return response_dict.get("assaytype", {}).get(dataset_type)
 
 
-class TestDatasetExamples(unittest.TestCase):
-    dataset_test_dirs = [
-        test_dir
-        for test_dir in [
-            *glob.glob("examples/dataset-examples/**"),
-            *glob.glob("examples/dataset-iec-examples/**"),
-        ]
-        if Path(test_dir).is_dir()
-    ]
+class TestExamples(unittest.TestCase):
+    dataset_test_dirs = []
     errors = []
 
     def setUp(self):
@@ -253,19 +247,18 @@ class TestDatasetExamples(unittest.TestCase):
     def tearDown(self):
         error_lines = "\n".join([str(error) for error in self.errors])
         errors = " ".join([str(error) for error in self.errors])
-        try:
-            self.assertEqual([], self.errors)
-        except AssertionError as e:
-            print(
-                f"""
+        self.assertEqual(
+            [],
+            self.errors,
+            f"""
+
                 -------ERRORS-------
                 {error_lines}
 
                 Run for more detailed output:
-                    env PYTHONPATH=src:$PYTHONPATH python -m tests-manual.update_test_data -t {errors} --verbose --globus_token "" --manual_test --dry_run
-                """
-            )
-            raise e
+                    env PYTHONPATH=src:$PYTHONPATH python -m tests.manual.update_test_data -t {errors} --verbose --globus_token "" --manual_test --dry_run
+                """,
+        )
 
     def get_paths(self):
         self.dataset_paths = {}
@@ -318,6 +311,17 @@ class TestDatasetExamples(unittest.TestCase):
                     upload = mutate_upload_errors_with_fixtures(upload, test_dir)
                     upload.get_info()
                     return upload
+
+
+class TestDatasetExamples(TestExamples):
+    dataset_test_dirs = [
+        test_dir
+        for test_dir in [
+            *glob.glob("examples/dataset-examples/**"),
+            *glob.glob("examples/dataset-iec-examples/**"),
+        ]
+        if Path(test_dir).is_dir()
+    ]
 
     def prep_dir_schema_upload(self, test_dir: str, opts: dict, patch_data: dict) -> Upload:
         with patch(

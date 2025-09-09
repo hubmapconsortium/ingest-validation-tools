@@ -313,7 +313,7 @@ def print_change_report(change_report: Dict, verbose: bool, globus_token: str):
             print(
                 f"""
                 To update all, run:
-                env PYTHONPATH=/ingest-validation-tools python -m tests-manual.update_test_data -t {' '.join([dir for dir in change_report.keys()])} --globus_token {globus_token} --verbose
+                env PYTHONPATH=/ingest-validation-tools python -m tests.manual.update_test_data -t {' '.join([dir for dir in change_report.keys()])} --globus_token {globus_token} --verbose
                 """
             )
         else:

@@ -6,7 +6,7 @@ die() { set +v; echo "$*" 1>&2 ; exit 1; }
 echo "Checking typing with mypy..."
 mypy --config-file=pyproject.toml
 echo "Running doctests with pytest..."
-pytest --doctest-modules --ignore-glob="tests-manual/" "tests/test_dataset_examples.py"
+pytest --doctest-modules --ignore="tests/" --ignore="_deprecated/"
 
 BRANCH="$(git rev-parse --abbrev-ref HEAD)"
 echo "GitHub branch: $BRANCH"

@@ -537,21 +537,22 @@ def get_json(
     }
 
 
-def get_message(error: Dict[str, str], report_type: ReportType) -> Union[str, Dict]:
+def get_message(
+    error: Dict[str, str], report_type: ReportType = ReportType.STR
+) -> Union[str, Dict]:
     """
-    >>> u = Upload(Path("/test/dir"))
     >>> print(
-    ...     u._get_message(
+    ...     get_message(
     ...         {
     ...             'errorType': 'notStandardTerm',
     ...             'column': 'stain_name',
     ...             'row': 1,
     ...             'repairSuggestion': 'H&E',
     ...             'value': 'H& E'
-    ...         }
+    ...         },
     ...     )
     ... )
-    On row 1, column "stain_name", value "H& E" fails because of error "notStandardTerm". Example: H&E
+    On row 3, column "stain_name", value "H& E" fails because of error "notStandardTerm". Example: H&E
     """  # noqa: E501
 
     example = error.get("repairSuggestion", "")

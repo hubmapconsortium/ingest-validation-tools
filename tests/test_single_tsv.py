@@ -1,3 +1,4 @@
+import glob
 import json
 import unittest
 from pathlib import Path
@@ -30,12 +31,12 @@ CONSTRAINTS_URL = "http://constraints_test/"
 ENTITIES_URL = "http://entities_test/"
 
 
-def entity_api_side_effect(response_map, url, globus_token, headers):
+def entity_api_side_effect(response_map, url, globus_token, headers) -> requests.Response:
     del globus_token, headers
     return get_mock_response(True, response_map.get(url))
 
 
-def get_mock_response(good: bool, response_data: bytes):
+def get_mock_response(good: bool, response_data: bytes) -> requests.Response:
     mock_resp = requests.models.Response()
     mock_resp.url = CONSTRAINTS_URL
     mock_resp.status_code = 200 if good else 400
@@ -216,8 +217,3 @@ class TestSingleTsv(unittest.TestCase):
         path = Path("./tests/fixtures/contributors_bad.tsv")
         upload.validate_metadata({path: SchemaVersion("contributors")})
         assert upload.errors.upload_metadata.value == {path: "Empty columns: 5, 12"}
-
-
-# if __name__ == "__main__":
-#     suite = unittest.TestLoader().loadTestsFromTestCase(TestSingleTsv)
-#     suite.debug()

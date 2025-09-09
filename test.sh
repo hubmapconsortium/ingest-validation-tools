@@ -4,8 +4,10 @@
 #   ./test.sh -t tests.test_single_tsv.TestSingleTsv.test_bad_payload
 # Same as above, skipping linting/formatting:
 #   ./test.sh -n -t tests.test_single_tsv.TestSingleTsv.test_bad_payload
-# Run all tests, skip linting/formatting:
+# Run all tests except plugin tests, skip linting/formatting:
 #   ./test.sh -n
+# Run all tests including plugin tests, skip linting/formatting:
+#   ./test.sh -n -p
 # Run all tests, pass arbitrary argument directly to unittest:
 #   ./test.sh -- hello_unittest
 
@@ -13,10 +15,11 @@ usage() { echo "Usage: $0 [-n] [-t <test_string>]
     -n : skip linting/formatting
     -t : run specific test; use unittest format
         example: tests.test_single_tsv.TestSingleTsv.test_bad_payload
+    -p : run plugins; requires ingest-validation-tests
     -- pass arbitrary other args following ' -- '" 1>&2; exit 1; }
 
 # Define expected options
-while getopts "nt:d" opt; do
+while getopts "nt:p" opt; do
 	case "$opt" in
 		n)
 			echo "Skipping linting/formatting"
@@ -30,6 +33,10 @@ while getopts "nt:d" opt; do
                 TEST="$OPTARG"
             fi
         ;;
+		p)
+			echo "Running plugin tests"
+            PLUGINS="$1"
+		;;
         ?)
             usage
         ;;
@@ -84,3 +91,7 @@ fi
 echo "--------"
 PYTHONPATH=/ingest-validation-tools
 python -m unittest tests.test_single_tsv tests.test_dataset_examples
+if [ $PLUGINS ]; then
+    echo "Running plugin tests"
+    python -m unittest tests.manual.test_plugins
+fi
