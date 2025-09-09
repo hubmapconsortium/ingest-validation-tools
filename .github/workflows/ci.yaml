@@ -14,6 +14,9 @@ jobs:
 
     steps:
     - uses: actions/checkout@v5
+      with:
+        path:
+          ingest-validation-tools
 
     - name: Set up Python ${{ matrix.python-version }}
       uses: actions/setup-python@v5
@@ -40,7 +43,7 @@ jobs:
       with:
         repository: hubmapconsortium/ingest-validation-tests
         ref: refs/heads/main
-        path: ingest-validation-tests
+        path: .
 
     - name: Plugin tests
       run: python -m unittest tests.manual.test_plugins
