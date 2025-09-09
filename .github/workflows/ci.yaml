@@ -14,7 +14,6 @@ jobs:
         python-version: ["3.9", "3.11"]
     defaults:
       run:
-        working-directory: ingest-validation-tools
 
     steps:
     - uses: actions/checkout@v5
@@ -38,7 +37,10 @@ jobs:
         pip install -r ingest-validation-tools/requirements-dev.txt
 
     - name: Run test script
-      run: ./test.sh -n  # leave linting/formatting check to linting.yml
+      run: |
+        ./test.sh -n
+        echo "$PWD"
+      working-directory: ingest-validation-tools
       env:
         GITHUB_REF_NAME: ${{ github.ref_name }}
 
@@ -50,6 +52,9 @@ jobs:
         path: ingest-validation-tests
 
     - name: Plugin tests
-      run: python -m unittest tests.manual.test_plugins
+      run: |
+        echo "$PWD"
+        python -m unittest tests.manual.test_plugins
+      working-directory: ingest-validation-tools
       env:
         PYTHONPATH: src:/ingest-validation-tools
