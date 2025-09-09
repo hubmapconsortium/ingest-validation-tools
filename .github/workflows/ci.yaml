@@ -34,7 +34,8 @@ jobs:
         pip install -r ingest-validation-tools/requirements-dev.txt
 
     - name: Run test script
-      run: ingest-validation-tools/test.sh -n  # leave linting/formatting check to linting.yml
+      run: ./test.sh -n  # leave linting/formatting check to linting.yml
+      working-directory: ingest-validation-tools
       env:
         GITHUB_REF_NAME: ${{ github.ref_name }}
 
@@ -47,5 +48,4 @@ jobs:
 
     - name: Plugin tests
       run: python -m unittest tests.manual.test_plugins
-      env:
-        PYTHONPATH: src:/ingest-validation-tools
+      working-directory: ingest-validation-tools
