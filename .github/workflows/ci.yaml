@@ -37,6 +37,7 @@ jobs:
 
     - with:
         name: hubmapconsortium/ingest-validation-tests     <-- clone
+        uses: actions/checkout@v5
         ref: refs/heads/release
         path: ingest-validation-tests
       run: python -m unittest tests.manual.test_plugins
