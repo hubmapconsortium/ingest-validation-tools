@@ -1,3 +1,4 @@
+import os
 from collections.abc import Iterator
 from pathlib import Path
 from typing import Optional, TypeVar, Union
@@ -108,6 +109,7 @@ def validation_error_iter(
             print("successful import")
         except Exception as e:
             print(f"unsuccessful import from {plugin_dir}")
+            print(os.getcwd())
             raise ValidatorError(f"Could not import from plugin_dir {plugin_dir}: {e}")
         for val_class in validation_class_iter():
             validator = val_class(
