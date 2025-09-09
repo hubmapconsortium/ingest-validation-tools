@@ -49,3 +49,5 @@ jobs:
     - name: Plugin tests
       run: python -m unittest tests.manual.test_plugins
       working-directory: ingest-validation-tools
+      env:
+        PYTHONPATH: src:/ingest-validation-tools
