@@ -5,6 +5,10 @@ name: Portal CI
 
 on: [push, pull_request]
 
+defaults:
+  run:
+    working-directory: ./ingest-validation-tools
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -14,9 +18,9 @@ jobs:
 
     steps:
     - uses: actions/checkout@v5
-      with:
-        path:
-          ${{ github.workspace }}/ingest-validation-tools
+      # with:
+      #   path:
+      #     ingest-validation-tools
 
     - name: Set up Python ${{ matrix.python-version }}
       uses: actions/setup-python@v5
@@ -35,7 +39,6 @@ jobs:
 
     - name: Run test script
       run: ./test.sh -n  # leave linting/formatting check to linting.yml
-      working-directory: ingest-validation-tools
       env:
         GITHUB_REF_NAME: ${{ github.ref_name }}
 
@@ -44,10 +47,9 @@ jobs:
       with:
         repository: hubmapconsortium/ingest-validation-tests
         ref: refs/heads/main
-        path: ${{ github.workspace }}/ingest-validation-tests
+        path: ingest-validation-tests
 
     - name: Plugin tests
       run: python -m unittest tests.manual.test_plugins
-      working-directory: ${{ github.workspace }}/ingest-validation-tools
       env:
         PYTHONPATH: src:/ingest-validation-tools
