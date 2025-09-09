@@ -30,20 +30,20 @@ jobs:
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
-        pip install -r requirements.txt
-        pip install -r requirements-dev.txt
+        pip install -r ingest-validation-tools/requirements.txt
+        pip install -r ingest-validation-tools/requirements-dev.txt
 
     - name: Run test script
-      run: ./test.sh -n  # leave linting/formatting check to linting.yml
+      run: ingest-validation-tools/test.sh -n  # leave linting/formatting check to linting.yml
       env:
         GITHUB_REF_NAME: ${{ github.ref_name }}
 
-    - name: Add ingest-validation-tools
+    - name: Add ingest-validation-tests
       uses: actions/checkout@v5
       with:
         repository: hubmapconsortium/ingest-validation-tests
         ref: refs/heads/main
-        path: .
+        path: ingest-validation-tests
 
     - name: Plugin tests
       run: python -m unittest tests.manual.test_plugins
