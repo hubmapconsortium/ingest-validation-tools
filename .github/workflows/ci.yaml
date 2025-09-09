@@ -38,7 +38,7 @@ jobs:
     - name: Add ingest-validation-tools
       uses: actions/checkout@v5
       with:
-        repository: hubmapconsortium/ingest-validation-tests     <-- clone
+        repository: hubmapconsortium/ingest-validation-tests
         ref: refs/heads/main
         path: ingest-validation-tests
 
