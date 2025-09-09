@@ -104,12 +104,17 @@ def validation_error_iter(
     with add_path(plugin_dir):
         try:
             from validator import validation_class_iter  # type: ignore
+
+            print("successful import")
         except Exception as e:
+            print("unsuccessful import")
             raise ValidatorError(f"Could not import from plugin_dir {plugin_dir}: {e}")
         for val_class in validation_class_iter():
             validator = val_class(
                 paths, assay_type, contains, verbose, schema, globus_token, app_context
             )
+            print(type(validator).name)
             kwargs["verbose"] = verbose
             for err in validator.collect_errors(**kwargs):
+                print(f"yielding {type(val_class).name}, {err}")
                 yield val_class, err
