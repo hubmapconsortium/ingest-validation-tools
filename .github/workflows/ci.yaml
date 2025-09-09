@@ -13,8 +13,6 @@ jobs:
         python-version: ["3.9", "3.11"]
 
     steps:
-    - uses: actions/checkout@v5
-
     - name: Set up Python ${{ matrix.python-version }}
       uses: actions/setup-python@v5
       with:
@@ -35,9 +33,10 @@ jobs:
       env:
         GITHUB_REF_NAME: ${{ github.ref_name }}
 
-    - with:
+    - name: Plugin validation
+      uses: actions/checkout@v5
+      with:
         name: hubmapconsortium/ingest-validation-tests     <-- clone
-        uses: actions/checkout@v5
         ref: refs/heads/release
         path: ingest-validation-tests
       run: python -m unittest tests.manual.test_plugins
