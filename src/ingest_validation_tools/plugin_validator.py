@@ -104,6 +104,8 @@ def validation_error_iter(
     with add_path(plugin_dir):
         try:
             from validator import validation_class_iter  # type: ignore
+
+            print(f"Found plugins at {plugin_dir}")
         except Exception as e:
             raise ValidatorError(f"Could not import from plugin_dir {plugin_dir}: {e}")
         for val_class in validation_class_iter():
