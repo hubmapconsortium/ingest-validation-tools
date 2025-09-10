@@ -118,7 +118,8 @@ src/validate_upload.py \
 
 An example of the core error-reporting functionality underlying `validate-upload.py`:
 
-```python
+```
+python
 upload = Upload(directory_path=path)
 report = ErrorReport(upload)
 print(report.as_text())

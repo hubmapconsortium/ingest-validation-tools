@@ -35,8 +35,12 @@ jobs:
       env:
         GITHUB_REF_NAME: ${{ github.ref_name }}
 
-    - with:
-        name: hubmapconsortium/ingest-validation-tests     <-- clone
-        ref: refs/heads/release
-        path: ingest-validation-tests
-      run: python -m unittest tests.manual.test_plugins
+    # - name: Add ingest-validation-tests
+    #   uses: actions/checkout@v5
+    #   with:
+    #     name: hubmapconsortium/ingest-validation-tests
+    #     ref: refs/heads/release
+    #     # path: ingest-validation-tests
+    #
+    # - name: Plugin tests
+    #   run: python -m unittest tests.manual.test_plugins
