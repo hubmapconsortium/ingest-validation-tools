@@ -4,6 +4,7 @@
 - Add checks for contact in contributors.tsv, empty columns in TSV
 - Fix shared upload check for unreferenced files
 - Fix shared upload error messaging to display correct paths
+- Update CosMX Transcriptomics directory schema
 - Moved Validator and validation_class_iter to ingest-validation-tests
 - Deprecated cleanup examples
 
