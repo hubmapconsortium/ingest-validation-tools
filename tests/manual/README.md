@@ -7,7 +7,7 @@ Automated testing (e.g. via GitHub action or by running `./test.sh`) does not hi
 Run the following from the top-level directory:
 
 ```
-./tests-manual/test-dataset-examples-online.sh <globus_token> <optional:start_index>
+./tests/manual/test-dataset-examples-online.sh <globus_token> <optional:start_index>
 ```
 
 This test mechanism calls validate_upload.py and does not update files. It is good for reliable manual online testing.
@@ -24,19 +24,19 @@ To update fixture data, run the following, specifying individual example directo
 Here is an example command that would update all README.md and fixtures.json files in `examples/dataset-examples`:
 
 ```
-env PYTHONPATH=/ingest-validation-tools python -m tests-manual.update_test_data -t "examples/dataset-examples" --globus_token <globus_token>
+env PYTHONPATH=/ingest-validation-tools python -m tests.manual.update_test_data -t "examples/dataset-examples" --globus_token <globus_token>
 ```
 
 This tool can be run in a non-destructive way for testing by passing the `--dry_run` flag, possibly in combination with `--verbose` for more detailed output. Here is an example command that would show any diffs in all README.md and fixtures.json files in `examples/dataset-examples`, `dataset-iec-examples`, and `examples/plugin-tests` without writing any data:
 
 ```
-env PYTHONPATH=/ingest-validation-tools python -m tests-manual.update_test_data -t "examples/dataset-examples/good-cedar-histology" --globus_token <globus_token> --verbose --dry_run
+env PYTHONPATH=/ingest-validation-tools python -m tests.manual.update_test_data -t "examples/dataset-examples/good-cedar-histology" --globus_token <globus_token> --verbose --dry_run
 ```
 
 Run the following command for more comprehensive documentation:
 
 ```
-env PYTHONPATH=/ingest-validation-tools python -m tests-manual.update_test_data --help
+env PYTHONPATH=/ingest-validation-tools python -m tests.manual.update_test_data --help
 ```
 
 # Automated testing
@@ -56,7 +56,7 @@ Plugins live in [https://github.com/hubmapconsortium/ingest-validation-tests](ht
 Then, run the following from the top-level directory:
 
 ```
-python -m unittest tests-manual/test-plugins.py
+python -m unittest tests/manual/test_plugins.py
 ```
 Note: you may need to prepend `env PYTHONPATH=/ingest-validation-tools` to this command. 
 
@@ -65,5 +65,5 @@ Note: you may need to prepend `env PYTHONPATH=/ingest-validation-tools` to this 
 All new examples will need fixtures.json and README.md files. Run this to generate them:
 
 ```
-env PYTHONPATH=/ingest-validation-tools python -m tests-manual.update_test_data -t <new_example_dir_path> --globus_token <globus_token>
+env PYTHONPATH=/ingest-validation-tools python -m tests.manual.update_test_data -t <new_example_dir_path> --globus_token <globus_token>
 ```

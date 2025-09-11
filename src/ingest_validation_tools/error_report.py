@@ -157,7 +157,7 @@ class InfoDict:
     time: Optional[datetime] = None
     git: Optional[str] = None
     dir: Optional[str] = None
-    tsvs: Dict[str, Dict[str, str]] = field(default_factory=dict)
+    tsvs: Dict[str, Dict[str, Optional[str]]] = field(default_factory=dict)
     successful_plugins: list[str] = field(default_factory=list)
 
     def as_dict(self):

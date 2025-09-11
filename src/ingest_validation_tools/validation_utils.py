@@ -1,5 +1,6 @@
 import json
 import logging
+import sys
 from csv import DictReader
 from pathlib import Path, PurePath
 from typing import Dict, List, Optional, Union
@@ -536,21 +537,22 @@ def get_json(
     }
 
 
-def get_message(error: Dict[str, str], report_type: ReportType) -> Union[str, Dict]:
+def get_message(
+    error: Dict[str, str], report_type: ReportType = ReportType.STR
+) -> Union[str, Dict]:
     """
-    >>> u = Upload(Path("/test/dir"))
     >>> print(
-    ...     u._get_message(
+    ...     get_message(
     ...         {
     ...             'errorType': 'notStandardTerm',
     ...             'column': 'stain_name',
     ...             'row': 1,
     ...             'repairSuggestion': 'H&E',
     ...             'value': 'H& E'
-    ...         }
+    ...         },
     ...     )
     ... )
-    On row 1, column "stain_name", value "H& E" fails because of error "notStandardTerm". Example: H&E
+    On row 3, column "stain_name", value "H& E" fails because of error "notStandardTerm". Example: H&E
     """  # noqa: E501
 
     example = error.get("repairSuggestion", "")
@@ -585,3 +587,23 @@ def find_empty_tsv_columns(tsv_path: Path) -> list[str]:
                 empty.append(str(index))
         f.close()
     return empty
+
+
+class add_path:
+    """
+    Add an element to sys.path using a context.
+    Thanks to Eugene Yarmash https://stackoverflow.com/a/39855753
+    """
+
+    def __init__(self, path):
+        self.path = path
+
+    def __enter__(self):
+        sys.path.insert(0, self.path)
+
+    def __exit__(self, exc_type, exc_value, traceback):
+        del exc_type, exc_value, traceback
+        try:
+            sys.path.remove(self.path)
+        except ValueError:
+            pass

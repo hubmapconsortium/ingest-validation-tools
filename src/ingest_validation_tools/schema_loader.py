@@ -230,7 +230,7 @@ def dict_table_schema_versions() -> Dict[str, List[SchemaVersion]]:
 def list_directory_schema_versions() -> List[DirSchemaVersion]:
     """
     >>> list_directory_schema_versions()[0].dir_schema_string
-    '10x-multiome-v2'
+    '10x-multiome-v2.0'
     """
     schema_paths = list(_directory_schemas_path.iterdir())
     stems = sorted(p.stem for p in schema_paths if p.suffix == ".yaml")
@@ -378,6 +378,7 @@ def _validate_level_1_enum(field: dict) -> None:
     Allowed: ['clinical_imaging',
      'derived_datasets',
      'fish',
+     'flow_cytometry',
      'histology',
      'imaging',
      'mass_spectrometry',
@@ -388,9 +389,7 @@ def _validate_level_1_enum(field: dict) -> None:
      'sample',
      'sequence',
      'single_cycle_fluorescence_microscopy',
-     'spatial_transcriptomics',
-     'derived_datasets',
-     'flow_cytometry']
+     'spatial_transcriptomics']
     """
 
     name = field["name"]
@@ -426,17 +425,6 @@ def _add_constraints(field: dict, no_url_checks=None, names: List[str] = []) -> 
      'custom_constraints': {'forbid_na': True,
                             'sequence_limit': 3},
      'name': 'abc_percent',
-     'type': 'number'}
-
-    Fields can be made optional at run-time:
-
-    >>> field = {'name': 'optional_value'}
-    >>> _add_constraints(field, ['optional_value'])
-    >>> pprint(field, width=40)
-    {'constraints': {'required': False},
-     'custom_constraints': {'forbid_na': True,
-                            'sequence_limit': 3},
-     'name': 'optional_value',
      'type': 'number'}
 
     Default field type is string:

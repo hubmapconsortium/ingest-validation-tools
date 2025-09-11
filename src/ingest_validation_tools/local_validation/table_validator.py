@@ -1,17 +1,12 @@
 import csv
-from enum import Enum
 from pathlib import Path
 from typing import Dict, List, Optional, Union
 
 import frictionless
 
+from ingest_validation_tools.enums import ReportType
 from ingest_validation_tools.local_validation.check_factory import make_checks
 from ingest_validation_tools.local_validation.message_munger import munge
-
-
-class ReportType(Enum):
-    STR = 1
-    JSON = 2
 
 
 def get_table_errors(
@@ -103,7 +98,7 @@ def _get_message(
     ...     }
     ... }))
     On row 2, column "orcid_id", value "bad-id" fails because\
- constraint "pattern" is "fake-re". Example: real-re
+ it does not match the expected pattern. Example: real-re.
 
     """
     from ingest_validation_tools.validation_utils import get_json

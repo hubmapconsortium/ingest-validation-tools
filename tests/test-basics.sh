@@ -3,10 +3,10 @@ set -o errexit
 
 die() { set +v; echo "$*" 1>&2 ; exit 1; }
 
-echo "Testing style and typing..."
-flake8 src || die 'Try: autopep8 --in-place --aggressive -r .'
-mypy
-pytest --doctest-modules --ignore-glob="tests-manual/" "tests/test_dataset_examples.py"
+echo "Checking typing with mypy..."
+mypy --config-file=pyproject.toml
+echo "Running doctests with pytest..."
+pytest --doctest-modules --ignore="tests/" --ignore="_deprecated/"
 
 BRANCH="$(git rev-parse --abbrev-ref HEAD)"
 echo "GitHub branch: $BRANCH"
