@@ -440,8 +440,13 @@ def get_tsv_errors(
         report_type=report_type,
     )
     if schema_name in OtherTypes.with_sample_subtypes():
-        schema = upload.get_schema_from_path(Path(tsv_path))
-        upload.validate_metadata(tsv_paths={schema.path: schema})
+        try:
+            schema = upload.get_schema_from_path(Path(tsv_path))
+        except Exception as e:
+            if upload.errors:
+                upload.errors.upload_metadata[tsv_path].append(str(e))
+        else:
+            upload.validate_metadata(tsv_paths={schema.path: schema})
     else:
         upload.validate_metadata()
     return upload.errors.tsv_only_errors_by_path(str(tsv_path), report_type=report_type)

@@ -373,6 +373,8 @@ class Upload:
                     self.errors.upload_metadata[str(parent_schema.path)].append(
                         f'On row(s) {rows}, column "{other_type}", error opening or reading value "{path_value}". {e.errors}'
                     )
+                except Exception as e:
+                    self.errors.upload_metadata[str(parent_schema.path)].append(str(e))
 
     def _get_supporting_metadata_schemas(self, parent_schema: SchemaVersion, other_path: Path):
         schema = self.get_schema_from_path(other_path)
@@ -502,6 +504,7 @@ class Upload:
         """
         Returns entity_type if checking a field in check_fields.
         """
+        assert value, f"Can't check URL for column '{field}' on row {row}: empty value."
         url = urljoin(constrained_fields[field], value)
         if field in CHECK_FIELDS:
             headers = self.app_context.get("request_header", {})
