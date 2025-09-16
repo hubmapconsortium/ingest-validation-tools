@@ -1,17 +1,15 @@
 from enum import Enum, unique
-from typing import Dict, List
 
 
 @unique
 class EntityTypes(str, Enum):
 
-    # TODO: I believe this can be streamlined with the StrEnum class added in 3.11
     @classmethod
-    def value_list(cls) -> List[str]:
+    def value_list(cls) -> list[str]:
         return [entity_type.value for entity_type in cls]
 
     @classmethod
-    def key_list(cls) -> List[str]:
+    def key_list(cls) -> list[str]:
         return [entity_type.name.lower() for entity_type in cls]
 
     @classmethod
@@ -88,7 +86,7 @@ class ReportType(Enum):
 
 
 # DEPRECATED, preserved for legacy functionality only
-shared_enums: Dict[str, List[str]] = {
+shared_enums: dict[str, list[str]] = {
     "assay_type": [
         "10x Multiome",
         "3D Imaging Mass Cytometry",
