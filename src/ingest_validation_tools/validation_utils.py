@@ -3,7 +3,7 @@ import logging
 import sys
 from csv import DictReader
 from pathlib import Path, PurePath
-from typing import Dict, List, Optional, Union
+from typing import Optional, Union
 from urllib.parse import quote, urljoin
 
 import requests
@@ -147,7 +147,7 @@ def get_other_type_schema(
 def get_other_schema_data(
     row: dict,
     path: str,
-    url: str,
+    entity_url: str,
     globus_token: str,
     entity_field_pair: tuple[EntityTypes, str],
 ) -> EntityTypeInfo:
@@ -158,12 +158,12 @@ def get_other_schema_data(
         raise PreflightError(f"Metadata TSV {path} contains invalid field: {unique_field}")
     if entity_type == OtherTypes.SAMPLE:
         # Sample types require additional data
-        return get_entity_info_from_entity_api(urljoin(url, row[unique_field]), globus_token)
+        return get_entity_info_from_entity_api(entity_url, row[unique_field], globus_token)
     else:
         return EntityTypeInfo(entity_type)
 
 
-def get_assaytype_data(row: Dict, ingest_url: str, globus_token: str) -> Dict:
+def get_assaytype_data(row: dict, ingest_url: str, globus_token: str) -> dict:
     if not ingest_url:
         ingest_url = "https://ingest.api.hubmapconsortium.org/"
     # The assaytype endpoint checks sample IDs but will not return a verbose error if one is invalid
@@ -181,7 +181,7 @@ def get_assaytype_data(row: Dict, ingest_url: str, globus_token: str) -> Dict:
     return response.json()
 
 
-def read_rows(path: Path, encoding: str) -> List:
+def read_rows(path: Path, encoding: str) -> list:
     message = None
     if not Path(path).exists():
         message = {"File does not exist": path}
@@ -203,8 +203,8 @@ def get_data_dir_errors(
     dir_schema: str,
     root_path: Path,
     data_dir_path: Path,
-    dataset_ignore_globs: List[str] = [],
-) -> Dict[str, Union[dict, str]]:
+    dataset_ignore_globs: list[str] = [],
+) -> dict[str, Union[dict, str]]:
     """
     Validate a single data_path.
     """
@@ -373,8 +373,8 @@ def get_tsv_errors(
     ignore_deprecation: bool = False,
     report_type: ReportType = ReportType.STR,
     globus_token: str = "",
-    app_context: Dict = {},
-) -> List:
+    app_context: dict = {},
+) -> list:
     """
     Validate the TSV.
 
@@ -439,6 +439,9 @@ def get_tsv_errors(
         app_context=app_context,
         report_type=report_type,
     )
+    # Return preflight errors to prevent uncaught exceptions downstream
+    if upload.errors.preflight:
+        return upload.errors.tsv_only_errors_by_path(str(tsv_path), report_type=report_type)
     if schema_name in OtherTypes.with_sample_subtypes():
         try:
             schema = upload.get_schema_from_path(Path(tsv_path))
@@ -473,7 +476,8 @@ def cedar_validation_call(tsv_path: Union[str, Path]) -> requests.models.Respons
 
 
 def get_entity_api_data(
-    url: str,
+    entity_api_url: str,
+    entity_id: str,
     globus_token: str,
     headers: Optional[dict] = None,
 ) -> requests.Response:
@@ -482,13 +486,15 @@ def get_entity_api_data(
     if not headers:
         headers = {}
     headers["Authorization"] = f"Bearer {globus_token}"
+    url = f"{urljoin(entity_api_url, 'entities')}/{entity_id}"
     response = requests.get(url, headers=headers)
     response.raise_for_status()
     return response
 
 
 def get_entity_info_from_entity_api(
-    url: str,
+    entity_url: str,
+    entity_id: str,
     globus_token: str,
     headers: Optional[dict] = None,
 ) -> EntityTypeInfo:
@@ -498,7 +504,7 @@ def get_entity_info_from_entity_api(
     any sub_type_val values (currently just organ codes, e.g. "BD")
     and return as a dict in the format expected by the constraints endpoint.
     """
-    response = get_entity_api_data(url, globus_token, headers)
+    response = get_entity_api_data(entity_url, entity_id, globus_token, headers)
     entity_type, entity_sub_type, entity_sub_type_val = get_entity_type_vals(response.json())
     return EntityTypeInfo(entity_type, entity_sub_type, entity_sub_type_val)
 
@@ -534,7 +540,7 @@ def print_path(path):
 
 def get_json(
     error: str, row: Optional[str] = None, column: Optional[str] = None
-) -> Dict[str, Optional[str]]:
+) -> dict[str, Optional[str]]:
     return {
         "column": column,
         "error": error,
@@ -543,8 +549,8 @@ def get_json(
 
 
 def get_message(
-    error: Dict[str, str], report_type: ReportType = ReportType.STR
-) -> Union[str, Dict]:
+    error: dict[str, str], report_type: ReportType = ReportType.STR
+) -> Union[str, dict]:
     """
     >>> print(
     ...     get_message(
