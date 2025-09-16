@@ -251,7 +251,10 @@ class ErrorDict:
             if not error_field or not error_field.value:
                 continue
             if error_field.name == "preflight":
-                error_values = error_field.cleaned_value
+                if report_type == ReportType.JSON:
+                    error_values = [{"error": error_field.cleaned_value}]
+                else:
+                    error_values = [error_field.cleaned_value]
             else:
                 error_values = (
                     error_field.cleaned_value if report_type == ReportType.STR else error_field

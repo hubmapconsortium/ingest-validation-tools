@@ -229,7 +229,10 @@ TEST_GET_TSV_ERRORS_PARAMS = [
         None,  # shouldn't get here
         "./tests/fixtures/sample-block-empty.tsv",
         "sample-block",
-        [["File has no data rows: tests/fixtures/sample-block-empty.tsv"]],
+        [
+            ["File has no data rows: tests/fixtures/sample-block-empty.tsv."],
+            [{"error": "File has no data rows: tests/fixtures/sample-block-empty.tsv."}],
+        ],
     ),
     (
         False,
