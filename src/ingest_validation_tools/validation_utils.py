@@ -486,7 +486,7 @@ def get_entity_api_data(
     if not headers:
         headers = {}
     headers["Authorization"] = f"Bearer {globus_token}"
-    url = f"{urljoin(entity_api_url, 'entities')}/{entity_id}"
+    url = urljoin(entity_api_url, f"entities/{entity_id}")
     response = requests.get(url, headers=headers)
     response.raise_for_status()
     return response
