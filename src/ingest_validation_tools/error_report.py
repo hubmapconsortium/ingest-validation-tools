@@ -250,9 +250,15 @@ class ErrorDict:
             error_field = getattr(self, error_type_field.name, None)
             if not error_field or not error_field.value:
                 continue
-            error_values = (
-                error_field.cleaned_value if report_type == ReportType.STR else error_field
-            )
+            if error_field.name == "preflight":
+                if report_type == ReportType.JSON:
+                    error_values = [{"error": error_field.cleaned_value}]
+                else:
+                    error_values = [error_field.cleaned_value]
+            else:
+                error_values = (
+                    error_field.cleaned_value if report_type == ReportType.STR else error_field
+                )
             if type(error_field) is StrErrorType:
                 errors[error_field.display_name] = error_values
             elif type(error_field) is DictErrorType:
@@ -271,6 +277,7 @@ class ErrorDict:
         """
         errors = []
         selected_fields = [
+            self.preflight,
             self.metadata_url_errors,
             self.metadata_validation_api,
             self.metadata_constraint_errors,

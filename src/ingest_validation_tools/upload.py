@@ -8,8 +8,8 @@ from datetime import datetime
 from fnmatch import fnmatch
 from functools import cached_property
 from pathlib import Path
-from typing import DefaultDict, Dict, List, Optional, Union
-from urllib.parse import urljoin, urlsplit
+from typing import DefaultDict, Optional, Union
+from urllib.parse import urlsplit
 
 import requests
 
@@ -173,7 +173,7 @@ class Upload:
     #
     ###################################
 
-    def get_metadata_tsvs(self, tsv_paths: List[str]):
+    def get_metadata_tsvs(self, tsv_paths: list[str]):
         """
         Locate all dataset metadata TSV files at the top level of the upload.
         """
@@ -188,7 +188,7 @@ class Upload:
         if not self.dataset_metadata:
             self.errors.preflight.value = "There are no metadata TSVs."
 
-    def get_app_context(self, submitted_app_context: Dict):
+    def get_app_context(self, submitted_app_context: dict):
         """
         Ensure that all default values are present, but privilege any
         submitted values (after making a basic validity check).
@@ -234,7 +234,7 @@ class Upload:
 
     def validate_metadata(
         self,
-        tsv_paths: Dict[Path, SchemaVersion] = {},
+        tsv_paths: dict[Path, SchemaVersion] = {},
     ):
         """
         Validate metadata.tsvs, both against Metadata Validator
@@ -372,6 +372,8 @@ class Upload:
                     self.errors.upload_metadata[str(parent_schema.path)].append(
                         f'On row(s) {rows}, column "{other_type}", error opening or reading value "{path_value}". {e.errors}'
                     )
+                except Exception as e:
+                    self.errors.upload_metadata[str(parent_schema.path)].append(str(e))
 
     def _get_supporting_metadata_schemas(self, parent_schema: SchemaVersion, other_path: Path):
         schema = self.get_schema_from_path(other_path)
@@ -434,7 +436,7 @@ class Upload:
     def _api_validation(
         self,
         schema: SchemaVersion,
-    ) -> List[Union[str, Dict]]:
+    ) -> list[Union[str, dict]]:
         errors = []
         response = cedar_validation_call(schema.path)
         if response.status_code != 200:
@@ -462,25 +464,19 @@ class Upload:
         constrained_fields = self._get_constrained_fields(schema)
 
         rows = read_rows(Path(tsv_path), self.encoding)
-        fields = rows[0].keys()
-        if missing_fields := [k for k in constrained_fields.keys() if k not in fields].sort():
-            self.errors.metadata_url_errors[tsv_path].append(f"Missing fields {missing_fields}")
-            return
         if url_errors := self._find_and_check_url_fields(rows, constrained_fields, schema):
             self.errors.metadata_url_errors[tsv_path].extend(url_errors)
 
     def _find_and_check_url_fields(
-        self, rows: List, constrained_fields: Dict, schema: SchemaVersion
-    ) -> List[Dict[str, str]]:
+        self, rows: list, constrained_fields: list, schema: SchemaVersion
+    ) -> list[dict[str, str]]:
         errors = []
         for i, row in enumerate(rows):
             url_fields = self._get_url_fields(row, constrained_fields)
             for field_name, field_value in url_fields.items():
                 for value in field_value:
                     try:
-                        entity_type = self._check_url(
-                            field_name, i, value, constrained_fields, schema
-                        )
+                        entity_type = self._check_url(field_name, i, value, schema)
                         if entity_type:
                             schema.ancestor_entities.append(entity_type)
                     except Exception as e:
@@ -495,32 +491,23 @@ class Upload:
         return errors
 
     def _check_url(
-        self, field: str, row: int, value: str, constrained_fields: Dict, schema: SchemaVersion
+        self, field: str, row: int, value: str, schema: SchemaVersion
     ) -> Optional[AncestorTypeInfo]:
-        # TODO: clean up
         """
+        Checks that entity is not registered under "Organ Other".
         Returns entity_type if checking a field in check_fields.
+        Raises Exception if any errors found.
         """
-        url = urljoin(constrained_fields[field], value)
+        assert value, f"Can't check URL for column '{field}' on row {row+2}: empty value."
+
         if field in CHECK_FIELDS:
             headers = self.app_context.get("request_header", {})
-            response = get_entity_api_data(url, self.globus_token, headers)
-
+            response = get_entity_api_data(
+                self.app_context["entities_url"], value, self.globus_token, headers
+            )
             if schema.schema_name == DatasetType.DATASET and field == "parent_sample_id":
-                origin_samples = response.json().get("origin_samples")
-                if origin_samples is None and "direct_ancestor" in response.json():
-                    origin_samples = response.json()["direct_ancestor"].get("origin_samples")
-                if origin_samples is not None and isinstance(origin_samples, list):
-                    for origin_sample in origin_samples:
-                        if (
-                            origin_sample.get("organ") == "OT"
-                            or origin_sample.get("organ") == "UBERON:0010000"
-                            or origin_sample.get("organ") is None
-                        ):
-                            raise Exception(
-                                f"You are not allowed to register data against Sample {origin_sample.get('uuid')} with Organ Other. Please contact the respective help desk to ensure that appropriate support for your work can be provided."
-                            )
-
+                self._check_for_organ_other(response.json())
+            # Do not get ancestor info for sample (no subtype) or source
             if (
                 not (schema.schema_name == OtherTypes.SAMPLE and field == "sample_id")
                 and not schema.schema_name == OtherTypes.SOURCE
@@ -533,25 +520,42 @@ class Upload:
                     *get_entity_type_vals(response.json()),
                 )
         elif field in ["orcid_id", "orcid"]:
-            headers = {"Accept": "application/json"}
-            response = requests.get(
-                constrained_fields[field], headers=headers, params={"q": f"orcid:{value}"}
-            )
-            num_found = response.json().get("num-found")
-            if num_found == 1:
-                return
-            elif num_found == 0:
-                raise Exception(f"ORCID {value} does not exist.")
-            else:
-                raise Exception(f"Found {num_found} matches for ORCID {value}.")
+            self._check_orcid(field, value)
 
-    def _get_url_fields(
-        self,
-        row: Dict,
-        constrained_fields: dict,
-    ) -> Dict[str, List[str]]:
+    def _check_for_organ_other(self, response: dict):
+        origin_samples = response.get("origin_samples")
+        if origin_samples is None and "direct_ancestor" in response:
+            origin_samples = response["direct_ancestor"].get("origin_samples")
+        if origin_samples is not None and isinstance(origin_samples, list):
+            for origin_sample in origin_samples:
+                if (
+                    origin_sample.get("organ") == "OT"
+                    or origin_sample.get("organ") == "UBERON:0010000"
+                    or origin_sample.get("organ") is None
+                ):
+                    raise Exception(
+                        f"You are not allowed to register data against Sample {origin_sample.get('uuid')} with Organ Other. Please contact the respective help desk to ensure that appropriate support for your work can be provided."
+                    )
+
+    def _check_orcid(self, field: str, value: str):
+        if field == "orcid":
+            url = "https://pub.orcid.org/v3.0/expanded-search/"
+        else:
+            url = "https://pub.orcid.org/v3.0/expanded-search/"
+        headers = {"Accept": "application/json"}
+        response = requests.get(url, headers=headers, params={"q": f"orcid:{value}"})
+        num_found = response.json().get("num-found")
+        if num_found == 1:
+            return
+        elif num_found == 0:
+            raise Exception(f"ORCID {value} does not exist.")
+        else:
+            raise Exception(f"Found {num_found} matches for ORCID {value}.")
+
+    def _get_url_fields(self, row: dict, constrained_fields: list) -> dict[str, list[str]]:
         url_fields = {}
         check = {k: v for k, v in row.items() if k in constrained_fields}
+
         for check_field, value in check.items():
             if check_field in CHECK_FIELDS and not self.globus_token:
                 raise Exception("No token received to check URL fields against Entity API.")
@@ -591,32 +595,31 @@ class Upload:
         except Exception:
             return self._get_constraint_check_errors(response, schema)
 
-    def _get_constrained_fields(self, schema: SchemaVersion):
+    def _get_constrained_fields(self, schema: SchemaVersion) -> list[str]:
         # assay -> parent_sample_id
         # sample -> sample_id
         # organ -> organ_id
         # contributors -> orcid (new) / orcid_id (old)
 
-        constrained_fields = {}
+        constrained_fields = []
         schema_name = schema.schema_name
-        entities_url = self.app_context.get("entities_url")
 
         if schema_name in [
             OtherTypes.SOURCE,
             *Sample.with_parent_type(),
         ]:
-            constrained_fields["source_id"] = entities_url
+            constrained_fields.append("source_id")
             if schema_name in Sample.with_parent_type():
-                constrained_fields["sample_id"] = entities_url
+                constrained_fields.append("sample_id")
         elif schema_name in OtherTypes.ORGAN:  # Deprecated, included for backward-compatibility
-            constrained_fields["organ_id"] = entities_url
+            constrained_fields.append("organ_id")
         elif schema_name == OtherTypes.CONTRIBUTORS:
             if schema.is_cedar:
-                constrained_fields["orcid"] = "https://pub.orcid.org/v3.0/expanded-search/"
+                constrained_fields.append("orcid")
             else:
-                constrained_fields["orcid_id"] = "https://pub.orcid.org/v3.0/expanded-search/"
+                constrained_fields.append("orcid_id")
         else:
-            constrained_fields["parent_sample_id"] = entities_url
+            constrained_fields.append("parent_sample_id")
         return constrained_fields
 
     def _construct_constraint_check(self, schema: SchemaVersion) -> list[dict]:

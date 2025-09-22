@@ -1,13 +1,92 @@
 from enum import Enum, unique
-from typing import Dict, List
 
-# The assay_type list is *all* the values which have ever been used,
-# including schemas which are currently deprecated.
-# Each schema lists the particular values which are valid for it.
-# This redundant list catches mistakes like a typo being introduced
-# when an existing schema is copied, pasted, and tweaked to make a new version.
 
-shared_enums: Dict[str, List[str]] = {
+@unique
+class EntityTypes(str, Enum):
+
+    @classmethod
+    def value_list(cls) -> list[str]:
+        return [entity_type.value for entity_type in cls]
+
+    @classmethod
+    def key_list(cls) -> list[str]:
+        return [entity_type.name.lower() for entity_type in cls]
+
+    @classmethod
+    def get_enum_from_val(cls, val) -> str:
+        match = [entity_type for entity_type in cls if entity_type.value == val]
+        if not match:
+            return ""
+        return match[0]
+
+
+class DatasetType(EntityTypes):
+    DATASET = "dataset"
+
+
+class OtherTypes(EntityTypes):
+    ANTIBODIES = "antibodies"
+    CONTRIBUTORS = "contributors"
+    SOURCE = "source"
+    SAMPLE = "sample"
+    ORGAN = "organ"
+    DONOR = "donor"
+
+    @classmethod
+    def get_sample_types(cls):
+        return Sample.key_list()
+
+    @classmethod
+    def get_sample_types_full_names(cls):
+        return Sample.value_list()
+
+    @classmethod
+    def with_sample_subtypes(cls, with_sample=True):
+        all_types = [entity_type for entity_type in [*cls, *Sample]]
+        if not with_sample:
+            all_types.remove(OtherTypes.SAMPLE)
+        return all_types
+
+
+class Sample(EntityTypes):
+    BLOCK = "sample-block"
+    SUSPENSION = "sample-suspension"
+    SECTION = "sample-section"
+    ORGAN = "organ"
+
+    @classmethod
+    def with_parent_type(cls):
+        return [*[entity_type for entity_type in cls], OtherTypes.SAMPLE]
+
+
+# These should all be considered to be mutually exclusive,
+# even within the same type
+UNIQUE_FIELDS_MAP = {
+    OtherTypes.ANTIBODIES: {"antibody_rrid", "antibody_name"},
+    OtherTypes.CONTRIBUTORS: {"orcid", "orcid_id"},
+    DatasetType.DATASET: {"assay_type", "dataset_type", "derived_dataset_type"},
+    OtherTypes.SOURCE: {"strain_rrid"},
+    OtherTypes.ORGAN: {"organ_id"},  # Deprecated
+    OtherTypes.SAMPLE: {"sample_id"},
+}
+OTHER_FIELDS_UNIQUE_FIELDS_MAP = {
+    k: v for k, v in UNIQUE_FIELDS_MAP.items() if not k == DatasetType.DATASET
+}
+
+
+class CedarSchemaVersionTypes(str, Enum):
+    IS_LATEST_VERSION = "isLatestVersion"
+    IS_LATEST_PUBLISHED_VERSION = "isLatestPublishedVersion"
+    IS_LATEST_DRAFT_VERSION = "isLatestDraftVersion"
+
+
+class ReportType(Enum):
+    STR = 1
+    JSON = 2
+
+
+# DEPRECATED, preserved for legacy functionality only
+shared_enums: dict[str, list[str]] = {
     "assay_type": [
         "10x Multiome",
         "3D Imaging Mass Cytometry",
@@ -22,8 +101,7 @@ shared_enums: Dict[str, List[str]] = {
         "cell-dive",
         "CE-MS",
         "CODEX",
-        "CODEX2",  # TODO: Temporary; will be removed.
-        # https://github.com/hubmapconsortium/ingest-validation-tools/issues/1107
+        "CODEX2",
         "Confocal",
         "CosMx Transcriptomics",
         "CosMx Proteomics",
@@ -144,88 +222,3 @@ shared_enums: Dict[str, List[str]] = {
         "flow_cytometry",
     ],
 }
-
-
-@unique
-class EntityTypes(str, Enum):
-
-    # TODO: I believe this can be streamlined with the StrEnum class added in 3.11
-    @classmethod
-    def value_list(cls) -> List[str]:
-        return [entity_type.value for entity_type in cls]
-
-    @classmethod
-    def key_list(cls) -> List[str]:
-        return [entity_type.name.lower() for entity_type in cls]
-
-    @classmethod
-    def get_enum_from_val(cls, val) -> str:
-        match = [entity_type for entity_type in cls if entity_type.value == val]
-        if not match:
-            return ""
-        return match[0]
-
-
-class DatasetType(EntityTypes):
-    DATASET = "dataset"
-
-
-class OtherTypes(EntityTypes):
-    ANTIBODIES = "antibodies"
-    CONTRIBUTORS = "contributors"
-    SOURCE = "source"
-    SAMPLE = "sample"
-    ORGAN = "organ"
-    DONOR = "donor"
-
-    @classmethod
-    def get_sample_types(cls):
-        return Sample.key_list()
-
-    @classmethod
-    def get_sample_types_full_names(cls):
-        return Sample.value_list()
-
-    @classmethod
-    def with_sample_subtypes(cls, with_sample=True):
-        all_types = [entity_type for entity_type in [*cls, *Sample]]
-        if not with_sample:
-            all_types.remove(OtherTypes.SAMPLE)
-        return all_types
-
-
-class Sample(EntityTypes):
-    BLOCK = "sample-block"
-    SUSPENSION = "sample-suspension"
-    SECTION = "sample-section"
-    ORGAN = "organ"
-
-    @classmethod
-    def with_parent_type(cls):
-        return [*[entity_type for entity_type in cls], OtherTypes.SAMPLE]
-
-
-# These should all be considered to be mutually exclusive,
-# even within the same type
-UNIQUE_FIELDS_MAP = {
-    OtherTypes.ANTIBODIES: {"antibody_rrid", "antibody_name"},
-    OtherTypes.CONTRIBUTORS: {"orcid", "orcid_id"},
-    DatasetType.DATASET: {"assay_type", "dataset_type", "derived_dataset_type"},
-    OtherTypes.SOURCE: {"strain_rrid"},
-    OtherTypes.ORGAN: {"organ_id"},  # Deprecated
-    OtherTypes.SAMPLE: {"sample_id"},
-}
-OTHER_FIELDS_UNIQUE_FIELDS_MAP = {
-    k: v for k, v in UNIQUE_FIELDS_MAP.items() if not k == DatasetType.DATASET
-}
-
-
-class CedarSchemaVersionTypes(str, Enum):
-    IS_LATEST_VERSION = "isLatestVersion"
-    IS_LATEST_PUBLISHED_VERSION = "isLatestPublishedVersion"
-    IS_LATEST_DRAFT_VERSION = "isLatestDraftVersion"
-
-
-class ReportType(Enum):
-    STR = 1
-    JSON = 2

@@ -7,6 +7,7 @@
 - Update CosMX Transcriptomics directory schema
 - Moved Validator and validation_class_iter to ingest-validation-tests
 - Deprecated cleanup examples
+- Catching entity-api exceptions
 - Bugfix multi-assay validation, error if no required components found
 
 ## v0.0.39
