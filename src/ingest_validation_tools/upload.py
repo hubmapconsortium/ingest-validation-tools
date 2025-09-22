@@ -958,6 +958,10 @@ class Upload:
                 )
             except AssertionError as e:
                 raise PreflightError(str(e))
+        elif self.multi_parent or self.multi_components:
+            raise PreflightError(
+                f"Multi-assay parent or components missing. Parent: {self.multi_parent.dataset_type if self.multi_parent else None}. Components: {', '.join(n.dataset_type for n in self.multi_components)}."
+            )
         else:
             logging.info("Not a multi-assay upload.")
 
