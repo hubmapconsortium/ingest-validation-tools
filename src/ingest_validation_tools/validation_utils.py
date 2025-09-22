@@ -178,6 +178,7 @@ def get_assaytype_data(row: dict, ingest_url: str, globus_token: str) -> dict:
         data=json.dumps(row),
     )
     response.raise_for_status()
+    print(f"Soft assay endpoint response: {response.json()}")
     return response.json()
 
 

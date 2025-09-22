@@ -55,6 +55,7 @@ class SchemaVersion:
     dataset_type: str = ""  # String from assay_type or dataset_type field in TSV
     dir_schema: Optional[str] = None
     metadata_type: str = "assays"
+    is_multi_assay: bool = False
     contains: List = field(default_factory=list)
     entity_type_info: Optional[EntityTypeInfo] = None
     ancestor_entities: List[AncestorTypeInfo] = field(default_factory=list)
@@ -92,6 +93,7 @@ class SchemaVersion:
 
     def get_assayclassifier_data(self):
         self.dir_schema = self.soft_assay_data.get("dir-schema")
+        self.is_multi_assay = bool(self.soft_assay_data.get("is-multi-assay"))
         contains = self.soft_assay_data.get("must-contain")
         if contains:
             self.contains = [schema.lower() for schema in contains]

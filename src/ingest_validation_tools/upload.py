@@ -4,7 +4,6 @@ import json
 import logging
 import subprocess
 from collections import Counter, defaultdict
-from copy import copy
 from datetime import datetime
 from fnmatch import fnmatch
 from functools import cached_property
@@ -910,6 +909,7 @@ class Upload:
 
     @cached_property
     def multi_parent(self) -> Optional[SchemaVersion]:
+        # Should only be one parent, identified by `must-contain` in data from soft assay endpoint
         multi_assay_parents = [sv for sv in self.dataset_metadata.values() if sv.contains]
         if len(multi_assay_parents) == 0:
             return
@@ -921,8 +921,17 @@ class Upload:
 
     @cached_property
     def multi_components(self) -> list[SchemaVersion]:
+        # If there is a parent, other TSVs must be components.
+        # Make sure that they are valid and all required are present.
+        # Returns list of component schemas, empty list, or raises PreflightError
         if self.multi_parent:
-            return [sv for sv in self.dataset_metadata.values() if not sv.contains]
+            components = [
+                sv
+                for sv in self.dataset_metadata.values()
+                if not sv.schema_name == self.multi_parent.schema_name
+            ]
+            self._check_multi_assay_components(components)
+            return components
         else:
             return []
 
@@ -945,7 +954,6 @@ class Upload:
         # This is not recursive, so if there are nested multi-assay types it will not work
         if self.multi_parent and self.multi_components:
             try:
-                self._check_multi_assay_components()
                 self._check_data_paths_shared_with_parent()
                 logging.info(f"Multi-assay parent: {self.multi_parent.dataset_type}")
                 logging.info(
@@ -953,31 +961,31 @@ class Upload:
                 )
             except AssertionError as e:
                 raise PreflightError(str(e))
+        elif self.multi_parent or self.multi_components:
+            raise PreflightError(
+                f"Multi-assay parent or components missing. Parent: {self.multi_parent.dataset_type if self.multi_parent else None}. Components: {', '.join(n.dataset_type for n in self.multi_components)}."
+            )
         else:
             logging.info("Not a multi-assay upload.")
 
-    def _check_multi_assay_components(self):
-        """
-        Iterate through child dataset types, check that they are valid
-        components of parent multi-assay type and that no components are missing
-        """
-        assert (
-            self.multi_parent and self.multi_components
-        ), f"Error validating multi-assay upload, missing parent and/or component values. Parent: {self.multi_parent.dataset_type if self.multi_parent else None} / Components: {[component.dataset_type for component in self.multi_components if self.multi_components]}"  # noqa: E501
-        not_allowed = []
-        necessary = copy(self.multi_parent.contains)
-        for sv in self.multi_components:
-            if sv.dataset_type.lower() not in self.multi_parent.contains:
-                not_allowed.append(sv.dataset_type)
-            else:
-                necessary.remove(sv.dataset_type.lower())
-        message = ""
-        if necessary:
-            message += f"Multi-assay parent type {self.multi_parent.dataset_type} missing required component(s): {', '.join(necessary)}."  # noqa: E501
-        if not_allowed:
-            message += f" Invalid child assay type(s) for parent type {self.multi_parent.dataset_type}: {', '.join(not_allowed)}"  # noqa: E501
-        if message:
-            raise PreflightError(message)
+    def _check_multi_assay_components(self, component_tsvs: list[SchemaVersion]):
+        if not self.multi_parent:
+            raise PreflightError(
+                "Multi-assay parent not present, should not be checking components."
+            )
+        required = set(self.multi_parent.contains)
+        present_types = {sv.dataset_type.lower() for sv in component_tsvs}
+        if not required == present_types:
+            msgs = []
+            if bad_missing := ", ".join(required.difference(present_types)):
+                msgs.append(
+                    f"Multi-assay parent type {self.multi_parent.dataset_type} missing required component(s): {bad_missing}."
+                )
+            if bad_extra := ", ".join(present_types.difference(required)):
+                msgs.append(
+                    f"Invalid child assay type(s) for parent type {self.multi_parent.dataset_type}: {bad_extra}."
+                )
+            raise PreflightError(" ".join(msgs))
 
     def _check_data_paths_shared_with_parent(self):
         """
