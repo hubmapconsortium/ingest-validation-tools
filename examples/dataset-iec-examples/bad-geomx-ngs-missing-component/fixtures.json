@@ -1,1 +1,1 @@
-{"assaytype": {}, "validation": {}}
+{"assaytype": {"GeoMx (NGS)": {"assaytype": "geomx_ngs", "contains-pii": true, "dataset-type": "GeoMx (NGS)", "description": "GeoMx (NGS)", "dir-schema": "geomx-ngs-v2", "is-multi-assay": true, "must-contain": ["RNAseq (with probes)"], "pipeline-shorthand": null, "primary": true, "process_state": "primary", "tbl-schema": null, "ubkg_code": "C200760", "vitessce-hints": []}}, "validation": {"geomx_ngs": {}}}
