@@ -1,8 +1,8 @@
-import glob
 import json
 import unittest
 from pathlib import Path
 from unittest.mock import patch
+from urllib.parse import urljoin
 
 import requests
 from parameterized import parameterized
@@ -31,8 +31,11 @@ CONSTRAINTS_URL = "http://constraints_test/"
 ENTITIES_URL = "http://entities_test/"
 
 
-def entity_api_side_effect(response_map, url, globus_token, headers) -> requests.Response:
+def entity_api_side_effect(
+    response_map, entity_url, entity_id, globus_token, headers
+) -> requests.Response:
     del globus_token, headers
+    url = f"{urljoin(entity_url, 'entities')}/{entity_id}"
     return get_mock_response(True, response_map.get(url))
 
 
@@ -113,12 +116,13 @@ class TestSingleTsv(unittest.TestCase):
 
     @property
     def entity_api_response_map(self) -> dict[str, bytes]:
+        url = urljoin(ENTITIES_URL, "entities")
         return {
-            f"{ENTITIES_URL}HBM233.CGGG.482": SAMPLE_SECTION_PARTIAL_ENTITY_API_RESPONSE,
-            f"{ENTITIES_URL}HBM724.ZQKX.379": SAMPLE_BLOCK_PARTIAL_ENTITY_API_RESPONSE,
-            f"{ENTITIES_URL}HBM427.JWVV.723": SAMPLE_BLOCK_PARTIAL_ENTITY_API_RESPONSE,
-            f"{ENTITIES_URL}HBM733.HSZF.798": SAMPLE_ORGAN_PARTIAL_ENTITY_API_RESPONSE,
-            f"{ENTITIES_URL}HBM673.ZRWW.589": SAMPLE_BLOCK_PARTIAL_ENTITY_API_RESPONSE,
+            f"{url}/HBM233.CGGG.482": SAMPLE_SECTION_PARTIAL_ENTITY_API_RESPONSE,
+            f"{url}/HBM724.ZQKX.379": SAMPLE_BLOCK_PARTIAL_ENTITY_API_RESPONSE,
+            f"{url}/HBM427.JWVV.723": SAMPLE_BLOCK_PARTIAL_ENTITY_API_RESPONSE,
+            f"{url}/HBM733.HSZF.798": SAMPLE_ORGAN_PARTIAL_ENTITY_API_RESPONSE,
+            f"{url}/HBM673.ZRWW.589": SAMPLE_BLOCK_PARTIAL_ENTITY_API_RESPONSE,
         }
 
     @parameterized.expand(TEST_GET_TSV_ERRORS_PARAMS)
@@ -135,14 +139,18 @@ class TestSingleTsv(unittest.TestCase):
             with patch("ingest_validation_tools.upload.cedar_validation_call") as mock_cedar_call:
                 with patch(
                     "ingest_validation_tools.validation_utils.get_entity_api_data",
-                    side_effect=lambda url, globus_token, headers=None: entity_api_side_effect(
-                        self.entity_api_response_map, url, globus_token, headers
+                    side_effect=lambda entity_url, entity_id, globus_token, headers=None: entity_api_side_effect(
+                        self.entity_api_response_map, entity_url, entity_id, globus_token, headers
                     ),
                 ):
                     with patch(
                         "ingest_validation_tools.upload.get_entity_api_data",
-                        side_effect=lambda url, globus_token, headers=None: entity_api_side_effect(
-                            self.entity_api_response_map, url, globus_token, headers
+                        side_effect=lambda entity_url, entity_id, globus_token, headers=None: entity_api_side_effect(
+                            self.entity_api_response_map,
+                            entity_url,
+                            entity_id,
+                            globus_token,
+                            headers,
                         ),
                     ):
                         mock_cedar_call.return_value = get_mock_response(True, cedar_response)
@@ -151,7 +159,7 @@ class TestSingleTsv(unittest.TestCase):
                         )
                         for report_type in [ReportType.JSON, ReportType.STR]:
                             errors = get_tsv_errors(
-                                Path(path).absolute(),
+                                Path(path),
                                 schema_name,
                                 globus_token="test",
                                 app_context={
