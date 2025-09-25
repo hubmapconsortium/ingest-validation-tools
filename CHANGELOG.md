@@ -9,6 +9,7 @@
 - Deprecated cleanup examples
 - Catching entity-api exceptions
 - Bugfix multi-assay validation, error if no required components found
+- Update CosMx Transcriptomics
 
 ## v0.0.39
 - Create Object-by-Analyte EPIC directory schema 
