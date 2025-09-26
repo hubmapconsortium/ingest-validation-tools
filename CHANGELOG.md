@@ -11,6 +11,7 @@
 - Bugfix multi-assay validation, error if no required components found
 - Update CosMx Transcriptomics
 - Update RNAseq with probes directory schema
+- Update Xenium directory schema
 
 ## v0.0.39
 - Create Object-by-Analyte EPIC directory schema 
