@@ -81,3 +81,16 @@ files:
     pattern: raw\/images\/preview_scan\.png$
     required: True
     description: Assists in selection of regions of FOVs using the grid FOV placement tool. This is typically downloaded from the AtoMx server. A screen shot during the FOV selection process would also suffice.
+  -
+    pattern: lab_processed\/.*
+    required: True
+    description: Experiment files that were processed by the lab generating the data.
+  -
+    pattern: lab_processed\/images\/.*
+    required: False
+    description: Processed image files
+  -
+    pattern: lab_processed\/images\/[^\/]+tissue-boundary\.geojson
+    required: False
+    description: If the boundaries of the tissue have been identified (e.g., by manual efforts), then the boundary geometry can be included as a GeoJSON file named “*.tissue-boundary.geojson”.
+    is_qa_qc: True
