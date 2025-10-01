@@ -59,6 +59,9 @@ Related files:
 | <code>raw\/images\/FOV[^\/]*\/CellOverlay_FOV[^\/]*\.jpg$</code> |  | File depicting a visual overlay of key spatial transcriptomics data for the specific field of view (FOV). These images combine cellular morphology with transcript information to provide context for the gene expression data. |
 | <code>raw\/images\/FOV[^\/]*\/CellLabels_F[^\/]*\.(?:tif&#124;tiff)$</code> |  | A TIFF or TIF image containing the results of cell segmentation. It provides a visual map of the identified cells, with each cell in a field of view (FOV) assigned a unique numerical label. |
 | <code>raw\/images\/preview_scan\.png$</code> | ✓ | Assists in selection of regions of FOVs using the grid FOV placement tool. This is typically downloaded from the AtoMx server. A screen shot during the FOV selection process would also suffice. |
+| <code>lab_processed\/.*</code> | ✓ | Experiment files that were processed by the lab generating the data. |
+| <code>lab_processed\/images\/.*</code> |  | Processed image files |
+| <code>lab_processed\/images\/[^\/]+tissue-boundary\.geojson</code> |  | **[QA/QC]** If the boundaries of the tissue have been identified (e.g., by manual efforts), then the boundary geometry can be included as a GeoJSON file named “*.tissue-boundary.geojson”. |
 
 <summary><b>Version 2.7</b></summary>
 
@@ -84,6 +87,9 @@ Related files:
 | <code>raw\/images\/FOV[^\/]*\/[^\/]+\.tiff$</code> | ✓ | The morphology marker multi-channel TIFF file. |
 | <code>raw\/images\/overlay\.(?:jpeg&#124;tiff)$</code> |  | State whether an overlay image was used to guide ROI selection. If an overlay is used, then the overlay details will be provided in the protocols.io protocol. If used, this needs to be uploaded. It is not included in the OME TIFF. This can be a JPEG or TIFF file |
 | <code>raw\/images\/preview_scan\.png$</code> | ✓ | Assists in selection of regions of FOVs using the grid FOV placement tool. This is typically downloaded from the AtoMx server. A screen shot during the FOV selection process would also suffice. |
+| <code>lab_processed\/.*</code> | ✓ | Experiment files that were processed by the lab generating the data. |
+| <code>lab_processed\/images\/.*</code> |  | Processed image files |
+| <code>lab_processed\/images\/[^\/]+tissue-boundary\.geojson</code> |  | **[QA/QC]** If the boundaries of the tissue have been identified (e.g., by manual efforts), then the boundary geometry can be included as a GeoJSON file named “*.tissue-boundary.geojson”. |
 
 <summary><b>Version 2.6</b></summary>
 
