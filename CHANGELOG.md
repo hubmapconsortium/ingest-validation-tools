@@ -13,6 +13,7 @@
 - Update RNAseq with probes directory schema
 - Update Xenium directory schema
 - Fix CosMx Transcriptomics directory schema
+- Add flag to exclude direct ancestor files when getting entity metadata
 
 ## v0.0.39
 - Create Object-by-Analyte EPIC directory schema 
