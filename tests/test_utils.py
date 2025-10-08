@@ -12,7 +12,6 @@ class TestUtils(unittest.TestCase):
         test_token = "test_token"
         test_id = "test_id"
         get_entity_api_data(test_entity_url, test_id, test_token)
-        breakpoint()
         assert req_mock.called_once_with(
             test_entity_url + test_id + "?exclude=direct_ancestors.files",
             headers={"Authorization": f"Bearer {test_token}"},
