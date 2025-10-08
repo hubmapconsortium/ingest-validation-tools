@@ -4,7 +4,7 @@ import sys
 from csv import DictReader
 from pathlib import Path, PurePath
 from typing import Optional, Union
-from urllib.parse import quote, urljoin
+from urllib.parse import quote, urlencode, urljoin
 
 import requests
 
@@ -473,6 +473,13 @@ def cedar_validation_call(tsv_path: Union[str, Path]) -> requests.models.Respons
             raise Exception(
                 f"Spreadsheet Validator API request for {tsv_path} failed! Exception: {e}"
             )
+    print(
+        f"""
+          CEDAR response for {tsv_path}:
+          Schema: {response.json().get('schema', {}).get('name')}
+          Reporting: {response.json().get('reporting')}
+          """
+    )
     return response
 
 
@@ -490,6 +497,8 @@ def get_entity_api_data(
     if not entity_api_url.endswith("/"):
         entity_api_url = entity_api_url + "/"
     url = urljoin(entity_api_url, entity_id)
+    encoded_params = urlencode({"exclude": "direct_ancestors.files"})
+    url += f"?{encoded_params}"
     response = requests.get(url, headers=headers)
     response.raise_for_status()
     return response
