@@ -90,7 +90,7 @@ fi
 # Run python tests
 echo "--------"
 PYTHONPATH=/ingest-validation-tools
-python -m unittest tests.test_single_tsv tests.test_dataset_examples
+python -m unittest tests/*.py
 if [ $PLUGINS ]; then
     echo "Running plugin tests"
     python -m unittest tests.manual.test_plugins
