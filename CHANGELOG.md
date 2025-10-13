@@ -1,5 +1,11 @@
 # Changelog
-## v0.0.40 (in progress)
+## v0.0.42 (in progress)
+- Update GeoMX NGS
+
+## v0.0.41
+- Minor fix
+
+## v0.0.40
 - Refactor
 - Add checks for contact in contributors.tsv, empty columns in TSV
 - Fix shared upload check for unreferenced files

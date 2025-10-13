@@ -16,7 +16,7 @@ Related files:
 - [📝 TSV template](https://raw.githubusercontent.com/hubmapconsortium/dataset-metadata-spreadsheet/main/geomx-ngs/latest/geomx-ngs.tsv): Alternative for metadata entry.
 
 
-
+REQUIRED - For this assay, you must also prepare and submit an additional metadata.tsv file following the metadata schema linked here for [RNAseq (with probes)](https://hubmapconsortium.github.io/ingest-validation-tools/rnaseq-with-probes/current/).
 
 ## Metadata schema
 
