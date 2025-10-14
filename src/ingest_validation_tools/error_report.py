@@ -71,7 +71,12 @@ class DictErrorType(MutableMapping):
     def list_type_counts(self):
         errors_for_category = 0
         for errors in self.value.values():
-            errors_for_category += len(errors)
+            if type(errors) is list:
+                errors_for_category += len(errors)
+            elif type(errors) is dict:
+                errors_for_category += len(errors.keys())
+            else:
+                errors_for_category += 1
         return {self.display_name: errors_for_category} if errors_for_category else {}
 
     def dict_type_counts(self):

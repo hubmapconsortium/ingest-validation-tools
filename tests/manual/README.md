@@ -1,23 +1,29 @@
 ## Testing
 
-Automated testing (e.g. via GitHub action or by running `./test.sh`) does not hit the [CEDAR Metadata Center Spreadsheet Validator](https://metadatacenter.github.io/spreadsheet-validator-docs/api-reference/) or [assayclassifier](https://github.com/hubmapconsortium/ingest-api/tree/main/src/routes/assayclassifier) endpoint, nor does it perform any URL checking. This directory contains methods for a) live testing against examples using `test-dataset-examples-online.sh` and b) updating fixture data and README.md files for offline automated testing using `update_test_data.py`.
+As a default behavior, automated testing (e.g. via GitHub action or by running `./test.sh`) does not hit the [CEDAR Metadata Center Spreadsheet Validator](https://metadatacenter.github.io/spreadsheet-validator-docs/api-reference/) or [assayclassifier](https://github.com/hubmapconsortium/ingest-api/tree/main/src/routes/assayclassifier) endpoint, nor does it perform any URL checking. This directory contains instructions for a) testing against online resources and b) updating fixture data and README.md files for offline automated testing using `update_test_data.py`.
+
+# Metadata validation of a single TSV
+
+To check just the metadata for a single TSV, use the [Metadata Spreadsheet Validator](https://metadatavalidator.metadatacenter.org/).
 
 # Testing online
 
-Run the following from the top-level directory:
+Run the following:
 
 ```
-./tests/manual/test-dataset-examples-online.sh <globus_token> <optional:start_index>
+./test.sh -o <globus_token>
 ```
 
-This test mechanism calls validate_upload.py and does not update files. It is good for reliable manual online testing.
+This will run tests with API calls but will not update any files. Additional flags are available to restrict to specific examples/Python tests, skip linting/formatting, and/or run the plugin tests that require the presence of `ingest-validation-tests`. Run this for help:
 
-- $1 = globus_token: you can find your personal Globus token by logging in to a site that requires Globus authentication (e.g. https://ingest.hubmapconsortium.org/) and looking at the Authorization header for your request in the Network tab of your browser. Omit the "Bearer " prefix.
-- $2 = start_index (optional): to avoid hitting APIs continuously when re-running tests, you can provide an index (starting at 0) to start at a specific test.
+```
+./test.sh --help
+```
+
 
 # update_test_data.py
 
-Updates fixture data and README files in example directories. This mechanism does not call validate_upload.py, instead instantiating uploads for each example directory's upload data directly.
+Updates fixture data and README files in example directories.
 
 To update fixture data, run the following, specifying individual example directories or any/all of the following: "examples/dataset-examples", "examples/dataset-iec-examples", "examples/plugin-tests" (you can use just "examples/" if you want to update all three).
 
@@ -41,7 +47,7 @@ env PYTHONPATH=/ingest-validation-tools python -m tests.manual.update_test_data 
 
 # Automated testing
 
-Run `./test.sh` to perform all offline tests. This will mimic the behavior of the GitHub action that runs on push and creation of PRs.
+Run `./test.sh` to perform all offline tests as well as linting/formatting checks. This will mimic the behavior of the GitHub action that runs on push and creation of PRs.
 
 To only run offline tests against dataset-examples and dataset-iec-examples (good for debugging):
 
@@ -59,6 +65,14 @@ Then, run the following from the top-level directory:
 python -m unittest tests/manual/test_plugins.py
 ```
 Note: you may need to prepend `env PYTHONPATH=/ingest-validation-tools` to this command. 
+
+You can run plugin tests online using the `test.sh` script:
+
+```
+./test.sh -o <globus_token> -d examples/plugin-tests
+```
+...or by adding the `-p` flag when running `test.sh`.
+
 
 ## Creating Tests
 

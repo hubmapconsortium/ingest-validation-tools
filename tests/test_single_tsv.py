@@ -168,7 +168,9 @@ class TestSingleTsv(unittest.TestCase):
                                 },
                                 report_type=report_type,
                             )
-                            assert errors in expected_errors_list
+                            assert (
+                                errors in expected_errors_list
+                            ), f"{errors} not in {expected_errors_list}"
 
     def test_entity_type_info(self):
         good_section_entity = EntityTypeInfo(entity_type=Sample.SECTION)

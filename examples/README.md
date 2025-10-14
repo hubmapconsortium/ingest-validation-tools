@@ -2,22 +2,7 @@
 
 Validation is run offline by the tests in the `tests` directory. Online validation can be run manually; see [tests/manual/README.md](tests/manual/README.md).
 
-This directory contains example inputs and outputs of different components of this system.
-Adding more examples is one way to test new schemas or new code...
-but it's possible to have too much of a good thing:
-If we eventually _do_ need to change the behavior,
-sorting out redundant failing tests can be a nuisance.
-Particularly when testing new code, granular unit tests can give you more information than coarse end-to-end tests.
-
-Putting that aside, here is what we have:
-
-## `custom-constraint-examples/`
-# DEPRECATED
-
-We've added a number of extensions to the base TSV validation we get from
-[Frictionless Table Schemas](https://specs.frictionlessdata.io/table-schema/).
-Each subdirectory contains a `schema.yaml` that exercises one extension,
-an `input.tsv` to validate, and an `output.txt` with the error message produced.
+This directory contains example inputs and outputs of different components of this system. Before adding new example directories, consider whether Python unittests would be a better solution.
 
 ## `dataset-examples/`
 
