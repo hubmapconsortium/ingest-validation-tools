@@ -1,6 +1,7 @@
 # Changelog
 ## v0.0.42 (in progress)
 - Update GeoMX NGS
+- Update CosMX Proteomics directory schema
 
 ## v0.0.41
 - Minor fix
