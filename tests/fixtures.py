@@ -294,7 +294,7 @@ TEST_GET_TSV_ERRORS_PARAMS = [
             [
                 {
                     "column": "source_id",
-                    "error": 'value "" fails because of error "AssertionError": Can\'t check URL for column \'source_id\' on row 2: empty value.',
+                    "error": 'value "" fails because of error "AssertionError": Unable to check URL for column \'source_id\' on row 2: empty value.',
                     "row": 2,
                 },
                 {
@@ -304,7 +304,7 @@ TEST_GET_TSV_ERRORS_PARAMS = [
                 },
             ],
             [
-                'On row 2, column "source_id", value "" fails because of error "AssertionError": Can"t check URL for column "source_id" on row 2: empty value.',
+                'On row 2, column "source_id", value "" fails because of error "AssertionError": Unable to check URL for column "source_id" on row 2: empty value.',
                 'On row 2, column "source_id", value "" fails because of error "missingRequired".',
             ],
         ],

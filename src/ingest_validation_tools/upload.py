@@ -71,15 +71,13 @@ class Upload:
         app_context: dict = {},
         verbose: bool = True,
         report_type: ReportType = ReportType.STR,
-        # TODO: remove add_notes from calls
         **kwargs,  # prevent blowing up if passed deprecated kwarg
     ):
         del kwargs
         self.directory_path = directory_path
-        # TODO: upstream seems to always pass in the following (with one exception), maybe make that the default
-        # ignore_globs = [uuid, "extras", "*metadata.tsv", "validation_report.txt"]
+        # typical dataset_ignore_globs = [uuid, "extras", "*metadata.tsv", "validation_report.txt"]
         self.dataset_ignore_globs = dataset_ignore_globs
-        # TODO: upstream seems to always pass in "*", maybe make that the default
+        # typical upload_ignore_globs = "*"
         self.upload_ignore_globs = upload_ignore_globs
         self.plugin_directory = plugin_directory
         self.encoding = encoding
@@ -498,7 +496,7 @@ class Upload:
         Returns entity_type if checking a field in check_fields.
         Raises Exception if any errors found.
         """
-        assert value, f"Can't check URL for column '{field}' on row {row+2}: empty value."
+        assert value, f"Unable to check URL for column '{field}' on row {row+2}: empty value."
 
         if field in CHECK_FIELDS:
             headers = self.app_context.get("request_header", {})

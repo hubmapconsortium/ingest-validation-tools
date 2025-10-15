@@ -484,6 +484,10 @@ class TestDatasetExamples(TestExamples):
                 "No References": 1,
                 "Plugins Skipped": True,
             },
+            "examples/dataset-examples/bad-cedar-rnaseq-contributors": {
+                "Antibodies/Contributors Errors": 1,
+                "Plugins Skipped": True,
+            },
             "examples/dataset-examples/good-scatacseq-metadata-v0": {},
             "examples/dataset-examples/bad-mixed": {
                 "Preflight Errors": "Found multiple dataset types in upload: CODEX, SNARE-seq2."
