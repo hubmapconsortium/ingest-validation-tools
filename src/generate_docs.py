@@ -28,7 +28,17 @@ from ingest_validation_tools.validation_utils import OtherTypes
 
 
 def main():
-    parser = argparse.ArgumentParser()
+    usage = """
+        usage: generate_docs.py [-h] type target
+
+        positional arguments:
+        type        What type to generate
+        target      Directory to write output to
+
+        optional arguments:
+        -h, --help  show this help message and exit
+    """
+    parser = argparse.ArgumentParser(usage=usage)
     parser.add_argument("type", help="What type to generate")
     parser.add_argument("target", type=dir_path, help="Directory to write output to")
     args = parser.parse_args()
