@@ -1,6 +1,5 @@
 # Testing
 
-As a default behavior, automated testing (e.g. via GitHub action or by running `./test.sh`) does not hit the [CEDAR Metadata Center Spreadsheet Validator](https://metadatacenter.github.io/spreadsheet-validator-docs/api-reference/) or [assayclassifier](https://github.com/hubmapconsortium/ingest-api/tree/main/src/routes/assayclassifier) endpoint, nor does it perform any URL checking. This directory contains instructions for a) testing against online resources and b) updating fixture data and README.md files for offline automated testing using `update_test_data.py`.
 
 ## Running tests
 
@@ -10,13 +9,17 @@ To check just the metadata for a single TSV, use the [Metadata Spreadsheet Valid
 
 ### Testing online
 
-Run the following:
+As a default behavior, testing (e.g. via GitHub action or by running `./test.sh`) does not hit the [CEDAR Metadata Center Spreadsheet Validator](https://metadatacenter.github.io/spreadsheet-validator-docs/api-reference/) or [assayclassifier](https://github.com/hubmapconsortium/ingest-api/tree/main/src/routes/assayclassifier) endpoint, nor does it perform any URL checking.
+
+To test with API checks, run the following:
 
 ```
 ./test.sh -o <globus_token>
 ```
 
-This will run tests with API calls but will not update any files. Additional flags are available to restrict to specific examples/Python tests, skip linting/formatting, and/or run the plugin tests that require the presence of `ingest-validation-tests`. Run this for help:
+This will run tests with API calls but will not update any files. To automatically update example files, see [Updating examples](#updating-examples) below.
+
+Additional flags are available to restrict to specific examples/Python tests, skip linting/formatting, and/or run the plugin tests that require the presence of `ingest-validation-tests`. Run this for help:
 
 ```
 ./test.sh --help
@@ -52,11 +55,11 @@ All new examples will need fixtures.json and README.md files. After adding the t
 env PYTHONPATH=/ingest-validation-tools python -m tests.manual.update_test_data -t <new_example_dir_path> --globus_token <globus_token>
 ```
 
-### update_test_data.py
+## Updating examples
 
 Tests that find differences between fixtures and test output will give instructions about how to see more information and/or update fixtures/README.
 
-### Manually updating example fixtures/READMEs
+### Manually updating examples
 
 Here is an example command that would update all README.md and fixtures.json files in `examples/dataset-examples`:
 
