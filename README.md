@@ -79,6 +79,51 @@ Documentation and metadata TSV templates for each assay type are [here](https://
 
 ## For developers and contributors
 
+To make contributions, clone the project, cd, venv, and then:
+
+```
+pip install -r requirements.in
+pip install -r requirements-dev.in
+brew install parallel    # On macOS
+apt-get install parallel # On Ubuntu
+```
+
+### Plugins
+
+To get plugin errors, also install [ingest-validation-tests](https://github.com/hubmapconsortium/ingest-validation-tests).
+
+From your `ingest-validation-tools` repo:
+
+```
+cd ..
+git clone git@github.com:hubmapconsortium/ingest-validation-tests.git
+```
+
+Create a virtualenv:
+
+```
+cd ingest-validation-tests
+python3.11 -m venv hm-ingest-validation-tests
+source hm-ingest-validation-tests/bin/activate
+```
+
+Install requirements:
+
+```
+pip install -r requirements.txt
+pip install -r requirements-dev.txt
+```
+
+### Run tests
+
+```
+./test.sh
+```
+
+See `./test.sh --help`, [example/README.md](example/README.md), and [tests/manual/README.md](tests/manual/README.md) for more information about testing.
+
+### Example
+
 An example of the core error-reporting functionality:
 
 ```
@@ -88,15 +133,7 @@ report = ErrorReport(upload)
 print(report.as_text())
 ```
 
-To make contributions, checkout the project, cd, venv, and then:
-
-```
-pip install -r requirements.txt
-pip install -r requirements-dev.txt
-brew install parallel    # On macOS
-apt-get install parallel # On Ubuntu
-./test.sh
-```
+### Adding new assay types and directory schemas
 
 After making tweaks to a schema, you will need to regenerate the docs. The test error message will tell you what to do.
 
