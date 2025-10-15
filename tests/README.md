@@ -1,10 +1,12 @@
-# Running tests
+# Testing
 
-## Metadata validation of a single TSV
+## Running tests
+
+### Metadata validation of a single TSV
 
 To check just the metadata for a single TSV, use the [Metadata Spreadsheet Validator](https://metadatavalidator.metadatacenter.org/).
 
-## Testing online
+### Testing online
 
 As a default behavior, testing (e.g. via GitHub action or by running `./test.sh`) does not hit the [CEDAR Metadata Center Spreadsheet Validator](https://metadatacenter.github.io/spreadsheet-validator-docs/api-reference/) or [assayclassifier](https://github.com/hubmapconsortium/ingest-api/tree/main/src/routes/assayclassifier) endpoint, nor does it perform any URL checking.
 
@@ -22,11 +24,11 @@ Additional flags are available to restrict to specific examples/Python tests, sk
 ./test.sh --help
 ```
 
-## Automated testing
+### Automated testing
 
 Running `./test.sh` will mimic the behavior of the GitHub action that runs on push and creation of PRs.
 
-## Plugin testing
+### Plugin testing
 
 Plugins live in [https://github.com/hubmapconsortium/ingest-validation-tests](https://github.com/hubmapconsortium/ingest-validation-tests), requiring them to be tested manually rather than being added to automatic testing suite. To test plugins, first make sure you have [ingest-validation-tests properly installed](https://github.com/hubmapconsortium/ingest-validation-tools#running-plugin-tests).
 
@@ -44,7 +46,7 @@ You can run plugin tests online using the `test.sh` script:
 ```
 ...or by adding the `-p` flag when running `test.sh`.
 
-# Creating Tests
+## Creating Tests
 
 All new examples will need fixtures.json and README.md files. After adding the test data to its own directory under the appropriate `examples/` subdirectory, run this to generate required files:
 
@@ -52,11 +54,11 @@ All new examples will need fixtures.json and README.md files. After adding the t
 env PYTHONPATH=/ingest-validation-tools python -m tests.manual.update_test_data -t <new_example_dir_path> --globus_token <globus_token>
 ```
 
-# Updating examples
+## Updating examples
 
 Tests that find differences between fixtures and test output will give instructions about how to see more information and/or update fixtures/README.
 
-## Manually updating examples
+### Manually updating examples
 
 Here is an example command that would update all README.md and fixtures.json files in `examples/dataset-examples`:
 
