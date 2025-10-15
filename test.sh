@@ -1,21 +1,23 @@
 #!/usr/bin/env bash
 # Example usage:
-# Run linting/formatting & all tests (offline mode)
-# ./test.sh
-# Run specific python unittest(s) (skips linting/formatting check, other tests):
-#   ./test.sh -t tests.test_single_tsv.TestSingleTsv.test_bad_payload
-# Run all tests except plugin tests, skip linting/formatting:
+# Run all tests (offline) except plugins, with linting/formatting:
+#   ./test.sh
+# Run all tests (offline) except plugin tests, skip linting/formatting:
 #   ./test.sh -n
-# Run all tests including plugin tests, skip linting/formatting:
+# Run all tests including plugin tests (offline), skip linting/formatting:
 #   ./test.sh -n -p
 # Run all tests (excluding plugin tests), run example dir tests online, skip linting/formatting:
 #   ./test.sh -n -o globus_token
-# Run one or more example dir tests only (online):
-#   ./test.sh -o globus_token -d examples/dataset-iec-examples/bad-example
+# Run specific python unittest(s) only (skips linting/formatting check, other tests):
+#   ./test.sh -t tests.test_single_tsv.TestSingleTsv.test_bad_payload
 # Run one or more example dir tests only (offline):
 #   ./test.sh -d examples/dataset-iec-examples/bad-example
+# Run one or more example dir tests only (online):
+#   ./test.sh -o globus_token -d examples/dataset-iec-examples/bad-example
 # Run all tests, pass arbitrary argument directly to unittest:
 #   ./test.sh -- hello_unittest
+# Help:
+#   ./test.sh --help
 
 usage() { echo "Usage: $0 [-n] [-t <test_string>]
     -n : skip linting/formatting
