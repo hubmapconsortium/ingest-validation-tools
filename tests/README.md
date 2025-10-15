@@ -4,11 +4,6 @@ As a default behavior, automated testing (e.g. via GitHub action or by running `
 
 ## Running tests
 
-To only run offline tests against dataset-examples and dataset-iec-examples (good for debugging):
-
-```
-env PYTHONPATH=/ingest-validation-tools python -m unittest tests.test_dataset_examples
-```
 ### Metadata validation of a single TSV
 
 To check just the metadata for a single TSV, use the [Metadata Spreadsheet Validator](https://metadatavalidator.metadatacenter.org/).
