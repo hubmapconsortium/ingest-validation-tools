@@ -16,6 +16,8 @@ Related files:
 - [📝 TSV template](https://raw.githubusercontent.com/hubmapconsortium/dataset-metadata-spreadsheet/main/object-x-analyte/latest/object-x-analyte.tsv): Alternative for metadata entry.
 
 
+[EPIC Overview Page](https://docs.google.com/document/d/1-zGHR-seAH-_RT-P4GZmyui0CsxPenKNb5A2FvcRxYQ/)
+[Additional Documentation](https://docs.google.com/document/d/1TkmleE99wpynqSa0MS47Z8Q2vG1ru47fNFl-5KFJKoo/edit?tab=t.0#heading=h.1u82i4axggee)
 
 
 ## Metadata schema

@@ -1,5 +1,8 @@
 # Changelog
-## v0.0.42 (in progress)
+## v0.0.43 (in progress)
+- Update EPICs docs
+
+## v0.0.42
 - Update GeoMX NGS
 - Update CosMX Proteomics directory schema
 
