@@ -88,6 +88,7 @@ class ReportType(Enum):
 # DEPRECATED, preserved for legacy functionality only
 shared_enums: dict[str, list[str]] = {
     "assay_type": [
+        "4i",
         "10x Multiome",
         "3D Imaging Mass Cytometry",
         "AF",

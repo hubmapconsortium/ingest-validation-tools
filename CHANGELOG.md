@@ -2,6 +2,7 @@
 ## v0.0.43 (in progress)
 - Update EPICs docs
 - Update EPICs docs
+- Add 4i passthrough datasets
 
 ## v0.0.42
 - Update GeoMX NGS
