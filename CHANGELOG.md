@@ -1,5 +1,7 @@
 # Changelog
-## v0.0.43 (in progress)
+## v0.0.44 (in progress)
+
+## v0.0.43
 - Update EPICs docs
 - Update EPICs docs
 - Add 4i passthrough datasets
