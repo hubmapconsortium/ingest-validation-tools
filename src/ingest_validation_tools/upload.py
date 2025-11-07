@@ -496,7 +496,7 @@ class Upload:
         Returns entity_type if checking a field in check_fields.
         Raises Exception if any errors found.
         """
-        assert value, f"Unable to check URL for column '{field}' on row {row+2}: empty value."
+        assert value, f"Unable to check URL for column '{field}' on row {row + 2}: empty value."
 
         if field in CHECK_FIELDS:
             headers = self.app_context.get("request_header", {})
