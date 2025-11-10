@@ -6,6 +6,7 @@
 - Update EPICs docs
 - Update EPICs docs
 - Add 4i passthrough datasets
+- Confirm support for Python 3.13
 
 ## v0.0.42
 - Update GeoMX NGS
