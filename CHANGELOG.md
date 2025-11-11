@@ -1,5 +1,8 @@
 # Changelog
 
+## v0.0.24-ingest-api-python3.13
+- IVT dependency updates to work with ingest-api new docker image based on Python 3.13
+
 ## v0.0.24
 - Release MERFISH
 - Add MERFISH directory schema
