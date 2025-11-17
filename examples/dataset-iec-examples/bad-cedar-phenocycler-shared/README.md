@@ -10,3 +10,11 @@ Reference Errors:
     - lab_processed/images/3-tissue-boundary.geojson
 Fatal Errors: Skipping plugin validation due to errors in upload metadata or dir structure.
 ```
+from ingest_validation_tools.error_report import Errors
+from ingest_validation_tools.error_report import ErrorSerializer
+from ingest_validation_tools.error_report import Error
+from ingest_validation_tools.error_report import RefError
+from ingest_validation_tools.enums import ReportType
+e = Error(Errors.DIRECTORY, "error", "/path/to/dir", "subtype", {"error_type": "note"})
+a = ErrorSerializer(ReportType.STR, [e])
+a.serialize()

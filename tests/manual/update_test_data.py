@@ -9,7 +9,6 @@ from typing import Dict, List, Optional, Union
 from deepdiff import DeepDiff
 
 from ingest_validation_tools.cli_utils import dir_path
-from ingest_validation_tools.error_report import ErrorDict, ErrorReport
 from ingest_validation_tools.upload import Upload
 from tests.test_dataset_examples import (
     DATASET_EXAMPLES_OPTS,
@@ -57,7 +56,7 @@ class UpdateData:
         self.change_report = defaultdict(list)
         if self.update_from_fixtures:
             upload = TestDatasetExamples.prep_offline_upload(self.dir, self.opts)
-            report = ErrorReport(errors=upload.errors, info=upload.info)
+            report = upload.errors.serialize()
         else:
             upload = Upload(
                 Path(f"{self.dir}upload"),

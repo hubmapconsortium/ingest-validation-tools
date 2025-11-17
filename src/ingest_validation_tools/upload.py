@@ -15,7 +15,11 @@ import requests
 
 from ingest_validation_tools.directory_validator import get_files
 from ingest_validation_tools.enums import DatasetType, OtherTypes, Sample
-from ingest_validation_tools.error_report import ErrorDict, InfoDict
+from ingest_validation_tools.error_report import (
+    Errors,
+    ErrorSerializer,
+    InfoDict,
+)
 from ingest_validation_tools.local_validation.table_validator import (
     ReportType,
     get_table_errors,
@@ -90,7 +94,7 @@ class Upload:
         self.report_type = report_type
 
         self.dataset_metadata: dict[Path, SchemaVersion] = {}
-        self.errors = ErrorDict()
+        self.errors = ErrorSerializer(self)
         self.info = InfoDict()
         self.get_errors_called: bool = False
         self.get_info_called: bool = False
@@ -111,7 +115,7 @@ class Upload:
             self.shared_upload_non_global_paths
 
         except PreflightError as e:
-            self.errors.preflight.value = str(e)
+            self.errors.append(Errors.PREFLIGHT, str(e))
 
     ###################################
     #
@@ -146,14 +150,14 @@ class Upload:
         self.get_info_called = True
         return self.info
 
-    def get_errors(self, **kwargs) -> ErrorDict:
+    def get_errors(self, **kwargs) -> dict:
         """
         When converted using ErrorDict.as_dict(), keys are
         present only if there is actually an error to report.
         """
         # Return if PreflightErrors found
         if self.errors:
-            return self.errors
+            return self.errors.serialize()
 
         # Collect errors
         self.get_upload_errors()
@@ -163,7 +167,7 @@ class Upload:
         self.get_file_errors(**kwargs | self.extra_parameters)
 
         self.get_errors_called = True
-        return self.errors
+        return self.errors.serialize()
 
     ###################################
     #
@@ -184,7 +188,7 @@ class Upload:
             k: unsorted_tsv_paths[k] for k in sorted(unsorted_tsv_paths.keys())
         }
         if not self.dataset_metadata:
-            self.errors.preflight.value = "There are no metadata TSVs."
+            self.errors.append(Errors.PREFLIGHT, "There are no metadata TSVs.")
 
     def get_app_context(self, submitted_app_context: dict):
         """
@@ -222,8 +226,10 @@ class Upload:
         """
         for path, schema in self.dataset_metadata.items():
             if "data_path" not in schema.rows[0] or "contributors_path" not in schema.rows[0]:
-                self.errors.upload_metadata[f"{path} (as {schema.table_schema})"].append(
-                    "File is missing data_path or contributors_path."
+                self.errors.append(
+                    Errors.UPLOAD_METADATA,
+                    "File is missing data_path or contributors_path.",
+                    path=path,
                 )
             self._find_supporting_metadata(schema)
             for supporting_type in [*schema.antibodies_schemas, *schema.contributors_schemas]:
@@ -241,8 +247,10 @@ class Upload:
         tsvs_to_evaluate = tsv_paths if tsv_paths else self.dataset_metadata
         for tsv_path, schema_version in tsvs_to_evaluate.items():
             if empty := find_empty_tsv_columns(tsv_path):
-                self.errors.upload_metadata[tsv_path] = (
-                    f"Empty columns: {', '.join([str(i) for i in empty])}"
+                self.errors.append(
+                    Errors.UPLOAD_METADATA,
+                    f"Empty columns: {', '.join([str(i) for i in empty])}",
+                    path=tsv_path,
                 )
             if not schema_version.is_cedar:
                 logging.info(
@@ -259,7 +267,9 @@ class Upload:
         """
         if self.is_multi_assay and self.multi_parent:
             if not self.multi_parent.dir_schema:
-                self.errors.directory.update({self.multi_parent.path: "No directory schema found"})
+                self.errors.append(
+                    Errors.DIRECTORY, "No directory schema found", path=self.multi_parent.path
+                )
                 return
             # check only parent data_paths because parent has already been
             # confirmed to contain a complete set of childrens' data_paths
@@ -282,12 +292,9 @@ class Upload:
         are referenced multiple times (not in a shared/multi-assay upload),
         or errors with global/non_global shared file structure are reported.
         """
-        if no_ref_errors := self.__get_no_ref_errors():
-            self.errors.reference.update({"No References": no_ref_errors})
-        if multi_ref_errors := self.__get_multi_ref_errors():
-            self.errors.reference.update({"Multiple References": multi_ref_errors})
-        if shared_dir_errors := self.__get_shared_dir_errors():
-            self.errors.reference.update({"Shared Directory References": shared_dir_errors})
+        self.__get_no_ref_errors()
+        self.__get_multi_ref_errors()
+        self.__get_shared_dir_errors()
 
     def get_file_errors(self, **kwargs):
         """
@@ -297,8 +304,9 @@ class Upload:
         """
         if self.run_plugins is None:  # default behavior
             if self.errors:  # errors found, skip
-                self.errors.plugin_skip.value = (
-                    "Skipping plugin validation due to errors in upload metadata or dir structure."
+                self.errors.append(
+                    Errors.PLUGINS_SKIPPED,
+                    "Skipping individual data file validation due to errors in upload metadata or dir structure.",
                 )
             else:  # no errors, run plugins
                 logging.info("Running plugin validation...")
@@ -360,18 +368,26 @@ class Upload:
                 try:
                     assert other_path.exists()
                 except AssertionError:
-                    self.errors.upload_metadata[str(parent_schema.path)].append(
-                        f'On row(s) {rows}, column "{other_type}", value "{path_value}" points to non-existent file "{other_path}"'
+                    self.errors.append(
+                        Errors.UPLOAD_METADATA,
+                        f'Value "{path_value}" points to non-existent file "{other_path}"',
+                        path=parent_schema.path,
+                        row=rows,
+                        column=other_type,
                     )
                     continue
                 try:
                     self._get_supporting_metadata_schemas(parent_schema, other_path)
                 except PreflightError as e:
-                    self.errors.upload_metadata[str(parent_schema.path)].append(
-                        f'On row(s) {rows}, column "{other_type}", error opening or reading value "{path_value}". {e.errors}'
+                    self.errors.append(
+                        Errors.UPLOAD_METADATA,
+                        f'Error opening or reading value "{path_value}". {e.errors}',
+                        path=parent_schema.path,
+                        row=rows,
+                        column=other_type,
                     )
                 except Exception as e:
-                    self.errors.upload_metadata[str(parent_schema.path)].append(str(e))
+                    self.errors.append(Errors.UPLOAD_METADATA, str(e), path=parent_schema.path)
 
     def _get_supporting_metadata_schemas(self, parent_schema: SchemaVersion, other_path: Path):
         schema = self.get_schema_from_path(other_path)
@@ -379,7 +395,7 @@ class Upload:
             parent_schema.contributors_schemas.append(schema)
             is_contact = [row.get("is_contact", "").lower() for row in schema.rows]
             if not ("yes" in is_contact) and not ("true" in is_contact):
-                self.errors.upload_metadata.update({schema.path: "No primary contact."})
+                self.errors.append(Errors.UPLOAD_METADATA, "No primary contact.", path=schema.path)
         elif schema.schema_name == "antibodies":
             parent_schema.antibodies_schemas.append(schema)
 
@@ -396,13 +412,13 @@ class Upload:
     ):
         try:
             if api_errors := self._api_validation(schema):
-                self.errors.metadata_validation_api[tsv_path].extend(api_errors)
+                self.errors.append(Errors.METADATA_VALIDATION_API, api_errors, path=tsv_path)
         except Exception as e:
-            self.errors.metadata_validation_api[tsv_path].extend([e])
+            self.errors.append(Errors.METADATA_VALIDATION_API, str(e), path=tsv_path)
         self._get_url_errors(tsv_path, schema)
         constraint_errors = self._constraint_checks(schema)
         if constraint_errors:
-            self.errors.metadata_constraint_errors[tsv_path].extend(constraint_errors)
+            self.errors.append(Errors.METADATA_CONSTRAINT_ERRORS, constraint_errors, path=tsv_path)
 
     def _local_validation(self, tsv_path: Path, schema_version: SchemaVersion):
         try:
@@ -411,24 +427,29 @@ class Upload:
                 self.offline_only,
             )
         except Exception as e:
-            self.errors.metadata_validation_local.update(
-                {f"{tsv_path} (as {schema_version.table_schema})": [str(e)]}
+            self.errors.append(
+                Errors.METADATA_VALIDATION_LOCAL,
+                str(e),
+                path=tsv_path,
+                notes={"path": f"Using schema {schema_version.table_schema}"},
             )
             return
         if schema.get("deprecated") and not self.ignore_deprecation:
-            self.errors.metadata_validation_local.update(
-                {
-                    f"{tsv_path} (as {schema_version.table_schema})": [
-                        "Schema version is deprecated"
-                    ]
-                }
+            self.errors.append(
+                Errors.METADATA_VALIDATION_LOCAL,
+                "Schema version is deprecated",
+                path=tsv_path,
+                notes={"path": f"Using schema {schema_version.table_schema}"},
             )
             return
 
         local_errors = get_table_errors(tsv_path, schema)
         if local_errors:
-            self.errors.metadata_validation_local.update(
-                {f"{tsv_path} (as {schema_version.table_schema})": local_errors}
+            self.errors.append(
+                Errors.METADATA_VALIDATION_LOCAL,
+                local_errors,
+                path=tsv_path,
+                notes={"path": f"Using schema {schema_version.table_schema}"},
             )
 
     def _api_validation(
@@ -463,7 +484,7 @@ class Upload:
 
         rows = read_rows(Path(tsv_path), self.encoding)
         if url_errors := self._find_and_check_url_fields(rows, constrained_fields, schema):
-            self.errors.metadata_url_errors[tsv_path].extend(url_errors)
+            self.errors.append(Errors.METADATA_URL_ERRORS, url_errors, path=tsv_path)
 
     def _find_and_check_url_fields(
         self, rows: list, constrained_fields: list, schema: SchemaVersion
@@ -684,7 +705,9 @@ class Upload:
         data_paths = list(data_path_refs.keys())
         dir_schema = schema_version.dir_schema
         if not dir_schema:
-            self.errors.directory.update({schema_version.path: "No directory schema found"})
+            self.errors.append(
+                Errors.DIRECTORY, "No directory schema found", path=schema_version.path
+            )
             return
         # Check dir schema of every data_path value in TSV
         for data_path in data_paths:
@@ -697,16 +720,25 @@ class Upload:
                     dataset_ignore_globs=self.dataset_ignore_globs,
                 ).popitem()
             except FileNotFoundError:
-                self.errors.directory[str(metadata_path)].append(
-                    f'On row {data_path_refs[data_path][0][1]}, column "data_path", value "{data_path}" points to non-existent directory "{print_path}".'
+                self.errors.append(
+                    Errors.DIRECTORY,
+                    f'Value "{data_path}" points to non-existent directory "{print_path}".',
+                    path=metadata_path,
+                    row=data_path_refs[data_path][0][1],
+                    column="data_path",
                 )
                 continue
             # After this point dir can be assumed to exist, use actual path (print_path) for logging
             except Exception as e:
-                self.errors.directory[print_path] = e
+                self.errors.append(Errors.DIRECTORY, str(e), path=print_path)
                 continue
             if ref_errors[1]:
-                self.errors.directory[f"{print_path} (as {ref_errors[0]})"] = ref_errors[1]
+                self.errors.append(
+                    Errors.DIRECTORY,
+                    ref_errors[1],
+                    path=print_path,
+                    notes={"path": f"Using directory schema {ref_errors[0]}"},
+                )
             # TODO: Different dataset dirs within an upload could validate against
             # different minor versions. Is this desirable? Logging as a curiosity for now,
             # still only capturing final version.
@@ -727,7 +759,7 @@ class Upload:
     #
     ###################################
 
-    def __get_no_ref_errors(self) -> dict:
+    def __get_no_ref_errors(self):
         """
         Files at the top level that are not referenced in any metadata TSV.
         """
@@ -745,18 +777,26 @@ class Upload:
         }
         unreferenced_paths = non_metadata_paths - referenced_data_paths
 
-        errors = {}
         if unreferenced_dir_paths := [
             path for path in unreferenced_paths if Path(self.directory_path, path).is_dir()
         ]:
-            errors["Directories"] = unreferenced_dir_paths
+            self.errors.append(
+                Errors.REFERENCE,
+                unreferenced_dir_paths,
+                subtype="No References",
+                ref_type="Directories",
+            )
         if unreferenced_file_paths := [
             path for path in unreferenced_paths if not Path(self.directory_path, path).is_dir()
         ]:
-            errors["Files"] = unreferenced_file_paths
-        return errors
+            self.errors.append(
+                Errors.REFERENCE,
+                unreferenced_file_paths,
+                subtype="No References",
+                ref_type="Files",
+            )
 
-    def __get_multi_ref_errors(self) -> dict:
+    def __get_multi_ref_errors(self):
         """
         # Error if path is referenced multiple times, unless:
         - upload is a shared upload (shared paths validated elsewhere)
@@ -764,15 +804,18 @@ class Upload:
         """
         if self.is_shared_upload:
             return {}
-        errors = {}
         data_references = self.__get_referenced_paths("data_path")
         for path, references in data_references.items():
             if path not in self.multi_assay_data_paths:
                 if len(references) > 1:
-                    errors[path] = self.__format_reference_output("data_path", references)
-        return errors
+                    self.errors.append(
+                        Errors.REFERENCE,
+                        self.__format_reference_output("data_path", references),
+                        path=path,
+                        ref_type="Multiple References",
+                    )
 
-    def __get_shared_dir_errors(self) -> dict:
+    def __get_shared_dir_errors(self):
         if not self.is_shared_upload:
             return {}
         elif not self.shared_upload_non_global_paths:
@@ -782,15 +825,21 @@ class Upload:
                     "upload has global & non_global directories."
                 )
             }
-        errors = defaultdict(list)
         non_global_dir = (self.directory_path).joinpath("non_global/")
         if missing_refs := self.__get_shared_dir_missing_refs(non_global_dir):
-            errors["Missing non_global_files"] = missing_refs
-        if not_allowed := self.__get_shared_dir_not_allowed(non_global_dir):
-            errors["Extra files in non_global directory (not referenced in metadata TSV)"] = (
-                not_allowed
+            self.errors.append(
+                Errors.REFERENCE,
+                missing_refs,
+                subtype="Shared Directory References",
+                ref_type='Missing non_global_files (files in TSV field "non_global_files" must be placed in the non_global directory)',
             )
-        return errors
+        if not_allowed := self.__get_shared_dir_not_allowed(non_global_dir):
+            self.errors.append(
+                Errors.REFERENCE,
+                not_allowed,
+                subtype="Shared Directory References",
+                ref_type="Extra files in non_global directory (not referenced in metadata TSV)",
+            )
 
     def __get_shared_dir_missing_refs(self, non_global_dir: Path) -> list:
         # Check path exists for each individual non_global_file referenced in metadata TSV
@@ -804,8 +853,7 @@ class Upload:
                 row_refs = self.__format_reference_output("non_global_files", row_references)
                 errors.append(
                     f'{"; ".join(row_refs)}, value "{rel_path}" does not exist. '
-                    f'Expected path: {full_path_row_non_global_file}. Hint: files in TSV field "non_global_files" '
-                    "must be placed in the non_global directory."
+                    f"Expected path: {full_path_row_non_global_file}."
                 )
         return errors
 
@@ -897,7 +945,7 @@ class Upload:
                 # We are ok with just returning a single error, rather than all.
                 errors["Unexpected Plugin Error"] = [e]
         for k, v in errors.items():
-            self.errors.plugin[k] = sorted(v)
+            self.errors.append(Errors.PLUGINS, sorted(v), subtype=k)
 
     ###################################
     #

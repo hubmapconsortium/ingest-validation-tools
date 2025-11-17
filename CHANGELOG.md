@@ -1,5 +1,6 @@
 # Changelog
 ## v0.0.44 (in progress)
+- Refactor error reporting
 
 ## v0.0.43
 - Update EPICs docs
