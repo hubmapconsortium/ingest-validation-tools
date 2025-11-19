@@ -9,6 +9,7 @@ from typing import Dict, List, Optional, Union
 from deepdiff import DeepDiff
 
 from ingest_validation_tools.cli_utils import dir_path
+from ingest_validation_tools.error_report import ErrorManager, Errors
 from ingest_validation_tools.upload import Upload
 from tests.test_dataset_examples import (
     DATASET_EXAMPLES_OPTS,
@@ -19,9 +20,7 @@ from tests.test_dataset_examples import (
     TokenException,
     clean_report,
     dataset_test,
-    dev_url_replace,
     diff_test,
-    get_non_token_errors,
 )
 
 
@@ -56,7 +55,6 @@ class UpdateData:
         self.change_report = defaultdict(list)
         if self.update_from_fixtures:
             upload = TestDatasetExamples.prep_offline_upload(self.dir, self.opts)
-            report = upload.errors.serialize()
         else:
             upload = Upload(
                 Path(f"{self.dir}upload"),
@@ -64,11 +62,10 @@ class UpdateData:
                 verbose=self.upload_verbose,
                 **self.opts,  # type: ignore
             )
-        report = ErrorReport(upload)
-        self.check_maybe_write_fixtures(report, upload)
+        self.check_maybe_write_fixtures(upload.errors, upload)
 
         try:
-            cleaned_report = clean_report(report)
+            cleaned_report = clean_report(upload.errors).as_md()
         except TokenException as e:
             if self.ignore_online_exceptions:
                 print(e)
@@ -98,7 +95,7 @@ class UpdateData:
                 fixtures = {}
         return fixtures
 
-    def check_maybe_write_fixtures(self, report: ErrorReport, upload: Upload):
+    def check_maybe_write_fixtures(self, report: ErrorManager, upload: Upload):
         if self.update_from_fixtures:
             print(f"Updating from fixture data, fixtures not changed for {self.dir}.")
         elif "fixtures" in self.exclude:
@@ -146,36 +143,35 @@ class UpdateData:
             self.change_report[self.dir].append("Fixtures diff found")
         return True
 
-    def online_only_errors_by_path(self, path: str, upload_errors: ErrorDict):
-        return upload_errors.errors_by_path(
-            path,
-            [
-                upload_errors.metadata_url_errors,
-                upload_errors.metadata_validation_api,
-                upload_errors.metadata_constraint_errors,
-            ],
-        )
+    def cleaned_online_only_errors_by_path(self, path: str, report: ErrorManager) -> list:
+        errors = []
+        cleaned_report = clean_report(report)
+        for error_type in [
+            Errors.PREFLIGHT,
+            Errors.METADATA_VALIDATION_API,
+            Errors.METADATA_URL_ERRORS,
+            Errors.METADATA_CONSTRAINT_ERRORS,
+        ]:
+            errors.extend(cleaned_report.serializers[error_type].by_path(path))
+        return errors
 
-    def update_fixtures(self, upload) -> Dict:
+    def update_fixtures(self, upload: Upload) -> dict:
         new_data = {}
         new_assaytype_data = {}
         new_validation_data = defaultdict(dict)
-        no_token_error = False
         for schema in upload.dataset_metadata.values():
             new_assaytype_data[schema.dataset_type] = schema.soft_assay_data
-            if upload.errors.metadata_url_errors:
-                upload.errors = get_non_token_errors(upload.errors)
-            online_errors = self.online_only_errors_by_path(str(schema.path), upload.errors)
+            online_errors = self.cleaned_online_only_errors_by_path(
+                str(schema.path), upload.errors
+            )
             new_validation_data[schema.schema_name].update(online_errors)
             for supporting_schema in [*schema.contributors_schemas, *schema.antibodies_schemas]:
-                online_errors = self.online_only_errors_by_path(
-                    supporting_schema.path, upload.errors
+                online_errors = self.cleaned_online_only_errors_by_path(
+                    str(supporting_schema.path), upload.errors
                 )
                 new_validation_data[supporting_schema.schema_name].update(online_errors)
         new_data["assaytype"] = new_assaytype_data
         new_data["validation"] = dict(new_validation_data)
-        if no_token_error:
-            raise TokenException("No token passed, cannot update fixtures", new_data)
         return new_data
 
     ###################################
@@ -234,7 +230,6 @@ class UpdateData:
                 cleaned_report,
                 verbose=self.verbose,
                 full_diff=self.full_diff,
-                env=self.env,
             )
             readme.close()
             print(f"No diff found, skipping {self.dir}README.md")
@@ -259,7 +254,7 @@ class UpdateData:
         elif short_message:
             print(short_message)
 
-    def raise_or_print_fatal_errors(self, report: ErrorReport):
+    def raise_or_print_fatal_errors(self, report: ErrorManager):
         """
         Errors that are thrown for the following reasons may be ignored
         if the --ignore_online_exceptions flag is passed. Otherwise,

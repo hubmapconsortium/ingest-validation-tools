@@ -16,8 +16,8 @@ import requests
 from ingest_validation_tools.directory_validator import get_files
 from ingest_validation_tools.enums import DatasetType, OtherTypes, Sample
 from ingest_validation_tools.error_report import (
+    ErrorManager,
     Errors,
-    ErrorSerializer,
     InfoDict,
 )
 from ingest_validation_tools.local_validation.table_validator import (
@@ -43,7 +43,6 @@ from ingest_validation_tools.validation_utils import (
     get_data_dir_errors,
     get_entity_api_data,
     get_entity_type_vals,
-    get_message,
     get_schema_version,
     read_rows,
 )
@@ -94,10 +93,8 @@ class Upload:
         self.report_type = report_type
 
         self.dataset_metadata: dict[Path, SchemaVersion] = {}
-        self.errors = ErrorSerializer(self)
+        self.errors = ErrorManager(self)
         self.info = InfoDict()
-        self.get_errors_called: bool = False
-        self.get_info_called: bool = False
 
         self.get_app_context(app_context)
 
@@ -147,7 +144,6 @@ class Upload:
         }
         self.info.tsvs = tsvs
 
-        self.get_info_called = True
         return self.info
 
     def get_errors(self, **kwargs) -> dict:
@@ -157,7 +153,7 @@ class Upload:
         """
         # Return if PreflightErrors found
         if self.errors:
-            return self.errors.serialize()
+            return self.errors.report
 
         # Collect errors
         self.get_upload_errors()
@@ -166,8 +162,7 @@ class Upload:
         self.get_reference_errors()
         self.get_file_errors(**kwargs | self.extra_parameters)
 
-        self.get_errors_called = True
-        return self.errors.serialize()
+        return self.errors.report
 
     ###################################
     #
@@ -370,7 +365,7 @@ class Upload:
                 except AssertionError:
                     self.errors.append(
                         Errors.UPLOAD_METADATA,
-                        f'Value "{path_value}" points to non-existent file "{other_path}"',
+                        f'Value "{path_value}" points to non-existent file "./{other_path}"',
                         path=parent_schema.path,
                         row=rows,
                         column=other_type,
@@ -411,14 +406,11 @@ class Upload:
         schema: SchemaVersion,
     ):
         try:
-            if api_errors := self._api_validation(schema):
-                self.errors.append(Errors.METADATA_VALIDATION_API, api_errors, path=tsv_path)
+            self._api_validation(schema, tsv_path)
         except Exception as e:
             self.errors.append(Errors.METADATA_VALIDATION_API, str(e), path=tsv_path)
-        self._get_url_errors(tsv_path, schema)
-        constraint_errors = self._constraint_checks(schema)
-        if constraint_errors:
-            self.errors.append(Errors.METADATA_CONSTRAINT_ERRORS, constraint_errors, path=tsv_path)
+        self._get_url_errors(schema, tsv_path)
+        self._constraint_checks(schema, tsv_path)
 
     def _local_validation(self, tsv_path: Path, schema_version: SchemaVersion):
         try:
@@ -431,7 +423,7 @@ class Upload:
                 Errors.METADATA_VALIDATION_LOCAL,
                 str(e),
                 path=tsv_path,
-                notes={"path": f"Using schema {schema_version.table_schema}"},
+                notes={"path": f"using schema {schema_version.table_schema}"},
             )
             return
         if schema.get("deprecated") and not self.ignore_deprecation:
@@ -439,34 +431,35 @@ class Upload:
                 Errors.METADATA_VALIDATION_LOCAL,
                 "Schema version is deprecated",
                 path=tsv_path,
-                notes={"path": f"Using schema {schema_version.table_schema}"},
+                notes={"path": f"using schema {schema_version.table_schema}"},
             )
             return
 
         local_errors = get_table_errors(tsv_path, schema)
         if local_errors:
-            self.errors.append(
-                Errors.METADATA_VALIDATION_LOCAL,
-                local_errors,
-                path=tsv_path,
-                notes={"path": f"Using schema {schema_version.table_schema}"},
-            )
+            for error in local_errors:
+                self.errors.append(
+                    Errors.METADATA_VALIDATION_LOCAL,
+                    error,
+                    path=tsv_path,
+                    notes={"path": f"using schema {schema_version.table_schema}"},
+                )
 
-    def _api_validation(
-        self,
-        schema: SchemaVersion,
-    ) -> list[Union[str, dict]]:
-        errors = []
+    def _api_validation(self, schema: SchemaVersion, tsv_path: Path):
         response = cedar_validation_call(schema.path)
         if response.status_code != 200:
             raise Exception(response.json())
         elif response.json().get("reporting") and len(response.json().get("reporting")) > 0:
             for error in response.json()["reporting"]:
-                errors.append(get_message(error, self.report_type))
+                self.errors.append(
+                    Errors.METADATA_VALIDATION_API,
+                    error,
+                    path=tsv_path,
+                    needs_formatting=True,
+                )
         else:
             logging.info(f"No errors found during CEDAR validation for {schema.path}!")
             logging.info(f"Response: {response.json()}.")
-        return errors
 
     ###################################
     #
@@ -474,7 +467,7 @@ class Upload:
     #
     ###################################
 
-    def _get_url_errors(self, tsv_path: Path, schema: SchemaVersion):
+    def _get_url_errors(self, schema: SchemaVersion, tsv_path: Path):
         """
         Check provided values for parent_sample_id and orcid_id; additionally
         check sample_id, organ_id, and source_id values in single TSV validation
@@ -483,13 +476,11 @@ class Upload:
         constrained_fields = self._get_constrained_fields(schema)
 
         rows = read_rows(Path(tsv_path), self.encoding)
-        if url_errors := self._find_and_check_url_fields(rows, constrained_fields, schema):
-            self.errors.append(Errors.METADATA_URL_ERRORS, url_errors, path=tsv_path)
+        self._find_and_check_url_fields(rows, constrained_fields, schema, tsv_path)
 
     def _find_and_check_url_fields(
-        self, rows: list, constrained_fields: list, schema: SchemaVersion
-    ) -> list[dict[str, str]]:
-        errors = []
+        self, rows: list, constrained_fields: list, schema: SchemaVersion, tsv_path: Path
+    ):
         for i, row in enumerate(rows):
             url_fields = self._get_url_fields(row, constrained_fields)
             for field_name, field_value in url_fields.items():
@@ -506,8 +497,9 @@ class Upload:
                             "value": value,
                             "error_text": e.__str__(),
                         }
-                        errors.append(get_message(error, self.report_type))
-        return errors
+                        self.errors.append(
+                            Errors.METADATA_URL_ERRORS, error, path=tsv_path, needs_formatting=True
+                        )
 
     def _check_url(
         self, field: str, row: int, value: str, schema: SchemaVersion
@@ -590,7 +582,7 @@ class Upload:
     #
     ###################################
 
-    def _constraint_checks(self, schema: SchemaVersion):
+    def _constraint_checks(self, schema: SchemaVersion, tsv_path: Path):
         if not self.app_context["constraints_url"]:
             return
         payload = self._construct_constraint_check(schema)
@@ -612,7 +604,7 @@ class Upload:
         try:
             response.raise_for_status()
         except Exception:
-            return self._get_constraint_check_errors(response, schema)
+            self._get_constraint_check_errors(response, schema, tsv_path)
 
     def _get_constrained_fields(self, schema: SchemaVersion) -> list[str]:
         # assay -> parent_sample_id
@@ -673,11 +665,8 @@ class Upload:
             print(" - ".join(row_output))
 
     def _get_constraint_check_errors(
-        self,
-        response: requests.Response,
-        schema: SchemaVersion,
-    ) -> list[Union[str, int, dict]]:
-        problem_entities = []
+        self, response: requests.Response, schema: SchemaVersion, tsv_path: Path
+    ):
         assert schema.entity_type_info
         if response.status_code == 400:
             for i, entity_check in enumerate(response.json().get("description", [])):
@@ -690,8 +679,12 @@ class Upload:
                         "value": schema.ancestor_entities[i].entity_id,
                         "error_text": f"Invalid ancestor type for TSV type {schema.entity_type_info.format_constraint_check_error()}. Data sent for ancestor {schema.ancestor_entities[i].entity_id}: {ancestors}.",
                     }
-                    problem_entities.append(get_message(error, self.report_type))
-        return problem_entities
+                    self.errors.append(
+                        Errors.METADATA_CONSTRAINT_ERRORS,
+                        error,
+                        path=tsv_path,
+                        needs_formatting=True,
+                    )
 
     ###################################
     #
@@ -722,7 +715,7 @@ class Upload:
             except FileNotFoundError:
                 self.errors.append(
                     Errors.DIRECTORY,
-                    f'Value "{data_path}" points to non-existent directory "{print_path}".',
+                    f'Value "{data_path}" points to non-existent directory "./{print_path}".',
                     path=metadata_path,
                     row=data_path_refs[data_path][0][1],
                     column="data_path",
@@ -737,7 +730,7 @@ class Upload:
                     Errors.DIRECTORY,
                     ref_errors[1],
                     path=print_path,
-                    notes={"path": f"Using directory schema {ref_errors[0]}"},
+                    notes={"path": f"using directory schema {ref_errors[0]}"},
                 )
             # TODO: Different dataset dirs within an upload could validate against
             # different minor versions. Is this desirable? Logging as a curiosity for now,
@@ -746,11 +739,12 @@ class Upload:
             schema_version.dir_schema = ref_errors[0]
 
     def get_error_path(self, data_path: Path) -> str:
-        dir = self.directory_path
         if data_path in self.shared_upload_non_global_paths:
-            dir = Path(dir / "non_global")
+            dir = Path("non_global")
         elif self.is_shared_upload:
-            dir = Path(dir / "global")
+            dir = Path("global")
+        else:
+            dir = Path("")
         return str(dir / data_path)
 
     ###################################

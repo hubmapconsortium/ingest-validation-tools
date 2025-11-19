@@ -21,6 +21,7 @@ from ingest_validation_tools.enums import (
     OtherTypes,
     Sample,
 )
+from ingest_validation_tools.error_report import Errors
 from ingest_validation_tools.local_validation.table_validator import ReportType
 from ingest_validation_tools.schema_loader import (
     EntityTypeInfo,
@@ -441,19 +442,19 @@ def get_tsv_errors(
         report_type=report_type,
     )
     # Return preflight errors to prevent uncaught exceptions downstream
-    if upload.errors.preflight:
-        return upload.errors.tsv_only_errors_by_path(str(tsv_path), report_type=report_type)
+    if upload.errors.serializers[Errors.PREFLIGHT]:
+        return upload.errors.create_single_path_report(tsv_path)
     if schema_name in OtherTypes.with_sample_subtypes():
         try:
             schema = upload.get_schema_from_path(Path(tsv_path))
         except Exception as e:
             if upload.errors:
-                upload.errors.upload_metadata[tsv_path].append(str(e))
+                upload.errors.append(Errors.UPLOAD_METADATA, str(e), path=tsv_path)
         else:
             upload.validate_metadata(tsv_paths={schema.path: schema})
     else:
         upload.validate_metadata()
-    return upload.errors.tsv_only_errors_by_path(str(tsv_path), report_type=report_type)
+    return upload.errors.create_single_path_report(tsv_path)
 
 
 def cedar_validation_call(tsv_path: Union[str, Path]) -> requests.models.Response:

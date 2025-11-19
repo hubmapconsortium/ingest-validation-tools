@@ -1,14 +1,13 @@
 import difflib
 import glob
 import json
-import re
 import unittest
 from io import TextIOWrapper
 from pathlib import Path
 from typing import Dict, Union
 from unittest.mock import patch
 
-from ingest_validation_tools.error_report import DictErrorType, ErrorDict, ErrorReport
+from ingest_validation_tools.error_report import ErrorManager, Errors
 from ingest_validation_tools.schema_loader import PreflightError, SchemaVersion
 from ingest_validation_tools.upload import Upload
 from tests.fixtures import (
@@ -51,16 +50,16 @@ class TokenException(Exception):
 
 
 def mutate_upload_errors_with_fixtures(upload: Upload, test_dir: str) -> Upload:
-    url_errors_field_name = upload.errors.metadata_url_errors.display_name
-    api_errors_field_name = upload.errors.metadata_validation_api.display_name
+    url_errors_field_name = Errors.METADATA_URL_ERRORS.value
+    api_errors_field_name = Errors.METADATA_VALIDATION_API.value
     for tsv_path, schema in upload.dataset_metadata.items():
         fixtures = get_online_check_fixtures(schema.schema_name, test_dir)
         url_errors = fixtures.get(url_errors_field_name, {})
         if url_errors:
-            upload.errors.metadata_url_errors[tsv_path] = url_errors
+            upload.errors.serializers[Errors.METADATA_URL_ERRORS].data[tsv_path] = url_errors
         api_errors = fixtures.get(api_errors_field_name, {})
         if api_errors:
-            upload.errors.metadata_validation_api[tsv_path] = api_errors
+            upload.errors.serializers[Errors.METADATA_VALIDATION_API].data[tsv_path] = api_errors
         antibodies_paths = set()
         contributors_paths = set()
         for row in schema.rows:
@@ -77,11 +76,35 @@ def mutate_upload_errors_with_fixtures(upload: Upload, test_dir: str) -> Upload:
                 other_fixtures = get_online_check_fixtures(other_type, test_dir)
                 other_url_errors = other_fixtures.get(url_errors_field_name, {})
                 if other_url_errors:
-                    upload.errors.metadata_url_errors[full_path] = other_url_errors
+                    upload.errors.serializers[Errors.METADATA_URL_ERRORS].data[
+                        full_path
+                    ] = other_url_errors
                 other_api_errors = other_fixtures.get(api_errors_field_name, {})
                 if other_api_errors:
-                    upload.errors.metadata_validation_api[full_path] = other_api_errors
+                    upload.errors.serializers[Errors.METADATA_VALIDATION_API].data[
+                        full_path
+                    ] = other_api_errors
     return upload
+
+
+def clean_report(report: ErrorManager) -> ErrorManager:
+    token_error = False
+    for error_type, serializer in report.serializers.items():
+        new_serializer = report.error_serializers[error_type](
+            error_type, report.upload.directory_path, report.upload.report_type
+        )
+        for error in serializer.raw:
+            if "-api.dev" in error.error:
+                token_error = True
+                new_serializer.add(error.error.sub("-api.dev", ".api"))
+            elif "no token" in error.error.lower():
+                continue
+            else:
+                new_serializer.add(error)
+        report.serializers[error_type] = new_serializer
+    if token_error:
+        raise TokenException("No token passed, cannot update fixtures", report.as_md())
+    return report
 
 
 def dataset_test(
@@ -103,60 +126,58 @@ def dataset_test(
         upload = Upload(Path(f"{test_dir}/upload"), globus_token=globus_token, **dataset_opts)
     if use_online_check_fixtures:
         upload = mutate_upload_errors_with_fixtures(upload, test_dir)
-    report = ErrorReport(upload)
-    diff_test(test_dir, readme, clean_report(report), verbose=verbose, full_diff=full_diff)
-    if "PreflightError" in report.as_md():
+    diff_test(
+        test_dir, readme, clean_report(upload.errors).as_md(), verbose=verbose, full_diff=full_diff
+    )
+    if "PreflightError" in upload.errors.as_md():
         raise MockException(
             f"Error report for {test_dir} contains PreflightError, do not make assertions about calls."
         )
 
 
-def clean_report(report: ErrorReport):
-    token_issue = False
-    cleaned_report = []
-    will_change_regex = re.compile(r"((Time|Git version): )(.*)")
-    no_token_regex = re.compile("No token")
-    for line in report.as_md().splitlines(keepends=True):
-        will_change_match = will_change_regex.search(line)
-        if will_change_match:
-            line = line.replace(will_change_match.group(3), "WILL_CHANGE")
-        no_token_regex_match = no_token_regex.search(line)
-        if no_token_regex_match:
-            token_issue = True
-        line = dev_url_replace(line)
-        cleaned_report.append(line)
-    if token_issue:
-        if report.raw_errors:
-            report.raw_errors = get_non_token_errors(report.raw_errors)
-            report.errors = report.raw_errors.as_dict()
-        cleaned_report = clean_report(report)
-        raise TokenException(
-            "WARNING: API token required to complete update, not writing, skipping URL Check Errors.",
-            "".join(cleaned_report),
-        )
-    return "".join(cleaned_report)
+# def clean_report(report: ErrorManager):
+# token_issue = False
+# will_change_regex = re.compile(r"((Time|Git version): )(.*)")
+# no_token_regex = re.compile("No token")
+# for error_obj in report._data:
+# will_change_match = will_change_regex.search(line)
+# if will_change_match:
+#     line = line.replace(will_change_match.group(3), "WILL_CHANGE")
+# no_token_regex_match = no_token_regex.search(line)
+# if no_token_regex_match:
+#     token_issue = True
+# urls_replaced = dev_url_replace(report)
+# cleaned_report = get_non_token_errors(urls_replaced)
+# return "".join(cleaned_report.as_md())
 
 
-def get_non_token_errors(errors: ErrorDict) -> ErrorDict:
-    new_url_error_val = DictErrorType(
-        name=errors.metadata_url_errors.name, display_name=errors.metadata_url_errors.display_name
-    )
-    for path, error_list in errors.metadata_url_errors.items():
-        non_token_url_errors = [error for error in error_list if "No token" not in error]
-        if non_token_url_errors:
-            new_url_error_val[path] = non_token_url_errors
-        if set(error_list) - set(non_token_url_errors):
-            print(
-                f"WARNING: output about URL errors for {path} is incomplete due to suppressed token errors. Use for testing purposes only."
-            )
-    errors.metadata_url_errors = new_url_error_val
-    return errors
-
-
-def dev_url_replace(original_str: str):
-    dev_regex = re.compile(r"-api.dev")
-    new_str = re.sub(dev_regex, ".api", original_str)
-    return new_str
+# def get_non_token_errors(error_manager: ErrorManager) -> ErrorManager:
+#     non_token_url_errors = []
+#     token_errors = False
+#     url_error_serializer = error_manager.serializers[Errors.METADATA_URL_ERRORS]
+#     for error in url_error_serializer.raw:
+#         if "No token" in error.error:
+#             token_errors = True
+#             continue
+#         else:
+#             non_token_url_errors.append(error)
+#         if token_errors:
+#             print(
+#                 f"WARNING: output about URL errors is incomplete due to suppressed token errors. Use for testing purposes only."
+#             )
+#     url_error_serializer.raw = non_token_url_errors
+#     if token_errors:
+#         raise TokenException(
+#             "WARNING: API token required to complete update, not writing, skipping URL Check Errors.",
+#             error_manager.as_md(),
+#         )
+#     return error_manager
+#
+#
+# def dev_url_replace(report: ErrorManager):
+#     dev_regex = re.compile(r"-api.dev")
+#     new_str = re.sub(dev_regex, ".api", original_str)
+#     return new_str
 
 
 def diff_test(
@@ -165,11 +186,8 @@ def diff_test(
     report: str,
     verbose: bool = True,
     full_diff: bool = False,
-    env: str = "PROD",
 ):
     d = difflib.Differ()
-    if env == "DEV":
-        report = dev_url_replace(report)
     diff = list(d.compare(readme.readlines(), report.splitlines(keepends=True)))
     readme.close()
     ignore_strings = ["Time:", "Git version:", "```"]
@@ -495,8 +513,7 @@ class TestDatasetExamples(TestExamples):
         }
         for test_dir, expected_counts in test_dirs.items():
             upload = self.prep_offline_upload(test_dir, DATASET_EXAMPLES_OPTS)
-            report = ErrorReport(upload)
-            self.assertEqual(report.counts, expected_counts)
+            self.assertEqual(upload.errors.counts(), expected_counts)
 
 
 # if __name__ == "__main__":

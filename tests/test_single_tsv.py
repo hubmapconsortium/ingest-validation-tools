@@ -50,7 +50,6 @@ def get_mock_response(good: bool, response_data: bytes) -> requests.Response:
 
 
 class TestSingleTsv(unittest.TestCase):
-    @property
     def upload(self):
         upload = Upload(directory_path=Path("."))
         upload.app_context = {
@@ -62,23 +61,28 @@ class TestSingleTsv(unittest.TestCase):
         return upload
 
     def test_bad_payload(self):
-        payload = self.upload._construct_constraint_check(BAD_DATASET_SCHEMA_WITH_ANCESTORS)
+        payload = self.upload()._construct_constraint_check(BAD_DATASET_SCHEMA_WITH_ANCESTORS)
         assert payload == BAD_DATASET_EXPECTED_PAYLOAD
 
     def test_good_payload(self):
-        payload = self.upload._construct_constraint_check(GOOD_DATASET_SCHEMA_WITH_ANCESTORS)
+        payload = self.upload()._construct_constraint_check(GOOD_DATASET_SCHEMA_WITH_ANCESTORS)
         assert payload == GOOD_DATASET_EXPECTED_PAYLOAD
 
     @patch("ingest_validation_tools.upload.requests.post")
     def test_constraints_bad(self, mock_request):
         mock_request.return_value = get_mock_response(False, BAD_DATASET_CONSTRAINTS_RESPONSE)
-        self.assertEqual(
-            self.upload._constraint_checks(BAD_DATASET_SCHEMA_WITH_ANCESTORS),
-            [
-                'On row 3, column "source_id", value "test_id_1" fails because of error '
+        upload = self.upload()
+        upload._constraint_checks(BAD_DATASET_SCHEMA_WITH_ANCESTORS, Path("./tsv/path"))
+        expected_error = {
+            "tsv/path": [
+                'On row(s) 3, column "source_id": Value "test_id_1" fails because of error '
                 '"Invalid Ancestor": Invalid ancestor type for TSV type dataset/histology. '
                 "Data sent for ancestor test_id_1: sample/organ/rk."
-            ],
+            ]
+        }
+        assert (
+            upload.errors.serializers[Errors.METADATA_CONSTRAINT_ERRORS].errors_only()
+            == expected_error
         )
         mock_request.assert_any_call(
             CONSTRAINTS_URL,
@@ -91,7 +95,7 @@ class TestSingleTsv(unittest.TestCase):
     def test_constraints_good(self, mock_request):
         mock_request.return_value = get_mock_response(True, SAMPLE_BLOCK_CONSTRAINTS_RESPONSE_GOOD)
         # Shouldn't return anything
-        self.upload._constraint_checks(GOOD_DATASET_SCHEMA_WITH_ANCESTORS)
+        self.upload()._constraint_checks(GOOD_DATASET_SCHEMA_WITH_ANCESTORS, Path("tsv/path"))
         mock_request.assert_any_call(
             CONSTRAINTS_URL,
             headers={"Authorization": "Bearer test", "Content-Type": "application/json"},
@@ -110,7 +114,7 @@ class TestSingleTsv(unittest.TestCase):
         )
         path = Path("./tests/fixtures/sample-block-good.tsv").absolute()
         schema = get_schema_version(path, "ascii", globus_token="test")
-        self.upload._get_url_errors(path, schema)
+        self.upload()._get_url_errors(schema, path)
         assert len(schema.ancestor_entities) == 2
         assert schema.ancestor_entities[1].entity_sub_type == Sample.BLOCK.name.lower()
         assert schema.ancestor_entities[0].entity_type == OtherTypes.SAMPLE
@@ -169,9 +173,10 @@ class TestSingleTsv(unittest.TestCase):
                                 },
                                 report_type=report_type,
                             )
-                            assert (
-                                errors in expected_errors_list
-                            ), f"{errors} not in {expected_errors_list}"
+                            for expected_errors in expected_errors_list:
+                                assert all(
+                                    [error for error in errors if error in expected_errors]
+                                ), f"{errors} not in {expected_errors_list}"
 
     def test_entity_type_info(self):
         good_section_entity = EntityTypeInfo(entity_type=Sample.SECTION)
@@ -209,7 +214,7 @@ class TestSingleTsv(unittest.TestCase):
             (Path("./tests/fixtures/contributors_good.tsv"), {}),
             (
                 Path("./tests/fixtures/contributors_bad.tsv"),
-                {Path("./tests/fixtures/contributors_bad.tsv"): "No primary contact."},
+                {"tests/fixtures/contributors_bad.tsv": ["No primary contact."]},
             ),
         ]:
             upload = Upload(
@@ -218,15 +223,15 @@ class TestSingleTsv(unittest.TestCase):
             )
             for schema in upload.dataset_metadata.values():
                 upload._get_supporting_metadata_schemas(schema, path)
-            assert upload.errors.serialize().get(Errors.UPLOAD_METADATA.value) == error
+            assert upload.errors.serializers[Errors.UPLOAD_METADATA].errors_only() == error
 
     def test_for_empty_columns(self):
         upload = Upload(
             directory_path=Path("."),
-            tsv_paths=[Path("./tests/fixtures/validated-histology-metadata.tsv")],
+            tsv_paths=[Path("tests/fixtures/validated-histology-metadata.tsv")],
         )
-        path = Path("./tests/fixtures/contributors_bad.tsv")
-        upload.validate_metadata({path: SchemaVersion("contributors")})
-        assert upload.errors.serialize().get(Errors.UPLOAD_METADATA.value) == {
-            path: "Empty columns: 5, 12"
+        path = "tests/fixtures/contributors_bad.tsv"
+        upload.validate_metadata({Path(path): SchemaVersion("contributors")})
+        assert upload.errors.serializers[Errors.UPLOAD_METADATA].errors_only() == {
+            path: ["Empty columns: 5, 12"]
         }

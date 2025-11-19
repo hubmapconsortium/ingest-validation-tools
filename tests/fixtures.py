@@ -242,24 +242,24 @@ TEST_GET_TSV_ERRORS_PARAMS = [
         "sample-block",
         [
             [
-                'On row 2, column "processing_time_unit", value "min" fails because of error "notStandardTerm". Example: minute.',
-                'On row 2, column "source_storage_duration_unit", value "min" fails because of error "notStandardTerm". Example: minute.',
-                'On row 2, column "source_id", value "HBM233.CGGG.482" fails because of error "Invalid Ancestor": Invalid ancestor type for TSV type sample/block. Data sent for ancestor HBM233.CGGG.482: sample/section.',
+                'On row 2, column "processing_time_unit": Value "min" fails because of error "notStandardTerm". Example: minute.',
+                'On row 2, column "source_storage_duration_unit": Value "min" fails because of error "notStandardTerm". Example: minute.',
+                'On row 2, column "source_id": Value "HBM233.CGGG.482" fails because of error "Invalid Ancestor": Invalid ancestor type for TSV type sample/block. Data sent for ancestor HBM233.CGGG.482: sample/section.',
             ],
             [
                 {
                     "column": "processing_time_unit",
-                    "error": 'value "min" fails because of error "notStandardTerm". Example: minute',
+                    "error": 'Value "min" fails because of error "notStandardTerm". Example: minute',
                     "row": 2,
                 },
                 {
                     "column": "source_storage_duration_unit",
-                    "error": 'value "min" fails because of error "notStandardTerm". Example: minute',
+                    "error": 'Value "min" fails because of error "notStandardTerm". Example: minute',
                     "row": 2,
                 },
                 {
                     "column": "source_id",
-                    "error": 'value "HBM233.CGGG.482" fails because of error "Invalid Ancestor": Invalid ancestor type for TSV type sample/block. Data sent for ancestor HBM233.CGGG.482: sample/section.',
+                    "error": 'Value "HBM233.CGGG.482" fails because of error "Invalid Ancestor": Invalid ancestor type for TSV type sample/block. Data sent for ancestor HBM233.CGGG.482: sample/section.',
                     "row": 2,
                 },
             ],
@@ -275,12 +275,12 @@ TEST_GET_TSV_ERRORS_PARAMS = [
             [
                 {
                     "column": "source_id",
-                    "error": 'value "HBM233.CGGG.482" fails because of error "Invalid Ancestor": Invalid ancestor type for TSV type sample/block. Data sent for ancestor HBM233.CGGG.482: sample/section.',
+                    "error": 'Value "HBM233.CGGG.482" fails because of error "Invalid Ancestor": Invalid ancestor type for TSV type sample/block. Data sent for ancestor HBM233.CGGG.482: sample/section.',
                     "row": 2,
                 }
             ],
             [
-                'On row 2, column "source_id", value "HBM233.CGGG.482" fails because of error "Invalid Ancestor": Invalid ancestor type for TSV type sample/block. Data sent for ancestor HBM233.CGGG.482: sample/section.',
+                'On row 2, column "source_id": Value "HBM233.CGGG.482" fails because of error "Invalid Ancestor": Invalid ancestor type for TSV type sample/block. Data sent for ancestor HBM233.CGGG.482: sample/section.',
             ],
         ],
     ),
@@ -294,18 +294,18 @@ TEST_GET_TSV_ERRORS_PARAMS = [
             [
                 {
                     "column": "source_id",
-                    "error": 'value "" fails because of error "AssertionError": Unable to check URL for column \'source_id\' on row 2: empty value.',
+                    "error": 'Value "" fails because of error "AssertionError": Unable to check URL for column \'source_id\' on row 2: empty value.',
                     "row": 2,
                 },
                 {
                     "column": "source_id",
-                    "error": 'value "" fails because of error "missingRequired"',
+                    "error": 'Value "" fails because of error "missingRequired"',
                     "row": 2,
                 },
             ],
             [
-                'On row 2, column "source_id", value "" fails because of error "AssertionError": Unable to check URL for column "source_id" on row 2: empty value.',
-                'On row 2, column "source_id", value "" fails because of error "missingRequired".',
+                'On row 2, column "source_id": Value "" fails because of error "AssertionError": Unable to check URL for column "source_id" on row 2: empty value.',
+                'On row 2, column "source_id": Value "" fails because of error "missingRequired".',
             ],
         ],
     ),
