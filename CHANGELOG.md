@@ -1,5 +1,6 @@
 # Changelog
 ## v0.0.44 (in progress)
+- Update RNAseq docs
 
 ## v0.0.43
 - Update EPICs docs
