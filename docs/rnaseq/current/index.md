@@ -16,7 +16,7 @@ Related files:
 - [📝 TSV template](https://raw.githubusercontent.com/hubmapconsortium/dataset-metadata-spreadsheet/main/rnaseq/latest/rnaseq.tsv): Alternative for metadata entry.
 
 
-For additional documentation on this dataset type, please visit [here](https://docs.google.com/document/d/1cVX_uMA5ehz3TBjrlXSb9KkRo8_5kcFUFhJaWeW9JyU).
+PLEASE NOTE - this specification applies to multiple types of RNAseq, including snRNAseq, scRNAseq, and bulk RNAseq. For additional documentation on this dataset type, please visit [here](https://docs.google.com/document/d/1cVX_uMA5ehz3TBjrlXSb9KkRo8_5kcFUFhJaWeW9JyU).
 
 ## Metadata schema
 
