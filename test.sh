@@ -142,4 +142,3 @@ if [ -z $HALT ]; then
     # Run python tests
     python -m unittest tests/*.py
 fi
-
