@@ -1,18 +1,13 @@
 import glob
-import json
 import re
-from collections import defaultdict
 from pathlib import Path
 
 from vcr import VCR
-from vcr.persisters.filesystem import (
-    FilesystemPersister,
-)
 from vcr.request import Request
-from vcr.serialize import serialize
 from vcr.unittest import VCRTestCase
 
 from ingest_validation_tools.upload import Upload
+from tests.vcr_utils import DryRunPersister, LivePersister
 
 SHARED_OPTS: dict = {
     "encoding": "ascii",
@@ -44,54 +39,6 @@ def create_upload(dataset_path: str, globus_token: str) -> Upload:
     return Upload(Path(f"{dataset_path}/upload"), globus_token=globus_token, **opts)
 
 
-class CustomPersister(FilesystemPersister):
-    @staticmethod
-    def save_cassette(cassette_path, cassette_dict, serializer):
-        cassette_path = Path(cassette_path)
-        if cassette_path.exists():
-            new_data = defaultdict(list)
-            with cassette_path.open("r") as f:
-                existing_data = json.load(f)
-                for request, response in zip(
-                    cassette_dict["requests"], cassette_dict["responses"]
-                ):
-                    response["body"]["string"] = response["body"]["string"]
-                    match = False
-                    breakpoint()
-                    for pair in existing_data["interactions"]:
-                        if (
-                            (pair["request"]["method"] == request.method)
-                            and (pair["request"]["uri"] == request.uri)
-                            and (pair["request"]["body"] == request.body)
-                            and pair["response"]["body"]["string"] == response["body"]["string"]
-                        ):
-                            # Found a match between request/response pair in cassette_dict and existing fixture data
-                            # Want to add the first match to new_data; break out of fixture pair loop
-                            if response not in new_data["responses"]:
-                                break
-                            # Want to leave out any future matches, break out of fixture pair loop
-                            print("Matching request/response found, not adding to cassette.")
-                            match = True
-                            break
-                    # Loop ended or broke; write matched case #1 or no match case for this request
-                    if not match:
-                        print("New request/response found, adding to cassette.")
-                        new_data["requests"].append(request)
-                        new_data["responses"].append(response)
-
-            if not new_data:
-                print(f"No new data to write to cassette f{cassette_path}.")
-                return
-            cassette_dict = dict(new_data)
-        data = serialize(cassette_dict, serializer)
-
-        cassette_folder = cassette_path.parent
-        if not cassette_folder.exists():
-            cassette_folder.mkdir(parents=True)
-        with cassette_path.open("w") as f:
-            f.write(data)
-
-
 class LiveTesting:
     def __init__(
         self,
@@ -100,6 +47,8 @@ class LiveTesting:
         dry_run=False,
     ):
         self.paths = paths
+        # dry_run=False runs live tests and updates fixtures
+        # dry_run=True runs live tests and prints updates
         self.dry_run = dry_run
         self.globus_token = globus_token
         self.responses = {}
@@ -118,7 +67,6 @@ class LiveTesting:
         new_request = Request(request.method, request.uri, body, new_headers)
         if self.dry_run:
             return None
-        breakpoint()
         return new_request
 
     def before_record_response(self, response):
@@ -127,7 +75,6 @@ class LiveTesting:
             response["body"]["string"] = response["body"]["string"].decode("utf-8")
         if self.dry_run:
             return None
-        breakpoint()
         return response
 
     @property
@@ -138,7 +85,10 @@ class LiveTesting:
             before_record_response=self.before_record_response,
             serializer="json",
         )
-        my_vcr.register_persister(CustomPersister)
+        if self.dry_run:
+            my_vcr.register_persister(DryRunPersister)
+        else:
+            my_vcr.register_persister(LivePersister)
         return my_vcr
 
     def live_test(self, path: str, record_mode: str):
