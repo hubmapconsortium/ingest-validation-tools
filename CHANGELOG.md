@@ -1,7 +1,10 @@
 # Changelog
-## v0.0.44 (in progress)
+## v1.0.0 (in progress)
+
+## v0.0.44
 - Update RNAseq docs
-- Confirm support for Python 3.13
+- Remove support for Python 3.9
+- Add support for Python 3.13
 
 ## v0.0.43
 - Update EPICs docs
