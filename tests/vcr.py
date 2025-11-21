@@ -1,7 +1,15 @@
 import glob
+import json
+import re
+from collections import defaultdict
 from pathlib import Path
 
 from vcr import VCR
+from vcr.persisters.filesystem import (
+    FilesystemPersister,
+)
+from vcr.request import Request
+from vcr.serialize import serialize
 from vcr.unittest import VCRTestCase
 
 from ingest_validation_tools.upload import Upload
@@ -36,6 +44,54 @@ def create_upload(dataset_path: str, globus_token: str) -> Upload:
     return Upload(Path(f"{dataset_path}/upload"), globus_token=globus_token, **opts)
 
 
+class CustomPersister(FilesystemPersister):
+    @staticmethod
+    def save_cassette(cassette_path, cassette_dict, serializer):
+        cassette_path = Path(cassette_path)
+        if cassette_path.exists():
+            new_data = defaultdict(list)
+            with cassette_path.open("r") as f:
+                existing_data = json.load(f)
+                for request, response in zip(
+                    cassette_dict["requests"], cassette_dict["responses"]
+                ):
+                    response["body"]["string"] = response["body"]["string"]
+                    match = False
+                    breakpoint()
+                    for pair in existing_data["interactions"]:
+                        if (
+                            (pair["request"]["method"] == request.method)
+                            and (pair["request"]["uri"] == request.uri)
+                            and (pair["request"]["body"] == request.body)
+                            and pair["response"]["body"]["string"] == response["body"]["string"]
+                        ):
+                            # Found a match between request/response pair in cassette_dict and existing fixture data
+                            # Want to add the first match to new_data; break out of fixture pair loop
+                            if response not in new_data["responses"]:
+                                break
+                            # Want to leave out any future matches, break out of fixture pair loop
+                            print("Matching request/response found, not adding to cassette.")
+                            match = True
+                            break
+                    # Loop ended or broke; write matched case #1 or no match case for this request
+                    if not match:
+                        print("New request/response found, adding to cassette.")
+                        new_data["requests"].append(request)
+                        new_data["responses"].append(response)
+
+            if not new_data:
+                print(f"No new data to write to cassette f{cassette_path}.")
+                return
+            cassette_dict = dict(new_data)
+        data = serialize(cassette_dict, serializer)
+
+        cassette_folder = cassette_path.parent
+        if not cassette_folder.exists():
+            cassette_folder.mkdir(parents=True)
+        with cassette_path.open("w") as f:
+            f.write(data)
+
+
 class LiveTesting:
     def __init__(
         self,
@@ -48,46 +104,67 @@ class LiveTesting:
         self.globus_token = globus_token
         self.responses = {}
         self.live_tests()
+        self.current_cassette = None
 
-    def before_record_request(self, request, **kwargs):
-        if kwargs.get("dry_run"):
+    def before_record_request(self, request):
+        new_headers = {}
+        new_headers["Authorization"] = "Bearer xxxxxxx"
+        new_headers["Content-Type"] = request.headers.get("Content-Type")
+        replace_str = re.search(r"; boundary=(.*)", request.headers.get("Content-Type", ""))
+        body = request.body.decode("utf-8")
+        if replace_str and len(replace_str.groups()) == 1:
+            sub_str = replace_str.groups()[0]
+            body = body.replace(sub_str, "")
+        new_request = Request(request.method, request.uri, body, new_headers)
+        if self.dry_run:
             return None
-        return request
+        breakpoint()
+        return new_request
 
-    def before_record_response(self, response, **kwargs):
-        # TODO: not sure if this needs to return a callable
-        self.responses[kwargs.get("test_dir")] = response
-        # TODO: compare? don't care much about the data but good to know when fixture is changing / would change
-        if kwargs.get("dry_run"):
+    def before_record_response(self, response):
+        response["headers"] = {}
+        if isinstance(response.get("body", {}).get("string"), bytes):
+            response["body"]["string"] = response["body"]["string"].decode("utf-8")
+        if self.dry_run:
             return None
+        breakpoint()
         return response
 
     @property
     def my_vcr(self):
-        return VCR(
+        my_vcr = VCR(
             record_on_exception=False,
-            before_record_request=self.before_record_request({"dry_run": self.dry_run}),
-            before_record_response=self.before_record_response({"dry_run": self.dry_run}),
+            before_record_request=self.before_record_request,
+            before_record_response=self.before_record_response,
+            serializer="json",
         )
+        my_vcr.register_persister(CustomPersister)
+        return my_vcr
 
-    def test_factory(self, path: str):
-        @self.my_vcr.use_cassette(f"{path}/fixtures.yaml", record_mode="all")
-        def live_test():
+    def live_test(self, path: str, record_mode: str):
+        with self.my_vcr.use_cassette(
+            Path(path) / "fixtures.json",
+            record_mode=record_mode,
+            decode_compressed_response=True,
+            match_on=["body"],
+        ) as cassette:  # type: ignore
             print(f"Testing {path}...")
             upload = create_upload(path, self.globus_token)
             upload.get_errors()
-            readme = open(f"{path}/README.md", "r")
+            readme = open(f"{path}README.md", "r")
             # Diff report & readme
             # If diff and not dry_run:
             #   Write report to README
             # If not diff:
             #   Pass, log
 
-        return live_test
-
     def live_tests(self):
         for path in self.paths:
-            self.test_factory(path)()
+            if self.dry_run:
+                record_mode = "none"
+            else:
+                record_mode = "all"
+            self.live_test(path, record_mode)
 
 
 class MyTestCase(VCRTestCase):
@@ -102,7 +179,7 @@ class MyTestCase(VCRTestCase):
     ]
 
     def _get_vcr(self, **kwargs):
-        kwargs["cassette_library_dir"] = f"{kwargs.get('test_dir')}/fixtures.yaml"
+        kwargs["cassette_library_dir"] = f"{kwargs.get('test_dir')}/fixtures.json"
         return VCR(**kwargs)
 
     def get_paths(self):
@@ -114,8 +191,7 @@ class MyTestCase(VCRTestCase):
         return dataset_paths
 
     def test_dataset_examples(self):
-        test_dirs = self.get_paths()
-        for test_dir in test_dirs:
+        for test_dir in self.get_paths():
             print(f"Testing {test_dir}...")
             with self.cassette(cassette_library_dir=test_dir):
                 upload = create_upload(test_dir, "")

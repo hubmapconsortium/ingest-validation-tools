@@ -93,7 +93,7 @@ class ErrorSerializer:
         cleaned_data = {}
         for err_field in fields(error):
             field_val = getattr(error, err_field.name)
-            if err_field.name == "path":
+            if err_field.name == "path" and field_val:
                 cleaned_data["path"] = relpath(field_val, self.dir_path)
             elif err_field.name == "error":
                 cleaned_data["error"] = error.by_report_type(self.report_type)
