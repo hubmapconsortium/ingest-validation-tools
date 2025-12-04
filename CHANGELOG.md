@@ -1,5 +1,6 @@
 # Changelog
 ## v1.0.0 (in progress)
+- Update GeoMX (NGS) directory schema
 
 ## v0.0.44
 - Update RNAseq docs
