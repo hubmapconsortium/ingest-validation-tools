@@ -1,0 +1,21 @@
+files:
+  -
+    pattern: extras\/.*
+    required: True
+    description: Folder for general lab-specific files related to the dataset. 
+  -  
+    pattern: raw\/.*
+    required: True
+    description: This is a directory containing raw data.
+  -  
+    pattern: raw\/starmap\/.*
+    required: False
+    description: All relevent raw files for STARmap.
+  -
+    pattern: lab_processed\/.*
+    required: True
+    description: Experiment files that were processed by the lab generating the data.
+  -
+    pattern: lab_processed\/starmap\/.*
+    required: False
+    description: All relevent experiment files for STARmap.
