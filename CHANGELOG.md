@@ -1,6 +1,7 @@
 # Changelog
 ## v1.0.0 (in progress)
 - Update GeoMX (NGS) directory schema
+- Add STARmap passthrough directory schema
 
 ## v0.0.44
 - Update RNAseq docs
