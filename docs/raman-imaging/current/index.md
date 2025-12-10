@@ -27,3 +27,14 @@ Related files:
 
 <br>
 
+## Directory schemas
+<summary><b>Version 2.0 (use this one)</b></summary>
+
+| pattern | required? | description |
+| --- | --- | --- |
+| <code>extras\/.*</code> | ✓ | Folder for general lab-specific files related to the dataset. |
+| <code>raw\/.*</code> | ✓ | This is a directory containing raw data. |
+| <code>raw\/raman_imaging\/.*</code> |  | All relevent raw files for Raman Imaging. |
+| <code>lab_processed\/.*</code> | ✓ | Experiment files that were processed by the lab generating the data. |
+| <code>lab_processed\/raman_imaging\/.*</code> |  | All relevent experiment files for Raman Imaging. |
+
