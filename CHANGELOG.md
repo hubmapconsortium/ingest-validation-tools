@@ -3,6 +3,7 @@
 - Update GeoMX (NGS) directory schema
 - Add STARmap passthrough directory schema
 - Add Raman Imaging passthrough directory schema
+- Update CODEX directory schema description
 
 ## v0.0.44
 - Update RNAseq docs
