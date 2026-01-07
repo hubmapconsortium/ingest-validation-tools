@@ -6,6 +6,7 @@
 - Update 4i directory schema description
 - Update CODEX directory schema description
 - Update Segementation Mask directory schema
+- Add CLAP passthrough directory schema
 
 ## v0.0.44
 - Update RNAseq docs
