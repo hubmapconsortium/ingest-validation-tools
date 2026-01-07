@@ -5,6 +5,7 @@
 - Add Raman Imaging passthrough directory schema
 - Update 4i directory schema description
 - Update CODEX directory schema description
+- Add CLAP passthrough directory schema
 
 ## v0.0.44
 - Update RNAseq docs
