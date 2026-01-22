@@ -8,14 +8,14 @@ files:
     required: True
     description: This is a directory containing raw data.
   -  
-    pattern: raw\/clap\/.*
+    pattern: raw\/iclap\/.*
     required: False
-    description: All relevent raw files for CLAP.
+    description: All relevent raw files for iCLAP.
   -
     pattern: lab_processed\/.*
     required: True
     description: Experiment files that were processed by the lab generating the data.
   -
-    pattern: lab_processed\/clap\/.*
+    pattern: lab_processed\/iclap\/.*
     required: False
-    description: All relevent experiment files for CLAP.
+    description: All relevent experiment files for iCLAP.

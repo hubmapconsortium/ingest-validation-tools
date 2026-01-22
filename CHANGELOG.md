@@ -1,5 +1,8 @@
 # Changelog
-## v1.0.0 (in progress)
+## v1.0.1
+- Update CLAP to iCLAP
+
+## v1.0.0
 - Update GeoMX (NGS) directory schema
 - Add STARmap passthrough directory schema
 - Add Raman Imaging passthrough directory schema
