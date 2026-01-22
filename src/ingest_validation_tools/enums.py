@@ -195,6 +195,7 @@ shared_enums: dict[str, list[str]] = {
         "STARmap",
         "Raman Imaging",
         "iCLAP",
+        "COMET",
     ],
     "analyte_class": [
         "DNA",
