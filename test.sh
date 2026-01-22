@@ -142,3 +142,5 @@ if [ -z $HALT ]; then
     # Run python tests
     python -m unittest tests/*.py
 fi
+
+python -m tests.manual.update_test_data -t examples/dataset-examples/good-codex-akoya-directory-v1.json examples/dataset-examples/bad-codex-akoya-directory-v1-missing-dataset.json examples/dataset-examples/good-codex-akoya-metadata-v1 --verbose --globus_token "" --manual_test --dry_run
