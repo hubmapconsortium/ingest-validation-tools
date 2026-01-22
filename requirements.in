@@ -4,4 +4,5 @@ frictionless==4.40.11
 jsonschema==4.23.0
 PyYAML==6.0.2
 requests==2.32.3
+six==1.17.0
 tableschema-to-template==0.0.13
