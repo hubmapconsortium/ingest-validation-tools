@@ -3,8 +3,6 @@ set -o errexit
 
 die() { set +v; echo "$*" 1>&2 ; sleep 1; exit 1; }
 
-exit 1
-
 # Test docs:
 
 for TYPE in $(ls -d docs/*); do
