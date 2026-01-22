@@ -1,6 +1,7 @@
 # Changelog
 ## v1.0.1
 - Update CLAP to iCLAP
+- Add new dataset (COMET)
 
 ## v1.0.0
 - Update GeoMX (NGS) directory schema
