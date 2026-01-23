@@ -47,7 +47,7 @@ def get_files(paths: list[Path]) -> list[str]:
             raise FileNotFoundError(0, "No such file or directory", str(path))
 
         for triple in os.walk(path):
-            (dir_path, _, file_names) = triple
+            dir_path, _, file_names = triple
             # [1:] removes leading '/', if any.
             prefix = dir_path.replace(str(path), "")[1:]
             if os.name == "nt":

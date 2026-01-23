@@ -1,9 +1,13 @@
 # Changelog
+
 ## v1.0.1
+
 - Update CLAP to iCLAP
 - Add new dataset (COMET)
+- Fixing tests/deps
 
 ## v1.0.0
+
 - Update GeoMX (NGS) directory schema
 - Add STARmap passthrough directory schema
 - Add Raman Imaging passthrough directory schema
@@ -13,23 +17,28 @@
 - Add CLAP passthrough directory schema
 
 ## v0.0.44
+
 - Update RNAseq docs
 - Remove support for Python 3.9
 - Add support for Python 3.13
 
 ## v0.0.43
+
 - Update EPICs docs
 - Update EPICs docs
 - Add 4i passthrough datasets
 
 ## v0.0.42
+
 - Update GeoMX NGS
 - Update CosMX Proteomics directory schema
 
 ## v0.0.41
+
 - Minor fix
 
 ## v0.0.40
+
 - Refactor
 - Add checks for contact in contributors.tsv, empty columns in TSV
 - Fix shared upload check for unreferenced files
@@ -47,18 +56,21 @@
 - Fix tests
 
 ## v0.0.39
-- Create Object-by-Analyte EPIC directory schema 
+
+- Create Object-by-Analyte EPIC directory schema
 - Update Xenium directory schema
 - Create Visium HD directory schema (provisional name)
 - Create Pixel-Seq v2 directory schema
 - Create MPLEx directory schema
 
 ## v0.0.38
+
 - Update Cell DIVE directory schema
 - Update Cell DIVE directory schema
 - Update legacy Cell DIVE directory schema
 
 ## v0.0.37
+
 - Update Xenium directory schema
 - Update Publication directory schema
 - Update Xenium directory schema
@@ -92,81 +104,88 @@
 - Update Xenium directory schema
 
 ## v0.0.36
+
 - Update Xenium directory schema
 - Update LC-MS directory schema
 - Bugfix table_schema logic for legacy validation
 - Remove CyCIF
 
 ## v0.0.35
- - Adding support for EPIC's new plugin
- - Update MERFISH directory schema
- - Update Histology directory schema
- - Update 2D Imaging Mass Cytometry directory schema
- - Update DESI directory schema
- - Update MALDI directory schema
- - Update Multiplex Ion Beam Imaging directory schema
- - Update SIMS directory schema
- - Update CODEX directory schema
- - Update Cell DIVE directory schema
- - Update Phenocycler directory schema
- - Update Auto-fluorescence directory schema
- - Update Confocal directory schema
- - Update Enhanced Stimulated Raman Spectroscopy directory schema
- - Update Light Sheet directory schema
- - Update Second Harmonic Generation directory schema
- - Update Thick Section Multiphoton MxIF directory schema
- - Update CosMX directory schema
- - Update GeoMx NGS directory schema
- - Update Visium no probes directory schema
- - Update Visium with probes directory schema
- - Update Xenium directory schema
- - Update Segmentation Mask directory schema
- - Create DBiT-seq directory schema
- - Add G4X directory schema
- - Update docs for g4x & dbit-seq
+
+- Adding support for EPIC's new plugin
+- Update MERFISH directory schema
+- Update Histology directory schema
+- Update 2D Imaging Mass Cytometry directory schema
+- Update DESI directory schema
+- Update MALDI directory schema
+- Update Multiplex Ion Beam Imaging directory schema
+- Update SIMS directory schema
+- Update CODEX directory schema
+- Update Cell DIVE directory schema
+- Update Phenocycler directory schema
+- Update Auto-fluorescence directory schema
+- Update Confocal directory schema
+- Update Enhanced Stimulated Raman Spectroscopy directory schema
+- Update Light Sheet directory schema
+- Update Second Harmonic Generation directory schema
+- Update Thick Section Multiphoton MxIF directory schema
+- Update CosMX directory schema
+- Update GeoMx NGS directory schema
+- Update Visium no probes directory schema
+- Update Visium with probes directory schema
+- Update Xenium directory schema
+- Update Segmentation Mask directory schema
+- Create DBiT-seq directory schema
+- Add G4X directory schema
+- Update docs for g4x & dbit-seq
 
 ## v0.0.34
- - Create CyTOF directory schema
- - Update MERFISH directory schema
- - Update Histology directory schema
- - Update 2D Imaging Mass Cytometry directory schema
- - Update DESI directory schema
- - Update MALDI directory schema
- - Update Multiplex Ion Beam Imaging directory schema
- - Update SIMS directory schema
- - Update CODEX directory schema
- - Update Cell DIVE directory schema
- - Update Phenocycler directory schema
- - Update Auto-fluorescence directory schema
- - Update Confocal directory schema
- - Update Enhanced Stimulated Raman Spectroscopy directory schema
- - Update Light Sheet directory schema
- - Update Second Harmonic Generation directory schema
- - Update Thick Section Multiphoton MxIF directory schema
- - Update CosMX directory schema
- - Update GeoMx NGS directory schema
- - Update Visium no probes directory schema
- - Update Visium with probes directory schema
- - Update Xenium directory schema
- - Update Segmentation Mask directory schema
- - Undo version 2.3 updates and keep version 2.4 updates to CosMx directory schema
+
+- Create CyTOF directory schema
+- Update MERFISH directory schema
+- Update Histology directory schema
+- Update 2D Imaging Mass Cytometry directory schema
+- Update DESI directory schema
+- Update MALDI directory schema
+- Update Multiplex Ion Beam Imaging directory schema
+- Update SIMS directory schema
+- Update CODEX directory schema
+- Update Cell DIVE directory schema
+- Update Phenocycler directory schema
+- Update Auto-fluorescence directory schema
+- Update Confocal directory schema
+- Update Enhanced Stimulated Raman Spectroscopy directory schema
+- Update Light Sheet directory schema
+- Update Second Harmonic Generation directory schema
+- Update Thick Section Multiphoton MxIF directory schema
+- Update CosMX directory schema
+- Update GeoMx NGS directory schema
+- Update Visium no probes directory schema
+- Update Visium with probes directory schema
+- Update Xenium directory schema
+- Update Segmentation Mask directory schema
+- Undo version 2.3 updates and keep version 2.4 updates to CosMx directory schema
 
 ## v0.0.33
+
 - Update Xenium directory schema
 - Update Xenium directory schema
 - Update CosMx directory schema
 
 ## v0.0.32
+
 - Update Xenium directory schema
 - Adding new is_schema_latest_version method to check if provided Cedar spec is the latest
 - Fix issue with json response. On row {x}, column {fieldName} should NOT be concatenated with actual error message.
 
 ## v0.0.31
+
 - Update Segmentation masks directory schema
 - Update Cell DIVE directory schema
 - Bugfix shared upload non_global file error reporting
 
 ## v0.0.30
+
 - Update Seg Mask documentation
 - Update CosMx directory schema
 - Constrain file patterns to end of line for all published directory schemas
@@ -175,6 +194,7 @@
 - Update fixture data with new UBKG responses
 
 ## v0.0.29
+
 - Add CosMX directory schema
 - Update CosMX directory schema
 - Update Segmentation masks directory schema
@@ -183,11 +203,13 @@
 - Update CODEX directory schema
 
 ## v0.0.28
+
 - Update Xenium directory schema
 - Update GeoMx NGS directory schema
 - Add CosMX metadata schema
 
 ## v0.0.27
+
 - Update Visium with probes directory schema pt 3
 - Update Segmentation masks directory schema
 - Updating tests based on new dir schema major versions and assayclassifier responses
@@ -201,6 +223,7 @@
 - Update Segmentation Mask link
 
 ## v0.0.26
+
 - Update GeoMx NGS directory schema
 - Update MERFISH directory schema
 - Update LC-MS directory schema
@@ -208,10 +231,12 @@
 - Update Visium with probes directory schema pt 2
 
 ## v0.0.25
+
 - Update GeoMx NGS directory schema
 - Added EPIC dataset field derived_dataset_type to UNIQUE_FIELDS_MAP
 
 ## v0.0.24
+
 - Release MERFISH
 - Add MERFISH directory schema
 - Fix documentation issue for MERFISH
@@ -231,22 +256,27 @@
 - Change to EntityTypeInfo constraint format to support constraints endpoint
 
 ## v0.0.23
+
 - Add token to validation_utils.get_assaytype_data, replace URL string concatenation with urllib
 
 ## v0.0.22
+
 - Fix logging length issue in Upload.multi_parent
 - Minor change to Visium with probes directory schema
 - Minor change to Visium no probes directory schema
 - Update docs for Visium directories
 
 ## v0.0.21
+
 - Fix the changelog to reflect the current version.
 - Fix row number mismatch between validation and spreadsheet validator response
 
 ## v0.0.20
+
 - Fix row number mismatch between validation and spreadsheet validator response
 
 ## v0.0.19
+
 - Directory validation changes for "shared" uploads
 - Update Phenocycler directory schema
 - Remove bad paths from LC-MS directory schema

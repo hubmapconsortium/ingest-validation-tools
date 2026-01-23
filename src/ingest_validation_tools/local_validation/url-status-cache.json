@@ -1,0 +1,20 @@
+{
+  "bad://url": "No connection adapters were found for 'bad://url'",
+  "https://dx.doi.org/10.17504/123": 404,
+  "https://dx.doi.org/10.17504/fake": 404,
+  "https://dx.doi.org/10.17504/protocols.io.7gdhjs6": 200,
+  "https://dx.doi.org/10.17504/protocols.io.bfskjncw": 200,
+  "https://dx.doi.org/10.17504/protocols.io.bt8hnrt6": 200,
+  "https://dx.doi.org/10.17504/protocols.io.menc3de": 200,
+  "https://dx.doi.org/10\\.17504/protocols.io.menc3de": 400,
+  "https://dx.doi.org/not-doi": 400,
+  "https://portal.hubmapconsortium.org/": 200,
+  "https://portal.hubmapconsortium.org/bad": 404,
+  "https://portal.hubmapconsortium.org/browse/dataset/bad": 404,
+  "https://portal.hubmapconsortium.org/browse/dataset/f9ae931b8b49252f150d7f8bf1d2d13f": 200,
+  "https://pub.orcid.org/v3.0/0000-0000-0000-0000": 404,
+  "https://pub.orcid.org/v3.0/0000-0003-4039-9768": 200,
+  "https://pub.orcid.org/v3.0/bad-id": 404,
+  "https://scicrunch.org/resolver/RRID:AB_1934296": 200,
+  "https://www.uniprot.org/uniprot/G9N9I7": 200
+}

@@ -112,7 +112,7 @@ if [ -z $HALT ]; then
     ls tests/*.sh | parallel --halt now,fail=1 bash
     if [ $? -ne 0 ]; then
         echo "Fix errors!"
-        exit
+        exit 1
     fi
 fi
 

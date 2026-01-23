@@ -1,7 +1,13 @@
 # Update requirements.txt if this file changes:
 # pip-compile requirements.in --generate-hashes --allow-unsafe --output-file requirements.txt
-frictionless==4.40.11
+
+# shared by ingest-pipeline (match version)
 jsonschema==4.23.0
 PyYAML==6.0.2
 requests==2.32.3
+
+# ivt-only
+frictionless==4.40.11
+six==1.17.0
 tableschema-to-template==0.0.13
+urllib3==2.6.3
