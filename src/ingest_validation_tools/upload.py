@@ -505,6 +505,7 @@ class Upload:
             )
             if schema.schema_name == DatasetType.DATASET and field == "parent_sample_id":
                 self._check_for_organ_other(response.json())
+                self._check_parent_sample_entity_type(response.json())
             # Do not get ancestor info for sample (no subtype) or source
             if (
                 not (schema.schema_name == OtherTypes.SAMPLE and field == "sample_id")
@@ -534,6 +535,19 @@ class Upload:
                     raise Exception(
                         f"You are not allowed to register data against Sample {origin_sample.get('uuid')} with Organ Other. Please contact the respective help desk to ensure that appropriate support for your work can be provided."
                     )
+
+    def _check_parent_sample_entity_type(self, response: dict):
+        entity_type = response.get("entity_type", "").lower()
+        if entity_type != OtherTypes.SAMPLE:
+            raise Exception(
+                f"parent_sample_id must reference a Sample entity, but received entity type '{entity_type}'."
+            )
+        sample_category = response.get("sample_category", "").lower()
+        valid_categories = {"block", "suspension", "section"}
+        if sample_category not in valid_categories:
+            raise Exception(
+                f"parent_sample_id must reference a Sample of type Block, Suspension, or Section, but received sample type '{sample_category}'."
+            )
 
     def _check_orcid(self, field: str, value: str):
         if field == "orcid":

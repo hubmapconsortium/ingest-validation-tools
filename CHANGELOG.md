@@ -1,4 +1,6 @@
 # Changelog
+## v1.1.0
+- Add new checks for parent_sample_id
 
 ## v1.0.1
 
