@@ -1,4 +1,7 @@
 # Changelog
+## v1.1.1
+- Update CyCIF directory schema
+
 ## v1.1.0
 - Add new checks for parent_sample_id
 
