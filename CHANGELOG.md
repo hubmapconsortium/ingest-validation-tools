@@ -3,6 +3,7 @@
 - Update Visium HD directory schema
 - Update Visium (no probes) directory schema
 - Update Visium (with probes) directory schema
+- Update Xenium directory schema
 
 ## v1.1.1
 - Update CyCIF directory schema
