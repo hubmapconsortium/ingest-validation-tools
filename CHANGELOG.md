@@ -1,4 +1,7 @@
 # Changelog
+## v1.1.3 (in progress)
+- Update publication docs
+
 ## v1.1.2
 - Update Visium HD directory schema
 - Update Visium (no probes) directory schema
