@@ -2,11 +2,11 @@
 ## v1.1.2
 - Update Visium HD directory schema
 - Update Visium (no probes) directory schema
+- Update Visium (with probes) directory schema
 
 ## v1.1.1
 - Update CyCIF directory schema
 - Update CosMX proteomics directory schema
-- Update Visium (with probes) directory schema
 
 ## v1.1.0
 - Add new checks for parent_sample_id
