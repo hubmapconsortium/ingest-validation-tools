@@ -17,7 +17,7 @@ for TYPE in $(ls -d docs/*); do
     continue
   fi
 
-  if ["$TYPE" == "publication"]; then
+  if [ "$TYPE" == "publication" ]; then
     echo "Skipping publications as we're modifying manually."
     continue
   fi
