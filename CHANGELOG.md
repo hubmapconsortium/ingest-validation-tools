@@ -1,4 +1,7 @@
 # Changelog
+## v1.1.2
+- Update publication documentation
+
 ## v1.1.1
 - Update CyCIF directory schema
 - Update CosMX proteomics directory schema
