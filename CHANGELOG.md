@@ -2,6 +2,7 @@
 ## v1.1.2
 - Update Visium HD directory schema
 - Update Visium (no probes) directory schema
+- Update Visium (with probes) directory schema
 
 ## v1.1.1
 - Update CyCIF directory schema
