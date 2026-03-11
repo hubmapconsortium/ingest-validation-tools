@@ -279,22 +279,26 @@ class TestExamples(unittest.TestCase):
                     opts = {}
                 with patch("ingest_validation_tools.validation_utils.get_assaytype_data"):
                     with patch("ingest_validation_tools.upload.Upload._get_url_errors"):
-                        try:
-                            dataset_test(
-                                test_dir,
-                                opts,
-                                verbose=verbose,
-                                offline=True,
-                                use_online_check_fixtures=True,
-                                full_diff=full_diff,
-                            )
-                        except MockException as e:
-                            print(e)
-                            continue
-                        except AssertionError as e:
-                            print(e)
-                            self.errors.append(test_dir)
-                            continue
+                        with patch(
+                            "ingest_validation_tools.local_validation.check_factory.cache_path",
+                            Path(__file__).parent / "fixtures/url-status-cache.json",
+                        ):
+                            try:
+                                dataset_test(
+                                    test_dir,
+                                    opts,
+                                    verbose=verbose,
+                                    offline=True,
+                                    use_online_check_fixtures=True,
+                                    full_diff=full_diff,
+                                )
+                            except MockException as e:
+                                print(e)
+                                continue
+                            except AssertionError as e:
+                                print(e)
+                                self.errors.append(test_dir)
+                                continue
 
     @staticmethod
     def prep_offline_upload(test_dir: str, opts: dict) -> Upload:
