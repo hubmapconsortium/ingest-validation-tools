@@ -1,6 +1,7 @@
 # Changelog
 ## v1.1.3 (in progress)
 - Update publication docs
+- Correct misspelled "relevant" in several file descriptions
 
 ## v1.1.2
 - Update Visium HD directory schema
