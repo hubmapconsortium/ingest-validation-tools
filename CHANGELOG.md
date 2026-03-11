@@ -1,6 +1,7 @@
 # Changelog
 ## v1.1.3 (in progress)
 - Update publication docs
+- Remove url-status-cache.json to avoid issues with permissions
 
 ## v1.1.2
 - Update Visium HD directory schema
