@@ -10,7 +10,7 @@ files:
   -  
     pattern: raw\/mplex\/.*
     required: False
-    description: All relevent raw files for MPLeX.
+    description: All relevant raw files for MPLeX.
   -
     pattern: lab_processed\/.*
     required: True
