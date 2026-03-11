@@ -10,7 +10,7 @@ files:
   -  
     pattern: raw\/pixel_seqv2\/.*
     required: False
-    description: All relevent raw files for Pixel-seq v2.
+    description: All relevant raw files for Pixel-seq v2.
   -
     pattern: lab_processed\/.*
     required: True

@@ -10,7 +10,7 @@ files:
   -  
     pattern: raw\/iclap\/.*
     required: False
-    description: All relevent raw files for iCLAP.
+    description: All relevant raw files for iCLAP.
   -
     pattern: lab_processed\/.*
     required: True
@@ -18,4 +18,4 @@ files:
   -
     pattern: lab_processed\/iclap\/.*
     required: False
-    description: All relevent experiment files for iCLAP.
+    description: All relevant experiment files for iCLAP.
