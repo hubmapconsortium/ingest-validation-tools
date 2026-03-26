@@ -107,7 +107,7 @@ class Upload:
             self._check_multi_assay()
             if not self.is_multi_assay:
                 self._check_single_assay()
-            self._check_shared_upload()
+            self.is_shared_upload
             self.shared_upload_non_global_paths
 
         except PreflightError as e:
@@ -245,10 +245,8 @@ class Upload:
                     f"Empty columns: {', '.join([str(i) for i in empty])}"
                 )
             if not schema_version.is_cedar:
-                logging.info(
-                    f"""TSV {tsv_path} does not contain a metadata_schema_id,
-                    sending for local validation"""
-                )
+                logging.info(f"""TSV {tsv_path} does not contain a metadata_schema_id,
+                    sending for local validation""")
                 self._local_validation(tsv_path, schema_version)
             elif not self.offline_only:
                 self._online_checks(tsv_path, schema_version)
@@ -327,12 +325,28 @@ class Upload:
                 f"There is more than one TSV for this type: {', '.join(repeated)}"
             )
 
-    def _check_shared_upload(self):
-        self.is_shared_upload = {"global", "non_global"} == {
-            x.name
-            for x in self.directory_path.glob("*global")
-            if x.is_dir() and x.name in ["global", "non_global"]
-        }
+    @cached_property
+    def is_shared_upload(self):
+        top_level_dirs = [path.name for path in self.directory_path.iterdir() if path.is_dir()]
+        # no dirs have "global" in name, not a shared upload
+        if not any([dirname for dirname in top_level_dirs if "global" in dirname]):
+            return False
+        valid_shared_dirs = {"global", "non_global"}
+        # is a shared upload, has exactly the right top-level dirs
+        if set(top_level_dirs) == valid_shared_dirs:
+            return True
+        # something is wrong, figure out if there are missing and/or extra top-level dirs
+        msg = ""
+        if missing := valid_shared_dirs.difference(
+            set([dirname for dirname in top_level_dirs if "global" in dirname])
+        ):
+            msg = f"Shared upload is missing directory: {list(missing)[0]}."
+        if extra := [dirname for dirname in top_level_dirs if "global" not in dirname]:
+            msg = (
+                (f"{msg} " if msg else "")
+                + f"Shared upload has invalid directories: {', '.join(extra)}. Allowed top level directories for a shared upload are 'global' and 'non_global'."
+            )
+        raise PreflightError(msg)
 
     @cached_property
     def shared_upload_non_global_paths(self) -> dict[str, list[tuple[str, str]]]:
