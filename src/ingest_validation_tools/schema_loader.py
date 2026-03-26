@@ -65,12 +65,10 @@ class SchemaVersion:
             try:
                 self.path = Path(self.path)
             except Exception as e:
-                raise Exception(
-                    f"""
+                raise Exception(f"""
                     SchemaVersion with name {self.schema_name} was passed
                     an invalid path: {self.path}. Error: {e}
-                    """
-                )
+                    """)
         if self.schema_name in OtherTypes.with_sample_subtypes():
             self.metadata_type = "others"
         self.get_row_data()
