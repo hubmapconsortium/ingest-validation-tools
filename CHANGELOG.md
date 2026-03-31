@@ -5,6 +5,7 @@
 - Update publication docs
 - Correct misspelled "relevant" in several file descriptions
 - Ensure that shared uploads do not have extra top-level dirs
+- Update Visium (with probes) directory schema
 
 ## v1.1.2
 
