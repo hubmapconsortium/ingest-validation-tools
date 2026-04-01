@@ -6,6 +6,7 @@
 - Correct misspelled "relevant" in several file descriptions
 - Ensure that shared uploads do not have extra top-level dirs
 - Update Visium (with probes) directory schema
+- Remove url-status-cache.json to avoid issues with permissions
 
 ## v1.1.2
 
