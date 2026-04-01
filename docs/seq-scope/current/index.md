@@ -34,7 +34,7 @@ Related files:
 | --- | --- | --- |
 | <code>extras\/.*</code> | ✓ | Folder for general lab-specific files related to the dataset. |
 | <code>raw\/.*</code> | ✓ | This is a directory containing raw data. |
-| <code>raw\/seqscope\/.*</code> |  | All relevent raw files for Seq-Scope. |
+| <code>raw\/seqscope\/.*</code> |  | All relevant raw files for Seq-Scope. |
 | <code>lab_processed\/.*</code> | ✓ | Experiment files that were processed by the lab generating the data. |
-| <code>lab_processed\/seqscope\/.*</code> |  | All relevent experiment files for Seq-Scope. |
+| <code>lab_processed\/seqscope\/.*</code> |  | All relevant experiment files for Seq-Scope. |
 

@@ -34,7 +34,7 @@ None
 | --- | --- | --- |
 | <code>extras\/.*</code> | ✓ | Folder for general lab-specific files related to the dataset. |
 | <code>raw\/.*</code> | ✓ | This is a directory containing raw data. |
-| <code>raw\/mplex\/.*</code> |  | All relevent raw files for MPLeX. |
+| <code>raw\/mplex\/.*</code> |  | All relevant raw files for MPLeX. |
 | <code>lab_processed\/.*</code> | ✓ | Experiment files that were processed by the lab generating the data. |
 | <code>lab_processed\/mplex\/.*</code> |  | Experiment files that were processed by the lab generating the data exclusive to MPLeX. |
 
