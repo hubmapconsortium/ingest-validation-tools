@@ -7,6 +7,7 @@
 - Ensure that shared uploads do not have extra top-level dirs
 - Update Visium (with probes) directory schema
 - Remove url-status-cache.json to avoid issues with permissions
+- Bugfix plugin error sorting
 
 ## v1.1.2
 

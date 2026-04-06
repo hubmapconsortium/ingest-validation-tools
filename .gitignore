@@ -6,6 +6,8 @@
 # Generated and deleted during successful tests.
 docs-test/
 
+*url-status-cache.json
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
