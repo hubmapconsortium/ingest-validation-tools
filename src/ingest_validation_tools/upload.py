@@ -928,10 +928,10 @@ class Upload:
                 errors["Unexpected Plugin Error"] = [e]
         for k, v in errors.items():
             try:
-                # Optimistically assume v is a list of strings
+                # Optimistically assume v is a dict or list of strings
                 self.errors.plugin[k] = sorted(v)
             except TypeError:
-                # v was not a list of strings
+                # v was not a dict or list of strings
                 self.errors.plugin[k] = v
 
     ###################################
