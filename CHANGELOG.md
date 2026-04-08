@@ -8,6 +8,7 @@
 - Update Visium (with probes) directory schema
 - Remove url-status-cache.json to avoid issues with permissions
 - Bugfix plugin error sorting
+- Add Illumina Spatial Technology directory schema (beta)
 
 ## v1.1.2
 
