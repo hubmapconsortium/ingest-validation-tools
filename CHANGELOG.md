@@ -9,6 +9,7 @@
 - Remove url-status-cache.json to avoid issues with permissions
 - Bugfix plugin error sorting
 - Add Illumina Spatial Technology directory schema (beta)
+- Update URL for generating 10x Genomics layout files
 
 ## v1.1.2
 
