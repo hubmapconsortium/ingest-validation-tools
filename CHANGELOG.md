@@ -1,6 +1,10 @@
 # Changelog
 
-## v1.1.3 (in progress)
+## v1.1.4
+
+- Fixing tests to prevent CHANGELOG.md error on release tags
+
+## v1.1.3
 
 - Update publication docs
 - Correct misspelled "relevant" in several file descriptions
