@@ -3,6 +3,7 @@
 ## v1.1.4
 
 - Fixing tests to prevent CHANGELOG.md error on release tags
+- Update Xenium directory schems
 
 ## v1.1.3
 
