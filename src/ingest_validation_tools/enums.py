@@ -119,6 +119,7 @@ shared_enums: dict[str, list[str]] = {
         "Histology",
         "DBiT-seq",
         "2D Imaging Mass Cytometry",
+        "Illumina Spatial",
         "Imaging Mass Cytometry",
         "IMS",
         "LC-MS (metabolomics)",

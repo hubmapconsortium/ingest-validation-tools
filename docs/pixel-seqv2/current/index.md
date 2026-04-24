@@ -34,7 +34,7 @@ None
 | --- | --- | --- |
 | <code>extras\/.*</code> | ✓ | Folder for general lab-specific files related to the dataset. |
 | <code>raw\/.*</code> | ✓ | This is a directory containing raw data. |
-| <code>raw\/pixel_seqv2\/.*</code> |  | All relevent raw files for Pixel-seq v2. |
+| <code>raw\/pixel_seqv2\/.*</code> |  | All relevant raw files for Pixel-seq v2. |
 | <code>lab_processed\/.*</code> | ✓ | Experiment files that were processed by the lab generating the data. |
 | <code>lab_processed\/pixel_seqv2\/.*</code> |  | Experiment files that were processed by the lab generating the data exclusive to Pixel-seq v2. |
 

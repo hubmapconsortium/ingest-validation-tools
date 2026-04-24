@@ -34,7 +34,7 @@ Related files:
 | --- | --- | --- |
 | <code>extras\/.*</code> | ✓ | Folder for general lab-specific files related to the dataset. |
 | <code>raw\/.*</code> | ✓ | This is a directory containing raw data. |
-| <code>raw\/olink\/.*</code> |  | All relevent raw files for Olink. |
+| <code>raw\/olink\/.*</code> |  | All relevant raw files for Olink. |
 | <code>lab_processed\/.*</code> | ✓ | Experiment files that were processed by the lab generating the data. |
-| <code>lab_processed\/olink\/.*</code> |  | All relevent experiment files for Olink. |
+| <code>lab_processed\/olink\/.*</code> |  | All relevant experiment files for Olink. |
 

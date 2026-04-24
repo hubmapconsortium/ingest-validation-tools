@@ -98,3 +98,98 @@ files:
     required: False
     description: Transformation matrices used to overlay images from the exact same tissue section (e.g., MALDI imaging mass spec, autofluorescence microscopy, MxIF, histological stains). 
     is_qa_qc: False
+  -
+    pattern: lab_processed\/spaceranger\/.*
+    required: False
+    description: Output from the 10X Genomics SpaceRanger pipeline
+  -
+    pattern: lab_processed\/spaceranger\/filtered_feature_bc_matrix\.h5$
+    required: False
+    description: HDF5 file containing called cell x gene matrix
+    is_qa_qc: False
+  -
+    pattern: lab_processed\/spaceranger\/raw_feature_bc_matrix\.h5$
+    required: False
+    description: HDF5 file containing unfiltered cell x gene matrix
+    is_qa_qc: False
+  -
+    pattern: lab_processed\/spaceranger\/spatial\/.*
+    required: False
+    description: Dataset level spatial files from the 10X Genomics SpaceRanger pipeline.
+  -
+    pattern: lab_processed\/spaceranger\/spatial\/tissue_hires_image\.png$
+    required: False
+    description: PNG image of aligned tissue at full/original resolution
+    is_qa_qc: False
+  -
+    pattern: lab_processed\/spaceranger\/spatial\/tissue_lowres_image\.png$
+    required: False
+    description: PNG image of aligned tissue at downscaled resolution
+    is_qa_qc: False
+  -
+    pattern: lab_processed\/spaceranger\/spatial\/cytassist_image\.tiff$
+    required: False
+    description: Copy of the original CytAssist image input, which is a eosin-stained brightfield image in TIFF format that contains the fiducial frame.
+    is_qa_qc: False
+  -
+    pattern: lab_processed\/spaceranger\/spatial\/aligned_fiducials\.jpg$
+    required: False
+    description: File used to verify that fiducial alignment was successful. Fiducial spots detected by the fiducial alignment algorithm are highlighted in red.
+    is_qa_qc: False
+  -
+    pattern: lab_processed\/spaceranger\/spatial\/aligned_tissue_image\.jpg$
+    required: False
+    description: Image capturing the results of the image registration by merging the registered images in a checkerboard pattern with adjacent squares alternating between the two images. 
+    is_qa_qc: False
+  -
+    pattern: lab_processed\/spaceranger\/spatial\/detected_tissue_image\.jpg$
+    required: False
+    description: "This image has either the dimensions of the CytAssist image or of the tissue_hires_image.png, and shows the following: (1) Aligned fiducial spots as hollow circles which are red (Visium HD) or blue (Visium v1/v2); (2) A blue bounding box. The interior designates the portion of the image where tissue is discriminated from background; (3) Spots/squares found under tissue are blue (Visium HD) or red (Visium v1/v2); (4) Spots/squares outside of tissue are gray."
+    is_qa_qc: False
+  -
+    pattern: lab_processed\/spaceranger\/binned_outputs\/.*
+    required: False
+    description: Binned outputs from the 10X Genomics SpaceRanger pipeline.
+  -
+    pattern: lab_processed\/spaceranger\/binned_outputs\/square_[^\/]+\/.*
+    required: False
+    description: Square-specific binned outputs from the 10X Genomics SpaceRanger pipeline.
+  -
+    pattern: lab_processed\/spaceranger\/binned_outputs\/square_[^\/]+\/filtered_feature_bc_matrix\.h5$
+    required: False
+    description: HDF5 file containing binned called cell x gene matrix
+    is_qa_qc: False
+  -
+    pattern: lab_processed\/spaceranger\/binned_outputs\/square_[^\/]+\/raw_feature_bc_matrix\.h5$
+    required: False
+    description: HDF5 file containing unfiltered binned cell x gene matrix
+    is_qa_qc: False
+  -
+    pattern: lab_processed\/spaceranger\/binned_outputs\/square_[^\/]+\/spatial\/.*
+    required: False
+    description: Square-specific spatial outputs from the 10X Genomics SpaceRanger pipeline
+  -
+    pattern: lab_processed\/spaceranger\/binned_outputs\/square_[^\/]+\/spatial\/aligned_fiducials\.jpg$
+    required: False
+    description: Square-specific file used to verify that fiducial alignment was successful. Fiducial spots detected by the fiducial alignment algorithm are highlighted in red.
+    is_qa_qc: False
+  -
+    pattern: lab_processed\/spaceranger\/binned_outputs\/square_[^\/]+\/spatial\/aligned_tissue_image\.jpg$
+    required: False
+    description: Square-specific image capturing the results of the image registration by merging the registered images in a checkerboard pattern with adjacent squares alternating between the two images. 
+    is_qa_qc: False
+  -
+    pattern: lab_processed\/spaceranger\/binned_outputs\/square_[^\/]+\/spatial\/detected_tissue_image\.jpg$
+    required: False
+    description: "Square-specific image displaying the following: (1) Aligned fiducial spots as hollow circles which are red (Visium HD) or blue (Visium v1/v2); (2) A blue bounding box. The interior designates the portion of the image where tissue is discriminated from background; (3) Spots/squares found under tissue are blue (Visium HD) or red (Visium v1/v2); (4) Spots/squares outside of tissue are gray."
+    is_qa_qc: False
+  -
+    pattern: lab_processed\/spaceranger\/binned_outputs\/square_[^\/]+\/spatial\/tissue_positions\.parquet$
+    required: False
+    description: "File ontains a table with rows that correspond to spots with columns corresponding to the following field: barcode, in_tissue, array_row, array_col, pxl_row_in_fullres and pxl_col_in_fullres."
+    is_qa_qc: False
+  -
+    pattern: lab_processed\/spaceranger\/binned_outputs\/square_[^\/]+\/spatial\/scalefactors_json\.json$
+    required: False
+    description: Spaceranger downscales images to 2000px on the smallest side.  This file contains the spot size (diameter in pixels) at full and downscaled resolutions.
+    is_qa_qc: False

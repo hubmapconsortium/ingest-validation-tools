@@ -1,19 +1,36 @@
 # Changelog
-## v1.1.3 (in progress)
-- Update publication docs
+
+## v1.1.4 (in progress)
+
+- Fixing tests to prevent CHANGELOG.md error on release tags
+- Update Xenium directory schems
 - Add DNA Methlyation passthrough directory schema
 
+## v1.1.3
+
+- Update publication docs
+- Correct misspelled "relevant" in several file descriptions
+- Ensure that shared uploads do not have extra top-level dirs
+- Update Visium (with probes) directory schema
+- Remove url-status-cache.json to avoid issues with permissions
+- Bugfix plugin error sorting
+- Add Illumina Spatial Technology directory schema (beta)
+- Update URL for generating 10x Genomics layout files
+
 ## v1.1.2
+
 - Update Visium HD directory schema
 - Update Visium (no probes) directory schema
 - Update Visium (with probes) directory schema
 - Update Xenium directory schema
 
 ## v1.1.1
+
 - Update CyCIF directory schema
 - Update CosMX proteomics directory schema
 
 ## v1.1.0
+
 - Add new checks for parent_sample_id
 
 ## v1.0.1
