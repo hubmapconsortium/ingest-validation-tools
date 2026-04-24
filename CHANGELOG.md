@@ -5,6 +5,7 @@
 - Fixing tests to prevent CHANGELOG.md error on release tags
 - Update Xenium directory schems
 - Add DNA Methlyation passthrough directory schema
+- Add MRI DICOM directory schema
 
 ## v1.1.3
 
