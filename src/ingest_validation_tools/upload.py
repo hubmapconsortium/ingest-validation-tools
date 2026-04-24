@@ -245,10 +245,8 @@ class Upload:
                     f"Empty columns: {', '.join([str(i) for i in empty])}"
                 )
             if not schema_version.is_cedar:
-                logging.info(
-                    f"""TSV {tsv_path} does not contain a metadata_schema_id,
-                    sending for local validation"""
-                )
+                logging.info(f"""TSV {tsv_path} does not contain a metadata_schema_id,
+                    sending for local validation""")
                 self._local_validation(tsv_path, schema_version)
             elif not self.offline_only:
                 self._online_checks(tsv_path, schema_version)
