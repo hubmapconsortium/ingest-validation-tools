@@ -1,9 +1,10 @@
 # Changelog
 
-## v1.1.4
+## v1.1.4 (in progress)
 
 - Fixing tests to prevent CHANGELOG.md error on release tags
 - Update Xenium directory schems
+- Add DNA Methlyation passthrough directory schema
 
 ## v1.1.3
 
