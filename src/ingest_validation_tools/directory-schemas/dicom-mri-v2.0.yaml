@@ -1,0 +1,17 @@
+files:
+  -
+    pattern: extras\/.*
+    required: True
+    description: Folder for general lab-specific files related to the dataset. 
+  -  
+    pattern: raw\/.*
+    required: True
+    description: This is a directory containing raw data.
+  -  
+    pattern: raw\/images\/.*
+    required: True
+    description: This is a directory containing raw MRI DICOM files.
+  -  
+    pattern: raw\/images\/[^\/]+\.dcm$
+    required: True
+    description: All relevant MRI DICOM files.

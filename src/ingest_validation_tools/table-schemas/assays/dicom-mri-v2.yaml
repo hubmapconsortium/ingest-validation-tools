@@ -1,0 +1,24 @@
+description_md: "The process for uploading clinical imaging data is different than that for experimental assay data. All clinical imaging data must be uploaded in DICOM format. Given the potential inclusion of personally identifiable information (PII) in clinical imaging, the imaging files must be uploaded directly to a dedicated directory in a secure Globus endpoint. Sites with clinical imaging data should begin by emailing the Help Desk to have a directory created. Please include the Globus Identity and Globus ID of the individual who will be performing the upload in your email. Once the upload of the clinical imaging data in the structure described below is complete, the Help Desk should again be notified.
+Following notification:<br>
+- metadata will be extracted from the headers of the DICOM files<br>
+- an XLSX file containing the extracted metadata will be emailed to the uploader<br>
+- the uploader will complete the required fields, validate the file and upload it to the Globus directory previously created for the DICOM files<br> 
+The DICOM files will then be de-identified to HIPAA safe harbor standards by the HIVE/CODCC for publication."
+fields:
+- name: is_cedar
+  description: 'Identifies whether the version is hosted by CEDAR'
+  example: 'https://openview.metadatacenter.org/templates/https:%2F%2Frepo.metadatacenter.org%2Ftemplates%2F95b3a9bd-3fb3-48f5-99f8-1f78ffb6bb1d'
+- name: assay_category
+  constraints:
+    enum:
+      - clinical_imaging
+- name: assay_type
+  constraints:
+    enum:
+      - DICOM-MRI
+- name: parent_id
+  description: "UUID or HuBMAP ID of parent"
+  example: "ec2ccf5a3436b11d0c7186b74ad4673d"
+  custom_constraints:
+    url:
+      prefix: "https://entity.api.hubmapconsortium.org/entities/"
