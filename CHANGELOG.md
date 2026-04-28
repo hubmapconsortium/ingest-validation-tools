@@ -6,6 +6,7 @@
 - Update Xenium directory schems
 - Add DNA Methlyation passthrough directory schema
 - Add MRI DICOM directory schema
+- Update documentation and CEDAR link for DICOM-MRI
 
 ## v1.1.3
 
