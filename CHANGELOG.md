@@ -7,6 +7,7 @@
 - Add DNA Methlyation passthrough directory schema
 - Add MRI DICOM directory schema
 - Update documentation and CEDAR link for DICOM-MRI
+- Update illumina spatial to use v0 naming convention
 
 ## v1.1.3
 
