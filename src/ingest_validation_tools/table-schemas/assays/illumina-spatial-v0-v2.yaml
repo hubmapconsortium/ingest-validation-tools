@@ -10,4 +10,4 @@ fields:
   description: The UMI sequence length in the 10xGenomics-v2 kit is 10 base pairs and the length in the 10xGenomics-v3 kit is 12 base pairs.
   constraints:
     enum:
-      - Illumina Spatial
+      - Illumina Spatial v0
