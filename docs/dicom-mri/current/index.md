@@ -29,7 +29,7 @@ The DICOM files will then be de-identified to HIPAA safe harbor standards by the
 ## Metadata schema
 
 
-<summary><a href="https://openview.metadatacenter.org/templates/https:%2F%2Frepo.metadatacenter.org%2Ftemplates%2F95b3a9bd-3fb3-48f5-99f8-1f78ffb6bb1d"><b>Version 2 (use this one)</b></a></summary>
+<summary><a href="https://openview.metadatacenter.org/templates/https:%2F%2Frepo.metadatacenter.org%2Ftemplates%2Ff8c76a33-6262-4733-8f00-23175af7fd73"><b>Version 2 (use this one)</b></a></summary>
 
 
 
