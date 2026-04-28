@@ -1,6 +1,6 @@
 ---
-title: Illumina Spatial v0
-schema_name: illumina-spatial-v0
+title: Illumina Spatial ver0
+schema_name: illumina-spatial-ver0
 category: Spatial Transcriptomics
 all_versions_deprecated: False
 exclude_from_index: False
@@ -12,8 +12,8 @@ Prepare your metadata based on the latest metadata schema using one of the templ
 Related files:
 
 
-- [📝 Excel template](https://raw.githubusercontent.com/hubmapconsortium/dataset-metadata-spreadsheet/main/illumina-spatial-v0/latest/illumina-spatial-v0.xlsx): For metadata entry.
-- [📝 TSV template](https://raw.githubusercontent.com/hubmapconsortium/dataset-metadata-spreadsheet/main/illumina-spatial-v0/latest/illumina-spatial-v0.tsv): Alternative for metadata entry.
+- [📝 Excel template](https://raw.githubusercontent.com/hubmapconsortium/dataset-metadata-spreadsheet/main/illumina-spatial-ver0/latest/illumina-spatial-ver0.xlsx): For metadata entry.
+- [📝 TSV template](https://raw.githubusercontent.com/hubmapconsortium/dataset-metadata-spreadsheet/main/illumina-spatial-ver0/latest/illumina-spatial-ver0.tsv): Alternative for metadata entry.
 
 
 
