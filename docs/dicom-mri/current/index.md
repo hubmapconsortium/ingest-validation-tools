@@ -7,16 +7,24 @@ exclude_from_index: False
 layout: default
 
 ---
-Prepare your metadata based on the latest metadata schema using one of the template files below. See the instructions in the [Metadata Validation Workflow](https://docs.google.com/document/d/1lfgiDGbyO4K4Hz1FMsJjmJd9RdwjShtJqFYNwKpbcZY) document for more information on preparing and validating your metadata.tsv file prior to submission.
-
 Related files:
-
 
 - [📝 Excel template](https://raw.githubusercontent.com/hubmapconsortium/dataset-metadata-spreadsheet/main/dicom-mri/latest/dicom-mri.xlsx): For metadata entry.
 - [📝 TSV template](https://raw.githubusercontent.com/hubmapconsortium/dataset-metadata-spreadsheet/main/dicom-mri/latest/dicom-mri.tsv): Alternative for metadata entry.
 
 
-The process for uploading clinical imaging data is different than that for experimental assay data. All clinical imaging data must be uploaded in DICOM format. Given the potential inclusion of personally identifiable information (PII) in clinical imaging, the imaging files must be uploaded directly to a dedicated directory in a secure Globus endpoint. Sites with clinical imaging data should begin by emailing the Help Desk to have a directory created. Please include the Globus Identity and Globus ID of the individual who will be performing the upload in your email. Once the upload of the clinical imaging data in the structure described below is complete, the Help Desk should again be notified. Following notification:<br> - metadata will be extracted from the headers of the DICOM files<br> - an XLSX file containing the extracted metadata will be emailed to the uploader<br> - the uploader will complete the required fields, validate the file and upload it to the Globus directory previously created for the DICOM files<br> The DICOM files will then be de-identified to HIPAA safe harbor standards by the HIVE/CODCC for publication.
+The process for uploading clinical imaging data is different than that for experimental assay data. 
+
+All clinical imaging data must be uploaded in DICOM format. 
+
+Given the potential inclusion of personally identifiable information (PII) in clinical imaging, the imaging files must be uploaded directly to a dedicated directory in a secure Globus endpoint. Sites with clinical imaging data should begin by emailing the Help Desk to have a directory created. Please include the Globus Identity and Globus ID of the individual who will be performing the upload in your email. 
+
+Once the upload of the clinical imaging data in the structure described below is complete, the Help Desk should again be notified. Following notification: 
+- metadata will be extracted from the headers of the DICOM files
+- an XLSX file containing the extracted metadata will be emailed to the uploader
+- the uploader will complete the required fields, validate the file and upload it to the Globus directory previously created for the DICOM files 
+
+The DICOM files will then be de-identified to HIPAA safe harbor standards by the HIVE/CODCC for publication.
 
 ## Metadata schema
 
