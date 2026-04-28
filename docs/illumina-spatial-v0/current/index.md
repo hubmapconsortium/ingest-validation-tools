@@ -1,6 +1,6 @@
 ---
-title: Illumina Spatial
-schema_name: illumina-spatial
+title: Illumina Spatial v0
+schema_name: illumina-spatial-v0
 category: Spatial Transcriptomics
 all_versions_deprecated: False
 exclude_from_index: False
@@ -12,8 +12,8 @@ Prepare your metadata based on the latest metadata schema using one of the templ
 Related files:
 
 
-- [📝 Excel template](https://raw.githubusercontent.com/hubmapconsortium/dataset-metadata-spreadsheet/main/illumina-spatial/latest/illumina-spatial.xlsx): For metadata entry.
-- [📝 TSV template](https://raw.githubusercontent.com/hubmapconsortium/dataset-metadata-spreadsheet/main/illumina-spatial/latest/illumina-spatial.tsv): Alternative for metadata entry.
+- [📝 Excel template](https://raw.githubusercontent.com/hubmapconsortium/dataset-metadata-spreadsheet/main/illumina-spatial-v0/latest/illumina-spatial-v0.xlsx): For metadata entry.
+- [📝 TSV template](https://raw.githubusercontent.com/hubmapconsortium/dataset-metadata-spreadsheet/main/illumina-spatial-v0/latest/illumina-spatial-v0.tsv): Alternative for metadata entry.
 
 
 
@@ -21,14 +21,14 @@ Related files:
 ## Metadata schema
 
 
-<summary><a href="https://openview.metadatacenter.org/templates/https:%2F%2Frepo.metadatacenter.org%2Ftemplates%2F7b1b5d38-5233-4d87-a371-39dfafc943c9"><b>Version 0 (use this one)</b></a></summary>
+<summary><a href="https://openview.metadatacenter.org/templates/https:%2F%2Frepo.metadatacenter.org%2Ftemplates%2F7b1b5d38-5233-4d87-a371-39dfafc943c9"><b>Version 2 (use this one)</b></a></summary>
 
 
 
 <br>
 
 ## Directory schemas
-<summary><b>Version 2 (use this one)</b></summary>
+<summary><b>Version 2.0 (use this one)</b></summary>
 
 | pattern | required? | description |
 | --- | --- | --- |
