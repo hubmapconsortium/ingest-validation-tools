@@ -131,9 +131,6 @@ def _generate_empty_tree_zip(simplified_patterns: List[str]) -> bytes:
             if path.endswith("/"):
                 _ensure_parents(zf, path)
                 _add_dir(zf, path)
-            elif "*" not in path and "[" not in path and "(" not in path:
-                _ensure_parents(zf, path)
-                zf.writestr(path, "")
             elif "/" in path:
                 parent = path.rsplit("/", 1)[0] + "/"
                 _ensure_parents(zf, parent)
