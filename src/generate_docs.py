@@ -1,10 +1,15 @@
 #!/usr/bin/env python3
 
 import argparse
+import io
 import os
+import re
 import sys
+import zipfile
 from pathlib import Path
+from typing import List, Optional
 
+import requests
 from tableschema_to_template.create_xlsx import create_xlsx
 from yaml import dump as dump_yaml
 
@@ -27,6 +32,144 @@ from ingest_validation_tools.schema_loader import (
 from ingest_validation_tools.validation_utils import OtherTypes
 
 
+def _simplify_dir_pattern(pattern: str) -> str:
+    p = pattern.replace(r"\/", "/").replace(r"\.", ".")
+    if p.endswith("/.*"):
+        return p[:-2]
+    p = p.replace("[^/]+", "*").replace("[^/]*", "*")
+    p = re.sub(r"\(\?:([^)]+)\)", lambda m: "{" + m.group(1).replace("|", ",") + "}", p)
+    return p
+
+
+def _build_dir_tree(simplified_patterns: List[str]) -> dict:
+    root: dict = {}
+    for path in simplified_patterns:
+        is_dir_node = path.endswith("/")
+        parts = path.rstrip("/").split("/")
+        node = root
+        for i, part in enumerate(parts):
+            is_last = i == len(parts) - 1
+            if part not in node:
+                node[part] = {"is_dir": not is_last or is_dir_node, "children": {}}
+            elif not is_last or is_dir_node:
+                node[part]["is_dir"] = True
+            node = node[part]["children"]
+    return root
+
+
+def _render_dir_tree_node(name: str, node: dict, prefix: str, is_last: bool) -> List[str]:
+    connector = "└── " if is_last else "├── "
+    display = name + "/" if node["is_dir"] else name
+    lines = [prefix + connector + display]
+    child_prefix = prefix + ("    " if is_last else "│   ")
+    children = list(node["children"].items())
+    for i, (child_name, child_node) in enumerate(children):
+        lines.extend(
+            _render_dir_tree_node(child_name, child_node, child_prefix, i == len(children) - 1)
+        )
+    return lines
+
+
+def _render_dir_tree(tree: dict) -> str:
+    lines = ["."]
+    items = list(tree.items())
+    for i, (name, node) in enumerate(items):
+        lines.extend(_render_dir_tree_node(name, node, "", i == len(items) - 1))
+    return "\n".join(lines)
+
+
+def _generate_directory_md(schema_name: str, directory_schema: dict) -> str:
+    title = schema_name.replace("-", " ").title()
+    files = directory_schema["files"]
+
+    table_rows = ["| Pattern | Required? | Description |", "|--|--|--|"]
+    for f in files:
+        pattern = _simplify_dir_pattern(f["pattern"])
+        required = "✓" if f.get("required", True) else ""
+        qa_qc = "[QA/QC] " if f.get("is_qa_qc") else ""
+        desc = qa_qc + f["description"]
+        table_rows.append(f"| {pattern} | {required} | {desc} |")
+
+    simplified = [_simplify_dir_pattern(f["pattern"]) for f in files]
+    tree_text = _render_dir_tree(_build_dir_tree(simplified))
+    yaml_text = dump_yaml(directory_schema, sort_keys=False)
+
+    return (
+        f"# {title}\n\n"
+        "## File Hierarchy Schema\n\n"
+        " This table details the file hierarchy schema specification.\n\n"
+        + "\n".join(table_rows)
+        + "\n\n\n## Directory Tree\n\n"
+        "Here the file hierarchy schema is represented as a directory tree.\n\n"
+        f"```\n{tree_text}\n```\n\n"
+        "## YAML\n\n"
+        "This is file hierarchy schema as YAML code that can be use with the HuBMAP "
+        "[Ingest Validation Tools](https://github.com/hubmapconsortium/ingest-validation-tools)\n\n"
+        f"```yaml\n{yaml_text}```\n"
+    )
+
+
+def _generate_empty_tree_zip(simplified_patterns: List[str]) -> bytes:
+    buf = io.BytesIO()
+    seen_dirs: set = set()
+
+    def _add_dir(zf: zipfile.ZipFile, path: str) -> None:
+        if path not in seen_dirs:
+            zf.writestr(zipfile.ZipInfo(path), "")
+            seen_dirs.add(path)
+
+    def _ensure_parents(zf: zipfile.ZipFile, path: str) -> None:
+        parts = path.rstrip("/").split("/")
+        for j in range(1, len(parts)):
+            _add_dir(zf, "/".join(parts[:j]) + "/")
+
+    with zipfile.ZipFile(buf, "w", zipfile.ZIP_DEFLATED) as zf:
+        for path in simplified_patterns:
+            if path.endswith("/"):
+                _ensure_parents(zf, path)
+                _add_dir(zf, path)
+            elif "/" in path:
+                parent = path.rsplit("/", 1)[0] + "/"
+                _ensure_parents(zf, parent)
+                _add_dir(zf, parent)
+
+    return buf.getvalue()
+
+
+def _fetch_bytes(url: str) -> Optional[bytes]:
+    try:
+        resp = requests.get(url, timeout=30)
+        resp.raise_for_status()
+        return resp.content
+    except Exception as e:
+        print(f"Warning: could not fetch {url}: {e}", file=sys.stderr)
+        return None
+
+
+def _generate_doi_zip(
+    schema_name: str,
+    directory_schema: Optional[dict],
+) -> bytes:
+    buf = io.BytesIO()
+    raw_base = (
+        "https://raw.githubusercontent.com/hubmapconsortium/dataset-metadata-spreadsheet/main"
+    )
+
+    with zipfile.ZipFile(buf, "w", zipfile.ZIP_DEFLATED) as zf:
+        for ext in ("tsv", "xlsx", "jsonld", "yml"):
+            url = f"{raw_base}/{schema_name}/latest/{schema_name}.{ext}"
+            content = _fetch_bytes(url)
+            if content:
+                zf.writestr(f"metadata.{ext}", content)
+
+        if directory_schema:
+            zf.writestr("directory.md", _generate_directory_md(schema_name, directory_schema))
+            simplified = [_simplify_dir_pattern(f["pattern"]) for f in directory_schema["files"]]
+            zf.writestr("empty_tree.zip", _generate_empty_tree_zip(simplified))
+
+    return buf.getvalue()
+
+
 def main():
     usage = """
         usage: generate_docs.py [-h] type target
@@ -41,6 +184,7 @@ def main():
     parser = argparse.ArgumentParser(usage=usage)
     parser.add_argument("type", help="What type to generate")
     parser.add_argument("target", type=dir_path, help="Directory to write output to")
+    parser.add_argument("--cedar-api-key", help="CEDAR API key for fetching schema.json")
     args = parser.parse_args()
 
     if str(args.type).startswith("_"):
@@ -180,6 +324,20 @@ def main():
                 idempotent=True,
                 sheet_name="Export as TSV",
             )
+
+    # DOI object zip for CEDAR schemas
+    if current["metadata"] and current["directories"]:
+        latest_dir_v = max(
+            current["directories"].keys(),
+            key=lambda v: tuple(int(x) for x in v.split(".")),
+        )
+        latest_dir_schema = current["directories"][latest_dir_v]
+        doi_bytes = _generate_doi_zip(
+            schema_name=args.type,
+            directory_schema=latest_dir_schema,
+        )
+        with open(current_path / "doi-object.zip", "wb") as f:
+            f.write(doi_bytes)
 
 
 if __name__ == "__main__":
