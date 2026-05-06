@@ -2,14 +2,12 @@
 
 import argparse
 import io
-import json
 import os
 import re
 import sys
 import zipfile
 from pathlib import Path
-from typing import Dict, List, Optional
-from urllib.parse import quote, unquote
+from typing import List, Optional
 
 import requests
 from tableschema_to_template.create_xlsx import create_xlsx
@@ -23,7 +21,6 @@ from ingest_validation_tools.docs_utils import (
     get_xlsx_name,
 )
 from ingest_validation_tools.schema_loader import (
-    SchemaVersion,
     dict_directory_schema_versions,
     dict_table_schema_versions,
     enum_maps_to_lists,
