@@ -151,7 +151,9 @@ def _generate_doi_zip(
     directory_schema: Optional[dict],
 ) -> bytes:
     buf = io.BytesIO()
-    raw_base = "https://raw.githubusercontent.com/hubmapconsortium/dataset-metadata-spreadsheet/main"
+    raw_base = (
+        "https://raw.githubusercontent.com/hubmapconsortium/dataset-metadata-spreadsheet/main"
+    )
 
     with zipfile.ZipFile(buf, "w", zipfile.ZIP_DEFLATED) as zf:
         for ext in ("tsv", "xlsx", "jsonld", "yml"):
