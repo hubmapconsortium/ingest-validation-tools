@@ -326,7 +326,7 @@ def main():
             )
 
     # DOI object zip for CEDAR schemas
-    if current["directories"]:
+    if current["metadata"] and current["directories"]:
         latest_dir_v = max(
             current["directories"].keys(),
             key=lambda v: tuple(int(x) for x in v.split(".")),
