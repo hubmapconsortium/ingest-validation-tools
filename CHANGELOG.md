@@ -1,6 +1,9 @@
 # Changelog
+## v1.1.5 (in progress)
 
-## v1.1.4 (in progress)
+- Generate DOI objects
+
+## v1.1.4
 
 - Fixing tests to prevent CHANGELOG.md error on release tags
 - Update Xenium directory schems
