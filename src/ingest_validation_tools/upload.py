@@ -185,18 +185,6 @@ class Upload:
         }
         if not self.dataset_metadata:
             self.errors.preflight.value = "There are no metadata TSVs."
-            return
-
-        if not tsv_paths:
-            non_metadata_tsvs = [
-                p for p in self.directory_path.glob("*.tsv") if not p.name.endswith(TSV_SUFFIX)
-            ]
-            if non_metadata_tsvs:
-                names = ", ".join(p.name for p in sorted(non_metadata_tsvs))
-                self.errors.preflight.value = (
-                    f"TSV files found that do not end in '-{TSV_SUFFIX}': {names}. "
-                    f"All metadata TSVs must end in '-{TSV_SUFFIX}'."
-                )
 
     def get_app_context(self, submitted_app_context: dict):
         """
@@ -241,6 +229,25 @@ class Upload:
             for supporting_type in [*schema.antibodies_schemas, *schema.contributors_schemas]:
                 if supporting_type:
                     self.validate_metadata(tsv_paths={supporting_type.path: supporting_type})
+
+        supporting_tsv_paths = {
+            s.path
+            for schema in self.dataset_metadata.values()
+            for s in [*schema.antibodies_schemas, *schema.contributors_schemas]
+        }
+
+        non_metadata_tsvs = [
+            p
+            for p in self.directory_path.glob("*.tsv")
+            if not p.name.endswith(TSV_SUFFIX) and p not in supporting_tsv_paths
+        ]
+
+        if non_metadata_tsvs:
+            names = ", ".join(p.name for p in sorted(non_metadata_tsvs))
+            self.errors.preflight.value = (
+                f"TSV files found that do not end in '-{TSV_SUFFIX}': {names}. "
+                f"All metadata TSVs must end in '-{TSV_SUFFIX}'."
+            )
 
     def validate_metadata(
         self,
