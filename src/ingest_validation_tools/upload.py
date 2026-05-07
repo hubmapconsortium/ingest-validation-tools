@@ -189,9 +189,7 @@ class Upload:
 
         if not tsv_paths:
             non_metadata_tsvs = [
-                p
-                for p in self.directory_path.glob("*.tsv")
-                if not p.name.endswith(TSV_SUFFIX)
+                p for p in self.directory_path.glob("*.tsv") if not p.name.endswith(TSV_SUFFIX)
             ]
             if non_metadata_tsvs:
                 names = ", ".join(p.name for p in sorted(non_metadata_tsvs))
