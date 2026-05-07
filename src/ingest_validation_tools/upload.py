@@ -185,6 +185,20 @@ class Upload:
         }
         if not self.dataset_metadata:
             self.errors.preflight.value = "There are no metadata TSVs."
+            return
+
+        if not tsv_paths:
+            non_metadata_tsvs = [
+                p
+                for p in self.directory_path.glob("*.tsv")
+                if not p.name.endswith(TSV_SUFFIX)
+            ]
+            if non_metadata_tsvs:
+                names = ", ".join(p.name for p in sorted(non_metadata_tsvs))
+                self.errors.preflight.value = (
+                    f"TSV files found that do not end in '-{TSV_SUFFIX}': {names}. "
+                    f"All metadata TSVs must end in '-{TSV_SUFFIX}'."
+                )
 
     def get_app_context(self, submitted_app_context: dict):
         """
