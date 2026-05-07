@@ -2,6 +2,7 @@
 ## v1.1.5 (in progress)
 
 - Generate DOI objects
+- Patch for TSVs not being caught
 
 ## v1.1.4
 
