@@ -109,7 +109,6 @@ def validation_error_iter(
         except Exception as e:
             raise ValidatorError(f"Could not import from plugin_dir {plugin_dir}: {e}")
         for val_class in validation_class_iter():
-            kwargs["verbose"] = verbose
             validator = val_class(
                 paths, assay_type, contains, verbose, schema, globus_token, app_context, **kwargs
             )
