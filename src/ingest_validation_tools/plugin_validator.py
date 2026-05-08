@@ -48,7 +48,7 @@ def run_plugin_validators_iter(
     if is_shared_upload:
         paths = [Path(metadata_path).parent / "global", Path(metadata_path).parent / "non_global"]
         for k, v in validation_error_iter(
-            paths, sv.dataset_type, plugin_dir, sv.contains, **kwargs
+            paths, sv.dataset_type, plugin_dir, sv.contains, schema=sv, **kwargs
         ):
             yield k, v
     else:
@@ -109,9 +109,9 @@ def validation_error_iter(
         except Exception as e:
             raise ValidatorError(f"Could not import from plugin_dir {plugin_dir}: {e}")
         for val_class in validation_class_iter():
-            validator = val_class(
-                paths, assay_type, contains, verbose, schema, globus_token, app_context
-            )
             kwargs["verbose"] = verbose
-            for err in validator.collect_errors(**kwargs):
+            validator = val_class(
+                paths, assay_type, contains, verbose, schema, globus_token, app_context, **kwargs
+            )
+            for err in validator.collect_errors():
                 yield val_class, err
