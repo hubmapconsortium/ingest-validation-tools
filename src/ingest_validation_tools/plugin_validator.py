@@ -1,14 +1,14 @@
 from collections.abc import Iterator
 from pathlib import Path
-from typing import Optional, TypeVar, Union
+from typing import TypeVar
 
 from ingest_validation_tools.schema_loader import SchemaVersion
 from ingest_validation_tools.validation_utils import add_path
 
 # KeyValuePair type hint is robust, but Validator is not available here; use generic
 ValidatorGeneric = TypeVar("ValidatorGeneric")
-KeyValuePair = Iterator[tuple[ValidatorGeneric, list[Union[str, None]]]]
-PathOrStr = Union[str, Path]
+KeyValuePair = Iterator[tuple[ValidatorGeneric, list[str | None]]]
+PathOrStr = str | Path
 
 
 class ValidatorError(Exception):
@@ -48,7 +48,7 @@ def run_plugin_validators_iter(
     if is_shared_upload:
         paths = [Path(metadata_path).parent / "global", Path(metadata_path).parent / "non_global"]
         for k, v in validation_error_iter(
-            paths, sv.dataset_type, plugin_dir, sv.contains, schema=sv, **kwargs
+            paths, sv.dataset_type, plugin_dir, sv.contains, schema_rows=sv.rows, **kwargs
         ):
             yield k, v
     else:
@@ -67,7 +67,7 @@ def run_plugin_validators_iter(
                 plugin_dir,
                 sv.contains,
                 verbose=verbose,
-                schema=sv,
+                schema_rows=sv.rows,
                 globus_token=globus_token,
                 app_context=app_context,
                 **kwargs,
@@ -83,7 +83,7 @@ def validation_error_iter(
     plugin_dir: PathOrStr,
     contains: list,
     verbose: bool = False,
-    schema: Optional[SchemaVersion] = None,
+    schema_rows: list[dict] = [],
     globus_token: str = "",
     app_context: dict[str, str] = {},
     **kwargs,
@@ -110,7 +110,14 @@ def validation_error_iter(
             raise ValidatorError(f"Could not import from plugin_dir {plugin_dir}: {e}")
         for val_class in validation_class_iter():
             validator = val_class(
-                paths, assay_type, contains, verbose, schema, globus_token, app_context, **kwargs
+                paths,
+                assay_type,
+                contains,
+                verbose,
+                schema_rows,
+                globus_token,
+                app_context,
+                **kwargs,
             )
             for err in validator.collect_errors():
                 yield val_class, err
