@@ -43,44 +43,40 @@ def run_plugin_validators_iter(
         if column_name in sv.rows[0]:
             if any(row[column_name] != sv.dataset_type for row in sv.rows):
                 raise ValidatorError(f"{metadata_path} contains more than one assay type")
-
-    data_paths = []
+    shared_kwargs = {
+        "assay_type": sv.dataset_type,
+        "plugin_dir": plugin_dir,
+        "contains": sv.contains,
+        "verbose": verbose,
+        "schema_rows": sv.rows,
+        "globus_token": globus_token,
+        "app_context": app_context,
+    } | kwargs
     if is_shared_upload:
-        paths = [Path(metadata_path).parent / "global", Path(metadata_path).parent / "non_global"]
-        for k, v in validation_error_iter(
-            paths,
-            sv.dataset_type,
-            plugin_dir,
-            sv.contains,
-            verbose=verbose,
-            schema_rows=sv.rows,
-            **kwargs,
-        ):
-            yield k, v
+        data_paths = [
+            Path(metadata_path).parent / "global",
+            Path(metadata_path).parent / "non_global",
+        ]
     else:
-        if all("data_path" in row for row in sv.rows):
-            for row in sv.rows:
-                data_path = Path(row["data_path"])
-                if not data_path.is_absolute():
-                    data_path = Path(metadata_path).parent / data_path
-                if not data_path.is_dir():
-                    raise ValidatorError(f"{data_path} should be the base directory of a dataset")
-                data_paths.append(data_path)
-            print(f"Data paths being passed to plugins: {data_paths}")
-            for k, v in validation_error_iter(
-                data_paths,
-                sv.dataset_type,
-                plugin_dir,
-                sv.contains,
-                verbose=verbose,
-                schema_rows=sv.rows,
-                globus_token=globus_token,
-                app_context=app_context,
-                **kwargs,
-            ):
-                yield k, v
-        else:
-            raise ValidatorError(f"{metadata_path} is missing values in 'data_path' column")
+        data_paths = get_data_paths_from_tsv(metadata_path, sv)
+    for k, v in validation_error_iter(data_paths, **shared_kwargs):
+        yield k, v
+
+
+def get_data_paths_from_tsv(metadata_path: PathOrStr, sv: SchemaVersion):
+    data_paths = []
+    if all("data_path" in row for row in sv.rows):
+        for row in sv.rows:
+            data_path = Path(row["data_path"])
+            if not data_path.is_absolute():
+                data_path = Path(metadata_path).parent / data_path
+            if not data_path.is_dir():
+                raise ValidatorError(f"{data_path} should be the base directory of a dataset")
+            data_paths.append(data_path)
+        print(f"Data paths being passed to plugins: {data_paths}")
+    else:
+        raise ValidatorError(f"{metadata_path} is missing values in 'data_path' column")
+    return data_paths
 
 
 def validation_error_iter(
