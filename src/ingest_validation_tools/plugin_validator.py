@@ -43,15 +43,6 @@ def run_plugin_validators_iter(
         if column_name in sv.rows[0]:
             if any(row[column_name] != sv.dataset_type for row in sv.rows):
                 raise ValidatorError(f"{metadata_path} contains more than one assay type")
-    shared_kwargs = {
-        "assay_type": sv.dataset_type,
-        "plugin_dir": plugin_dir,
-        "contains": sv.contains,
-        "verbose": verbose,
-        "schema_rows": sv.rows,
-        "globus_token": globus_token,
-        "app_context": app_context,
-    } | kwargs
     if is_shared_upload:
         data_paths = [
             Path(metadata_path).parent / "global",
@@ -59,7 +50,17 @@ def run_plugin_validators_iter(
         ]
     else:
         data_paths = get_data_paths_from_tsv(metadata_path, sv)
-    for k, v in validation_error_iter(data_paths, **shared_kwargs):
+    for k, v in validation_error_iter(
+        data_paths,
+        assay_type=sv.dataset_type,
+        plugin_dir=plugin_dir,
+        contains=sv.contains,
+        verbose=verbose,
+        schema_rows=sv.rows,
+        globus_token=globus_token,
+        app_context=app_context,
+        **kwargs,
+    ):
         yield k, v
 
 
