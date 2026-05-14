@@ -146,11 +146,12 @@ class Upload:
         self.get_info_called = True
         return self.info
 
-    def get_errors(self) -> ErrorDict:
+    def get_errors(self, **kwargs) -> ErrorDict:
         """
         When converted using ErrorDict.as_dict(), keys are
         present only if there is actually an error to report.
         """
+        # TODO: remove deprecated kwargs param
         # Return if PreflightErrors found
         if self.errors:
             return self.errors
