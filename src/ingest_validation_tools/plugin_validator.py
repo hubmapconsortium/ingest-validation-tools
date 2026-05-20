@@ -1,14 +1,14 @@
 from collections.abc import Iterator
 from pathlib import Path
-from typing import Optional, TypeVar, Union
+from typing import TypeVar
 
 from ingest_validation_tools.schema_loader import SchemaVersion
 from ingest_validation_tools.validation_utils import add_path
 
 # KeyValuePair type hint is robust, but Validator is not available here; use generic
 ValidatorGeneric = TypeVar("ValidatorGeneric")
-KeyValuePair = Iterator[tuple[ValidatorGeneric, list[Union[str, None]]]]
-PathOrStr = Union[str, Path]
+KeyValuePair = Iterator[tuple[ValidatorGeneric, list[str | None]]]
+PathOrStr = str | Path
 
 
 class ValidatorError(Exception):
@@ -43,38 +43,41 @@ def run_plugin_validators_iter(
         if column_name in sv.rows[0]:
             if any(row[column_name] != sv.dataset_type for row in sv.rows):
                 raise ValidatorError(f"{metadata_path} contains more than one assay type")
-
-    data_paths = []
     if is_shared_upload:
-        paths = [Path(metadata_path).parent / "global", Path(metadata_path).parent / "non_global"]
-        for k, v in validation_error_iter(
-            paths, sv.dataset_type, plugin_dir, sv.contains, **kwargs
-        ):
-            yield k, v
+        data_paths = [
+            Path(metadata_path).parent / "global",
+            Path(metadata_path).parent / "non_global",
+        ]
     else:
-        if all("data_path" in row for row in sv.rows):
-            for row in sv.rows:
-                data_path = Path(row["data_path"])
-                if not data_path.is_absolute():
-                    data_path = Path(metadata_path).parent / data_path
-                if not data_path.is_dir():
-                    raise ValidatorError(f"{data_path} should be the base directory of a dataset")
-                data_paths.append(data_path)
-            print(f"Data paths being passed to plugins: {data_paths}")
-            for k, v in validation_error_iter(
-                data_paths,
-                sv.dataset_type,
-                plugin_dir,
-                sv.contains,
-                verbose=verbose,
-                schema=sv,
-                globus_token=globus_token,
-                app_context=app_context,
-                **kwargs,
-            ):
-                yield k, v
-        else:
-            raise ValidatorError(f"{metadata_path} is missing values in 'data_path' column")
+        data_paths = get_data_paths_from_tsv(metadata_path, sv)
+    for k, v in validation_error_iter(
+        data_paths,
+        assay_type=sv.dataset_type,
+        plugin_dir=plugin_dir,
+        contains=sv.contains,
+        verbose=verbose,
+        schema_rows=sv.rows,
+        globus_token=globus_token,
+        app_context=app_context,
+        **kwargs,
+    ):
+        yield k, v
+
+
+def get_data_paths_from_tsv(metadata_path: PathOrStr, sv: SchemaVersion):
+    data_paths = []
+    if all("data_path" in row for row in sv.rows):
+        for row in sv.rows:
+            data_path = Path(row["data_path"])
+            if not data_path.is_absolute():
+                data_path = Path(metadata_path).parent / data_path
+            if not data_path.is_dir():
+                raise ValidatorError(f"{data_path} should be the base directory of a dataset")
+            data_paths.append(data_path)
+        print(f"Data paths being passed to plugins: {data_paths}")
+    else:
+        raise ValidatorError(f"{metadata_path} is missing values in 'data_path' column")
+    return data_paths
 
 
 def validation_error_iter(
@@ -83,7 +86,7 @@ def validation_error_iter(
     plugin_dir: PathOrStr,
     contains: list,
     verbose: bool = False,
-    schema: Optional[SchemaVersion] = None,
+    schema_rows: list[dict] = [],
     globus_token: str = "",
     app_context: dict[str, str] = {},
     **kwargs,
@@ -110,8 +113,14 @@ def validation_error_iter(
             raise ValidatorError(f"Could not import from plugin_dir {plugin_dir}: {e}")
         for val_class in validation_class_iter():
             validator = val_class(
-                paths, assay_type, contains, verbose, schema, globus_token, app_context
+                paths,
+                assay_type,
+                contains,
+                verbose,
+                schema_rows,
+                globus_token,
+                app_context,
+                **kwargs,
             )
-            kwargs["verbose"] = verbose
-            for err in validator.collect_errors(**kwargs):
+            for err in validator.collect_errors():
                 yield val_class, err

@@ -65,7 +65,7 @@ class Upload:
         encoding: str = "utf-8",
         offline_only: bool = False,
         ignore_deprecation: bool = False,
-        extra_parameters: Union[dict, None] = None,
+        plugin_kwargs: Union[dict, None] = None,
         globus_token: str = "",
         run_plugins: Optional[bool] = None,
         app_context: dict = {},
@@ -83,7 +83,7 @@ class Upload:
         self.encoding = encoding
         self.offline_only = offline_only
         self.ignore_deprecation = ignore_deprecation
-        self.extra_parameters = extra_parameters if extra_parameters else {}
+        self.plugin_kwargs = plugin_kwargs if plugin_kwargs else {}
         self.globus_token = globus_token
         self.run_plugins = run_plugins
         self.verbose = verbose
@@ -151,6 +151,7 @@ class Upload:
         When converted using ErrorDict.as_dict(), keys are
         present only if there is actually an error to report.
         """
+        # TODO: remove deprecated kwargs param
         # Return if PreflightErrors found
         if self.errors:
             return self.errors
@@ -160,7 +161,7 @@ class Upload:
         self.validate_metadata()
         self.get_directory_errors()
         self.get_reference_errors()
-        self.get_file_errors(**kwargs | self.extra_parameters)
+        self.get_file_errors()
 
         self.get_errors_called = True
         return self.errors
@@ -227,8 +228,7 @@ class Upload:
                 )
             self._find_supporting_metadata(schema)
             for supporting_type in [*schema.antibodies_schemas, *schema.contributors_schemas]:
-                if supporting_type:
-                    self.validate_metadata(tsv_paths={supporting_type.path: supporting_type})
+                self.validate_metadata(tsv_paths={supporting_type.path: supporting_type})
 
         supporting_tsv_paths = {
             s.path
@@ -308,7 +308,7 @@ class Upload:
         if shared_dir_errors := self.__get_shared_dir_errors():
             self.errors.reference.update({"Shared Directory References": shared_dir_errors})
 
-    def get_file_errors(self, **kwargs):
+    def get_file_errors(self):
         """
         Run file-level validation. Plugin error checking is costly;
         by default this bails if other errors have been found already.
@@ -321,10 +321,10 @@ class Upload:
                 )
             else:  # no errors, run plugins
                 logging.info("Running plugin validation...")
-                self._get_plugin_errors(**kwargs)
+                self._get_plugin_errors()
         elif self.run_plugins:
             logging.info("Running plugin validation...")
-            self._get_plugin_errors(**kwargs)
+            self._get_plugin_errors()
         else:
             logging.info("Skipping plugin validation.")
 
@@ -916,7 +916,7 @@ class Upload:
     #
     ###################################
 
-    def _get_plugin_errors(self, **kwargs) -> None:
+    def _get_plugin_errors(self) -> None:
         plugin_path = self.plugin_directory
         if not plugin_path:
             return
@@ -936,7 +936,7 @@ class Upload:
                         verbose=self.verbose,
                         globus_token=self.globus_token,
                         app_context=self.app_context,
-                        **kwargs,
+                        **self.plugin_kwargs,
                     ):
                         if v is None:
                             self.info.successful_plugins.append(k.__name__)
