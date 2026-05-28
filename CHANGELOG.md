@@ -3,6 +3,7 @@
 
 - Generate DOI objects
 - Patch for TSVs not being caught
+- Update Illumina Spatial (v0) directory schema
 
 ## v1.1.4
 
