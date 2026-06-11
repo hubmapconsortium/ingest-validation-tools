@@ -78,7 +78,7 @@ files:
     required: True
     description: Target coordinates and counts per cell.
   -
-    pattern: raw\/images\/FOV\d+\/[^\/s]*_F\d+\.(?:tif|tiff)$
+    pattern: raw\/images\/FOV\d+\/(?!CellLabels)[^\/]*_F\d+\.(?:tif|tiff)$
     required: True
     description: The morphology marker multi-channel TIFF file.
   -
