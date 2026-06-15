@@ -6,6 +6,7 @@
 - Update Illumina Spatial (v0) directory schema
 - Update CosMx Transcriptomics directory schema
 - Update RNAseq (with probes) directory schema
+- Update Visium HD directory schema
 
 ## v1.1.4
 
