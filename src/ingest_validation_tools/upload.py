@@ -14,7 +14,12 @@ from urllib.parse import urlsplit
 import requests
 
 from ingest_validation_tools.directory_validator import get_files
-from ingest_validation_tools.enums import DatasetType, OtherTypes, Sample
+from ingest_validation_tools.enums import (
+    UNIQUE_FIELDS_MAP,
+    DatasetType,
+    OtherTypes,
+    Sample,
+)
 from ingest_validation_tools.error_report import ErrorDict, InfoDict
 from ingest_validation_tools.local_validation.table_validator import (
     ReportType,
@@ -1016,9 +1021,15 @@ class Upload:
             except TSVError as e:
                 extra_errors.append(str(e))
                 continue
-            # we only want to highlight misnamed metadata files here;
+            # we only want to find misnamed metadata files here;
             # reference checking should catch any other extra TSVs
-            if "dataset_type" in rows[0]:
+            if any(
+                [
+                    unique_field
+                    for unique_field in UNIQUE_FIELDS_MAP[DatasetType.DATASET]
+                    if unique_field in rows[0]
+                ]
+            ):
                 extra_metadata_tsvs.append(path)
 
         if extra_metadata_tsvs or extra_errors:
