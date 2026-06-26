@@ -61,7 +61,7 @@ def match_field_in_unique_fields(
 
 class TSVError(Exception):
     def __init__(self, error: str):
-        self.error = error
+        self.errors = error
 
 
 def dict_reader_wrapper(path, encoding: str) -> list:
@@ -82,7 +82,7 @@ def get_schema_version(
     try:
         rows = read_rows(path, encoding)
     except TSVError as e:
-        raise PreflightError(e.error)
+        raise PreflightError(e.errors)
     # Don't want to send contrib/organ/sample/antibody to soft assay endpoint
     other_type = get_other_type_schema(rows, str(path), entity_url, globus_token, directory_path)
     if other_type:

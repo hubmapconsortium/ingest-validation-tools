@@ -999,6 +999,7 @@ class Upload:
         # tsv_paths specified for upload, do not check parent directory
         if self.specified_paths:
             return
+
         # identify expected antibodies/contributors paths
         support_tsv_paths = []
         for other_type in ["antibodies_path", "contributors_path"]:
@@ -1006,14 +1007,18 @@ class Upload:
             for path_value in referenced_paths:
                 support_tsv_paths.append(self.directory_path / path_value)
 
+        # find any TSVs at the top-level that a) don't end with -metadata.tsv,
+        # and b) are not antibodies/contributors files expected by identified
+        # metadata.tsv files
         extra_tsvs = [
             p
             for p in self.directory_path.glob("*.tsv")
-            if not p.name.endswith(TSV_SUFFIX)
-            and p not in [*self.dataset_metadata, *support_tsv_paths]
+            if not p.name.endswith(TSV_SUFFIX) and p not in support_tsv_paths
         ]
 
-        # compile extra TSVs and any errors during file read
+        # compile extra TSVs and check whether they are dataset metadata files;
+        # ignore any non-dataset metadata files to avoid raising a
+        # validation-halting PreflightError; collect any file-read errors
         extra_metadata_tsvs = []
         extra_errors = []
         for path in extra_tsvs:
@@ -1022,8 +1027,6 @@ class Upload:
             except TSVError as e:
                 extra_errors.append(str(e))
                 continue
-            # we only want to find misnamed metadata files here;
-            # reference checking should catch any other extra TSVs
             if any(
                 [
                     unique_field
@@ -1033,6 +1036,7 @@ class Upload:
             ):
                 extra_metadata_tsvs.append(path)
 
+        # construct PreflightError
         if extra_metadata_tsvs or extra_errors:
             message = []
             if names := ", ".join(p.name for p in sorted(extra_metadata_tsvs)):
