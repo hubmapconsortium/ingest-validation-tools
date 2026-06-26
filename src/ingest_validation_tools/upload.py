@@ -1000,16 +1000,17 @@ class Upload:
         if self.specified_paths:
             return
         # identify expected antibodies/contributors paths
-        other_paths = []
+        support_tsv_paths = []
         for other_type in ["antibodies_path", "contributors_path"]:
             referenced_paths = self.__get_referenced_paths(other_type)
             for path_value in referenced_paths:
-                other_paths.append(self.directory_path / path_value)
+                support_tsv_paths.append(self.directory_path / path_value)
 
         extra_tsvs = [
             p
             for p in self.directory_path.glob("*.tsv")
-            if not p.name.endswith(TSV_SUFFIX) and p not in [*self.dataset_metadata, *other_paths]
+            if not p.name.endswith(TSV_SUFFIX)
+            and p not in [*self.dataset_metadata, *support_tsv_paths]
         ]
 
         # compile extra TSVs and any errors during file read
