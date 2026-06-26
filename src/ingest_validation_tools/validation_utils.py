@@ -60,8 +60,8 @@ def match_field_in_unique_fields(
 
 
 class TSVError(Exception):
-    def __init__(self, error):
-        self.errors = f"{list(error.keys())[0]}: {list(error.values())[0]}"
+    def __init__(self, error: str):
+        self.error = error
 
 
 def dict_reader_wrapper(path, encoding: str) -> list:
@@ -82,7 +82,7 @@ def get_schema_version(
     try:
         rows = read_rows(path, encoding)
     except TSVError as e:
-        raise PreflightError(e.errors)
+        raise PreflightError(e.error)
     # Don't want to send contrib/organ/sample/antibody to soft assay endpoint
     other_type = get_other_type_schema(rows, str(path), entity_url, globus_token, directory_path)
     if other_type:
@@ -183,21 +183,20 @@ def get_assaytype_data(row: dict, ingest_url: str, globus_token: str) -> dict:
 
 
 def read_rows(path: Path, encoding: str) -> list:
-    message = None
+    error_type = None
     if not Path(path).exists():
-        message = {"File does not exist": path}
-        raise TSVError(message)
+        raise TSVError(f"File does not exist: {str(path)}")
     try:
         rows = dict_reader_wrapper(path, encoding)
         if not rows:
-            message = {"File has no data rows": path}
+            error_type = f"File has no data rows: {path}"
         else:
             return rows
     except IsADirectoryError:
-        message = {"Expected a TSV, but found a directory": path}
+        error_type = f"Expected a TSV, but found a directory: {path}"
     except UnicodeDecodeError as e:
-        message = {"Decode Error": get_context_of_decode_error(e)}
-    raise TSVError(message)
+        error_type = f"Decode Error: {get_context_of_decode_error(e)}"
+    raise TSVError(error_type)
 
 
 def get_data_dir_errors(
@@ -320,7 +319,7 @@ def is_schema_latest_version(
     try:
         latest_version_name = CedarSchemaVersionTypes(latest_version_name)
     except KeyError as ke:
-        message = {f"Invalid latest_version_name {latest_version_name}": ke}
+        message = f"Invalid latest_version_name {latest_version_name}: {ke}"
         raise TSVError(message)
 
     latest_version = get_latest_schema_version(schema_version, cedar_api_key, latest_version_name)
@@ -336,10 +335,9 @@ def get_latest_schema_version(
     try:
         schema_details = get_schema_details(schema_version, cedar_api_key)
         if "resources" not in schema_details:
-            message = {
-                f"Error occurred while gathering schemas for schema {schema_version}": f"{schema_details['errorMessage']}"
-            }
-            raise TSVError(message)
+            raise TSVError(
+                f"Error occurred while gathering schemas for schema {schema_version}: {schema_details['errorMessage']}"
+            )
         for schema in schema_details["resources"]:
             if schema[latest_version_name.value]:
                 latest_schema_version = schema["@id"].removeprefix(CEDAR_SINGLE_TEMPLATE_URL_BASE)
@@ -350,7 +348,7 @@ def get_latest_schema_version(
         raise te
     except Exception as e:
         logging.exception(f"Exception while gathering schemas for schema {schema_version}. {e}")
-        message = {f"Exception while gathering schemas for schema {schema_version}": e}
+        message = f"Exception while gathering schemas for schema {schema_version}: {e}"
         raise TSVError(message)
 
 

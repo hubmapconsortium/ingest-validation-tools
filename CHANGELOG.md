@@ -9,6 +9,7 @@
 - Update RNAseq (with probes) directory schema
 - Update Visium HD directory schema
 - Bugfix error reporting when extra TSVs are found
+- Modify TSVError to pass in path explicitly
 
 ## v1.1.4
 
