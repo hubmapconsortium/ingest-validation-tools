@@ -230,25 +230,6 @@ class Upload:
             for supporting_type in [*schema.antibodies_schemas, *schema.contributors_schemas]:
                 self.validate_metadata(tsv_paths={supporting_type.path: supporting_type})
 
-        supporting_tsv_paths = {
-            s.path
-            for schema in self.dataset_metadata.values()
-            for s in [*schema.antibodies_schemas, *schema.contributors_schemas]
-        }
-
-        non_metadata_tsvs = [
-            p
-            for p in self.directory_path.glob("*.tsv")
-            if not p.name.endswith(TSV_SUFFIX) and p not in supporting_tsv_paths
-        ]
-
-        if non_metadata_tsvs:
-            names = ", ".join(p.name for p in sorted(non_metadata_tsvs))
-            self.errors.preflight.value = (
-                f"TSV files found that do not end in '-{TSV_SUFFIX}': {names}. "
-                f"All metadata TSVs must end in '-{TSV_SUFFIX}'."
-            )
-
     def validate_metadata(
         self,
         tsv_paths: dict[Path, SchemaVersion] = {},
@@ -1002,7 +983,33 @@ class Upload:
             return True
         return False
 
+    def _check_for_misnamed_metadata_tsvs(self):
+        """
+        Raise PreflightError if any TSVs are located in the top-level directory that
+        do not end with "-metadata.tsv" to avoid mistakenly validating a multi-assay upload
+        as a single-assay upload (e.g. in the case of misnamed metadata files).
+        """
+        other_tsvs = [
+            p
+            for p in self.directory_path.glob("*.tsv")
+            if not p.name.endswith(TSV_SUFFIX) and p not in self.dataset_metadata
+        ]
+
+        extra_metadata_tsvs = []
+        for path in other_tsvs:
+            rows = read_rows(path, self.encoding)
+            if "dataset_type" in rows[0]:
+                extra_metadata_tsvs.append(path)
+
+        if extra_metadata_tsvs:
+            names = ", ".join(p.name for p in sorted(extra_metadata_tsvs))
+            raise PreflightError(
+                f"Metadata TSV file(s) found that do not end in '-{TSV_SUFFIX}': {names}."
+            )
+
     def _check_multi_assay(self):
+        # first make sure there are no top-level metadata TSVs that are not accounted for
+        self._check_for_misnamed_metadata_tsvs()
         # This is not recursive, so if there are nested multi-assay types it will not work
         if self.multi_parent and self.multi_components:
             try:

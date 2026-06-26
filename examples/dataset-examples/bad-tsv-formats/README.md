@@ -1,6 +1,4 @@
 ```
-Preflight Errors: 'TSV files found that do not end in "-metadata.tsv": contributors.tsv.
-  All metadata TSVs must end in "-metadata.tsv".'
 Directory Errors:
   examples/dataset-examples/bad-tsv-formats/upload/dataset-1 (as codex-v1.1):
     Not allowed:

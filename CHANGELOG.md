@@ -1,4 +1,5 @@
 # Changelog
+
 ## v1.1.5 (in progress)
 
 - Generate DOI objects
@@ -7,6 +8,7 @@
 - Update CosMx Transcriptomics directory schema
 - Update RNAseq (with probes) directory schema
 - Update Visium HD directory schema
+- Bugfix error reporting when extra TSVs are found
 
 ## v1.1.4
 
