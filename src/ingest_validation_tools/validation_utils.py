@@ -183,20 +183,20 @@ def get_assaytype_data(row: dict, ingest_url: str, globus_token: str) -> dict:
 
 
 def read_rows(path: Path, encoding: str) -> list:
-    error_type = None
+    message = None
     if not Path(path).exists():
         raise TSVError(f"File does not exist: {str(path)}")
     try:
         rows = dict_reader_wrapper(path, encoding)
         if not rows:
-            error_type = f"File has no data rows: {path}"
+            message = f"File has no data rows: {path}"
         else:
             return rows
     except IsADirectoryError:
-        error_type = f"Expected a TSV, but found a directory: {path}"
+        message = f"Expected a TSV, but found a directory: {path}"
     except UnicodeDecodeError as e:
-        error_type = f"Decode Error: {get_context_of_decode_error(e)}"
-    raise TSVError(error_type)
+        message = f"Decode Error: {get_context_of_decode_error(e)}"
+    raise TSVError(message)
 
 
 def get_data_dir_errors(
