@@ -18,6 +18,7 @@ from tests.fixtures import (
     BAD_DATASET_SCHEMA_WITH_ANCESTORS,
     GOOD_DATASET_EXPECTED_PAYLOAD,
     GOOD_DATASET_SCHEMA_WITH_ANCESTORS,
+    HISTOLOGY_ASSAYTYPE_RESPONSE,
     SAMPLE_BLOCK_CONSTRAINTS_RESPONSE_GOOD,
     SAMPLE_BLOCK_PARTIAL_CEDAR_RESPONSE_GOOD,
     SAMPLE_BLOCK_PARTIAL_ENTITY_API_RESPONSE,
@@ -203,6 +204,27 @@ class TestSingleTsv(unittest.TestCase):
         with self.assertRaises(Exception):
             EntityTypeInfo(entity_type=Sample.ORGAN)
 
+    def create_upload(self, tsv_paths: list[Path], assaytype_response: dict):
+        with patch("ingest_validation_tools.upload.requests.post") as mock_constraints_response:
+            with patch("ingest_validation_tools.upload.cedar_validation_call") as mock_cedar_call:
+                with patch(
+                    "ingest_validation_tools.validation_utils.get_entity_api_data",
+                    side_effect=lambda entity_url, entity_id, globus_token, headers=None: entity_api_side_effect(
+                        self.entity_api_response_map, entity_url, entity_id, globus_token, headers
+                    ),
+                ):
+                    with patch(
+                        "ingest_validation_tools.validation_utils.get_assaytype_data",
+                        return_value=assaytype_response,
+                    ):
+                        # TODO: fix
+                        mock_cedar_call.return_value = get_mock_response(True, b"")
+                        mock_constraints_response.return_value = get_mock_response(True, b"")
+                        return Upload(
+                            directory_path=Path("."),
+                            tsv_paths=tsv_paths,
+                        )
+
     def test_contributors_contact(self):
         for path, error in [
             (Path("./tests/fixtures/contributors_good.tsv"), {}),
@@ -211,18 +233,18 @@ class TestSingleTsv(unittest.TestCase):
                 {Path("./tests/fixtures/contributors_bad.tsv"): "No primary contact."},
             ),
         ]:
-            upload = Upload(
-                directory_path=Path("."),
-                tsv_paths=[Path("./tests/fixtures/validated-histology-metadata.tsv")],
+            upload = self.create_upload(
+                [Path("./tests/fixtures/validated-histology-metadata.tsv")],
+                HISTOLOGY_ASSAYTYPE_RESPONSE,
             )
             for schema in upload.dataset_metadata.values():
                 upload._get_supporting_metadata_schemas(schema, path)
             assert upload.errors.upload_metadata.value == error
 
     def test_for_empty_columns(self):
-        upload = Upload(
-            directory_path=Path("."),
-            tsv_paths=[Path("./tests/fixtures/validated-histology-metadata.tsv")],
+        upload = self.create_upload(
+            [Path("./tests/fixtures/validated-histology-metadata.tsv")],
+            HISTOLOGY_ASSAYTYPE_RESPONSE,
         )
         path = Path("./tests/fixtures/contributors_bad.tsv")
         upload.validate_metadata({path: SchemaVersion("contributors")})

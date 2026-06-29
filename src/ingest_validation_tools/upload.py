@@ -14,7 +14,12 @@ from urllib.parse import urlsplit
 import requests
 
 from ingest_validation_tools.directory_validator import get_files
-from ingest_validation_tools.enums import DatasetType, OtherTypes, Sample
+from ingest_validation_tools.enums import (
+    UNIQUE_FIELDS_MAP,
+    DatasetType,
+    OtherTypes,
+    Sample,
+)
 from ingest_validation_tools.error_report import ErrorDict, InfoDict
 from ingest_validation_tools.local_validation.table_validator import (
     ReportType,
@@ -34,6 +39,7 @@ from ingest_validation_tools.schema_loader import (
     get_table_schema,
 )
 from ingest_validation_tools.validation_utils import (
+    TSVError,
     cedar_validation_call,
     find_empty_tsv_columns,
     get_data_dir_errors,
@@ -75,6 +81,7 @@ class Upload:
     ):
         del kwargs
         self.directory_path = directory_path
+        self.specified_paths = tsv_paths
         # typical dataset_ignore_globs = [uuid, "extras", "*metadata.tsv", "validation_report.txt"]
         self.dataset_ignore_globs = dataset_ignore_globs
         # typical upload_ignore_globs = "*"
@@ -146,12 +153,11 @@ class Upload:
         self.get_info_called = True
         return self.info
 
-    def get_errors(self, **kwargs) -> ErrorDict:
+    def get_errors(self) -> ErrorDict:
         """
         When converted using ErrorDict.as_dict(), keys are
         present only if there is actually an error to report.
         """
-        # TODO: remove deprecated kwargs param
         # Return if PreflightErrors found
         if self.errors:
             return self.errors
@@ -185,7 +191,7 @@ class Upload:
             k: unsorted_tsv_paths[k] for k in sorted(unsorted_tsv_paths.keys())
         }
         if not self.dataset_metadata:
-            self.errors.preflight.value = "There are no metadata TSVs."
+            raise PreflightError("There are no metadata TSVs.")
 
     def get_app_context(self, submitted_app_context: dict):
         """
@@ -229,25 +235,6 @@ class Upload:
             self._find_supporting_metadata(schema)
             for supporting_type in [*schema.antibodies_schemas, *schema.contributors_schemas]:
                 self.validate_metadata(tsv_paths={supporting_type.path: supporting_type})
-
-        supporting_tsv_paths = {
-            s.path
-            for schema in self.dataset_metadata.values()
-            for s in [*schema.antibodies_schemas, *schema.contributors_schemas]
-        }
-
-        non_metadata_tsvs = [
-            p
-            for p in self.directory_path.glob("*.tsv")
-            if not p.name.endswith(TSV_SUFFIX) and p not in supporting_tsv_paths
-        ]
-
-        if non_metadata_tsvs:
-            names = ", ".join(p.name for p in sorted(non_metadata_tsvs))
-            self.errors.preflight.value = (
-                f"TSV files found that do not end in '-{TSV_SUFFIX}': {names}. "
-                f"All metadata TSVs must end in '-{TSV_SUFFIX}'."
-            )
 
     def validate_metadata(
         self,
@@ -1002,7 +989,67 @@ class Upload:
             return True
         return False
 
+    def _check_for_misnamed_metadata_tsvs(self):
+        """
+        Raise PreflightError if any TSVs are located in the top-level directory that
+        do not end with "-metadata.tsv" / are not an antibodies/contributors path
+        in order to avoid mistakenly validating a multi-assay upload
+        as a single-assay upload (e.g. in the case of misnamed metadata files).
+        """
+        # tsv_paths specified for upload, do not check parent directory
+        if self.specified_paths:
+            return
+
+        # identify expected antibodies/contributors paths
+        support_tsv_paths = []
+        for other_type in ["antibodies_path", "contributors_path"]:
+            referenced_paths = self.__get_referenced_paths(other_type)
+            for path_value in referenced_paths:
+                support_tsv_paths.append(self.directory_path / path_value)
+
+        # find any TSVs at the top-level that a) don't end with -metadata.tsv,
+        # and b) are not antibodies/contributors files expected by identified
+        # metadata.tsv files
+        extra_tsvs = [
+            p
+            for p in self.directory_path.glob("*.tsv")
+            if not p.name.endswith(TSV_SUFFIX) and p not in support_tsv_paths
+        ]
+
+        # compile extra TSVs and check whether they are dataset metadata files;
+        # ignore any non-dataset metadata files to avoid raising a
+        # validation-halting PreflightError; collect any file-read errors
+        extra_metadata_tsvs = []
+        extra_errors = []
+        for path in extra_tsvs:
+            try:
+                rows = read_rows(path, self.encoding)
+            except TSVError as e:
+                extra_errors.append(str(e))
+                continue
+            if any(
+                [
+                    unique_field
+                    for unique_field in UNIQUE_FIELDS_MAP[DatasetType.DATASET]
+                    if unique_field in rows[0]
+                ]
+            ):
+                extra_metadata_tsvs.append(path)
+
+        # construct PreflightError
+        if extra_metadata_tsvs or extra_errors:
+            message = []
+            if names := ", ".join(p.name for p in sorted(extra_metadata_tsvs)):
+                message.append(
+                    f"Metadata TSV file(s) found that do not end in '-{TSV_SUFFIX}': {names}."
+                )
+            if extra_errors:
+                message.append(", ".join(extra_errors))
+            raise PreflightError(" ".join(message))
+
     def _check_multi_assay(self):
+        # first make sure there are no top-level metadata TSVs that are not accounted for
+        self._check_for_misnamed_metadata_tsvs()
         # This is not recursive, so if there are nested multi-assay types it will not work
         if self.multi_parent and self.multi_components:
             try:
