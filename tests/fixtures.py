@@ -400,3 +400,19 @@ PLUGIN_INFO = {
         successful_plugins=["CodexCommonErrorsValidator"],
     ),
 }
+
+HISTOLOGY_ASSAYTYPE_RESPONSE = {
+    "assaytype": "h-and-e",
+    "contains-pii": False,
+    "dataset-type": "Histology",
+    "description": "H&E Stained Microscopy",
+    "dir-schema": "histology-v2",
+    "is-multi-assay": None,
+    "must-contain": None,
+    "pipeline-shorthand": None,
+    "primary": None,
+    "process_state": "primary",
+    "tbl-schema": None,
+    "ubkg_code": "C200940",
+    "vitessce-hints": [],
+}
