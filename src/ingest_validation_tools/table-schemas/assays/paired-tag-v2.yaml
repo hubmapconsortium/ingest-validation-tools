@@ -1,0 +1,13 @@
+description_md: REQUIRED - For this assay, you must also prepare and submit two additional metadata.tsv files following the metadata schemas linked here for [RNAseq](https://hubmapconsortium.github.io/ingest-validation-tools/rnaseq/current/) and [ATACseq](https://hubmapconsortium.github.io/ingest-validation-tools/atacseq/current/).
+fields:
+- name: is_cedar
+  description: 'Identifies whether the version is hosted by CEDAR'
+  example: 'https://openview.metadatacenter.org/templates/https:%2F%2Frepo.metadatacenter.org%2Ftemplates%2F5147f0d5-4126-4ea9-bb59-58ad83ee2038'
+- name: assay_category
+  constraints:
+    enum:
+      - spatial_transcriptomics
+- name: assay_type
+  constraints:
+    enum:
+      - Paired-Tag

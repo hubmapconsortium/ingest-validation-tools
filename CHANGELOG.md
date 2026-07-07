@@ -1,6 +1,8 @@
 # Changelog
+## v1.1.8 (in progress)
+- Add Paired-Tag dataset
 
-## v1.1.5 (in progress)
+## v1.1.5
 
 - Generate DOI objects
 - Patch for TSVs not being caught
