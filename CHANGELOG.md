@@ -1,6 +1,9 @@
 # Changelog
 ## v1.1.8 (in progress)
 - Add Paired-Tag dataset
+- New 4i dir schema
+- New COMET dir schema
+- Add MACSima dataset
 
 ## v1.1.5
 
