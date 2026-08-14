@@ -6,7 +6,7 @@ fields:
 - name: assay_category
   constraints:
     enum:
-      - spatial_transcriptomics
+      - sequence
 - name: assay_type
   constraints:
     enum:
