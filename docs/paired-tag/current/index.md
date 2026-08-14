@@ -1,7 +1,7 @@
 ---
 title: Paired-Tag
 schema_name: paired-tag
-category: Spatial Transcriptomics
+category: Sequence Assays
 all_versions_deprecated: False
 exclude_from_index: False
 layout: default
