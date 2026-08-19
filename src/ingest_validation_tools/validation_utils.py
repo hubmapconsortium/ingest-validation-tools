@@ -1,6 +1,7 @@
 import json
 import logging
 import sys
+import traceback
 from csv import DictReader
 from pathlib import Path, PurePath
 from typing import Optional, Union
@@ -374,56 +375,6 @@ def get_tsv_errors(
     globus_token: str = "",
     app_context: dict = {},
 ) -> list:
-    """
-    Validate the TSV.
-
-    >>> import tempfile
-    >>> from pathlib import Path
-
-    # >>> get_tsv_errors('no-such.tsv', 'fake')
-    # {'TSV Errors': {'File does not exist': 'no-such.tsv'}}
-    #
-    # >>> with tempfile.TemporaryDirectory() as dir:
-    # ...     tsv_path = Path(dir)
-    # ...     errors = get_tsv_errors(tsv_path, 'fake')
-    # ...     assert errors['Expected a TSV, but found a directory'] == str(tsv_path)
-    #
-    # TODO: these are broken due to the addition of paths to error messages
-    # >>> with tempfile.TemporaryDirectory() as dir:
-    # ...     tsv_path = Path(dir) / 'fake.tsv'
-    # ...     tsv_path.write_bytes(b'\\xff')
-    # ...     get_tsv_errors(tsv_path, 'fake')
-    # 1
-    # {'Decode Error': 'Invalid utf-8 because invalid start byte: " [ ÿ ] "'}
-    #
-    # >>> def test_tsv(content, assay_type='fake'):
-    # ...     with tempfile.TemporaryDirectory() as dir:
-    # ...         tsv_path = Path(dir) / 'fake.tsv'
-    # ...         tsv_path.write_text(content)
-    # ...         return get_tsv_errors(tsv_path, assay_type)
-    #
-    # >>> test = test_tsv('just_a_header_not_enough')
-    # >>> print(test, tsv_path)
-    # >>> assert test['File has no data rows'] == str(tsv_path)
-    #
-    # >>> test_tsv('fake_head\\nfake_data')
-    # {'No such file or directory': 'fake-v0.yaml'}
-    #
-    # >>> test_tsv('fake_head\\nfake_data', assay_type='nano')
-    # {'Schema version is deprecated': 'nano-v0'}
-    #
-    # >>> test_tsv('version\\n1', assay_type='nano')
-    # {'Schema version is deprecated': 'nano-v1'}
-    #
-    # >>> test_tsv('version\\n2', assay_type='nano')
-    # {'No such file or directory': 'nano-v2.yaml'}
-    #
-    # >>> test_tsv('version\\n1', assay_type='codex')
-    # ['Could not determine delimiter']
-    #
-    # >>> errors = test_tsv('version\\tfake\\n1\\tfake', assay_type='codex')
-    # >>> assert 'Unexpected fields' in errors[0]
-    """
     from ingest_validation_tools.upload import Upload
 
     logging.info(f"Validating {schema_name} TSV...")
@@ -454,6 +405,20 @@ def get_tsv_errors(
     return upload.errors.tsv_only_errors_by_path(str(tsv_path), report_type=report_type)
 
 
+def formatted_exception(exception):
+    """
+    traceback logic from
+    https://stackoverflow.com/questions/51822029/get-exception-details-on-airflow-on-failure-callback-context
+    """
+    if not (
+        formatted_exception := "".join(
+            traceback.TracebackException.from_exception(exception).format()
+        ).replace("\n", "<br>")
+    ):
+        return None
+    return formatted_exception
+
+
 def cedar_validation_call(tsv_path: str | Path) -> requests.models.Response:
     with open(tsv_path, "rb") as f:
         try:
@@ -465,6 +430,7 @@ def cedar_validation_call(tsv_path: str | Path) -> requests.models.Response:
             response_json = response.json()
             logging.info(f"Response: {response_json}")
         except Exception as e:
+            logging.error(formatted_exception(e))
             raise RuntimeError(
                 f"Spreadsheet Validator API request for {tsv_path} failed! Exception: {e}"
             ) from e
