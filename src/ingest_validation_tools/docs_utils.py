@@ -140,8 +140,12 @@ def generate_readme_md(
         else "dataset-metadata-spreadsheet/main"
     )
 
+    # Anchored headers are only emitted for CEDAR docs; deprecated docs keep plain headers.
+    def _header(text: str) -> str:
+        return _md_header(2, text) if is_cedar else f"## {text}"
+
     optional_dir_description_md = (
-        f"{_md_header(2, 'Directory schemas')}\n"
+        f"{_header('Directory schemas')}\n"
         f"{_make_dir_descriptions(directory_schemas, pipeline_infos)}"
         if directory_schemas
         else ""
@@ -260,6 +264,7 @@ def generate_readme_md(
             "optional_description_md": optional_description_md,
             "cedar_validator_link": cedar_validator_link,
             "permalink": f"permalink: /{schema_name}/" if not is_cedar else "",
+            "metadata_schema_header": _header("Metadata schema"),
         }
     )
 
@@ -278,8 +283,7 @@ def _make_fields_md(table_schema, title, is_open=False):
 
     >>> print(_clean(_make_fields_md(schema, 'A title')))
     <details markdown="1" ><summary><b>A title</b></summary>
-    <a name="a-head"></a>
-    ### [A head](#a-head)
+    ### A head
     <a name="a_name"></a>
     ##### [`a_name`](#a_name)
     A description.
