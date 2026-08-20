@@ -8,6 +8,7 @@ layout: default
 
 ---
 Prepare your metadata based on the latest metadata schema using one of the template files below. See the instructions in the [Metadata Validation Workflow](https://docs.google.com/document/d/1lfgiDGbyO4K4Hz1FMsJjmJd9RdwjShtJqFYNwKpbcZY) document for more information on preparing and validating your metadata.tsv file prior to submission.
+This is the most recent metadata specification that needs to be followed for the submission of new data. See the [harmonized specification](https://docs.hubmapconsortium.org/assays/metadata/visium-no-probes.html) for a view of the metadata across this and any previous versions.
 
 Related files:
 
@@ -18,7 +19,8 @@ Related files:
 
 REQUIRED - For this assay, you must also prepare and submit two additional metadata.tsv files following the metadata schemas linked here for [RNAseq](https://hubmapconsortium.github.io/ingest-validation-tools/rnaseq/current/) and [Histology](https://hubmapconsortium.github.io/ingest-validation-tools/histology/current/). [This link](https://docs.google.com/spreadsheets/d/1YnmdTAA0Z9MKN3OjR3Sca8pz-LNQll91wdQoRPSP6Q4/edit#gid=0) lists the set of fields that are required in the OME TIFF file XML header.
 
-## Metadata schema
+<a name="metadata-schema"></a>
+## [Metadata schema](#metadata-schema)
 
 
 <summary><a href="https://openview.metadatacenter.org/templates/https:%2F%2Frepo.metadatacenter.org%2Ftemplates%2Fbabf1e69-f0eb-479a-bdc5-b70199669675"><b>Version 3 (use this one)</b></a></summary>
@@ -29,7 +31,8 @@ REQUIRED - For this assay, you must also prepare and submit two additional metad
 
 <br>
 
-## Directory schemas
+<a name="directory-schemas"></a>
+## [Directory schemas](#directory-schemas)
 <summary><b>Version 3.6 (use this one)</b></summary>
 
 | pattern | required? | description |

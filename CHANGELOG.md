@@ -1,5 +1,9 @@
 # Changelog
-## v1.1.8 (in progress)
+## v1.1.9 (in progress)
+- Add additional text to docs
+- Add header anchors to current docs
+
+## v1.1.8
 - Add Paired-Tag dataset
 - New 4i dir schema
 - New COMET dir schema

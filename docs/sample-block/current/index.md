@@ -18,7 +18,8 @@ Related files:
 
 
 
-## Metadata schema
+<a name="metadata-schema"></a>
+## [Metadata schema](#metadata-schema)
 
 
 <summary><a href="https://openview.metadatacenter.org/templates/https:%2F%2Frepo.metadatacenter.org%2Ftemplates%2F3e98cee6-d3fb-467b-8d4e-9ba7ee49eeff"><b>Version 2 (use this one)</b></a></summary>

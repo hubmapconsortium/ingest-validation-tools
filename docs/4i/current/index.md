@@ -8,6 +8,7 @@ layout: default
 
 ---
 Prepare your metadata based on the latest metadata schema using one of the template files below. See the instructions in the [Metadata Validation Workflow](https://docs.google.com/document/d/1lfgiDGbyO4K4Hz1FMsJjmJd9RdwjShtJqFYNwKpbcZY) document for more information on preparing and validating your metadata.tsv file prior to submission.
+This is the most recent metadata specification that needs to be followed for the submission of new data. See the [harmonized specification](https://docs.hubmapconsortium.org/assays/metadata/4i.html) for a view of the metadata across this and any previous versions.
 
 Related files:
 
@@ -18,7 +19,8 @@ Related files:
 
 
 
-## Metadata schema
+<a name="metadata-schema"></a>
+## [Metadata schema](#metadata-schema)
 
 
 <summary><a href="https://openview.metadatacenter.org/templates/https:%2F%2Frepo.metadatacenter.org%2Ftemplates%2F61336882-43d2-485b-9dda-3f8fb16dcb06"><b>Version 2 (use this one)</b></a></summary>
@@ -27,7 +29,8 @@ Related files:
 
 <br>
 
-## Directory schemas
+<a name="directory-schemas"></a>
+## [Directory schemas](#directory-schemas)
 <summary><b>Version 2.2 (use this one)</b></summary>
 
 | pattern | required? | description |
@@ -41,7 +44,7 @@ Related files:
 | <code>lab_processed\/images\/.*</code> | ✓ | This is a directory containing processed image files |
 | <code>lab_processed\/images\/[^\/]+\.ome\.tiff$</code> | ✓ | OME-TIFF file (multichannel, multi-layered) produced by the experiment. If compressed, must use loss-less compression algorithm. See the following link for the set of fields that are required in the OME TIFF file XML header. <https://docs.google.com/spreadsheets/d/1YnmdTAA0Z9MKN3OjR3Sca8pz-LNQll91wdQoRPSP6Q4/edit#gid=0> |
 | <code>lab_processed\/images\/[^\/]*ome-tiff\.channels\.csv$</code> | ✓ | This file provides essential documentation pertaining to each channel of the accompanying OME TIFF. The file should contain one row per OME TIFF channel. The required fields are detailed here: <https://docs.google.com/spreadsheets/d/1xEJSb0xn5C5fB3k62pj1CyHNybpt4-YtvUs5SUMS44o/edit#gid=0> |
-| <code>lab_processed\/images\/[^\/]*tissue-boundary.geojson$</code> |  | If the boundaries of the tissue have been identified (e.g., by manual efforts), then the boundary geometry can be included as a GeoJSON file named '*.tissue-boundary.geojson'. |
+| <code>lab_processed\/images\/[^\/]+tissue-boundary\.geojson$</code> |  | **[QA/QC]** If the boundaries of the tissue have been identified (e.g., by manual efforts), then the boundary geometry can be included as a GeoJSON file named “*.tissue-boundary.geojson”. |
 
 <summary><b>Version 2.1</b></summary>
 
