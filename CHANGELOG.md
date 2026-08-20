@@ -2,6 +2,7 @@
 ## v1.1.9 (in progress)
 - Add additional text to docs
 - Add header anchors to current docs
+- Update sample docs
 
 ## v1.1.8
 - Add Paired-Tag dataset
