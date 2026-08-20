@@ -178,7 +178,7 @@ def get_assaytype_data(row: dict, ingest_url: str, globus_token: str) -> dict:
         data=json.dumps(row),
     )
     response.raise_for_status()
-    print(f"Soft assay endpoint response: {response.json()}")
+    logging.info(f"Soft assay endpoint response: {response.json()}")
     return response.json()
 
 
@@ -454,30 +454,27 @@ def get_tsv_errors(
     return upload.errors.tsv_only_errors_by_path(str(tsv_path), report_type=report_type)
 
 
-def cedar_validation_call(tsv_path: Union[str, Path]) -> requests.models.Response:
+def cedar_validation_call(tsv_path: str | Path) -> requests.models.Response:
     with open(tsv_path, "rb") as f:
-        file = {"input_file": f}
-        headers = {
-            "content_type": "multipart/form-data",
-        }
         try:
             response = requests.post(
                 CEDAR_VALIDATION_URL,
-                headers=headers,
-                files=file,
+                files={"input_file": f},
             )
-            logging.info(f"Response: {response.json()}")
+            response.raise_for_status()
+            response_json = response.json()
+            logging.info(f"Response: {response_json}")
         except Exception as e:
-            raise Exception(
+            raise RuntimeError(
                 f"Spreadsheet Validator API request for {tsv_path} failed! Exception: {e}"
-            )
-    print(
-        f"""
-          CEDAR response for {tsv_path}:
-          Schema: {response.json().get('schema', {}).get('name')}
-          Reporting: {response.json().get('reporting')}
-          """
-    )
+            ) from e
+        logging.info(
+            f"""
+            CEDAR response for {tsv_path}:
+            Schema: {response_json.get('schema', {}).get('name')}
+            Reporting: {response_json.get('reporting')}
+            """
+        )
     return response
 
 
