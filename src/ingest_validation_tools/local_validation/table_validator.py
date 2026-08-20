@@ -1,6 +1,5 @@
 import csv
 from pathlib import Path
-from typing import Dict, List, Optional, Union
 
 import frictionless
 
@@ -10,8 +9,8 @@ from ingest_validation_tools.local_validation.message_munger import munge
 
 
 def get_table_errors(
-    tsv: Union[Path, str], schema: dict, report_type: ReportType = ReportType.STR
-) -> List:
+    tsv: Path | str, schema: dict, report_type: ReportType = ReportType.STR
+) -> list:
     tsv_path = Path(tsv)
     pre_flight_errors = _get_pre_flight_errors(tsv_path, schema=schema)
     if pre_flight_errors:
@@ -37,7 +36,7 @@ def get_table_errors(
     return [_get_message(error, schema_fields_dict, report_type) for error in task["errors"]]
 
 
-def _get_pre_flight_errors(tsv_path: Path, schema: dict) -> Optional[List[str]]:
+def _get_pre_flight_errors(tsv_path: Path, schema: dict) -> list[str] | None:
     try:
         dialect = csv.Sniffer().sniff(tsv_path.read_text())
     except csv.Error as e:
@@ -74,10 +73,10 @@ def _get_pre_flight_errors(tsv_path: Path, schema: dict) -> Optional[List[str]]:
 
 
 def _get_message(
-    error: Dict[str, str],
-    schema_fields: Dict[str, dict],
+    error: dict[str, str],
+    schema_fields: dict[str, dict],
     report_type: ReportType = ReportType.STR,
-) -> Union[str, Dict, int]:
+) -> str | dict | int:
     """
     >>> print(_get_message(
     ... {

@@ -3,7 +3,6 @@ import logging
 import sys
 from csv import DictReader
 from pathlib import Path, PurePath
-from typing import Optional, Union
 from urllib.parse import quote, urlencode, urljoin
 
 import requests
@@ -39,7 +38,7 @@ CEDAR_SINGLE_TEMPLATE_URL_BASE = "https://repo.metadatacenter.org/templates/"
 
 def match_field_in_unique_fields(
     match_fields: list, path: str, dataset=True
-) -> Optional[tuple[EntityTypes, str]]:
+) -> tuple[EntityTypes, str] | None:
     match_dict = UNIQUE_FIELDS_MAP
     if not dataset:
         match_dict = OTHER_FIELDS_UNIQUE_FIELDS_MAP
@@ -77,7 +76,7 @@ def get_schema_version(
     entity_url: str = "",
     ingest_url: str = "",
     globus_token: str = "",
-    directory_path: Optional[Path] = None,
+    directory_path: Path | None = None,
 ) -> SchemaVersion:
     try:
         rows = read_rows(path, encoding)
@@ -124,8 +123,8 @@ def get_other_type_schema(
     path: str,
     entity_url: str,
     globus_token: str,
-    directory_path: Optional[Path] = None,
-) -> Optional[SchemaVersion]:
+    directory_path: Path | None = None,
+) -> SchemaVersion | None:
     # Assumes that an entire TSV only represents a single entity_type.
     match_pair = match_field_in_unique_fields(rows[0].keys(), path, dataset=False)
     if match_pair:
@@ -204,7 +203,7 @@ def get_data_dir_errors(
     root_path: Path,
     data_dir_path: Path,
     dataset_ignore_globs: list[str] = [],
-) -> dict[str, Union[dict, str]]:
+) -> dict[str, dict | str]:
     """
     Validate a single data_path.
     """
@@ -366,7 +365,7 @@ def get_schema_details(schema_version: str, cedar_api_key: str) -> dict:
 
 
 def get_tsv_errors(
-    tsv_path: Union[str, Path],
+    tsv_path: str | Path,
     schema_name: str,
     no_url_checks: bool = False,
     ignore_deprecation: bool = False,
@@ -432,7 +431,7 @@ def get_entity_api_data(
     entity_api_url: str,
     entity_id: str,
     globus_token: str,
-    headers: Optional[dict] = None,
+    headers: dict | None = None,
 ) -> requests.Response:
     if not globus_token:
         raise Exception("No token received to check URL fields against Entity API.")
@@ -453,7 +452,7 @@ def get_entity_info_from_entity_api(
     entity_url: str,
     entity_id: str,
     globus_token: str,
-    headers: Optional[dict] = None,
+    headers: dict | None = None,
 ) -> EntityTypeInfo:
     """
     Make an entity-api call and from the response, get
@@ -496,8 +495,8 @@ def print_path(path):
 
 
 def get_json(
-    error: str, row: Optional[str] = None, column: Optional[str] = None
-) -> dict[str, Optional[str]]:
+    error: str, row: str | None = None, column: str | None = None
+) -> dict[str, str | None]:
     return {
         "column": column,
         "error": error,
@@ -505,9 +504,7 @@ def get_json(
     }
 
 
-def get_message(
-    error: dict[str, str], report_type: ReportType = ReportType.STR
-) -> Union[str, dict]:
+def get_message(error: dict[str, str], report_type: ReportType = ReportType.STR) -> str | dict:
     """
     >>> print(
     ...     get_message(

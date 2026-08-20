@@ -2,7 +2,7 @@ import html
 import re
 from pathlib import Path
 from string import Template
-from typing import Any, Dict
+from typing import Any
 
 from ingest_validation_tools.schema_loader import get_field_enum, get_fields_wo_headers
 
@@ -36,7 +36,7 @@ def get_xlsx_name(type: str, is_assay: bool = True) -> str:
     return f'{type}{"-metadata" if is_assay else ""}.xlsx'
 
 
-def generate_template_tsv(table_schema: Dict) -> str:
+def generate_template_tsv(table_schema: dict) -> str:
     """
     >>> schema = {'fields': [{
     ...   'name': 'fake',
@@ -64,7 +64,7 @@ def generate_template_tsv(table_schema: Dict) -> str:
     return "\n".join([header_row, enums_row])
 
 
-def _enrich_description(field: Dict[str, Any]) -> str:
+def _enrich_description(field: dict[str, Any]) -> str:
     """
     >>> good_field = {
     ...   'name': 'good-example',
