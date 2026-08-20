@@ -1,7 +1,6 @@
 import json
 import logging
 import sys
-import traceback
 from csv import DictReader
 from pathlib import Path, PurePath
 from typing import Optional, Union
@@ -405,20 +404,6 @@ def get_tsv_errors(
     return upload.errors.tsv_only_errors_by_path(str(tsv_path), report_type=report_type)
 
 
-def formatted_exception(exception):
-    """
-    traceback logic from
-    https://stackoverflow.com/questions/51822029/get-exception-details-on-airflow-on-failure-callback-context
-    """
-    if not (
-        formatted_exception := "".join(
-            traceback.TracebackException.from_exception(exception).format()
-        ).replace("\n", "<br>")
-    ):
-        return None
-    return formatted_exception
-
-
 def cedar_validation_call(tsv_path: str | Path) -> requests.models.Response:
     with open(tsv_path, "rb") as f:
         try:
@@ -430,7 +415,6 @@ def cedar_validation_call(tsv_path: str | Path) -> requests.models.Response:
             response_json = response.json()
             logging.info(f"Response: {response_json}")
         except Exception as e:
-            logging.error(formatted_exception(e))
             raise RuntimeError(
                 f"Spreadsheet Validator API request for {tsv_path} failed! Exception: {e}"
             ) from e
