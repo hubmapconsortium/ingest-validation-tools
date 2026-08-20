@@ -248,4 +248,4 @@ class TestSingleTsv(unittest.TestCase):
         )
         path = Path("./tests/fixtures/contributors_bad.tsv")
         upload.validate_metadata({path: SchemaVersion("contributors")})
-        assert upload.errors.upload_metadata.value == {path: "Empty columns: 5, 12"}
+        assert upload.errors.upload_metadata.value == {path: "Empty columns: 5"}

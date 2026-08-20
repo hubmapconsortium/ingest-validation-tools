@@ -5,7 +5,6 @@ import re
 import unittest
 from io import TextIOWrapper
 from pathlib import Path
-from typing import Dict, Union
 from unittest.mock import patch
 
 from ingest_validation_tools.error_report import DictErrorType, ErrorDict, ErrorReport
@@ -45,7 +44,7 @@ class MockException(Exception):
 
 
 class TokenException(Exception):
-    def __init__(self, error: str, clean_report: Union[str, Dict]):
+    def __init__(self, error: str, clean_report: str | dict):
         super().__init__(error)
         self.clean_report = clean_report
 
@@ -211,7 +210,7 @@ def diff_test(
     print(f"PASSED diff_test: {test_dir}")
 
 
-def _open_and_read_fixtures_file(path: str) -> Dict:
+def _open_and_read_fixtures_file(path: str) -> dict:
     try:
         with open(Path(path) / "fixtures.json") as f:
             opened = json.load(f)
@@ -221,7 +220,7 @@ def _open_and_read_fixtures_file(path: str) -> Dict:
     return opened
 
 
-def get_online_check_fixtures(schema_name: str, dir_path: str) -> Dict:
+def get_online_check_fixtures(schema_name: str, dir_path: str) -> dict:
     fixture = _open_and_read_fixtures_file(dir_path)
     value = fixture.get("validation", {}).get(schema_name, {})
     if value is None:
@@ -229,7 +228,7 @@ def get_online_check_fixtures(schema_name: str, dir_path: str) -> Dict:
     return value
 
 
-def assaytype_side_effect(path: str, row: Dict, *args, **kwargs):
+def assaytype_side_effect(path: str, row: dict, *args, **kwargs):
     del args, kwargs
     response_dict = _open_and_read_fixtures_file(path)
     dataset_type = row.get("assay_type") if row.get("assay_type") else row.get("dataset_type")

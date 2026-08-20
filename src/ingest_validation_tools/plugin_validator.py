@@ -33,7 +33,7 @@ def run_plugin_validators_iter(
     metadata_path: path to a metadata.tsv file
     plugin_dir: path to a directory containing validator classes
 
-    returns: Iterator[Tuple[Validator, list[Union[str, None]]]]
+    returns: Iterator[Tuple[Validator, list[str | None]]]
          - Ran, no errors: (<ValidatorSubclassInstance>, [None])
          - Ran, errors: (<ValidatorSubclassNameInstance>, ["error"])
          - Did not run (not relevant to dataset_type): (<ValidatorSubclassInstance>, [])

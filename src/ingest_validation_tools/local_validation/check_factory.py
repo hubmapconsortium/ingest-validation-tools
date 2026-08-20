@@ -3,7 +3,7 @@ import re
 from pathlib import Path
 from string import Template
 from sys import stderr
-from typing import Any, Callable, Dict, Iterator, List
+from typing import Any, Callable, Iterator
 
 import frictionless
 import requests
@@ -11,11 +11,11 @@ import requests
 cache_path = Path(__file__).parent / "url-status-cache.json"
 
 ErrorIterator = Iterator[frictionless.errors.CellError]
-Row = Dict[str, Any]
+Row = dict[str, Any]
 Check = Callable[[Row], ErrorIterator]
 
 
-def make_checks(schema) -> List[Check]:
+def make_checks(schema) -> list[Check]:
     factory = _CheckFactory(schema)
     return [
         factory.make_url_check(),
@@ -30,7 +30,7 @@ class _CheckFactory:
         self.schema = schema
         self._prev_value_run_length = {}
 
-    def _get_constrained_fields(self, constraint: str) -> Dict[str, List]:
+    def _get_constrained_fields(self, constraint: str) -> dict[str, list]:
         c_c = "custom_constraints"
         return {
             f["name"]: f[c_c][constraint]
@@ -124,7 +124,7 @@ class _CheckFactory:
         units_constrained_fields = self._get_constrained_fields("units_for")
 
         def units_check(row):
-            for k, v in row.items():
+            for k, _ in row.items():
                 if k in units_constrained_fields:
                     units_for = units_constrained_fields[k]
                     if (row[units_for] or row[units_for] == 0) and not row[k]:
