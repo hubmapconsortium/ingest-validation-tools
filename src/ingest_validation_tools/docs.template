@@ -14,7 +14,8 @@ ${related_files_section_md}
 
 ${optional_description_md}
 
-## Metadata schema
+<a name="metadata-schema"></a>
+## [Metadata schema](#metadata-schema)
 
 ${current_version_md}
 ${previous_versions_md}

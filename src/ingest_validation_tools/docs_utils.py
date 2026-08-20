@@ -7,6 +7,27 @@ from typing import Any, Dict
 from ingest_validation_tools.schema_loader import get_field_enum, get_fields_wo_headers
 
 
+def _anchor_slug(text: str) -> str:
+    """
+    >>> _anchor_slug('Metadata schema')
+    'metadata-schema'
+    >>> _anchor_slug('Shared by all types')
+    'shared-by-all-types'
+    """
+    slug = re.sub(r"[^\w\s-]", "", text.lower())
+    return re.sub(r"[\s_]+", "-", slug).strip("-")
+
+
+def _md_header(level: int, text: str) -> str:
+    """
+    >>> print(_md_header(2, 'Directory schemas'))
+    <a name="directory-schemas"></a>
+    ## [Directory schemas](#directory-schemas)
+    """
+    slug = _anchor_slug(text)
+    return f'<a name="{slug}"></a>\n{"#" * level} [{text}](#{slug})'
+
+
 def get_tsv_name(type: str, is_assay: bool = True) -> str:
     return f'{type}{"-metadata" if is_assay else ""}.tsv'
 
@@ -120,7 +141,8 @@ def generate_readme_md(
     )
 
     optional_dir_description_md = (
-        f"## Directory schemas\n{_make_dir_descriptions(directory_schemas, pipeline_infos)}"
+        f"{_md_header(2, 'Directory schemas')}\n"
+        f"{_make_dir_descriptions(directory_schemas, pipeline_infos)}"
         if directory_schemas
         else ""
     )
@@ -167,6 +189,9 @@ def generate_readme_md(
             "(https://docs.google.com/document/d/1lfgiDGbyO4K4Hz1FMsJjmJd9RdwjShtJqFYNwKpbcZY) "
             "document for more information on preparing "
             "and validating your metadata.tsv file prior to submission.\n"
+            "This is the most recent metadata specification that needs to be followed for the submission of new data. See the "
+            f"[harmonized specification](https://docs.hubmapconsortium.org/assays/metadata/{schema_name}.html)"
+            f" for a view of the metadata across this and any previous versions.\n"
         )
     else:
         tsv_url = f"{raw_base_url}/{schema_name}/deprecated/{get_tsv_name(schema_name, is_assay=is_assay)}"
@@ -253,7 +278,8 @@ def _make_fields_md(table_schema, title, is_open=False):
 
     >>> print(_clean(_make_fields_md(schema, 'A title')))
     <details markdown="1" ><summary><b>A title</b></summary>
-    ### A head
+    <a name="a-head"></a>
+    ### [A head](#a-head)
     <a name="a_name"></a>
     ##### [`a_name`](#a_name)
     A description.
