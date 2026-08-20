@@ -8,6 +8,7 @@ layout: default
 
 ---
 Prepare your metadata based on the latest metadata schema using one of the template files below. See the instructions in the [Metadata Validation Workflow](https://docs.google.com/document/d/1lfgiDGbyO4K4Hz1FMsJjmJd9RdwjShtJqFYNwKpbcZY) document for more information on preparing and validating your metadata.tsv file prior to submission.
+This is the most recent metadata specification that needs to be followed for the submission of new data. See the [harmonized specification](https://docs.hubmapconsortium.org/assays/metadata/object-x-analyte.html) for a view of the metadata across this and any previous versions.
 
 Related files:
 
@@ -20,7 +21,8 @@ Related files:
 [Additional Documentation](https://docs.google.com/document/d/1TkmleE99wpynqSa0MS47Z8Q2vG1ru47fNFl-5KFJKoo/edit?tab=t.0#heading=h.1u82i4axggee)
 
 
-## Metadata schema
+<a name="metadata-schema"></a>
+## [Metadata schema](#metadata-schema)
 
 
 <summary><a href="https://openview.metadatacenter.org/templates/https:%2F%2Frepo.metadatacenter.org%2Ftemplates%2F2f324a7b-dbf7-4df0-9f1d-e93603d9ecf4"><b>Version 2 (use this one)</b></a></summary>
@@ -29,7 +31,8 @@ Related files:
 
 <br>
 
-## Directory schemas
+<a name="directory-schemas"></a>
+## [Directory schemas](#directory-schemas)
 <summary><b>Version 2.0 (use this one)</b></summary>
 
 | pattern | required? | description |
