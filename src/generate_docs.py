@@ -1,6 +1,8 @@
 #!/usr/bin/env python3
 
 import argparse
+import csv
+import hashlib
 import io
 import os
 import re
@@ -108,13 +110,28 @@ def _generate_directory_md(schema_name: str, directory_schema: dict) -> str:
     )
 
 
+# Fixed epoch for zip entries so an unchanged doi-object.zip keeps a stable md5.
+FIXED_ZIP_DATE = (1980, 1, 1, 0, 0, 0)
+
+
+def _zip_writestr(zf: zipfile.ZipFile, name: str, data: bytes | str) -> None:
+    """
+    Write an entry with a fixed timestamp; writestr(name, ...) would stamp
+    the current time and change the archive hash on every rebuild.
+    """
+    info = zipfile.ZipInfo(name, date_time=FIXED_ZIP_DATE)
+    info.compress_type = zipfile.ZIP_DEFLATED
+    info.external_attr = 0o644 << 16
+    zf.writestr(info, data)
+
+
 def _generate_empty_tree_zip(simplified_patterns: list[str]) -> bytes:
     buf = io.BytesIO()
     seen_dirs: set = set()
 
     def _add_dir(zf: zipfile.ZipFile, path: str) -> None:
         if path not in seen_dirs:
-            zf.writestr(zipfile.ZipInfo(path), "")
+            zf.writestr(zipfile.ZipInfo(path, date_time=FIXED_ZIP_DATE), "")
             seen_dirs.add(path)
 
     def _ensure_parents(zf: zipfile.ZipFile, path: str) -> None:
@@ -133,6 +150,40 @@ def _generate_empty_tree_zip(simplified_patterns: list[str]) -> bytes:
                 _add_dir(zf, parent)
 
     return buf.getvalue()
+
+
+DOI_HASH_CSV_NAME = "doi-object-hashes.csv"
+
+
+def _doi_zip_dataset_type(zip_path: Path) -> str:
+    """
+    dataset_type as recorded in the zipped metadata.tsv;
+    falls back to the schema name for types without a spreadsheet.
+    """
+    with zipfile.ZipFile(zip_path) as zf:
+        if "metadata.tsv" in zf.namelist():
+            lines = zf.read("metadata.tsv").decode("utf-8").splitlines()
+            rows = list(csv.DictReader(lines, delimiter="\t"))
+            if rows:
+                dataset_type = (rows[0].get("dataset_type") or "").strip()
+                if dataset_type:
+                    return dataset_type
+    return zip_path.parent.parent.name
+
+
+def _write_doi_hash_csv(docs_root: Path) -> None:
+    """
+    Rescan every doi-object.zip under docs_root and rewrite the
+    dataset_type -> md5 CSV, so stale rows can't survive a rebuild.
+    """
+    rows = []
+    for zip_path in sorted(docs_root.glob("*/current/doi-object.zip")):
+        md5 = hashlib.md5(zip_path.read_bytes()).hexdigest()
+        rows.append({"dataset_type": _doi_zip_dataset_type(zip_path), "md5": md5})
+    with open(docs_root / DOI_HASH_CSV_NAME, "w", newline="") as f:
+        writer = csv.DictWriter(f, fieldnames=["dataset_type", "md5"])
+        writer.writeheader()
+        writer.writerows(rows)
 
 
 def _fetch_bytes(url: str) -> bytes | None:
@@ -159,12 +210,14 @@ def _generate_doi_zip(
             url = f"{raw_base}/{schema_name}/latest/{schema_name}.{ext}"
             content = _fetch_bytes(url)
             if content:
-                zf.writestr(f"metadata.{ext}", content)
+                _zip_writestr(zf, f"metadata.{ext}", content)
 
         if directory_schema:
-            zf.writestr("directory.md", _generate_directory_md(schema_name, directory_schema))
+            _zip_writestr(
+                zf, "directory.md", _generate_directory_md(schema_name, directory_schema)
+            )
             simplified = [_simplify_dir_pattern(f["pattern"]) for f in directory_schema["files"]]
-            zf.writestr("empty_tree.zip", _generate_empty_tree_zip(simplified))
+            _zip_writestr(zf, "empty_tree.zip", _generate_empty_tree_zip(simplified))
 
     return buf.getvalue()
 
@@ -337,6 +390,8 @@ def main():
         )
         with open(current_path / "doi-object.zip", "wb") as f:
             f.write(doi_bytes)
+
+        _write_doi_hash_csv(Path(args.target).resolve().parent)
 
 
 if __name__ == "__main__":

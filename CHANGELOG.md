@@ -7,6 +7,7 @@
 - Update sample docs
 - Remove links from non-dataset pages
 - Clean up cedar_validation_call
+- Generate doi ZIP hashes
 
 ## v1.1.8
 
