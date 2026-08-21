@@ -3,6 +3,7 @@
 - Add additional text to docs
 - Add header anchors to current docs
 - Update sample docs
+- Remove links from non-dataset pages
 
 ## v1.1.8
 - Add Paired-Tag dataset
