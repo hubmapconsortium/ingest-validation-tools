@@ -203,8 +203,7 @@ def generate_readme_md(
             "[Metadata Validation Workflow]"
             "(https://docs.google.com/document/d/1lfgiDGbyO4K4Hz1FMsJjmJd9RdwjShtJqFYNwKpbcZY) "
             "document for more information on preparing "
-            "and validating your metadata.tsv file prior to submission.\n"
-            + harmonized_link
+            "and validating your metadata.tsv file prior to submission.\n" + harmonized_link
         )
     else:
         tsv_url = f"{raw_base_url}/{schema_name}/deprecated/{get_tsv_name(schema_name, is_assay=is_assay)}"
