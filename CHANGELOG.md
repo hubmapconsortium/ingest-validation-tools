@@ -1,11 +1,15 @@
 # Changelog
+
 ## v1.1.9 (in progress)
+
 - Add additional text to docs
 - Add header anchors to current docs
 - Update sample docs
 - Remove links from non-dataset pages
+- Clean up cedar_validation_call
 
 ## v1.1.8
+
 - Add Paired-Tag dataset
 - New 4i dir schema
 - New COMET dir schema

@@ -4,7 +4,6 @@ import json
 from collections import defaultdict
 from json.decoder import JSONDecodeError
 from pathlib import Path
-from typing import Dict, List, Optional, Union
 
 from deepdiff import DeepDiff
 
@@ -31,8 +30,8 @@ class UpdateData:
         self,
         dir: str,
         globus_token: str,
-        exclude: List = [],
-        opts: Dict = {},
+        exclude: list = [],
+        opts: dict = {},
         verbose: bool = False,
         dry_run: bool = True,
         full_diff: bool = False,
@@ -52,7 +51,7 @@ class UpdateData:
         self.ignore_online_exceptions = ignore_online_exceptions
         self.env = env
 
-    def update_test_data(self) -> Dict[str, List]:
+    def update_test_data(self) -> dict[str, list]:
         print(f"Evaluating {self.dir}...")
         self.change_report = defaultdict(list)
         if self.update_from_fixtures:
@@ -89,7 +88,7 @@ class UpdateData:
     #
     ###################################
 
-    def open_or_create_fixtures(self) -> Dict:
+    def open_or_create_fixtures(self) -> dict:
         if not Path(f"{self.dir}fixtures.json").exists():
             open(f"{self.dir}fixtures.json", "w")
         with open(f"{self.dir}fixtures.json", "r") as f:
@@ -123,7 +122,7 @@ class UpdateData:
                 with open(f"{self.dir}fixtures.json", "w") as f:
                     json.dump(new_data, f)
 
-    def fixtures_diff(self, fixtures: Dict, new_data: Dict) -> bool:
+    def fixtures_diff(self, fixtures: dict, new_data: dict) -> bool:
         diff = DeepDiff(
             fixtures,
             new_data,
@@ -157,7 +156,7 @@ class UpdateData:
             ],
         )
 
-    def update_fixtures(self, upload) -> Dict:
+    def update_fixtures(self, upload) -> dict:
         new_data = {}
         new_assaytype_data = {}
         new_validation_data = defaultdict(dict)
@@ -254,7 +253,7 @@ class UpdateData:
     #
     ###################################
 
-    def log(self, verbose_message, short_message: Optional[str] = None):
+    def log(self, verbose_message, short_message: str | None = None):
         if self.verbose:
             print(verbose_message)
         elif short_message:
@@ -286,7 +285,7 @@ class UpdateData:
                     raise Exception(msg)
                 print(f"Error checking {self.dir}: {msg}.")
 
-    def get_dev_env_data(self, new_data: Dict) -> Dict:
+    def get_dev_env_data(self, new_data: dict) -> dict:
         """
         URL checking on DEV will throw errors, so clean URLs:
         entity-api.dev -> entity.api
@@ -304,7 +303,7 @@ class UpdateData:
         return new_data
 
 
-def print_change_report(change_report: Dict, verbose: bool, globus_token: str):
+def print_change_report(change_report: dict, verbose: bool, globus_token: str):
     if change_report:
         print("-------CHANGE REPORT-------")
         if verbose:
@@ -322,7 +321,7 @@ def print_change_report(change_report: Dict, verbose: bool, globus_token: str):
                 print(dir)
 
 
-def manual_test(test_dir: Union[str, List], verbose: bool = False, full_diff: bool = False):
+def manual_test(test_dir: str | list, verbose: bool = False, full_diff: bool = False):
     """
     Mimics unittest behavior at the level of a single directory.
     """
@@ -358,7 +357,7 @@ def get_opts(dir: str):
     return opts
 
 
-def call_update(dir: str, args) -> Dict:
+def call_update(dir: str, args) -> dict:
     change_report = UpdateData(
         dir,
         args.globus_token,
@@ -463,7 +462,7 @@ parent_dirs = [
 ]
 
 
-def get_sub_dirs(target_dir: str) -> List[str]:
+def get_sub_dirs(target_dir: str) -> list[str]:
     if Path(target_dir).absolute() in [Path(path).absolute() for path in parent_dirs]:
         sub_dirs = [
             example_dir
@@ -474,7 +473,7 @@ def get_sub_dirs(target_dir: str) -> List[str]:
     return [target_dir]
 
 
-def run_manual_test(target_dirs: List, args):
+def run_manual_test(target_dirs: list, args):
     sub_dirs = []
     if target_dirs in [["examples/"], ["examples"]]:
         target_dirs = parent_dirs
@@ -488,7 +487,7 @@ def run_manual_test(target_dirs: List, args):
         manual_test([sub_dir], verbose=args.verbose, full_diff=args.full_diff)
 
 
-def run_update(target_dirs: List, args):
+def run_update(target_dirs: list, args):
     change_report = {}
     if target_dirs in [["examples/"], ["examples"]]:
         target_dirs = parent_dirs

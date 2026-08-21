@@ -309,6 +309,33 @@ TEST_GET_TSV_ERRORS_PARAMS = [
             ],
         ],
     ),
+    (
+        True,
+        b"",
+        b'{"schema":{"name":"Contributors template schema"},"reporting":[]}',
+        "./tests/fixtures/contributors_good.tsv",
+        "contributors",
+        [[], []],
+    ),
+    (
+        False,
+        b"",
+        b'{"schema":{"name":"Contributors template schema"},"reporting":[{"errorType": "missingRequired", "column": "is_operator", "row": 0, "value": ""}]}',
+        "./tests/fixtures/contributors_bad.tsv",
+        "contributors",
+        [
+            [
+                {
+                    "column": "is_operator",
+                    "error": 'value "" fails because of error "missingRequired"',
+                    "row": 2,
+                },
+            ],
+            [
+                'On row 2, column "is_operator", value "" fails because of error "missingRequired".',
+            ],
+        ],
+    ),
 ]
 
 # Expected payloads from Upload._construct_constraint_check

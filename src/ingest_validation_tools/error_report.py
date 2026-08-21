@@ -6,7 +6,7 @@ from collections.abc import MutableMapping
 from dataclasses import dataclass, field, fields
 from datetime import datetime
 from pathlib import Path
-from typing import TYPE_CHECKING, DefaultDict, Dict, List, Optional, Type, Union
+from typing import TYPE_CHECKING, DefaultDict, Type
 
 from yaml import Dumper, dump
 
@@ -130,7 +130,7 @@ class DictErrorType(MutableMapping):
 class StrErrorType:
     name: str = ""
     display_name: str = ""
-    value: Optional[str] = None
+    value: str | None = None
     allow_cleanup: bool = True
 
     def __bool__(self):
@@ -154,15 +154,15 @@ class StrErrorType:
         return self.value
 
 
-ErrorType = Union[StrErrorType, DictErrorType]
+ErrorType = StrErrorType | DictErrorType
 
 
 @dataclass
 class InfoDict:
-    time: Optional[datetime] = None
-    git: Optional[str] = None
-    dir: Optional[str] = None
-    tsvs: Dict[str, Dict[str, Optional[str]]] = field(default_factory=dict)
+    time: datetime | None = None
+    git: str | None = None
+    dir: str | None = None
+    tsvs: dict[str, dict[str, str | None]] = field(default_factory=dict)
     successful_plugins: list[str] = field(default_factory=list)
 
     def as_dict(self):
@@ -246,7 +246,7 @@ class ErrorDict:
 
     def errors_by_path(
         self, path: str, selected_fields: list = [], report_type: ReportType = ReportType.STR
-    ) -> Dict[str, str]:
+    ) -> dict[str, str]:
         errors = {}
         if not selected_fields:
             selected_fields = [error_field for error_field in fields(self)]
@@ -275,7 +275,7 @@ class ErrorDict:
 
     def tsv_only_errors_by_path(
         self, path: str, report_type: ReportType = ReportType.STR, local_allowed=True
-    ) -> List[str]:
+    ) -> list[str]:
         """
         For use in front-end single TSV validation.
         Turn off support for local validation by passing local_allowed=False
@@ -332,9 +332,9 @@ class ErrorReport:
 
     def __init__(
         self,
-        upload: Optional[Upload] = None,
-        errors: Optional[ErrorDict] = None,
-        info: Optional[InfoDict] = None,
+        upload: Upload | None = None,
+        errors: ErrorDict | None = None,
+        info: InfoDict | None = None,
     ):
         if upload:
             self.upload = upload
@@ -358,7 +358,7 @@ class ErrorReport:
                 self.info = info.as_dict()
 
     @property
-    def counts(self) -> Dict[str, Union[int, str]]:
+    def counts(self) -> dict[str, int | str]:
         """
         Count errors per category. Requires raw_errors (ErrorDict object).
         ErrorType fields have a `counts` property, but fields related to
@@ -385,7 +385,7 @@ class ErrorReport:
     def _no_errors(self):
         return f"No errors!\n{dump(self.info, sort_keys=False)}\n"
 
-    def _as_list(self) -> List[str]:
+    def _as_list(self) -> list[str]:
         return _build_list(self.errors)
 
     def as_text_list(self) -> str:
@@ -404,7 +404,7 @@ class ErrorReport:
         return f"```\n{self.as_text()}```"
 
 
-def _build_list(anything, path=None) -> List[str]:
+def _build_list(anything, path=None) -> list[str]:
     """
     >>> flat = _build_list({
     ...     'nested dict': {

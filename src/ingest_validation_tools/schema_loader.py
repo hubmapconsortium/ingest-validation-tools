@@ -5,7 +5,7 @@ from collections import defaultdict
 from copy import deepcopy
 from dataclasses import dataclass, field
 from pathlib import Path
-from typing import Dict, List, Optional, Sequence, Set, Union
+from typing import Sequence
 
 from ingest_validation_tools.enums import (
     UNIQUE_FIELDS_MAP,
@@ -22,13 +22,13 @@ _directory_schemas_path = Path(__file__).parent / "directory-schemas"
 _pipeline_infos_path = Path(__file__).parent / "pipeline-infos/pipeline-infos.yaml"
 
 
-def get_pipeline_infos(name: str) -> List[str]:
+def get_pipeline_infos(name: str) -> list[str]:
     infos = load_yaml(_pipeline_infos_path)
     return infos.get(name, [])
 
 
 class PreflightError(Exception):
-    def __init__(self, errors: Optional[str] = None):
+    def __init__(self, errors: str | None = None):
         self.errors = errors
 
 
@@ -44,21 +44,21 @@ class SchemaVersion:
 
     schema_name: str  # Valid values: canonical assay name OR other type
     version: str = ""
-    directory_path: Optional[Path] = None
-    table_schema: Optional[str] = ""  # legacy only
+    directory_path: Path | None = None
+    table_schema: str = ""  # legacy only
     path: Path = Path()
-    contributors_schemas: List[SchemaVersion] = field(default_factory=list)
-    antibodies_schemas: List[SchemaVersion] = field(default_factory=list)
-    rows: List = field(default_factory=list)
-    soft_assay_data: Dict = field(default_factory=dict)
+    contributors_schemas: list[SchemaVersion] = field(default_factory=list)
+    antibodies_schemas: list[SchemaVersion] = field(default_factory=list)
+    rows: list = field(default_factory=list)
+    soft_assay_data: dict = field(default_factory=dict)
     is_cedar: bool = False
     dataset_type: str = ""  # String from assay_type or dataset_type field in TSV
-    dir_schema: Optional[str] = None
+    dir_schema: str = ""
     metadata_type: str = "assays"
     is_multi_assay: bool = False
-    contains: List = field(default_factory=list)
-    entity_type_info: Optional[EntityTypeInfo] = None
-    ancestor_entities: List[AncestorTypeInfo] = field(default_factory=list)
+    contains: list = field(default_factory=list)
+    entity_type_info: EntityTypeInfo | None = None
+    ancestor_entities: list[AncestorTypeInfo] = field(default_factory=list)
 
     def __post_init__(self):
         if type(self.path) is str:
@@ -92,7 +92,7 @@ class SchemaVersion:
             self.version = self.rows[0].get("version", "0")
 
     def get_assayclassifier_data(self):
-        self.dir_schema = self.soft_assay_data.get("dir-schema")
+        self.dir_schema = self.soft_assay_data.get("dir-schema", "")
         self.is_multi_assay = bool(self.soft_assay_data.get("is-multi-assay"))
         contains = self.soft_assay_data.get("must-contain")
         if contains:
@@ -148,7 +148,7 @@ class EntityTypeInfo:
                 f"Entity of type {self.entity_type}/{self.entity_sub_type} must have a sub_type_val."
             )
 
-    def format_constraint_check_data(self) -> Dict:
+    def format_constraint_check_data(self) -> dict:
         """
         Formats data about an entity so that it can be sent as
         part of the payload to the constraints endpoint.
@@ -169,10 +169,10 @@ class EntityTypeInfo:
 
 @dataclass
 class AncestorTypeInfo(EntityTypeInfo):
-    entity_id: Optional[str] = None
-    source_schema: Optional[SchemaVersion] = None
-    row: Optional[int] = None
-    column: Optional[str] = None
+    entity_id: str = ""
+    source_schema: SchemaVersion | None = None
+    row: int | None = None
+    column: str = ""
 
 
 @dataclass
@@ -181,18 +181,18 @@ class DirSchemaVersion:
     version: str
     dir_schema_string: str = ""
     assay_schema_name: str = ""
-    filename: Union[str, Path] = ""
-    path: Union[str, Path] = ""
+    filename: str | Path = ""
+    path: str | Path = ""
 
     def __post_init__(self):
         self.dir_schema_string = self.dir_schema_name + "-v" + self.version
 
 
-def get_fields_wo_headers(schema: dict) -> List[dict]:
+def get_fields_wo_headers(schema: dict) -> list[dict]:
     return [field for field in schema["fields"] if not isinstance(field, str)]
 
 
-def get_field_enum(field_name: str, schema: dict) -> List[str]:
+def get_field_enum(field_name: str, schema: dict) -> list[str]:
     fields_wo_headers = get_fields_wo_headers(schema)
     fields = [field for field in fields_wo_headers if field["name"] == field_name]
     if not fields:
@@ -201,7 +201,7 @@ def get_field_enum(field_name: str, schema: dict) -> List[str]:
     return fields[0]["constraints"]["enum"]
 
 
-def list_table_schema_versions() -> List[SchemaVersion]:
+def list_table_schema_versions() -> list[SchemaVersion]:
     """
     >>> list_table_schema_versions()[0].table_schema
     '10x-multiome-v2'
@@ -217,7 +217,7 @@ def list_table_schema_versions() -> List[SchemaVersion]:
     return [SchemaVersion(v_match[1], v_match[2]) for v_match in v_matches if v_match]
 
 
-def dict_table_schema_versions() -> Dict[str, List[SchemaVersion]]:
+def dict_table_schema_versions() -> dict[str, list[SchemaVersion]]:
     """
     >>> sorted([v.version for v in dict_table_schema_versions()['af']])
     ['0', '1', '2']
@@ -229,7 +229,7 @@ def dict_table_schema_versions() -> Dict[str, List[SchemaVersion]]:
     return dict_of_lists
 
 
-def list_directory_schema_versions() -> List[DirSchemaVersion]:
+def list_directory_schema_versions() -> list[DirSchemaVersion]:
     """
     >>> list_directory_schema_versions()[0].dir_schema_string
     '10x-multiome-v2.0'
@@ -253,7 +253,7 @@ def _parse_schema_version(stem: str) -> Sequence[str]:
     return v_match.groups()
 
 
-def dict_directory_schema_versions() -> Dict[str, Set[str]]:
+def dict_directory_schema_versions() -> dict[str, set[str]]:
     dict_of_sets = defaultdict(set)
     for sv in list_directory_schema_versions():
         dict_of_sets[sv.dir_schema_name].add(sv.version)
@@ -300,28 +300,28 @@ def get_table_schema(
 
 
 def get_directory_schema(
-    dir_schema: Optional[str] = None,
-    directory_type: Optional[str] = None,
-    version_number: Optional[str] = None,
-) -> Optional[Dict]:
+    dir_schema: str = "",
+    directory_type: str = "",
+    version_number: str = "",
+) -> dict:
     if not dir_schema and (directory_type and version_number):
         dir_schema = _get_schema_filename(directory_type, version_number)
     if not dir_schema:
         raise Exception("Not enough information to retrieve directory schema.")
     directory_schema_path = _directory_schemas_path / f"{dir_schema}.yaml"
     if not directory_schema_path.exists():
-        return None
+        return {}
     schema = load_yaml(directory_schema_path)
     schema["files"] += []
     return schema
 
 
-def get_possible_directory_schemas(dir_schema: str) -> Optional[Dict]:
+def get_possible_directory_schemas(dir_schema: str) -> dict:
     schemas = {}
     # this assumes that versions are numbered starting at x.0, no whole numbers
     directory_schema_minor_versions = list(_directory_schemas_path.glob(f"{dir_schema}*.yaml"))
     if not directory_schema_minor_versions:
-        return None
+        return {}
     for directory_schema_path in directory_schema_minor_versions:
         schema = load_yaml(directory_schema_path)
         schema["files"] += []
@@ -410,7 +410,7 @@ def _validate_level_1_enum(field: dict) -> None:
         )
 
 
-def _add_constraints(field: dict, no_url_checks=None, names: List[str] = []) -> None:
+def _add_constraints(field: dict, no_url_checks=None, names: list[str] = []) -> None:
     """
     Modifies field in-place, adding implicit constraints
     based on the field name.
