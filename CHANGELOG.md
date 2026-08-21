@@ -5,6 +5,7 @@
 - Add additional text to docs
 - Add header anchors to current docs
 - Update sample docs
+- Remove links from non-dataset pages
 - Clean up cedar_validation_call
 
 ## v1.1.8

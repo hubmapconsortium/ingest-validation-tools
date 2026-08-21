@@ -185,6 +185,17 @@ def generate_readme_md(
     elif is_cedar:
         tsv_url = f"{raw_base_url}/{schema_name}/latest/{schema_name}.tsv"
         xlsx_url = f"{raw_base_url}/{schema_name}/latest/{schema_name}.xlsx"
+        # Only assays have a harmonized specification page; donor, sample, EPIC
+        # (derived dataset), and other TSV types do not.
+        harmonized_link = (
+            "\n"
+            "This is the most recent metadata specification that needs to be followed "
+            "for the submission of new data. See the "
+            f"[harmonized specification](https://docs.hubmapconsortium.org/assays/metadata/{schema_name}.html)"
+            " for a view of the metadata across this and any previous versions.\n"
+            if is_assay and category != "derived_datasets"
+            else ""
+        )
         cedar_validator_link = (
             "Prepare your metadata based on the latest metadata schema "
             "using one of the template files below. "
@@ -192,10 +203,7 @@ def generate_readme_md(
             "[Metadata Validation Workflow]"
             "(https://docs.google.com/document/d/1lfgiDGbyO4K4Hz1FMsJjmJd9RdwjShtJqFYNwKpbcZY) "
             "document for more information on preparing "
-            "and validating your metadata.tsv file prior to submission.\n\n"
-            "This is the most recent metadata specification that needs to be followed for the submission of new data. See the "
-            f"[harmonized specification](https://docs.hubmapconsortium.org/assays/metadata/{schema_name}.html)"
-            f" for a view of the metadata across this and any previous versions.\n"
+            "and validating your metadata.tsv file prior to submission.\n" + harmonized_link
         )
     else:
         tsv_url = f"{raw_base_url}/{schema_name}/deprecated/{get_tsv_name(schema_name, is_assay=is_assay)}"
