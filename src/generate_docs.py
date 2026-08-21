@@ -7,7 +7,6 @@ import re
 import sys
 import zipfile
 from pathlib import Path
-from typing import List, Optional
 
 import requests
 from tableschema_to_template.create_xlsx import create_xlsx
@@ -41,7 +40,7 @@ def _simplify_dir_pattern(pattern: str) -> str:
     return p
 
 
-def _build_dir_tree(simplified_patterns: List[str]) -> dict:
+def _build_dir_tree(simplified_patterns: list[str]) -> dict:
     root: dict = {}
     for path in simplified_patterns:
         is_dir_node = path.endswith("/")
@@ -57,7 +56,7 @@ def _build_dir_tree(simplified_patterns: List[str]) -> dict:
     return root
 
 
-def _render_dir_tree_node(name: str, node: dict, prefix: str, is_last: bool) -> List[str]:
+def _render_dir_tree_node(name: str, node: dict, prefix: str, is_last: bool) -> list[str]:
     connector = "└── " if is_last else "├── "
     display = name + "/" if node["is_dir"] else name
     lines = [prefix + connector + display]
@@ -109,7 +108,7 @@ def _generate_directory_md(schema_name: str, directory_schema: dict) -> str:
     )
 
 
-def _generate_empty_tree_zip(simplified_patterns: List[str]) -> bytes:
+def _generate_empty_tree_zip(simplified_patterns: list[str]) -> bytes:
     buf = io.BytesIO()
     seen_dirs: set = set()
 
@@ -136,7 +135,7 @@ def _generate_empty_tree_zip(simplified_patterns: List[str]) -> bytes:
     return buf.getvalue()
 
 
-def _fetch_bytes(url: str) -> Optional[bytes]:
+def _fetch_bytes(url: str) -> bytes | None:
     try:
         resp = requests.get(url, timeout=30)
         resp.raise_for_status()
@@ -148,7 +147,7 @@ def _fetch_bytes(url: str) -> Optional[bytes]:
 
 def _generate_doi_zip(
     schema_name: str,
-    directory_schema: Optional[dict],
+    directory_schema: dict | None,
 ) -> bytes:
     buf = io.BytesIO()
     raw_base = (

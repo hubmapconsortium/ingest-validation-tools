@@ -8,7 +8,7 @@ from datetime import datetime
 from fnmatch import fnmatch
 from functools import cached_property
 from pathlib import Path
-from typing import DefaultDict, Optional, Union
+from typing import DefaultDict
 from urllib.parse import urlsplit
 
 import requests
@@ -67,13 +67,13 @@ class Upload:
         tsv_paths: list = [],
         dataset_ignore_globs: list = [],
         upload_ignore_globs: list = [],
-        plugin_directory: Union[Path, None] = None,
+        plugin_directory: Path | None = None,
         encoding: str = "utf-8",
         offline_only: bool = False,
         ignore_deprecation: bool = False,
-        plugin_kwargs: Union[dict, None] = None,
+        plugin_kwargs: dict | None = None,
         globus_token: str = "",
-        run_plugins: Optional[bool] = None,
+        run_plugins: bool | None = None,
         app_context: dict = {},
         verbose: bool = True,
         report_type: ReportType = ReportType.STR,
@@ -229,6 +229,7 @@ class Upload:
         """
         for path, schema in self.dataset_metadata.items():
             if "data_path" not in schema.rows[0] or "contributors_path" not in schema.rows[0]:
+                # TODO: not currently returned by get_tsv_errors; would break for e.g. samples
                 self.errors.upload_metadata[f"{path} (as {schema.table_schema})"].append(
                     "File is missing data_path or contributors_path."
                 )
@@ -247,6 +248,7 @@ class Upload:
         tsvs_to_evaluate = tsv_paths if tsv_paths else self.dataset_metadata
         for tsv_path, schema_version in tsvs_to_evaluate.items():
             if empty := find_empty_tsv_columns(tsv_path):
+                # TODO: not currently returned by get_tsv_errors
                 self.errors.upload_metadata[tsv_path] = (
                     f"Empty columns: {', '.join([str(i) for i in empty])}"
                 )
@@ -401,6 +403,7 @@ class Upload:
             parent_schema.contributors_schemas.append(schema)
             is_contact = [row.get("is_contact", "").lower() for row in schema.rows]
             if not ("yes" in is_contact) and not ("true" in is_contact):
+                # TODO: not currently returned by get_tsv_errors
                 self.errors.upload_metadata.update({schema.path: "No primary contact."})
         elif schema.schema_name == "antibodies":
             parent_schema.antibodies_schemas.append(schema)
@@ -456,7 +459,7 @@ class Upload:
     def _api_validation(
         self,
         schema: SchemaVersion,
-    ) -> list[Union[str, dict]]:
+    ) -> list[str | dict]:
         errors = []
         response = cedar_validation_call(schema.path)
         if response.status_code != 200:
@@ -512,7 +515,7 @@ class Upload:
 
     def _check_url(
         self, field: str, row: int, value: str, schema: SchemaVersion
-    ) -> Optional[AncestorTypeInfo]:
+    ) -> AncestorTypeInfo | None:
         """
         Checks that entity is not registered under "Organ Other".
         Returns entity_type if checking a field in check_fields.
@@ -691,7 +694,7 @@ class Upload:
         self,
         response: requests.Response,
         schema: SchemaVersion,
-    ) -> list[Union[str, int, dict]]:
+    ) -> list[str | int | dict]:
         problem_entities = []
         assert schema.entity_type_info
         if response.status_code == 400:
@@ -947,7 +950,7 @@ class Upload:
     ###################################
 
     @cached_property
-    def multi_parent(self) -> Optional[SchemaVersion]:
+    def multi_parent(self) -> SchemaVersion | None:
         # Should only be one parent, identified by `must-contain` in data from soft assay endpoint
         multi_assay_parents = [sv for sv in self.dataset_metadata.values() if sv.contains]
         if len(multi_assay_parents) == 0:

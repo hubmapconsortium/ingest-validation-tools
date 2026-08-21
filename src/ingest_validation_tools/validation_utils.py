@@ -3,7 +3,6 @@ import logging
 import sys
 from csv import DictReader
 from pathlib import Path, PurePath
-from typing import Optional, Union
 from urllib.parse import quote, urlencode, urljoin
 
 import requests
@@ -39,7 +38,7 @@ CEDAR_SINGLE_TEMPLATE_URL_BASE = "https://repo.metadatacenter.org/templates/"
 
 def match_field_in_unique_fields(
     match_fields: list, path: str, dataset=True
-) -> Optional[tuple[EntityTypes, str]]:
+) -> tuple[EntityTypes, str] | None:
     match_dict = UNIQUE_FIELDS_MAP
     if not dataset:
         match_dict = OTHER_FIELDS_UNIQUE_FIELDS_MAP
@@ -77,7 +76,7 @@ def get_schema_version(
     entity_url: str = "",
     ingest_url: str = "",
     globus_token: str = "",
-    directory_path: Optional[Path] = None,
+    directory_path: Path | None = None,
 ) -> SchemaVersion:
     try:
         rows = read_rows(path, encoding)
@@ -124,8 +123,8 @@ def get_other_type_schema(
     path: str,
     entity_url: str,
     globus_token: str,
-    directory_path: Optional[Path] = None,
-) -> Optional[SchemaVersion]:
+    directory_path: Path | None = None,
+) -> SchemaVersion | None:
     # Assumes that an entire TSV only represents a single entity_type.
     match_pair = match_field_in_unique_fields(rows[0].keys(), path, dataset=False)
     if match_pair:
@@ -178,7 +177,7 @@ def get_assaytype_data(row: dict, ingest_url: str, globus_token: str) -> dict:
         data=json.dumps(row),
     )
     response.raise_for_status()
-    print(f"Soft assay endpoint response: {response.json()}")
+    logging.info(f"Soft assay endpoint response: {response.json()}")
     return response.json()
 
 
@@ -204,7 +203,7 @@ def get_data_dir_errors(
     root_path: Path,
     data_dir_path: Path,
     dataset_ignore_globs: list[str] = [],
-) -> dict[str, Union[dict, str]]:
+) -> dict[str, dict | str]:
     """
     Validate a single data_path.
     """
@@ -366,7 +365,7 @@ def get_schema_details(schema_version: str, cedar_api_key: str) -> dict:
 
 
 def get_tsv_errors(
-    tsv_path: Union[str, Path],
+    tsv_path: str | Path,
     schema_name: str,
     no_url_checks: bool = False,
     ignore_deprecation: bool = False,
@@ -374,56 +373,6 @@ def get_tsv_errors(
     globus_token: str = "",
     app_context: dict = {},
 ) -> list:
-    """
-    Validate the TSV.
-
-    >>> import tempfile
-    >>> from pathlib import Path
-
-    # >>> get_tsv_errors('no-such.tsv', 'fake')
-    # {'TSV Errors': {'File does not exist': 'no-such.tsv'}}
-    #
-    # >>> with tempfile.TemporaryDirectory() as dir:
-    # ...     tsv_path = Path(dir)
-    # ...     errors = get_tsv_errors(tsv_path, 'fake')
-    # ...     assert errors['Expected a TSV, but found a directory'] == str(tsv_path)
-    #
-    # TODO: these are broken due to the addition of paths to error messages
-    # >>> with tempfile.TemporaryDirectory() as dir:
-    # ...     tsv_path = Path(dir) / 'fake.tsv'
-    # ...     tsv_path.write_bytes(b'\\xff')
-    # ...     get_tsv_errors(tsv_path, 'fake')
-    # 1
-    # {'Decode Error': 'Invalid utf-8 because invalid start byte: " [ ÿ ] "'}
-    #
-    # >>> def test_tsv(content, assay_type='fake'):
-    # ...     with tempfile.TemporaryDirectory() as dir:
-    # ...         tsv_path = Path(dir) / 'fake.tsv'
-    # ...         tsv_path.write_text(content)
-    # ...         return get_tsv_errors(tsv_path, assay_type)
-    #
-    # >>> test = test_tsv('just_a_header_not_enough')
-    # >>> print(test, tsv_path)
-    # >>> assert test['File has no data rows'] == str(tsv_path)
-    #
-    # >>> test_tsv('fake_head\\nfake_data')
-    # {'No such file or directory': 'fake-v0.yaml'}
-    #
-    # >>> test_tsv('fake_head\\nfake_data', assay_type='nano')
-    # {'Schema version is deprecated': 'nano-v0'}
-    #
-    # >>> test_tsv('version\\n1', assay_type='nano')
-    # {'Schema version is deprecated': 'nano-v1'}
-    #
-    # >>> test_tsv('version\\n2', assay_type='nano')
-    # {'No such file or directory': 'nano-v2.yaml'}
-    #
-    # >>> test_tsv('version\\n1', assay_type='codex')
-    # ['Could not determine delimiter']
-    #
-    # >>> errors = test_tsv('version\\tfake\\n1\\tfake', assay_type='codex')
-    # >>> assert 'Unexpected fields' in errors[0]
-    """
     from ingest_validation_tools.upload import Upload
 
     logging.info(f"Validating {schema_name} TSV...")
@@ -454,30 +403,27 @@ def get_tsv_errors(
     return upload.errors.tsv_only_errors_by_path(str(tsv_path), report_type=report_type)
 
 
-def cedar_validation_call(tsv_path: Union[str, Path]) -> requests.models.Response:
+def cedar_validation_call(tsv_path: str | Path) -> requests.models.Response:
     with open(tsv_path, "rb") as f:
-        file = {"input_file": f}
-        headers = {
-            "content_type": "multipart/form-data",
-        }
         try:
             response = requests.post(
                 CEDAR_VALIDATION_URL,
-                headers=headers,
-                files=file,
+                files={"input_file": f},
             )
-            logging.info(f"Response: {response.json()}")
+            response.raise_for_status()
+            response_json = response.json()
+            logging.info(f"Response: {response_json}")
         except Exception as e:
-            raise Exception(
+            raise RuntimeError(
                 f"Spreadsheet Validator API request for {tsv_path} failed! Exception: {e}"
-            )
-    print(
-        f"""
-          CEDAR response for {tsv_path}:
-          Schema: {response.json().get('schema', {}).get('name')}
-          Reporting: {response.json().get('reporting')}
-          """
-    )
+            ) from e
+        logging.info(
+            f"""
+            CEDAR response for {tsv_path}:
+            Schema: {response_json.get('schema', {}).get('name')}
+            Reporting: {response_json.get('reporting')}
+            """
+        )
     return response
 
 
@@ -485,7 +431,7 @@ def get_entity_api_data(
     entity_api_url: str,
     entity_id: str,
     globus_token: str,
-    headers: Optional[dict] = None,
+    headers: dict | None = None,
 ) -> requests.Response:
     if not globus_token:
         raise Exception("No token received to check URL fields against Entity API.")
@@ -506,7 +452,7 @@ def get_entity_info_from_entity_api(
     entity_url: str,
     entity_id: str,
     globus_token: str,
-    headers: Optional[dict] = None,
+    headers: dict | None = None,
 ) -> EntityTypeInfo:
     """
     Make an entity-api call and from the response, get
@@ -549,8 +495,8 @@ def print_path(path):
 
 
 def get_json(
-    error: str, row: Optional[str] = None, column: Optional[str] = None
-) -> dict[str, Optional[str]]:
+    error: str, row: str | None = None, column: str | None = None
+) -> dict[str, str | None]:
     return {
         "column": column,
         "error": error,
@@ -558,9 +504,7 @@ def get_json(
     }
 
 
-def get_message(
-    error: dict[str, str], report_type: ReportType = ReportType.STR
-) -> Union[str, dict]:
+def get_message(error: dict[str, str], report_type: ReportType = ReportType.STR) -> str | dict:
     """
     >>> print(
     ...     get_message(
