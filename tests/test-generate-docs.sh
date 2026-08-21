@@ -47,6 +47,8 @@ for TYPE in $(ls -d docs/*); do
   fi
 
   rm -rf $TEST_DEST
+  # Aggregate CSV is written next to the target dir; drop the test copy.
+  rm -f docs-test/doi-object-hashes.csv
   ((++GENERATE_COUNT))
 done
 [[ $GENERATE_COUNT -gt 0 ]] || die "No files generated"
