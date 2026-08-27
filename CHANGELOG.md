@@ -1,6 +1,6 @@
 # Changelog
 
-## v1.1.9 (in progress)
+## v1.1.9
 
 - Add additional text to docs
 - Add header anchors to current docs
