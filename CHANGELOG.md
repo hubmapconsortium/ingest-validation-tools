@@ -9,6 +9,7 @@
 - Clean up cedar_validation_call
 - Generate doi ZIP hashes
 - Update minor type in sequencing dir descriptions
+- Created passthrough directory structure for snm3C-seq
 
 ## v1.1.8
 
