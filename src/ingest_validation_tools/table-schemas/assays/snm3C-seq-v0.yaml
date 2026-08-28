@@ -1,0 +1,13 @@
+description_md: See the metadata and directory schemas for snm3C-seq below.
+fields:
+- name: is_cedar
+  description: 'Identifies whether the version is hosted by CEDAR'
+  example: 'https://openview.metadatacenter.org/templates/https:%2F%2Frepo.metadatacenter.org%2Ftemplates%2Ff99a48eb-7d62-4f7e-92e5-1cee7d08e970'
+- name: assay_category
+  constraints:
+    enum:
+      - sequence
+- name: assay_type
+  constraints:
+    enum:
+      - snm3C-seq
