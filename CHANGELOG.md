@@ -1,5 +1,8 @@
 # Changelog
 
+## v1.1.10 (work in progress)
+- Regenerate documentation
+
 ## v1.1.9
 
 - Add additional text to docs
