@@ -1,6 +1,9 @@
 # Changelog
 
-## v1.1.9 (in progress)
+## v1.1.10 (work in progress)
+- Regenerate documentation
+
+## v1.1.9
 
 - Add additional text to docs
 - Add header anchors to current docs
@@ -8,6 +11,7 @@
 - Remove links from non-dataset pages
 - Clean up cedar_validation_call
 - Generate doi ZIP hashes
+- Update minor typo in sequencing dir descriptions
 - Created passthrough directory structure for snm3C-seq (updated directory-schemas and table-schemas)
 
 ## v1.1.8
