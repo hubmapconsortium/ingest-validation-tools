@@ -8,7 +8,7 @@
 - Remove links from non-dataset pages
 - Clean up cedar_validation_call
 - Generate doi ZIP hashes
-- Created passthrough directory structure for snm3C-seq
+- Created passthrough directory structure for snm3C-seq (updated directory-schemas and table-schemas)
 
 ## v1.1.8
 
