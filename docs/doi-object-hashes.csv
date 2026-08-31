@@ -5,10 +5,10 @@ Auto-fluorescence,4d79df8204375c0d9ce321e5b2fcfb80
 ATACseq,57e1007edc5de6c19ae825d2b6fe5336
 bodyct,f90dfc09c442279122d2fd0c24917b19
 Cell DIVE,2bd36229b86c7d61946c5cac5919a213
-CODEX,6de650a1f626aad771da0ad40f71386f
+CODEX,d28baa54beba4393d9d118b50f6ee3f1
 COMET,83a2ae09c721e2cab5499eb64e82e250
 Confocal,15ee81e5db1ff67ae78da67f29de4b83
-CosMx Proteomics,7a4c322cf7b87b6db55fb213640fb285
+CosMx Proteomics,512b9b5f6c79437260898bedc79712ff
 CosMx Transcriptomics,83fce1c032474f58b633462491fba9d5
 CyCIF,a37a3d4e8739bced8a0f94a10270e4a2
 CyTOF,fae69298e623bfdc7297e886125dc25a
@@ -54,8 +54,8 @@ STARmap,a2d8e8e50d8b05ce73df1b2bdf95a7ad
 Stereo-seq,bab86884360865e8e4c74d169c7abe61
 Thick section Multiphoton MxIF,c162c3c982d14920d465284884209ab7
 ultrasound,9f9adfbac00ffa6b5e634481c69e6363
-Visium HD,8a0a5fd03ebaec1ec71404158f29d8b5
+Visium HD,a487ad196f42246f6c82e2772d7c5802
 Visium (no probes),4021dff7b465b290e756ba14e8ad33f7
-Visium (with probes),61cd15878ec74866619918f4e79e2002
+Visium (with probes),769326c223f8df7e75ffdd2e0e259080
 wgs,4d5ef9ee507999fa4d3c8338aea3fa3b
 Xenium,5384da47ba794a297773bc320063455f
