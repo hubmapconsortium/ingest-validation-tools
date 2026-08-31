@@ -3,6 +3,7 @@
 ## v1.1.10 (work in progress)
 - Regenerate documentation
 - Update seq-scope/stereo-seq
+- DOI dir md fixes
 
 ## v1.1.9
 
