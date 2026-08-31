@@ -36,7 +36,7 @@ from ingest_validation_tools.validation_utils import OtherTypes
 def _simplify_dir_pattern(pattern: str) -> str:
     p = pattern.replace(r"\/", "/").replace(r"\.", ".")
     if p.endswith("/.*"):
-        return p[:-2]
+        p = p[:-2]
     p = p.replace("[^/]+", "*").replace("[^/]*", "*")
     p = re.sub(r"\(\?:([^)]+)\)", lambda m: "{" + m.group(1).replace("|", ",") + "}", p)
     return p
