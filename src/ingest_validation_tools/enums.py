@@ -201,6 +201,7 @@ shared_enums: dict[str, list[str]] = {
         "DICOM-MRI",
         "Paired-Tag",
         "MACSima",
+        "snm3C-seq"
     ],
     "analyte_class": [
         "DNA",
