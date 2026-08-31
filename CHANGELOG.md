@@ -2,6 +2,7 @@
 
 ## v1.1.10 (work in progress)
 - Regenerate documentation
+- Update seq-scope/stereo-seq
 
 ## v1.1.9
 
