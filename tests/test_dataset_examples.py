@@ -496,10 +496,14 @@ class TestDatasetExamples(TestExamples):
                 "Preflight Errors": "Found multiple dataset types in upload: CODEX, SNARE-seq2."
             },
         }
-        for test_dir, expected_counts in test_dirs.items():
-            upload = self.prep_offline_upload(test_dir, DATASET_EXAMPLES_OPTS)
-            report = ErrorReport(upload)
-            self.assertEqual(report.counts, expected_counts)
+        with patch(
+            "ingest_validation_tools.local_validation.check_factory.cache_path",
+            Path(__file__).parent / "fixtures/url-status-cache.json",
+        ):
+            for test_dir, expected_counts in test_dirs.items():
+                upload = self.prep_offline_upload(test_dir, DATASET_EXAMPLES_OPTS)
+                report = ErrorReport(upload)
+                self.assertEqual(report.counts, expected_counts)
 
 
 # if __name__ == "__main__":
