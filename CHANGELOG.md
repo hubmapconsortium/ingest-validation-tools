@@ -4,6 +4,7 @@
 - Regenerate documentation
 - Update seq-scope/stereo-seq
 - DOI dir md fixes
+- Update Histology directory schema
 
 ## v1.1.9
 
