@@ -3,7 +3,7 @@ Directory Errors:
   examples/dataset-examples/bad-cedar-dir-histology/upload/bad-histology-metadata.tsv:
   - On row 2, column "data_path", value "./dataset-1" points to non-existent directory
     "examples/dataset-examples/bad-cedar-dir-histology/upload/dataset-1".
-  examples/dataset-examples/bad-cedar-dir-histology/upload/wrong (as histology-v2.3):
+  examples/dataset-examples/bad-cedar-dir-histology/upload/wrong (as histology-v2.4):
     Not allowed:
     - not-allowed
     Required but missing:
