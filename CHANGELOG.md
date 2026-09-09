@@ -5,6 +5,7 @@
 - Update seq-scope/stereo-seq
 - DOI dir md fixes
 - Update CyCIF directory schema
+- Update Histology directory schema
 
 ## v1.1.9
 
