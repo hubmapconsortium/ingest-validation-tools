@@ -6,6 +6,7 @@
 - DOI dir md fixes
 - Update CyCIF directory schema
 - Update Histology directory schema
+- Generate DOI zips for non-dataset CEDAR schemas (antibodies, contributors, sample subtypes)
 
 ## v1.1.9
 

@@ -155,10 +155,11 @@ def _generate_empty_tree_zip(simplified_patterns: list[str]) -> bytes:
 DOI_HASH_CSV_NAME = "doi-object-hashes.csv"
 
 
-def _doi_zip_dataset_type(zip_path: Path) -> str:
+def _doi_zip_name(zip_path: Path) -> str:
     """
     dataset_type as recorded in the zipped metadata.tsv;
-    falls back to the schema name for types without a spreadsheet.
+    falls back to the schema name, which is what non-assay schemas
+    (antibodies, contributors, the sample subtypes) have instead.
     """
     with zipfile.ZipFile(zip_path) as zf:
         if "metadata.tsv" in zf.namelist():
@@ -174,14 +175,14 @@ def _doi_zip_dataset_type(zip_path: Path) -> str:
 def _write_doi_hash_csv(docs_root: Path) -> None:
     """
     Rescan every doi-object.zip under docs_root and rewrite the
-    dataset_type -> md5 CSV, so stale rows can't survive a rebuild.
+    name -> md5 CSV, so stale rows can't survive a rebuild.
     """
     rows = []
     for zip_path in sorted(docs_root.glob("*/current/doi-object.zip")):
         md5 = hashlib.md5(zip_path.read_bytes()).hexdigest()
-        rows.append({"dataset_type": _doi_zip_dataset_type(zip_path), "md5": md5})
+        rows.append({"name": _doi_zip_name(zip_path), "md5": md5})
     with open(docs_root / DOI_HASH_CSV_NAME, "w", newline="") as f:
-        writer = csv.DictWriter(f, fieldnames=["dataset_type", "md5"])
+        writer = csv.DictWriter(f, fieldnames=["name", "md5"])
         writer.writeheader()
         writer.writerows(rows)
 
@@ -199,8 +200,14 @@ def _fetch_bytes(url: str) -> bytes | None:
 def _generate_doi_zip(
     schema_name: str,
     directory_schema: dict | None,
-) -> bytes:
+) -> bytes | None:
+    """
+    None if the dataset-metadata-spreadsheet repo has nothing for schema_name;
+    the metadata files are the point of the archive, so a zip holding only a
+    directory schema (or nothing at all) is not worth writing.
+    """
     buf = io.BytesIO()
+    found_metadata = False
     raw_base = (
         "https://raw.githubusercontent.com/hubmapconsortium/dataset-metadata-spreadsheet/main"
     )
@@ -211,6 +218,7 @@ def _generate_doi_zip(
             content = _fetch_bytes(url)
             if content:
                 _zip_writestr(zf, f"metadata.{ext}", content)
+                found_metadata = True
 
         if directory_schema:
             _zip_writestr(
@@ -218,6 +226,9 @@ def _generate_doi_zip(
             )
             simplified = [_simplify_dir_pattern(f["pattern"]) for f in directory_schema["files"]]
             _zip_writestr(zf, "empty_tree.zip", _generate_empty_tree_zip(simplified))
+
+    if not found_metadata:
+        return None
 
     return buf.getvalue()
 
@@ -378,20 +389,23 @@ def main():
             )
 
     # DOI object zip for CEDAR schemas
-    if current["metadata"] and current["directories"]:
-        latest_dir_v = max(
-            current["directories"].keys(),
-            key=lambda v: tuple(int(x) for x in v.split(".")),
-        )
-        latest_dir_schema = current["directories"][latest_dir_v]
+    if current["metadata"]:
+        latest_dir_schema = None
+        if current["directories"]:
+            latest_dir_v = max(
+                current["directories"].keys(),
+                key=lambda v: tuple(int(x) for x in v.split(".")),
+            )
+            latest_dir_schema = current["directories"][latest_dir_v]
         doi_bytes = _generate_doi_zip(
             schema_name=args.type,
             directory_schema=latest_dir_schema,
         )
-        with open(current_path / "doi-object.zip", "wb") as f:
-            f.write(doi_bytes)
+        if doi_bytes:
+            with open(current_path / "doi-object.zip", "wb") as f:
+                f.write(doi_bytes)
 
-        _write_doi_hash_csv(Path(args.target).resolve().parent)
+            _write_doi_hash_csv(Path(args.target).resolve().parent)
 
 
 if __name__ == "__main__":
