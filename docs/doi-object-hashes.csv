@@ -1,13 +1,15 @@
-dataset_type,md5
+name,md5
 10X Multiome,4d63821b5b8aad6891b548d8c860a8f8
 4i,37a2bea01ed40487ae9cbd17d6a46b08
 Auto-fluorescence,4d79df8204375c0d9ce321e5b2fcfb80
+antibodies,e7be64f328125453021e6194f07b5a0c
 ATACseq,57e1007edc5de6c19ae825d2b6fe5336
 bodyct,f90dfc09c442279122d2fd0c24917b19
 Cell DIVE,2bd36229b86c7d61946c5cac5919a213
 CODEX,d28baa54beba4393d9d118b50f6ee3f1
 COMET,83a2ae09c721e2cab5499eb64e82e250
 Confocal,15ee81e5db1ff67ae78da67f29de4b83
+contributors,6512636812230a5146bb3a7e98954985
 CosMx Proteomics,512b9b5f6c79437260898bedc79712ff
 CosMx Transcriptomics,83fce1c032474f58b633462491fba9d5
 CyCIF,a72fda234be508c205b35f48bb52e5b8
@@ -42,6 +44,9 @@ Pixel-seqV2,3eeb21e87b60738a98b4cc0d8c79567a
 Raman Imaging,d25ca3ae7e8be477a113b222919a14a3
 RNAseq,b1a2ab85c37d2485db6fa9c94da2fd1e
 RNAseq (with probes),5e8f9151940a6b1e45e623ad4ad8e647
+sample-block,8448e5e15ae0d12747bd3c2b5fb469d1
+sample-section,8623948e93abd74632d28884b6478dd8
+sample-suspension,73ab7ff0559410c7a51db7611c2d6b58
 scrnaseq-hca,10fd8a4063520ba85038952e0dde671c
 Second Harmonic Generation (SHG),8e8e94e1ff57cb04b663c08bf5fb4609
 segmentation-mask,c2f3f035fe5425ae0b4fbb2fbac5341c
