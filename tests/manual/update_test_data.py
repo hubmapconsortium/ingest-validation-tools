@@ -16,12 +16,8 @@ from tests.test_dataset_examples import (
     PLUGIN_EXAMPLES_OPTS,
     MockException,
     TestDatasetExamples,
-    TokenException,
-    clean_report,
-    dataset_test,
-    dev_url_replace,
+    check_report,
     diff_test,
-    get_non_token_errors,
 )
 
 
@@ -35,9 +31,6 @@ class UpdateData:
         verbose: bool = False,
         dry_run: bool = True,
         full_diff: bool = False,
-        update_from_fixtures: bool = False,
-        ignore_online_exceptions: bool = False,
-        env: str = "PROD",
     ):
         self.dir = dir if dir.endswith("/") else dir + "/"
         self.globus_token = globus_token
@@ -47,37 +40,20 @@ class UpdateData:
         self.upload_verbose = True if "plugin-tests" in dir else False
         self.dry_run = dry_run
         self.full_diff = full_diff
-        self.update_from_fixtures = update_from_fixtures
-        self.ignore_online_exceptions = ignore_online_exceptions
-        self.env = env
 
     def update_test_data(self) -> dict[str, list]:
         print(f"Evaluating {self.dir}...")
         self.change_report = defaultdict(list)
-        if self.update_from_fixtures:
-            upload = TestDatasetExamples.prep_offline_upload(self.dir, self.opts)
-            report = ErrorReport(errors=upload.errors, info=upload.info)
-        else:
-            upload = Upload(
-                Path(f"{self.dir}upload"),
-                globus_token=self.globus_token,
-                verbose=self.upload_verbose,
-                **self.opts,  # type: ignore
-            )
+        upload = Upload(
+            Path(f"{self.dir}upload"),
+            globus_token=self.globus_token,
+            verbose=self.upload_verbose,
+            **self.opts,  # type: ignore
+        )
         report = ErrorReport(upload)
         self.check_maybe_write_fixtures(report, upload)
 
-        try:
-            cleaned_report = clean_report(report)
-        except TokenException as e:
-            if self.ignore_online_exceptions:
-                print(e)
-                assert (
-                    type(e.clean_report) is str
-                ), f"TokenException returned wrong data type for clean_report, check or try passing Globus token. clean_report type: {type(clean_report)}, value: {clean_report}"
-                cleaned_report = e.clean_report
-            else:
-                raise TokenException(str(e), e.clean_report)
+        cleaned_report = check_report(report)
         self.check_maybe_write_readme(cleaned_report)
 
         return self.change_report
@@ -99,24 +75,12 @@ class UpdateData:
         return fixtures
 
     def check_maybe_write_fixtures(self, report: ErrorReport, upload: Upload):
-        if self.update_from_fixtures:
-            print(f"Updating from fixture data, fixtures not changed for {self.dir}.")
-        elif "fixtures" in self.exclude:
+        if "fixtures" in self.exclude:
             print(f"{self.dir}fixtures.json excluded, not changed.")
         else:
             self.raise_or_print_fatal_errors(report)
             fixtures = self.open_or_create_fixtures()
-            try:
-                new_data = self.update_fixtures(upload)
-            except TokenException as e:
-                self.dry_run = True
-                print(e)
-                new_data = e.clean_report
-            assert (
-                type(new_data) is dict
-            ), f"TokenException returned wrong data type for new_data, check or try passing Globus token. new_data type: {type(new_data)}, value: {new_data}"
-            if self.env == "DEV":
-                new_data = self.get_dev_env_data(new_data)
+            new_data = self.update_fixtures(upload)
             if self.fixtures_diff(fixtures, new_data) and not self.dry_run:
                 print(f"Writing to {self.dir}fixtures.json...")
                 with open(f"{self.dir}fixtures.json", "w") as f:
@@ -130,7 +94,7 @@ class UpdateData:
             report_repetition=True,
         )
         if not diff:
-            print(f"No diff found, skipping {self.dir}fixtures.json...")
+            print(f"No diff found, no update to {self.dir}fixtures.json...")
             return False
         elif self.dry_run:
             self.log(
@@ -156,94 +120,98 @@ class UpdateData:
             ],
         )
 
-    def update_fixtures(self, upload) -> dict:
+    def update_fixtures(self, upload: Upload) -> dict:
+        """
+        Collect soft assay endpoint / assay classifier response &
+        online errors from ErrorDict (metadata_url_errors,
+        metadata_validation_api, metadata_constraint_errors).
+        """
         new_data = {}
         new_assaytype_data = {}
         new_validation_data = defaultdict(dict)
-        no_token_error = False
         for schema in upload.dataset_metadata.values():
             new_assaytype_data[schema.dataset_type] = schema.soft_assay_data
-            if upload.errors.metadata_url_errors:
-                upload.errors = get_non_token_errors(upload.errors)
             online_errors = self.online_only_errors_by_path(str(schema.path), upload.errors)
             new_validation_data[schema.schema_name].update(online_errors)
-            for supporting_schema in [*schema.contributors_schemas, *schema.antibodies_schemas]:
+            for supporting_schema in [
+                *schema.contributors_schemas,
+                *schema.antibodies_schemas,
+            ]:
                 online_errors = self.online_only_errors_by_path(
-                    supporting_schema.path, upload.errors
+                    str(supporting_schema.path), upload.errors
                 )
                 new_validation_data[supporting_schema.schema_name].update(online_errors)
         new_data["assaytype"] = new_assaytype_data
         new_data["validation"] = dict(new_validation_data)
-        if no_token_error:
-            raise TokenException("No token passed, cannot update fixtures", new_data)
         return new_data
 
     ###################################
     #
-    # README.md methods
+    # README.json methods
     #
     ###################################
 
-    def open_or_create_readme(self):
-        if not Path(f"{self.dir}README.md").exists():
-            open(f"{self.dir}README.md", "w")
-        return open(f"{self.dir}README.md", "r")
+    def open_or_create_readme(self) -> dict:
+        if not Path(f"{self.dir}README.json").exists():
+            with open(f"{self.dir}README.json", "w") as f:
+                json.dump({}, f)
+        with open(f"{self.dir}README.json", "r") as f:
+            return json.load(f)
 
-    def check_maybe_write_readme(self, cleaned_report: str):
+    def check_maybe_write_readme(self, cleaned_report: ErrorReport):
+        """
+        Check existing readme against new ErrorReport.
+        If there is a difference, write new readme.
+        """
         if "README" in self.exclude:
-            print(f"{self.dir}README.md excluded, not changed.")
+            print(f"{self.dir}README.json excluded, not changed.")
         else:
             readme = self.open_or_create_readme()
             if self.readme_diff(readme, cleaned_report):
                 self.write_readme(cleaned_report)
-                if not self.dry_run:
-                    dataset_test(
-                        self.dir,
-                        self.opts,
-                        globus_token=self.globus_token,
-                        offline=self.update_from_fixtures,
-                        use_online_check_fixtures=self.update_from_fixtures,
-                    )
 
-    def write_readme(self, cleaned_report: str):
-        if self.dry_run or self.ignore_online_exceptions:
+    def write_readme(self, cleaned_report: ErrorReport):
+        if cleaned_report.errors:
+            report = cleaned_report.errors
+        else:
+            cleaned_report.raw_info.time = "WILL_CHANGE"
+            cleaned_report.raw_info.git = "WILL_CHANGE"
+            report = cleaned_report.raw_info.as_dict()
+        if self.dry_run:
             self.log(
                 f"""
-                    Would have written the following report to {self.dir}README.md:
-                    {cleaned_report}
+                    Would have written the following report to {self.dir}README.json:
+                    {report}
                     """,
-                f"Would have updated {self.dir}README.md.",
+                f"Would have updated {self.dir}README.json.",
             )
             self.change_report[self.dir].append("README diff found")
         else:
             self.log(
                 f"""
-                    Writing the following report to {self.dir}README.md:
-                    {cleaned_report}
+                    Writing the following report to {self.dir}README.json:
+                    {report}
                     """,
-                f"Updating {self.dir}README.md.",
+                f"Updating {self.dir}README.json.",
             )
-            with open(f"{self.dir}README.md", "w") as f:
-                f.write(cleaned_report)
+            with open(f"{self.dir}README.json", "w") as f:
+                json.dump(report, f)
 
-    def readme_diff(self, readme, cleaned_report: str) -> bool:
+    def readme_diff(self, readme, cleaned_report: ErrorReport) -> bool:
         try:
             diff_test(
                 self.dir,
                 readme,
                 cleaned_report,
                 verbose=self.verbose,
-                full_diff=self.full_diff,
-                env=self.env,
             )
-            readme.close()
-            print(f"No diff found, skipping {self.dir}README.md")
+            print(f"No diff found, no update to {self.dir}README.json")
         except MockException:
             print("Expected exception found for test, continuing.")
-        except TokenException as e:
-            print(f"Token error for {self.dir}README.md. Non-token-related diff: {e.clean_report}")
-        except AssertionError:
-            print(f"FAILED diff_test: {self.dir}README.md...")
+        except AssertionError as e:
+            print(f"FAILED diff_test: {self.dir}README.json")
+            if str(e):
+                print(str(e))
             return True
         return False
 
@@ -261,9 +229,7 @@ class UpdateData:
 
     def raise_or_print_fatal_errors(self, report: ErrorReport):
         """
-        Errors that are thrown for the following reasons may be ignored
-        if the --ignore_online_exceptions flag is passed. Otherwise,
-        provide context for error.
+        Force stop before writing any files if fatal errors found:
             "Too Many Requests": CEDAR API is overloaded
             "Unauthorized"/"No token": Globus token not provided to entity-api for URL checks
             "500": unknown error
@@ -281,26 +247,9 @@ class UpdateData:
                     msg = f"URL checking returned 'Unauthorized' in response while checking {self.dir}; did you forget a Globus token?"
                 else:
                     msg = f"Something went wrong with Spreadsheet Validator request for {self.dir}: {error}"
-                if not (self.dry_run or self.ignore_online_exceptions):
+                if not self.dry_run:
                     raise Exception(msg)
                 print(f"Error checking {self.dir}: {msg}.")
-
-    def get_dev_env_data(self, new_data: dict) -> dict:
-        """
-        URL checking on DEV will throw errors, so clean URLs:
-        entity-api.dev -> entity.api
-        """
-        cleaned_data = defaultdict(dict)
-        for key, value in new_data.get("validation", {}).items() or {}:
-            if value is not None:
-                new_url_data = [
-                    dev_url_replace(v) for v in value.get("URL Errors", []) if value is not None
-                ]
-                if new_url_data:
-                    value["URL Errors"] = new_url_data
-            cleaned_data[key].update(value)
-        new_data["validation"] = dict(cleaned_data)
-        return new_data
 
 
 def print_change_report(change_report: dict, verbose: bool, globus_token: str):
@@ -312,7 +261,7 @@ def print_change_report(change_report: dict, verbose: bool, globus_token: str):
             print(
                 f"""
                 To update all, run:
-                env PYTHONPATH=/ingest-validation-tools python -m tests.manual.update_test_data -t {' '.join([dir for dir in change_report.keys()])} --globus_token {globus_token} --verbose
+                env PYTHONPATH=/ingest-validation-tools python -m tests.online.update_test_data -t {' '.join([dir for dir in change_report.keys()])} --globus_token {globus_token} --verbose
                 """
             )
         else:
@@ -321,20 +270,21 @@ def print_change_report(change_report: dict, verbose: bool, globus_token: str):
                 print(dir)
 
 
-def manual_test(test_dir: str | list, verbose: bool = False, full_diff: bool = False):
+def offline_test(test_dir: str | list, verbose: bool = False):
     """
-    Mimics unittest behavior at the level of a single directory.
+    Offline test (mimics unittest behavior) at the level of a
+    single directory.
     """
     if type(test_dir) is str:
         assert Path(
             test_dir
-        ).resolve(), f"Arg {test_dir} passed to manual_test is not a directory!"
+        ).resolve(), f"Arg {test_dir} passed to offline_test is not a directory!"
     elif type(test_dir) is list and len(test_dir) > 1:
         test_dir = [dir for dir in test_dir if Path(dir).is_dir()]
     test = TestDatasetExamples()
     setattr(test, "dataset_test_dirs", test_dir)
     test.get_paths()
-    test.test_validate_dataset_examples(verbose=verbose, full_diff=full_diff)
+    test.test_validate_dataset_examples(verbose=verbose)
 
 
 def get_opts(dir: str):
@@ -346,14 +296,6 @@ def get_opts(dir: str):
         opts = PLUGIN_EXAMPLES_OPTS
     else:
         opts = {}
-    if args.env == "DEV":
-        opts = opts | {
-            "app_context": {
-                "ingest_url": "https://ingest-api.dev.hubmapconsortium.org/",
-                "entities_url": "https://entity-api.dev.hubmapconsortium.org/entities/",
-                "request_header": {"X-Hubmap-Application": "ingest-pipeline"},
-            }
-        }
     return opts
 
 
@@ -366,21 +308,18 @@ def call_update(dir: str, args) -> dict:
         verbose=args.verbose,
         exclude=args.exclude,
         full_diff=args.full_diff,
-        update_from_fixtures=args.update_from_fixtures,
-        ignore_online_exceptions=args.ignore_online_exceptions,
-        env=args.env,
     ).update_test_data()
     return change_report
 
 
 parser = argparse.ArgumentParser(
-    description="Update README.md and fixtures.json files for a given example directory by passing the directory name (the parent of the upload directory) and a Globus token."
+    description="Update README.json and fixtures.json files for a given example directory by passing the directory name (the parent of the upload directory) and a Globus token."
 )
 parser.add_argument(
     "-t",
     "--target_dirs",
     help="""
-    [Required] The directory or directories containing the target README.md and fixtures.json files to update. Can pass multiple directories, e.g. '-t examples/dataset-examples/a examples/dataset-examples/b'.
+    [Required] The directory or directories containing the target README.json and fixtures.json files to update. Can pass multiple directories, e.g. '-t examples/dataset-examples/a examples/dataset-examples/b'.
     Can also specify the following example directories to update all examples in each: 'examples/dataset-examples', 'examples/dataset-iec-examples', 'examples/plugin-tests'. Pass all with:
     -t examples/dataset-examples examples/dataset-iec-examples examples/plugin-tests
     """,
@@ -391,7 +330,7 @@ parser.add_argument(
 parser.add_argument(
     "-g",
     "--globus_token",
-    help="[Optional for manual_test] Token obtained from Globus, e.g. can be found in the Authorization header when you are logged in to Ingest UI. Omit 'Bearer' portion.",
+    help="[Optional for offline_test] Token obtained from Globus, e.g. can be found in the Authorization header when you are logged in to Ingest UI. Omit 'Bearer' portion.",
     required=True,
     type=str,
 )
@@ -412,11 +351,11 @@ parser.add_argument(
     "--exclude",
     choices=["README", "fixtures"],
     default=[],
-    help="[Optional] Specify if you want to skip writing either README or fixtures. Can only accept one argument; use --dry_run if you want to preview output.",
+    help="[Optional] Specify if you want to skip writing either README or fixtures. Can only accept one argument; use --dry_run instead if you want to preview output.",
 )
 parser.add_argument(
-    "-m",
-    "--manual_test",
+    "-o",
+    "--offline_test",
     action="store_true",
     help="[Optional] Default is False. Used for investigating testing failures with more verbose output. Requires passing a test_dir. Pass a blank Globus token as this runs offline.",
 )
@@ -432,19 +371,6 @@ parser.add_argument(
     action="store_true",
     help="[Optional] Default is False. Print 'Too Many Requests' (Spreadsheet Validator error) and 'Unauthorized' (Globus token error) exceptions rather than raising.",
 )
-parser.add_argument(
-    "--update_from_fixtures",
-    action="store_true",
-    help="[Optional] Default is False. Update based on fixture data rather than making online calls. Use only when certain of fixture data!",
-)
-
-parser.add_argument(
-    "--env",
-    choices=["DEV", "PROD"],
-    default=["PROD"],
-    help="[Optional] Run tests against an env other than PROD by passing dev-specific app_context.",
-)
-
 parser.add_argument(
     "--start_index",
     type=int,
@@ -473,7 +399,7 @@ def get_sub_dirs(target_dir: str) -> list[str]:
     return [target_dir]
 
 
-def run_manual_test(target_dirs: list, args):
+def run_offline_tests(target_dirs: list, args):
     sub_dirs = []
     if target_dirs in [["examples/"], ["examples"]]:
         target_dirs = parent_dirs
@@ -484,7 +410,7 @@ def run_manual_test(target_dirs: list, args):
             print(f"Skipping {index}: {sub_dir}")
             continue
         print(f"{index}: {sub_dir}")
-        manual_test([sub_dir], verbose=args.verbose, full_diff=args.full_diff)
+        offline_test([sub_dir], verbose=args.verbose)
 
 
 def run_update(target_dirs: list, args):
@@ -498,8 +424,8 @@ def run_update(target_dirs: list, args):
     return change_report
 
 
-if args.manual_test:
-    run_manual_test(args.target_dirs, args)
+if args.offline_test:
+    run_offline_tests(args.target_dirs, args)
 else:
     change_report = run_update(args.target_dirs, args)
     print_change_report(change_report, verbose=args.verbose, globus_token=args.globus_token)
