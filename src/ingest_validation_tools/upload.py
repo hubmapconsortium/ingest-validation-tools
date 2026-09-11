@@ -130,7 +130,7 @@ class Upload:
         """
         If called before get_errors, will report dir schema major version only.
         """
-        self.info.time = datetime.now()
+        self.info.time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         self.info.dir = str(self.directory_path)
 
         git_version = subprocess.check_output(
