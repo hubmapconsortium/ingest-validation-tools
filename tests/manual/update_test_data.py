@@ -2,7 +2,6 @@ import argparse
 import glob
 import json
 from collections import defaultdict
-from json.decoder import JSONDecodeError
 from pathlib import Path
 
 from deepdiff import DeepDiff
@@ -18,13 +17,15 @@ from tests.test_dataset_examples import (
     TestDatasetExamples,
     check_report,
     diff_test,
+    open_or_create_fixtures,
+    open_or_create_readme,
 )
 
 
 class UpdateData:
     def __init__(
         self,
-        dir: str,
+        dir: Path,
         globus_token: str,
         exclude: list = [],
         opts: dict = {},
@@ -32,12 +33,12 @@ class UpdateData:
         dry_run: bool = True,
         full_diff: bool = False,
     ):
-        self.dir = dir if dir.endswith("/") else dir + "/"
+        self.dir = Path(dir)
         self.globus_token = globus_token
         self.exclude = exclude
         self.opts = opts if opts else DATASET_EXAMPLES_OPTS
         self.verbose = verbose
-        self.upload_verbose = True if "plugin-tests" in dir else False
+        self.upload_verbose = True if "plugin-tests" in dir.parts else False
         self.dry_run = dry_run
         self.full_diff = full_diff
 
@@ -45,7 +46,7 @@ class UpdateData:
         print(f"Evaluating {self.dir}...")
         self.change_report = defaultdict(list)
         upload = Upload(
-            Path(f"{self.dir}upload"),
+            Path(self.dir / "upload"),
             globus_token=self.globus_token,
             verbose=self.upload_verbose,
             **self.opts,  # type: ignore
@@ -64,27 +65,17 @@ class UpdateData:
     #
     ###################################
 
-    def open_or_create_fixtures(self) -> dict:
-        if not Path(f"{self.dir}fixtures.json").exists():
-            open(f"{self.dir}fixtures.json", "w")
-        with open(f"{self.dir}fixtures.json", "r") as f:
-            try:
-                fixtures = json.load(f)
-            except JSONDecodeError:
-                fixtures = {}
-        return fixtures
-
     def check_maybe_write_fixtures(self, report: ErrorReport, upload: Upload):
         if "fixtures" in self.exclude:
-            print(f"{self.dir}fixtures.json excluded, not changed.")
+            print(f"{self.dir}/fixtures.json excluded, not changed.")
         else:
             self.raise_or_print_fatal_errors(report)
-            fixtures = self.open_or_create_fixtures()
+            fixtures = open_or_create_fixtures(self.dir)
             new_data = self.update_fixtures(upload)
             if self.fixtures_diff(fixtures, new_data) and not self.dry_run:
-                print(f"Writing to {self.dir}fixtures.json...")
-                with open(f"{self.dir}fixtures.json", "w") as f:
-                    json.dump(new_data, f)
+                print(f"Writing to {self.dir}/fixtures.json...")
+                with open(Path(self.dir / "fixtures.json"), "w") as f:
+                    json.dump(new_data, f, indent=4)
 
     def fixtures_diff(self, fixtures: dict, new_data: dict) -> bool:
         diff = DeepDiff(
@@ -94,7 +85,7 @@ class UpdateData:
             report_repetition=True,
         )
         if not diff:
-            print(f"No diff found, no update to {self.dir}fixtures.json...")
+            print(f"No diff found, no update to {self.dir}/fixtures.json...")
             return False
         elif self.dry_run:
             self.log(
@@ -102,10 +93,10 @@ class UpdateData:
                     Diff:
                     {diff}
 
-                    Would have written the following to {self.dir}fixtures.json:
+                    Would have written the following to {self.dir}/fixtures.json:
                     {new_data}
                     """,
-                short_message=f"Would have updated {self.dir}fixtures.json.",
+                short_message=f"Would have updated {self.dir}/fixtures.json.",
             )
             self.change_report[self.dir].append("Fixtures diff found")
         return True
@@ -151,22 +142,15 @@ class UpdateData:
     #
     ###################################
 
-    def open_or_create_readme(self) -> dict:
-        if not Path(f"{self.dir}README.json").exists():
-            with open(f"{self.dir}README.json", "w") as f:
-                json.dump({}, f)
-        with open(f"{self.dir}README.json", "r") as f:
-            return json.load(f)
-
     def check_maybe_write_readme(self, cleaned_report: ErrorReport):
         """
         Check existing readme against new ErrorReport.
         If there is a difference, write new readme.
         """
         if "README" in self.exclude:
-            print(f"{self.dir}README.json excluded, not changed.")
+            print(f"{self.dir}/README.json excluded, not changed.")
         else:
-            readme = self.open_or_create_readme()
+            readme = open_or_create_readme(self.dir)
             if self.readme_diff(readme, cleaned_report):
                 self.write_readme(cleaned_report)
 
@@ -180,21 +164,21 @@ class UpdateData:
         if self.dry_run:
             self.log(
                 f"""
-                    Would have written the following report to {self.dir}README.json:
+                    Would have written the following report to {self.dir}/README.json:
                     {report}
                     """,
-                f"Would have updated {self.dir}README.json.",
+                f"Would have updated {self.dir}/README.json.",
             )
             self.change_report[self.dir].append("README diff found")
         else:
             self.log(
                 f"""
-                    Writing the following report to {self.dir}README.json:
+                    Writing the following report to {self.dir}/README.json:
                     {report}
                     """,
-                f"Updating {self.dir}README.json.",
+                f"Updating {self.dir}/README.json.",
             )
-            with open(f"{self.dir}README.json", "w") as f:
+            with open(Path(self.dir / "README.json"), "w") as f:
                 json.dump(report, f)
 
     def readme_diff(self, readme, cleaned_report: ErrorReport) -> bool:
@@ -205,11 +189,11 @@ class UpdateData:
                 cleaned_report,
                 verbose=self.verbose,
             )
-            print(f"No diff found, no update to {self.dir}README.json")
+            print(f"No diff found, no update to {self.dir}/README.json")
         except MockException:
             print("Expected exception found for test, continuing.")
         except AssertionError as e:
-            print(f"FAILED diff_test: {self.dir}README.json")
+            print(f"FAILED diff_test: {self.dir}/README.json")
             if str(e):
                 print(str(e))
             return True
@@ -287,19 +271,19 @@ def offline_test(test_dir: str | list, verbose: bool = False):
     test.test_validate_dataset_examples(verbose=verbose)
 
 
-def get_opts(dir: str):
-    if "dataset-examples" in dir:
+def get_opts(dir: Path):
+    if "dataset-examples" in dir.parts:
         opts = DATASET_EXAMPLES_OPTS
-    elif "dataset-iec-examples" in dir:
+    elif "dataset-iec-examples" in dir.parts:
         opts = DATASET_IEC_EXAMPLES_OPTS
-    elif "plugin-tests" in dir:
+    elif "plugin-tests" in dir.parts:
         opts = PLUGIN_EXAMPLES_OPTS
     else:
         opts = {}
     return opts
 
 
-def call_update(dir: str, args) -> dict:
+def call_update(dir: Path, args) -> dict:
     change_report = UpdateData(
         dir,
         args.globus_token,
@@ -382,24 +366,24 @@ args = parser.parse_args()
 
 
 parent_dirs = [
-    "examples/dataset-examples",
-    "examples/dataset-iec-examples",
-    "examples/plugin-tests",
+    Path("examples/dataset-examples"),
+    Path("examples/dataset-iec-examples"),
+    Path("examples/plugin-tests"),
 ]
 
 
-def get_sub_dirs(target_dir: str) -> list[str]:
-    if Path(target_dir).absolute() in [Path(path).absolute() for path in parent_dirs]:
+def get_sub_dirs(target_dir: Path) -> list[Path]:
+    if target_dir.absolute() in [path.absolute() for path in parent_dirs]:
         sub_dirs = [
-            example_dir
+            str(example_dir)
             for example_dir in glob.glob(f"{target_dir}/**")
             if Path(example_dir).is_dir()
         ]
-        return sorted(sub_dirs)
+        return [Path(dir) for dir in sorted(sub_dirs)]
     return [target_dir]
 
 
-def run_offline_tests(target_dirs: list, args):
+def run_offline_tests(target_dirs: list[Path], args):
     sub_dirs = []
     if target_dirs in [["examples/"], ["examples"]]:
         target_dirs = parent_dirs
@@ -413,19 +397,19 @@ def run_offline_tests(target_dirs: list, args):
         offline_test([sub_dir], verbose=args.verbose)
 
 
-def run_update(target_dirs: list, args):
+def run_update(target_dirs: list[Path], args):
     change_report = {}
-    if target_dirs in [["examples/"], ["examples"]]:
+    if target_dirs in [[Path("examples/")], [Path("examples")]]:
         target_dirs = parent_dirs
     for dir in target_dirs:
         sub_dirs = get_sub_dirs(dir)
         for sub_dir in sub_dirs:
-            change_report.update(call_update(str(sub_dir), args))
+            change_report.update(call_update(sub_dir, args))
     return change_report
 
 
 if args.offline_test:
-    run_offline_tests(args.target_dirs, args)
+    run_offline_tests([Path(dir) for dir in args.target_dirs], args)
 else:
-    change_report = run_update(args.target_dirs, args)
+    change_report = run_update([Path(dir) for dir in args.target_dirs], args)
     print_change_report(change_report, verbose=args.verbose, globus_token=args.globus_token)
