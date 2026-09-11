@@ -4,7 +4,6 @@ import re
 from collections import defaultdict
 from collections.abc import MutableMapping
 from dataclasses import dataclass, field, fields
-from datetime import datetime
 from pathlib import Path
 from typing import TYPE_CHECKING, DefaultDict, Type
 
@@ -17,7 +16,7 @@ if TYPE_CHECKING:
 
 # Force dump not to use alias syntax.
 # https://stackoverflow.com/questions/13518819/avoid-references-in-pyyaml
-Dumper.ignore_aliases = lambda *args: True
+Dumper.ignore_aliases = lambda *_: True  # type: ignore
 
 
 @dataclass
@@ -159,9 +158,9 @@ ErrorType = StrErrorType | DictErrorType
 
 @dataclass
 class InfoDict:
-    time: datetime | None = None
-    git: str | None = None
-    dir: str | None = None
+    time: str = ""
+    git: str = ""
+    dir: str = ""
     tsvs: dict[str, dict[str, str | None]] = field(default_factory=dict)
     successful_plugins: list[str] = field(default_factory=list)
 

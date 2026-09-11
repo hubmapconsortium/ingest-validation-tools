@@ -130,7 +130,7 @@ if [ $GLOBUS_TOKEN ]; then
     python -m tests.manual.update_test_data -t $TEST_DIRS -g $GLOBUS_TOKEN --dry_run -v
 elif [ $DIR ]; then
     echo "Running offline tests in dry_run mode"
-    python -m tests.manual.update_test_data -t $TEST_DIRS -g "" --dry_run --manual_test -v
+    python -m tests.manual.update_test_data -t $TEST_DIRS -g "" --dry_run --offline_test -v
 fi
 if [ $PLUGINS ]; then
     echo "Running plugin tests"

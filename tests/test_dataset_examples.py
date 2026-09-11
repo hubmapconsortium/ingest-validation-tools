@@ -1,13 +1,14 @@
-import difflib
 import glob
 import json
 import re
 import unittest
-from io import TextIOWrapper
 from pathlib import Path
+from pprint import pformat
 from unittest.mock import patch
 
-from ingest_validation_tools.error_report import DictErrorType, ErrorDict, ErrorReport
+from deepdiff import DeepDiff, Delta
+
+from ingest_validation_tools.error_report import ErrorReport
 from ingest_validation_tools.schema_loader import PreflightError, SchemaVersion
 from ingest_validation_tools.upload import Upload
 from tests.fixtures import (
@@ -43,13 +44,14 @@ class MockException(Exception):
         super().__init__(error)
 
 
-class TokenException(Exception):
-    def __init__(self, error: str, clean_report: str | dict):
-        super().__init__(error)
-        self.clean_report = clean_report
-
-
 def mutate_upload_errors_with_fixtures(upload: Upload, test_dir: str) -> Upload:
+    """
+    Validation behavior requiring API calls is mocked. Insert fixture data into
+    upload.errors ErrorDict.
+    ErrorDict fields requiring updates from fixtures:
+        Spreadsheet Validator Errors (ErrorDict.metadata_valdiation_api)
+        URL Check Errors (ErrorDict.metadata_url_errors)
+    """
     url_errors_field_name = upload.errors.metadata_url_errors.display_name
     api_errors_field_name = upload.errors.metadata_validation_api.display_name
     for tsv_path, schema in upload.dataset_metadata.items():
@@ -90,124 +92,80 @@ def dataset_test(
     globus_token: str = "",
     # TODO: do we need both of these params
     offline: bool = False,
-    use_online_check_fixtures: bool = False,
-    full_diff: bool = False,
 ):
     dataset_opts = dataset_opts | {"verbose": verbose}
     print(f"Testing {test_dir}...")
-    readme = open(f"{test_dir}/README.md", "r")
     if offline:
         upload = TestDatasetExamples.prep_offline_upload(test_dir, dataset_opts)
     else:
         upload = Upload(Path(f"{test_dir}/upload"), globus_token=globus_token, **dataset_opts)
-    if use_online_check_fixtures:
-        upload = mutate_upload_errors_with_fixtures(upload, test_dir)
     report = ErrorReport(upload)
-    diff_test(test_dir, readme, clean_report(report), verbose=verbose, full_diff=full_diff)
+    with open(f"{test_dir}/README.json", "r") as f:
+        diff_test(test_dir, json.load(f), check_report(report), verbose=verbose)
     if "PreflightError" in report.as_md():
         raise MockException(
             f"Error report for {test_dir} contains PreflightError, do not make assertions about calls."
         )
 
 
-def clean_report(report: ErrorReport):
-    token_issue = False
-    cleaned_report = []
-    will_change_regex = re.compile(r"((Time|Git version): )(.*)")
+def check_report(report: ErrorReport) -> ErrorReport:
     no_token_regex = re.compile("No token")
     for line in report.as_md().splitlines(keepends=True):
-        will_change_match = will_change_regex.search(line)
-        if will_change_match:
-            line = line.replace(will_change_match.group(3), "WILL_CHANGE")
         no_token_regex_match = no_token_regex.search(line)
         if no_token_regex_match:
-            token_issue = True
-        line = dev_url_replace(line)
-        cleaned_report.append(line)
-    if token_issue:
-        if report.raw_errors:
-            report.raw_errors = get_non_token_errors(report.raw_errors)
-            report.errors = report.raw_errors.as_dict()
-        cleaned_report = clean_report(report)
-        raise TokenException(
-            "WARNING: API token required to complete update, not writing, skipping URL Check Errors.",
-            "".join(cleaned_report),
-        )
-    return "".join(cleaned_report)
-
-
-def get_non_token_errors(errors: ErrorDict) -> ErrorDict:
-    new_url_error_val = DictErrorType(
-        name=errors.metadata_url_errors.name, display_name=errors.metadata_url_errors.display_name
-    )
-    for path, error_list in errors.metadata_url_errors.items():
-        non_token_url_errors = [error for error in error_list if "No token" not in error]
-        if non_token_url_errors:
-            new_url_error_val[path] = non_token_url_errors
-        if set(error_list) - set(non_token_url_errors):
-            print(
-                f"WARNING: output about URL errors for {path} is incomplete due to suppressed token errors. Use for testing purposes only."
-            )
-    errors.metadata_url_errors = new_url_error_val
-    return errors
-
-
-def dev_url_replace(original_str: str):
-    dev_regex = re.compile(r"-api.dev")
-    new_str = re.sub(dev_regex, ".api", original_str)
-    return new_str
+            raise Exception("API token required to update data.")
+    return report
 
 
 def diff_test(
-    test_dir: str,
-    readme: TextIOWrapper,
-    report: str,
-    verbose: bool = True,
-    full_diff: bool = False,
-    env: str = "PROD",
-):
-    d = difflib.Differ()
-    if env == "DEV":
-        report = dev_url_replace(report)
-    diff = list(d.compare(readme.readlines(), report.splitlines(keepends=True)))
-    readme.close()
-    ignore_strings = ["Time:", "Git version:", "```"]
-    cleaned_diff = [
-        line for line in diff if not any(ignore_string in line for ignore_string in ignore_strings)
-    ]
-    new = "".join([line.strip() for line in cleaned_diff if line.startswith("+ ")])
-    removed = "".join([line.strip() for line in cleaned_diff if line.startswith("- ")])
-    if full_diff:
-        print(
-            f"""
-              FULL:
-              {diff}
-
-              CLEANED:
-              {cleaned_diff}
-              """
+    test_dir: str, readme: dict, report: ErrorReport, verbose: bool = True, dry_run: bool = False
+) -> dict:
+    if report.errors:
+        diff = DeepDiff(
+            readme, report.errors, ignore_order=True, report_repetition=True, verbose_level=2
         )
+    else:
+        diff = DeepDiff(
+            readme,
+            report.info,
+            ignore_order=True,
+            report_repetition=True,
+            verbose_level=2,
+            exclude_paths=["root['Time']", "root['Git version']"],
+        )
+    delta = Delta(diff, bidirectional=True)
+    flat_rows = delta.to_flat_rows()
+    simple_diff = []
+    for change in flat_rows:
+        entry = {}
+        entry["key"] = change.path
+        entry["old"] = change.old_value
+        entry["new"] = change.value
+        simple_diff.append(entry)
+    msg = ""
     if verbose:
         msg = f"""
-                DIFF ADDED LINES:
-                {new}
+                DIFF FOUND:
+                {pformat(simple_diff, indent=2)}
+                """
+        if dry_run:
+            msg = f"""
+                {msg}
 
-                DIFF REMOVED LINES:
-                {removed}
-
-                If new version is correct, overwrite previous README.md and fixtures.json files by running:
+                If new version is correct, overwrite previous README.json and fixtures.json files by running:
                     env PYTHONPATH=src:$PYTHONPATH python -m tests.manual.update_test_data -t {test_dir} -g <globus_token>
 
                 For help / other options:
                     env PYTHONPATH=src:$PYTHONPATH python -m tests.manual.update_test_data --help
                 """
-    else:
+    elif dry_run:
         msg = f"""
-    FAILED diff_test: {test_dir}. Run for more detailed output:
-        env PYTHONPATH=src:$PYTHONPATH python -m tests.manual.update_test_data -t {test_dir} --globus_token "" --manual_test --dry_run --verbose
-    """
-    assert not new and not removed, msg
+                FAILED diff_test: {test_dir}. Run for more detailed output:
+                    env PYTHONPATH=src:$PYTHONPATH python -m tests.manual.update_test_data -t {test_dir} --globus_token "" --offline_test --dry_run --verbose
+                """
+    assert not diff, msg
     print(f"PASSED diff_test: {test_dir}")
+    return diff
 
 
 def _open_and_read_fixtures_file(path: str) -> dict:
@@ -255,7 +213,7 @@ class TestExamples(unittest.TestCase):
                 {error_lines}
 
                 Run for more detailed output:
-                    env PYTHONPATH=src:$PYTHONPATH python -m tests.manual.update_test_data -t {errors} --verbose --globus_token "" --manual_test --dry_run
+                    env PYTHONPATH=src:$PYTHONPATH python -m tests.manual.update_test_data -t {errors} --verbose --globus_token "" --offline_test --dry_run
                 """,
         )
 
@@ -265,7 +223,7 @@ class TestExamples(unittest.TestCase):
             metadata_paths = [path for path in Path(f"{test_dir}/upload").glob("*metadata.tsv")]
             self.dataset_paths[test_dir] = metadata_paths
 
-    def test_validate_dataset_examples(self, verbose: bool = False, full_diff: bool = False):
+    def test_validate_dataset_examples(self, verbose: bool = False):
         for test_dir in self.dataset_paths.keys():
             with self.subTest(test_dir=test_dir):
                 if "dataset-examples" in test_dir:
@@ -288,8 +246,6 @@ class TestExamples(unittest.TestCase):
                                     opts,
                                     verbose=verbose,
                                     offline=True,
-                                    use_online_check_fixtures=True,
-                                    full_diff=full_diff,
                                 )
                             except MockException as e:
                                 print(e)
