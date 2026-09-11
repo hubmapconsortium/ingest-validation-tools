@@ -23,6 +23,7 @@ ENTITIES_URL = "http://entities_test/"
 
 SHARED_OPTS = {
     "encoding": "ascii",
+    "offline_only": True,
 }
 DATASET_EXAMPLES_OPTS: dict = SHARED_OPTS | {
     "dataset_ignore_globs": ["ignore-*.tsv", ".*"],
