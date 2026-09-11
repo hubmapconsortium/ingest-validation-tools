@@ -16,6 +16,6 @@
   "https://pub.orcid.org/v3.0/0000-0003-4039-9768": 200,
   "https://pub.orcid.org/v3.0/bad-id": 404,
   "https://scicrunch.org/resolver/AB_1934296.json": 200,
-  "https://scicrunch.org/resolver/RRID:AB_1934296": 200,
+  "https://scicrunch.org/resolver/RRID:AB_1934296": 403,
   "https://www.uniprot.org/uniprot/G9N9I7": 200
 }
