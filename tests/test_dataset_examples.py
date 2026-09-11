@@ -23,7 +23,6 @@ ENTITIES_URL = "http://entities_test/"
 
 SHARED_OPTS = {
     "encoding": "ascii",
-    "offline_only": True,
 }
 DATASET_EXAMPLES_OPTS: dict = SHARED_OPTS | {
     "dataset_ignore_globs": ["ignore-*.tsv", ".*"],
@@ -91,7 +90,6 @@ def dataset_test(
     dataset_opts: dict,
     verbose: bool = False,
     globus_token: str = "",
-    # TODO: do we need both of these params
     offline: bool = False,
 ):
     dataset_opts = dataset_opts | {"verbose": verbose}
