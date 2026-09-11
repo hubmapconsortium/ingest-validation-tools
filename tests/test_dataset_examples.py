@@ -6,7 +6,7 @@ from pathlib import Path
 from pprint import pformat
 from unittest.mock import patch
 
-from deepdiff import DeepDiff, Delta
+from deepdiff import DeepDiff, Delta, operator
 
 from ingest_validation_tools.error_report import ErrorReport
 from ingest_validation_tools.schema_loader import PreflightError, SchemaVersion
@@ -116,12 +116,42 @@ def check_report(report: ErrorReport) -> ErrorReport:
     return report
 
 
+class IgnoreVersions(operator.BaseOperator):
+    """
+    Ignore minor version changes to directory versions.
+    """
+
+    _patterns = (r"-v\d.\*", r"-v\d.\d")
+
+    @classmethod
+    def _remove_pattern(cls, pattern: str, t: str):
+        return re.sub(pattern, "", t)
+
+    def match(self, level):
+        if re.search(self._patterns[0], str(level.t1)):
+            return True
+
+    def give_up_diffing(self, level, diff_instance):
+        if re.search(self._patterns[0], str(level.t1)):
+            t1 = self._remove_pattern(self._patterns[0], str(level.t1))
+            t2 = self._remove_pattern(self._patterns[1], str(level.t2))
+            return t1 == t2
+
+    def normalize_value_for_hashing(self, _, obj):
+        return obj
+
+
 def diff_test(
     test_dir: str, readme: dict, report: ErrorReport, verbose: bool = True, dry_run: bool = False
 ) -> dict:
     if report.errors:
         diff = DeepDiff(
-            readme, report.errors, ignore_order=True, report_repetition=True, verbose_level=2
+            readme,
+            report.errors,
+            ignore_order=True,
+            report_repetition=True,
+            verbose_level=2,
+            custom_operators=[IgnoreVersions()],
         )
     else:
         diff = DeepDiff(
@@ -131,6 +161,7 @@ def diff_test(
             report_repetition=True,
             verbose_level=2,
             exclude_paths=["root['Time']", "root['Git version']"],
+            custom_operators=[IgnoreVersions()],
         )
     delta = Delta(diff, bidirectional=True)
     flat_rows = delta.to_flat_rows()
