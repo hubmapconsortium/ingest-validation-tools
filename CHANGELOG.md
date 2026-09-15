@@ -7,6 +7,7 @@
 - Update CyCIF directory schema
 - Update Histology directory schema
 - Generate DOI zips for non-dataset CEDAR schemas (antibodies, contributors, sample subtypes)
+- Fixed 2D Imaging Mass Cytometry (2dimc) directory schema typo
 
 ## v1.1.9
 
