@@ -1,6 +1,10 @@
 # Changelog
 
-## v1.1.11 (in progress)
+## v1.1.12 (in progress)
+
+- Update tests to use README.json (rather than .md)
+
+## v1.1.11
 
 - Fixed 2D Imaging Mass Cytometry (2dimc) directory schema typo
 - Add legacy validation URL check override
