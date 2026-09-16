@@ -179,7 +179,7 @@ class UpdateData:
                 f"Updating {self.dir}/README.json.",
             )
             with open(Path(self.dir / "README.json"), "w") as f:
-                json.dump(report, f)
+                json.dump(report, f, indent=2)
 
     def readme_diff(self, readme, cleaned_report: ErrorReport) -> bool:
         try:
@@ -245,7 +245,7 @@ def print_change_report(change_report: dict, verbose: bool, globus_token: str):
             print(
                 f"""
                 To update all, run:
-                env PYTHONPATH=/ingest-validation-tools python -m tests.online.update_test_data -t {' '.join([dir for dir in change_report.keys()])} --globus_token {globus_token} --verbose
+                env PYTHONPATH=/ingest-validation-tools python -m tests.online.update_test_data -t {' '.join([str(dir) for dir in change_report.keys()])} --globus_token {globus_token} --verbose
                 """
             )
         else:

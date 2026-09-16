@@ -109,12 +109,42 @@ def dataset_test(
 
 
 def check_report(report: ErrorReport) -> ErrorReport:
+    """
+    Ensure no token errors in output.
+    Manipulate errors/info data to remove any
+    directory minor versions in specified areas.
+    """
     no_token_regex = re.compile("No token")
     for line in report.as_md().splitlines(keepends=True):
         no_token_regex_match = no_token_regex.search(line)
         if no_token_regex_match:
             raise Exception("API token required to update data.")
+    # TODO: this is causing a sorting issue
+    if report.errors:
+        new_dir_errors = {}
+        if dir_errors := report.raw_errors.directory:
+            for key, value in dir_errors.items():
+                new_dir_errors[remove_minor_version(key)] = value
+        new_local_errors = {}
+        if local_validation_errors := report.raw_errors.metadata_validation_local:
+            for key, value in local_validation_errors.items():
+                new_local_errors[remove_minor_version(key)] = value
+        if new_dir_errors:
+            report.errors["Directory Errors"] = new_dir_errors
+        if new_local_errors:
+            report.errors["Local Validation Errors"] = new_local_errors
+    else:
+        new_tsv_info = {}
+        for key, value in report.raw_info.tsvs.items():
+            dir_schema_version = value.get("Directory schema version")
+            if type(dir_schema_version) is str:
+                new_tsv_info[key] = remove_minor_version(dir_schema_version)
+        report.info = report.raw_info.as_dict()
     return report
+
+
+def remove_minor_version(version_str: str) -> str:
+    return re.sub(r"\.\d", ".*", version_str)
 
 
 class IgnoreVersions(operator.BaseOperator):
