@@ -6,6 +6,10 @@
 - Add harmonized links for sample subtypes (`/metadata/sample/`)
 - Create new directory schema: `/ingest-validation-tools/src/ingest_validation_tools/directory-schemas/wes-v0.0.yaml`
 - Update CEDAR schema for WES.
+- Update tests to use README.json (rather than .md)
+- Update tests to use VCR for fixtures
+- Rewrite table validator tests in Python
+- Fix plugin & single TSV tests
 
 ## v1.1.11
 

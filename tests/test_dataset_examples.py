@@ -2,6 +2,7 @@ import glob
 import json
 import re
 import unittest
+from collections import defaultdict
 from json.decoder import JSONDecodeError
 from pathlib import Path
 from pprint import pformat
@@ -111,7 +112,7 @@ def dataset_test(
 def check_report(report: ErrorReport) -> ErrorReport:
     """
     Ensure no token errors in output.
-    Manipulate errors/info data to remove any
+    Manipulate raw_errors/raw_info data to remove any
     directory minor versions in specified areas.
     """
     no_token_regex = re.compile("No token")
@@ -119,26 +120,28 @@ def check_report(report: ErrorReport) -> ErrorReport:
         no_token_regex_match = no_token_regex.search(line)
         if no_token_regex_match:
             raise Exception("API token required to update data.")
-    # TODO: this is causing a sorting issue
     if report.errors:
-        new_dir_errors = {}
+        new_dir_errors = defaultdict()
         if dir_errors := report.raw_errors.directory:
             for key, value in dir_errors.items():
                 new_dir_errors[remove_minor_version(key)] = value
-        new_local_errors = {}
+        new_local_errors = defaultdict()
         if local_validation_errors := report.raw_errors.metadata_validation_local:
             for key, value in local_validation_errors.items():
                 new_local_errors[remove_minor_version(key)] = value
         if new_dir_errors:
-            report.errors["Directory Errors"] = new_dir_errors
+            report.raw_errors.directory.value = new_dir_errors
         if new_local_errors:
-            report.errors["Local Validation Errors"] = new_local_errors
+            report.raw_errors.metadata_validation_local.value = new_local_errors
+        report.errors = report.raw_errors.as_dict()
     else:
-        new_tsv_info = {}
+        dir_schema_key = "Directory schema version"
         for key, value in report.raw_info.tsvs.items():
-            dir_schema_version = value.get("Directory schema version")
+            dir_schema_version = value.get(dir_schema_key)
             if type(dir_schema_version) is str:
-                new_tsv_info[key] = remove_minor_version(dir_schema_version)
+                report.raw_info.tsvs[key][dir_schema_key] = remove_minor_version(
+                    dir_schema_version
+                )
         report.info = report.raw_info.as_dict()
     return report
 

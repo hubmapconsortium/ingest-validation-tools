@@ -230,7 +230,7 @@ class UpdateData:
                 if error in ["Unauthorized for url: https://entity.api", "No token"]:
                     msg = f"URL checking returned 'Unauthorized' in response while checking {self.dir}; did you forget a Globus token?"
                 else:
-                    msg = f"Something went wrong with Spreadsheet Validator request for {self.dir}: {error}"
+                    msg = f"Something went wrong with a request for {self.dir}: {error}"
                 if not self.dry_run:
                     raise Exception(msg)
                 print(f"Error checking {self.dir}: {msg}.")
@@ -254,17 +254,15 @@ def print_change_report(change_report: dict, verbose: bool, globus_token: str):
                 print(dir)
 
 
-def offline_test(test_dir: str | list, verbose: bool = False):
+def offline_test(test_dir: Path | list, verbose: bool = False):
     """
     Offline test (mimics unittest behavior) at the level of a
     single directory.
     """
-    if type(test_dir) is str:
-        assert Path(
-            test_dir
-        ).resolve(), f"Arg {test_dir} passed to offline_test is not a directory!"
+    if type(test_dir) is Path:
+        assert test_dir.resolve(), f"Arg {test_dir} passed to offline_test is not a directory!"
     elif type(test_dir) is list and len(test_dir) > 1:
-        test_dir = [dir for dir in test_dir if Path(dir).is_dir()]
+        test_dir = [dir for dir in test_dir if dir.is_dir()]
     test = TestDatasetExamples()
     setattr(test, "dataset_test_dirs", test_dir)
     test.get_paths()
