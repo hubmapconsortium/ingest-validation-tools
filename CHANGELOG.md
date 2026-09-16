@@ -1,9 +1,12 @@
 # Changelog
 
 ## v1.1.11 (in progress)
+
 - Fixed 2D Imaging Mass Cytometry (2dimc) directory schema typo
+- Add legacy validation URL check override
 
 ## v1.1.10
+
 - Regenerate documentation
 - Update seq-scope/stereo-seq
 - DOI dir md fixes
