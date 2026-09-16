@@ -4,6 +4,7 @@ from pathlib import Path
 from string import Template
 from sys import stderr
 from typing import Any, Callable, Iterator
+from urllib.parse import urljoin
 
 import frictionless
 import requests
@@ -30,7 +31,7 @@ class _CheckFactory:
         self.schema = schema
         self._prev_value_run_length = {}
 
-    def _get_constrained_fields(self, constraint: str) -> dict[str, list]:
+    def _get_constrained_fields(self, constraint: str) -> dict[str, list | dict]:
         c_c = "custom_constraints"
         return {
             f["name"]: f[c_c][constraint]
@@ -52,6 +53,12 @@ class _CheckFactory:
             cache_path.write_text(json.dumps(url_status_cache, sort_keys=True, indent=2))
         return url_status_cache[url]
 
+    # Map any updated prefix URLs in table-schema files to (prefix, suffix) where suffix
+    # can be "" or None
+    LEGACY_URL_MAP: dict[str, tuple[str, str | None]] = {
+        "https://scicrunch.org/resolver/RRID:": ("https://scicrunch.org/resolver/", ".json")
+    }
+
     def make_url_check(self, template=Template('URL returned $status: "$url"')) -> Check:
         url_constrained_fields = self._get_constrained_fields("url")
 
@@ -60,8 +67,13 @@ class _CheckFactory:
                 if v is None:
                     continue
                 if k in url_constrained_fields:
-                    prefix = url_constrained_fields[k]["prefix"]
-                    url = f"{prefix}{v}"
+                    prefix = url_constrained_fields[k]["prefix"]  # type: ignore
+                    if mapped_url := self.LEGACY_URL_MAP.get(prefix):
+                        url = urljoin(mapped_url[0], v)
+                        if suffix := mapped_url[1]:
+                            url = f"{url}{suffix}"
+                    else:
+                        url = f"{prefix}{v}"
                     status = self._check_url_status_cache(url)
                     if status != 200:
                         note = template.substitute(status=status, url=url)
@@ -100,7 +112,7 @@ class _CheckFactory:
 
                 prev_value, run_length = self._prev_value_run_length[k]
                 prev_match = re.search(prefix_number_re, prev_value)
-                if (
+                if prev_match and (
                     match.group("prefix") != prev_match.group("prefix")
                     or int(match.group("number")) != int(prev_match.group("number")) + 1
                 ):
@@ -111,6 +123,7 @@ class _CheckFactory:
                 self._prev_value_run_length[k] = (v, run_length)
 
                 limit = sequence_limit_fields[k]
+                assert isinstance(limit, int)
                 assert limit > 1, "The lowest allowed limit is 2"
                 if run_length >= limit:
                     note = template.substitute(run_length=run_length, limit=limit)
