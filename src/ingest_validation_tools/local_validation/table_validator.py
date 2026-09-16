@@ -16,10 +16,6 @@ def get_table_errors(
     if pre_flight_errors:
         return pre_flight_errors
 
-    # assert (
-    #     frictionless.__version__ == "4.0.0"
-    # ), 'Upgrade dependencies: "pip install -r requirements.txt"'
-
     report = frictionless.validate(
         tsv_path, schema=schema, format="csv", checks=make_checks(schema)
     )

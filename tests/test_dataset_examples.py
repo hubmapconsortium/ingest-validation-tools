@@ -37,7 +37,6 @@ DATASET_IEC_EXAMPLES_OPTS = SHARED_OPTS | {
 PLUGIN_EXAMPLES_OPTS = DATASET_EXAMPLES_OPTS | {
     "plugin_directory": "../ingest-validation-tests/src/ingest_validation_tests/",
     "run_plugins": True,
-    "offline_only": True,
 }
 
 
@@ -203,8 +202,12 @@ def diff_test(
     for change in flat_rows:
         entry = {}
         entry["key"] = change.path
-        entry["old"] = change.old_value
-        entry["new"] = change.value
+        if "removed" in change.action:
+            entry["old"] = change.value
+            entry["new"] = "Removed"
+        else:
+            entry["old"] = change.old_value
+            entry["new"] = change.value
         simple_diff.append(entry)
     msg = ""
     if verbose:
@@ -345,7 +348,7 @@ class TestExamples(unittest.TestCase):
         ):
             with patch("ingest_validation_tools.validation_utils.get_entity_api_data"):
                 with patch("ingest_validation_tools.upload.Upload._online_checks"):
-                    upload = Upload(Path(test_dir / "upload"), offline_only=True, **opts)
+                    upload = Upload(Path(test_dir / "upload"), **opts)
                     upload.get_errors()
                     upload = mutate_upload_errors_with_fixtures(upload, test_dir)
                     upload.get_info()
