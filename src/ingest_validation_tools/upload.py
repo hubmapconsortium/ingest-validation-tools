@@ -248,7 +248,7 @@ class Upload:
         tsvs_to_evaluate = tsv_paths if tsv_paths else self.dataset_metadata
         for tsv_path, schema_version in tsvs_to_evaluate.items():
             if empty := find_empty_tsv_columns(tsv_path):
-                # TODO: not currently returned by get_tsv_errors
+                # TODO: upload_metadata not currently returned by get_tsv_errors
                 self.errors.upload_metadata[tsv_path] = (
                     f"Empty columns: {', '.join([str(i) for i in empty])}"
                 )
