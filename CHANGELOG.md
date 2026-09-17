@@ -1,6 +1,11 @@
 # Changelog
 
-## v1.1.11 (in progress)
+## v1.1.12 (in progress)
+
+- Update harmonized specification links for docs site harmonization
+- Add harmonized links for sample subtypes (`/metadata/sample/`)
+
+## v1.1.11
 
 - Fixed 2D Imaging Mass Cytometry (2dimc) directory schema typo
 - Add legacy validation URL check override

@@ -4,6 +4,7 @@ from pathlib import Path
 from string import Template
 from typing import Any
 
+from ingest_validation_tools.enums import Sample
 from ingest_validation_tools.schema_loader import get_field_enum, get_fields_wo_headers
 
 
@@ -110,6 +111,27 @@ def _enrich_description(field: dict[str, Any]) -> str:
     return description.strip()
 
 
+HARMONIZED_SAMPLE_TYPES = {Sample.BLOCK.value, Sample.SECTION.value, Sample.SUSPENSION.value}
+
+
+def _get_harmonized_section(schema_name: str, is_assay: bool, category: str) -> str:
+    """
+    Path segment of the harmonized specification page, or "" if there is none.
+
+    >>> _get_harmonized_section('codex', True, 'imaging')
+    'assay'
+    >>> _get_harmonized_section('sample-block', False, '')
+    'sample'
+    >>> _get_harmonized_section('segmentation-mask', True, 'derived_datasets')
+    ''
+    >>> _get_harmonized_section('donor', False, '')
+    ''
+    """
+    if is_assay:
+        return "assay" if category != "derived_datasets" else ""
+    return "sample" if schema_name in HARMONIZED_SAMPLE_TYPES else ""
+
+
 def generate_readme_md(
     table_schemas, pipeline_infos, directory_schemas, schema_name, is_assay=True
 ):
@@ -185,15 +207,17 @@ def generate_readme_md(
     elif is_cedar:
         tsv_url = f"{raw_base_url}/{schema_name}/latest/{schema_name}.tsv"
         xlsx_url = f"{raw_base_url}/{schema_name}/latest/{schema_name}.xlsx"
-        # Only assays have a harmonized specification page; donor, sample, EPIC
-        # (derived dataset), and other TSV types do not.
+        # Assays and sample subtypes have harmonized specification pages; donor,
+        # organ, EPIC (derived dataset), and other TSV types do not.
+        harmonized_section = _get_harmonized_section(schema_name, is_assay, category)
         harmonized_link = (
             "\n"
             "This is the most recent metadata specification that needs to be followed "
             "for the submission of new data. See the "
-            f"[harmonized specification](https://docs.hubmapconsortium.org/assays/metadata/{schema_name}.html)"
+            "[harmonized specification]"
+            f"(https://docs.hubmapconsortium.org/metadata/{harmonized_section}/{schema_name}.html)"
             " for a view of the metadata across this and any previous versions.\n"
-            if is_assay and category != "derived_datasets"
+            if harmonized_section
             else ""
         )
         cedar_validator_link = (
