@@ -1,26 +1,24 @@
 {
-  "assaytype": {
-    "MALDI-IMS": {
-      "assaytype": "MALDI-IMS",
-      "contains-pii": false,
-      "dataset-type": "MALDI",
-      "description": "MALDI IMS",
-      "dir-schema": "ims-v0",
-      "is-multi-assay": null,
-      "must-contain": null,
-      "pipeline-shorthand": null,
-      "primary": true,
-      "process_state": "primary",
-      "tbl-schema": "ims-v0",
-      "ubkg_code": "C200250",
-      "vitessce-hints": [
-        "maldi"
-      ]
-    }
-  },
-  "validation": {
-    "MALDI-IMS": {},
-    "contributors": {}
-  }
+    "version": 1,
+    "interactions": [
+        {
+            "request": {
+                "method": "POST",
+                "uri": "https://ingest.api.hubmapconsortium.org/assaytype",
+                "body": "{\"donor_id\": \"VAN0001\", \"tissue_id\": \"VAN0001-LK-1-1\", \"execution_datetime\": \"2021-01-04 17:45\", \"protocols_io_doi\": \"10.17504/protocols.io.7gdhjs6\", \"operator\": \"Elizabeth K. Neumann\", \"operator_email\": \"elizabeth.neumann@vanderbilt.edu\", \"pi\": \"Jeffrey M. Spraggins\", \"pi_email\": \"jeff.spraggins@vanderbilt.edu\", \"assay_category\": \"mass_spectrometry_imaging\", \"assay_type\": \"MALDI-IMS\", \"analyte_class\": \"lipids\", \"is_targeted\": \"False\", \"acquisition_instrument_vendor\": \"Bruker Daltonics\", \"acquisition_instrument_model\": \"MALDI timsTOF Flex\", \"ms_source\": \"MALDI\", \"polarity\": \"positive ion mode\", \"mz_range_low_value\": \"150.0\", \"mz_range_high_value\": \"2000.0\", \"resolution_x_value\": \"10.0\", \"resolution_x_unit\": \"um\", \"resolution_y_value\": \"10.0\", \"resolution_y_unit\": \"um\", \"preparation_type\": \"Sprayed\", \"preparation_instrument_vendor\": \"HTX Imaging\", \"preparation_instrument_model\": \"M3 TM-Sprayer\", \"preparation_maldi_matrix\": \"1,5-Diaminonaphthalene\", \"section_prep_protocols_io_doi\": \"10.17504/protocols.io.bt8hnrt6\", \"overall_protocols_io_doi\": \"10.17504/protocols.io.bfskjncw\", \"contributors_path\": \"contributors.tsv\", \"data_path\": \"dataset-1\"}",
+                "headers": {}
+            },
+            "response": {
+                "status": {
+                    "code": 200,
+                    "message": "OK"
+                },
+                "headers": {},
+                "body": {
+                    "string": "{\"assaytype\":\"MALDI-IMS\",\"contains-pii\":false,\"dataset-type\":\"MALDI\",\"description\":\"MALDI IMS\",\"dir-schema\":\"ims-v0\",\"is-multi-assay\":null,\"must-contain\":null,\"pipeline-shorthand\":null,\"primary\":true,\"process_state\":\"primary\",\"tbl-schema\":\"ims-v0\",\"ubkg_code\":\"C200250\",\"vitessce-hints\":[\"maldi\"]}\n"
+                },
+                "datetime": "2026-10-14 14:57:58"
+            }
+        }
+    ]
 }
-
