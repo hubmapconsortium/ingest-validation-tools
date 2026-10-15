@@ -3,12 +3,9 @@ import json
 import re
 import unittest
 from collections import defaultdict
-from json.decoder import JSONDecodeError
 from pathlib import Path
 from pprint import pformat
 from unittest.mock import patch
-
-from deepdiff import DeepDiff, Delta, operator
 
 from ingest_validation_tools.error_report import ErrorReport
 from ingest_validation_tools.schema_loader import PreflightError, SchemaVersion
@@ -45,47 +42,6 @@ class MockException(Exception):
         super().__init__(error)
 
 
-def mutate_upload_errors_with_fixtures(upload: Upload, test_dir: Path) -> Upload:
-    """
-    Validation behavior requiring API calls is mocked. Insert fixture data into
-    upload.errors ErrorDict.
-    ErrorDict fields requiring updates from fixtures:
-        Spreadsheet Validator Errors (ErrorDict.metadata_valdiation_api)
-        URL Check Errors (ErrorDict.metadata_url_errors)
-    """
-    url_errors_field_name = upload.errors.metadata_url_errors.display_name
-    api_errors_field_name = upload.errors.metadata_validation_api.display_name
-    for tsv_path, schema in upload.dataset_metadata.items():
-        fixtures = get_online_check_fixtures(schema.schema_name, test_dir)
-        url_errors = fixtures.get(url_errors_field_name, {})
-        if url_errors:
-            upload.errors.metadata_url_errors[tsv_path] = url_errors
-        api_errors = fixtures.get(api_errors_field_name, {})
-        if api_errors:
-            upload.errors.metadata_validation_api[tsv_path] = api_errors
-        antibodies_paths = set()
-        contributors_paths = set()
-        for row in schema.rows:
-            if antibodies_path := row.get("antibodies_path"):
-                antibodies_paths.add(antibodies_path)
-            if contributors_path := row.get("contributors_path"):
-                contributors_paths.add(contributors_path)
-        for other_type, paths in {
-            "antibodies": antibodies_paths,
-            "contributors": contributors_paths,
-        }.items():
-            for path in paths:
-                full_path = upload.directory_path / path
-                other_fixtures = get_online_check_fixtures(other_type, test_dir)
-                other_url_errors = other_fixtures.get(url_errors_field_name, {})
-                if other_url_errors:
-                    upload.errors.metadata_url_errors[full_path] = other_url_errors
-                other_api_errors = other_fixtures.get(api_errors_field_name, {})
-                if other_api_errors:
-                    upload.errors.metadata_validation_api[full_path] = other_api_errors
-    return upload
-
-
 def dataset_test(
     test_dir: Path,
     dataset_opts: dict,
@@ -93,6 +49,7 @@ def dataset_test(
     globus_token: str = "",
     offline: bool = False,
 ):
+    # TODO: migrate/refactor
     dataset_opts = dataset_opts | {"verbose": verbose}
     print(f"Testing {test_dir}...")
     if offline:
@@ -108,175 +65,8 @@ def dataset_test(
         )
 
 
-def check_report(report: ErrorReport) -> ErrorReport:
-    """
-    Ensure no token errors in output.
-    Manipulate raw_errors/raw_info data to remove any
-    directory minor versions in specified areas.
-    """
-    no_token_regex = re.compile("No token")
-    for line in report.as_md().splitlines(keepends=True):
-        no_token_regex_match = no_token_regex.search(line)
-        if no_token_regex_match:
-            raise Exception("API token required to update data.")
-    if report.errors:
-        new_dir_errors = defaultdict()
-        if dir_errors := report.raw_errors.directory:
-            for key, value in dir_errors.items():
-                new_dir_errors[remove_minor_version(key)] = value
-        new_local_errors = defaultdict()
-        if local_validation_errors := report.raw_errors.metadata_validation_local:
-            for key, value in local_validation_errors.items():
-                new_local_errors[remove_minor_version(key)] = value
-        if new_dir_errors:
-            report.raw_errors.directory.value = new_dir_errors
-        if new_local_errors:
-            report.raw_errors.metadata_validation_local.value = new_local_errors
-        report.errors = report.raw_errors.as_dict()
-    else:
-        dir_schema_key = "Directory schema version"
-        for key, value in report.raw_info.tsvs.items():
-            dir_schema_version = value.get(dir_schema_key)
-            if type(dir_schema_version) is str:
-                report.raw_info.tsvs[key][dir_schema_key] = remove_minor_version(
-                    dir_schema_version
-                )
-        report.info = report.raw_info.as_dict()
-    return report
-
-
-def remove_minor_version(version_str: str) -> str:
-    return re.sub(r"\.\d", ".*", version_str)
-
-
-class IgnoreVersions(operator.BaseOperator):
-    """
-    Ignore minor version changes to directory versions.
-    """
-
-    _patterns = (r"-v\d.\*", r"-v\d.\d")
-
-    @classmethod
-    def _remove_pattern(cls, pattern: str, t: str):
-        return re.sub(pattern, "", t)
-
-    def match(self, level):
-        if re.search(self._patterns[0], str(level.t1)):
-            return True
-
-    def give_up_diffing(self, level, diff_instance):
-        if re.search(self._patterns[0], str(level.t1)):
-            t1 = self._remove_pattern(self._patterns[0], str(level.t1))
-            t2 = self._remove_pattern(self._patterns[1], str(level.t2))
-            return t1 == t2
-
-    def normalize_value_for_hashing(self, _, obj):
-        return obj
-
-
-def diff_test(
-    test_dir: Path, readme: dict, report: ErrorReport, verbose: bool = True, dry_run: bool = False
-) -> dict:
-    if report.errors:
-        diff = DeepDiff(
-            readme,
-            report.errors,
-            ignore_order=True,
-            report_repetition=True,
-            verbose_level=2,
-            custom_operators=[IgnoreVersions()],
-        )
-    else:
-        diff = DeepDiff(
-            readme,
-            report.info,
-            ignore_order=True,
-            report_repetition=True,
-            verbose_level=2,
-            exclude_paths=["root['Time']", "root['Git version']"],
-            custom_operators=[IgnoreVersions()],
-        )
-    delta = Delta(diff, bidirectional=True)
-    flat_rows = delta.to_flat_rows()
-    simple_diff = []
-    for change in flat_rows:
-        entry = {}
-        entry["key"] = change.path
-        if "removed" in change.action:
-            entry["old"] = change.value
-            entry["new"] = "Removed"
-        else:
-            entry["old"] = change.old_value
-            entry["new"] = change.value
-        simple_diff.append(entry)
-    msg = ""
-    if verbose:
-        msg = f"""
-                DIFF FOUND:
-                {pformat(simple_diff, indent=2)}
-                """
-        if dry_run:
-            msg = f"""
-                {msg}
-
-                If new version is correct, overwrite previous README.json and fixtures.json files by running:
-                    env PYTHONPATH=src:$PYTHONPATH python -m tests.manual.update_test_data -t {test_dir} -g <globus_token>
-
-                For help / other options:
-                    env PYTHONPATH=src:$PYTHONPATH python -m tests.manual.update_test_data --help
-                """
-    elif dry_run:
-        msg = f"""
-                FAILED diff_test: {test_dir}. Run for more detailed output:
-                    env PYTHONPATH=src:$PYTHONPATH python -m tests.manual.update_test_data -t {test_dir} --globus_token "" --offline_test --dry_run --verbose
-                """
-    assert not diff, msg
-    print(f"PASSED diff_test: {test_dir}")
-    return diff
-
-
-def open_or_create_fixtures(dir: Path) -> dict:
-    path = Path(dir / "fixtures.json")
-    if not path.exists():
-        with open(path, "w") as f:
-            json.dump({}, f)
-    with open(path, "r") as f:
-        try:
-            fixtures = json.load(f)
-        except JSONDecodeError:
-            fixtures = {}
-    return fixtures
-
-
-def open_or_create_readme(dir: Path) -> dict:
-    path = Path(dir / "README.json")
-    if not path.exists():
-        with open(path, "w") as f:
-            json.dump({}, f)
-    with open(path, "r") as f:
-        try:
-            readme = json.load(f)
-        except JSONDecodeError:
-            readme = {}
-    return readme
-
-
-def get_online_check_fixtures(schema_name: str, dir_path: Path) -> dict:
-    fixture = open_or_create_fixtures(dir_path)
-    value = fixture.get("validation", {}).get(schema_name, {})
-    if value is None:
-        return {}
-    return value
-
-
-def assaytype_side_effect(path: Path, row: dict, *args, **kwargs):
-    del args, kwargs
-    response_dict = open_or_create_fixtures(path)
-    dataset_type = row.get("assay_type") if row.get("assay_type") else row.get("dataset_type")
-    return response_dict.get("assaytype", {}).get(dataset_type)
-
-
 class TestExamples(unittest.TestCase):
+    # TODO: migrate/refactor
     dataset_test_dirs = []
     errors = []
 
@@ -356,6 +146,7 @@ class TestExamples(unittest.TestCase):
 
 
 class TestDatasetExamples(TestExamples):
+    # TODO: migrate/refactor
     dataset_test_dirs = [
         Path(test_dir)
         for test_dir in [

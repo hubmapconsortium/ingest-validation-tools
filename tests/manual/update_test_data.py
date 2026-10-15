@@ -52,7 +52,6 @@ class UpdateData:
             **self.opts,  # type: ignore
         )
         report = ErrorReport(upload)
-        self.check_maybe_write_fixtures(report, upload)
 
         cleaned_report = check_report(report)
         self.check_maybe_write_readme(cleaned_report)
@@ -65,43 +64,8 @@ class UpdateData:
     #
     ###################################
 
-    def check_maybe_write_fixtures(self, report: ErrorReport, upload: Upload):
-        if "fixtures" in self.exclude:
-            print(f"{self.dir}/fixtures.json excluded, not changed.")
-        else:
-            self.raise_or_print_fatal_errors(report)
-            fixtures = open_or_create_fixtures(self.dir)
-            new_data = self.update_fixtures(upload)
-            if self.fixtures_diff(fixtures, new_data) and not self.dry_run:
-                print(f"Writing to {self.dir}/fixtures.json...")
-                with open(Path(self.dir / "fixtures.json"), "w") as f:
-                    json.dump(new_data, f, indent=4)
-
-    def fixtures_diff(self, fixtures: dict, new_data: dict) -> bool:
-        diff = DeepDiff(
-            fixtures,
-            new_data,
-            ignore_order=True,
-            report_repetition=True,
-        )
-        if not diff:
-            print(f"No diff found, no update to {self.dir}/fixtures.json...")
-            return False
-        elif self.dry_run:
-            self.log(
-                f"""
-                    Diff:
-                    {diff}
-
-                    Would have written the following to {self.dir}/fixtures.json:
-                    {new_data}
-                    """,
-                short_message=f"Would have updated {self.dir}/fixtures.json.",
-            )
-            self.change_report[self.dir].append("Fixtures diff found")
-        return True
-
     def online_only_errors_by_path(self, path: str, upload_errors: ErrorDict):
+        # TODO: unsure
         return upload_errors.errors_by_path(
             path,
             [
@@ -111,132 +75,15 @@ class UpdateData:
             ],
         )
 
-    def update_fixtures(self, upload: Upload) -> dict:
-        """
-        Collect soft assay endpoint / assay classifier response &
-        online errors from ErrorDict (metadata_url_errors,
-        metadata_validation_api, metadata_constraint_errors).
-        """
-        new_data = {}
-        new_assaytype_data = {}
-        new_validation_data = defaultdict(dict)
-        for schema in upload.dataset_metadata.values():
-            new_assaytype_data[schema.dataset_type] = schema.soft_assay_data
-            online_errors = self.online_only_errors_by_path(str(schema.path), upload.errors)
-            new_validation_data[schema.schema_name].update(online_errors)
-            for supporting_schema in [
-                *schema.contributors_schemas,
-                *schema.antibodies_schemas,
-            ]:
-                online_errors = self.online_only_errors_by_path(
-                    str(supporting_schema.path), upload.errors
-                )
-                new_validation_data[supporting_schema.schema_name].update(online_errors)
-        new_data["assaytype"] = new_assaytype_data
-        new_data["validation"] = dict(new_validation_data)
-        return new_data
-
-    ###################################
-    #
-    # README.json methods
-    #
-    ###################################
-
-    def check_maybe_write_readme(self, cleaned_report: ErrorReport):
-        """
-        Check existing readme against new ErrorReport.
-        If there is a difference, write new readme.
-        """
-        if "README" in self.exclude:
-            print(f"{self.dir}/README.json excluded, not changed.")
-        else:
-            readme = open_or_create_readme(self.dir)
-            if self.readme_diff(readme, cleaned_report):
-                self.write_readme(cleaned_report)
-
-    def write_readme(self, cleaned_report: ErrorReport):
-        if cleaned_report.errors:
-            report = cleaned_report.errors
-        else:
-            cleaned_report.raw_info.time = "WILL_CHANGE"
-            cleaned_report.raw_info.git = "WILL_CHANGE"
-            report = cleaned_report.raw_info.as_dict()
-        if self.dry_run:
-            self.log(
-                f"""
-                    Would have written the following report to {self.dir}/README.json:
-                    {report}
-                    """,
-                f"Would have updated {self.dir}/README.json.",
-            )
-            self.change_report[self.dir].append("README diff found")
-        else:
-            self.log(
-                f"""
-                    Writing the following report to {self.dir}/README.json:
-                    {report}
-                    """,
-                f"Updating {self.dir}/README.json.",
-            )
-            with open(Path(self.dir / "README.json"), "w") as f:
-                json.dump(report, f, indent=2)
-
-    def readme_diff(self, readme, cleaned_report: ErrorReport) -> bool:
-        try:
-            diff_test(
-                self.dir,
-                readme,
-                cleaned_report,
-                verbose=self.verbose,
-            )
-            print(f"No diff found, no update to {self.dir}/README.json")
-        except MockException:
-            print("Expected exception found for test, continuing.")
-        except AssertionError as e:
-            print(f"FAILED diff_test: {self.dir}/README.json")
-            if str(e):
-                print(str(e))
-            return True
-        return False
-
     ###################################
     #
     # Helper methods
     #
     ###################################
 
-    def log(self, verbose_message, short_message: str | None = None):
-        if self.verbose:
-            print(verbose_message)
-        elif short_message:
-            print(short_message)
-
-    def raise_or_print_fatal_errors(self, report: ErrorReport):
-        """
-        Force stop before writing any files if fatal errors found:
-            "Too Many Requests": CEDAR API is overloaded
-            "Unauthorized"/"No token": Globus token not provided to entity-api for URL checks
-            "500": unknown error
-        """
-        for error in [
-            "Too Many Requests",
-            "Unauthorized",
-            "No token",
-            "500 Internal Server Error",
-        ]:
-            if error in report.as_md():
-                # Necessary to avoid including 'Unauthorized' in output when no Globus token is provided,
-                # but only relevant for entity-api links
-                if error in ["Unauthorized for url: https://entity.api", "No token"]:
-                    msg = f"URL checking returned 'Unauthorized' in response while checking {self.dir}; did you forget a Globus token?"
-                else:
-                    msg = f"Something went wrong with a request for {self.dir}: {error}"
-                if not self.dry_run:
-                    raise Exception(msg)
-                print(f"Error checking {self.dir}: {msg}.")
-
 
 def print_change_report(change_report: dict, verbose: bool, globus_token: str):
+    # TODO: integrate version for fixtures?
     if change_report:
         print("-------CHANGE REPORT-------")
         if verbose:
@@ -255,6 +102,7 @@ def print_change_report(change_report: dict, verbose: bool, globus_token: str):
 
 
 def offline_test(test_dir: Path | list, verbose: bool = False):
+    # TODO: migrate/refactor
     """
     Offline test (mimics unittest behavior) at the level of a
     single directory.
