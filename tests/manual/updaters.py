@@ -1,10 +1,10 @@
 import json
 import re
 from collections import defaultdict
-from datetime import datetime
 from json.decoder import JSONDecodeError
 from pathlib import Path
 from pprint import pformat
+from textwrap import dedent
 
 from deepdiff import DeepDiff, Delta, operator
 from vcr.persisters.filesystem import FilesystemPersister
@@ -50,7 +50,7 @@ def readable_diff(diff: DeepDiff) -> list[str]:
     return simple_diff
 
 
-def raise_or_print_fatal_errors(response_str: str, dry_run: bool = True):
+def raise_or_print_fatal_errors(response_str: str):
     """
     Force stop before writing any files if fatal errors found:
         "Too Many Requests": CEDAR API is overloaded
@@ -69,10 +69,10 @@ def raise_or_print_fatal_errors(response_str: str, dry_run: bool = True):
             if error in ["Unauthorized for url: https://entity.api", "No token"]:
                 msg = f"URL checking returned 'Unauthorized' in response; did you forget a Globus token?"
             else:
-                msg = f"Something went wrong with a request: {error}"
-            if not dry_run:
-                raise Exception(msg)
-            print(f"Error: {msg}.")
+                msg = f"""
+                Something went wrong with a request: {error}.
+                """
+            raise Exception(msg)
 
 
 class UpdateReadme:
@@ -153,20 +153,22 @@ class UpdateReadme:
             self.error_report.raw_info.git = "WILL_CHANGE"
             report = self.error_report.raw_info.as_dict()
         if self.dry_run:
-            print(
-                f"""
-                    Would have written the following report to {self.test_dir}/README.json:
-                    {report}
-                    """
-            )
+            if self.verbose:
+                print(
+                    f"""
+                        Would have written the following report to {self.test_dir}/README.json:
+                        {report}
+                        """
+                )
             return "README diff found"
         else:
-            print(
-                f"""
-                    Writing the following report to {self.test_dir}/README.json:
-                    {report}
-                    """
-            )
+            if self.verbose:
+                print(
+                    f"""
+                        Writing the following report to {self.test_dir}/README.json:
+                        {report}
+                        """
+                )
             with open(Path(self.test_dir / "README.json"), "w") as f:
                 json.dump(report, f, indent=2)
 
@@ -204,16 +206,20 @@ class UpdateReadme:
         simple_diff = readable_diff(diff)
         msg = ""
         if self.verbose:
-            msg = f"""
-                    DIFF FOUND:
-                    {pformat(simple_diff, indent=2)}
-                    """
+            # TODO: fix diffs
+            #     msg = f"""
+            #             DIFF FOUND:
+            #             {pformat(simple_diff, indent=2)}
+            #             """
             if self.dry_run:
                 msg = f"""
                     {msg}
 
-                    If new version is correct, overwrite previous README.json and fixtures.json files by running:
-                        env PYTHONPATH=src:$PYTHONPATH python -m tests.manual.update_test_data -t {self.test_dir} -g <globus_token>
+                    If new version is correct, overwrite previous README.json by running:
+                         env PYTHONPATH=src:$PYTHONPATH python -m tests.manual.manual_testing -t {self.test_dir}
+
+                    If you need to update fixture data as well, run:
+                         env PYTHONPATH=src:$PYTHONPATH python -m tests.manual.manual_testing -t {self.test_dir} -g <globus_token> -o
 
                     For help / other options:
                         env PYTHONPATH=src:$PYTHONPATH python -m tests.manual.update_test_data --help
@@ -221,134 +227,28 @@ class UpdateReadme:
         elif self.dry_run:
             msg = f"""
                     FAILED diff_test: {self.test_dir}. Run for more detailed output:
-                        env PYTHONPATH=src:$PYTHONPATH python -m tests.manual.update_test_data -t {self.test_dir} --globus_token "" --offline_test --dry_run --verbose
+                         env PYTHONPATH=src:$PYTHONPATH python -m tests.manual.manual_testing -t {self.test_dir} --dry_run --verbose
                     """
-        assert not diff, msg
+        assert not diff, dedent(msg)
         print(f"PASSED diff_test: {self.test_dir}")
         return diff
 
 
-class UpdateFixtures:
-    """
-    Handles finding newest API responses, finding and printing diffs,
-    and serializing/writing fixture data for LiveRunPersister and DryRunPersister.
-    """
-
-    def __init__(self, cassette_path: Path, cassette_dict: dict, serializer):
-        self.cassette_path = cassette_path
-        self.cassette_dict = cassette_dict
-        self.serializer = serializer
-
-    def get_diff(self, existing_data: dict, new_data: dict) -> bool:
-        """
-        Find diff between existing fixture data and new request/response data.
-        Print readable diff.
-        """
-        diff = DeepDiff(
-            existing_data,
-            json.loads(serialize(new_data, self.serializer)),
-            ignore_order=True,
-            report_repetition=True,
-            verbose_level=2,
-            exclude_paths=["root[**]['datetime']"],
-        )
-        if diff:
-            print(f"Diff found for {self.cassette_path}:")
-            print(readable_diff(diff))
-            return True
-        else:
-            print(f"No diff found for cassette {self.cassette_path}.")
-            return False
-
-    def serialize_and_write(self, cassette_dict: dict | None = None):
-        """
-        Just rewrites starting data as a default;
-        can overwrite if passed a cassette_dict.
-        """
-        if not cassette_dict:
-            cassette_dict = self.cassette_dict
-        data = serialize(cassette_dict, self.serializer)
-        cassette_folder = self.cassette_path.parent
-        if not cassette_folder.exists():
-            cassette_folder.mkdir(parents=True)
-        with self.cassette_path.open("w") as f:
-            f.write(data)
-
-    def get_new_data(self) -> dict:
-        """
-        In order to send all requests to endpoints when running in dry_run=False,
-        we need to set record_mode="all" on vcr.OnlineTesting.my_vcr.
-        However, this records *all* requests/responses, including duplicates.
-        This custom persister class retains only the most recent request/response
-        for a given request (matched on endpoint/method).
-        """
-        new_data = defaultdict(list)
-        by_request = defaultdict(lambda: defaultdict(list))
-        # Organize all responses by request to identify duplicates
-        for request, response in zip(
-            self.cassette_dict["requests"], self.cassette_dict["responses"]
-        ):
-            by_request[str(request)]["request"] = request
-            by_request[str(request)]["responses"].append(response)
-        # Add request and most recent/latest response to new_data
-        new_data = {"requests": [], "responses": []}
-        for request_details in by_request.values():
-            responses = request_details["responses"]
-            if len(responses) > 1:
-                latest_response = None
-                latest_response_datetime = datetime.min
-                for resp in responses:
-                    response_datetime = datetime.strptime(resp["datetime"], DATETIME_FORMAT)
-                    if latest_response_datetime and (response_datetime > latest_response_datetime):
-                        latest_response_datetime = response_datetime
-                    latest_response = resp
-                new_data["requests"].append(request)
-                new_data["responses"].append(latest_response)
-            else:
-                new_data["requests"].append(request)
-                new_data["responses"].append(responses[0])
-        return dict(new_data)
-
-
 class LiveRunPersister(FilesystemPersister):
     """
-    VCR class to determine what data to save when running in
-    "live"/online mode. Prevents saving duplicate requests.
+    Remove old fixtures.json file and write new one
+    (OnlineTesting only).
     """
 
     @staticmethod
     def save_cassette(cassette_path, cassette_dict, serializer):
-        updater = UpdateFixtures(cassette_path, cassette_dict, serializer)
-        if not cassette_path.exists():
-            updater.serialize_and_write()
-            return
-        with cassette_path.open("r") as f:
-            existing_data = json.load(f)
-        new_data = updater.get_new_data()
-        if updater.get_diff(existing_data, new_data):
-            print(f"Writing new data to {cassette_path}...")
-            updater.serialize_and_write(new_data)
-
-
-class DryRunPersister(FilesystemPersister):
-    """
-    VCR class to determine what data to save when running in
-    "dry_run"/offline mode. Logs but saves no data.
-    """
-
-    @staticmethod
-    def save_cassette(cassette_path, cassette_dict, serializer):
-        if not cassette_path.exists():
-            print("Would create new cassette with data:")
-            data = serialize(cassette_dict, serializer)
-            print(data)
-            return
-        updater = UpdateFixtures(cassette_path, cassette_dict, serializer)
-        with cassette_path.open("r") as f:
-            existing_data = json.load(f)
-        new_data = updater.get_new_data()
-        if updater.get_diff(existing_data, new_data):
-            print(f"DRY RUN, fixture data not changed.")
+        print(f"Writing new data to {cassette_path}...")
+        data = serialize(cassette_dict, serializer)
+        cassette_folder = cassette_path.parent
+        if not cassette_folder.exists():
+            cassette_folder.mkdir(parents=True)
+        with cassette_path.open("w") as f:
+            f.write(data)
 
 
 class IgnoreVersions(operator.BaseOperator):

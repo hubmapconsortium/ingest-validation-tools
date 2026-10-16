@@ -16,8 +16,7 @@
                 "headers": {},
                 "body": {
                     "string": "{\"assaytype\":\"MALDI-IMS\",\"contains-pii\":false,\"dataset-type\":\"MALDI\",\"description\":\"MALDI IMS\",\"dir-schema\":\"ims-v0\",\"is-multi-assay\":null,\"must-contain\":null,\"pipeline-shorthand\":null,\"primary\":true,\"process_state\":\"primary\",\"tbl-schema\":\"ims-v0\",\"ubkg_code\":\"C200250\",\"vitessce-hints\":[\"maldi\"]}\n"
-                },
-                "datetime": "2026-10-14 14:57:58"
+                }
             }
         }
     ]

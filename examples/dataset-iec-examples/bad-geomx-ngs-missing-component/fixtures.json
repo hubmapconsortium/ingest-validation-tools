@@ -1,25 +1,23 @@
 {
-  "assaytype": {
-    "GeoMx (NGS)": {
-      "assaytype": "geomx_ngs",
-      "contains-pii": false,
-      "dataset-type": "GeoMx (NGS)",
-      "description": "GeoMx (NGS)",
-      "dir-schema": "geomx-ngs-v2",
-      "is-multi-assay": true,
-      "must-contain": [
-        "RNAseq (with probes)"
-      ],
-      "pipeline-shorthand": null,
-      "primary": true,
-      "process_state": "primary",
-      "tbl-schema": null,
-      "ubkg_code": "C200760",
-      "vitessce-hints": []
-    }
-  },
-  "validation": {
-    "geomx_ngs": {}
-  }
+    "version": 1,
+    "interactions": [
+        {
+            "request": {
+                "method": "POST",
+                "uri": "https://ingest.api.hubmapconsortium.org/assaytype",
+                "body": "{\"lab_id\": \"P1_Ins_Syto83_PanCK_CD31_6-14-24_001_CD31+\", \"preparation_protocol_doi\": \"http://dx.doi.org/10.17504/protocols.io.5jyl8qyy8l2w/v1\", \"contributors_path\": \"./contributors.tsv\", \"mapped_area_unit\": \"um^2\", \"targeted_entity_label\": \"endothelial_cells\", \"is_roi_segmentation_performed\": \"Yes\", \"roi_segmentation_strategy\": \"Manual segmentation\", \"is_technical_replicate\": \"No\", \"dataset_type\": \"GeoMx (NGS)\", \"analyte_class\": \"Protein\", \"is_targeted\": \"Yes\", \"acquisition_instrument_vendor\": \"NanoString\", \"acquisition_instrument_model\": \"Digital Spatial Profiler\", \"source_storage_duration_value\": \"14\", \"source_storage_duration_unit\": \"day\", \"time_since_acquisition_instrument_calibration_value\": \"11\", \"time_since_acquisition_instrument_calibration_unit\": \"month\", \"number_of_channels\": \"4\", \"target_retrieval_incubation_temperature\": \"115\", \"target_retrieval_incubation_time_value\": \"15\", \"target_retrieval_incubation_time_unit\": \"minute\", \"proteinasek_concentration\": \"0\", \"proteinasek_incubation_time_value\": \"0\", \"proteinasek_incubation_time_unit\": \"minute\", \"non_global_files\": \"./lab_processed/dcc/DSP-1001660005143-Y-A02.dcc;./lab_processed/images/P1 Ins_Syto83_PanCK_CD31 6-14-24.ome.tiff;./raw/fastq/oligo/GE7647_120_Pool1_DSP-1001660005142_Z-B12_S120_L001_R1.fastq.gz\", \"metadata_schema_id\": \"662ab411-d8d5-4212-80c8-25e469ee0fe3\", \"anatomical_structure_label\": \"head of pancreas\", \"anatomical_structure_id\": \"UBERON:0001150\", \"targeted_entity_id\": \"CL:0000115\", \"data_path\": \"DSP-1001660005143-Y-A02\", \"slide_id\": \"P1\", \"roi_label\": \"Ins/Syto83/PanCK/CD31\", \"segment_id\": \"6-14-24 1 CD31+\", \"mapped_area_value\": \"3991.361231\"}",
+                "headers": {}
+            },
+            "response": {
+                "status": {
+                    "code": 200,
+                    "message": "OK"
+                },
+                "headers": {},
+                "body": {
+                    "string": "{\"assaytype\":\"geomx_ngs\",\"contains-pii\":false,\"dataset-type\":\"GeoMx (NGS)\",\"description\":\"GeoMx (NGS)\",\"dir-schema\":\"geomx-ngs-v2\",\"is-multi-assay\":true,\"must-contain\":[\"RNAseq (with probes)\"],\"pipeline-shorthand\":null,\"primary\":true,\"process_state\":\"primary\",\"tbl-schema\":null,\"ubkg_code\":\"C200760\",\"vitessce-hints\":[]}\n"
+                }
+            }
+        }
+    ]
 }
-

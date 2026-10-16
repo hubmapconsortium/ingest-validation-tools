@@ -1,24 +1,23 @@
 {
-    "assaytype": {
-        "CODEX": {
-            "assaytype": "CODEX",
-            "contains-pii": false,
-            "dataset-type": "CODEX",
-            "description": "CODEX",
-            "dir-schema": "codex-v1",
-            "is-multi-assay": null,
-            "must-contain": null,
-            "pipeline-shorthand": null,
-            "primary": true,
-            "process_state": "primary",
-            "tbl-schema": "codex-v1",
-            "ubkg_code": "C200060",
-            "vitessce-hints": []
+    "version": 1,
+    "interactions": [
+        {
+            "request": {
+                "method": "POST",
+                "uri": "https://ingest.api.hubmapconsortium.org/assaytype",
+                "body": "{\"version\": \"1\", \"description\": \"Lorem ipsum\", \"donor_id\": \"ABC123\", \"tissue_id\": \"ABC123-RK-1_1\", \"execution_datetime\": \"2020-01-01 12:00\", \"protocols_io_doi\": \"10.17504/protocols.io.menc3de\", \"operator\": \"operator\", \"operator_email\": \"operator_email@example.com\", \"pi\": \"pi\", \"pi_email\": \"pi_email@example.com\", \"assay_category\": \"imaging\", \"assay_type\": \"CODEX\", \"analyte_class\": \"protein\", \"is_targeted\": \"TRUE\", \"acquisition_instrument_vendor\": \"Keyence\", \"acquisition_instrument_model\": \"BZ-X800\", \"resolution_x_value\": \"42\", \"resolution_x_unit\": \"nm\", \"resolution_y_value\": \"42\", \"resolution_y_unit\": \"nm\", \"resolution_z_value\": \"42\", \"resolution_z_unit\": \"nm\", \"preparation_instrument_vendor\": \"CODEX\", \"preparation_instrument_model\": \"version 1 robot\", \"number_of_antibodies\": \"42\", \"number_of_channels\": \"42\", \"number_of_cycles\": \"42\", \"section_prep_protocols_io_doi\": \"10.17504/protocols.io.menc3de\", \"reagent_prep_protocols_io_doi\": \"10.17504/protocols.io.menc3de\", \"antibodies_path\": \"antibodies.tsv\", \"contributors_path\": \"contributors.tsv\", \"data_path\": \"dataset-1\"}",
+                "headers": {}
+            },
+            "response": {
+                "status": {
+                    "code": 200,
+                    "message": "OK"
+                },
+                "headers": {},
+                "body": {
+                    "string": "{\"assaytype\":\"CODEX\",\"contains-pii\":false,\"dataset-type\":\"CODEX\",\"description\":\"CODEX\",\"dir-schema\":\"codex-v1\",\"is-multi-assay\":null,\"must-contain\":null,\"pipeline-shorthand\":null,\"primary\":true,\"process_state\":\"primary\",\"tbl-schema\":\"codex-v1\",\"ubkg_code\":\"C200060\",\"vitessce-hints\":[]}\n"
+                }
+            }
         }
-    },
-    "validation": {
-        "CODEX": {},
-        "contributors": {},
-        "antibodies": {}
-    }
+    ]
 }

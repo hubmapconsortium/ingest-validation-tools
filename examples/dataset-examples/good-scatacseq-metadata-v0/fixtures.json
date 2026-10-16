@@ -1,24 +1,23 @@
 {
-  "assaytype": {
-    "SNARE-seq2": {
-      "assaytype": "SNARE-ATACseq2",
-      "contains-pii": true,
-      "dataset-type": "ATACseq",
-      "description": "snATACseq (SNARE-seq2)",
-      "dir-schema": "scatacseq-v0",
-      "is-multi-assay": null,
-      "must-contain": null,
-      "pipeline-shorthand": null,
-      "primary": true,
-      "process_state": "primary",
-      "tbl-schema": "scatacseq-v0",
-      "ubkg_code": "C200420",
-      "vitessce-hints": []
-    }
-  },
-  "validation": {
-    "SNARE-ATACseq2": {},
-    "contributors": {}
-  }
+    "version": 1,
+    "interactions": [
+        {
+            "request": {
+                "method": "POST",
+                "uri": "https://ingest.api.hubmapconsortium.org/assaytype",
+                "body": "{\"donor_id\": \"UCSD0002\", \"tissue_id\": \"UCSD0002-RK-1-1-1\", \"execution_datetime\": \"2019-05-29 11:00\", \"protocols_io_doi\": \"10.17504/protocols.io.menc3de\", \"operator\": \"Nongluk Plongthongkum\", \"operator_email\": \"nplongth@eng.ucsd.edu\", \"pi\": \"Kun Zhang\", \"pi_email\": \"kzhang@eng.ucsd.edu\", \"assay_category\": \"sequence\", \"assay_type\": \"SNARE-seq2\", \"analyte_class\": \"DNA\", \"is_targeted\": \"FALSE\", \"acquisition_instrument_vendor\": \"Illumina\", \"acquisition_instrument_model\": \"NovaSeq\", \"is_technical_replicate\": \"TRUE\", \"library_id\": \"KC9\", \"sc_isolation_protocols_io_doi\": \"10.17504/protocols.io.menc3de\", \"sc_isolation_entity\": \"nucleus\", \"sc_isolation_tissue_dissociation\": \"dounce\", \"sc_isolation_enrichment\": \"none\", \"sc_isolation_quality_metric\": \"low clump\", \"sc_isolation_cell_number\": \"425000\", \"transposition_input\": \"4000\", \"transposition_method\": \"SNARE-Seq2-AC\", \"transposition_transposase_source\": \"In-house\", \"transposition_kit_number\": \"\", \"library_construction_protocols_io_doi\": \"10.17504/protocols.io.menc3de\", \"library_layout\": \"paired-end\", \"library_adapter_sequence\": \"CTGTCTCTTATACACATCT+AGATGTGTATAAGAGACAG\", \"cell_barcode_read\": \"R2\", \"cell_barcode_offset\": \"0,38,76\", \"cell_barcode_size\": \"8,8,8\", \"library_pcr_cycles\": \"9\", \"library_pcr_cycles_for_sample_index\": \"9\", \"library_final_yield\": \"2868\", \"library_final_yield_unit\": \"ng\", \"library_average_fragment_size\": \"650\", \"sequencing_reagent_kit\": \"NovaSeq 6000 S4 Reagent\", \"sequencing_read_format\": \"75/94/8/75\", \"sequencing_read_percent_q30\": \"91.05\", \"sequencing_phix_percent\": \"20\", \"contributors_path\": \"contributors.tsv\", \"data_path\": \"dataset-1\"}",
+                "headers": {}
+            },
+            "response": {
+                "status": {
+                    "code": 200,
+                    "message": "OK"
+                },
+                "headers": {},
+                "body": {
+                    "string": "{\"assaytype\":\"SNARE-ATACseq2\",\"contains-pii\":true,\"dataset-type\":\"ATACseq\",\"description\":\"snATACseq (SNARE-seq2)\",\"dir-schema\":\"scatacseq-v0\",\"is-multi-assay\":null,\"must-contain\":null,\"pipeline-shorthand\":null,\"primary\":true,\"process_state\":\"primary\",\"tbl-schema\":\"scatacseq-v0\",\"ubkg_code\":\"C200420\",\"vitessce-hints\":[]}\n"
+                }
+            }
+        }
+    ]
 }
-

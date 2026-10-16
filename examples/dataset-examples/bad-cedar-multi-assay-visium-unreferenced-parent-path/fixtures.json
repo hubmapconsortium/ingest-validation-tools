@@ -1,58 +1,59 @@
 {
-  "assaytype": {
-    "Visium (no probes)": {
-      "assaytype": "visium-no-probes",
-      "contains-pii": true,
-      "dataset-type": "Visium (no probes)",
-      "description": "Visium (no probes)",
-      "dir-schema": "visium-no-probes-v3",
-      "is-multi-assay": true,
-      "must-contain": [
-        "RNAseq",
-        "Histology"
-      ],
-      "pipeline-shorthand": null,
-      "primary": true,
-      "process_state": "primary",
-      "tbl-schema": null,
-      "ubkg_code": "C200740",
-      "vitessce-hints": []
-    },
-    "Histology": {
-      "assaytype": "h-and-e",
-      "contains-pii": false,
-      "dataset-type": "Histology",
-      "description": "H&E Stained Microscopy",
-      "dir-schema": "histology-v2",
-      "is-multi-assay": null,
-      "must-contain": null,
-      "pipeline-shorthand": null,
-      "primary": true,
-      "process_state": "primary",
-      "tbl-schema": null,
-      "ubkg_code": "C200940",
-      "vitessce-hints": []
-    },
-    "RNAseq": {
-      "assaytype": "rnaseq-visium-no-probes",
-      "contains-pii": true,
-      "dataset-type": "RNAseq",
-      "description": "Capture bead RNAseq (10x Genomics v3)",
-      "dir-schema": "rnaseq-v2",
-      "is-multi-assay": null,
-      "must-contain": null,
-      "pipeline-shorthand": null,
-      "primary": true,
-      "process_state": "primary",
-      "tbl-schema": null,
-      "ubkg_code": "C200810",
-      "vitessce-hints": []
-    }
-  },
-  "validation": {
-    "visium-no-probes": {},
-    "h-and-e": {},
-    "rnaseq-visium-no-probes": {}
-  }
+    "version": 1,
+    "interactions": [
+        {
+            "request": {
+                "method": "POST",
+                "uri": "https://ingest.api.hubmapconsortium.org/assaytype",
+                "body": "{\"metadata_schema_id\": \"944e5fa0-f68b-4bdd-8664-74a3909429a9\", \"lab_id\": \"Visium_9OLC_A4_S1\", \"preparation_protocol_doi\": \"https://dx.doi.org/10.17504/protocols.io.eq2lyno9qvx9/v1\", \"dataset_type\": \"RNAseq\", \"analyte_class\": \"RNA\", \"is_targeted\": \"No\", \"acquisition_instrument_vendor\": \"Illumina\", \"acquisition_instrument_model\": \"NovaSeq 6000\", \"source_storage_duration_value\": \"24\", \"source_storage_duration_unit\": \"day\", \"time_since_acquisition_instrument_calibration_value\": \"\", \"time_since_acquisition_instrument_calibration_unit\": \"\", \"contributors_path\": \"./contributors.tsv\", \"data_path\": \"./Visium_9OLC_A4_S1\", \"barcode_offset\": \"0\", \"barcode_read\": \"Read 1 (R1)\", \"barcode_size\": \"16\", \"umi_offset\": \"16\", \"umi_read\": \"Read 1 (R1)\", \"umi_size\": \"12\", \"assay_input_entity\": \"spot\", \"number_of_input_cells_or_nuclei\": \"\", \"amount_of_input_analyte_value\": \"\", \"amount_of_input_analyte_unit\": \"\", \"library_adapter_sequence\": \"TSO: AAGCAGTGGTATCAACGCAGAGTACATGGG\", \"library_average_fragment_size\": \"517\", \"library_input_amount_value\": \"176.834\", \"library_input_amount_unit\": \"ng\", \"library_output_amount_value\": \"735.479\", \"library_output_amount_unit\": \"ng\", \"library_concentration_value\": \"61.584\", \"library_concentration_unit\": \"nM\", \"library_layout\": \"single-end\", \"number_of_iterations_of_cdna_amplification\": \"16\", \"number_of_pcr_cycles_for_indexing\": \"16\", \"library_preparation_kit\": \"10X Genomics; Visium Spatial Gene Expression Slide and Reagent Kit, 4 slides, 16 reactions; PN 1000184\", \"sample_indexing_kit\": \"10X Genomics; Dual Index Kit TT, Set A (96 rxn); PN 1000215\", \"sample_indexing_set\": \"SI-TT-D1\", \"is_technical_replicate\": \"No\", \"expected_entity_capture_count\": \"1448\", \"sequencing_reagent_kit\": \"Illumina; NovaSeq 6000 S1 Reagent v1.5 Kit (100 Cycles); PN 20028319\", \"sequencing_read_format\": \"28,10,10,90\", \"sequencing_batch_id\": \"Penn-E.768\", \"capture_batch_id\": \"\", \"preparation_instrument_vendor\": \"\", \"preparation_instrument_model\": \"\", \"preparation_instrument_kit\": \"\"}",
+                "headers": {}
+            },
+            "response": {
+                "status": {
+                    "code": 200,
+                    "message": "OK"
+                },
+                "headers": {},
+                "body": {
+                    "string": "{\"assaytype\":\"rnaseq-visium-no-probes\",\"contains-pii\":true,\"dataset-type\":\"RNAseq\",\"description\":\"Capture bead RNAseq (10x Genomics v3)\",\"dir-schema\":\"rnaseq-v2\",\"is-multi-assay\":null,\"must-contain\":null,\"pipeline-shorthand\":null,\"primary\":true,\"process_state\":\"primary\",\"tbl-schema\":null,\"ubkg_code\":\"C200810\",\"vitessce-hints\":[]}\n"
+                }
+            }
+        },
+        {
+            "request": {
+                "method": "POST",
+                "uri": "https://ingest.api.hubmapconsortium.org/assaytype",
+                "body": "{\"metadata_schema_id\": \"babf1e69-f0eb-479a-bdc5-b70199669675\", \"lab_id\": \"Visium_9OLC_A4_S1\", \"preparation_protocol_doi\": \"https://dx.doi.org/10.17504/protocols.io.eq2lyno9qvx9/v1\", \"dataset_type\": \"Visium (no probes)\", \"contributors_path\": \"./contributors.tsv\", \"data_path\": \"./Visium_9OLC_A4_S1\", \"mapped_area_value\": \"42.25\", \"mapped_area_unit\": \"mm^2\", \"spot_size_value\": \"2375.9\", \"spot_size_unit\": \"um^2\", \"number_of_spots\": \"4992\", \"spot_spacing_value\": \"100\", \"spot_spacing_unit\": \"um\", \"capture_area_id\": \"A1\", \"permeabilization_time_value\": \"24\", \"permeabilization_time_unit\": \"minute\"}",
+                "headers": {}
+            },
+            "response": {
+                "status": {
+                    "code": 200,
+                    "message": "OK"
+                },
+                "headers": {},
+                "body": {
+                    "string": "{\"assaytype\":\"visium-no-probes\",\"contains-pii\":true,\"dataset-type\":\"Visium (no probes)\",\"description\":\"Visium (no probes)\",\"dir-schema\":\"visium-no-probes-v3\",\"is-multi-assay\":true,\"must-contain\":[\"RNAseq\",\"Histology\"],\"pipeline-shorthand\":null,\"primary\":true,\"process_state\":\"primary\",\"tbl-schema\":null,\"ubkg_code\":\"C200740\",\"vitessce-hints\":[]}\n"
+                }
+            }
+        },
+        {
+            "request": {
+                "method": "POST",
+                "uri": "https://ingest.api.hubmapconsortium.org/assaytype",
+                "body": "{\"metadata_schema_id\": \"e7475329-9a60-4088-8e34-19a3828e0b3b\", \"lab_id\": \"Visium_9OLC_A4_S1\", \"preparation_protocol_doi\": \"https://dx.doi.org/10.17504/protocols.io.eq2lyno9qvx9/v1\", \"dataset_type\": \"Histology\", \"analyte_class\": \"nucleic acid + protein\", \"is_targeted\": \"No\", \"acquisition_instrument_vendor\": \"Zeiss Microscopy\", \"acquisition_instrument_model\": \"Axio Observer 7\", \"source_storage_duration_value\": \"24\", \"source_storage_duration_unit\": \"day\", \"time_since_acquisition_instrument_calibration_value\": \"\", \"time_since_acquisition_instrument_calibration_unit\": \"\", \"contributors_path\": \"./contributors.tsv\", \"data_path\": \"./Visium_9OLC_A4_S1\", \"is_image_preprocessing_required\": \"Yes\", \"stain_name\": \"H&E\", \"stain_technique\": \"progressive staining\", \"is_batch_staining_done\": \"Yes\", \"is_staining_automated\": \"No\", \"preparation_instrument_vendor\": \"Not applicable\", \"preparation_instrument_model\": \"Not applicable\", \"slide_id\": \"V11A19-078\", \"tile_configuration\": \"Snake-by-rows\", \"scan_direction\": \"Right-and-down\", \"tiled_image_columns\": \"10\", \"tiled_image_count\": \"120\", \"intended_tile_overlap_percentage\": \"0.3\"}",
+                "headers": {}
+            },
+            "response": {
+                "status": {
+                    "code": 200,
+                    "message": "OK"
+                },
+                "headers": {},
+                "body": {
+                    "string": "{\"assaytype\":\"h-and-e\",\"contains-pii\":false,\"dataset-type\":\"Histology\",\"description\":\"H&E Stained Microscopy\",\"dir-schema\":\"histology-v2\",\"is-multi-assay\":null,\"must-contain\":null,\"pipeline-shorthand\":null,\"primary\":true,\"process_state\":\"primary\",\"tbl-schema\":null,\"ubkg_code\":\"C200940\",\"vitessce-hints\":[]}\n"
+                }
+            }
+        }
+    ]
 }
-
