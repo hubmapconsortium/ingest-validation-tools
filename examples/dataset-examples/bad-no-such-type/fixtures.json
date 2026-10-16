@@ -1,5 +1,23 @@
 {
-  "assaytype": {},
-  "validation": {}
+    "version": 1,
+    "interactions": [
+        {
+            "request": {
+                "method": "POST",
+                "uri": "https://ingest.api.hubmapconsortium.org/assaytype",
+                "body": "{\"dataset_type\": \"fake\"}",
+                "headers": {}
+            },
+            "response": {
+                "status": {
+                    "code": 200,
+                    "message": "OK"
+                },
+                "headers": {},
+                "body": {
+                    "string": "{}\n"
+                }
+            }
+        }
+    ]
 }
-

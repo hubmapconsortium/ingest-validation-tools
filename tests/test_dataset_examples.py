@@ -1,178 +1,57 @@
-import glob
-import json
-import re
 import unittest
-from collections import defaultdict
 from pathlib import Path
-from pprint import pformat
 from unittest.mock import patch
+
+from vcr.unittest import VCRTestCase
 
 from ingest_validation_tools.error_report import ErrorReport
 from ingest_validation_tools.schema_loader import PreflightError, SchemaVersion
 from ingest_validation_tools.upload import Upload
-from tests.fixtures import (
-    SCATACSEQ_BOTH_VERSIONS_VALID,
-    SCATACSEQ_HIGHER_VERSION_VALID,
-    SCATACSEQ_LOWER_VERSION_VALID,
-    SCATACSEQ_NEITHER_VERSION_VALID,
+from tests.fixtures import SCATACSEQ_BOTH_VERSIONS_VALID, SCATACSEQ_HIGHER_VERSION_VALID
+from tests.vcr_utils import (
+    DATASET_EXAMPLES_OPTS,
+    get_example_paths,
+    test_dataset_examples,
 )
-
-CONSTRAINTS_URL = "http://constraints_test/"
-ENTITIES_URL = "http://entities_test/"
-
-SHARED_OPTS = {
-    "encoding": "ascii",
-}
-DATASET_EXAMPLES_OPTS: dict = SHARED_OPTS | {
-    "dataset_ignore_globs": ["ignore-*.tsv", ".*"],
-    "upload_ignore_globs": ["drv_ignore_*"],
-}
-DATASET_IEC_EXAMPLES_OPTS = SHARED_OPTS | {
-    "dataset_ignore_globs": ["metadata.tsv"],
-    "upload_ignore_globs": ["*"],
-}
-PLUGIN_EXAMPLES_OPTS = DATASET_EXAMPLES_OPTS | {
-    "plugin_directory": "../ingest-validation-tests/src/ingest_validation_tests/",
-    "run_plugins": True,
-}
-
-
-class MockException(Exception):
-    def __init__(self, error):
-        super().__init__(error)
-
-
-def dataset_test(
-    test_dir: Path,
-    dataset_opts: dict,
-    verbose: bool = False,
-    globus_token: str = "",
-    offline: bool = False,
-):
-    # TODO: migrate/refactor
-    dataset_opts = dataset_opts | {"verbose": verbose}
-    print(f"Testing {test_dir}...")
-    if offline:
-        upload = TestDatasetExamples.prep_offline_upload(test_dir, dataset_opts)
-    else:
-        upload = Upload(Path(test_dir / "upload"), globus_token=globus_token, **dataset_opts)
-    report = ErrorReport(upload)
-    readme = open_or_create_readme(test_dir)
-    diff_test(test_dir, readme, check_report(report), verbose=verbose)
-    if "PreflightError" in report.as_md():
-        raise MockException(
-            f"Error report for {test_dir} contains PreflightError, do not make assertions about calls."
-        )
 
 
 class TestExamples(unittest.TestCase):
-    # TODO: migrate/refactor
-    dataset_test_dirs = []
+    """
+    Test all directories in examples/.
+    """
+
     errors = []
 
-    def setUp(self):
-        super().setUp()
-        self.get_paths()
+    @property
+    def dataset_test_dirs(self):
+        return get_example_paths()
 
-    def tearDown(self):
-        error_lines = "\n".join([str(error) for error in self.errors])
-        errors = " ".join([str(error) for error in self.errors])
-        self.assertEqual(
-            [],
-            self.errors,
-            f"""
-
-                -------ERRORS-------
-                {error_lines}
-
-                Run for more detailed output:
-                    env PYTHONPATH=src:$PYTHONPATH python -m tests.manual.update_test_data -t {errors} --verbose --globus_token "" --offline_test --dry_run
-                """,
-        )
-
-    def get_paths(self):
-        self.dataset_paths = {}
-        for test_dir in self.dataset_test_dirs:
-            metadata_paths = [path for path in Path(test_dir / "upload").glob("*metadata.tsv")]
-            self.dataset_paths[test_dir] = metadata_paths
-
-    def test_validate_dataset_examples(self, verbose: bool = False):
-        for test_dir in self.dataset_paths.keys():
-            with self.subTest(test_dir=test_dir):
-                if "dataset-examples" in test_dir.parts:
-                    opts = DATASET_EXAMPLES_OPTS
-                elif "dataset-iec-examples" in test_dir.parts:
-                    opts = DATASET_IEC_EXAMPLES_OPTS
-                elif "plugin-tests" in test_dir.parts:
-                    opts = PLUGIN_EXAMPLES_OPTS
-                else:
-                    opts = {}
-                with patch("ingest_validation_tools.validation_utils.get_assaytype_data"):
-                    with patch("ingest_validation_tools.upload.Upload._get_url_errors"):
-                        with patch(
-                            "ingest_validation_tools.local_validation.check_factory.cache_path",
-                            Path(__file__).parent / "fixtures/url-status-cache.json",
-                        ):
-                            try:
-                                dataset_test(
-                                    test_dir,
-                                    opts,
-                                    verbose=verbose,
-                                    offline=True,
-                                )
-                            except MockException as e:
-                                print(e)
-                                continue
-                            except AssertionError as e:
-                                print(e)
-                                self.errors.append(test_dir)
-                                continue
-
-    @staticmethod
-    def prep_offline_upload(test_dir: Path, opts: dict) -> Upload:
-        with patch(
-            "ingest_validation_tools.validation_utils.get_assaytype_data",
-            side_effect=lambda row, ingest_url, globus_token: assaytype_side_effect(
-                test_dir, row, ingest_url, globus_token
-            ),
-        ):
-            with patch("ingest_validation_tools.validation_utils.get_entity_api_data"):
-                with patch("ingest_validation_tools.upload.Upload._online_checks"):
-                    upload = Upload(Path(test_dir / "upload"), **opts)
-                    upload.get_errors()
-                    upload = mutate_upload_errors_with_fixtures(upload, test_dir)
-                    upload.get_info()
-                    return upload
+    def test_dataset_examples(self):
+        test_dataset_examples(self.dataset_test_dirs)
 
 
-class TestDatasetExamples(TestExamples):
-    # TODO: migrate/refactor
-    dataset_test_dirs = [
-        Path(test_dir)
-        for test_dir in [
-            *glob.glob("examples/dataset-examples/**"),
-            *glob.glob("examples/dataset-iec-examples/**"),
-        ]
-        if Path(test_dir).is_dir()
-    ]
+class TestUploads(VCRTestCase):
 
-    def prep_dir_schema_upload(self, test_dir: Path, opts: dict, patch_data: dict) -> Upload:
-        with patch(
-            "ingest_validation_tools.validation_utils.get_assaytype_data",
-            side_effect=lambda row, ingest_url, globus_token: assaytype_side_effect(
-                test_dir, row, ingest_url, globus_token
-            ),
-        ):
-            with patch(
-                "ingest_validation_tools.validation_utils.get_possible_directory_schemas",
-            ) as dir_schemas_func_patch:
-                with patch("ingest_validation_tools.upload.Upload._online_checks"):
-                    dir_schemas_func_patch.return_value = patch_data
-                    upload = Upload(Path(test_dir / "upload"), **opts)
-                    upload.get_errors()
-                    upload = mutate_upload_errors_with_fixtures(upload, test_dir)
-                    dir_schemas_func_patch.assert_called()
-                    return upload
+    def before_record_request(self, request: Request) -> Request:
+        """
+        Strip headers.
+        """
+        request.headers = None
+        return request
+
+    def before_record_response(self, response: dict) -> dict:
+        """
+        Strip headers, raise if Unauthorized, 500, No token errors.
+        """
+        response["headers"] = {}
+        return response
+
+    # TODO: needs easier way to update w/ globus token
+    def _get_vcr(self, **kwargs):
+        kwargs["before_record_request"] = self.before_record_request
+        kwargs["before_record_response"] = self.before_record_response
+        myvcr = super(TestUploads, self)._get_vcr(**kwargs)
+        return myvcr
 
     def test_data_dir_versions_highest_version(self):
         test_dirs = [
@@ -180,9 +59,13 @@ class TestDatasetExamples(TestExamples):
             Path("examples/dataset-examples/good-scatacseq-metadata-v0"),
         ]
         for test_dir in test_dirs:
-            upload = self.prep_dir_schema_upload(
-                test_dir, DATASET_EXAMPLES_OPTS, SCATACSEQ_HIGHER_VERSION_VALID
-            )
+            with patch(
+                "ingest_validation_tools.validation_utils.get_possible_directory_schemas",
+            ) as dir_schemas_func_patch:
+                dir_schemas_func_patch.return_value = SCATACSEQ_HIGHER_VERSION_VALID
+                upload = Upload(Path(test_dir / "upload"), **DATASET_EXAMPLES_OPTS)
+                upload.get_errors()
+                dir_schemas_func_patch.assert_called()
             info = upload.get_info()
             if info is None:
                 raise Exception("Info should not be none")
@@ -194,28 +77,6 @@ class TestDatasetExamples(TestExamples):
                     .get("Directory schema version")
                 )
                 self.assertEqual(dir_schema_version, "test-schema-v0.1")
-
-    # TODO: fix
-    # def test_data_dir_versions_lower_version(self):
-    #     test_dirs = [
-    #         Path("examples/dataset-examples/bad-scatacseq-data"),
-    #         Path("examples/dataset-examples/good-scatacseq-metadata-v0"),
-    #     ]
-    #     for test_dir in test_dirs:
-    #         upload = self.prep_dir_schema_upload(
-    #             test_dir, DATASET_EXAMPLES_OPTS, SCATACSEQ_LOWER_VERSION_VALID
-    #         )
-    #         info = upload.get_info()
-    #         if info is None:
-    #             raise Exception("Info should not be none")
-    #         for path in upload.dataset_metadata.keys():
-    #             dir_schema_version = (
-    #                 info.as_dict()
-    #                 .get("TSVs", {})
-    #                 .get(Path(path).name, {})
-    #                 .get("Directory schema version")
-    #             )
-    #             self.assertEqual(dir_schema_version, "test-schema-v1.0")
 
     def test_data_dir_versions_both_versions(self):
         test_dirs = [
@@ -223,9 +84,13 @@ class TestDatasetExamples(TestExamples):
             Path("examples/dataset-examples/good-scatacseq-metadata-v0"),
         ]
         for test_dir in test_dirs:
-            upload = self.prep_dir_schema_upload(
-                test_dir, DATASET_EXAMPLES_OPTS, SCATACSEQ_BOTH_VERSIONS_VALID
-            )
+            with patch(
+                "ingest_validation_tools.validation_utils.get_possible_directory_schemas",
+            ) as dir_schemas_func_patch:
+                dir_schemas_func_patch.return_value = SCATACSEQ_BOTH_VERSIONS_VALID
+                upload = Upload(Path(test_dir / "upload"), **DATASET_EXAMPLES_OPTS)
+                upload.get_errors()
+                dir_schemas_func_patch.assert_called()
             info = upload.get_info()
             if info is None:
                 raise Exception("Info should not be none")
@@ -237,28 +102,6 @@ class TestDatasetExamples(TestExamples):
                     .get("Directory schema version")
                 )
                 self.assertEqual(dir_schema_version, "test-schema-v0.1")
-
-    # TODO: fix
-    # def test_data_dir_versions_neither_version(self):
-    #     test_dirs = [
-    #         Path("examples/dataset-examples/bad-scatacseq-data"),
-    #         Path("examples/dataset-examples/good-scatacseq-metadata-v0"),
-    #     ]
-    #     for test_dir in test_dirs:
-    #         upload = self.prep_dir_schema_upload(
-    #             test_dir, DATASET_EXAMPLES_OPTS, SCATACSEQ_NEITHER_VERSION_VALID
-    #         )
-    #         info = upload.get_info()
-    #         if info is None:
-    #             raise Exception("Info should not be none")
-    #         for path in upload.dataset_metadata.keys():
-    #             dir_schema_version = (
-    #                 info.as_dict()
-    #                 .get("TSVs", {})
-    #                 .get(Path(path).name, {})
-    #                 .get("Directory schema version")
-    #             )
-    #             self.assertEqual(dir_schema_version, None)
 
     def get_schema_side_effect(
         self, tsv_path, encoding, entities_url, ingest_url, globus_token, directory_path
@@ -280,33 +123,27 @@ class TestDatasetExamples(TestExamples):
 
     def test_bad_multi_assay_parents(self):
         with patch(
-            "ingest_validation_tools.validation_utils.get_assaytype_data",
+            "ingest_validation_tools.upload.get_schema_version",
+            side_effect=lambda tsv_path, encoding, entities_url, ingest_url, globus_token, directory_path: self.get_schema_side_effect(
+                tsv_path, encoding, entities_url, ingest_url, globus_token, directory_path
+            ),
         ):
-            with patch("ingest_validation_tools.upload.Upload._online_checks"):
-                with patch(
-                    "ingest_validation_tools.upload.get_schema_version",
-                    side_effect=lambda tsv_path, encoding, entities_url, ingest_url, globus_token, directory_path: self.get_schema_side_effect(
-                        tsv_path, encoding, entities_url, ingest_url, globus_token, directory_path
-                    ),
-                ):
-                    bad_upload = Upload(
-                        Path("test_path"),
-                        tsv_paths=["repeated_parent_fake_path_1", "repeated_parent_fake_path_2"],
-                        **DATASET_EXAMPLES_OPTS,
-                    )
-                    with self.assertRaises(PreflightError):
-                        bad_upload.multi_parent
-                    good_upload = Upload(
-                        Path("test_path"),
-                        tsv_paths=["unique_parent_fake_path_1", "unique_parent_fake_path_2"],
-                        **DATASET_EXAMPLES_OPTS,
-                    )
-                    self.assertEqual(
-                        good_upload.multi_parent,
-                        SchemaVersion(
-                            schema_name="visium-no-probes", contains=["histology", "rnaseq"]
-                        ),
-                    )
+            bad_upload = Upload(
+                Path("test_path"),
+                tsv_paths=["repeated_parent_fake_path_1", "repeated_parent_fake_path_2"],
+                **DATASET_EXAMPLES_OPTS,
+            )
+            with self.assertRaises(PreflightError):
+                bad_upload.multi_parent
+            good_upload = Upload(
+                Path("test_path"),
+                tsv_paths=["unique_parent_fake_path_1", "unique_parent_fake_path_2"],
+                **DATASET_EXAMPLES_OPTS,
+            )
+            self.assertEqual(
+                good_upload.multi_parent,
+                SchemaVersion(schema_name="visium-no-probes", contains=["histology", "rnaseq"]),
+            )
 
     def test_counts(self):
         test_dirs = {
@@ -325,16 +162,50 @@ class TestDatasetExamples(TestExamples):
                 "Preflight Errors": "Found multiple dataset types in upload: CODEX, SNARE-seq2."
             },
         }
-        with patch(
-            "ingest_validation_tools.local_validation.check_factory.cache_path",
-            Path(__file__).parent / "fixtures/url-status-cache.json",
-        ):
-            for test_dir, expected_counts in test_dirs.items():
-                upload = self.prep_offline_upload(test_dir, DATASET_EXAMPLES_OPTS)
-                report = ErrorReport(upload)
-                self.assertEqual(report.counts, expected_counts)
+        for test_dir, expected_counts in test_dirs.items():
+            upload = Upload(Path(test_dir / "upload"), **DATASET_EXAMPLES_OPTS)
+            report = ErrorReport(upload)
+            self.assertEqual(report.counts, expected_counts)
 
-
-# if __name__ == "__main__":
-#     suite = unittest.TestLoader().loadTestsFromTestCase(TestDatasetExamples)
-#     suite.debug()
+    # TODO: fix; not migrated to VCR paradigm
+    # def test_data_dir_versions_lower_version(self):
+    #     test_dirs = [
+    #         Path("examples/dataset-examples/bad-scatacseq-data"),
+    #         Path("examples/dataset-examples/good-scatacseq-metadata-v0"),
+    #     ]
+    #     for test_dir in test_dirs:
+    #         upload = self.prep_dir_schema_upload(
+    #             test_dir, DATASET_EXAMPLES_OPTS, SCATACSEQ_LOWER_VERSION_VALID
+    #         )
+    #         info = upload.get_info()
+    #         if info is None:
+    #             raise Exception("Info should not be none")
+    #         for path in upload.dataset_metadata.keys():
+    #             dir_schema_version = (
+    #                 info.as_dict()
+    #                 .get("TSVs", {})
+    #                 .get(Path(path).name, {})
+    #                 .get("Directory schema version")
+    #             )
+    #             self.assertEqual(dir_schema_version, "test-schema-v1.0")
+    # TODO: fix
+    # def test_data_dir_versions_neither_version(self):
+    #     test_dirs = [
+    #         Path("examples/dataset-examples/bad-scatacseq-data"),
+    #         Path("examples/dataset-examples/good-scatacseq-metadata-v0"),
+    #     ]
+    #     for test_dir in test_dirs:
+    #         upload = self.prep_dir_schema_upload(
+    #             test_dir, DATASET_EXAMPLES_OPTS, SCATACSEQ_NEITHER_VERSION_VALID
+    #         )
+    #         info = upload.get_info()
+    #         if info is None:
+    #             raise Exception("Info should not be none")
+    #         for path in upload.dataset_metadata.keys():
+    #             dir_schema_version = (
+    #                 info.as_dict()
+    #                 .get("TSVs", {})
+    #                 .get(Path(path).name, {})
+    #                 .get("Directory schema version")
+    #             )
+    #             self.assertEqual(dir_schema_version, None)

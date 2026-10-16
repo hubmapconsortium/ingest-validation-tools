@@ -1,23 +1,41 @@
 {
-  "assaytype": {
-    "CODEX": {
-      "assaytype": "CODEX",
-      "contains-pii": false,
-      "dataset-type": "CODEX",
-      "description": "CODEX",
-      "dir-schema": "codex-v1",
-      "is-multi-assay": null,
-      "must-contain": null,
-      "pipeline-shorthand": null,
-      "primary": true,
-      "process_state": "primary",
-      "tbl-schema": "codex-v0",
-      "ubkg_code": "C200060",
-      "vitessce-hints": []
-    }
-  },
-  "validation": {
-    "CODEX": {}
-  }
+    "version": 1,
+    "interactions": [
+        {
+            "request": {
+                "method": "POST",
+                "uri": "https://ingest.api.hubmapconsortium.org/assaytype",
+                "body": "{\"assay_type\": \"CODEX\", \"data_path\": \".\"}",
+                "headers": {}
+            },
+            "response": {
+                "status": {
+                    "code": 200,
+                    "message": "OK"
+                },
+                "headers": {},
+                "body": {
+                    "string": "{\"assaytype\":\"CODEX\",\"contains-pii\":false,\"dataset-type\":\"CODEX\",\"description\":\"CODEX\",\"dir-schema\":\"codex-v1\",\"is-multi-assay\":null,\"must-contain\":null,\"pipeline-shorthand\":null,\"primary\":true,\"process_state\":\"primary\",\"tbl-schema\":\"codex-v0\",\"ubkg_code\":\"C200060\",\"vitessce-hints\":[]}\n"
+                }
+            }
+        },
+        {
+            "request": {
+                "method": "POST",
+                "uri": "https://ingest.api.hubmapconsortium.org/assaytype",
+                "body": "{\"assay_type\": \"CODEX\", \"data_path\": \".\"}",
+                "headers": {}
+            },
+            "response": {
+                "status": {
+                    "code": 200,
+                    "message": "OK"
+                },
+                "headers": {},
+                "body": {
+                    "string": "{\"assaytype\":\"CODEX\",\"contains-pii\":false,\"dataset-type\":\"CODEX\",\"description\":\"CODEX\",\"dir-schema\":\"codex-v1\",\"is-multi-assay\":null,\"must-contain\":null,\"pipeline-shorthand\":null,\"primary\":true,\"process_state\":\"primary\",\"tbl-schema\":\"codex-v0\",\"ubkg_code\":\"C200060\",\"vitessce-hints\":[]}\n"
+                }
+            }
+        }
+    ]
 }
-

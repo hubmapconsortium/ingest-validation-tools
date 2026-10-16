@@ -1,24 +1,23 @@
 {
-  "assaytype": {
-    "scRNAseq-10xGenomics": {
-      "assaytype": "scRNAseq-10xGenomics-v3",
-      "contains-pii": true,
-      "dataset-type": "RNAseq",
-      "description": "scRNAseq (10x Genomics v3)",
-      "dir-schema": "scrnaseq-v0",
-      "is-multi-assay": null,
-      "must-contain": null,
-      "pipeline-shorthand": null,
-      "primary": true,
-      "process_state": "primary",
-      "tbl-schema": "scrnaseq-v0",
-      "ubkg_code": "C200490",
-      "vitessce-hints": []
-    }
-  },
-  "validation": {
-    "scRNAseq-10xGenomics-v3": {},
-    "contributors": {}
-  }
+    "version": 1,
+    "interactions": [
+        {
+            "request": {
+                "method": "POST",
+                "uri": "https://ingest.api.hubmapconsortium.org/assaytype",
+                "body": "{\"donor_id\": \"AZ123\", \"tissue_id\": \"AZ123-AZ-123\", \"execution_datetime\": \"2020-01-01 01:01\", \"protocols_io_doi\": \"10.17504/123\", \"operator\": \"123\", \"operator_email\": \"fake@example.com\", \"pi\": \"123\", \"pi_email\": \"fake@example.com\", \"assay_category\": \"sequence\", \"assay_type\": \"scRNAseq-10xGenomics\", \"analyte_class\": \"RNA\", \"is_targeted\": \"true\", \"acquisition_instrument_vendor\": \"123\", \"acquisition_instrument_model\": \"123\", \"sc_isolation_protocols_io_doi\": \"10.17504/123\", \"sc_isolation_entity\": \"whole cell\", \"sc_isolation_tissue_dissociation\": \"123\", \"sc_isolation_enrichment\": \"123\", \"sc_isolation_quality_metric\": \"123\", \"sc_isolation_cell_number\": \"123\", \"rnaseq_assay_input\": \"123\", \"rnaseq_assay_method\": \"123\", \"library_construction_protocols_io_doi\": \"10.17504/123\", \"library_layout\": \"single-end\", \"library_adapter_sequence\": \"123\", \"library_id\": \"123\", \"is_technical_replicate\": \"false\", \"cell_barcode_read\": \"123\", \"cell_barcode_offset\": \"123\", \"cell_barcode_size\": \"123\", \"library_pcr_cycles\": \"123\", \"library_pcr_cycles_for_sample_index\": \"123\", \"library_final_yield_value\": \"123\", \"library_final_yield_unit\": \"ng\", \"library_average_fragment_size\": \"123\", \"sequencing_reagent_kit\": \"123\", \"sequencing_read_format\": \"12/34/56\", \"sequencing_read_percent_q30\": \"50\", \"sequencing_phix_percent\": \"50\", \"contributors_path\": \"./contrib.tsv\", \"data_path\": \"data\"}",
+                "headers": {}
+            },
+            "response": {
+                "status": {
+                    "code": 200,
+                    "message": "OK"
+                },
+                "headers": {},
+                "body": {
+                    "string": "{\"assaytype\":\"scRNAseq-10xGenomics-v3\",\"contains-pii\":true,\"dataset-type\":\"RNAseq\",\"description\":\"scRNAseq (10x Genomics v3)\",\"dir-schema\":\"scrnaseq-v0\",\"is-multi-assay\":null,\"must-contain\":null,\"pipeline-shorthand\":null,\"primary\":true,\"process_state\":\"primary\",\"tbl-schema\":\"scrnaseq-v0\",\"ubkg_code\":\"C200490\",\"vitessce-hints\":[]}\n"
+                }
+            }
+        }
+    ]
 }
-

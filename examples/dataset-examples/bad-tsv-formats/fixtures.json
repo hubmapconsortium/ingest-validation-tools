@@ -1,23 +1,23 @@
 {
-  "assaytype": {
-    "CODEX": {
-      "assaytype": "CODEX",
-      "contains-pii": false,
-      "dataset-type": "CODEX",
-      "description": "CODEX",
-      "dir-schema": "codex-v1",
-      "is-multi-assay": null,
-      "must-contain": null,
-      "pipeline-shorthand": null,
-      "primary": true,
-      "process_state": "primary",
-      "tbl-schema": "codex-v0",
-      "ubkg_code": "C200060",
-      "vitessce-hints": []
-    }
-  },
-  "validation": {
-    "CODEX": {}
-  }
+    "version": 1,
+    "interactions": [
+        {
+            "request": {
+                "method": "POST",
+                "uri": "https://ingest.api.hubmapconsortium.org/assaytype",
+                "body": "{\"donor_id\": \"not-uuid\", \"tissue_id\": \"not-uuid\", \"execution_datetime\": \"not-time\", \"protocols_io_doi\": \"10\\\\.17504/protocols.io.menc3de\", \"operator\": \"operator\", \"operator_email\": \"operator_email@example.com\", \"pi\": \"pi\", \"pi_email\": \"pi_email@example.com\", \"assay_category\": \"imaging\", \"assay_type\": \"CODEX\", \"analyte_class\": \"analyte_class\", \"is_targeted\": \"is_targeted\", \"acquisition_instrument_vendor\": \"acquisition_instrument_vendor\", \"acquisition_instrument_model\": \"acquisition_instrument_model\", \"resolution_x_value\": \"forty-two\", \"resolution_x_unit\": \"inches\", \"resolution_y_value\": \"forty-two\", \"resolution_y_unit\": \"inches\", \"resolution_z_value\": \"forty-two\", \"resolution_z_unit\": \"inches\", \"preparation_instrument_vendor\": \"preparation_instrument_vendor\", \"preparation_instrument_model\": \"preparation_instrument_model\", \"number_of_antibodies\": \"0.5\", \"number_of_channels\": \"0.5\", \"number_of_cycles\": \"0.5\", \"section_prep_protocols_io_doi\": \"not-doi\", \"reagent_prep_protocols_io_doi\": \"not-doi\", \"antibodies_path\": \"antibodies.tsv\", \"contributors_path\": \"contributors.tsv\", \"data_path\": \"dataset-1/\"}",
+                "headers": {}
+            },
+            "response": {
+                "status": {
+                    "code": 200,
+                    "message": "OK"
+                },
+                "headers": {},
+                "body": {
+                    "string": "{\"assaytype\":\"CODEX\",\"contains-pii\":false,\"dataset-type\":\"CODEX\",\"description\":\"CODEX\",\"dir-schema\":\"codex-v1\",\"is-multi-assay\":null,\"must-contain\":null,\"pipeline-shorthand\":null,\"primary\":true,\"process_state\":\"primary\",\"tbl-schema\":\"codex-v0\",\"ubkg_code\":\"C200060\",\"vitessce-hints\":[]}\n"
+                }
+            }
+        }
+    ]
 }
-
