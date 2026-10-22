@@ -5,6 +5,7 @@
 - Update harmonized specification links for docs site harmonization
 - Add harmonized links for sample subtypes (`/metadata/sample/`)
 - Create new directory schema: `/ingest-validation-tools/src/ingest_validation_tools/directory-schemas/wes-v0.0.yaml`
+- Update CEDAR schema for WES.
 
 ## v1.1.11
 
