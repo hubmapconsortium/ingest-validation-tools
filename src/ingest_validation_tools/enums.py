@@ -202,7 +202,7 @@ shared_enums: dict[str, list[str]] = {
         "Paired-Tag",
         "MACSima",
         "snm3C-seq",
-        "Whole Exome Sequencing (WES)"
+        "Whole Exome Sequencing (WES)",
     ],
     "analyte_class": [
         "DNA",
