@@ -4,6 +4,8 @@
 
 ### Metadata validation of a single TSV
 
+# TODO: fix all
+
 To check just the metadata for a single TSV, use the [Metadata Spreadsheet Validator](https://metadatavalidator.metadatacenter.org/).
 
 ### Testing online
@@ -37,13 +39,15 @@ To just run Python unittests for plugins, run the following from the top-level d
 ```
 python -m unittest tests/manual/test_plugins.py
 ```
-Note: you may need to prepend `env PYTHONPATH=/ingest-validation-tools` to this command. 
+
+Note: you may need to prepend `env PYTHONPATH=/ingest-validation-tools` to this command.
 
 You can run plugin tests online using the `test.sh` script:
 
 ```
 ./test.sh -o <globus_token> -d examples/plugin-tests
 ```
+
 ...or by adding the `-p` flag when running `test.sh`.
 
 ## Creating Tests

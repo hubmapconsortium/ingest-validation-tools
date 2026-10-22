@@ -7,12 +7,19 @@ from unittest.mock import patch
 from vcr.request import Request
 from vcr.unittest import VCRTestCase
 
+from ingest_validation_tools.directory_validator import (
+    DirectoryValidationErrors,
+    validate_directory,
+)
 from ingest_validation_tools.error_report import ErrorReport
 from ingest_validation_tools.schema_loader import PreflightError, SchemaVersion
 from ingest_validation_tools.upload import Upload
+from ingest_validation_tools.validation_utils import get_data_dir_errors
 from tests.fixtures.fixtures import (
     SCATACSEQ_BOTH_VERSIONS_VALID,
     SCATACSEQ_HIGHER_VERSION_VALID,
+    SCATACSEQ_LOWER_VERSION_VALID,
+    SCATACSEQ_NEITHER_VERSION_VALID,
 )
 from tests.vcr_utils import (
     DATASET_EXAMPLES_OPTS,
@@ -67,54 +74,77 @@ class TestUploads(VCRTestCase):
         return myvcr
 
     def test_data_dir_versions_highest_version(self):
-        test_dirs = [
-            Path("examples/dataset-examples/bad-scatacseq-data"),
-            Path("examples/dataset-examples/good-scatacseq-metadata-v0"),
-        ]
-        for test_dir in test_dirs:
+        test_dirs = {
+            Path("examples/dataset-examples/bad-scatacseq-data"): {
+                "raises": (True, True),
+                "expected_errors": {
+                    "test-schema-v0.1": {"Required but missing": [".*\\.fastq\\.gz"]}
+                },
+            },
+            Path("examples/dataset-examples/good-scatacseq-metadata-v0"): {
+                "raises": (True, False),
+                "expected_errors": {"test-schema-v0.1": {}},
+            },
+        }
+        for test_dir, data in test_dirs.items():
+            for i, (_, schema) in enumerate(SCATACSEQ_HIGHER_VERSION_VALID.items()):
+                if data["raises"][i]:
+                    with self.assertRaises(DirectoryValidationErrors):
+                        validate_directory([test_dir], schema["files"])
+                else:
+                    validate_directory([test_dir], schema["files"])
             with patch(
                 "ingest_validation_tools.validation_utils.get_possible_directory_schemas",
             ) as dir_schemas_func_patch:
                 dir_schemas_func_patch.return_value = SCATACSEQ_HIGHER_VERSION_VALID
-                upload = Upload(Path(test_dir / "upload"), **get_dataset_example_opts())
-                upload.get_errors()
-                dir_schemas_func_patch.assert_called()
-            info = upload.get_info()
-            if info is None:
-                raise Exception("Info should not be none")
-            for path in upload.dataset_metadata.keys():
-                dir_schema_version = (
-                    info.as_dict()
-                    .get("TSVs", {})
-                    .get(Path(path).name, {})
-                    .get("Directory schema version")
-                )
-                self.assertEqual(dir_schema_version, "test-schema-v0.1")
+                errors = get_data_dir_errors("test-schema-v0", Path("."), test_dir)
+                assert errors == data["expected_errors"]
 
-    def test_data_dir_versions_both_versions(self):
+    def test_data_dir_versions_lower_version(self):
+        test_dir = Path("examples/dataset-examples/good-scatacseq-metadata-v0")
+        for schema_name, schema in SCATACSEQ_LOWER_VERSION_VALID.items():
+            if schema_name == "test-schema-v0.1":
+                with self.assertRaises(DirectoryValidationErrors):
+                    validate_directory([test_dir], schema["files"])
+            else:
+                validate_directory([test_dir], schema["files"])
+        with patch(
+            "ingest_validation_tools.validation_utils.get_possible_directory_schemas",
+        ) as dir_schemas_func_patch:
+            dir_schemas_func_patch.return_value = SCATACSEQ_LOWER_VERSION_VALID
+            errors = get_data_dir_errors("test-schema-v0", Path("."), test_dir)
+            assert errors == {"test-schema-v0.0": {}}
+
+    def test_data_dir_versions_neither_version(self):
+        """
+        Dir structure does not match either dir schema, report errors for
+        highest/most recent version.
+        """
         test_dirs = [
             Path("examples/dataset-examples/bad-scatacseq-data"),
             Path("examples/dataset-examples/good-scatacseq-metadata-v0"),
         ]
         for test_dir in test_dirs:
-            with patch(
-                "ingest_validation_tools.validation_utils.get_possible_directory_schemas",
-            ) as dir_schemas_func_patch:
-                dir_schemas_func_patch.return_value = SCATACSEQ_BOTH_VERSIONS_VALID
-                upload = Upload(Path(test_dir / "upload"), **get_dataset_example_opts())
-                upload.get_errors()
-                dir_schemas_func_patch.assert_called()
-            info = upload.get_info()
-            if info is None:
-                raise Exception("Info should not be none")
-            for path in upload.dataset_metadata.keys():
-                dir_schema_version = (
-                    info.as_dict()
-                    .get("TSVs", {})
-                    .get(Path(path).name, {})
-                    .get("Directory schema version")
-                )
-                self.assertEqual(dir_schema_version, "test-schema-v0.1")
+            for _, schema in SCATACSEQ_NEITHER_VERSION_VALID.items():
+                with self.assertRaises(DirectoryValidationErrors):
+                    validate_directory([test_dir], schema["files"])
+        with patch(
+            "ingest_validation_tools.validation_utils.get_possible_directory_schemas",
+        ) as dir_schemas_func_patch:
+            dir_schemas_func_patch.return_value = SCATACSEQ_NEITHER_VERSION_VALID
+            errors = get_data_dir_errors("test-schema-v0", Path("."), test_dir)
+            errors["test-schema-v0.1"]
+
+    def test_data_dir_versions_both_versions(self):
+        test_dir = Path("examples/dataset-examples/good-scatacseq-metadata-v0/upload")
+        for _, schema in SCATACSEQ_BOTH_VERSIONS_VALID.items():
+            validate_directory([test_dir], schema["files"])
+        with patch(
+            "ingest_validation_tools.validation_utils.get_possible_directory_schemas",
+        ) as dir_schemas_func_patch:
+            dir_schemas_func_patch.return_value = SCATACSEQ_BOTH_VERSIONS_VALID
+            errors = get_data_dir_errors("test-schema-v0", Path("."), test_dir)
+            assert errors == {"test-schema-v0.1": {}}
 
     def get_schema_side_effect(
         self, tsv_path, encoding, entities_url, ingest_url, globus_token, directory_path
@@ -179,49 +209,6 @@ class TestUploads(VCRTestCase):
             upload = Upload(Path(test_dir / "upload"), **get_dataset_example_opts())
             report = ErrorReport(upload)
             self.assertEqual(report.counts, expected_counts)
-
-    # TODO: fix; not migrated to VCR paradigm
-    # def test_data_dir_versions_lower_version(self):
-    #     test_dirs = [
-    #         Path("examples/dataset-examples/bad-scatacseq-data"),
-    #         Path("examples/dataset-examples/good-scatacseq-metadata-v0"),
-    #     ]
-    #     for test_dir in test_dirs:
-    #         upload = self.prep_dir_schema_upload(
-    #             test_dir, get_dataset_example_opts(), SCATACSEQ_LOWER_VERSION_VALID
-    #         )
-    #         info = upload.get_info()
-    #         if info is None:
-    #             raise Exception("Info should not be none")
-    #         for path in upload.dataset_metadata.keys():
-    #             dir_schema_version = (
-    #                 info.as_dict()
-    #                 .get("TSVs", {})
-    #                 .get(Path(path).name, {})
-    #                 .get("Directory schema version")
-    #             )
-    #             self.assertEqual(dir_schema_version, "test-schema-v1.0")
-    # TODO: fix
-    # def test_data_dir_versions_neither_version(self):
-    #     test_dirs = [
-    #         Path("examples/dataset-examples/bad-scatacseq-data"),
-    #         Path("examples/dataset-examples/good-scatacseq-metadata-v0"),
-    #     ]
-    #     for test_dir in test_dirs:
-    #         upload = self.prep_dir_schema_upload(
-    #             test_dir, get_dataset_example_opts(), SCATACSEQ_NEITHER_VERSION_VALID
-    #         )
-    #         info = upload.get_info()
-    #         if info is None:
-    #             raise Exception("Info should not be none")
-    #         for path in upload.dataset_metadata.keys():
-    #             dir_schema_version = (
-    #                 info.as_dict()
-    #                 .get("TSVs", {})
-    #                 .get(Path(path).name, {})
-    #                 .get("Directory schema version")
-    #             )
-    #             self.assertEqual(dir_schema_version, None)
 
 
 if __name__ == "__main__":

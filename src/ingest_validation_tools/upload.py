@@ -522,7 +522,6 @@ class Upload:
         Raises Exception if any errors found.
         """
         assert value, f"Unable to check URL for column '{field}' on row {row + 2}: empty value."
-
         if field in CHECK_FIELDS:
             headers = self.app_context.get("request_header", {})
             response = get_entity_api_data(
@@ -531,18 +530,19 @@ class Upload:
             if schema.schema_name == DatasetType.DATASET and field == "parent_sample_id":
                 self._check_for_organ_other(response.json())
                 self._check_parent_sample_entity_type(response.json())
+            entity_type_vals = get_entity_type_vals(response.json())
             # Do not get ancestor info for sample (no subtype) or source
             if (
-                not (schema.schema_name == OtherTypes.SAMPLE and field == "sample_id")
-                and not schema.schema_name == OtherTypes.SOURCE
-            ):
-                return AncestorTypeInfo(
-                    entity_id=value,
-                    source_schema=schema,
-                    row=row,
-                    column=field,
-                    *get_entity_type_vals(response.json()),
-                )
+                schema.schema_name == OtherTypes.SAMPLE and not entity_type_vals[0]
+            ) or schema.schema_name == OtherTypes.SOURCE:
+                return
+            return AncestorTypeInfo(
+                entity_id=value,
+                source_schema=schema,
+                row=row,
+                column=field,
+                *entity_type_vals,
+            )
         elif field in ["orcid_id", "orcid"]:
             self._check_orcid(field, value)
 

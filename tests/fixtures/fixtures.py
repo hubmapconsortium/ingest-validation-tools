@@ -12,12 +12,12 @@ SCATACSEQ_HIGHER_VERSION_VALID = {
     "test-schema-v0.0": {
         "files": [
             {
-                "pattern": "[^/]+\\.fastq\\.gz",
+                "pattern": ".*\\.fastq\\.gz",
                 "description": "Compressed FastQ file",
                 "required": True,
             },
             {
-                "pattern": "extras\\/.*",
+                "pattern": ".*extras\\/.*",
                 "required": True,
                 "description": "Folder for general lab-specific files related to the dataset. [Exists in all assays]",
             },
@@ -26,14 +26,14 @@ SCATACSEQ_HIGHER_VERSION_VALID = {
     "test-schema-v0.1": {
         "files": [
             {
-                "pattern": "[^/]+\\.fastq\\.gz",
+                "pattern": ".*\\.fastq\\.gz",
                 "description": "Compressed FastQ file",
                 "required": True,
             },
             {
-                "pattern": "extras\\/.*",
+                "pattern": ".*",
+                "description": "other files",
                 "required": False,
-                "description": "Folder for general lab-specific files related to the dataset. [Exists in all assays]",
             },
         ]
     },
@@ -43,7 +43,7 @@ SCATACSEQ_LOWER_VERSION_VALID = {
     "test-schema-v0.0": {
         "files": [
             {
-                "pattern": "[^/]+\\.fastq\\.gz",
+                "pattern": ".*\\.fastq\\.gz",
                 "description": "Compressed FastQ file",
                 "required": True,
             },
@@ -52,12 +52,17 @@ SCATACSEQ_LOWER_VERSION_VALID = {
                 "required": False,
                 "description": "Folder for general lab-specific files related to the dataset. [Exists in all assays]",
             },
+            {
+                "pattern": ".*",
+                "description": "other files",
+                "required": False,
+            },
         ]
     },
     "test-schema-v0.1": {
         "files": [
             {
-                "pattern": "[^/]+\\.fastq\\.gz",
+                "pattern": ".*\\.fastq\\.gz",
                 "description": "Compressed FastQ file",
                 "required": True,
             },
@@ -74,7 +79,7 @@ SCATACSEQ_NEITHER_VERSION_VALID = {
     "test-schema-v0.0": {
         "files": [
             {
-                "pattern": "[^/]+\\.fastq\\.gz",
+                "pattern": ".*\\.fastq\\.gz",
                 "description": "Compressed FastQ file",
                 "required": True,
             },
@@ -88,7 +93,7 @@ SCATACSEQ_NEITHER_VERSION_VALID = {
     "test-schema-v0.1": {
         "files": [
             {
-                "pattern": "[^/]+\\.fastq\\.gz",
+                "pattern": ".*\\.fastq\\.gz",
                 "description": "Compressed FastQ file",
                 "required": True,
             },
@@ -101,11 +106,11 @@ SCATACSEQ_NEITHER_VERSION_VALID = {
     },
 }
 
-SCATACSEQ_BOTH_VERSIONS_VALID = {
+SCATACSEQ_BOTH_VERSIONS_VALID: dict[str, dict] = {
     "test-schema-v0.0": {
         "files": [
             {
-                "pattern": "[^/]+\\.fastq\\.gz",
+                "pattern": ".*\\.fastq\\.gz",
                 "description": "Compressed FastQ file",
                 "required": True,
             },
@@ -113,13 +118,18 @@ SCATACSEQ_BOTH_VERSIONS_VALID = {
                 "pattern": "extras\\/.*",
                 "required": False,
                 "description": "Folder for general lab-specific files related to the dataset. [Exists in all assays]",
+            },
+            {
+                "pattern": ".*",
+                "description": "other files",
+                "required": False,
             },
         ]
     },
     "test-schema-v0.1": {
         "files": [
             {
-                "pattern": "[^/]+\\.fastq\\.gz",
+                "pattern": ".*\\.fastq\\.gz",
                 "description": "Compressed FastQ file",
                 "required": True,
             },
@@ -127,6 +137,11 @@ SCATACSEQ_BOTH_VERSIONS_VALID = {
                 "pattern": "extras\\/.*",
                 "required": False,
                 "description": "Folder for general lab-specific files related to the dataset. [Exists in all assays]",
+            },
+            {
+                "pattern": ".*",
+                "description": "other files",
+                "required": False,
             },
         ]
     },

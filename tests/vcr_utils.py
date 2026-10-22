@@ -145,7 +145,6 @@ def print_change_report(change_report: dict[str, str], verbose: bool = True):
         if verbose:
             for dir, message in change_report.items():
                 print(f"{dir}: {message}")
-            # TODO: update readme docs
             print(
                 dedent(
                     f"""
