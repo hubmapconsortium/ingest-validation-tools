@@ -1,0 +1,621 @@
+interactions:
+- request:
+    body: null
+    headers: {}
+    method: GET
+    uri: https://entity.api.hubmapconsortium.org/entities/HBM427.JWVV.723?exclude=direct_ancestors.files
+  response:
+    body:
+      string: '{"created_by_user_displayname":"daniel Cotter","created_by_user_email":"Daniel.cotter@stanford.edu","created_by_user_sub":"9bc64b24-20e9-4612-bb84-a80e9f806022","created_timestamp":1621978930000,"data_access_level":"public","description":"aka
+        W158 (Wash. U.) aka B007 (Stanford)","direct_ancestor":{"created_by_user_displayname":"daniel
+        cotter","created_by_user_email":"Daniel.cotter@stanford.edu","created_by_user_sub":"9bc64b24-20e9-4612-bb84-a80e9f806022","created_timestamp":1621898209250,"data_access_level":"public","description":"aka
+        W158 (Wash. U.)\naka B007 (Stanford)","entity_type":"Sample","group_name":"Stanford
+        TMC","group_uuid":"def5fd76-ed43-11e8-b56a-0e8017bdda58","hubmap_id":"HBM358.NWPX.662","lab_tissue_sample_id":"CALT0013-HT-1","last_modified_timestamp":1645053640582,"last_modified_user_displayname":"Shin
+        Lin","last_modified_user_email":"shinlin@uw.edu","last_modified_user_sub":"30bc4c7e-a52e-45e8-bf99-1559112068c4","protocol_url":"https://dx.doi.org/10.17504/protocols.io.biqpkdvn","sample_category":"block","submission_id":"CALT0013-HT-1","uuid":"60282a6fe6045167528b1f98b983b5d7"},"entity_type":"Sample","group_name":"Stanford
+        TMC","group_uuid":"def5fd76-ed43-11e8-b56a-0e8017bdda58","hubmap_id":"HBM427.JWVV.723","last_modified_timestamp":1694884374948,"last_modified_user_displayname":"HuBMAP
+        Process","last_modified_user_email":"hubmap@hubmapconsortium.org","last_modified_user_sub":"3e7bce63-129d-33d0-8f6c-834b34cd382e","metadata":{"cold_ischemia_time_unit":"minutes","cold_ischemia_time_value":"138","health_status":"relatively
+        healthy","organ_condition":"healthy","pathologist_report":"normal, no cancer,
+        no necrosis","perfusion_solution":"HTK","procedure_date":"2020-12-15","specimen_preservation_temperature":"Liquid
+        Nitrogen","specimen_quality_criteria":"H&E","specimen_tumor_distance_unit":"","specimen_tumor_distance_value":"","vital_state":"deceased","warm_ischemia_time_unit":"minutes","warm_ischemia_time_value":"0"},"protocol_url":"https://dx.doi.org/10.17504/protocols.io.biqpkdvn","rui_location":{"@context":"https://hubmapconsortium.github.io/hubmap-ontology/ccf-context.jsonld","@id":"http://purl.org/ccf/1.5/a0ff0780-d666-42fe-8068-a3b41b1c6aa0","@type":"SpatialEntity","ccf_annotations":["http://purl.obolibrary.org/obo/UBERON_0002494","http://purl.org/sig/ont/fma/fma72655","http://purl.obolibrary.org/obo/UBERON_0002080","http://purl.obolibrary.org/obo/UBERON_0002094","http://purl.obolibrary.org/obo/UBERON_0002084"],"creation_date":"2021-09-24","creator":"Andreas
+        Bueckle","creator_first_name":"Andreas","creator_last_name":"Bueckle","dimension_units":"millimeter","placement":{"@context":"https://hubmapconsortium.github.io/hubmap-ontology/ccf-context.jsonld","@id":"http://purl.org/ccf/1.5/a0ff0780-d666-42fe-8068-a3b41b1c6aa0_placement","@type":"SpatialPlacement","placement_date":"2021-09-24","rotation_order":"XYZ","rotation_units":"degree","scaling_units":"ratio","target":"http://purl.org/ccf/latest/ccf.owl#VHMHeart","translation_units":"millimeter","x_rotation":41,"x_scaling":1,"x_translation":102.382,"y_rotation":12,"y_scaling":1,"y_translation":54.602,"z_rotation":-25,"z_scaling":1,"z_translation":69.821},"x_dimension":10,"y_dimension":16,"z_dimension":10},"sample_category":"block","submission_id":"CALT0013-HT-1-1","uuid":"e9b990a54c0dbd47ea9504f06934dc0f"}
+
+        '
+    headers: {}
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers: {}
+    method: GET
+    uri: https://entity.api.hubmapconsortium.org/entities/HBM427.JWVV.723?exclude=direct_ancestors.files
+  response:
+    body:
+      string: '{"created_by_user_displayname":"daniel Cotter","created_by_user_email":"Daniel.cotter@stanford.edu","created_by_user_sub":"9bc64b24-20e9-4612-bb84-a80e9f806022","created_timestamp":1621978930000,"data_access_level":"public","description":"aka
+        W158 (Wash. U.) aka B007 (Stanford)","direct_ancestor":{"created_by_user_displayname":"daniel
+        cotter","created_by_user_email":"Daniel.cotter@stanford.edu","created_by_user_sub":"9bc64b24-20e9-4612-bb84-a80e9f806022","created_timestamp":1621898209250,"data_access_level":"public","description":"aka
+        W158 (Wash. U.)\naka B007 (Stanford)","entity_type":"Sample","group_name":"Stanford
+        TMC","group_uuid":"def5fd76-ed43-11e8-b56a-0e8017bdda58","hubmap_id":"HBM358.NWPX.662","lab_tissue_sample_id":"CALT0013-HT-1","last_modified_timestamp":1645053640582,"last_modified_user_displayname":"Shin
+        Lin","last_modified_user_email":"shinlin@uw.edu","last_modified_user_sub":"30bc4c7e-a52e-45e8-bf99-1559112068c4","protocol_url":"https://dx.doi.org/10.17504/protocols.io.biqpkdvn","sample_category":"block","submission_id":"CALT0013-HT-1","uuid":"60282a6fe6045167528b1f98b983b5d7"},"entity_type":"Sample","group_name":"Stanford
+        TMC","group_uuid":"def5fd76-ed43-11e8-b56a-0e8017bdda58","hubmap_id":"HBM427.JWVV.723","last_modified_timestamp":1694884374948,"last_modified_user_displayname":"HuBMAP
+        Process","last_modified_user_email":"hubmap@hubmapconsortium.org","last_modified_user_sub":"3e7bce63-129d-33d0-8f6c-834b34cd382e","metadata":{"cold_ischemia_time_unit":"minutes","cold_ischemia_time_value":"138","health_status":"relatively
+        healthy","organ_condition":"healthy","pathologist_report":"normal, no cancer,
+        no necrosis","perfusion_solution":"HTK","procedure_date":"2020-12-15","specimen_preservation_temperature":"Liquid
+        Nitrogen","specimen_quality_criteria":"H&E","specimen_tumor_distance_unit":"","specimen_tumor_distance_value":"","vital_state":"deceased","warm_ischemia_time_unit":"minutes","warm_ischemia_time_value":"0"},"protocol_url":"https://dx.doi.org/10.17504/protocols.io.biqpkdvn","rui_location":{"@context":"https://hubmapconsortium.github.io/hubmap-ontology/ccf-context.jsonld","@id":"http://purl.org/ccf/1.5/a0ff0780-d666-42fe-8068-a3b41b1c6aa0","@type":"SpatialEntity","ccf_annotations":["http://purl.obolibrary.org/obo/UBERON_0002494","http://purl.org/sig/ont/fma/fma72655","http://purl.obolibrary.org/obo/UBERON_0002080","http://purl.obolibrary.org/obo/UBERON_0002094","http://purl.obolibrary.org/obo/UBERON_0002084"],"creation_date":"2021-09-24","creator":"Andreas
+        Bueckle","creator_first_name":"Andreas","creator_last_name":"Bueckle","dimension_units":"millimeter","placement":{"@context":"https://hubmapconsortium.github.io/hubmap-ontology/ccf-context.jsonld","@id":"http://purl.org/ccf/1.5/a0ff0780-d666-42fe-8068-a3b41b1c6aa0_placement","@type":"SpatialPlacement","placement_date":"2021-09-24","rotation_order":"XYZ","rotation_units":"degree","scaling_units":"ratio","target":"http://purl.org/ccf/latest/ccf.owl#VHMHeart","translation_units":"millimeter","x_rotation":41,"x_scaling":1,"x_translation":102.382,"y_rotation":12,"y_scaling":1,"y_translation":54.602,"z_rotation":-25,"z_scaling":1,"z_translation":69.821},"x_dimension":10,"y_dimension":16,"z_dimension":10},"sample_category":"block","submission_id":"CALT0013-HT-1-1","uuid":"e9b990a54c0dbd47ea9504f06934dc0f"}
+
+        '
+    headers: {}
+    status:
+      code: 200
+      message: OK
+- request:
+    body: "Content-Disposition: form-data; name=\"input_file\"; filename=\"sample-block-bad.tsv\"\r\n\r\nsource_id\tsample_id\tlab_id\tpreparation_protocol_doi\tsource_storage_duration_value\tsource_storage_duration_unit\ttissue_weight_value\ttissue_weight_unit\tvolume_value\tvolume_unit\tpathology_distance_value\tpathology_distance_unit\tpreparation_medium\tpreparation_condition\tprocessing_time_value\tprocessing_time_unit\tstorage_medium\tstorage_method\tquality_criteria\thistological_report\tnotes\tmetadata_schema_id\nHBM233.CGGG.482\tHBM427.JWVV.723\t\thttps://dx.doi.org/10.17504/protocols.io.eq2lyno9qvx9/v1\t42\tmin\t42\tkg\t42\tmm^3\t42\tcm\tMethanol\tfrozen
+      in liquid nitrogen\t42\tmin\tMethanol\tfrozen in liquid nitrogen\t\t\t\t3e98cee6-d3fb-467b-8d4e-9ba7ee49eeff\nHBM733.HSZF.798\tHBM427.JWVV.723\t\thttps://dx.doi.org/10.17504/protocols.io.eq2lyno9qvx9/v1\t42\tminute\t42\tkg\t42\tmm^3\t42\tcm\tMethanol\tfrozen
+      in liquid nitrogen\t42\tminute\tMethanol\tfrozen in liquid nitrogen\t\t\t\t3e98cee6-d3fb-467b-8d4e-9ba7ee49eeff\n\r\n\r\n"
+    headers: {}
+    method: POST
+    uri: https://api.metadatavalidator.metadatacenter.org/service/validate-tsv
+  response:
+    body:
+      string: "{\"schema\":{\"name\":\"Sample Block\",\"version\":\"2.1.0\",\"columnDescription\":{\"source_storage_duration_value\":{\"example\":\"12\",\"name\":\"source_storage_duration_value\",\"required\":true,\"description\":\"The
+        length of time the sample was stored prior to processing it. For assays performed
+        on tissue sections, this refers to how long the tissue section (e.g., slide)
+        was stored before the assay began (e.g., imaging). For assays performed on
+        suspensions, such as sequencing, it refers to how long the suspension was
+        stored before library construction started. \",\"type\":\"number\",\"subType\":\"decimal\",\"label\":\"Source
+        storage duration value\",\"permissibleValues\":[],\"regex\":null,\"min\":0,\"max\":null},\"volume_value\":{\"example\":\"102\",\"name\":\"volume_value\",\"required\":false,\"description\":\"The
+        volume of the object in question. \",\"type\":\"number\",\"subType\":\"decimal\",\"label\":\"Volume
+        value\",\"permissibleValues\":[],\"regex\":null,\"min\":0,\"max\":null},\"pathology_distance_value\":{\"example\":\"100\",\"name\":\"pathology_distance_value\",\"required\":false,\"description\":\"The
+        distance from which the surgical sample was obtained relative to the pathology
+        site. If this information is not applicable, this field may be left blank.
+        \",\"type\":\"number\",\"subType\":\"decimal\",\"label\":\"Pathology distance
+        value\",\"permissibleValues\":[],\"regex\":null,\"min\":0,\"max\":null},\"processing_time_value\":{\"example\":\"120\",\"name\":\"processing_time_value\",\"required\":false,\"description\":\"The
+        duration for which the tissue was handled prior to its initial preservation.
+        \",\"type\":\"number\",\"subType\":\"decimal\",\"label\":\"Processing time
+        value\",\"permissibleValues\":[],\"regex\":null,\"min\":0,\"max\":null},\"quality_criteria\":{\"example\":\"RIN:
+        8.7, low clump, no visible debris\",\"name\":\"quality_criteria\",\"required\":false,\"description\":\"The
+        quality criteria used to assess the sample, which may include metrics such
+        as RIN (e.g., RIN: 8.7) or visual inspection parameters for suspensions prior
+        to cell lysis. These criteria can be captured at a high level with general
+        terms like \\\"OK\\\" or \\\"not OK\\\" or with more specific descriptors
+        such as \\\"debris\\\" \\\"clump\\\" or \\\"low clump\\\". \",\"type\":\"string\",\"subType\":null,\"label\":\"Quality
+        criteria\",\"permissibleValues\":[],\"regex\":null,\"min\":null,\"max\":null},\"histological_report\":{\"example\":\"No
+        necrosis observed; tissue composed predominantly of hepatocytes with mild
+        portal inflammation and minimal fibrosis\",\"name\":\"histological_report\",\"required\":false,\"description\":\"The
+        key variables in the histopathological report that are crucial for assessing
+        the tissue, including the absence of necrosis, comments on tissue composition,
+        descriptions of significant pathology, and high-level assessments of inflammation
+        or fibrosis. \",\"type\":\"string\",\"subType\":null,\"label\":\"Histological
+        report\",\"permissibleValues\":[],\"regex\":null,\"min\":null,\"max\":null},\"notes\":{\"example\":\"Sample
+        was stored at 4\xB0C for 48 hours prior to processing due to equipment maintenance
+        delay\",\"name\":\"notes\",\"required\":false,\"description\":\"Miscellaneous
+        details about the sample that are not captured in the existing metadata fields.
+        \",\"type\":\"string\",\"subType\":null,\"label\":\"Notes\",\"permissibleValues\":[],\"regex\":null,\"min\":null,\"max\":null},\"metadata_schema_id\":{\"example\":\"22bc762a-5020-419d-b170-24253ed9e8d9\",\"name\":\"metadata_schema_id\",\"required\":true,\"description\":\"The
+        unique string identifier for the metadata specification version, which is
+        easily interpretable by computers for purposes of data validation and processing.
+        \",\"type\":\"string\",\"subType\":null,\"label\":\"Metadata schema ID\",\"permissibleValues\":[],\"regex\":null,\"min\":null,\"max\":null},\"source_storage_duration_unit\":{\"example\":\"hour\",\"name\":\"source_storage_duration_unit\",\"required\":true,\"description\":\"The
+        unit of measurement used to specify the source storage duration value. \",\"type\":\"string\",\"subType\":null,\"label\":\"Source
+        storage duration unit\",\"permissibleValues\":[{\"label\":\"day\",\"meaning\":\"http://purl.obolibrary.org/obo/UO_0000033\"},{\"label\":\"hour\",\"meaning\":\"http://purl.obolibrary.org/obo/UO_0000032\"},{\"label\":\"minute\",\"meaning\":\"http://purl.obolibrary.org/obo/UO_0000031\"},{\"label\":\"month\",\"meaning\":\"http://purl.obolibrary.org/obo/UO_0000035\"},{\"label\":\"year\",\"meaning\":\"http://purl.obolibrary.org/obo/UO_0000036\"}],\"regex\":null,\"min\":null,\"max\":null},\"volume_unit\":{\"example\":\"mm^3\",\"name\":\"volume_unit\",\"required\":false,\"description\":\"The
+        unit of measurement for the volume value. If no volume measurement is specified,
+        this field may be left blank. \",\"type\":\"string\",\"subType\":null,\"label\":\"Volume
+        unit\",\"permissibleValues\":[{\"label\":\"cm^3\",\"meaning\":\"http://purl.obolibrary.org/obo/UO_0000097\"},{\"label\":\"ml\",\"meaning\":\"http://purl.obolibrary.org/obo/UO_0000098\"},{\"label\":\"mm^3\",\"meaning\":\"https://purl.humanatlas.io/vocab/hravs#HRAVS_0000136\"},{\"label\":\"um^3\",\"meaning\":\"https://purl.humanatlas.io/vocab/hravs#HRAVS_0000112\"}],\"regex\":null,\"min\":null,\"max\":null},\"pathology_distance_unit\":{\"example\":\"mm\",\"name\":\"pathology_distance_unit\",\"required\":false,\"description\":\"The
+        unit of measurement for the pathology distance value. If no distance measurement
+        is applicable, this field may be left blank. \",\"type\":\"string\",\"subType\":null,\"label\":\"Pathology
+        distance unit\",\"permissibleValues\":[{\"label\":\"cm\",\"meaning\":\"http://purl.obolibrary.org/obo/UO_0000015\"},{\"label\":\"mm\",\"meaning\":\"http://purl.obolibrary.org/obo/UO_0000016\"}],\"regex\":null,\"min\":null,\"max\":null},\"preparation_medium\":{\"example\":\"Fresh
+        frozen CMC\",\"name\":\"preparation_medium\",\"required\":true,\"description\":\"The
+        medium used during the sample preparation process. If no specific medium was
+        utilized, enter \\\"None\\\". If medium was not recorded, enter \\\"Unknown\\\".
+        \",\"type\":\"string\",\"subType\":null,\"label\":\"Preparation medium\",\"permissibleValues\":[{\"label\":\"1X
+        fixation & permeabilization buffer\",\"meaning\":\"https://purl.humanatlas.io/vocab/hravs#HRAVS_0000425\"},{\"label\":\"2%
+        PFA/2.5% Glutaraldehyde\",\"meaning\":\"https://purl.humanatlas.io/vocab/hravs#HRAVS_0000332\"},{\"label\":\"Allprotect
+        tissue reagent (ALL)\",\"meaning\":\"https://purl.humanatlas.io/vocab/hravs#HRAVS_0000118\"},{\"label\":\"Alpha-MEM\",\"meaning\":\"https://purl.humanatlas.io/vocab/hravs#HRAVS_0000371\"},{\"label\":\"Biops
+        buffer\",\"meaning\":\"https://purl.humanatlas.io/vocab/hravs#HRAVS_0000330\"},{\"label\":\"Bouin's\",\"meaning\":\"https://purl.humanatlas.io/vocab/hravs#HRAVS_0000140\"},{\"label\":\"CLARITY
+        hydrogel\",\"meaning\":\"https://purl.humanatlas.io/vocab/hravs#HRAVS_0000134\"},{\"label\":\"DMEM\",\"meaning\":\"http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C185409\"},{\"label\":\"Ethanol\",\"meaning\":\"http://purl.obolibrary.org/obo/CHEBI_16236\"},{\"label\":\"Fixed
+        frozen OCT (Cytofix/Cytoperm)\",\"meaning\":\"https://purl.humanatlas.io/vocab/hravs#HRAVS_0000149\"},{\"label\":\"Fixed
+        frozen OCT (Formalin, sucrose protected)\",\"meaning\":\"https://purl.humanatlas.io/vocab/hravs#HRAVS_0000116\"},{\"label\":\"Fixed
+        frozen OCT (PFA, sucrose protected)\",\"meaning\":\"https://purl.humanatlas.io/vocab/hravs#HRAVS_0000147\"},{\"label\":\"Fresh
+        frozen CMC\",\"meaning\":\"https://purl.humanatlas.io/vocab/hravs#HRAVS_0000130\"},{\"label\":\"Fresh
+        frozen gelatin\",\"meaning\":\"https://purl.humanatlas.io/vocab/hravs#HRAVS_0000198\"},{\"label\":\"Fresh
+        frozen OCT\",\"meaning\":\"https://purl.humanatlas.io/vocab/hravs#HRAVS_0000126\"},{\"label\":\"Growth
+        media\",\"meaning\":\"https://purl.humanatlas.io/vocab/hravs#HRAVS_0000372\"},{\"label\":\"HPMC-PVP\",\"meaning\":\"https://purl.humanatlas.io/vocab/hravs#HRAVS_0000386\"},{\"label\":\"HTK
+        Solution\",\"meaning\":\"https://purl.humanatlas.io/vocab/hravs#HRAVS_0000152\"},{\"label\":\"Inflated
+        (Agarose)\",\"meaning\":\"https://purl.humanatlas.io/vocab/hravs#HRAVS_0000106\"},{\"label\":\"Inflated
+        (OCT)\",\"meaning\":\"https://purl.humanatlas.io/vocab/hravs#HRAVS_0000123\"},{\"label\":\"Lysis
+        buffer\",\"meaning\":\"http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C178573\"},{\"label\":\"MACS
+        tissue storage solution\",\"meaning\":\"https://purl.humanatlas.io/vocab/hravs#HRAVS_0000105\"},{\"label\":\"Methanol\",\"meaning\":\"http://purl.obolibrary.org/obo/CHEBI_17790\"},{\"label\":\"Modified
+        Davidson's Fixative\",\"meaning\":\"https://purl.humanatlas.io/vocab/hravs#HRAVS_0000370\"},{\"label\":\"NBF
+        (Neutral Buffered Formalin)\",\"meaning\":\"http://purl.obolibrary.org/obo/OBIB_0000213\"},{\"label\":\"None\",\"meaning\":\"http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C41132\"},{\"label\":\"PAXgene
+        tissue kit (PXT)\",\"meaning\":\"http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C185113\"},{\"label\":\"PBS\",\"meaning\":\"http://purl.obolibrary.org/obo/OBI_0100046\"},{\"label\":\"Perfadex
+        Plus\",\"meaning\":\"https://purl.humanatlas.io/vocab/hravs#HRAVS_0000249\"},{\"label\":\"PFA
+        (Paraformaldehyde)\",\"meaning\":\"http://purl.obolibrary.org/obo/CHEBI_61538\"},{\"label\":\"PLP
+        (Periodate-Lysine-Paraformaldehyde)\",\"meaning\":\"http://purl.bioontology.org/ontology/MESH/C046311\"},{\"label\":\"RNAlater\",\"meaning\":\"http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C63348\"},{\"label\":\"Trumps
+        fixative\",\"meaning\":\"https://purl.humanatlas.io/vocab/hravs#HRAVS_0000331\"},{\"label\":\"Unknown\",\"meaning\":\"http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C17998\"},{\"label\":\"UW
+        Solution\",\"meaning\":\"https://purl.humanatlas.io/vocab/hravs#HRAVS_0000151\"}],\"regex\":null,\"min\":null,\"max\":null},\"preparation_condition\":{\"example\":\"Frozen
+        on dry ice\",\"name\":\"preparation_condition\",\"required\":true,\"description\":\"The
+        condition under which the sample preparation took place, such as whether the
+        sample was placed on dry ice during the process. If preparation condition
+        was not recorded, enter \\\"Unknown\\\". \",\"type\":\"string\",\"subType\":null,\"label\":\"Preparation
+        condition\",\"permissibleValues\":[{\"label\":\"Frozen at -20 degrees celsius\",\"meaning\":\"https://purl.humanatlas.io/vocab/hravs#HRAVS_0000107\"},{\"label\":\"Frozen
+        in liquid nitrogen\",\"meaning\":\"http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C185338\"},{\"label\":\"Frozen
+        in liquid nitrogen vapor\",\"meaning\":\"http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C185339\"},{\"label\":\"Frozen
+        on dry ice\",\"meaning\":\"http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C187069\"},{\"label\":\"Frozen
+        on ice\",\"meaning\":\"https://purl.humanatlas.io/vocab/hravs#HRAVS_0000144\"},{\"label\":\"Incubated
+        at 37 degrees celsius\",\"meaning\":\"https://purl.humanatlas.io/vocab/hravs#HRAVS_0000148\"},{\"label\":\"Stored
+        in ambient temperature\",\"meaning\":\"http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C70719\"},{\"label\":\"Stored
+        in refrigerator\",\"meaning\":\"https://purl.humanatlas.io/vocab/hravs#HRAVS_0000104\"},{\"label\":\"Stored
+        on wet ice\",\"meaning\":\"https://purl.humanatlas.io/vocab/hravs#HRAVS_0000465\"},{\"label\":\"Unknown\",\"meaning\":\"http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C17998\"}],\"regex\":null,\"min\":null,\"max\":null},\"processing_time_unit\":{\"example\":\"minute\",\"name\":\"processing_time_unit\",\"required\":false,\"description\":\"The
+        unit of measurement for the processing time value. If processing time is not
+        specified, this field may be left blank. \",\"type\":\"string\",\"subType\":null,\"label\":\"Processing
+        time unit\",\"permissibleValues\":[{\"label\":\"minute\",\"meaning\":\"http://purl.obolibrary.org/obo/UO_0000031\"},{\"label\":\"day\",\"meaning\":\"http://purl.obolibrary.org/obo/UO_0000033\"},{\"label\":\"hour\",\"meaning\":\"http://purl.obolibrary.org/obo/UO_0000032\"}],\"regex\":null,\"min\":null,\"max\":null},\"storage_medium\":{\"example\":\"FFPE
+        (Paraffin embedded)\",\"name\":\"storage_medium\",\"required\":true,\"description\":\"The
+        medium used to preserve the sample. If no specific medium was utilized, enter
+        \\\"None\\\". If medium was not recorded, enter \\\"Unknown\\\". \",\"type\":\"string\",\"subType\":null,\"label\":\"Storage
+        medium\",\"permissibleValues\":[{\"label\":\"1X quench buffer\",\"meaning\":\"https://purl.humanatlas.io/vocab/hravs#HRAVS_0000427\"},{\"label\":\"2%
+        PFA/2.5% Glutaraldehyde\",\"meaning\":\"https://purl.humanatlas.io/vocab/hravs#HRAVS_0000332\"},{\"label\":\"Allprotect
+        tissue reagent (ALL)\",\"meaning\":\"https://purl.humanatlas.io/vocab/hravs#HRAVS_0000118\"},{\"label\":\"CMC\",\"meaning\":\"http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C83594\"},{\"label\":\"Concentrated
+        quench buffer\",\"meaning\":\"https://purl.humanatlas.io/vocab/hravs#HRAVS_0000391\"},{\"label\":\"Cryo-EM\",\"meaning\":\"https://purl.humanatlas.io/vocab/hravs#HRAVS_0000333\"},{\"label\":\"DMEM\",\"meaning\":\"http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C185409\"},{\"label\":\"DMSO
+        (no serum)\",\"meaning\":\"https://purl.humanatlas.io/vocab/hravs#HRAVS_0000115\"},{\"label\":\"DMSO
+        (serum)\",\"meaning\":\"https://purl.humanatlas.io/vocab/hravs#HRAVS_0000125\"},{\"label\":\"Ethanol\",\"meaning\":\"http://purl.obolibrary.org/obo/CHEBI_16236\"},{\"label\":\"FFPE
+        (Paraffin embedded)\",\"meaning\":\"http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C143028\"},{\"label\":\"Formic
+        acid in water\",\"meaning\":\"http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C83719\"},{\"label\":\"Gelatin\",\"meaning\":\"http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C65802\"},{\"label\":\"HPMC-PVP\",\"meaning\":\"https://purl.humanatlas.io/vocab/hravs#HRAVS_0000386\"},{\"label\":\"MACS
+        tissue storage solution\",\"meaning\":\"https://purl.humanatlas.io/vocab/hravs#HRAVS_0000105\"},{\"label\":\"Methanol\",\"meaning\":\"http://purl.obolibrary.org/obo/CHEBI_17790\"},{\"label\":\"NBF
+        (Neutral Buffered Formalin)\",\"meaning\":\"http://purl.obolibrary.org/obo/OBIB_0000213\"},{\"label\":\"None\",\"meaning\":\"http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C41132\"},{\"label\":\"Nuclease-free
+        water\",\"meaning\":\"https://purl.humanatlas.io/vocab/hravs#HRAVS_0000482\"},{\"label\":\"OCT\",\"meaning\":\"http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C63523\"},{\"label\":\"PAXgene
+        tissue kit (PXT)\",\"meaning\":\"http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C185113\"},{\"label\":\"PBS\",\"meaning\":\"http://purl.obolibrary.org/obo/OBI_0100046\"},{\"label\":\"PFA
+        (Paraformaldehyde)\",\"meaning\":\"http://purl.obolibrary.org/obo/CHEBI_61538\"},{\"label\":\"RNAlater\",\"meaning\":\"http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C63348\"},{\"label\":\"Tris-EDTA\",\"meaning\":\"https://purl.humanatlas.io/vocab/hravs#HRAVS_0000135\"},{\"label\":\"Unknown\",\"meaning\":\"http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C17998\"},{\"label\":\"Water\",\"meaning\":\"http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C65147\"}],\"regex\":null,\"min\":null,\"max\":null},\"storage_method\":{\"example\":\"Frozen
+        in dry ice\",\"name\":\"storage_method\",\"required\":true,\"description\":\"The
+        method used to store the sample after preparation and prior to performing
+        the assay. If no specific storage method was utilized, enter \\\"None\\\".
+        If storage method was not recorded, enter \\\"Unknown\\\". \",\"type\":\"string\",\"subType\":null,\"label\":\"Storage
+        method\",\"permissibleValues\":[{\"label\":\"Frozen at -20 degrees celsius\",\"meaning\":\"https://purl.humanatlas.io/vocab/hravs#HRAVS_0000107\"},{\"label\":\"Frozen
+        at -80 degrees celsius\",\"meaning\":\"https://purl.humanatlas.io/vocab/hravs#HRAVS_0000132\"},{\"label\":\"Frozen
+        in liquid nitrogen\",\"meaning\":\"http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C185338\"},{\"label\":\"Frozen
+        in liquid nitrogen vapor\",\"meaning\":\"http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C185339\"},{\"label\":\"Frozen
+        on dry ice\",\"meaning\":\"http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C187069\"},{\"label\":\"Frozen
+        on ice\",\"meaning\":\"https://purl.humanatlas.io/vocab/hravs#HRAVS_0000144\"},{\"label\":\"Incubated
+        at 37 degrees celsius\",\"meaning\":\"https://purl.humanatlas.io/vocab/hravs#HRAVS_0000148\"},{\"label\":\"None\",\"meaning\":\"http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C41132\"},{\"label\":\"Stored
+        in ambient temperature\",\"meaning\":\"http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C70719\"},{\"label\":\"Stored
+        in desiccator\",\"meaning\":\"https://purl.humanatlas.io/vocab/hravs#HRAVS_0000387\"},{\"label\":\"Stored
+        in refrigerator\",\"meaning\":\"https://purl.humanatlas.io/vocab/hravs#HRAVS_0000104\"},{\"label\":\"Unknown\",\"meaning\":\"http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C17998\"}],\"regex\":null,\"min\":null,\"max\":null},\"lab_id\":{\"example\":null,\"name\":\"lab_id\",\"required\":false,\"description\":\"An
+        identifier assigned by the data provider to reference an external metadata
+        record for the dataset. The external record may be maintained independently
+        and can support dataset traceability and provenance tracking. Leave this field
+        empty if no such identifier exists.\",\"type\":\"string\",\"subType\":null,\"label\":\"Lab
+        ID\",\"permissibleValues\":[],\"regex\":null,\"min\":null,\"max\":null},\"tissue_weight_value\":{\"example\":\"100\",\"name\":\"tissue_weight_value\",\"required\":false,\"description\":\"The
+        weight of a tissue block or the piece of tissue used in a suspension. This
+        information is crucial for calculating the percentage of the parent block
+        that was utilized in the suspension preparation. If the weight is not applicable
+        or unknown, this field may be left blank. \",\"type\":\"number\",\"subType\":\"decimal\",\"label\":\"Tissue
+        weight value\",\"permissibleValues\":[],\"regex\":null,\"min\":0,\"max\":null},\"tissue_weight_unit\":{\"example\":\"g\",\"name\":\"tissue_weight_unit\",\"required\":false,\"description\":\"The
+        unit of measurement for the tissue weight value. If no tissue weight is specified,
+        this field may be left blank. \",\"type\":\"string\",\"subType\":null,\"label\":\"Tissue
+        weight unit\",\"permissibleValues\":[{\"label\":\"g\",\"meaning\":\"http://purl.obolibrary.org/obo/UO_0000021\"},{\"label\":\"kg\",\"meaning\":\"http://purl.obolibrary.org/obo/UO_0000009\"},{\"label\":\"mg\",\"meaning\":\"http://purl.obolibrary.org/obo/UO_0000022\"},{\"label\":\"ug\",\"meaning\":\"http://purl.obolibrary.org/obo/UO_0000023\"}],\"regex\":null,\"min\":null,\"max\":null},\"preparation_protocol_doi\":{\"example\":\"https://dx.doi.org/10.17504/protocols.io.eq2lyno9qvx9/v1\",\"name\":\"preparation_protocol_doi\",\"required\":true,\"description\":\"The
+        DOI for the protocols.io page that details the assay or the procedures used
+        for sample procurement and preparation. For example, in the case of an imaging
+        assay, the protocol may start with tissue section staining and end with the
+        generation of an OME-TIFF file. The documented protocol should also include
+        any image processing steps involved in producing the final OME-TIFF. \",\"type\":\"url\",\"subType\":null,\"label\":\"Preparation
+        protocol DOI\",\"permissibleValues\":[],\"regex\":null,\"min\":null,\"max\":null},\"source_id\":{\"example\":\"HBM122.EFGH.789\",\"name\":\"source_id\",\"required\":true,\"description\":\"The
+        unique identifier from HuBMAP or SenNet for the source (parent data) from
+        which the sample was derived. \",\"type\":\"string\",\"subType\":null,\"label\":\"Source
+        ID\",\"permissibleValues\":[],\"regex\":\"^(?:HBM|SNT)\\\\d{3}\\\\.[A-Z]{4}\\\\.\\\\d{3}$\",\"min\":null,\"max\":null},\"sample_id\":{\"example\":\"HBM743.CKJW.876\",\"name\":\"sample_id\",\"required\":true,\"description\":\"The
+        unique HuBMAP or SenNet identifier assigned to the sample by the ingest portal.
+        \",\"type\":\"string\",\"subType\":null,\"label\":\"Sample ID\",\"permissibleValues\":[],\"regex\":\"^(?:HBM|SNT)\\\\d{3}\\\\.[A-Z]{4}\\\\.\\\\d{3}$\",\"min\":null,\"max\":null}},\"requiredColumns\":[\"source_storage_duration_value\",\"metadata_schema_id\",\"source_storage_duration_unit\",\"preparation_medium\",\"preparation_condition\",\"storage_medium\",\"storage_method\",\"preparation_protocol_doi\",\"source_id\",\"sample_id\"],\"columnOrder\":[\"source_id\",\"sample_id\",\"lab_id\",\"preparation_protocol_doi\",\"source_storage_duration_value\",\"source_storage_duration_unit\",\"tissue_weight_value\",\"tissue_weight_unit\",\"volume_value\",\"volume_unit\",\"pathology_distance_value\",\"pathology_distance_unit\",\"preparation_medium\",\"preparation_condition\",\"processing_time_value\",\"processing_time_unit\",\"storage_medium\",\"storage_method\",\"quality_criteria\",\"histological_report\",\"notes\",\"metadata_schema_id\"],\"generatedFrom\":\"Optional[https://repo.metadatacenter.org/templates/3e98cee6-d3fb-467b-8d4e-9ba7ee49eeff]\",\"accessUrl\":\"https://openview.metadatacenter.org/templates/https%3A%2F%2Frepo.metadatacenter.org%2Ftemplates%2F3e98cee6-d3fb-467b-8d4e-9ba7ee49eeff\"},\"data\":[{\"rowNumber\":0,\"volume_value\":42,\"storage_method\":\"frozen
+        in liquid nitrogen\",\"preparation_condition\":\"frozen in liquid nitrogen\",\"notes\":\"\",\"source_storage_duration_value\":42,\"sample_id\":\"HBM427.JWVV.723\",\"metadata_schema_id\":\"3e98cee6-d3fb-467b-8d4e-9ba7ee49eeff\",\"tissue_weight_unit\":\"kg\",\"pathology_distance_unit\":\"cm\",\"preparation_medium\":\"Methanol\",\"processing_time_unit\":\"min\",\"pathology_distance_value\":42,\"quality_criteria\":\"\",\"volume_unit\":\"mm^3\",\"tissue_weight_value\":42,\"source_storage_duration_unit\":\"min\",\"histological_report\":\"\",\"storage_medium\":\"Methanol\",\"preparation_protocol_doi\":\"https://dx.doi.org/10.17504/protocols.io.eq2lyno9qvx9/v1\",\"source_id\":\"HBM233.CGGG.482\",\"processing_time_value\":42,\"lab_id\":\"\"},{\"rowNumber\":1,\"volume_value\":42,\"storage_method\":\"frozen
+        in liquid nitrogen\",\"preparation_condition\":\"frozen in liquid nitrogen\",\"notes\":\"\",\"source_storage_duration_value\":42,\"sample_id\":\"HBM427.JWVV.723\",\"metadata_schema_id\":\"3e98cee6-d3fb-467b-8d4e-9ba7ee49eeff\",\"tissue_weight_unit\":\"kg\",\"pathology_distance_unit\":\"cm\",\"preparation_medium\":\"Methanol\",\"processing_time_unit\":\"minute\",\"pathology_distance_value\":42,\"quality_criteria\":\"\",\"volume_unit\":\"mm^3\",\"tissue_weight_value\":42,\"source_storage_duration_unit\":\"minute\",\"histological_report\":\"\",\"storage_medium\":\"Methanol\",\"preparation_protocol_doi\":\"https://dx.doi.org/10.17504/protocols.io.eq2lyno9qvx9/v1\",\"source_id\":\"HBM733.HSZF.798\",\"processing_time_value\":42,\"lab_id\":\"\"}],\"reporting\":[{\"errorType\":\"notStandardTerm\",\"column\":\"processing_time_unit\",\"row\":0,\"repairSuggestion\":\"minute\",\"value\":\"min\"},{\"errorType\":\"notStandardTerm\",\"column\":\"source_storage_duration_unit\",\"row\":0,\"repairSuggestion\":\"minute\",\"value\":\"min\"}]}"
+    headers: {}
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers: {}
+    method: GET
+    uri: https://entity.api.hubmapconsortium.org/entities/HBM233.CGGG.482?exclude=direct_ancestors.files
+  response:
+    body:
+      string: '{"created_by_user_displayname":"STEPHEN FISHER","created_by_user_email":"safisher@sas.upenn.edu","created_by_user_sub":"80b25650-e27a-4e42-bd0f-3b73d3107b79","created_timestamp":1666984544824,"data_access_level":"public","direct_ancestor":{"created_by_user_displayname":"STEPHEN
+        FISHER","created_by_user_email":"safisher@sas.upenn.edu","created_by_user_sub":"80b25650-e27a-4e42-bd0f-3b73d3107b79","created_timestamp":1666983981052,"data_access_level":"public","entity_type":"Sample","group_name":"TMC
+        - University of Pennsylvania","group_uuid":"69cb89c4-c870-11eb-b360-4dfdb5d10392","hubmap_id":"HBM524.JPDZ.355","lab_tissue_sample_id":"9OLC.A4","last_modified_timestamp":1770839287866,"last_modified_user_displayname":"HuBMAP
+        Process","last_modified_user_email":"hubmap@hubmapconsortium.org","last_modified_user_sub":"3e7bce63-129d-33d0-8f6c-834b34cd382e","metadata":{"entity_type":"Sample","lab_id":"9OLC.A4","metadata_schema_id":"3e98cee6-d3fb-467b-8d4e-9ba7ee49eeff","notes":"the
+        \"source storage duration\" of the Block corresponds to the \"cold ischemic
+        time\" for the source Organ","preparation_condition":"Frozen in liquid nitrogen
+        vapor","preparation_medium":"Fresh frozen OCT","preparation_protocol_doi":"https://dx.doi.org/10.17504/protocols.io.j8nlkkzn1l5r/v1","processing_time_unit":"minute","processing_time_value":"1.5","sample_category":"block","source_storage_duration_unit":"minute","source_storage_duration_value":"133","storage_medium":"OCT","storage_method":"frozen
+        at -80 degrees celsius"},"protocol_url":"https://dx.doi.org/10.17504/protocols.io.kqdg3pj37l25/v1","rui_location":{"@context":"https://hubmapconsortium.github.io/ccf-ontology/ccf-context.jsonld","@id":"http://purl.org/ccf/1.5/07783929-ec93-44d2-8767-b58145525371","@type":"SpatialEntity","ccf_annotations":["http://purl.obolibrary.org/obo/UBERON_0002119"],"creation_date":"2025-10-20","creator":"Antara
+        Bhavsar","creator_first_name":"Antara","creator_last_name":"Bhavsar","creator_orcid":"https://orcid.org/0009-0006-6491-6503","dimension_units":"millimeter","label":"60","placement":{"@context":"https://hubmapconsortium.github.io/ccf-ontology/ccf-context.jsonld","@id":"http://purl.org/ccf/1.5/07783929-ec93-44d2-8767-b58145525371_placement","@type":"SpatialPlacement","placement_date":"2025-10-20","rotation_order":"XYZ","rotation_units":"degree","scaling_units":"ratio","target":"https://purl.humanatlas.io/ref-organ/ovary-female-left/v1.3#primary","translation_units":"millimeter","x_rotation":0.16675133416748097,"x_scaling":1.0000000000000002,"x_translation":6.939304943665457,"y_rotation":59.80156189382799,"y_scaling":0.9999999999999999,"y_translation":8.629282028140912,"z_rotation":-21.73769527838987,"z_scaling":1,"z_translation":8.92538403394577},"sameAs":"https://purl.humanatlas.io/millitome/ovary-female-left-upenn/v1.0#60","x_dimension":3.1978570147236676,"y_dimension":4.074149151616315,"z_dimension":4.9026636707794236},"sample_category":"block","submission_id":"UPENN0002-LO-3","uuid":"eb1087fcbeedebdc2200804d8ea19c37"},"entity_type":"Sample","group_name":"TMC
+        - University of Pennsylvania","group_uuid":"69cb89c4-c870-11eb-b360-4dfdb5d10392","hubmap_id":"HBM233.CGGG.482","last_modified_timestamp":1733126900234,"last_modified_user_displayname":"HuBMAP
+        Process","last_modified_user_email":"hubmap@hubmapconsortium.org","last_modified_user_sub":"3e7bce63-129d-33d0-8f6c-834b34cd382e","metadata":{"area_unit":"mm^2","area_value":"12.26","entity_type":"Sample","lab_id":"9OLC_A4_S1","metadata_schema_id":"01e9bc58-bdf2-49f4-9cf9-dd34f3cc62d7","notes":"Visium","preparation_condition":"frozen
+        at -20 degrees celsius","preparation_medium":"Methanol","preparation_protocol_doi":"https://dx.doi.org/10.17504/protocols.io.eq2lyno9qvx9/v1","processing_time_unit":"minute","processing_time_value":"4","quality_criteria":"slide_review:
+        y; region_of_interest: confirmed","sample_category":"section","section_index_number":"2","source_storage_duration_unit":"day","source_storage_duration_value":"184","storage_medium":"None","storage_method":"none","thickness_unit":"um","thickness_value":"10"},"protocol_url":"https://dx.doi.org/10.17504/protocols.io.kqdg3pj37l25/v1","sample_category":"section","submission_id":"UPENN0002-LO-3-1","uuid":"329488012ef3a378b6c2f6e732196f0e"}
+
+        '
+    headers: {}
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers: {}
+    method: GET
+    uri: https://entity.api.hubmapconsortium.org/entities/HBM427.JWVV.723?exclude=direct_ancestors.files
+  response:
+    body:
+      string: '{"created_by_user_displayname":"daniel Cotter","created_by_user_email":"Daniel.cotter@stanford.edu","created_by_user_sub":"9bc64b24-20e9-4612-bb84-a80e9f806022","created_timestamp":1621978930000,"data_access_level":"public","description":"aka
+        W158 (Wash. U.) aka B007 (Stanford)","direct_ancestor":{"created_by_user_displayname":"daniel
+        cotter","created_by_user_email":"Daniel.cotter@stanford.edu","created_by_user_sub":"9bc64b24-20e9-4612-bb84-a80e9f806022","created_timestamp":1621898209250,"data_access_level":"public","description":"aka
+        W158 (Wash. U.)\naka B007 (Stanford)","entity_type":"Sample","group_name":"Stanford
+        TMC","group_uuid":"def5fd76-ed43-11e8-b56a-0e8017bdda58","hubmap_id":"HBM358.NWPX.662","lab_tissue_sample_id":"CALT0013-HT-1","last_modified_timestamp":1645053640582,"last_modified_user_displayname":"Shin
+        Lin","last_modified_user_email":"shinlin@uw.edu","last_modified_user_sub":"30bc4c7e-a52e-45e8-bf99-1559112068c4","protocol_url":"https://dx.doi.org/10.17504/protocols.io.biqpkdvn","sample_category":"block","submission_id":"CALT0013-HT-1","uuid":"60282a6fe6045167528b1f98b983b5d7"},"entity_type":"Sample","group_name":"Stanford
+        TMC","group_uuid":"def5fd76-ed43-11e8-b56a-0e8017bdda58","hubmap_id":"HBM427.JWVV.723","last_modified_timestamp":1694884374948,"last_modified_user_displayname":"HuBMAP
+        Process","last_modified_user_email":"hubmap@hubmapconsortium.org","last_modified_user_sub":"3e7bce63-129d-33d0-8f6c-834b34cd382e","metadata":{"cold_ischemia_time_unit":"minutes","cold_ischemia_time_value":"138","health_status":"relatively
+        healthy","organ_condition":"healthy","pathologist_report":"normal, no cancer,
+        no necrosis","perfusion_solution":"HTK","procedure_date":"2020-12-15","specimen_preservation_temperature":"Liquid
+        Nitrogen","specimen_quality_criteria":"H&E","specimen_tumor_distance_unit":"","specimen_tumor_distance_value":"","vital_state":"deceased","warm_ischemia_time_unit":"minutes","warm_ischemia_time_value":"0"},"protocol_url":"https://dx.doi.org/10.17504/protocols.io.biqpkdvn","rui_location":{"@context":"https://hubmapconsortium.github.io/hubmap-ontology/ccf-context.jsonld","@id":"http://purl.org/ccf/1.5/a0ff0780-d666-42fe-8068-a3b41b1c6aa0","@type":"SpatialEntity","ccf_annotations":["http://purl.obolibrary.org/obo/UBERON_0002494","http://purl.org/sig/ont/fma/fma72655","http://purl.obolibrary.org/obo/UBERON_0002080","http://purl.obolibrary.org/obo/UBERON_0002094","http://purl.obolibrary.org/obo/UBERON_0002084"],"creation_date":"2021-09-24","creator":"Andreas
+        Bueckle","creator_first_name":"Andreas","creator_last_name":"Bueckle","dimension_units":"millimeter","placement":{"@context":"https://hubmapconsortium.github.io/hubmap-ontology/ccf-context.jsonld","@id":"http://purl.org/ccf/1.5/a0ff0780-d666-42fe-8068-a3b41b1c6aa0_placement","@type":"SpatialPlacement","placement_date":"2021-09-24","rotation_order":"XYZ","rotation_units":"degree","scaling_units":"ratio","target":"http://purl.org/ccf/latest/ccf.owl#VHMHeart","translation_units":"millimeter","x_rotation":41,"x_scaling":1,"x_translation":102.382,"y_rotation":12,"y_scaling":1,"y_translation":54.602,"z_rotation":-25,"z_scaling":1,"z_translation":69.821},"x_dimension":10,"y_dimension":16,"z_dimension":10},"sample_category":"block","submission_id":"CALT0013-HT-1-1","uuid":"e9b990a54c0dbd47ea9504f06934dc0f"}
+
+        '
+    headers: {}
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers: {}
+    method: GET
+    uri: https://entity.api.hubmapconsortium.org/entities/HBM733.HSZF.798?exclude=direct_ancestors.files
+  response:
+    body:
+      string: '{"created_by_user_displayname":"Presha Rajbhandari","created_by_user_email":"pr2162@columbia.edu","created_by_user_sub":"90865c5c-ce41-48cc-b231-9c29511f52c5","created_timestamp":1652290539285,"data_access_level":"public","direct_ancestor":{"created_by_user_displayname":"Presha
+        Rajbhandari","created_by_user_email":"pr2162@columbia.edu","created_by_user_sub":"90865c5c-ce41-48cc-b231-9c29511f52c5","created_timestamp":1652290215119,"data_access_level":"public","entity_type":"Donor","group_name":"TTD
+        - Penn State University and Columbia University","group_uuid":"b148f323-c870-11eb-b360-4dfdb5d10392","hubmap_id":"HBM384.JGFB.757","lab_donor_id":"CUMC
+        Donor01","label":"Hubmap Donor01","last_modified_timestamp":1744668844528,"last_modified_user_displayname":"Joseph
+        Simmons","last_modified_user_email":"JAS971@pitt.edu","last_modified_user_sub":"4562a4ca-2e28-4fb7-b3e1-1550bc117bbf","metadata":{"living_donor_data":[{"code":"424144002","concept_id":"C0001779","data_type":"Numeric","data_value":"51","end_datetime":"","graph_version":"UMLS2024AA","grouping_code":"424144002","grouping_concept":"C0001779","grouping_concept_preferred_term":"Age","grouping_sab":"SNOMEDCT_US","numeric_operator":"EQ","preferred_term":"Age","sab":"SNOMEDCT_US","start_datetime":"","units":"years"},{"code":"413773004","concept_id":"C0007457","data_type":"Nominal","data_value":"White","end_datetime":"","graph_version":"UMLS2024AA","grouping_code":"415229000","grouping_concept":"C0034510","grouping_concept_preferred_term":"Race","grouping_sab":"SNOMEDCT_US","numeric_operator":"","preferred_term":"White","sab":"SNOMEDCT_US","start_datetime":"","units":""},{"code":"1086007","concept_id":"C0086287","data_type":"Nominal","data_value":"Female","end_datetime":"","graph_version":"UMLS2024AA","grouping_code":"57312000","grouping_concept":"C1522384","grouping_concept_preferred_term":"Sex","grouping_sab":"SNOMEDCT_US","numeric_operator":"","preferred_term":"Female","sab":"SNOMEDCT_US","start_datetime":"","units":""},{"code":"253053003","concept_id":"C0018916","data_type":"Nominal","data_value":"Benign
+        hemangioma","end_datetime":"","graph_version":"UMLS2024AA","grouping_code":"392521001","grouping_concept":"C0262926","grouping_concept_preferred_term":"Medical
+        History","grouping_sab":"SNOMEDCT_US","numeric_operator":"","preferred_term":"Benign
+        Hemangioma","sab":"SNOMEDCT_US","start_datetime":"","units":""}]},"protocol_url":"https://dx.doi.org/10.17504/protocols.io.rm7vzy5wrlx1/v1","submission_id":"PSUCU0001","uuid":"34a06f973f6f62344f1dad922589b1b5"},"entity_type":"Sample","group_name":"TTD
+        - Penn State University and Columbia University","group_uuid":"b148f323-c870-11eb-b360-4dfdb5d10392","hubmap_id":"HBM733.HSZF.798","lab_tissue_sample_id":"CUMC
+        01","last_modified_timestamp":1676040009842,"last_modified_user_displayname":"Presha
+        Rajbhandari","last_modified_user_email":"pr2162@columbia.edu","last_modified_user_sub":"90865c5c-ce41-48cc-b231-9c29511f52c5","organ":"LV","protocol_url":"https://dx.doi.org/10.17504/protocols.io.rm7vzy5wrlx1/v1","sample_category":"organ","submission_id":"PSUCU0001-LV","uuid":"f7e4cbe847ced8c439321df5d9285db0"}
+
+        '
+    headers: {}
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers: {}
+    method: GET
+    uri: https://entity.api.hubmapconsortium.org/entities/HBM427.JWVV.723?exclude=direct_ancestors.files
+  response:
+    body:
+      string: '{"created_by_user_displayname":"daniel Cotter","created_by_user_email":"Daniel.cotter@stanford.edu","created_by_user_sub":"9bc64b24-20e9-4612-bb84-a80e9f806022","created_timestamp":1621978930000,"data_access_level":"public","description":"aka
+        W158 (Wash. U.) aka B007 (Stanford)","direct_ancestor":{"created_by_user_displayname":"daniel
+        cotter","created_by_user_email":"Daniel.cotter@stanford.edu","created_by_user_sub":"9bc64b24-20e9-4612-bb84-a80e9f806022","created_timestamp":1621898209250,"data_access_level":"public","description":"aka
+        W158 (Wash. U.)\naka B007 (Stanford)","entity_type":"Sample","group_name":"Stanford
+        TMC","group_uuid":"def5fd76-ed43-11e8-b56a-0e8017bdda58","hubmap_id":"HBM358.NWPX.662","lab_tissue_sample_id":"CALT0013-HT-1","last_modified_timestamp":1645053640582,"last_modified_user_displayname":"Shin
+        Lin","last_modified_user_email":"shinlin@uw.edu","last_modified_user_sub":"30bc4c7e-a52e-45e8-bf99-1559112068c4","protocol_url":"https://dx.doi.org/10.17504/protocols.io.biqpkdvn","sample_category":"block","submission_id":"CALT0013-HT-1","uuid":"60282a6fe6045167528b1f98b983b5d7"},"entity_type":"Sample","group_name":"Stanford
+        TMC","group_uuid":"def5fd76-ed43-11e8-b56a-0e8017bdda58","hubmap_id":"HBM427.JWVV.723","last_modified_timestamp":1694884374948,"last_modified_user_displayname":"HuBMAP
+        Process","last_modified_user_email":"hubmap@hubmapconsortium.org","last_modified_user_sub":"3e7bce63-129d-33d0-8f6c-834b34cd382e","metadata":{"cold_ischemia_time_unit":"minutes","cold_ischemia_time_value":"138","health_status":"relatively
+        healthy","organ_condition":"healthy","pathologist_report":"normal, no cancer,
+        no necrosis","perfusion_solution":"HTK","procedure_date":"2020-12-15","specimen_preservation_temperature":"Liquid
+        Nitrogen","specimen_quality_criteria":"H&E","specimen_tumor_distance_unit":"","specimen_tumor_distance_value":"","vital_state":"deceased","warm_ischemia_time_unit":"minutes","warm_ischemia_time_value":"0"},"protocol_url":"https://dx.doi.org/10.17504/protocols.io.biqpkdvn","rui_location":{"@context":"https://hubmapconsortium.github.io/hubmap-ontology/ccf-context.jsonld","@id":"http://purl.org/ccf/1.5/a0ff0780-d666-42fe-8068-a3b41b1c6aa0","@type":"SpatialEntity","ccf_annotations":["http://purl.obolibrary.org/obo/UBERON_0002494","http://purl.org/sig/ont/fma/fma72655","http://purl.obolibrary.org/obo/UBERON_0002080","http://purl.obolibrary.org/obo/UBERON_0002094","http://purl.obolibrary.org/obo/UBERON_0002084"],"creation_date":"2021-09-24","creator":"Andreas
+        Bueckle","creator_first_name":"Andreas","creator_last_name":"Bueckle","dimension_units":"millimeter","placement":{"@context":"https://hubmapconsortium.github.io/hubmap-ontology/ccf-context.jsonld","@id":"http://purl.org/ccf/1.5/a0ff0780-d666-42fe-8068-a3b41b1c6aa0_placement","@type":"SpatialPlacement","placement_date":"2021-09-24","rotation_order":"XYZ","rotation_units":"degree","scaling_units":"ratio","target":"http://purl.org/ccf/latest/ccf.owl#VHMHeart","translation_units":"millimeter","x_rotation":41,"x_scaling":1,"x_translation":102.382,"y_rotation":12,"y_scaling":1,"y_translation":54.602,"z_rotation":-25,"z_scaling":1,"z_translation":69.821},"x_dimension":10,"y_dimension":16,"z_dimension":10},"sample_category":"block","submission_id":"CALT0013-HT-1-1","uuid":"e9b990a54c0dbd47ea9504f06934dc0f"}
+
+        '
+    headers: {}
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers: {}
+    method: GET
+    uri: https://entity.api.hubmapconsortium.org/entities/HBM427.JWVV.723?exclude=direct_ancestors.files
+  response:
+    body:
+      string: '{"created_by_user_displayname":"daniel Cotter","created_by_user_email":"Daniel.cotter@stanford.edu","created_by_user_sub":"9bc64b24-20e9-4612-bb84-a80e9f806022","created_timestamp":1621978930000,"data_access_level":"public","description":"aka
+        W158 (Wash. U.) aka B007 (Stanford)","direct_ancestor":{"created_by_user_displayname":"daniel
+        cotter","created_by_user_email":"Daniel.cotter@stanford.edu","created_by_user_sub":"9bc64b24-20e9-4612-bb84-a80e9f806022","created_timestamp":1621898209250,"data_access_level":"public","description":"aka
+        W158 (Wash. U.)\naka B007 (Stanford)","entity_type":"Sample","group_name":"Stanford
+        TMC","group_uuid":"def5fd76-ed43-11e8-b56a-0e8017bdda58","hubmap_id":"HBM358.NWPX.662","lab_tissue_sample_id":"CALT0013-HT-1","last_modified_timestamp":1645053640582,"last_modified_user_displayname":"Shin
+        Lin","last_modified_user_email":"shinlin@uw.edu","last_modified_user_sub":"30bc4c7e-a52e-45e8-bf99-1559112068c4","protocol_url":"https://dx.doi.org/10.17504/protocols.io.biqpkdvn","sample_category":"block","submission_id":"CALT0013-HT-1","uuid":"60282a6fe6045167528b1f98b983b5d7"},"entity_type":"Sample","group_name":"Stanford
+        TMC","group_uuid":"def5fd76-ed43-11e8-b56a-0e8017bdda58","hubmap_id":"HBM427.JWVV.723","last_modified_timestamp":1694884374948,"last_modified_user_displayname":"HuBMAP
+        Process","last_modified_user_email":"hubmap@hubmapconsortium.org","last_modified_user_sub":"3e7bce63-129d-33d0-8f6c-834b34cd382e","metadata":{"cold_ischemia_time_unit":"minutes","cold_ischemia_time_value":"138","health_status":"relatively
+        healthy","organ_condition":"healthy","pathologist_report":"normal, no cancer,
+        no necrosis","perfusion_solution":"HTK","procedure_date":"2020-12-15","specimen_preservation_temperature":"Liquid
+        Nitrogen","specimen_quality_criteria":"H&E","specimen_tumor_distance_unit":"","specimen_tumor_distance_value":"","vital_state":"deceased","warm_ischemia_time_unit":"minutes","warm_ischemia_time_value":"0"},"protocol_url":"https://dx.doi.org/10.17504/protocols.io.biqpkdvn","rui_location":{"@context":"https://hubmapconsortium.github.io/hubmap-ontology/ccf-context.jsonld","@id":"http://purl.org/ccf/1.5/a0ff0780-d666-42fe-8068-a3b41b1c6aa0","@type":"SpatialEntity","ccf_annotations":["http://purl.obolibrary.org/obo/UBERON_0002494","http://purl.org/sig/ont/fma/fma72655","http://purl.obolibrary.org/obo/UBERON_0002080","http://purl.obolibrary.org/obo/UBERON_0002094","http://purl.obolibrary.org/obo/UBERON_0002084"],"creation_date":"2021-09-24","creator":"Andreas
+        Bueckle","creator_first_name":"Andreas","creator_last_name":"Bueckle","dimension_units":"millimeter","placement":{"@context":"https://hubmapconsortium.github.io/hubmap-ontology/ccf-context.jsonld","@id":"http://purl.org/ccf/1.5/a0ff0780-d666-42fe-8068-a3b41b1c6aa0_placement","@type":"SpatialPlacement","placement_date":"2021-09-24","rotation_order":"XYZ","rotation_units":"degree","scaling_units":"ratio","target":"http://purl.org/ccf/latest/ccf.owl#VHMHeart","translation_units":"millimeter","x_rotation":41,"x_scaling":1,"x_translation":102.382,"y_rotation":12,"y_scaling":1,"y_translation":54.602,"z_rotation":-25,"z_scaling":1,"z_translation":69.821},"x_dimension":10,"y_dimension":16,"z_dimension":10},"sample_category":"block","submission_id":"CALT0013-HT-1-1","uuid":"e9b990a54c0dbd47ea9504f06934dc0f"}
+
+        '
+    headers: {}
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers: {}
+    method: GET
+    uri: https://entity.api.hubmapconsortium.org/entities/HBM427.JWVV.723?exclude=direct_ancestors.files
+  response:
+    body:
+      string: '{"created_by_user_displayname":"daniel Cotter","created_by_user_email":"Daniel.cotter@stanford.edu","created_by_user_sub":"9bc64b24-20e9-4612-bb84-a80e9f806022","created_timestamp":1621978930000,"data_access_level":"public","description":"aka
+        W158 (Wash. U.) aka B007 (Stanford)","direct_ancestor":{"created_by_user_displayname":"daniel
+        cotter","created_by_user_email":"Daniel.cotter@stanford.edu","created_by_user_sub":"9bc64b24-20e9-4612-bb84-a80e9f806022","created_timestamp":1621898209250,"data_access_level":"public","description":"aka
+        W158 (Wash. U.)\naka B007 (Stanford)","entity_type":"Sample","group_name":"Stanford
+        TMC","group_uuid":"def5fd76-ed43-11e8-b56a-0e8017bdda58","hubmap_id":"HBM358.NWPX.662","lab_tissue_sample_id":"CALT0013-HT-1","last_modified_timestamp":1645053640582,"last_modified_user_displayname":"Shin
+        Lin","last_modified_user_email":"shinlin@uw.edu","last_modified_user_sub":"30bc4c7e-a52e-45e8-bf99-1559112068c4","protocol_url":"https://dx.doi.org/10.17504/protocols.io.biqpkdvn","sample_category":"block","submission_id":"CALT0013-HT-1","uuid":"60282a6fe6045167528b1f98b983b5d7"},"entity_type":"Sample","group_name":"Stanford
+        TMC","group_uuid":"def5fd76-ed43-11e8-b56a-0e8017bdda58","hubmap_id":"HBM427.JWVV.723","last_modified_timestamp":1694884374948,"last_modified_user_displayname":"HuBMAP
+        Process","last_modified_user_email":"hubmap@hubmapconsortium.org","last_modified_user_sub":"3e7bce63-129d-33d0-8f6c-834b34cd382e","metadata":{"cold_ischemia_time_unit":"minutes","cold_ischemia_time_value":"138","health_status":"relatively
+        healthy","organ_condition":"healthy","pathologist_report":"normal, no cancer,
+        no necrosis","perfusion_solution":"HTK","procedure_date":"2020-12-15","specimen_preservation_temperature":"Liquid
+        Nitrogen","specimen_quality_criteria":"H&E","specimen_tumor_distance_unit":"","specimen_tumor_distance_value":"","vital_state":"deceased","warm_ischemia_time_unit":"minutes","warm_ischemia_time_value":"0"},"protocol_url":"https://dx.doi.org/10.17504/protocols.io.biqpkdvn","rui_location":{"@context":"https://hubmapconsortium.github.io/hubmap-ontology/ccf-context.jsonld","@id":"http://purl.org/ccf/1.5/a0ff0780-d666-42fe-8068-a3b41b1c6aa0","@type":"SpatialEntity","ccf_annotations":["http://purl.obolibrary.org/obo/UBERON_0002494","http://purl.org/sig/ont/fma/fma72655","http://purl.obolibrary.org/obo/UBERON_0002080","http://purl.obolibrary.org/obo/UBERON_0002094","http://purl.obolibrary.org/obo/UBERON_0002084"],"creation_date":"2021-09-24","creator":"Andreas
+        Bueckle","creator_first_name":"Andreas","creator_last_name":"Bueckle","dimension_units":"millimeter","placement":{"@context":"https://hubmapconsortium.github.io/hubmap-ontology/ccf-context.jsonld","@id":"http://purl.org/ccf/1.5/a0ff0780-d666-42fe-8068-a3b41b1c6aa0_placement","@type":"SpatialPlacement","placement_date":"2021-09-24","rotation_order":"XYZ","rotation_units":"degree","scaling_units":"ratio","target":"http://purl.org/ccf/latest/ccf.owl#VHMHeart","translation_units":"millimeter","x_rotation":41,"x_scaling":1,"x_translation":102.382,"y_rotation":12,"y_scaling":1,"y_translation":54.602,"z_rotation":-25,"z_scaling":1,"z_translation":69.821},"x_dimension":10,"y_dimension":16,"z_dimension":10},"sample_category":"block","submission_id":"CALT0013-HT-1-1","uuid":"e9b990a54c0dbd47ea9504f06934dc0f"}
+
+        '
+    headers: {}
+    status:
+      code: 200
+      message: OK
+- request:
+    body: "--23cdbdebe2d16da6868c169411b72c22\r\nContent-Disposition: form-data; name=\"input_file\";
+      filename=\"sample-block-bad.tsv\"\r\n\r\nsource_id\tsample_id\tlab_id\tpreparation_protocol_doi\tsource_storage_duration_value\tsource_storage_duration_unit\ttissue_weight_value\ttissue_weight_unit\tvolume_value\tvolume_unit\tpathology_distance_value\tpathology_distance_unit\tpreparation_medium\tpreparation_condition\tprocessing_time_value\tprocessing_time_unit\tstorage_medium\tstorage_method\tquality_criteria\thistological_report\tnotes\tmetadata_schema_id\nHBM233.CGGG.482\tHBM427.JWVV.723\t\thttps://dx.doi.org/10.17504/protocols.io.eq2lyno9qvx9/v1\t42\tmin\t42\tkg\t42\tmm^3\t42\tcm\tMethanol\tfrozen
+      in liquid nitrogen\t42\tmin\tMethanol\tfrozen in liquid nitrogen\t\t\t\t3e98cee6-d3fb-467b-8d4e-9ba7ee49eeff\nHBM733.HSZF.798\tHBM427.JWVV.723\t\thttps://dx.doi.org/10.17504/protocols.io.eq2lyno9qvx9/v1\t42\tminute\t42\tkg\t42\tmm^3\t42\tcm\tMethanol\tfrozen
+      in liquid nitrogen\t42\tminute\tMethanol\tfrozen in liquid nitrogen\t\t\t\t3e98cee6-d3fb-467b-8d4e-9ba7ee49eeff\n\r\n--23cdbdebe2d16da6868c169411b72c22--\r\n"
+    headers: {}
+    method: POST
+    uri: https://api.metadatavalidator.metadatacenter.org/service/validate-tsv
+  response:
+    body:
+      string: "{\"schema\":{\"name\":\"Sample Block\",\"version\":\"2.1.0\",\"columnDescription\":{\"source_storage_duration_value\":{\"example\":\"12\",\"name\":\"source_storage_duration_value\",\"required\":true,\"description\":\"The
+        length of time the sample was stored prior to processing it. For assays performed
+        on tissue sections, this refers to how long the tissue section (e.g., slide)
+        was stored before the assay began (e.g., imaging). For assays performed on
+        suspensions, such as sequencing, it refers to how long the suspension was
+        stored before library construction started. \",\"type\":\"number\",\"subType\":\"decimal\",\"label\":\"Source
+        storage duration value\",\"permissibleValues\":[],\"regex\":null,\"min\":0,\"max\":null},\"volume_value\":{\"example\":\"102\",\"name\":\"volume_value\",\"required\":false,\"description\":\"The
+        volume of the object in question. \",\"type\":\"number\",\"subType\":\"decimal\",\"label\":\"Volume
+        value\",\"permissibleValues\":[],\"regex\":null,\"min\":0,\"max\":null},\"pathology_distance_value\":{\"example\":\"100\",\"name\":\"pathology_distance_value\",\"required\":false,\"description\":\"The
+        distance from which the surgical sample was obtained relative to the pathology
+        site. If this information is not applicable, this field may be left blank.
+        \",\"type\":\"number\",\"subType\":\"decimal\",\"label\":\"Pathology distance
+        value\",\"permissibleValues\":[],\"regex\":null,\"min\":0,\"max\":null},\"processing_time_value\":{\"example\":\"120\",\"name\":\"processing_time_value\",\"required\":false,\"description\":\"The
+        duration for which the tissue was handled prior to its initial preservation.
+        \",\"type\":\"number\",\"subType\":\"decimal\",\"label\":\"Processing time
+        value\",\"permissibleValues\":[],\"regex\":null,\"min\":0,\"max\":null},\"quality_criteria\":{\"example\":\"RIN:
+        8.7, low clump, no visible debris\",\"name\":\"quality_criteria\",\"required\":false,\"description\":\"The
+        quality criteria used to assess the sample, which may include metrics such
+        as RIN (e.g., RIN: 8.7) or visual inspection parameters for suspensions prior
+        to cell lysis. These criteria can be captured at a high level with general
+        terms like \\\"OK\\\" or \\\"not OK\\\" or with more specific descriptors
+        such as \\\"debris\\\" \\\"clump\\\" or \\\"low clump\\\". \",\"type\":\"string\",\"subType\":null,\"label\":\"Quality
+        criteria\",\"permissibleValues\":[],\"regex\":null,\"min\":null,\"max\":null},\"histological_report\":{\"example\":\"No
+        necrosis observed; tissue composed predominantly of hepatocytes with mild
+        portal inflammation and minimal fibrosis\",\"name\":\"histological_report\",\"required\":false,\"description\":\"The
+        key variables in the histopathological report that are crucial for assessing
+        the tissue, including the absence of necrosis, comments on tissue composition,
+        descriptions of significant pathology, and high-level assessments of inflammation
+        or fibrosis. \",\"type\":\"string\",\"subType\":null,\"label\":\"Histological
+        report\",\"permissibleValues\":[],\"regex\":null,\"min\":null,\"max\":null},\"notes\":{\"example\":\"Sample
+        was stored at 4\xB0C for 48 hours prior to processing due to equipment maintenance
+        delay\",\"name\":\"notes\",\"required\":false,\"description\":\"Miscellaneous
+        details about the sample that are not captured in the existing metadata fields.
+        \",\"type\":\"string\",\"subType\":null,\"label\":\"Notes\",\"permissibleValues\":[],\"regex\":null,\"min\":null,\"max\":null},\"metadata_schema_id\":{\"example\":\"22bc762a-5020-419d-b170-24253ed9e8d9\",\"name\":\"metadata_schema_id\",\"required\":true,\"description\":\"The
+        unique string identifier for the metadata specification version, which is
+        easily interpretable by computers for purposes of data validation and processing.
+        \",\"type\":\"string\",\"subType\":null,\"label\":\"Metadata schema ID\",\"permissibleValues\":[],\"regex\":null,\"min\":null,\"max\":null},\"source_storage_duration_unit\":{\"example\":\"hour\",\"name\":\"source_storage_duration_unit\",\"required\":true,\"description\":\"The
+        unit of measurement used to specify the source storage duration value. \",\"type\":\"string\",\"subType\":null,\"label\":\"Source
+        storage duration unit\",\"permissibleValues\":[{\"label\":\"day\",\"meaning\":\"http://purl.obolibrary.org/obo/UO_0000033\"},{\"label\":\"hour\",\"meaning\":\"http://purl.obolibrary.org/obo/UO_0000032\"},{\"label\":\"minute\",\"meaning\":\"http://purl.obolibrary.org/obo/UO_0000031\"},{\"label\":\"month\",\"meaning\":\"http://purl.obolibrary.org/obo/UO_0000035\"},{\"label\":\"year\",\"meaning\":\"http://purl.obolibrary.org/obo/UO_0000036\"}],\"regex\":null,\"min\":null,\"max\":null},\"volume_unit\":{\"example\":\"mm^3\",\"name\":\"volume_unit\",\"required\":false,\"description\":\"The
+        unit of measurement for the volume value. If no volume measurement is specified,
+        this field may be left blank. \",\"type\":\"string\",\"subType\":null,\"label\":\"Volume
+        unit\",\"permissibleValues\":[{\"label\":\"cm^3\",\"meaning\":\"http://purl.obolibrary.org/obo/UO_0000097\"},{\"label\":\"ml\",\"meaning\":\"http://purl.obolibrary.org/obo/UO_0000098\"},{\"label\":\"mm^3\",\"meaning\":\"https://purl.humanatlas.io/vocab/hravs#HRAVS_0000136\"},{\"label\":\"um^3\",\"meaning\":\"https://purl.humanatlas.io/vocab/hravs#HRAVS_0000112\"}],\"regex\":null,\"min\":null,\"max\":null},\"pathology_distance_unit\":{\"example\":\"mm\",\"name\":\"pathology_distance_unit\",\"required\":false,\"description\":\"The
+        unit of measurement for the pathology distance value. If no distance measurement
+        is applicable, this field may be left blank. \",\"type\":\"string\",\"subType\":null,\"label\":\"Pathology
+        distance unit\",\"permissibleValues\":[{\"label\":\"cm\",\"meaning\":\"http://purl.obolibrary.org/obo/UO_0000015\"},{\"label\":\"mm\",\"meaning\":\"http://purl.obolibrary.org/obo/UO_0000016\"}],\"regex\":null,\"min\":null,\"max\":null},\"preparation_medium\":{\"example\":\"Fresh
+        frozen CMC\",\"name\":\"preparation_medium\",\"required\":true,\"description\":\"The
+        medium used during the sample preparation process. If no specific medium was
+        utilized, enter \\\"None\\\". If medium was not recorded, enter \\\"Unknown\\\".
+        \",\"type\":\"string\",\"subType\":null,\"label\":\"Preparation medium\",\"permissibleValues\":[{\"label\":\"1X
+        fixation & permeabilization buffer\",\"meaning\":\"https://purl.humanatlas.io/vocab/hravs#HRAVS_0000425\"},{\"label\":\"2%
+        PFA/2.5% Glutaraldehyde\",\"meaning\":\"https://purl.humanatlas.io/vocab/hravs#HRAVS_0000332\"},{\"label\":\"Allprotect
+        tissue reagent (ALL)\",\"meaning\":\"https://purl.humanatlas.io/vocab/hravs#HRAVS_0000118\"},{\"label\":\"Alpha-MEM\",\"meaning\":\"https://purl.humanatlas.io/vocab/hravs#HRAVS_0000371\"},{\"label\":\"Biops
+        buffer\",\"meaning\":\"https://purl.humanatlas.io/vocab/hravs#HRAVS_0000330\"},{\"label\":\"Bouin's\",\"meaning\":\"https://purl.humanatlas.io/vocab/hravs#HRAVS_0000140\"},{\"label\":\"CLARITY
+        hydrogel\",\"meaning\":\"https://purl.humanatlas.io/vocab/hravs#HRAVS_0000134\"},{\"label\":\"DMEM\",\"meaning\":\"http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C185409\"},{\"label\":\"Ethanol\",\"meaning\":\"http://purl.obolibrary.org/obo/CHEBI_16236\"},{\"label\":\"Fixed
+        frozen OCT (Cytofix/Cytoperm)\",\"meaning\":\"https://purl.humanatlas.io/vocab/hravs#HRAVS_0000149\"},{\"label\":\"Fixed
+        frozen OCT (Formalin, sucrose protected)\",\"meaning\":\"https://purl.humanatlas.io/vocab/hravs#HRAVS_0000116\"},{\"label\":\"Fixed
+        frozen OCT (PFA, sucrose protected)\",\"meaning\":\"https://purl.humanatlas.io/vocab/hravs#HRAVS_0000147\"},{\"label\":\"Fresh
+        frozen CMC\",\"meaning\":\"https://purl.humanatlas.io/vocab/hravs#HRAVS_0000130\"},{\"label\":\"Fresh
+        frozen gelatin\",\"meaning\":\"https://purl.humanatlas.io/vocab/hravs#HRAVS_0000198\"},{\"label\":\"Fresh
+        frozen OCT\",\"meaning\":\"https://purl.humanatlas.io/vocab/hravs#HRAVS_0000126\"},{\"label\":\"Growth
+        media\",\"meaning\":\"https://purl.humanatlas.io/vocab/hravs#HRAVS_0000372\"},{\"label\":\"HPMC-PVP\",\"meaning\":\"https://purl.humanatlas.io/vocab/hravs#HRAVS_0000386\"},{\"label\":\"HTK
+        Solution\",\"meaning\":\"https://purl.humanatlas.io/vocab/hravs#HRAVS_0000152\"},{\"label\":\"Inflated
+        (Agarose)\",\"meaning\":\"https://purl.humanatlas.io/vocab/hravs#HRAVS_0000106\"},{\"label\":\"Inflated
+        (OCT)\",\"meaning\":\"https://purl.humanatlas.io/vocab/hravs#HRAVS_0000123\"},{\"label\":\"Lysis
+        buffer\",\"meaning\":\"http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C178573\"},{\"label\":\"MACS
+        tissue storage solution\",\"meaning\":\"https://purl.humanatlas.io/vocab/hravs#HRAVS_0000105\"},{\"label\":\"Methanol\",\"meaning\":\"http://purl.obolibrary.org/obo/CHEBI_17790\"},{\"label\":\"Modified
+        Davidson's Fixative\",\"meaning\":\"https://purl.humanatlas.io/vocab/hravs#HRAVS_0000370\"},{\"label\":\"NBF
+        (Neutral Buffered Formalin)\",\"meaning\":\"http://purl.obolibrary.org/obo/OBIB_0000213\"},{\"label\":\"None\",\"meaning\":\"http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C41132\"},{\"label\":\"PAXgene
+        tissue kit (PXT)\",\"meaning\":\"http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C185113\"},{\"label\":\"PBS\",\"meaning\":\"http://purl.obolibrary.org/obo/OBI_0100046\"},{\"label\":\"Perfadex
+        Plus\",\"meaning\":\"https://purl.humanatlas.io/vocab/hravs#HRAVS_0000249\"},{\"label\":\"PFA
+        (Paraformaldehyde)\",\"meaning\":\"http://purl.obolibrary.org/obo/CHEBI_61538\"},{\"label\":\"PLP
+        (Periodate-Lysine-Paraformaldehyde)\",\"meaning\":\"http://purl.bioontology.org/ontology/MESH/C046311\"},{\"label\":\"RNAlater\",\"meaning\":\"http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C63348\"},{\"label\":\"Trumps
+        fixative\",\"meaning\":\"https://purl.humanatlas.io/vocab/hravs#HRAVS_0000331\"},{\"label\":\"Unknown\",\"meaning\":\"http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C17998\"},{\"label\":\"UW
+        Solution\",\"meaning\":\"https://purl.humanatlas.io/vocab/hravs#HRAVS_0000151\"}],\"regex\":null,\"min\":null,\"max\":null},\"preparation_condition\":{\"example\":\"Frozen
+        on dry ice\",\"name\":\"preparation_condition\",\"required\":true,\"description\":\"The
+        condition under which the sample preparation took place, such as whether the
+        sample was placed on dry ice during the process. If preparation condition
+        was not recorded, enter \\\"Unknown\\\". \",\"type\":\"string\",\"subType\":null,\"label\":\"Preparation
+        condition\",\"permissibleValues\":[{\"label\":\"Frozen at -20 degrees celsius\",\"meaning\":\"https://purl.humanatlas.io/vocab/hravs#HRAVS_0000107\"},{\"label\":\"Frozen
+        in liquid nitrogen\",\"meaning\":\"http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C185338\"},{\"label\":\"Frozen
+        in liquid nitrogen vapor\",\"meaning\":\"http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C185339\"},{\"label\":\"Frozen
+        on dry ice\",\"meaning\":\"http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C187069\"},{\"label\":\"Frozen
+        on ice\",\"meaning\":\"https://purl.humanatlas.io/vocab/hravs#HRAVS_0000144\"},{\"label\":\"Incubated
+        at 37 degrees celsius\",\"meaning\":\"https://purl.humanatlas.io/vocab/hravs#HRAVS_0000148\"},{\"label\":\"Stored
+        in ambient temperature\",\"meaning\":\"http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C70719\"},{\"label\":\"Stored
+        in refrigerator\",\"meaning\":\"https://purl.humanatlas.io/vocab/hravs#HRAVS_0000104\"},{\"label\":\"Stored
+        on wet ice\",\"meaning\":\"https://purl.humanatlas.io/vocab/hravs#HRAVS_0000465\"},{\"label\":\"Unknown\",\"meaning\":\"http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C17998\"}],\"regex\":null,\"min\":null,\"max\":null},\"processing_time_unit\":{\"example\":\"minute\",\"name\":\"processing_time_unit\",\"required\":false,\"description\":\"The
+        unit of measurement for the processing time value. If processing time is not
+        specified, this field may be left blank. \",\"type\":\"string\",\"subType\":null,\"label\":\"Processing
+        time unit\",\"permissibleValues\":[{\"label\":\"minute\",\"meaning\":\"http://purl.obolibrary.org/obo/UO_0000031\"},{\"label\":\"day\",\"meaning\":\"http://purl.obolibrary.org/obo/UO_0000033\"},{\"label\":\"hour\",\"meaning\":\"http://purl.obolibrary.org/obo/UO_0000032\"}],\"regex\":null,\"min\":null,\"max\":null},\"storage_medium\":{\"example\":\"FFPE
+        (Paraffin embedded)\",\"name\":\"storage_medium\",\"required\":true,\"description\":\"The
+        medium used to preserve the sample. If no specific medium was utilized, enter
+        \\\"None\\\". If medium was not recorded, enter \\\"Unknown\\\". \",\"type\":\"string\",\"subType\":null,\"label\":\"Storage
+        medium\",\"permissibleValues\":[{\"label\":\"1X quench buffer\",\"meaning\":\"https://purl.humanatlas.io/vocab/hravs#HRAVS_0000427\"},{\"label\":\"2%
+        PFA/2.5% Glutaraldehyde\",\"meaning\":\"https://purl.humanatlas.io/vocab/hravs#HRAVS_0000332\"},{\"label\":\"Allprotect
+        tissue reagent (ALL)\",\"meaning\":\"https://purl.humanatlas.io/vocab/hravs#HRAVS_0000118\"},{\"label\":\"CMC\",\"meaning\":\"http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C83594\"},{\"label\":\"Concentrated
+        quench buffer\",\"meaning\":\"https://purl.humanatlas.io/vocab/hravs#HRAVS_0000391\"},{\"label\":\"Cryo-EM\",\"meaning\":\"https://purl.humanatlas.io/vocab/hravs#HRAVS_0000333\"},{\"label\":\"DMEM\",\"meaning\":\"http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C185409\"},{\"label\":\"DMSO
+        (no serum)\",\"meaning\":\"https://purl.humanatlas.io/vocab/hravs#HRAVS_0000115\"},{\"label\":\"DMSO
+        (serum)\",\"meaning\":\"https://purl.humanatlas.io/vocab/hravs#HRAVS_0000125\"},{\"label\":\"Ethanol\",\"meaning\":\"http://purl.obolibrary.org/obo/CHEBI_16236\"},{\"label\":\"FFPE
+        (Paraffin embedded)\",\"meaning\":\"http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C143028\"},{\"label\":\"Formic
+        acid in water\",\"meaning\":\"http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C83719\"},{\"label\":\"Gelatin\",\"meaning\":\"http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C65802\"},{\"label\":\"HPMC-PVP\",\"meaning\":\"https://purl.humanatlas.io/vocab/hravs#HRAVS_0000386\"},{\"label\":\"MACS
+        tissue storage solution\",\"meaning\":\"https://purl.humanatlas.io/vocab/hravs#HRAVS_0000105\"},{\"label\":\"Methanol\",\"meaning\":\"http://purl.obolibrary.org/obo/CHEBI_17790\"},{\"label\":\"NBF
+        (Neutral Buffered Formalin)\",\"meaning\":\"http://purl.obolibrary.org/obo/OBIB_0000213\"},{\"label\":\"None\",\"meaning\":\"http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C41132\"},{\"label\":\"Nuclease-free
+        water\",\"meaning\":\"https://purl.humanatlas.io/vocab/hravs#HRAVS_0000482\"},{\"label\":\"OCT\",\"meaning\":\"http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C63523\"},{\"label\":\"PAXgene
+        tissue kit (PXT)\",\"meaning\":\"http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C185113\"},{\"label\":\"PBS\",\"meaning\":\"http://purl.obolibrary.org/obo/OBI_0100046\"},{\"label\":\"PFA
+        (Paraformaldehyde)\",\"meaning\":\"http://purl.obolibrary.org/obo/CHEBI_61538\"},{\"label\":\"RNAlater\",\"meaning\":\"http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C63348\"},{\"label\":\"Tris-EDTA\",\"meaning\":\"https://purl.humanatlas.io/vocab/hravs#HRAVS_0000135\"},{\"label\":\"Unknown\",\"meaning\":\"http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C17998\"},{\"label\":\"Water\",\"meaning\":\"http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C65147\"}],\"regex\":null,\"min\":null,\"max\":null},\"storage_method\":{\"example\":\"Frozen
+        in dry ice\",\"name\":\"storage_method\",\"required\":true,\"description\":\"The
+        method used to store the sample after preparation and prior to performing
+        the assay. If no specific storage method was utilized, enter \\\"None\\\".
+        If storage method was not recorded, enter \\\"Unknown\\\". \",\"type\":\"string\",\"subType\":null,\"label\":\"Storage
+        method\",\"permissibleValues\":[{\"label\":\"Frozen at -20 degrees celsius\",\"meaning\":\"https://purl.humanatlas.io/vocab/hravs#HRAVS_0000107\"},{\"label\":\"Frozen
+        at -80 degrees celsius\",\"meaning\":\"https://purl.humanatlas.io/vocab/hravs#HRAVS_0000132\"},{\"label\":\"Frozen
+        in liquid nitrogen\",\"meaning\":\"http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C185338\"},{\"label\":\"Frozen
+        in liquid nitrogen vapor\",\"meaning\":\"http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C185339\"},{\"label\":\"Frozen
+        on dry ice\",\"meaning\":\"http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C187069\"},{\"label\":\"Frozen
+        on ice\",\"meaning\":\"https://purl.humanatlas.io/vocab/hravs#HRAVS_0000144\"},{\"label\":\"Incubated
+        at 37 degrees celsius\",\"meaning\":\"https://purl.humanatlas.io/vocab/hravs#HRAVS_0000148\"},{\"label\":\"None\",\"meaning\":\"http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C41132\"},{\"label\":\"Stored
+        in ambient temperature\",\"meaning\":\"http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C70719\"},{\"label\":\"Stored
+        in desiccator\",\"meaning\":\"https://purl.humanatlas.io/vocab/hravs#HRAVS_0000387\"},{\"label\":\"Stored
+        in refrigerator\",\"meaning\":\"https://purl.humanatlas.io/vocab/hravs#HRAVS_0000104\"},{\"label\":\"Unknown\",\"meaning\":\"http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C17998\"}],\"regex\":null,\"min\":null,\"max\":null},\"lab_id\":{\"example\":null,\"name\":\"lab_id\",\"required\":false,\"description\":\"An
+        identifier assigned by the data provider to reference an external metadata
+        record for the dataset. The external record may be maintained independently
+        and can support dataset traceability and provenance tracking. Leave this field
+        empty if no such identifier exists.\",\"type\":\"string\",\"subType\":null,\"label\":\"Lab
+        ID\",\"permissibleValues\":[],\"regex\":null,\"min\":null,\"max\":null},\"tissue_weight_value\":{\"example\":\"100\",\"name\":\"tissue_weight_value\",\"required\":false,\"description\":\"The
+        weight of a tissue block or the piece of tissue used in a suspension. This
+        information is crucial for calculating the percentage of the parent block
+        that was utilized in the suspension preparation. If the weight is not applicable
+        or unknown, this field may be left blank. \",\"type\":\"number\",\"subType\":\"decimal\",\"label\":\"Tissue
+        weight value\",\"permissibleValues\":[],\"regex\":null,\"min\":0,\"max\":null},\"tissue_weight_unit\":{\"example\":\"g\",\"name\":\"tissue_weight_unit\",\"required\":false,\"description\":\"The
+        unit of measurement for the tissue weight value. If no tissue weight is specified,
+        this field may be left blank. \",\"type\":\"string\",\"subType\":null,\"label\":\"Tissue
+        weight unit\",\"permissibleValues\":[{\"label\":\"g\",\"meaning\":\"http://purl.obolibrary.org/obo/UO_0000021\"},{\"label\":\"kg\",\"meaning\":\"http://purl.obolibrary.org/obo/UO_0000009\"},{\"label\":\"mg\",\"meaning\":\"http://purl.obolibrary.org/obo/UO_0000022\"},{\"label\":\"ug\",\"meaning\":\"http://purl.obolibrary.org/obo/UO_0000023\"}],\"regex\":null,\"min\":null,\"max\":null},\"preparation_protocol_doi\":{\"example\":\"https://dx.doi.org/10.17504/protocols.io.eq2lyno9qvx9/v1\",\"name\":\"preparation_protocol_doi\",\"required\":true,\"description\":\"The
+        DOI for the protocols.io page that details the assay or the procedures used
+        for sample procurement and preparation. For example, in the case of an imaging
+        assay, the protocol may start with tissue section staining and end with the
+        generation of an OME-TIFF file. The documented protocol should also include
+        any image processing steps involved in producing the final OME-TIFF. \",\"type\":\"url\",\"subType\":null,\"label\":\"Preparation
+        protocol DOI\",\"permissibleValues\":[],\"regex\":null,\"min\":null,\"max\":null},\"source_id\":{\"example\":\"HBM122.EFGH.789\",\"name\":\"source_id\",\"required\":true,\"description\":\"The
+        unique identifier from HuBMAP or SenNet for the source (parent data) from
+        which the sample was derived. \",\"type\":\"string\",\"subType\":null,\"label\":\"Source
+        ID\",\"permissibleValues\":[],\"regex\":\"^(?:HBM|SNT)\\\\d{3}\\\\.[A-Z]{4}\\\\.\\\\d{3}$\",\"min\":null,\"max\":null},\"sample_id\":{\"example\":\"HBM743.CKJW.876\",\"name\":\"sample_id\",\"required\":true,\"description\":\"The
+        unique HuBMAP or SenNet identifier assigned to the sample by the ingest portal.
+        \",\"type\":\"string\",\"subType\":null,\"label\":\"Sample ID\",\"permissibleValues\":[],\"regex\":\"^(?:HBM|SNT)\\\\d{3}\\\\.[A-Z]{4}\\\\.\\\\d{3}$\",\"min\":null,\"max\":null}},\"requiredColumns\":[\"source_storage_duration_value\",\"metadata_schema_id\",\"source_storage_duration_unit\",\"preparation_medium\",\"preparation_condition\",\"storage_medium\",\"storage_method\",\"preparation_protocol_doi\",\"source_id\",\"sample_id\"],\"columnOrder\":[\"source_id\",\"sample_id\",\"lab_id\",\"preparation_protocol_doi\",\"source_storage_duration_value\",\"source_storage_duration_unit\",\"tissue_weight_value\",\"tissue_weight_unit\",\"volume_value\",\"volume_unit\",\"pathology_distance_value\",\"pathology_distance_unit\",\"preparation_medium\",\"preparation_condition\",\"processing_time_value\",\"processing_time_unit\",\"storage_medium\",\"storage_method\",\"quality_criteria\",\"histological_report\",\"notes\",\"metadata_schema_id\"],\"generatedFrom\":\"Optional[https://repo.metadatacenter.org/templates/3e98cee6-d3fb-467b-8d4e-9ba7ee49eeff]\",\"accessUrl\":\"https://openview.metadatacenter.org/templates/https%3A%2F%2Frepo.metadatacenter.org%2Ftemplates%2F3e98cee6-d3fb-467b-8d4e-9ba7ee49eeff\"},\"data\":[{\"rowNumber\":0,\"volume_value\":42,\"storage_method\":\"frozen
+        in liquid nitrogen\",\"preparation_condition\":\"frozen in liquid nitrogen\",\"notes\":\"\",\"source_storage_duration_value\":42,\"sample_id\":\"HBM427.JWVV.723\",\"metadata_schema_id\":\"3e98cee6-d3fb-467b-8d4e-9ba7ee49eeff\",\"tissue_weight_unit\":\"kg\",\"pathology_distance_unit\":\"cm\",\"preparation_medium\":\"Methanol\",\"processing_time_unit\":\"min\",\"pathology_distance_value\":42,\"quality_criteria\":\"\",\"volume_unit\":\"mm^3\",\"tissue_weight_value\":42,\"source_storage_duration_unit\":\"min\",\"histological_report\":\"\",\"storage_medium\":\"Methanol\",\"preparation_protocol_doi\":\"https://dx.doi.org/10.17504/protocols.io.eq2lyno9qvx9/v1\",\"source_id\":\"HBM233.CGGG.482\",\"processing_time_value\":42,\"lab_id\":\"\"},{\"rowNumber\":1,\"volume_value\":42,\"storage_method\":\"frozen
+        in liquid nitrogen\",\"preparation_condition\":\"frozen in liquid nitrogen\",\"notes\":\"\",\"source_storage_duration_value\":42,\"sample_id\":\"HBM427.JWVV.723\",\"metadata_schema_id\":\"3e98cee6-d3fb-467b-8d4e-9ba7ee49eeff\",\"tissue_weight_unit\":\"kg\",\"pathology_distance_unit\":\"cm\",\"preparation_medium\":\"Methanol\",\"processing_time_unit\":\"minute\",\"pathology_distance_value\":42,\"quality_criteria\":\"\",\"volume_unit\":\"mm^3\",\"tissue_weight_value\":42,\"source_storage_duration_unit\":\"minute\",\"histological_report\":\"\",\"storage_medium\":\"Methanol\",\"preparation_protocol_doi\":\"https://dx.doi.org/10.17504/protocols.io.eq2lyno9qvx9/v1\",\"source_id\":\"HBM733.HSZF.798\",\"processing_time_value\":42,\"lab_id\":\"\"}],\"reporting\":[{\"errorType\":\"notStandardTerm\",\"column\":\"processing_time_unit\",\"row\":0,\"repairSuggestion\":\"minute\",\"value\":\"min\"},{\"errorType\":\"notStandardTerm\",\"column\":\"source_storage_duration_unit\",\"row\":0,\"repairSuggestion\":\"minute\",\"value\":\"min\"}]}"
+    headers: {}
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers: {}
+    method: GET
+    uri: https://entity.api.hubmapconsortium.org/entities/HBM233.CGGG.482?exclude=direct_ancestors.files
+  response:
+    body:
+      string: '{"created_by_user_displayname":"STEPHEN FISHER","created_by_user_email":"safisher@sas.upenn.edu","created_by_user_sub":"80b25650-e27a-4e42-bd0f-3b73d3107b79","created_timestamp":1666984544824,"data_access_level":"public","direct_ancestor":{"created_by_user_displayname":"STEPHEN
+        FISHER","created_by_user_email":"safisher@sas.upenn.edu","created_by_user_sub":"80b25650-e27a-4e42-bd0f-3b73d3107b79","created_timestamp":1666983981052,"data_access_level":"public","entity_type":"Sample","group_name":"TMC
+        - University of Pennsylvania","group_uuid":"69cb89c4-c870-11eb-b360-4dfdb5d10392","hubmap_id":"HBM524.JPDZ.355","lab_tissue_sample_id":"9OLC.A4","last_modified_timestamp":1770839287866,"last_modified_user_displayname":"HuBMAP
+        Process","last_modified_user_email":"hubmap@hubmapconsortium.org","last_modified_user_sub":"3e7bce63-129d-33d0-8f6c-834b34cd382e","metadata":{"entity_type":"Sample","lab_id":"9OLC.A4","metadata_schema_id":"3e98cee6-d3fb-467b-8d4e-9ba7ee49eeff","notes":"the
+        \"source storage duration\" of the Block corresponds to the \"cold ischemic
+        time\" for the source Organ","preparation_condition":"Frozen in liquid nitrogen
+        vapor","preparation_medium":"Fresh frozen OCT","preparation_protocol_doi":"https://dx.doi.org/10.17504/protocols.io.j8nlkkzn1l5r/v1","processing_time_unit":"minute","processing_time_value":"1.5","sample_category":"block","source_storage_duration_unit":"minute","source_storage_duration_value":"133","storage_medium":"OCT","storage_method":"frozen
+        at -80 degrees celsius"},"protocol_url":"https://dx.doi.org/10.17504/protocols.io.kqdg3pj37l25/v1","rui_location":{"@context":"https://hubmapconsortium.github.io/ccf-ontology/ccf-context.jsonld","@id":"http://purl.org/ccf/1.5/07783929-ec93-44d2-8767-b58145525371","@type":"SpatialEntity","ccf_annotations":["http://purl.obolibrary.org/obo/UBERON_0002119"],"creation_date":"2025-10-20","creator":"Antara
+        Bhavsar","creator_first_name":"Antara","creator_last_name":"Bhavsar","creator_orcid":"https://orcid.org/0009-0006-6491-6503","dimension_units":"millimeter","label":"60","placement":{"@context":"https://hubmapconsortium.github.io/ccf-ontology/ccf-context.jsonld","@id":"http://purl.org/ccf/1.5/07783929-ec93-44d2-8767-b58145525371_placement","@type":"SpatialPlacement","placement_date":"2025-10-20","rotation_order":"XYZ","rotation_units":"degree","scaling_units":"ratio","target":"https://purl.humanatlas.io/ref-organ/ovary-female-left/v1.3#primary","translation_units":"millimeter","x_rotation":0.16675133416748097,"x_scaling":1.0000000000000002,"x_translation":6.939304943665457,"y_rotation":59.80156189382799,"y_scaling":0.9999999999999999,"y_translation":8.629282028140912,"z_rotation":-21.73769527838987,"z_scaling":1,"z_translation":8.92538403394577},"sameAs":"https://purl.humanatlas.io/millitome/ovary-female-left-upenn/v1.0#60","x_dimension":3.1978570147236676,"y_dimension":4.074149151616315,"z_dimension":4.9026636707794236},"sample_category":"block","submission_id":"UPENN0002-LO-3","uuid":"eb1087fcbeedebdc2200804d8ea19c37"},"entity_type":"Sample","group_name":"TMC
+        - University of Pennsylvania","group_uuid":"69cb89c4-c870-11eb-b360-4dfdb5d10392","hubmap_id":"HBM233.CGGG.482","last_modified_timestamp":1733126900234,"last_modified_user_displayname":"HuBMAP
+        Process","last_modified_user_email":"hubmap@hubmapconsortium.org","last_modified_user_sub":"3e7bce63-129d-33d0-8f6c-834b34cd382e","metadata":{"area_unit":"mm^2","area_value":"12.26","entity_type":"Sample","lab_id":"9OLC_A4_S1","metadata_schema_id":"01e9bc58-bdf2-49f4-9cf9-dd34f3cc62d7","notes":"Visium","preparation_condition":"frozen
+        at -20 degrees celsius","preparation_medium":"Methanol","preparation_protocol_doi":"https://dx.doi.org/10.17504/protocols.io.eq2lyno9qvx9/v1","processing_time_unit":"minute","processing_time_value":"4","quality_criteria":"slide_review:
+        y; region_of_interest: confirmed","sample_category":"section","section_index_number":"2","source_storage_duration_unit":"day","source_storage_duration_value":"184","storage_medium":"None","storage_method":"none","thickness_unit":"um","thickness_value":"10"},"protocol_url":"https://dx.doi.org/10.17504/protocols.io.kqdg3pj37l25/v1","sample_category":"section","submission_id":"UPENN0002-LO-3-1","uuid":"329488012ef3a378b6c2f6e732196f0e"}
+
+        '
+    headers: {}
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers: {}
+    method: GET
+    uri: https://entity.api.hubmapconsortium.org/entities/HBM427.JWVV.723?exclude=direct_ancestors.files
+  response:
+    body:
+      string: '{"created_by_user_displayname":"daniel Cotter","created_by_user_email":"Daniel.cotter@stanford.edu","created_by_user_sub":"9bc64b24-20e9-4612-bb84-a80e9f806022","created_timestamp":1621978930000,"data_access_level":"public","description":"aka
+        W158 (Wash. U.) aka B007 (Stanford)","direct_ancestor":{"created_by_user_displayname":"daniel
+        cotter","created_by_user_email":"Daniel.cotter@stanford.edu","created_by_user_sub":"9bc64b24-20e9-4612-bb84-a80e9f806022","created_timestamp":1621898209250,"data_access_level":"public","description":"aka
+        W158 (Wash. U.)\naka B007 (Stanford)","entity_type":"Sample","group_name":"Stanford
+        TMC","group_uuid":"def5fd76-ed43-11e8-b56a-0e8017bdda58","hubmap_id":"HBM358.NWPX.662","lab_tissue_sample_id":"CALT0013-HT-1","last_modified_timestamp":1645053640582,"last_modified_user_displayname":"Shin
+        Lin","last_modified_user_email":"shinlin@uw.edu","last_modified_user_sub":"30bc4c7e-a52e-45e8-bf99-1559112068c4","protocol_url":"https://dx.doi.org/10.17504/protocols.io.biqpkdvn","sample_category":"block","submission_id":"CALT0013-HT-1","uuid":"60282a6fe6045167528b1f98b983b5d7"},"entity_type":"Sample","group_name":"Stanford
+        TMC","group_uuid":"def5fd76-ed43-11e8-b56a-0e8017bdda58","hubmap_id":"HBM427.JWVV.723","last_modified_timestamp":1694884374948,"last_modified_user_displayname":"HuBMAP
+        Process","last_modified_user_email":"hubmap@hubmapconsortium.org","last_modified_user_sub":"3e7bce63-129d-33d0-8f6c-834b34cd382e","metadata":{"cold_ischemia_time_unit":"minutes","cold_ischemia_time_value":"138","health_status":"relatively
+        healthy","organ_condition":"healthy","pathologist_report":"normal, no cancer,
+        no necrosis","perfusion_solution":"HTK","procedure_date":"2020-12-15","specimen_preservation_temperature":"Liquid
+        Nitrogen","specimen_quality_criteria":"H&E","specimen_tumor_distance_unit":"","specimen_tumor_distance_value":"","vital_state":"deceased","warm_ischemia_time_unit":"minutes","warm_ischemia_time_value":"0"},"protocol_url":"https://dx.doi.org/10.17504/protocols.io.biqpkdvn","rui_location":{"@context":"https://hubmapconsortium.github.io/hubmap-ontology/ccf-context.jsonld","@id":"http://purl.org/ccf/1.5/a0ff0780-d666-42fe-8068-a3b41b1c6aa0","@type":"SpatialEntity","ccf_annotations":["http://purl.obolibrary.org/obo/UBERON_0002494","http://purl.org/sig/ont/fma/fma72655","http://purl.obolibrary.org/obo/UBERON_0002080","http://purl.obolibrary.org/obo/UBERON_0002094","http://purl.obolibrary.org/obo/UBERON_0002084"],"creation_date":"2021-09-24","creator":"Andreas
+        Bueckle","creator_first_name":"Andreas","creator_last_name":"Bueckle","dimension_units":"millimeter","placement":{"@context":"https://hubmapconsortium.github.io/hubmap-ontology/ccf-context.jsonld","@id":"http://purl.org/ccf/1.5/a0ff0780-d666-42fe-8068-a3b41b1c6aa0_placement","@type":"SpatialPlacement","placement_date":"2021-09-24","rotation_order":"XYZ","rotation_units":"degree","scaling_units":"ratio","target":"http://purl.org/ccf/latest/ccf.owl#VHMHeart","translation_units":"millimeter","x_rotation":41,"x_scaling":1,"x_translation":102.382,"y_rotation":12,"y_scaling":1,"y_translation":54.602,"z_rotation":-25,"z_scaling":1,"z_translation":69.821},"x_dimension":10,"y_dimension":16,"z_dimension":10},"sample_category":"block","submission_id":"CALT0013-HT-1-1","uuid":"e9b990a54c0dbd47ea9504f06934dc0f"}
+
+        '
+    headers: {}
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers: {}
+    method: GET
+    uri: https://entity.api.hubmapconsortium.org/entities/HBM733.HSZF.798?exclude=direct_ancestors.files
+  response:
+    body:
+      string: '{"created_by_user_displayname":"Presha Rajbhandari","created_by_user_email":"pr2162@columbia.edu","created_by_user_sub":"90865c5c-ce41-48cc-b231-9c29511f52c5","created_timestamp":1652290539285,"data_access_level":"public","direct_ancestor":{"created_by_user_displayname":"Presha
+        Rajbhandari","created_by_user_email":"pr2162@columbia.edu","created_by_user_sub":"90865c5c-ce41-48cc-b231-9c29511f52c5","created_timestamp":1652290215119,"data_access_level":"public","entity_type":"Donor","group_name":"TTD
+        - Penn State University and Columbia University","group_uuid":"b148f323-c870-11eb-b360-4dfdb5d10392","hubmap_id":"HBM384.JGFB.757","lab_donor_id":"CUMC
+        Donor01","label":"Hubmap Donor01","last_modified_timestamp":1744668844528,"last_modified_user_displayname":"Joseph
+        Simmons","last_modified_user_email":"JAS971@pitt.edu","last_modified_user_sub":"4562a4ca-2e28-4fb7-b3e1-1550bc117bbf","metadata":{"living_donor_data":[{"code":"424144002","concept_id":"C0001779","data_type":"Numeric","data_value":"51","end_datetime":"","graph_version":"UMLS2024AA","grouping_code":"424144002","grouping_concept":"C0001779","grouping_concept_preferred_term":"Age","grouping_sab":"SNOMEDCT_US","numeric_operator":"EQ","preferred_term":"Age","sab":"SNOMEDCT_US","start_datetime":"","units":"years"},{"code":"413773004","concept_id":"C0007457","data_type":"Nominal","data_value":"White","end_datetime":"","graph_version":"UMLS2024AA","grouping_code":"415229000","grouping_concept":"C0034510","grouping_concept_preferred_term":"Race","grouping_sab":"SNOMEDCT_US","numeric_operator":"","preferred_term":"White","sab":"SNOMEDCT_US","start_datetime":"","units":""},{"code":"1086007","concept_id":"C0086287","data_type":"Nominal","data_value":"Female","end_datetime":"","graph_version":"UMLS2024AA","grouping_code":"57312000","grouping_concept":"C1522384","grouping_concept_preferred_term":"Sex","grouping_sab":"SNOMEDCT_US","numeric_operator":"","preferred_term":"Female","sab":"SNOMEDCT_US","start_datetime":"","units":""},{"code":"253053003","concept_id":"C0018916","data_type":"Nominal","data_value":"Benign
+        hemangioma","end_datetime":"","graph_version":"UMLS2024AA","grouping_code":"392521001","grouping_concept":"C0262926","grouping_concept_preferred_term":"Medical
+        History","grouping_sab":"SNOMEDCT_US","numeric_operator":"","preferred_term":"Benign
+        Hemangioma","sab":"SNOMEDCT_US","start_datetime":"","units":""}]},"protocol_url":"https://dx.doi.org/10.17504/protocols.io.rm7vzy5wrlx1/v1","submission_id":"PSUCU0001","uuid":"34a06f973f6f62344f1dad922589b1b5"},"entity_type":"Sample","group_name":"TTD
+        - Penn State University and Columbia University","group_uuid":"b148f323-c870-11eb-b360-4dfdb5d10392","hubmap_id":"HBM733.HSZF.798","lab_tissue_sample_id":"CUMC
+        01","last_modified_timestamp":1676040009842,"last_modified_user_displayname":"Presha
+        Rajbhandari","last_modified_user_email":"pr2162@columbia.edu","last_modified_user_sub":"90865c5c-ce41-48cc-b231-9c29511f52c5","organ":"LV","protocol_url":"https://dx.doi.org/10.17504/protocols.io.rm7vzy5wrlx1/v1","sample_category":"organ","submission_id":"PSUCU0001-LV","uuid":"f7e4cbe847ced8c439321df5d9285db0"}
+
+        '
+    headers: {}
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers: {}
+    method: GET
+    uri: https://entity.api.hubmapconsortium.org/entities/HBM427.JWVV.723?exclude=direct_ancestors.files
+  response:
+    body:
+      string: '{"created_by_user_displayname":"daniel Cotter","created_by_user_email":"Daniel.cotter@stanford.edu","created_by_user_sub":"9bc64b24-20e9-4612-bb84-a80e9f806022","created_timestamp":1621978930000,"data_access_level":"public","description":"aka
+        W158 (Wash. U.) aka B007 (Stanford)","direct_ancestor":{"created_by_user_displayname":"daniel
+        cotter","created_by_user_email":"Daniel.cotter@stanford.edu","created_by_user_sub":"9bc64b24-20e9-4612-bb84-a80e9f806022","created_timestamp":1621898209250,"data_access_level":"public","description":"aka
+        W158 (Wash. U.)\naka B007 (Stanford)","entity_type":"Sample","group_name":"Stanford
+        TMC","group_uuid":"def5fd76-ed43-11e8-b56a-0e8017bdda58","hubmap_id":"HBM358.NWPX.662","lab_tissue_sample_id":"CALT0013-HT-1","last_modified_timestamp":1645053640582,"last_modified_user_displayname":"Shin
+        Lin","last_modified_user_email":"shinlin@uw.edu","last_modified_user_sub":"30bc4c7e-a52e-45e8-bf99-1559112068c4","protocol_url":"https://dx.doi.org/10.17504/protocols.io.biqpkdvn","sample_category":"block","submission_id":"CALT0013-HT-1","uuid":"60282a6fe6045167528b1f98b983b5d7"},"entity_type":"Sample","group_name":"Stanford
+        TMC","group_uuid":"def5fd76-ed43-11e8-b56a-0e8017bdda58","hubmap_id":"HBM427.JWVV.723","last_modified_timestamp":1694884374948,"last_modified_user_displayname":"HuBMAP
+        Process","last_modified_user_email":"hubmap@hubmapconsortium.org","last_modified_user_sub":"3e7bce63-129d-33d0-8f6c-834b34cd382e","metadata":{"cold_ischemia_time_unit":"minutes","cold_ischemia_time_value":"138","health_status":"relatively
+        healthy","organ_condition":"healthy","pathologist_report":"normal, no cancer,
+        no necrosis","perfusion_solution":"HTK","procedure_date":"2020-12-15","specimen_preservation_temperature":"Liquid
+        Nitrogen","specimen_quality_criteria":"H&E","specimen_tumor_distance_unit":"","specimen_tumor_distance_value":"","vital_state":"deceased","warm_ischemia_time_unit":"minutes","warm_ischemia_time_value":"0"},"protocol_url":"https://dx.doi.org/10.17504/protocols.io.biqpkdvn","rui_location":{"@context":"https://hubmapconsortium.github.io/hubmap-ontology/ccf-context.jsonld","@id":"http://purl.org/ccf/1.5/a0ff0780-d666-42fe-8068-a3b41b1c6aa0","@type":"SpatialEntity","ccf_annotations":["http://purl.obolibrary.org/obo/UBERON_0002494","http://purl.org/sig/ont/fma/fma72655","http://purl.obolibrary.org/obo/UBERON_0002080","http://purl.obolibrary.org/obo/UBERON_0002094","http://purl.obolibrary.org/obo/UBERON_0002084"],"creation_date":"2021-09-24","creator":"Andreas
+        Bueckle","creator_first_name":"Andreas","creator_last_name":"Bueckle","dimension_units":"millimeter","placement":{"@context":"https://hubmapconsortium.github.io/hubmap-ontology/ccf-context.jsonld","@id":"http://purl.org/ccf/1.5/a0ff0780-d666-42fe-8068-a3b41b1c6aa0_placement","@type":"SpatialPlacement","placement_date":"2021-09-24","rotation_order":"XYZ","rotation_units":"degree","scaling_units":"ratio","target":"http://purl.org/ccf/latest/ccf.owl#VHMHeart","translation_units":"millimeter","x_rotation":41,"x_scaling":1,"x_translation":102.382,"y_rotation":12,"y_scaling":1,"y_translation":54.602,"z_rotation":-25,"z_scaling":1,"z_translation":69.821},"x_dimension":10,"y_dimension":16,"z_dimension":10},"sample_category":"block","submission_id":"CALT0013-HT-1-1","uuid":"e9b990a54c0dbd47ea9504f06934dc0f"}
+
+        '
+    headers: {}
+    status:
+      code: 200
+      message: OK
+version: 1

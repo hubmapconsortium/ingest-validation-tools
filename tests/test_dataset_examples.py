@@ -1,18 +1,30 @@
+import argparse
+import sys
 import unittest
 from pathlib import Path
 from unittest.mock import patch
 
+from vcr.request import Request
 from vcr.unittest import VCRTestCase
 
 from ingest_validation_tools.error_report import ErrorReport
 from ingest_validation_tools.schema_loader import PreflightError, SchemaVersion
 from ingest_validation_tools.upload import Upload
-from tests.fixtures import SCATACSEQ_BOTH_VERSIONS_VALID, SCATACSEQ_HIGHER_VERSION_VALID
+from tests.fixtures.fixtures import (
+    SCATACSEQ_BOTH_VERSIONS_VALID,
+    SCATACSEQ_HIGHER_VERSION_VALID,
+)
 from tests.vcr_utils import (
     DATASET_EXAMPLES_OPTS,
     get_example_paths,
     test_dataset_examples,
 )
+
+TOKEN = "offline_test_token"
+
+
+def get_dataset_example_opts():
+    return DATASET_EXAMPLES_OPTS | {"globus_token": TOKEN}
 
 
 class TestExamples(unittest.TestCase):
@@ -20,6 +32,7 @@ class TestExamples(unittest.TestCase):
     Test all directories in examples/.
     """
 
+    # TODO: reporting
     errors = []
 
     @property
@@ -27,7 +40,7 @@ class TestExamples(unittest.TestCase):
         return get_example_paths()
 
     def test_dataset_examples(self):
-        test_dataset_examples(self.dataset_test_dirs)
+        test_dataset_examples(self.dataset_test_dirs, globus_token=TOKEN)
 
 
 class TestUploads(VCRTestCase):
@@ -46,10 +59,10 @@ class TestUploads(VCRTestCase):
         response["headers"] = {}
         return response
 
-    # TODO: needs easier way to update w/ globus token
     def _get_vcr(self, **kwargs):
         kwargs["before_record_request"] = self.before_record_request
         kwargs["before_record_response"] = self.before_record_response
+        kwargs["cassette_library_dir"] = "tests/fixtures/cassettes"
         myvcr = super(TestUploads, self)._get_vcr(**kwargs)
         return myvcr
 
@@ -63,7 +76,7 @@ class TestUploads(VCRTestCase):
                 "ingest_validation_tools.validation_utils.get_possible_directory_schemas",
             ) as dir_schemas_func_patch:
                 dir_schemas_func_patch.return_value = SCATACSEQ_HIGHER_VERSION_VALID
-                upload = Upload(Path(test_dir / "upload"), **DATASET_EXAMPLES_OPTS)
+                upload = Upload(Path(test_dir / "upload"), **get_dataset_example_opts())
                 upload.get_errors()
                 dir_schemas_func_patch.assert_called()
             info = upload.get_info()
@@ -88,7 +101,7 @@ class TestUploads(VCRTestCase):
                 "ingest_validation_tools.validation_utils.get_possible_directory_schemas",
             ) as dir_schemas_func_patch:
                 dir_schemas_func_patch.return_value = SCATACSEQ_BOTH_VERSIONS_VALID
-                upload = Upload(Path(test_dir / "upload"), **DATASET_EXAMPLES_OPTS)
+                upload = Upload(Path(test_dir / "upload"), **get_dataset_example_opts())
                 upload.get_errors()
                 dir_schemas_func_patch.assert_called()
             info = upload.get_info()
@@ -131,14 +144,14 @@ class TestUploads(VCRTestCase):
             bad_upload = Upload(
                 Path("test_path"),
                 tsv_paths=["repeated_parent_fake_path_1", "repeated_parent_fake_path_2"],
-                **DATASET_EXAMPLES_OPTS,
+                **get_dataset_example_opts(),
             )
             with self.assertRaises(PreflightError):
                 bad_upload.multi_parent
             good_upload = Upload(
                 Path("test_path"),
                 tsv_paths=["unique_parent_fake_path_1", "unique_parent_fake_path_2"],
-                **DATASET_EXAMPLES_OPTS,
+                **get_dataset_example_opts(),
             )
             self.assertEqual(
                 good_upload.multi_parent,
@@ -163,7 +176,7 @@ class TestUploads(VCRTestCase):
             },
         }
         for test_dir, expected_counts in test_dirs.items():
-            upload = Upload(Path(test_dir / "upload"), **DATASET_EXAMPLES_OPTS)
+            upload = Upload(Path(test_dir / "upload"), **get_dataset_example_opts())
             report = ErrorReport(upload)
             self.assertEqual(report.counts, expected_counts)
 
@@ -175,7 +188,7 @@ class TestUploads(VCRTestCase):
     #     ]
     #     for test_dir in test_dirs:
     #         upload = self.prep_dir_schema_upload(
-    #             test_dir, DATASET_EXAMPLES_OPTS, SCATACSEQ_LOWER_VERSION_VALID
+    #             test_dir, get_dataset_example_opts(), SCATACSEQ_LOWER_VERSION_VALID
     #         )
     #         info = upload.get_info()
     #         if info is None:
@@ -196,7 +209,7 @@ class TestUploads(VCRTestCase):
     #     ]
     #     for test_dir in test_dirs:
     #         upload = self.prep_dir_schema_upload(
-    #             test_dir, DATASET_EXAMPLES_OPTS, SCATACSEQ_NEITHER_VERSION_VALID
+    #             test_dir, get_dataset_example_opts(), SCATACSEQ_NEITHER_VERSION_VALID
     #         )
     #         info = upload.get_info()
     #         if info is None:
@@ -209,3 +222,23 @@ class TestUploads(VCRTestCase):
     #                 .get("Directory schema version")
     #             )
     #             self.assertEqual(dir_schema_version, None)
+
+
+if __name__ == "__main__":
+    """
+    Example usage:
+        python tests/test_dataset_examples.py -ht <hubmap_globus_token>
+        python tests/test_dataset_examples.py -st <hubmap_globus_token> TestUploads.test_counts
+    """
+    parser = argparse.ArgumentParser(
+        description="Pass HuBMAP Globus token to update fixture cassettes (must delete previous cassette) from tests/fixtures/cassettes"
+    )
+    parser.add_argument("-t", "--token")
+    parser.add_argument("unittest_args", nargs="*")
+
+    args = parser.parse_args()
+
+    if args.token:
+        TOKEN = args.token
+    sys.argv[1:] = args.unittest_args
+    unittest.main()

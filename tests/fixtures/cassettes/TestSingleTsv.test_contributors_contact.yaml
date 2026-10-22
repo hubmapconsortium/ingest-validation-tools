@@ -1,0 +1,54 @@
+interactions:
+- request:
+    body: '{"lab_id": "Visium_9OLC_A4_S1", "preparation_protocol_doi": "https://dx.doi.org/10.17504/protocols.io.eq2lyno9qvx9/v1",
+      "dataset_type": "Histology", "analyte_class": "DNA", "is_targeted": "No", "acquisition_instrument_vendor":
+      "Zeiss Microscopy", "acquisition_instrument_model": "Axio Observer 7", "source_storage_duration_value":
+      "24", "source_storage_duration_unit": "day", "time_since_acquisition_instrument_calibration_value":
+      "", "time_since_acquisition_instrument_calibration_unit": "", "contributors_path":
+      "./contributors.tsv", "data_path": "./dataset-1", "is_image_preprocessing_required":
+      "Yes", "stain_name": "H&E", "stain_technique": "Progressive staining", "is_batch_staining_done":
+      "Yes", "is_staining_automated": "No", "preparation_instrument_vendor": "HTX
+      Technologies", "preparation_instrument_model": "SunCollect Sprayer", "slide_id":
+      "V11A19-078", "tile_configuration": "Snake-by-rows", "scan_direction": "Right-and-down",
+      "tiled_image_columns": "10", "tiled_image_count": "120", "intended_tile_overlap_percentage":
+      "30", "metadata_schema_id": "e7475329-9a60-4088-8e34-19a3828e0b3b"}'
+    headers: {}
+    method: POST
+    uri: https://ingest.api.hubmapconsortium.org/assaytype
+  response:
+    body:
+      string: '{"assaytype":"h-and-e","contains-pii":false,"dataset-type":"Histology","description":"H&E
+        Stained Microscopy","dir-schema":"histology-v2","is-multi-assay":null,"must-contain":null,"pipeline-shorthand":null,"primary":true,"process_state":"primary","tbl-schema":null,"ubkg_code":"C200940","vitessce-hints":[]}
+
+        '
+    headers: {}
+    status:
+      code: 200
+      message: OK
+- request:
+    body: '{"lab_id": "Visium_9OLC_A4_S1", "preparation_protocol_doi": "https://dx.doi.org/10.17504/protocols.io.eq2lyno9qvx9/v1",
+      "dataset_type": "Histology", "analyte_class": "DNA", "is_targeted": "No", "acquisition_instrument_vendor":
+      "Zeiss Microscopy", "acquisition_instrument_model": "Axio Observer 7", "source_storage_duration_value":
+      "24", "source_storage_duration_unit": "day", "time_since_acquisition_instrument_calibration_value":
+      "", "time_since_acquisition_instrument_calibration_unit": "", "contributors_path":
+      "./contributors.tsv", "data_path": "./dataset-1", "is_image_preprocessing_required":
+      "Yes", "stain_name": "H&E", "stain_technique": "Progressive staining", "is_batch_staining_done":
+      "Yes", "is_staining_automated": "No", "preparation_instrument_vendor": "HTX
+      Technologies", "preparation_instrument_model": "SunCollect Sprayer", "slide_id":
+      "V11A19-078", "tile_configuration": "Snake-by-rows", "scan_direction": "Right-and-down",
+      "tiled_image_columns": "10", "tiled_image_count": "120", "intended_tile_overlap_percentage":
+      "30", "metadata_schema_id": "e7475329-9a60-4088-8e34-19a3828e0b3b"}'
+    headers: {}
+    method: POST
+    uri: https://ingest.api.hubmapconsortium.org/assaytype
+  response:
+    body:
+      string: '{"assaytype":"h-and-e","contains-pii":false,"dataset-type":"Histology","description":"H&E
+        Stained Microscopy","dir-schema":"histology-v2","is-multi-assay":null,"must-contain":null,"pipeline-shorthand":null,"primary":true,"process_state":"primary","tbl-schema":null,"ubkg_code":"C200940","vitessce-hints":[]}
+
+        '
+    headers: {}
+    status:
+      code: 200
+      message: OK
+version: 1

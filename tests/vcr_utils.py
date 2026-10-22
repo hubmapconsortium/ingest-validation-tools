@@ -114,7 +114,12 @@ def remove_file_upload_hash(request: Request) -> Request:
     return request
 
 
-def test_dataset_examples(test_dirs: list[Path], dry_run: bool = True, verbose: bool = True):
+def test_dataset_examples(
+    test_dirs: list[Path],
+    dry_run: bool = True,
+    verbose: bool = True,
+    globus_token: str = "offline_test",
+):
     """
     Test example dataset directories using fixture cassettes.
     """
@@ -123,7 +128,7 @@ def test_dataset_examples(test_dirs: list[Path], dry_run: bool = True, verbose: 
         print(f"Testing {test_dir}...")
         report = vcr_create_upload_and_diff(
             test_dir,
-            globus_token="offline_test",
+            globus_token=globus_token,
             record_mode="none",
             vcr=VCR(serializer="json"),
             dry_run=dry_run,

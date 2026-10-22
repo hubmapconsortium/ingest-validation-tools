@@ -4,7 +4,7 @@ from pathlib import Path
 from unittest.mock import patch
 
 from ingest_validation_tools.upload import Upload
-from tests.fixtures import PLUGIN_INFO
+from tests.fixtures.fixtures import PLUGIN_INFO
 from tests.test_dataset_examples import (
     PLUGIN_EXAMPLES_OPTS,
     TestExamples,

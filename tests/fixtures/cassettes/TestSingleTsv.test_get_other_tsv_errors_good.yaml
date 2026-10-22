@@ -1,0 +1,1049 @@
+interactions:
+- request:
+    body: null
+    headers: {}
+    method: GET
+    uri: https://entity.api.sennetconsortium.org/entities/SNT733.NLLM.987?exclude=direct_ancestors.files
+  response:
+    body:
+      string: '{"cedar_mapped_metadata":{"Histological Report":"","Lab ID":"SNHB0030-LV-B0002","Metadata
+        Schema ID":"3e98cee6-d3fb-467b-8d4e-9ba7ee49eeff","Notes":"","Pathology Distance":"","Preparation
+        Condition":"Frozen in liquid nitrogen","Preparation Medium":"Fresh frozen
+        OCT","Preparation Protocol DOI":"https://dx.doi.org/10.17504/protocols.io.j8nlko7j5v5r/v1","Processing
+        Time":"","Quality Criteria":"","Sample ID":"SNT733.NLLM.987","Source ID":"SNT988.PFWZ.963","Source
+        Storage Duration":"1 hour","Storage Medium":"OCT","Storage Method":"Frozen
+        at -80 degrees celsius","Tissue Weight":"","Volume":""},"created_by_user_displayname":"Tim
+        Meyer","created_by_user_email":"meye0664@umn.edu","created_by_user_sub":"8509cb8d-e3c8-4bd8-8fa6-ec27a878dd39","created_timestamp":1790793747275,"creation_action":"Create
+        Sample Activity","data_access_level":"public","direct_ancestor":{"created_by_user_displayname":"Tim
+        Meyer","created_by_user_email":"meye0664@umn.edu","created_by_user_sub":"8509cb8d-e3c8-4bd8-8fa6-ec27a878dd39","created_timestamp":1710530037347,"creation_action":"Create
+        Sample Activity","data_access_level":"public","entity_type":"Sample","group_name":"TMC
+        - University of Minnesota - Niedernhofer","group_uuid":"ca21ca01-50a0-11ed-839d-ef21729c63fc","lab_tissue_sample_id":"SNHB0030-LV","last_modified_timestamp":1710530037347,"last_modified_user_displayname":"Tim
+        Meyer","last_modified_user_email":"meye0664@umn.edu","last_modified_user_sub":"8509cb8d-e3c8-4bd8-8fa6-ec27a878dd39","organ":"UBERON:0002107","organ_hierarchy":"Liver","origin_samples":[{"created_by_user_displayname":"Tim
+        Meyer","created_by_user_email":"meye0664@umn.edu","created_by_user_sub":"8509cb8d-e3c8-4bd8-8fa6-ec27a878dd39","created_timestamp":1710530037347,"creation_action":"Create
+        Sample Activity","data_access_level":"public","description":"","entity_type":"Sample","group_name":"TMC
+        - University of Minnesota - Niedernhofer","group_uuid":"ca21ca01-50a0-11ed-839d-ef21729c63fc","lab_tissue_sample_id":"SNHB0030-LV","last_modified_timestamp":1710530037347,"last_modified_user_displayname":"Tim
+        Meyer","last_modified_user_email":"meye0664@umn.edu","last_modified_user_sub":"8509cb8d-e3c8-4bd8-8fa6-ec27a878dd39","organ":"UBERON:0002107","organ_hierarchy":"Liver","protocol_url":"dx.doi.org/10.17504/protocols.io.j8nlko7j5v5r/v1","sample_category":"Organ","sennet_id":"SNT988.PFWZ.963","uuid":"0c5cab46c10b131ebb6c40d68cfa79ff"}],"protocol_url":"dx.doi.org/10.17504/protocols.io.j8nlko7j5v5r/v1","sample_category":"Organ","sennet_id":"SNT988.PFWZ.963","source":{"created_by_user_displayname":"Tim
+        Meyer","created_by_user_email":"meye0664@umn.edu","created_by_user_sub":"8509cb8d-e3c8-4bd8-8fa6-ec27a878dd39","created_timestamp":1697037970678,"creation_action":"Create
+        Source Activity","data_access_level":"public","description":"","entity_type":"Source","group_name":"TMC
+        - University of Minnesota - Niedernhofer","group_uuid":"ca21ca01-50a0-11ed-839d-ef21729c63fc","lab_source_id":"SNHB0030","last_modified_timestamp":1745315955224,"last_modified_user_displayname":"Joseph
+        Simmons","last_modified_user_email":"JAS971@pitt.edu","last_modified_user_sub":"4562a4ca-2e28-4fb7-b3e1-1550bc117bbf","mapped_metadata":{"age":{"group_display":"Demographics","key_display":"Age","unit":"years","value":[38.0],"value_display":"38
+        years"},"body_mass_index":{"group_display":"Vitals","key_display":"Body Mass
+        Index","unit":"kg/m2","value":[42.02],"value_display":"42.02 kg/m2"},"race":{"group_display":"Demographics","key_display":"Race","unit":"","value":["American
+        Indian or Alaska native"],"value_display":"American Indian or Alaska native"},"sex":{"group_display":"Demographics","key_display":"Sex","unit":"","value":["Female"],"value_display":"Female"}},"metadata":{"living_donor_data":[{"code":"424144002","concept_id":"C0001779","data_type":"Numeric","data_value":"38","end_datetime":"","graph_version":"UMLS2024AA","grouping_code":"424144002","grouping_concept":"C0001779","grouping_concept_preferred_term":"Age","grouping_sab":"SNOMEDCT_US","numeric_operator":"EQ","preferred_term":"Age","sab":"SNOMEDCT_US","start_datetime":"","units":"years"},{"code":"413490006","concept_id":"C1515945","data_type":"Nominal","data_value":"American
+        Indian or Alaska native","end_datetime":"","graph_version":"UMLS2024AA","grouping_code":"415229000","grouping_concept":"C0034510","grouping_concept_preferred_term":"Race","grouping_sab":"SNOMEDCT_US","numeric_operator":"","preferred_term":"American
+        Indian or Alaska native","sab":"SNOMEDCT_US","start_datetime":"","units":""},{"code":"1086007","concept_id":"C0086287","data_type":"Nominal","data_value":"Female","end_datetime":"","graph_version":"UMLS2024AA","grouping_code":"57312000","grouping_concept":"C1522384","grouping_concept_preferred_term":"Sex","grouping_sab":"SNOMEDCT_US","numeric_operator":"","preferred_term":"Female","sab":"SNOMEDCT_US","start_datetime":"","units":""},{"code":"60621009","concept_id":"C1305855","data_type":"Numeric","data_value":"42.02","end_datetime":"","graph_version":"UMLS2024AA","grouping_code":"60621009","grouping_concept":"C1305855","grouping_concept_preferred_term":"Body
+        Mass Index","grouping_sab":"SNOMEDCT_US","numeric_operator":"EQ","preferred_term":"Body
+        Mass Index","sab":"SNOMEDCT_US","start_datetime":"","units":"kg/m2"}]},"protocol_url":"dx.doi.org/10.17504/protocols.io.rm7vzxw4xgx1/v1","sennet_id":"SNT744.ZJCF.936","source_type":"Human","uuid":"aab508582cd68248c0481abb294b13ff"},"uuid":"0c5cab46c10b131ebb6c40d68cfa79ff"},"entity_type":"Sample","group_name":"TMC
+        - University of Minnesota - Niedernhofer","group_uuid":"ca21ca01-50a0-11ed-839d-ef21729c63fc","lab_tissue_sample_id":"SNHB0030-LV-B0002","last_modified_timestamp":1790794121481,"last_modified_user_displayname":"Tim
+        Meyer","last_modified_user_email":"meye0664@umn.edu","last_modified_user_sub":"8509cb8d-e3c8-4bd8-8fa6-ec27a878dd39","metadata":{"histological_report":"","lab_id":"SNHB0030-LV-B0002","metadata_schema_id":"3e98cee6-d3fb-467b-8d4e-9ba7ee49eeff","notes":"","pathology_distance_unit":"","pathology_distance_value":"","preparation_condition":"Frozen
+        in liquid nitrogen","preparation_medium":"Fresh frozen OCT","preparation_protocol_doi":"https://dx.doi.org/10.17504/protocols.io.j8nlko7j5v5r/v1","processing_time_unit":"","processing_time_value":"","quality_criteria":"","sample_id":"SNT733.NLLM.987","source_id":"SNT988.PFWZ.963","source_storage_duration_unit":"hour","source_storage_duration_value":"1","storage_medium":"OCT","storage_method":"Frozen
+        at -80 degrees celsius","tissue_weight_unit":"","tissue_weight_value":"","volume_unit":"","volume_value":""},"origin_samples":[{"created_by_user_displayname":"Tim
+        Meyer","created_by_user_email":"meye0664@umn.edu","created_by_user_sub":"8509cb8d-e3c8-4bd8-8fa6-ec27a878dd39","created_timestamp":1710530037347,"creation_action":"Create
+        Sample Activity","data_access_level":"public","description":"","entity_type":"Sample","group_name":"TMC
+        - University of Minnesota - Niedernhofer","group_uuid":"ca21ca01-50a0-11ed-839d-ef21729c63fc","lab_tissue_sample_id":"SNHB0030-LV","last_modified_timestamp":1710530037347,"last_modified_user_displayname":"Tim
+        Meyer","last_modified_user_email":"meye0664@umn.edu","last_modified_user_sub":"8509cb8d-e3c8-4bd8-8fa6-ec27a878dd39","organ":"UBERON:0002107","organ_hierarchy":"Liver","protocol_url":"dx.doi.org/10.17504/protocols.io.j8nlko7j5v5r/v1","sample_category":"Organ","sennet_id":"SNT988.PFWZ.963","uuid":"0c5cab46c10b131ebb6c40d68cfa79ff"}],"protocol_url":"dx.doi.org/10.17504/protocols.io.j8nlko7j5v5r/v1","rui_exemption":true,"sample_category":"Block","sennet_id":"SNT733.NLLM.987","source":{"created_by_user_displayname":"Tim
+        Meyer","created_by_user_email":"meye0664@umn.edu","created_by_user_sub":"8509cb8d-e3c8-4bd8-8fa6-ec27a878dd39","created_timestamp":1697037970678,"creation_action":"Create
+        Source Activity","data_access_level":"public","description":"","entity_type":"Source","group_name":"TMC
+        - University of Minnesota - Niedernhofer","group_uuid":"ca21ca01-50a0-11ed-839d-ef21729c63fc","lab_source_id":"SNHB0030","last_modified_timestamp":1745315955224,"last_modified_user_displayname":"Joseph
+        Simmons","last_modified_user_email":"JAS971@pitt.edu","last_modified_user_sub":"4562a4ca-2e28-4fb7-b3e1-1550bc117bbf","mapped_metadata":{"age":{"group_display":"Demographics","key_display":"Age","unit":"years","value":[38.0],"value_display":"38
+        years"},"body_mass_index":{"group_display":"Vitals","key_display":"Body Mass
+        Index","unit":"kg/m2","value":[42.02],"value_display":"42.02 kg/m2"},"race":{"group_display":"Demographics","key_display":"Race","unit":"","value":["American
+        Indian or Alaska native"],"value_display":"American Indian or Alaska native"},"sex":{"group_display":"Demographics","key_display":"Sex","unit":"","value":["Female"],"value_display":"Female"}},"metadata":{"living_donor_data":[{"code":"424144002","concept_id":"C0001779","data_type":"Numeric","data_value":"38","end_datetime":"","graph_version":"UMLS2024AA","grouping_code":"424144002","grouping_concept":"C0001779","grouping_concept_preferred_term":"Age","grouping_sab":"SNOMEDCT_US","numeric_operator":"EQ","preferred_term":"Age","sab":"SNOMEDCT_US","start_datetime":"","units":"years"},{"code":"413490006","concept_id":"C1515945","data_type":"Nominal","data_value":"American
+        Indian or Alaska native","end_datetime":"","graph_version":"UMLS2024AA","grouping_code":"415229000","grouping_concept":"C0034510","grouping_concept_preferred_term":"Race","grouping_sab":"SNOMEDCT_US","numeric_operator":"","preferred_term":"American
+        Indian or Alaska native","sab":"SNOMEDCT_US","start_datetime":"","units":""},{"code":"1086007","concept_id":"C0086287","data_type":"Nominal","data_value":"Female","end_datetime":"","graph_version":"UMLS2024AA","grouping_code":"57312000","grouping_concept":"C1522384","grouping_concept_preferred_term":"Sex","grouping_sab":"SNOMEDCT_US","numeric_operator":"","preferred_term":"Female","sab":"SNOMEDCT_US","start_datetime":"","units":""},{"code":"60621009","concept_id":"C1305855","data_type":"Numeric","data_value":"42.02","end_datetime":"","graph_version":"UMLS2024AA","grouping_code":"60621009","grouping_concept":"C1305855","grouping_concept_preferred_term":"Body
+        Mass Index","grouping_sab":"SNOMEDCT_US","numeric_operator":"EQ","preferred_term":"Body
+        Mass Index","sab":"SNOMEDCT_US","start_datetime":"","units":"kg/m2"}]},"protocol_url":"dx.doi.org/10.17504/protocols.io.rm7vzxw4xgx1/v1","sennet_id":"SNT744.ZJCF.936","source_type":"Human","uuid":"aab508582cd68248c0481abb294b13ff"},"uuid":"29c770c07e0509fa7d3220284f7ea2ac"}
+
+        '
+    headers: {}
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers: {}
+    method: GET
+    uri: https://entity.api.sennetconsortium.org/entities/SNT733.NLLM.987?exclude=direct_ancestors.files
+  response:
+    body:
+      string: '{"cedar_mapped_metadata":{"Histological Report":"","Lab ID":"SNHB0030-LV-B0002","Metadata
+        Schema ID":"3e98cee6-d3fb-467b-8d4e-9ba7ee49eeff","Notes":"","Pathology Distance":"","Preparation
+        Condition":"Frozen in liquid nitrogen","Preparation Medium":"Fresh frozen
+        OCT","Preparation Protocol DOI":"https://dx.doi.org/10.17504/protocols.io.j8nlko7j5v5r/v1","Processing
+        Time":"","Quality Criteria":"","Sample ID":"SNT733.NLLM.987","Source ID":"SNT988.PFWZ.963","Source
+        Storage Duration":"1 hour","Storage Medium":"OCT","Storage Method":"Frozen
+        at -80 degrees celsius","Tissue Weight":"","Volume":""},"created_by_user_displayname":"Tim
+        Meyer","created_by_user_email":"meye0664@umn.edu","created_by_user_sub":"8509cb8d-e3c8-4bd8-8fa6-ec27a878dd39","created_timestamp":1790793747275,"creation_action":"Create
+        Sample Activity","data_access_level":"public","direct_ancestor":{"created_by_user_displayname":"Tim
+        Meyer","created_by_user_email":"meye0664@umn.edu","created_by_user_sub":"8509cb8d-e3c8-4bd8-8fa6-ec27a878dd39","created_timestamp":1710530037347,"creation_action":"Create
+        Sample Activity","data_access_level":"public","entity_type":"Sample","group_name":"TMC
+        - University of Minnesota - Niedernhofer","group_uuid":"ca21ca01-50a0-11ed-839d-ef21729c63fc","lab_tissue_sample_id":"SNHB0030-LV","last_modified_timestamp":1710530037347,"last_modified_user_displayname":"Tim
+        Meyer","last_modified_user_email":"meye0664@umn.edu","last_modified_user_sub":"8509cb8d-e3c8-4bd8-8fa6-ec27a878dd39","organ":"UBERON:0002107","organ_hierarchy":"Liver","origin_samples":[{"created_by_user_displayname":"Tim
+        Meyer","created_by_user_email":"meye0664@umn.edu","created_by_user_sub":"8509cb8d-e3c8-4bd8-8fa6-ec27a878dd39","created_timestamp":1710530037347,"creation_action":"Create
+        Sample Activity","data_access_level":"public","description":"","entity_type":"Sample","group_name":"TMC
+        - University of Minnesota - Niedernhofer","group_uuid":"ca21ca01-50a0-11ed-839d-ef21729c63fc","lab_tissue_sample_id":"SNHB0030-LV","last_modified_timestamp":1710530037347,"last_modified_user_displayname":"Tim
+        Meyer","last_modified_user_email":"meye0664@umn.edu","last_modified_user_sub":"8509cb8d-e3c8-4bd8-8fa6-ec27a878dd39","organ":"UBERON:0002107","organ_hierarchy":"Liver","protocol_url":"dx.doi.org/10.17504/protocols.io.j8nlko7j5v5r/v1","sample_category":"Organ","sennet_id":"SNT988.PFWZ.963","uuid":"0c5cab46c10b131ebb6c40d68cfa79ff"}],"protocol_url":"dx.doi.org/10.17504/protocols.io.j8nlko7j5v5r/v1","sample_category":"Organ","sennet_id":"SNT988.PFWZ.963","source":{"created_by_user_displayname":"Tim
+        Meyer","created_by_user_email":"meye0664@umn.edu","created_by_user_sub":"8509cb8d-e3c8-4bd8-8fa6-ec27a878dd39","created_timestamp":1697037970678,"creation_action":"Create
+        Source Activity","data_access_level":"public","description":"","entity_type":"Source","group_name":"TMC
+        - University of Minnesota - Niedernhofer","group_uuid":"ca21ca01-50a0-11ed-839d-ef21729c63fc","lab_source_id":"SNHB0030","last_modified_timestamp":1745315955224,"last_modified_user_displayname":"Joseph
+        Simmons","last_modified_user_email":"JAS971@pitt.edu","last_modified_user_sub":"4562a4ca-2e28-4fb7-b3e1-1550bc117bbf","mapped_metadata":{"age":{"group_display":"Demographics","key_display":"Age","unit":"years","value":[38.0],"value_display":"38
+        years"},"body_mass_index":{"group_display":"Vitals","key_display":"Body Mass
+        Index","unit":"kg/m2","value":[42.02],"value_display":"42.02 kg/m2"},"race":{"group_display":"Demographics","key_display":"Race","unit":"","value":["American
+        Indian or Alaska native"],"value_display":"American Indian or Alaska native"},"sex":{"group_display":"Demographics","key_display":"Sex","unit":"","value":["Female"],"value_display":"Female"}},"metadata":{"living_donor_data":[{"code":"424144002","concept_id":"C0001779","data_type":"Numeric","data_value":"38","end_datetime":"","graph_version":"UMLS2024AA","grouping_code":"424144002","grouping_concept":"C0001779","grouping_concept_preferred_term":"Age","grouping_sab":"SNOMEDCT_US","numeric_operator":"EQ","preferred_term":"Age","sab":"SNOMEDCT_US","start_datetime":"","units":"years"},{"code":"413490006","concept_id":"C1515945","data_type":"Nominal","data_value":"American
+        Indian or Alaska native","end_datetime":"","graph_version":"UMLS2024AA","grouping_code":"415229000","grouping_concept":"C0034510","grouping_concept_preferred_term":"Race","grouping_sab":"SNOMEDCT_US","numeric_operator":"","preferred_term":"American
+        Indian or Alaska native","sab":"SNOMEDCT_US","start_datetime":"","units":""},{"code":"1086007","concept_id":"C0086287","data_type":"Nominal","data_value":"Female","end_datetime":"","graph_version":"UMLS2024AA","grouping_code":"57312000","grouping_concept":"C1522384","grouping_concept_preferred_term":"Sex","grouping_sab":"SNOMEDCT_US","numeric_operator":"","preferred_term":"Female","sab":"SNOMEDCT_US","start_datetime":"","units":""},{"code":"60621009","concept_id":"C1305855","data_type":"Numeric","data_value":"42.02","end_datetime":"","graph_version":"UMLS2024AA","grouping_code":"60621009","grouping_concept":"C1305855","grouping_concept_preferred_term":"Body
+        Mass Index","grouping_sab":"SNOMEDCT_US","numeric_operator":"EQ","preferred_term":"Body
+        Mass Index","sab":"SNOMEDCT_US","start_datetime":"","units":"kg/m2"}]},"protocol_url":"dx.doi.org/10.17504/protocols.io.rm7vzxw4xgx1/v1","sennet_id":"SNT744.ZJCF.936","source_type":"Human","uuid":"aab508582cd68248c0481abb294b13ff"},"uuid":"0c5cab46c10b131ebb6c40d68cfa79ff"},"entity_type":"Sample","group_name":"TMC
+        - University of Minnesota - Niedernhofer","group_uuid":"ca21ca01-50a0-11ed-839d-ef21729c63fc","lab_tissue_sample_id":"SNHB0030-LV-B0002","last_modified_timestamp":1790794121481,"last_modified_user_displayname":"Tim
+        Meyer","last_modified_user_email":"meye0664@umn.edu","last_modified_user_sub":"8509cb8d-e3c8-4bd8-8fa6-ec27a878dd39","metadata":{"histological_report":"","lab_id":"SNHB0030-LV-B0002","metadata_schema_id":"3e98cee6-d3fb-467b-8d4e-9ba7ee49eeff","notes":"","pathology_distance_unit":"","pathology_distance_value":"","preparation_condition":"Frozen
+        in liquid nitrogen","preparation_medium":"Fresh frozen OCT","preparation_protocol_doi":"https://dx.doi.org/10.17504/protocols.io.j8nlko7j5v5r/v1","processing_time_unit":"","processing_time_value":"","quality_criteria":"","sample_id":"SNT733.NLLM.987","source_id":"SNT988.PFWZ.963","source_storage_duration_unit":"hour","source_storage_duration_value":"1","storage_medium":"OCT","storage_method":"Frozen
+        at -80 degrees celsius","tissue_weight_unit":"","tissue_weight_value":"","volume_unit":"","volume_value":""},"origin_samples":[{"created_by_user_displayname":"Tim
+        Meyer","created_by_user_email":"meye0664@umn.edu","created_by_user_sub":"8509cb8d-e3c8-4bd8-8fa6-ec27a878dd39","created_timestamp":1710530037347,"creation_action":"Create
+        Sample Activity","data_access_level":"public","description":"","entity_type":"Sample","group_name":"TMC
+        - University of Minnesota - Niedernhofer","group_uuid":"ca21ca01-50a0-11ed-839d-ef21729c63fc","lab_tissue_sample_id":"SNHB0030-LV","last_modified_timestamp":1710530037347,"last_modified_user_displayname":"Tim
+        Meyer","last_modified_user_email":"meye0664@umn.edu","last_modified_user_sub":"8509cb8d-e3c8-4bd8-8fa6-ec27a878dd39","organ":"UBERON:0002107","organ_hierarchy":"Liver","protocol_url":"dx.doi.org/10.17504/protocols.io.j8nlko7j5v5r/v1","sample_category":"Organ","sennet_id":"SNT988.PFWZ.963","uuid":"0c5cab46c10b131ebb6c40d68cfa79ff"}],"protocol_url":"dx.doi.org/10.17504/protocols.io.j8nlko7j5v5r/v1","rui_exemption":true,"sample_category":"Block","sennet_id":"SNT733.NLLM.987","source":{"created_by_user_displayname":"Tim
+        Meyer","created_by_user_email":"meye0664@umn.edu","created_by_user_sub":"8509cb8d-e3c8-4bd8-8fa6-ec27a878dd39","created_timestamp":1697037970678,"creation_action":"Create
+        Source Activity","data_access_level":"public","description":"","entity_type":"Source","group_name":"TMC
+        - University of Minnesota - Niedernhofer","group_uuid":"ca21ca01-50a0-11ed-839d-ef21729c63fc","lab_source_id":"SNHB0030","last_modified_timestamp":1745315955224,"last_modified_user_displayname":"Joseph
+        Simmons","last_modified_user_email":"JAS971@pitt.edu","last_modified_user_sub":"4562a4ca-2e28-4fb7-b3e1-1550bc117bbf","mapped_metadata":{"age":{"group_display":"Demographics","key_display":"Age","unit":"years","value":[38.0],"value_display":"38
+        years"},"body_mass_index":{"group_display":"Vitals","key_display":"Body Mass
+        Index","unit":"kg/m2","value":[42.02],"value_display":"42.02 kg/m2"},"race":{"group_display":"Demographics","key_display":"Race","unit":"","value":["American
+        Indian or Alaska native"],"value_display":"American Indian or Alaska native"},"sex":{"group_display":"Demographics","key_display":"Sex","unit":"","value":["Female"],"value_display":"Female"}},"metadata":{"living_donor_data":[{"code":"424144002","concept_id":"C0001779","data_type":"Numeric","data_value":"38","end_datetime":"","graph_version":"UMLS2024AA","grouping_code":"424144002","grouping_concept":"C0001779","grouping_concept_preferred_term":"Age","grouping_sab":"SNOMEDCT_US","numeric_operator":"EQ","preferred_term":"Age","sab":"SNOMEDCT_US","start_datetime":"","units":"years"},{"code":"413490006","concept_id":"C1515945","data_type":"Nominal","data_value":"American
+        Indian or Alaska native","end_datetime":"","graph_version":"UMLS2024AA","grouping_code":"415229000","grouping_concept":"C0034510","grouping_concept_preferred_term":"Race","grouping_sab":"SNOMEDCT_US","numeric_operator":"","preferred_term":"American
+        Indian or Alaska native","sab":"SNOMEDCT_US","start_datetime":"","units":""},{"code":"1086007","concept_id":"C0086287","data_type":"Nominal","data_value":"Female","end_datetime":"","graph_version":"UMLS2024AA","grouping_code":"57312000","grouping_concept":"C1522384","grouping_concept_preferred_term":"Sex","grouping_sab":"SNOMEDCT_US","numeric_operator":"","preferred_term":"Female","sab":"SNOMEDCT_US","start_datetime":"","units":""},{"code":"60621009","concept_id":"C1305855","data_type":"Numeric","data_value":"42.02","end_datetime":"","graph_version":"UMLS2024AA","grouping_code":"60621009","grouping_concept":"C1305855","grouping_concept_preferred_term":"Body
+        Mass Index","grouping_sab":"SNOMEDCT_US","numeric_operator":"EQ","preferred_term":"Body
+        Mass Index","sab":"SNOMEDCT_US","start_datetime":"","units":"kg/m2"}]},"protocol_url":"dx.doi.org/10.17504/protocols.io.rm7vzxw4xgx1/v1","sennet_id":"SNT744.ZJCF.936","source_type":"Human","uuid":"aab508582cd68248c0481abb294b13ff"},"uuid":"29c770c07e0509fa7d3220284f7ea2ac"}
+
+        '
+    headers: {}
+    status:
+      code: 200
+      message: OK
+- request:
+    body: "Content-Disposition: form-data; name=\"input_file\"; filename=\"sample-block-good.tsv\"\r\n\r\nsource_id\tsample_id\tlab_id\tpreparation_protocol_doi\tsource_storage_duration_value\tsource_storage_duration_unit\ttissue_weight_value\ttissue_weight_unit\tvolume_value\tvolume_unit\tpathology_distance_value\tpathology_distance_unit\tpreparation_medium\tpreparation_condition\tprocessing_time_value\tprocessing_time_unit\tstorage_medium\tstorage_method\tquality_criteria\thistological_report\tnotes\tmetadata_schema_id\nSNT988.PFWZ.963\tSNT733.NLLM.987\t\thttps://dx.doi.org/10.17504/protocols.io.eq2lyno9qvx9/v1\t42\tminute\t42\tkg\t42\tmm^3\t42\tcm\tMethanol\tfrozen
+      in liquid nitrogen\t42\tminute\tMethanol\tfrozen in liquid nitrogen\t\t\t\t3e98cee6-d3fb-467b-8d4e-9ba7ee49eeff\nSNT988.PFWZ.963\tSNT429.HBSX.728\t\thttps://dx.doi.org/10.17504/protocols.io.eq2lyno9qvx9/v1\t42\tminute\t42\tkg\t42\tmm^3\t42\tcm\tMethanol\tfrozen
+      in liquid nitrogen\t42\tminute\tMethanol\tfrozen in liquid nitrogen\t\t\t\t3e98cee6-d3fb-467b-8d4e-9ba7ee49eeff\n\r\n\r\n"
+    headers: {}
+    method: POST
+    uri: https://api.metadatavalidator.metadatacenter.org/service/validate-tsv
+  response:
+    body:
+      string: "{\"schema\":{\"name\":\"Sample Block\",\"version\":\"2.1.0\",\"columnDescription\":{\"source_storage_duration_value\":{\"example\":\"12\",\"name\":\"source_storage_duration_value\",\"required\":true,\"description\":\"The
+        length of time the sample was stored prior to processing it. For assays performed
+        on tissue sections, this refers to how long the tissue section (e.g., slide)
+        was stored before the assay began (e.g., imaging). For assays performed on
+        suspensions, such as sequencing, it refers to how long the suspension was
+        stored before library construction started. \",\"type\":\"number\",\"subType\":\"decimal\",\"label\":\"Source
+        storage duration value\",\"permissibleValues\":[],\"regex\":null,\"min\":0,\"max\":null},\"volume_value\":{\"example\":\"102\",\"name\":\"volume_value\",\"required\":false,\"description\":\"The
+        volume of the object in question. \",\"type\":\"number\",\"subType\":\"decimal\",\"label\":\"Volume
+        value\",\"permissibleValues\":[],\"regex\":null,\"min\":0,\"max\":null},\"pathology_distance_value\":{\"example\":\"100\",\"name\":\"pathology_distance_value\",\"required\":false,\"description\":\"The
+        distance from which the surgical sample was obtained relative to the pathology
+        site. If this information is not applicable, this field may be left blank.
+        \",\"type\":\"number\",\"subType\":\"decimal\",\"label\":\"Pathology distance
+        value\",\"permissibleValues\":[],\"regex\":null,\"min\":0,\"max\":null},\"processing_time_value\":{\"example\":\"120\",\"name\":\"processing_time_value\",\"required\":false,\"description\":\"The
+        duration for which the tissue was handled prior to its initial preservation.
+        \",\"type\":\"number\",\"subType\":\"decimal\",\"label\":\"Processing time
+        value\",\"permissibleValues\":[],\"regex\":null,\"min\":0,\"max\":null},\"quality_criteria\":{\"example\":\"RIN:
+        8.7, low clump, no visible debris\",\"name\":\"quality_criteria\",\"required\":false,\"description\":\"The
+        quality criteria used to assess the sample, which may include metrics such
+        as RIN (e.g., RIN: 8.7) or visual inspection parameters for suspensions prior
+        to cell lysis. These criteria can be captured at a high level with general
+        terms like \\\"OK\\\" or \\\"not OK\\\" or with more specific descriptors
+        such as \\\"debris\\\" \\\"clump\\\" or \\\"low clump\\\". \",\"type\":\"string\",\"subType\":null,\"label\":\"Quality
+        criteria\",\"permissibleValues\":[],\"regex\":null,\"min\":null,\"max\":null},\"histological_report\":{\"example\":\"No
+        necrosis observed; tissue composed predominantly of hepatocytes with mild
+        portal inflammation and minimal fibrosis\",\"name\":\"histological_report\",\"required\":false,\"description\":\"The
+        key variables in the histopathological report that are crucial for assessing
+        the tissue, including the absence of necrosis, comments on tissue composition,
+        descriptions of significant pathology, and high-level assessments of inflammation
+        or fibrosis. \",\"type\":\"string\",\"subType\":null,\"label\":\"Histological
+        report\",\"permissibleValues\":[],\"regex\":null,\"min\":null,\"max\":null},\"notes\":{\"example\":\"Sample
+        was stored at 4\xB0C for 48 hours prior to processing due to equipment maintenance
+        delay\",\"name\":\"notes\",\"required\":false,\"description\":\"Miscellaneous
+        details about the sample that are not captured in the existing metadata fields.
+        \",\"type\":\"string\",\"subType\":null,\"label\":\"Notes\",\"permissibleValues\":[],\"regex\":null,\"min\":null,\"max\":null},\"metadata_schema_id\":{\"example\":\"22bc762a-5020-419d-b170-24253ed9e8d9\",\"name\":\"metadata_schema_id\",\"required\":true,\"description\":\"The
+        unique string identifier for the metadata specification version, which is
+        easily interpretable by computers for purposes of data validation and processing.
+        \",\"type\":\"string\",\"subType\":null,\"label\":\"Metadata schema ID\",\"permissibleValues\":[],\"regex\":null,\"min\":null,\"max\":null},\"source_storage_duration_unit\":{\"example\":\"hour\",\"name\":\"source_storage_duration_unit\",\"required\":true,\"description\":\"The
+        unit of measurement used to specify the source storage duration value. \",\"type\":\"string\",\"subType\":null,\"label\":\"Source
+        storage duration unit\",\"permissibleValues\":[{\"label\":\"day\",\"meaning\":\"http://purl.obolibrary.org/obo/UO_0000033\"},{\"label\":\"hour\",\"meaning\":\"http://purl.obolibrary.org/obo/UO_0000032\"},{\"label\":\"minute\",\"meaning\":\"http://purl.obolibrary.org/obo/UO_0000031\"},{\"label\":\"month\",\"meaning\":\"http://purl.obolibrary.org/obo/UO_0000035\"},{\"label\":\"year\",\"meaning\":\"http://purl.obolibrary.org/obo/UO_0000036\"}],\"regex\":null,\"min\":null,\"max\":null},\"volume_unit\":{\"example\":\"mm^3\",\"name\":\"volume_unit\",\"required\":false,\"description\":\"The
+        unit of measurement for the volume value. If no volume measurement is specified,
+        this field may be left blank. \",\"type\":\"string\",\"subType\":null,\"label\":\"Volume
+        unit\",\"permissibleValues\":[{\"label\":\"cm^3\",\"meaning\":\"http://purl.obolibrary.org/obo/UO_0000097\"},{\"label\":\"ml\",\"meaning\":\"http://purl.obolibrary.org/obo/UO_0000098\"},{\"label\":\"mm^3\",\"meaning\":\"https://purl.humanatlas.io/vocab/hravs#HRAVS_0000136\"},{\"label\":\"um^3\",\"meaning\":\"https://purl.humanatlas.io/vocab/hravs#HRAVS_0000112\"}],\"regex\":null,\"min\":null,\"max\":null},\"pathology_distance_unit\":{\"example\":\"mm\",\"name\":\"pathology_distance_unit\",\"required\":false,\"description\":\"The
+        unit of measurement for the pathology distance value. If no distance measurement
+        is applicable, this field may be left blank. \",\"type\":\"string\",\"subType\":null,\"label\":\"Pathology
+        distance unit\",\"permissibleValues\":[{\"label\":\"cm\",\"meaning\":\"http://purl.obolibrary.org/obo/UO_0000015\"},{\"label\":\"mm\",\"meaning\":\"http://purl.obolibrary.org/obo/UO_0000016\"}],\"regex\":null,\"min\":null,\"max\":null},\"preparation_medium\":{\"example\":\"Fresh
+        frozen CMC\",\"name\":\"preparation_medium\",\"required\":true,\"description\":\"The
+        medium used during the sample preparation process. If no specific medium was
+        utilized, enter \\\"None\\\". If medium was not recorded, enter \\\"Unknown\\\".
+        \",\"type\":\"string\",\"subType\":null,\"label\":\"Preparation medium\",\"permissibleValues\":[{\"label\":\"1X
+        fixation & permeabilization buffer\",\"meaning\":\"https://purl.humanatlas.io/vocab/hravs#HRAVS_0000425\"},{\"label\":\"2%
+        PFA/2.5% Glutaraldehyde\",\"meaning\":\"https://purl.humanatlas.io/vocab/hravs#HRAVS_0000332\"},{\"label\":\"Allprotect
+        tissue reagent (ALL)\",\"meaning\":\"https://purl.humanatlas.io/vocab/hravs#HRAVS_0000118\"},{\"label\":\"Alpha-MEM\",\"meaning\":\"https://purl.humanatlas.io/vocab/hravs#HRAVS_0000371\"},{\"label\":\"Biops
+        buffer\",\"meaning\":\"https://purl.humanatlas.io/vocab/hravs#HRAVS_0000330\"},{\"label\":\"Bouin's\",\"meaning\":\"https://purl.humanatlas.io/vocab/hravs#HRAVS_0000140\"},{\"label\":\"CLARITY
+        hydrogel\",\"meaning\":\"https://purl.humanatlas.io/vocab/hravs#HRAVS_0000134\"},{\"label\":\"DMEM\",\"meaning\":\"http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C185409\"},{\"label\":\"Ethanol\",\"meaning\":\"http://purl.obolibrary.org/obo/CHEBI_16236\"},{\"label\":\"Fixed
+        frozen OCT (Cytofix/Cytoperm)\",\"meaning\":\"https://purl.humanatlas.io/vocab/hravs#HRAVS_0000149\"},{\"label\":\"Fixed
+        frozen OCT (Formalin, sucrose protected)\",\"meaning\":\"https://purl.humanatlas.io/vocab/hravs#HRAVS_0000116\"},{\"label\":\"Fixed
+        frozen OCT (PFA, sucrose protected)\",\"meaning\":\"https://purl.humanatlas.io/vocab/hravs#HRAVS_0000147\"},{\"label\":\"Fresh
+        frozen CMC\",\"meaning\":\"https://purl.humanatlas.io/vocab/hravs#HRAVS_0000130\"},{\"label\":\"Fresh
+        frozen gelatin\",\"meaning\":\"https://purl.humanatlas.io/vocab/hravs#HRAVS_0000198\"},{\"label\":\"Fresh
+        frozen OCT\",\"meaning\":\"https://purl.humanatlas.io/vocab/hravs#HRAVS_0000126\"},{\"label\":\"Growth
+        media\",\"meaning\":\"https://purl.humanatlas.io/vocab/hravs#HRAVS_0000372\"},{\"label\":\"HPMC-PVP\",\"meaning\":\"https://purl.humanatlas.io/vocab/hravs#HRAVS_0000386\"},{\"label\":\"HTK
+        Solution\",\"meaning\":\"https://purl.humanatlas.io/vocab/hravs#HRAVS_0000152\"},{\"label\":\"Inflated
+        (Agarose)\",\"meaning\":\"https://purl.humanatlas.io/vocab/hravs#HRAVS_0000106\"},{\"label\":\"Inflated
+        (OCT)\",\"meaning\":\"https://purl.humanatlas.io/vocab/hravs#HRAVS_0000123\"},{\"label\":\"Lysis
+        buffer\",\"meaning\":\"http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C178573\"},{\"label\":\"MACS
+        tissue storage solution\",\"meaning\":\"https://purl.humanatlas.io/vocab/hravs#HRAVS_0000105\"},{\"label\":\"Methanol\",\"meaning\":\"http://purl.obolibrary.org/obo/CHEBI_17790\"},{\"label\":\"Modified
+        Davidson's Fixative\",\"meaning\":\"https://purl.humanatlas.io/vocab/hravs#HRAVS_0000370\"},{\"label\":\"NBF
+        (Neutral Buffered Formalin)\",\"meaning\":\"http://purl.obolibrary.org/obo/OBIB_0000213\"},{\"label\":\"None\",\"meaning\":\"http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C41132\"},{\"label\":\"PAXgene
+        tissue kit (PXT)\",\"meaning\":\"http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C185113\"},{\"label\":\"PBS\",\"meaning\":\"http://purl.obolibrary.org/obo/OBI_0100046\"},{\"label\":\"Perfadex
+        Plus\",\"meaning\":\"https://purl.humanatlas.io/vocab/hravs#HRAVS_0000249\"},{\"label\":\"PFA
+        (Paraformaldehyde)\",\"meaning\":\"http://purl.obolibrary.org/obo/CHEBI_61538\"},{\"label\":\"PLP
+        (Periodate-Lysine-Paraformaldehyde)\",\"meaning\":\"http://purl.bioontology.org/ontology/MESH/C046311\"},{\"label\":\"RNAlater\",\"meaning\":\"http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C63348\"},{\"label\":\"Trumps
+        fixative\",\"meaning\":\"https://purl.humanatlas.io/vocab/hravs#HRAVS_0000331\"},{\"label\":\"Unknown\",\"meaning\":\"http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C17998\"},{\"label\":\"UW
+        Solution\",\"meaning\":\"https://purl.humanatlas.io/vocab/hravs#HRAVS_0000151\"}],\"regex\":null,\"min\":null,\"max\":null},\"preparation_condition\":{\"example\":\"Frozen
+        on dry ice\",\"name\":\"preparation_condition\",\"required\":true,\"description\":\"The
+        condition under which the sample preparation took place, such as whether the
+        sample was placed on dry ice during the process. If preparation condition
+        was not recorded, enter \\\"Unknown\\\". \",\"type\":\"string\",\"subType\":null,\"label\":\"Preparation
+        condition\",\"permissibleValues\":[{\"label\":\"Frozen at -20 degrees celsius\",\"meaning\":\"https://purl.humanatlas.io/vocab/hravs#HRAVS_0000107\"},{\"label\":\"Frozen
+        in liquid nitrogen\",\"meaning\":\"http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C185338\"},{\"label\":\"Frozen
+        in liquid nitrogen vapor\",\"meaning\":\"http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C185339\"},{\"label\":\"Frozen
+        on dry ice\",\"meaning\":\"http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C187069\"},{\"label\":\"Frozen
+        on ice\",\"meaning\":\"https://purl.humanatlas.io/vocab/hravs#HRAVS_0000144\"},{\"label\":\"Incubated
+        at 37 degrees celsius\",\"meaning\":\"https://purl.humanatlas.io/vocab/hravs#HRAVS_0000148\"},{\"label\":\"Stored
+        in ambient temperature\",\"meaning\":\"http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C70719\"},{\"label\":\"Stored
+        in refrigerator\",\"meaning\":\"https://purl.humanatlas.io/vocab/hravs#HRAVS_0000104\"},{\"label\":\"Stored
+        on wet ice\",\"meaning\":\"https://purl.humanatlas.io/vocab/hravs#HRAVS_0000465\"},{\"label\":\"Unknown\",\"meaning\":\"http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C17998\"}],\"regex\":null,\"min\":null,\"max\":null},\"processing_time_unit\":{\"example\":\"minute\",\"name\":\"processing_time_unit\",\"required\":false,\"description\":\"The
+        unit of measurement for the processing time value. If processing time is not
+        specified, this field may be left blank. \",\"type\":\"string\",\"subType\":null,\"label\":\"Processing
+        time unit\",\"permissibleValues\":[{\"label\":\"minute\",\"meaning\":\"http://purl.obolibrary.org/obo/UO_0000031\"},{\"label\":\"day\",\"meaning\":\"http://purl.obolibrary.org/obo/UO_0000033\"},{\"label\":\"hour\",\"meaning\":\"http://purl.obolibrary.org/obo/UO_0000032\"}],\"regex\":null,\"min\":null,\"max\":null},\"storage_medium\":{\"example\":\"FFPE
+        (Paraffin embedded)\",\"name\":\"storage_medium\",\"required\":true,\"description\":\"The
+        medium used to preserve the sample. If no specific medium was utilized, enter
+        \\\"None\\\". If medium was not recorded, enter \\\"Unknown\\\". \",\"type\":\"string\",\"subType\":null,\"label\":\"Storage
+        medium\",\"permissibleValues\":[{\"label\":\"1X quench buffer\",\"meaning\":\"https://purl.humanatlas.io/vocab/hravs#HRAVS_0000427\"},{\"label\":\"2%
+        PFA/2.5% Glutaraldehyde\",\"meaning\":\"https://purl.humanatlas.io/vocab/hravs#HRAVS_0000332\"},{\"label\":\"Allprotect
+        tissue reagent (ALL)\",\"meaning\":\"https://purl.humanatlas.io/vocab/hravs#HRAVS_0000118\"},{\"label\":\"CMC\",\"meaning\":\"http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C83594\"},{\"label\":\"Concentrated
+        quench buffer\",\"meaning\":\"https://purl.humanatlas.io/vocab/hravs#HRAVS_0000391\"},{\"label\":\"Cryo-EM\",\"meaning\":\"https://purl.humanatlas.io/vocab/hravs#HRAVS_0000333\"},{\"label\":\"DMEM\",\"meaning\":\"http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C185409\"},{\"label\":\"DMSO
+        (no serum)\",\"meaning\":\"https://purl.humanatlas.io/vocab/hravs#HRAVS_0000115\"},{\"label\":\"DMSO
+        (serum)\",\"meaning\":\"https://purl.humanatlas.io/vocab/hravs#HRAVS_0000125\"},{\"label\":\"Ethanol\",\"meaning\":\"http://purl.obolibrary.org/obo/CHEBI_16236\"},{\"label\":\"FFPE
+        (Paraffin embedded)\",\"meaning\":\"http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C143028\"},{\"label\":\"Formic
+        acid in water\",\"meaning\":\"http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C83719\"},{\"label\":\"Gelatin\",\"meaning\":\"http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C65802\"},{\"label\":\"HPMC-PVP\",\"meaning\":\"https://purl.humanatlas.io/vocab/hravs#HRAVS_0000386\"},{\"label\":\"MACS
+        tissue storage solution\",\"meaning\":\"https://purl.humanatlas.io/vocab/hravs#HRAVS_0000105\"},{\"label\":\"Methanol\",\"meaning\":\"http://purl.obolibrary.org/obo/CHEBI_17790\"},{\"label\":\"NBF
+        (Neutral Buffered Formalin)\",\"meaning\":\"http://purl.obolibrary.org/obo/OBIB_0000213\"},{\"label\":\"None\",\"meaning\":\"http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C41132\"},{\"label\":\"Nuclease-free
+        water\",\"meaning\":\"https://purl.humanatlas.io/vocab/hravs#HRAVS_0000482\"},{\"label\":\"OCT\",\"meaning\":\"http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C63523\"},{\"label\":\"PAXgene
+        tissue kit (PXT)\",\"meaning\":\"http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C185113\"},{\"label\":\"PBS\",\"meaning\":\"http://purl.obolibrary.org/obo/OBI_0100046\"},{\"label\":\"PFA
+        (Paraformaldehyde)\",\"meaning\":\"http://purl.obolibrary.org/obo/CHEBI_61538\"},{\"label\":\"RNAlater\",\"meaning\":\"http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C63348\"},{\"label\":\"Tris-EDTA\",\"meaning\":\"https://purl.humanatlas.io/vocab/hravs#HRAVS_0000135\"},{\"label\":\"Unknown\",\"meaning\":\"http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C17998\"},{\"label\":\"Water\",\"meaning\":\"http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C65147\"}],\"regex\":null,\"min\":null,\"max\":null},\"storage_method\":{\"example\":\"Frozen
+        in dry ice\",\"name\":\"storage_method\",\"required\":true,\"description\":\"The
+        method used to store the sample after preparation and prior to performing
+        the assay. If no specific storage method was utilized, enter \\\"None\\\".
+        If storage method was not recorded, enter \\\"Unknown\\\". \",\"type\":\"string\",\"subType\":null,\"label\":\"Storage
+        method\",\"permissibleValues\":[{\"label\":\"Frozen at -20 degrees celsius\",\"meaning\":\"https://purl.humanatlas.io/vocab/hravs#HRAVS_0000107\"},{\"label\":\"Frozen
+        at -80 degrees celsius\",\"meaning\":\"https://purl.humanatlas.io/vocab/hravs#HRAVS_0000132\"},{\"label\":\"Frozen
+        in liquid nitrogen\",\"meaning\":\"http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C185338\"},{\"label\":\"Frozen
+        in liquid nitrogen vapor\",\"meaning\":\"http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C185339\"},{\"label\":\"Frozen
+        on dry ice\",\"meaning\":\"http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C187069\"},{\"label\":\"Frozen
+        on ice\",\"meaning\":\"https://purl.humanatlas.io/vocab/hravs#HRAVS_0000144\"},{\"label\":\"Incubated
+        at 37 degrees celsius\",\"meaning\":\"https://purl.humanatlas.io/vocab/hravs#HRAVS_0000148\"},{\"label\":\"None\",\"meaning\":\"http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C41132\"},{\"label\":\"Stored
+        in ambient temperature\",\"meaning\":\"http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C70719\"},{\"label\":\"Stored
+        in desiccator\",\"meaning\":\"https://purl.humanatlas.io/vocab/hravs#HRAVS_0000387\"},{\"label\":\"Stored
+        in refrigerator\",\"meaning\":\"https://purl.humanatlas.io/vocab/hravs#HRAVS_0000104\"},{\"label\":\"Unknown\",\"meaning\":\"http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C17998\"}],\"regex\":null,\"min\":null,\"max\":null},\"lab_id\":{\"example\":null,\"name\":\"lab_id\",\"required\":false,\"description\":\"An
+        identifier assigned by the data provider to reference an external metadata
+        record for the dataset. The external record may be maintained independently
+        and can support dataset traceability and provenance tracking. Leave this field
+        empty if no such identifier exists.\",\"type\":\"string\",\"subType\":null,\"label\":\"Lab
+        ID\",\"permissibleValues\":[],\"regex\":null,\"min\":null,\"max\":null},\"tissue_weight_value\":{\"example\":\"100\",\"name\":\"tissue_weight_value\",\"required\":false,\"description\":\"The
+        weight of a tissue block or the piece of tissue used in a suspension. This
+        information is crucial for calculating the percentage of the parent block
+        that was utilized in the suspension preparation. If the weight is not applicable
+        or unknown, this field may be left blank. \",\"type\":\"number\",\"subType\":\"decimal\",\"label\":\"Tissue
+        weight value\",\"permissibleValues\":[],\"regex\":null,\"min\":0,\"max\":null},\"tissue_weight_unit\":{\"example\":\"g\",\"name\":\"tissue_weight_unit\",\"required\":false,\"description\":\"The
+        unit of measurement for the tissue weight value. If no tissue weight is specified,
+        this field may be left blank. \",\"type\":\"string\",\"subType\":null,\"label\":\"Tissue
+        weight unit\",\"permissibleValues\":[{\"label\":\"g\",\"meaning\":\"http://purl.obolibrary.org/obo/UO_0000021\"},{\"label\":\"kg\",\"meaning\":\"http://purl.obolibrary.org/obo/UO_0000009\"},{\"label\":\"mg\",\"meaning\":\"http://purl.obolibrary.org/obo/UO_0000022\"},{\"label\":\"ug\",\"meaning\":\"http://purl.obolibrary.org/obo/UO_0000023\"}],\"regex\":null,\"min\":null,\"max\":null},\"preparation_protocol_doi\":{\"example\":\"https://dx.doi.org/10.17504/protocols.io.eq2lyno9qvx9/v1\",\"name\":\"preparation_protocol_doi\",\"required\":true,\"description\":\"The
+        DOI for the protocols.io page that details the assay or the procedures used
+        for sample procurement and preparation. For example, in the case of an imaging
+        assay, the protocol may start with tissue section staining and end with the
+        generation of an OME-TIFF file. The documented protocol should also include
+        any image processing steps involved in producing the final OME-TIFF. \",\"type\":\"url\",\"subType\":null,\"label\":\"Preparation
+        protocol DOI\",\"permissibleValues\":[],\"regex\":null,\"min\":null,\"max\":null},\"source_id\":{\"example\":\"HBM122.EFGH.789\",\"name\":\"source_id\",\"required\":true,\"description\":\"The
+        unique identifier from HuBMAP or SenNet for the source (parent data) from
+        which the sample was derived. \",\"type\":\"string\",\"subType\":null,\"label\":\"Source
+        ID\",\"permissibleValues\":[],\"regex\":\"^(?:HBM|SNT)\\\\d{3}\\\\.[A-Z]{4}\\\\.\\\\d{3}$\",\"min\":null,\"max\":null},\"sample_id\":{\"example\":\"HBM743.CKJW.876\",\"name\":\"sample_id\",\"required\":true,\"description\":\"The
+        unique HuBMAP or SenNet identifier assigned to the sample by the ingest portal.
+        \",\"type\":\"string\",\"subType\":null,\"label\":\"Sample ID\",\"permissibleValues\":[],\"regex\":\"^(?:HBM|SNT)\\\\d{3}\\\\.[A-Z]{4}\\\\.\\\\d{3}$\",\"min\":null,\"max\":null}},\"requiredColumns\":[\"source_storage_duration_value\",\"metadata_schema_id\",\"source_storage_duration_unit\",\"preparation_medium\",\"preparation_condition\",\"storage_medium\",\"storage_method\",\"preparation_protocol_doi\",\"source_id\",\"sample_id\"],\"columnOrder\":[\"source_id\",\"sample_id\",\"lab_id\",\"preparation_protocol_doi\",\"source_storage_duration_value\",\"source_storage_duration_unit\",\"tissue_weight_value\",\"tissue_weight_unit\",\"volume_value\",\"volume_unit\",\"pathology_distance_value\",\"pathology_distance_unit\",\"preparation_medium\",\"preparation_condition\",\"processing_time_value\",\"processing_time_unit\",\"storage_medium\",\"storage_method\",\"quality_criteria\",\"histological_report\",\"notes\",\"metadata_schema_id\"],\"generatedFrom\":\"Optional[https://repo.metadatacenter.org/templates/3e98cee6-d3fb-467b-8d4e-9ba7ee49eeff]\",\"accessUrl\":\"https://openview.metadatacenter.org/templates/https%3A%2F%2Frepo.metadatacenter.org%2Ftemplates%2F3e98cee6-d3fb-467b-8d4e-9ba7ee49eeff\"},\"data\":[{\"rowNumber\":0,\"volume_value\":42,\"storage_method\":\"frozen
+        in liquid nitrogen\",\"preparation_condition\":\"frozen in liquid nitrogen\",\"notes\":\"\",\"source_storage_duration_value\":42,\"sample_id\":\"SNT733.NLLM.987\",\"metadata_schema_id\":\"3e98cee6-d3fb-467b-8d4e-9ba7ee49eeff\",\"tissue_weight_unit\":\"kg\",\"pathology_distance_unit\":\"cm\",\"preparation_medium\":\"Methanol\",\"processing_time_unit\":\"minute\",\"pathology_distance_value\":42,\"quality_criteria\":\"\",\"volume_unit\":\"mm^3\",\"tissue_weight_value\":42,\"source_storage_duration_unit\":\"minute\",\"histological_report\":\"\",\"storage_medium\":\"Methanol\",\"preparation_protocol_doi\":\"https://dx.doi.org/10.17504/protocols.io.eq2lyno9qvx9/v1\",\"source_id\":\"SNT988.PFWZ.963\",\"processing_time_value\":42,\"lab_id\":\"\"},{\"rowNumber\":1,\"volume_value\":42,\"storage_method\":\"frozen
+        in liquid nitrogen\",\"preparation_condition\":\"frozen in liquid nitrogen\",\"notes\":\"\",\"source_storage_duration_value\":42,\"sample_id\":\"SNT429.HBSX.728\",\"metadata_schema_id\":\"3e98cee6-d3fb-467b-8d4e-9ba7ee49eeff\",\"tissue_weight_unit\":\"kg\",\"pathology_distance_unit\":\"cm\",\"preparation_medium\":\"Methanol\",\"processing_time_unit\":\"minute\",\"pathology_distance_value\":42,\"quality_criteria\":\"\",\"volume_unit\":\"mm^3\",\"tissue_weight_value\":42,\"source_storage_duration_unit\":\"minute\",\"histological_report\":\"\",\"storage_medium\":\"Methanol\",\"preparation_protocol_doi\":\"https://dx.doi.org/10.17504/protocols.io.eq2lyno9qvx9/v1\",\"source_id\":\"SNT988.PFWZ.963\",\"processing_time_value\":42,\"lab_id\":\"\"}],\"reporting\":[]}"
+    headers: {}
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers: {}
+    method: GET
+    uri: https://entity.api.sennetconsortium.org/entities/SNT988.PFWZ.963?exclude=direct_ancestors.files
+  response:
+    body:
+      string: '{"created_by_user_displayname":"Tim Meyer","created_by_user_email":"meye0664@umn.edu","created_by_user_sub":"8509cb8d-e3c8-4bd8-8fa6-ec27a878dd39","created_timestamp":1710530037347,"creation_action":"Create
+        Sample Activity","data_access_level":"public","direct_ancestor":{"created_by_user_displayname":"Tim
+        Meyer","created_by_user_email":"meye0664@umn.edu","created_by_user_sub":"8509cb8d-e3c8-4bd8-8fa6-ec27a878dd39","created_timestamp":1697037970678,"creation_action":"Create
+        Source Activity","data_access_level":"public","entity_type":"Source","group_name":"TMC
+        - University of Minnesota - Niedernhofer","group_uuid":"ca21ca01-50a0-11ed-839d-ef21729c63fc","lab_source_id":"SNHB0030","last_modified_timestamp":1745315955224,"last_modified_user_displayname":"Joseph
+        Simmons","last_modified_user_email":"JAS971@pitt.edu","last_modified_user_sub":"4562a4ca-2e28-4fb7-b3e1-1550bc117bbf","metadata":{"living_donor_data":[{"code":"424144002","concept_id":"C0001779","data_type":"Numeric","data_value":"38","end_datetime":"","graph_version":"UMLS2024AA","grouping_code":"424144002","grouping_concept":"C0001779","grouping_concept_preferred_term":"Age","grouping_sab":"SNOMEDCT_US","numeric_operator":"EQ","preferred_term":"Age","sab":"SNOMEDCT_US","start_datetime":"","units":"years"},{"code":"413490006","concept_id":"C1515945","data_type":"Nominal","data_value":"American
+        Indian or Alaska native","end_datetime":"","graph_version":"UMLS2024AA","grouping_code":"415229000","grouping_concept":"C0034510","grouping_concept_preferred_term":"Race","grouping_sab":"SNOMEDCT_US","numeric_operator":"","preferred_term":"American
+        Indian or Alaska native","sab":"SNOMEDCT_US","start_datetime":"","units":""},{"code":"1086007","concept_id":"C0086287","data_type":"Nominal","data_value":"Female","end_datetime":"","graph_version":"UMLS2024AA","grouping_code":"57312000","grouping_concept":"C1522384","grouping_concept_preferred_term":"Sex","grouping_sab":"SNOMEDCT_US","numeric_operator":"","preferred_term":"Female","sab":"SNOMEDCT_US","start_datetime":"","units":""},{"code":"60621009","concept_id":"C1305855","data_type":"Numeric","data_value":"42.02","end_datetime":"","graph_version":"UMLS2024AA","grouping_code":"60621009","grouping_concept":"C1305855","grouping_concept_preferred_term":"Body
+        Mass Index","grouping_sab":"SNOMEDCT_US","numeric_operator":"EQ","preferred_term":"Body
+        Mass Index","sab":"SNOMEDCT_US","start_datetime":"","units":"kg/m2"}]},"protocol_url":"dx.doi.org/10.17504/protocols.io.rm7vzxw4xgx1/v1","sennet_id":"SNT744.ZJCF.936","source_mapped_metadata":{"age":{"group_display":"Demographics","key_display":"Age","unit":"years","value":[38.0],"value_display":"38
+        years"},"body_mass_index":{"group_display":"Vitals","key_display":"Body Mass
+        Index","unit":"kg/m2","value":[42.02],"value_display":"42.02 kg/m2"},"race":{"group_display":"Demographics","key_display":"Race","unit":"","value":["American
+        Indian or Alaska native"],"value_display":"American Indian or Alaska native"},"sex":{"group_display":"Demographics","key_display":"Sex","unit":"","value":["Female"],"value_display":"Female"}},"source_type":"Human","uuid":"aab508582cd68248c0481abb294b13ff"},"entity_type":"Sample","group_name":"TMC
+        - University of Minnesota - Niedernhofer","group_uuid":"ca21ca01-50a0-11ed-839d-ef21729c63fc","lab_tissue_sample_id":"SNHB0030-LV","last_modified_timestamp":1710530037347,"last_modified_user_displayname":"Tim
+        Meyer","last_modified_user_email":"meye0664@umn.edu","last_modified_user_sub":"8509cb8d-e3c8-4bd8-8fa6-ec27a878dd39","organ":"UBERON:0002107","organ_hierarchy":"Liver","origin_samples":[{"created_by_user_displayname":"Tim
+        Meyer","created_by_user_email":"meye0664@umn.edu","created_by_user_sub":"8509cb8d-e3c8-4bd8-8fa6-ec27a878dd39","created_timestamp":1710530037347,"creation_action":"Create
+        Sample Activity","data_access_level":"public","description":"","entity_type":"Sample","group_name":"TMC
+        - University of Minnesota - Niedernhofer","group_uuid":"ca21ca01-50a0-11ed-839d-ef21729c63fc","lab_tissue_sample_id":"SNHB0030-LV","last_modified_timestamp":1710530037347,"last_modified_user_displayname":"Tim
+        Meyer","last_modified_user_email":"meye0664@umn.edu","last_modified_user_sub":"8509cb8d-e3c8-4bd8-8fa6-ec27a878dd39","organ":"UBERON:0002107","organ_hierarchy":"Liver","protocol_url":"dx.doi.org/10.17504/protocols.io.j8nlko7j5v5r/v1","sample_category":"Organ","sennet_id":"SNT988.PFWZ.963","uuid":"0c5cab46c10b131ebb6c40d68cfa79ff"}],"protocol_url":"dx.doi.org/10.17504/protocols.io.j8nlko7j5v5r/v1","sample_category":"Organ","sennet_id":"SNT988.PFWZ.963","source":{"created_by_user_displayname":"Tim
+        Meyer","created_by_user_email":"meye0664@umn.edu","created_by_user_sub":"8509cb8d-e3c8-4bd8-8fa6-ec27a878dd39","created_timestamp":1697037970678,"creation_action":"Create
+        Source Activity","data_access_level":"public","description":"","entity_type":"Source","group_name":"TMC
+        - University of Minnesota - Niedernhofer","group_uuid":"ca21ca01-50a0-11ed-839d-ef21729c63fc","lab_source_id":"SNHB0030","last_modified_timestamp":1745315955224,"last_modified_user_displayname":"Joseph
+        Simmons","last_modified_user_email":"JAS971@pitt.edu","last_modified_user_sub":"4562a4ca-2e28-4fb7-b3e1-1550bc117bbf","mapped_metadata":{"age":{"group_display":"Demographics","key_display":"Age","unit":"years","value":[38.0],"value_display":"38
+        years"},"body_mass_index":{"group_display":"Vitals","key_display":"Body Mass
+        Index","unit":"kg/m2","value":[42.02],"value_display":"42.02 kg/m2"},"race":{"group_display":"Demographics","key_display":"Race","unit":"","value":["American
+        Indian or Alaska native"],"value_display":"American Indian or Alaska native"},"sex":{"group_display":"Demographics","key_display":"Sex","unit":"","value":["Female"],"value_display":"Female"}},"metadata":{"living_donor_data":[{"code":"424144002","concept_id":"C0001779","data_type":"Numeric","data_value":"38","end_datetime":"","graph_version":"UMLS2024AA","grouping_code":"424144002","grouping_concept":"C0001779","grouping_concept_preferred_term":"Age","grouping_sab":"SNOMEDCT_US","numeric_operator":"EQ","preferred_term":"Age","sab":"SNOMEDCT_US","start_datetime":"","units":"years"},{"code":"413490006","concept_id":"C1515945","data_type":"Nominal","data_value":"American
+        Indian or Alaska native","end_datetime":"","graph_version":"UMLS2024AA","grouping_code":"415229000","grouping_concept":"C0034510","grouping_concept_preferred_term":"Race","grouping_sab":"SNOMEDCT_US","numeric_operator":"","preferred_term":"American
+        Indian or Alaska native","sab":"SNOMEDCT_US","start_datetime":"","units":""},{"code":"1086007","concept_id":"C0086287","data_type":"Nominal","data_value":"Female","end_datetime":"","graph_version":"UMLS2024AA","grouping_code":"57312000","grouping_concept":"C1522384","grouping_concept_preferred_term":"Sex","grouping_sab":"SNOMEDCT_US","numeric_operator":"","preferred_term":"Female","sab":"SNOMEDCT_US","start_datetime":"","units":""},{"code":"60621009","concept_id":"C1305855","data_type":"Numeric","data_value":"42.02","end_datetime":"","graph_version":"UMLS2024AA","grouping_code":"60621009","grouping_concept":"C1305855","grouping_concept_preferred_term":"Body
+        Mass Index","grouping_sab":"SNOMEDCT_US","numeric_operator":"EQ","preferred_term":"Body
+        Mass Index","sab":"SNOMEDCT_US","start_datetime":"","units":"kg/m2"}]},"protocol_url":"dx.doi.org/10.17504/protocols.io.rm7vzxw4xgx1/v1","sennet_id":"SNT744.ZJCF.936","source_type":"Human","uuid":"aab508582cd68248c0481abb294b13ff"},"uuid":"0c5cab46c10b131ebb6c40d68cfa79ff"}
+
+        '
+    headers: {}
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers: {}
+    method: GET
+    uri: https://entity.api.sennetconsortium.org/entities/SNT733.NLLM.987?exclude=direct_ancestors.files
+  response:
+    body:
+      string: '{"cedar_mapped_metadata":{"Histological Report":"","Lab ID":"SNHB0030-LV-B0002","Metadata
+        Schema ID":"3e98cee6-d3fb-467b-8d4e-9ba7ee49eeff","Notes":"","Pathology Distance":"","Preparation
+        Condition":"Frozen in liquid nitrogen","Preparation Medium":"Fresh frozen
+        OCT","Preparation Protocol DOI":"https://dx.doi.org/10.17504/protocols.io.j8nlko7j5v5r/v1","Processing
+        Time":"","Quality Criteria":"","Sample ID":"SNT733.NLLM.987","Source ID":"SNT988.PFWZ.963","Source
+        Storage Duration":"1 hour","Storage Medium":"OCT","Storage Method":"Frozen
+        at -80 degrees celsius","Tissue Weight":"","Volume":""},"created_by_user_displayname":"Tim
+        Meyer","created_by_user_email":"meye0664@umn.edu","created_by_user_sub":"8509cb8d-e3c8-4bd8-8fa6-ec27a878dd39","created_timestamp":1790793747275,"creation_action":"Create
+        Sample Activity","data_access_level":"public","direct_ancestor":{"created_by_user_displayname":"Tim
+        Meyer","created_by_user_email":"meye0664@umn.edu","created_by_user_sub":"8509cb8d-e3c8-4bd8-8fa6-ec27a878dd39","created_timestamp":1710530037347,"creation_action":"Create
+        Sample Activity","data_access_level":"public","entity_type":"Sample","group_name":"TMC
+        - University of Minnesota - Niedernhofer","group_uuid":"ca21ca01-50a0-11ed-839d-ef21729c63fc","lab_tissue_sample_id":"SNHB0030-LV","last_modified_timestamp":1710530037347,"last_modified_user_displayname":"Tim
+        Meyer","last_modified_user_email":"meye0664@umn.edu","last_modified_user_sub":"8509cb8d-e3c8-4bd8-8fa6-ec27a878dd39","organ":"UBERON:0002107","organ_hierarchy":"Liver","origin_samples":[{"created_by_user_displayname":"Tim
+        Meyer","created_by_user_email":"meye0664@umn.edu","created_by_user_sub":"8509cb8d-e3c8-4bd8-8fa6-ec27a878dd39","created_timestamp":1710530037347,"creation_action":"Create
+        Sample Activity","data_access_level":"public","description":"","entity_type":"Sample","group_name":"TMC
+        - University of Minnesota - Niedernhofer","group_uuid":"ca21ca01-50a0-11ed-839d-ef21729c63fc","lab_tissue_sample_id":"SNHB0030-LV","last_modified_timestamp":1710530037347,"last_modified_user_displayname":"Tim
+        Meyer","last_modified_user_email":"meye0664@umn.edu","last_modified_user_sub":"8509cb8d-e3c8-4bd8-8fa6-ec27a878dd39","organ":"UBERON:0002107","organ_hierarchy":"Liver","protocol_url":"dx.doi.org/10.17504/protocols.io.j8nlko7j5v5r/v1","sample_category":"Organ","sennet_id":"SNT988.PFWZ.963","uuid":"0c5cab46c10b131ebb6c40d68cfa79ff"}],"protocol_url":"dx.doi.org/10.17504/protocols.io.j8nlko7j5v5r/v1","sample_category":"Organ","sennet_id":"SNT988.PFWZ.963","source":{"created_by_user_displayname":"Tim
+        Meyer","created_by_user_email":"meye0664@umn.edu","created_by_user_sub":"8509cb8d-e3c8-4bd8-8fa6-ec27a878dd39","created_timestamp":1697037970678,"creation_action":"Create
+        Source Activity","data_access_level":"public","description":"","entity_type":"Source","group_name":"TMC
+        - University of Minnesota - Niedernhofer","group_uuid":"ca21ca01-50a0-11ed-839d-ef21729c63fc","lab_source_id":"SNHB0030","last_modified_timestamp":1745315955224,"last_modified_user_displayname":"Joseph
+        Simmons","last_modified_user_email":"JAS971@pitt.edu","last_modified_user_sub":"4562a4ca-2e28-4fb7-b3e1-1550bc117bbf","mapped_metadata":{"age":{"group_display":"Demographics","key_display":"Age","unit":"years","value":[38.0],"value_display":"38
+        years"},"body_mass_index":{"group_display":"Vitals","key_display":"Body Mass
+        Index","unit":"kg/m2","value":[42.02],"value_display":"42.02 kg/m2"},"race":{"group_display":"Demographics","key_display":"Race","unit":"","value":["American
+        Indian or Alaska native"],"value_display":"American Indian or Alaska native"},"sex":{"group_display":"Demographics","key_display":"Sex","unit":"","value":["Female"],"value_display":"Female"}},"metadata":{"living_donor_data":[{"code":"424144002","concept_id":"C0001779","data_type":"Numeric","data_value":"38","end_datetime":"","graph_version":"UMLS2024AA","grouping_code":"424144002","grouping_concept":"C0001779","grouping_concept_preferred_term":"Age","grouping_sab":"SNOMEDCT_US","numeric_operator":"EQ","preferred_term":"Age","sab":"SNOMEDCT_US","start_datetime":"","units":"years"},{"code":"413490006","concept_id":"C1515945","data_type":"Nominal","data_value":"American
+        Indian or Alaska native","end_datetime":"","graph_version":"UMLS2024AA","grouping_code":"415229000","grouping_concept":"C0034510","grouping_concept_preferred_term":"Race","grouping_sab":"SNOMEDCT_US","numeric_operator":"","preferred_term":"American
+        Indian or Alaska native","sab":"SNOMEDCT_US","start_datetime":"","units":""},{"code":"1086007","concept_id":"C0086287","data_type":"Nominal","data_value":"Female","end_datetime":"","graph_version":"UMLS2024AA","grouping_code":"57312000","grouping_concept":"C1522384","grouping_concept_preferred_term":"Sex","grouping_sab":"SNOMEDCT_US","numeric_operator":"","preferred_term":"Female","sab":"SNOMEDCT_US","start_datetime":"","units":""},{"code":"60621009","concept_id":"C1305855","data_type":"Numeric","data_value":"42.02","end_datetime":"","graph_version":"UMLS2024AA","grouping_code":"60621009","grouping_concept":"C1305855","grouping_concept_preferred_term":"Body
+        Mass Index","grouping_sab":"SNOMEDCT_US","numeric_operator":"EQ","preferred_term":"Body
+        Mass Index","sab":"SNOMEDCT_US","start_datetime":"","units":"kg/m2"}]},"protocol_url":"dx.doi.org/10.17504/protocols.io.rm7vzxw4xgx1/v1","sennet_id":"SNT744.ZJCF.936","source_type":"Human","uuid":"aab508582cd68248c0481abb294b13ff"},"uuid":"0c5cab46c10b131ebb6c40d68cfa79ff"},"entity_type":"Sample","group_name":"TMC
+        - University of Minnesota - Niedernhofer","group_uuid":"ca21ca01-50a0-11ed-839d-ef21729c63fc","lab_tissue_sample_id":"SNHB0030-LV-B0002","last_modified_timestamp":1790794121481,"last_modified_user_displayname":"Tim
+        Meyer","last_modified_user_email":"meye0664@umn.edu","last_modified_user_sub":"8509cb8d-e3c8-4bd8-8fa6-ec27a878dd39","metadata":{"histological_report":"","lab_id":"SNHB0030-LV-B0002","metadata_schema_id":"3e98cee6-d3fb-467b-8d4e-9ba7ee49eeff","notes":"","pathology_distance_unit":"","pathology_distance_value":"","preparation_condition":"Frozen
+        in liquid nitrogen","preparation_medium":"Fresh frozen OCT","preparation_protocol_doi":"https://dx.doi.org/10.17504/protocols.io.j8nlko7j5v5r/v1","processing_time_unit":"","processing_time_value":"","quality_criteria":"","sample_id":"SNT733.NLLM.987","source_id":"SNT988.PFWZ.963","source_storage_duration_unit":"hour","source_storage_duration_value":"1","storage_medium":"OCT","storage_method":"Frozen
+        at -80 degrees celsius","tissue_weight_unit":"","tissue_weight_value":"","volume_unit":"","volume_value":""},"origin_samples":[{"created_by_user_displayname":"Tim
+        Meyer","created_by_user_email":"meye0664@umn.edu","created_by_user_sub":"8509cb8d-e3c8-4bd8-8fa6-ec27a878dd39","created_timestamp":1710530037347,"creation_action":"Create
+        Sample Activity","data_access_level":"public","description":"","entity_type":"Sample","group_name":"TMC
+        - University of Minnesota - Niedernhofer","group_uuid":"ca21ca01-50a0-11ed-839d-ef21729c63fc","lab_tissue_sample_id":"SNHB0030-LV","last_modified_timestamp":1710530037347,"last_modified_user_displayname":"Tim
+        Meyer","last_modified_user_email":"meye0664@umn.edu","last_modified_user_sub":"8509cb8d-e3c8-4bd8-8fa6-ec27a878dd39","organ":"UBERON:0002107","organ_hierarchy":"Liver","protocol_url":"dx.doi.org/10.17504/protocols.io.j8nlko7j5v5r/v1","sample_category":"Organ","sennet_id":"SNT988.PFWZ.963","uuid":"0c5cab46c10b131ebb6c40d68cfa79ff"}],"protocol_url":"dx.doi.org/10.17504/protocols.io.j8nlko7j5v5r/v1","rui_exemption":true,"sample_category":"Block","sennet_id":"SNT733.NLLM.987","source":{"created_by_user_displayname":"Tim
+        Meyer","created_by_user_email":"meye0664@umn.edu","created_by_user_sub":"8509cb8d-e3c8-4bd8-8fa6-ec27a878dd39","created_timestamp":1697037970678,"creation_action":"Create
+        Source Activity","data_access_level":"public","description":"","entity_type":"Source","group_name":"TMC
+        - University of Minnesota - Niedernhofer","group_uuid":"ca21ca01-50a0-11ed-839d-ef21729c63fc","lab_source_id":"SNHB0030","last_modified_timestamp":1745315955224,"last_modified_user_displayname":"Joseph
+        Simmons","last_modified_user_email":"JAS971@pitt.edu","last_modified_user_sub":"4562a4ca-2e28-4fb7-b3e1-1550bc117bbf","mapped_metadata":{"age":{"group_display":"Demographics","key_display":"Age","unit":"years","value":[38.0],"value_display":"38
+        years"},"body_mass_index":{"group_display":"Vitals","key_display":"Body Mass
+        Index","unit":"kg/m2","value":[42.02],"value_display":"42.02 kg/m2"},"race":{"group_display":"Demographics","key_display":"Race","unit":"","value":["American
+        Indian or Alaska native"],"value_display":"American Indian or Alaska native"},"sex":{"group_display":"Demographics","key_display":"Sex","unit":"","value":["Female"],"value_display":"Female"}},"metadata":{"living_donor_data":[{"code":"424144002","concept_id":"C0001779","data_type":"Numeric","data_value":"38","end_datetime":"","graph_version":"UMLS2024AA","grouping_code":"424144002","grouping_concept":"C0001779","grouping_concept_preferred_term":"Age","grouping_sab":"SNOMEDCT_US","numeric_operator":"EQ","preferred_term":"Age","sab":"SNOMEDCT_US","start_datetime":"","units":"years"},{"code":"413490006","concept_id":"C1515945","data_type":"Nominal","data_value":"American
+        Indian or Alaska native","end_datetime":"","graph_version":"UMLS2024AA","grouping_code":"415229000","grouping_concept":"C0034510","grouping_concept_preferred_term":"Race","grouping_sab":"SNOMEDCT_US","numeric_operator":"","preferred_term":"American
+        Indian or Alaska native","sab":"SNOMEDCT_US","start_datetime":"","units":""},{"code":"1086007","concept_id":"C0086287","data_type":"Nominal","data_value":"Female","end_datetime":"","graph_version":"UMLS2024AA","grouping_code":"57312000","grouping_concept":"C1522384","grouping_concept_preferred_term":"Sex","grouping_sab":"SNOMEDCT_US","numeric_operator":"","preferred_term":"Female","sab":"SNOMEDCT_US","start_datetime":"","units":""},{"code":"60621009","concept_id":"C1305855","data_type":"Numeric","data_value":"42.02","end_datetime":"","graph_version":"UMLS2024AA","grouping_code":"60621009","grouping_concept":"C1305855","grouping_concept_preferred_term":"Body
+        Mass Index","grouping_sab":"SNOMEDCT_US","numeric_operator":"EQ","preferred_term":"Body
+        Mass Index","sab":"SNOMEDCT_US","start_datetime":"","units":"kg/m2"}]},"protocol_url":"dx.doi.org/10.17504/protocols.io.rm7vzxw4xgx1/v1","sennet_id":"SNT744.ZJCF.936","source_type":"Human","uuid":"aab508582cd68248c0481abb294b13ff"},"uuid":"29c770c07e0509fa7d3220284f7ea2ac"}
+
+        '
+    headers: {}
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers: {}
+    method: GET
+    uri: https://entity.api.sennetconsortium.org/entities/SNT988.PFWZ.963?exclude=direct_ancestors.files
+  response:
+    body:
+      string: '{"created_by_user_displayname":"Tim Meyer","created_by_user_email":"meye0664@umn.edu","created_by_user_sub":"8509cb8d-e3c8-4bd8-8fa6-ec27a878dd39","created_timestamp":1710530037347,"creation_action":"Create
+        Sample Activity","data_access_level":"public","direct_ancestor":{"created_by_user_displayname":"Tim
+        Meyer","created_by_user_email":"meye0664@umn.edu","created_by_user_sub":"8509cb8d-e3c8-4bd8-8fa6-ec27a878dd39","created_timestamp":1697037970678,"creation_action":"Create
+        Source Activity","data_access_level":"public","entity_type":"Source","group_name":"TMC
+        - University of Minnesota - Niedernhofer","group_uuid":"ca21ca01-50a0-11ed-839d-ef21729c63fc","lab_source_id":"SNHB0030","last_modified_timestamp":1745315955224,"last_modified_user_displayname":"Joseph
+        Simmons","last_modified_user_email":"JAS971@pitt.edu","last_modified_user_sub":"4562a4ca-2e28-4fb7-b3e1-1550bc117bbf","metadata":{"living_donor_data":[{"code":"424144002","concept_id":"C0001779","data_type":"Numeric","data_value":"38","end_datetime":"","graph_version":"UMLS2024AA","grouping_code":"424144002","grouping_concept":"C0001779","grouping_concept_preferred_term":"Age","grouping_sab":"SNOMEDCT_US","numeric_operator":"EQ","preferred_term":"Age","sab":"SNOMEDCT_US","start_datetime":"","units":"years"},{"code":"413490006","concept_id":"C1515945","data_type":"Nominal","data_value":"American
+        Indian or Alaska native","end_datetime":"","graph_version":"UMLS2024AA","grouping_code":"415229000","grouping_concept":"C0034510","grouping_concept_preferred_term":"Race","grouping_sab":"SNOMEDCT_US","numeric_operator":"","preferred_term":"American
+        Indian or Alaska native","sab":"SNOMEDCT_US","start_datetime":"","units":""},{"code":"1086007","concept_id":"C0086287","data_type":"Nominal","data_value":"Female","end_datetime":"","graph_version":"UMLS2024AA","grouping_code":"57312000","grouping_concept":"C1522384","grouping_concept_preferred_term":"Sex","grouping_sab":"SNOMEDCT_US","numeric_operator":"","preferred_term":"Female","sab":"SNOMEDCT_US","start_datetime":"","units":""},{"code":"60621009","concept_id":"C1305855","data_type":"Numeric","data_value":"42.02","end_datetime":"","graph_version":"UMLS2024AA","grouping_code":"60621009","grouping_concept":"C1305855","grouping_concept_preferred_term":"Body
+        Mass Index","grouping_sab":"SNOMEDCT_US","numeric_operator":"EQ","preferred_term":"Body
+        Mass Index","sab":"SNOMEDCT_US","start_datetime":"","units":"kg/m2"}]},"protocol_url":"dx.doi.org/10.17504/protocols.io.rm7vzxw4xgx1/v1","sennet_id":"SNT744.ZJCF.936","source_mapped_metadata":{"age":{"group_display":"Demographics","key_display":"Age","unit":"years","value":[38.0],"value_display":"38
+        years"},"body_mass_index":{"group_display":"Vitals","key_display":"Body Mass
+        Index","unit":"kg/m2","value":[42.02],"value_display":"42.02 kg/m2"},"race":{"group_display":"Demographics","key_display":"Race","unit":"","value":["American
+        Indian or Alaska native"],"value_display":"American Indian or Alaska native"},"sex":{"group_display":"Demographics","key_display":"Sex","unit":"","value":["Female"],"value_display":"Female"}},"source_type":"Human","uuid":"aab508582cd68248c0481abb294b13ff"},"entity_type":"Sample","group_name":"TMC
+        - University of Minnesota - Niedernhofer","group_uuid":"ca21ca01-50a0-11ed-839d-ef21729c63fc","lab_tissue_sample_id":"SNHB0030-LV","last_modified_timestamp":1710530037347,"last_modified_user_displayname":"Tim
+        Meyer","last_modified_user_email":"meye0664@umn.edu","last_modified_user_sub":"8509cb8d-e3c8-4bd8-8fa6-ec27a878dd39","organ":"UBERON:0002107","organ_hierarchy":"Liver","origin_samples":[{"created_by_user_displayname":"Tim
+        Meyer","created_by_user_email":"meye0664@umn.edu","created_by_user_sub":"8509cb8d-e3c8-4bd8-8fa6-ec27a878dd39","created_timestamp":1710530037347,"creation_action":"Create
+        Sample Activity","data_access_level":"public","description":"","entity_type":"Sample","group_name":"TMC
+        - University of Minnesota - Niedernhofer","group_uuid":"ca21ca01-50a0-11ed-839d-ef21729c63fc","lab_tissue_sample_id":"SNHB0030-LV","last_modified_timestamp":1710530037347,"last_modified_user_displayname":"Tim
+        Meyer","last_modified_user_email":"meye0664@umn.edu","last_modified_user_sub":"8509cb8d-e3c8-4bd8-8fa6-ec27a878dd39","organ":"UBERON:0002107","organ_hierarchy":"Liver","protocol_url":"dx.doi.org/10.17504/protocols.io.j8nlko7j5v5r/v1","sample_category":"Organ","sennet_id":"SNT988.PFWZ.963","uuid":"0c5cab46c10b131ebb6c40d68cfa79ff"}],"protocol_url":"dx.doi.org/10.17504/protocols.io.j8nlko7j5v5r/v1","sample_category":"Organ","sennet_id":"SNT988.PFWZ.963","source":{"created_by_user_displayname":"Tim
+        Meyer","created_by_user_email":"meye0664@umn.edu","created_by_user_sub":"8509cb8d-e3c8-4bd8-8fa6-ec27a878dd39","created_timestamp":1697037970678,"creation_action":"Create
+        Source Activity","data_access_level":"public","description":"","entity_type":"Source","group_name":"TMC
+        - University of Minnesota - Niedernhofer","group_uuid":"ca21ca01-50a0-11ed-839d-ef21729c63fc","lab_source_id":"SNHB0030","last_modified_timestamp":1745315955224,"last_modified_user_displayname":"Joseph
+        Simmons","last_modified_user_email":"JAS971@pitt.edu","last_modified_user_sub":"4562a4ca-2e28-4fb7-b3e1-1550bc117bbf","mapped_metadata":{"age":{"group_display":"Demographics","key_display":"Age","unit":"years","value":[38.0],"value_display":"38
+        years"},"body_mass_index":{"group_display":"Vitals","key_display":"Body Mass
+        Index","unit":"kg/m2","value":[42.02],"value_display":"42.02 kg/m2"},"race":{"group_display":"Demographics","key_display":"Race","unit":"","value":["American
+        Indian or Alaska native"],"value_display":"American Indian or Alaska native"},"sex":{"group_display":"Demographics","key_display":"Sex","unit":"","value":["Female"],"value_display":"Female"}},"metadata":{"living_donor_data":[{"code":"424144002","concept_id":"C0001779","data_type":"Numeric","data_value":"38","end_datetime":"","graph_version":"UMLS2024AA","grouping_code":"424144002","grouping_concept":"C0001779","grouping_concept_preferred_term":"Age","grouping_sab":"SNOMEDCT_US","numeric_operator":"EQ","preferred_term":"Age","sab":"SNOMEDCT_US","start_datetime":"","units":"years"},{"code":"413490006","concept_id":"C1515945","data_type":"Nominal","data_value":"American
+        Indian or Alaska native","end_datetime":"","graph_version":"UMLS2024AA","grouping_code":"415229000","grouping_concept":"C0034510","grouping_concept_preferred_term":"Race","grouping_sab":"SNOMEDCT_US","numeric_operator":"","preferred_term":"American
+        Indian or Alaska native","sab":"SNOMEDCT_US","start_datetime":"","units":""},{"code":"1086007","concept_id":"C0086287","data_type":"Nominal","data_value":"Female","end_datetime":"","graph_version":"UMLS2024AA","grouping_code":"57312000","grouping_concept":"C1522384","grouping_concept_preferred_term":"Sex","grouping_sab":"SNOMEDCT_US","numeric_operator":"","preferred_term":"Female","sab":"SNOMEDCT_US","start_datetime":"","units":""},{"code":"60621009","concept_id":"C1305855","data_type":"Numeric","data_value":"42.02","end_datetime":"","graph_version":"UMLS2024AA","grouping_code":"60621009","grouping_concept":"C1305855","grouping_concept_preferred_term":"Body
+        Mass Index","grouping_sab":"SNOMEDCT_US","numeric_operator":"EQ","preferred_term":"Body
+        Mass Index","sab":"SNOMEDCT_US","start_datetime":"","units":"kg/m2"}]},"protocol_url":"dx.doi.org/10.17504/protocols.io.rm7vzxw4xgx1/v1","sennet_id":"SNT744.ZJCF.936","source_type":"Human","uuid":"aab508582cd68248c0481abb294b13ff"},"uuid":"0c5cab46c10b131ebb6c40d68cfa79ff"}
+
+        '
+    headers: {}
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers: {}
+    method: GET
+    uri: https://entity.api.sennetconsortium.org/entities/SNT429.HBSX.728?exclude=direct_ancestors.files
+  response:
+    body:
+      string: '{"cedar_mapped_metadata":{"Histological Report":"","Lab ID":"1042_Muscle_FIBSEM_2","Metadata
+        Schema ID":"3e98cee6-d3fb-467b-8d4e-9ba7ee49eeff","Notes":"dx.doi.org/10.17504/protocols.io.3byl4qzk8vo5/v1","Pathology
+        Distance":"","Preparation Condition":"Stored in refrigerator","Preparation
+        Medium":"2% PFA/2.5% Glutaraldehyde","Preparation Protocol DOI":"http://dx.doi.org/10.17504/protocols.io.3byl4qzk8vo5/v1","Processing
+        Time":"18 minute","Quality Criteria":"","Source Storage Duration":"0 day","Storage
+        Medium":"2% PFA/2.5% Glutaraldehyde","Storage Method":"Stored in refrigerator","Tissue
+        Weight":"3 mg","Volume":""},"created_by_user_displayname":"kevin.schneider@era.nih.gov@ras.nih.gov","created_by_user_email":"kevinschneider@gmail.com","created_by_user_sub":"fa3cdef3-846f-4845-877e-ce9380357c12","created_timestamp":1697823098659,"creation_action":"Create
+        Sample Activity","data_access_level":"consortium","direct_ancestor":{"created_by_user_displayname":"kevin.schneider@era.nih.gov@ras.nih.gov","created_by_user_email":"kevinschneider@gmail.com","created_by_user_sub":"fa3cdef3-846f-4845-877e-ce9380357c12","created_timestamp":1695850455518,"creation_action":"Create
+        Sample Activity","data_access_level":"consortium","description":"SN_0199","entity_type":"Sample","group_name":"TMC
+        - Buck Institute","group_uuid":"d04be51f-ee71-11ec-8b17-9fe9b51132b1","lab_tissue_sample_id":"1042_Muscle","last_modified_timestamp":1695850455518,"last_modified_user_displayname":"kevin.schneider@era.nih.gov@ras.nih.gov","last_modified_user_email":"kevinschneider@gmail.com","last_modified_user_sub":"fa3cdef3-846f-4845-877e-ce9380357c12","organ":"UBERON:0005090","organ_hierarchy":"Muscle","origin_samples":[{"created_by_user_displayname":"kevin.schneider@era.nih.gov@ras.nih.gov","created_by_user_email":"kevinschneider@gmail.com","created_by_user_sub":"fa3cdef3-846f-4845-877e-ce9380357c12","created_timestamp":1695850455518,"creation_action":"Create
+        Sample Activity","data_access_level":"consortium","description":"SN_0199","entity_type":"Sample","group_name":"TMC
+        - Buck Institute","group_uuid":"d04be51f-ee71-11ec-8b17-9fe9b51132b1","lab_tissue_sample_id":"1042_Muscle","last_modified_timestamp":1695850455518,"last_modified_user_displayname":"kevin.schneider@era.nih.gov@ras.nih.gov","last_modified_user_email":"kevinschneider@gmail.com","last_modified_user_sub":"fa3cdef3-846f-4845-877e-ce9380357c12","organ":"UBERON:0005090","organ_hierarchy":"Muscle","protocol_url":"dx.doi.org/10.17504/protocols.io.3byl4qzk8vo5/v1","sample_category":"Organ","sennet_id":"SNT726.KXCD.936","uuid":"366db9df92d81b7ef23288c450b94da4"}],"protocol_url":"dx.doi.org/10.17504/protocols.io.3byl4qzk8vo5/v1","sample_category":"Organ","sennet_id":"SNT726.KXCD.936","source":{"created_by_user_displayname":"kevin.schneider@era.nih.gov@ras.nih.gov","created_by_user_email":"kevinschneider@gmail.com","created_by_user_sub":"fa3cdef3-846f-4845-877e-ce9380357c12","created_timestamp":1695666286548,"creation_action":"Create
+        Source Activity","data_access_level":"consortium","description":"SN_0199","entity_type":"Source","group_name":"TMC
+        - Buck Institute","group_uuid":"d04be51f-ee71-11ec-8b17-9fe9b51132b1","lab_source_id":"1042","last_modified_timestamp":1746044440992,"last_modified_user_displayname":"Joseph
+        Simmons","last_modified_user_email":"JAS971@pitt.edu","last_modified_user_sub":"4562a4ca-2e28-4fb7-b3e1-1550bc117bbf","mapped_metadata":{"age":{"group_display":"Demographics","key_display":"Age","unit":"years","value":[26.0],"value_display":"26
+        years"},"body_mass_index":{"group_display":"Vitals","key_display":"Body Mass
+        Index","unit":"kg/m2","value":[35.4],"value_display":"35.4 kg/m2"},"ethnicity":{"group_display":"Demographics","key_display":"Ethnicity","unit":"","value":["Not
+        Hispanic or Latino"],"value_display":"Not Hispanic or Latino"},"height":{"group_display":"Vitals","key_display":"Height","unit":"cm","value":[167.0],"value_display":"167.0
+        cm (65.7 in)"},"race":{"group_display":"Demographics","key_display":"Race","unit":"","value":["White"],"value_display":"White"},"sex":{"group_display":"Demographics","key_display":"Sex","unit":"","value":["Female"],"value_display":"Female"},"social_history":{"group_display":"History","key_display":"Social
+        History","unit":"","value":["Non-smoker","Alcohol use"],"value_display":"Non-smoker,
+        Alcohol use"},"waist_circumference":{"group_display":"Other Information","key_display":"Waist
+        circumference","unit":"cm","value":[103.0],"value_display":"103.0 cm (40.6
+        in)"},"weight":{"group_display":"Vitals","key_display":"Weight","unit":"kg","value":[99.0],"value_display":"99.0
+        kg (218.3 lb)"}},"metadata":{"living_donor_data":[{"code":"424144002","concept_id":"C0001779","data_type":"Numeric","data_value":"26","end_datetime":"","graph_version":"UMLS2024AA","grouping_code":"424144002","grouping_concept":"C0001779","grouping_concept_preferred_term":"Age","grouping_sab":"SNOMEDCT_US","numeric_operator":"EQ","preferred_term":"Age","sab":"SNOMEDCT_US","start_datetime":"","units":"years"},{"code":"413773004","concept_id":"C0007457","data_type":"Nominal","data_value":"White","end_datetime":"","graph_version":"UMLS2024AA","grouping_code":"415229000","grouping_concept":"C0034510","grouping_concept_preferred_term":"Race","grouping_sab":"SNOMEDCT_US","numeric_operator":"","preferred_term":"White","sab":"SNOMEDCT_US","start_datetime":"","units":""},{"code":"C41222","concept_id":"C1518424","data_type":"Nominal","data_value":"Not
+        Hispanic or Latino","end_datetime":"","graph_version":"UMLS2024AA","grouping_code":"398089004","grouping_concept":"C0015031","grouping_concept_preferred_term":"Ethnicity","grouping_sab":"SNOMEDCT_US","numeric_operator":"","preferred_term":"Not
+        Hispanic or Latino","sab":"NCI","start_datetime":"","units":""},{"code":"1086007","concept_id":"C0086287","data_type":"Nominal","data_value":"Female","end_datetime":"","graph_version":"UMLS2024AA","grouping_code":"57312000","grouping_concept":"C1522384","grouping_concept_preferred_term":"Sex","grouping_sab":"SNOMEDCT_US","numeric_operator":"","preferred_term":"Female","sab":"SNOMEDCT_US","start_datetime":"","units":""},{"code":"50373000","concept_id":"C0005890","data_type":"Numeric","data_value":"167","end_datetime":"","graph_version":"UMLS2024AA","grouping_code":"50373000","grouping_concept":"C0005890","grouping_concept_preferred_term":"Height","grouping_sab":"SNOMEDCT_US","numeric_operator":"EQ","preferred_term":"Height","sab":"SNOMEDCT_US","start_datetime":"","units":"cm"},{"code":"27113001","concept_id":"C0005910","data_type":"Numeric","data_value":"99","end_datetime":"","graph_version":"UMLS2024AA","grouping_code":"27113001","grouping_concept":"C0005910","grouping_concept_preferred_term":"Weight","grouping_sab":"SNOMEDCT_US","numeric_operator":"EQ","preferred_term":"Weight","sab":"SNOMEDCT_US","start_datetime":"","units":"kg"},{"code":"60621009","concept_id":"C1305855","data_type":"Numeric","data_value":"35.4","end_datetime":"","graph_version":"UMLS2024AA","grouping_code":"60621009","grouping_concept":"C1305855","grouping_concept_preferred_term":"Body
+        Mass Index","grouping_sab":"SNOMEDCT_US","numeric_operator":"EQ","preferred_term":"Body
+        Mass Index","sab":"SNOMEDCT_US","start_datetime":"","units":"kg/m2"},{"code":"276361009","concept_id":"C0455829","data_type":"Numeric","data_value":"103","end_datetime":"","graph_version":"UMLS2024AA","grouping_code":"276361009","grouping_concept":"C0455829","grouping_concept_preferred_term":"Waist
+        circumference","grouping_sab":"SNOMEDCT_US","numeric_operator":"EQ","preferred_term":"Waist
+        circumference","sab":"SNOMEDCT_US","start_datetime":"","units":"cm"},{"code":"8392000","concept_id":"C0337672","data_type":"Nominal","data_value":"Non-smoker","end_datetime":"","graph_version":"UMLS2024AA","grouping_code":"160476009","grouping_concept":"C0424945","grouping_concept_preferred_term":"Social
+        History","grouping_sab":"SNOMEDCT_US","numeric_operator":"","preferred_term":"Non-smoker","sab":"SNOMEDCT_US","start_datetime":"","units":""},{"code":"897148007","concept_id":"C0001948","data_type":"Nominal","data_value":"Alcohol
+        use","end_datetime":"","graph_version":"UMLS2024AA","grouping_code":"160476009","grouping_concept":"C0424945","grouping_concept_preferred_term":"Social
+        History","grouping_sab":"SNOMEDCT_US","numeric_operator":"","preferred_term":"Alcohol
+        use","sab":"SNOMEDCT_US","start_datetime":"","units":""}]},"protocol_url":"dx.doi.org/10.17504/protocols.io.3byl4qzk8vo5/v1","sennet_id":"SNT342.QMGN.263","source_type":"Human","uuid":"25a19684a7f0190cd66018e9d23b4515"},"uuid":"366db9df92d81b7ef23288c450b94da4"},"entity_type":"Sample","group_name":"TMC
+        - Buck Institute","group_uuid":"d04be51f-ee71-11ec-8b17-9fe9b51132b1","lab_tissue_sample_id":"1042_Muscle_FIBSEM_2","last_modified_timestamp":1710527704200,"last_modified_user_displayname":"kevin.schneider@era.nih.gov@ras.nih.gov","last_modified_user_email":"kevinschneider@gmail.com","last_modified_user_sub":"fa3cdef3-846f-4845-877e-ce9380357c12","metadata":{"histological_report":"","lab_id":"1042_Muscle_FIBSEM_2","metadata_schema_id":"3e98cee6-d3fb-467b-8d4e-9ba7ee49eeff","notes":"dx.doi.org/10.17504/protocols.io.3byl4qzk8vo5/v1","pathology_distance_unit":"","pathology_distance_value":"","preparation_condition":"Stored
+        in refrigerator","preparation_medium":"2% PFA/2.5% Glutaraldehyde","preparation_protocol_doi":"http://dx.doi.org/10.17504/protocols.io.3byl4qzk8vo5/v1","processing_time_unit":"minute","processing_time_value":"18","quality_criteria":"","source_storage_duration_unit":"day","source_storage_duration_value":"0","storage_medium":"2%
+        PFA/2.5% Glutaraldehyde","storage_method":"Stored in refrigerator","tissue_weight_unit":"mg","tissue_weight_value":"3","volume_unit":"","volume_value":""},"origin_samples":[{"created_by_user_displayname":"kevin.schneider@era.nih.gov@ras.nih.gov","created_by_user_email":"kevinschneider@gmail.com","created_by_user_sub":"fa3cdef3-846f-4845-877e-ce9380357c12","created_timestamp":1695850455518,"creation_action":"Create
+        Sample Activity","data_access_level":"consortium","description":"SN_0199","entity_type":"Sample","group_name":"TMC
+        - Buck Institute","group_uuid":"d04be51f-ee71-11ec-8b17-9fe9b51132b1","lab_tissue_sample_id":"1042_Muscle","last_modified_timestamp":1695850455518,"last_modified_user_displayname":"kevin.schneider@era.nih.gov@ras.nih.gov","last_modified_user_email":"kevinschneider@gmail.com","last_modified_user_sub":"fa3cdef3-846f-4845-877e-ce9380357c12","organ":"UBERON:0005090","organ_hierarchy":"Muscle","protocol_url":"dx.doi.org/10.17504/protocols.io.3byl4qzk8vo5/v1","sample_category":"Organ","sennet_id":"SNT726.KXCD.936","uuid":"366db9df92d81b7ef23288c450b94da4"}],"protocol_url":"dx.doi.org/10.17504/protocols.io.3byl4qzk8vo5/v1","sample_category":"Block","sennet_id":"SNT429.HBSX.728","source":{"created_by_user_displayname":"kevin.schneider@era.nih.gov@ras.nih.gov","created_by_user_email":"kevinschneider@gmail.com","created_by_user_sub":"fa3cdef3-846f-4845-877e-ce9380357c12","created_timestamp":1695666286548,"creation_action":"Create
+        Source Activity","data_access_level":"consortium","description":"SN_0199","entity_type":"Source","group_name":"TMC
+        - Buck Institute","group_uuid":"d04be51f-ee71-11ec-8b17-9fe9b51132b1","lab_source_id":"1042","last_modified_timestamp":1746044440992,"last_modified_user_displayname":"Joseph
+        Simmons","last_modified_user_email":"JAS971@pitt.edu","last_modified_user_sub":"4562a4ca-2e28-4fb7-b3e1-1550bc117bbf","mapped_metadata":{"age":{"group_display":"Demographics","key_display":"Age","unit":"years","value":[26.0],"value_display":"26
+        years"},"body_mass_index":{"group_display":"Vitals","key_display":"Body Mass
+        Index","unit":"kg/m2","value":[35.4],"value_display":"35.4 kg/m2"},"ethnicity":{"group_display":"Demographics","key_display":"Ethnicity","unit":"","value":["Not
+        Hispanic or Latino"],"value_display":"Not Hispanic or Latino"},"height":{"group_display":"Vitals","key_display":"Height","unit":"cm","value":[167.0],"value_display":"167.0
+        cm (65.7 in)"},"race":{"group_display":"Demographics","key_display":"Race","unit":"","value":["White"],"value_display":"White"},"sex":{"group_display":"Demographics","key_display":"Sex","unit":"","value":["Female"],"value_display":"Female"},"social_history":{"group_display":"History","key_display":"Social
+        History","unit":"","value":["Non-smoker","Alcohol use"],"value_display":"Non-smoker,
+        Alcohol use"},"waist_circumference":{"group_display":"Other Information","key_display":"Waist
+        circumference","unit":"cm","value":[103.0],"value_display":"103.0 cm (40.6
+        in)"},"weight":{"group_display":"Vitals","key_display":"Weight","unit":"kg","value":[99.0],"value_display":"99.0
+        kg (218.3 lb)"}},"metadata":{"living_donor_data":[{"code":"424144002","concept_id":"C0001779","data_type":"Numeric","data_value":"26","end_datetime":"","graph_version":"UMLS2024AA","grouping_code":"424144002","grouping_concept":"C0001779","grouping_concept_preferred_term":"Age","grouping_sab":"SNOMEDCT_US","numeric_operator":"EQ","preferred_term":"Age","sab":"SNOMEDCT_US","start_datetime":"","units":"years"},{"code":"413773004","concept_id":"C0007457","data_type":"Nominal","data_value":"White","end_datetime":"","graph_version":"UMLS2024AA","grouping_code":"415229000","grouping_concept":"C0034510","grouping_concept_preferred_term":"Race","grouping_sab":"SNOMEDCT_US","numeric_operator":"","preferred_term":"White","sab":"SNOMEDCT_US","start_datetime":"","units":""},{"code":"C41222","concept_id":"C1518424","data_type":"Nominal","data_value":"Not
+        Hispanic or Latino","end_datetime":"","graph_version":"UMLS2024AA","grouping_code":"398089004","grouping_concept":"C0015031","grouping_concept_preferred_term":"Ethnicity","grouping_sab":"SNOMEDCT_US","numeric_operator":"","preferred_term":"Not
+        Hispanic or Latino","sab":"NCI","start_datetime":"","units":""},{"code":"1086007","concept_id":"C0086287","data_type":"Nominal","data_value":"Female","end_datetime":"","graph_version":"UMLS2024AA","grouping_code":"57312000","grouping_concept":"C1522384","grouping_concept_preferred_term":"Sex","grouping_sab":"SNOMEDCT_US","numeric_operator":"","preferred_term":"Female","sab":"SNOMEDCT_US","start_datetime":"","units":""},{"code":"50373000","concept_id":"C0005890","data_type":"Numeric","data_value":"167","end_datetime":"","graph_version":"UMLS2024AA","grouping_code":"50373000","grouping_concept":"C0005890","grouping_concept_preferred_term":"Height","grouping_sab":"SNOMEDCT_US","numeric_operator":"EQ","preferred_term":"Height","sab":"SNOMEDCT_US","start_datetime":"","units":"cm"},{"code":"27113001","concept_id":"C0005910","data_type":"Numeric","data_value":"99","end_datetime":"","graph_version":"UMLS2024AA","grouping_code":"27113001","grouping_concept":"C0005910","grouping_concept_preferred_term":"Weight","grouping_sab":"SNOMEDCT_US","numeric_operator":"EQ","preferred_term":"Weight","sab":"SNOMEDCT_US","start_datetime":"","units":"kg"},{"code":"60621009","concept_id":"C1305855","data_type":"Numeric","data_value":"35.4","end_datetime":"","graph_version":"UMLS2024AA","grouping_code":"60621009","grouping_concept":"C1305855","grouping_concept_preferred_term":"Body
+        Mass Index","grouping_sab":"SNOMEDCT_US","numeric_operator":"EQ","preferred_term":"Body
+        Mass Index","sab":"SNOMEDCT_US","start_datetime":"","units":"kg/m2"},{"code":"276361009","concept_id":"C0455829","data_type":"Numeric","data_value":"103","end_datetime":"","graph_version":"UMLS2024AA","grouping_code":"276361009","grouping_concept":"C0455829","grouping_concept_preferred_term":"Waist
+        circumference","grouping_sab":"SNOMEDCT_US","numeric_operator":"EQ","preferred_term":"Waist
+        circumference","sab":"SNOMEDCT_US","start_datetime":"","units":"cm"},{"code":"8392000","concept_id":"C0337672","data_type":"Nominal","data_value":"Non-smoker","end_datetime":"","graph_version":"UMLS2024AA","grouping_code":"160476009","grouping_concept":"C0424945","grouping_concept_preferred_term":"Social
+        History","grouping_sab":"SNOMEDCT_US","numeric_operator":"","preferred_term":"Non-smoker","sab":"SNOMEDCT_US","start_datetime":"","units":""},{"code":"897148007","concept_id":"C0001948","data_type":"Nominal","data_value":"Alcohol
+        use","end_datetime":"","graph_version":"UMLS2024AA","grouping_code":"160476009","grouping_concept":"C0424945","grouping_concept_preferred_term":"Social
+        History","grouping_sab":"SNOMEDCT_US","numeric_operator":"","preferred_term":"Alcohol
+        use","sab":"SNOMEDCT_US","start_datetime":"","units":""}]},"protocol_url":"dx.doi.org/10.17504/protocols.io.3byl4qzk8vo5/v1","sennet_id":"SNT342.QMGN.263","source_type":"Human","uuid":"25a19684a7f0190cd66018e9d23b4515"},"uuid":"196c62b6ed3034fc435d18e31d9914d8"}
+
+        '
+    headers: {}
+    status:
+      code: 200
+      message: OK
+- request:
+    body: '[{"ancestors": {"entity_type": "sample", "sub_type": ["organ"], "sub_type_val":
+      ["uberon:0002107"]}, "descendants": {"entity_type": "sample", "sub_type": ["block"],
+      "sub_type_val": null}}, {"ancestors": {"entity_type": "sample", "sub_type":
+      ["block"], "sub_type_val": null}, "descendants": {"entity_type": "sample", "sub_type":
+      ["block"], "sub_type_val": null}}, {"ancestors": {"entity_type": "sample", "sub_type":
+      ["organ"], "sub_type_val": ["uberon:0002107"]}, "descendants": {"entity_type":
+      "sample", "sub_type": ["block"], "sub_type_val": null}}, {"ancestors": {"entity_type":
+      "sample", "sub_type": ["block"], "sub_type_val": null}, "descendants": {"entity_type":
+      "sample", "sub_type": ["block"], "sub_type_val": null}}]'
+    headers: {}
+    method: POST
+    uri: https://entity.api.sennetconsortium.org/constraints?match=True&order=ancestors
+  response:
+    body:
+      string: '{"code":200,"description":[{"code":200,"description":[{"entity_type":"Sample","sub_type":["Block"],"sub_type_val":null}],"name":"OK"},{"code":200,"description":[{"entity_type":"Sample","sub_type":["Block"],"sub_type_val":null},{"entity_type":"Sample","sub_type":["Section"],"sub_type_val":null},{"entity_type":"Sample","sub_type":["Suspension"],"sub_type_val":null},{"entity_type":"Dataset","sub_type":["Light
+        Sheet"],"sub_type_val":null}],"name":"OK"},{"code":200,"description":[{"entity_type":"Sample","sub_type":["Block"],"sub_type_val":null}],"name":"OK"},{"code":200,"description":[{"entity_type":"Sample","sub_type":["Block"],"sub_type_val":null},{"entity_type":"Sample","sub_type":["Section"],"sub_type_val":null},{"entity_type":"Sample","sub_type":["Suspension"],"sub_type_val":null},{"entity_type":"Dataset","sub_type":["Light
+        Sheet"],"sub_type_val":null}],"name":"OK"}],"name":"OK"}
+
+        '
+    headers: {}
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers: {}
+    method: GET
+    uri: https://entity.api.sennetconsortium.org/entities/SNT733.NLLM.987?exclude=direct_ancestors.files
+  response:
+    body:
+      string: '{"cedar_mapped_metadata":{"Histological Report":"","Lab ID":"SNHB0030-LV-B0002","Metadata
+        Schema ID":"3e98cee6-d3fb-467b-8d4e-9ba7ee49eeff","Notes":"","Pathology Distance":"","Preparation
+        Condition":"Frozen in liquid nitrogen","Preparation Medium":"Fresh frozen
+        OCT","Preparation Protocol DOI":"https://dx.doi.org/10.17504/protocols.io.j8nlko7j5v5r/v1","Processing
+        Time":"","Quality Criteria":"","Sample ID":"SNT733.NLLM.987","Source ID":"SNT988.PFWZ.963","Source
+        Storage Duration":"1 hour","Storage Medium":"OCT","Storage Method":"Frozen
+        at -80 degrees celsius","Tissue Weight":"","Volume":""},"created_by_user_displayname":"Tim
+        Meyer","created_by_user_email":"meye0664@umn.edu","created_by_user_sub":"8509cb8d-e3c8-4bd8-8fa6-ec27a878dd39","created_timestamp":1790793747275,"creation_action":"Create
+        Sample Activity","data_access_level":"public","direct_ancestor":{"created_by_user_displayname":"Tim
+        Meyer","created_by_user_email":"meye0664@umn.edu","created_by_user_sub":"8509cb8d-e3c8-4bd8-8fa6-ec27a878dd39","created_timestamp":1710530037347,"creation_action":"Create
+        Sample Activity","data_access_level":"public","entity_type":"Sample","group_name":"TMC
+        - University of Minnesota - Niedernhofer","group_uuid":"ca21ca01-50a0-11ed-839d-ef21729c63fc","lab_tissue_sample_id":"SNHB0030-LV","last_modified_timestamp":1710530037347,"last_modified_user_displayname":"Tim
+        Meyer","last_modified_user_email":"meye0664@umn.edu","last_modified_user_sub":"8509cb8d-e3c8-4bd8-8fa6-ec27a878dd39","organ":"UBERON:0002107","organ_hierarchy":"Liver","origin_samples":[{"created_by_user_displayname":"Tim
+        Meyer","created_by_user_email":"meye0664@umn.edu","created_by_user_sub":"8509cb8d-e3c8-4bd8-8fa6-ec27a878dd39","created_timestamp":1710530037347,"creation_action":"Create
+        Sample Activity","data_access_level":"public","description":"","entity_type":"Sample","group_name":"TMC
+        - University of Minnesota - Niedernhofer","group_uuid":"ca21ca01-50a0-11ed-839d-ef21729c63fc","lab_tissue_sample_id":"SNHB0030-LV","last_modified_timestamp":1710530037347,"last_modified_user_displayname":"Tim
+        Meyer","last_modified_user_email":"meye0664@umn.edu","last_modified_user_sub":"8509cb8d-e3c8-4bd8-8fa6-ec27a878dd39","organ":"UBERON:0002107","organ_hierarchy":"Liver","protocol_url":"dx.doi.org/10.17504/protocols.io.j8nlko7j5v5r/v1","sample_category":"Organ","sennet_id":"SNT988.PFWZ.963","uuid":"0c5cab46c10b131ebb6c40d68cfa79ff"}],"protocol_url":"dx.doi.org/10.17504/protocols.io.j8nlko7j5v5r/v1","sample_category":"Organ","sennet_id":"SNT988.PFWZ.963","source":{"created_by_user_displayname":"Tim
+        Meyer","created_by_user_email":"meye0664@umn.edu","created_by_user_sub":"8509cb8d-e3c8-4bd8-8fa6-ec27a878dd39","created_timestamp":1697037970678,"creation_action":"Create
+        Source Activity","data_access_level":"public","description":"","entity_type":"Source","group_name":"TMC
+        - University of Minnesota - Niedernhofer","group_uuid":"ca21ca01-50a0-11ed-839d-ef21729c63fc","lab_source_id":"SNHB0030","last_modified_timestamp":1745315955224,"last_modified_user_displayname":"Joseph
+        Simmons","last_modified_user_email":"JAS971@pitt.edu","last_modified_user_sub":"4562a4ca-2e28-4fb7-b3e1-1550bc117bbf","mapped_metadata":{"age":{"group_display":"Demographics","key_display":"Age","unit":"years","value":[38.0],"value_display":"38
+        years"},"body_mass_index":{"group_display":"Vitals","key_display":"Body Mass
+        Index","unit":"kg/m2","value":[42.02],"value_display":"42.02 kg/m2"},"race":{"group_display":"Demographics","key_display":"Race","unit":"","value":["American
+        Indian or Alaska native"],"value_display":"American Indian or Alaska native"},"sex":{"group_display":"Demographics","key_display":"Sex","unit":"","value":["Female"],"value_display":"Female"}},"metadata":{"living_donor_data":[{"code":"424144002","concept_id":"C0001779","data_type":"Numeric","data_value":"38","end_datetime":"","graph_version":"UMLS2024AA","grouping_code":"424144002","grouping_concept":"C0001779","grouping_concept_preferred_term":"Age","grouping_sab":"SNOMEDCT_US","numeric_operator":"EQ","preferred_term":"Age","sab":"SNOMEDCT_US","start_datetime":"","units":"years"},{"code":"413490006","concept_id":"C1515945","data_type":"Nominal","data_value":"American
+        Indian or Alaska native","end_datetime":"","graph_version":"UMLS2024AA","grouping_code":"415229000","grouping_concept":"C0034510","grouping_concept_preferred_term":"Race","grouping_sab":"SNOMEDCT_US","numeric_operator":"","preferred_term":"American
+        Indian or Alaska native","sab":"SNOMEDCT_US","start_datetime":"","units":""},{"code":"1086007","concept_id":"C0086287","data_type":"Nominal","data_value":"Female","end_datetime":"","graph_version":"UMLS2024AA","grouping_code":"57312000","grouping_concept":"C1522384","grouping_concept_preferred_term":"Sex","grouping_sab":"SNOMEDCT_US","numeric_operator":"","preferred_term":"Female","sab":"SNOMEDCT_US","start_datetime":"","units":""},{"code":"60621009","concept_id":"C1305855","data_type":"Numeric","data_value":"42.02","end_datetime":"","graph_version":"UMLS2024AA","grouping_code":"60621009","grouping_concept":"C1305855","grouping_concept_preferred_term":"Body
+        Mass Index","grouping_sab":"SNOMEDCT_US","numeric_operator":"EQ","preferred_term":"Body
+        Mass Index","sab":"SNOMEDCT_US","start_datetime":"","units":"kg/m2"}]},"protocol_url":"dx.doi.org/10.17504/protocols.io.rm7vzxw4xgx1/v1","sennet_id":"SNT744.ZJCF.936","source_type":"Human","uuid":"aab508582cd68248c0481abb294b13ff"},"uuid":"0c5cab46c10b131ebb6c40d68cfa79ff"},"entity_type":"Sample","group_name":"TMC
+        - University of Minnesota - Niedernhofer","group_uuid":"ca21ca01-50a0-11ed-839d-ef21729c63fc","lab_tissue_sample_id":"SNHB0030-LV-B0002","last_modified_timestamp":1790794121481,"last_modified_user_displayname":"Tim
+        Meyer","last_modified_user_email":"meye0664@umn.edu","last_modified_user_sub":"8509cb8d-e3c8-4bd8-8fa6-ec27a878dd39","metadata":{"histological_report":"","lab_id":"SNHB0030-LV-B0002","metadata_schema_id":"3e98cee6-d3fb-467b-8d4e-9ba7ee49eeff","notes":"","pathology_distance_unit":"","pathology_distance_value":"","preparation_condition":"Frozen
+        in liquid nitrogen","preparation_medium":"Fresh frozen OCT","preparation_protocol_doi":"https://dx.doi.org/10.17504/protocols.io.j8nlko7j5v5r/v1","processing_time_unit":"","processing_time_value":"","quality_criteria":"","sample_id":"SNT733.NLLM.987","source_id":"SNT988.PFWZ.963","source_storage_duration_unit":"hour","source_storage_duration_value":"1","storage_medium":"OCT","storage_method":"Frozen
+        at -80 degrees celsius","tissue_weight_unit":"","tissue_weight_value":"","volume_unit":"","volume_value":""},"origin_samples":[{"created_by_user_displayname":"Tim
+        Meyer","created_by_user_email":"meye0664@umn.edu","created_by_user_sub":"8509cb8d-e3c8-4bd8-8fa6-ec27a878dd39","created_timestamp":1710530037347,"creation_action":"Create
+        Sample Activity","data_access_level":"public","description":"","entity_type":"Sample","group_name":"TMC
+        - University of Minnesota - Niedernhofer","group_uuid":"ca21ca01-50a0-11ed-839d-ef21729c63fc","lab_tissue_sample_id":"SNHB0030-LV","last_modified_timestamp":1710530037347,"last_modified_user_displayname":"Tim
+        Meyer","last_modified_user_email":"meye0664@umn.edu","last_modified_user_sub":"8509cb8d-e3c8-4bd8-8fa6-ec27a878dd39","organ":"UBERON:0002107","organ_hierarchy":"Liver","protocol_url":"dx.doi.org/10.17504/protocols.io.j8nlko7j5v5r/v1","sample_category":"Organ","sennet_id":"SNT988.PFWZ.963","uuid":"0c5cab46c10b131ebb6c40d68cfa79ff"}],"protocol_url":"dx.doi.org/10.17504/protocols.io.j8nlko7j5v5r/v1","rui_exemption":true,"sample_category":"Block","sennet_id":"SNT733.NLLM.987","source":{"created_by_user_displayname":"Tim
+        Meyer","created_by_user_email":"meye0664@umn.edu","created_by_user_sub":"8509cb8d-e3c8-4bd8-8fa6-ec27a878dd39","created_timestamp":1697037970678,"creation_action":"Create
+        Source Activity","data_access_level":"public","description":"","entity_type":"Source","group_name":"TMC
+        - University of Minnesota - Niedernhofer","group_uuid":"ca21ca01-50a0-11ed-839d-ef21729c63fc","lab_source_id":"SNHB0030","last_modified_timestamp":1745315955224,"last_modified_user_displayname":"Joseph
+        Simmons","last_modified_user_email":"JAS971@pitt.edu","last_modified_user_sub":"4562a4ca-2e28-4fb7-b3e1-1550bc117bbf","mapped_metadata":{"age":{"group_display":"Demographics","key_display":"Age","unit":"years","value":[38.0],"value_display":"38
+        years"},"body_mass_index":{"group_display":"Vitals","key_display":"Body Mass
+        Index","unit":"kg/m2","value":[42.02],"value_display":"42.02 kg/m2"},"race":{"group_display":"Demographics","key_display":"Race","unit":"","value":["American
+        Indian or Alaska native"],"value_display":"American Indian or Alaska native"},"sex":{"group_display":"Demographics","key_display":"Sex","unit":"","value":["Female"],"value_display":"Female"}},"metadata":{"living_donor_data":[{"code":"424144002","concept_id":"C0001779","data_type":"Numeric","data_value":"38","end_datetime":"","graph_version":"UMLS2024AA","grouping_code":"424144002","grouping_concept":"C0001779","grouping_concept_preferred_term":"Age","grouping_sab":"SNOMEDCT_US","numeric_operator":"EQ","preferred_term":"Age","sab":"SNOMEDCT_US","start_datetime":"","units":"years"},{"code":"413490006","concept_id":"C1515945","data_type":"Nominal","data_value":"American
+        Indian or Alaska native","end_datetime":"","graph_version":"UMLS2024AA","grouping_code":"415229000","grouping_concept":"C0034510","grouping_concept_preferred_term":"Race","grouping_sab":"SNOMEDCT_US","numeric_operator":"","preferred_term":"American
+        Indian or Alaska native","sab":"SNOMEDCT_US","start_datetime":"","units":""},{"code":"1086007","concept_id":"C0086287","data_type":"Nominal","data_value":"Female","end_datetime":"","graph_version":"UMLS2024AA","grouping_code":"57312000","grouping_concept":"C1522384","grouping_concept_preferred_term":"Sex","grouping_sab":"SNOMEDCT_US","numeric_operator":"","preferred_term":"Female","sab":"SNOMEDCT_US","start_datetime":"","units":""},{"code":"60621009","concept_id":"C1305855","data_type":"Numeric","data_value":"42.02","end_datetime":"","graph_version":"UMLS2024AA","grouping_code":"60621009","grouping_concept":"C1305855","grouping_concept_preferred_term":"Body
+        Mass Index","grouping_sab":"SNOMEDCT_US","numeric_operator":"EQ","preferred_term":"Body
+        Mass Index","sab":"SNOMEDCT_US","start_datetime":"","units":"kg/m2"}]},"protocol_url":"dx.doi.org/10.17504/protocols.io.rm7vzxw4xgx1/v1","sennet_id":"SNT744.ZJCF.936","source_type":"Human","uuid":"aab508582cd68248c0481abb294b13ff"},"uuid":"29c770c07e0509fa7d3220284f7ea2ac"}
+
+        '
+    headers: {}
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers: {}
+    method: GET
+    uri: https://entity.api.sennetconsortium.org/entities/SNT733.NLLM.987?exclude=direct_ancestors.files
+  response:
+    body:
+      string: '{"cedar_mapped_metadata":{"Histological Report":"","Lab ID":"SNHB0030-LV-B0002","Metadata
+        Schema ID":"3e98cee6-d3fb-467b-8d4e-9ba7ee49eeff","Notes":"","Pathology Distance":"","Preparation
+        Condition":"Frozen in liquid nitrogen","Preparation Medium":"Fresh frozen
+        OCT","Preparation Protocol DOI":"https://dx.doi.org/10.17504/protocols.io.j8nlko7j5v5r/v1","Processing
+        Time":"","Quality Criteria":"","Sample ID":"SNT733.NLLM.987","Source ID":"SNT988.PFWZ.963","Source
+        Storage Duration":"1 hour","Storage Medium":"OCT","Storage Method":"Frozen
+        at -80 degrees celsius","Tissue Weight":"","Volume":""},"created_by_user_displayname":"Tim
+        Meyer","created_by_user_email":"meye0664@umn.edu","created_by_user_sub":"8509cb8d-e3c8-4bd8-8fa6-ec27a878dd39","created_timestamp":1790793747275,"creation_action":"Create
+        Sample Activity","data_access_level":"public","direct_ancestor":{"created_by_user_displayname":"Tim
+        Meyer","created_by_user_email":"meye0664@umn.edu","created_by_user_sub":"8509cb8d-e3c8-4bd8-8fa6-ec27a878dd39","created_timestamp":1710530037347,"creation_action":"Create
+        Sample Activity","data_access_level":"public","entity_type":"Sample","group_name":"TMC
+        - University of Minnesota - Niedernhofer","group_uuid":"ca21ca01-50a0-11ed-839d-ef21729c63fc","lab_tissue_sample_id":"SNHB0030-LV","last_modified_timestamp":1710530037347,"last_modified_user_displayname":"Tim
+        Meyer","last_modified_user_email":"meye0664@umn.edu","last_modified_user_sub":"8509cb8d-e3c8-4bd8-8fa6-ec27a878dd39","organ":"UBERON:0002107","organ_hierarchy":"Liver","origin_samples":[{"created_by_user_displayname":"Tim
+        Meyer","created_by_user_email":"meye0664@umn.edu","created_by_user_sub":"8509cb8d-e3c8-4bd8-8fa6-ec27a878dd39","created_timestamp":1710530037347,"creation_action":"Create
+        Sample Activity","data_access_level":"public","description":"","entity_type":"Sample","group_name":"TMC
+        - University of Minnesota - Niedernhofer","group_uuid":"ca21ca01-50a0-11ed-839d-ef21729c63fc","lab_tissue_sample_id":"SNHB0030-LV","last_modified_timestamp":1710530037347,"last_modified_user_displayname":"Tim
+        Meyer","last_modified_user_email":"meye0664@umn.edu","last_modified_user_sub":"8509cb8d-e3c8-4bd8-8fa6-ec27a878dd39","organ":"UBERON:0002107","organ_hierarchy":"Liver","protocol_url":"dx.doi.org/10.17504/protocols.io.j8nlko7j5v5r/v1","sample_category":"Organ","sennet_id":"SNT988.PFWZ.963","uuid":"0c5cab46c10b131ebb6c40d68cfa79ff"}],"protocol_url":"dx.doi.org/10.17504/protocols.io.j8nlko7j5v5r/v1","sample_category":"Organ","sennet_id":"SNT988.PFWZ.963","source":{"created_by_user_displayname":"Tim
+        Meyer","created_by_user_email":"meye0664@umn.edu","created_by_user_sub":"8509cb8d-e3c8-4bd8-8fa6-ec27a878dd39","created_timestamp":1697037970678,"creation_action":"Create
+        Source Activity","data_access_level":"public","description":"","entity_type":"Source","group_name":"TMC
+        - University of Minnesota - Niedernhofer","group_uuid":"ca21ca01-50a0-11ed-839d-ef21729c63fc","lab_source_id":"SNHB0030","last_modified_timestamp":1745315955224,"last_modified_user_displayname":"Joseph
+        Simmons","last_modified_user_email":"JAS971@pitt.edu","last_modified_user_sub":"4562a4ca-2e28-4fb7-b3e1-1550bc117bbf","mapped_metadata":{"age":{"group_display":"Demographics","key_display":"Age","unit":"years","value":[38.0],"value_display":"38
+        years"},"body_mass_index":{"group_display":"Vitals","key_display":"Body Mass
+        Index","unit":"kg/m2","value":[42.02],"value_display":"42.02 kg/m2"},"race":{"group_display":"Demographics","key_display":"Race","unit":"","value":["American
+        Indian or Alaska native"],"value_display":"American Indian or Alaska native"},"sex":{"group_display":"Demographics","key_display":"Sex","unit":"","value":["Female"],"value_display":"Female"}},"metadata":{"living_donor_data":[{"code":"424144002","concept_id":"C0001779","data_type":"Numeric","data_value":"38","end_datetime":"","graph_version":"UMLS2024AA","grouping_code":"424144002","grouping_concept":"C0001779","grouping_concept_preferred_term":"Age","grouping_sab":"SNOMEDCT_US","numeric_operator":"EQ","preferred_term":"Age","sab":"SNOMEDCT_US","start_datetime":"","units":"years"},{"code":"413490006","concept_id":"C1515945","data_type":"Nominal","data_value":"American
+        Indian or Alaska native","end_datetime":"","graph_version":"UMLS2024AA","grouping_code":"415229000","grouping_concept":"C0034510","grouping_concept_preferred_term":"Race","grouping_sab":"SNOMEDCT_US","numeric_operator":"","preferred_term":"American
+        Indian or Alaska native","sab":"SNOMEDCT_US","start_datetime":"","units":""},{"code":"1086007","concept_id":"C0086287","data_type":"Nominal","data_value":"Female","end_datetime":"","graph_version":"UMLS2024AA","grouping_code":"57312000","grouping_concept":"C1522384","grouping_concept_preferred_term":"Sex","grouping_sab":"SNOMEDCT_US","numeric_operator":"","preferred_term":"Female","sab":"SNOMEDCT_US","start_datetime":"","units":""},{"code":"60621009","concept_id":"C1305855","data_type":"Numeric","data_value":"42.02","end_datetime":"","graph_version":"UMLS2024AA","grouping_code":"60621009","grouping_concept":"C1305855","grouping_concept_preferred_term":"Body
+        Mass Index","grouping_sab":"SNOMEDCT_US","numeric_operator":"EQ","preferred_term":"Body
+        Mass Index","sab":"SNOMEDCT_US","start_datetime":"","units":"kg/m2"}]},"protocol_url":"dx.doi.org/10.17504/protocols.io.rm7vzxw4xgx1/v1","sennet_id":"SNT744.ZJCF.936","source_type":"Human","uuid":"aab508582cd68248c0481abb294b13ff"},"uuid":"0c5cab46c10b131ebb6c40d68cfa79ff"},"entity_type":"Sample","group_name":"TMC
+        - University of Minnesota - Niedernhofer","group_uuid":"ca21ca01-50a0-11ed-839d-ef21729c63fc","lab_tissue_sample_id":"SNHB0030-LV-B0002","last_modified_timestamp":1790794121481,"last_modified_user_displayname":"Tim
+        Meyer","last_modified_user_email":"meye0664@umn.edu","last_modified_user_sub":"8509cb8d-e3c8-4bd8-8fa6-ec27a878dd39","metadata":{"histological_report":"","lab_id":"SNHB0030-LV-B0002","metadata_schema_id":"3e98cee6-d3fb-467b-8d4e-9ba7ee49eeff","notes":"","pathology_distance_unit":"","pathology_distance_value":"","preparation_condition":"Frozen
+        in liquid nitrogen","preparation_medium":"Fresh frozen OCT","preparation_protocol_doi":"https://dx.doi.org/10.17504/protocols.io.j8nlko7j5v5r/v1","processing_time_unit":"","processing_time_value":"","quality_criteria":"","sample_id":"SNT733.NLLM.987","source_id":"SNT988.PFWZ.963","source_storage_duration_unit":"hour","source_storage_duration_value":"1","storage_medium":"OCT","storage_method":"Frozen
+        at -80 degrees celsius","tissue_weight_unit":"","tissue_weight_value":"","volume_unit":"","volume_value":""},"origin_samples":[{"created_by_user_displayname":"Tim
+        Meyer","created_by_user_email":"meye0664@umn.edu","created_by_user_sub":"8509cb8d-e3c8-4bd8-8fa6-ec27a878dd39","created_timestamp":1710530037347,"creation_action":"Create
+        Sample Activity","data_access_level":"public","description":"","entity_type":"Sample","group_name":"TMC
+        - University of Minnesota - Niedernhofer","group_uuid":"ca21ca01-50a0-11ed-839d-ef21729c63fc","lab_tissue_sample_id":"SNHB0030-LV","last_modified_timestamp":1710530037347,"last_modified_user_displayname":"Tim
+        Meyer","last_modified_user_email":"meye0664@umn.edu","last_modified_user_sub":"8509cb8d-e3c8-4bd8-8fa6-ec27a878dd39","organ":"UBERON:0002107","organ_hierarchy":"Liver","protocol_url":"dx.doi.org/10.17504/protocols.io.j8nlko7j5v5r/v1","sample_category":"Organ","sennet_id":"SNT988.PFWZ.963","uuid":"0c5cab46c10b131ebb6c40d68cfa79ff"}],"protocol_url":"dx.doi.org/10.17504/protocols.io.j8nlko7j5v5r/v1","rui_exemption":true,"sample_category":"Block","sennet_id":"SNT733.NLLM.987","source":{"created_by_user_displayname":"Tim
+        Meyer","created_by_user_email":"meye0664@umn.edu","created_by_user_sub":"8509cb8d-e3c8-4bd8-8fa6-ec27a878dd39","created_timestamp":1697037970678,"creation_action":"Create
+        Source Activity","data_access_level":"public","description":"","entity_type":"Source","group_name":"TMC
+        - University of Minnesota - Niedernhofer","group_uuid":"ca21ca01-50a0-11ed-839d-ef21729c63fc","lab_source_id":"SNHB0030","last_modified_timestamp":1745315955224,"last_modified_user_displayname":"Joseph
+        Simmons","last_modified_user_email":"JAS971@pitt.edu","last_modified_user_sub":"4562a4ca-2e28-4fb7-b3e1-1550bc117bbf","mapped_metadata":{"age":{"group_display":"Demographics","key_display":"Age","unit":"years","value":[38.0],"value_display":"38
+        years"},"body_mass_index":{"group_display":"Vitals","key_display":"Body Mass
+        Index","unit":"kg/m2","value":[42.02],"value_display":"42.02 kg/m2"},"race":{"group_display":"Demographics","key_display":"Race","unit":"","value":["American
+        Indian or Alaska native"],"value_display":"American Indian or Alaska native"},"sex":{"group_display":"Demographics","key_display":"Sex","unit":"","value":["Female"],"value_display":"Female"}},"metadata":{"living_donor_data":[{"code":"424144002","concept_id":"C0001779","data_type":"Numeric","data_value":"38","end_datetime":"","graph_version":"UMLS2024AA","grouping_code":"424144002","grouping_concept":"C0001779","grouping_concept_preferred_term":"Age","grouping_sab":"SNOMEDCT_US","numeric_operator":"EQ","preferred_term":"Age","sab":"SNOMEDCT_US","start_datetime":"","units":"years"},{"code":"413490006","concept_id":"C1515945","data_type":"Nominal","data_value":"American
+        Indian or Alaska native","end_datetime":"","graph_version":"UMLS2024AA","grouping_code":"415229000","grouping_concept":"C0034510","grouping_concept_preferred_term":"Race","grouping_sab":"SNOMEDCT_US","numeric_operator":"","preferred_term":"American
+        Indian or Alaska native","sab":"SNOMEDCT_US","start_datetime":"","units":""},{"code":"1086007","concept_id":"C0086287","data_type":"Nominal","data_value":"Female","end_datetime":"","graph_version":"UMLS2024AA","grouping_code":"57312000","grouping_concept":"C1522384","grouping_concept_preferred_term":"Sex","grouping_sab":"SNOMEDCT_US","numeric_operator":"","preferred_term":"Female","sab":"SNOMEDCT_US","start_datetime":"","units":""},{"code":"60621009","concept_id":"C1305855","data_type":"Numeric","data_value":"42.02","end_datetime":"","graph_version":"UMLS2024AA","grouping_code":"60621009","grouping_concept":"C1305855","grouping_concept_preferred_term":"Body
+        Mass Index","grouping_sab":"SNOMEDCT_US","numeric_operator":"EQ","preferred_term":"Body
+        Mass Index","sab":"SNOMEDCT_US","start_datetime":"","units":"kg/m2"}]},"protocol_url":"dx.doi.org/10.17504/protocols.io.rm7vzxw4xgx1/v1","sennet_id":"SNT744.ZJCF.936","source_type":"Human","uuid":"aab508582cd68248c0481abb294b13ff"},"uuid":"29c770c07e0509fa7d3220284f7ea2ac"}
+
+        '
+    headers: {}
+    status:
+      code: 200
+      message: OK
+- request:
+    body: "--99299548ae9aa9989524e0ec92360118\r\nContent-Disposition: form-data; name=\"input_file\";
+      filename=\"sample-block-good.tsv\"\r\n\r\nsource_id\tsample_id\tlab_id\tpreparation_protocol_doi\tsource_storage_duration_value\tsource_storage_duration_unit\ttissue_weight_value\ttissue_weight_unit\tvolume_value\tvolume_unit\tpathology_distance_value\tpathology_distance_unit\tpreparation_medium\tpreparation_condition\tprocessing_time_value\tprocessing_time_unit\tstorage_medium\tstorage_method\tquality_criteria\thistological_report\tnotes\tmetadata_schema_id\nSNT988.PFWZ.963\tSNT733.NLLM.987\t\thttps://dx.doi.org/10.17504/protocols.io.eq2lyno9qvx9/v1\t42\tminute\t42\tkg\t42\tmm^3\t42\tcm\tMethanol\tfrozen
+      in liquid nitrogen\t42\tminute\tMethanol\tfrozen in liquid nitrogen\t\t\t\t3e98cee6-d3fb-467b-8d4e-9ba7ee49eeff\nSNT988.PFWZ.963\tSNT429.HBSX.728\t\thttps://dx.doi.org/10.17504/protocols.io.eq2lyno9qvx9/v1\t42\tminute\t42\tkg\t42\tmm^3\t42\tcm\tMethanol\tfrozen
+      in liquid nitrogen\t42\tminute\tMethanol\tfrozen in liquid nitrogen\t\t\t\t3e98cee6-d3fb-467b-8d4e-9ba7ee49eeff\n\r\n--99299548ae9aa9989524e0ec92360118--\r\n"
+    headers: {}
+    method: POST
+    uri: https://api.metadatavalidator.metadatacenter.org/service/validate-tsv
+  response:
+    body:
+      string: "{\"schema\":{\"name\":\"Sample Block\",\"version\":\"2.1.0\",\"columnDescription\":{\"source_storage_duration_value\":{\"example\":\"12\",\"name\":\"source_storage_duration_value\",\"required\":true,\"description\":\"The
+        length of time the sample was stored prior to processing it. For assays performed
+        on tissue sections, this refers to how long the tissue section (e.g., slide)
+        was stored before the assay began (e.g., imaging). For assays performed on
+        suspensions, such as sequencing, it refers to how long the suspension was
+        stored before library construction started. \",\"type\":\"number\",\"subType\":\"decimal\",\"label\":\"Source
+        storage duration value\",\"permissibleValues\":[],\"regex\":null,\"min\":0,\"max\":null},\"volume_value\":{\"example\":\"102\",\"name\":\"volume_value\",\"required\":false,\"description\":\"The
+        volume of the object in question. \",\"type\":\"number\",\"subType\":\"decimal\",\"label\":\"Volume
+        value\",\"permissibleValues\":[],\"regex\":null,\"min\":0,\"max\":null},\"pathology_distance_value\":{\"example\":\"100\",\"name\":\"pathology_distance_value\",\"required\":false,\"description\":\"The
+        distance from which the surgical sample was obtained relative to the pathology
+        site. If this information is not applicable, this field may be left blank.
+        \",\"type\":\"number\",\"subType\":\"decimal\",\"label\":\"Pathology distance
+        value\",\"permissibleValues\":[],\"regex\":null,\"min\":0,\"max\":null},\"processing_time_value\":{\"example\":\"120\",\"name\":\"processing_time_value\",\"required\":false,\"description\":\"The
+        duration for which the tissue was handled prior to its initial preservation.
+        \",\"type\":\"number\",\"subType\":\"decimal\",\"label\":\"Processing time
+        value\",\"permissibleValues\":[],\"regex\":null,\"min\":0,\"max\":null},\"quality_criteria\":{\"example\":\"RIN:
+        8.7, low clump, no visible debris\",\"name\":\"quality_criteria\",\"required\":false,\"description\":\"The
+        quality criteria used to assess the sample, which may include metrics such
+        as RIN (e.g., RIN: 8.7) or visual inspection parameters for suspensions prior
+        to cell lysis. These criteria can be captured at a high level with general
+        terms like \\\"OK\\\" or \\\"not OK\\\" or with more specific descriptors
+        such as \\\"debris\\\" \\\"clump\\\" or \\\"low clump\\\". \",\"type\":\"string\",\"subType\":null,\"label\":\"Quality
+        criteria\",\"permissibleValues\":[],\"regex\":null,\"min\":null,\"max\":null},\"histological_report\":{\"example\":\"No
+        necrosis observed; tissue composed predominantly of hepatocytes with mild
+        portal inflammation and minimal fibrosis\",\"name\":\"histological_report\",\"required\":false,\"description\":\"The
+        key variables in the histopathological report that are crucial for assessing
+        the tissue, including the absence of necrosis, comments on tissue composition,
+        descriptions of significant pathology, and high-level assessments of inflammation
+        or fibrosis. \",\"type\":\"string\",\"subType\":null,\"label\":\"Histological
+        report\",\"permissibleValues\":[],\"regex\":null,\"min\":null,\"max\":null},\"notes\":{\"example\":\"Sample
+        was stored at 4\xB0C for 48 hours prior to processing due to equipment maintenance
+        delay\",\"name\":\"notes\",\"required\":false,\"description\":\"Miscellaneous
+        details about the sample that are not captured in the existing metadata fields.
+        \",\"type\":\"string\",\"subType\":null,\"label\":\"Notes\",\"permissibleValues\":[],\"regex\":null,\"min\":null,\"max\":null},\"metadata_schema_id\":{\"example\":\"22bc762a-5020-419d-b170-24253ed9e8d9\",\"name\":\"metadata_schema_id\",\"required\":true,\"description\":\"The
+        unique string identifier for the metadata specification version, which is
+        easily interpretable by computers for purposes of data validation and processing.
+        \",\"type\":\"string\",\"subType\":null,\"label\":\"Metadata schema ID\",\"permissibleValues\":[],\"regex\":null,\"min\":null,\"max\":null},\"source_storage_duration_unit\":{\"example\":\"hour\",\"name\":\"source_storage_duration_unit\",\"required\":true,\"description\":\"The
+        unit of measurement used to specify the source storage duration value. \",\"type\":\"string\",\"subType\":null,\"label\":\"Source
+        storage duration unit\",\"permissibleValues\":[{\"label\":\"day\",\"meaning\":\"http://purl.obolibrary.org/obo/UO_0000033\"},{\"label\":\"hour\",\"meaning\":\"http://purl.obolibrary.org/obo/UO_0000032\"},{\"label\":\"minute\",\"meaning\":\"http://purl.obolibrary.org/obo/UO_0000031\"},{\"label\":\"month\",\"meaning\":\"http://purl.obolibrary.org/obo/UO_0000035\"},{\"label\":\"year\",\"meaning\":\"http://purl.obolibrary.org/obo/UO_0000036\"}],\"regex\":null,\"min\":null,\"max\":null},\"volume_unit\":{\"example\":\"mm^3\",\"name\":\"volume_unit\",\"required\":false,\"description\":\"The
+        unit of measurement for the volume value. If no volume measurement is specified,
+        this field may be left blank. \",\"type\":\"string\",\"subType\":null,\"label\":\"Volume
+        unit\",\"permissibleValues\":[{\"label\":\"cm^3\",\"meaning\":\"http://purl.obolibrary.org/obo/UO_0000097\"},{\"label\":\"ml\",\"meaning\":\"http://purl.obolibrary.org/obo/UO_0000098\"},{\"label\":\"mm^3\",\"meaning\":\"https://purl.humanatlas.io/vocab/hravs#HRAVS_0000136\"},{\"label\":\"um^3\",\"meaning\":\"https://purl.humanatlas.io/vocab/hravs#HRAVS_0000112\"}],\"regex\":null,\"min\":null,\"max\":null},\"pathology_distance_unit\":{\"example\":\"mm\",\"name\":\"pathology_distance_unit\",\"required\":false,\"description\":\"The
+        unit of measurement for the pathology distance value. If no distance measurement
+        is applicable, this field may be left blank. \",\"type\":\"string\",\"subType\":null,\"label\":\"Pathology
+        distance unit\",\"permissibleValues\":[{\"label\":\"cm\",\"meaning\":\"http://purl.obolibrary.org/obo/UO_0000015\"},{\"label\":\"mm\",\"meaning\":\"http://purl.obolibrary.org/obo/UO_0000016\"}],\"regex\":null,\"min\":null,\"max\":null},\"preparation_medium\":{\"example\":\"Fresh
+        frozen CMC\",\"name\":\"preparation_medium\",\"required\":true,\"description\":\"The
+        medium used during the sample preparation process. If no specific medium was
+        utilized, enter \\\"None\\\". If medium was not recorded, enter \\\"Unknown\\\".
+        \",\"type\":\"string\",\"subType\":null,\"label\":\"Preparation medium\",\"permissibleValues\":[{\"label\":\"1X
+        fixation & permeabilization buffer\",\"meaning\":\"https://purl.humanatlas.io/vocab/hravs#HRAVS_0000425\"},{\"label\":\"2%
+        PFA/2.5% Glutaraldehyde\",\"meaning\":\"https://purl.humanatlas.io/vocab/hravs#HRAVS_0000332\"},{\"label\":\"Allprotect
+        tissue reagent (ALL)\",\"meaning\":\"https://purl.humanatlas.io/vocab/hravs#HRAVS_0000118\"},{\"label\":\"Alpha-MEM\",\"meaning\":\"https://purl.humanatlas.io/vocab/hravs#HRAVS_0000371\"},{\"label\":\"Biops
+        buffer\",\"meaning\":\"https://purl.humanatlas.io/vocab/hravs#HRAVS_0000330\"},{\"label\":\"Bouin's\",\"meaning\":\"https://purl.humanatlas.io/vocab/hravs#HRAVS_0000140\"},{\"label\":\"CLARITY
+        hydrogel\",\"meaning\":\"https://purl.humanatlas.io/vocab/hravs#HRAVS_0000134\"},{\"label\":\"DMEM\",\"meaning\":\"http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C185409\"},{\"label\":\"Ethanol\",\"meaning\":\"http://purl.obolibrary.org/obo/CHEBI_16236\"},{\"label\":\"Fixed
+        frozen OCT (Cytofix/Cytoperm)\",\"meaning\":\"https://purl.humanatlas.io/vocab/hravs#HRAVS_0000149\"},{\"label\":\"Fixed
+        frozen OCT (Formalin, sucrose protected)\",\"meaning\":\"https://purl.humanatlas.io/vocab/hravs#HRAVS_0000116\"},{\"label\":\"Fixed
+        frozen OCT (PFA, sucrose protected)\",\"meaning\":\"https://purl.humanatlas.io/vocab/hravs#HRAVS_0000147\"},{\"label\":\"Fresh
+        frozen CMC\",\"meaning\":\"https://purl.humanatlas.io/vocab/hravs#HRAVS_0000130\"},{\"label\":\"Fresh
+        frozen gelatin\",\"meaning\":\"https://purl.humanatlas.io/vocab/hravs#HRAVS_0000198\"},{\"label\":\"Fresh
+        frozen OCT\",\"meaning\":\"https://purl.humanatlas.io/vocab/hravs#HRAVS_0000126\"},{\"label\":\"Growth
+        media\",\"meaning\":\"https://purl.humanatlas.io/vocab/hravs#HRAVS_0000372\"},{\"label\":\"HPMC-PVP\",\"meaning\":\"https://purl.humanatlas.io/vocab/hravs#HRAVS_0000386\"},{\"label\":\"HTK
+        Solution\",\"meaning\":\"https://purl.humanatlas.io/vocab/hravs#HRAVS_0000152\"},{\"label\":\"Inflated
+        (Agarose)\",\"meaning\":\"https://purl.humanatlas.io/vocab/hravs#HRAVS_0000106\"},{\"label\":\"Inflated
+        (OCT)\",\"meaning\":\"https://purl.humanatlas.io/vocab/hravs#HRAVS_0000123\"},{\"label\":\"Lysis
+        buffer\",\"meaning\":\"http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C178573\"},{\"label\":\"MACS
+        tissue storage solution\",\"meaning\":\"https://purl.humanatlas.io/vocab/hravs#HRAVS_0000105\"},{\"label\":\"Methanol\",\"meaning\":\"http://purl.obolibrary.org/obo/CHEBI_17790\"},{\"label\":\"Modified
+        Davidson's Fixative\",\"meaning\":\"https://purl.humanatlas.io/vocab/hravs#HRAVS_0000370\"},{\"label\":\"NBF
+        (Neutral Buffered Formalin)\",\"meaning\":\"http://purl.obolibrary.org/obo/OBIB_0000213\"},{\"label\":\"None\",\"meaning\":\"http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C41132\"},{\"label\":\"PAXgene
+        tissue kit (PXT)\",\"meaning\":\"http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C185113\"},{\"label\":\"PBS\",\"meaning\":\"http://purl.obolibrary.org/obo/OBI_0100046\"},{\"label\":\"Perfadex
+        Plus\",\"meaning\":\"https://purl.humanatlas.io/vocab/hravs#HRAVS_0000249\"},{\"label\":\"PFA
+        (Paraformaldehyde)\",\"meaning\":\"http://purl.obolibrary.org/obo/CHEBI_61538\"},{\"label\":\"PLP
+        (Periodate-Lysine-Paraformaldehyde)\",\"meaning\":\"http://purl.bioontology.org/ontology/MESH/C046311\"},{\"label\":\"RNAlater\",\"meaning\":\"http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C63348\"},{\"label\":\"Trumps
+        fixative\",\"meaning\":\"https://purl.humanatlas.io/vocab/hravs#HRAVS_0000331\"},{\"label\":\"Unknown\",\"meaning\":\"http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C17998\"},{\"label\":\"UW
+        Solution\",\"meaning\":\"https://purl.humanatlas.io/vocab/hravs#HRAVS_0000151\"}],\"regex\":null,\"min\":null,\"max\":null},\"preparation_condition\":{\"example\":\"Frozen
+        on dry ice\",\"name\":\"preparation_condition\",\"required\":true,\"description\":\"The
+        condition under which the sample preparation took place, such as whether the
+        sample was placed on dry ice during the process. If preparation condition
+        was not recorded, enter \\\"Unknown\\\". \",\"type\":\"string\",\"subType\":null,\"label\":\"Preparation
+        condition\",\"permissibleValues\":[{\"label\":\"Frozen at -20 degrees celsius\",\"meaning\":\"https://purl.humanatlas.io/vocab/hravs#HRAVS_0000107\"},{\"label\":\"Frozen
+        in liquid nitrogen\",\"meaning\":\"http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C185338\"},{\"label\":\"Frozen
+        in liquid nitrogen vapor\",\"meaning\":\"http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C185339\"},{\"label\":\"Frozen
+        on dry ice\",\"meaning\":\"http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C187069\"},{\"label\":\"Frozen
+        on ice\",\"meaning\":\"https://purl.humanatlas.io/vocab/hravs#HRAVS_0000144\"},{\"label\":\"Incubated
+        at 37 degrees celsius\",\"meaning\":\"https://purl.humanatlas.io/vocab/hravs#HRAVS_0000148\"},{\"label\":\"Stored
+        in ambient temperature\",\"meaning\":\"http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C70719\"},{\"label\":\"Stored
+        in refrigerator\",\"meaning\":\"https://purl.humanatlas.io/vocab/hravs#HRAVS_0000104\"},{\"label\":\"Stored
+        on wet ice\",\"meaning\":\"https://purl.humanatlas.io/vocab/hravs#HRAVS_0000465\"},{\"label\":\"Unknown\",\"meaning\":\"http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C17998\"}],\"regex\":null,\"min\":null,\"max\":null},\"processing_time_unit\":{\"example\":\"minute\",\"name\":\"processing_time_unit\",\"required\":false,\"description\":\"The
+        unit of measurement for the processing time value. If processing time is not
+        specified, this field may be left blank. \",\"type\":\"string\",\"subType\":null,\"label\":\"Processing
+        time unit\",\"permissibleValues\":[{\"label\":\"minute\",\"meaning\":\"http://purl.obolibrary.org/obo/UO_0000031\"},{\"label\":\"day\",\"meaning\":\"http://purl.obolibrary.org/obo/UO_0000033\"},{\"label\":\"hour\",\"meaning\":\"http://purl.obolibrary.org/obo/UO_0000032\"}],\"regex\":null,\"min\":null,\"max\":null},\"storage_medium\":{\"example\":\"FFPE
+        (Paraffin embedded)\",\"name\":\"storage_medium\",\"required\":true,\"description\":\"The
+        medium used to preserve the sample. If no specific medium was utilized, enter
+        \\\"None\\\". If medium was not recorded, enter \\\"Unknown\\\". \",\"type\":\"string\",\"subType\":null,\"label\":\"Storage
+        medium\",\"permissibleValues\":[{\"label\":\"1X quench buffer\",\"meaning\":\"https://purl.humanatlas.io/vocab/hravs#HRAVS_0000427\"},{\"label\":\"2%
+        PFA/2.5% Glutaraldehyde\",\"meaning\":\"https://purl.humanatlas.io/vocab/hravs#HRAVS_0000332\"},{\"label\":\"Allprotect
+        tissue reagent (ALL)\",\"meaning\":\"https://purl.humanatlas.io/vocab/hravs#HRAVS_0000118\"},{\"label\":\"CMC\",\"meaning\":\"http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C83594\"},{\"label\":\"Concentrated
+        quench buffer\",\"meaning\":\"https://purl.humanatlas.io/vocab/hravs#HRAVS_0000391\"},{\"label\":\"Cryo-EM\",\"meaning\":\"https://purl.humanatlas.io/vocab/hravs#HRAVS_0000333\"},{\"label\":\"DMEM\",\"meaning\":\"http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C185409\"},{\"label\":\"DMSO
+        (no serum)\",\"meaning\":\"https://purl.humanatlas.io/vocab/hravs#HRAVS_0000115\"},{\"label\":\"DMSO
+        (serum)\",\"meaning\":\"https://purl.humanatlas.io/vocab/hravs#HRAVS_0000125\"},{\"label\":\"Ethanol\",\"meaning\":\"http://purl.obolibrary.org/obo/CHEBI_16236\"},{\"label\":\"FFPE
+        (Paraffin embedded)\",\"meaning\":\"http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C143028\"},{\"label\":\"Formic
+        acid in water\",\"meaning\":\"http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C83719\"},{\"label\":\"Gelatin\",\"meaning\":\"http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C65802\"},{\"label\":\"HPMC-PVP\",\"meaning\":\"https://purl.humanatlas.io/vocab/hravs#HRAVS_0000386\"},{\"label\":\"MACS
+        tissue storage solution\",\"meaning\":\"https://purl.humanatlas.io/vocab/hravs#HRAVS_0000105\"},{\"label\":\"Methanol\",\"meaning\":\"http://purl.obolibrary.org/obo/CHEBI_17790\"},{\"label\":\"NBF
+        (Neutral Buffered Formalin)\",\"meaning\":\"http://purl.obolibrary.org/obo/OBIB_0000213\"},{\"label\":\"None\",\"meaning\":\"http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C41132\"},{\"label\":\"Nuclease-free
+        water\",\"meaning\":\"https://purl.humanatlas.io/vocab/hravs#HRAVS_0000482\"},{\"label\":\"OCT\",\"meaning\":\"http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C63523\"},{\"label\":\"PAXgene
+        tissue kit (PXT)\",\"meaning\":\"http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C185113\"},{\"label\":\"PBS\",\"meaning\":\"http://purl.obolibrary.org/obo/OBI_0100046\"},{\"label\":\"PFA
+        (Paraformaldehyde)\",\"meaning\":\"http://purl.obolibrary.org/obo/CHEBI_61538\"},{\"label\":\"RNAlater\",\"meaning\":\"http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C63348\"},{\"label\":\"Tris-EDTA\",\"meaning\":\"https://purl.humanatlas.io/vocab/hravs#HRAVS_0000135\"},{\"label\":\"Unknown\",\"meaning\":\"http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C17998\"},{\"label\":\"Water\",\"meaning\":\"http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C65147\"}],\"regex\":null,\"min\":null,\"max\":null},\"storage_method\":{\"example\":\"Frozen
+        in dry ice\",\"name\":\"storage_method\",\"required\":true,\"description\":\"The
+        method used to store the sample after preparation and prior to performing
+        the assay. If no specific storage method was utilized, enter \\\"None\\\".
+        If storage method was not recorded, enter \\\"Unknown\\\". \",\"type\":\"string\",\"subType\":null,\"label\":\"Storage
+        method\",\"permissibleValues\":[{\"label\":\"Frozen at -20 degrees celsius\",\"meaning\":\"https://purl.humanatlas.io/vocab/hravs#HRAVS_0000107\"},{\"label\":\"Frozen
+        at -80 degrees celsius\",\"meaning\":\"https://purl.humanatlas.io/vocab/hravs#HRAVS_0000132\"},{\"label\":\"Frozen
+        in liquid nitrogen\",\"meaning\":\"http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C185338\"},{\"label\":\"Frozen
+        in liquid nitrogen vapor\",\"meaning\":\"http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C185339\"},{\"label\":\"Frozen
+        on dry ice\",\"meaning\":\"http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C187069\"},{\"label\":\"Frozen
+        on ice\",\"meaning\":\"https://purl.humanatlas.io/vocab/hravs#HRAVS_0000144\"},{\"label\":\"Incubated
+        at 37 degrees celsius\",\"meaning\":\"https://purl.humanatlas.io/vocab/hravs#HRAVS_0000148\"},{\"label\":\"None\",\"meaning\":\"http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C41132\"},{\"label\":\"Stored
+        in ambient temperature\",\"meaning\":\"http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C70719\"},{\"label\":\"Stored
+        in desiccator\",\"meaning\":\"https://purl.humanatlas.io/vocab/hravs#HRAVS_0000387\"},{\"label\":\"Stored
+        in refrigerator\",\"meaning\":\"https://purl.humanatlas.io/vocab/hravs#HRAVS_0000104\"},{\"label\":\"Unknown\",\"meaning\":\"http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C17998\"}],\"regex\":null,\"min\":null,\"max\":null},\"lab_id\":{\"example\":null,\"name\":\"lab_id\",\"required\":false,\"description\":\"An
+        identifier assigned by the data provider to reference an external metadata
+        record for the dataset. The external record may be maintained independently
+        and can support dataset traceability and provenance tracking. Leave this field
+        empty if no such identifier exists.\",\"type\":\"string\",\"subType\":null,\"label\":\"Lab
+        ID\",\"permissibleValues\":[],\"regex\":null,\"min\":null,\"max\":null},\"tissue_weight_value\":{\"example\":\"100\",\"name\":\"tissue_weight_value\",\"required\":false,\"description\":\"The
+        weight of a tissue block or the piece of tissue used in a suspension. This
+        information is crucial for calculating the percentage of the parent block
+        that was utilized in the suspension preparation. If the weight is not applicable
+        or unknown, this field may be left blank. \",\"type\":\"number\",\"subType\":\"decimal\",\"label\":\"Tissue
+        weight value\",\"permissibleValues\":[],\"regex\":null,\"min\":0,\"max\":null},\"tissue_weight_unit\":{\"example\":\"g\",\"name\":\"tissue_weight_unit\",\"required\":false,\"description\":\"The
+        unit of measurement for the tissue weight value. If no tissue weight is specified,
+        this field may be left blank. \",\"type\":\"string\",\"subType\":null,\"label\":\"Tissue
+        weight unit\",\"permissibleValues\":[{\"label\":\"g\",\"meaning\":\"http://purl.obolibrary.org/obo/UO_0000021\"},{\"label\":\"kg\",\"meaning\":\"http://purl.obolibrary.org/obo/UO_0000009\"},{\"label\":\"mg\",\"meaning\":\"http://purl.obolibrary.org/obo/UO_0000022\"},{\"label\":\"ug\",\"meaning\":\"http://purl.obolibrary.org/obo/UO_0000023\"}],\"regex\":null,\"min\":null,\"max\":null},\"preparation_protocol_doi\":{\"example\":\"https://dx.doi.org/10.17504/protocols.io.eq2lyno9qvx9/v1\",\"name\":\"preparation_protocol_doi\",\"required\":true,\"description\":\"The
+        DOI for the protocols.io page that details the assay or the procedures used
+        for sample procurement and preparation. For example, in the case of an imaging
+        assay, the protocol may start with tissue section staining and end with the
+        generation of an OME-TIFF file. The documented protocol should also include
+        any image processing steps involved in producing the final OME-TIFF. \",\"type\":\"url\",\"subType\":null,\"label\":\"Preparation
+        protocol DOI\",\"permissibleValues\":[],\"regex\":null,\"min\":null,\"max\":null},\"source_id\":{\"example\":\"HBM122.EFGH.789\",\"name\":\"source_id\",\"required\":true,\"description\":\"The
+        unique identifier from HuBMAP or SenNet for the source (parent data) from
+        which the sample was derived. \",\"type\":\"string\",\"subType\":null,\"label\":\"Source
+        ID\",\"permissibleValues\":[],\"regex\":\"^(?:HBM|SNT)\\\\d{3}\\\\.[A-Z]{4}\\\\.\\\\d{3}$\",\"min\":null,\"max\":null},\"sample_id\":{\"example\":\"HBM743.CKJW.876\",\"name\":\"sample_id\",\"required\":true,\"description\":\"The
+        unique HuBMAP or SenNet identifier assigned to the sample by the ingest portal.
+        \",\"type\":\"string\",\"subType\":null,\"label\":\"Sample ID\",\"permissibleValues\":[],\"regex\":\"^(?:HBM|SNT)\\\\d{3}\\\\.[A-Z]{4}\\\\.\\\\d{3}$\",\"min\":null,\"max\":null}},\"requiredColumns\":[\"source_storage_duration_value\",\"metadata_schema_id\",\"source_storage_duration_unit\",\"preparation_medium\",\"preparation_condition\",\"storage_medium\",\"storage_method\",\"preparation_protocol_doi\",\"source_id\",\"sample_id\"],\"columnOrder\":[\"source_id\",\"sample_id\",\"lab_id\",\"preparation_protocol_doi\",\"source_storage_duration_value\",\"source_storage_duration_unit\",\"tissue_weight_value\",\"tissue_weight_unit\",\"volume_value\",\"volume_unit\",\"pathology_distance_value\",\"pathology_distance_unit\",\"preparation_medium\",\"preparation_condition\",\"processing_time_value\",\"processing_time_unit\",\"storage_medium\",\"storage_method\",\"quality_criteria\",\"histological_report\",\"notes\",\"metadata_schema_id\"],\"generatedFrom\":\"Optional[https://repo.metadatacenter.org/templates/3e98cee6-d3fb-467b-8d4e-9ba7ee49eeff]\",\"accessUrl\":\"https://openview.metadatacenter.org/templates/https%3A%2F%2Frepo.metadatacenter.org%2Ftemplates%2F3e98cee6-d3fb-467b-8d4e-9ba7ee49eeff\"},\"data\":[{\"rowNumber\":0,\"volume_value\":42,\"storage_method\":\"frozen
+        in liquid nitrogen\",\"preparation_condition\":\"frozen in liquid nitrogen\",\"notes\":\"\",\"source_storage_duration_value\":42,\"sample_id\":\"SNT733.NLLM.987\",\"metadata_schema_id\":\"3e98cee6-d3fb-467b-8d4e-9ba7ee49eeff\",\"tissue_weight_unit\":\"kg\",\"pathology_distance_unit\":\"cm\",\"preparation_medium\":\"Methanol\",\"processing_time_unit\":\"minute\",\"pathology_distance_value\":42,\"quality_criteria\":\"\",\"volume_unit\":\"mm^3\",\"tissue_weight_value\":42,\"source_storage_duration_unit\":\"minute\",\"histological_report\":\"\",\"storage_medium\":\"Methanol\",\"preparation_protocol_doi\":\"https://dx.doi.org/10.17504/protocols.io.eq2lyno9qvx9/v1\",\"source_id\":\"SNT988.PFWZ.963\",\"processing_time_value\":42,\"lab_id\":\"\"},{\"rowNumber\":1,\"volume_value\":42,\"storage_method\":\"frozen
+        in liquid nitrogen\",\"preparation_condition\":\"frozen in liquid nitrogen\",\"notes\":\"\",\"source_storage_duration_value\":42,\"sample_id\":\"SNT429.HBSX.728\",\"metadata_schema_id\":\"3e98cee6-d3fb-467b-8d4e-9ba7ee49eeff\",\"tissue_weight_unit\":\"kg\",\"pathology_distance_unit\":\"cm\",\"preparation_medium\":\"Methanol\",\"processing_time_unit\":\"minute\",\"pathology_distance_value\":42,\"quality_criteria\":\"\",\"volume_unit\":\"mm^3\",\"tissue_weight_value\":42,\"source_storage_duration_unit\":\"minute\",\"histological_report\":\"\",\"storage_medium\":\"Methanol\",\"preparation_protocol_doi\":\"https://dx.doi.org/10.17504/protocols.io.eq2lyno9qvx9/v1\",\"source_id\":\"SNT988.PFWZ.963\",\"processing_time_value\":42,\"lab_id\":\"\"}],\"reporting\":[]}"
+    headers: {}
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers: {}
+    method: GET
+    uri: https://entity.api.sennetconsortium.org/entities/SNT988.PFWZ.963?exclude=direct_ancestors.files
+  response:
+    body:
+      string: '{"created_by_user_displayname":"Tim Meyer","created_by_user_email":"meye0664@umn.edu","created_by_user_sub":"8509cb8d-e3c8-4bd8-8fa6-ec27a878dd39","created_timestamp":1710530037347,"creation_action":"Create
+        Sample Activity","data_access_level":"public","direct_ancestor":{"created_by_user_displayname":"Tim
+        Meyer","created_by_user_email":"meye0664@umn.edu","created_by_user_sub":"8509cb8d-e3c8-4bd8-8fa6-ec27a878dd39","created_timestamp":1697037970678,"creation_action":"Create
+        Source Activity","data_access_level":"public","entity_type":"Source","group_name":"TMC
+        - University of Minnesota - Niedernhofer","group_uuid":"ca21ca01-50a0-11ed-839d-ef21729c63fc","lab_source_id":"SNHB0030","last_modified_timestamp":1745315955224,"last_modified_user_displayname":"Joseph
+        Simmons","last_modified_user_email":"JAS971@pitt.edu","last_modified_user_sub":"4562a4ca-2e28-4fb7-b3e1-1550bc117bbf","metadata":{"living_donor_data":[{"code":"424144002","concept_id":"C0001779","data_type":"Numeric","data_value":"38","end_datetime":"","graph_version":"UMLS2024AA","grouping_code":"424144002","grouping_concept":"C0001779","grouping_concept_preferred_term":"Age","grouping_sab":"SNOMEDCT_US","numeric_operator":"EQ","preferred_term":"Age","sab":"SNOMEDCT_US","start_datetime":"","units":"years"},{"code":"413490006","concept_id":"C1515945","data_type":"Nominal","data_value":"American
+        Indian or Alaska native","end_datetime":"","graph_version":"UMLS2024AA","grouping_code":"415229000","grouping_concept":"C0034510","grouping_concept_preferred_term":"Race","grouping_sab":"SNOMEDCT_US","numeric_operator":"","preferred_term":"American
+        Indian or Alaska native","sab":"SNOMEDCT_US","start_datetime":"","units":""},{"code":"1086007","concept_id":"C0086287","data_type":"Nominal","data_value":"Female","end_datetime":"","graph_version":"UMLS2024AA","grouping_code":"57312000","grouping_concept":"C1522384","grouping_concept_preferred_term":"Sex","grouping_sab":"SNOMEDCT_US","numeric_operator":"","preferred_term":"Female","sab":"SNOMEDCT_US","start_datetime":"","units":""},{"code":"60621009","concept_id":"C1305855","data_type":"Numeric","data_value":"42.02","end_datetime":"","graph_version":"UMLS2024AA","grouping_code":"60621009","grouping_concept":"C1305855","grouping_concept_preferred_term":"Body
+        Mass Index","grouping_sab":"SNOMEDCT_US","numeric_operator":"EQ","preferred_term":"Body
+        Mass Index","sab":"SNOMEDCT_US","start_datetime":"","units":"kg/m2"}]},"protocol_url":"dx.doi.org/10.17504/protocols.io.rm7vzxw4xgx1/v1","sennet_id":"SNT744.ZJCF.936","source_mapped_metadata":{"age":{"group_display":"Demographics","key_display":"Age","unit":"years","value":[38.0],"value_display":"38
+        years"},"body_mass_index":{"group_display":"Vitals","key_display":"Body Mass
+        Index","unit":"kg/m2","value":[42.02],"value_display":"42.02 kg/m2"},"race":{"group_display":"Demographics","key_display":"Race","unit":"","value":["American
+        Indian or Alaska native"],"value_display":"American Indian or Alaska native"},"sex":{"group_display":"Demographics","key_display":"Sex","unit":"","value":["Female"],"value_display":"Female"}},"source_type":"Human","uuid":"aab508582cd68248c0481abb294b13ff"},"entity_type":"Sample","group_name":"TMC
+        - University of Minnesota - Niedernhofer","group_uuid":"ca21ca01-50a0-11ed-839d-ef21729c63fc","lab_tissue_sample_id":"SNHB0030-LV","last_modified_timestamp":1710530037347,"last_modified_user_displayname":"Tim
+        Meyer","last_modified_user_email":"meye0664@umn.edu","last_modified_user_sub":"8509cb8d-e3c8-4bd8-8fa6-ec27a878dd39","organ":"UBERON:0002107","organ_hierarchy":"Liver","origin_samples":[{"created_by_user_displayname":"Tim
+        Meyer","created_by_user_email":"meye0664@umn.edu","created_by_user_sub":"8509cb8d-e3c8-4bd8-8fa6-ec27a878dd39","created_timestamp":1710530037347,"creation_action":"Create
+        Sample Activity","data_access_level":"public","description":"","entity_type":"Sample","group_name":"TMC
+        - University of Minnesota - Niedernhofer","group_uuid":"ca21ca01-50a0-11ed-839d-ef21729c63fc","lab_tissue_sample_id":"SNHB0030-LV","last_modified_timestamp":1710530037347,"last_modified_user_displayname":"Tim
+        Meyer","last_modified_user_email":"meye0664@umn.edu","last_modified_user_sub":"8509cb8d-e3c8-4bd8-8fa6-ec27a878dd39","organ":"UBERON:0002107","organ_hierarchy":"Liver","protocol_url":"dx.doi.org/10.17504/protocols.io.j8nlko7j5v5r/v1","sample_category":"Organ","sennet_id":"SNT988.PFWZ.963","uuid":"0c5cab46c10b131ebb6c40d68cfa79ff"}],"protocol_url":"dx.doi.org/10.17504/protocols.io.j8nlko7j5v5r/v1","sample_category":"Organ","sennet_id":"SNT988.PFWZ.963","source":{"created_by_user_displayname":"Tim
+        Meyer","created_by_user_email":"meye0664@umn.edu","created_by_user_sub":"8509cb8d-e3c8-4bd8-8fa6-ec27a878dd39","created_timestamp":1697037970678,"creation_action":"Create
+        Source Activity","data_access_level":"public","description":"","entity_type":"Source","group_name":"TMC
+        - University of Minnesota - Niedernhofer","group_uuid":"ca21ca01-50a0-11ed-839d-ef21729c63fc","lab_source_id":"SNHB0030","last_modified_timestamp":1745315955224,"last_modified_user_displayname":"Joseph
+        Simmons","last_modified_user_email":"JAS971@pitt.edu","last_modified_user_sub":"4562a4ca-2e28-4fb7-b3e1-1550bc117bbf","mapped_metadata":{"age":{"group_display":"Demographics","key_display":"Age","unit":"years","value":[38.0],"value_display":"38
+        years"},"body_mass_index":{"group_display":"Vitals","key_display":"Body Mass
+        Index","unit":"kg/m2","value":[42.02],"value_display":"42.02 kg/m2"},"race":{"group_display":"Demographics","key_display":"Race","unit":"","value":["American
+        Indian or Alaska native"],"value_display":"American Indian or Alaska native"},"sex":{"group_display":"Demographics","key_display":"Sex","unit":"","value":["Female"],"value_display":"Female"}},"metadata":{"living_donor_data":[{"code":"424144002","concept_id":"C0001779","data_type":"Numeric","data_value":"38","end_datetime":"","graph_version":"UMLS2024AA","grouping_code":"424144002","grouping_concept":"C0001779","grouping_concept_preferred_term":"Age","grouping_sab":"SNOMEDCT_US","numeric_operator":"EQ","preferred_term":"Age","sab":"SNOMEDCT_US","start_datetime":"","units":"years"},{"code":"413490006","concept_id":"C1515945","data_type":"Nominal","data_value":"American
+        Indian or Alaska native","end_datetime":"","graph_version":"UMLS2024AA","grouping_code":"415229000","grouping_concept":"C0034510","grouping_concept_preferred_term":"Race","grouping_sab":"SNOMEDCT_US","numeric_operator":"","preferred_term":"American
+        Indian or Alaska native","sab":"SNOMEDCT_US","start_datetime":"","units":""},{"code":"1086007","concept_id":"C0086287","data_type":"Nominal","data_value":"Female","end_datetime":"","graph_version":"UMLS2024AA","grouping_code":"57312000","grouping_concept":"C1522384","grouping_concept_preferred_term":"Sex","grouping_sab":"SNOMEDCT_US","numeric_operator":"","preferred_term":"Female","sab":"SNOMEDCT_US","start_datetime":"","units":""},{"code":"60621009","concept_id":"C1305855","data_type":"Numeric","data_value":"42.02","end_datetime":"","graph_version":"UMLS2024AA","grouping_code":"60621009","grouping_concept":"C1305855","grouping_concept_preferred_term":"Body
+        Mass Index","grouping_sab":"SNOMEDCT_US","numeric_operator":"EQ","preferred_term":"Body
+        Mass Index","sab":"SNOMEDCT_US","start_datetime":"","units":"kg/m2"}]},"protocol_url":"dx.doi.org/10.17504/protocols.io.rm7vzxw4xgx1/v1","sennet_id":"SNT744.ZJCF.936","source_type":"Human","uuid":"aab508582cd68248c0481abb294b13ff"},"uuid":"0c5cab46c10b131ebb6c40d68cfa79ff"}
+
+        '
+    headers: {}
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers: {}
+    method: GET
+    uri: https://entity.api.sennetconsortium.org/entities/SNT733.NLLM.987?exclude=direct_ancestors.files
+  response:
+    body:
+      string: '{"cedar_mapped_metadata":{"Histological Report":"","Lab ID":"SNHB0030-LV-B0002","Metadata
+        Schema ID":"3e98cee6-d3fb-467b-8d4e-9ba7ee49eeff","Notes":"","Pathology Distance":"","Preparation
+        Condition":"Frozen in liquid nitrogen","Preparation Medium":"Fresh frozen
+        OCT","Preparation Protocol DOI":"https://dx.doi.org/10.17504/protocols.io.j8nlko7j5v5r/v1","Processing
+        Time":"","Quality Criteria":"","Sample ID":"SNT733.NLLM.987","Source ID":"SNT988.PFWZ.963","Source
+        Storage Duration":"1 hour","Storage Medium":"OCT","Storage Method":"Frozen
+        at -80 degrees celsius","Tissue Weight":"","Volume":""},"created_by_user_displayname":"Tim
+        Meyer","created_by_user_email":"meye0664@umn.edu","created_by_user_sub":"8509cb8d-e3c8-4bd8-8fa6-ec27a878dd39","created_timestamp":1790793747275,"creation_action":"Create
+        Sample Activity","data_access_level":"public","direct_ancestor":{"created_by_user_displayname":"Tim
+        Meyer","created_by_user_email":"meye0664@umn.edu","created_by_user_sub":"8509cb8d-e3c8-4bd8-8fa6-ec27a878dd39","created_timestamp":1710530037347,"creation_action":"Create
+        Sample Activity","data_access_level":"public","entity_type":"Sample","group_name":"TMC
+        - University of Minnesota - Niedernhofer","group_uuid":"ca21ca01-50a0-11ed-839d-ef21729c63fc","lab_tissue_sample_id":"SNHB0030-LV","last_modified_timestamp":1710530037347,"last_modified_user_displayname":"Tim
+        Meyer","last_modified_user_email":"meye0664@umn.edu","last_modified_user_sub":"8509cb8d-e3c8-4bd8-8fa6-ec27a878dd39","organ":"UBERON:0002107","organ_hierarchy":"Liver","origin_samples":[{"created_by_user_displayname":"Tim
+        Meyer","created_by_user_email":"meye0664@umn.edu","created_by_user_sub":"8509cb8d-e3c8-4bd8-8fa6-ec27a878dd39","created_timestamp":1710530037347,"creation_action":"Create
+        Sample Activity","data_access_level":"public","description":"","entity_type":"Sample","group_name":"TMC
+        - University of Minnesota - Niedernhofer","group_uuid":"ca21ca01-50a0-11ed-839d-ef21729c63fc","lab_tissue_sample_id":"SNHB0030-LV","last_modified_timestamp":1710530037347,"last_modified_user_displayname":"Tim
+        Meyer","last_modified_user_email":"meye0664@umn.edu","last_modified_user_sub":"8509cb8d-e3c8-4bd8-8fa6-ec27a878dd39","organ":"UBERON:0002107","organ_hierarchy":"Liver","protocol_url":"dx.doi.org/10.17504/protocols.io.j8nlko7j5v5r/v1","sample_category":"Organ","sennet_id":"SNT988.PFWZ.963","uuid":"0c5cab46c10b131ebb6c40d68cfa79ff"}],"protocol_url":"dx.doi.org/10.17504/protocols.io.j8nlko7j5v5r/v1","sample_category":"Organ","sennet_id":"SNT988.PFWZ.963","source":{"created_by_user_displayname":"Tim
+        Meyer","created_by_user_email":"meye0664@umn.edu","created_by_user_sub":"8509cb8d-e3c8-4bd8-8fa6-ec27a878dd39","created_timestamp":1697037970678,"creation_action":"Create
+        Source Activity","data_access_level":"public","description":"","entity_type":"Source","group_name":"TMC
+        - University of Minnesota - Niedernhofer","group_uuid":"ca21ca01-50a0-11ed-839d-ef21729c63fc","lab_source_id":"SNHB0030","last_modified_timestamp":1745315955224,"last_modified_user_displayname":"Joseph
+        Simmons","last_modified_user_email":"JAS971@pitt.edu","last_modified_user_sub":"4562a4ca-2e28-4fb7-b3e1-1550bc117bbf","mapped_metadata":{"age":{"group_display":"Demographics","key_display":"Age","unit":"years","value":[38.0],"value_display":"38
+        years"},"body_mass_index":{"group_display":"Vitals","key_display":"Body Mass
+        Index","unit":"kg/m2","value":[42.02],"value_display":"42.02 kg/m2"},"race":{"group_display":"Demographics","key_display":"Race","unit":"","value":["American
+        Indian or Alaska native"],"value_display":"American Indian or Alaska native"},"sex":{"group_display":"Demographics","key_display":"Sex","unit":"","value":["Female"],"value_display":"Female"}},"metadata":{"living_donor_data":[{"code":"424144002","concept_id":"C0001779","data_type":"Numeric","data_value":"38","end_datetime":"","graph_version":"UMLS2024AA","grouping_code":"424144002","grouping_concept":"C0001779","grouping_concept_preferred_term":"Age","grouping_sab":"SNOMEDCT_US","numeric_operator":"EQ","preferred_term":"Age","sab":"SNOMEDCT_US","start_datetime":"","units":"years"},{"code":"413490006","concept_id":"C1515945","data_type":"Nominal","data_value":"American
+        Indian or Alaska native","end_datetime":"","graph_version":"UMLS2024AA","grouping_code":"415229000","grouping_concept":"C0034510","grouping_concept_preferred_term":"Race","grouping_sab":"SNOMEDCT_US","numeric_operator":"","preferred_term":"American
+        Indian or Alaska native","sab":"SNOMEDCT_US","start_datetime":"","units":""},{"code":"1086007","concept_id":"C0086287","data_type":"Nominal","data_value":"Female","end_datetime":"","graph_version":"UMLS2024AA","grouping_code":"57312000","grouping_concept":"C1522384","grouping_concept_preferred_term":"Sex","grouping_sab":"SNOMEDCT_US","numeric_operator":"","preferred_term":"Female","sab":"SNOMEDCT_US","start_datetime":"","units":""},{"code":"60621009","concept_id":"C1305855","data_type":"Numeric","data_value":"42.02","end_datetime":"","graph_version":"UMLS2024AA","grouping_code":"60621009","grouping_concept":"C1305855","grouping_concept_preferred_term":"Body
+        Mass Index","grouping_sab":"SNOMEDCT_US","numeric_operator":"EQ","preferred_term":"Body
+        Mass Index","sab":"SNOMEDCT_US","start_datetime":"","units":"kg/m2"}]},"protocol_url":"dx.doi.org/10.17504/protocols.io.rm7vzxw4xgx1/v1","sennet_id":"SNT744.ZJCF.936","source_type":"Human","uuid":"aab508582cd68248c0481abb294b13ff"},"uuid":"0c5cab46c10b131ebb6c40d68cfa79ff"},"entity_type":"Sample","group_name":"TMC
+        - University of Minnesota - Niedernhofer","group_uuid":"ca21ca01-50a0-11ed-839d-ef21729c63fc","lab_tissue_sample_id":"SNHB0030-LV-B0002","last_modified_timestamp":1790794121481,"last_modified_user_displayname":"Tim
+        Meyer","last_modified_user_email":"meye0664@umn.edu","last_modified_user_sub":"8509cb8d-e3c8-4bd8-8fa6-ec27a878dd39","metadata":{"histological_report":"","lab_id":"SNHB0030-LV-B0002","metadata_schema_id":"3e98cee6-d3fb-467b-8d4e-9ba7ee49eeff","notes":"","pathology_distance_unit":"","pathology_distance_value":"","preparation_condition":"Frozen
+        in liquid nitrogen","preparation_medium":"Fresh frozen OCT","preparation_protocol_doi":"https://dx.doi.org/10.17504/protocols.io.j8nlko7j5v5r/v1","processing_time_unit":"","processing_time_value":"","quality_criteria":"","sample_id":"SNT733.NLLM.987","source_id":"SNT988.PFWZ.963","source_storage_duration_unit":"hour","source_storage_duration_value":"1","storage_medium":"OCT","storage_method":"Frozen
+        at -80 degrees celsius","tissue_weight_unit":"","tissue_weight_value":"","volume_unit":"","volume_value":""},"origin_samples":[{"created_by_user_displayname":"Tim
+        Meyer","created_by_user_email":"meye0664@umn.edu","created_by_user_sub":"8509cb8d-e3c8-4bd8-8fa6-ec27a878dd39","created_timestamp":1710530037347,"creation_action":"Create
+        Sample Activity","data_access_level":"public","description":"","entity_type":"Sample","group_name":"TMC
+        - University of Minnesota - Niedernhofer","group_uuid":"ca21ca01-50a0-11ed-839d-ef21729c63fc","lab_tissue_sample_id":"SNHB0030-LV","last_modified_timestamp":1710530037347,"last_modified_user_displayname":"Tim
+        Meyer","last_modified_user_email":"meye0664@umn.edu","last_modified_user_sub":"8509cb8d-e3c8-4bd8-8fa6-ec27a878dd39","organ":"UBERON:0002107","organ_hierarchy":"Liver","protocol_url":"dx.doi.org/10.17504/protocols.io.j8nlko7j5v5r/v1","sample_category":"Organ","sennet_id":"SNT988.PFWZ.963","uuid":"0c5cab46c10b131ebb6c40d68cfa79ff"}],"protocol_url":"dx.doi.org/10.17504/protocols.io.j8nlko7j5v5r/v1","rui_exemption":true,"sample_category":"Block","sennet_id":"SNT733.NLLM.987","source":{"created_by_user_displayname":"Tim
+        Meyer","created_by_user_email":"meye0664@umn.edu","created_by_user_sub":"8509cb8d-e3c8-4bd8-8fa6-ec27a878dd39","created_timestamp":1697037970678,"creation_action":"Create
+        Source Activity","data_access_level":"public","description":"","entity_type":"Source","group_name":"TMC
+        - University of Minnesota - Niedernhofer","group_uuid":"ca21ca01-50a0-11ed-839d-ef21729c63fc","lab_source_id":"SNHB0030","last_modified_timestamp":1745315955224,"last_modified_user_displayname":"Joseph
+        Simmons","last_modified_user_email":"JAS971@pitt.edu","last_modified_user_sub":"4562a4ca-2e28-4fb7-b3e1-1550bc117bbf","mapped_metadata":{"age":{"group_display":"Demographics","key_display":"Age","unit":"years","value":[38.0],"value_display":"38
+        years"},"body_mass_index":{"group_display":"Vitals","key_display":"Body Mass
+        Index","unit":"kg/m2","value":[42.02],"value_display":"42.02 kg/m2"},"race":{"group_display":"Demographics","key_display":"Race","unit":"","value":["American
+        Indian or Alaska native"],"value_display":"American Indian or Alaska native"},"sex":{"group_display":"Demographics","key_display":"Sex","unit":"","value":["Female"],"value_display":"Female"}},"metadata":{"living_donor_data":[{"code":"424144002","concept_id":"C0001779","data_type":"Numeric","data_value":"38","end_datetime":"","graph_version":"UMLS2024AA","grouping_code":"424144002","grouping_concept":"C0001779","grouping_concept_preferred_term":"Age","grouping_sab":"SNOMEDCT_US","numeric_operator":"EQ","preferred_term":"Age","sab":"SNOMEDCT_US","start_datetime":"","units":"years"},{"code":"413490006","concept_id":"C1515945","data_type":"Nominal","data_value":"American
+        Indian or Alaska native","end_datetime":"","graph_version":"UMLS2024AA","grouping_code":"415229000","grouping_concept":"C0034510","grouping_concept_preferred_term":"Race","grouping_sab":"SNOMEDCT_US","numeric_operator":"","preferred_term":"American
+        Indian or Alaska native","sab":"SNOMEDCT_US","start_datetime":"","units":""},{"code":"1086007","concept_id":"C0086287","data_type":"Nominal","data_value":"Female","end_datetime":"","graph_version":"UMLS2024AA","grouping_code":"57312000","grouping_concept":"C1522384","grouping_concept_preferred_term":"Sex","grouping_sab":"SNOMEDCT_US","numeric_operator":"","preferred_term":"Female","sab":"SNOMEDCT_US","start_datetime":"","units":""},{"code":"60621009","concept_id":"C1305855","data_type":"Numeric","data_value":"42.02","end_datetime":"","graph_version":"UMLS2024AA","grouping_code":"60621009","grouping_concept":"C1305855","grouping_concept_preferred_term":"Body
+        Mass Index","grouping_sab":"SNOMEDCT_US","numeric_operator":"EQ","preferred_term":"Body
+        Mass Index","sab":"SNOMEDCT_US","start_datetime":"","units":"kg/m2"}]},"protocol_url":"dx.doi.org/10.17504/protocols.io.rm7vzxw4xgx1/v1","sennet_id":"SNT744.ZJCF.936","source_type":"Human","uuid":"aab508582cd68248c0481abb294b13ff"},"uuid":"29c770c07e0509fa7d3220284f7ea2ac"}
+
+        '
+    headers: {}
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers: {}
+    method: GET
+    uri: https://entity.api.sennetconsortium.org/entities/SNT988.PFWZ.963?exclude=direct_ancestors.files
+  response:
+    body:
+      string: '{"created_by_user_displayname":"Tim Meyer","created_by_user_email":"meye0664@umn.edu","created_by_user_sub":"8509cb8d-e3c8-4bd8-8fa6-ec27a878dd39","created_timestamp":1710530037347,"creation_action":"Create
+        Sample Activity","data_access_level":"public","direct_ancestor":{"created_by_user_displayname":"Tim
+        Meyer","created_by_user_email":"meye0664@umn.edu","created_by_user_sub":"8509cb8d-e3c8-4bd8-8fa6-ec27a878dd39","created_timestamp":1697037970678,"creation_action":"Create
+        Source Activity","data_access_level":"public","entity_type":"Source","group_name":"TMC
+        - University of Minnesota - Niedernhofer","group_uuid":"ca21ca01-50a0-11ed-839d-ef21729c63fc","lab_source_id":"SNHB0030","last_modified_timestamp":1745315955224,"last_modified_user_displayname":"Joseph
+        Simmons","last_modified_user_email":"JAS971@pitt.edu","last_modified_user_sub":"4562a4ca-2e28-4fb7-b3e1-1550bc117bbf","metadata":{"living_donor_data":[{"code":"424144002","concept_id":"C0001779","data_type":"Numeric","data_value":"38","end_datetime":"","graph_version":"UMLS2024AA","grouping_code":"424144002","grouping_concept":"C0001779","grouping_concept_preferred_term":"Age","grouping_sab":"SNOMEDCT_US","numeric_operator":"EQ","preferred_term":"Age","sab":"SNOMEDCT_US","start_datetime":"","units":"years"},{"code":"413490006","concept_id":"C1515945","data_type":"Nominal","data_value":"American
+        Indian or Alaska native","end_datetime":"","graph_version":"UMLS2024AA","grouping_code":"415229000","grouping_concept":"C0034510","grouping_concept_preferred_term":"Race","grouping_sab":"SNOMEDCT_US","numeric_operator":"","preferred_term":"American
+        Indian or Alaska native","sab":"SNOMEDCT_US","start_datetime":"","units":""},{"code":"1086007","concept_id":"C0086287","data_type":"Nominal","data_value":"Female","end_datetime":"","graph_version":"UMLS2024AA","grouping_code":"57312000","grouping_concept":"C1522384","grouping_concept_preferred_term":"Sex","grouping_sab":"SNOMEDCT_US","numeric_operator":"","preferred_term":"Female","sab":"SNOMEDCT_US","start_datetime":"","units":""},{"code":"60621009","concept_id":"C1305855","data_type":"Numeric","data_value":"42.02","end_datetime":"","graph_version":"UMLS2024AA","grouping_code":"60621009","grouping_concept":"C1305855","grouping_concept_preferred_term":"Body
+        Mass Index","grouping_sab":"SNOMEDCT_US","numeric_operator":"EQ","preferred_term":"Body
+        Mass Index","sab":"SNOMEDCT_US","start_datetime":"","units":"kg/m2"}]},"protocol_url":"dx.doi.org/10.17504/protocols.io.rm7vzxw4xgx1/v1","sennet_id":"SNT744.ZJCF.936","source_mapped_metadata":{"age":{"group_display":"Demographics","key_display":"Age","unit":"years","value":[38.0],"value_display":"38
+        years"},"body_mass_index":{"group_display":"Vitals","key_display":"Body Mass
+        Index","unit":"kg/m2","value":[42.02],"value_display":"42.02 kg/m2"},"race":{"group_display":"Demographics","key_display":"Race","unit":"","value":["American
+        Indian or Alaska native"],"value_display":"American Indian or Alaska native"},"sex":{"group_display":"Demographics","key_display":"Sex","unit":"","value":["Female"],"value_display":"Female"}},"source_type":"Human","uuid":"aab508582cd68248c0481abb294b13ff"},"entity_type":"Sample","group_name":"TMC
+        - University of Minnesota - Niedernhofer","group_uuid":"ca21ca01-50a0-11ed-839d-ef21729c63fc","lab_tissue_sample_id":"SNHB0030-LV","last_modified_timestamp":1710530037347,"last_modified_user_displayname":"Tim
+        Meyer","last_modified_user_email":"meye0664@umn.edu","last_modified_user_sub":"8509cb8d-e3c8-4bd8-8fa6-ec27a878dd39","organ":"UBERON:0002107","organ_hierarchy":"Liver","origin_samples":[{"created_by_user_displayname":"Tim
+        Meyer","created_by_user_email":"meye0664@umn.edu","created_by_user_sub":"8509cb8d-e3c8-4bd8-8fa6-ec27a878dd39","created_timestamp":1710530037347,"creation_action":"Create
+        Sample Activity","data_access_level":"public","description":"","entity_type":"Sample","group_name":"TMC
+        - University of Minnesota - Niedernhofer","group_uuid":"ca21ca01-50a0-11ed-839d-ef21729c63fc","lab_tissue_sample_id":"SNHB0030-LV","last_modified_timestamp":1710530037347,"last_modified_user_displayname":"Tim
+        Meyer","last_modified_user_email":"meye0664@umn.edu","last_modified_user_sub":"8509cb8d-e3c8-4bd8-8fa6-ec27a878dd39","organ":"UBERON:0002107","organ_hierarchy":"Liver","protocol_url":"dx.doi.org/10.17504/protocols.io.j8nlko7j5v5r/v1","sample_category":"Organ","sennet_id":"SNT988.PFWZ.963","uuid":"0c5cab46c10b131ebb6c40d68cfa79ff"}],"protocol_url":"dx.doi.org/10.17504/protocols.io.j8nlko7j5v5r/v1","sample_category":"Organ","sennet_id":"SNT988.PFWZ.963","source":{"created_by_user_displayname":"Tim
+        Meyer","created_by_user_email":"meye0664@umn.edu","created_by_user_sub":"8509cb8d-e3c8-4bd8-8fa6-ec27a878dd39","created_timestamp":1697037970678,"creation_action":"Create
+        Source Activity","data_access_level":"public","description":"","entity_type":"Source","group_name":"TMC
+        - University of Minnesota - Niedernhofer","group_uuid":"ca21ca01-50a0-11ed-839d-ef21729c63fc","lab_source_id":"SNHB0030","last_modified_timestamp":1745315955224,"last_modified_user_displayname":"Joseph
+        Simmons","last_modified_user_email":"JAS971@pitt.edu","last_modified_user_sub":"4562a4ca-2e28-4fb7-b3e1-1550bc117bbf","mapped_metadata":{"age":{"group_display":"Demographics","key_display":"Age","unit":"years","value":[38.0],"value_display":"38
+        years"},"body_mass_index":{"group_display":"Vitals","key_display":"Body Mass
+        Index","unit":"kg/m2","value":[42.02],"value_display":"42.02 kg/m2"},"race":{"group_display":"Demographics","key_display":"Race","unit":"","value":["American
+        Indian or Alaska native"],"value_display":"American Indian or Alaska native"},"sex":{"group_display":"Demographics","key_display":"Sex","unit":"","value":["Female"],"value_display":"Female"}},"metadata":{"living_donor_data":[{"code":"424144002","concept_id":"C0001779","data_type":"Numeric","data_value":"38","end_datetime":"","graph_version":"UMLS2024AA","grouping_code":"424144002","grouping_concept":"C0001779","grouping_concept_preferred_term":"Age","grouping_sab":"SNOMEDCT_US","numeric_operator":"EQ","preferred_term":"Age","sab":"SNOMEDCT_US","start_datetime":"","units":"years"},{"code":"413490006","concept_id":"C1515945","data_type":"Nominal","data_value":"American
+        Indian or Alaska native","end_datetime":"","graph_version":"UMLS2024AA","grouping_code":"415229000","grouping_concept":"C0034510","grouping_concept_preferred_term":"Race","grouping_sab":"SNOMEDCT_US","numeric_operator":"","preferred_term":"American
+        Indian or Alaska native","sab":"SNOMEDCT_US","start_datetime":"","units":""},{"code":"1086007","concept_id":"C0086287","data_type":"Nominal","data_value":"Female","end_datetime":"","graph_version":"UMLS2024AA","grouping_code":"57312000","grouping_concept":"C1522384","grouping_concept_preferred_term":"Sex","grouping_sab":"SNOMEDCT_US","numeric_operator":"","preferred_term":"Female","sab":"SNOMEDCT_US","start_datetime":"","units":""},{"code":"60621009","concept_id":"C1305855","data_type":"Numeric","data_value":"42.02","end_datetime":"","graph_version":"UMLS2024AA","grouping_code":"60621009","grouping_concept":"C1305855","grouping_concept_preferred_term":"Body
+        Mass Index","grouping_sab":"SNOMEDCT_US","numeric_operator":"EQ","preferred_term":"Body
+        Mass Index","sab":"SNOMEDCT_US","start_datetime":"","units":"kg/m2"}]},"protocol_url":"dx.doi.org/10.17504/protocols.io.rm7vzxw4xgx1/v1","sennet_id":"SNT744.ZJCF.936","source_type":"Human","uuid":"aab508582cd68248c0481abb294b13ff"},"uuid":"0c5cab46c10b131ebb6c40d68cfa79ff"}
+
+        '
+    headers: {}
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers: {}
+    method: GET
+    uri: https://entity.api.sennetconsortium.org/entities/SNT429.HBSX.728?exclude=direct_ancestors.files
+  response:
+    body:
+      string: '{"cedar_mapped_metadata":{"Histological Report":"","Lab ID":"1042_Muscle_FIBSEM_2","Metadata
+        Schema ID":"3e98cee6-d3fb-467b-8d4e-9ba7ee49eeff","Notes":"dx.doi.org/10.17504/protocols.io.3byl4qzk8vo5/v1","Pathology
+        Distance":"","Preparation Condition":"Stored in refrigerator","Preparation
+        Medium":"2% PFA/2.5% Glutaraldehyde","Preparation Protocol DOI":"http://dx.doi.org/10.17504/protocols.io.3byl4qzk8vo5/v1","Processing
+        Time":"18 minute","Quality Criteria":"","Source Storage Duration":"0 day","Storage
+        Medium":"2% PFA/2.5% Glutaraldehyde","Storage Method":"Stored in refrigerator","Tissue
+        Weight":"3 mg","Volume":""},"created_by_user_displayname":"kevin.schneider@era.nih.gov@ras.nih.gov","created_by_user_email":"kevinschneider@gmail.com","created_by_user_sub":"fa3cdef3-846f-4845-877e-ce9380357c12","created_timestamp":1697823098659,"creation_action":"Create
+        Sample Activity","data_access_level":"consortium","direct_ancestor":{"created_by_user_displayname":"kevin.schneider@era.nih.gov@ras.nih.gov","created_by_user_email":"kevinschneider@gmail.com","created_by_user_sub":"fa3cdef3-846f-4845-877e-ce9380357c12","created_timestamp":1695850455518,"creation_action":"Create
+        Sample Activity","data_access_level":"consortium","description":"SN_0199","entity_type":"Sample","group_name":"TMC
+        - Buck Institute","group_uuid":"d04be51f-ee71-11ec-8b17-9fe9b51132b1","lab_tissue_sample_id":"1042_Muscle","last_modified_timestamp":1695850455518,"last_modified_user_displayname":"kevin.schneider@era.nih.gov@ras.nih.gov","last_modified_user_email":"kevinschneider@gmail.com","last_modified_user_sub":"fa3cdef3-846f-4845-877e-ce9380357c12","organ":"UBERON:0005090","organ_hierarchy":"Muscle","origin_samples":[{"created_by_user_displayname":"kevin.schneider@era.nih.gov@ras.nih.gov","created_by_user_email":"kevinschneider@gmail.com","created_by_user_sub":"fa3cdef3-846f-4845-877e-ce9380357c12","created_timestamp":1695850455518,"creation_action":"Create
+        Sample Activity","data_access_level":"consortium","description":"SN_0199","entity_type":"Sample","group_name":"TMC
+        - Buck Institute","group_uuid":"d04be51f-ee71-11ec-8b17-9fe9b51132b1","lab_tissue_sample_id":"1042_Muscle","last_modified_timestamp":1695850455518,"last_modified_user_displayname":"kevin.schneider@era.nih.gov@ras.nih.gov","last_modified_user_email":"kevinschneider@gmail.com","last_modified_user_sub":"fa3cdef3-846f-4845-877e-ce9380357c12","organ":"UBERON:0005090","organ_hierarchy":"Muscle","protocol_url":"dx.doi.org/10.17504/protocols.io.3byl4qzk8vo5/v1","sample_category":"Organ","sennet_id":"SNT726.KXCD.936","uuid":"366db9df92d81b7ef23288c450b94da4"}],"protocol_url":"dx.doi.org/10.17504/protocols.io.3byl4qzk8vo5/v1","sample_category":"Organ","sennet_id":"SNT726.KXCD.936","source":{"created_by_user_displayname":"kevin.schneider@era.nih.gov@ras.nih.gov","created_by_user_email":"kevinschneider@gmail.com","created_by_user_sub":"fa3cdef3-846f-4845-877e-ce9380357c12","created_timestamp":1695666286548,"creation_action":"Create
+        Source Activity","data_access_level":"consortium","description":"SN_0199","entity_type":"Source","group_name":"TMC
+        - Buck Institute","group_uuid":"d04be51f-ee71-11ec-8b17-9fe9b51132b1","lab_source_id":"1042","last_modified_timestamp":1746044440992,"last_modified_user_displayname":"Joseph
+        Simmons","last_modified_user_email":"JAS971@pitt.edu","last_modified_user_sub":"4562a4ca-2e28-4fb7-b3e1-1550bc117bbf","mapped_metadata":{"age":{"group_display":"Demographics","key_display":"Age","unit":"years","value":[26.0],"value_display":"26
+        years"},"body_mass_index":{"group_display":"Vitals","key_display":"Body Mass
+        Index","unit":"kg/m2","value":[35.4],"value_display":"35.4 kg/m2"},"ethnicity":{"group_display":"Demographics","key_display":"Ethnicity","unit":"","value":["Not
+        Hispanic or Latino"],"value_display":"Not Hispanic or Latino"},"height":{"group_display":"Vitals","key_display":"Height","unit":"cm","value":[167.0],"value_display":"167.0
+        cm (65.7 in)"},"race":{"group_display":"Demographics","key_display":"Race","unit":"","value":["White"],"value_display":"White"},"sex":{"group_display":"Demographics","key_display":"Sex","unit":"","value":["Female"],"value_display":"Female"},"social_history":{"group_display":"History","key_display":"Social
+        History","unit":"","value":["Non-smoker","Alcohol use"],"value_display":"Non-smoker,
+        Alcohol use"},"waist_circumference":{"group_display":"Other Information","key_display":"Waist
+        circumference","unit":"cm","value":[103.0],"value_display":"103.0 cm (40.6
+        in)"},"weight":{"group_display":"Vitals","key_display":"Weight","unit":"kg","value":[99.0],"value_display":"99.0
+        kg (218.3 lb)"}},"metadata":{"living_donor_data":[{"code":"424144002","concept_id":"C0001779","data_type":"Numeric","data_value":"26","end_datetime":"","graph_version":"UMLS2024AA","grouping_code":"424144002","grouping_concept":"C0001779","grouping_concept_preferred_term":"Age","grouping_sab":"SNOMEDCT_US","numeric_operator":"EQ","preferred_term":"Age","sab":"SNOMEDCT_US","start_datetime":"","units":"years"},{"code":"413773004","concept_id":"C0007457","data_type":"Nominal","data_value":"White","end_datetime":"","graph_version":"UMLS2024AA","grouping_code":"415229000","grouping_concept":"C0034510","grouping_concept_preferred_term":"Race","grouping_sab":"SNOMEDCT_US","numeric_operator":"","preferred_term":"White","sab":"SNOMEDCT_US","start_datetime":"","units":""},{"code":"C41222","concept_id":"C1518424","data_type":"Nominal","data_value":"Not
+        Hispanic or Latino","end_datetime":"","graph_version":"UMLS2024AA","grouping_code":"398089004","grouping_concept":"C0015031","grouping_concept_preferred_term":"Ethnicity","grouping_sab":"SNOMEDCT_US","numeric_operator":"","preferred_term":"Not
+        Hispanic or Latino","sab":"NCI","start_datetime":"","units":""},{"code":"1086007","concept_id":"C0086287","data_type":"Nominal","data_value":"Female","end_datetime":"","graph_version":"UMLS2024AA","grouping_code":"57312000","grouping_concept":"C1522384","grouping_concept_preferred_term":"Sex","grouping_sab":"SNOMEDCT_US","numeric_operator":"","preferred_term":"Female","sab":"SNOMEDCT_US","start_datetime":"","units":""},{"code":"50373000","concept_id":"C0005890","data_type":"Numeric","data_value":"167","end_datetime":"","graph_version":"UMLS2024AA","grouping_code":"50373000","grouping_concept":"C0005890","grouping_concept_preferred_term":"Height","grouping_sab":"SNOMEDCT_US","numeric_operator":"EQ","preferred_term":"Height","sab":"SNOMEDCT_US","start_datetime":"","units":"cm"},{"code":"27113001","concept_id":"C0005910","data_type":"Numeric","data_value":"99","end_datetime":"","graph_version":"UMLS2024AA","grouping_code":"27113001","grouping_concept":"C0005910","grouping_concept_preferred_term":"Weight","grouping_sab":"SNOMEDCT_US","numeric_operator":"EQ","preferred_term":"Weight","sab":"SNOMEDCT_US","start_datetime":"","units":"kg"},{"code":"60621009","concept_id":"C1305855","data_type":"Numeric","data_value":"35.4","end_datetime":"","graph_version":"UMLS2024AA","grouping_code":"60621009","grouping_concept":"C1305855","grouping_concept_preferred_term":"Body
+        Mass Index","grouping_sab":"SNOMEDCT_US","numeric_operator":"EQ","preferred_term":"Body
+        Mass Index","sab":"SNOMEDCT_US","start_datetime":"","units":"kg/m2"},{"code":"276361009","concept_id":"C0455829","data_type":"Numeric","data_value":"103","end_datetime":"","graph_version":"UMLS2024AA","grouping_code":"276361009","grouping_concept":"C0455829","grouping_concept_preferred_term":"Waist
+        circumference","grouping_sab":"SNOMEDCT_US","numeric_operator":"EQ","preferred_term":"Waist
+        circumference","sab":"SNOMEDCT_US","start_datetime":"","units":"cm"},{"code":"8392000","concept_id":"C0337672","data_type":"Nominal","data_value":"Non-smoker","end_datetime":"","graph_version":"UMLS2024AA","grouping_code":"160476009","grouping_concept":"C0424945","grouping_concept_preferred_term":"Social
+        History","grouping_sab":"SNOMEDCT_US","numeric_operator":"","preferred_term":"Non-smoker","sab":"SNOMEDCT_US","start_datetime":"","units":""},{"code":"897148007","concept_id":"C0001948","data_type":"Nominal","data_value":"Alcohol
+        use","end_datetime":"","graph_version":"UMLS2024AA","grouping_code":"160476009","grouping_concept":"C0424945","grouping_concept_preferred_term":"Social
+        History","grouping_sab":"SNOMEDCT_US","numeric_operator":"","preferred_term":"Alcohol
+        use","sab":"SNOMEDCT_US","start_datetime":"","units":""}]},"protocol_url":"dx.doi.org/10.17504/protocols.io.3byl4qzk8vo5/v1","sennet_id":"SNT342.QMGN.263","source_type":"Human","uuid":"25a19684a7f0190cd66018e9d23b4515"},"uuid":"366db9df92d81b7ef23288c450b94da4"},"entity_type":"Sample","group_name":"TMC
+        - Buck Institute","group_uuid":"d04be51f-ee71-11ec-8b17-9fe9b51132b1","lab_tissue_sample_id":"1042_Muscle_FIBSEM_2","last_modified_timestamp":1710527704200,"last_modified_user_displayname":"kevin.schneider@era.nih.gov@ras.nih.gov","last_modified_user_email":"kevinschneider@gmail.com","last_modified_user_sub":"fa3cdef3-846f-4845-877e-ce9380357c12","metadata":{"histological_report":"","lab_id":"1042_Muscle_FIBSEM_2","metadata_schema_id":"3e98cee6-d3fb-467b-8d4e-9ba7ee49eeff","notes":"dx.doi.org/10.17504/protocols.io.3byl4qzk8vo5/v1","pathology_distance_unit":"","pathology_distance_value":"","preparation_condition":"Stored
+        in refrigerator","preparation_medium":"2% PFA/2.5% Glutaraldehyde","preparation_protocol_doi":"http://dx.doi.org/10.17504/protocols.io.3byl4qzk8vo5/v1","processing_time_unit":"minute","processing_time_value":"18","quality_criteria":"","source_storage_duration_unit":"day","source_storage_duration_value":"0","storage_medium":"2%
+        PFA/2.5% Glutaraldehyde","storage_method":"Stored in refrigerator","tissue_weight_unit":"mg","tissue_weight_value":"3","volume_unit":"","volume_value":""},"origin_samples":[{"created_by_user_displayname":"kevin.schneider@era.nih.gov@ras.nih.gov","created_by_user_email":"kevinschneider@gmail.com","created_by_user_sub":"fa3cdef3-846f-4845-877e-ce9380357c12","created_timestamp":1695850455518,"creation_action":"Create
+        Sample Activity","data_access_level":"consortium","description":"SN_0199","entity_type":"Sample","group_name":"TMC
+        - Buck Institute","group_uuid":"d04be51f-ee71-11ec-8b17-9fe9b51132b1","lab_tissue_sample_id":"1042_Muscle","last_modified_timestamp":1695850455518,"last_modified_user_displayname":"kevin.schneider@era.nih.gov@ras.nih.gov","last_modified_user_email":"kevinschneider@gmail.com","last_modified_user_sub":"fa3cdef3-846f-4845-877e-ce9380357c12","organ":"UBERON:0005090","organ_hierarchy":"Muscle","protocol_url":"dx.doi.org/10.17504/protocols.io.3byl4qzk8vo5/v1","sample_category":"Organ","sennet_id":"SNT726.KXCD.936","uuid":"366db9df92d81b7ef23288c450b94da4"}],"protocol_url":"dx.doi.org/10.17504/protocols.io.3byl4qzk8vo5/v1","sample_category":"Block","sennet_id":"SNT429.HBSX.728","source":{"created_by_user_displayname":"kevin.schneider@era.nih.gov@ras.nih.gov","created_by_user_email":"kevinschneider@gmail.com","created_by_user_sub":"fa3cdef3-846f-4845-877e-ce9380357c12","created_timestamp":1695666286548,"creation_action":"Create
+        Source Activity","data_access_level":"consortium","description":"SN_0199","entity_type":"Source","group_name":"TMC
+        - Buck Institute","group_uuid":"d04be51f-ee71-11ec-8b17-9fe9b51132b1","lab_source_id":"1042","last_modified_timestamp":1746044440992,"last_modified_user_displayname":"Joseph
+        Simmons","last_modified_user_email":"JAS971@pitt.edu","last_modified_user_sub":"4562a4ca-2e28-4fb7-b3e1-1550bc117bbf","mapped_metadata":{"age":{"group_display":"Demographics","key_display":"Age","unit":"years","value":[26.0],"value_display":"26
+        years"},"body_mass_index":{"group_display":"Vitals","key_display":"Body Mass
+        Index","unit":"kg/m2","value":[35.4],"value_display":"35.4 kg/m2"},"ethnicity":{"group_display":"Demographics","key_display":"Ethnicity","unit":"","value":["Not
+        Hispanic or Latino"],"value_display":"Not Hispanic or Latino"},"height":{"group_display":"Vitals","key_display":"Height","unit":"cm","value":[167.0],"value_display":"167.0
+        cm (65.7 in)"},"race":{"group_display":"Demographics","key_display":"Race","unit":"","value":["White"],"value_display":"White"},"sex":{"group_display":"Demographics","key_display":"Sex","unit":"","value":["Female"],"value_display":"Female"},"social_history":{"group_display":"History","key_display":"Social
+        History","unit":"","value":["Non-smoker","Alcohol use"],"value_display":"Non-smoker,
+        Alcohol use"},"waist_circumference":{"group_display":"Other Information","key_display":"Waist
+        circumference","unit":"cm","value":[103.0],"value_display":"103.0 cm (40.6
+        in)"},"weight":{"group_display":"Vitals","key_display":"Weight","unit":"kg","value":[99.0],"value_display":"99.0
+        kg (218.3 lb)"}},"metadata":{"living_donor_data":[{"code":"424144002","concept_id":"C0001779","data_type":"Numeric","data_value":"26","end_datetime":"","graph_version":"UMLS2024AA","grouping_code":"424144002","grouping_concept":"C0001779","grouping_concept_preferred_term":"Age","grouping_sab":"SNOMEDCT_US","numeric_operator":"EQ","preferred_term":"Age","sab":"SNOMEDCT_US","start_datetime":"","units":"years"},{"code":"413773004","concept_id":"C0007457","data_type":"Nominal","data_value":"White","end_datetime":"","graph_version":"UMLS2024AA","grouping_code":"415229000","grouping_concept":"C0034510","grouping_concept_preferred_term":"Race","grouping_sab":"SNOMEDCT_US","numeric_operator":"","preferred_term":"White","sab":"SNOMEDCT_US","start_datetime":"","units":""},{"code":"C41222","concept_id":"C1518424","data_type":"Nominal","data_value":"Not
+        Hispanic or Latino","end_datetime":"","graph_version":"UMLS2024AA","grouping_code":"398089004","grouping_concept":"C0015031","grouping_concept_preferred_term":"Ethnicity","grouping_sab":"SNOMEDCT_US","numeric_operator":"","preferred_term":"Not
+        Hispanic or Latino","sab":"NCI","start_datetime":"","units":""},{"code":"1086007","concept_id":"C0086287","data_type":"Nominal","data_value":"Female","end_datetime":"","graph_version":"UMLS2024AA","grouping_code":"57312000","grouping_concept":"C1522384","grouping_concept_preferred_term":"Sex","grouping_sab":"SNOMEDCT_US","numeric_operator":"","preferred_term":"Female","sab":"SNOMEDCT_US","start_datetime":"","units":""},{"code":"50373000","concept_id":"C0005890","data_type":"Numeric","data_value":"167","end_datetime":"","graph_version":"UMLS2024AA","grouping_code":"50373000","grouping_concept":"C0005890","grouping_concept_preferred_term":"Height","grouping_sab":"SNOMEDCT_US","numeric_operator":"EQ","preferred_term":"Height","sab":"SNOMEDCT_US","start_datetime":"","units":"cm"},{"code":"27113001","concept_id":"C0005910","data_type":"Numeric","data_value":"99","end_datetime":"","graph_version":"UMLS2024AA","grouping_code":"27113001","grouping_concept":"C0005910","grouping_concept_preferred_term":"Weight","grouping_sab":"SNOMEDCT_US","numeric_operator":"EQ","preferred_term":"Weight","sab":"SNOMEDCT_US","start_datetime":"","units":"kg"},{"code":"60621009","concept_id":"C1305855","data_type":"Numeric","data_value":"35.4","end_datetime":"","graph_version":"UMLS2024AA","grouping_code":"60621009","grouping_concept":"C1305855","grouping_concept_preferred_term":"Body
+        Mass Index","grouping_sab":"SNOMEDCT_US","numeric_operator":"EQ","preferred_term":"Body
+        Mass Index","sab":"SNOMEDCT_US","start_datetime":"","units":"kg/m2"},{"code":"276361009","concept_id":"C0455829","data_type":"Numeric","data_value":"103","end_datetime":"","graph_version":"UMLS2024AA","grouping_code":"276361009","grouping_concept":"C0455829","grouping_concept_preferred_term":"Waist
+        circumference","grouping_sab":"SNOMEDCT_US","numeric_operator":"EQ","preferred_term":"Waist
+        circumference","sab":"SNOMEDCT_US","start_datetime":"","units":"cm"},{"code":"8392000","concept_id":"C0337672","data_type":"Nominal","data_value":"Non-smoker","end_datetime":"","graph_version":"UMLS2024AA","grouping_code":"160476009","grouping_concept":"C0424945","grouping_concept_preferred_term":"Social
+        History","grouping_sab":"SNOMEDCT_US","numeric_operator":"","preferred_term":"Non-smoker","sab":"SNOMEDCT_US","start_datetime":"","units":""},{"code":"897148007","concept_id":"C0001948","data_type":"Nominal","data_value":"Alcohol
+        use","end_datetime":"","graph_version":"UMLS2024AA","grouping_code":"160476009","grouping_concept":"C0424945","grouping_concept_preferred_term":"Social
+        History","grouping_sab":"SNOMEDCT_US","numeric_operator":"","preferred_term":"Alcohol
+        use","sab":"SNOMEDCT_US","start_datetime":"","units":""}]},"protocol_url":"dx.doi.org/10.17504/protocols.io.3byl4qzk8vo5/v1","sennet_id":"SNT342.QMGN.263","source_type":"Human","uuid":"25a19684a7f0190cd66018e9d23b4515"},"uuid":"196c62b6ed3034fc435d18e31d9914d8"}
+
+        '
+    headers: {}
+    status:
+      code: 200
+      message: OK
+- request:
+    body: '[{"ancestors": {"entity_type": "sample", "sub_type": ["organ"], "sub_type_val":
+      ["uberon:0002107"]}, "descendants": {"entity_type": "sample", "sub_type": ["block"],
+      "sub_type_val": null}}, {"ancestors": {"entity_type": "sample", "sub_type":
+      ["block"], "sub_type_val": null}, "descendants": {"entity_type": "sample", "sub_type":
+      ["block"], "sub_type_val": null}}, {"ancestors": {"entity_type": "sample", "sub_type":
+      ["organ"], "sub_type_val": ["uberon:0002107"]}, "descendants": {"entity_type":
+      "sample", "sub_type": ["block"], "sub_type_val": null}}, {"ancestors": {"entity_type":
+      "sample", "sub_type": ["block"], "sub_type_val": null}, "descendants": {"entity_type":
+      "sample", "sub_type": ["block"], "sub_type_val": null}}]'
+    headers: {}
+    method: POST
+    uri: https://entity.api.sennetconsortium.org/constraints?match=True&order=ancestors
+  response:
+    body:
+      string: '{"code":200,"description":[{"code":200,"description":[{"entity_type":"Sample","sub_type":["Block"],"sub_type_val":null}],"name":"OK"},{"code":200,"description":[{"entity_type":"Sample","sub_type":["Block"],"sub_type_val":null},{"entity_type":"Sample","sub_type":["Section"],"sub_type_val":null},{"entity_type":"Sample","sub_type":["Suspension"],"sub_type_val":null},{"entity_type":"Dataset","sub_type":["Light
+        Sheet"],"sub_type_val":null}],"name":"OK"},{"code":200,"description":[{"entity_type":"Sample","sub_type":["Block"],"sub_type_val":null}],"name":"OK"},{"code":200,"description":[{"entity_type":"Sample","sub_type":["Block"],"sub_type_val":null},{"entity_type":"Sample","sub_type":["Section"],"sub_type_val":null},{"entity_type":"Sample","sub_type":["Suspension"],"sub_type_val":null},{"entity_type":"Dataset","sub_type":["Light
+        Sheet"],"sub_type_val":null}],"name":"OK"}],"name":"OK"}
+
+        '
+    headers: {}
+    status:
+      code: 200
+      message: OK
+version: 1

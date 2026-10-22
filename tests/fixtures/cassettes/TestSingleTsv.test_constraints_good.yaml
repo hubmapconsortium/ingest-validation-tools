@@ -1,0 +1,22 @@
+interactions:
+  - request:
+      body:
+        '[{"ancestors": {"entity_type": "dataset", "sub_type": ["histology"], "sub_type_val":
+        null}, "descendants": {"entity_type": "dataset", "sub_type": ["histology"],
+        "sub_type_val": null}}, {"ancestors": {"entity_type": "dataset", "sub_type":
+        ["histology"], "sub_type_val": null}, "descendants": {"entity_type": "dataset",
+        "sub_type": ["histology"], "sub_type_val": null}}]'
+      headers: {}
+      method: POST
+      uri: https://entity.api.sennetconsortium.org/constraints?match=True&order=ancestors
+    response:
+      body:
+        string:
+          '{"code":200,"description":[{"code":200,"description":[{"entity_type":"dataset","sub_type":null,"sub_type_val":null},{"entity_type":"Publication","sub_type":null,"sub_type_val":null}],"name":"OK"},{"code":200,"description":[{"entity_type":"dataset","sub_type":null,"sub_type_val":null},{"entity_type":"Publication","sub_type":null,"sub_type_val":null}],"name":"OK"}],"name":"OK"}
+
+          '
+      headers: {}
+      status:
+        code: 200
+        message: OK
+version: 1
