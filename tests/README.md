@@ -59,6 +59,8 @@ python -m tests.manual.manual_testing -t examples/dataset-examples/<dir_name1> -
 python -m tests.manual.manual_testing -t examples/dataset-examples/<dir_name1> -o -g "<hubmap_globus_token>" -w
 ```
 
+Note: You can find your personal Globus token by logging in to a site that requires Globus authentication (e.g. https://ingest.hubmapconsortium.org/) and looking at the Authorization header for your request in the Network tab of your browser. Omit the "Bearer" prefix.
+
 ### Plugin testing
 
 Plugins live in [https://github.com/hubmapconsortium/ingest-validation-tests](https://github.com/hubmapconsortium/ingest-validation-tests), requiring them to be tested manually rather than being added to automatic testing suite. To test plugins, first make sure you have [ingest-validation-tests properly installed](https://github.com/hubmapconsortium/ingest-validation-tools#running-plugin-tests).
@@ -92,6 +94,8 @@ All new examples will need fixtures.json and README.json files. After adding the
 ```
 python -m tests.manual.manual_testing -t <new_example_dir_path> -o -g "<globus_token>"
 ```
+
+Make sure the result makes sense! The software can tell you what the result of validation is, but it can't know whether that result is actually correct.
 
 ## Updating examples
 
