@@ -20,7 +20,8 @@ from tests.fixtures.fixtures import (
     GOOD_DATASET_SCHEMA_WITH_ANCESTORS,
     TEST_GET_TSV_ERRORS_PARAMS,
 )
-from tests.utils import validation_matcher
+from tests.manual.updaters import raise_or_print_fatal_errors
+from tests.utils import default_before_record_request, validation_matcher
 
 CONSTRAINTS_URL_PARAMS = {"match": True, "order": "ancestors"}
 SENNET_APP_CONTEXT = {
@@ -33,22 +34,17 @@ HUBMAP_TOKEN = "test_hubmap_token"
 
 
 class TestSingleTsv(VCRTestCase):
-    def before_record_request(self, request: Request) -> Request:
-        """
-        Strip headers.
-        """
-        request.headers = None
-        return request
 
     def before_record_response(self, response: dict) -> dict:
         """
         Strip headers, raise if Unauthorized, 500, No token errors.
         """
         response["headers"] = {}
+        raise_or_print_fatal_errors(response["body"]["string"].decode("utf-8"))
         return response
 
     def _get_vcr(self, **kwargs):
-        kwargs["before_record_request"] = self.before_record_request
+        kwargs["before_record_request"] = default_before_record_request
         kwargs["before_record_response"] = self.before_record_response
         kwargs["cassette_library_dir"] = "tests/fixtures/cassettes"
         myvcr = super(TestSingleTsv, self)._get_vcr(**kwargs)

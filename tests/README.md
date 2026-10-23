@@ -6,17 +6,11 @@
 
 To check just the metadata for a single TSV, use the [Metadata Spreadsheet Validator](https://metadatavalidator.metadatacenter.org/).
 
-### Testing online
+### Automated testing
 
 As a default behavior, testing (e.g. via GitHub action or by running `./test.sh`) does not hit the [CEDAR Metadata Center Spreadsheet Validator](https://metadatacenter.github.io/spreadsheet-validator-docs/api-reference/) or [assayclassifier](https://github.com/hubmapconsortium/ingest-api/tree/main/src/routes/assayclassifier) endpoint, nor does it perform any URL checking.
 
-To test with API checks, run the following:
-
-```
-./test.sh -o <globus_token>
-```
-
-This will run tests with API calls but will not update any files. To automatically update example files, see [Updating examples](#updating-examples) below.
+Running `./test.sh` will mimic the offline behavior of the GitHub action that runs on push and creation of PRs.
 
 Additional flags are available to restrict to specific examples/Python tests, skip linting/formatting, and/or run the plugin tests that require the presence of `ingest-validation-tests`. Run this for help:
 
@@ -24,60 +18,81 @@ Additional flags are available to restrict to specific examples/Python tests, sk
 ./test.sh --help
 ```
 
-### Automated testing
+### Manual offline testing
 
-Running `./test.sh` will mimic the behavior of the GitHub action that runs on push and creation of PRs.
+Individual test files can be run as normal using the unittest framework:
+
+```
+python -m tests.test_single_tsv
+python -m tests.test_dataset_examples TestUploads.test_info_reporting
+```
+
+To test a single example directory:
+
+```
+python -m tests.manual.manual_testing -t examples/dataset-iec-examples/bad-example
+```
+
+### Testing online / keeping fixture data current
+
+Online testing will make all requests and will overwrite the fixtures.json files for example datasets/uploads in the `examples/` directory.
+
+Run all tests online with:
+
+```
+python -m tests.manual.manual_testing -o -g "<hubmap_globus_token>"
+```
+
+This will replace fixtures.json files but will not update README.json files. To automatically update all README.json files, run:
+
+```
+python -m tests.manual.manual_testing -o -g "<hubmap_globus_token>" -w
+```
+
+In either case, including `-t` followed by one or more example directory paths will update only those paths.
+
+```
+# Update fixtures but not readmes for target dir "dir_name1"
+python -m tests.manual.manual_testing -t examples/dataset-examples/<dir_name1> -o -g "<hubmap_globus_token>"
+
+# Update both for target dir "dir_name1"
+python -m tests.manual.manual_testing -t examples/dataset-examples/<dir_name1> -o -g "<hubmap_globus_token>" -w
+```
 
 ### Plugin testing
 
 Plugins live in [https://github.com/hubmapconsortium/ingest-validation-tests](https://github.com/hubmapconsortium/ingest-validation-tests), requiring them to be tested manually rather than being added to automatic testing suite. To test plugins, first make sure you have [ingest-validation-tests properly installed](https://github.com/hubmapconsortium/ingest-validation-tools#running-plugin-tests).
 
+```
+pip install -r <path_to_IVTests>/requirements.txt
+```
+
 To just run Python unittests for plugins, run the following from the top-level directory:
 
 ```
-python -m unittest tests/manual/test_plugins.py
+python tests/manual/test_plugins.py
 ```
 
-Note: you may need to prepend `env PYTHONPATH=/ingest-validation-tools` to this command.
-
-You can run plugin tests online using the `test.sh` script:
+You can run plugin tests online with:
 
 ```
-./test.sh -o <globus_token> -d examples/plugin-tests
+python tests/manual/test_plugins.py -o -g "<globus_token>"
 ```
 
-...or by adding the `-p` flag when running `test.sh`.
+Include the `-w` flag to write new README.json files:
+
+```
+python tests/manual/test_plugins.py -o -g "<globus_token>" -w
+```
 
 ## Creating Tests
 
-All new examples will need fixtures.json and README.md files. After adding the test data to its own directory under the appropriate `examples/` subdirectory, run this to generate required files:
+All new examples will need fixtures.json and README.json files. After adding the test data to its own directory under the appropriate `examples/` subdirectory, run this to generate required files:
 
 ```
-env PYTHONPATH=/ingest-validation-tools python -m tests.manual.update_test_data -t <new_example_dir_path> --globus_token <globus_token>
+python -m tests.manual.manual_testing -t <new_example_dir_path> -o -g "<globus_token>"
 ```
 
 ## Updating examples
 
 Tests that find differences between fixtures and test output will give instructions about how to see more information and/or update fixtures/README.
-
-### Manually updating examples
-
-Here is an example command that would update all README.md and fixtures.json files in `examples/dataset-examples`:
-
-```
-env PYTHONPATH=/ingest-validation-tools python -m tests.manual.update_test_data -t "examples/dataset-examples" --globus_token <globus_token>
-```
-
-You can specify individual example directories or any/all of the following: "examples/dataset-examples", "examples/dataset-iec-examples", "examples/plugin-tests" (you can use just "examples/" if you want to update all three).
-
-This tool can be run in a non-destructive way for testing by passing the `--dry_run` flag, possibly in combination with `--verbose` for more detailed output. Here is an example command that would show any diffs in README.md and fixtures.json files in `examples/dataset-examples/good-cedar-histology` without writing any data:
-
-```
-env PYTHONPATH=/ingest-validation-tools python -m tests.manual.update_test_data -t "examples/dataset-examples/good-cedar-histology" --globus_token <globus_token> --verbose --dry_run
-```
-
-Run the following command for more comprehensive documentation:
-
-```
-env PYTHONPATH=/ingest-validation-tools python -m tests.manual.update_test_data --help
-```

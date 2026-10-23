@@ -1,6 +1,8 @@
 import argparse
 import sys
 import unittest
+from datetime import datetime
+from glob import glob
 from pathlib import Path
 from unittest.mock import patch
 
@@ -11,7 +13,7 @@ from ingest_validation_tools.directory_validator import (
     DirectoryValidationErrors,
     validate_directory,
 )
-from ingest_validation_tools.error_report import ErrorReport
+from ingest_validation_tools.error_report import ErrorReport, InfoDict
 from ingest_validation_tools.schema_loader import PreflightError, SchemaVersion
 from ingest_validation_tools.upload import Upload
 from ingest_validation_tools.validation_utils import get_data_dir_errors
@@ -21,6 +23,7 @@ from tests.fixtures.fixtures import (
     SCATACSEQ_LOWER_VERSION_VALID,
     SCATACSEQ_NEITHER_VERSION_VALID,
 )
+from tests.manual.updaters import remove_minor_version
 from tests.utils import (
     DATASET_EXAMPLES_OPTS,
     default_before_record_request,
@@ -205,12 +208,55 @@ class TestUploads(VCRTestCase):
             report = ErrorReport(upload)
             self.assertEqual(report.counts, expected_counts)
 
+    def test_info_reporting(self):
+        test_dirs = {
+            "examples/dataset-examples/bad-cedar-assay-histology": InfoDict(
+                time="WILL_CHANGE",
+                git="WILL_CHANGE",
+                dir="examples/dataset-examples/bad-cedar-assay-histology/upload",
+                tsvs={
+                    "bad-histology-metadata.tsv": {
+                        "Metadata type": "Histology",
+                        "Metadata version": "e7475329-9a60-4088-8e34-19a3828e0b3b",
+                        "Directory schema version": "histology-v2.*",
+                    }
+                },
+                successful_plugins=[],
+            ),
+            "examples/dataset-examples/good-scatacseq-metadata-v0": InfoDict(
+                time="WILL_CHANGE",
+                git="WILL_CHANGE",
+                dir="examples/dataset-examples/good-scatacseq-metadata-v0/upload",
+                tsvs={
+                    "metadata.tsv": {
+                        "Metadata type": "scatacseq-v0",
+                        "Metadata version": "0",
+                        "Directory schema version": "scatacseq-v0.*",
+                    }
+                },
+                successful_plugins=[],
+            ),
+        }
+        for test_dir, test_info in test_dirs.items():
+            upload = Upload(Path(f"{test_dir}/upload"), **DATASET_EXAMPLES_OPTS)
+            upload.get_errors()
+            upload_info = upload.get_info()
+            assert upload_info.git
+            assert upload_info.time
+            assert upload_info.dir == test_info.dir
+            for tsv in upload_info.tsvs.keys():
+                dir_schema_version = upload_info.tsvs[tsv].get("Directory schema version")
+                if dir_schema_version:
+                    upload_info.tsvs[tsv]["Directory schema version"] = remove_minor_version(
+                        dir_schema_version
+                    )
+            assert upload_info.tsvs == test_info.tsvs
+
 
 if __name__ == "__main__":
     """
     Example usage:
-        python tests/test_dataset_examples.py -ht <hubmap_globus_token>
-        python tests/test_dataset_examples.py -st <hubmap_globus_token> TestUploads.test_counts
+        python tests/test_dataset_examples.py -t <hubmap_globus_token>
     """
     parser = argparse.ArgumentParser(
         description="Pass HuBMAP Globus token to update fixture cassettes (must delete previous cassette) from tests/fixtures/cassettes"

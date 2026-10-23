@@ -15,6 +15,10 @@ from ingest_validation_tools.error_report import ErrorReport
 DATETIME_FORMAT = "%Y-%m-%d %H:%M:%S"
 
 
+def remove_minor_version(version_str: str) -> str:
+    return re.sub(r"\.\d", ".*", version_str)
+
+
 class MockException(Exception):
     def __init__(self, error):
         super().__init__(error)
@@ -74,10 +78,6 @@ class UpdateReadme:
         self.orig_report = error_report.as_text()
         self.error_report = self.check_report(error_report)
 
-    @staticmethod
-    def remove_minor_version(version_str: str) -> str:
-        return re.sub(r"\.\d", ".*", version_str)
-
     def check_report(self, error_report: ErrorReport):
         """
         Ensure no token errors in output.
@@ -89,11 +89,11 @@ class UpdateReadme:
             new_dir_errors = defaultdict()
             if dir_errors := error_report.raw_errors.directory:
                 for key, value in dir_errors.items():
-                    new_dir_errors[self.remove_minor_version(key)] = value
+                    new_dir_errors[remove_minor_version(key)] = value
             new_local_errors = defaultdict()
             if local_validation_errors := error_report.raw_errors.metadata_validation_local:
                 for key, value in local_validation_errors.items():
-                    new_local_errors[self.remove_minor_version(key)] = value
+                    new_local_errors[remove_minor_version(key)] = value
             if new_dir_errors:
                 error_report.raw_errors.directory.value = new_dir_errors
             if new_local_errors:
@@ -104,7 +104,7 @@ class UpdateReadme:
             for key, value in error_report.raw_info.tsvs.items():
                 dir_schema_version = value.get(dir_schema_key)
                 if type(dir_schema_version) is str:
-                    error_report.raw_info.tsvs[key][dir_schema_key] = self.remove_minor_version(
+                    error_report.raw_info.tsvs[key][dir_schema_key] = remove_minor_version(
                         dir_schema_version
                     )
             error_report.info = error_report.raw_info.as_dict()
@@ -195,9 +195,6 @@ class UpdateReadme:
 
                     If you need to update fixture data as well, run:
                          env PYTHONPATH=src:$PYTHONPATH python -m tests.manual.manual_testing -t {self.test_dir} -o -w -g <globus_token>
-
-                    For help / other options:
-                        env PYTHONPATH=src:$PYTHONPATH python -m tests.manual.update_test_data --help
                     """
         elif self.dry_run:
             msg = f"""

@@ -19,6 +19,7 @@
 # Help:
 #   ./test.sh --help
 
+# TODO: fix, simplify, update examples
 usage() { echo "Usage: $0 [-n] [-t <test_string>]
     -n : skip linting/formatting
     -t : run specific test (skip all others); use unittest format
