@@ -109,7 +109,6 @@ parser.add_argument(
     -t examples/
     """,
     nargs="+",
-    required=True,
     type=dir_path,
 )
 parser.add_argument(
