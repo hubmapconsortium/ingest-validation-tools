@@ -6,7 +6,7 @@ from vcr.unittest import VCRTestCase
 from yaml import safe_load
 
 from ingest_validation_tools.local_validation.table_validator import get_table_errors
-from tests.vcr_utils import get_paths
+from tests.utils import get_paths
 
 
 class TestTableValidator(VCRTestCase):

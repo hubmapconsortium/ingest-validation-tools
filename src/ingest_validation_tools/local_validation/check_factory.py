@@ -45,7 +45,7 @@ class CheckFactory:
 
         print(f"Fetching un-cached url: {url}", file=stderr)
         try:
-            response = requests.get(url)
+            response = requests.get(url, allow_redirects=True)
             self.status_cache[url] = str(response.status_code)
         except Exception as e:
             self.status_cache[url] = str(e)
@@ -54,7 +54,8 @@ class CheckFactory:
     # Map any updated prefix URLs in table-schema files to (prefix, suffix) where suffix
     # can be "" or None
     LEGACY_URL_MAP: dict[str, tuple[str, str | None]] = {
-        "https://scicrunch.org/resolver/RRID:": ("https://scicrunch.org/resolver/", ".json")
+        "https://scicrunch.org/resolver/RRID:": ("https://scicrunch.org/resolver/", ".json"),
+        "https://dx.doi.org/:": ("https://doi.org/api/handle/", None),
     }
 
     def make_url_check(self, template=Template('URL returned $status: "$url"')) -> Check:

@@ -9,7 +9,7 @@ from vcr.request import Request
 
 from ingest_validation_tools.error_report import ErrorReport
 from ingest_validation_tools.upload import Upload
-from tests.manual.updaters import UpdateReadme
+from tests.manual.updaters import UpdateReadme, raise_or_print_fatal_errors
 
 # import logging
 # logging.basicConfig()
@@ -196,3 +196,23 @@ def get_sub_dirs(target_dir: Path) -> list[Path]:
         ]
         return [Path(dir) for dir in sorted(sub_dirs)]
     return [target_dir]
+
+
+def default_before_record_request(request: Request) -> Request:
+    """
+    Strip headers.
+    """
+    request.headers = None
+    return request
+
+
+def default_before_record_response(response: dict) -> dict:
+    """
+    Strip headers, raise if Unauthorized, 500, No token errors.
+    """
+    response["headers"] = {}
+    # dx.doi.org redirecting breaks VCR, do the dumb thing here
+    if "handle redirect" in response["body"]["string"].decode("utf-8").lower():
+        response["status"]["code"] = 200
+    raise_or_print_fatal_errors(response["body"]["string"].decode("utf-8"))
+    return response

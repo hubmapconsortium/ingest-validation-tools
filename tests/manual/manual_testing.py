@@ -5,11 +5,10 @@ from vcr import VCR
 from vcr.request import Request
 
 from ingest_validation_tools.cli_utils import dir_path
-from tests.manual.updaters import (
-    LiveRunPersister,
-    raise_or_print_fatal_errors,
-)
-from tests.vcr_utils import (
+from tests.manual.updaters import LiveRunPersister
+from tests.utils import (
+    default_before_record_request,
+    default_before_record_response,
     get_example_paths,
     prepare_change_report,
     test_dataset_examples,
@@ -67,19 +66,10 @@ class OnlineTesting:
             return get_example_paths()
 
     def before_record_request(self, request: Request) -> Request:
-        """
-        Strip headers.
-        """
-        request.headers = None
-        return request
+        return default_before_record_request(request)
 
     def before_record_response(self, response: dict) -> dict:
-        """
-        Strip headers, raise if Unauthorized, 500, No token errors.
-        """
-        response["headers"] = {}
-        raise_or_print_fatal_errors(response["body"]["string"].decode("utf-8"))
-        return response
+        return default_before_record_response(response)
 
     @property
     def my_vcr(self) -> VCR:

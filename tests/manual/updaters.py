@@ -50,31 +50,6 @@ def readable_diff(diff: DeepDiff) -> list[str]:
     return simple_diff
 
 
-def raise_or_print_fatal_errors(response_str: str):
-    """
-    Force stop before writing any files if fatal errors found:
-        "Too Many Requests": CEDAR API is overloaded
-        "Unauthorized"/"No token": Globus token not provided to entity-api for URL checks
-        "500": unknown error
-    """
-    for error in [
-        "Too Many Requests",
-        "Unauthorized",
-        "No token",
-        "500 Internal Server Error",
-    ]:
-        if error in response_str:
-            # Necessary to avoid including 'Unauthorized' in output when no Globus token is provided,
-            # but only relevant for entity-api links
-            if error in ["Unauthorized for url: https://entity.api", "No token"]:
-                msg = f"URL checking returned 'Unauthorized' in response; did you forget a Globus token?"
-            else:
-                msg = f"""
-                Something went wrong with a request: {error}.
-                """
-            raise Exception(msg)
-
-
 class UpdateReadme:
     """
     Diff README.json error data and ErrorReport from testing.
@@ -145,7 +120,7 @@ class UpdateReadme:
         if self.readme_diff(readme):
             return f"{self.test_dir}: {self.write_readme()}"
 
-    def write_readme(self) -> str | None:
+    def write_readme(self) -> str:
         if self.error_report.errors:
             report = self.error_report.errors
         else:
@@ -171,6 +146,7 @@ class UpdateReadme:
                 )
             with open(Path(self.test_dir / "README.json"), "w") as f:
                 json.dump(report, f, indent=2)
+            return "README diff found; wrote new data"
 
     def readme_diff(self, readme: dict) -> bool:
         try:
@@ -206,11 +182,10 @@ class UpdateReadme:
         simple_diff = readable_diff(diff)
         msg = ""
         if self.verbose:
-            # TODO: fix diffs
-            #     msg = f"""
-            #             DIFF FOUND:
-            #             {pformat(simple_diff, indent=2)}
-            #             """
+            msg = f"""
+                    DIFF FOUND:
+                    {pformat(simple_diff, indent=2)}
+                    """
             if self.dry_run:
                 msg = f"""
                     {msg}
@@ -274,3 +249,28 @@ class IgnoreVersions(operator.BaseOperator):
 
     def normalize_value_for_hashing(self, _, obj):
         return obj
+
+
+def raise_or_print_fatal_errors(response_str: str):
+    """
+    Force stop before writing any files if fatal errors found:
+        "Too Many Requests": CEDAR API is overloaded
+        "Unauthorized"/"No token": Globus token not provided to entity-api for URL checks
+        "500": unknown error
+    """
+    for error in [
+        "Too Many Requests",
+        "Unauthorized",
+        "No token",
+        "500 Internal Server Error",
+    ]:
+        if error in response_str:
+            # Necessary to avoid including 'Unauthorized' in output when no Globus token is provided,
+            # but only relevant for entity-api links
+            if error in ["Unauthorized for url: https://entity.api", "No token"]:
+                msg = f"URL checking returned 'Unauthorized' in response; did you forget a Globus token?"
+            else:
+                msg = f"""
+                Something went wrong with a request: {error}.
+                """
+            raise Exception(msg)

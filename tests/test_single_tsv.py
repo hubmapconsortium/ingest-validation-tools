@@ -20,7 +20,7 @@ from tests.fixtures.fixtures import (
     GOOD_DATASET_SCHEMA_WITH_ANCESTORS,
     TEST_GET_TSV_ERRORS_PARAMS,
 )
-from tests.vcr_utils import validation_matcher
+from tests.utils import validation_matcher
 
 CONSTRAINTS_URL_PARAMS = {"match": True, "order": "ancestors"}
 SENNET_APP_CONTEXT = {

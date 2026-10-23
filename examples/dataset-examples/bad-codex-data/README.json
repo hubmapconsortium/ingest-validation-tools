@@ -19,7 +19,7 @@
   },
   "Antibodies/Contributors Errors": {
     "examples/dataset-examples/bad-codex-data/upload/codex-metadata.tsv": [
-      "On row(s) 2, column \"antibodies_path\", error opening or reading value \"antibodies.tsv\". Decode Error: Invalid ascii because ordinal not in range(128): \"mber\tconjugated_tag\n [ ð ] \t\tbad-value\t\t\tinv\"."
+      "On row(s) 2, column \"antibodies_path\", error opening or reading value \"antibodies.tsv\". Decode Error: Invalid ascii because ordinal not in range(128): \"mber\tconjugated_tag\n [ \u00f0 ] \u009f\u0098\u0083\t\tbad-value\t\t\tinv\"."
     ]
   },
   "Local Validation Errors": {

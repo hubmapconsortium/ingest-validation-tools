@@ -21,8 +21,10 @@ from tests.fixtures.fixtures import (
     SCATACSEQ_LOWER_VERSION_VALID,
     SCATACSEQ_NEITHER_VERSION_VALID,
 )
-from tests.vcr_utils import (
+from tests.utils import (
     DATASET_EXAMPLES_OPTS,
+    default_before_record_request,
+    default_before_record_response,
     get_example_paths,
     prepare_change_report,
     test_dataset_examples,
@@ -54,18 +56,10 @@ class TestExamples(unittest.TestCase):
 class TestUploads(VCRTestCase):
 
     def before_record_request(self, request: Request) -> Request:
-        """
-        Strip headers.
-        """
-        request.headers = None
-        return request
+        return default_before_record_request(request)
 
     def before_record_response(self, response: dict) -> dict:
-        """
-        Strip headers, raise if Unauthorized, 500, No token errors.
-        """
-        response["headers"] = {}
-        return response
+        return default_before_record_response(response)
 
     def _get_vcr(self, **kwargs):
         kwargs["before_record_request"] = self.before_record_request
