@@ -23,7 +23,7 @@
             "request": {
                 "method": "POST",
                 "uri": "https://api.metadatavalidator.metadatacenter.org/service/validate-tsv",
-                "body": "--84e9220c12d4d5f817cd1578a1730223\r\nContent-Disposition: form-data; name=\"input_file\"; filename=\"contributors.tsv\"\r\n\r\nfirst_name\tlast_name\tmiddle_name_or_initial\tdisplay_name\taffiliation\torcid\temail\tis_contact\tis_principal_investigator\tis_operator\tmetadata_schema_id\nFirstname\tLastname\tM.\tFirstname M. Lastname\tCarnegie Mellon University\t0000-0002-1825-0097\ttest@test.com\tYes\tYes\tYes\t94dae6f8-0756-4ab0-a47b-138e446a9501\n\r\n--84e9220c12d4d5f817cd1578a1730223--\r\n",
+                "body": "--7f14b07ba267398c320c118f9456f587\r\nContent-Disposition: form-data; name=\"input_file\"; filename=\"contributors.tsv\"\r\n\r\nfirst_name\tlast_name\tmiddle_name_or_initial\tdisplay_name\taffiliation\torcid\temail\tis_contact\tis_principal_investigator\tis_operator\tmetadata_schema_id\nFirstname\tLastname\tM.\tFirstname M. Lastname\tCarnegie Mellon University\t0000-0002-1825-0097\ttest@test.com\tYes\tYes\tYes\t94dae6f8-0756-4ab0-a47b-138e446a9501\n\r\n--7f14b07ba267398c320c118f9456f587--\r\n",
                 "headers": {}
             },
             "response": {
@@ -52,6 +52,24 @@
                 "headers": {},
                 "body": {
                     "string": "{\"expanded-result\":[{\"orcid-id\":\"0000-0002-1825-0097\",\"given-names\":\"Josiah\",\"family-names\":\"Carberry\",\"credit-name\":null,\"other-name\":[\"Josiah Stinkney Carberry\",\"J. Carberry\",\"J. S. Carberry\"],\"email\":[],\"institution-name\":[\"Brown University\",\"Wesleyan University\"]}],\"num-found\":1}"
+                }
+            }
+        },
+        {
+            "request": {
+                "method": "GET",
+                "uri": "https://doi.org/api/handles/10.17504/protocols.io.menc3de",
+                "body": null,
+                "headers": {}
+            },
+            "response": {
+                "status": {
+                    "code": 200,
+                    "message": "OK"
+                },
+                "headers": {},
+                "body": {
+                    "string": "{\"responseCode\":1,\"handle\":\"10.17504/protocols.io.menc3de\",\"values\":[{\"index\":1,\"type\":\"URL\",\"data\":{\"format\":\"string\",\"value\":\"https://www.protocols.io/view/rna-imaging-with-merfish-design-of-oligonucleotide-menc3de\"},\"ttl\":86400,\"timestamp\":\"2018-03-29T09:54:09Z\"},{\"index\":700050,\"type\":\"700050\",\"data\":{\"format\":\"string\",\"value\":\"1743417022\"},\"ttl\":86400,\"timestamp\":\"2025-03-31T17:24:05Z\"},{\"index\":100,\"type\":\"HS_ADMIN\",\"data\":{\"format\":\"admin\",\"value\":{\"handle\":\"0.na/10.17504\",\"index\":200,\"permissions\":\"111111110010\"}},\"ttl\":86400,\"timestamp\":\"2018-03-29T09:54:09Z\"}]}"
                 }
             }
         }

@@ -24,6 +24,7 @@ from tests.fixtures.fixtures import (
 from tests.vcr_utils import (
     DATASET_EXAMPLES_OPTS,
     get_example_paths,
+    prepare_change_report,
     test_dataset_examples,
 )
 
@@ -39,7 +40,6 @@ class TestExamples(unittest.TestCase):
     Test all directories in examples/.
     """
 
-    # TODO: reporting
     errors = []
 
     @property
@@ -47,7 +47,8 @@ class TestExamples(unittest.TestCase):
         return get_example_paths()
 
     def test_dataset_examples(self):
-        test_dataset_examples(self.dataset_test_dirs, globus_token=TOKEN)
+        errors = test_dataset_examples(self.dataset_test_dirs, globus_token=TOKEN)
+        assert not errors, "\n".join(prepare_change_report(errors))
 
 
 class TestUploads(VCRTestCase):

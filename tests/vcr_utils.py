@@ -83,7 +83,6 @@ def vcr_create_upload_and_diff(
         path=test_dir / "fixtures.json",
         record_mode=record_mode,
         decode_compressed_response=True,
-        # allow_playback_repeats=True,
         match_on=["validation_matcher"],
     ):
         upload = create_upload(test_dir, globus_token)
@@ -119,7 +118,7 @@ def test_dataset_examples(
     dry_run: bool = True,
     verbose: bool = True,
     globus_token: str = "offline_test",
-):
+) -> dict:
     """
     Test example dataset directories using fixture cassettes.
     """
@@ -136,27 +135,28 @@ def test_dataset_examples(
         )
         if report:
             change_report[test_dir] = report
-    print_change_report(change_report)
+    return change_report
 
 
-def print_change_report(change_report: dict[str, str], verbose: bool = True):
-    if change_report:
-        print("-------CHANGE REPORT-------")
-        if verbose:
-            for dir, message in change_report.items():
-                print(f"{dir}: {message}")
-            print(
-                dedent(
-                    f"""
-                To update all fixture/readme data, run:
-                    env PYTHONPATH=src:$PYTHONPATH python -m tests.manual.manual_testing -t {' '.join([str(dir) for dir in change_report.keys()])} -g <globus_token> -o
-                """
-                )
+def prepare_change_report(change_report: dict[str, str], verbose: bool = True) -> list:
+    msg = []
+    msg.append("-------CHANGE REPORT-------")
+    if verbose:
+        for dir, message in change_report.items():
+            msg.append(f"{dir}: {message}")
+        msg.append(
+            dedent(
+                f"""
+            To update all fixture/readme data, run:
+                env PYTHONPATH=src:$PYTHONPATH python -m tests.manual.manual_testing -t {' '.join([str(dir) for dir in change_report.keys()])} -o -w -g <globus_token>
+            """
             )
-        else:
-            print("Dirs with errors:")
-            for dir, _ in change_report.items():
-                print(dir)
+        )
+    else:
+        msg.append("Dirs with changes:")
+        for dir, change in change_report.items():
+            msg.append(f"{dir}: {change}")
+    return msg
 
 
 def get_paths(test_dirs: list[Path]) -> list[Path]:

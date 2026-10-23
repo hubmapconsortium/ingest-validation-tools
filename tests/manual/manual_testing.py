@@ -11,6 +11,7 @@ from tests.manual.updaters import (
 )
 from tests.vcr_utils import (
     get_example_paths,
+    prepare_change_report,
     test_dataset_examples,
     vcr_create_upload_and_diff,
 )
@@ -24,7 +25,9 @@ def test_specific_examples(test_dirs: list[Path], verbose: bool = False, dry_run
     Specify dry_run=False to update readme files from fixtures.
     """
     test_dir_paths = [Path(dir) for dir in test_dirs]
-    test_dataset_examples(test_dir_paths, dry_run=dry_run, verbose=verbose)
+    report = test_dataset_examples(test_dir_paths, dry_run=dry_run, verbose=verbose)
+    if report:
+        print("\n".join(prepare_change_report(report)))
 
 
 class OnlineTesting:
@@ -89,11 +92,15 @@ class OnlineTesting:
         return my_vcr
 
     def live_tests(self):
+        report = []
         for path in self.paths:
             print(f"Testing {path}...")
-            vcr_create_upload_and_diff(
+            diff = vcr_create_upload_and_diff(
                 path, self.globus_token, record_mode="all", vcr=self.my_vcr, dry_run=self.dry_run
             )
+            if diff:
+                report.append(diff)
+        print("\n".join(report))
 
 
 parser = argparse.ArgumentParser(
@@ -112,10 +119,10 @@ parser.add_argument(
     type=dir_path,
 )
 parser.add_argument(
-    "-d",
-    "--dry_run",
-    action="store_false",
-    help="[Optional] Default is True. If specified, will write data to README.json files.",
+    "-w",
+    "--write_readmes",
+    action="store_true",
+    help="[Optional] Default is False. If specified, will write data to README.json files.",
 )
 parser.add_argument(
     "-o",
@@ -137,20 +144,17 @@ parser.add_argument(
 )
 
 args = parser.parse_args()
-
+dry_run = False if args.write_readmes else True
 if not args.online:
     test_specific_examples(
         [Path(dir) for dir in args.target_dirs] if args.target_dirs else get_example_paths(),
-        dry_run=args.dry_run,
+        dry_run=dry_run,
         verbose=args.verbose,
     )
 else:
     OnlineTesting(
         args.globus_token,
-        args.dry_run,
+        dry_run,
         paths=[Path(dir) for dir in args.target_dirs] if args.target_dirs else get_example_paths(),
         verbose=args.verbose,
     )
-# TODO
-# change_report = run_update([Path(dir) for dir in args.target_dirs], args)
-# print_change_report(change_report, verbose=args.verbose, globus_token=args.globus_token)

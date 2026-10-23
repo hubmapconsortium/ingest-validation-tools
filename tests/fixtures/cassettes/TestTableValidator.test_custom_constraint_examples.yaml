@@ -1,0 +1,126 @@
+interactions:
+- request:
+    body: null
+    headers: {}
+    method: GET
+    uri: https://entity.api.hubmapconsortium.org/entities/f9ae931b8b49252f150d7f8bf1d2d13f
+  response:
+    body:
+      string: '{"contains_human_genetic_sequences":false,"created_by_user_displayname":"HuBMAP
+        Process","created_by_user_email":"hubmap@hubmapconsortium.org","created_by_user_sub":"3e7bce63-129d-33d0-8f6c-834b34cd382e","created_timestamp":1603400709710,"creation_action":"Central
+        Process","data_access_level":"public","data_types":["image_pyramid","PAS"],"dataset_info":"ometiff_pyramid__8adc3c31ca84ec4b958ed20a7c4f4919__ometiff_pyramid","dataset_type":"Histology
+        [Image Pyramid]","direct_ancestors":[{"contacts":[{"affiliation":"Vanderbilt
+        University","first_name":"Jeffrey","last_name":"Spraggins","middle_name_or_initial":"M","name":"Jeffrey
+        Spraggins","orcid_id":"0000-0001-9198-5498"}],"contains_human_genetic_sequences":false,"contributors":[{"affiliation":"Vanderbilt
+        University","first_name":"Jeffrey","is_contact":"TRUE","last_name":"Spraggins","middle_name_or_initial":"M","name":"Jeffrey
+        Spraggins","orcid_id":"0000-0001-9198-5498"},{"affiliation":"Vanderbilt University","first_name":"Jennifer","last_name":"Harvey","middle_name_or_initial":"L","name":"Jennifer
+        L. Harvey","orcid_id":"0000-0003-3067-1238"},{"affiliation":"Vanderbilt University
+        Medical Center","first_name":"Agnes","last_name":"Fogo","middle_name_or_initial":"B","name":"Agnes
+        B. Fogo","orcid_id":"0000-0003-3698-8527"},{"affiliation":"Vanderbilt University
+        Medical Center","first_name":"Haichun","last_name":"Yang","middle_name_or_initial":"","name":"Haichun
+        Yang","orcid_id":"0000-0003-4265-7492"},{"affiliation":"Vanderbilt University","first_name":"Jamie","last_name":"Allen","middle_name_or_initial":"L","name":"Jamie
+        Allen","orcid_id":"0000-0002-4739-2166"},{"affiliation":"Vanderbilt University","first_name":"Danielle","last_name":"Gutierrez","middle_name_or_initial":"B","name":"Danielle
+        Gutierrez","orcid_id":"0000-0001-6355-2134"}],"created_by_user_displayname":"Jeffrey
+        Spraggins","created_by_user_email":"jeff.spraggins@Vanderbilt.Edu","created_by_user_sub":"ce74ea5c-86bd-44b1-bfc4-4459d4fe20b5","created_timestamp":1603260526239,"data_access_level":"public","data_types":["PAS"],"dataset_info":"PAS
+        stained microscopy collected from the left kidney of a 73 year old white female\r\n\r\nPAS
+        stained microscopy collected from the left kidney of a 73 year old white female
+        donor by the Biomolecular Multimodal Imaging Center (BIOMC) at Vanderbilt
+        University. BIOMIC is a Tissue Mapping Center that is part of the NIH funded
+        Human Biomolecular Atlas Program (HuBMAP). Brightfield microscopy images of
+        formalin-fixed paraffin-embedded (FFPE) tissue sections were collected with
+        a Leica Biosystems SCN400 for histopathological assessment to determine tissue
+        normalcy. Support was provided by the NIH Common Fund and National Institute
+        of Diabetes and Digestive and Kidney Diseases (U54 DK120058). Tissue was collected
+        through the Cooperative Human Tissue Network with support provided by the
+        NIH National Cancer Institute (5 UM1 CA183727-08).","dataset_type":"Histology","description":"PAS
+        stained microscopy collected from the left kidney of a 73 year old white female
+        donor by the Biomolecular Multimodal Imaging Center (BIOMC) at Vanderbilt
+        University. BIOMIC is a Tissue Mapping Center that is part of the NIH funded
+        Human Biomolecular Atlas Program (HuBMAP). Brightfield microscopy images of
+        formalin-fixed paraffin-embedded (FFPE) tissue sections were collected with
+        a Leica Biosystems SCN400 for histopathological assessment to determine tissue
+        normalcy. Support was provided by the NIH Common Fund and National Institute
+        of Diabetes and Digestive and Kidney Diseases (U54 DK120058). Tissue was collected
+        through the Cooperative Human Tissue Network with support provided by the
+        NIH National Cancer Institute (5 UM1 CA183727-08).","doi_url":"https://doi.org/10.35079/HBM875.QHDJ.259","entity_type":"Dataset","group_name":"Vanderbilt
+        TMC","group_uuid":"73bb26e4-ed43-11e8-8f19-0a7c1eab007a","hubmap_id":"HBM875.QHDJ.259","ingest_id":"8adc3c31ca84ec4b958ed20a7c4f4919_scan.and.begin.processing_2020-10-22T17:02:41.287847-04:00","ingest_metadata":{"dag_provenance_list":[{"hash":"620e7c3","origin":"https://github.com/hubmapconsortium/ingest-pipeline.git"}]},"last_modified_timestamp":1644640647664,"last_modified_user_displayname":"Zhou
+        Yuan","last_modified_user_email":"ZHY19@pitt.edu","last_modified_user_sub":"c0f8907a-ec78-48a7-9c85-7da995b05446","local_directory_rel_path":"/hive/hubmap/data/consortium/Vanderbilt
+        TMC/8adc3c31ca84ec4b958ed20a7c4f4919","metadata":{"_from_metadatatsv":true,"acquisition_instrument_model":"SCN400","acquisition_instrument_vendor":"Leica
+        Biosystems","analyte_class":"Polysaccharide","assay_category":"imaging","assay_description":"","assay_type":"PAS
+        microscopy","collectiontype":"single_metadatatsv","contributors_path":"","data_path":"processedMicroscopy","dataset_type":"Histology","execution_datetime":"2020-09-28
+        15:44","intended_tile_overlap_percentage":"","is_batch_staining_done":"","is_image_preprocessing_required":"","is_staining_automated":"No","is_targeted":"No","metadata_path":"/","non_global_files":"","operator":"N.
+        Heath Patterson","operator_email":"nathan.h.patterson@vanderbilt.edu","overall_protocols_io_doi":"10.17504/protocols.io.bfskjncw","pi_email":"jeff.spraggins@vanderbilt.edu","preparation_instrument_model":"","preparation_instrument_vendor":"","preparation_protocol_doi":"https://dx.doi.org/10.17504/protocols.io.4qngvve","principal_investigator":"Jeffrey
+        M. Spraggins","resolution_x_unit":"nm","resolution_x_value":"650","resolution_y_unit":"nm","resolution_y_value":"650","resolution_z_unit":"nm","resolution_z_value":"0","scan_direction":"","section_prep_protocols_io_doi":"10.17504/protocols.io.7gehjte","source_storage_duration_unit":"","source_storage_duration_value":"","stain_name":"PAS","stain_technique":"","tile_configuration":"","tiled_image_columns":"","tiled_image_count":"","time_since_acquisition_instrument_calibration_unit":"","time_since_acquisition_instrument_calibration_value":""},"pipeline_message":"the
+        process ran","published_timestamp":1603568273059,"published_user_displayname":"Bill
+        Shirey","published_user_email":"shirey@pitt.edu","published_user_sub":"e19adbbb-73c3-43a7-b05e-0eead04f5ff8","registered_doi":"10.35079/HBM875.QHDJ.259","run_id":"8adc3c31ca84ec4b958ed20a7c4f4919_scan.and.begin.processing_2020-10-22T17:02:41.287847-04:00","status":"Published","uuid":"8adc3c31ca84ec4b958ed20a7c4f4919"}],"entity_type":"Dataset","files":[{"description":"A
+        list of byte-offsets of a TIFF file for quick access in visualization.","edam_term":"EDAM_1.24.format_3464","rel_path":"output_offsets/processedMicroscopy/VAN0003-LK-33-2-PAS_FFPE.offsets.json","size":33,"type":"json"},{"description":"OME-TIFF
+        pyramid file","edam_term":"EDAM_1.24.format_3727","rel_path":"ometiff-pyramids/processedMicroscopy/VAN0003-LK-33-2-PAS_FFPE.ome.tif","size":589526086,"type":"unknown"}],"group_name":"Vanderbilt
+        TMC","group_uuid":"73bb26e4-ed43-11e8-8f19-0a7c1eab007a","hubmap_id":"HBM464.GFFC.829","ingest_metadata":{"dag_provenance_list":[{"documentation_url":"","hash":"620e7c3","input_parameters":[],"origin":"https://github.com/hubmapconsortium/ingest-pipeline.git","version":"v1.4.0"},{"documentation_url":"","hash":"620e7c3","input_parameters":[],"origin":"https://github.com/hubmapconsortium/ingest-pipeline.git","version":"v1.4.0"},{"documentation_url":"","hash":"8c65f17","input_parameters":[],"name":"pipeline.cwl","origin":"https://github.com/hubmapconsortium/ome-tiff-pyramid","version":"v1.2"},{"documentation_url":"","hash":"fb19103","input_parameters":[],"name":"ome-tiff-offsets.cwl","origin":"https://github.com/hubmapconsortium/portal-containers","version":""}],"workflow_description":"The
+        Image Pyramid pipeline converts OME-TIFF images into OME-TIFF pyramids.","workflow_version":"0.0.1"},"last_modified_timestamp":1603568280411,"last_modified_user_displayname":"Bill
+        Shirey","last_modified_user_email":"shirey@pitt.edu","last_modified_user_sub":"e19adbbb-73c3-43a7-b05e-0eead04f5ff8","local_directory_rel_path":"public/Vanderbilt
+        TMC/f9ae931b8b49252f150d7f8bf1d2d13f/","pipeline_message":"the process ran","published_timestamp":1603568280411,"published_user_displayname":"Bill
+        Shirey","published_user_email":"shirey@pitt.edu","published_user_sub":"e19adbbb-73c3-43a7-b05e-0eead04f5ff8","status":"Published","title":"Histology
+        [Image Pyramid] data from the kidney (left) of a 73-year-old white female","uuid":"f9ae931b8b49252f150d7f8bf1d2d13f"}
+
+        '
+    headers: {}
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers: {}
+    method: GET
+    uri: https://portal.hubmapconsortium.org/
+  response:
+    body:
+      string: "<!doctype html>\n<html lang=\"en\">\n\n<head>\n  <meta charset=\"utf-8\">\n
+        \ <meta name=\"viewport\" content=\"width=device-width, initial-scale=1, shrink-to-fit=no\">\n\n
+        \ <link rel=\"icon\" href=\"/static/favicon.ico\">\n\n  \n\n  <title>Human
+        BioMolecular Atlas Program Data Portal             | Human Tissue Atlas for
+        Biomedical Research</title>\n  <meta name=\"description\" content=\"HuBMAP
+        is a healthy human tissue atlas             advancing biomedical research
+        with single-cell,                 spatial, and molecular data. Explore datasets,
+        \                    tools, and visualizations.\">\n\n  \n  <link rel=\"canonical\"
+        href=\"https://portal.hubmapconsortium.org/\">\n\n  \n  \n\n  <script>\n    const
+        isAuthenticated = false;\n    const groupsToken = '';\n    const userEmail
+        = '';\n    const userFirstName = '';\n    const userLastName = '';\n    const
+        userGlobusId = '';\n    const userGlobusAffiliation = '';\n    const workspacesToken
+        = '';\n    const userGroups = [];\n  </script>\n</head>\n\n<body>\n  \n  <div
+        id=\"react-content\"></div>\n\n  <script>\n    const flaskData = {\"endpoints\":
+        {\"assetsEndpoint\": \"https://assets.hubmapconsortium.org\", \"baseElasticsearchEndpoint\":
+        \"https://search.api.hubmapconsortium.org/v3\", \"dataProductsEndpoint\":
+        \"https://data-products.hubmapconsortium.org\", \"elasticsearchEndpoint\":
+        \"https://search.api.hubmapconsortium.org/v3/portal/search\", \"enableSaySeeMode\":
+        true, \"entityEndpoint\": \"https://entity.api.hubmapconsortium.org\", \"gatewayEndpoint\":
+        \"https://gateway.api.hubmapconsortium.org\", \"protocolsClientId\": \"pr_live_id_a04aa9719e0d145646ea81a5263bf848\",
+        \"protocolsClientToken\": \"0def9d918a6861e382377704f6676afa639ea08b62a23fc6201d03ed0aedcc89ca898e90c74f0f96137a7ab2d444b62dd7eb466aab540cedca76498875e37aaf\",
+        \"scFindEndpoint\": \"https://scfind.hubmapconsortium.org\", \"scFindIndexVersion\":
+        \"\", \"softAssayEndpoint\": \"https://ingest.api.hubmapconsortium.org\",
+        \"ubkgEndpoint\": \"https://ontology.api.hubmapconsortium.org\", \"ukvEndpoint\":
+        \"https://ukv.api.hubmapconsortium.org\", \"userTemplatesEndpoint\": \"https://user-templates.api.hubmapconsortium.org\",
+        \"workspacesEndpoint\": \"https://workspaces.api.hubmapconsortium.org\", \"workspacesWsEndpoint\":
+        \"https://ws-workspaces.api.hubmapconsortium.org\"}, \"globalAlertMd\": null,
+        \"pinnedPublicationUUIDs\": \"\"};\n  </script>\n\n\n  \n    \n    <link rel=\"stylesheet\"
+        href=\"/static/public/assets/vendors.Do6fRqGw.css\">\n    \n    <script type=\"module\"
+        src=\"/static/public/assets/vendors.BJncXtIH.js\"></script>\n    <script type=\"module\"
+        src=\"/static/public/assets/main.DlUvRVJ6.js\"></script>\n  \n\n  \n</body>\n\n</html>"
+    headers: {}
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers: {}
+    method: GET
+    uri: https://entity.api.hubmapconsortium.org/entities/bad
+  response:
+    body:
+      string: '{"error":"400 Bad Request: bad is not a valid id format"}
+
+        '
+    headers: {}
+    status:
+      code: 400
+      message: Bad Request
+version: 1

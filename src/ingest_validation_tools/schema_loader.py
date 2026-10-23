@@ -461,7 +461,7 @@ def _add_constraints(field: dict, no_url_checks=None, names: list[str] = []) -> 
         field["constraints"]["required"] = True
     if "protocols_io_doi" in field["name"]:
         field["constraints"]["pattern"] = r"10\.17504/.*"
-        field["custom_constraints"]["url"] = {"prefix": "https://dx.doi.org/"}
+        field["custom_constraints"]["url"] = {"prefix": "https://doi.org/api/handles/"}
     if field["name"].endswith("_email"):
         field["format"] = "email"
         field["type"] = "string"

@@ -95,6 +95,7 @@ class Upload:
         self.run_plugins = run_plugins
         self.verbose = verbose
         self.report_type = report_type
+        self.status_cache = {}
 
         self.dataset_metadata: dict[Path, SchemaVersion] = {}
         self.errors = ErrorDict()
@@ -450,7 +451,7 @@ class Upload:
             )
             return
 
-        local_errors = get_table_errors(tsv_path, schema)
+        local_errors, status_cache = get_table_errors(tsv_path, schema, self.status_cache)
         if local_errors:
             self.errors.metadata_validation_local.update(
                 {f"{tsv_path} (as {schema_version.table_schema})": local_errors}

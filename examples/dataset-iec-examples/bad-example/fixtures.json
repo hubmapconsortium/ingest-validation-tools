@@ -18,6 +18,24 @@
                     "string": "{\"assaytype\":\"SNARE-ATACseq2\",\"contains-pii\":true,\"dataset-type\":\"ATACseq\",\"description\":\"snATACseq (SNARE-seq2)\",\"dir-schema\":\"scatacseq-v0\",\"is-multi-assay\":null,\"must-contain\":null,\"pipeline-shorthand\":null,\"primary\":true,\"process_state\":\"primary\",\"tbl-schema\":\"scatacseq-v0\",\"ubkg_code\":\"C200420\",\"vitessce-hints\":[]}\n"
                 }
             }
+        },
+        {
+            "request": {
+                "method": "GET",
+                "uri": "https://doi.org/api/handles/10.17504/fake",
+                "body": null,
+                "headers": {}
+            },
+            "response": {
+                "status": {
+                    "code": 404,
+                    "message": "Not Found"
+                },
+                "headers": {},
+                "body": {
+                    "string": "{\"responseCode\":100,\"handle\":\"10.17504/fake\"}"
+                }
+            }
         }
     ]
 }

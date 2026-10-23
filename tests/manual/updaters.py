@@ -143,7 +143,7 @@ class UpdateReadme:
         """
         readme = open_or_create_readme(self.test_dir)
         if self.readme_diff(readme):
-            return self.write_readme()
+            return f"{self.test_dir}: {self.write_readme()}"
 
     def write_readme(self) -> str | None:
         if self.error_report.errors:
@@ -216,10 +216,10 @@ class UpdateReadme:
                     {msg}
 
                     If new version is correct, overwrite previous README.json by running:
-                         env PYTHONPATH=src:$PYTHONPATH python -m tests.manual.manual_testing -t {self.test_dir}
+                         env PYTHONPATH=src:$PYTHONPATH python -m tests.manual.manual_testing -t {self.test_dir} -w
 
                     If you need to update fixture data as well, run:
-                         env PYTHONPATH=src:$PYTHONPATH python -m tests.manual.manual_testing -t {self.test_dir} -g <globus_token> -o
+                         env PYTHONPATH=src:$PYTHONPATH python -m tests.manual.manual_testing -t {self.test_dir} -o -w -g <globus_token>
 
                     For help / other options:
                         env PYTHONPATH=src:$PYTHONPATH python -m tests.manual.update_test_data --help

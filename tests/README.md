@@ -4,8 +4,6 @@
 
 ### Metadata validation of a single TSV
 
-# TODO: fix all
-
 To check just the metadata for a single TSV, use the [Metadata Spreadsheet Validator](https://metadatavalidator.metadatacenter.org/).
 
 ### Testing online
