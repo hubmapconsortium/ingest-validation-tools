@@ -12,7 +12,7 @@ As a default behavior, testing (e.g. via GitHub action or by running `./test.sh`
 
 Running `./test.sh` will mimic the offline behavior of the GitHub action that runs on push and creation of PRs.
 
-Additional flags are available to restrict to specific examples/Python tests, skip linting/formatting, and/or run the plugin tests that require the presence of `ingest-validation-tests`. Run this for help:
+Additional flags are available to skip longer tests (linting/formatting and docs generation). Run this for help:
 
 ```
 ./test.sh --help

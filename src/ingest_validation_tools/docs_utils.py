@@ -486,7 +486,7 @@ def _make_value_md(key, value):
     >>> print(_make_value_md('enum', ['A', 'B', 'C']))
     `A`, `B`, or `C`
 
-    >>> print(_make_value_md('pattern', '^some|reg_?ex\\.$'))
+    >>> print(_make_value_md('pattern', r'^some|reg_?ex\\.$'))
     <code>^some&#124;reg_?ex\\.$</code>
 
     >>> print(_make_value_md('url', {'prefix': 'http://example.com/'}))
@@ -585,12 +585,12 @@ def _make_dir_descriptions(dir_schemas, pipeline_infos):
     """
     >>> dir_schema_0 = {
     ...     'files': [
-    ...         {'pattern': 'required\\.txt', 'description': 'Required!'}
+    ...         {'pattern': r'required\\.txt', 'description': 'Required!'}
     ...     ]
     ... }
     >>> dir_schema_1 = {
     ...     'files': [
-    ...         {'pattern': 'optional\\.txt', 'description': 'Optional!', 'required': False}
+    ...         {'pattern': r'optional\\.txt', 'description': 'Optional!', 'required': False}
     ...     ]
     ... }
     >>> pipeline_infos = [{
@@ -658,9 +658,9 @@ def _make_dir_description(files, is_deprecated=False):
     QA and Required flags are handled:
 
     >>> files = [
-    ...   { 'pattern': 'required\\.txt', 'description': 'Required!',
+    ...   { 'pattern': r'required\\.txt', 'description': 'Required!',
     ...     'is_qa_qc': True },
-    ...   { 'pattern': 'optional\\.txt', 'description': 'Optional!',
+    ...   { 'pattern': r'optional\\.txt', 'description': 'Optional!',
     ...     'required': False }
     ... ]
     >>> print(_make_dir_description(files))
@@ -673,7 +673,7 @@ def _make_dir_description(files, is_deprecated=False):
     Deprecated is handled:
 
     >>> files = [
-    ...   { 'pattern': 'optional\\.txt', 'description': 'Optional!',
+    ...   { 'pattern': r'optional\\.txt', 'description': 'Optional!',
     ...     'required': False }
     ... ]
     >>> print(_make_dir_description(files, True))
@@ -688,7 +688,7 @@ def _make_dir_description(files, is_deprecated=False):
     Examples add an extra column:
 
     >>> files = [
-    ...   { 'pattern': '[A-Z]+\\d+', 'description': 'letters numbers', 'example': 'ABC123'},
+    ...   { 'pattern': r'[A-Z]+\\d+', 'description': 'letters numbers', 'example': 'ABC123'},
     ...   { 'pattern': '[A-Z]', 'description': 'one letter, no example'},
     ... ]
     >>> print(_make_dir_description(files))
@@ -701,7 +701,7 @@ def _make_dir_description(files, is_deprecated=False):
     Bad examples cause errors:
 
     >>> files = [
-    ...   { 'pattern': '[A-Z]\\d', 'description': '1 letter 1 number', 'example': 'ABC123'},
+    ...   { 'pattern': r'[A-Z]\\d', 'description': '1 letter 1 number', 'example': 'ABC123'},
     ... ]
     >>> _make_dir_description(files) # doctest: +IGNORE_EXCEPTION_DETAIL
     Traceback (most recent call last):

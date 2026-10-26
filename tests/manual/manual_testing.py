@@ -22,6 +22,7 @@ def test_specific_examples(test_dirs: list[Path], verbose: bool = False, dry_run
     Runs offline. To run online tests and/or update fixture data,
     use vcr_utils.py > OnlineTesting.
     Specify dry_run=False to update readme files from fixtures.
+    See tests/README.md for command line usage.
     """
     test_dir_paths = [Path(dir) for dir in test_dirs]
     report = test_dataset_examples(test_dir_paths, dry_run=dry_run, verbose=verbose)
@@ -34,6 +35,7 @@ class OnlineTesting:
     Run tests with live API calls, re-record results
     to fixtures.json files (destructive--deletes and recreates file).
     Fails if fatal errors are encountered.
+    See tests/README.md for command line usage.
     """
 
     def __init__(

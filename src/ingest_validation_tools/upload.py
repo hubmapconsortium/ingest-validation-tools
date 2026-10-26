@@ -451,7 +451,8 @@ class Upload:
             )
             return
 
-        local_errors, status_cache = get_table_errors(tsv_path, schema, self.status_cache)
+        local_errors, new_status_cache = get_table_errors(tsv_path, schema, self.status_cache)
+        self.status_cache = new_status_cache
         if local_errors:
             self.errors.metadata_validation_local.update(
                 {f"{tsv_path} (as {schema_version.table_schema})": local_errors}

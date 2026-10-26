@@ -80,7 +80,7 @@ class UpdateReadme:
 
     def check_report(self, error_report: ErrorReport):
         """
-        Ensure no token errors in output.
+        Ensure no auth/500 errors in output.
         Manipulate raw_errors/raw_info data to remove any
         directory minor versions in specified areas.
         """
