@@ -120,17 +120,3 @@ def _get_message(
             else get_json(msg, error["rowPosition"], error["fieldName"])
         )
     return error["message"]
-
-
-if __name__ == "__main__":
-    import argparse
-
-    from yaml import safe_load
-
-    parser = argparse.ArgumentParser("CLI just for testing")
-    parser.add_argument("--fixture", type=Path, required=True)
-    args = parser.parse_args()
-    tsv_path = args.fixture / "input.tsv"
-    schema_path = args.fixture / "schema.yaml"
-    errors, status_cache = get_table_errors(tsv_path, safe_load(schema_path.read_text()), {})
-    print("\n".join(errors))
