@@ -80,7 +80,6 @@ class TestPluginExamples(VCRTestCase):
             upload = Upload(test_dir / "upload", **self.get_plugin_example_opts)
             upload.get_errors()
             upload_info = upload.get_info()
-            breakpoint()
             assert upload_info.git
             assert upload_info.time
             for tsv in upload_info.tsvs.keys():

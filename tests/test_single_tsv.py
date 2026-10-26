@@ -202,8 +202,8 @@ class TestSingleTsv(VCRTestCase):
 if __name__ == "__main__":
     """
     Example usage:
-        python tests/test_single_tsv.py -ht <hubmap_globus_token>
-        python tests/test_single_tsv.py -st <sennet_globus_token> TestSingleTsv.test_expected_ancestor_entities_creation
+        python -m tests.test_single_tsv -ht <hubmap_globus_token>
+        python -m tests.test_single_tsv -st <sennet_globus_token> TestSingleTsv.test_expected_ancestor_entities_creation
     """
     parser = argparse.ArgumentParser(
         description="Pass SenNet and/or HuBMAP Globus tokens to update fixture cassettes (must delete previous cassette) from tests/fixtures/cassettes"
