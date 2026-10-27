@@ -44,9 +44,9 @@ class TestTableValidator(VCRTestCase):
 
     def test_custom_constraint_examples(self):
         status_cache = {
-            "https://entity.api.hubmapconsortium.org/entities/f9ae931b8b49252f150d7f8bf1d2d13f": "200",
-            "https://portal.hubmapconsortium.org/": "200",
-            "https://entity.api.hubmapconsortium.org/entities/bad": "400",
+            "https://entity.api.hubmapconsortium.org/entities/f9ae931b8b49252f150d7f8bf1d2d13f": 200,
+            "https://portal.hubmapconsortium.org/": 200,
+            "https://entity.api.hubmapconsortium.org/entities/bad": 400,
             "bad://url": "No connection adapters were found for 'bad://url'",
         }
         for test_dir in get_paths(self.example_dirs):

@@ -46,7 +46,7 @@ class CheckFactory:
         print(f"Fetching un-cached url: {url}", file=stderr)
         try:
             response = requests.get(url, allow_redirects=True)
-            self.status_cache[url] = str(response.status_code)
+            self.status_cache[url] = response.status_code
         except Exception as e:
             self.status_cache[url] = str(e)
         return self.status_cache[url]
@@ -74,7 +74,7 @@ class CheckFactory:
                     else:
                         url = f"{prefix}{v}"
                     status = self._check_url_status_cache(url)
-                    if status != "200":
+                    if status != 200:
                         note = template.substitute(status=status, url=url)
                         yield frictionless.errors.CellError.from_row(row, note=note, field_name=k)
 

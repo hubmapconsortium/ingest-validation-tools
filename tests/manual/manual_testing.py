@@ -67,17 +67,11 @@ class OnlineTesting:
         else:
             return get_example_paths()
 
-    def before_record_request(self, request: Request) -> Request:
-        return default_before_record_request(request)
-
-    def before_record_response(self, response: dict) -> dict:
-        return default_before_record_response(response)
-
     @property
     def my_vcr(self) -> VCR:
         my_vcr = VCR(
-            before_record_request=self.before_record_request,
-            before_record_response=self.before_record_response,
+            before_record_request=default_before_record_request,
+            before_record_response=default_before_record_response,
             serializer="json",
         )
         my_vcr.register_persister(LiveRunPersister)
