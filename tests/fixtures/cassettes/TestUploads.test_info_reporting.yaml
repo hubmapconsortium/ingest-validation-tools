@@ -1,0 +1,703 @@
+interactions:
+- request:
+    body: '{"lab_id": "Visium_9OLC_A4_S1", "preparation_protocol_doi": "https://dx.doi.org/10.17504/protocols.io.eq2lyno9qvx9/v1",
+      "dataset_type": "Histology", "analyte_class": "DNA", "is_targeted": "No", "acquisition_instrument_vendor":
+      "Zeiss Microscopy", "acquisition_instrument_model": "Axio Observer 7", "source_storage_duration_value":
+      "24", "source_storage_duration_unit": "day", "time_since_acquisition_instrument_calibration_value":
+      "", "time_since_acquisition_instrument_calibration_unit": "", "contributors_path":
+      "./contributors.tsv", "data_path": "./dataset-1", "is_image_preprocessing_required":
+      "Yes", "stain_name": "H&E", "stain_technique": "Progressive staining", "is_batch_staining_done":
+      "Yes", "is_staining_automated": "No", "preparation_instrument_vendor": "HTX
+      Technologies", "preparation_instrument_model": "SunCollect Sprayer", "slide_id":
+      "V11A19-078", "tile_configuration": "Snake-by-rows", "scan_direction": "Right-and-down",
+      "tiled_image_columns": "10", "tiled_image_count": "120", "intended_tile_overlap_percentage":
+      "30", "metadata_schema_id": "e7475329-9a60-4088-8e34-19a3828e0b3b"}'
+    headers: {}
+    method: POST
+    uri: https://ingest.api.hubmapconsortium.org/assaytype
+  response:
+    body:
+      string: '{"assaytype":"h-and-e","contains-pii":false,"dataset-type":"Histology","description":"H&E
+        Stained Microscopy","dir-schema":"histology-v2","is-multi-assay":null,"must-contain":null,"pipeline-shorthand":null,"primary":true,"process_state":"primary","tbl-schema":null,"ubkg_code":"C200940","vitessce-hints":[]}
+
+        '
+    headers: {}
+    status:
+      code: 200
+      message: OK
+- request:
+    body: "--f6c912d99434f4b067bf6ab1674c1678\r\nContent-Disposition: form-data; name=\"input_file\";
+      filename=\"contributors.tsv\"\r\n\r\nfirst_name\tlast_name\tmiddle_name_or_initial\tdisplay_name\taffiliation\torcid\temail\tis_contact\tis_principal_investigator\tis_operator\tmetadata_schema_id\nFirstname\tLastname\tM.\tFirstname
+      M. Lastname\twrong\t0000-0002-8928-abcd\ttest@test.com\tYes\tYes\tYes\t94dae6f8-0756-4ab0-a47b-138e446a9501\n\r\n--f6c912d99434f4b067bf6ab1674c1678--\r\n"
+    headers: {}
+    method: POST
+    uri: https://api.metadatavalidator.metadatacenter.org/service/validate-tsv
+  response:
+    body:
+      string: '{"schema":{"name":"Contributor","version":"2.0.0","columnDescription":{"metadata_schema_id":{"example":"22bc762a-5020-419d-b170-24253ed9e8d9","name":"metadata_schema_id","required":true,"description":"The
+        string that serves as the definitive identifier for the metadata schema version
+        and is readily interpretable by computers for data validation and processing.
+        ","type":"string","subType":null,"label":"Metadata schema ID","permissibleValues":[],"regex":null,"min":null,"max":null},"affiliation":{"example":null,"name":"affiliation","required":true,"description":"Institutional
+        affiliation","type":"string","subType":null,"label":"Affiliation","permissibleValues":[],"regex":null,"min":null,"max":null},"first_name":{"example":null,"name":"first_name","required":true,"description":"First
+        name","type":"string","subType":null,"label":"First name","permissibleValues":[],"regex":null,"min":null,"max":null},"last_name":{"example":null,"name":"last_name","required":true,"description":"Last
+        name","type":"string","subType":null,"label":"Last name","permissibleValues":[],"regex":null,"min":null,"max":null},"middle_name_or_initial":{"example":null,"name":"middle_name_or_initial","required":false,"description":"Middle
+        name or initial. Leave blank if not applicable","type":"string","subType":null,"label":"Middle
+        name or initial","permissibleValues":[],"regex":null,"min":null,"max":null},"orcid":{"example":"0000-0002-8928-741X","name":"orcid","required":true,"description":"ORCID
+        ID of contributor. ","type":"string","subType":null,"label":"ORCID ID","permissibleValues":[],"regex":"^(\\d{4}-){3}\\d{3}(\\d|X)$","min":null,"max":null},"is_principal_investigator":{"example":null,"name":"is_principal_investigator","required":true,"description":"Is
+        this individual a principal investigator responsible for the data?","type":"string","subType":null,"label":"Is
+        principal investigator?","permissibleValues":[{"label":"Yes","meaning":null},{"label":"No","meaning":null}],"regex":null,"min":null,"max":null},"is_operator":{"example":null,"name":"is_operator","required":true,"description":"Is
+        this person responsible for executing the assay(s) in whole or part? If more
+        than one person is responsible for running the assay(s), then each operator
+        should be listed separately in the contributors file.","type":"string","subType":null,"label":"Is
+        operator?","permissibleValues":[{"label":"Yes","meaning":null},{"label":"No","meaning":null}],"regex":null,"min":null,"max":null},"is_contact":{"example":null,"name":"is_contact","required":true,"description":"Is
+        this individual a contact for DOI purposes?","type":"string","subType":null,"label":"Is
+        contact?","permissibleValues":[{"label":"Yes","meaning":null},{"label":"No","meaning":null}],"regex":null,"min":null,"max":null},"display_name":{"example":null,"name":"display_name","required":true,"description":"Name
+        for display","type":"string","subType":null,"label":"Display name","permissibleValues":[],"regex":null,"min":null,"max":null},"email":{"example":null,"name":"email","required":false,"description":"Email
+        address for the individual","type":"string","subType":null,"label":"Email","permissibleValues":[],"regex":null,"min":null,"max":null}},"requiredColumns":["metadata_schema_id","affiliation","first_name","last_name","orcid","is_principal_investigator","is_operator","is_contact","display_name"],"columnOrder":["first_name","last_name","middle_name_or_initial","display_name","affiliation","orcid","email","is_contact","is_principal_investigator","is_operator","metadata_schema_id"],"generatedFrom":"Optional[https://repo.metadatacenter.org/templates/94dae6f8-0756-4ab0-a47b-138e446a9501]","accessUrl":"https://openview.metadatacenter.org/templates/https%3A%2F%2Frepo.metadatacenter.org%2Ftemplates%2F94dae6f8-0756-4ab0-a47b-138e446a9501"},"data":[{"rowNumber":0,"is_operator":"Yes","middle_name_or_initial":"M.","affiliation":"wrong","metadata_schema_id":"94dae6f8-0756-4ab0-a47b-138e446a9501","is_principal_investigator":"Yes","last_name":"Lastname","orcid":"0000-0002-8928-abcd","display_name":"Firstname
+        M. Lastname","first_name":"Firstname","email":"test@test.com","is_contact":"Yes"}],"reporting":[{"errorType":"invalidValueFormat","column":"orcid","row":0,"value":"0000-0002-8928-abcd"}]}'
+    headers: {}
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers: {}
+    method: GET
+    uri: https://pub.orcid.org/v3.0/expanded-search/?q=orcid%3A0000-0002-8928-abcd
+  response:
+    body:
+      string: '{"expanded-result":null,"num-found":0}'
+    headers: {}
+    status:
+      code: 200
+      message: OK
+- request:
+    body: "--6e5b6b78e15b0a7abb627fc4cccf25ba\r\nContent-Disposition: form-data; name=\"input_file\";
+      filename=\"bad-histology-metadata.tsv\"\r\n\r\nparent_sample_id\tlab_id\tpreparation_protocol_doi\tdataset_type\tanalyte_class\tis_targeted\tacquisition_instrument_vendor\tacquisition_instrument_model\tsource_storage_duration_value\tsource_storage_duration_unit\ttime_since_acquisition_instrument_calibration_value\ttime_since_acquisition_instrument_calibration_unit\tcontributors_path\tdata_path\tis_image_preprocessing_required\tstain_name\tstain_technique\tis_batch_staining_done\tis_staining_automated\tpreparation_instrument_vendor\tpreparation_instrument_model\tslide_id\ttile_configuration\tscan_direction\ttiled_image_columns\ttiled_image_count\tintended_tile_overlap_percentage\tmetadata_schema_id\nHBM749.QJZK.937\tVisium_9OLC_A4_S1\thttps://dx.doi.org/10.17504/protocols.io.eq2lyno9qvx9/v1\tHistology\tDNA\tNo\tZeiss
+      Microscopy\tAxio Observer 7\t24\tday\t\t\t./contributors.tsv\t./dataset-1\tYes\tH&E\tProgressive
+      staining\tYes\tNo\tHTX Technologies\tSunCollect Sprayer\tV11A19-078\tSnake-by-rows\tRight-and-down\t10\t120\t30\te7475329-9a60-4088-8e34-19a3828e0b3b\nHBM733.HSZF.798\tVisium_9OLC_A4_S2\thttps://dx.doi.org/10.17504/protocols.io.eq2lyno9qvx9/v1\tHistology\tDNA\tNo\tZeiss
+      Microscopy\tAxio Observer 7\t24\tday\t\t\t\t./dataset-2\tYes\tH&E\tProgressive
+      staining\tYes\tNo\tHTX Technologies\tSunCollect Sprayer\tV11A19-078\tSnake-by-rows\tRight-and-down\t10\t120\t30\te7475329-9a60-4088-8e34-19a3828e0b3b\n\r\n--6e5b6b78e15b0a7abb627fc4cccf25ba--\r\n"
+    headers: {}
+    method: POST
+    uri: https://api.metadatavalidator.metadatacenter.org/service/validate-tsv
+  response:
+    body:
+      string: "{\"schema\":{\"name\":\"Histology\",\"version\":\"2.1.0\",\"columnDescription\":{\"lab_id\":{\"example\":null,\"name\":\"lab_id\",\"required\":false,\"description\":\"An
+        internal field labs can use it to add whatever ID(s) they want or need for
+        dataset validation and tracking. This could be a single ID (e.g., \\\"Visium_9OLC_A4_S1\\\")
+        or a delimited list of IDs (e.g., \u201C9OL; 9OLC.A2; Visium_9OLC_A4_S1\u201D).
+        This field will not be accessible to anyone outside of the consortium and
+        no effort will be made to check if IDs provided by one data provider are also
+        used by another.\",\"type\":\"string\",\"subType\":null,\"label\":\"Lab ID\",\"permissibleValues\":[],\"regex\":null,\"min\":null,\"max\":null},\"source_storage_duration_value\":{\"example\":null,\"name\":\"source_storage_duration_value\",\"required\":true,\"description\":\"How
+        long was the source material (parent) stored, prior to this sample being processed.\",\"type\":\"number\",\"subType\":\"decimal\",\"label\":\"Source
+        storage duration value\",\"permissibleValues\":[],\"regex\":null,\"min\":0,\"max\":null},\"time_since_acquisition_instrument_calibration_value\":{\"example\":null,\"name\":\"time_since_acquisition_instrument_calibration_value\",\"required\":false,\"description\":\"The
+        amount of time since the acqusition instrument was last serviced by the vendor.
+        This provides a metric for assessing drift in data capture.\",\"type\":\"number\",\"subType\":\"decimal\",\"label\":\"Time
+        since acquisition instrument calibration value\",\"permissibleValues\":[],\"regex\":null,\"min\":0,\"max\":null},\"contributors_path\":{\"example\":null,\"name\":\"contributors_path\",\"required\":true,\"description\":\"The
+        path to the file with the ORCID IDs for all contributors of this dataset (e.g.,
+        \\\"./extras/contributors.tsv\\\" or \\\"./contributors.tsv\\\"). This is
+        an internal metadata field that is just used for ingest.\",\"type\":\"string\",\"subType\":null,\"label\":\"Contributors
+        path\",\"permissibleValues\":[],\"regex\":\"^\\\\.(?:\\\\/[a-zA-Z0-9-_]+)*\\\\.tsv$\",\"min\":null,\"max\":null},\"data_path\":{\"example\":null,\"name\":\"data_path\",\"required\":true,\"description\":\"The
+        top level directory containing the raw and/or processed data. For a single
+        dataset upload this might be \\\".\\\" where as for a data upload containing
+        multiple datasets, this would be the directory name for the respective dataset.
+        For instance, if the data is within a directory called \\\"TEST001-RK\\\"
+        use syntax \\\"./TEST001-RK\\\" for this field. If there are multiple directory
+        levels, use the format \\\"./TEST001-RK/Run1/Pass2\\\" in which \\\"Pass2\\\"
+        is the subdirectory where the single dataset's data is stored. This is an
+        internal metadata field that is just used for ingest.\",\"type\":\"string\",\"subType\":null,\"label\":\"Data
+        path\",\"permissibleValues\":[],\"regex\":\"^\\\\.(?:\\\\/[a-zA-Z0-9-_]+)*\\\\/?$\",\"min\":null,\"max\":null},\"is_image_preprocessing_required\":{\"example\":null,\"name\":\"is_image_preprocessing_required\",\"required\":false,\"description\":\"Depending
+        on if the acquisition instrument was a microscope, slide scanner, etc. will
+        indicate whether or not any level of preprocessing was required to assemble
+        the image (e.g., fusing image tiles) .\",\"type\":\"string\",\"subType\":null,\"label\":\"Is
+        image preprocessing required?\",\"permissibleValues\":[{\"label\":\"Yes\",\"meaning\":null},{\"label\":\"No\",\"meaning\":null}],\"regex\":null,\"min\":null,\"max\":null},\"is_batch_staining_done\":{\"example\":null,\"name\":\"is_batch_staining_done\",\"required\":true,\"description\":\"Are
+        the slides stained using a linear batch method or individually?\",\"type\":\"string\",\"subType\":null,\"label\":\"Is
+        batch staining done?\",\"permissibleValues\":[{\"label\":\"Yes\",\"meaning\":null},{\"label\":\"No\",\"meaning\":null}],\"regex\":null,\"min\":null,\"max\":null},\"is_staining_automated\":{\"example\":null,\"name\":\"is_staining_automated\",\"required\":true,\"description\":\"Is
+        the slide staining automated with an instrument?\",\"type\":\"string\",\"subType\":null,\"label\":\"Is
+        staining automated?\",\"permissibleValues\":[{\"label\":\"Yes\",\"meaning\":null},{\"label\":\"No\",\"meaning\":null}],\"regex\":null,\"min\":null,\"max\":null},\"slide_id\":{\"example\":null,\"name\":\"slide_id\",\"required\":false,\"description\":\"A
+        unique ID denoting the slide used. This allows users the ability to determine
+        which tissue sections were processed together on the same slide. It is recommended
+        that data providers prefix the ID with the center name, to prevent values
+        overlapping across centers.\",\"type\":\"string\",\"subType\":null,\"label\":\"Slide
+        ID\",\"permissibleValues\":[],\"regex\":null,\"min\":null,\"max\":null},\"tiled_image_columns\":{\"example\":null,\"name\":\"tiled_image_columns\",\"required\":false,\"description\":\"This
+        is how many columns used in stitching. This is sometimes referred to as the
+        grid size x.\",\"type\":\"number\",\"subType\":\"integer\",\"label\":\"Tiled
+        image columns\",\"permissibleValues\":[],\"regex\":null,\"min\":1,\"max\":null},\"tiled_image_count\":{\"example\":null,\"name\":\"tiled_image_count\",\"required\":false,\"description\":\"This
+        is the total number of raw (tiled) images captured, that are to be stitched
+        together.\",\"type\":\"number\",\"subType\":\"integer\",\"label\":\"Tiled
+        image count\",\"permissibleValues\":[],\"regex\":null,\"min\":1,\"max\":null},\"intended_tile_overlap_percentage\":{\"example\":null,\"name\":\"intended_tile_overlap_percentage\",\"required\":false,\"description\":\"The
+        amount of overlap between tiled images. This is the set point, where as during
+        image acquisition there will be slight variations due to stage registration.\",\"type\":\"number\",\"subType\":\"decimal\",\"label\":\"Intended
+        tile overlap percentage\",\"permissibleValues\":[],\"regex\":null,\"min\":0,\"max\":null},\"metadata_schema_id\":{\"example\":\"22bc762a-5020-419d-b170-24253ed9e8d9\",\"name\":\"metadata_schema_id\",\"required\":true,\"description\":\"The
+        string that serves as the definitive identifier for the metadata schema version
+        and is readily interpretable by computers for data validation and processing.
+        \",\"type\":\"string\",\"subType\":null,\"label\":\"Metadata schema ID\",\"permissibleValues\":[],\"regex\":null,\"min\":null,\"max\":null},\"dataset_type\":{\"example\":null,\"name\":\"dataset_type\",\"required\":true,\"description\":\"The
+        specific type of dataset being produced.\",\"type\":\"string\",\"subType\":null,\"label\":\"Dataset
+        type\",\"permissibleValues\":[{\"label\":\"10X Multiome\",\"meaning\":\"https://purl.humanatlas.io/vocab/hravs#HRAVS_0000215\"},{\"label\":\"2D
+        Imaging Mass Cytometry\",\"meaning\":\"https://purl.humanatlas.io/vocab/hravs#HRAVS_0000296\"},{\"label\":\"4i\",\"meaning\":\"https://purl.humanatlas.io/vocab/hravs#HRAVS_0000447\"},{\"label\":\"ATACseq\",\"meaning\":\"https://purl.humanatlas.io/vocab/hravs#HRAVS_0000309\"},{\"label\":\"Auto-fluorescence\",\"meaning\":\"https://purl.humanatlas.io/vocab/hravs#HRAVS_0000205\"},{\"label\":\"Cell
+        DIVE\",\"meaning\":\"https://purl.humanatlas.io/vocab/hravs#HRAVS_0000159\"},{\"label\":\"CODEX\",\"meaning\":\"https://purl.humanatlas.io/vocab/hravs#HRAVS_0000160\"},{\"label\":\"COMET\",\"meaning\":\"https://purl.humanatlas.io/vocab/hravs#HRAVS_0000458\"},{\"label\":\"Confocal\",\"meaning\":\"https://purl.humanatlas.io/vocab/hravs#HRAVS_0000206\"},{\"label\":\"CosMx
+        Proteomics\",\"meaning\":\"https://purl.humanatlas.io/vocab/hravs#HRAVS_0000435\"},{\"label\":\"CosMx
+        Transcriptomics\",\"meaning\":\"https://purl.humanatlas.io/vocab/hravs#HRAVS_0000218\"},{\"label\":\"CyCIF\",\"meaning\":\"https://purl.humanatlas.io/vocab/hravs#HRAVS_0000200\"},{\"label\":\"CyTOF\",\"meaning\":\"https://purl.humanatlas.io/vocab/hravs#HRAVS_0000407\"},{\"label\":\"DART-FISH\",\"meaning\":\"https://purl.humanatlas.io/vocab/hravs#HRAVS_0000396\"},{\"label\":\"DBiT-seq\",\"meaning\":\"https://purl.humanatlas.io/vocab/hravs#HRAVS_0000428\"},{\"label\":\"DESI\",\"meaning\":\"https://purl.humanatlas.io/vocab/hravs#HRAVS_0000204\"},{\"label\":\"DNA
+        Methylation\",\"meaning\":\"https://purl.humanatlas.io/vocab/hravs#HRAVS_0000490\"},{\"label\":\"Enhanced
+        Stimulated Raman Spectroscopy (SRS)\",\"meaning\":\"https://purl.humanatlas.io/vocab/hravs#HRAVS_0000209\"},{\"label\":\"FACS\",\"meaning\":\"https://purl.humanatlas.io/vocab/hravs#HRAVS_0000440\"},{\"label\":\"GeoMx
+        (nCounter)\",\"meaning\":\"https://purl.humanatlas.io/vocab/hravs#HRAVS_0000301\"},{\"label\":\"GeoMx
+        (NGS)\",\"meaning\":\"https://purl.humanatlas.io/vocab/hravs#HRAVS_0000300\"},{\"label\":\"HiFi-Slide\",\"meaning\":\"https://purl.humanatlas.io/vocab/hravs#HRAVS_0000195\"},{\"label\":\"Histology\",\"meaning\":\"https://purl.humanatlas.io/vocab/hravs#HRAVS_0000197\"},{\"label\":\"iCLAP\",\"meaning\":\"https://purl.humanatlas.io/vocab/hravs#HRAVS_0000479\"},{\"label\":\"Illumina
+        Spatial ver0\",\"meaning\":\"https://purl.humanatlas.io/vocab/hravs#HRAVS_0000487\"},{\"label\":\"LC-MS\",\"meaning\":\"https://purl.humanatlas.io/vocab/hravs#HRAVS_0000194\"},{\"label\":\"Light
+        Sheet\",\"meaning\":\"https://purl.humanatlas.io/vocab/hravs#HRAVS_0000168\"},{\"label\":\"MACSima\",\"meaning\":\"https://purl.humanatlas.io/vocab/hravs#HRAVS_0000480\"},{\"label\":\"MALDI\",\"meaning\":\"https://purl.humanatlas.io/vocab/hravs#HRAVS_0000201\"},{\"label\":\"MERFISH\",\"meaning\":\"https://purl.humanatlas.io/vocab/hravs#HRAVS_0000221\"},{\"label\":\"MIBI\",\"meaning\":\"https://purl.humanatlas.io/vocab/hravs#HRAVS_0000172\"},{\"label\":\"Molecular
+        Cartography\",\"meaning\":\"https://purl.humanatlas.io/vocab/hravs#HRAVS_0000217\"},{\"label\":\"MPLEx\",\"meaning\":\"https://purl.humanatlas.io/vocab/hravs#HRAVS_0000448\"},{\"label\":\"MS
+        Lipidomics\",\"meaning\":\"https://purl.humanatlas.io/vocab/hravs#HRAVS_0000405\"},{\"label\":\"MUSIC\",\"meaning\":\"https://purl.humanatlas.io/vocab/hravs#HRAVS_0000328\"},{\"label\":\"nanoSPLITS\",\"meaning\":\"https://purl.humanatlas.io/vocab/hravs#HRAVS_0000312\"},{\"label\":\"Olink\",\"meaning\":\"https://purl.humanatlas.io/vocab/hravs#HRAVS_0000441\"},{\"label\":\"Paired-Tag\",\"meaning\":\"https://purl.humanatlas.io/vocab/hravs#HRAVS_0000492\"},{\"label\":\"PhenoCycler\",\"meaning\":\"https://purl.humanatlas.io/vocab/hravs#HRAVS_0000199\"},{\"label\":\"Pixel-seqV2\",\"meaning\":\"https://purl.humanatlas.io/vocab/hravs#HRAVS_0000450\"},{\"label\":\"Raman
+        Imaging\",\"meaning\":\"https://purl.humanatlas.io/vocab/hravs#HRAVS_0000475\"},{\"label\":\"Resolve\",\"meaning\":\"https://purl.humanatlas.io/vocab/hravs#HRAVS_0000384\"},{\"label\":\"RNAseq\",\"meaning\":\"https://purl.humanatlas.io/vocab/hravs#HRAVS_0000310\"},{\"label\":\"RNAseq
+        (with probes)\",\"meaning\":\"https://purl.humanatlas.io/vocab/hravs#HRAVS_0000311\"},{\"label\":\"Second
+        Harmonic Generation (SHG)\",\"meaning\":\"https://purl.humanatlas.io/vocab/hravs#HRAVS_0000208\"},{\"label\":\"Seq-Scope\",\"meaning\":\"https://purl.humanatlas.io/vocab/hravs#HRAVS_0000390\"},{\"label\":\"seqFISH\",\"meaning\":\"https://purl.humanatlas.io/vocab/hravs#HRAVS_0000397\"},{\"label\":\"SIMS\",\"meaning\":\"https://purl.humanatlas.io/vocab/hravs#HRAVS_0000202\"},{\"label\":\"Singular
+        Genomics G4X\",\"meaning\":\"https://purl.humanatlas.io/vocab/hravs#HRAVS_0000429\"},{\"label\":\"SNARE-seq2\",\"meaning\":\"https://purl.humanatlas.io/vocab/hravs#HRAVS_0000264\"},{\"label\":\"snm3C-seq\",\"meaning\":\"https://purl.humanatlas.io/vocab/hravs#HRAVS_0000504\"},{\"label\":\"STARmap\",\"meaning\":\"https://purl.humanatlas.io/vocab/hravs#HRAVS_0000476\"},{\"label\":\"Stereo-seq\",\"meaning\":\"https://purl.humanatlas.io/vocab/hravs#HRAVS_0000385\"},{\"label\":\"Thick
+        section Multiphoton MxIF\",\"meaning\":\"https://purl.humanatlas.io/vocab/hravs#HRAVS_0000207\"},{\"label\":\"Virtual
+        Histology\",\"meaning\":\"https://purl.humanatlas.io/vocab/hravs#HRAVS_0000473\"},{\"label\":\"Visium
+        (no probes)\",\"meaning\":\"https://purl.humanatlas.io/vocab/hravs#HRAVS_0000302\"},{\"label\":\"Visium
+        (with probes)\",\"meaning\":\"https://purl.humanatlas.io/vocab/hravs#HRAVS_0000303\"},{\"label\":\"Visium
+        HD\",\"meaning\":\"https://purl.humanatlas.io/vocab/hravs#HRAVS_0000451\"},{\"label\":\"Whole
+        Exome Sequencing (WES)\",\"meaning\":\"https://purl.humanatlas.io/vocab/hravs#HRAVS_0000514\"},{\"label\":\"Xenium\",\"meaning\":\"https://purl.humanatlas.io/vocab/hravs#HRAVS_0000219\"}],\"regex\":null,\"min\":null,\"max\":null},\"analyte_class\":{\"example\":null,\"name\":\"analyte_class\",\"required\":true,\"description\":\"Analytes
+        are the target molecules being measured with the assay.\",\"type\":\"string\",\"subType\":null,\"label\":\"Analyte
+        class\",\"permissibleValues\":[{\"label\":\"Chromatin\",\"meaning\":\"http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C13201\"},{\"label\":\"Collagen\",\"meaning\":\"http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C16447\"},{\"label\":\"DNA\",\"meaning\":\"http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C449\"},{\"label\":\"DNA
+        + RNA\",\"meaning\":\"https://purl.humanatlas.io/vocab/hravs#HRAVS_0000327\"},{\"label\":\"Endogenous
+        fluorophore\",\"meaning\":\"https://purl.humanatlas.io/vocab/hravs#HRAVS_0000131\"},{\"label\":\"Fluorochrome\",\"meaning\":\"http://purl.obolibrary.org/obo/CHEBI_51217\"},{\"label\":\"Lipid\",\"meaning\":\"http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C616\"},{\"label\":\"Lipid
+        + metabolite\",\"meaning\":\"https://purl.humanatlas.io/vocab/hravs#HRAVS_0000401\"},{\"label\":\"Lipid
+        + metabolite + protein\",\"meaning\":\"https://purl.humanatlas.io/vocab/hravs#HRAVS_0000478\"},{\"label\":\"Metabolite\",\"meaning\":\"http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C61154\"},{\"label\":\"Nucleic
+        acid + protein\",\"meaning\":\"https://purl.humanatlas.io/vocab/hravs#HRAVS_0000273\"},{\"label\":\"Peptide\",\"meaning\":\"http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C735\"},{\"label\":\"Polysaccharide\",\"meaning\":\"http://purl.obolibrary.org/obo/CHEBI_18154\"},{\"label\":\"Protein\",\"meaning\":\"http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C17021\"},{\"label\":\"RNA\",\"meaning\":\"http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C812\"},{\"label\":\"RNA
+        + protein\",\"meaning\":\"https://purl.humanatlas.io/vocab/hravs#HRAVS_0000474\"},{\"label\":\"Saturated
+        lipid\",\"meaning\":\"https://purl.humanatlas.io/vocab/hravs#HRAVS_0000388\"},{\"label\":\"Unsaturated
+        lipid\",\"meaning\":\"https://purl.humanatlas.io/vocab/hravs#HRAVS_0000389\"}],\"regex\":null,\"min\":null,\"max\":null},\"acquisition_instrument_vendor\":{\"example\":null,\"name\":\"acquisition_instrument_vendor\",\"required\":true,\"description\":\"An
+        acquisition instrument is the device that contains the signal detection hardware
+        and signal processing software. Assays generate signals such as light of various
+        intensities or color or signals representing the molecular mass.\",\"type\":\"string\",\"subType\":null,\"label\":\"Acquisition
+        instrument vendor\",\"permissibleValues\":[{\"label\":\"10x Genomics\",\"meaning\":\"https://identifiers.org/RRID:SCR_023672\"},{\"label\":\"3DHISTECH\",\"meaning\":\"https://identifiers.org/RRID:SCR_027042\"},{\"label\":\"Akoya
+        Biosciences\",\"meaning\":\"https://identifiers.org/RRID:SCR_023774\"},{\"label\":\"Andor\",\"meaning\":\"https://identifiers.org/RRID:SCR_023609\"},{\"label\":\"BGI
+        Genomics\",\"meaning\":\"https://identifiers.org/RRID:SCR_024848\"},{\"label\":\"Bruker\",\"meaning\":\"https://identifiers.org/RRID:SCR_017365\"},{\"label\":\"Complete
+        Genomics\",\"meaning\":\"https://identifiers.org/RRID:SCR_027007\"},{\"label\":\"Cytek
+        Biosciences\",\"meaning\":\"https://identifiers.org/RRID:SCR_027071\"},{\"label\":\"Cytiva\",\"meaning\":\"https://identifiers.org/RRID:SCR_023581\"},{\"label\":\"Element
+        Biosciences\",\"meaning\":\"https://identifiers.org/RRID:SCR_026453\"},{\"label\":\"Evident
+        Scientific (Olympus)\",\"meaning\":\"https://identifiers.org/RRID:SCR_024782\"},{\"label\":\"GE
+        Healthcare\",\"meaning\":\"https://identifiers.org/RRID:SCR_025461\"},{\"label\":\"Hamamatsu\",\"meaning\":\"https://identifiers.org/RRID:SCR_017105\"},{\"label\":\"Huron
+        Digital Pathology\",\"meaning\":\"https://identifiers.org/RRID:SCR_024996\"},{\"label\":\"Illumina\",\"meaning\":\"https://identifiers.org/RRID:SCR_010233\"},{\"label\":\"In-House\",\"meaning\":\"http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C126386\"},{\"label\":\"Ionpath\",\"meaning\":\"https://identifiers.org/RRID:SCR_023605\"},{\"label\":\"Keyence\",\"meaning\":\"https://identifiers.org/RRID:SCR_023604\"},{\"label\":\"Leica
+        Biosystems\",\"meaning\":\"https://identifiers.org/RRID:SCR_023603\"},{\"label\":\"Leica
+        Microsystems\",\"meaning\":\"https://identifiers.org/RRID:SCR_008960\"},{\"label\":\"MGI
+        Tech\",\"meaning\":\"https://identifiers.org/RRID:SCR_029020\"},{\"label\":\"Microscopes
+        International\",\"meaning\":\"https://identifiers.org/RRID:SCR_027094\"},{\"label\":\"Miltenyi
+        Biotec\",\"meaning\":\"https://identifiers.org/RRID:SCR_008984\"},{\"label\":\"Motic\",\"meaning\":\"https://identifiers.org/RRID:SCR_024856\"},{\"label\":\"NanoString\",\"meaning\":\"https://identifiers.org/RRID:SCR_023912\"},{\"label\":\"Olink\",\"meaning\":\"https://identifiers.org/RRID:SCR_003899\"},{\"label\":\"Resolve
+        Biosciences\",\"meaning\":\"https://identifiers.org/RRID:SCR_023911\"},{\"label\":\"Revvity\",\"meaning\":\"https://identifiers.org/RRID:SCR_027779\"},{\"label\":\"Sciex\",\"meaning\":\"https://identifiers.org/RRID:SCR_023651\"},{\"label\":\"Singular
+        Genomics\",\"meaning\":\"https://identifiers.org/RRID:SCR_026683\"},{\"label\":\"Standard
+        BioTools (Fluidigm)\",\"meaning\":\"https://identifiers.org/RRID:SCR_023606\"},{\"label\":\"Thermo
+        Fisher Scientific\",\"meaning\":\"https://identifiers.org/RRID:SCR_008452\"},{\"label\":\"Vizgen\",\"meaning\":\"https://identifiers.org/RRID:SCR_026274\"},{\"label\":\"Waters\",\"meaning\":\"https://identifiers.org/RRID:SCR_024589\"},{\"label\":\"Zeiss
+        Microscopy\",\"meaning\":\"https://identifiers.org/RRID:SCR_023607\"}],\"regex\":null,\"min\":null,\"max\":null},\"acquisition_instrument_model\":{\"example\":null,\"name\":\"acquisition_instrument_model\",\"required\":true,\"description\":\"Manufacturers
+        of an acquisition instrument may offer various versions (models) of that instrument
+        with different features or sensitivities. Differences in features or sensitivities
+        may be relevant to processing or interpretation of the data.\",\"type\":\"string\",\"subType\":null,\"label\":\"Acquisition
+        instrument model\",\"permissibleValues\":[{\"label\":\"Aperio AT2\",\"meaning\":\"https://identifiers.org/RRID:SCR_021256\"},{\"label\":\"Aperio
+        CS2\",\"meaning\":\"https://identifiers.org/RRID:SCR_025111\"},{\"label\":\"AVITI24\",\"meaning\":\"https://identifiers.org/RRID:SCR_026452\"},{\"label\":\"Axio
+        Observer 3\",\"meaning\":\"https://identifiers.org/RRID:SCR_023693\"},{\"label\":\"Axio
+        Observer 5\",\"meaning\":\"https://identifiers.org/RRID:SCR_023692\"},{\"label\":\"Axio
+        Observer 7\",\"meaning\":\"https://identifiers.org/RRID:SCR_023694\"},{\"label\":\"Axio
+        Scan.Z1\",\"meaning\":\"https://identifiers.org/RRID:SCR_020927\"},{\"label\":\"Axio
+        Zoom.V16\",\"meaning\":\"https://identifiers.org/RRID:SCR_027090\"},{\"label\":\"Biomark
+        HD\",\"meaning\":\"https://identifiers.org/RRID:SCR_022658\"},{\"label\":\"BZ-X710\",\"meaning\":\"https://identifiers.org/RRID:SCR_017202\"},{\"label\":\"BZ-X800\",\"meaning\":\"https://identifiers.org/RRID:SCR_023617\"},{\"label\":\"BZ-X810\",\"meaning\":\"https://identifiers.org/RRID:SCR_025160\"},{\"label\":\"Cell
+        DIVE\",\"meaning\":\"https://identifiers.org/RRID:SCR_027323\"},{\"label\":\"CosMx
+        Spatial Molecular Imager\",\"meaning\":\"https://identifiers.org/RRID:SCR_023909\"},{\"label\":\"Custom:
+        Multiphoton\",\"meaning\":\"https://purl.humanatlas.io/vocab/hravs#HRAVS_0000317\"},{\"label\":\"Cytek
+        Northern Lights\",\"meaning\":\"https://identifiers.org/RRID:SCR_027072\"},{\"label\":\"CyTOF
+        2\",\"meaning\":\"https://identifiers.org/RRID:SCR_026551\"},{\"label\":\"CyTOF
+        XT\",\"meaning\":\"https://identifiers.org/RRID:SCR_026344\"},{\"label\":\"Digital
+        Spatial Profiler\",\"meaning\":\"https://identifiers.org/RRID:SCR_021660\"},{\"label\":\"DM6
+        B\",\"meaning\":\"https://identifiers.org/RRID:SCR_024857\"},{\"label\":\"DMi8\",\"meaning\":\"https://identifiers.org/RRID:SCR_026672\"},{\"label\":\"DNBSEQ-T7\",\"meaning\":\"https://identifiers.org/RRID:SCR_024847\"},{\"label\":\"EVOS
+        M7000\",\"meaning\":\"https://identifiers.org/RRID:SCR_025070\"},{\"label\":\"G4X
+        Spatial Sequencer\",\"meaning\":\"https://identifiers.org/RRID:SCR_026684\"},{\"label\":\"Helios\",\"meaning\":\"https://identifiers.org/RRID:SCR_019916\"},{\"label\":\"HiSeq
+        2500\",\"meaning\":\"https://identifiers.org/RRID:SCR_016383\"},{\"label\":\"HiSeq
+        4000\",\"meaning\":\"https://identifiers.org/RRID:SCR_016386\"},{\"label\":\"Hyperion
+        Imaging System\",\"meaning\":\"https://identifiers.org/RRID:SCR_023195\"},{\"label\":\"IN
+        Cell Analyzer 2200\",\"meaning\":\"https://identifiers.org/RRID:SCR_023616\"},{\"label\":\"In-House\",\"meaning\":\"http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C126386\"},{\"label\":\"iScan
+        System\",\"meaning\":\"https://identifiers.org/RRID:SCR_016388\"},{\"label\":\"Juno
+        System\",\"meaning\":\"https://identifiers.org/RRID:SCR_027198\"},{\"label\":\"Lightsheet
+        7\",\"meaning\":\"https://identifiers.org/RRID:SCR_024448\"},{\"label\":\"LSM
+        710 Confocal Microscope\",\"meaning\":\"https://identifiers.org/RRID:SCR_018063\"},{\"label\":\"MACSima
+        System\",\"meaning\":\"https://identifiers.org/RRID:SCR_027923\"},{\"label\":\"MALDI
+        timsTOF Flex Prototype\",\"meaning\":\"https://purl.humanatlas.io/vocab/hravs#HRAVS_0000433\"},{\"label\":\"MERSCOPE\",\"meaning\":\"https://purl.humanatlas.io/vocab/hravs#HRAVS_0000404\"},{\"label\":\"MERSCOPE
+        Ultra\",\"meaning\":\"https://identifiers.org/RRID:SCR_026273\"},{\"label\":\"MIBIscope\",\"meaning\":\"https://identifiers.org/RRID:SCR_023613\"},{\"label\":\"MoticEasyScan
+        One\",\"meaning\":\"https://identifiers.org/RRID:SCR_024855\"},{\"label\":\"NanoZoomer
+        2.0-HT\",\"meaning\":\"https://identifiers.org/RRID:SCR_021658\"},{\"label\":\"NanoZoomer
+        2.0-RS\",\"meaning\":\"https://identifiers.org/RRID:SCR_028001\"},{\"label\":\"NanoZoomer
+        S210\",\"meaning\":\"https://identifiers.org/RRID:SCR_023760\"},{\"label\":\"NanoZoomer
+        S360\",\"meaning\":\"https://identifiers.org/RRID:SCR_023761\"},{\"label\":\"NanoZoomer
+        S60\",\"meaning\":\"https://identifiers.org/RRID:SCR_023762\"},{\"label\":\"NanoZoomer-SQ\",\"meaning\":\"https://identifiers.org/RRID:SCR_023763\"},{\"label\":\"NextSeq
+        2000\",\"meaning\":\"https://identifiers.org/RRID:SCR_023614\"},{\"label\":\"NextSeq
+        500\",\"meaning\":\"https://identifiers.org/RRID:SCR_014983\"},{\"label\":\"NextSeq
+        550\",\"meaning\":\"https://identifiers.org/RRID:SCR_016381\"},{\"label\":\"Not
+        applicable\",\"meaning\":\"http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C48660\"},{\"label\":\"NovaSeq
+        6000\",\"meaning\":\"https://identifiers.org/RRID:SCR_016387\"},{\"label\":\"NovaSeq
+        X\",\"meaning\":\"https://identifiers.org/RRID:SCR_024569\"},{\"label\":\"NovaSeq
+        X Plus\",\"meaning\":\"https://identifiers.org/RRID:SCR_024568\"},{\"label\":\"Olink
+        Signature Q100\",\"meaning\":\"https://identifiers.org/RRID:SCR_028906\"},{\"label\":\"Opera
+        Phenix HCS\",\"meaning\":\"https://identifiers.org/RRID:SCR_027817\"},{\"label\":\"Opera
+        Phenix Plus HCS\",\"meaning\":\"https://identifiers.org/RRID:SCR_027780\"},{\"label\":\"Orbitrap
+        Astral\",\"meaning\":\"https://identifiers.org/RRID:SCR_028684\"},{\"label\":\"Orbitrap
+        Eclipse Tribrid\",\"meaning\":\"https://identifiers.org/RRID:SCR_023618\"},{\"label\":\"Orbitrap
+        Fusion Lumos Tribrid\",\"meaning\":\"https://identifiers.org/RRID:SCR_020562\"},{\"label\":\"Orbitrap
+        Fusion Tribrid\",\"meaning\":\"https://identifiers.org/RRID:SCR_020559\"},{\"label\":\"Pannoramic
+        MIDI II Digital Scanner\",\"meaning\":\"https://identifiers.org/RRID:SCR_024834\"},{\"label\":\"Panoramic
+        150 Digital Scanner\",\"meaning\":\"https://identifiers.org/RRID:SCR_027467\"},{\"label\":\"Phenocycler-Fusion
+        1.0\",\"meaning\":\"https://purl.humanatlas.io/vocab/hravs#HRAVS_0000316\"},{\"label\":\"Phenocycler-Fusion
+        2.0\",\"meaning\":\"https://identifiers.org/RRID:SCR_023773\"},{\"label\":\"PhenoImager
+        Fusion\",\"meaning\":\"https://identifiers.org/RRID:SCR_023274\"},{\"label\":\"Q
+        Exactive\",\"meaning\":\"https://identifiers.org/RRID:SCR_020565\"},{\"label\":\"Q
+        Exactive HF\",\"meaning\":\"https://identifiers.org/RRID:SCR_020558\"},{\"label\":\"Q
+        Exactive HF-X\",\"meaning\":\"https://identifiers.org/RRID:SCR_020564\"},{\"label\":\"Q
+        Exactive UHMR\",\"meaning\":\"https://identifiers.org/RRID:SCR_020571\"},{\"label\":\"QTRAP
+        5500\",\"meaning\":\"https://identifiers.org/RRID:SCR_020517\"},{\"label\":\"Resolve
+        Biosciences Molecular Cartography\",\"meaning\":\"https://identifiers.org/RRID:SCR_024449\"},{\"label\":\"SCN400\",\"meaning\":\"https://identifiers.org/RRID:SCR_023611\"},{\"label\":\"solariX\",\"meaning\":\"https://identifiers.org/RRID:SCR_027095\"},{\"label\":\"STELLARIS
+        5\",\"meaning\":\"https://identifiers.org/RRID:SCR_024663\"},{\"label\":\"SYNAPT
+        G2-Si\",\"meaning\":\"https://identifiers.org/RRID:SCR_027782\"},{\"label\":\"SYNAPT
+        XS\",\"meaning\":\"https://identifiers.org/RRID:SCR_026524\"},{\"label\":\"timsTOF
+        FleX\",\"meaning\":\"https://identifiers.org/RRID:SCR_026925\"},{\"label\":\"timsTOF
+        FleX MALDI-2\",\"meaning\":\"https://identifiers.org/RRID:SCR_023615\"},{\"label\":\"timsTOF
+        HT\",\"meaning\":\"https://identifiers.org/RRID:SCR_026543\"},{\"label\":\"timsTOF
+        Pro\",\"meaning\":\"https://identifiers.org/RRID:SCR_026544\"},{\"label\":\"timsTOF
+        Pro 2\",\"meaning\":\"https://identifiers.org/RRID:SCR_026545\"},{\"label\":\"timsTOF
+        SCP\",\"meaning\":\"https://identifiers.org/RRID:SCR_026542\"},{\"label\":\"timsTOF
+        Ultra\",\"meaning\":\"https://identifiers.org/RRID:SCR_026540\"},{\"label\":\"timsTOF
+        Ultra 2\",\"meaning\":\"https://identifiers.org/RRID:SCR_026541\"},{\"label\":\"TissueScope
+        LE Slide Scanner\",\"meaning\":\"https://identifiers.org/RRID:SCR_024995\"},{\"label\":\"Unknown\",\"meaning\":\"http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C17998\"},{\"label\":\"uScopeHXII-20\",\"meaning\":\"https://identifiers.org/RRID:SCR_027101\"},{\"label\":\"VS200
+        Slide Scanner\",\"meaning\":\"https://identifiers.org/RRID:SCR_024783\"},{\"label\":\"Xenium
+        Analyzer\",\"meaning\":\"https://identifiers.org/RRID:SCR_023910\"},{\"label\":\"Zeiss
+        LightSheet Z.1\",\"meaning\":\"https://identifiers.org/RRID:SCR_020919\"},{\"label\":\"Zyla
+        4.2 sCMOS\",\"meaning\":\"https://identifiers.org/RRID:SCR_023610\"}],\"regex\":null,\"min\":null,\"max\":null},\"source_storage_duration_unit\":{\"example\":null,\"name\":\"source_storage_duration_unit\",\"required\":true,\"description\":\"The
+        time duration unit of measurement\",\"type\":\"string\",\"subType\":null,\"label\":\"Source
+        storage duration unit\",\"permissibleValues\":[{\"label\":\"day\",\"meaning\":\"http://purl.obolibrary.org/obo/UO_0000033\"},{\"label\":\"hour\",\"meaning\":\"http://purl.obolibrary.org/obo/UO_0000032\"},{\"label\":\"minute\",\"meaning\":\"http://purl.obolibrary.org/obo/UO_0000031\"},{\"label\":\"month\",\"meaning\":\"http://purl.obolibrary.org/obo/UO_0000035\"},{\"label\":\"year\",\"meaning\":\"http://purl.obolibrary.org/obo/UO_0000036\"}],\"regex\":null,\"min\":null,\"max\":null},\"time_since_acquisition_instrument_calibration_unit\":{\"example\":null,\"name\":\"time_since_acquisition_instrument_calibration_unit\",\"required\":false,\"description\":\"The
+        time unit of measurement\",\"type\":\"string\",\"subType\":null,\"label\":\"Time
+        since acquisition instrument calibration unit\",\"permissibleValues\":[{\"label\":\"day\",\"meaning\":\"http://purl.obolibrary.org/obo/UO_0000033\"},{\"label\":\"month\",\"meaning\":\"http://purl.obolibrary.org/obo/UO_0000035\"},{\"label\":\"year\",\"meaning\":\"http://purl.obolibrary.org/obo/UO_0000036\"}],\"regex\":null,\"min\":null,\"max\":null},\"stain_name\":{\"example\":null,\"name\":\"stain_name\",\"required\":true,\"description\":\"The
+        name of the chemical stains (dyes) applied to histology samples to highlight
+        important features of the tissue as well as to enhance the tissue contrast.\",\"type\":\"string\",\"subType\":null,\"label\":\"Stain
+        name\",\"permissibleValues\":[{\"label\":\"AB-PAS\",\"meaning\":\"http://purl.bioontology.org/ontology/LNC/LP6121-0\"},{\"label\":\"Fluorophores\",\"meaning\":\"https://purl.humanatlas.io/vocab/hravs#HRAVS_0000489\"},{\"label\":\"H&E\",\"meaning\":\"http://purl.bioontology.org/ontology/LNC/LP6310-9\"},{\"label\":\"H-DAB\",\"meaning\":\"https://purl.humanatlas.io/vocab/hravs#HRAVS_0000329\"},{\"label\":\"LFB\",\"meaning\":\"http://purl.bioontology.org/ontology/LNC/LP6368-7\"},{\"label\":\"PAS\",\"meaning\":\"http://purl.bioontology.org/ontology/LNC/LP6443-8\"},{\"label\":\"SBB\",\"meaning\":\"http://purl.bioontology.org/ontology/LNC/LP6537-7\"},{\"label\":\"Trichrome\",\"meaning\":\"http://purl.bioontology.org/ontology/LNC/LP6562-5\"}],\"regex\":null,\"min\":null,\"max\":null},\"stain_technique\":{\"example\":null,\"name\":\"stain_technique\",\"required\":false,\"description\":\"There
+        are typically three types of stains: progressive, modified progressive, and
+        regressive. Progressive staining occurs when the hematoxylin is added to the
+        tissue without being followed by a differentiator to remove excess dye. With
+        regressive and modified progressive staining, a differentiator is used.\",\"type\":\"string\",\"subType\":null,\"label\":\"Stain
+        technique\",\"permissibleValues\":[{\"label\":\"Modified progressive staining\",\"meaning\":\"https://purl.humanatlas.io/vocab/hravs#HRAVS_0000113\"},{\"label\":\"Not
+        applicable\",\"meaning\":\"http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C48660\"},{\"label\":\"Progressive
+        staining\",\"meaning\":\"https://purl.humanatlas.io/vocab/hravs#HRAVS_0000143\"},{\"label\":\"Regressive
+        staining\",\"meaning\":\"https://purl.humanatlas.io/vocab/hravs#HRAVS_0000103\"}],\"regex\":null,\"min\":null,\"max\":null},\"preparation_instrument_vendor\":{\"example\":null,\"name\":\"preparation_instrument_vendor\",\"required\":false,\"description\":\"The
+        manufacturer of the instrument used to prepare (staining/processing) the sample
+        for the assay. If an automatic slide staining method was indicated this field
+        should list the manufacturer of the instrument.\",\"type\":\"string\",\"subType\":null,\"label\":\"Preparation
+        instrument vendor\",\"permissibleValues\":[{\"label\":\"10x Genomics\",\"meaning\":\"https://identifiers.org/RRID:SCR_023672\"},{\"label\":\"Akoya
+        Biosciences\",\"meaning\":\"https://identifiers.org/RRID:SCR_023774\"},{\"label\":\"Hamamatsu\",\"meaning\":\"https://identifiers.org/RRID:SCR_017105\"},{\"label\":\"HTX
+        Technologies\",\"meaning\":\"https://identifiers.org/RRID:SCR_023734\"},{\"label\":\"In-House\",\"meaning\":\"http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C126386\"},{\"label\":\"Ionpath\",\"meaning\":\"https://identifiers.org/RRID:SCR_023605\"},{\"label\":\"Leica
+        Biosystems\",\"meaning\":\"https://identifiers.org/RRID:SCR_023603\"},{\"label\":\"Not
+        applicable\",\"meaning\":\"http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C48660\"},{\"label\":\"Roche
+        Diagnostics\",\"meaning\":\"https://identifiers.org/RRID:SCR_025096\"},{\"label\":\"SunChrom\",\"meaning\":\"https://identifiers.org/RRID:SCR_023908\"},{\"label\":\"Thermo
+        Fisher Scientific\",\"meaning\":\"https://identifiers.org/RRID:SCR_008452\"}],\"regex\":null,\"min\":null,\"max\":null},\"preparation_instrument_model\":{\"example\":null,\"name\":\"preparation_instrument_model\",\"required\":false,\"description\":\"Manufacturers
+        of a staining system instrument may offer various versions (models) of that
+        instrument with different features. Differences in features or sensitivities
+        may be relevant to processing or interpretation of the data.\",\"type\":\"string\",\"subType\":null,\"label\":\"Preparation
+        instrument model\",\"permissibleValues\":[{\"label\":\"AutoStainer XL\",\"meaning\":\"https://identifiers.org/RRID:SCR_023957\"},{\"label\":\"Chromium
+        Connect\",\"meaning\":\"https://identifiers.org/RRID:SCR_025146\"},{\"label\":\"Chromium
+        Controller\",\"meaning\":\"https://identifiers.org/RRID:SCR_019326\"},{\"label\":\"Chromium
+        iX\",\"meaning\":\"https://identifiers.org/RRID:SCR_024536\"},{\"label\":\"Chromium
+        X\",\"meaning\":\"https://identifiers.org/RRID:SCR_024537\"},{\"label\":\"Custom\",\"meaning\":\"http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C65167\"},{\"label\":\"Discovery
+        Ultra\",\"meaning\":\"https://identifiers.org/RRID:SCR_025097\"},{\"label\":\"EVOS
+        M7000\",\"meaning\":\"https://identifiers.org/RRID:SCR_025070\"},{\"label\":\"M3+
+        Sprayer\",\"meaning\":\"https://identifiers.org/RRID:SCR_023731\"},{\"label\":\"M5
+        Sprayer\",\"meaning\":\"https://identifiers.org/RRID:SCR_023733\"},{\"label\":\"NanoZoomer
+        S210\",\"meaning\":\"https://identifiers.org/RRID:SCR_023760\"},{\"label\":\"NanoZoomer
+        S360\",\"meaning\":\"https://identifiers.org/RRID:SCR_023761\"},{\"label\":\"NanoZoomer
+        S60\",\"meaning\":\"https://identifiers.org/RRID:SCR_023762\"},{\"label\":\"Not
+        applicable\",\"meaning\":\"http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C48660\"},{\"label\":\"ST5020
+        Multistainer\",\"meaning\":\"https://identifiers.org/RRID:SCR_025021\"},{\"label\":\"Sublimator\",\"meaning\":\"https://identifiers.org/RRID:SCR_023729\"},{\"label\":\"SunCollect
+        Sprayer\",\"meaning\":\"https://identifiers.org/RRID:SCR_023907\"},{\"label\":\"TM-Sprayer\",\"meaning\":\"https://identifiers.org/RRID:SCR_023732\"},{\"label\":\"Visium
+        CytAssist\",\"meaning\":\"https://identifiers.org/RRID:SCR_024570\"}],\"regex\":null,\"min\":null,\"max\":null},\"tile_configuration\":{\"example\":null,\"name\":\"tile_configuration\",\"required\":false,\"description\":\"This
+        is how the tiles are configured for stitching.\",\"type\":\"string\",\"subType\":null,\"label\":\"Tile
+        configuration\",\"permissibleValues\":[{\"label\":\"Column-by-column\",\"meaning\":\"https://purl.humanatlas.io/vocab/hravs#HRAVS_0000133\"},{\"label\":\"Not
+        applicable\",\"meaning\":\"http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C48660\"},{\"label\":\"Row-by-row\",\"meaning\":\"https://purl.humanatlas.io/vocab/hravs#HRAVS_0000138\"},{\"label\":\"Snake-by-columns\",\"meaning\":\"https://purl.humanatlas.io/vocab/hravs#HRAVS_0000110\"},{\"label\":\"Snake-by-rows\",\"meaning\":\"https://purl.humanatlas.io/vocab/hravs#HRAVS_0000122\"}],\"regex\":null,\"min\":null,\"max\":null},\"scan_direction\":{\"example\":null,\"name\":\"scan_direction\",\"required\":false,\"description\":\"This
+        is the direction of imaging, which is required for stitching.\",\"type\":\"string\",\"subType\":null,\"label\":\"Scan
+        direction\",\"permissibleValues\":[{\"label\":\"Left-and-down\",\"meaning\":\"https://purl.humanatlas.io/vocab/hravs#HRAVS_0000108\"},{\"label\":\"Left-and-up\",\"meaning\":\"https://purl.humanatlas.io/vocab/hravs#HRAVS_0000111\"},{\"label\":\"Not
+        applicable\",\"meaning\":\"http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C48660\"},{\"label\":\"Right-and-down\",\"meaning\":\"https://purl.humanatlas.io/vocab/hravs#HRAVS_0000137\"},{\"label\":\"Right-and-up\",\"meaning\":\"https://purl.humanatlas.io/vocab/hravs#HRAVS_0000141\"}],\"regex\":null,\"min\":null,\"max\":null},\"preparation_protocol_doi\":{\"example\":\"https://dx.doi.org/10.17504/protocols.io.eq2lyno9qvx9/v1\",\"name\":\"preparation_protocol_doi\",\"required\":true,\"description\":\"DOI
+        for the protocols.io page that describes the assay or sample procurment and
+        preparation. For example for an imaging assay, the protocol might include
+        staining of a section through the creation of an OME-TIFF file. In this case
+        the protocol would include any image processing steps required to create the
+        OME-TIFF file. \",\"type\":\"url\",\"subType\":null,\"label\":\"Preparation
+        protocol DOI\",\"permissibleValues\":[],\"regex\":null,\"min\":null,\"max\":null},\"is_targeted\":{\"example\":null,\"name\":\"is_targeted\",\"required\":true,\"description\":\"Specifies
+        whether or not a specific molecule(s) is/are targeted for detection/measurement
+        by the assay (\\\"Yes\\\" or \\\"No\\\"). The CODEX analyte is protein.\",\"type\":\"string\",\"subType\":null,\"label\":\"Is
+        targeted?\",\"permissibleValues\":[{\"label\":\"Yes\",\"meaning\":null},{\"label\":\"No\",\"meaning\":null}],\"regex\":null,\"min\":null,\"max\":null},\"parent_sample_id\":{\"example\":\"HBM386.ZGKG.235,
+        HBM672.MKPK.442 or SNT232.UBHJ.322, SNT329.ALSK.102\",\"name\":\"parent_sample_id\",\"required\":true,\"description\":\"Unique
+        HuBMAP or SenNet identifier of the sample (i.e., block, section or suspension)
+        used to perform this assay. For example, for a RNAseq assay, the parent would
+        be the suspension, whereas, for one of the imaging assays, the parent would
+        be the tissue section. If an assay comes from multiple parent samples then
+        this should be a comma separated list. \",\"type\":\"string\",\"subType\":null,\"label\":\"Parent
+        sample ID\",\"permissibleValues\":[],\"regex\":\"^(?:HBM|SNT)\\\\d{3}\\\\.[A-Z]{4}\\\\.\\\\d{3}(?:,\\\\s*(?:HBM|SNT)\\\\d{3}\\\\.[A-Z]{4}\\\\.\\\\d{3})*$\",\"min\":null,\"max\":null}},\"requiredColumns\":[\"source_storage_duration_value\",\"contributors_path\",\"data_path\",\"is_batch_staining_done\",\"is_staining_automated\",\"metadata_schema_id\",\"dataset_type\",\"analyte_class\",\"acquisition_instrument_vendor\",\"acquisition_instrument_model\",\"source_storage_duration_unit\",\"stain_name\",\"preparation_protocol_doi\",\"is_targeted\",\"parent_sample_id\"],\"columnOrder\":[\"parent_sample_id\",\"lab_id\",\"preparation_protocol_doi\",\"dataset_type\",\"analyte_class\",\"is_targeted\",\"acquisition_instrument_vendor\",\"acquisition_instrument_model\",\"source_storage_duration_value\",\"source_storage_duration_unit\",\"time_since_acquisition_instrument_calibration_value\",\"time_since_acquisition_instrument_calibration_unit\",\"contributors_path\",\"data_path\",\"is_image_preprocessing_required\",\"stain_name\",\"stain_technique\",\"is_batch_staining_done\",\"is_staining_automated\",\"preparation_instrument_vendor\",\"preparation_instrument_model\",\"slide_id\",\"tile_configuration\",\"scan_direction\",\"tiled_image_columns\",\"tiled_image_count\",\"intended_tile_overlap_percentage\",\"metadata_schema_id\"],\"generatedFrom\":\"Optional[https://repo.metadatacenter.org/templates/e7475329-9a60-4088-8e34-19a3828e0b3b]\",\"accessUrl\":\"https://openview.metadatacenter.org/templates/https%3A%2F%2Frepo.metadatacenter.org%2Ftemplates%2Fe7475329-9a60-4088-8e34-19a3828e0b3b\"},\"data\":[{\"rowNumber\":0,\"dataset_type\":\"Histology\",\"acquisition_instrument_model\":\"Axio
+        Observer 7\",\"tile_configuration\":\"Snake-by-rows\",\"metadata_schema_id\":\"e7475329-9a60-4088-8e34-19a3828e0b3b\",\"tiled_image_count\":120,\"parent_sample_id\":\"HBM749.QJZK.937\",\"preparation_instrument_model\":\"SunCollect
+        Sprayer\",\"slide_id\":\"V11A19-078\",\"data_path\":\"./dataset-1\",\"acquisition_instrument_vendor\":\"Zeiss
+        Microscopy\",\"preparation_protocol_doi\":\"https://dx.doi.org/10.17504/protocols.io.eq2lyno9qvx9/v1\",\"is_batch_staining_done\":\"Yes\",\"is_image_preprocessing_required\":\"Yes\",\"lab_id\":\"Visium_9OLC_A4_S1\",\"analyte_class\":\"DNA\",\"source_storage_duration_value\":24,\"stain_name\":\"H&E\",\"stain_technique\":\"Progressive
+        staining\",\"time_since_acquisition_instrument_calibration_value\":\"\",\"contributors_path\":\"./contributors.tsv\",\"preparation_instrument_vendor\":\"HTX
+        Technologies\",\"tiled_image_columns\":10,\"is_staining_automated\":\"No\",\"time_since_acquisition_instrument_calibration_unit\":\"\",\"source_storage_duration_unit\":\"day\",\"intended_tile_overlap_percentage\":30,\"is_targeted\":\"No\",\"scan_direction\":\"Right-and-down\"},{\"rowNumber\":1,\"dataset_type\":\"Histology\",\"acquisition_instrument_model\":\"Axio
+        Observer 7\",\"tile_configuration\":\"Snake-by-rows\",\"metadata_schema_id\":\"e7475329-9a60-4088-8e34-19a3828e0b3b\",\"tiled_image_count\":120,\"parent_sample_id\":\"HBM733.HSZF.798\",\"preparation_instrument_model\":\"SunCollect
+        Sprayer\",\"slide_id\":\"V11A19-078\",\"data_path\":\"./dataset-2\",\"acquisition_instrument_vendor\":\"Zeiss
+        Microscopy\",\"preparation_protocol_doi\":\"https://dx.doi.org/10.17504/protocols.io.eq2lyno9qvx9/v1\",\"is_batch_staining_done\":\"Yes\",\"is_image_preprocessing_required\":\"Yes\",\"lab_id\":\"Visium_9OLC_A4_S2\",\"analyte_class\":\"DNA\",\"source_storage_duration_value\":24,\"stain_name\":\"H&E\",\"stain_technique\":\"Progressive
+        staining\",\"time_since_acquisition_instrument_calibration_value\":\"\",\"contributors_path\":\"\",\"preparation_instrument_vendor\":\"HTX
+        Technologies\",\"tiled_image_columns\":10,\"is_staining_automated\":\"No\",\"time_since_acquisition_instrument_calibration_unit\":\"\",\"source_storage_duration_unit\":\"day\",\"intended_tile_overlap_percentage\":30,\"is_targeted\":\"No\",\"scan_direction\":\"Right-and-down\"}],\"reporting\":[{\"errorType\":\"missingRequired\",\"column\":\"contributors_path\",\"row\":1,\"value\":\"\"}]}"
+    headers: {}
+    status:
+      code: 200
+      message: OK
+- request:
+    body: '{"donor_id": "UCSD0002", "tissue_id": "UCSD0002-RK-1-1-1", "execution_datetime":
+      "2019-05-29 11:00", "protocols_io_doi": "10.17504/protocols.io.menc3de", "operator":
+      "Nongluk Plongthongkum", "operator_email": "nplongth@eng.ucsd.edu", "pi": "Kun
+      Zhang", "pi_email": "kzhang@eng.ucsd.edu", "assay_category": "sequence", "assay_type":
+      "SNARE-seq2", "analyte_class": "DNA", "is_targeted": "FALSE", "acquisition_instrument_vendor":
+      "Illumina", "acquisition_instrument_model": "NovaSeq", "is_technical_replicate":
+      "TRUE", "library_id": "KC9", "sc_isolation_protocols_io_doi": "10.17504/protocols.io.menc3de",
+      "sc_isolation_entity": "nucleus", "sc_isolation_tissue_dissociation": "dounce",
+      "sc_isolation_enrichment": "none", "sc_isolation_quality_metric": "low clump",
+      "sc_isolation_cell_number": "425000", "transposition_input": "4000", "transposition_method":
+      "SNARE-Seq2-AC", "transposition_transposase_source": "In-house", "transposition_kit_number":
+      "", "library_construction_protocols_io_doi": "10.17504/protocols.io.menc3de",
+      "library_layout": "paired-end", "library_adapter_sequence": "CTGTCTCTTATACACATCT+AGATGTGTATAAGAGACAG",
+      "cell_barcode_read": "R2", "cell_barcode_offset": "0,38,76", "cell_barcode_size":
+      "8,8,8", "library_pcr_cycles": "9", "library_pcr_cycles_for_sample_index": "9",
+      "library_final_yield": "2868", "library_final_yield_unit": "ng", "library_average_fragment_size":
+      "650", "sequencing_reagent_kit": "NovaSeq 6000 S4 Reagent", "sequencing_read_format":
+      "75/94/8/75", "sequencing_read_percent_q30": "91.05", "sequencing_phix_percent":
+      "20", "contributors_path": "contributors.tsv", "data_path": "dataset-1"}'
+    headers: {}
+    method: POST
+    uri: https://ingest.api.hubmapconsortium.org/assaytype
+  response:
+    body:
+      string: '{"assaytype":"SNARE-ATACseq2","contains-pii":true,"dataset-type":"ATACseq","description":"snATACseq
+        (SNARE-seq2)","dir-schema":"scatacseq-v0","is-multi-assay":null,"must-contain":null,"pipeline-shorthand":null,"primary":true,"process_state":"primary","tbl-schema":"scatacseq-v0","ubkg_code":"C200420","vitessce-hints":[]}
+
+        '
+    headers: {}
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers: {}
+    method: GET
+    uri: https://pub.orcid.org/v3.0/0000-0003-4039-9768
+  response:
+    body:
+      string: "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>\n<record:record
+        path=\"/0000-0003-4039-9768\" xmlns:internal=\"http://www.orcid.org/ns/internal\"
+        xmlns:education=\"http://www.orcid.org/ns/education\" xmlns:distinction=\"http://www.orcid.org/ns/distinction\"
+        xmlns:deprecated=\"http://www.orcid.org/ns/deprecated\" xmlns:other-name=\"http://www.orcid.org/ns/other-name\"
+        xmlns:membership=\"http://www.orcid.org/ns/membership\" xmlns:error=\"http://www.orcid.org/ns/error\"
+        xmlns:common=\"http://www.orcid.org/ns/common\" xmlns:record=\"http://www.orcid.org/ns/record\"
+        xmlns:personal-details=\"http://www.orcid.org/ns/personal-details\" xmlns:keyword=\"http://www.orcid.org/ns/keyword\"
+        xmlns:email=\"http://www.orcid.org/ns/email\" xmlns:external-identifier=\"http://www.orcid.org/ns/external-identifier\"
+        xmlns:funding=\"http://www.orcid.org/ns/funding\" xmlns:preferences=\"http://www.orcid.org/ns/preferences\"
+        xmlns:address=\"http://www.orcid.org/ns/address\" xmlns:invited-position=\"http://www.orcid.org/ns/invited-position\"
+        xmlns:work=\"http://www.orcid.org/ns/work\" xmlns:history=\"http://www.orcid.org/ns/history\"
+        xmlns:employment=\"http://www.orcid.org/ns/employment\" xmlns:qualification=\"http://www.orcid.org/ns/qualification\"
+        xmlns:service=\"http://www.orcid.org/ns/service\" xmlns:person=\"http://www.orcid.org/ns/person\"
+        xmlns:activities=\"http://www.orcid.org/ns/activities\" xmlns:researcher-url=\"http://www.orcid.org/ns/researcher-url\"
+        xmlns:peer-review=\"http://www.orcid.org/ns/peer-review\" xmlns:bulk=\"http://www.orcid.org/ns/bulk\"
+        xmlns:research-resource=\"http://www.orcid.org/ns/research-resource\">\n    <common:orcid-identifier>\n
+        \       <common:uri>https://orcid.org/0000-0003-4039-9768</common:uri>\n        <common:path>0000-0003-4039-9768</common:path>\n
+        \       <common:host>orcid.org</common:host>\n    </common:orcid-identifier>\n
+        \   <preferences:preferences>\n        <preferences:locale>en</preferences:locale>\n
+        \   </preferences:preferences>\n    <history:history>\n        <history:creation-method>Direct</history:creation-method>\n
+        \       <history:submission-date>2017-03-29T00:58:43.867Z</history:submission-date>\n
+        \       <common:last-modified-date>2024-08-04T01:23:57.966Z</common:last-modified-date>\n
+        \       <history:claimed>true</history:claimed>\n        <history:verified-email>true</history:verified-email>\n
+        \       <history:verified-primary-email>true</history:verified-primary-email>\n
+        \   </history:history>\n    <person:person path=\"/0000-0003-4039-9768/person\">\n
+        \       <common:last-modified-date>2017-03-29T13:41:01.812Z</common:last-modified-date>\n
+        \       <person:name visibility=\"public\" path=\"0000-0003-4039-9768\">\n
+        \           <common:created-date>2017-03-29T00:58:43.867Z</common:created-date>\n
+        \           <common:last-modified-date>2017-03-29T00:58:44.095Z</common:last-modified-date>\n
+        \           <personal-details:given-names>Chuck</personal-details:given-names>\n
+        \           <personal-details:family-name>McCallum</personal-details:family-name>\n
+        \       </person:name>\n        <other-name:other-names path=\"/0000-0003-4039-9768/other-names\"/>\n
+        \       <researcher-url:researcher-urls path=\"/0000-0003-4039-9768/researcher-urls\">\n
+        \           <common:last-modified-date>2017-03-29T13:41:01.812Z</common:last-modified-date>\n
+        \           <researcher-url:researcher-url put-code=\"1094301\" visibility=\"public\"
+        path=\"/0000-0003-4039-9768/researcher-urls/1094301\" display-index=\"1\">\n
+        \               <common:created-date>2017-03-29T13:41:01.812Z</common:created-date>\n
+        \               <common:last-modified-date>2017-03-29T13:41:01.812Z</common:last-modified-date>\n
+        \               <common:source>\n                    <common:source-orcid>\n
+        \                       <common:uri>https://orcid.org/0000-0003-4039-9768</common:uri>\n
+        \                       <common:path>0000-0003-4039-9768</common:path>\n                        <common:host>orcid.org</common:host>\n
+        \                   </common:source-orcid>\n                    <common:source-name>Chuck
+        McCallum</common:source-name>\n                </common:source>\n                <researcher-url:url-name>personal
+        page</researcher-url:url-name>\n                <researcher-url:url>http://mccalluc.github.io/</researcher-url:url>\n
+        \           </researcher-url:researcher-url>\n        </researcher-url:researcher-urls>\n
+        \       <email:emails path=\"/0000-0003-4039-9768/email\"/>\n        <address:addresses
+        path=\"/0000-0003-4039-9768/address\"/>\n        <keyword:keywords path=\"/0000-0003-4039-9768/keywords\"/>\n
+        \       <external-identifier:external-identifiers path=\"/0000-0003-4039-9768/external-identifiers\"/>\n
+        \   </person:person>\n    <activities:activities-summary path=\"/0000-0003-4039-9768/activities\">\n
+        \       <common:last-modified-date>2024-08-04T01:23:57.976Z</common:last-modified-date>\n
+        \       <activities:distinctions path=\"/0000-0003-4039-9768/distinctions\"/>\n
+        \       <activities:educations path=\"/0000-0003-4039-9768/educations\"/>\n
+        \       <activities:employments path=\"/0000-0003-4039-9768/employments\"/>\n
+        \       <activities:fundings path=\"/0000-0003-4039-9768/fundings\"/>\n        <activities:invited-positions
+        path=\"/0000-0003-4039-9768/invited-positions\"/>\n        <activities:memberships
+        path=\"/0000-0003-4039-9768/memberships\"/>\n        <activities:peer-reviews
+        path=\"/0000-0003-4039-9768/peer-reviews\"/>\n        <activities:qualifications
+        path=\"/0000-0003-4039-9768/qualifications\"/>\n        <activities:research-resources
+        path=\"/0000-0003-4039-9768/research-resources\"/>\n        <activities:services
+        path=\"/0000-0003-4039-9768/services\"/>\n        <activities:works path=\"/0000-0003-4039-9768/works\">\n
+        \           <common:last-modified-date>2024-08-04T01:23:57.976Z</common:last-modified-date>\n
+        \           <activities:group>\n                <common:last-modified-date>2022-06-07T18:27:18.567Z</common:last-modified-date>\n
+        \               <common:external-ids>\n                    <common:external-id>\n
+        \                       <common:external-id-type>doi</common:external-id-type>\n
+        \                       <common:external-id-value>10.1038/s41592-022-01482-7</common:external-id-value>\n
+        \                       <common:external-id-normalized transient=\"true\">10.1038/s41592-022-01482-7</common:external-id-normalized>\n
+        \                       <common:external-id-url>https://doi.org/10.1038/s41592-022-01482-7</common:external-id-url>\n
+        \                       <common:external-id-relationship>self</common:external-id-relationship>\n
+        \                   </common:external-id>\n                </common:external-ids>\n
+        \               <work:work-summary put-code=\"112904875\" path=\"/0000-0003-4039-9768/work/112904875\"
+        visibility=\"public\" display-index=\"0\">\n                    <common:created-date>2022-05-11T17:08:58.250Z</common:created-date>\n
+        \                   <common:last-modified-date>2022-06-07T18:27:18.567Z</common:last-modified-date>\n
+        \                   <common:source>\n                        <common:source-client-id>\n
+        \                           <common:uri>https://orcid.org/client/0000-0001-9884-1913</common:uri>\n
+        \                           <common:path>0000-0001-9884-1913</common:path>\n
+        \                           <common:host>orcid.org</common:host>\n                        </common:source-client-id>\n
+        \                       <common:source-name>Crossref</common:source-name>\n
+        \                   </common:source>\n                    <work:title>\n                        <common:title>Viv:
+        multiscale visualization of high-resolution multiplexed bioimaging data on
+        the web</common:title>\n                    </work:title>\n                    <common:external-ids>\n
+        \                       <common:external-id>\n                            <common:external-id-type>doi</common:external-id-type>\n
+        \                           <common:external-id-value>10.1038/s41592-022-01482-7</common:external-id-value>\n
+        \                           <common:external-id-normalized transient=\"true\">10.1038/s41592-022-01482-7</common:external-id-normalized>\n
+        \                           <common:external-id-url>https://doi.org/10.1038/s41592-022-01482-7</common:external-id-url>\n
+        \                           <common:external-id-relationship>self</common:external-id-relationship>\n
+        \                       </common:external-id>\n                    </common:external-ids>\n
+        \                   <common:url>https://doi.org/10.1038/s41592-022-01482-7</common:url>\n
+        \                   <work:type>journal-article</work:type>\n                    <common:publication-date>\n
+        \                       <common:year>2022</common:year>\n                        <common:month>05</common:month>\n
+        \                   </common:publication-date>\n                    <work:journal-title>Nature
+        Methods</work:journal-title>\n                </work:work-summary>\n            </activities:group>\n
+        \           <activities:group>\n                <common:last-modified-date>2024-08-04T01:23:57.976Z</common:last-modified-date>\n
+        \               <common:external-ids>\n                    <common:external-id>\n
+        \                       <common:external-id-type>doi</common:external-id-type>\n
+        \                       <common:external-id-value>10.1101/121889</common:external-id-value>\n
+        \                       <common:external-id-normalized transient=\"true\">10.1101/121889</common:external-id-normalized>\n
+        \                       <common:external-id-url>https://doi.org/10.1101/121889</common:external-id-url>\n
+        \                       <common:external-id-relationship>self</common:external-id-relationship>\n
+        \                   </common:external-id>\n                </common:external-ids>\n
+        \               <work:work-summary put-code=\"81937711\" path=\"/0000-0003-4039-9768/work/81937711\"
+        visibility=\"public\" display-index=\"0\">\n                    <common:created-date>2020-10-13T20:40:04.918Z</common:created-date>\n
+        \                   <common:last-modified-date>2024-08-04T01:23:57.976Z</common:last-modified-date>\n
+        \                   <common:source>\n                        <common:source-client-id>\n
+        \                           <common:uri>https://orcid.org/client/0000-0001-9884-1913</common:uri>\n
+        \                           <common:path>0000-0001-9884-1913</common:path>\n
+        \                           <common:host>orcid.org</common:host>\n                        </common:source-client-id>\n
+        \                       <common:source-name>Crossref</common:source-name>\n
+        \                   </common:source>\n                    <work:title>\n                        <common:title>HiGlass:
+        Web-based Visual Exploration and Analysis of Genome Interaction Maps</common:title>\n
+        \                   </work:title>\n                    <common:external-ids>\n
+        \                       <common:external-id>\n                            <common:external-id-type>doi</common:external-id-type>\n
+        \                           <common:external-id-value>10.1101/121889</common:external-id-value>\n
+        \                           <common:external-id-normalized transient=\"true\">10.1101/121889</common:external-id-normalized>\n
+        \                           <common:external-id-url>https://doi.org/10.1101/121889</common:external-id-url>\n
+        \                           <common:external-id-relationship>self</common:external-id-relationship>\n
+        \                       </common:external-id>\n                    </common:external-ids>\n
+        \                   <common:url>https://doi.org/10.1101/121889</common:url>\n
+        \                   <work:type>preprint</work:type>\n                    <common:publication-date>\n
+        \                       <common:year>2017</common:year>\n                        <common:month>03</common:month>\n
+        \                       <common:day>31</common:day>\n                    </common:publication-date>\n
+        \               </work:work-summary>\n            </activities:group>\n        </activities:works>\n
+        \   </activities:activities-summary>\n</record:record>\n"
+    headers: {}
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers: {}
+    method: GET
+    uri: https://dx.doi.org/10.17504/protocols.io.menc3de
+  response:
+    body:
+      string: '<html><head><title>Handle Redirect</title></head>
+
+        <body><a href="https://www.protocols.io/view/rna-imaging-with-merfish-design-of-oligonucleotide-menc3de">https://www.protocols.io/view/rna-imaging-with-merfish-design-of-oligonucleotide-menc3de</a></body></html>'
+    headers: {}
+    status:
+      code: 200
+      message: Found
+- request:
+    body: null
+    headers: {}
+    method: GET
+    uri: https://www.protocols.io/view/rna-imaging-with-merfish-design-of-oligonucleotide-menc3de
+  response:
+    body:
+      string: '<a href="/view/rna-imaging-with-merfish-design-of-oligonucleotide-36wgqpn3vk57/v1">Moved
+        Permanently</a>.
+
+
+        '
+    headers: {}
+    status:
+      code: 301
+      message: Moved Permanently
+- request:
+    body: null
+    headers: {}
+    method: GET
+    uri: https://www.protocols.io/view/rna-imaging-with-merfish-design-of-oligonucleotide-36wgqpn3vk57/v1
+  response:
+    body:
+      string: "<!DOCTYPE html>\n<html lang=\"en\" dir=\"ltr\" xml:lang=\"en\">\n\t<head>\n
+        \       <style>\n            :root {\n                --font-inter: 'Inter',
+        sans-serif, Symbol;\n                --font-monospace: monospace;\n                --font-sans-serif:
+        sans-serif;\n            }\n\n            html, body, div, span,\n            h1,
+        h2, h3, h4, h5, h6, p, ol, ul, li,\n            table, caption, tbody, tfoot,
+        thead, tr, th, td {margin: 0;padding: 0;border: 0;font-size: 100%;font: inherit;vertical-align:
+        baseline;}\n\t        html {font-size: 14px;line-height: 1.5;}\n            body
+        {font-size: 14px;line-height: 1.5;font-family: var(--font-inter);}\n            ol,
+        ul {list-style: none;}\n            blockquote, q {quotes: none;}\n            blockquote:before,
+        blockquote:after,\n            q:before, q:after {content: '';content: none;}\n
+        \           img {max-width: 100%;}\n            table {border-collapse: collapse;border-spacing:
+        0;}\n            b {font-weight: bold;}\n            a {color: #2c71d6;text-decoration:
+        none;}\n            p {margin: 10px 0 10px 0;}\n            .no-select {-o-user-select:
+        none;-moz-user-select: none;-khtml-user-select: none;-webkit-user-select:
+        none;user-select: none;}\n            * {box-sizing: border-box;}\n            @keyframes
+        blink {0% {opacity: .1;}20% {opacity: 1;}100% {opacity: .1;}}\n            .main-preloader{position:fixed;display:
+        flex;top:0;bottom:0;left:0;right:0;align-items: center;justify-content: center;z-index:200000000;text-align:center;background:#F2F3F6;}\n
+        \           .main-preloader.dark{background:#363636;}\n            .main-preloader.hidden
+        {display: none;}\n            .main-preloader .mp-logo{height:100px;width:100px;}\n\n
+        \       </style>\n\t\t<meta http-equiv=\"Content-Type\" content=\"text/html;
+        charset=utf-8\" />\n        <title >RNA Imaging with MERFISH - Design of Oligonucleotide
+        Probes\n        </title>\n        \n        <meta content=\"RNA Imaging with
+        MERFISH - Design of Oligonucleotide Probes. The first step in any MERFISH
+        experiment. Read full protocol, steps, and materials on protocols.io\" name=\"description\"
+        >\n        <link href=\"https://www.protocols.io/view/rna-imaging-with-merfish-design-of-oligonucleotide-36wgqpn3vk57/v1\"
+        rel=\"canonical\" >\n        <link href=\"https://www.protocols.io/de/view/rna-imaging-with-merfish-design-of-oligonucleotide-36wgqpn3vk57/v1\"
+        hreflang=\"de\" rel=\"alternate\" >\n        <link href=\"https://www.protocols.io/view/rna-imaging-with-merfish-design-of-oligonucleotide-36wgqpn3vk57/v1\"
+        hreflang=\"x-default\" rel=\"alternate\" >\n        <link href=\"https://www.protocols.io/es/view/rna-imaging-with-merfish-design-of-oligonucleotide-36wgqpn3vk57/v1\"
+        hreflang=\"es\" rel=\"alternate\" >\n        <link href=\"https://www.protocols.io/fr/view/rna-imaging-with-merfish-design-of-oligonucleotide-36wgqpn3vk57/v1\"
+        hreflang=\"fr\" rel=\"alternate\" >\n        <link href=\"https://www.protocols.io/ja/view/rna-imaging-with-merfish-design-of-oligonucleotide-36wgqpn3vk57/v1\"
+        hreflang=\"ja\" rel=\"alternate\" >\n        <link href=\"https://www.protocols.io/zh/view/rna-imaging-with-merfish-design-of-oligonucleotide-36wgqpn3vk57/v1\"
+        hreflang=\"zh\" rel=\"alternate\" >\n        <meta content=\"RNA Imaging with
+        MERFISH - Design of Oligonucleotide Probes\" property=\"og:title\" >\n        <meta
+        content=\"RNA Imaging with MERFISH - Design of Oligonucleotide Probes. The
+        first step in any MERFISH experiment. Read full protocol, steps, and materials
+        on protocols.io\" property=\"og:description\" >\n        <meta content=\"https://www.protocols.io/view/rna-imaging-with-merfish-design-of-oligonucleotide-36wgqpn3vk57/v1\"
+        property=\"og:url\" >\n        <meta content=\"https://files.protocols.io/external/rujfw26-3B786D04687311F08F960A58A9FEAC02.png\"
+        property=\"og:image\" >\n        <meta content=\"2018-03-29T09:54:07Z\" property=\"article:published_time\"
+        >\n        <meta content=\"Max Brown\" property=\"article:author\" >\n        <meta
+        content=\"summary_large_image\" name=\"twitter:card\" >\n        <meta content=\"@protocolsIO\"
+        name=\"twitter:site\" >\n        <meta content=\"RNA Imaging with MERFISH
+        - Design of Oligonucleotide Probes\" name=\"twitter:title\" >\n        <meta
+        content=\"RNA Imaging with MERFISH - Design of Oligonucleotide Probes. The
+        first step in any MERFISH experiment. Read full protocol, steps, and materials
+        on protocols.io\" name=\"twitter:description\" >\n        <meta content=\"https://files.protocols.io/external/rujfw26-3B786D04687311F08F960A58A9FEAC02.png\"
+        name=\"twitter:image\" >\n        <meta content=\"https://www.protocols.io/view/rna-imaging-with-merfish-design-of-oligonucleotide-36wgqpn3vk57/v1\"
+        name=\"twitter:url\" >\n        <meta content=\"RNA Imaging with MERFISH -
+        Design of Oligonucleotide Probes\" name=\"citation_title\" >\n        <meta
+        content=\"2018/03/29\" name=\"citation_publication_date\" >\n        <meta
+        content=\"https://www.protocols.io/view/rna-imaging-with-merfish-design-of-oligonucleotide-36wgqpn3vk57/v1.pdf\"
+        name=\"citation_pdf_url\" >\n        <meta content=\"Jeffrey R. Moffitt\"
+        name=\"citation_author\" >\n        <meta content=\"Xiaowei Zhuang\" name=\"citation_author\"
+        >\n        <script type=\"application/ld+json\" >{\"@context\":\"https://schema.org\",\"@id\":\"https://www.protocols.io/#org\",\"@type\":\"Organization\",\"logo\":{\"@type\":\"ImageObject\",\"height\":\"1550\",\"url\":\"https://www.protocols.io/img/protocols-og.jpg\",\"width\":\"1920\"},\"name\":\"protocols.io\",\"url\":\"https://www.protocols.io/\"}\n
+        \       </script>\n        \n        <script type=\"application/ld+json\"
+        >{\"@context\":\"https://schema.org\",\"@id\":\"https://www.protocols.io/#website\",\"@type\":\"WebSite\",\"name\":\"protocols.io\",\"publisher\":{\"@id\":\"https://www.protocols.io/#org\"},\"url\":\"https://www.protocols.io/\"}\n
+        \       </script>\n        \n        <script type=\"application/ld+json\"
+        >{\"@context\":\"https://schema.org\",\"@id\":\"https://www.protocols.io/view/rna-imaging-with-merfish-design-of-oligonucleotide-36wgqpn3vk57/v1#webpage\",\"@type\":\"WebPage\",\"about\":{\"@id\":\"https://www.protocols.io/#org\"},\"description\":\"RNA
+        Imaging with MERFISH - Design of Oligonucleotide Probes. The first step in
+        any MERFISH experiment. Read full protocol, steps, and materials on protocols.io\",\"isPartOf\":{\"@id\":\"https://www.protocols.io/#website\"},\"name\":\"RNA
+        Imaging with MERFISH - Design of Oligonucleotide Probes\",\"url\":\"https://www.protocols.io/view/rna-imaging-with-merfish-design-of-oligonucleotide-36wgqpn3vk57/v1\"}\n
+        \       </script>\n        \n        <script type=\"application/ld+json\"
+        >{\"@context\":\"https://schema.org\",\"@id\":\"https://www.protocols.io/view/rna-imaging-with-merfish-design-of-oligonucleotide-36wgqpn3vk57/v1#article\",\"@type\":\"Article\",\"author\":{\"@type\":\"Person\",\"affiliation\":\"\",\"name\":\"Max
+        Brown\"},\"dateModified\":\"2018-03-29T09:54:07Z\",\"datePublished\":\"2018-03-29T09:54:07Z\",\"description\":\"The
+        first step in any MERFISH experiment is the design of the oligonucleotide
+        probes that will be used to label individual RNA species. In our current implementation
+        of MERFISH, each oligonucleotide encoding probe consists of three basic components
+        as illustrated in Figure 2. The first region is a 30-nt targeting region that
+        is complementary to a portion of the sequence of the RNA to which it is designed
+        to bind. The second region is a set of sequences that are called readout sequences,
+        which were designed to be complementary and hence only bind to MERFISH readout
+        probes and not other nucleic acid in the cell. Finally, the third region is
+        a set of priming regions used in the construction of these probes, which will
+        be discussed in detail in Probe Construction. In addition to the nucleotide
+        sequences for each of these components, a codebook \u2014the specific set
+        of binary barcodes that will be used and their association with different
+        RNA species of interest\u2014must also be designed. In this section, we provide
+        protocols to design these sequences and to build a codebook. Example code
+        to perform these steps can be found at http://zhuang.harvard.edu/merfish/
+        .     \",\"headline\":\"RNA Imaging with MERFISH - Design of Oligonucleotide
+        Probes\",\"identifier\":\"10.17504/protocols.io.menc3de\",\"image\":{\"@type\":\"ImageObject\",\"url\":\"https://files.protocols.io/external/rujfw26-3B786D04687311F08F960A58A9FEAC02.png\"},\"keywords\":\"In
+        situ hybridization; RNA; Single cells; Single molecules; Single-molecule imaging;
+        Transcriptomics, rna imaging with merfish, design of the oligonucleotide probe,
+        design of oligonucleotide probe, oligonucleotide probe, merfish readout probe,
+        rna imaging, oligonucleotide, rna, current implementation of merfish, sequence
+        of the rna, nucleotide sequence, first step in any merfish experiment, encoding
+        probe, merfish experiment, rna species, different rna species, other nucleic
+        acid, individual rna species, other nucleic acid in the cell, binary barcode,
+        specific set of binary barcode, readout sequence, merfish, association with
+        different rna species, called readout sequence, addition to the nucleotide
+        sequence, detail in probe construction, barcode, construction of these probe\",\"mainEntityOfPage\":{\"@id\":\"https://www.protocols.io/view/rna-imaging-with-merfish-design-of-oligonucleotide-36wgqpn3vk57/v1#webpage\"},\"publisher\":{\"@id\":\"https://www.protocols.io/#org\"}}\n
+        \       </script>\n        \n\t\t<meta property=\"og:site_name\" content=\"protocols.io\">\n\t\t<meta
+        name=\"HandheldFriendly\" content=\"True\" />\n\t\t<meta name=\"MobileOptimized\"
+        content=\"320\" />\n\t\t<meta name=\"viewport\" content=\"width=device-width,
+        initial-scale=1.0, maximum-scale=5.0, user-scalable=yes\" />\n\t\t<meta http-equiv=\"X-UA-Compatible\"
+        content=\"IE=edge\" />\n\t\t<meta name=\"theme-color\" content=\"#363636\"/>\n\t\t<meta
+        name=\"twitter:card\" content=\"summary_large_image\" />\n        <meta name=\"google-site-verification\"
+        content=\"inw0Hd3GtxfzwflFCZ-eKK3FzlZ0p_-AeI1zXlJYvKk\" />\n        <meta
+        name=\"google-site-verification\" content=\"wXzR9qxxyMaS0We2rMer8wXSolN-NQvo6lMzS97uT1M\"
+        />\n        <link rel=\"manifest\" href=\"/manifest.json\">\n\t\t<link rel=\"icon\"
+        type=\"image/x-icon\" href=\"/img/favicon.ico\" />\n\t\t<link rel=\"apple-touch-icon\"
+        sizes=\"180x180\" href=\"/img/apple-touch-icon.png\">\n\t\t<link rel=\"icon\"
+        type=\"image/png\" sizes=\"32x32\" href=\"/img/favicon-32x32.png\">\n\t\t<link
+        rel=\"icon\" type=\"image/png\" sizes=\"16x16\" href=\"/img/favicon-16x16.png\">\n\t\t<link
+        rel=\"manifest\" href=\"/site.webmanifest\">\n\t\t\n\t\t<script type=\"text/javascript\"
+        nonce=\"D419284A5A43995A5375CB8F3BABF381\">\n            var WebappBundlePath
+        \ = \"https:\\/\\/files.protocols.io\\/webapp\\/bundles\\/production-2173293\\/\";\n\t\t\tvar
+        AMPLITUDE_API_KEY=\"c250ed1d862cb9c01587e1f779a32c9\";var ENTITY_KNOWLEDGE_MODELS=[{\"key\":\"techniques\",\"title\":\"Technique\",\"plural\":\"techniques\"},{\"key\":\"antibodies\",\"title\":\"Antibody\",\"plural\":\"antibodies\"},{\"key\":\"organisms\",\"title\":\"Organism\",\"plural\":\"organisms\"},{\"key\":\"cell_lines\",\"title\":\"Cell
+        line\",\"plural\":\"cell lines\"}];var FFMPEG_HOST=\"https://ffmpeg.protocols.io\";var
+        FILES_CDN_URL=\"https://files.protocols.io\";var FILES_S3_BUCKET=\"protocols-io-files\";var
+        FILES_S3_PREFIX=\"external\";var FRIENDLY_CAPTCHA_ENABLED= true ;var FRIENDLY_CAPTCHA_SITE_KEY=\"FCMRHJ9B0VTAHH13\";var
+        GA_MEASUREMENT_ID=\"G-33ZGV5CT0B\";var GOOGLE_CLIENT_ID=\"182746271041-rdtjk0b1h9706r0fgpq1o2h55lgbo8un.apps.googleusercontent.com\";var
+        HAS_SSR= false ;var HOST_ROLE= 1 ;var HOST_ROLES={\"HOST_DEV\":2,\"HOST_LOCAL\":3,\"HOST_PROD\":1};var
+        IMAGE_BASE_PATH=\"https://files.protocols.io/webapp/images/q2ckeg/\";var IS_VPC_CLOUD=
+        false ;var NATS_SERVER=\"wss://ws.protocols.io\";var ORCID_CLIENT_ID=\"APP-7405TP4958GFSZXV\";var
+        ORCID_URL=\"https://orcid.org/oauth/authorize\";var SITE_URL=\"https://www.protocols.io\";var
+        SPRINGERNATURE_CLIENT_ID=\"protocolsio\";var SPRINGERNATURE_REDIRECT=\"https://www.protocols.io/api/v1/auth/springernature/authcallback\";var
+        SPRINGERNATURE_URL=\"https://idp.springernature.com\";var STRIPE_PUB_KEY=\"pk_live_51PfMxdRshFFmaQRVGeDsSX7NFFLMkMuqr17SxP6JcJuieglmQYHPgM7cz0XdO91IEVP9k4E4MC7PZB2ATyuuaOy800ivYpRURi\";var
+        UIPE=\"GcoxdSwOihy7mZZuR+35i0FuVYM4Cinnihmp3k1nr6Y=\";var VPC_ALLOW_REGENTS_LINKING=
+        false ;var VPC_DISABLED_INVITE_COLLEAGUES= false ;var VPC_DISABLED_PUBLISHING=
+        false ;var VPC_DISABLED_SIGN_UP= false ;var VPC_DISABLED_WORKSPACE_CREATION=
+        false ;var VPC_EXTERNAL_STORAGES= null ;var VPC_FORWARDED_VIEW_URL_PREFIX=\"\";var
+        VPC_MAIN_CLOUD_URL=\"https://www.protocols.io\";var VPC_REQUIRE_SIGN_IN= false
+        ;var VPC_USE_MAIN_GLOBAL_SEARCH= false ;var WEBAPP_VERSION=\"production-2173293\";var
+        YJS_WEBSOCKET_URL=\"wss://www.protocols.io\";var __stripeGlobal= null ;var
+        cookie_session_guid=\"A3D885ADCF1011F1BF9F0A58A9FEAC02\";var gosessid=\"A3D8838DCF1011F1BF9F0A58A9FEAC02\";var
+        is_premium= false ;var loadedAmplitude= false ;var loadedGA= false ;var logged_in=
+        false ;var session_guid=\"\";var show_loader= true ;var user_theme=\"default\";\n\t\t</script>\n
+        \       <script type=\"text/javascript\" nonce=\"D419284A5A43995A5375CB8F3BABF381\">\n
+        \           if (!Element.prototype.matches) Element.prototype.matches = Element.prototype.msMatchesSelector;\n
+        \           if (!Element.prototype.closest) Element.prototype.closest = function
+        (selector) {var el = this; while (el) {if (el.matches(selector)) return el;
+        el = el.parentElement;}};\n        </script>\n\t\t\n        <script src=\"https://cdnjs.cloudflare.com/ajax/libs/lottie-web/5.10.2/lottie_light.min.js\"
+        defer integrity=\"sha512-4W1eGmttnzbtRtVLtqU0CNOXs9YHfLB/tS0ZZJlCIQi8VW9voyFX5oBhhC9vhBjYy3xrgyXpSFt/WohPahspkw==\"
+        crossorigin=\"anonymous\" referrerpolicy=\"no-referrer\"></script>\n            <script
+        src=\"https://files.protocols.io/webapp/bundles/production-2173293/webapp.preloader.js\"
+        class=\"app_preloader\" defer type=\"text/javascript\"></script>\n\t    \t<script
+        src=\"https://files.protocols.io/webapp/bundles/production-2173293/webapp.app.js\"
+        class=\"main_bundle\" defer type=\"text/javascript\"></script>\n        <link
+        rel=\"preload\" href=\"https://files.protocols.io/webapp/fonts/Inter-VariableFont_opsz%2Cwght.woff2\"
+        as=\"font\" type=\"font/woff2\" crossorigin>\n\t</head>\n\t<body style=\"margin:
+        0;\">\n\t\t<div id=\"lightboxes\"></div>\n        <div id=\"toasts\" class=\"toasts\"></div>\n
+        \       <div id=\"modal-root\"></div>\n\t    <div id=\"main\"></div>\n        <div
+        id=\"complex-tooltip-container\"></div>\n            <div id=\"app_preloader\"
+        class=\"main-preloader hidden\">\n                <div class=\"mp-logo\"></div>\n
+        \           </div>\n\t</body>\n</html>\n"
+    headers: {}
+    status:
+      code: 200
+      message: OK
+version: 1

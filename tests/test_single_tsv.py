@@ -1,177 +1,149 @@
+import argparse
 import json
+import sys
 import unittest
 from pathlib import Path
-from unittest.mock import patch
-from urllib.parse import urljoin
 
-import requests
 from parameterized import parameterized
+from vcr.request import Request
+from vcr.unittest import VCRTestCase
 
 from ingest_validation_tools.enums import DatasetType, OtherTypes, Sample
 from ingest_validation_tools.local_validation.table_validator import ReportType
 from ingest_validation_tools.schema_loader import EntityTypeInfo, SchemaVersion
 from ingest_validation_tools.upload import Upload
 from ingest_validation_tools.validation_utils import get_schema_version, get_tsv_errors
-from tests.fixtures import (
-    BAD_DATASET_CONSTRAINTS_RESPONSE,
+from tests.fixtures.fixtures import (
     BAD_DATASET_EXPECTED_PAYLOAD,
     BAD_DATASET_SCHEMA_WITH_ANCESTORS,
     GOOD_DATASET_EXPECTED_PAYLOAD,
     GOOD_DATASET_SCHEMA_WITH_ANCESTORS,
-    HISTOLOGY_ASSAYTYPE_RESPONSE,
-    SAMPLE_BLOCK_CONSTRAINTS_RESPONSE_GOOD,
-    SAMPLE_BLOCK_PARTIAL_CEDAR_RESPONSE_GOOD,
-    SAMPLE_BLOCK_PARTIAL_ENTITY_API_RESPONSE,
-    SAMPLE_ORGAN_PARTIAL_ENTITY_API_RESPONSE,
-    SAMPLE_SECTION_PARTIAL_ENTITY_API_RESPONSE,
     TEST_GET_TSV_ERRORS_PARAMS,
 )
+from tests.manual.updaters import raise_or_print_fatal_errors
+from tests.utils import default_before_record_request, validation_matcher
 
 CONSTRAINTS_URL_PARAMS = {"match": True, "order": "ancestors"}
-CONSTRAINTS_URL = "http://constraints_test/"
-ENTITIES_URL = "http://entities_test/"
+SENNET_APP_CONTEXT = {
+    "entities_url": "https://entity.api.sennetconsortium.org/entities",
+    "constraints_url": "https://entity.api.sennetconsortium.org/constraints",
+}
+
+SENNET_TOKEN = "test_sennet_token"
+HUBMAP_TOKEN = "test_hubmap_token"
 
 
-def entity_api_side_effect(
-    response_map, entity_url, entity_id, globus_token, headers
-) -> requests.Response:
-    del globus_token, headers
-    url = f"{urljoin(entity_url, 'entities')}/{entity_id}"
-    return get_mock_response(True, response_map.get(url))
+class TestSingleTsv(VCRTestCase):
 
+    def before_record_response(self, response: dict) -> dict:
+        """
+        Strip headers, raise if Unauthorized, 500, No token errors.
+        """
+        response["headers"] = {}
+        raise_or_print_fatal_errors(response["body"]["string"].decode("utf-8"))
+        return response
 
-def get_mock_response(good: bool, response_data: bytes) -> requests.Response:
-    mock_resp = requests.models.Response()
-    mock_resp.url = CONSTRAINTS_URL
-    mock_resp.status_code = 200 if good else 400
-    mock_resp.reason = "OK" if good else "Bad Request"
-    mock_resp._content = response_data
-    return mock_resp
+    def _get_vcr(self, **kwargs):
+        kwargs["before_record_request"] = default_before_record_request
+        kwargs["before_record_response"] = self.before_record_response
+        kwargs["cassette_library_dir"] = "tests/fixtures/cassettes"
+        myvcr = super(TestSingleTsv, self)._get_vcr(**kwargs)
+        myvcr.register_matcher("validation_matcher", validation_matcher)
+        myvcr.match_on = ["validation_matcher"]
+        return myvcr
 
-
-class TestSingleTsv(unittest.TestCase):
     @property
-    def upload(self):
+    def sennet_upload(self):
         upload = Upload(directory_path=Path("."))
-        upload.app_context = {
-            "constraints_url": CONSTRAINTS_URL,
-            "entities_url": ENTITIES_URL,
-        }
         upload.verbose = False
-        upload.globus_token = "test"
+        upload.app_context = SENNET_APP_CONTEXT
+        upload.globus_token = SENNET_TOKEN
         return upload
 
     def test_bad_payload(self):
-        payload = self.upload._construct_constraint_check(BAD_DATASET_SCHEMA_WITH_ANCESTORS)
+        payload = self.sennet_upload._construct_constraint_check(BAD_DATASET_SCHEMA_WITH_ANCESTORS)
         assert payload == BAD_DATASET_EXPECTED_PAYLOAD
 
     def test_good_payload(self):
-        payload = self.upload._construct_constraint_check(GOOD_DATASET_SCHEMA_WITH_ANCESTORS)
+        payload = self.sennet_upload._construct_constraint_check(
+            GOOD_DATASET_SCHEMA_WITH_ANCESTORS
+        )
         assert payload == GOOD_DATASET_EXPECTED_PAYLOAD
 
-    @patch("ingest_validation_tools.upload.requests.post")
-    def test_constraints_bad(self, mock_request):
-        mock_request.return_value = get_mock_response(False, BAD_DATASET_CONSTRAINTS_RESPONSE)
+    def test_constraints_bad(self):
         self.assertEqual(
-            self.upload._constraint_checks(BAD_DATASET_SCHEMA_WITH_ANCESTORS),
+            self.sennet_upload._constraint_checks(BAD_DATASET_SCHEMA_WITH_ANCESTORS),
             [
                 'On row 3, column "source_id", value "test_id_1" fails because of error '
                 '"Invalid Ancestor": Invalid ancestor type for TSV type dataset/histology. '
                 "Data sent for ancestor test_id_1: sample/organ/rk."
             ],
         )
-        mock_request.assert_any_call(
-            CONSTRAINTS_URL,
-            headers={"Authorization": "Bearer test", "Content-Type": "application/json"},
-            data=json.dumps(BAD_DATASET_EXPECTED_PAYLOAD),
-            params=CONSTRAINTS_URL_PARAMS,
+        # This tests the existing cassette, only useful when creating a new version
+        self.assertEqual(len(self.cassette), 1)
+        self.assertEqual(
+            self.cassette.requests[0].body,
+            json.dumps(BAD_DATASET_EXPECTED_PAYLOAD).encode("utf-8"),
+        )
+        self.assertEqual(
+            self.cassette.requests[0].uri,
+            "https://entity.api.sennetconsortium.org/constraints?match=True&order=ancestors",
         )
 
-    @patch("ingest_validation_tools.upload.requests.post")
-    def test_constraints_good(self, mock_request):
-        mock_request.return_value = get_mock_response(True, SAMPLE_BLOCK_CONSTRAINTS_RESPONSE_GOOD)
-        # Shouldn't return anything
-        self.upload._constraint_checks(GOOD_DATASET_SCHEMA_WITH_ANCESTORS)
-        mock_request.assert_any_call(
-            CONSTRAINTS_URL,
-            headers={"Authorization": "Bearer test", "Content-Type": "application/json"},
-            data=json.dumps(GOOD_DATASET_EXPECTED_PAYLOAD),
-            params=CONSTRAINTS_URL_PARAMS,
+    def test_constraints_good(self):
+        assert self.sennet_upload._constraint_checks(GOOD_DATASET_SCHEMA_WITH_ANCESTORS) == None
+        # This tests the existing cassette, only useful when creating a new version
+        self.assertEqual(len(self.cassette), 1)
+        self.assertEqual(
+            self.cassette.requests[0].body,
+            json.dumps(GOOD_DATASET_EXPECTED_PAYLOAD).encode("utf-8"),
+        )
+        self.assertEqual(
+            self.cassette.requests[0].uri,
+            "https://entity.api.sennetconsortium.org/constraints?match=True&order=ancestors",
         )
 
-    @patch("ingest_validation_tools.upload.requests.post")
-    @patch("ingest_validation_tools.upload.requests.get")
-    def test_expected_ancestor_entities_creation(self, mock_entity_api, mock_cedar_api):
-        mock_entity_api.return_value = get_mock_response(
-            True, SAMPLE_BLOCK_PARTIAL_ENTITY_API_RESPONSE
-        )
-        mock_cedar_api.return_value = get_mock_response(
-            True, SAMPLE_BLOCK_PARTIAL_CEDAR_RESPONSE_GOOD
-        )
+    def test_expected_ancestor_entities_creation(self):
         path = Path("./tests/fixtures/sample-block-good.tsv").absolute()
-        schema = get_schema_version(path, "ascii", globus_token="test")
-        self.upload._get_url_errors(path, schema)
-        assert len(schema.ancestor_entities) == 2
+        schema = get_schema_version(
+            path,
+            "ascii",
+            globus_token=SENNET_TOKEN,
+            entity_url="https://entity.api.sennetconsortium.org/entities/",
+        )
+        self.sennet_upload._get_url_errors(path, schema)
+        assert len(schema.ancestor_entities) == 4
         assert schema.ancestor_entities[1].entity_sub_type == Sample.BLOCK.name.lower()
         assert schema.ancestor_entities[0].entity_type == OtherTypes.SAMPLE
+        assert schema.ancestor_entities[3].entity_sub_type == Sample.BLOCK.name.lower()
+        assert schema.ancestor_entities[2].entity_type == OtherTypes.SAMPLE
 
-    @property
-    def entity_api_response_map(self) -> dict[str, bytes]:
-        url = urljoin(ENTITIES_URL, "entities")
-        return {
-            f"{url}/HBM233.CGGG.482": SAMPLE_SECTION_PARTIAL_ENTITY_API_RESPONSE,
-            f"{url}/HBM724.ZQKX.379": SAMPLE_BLOCK_PARTIAL_ENTITY_API_RESPONSE,
-            f"{url}/HBM427.JWVV.723": SAMPLE_BLOCK_PARTIAL_ENTITY_API_RESPONSE,
-            f"{url}/HBM733.HSZF.798": SAMPLE_ORGAN_PARTIAL_ENTITY_API_RESPONSE,
-            f"{url}/HBM673.ZRWW.589": SAMPLE_BLOCK_PARTIAL_ENTITY_API_RESPONSE,
-        }
+    def test_get_other_tsv_errors_good(self):
+        for report_type in [ReportType.JSON, ReportType.STR]:
+            errors = get_tsv_errors(
+                Path("./tests/fixtures/sample-block-good.tsv"),
+                "sample-block",
+                globus_token=SENNET_TOKEN,
+                report_type=report_type,
+                app_context=SENNET_APP_CONTEXT,
+            )
+            assert errors in [[], []], f"Unexpected errors found! {errors}"
 
     @parameterized.expand(TEST_GET_TSV_ERRORS_PARAMS)
-    def test_get_other_tsv_errors(
+    def test_get_other_tsv_errors_bad(
         self,
-        good: bool,
-        constraint_checks_response: bytes,
-        cedar_response: bytes,
         path: str,
         schema_name: str,
         expected_errors_list: list[list],
     ):
-        with patch("ingest_validation_tools.upload.requests.post") as mock_constraints_response:
-            with patch("ingest_validation_tools.upload.cedar_validation_call") as mock_cedar_call:
-                with patch(
-                    "ingest_validation_tools.validation_utils.get_entity_api_data",
-                    side_effect=lambda entity_url, entity_id, globus_token, headers=None: entity_api_side_effect(
-                        self.entity_api_response_map, entity_url, entity_id, globus_token, headers
-                    ),
-                ):
-                    with patch(
-                        "ingest_validation_tools.upload.get_entity_api_data",
-                        side_effect=lambda entity_url, entity_id, globus_token, headers=None: entity_api_side_effect(
-                            self.entity_api_response_map,
-                            entity_url,
-                            entity_id,
-                            globus_token,
-                            headers,
-                        ),
-                    ):
-                        mock_cedar_call.return_value = get_mock_response(True, cedar_response)
-                        mock_constraints_response.return_value = get_mock_response(
-                            good, constraint_checks_response
-                        )
-                        for report_type in [ReportType.JSON, ReportType.STR]:
-                            errors = get_tsv_errors(
-                                Path(path),
-                                schema_name,
-                                globus_token="test",
-                                app_context={
-                                    "entities_url": ENTITIES_URL,
-                                    "constraints_url": CONSTRAINTS_URL,
-                                },
-                                report_type=report_type,
-                            )
-                            assert (
-                                errors in expected_errors_list
-                            ), f"{errors} not in {expected_errors_list}"
+        for report_type in [ReportType.JSON, ReportType.STR]:
+            errors = get_tsv_errors(
+                Path(path),
+                schema_name,
+                globus_token=HUBMAP_TOKEN,
+                report_type=report_type,
+            )
+            assert errors in expected_errors_list, f"{errors} not in {expected_errors_list}"
 
     def test_entity_type_info(self):
         good_section_entity = EntityTypeInfo(entity_type=Sample.SECTION)
@@ -204,27 +176,6 @@ class TestSingleTsv(unittest.TestCase):
         with self.assertRaises(Exception):
             EntityTypeInfo(entity_type=Sample.ORGAN)
 
-    def create_upload(self, tsv_paths: list[Path], assaytype_response: dict):
-        with patch("ingest_validation_tools.upload.requests.post") as mock_constraints_response:
-            with patch("ingest_validation_tools.upload.cedar_validation_call") as mock_cedar_call:
-                with patch(
-                    "ingest_validation_tools.validation_utils.get_entity_api_data",
-                    side_effect=lambda entity_url, entity_id, globus_token, headers=None: entity_api_side_effect(
-                        self.entity_api_response_map, entity_url, entity_id, globus_token, headers
-                    ),
-                ):
-                    with patch(
-                        "ingest_validation_tools.validation_utils.get_assaytype_data",
-                        return_value=assaytype_response,
-                    ):
-                        # TODO: fix
-                        mock_cedar_call.return_value = get_mock_response(True, b"")
-                        mock_constraints_response.return_value = get_mock_response(True, b"")
-                        return Upload(
-                            directory_path=Path("."),
-                            tsv_paths=tsv_paths,
-                        )
-
     def test_contributors_contact(self):
         for path, error in [
             (Path("./tests/fixtures/contributors_good.tsv"), {}),
@@ -233,19 +184,39 @@ class TestSingleTsv(unittest.TestCase):
                 {Path("./tests/fixtures/contributors_bad.tsv"): "No primary contact."},
             ),
         ]:
-            upload = self.create_upload(
-                [Path("./tests/fixtures/validated-histology-metadata.tsv")],
-                HISTOLOGY_ASSAYTYPE_RESPONSE,
+            upload = Upload(
+                directory_path=Path("."),
+                tsv_paths=[Path("./tests/fixtures/validated-histology-metadata.tsv")],
             )
             for schema in upload.dataset_metadata.values():
                 upload._get_supporting_metadata_schemas(schema, path)
             assert upload.errors.upload_metadata.value == error
 
     def test_for_empty_columns(self):
-        upload = self.create_upload(
-            [Path("./tests/fixtures/validated-histology-metadata.tsv")],
-            HISTOLOGY_ASSAYTYPE_RESPONSE,
-        )
+        upload = Upload(directory_path=Path("."))
         path = Path("./tests/fixtures/contributors_bad.tsv")
         upload.validate_metadata({path: SchemaVersion("contributors")})
         assert upload.errors.upload_metadata.value == {path: "Empty columns: 5"}
+
+
+if __name__ == "__main__":
+    """
+    Example usage:
+        python -m tests.test_single_tsv -ht <hubmap_globus_token>
+        python -m tests.test_single_tsv -st <sennet_globus_token> TestSingleTsv.test_expected_ancestor_entities_creation
+    """
+    parser = argparse.ArgumentParser(
+        description="Pass SenNet and/or HuBMAP Globus tokens to update fixture cassettes (must delete previous cassette) from tests/fixtures/cassettes"
+    )
+    parser.add_argument("-st", "--sennet_token")
+    parser.add_argument("-ht", "--hubmap_token")
+    parser.add_argument("unittest_args", nargs="*")
+
+    args = parser.parse_args()
+
+    if args.sennet_token:
+        SENNET_TOKEN = args.sennet_token
+    if args.hubmap_token:
+        HUBMAP_TOKEN = args.hubmap_token
+    sys.argv[1:] = args.unittest_args
+    unittest.main()

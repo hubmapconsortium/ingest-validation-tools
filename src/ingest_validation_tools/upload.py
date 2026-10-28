@@ -95,6 +95,7 @@ class Upload:
         self.run_plugins = run_plugins
         self.verbose = verbose
         self.report_type = report_type
+        self.status_cache = {}
 
         self.dataset_metadata: dict[Path, SchemaVersion] = {}
         self.errors = ErrorDict()
@@ -130,7 +131,7 @@ class Upload:
         """
         If called before get_errors, will report dir schema major version only.
         """
-        self.info.time = datetime.now()
+        self.info.time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         self.info.dir = str(self.directory_path)
 
         git_version = subprocess.check_output(
@@ -248,7 +249,7 @@ class Upload:
         tsvs_to_evaluate = tsv_paths if tsv_paths else self.dataset_metadata
         for tsv_path, schema_version in tsvs_to_evaluate.items():
             if empty := find_empty_tsv_columns(tsv_path):
-                # TODO: not currently returned by get_tsv_errors
+                # TODO: upload_metadata not currently returned by get_tsv_errors
                 self.errors.upload_metadata[tsv_path] = (
                     f"Empty columns: {', '.join([str(i) for i in empty])}"
                 )
@@ -450,7 +451,8 @@ class Upload:
             )
             return
 
-        local_errors = get_table_errors(tsv_path, schema)
+        local_errors, new_status_cache = get_table_errors(tsv_path, schema, self.status_cache)
+        self.status_cache = new_status_cache
         if local_errors:
             self.errors.metadata_validation_local.update(
                 {f"{tsv_path} (as {schema_version.table_schema})": local_errors}
@@ -522,7 +524,6 @@ class Upload:
         Raises Exception if any errors found.
         """
         assert value, f"Unable to check URL for column '{field}' on row {row + 2}: empty value."
-
         if field in CHECK_FIELDS:
             headers = self.app_context.get("request_header", {})
             response = get_entity_api_data(
@@ -531,18 +532,19 @@ class Upload:
             if schema.schema_name == DatasetType.DATASET and field == "parent_sample_id":
                 self._check_for_organ_other(response.json())
                 self._check_parent_sample_entity_type(response.json())
+            entity_type_vals = get_entity_type_vals(response.json())
             # Do not get ancestor info for sample (no subtype) or source
             if (
-                not (schema.schema_name == OtherTypes.SAMPLE and field == "sample_id")
-                and not schema.schema_name == OtherTypes.SOURCE
-            ):
-                return AncestorTypeInfo(
-                    entity_id=value,
-                    source_schema=schema,
-                    row=row,
-                    column=field,
-                    *get_entity_type_vals(response.json()),
-                )
+                schema.schema_name == OtherTypes.SAMPLE and not entity_type_vals[0]
+            ) or schema.schema_name == OtherTypes.SOURCE:
+                return
+            return AncestorTypeInfo(
+                entity_id=value,
+                source_schema=schema,
+                row=row,
+                column=field,
+                *entity_type_vals,
+            )
         elif field in ["orcid_id", "orcid"]:
             self._check_orcid(field, value)
 

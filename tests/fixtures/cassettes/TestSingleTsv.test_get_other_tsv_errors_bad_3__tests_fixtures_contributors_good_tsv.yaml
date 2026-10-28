@@ -1,0 +1,99 @@
+interactions:
+- request:
+    body: "Content-Disposition: form-data; name=\"input_file\"; filename=\"contributors_good.tsv\"\r\n\r\nfirst_name\tlast_name\tmiddle_name_or_initial\tdisplay_name\taffiliation\torcid\temail\tis_contact\tis_principal_investigator\tis_operator\tmetadata_schema_id\nFirstname\tLastname\tM.\tFirstname
+      M. Lastname\tCarnegie Mellon University\t0000-0002-1825-0097\ttest@test.com\tYes\tYes\tYes\t94dae6f8-0756-4ab0-a47b-138e446a9501\n\r\n\r\n"
+    headers: {}
+    method: POST
+    uri: https://api.metadatavalidator.metadatacenter.org/service/validate-tsv
+  response:
+    body:
+      string: '{"schema":{"name":"Contributor","version":"2.0.0","columnDescription":{"metadata_schema_id":{"example":"22bc762a-5020-419d-b170-24253ed9e8d9","name":"metadata_schema_id","required":true,"description":"The
+        string that serves as the definitive identifier for the metadata schema version
+        and is readily interpretable by computers for data validation and processing.
+        ","type":"string","subType":null,"label":"Metadata schema ID","permissibleValues":[],"regex":null,"min":null,"max":null},"affiliation":{"example":null,"name":"affiliation","required":true,"description":"Institutional
+        affiliation","type":"string","subType":null,"label":"Affiliation","permissibleValues":[],"regex":null,"min":null,"max":null},"first_name":{"example":null,"name":"first_name","required":true,"description":"First
+        name","type":"string","subType":null,"label":"First name","permissibleValues":[],"regex":null,"min":null,"max":null},"last_name":{"example":null,"name":"last_name","required":true,"description":"Last
+        name","type":"string","subType":null,"label":"Last name","permissibleValues":[],"regex":null,"min":null,"max":null},"middle_name_or_initial":{"example":null,"name":"middle_name_or_initial","required":false,"description":"Middle
+        name or initial. Leave blank if not applicable","type":"string","subType":null,"label":"Middle
+        name or initial","permissibleValues":[],"regex":null,"min":null,"max":null},"orcid":{"example":"0000-0002-8928-741X","name":"orcid","required":true,"description":"ORCID
+        ID of contributor. ","type":"string","subType":null,"label":"ORCID ID","permissibleValues":[],"regex":"^(\\d{4}-){3}\\d{3}(\\d|X)$","min":null,"max":null},"is_principal_investigator":{"example":null,"name":"is_principal_investigator","required":true,"description":"Is
+        this individual a principal investigator responsible for the data?","type":"string","subType":null,"label":"Is
+        principal investigator?","permissibleValues":[{"label":"Yes","meaning":null},{"label":"No","meaning":null}],"regex":null,"min":null,"max":null},"is_operator":{"example":null,"name":"is_operator","required":true,"description":"Is
+        this person responsible for executing the assay(s) in whole or part? If more
+        than one person is responsible for running the assay(s), then each operator
+        should be listed separately in the contributors file.","type":"string","subType":null,"label":"Is
+        operator?","permissibleValues":[{"label":"Yes","meaning":null},{"label":"No","meaning":null}],"regex":null,"min":null,"max":null},"is_contact":{"example":null,"name":"is_contact","required":true,"description":"Is
+        this individual a contact for DOI purposes?","type":"string","subType":null,"label":"Is
+        contact?","permissibleValues":[{"label":"Yes","meaning":null},{"label":"No","meaning":null}],"regex":null,"min":null,"max":null},"display_name":{"example":null,"name":"display_name","required":true,"description":"Name
+        for display","type":"string","subType":null,"label":"Display name","permissibleValues":[],"regex":null,"min":null,"max":null},"email":{"example":null,"name":"email","required":false,"description":"Email
+        address for the individual","type":"string","subType":null,"label":"Email","permissibleValues":[],"regex":null,"min":null,"max":null}},"requiredColumns":["metadata_schema_id","affiliation","first_name","last_name","orcid","is_principal_investigator","is_operator","is_contact","display_name"],"columnOrder":["first_name","last_name","middle_name_or_initial","display_name","affiliation","orcid","email","is_contact","is_principal_investigator","is_operator","metadata_schema_id"],"generatedFrom":"Optional[https://repo.metadatacenter.org/templates/94dae6f8-0756-4ab0-a47b-138e446a9501]","accessUrl":"https://openview.metadatacenter.org/templates/https%3A%2F%2Frepo.metadatacenter.org%2Ftemplates%2F94dae6f8-0756-4ab0-a47b-138e446a9501"},"data":[{"rowNumber":0,"is_operator":"Yes","middle_name_or_initial":"M.","affiliation":"Carnegie
+        Mellon University","metadata_schema_id":"94dae6f8-0756-4ab0-a47b-138e446a9501","is_principal_investigator":"Yes","last_name":"Lastname","orcid":"0000-0002-1825-0097","display_name":"Firstname
+        M. Lastname","first_name":"Firstname","email":"test@test.com","is_contact":"Yes"}],"reporting":[]}'
+    headers: {}
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers: {}
+    method: GET
+    uri: https://pub.orcid.org/v3.0/expanded-search/?q=orcid%3A0000-0002-1825-0097
+  response:
+    body:
+      string: '{"expanded-result":[{"orcid-id":"0000-0002-1825-0097","given-names":"Josiah","family-names":"Carberry","credit-name":null,"other-name":["Josiah
+        Stinkney Carberry","J. Carberry","J. S. Carberry"],"email":[],"institution-name":["Brown
+        University","Wesleyan University"]}],"num-found":1}'
+    headers: {}
+    status:
+      code: 200
+      message: OK
+- request:
+    body: "--ed4f78fa54447c39b82bb54183413a3c\r\nContent-Disposition: form-data; name=\"input_file\";
+      filename=\"contributors_good.tsv\"\r\n\r\nfirst_name\tlast_name\tmiddle_name_or_initial\tdisplay_name\taffiliation\torcid\temail\tis_contact\tis_principal_investigator\tis_operator\tmetadata_schema_id\nFirstname\tLastname\tM.\tFirstname
+      M. Lastname\tCarnegie Mellon University\t0000-0002-1825-0097\ttest@test.com\tYes\tYes\tYes\t94dae6f8-0756-4ab0-a47b-138e446a9501\n\r\n--ed4f78fa54447c39b82bb54183413a3c--\r\n"
+    headers: {}
+    method: POST
+    uri: https://api.metadatavalidator.metadatacenter.org/service/validate-tsv
+  response:
+    body:
+      string: '{"schema":{"name":"Contributor","version":"2.0.0","columnDescription":{"metadata_schema_id":{"example":"22bc762a-5020-419d-b170-24253ed9e8d9","name":"metadata_schema_id","required":true,"description":"The
+        string that serves as the definitive identifier for the metadata schema version
+        and is readily interpretable by computers for data validation and processing.
+        ","type":"string","subType":null,"label":"Metadata schema ID","permissibleValues":[],"regex":null,"min":null,"max":null},"affiliation":{"example":null,"name":"affiliation","required":true,"description":"Institutional
+        affiliation","type":"string","subType":null,"label":"Affiliation","permissibleValues":[],"regex":null,"min":null,"max":null},"first_name":{"example":null,"name":"first_name","required":true,"description":"First
+        name","type":"string","subType":null,"label":"First name","permissibleValues":[],"regex":null,"min":null,"max":null},"last_name":{"example":null,"name":"last_name","required":true,"description":"Last
+        name","type":"string","subType":null,"label":"Last name","permissibleValues":[],"regex":null,"min":null,"max":null},"middle_name_or_initial":{"example":null,"name":"middle_name_or_initial","required":false,"description":"Middle
+        name or initial. Leave blank if not applicable","type":"string","subType":null,"label":"Middle
+        name or initial","permissibleValues":[],"regex":null,"min":null,"max":null},"orcid":{"example":"0000-0002-8928-741X","name":"orcid","required":true,"description":"ORCID
+        ID of contributor. ","type":"string","subType":null,"label":"ORCID ID","permissibleValues":[],"regex":"^(\\d{4}-){3}\\d{3}(\\d|X)$","min":null,"max":null},"is_principal_investigator":{"example":null,"name":"is_principal_investigator","required":true,"description":"Is
+        this individual a principal investigator responsible for the data?","type":"string","subType":null,"label":"Is
+        principal investigator?","permissibleValues":[{"label":"Yes","meaning":null},{"label":"No","meaning":null}],"regex":null,"min":null,"max":null},"is_operator":{"example":null,"name":"is_operator","required":true,"description":"Is
+        this person responsible for executing the assay(s) in whole or part? If more
+        than one person is responsible for running the assay(s), then each operator
+        should be listed separately in the contributors file.","type":"string","subType":null,"label":"Is
+        operator?","permissibleValues":[{"label":"Yes","meaning":null},{"label":"No","meaning":null}],"regex":null,"min":null,"max":null},"is_contact":{"example":null,"name":"is_contact","required":true,"description":"Is
+        this individual a contact for DOI purposes?","type":"string","subType":null,"label":"Is
+        contact?","permissibleValues":[{"label":"Yes","meaning":null},{"label":"No","meaning":null}],"regex":null,"min":null,"max":null},"display_name":{"example":null,"name":"display_name","required":true,"description":"Name
+        for display","type":"string","subType":null,"label":"Display name","permissibleValues":[],"regex":null,"min":null,"max":null},"email":{"example":null,"name":"email","required":false,"description":"Email
+        address for the individual","type":"string","subType":null,"label":"Email","permissibleValues":[],"regex":null,"min":null,"max":null}},"requiredColumns":["metadata_schema_id","affiliation","first_name","last_name","orcid","is_principal_investigator","is_operator","is_contact","display_name"],"columnOrder":["first_name","last_name","middle_name_or_initial","display_name","affiliation","orcid","email","is_contact","is_principal_investigator","is_operator","metadata_schema_id"],"generatedFrom":"Optional[https://repo.metadatacenter.org/templates/94dae6f8-0756-4ab0-a47b-138e446a9501]","accessUrl":"https://openview.metadatacenter.org/templates/https%3A%2F%2Frepo.metadatacenter.org%2Ftemplates%2F94dae6f8-0756-4ab0-a47b-138e446a9501"},"data":[{"rowNumber":0,"is_operator":"Yes","middle_name_or_initial":"M.","affiliation":"Carnegie
+        Mellon University","metadata_schema_id":"94dae6f8-0756-4ab0-a47b-138e446a9501","is_principal_investigator":"Yes","last_name":"Lastname","orcid":"0000-0002-1825-0097","display_name":"Firstname
+        M. Lastname","first_name":"Firstname","email":"test@test.com","is_contact":"Yes"}],"reporting":[]}'
+    headers: {}
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers: {}
+    method: GET
+    uri: https://pub.orcid.org/v3.0/expanded-search/?q=orcid%3A0000-0002-1825-0097
+  response:
+    body:
+      string: '{"expanded-result":[{"orcid-id":"0000-0002-1825-0097","given-names":"Josiah","family-names":"Carberry","credit-name":null,"other-name":["Josiah
+        Stinkney Carberry","J. Carberry","J. S. Carberry"],"email":[],"institution-name":["Brown
+        University","Wesleyan University"]}],"num-found":1}'
+    headers: {}
+    status:
+      code: 200
+      message: OK
+version: 1

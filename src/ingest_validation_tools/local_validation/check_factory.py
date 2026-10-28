@@ -1,6 +1,4 @@
-import json
 import re
-from pathlib import Path
 from string import Template
 from sys import stderr
 from typing import Any, Callable, Iterator
@@ -9,27 +7,29 @@ from urllib.parse import urljoin
 import frictionless
 import requests
 
-cache_path = Path(__file__).parent / "url-status-cache.json"
-
 ErrorIterator = Iterator[frictionless.errors.CellError]
 Row = dict[str, Any]
 Check = Callable[[Row], ErrorIterator]
 
 
-def make_checks(schema) -> list[Check]:
-    factory = _CheckFactory(schema)
-    return [
-        factory.make_url_check(),
-        factory.make_sequence_limit_check(),
-        factory.make_units_check(),
-        factory.make_forbid_na_check(),
-    ]
-
-
-class _CheckFactory:
-    def __init__(self, schema):
+class CheckFactory:
+    def __init__(self, schema: dict, status_cache: dict):
+        """
+        status_cache is instantiated on a per-Upload basis,
+        prevents repeated requests to the same endpoint
+        when just checking for a status.
+        """
         self.schema = schema
+        self.status_cache = status_cache
         self._prev_value_run_length = {}
+
+    def make_checks(self) -> list[Check]:
+        return [
+            self.make_url_check(),
+            self.make_sequence_limit_check(),
+            self.make_units_check(),
+            self.make_forbid_na_check(),
+        ]
 
     def _get_constrained_fields(self, constraint: str) -> dict[str, list | dict]:
         c_c = "custom_constraints"
@@ -40,23 +40,22 @@ class _CheckFactory:
         }
 
     def _check_url_status_cache(self, url: str) -> str:
-        if not cache_path.exists():
-            cache_path.write_text("{}")
-        url_status_cache = json.loads(cache_path.read_text())
-        if url not in url_status_cache:
-            print(f"Fetching un-cached url: {url}", file=stderr)
-            try:
-                response = requests.get(url)
-                url_status_cache[url] = response.status_code
-            except Exception as e:
-                url_status_cache[url] = str(e)
-            cache_path.write_text(json.dumps(url_status_cache, sort_keys=True, indent=2))
-        return url_status_cache[url]
+        if status := self.status_cache.get(url):
+            return status
+
+        print(f"Fetching un-cached url: {url}", file=stderr)
+        try:
+            response = requests.get(url, allow_redirects=True)
+            self.status_cache[url] = response.status_code
+        except Exception as e:
+            self.status_cache[url] = str(e)
+        return self.status_cache[url]
 
     # Map any updated prefix URLs in table-schema files to (prefix, suffix) where suffix
     # can be "" or None
     LEGACY_URL_MAP: dict[str, tuple[str, str | None]] = {
-        "https://scicrunch.org/resolver/RRID:": ("https://scicrunch.org/resolver/", ".json")
+        "https://scicrunch.org/resolver/RRID:": ("https://scicrunch.org/resolver/", ".json"),
+        "https://dx.doi.org/:": ("https://doi.org/api/handle/", None),
     }
 
     def make_url_check(self, template=Template('URL returned $status: "$url"')) -> Check:

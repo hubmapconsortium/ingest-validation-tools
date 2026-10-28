@@ -4,24 +4,22 @@ from pathlib import Path
 import frictionless
 
 from ingest_validation_tools.enums import ReportType
-from ingest_validation_tools.local_validation.check_factory import make_checks
+from ingest_validation_tools.local_validation.check_factory import CheckFactory
 from ingest_validation_tools.local_validation.message_munger import munge
 
 
 def get_table_errors(
-    tsv: Path | str, schema: dict, report_type: ReportType = ReportType.STR
-) -> list:
+    tsv: Path | str, schema: dict, status_cache: dict, report_type: ReportType = ReportType.STR
+) -> tuple[list, dict]:
     tsv_path = Path(tsv)
     pre_flight_errors = _get_pre_flight_errors(tsv_path, schema=schema)
     if pre_flight_errors:
-        return pre_flight_errors
+        return pre_flight_errors, status_cache
 
-    # assert (
-    #     frictionless.__version__ == "4.0.0"
-    # ), 'Upgrade dependencies: "pip install -r requirements.txt"'
+    factory = CheckFactory(schema, status_cache)
 
     report = frictionless.validate(
-        tsv_path, schema=schema, format="csv", checks=make_checks(schema)
+        tsv_path, schema=schema, format="csv", checks=factory.make_checks()
     )
 
     assert len(report["errors"]) == 0, f"report has errors: {report}"
@@ -33,7 +31,9 @@ def get_table_errors(
 
     schema_fields_dict = {field["name"]: field for field in schema["fields"]}
 
-    return [_get_message(error, schema_fields_dict, report_type) for error in task["errors"]]
+    return [
+        _get_message(error, schema_fields_dict, report_type) for error in task["errors"]
+    ], factory.status_cache
 
 
 def _get_pre_flight_errors(tsv_path: Path, schema: dict) -> list[str] | None:
@@ -120,17 +120,3 @@ def _get_message(
             else get_json(msg, error["rowPosition"], error["fieldName"])
         )
     return error["message"]
-
-
-if __name__ == "__main__":
-    import argparse
-
-    from yaml import safe_load
-
-    parser = argparse.ArgumentParser("CLI just for testing")
-    parser.add_argument("--fixture", type=Path, required=True)
-    args = parser.parse_args()
-    tsv_path = args.fixture / "input.tsv"
-    schema_path = args.fixture / "schema.yaml"
-    errors = get_table_errors(tsv_path, safe_load(schema_path.read_text()))
-    print("\n".join(errors))
