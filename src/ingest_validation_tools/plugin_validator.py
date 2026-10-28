@@ -2,7 +2,7 @@ from collections.abc import Iterator
 from pathlib import Path
 from typing import TypeVar
 
-from ingest_validation_tools.schema_loader import SchemaVersion
+from ingest_validation_tools.schemas import DatasetSchema
 from ingest_validation_tools.validation_utils import add_path
 
 # KeyValuePair type hint is robust, but Validator is not available here; use generic
@@ -17,7 +17,7 @@ class ValidatorError(Exception):
 
 def run_plugin_validators_iter(
     metadata_path: PathOrStr,
-    sv: SchemaVersion,
+    sv: DatasetSchema,
     plugin_dir: PathOrStr,
     is_shared_upload: bool,
     verbose: bool = True,
@@ -39,17 +39,13 @@ def run_plugin_validators_iter(
          - Did not run (not relevant to dataset_type): (<ValidatorSubclassInstance>, [])
     """
 
-    for column_name in ["assay_type", "dataset_type"]:
-        if column_name in sv.rows[0]:
-            if any(row[column_name] != sv.dataset_type for row in sv.rows):
-                raise ValidatorError(f"{metadata_path} contains more than one assay type")
     if is_shared_upload:
         data_paths = [
             Path(metadata_path).parent / "global",
             Path(metadata_path).parent / "non_global",
         ]
     else:
-        data_paths = get_data_paths_from_tsv(metadata_path, sv)
+        data_paths = sv.data_paths
     for k, v in validation_error_iter(
         data_paths,
         assay_type=sv.dataset_type,
@@ -62,22 +58,6 @@ def run_plugin_validators_iter(
         **kwargs,
     ):
         yield k, v
-
-
-def get_data_paths_from_tsv(metadata_path: PathOrStr, sv: SchemaVersion):
-    data_paths = []
-    if all("data_path" in row for row in sv.rows):
-        for row in sv.rows:
-            data_path = Path(row["data_path"])
-            if not data_path.is_absolute():
-                data_path = Path(metadata_path).parent / data_path
-            if not data_path.is_dir():
-                raise ValidatorError(f"{data_path} should be the base directory of a dataset")
-            data_paths.append(data_path)
-        print(f"Data paths being passed to plugins: {data_paths}")
-    else:
-        raise ValidatorError(f"{metadata_path} is missing values in 'data_path' column")
-    return data_paths
 
 
 def validation_error_iter(

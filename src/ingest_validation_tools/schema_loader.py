@@ -15,6 +15,7 @@ from ingest_validation_tools.enums import (
     Sample,
     shared_enums,
 )
+from ingest_validation_tools.schemas import DatasetSchema, Schema
 from ingest_validation_tools.yaml_include_loader import load_yaml
 
 _table_schemas_path = Path(__file__).parent / "table-schemas"
@@ -148,24 +149,6 @@ class EntityTypeInfo:
                 f"Entity of type {self.entity_type}/{self.entity_sub_type} must have a sub_type_val."
             )
 
-    def format_constraint_check_data(self) -> dict:
-        """
-        Formats data about an entity so that it can be sent as
-        part of the payload to the constraints endpoint.
-        """
-        return {
-            "entity_type": self.entity_type.value,
-            "sub_type": [self.entity_sub_type] if self.entity_sub_type else None,
-            "sub_type_val": [self.entity_sub_type_val] if self.entity_sub_type_val else None,
-        }
-
-    def format_constraint_check_error(self):
-        data_entity_sub_type = f"/{self.entity_sub_type.lower()}" if self.entity_sub_type else ""
-        data_entity_sub_type_val = (
-            f"/{self.entity_sub_type_val.lower()}" if self.entity_sub_type_val else ""
-        )
-        return self.entity_type + data_entity_sub_type + data_entity_sub_type_val
-
 
 @dataclass
 class AncestorTypeInfo(EntityTypeInfo):
@@ -265,21 +248,18 @@ def _get_schema_filename(schema_name: str, version: str) -> str:
 
 
 def get_table_schema(
-    schema_version: SchemaVersion,
+    schema_version: Schema,
     no_url_checks: bool = False,
     keep_headers: bool = False,
 ) -> dict:
+    schema_type = "assays" if isinstance(Schema, DatasetSchema) else "other"
     try:
         schema = load_yaml(
-            Path(
-                _table_schemas_path
-                / schema_version.metadata_type
-                / f"{schema_version.table_schema}.yaml"
-            )
+            Path(_table_schemas_path / schema_type / f"{schema_version.table_schema}.yaml")
         )
     except FileNotFoundError:
         raise FileNotFoundError(
-            f"No such file or directory: {_table_schemas_path}/{schema_version.metadata_type}/{schema_version.table_schema}.yaml"  # noqa: E501
+            f"No such file or directory: {_table_schemas_path}/{schema_type}/{schema_version.table_schema}.yaml"  # noqa: E501
         )
     fields_wo_headers = get_fields_wo_headers(schema)
     if not keep_headers:
@@ -289,11 +269,11 @@ def get_table_schema(
     for schema_field in schema["fields"]:
         if isinstance(schema_field, str):
             continue
-        if schema_version.metadata_type == "assays":
+        if schema_type == "assays":
             _add_level_1_description(schema_field)
             _validate_level_1_enum(schema_field)
         _add_constraints(schema_field, no_url_checks=no_url_checks, names=names)
-        if schema_version.metadata_type == "assays":
+        if schema_type == "assays":
             _validate_field(schema_field)
 
     return schema

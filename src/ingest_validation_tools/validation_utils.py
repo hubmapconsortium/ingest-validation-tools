@@ -1,8 +1,13 @@
+from __future__ import annotations
+
 import json
 import logging
 import sys
+from collections import defaultdict
 from csv import DictReader
+from dataclasses import dataclass
 from pathlib import Path, PurePath
+from typing import TYPE_CHECKING
 from urllib.parse import quote, urlencode, urljoin
 
 import requests
@@ -22,11 +27,13 @@ from ingest_validation_tools.enums import (
 )
 from ingest_validation_tools.local_validation.table_validator import ReportType
 from ingest_validation_tools.schema_loader import (
-    EntityTypeInfo,
     PreflightError,
-    SchemaVersion,
     get_possible_directory_schemas,
 )
+from ingest_validation_tools.schemas import create_schema_for_entity_type
+
+if TYPE_CHECKING:
+    from ingest_validation_tools.schemas import Schema
 
 # TSV Metadata Validator
 CEDAR_VALIDATION_URL = "https://api.metadatavalidator.metadatacenter.org/service/validate-tsv"
@@ -68,98 +75,6 @@ def dict_reader_wrapper(path, encoding: str) -> list:
         rows = list(DictReader(f, dialect="excel-tab"))
         f.close()
     return rows
-
-
-def get_schema_version(
-    path: Path,
-    encoding: str,
-    entity_url: str = "",
-    ingest_url: str = "",
-    globus_token: str = "",
-    directory_path: Path | None = None,
-) -> SchemaVersion:
-    try:
-        rows = read_rows(path, encoding)
-    except TSVError as e:
-        raise PreflightError(e.errors)
-    # Don't want to send contrib/organ/sample/antibody to soft assay endpoint
-    other_type = get_other_type_schema(rows, str(path), entity_url, globus_token, directory_path)
-    if other_type:
-        return other_type
-    message = []
-    if not [field for field in UNIQUE_FIELDS_MAP[DatasetType.DATASET] if field in rows[0].keys()]:
-        message.append(
-            f"Required dataset field not present in {path}. One of the following is required: {', '.join(sorted(UNIQUE_FIELDS_MAP[DatasetType.DATASET]))}"
-        )
-        if "channel_id" in rows[0]:
-            message.append('Has "channel_id": Antibodies TSV found where metadata TSV expected.')
-        elif "orcid_id" in rows[0]:
-            message.append('Has "orcid_id": Contributors TSV found where metadata TSV expected.')
-    if message:
-        raise PreflightError(" ".join([msg for msg in message]))
-    assay_type_data = get_assaytype_data(rows[0], ingest_url, globus_token)
-    if not assay_type_data:
-        message.append(f"No match found in assayclassifier for TSV {path}.")
-        if "assay_type" in rows[0]:
-            message.append(f'Assay type: {rows[0].get("assay_type")}.')
-        elif "dataset_type" in rows[0]:
-            message.append(
-                f'Dataset type: {rows[0].get("dataset_type")}. Data Curator: check Pipeline Decision Rules to determine correct Assay Type and make sure metadata TSV matches the specification for that type.'
-            )
-        raise PreflightError(" ".join([msg for msg in message]))
-    dataset_type = assay_type_data["assaytype"]
-    return SchemaVersion(
-        dataset_type,
-        directory_path=directory_path,
-        path=path,
-        rows=rows,
-        soft_assay_data=assay_type_data,
-        entity_type_info=EntityTypeInfo(DatasetType.DATASET, dataset_type),
-    )
-
-
-def get_other_type_schema(
-    rows: list,
-    path: str,
-    entity_url: str,
-    globus_token: str,
-    directory_path: Path | None = None,
-) -> SchemaVersion | None:
-    # Assumes that an entire TSV only represents a single entity_type.
-    match_pair = match_field_in_unique_fields(rows[0].keys(), path, dataset=False)
-    if match_pair:
-        other_type_info = get_other_schema_data(
-            rows[0], path, entity_url, globus_token, match_pair
-        )
-        if other_type_info:
-            # Samples are sent as generic "sample" type, subtype is in entity_type_info
-            sv = SchemaVersion(
-                other_type_info.entity_type.value,
-                directory_path=directory_path,
-                path=Path(path),
-                rows=rows,
-                entity_type_info=other_type_info,
-            )
-            return sv
-
-
-def get_other_schema_data(
-    row: dict,
-    path: str,
-    entity_url: str,
-    globus_token: str,
-    entity_field_pair: tuple[EntityTypes, str],
-) -> EntityTypeInfo:
-    entity_type = entity_field_pair[0]
-    unique_field = entity_field_pair[1]
-    # Double check this is not a badly-formatted metadata.tsv
-    if set(row.keys()).intersection(UNIQUE_FIELDS_MAP[DatasetType.DATASET]):
-        raise PreflightError(f"Metadata TSV {path} contains invalid field: {unique_field}")
-    if entity_type == OtherTypes.SAMPLE:
-        # Sample types require additional data
-        return get_entity_info_from_entity_api(entity_url, row[unique_field], globus_token)
-    else:
-        return EntityTypeInfo(entity_type)
 
 
 def get_assaytype_data(row: dict, ingest_url: str, globus_token: str) -> dict:
@@ -366,41 +281,32 @@ def get_schema_details(schema_version: str, cedar_api_key: str) -> dict:
 
 def get_tsv_errors(
     tsv_path: str | Path,
-    schema_name: str,
-    no_url_checks: bool = False,
     ignore_deprecation: bool = False,
     report_type: ReportType = ReportType.STR,
     globus_token: str = "",
     app_context: dict = {},
+    *args,
+    **kwargs,
 ) -> list:
-    from ingest_validation_tools.upload import Upload
 
-    logging.info(f"Validating {schema_name} TSV...")
-
-    # TODO: refactor into TSV class
-    upload = Upload(
-        Path(tsv_path).parent,
-        tsv_paths=[Path(tsv_path)],
-        globus_token=globus_token,
-        offline_only=no_url_checks,
-        ignore_deprecation=ignore_deprecation,
-        app_context=app_context,
-        report_type=report_type,
-    )
-    # Return preflight errors to prevent uncaught exceptions downstream
-    if upload.errors.preflight:
-        return upload.errors.tsv_only_errors_by_path(str(tsv_path), report_type=report_type)
-    if schema_name in OtherTypes.with_sample_subtypes():
-        try:
-            schema = upload.get_schema_from_path(Path(tsv_path))
-        except Exception as e:
-            if upload.errors:
-                upload.errors.upload_metadata[tsv_path].append(str(e))
-        else:
-            upload.validate_metadata(tsv_paths={schema.path: schema})
-    else:
-        upload.validate_metadata()
-    return upload.errors.tsv_only_errors_by_path(str(tsv_path), report_type=report_type)
+    logging.info(f"Validating TSV...")
+    try:
+        schema = create_schema_for_entity_type(
+            Path(tsv_path),
+            Path(tsv_path).parent,
+            token=globus_token,
+            app_context=app_context,
+            report_type=report_type,
+            ignore_deprecation=ignore_deprecation,
+            *args,
+            **kwargs,
+        )
+    except PreflightError as e:
+        # Return preflight errors to prevent uncaught exceptions downstream
+        return [str(e)]
+    if errors := schema.validate():
+        return errors
+    return []
 
 
 def cedar_validation_call(tsv_path: str | Path) -> requests.models.Response:
@@ -572,3 +478,78 @@ class add_path:
             sys.path.remove(self.path)
         except ValueError:
             pass
+
+
+def referenced_paths_by_tsv(
+    col_name: str, tsv_path: Path, rows: list
+) -> dict[str, list[tuple[str, int]]]:
+    """
+    Returns dict of {path: [(referencing_tsv_path, row)]}
+    (col_name is already available wherever this was called)
+    """
+    references = defaultdict(list)
+    for i, row in enumerate(rows):
+        if path_value := row.get(col_name):
+            references[path_value].append((tsv_path, i + 2))
+    return dict(references)
+
+
+def format_error(e: Exception, fieldname: str, row: int, value):
+    return {
+        "errorType": type(e).__name__,
+        "column": fieldname,
+        "row": row,
+        "value": value,
+        "error_text": e.__str__(),
+    }
+
+
+@dataclass
+class EntityTypeInfo:
+    entity_type: EntityTypes
+    entity_subtype: str = ""
+    entity_subtype_val: str = ""
+
+    def __post_init__(self):
+        if (
+            self.entity_type in [OtherTypes.SAMPLE, DatasetType.DATASET]
+            and not self.entity_sub_type
+        ):
+            raise Exception(f"Entity of type {self.entity_type} must have a sub_type.")
+        # If a member of the Sample enum is passed in as the entity_type,
+        # this extracts the entity_type and entity_sub_type from that value
+        # and mutates the instance accordingly
+        # e.g. self.entity_type == <Sample.BLOCK: "sample-block">
+        if isinstance(self.entity_type, Sample):
+            self.entity_sub_type = self.entity_type.name.lower()
+            self.entity_type = OtherTypes.SAMPLE
+        if self.entity_sub_type == Sample.ORGAN and not self.entity_subtype_val:
+            raise Exception(
+                f"Entity of type {self.entity_type}/{self.entity_sub_type} must have a sub_type_val."
+            )
+
+    def format_constraint_check_data(self) -> dict:
+        """
+        Formats data about an entity so that it can be sent as
+        part of the payload to the constraints endpoint.
+        """
+        return {
+            "entity_type": self.entity_type.value,
+            "sub_type": [self.entity_subtype] if self.entity_subtype else None,
+            "sub_type_val": ([self.entity_subtype_val] if self.entity_subtype_val else None),
+        }
+
+    def format_constraint_check_error(self):
+        data_entity_sub_type = f"/{self.entity_subtype.lower()}" if self.entity_subtype else ""
+        data_entity_sub_type_val = (
+            f"/{self.entity_subtype_val.lower()}" if self.entity_subtype_val else ""
+        )
+        return self.entity_type + data_entity_sub_type + data_entity_sub_type_val
+
+
+@dataclass
+class AncestorTypeInfo(EntityTypeInfo):
+    entity_id: str = ""
+    source_schema: Schema | None = None
+    row: int | None = None
+    column: str = ""

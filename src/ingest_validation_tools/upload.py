@@ -1,6 +1,5 @@
 from __future__ import annotations
 
-import json
 import logging
 import subprocess
 from collections import Counter, defaultdict
@@ -11,43 +10,23 @@ from pathlib import Path
 from typing import DefaultDict
 from urllib.parse import urlsplit
 
-import requests
-
 from ingest_validation_tools.directory_validator import get_files
-from ingest_validation_tools.enums import (
-    UNIQUE_FIELDS_MAP,
-    DatasetType,
-    OtherTypes,
-    Sample,
-)
+from ingest_validation_tools.enums import UNIQUE_FIELDS_MAP, DatasetType
 from ingest_validation_tools.error_report import ErrorDict, InfoDict
-from ingest_validation_tools.local_validation.table_validator import (
-    ReportType,
-    get_table_errors,
-)
+from ingest_validation_tools.local_validation.table_validator import ReportType
 from ingest_validation_tools.plugin_validator import (
     ValidatorError as PluginValidatorError,
 )
 from ingest_validation_tools.plugin_validator import (
     run_plugin_validators_iter,
 )
-from ingest_validation_tools.schema_loader import (
-    AncestorTypeInfo,
-    EntityTypeInfo,
-    PreflightError,
-    SchemaVersion,
-    get_table_schema,
-)
+from ingest_validation_tools.schema_loader import PreflightError, SchemaVersion
+from ingest_validation_tools.schemas import DatasetSchema
 from ingest_validation_tools.validation_utils import (
     TSVError,
-    cedar_validation_call,
-    find_empty_tsv_columns,
     get_data_dir_errors,
-    get_entity_api_data,
-    get_entity_type_vals,
-    get_message,
-    get_schema_version,
     read_rows,
+    referenced_paths_by_tsv,
 )
 
 TSV_SUFFIX = "metadata.tsv"
@@ -97,7 +76,7 @@ class Upload:
         self.report_type = report_type
         self.status_cache = {}
 
-        self.dataset_metadata: dict[Path, SchemaVersion] = {}
+        self.dataset_metadata: list[DatasetSchema] = []
         self.errors = ErrorDict()
         self.info = InfoDict()
         self.get_errors_called: bool = False
@@ -142,12 +121,12 @@ class Upload:
         self.info.git = git_version
 
         tsvs = {
-            Path(path).name: {
-                "Metadata type": sv.dataset_type if sv.is_cedar else sv.table_schema,
-                "Metadata version": sv.version,
-                "Directory schema version": sv.dir_schema,
+            schema.path.name: {
+                "Metadata type": schema.dataset_type if schema.is_cedar else schema.table_schema,
+                "Metadata version": schema.version,
+                "Directory schema version": schema.dir_schema,
             }
-            for path, sv in self.dataset_metadata.items()
+            for schema in self.dataset_metadata
         }
         self.info.tsvs = tsvs
 
@@ -164,8 +143,7 @@ class Upload:
             return self.errors
 
         # Collect errors
-        self.get_upload_errors()
-        self.validate_metadata()
+        self.validate_schemas()
         self.get_directory_errors()
         self.get_reference_errors()
         self.get_file_errors()
@@ -183,14 +161,17 @@ class Upload:
         """
         Locate all dataset metadata TSV files at the top level of the upload.
         """
-        unsorted_tsv_paths = {
-            Path(path): self.get_schema_from_path(Path(path))
+        self.dataset_metadata = [
+            DatasetSchema(
+                Path(path),
+                base_dir=self.directory_path,
+                entity_type=DatasetType.DATASET,
+                token=self.globus_token,
+                app_context=self.app_context,
+            )
             for path in (tsv_paths if tsv_paths else self.directory_path.glob(f"*{TSV_SUFFIX}"))
-        }
+        ]
 
-        self.dataset_metadata = {
-            k: unsorted_tsv_paths[k] for k in sorted(unsorted_tsv_paths.keys())
-        }
         if not self.dataset_metadata:
             raise PreflightError("There are no metadata TSVs.")
 
@@ -213,54 +194,18 @@ class Upload:
             "uuid_url": "https://uuid.api.hubmapconsortium.org/uuid/",
         } | submitted_app_context
 
-    def get_schema_from_path(self, path: Path):
-        return get_schema_version(
-            path,
-            self.encoding,
-            self.app_context["entities_url"],
-            self.app_context["ingest_url"],
-            self.globus_token,
-            self.directory_path,
-        )
-
-    def get_upload_errors(self):
-        """
-        Check non-metadata/data dir elements required for uploads (contributors.tsv),
-        or occurring at the top level (antibodies.tsv).
-        """
-        for path, schema in self.dataset_metadata.items():
-            if "data_path" not in schema.rows[0] or "contributors_path" not in schema.rows[0]:
-                # TODO: not currently returned by get_tsv_errors; would break for e.g. samples
-                self.errors.upload_metadata[f"{path} (as {schema.table_schema})"].append(
-                    "File is missing data_path or contributors_path."
-                )
-            self._find_supporting_metadata(schema)
-            for supporting_type in [*schema.antibodies_schemas, *schema.contributors_schemas]:
-                self.validate_metadata(tsv_paths={supporting_type.path: supporting_type})
-
-    def validate_metadata(
-        self,
-        tsv_paths: dict[Path, SchemaVersion] = {},
-    ):
-        """
-        Validate metadata.tsvs, both against Metadata Validator
-        and any internal checks.
-        """
-        tsvs_to_evaluate = tsv_paths if tsv_paths else self.dataset_metadata
-        for tsv_path, schema_version in tsvs_to_evaluate.items():
-            if empty := find_empty_tsv_columns(tsv_path):
-                # TODO: upload_metadata not currently returned by get_tsv_errors
-                self.errors.upload_metadata[tsv_path] = (
-                    f"Empty columns: {', '.join([str(i) for i in empty])}"
-                )
-            if not schema_version.is_cedar:
-                logging.info(
-                    f"""TSV {tsv_path} does not contain a metadata_schema_id,
-                    sending for local validation"""
-                )
-                self._local_validation(tsv_path, schema_version)
-            elif not self.offline_only:
-                self._online_checks(tsv_path, schema_version)
+    def validate_schemas(self):
+        for dataset_tsv in self.dataset_metadata:
+            if dataset_errors := dataset_tsv.validate(self.status_cache):
+                # TODO: consolidate tsv errors
+                self.errors.metadata_errors.update({dataset_tsv.path: dataset_errors})
+                self.status_cache = dataset_tsv.validator.status_cache
+            for supporting_schema in [
+                *dataset_tsv.contributors_schemas,
+                *dataset_tsv.antibodies_schemas,
+            ]:
+                if errors := supporting_schema.validate():
+                    self.errors.upload_metadata.update({supporting_schema.path: errors})
 
     def get_directory_errors(self):
         """
@@ -276,13 +221,12 @@ class Upload:
                 self.multi_parent, self.multi_parent.path, self.multi_assay_data_paths
             )
             # Set dir schemas for child datasets to parent
-            for schema in self.dataset_metadata.values():
+            for schema in self.dataset_metadata:
                 if not schema.dataset_type == self.multi_parent.dataset_type:
                     schema.dir_schema = self.multi_parent.dir_schema
         else:
-            for path, schema in self.dataset_metadata.items():
-                data_paths = self.__referenced_paths_by_tsv("data_path", path, schema)
-                self._check_dir_schema(schema, Path(path), data_paths)
+            for schema in self.dataset_metadata:
+                self._check_dir_schema(schema, schema.path, schema.data_paths)
 
     def get_reference_errors(self):
         """
@@ -325,7 +269,7 @@ class Upload:
     ###################################
 
     def _check_single_assay(self):
-        types_counter = Counter([v.dataset_type for v in self.dataset_metadata.values()])
+        types_counter = Counter([v.dataset_type for v in self.dataset_metadata])
         if len(types_counter.keys()) > 1:
             raise PreflightError(
                 f"Found multiple dataset types in upload: {', '.join(types_counter.keys())}"
@@ -373,359 +317,17 @@ class Upload:
             shared_files.update({file.strip(): refs for file in files.split(";")})
         return dict(shared_files)
 
-    def _find_supporting_metadata(self, parent_schema: SchemaVersion):
-        """
-        Locate antibodies/contributors files referenced in metadata TSV.
-        """
-        for other_type in ["antibodies_path", "contributors_path"]:
-            referenced_paths = self.__get_referenced_paths(other_type)
-            for path_value, location_tuples in referenced_paths.items():
-                other_path = self.directory_path / path_value
-                rows = ", ".join([str(loc[1]) for loc in location_tuples])
-                try:
-                    assert other_path.exists()
-                except AssertionError:
-                    self.errors.upload_metadata[str(parent_schema.path)].append(
-                        f'On row(s) {rows}, column "{other_type}", value "{path_value}" points to non-existent file "{other_path}"'
-                    )
-                    continue
-                try:
-                    self._get_supporting_metadata_schemas(parent_schema, other_path)
-                except PreflightError as e:
-                    self.errors.upload_metadata[str(parent_schema.path)].append(
-                        f'On row(s) {rows}, column "{other_type}", error opening or reading value "{path_value}". {e.errors}'
-                    )
-                except Exception as e:
-                    self.errors.upload_metadata[str(parent_schema.path)].append(str(e))
-
-    def _get_supporting_metadata_schemas(self, parent_schema: SchemaVersion, other_path: Path):
-        schema = self.get_schema_from_path(other_path)
-        if schema.schema_name == "contributors":
-            parent_schema.contributors_schemas.append(schema)
-            is_contact = [row.get("is_contact", "").lower() for row in schema.rows]
-            if not ("yes" in is_contact) and not ("true" in is_contact):
-                # TODO: not currently returned by get_tsv_errors
-                self.errors.upload_metadata.update({schema.path: "No primary contact."})
-        elif schema.schema_name == "antibodies":
-            parent_schema.antibodies_schemas.append(schema)
-
-    ###################################
-    #
-    # Metadata validation:
-    #
-    ###################################
-
-    def _online_checks(
-        self,
-        tsv_path: Path,
-        schema: SchemaVersion,
-    ):
-        try:
-            if api_errors := self._api_validation(schema):
-                self.errors.metadata_validation_api[tsv_path].extend(api_errors)
-        except Exception as e:
-            self.errors.metadata_validation_api[tsv_path].extend([e])
-        self._get_url_errors(tsv_path, schema)
-        constraint_errors = self._constraint_checks(schema)
-        if constraint_errors:
-            self.errors.metadata_constraint_errors[tsv_path].extend(constraint_errors)
-
-    def _local_validation(self, tsv_path: Path, schema_version: SchemaVersion):
-        try:
-            schema = get_table_schema(
-                schema_version,
-                self.offline_only,
-            )
-        except Exception as e:
-            self.errors.metadata_validation_local.update(
-                {f"{tsv_path} (as {schema_version.table_schema})": [str(e)]}
-            )
-            return
-        if schema.get("deprecated") and not self.ignore_deprecation:
-            self.errors.metadata_validation_local.update(
-                {
-                    f"{tsv_path} (as {schema_version.table_schema})": [
-                        "Schema version is deprecated"
-                    ]
-                }
-            )
-            return
-
-        local_errors, new_status_cache = get_table_errors(tsv_path, schema, self.status_cache)
-        self.status_cache = new_status_cache
-        if local_errors:
-            self.errors.metadata_validation_local.update(
-                {f"{tsv_path} (as {schema_version.table_schema})": local_errors}
-            )
-
-    def _api_validation(
-        self,
-        schema: SchemaVersion,
-    ) -> list[str | dict]:
-        errors = []
-        response = cedar_validation_call(schema.path)
-        if response.status_code != 200:
-            raise Exception(response.json())
-        elif response.json().get("reporting") and len(response.json().get("reporting")) > 0:
-            for error in response.json()["reporting"]:
-                errors.append(get_message(error, self.report_type))
-        else:
-            logging.info(f"No errors found during CEDAR validation for {schema.path}!")
-            logging.info(f"Response: {response.json()}.")
-        return errors
-
-    ###################################
-    #
-    # URL validation:
-    #
-    ###################################
-
-    def _get_url_errors(self, tsv_path: Path, schema: SchemaVersion):
-        """
-        Check provided values for parent_sample_id and orcid_id; additionally
-        check sample_id, organ_id, and source_id values in single TSV validation
-        via validation_utils.get_tsv_errors.
-        """
-        constrained_fields = self._get_constrained_fields(schema)
-
-        rows = read_rows(Path(tsv_path), self.encoding)
-        if url_errors := self._find_and_check_url_fields(rows, constrained_fields, schema):
-            self.errors.metadata_url_errors[tsv_path].extend(url_errors)
-
-    def _find_and_check_url_fields(
-        self, rows: list, constrained_fields: list, schema: SchemaVersion
-    ) -> list[dict[str, str]]:
-        errors = []
-        for i, row in enumerate(rows):
-            url_fields = self._get_url_fields(row, constrained_fields)
-            for field_name, field_value in url_fields.items():
-                for value in field_value:
-                    try:
-                        entity_type = self._check_url(field_name, i, value, schema)
-                        if entity_type:
-                            schema.ancestor_entities.append(entity_type)
-                    except Exception as e:
-                        error = {
-                            "errorType": type(e).__name__,
-                            "column": field_name,
-                            "row": i,
-                            "value": value,
-                            "error_text": e.__str__(),
-                        }
-                        errors.append(get_message(error, self.report_type))
-        return errors
-
-    def _check_url(
-        self, field: str, row: int, value: str, schema: SchemaVersion
-    ) -> AncestorTypeInfo | None:
-        """
-        Checks that entity is not registered under "Organ Other".
-        Returns entity_type if checking a field in check_fields.
-        Raises Exception if any errors found.
-        """
-        assert value, f"Unable to check URL for column '{field}' on row {row + 2}: empty value."
-        if field in CHECK_FIELDS:
-            headers = self.app_context.get("request_header", {})
-            response = get_entity_api_data(
-                self.app_context["entities_url"], value, self.globus_token, headers
-            )
-            if schema.schema_name == DatasetType.DATASET and field == "parent_sample_id":
-                self._check_for_organ_other(response.json())
-                self._check_parent_sample_entity_type(response.json())
-            entity_type_vals = get_entity_type_vals(response.json())
-            # Do not get ancestor info for sample (no subtype) or source
-            if (
-                schema.schema_name == OtherTypes.SAMPLE and not entity_type_vals[0]
-            ) or schema.schema_name == OtherTypes.SOURCE:
-                return
-            return AncestorTypeInfo(
-                entity_id=value,
-                source_schema=schema,
-                row=row,
-                column=field,
-                *entity_type_vals,
-            )
-        elif field in ["orcid_id", "orcid"]:
-            self._check_orcid(field, value)
-
-    def _check_for_organ_other(self, response: dict):
-        origin_samples = response.get("origin_samples")
-        if origin_samples is None and "direct_ancestor" in response:
-            origin_samples = response["direct_ancestor"].get("origin_samples")
-        if origin_samples is not None and isinstance(origin_samples, list):
-            for origin_sample in origin_samples:
-                if (
-                    origin_sample.get("organ") == "OT"
-                    or origin_sample.get("organ") == "UBERON:0010000"
-                    or origin_sample.get("organ") is None
-                ):
-                    raise Exception(
-                        f"You are not allowed to register data against Sample {origin_sample.get('uuid')} with Organ Other. Please contact the respective help desk to ensure that appropriate support for your work can be provided."
-                    )
-
-    def _check_parent_sample_entity_type(self, response: dict):
-        entity_type = response.get("entity_type", "").lower()
-        if entity_type != OtherTypes.SAMPLE:
-            raise Exception(
-                f"parent_sample_id must reference a Sample entity, but received entity type '{entity_type}'."
-            )
-        sample_category = response.get("sample_category", "").lower()
-        valid_categories = {"block", "suspension", "section"}
-        if sample_category not in valid_categories:
-            raise Exception(
-                f"parent_sample_id must reference a Sample of type Block, Suspension, or Section, but received sample type '{sample_category}'."
-            )
-
-    def _check_orcid(self, field: str, value: str):
-        if field == "orcid":
-            url = "https://pub.orcid.org/v3.0/expanded-search/"
-        else:
-            url = "https://pub.orcid.org/v3.0/expanded-search/"
-        headers = {"Accept": "application/json"}
-        response = requests.get(url, headers=headers, params={"q": f"orcid:{value}"})
-        num_found = response.json().get("num-found")
-        if num_found == 1:
-            return
-        elif num_found == 0:
-            raise Exception(f"ORCID {value} does not exist.")
-        else:
-            raise Exception(f"Found {num_found} matches for ORCID {value}.")
-
-    def _get_url_fields(self, row: dict, constrained_fields: list) -> dict[str, list[str]]:
-        url_fields = {}
-        check = {k: v for k, v in row.items() if k in constrained_fields}
-
-        for check_field, value in check.items():
-            if check_field in CHECK_FIELDS and not self.globus_token:
-                raise Exception("No token received to check URL fields against Entity API.")
-            if check_field in ["parent_sample_id", "parent_dataset_id"]:
-                url_fields[check_field] = value.split(",")
-            else:
-                url_fields[check_field] = [value]
-        return url_fields
-
-    ###################################
-    #
-    # Constraints validation:
-    #
-    ###################################
-
-    def _constraint_checks(self, schema: SchemaVersion):
-        if not self.app_context["constraints_url"]:
-            return
-        payload = self._construct_constraint_check(schema)
-        if not payload:
-            print(f"No constraint checks made for schema {schema.schema_name}.")
-            return
-        data = json.dumps(payload)
-        headers = {
-            "Authorization": f"Bearer {self.globus_token}",
-            "Content-Type": "application/json",
-        }
-        params = {"match": True, "order": CONSTRAINTS_CHECK_METHOD}
-        response = requests.post(
-            self.app_context["constraints_url"], headers=headers, data=data, params=params
-        )
-        if self.verbose:
-            print("Ancestor-Descendant pairs sent:")
-            self._print_constraint_pairs(payload)
-        try:
-            response.raise_for_status()
-        except Exception:
-            return self._get_constraint_check_errors(response, schema)
-
-    def _get_constrained_fields(self, schema: SchemaVersion) -> list[str]:
-        # assay -> parent_sample_id
-        # sample -> sample_id
-        # organ -> organ_id
-        # contributors -> orcid (new) / orcid_id (old)
-
-        constrained_fields = []
-        schema_name = schema.schema_name
-
-        if schema_name in [
-            OtherTypes.SOURCE,
-            *Sample.with_parent_type(),
-        ]:
-            constrained_fields.append("source_id")
-            if schema_name in Sample.with_parent_type():
-                constrained_fields.append("sample_id")
-        elif schema_name in OtherTypes.ORGAN:  # Deprecated, included for backward-compatibility
-            constrained_fields.append("organ_id")
-        elif schema_name == OtherTypes.CONTRIBUTORS:
-            if schema.is_cedar:
-                constrained_fields.append("orcid")
-            else:
-                constrained_fields.append("orcid_id")
-        else:
-            constrained_fields.append("parent_sample_id")
-        return constrained_fields
-
-    def _construct_constraint_check(self, schema: SchemaVersion) -> list[dict]:
-        payload = []
-        assert isinstance(schema.entity_type_info, EntityTypeInfo), Exception(
-            f"Entity type info not present in {schema.schema_name} schema."
-        )
-        descendant_data = schema.entity_type_info.format_constraint_check_data()
-        for ancestor_entity in schema.ancestor_entities:
-            payload.append(
-                {
-                    "ancestors": ancestor_entity.format_constraint_check_data(),
-                    "descendants": descendant_data,
-                }
-            )
-        return payload
-
-    def _print_constraint_pairs(self, constraint_list):
-        for row in constraint_list:
-            row_output = []
-            for v in row.values():
-                entity_type = v.get("entity_type")
-                sub_type = v.get("sub_type")
-                if type(sub_type) is list:
-                    sub_type = ", ".join(sub_type)
-                sub_type_val = v.get("sub_type_val")
-                if type(sub_type_val) is list:
-                    sub_type_val = ", ".join(sub_type_val)
-                row_output.append(
-                    f"{entity_type}{f'/{sub_type}' if sub_type else ''}{f'/{sub_type_val}' if sub_type_val else ''}"
-                )
-            print(" - ".join(row_output))
-
-    def _get_constraint_check_errors(
-        self,
-        response: requests.Response,
-        schema: SchemaVersion,
-    ) -> list[str | int | dict]:
-        problem_entities = []
-        assert schema.entity_type_info
-        if response.status_code == 400:
-            for i, entity_check in enumerate(response.json().get("description", [])):
-                if entity_check["code"] != 200:
-                    ancestors = schema.ancestor_entities[i].format_constraint_check_error()
-                    error = {
-                        "errorType": "Invalid Ancestor",
-                        "column": schema.ancestor_entities[i].column,
-                        "row": schema.ancestor_entities[i].row,
-                        "value": schema.ancestor_entities[i].entity_id,
-                        "error_text": f"Invalid ancestor type for TSV type {schema.entity_type_info.format_constraint_check_error()}. Data sent for ancestor {schema.ancestor_entities[i].entity_id}: {ancestors}.",
-                    }
-                    problem_entities.append(get_message(error, self.report_type))
-        return problem_entities
-
     ###################################
     #
     # Directory validation:
     #
     ###################################
 
-    def _check_dir_schema(
-        self, schema_version: SchemaVersion, metadata_path: Path, data_path_refs: dict
-    ):
+    def _check_dir_schema(self, schema: DatasetSchema, metadata_path: Path, data_path_refs: dict):
         data_paths = list(data_path_refs.keys())
-        dir_schema = schema_version.dir_schema
+        dir_schema = schema.dir_schema
         if not dir_schema:
-            self.errors.directory.update({schema_version.path: "No directory schema found"})
+            self.errors.directory.update({schema.path: "No directory schema found"})
             return
         # Check dir schema of every data_path value in TSV
         for data_path in data_paths:
@@ -739,7 +341,7 @@ class Upload:
                 ).popitem()
             except FileNotFoundError:
                 self.errors.directory[str(metadata_path)].append(
-                    f'On row {data_path_refs[data_path][0][1]}, column "data_path", value "{data_path}" points to non-existent directory "{print_path}".'
+                    f'On row {data_path_refs[data_path]}, column "data_path", value "{data_path}" points to non-existent directory "{print_path}".'
                 )
                 continue
             # After this point dir can be assumed to exist, use actual path (print_path) for logging
@@ -752,7 +354,7 @@ class Upload:
             # different minor versions. Is this desirable? Logging as a curiosity for now,
             # still only capturing final version.
             print(f"Dir schema {ref_errors[0]} used for {print_path}")
-            schema_version.dir_schema = ref_errors[0]
+            schema.dir_schema = ref_errors[0]
 
     def get_error_path(self, data_path: Path) -> str:
         dir = self.directory_path
@@ -871,21 +473,8 @@ class Upload:
 
     def __get_referenced_paths(self, col_name: str) -> dict[str, list[tuple[Path, int]]]:
         references: DefaultDict[str, list] = defaultdict(list)
-        for tsv_path, schema in self.dataset_metadata.items():
-            references.update(self.__referenced_paths_by_tsv(col_name, tsv_path, schema))
-        return dict(references)
-
-    def __referenced_paths_by_tsv(
-        self, col_name: str, tsv_path: Path, schema: SchemaVersion
-    ) -> dict[str, list[tuple[str, int]]]:
-        """
-        Returns dict of {path: [(referencing_tsv_path, row)]}
-        (col_name is already available wherever this was called)
-        """
-        references = defaultdict(list)
-        for i, row in enumerate(schema.rows):
-            if path_value := row.get(col_name):
-                references[path_value].append((tsv_path, i + 2))
+        for schema in self.dataset_metadata:
+            references.update(referenced_paths_by_tsv(col_name, schema.path, schema.rows))
         return dict(references)
 
     def __format_reference_output(
@@ -913,16 +502,18 @@ class Upload:
         if not plugin_path:
             return
         errors: DefaultDict[str, list] = defaultdict(list)
-        for metadata_path, sv in self.dataset_metadata.items():
+        for schema in self.dataset_metadata:
             try:
                 # If this is not a multi-assay upload, check all files;
                 # if this is a multi-assay upload, check all files ONCE
                 # using the parent metadata file as a manifest, skipping
                 # non-parent dataset_types
-                if not self.multi_parent or (sv.dataset_type == self.multi_parent.dataset_type):
+                if not self.multi_parent or (
+                    schema.dataset_type == self.multi_parent.dataset_type
+                ):
                     for k, v in run_plugin_validators_iter(
-                        metadata_path,
-                        sv,
+                        schema.path,
+                        schema,
                         plugin_path,
                         self.is_shared_upload,
                         verbose=self.verbose,
@@ -952,14 +543,14 @@ class Upload:
     ###################################
 
     @cached_property
-    def multi_parent(self) -> SchemaVersion | None:
+    def multi_parent(self) -> DatasetSchema | None:
         # Should only be one parent, identified by `must-contain` in data from soft assay endpoint
-        multi_assay_parents = [sv for sv in self.dataset_metadata.values() if sv.contains]
+        multi_assay_parents = [sv for sv in self.dataset_metadata if sv.is_multi_assay_parent]
         if len(multi_assay_parents) == 0:
             return
         if len(multi_assay_parents) > 1:
             raise PreflightError(
-                f"Upload contains multiple parent multi-assay types: {', '.join([parent.schema_name for parent in multi_assay_parents])}"
+                f"Upload contains multiple parent multi-assay types: {', '.join([parent.dataset_type for parent in multi_assay_parents])}"
             )
         return multi_assay_parents[0]
 
@@ -969,11 +560,13 @@ class Upload:
         # Make sure that they are valid and all required are present.
         # Returns list of component schemas, empty list, or raises PreflightError
         if self.multi_parent:
-            components = [
-                sv
-                for sv in self.dataset_metadata.values()
-                if not sv.schema_name == self.multi_parent.schema_name
-            ]
+            components = []
+            for schema in self.dataset_metadata:
+                if (schema.entity_type in DatasetType) and not (
+                    schema.dataset_type != self.multi_parent.dataset_type
+                ):
+                    components.append(schema)
+                    schema.is_multi_assay_child = True
             self._check_multi_assay_components(components)
             return components
         else:
@@ -1072,12 +665,12 @@ class Upload:
         else:
             logging.info("Not a multi-assay upload.")
 
-    def _check_multi_assay_components(self, component_tsvs: list[SchemaVersion]):
+    def _check_multi_assay_components(self, component_tsvs: list[DatasetSchema]):
         if not self.multi_parent:
             raise PreflightError(
                 "Multi-assay parent not present, should not be checking components."
             )
-        required = set(self.multi_parent.contains)
+        required = set([schema.dataset_type for schema in self.multi_parent.contains])
         present_types = {sv.dataset_type.lower() for sv in component_tsvs}
         if not required == present_types:
             msgs = []

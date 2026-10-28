@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from enum import Enum, unique
 
 
@@ -13,10 +15,10 @@ class EntityTypes(str, Enum):
         return [entity_type.name.lower() for entity_type in cls]
 
     @classmethod
-    def get_enum_from_val(cls, val) -> str:
+    def get_enum_from_val(cls, val: str) -> EntityTypes | None:
         match = [entity_type for entity_type in cls if entity_type.value == val]
         if not match:
-            return ""
+            return None
         return match[0]
 
 
@@ -61,7 +63,7 @@ class Sample(EntityTypes):
 
 # These should all be considered to be mutually exclusive,
 # even within the same type
-UNIQUE_FIELDS_MAP = {
+UNIQUE_FIELDS_MAP: dict[EntityTypes, set[str]] = {
     OtherTypes.ANTIBODIES: {"antibody_rrid", "antibody_name"},
     OtherTypes.CONTRIBUTORS: {"orcid", "orcid_id"},
     DatasetType.DATASET: {"assay_type", "dataset_type", "derived_dataset_type"},
