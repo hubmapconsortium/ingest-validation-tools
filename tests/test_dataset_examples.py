@@ -1,12 +1,10 @@
 import argparse
 import sys
 import unittest
-from datetime import datetime
-from glob import glob
 from pathlib import Path
 from unittest.mock import patch
 
-from vcr.request import Request
+from vcr import VCR
 from vcr.unittest import VCRTestCase
 
 from ingest_validation_tools.directory_validator import (
@@ -26,8 +24,7 @@ from tests.fixtures.fixtures import (
 from tests.manual.updaters import remove_minor_version
 from tests.utils import (
     DATASET_EXAMPLES_OPTS,
-    default_before_record_request,
-    default_before_record_response,
+    default_vcr_kwargs,
     get_example_paths,
     prepare_change_report,
     test_dataset_examples,
@@ -58,18 +55,11 @@ class TestExamples(unittest.TestCase):
 
 class TestUploads(VCRTestCase):
 
-    def before_record_request(self, request: Request) -> Request:
-        return default_before_record_request(request)
-
-    def before_record_response(self, response: dict) -> dict:
-        return default_before_record_response(response)
-
     def _get_vcr(self, **kwargs):
-        kwargs["before_record_request"] = self.before_record_request
-        kwargs["before_record_response"] = self.before_record_response
-        kwargs["cassette_library_dir"] = "tests/fixtures/cassettes"
-        myvcr = super(TestUploads, self)._get_vcr(**kwargs)
-        return myvcr
+        return VCR(**kwargs | default_vcr_kwargs)
+
+    def _get_cassette_name(self):
+        return f"{self.__class__.__name__}.{self._testMethodName}.json"
 
     def test_data_dir_versions_highest_version(self):
         test_dirs = {
