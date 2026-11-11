@@ -58,52 +58,51 @@ interactions:
     uri: https://api.metadatavalidator.metadatacenter.org/service/validate-tsv
   response:
     body:
-      string: "{\"schema\":{\"name\":\"Sample Block\",\"version\":\"2.1.0\",\"columnDescription\":{\"source_storage_duration_value\":{\"example\":\"12\",\"name\":\"source_storage_duration_value\",\"required\":true,\"description\":\"The
+      string: "{\"schema\":{\"name\":\"Sample Block\",\"version\":\"2.1.0\",\"columnDescription\":{\"source_storage_duration_value\":{\"min\":0,\"max\":null,\"name\":\"source_storage_duration_value\",\"required\":true,\"description\":\"The
         length of time the sample was stored prior to processing it. For assays performed
         on tissue sections, this refers to how long the tissue section (e.g., slide)
         was stored before the assay began (e.g., imaging). For assays performed on
         suspensions, such as sequencing, it refers to how long the suspension was
         stored before library construction started. \",\"type\":\"number\",\"subType\":\"decimal\",\"label\":\"Source
-        storage duration value\",\"permissibleValues\":[],\"regex\":null,\"min\":0,\"max\":null},\"volume_value\":{\"example\":\"102\",\"name\":\"volume_value\",\"required\":false,\"description\":\"The
+        storage duration value\",\"permissibleValues\":[],\"regex\":null,\"example\":\"12\"},\"volume_value\":{\"min\":0,\"max\":null,\"name\":\"volume_value\",\"required\":false,\"description\":\"The
         volume of the object in question. \",\"type\":\"number\",\"subType\":\"decimal\",\"label\":\"Volume
-        value\",\"permissibleValues\":[],\"regex\":null,\"min\":0,\"max\":null},\"pathology_distance_value\":{\"example\":\"100\",\"name\":\"pathology_distance_value\",\"required\":false,\"description\":\"The
+        value\",\"permissibleValues\":[],\"regex\":null,\"example\":\"102\"},\"pathology_distance_value\":{\"min\":0,\"max\":null,\"name\":\"pathology_distance_value\",\"required\":false,\"description\":\"The
         distance from which the surgical sample was obtained relative to the pathology
         site. If this information is not applicable, this field may be left blank.
         \",\"type\":\"number\",\"subType\":\"decimal\",\"label\":\"Pathology distance
-        value\",\"permissibleValues\":[],\"regex\":null,\"min\":0,\"max\":null},\"processing_time_value\":{\"example\":\"120\",\"name\":\"processing_time_value\",\"required\":false,\"description\":\"The
+        value\",\"permissibleValues\":[],\"regex\":null,\"example\":\"100\"},\"processing_time_value\":{\"min\":0,\"max\":null,\"name\":\"processing_time_value\",\"required\":false,\"description\":\"The
         duration for which the tissue was handled prior to its initial preservation.
         \",\"type\":\"number\",\"subType\":\"decimal\",\"label\":\"Processing time
-        value\",\"permissibleValues\":[],\"regex\":null,\"min\":0,\"max\":null},\"quality_criteria\":{\"example\":\"RIN:
-        8.7, low clump, no visible debris\",\"name\":\"quality_criteria\",\"required\":false,\"description\":\"The
+        value\",\"permissibleValues\":[],\"regex\":null,\"example\":\"120\"},\"quality_criteria\":{\"min\":null,\"max\":null,\"name\":\"quality_criteria\",\"required\":false,\"description\":\"The
         quality criteria used to assess the sample, which may include metrics such
         as RIN (e.g., RIN: 8.7) or visual inspection parameters for suspensions prior
         to cell lysis. These criteria can be captured at a high level with general
         terms like \\\"OK\\\" or \\\"not OK\\\" or with more specific descriptors
         such as \\\"debris\\\" \\\"clump\\\" or \\\"low clump\\\". \",\"type\":\"string\",\"subType\":null,\"label\":\"Quality
-        criteria\",\"permissibleValues\":[],\"regex\":null,\"min\":null,\"max\":null},\"histological_report\":{\"example\":\"No
-        necrosis observed; tissue composed predominantly of hepatocytes with mild
-        portal inflammation and minimal fibrosis\",\"name\":\"histological_report\",\"required\":false,\"description\":\"The
+        criteria\",\"permissibleValues\":[],\"regex\":null,\"example\":\"RIN: 8.7,
+        low clump, no visible debris\"},\"histological_report\":{\"min\":null,\"max\":null,\"name\":\"histological_report\",\"required\":false,\"description\":\"The
         key variables in the histopathological report that are crucial for assessing
         the tissue, including the absence of necrosis, comments on tissue composition,
         descriptions of significant pathology, and high-level assessments of inflammation
         or fibrosis. \",\"type\":\"string\",\"subType\":null,\"label\":\"Histological
-        report\",\"permissibleValues\":[],\"regex\":null,\"min\":null,\"max\":null},\"notes\":{\"example\":\"Sample
-        was stored at 4\xB0C for 48 hours prior to processing due to equipment maintenance
-        delay\",\"name\":\"notes\",\"required\":false,\"description\":\"Miscellaneous
+        report\",\"permissibleValues\":[],\"regex\":null,\"example\":\"No necrosis
+        observed; tissue composed predominantly of hepatocytes with mild portal inflammation
+        and minimal fibrosis\"},\"notes\":{\"min\":null,\"max\":null,\"name\":\"notes\",\"required\":false,\"description\":\"Miscellaneous
         details about the sample that are not captured in the existing metadata fields.
-        \",\"type\":\"string\",\"subType\":null,\"label\":\"Notes\",\"permissibleValues\":[],\"regex\":null,\"min\":null,\"max\":null},\"metadata_schema_id\":{\"example\":\"22bc762a-5020-419d-b170-24253ed9e8d9\",\"name\":\"metadata_schema_id\",\"required\":true,\"description\":\"The
+        \",\"type\":\"string\",\"subType\":null,\"label\":\"Notes\",\"permissibleValues\":[],\"regex\":null,\"example\":\"Sample
+        was stored at 4\xB0C for 48 hours prior to processing due to equipment maintenance
+        delay\"},\"metadata_schema_id\":{\"min\":null,\"max\":null,\"name\":\"metadata_schema_id\",\"required\":true,\"description\":\"The
         unique string identifier for the metadata specification version, which is
         easily interpretable by computers for purposes of data validation and processing.
-        \",\"type\":\"string\",\"subType\":null,\"label\":\"Metadata schema ID\",\"permissibleValues\":[],\"regex\":null,\"min\":null,\"max\":null},\"source_storage_duration_unit\":{\"example\":\"hour\",\"name\":\"source_storage_duration_unit\",\"required\":true,\"description\":\"The
+        \",\"type\":\"string\",\"subType\":null,\"label\":\"Metadata schema ID\",\"permissibleValues\":[],\"regex\":null,\"example\":\"22bc762a-5020-419d-b170-24253ed9e8d9\"},\"source_storage_duration_unit\":{\"min\":null,\"max\":null,\"name\":\"source_storage_duration_unit\",\"required\":true,\"description\":\"The
         unit of measurement used to specify the source storage duration value. \",\"type\":\"string\",\"subType\":null,\"label\":\"Source
-        storage duration unit\",\"permissibleValues\":[{\"label\":\"day\",\"meaning\":\"http://purl.obolibrary.org/obo/UO_0000033\"},{\"label\":\"hour\",\"meaning\":\"http://purl.obolibrary.org/obo/UO_0000032\"},{\"label\":\"minute\",\"meaning\":\"http://purl.obolibrary.org/obo/UO_0000031\"},{\"label\":\"month\",\"meaning\":\"http://purl.obolibrary.org/obo/UO_0000035\"},{\"label\":\"year\",\"meaning\":\"http://purl.obolibrary.org/obo/UO_0000036\"}],\"regex\":null,\"min\":null,\"max\":null},\"volume_unit\":{\"example\":\"mm^3\",\"name\":\"volume_unit\",\"required\":false,\"description\":\"The
+        storage duration unit\",\"permissibleValues\":[{\"label\":\"day\",\"meaning\":\"http://purl.obolibrary.org/obo/UO_0000033\"},{\"label\":\"hour\",\"meaning\":\"http://purl.obolibrary.org/obo/UO_0000032\"},{\"label\":\"minute\",\"meaning\":\"http://purl.obolibrary.org/obo/UO_0000031\"},{\"label\":\"month\",\"meaning\":\"http://purl.obolibrary.org/obo/UO_0000035\"},{\"label\":\"year\",\"meaning\":\"http://purl.obolibrary.org/obo/UO_0000036\"}],\"regex\":null,\"example\":\"hour\"},\"volume_unit\":{\"min\":null,\"max\":null,\"name\":\"volume_unit\",\"required\":false,\"description\":\"The
         unit of measurement for the volume value. If no volume measurement is specified,
         this field may be left blank. \",\"type\":\"string\",\"subType\":null,\"label\":\"Volume
-        unit\",\"permissibleValues\":[{\"label\":\"cm^3\",\"meaning\":\"http://purl.obolibrary.org/obo/UO_0000097\"},{\"label\":\"ml\",\"meaning\":\"http://purl.obolibrary.org/obo/UO_0000098\"},{\"label\":\"mm^3\",\"meaning\":\"https://purl.humanatlas.io/vocab/hravs#HRAVS_0000136\"},{\"label\":\"um^3\",\"meaning\":\"https://purl.humanatlas.io/vocab/hravs#HRAVS_0000112\"}],\"regex\":null,\"min\":null,\"max\":null},\"pathology_distance_unit\":{\"example\":\"mm\",\"name\":\"pathology_distance_unit\",\"required\":false,\"description\":\"The
+        unit\",\"permissibleValues\":[{\"label\":\"cm^3\",\"meaning\":\"http://purl.obolibrary.org/obo/UO_0000097\"},{\"label\":\"ml\",\"meaning\":\"http://purl.obolibrary.org/obo/UO_0000098\"},{\"label\":\"mm^3\",\"meaning\":\"https://purl.humanatlas.io/vocab/hravs#HRAVS_0000136\"},{\"label\":\"um^3\",\"meaning\":\"https://purl.humanatlas.io/vocab/hravs#HRAVS_0000112\"}],\"regex\":null,\"example\":\"mm^3\"},\"pathology_distance_unit\":{\"min\":null,\"max\":null,\"name\":\"pathology_distance_unit\",\"required\":false,\"description\":\"The
         unit of measurement for the pathology distance value. If no distance measurement
         is applicable, this field may be left blank. \",\"type\":\"string\",\"subType\":null,\"label\":\"Pathology
-        distance unit\",\"permissibleValues\":[{\"label\":\"cm\",\"meaning\":\"http://purl.obolibrary.org/obo/UO_0000015\"},{\"label\":\"mm\",\"meaning\":\"http://purl.obolibrary.org/obo/UO_0000016\"}],\"regex\":null,\"min\":null,\"max\":null},\"preparation_medium\":{\"example\":\"Fresh
-        frozen CMC\",\"name\":\"preparation_medium\",\"required\":true,\"description\":\"The
+        distance unit\",\"permissibleValues\":[{\"label\":\"cm\",\"meaning\":\"http://purl.obolibrary.org/obo/UO_0000015\"},{\"label\":\"mm\",\"meaning\":\"http://purl.obolibrary.org/obo/UO_0000016\"}],\"regex\":null,\"example\":\"mm\"},\"preparation_medium\":{\"min\":null,\"max\":null,\"name\":\"preparation_medium\",\"required\":true,\"description\":\"The
         medium used during the sample preparation process. If no specific medium was
         utilized, enter \\\"None\\\". If medium was not recorded, enter \\\"Unknown\\\".
         \",\"type\":\"string\",\"subType\":null,\"label\":\"Preparation medium\",\"permissibleValues\":[{\"label\":\"1X
@@ -131,8 +130,8 @@ interactions:
         (Paraformaldehyde)\",\"meaning\":\"http://purl.obolibrary.org/obo/CHEBI_61538\"},{\"label\":\"PLP
         (Periodate-Lysine-Paraformaldehyde)\",\"meaning\":\"http://purl.bioontology.org/ontology/MESH/C046311\"},{\"label\":\"RNAlater\",\"meaning\":\"http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C63348\"},{\"label\":\"Trumps
         fixative\",\"meaning\":\"https://purl.humanatlas.io/vocab/hravs#HRAVS_0000331\"},{\"label\":\"Unknown\",\"meaning\":\"http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C17998\"},{\"label\":\"UW
-        Solution\",\"meaning\":\"https://purl.humanatlas.io/vocab/hravs#HRAVS_0000151\"}],\"regex\":null,\"min\":null,\"max\":null},\"preparation_condition\":{\"example\":\"Frozen
-        on dry ice\",\"name\":\"preparation_condition\",\"required\":true,\"description\":\"The
+        Solution\",\"meaning\":\"https://purl.humanatlas.io/vocab/hravs#HRAVS_0000151\"}],\"regex\":null,\"example\":\"Fresh
+        frozen CMC\"},\"preparation_condition\":{\"min\":null,\"max\":null,\"name\":\"preparation_condition\",\"required\":true,\"description\":\"The
         condition under which the sample preparation took place, such as whether the
         sample was placed on dry ice during the process. If preparation condition
         was not recorded, enter \\\"Unknown\\\". \",\"type\":\"string\",\"subType\":null,\"label\":\"Preparation
@@ -144,11 +143,11 @@ interactions:
         at 37 degrees celsius\",\"meaning\":\"https://purl.humanatlas.io/vocab/hravs#HRAVS_0000148\"},{\"label\":\"Stored
         in ambient temperature\",\"meaning\":\"http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C70719\"},{\"label\":\"Stored
         in refrigerator\",\"meaning\":\"https://purl.humanatlas.io/vocab/hravs#HRAVS_0000104\"},{\"label\":\"Stored
-        on wet ice\",\"meaning\":\"https://purl.humanatlas.io/vocab/hravs#HRAVS_0000465\"},{\"label\":\"Unknown\",\"meaning\":\"http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C17998\"}],\"regex\":null,\"min\":null,\"max\":null},\"processing_time_unit\":{\"example\":\"minute\",\"name\":\"processing_time_unit\",\"required\":false,\"description\":\"The
+        on wet ice\",\"meaning\":\"https://purl.humanatlas.io/vocab/hravs#HRAVS_0000465\"},{\"label\":\"Unknown\",\"meaning\":\"http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C17998\"}],\"regex\":null,\"example\":\"Frozen
+        on dry ice\"},\"processing_time_unit\":{\"min\":null,\"max\":null,\"name\":\"processing_time_unit\",\"required\":false,\"description\":\"The
         unit of measurement for the processing time value. If processing time is not
         specified, this field may be left blank. \",\"type\":\"string\",\"subType\":null,\"label\":\"Processing
-        time unit\",\"permissibleValues\":[{\"label\":\"minute\",\"meaning\":\"http://purl.obolibrary.org/obo/UO_0000031\"},{\"label\":\"day\",\"meaning\":\"http://purl.obolibrary.org/obo/UO_0000033\"},{\"label\":\"hour\",\"meaning\":\"http://purl.obolibrary.org/obo/UO_0000032\"}],\"regex\":null,\"min\":null,\"max\":null},\"storage_medium\":{\"example\":\"FFPE
-        (Paraffin embedded)\",\"name\":\"storage_medium\",\"required\":true,\"description\":\"The
+        time unit\",\"permissibleValues\":[{\"label\":\"minute\",\"meaning\":\"http://purl.obolibrary.org/obo/UO_0000031\"},{\"label\":\"day\",\"meaning\":\"http://purl.obolibrary.org/obo/UO_0000033\"},{\"label\":\"hour\",\"meaning\":\"http://purl.obolibrary.org/obo/UO_0000032\"}],\"regex\":null,\"example\":\"minute\"},\"storage_medium\":{\"min\":null,\"max\":null,\"name\":\"storage_medium\",\"required\":true,\"description\":\"The
         medium used to preserve the sample. If no specific medium was utilized, enter
         \\\"None\\\". If medium was not recorded, enter \\\"Unknown\\\". \",\"type\":\"string\",\"subType\":null,\"label\":\"Storage
         medium\",\"permissibleValues\":[{\"label\":\"1X quench buffer\",\"meaning\":\"https://purl.humanatlas.io/vocab/hravs#HRAVS_0000427\"},{\"label\":\"2%
@@ -163,8 +162,8 @@ interactions:
         (Neutral Buffered Formalin)\",\"meaning\":\"http://purl.obolibrary.org/obo/OBIB_0000213\"},{\"label\":\"None\",\"meaning\":\"http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C41132\"},{\"label\":\"Nuclease-free
         water\",\"meaning\":\"https://purl.humanatlas.io/vocab/hravs#HRAVS_0000482\"},{\"label\":\"OCT\",\"meaning\":\"http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C63523\"},{\"label\":\"PAXgene
         tissue kit (PXT)\",\"meaning\":\"http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C185113\"},{\"label\":\"PBS\",\"meaning\":\"http://purl.obolibrary.org/obo/OBI_0100046\"},{\"label\":\"PFA
-        (Paraformaldehyde)\",\"meaning\":\"http://purl.obolibrary.org/obo/CHEBI_61538\"},{\"label\":\"RNAlater\",\"meaning\":\"http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C63348\"},{\"label\":\"Tris-EDTA\",\"meaning\":\"https://purl.humanatlas.io/vocab/hravs#HRAVS_0000135\"},{\"label\":\"Unknown\",\"meaning\":\"http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C17998\"},{\"label\":\"Water\",\"meaning\":\"http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C65147\"}],\"regex\":null,\"min\":null,\"max\":null},\"storage_method\":{\"example\":\"Frozen
-        in dry ice\",\"name\":\"storage_method\",\"required\":true,\"description\":\"The
+        (Paraformaldehyde)\",\"meaning\":\"http://purl.obolibrary.org/obo/CHEBI_61538\"},{\"label\":\"RNAlater\",\"meaning\":\"http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C63348\"},{\"label\":\"Tris-EDTA\",\"meaning\":\"https://purl.humanatlas.io/vocab/hravs#HRAVS_0000135\"},{\"label\":\"Unknown\",\"meaning\":\"http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C17998\"},{\"label\":\"Water\",\"meaning\":\"http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C65147\"}],\"regex\":null,\"example\":\"FFPE
+        (Paraffin embedded)\"},\"storage_method\":{\"min\":null,\"max\":null,\"name\":\"storage_method\",\"required\":true,\"description\":\"The
         method used to store the sample after preparation and prior to performing
         the assay. If no specific storage method was utilized, enter \\\"None\\\".
         If storage method was not recorded, enter \\\"Unknown\\\". \",\"type\":\"string\",\"subType\":null,\"label\":\"Storage
@@ -177,31 +176,32 @@ interactions:
         at 37 degrees celsius\",\"meaning\":\"https://purl.humanatlas.io/vocab/hravs#HRAVS_0000148\"},{\"label\":\"None\",\"meaning\":\"http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C41132\"},{\"label\":\"Stored
         in ambient temperature\",\"meaning\":\"http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C70719\"},{\"label\":\"Stored
         in desiccator\",\"meaning\":\"https://purl.humanatlas.io/vocab/hravs#HRAVS_0000387\"},{\"label\":\"Stored
-        in refrigerator\",\"meaning\":\"https://purl.humanatlas.io/vocab/hravs#HRAVS_0000104\"},{\"label\":\"Unknown\",\"meaning\":\"http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C17998\"}],\"regex\":null,\"min\":null,\"max\":null},\"lab_id\":{\"example\":null,\"name\":\"lab_id\",\"required\":false,\"description\":\"An
+        in refrigerator\",\"meaning\":\"https://purl.humanatlas.io/vocab/hravs#HRAVS_0000104\"},{\"label\":\"Unknown\",\"meaning\":\"http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C17998\"}],\"regex\":null,\"example\":\"Frozen
+        in dry ice\"},\"lab_id\":{\"min\":null,\"max\":null,\"name\":\"lab_id\",\"required\":false,\"description\":\"An
         identifier assigned by the data provider to reference an external metadata
         record for the dataset. The external record may be maintained independently
         and can support dataset traceability and provenance tracking. Leave this field
         empty if no such identifier exists.\",\"type\":\"string\",\"subType\":null,\"label\":\"Lab
-        ID\",\"permissibleValues\":[],\"regex\":null,\"min\":null,\"max\":null},\"tissue_weight_value\":{\"example\":\"100\",\"name\":\"tissue_weight_value\",\"required\":false,\"description\":\"The
+        ID\",\"permissibleValues\":[],\"regex\":null,\"example\":null},\"tissue_weight_value\":{\"min\":0,\"max\":null,\"name\":\"tissue_weight_value\",\"required\":false,\"description\":\"The
         weight of a tissue block or the piece of tissue used in a suspension. This
         information is crucial for calculating the percentage of the parent block
         that was utilized in the suspension preparation. If the weight is not applicable
         or unknown, this field may be left blank. \",\"type\":\"number\",\"subType\":\"decimal\",\"label\":\"Tissue
-        weight value\",\"permissibleValues\":[],\"regex\":null,\"min\":0,\"max\":null},\"tissue_weight_unit\":{\"example\":\"g\",\"name\":\"tissue_weight_unit\",\"required\":false,\"description\":\"The
+        weight value\",\"permissibleValues\":[],\"regex\":null,\"example\":\"100\"},\"tissue_weight_unit\":{\"min\":null,\"max\":null,\"name\":\"tissue_weight_unit\",\"required\":false,\"description\":\"The
         unit of measurement for the tissue weight value. If no tissue weight is specified,
         this field may be left blank. \",\"type\":\"string\",\"subType\":null,\"label\":\"Tissue
-        weight unit\",\"permissibleValues\":[{\"label\":\"g\",\"meaning\":\"http://purl.obolibrary.org/obo/UO_0000021\"},{\"label\":\"kg\",\"meaning\":\"http://purl.obolibrary.org/obo/UO_0000009\"},{\"label\":\"mg\",\"meaning\":\"http://purl.obolibrary.org/obo/UO_0000022\"},{\"label\":\"ug\",\"meaning\":\"http://purl.obolibrary.org/obo/UO_0000023\"}],\"regex\":null,\"min\":null,\"max\":null},\"preparation_protocol_doi\":{\"example\":\"https://dx.doi.org/10.17504/protocols.io.eq2lyno9qvx9/v1\",\"name\":\"preparation_protocol_doi\",\"required\":true,\"description\":\"The
+        weight unit\",\"permissibleValues\":[{\"label\":\"g\",\"meaning\":\"http://purl.obolibrary.org/obo/UO_0000021\"},{\"label\":\"kg\",\"meaning\":\"http://purl.obolibrary.org/obo/UO_0000009\"},{\"label\":\"mg\",\"meaning\":\"http://purl.obolibrary.org/obo/UO_0000022\"},{\"label\":\"ug\",\"meaning\":\"http://purl.obolibrary.org/obo/UO_0000023\"}],\"regex\":null,\"example\":\"g\"},\"preparation_protocol_doi\":{\"min\":null,\"max\":null,\"name\":\"preparation_protocol_doi\",\"required\":true,\"description\":\"The
         DOI for the protocols.io page that details the assay or the procedures used
         for sample procurement and preparation. For example, in the case of an imaging
         assay, the protocol may start with tissue section staining and end with the
         generation of an OME-TIFF file. The documented protocol should also include
         any image processing steps involved in producing the final OME-TIFF. \",\"type\":\"url\",\"subType\":null,\"label\":\"Preparation
-        protocol DOI\",\"permissibleValues\":[],\"regex\":null,\"min\":null,\"max\":null},\"source_id\":{\"example\":\"HBM122.EFGH.789\",\"name\":\"source_id\",\"required\":true,\"description\":\"The
+        protocol DOI\",\"permissibleValues\":[],\"regex\":null,\"example\":\"https://dx.doi.org/10.17504/protocols.io.eq2lyno9qvx9/v1\"},\"source_id\":{\"min\":null,\"max\":null,\"name\":\"source_id\",\"required\":true,\"description\":\"The
         unique identifier from HuBMAP or SenNet for the source (parent data) from
         which the sample was derived. \",\"type\":\"string\",\"subType\":null,\"label\":\"Source
-        ID\",\"permissibleValues\":[],\"regex\":\"^(?:HBM|SNT)\\\\d{3}\\\\.[A-Z]{4}\\\\.\\\\d{3}$\",\"min\":null,\"max\":null},\"sample_id\":{\"example\":\"HBM743.CKJW.876\",\"name\":\"sample_id\",\"required\":true,\"description\":\"The
+        ID\",\"permissibleValues\":[],\"regex\":\"^(?:HBM|SNT)\\\\d{3}\\\\.[A-Z]{4}\\\\.\\\\d{3}$\",\"example\":\"HBM122.EFGH.789\"},\"sample_id\":{\"min\":null,\"max\":null,\"name\":\"sample_id\",\"required\":true,\"description\":\"The
         unique HuBMAP or SenNet identifier assigned to the sample by the ingest portal.
-        \",\"type\":\"string\",\"subType\":null,\"label\":\"Sample ID\",\"permissibleValues\":[],\"regex\":\"^(?:HBM|SNT)\\\\d{3}\\\\.[A-Z]{4}\\\\.\\\\d{3}$\",\"min\":null,\"max\":null}},\"requiredColumns\":[\"source_storage_duration_value\",\"metadata_schema_id\",\"source_storage_duration_unit\",\"preparation_medium\",\"preparation_condition\",\"storage_medium\",\"storage_method\",\"preparation_protocol_doi\",\"source_id\",\"sample_id\"],\"columnOrder\":[\"source_id\",\"sample_id\",\"lab_id\",\"preparation_protocol_doi\",\"source_storage_duration_value\",\"source_storage_duration_unit\",\"tissue_weight_value\",\"tissue_weight_unit\",\"volume_value\",\"volume_unit\",\"pathology_distance_value\",\"pathology_distance_unit\",\"preparation_medium\",\"preparation_condition\",\"processing_time_value\",\"processing_time_unit\",\"storage_medium\",\"storage_method\",\"quality_criteria\",\"histological_report\",\"notes\",\"metadata_schema_id\"],\"generatedFrom\":\"Optional[https://repo.metadatacenter.org/templates/3e98cee6-d3fb-467b-8d4e-9ba7ee49eeff]\",\"accessUrl\":\"https://openview.metadatacenter.org/templates/https%3A%2F%2Frepo.metadatacenter.org%2Ftemplates%2F3e98cee6-d3fb-467b-8d4e-9ba7ee49eeff\"},\"data\":[{\"rowNumber\":0,\"volume_value\":42,\"storage_method\":\"frozen
+        \",\"type\":\"string\",\"subType\":null,\"label\":\"Sample ID\",\"permissibleValues\":[],\"regex\":\"^(?:HBM|SNT)\\\\d{3}\\\\.[A-Z]{4}\\\\.\\\\d{3}$\",\"example\":\"HBM743.CKJW.876\"}},\"requiredColumns\":[\"source_storage_duration_value\",\"metadata_schema_id\",\"source_storage_duration_unit\",\"preparation_medium\",\"preparation_condition\",\"storage_medium\",\"storage_method\",\"preparation_protocol_doi\",\"source_id\",\"sample_id\"],\"columnOrder\":[\"source_id\",\"sample_id\",\"lab_id\",\"preparation_protocol_doi\",\"source_storage_duration_value\",\"source_storage_duration_unit\",\"tissue_weight_value\",\"tissue_weight_unit\",\"volume_value\",\"volume_unit\",\"pathology_distance_value\",\"pathology_distance_unit\",\"preparation_medium\",\"preparation_condition\",\"processing_time_value\",\"processing_time_unit\",\"storage_medium\",\"storage_method\",\"quality_criteria\",\"histological_report\",\"notes\",\"metadata_schema_id\"],\"generatedFrom\":\"Optional[https://repo.metadatacenter.org/templates/3e98cee6-d3fb-467b-8d4e-9ba7ee49eeff]\",\"accessUrl\":\"https://openview.metadatacenter.org/templates/https%3A%2F%2Frepo.metadatacenter.org%2Ftemplates%2F3e98cee6-d3fb-467b-8d4e-9ba7ee49eeff\"},\"data\":[{\"rowNumber\":0,\"volume_value\":42,\"storage_method\":\"frozen
         in liquid nitrogen\",\"preparation_condition\":\"frozen in liquid nitrogen\",\"notes\":\"\",\"source_storage_duration_value\":42,\"sample_id\":\"HBM427.JWVV.723\",\"metadata_schema_id\":\"3e98cee6-d3fb-467b-8d4e-9ba7ee49eeff\",\"tissue_weight_unit\":\"kg\",\"pathology_distance_unit\":\"cm\",\"preparation_medium\":\"Methanol\",\"processing_time_unit\":\"min\",\"pathology_distance_value\":42,\"quality_criteria\":\"\",\"volume_unit\":\"mm^3\",\"tissue_weight_value\":42,\"source_storage_duration_unit\":\"min\",\"histological_report\":\"\",\"storage_medium\":\"Methanol\",\"preparation_protocol_doi\":\"https://dx.doi.org/10.17504/protocols.io.eq2lyno9qvx9/v1\",\"source_id\":\"HBM233.CGGG.482\",\"processing_time_value\":42,\"lab_id\":\"\"},{\"rowNumber\":1,\"volume_value\":42,\"storage_method\":\"frozen
         in liquid nitrogen\",\"preparation_condition\":\"frozen in liquid nitrogen\",\"notes\":\"\",\"source_storage_duration_value\":42,\"sample_id\":\"HBM427.JWVV.723\",\"metadata_schema_id\":\"3e98cee6-d3fb-467b-8d4e-9ba7ee49eeff\",\"tissue_weight_unit\":\"kg\",\"pathology_distance_unit\":\"cm\",\"preparation_medium\":\"Methanol\",\"processing_time_unit\":\"minute\",\"pathology_distance_value\":42,\"quality_criteria\":\"\",\"volume_unit\":\"mm^3\",\"tissue_weight_value\":42,\"source_storage_duration_unit\":\"minute\",\"histological_report\":\"\",\"storage_medium\":\"Methanol\",\"preparation_protocol_doi\":\"https://dx.doi.org/10.17504/protocols.io.eq2lyno9qvx9/v1\",\"source_id\":\"HBM733.HSZF.798\",\"processing_time_value\":42,\"lab_id\":\"\"}],\"reporting\":[{\"errorType\":\"notStandardTerm\",\"column\":\"processing_time_unit\",\"row\":0,\"repairSuggestion\":\"minute\",\"value\":\"min\"},{\"errorType\":\"notStandardTerm\",\"column\":\"source_storage_duration_unit\",\"row\":0,\"repairSuggestion\":\"minute\",\"value\":\"min\"}]}"
     headers: {}
@@ -359,61 +359,60 @@ interactions:
       code: 200
       message: OK
 - request:
-    body: "--23cdbdebe2d16da6868c169411b72c22\r\nContent-Disposition: form-data; name=\"input_file\";
+    body: "--816cf6946e86f42a75a70c8c5e56bb19\r\nContent-Disposition: form-data; name=\"input_file\";
       filename=\"sample-block-bad.tsv\"\r\n\r\nsource_id\tsample_id\tlab_id\tpreparation_protocol_doi\tsource_storage_duration_value\tsource_storage_duration_unit\ttissue_weight_value\ttissue_weight_unit\tvolume_value\tvolume_unit\tpathology_distance_value\tpathology_distance_unit\tpreparation_medium\tpreparation_condition\tprocessing_time_value\tprocessing_time_unit\tstorage_medium\tstorage_method\tquality_criteria\thistological_report\tnotes\tmetadata_schema_id\nHBM233.CGGG.482\tHBM427.JWVV.723\t\thttps://dx.doi.org/10.17504/protocols.io.eq2lyno9qvx9/v1\t42\tmin\t42\tkg\t42\tmm^3\t42\tcm\tMethanol\tfrozen
       in liquid nitrogen\t42\tmin\tMethanol\tfrozen in liquid nitrogen\t\t\t\t3e98cee6-d3fb-467b-8d4e-9ba7ee49eeff\nHBM733.HSZF.798\tHBM427.JWVV.723\t\thttps://dx.doi.org/10.17504/protocols.io.eq2lyno9qvx9/v1\t42\tminute\t42\tkg\t42\tmm^3\t42\tcm\tMethanol\tfrozen
-      in liquid nitrogen\t42\tminute\tMethanol\tfrozen in liquid nitrogen\t\t\t\t3e98cee6-d3fb-467b-8d4e-9ba7ee49eeff\n\r\n--23cdbdebe2d16da6868c169411b72c22--\r\n"
+      in liquid nitrogen\t42\tminute\tMethanol\tfrozen in liquid nitrogen\t\t\t\t3e98cee6-d3fb-467b-8d4e-9ba7ee49eeff\n\r\n--816cf6946e86f42a75a70c8c5e56bb19--\r\n"
     headers: {}
     method: POST
     uri: https://api.metadatavalidator.metadatacenter.org/service/validate-tsv
   response:
     body:
-      string: "{\"schema\":{\"name\":\"Sample Block\",\"version\":\"2.1.0\",\"columnDescription\":{\"source_storage_duration_value\":{\"example\":\"12\",\"name\":\"source_storage_duration_value\",\"required\":true,\"description\":\"The
+      string: "{\"schema\":{\"name\":\"Sample Block\",\"version\":\"2.1.0\",\"columnDescription\":{\"source_storage_duration_value\":{\"min\":0,\"max\":null,\"name\":\"source_storage_duration_value\",\"required\":true,\"description\":\"The
         length of time the sample was stored prior to processing it. For assays performed
         on tissue sections, this refers to how long the tissue section (e.g., slide)
         was stored before the assay began (e.g., imaging). For assays performed on
         suspensions, such as sequencing, it refers to how long the suspension was
         stored before library construction started. \",\"type\":\"number\",\"subType\":\"decimal\",\"label\":\"Source
-        storage duration value\",\"permissibleValues\":[],\"regex\":null,\"min\":0,\"max\":null},\"volume_value\":{\"example\":\"102\",\"name\":\"volume_value\",\"required\":false,\"description\":\"The
+        storage duration value\",\"permissibleValues\":[],\"regex\":null,\"example\":\"12\"},\"volume_value\":{\"min\":0,\"max\":null,\"name\":\"volume_value\",\"required\":false,\"description\":\"The
         volume of the object in question. \",\"type\":\"number\",\"subType\":\"decimal\",\"label\":\"Volume
-        value\",\"permissibleValues\":[],\"regex\":null,\"min\":0,\"max\":null},\"pathology_distance_value\":{\"example\":\"100\",\"name\":\"pathology_distance_value\",\"required\":false,\"description\":\"The
+        value\",\"permissibleValues\":[],\"regex\":null,\"example\":\"102\"},\"pathology_distance_value\":{\"min\":0,\"max\":null,\"name\":\"pathology_distance_value\",\"required\":false,\"description\":\"The
         distance from which the surgical sample was obtained relative to the pathology
         site. If this information is not applicable, this field may be left blank.
         \",\"type\":\"number\",\"subType\":\"decimal\",\"label\":\"Pathology distance
-        value\",\"permissibleValues\":[],\"regex\":null,\"min\":0,\"max\":null},\"processing_time_value\":{\"example\":\"120\",\"name\":\"processing_time_value\",\"required\":false,\"description\":\"The
+        value\",\"permissibleValues\":[],\"regex\":null,\"example\":\"100\"},\"processing_time_value\":{\"min\":0,\"max\":null,\"name\":\"processing_time_value\",\"required\":false,\"description\":\"The
         duration for which the tissue was handled prior to its initial preservation.
         \",\"type\":\"number\",\"subType\":\"decimal\",\"label\":\"Processing time
-        value\",\"permissibleValues\":[],\"regex\":null,\"min\":0,\"max\":null},\"quality_criteria\":{\"example\":\"RIN:
-        8.7, low clump, no visible debris\",\"name\":\"quality_criteria\",\"required\":false,\"description\":\"The
+        value\",\"permissibleValues\":[],\"regex\":null,\"example\":\"120\"},\"quality_criteria\":{\"min\":null,\"max\":null,\"name\":\"quality_criteria\",\"required\":false,\"description\":\"The
         quality criteria used to assess the sample, which may include metrics such
         as RIN (e.g., RIN: 8.7) or visual inspection parameters for suspensions prior
         to cell lysis. These criteria can be captured at a high level with general
         terms like \\\"OK\\\" or \\\"not OK\\\" or with more specific descriptors
         such as \\\"debris\\\" \\\"clump\\\" or \\\"low clump\\\". \",\"type\":\"string\",\"subType\":null,\"label\":\"Quality
-        criteria\",\"permissibleValues\":[],\"regex\":null,\"min\":null,\"max\":null},\"histological_report\":{\"example\":\"No
-        necrosis observed; tissue composed predominantly of hepatocytes with mild
-        portal inflammation and minimal fibrosis\",\"name\":\"histological_report\",\"required\":false,\"description\":\"The
+        criteria\",\"permissibleValues\":[],\"regex\":null,\"example\":\"RIN: 8.7,
+        low clump, no visible debris\"},\"histological_report\":{\"min\":null,\"max\":null,\"name\":\"histological_report\",\"required\":false,\"description\":\"The
         key variables in the histopathological report that are crucial for assessing
         the tissue, including the absence of necrosis, comments on tissue composition,
         descriptions of significant pathology, and high-level assessments of inflammation
         or fibrosis. \",\"type\":\"string\",\"subType\":null,\"label\":\"Histological
-        report\",\"permissibleValues\":[],\"regex\":null,\"min\":null,\"max\":null},\"notes\":{\"example\":\"Sample
-        was stored at 4\xB0C for 48 hours prior to processing due to equipment maintenance
-        delay\",\"name\":\"notes\",\"required\":false,\"description\":\"Miscellaneous
+        report\",\"permissibleValues\":[],\"regex\":null,\"example\":\"No necrosis
+        observed; tissue composed predominantly of hepatocytes with mild portal inflammation
+        and minimal fibrosis\"},\"notes\":{\"min\":null,\"max\":null,\"name\":\"notes\",\"required\":false,\"description\":\"Miscellaneous
         details about the sample that are not captured in the existing metadata fields.
-        \",\"type\":\"string\",\"subType\":null,\"label\":\"Notes\",\"permissibleValues\":[],\"regex\":null,\"min\":null,\"max\":null},\"metadata_schema_id\":{\"example\":\"22bc762a-5020-419d-b170-24253ed9e8d9\",\"name\":\"metadata_schema_id\",\"required\":true,\"description\":\"The
+        \",\"type\":\"string\",\"subType\":null,\"label\":\"Notes\",\"permissibleValues\":[],\"regex\":null,\"example\":\"Sample
+        was stored at 4\xB0C for 48 hours prior to processing due to equipment maintenance
+        delay\"},\"metadata_schema_id\":{\"min\":null,\"max\":null,\"name\":\"metadata_schema_id\",\"required\":true,\"description\":\"The
         unique string identifier for the metadata specification version, which is
         easily interpretable by computers for purposes of data validation and processing.
-        \",\"type\":\"string\",\"subType\":null,\"label\":\"Metadata schema ID\",\"permissibleValues\":[],\"regex\":null,\"min\":null,\"max\":null},\"source_storage_duration_unit\":{\"example\":\"hour\",\"name\":\"source_storage_duration_unit\",\"required\":true,\"description\":\"The
+        \",\"type\":\"string\",\"subType\":null,\"label\":\"Metadata schema ID\",\"permissibleValues\":[],\"regex\":null,\"example\":\"22bc762a-5020-419d-b170-24253ed9e8d9\"},\"source_storage_duration_unit\":{\"min\":null,\"max\":null,\"name\":\"source_storage_duration_unit\",\"required\":true,\"description\":\"The
         unit of measurement used to specify the source storage duration value. \",\"type\":\"string\",\"subType\":null,\"label\":\"Source
-        storage duration unit\",\"permissibleValues\":[{\"label\":\"day\",\"meaning\":\"http://purl.obolibrary.org/obo/UO_0000033\"},{\"label\":\"hour\",\"meaning\":\"http://purl.obolibrary.org/obo/UO_0000032\"},{\"label\":\"minute\",\"meaning\":\"http://purl.obolibrary.org/obo/UO_0000031\"},{\"label\":\"month\",\"meaning\":\"http://purl.obolibrary.org/obo/UO_0000035\"},{\"label\":\"year\",\"meaning\":\"http://purl.obolibrary.org/obo/UO_0000036\"}],\"regex\":null,\"min\":null,\"max\":null},\"volume_unit\":{\"example\":\"mm^3\",\"name\":\"volume_unit\",\"required\":false,\"description\":\"The
+        storage duration unit\",\"permissibleValues\":[{\"label\":\"day\",\"meaning\":\"http://purl.obolibrary.org/obo/UO_0000033\"},{\"label\":\"hour\",\"meaning\":\"http://purl.obolibrary.org/obo/UO_0000032\"},{\"label\":\"minute\",\"meaning\":\"http://purl.obolibrary.org/obo/UO_0000031\"},{\"label\":\"month\",\"meaning\":\"http://purl.obolibrary.org/obo/UO_0000035\"},{\"label\":\"year\",\"meaning\":\"http://purl.obolibrary.org/obo/UO_0000036\"}],\"regex\":null,\"example\":\"hour\"},\"volume_unit\":{\"min\":null,\"max\":null,\"name\":\"volume_unit\",\"required\":false,\"description\":\"The
         unit of measurement for the volume value. If no volume measurement is specified,
         this field may be left blank. \",\"type\":\"string\",\"subType\":null,\"label\":\"Volume
-        unit\",\"permissibleValues\":[{\"label\":\"cm^3\",\"meaning\":\"http://purl.obolibrary.org/obo/UO_0000097\"},{\"label\":\"ml\",\"meaning\":\"http://purl.obolibrary.org/obo/UO_0000098\"},{\"label\":\"mm^3\",\"meaning\":\"https://purl.humanatlas.io/vocab/hravs#HRAVS_0000136\"},{\"label\":\"um^3\",\"meaning\":\"https://purl.humanatlas.io/vocab/hravs#HRAVS_0000112\"}],\"regex\":null,\"min\":null,\"max\":null},\"pathology_distance_unit\":{\"example\":\"mm\",\"name\":\"pathology_distance_unit\",\"required\":false,\"description\":\"The
+        unit\",\"permissibleValues\":[{\"label\":\"cm^3\",\"meaning\":\"http://purl.obolibrary.org/obo/UO_0000097\"},{\"label\":\"ml\",\"meaning\":\"http://purl.obolibrary.org/obo/UO_0000098\"},{\"label\":\"mm^3\",\"meaning\":\"https://purl.humanatlas.io/vocab/hravs#HRAVS_0000136\"},{\"label\":\"um^3\",\"meaning\":\"https://purl.humanatlas.io/vocab/hravs#HRAVS_0000112\"}],\"regex\":null,\"example\":\"mm^3\"},\"pathology_distance_unit\":{\"min\":null,\"max\":null,\"name\":\"pathology_distance_unit\",\"required\":false,\"description\":\"The
         unit of measurement for the pathology distance value. If no distance measurement
         is applicable, this field may be left blank. \",\"type\":\"string\",\"subType\":null,\"label\":\"Pathology
-        distance unit\",\"permissibleValues\":[{\"label\":\"cm\",\"meaning\":\"http://purl.obolibrary.org/obo/UO_0000015\"},{\"label\":\"mm\",\"meaning\":\"http://purl.obolibrary.org/obo/UO_0000016\"}],\"regex\":null,\"min\":null,\"max\":null},\"preparation_medium\":{\"example\":\"Fresh
-        frozen CMC\",\"name\":\"preparation_medium\",\"required\":true,\"description\":\"The
+        distance unit\",\"permissibleValues\":[{\"label\":\"cm\",\"meaning\":\"http://purl.obolibrary.org/obo/UO_0000015\"},{\"label\":\"mm\",\"meaning\":\"http://purl.obolibrary.org/obo/UO_0000016\"}],\"regex\":null,\"example\":\"mm\"},\"preparation_medium\":{\"min\":null,\"max\":null,\"name\":\"preparation_medium\",\"required\":true,\"description\":\"The
         medium used during the sample preparation process. If no specific medium was
         utilized, enter \\\"None\\\". If medium was not recorded, enter \\\"Unknown\\\".
         \",\"type\":\"string\",\"subType\":null,\"label\":\"Preparation medium\",\"permissibleValues\":[{\"label\":\"1X
@@ -441,8 +440,8 @@ interactions:
         (Paraformaldehyde)\",\"meaning\":\"http://purl.obolibrary.org/obo/CHEBI_61538\"},{\"label\":\"PLP
         (Periodate-Lysine-Paraformaldehyde)\",\"meaning\":\"http://purl.bioontology.org/ontology/MESH/C046311\"},{\"label\":\"RNAlater\",\"meaning\":\"http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C63348\"},{\"label\":\"Trumps
         fixative\",\"meaning\":\"https://purl.humanatlas.io/vocab/hravs#HRAVS_0000331\"},{\"label\":\"Unknown\",\"meaning\":\"http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C17998\"},{\"label\":\"UW
-        Solution\",\"meaning\":\"https://purl.humanatlas.io/vocab/hravs#HRAVS_0000151\"}],\"regex\":null,\"min\":null,\"max\":null},\"preparation_condition\":{\"example\":\"Frozen
-        on dry ice\",\"name\":\"preparation_condition\",\"required\":true,\"description\":\"The
+        Solution\",\"meaning\":\"https://purl.humanatlas.io/vocab/hravs#HRAVS_0000151\"}],\"regex\":null,\"example\":\"Fresh
+        frozen CMC\"},\"preparation_condition\":{\"min\":null,\"max\":null,\"name\":\"preparation_condition\",\"required\":true,\"description\":\"The
         condition under which the sample preparation took place, such as whether the
         sample was placed on dry ice during the process. If preparation condition
         was not recorded, enter \\\"Unknown\\\". \",\"type\":\"string\",\"subType\":null,\"label\":\"Preparation
@@ -454,11 +453,11 @@ interactions:
         at 37 degrees celsius\",\"meaning\":\"https://purl.humanatlas.io/vocab/hravs#HRAVS_0000148\"},{\"label\":\"Stored
         in ambient temperature\",\"meaning\":\"http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C70719\"},{\"label\":\"Stored
         in refrigerator\",\"meaning\":\"https://purl.humanatlas.io/vocab/hravs#HRAVS_0000104\"},{\"label\":\"Stored
-        on wet ice\",\"meaning\":\"https://purl.humanatlas.io/vocab/hravs#HRAVS_0000465\"},{\"label\":\"Unknown\",\"meaning\":\"http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C17998\"}],\"regex\":null,\"min\":null,\"max\":null},\"processing_time_unit\":{\"example\":\"minute\",\"name\":\"processing_time_unit\",\"required\":false,\"description\":\"The
+        on wet ice\",\"meaning\":\"https://purl.humanatlas.io/vocab/hravs#HRAVS_0000465\"},{\"label\":\"Unknown\",\"meaning\":\"http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C17998\"}],\"regex\":null,\"example\":\"Frozen
+        on dry ice\"},\"processing_time_unit\":{\"min\":null,\"max\":null,\"name\":\"processing_time_unit\",\"required\":false,\"description\":\"The
         unit of measurement for the processing time value. If processing time is not
         specified, this field may be left blank. \",\"type\":\"string\",\"subType\":null,\"label\":\"Processing
-        time unit\",\"permissibleValues\":[{\"label\":\"minute\",\"meaning\":\"http://purl.obolibrary.org/obo/UO_0000031\"},{\"label\":\"day\",\"meaning\":\"http://purl.obolibrary.org/obo/UO_0000033\"},{\"label\":\"hour\",\"meaning\":\"http://purl.obolibrary.org/obo/UO_0000032\"}],\"regex\":null,\"min\":null,\"max\":null},\"storage_medium\":{\"example\":\"FFPE
-        (Paraffin embedded)\",\"name\":\"storage_medium\",\"required\":true,\"description\":\"The
+        time unit\",\"permissibleValues\":[{\"label\":\"minute\",\"meaning\":\"http://purl.obolibrary.org/obo/UO_0000031\"},{\"label\":\"day\",\"meaning\":\"http://purl.obolibrary.org/obo/UO_0000033\"},{\"label\":\"hour\",\"meaning\":\"http://purl.obolibrary.org/obo/UO_0000032\"}],\"regex\":null,\"example\":\"minute\"},\"storage_medium\":{\"min\":null,\"max\":null,\"name\":\"storage_medium\",\"required\":true,\"description\":\"The
         medium used to preserve the sample. If no specific medium was utilized, enter
         \\\"None\\\". If medium was not recorded, enter \\\"Unknown\\\". \",\"type\":\"string\",\"subType\":null,\"label\":\"Storage
         medium\",\"permissibleValues\":[{\"label\":\"1X quench buffer\",\"meaning\":\"https://purl.humanatlas.io/vocab/hravs#HRAVS_0000427\"},{\"label\":\"2%
@@ -473,8 +472,8 @@ interactions:
         (Neutral Buffered Formalin)\",\"meaning\":\"http://purl.obolibrary.org/obo/OBIB_0000213\"},{\"label\":\"None\",\"meaning\":\"http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C41132\"},{\"label\":\"Nuclease-free
         water\",\"meaning\":\"https://purl.humanatlas.io/vocab/hravs#HRAVS_0000482\"},{\"label\":\"OCT\",\"meaning\":\"http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C63523\"},{\"label\":\"PAXgene
         tissue kit (PXT)\",\"meaning\":\"http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C185113\"},{\"label\":\"PBS\",\"meaning\":\"http://purl.obolibrary.org/obo/OBI_0100046\"},{\"label\":\"PFA
-        (Paraformaldehyde)\",\"meaning\":\"http://purl.obolibrary.org/obo/CHEBI_61538\"},{\"label\":\"RNAlater\",\"meaning\":\"http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C63348\"},{\"label\":\"Tris-EDTA\",\"meaning\":\"https://purl.humanatlas.io/vocab/hravs#HRAVS_0000135\"},{\"label\":\"Unknown\",\"meaning\":\"http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C17998\"},{\"label\":\"Water\",\"meaning\":\"http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C65147\"}],\"regex\":null,\"min\":null,\"max\":null},\"storage_method\":{\"example\":\"Frozen
-        in dry ice\",\"name\":\"storage_method\",\"required\":true,\"description\":\"The
+        (Paraformaldehyde)\",\"meaning\":\"http://purl.obolibrary.org/obo/CHEBI_61538\"},{\"label\":\"RNAlater\",\"meaning\":\"http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C63348\"},{\"label\":\"Tris-EDTA\",\"meaning\":\"https://purl.humanatlas.io/vocab/hravs#HRAVS_0000135\"},{\"label\":\"Unknown\",\"meaning\":\"http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C17998\"},{\"label\":\"Water\",\"meaning\":\"http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C65147\"}],\"regex\":null,\"example\":\"FFPE
+        (Paraffin embedded)\"},\"storage_method\":{\"min\":null,\"max\":null,\"name\":\"storage_method\",\"required\":true,\"description\":\"The
         method used to store the sample after preparation and prior to performing
         the assay. If no specific storage method was utilized, enter \\\"None\\\".
         If storage method was not recorded, enter \\\"Unknown\\\". \",\"type\":\"string\",\"subType\":null,\"label\":\"Storage
@@ -487,31 +486,32 @@ interactions:
         at 37 degrees celsius\",\"meaning\":\"https://purl.humanatlas.io/vocab/hravs#HRAVS_0000148\"},{\"label\":\"None\",\"meaning\":\"http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C41132\"},{\"label\":\"Stored
         in ambient temperature\",\"meaning\":\"http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C70719\"},{\"label\":\"Stored
         in desiccator\",\"meaning\":\"https://purl.humanatlas.io/vocab/hravs#HRAVS_0000387\"},{\"label\":\"Stored
-        in refrigerator\",\"meaning\":\"https://purl.humanatlas.io/vocab/hravs#HRAVS_0000104\"},{\"label\":\"Unknown\",\"meaning\":\"http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C17998\"}],\"regex\":null,\"min\":null,\"max\":null},\"lab_id\":{\"example\":null,\"name\":\"lab_id\",\"required\":false,\"description\":\"An
+        in refrigerator\",\"meaning\":\"https://purl.humanatlas.io/vocab/hravs#HRAVS_0000104\"},{\"label\":\"Unknown\",\"meaning\":\"http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C17998\"}],\"regex\":null,\"example\":\"Frozen
+        in dry ice\"},\"lab_id\":{\"min\":null,\"max\":null,\"name\":\"lab_id\",\"required\":false,\"description\":\"An
         identifier assigned by the data provider to reference an external metadata
         record for the dataset. The external record may be maintained independently
         and can support dataset traceability and provenance tracking. Leave this field
         empty if no such identifier exists.\",\"type\":\"string\",\"subType\":null,\"label\":\"Lab
-        ID\",\"permissibleValues\":[],\"regex\":null,\"min\":null,\"max\":null},\"tissue_weight_value\":{\"example\":\"100\",\"name\":\"tissue_weight_value\",\"required\":false,\"description\":\"The
+        ID\",\"permissibleValues\":[],\"regex\":null,\"example\":null},\"tissue_weight_value\":{\"min\":0,\"max\":null,\"name\":\"tissue_weight_value\",\"required\":false,\"description\":\"The
         weight of a tissue block or the piece of tissue used in a suspension. This
         information is crucial for calculating the percentage of the parent block
         that was utilized in the suspension preparation. If the weight is not applicable
         or unknown, this field may be left blank. \",\"type\":\"number\",\"subType\":\"decimal\",\"label\":\"Tissue
-        weight value\",\"permissibleValues\":[],\"regex\":null,\"min\":0,\"max\":null},\"tissue_weight_unit\":{\"example\":\"g\",\"name\":\"tissue_weight_unit\",\"required\":false,\"description\":\"The
+        weight value\",\"permissibleValues\":[],\"regex\":null,\"example\":\"100\"},\"tissue_weight_unit\":{\"min\":null,\"max\":null,\"name\":\"tissue_weight_unit\",\"required\":false,\"description\":\"The
         unit of measurement for the tissue weight value. If no tissue weight is specified,
         this field may be left blank. \",\"type\":\"string\",\"subType\":null,\"label\":\"Tissue
-        weight unit\",\"permissibleValues\":[{\"label\":\"g\",\"meaning\":\"http://purl.obolibrary.org/obo/UO_0000021\"},{\"label\":\"kg\",\"meaning\":\"http://purl.obolibrary.org/obo/UO_0000009\"},{\"label\":\"mg\",\"meaning\":\"http://purl.obolibrary.org/obo/UO_0000022\"},{\"label\":\"ug\",\"meaning\":\"http://purl.obolibrary.org/obo/UO_0000023\"}],\"regex\":null,\"min\":null,\"max\":null},\"preparation_protocol_doi\":{\"example\":\"https://dx.doi.org/10.17504/protocols.io.eq2lyno9qvx9/v1\",\"name\":\"preparation_protocol_doi\",\"required\":true,\"description\":\"The
+        weight unit\",\"permissibleValues\":[{\"label\":\"g\",\"meaning\":\"http://purl.obolibrary.org/obo/UO_0000021\"},{\"label\":\"kg\",\"meaning\":\"http://purl.obolibrary.org/obo/UO_0000009\"},{\"label\":\"mg\",\"meaning\":\"http://purl.obolibrary.org/obo/UO_0000022\"},{\"label\":\"ug\",\"meaning\":\"http://purl.obolibrary.org/obo/UO_0000023\"}],\"regex\":null,\"example\":\"g\"},\"preparation_protocol_doi\":{\"min\":null,\"max\":null,\"name\":\"preparation_protocol_doi\",\"required\":true,\"description\":\"The
         DOI for the protocols.io page that details the assay or the procedures used
         for sample procurement and preparation. For example, in the case of an imaging
         assay, the protocol may start with tissue section staining and end with the
         generation of an OME-TIFF file. The documented protocol should also include
         any image processing steps involved in producing the final OME-TIFF. \",\"type\":\"url\",\"subType\":null,\"label\":\"Preparation
-        protocol DOI\",\"permissibleValues\":[],\"regex\":null,\"min\":null,\"max\":null},\"source_id\":{\"example\":\"HBM122.EFGH.789\",\"name\":\"source_id\",\"required\":true,\"description\":\"The
+        protocol DOI\",\"permissibleValues\":[],\"regex\":null,\"example\":\"https://dx.doi.org/10.17504/protocols.io.eq2lyno9qvx9/v1\"},\"source_id\":{\"min\":null,\"max\":null,\"name\":\"source_id\",\"required\":true,\"description\":\"The
         unique identifier from HuBMAP or SenNet for the source (parent data) from
         which the sample was derived. \",\"type\":\"string\",\"subType\":null,\"label\":\"Source
-        ID\",\"permissibleValues\":[],\"regex\":\"^(?:HBM|SNT)\\\\d{3}\\\\.[A-Z]{4}\\\\.\\\\d{3}$\",\"min\":null,\"max\":null},\"sample_id\":{\"example\":\"HBM743.CKJW.876\",\"name\":\"sample_id\",\"required\":true,\"description\":\"The
+        ID\",\"permissibleValues\":[],\"regex\":\"^(?:HBM|SNT)\\\\d{3}\\\\.[A-Z]{4}\\\\.\\\\d{3}$\",\"example\":\"HBM122.EFGH.789\"},\"sample_id\":{\"min\":null,\"max\":null,\"name\":\"sample_id\",\"required\":true,\"description\":\"The
         unique HuBMAP or SenNet identifier assigned to the sample by the ingest portal.
-        \",\"type\":\"string\",\"subType\":null,\"label\":\"Sample ID\",\"permissibleValues\":[],\"regex\":\"^(?:HBM|SNT)\\\\d{3}\\\\.[A-Z]{4}\\\\.\\\\d{3}$\",\"min\":null,\"max\":null}},\"requiredColumns\":[\"source_storage_duration_value\",\"metadata_schema_id\",\"source_storage_duration_unit\",\"preparation_medium\",\"preparation_condition\",\"storage_medium\",\"storage_method\",\"preparation_protocol_doi\",\"source_id\",\"sample_id\"],\"columnOrder\":[\"source_id\",\"sample_id\",\"lab_id\",\"preparation_protocol_doi\",\"source_storage_duration_value\",\"source_storage_duration_unit\",\"tissue_weight_value\",\"tissue_weight_unit\",\"volume_value\",\"volume_unit\",\"pathology_distance_value\",\"pathology_distance_unit\",\"preparation_medium\",\"preparation_condition\",\"processing_time_value\",\"processing_time_unit\",\"storage_medium\",\"storage_method\",\"quality_criteria\",\"histological_report\",\"notes\",\"metadata_schema_id\"],\"generatedFrom\":\"Optional[https://repo.metadatacenter.org/templates/3e98cee6-d3fb-467b-8d4e-9ba7ee49eeff]\",\"accessUrl\":\"https://openview.metadatacenter.org/templates/https%3A%2F%2Frepo.metadatacenter.org%2Ftemplates%2F3e98cee6-d3fb-467b-8d4e-9ba7ee49eeff\"},\"data\":[{\"rowNumber\":0,\"volume_value\":42,\"storage_method\":\"frozen
+        \",\"type\":\"string\",\"subType\":null,\"label\":\"Sample ID\",\"permissibleValues\":[],\"regex\":\"^(?:HBM|SNT)\\\\d{3}\\\\.[A-Z]{4}\\\\.\\\\d{3}$\",\"example\":\"HBM743.CKJW.876\"}},\"requiredColumns\":[\"source_storage_duration_value\",\"metadata_schema_id\",\"source_storage_duration_unit\",\"preparation_medium\",\"preparation_condition\",\"storage_medium\",\"storage_method\",\"preparation_protocol_doi\",\"source_id\",\"sample_id\"],\"columnOrder\":[\"source_id\",\"sample_id\",\"lab_id\",\"preparation_protocol_doi\",\"source_storage_duration_value\",\"source_storage_duration_unit\",\"tissue_weight_value\",\"tissue_weight_unit\",\"volume_value\",\"volume_unit\",\"pathology_distance_value\",\"pathology_distance_unit\",\"preparation_medium\",\"preparation_condition\",\"processing_time_value\",\"processing_time_unit\",\"storage_medium\",\"storage_method\",\"quality_criteria\",\"histological_report\",\"notes\",\"metadata_schema_id\"],\"generatedFrom\":\"Optional[https://repo.metadatacenter.org/templates/3e98cee6-d3fb-467b-8d4e-9ba7ee49eeff]\",\"accessUrl\":\"https://openview.metadatacenter.org/templates/https%3A%2F%2Frepo.metadatacenter.org%2Ftemplates%2F3e98cee6-d3fb-467b-8d4e-9ba7ee49eeff\"},\"data\":[{\"rowNumber\":0,\"volume_value\":42,\"storage_method\":\"frozen
         in liquid nitrogen\",\"preparation_condition\":\"frozen in liquid nitrogen\",\"notes\":\"\",\"source_storage_duration_value\":42,\"sample_id\":\"HBM427.JWVV.723\",\"metadata_schema_id\":\"3e98cee6-d3fb-467b-8d4e-9ba7ee49eeff\",\"tissue_weight_unit\":\"kg\",\"pathology_distance_unit\":\"cm\",\"preparation_medium\":\"Methanol\",\"processing_time_unit\":\"min\",\"pathology_distance_value\":42,\"quality_criteria\":\"\",\"volume_unit\":\"mm^3\",\"tissue_weight_value\":42,\"source_storage_duration_unit\":\"min\",\"histological_report\":\"\",\"storage_medium\":\"Methanol\",\"preparation_protocol_doi\":\"https://dx.doi.org/10.17504/protocols.io.eq2lyno9qvx9/v1\",\"source_id\":\"HBM233.CGGG.482\",\"processing_time_value\":42,\"lab_id\":\"\"},{\"rowNumber\":1,\"volume_value\":42,\"storage_method\":\"frozen
         in liquid nitrogen\",\"preparation_condition\":\"frozen in liquid nitrogen\",\"notes\":\"\",\"source_storage_duration_value\":42,\"sample_id\":\"HBM427.JWVV.723\",\"metadata_schema_id\":\"3e98cee6-d3fb-467b-8d4e-9ba7ee49eeff\",\"tissue_weight_unit\":\"kg\",\"pathology_distance_unit\":\"cm\",\"preparation_medium\":\"Methanol\",\"processing_time_unit\":\"minute\",\"pathology_distance_value\":42,\"quality_criteria\":\"\",\"volume_unit\":\"mm^3\",\"tissue_weight_value\":42,\"source_storage_duration_unit\":\"minute\",\"histological_report\":\"\",\"storage_medium\":\"Methanol\",\"preparation_protocol_doi\":\"https://dx.doi.org/10.17504/protocols.io.eq2lyno9qvx9/v1\",\"source_id\":\"HBM733.HSZF.798\",\"processing_time_value\":42,\"lab_id\":\"\"}],\"reporting\":[{\"errorType\":\"notStandardTerm\",\"column\":\"processing_time_unit\",\"row\":0,\"repairSuggestion\":\"minute\",\"value\":\"min\"},{\"errorType\":\"notStandardTerm\",\"column\":\"source_storage_duration_unit\",\"row\":0,\"repairSuggestion\":\"minute\",\"value\":\"min\"}]}"
     headers: {}
