@@ -1,13 +1,996 @@
 {
-  "Spreadsheet Validator Errors": {
+  "MetadataErrors": {
     "examples/dataset-examples/bad-cedar-multi-assay-visium-bad-child-metadata/upload/bad-visium-rnaseq-metadata.tsv": [
-      "On row 3, column \"parent_sample_id\", value \"\" fails because of error \"missingRequired\".",
-      "On row 4, column \"preparation_protocol_doi\", value \"wrong\" fails because of error \"invalidUrl\"."
-    ]
-  },
-  "URL Check Errors": {
-    "examples/dataset-examples/bad-cedar-multi-assay-visium-bad-child-metadata/upload/bad-visium-rnaseq-metadata.tsv": [
-      "On row 3, column \"parent_sample_id\", value \"\" fails because of error \"AssertionError\": Unable to check URL for column \"parent_sample_id\" on row 3: empty value."
+      {
+        "TSV errors": {
+          "codex-v0": [
+            "On row 2, column \"protocols_io_doi\", value \"10\\.17504/protocols.io.menc3de\" fails because it does not match the expected pattern.",
+            "On row 2, column \"operator_email\", value \"no-at.example.com\" fails because it is not a valid email.",
+            "On row 2, column \"protocols_io_doi\", value \"10\\.17504/protocols.io.menc3de\" fails because it is an invalid DOI.",
+            "On row 2, column \"resolution_z_unit\", value \"None\" fails because it requires a value when resolution_z_value is filled."
+          ],
+          "contributors-v1": [
+            "No such file or directory: /home/gesina/code/ingest-validation-tools/src/ingest_validation_tools/table-schemas/other/contributors-v1.yaml."
+          ],
+          "antibodies-v0": [
+            "No such file or directory: /home/gesina/code/ingest-validation-tools/src/ingest_validation_tools/table-schemas/other/antibodies-v0.yaml."
+          ]
+        }
+      },
+      {
+        "TSV errors": {
+          "codex-v0": [
+            "On row 2, column \"protocols_io_doi\", value \"10\\.17504/protocols.io.menc3de\" fails because it does not match the expected pattern.",
+            "On row 2, column \"operator_email\", value \"no-at.example.com\" fails because it is not a valid email.",
+            "On row 2, column \"protocols_io_doi\", value \"10\\.17504/protocols.io.menc3de\" fails because it is an invalid DOI.",
+            "On row 2, column \"resolution_z_unit\", value \"None\" fails because it requires a value when resolution_z_value is filled."
+          ],
+          "contributors-v1": [
+            "No such file or directory: /home/gesina/code/ingest-validation-tools/src/ingest_validation_tools/table-schemas/other/contributors-v1.yaml."
+          ],
+          "antibodies-v0": [
+            "No such file or directory: /home/gesina/code/ingest-validation-tools/src/ingest_validation_tools/table-schemas/other/antibodies-v0.yaml."
+          ]
+        }
+      },
+      {
+        "URL errors": [
+          {
+            "column": "orcid_id.",
+            "error": "value \"bad-id\" fails because of error \"TypeError\": SupportSchemaValidator.check_single_url_field() missing 1 required positional argument: \"response\".",
+            "row": "8."
+          },
+          {
+            "column": "orcid.",
+            "error": "value \"0000-0002-1825-0097\" fails because of error \"TypeError\": SupportSchemaValidator.check_single_url_field() missing 1 required positional argument: \"response\".",
+            "row": "7."
+          },
+          {
+            "column": "orcid.",
+            "error": "value \"0000-0002-1825-0097\" fails because of error \"TypeError\": SupportSchemaValidator.check_single_url_field() missing 1 required positional argument: \"response\".",
+            "row": "7."
+          },
+          {
+            "column": "orcid.",
+            "error": "value \"0000-0002-1825-0097\" fails because of error \"TypeError\": SupportSchemaValidator.check_single_url_field() missing 1 required positional argument: \"response\".",
+            "row": "7."
+          }
+        ]
+      },
+      {
+        "TSV errors": {
+          "codex-v0": [
+            "On row 2, column \"protocols_io_doi\", value \"10\\.17504/protocols.io.menc3de\" fails because it does not match the expected pattern.",
+            "On row 2, column \"operator_email\", value \"no-at.example.com\" fails because it is not a valid email.",
+            "On row 2, column \"protocols_io_doi\", value \"10\\.17504/protocols.io.menc3de\" fails because it is an invalid DOI.",
+            "On row 2, column \"resolution_z_unit\", value \"None\" fails because it requires a value when resolution_z_value is filled."
+          ],
+          "contributors-v1": [
+            "No such file or directory: /home/gesina/code/ingest-validation-tools/src/ingest_validation_tools/table-schemas/other/contributors-v1.yaml."
+          ],
+          "antibodies-v0": [
+            "No such file or directory: /home/gesina/code/ingest-validation-tools/src/ingest_validation_tools/table-schemas/other/antibodies-v0.yaml."
+          ]
+        }
+      },
+      {
+        "URL errors": [
+          {
+            "column": "orcid_id.",
+            "error": "value \"bad-id\" fails because of error \"TypeError\": SupportSchemaValidator.check_single_url_field() missing 1 required positional argument: \"response\".",
+            "row": "8."
+          },
+          {
+            "column": "orcid.",
+            "error": "value \"0000-0002-1825-0097\" fails because of error \"TypeError\": SupportSchemaValidator.check_single_url_field() missing 1 required positional argument: \"response\".",
+            "row": "7."
+          },
+          {
+            "column": "orcid.",
+            "error": "value \"0000-0002-1825-0097\" fails because of error \"TypeError\": SupportSchemaValidator.check_single_url_field() missing 1 required positional argument: \"response\".",
+            "row": "7."
+          },
+          {
+            "column": "orcid.",
+            "error": "value \"0000-0002-1825-0097\" fails because of error \"TypeError\": SupportSchemaValidator.check_single_url_field() missing 1 required positional argument: \"response\".",
+            "row": "7."
+          }
+        ]
+      },
+      {
+        "TSV errors": {
+          "codex-v0": [
+            "On row 2, column \"protocols_io_doi\", value \"10\\.17504/protocols.io.menc3de\" fails because it does not match the expected pattern.",
+            "On row 2, column \"operator_email\", value \"no-at.example.com\" fails because it is not a valid email.",
+            "On row 2, column \"protocols_io_doi\", value \"10\\.17504/protocols.io.menc3de\" fails because it is an invalid DOI.",
+            "On row 2, column \"resolution_z_unit\", value \"None\" fails because it requires a value when resolution_z_value is filled."
+          ],
+          "contributors-v1": [
+            "No such file or directory: /home/gesina/code/ingest-validation-tools/src/ingest_validation_tools/table-schemas/other/contributors-v1.yaml."
+          ],
+          "antibodies-v0": [
+            "No such file or directory: /home/gesina/code/ingest-validation-tools/src/ingest_validation_tools/table-schemas/other/antibodies-v0.yaml."
+          ]
+        }
+      },
+      {
+        "URL errors": [
+          {
+            "column": "orcid_id.",
+            "error": "value \"bad-id\" fails because of error \"TypeError\": SupportSchemaValidator.check_single_url_field() missing 1 required positional argument: \"response\".",
+            "row": "8."
+          },
+          {
+            "column": "orcid.",
+            "error": "value \"0000-0002-1825-0097\" fails because of error \"TypeError\": SupportSchemaValidator.check_single_url_field() missing 1 required positional argument: \"response\".",
+            "row": "7."
+          },
+          {
+            "column": "orcid.",
+            "error": "value \"0000-0002-1825-0097\" fails because of error \"TypeError\": SupportSchemaValidator.check_single_url_field() missing 1 required positional argument: \"response\".",
+            "row": "7."
+          },
+          {
+            "column": "orcid.",
+            "error": "value \"0000-0002-1825-0097\" fails because of error \"TypeError\": SupportSchemaValidator.check_single_url_field() missing 1 required positional argument: \"response\".",
+            "row": "7."
+          }
+        ]
+      },
+      {
+        "TSV errors": {
+          "codex-v0": [
+            "On row 2, column \"protocols_io_doi\", value \"10\\.17504/protocols.io.menc3de\" fails because it does not match the expected pattern.",
+            "On row 2, column \"operator_email\", value \"no-at.example.com\" fails because it is not a valid email.",
+            "On row 2, column \"protocols_io_doi\", value \"10\\.17504/protocols.io.menc3de\" fails because it is an invalid DOI.",
+            "On row 2, column \"resolution_z_unit\", value \"None\" fails because it requires a value when resolution_z_value is filled."
+          ],
+          "contributors-v1": [
+            "No such file or directory: /home/gesina/code/ingest-validation-tools/src/ingest_validation_tools/table-schemas/other/contributors-v1.yaml."
+          ],
+          "antibodies-v0": [
+            "No such file or directory: /home/gesina/code/ingest-validation-tools/src/ingest_validation_tools/table-schemas/other/antibodies-v0.yaml."
+          ]
+        }
+      },
+      {
+        "URL errors": [
+          {
+            "column": "orcid_id.",
+            "error": "value \"bad-id\" fails because of error \"TypeError\": SupportSchemaValidator.check_single_url_field() missing 1 required positional argument: \"response\".",
+            "row": "8."
+          },
+          {
+            "column": "orcid.",
+            "error": "value \"0000-0002-1825-0097\" fails because of error \"TypeError\": SupportSchemaValidator.check_single_url_field() missing 1 required positional argument: \"response\".",
+            "row": "7."
+          },
+          {
+            "column": "orcid.",
+            "error": "value \"0000-0002-1825-0097\" fails because of error \"TypeError\": SupportSchemaValidator.check_single_url_field() missing 1 required positional argument: \"response\".",
+            "row": "7."
+          },
+          {
+            "column": "orcid.",
+            "error": "value \"0000-0002-1825-0097\" fails because of error \"TypeError\": SupportSchemaValidator.check_single_url_field() missing 1 required positional argument: \"response\".",
+            "row": "7."
+          }
+        ]
+      },
+      {
+        "TSV errors": {
+          "codex-v0": [
+            "On row 2, column \"protocols_io_doi\", value \"10\\.17504/protocols.io.menc3de\" fails because it does not match the expected pattern.",
+            "On row 2, column \"operator_email\", value \"no-at.example.com\" fails because it is not a valid email.",
+            "On row 2, column \"protocols_io_doi\", value \"10\\.17504/protocols.io.menc3de\" fails because it is an invalid DOI.",
+            "On row 2, column \"resolution_z_unit\", value \"None\" fails because it requires a value when resolution_z_value is filled."
+          ],
+          "contributors-v1": [
+            "No such file or directory: /home/gesina/code/ingest-validation-tools/src/ingest_validation_tools/table-schemas/other/contributors-v1.yaml."
+          ],
+          "antibodies-v0": [
+            "No such file or directory: /home/gesina/code/ingest-validation-tools/src/ingest_validation_tools/table-schemas/other/antibodies-v0.yaml."
+          ]
+        }
+      },
+      {
+        "URL errors": [
+          {
+            "column": "orcid_id.",
+            "error": "value \"bad-id\" fails because of error \"TypeError\": SupportSchemaValidator.check_single_url_field() missing 1 required positional argument: \"response\".",
+            "row": "8."
+          },
+          {
+            "column": "orcid.",
+            "error": "value \"0000-0002-1825-0097\" fails because of error \"TypeError\": SupportSchemaValidator.check_single_url_field() missing 1 required positional argument: \"response\".",
+            "row": "7."
+          },
+          {
+            "column": "orcid.",
+            "error": "value \"0000-0002-1825-0097\" fails because of error \"TypeError\": SupportSchemaValidator.check_single_url_field() missing 1 required positional argument: \"response\".",
+            "row": "7."
+          },
+          {
+            "column": "orcid.",
+            "error": "value \"0000-0002-1825-0097\" fails because of error \"TypeError\": SupportSchemaValidator.check_single_url_field() missing 1 required positional argument: \"response\".",
+            "row": "7."
+          }
+        ]
+      }
+    ],
+    "examples/dataset-examples/bad-cedar-multi-assay-visium-bad-child-metadata/upload/contributors.tsv": [
+      {
+        "TSV errors": {
+          "codex-v0": [
+            "On row 2, column \"protocols_io_doi\", value \"10\\.17504/protocols.io.menc3de\" fails because it does not match the expected pattern.",
+            "On row 2, column \"operator_email\", value \"no-at.example.com\" fails because it is not a valid email.",
+            "On row 2, column \"protocols_io_doi\", value \"10\\.17504/protocols.io.menc3de\" fails because it is an invalid DOI.",
+            "On row 2, column \"resolution_z_unit\", value \"None\" fails because it requires a value when resolution_z_value is filled."
+          ],
+          "contributors-v1": [
+            "No such file or directory: /home/gesina/code/ingest-validation-tools/src/ingest_validation_tools/table-schemas/other/contributors-v1.yaml."
+          ],
+          "antibodies-v0": [
+            "No such file or directory: /home/gesina/code/ingest-validation-tools/src/ingest_validation_tools/table-schemas/other/antibodies-v0.yaml."
+          ]
+        }
+      },
+      {
+        "TSV errors": {
+          "codex-v0": [
+            "On row 2, column \"protocols_io_doi\", value \"10\\.17504/protocols.io.menc3de\" fails because it does not match the expected pattern.",
+            "On row 2, column \"operator_email\", value \"no-at.example.com\" fails because it is not a valid email.",
+            "On row 2, column \"protocols_io_doi\", value \"10\\.17504/protocols.io.menc3de\" fails because it is an invalid DOI.",
+            "On row 2, column \"resolution_z_unit\", value \"None\" fails because it requires a value when resolution_z_value is filled."
+          ],
+          "contributors-v1": [
+            "No such file or directory: /home/gesina/code/ingest-validation-tools/src/ingest_validation_tools/table-schemas/other/contributors-v1.yaml."
+          ],
+          "antibodies-v0": [
+            "No such file or directory: /home/gesina/code/ingest-validation-tools/src/ingest_validation_tools/table-schemas/other/antibodies-v0.yaml."
+          ]
+        }
+      },
+      {
+        "URL errors": [
+          {
+            "column": "orcid_id.",
+            "error": "value \"bad-id\" fails because of error \"TypeError\": SupportSchemaValidator.check_single_url_field() missing 1 required positional argument: \"response\".",
+            "row": "8."
+          },
+          {
+            "column": "orcid.",
+            "error": "value \"0000-0002-1825-0097\" fails because of error \"TypeError\": SupportSchemaValidator.check_single_url_field() missing 1 required positional argument: \"response\".",
+            "row": "7."
+          },
+          {
+            "column": "orcid.",
+            "error": "value \"0000-0002-1825-0097\" fails because of error \"TypeError\": SupportSchemaValidator.check_single_url_field() missing 1 required positional argument: \"response\".",
+            "row": "7."
+          },
+          {
+            "column": "orcid.",
+            "error": "value \"0000-0002-1825-0097\" fails because of error \"TypeError\": SupportSchemaValidator.check_single_url_field() missing 1 required positional argument: \"response\".",
+            "row": "7."
+          }
+        ]
+      },
+      {
+        "TSV errors": {
+          "codex-v0": [
+            "On row 2, column \"protocols_io_doi\", value \"10\\.17504/protocols.io.menc3de\" fails because it does not match the expected pattern.",
+            "On row 2, column \"operator_email\", value \"no-at.example.com\" fails because it is not a valid email.",
+            "On row 2, column \"protocols_io_doi\", value \"10\\.17504/protocols.io.menc3de\" fails because it is an invalid DOI.",
+            "On row 2, column \"resolution_z_unit\", value \"None\" fails because it requires a value when resolution_z_value is filled."
+          ],
+          "contributors-v1": [
+            "No such file or directory: /home/gesina/code/ingest-validation-tools/src/ingest_validation_tools/table-schemas/other/contributors-v1.yaml."
+          ],
+          "antibodies-v0": [
+            "No such file or directory: /home/gesina/code/ingest-validation-tools/src/ingest_validation_tools/table-schemas/other/antibodies-v0.yaml."
+          ]
+        }
+      },
+      {
+        "URL errors": [
+          {
+            "column": "orcid_id.",
+            "error": "value \"bad-id\" fails because of error \"TypeError\": SupportSchemaValidator.check_single_url_field() missing 1 required positional argument: \"response\".",
+            "row": "8."
+          },
+          {
+            "column": "orcid.",
+            "error": "value \"0000-0002-1825-0097\" fails because of error \"TypeError\": SupportSchemaValidator.check_single_url_field() missing 1 required positional argument: \"response\".",
+            "row": "7."
+          },
+          {
+            "column": "orcid.",
+            "error": "value \"0000-0002-1825-0097\" fails because of error \"TypeError\": SupportSchemaValidator.check_single_url_field() missing 1 required positional argument: \"response\".",
+            "row": "7."
+          },
+          {
+            "column": "orcid.",
+            "error": "value \"0000-0002-1825-0097\" fails because of error \"TypeError\": SupportSchemaValidator.check_single_url_field() missing 1 required positional argument: \"response\".",
+            "row": "7."
+          }
+        ]
+      },
+      {
+        "TSV errors": {
+          "codex-v0": [
+            "On row 2, column \"protocols_io_doi\", value \"10\\.17504/protocols.io.menc3de\" fails because it does not match the expected pattern.",
+            "On row 2, column \"operator_email\", value \"no-at.example.com\" fails because it is not a valid email.",
+            "On row 2, column \"protocols_io_doi\", value \"10\\.17504/protocols.io.menc3de\" fails because it is an invalid DOI.",
+            "On row 2, column \"resolution_z_unit\", value \"None\" fails because it requires a value when resolution_z_value is filled."
+          ],
+          "contributors-v1": [
+            "No such file or directory: /home/gesina/code/ingest-validation-tools/src/ingest_validation_tools/table-schemas/other/contributors-v1.yaml."
+          ],
+          "antibodies-v0": [
+            "No such file or directory: /home/gesina/code/ingest-validation-tools/src/ingest_validation_tools/table-schemas/other/antibodies-v0.yaml."
+          ]
+        }
+      },
+      {
+        "URL errors": [
+          {
+            "column": "orcid_id.",
+            "error": "value \"bad-id\" fails because of error \"TypeError\": SupportSchemaValidator.check_single_url_field() missing 1 required positional argument: \"response\".",
+            "row": "8."
+          },
+          {
+            "column": "orcid.",
+            "error": "value \"0000-0002-1825-0097\" fails because of error \"TypeError\": SupportSchemaValidator.check_single_url_field() missing 1 required positional argument: \"response\".",
+            "row": "7."
+          },
+          {
+            "column": "orcid.",
+            "error": "value \"0000-0002-1825-0097\" fails because of error \"TypeError\": SupportSchemaValidator.check_single_url_field() missing 1 required positional argument: \"response\".",
+            "row": "7."
+          },
+          {
+            "column": "orcid.",
+            "error": "value \"0000-0002-1825-0097\" fails because of error \"TypeError\": SupportSchemaValidator.check_single_url_field() missing 1 required positional argument: \"response\".",
+            "row": "7."
+          }
+        ]
+      },
+      {
+        "TSV errors": {
+          "codex-v0": [
+            "On row 2, column \"protocols_io_doi\", value \"10\\.17504/protocols.io.menc3de\" fails because it does not match the expected pattern.",
+            "On row 2, column \"operator_email\", value \"no-at.example.com\" fails because it is not a valid email.",
+            "On row 2, column \"protocols_io_doi\", value \"10\\.17504/protocols.io.menc3de\" fails because it is an invalid DOI.",
+            "On row 2, column \"resolution_z_unit\", value \"None\" fails because it requires a value when resolution_z_value is filled."
+          ],
+          "contributors-v1": [
+            "No such file or directory: /home/gesina/code/ingest-validation-tools/src/ingest_validation_tools/table-schemas/other/contributors-v1.yaml."
+          ],
+          "antibodies-v0": [
+            "No such file or directory: /home/gesina/code/ingest-validation-tools/src/ingest_validation_tools/table-schemas/other/antibodies-v0.yaml."
+          ]
+        }
+      },
+      {
+        "URL errors": [
+          {
+            "column": "orcid_id.",
+            "error": "value \"bad-id\" fails because of error \"TypeError\": SupportSchemaValidator.check_single_url_field() missing 1 required positional argument: \"response\".",
+            "row": "8."
+          },
+          {
+            "column": "orcid.",
+            "error": "value \"0000-0002-1825-0097\" fails because of error \"TypeError\": SupportSchemaValidator.check_single_url_field() missing 1 required positional argument: \"response\".",
+            "row": "7."
+          },
+          {
+            "column": "orcid.",
+            "error": "value \"0000-0002-1825-0097\" fails because of error \"TypeError\": SupportSchemaValidator.check_single_url_field() missing 1 required positional argument: \"response\".",
+            "row": "7."
+          },
+          {
+            "column": "orcid.",
+            "error": "value \"0000-0002-1825-0097\" fails because of error \"TypeError\": SupportSchemaValidator.check_single_url_field() missing 1 required positional argument: \"response\".",
+            "row": "7."
+          }
+        ]
+      },
+      {
+        "TSV errors": {
+          "codex-v0": [
+            "On row 2, column \"protocols_io_doi\", value \"10\\.17504/protocols.io.menc3de\" fails because it does not match the expected pattern.",
+            "On row 2, column \"operator_email\", value \"no-at.example.com\" fails because it is not a valid email.",
+            "On row 2, column \"protocols_io_doi\", value \"10\\.17504/protocols.io.menc3de\" fails because it is an invalid DOI.",
+            "On row 2, column \"resolution_z_unit\", value \"None\" fails because it requires a value when resolution_z_value is filled."
+          ],
+          "contributors-v1": [
+            "No such file or directory: /home/gesina/code/ingest-validation-tools/src/ingest_validation_tools/table-schemas/other/contributors-v1.yaml."
+          ],
+          "antibodies-v0": [
+            "No such file or directory: /home/gesina/code/ingest-validation-tools/src/ingest_validation_tools/table-schemas/other/antibodies-v0.yaml."
+          ]
+        }
+      },
+      {
+        "URL errors": [
+          {
+            "column": "orcid_id.",
+            "error": "value \"bad-id\" fails because of error \"TypeError\": SupportSchemaValidator.check_single_url_field() missing 1 required positional argument: \"response\".",
+            "row": "8."
+          },
+          {
+            "column": "orcid.",
+            "error": "value \"0000-0002-1825-0097\" fails because of error \"TypeError\": SupportSchemaValidator.check_single_url_field() missing 1 required positional argument: \"response\".",
+            "row": "7."
+          },
+          {
+            "column": "orcid.",
+            "error": "value \"0000-0002-1825-0097\" fails because of error \"TypeError\": SupportSchemaValidator.check_single_url_field() missing 1 required positional argument: \"response\".",
+            "row": "7."
+          },
+          {
+            "column": "orcid.",
+            "error": "value \"0000-0002-1825-0097\" fails because of error \"TypeError\": SupportSchemaValidator.check_single_url_field() missing 1 required positional argument: \"response\".",
+            "row": "7."
+          }
+        ]
+      },
+      {
+        "TSV errors": {
+          "codex-v0": [
+            "On row 2, column \"protocols_io_doi\", value \"10\\.17504/protocols.io.menc3de\" fails because it does not match the expected pattern.",
+            "On row 2, column \"operator_email\", value \"no-at.example.com\" fails because it is not a valid email.",
+            "On row 2, column \"protocols_io_doi\", value \"10\\.17504/protocols.io.menc3de\" fails because it is an invalid DOI.",
+            "On row 2, column \"resolution_z_unit\", value \"None\" fails because it requires a value when resolution_z_value is filled."
+          ],
+          "contributors-v1": [
+            "No such file or directory: /home/gesina/code/ingest-validation-tools/src/ingest_validation_tools/table-schemas/other/contributors-v1.yaml."
+          ],
+          "antibodies-v0": [
+            "No such file or directory: /home/gesina/code/ingest-validation-tools/src/ingest_validation_tools/table-schemas/other/antibodies-v0.yaml."
+          ]
+        }
+      },
+      {
+        "URL errors": [
+          {
+            "column": "orcid_id.",
+            "error": "value \"bad-id\" fails because of error \"TypeError\": SupportSchemaValidator.check_single_url_field() missing 1 required positional argument: \"response\".",
+            "row": "8."
+          },
+          {
+            "column": "orcid.",
+            "error": "value \"0000-0002-1825-0097\" fails because of error \"TypeError\": SupportSchemaValidator.check_single_url_field() missing 1 required positional argument: \"response\".",
+            "row": "7."
+          },
+          {
+            "column": "orcid.",
+            "error": "value \"0000-0002-1825-0097\" fails because of error \"TypeError\": SupportSchemaValidator.check_single_url_field() missing 1 required positional argument: \"response\".",
+            "row": "7."
+          },
+          {
+            "column": "orcid.",
+            "error": "value \"0000-0002-1825-0097\" fails because of error \"TypeError\": SupportSchemaValidator.check_single_url_field() missing 1 required positional argument: \"response\".",
+            "row": "7."
+          }
+        ]
+      },
+      {
+        "TSV errors": {
+          "codex-v0": [
+            "On row 2, column \"protocols_io_doi\", value \"10\\.17504/protocols.io.menc3de\" fails because it does not match the expected pattern.",
+            "On row 2, column \"operator_email\", value \"no-at.example.com\" fails because it is not a valid email.",
+            "On row 2, column \"protocols_io_doi\", value \"10\\.17504/protocols.io.menc3de\" fails because it is an invalid DOI.",
+            "On row 2, column \"resolution_z_unit\", value \"None\" fails because it requires a value when resolution_z_value is filled."
+          ],
+          "contributors-v1": [
+            "No such file or directory: /home/gesina/code/ingest-validation-tools/src/ingest_validation_tools/table-schemas/other/contributors-v1.yaml."
+          ],
+          "antibodies-v0": [
+            "No such file or directory: /home/gesina/code/ingest-validation-tools/src/ingest_validation_tools/table-schemas/other/antibodies-v0.yaml."
+          ]
+        }
+      },
+      {
+        "URL errors": [
+          {
+            "column": "orcid_id.",
+            "error": "value \"bad-id\" fails because of error \"TypeError\": SupportSchemaValidator.check_single_url_field() missing 1 required positional argument: \"response\".",
+            "row": "8."
+          },
+          {
+            "column": "orcid.",
+            "error": "value \"0000-0002-1825-0097\" fails because of error \"TypeError\": SupportSchemaValidator.check_single_url_field() missing 1 required positional argument: \"response\".",
+            "row": "7."
+          },
+          {
+            "column": "orcid.",
+            "error": "value \"0000-0002-1825-0097\" fails because of error \"TypeError\": SupportSchemaValidator.check_single_url_field() missing 1 required positional argument: \"response\".",
+            "row": "7."
+          },
+          {
+            "column": "orcid.",
+            "error": "value \"0000-0002-1825-0097\" fails because of error \"TypeError\": SupportSchemaValidator.check_single_url_field() missing 1 required positional argument: \"response\".",
+            "row": "7."
+          }
+        ]
+      },
+      {
+        "TSV errors": {
+          "codex-v0": [
+            "On row 2, column \"protocols_io_doi\", value \"10\\.17504/protocols.io.menc3de\" fails because it does not match the expected pattern.",
+            "On row 2, column \"operator_email\", value \"no-at.example.com\" fails because it is not a valid email.",
+            "On row 2, column \"protocols_io_doi\", value \"10\\.17504/protocols.io.menc3de\" fails because it is an invalid DOI.",
+            "On row 2, column \"resolution_z_unit\", value \"None\" fails because it requires a value when resolution_z_value is filled."
+          ],
+          "contributors-v1": [
+            "No such file or directory: /home/gesina/code/ingest-validation-tools/src/ingest_validation_tools/table-schemas/other/contributors-v1.yaml."
+          ],
+          "antibodies-v0": [
+            "No such file or directory: /home/gesina/code/ingest-validation-tools/src/ingest_validation_tools/table-schemas/other/antibodies-v0.yaml."
+          ]
+        }
+      },
+      {
+        "URL errors": [
+          {
+            "column": "orcid_id.",
+            "error": "value \"bad-id\" fails because of error \"TypeError\": SupportSchemaValidator.check_single_url_field() missing 1 required positional argument: \"response\".",
+            "row": "8."
+          },
+          {
+            "column": "orcid.",
+            "error": "value \"0000-0002-1825-0097\" fails because of error \"TypeError\": SupportSchemaValidator.check_single_url_field() missing 1 required positional argument: \"response\".",
+            "row": "7."
+          },
+          {
+            "column": "orcid.",
+            "error": "value \"0000-0002-1825-0097\" fails because of error \"TypeError\": SupportSchemaValidator.check_single_url_field() missing 1 required positional argument: \"response\".",
+            "row": "7."
+          },
+          {
+            "column": "orcid.",
+            "error": "value \"0000-0002-1825-0097\" fails because of error \"TypeError\": SupportSchemaValidator.check_single_url_field() missing 1 required positional argument: \"response\".",
+            "row": "7."
+          }
+        ]
+      }
+    ],
+    "examples/dataset-examples/bad-cedar-multi-assay-visium-bad-child-metadata/upload/good-visium-assay-metadata.tsv": [
+      {
+        "TSV errors": {
+          "codex-v0": [
+            "On row 2, column \"protocols_io_doi\", value \"10\\.17504/protocols.io.menc3de\" fails because it does not match the expected pattern.",
+            "On row 2, column \"operator_email\", value \"no-at.example.com\" fails because it is not a valid email.",
+            "On row 2, column \"protocols_io_doi\", value \"10\\.17504/protocols.io.menc3de\" fails because it is an invalid DOI.",
+            "On row 2, column \"resolution_z_unit\", value \"None\" fails because it requires a value when resolution_z_value is filled."
+          ],
+          "contributors-v1": [
+            "No such file or directory: /home/gesina/code/ingest-validation-tools/src/ingest_validation_tools/table-schemas/other/contributors-v1.yaml."
+          ],
+          "antibodies-v0": [
+            "No such file or directory: /home/gesina/code/ingest-validation-tools/src/ingest_validation_tools/table-schemas/other/antibodies-v0.yaml."
+          ]
+        }
+      },
+      {
+        "TSV errors": {
+          "codex-v0": [
+            "On row 2, column \"protocols_io_doi\", value \"10\\.17504/protocols.io.menc3de\" fails because it does not match the expected pattern.",
+            "On row 2, column \"operator_email\", value \"no-at.example.com\" fails because it is not a valid email.",
+            "On row 2, column \"protocols_io_doi\", value \"10\\.17504/protocols.io.menc3de\" fails because it is an invalid DOI.",
+            "On row 2, column \"resolution_z_unit\", value \"None\" fails because it requires a value when resolution_z_value is filled."
+          ],
+          "contributors-v1": [
+            "No such file or directory: /home/gesina/code/ingest-validation-tools/src/ingest_validation_tools/table-schemas/other/contributors-v1.yaml."
+          ],
+          "antibodies-v0": [
+            "No such file or directory: /home/gesina/code/ingest-validation-tools/src/ingest_validation_tools/table-schemas/other/antibodies-v0.yaml."
+          ]
+        }
+      },
+      {
+        "URL errors": [
+          {
+            "column": "orcid_id.",
+            "error": "value \"bad-id\" fails because of error \"TypeError\": SupportSchemaValidator.check_single_url_field() missing 1 required positional argument: \"response\".",
+            "row": "8."
+          },
+          {
+            "column": "orcid.",
+            "error": "value \"0000-0002-1825-0097\" fails because of error \"TypeError\": SupportSchemaValidator.check_single_url_field() missing 1 required positional argument: \"response\".",
+            "row": "7."
+          },
+          {
+            "column": "orcid.",
+            "error": "value \"0000-0002-1825-0097\" fails because of error \"TypeError\": SupportSchemaValidator.check_single_url_field() missing 1 required positional argument: \"response\".",
+            "row": "7."
+          },
+          {
+            "column": "orcid.",
+            "error": "value \"0000-0002-1825-0097\" fails because of error \"TypeError\": SupportSchemaValidator.check_single_url_field() missing 1 required positional argument: \"response\".",
+            "row": "7."
+          }
+        ]
+      },
+      {
+        "TSV errors": {
+          "codex-v0": [
+            "On row 2, column \"protocols_io_doi\", value \"10\\.17504/protocols.io.menc3de\" fails because it does not match the expected pattern.",
+            "On row 2, column \"operator_email\", value \"no-at.example.com\" fails because it is not a valid email.",
+            "On row 2, column \"protocols_io_doi\", value \"10\\.17504/protocols.io.menc3de\" fails because it is an invalid DOI.",
+            "On row 2, column \"resolution_z_unit\", value \"None\" fails because it requires a value when resolution_z_value is filled."
+          ],
+          "contributors-v1": [
+            "No such file or directory: /home/gesina/code/ingest-validation-tools/src/ingest_validation_tools/table-schemas/other/contributors-v1.yaml."
+          ],
+          "antibodies-v0": [
+            "No such file or directory: /home/gesina/code/ingest-validation-tools/src/ingest_validation_tools/table-schemas/other/antibodies-v0.yaml."
+          ]
+        }
+      },
+      {
+        "URL errors": [
+          {
+            "column": "orcid_id.",
+            "error": "value \"bad-id\" fails because of error \"TypeError\": SupportSchemaValidator.check_single_url_field() missing 1 required positional argument: \"response\".",
+            "row": "8."
+          },
+          {
+            "column": "orcid.",
+            "error": "value \"0000-0002-1825-0097\" fails because of error \"TypeError\": SupportSchemaValidator.check_single_url_field() missing 1 required positional argument: \"response\".",
+            "row": "7."
+          },
+          {
+            "column": "orcid.",
+            "error": "value \"0000-0002-1825-0097\" fails because of error \"TypeError\": SupportSchemaValidator.check_single_url_field() missing 1 required positional argument: \"response\".",
+            "row": "7."
+          },
+          {
+            "column": "orcid.",
+            "error": "value \"0000-0002-1825-0097\" fails because of error \"TypeError\": SupportSchemaValidator.check_single_url_field() missing 1 required positional argument: \"response\".",
+            "row": "7."
+          }
+        ]
+      },
+      {
+        "TSV errors": {
+          "codex-v0": [
+            "On row 2, column \"protocols_io_doi\", value \"10\\.17504/protocols.io.menc3de\" fails because it does not match the expected pattern.",
+            "On row 2, column \"operator_email\", value \"no-at.example.com\" fails because it is not a valid email.",
+            "On row 2, column \"protocols_io_doi\", value \"10\\.17504/protocols.io.menc3de\" fails because it is an invalid DOI.",
+            "On row 2, column \"resolution_z_unit\", value \"None\" fails because it requires a value when resolution_z_value is filled."
+          ],
+          "contributors-v1": [
+            "No such file or directory: /home/gesina/code/ingest-validation-tools/src/ingest_validation_tools/table-schemas/other/contributors-v1.yaml."
+          ],
+          "antibodies-v0": [
+            "No such file or directory: /home/gesina/code/ingest-validation-tools/src/ingest_validation_tools/table-schemas/other/antibodies-v0.yaml."
+          ]
+        }
+      },
+      {
+        "URL errors": [
+          {
+            "column": "orcid_id.",
+            "error": "value \"bad-id\" fails because of error \"TypeError\": SupportSchemaValidator.check_single_url_field() missing 1 required positional argument: \"response\".",
+            "row": "8."
+          },
+          {
+            "column": "orcid.",
+            "error": "value \"0000-0002-1825-0097\" fails because of error \"TypeError\": SupportSchemaValidator.check_single_url_field() missing 1 required positional argument: \"response\".",
+            "row": "7."
+          },
+          {
+            "column": "orcid.",
+            "error": "value \"0000-0002-1825-0097\" fails because of error \"TypeError\": SupportSchemaValidator.check_single_url_field() missing 1 required positional argument: \"response\".",
+            "row": "7."
+          },
+          {
+            "column": "orcid.",
+            "error": "value \"0000-0002-1825-0097\" fails because of error \"TypeError\": SupportSchemaValidator.check_single_url_field() missing 1 required positional argument: \"response\".",
+            "row": "7."
+          }
+        ]
+      }
+    ],
+    "examples/dataset-examples/bad-cedar-multi-assay-visium-bad-child-metadata/upload/good-visium-histology-metadata.tsv": [
+      {
+        "TSV errors": {
+          "codex-v0": [
+            "On row 2, column \"protocols_io_doi\", value \"10\\.17504/protocols.io.menc3de\" fails because it does not match the expected pattern.",
+            "On row 2, column \"operator_email\", value \"no-at.example.com\" fails because it is not a valid email.",
+            "On row 2, column \"protocols_io_doi\", value \"10\\.17504/protocols.io.menc3de\" fails because it is an invalid DOI.",
+            "On row 2, column \"resolution_z_unit\", value \"None\" fails because it requires a value when resolution_z_value is filled."
+          ],
+          "contributors-v1": [
+            "No such file or directory: /home/gesina/code/ingest-validation-tools/src/ingest_validation_tools/table-schemas/other/contributors-v1.yaml."
+          ],
+          "antibodies-v0": [
+            "No such file or directory: /home/gesina/code/ingest-validation-tools/src/ingest_validation_tools/table-schemas/other/antibodies-v0.yaml."
+          ]
+        }
+      },
+      {
+        "TSV errors": {
+          "codex-v0": [
+            "On row 2, column \"protocols_io_doi\", value \"10\\.17504/protocols.io.menc3de\" fails because it does not match the expected pattern.",
+            "On row 2, column \"operator_email\", value \"no-at.example.com\" fails because it is not a valid email.",
+            "On row 2, column \"protocols_io_doi\", value \"10\\.17504/protocols.io.menc3de\" fails because it is an invalid DOI.",
+            "On row 2, column \"resolution_z_unit\", value \"None\" fails because it requires a value when resolution_z_value is filled."
+          ],
+          "contributors-v1": [
+            "No such file or directory: /home/gesina/code/ingest-validation-tools/src/ingest_validation_tools/table-schemas/other/contributors-v1.yaml."
+          ],
+          "antibodies-v0": [
+            "No such file or directory: /home/gesina/code/ingest-validation-tools/src/ingest_validation_tools/table-schemas/other/antibodies-v0.yaml."
+          ]
+        }
+      },
+      {
+        "URL errors": [
+          {
+            "column": "orcid_id.",
+            "error": "value \"bad-id\" fails because of error \"TypeError\": SupportSchemaValidator.check_single_url_field() missing 1 required positional argument: \"response\".",
+            "row": "8."
+          },
+          {
+            "column": "orcid.",
+            "error": "value \"0000-0002-1825-0097\" fails because of error \"TypeError\": SupportSchemaValidator.check_single_url_field() missing 1 required positional argument: \"response\".",
+            "row": "7."
+          },
+          {
+            "column": "orcid.",
+            "error": "value \"0000-0002-1825-0097\" fails because of error \"TypeError\": SupportSchemaValidator.check_single_url_field() missing 1 required positional argument: \"response\".",
+            "row": "7."
+          },
+          {
+            "column": "orcid.",
+            "error": "value \"0000-0002-1825-0097\" fails because of error \"TypeError\": SupportSchemaValidator.check_single_url_field() missing 1 required positional argument: \"response\".",
+            "row": "7."
+          }
+        ]
+      },
+      {
+        "TSV errors": {
+          "codex-v0": [
+            "On row 2, column \"protocols_io_doi\", value \"10\\.17504/protocols.io.menc3de\" fails because it does not match the expected pattern.",
+            "On row 2, column \"operator_email\", value \"no-at.example.com\" fails because it is not a valid email.",
+            "On row 2, column \"protocols_io_doi\", value \"10\\.17504/protocols.io.menc3de\" fails because it is an invalid DOI.",
+            "On row 2, column \"resolution_z_unit\", value \"None\" fails because it requires a value when resolution_z_value is filled."
+          ],
+          "contributors-v1": [
+            "No such file or directory: /home/gesina/code/ingest-validation-tools/src/ingest_validation_tools/table-schemas/other/contributors-v1.yaml."
+          ],
+          "antibodies-v0": [
+            "No such file or directory: /home/gesina/code/ingest-validation-tools/src/ingest_validation_tools/table-schemas/other/antibodies-v0.yaml."
+          ]
+        }
+      },
+      {
+        "URL errors": [
+          {
+            "column": "orcid_id.",
+            "error": "value \"bad-id\" fails because of error \"TypeError\": SupportSchemaValidator.check_single_url_field() missing 1 required positional argument: \"response\".",
+            "row": "8."
+          },
+          {
+            "column": "orcid.",
+            "error": "value \"0000-0002-1825-0097\" fails because of error \"TypeError\": SupportSchemaValidator.check_single_url_field() missing 1 required positional argument: \"response\".",
+            "row": "7."
+          },
+          {
+            "column": "orcid.",
+            "error": "value \"0000-0002-1825-0097\" fails because of error \"TypeError\": SupportSchemaValidator.check_single_url_field() missing 1 required positional argument: \"response\".",
+            "row": "7."
+          },
+          {
+            "column": "orcid.",
+            "error": "value \"0000-0002-1825-0097\" fails because of error \"TypeError\": SupportSchemaValidator.check_single_url_field() missing 1 required positional argument: \"response\".",
+            "row": "7."
+          }
+        ]
+      },
+      {
+        "TSV errors": {
+          "codex-v0": [
+            "On row 2, column \"protocols_io_doi\", value \"10\\.17504/protocols.io.menc3de\" fails because it does not match the expected pattern.",
+            "On row 2, column \"operator_email\", value \"no-at.example.com\" fails because it is not a valid email.",
+            "On row 2, column \"protocols_io_doi\", value \"10\\.17504/protocols.io.menc3de\" fails because it is an invalid DOI.",
+            "On row 2, column \"resolution_z_unit\", value \"None\" fails because it requires a value when resolution_z_value is filled."
+          ],
+          "contributors-v1": [
+            "No such file or directory: /home/gesina/code/ingest-validation-tools/src/ingest_validation_tools/table-schemas/other/contributors-v1.yaml."
+          ],
+          "antibodies-v0": [
+            "No such file or directory: /home/gesina/code/ingest-validation-tools/src/ingest_validation_tools/table-schemas/other/antibodies-v0.yaml."
+          ]
+        }
+      },
+      {
+        "URL errors": [
+          {
+            "column": "orcid_id.",
+            "error": "value \"bad-id\" fails because of error \"TypeError\": SupportSchemaValidator.check_single_url_field() missing 1 required positional argument: \"response\".",
+            "row": "8."
+          },
+          {
+            "column": "orcid.",
+            "error": "value \"0000-0002-1825-0097\" fails because of error \"TypeError\": SupportSchemaValidator.check_single_url_field() missing 1 required positional argument: \"response\".",
+            "row": "7."
+          },
+          {
+            "column": "orcid.",
+            "error": "value \"0000-0002-1825-0097\" fails because of error \"TypeError\": SupportSchemaValidator.check_single_url_field() missing 1 required positional argument: \"response\".",
+            "row": "7."
+          },
+          {
+            "column": "orcid.",
+            "error": "value \"0000-0002-1825-0097\" fails because of error \"TypeError\": SupportSchemaValidator.check_single_url_field() missing 1 required positional argument: \"response\".",
+            "row": "7."
+          }
+        ]
+      },
+      {
+        "TSV errors": {
+          "codex-v0": [
+            "On row 2, column \"protocols_io_doi\", value \"10\\.17504/protocols.io.menc3de\" fails because it does not match the expected pattern.",
+            "On row 2, column \"operator_email\", value \"no-at.example.com\" fails because it is not a valid email.",
+            "On row 2, column \"protocols_io_doi\", value \"10\\.17504/protocols.io.menc3de\" fails because it is an invalid DOI.",
+            "On row 2, column \"resolution_z_unit\", value \"None\" fails because it requires a value when resolution_z_value is filled."
+          ],
+          "contributors-v1": [
+            "No such file or directory: /home/gesina/code/ingest-validation-tools/src/ingest_validation_tools/table-schemas/other/contributors-v1.yaml."
+          ],
+          "antibodies-v0": [
+            "No such file or directory: /home/gesina/code/ingest-validation-tools/src/ingest_validation_tools/table-schemas/other/antibodies-v0.yaml."
+          ]
+        }
+      },
+      {
+        "URL errors": [
+          {
+            "column": "orcid_id.",
+            "error": "value \"bad-id\" fails because of error \"TypeError\": SupportSchemaValidator.check_single_url_field() missing 1 required positional argument: \"response\".",
+            "row": "8."
+          },
+          {
+            "column": "orcid.",
+            "error": "value \"0000-0002-1825-0097\" fails because of error \"TypeError\": SupportSchemaValidator.check_single_url_field() missing 1 required positional argument: \"response\".",
+            "row": "7."
+          },
+          {
+            "column": "orcid.",
+            "error": "value \"0000-0002-1825-0097\" fails because of error \"TypeError\": SupportSchemaValidator.check_single_url_field() missing 1 required positional argument: \"response\".",
+            "row": "7."
+          },
+          {
+            "column": "orcid.",
+            "error": "value \"0000-0002-1825-0097\" fails because of error \"TypeError\": SupportSchemaValidator.check_single_url_field() missing 1 required positional argument: \"response\".",
+            "row": "7."
+          }
+        ]
+      },
+      {
+        "TSV errors": {
+          "codex-v0": [
+            "On row 2, column \"protocols_io_doi\", value \"10\\.17504/protocols.io.menc3de\" fails because it does not match the expected pattern.",
+            "On row 2, column \"operator_email\", value \"no-at.example.com\" fails because it is not a valid email.",
+            "On row 2, column \"protocols_io_doi\", value \"10\\.17504/protocols.io.menc3de\" fails because it is an invalid DOI.",
+            "On row 2, column \"resolution_z_unit\", value \"None\" fails because it requires a value when resolution_z_value is filled."
+          ],
+          "contributors-v1": [
+            "No such file or directory: /home/gesina/code/ingest-validation-tools/src/ingest_validation_tools/table-schemas/other/contributors-v1.yaml."
+          ],
+          "antibodies-v0": [
+            "No such file or directory: /home/gesina/code/ingest-validation-tools/src/ingest_validation_tools/table-schemas/other/antibodies-v0.yaml."
+          ]
+        }
+      },
+      {
+        "URL errors": [
+          {
+            "column": "orcid_id.",
+            "error": "value \"bad-id\" fails because of error \"TypeError\": SupportSchemaValidator.check_single_url_field() missing 1 required positional argument: \"response\".",
+            "row": "8."
+          },
+          {
+            "column": "orcid.",
+            "error": "value \"0000-0002-1825-0097\" fails because of error \"TypeError\": SupportSchemaValidator.check_single_url_field() missing 1 required positional argument: \"response\".",
+            "row": "7."
+          },
+          {
+            "column": "orcid.",
+            "error": "value \"0000-0002-1825-0097\" fails because of error \"TypeError\": SupportSchemaValidator.check_single_url_field() missing 1 required positional argument: \"response\".",
+            "row": "7."
+          },
+          {
+            "column": "orcid.",
+            "error": "value \"0000-0002-1825-0097\" fails because of error \"TypeError\": SupportSchemaValidator.check_single_url_field() missing 1 required positional argument: \"response\".",
+            "row": "7."
+          }
+        ]
+      },
+      {
+        "TSV errors": {
+          "codex-v0": [
+            "On row 2, column \"protocols_io_doi\", value \"10\\.17504/protocols.io.menc3de\" fails because it does not match the expected pattern.",
+            "On row 2, column \"operator_email\", value \"no-at.example.com\" fails because it is not a valid email.",
+            "On row 2, column \"protocols_io_doi\", value \"10\\.17504/protocols.io.menc3de\" fails because it is an invalid DOI.",
+            "On row 2, column \"resolution_z_unit\", value \"None\" fails because it requires a value when resolution_z_value is filled."
+          ],
+          "contributors-v1": [
+            "No such file or directory: /home/gesina/code/ingest-validation-tools/src/ingest_validation_tools/table-schemas/other/contributors-v1.yaml."
+          ],
+          "antibodies-v0": [
+            "No such file or directory: /home/gesina/code/ingest-validation-tools/src/ingest_validation_tools/table-schemas/other/antibodies-v0.yaml."
+          ]
+        }
+      },
+      {
+        "URL errors": [
+          {
+            "column": "orcid_id.",
+            "error": "value \"bad-id\" fails because of error \"TypeError\": SupportSchemaValidator.check_single_url_field() missing 1 required positional argument: \"response\".",
+            "row": "8."
+          },
+          {
+            "column": "orcid.",
+            "error": "value \"0000-0002-1825-0097\" fails because of error \"TypeError\": SupportSchemaValidator.check_single_url_field() missing 1 required positional argument: \"response\".",
+            "row": "7."
+          },
+          {
+            "column": "orcid.",
+            "error": "value \"0000-0002-1825-0097\" fails because of error \"TypeError\": SupportSchemaValidator.check_single_url_field() missing 1 required positional argument: \"response\".",
+            "row": "7."
+          },
+          {
+            "column": "orcid.",
+            "error": "value \"0000-0002-1825-0097\" fails because of error \"TypeError\": SupportSchemaValidator.check_single_url_field() missing 1 required positional argument: \"response\".",
+            "row": "7."
+          }
+        ]
+      },
+      {
+        "TSV errors": {
+          "codex-v0": [
+            "On row 2, column \"protocols_io_doi\", value \"10\\.17504/protocols.io.menc3de\" fails because it does not match the expected pattern.",
+            "On row 2, column \"operator_email\", value \"no-at.example.com\" fails because it is not a valid email.",
+            "On row 2, column \"protocols_io_doi\", value \"10\\.17504/protocols.io.menc3de\" fails because it is an invalid DOI.",
+            "On row 2, column \"resolution_z_unit\", value \"None\" fails because it requires a value when resolution_z_value is filled."
+          ],
+          "contributors-v1": [
+            "No such file or directory: /home/gesina/code/ingest-validation-tools/src/ingest_validation_tools/table-schemas/other/contributors-v1.yaml."
+          ],
+          "antibodies-v0": [
+            "No such file or directory: /home/gesina/code/ingest-validation-tools/src/ingest_validation_tools/table-schemas/other/antibodies-v0.yaml."
+          ]
+        }
+      },
+      {
+        "URL errors": [
+          {
+            "column": "orcid_id.",
+            "error": "value \"bad-id\" fails because of error \"TypeError\": SupportSchemaValidator.check_single_url_field() missing 1 required positional argument: \"response\".",
+            "row": "8."
+          },
+          {
+            "column": "orcid.",
+            "error": "value \"0000-0002-1825-0097\" fails because of error \"TypeError\": SupportSchemaValidator.check_single_url_field() missing 1 required positional argument: \"response\".",
+            "row": "7."
+          },
+          {
+            "column": "orcid.",
+            "error": "value \"0000-0002-1825-0097\" fails because of error \"TypeError\": SupportSchemaValidator.check_single_url_field() missing 1 required positional argument: \"response\".",
+            "row": "7."
+          },
+          {
+            "column": "orcid.",
+            "error": "value \"0000-0002-1825-0097\" fails because of error \"TypeError\": SupportSchemaValidator.check_single_url_field() missing 1 required positional argument: \"response\".",
+            "row": "7."
+          }
+        ]
+      }
     ]
   },
   "Reference Errors": {
@@ -19,4 +1002,3 @@
   },
   "Fatal Errors": "Skipping plugin validation due to errors in upload metadata or dir structure."
 }
-

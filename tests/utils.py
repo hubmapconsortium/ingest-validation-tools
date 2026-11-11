@@ -181,9 +181,9 @@ def get_paths(test_dirs: list[Path]) -> list[Path]:
 
 
 parent_dirs = [
-    Path("examples/dataset-examples").absolute(),
-    Path("examples/dataset-iec-examples").absolute(),
-    Path("examples/plugin-tests").absolute(),
+    Path("examples/dataset-examples"),
+    Path("examples/dataset-iec-examples"),
+    Path("examples/plugin-tests"),
 ]
 
 

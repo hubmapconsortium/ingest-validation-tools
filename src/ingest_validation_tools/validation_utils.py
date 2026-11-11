@@ -26,11 +26,7 @@ from ingest_validation_tools.enums import (
     Sample,
 )
 from ingest_validation_tools.local_validation.table_validator import ReportType
-from ingest_validation_tools.schema_loader import (
-    PreflightError,
-    get_possible_directory_schemas,
-)
-from ingest_validation_tools.schemas import create_schema_for_entity_type
+from ingest_validation_tools.schema_loader import get_possible_directory_schemas
 
 if TYPE_CHECKING:
     from ingest_validation_tools.schemas import Schema
@@ -279,36 +275,6 @@ def get_schema_details(schema_version: str, cedar_api_key: str) -> dict:
     return response.json()
 
 
-def get_tsv_errors(
-    tsv_path: str | Path,
-    ignore_deprecation: bool = False,
-    report_type: ReportType = ReportType.STR,
-    globus_token: str = "",
-    app_context: dict = {},
-    *args,
-    **kwargs,
-) -> list:
-
-    logging.info(f"Validating TSV...")
-    try:
-        schema = create_schema_for_entity_type(
-            Path(tsv_path),
-            Path(tsv_path).parent,
-            token=globus_token,
-            app_context=app_context,
-            report_type=report_type,
-            ignore_deprecation=ignore_deprecation,
-            *args,
-            **kwargs,
-        )
-    except PreflightError as e:
-        # Return preflight errors to prevent uncaught exceptions downstream
-        return [str(e)]
-    if errors := schema.validate():
-        return errors
-    return []
-
-
 def cedar_validation_call(tsv_path: str | Path) -> requests.models.Response:
     with open(tsv_path, "rb") as f:
         try:
@@ -363,41 +329,28 @@ def get_entity_info_from_entity_api(
     """
     Make an entity-api call and from the response, get
     entity_type, subtype data (e.g. "block" for sample), and
-    any sub_type_val values (currently just organ codes, e.g. "BD")
+    any subtype_val values (currently just organ codes, e.g. "BD")
     and return as a dict in the format expected by the constraints endpoint.
     """
     response = get_entity_api_data(entity_url, entity_id, globus_token, headers)
-    entity_type, entity_sub_type, entity_sub_type_val = get_entity_type_vals(response.json())
-    return EntityTypeInfo(entity_type, entity_sub_type, entity_sub_type_val)
+    entity_type, entity_subtype, entity_subtype_val = get_entity_type_vals(response.json())
+    return EntityTypeInfo(entity_type, entity_subtype, entity_subtype_val)
 
 
 def get_entity_type_vals(response: dict) -> tuple:
     raw_entity_type = response.get("entity_type", "").lower()
-    entity_sub_type = None
-    entity_sub_type_val = None
+    entity_subtype = None
+    entity_subtype_val = None
     if raw_entity_type == DatasetType.DATASET:
         entity_type = DatasetType.DATASET
-        entity_sub_type = response.get("dataset_type", "")
+        entity_subtype = response.get("dataset_type", "")
     else:
         entity_type = OtherTypes.get_enum_from_val(raw_entity_type)
         if entity_type == OtherTypes.SAMPLE:
-            entity_sub_type = response.get("sample_category", "").lower()
-            if entity_sub_type == Sample.ORGAN:
-                entity_sub_type_val = response.get("organ", "").lower()
-    return entity_type, entity_sub_type, entity_sub_type_val
-
-
-def print_path(path):
-    """
-    Attempts to solve issue of YAML dump formatting
-    adding ? and breaking keys across multiple lines
-    when a path is too long.
-    """
-    if len(path) > 122:
-        new_path = PurePath(path)
-        parts = new_path.parts[-3:]
-        path = "File .../" + "/".join(str(part) for part in parts)
-    return str(path)
+            entity_subtype = response.get("sample_category", "").lower()
+            if entity_subtype == Sample.ORGAN:
+                entity_subtype_val = response.get("organ", "").lower()
+    return entity_type, entity_subtype, entity_subtype_val
 
 
 def get_json(
@@ -511,21 +464,19 @@ class EntityTypeInfo:
     entity_subtype_val: str = ""
 
     def __post_init__(self):
-        if (
-            self.entity_type in [OtherTypes.SAMPLE, DatasetType.DATASET]
-            and not self.entity_sub_type
-        ):
-            raise Exception(f"Entity of type {self.entity_type} must have a sub_type.")
+        # TODO: DatasetType.DATASET may need it too
+        if self.entity_type is OtherTypes.SAMPLE and not self.entity_subtype:
+            raise Exception(f"Entity of type {self.entity_type} must have a subtype.")
         # If a member of the Sample enum is passed in as the entity_type,
-        # this extracts the entity_type and entity_sub_type from that value
+        # this extracts the entity_type and entity_subtype from that value
         # and mutates the instance accordingly
         # e.g. self.entity_type == <Sample.BLOCK: "sample-block">
         if isinstance(self.entity_type, Sample):
-            self.entity_sub_type = self.entity_type.name.lower()
+            self.entity_subtype = self.entity_type.name.lower()
             self.entity_type = OtherTypes.SAMPLE
-        if self.entity_sub_type == Sample.ORGAN and not self.entity_subtype_val:
+        if self.entity_subtype == Sample.ORGAN and not self.entity_subtype_val:
             raise Exception(
-                f"Entity of type {self.entity_type}/{self.entity_sub_type} must have a sub_type_val."
+                f"Entity of type {self.entity_type}/{self.entity_subtype} must have a subtype_val."
             )
 
     def format_constraint_check_data(self) -> dict:
@@ -534,17 +485,17 @@ class EntityTypeInfo:
         part of the payload to the constraints endpoint.
         """
         return {
-            "entity_type": self.entity_type.value,
+            "entity_type": self.entity_type,
             "sub_type": [self.entity_subtype] if self.entity_subtype else None,
             "sub_type_val": ([self.entity_subtype_val] if self.entity_subtype_val else None),
         }
 
     def format_constraint_check_error(self):
-        data_entity_sub_type = f"/{self.entity_subtype.lower()}" if self.entity_subtype else ""
-        data_entity_sub_type_val = (
+        data_entity_subtype = f"/{self.entity_subtype.lower()}" if self.entity_subtype else ""
+        data_entity_subtype_val = (
             f"/{self.entity_subtype_val.lower()}" if self.entity_subtype_val else ""
         )
-        return self.entity_type + data_entity_sub_type + data_entity_sub_type_val
+        return self.entity_type + data_entity_subtype + data_entity_subtype_val
 
 
 @dataclass

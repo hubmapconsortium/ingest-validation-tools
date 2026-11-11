@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 import json
 import logging
 from abc import ABC
@@ -29,6 +31,7 @@ class Validator(ABC):
     URL checks for each individual TSV.
     """
 
+    all_errors = []
     metadata_errors = {}
     url_errors = []
     constraint_check_errors = []
@@ -42,14 +45,15 @@ class Validator(ABC):
         self.validate_schema()
         self.check_urls()
         self.check_constraints()
-        return self.compiled_errors()
+        self.compile_errors()
 
-    def compiled_errors(self):
-        errors = {}
-        errors["TSV errors"] = self.metadata_errors
-        errors["URL errors"] = self.url_errors
-        errors["Ancestor constraint errors"] = self.constraint_check_errors
-        return errors
+    def compile_errors(self):
+        if self.metadata_errors:
+            self.all_errors.append({"TSV errors": self.metadata_errors})
+        if self.url_errors:
+            self.all_errors.append({"URL errors": self.url_errors})
+        if self.constraint_check_errors:
+            self.all_errors.append({"Ancestor constraint errors": self.constraint_check_errors})
 
     #####################
     # Schema validation #
@@ -88,7 +92,7 @@ class Validator(ABC):
         errors = []
         response = cedar_validation_call(self.schema.path)
         if response.status_code != 200:
-            self.metadata_errors.append(response.status_code)
+            self.metadata_errors["CEDAR response error"] = response.status_code
         elif response.json().get("reporting") and len(response.json().get("reporting")) > 0:
             for error in response.json()["reporting"]:
                 errors.append(get_message(error, self.report_type))
@@ -128,6 +132,9 @@ class Validator(ABC):
     #####################
 
     def check_constraints(self):
+        if not self.schema.constraints_url:
+            print(f"No constraint URL provided, not checking ancestor-descendant constraints.")
+            return
         payload = self.construct_constraint_payload()
         if not payload:
             print(f"No constraint checks made for {self.schema.path}.")
@@ -175,8 +182,8 @@ class Validator(ABC):
 class SupportSchemaValidator(Validator):
 
     def validate(self, status_cache):
-        super().validate(status_cache)
         self.check_contact()
+        super().validate(status_cache)
 
     def check_contact(self):
         if self.schema.entity_type is OtherTypes.CONTRIBUTORS:
@@ -212,6 +219,18 @@ class SampleSchemaValidator(Validator):
 
 
 class DatasetSchemaValidator(Validator):
+
+    def validate(self, status_cache):
+        self.validate_rows()
+        super().validate(status_cache)
+
+    def validate_rows(self):
+        missing = []
+        for required_field in ["data_path", "contributors_path"]:
+            if required_field not in self.schema.rows[0]:
+                missing.append(required_field)
+        if missing:
+            self.metadata_errors["Required fields missing"] = missing
 
     url_check_fields = ["parent_sample_id"]
 

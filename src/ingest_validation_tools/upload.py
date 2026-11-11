@@ -43,7 +43,6 @@ class Upload:
     def __init__(
         self,
         directory_path: Path,
-        tsv_paths: list = [],
         dataset_ignore_globs: list = [],
         upload_ignore_globs: list = [],
         plugin_directory: Path | None = None,
@@ -60,7 +59,6 @@ class Upload:
     ):
         del kwargs
         self.directory_path = directory_path
-        self.specified_paths = tsv_paths
         # typical dataset_ignore_globs = [uuid, "extras", "*metadata.tsv", "validation_report.txt"]
         self.dataset_ignore_globs = dataset_ignore_globs
         # typical upload_ignore_globs = "*"
@@ -90,7 +88,7 @@ class Upload:
             shared uploads, ensure only single type for
             single-assay upload.
             """
-            self.get_metadata_tsvs(tsv_paths)
+            self.get_metadata_tsvs()
             self._check_multi_assay()
             if not self.is_multi_assay:
                 self._check_single_assay()
@@ -157,7 +155,7 @@ class Upload:
     #
     ###################################
 
-    def get_metadata_tsvs(self, tsv_paths: list[str]):
+    def get_metadata_tsvs(self):
         """
         Locate all dataset metadata TSV files at the top level of the upload.
         """
@@ -168,8 +166,9 @@ class Upload:
                 entity_type=DatasetType.DATASET,
                 token=self.globus_token,
                 app_context=self.app_context,
+                encoding=self.encoding,
             )
-            for path in (tsv_paths if tsv_paths else self.directory_path.glob(f"*{TSV_SUFFIX}"))
+            for path in self.directory_path.glob(f"*{TSV_SUFFIX}")
         ]
 
         if not self.dataset_metadata:
@@ -197,15 +196,14 @@ class Upload:
     def validate_schemas(self):
         for dataset_tsv in self.dataset_metadata:
             if dataset_errors := dataset_tsv.validate(self.status_cache):
-                # TODO: consolidate tsv errors
-                self.errors.metadata_errors.update({dataset_tsv.path: dataset_errors})
+                self.errors.metadata_errors.update({str(dataset_tsv.path): dataset_errors})
                 self.status_cache = dataset_tsv.validator.status_cache
             for supporting_schema in [
                 *dataset_tsv.contributors_schemas,
                 *dataset_tsv.antibodies_schemas,
             ]:
-                if errors := supporting_schema.validate():
-                    self.errors.upload_metadata.update({supporting_schema.path: errors})
+                if errors := supporting_schema.validate(self.status_cache):
+                    self.errors.metadata_errors.update({str(supporting_schema.path): errors})
 
     def get_directory_errors(self):
         """
@@ -563,7 +561,7 @@ class Upload:
             components = []
             for schema in self.dataset_metadata:
                 if (schema.entity_type in DatasetType) and not (
-                    schema.dataset_type != self.multi_parent.dataset_type
+                    schema.dataset_type == self.multi_parent.dataset_type
                 ):
                     components.append(schema)
                     schema.is_multi_assay_child = True
@@ -594,10 +592,8 @@ class Upload:
         in order to avoid mistakenly validating a multi-assay upload
         as a single-assay upload (e.g. in the case of misnamed metadata files).
         """
-        # tsv_paths specified for upload, do not check parent directory
-        if self.specified_paths:
-            return
 
+        # TODO: we already have these
         # identify expected antibodies/contributors paths
         support_tsv_paths = []
         for other_type in ["antibodies_path", "contributors_path"]:
@@ -670,7 +666,7 @@ class Upload:
             raise PreflightError(
                 "Multi-assay parent not present, should not be checking components."
             )
-        required = set([schema.dataset_type for schema in self.multi_parent.contains])
+        required = set(self.multi_parent.contains)
         present_types = {sv.dataset_type.lower() for sv in component_tsvs}
         if not required == present_types:
             msgs = []

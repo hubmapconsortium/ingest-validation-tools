@@ -5,7 +5,7 @@ from collections import defaultdict
 from copy import deepcopy
 from dataclasses import dataclass, field
 from pathlib import Path
-from typing import Sequence
+from typing import TYPE_CHECKING, Sequence
 
 from ingest_validation_tools.enums import (
     UNIQUE_FIELDS_MAP,
@@ -15,8 +15,10 @@ from ingest_validation_tools.enums import (
     Sample,
     shared_enums,
 )
-from ingest_validation_tools.schemas import DatasetSchema, Schema
 from ingest_validation_tools.yaml_include_loader import load_yaml
+
+if TYPE_CHECKING:
+    from ingest_validation_tools.schemas import Schema
 
 _table_schemas_path = Path(__file__).parent / "table-schemas"
 _directory_schemas_path = Path(__file__).parent / "directory-schemas"
@@ -252,7 +254,7 @@ def get_table_schema(
     no_url_checks: bool = False,
     keep_headers: bool = False,
 ) -> dict:
-    schema_type = "assays" if isinstance(Schema, DatasetSchema) else "other"
+    schema_type = "assays" if schema_version.entity_type in DatasetType else "other"
     try:
         schema = load_yaml(
             Path(_table_schemas_path / schema_type / f"{schema_version.table_schema}.yaml")

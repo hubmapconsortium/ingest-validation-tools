@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import logging
 from dataclasses import dataclass, field
 from functools import cached_property
 from pathlib import Path
@@ -13,7 +14,11 @@ from ingest_validation_tools.enums import (
     Sample,
 )
 from ingest_validation_tools.schema_loader import PreflightError
-from ingest_validation_tools.schema_validators import SupportSchemaValidator
+from ingest_validation_tools.schema_validators import (
+    DatasetSchemaValidator,
+    SampleSchemaValidator,
+    SupportSchemaValidator,
+)
 from ingest_validation_tools.validation_utils import (
     AncestorTypeInfo,
     EntityTypeInfo,
@@ -27,17 +32,47 @@ from ingest_validation_tools.validation_utils import (
 )
 
 
+def get_tsv_errors(
+    tsv_path: str | Path,
+    ignore_deprecation: bool = False,
+    report_type: ReportType = ReportType.STR,
+    globus_token: str = "",
+    app_context: dict = {},
+    *args,
+    **kwargs,
+) -> list:
+
+    logging.info(f"Validating TSV...")
+    try:
+        schema = create_schema_for_entity_type(
+            Path(tsv_path),
+            Path(tsv_path).parent,
+            token=globus_token,
+            app_context=app_context,
+            report_type=report_type,
+            ignore_deprecation=ignore_deprecation,
+            *args,
+            **kwargs,
+        )
+    except PreflightError as e:
+        # Return preflight errors to prevent uncaught exceptions downstream
+        return [str(e)]
+    if errors := schema.validate({}):
+        return errors
+    return []
+
+
 @dataclass
 class Schema:
     path: Path
     base_dir: Path
     entity_type: EntityTypes  # maps to schema_name
     token: str
-    app_context: dict[str, str] = {}
+    app_context: dict[str, str] = field(default_factory=dict)
+    encoding: str = "utf-8"
     entity_url: str = ""
     ingest_url: str = ""
     report_type: ReportType = ReportType.JSON
-    rows: list = field(default_factory=list)
     is_cedar: bool = False
     version: str = ""
     soft_assay_data: dict = field(default_factory=dict)
@@ -50,7 +85,6 @@ class Schema:
     def __post_init__(self):
         self.errors = []
         self.parse_app_context()
-        self.get_entity_type_info()
         self.get_row_data()
         self.get_table_schema()
         self.get_ancestors()
@@ -59,10 +93,10 @@ class Schema:
     def validator(self):
         raise NotImplementedError()
 
-    def validate(self):
+    def validate(self, status_cache: dict) -> list:
         if self.validator:
-            errors = self.validator(self).validate()
-            return self.errors | errors
+            self.validator.validate(status_cache)
+            return self.errors + self.validator.all_errors
         return self.errors
 
     def parse_app_context(self):
@@ -73,12 +107,14 @@ class Schema:
             if not url_type:
                 raise PreflightError(f"Required URL {url_type} not provided, can't create schema.")
 
-    def get_entity_type_info(self):
-        raise NotImplementedError()
+    @cached_property
+    def rows(self):
+        try:
+            return read_rows(self.path, self.encoding)
+        except Exception as e:
+            raise PreflightError(str(e))
 
     def get_row_data(self):
-        if not self.rows:
-            self.rows = read_rows(self.path, "utf-8")
         if self.rows[0].get("metadata_schema_id"):
             self.is_cedar = True
         else:
@@ -91,7 +127,7 @@ class Schema:
     def get_table_schema(self):
         if self.is_cedar:
             return
-        self.table_schema = f"{self.entity_type}-v{self.version}"
+        self.table_schema = f"{self.entity_type.value}-v{self.version}"
 
     @cached_property
     def entity_type_info(self):
@@ -108,13 +144,14 @@ class Schema:
         return {}
 
     def get_ancestors(self):
-        for fieldname, (row, value) in self.ancestor_field_values.items():
-            response = get_entity_api_data(self.entity_url, value, self.token)
-            try:
-                self.get_ancestor(fieldname, row, value, response.json())
-            except Exception as e:
-                error = format_error(e, fieldname, row, value)
-                self.errors.append(get_message(error, self.report_type))
+        for fieldname, (row, values) in self.ancestor_field_values.items():
+            for value in values:
+                response = get_entity_api_data(self.entity_url, value, self.token)
+                try:
+                    self.get_ancestor(fieldname, row, value, response.json())
+                except Exception as e:
+                    error = format_error(e, fieldname, row, value)
+                    self.errors.append(get_message(error, self.report_type))
 
     def get_ancestor(
         self, fieldname: str, row: int, value: str, response: dict
@@ -148,7 +185,7 @@ class SampleSchema(Schema):
 
     @cached_property
     def validator(self):
-        return SupportSchemaValidator(self, self.report_type)
+        return SampleSchemaValidator(self, self.report_type)
 
     @property
     def entity_id(self) -> str:
@@ -183,17 +220,17 @@ class DatasetSchema(Schema):
     dir_schema: str = ""
     is_multi_assay_parent: bool = False
     is_multi_assay_child: bool = False
-    contains: list[DatasetSchema] = field(default_factory=list)
+    contains: list[str] = field(default_factory=list)
 
-    def validate(self):
-        super().validate()
-        self.get_assayclassifier_data()
+    def __post_init__(self):
         self.get_dataset_type()
+        self.get_assayclassifier_data()
+        self.get_supporting_schemas()
+        super().__post_init__()
 
-    def validate_rows(self):
-        for required_field in ["data_path", "contributors_path"]:
-            if required_field not in self.rows[0]:
-                self.errors.append(f"File is missing required field {required_field}.")
+    @cached_property
+    def validator(self):
+        return DatasetSchemaValidator(self, self.report_type)
 
     def get_assayclassifier_data(self):
         self.soft_assay_data = get_assaytype_data(self.rows[0], self.ingest_url, self.token)
@@ -241,17 +278,20 @@ class DatasetSchema(Schema):
                 else table_schema + str(self.version)
             )
         else:
-            super().get_table_schema()
+            self.table_schema = f"{self.dataset_type.lower()}-v{self.version}"
 
     def get_supporting_schemas(self):
         for other_type in ["antibodies_path", "contributors_path"]:
-            for path_value, row in self.data_paths.items():
+            other_type_paths = {
+                row[other_type]: i for i, row in enumerate(self.rows) if other_type in row
+            }
+            for path_value, row_num in other_type_paths.items():
                 other_path = self.base_dir / path_value
                 try:
                     assert other_path.exists()
                 except AssertionError:
                     self.errors.append(
-                        f'On row(s) {row}, column "{other_type}", value "{path_value}" points to non-existent file "{other_path}"'
+                        f'On row(s) {row_num}, column "{other_type}", value "{path_value}" points to non-existent file "{other_path}"'
                     )
                     continue
                 supporting_schema = create_schema_for_entity_type(
@@ -278,29 +318,34 @@ class DatasetSchema(Schema):
         data_paths = {}
         if all("data_path" in row for row in self.rows):
             for i, row in enumerate(self.rows):
-                data_path = Path(row["data_path"])
-                if not data_path.is_absolute():
-                    data_path = self.path.parent / data_path
-                if not data_path.is_dir():
-                    self.errors.append(f"{data_path} should be the base directory of a dataset")
-                    continue
-                data_paths[data_path] = i
-            print(f"Data paths being passed to plugins: {data_paths}")
+                data_path = row["data_path"]
+                # Use human-parsable row numbers
+                data_paths[data_path] = i + 2
         else:
             self.errors.append(f"{self.path} is missing values in 'data_path' column")
         return data_paths
 
+    @cached_property
+    def absolute_data_paths(self) -> dict[Path, int]:
+        return {path.absolute(): row for path, row in self.data_paths.items()}
+
 
 def create_schema_for_entity_type(
-    path: Path, base_dir: Path, token: str, app_context: dict, *args, **kwargs
+    path: Path,
+    base_dir: Path,
+    token: str,
+    app_context: dict,
+    encoding: str = "utf-8",
+    *args,
+    **kwargs,
 ) -> Schema:
     """
     Determine entity type from fields in TSV and create appropriate
     Schema object.
     """
     try:
-        rows = read_rows(path, "utf-8")
-    except TSVError as e:
+        rows = read_rows(path, encoding)
+    except (TSVError, PreflightError) as e:
         raise PreflightError(e.errors)
     tsv_type, _ = match_tsv_type(rows)
     match tsv_type:
@@ -316,7 +361,7 @@ def create_schema_for_entity_type(
         entity_type=tsv_type,
         token=token,
         app_context=app_context,
-        rows=rows,
+        encoding=encoding,
         *args,
         **kwargs,
     )

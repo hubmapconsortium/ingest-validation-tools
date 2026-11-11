@@ -15,8 +15,9 @@ from ingest_validation_tools.error_report import ErrorReport
 DATETIME_FORMAT = "%Y-%m-%d %H:%M:%S"
 
 
-def remove_minor_version(version_str: str) -> str:
-    return re.sub(r"\.\d", ".*", version_str)
+def remove_minor_version(version_str):
+    if type(version_str) is str:
+        return re.sub(r"\.\d", ".*", version_str)
 
 
 class MockException(Exception):
@@ -91,13 +92,13 @@ class UpdateReadme:
                 for key, value in dir_errors.items():
                     new_dir_errors[remove_minor_version(key)] = value
             new_local_errors = defaultdict()
-            if local_validation_errors := error_report.raw_errors.metadata_validation_local:
-                for key, value in local_validation_errors.items():
+            if validation_errors := error_report.raw_errors.metadata_errors:
+                for key, value in validation_errors.items():
                     new_local_errors[remove_minor_version(key)] = value
             if new_dir_errors:
                 error_report.raw_errors.directory.value = new_dir_errors
             if new_local_errors:
-                error_report.raw_errors.metadata_validation_local.value = new_local_errors
+                error_report.raw_errors.metadata_errors.value = new_local_errors
             error_report.errors = error_report.raw_errors.as_dict()
         else:
             dir_schema_key = "Directory schema version"

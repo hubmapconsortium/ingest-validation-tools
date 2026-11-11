@@ -198,24 +198,9 @@ class ErrorDict:
             name="upload_metadata", display_name="Antibodies/Contributors Errors"
         )
     )
-    metadata_validation_local: DictErrorType = field(
+    metadata_errors: DictErrorType = field(
         default_factory=lambda: DictErrorType(
-            name="metadata_validation_local", display_name="Local Validation Errors"
-        )
-    )
-    metadata_validation_api: DictErrorType = field(
-        default_factory=lambda: DictErrorType(
-            name="metadata_validation_api", display_name="Spreadsheet Validator Errors"
-        )
-    )
-    metadata_url_errors: DictErrorType = field(
-        default_factory=lambda: DictErrorType(
-            name="metadata_url_errors", display_name="URL Check Errors"
-        )
-    )
-    metadata_constraint_errors: DictErrorType = field(
-        default_factory=lambda: DictErrorType(
-            name="metadata_constraint_errors", display_name="Entity Constraint Errors"
+            name="metadata_errors", display_name="Metadata Errors"
         )
     )
     reference: DictErrorType = field(
@@ -270,27 +255,6 @@ class ErrorDict:
                     if (Path(path).resolve() == Path(key).resolve()) or (str(path) in str(key)):
                         errors[error_field.display_name] = value
                         break
-        return errors
-
-    def tsv_only_errors_by_path(
-        self, path: str, report_type: ReportType = ReportType.STR, local_allowed=True
-    ) -> list[str]:
-        """
-        For use in front-end single TSV validation.
-        Turn off support for local validation by passing local_allowed=False
-        """
-        errors = []
-        selected_fields = [
-            self.preflight,
-            self.metadata_url_errors,
-            self.metadata_validation_api,
-            self.metadata_constraint_errors,
-        ]
-        if local_allowed:
-            selected_fields.append(self.metadata_validation_local)
-        path_errors = self.errors_by_path(path, selected_fields, report_type)
-        for value in path_errors.values():
-            errors.extend(value)
         return errors
 
     def as_dict(self, attr_keys=False, report_type: ReportType = ReportType.STR):
