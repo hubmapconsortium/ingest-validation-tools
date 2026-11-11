@@ -222,4 +222,5 @@ default_vcr_kwargs = {
     "before_record_request": default_before_record_request,
     "before_record_response": default_before_record_response,
     "cassette_library_dir": "tests/fixtures/cassettes",
+    "serializer": "json",
 }
