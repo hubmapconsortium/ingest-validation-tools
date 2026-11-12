@@ -201,7 +201,9 @@ def get_sub_dirs(target_dir: Path) -> list[Path]:
 
 def default_before_record_request(request: Request) -> Request:
     """
-    Strip headers.
+    Clean request before recording.
+    - strip headers
+    - remove prepended file upload hashes to avoid diffs to otherwise identical fixtures
     """
     request.headers = None
     cleaned_request = remove_file_upload_hash(request)
@@ -210,7 +212,11 @@ def default_before_record_request(request: Request) -> Request:
 
 def default_before_record_response(response: dict) -> dict:
     """
-    Strip headers, raise if Unauthorized, 500, No token errors.
+    Clean response before recording.
+    - strip headers
+    - raise if Unauthorized, 500, no token errors
+    - sort body json to avoid diffs to otherwise identical fixtures
+        (non-recursive, to keep this reasonable)
     """
     response["headers"] = {}
     response_body = response["body"]["string"].decode("utf-8")
@@ -218,6 +224,9 @@ def default_before_record_response(response: dict) -> dict:
     if "handle redirect" in response_body.lower():
         response["status"]["code"] = 200
     raise_or_print_fatal_errors(response_body)
+    if "<!DOCTYPE html>" in response_body:
+        truncated_response_body = response_body[:500]
+        response["body"]["string"] = truncated_response_body.encode("utf-8")
     try:
         # sort dict for ease of comparison
         response_json = json.loads(response_body)
