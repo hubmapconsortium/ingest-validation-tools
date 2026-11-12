@@ -10,6 +10,7 @@
 - Update tests to use VCR for fixtures
 - Rewrite table validator tests in Python
 - Fix plugin & single TSV tests
+- Refactor read_rows
 
 ## v1.1.11
 
