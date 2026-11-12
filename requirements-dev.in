@@ -1,7 +1,7 @@
 # Update requirements-dev.txt if this file changes:
 # pip-compile requirements-dev.in --generate-hashes --allow-unsafe --output-file requirements-dev.txt
 autopep8==2.3.2
-black==25.1.0
+black==26.10.1
 deepdiff==8.6.1
 flake8==7.3.0
 isort==7.0.0
