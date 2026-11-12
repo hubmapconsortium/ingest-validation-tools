@@ -66,8 +66,7 @@ class TSVError(Exception):
 def dict_reader_wrapper(path, encoding: str) -> list:
     with open(path, encoding=encoding) as f:
         rows = list(DictReader(f, dialect="excel-tab"))
-        f.close()
-    return rows
+        return rows
 
 
 def get_schema_version(
