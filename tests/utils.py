@@ -216,3 +216,11 @@ def default_before_record_response(response: dict) -> dict:
         response["status"]["code"] = 200
     raise_or_print_fatal_errors(response["body"]["string"].decode("utf-8"))
     return response
+
+
+default_vcr_kwargs = {
+    "before_record_request": default_before_record_request,
+    "before_record_response": default_before_record_response,
+    "cassette_library_dir": "tests/fixtures/cassettes",
+    "serializer": "json",
+}

@@ -4,14 +4,14 @@ import sys
 import unittest
 from pathlib import Path
 
+from vcr import VCR
 from vcr.unittest import VCRTestCase
 
 from ingest_validation_tools.upload import Upload
 from tests.manual.updaters import remove_minor_version
 from tests.utils import (
     PLUGIN_EXAMPLES_OPTS,
-    default_before_record_request,
-    default_before_record_response,
+    default_vcr_kwargs,
     prepare_change_report,
     test_dataset_examples,
     validation_matcher,
@@ -23,13 +23,13 @@ TOKEN = "test_plugins_token"
 class TestPluginExamples(VCRTestCase):
 
     def _get_vcr(self, **kwargs):
-        kwargs["before_record_request"] = default_before_record_request
-        kwargs["before_record_response"] = default_before_record_response
-        kwargs["cassette_library_dir"] = "tests/fixtures/cassettes"
-        myvcr = super(TestPluginExamples, self)._get_vcr(**kwargs)
+        myvcr = VCR(**kwargs | default_vcr_kwargs)
         myvcr.register_matcher("validation_matcher", validation_matcher)
         myvcr.match_on = ["validation_matcher"]
         return myvcr
+
+    def _get_cassette_name(self):
+        return f"{self.__class__.__name__}.{self._testMethodName}.json"
 
     dataset_test_dirs = [
         Path(test_dir)

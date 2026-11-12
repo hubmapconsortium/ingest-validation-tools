@@ -1,36 +1,14 @@
+import unittest
 from glob import glob
 from pathlib import Path
 
-from vcr.request import Request
-from vcr.unittest import VCRTestCase
 from yaml import safe_load
 
 from ingest_validation_tools.local_validation.table_validator import get_table_errors
 from tests.utils import get_paths
 
 
-class TestTableValidator(VCRTestCase):
-
-    def before_record_request(self, request: Request) -> Request:
-        """
-        Strip headers.
-        """
-        request.headers = None
-        return request
-
-    def before_record_response(self, response: dict) -> dict:
-        """
-        Strip headers, raise if Unauthorized, 500, No token errors.
-        """
-        response["headers"] = {}
-        return response
-
-    def _get_vcr(self, **kwargs):
-        kwargs["before_record_request"] = self.before_record_request
-        kwargs["before_record_response"] = self.before_record_response
-        kwargs["cassette_library_dir"] = "tests/fixtures/cassettes"
-        myvcr = super(TestTableValidator, self)._get_vcr(**kwargs)
-        return myvcr
+class TestTableValidator(unittest.TestCase):
 
     @property
     def example_dirs(self) -> list[Path]:

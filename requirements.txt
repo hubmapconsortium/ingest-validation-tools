@@ -124,10 +124,12 @@ frictionless==4.40.11 \
     --hash=sha256:5b2bbb3779d5e2ecfe99add2458a7b2bcb61eae6173696ea57ef0b28c085d976 \
     --hash=sha256:e7d83d82cd3273820c74ac715e8d78285697f1eceda49a2417a72f839420d42e
     # via -r requirements.in
-idna==2.8 \
-    --hash=sha256:c357b3f628cf53ae2c4c05627ecc484553142ca23264e593d327bcde5e9c3407 \
-    --hash=sha256:ea8b7f6188e6fa117537c3df7da9fc686d485087abf6ac197f9c46432f7e4a3c
-    # via requests
+idna==3.15 \
+    --hash=sha256:048adeaf8c2d788c40fee287673ccaa74c24ffd8dcf09ffa555a2fbb59f10ac8 \
+    --hash=sha256:ca962446ea538f7092a95e057da437618e886f4d349216d2b1e294abfdb65fdc
+    # via
+    #   -r requirements.in
+    #   requests
 isodate==0.6.1 \
     --hash=sha256:0751eece944162659049d35f4f549ed815792b38793f07cf73381c1c87cbed96 \
     --hash=sha256:48c5881de7e8b0a0d648cb024c8062dc84e7b840ed81e864c7614fd3c127bde9
