@@ -1,3 +1,4 @@
+import json
 import os
 import re
 from glob import glob
@@ -211,10 +212,19 @@ def default_before_record_response(response: dict) -> dict:
     Strip headers, raise if Unauthorized, 500, No token errors.
     """
     response["headers"] = {}
+    response_body = response["body"]["string"].decode("utf-8")
     # dx.doi.org redirecting breaks VCR, do the dumb thing here
-    if "handle redirect" in response["body"]["string"].decode("utf-8").lower():
+    if "handle redirect" in response_body.lower():
         response["status"]["code"] = 200
-    raise_or_print_fatal_errors(response["body"]["string"].decode("utf-8"))
+    raise_or_print_fatal_errors(response_body)
+    breakpoint()
+    try:
+        # sort dict for ease of comparison
+        response_json = json.loads(response_body)
+        sorted_json = dict(sorted(response_json.items()))
+        response["body"]["string"] = json.dumps(sorted_json, separators=(",", ":")).encode("utf-8")
+    except json.JSONDecodeError:
+        pass
     return response
 
 
