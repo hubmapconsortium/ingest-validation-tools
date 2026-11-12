@@ -22,7 +22,8 @@ Related files:
 2. **[Review documentation and examples](https://docs.google.com/document/d/1LgQ509UOoZsY-sZO1cBFtqxWbo3jLGyCVy-_mssBVMw)**
 3. **Fill out the Excel obj x feature template for your dataset and submit.**
 
-## Metadata schema
+<a name="metadata-schema"></a>
+## [Metadata schema](#metadata-schema)
 
 
 <summary><a href="https://openview.metadatacenter.org/templates/https:%2F%2Frepo.metadatacenter.org%2Ftemplates%2F271bdcd3-b4ac-48e0-ac0f-d666652988af"><b>Version 2 (use this one)</b></a></summary>
@@ -31,7 +32,8 @@ Related files:
 
 <br>
 
-## Directory schemas
+<a name="directory-schemas"></a>
+## [Directory schemas](#directory-schemas)
 <summary><b>Version 2.7 (use this one)</b></summary>
 
 | pattern | required? | description |

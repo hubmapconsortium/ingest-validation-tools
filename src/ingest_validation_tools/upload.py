@@ -8,13 +8,18 @@ from datetime import datetime
 from fnmatch import fnmatch
 from functools import cached_property
 from pathlib import Path
-from typing import DefaultDict, Optional, Union
+from typing import DefaultDict
 from urllib.parse import urlsplit
 
 import requests
 
 from ingest_validation_tools.directory_validator import get_files
-from ingest_validation_tools.enums import DatasetType, OtherTypes, Sample
+from ingest_validation_tools.enums import (
+    UNIQUE_FIELDS_MAP,
+    DatasetType,
+    OtherTypes,
+    Sample,
+)
 from ingest_validation_tools.error_report import ErrorDict, InfoDict
 from ingest_validation_tools.local_validation.table_validator import (
     ReportType,
@@ -34,6 +39,7 @@ from ingest_validation_tools.schema_loader import (
     get_table_schema,
 )
 from ingest_validation_tools.validation_utils import (
+    TSVError,
     cedar_validation_call,
     find_empty_tsv_columns,
     get_data_dir_errors,
@@ -61,13 +67,13 @@ class Upload:
         tsv_paths: list = [],
         dataset_ignore_globs: list = [],
         upload_ignore_globs: list = [],
-        plugin_directory: Union[Path, None] = None,
+        plugin_directory: Path | None = None,
         encoding: str = "utf-8",
         offline_only: bool = False,
         ignore_deprecation: bool = False,
-        extra_parameters: Union[dict, None] = None,
+        plugin_kwargs: dict | None = None,
         globus_token: str = "",
-        run_plugins: Optional[bool] = None,
+        run_plugins: bool | None = None,
         app_context: dict = {},
         verbose: bool = True,
         report_type: ReportType = ReportType.STR,
@@ -75,6 +81,7 @@ class Upload:
     ):
         del kwargs
         self.directory_path = directory_path
+        self.specified_paths = tsv_paths
         # typical dataset_ignore_globs = [uuid, "extras", "*metadata.tsv", "validation_report.txt"]
         self.dataset_ignore_globs = dataset_ignore_globs
         # typical upload_ignore_globs = "*"
@@ -83,11 +90,12 @@ class Upload:
         self.encoding = encoding
         self.offline_only = offline_only
         self.ignore_deprecation = ignore_deprecation
-        self.extra_parameters = extra_parameters if extra_parameters else {}
+        self.plugin_kwargs = plugin_kwargs if plugin_kwargs else {}
         self.globus_token = globus_token
         self.run_plugins = run_plugins
         self.verbose = verbose
         self.report_type = report_type
+        self.status_cache = {}
 
         self.dataset_metadata: dict[Path, SchemaVersion] = {}
         self.errors = ErrorDict()
@@ -123,7 +131,7 @@ class Upload:
         """
         If called before get_errors, will report dir schema major version only.
         """
-        self.info.time = datetime.now()
+        self.info.time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         self.info.dir = str(self.directory_path)
 
         git_version = subprocess.check_output(
@@ -146,7 +154,7 @@ class Upload:
         self.get_info_called = True
         return self.info
 
-    def get_errors(self, **kwargs) -> ErrorDict:
+    def get_errors(self) -> ErrorDict:
         """
         When converted using ErrorDict.as_dict(), keys are
         present only if there is actually an error to report.
@@ -160,7 +168,7 @@ class Upload:
         self.validate_metadata()
         self.get_directory_errors()
         self.get_reference_errors()
-        self.get_file_errors(**kwargs | self.extra_parameters)
+        self.get_file_errors()
 
         self.get_errors_called = True
         return self.errors
@@ -184,7 +192,7 @@ class Upload:
             k: unsorted_tsv_paths[k] for k in sorted(unsorted_tsv_paths.keys())
         }
         if not self.dataset_metadata:
-            self.errors.preflight.value = "There are no metadata TSVs."
+            raise PreflightError("There are no metadata TSVs.")
 
     def get_app_context(self, submitted_app_context: dict):
         """
@@ -222,32 +230,13 @@ class Upload:
         """
         for path, schema in self.dataset_metadata.items():
             if "data_path" not in schema.rows[0] or "contributors_path" not in schema.rows[0]:
+                # TODO: not currently returned by get_tsv_errors; would break for e.g. samples
                 self.errors.upload_metadata[f"{path} (as {schema.table_schema})"].append(
                     "File is missing data_path or contributors_path."
                 )
             self._find_supporting_metadata(schema)
             for supporting_type in [*schema.antibodies_schemas, *schema.contributors_schemas]:
-                if supporting_type:
-                    self.validate_metadata(tsv_paths={supporting_type.path: supporting_type})
-
-        supporting_tsv_paths = {
-            s.path
-            for schema in self.dataset_metadata.values()
-            for s in [*schema.antibodies_schemas, *schema.contributors_schemas]
-        }
-
-        non_metadata_tsvs = [
-            p
-            for p in self.directory_path.glob("*.tsv")
-            if not p.name.endswith(TSV_SUFFIX) and p not in supporting_tsv_paths
-        ]
-
-        if non_metadata_tsvs:
-            names = ", ".join(p.name for p in sorted(non_metadata_tsvs))
-            self.errors.preflight.value = (
-                f"TSV files found that do not end in '-{TSV_SUFFIX}': {names}. "
-                f"All metadata TSVs must end in '-{TSV_SUFFIX}'."
-            )
+                self.validate_metadata(tsv_paths={supporting_type.path: supporting_type})
 
     def validate_metadata(
         self,
@@ -260,6 +249,7 @@ class Upload:
         tsvs_to_evaluate = tsv_paths if tsv_paths else self.dataset_metadata
         for tsv_path, schema_version in tsvs_to_evaluate.items():
             if empty := find_empty_tsv_columns(tsv_path):
+                # TODO: upload_metadata not currently returned by get_tsv_errors
                 self.errors.upload_metadata[tsv_path] = (
                     f"Empty columns: {', '.join([str(i) for i in empty])}"
                 )
@@ -308,7 +298,7 @@ class Upload:
         if shared_dir_errors := self.__get_shared_dir_errors():
             self.errors.reference.update({"Shared Directory References": shared_dir_errors})
 
-    def get_file_errors(self, **kwargs):
+    def get_file_errors(self):
         """
         Run file-level validation. Plugin error checking is costly;
         by default this bails if other errors have been found already.
@@ -321,10 +311,10 @@ class Upload:
                 )
             else:  # no errors, run plugins
                 logging.info("Running plugin validation...")
-                self._get_plugin_errors(**kwargs)
+                self._get_plugin_errors()
         elif self.run_plugins:
             logging.info("Running plugin validation...")
-            self._get_plugin_errors(**kwargs)
+            self._get_plugin_errors()
         else:
             logging.info("Skipping plugin validation.")
 
@@ -414,6 +404,7 @@ class Upload:
             parent_schema.contributors_schemas.append(schema)
             is_contact = [row.get("is_contact", "").lower() for row in schema.rows]
             if not ("yes" in is_contact) and not ("true" in is_contact):
+                # TODO: not currently returned by get_tsv_errors
                 self.errors.upload_metadata.update({schema.path: "No primary contact."})
         elif schema.schema_name == "antibodies":
             parent_schema.antibodies_schemas.append(schema)
@@ -460,7 +451,8 @@ class Upload:
             )
             return
 
-        local_errors = get_table_errors(tsv_path, schema)
+        local_errors, new_status_cache = get_table_errors(tsv_path, schema, self.status_cache)
+        self.status_cache = new_status_cache
         if local_errors:
             self.errors.metadata_validation_local.update(
                 {f"{tsv_path} (as {schema_version.table_schema})": local_errors}
@@ -469,7 +461,7 @@ class Upload:
     def _api_validation(
         self,
         schema: SchemaVersion,
-    ) -> list[Union[str, dict]]:
+    ) -> list[str | dict]:
         errors = []
         response = cedar_validation_call(schema.path)
         if response.status_code != 200:
@@ -525,14 +517,13 @@ class Upload:
 
     def _check_url(
         self, field: str, row: int, value: str, schema: SchemaVersion
-    ) -> Optional[AncestorTypeInfo]:
+    ) -> AncestorTypeInfo | None:
         """
         Checks that entity is not registered under "Organ Other".
         Returns entity_type if checking a field in check_fields.
         Raises Exception if any errors found.
         """
         assert value, f"Unable to check URL for column '{field}' on row {row + 2}: empty value."
-
         if field in CHECK_FIELDS:
             headers = self.app_context.get("request_header", {})
             response = get_entity_api_data(
@@ -541,18 +532,19 @@ class Upload:
             if schema.schema_name == DatasetType.DATASET and field == "parent_sample_id":
                 self._check_for_organ_other(response.json())
                 self._check_parent_sample_entity_type(response.json())
+            entity_type_vals = get_entity_type_vals(response.json())
             # Do not get ancestor info for sample (no subtype) or source
             if (
-                not (schema.schema_name == OtherTypes.SAMPLE and field == "sample_id")
-                and not schema.schema_name == OtherTypes.SOURCE
-            ):
-                return AncestorTypeInfo(
-                    entity_id=value,
-                    source_schema=schema,
-                    row=row,
-                    column=field,
-                    *get_entity_type_vals(response.json()),
-                )
+                schema.schema_name == OtherTypes.SAMPLE and not entity_type_vals[0]
+            ) or schema.schema_name == OtherTypes.SOURCE:
+                return
+            return AncestorTypeInfo(
+                entity_id=value,
+                source_schema=schema,
+                row=row,
+                column=field,
+                *entity_type_vals,
+            )
         elif field in ["orcid_id", "orcid"]:
             self._check_orcid(field, value)
 
@@ -704,7 +696,7 @@ class Upload:
         self,
         response: requests.Response,
         schema: SchemaVersion,
-    ) -> list[Union[str, int, dict]]:
+    ) -> list[str | int | dict]:
         problem_entities = []
         assert schema.entity_type_info
         if response.status_code == 400:
@@ -916,7 +908,7 @@ class Upload:
     #
     ###################################
 
-    def _get_plugin_errors(self, **kwargs) -> None:
+    def _get_plugin_errors(self) -> None:
         plugin_path = self.plugin_directory
         if not plugin_path:
             return
@@ -936,7 +928,7 @@ class Upload:
                         verbose=self.verbose,
                         globus_token=self.globus_token,
                         app_context=self.app_context,
-                        **kwargs,
+                        **self.plugin_kwargs,
                     ):
                         if v is None:
                             self.info.successful_plugins.append(k.__name__)
@@ -960,7 +952,7 @@ class Upload:
     ###################################
 
     @cached_property
-    def multi_parent(self) -> Optional[SchemaVersion]:
+    def multi_parent(self) -> SchemaVersion | None:
         # Should only be one parent, identified by `must-contain` in data from soft assay endpoint
         multi_assay_parents = [sv for sv in self.dataset_metadata.values() if sv.contains]
         if len(multi_assay_parents) == 0:
@@ -1002,7 +994,67 @@ class Upload:
             return True
         return False
 
+    def _check_for_misnamed_metadata_tsvs(self):
+        """
+        Raise PreflightError if any TSVs are located in the top-level directory that
+        do not end with "-metadata.tsv" / are not an antibodies/contributors path
+        in order to avoid mistakenly validating a multi-assay upload
+        as a single-assay upload (e.g. in the case of misnamed metadata files).
+        """
+        # tsv_paths specified for upload, do not check parent directory
+        if self.specified_paths:
+            return
+
+        # identify expected antibodies/contributors paths
+        support_tsv_paths = []
+        for other_type in ["antibodies_path", "contributors_path"]:
+            referenced_paths = self.__get_referenced_paths(other_type)
+            for path_value in referenced_paths:
+                support_tsv_paths.append(self.directory_path / path_value)
+
+        # find any TSVs at the top-level that a) don't end with -metadata.tsv,
+        # and b) are not antibodies/contributors files expected by identified
+        # metadata.tsv files
+        extra_tsvs = [
+            p
+            for p in self.directory_path.glob("*.tsv")
+            if not p.name.endswith(TSV_SUFFIX) and p not in support_tsv_paths
+        ]
+
+        # compile extra TSVs and check whether they are dataset metadata files;
+        # ignore any non-dataset metadata files to avoid raising a
+        # validation-halting PreflightError; collect any file-read errors
+        extra_metadata_tsvs = []
+        extra_errors = []
+        for path in extra_tsvs:
+            try:
+                rows = read_rows(path, self.encoding)
+            except TSVError as e:
+                extra_errors.append(str(e))
+                continue
+            if any(
+                [
+                    unique_field
+                    for unique_field in UNIQUE_FIELDS_MAP[DatasetType.DATASET]
+                    if unique_field in rows[0]
+                ]
+            ):
+                extra_metadata_tsvs.append(path)
+
+        # construct PreflightError
+        if extra_metadata_tsvs or extra_errors:
+            message = []
+            if names := ", ".join(p.name for p in sorted(extra_metadata_tsvs)):
+                message.append(
+                    f"Metadata TSV file(s) found that do not end in '-{TSV_SUFFIX}': {names}."
+                )
+            if extra_errors:
+                message.append(", ".join(extra_errors))
+            raise PreflightError(" ".join(message))
+
     def _check_multi_assay(self):
+        # first make sure there are no top-level metadata TSVs that are not accounted for
+        self._check_for_misnamed_metadata_tsvs()
         # This is not recursive, so if there are nested multi-assay types it will not work
         if self.multi_parent and self.multi_components:
             try:

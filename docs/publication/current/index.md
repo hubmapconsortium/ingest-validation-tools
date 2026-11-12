@@ -8,22 +8,27 @@ layout: default
 
 ---
 
-Prepare your metadata based on the latest metadata schema using one of the template files below. See the instructions in the [Metadata Validation Workflow](https://docs.google.com/document/d/1lfgiDGbyO4K4Hz1FMsJjmJd9RdwjShtJqFYNwKpbcZY) document for more information on preparing and validating your metadata.tsv file prior to submission.
-
 Related files:
 
+Excel and TSV templates for this schema will be available when the draft next-generation schema, to be used in all future submissions, is finalized (no later than Sept. 30).
 
-- [📝 Excel template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/main/docs/publication/deprecated/publication-metadata.xlsx): For metadata entry.
-- [📝 TSV template](https://raw.githubusercontent.com/hubmapconsortium/ingest-validation-tools/main/docs/publication/deprecated/publication-metadata.tsv): Alternative for metadata entry.
+The original publication specification can be found [here](https://hubmapconsortium.github.io/ingest-validation-tools/publication/)
 
-## Metadata schema
+<a name="metadata-schema"></a>
+## [Metadata schema](#metadata-schema)
 
 
-<summary><a href="https://hubmapconsortium.github.io/ingest-validation-tools/publication/"><b>Version 2 (use this one)</b></a></summary>
+<details markdown="1" open="true"><summary><b>Version 2 (use this one)</b></summary>
+We do not expect to receive any new data of this assay type.
+If you are planning to submit new data of this assay type, reach out to help@hubmapconsortium.org.
+</details>
+
+
 
 <br>
 
-## Directory schemas
+<a name="directory-schemas"></a>
+## [Directory schemas](#directory-schemas)
 <summary><b>Version 2.2 (use this one)</b></summary>
 
 | pattern | required? | description |

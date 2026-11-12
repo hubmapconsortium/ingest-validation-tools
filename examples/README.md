@@ -1,8 +1,8 @@
 # `examples/`
 
-Validation is run offline by the tests in the `tests` directory. Online validation can be run manually; see [tests/manual/README.md](tests/manual/README.md).
-
 This directory contains example inputs and outputs of different components of this system. Before adding new example directories, consider whether Python unittests would be a better solution.
+
+For instructions about how to run tests, please see `tests/README.md`.
 
 ## `dataset-examples/`
 
@@ -14,17 +14,6 @@ Each subdirectory here is an end-to-end test of upload validation. Each contains
 - and a `README.md` with the output when validating that directory.
 
 Examples which are expected to produce errors are prefixed with `bad-`, those that are good, `good-`.
-
-To add a new test:
-- Create a new subdirectory with a `good-` or `bad-` name and add your `upload` subdirectory.
-- Run the following command to create the `README.md` and `fixtures.json` files:
-
-```
-env PYTHONPATH=/ingest-validation-tools python -m tests.manual.update_test_data -t examples/<path_to_your_example_dir>/upload --globus_token <globus_token>
-```
-
-Note: You can find your personal Globus token by logging in to a site that requires Globus authentication (e.g. https://ingest.hubmapconsortium.org/) and looking at the Authorization header for your request in the Network tab of your browser. Omit the "Bearer " prefix.
-- Make sure the result makes sense! The software can tell you what the result of validation is, but it can't know whether that result is actually correct.
 
 ## `dataset-iec-examples/`
 

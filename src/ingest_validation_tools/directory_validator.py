@@ -2,7 +2,6 @@ import os
 import re
 from fnmatch import fnmatch
 from pathlib import Path
-from typing import Dict, List, Tuple
 
 
 class DirectoryValidationErrors(Exception):
@@ -11,7 +10,7 @@ class DirectoryValidationErrors(Exception):
 
 
 def validate_directory(
-    paths: list[Path], schema_files: List[Dict], dataset_ignore_globs: List[str] = []
+    paths: list[Path], schema_files: list[dict], dataset_ignore_globs: list[str] = []
 ) -> None:
     """
     Given a list of directory paths, and a directory schema,
@@ -23,8 +22,8 @@ def validate_directory(
         raise DirectoryValidationErrors(
             f"Error finding patterns" f" for {','.join([x.as_posix() for x in paths])}: {e}"
         )
-    required_missing_errors: List[str] = []
-    not_allowed_errors: List[str] = []
+    required_missing_errors: list[str] = []
+    not_allowed_errors: list[str] = []
     actual_paths = get_files(paths)
     not_allowed_errors.extend(
         _get_not_allowed_errors(actual_paths, allowed_patterns, dataset_ignore_globs)
@@ -65,8 +64,8 @@ def get_files(paths: list[Path]) -> list[str]:
 
 
 def _get_not_allowed_errors(
-    paths: List[str], allowed_patterns: List[str], ignore_globs: List[str]
-) -> List[str]:
+    paths: list[str], allowed_patterns: list[str], ignore_globs: list[str]
+) -> list[str]:
     not_allowed_errors = []
     for path in paths:
         if any(fnmatch(path, glob) for glob in ignore_globs):
@@ -77,7 +76,7 @@ def _get_not_allowed_errors(
     return not_allowed_errors
 
 
-def _get_missing_required_errors(paths: List[str], required_patterns: List[str]) -> List[str]:
+def _get_missing_required_errors(paths: list[str], required_patterns: list[str]) -> list[str]:
     return [
         pattern
         for pattern in required_patterns
@@ -85,7 +84,7 @@ def _get_missing_required_errors(paths: List[str], required_patterns: List[str])
     ]
 
 
-def _get_required_allowed(dir_schema: List[Dict]) -> Tuple[List[str], List[str]]:
+def _get_required_allowed(dir_schema: list[dict]) -> tuple[list[str], list[str]]:
     """
     Given a directory_schema, return a pair of regex lists:
     Those regexes which are required, and those which are allowed.

@@ -14,7 +14,7 @@ ${related_files_section_md}
 
 ${optional_description_md}
 
-## Metadata schema
+${metadata_schema_header}
 
 ${current_version_md}
 ${previous_versions_md}

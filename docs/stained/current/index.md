@@ -14,7 +14,8 @@ Related files:
 
 This schema has been incorporated into the histology schema which can be accessed [here](https://hubmapconsortium.github.io/ingest-validation-tools/histology/).
 
-## Metadata schema
+<a name="metadata-schema"></a>
+## [Metadata schema](#metadata-schema)
 
 
 <details markdown="1" open="true"><summary><s>Version 2 (current)</s> (deprecated)</summary>

@@ -1,36 +1,37 @@
-import json
 import re
-from pathlib import Path
 from string import Template
 from sys import stderr
-from typing import Any, Callable, Dict, Iterator, List
+from typing import Any, Callable, Iterator
+from urllib.parse import urljoin
 
 import frictionless
 import requests
 
-cache_path = Path(__file__).parent / "url-status-cache.json"
-
 ErrorIterator = Iterator[frictionless.errors.CellError]
-Row = Dict[str, Any]
+Row = dict[str, Any]
 Check = Callable[[Row], ErrorIterator]
 
 
-def make_checks(schema) -> List[Check]:
-    factory = _CheckFactory(schema)
-    return [
-        factory.make_url_check(),
-        factory.make_sequence_limit_check(),
-        factory.make_units_check(),
-        factory.make_forbid_na_check(),
-    ]
-
-
-class _CheckFactory:
-    def __init__(self, schema):
+class CheckFactory:
+    def __init__(self, schema: dict, status_cache: dict):
+        """
+        status_cache is instantiated on a per-Upload basis,
+        prevents repeated requests to the same endpoint
+        when just checking for a status.
+        """
         self.schema = schema
+        self.status_cache = status_cache
         self._prev_value_run_length = {}
 
-    def _get_constrained_fields(self, constraint: str) -> Dict[str, List]:
+    def make_checks(self) -> list[Check]:
+        return [
+            self.make_url_check(),
+            self.make_sequence_limit_check(),
+            self.make_units_check(),
+            self.make_forbid_na_check(),
+        ]
+
+    def _get_constrained_fields(self, constraint: str) -> dict[str, list | dict]:
         c_c = "custom_constraints"
         return {
             f["name"]: f[c_c][constraint]
@@ -39,18 +40,23 @@ class _CheckFactory:
         }
 
     def _check_url_status_cache(self, url: str) -> str:
-        if not cache_path.exists():
-            cache_path.write_text("{}")
-        url_status_cache = json.loads(cache_path.read_text())
-        if url not in url_status_cache:
-            print(f"Fetching un-cached url: {url}", file=stderr)
-            try:
-                response = requests.get(url)
-                url_status_cache[url] = response.status_code
-            except Exception as e:
-                url_status_cache[url] = str(e)
-            cache_path.write_text(json.dumps(url_status_cache, sort_keys=True, indent=2))
-        return url_status_cache[url]
+        if status := self.status_cache.get(url):
+            return status
+
+        print(f"Fetching un-cached url: {url}", file=stderr)
+        try:
+            response = requests.get(url, allow_redirects=True)
+            self.status_cache[url] = response.status_code
+        except Exception as e:
+            self.status_cache[url] = str(e)
+        return self.status_cache[url]
+
+    # Map any updated prefix URLs in table-schema files to (prefix, suffix) where suffix
+    # can be "" or None
+    LEGACY_URL_MAP: dict[str, tuple[str, str | None]] = {
+        "https://scicrunch.org/resolver/RRID:": ("https://scicrunch.org/resolver/", ".json"),
+        "https://dx.doi.org/:": ("https://doi.org/api/handle/", None),
+    }
 
     def make_url_check(self, template=Template('URL returned $status: "$url"')) -> Check:
         url_constrained_fields = self._get_constrained_fields("url")
@@ -60,8 +66,13 @@ class _CheckFactory:
                 if v is None:
                     continue
                 if k in url_constrained_fields:
-                    prefix = url_constrained_fields[k]["prefix"]
-                    url = f"{prefix}{v}"
+                    prefix = url_constrained_fields[k]["prefix"]  # type: ignore
+                    if mapped_url := self.LEGACY_URL_MAP.get(prefix):
+                        url = urljoin(mapped_url[0], v)
+                        if suffix := mapped_url[1]:
+                            url = f"{url}{suffix}"
+                    else:
+                        url = f"{prefix}{v}"
                     status = self._check_url_status_cache(url)
                     if status != 200:
                         note = template.substitute(status=status, url=url)
@@ -100,7 +111,7 @@ class _CheckFactory:
 
                 prev_value, run_length = self._prev_value_run_length[k]
                 prev_match = re.search(prefix_number_re, prev_value)
-                if (
+                if prev_match and (
                     match.group("prefix") != prev_match.group("prefix")
                     or int(match.group("number")) != int(prev_match.group("number")) + 1
                 ):
@@ -111,6 +122,7 @@ class _CheckFactory:
                 self._prev_value_run_length[k] = (v, run_length)
 
                 limit = sequence_limit_fields[k]
+                assert isinstance(limit, int)
                 assert limit > 1, "The lowest allowed limit is 2"
                 if run_length >= limit:
                     note = template.substitute(run_length=run_length, limit=limit)
@@ -124,7 +136,7 @@ class _CheckFactory:
         units_constrained_fields = self._get_constrained_fields("units_for")
 
         def units_check(row):
-            for k, v in row.items():
+            for k, _ in row.items():
                 if k in units_constrained_fields:
                     units_for = units_constrained_fields[k]
                     if (row[units_for] or row[units_for] == 0) and not row[k]:

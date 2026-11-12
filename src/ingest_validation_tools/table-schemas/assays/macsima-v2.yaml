@@ -1,0 +1,12 @@
+fields:
+- name: is_cedar
+  description: 'Identifies whether the version is hosted by CEDAR'
+  example: 'https://openview.metadatacenter.org/templates/https:%2F%2Frepo.metadatacenter.org%2Ftemplates%2Ffd724119-7d18-4c48-ad36-0b902090925b'
+- name: assay_category
+  constraints:
+    enum:
+      - mxfbe
+- name: assay_type
+  constraints:
+    enum:
+      - MACSima

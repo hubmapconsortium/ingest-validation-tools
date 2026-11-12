@@ -2,9 +2,31 @@ import html
 import re
 from pathlib import Path
 from string import Template
-from typing import Any, Dict
+from typing import Any
 
+from ingest_validation_tools.enums import Sample
 from ingest_validation_tools.schema_loader import get_field_enum, get_fields_wo_headers
+
+
+def _anchor_slug(text: str) -> str:
+    """
+    >>> _anchor_slug('Metadata schema')
+    'metadata-schema'
+    >>> _anchor_slug('Shared by all types')
+    'shared-by-all-types'
+    """
+    slug = re.sub(r"[^\w\s-]", "", text.lower())
+    return re.sub(r"[\s_]+", "-", slug).strip("-")
+
+
+def _md_header(level: int, text: str) -> str:
+    """
+    >>> print(_md_header(2, 'Directory schemas'))
+    <a name="directory-schemas"></a>
+    ## [Directory schemas](#directory-schemas)
+    """
+    slug = _anchor_slug(text)
+    return f'<a name="{slug}"></a>\n{"#" * level} [{text}](#{slug})'
 
 
 def get_tsv_name(type: str, is_assay: bool = True) -> str:
@@ -15,7 +37,7 @@ def get_xlsx_name(type: str, is_assay: bool = True) -> str:
     return f'{type}{"-metadata" if is_assay else ""}.xlsx'
 
 
-def generate_template_tsv(table_schema: Dict) -> str:
+def generate_template_tsv(table_schema: dict) -> str:
     """
     >>> schema = {'fields': [{
     ...   'name': 'fake',
@@ -43,7 +65,7 @@ def generate_template_tsv(table_schema: Dict) -> str:
     return "\n".join([header_row, enums_row])
 
 
-def _enrich_description(field: Dict[str, Any]) -> str:
+def _enrich_description(field: dict[str, Any]) -> str:
     """
     >>> good_field = {
     ...   'name': 'good-example',
@@ -89,6 +111,27 @@ def _enrich_description(field: Dict[str, Any]) -> str:
     return description.strip()
 
 
+HARMONIZED_SAMPLE_TYPES = {Sample.BLOCK.value, Sample.SECTION.value, Sample.SUSPENSION.value}
+
+
+def _get_harmonized_section(schema_name: str, is_assay: bool, category: str) -> str:
+    """
+    Path segment of the harmonized specification page, or "" if there is none.
+
+    >>> _get_harmonized_section('codex', True, 'imaging')
+    'assay'
+    >>> _get_harmonized_section('sample-block', False, '')
+    'sample'
+    >>> _get_harmonized_section('segmentation-mask', True, 'derived_datasets')
+    ''
+    >>> _get_harmonized_section('donor', False, '')
+    ''
+    """
+    if is_assay:
+        return "assay" if category != "derived_datasets" else ""
+    return "sample" if schema_name in HARMONIZED_SAMPLE_TYPES else ""
+
+
 def generate_readme_md(
     table_schemas, pipeline_infos, directory_schemas, schema_name, is_assay=True
 ):
@@ -119,8 +162,13 @@ def generate_readme_md(
         else "dataset-metadata-spreadsheet/main"
     )
 
+    # Anchored headers are only emitted for CEDAR docs; deprecated docs keep plain headers.
+    def _header(text: str) -> str:
+        return _md_header(2, text) if is_cedar else f"## {text}"
+
     optional_dir_description_md = (
-        f"## Directory schemas\n{_make_dir_descriptions(directory_schemas, pipeline_infos)}"
+        f"{_header('Directory schemas')}\n"
+        f"{_make_dir_descriptions(directory_schemas, pipeline_infos)}"
         if directory_schemas
         else ""
     )
@@ -159,6 +207,19 @@ def generate_readme_md(
     elif is_cedar:
         tsv_url = f"{raw_base_url}/{schema_name}/latest/{schema_name}.tsv"
         xlsx_url = f"{raw_base_url}/{schema_name}/latest/{schema_name}.xlsx"
+        # Assays and sample subtypes have harmonized specification pages; donor,
+        # organ, EPIC (derived dataset), and other TSV types do not.
+        harmonized_section = _get_harmonized_section(schema_name, is_assay, category)
+        harmonized_link = (
+            "\n"
+            "This is the most recent metadata specification that needs to be followed "
+            "for the submission of new data. See the "
+            "[harmonized specification]"
+            f"(https://docs.hubmapconsortium.org/metadata/{harmonized_section}/{schema_name}.html)"
+            " for a view of the metadata across this and any previous versions.\n"
+            if harmonized_section
+            else ""
+        )
         cedar_validator_link = (
             "Prepare your metadata based on the latest metadata schema "
             "using one of the template files below. "
@@ -166,7 +227,7 @@ def generate_readme_md(
             "[Metadata Validation Workflow]"
             "(https://docs.google.com/document/d/1lfgiDGbyO4K4Hz1FMsJjmJd9RdwjShtJqFYNwKpbcZY) "
             "document for more information on preparing "
-            "and validating your metadata.tsv file prior to submission.\n"
+            "and validating your metadata.tsv file prior to submission.\n" + harmonized_link
         )
     else:
         tsv_url = f"{raw_base_url}/{schema_name}/deprecated/{get_tsv_name(schema_name, is_assay=is_assay)}"
@@ -235,6 +296,7 @@ def generate_readme_md(
             "optional_description_md": optional_description_md,
             "cedar_validator_link": cedar_validator_link,
             "permalink": f"permalink: /{schema_name}/" if not is_cedar else "",
+            "metadata_schema_header": _header("Metadata schema"),
         }
     )
 
@@ -424,7 +486,7 @@ def _make_value_md(key, value):
     >>> print(_make_value_md('enum', ['A', 'B', 'C']))
     `A`, `B`, or `C`
 
-    >>> print(_make_value_md('pattern', '^some|reg_?ex\\.$'))
+    >>> print(_make_value_md('pattern', r'^some|reg_?ex\\.$'))
     <code>^some&#124;reg_?ex\\.$</code>
 
     >>> print(_make_value_md('url', {'prefix': 'http://example.com/'}))
@@ -523,12 +585,12 @@ def _make_dir_descriptions(dir_schemas, pipeline_infos):
     """
     >>> dir_schema_0 = {
     ...     'files': [
-    ...         {'pattern': 'required\\.txt', 'description': 'Required!'}
+    ...         {'pattern': r'required\\.txt', 'description': 'Required!'}
     ...     ]
     ... }
     >>> dir_schema_1 = {
     ...     'files': [
-    ...         {'pattern': 'optional\\.txt', 'description': 'Optional!', 'required': False}
+    ...         {'pattern': r'optional\\.txt', 'description': 'Optional!', 'required': False}
     ...     ]
     ... }
     >>> pipeline_infos = [{
@@ -596,9 +658,9 @@ def _make_dir_description(files, is_deprecated=False):
     QA and Required flags are handled:
 
     >>> files = [
-    ...   { 'pattern': 'required\\.txt', 'description': 'Required!',
+    ...   { 'pattern': r'required\\.txt', 'description': 'Required!',
     ...     'is_qa_qc': True },
-    ...   { 'pattern': 'optional\\.txt', 'description': 'Optional!',
+    ...   { 'pattern': r'optional\\.txt', 'description': 'Optional!',
     ...     'required': False }
     ... ]
     >>> print(_make_dir_description(files))
@@ -611,7 +673,7 @@ def _make_dir_description(files, is_deprecated=False):
     Deprecated is handled:
 
     >>> files = [
-    ...   { 'pattern': 'optional\\.txt', 'description': 'Optional!',
+    ...   { 'pattern': r'optional\\.txt', 'description': 'Optional!',
     ...     'required': False }
     ... ]
     >>> print(_make_dir_description(files, True))
@@ -626,7 +688,7 @@ def _make_dir_description(files, is_deprecated=False):
     Examples add an extra column:
 
     >>> files = [
-    ...   { 'pattern': '[A-Z]+\\d+', 'description': 'letters numbers', 'example': 'ABC123'},
+    ...   { 'pattern': r'[A-Z]+\\d+', 'description': 'letters numbers', 'example': 'ABC123'},
     ...   { 'pattern': '[A-Z]', 'description': 'one letter, no example'},
     ... ]
     >>> print(_make_dir_description(files))
@@ -639,7 +701,7 @@ def _make_dir_description(files, is_deprecated=False):
     Bad examples cause errors:
 
     >>> files = [
-    ...   { 'pattern': '[A-Z]\\d', 'description': '1 letter 1 number', 'example': 'ABC123'},
+    ...   { 'pattern': r'[A-Z]\\d', 'description': '1 letter 1 number', 'example': 'ABC123'},
     ... ]
     >>> _make_dir_description(files) # doctest: +IGNORE_EXCEPTION_DETAIL
     Traceback (most recent call last):

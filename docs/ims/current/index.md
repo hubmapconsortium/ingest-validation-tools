@@ -14,7 +14,8 @@ Related files:
 
 
 
-## Metadata schema
+<a name="metadata-schema"></a>
+## [Metadata schema](#metadata-schema)
 
 
 <details markdown="1" open="true"><summary><s>Version 3 (current)</s> (deprecated)</summary>

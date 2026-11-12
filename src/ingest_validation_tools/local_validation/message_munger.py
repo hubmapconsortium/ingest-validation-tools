@@ -1,7 +1,6 @@
 from __future__ import annotations
 
 from re import sub
-from typing import Union
 
 pat_reps = [
     (r'constraint "pattern" is (".*")', "it does not match the expected pattern"),
@@ -57,7 +56,7 @@ pat_reps = [
 ]
 
 
-def munge(message: Union[str, int]) -> Union[str, int]:
+def munge(message: str | int) -> str | int:
     """
     Make the error message less informative.
 

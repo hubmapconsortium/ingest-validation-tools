@@ -1,8 +1,59 @@
 # Changelog
-## v1.1.5 (in progress)
+
+## v1.1.12 (in progress)
+
+- Update harmonized specification links for docs site harmonization
+- Add harmonized links for sample subtypes (`/metadata/sample/`)
+- Create new directory schema: `/ingest-validation-tools/src/ingest_validation_tools/directory-schemas/wes-v0.0.yaml`
+- Update CEDAR schema for WES.
+- Update tests to use README.json (rather than .md)
+- Update tests to use VCR for fixtures
+- Rewrite table validator tests in Python
+- Fix plugin & single TSV tests
+- Bump idna 2.8 -> 3.15
+
+## v1.1.11
+
+- Fixed 2D Imaging Mass Cytometry (2dimc) directory schema typo
+- Add legacy validation URL check override
+
+## v1.1.10
+
+- Regenerate documentation
+- Update seq-scope/stereo-seq
+- DOI dir md fixes
+- Update CyCIF directory schema
+- Update Histology directory schema
+- Generate DOI zips for non-dataset CEDAR schemas (antibodies, contributors, sample subtypes)
+
+## v1.1.9
+
+- Add additional text to docs
+- Add header anchors to current docs
+- Update sample docs
+- Remove links from non-dataset pages
+- Clean up cedar_validation_call
+- Generate doi ZIP hashes
+- Update minor typo in sequencing dir descriptions
+- Created passthrough directory structure for snm3C-seq (updated directory-schemas and table-schemas)
+
+## v1.1.8
+
+- Add Paired-Tag dataset
+- New 4i dir schema
+- New COMET dir schema
+- Add MACSima dataset
+
+## v1.1.5
 
 - Generate DOI objects
 - Patch for TSVs not being caught
+- Update Illumina Spatial (v0) directory schema
+- Update CosMx Transcriptomics directory schema
+- Update RNAseq (with probes) directory schema
+- Update Visium HD directory schema
+- Bugfix error reporting when extra TSVs are found
+- Modify TSVError to pass in path explicitly
 
 ## v1.1.4
 

@@ -1,13 +1,14 @@
 #!/usr/bin/env python3
 
 import argparse
+import csv
+import hashlib
 import io
 import os
 import re
 import sys
 import zipfile
 from pathlib import Path
-from typing import List, Optional
 
 import requests
 from tableschema_to_template.create_xlsx import create_xlsx
@@ -35,13 +36,13 @@ from ingest_validation_tools.validation_utils import OtherTypes
 def _simplify_dir_pattern(pattern: str) -> str:
     p = pattern.replace(r"\/", "/").replace(r"\.", ".")
     if p.endswith("/.*"):
-        return p[:-2]
+        p = p[:-2]
     p = p.replace("[^/]+", "*").replace("[^/]*", "*")
     p = re.sub(r"\(\?:([^)]+)\)", lambda m: "{" + m.group(1).replace("|", ",") + "}", p)
     return p
 
 
-def _build_dir_tree(simplified_patterns: List[str]) -> dict:
+def _build_dir_tree(simplified_patterns: list[str]) -> dict:
     root: dict = {}
     for path in simplified_patterns:
         is_dir_node = path.endswith("/")
@@ -57,7 +58,7 @@ def _build_dir_tree(simplified_patterns: List[str]) -> dict:
     return root
 
 
-def _render_dir_tree_node(name: str, node: dict, prefix: str, is_last: bool) -> List[str]:
+def _render_dir_tree_node(name: str, node: dict, prefix: str, is_last: bool) -> list[str]:
     connector = "└── " if is_last else "├── "
     display = name + "/" if node["is_dir"] else name
     lines = [prefix + connector + display]
@@ -109,13 +110,28 @@ def _generate_directory_md(schema_name: str, directory_schema: dict) -> str:
     )
 
 
-def _generate_empty_tree_zip(simplified_patterns: List[str]) -> bytes:
+# Fixed epoch for zip entries so an unchanged doi-object.zip keeps a stable md5.
+FIXED_ZIP_DATE = (1980, 1, 1, 0, 0, 0)
+
+
+def _zip_writestr(zf: zipfile.ZipFile, name: str, data: bytes | str) -> None:
+    """
+    Write an entry with a fixed timestamp; writestr(name, ...) would stamp
+    the current time and change the archive hash on every rebuild.
+    """
+    info = zipfile.ZipInfo(name, date_time=FIXED_ZIP_DATE)
+    info.compress_type = zipfile.ZIP_DEFLATED
+    info.external_attr = 0o644 << 16
+    zf.writestr(info, data)
+
+
+def _generate_empty_tree_zip(simplified_patterns: list[str]) -> bytes:
     buf = io.BytesIO()
     seen_dirs: set = set()
 
     def _add_dir(zf: zipfile.ZipFile, path: str) -> None:
         if path not in seen_dirs:
-            zf.writestr(zipfile.ZipInfo(path), "")
+            zf.writestr(zipfile.ZipInfo(path, date_time=FIXED_ZIP_DATE), "")
             seen_dirs.add(path)
 
     def _ensure_parents(zf: zipfile.ZipFile, path: str) -> None:
@@ -136,7 +152,42 @@ def _generate_empty_tree_zip(simplified_patterns: List[str]) -> bytes:
     return buf.getvalue()
 
 
-def _fetch_bytes(url: str) -> Optional[bytes]:
+DOI_HASH_CSV_NAME = "doi-object-hashes.csv"
+
+
+def _doi_zip_name(zip_path: Path) -> str:
+    """
+    dataset_type as recorded in the zipped metadata.tsv;
+    falls back to the schema name, which is what non-assay schemas
+    (antibodies, contributors, the sample subtypes) have instead.
+    """
+    with zipfile.ZipFile(zip_path) as zf:
+        if "metadata.tsv" in zf.namelist():
+            lines = zf.read("metadata.tsv").decode("utf-8").splitlines()
+            rows = list(csv.DictReader(lines, delimiter="\t"))
+            if rows:
+                dataset_type = (rows[0].get("dataset_type") or "").strip()
+                if dataset_type:
+                    return dataset_type
+    return zip_path.parent.parent.name
+
+
+def _write_doi_hash_csv(docs_root: Path) -> None:
+    """
+    Rescan every doi-object.zip under docs_root and rewrite the
+    name -> md5 CSV, so stale rows can't survive a rebuild.
+    """
+    rows = []
+    for zip_path in sorted(docs_root.glob("*/current/doi-object.zip")):
+        md5 = hashlib.md5(zip_path.read_bytes()).hexdigest()
+        rows.append({"name": _doi_zip_name(zip_path), "md5": md5})
+    with open(docs_root / DOI_HASH_CSV_NAME, "w", newline="") as f:
+        writer = csv.DictWriter(f, fieldnames=["name", "md5"])
+        writer.writeheader()
+        writer.writerows(rows)
+
+
+def _fetch_bytes(url: str) -> bytes | None:
     try:
         resp = requests.get(url, timeout=30)
         resp.raise_for_status()
@@ -148,9 +199,15 @@ def _fetch_bytes(url: str) -> Optional[bytes]:
 
 def _generate_doi_zip(
     schema_name: str,
-    directory_schema: Optional[dict],
-) -> bytes:
+    directory_schema: dict | None,
+) -> bytes | None:
+    """
+    None if the dataset-metadata-spreadsheet repo has nothing for schema_name;
+    the metadata files are the point of the archive, so a zip holding only a
+    directory schema (or nothing at all) is not worth writing.
+    """
     buf = io.BytesIO()
+    found_metadata = False
     raw_base = (
         "https://raw.githubusercontent.com/hubmapconsortium/dataset-metadata-spreadsheet/main"
     )
@@ -160,12 +217,18 @@ def _generate_doi_zip(
             url = f"{raw_base}/{schema_name}/latest/{schema_name}.{ext}"
             content = _fetch_bytes(url)
             if content:
-                zf.writestr(f"metadata.{ext}", content)
+                _zip_writestr(zf, f"metadata.{ext}", content)
+                found_metadata = True
 
         if directory_schema:
-            zf.writestr("directory.md", _generate_directory_md(schema_name, directory_schema))
+            _zip_writestr(
+                zf, "directory.md", _generate_directory_md(schema_name, directory_schema)
+            )
             simplified = [_simplify_dir_pattern(f["pattern"]) for f in directory_schema["files"]]
-            zf.writestr("empty_tree.zip", _generate_empty_tree_zip(simplified))
+            _zip_writestr(zf, "empty_tree.zip", _generate_empty_tree_zip(simplified))
+
+    if not found_metadata:
+        return None
 
     return buf.getvalue()
 
@@ -326,18 +389,23 @@ def main():
             )
 
     # DOI object zip for CEDAR schemas
-    if current["metadata"] and current["directories"]:
-        latest_dir_v = max(
-            current["directories"].keys(),
-            key=lambda v: tuple(int(x) for x in v.split(".")),
-        )
-        latest_dir_schema = current["directories"][latest_dir_v]
+    if current["metadata"]:
+        latest_dir_schema = None
+        if current["directories"]:
+            latest_dir_v = max(
+                current["directories"].keys(),
+                key=lambda v: tuple(int(x) for x in v.split(".")),
+            )
+            latest_dir_schema = current["directories"][latest_dir_v]
         doi_bytes = _generate_doi_zip(
             schema_name=args.type,
             directory_schema=latest_dir_schema,
         )
-        with open(current_path / "doi-object.zip", "wb") as f:
-            f.write(doi_bytes)
+        if doi_bytes:
+            with open(current_path / "doi-object.zip", "wb") as f:
+                f.write(doi_bytes)
+
+            _write_doi_hash_csv(Path(args.target).resolve().parent)
 
 
 if __name__ == "__main__":
