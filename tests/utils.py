@@ -2,6 +2,7 @@ import json
 import os
 import re
 from glob import glob
+from operator import itemgetter
 from pathlib import Path
 from textwrap import dedent
 
@@ -215,8 +216,13 @@ def default_before_record_response(response: dict) -> dict:
     Clean response before recording.
     - strip headers
     - raise if Unauthorized, 500, no token errors
-    - sort body json to avoid diffs to otherwise identical fixtures
-        (non-recursive, to keep this reasonable)
+    - truncate any HTML response bodies (do not care about content)
+    - clean body json to avoid diffs to otherwise identical fixtures
+        - sort top-level keys
+        - remove timestamp values
+        - sort reporting section of CEDAR response body
+    Deal with redirects -- will otherwise come up as a false negative
+    (302) when re-running cassette.
     """
     response["headers"] = {}
     response_body = response["body"]["string"].decode("utf-8")
@@ -224,12 +230,18 @@ def default_before_record_response(response: dict) -> dict:
     if "handle redirect" in response_body.lower():
         response["status"]["code"] = 200
     raise_or_print_fatal_errors(response_body)
-    if "<!DOCTYPE html>" in response_body:
+    # truncate HTML body responses
+    if "<!doctype html>" in response_body.lower():
         truncated_response_body = response_body[:500]
         response["body"]["string"] = truncated_response_body.encode("utf-8")
+    # manipulate body of JSON responses
     try:
-        # sort dict for ease of comparison
         response_json = json.loads(response_body)
+        if len(response_json.get("reporting", [])) > 1:
+            sorted_reporting = sorted(response_json["reporting"], key=itemgetter("errorType"))
+            response_json["reporting"] = sorted_reporting
+        if response_json.get("resolver", {}).get("timestamp"):
+            response_json["resolver"]["timestamp"] = ""
         sorted_json = dict(sorted(response_json.items()))
         response["body"]["string"] = json.dumps(sorted_json, separators=(",", ":")).encode("utf-8")
     except json.JSONDecodeError:
