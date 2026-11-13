@@ -13,9 +13,7 @@ attrs==25.3.0 \
 certifi==2026.10.18 \
     --hash=sha256:73191c47aaa79da394e8fee2dbc2ec827432cab56311122c9e47abf79e390f62 \
     --hash=sha256:b9995d97b64d0431a5af837d8ca8cd6238104d1f319f04bd93ea43124d6c861e
-    # via
-    #   -r requirements.in
-    #   requests
+    # via requests
 chardet==3.0.4 \
     --hash=sha256:84ab92ed1c4d4f16916e05906b6b75a6c0fb5db821cc65e70cbd64a3e2a5eaae \
     --hash=sha256:fc323ffcaeaed0e0a02bf4d117757b98aed530d9ed4531e3e15460124c106691
@@ -511,9 +509,7 @@ shellingham==1.4.0 \
 simpleeval==1.0.5 \
     --hash=sha256:b6b7933fffe13a345ada9917f8579c72e7b8afcfb7f7759b18fdd068aaa60486 \
     --hash=sha256:c0de42a9f7849b7bc8c51338295341126f103a2a86beceffebafd9388e3cdfce
-    # via
-    #   -r requirements.in
-    #   frictionless
+    # via frictionless
 six==1.17.0 \
     --hash=sha256:4721f391ed90541fddacab5acf947aa0d3dc7d27b2e1e8eda2be8970586c3274 \
     --hash=sha256:ff70335d468e7eb6ec65b95b99d3a2836546063f63acc5171de367e834932a81

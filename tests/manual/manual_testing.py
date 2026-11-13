@@ -2,7 +2,6 @@ import argparse
 from pathlib import Path
 
 from vcr import VCR
-from vcr.request import Request
 
 from ingest_validation_tools.cli_utils import dir_path
 from tests.manual.updaters import LiveRunPersister

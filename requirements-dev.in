@@ -11,9 +11,3 @@ pip-tools==7.6.2
 pytest==9.0.3
 types-PyYAML==6.0.12
 vcrpy==8.3.0
-
-# security updates for package deps
-pip==26.2.0  # pip-tools
-Pygments==2.20.0  # pytest
-setuptools==65.5.1  # pip-tools
-wheel==0.38.1  # pip-tools

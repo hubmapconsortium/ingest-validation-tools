@@ -11,7 +11,3 @@ frictionless==4.40.11
 six==1.17.0
 tableschema-to-template==0.0.13
 urllib3==2.7.0
-
-# security updates for package deps
-certifi==2026.10.18  # requests
-simpleeval==1.0.5  # frictionless
