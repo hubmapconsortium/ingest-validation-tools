@@ -417,13 +417,11 @@ def cedar_validation_call(tsv_path: str | Path) -> requests.models.Response:
             raise RuntimeError(
                 f"Spreadsheet Validator API request for {tsv_path} failed! Exception: {e}"
             ) from e
-        logging.info(
-            f"""
+        logging.info(f"""
             CEDAR response for {tsv_path}:
             Schema: {response_json.get('schema', {}).get('name')}
             Reporting: {response_json.get('reporting')}
-            """
-        )
+            """)
     return response
 
 
