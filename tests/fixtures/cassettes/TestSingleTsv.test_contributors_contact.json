@@ -15,7 +15,7 @@
                 },
                 "headers": {},
                 "body": {
-                    "string": "{\"assaytype\":\"h-and-e\",\"contains-pii\":false,\"dataset-type\":\"Histology\",\"description\":\"H&E Stained Microscopy\",\"dir-schema\":\"histology-v2\",\"is-multi-assay\":null,\"must-contain\":null,\"pipeline-shorthand\":null,\"primary\":true,\"process_state\":\"primary\",\"tbl-schema\":null,\"ubkg_code\":\"C200940\",\"vitessce-hints\":[]}\n"
+                    "string": "{\"assaytype\":\"h-and-e\",\"contains-pii\":false,\"dataset-type\":\"Histology\",\"description\":\"H&E Stained Microscopy\",\"dir-schema\":\"histology-v2\",\"is-multi-assay\":null,\"must-contain\":null,\"pipeline-shorthand\":null,\"primary\":true,\"process_state\":\"primary\",\"tbl-schema\":null,\"ubkg_code\":\"C200940\",\"vitessce-hints\":[]}"
                 }
             }
         },
@@ -33,7 +33,7 @@
                 },
                 "headers": {},
                 "body": {
-                    "string": "{\"assaytype\":\"h-and-e\",\"contains-pii\":false,\"dataset-type\":\"Histology\",\"description\":\"H&E Stained Microscopy\",\"dir-schema\":\"histology-v2\",\"is-multi-assay\":null,\"must-contain\":null,\"pipeline-shorthand\":null,\"primary\":true,\"process_state\":\"primary\",\"tbl-schema\":null,\"ubkg_code\":\"C200940\",\"vitessce-hints\":[]}\n"
+                    "string": "{\"assaytype\":\"h-and-e\",\"contains-pii\":false,\"dataset-type\":\"Histology\",\"description\":\"H&E Stained Microscopy\",\"dir-schema\":\"histology-v2\",\"is-multi-assay\":null,\"must-contain\":null,\"pipeline-shorthand\":null,\"primary\":true,\"process_state\":\"primary\",\"tbl-schema\":null,\"ubkg_code\":\"C200940\",\"vitessce-hints\":[]}"
                 }
             }
         }

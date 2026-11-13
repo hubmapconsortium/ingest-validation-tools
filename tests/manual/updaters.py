@@ -199,7 +199,7 @@ class UpdateReadme:
         elif self.dry_run:
             msg = f"""
                     FAILED diff_test: {self.test_dir}. Run for more detailed output:
-                         env PYTHONPATH=src:$PYTHONPATH python -m tests.manual.manual_testing -t {self.test_dir} --dry_run --verbose
+                         env PYTHONPATH=src:$PYTHONPATH python -m tests.manual.manual_testing -t {self.test_dir} -v
                     """
         assert not diff, dedent(msg)
         print(f"PASSED diff_test: {self.test_dir}")

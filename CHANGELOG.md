@@ -10,6 +10,8 @@
 - Update tests to use VCR for fixtures
 - Rewrite table validator tests in Python
 - Fix plugin & single TSV tests
+- Ruby security updates (for jekyll in docs/)
+- Implement VCR response cleaning
 - Bump packages to address security vulnerabilities
 
 ## v1.1.11
