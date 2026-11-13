@@ -10,8 +10,7 @@
 - Update tests to use VCR for fixtures
 - Rewrite table validator tests in Python
 - Fix plugin & single TSV tests
-- Bump idna 2.8 -> 3.15, re-enable dependabot
-- Bump certifi 2021.10.8 -> 2026.10.18
+- Bump packages to address security vulnerabilities
 
 ## v1.1.11
 
