@@ -78,14 +78,14 @@ def vcr_create_upload_and_diff(
     vcr: VCR | None = None,
 ) -> str | None:
     my_vcr = vcr or VCR(serializer="json")
-    # my_vcr.register_matcher("validation_matcher", validation_matcher)
+    my_vcr.register_matcher("validation_matcher", validation_matcher)
     if record_mode == "all":
         clear_cassette(test_dir)
     with my_vcr.use_cassette(
         path=test_dir / "fixtures.json",
         record_mode=record_mode,
         decode_compressed_response=True,
-        match_on=["uri", "method", "body"],
+        match_on=["validation_matcher"],
     ):
         upload = create_upload(test_dir, globus_token)
         upload.get_errors()
@@ -93,15 +93,15 @@ def vcr_create_upload_and_diff(
     return updater.check_maybe_write_readme()
 
 
-# def validation_matcher(r1, r2):
-#     assert r1.uri == r2.uri
-#     assert r1.method == r2.method
-#     if "validate-tsv" in r1.uri:
-#         cleaned_r1 = remove_file_upload_hash(r1)
-#         cleaned_r2 = remove_file_upload_hash(r2)
-#         assert cleaned_r1.body == cleaned_r2.body
-#         return
-#     assert r1.body == r2.body
+def validation_matcher(r1, r2):
+    assert r1.uri == r2.uri
+    assert r1.method == r2.method
+    if "validate-tsv" in r1.uri:
+        cleaned_r1 = remove_file_upload_hash(r1)
+        cleaned_r2 = remove_file_upload_hash(r2)
+        assert cleaned_r1.body == cleaned_r2.body
+        return
+    assert r1.body == r2.body
 
 
 def remove_file_upload_hash(request: Request) -> Request:
