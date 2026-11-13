@@ -15,7 +15,7 @@
                 },
                 "headers": {},
                 "body": {
-                    "string": "{\"code\":200,\"description\":[{\"code\":200,\"description\":[{\"entity_type\":\"dataset\",\"sub_type\":null,\"sub_type_val\":null},{\"entity_type\":\"Publication\",\"sub_type\":null,\"sub_type_val\":null}],\"name\":\"OK\"},{\"code\":200,\"description\":[{\"entity_type\":\"dataset\",\"sub_type\":null,\"sub_type_val\":null},{\"entity_type\":\"Publication\",\"sub_type\":null,\"sub_type_val\":null}],\"name\":\"OK\"}],\"name\":\"OK\"}\n"
+                    "string": "{\"code\":200,\"description\":[{\"code\":200,\"description\":[{\"entity_type\":\"dataset\",\"sub_type\":null,\"sub_type_val\":null},{\"entity_type\":\"Publication\",\"sub_type\":null,\"sub_type_val\":null}],\"name\":\"OK\"},{\"code\":200,\"description\":[{\"entity_type\":\"dataset\",\"sub_type\":null,\"sub_type_val\":null},{\"entity_type\":\"Publication\",\"sub_type\":null,\"sub_type_val\":null}],\"name\":\"OK\"}],\"name\":\"OK\"}"
                 }
             }
         }

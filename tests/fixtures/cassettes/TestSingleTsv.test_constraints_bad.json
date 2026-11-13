@@ -15,7 +15,7 @@
                 },
                 "headers": {},
                 "body": {
-                    "string": "{\"code\":400,\"description\":[{\"code\":200,\"description\":[{\"entity_type\":\"dataset\",\"sub_type\":null,\"sub_type_val\":null},{\"entity_type\":\"Publication\",\"sub_type\":null,\"sub_type_val\":null}],\"name\":\"OK\"},{\"code\":404,\"description\":[{\"entity_type\":\"Sample\",\"sub_type\":[\"Block\"],\"sub_type_val\":null}],\"name\":\"This `Sample` `organ` cannot be associated with the provided `ancestors` due to entity constraints. Click the link to view valid entity types that can be `descendants`\"}],\"name\":\"Bad Request\"}\n"
+                    "string": "{\"code\":400,\"description\":[{\"code\":200,\"description\":[{\"entity_type\":\"dataset\",\"sub_type\":null,\"sub_type_val\":null},{\"entity_type\":\"Publication\",\"sub_type\":null,\"sub_type_val\":null}],\"name\":\"OK\"},{\"code\":404,\"description\":[{\"entity_type\":\"Sample\",\"sub_type\":[\"Block\"],\"sub_type_val\":null}],\"name\":\"This `Sample` `organ` cannot be associated with the provided `ancestors` due to entity constraints. Click the link to view valid entity types that can be `descendants`\"}],\"name\":\"Bad Request\"}"
                 }
             }
         }
