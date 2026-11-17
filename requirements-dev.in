@@ -1,13 +1,13 @@
 # Update requirements-dev.txt if this file changes:
 # pip-compile requirements-dev.in --generate-hashes --allow-unsafe --output-file requirements-dev.txt
 autopep8==2.3.2
-black==25.1.0
-deepdiff==8.6.1
+black==26.10.1
+deepdiff==8.6.2
 flake8==7.3.0
 isort==7.0.0
 mypy==1.19.1
 parameterized==0.9.0
-pip-tools==7.5.2
-pytest==9.0.2
+pip-tools==7.6.2
+pytest==9.0.3
 types-PyYAML==6.0.12
 vcrpy==8.3.0
