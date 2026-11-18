@@ -13,6 +13,7 @@
 - Ruby security updates (for jekyll in docs/)
 - Implement VCR response cleaning
 - Bump packages to address security vulnerabilities
+- Refactor read_rows
 
 ## v1.1.11
 
